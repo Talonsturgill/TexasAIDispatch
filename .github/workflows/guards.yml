@@ -48,6 +48,14 @@ jobs:
           python3 scripts/bar_check.py --self-test
           python3 scripts/bar_check.py
 
+      - name: VO soundcheck self-test (best of N, and the take that reads a tag aloud)
+        run: |
+          # Gemini renders the whole passage in one call, so a bad take is bad for sixty
+          # seconds rather than for one line. The check that matters most is the spoken tag:
+          # direction written inline CAN be read aloud, and a narrator who says the word
+          # "excited" has ended the film. Duration failures say TRIM THE SCRIPT, never stretch.
+          python3 scripts/vo_soundcheck.py --self-test
+
       - name: Engine typechecks
         run: |
           cd video-engine

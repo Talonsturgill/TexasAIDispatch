@@ -186,3 +186,11 @@ share a green.
   closes, so a foreground element near frame centre grows across the subject and reads as a bug
   instead of as depth; and the pumpjack field sat entirely behind the slab, which loses the one
   composition this show is built on. Both fixed by moving things, not by changing the engine.
+- 2026-08-12 — `vo_soundcheck.py`. Best-of-N is a comment rather than a mechanism unless
+  something decides, so this does. Five refusals, each seen in the sibling. Word accuracy is an
+  ordered LCS ratio rather than a bag of words, because a bag would score a take that says every
+  word in the wrong order as perfect. The spoken-tag check is the one that saves a film from
+  embarrassment: inline direction CAN be read aloud, and a narrator who says the word "excited"
+  has ended the piece, which is why the craft doc puts emotion in the director's notes and never
+  in a tag. A duration failure says TRIM THE SCRIPT and names the overage, because time-stretching
+  is banned and produces the artefact every viewer hears and cannot name.
