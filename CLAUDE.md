@@ -150,6 +150,13 @@ history and Alaska's would poison them.
   landmarks, speech. Every art decision traces here.
 - `knowledge/craft/` — how the show is made: stage3d authoring, visual flow, hook craft, VO
   direction, the showstopper standard.
+  **`GATE_LESSONS.md` is required reading before you add a gate, trust one, or conclude that a
+  green suite means a correct product.** It is the record of faults that shipped here with every
+  check passing, and each entry names what to check instead. A green suite has already been wrong
+  about whether a gate was connected to anything at all, about the colour of a shape, about the
+  size of an animal standing beside a person, about a delimiter that appeared twice, and about an
+  assertion that could not fail on any input. The way to find out whether a gate works is not to
+  read it. It is to break the product on purpose and watch.
 - `config/` — brand, voices, the rubric that holds the bar, sources.
 - `scripts/` — the gates and the build steps. Run them by EXIT CODE, never by last line.
 - `video-engine/` — the Remotion project. `src/lib/` is the reusable cast and juice.
