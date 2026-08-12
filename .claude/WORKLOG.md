@@ -84,8 +84,8 @@ share a green.
 
 | # | Wave | Status |
 |---|---|---|
-| V0 | Foundation: CLAUDE.md, guards, port manifest, this file | **IN PROGRESS** |
-| V1 | The Texas research the vernacular doc owes us | TODO |
+| V0 | Foundation: CLAUDE.md, guards, port manifest, this file | **DONE** |
+| V1 | The Texas research the vernacular doc owes us | **DONE** — REGIONS, CAST, FAUNA_AND_FLORA, KIT, CULTURE |
 | V2 | Engine port, the state-agnostic ~50%: stage3d, lighting, motion, materials, FX, voice, props, records, simulation, vision, screenlight, absence, nameengine, bench | TODO |
 | V3 | **The Texas cast.** Character rig, outfits, headgear, built demographically first | TODO |
 | V4 | Texas biomes: the regions, each with its own light and green | TODO |
@@ -114,3 +114,16 @@ share a green.
 
 - 2026-08-12 — surveyed the source machine, established live vs retired, confirmed the repo is
   empty, set the git identity, wrote this file.
+- 2026-08-12 — Wave V1. Five research docs, written against sources rather than from memory.
+  REGIONS is the ten Gould ecoregions (TPWD, Leaflet 492, 1960), each with its LIGHT first because
+  light is what makes a Panhandle frame unmistakably not a Houston frame even when both contain a
+  data centre. CAST resolves the cowboy question honestly: hats are real on a rancher, a Ranger, a
+  sheriff, a rodeo competitor and a norteño musician, and a costume on a Houston executive or
+  anyone on a rig floor where a hard hat is a safety requirement. The straw-to-felt season is
+  drawable and dated, Easter to Labor Day, with Texas Monthly on record that Texans bend it because
+  the heat runs past September. FAUNA leads every entry with THE MISTAKE, because the mistake is
+  what an outsider draws. KIT is the industrial and civic inventory, maintained but worn. CULTURE
+  is written before the cast is drawn rather than after, and its provisions are enforced by
+  construction: one head geometry system, skin as a fill token that never touches the line work,
+  and an evenly spaced ramp, so the caricature failure mode is structurally hard rather than merely
+  discouraged.
