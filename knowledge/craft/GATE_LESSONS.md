@@ -197,3 +197,17 @@ fixed the proportion without changing a single dimension.
 
 **Correct measurements are necessary and are not sufficient.** What the eye reads is contrast and
 interruption, and neither of those is in the spec.
+
+## 18. A screen blend is invisible on a light ground
+
+`sensing.tsx`'s methane plume used `mixBlendMode: screen` unconditionally, which is the right
+choice over a night frame and does **nothing at all** over a near-white one, because screen only
+ever brightens. It rendered as a faint smudge with an unreadable leak rate, and a day scene in this
+show is light far more often than it is dark.
+
+`tsc` cannot see a blend mode. A lint cannot either. **Only a render on the ground you will
+actually use it over will tell you**, which is the same lesson as entries 5 and 6 arriving through
+a third door: compositing, like stroke width and like gradient placement, is a property of the
+CONTEXT a component lands in and not of the component.
+
+The fix is a default that works on the common ground and an explicit `onDark` for the other one.

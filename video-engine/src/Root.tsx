@@ -4,6 +4,7 @@ import {CastSheet} from './CastSheet';
 import {FaunaSheet} from './FaunaSheet';
 import {VehicleSheet} from './VehicleSheet';
 import {CivicSheet} from './CivicSheet';
+import {SensingSheet} from './SensingSheet';
 import {RegionSheet} from './RegionSheet';
 import {ProofScene} from './ProofScene';
 import {RegionName} from './lib/lighting';
@@ -25,6 +26,8 @@ export const RemotionRoot: React.FC = () => (
       fps={30} width={1080} height={2560} />
     <Composition id="CivicSheet" component={CivicSheet} durationInFrames={30}
       fps={30} width={1080} height={2100} />
+    <Composition id="SensingSheet" component={SensingSheet} durationInFrames={120}
+      fps={30} width={1080} height={1720} />
     {REGIONS.map((r) => (
       <Composition key={r} id={`Region-${r.replace(/_/g, "-")}`} component={RegionSheet}
         durationInFrames={60} fps={30} width={1080} height={1920}
