@@ -135,18 +135,36 @@ def exemption(src: str) -> tuple[bool, str]:
 
 
 def region_blocks(src: str) -> list[tuple[str, str]]:
-    """(region, body) for each <RegionLight region="..."> ... block.
+    """(region, body) for every wrapper that declares a region.
+
+    ANY component, not just <RegionLight>. The first version matched RegionLight
+    alone, and every real scene wraps its world in <Biome region="...">, so the
+    placement check ran on the review sheet and on nothing else. It reported clean
+    with a javelina standing in the Rolling Plains, which is a gate connected to
+    nothing: the worst kind, because it is indistinguishable from a gate that works.
+
+    So this matches any opening tag carrying a region prop whose value is one of the
+    ten, and closes on that same tag. `blocks_scanned` below turns "found nothing
+    anywhere" into a failure rather than a pass.
 
     Takes everything from the opening tag to the matching close, which over-reaches
-    on nested RegionLights. Over-reaching is the safe direction: it can report an
-    animal against an outer region it does not belong to, which is a false alarm a
-    human resolves, rather than missing one.
+    on nesting. Over-reaching is the safe direction: it can report an animal against
+    an outer region, which is a false alarm a human resolves, rather than missing one.
     """
     out = []
-    for m in re.finditer(r'<RegionLight[^>]*\bregion=["\'](\w+)["\']', src):
-        end = src.find("</RegionLight>", m.end())
-        out.append((m.group(1), src[m.end(): end if end > 0 else len(src)]))
+    for m in re.finditer(r'<([A-Z]\w*)(?:\s[^>]*?)?\sregion=["\'](\w+)["\']', src):
+        tag, region = m.group(1), m.group(2)
+        if region not in REGIONS:
+            continue
+        end = src.find(f"</{tag}>", m.end())
+        out.append((region, src[m.end(): end if end > 0 else len(src)]))
     return out
+
+
+# The ten regions a wrapper may declare. Kept here rather than derived from the
+# lighting module so this checker has no import into the engine it checks.
+REGIONS = {"high_plains", "rolling_plains", "cross_timbers", "blackland", "post_oak",
+           "piney_woods", "gulf", "south_texas", "hill_country", "trans_pecos"}
 
 
 def check(verbose: bool = True) -> list[str]:
@@ -191,6 +209,8 @@ def check(verbose: bool = True) -> list[str]:
 
     # ---- PLACEMENT: an animal belongs where it stands -------------------------
     animals = {c for c in comps if c not in NOT_AN_ANIMAL}
+    scanned = 0
+    checked = 0
     for path in scene_files():
         text = path.read_text(encoding="utf-8")
         exempt, reason = exemption(text)
@@ -203,8 +223,10 @@ def check(verbose: bool = True) -> list[str]:
             elif verbose:
                 print(f"  exempt  {path.relative_to(REPO)}  ({reason})")
             continue
+        checked += 1
         body = strip_comments(text)
         for region, block in region_blocks(body):
+            scanned += 1
             for a in sorted(animals):
                 if not re.search(rf"<{a}\b", block):
                     continue
@@ -213,6 +235,20 @@ def check(verbose: bool = True) -> list[str]:
                     problems.append(
                         f"{path.relative_to(REPO)}: <{a}> staged in '{region}'. It lives in "
                         f"{', '.join(allowed)}. A Texan can name this one.")
+
+    # ---- IS THIS CHECKER CONNECTED TO ANYTHING? -------------------------------
+    # The question a green gate can never answer about itself. This one ran clean for
+    # a while over zero region blocks, because it looked for a wrapper the scenes do
+    # not use. Zero blocks across a repo full of scenes is not a pass, it is a
+    # disconnected checker, and it fails here rather than reassuring anybody.
+    if checked and not scanned:
+        problems.append(
+            f"scanned {checked} scene file(s) and found NO region blocks in any of them. "
+            f"Either no scene declares a region, or this checker is looking for a wrapper "
+            f"nothing uses. Both mean the placement rule is running on nothing, which is "
+            f"worse than having no rule because it reads as a pass.")
+    elif verbose and scanned:
+        print(f"  scanned {scanned} region block(s) across {checked} scene file(s)")
     return problems
 
 
@@ -253,6 +289,25 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
     ok("...and piney_woods is NOT in its habitat",
        "piney_woods" not in parse_habitat(src)["pronghorn"])
 
+    # THE FAULT THAT MADE ALL OF THE ABOVE MEANINGLESS FOR A WHILE.
+    #
+    # Every real scene wraps its world in <Biome region="...">, not <RegionLight>.
+    # Matching RegionLight alone meant this ran on the review sheet and on nothing
+    # else, and it reported clean with a javelina standing in the Rolling Plains.
+    # A gate connected to nothing is the worst kind: it is indistinguishable from a
+    # gate that works, and it is the reason knowledge GATE_LESSONS exists.
+    biome = '<Biome region="rolling_plains" frame={f}><Javelina x={1} /></Biome>'
+    bb = region_blocks(biome)
+    ok("a <Biome> wrapper is a region block too, not only <RegionLight>",
+       bb and bb[0][0] == "rolling_plains", str(bb))
+    ok("...and the animal inside it is seen", bb and "<Javelina" in bb[0][1])
+    ok("a wrapper nobody anticipated works as well",
+       region_blocks('<Establishing region="gulf"><Grackle /></Establishing>')[0][0] == "gulf")
+    ok("a region value that is not a region is not a block",
+       not region_blocks('<Card region="left"><Grackle /></Card>'))
+    ok("a self-closing tag with a region does not swallow the rest of the file",
+       len(region_blocks('<Biome region="gulf" /><X/>')[0][1]) < 40)
+
     good = '<RegionLight region="trans_pecos"><Pronghorn x={1} /></RegionLight>'
     gb = region_blocks(good)
     ok("a pronghorn in the Trans-Pecos is fine", gb[0][0] in parse_habitat(src)["pronghorn"])
@@ -276,9 +331,19 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
     ok("a species with no habitat entry is visible to the coverage check",
        "Jackalope" in comps and lower_first("Jackalope") not in parse_habitat(missing))
 
-    # And the real repo.
+    # And the real repo. THE CONNECTIVITY ASSERTION comes first, because a clean
+    # result over zero blocks is exactly the reassuring nothing this gate once was.
+    import io
+    import contextlib
+    buf = io.StringIO()
     try:
-        real = check(verbose=False)
+        with contextlib.redirect_stdout(buf):
+            real = check(verbose=True)
+        out = buf.getvalue()
+        m = re.search(r"scanned (\d+) region block", out)
+        ok("this checker actually reaches the real scenes", bool(m) and int(m.group(1)) > 0,
+           "it scanned ZERO region blocks in this repo, so the placement rule is running "
+           "on nothing and a clean result below means nothing")
         ok("the repo itself is clean", not real, "\n      " + "\n      ".join(real))
     except FileNotFoundError as exc:
         ok("the repo itself is clean", False, str(exc))

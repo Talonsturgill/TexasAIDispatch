@@ -4,6 +4,7 @@ import {Biome} from './lib/biomes';
 import {Plane, Card, CameraMoves, composeCams} from './lib/stage3d';
 import {Character, castProps} from './lib/Character';
 import {Pumpjack, DataCentre, LatticeTower, Conductor, WindTurbine, Mesquite} from './lib/kit';
+import {TurkeyVulture, Grackle, Mockingbird, Jackrabbit, Roadrunner} from './lib/fauna';
 import {GradeLayer, INK} from './lib/lighting';
 
 // =============================================================================
@@ -33,7 +34,25 @@ export const ProofScene: React.FC = () => {
 
   return (
     <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>
-      <Biome region="rolling_plains" frame={f} camera={camera} seed={26} groundY={1060}>
+      {/* The vegetation scatter is SEEDED, so where a shrub lands is reproducible and
+          therefore composable. Seed 26 put a mesquite directly behind the rancher and it
+          grew out of his hat, which is the oldest composition fault there is and one no
+          gate will ever catch. Changing the seed moves the scatter; looking at the frame
+          is what found it. */}
+      <Biome region="rolling_plains" frame={f} camera={camera} seed={31} groundY={1060}>
+        {/* TURKEY VULTURES, high and far. knowledge/texas/FAUNA_AND_FLORA.md calls them
+            the most honest way to put motion in an empty rural sky, and it is right:
+            nothing else moves up there, and a sky that never moves reads as a
+            backdrop rather than as weather over a place. They teeter, they rarely
+            flap, and at this distance the dihedral V is the only thing you can see. */}
+        <Plane z={860}>
+          <svg width={1080} height={1920} viewBox="0 0 1080 1920">
+            <TurkeyVulture frame={f} x={760} y={330} scale={0.5} seed={51} />
+            <TurkeyVulture frame={f} x={880} y={252} scale={0.34} seed={52} />
+            <TurkeyVulture frame={f} x={648} y={224} scale={0.26} seed={53} />
+          </svg>
+        </Plane>
+
         {/* the field, well behind the slab */}
         <Plane z={640}>
           <svg width={1080} height={1920} viewBox="0 0 1080 1920">
@@ -56,6 +75,18 @@ export const ProofScene: React.FC = () => {
             <Conductor x1={640} y1={882} x2={1090} y2={888} sag={0.10} />
             <Conductor x1={150} y1={912} x2={640} y2={908} sag={0.11} />
             <Conductor x1={640} y1={908} x2={1090} y2={914} sag={0.11} />
+            {/* GRACKLES ON THE WIRE. The doctrine calls the great-tailed grackle our
+                raven and the ambient bird of any built frame, and a transmission span
+                is the most built thing in this shot. They sit where the conductor
+                actually sags, not on the straight line between the towers. */}
+            {[300, 352, 404, 470, 512].map((gx, i) => (
+              <Grackle key={gx} frame={f} x={gx} y={946 + Math.abs(i - 2) * -3}
+                scale={0.34} seed={60 + i} facing={i % 3 === 0 ? -1 : 1}
+                female={i === 1 || i === 4} calling={i === 2} />
+            ))}
+            {/* A MOCKINGBIRD ON THE HIGHEST POINT AVAILABLE, which is what the state
+                bird does and why a tower carries one so well. */}
+            <Mockingbird frame={f} x={648} y={848} scale={0.34} seed={70} singing />
           </svg>
         </Plane>
 
@@ -74,6 +105,11 @@ export const ProofScene: React.FC = () => {
                 extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} emotion="neutral" />
             <Character {...castProps('rancher')} frame={f} x={620} y={1426} scale={0.8}
               facing={-1} pose="hands-hips" emotion="wry" />
+            {/* At the SAME scale as the people, which is the whole point of fauna.tsx
+                being built on true size: a jackrabbit next to a person is knee-high
+                because the arithmetic says so, not because it was eyeballed. */}
+            <Jackrabbit frame={f} x={866} y={1432} scale={0.8} seed={71} facing={-1} />
+            <Roadrunner frame={f} x={196} y={1444} scale={0.8} seed={72} running />
           </svg>
         </Plane>
 

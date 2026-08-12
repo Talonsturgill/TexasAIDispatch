@@ -826,15 +826,25 @@ export const Jackrabbit: React.FC<Beast & {loping?: boolean; backlit?: boolean}>
         stroke={INK} strokeWidth={3} />
       {/* THE HIND LEG, drawn IN FRONT of the body as a filled haunch. A hare's back
           leg is the second most characteristic thing about it after the ears, and the
-          first version drew it as a stroke behind the body where it was invisible. */}
+          first version drew it as a stroke behind the body where it was invisible.
+          The second version drew it as a thin CRESCENT with a 3-unit ink stroke, and
+          at the size a scene actually uses the two sides of that stroke met in the
+          middle and filled the whole shape solid ink: the animal grew a black hole in
+          its side. A shape has to be thicker than twice its own outline. */}
       <path
-        d={`M-6,-56 C-20,-54 -28,-42 -26,${-28 - stride * 5}
-            C-25,${-22 - stride * 4} -20,-20 -16,-22
-            C-20,-32 -16,-42 -4,-46 Z`}
-        fill={`url(#${uid}_b)`} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
-      <path d={`M-24,${-25 - stride * 5} L${-18 + stride * 8},-1`} stroke="#7a6a52"
+        d={`M-2,-56 C-18,-55 -29,-44 -28,${-27 - stride * 5}
+            C-27,${-20 - stride * 4} -20,-18 -14,-21
+            C-9,-24 -6,-33 -5,-42 Z`}
+        /* A SHARED FORM GRADIENT IS POSITIONED FOR THE SHAPE IT WAS DESIGNED AROUND.
+           This haunch sits at the far end of the body's ramp, so filling it with the
+           body's gradient painted it entirely in the shade colour and the animal came
+           out with a dark patch stuck on its rear. A satellite shape takes a FLAT
+           tone from the ramp instead, which is also what a haunch actually looks
+           like: a form turning away, not a second lit volume. */
+        fill={t.core} stroke={INK} strokeWidth={2.4} strokeLinejoin="round" />
+      <path d={`M-25,${-24 - stride * 5} L${-19 + stride * 8},-1`} stroke="#7a6a52"
         strokeWidth={5} strokeLinecap="round" />
-      <path d={`M${-24 + stride * 8},-1 h13`} stroke="#7a6a52" strokeWidth={4}
+      <path d={`M${-25 + stride * 8},-1 h13`} stroke="#7a6a52" strokeWidth={4}
         strokeLinecap="round" />
       <path d="M-14,-36 q14,7 28,-3 q-5,8 -16,8 q-11,0 -12,-5 Z" fill="#d8cdb6" opacity={0.85} />
       {/* black-topped tail, the field mark the name comes from */}
