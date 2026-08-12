@@ -97,6 +97,8 @@ share a green.
 | V10 | Vehicles: the fleet, at true scale | **DONE** — pickup, stock trailer, transformer haul, tanker, bucket truck, slab. Rendered and looked at four times |
 | V11 | **The application layer.** The show is about AI IN USE, not about policy | **DONE** — `APPLICATIONS.md` written against sources, Phase 1 beats rebuilt application-first, the two context beats capped at one each |
 | V12 | **The variety engine.** No two Dispatches the same film | **DONE** — `composition_axes.yaml` (9 axes, Texas vocab), `dedupe.py` (topic + fingerprint memory), cross-run divergence and beat-mix rules in `storyboard_check` |
+| V13 | **Sensing.** How you draw a machine LOOKING at something | **DONE** — detections that jitter, a ragged mask, a sweep, the invisible plume, a readout, and `wrong` as a first-class prop so the counter-image cannot be omitted |
+| V14 | Civics: the Capitol, the courthouse, the hearing room | **DONE** — the dome PINK, the tower centred, the dais taking a seat count |
 
 ## Rules this work obeys
 
