@@ -194,3 +194,10 @@ share a green.
   has ended the piece, which is why the craft doc puts emotion in the director's notes and never
   in a tag. A duration failure says TRIM THE SCRIPT and names the overage, because time-stretching
   is banned and produces the artefact every viewer hears and cannot name.
+- 2026-08-12 — `knowledge/craft/VO_DIRECTION.md`. The rule that matters is that direction is
+  written as intent, emphasis, pace and energy, which are things a model PERFORMS, and never as an
+  adjective in a tag, which is a thing a model may PRONOUNCE. The soundcheck greps for the tag
+  vocabulary anyway, because a rule that depends on everyone remembering it is not a rule, but the
+  check is a net rather than a method. Also: spell a Texas name phonetically IN THE SCRIPT, since
+  the model reads what it is given and a note in a plan it never sees does nothing. Mexia, Boerne,
+  Bexar, Manchaca, Refugio, Palacios.
