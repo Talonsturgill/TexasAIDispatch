@@ -100,7 +100,19 @@ A longhorn in strict profile **has no horns.** They project toward and away from
 foreshorten to nothing. Every postcard in Texas turns the head to three-quarter for exactly this
 reason, and nobody writes it down because everybody who draws one discovers it.
 
-**Before drawing a subject, ask which view destroys its identifying feature.**
+**Then it happened again, on a completely different subject.** A Houston slab's swangas are chrome
+elbows protruding a foot past the wheel face: a cone pointing at the viewer, which in strict
+profile is a plain wire wheel. A careful side view of the most distinctive wheel in Texas rendered
+as a purple sedan.
+
+The two fixes are different and the choice between them is the useful part. **Turn the view** when
+the subject can carry it, as the longhorn's head does while its body stays in profile. **Restate
+the fact in a dimension the view still has** when it cannot: the one thing an elbow does to a
+silhouette is stand wider than the tyre and overhang the body, so the chrome is drawn larger than
+the tyre and on top of the fender.
+
+**Before drawing a subject, ask which view destroys its identifying feature**, and then ask which
+of those two fixes the subject allows.
 
 ## 9. A delimiter that appears in its own instructions is not a delimiter
 
@@ -169,3 +181,19 @@ were an armadillo and a feral hog whose **habitat lists were simply wrong** — 
 nearly every county in Texas, and the list said seven regions.
 
 **A gate firing is a question, not a verdict.** Check the rule before you change the product.
+
+## 17. A field of flat colour reads as longer than it is
+
+The pickup was drawn from measurements: 6.75 m long, 3.99 m wheelbase, a 1.35 m bed rail on a
+2.0 m body. Every number checked, and it rendered as a 1960s land yacht.
+
+Two causes, and only the first is arithmetic. **The overhangs were the wrong way round** — on a
+pickup the long overhang is at the REAR, because the bed hangs past the rear axle, and the front
+wheel sits almost at the bumper. Swapping them gave the truck a 1.9 m nose.
+
+The second was not a number at all. **The bed side was one flat colour field the length of the
+vehicle**, and a long unbroken field reads as longer than it measures. Adding the wheel arches
+fixed the proportion without changing a single dimension.
+
+**Correct measurements are necessary and are not sufficient.** What the eye reads is contrast and
+interruption, and neither of those is in the spec.

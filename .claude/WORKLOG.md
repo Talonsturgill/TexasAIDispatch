@@ -94,6 +94,7 @@ share a green.
 | V7 | The scripts | **DONE** — all ten the routine calls, each with a `--self-test` replaying the defect it exists for, all wired into CI and the routine: `engine_lint`, `bar_check`, `staging_check`, `storyboard_check`, `flow_check`, `vo_synth_gemini`, `vo_soundcheck`, `vo_align`, `mix`, `ship_gate` |
 | V8 | The routine prompt, the agents, the rubric | **DONE** — `dispatch_routine.md`, 5 agents, `dispatch_rubric.yaml` |
 | V9 | Proof: the engine renders end to end | **DONE** — a 5s clip, 150 frames, three composed camera moves |
+| V10 | Vehicles: the fleet, at true scale | **DONE** — pickup, stock trailer, transformer haul, tanker, bucket truck, slab. Rendered and looked at four times |
 
 ## Rules this work obeys
 
