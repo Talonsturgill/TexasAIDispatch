@@ -148,6 +148,11 @@ history and Alaska's would poison them.
   `ROUTINE_PROMPT.txt` is the thin pointer pasted into the routines UI.
 - `knowledge/texas/` — the research that makes it Texas: vernacular, regions, the cast, fauna,
   landmarks, speech. Every art decision traces here.
+  **`APPLICATIONS.md` is where a STORY comes from, and it corrects a real error.** This show is
+  about the application layer: somebody using a tool, at work, in a real place. A docket tracks
+  decisions and one already publishes next door every day, and this show is not its video edition.
+  The first beat list here had nine entries and six were policy or infrastructure, which is a
+  different and much smaller show.
 - `knowledge/craft/` — how the show is made: stage3d authoring, visual flow, hook craft, VO
   direction, the showstopper standard.
   **`GATE_LESSONS.md` is required reading before you add a gate, trust one, or conclude that a
