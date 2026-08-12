@@ -120,13 +120,52 @@ ephemeral container has destroyed a finished video before.
 
 ## PHASE 1 — RESEARCH
 
-Spawn `researcher` agents in parallel, one per beat. Go wide, non-recursive. Beats:
-data centres, the grid and ERCOT, state policy, water and permitting, oil and gas, defence and
-federal, research and science, health and education, surveillance and policing.
+**FIRST**, before a single query:
+
+```
+python3 scripts/dedupe.py list --days 30
+```
+
+That is the exclusion list: what has been covered, and which beats have already led. Do not
+research a story on it, and do not lead with a beat that is already at its cap.
+
+**THIS SHOW IS ABOUT THE APPLICATION LAYER.** Read `knowledge/texas/APPLICATIONS.md` before you
+write a single query. A docket tracks decisions and one already exists next door and publishes
+every day. **This show is not its video edition.** The default Dispatch is somebody using a tool,
+at work, in a real place, and a decision is context rather than the subject.
+
+An earlier version of this list had nine beats and six were policy or infrastructure. That is a
+show about what is being decided about AI in Texas, which is a different and much smaller show, and
+it is the reason this paragraph exists.
+
+Spawn `researcher` agents in parallel, one per beat. Go wide, non-recursive. **The first five beats
+are the spine and at least three of them run every day. The last two are one beat each and never
+the whole film.**
+
+| beat | what it covers |
+|---|---|
+| **the oilfield** | closed-loop drilling, methane vision, predictive lift. The Permian trains more models per square mile than anywhere on earth |
+| **farm, ranch and water** | variable-rate pivots over the Ogallala, cattle wearables, yield and drought models, weed-recognition spray |
+| **the road** | Aurora's driverless lanes, robotaxis, drones, rail and port automation, Laredo |
+| **the clinic and the bench** | MD Anderson and the Texas Medical Center, imaging, planning, prediction, and the governance around it |
+| **the machines science runs on** | TACC's Vista and Horizon, university labs, the public compute nobody fences off |
+| **weather, water and emergency** | flood warning after the Hill Country, wildfire detection, hurricane response. Handle without triumph |
+| **what Texas makes** | fabs, space, plant floor, the loop where the chips running the models are made here |
+| build-out and the grid | data centres, interconnection, ERCOT. **ONE beat.** |
+| the record and the rule | policy, courts, procurement, surveillance. **ONE beat**, and the docket already has it |
+| **wildcard** | what is breaking this week, in any of the above |
+
+Every beat asks the same question and it is not "what happened": **who is now doing what
+differently, and does it work.**
+
+**Bring back the honest counter-image.** Every application has one: the truck stop the driverless
+truck does not stop at, the planner whose job the planning assistant changes, the county that got
+its siren after the flood. A film that only shows the tool working is an advertisement, and the
+scorer's `story` axis will say so.
 
 The record next door is a source, not a substitute: `TexasAIDocket`'s `ledger/docket.json` is a
 fact-checked account of Texas AI decisions and it will often name the day's story before a search
-does.
+does. **Use it to find the decision behind the work, not to pick the story.**
 
 ## PHASE 2 — FACT CHECK (hard gate)
 
@@ -169,8 +208,19 @@ Declare per scene:
 ## PHASE 4.5 — GATE 0, before any scene code
 
 ```
+python3 scripts/dedupe.py check --entities "<the story's real entities>" --beat <beat>
 python3 scripts/storyboard_check.py --board out/dispatch/storyboard.json
 ```
+
+**THE BOARD MUST DECLARE A COMPOSITION FINGERPRINT** across every axis in
+`config/composition_axes.yaml`, plus `derived_from: scratch` and a `divergence_note` of at least
+120 characters saying HOW this differs from the last two.
+
+`storyboard_check` compares that fingerprint against `ledger/dispatch_history.json` and refuses a
+re-skin **before a frame is rendered**. The sibling shipped "a salmon video that looked just like
+the damn beluga video" because its free-text archetype label read the same for both. **A NEW
+SUBJECT IS NOT A NEW COMPOSITION.** Design from a blank page for THIS story; do not open a prior
+scene file. You do not relax the rule to pass it, you change the composition.
 
 Then spawn `storyboard-critic`. It red-teams the board for genuine composition divergence rather
 than a relabel, for silent-first storytelling, and for retention. **Default is revise.**
@@ -245,6 +295,15 @@ Then the panel, briefed with the threshold READ from the rubric. A failing panel
 to re-enter the loop, not a verdict on the run.
 
 ## PHASE 7 — DELIVER, FULLY DONE
+
+**Record the run in the variety engine BEFORE you merge**, because a run that ships without being
+recorded is a run the next one is free to re-skin:
+
+```
+python3 scripts/dedupe.py add --date <date> --topic "<topic>" --slug <slug> --beat <beat> \
+       --entities "<a,b,c>" --fingerprint out/dispatch/storyboard.json
+```
+
 
 No pending states.
 

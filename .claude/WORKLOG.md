@@ -95,6 +95,8 @@ share a green.
 | V8 | The routine prompt, the agents, the rubric | **DONE** — `dispatch_routine.md`, 5 agents, `dispatch_rubric.yaml` |
 | V9 | Proof: the engine renders end to end | **DONE** — a 5s clip, 150 frames, three composed camera moves |
 | V10 | Vehicles: the fleet, at true scale | **DONE** — pickup, stock trailer, transformer haul, tanker, bucket truck, slab. Rendered and looked at four times |
+| V11 | **The application layer.** The show is about AI IN USE, not about policy | **DONE** — `APPLICATIONS.md` written against sources, Phase 1 beats rebuilt application-first, the two context beats capped at one each |
+| V12 | **The variety engine.** No two Dispatches the same film | **DONE** — `composition_axes.yaml` (9 axes, Texas vocab), `dedupe.py` (topic + fingerprint memory), cross-run divergence and beat-mix rules in `storyboard_check` |
 
 ## Rules this work obeys
 

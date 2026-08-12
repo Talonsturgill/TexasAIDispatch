@@ -1,0 +1,155 @@
+# TEXAS AI DISPATCH — COMPOSITION DIVERGENCE AXES
+# ===============================================
+# WHY THIS FILE EXISTS. Read it before you touch scene code.
+#
+# The routine makes a different video every day. The single biggest threat to that is an agent's
+# bias to action: it opens the repo, finds a scene that already renders, copies it, re-skins the
+# hero and ships a composition structurally identical to yesterday's.
+#
+# The sibling in Alaska has the scar. Its own note says it produced "a salmon video that looked
+# just like the damn beluga video", and its free-text `archetype` label never caught it because
+# both entries read as "single-hero portrait". A NEW SUBJECT IS NOT A NEW COMPOSITION.
+#
+# So divergence is MEASURED. Every Dispatch declares a fingerprint across the axes below in
+# out/dispatch/storyboard.json, and scripts/storyboard_check.py compares it against the last
+# several Dispatches in ledger/dispatch_history.json and FAILS THE RUN BEFORE A FRAME IS RENDERED.
+# It has the same standing as any other hard gate and it cannot be vibed past. You do not relax
+# the rule to pass it. You change the composition.
+#
+# HOW TO USE IT. In the directors room, design the composition from a blank page FOR THIS STORY.
+# Do not start from a prior scene file. Pick one primary tag per axis. A free-text `_note` is
+# allowed for nuance, but the primary tag is what the gate compares, so be honest: a tag chosen to
+# get past the check is the entity-list gaming this routine bans everywhere else.
+#
+# THE VOCAB IS TEXAS-SPECIFIC WHERE IT NEEDS TO BE. It is not the sibling's list retyped. A
+# tag like `under-the-pivot` exists because a quarter-mile irrigation machine is a real and
+# available point of view here and is available nowhere in Alaska.
+
+axes:
+  pov:                          # where the camera stands relative to the subject
+    weight: heavy               # the strongest single determinant of "a different video"
+    vocab:
+      - eye-level-immersive       # in the scene with the subject, at their height
+      - cross-section-cutaway     # sliced side-on into ground, slab, aquifer, formation
+      - top-down-map              # straight down on territory. Pivot circles, a county, a lease
+      - instrument-screen         # we look AT a machine's display. The machine's point of view
+      - orbital-aerial            # high oblique over a landscape
+      - macro-closeup             # extreme close on one surface, gauge or hand
+      - exploded-diagram          # parts pulled apart in schematic space
+      - windshield                # from inside a cab, which for a driverless story is the point
+      - under-the-pivot           # beneath a working machine, looking up through it
+
+  motion_vector:                # the dominant direction and kind of movement
+    weight: heavy
+    vocab:
+      - horizontal-traverse       # the subject crosses the frame
+      - vertical-rise             # elements travel up
+      - vertical-descent          # elements travel down. Water table, a bit, a price
+      - radial-emanate            # rings, a scan, a pivot sweeping its circle
+      - push-in-only              # near-static world, slow dolly
+      - scroll-data               # a feed, a log or a timeline moves past
+      - assemble-build            # pieces fly in and build a structure
+      - accumulate-fill           # a quantity visibly piles up. A stack, a tank, a queue
+
+  hero_treatment:               # what the frame is fundamentally OF
+    weight: heavy
+    vocab:
+      - single-worker-hero        # one person at their job. The show's default and its best
+      - multiplicity-swarm        # many of a thing. A herd, a fleet, a field, a count
+      - landscape-as-subject      # the place is the hero and no character is present
+      - machine-as-subject        # a device or readout is the hero
+      - data-as-subject           # the numbers are the subject
+      - structure-as-subject      # a built thing. Slab, rig, tower, fab
+      - absence-as-subject        # what is NOT there. The empty cab, the unstaffed desk
+
+  layout:                       # where the load-bearing information sits in the frame
+    weight: heavy
+    vocab:
+      - centered-hero-lowerthird  # hero mid-frame, caption low, stats in a corner
+      - fullbleed-split           # the screen divided. Two worlds, before and after
+      - hud-instrument-frame      # the frame IS a screen. Bezel, readout, reticle
+      - map-territory             # a map fills the frame
+      - stacked-layers            # horizontal strata or a vertical stack of bands
+      - grid-modular              # a hard grid of cells
+      - single-object-void        # one object in deep negative space
+      - horizon-thirds            # a very low horizon and an enormous sky, which is the state
+
+  register:                     # how real against how diagrammatic it renders
+    weight: medium
+    vocab:
+      - naturalistic-scene        # a lit, textured world
+      - instrument-readout        # telemetry and scope aesthetic
+      - editorial-schematic       # clean infographic diagram
+      - data-brutalist            # hard grid, numbers forward
+      - blueprint-technical       # line-art technical drawing
+      - tactile-collage           # mixed media, layered
+
+  camera_strategy:              # the 3D camera's story. In depth, HOW it moves is identity
+    weight: heavy
+    vocab:                      # these are the moves stage3d actually implements
+      - dollyThrough              # travel into and along the world
+      - orbitReveal               # circle a hero, revealing its dimension
+      - craneDown                 # come down from height onto the subject
+      - riseWith                  # lift from a detail to its context
+      - truckAcross               # travel laterally past a subject
+
+  light_story:                  # the sun narrative, and in Texas this is a REGION statement
+    weight: medium
+    vocab:
+      - noon-hard                 # high hard key, short shadows. High Plains
+      - dawn-backlight            # low warm sun shot into, dust glowing
+      - dusk-silhouette           # dark subjects against a burning sky
+      - humid-glare               # milky, shadowless, the Gulf
+      - blue-norther               # slate, flat, cold front
+      - dust-brown                # a Panhandle spring, the air itself coloured
+      - night-practical           # dark world lit by screens and yard lights
+      - storm-dramatic            # broken light, heavy atmosphere
+
+  palette:                      # the colour world
+    weight: medium
+    vocab: []                   # open. Name the actual world, e.g. "caliche + sodium vapour"
+
+  metaphor:                     # the ONE concrete image carrying the abstract mechanism
+    weight: medium
+    vocab: []                   # open, and it must be a different central image, not a rephrase
+
+# -----------------------------------------------------------------------------------------------
+# THE DIVERGENCE RULE — enforced by scripts/storyboard_check.py, exit 1 on any violation.
+rule:
+  # 1) Against EACH of the last N Dispatches, the new fingerprint must differ on at least this many
+  #    axes. Differing on fewer means it is the same film wearing a costume.
+  compare_last_n: 2
+  min_diff_axes: 4
+
+  # 2) THE SPATIAL SIGNATURE. The (pov, layout, motion_vector) triple must be unique across a wider
+  #    window. This is the specific thing that made the sibling's salmon a clone of its beluga:
+  #    an identical (eye-level-immersive, centered-hero-lowerthird, horizontal-traverse).
+  signature_axes: [pov, layout, motion_vector]
+  signature_window: 4
+
+  # 3) The palette must not match either of the last two.
+  palette_window: 2
+
+  # 4) The board must declare `derived_from: scratch`. A scene copied from a prior file and
+  #    re-skinned is the banned shortcut, and the gate refuses anything that admits to it.
+  require_derived_from_scratch: true
+
+  # 5) A prose note saying HOW this diverges. Not decoration: writing the sentence is what forces
+  #    the thinking, and a run that cannot write it has not designed anything.
+  divergence_note_min_chars: 120
+
+# -----------------------------------------------------------------------------------------------
+# THE BEAT MIX, which is the variety rule for CONTENT rather than for composition.
+#
+# knowledge/texas/APPLICATIONS.md is emphatic that this show is about the application layer and
+# that a decision is context. Left to itself a routine drifts toward whatever is easiest to source,
+# and what is easiest to source is a filing. So the mix is checked the same way the pictures are.
+beat_mix:
+  application_beats: [oilfield, farm-ranch-water, the-road, clinic-and-bench, science-machines,
+                      weather-and-emergency, what-texas-makes]
+  context_beats: [buildout-and-grid, record-and-rule]
+  # Across a rolling window, at least this share of Dispatches must lead with an APPLICATION beat.
+  window: 7
+  min_application_share: 0.6
+  # And no single beat may lead more than this many times in the window, application or not.
+  max_same_beat: 3
