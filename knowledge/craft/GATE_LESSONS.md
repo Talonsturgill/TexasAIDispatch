@@ -211,3 +211,25 @@ a third door: compositing, like stroke width and like gradient placement, is a p
 CONTEXT a component lands in and not of the component.
 
 The fix is a default that works on the common ground and an explicit `onDark` for the other one.
+
+## 19. A file that exists and is never invoked is worse than a missing one
+
+`.claude/agents/scorer.md` sat on disk, fully written, while Phase 6 of the routine said only "then
+the panel" and never named the agent. **No run would ever have spawned it.** Eleven gates were
+green, `tsc` was clean, and the repo looked complete.
+
+This is the failure the whole project was set up to prevent, in the maintainer's words at the very
+start: *you move stuff from the old repo into the new one and then forget to wire it up.* A missing
+file announces itself. An unwired one does not, and the prompt keeps describing a capability the run
+does not have.
+
+**Check both directions, for agents and for scripts.** Orphans: everything on disk is invoked by
+name. Ghosts: everything invoked exists. `scripts/wiring_check.py` does both.
+
+And the trap inside the fix: **a `--self-test` mention is not wiring.** Every gate is in CI by
+definition, so counting a CI self-test as invocation makes the orphan check structurally incapable
+of failing for any gate — a checker that cannot go red about the thing it checks. Invocation means a
+prompt or a workflow runs it *on real inputs*.
+
+The gate was verified the only way that counts: the orphan was put back on purpose and the check
+went red, then removed and it went green.
