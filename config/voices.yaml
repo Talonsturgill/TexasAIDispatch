@@ -1,0 +1,69 @@
+# THE VOICE.
+#
+# One place, read by scripts/vo_synth_gemini.py. Never restated in a prompt: the show
+# already lost five panel rounds in its sibling to a number that lived in two files,
+# and a voice name is the same shape of mistake with a worse failure, because a run
+# that synthesises against the wrong voice sounds fine and is simply a different show.
+#
+# THE PICK BELOW IS A DEFAULT, NOT AN AUDITION RESULT. It is here so the machine runs
+# rather than blocking on a preference. `HANDOFF.md` asks for a real audition before
+# the first published Dispatch, and when that happens the winner replaces this block
+# and the `audition` section records what it beat and why. The sibling auditioned
+# several and chose one for warmth; that choice is theirs and not automatically ours.
+
+voice:
+  name: Charon
+  why_default: >
+    Lower and drier than the alternatives, which is the register
+    knowledge/craft/VO_DIRECTION.md asks for: a person who knows the subject telling
+    you something they think you should know, willing to leave a silence. The
+    authority is meant to come from the facts being right, so a voice that sounds
+    like it is working for it is wrong for this show whatever else it has.
+  status: default_pending_audition
+
+model:
+  primary: gemini-3.1-flash-tts-preview
+  failover: gemini-2.5-pro-preview-tts
+  why_failover: >
+    A preview model returning repeated 500s mid-run has happened. A run that dies at
+    the voice step has no film, and the degradation ladder has no rung for it.
+
+# How to run the audition, so it is a measurement rather than a listen-and-shrug.
+audition:
+  method: >
+    Synthesise the SAME passage in every candidate voice with vo_synth_gemini.py, then
+    grade every take with vo_soundcheck.py. Pitch spread, loudness and word accuracy
+    are measured and comparable across candidates. Only after the measured takes are
+    ranked does anybody listen, and listening decides between takes that already
+    passed rather than rescuing one that did not.
+  passage: >
+    Use a real Dispatch script with a number in it, never a neutral sample. A voice
+    that reads a pleasant paragraph well and lands a figure badly is the wrong voice
+    for a show whose whole subject is figures.
+  record_here: true
+
+# Anything the model reliably mispronounces on this beat goes here, and the routine
+# spells it phonetically IN THE SCRIPT. A note in a plan the model never sees does
+# nothing, and getting a Texas name wrong in the first ten seconds costs the film its
+# authority with exactly the audience it is for.
+pronunciation:
+  Mexia: muh-HAY-uh
+  Boerne: BURN-ee
+  Bexar: BEAR
+  Manchaca: MAN-shack
+  Refugio: ruh-FYOOR-ee-oh
+  Palacios: puh-LASH-us
+  Bowie: BOO-ee
+  Burnet: BURN-it
+  Gruene: GREEN
+  Llano: LAN-oh
+  Miami: my-AM-uh
+  Nacogdoches: nack-uh-DOH-chiss
+  Waxahachie: wawks-uh-HATCH-ee
+  Quanah: KWAH-nuh
+  Pedernales: PURR-duh-NAL-iss
+  Guadalupe: gwah-duh-LOOP
+  Lamesa: luh-MEE-suh
+  Iraan: IRA-ann
+  Blanco: BLANK-oh
+  Bandera: ban-DAIR-uh

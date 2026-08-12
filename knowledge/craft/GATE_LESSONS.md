@@ -1,0 +1,171 @@
+# Gate lessons — faults that shipped with every check passing
+
+**Required reading before you add a gate, trust one, or conclude that a green suite means a
+correct product.**
+
+Every entry is a real fault from this repo. Each says what passed, what was actually wrong, and
+what to check instead. The sibling record in `TexasAIDocket`'s `knowledge/shared/GATE_LESSONS.md`
+carries the same discipline for the record and the site; this one is about the engine, the drawings
+and the voice.
+
+The through-line, and it does not change: **a checker sees what it reads, and the product is what a
+viewer receives.** Everything below is a gap between those two things.
+
+---
+
+## 1. A gate can be connected to nothing, and it reports clean
+
+`staging_check.py` refused an animal standing in a region it does not live in, had a full
+self-test, was wired into CI, and ran green. It looked for `<RegionLight region="...">`.
+
+**Every real scene wraps its world in `<Biome region="...">`.** So it had been running on the
+review sheet and on nothing else. Proved by planting a javelina in the Rolling Plains, where it
+does not live, and watching the check report clean.
+
+This is the worst kind of gate, because it is **indistinguishable from one that works.** A red gate
+tells you something. A gate guarding nothing tells you the same thing a passing gate does.
+
+**What to check instead.** Make the checker count what it scanned, and make zero a FAILURE:
+
+> scanned 4 scene files and found NO region blocks in any of them. Either no scene declares a
+> region, or this checker is looking for a wrapper nothing uses.
+
+That is the one question a green gate can never answer about itself, so you have to make it answer
+it out loud. And the way to find out whether a gate is connected is not to read it. **It is to
+break the product on purpose and watch.**
+
+## 2. A fixture written by the same hand as the detector agrees with the detector
+
+A self-test proves the checker does what its author thought. It cannot prove the author understood
+the product. Every gate here passed its own suite while the five defects in entries 4 to 8 sat in
+the shipped output.
+
+**Drive the real thing end to end.** The proof scene found composition faults no gate had an
+opinion about, and the fauna sheet found five drawing bugs `tsc` was structurally blind to.
+
+## 3. Checking a NAME is checking a claim. Check the evidence
+
+`ship_gate` refused captions unless `method == "forced_alignment"`. Anybody can type that string,
+including a words-per-second divider relabelled by a run in a hurry.
+
+The rule that matters is not what the method is called. It is **whether the boundaries were
+measured off the waveform**, because re-anchoring at every phrase is the mechanism that stops drift.
+So the gate now reads `boundaries_measured`, a count a divider cannot produce however it labels
+itself.
+
+**Generally: when a gate checks a self-reported label, ask what artefact the honest path produces
+that the dishonest path cannot, and check for that.**
+
+## 4. A rule about a SET cannot be enforced per item
+
+The doctrine says *a herd of identical longhorns is the tell.* The code drew each animal's hide
+with an independent random pick from a six-colour palette. Four of the six were the same tan
+family, so a herd of four came back with three indistinguishable animals, and the comment about
+variability was decorative.
+
+A per-item random draw cannot enforce a property of the group. `herdHides(n)` shuffles and takes
+**without replacement**, so the herd is varied by construction.
+
+## 5. A thin shape with a thick outline fills solid
+
+The jackrabbit's haunch was a crescent about five units across with a three-unit ink stroke. The
+two sides of the stroke met in the middle and the animal grew a black hole in its side. Valid SVG,
+clean typecheck, clean lint.
+
+**A shape has to be thicker than twice its own outline.** Nothing but a render will tell you.
+
+## 6. A shared form gradient is positioned for the shape it was designed around
+
+The same haunch, once thick enough, filled uniformly dark. It used the body's `FormGradient`, and
+it sits at the far end of the body's ramp, so it was painted entirely in the shade colour.
+
+**A satellite shape takes a flat tone from the ramp, not the parent's gradient.** Which is also
+what a haunch actually looks like: a form turning away, not a second lit volume.
+
+## 7. Relative scale has to be arithmetic, never a comment
+
+`FAUNA_AND_FLORA.md` says an armadillo is housecat-sized and warns against drawing it dog-sized.
+The first `fauna.tsx` drew every species in whatever local frame was convenient, so `scale={1}`
+meant nothing across species and an armadillo beside a longhorn came out the same size. **The
+doctrine's own headline mistake, reintroduced by the API one layer below where anybody would look
+for it.**
+
+A comment cannot stop it. `SIZE_M` declares each animal's real dimension in metres and `fit()`
+converts against the Character rig, so the relationship is right without anyone thinking about it.
+The contact sheet carries a person, so the arithmetic is visible rather than asserted.
+
+## 8. A profile view can delete the thing you are drawing
+
+A longhorn in strict profile **has no horns.** They project toward and away from the viewer and
+foreshorten to nothing. Every postcard in Texas turns the head to three-quarter for exactly this
+reason, and nobody writes it down because everybody who draws one discovers it.
+
+**Before drawing a subject, ask which view destroys its identifying feature.**
+
+## 9. A delimiter that appears in its own instructions is not a delimiter
+
+`vo_synth_gemini` fenced the spoken text between `BEGIN SCRIPT` and `END SCRIPT`, and the
+instruction above it read *"read only the text between the BEGIN SCRIPT and END SCRIPT markers."*
+Two openings. The real boundary was a guess, and a guess there is a narrator reading the director's
+notes aloud.
+
+**Assert your fence appears exactly once.** Describe a delimiter in the instructions; never quote it.
+
+## 10. A checker that reads its own advice as a violation trains you to ignore it
+
+`engine_lint` failed on its first run because `materials.tsx` documents that it does *not* use
+`Math.random`. `mix.py`'s self-test proves there is no resampler in it by scanning its own source,
+and its docstring says the word "resampler" four times while explaining that there is none.
+
+**Strip comments and docstrings before scanning code, and preserve newlines so line numbers stay
+true.**
+
+## 11. A tokeniser is where a numeral gate goes wrong
+
+A sibling's numeral lint used `\d{1,4}` and read "2,600 streamlines" as the number 600, so a
+correct, computed, authorised figure was reported as unauthorised. **That is how a gate gets
+switched off**, and a switched-off gate is worse than one that never existed, because somebody
+believed it for a while.
+
+A numeral is one token including its separators and its decimal part.
+
+## 12. An assertion that cannot fail is not an assertion
+
+Written in this repo, in a self-test, in earnest:
+
+```python
+ok("...before any call is made", any("before" not in x or True for x in r2))
+```
+
+`or True`. It passes on every input. **Every assertion needs an input that makes it fail**, and if
+you cannot think of one, you have not written a test. The replacement runs the real function
+against a junk credential and proves it returns without touching the network and without leaving a
+file behind.
+
+## 13. A dependency the CI does not install is a gate that fails, and the wrong fix makes it worse
+
+The image gate failed on first push because CI had no Pillow. The tempting fix is to make the gate
+skip when its dependency is missing. **A skipped test and a passing test are the same colour.**
+Install the dependency.
+
+## 14. Two files that agree by convention drift apart unwatched
+
+`vo_synth_gemini` produces a pitch number and `vo_soundcheck` refuses on a threshold for it. A
+paragraph in each saying they agree is worth nothing on the day somebody changes one.
+
+Its self-test now synthesises a drone and a varied read and asserts the produced number falls the
+right side of the *imported* threshold, and asserts the two files' tag vocabularies are identical.
+**Pin interfaces with a test, not with a comment.**
+
+## 15. Run gates by EXIT CODE, never by reading the last line
+
+A report that prints advice on failure and one clean line on success looks reassuring either way
+under `tail -1`. This has shipped a red gate before.
+
+## 16. When a gate reports a fault, the data may be what is wrong
+
+`staging_check`'s first real run reported four mis-placed animals. Two were correct. The other two
+were an armadillo and a feral hog whose **habitat lists were simply wrong** — feral hogs are in
+nearly every county in Texas, and the list said seven regions.
+
+**A gate firing is a question, not a verdict.** Check the rule before you change the product.
