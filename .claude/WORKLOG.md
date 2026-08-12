@@ -89,9 +89,9 @@ share a green.
 | V2 | Engine port: stage3d verbatim, lighting REBUILT regional, voice/motion/materials ported | **DONE** |
 | V3 | **The Texas cast.** Character rig, outfits, headgear, built demographically first | **DONE** — 10 authored in one commit, rendered and looked at |
 | V4 | Texas biomes: the regions, each with its own light and green | **DONE** — 10 regions, rendered and compared |
-| V5 | Texas fauna: the species, drawn correctly | TODO |
+| V5 | Texas fauna: the species, drawn correctly | **DONE** — 15 species at TRUE SCALE against the Character rig, rendered and looked at five times; `staging_check` written |
 | V6 | Texas kit: pumpjack, data centre, transformer, lattice tower, turbine, windmill, stock tank, cattle guard, water tower, mesquite, prickly pear | **DONE** |
-| V7 | The scripts | **PARTIAL** — `engine_lint` and `bar_check` written with self-tests and wired into CI. The VO, mix, alignment and ship-gate scripts remain |
+| V7 | The scripts | **PARTIAL** — `engine_lint`, `bar_check`, `vo_soundcheck` and `staging_check` written with self-tests and wired into CI and the routine. The Gemini synth wrapper, the mix, forced alignment, `flow_check` and `ship_gate` remain |
 | V8 | The routine prompt, the agents, the rubric | **DONE** — `dispatch_routine.md`, 5 agents, `dispatch_rubric.yaml` |
 | V9 | Proof: the engine renders end to end | **DONE** — a 5s clip, 150 frames, three composed camera moves |
 

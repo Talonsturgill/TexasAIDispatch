@@ -112,6 +112,7 @@ ephemeral container has destroyed a finished video before.
 5. Preflight the gates on a clean checkout:
    ```
    python3 scripts/engine_lint.py
+   python3 scripts/staging_check.py
    cd video-engine && npx tsc --noEmit
    ```
    **If a gate is already red at wake, fix that before anything else.** A red gate at wake means
@@ -213,9 +214,14 @@ The human is never the QA.
 
 ```
 python3 scripts/engine_lint.py
+python3 scripts/staging_check.py
 python3 scripts/flow_check.py
 python3 scripts/ship_gate.py
 ```
+
+`staging_check` is the one that refuses an animal standing somewhere it does not live. A
+pronghorn in the Piney Woods is the same class of error as a Hill Country palette on a
+Panhandle story, and it is worse than a wrong colour because a Texan can name it.
 
 Then the panel, briefed with the threshold READ from the rubric. A failing panel is an instruction
 to re-enter the loop, not a verdict on the run.

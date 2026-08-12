@@ -48,6 +48,16 @@ jobs:
           python3 scripts/bar_check.py --self-test
           python3 scripts/bar_check.py
 
+      - name: An animal belongs where it is standing
+        run: |
+          # knowledge/texas/FAUNA_AND_FLORA.md promises every animal is placed in a region that
+          # actually has it, and named this checker as what enforces it. Until it existed the
+          # HABITAT map in fauna.tsx was read by nothing. Its coverage rule found BatColumn with
+          # no habitat entry, and its first real run found two species whose habitat lists were
+          # simply wrong.
+          python3 scripts/staging_check.py --self-test
+          python3 scripts/staging_check.py
+
       - name: VO soundcheck self-test (best of N, and the take that reads a tag aloud)
         run: |
           # Gemini renders the whole passage in one call, so a bad take is bad for sixty
