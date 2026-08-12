@@ -72,6 +72,16 @@ jobs:
           # "excited" has ended the film. Duration failures say TRIM THE SCRIPT, never stretch.
           python3 scripts/vo_soundcheck.py --self-test
 
+      - name: Everything that exists is reachable, and everything named exists
+        run: |
+          # The failure this whole project was set up to prevent: move a thing over and forget to
+          # wire it up. It happened here. .claude/agents/scorer.md sat fully written on disk while
+          # Phase 6 said only "then the panel" and never named it, so no run would have spawned it,
+          # and every other gate was green. A --self-test mention is NOT wiring: counting CI runs as
+          # invocation makes the orphan check structurally incapable of failing for any gate.
+          python3 scripts/wiring_check.py --self-test
+          python3 scripts/wiring_check.py
+
       - name: The variety engine, so no two Dispatches are the same film
         run: |
           # The sibling shipped "a salmon video that looked just like the damn beluga video". Its

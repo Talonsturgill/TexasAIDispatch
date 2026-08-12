@@ -291,8 +291,15 @@ python3 scripts/ship_gate.py
 pronghorn in the Piney Woods is the same class of error as a Hill Country palette on a
 Panhandle story, and it is worse than a wrong colour because a Texan can name it.
 
-Then the panel, briefed with the threshold READ from the rubric. A failing panel is an instruction
-to re-enter the loop, not a verdict on the run.
+Then the panel. **Spawn three `scorer` agents in parallel, in a single message**, each briefed with
+`rubric.ship_threshold` READ out of `config/dispatch_rubric.yaml` and each given a different
+starting lens: one on the picture, one on the story, one on whether a Texan from that county would
+believe it. Three independent scores, and a spread between them is information rather than noise.
+
+A failing panel is an instruction to re-enter the loop, not a verdict on the run.
+
+`ship_gate` then reads the report card and compares it to the same threshold from the same file, so
+the bar is applied twice and quoted zero times.
 
 ## PHASE 7 — DELIVER, FULLY DONE
 
