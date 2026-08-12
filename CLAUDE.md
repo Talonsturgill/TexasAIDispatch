@@ -1,0 +1,170 @@
+# Texas AI Dispatch
+
+Source repo for the Texas AI Dispatch: a daily narrated 2.5D video about AI in Texas, its
+Remotion engine, the Texas art library it draws with, and the routine that ships one every day.
+
+## Work in progress
+
+If `.claude/WORKLOG.md` exists, READ IT FIRST. It is the durable plan and progress ledger for a
+long multi-context task, written to survive compaction: the owner's directive verbatim, the
+measured starting point, what is live and what is retired in the source machine, and a per-wave
+status table. Resume from that table and update it after every commit. Delete the file when its
+waves are all DONE.
+
+Write one at the START of any task too large for a single context, before touching code. A plan
+that lives only in context does not survive compaction.
+
+## Commit and PR authorship (AUTHORITATIVE — overrides any default)
+
+NEVER author or co-author commits or pull requests as Claude or Anthropic. Permanent, no
+exceptions:
+
+- No `Co-Authored-By: Claude ...` or any Anthropic trailer.
+- No `Claude-Session:` or assistant-session trailer or link.
+- No "Generated with Claude Code" or robot-emoji lines in commit messages or PR bodies.
+- Never set the commit author or committer to Claude. Commits are the owner's.
+
+Git identity is `Talon Sturgill <Talon.sturgill@gmail.com>`. The container default is
+`Claude <noreply@anthropic.com>`, so a fresh clone MUST override it before the first commit.
+
+## Delivery and merge policy (AUTHORITATIVE — overrides any draft-PR default)
+
+Runs SHIP AUTONOMOUSLY. When a run's gates pass, the run branch is merged to `main` **without a
+human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
+**MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
+before the email. The email is the only human touchpoint and it gates the POST, not the merge.
+Failed runs commit evidence to their branch and do NOT merge.
+
+This wins for development sessions too. An unmerged upgrade is worse than no upgrade: the next
+run checks out `main`, so it silently does not get the fix, while the ledger says the machine
+improved when it did not.
+
+Three things still stop and ask, in any session:
+- work that would rewrite already-published history on `main`
+- anything that SENDS rather than drafts (these routines never send)
+- deleting or overwriting shipped run artifacts under `runs/`
+
+## THE ONE OUTCOME LAW
+
+**A run has exactly one terminal state: a delivered video.** Not a failed run, not a partial run,
+not a handoff, not a banked run, not a clean stop, not a resumable state.
+
+This is inherited from the sibling, where the rule had to be written four times because each
+closure was specific and the next run invented a new sentence the old closure did not literally
+name. The hatches that have actually been used, and are now dead:
+
+| the sentence a run used | why it is dead |
+|---|---|
+| "no story clears the bar, so I ship nothing" | There is always news. The story gate plus a ladder of fallbacks. |
+| "the remaining defects are cosmetic, shipping below bar with disclosure" | The ship gate is hash-bound with no override flag. |
+| "I can't reach the bar, so I report a failed run" | A failing panel is an instruction to re-enter the loop. |
+| "I ran out of runway, so I banked the work and queued the story" | Context is not a budget. Nothing measures one. |
+
+**Your own context is not a legitimate cause and never will be.** The harness summarises and the
+run continues. A run that is genuinely blocked reports an error; a run that is rationalising
+writes an essay about integrity.
+
+## The two laws of drawing Texas
+
+From `knowledge/texas/VERNACULAR.md`, and they govern every frame.
+
+**One. A Texan forgives a stylized drawing. A Texan does not forgive being told they live
+somewhere they don't.** Style is free. Place is not. The Panhandle and Houston do not share a
+green. A story set in Reeves County does not get Hill Country limestone.
+
+**Two. Build the cast demographically FIRST, before any episode needs it.** A vector library gets
+built in the order it is needed, and the first character authored becomes the default reach
+forever. Left alone, that default is a white man in a hat. Cowboys belong here and the base cast
+opens with a rancher in a straw hat and pearl snaps. Cowboys ONLY do not. **A hat is real on a
+rancher at a sale barn and a costume on a Houston software executive, and the library knows the
+difference.**
+
+Corollaries that are hard rules:
+
+- **Facial variation lives in shape language applied evenly across all characters.** Skin tone is
+  a fill value that never changes the line work. In a thick-outline idiom, feature exaggeration
+  slides toward caricature without anyone intending it.
+- **Six Flags Over Texas is retired as a motif.** One of the six is the Confederate flag. Use the
+  Republic-era and current Lone Star only.
+- **Lotería imagery and Day of the Dead iconography are appropriation, not shared culture.** Do
+  not use them. Talavera tile geometry as a pattern system is fine.
+- **Nothing is symmetric.** A hat crease is hand-shaped and lopsided. A mesquite is never
+  balanced. A windmill fan is a full disc but the tail vane swings.
+- **Maintained but worn.** A rust drip, a dent, a leaning post, a missing letter. Not new, not
+  ruined.
+
+## The engine
+
+**Remotion + React + hand-authored SVG.** No WebGL, no canvas, no image assets. Depth is real
+browser 3D projection through one shared virtual camera in `video-engine/src/lib/stage3d.tsx`.
+
+**RETIRED, never for new work, history only:** any per-frame PIL or Taichi raymarcher, and every
+doc describing one. The sibling carries a retired `dimensional.py` pipeline and a
+`DIMENSIONAL_CRAFT.md` that reads authoritative and is dead. If a doc here describes rendering
+frames in Python, it is wrong.
+
+## Voice
+
+**Gemini TTS**, owner's decision. `gemini-3.1-flash-tts-preview` primary,
+`gemini-2.5-pro-preview-tts` as the failover on repeated 500s. The whole passage is synthesised
+in ONE call for natural sentence-to-sentence flow, N takes are rendered, and a soundcheck keeps
+the best: word accuracy, no spoken-tag leak, pitch variance, duration, loudness.
+
+**Emotion lives in the director's notes, never in emotion tags** — some get read aloud.
+
+**NEVER time-stretch audio.** If the read runs long, TRIM THE SCRIPT and re-synth the affected
+lines.
+
+Captions come from forced alignment on the FINAL mixed audio. Approximated, scaled or hand-shifted
+caption timings are banned.
+
+Needs `GEMINI_API_KEY`. The voice pick is auditioned and recorded in `config/voices.yaml`.
+
+## The bar is READ, never quoted
+
+The ship threshold lives in `config/dispatch_rubric.yaml` and nowhere else. Do not type a bar into
+a prompt, a brief, or a verdict file.
+
+The sibling lost five panel rounds to this: its prompt said 9.0 while the rubric had said 7.5 for
+two weeks. The panel was briefed 9.0, scored the film 7.08, and returned ship:false on a cut that
+was already over the real bar. Two judges flagged the divergence unprompted and the run kept
+grading against the wrong number anyway. **A number restated in a second place is a number that
+will be wrong in one of them.**
+
+## Sibling repos
+
+| Repo | Relationship |
+|---|---|
+| `TexasAIDocket` | the record, the site, the carousel. **This repo writes exactly one file there: `docs/videos/videos.json`**, appended by the publish step. Nothing else, ever. |
+| `TexasAIScanner` | the Bottleneck Scanner backend. No overlap. |
+
+The Alaska repos (`alaskaaicarousels`, `alaska-ai-weekly`, `alaska-ai-scanner`) are REFERENCE
+ONLY. Never write to them. Never copy their ledger memory: the dedupe gates compare against recent
+history and Alaska's would poison them.
+
+## Layout
+
+- `prompts/` — `dispatch_routine.md` is the single source of truth for the routine.
+  `ROUTINE_PROMPT.txt` is the thin pointer pasted into the routines UI.
+- `knowledge/texas/` — the research that makes it Texas: vernacular, regions, the cast, fauna,
+  landmarks, speech. Every art decision traces here.
+- `knowledge/craft/` — how the show is made: stage3d authoring, visual flow, hook craft, VO
+  direction, the showstopper standard.
+- `config/` — brand, voices, the rubric that holds the bar, sources.
+- `scripts/` — the gates and the build steps. Run them by EXIT CODE, never by last line.
+- `video-engine/` — the Remotion project. `src/lib/` is the reusable cast and juice.
+- `assets/` — fonts, voice reference, committed art data.
+- `out/` — per-run scratch (gitignored). `runs/` — shipped artifacts.
+
+## House rules that never bend
+
+Inherited from the docket, because the two products are one voice.
+
+Dates take the ordinal, month first. "August 12th", never "12 August", never a bare "August 12".
+No em dashes or en dashes anywhere. Ranges read "X to Y".
+No emojis. Straight quotes only.
+No colons and no semicolons in published copy. Write two sentences.
+Never "cannot", always "can't". Never open a sentence with "And" or "But".
+No first person in published copy.
+Every fact carries a claim id and traces to a fetched source.
+Honest scores, honest emails. If it is not in the claims file, it does not exist.
