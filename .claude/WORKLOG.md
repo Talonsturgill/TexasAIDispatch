@@ -88,9 +88,9 @@ share a green.
 | V1 | The Texas research the vernacular doc owes us | **DONE** — REGIONS, CAST, FAUNA_AND_FLORA, KIT, CULTURE |
 | V2 | Engine port: stage3d verbatim, lighting REBUILT regional, voice/motion/materials ported | **DONE** |
 | V3 | **The Texas cast.** Character rig, outfits, headgear, built demographically first | **DONE** — 10 authored in one commit, rendered and looked at |
-| V4 | Texas biomes: the regions, each with its own light and green | TODO |
+| V4 | Texas biomes: the regions, each with its own light and green | **DONE** — 10 regions, rendered and compared |
 | V5 | Texas fauna: the species, drawn correctly | TODO |
-| V6 | Texas props, vehicles, civics: pumpjack, substation, cattle guard, water tower, pickup | TODO |
+| V6 | Texas kit: pumpjack, data centre, transformer, lattice tower, turbine, windmill, stock tank, cattle guard, water tower, mesquite, prickly pear | **DONE** |
 | V7 | The scripts: 37 port near-verbatim, the rest rebuild | TODO |
 | V8 | The routine prompt, the 9 agents, the craft doctrine | TODO |
 | V9 | Proof: render a real Dispatch end to end | TODO |
@@ -149,3 +149,21 @@ share a green.
   the whole cast look bald. And `y` was documented as the feet anchor while the local origin is
   at the shoulders, so a caller placing a figure on a ground line got it floating a third of a
   body above it. GATE_LESSONS 15 again, from a new direction: the fixture agrees with the author.
+- 2026-08-12 — Waves V4 and V6. The kit leads with the pumpjack, and its phase is derived from
+  the seed by DEFAULT so a field is automatically out of step and a caller has to work to
+  synchronise it rather than the reverse. That inversion is the whole lesson of the KIT doc: every
+  unit in a real field is at a different point in its stroke, and a synchronised row is the tell.
+  The transformer gets radiator fins and bushings because without them it is a shipping container.
+  The conductor takes a catenary sag because a straight line between tower tops is the tell.
+- 2026-08-12 — `engine_lint.py`, written after the SECOND corrupted colour literal in one
+  session. `'#2b3category'` and `'#e0b<CJK>88'` are both valid TypeScript strings, and a browser
+  drops an unparseable colour silently and paints the default, so the frame renders and the region
+  is quietly the wrong colour. Two is a pattern and a pattern gets a gate. It also refuses
+  Math.random in a render, a zero-sag conductor, a pumpjack pinned to a constant phase, and two
+  regions sharing a green, which is the vernacular law in the one place it is checkable.
+- 2026-08-12 — that gate failed on its own first run, on a false positive, and the fix is the
+  more useful half. materials.tsx carries the line "no Math.random (banned for Remotion
+  determinism)", which is the module CORRECTLY documenting that it does not do the thing, and the
+  gate read its own rule as a violation. Comments are now stripped before scanning, with the
+  newlines preserved so reported line numbers stay accurate. A gate that fires on a docstring
+  describing the rule it enforces is a gate that gets switched off in a week.
