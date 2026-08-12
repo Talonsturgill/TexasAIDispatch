@@ -86,8 +86,8 @@ share a green.
 |---|---|---|
 | V0 | Foundation: CLAUDE.md, guards, port manifest, this file | **DONE** |
 | V1 | The Texas research the vernacular doc owes us | **DONE** — REGIONS, CAST, FAUNA_AND_FLORA, KIT, CULTURE |
-| V2 | Engine port, the state-agnostic ~50%: stage3d, lighting, motion, materials, FX, voice, props, records, simulation, vision, screenlight, absence, nameengine, bench | TODO |
-| V3 | **The Texas cast.** Character rig, outfits, headgear, built demographically first | TODO |
+| V2 | Engine port: stage3d verbatim, lighting REBUILT regional, voice/motion/materials ported | **DONE** |
+| V3 | **The Texas cast.** Character rig, outfits, headgear, built demographically first | **DONE** — 10 authored in one commit, rendered and looked at |
 | V4 | Texas biomes: the regions, each with its own light and green | TODO |
 | V5 | Texas fauna: the species, drawn correctly | TODO |
 | V6 | Texas props, vehicles, civics: pumpjack, substation, cattle guard, water tower, pickup | TODO |
@@ -127,3 +127,25 @@ share a green.
   construction: one head geometry system, skin as a fill token that never touches the line work,
   and an evenly spaced ramp, so the caricature failure mode is structurally hard rather than merely
   discouraged.
+- 2026-08-12 — Waves V2 and V3. stage3d ports VERBATIM and says so in its header: it is a
+  camera, a projection and a light model with no state in it, and rewriting it to look original
+  would throw away the only part of a port that is already correct. lighting is a REBUILD: the
+  colour maths and the four-stop ramp port, but the sibling's single low dawn key does not,
+  because Texas has ten lights and one global key would make every region the same place. The
+  relationship that carries it is shadeDrop against humidity: the Gulf has the smallest shadow
+  drop in the set because the air fills every shadow, the Trans-Pecos the largest because nothing
+  does, and the Hill Country gets a bright cool fill because limestone bounces light UP into the
+  shade, which is the region's whole tell and almost nobody draws it.
+- 2026-08-12 — the cast rig, and a defect in the source worth not inheriting. That rig hardcodes
+  `const skinShade = '#c99268'` and uses it for every character's shadow side, ear crease, neck AO
+  and nose line. It is a value tuned for ONE skin tone, so on a dark-skinned character the shadow
+  is LIGHTER than the base and the shading inverts. A rig whose shadow constant only works at one
+  end of the ramp cannot draw a cast. Here it is derived through the same tones() ramp as
+  everything else, and the sheet proves it across all eight tones.
+- 2026-08-12 — three bugs found by RENDERING the cast and looking at it, none of which a
+  typecheck could see. Every hat drew as a ring around the character's face, because the head
+  circle sits at cy -58 while the headgear was authored around the origin. Then the fix had the
+  sign backwards and put the hats at the neck, which also hid the hair behind the torso and made
+  the whole cast look bald. And `y` was documented as the feet anchor while the local origin is
+  at the shoulders, so a caller placing a figure on a ground line got it floating a third of a
+  body above it. GATE_LESSONS 15 again, from a new direction: the fixture agrees with the author.
