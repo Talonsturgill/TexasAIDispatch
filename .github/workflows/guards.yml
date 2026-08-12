@@ -1,0 +1,55 @@
+name: guards
+
+# The gates, run on every change. Each self-tests FIRST: a gate that cannot go red proves
+# nothing about what it guards, so the self-test reintroduces known-bad inputs and requires
+# the checker to reject them before the real run is allowed to mean anything.
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: guards-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: pip install --quiet pyyaml
+
+      - name: Engine lint self-test (the defects tsc is structurally blind to)
+        run: |
+          # Two corrupted colour literals shipped into this repo in one session, both valid
+          # TypeScript. A browser drops an unparseable colour silently and paints the default,
+          # so the frame renders and the region is quietly the wrong colour.
+          python3 scripts/engine_lint.py --self-test
+          python3 scripts/engine_lint.py
+
+      - name: The bar is stated exactly once
+        run: |
+          # The sibling lost five panel rounds in one run to a threshold written down twice:
+          # its prompt said 9.0 while the rubric said 7.5, so the panel was briefed the wrong
+          # number and returned ship:false on a cut already over the real bar.
+          python3 scripts/bar_check.py --self-test
+          python3 scripts/bar_check.py
+
+      - name: Engine typechecks
+        run: |
+          cd video-engine
+          npm ci --no-audit --no-fund
+          npx tsc --noEmit

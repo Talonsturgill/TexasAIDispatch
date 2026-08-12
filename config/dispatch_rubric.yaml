@@ -1,0 +1,59 @@
+# THE BAR LIVES HERE AND NOWHERE ELSE.
+#
+# Never restate this number in a prompt, a brief, or a verdict file. The sibling lost five panel
+# rounds to exactly that: its routine prompt said 9.0 while this file had said 7.5 for two weeks,
+# so the panel was briefed 9.0, scored the film 7.08, and returned ship:false on a cut that was
+# already over the real bar. Two judges flagged the divergence unprompted and the run kept
+# grading against the wrong number anyway.
+#
+# A number restated in a second place is a number that will be wrong in one of them.
+#
+# WHY 7.5 AND NOT 9.0. The sibling recalibrated off 9.0 with the reason written down: 9.0 was
+# implicitly calibrated against a painterly fidelity this brand deliberately does not use, so the
+# ceiling on every run became the house style itself, and the panel's weakest axis was "the flat
+# vector characters" for nine straight rounds while every concrete defect got fixed. A bar that
+# can only be cleared by abandoning the house style is not a bar, it is a disagreement about the
+# style, and it belongs in a style decision rather than in a score.
+rubric:
+  ship_threshold: 7.5
+
+  axes:
+    hook:
+      weight: 0.18
+      asks: >
+        Would a stranger stop scrolling in the first two seconds, with the sound off? The first
+        frame is the whole decision. A title card is not a hook.
+    story:
+      weight: 0.20
+      asks: >
+        Is there an earned take, or is this a summary of the news with pictures on it? Does the
+        piece turn somewhere the viewer did not see coming?
+    picture:
+      weight: 0.20
+      asks: >
+        Does every five seconds pay in motion, emotion or revelation? Is anything a held slide
+        with a voice over it?
+    place:
+      weight: 0.14
+      asks: >
+        Would a Texan from that county believe the person who drew this had been there? Region
+        light, vegetation, kit and cast all correct for the story's actual county.
+    craft:
+      weight: 0.14
+      asks: >
+        Camera moves composed rather than static. Depth used. Type legible at feed size. Nothing
+        symmetric that should not be. Maintained but worn, not new and not ruined.
+    voice:
+      weight: 0.14
+      asks: >
+        Does the read sound like a person who knows the subject, or like a narrator reading? Are
+        captions aligned to the final mix rather than approximated?
+
+  hard_fails:
+    - a numeral on screen or in the script that does not trace to a verified claim
+    - a caption timing that was approximated, scaled or hand-shifted rather than force-aligned
+    - audio time-stretched to fit a cut
+    - a region that does not match the story's county
+    - a retired motif: six flags, Confederate imagery, lotería, calavera, a headdress
+    - a brimmed hat on a rig floor or in a unit
+    - a held slide longer than five seconds with no motion, emotion or revelation

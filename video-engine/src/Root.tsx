@@ -2,6 +2,7 @@ import React from 'react';
 import {Composition} from 'remotion';
 import {CastSheet} from './CastSheet';
 import {RegionSheet} from './RegionSheet';
+import {ProofScene} from './ProofScene';
 import {RegionName} from './lib/lighting';
 
 const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers', 'blackland',
@@ -9,6 +10,8 @@ const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers',
 
 export const RemotionRoot: React.FC = () => (
   <>
+    <Composition id="Proof" component={ProofScene} durationInFrames={150}
+      fps={30} width={1080} height={1920} />
     <Composition id="CastSheet" component={CastSheet} durationInFrames={30}
       fps={30} width={1080} height={1920} />
     {REGIONS.map((r) => (
