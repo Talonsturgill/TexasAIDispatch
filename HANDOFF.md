@@ -35,13 +35,18 @@ reachable under the environment's network policy.
 Cost is small per Dispatch, and the model is `gemini-3.1-flash-tts-preview` with
 `gemini-2.5-pro-preview-tts` as the failover on repeated 500s.
 
-**Audition the voice before the first real run** and record the pick in `config/voices.yaml`. The
-sibling auditioned several and chose one for warmth; that choice is theirs and not automatically
-ours. `knowledge/craft/VO_DIRECTION.md` describes the read this show is going for: a person who
-knows the subject, telling you something they think you should know, slightly dry and willing to
-leave a silence.
+**Audition the voice before the first real run.** `config/voices.yaml` carries a DEFAULT so the
+machine runs rather than blocking on a preference, and it says so in the file. It also carries the
+method: synthesise the same real Dispatch passage in every candidate, grade them all with
+`vo_soundcheck.py`, and only listen once the measured takes are ranked. A voice that reads a
+pleasant paragraph well and lands a figure badly is the wrong voice for a show whose whole subject
+is figures. Record the winner in the same file.
 
-**Without the key, everything else still runs** and the run reports the voice step as blocked
+`knowledge/craft/VO_DIRECTION.md` describes the read: a person who knows the subject, telling you
+something they think you should know, slightly dry and willing to leave a silence.
+
+**Without the key, everything else still runs.** `vo_synth_gemini.py` exits 3, which means BLOCKED
+and is deliberately not the same exit code as failed. The run reports the voice step as blocked
 rather than shipping a silent film.
 
 ---
@@ -59,14 +64,30 @@ manifest. The routine environment needs push access to that repo for the step to
 
 **Done.** The research (`knowledge/texas/`, five docs written against sources). The engine:
 `stage3d` ported verbatim, `lighting` rebuilt with ten regional lights, the cast rig with ten
-people authored in one pass, ten biomes, the industrial and rural kit. The routine prompt, five
-agents, the rubric that holds the bar. Three gates with self-tests, wired into CI. A proof scene
-that renders 150 frames with three composed camera moves.
+people authored in one pass, ten biomes, the industrial and rural kit, and fifteen species of
+fauna drawn at true scale against the cast rig. The routine prompt, five agents, the rubric that
+holds the bar. A proof scene that renders 150 frames with three composed camera moves.
 
-**Not done, and the honest list.** The synth wrapper that actually calls Gemini (the soundcheck
-that grades its output is written and tested). The mix and the forced-alignment step for captions.
-The ship gate and the flow check. Fauna. The storyboard check that Gate 0 calls. Those are the
-remaining scripts named in `prompts/dispatch_routine.md`, and a run cannot complete without them,
-which is why the worklog still lists Wave V7 as partial rather than done.
+**Every script the routine calls now exists**, each with a `--self-test` that replays the defect
+it was built for, and all ten are wired into CI:
+
+| gate | what it refuses |
+|---|---|
+| `engine_lint` | a corrupted colour literal, which a browser drops silently and paints the default |
+| `bar_check` | the ship threshold written down in more than one place |
+| `staging_check` | an animal standing in a region it does not live in |
+| `storyboard_check` | a relabel pretending to be composition divergence, before a frame is rendered |
+| `flow_check` | a rest across a cut, a beat with no motivated sound, a picture the voice carries |
+| `vo_synth_gemini` | a prompt whose spoken body contains direction, refused before a call is spent |
+| `vo_soundcheck` | the take that reads a stage direction aloud, and the drone |
+| `vo_align` | caption boundaries that do not trace to measured silence |
+| `mix` | a read that does not fit. There is no resampler in that file, and its self-test proves the absence |
+| `ship_gate` | the rubric's hard fails, six of the seven checked mechanically |
+
+**Still open, and the honest list.** The engine renders a proof scene, not yet a full Dispatch
+from a story: nothing has been driven end to end with real research through to a delivered file,
+because that needs the routine to actually run. Wave V7's alignment is silence-anchored rather
+than phoneme-level, which is stated plainly wherever it is claimed. The commercial wing
+(`TexasAIScanner`) has not started.
 
 `.claude/WORKLOG.md` carries the wave table and every decision's reasoning. Read it first.

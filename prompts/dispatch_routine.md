@@ -193,9 +193,16 @@ Gemini TTS. Spawn `vo-director` first: it PLANS the read into `out/dispatch/vo_d
 following `knowledge/craft/VO_DIRECTION.md`, per-line intent, emphasis, energy contrast.
 
 ```
-python3 scripts/vo_synth_gemini.py
-python3 scripts/vo_soundcheck.py
+python3 scripts/vo_synth_gemini.py --script out/dispatch/vo_script.txt \
+       --direction out/dispatch/vo_direction.json --out out/dispatch/takes --takes 3
+python3 scripts/vo_soundcheck.py --takes out/dispatch/takes/takes.json \
+       --script out/dispatch/vo_script.txt --cut <runtime>
 ```
+
+`vo_synth` REFUSES before spending a call if the script itself contains direction vocabulary,
+and `vo_soundcheck` catches it again in the transcript if a take speaks one anyway. Same
+defect, both sides. Without `GEMINI_API_KEY` the synth exits 3, which means BLOCKED and is not
+the same as failed: report the voice step as blocked and never ship a silent film.
 
 Whole passage in ONE call for natural sentence-to-sentence flow. N takes, keep the best.
 
@@ -205,8 +212,19 @@ Whole passage in ONE call for natural sentence-to-sentence flow. N takes, keep t
 
 ### CAPTIONS
 
-Forced alignment on the FINAL mixed audio. Every cue comes from the words JSON. Approximated,
-scaled or hand-shifted timings are banned.
+```
+python3 scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json \
+       --out out/dispatch/mix.wav --cut <runtime>
+python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt \
+       --out out/dispatch
+```
+
+Alignment runs on the FINAL mixed audio and every cue comes from the words JSON. Approximated,
+scaled or hand-shifted timings are banned, and `ship_gate` checks the EVIDENCE for alignment
+rather than the name of the method: the count of boundaries actually measured off the waveform.
+
+`mix.py` has no resampler in it, deliberately. If the read runs long it refuses and tells you by
+how much. The fix is a shorter script and a re-synth of those lines, never a stretch.
 
 ## PHASE 6 — GATES AND PANEL
 

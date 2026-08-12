@@ -91,7 +91,7 @@ share a green.
 | V4 | Texas biomes: the regions, each with its own light and green | **DONE** — 10 regions, rendered and compared |
 | V5 | Texas fauna: the species, drawn correctly | **DONE** — 15 species at TRUE SCALE against the Character rig, rendered and looked at five times; `staging_check` written |
 | V6 | Texas kit: pumpjack, data centre, transformer, lattice tower, turbine, windmill, stock tank, cattle guard, water tower, mesquite, prickly pear | **DONE** |
-| V7 | The scripts | **PARTIAL** — `engine_lint`, `bar_check`, `vo_soundcheck` and `staging_check` written with self-tests and wired into CI and the routine. The Gemini synth wrapper, the mix, forced alignment, `flow_check` and `ship_gate` remain |
+| V7 | The scripts | **DONE** — all ten the routine calls, each with a `--self-test` replaying the defect it exists for, all wired into CI and the routine: `engine_lint`, `bar_check`, `staging_check`, `storyboard_check`, `flow_check`, `vo_synth_gemini`, `vo_soundcheck`, `vo_align`, `mix`, `ship_gate` |
 | V8 | The routine prompt, the agents, the rubric | **DONE** — `dispatch_routine.md`, 5 agents, `dispatch_rubric.yaml` |
 | V9 | Proof: the engine renders end to end | **DONE** — a 5s clip, 150 frames, three composed camera moves |
 

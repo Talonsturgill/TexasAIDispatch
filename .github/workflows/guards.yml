@@ -30,7 +30,13 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: pip install --quiet pyyaml
+        run: |
+          # numpy is not optional here. The voice gates decode raw PCM, measure BS.1770
+          # loudness and track pitch with it, and a run that pip-installs less than the gates
+          # need does not skip them, it FAILS them. This repo has already lost a first push to
+          # exactly that, and the wrong fix is to make a gate skip when its dependency is
+          # missing: a skipped test and a passing test are the same colour.
+          pip install --quiet pyyaml numpy requests
 
       - name: Engine lint self-test (the defects tsc is structurally blind to)
         run: |
@@ -65,6 +71,43 @@ jobs:
           # direction written inline CAN be read aloud, and a narrator who says the word
           # "excited" has ended the film. Duration failures say TRIM THE SCRIPT, never stretch.
           python3 scripts/vo_soundcheck.py --self-test
+
+      - name: The storyboard, before a single frame is rendered
+        run: |
+          # Gate 0. Everything after this point costs a render, so a board that is wrong here
+          # costs a paragraph instead of an hour. The check that earns its keep is DIVERGENCE
+          # measured on the composition signature rather than the label: six scenes that all say
+          # dollyThrough over the same planes read as a varied board and play as one shot.
+          python3 scripts/storyboard_check.py --self-test
+
+      - name: The cut flows, and the ear moves with the eye
+        run: |
+          # A film can pass every per-scene check and still be good frames with nothing pulling
+          # the viewer across the joins. This measures rests ACROSS boundaries, a motivated sound
+          # on every beat, and whether the picture ever shows what the voice is talking about.
+          python3 scripts/flow_check.py --self-test
+
+      - name: The voice is synthesised, measured and aligned honestly
+        run: |
+          # vo_synth builds the prompt so direction is a PREAMBLE and the script is fenced, and
+          # refuses a script containing direction BEFORE spending a call. Its self-test also pins
+          # its drone measurement to the threshold vo_soundcheck refuses on, because two files
+          # that agree by convention rather than by test drift apart unwatched.
+          python3 scripts/vo_synth_gemini.py --self-test
+          # Caption boundaries land on measured silence, so error re-anchors every phrase instead
+          # of accumulating across the film.
+          python3 scripts/vo_align.py --self-test
+          # And the mixer has no resampler in it. Not disabled, absent, and the self-test proves
+          # the absence by scanning its own code with the prose stripped out.
+          python3 scripts/mix.py --self-test
+
+      - name: The rubric's hard fails, checked rather than promised
+        run: |
+          # Six of the seven hard fails are mechanical, so they are mechanical. The numeral
+          # tokeniser is the part that has been wrong before: a sibling read "2,600 streamlines"
+          # as the number 600 and reported a correct figure as unauthorised, which is how a gate
+          # gets switched off. The bar is READ from the rubric and never restated here.
+          python3 scripts/ship_gate.py --self-test
 
       - name: Engine typechecks
         run: |
