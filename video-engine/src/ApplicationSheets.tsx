@@ -167,7 +167,7 @@ export const RoadSheet: React.FC = () => {
 
         <Row ground={600} title={148} head="The rig, and the silhouette that changed"
           note="A day cab, because that is what a lane-haul autonomous truck runs and the shorter shape is a real tell. The roof pod is what a viewer reads at highway distance: the empty seat is invisible at this size, which is the whole composition problem this beat has.">
-          <Freight.Lane x={-40} y={470} w={1160} h={200} frame={f} speed={1} divided={false} />
+          <Freight.Lane x={-40} y={438} w={1160} h={165} frame={f} speed={1} divided={false} />
           <Freight.AutonomousRig x={760} y={560} frame={f} scale={0.16} seed={2} speed={1} />
           <Ref x={1010} y={560} f={f} cast="engineer" scale={0.28} />
           <Cap x={560} y={566}>tractor, van trailer, mast</Cap>
