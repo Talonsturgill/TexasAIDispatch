@@ -230,7 +230,7 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
       // Almost no trees. A LONE TREE IS A LANDMARK, not scenery, so there is exactly one.
       return (
         <g>
-          <Mesquite x={188} y={groundY + 30} scale={1.0} seed={seed} />
+          <Mesquite x={188} y={groundY + 30} scale={0.04459} seed={seed} />
           {Array.from({length: 40}, (_, i) => (
             <line key={i} x1={rnd(seed, i) * W} y1={groundY + 20 + rnd(seed, 40 + i) * 90}
               x2={rnd(seed, i) * W + 5} y2={groundY + 8 + rnd(seed, 40 + i) * 90}
@@ -245,11 +245,11 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
         <g>
           {Array.from({length: 9}, (_, i) => (
             <Mesquite key={i} x={rnd(seed, i) * W} y={groundY + 10 + rnd(seed, 20 + i) * 70}
-              scale={0.75 + rnd(seed, 30 + i) * 0.7} seed={seed + i * 13} />
+              scale={(0.03344) + rnd(seed, 30 + i) * 0.03121} seed={seed + i * 13} />
           ))}
           {Array.from({length: 6}, (_, i) => (
             <PricklyPear key={i} x={rnd(seed, 60 + i) * W} y={groundY + 40 + rnd(seed, 70 + i) * 80}
-              scale={0.9 + rnd(seed, 80 + i) * 0.7} seed={seed + i * 7} />
+              scale={(0.1463) + rnd(seed, 80 + i) * 0.1138} seed={seed + i * 7} />
           ))}
         </g>
       );
@@ -330,7 +330,7 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
         <g>
           {Array.from({length: 7}, (_, i) => (
             <Mesquite key={i} x={rnd(seed, i) * W} y={groundY + 14 + rnd(seed, 20 + i) * 70}
-              scale={0.8 + rnd(seed, 30 + i) * 0.7} seed={seed + i * 11} />
+              scale={(0.03567) + rnd(seed, 30 + i) * 0.03121} seed={seed + i * 11} />
           ))}
         </g>
       );

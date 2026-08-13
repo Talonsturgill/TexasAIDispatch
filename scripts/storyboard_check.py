@@ -37,6 +37,23 @@ THE DEFECTS IT IS FOR, each one seen for real.
   nothing declared on screen and nothing declared moving is a voiceover with a colour
   behind it.
 
+  AND THE ONE THAT MADE EVERY RULE ABOVE ORNAMENTAL. The board this gated and the
+  props Remotion rendered were TWO DIFFERENT DOCUMENTS. This file read scenes whose
+  `planes` were the labels a director writes -- sky, far ridge, mid, near band, hero
+  -- and `Dispatch.tsx` renders scenes whose `planes` are `{z, items}` carrying named
+  components. Nothing converted one into the other and nothing compared them, so
+  every divergence rule, every fingerprint and every no-two-films-alike guarantee was
+  being enforced against a document THAT WAS NOT THE FILM. A board could pass Gate 0
+  and stage nothing at all.
+
+  THE BOARD IS THE PROPS NOW. One document, gated here and handed to Remotion
+  unchanged. A plane carries its director's `label` and its `z` and its `items`, and
+  the staging half is checked as hard as the planning half: every `kind` is a name
+  the registry has, the elements made of data have their data, the planes run far to
+  near, nothing is sited where it does not belong, and a scene that stages nothing is
+  refused. `Dispatch.tsx` throws on an unknown name at render time; this refuses it an
+  hour earlier, which is the whole argument for Gate 0.
+
     storyboard_check.py --board out/dispatch/storyboard.json
     storyboard_check.py --self-test
 
@@ -74,6 +91,29 @@ RETIRED = {"six flags", "confederate", "loteria", "lotería", "calavera", "headd
            "wood type", "rope border", "cowhide"}
 
 
+SITING_FILE = REPO / "config" / "siting.yaml"
+
+
+def plane_signature(planes: list) -> tuple:
+    """A hashable, comparable shape for one scene's plane stack.
+
+    It carries the director's LABEL and the KINDS staged on each plane, which makes
+    it a stronger divergence signal than the labels alone: two scenes that put the
+    same components on the same planes are the same shot whatever the planes are
+    called. It also has to be hashable, because the divergence rule puts these in a
+    set, and a list of dicts is not -- which is how unifying the two board shapes
+    would have crashed this file rather than weakening it.
+    """
+    out = []
+    for pl in planes:
+        if isinstance(pl, dict):
+            kinds = tuple(sorted(str(i.get("kind", "")) for i in (pl.get("items") or [])))
+            out.append((str(pl.get("label", "")), kinds))
+        else:
+            out.append((str(pl), ()))
+    return tuple(out)
+
+
 def signature(scene: dict) -> tuple:
     """What a scene actually looks like, ignoring the words used to describe it.
 
@@ -82,8 +122,129 @@ def signature(scene: dict) -> tuple:
     divergence check is not a set of camera_strategy strings.
     """
     return (scene.get("camera_strategy", ""),
-            tuple(scene.get("planes", [])),
+            plane_signature(scene.get("planes", []) or []),
             scene.get("hero", ""))
+
+
+def registry_facts() -> tuple[set[str], dict[str, list[str]]]:
+    """The placeable names and their required props, READ FROM THE REGISTRY.
+
+    Never restated here. `registry.tsx` is where a name becomes a component, so it
+    is the only place that knows what the names are, and a second list in this file
+    would be right on the day it was written and wrong on the next one.
+    """
+    src = (REPO / "video-engine" / "src" / "lib" / "registry.tsx").read_text(encoding="utf-8")
+    m = re.search(r"export const ELEMENTS: Record<string, React\.FC<any>> = \{(.*?)\n\};",
+                  src, re.S)
+    if not m:
+        raise ValueError("registry.tsx has no ELEMENTS map in the shape this reads. "
+                         "Gate 0 cannot check a board's element names without it.")
+    names = set(re.findall(r"^\s*([A-Za-z][A-Za-z0-9]*):", m.group(1), re.M))
+
+    req: dict[str, list[str]] = {}
+    r = re.search(r"export const REQUIRED: Record<string, string\[\]> = \{(.*?)\n\};",
+                  src, re.S)
+    if r:
+        for name, body in re.findall(r"^\s*([A-Za-z][A-Za-z0-9]*):\s*\[(.*?)\],",
+                                     r.group(1), re.M):
+            req[name] = re.findall(r"'([^']+)'", body)
+    return names, req
+
+
+def staging_problems(sid: str, scene: dict, planes: list, names: set[str],
+                     required: dict[str, list[str]], siting: dict) -> list[str]:
+    """THE HALF THAT WAS NEVER CHECKED, because it lived in a different document.
+
+    Everything here is a fault `Dispatch.tsx` would hit at RENDER time with the run's
+    research, script and voice already paid for. Gate 0 is the cheap place, so it is
+    checked here instead.
+    """
+    out: list[str] = []
+    staged = 0
+    zs: list[float] = []
+
+    for pi, pl in enumerate(planes):
+        where = f"scene {sid} plane {pi}"
+        if not isinstance(pl, dict):
+            out.append(
+                f"{where}: a plane is {pl!r}, a bare label. A plane is `{{z, label, items}}` "
+                f"now: THE BOARD IS THE PROPS, so a plane that carries no z and no items "
+                f"cannot be rendered. This shape used to pass here and produce an empty "
+                f"film, which is the fault that made every other rule in this file "
+                f"ornamental.")
+            continue
+        if not isinstance(pl.get("z"), (int, float)):
+            out.append(f"{where}: no numeric z. Depth is what the camera moves through and "
+                       f"a plane without one has no place in the stack.")
+        else:
+            zs.append(float(pl["z"]))
+        if not str(pl.get("label") or "").strip():
+            out.append(f"{where}: no label. The label is what a director boards and what the "
+                       f"divergence signature reads, so a stack of unnamed planes reads as "
+                       f"the same stack every time.")
+
+        items = pl.get("items")
+        if items is None:
+            out.append(f"{where}: no items key at all. An empty list is a deliberate empty "
+                       f"plane and is fine; a missing key is a plane nobody finished.")
+            continue
+        if not isinstance(items, list):
+            out.append(f"{where}: items is {type(items).__name__}, not a list.")
+            continue
+
+        for ii, it in enumerate(items):
+            at = f"scene {sid} plane {pi} item {ii}"
+            if not isinstance(it, dict):
+                out.append(f"{at}: not an object.")
+                continue
+            kind = str(it.get("kind") or "")
+            if not kind:
+                out.append(f"{at}: no kind.")
+                continue
+            staged += 1
+            if kind not in names:
+                near = sorted(n for n in names if n[:4].lower() == kind[:4].lower())
+                out.append(
+                    f"{at}: \"{kind}\" is not a name the registry has, so the render throws "
+                    f"here with the whole run already paid for."
+                    + (f" Did you mean {', '.join(near[:4])}?" if near else
+                       " Add it to ELEMENTS or stage something that exists."))
+                continue
+            need = required.get(kind, [])
+            bag = {**it, **(it.get("props") or {})}
+            missing = [k for k in need if bag.get(k) is None]
+            if missing:
+                out.append(
+                    f"{at}: {kind} is missing {', '.join(missing)}. Without "
+                    f"{'them' if len(missing) > 1 else 'it'} the element computes NaN geometry "
+                    f"and draws NOTHING, which renders without error and loses the plane "
+                    f"silently. Put {'them' if len(missing) > 1 else 'it'} in \"props\".")
+            rule = siting.get(kind)
+            if rule and scene.get("region") in set(rule.get("regions") or []):
+                out.append(
+                    f"{at}: {kind} in {scene.get('region')}. {str(rule.get('why', '')).strip()} "
+                    f"A Texan reads a mis-sited machine as fast as a mis-sited animal.")
+
+    if zs and zs != sorted(zs, reverse=True):
+        out.append(f"scene {sid}: the planes are not ordered far to near ({zs}). They are drawn "
+                   f"in board order, so a shuffled stack puts the foreground behind the sky.")
+    if len(set(zs)) != len(zs):
+        out.append(f"scene {sid}: two planes share a z ({zs}). Coplanar layers have no parallax "
+                   f"between them, which is the one thing the depth was for.")
+    if staged == 0:
+        out.append(f"scene {sid}: stages nothing. Every plane is empty, so this renders as a "
+                   f"biome with a caption over it and reports success.")
+    return out
+
+
+def load_siting() -> dict[str, dict]:
+    """Where a machine does not belong. Absent file means no siting rule, not a pass
+    dressed as one, so its absence is reported by the caller rather than swallowed."""
+    if not SITING_FILE.exists():
+        raise FileNotFoundError(f"no siting rules at {SITING_FILE}")
+    import yaml
+    data = yaml.safe_load(SITING_FILE.read_text(encoding="utf-8")) or {}
+    return data.get("never_in", {}) or {}
 
 
 def load_rule() -> dict:
@@ -247,6 +408,20 @@ def check(board: dict) -> list[str]:
     if not scenes:
         return ["the board has no scenes"]
 
+    # The registry and the siting rules are READ, never restated. A failure to read
+    # either is a STOP rather than a skip: a Gate 0 that quietly drops half its rules
+    # because a file moved is the fail-open this repo keeps finding.
+    try:
+        names, required = registry_facts()
+    except (OSError, ValueError) as exc:
+        return [f"cannot read the registry: {exc}. Gate 0 cannot check what a board stages "
+                f"without it, and running the rest would report a pass on half the rules."]
+    try:
+        siting = load_siting()
+    except (OSError, ImportError) as exc:
+        return [f"cannot read config/siting.yaml: {exc}. Same reason: a missing rule file is "
+                f"a stop, not a silent pass."]
+
     runtime = float(board.get("runtime_s") or 0)
     if runtime < MIN_RUNTIME_S:
         p.append(f"runtime {runtime:.0f}s is under the {MIN_RUNTIME_S:.0f}s floor in the "
@@ -272,6 +447,7 @@ def check(board: dict) -> list[str]:
         if not 4 <= len(planes) <= 6:
             p.append(f"scene {sid}: {len(planes)} planes. Four to six, or there is no depth "
                      f"for the camera to move through.")
+        p += staging_problems(sid, s, planes, names, required, siting)
         if s.get("beat") not in CURRENCIES:
             p.append(f"scene {sid}: beat {s.get('beat')!r} is not one of "
                      f"{', '.join(sorted(CURRENCIES))}. Every five seconds pays in one of them.")
@@ -350,10 +526,34 @@ def self_test() -> int:
         if not cond:
             failures += 1
 
+    def planes(i):
+        """A real staged stack, because THE BOARD IS THE PROPS.
+
+        The fixture used to be `["sky", "ridge", "mid", "near", "hero"]` -- the shape
+        this file gated and Remotion could not render. Keeping it here would have
+        meant the self-test proving the checker works on a document the product does
+        not use, which is the same fault one layer up.
+        """
+        return [
+            {"z": 900, "label": "sky", "items": [
+                {"kind": "turkeyVulture", "x": 700, "y": 300, "scale": 0.5}]},
+            {"z": 600, "label": "ridge", "items": [
+                {"kind": "windTurbine", "x": 900, "y": 950, "scale": 0.6}]},
+            {"z": 380, "label": "mid", "items": [
+                {"kind": "centrePivot", "x": 60, "y": 1020, "scale": 1.0},
+                {"kind": "soilProbe", "x": 520, "y": 1080, "scale": 1.0}]},
+            {"z": 180, "label": "near", "items": [
+                {"kind": "person", "x": 340, "y": 1400, "scale": 0.8,
+                 "props": {"cast": "rancher", "pose": "hands-hips"}}]},
+            {"z": 60, "label": "hero", "items": [
+                {"kind": "mesquite", "x": -80, "y": 2040, "scale": 5.0,
+                 "props": {"seedNote": i}}]},
+        ]
+
     def scene(i, **kw):
         s = {"id": f"s{i}", "start_s": (i - 1) * 5.0, "duration_s": 5.0,
              "region": "high_plains", "county": "Taylor", "camera_strategy": "dollyThrough",
-             "planes": ["sky", "ridge", "mid", "near", "hero"], "hero": f"h{i}",
+             "planes": planes(i), "hero": f"h{i}",
              "cast": [{"id": "rancher", "emotion": "worried"}], "beat": "motion",
              "on_screen": "a substation yard", "what_moves": "the camera pushes past a pole"}
         s.update(kw)
@@ -455,6 +655,70 @@ def self_test() -> int:
     ok("two planes is not depth", any("no depth" in x for x in check(thin)))
 
     ok("an empty board is refused", bool(check({"runtime_s": 60, "scenes": []})))
+
+    # ------------------------------------------------------------- THE BOARD IS THE PROPS
+    #
+    # Everything below here checks the STAGING half, which used to live in a second
+    # document nothing gated. Each case is a fault Dispatch.tsx would hit at render
+    # time with the run's research, script and voice already paid for.
+    names, required = registry_facts()
+    ok("the registry's names are READ rather than restated here",
+       "centrePivot" in names and "pumpjack" in names and len(names) > 40, f"{len(names)}")
+    ok("...and so are the props the data-driven elements need",
+       required.get("sweep") == ["x", "y", "w", "h", "p"], str(required.get("sweep")))
+    ok("the siting rules are readable",
+       "centrePivot" in load_siting(), str(sorted(load_siting())))
+
+    old_shape = board()
+    old_shape["scenes"][2]["planes"] = ["sky", "ridge", "mid", "near", "hero"]
+    ok("THE OLD PLANNING-ONLY BOARD IS REFUSED, because it renders an empty film",
+       any("a bare label" in x for x in check(old_shape)))
+
+    ghost = board()
+    ghost["scenes"][1]["planes"][2]["items"][0]["kind"] = "windPivot"
+    got = check(ghost)
+    ok("a kind the registry does not have is refused BEFORE the render",
+       any("is not a name the registry has" in x for x in got))
+    ok("...and the message suggests what was meant",
+       any("Did you mean" in x and "windTurbine" in x for x in got), str(got[:2]))
+
+    bare = board()
+    bare["scenes"][1]["planes"][2]["items"].append({"kind": "sweep", "x": 40, "y": 60})
+    ok("an element made of data, staged without its data, is refused",
+       any("missing w, h, p" in x for x in check(bare)), str(check(bare)[:2]))
+
+    empty = board()
+    for pl in empty["scenes"][3]["planes"]:
+        pl["items"] = []
+    ok("a scene that stages nothing is refused",
+       any("stages nothing" in x for x in check(empty)))
+
+    shuffled = board()
+    shuffled["scenes"][1]["planes"][0]["z"] = 10
+    ok("planes out of far-to-near order are refused",
+       any("not ordered far to near" in x for x in check(shuffled)))
+
+    coplanar = board()
+    coplanar["scenes"][1]["planes"][1]["z"] = coplanar["scenes"][1]["planes"][0]["z"]
+    ok("two planes at the same z are refused, because parallax was the point",
+       any("share a z" in x for x in check(coplanar)))
+
+    unlabelled = board()
+    unlabelled["scenes"][1]["planes"][2]["label"] = ""
+    ok("a plane with no label is refused", any("no label" in x for x in check(unlabelled)))
+
+    # SITING. The same class of error as a pronghorn in the Piney Woods.
+    mis = board()
+    for s in mis["scenes"]:
+        s["region"] = "gulf"
+        s["county"] = "Chambers"
+    got = check(mis)
+    ok("a centre pivot in the Gulf marsh is refused",
+       any("centrePivot in gulf" in x for x in got), str([g for g in got if "gulf" in g][:1]))
+    ok("...and the refusal explains the geography rather than citing a rule number",
+       any("rice under levee" in x for x in got))
+    ok("...while the same pivot on the High Plains is fine",
+       not any("centrePivot in" in x for x in check(board())))
 
     # ---------------------------------------------------------------- THE VARIETY ENGINE
     #

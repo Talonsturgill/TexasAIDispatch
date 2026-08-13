@@ -100,6 +100,16 @@ jobs:
           # a gate that calls every run a repeat teaches a run to argue past it.
           python3 scripts/dedupe.py --self-test
 
+      - name: A drawing nothing can stage is dead weight
+        run: |
+          # registry.tsx opened by claiming this checker already walked the library and failed
+          # on any unregistered export. It did not exist: the guarantee lived in a comment, in
+          # the repo whose founding fault is moving a thing over and forgetting to wire it up.
+          # wiring_check cannot see it either, because a script named only in a TSX comment is
+          # invisible to both of its directions.
+          python3 scripts/registry_check.py --self-test
+          python3 scripts/registry_check.py
+
       - name: The storyboard, before a single frame is rendered
         run: |
           # Gate 0. Everything after this point costs a render, so a board that is wrong here

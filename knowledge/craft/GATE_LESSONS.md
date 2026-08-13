@@ -323,3 +323,72 @@ declared threshold vacuous, one at a time, and requires that gate's own `--self-
 caught, which is the first evidence in this repo that the self-tests are connected to the numbers
 they name rather than merely green. It runs in five seconds, which is the whole argument for
 keeping it in CI rather than doing it once by hand and trusting the memory of it.
+
+## 22. Gate 0 gated a document that was not the film
+
+`storyboard_check.py` read scenes whose `planes` were the labels a director writes -- sky, far
+ridge, mid, near band, hero. `Dispatch.tsx` renders scenes whose `planes` are `{z, items}`
+carrying named components. **Nothing converted one into the other and nothing compared them.**
+
+So every rule in the most expensive gate in the routine -- the composition fingerprint, the
+cross-run divergence memory, the never-two-films-alike guarantee, the beat mix, the tiling, the
+silent-first rule -- was being enforced against a board that was **not the thing Remotion would
+render**. A board could pass Gate 0 and stage nothing at all. The prompt's own Phase 5 line was
+`--props=...`, an ellipsis, because there was no step that produced the props and nobody had
+noticed there needed to be one.
+
+It is the same shape as entry 19, one level up. There, a file existed and nothing invoked it.
+Here, a *check* existed and nothing connected it to the artifact. **A gate is defined by the
+artifact it reads, not by the rules it contains**, and this one had drifted onto a neighbour.
+
+Two things kept it invisible. `len(planes)` is 5 for both shapes, so the plane-count rule passed
+either way. And the two halves were written months apart by different concerns, each internally
+coherent, so reading either file alone showed nothing wrong.
+
+**THE BOARD IS THE PROPS.** One document, gated and then rendered by path. The staging half is
+now checked as hard as the planning half -- every `kind` is a registry name, elements made of data
+have their data, planes run far to near with distinct z, nothing is sited where it does not
+belong, and a scene that stages nothing is refused -- because every one of those is a fault
+`Dispatch.tsx` hits at render time with the research, the script and the voice already paid for.
+
+And the trap inside the fix: the self-test's own fixture still used the old plane shape, so it
+passed while proving the checker worked on a document the product does not use. That is the same
+fault a third time, in the test for it.
+
+## 23. True scale is a system, not a per-file choice
+
+`fauna`, `vehicles` and `civics` fit every drawing to a real dimension, so `scale={1}` means one
+thing and a longhorn beside a person is right without anyone thinking about it. `kit` did not.
+Eleven objects were drawn at whatever size read well in a review sheet, so `scale` there was a
+private convention per component that a board author had to discover by rendering.
+
+It stayed invisible while scenes were hand-authored, because a person tuning a number until the
+frame looks right does not care what the number means. It surfaced the moment a board wrote the
+number from story data: a data centre came out shorter than the two people standing in front of
+it, and a grain elevator at `scale: 1` was seven frame-heights tall.
+
+**Converting the module is the easy half.** The ripple is that every existing call site's number
+now means something else, and the conversion is exact -- divide by the fit factor -- but only if
+you find them all, including the ones inside computed expressions in `biomes.tsx` that a regex for
+`scale={0.9}` will not match.
+
+The honest limit, written down rather than papered over: a gate that checked staged size from the
+height tables **would not have caught the frame that started this**. The centre pivot was the
+right height and forty feet too wide, because a quarter-mile machine is ten times longer than it
+is tall and the tables carry only height. A width-blind size gate would have gone green on a
+broken frame and been worse than no gate, so there is not one. The tools that work here are true
+scale so the numbers compose, and a render you actually look at.
+
+## 24. An `<svg>` clips, and a plane that recedes cannot reach the edge it was clipped to
+
+Each plane in `Dispatch.tsx` is an `<svg width={1080} viewBox="0 0 1080 1920">`, and an SVG clips
+to its viewport. So no plane could draw one pixel outside the frame. Meanwhile `Plane` scales a
+receding layer DOWN about the frame centre, so a ground treatment sized exactly to the frame
+arrived on screen about a hundred pixels narrow, with bare ground showing down both margins.
+
+Sizing the treatment wider does nothing, because the clip happens first. The fix is one line --
+`style={{overflow: 'visible'}}` -- and the reason it is worth an entry is that **the symptom
+points at the wrong file.** It looks like a sizing bug in the board, and every attempt to fix it
+there fails silently in a way that reads as "not wide enough yet".
+
+Nothing errored. The film simply looked like it had a border nobody gave it, on every scene.

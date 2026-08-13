@@ -25,6 +25,45 @@ function rnd(seed: number, ch: number): number {
   return ((k >>> 8) % 10000) / 10000;
 }
 
+/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
+const M = 610 / 1.7;
+
+/**
+ * THE MODULE THAT SKIPPED TRUE SCALE, and the one that then broke a board.
+ *
+ * `fauna`, `vehicles` and `civics` all declare a real dimension and fit their local
+ * frame to it, so `scale={1}` means one thing everywhere and a longhorn beside a
+ * person is right without anyone thinking about it. This file did not: every object
+ * was drawn at whatever size read well in a review sheet, so `scale` here was a
+ * private convention per component and a board author had to discover each one by
+ * rendering it.
+ *
+ * `local` is the reference height in the drawing's own frame -- the number the
+ * paths were built around -- and `h` is what that height IS in metres. A component
+ * that takes an `h` prop keeps taking it: passing a different local height is how
+ * you draw a shorter tower, and it scales proportionally because it goes through
+ * the same fit.
+ *
+ * The heights are measurements of ordinary Texas examples, not of record holders.
+ */
+export const KIT_M: Record<string, {h: number; local: number; note: string}> = {
+  pumpjack: {h: 6.5, local: 150, note: 'to the top of the samson post, a common pumping unit'},
+  dataCentre: {h: 12, local: 120, note: 'single-storey hall, ground to the roof line'},
+  transformer: {h: 4.5, local: 104, note: 'a substation power transformer, tank and bushings'},
+  latticeTower: {h: 45, local: 300, note: 'a 345 kV lattice suspension tower'},
+  windTurbine: {h: 100, local: 340, note: 'hub height. The blades reach above it.'},
+  windmill: {h: 10, local: 210, note: 'an Aermotor farm windmill on a 33 foot tower'},
+  stockTank: {h: 1.2, local: 30, note: 'the bank of an earthen tank, at the near rim'},
+  cattleGuard: {h: 0.3, local: 32, note: 'the pipe deck, which sits nearly flush in the road'},
+  waterTower: {h: 40, local: 260, note: 'a municipal tower, ground to the top of the bowl'},
+  mesquite: {h: 6, local: 96, note: 'a mature mesquite at the crown'},
+  pricklyPear: {h: 1.2, local: 70, note: 'a clump at the top pad'},
+};
+
+/** Local reference height to true scale. Pass a component's own `h` to keep it
+ *  proportional when a board asks for a shorter one. */
+const fit = (k: keyof typeof KIT_M, local = KIT_M[k].local) => (KIT_M[k].h * M) / local;
+
 export interface KitProps {
   x?: number; y?: number; scale?: number; seed?: number; wear?: number;
   facing?: 1 | -1;
@@ -53,8 +92,9 @@ export const Pumpjack: React.FC<KitProps & {
   const tb = tones(body, L);
   const uid = useUid('pj');
 
+  const K = fit('pumpjack');
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale * facing} ${K * scale})`}>
       <defs><FormGradient id={`${uid}_b`} t={tb} softness={0.6} /></defs>
       <ContactShadow cx={0} cy={2} rx={128} opacity={0.3} blur={12} />
 
@@ -134,8 +174,9 @@ export const DataCentre: React.FC<KitProps & {w?: number; h?: number; units?: nu
   const L = useLight();
   const tw = tones('#c9c4bb', L);
   const uid = useUid('dc');
+  const K = fit('dataCentre', h);
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <defs><FormGradient id={`${uid}_w`} t={tw} softness={0.5} /></defs>
       <ContactShadow cx={w / 2} cy={4} rx={w * 0.56} opacity={0.28} blur={14} />
       {/* the slab */}
@@ -179,8 +220,9 @@ export const Transformer: React.FC<KitProps> = ({
   const L = useLight();
   const tb = tones('#8a9199', L);
   const uid = useUid('tf');
+  const K = fit('transformer');
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <defs><FormGradient id={`${uid}_t`} t={tb} softness={0.58} /></defs>
       <ContactShadow cx={0} cy={2} rx={78} opacity={0.3} blur={10} />
       {/* tank */}
@@ -219,8 +261,9 @@ export const LatticeTower: React.FC<KitProps & {h?: number}> = ({
   x = 0, y = 0, scale = 1, h = 300,
 }) => {
   const w = h * 0.34;
+  const K = fit('latticeTower', h);
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       {/* legs */}
       <path d={`M${-w / 2},0 L${-w * 0.14},${-h} M${w / 2},0 L${w * 0.14},${-h}`}
         stroke={INK} strokeWidth={5} fill="none" />
@@ -278,8 +321,9 @@ export const WindTurbine: React.FC<KitProps & {
 }> = ({x = 0, y = 0, scale = 1, seed = 5, frame, h = 340, rpm = 13, night = false}) => {
   const spin = (frame / 30) * (rpm / 60) * 360 + rnd(seed, 2) * 120;
   const bladeL = h * 0.46;
+  const K = fit('windTurbine', h);
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <path d={`M-9,0 L-5,${-h} L5,${-h} L9,0 Z`} fill="#e8e6e0" stroke={INK} strokeWidth={4.4} />
       <g transform={`translate(0 ${-h})`}>
         <rect x={-8} y={-11} width={34} height={22} rx={6} fill="#e8e6e0" stroke={INK} strokeWidth={4} />
@@ -314,8 +358,9 @@ export const Windmill: React.FC<KitProps & {frame: number; h?: number}> = ({
 }) => {
   const spin = (frame / 30) * 44 + rnd(seed, 3) * 360;
   const vane = Math.sin(frame / 41 + rnd(seed, 4) * 6) * 9;   // the vane swings, it never sits still
+  const K = fit('windmill', h);
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       {/* four-leg lattice */}
       {[[-1, -1], [1, 1]].map(([a, b], i) => (
         <path key={i} d={`M${a * 26},0 L${b * 5},${-h}`} stroke={INK} strokeWidth={4} fill="none" />
@@ -353,8 +398,9 @@ export const StockTank: React.FC<KitProps & {drought?: number}> = ({
   const water = tones('#4a6f7a', L);
   const uid = useUid('st');
   const level = 1 - Math.max(0, Math.min(1, drought));
+  const K = fit('stockTank');
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <defs><FormGradient id={`${uid}_w`} t={water} softness={0.4} /></defs>
       <ellipse cx={0} cy={0} rx={118} ry={30} fill="#8a7b63" stroke={INK} strokeWidth={5} />
       {/* the ring the water used to reach */}
@@ -382,8 +428,10 @@ export const StockTank: React.FC<KitProps & {drought?: number}> = ({
  *  Drawn right it is instantly legible. Drawn as a grate it is wrong. */
 export const CattleGuard: React.FC<KitProps & {w?: number}> = ({
   x = 0, y = 0, scale = 1, w = 220,
-}) => (
-  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+}) => {
+  const K = fit('cattleGuard');
+  return (
+  <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
     <rect x={-w / 2} y={-16} width={w} height={32} fill="#6f6558" stroke={INK} strokeWidth={4} />
     {Array.from({length: 9}, (_, i) => (
       <line key={i} x1={-w / 2 + 8} y1={-13 + i * 3.4} x2={w / 2 - 8} y2={-13 + i * 3.4}
@@ -394,7 +442,8 @@ export const CattleGuard: React.FC<KitProps & {w?: number}> = ({
       <path key={s} d={`M${s * (w / 2)},-14 l${s * 54},-30`} stroke={INK} strokeWidth={4} />
     ))}
   </g>
-);
+  );
+};
 
 /** Water tower — town name and, if a town has one, a championship year. */
 export const WaterTower: React.FC<KitProps & {town?: string; year?: string; h?: number}> = ({
@@ -403,8 +452,9 @@ export const WaterTower: React.FC<KitProps & {town?: string; year?: string; h?: 
   const L = useLight();
   const tb = tones('#dcd6c8', L);
   const uid = useUid('wt');
+  const K = fit('waterTower', h);
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <defs><FormGradient id={`${uid}_b`} t={tb} softness={0.52} /></defs>
       {[-1, 1].map((s) => (
         <path key={s} d={`M${s * 34},0 L${s * 13},${-h * 0.62}`} stroke={INK} strokeWidth={5} />
@@ -435,8 +485,9 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
   x = 0, y = 0, scale = 1, seed = 9, w = 160, h = 96,
 }) => {
   const lean = (rnd(seed, 1) - 0.5) * 16;
+  const K = fit('mesquite', h);
   return (
-    <g transform={`translate(${x} ${y}) scale(${scale}) rotate(${lean * 0.2})`}>
+    <g transform={`translate(${x} ${y}) scale(${K * scale}) rotate(${lean * 0.2})`}>
       {/* the trunk DIVIDES NEAR THE GROUND, which is half of what makes it a mesquite */}
       <path d={`M0,0 q${-3 + lean * 0.2},-18 -14,-30 q-9,-10 -26,-16`} stroke="#4a3a2c"
         strokeWidth={9} fill="none" strokeLinecap="round" />
@@ -473,8 +524,10 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
  *  ON THE PAD RIMS. The pad is an irregular paddle, never a circle. */
 export const PricklyPear: React.FC<KitProps & {pads?: number}> = ({
   x = 0, y = 0, scale = 1, seed = 10, pads = 6,
-}) => (
-  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+}) => {
+  const K = fit('pricklyPear');
+  return (
+  <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
     {Array.from({length: pads}, (_, i) => {
       const a = (rnd(seed, i) - 0.5) * 70 + (i - pads / 2) * 12;
       const px = (rnd(seed, 20 + i) - 0.5) * 44;
@@ -496,4 +549,5 @@ export const PricklyPear: React.FC<KitProps & {pads?: number}> = ({
       );
     })}
   </g>
-);
+  );
+};

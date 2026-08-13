@@ -40,8 +40,15 @@ export interface Scene {
   region: RegionName;
   county: string;
   camera_strategy: keyof typeof CameraMoves;
-  /** ordered far to near. Each plane's z and what stands on it. */
-  planes: {z: number; items: Placed[]}[];
+  /** Ordered far to near. Each plane's z, the director's name for it, and what
+   *  stands on it.
+   *
+   *  `label` is not decoration and it is not read here. THE BOARD IS THE PROPS: this
+   *  same file is what `storyboard_check` gates at Gate 0, and the label is what a
+   *  director boards and what the divergence signature reads. Two shots whose plane
+   *  stacks are named and populated the same way are the same shot, however
+   *  differently the captions read. */
+  planes: {z: number; label?: string; items: Placed[]}[];
   /** screen-space, never in the world: see the note on chrome below */
   super?: string;
   caption?: string;
@@ -77,20 +84,20 @@ export const DEFAULT_DISPATCH: DispatchProps = {
       camera_strategy: 'dollyThrough', seed: 31, groundY: 1060,
       super: 'Taylor County',
       planes: [
-        {z: 860, items: [{kind: 'turkeyVulture', x: 760, y: 330, scale: 0.5, seed: 51}]},
-        {z: 640, items: [
-          {kind: 'pumpjack', x: 130, y: 962, scale: 0.5, seed: 40, props: {rpm: 7, wear: 0.4}},
-          {kind: 'pumpjack', x: 470, y: 958, scale: 0.52, seed: 49, props: {rpm: 8, wear: 0.5}},
-          {kind: 'windTurbine', x: 980, y: 958, scale: 0.62, seed: 3},
+        {z: 860, label: 'sky', items: [{kind: 'turkeyVulture', x: 760, y: 330, scale: 0.5, seed: 51}]},
+        {z: 640, label: 'ridge', items: [
+          {kind: 'pumpjack', x: 120, y: 962, scale: 0.12, seed: 40, props: {rpm: 7, wear: 0.4}},
+          {kind: 'pumpjack', x: 620, y: 958, scale: 0.13, seed: 49, props: {rpm: 8, wear: 0.5}},
+          {kind: 'windTurbine', x: 980, y: 958, scale: 0.026, seed: 3},
         ]},
-        {z: 300, items: [{kind: 'dataCentre', x: -40, y: 1180, scale: 1.5, seed: 5,
+        {z: 300, label: 'mid', items: [{kind: 'dataCentre', x: -40, y: 1180, scale: 0.12, seed: 5,
                           props: {wear: 0.25}}]},
-        {z: 150, items: [
+        {z: 150, label: 'near', items: [
           {kind: 'person', x: 330, y: 1420, scale: 0.8, props: {cast: 'engineer', pose: 'point'}},
           {kind: 'person', x: 620, y: 1426, scale: 0.8, facing: -1,
            props: {cast: 'rancher', pose: 'hands-hips', emotion: 'wry'}},
         ]},
-        {z: 40, items: [{kind: 'mesquite', x: -90, y: 2080, scale: 5.4, seed: 9}]},
+        {z: 40, label: 'hero', items: [{kind: 'mesquite', x: -60, y: 2020, scale: 0.28, seed: 9}]},
       ],
     },
     {
@@ -98,10 +105,10 @@ export const DEFAULT_DISPATCH: DispatchProps = {
       camera_strategy: 'craneDown', seed: 12, groundY: 1120,
       super: 'and the water under it',
       planes: [
-        {z: 700, items: [{kind: 'waterTower', x: 820, y: 1000, scale: 0.9, seed: 2}]},
-        {z: 420, items: [{kind: 'windmill', x: 200, y: 1060, scale: 1.1, seed: 4}]},
-        {z: 200, items: [{kind: 'stockTank', x: 620, y: 1180, scale: 1.2, seed: 6}]},
-        {z: 90, items: [{kind: 'jackrabbit', x: 300, y: 1300, scale: 0.9, seed: 24}]},
+        {z: 700, label: 'sky', items: [{kind: 'waterTower', x: 820, y: 1000, scale: 0.084, seed: 2}]},
+        {z: 420, label: 'ridge', items: [{kind: 'windmill', x: 200, y: 1060, scale: 0.22, seed: 4}]},
+        {z: 200, label: 'mid', items: [{kind: 'stockTank', x: 620, y: 1180, scale: 0.17, seed: 6}]},
+        {z: 90, label: 'near', items: [{kind: 'jackrabbit', x: 300, y: 1300, scale: 0.9, seed: 24}]},
       ],
     },
   ],
@@ -137,7 +144,16 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
         groundY={scene.groundY ?? 1060} weather={scene.weather}>
         {scene.planes.map((pl, i) => (
           <Plane key={i} z={pl.z}>
-            <svg width={1080} height={1920} viewBox="0 0 1080 1920">
+            {/* OVERFLOW VISIBLE, and it is not a nicety. An <svg> clips to its
+                viewport, so with the default a plane could not draw one pixel outside
+                0..1080 -- and a plane pushed back by perspective is scaled DOWN about
+                the frame centre, so it can no longer reach the edges it was just
+                clipped to. The result was a bare strip down both margins of every
+                receding plane: a ground treatment sized exactly to the frame arrived
+                on screen a hundred pixels narrow. Nothing errored, and the film
+                looked like it had a border it was never given. */}
+            <svg width={1080} height={1920} viewBox="0 0 1080 1920"
+              style={{overflow: 'visible'}}>
               {/* The ADDRESS is threaded in, not just the item. An element the board
                   did not seed takes its variation from where it stands, which is
                   distinct per instance and the same on every frame. See `seedFor`

@@ -202,13 +202,41 @@ our best recurring composition and it is true.
 Where the show gets good. Board every beat: what is on screen, what moves, what the camera does,
 what the viewer LEARNS AS A PICTURE.
 
+**THE BOARD IS THE PROPS.** `out/dispatch/storyboard.json` is one document: the thing Gate 0
+gates and the thing Remotion renders, unchanged. It used to be two. This file described a board
+whose `planes` were labels while `Dispatch.tsx` rendered a board whose planes carried components,
+nothing converted one into the other, and **every divergence rule was being enforced against a
+document that was not the film.** Write the staging as you board it.
+
 Declare per scene:
+- `id`, `start_s`, `duration_s` — the scenes tile the runtime with no gap and no overlap
 - `region` — from the story's county
+- `county` — the region comes FROM it, so a region without one was chosen for how it looks
 - `camera_strategy` — a named move from `CameraMoves`: dollyThrough, orbitReveal, craneDown,
   truckAcross, riseWith. **A scene with a static camera wastes the engine.**
-- `planes` — 4 to 6: sky, far ridge, mid, near band, hero, foreground sweep
+- `planes` — 4 to 6, **ordered far to near**, each `{z, label, items}`:
+  - `z` is depth, descending down the list. Two planes at the same z have no parallax between
+    them, which is the one thing the depth was for.
+  - `label` is what you would call it on paper: sky, far ridge, mid, near band, hero, foreground
+    sweep. The divergence signature reads it.
+  - `items` are what STANDS there: `{kind, x, y, scale, facing?, seed?, props?}`. `kind` is a name
+    in `ELEMENTS` and nothing else. A scene whose planes are all empty renders as a biome with a
+    caption over it and reports success.
 - `cast` — who is on screen and what they are FEELING
 - `beat` — the currency this five seconds pays in: motion, emotion or revelation
+- `on_screen` and `what_moves` — so the scene can be told muted
+
+**79 things can stand on a plane and most of them are the show.** `lib/kit`, `fauna`, `vehicles`
+and `civics` draw the LAND and the furniture on it. `agriculture`, `freight`, `compute`, `clinic`,
+`water` and `plantfloor` draw the six application beats `knowledge/texas/APPLICATIONS.md` ranks.
+For a while only the first group existed, which quietly made a show about what AI is doing in
+Texas into a show about Texas with captions over it. A board about the aquifer stages a
+`centrePivot` and a `groundSection`. A board about the Dallas to Houston lane stages an
+`autonomousRig` and cuts to a `cabView`. A board about a building stages a `rackRow`, not a shed.
+
+```
+python3 scripts/registry_check.py      # what exists, and proof every drawing is reachable
+```
 
 ## PHASE 4.5 — GATE 0, before any scene code
 
@@ -234,13 +262,19 @@ A board that passes here is the last cheap place to fix a film.
 
 ## PHASE 5 — BUILD
 
-Scenes are code, story is data. Per-run story data goes in via `--props`.
+Scenes are code, story is data, and **the data is the board Gate 0 just passed.** Not a second
+document written from it. The same file, by path.
 
 ```
-cd video-engine && npx remotion render Dispatch out/dispatch/film.mp4 --props=...
+cd video-engine && npx remotion render Dispatch out/dispatch/film.mp4 \
+  --props=../out/dispatch/storyboard.json
 ```
 
 **Read the QA, not the exit code.** A scene that draws nothing renders without error.
+
+A board can express most shots. When it cannot, write a bespoke scene component and register it
+in `lib/registry.tsx` — the engine is a floor, not a ceiling, and `registry_check.py` will hold
+you to registering it rather than leaving a drawing no board can reach.
 
 ### VOICE
 

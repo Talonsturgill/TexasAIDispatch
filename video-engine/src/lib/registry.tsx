@@ -4,6 +4,12 @@ import * as Fauna from './fauna';
 import * as Vehicles from './vehicles';
 import * as Civics from './civics';
 import * as Sensing from './sensing';
+import * as Ag from './agriculture';
+import * as Freight from './freight';
+import * as Compute from './compute';
+import * as Clinic from './clinic';
+import * as Water from './water';
+import * as Plant from './plantfloor';
 import {Character, castProps} from './Character';
 
 // =============================================================================
@@ -123,6 +129,58 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   plume: Sensing.Plume,
   readout: Sensing.Readout,
   confidenceSpread: Sensing.ConfidenceSpread,
+
+  // -------------------------------------------------------------------------
+  // THE APPLICATION LAYER. Everything above this line draws the LAND and the
+  // furniture on it, and for a while that was the whole engine, which made a show
+  // about what AI is doing in Texas into a show about Texas with captions over it.
+  // `knowledge/texas/APPLICATIONS.md` ranks eight beats by how Texas they are and
+  // the engine could stage two of them. These are the other six.
+  // -------------------------------------------------------------------------
+
+  // the farm and the ranch, over a shrinking aquifer
+  centrePivot: Ag.CentrePivot,
+  cropRows: Ag.CropRows,
+  grainElevator: Ag.GrainElevator,
+  feedlotPen: Ag.FeedlotPen,
+  soilProbe: Ag.SoilProbe,
+  herdSensor: Ag.HerdSensor,
+  groundSection: Ag.GroundSection,
+
+  // the road that already has no driver on it
+  autonomousRig: Freight.AutonomousRig,
+  sensorMast: Freight.SensorMast,
+  cabView: Freight.CabView,
+  lane: Freight.Lane,
+  weighStation: Freight.WeighStation,
+  dockDoors: Freight.DockDoors,
+
+  // inside the building the docket is about
+  cabinet: Compute.Cabinet,
+  rackRow: Compute.RackRow,
+  coolingTower: Compute.CoolingTower,
+  generatorBank: Compute.GeneratorBank,
+  switchgear: Compute.Switchgear,
+  coolingUnit: Compute.CoolingDistributionUnit,
+
+  // the largest medical centre in the world
+  gantry: Clinic.Gantry,
+  contourPlan: Clinic.ContourPlan,
+  readingStation: Clinic.ReadingStation,
+  towerBlock: Clinic.TowerBlock,
+
+  // measurement and warning, handled carefully
+  streamGauge: Water.StreamGauge,
+  lowWaterCrossing: Water.LowWaterCrossing,
+  sirenMast: Water.SirenMast,
+  rainCell: Water.RainCell,
+  handsetAlert: Water.HandsetAlert,
+
+  // what Texas now makes
+  robotArm: Plant.RobotArm,
+  conveyor: Plant.Conveyor,
+  inspectionHead: Plant.InspectionHead,
+  toolBay: Plant.ToolBay,
 };
 
 export const ELEMENT_NAMES = Object.keys(ELEMENTS).sort();
