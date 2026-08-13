@@ -72,6 +72,15 @@ jobs:
           # "excited" has ended the film. Duration failures say TRIM THE SCRIPT, never stretch.
           python3 scripts/vo_soundcheck.py --self-test
 
+      - name: The id the routine renders is an id the engine registers
+        run: |
+          # Phase 5 has always run `npx remotion render Dispatch` and Root.tsx registered no such
+          # composition, so EVERY unattended run produced no film. tsc is clean because an id is a
+          # string; engine_lint reads colours; wiring_check knows agents and scripts and has no
+          # notion of a composition. The deliverable itself was the orphan.
+          python3 scripts/composition_check.py --self-test
+          python3 scripts/composition_check.py
+
       - name: Everything that exists is reachable, and everything named exists
         run: |
           # The failure this whole project was set up to prevent: move a thing over and forget to
@@ -133,3 +142,16 @@ jobs:
           cd video-engine
           npm ci --no-audit --no-fund
           npx tsc --noEmit
+
+      - name: Two of a thing are two things
+        run: |
+          # An SVG gradient is referenced by DOCUMENT-GLOBAL id and the browser silently takes
+          # the first match. Every drawn thing built its ids out of `seed`, which carries a
+          # per-species default, so two longhorns staged without distinct seeds both emitted
+          # id="lh5_c" and the second animal was painted with the first animal's coat. tsc is
+          # clean because an id is a string, engine_lint reads colours, and the fauna sheet's
+          # herd row passes explicit seeds so the one surface that would have shown it could
+          # not. This renders the library to markup and reads the markup.
+          cd video-engine
+          node tests/paint_ids.mjs --self-test
+          node tests/paint_ids.mjs

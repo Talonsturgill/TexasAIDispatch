@@ -233,3 +233,55 @@ prompt or a workflow runs it *on real inputs*.
 
 The gate was verified the only way that counts: the orphan was put back on purpose and the check
 went red, then removed and it went green.
+
+## 20. Two of a thing were one thing, and the one surface that would have shown it could not
+
+An SVG gradient, clip path or filter is referenced by **document-global id**, and the browser takes
+the first match in document order without a word about the rest. Every drawn thing in this library
+built its ids out of `seed`:
+
+```
+const uid = `lh${seed}`;              // Longhorn, seed defaults to 5
+```
+
+so two longhorns staged without explicit distinct seeds both emitted `id="lh5_c"` and **the second
+animal was painted with the first animal's coat.** The two-letter tags collided across modules too:
+a whitetail and a civics water tower were both `wt`, so a deer and a tank at the same seed shared a
+gradient.
+
+Four checkers were green and each was blind for its own reason. `tsc` cannot see it, because an id
+is a string. `engine_lint` reads colour literals. `staging_check` reads which animal stands in which
+region. `composition_check` reads which composition ids exist.
+
+**The part worth keeping is why the review sheet could not find it.** The fauna sheet's herd row
+stages five longhorns as `seed={51 + i * 7}` — deliberately distinct, because a person typing a herd
+can see the result and fixes it on sight. So the single surface built to show a herd is the one
+surface **structurally incapable of reproducing the defect**, and every eye-check of it passed
+honestly. Then `Dispatch.tsx` arrived, placing elements from board JSON where `seed` is optional,
+and unseeded duplicates went from unlikely to ordinary in the same commit.
+
+**A hand-authored review surface is written by someone avoiding the failure. Data-driven staging is
+written by a routine that does not know the failure exists.** When staging moves from the first to
+the second, the review surfaces stop covering it and nothing announces the change.
+
+Three separate fixes, and the split between them is the lesson:
+
+- **Ids come from `useId()`.** Unique per instance, stable for a given tree, and *invisible*.
+- **Appearance may NOT come from `useId()`**, because tree position shifts when a sibling appears on
+  a frame condition, and an animal whose coat changed mid-shot would be far worse than two that
+  matched. It comes from the element's **address on the board**, which is distinct per instance and
+  identical on every frame.
+- **The address arithmetic adds rather than hashes.** The first version hashed `scene/plane/item`
+  and collided four times in two hundred draws, exactly as the birthday bound predicts. Hashing the
+  scene and *adding* the position inside the modulus makes same-scene collisions impossible instead
+  of unlikely, and the test enumerates all 32,768 positions rather than sampling. **A gate that goes
+  red one run in fifty is a gate people learn to re-run.**
+
+And the assertion that was wrong on the first pass, in the file written to catch this: it asked
+whether a hide colour was *present in the markup*. On a document with two gradients sharing an id
+both colours are present and only one is drawn, so it passed while the duplicate check beside it was
+correctly red. **Assert what a browser would paint, not what the document contains** — resolve
+`url(#x)` to the first definition the way the renderer does.
+
+Verified the only way that counts: the seed-derived uid was put back in `fauna.tsx` on purpose, both
+assertions went red, and it was removed and they went green.

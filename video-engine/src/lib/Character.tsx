@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, INK as LINK} from './lighting';
 import {ambientMouth} from './voice';
 import {humanIdle} from './motion';
@@ -219,6 +220,17 @@ export interface CharacterProps {
   age?: number;
   /** deterministic per-figure desync seed */
   seed?: number;
+  /** Extra desync for two figures of the SAME cast member in one shot.
+   *
+   *  `seed` is cast IDENTITY: `castProps` derives it from the roster index, and it
+   *  drives the hat's weave as well as the breath phase, so the same rancher must
+   *  carry the same one in every shot or their straw hat changes texture between
+   *  cuts. That makes it the wrong knob for desync, because two engineers placed in
+   *  one frame share a cast id and would breathe and blink in perfect lockstep,
+   *  which reads as a copy-paste rather than as two people. This is the knob for
+   *  that: `registry.tsx` fills it from the element's address on the board, so it is
+   *  distinct per instance and identical on every frame. */
+  phase?: number;
 }
 
 export const Character: React.FC<CharacterProps> = ({
@@ -244,6 +256,7 @@ export const Character: React.FC<CharacterProps> = ({
   build = 0.5,
   age = 0.4,
   seed = 0,
+  phase = 0,
 }) => {
   const L = useLight();
   const c = {...OUTFITS[outfit], ...(trim ? {trim} : {})};
@@ -259,10 +272,10 @@ export const Character: React.FC<CharacterProps> = ({
 
   // Per-figure desync so no two cast members breathe or blink together. Hashed from
   // the seed AND the costume, so two figures in the same outfit still differ.
-  const desync = seed * 2.7 + outfit.length * 1.7 + (facing === 1 ? 0 : 2.1);
+  const desync = seed * 2.7 + outfit.length * 1.7 + (facing === 1 ? 0 : 2.1) + phase;
   const idle = humanIdle(f, desync, idleGain);
 
-  const uid = `tc${Math.round(x)}_${Math.round(y)}_${outfit}_${headgear}_${facing}_${seed}`;
+  const uid = useUid('tc');
 
   // ------------------------------------------------------------------ proportions
   // ONE geometry system. `build` and `age` scale the SAME shapes; they never swap in

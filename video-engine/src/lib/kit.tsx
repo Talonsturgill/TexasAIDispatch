@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, Galvanized, RustStreak,
         CalicheDust, BrushedMetal, INK} from './lighting';
 
@@ -50,7 +51,7 @@ export const Pumpjack: React.FC<KitProps & {
 
   const body = abandoned ? '#7a6a5a' : '#4d6b86';
   const tb = tones(body, L);
-  const uid = `pj${seed}`;
+  const uid = useUid('pj');
 
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`}>
@@ -132,7 +133,7 @@ export const DataCentre: React.FC<KitProps & {w?: number; h?: number; units?: nu
 }) => {
   const L = useLight();
   const tw = tones('#c9c4bb', L);
-  const uid = `dc${seed}`;
+  const uid = useUid('dc');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <defs><FormGradient id={`${uid}_w`} t={tw} softness={0.5} /></defs>
@@ -177,7 +178,7 @@ export const Transformer: React.FC<KitProps> = ({
 }) => {
   const L = useLight();
   const tb = tones('#8a9199', L);
-  const uid = `tf${seed}`;
+  const uid = useUid('tf');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <defs><FormGradient id={`${uid}_t`} t={tb} softness={0.58} /></defs>
@@ -350,7 +351,7 @@ export const StockTank: React.FC<KitProps & {drought?: number}> = ({
 }) => {
   const L = useLight();
   const water = tones('#4a6f7a', L);
-  const uid = `st${seed}`;
+  const uid = useUid('st');
   const level = 1 - Math.max(0, Math.min(1, drought));
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
@@ -401,7 +402,7 @@ export const WaterTower: React.FC<KitProps & {town?: string; year?: string; h?: 
 }) => {
   const L = useLight();
   const tb = tones('#dcd6c8', L);
-  const uid = `wt${seed}`;
+  const uid = useUid('wt');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <defs><FormGradient id={`${uid}_b`} t={tb} softness={0.52} /></defs>

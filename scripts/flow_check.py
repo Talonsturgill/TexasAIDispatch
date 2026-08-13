@@ -86,10 +86,33 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
 
     # ---- A REST, measured ACROSS boundaries rather than inside scenes.
     # Two adjacent scenes that move the same way at the same rate are one long drift.
+    # A SCENE BOUNDARY IS ONLY AN EVENT WHEN SOMETHING CHANGES ACROSS IT.
+    #
+    # The first version appended an unconditional "scene begins" for every scene, and Gate 0
+    # caps every scene at 5.0s, so the >MAX_REST_S condition could never be true on any board
+    # storyboard_check had accepted. Proof: an eight-scene forty-second board with
+    # `visual_events: []` on every single scene passed BOTH gates with zero problems. No visual
+    # event existed anywhere in the film and the rest check stayed silent.
+    #
+    # The docstring already said the rule breaks across a boundary between two scenes that move
+    # the same way; the code just applied that idea to a different check three lines down.
+    # A CUT IS NOT AN EVENT.
+    #
+    # The rule is that every five seconds PAYS in motion, emotion or revelation, and a hard cut
+    # to another static picture pays in nothing. So the gap is measured between DECLARED VISUAL
+    # EVENTS and scene starts are not counted among them.
+    #
+    # The first version appended an unconditional "scene begins" per scene. Gate 0 caps a scene
+    # at 5.0s, so the >MAX_REST_S condition was unreachable on any board Gate 0 had accepted:
+    # an eight-scene forty-second board with `visual_events: []` on every single scene passed
+    # both gates with zero problems, and no visual event existed anywhere in the film.
+    #
+    # Counting a boundary only when the shot changes across it — the first attempt at this fix —
+    # is no better, because that case is already caught by the "cut changes nothing" check twenty
+    # lines down. It would have made this check redundant rather than working.
     events: list[tuple[float, str]] = []
     for s in scenes:
         start = float(s.get("start_s") or 0)
-        events.append((start, f"scene {s.get('id')} begins"))
         for e in s.get("visual_events") or []:
             events.append((start + float(e.get("at_s") or 0), str(e.get("what") or "an event")))
     events.sort()
@@ -201,6 +224,28 @@ def self_test() -> int:
     quiet["runtime_s"] = sum(float(s["duration_s"]) for s in quiet["scenes"])
     r = check(quiet, sfx())
     ok("a stretch with nothing happening is refused", any("a rest of" in x for x in r), str(r[:2]))
+
+    # THE ONE THAT COULD NEVER FIRE. Every scene composed, every scene EMPTY.
+    hollow = board()
+    for sc in hollow["scenes"]:
+        sc["visual_events"] = []
+    r = check(hollow, sfx())
+    ok("a film where NO scene contains a single visual event is refused",
+       any("a rest of" in x for x in r), str(r[:2]))
+    try:
+        sys.path.insert(0, str(REPO / "scripts"))
+        import storyboard_check as _sb
+        sb_board = {"runtime_s": 30.0, "scenes": [
+            {"id": s["id"], "start_s": s["start_s"], "duration_s": s["duration_s"],
+             "region": s["region"], "county": "Taylor", "camera_strategy": s["camera_strategy"],
+             "planes": ["sky", "ridge", "mid", "near", "hero"], "hero": s["hero"],
+             "cast": [{"id": "rancher"}], "beat": ["motion", "emotion", "revelation"][i % 3],
+             "on_screen": s["on_screen"], "what_moves": s["what_moves"]}
+            for i, s in enumerate(hollow["scenes"])]}
+        ok("...which is exactly why this check has to be the one that catches it",
+           not [x for x in _sb.check(sb_board) if "rest" in x])
+    except ImportError:
+        ok("storyboard_check is importable for the cross-check", False)
 
     # A cut that changes nothing.
     same = board()

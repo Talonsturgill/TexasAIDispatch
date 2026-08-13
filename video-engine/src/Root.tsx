@@ -7,6 +7,7 @@ import {CivicSheet} from './CivicSheet';
 import {SensingSheet} from './SensingSheet';
 import {RegionSheet} from './RegionSheet';
 import {ProofScene} from './ProofScene';
+import {Dispatch, DEFAULT_DISPATCH, dispatchMetadata} from './Dispatch';
 import {RegionName} from './lib/lighting';
 
 const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers', 'blackland',
@@ -14,6 +15,18 @@ const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers',
 
 export const RemotionRoot: React.FC = () => (
   <>
+    {/* THE DELIVERABLE, and it did not exist until 2026-08-12.
+        Phase 5 of the routine has always run `npx remotion render Dispatch`, and
+        nothing here was called Dispatch, so every unattended run died on "No
+        composition with the ID 'Dispatch' found" and produced no film.
+        `composition_check.py` now refuses any prompt that renders an id this file
+        does not register, in either direction.
+        Length comes from the board via calculateMetadata; a constant here would
+        truncate a long film or pad a short one with black, and a run reports both
+        as success. */}
+    <Composition id="Dispatch" component={Dispatch} fps={30} width={1080} height={1920}
+      defaultProps={DEFAULT_DISPATCH} calculateMetadata={dispatchMetadata}
+      durationInFrames={Math.round(DEFAULT_DISPATCH.runtime_s * 30)} />
     <Composition id="Proof" component={ProofScene} durationInFrames={150}
       fps={30} width={1080} height={1920} />
     <Composition id="CastSheet" component={CastSheet} durationInFrames={30}

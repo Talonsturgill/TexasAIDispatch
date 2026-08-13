@@ -65,6 +65,11 @@ MIN_PITCH_VARIANCE = 1.8
 # A take may run this fraction over the cut before it is refused. Over it, the script is trimmed.
 MAX_OVERAGE = 0.04
 
+# How much of a transcript may be words the script does not contain. Small and non-zero: a
+# transcriber mishears an occasional word, and refusing at exactly zero would make this the
+# always-red gate that teaches a run to argue past it.
+MAX_INSERTION = 0.06
+
 
 def normalise(s: str) -> list[str]:
     return re.findall(r"[a-z0-9']+", s.lower())
@@ -89,6 +94,30 @@ def word_accuracy(script: str, transcript: str) -> float:
     return prev[len(b)] / len(a)
 
 
+def insertion_rate(script: str, transcript: str) -> float:
+    """Share of the TRANSCRIPT that is NOT in the script.
+
+    THE HOLE IN word_accuracy. LCS measures how much of `a` survives into `b`, and it is
+    monotonically unaffected by anything ADDED to `b`. Measured: a transcript equal to the
+    script plus "And that is why everyone should be worried." scores 1.000 and passes; so does
+    one that doubles every other word. The module header claims this file catches "dropped,
+    doubled or invented" words, and it caught exactly one of the three.
+
+    A TTS model appending an editorialising sentence is the worst failure available to a
+    narrated film, which is the header's own phrase for it, and it shipped green. The spoken-tag
+    grep only catches it if the invention happens to use direction vocabulary, and a short one
+    fits inside the 4 percent duration tolerance.
+    """
+    a, b = normalise(script), normalise(transcript)
+    if not b:
+        return 0.0
+    # Multiset difference: a doubled word counts once as an insertion, which is right, because
+    # saying "approved approved" adds one word that is not in the script.
+    from collections import Counter
+    extra = Counter(b) - Counter(a)
+    return sum(extra.values()) / len(b)
+
+
 def spoken_tags(transcript: str) -> list[str]:
     """Direction the model read aloud. The check that saves a film from embarrassment."""
     words = set(normalise(transcript))
@@ -108,9 +137,17 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
 
     overage = (dur - cut_seconds) / cut_seconds if cut_seconds > 0 else 0.0
 
+    ins = insertion_rate(script, take.get("transcript", ""))
+
     fails = []
     if acc < 0.97:
         fails.append(f"word accuracy {acc:.3f}: the take does not say what the script says")
+    if ins > MAX_INSERTION:
+        fails.append(
+            f"the take says {ins * 100:.1f}% words that are NOT in the script. Word accuracy is an "
+            f"LCS ratio and is blind to anything ADDED, so a narrator appending a sentence of its "
+            f"own scores a perfect 1.000. A model saying something the script does not say is the "
+            f"worst failure a narrated film has.")
     if tags:
         fails.append(f"spoke a stage direction out loud: {', '.join(tags)}")
     if var < MIN_PITCH_VARIANCE:
@@ -126,8 +163,9 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
     # The composite is only used to RANK passing takes. It never overrides a fail.
     rank = acc * 3 + min(var, 6.0) / 6 - abs(lufs - TARGET_LUFS) / 10 - max(0.0, overage) * 4
     return {"id": take.get("id"), "pass": not fails, "fails": fails, "rank": round(rank, 4),
-            "accuracy": round(acc, 4), "tags": tags, "pitch_variance": var,
-            "duration_s": dur, "lufs": lufs, "overage": round(overage, 4)}
+            "accuracy": round(acc, 4), "insertion": round(ins, 4), "tags": tags,
+            "pitch_variance": var, "duration_s": dur, "lufs": lufs,
+            "overage": round(overage, 4)}
 
 
 def choose(takes: list[dict], script: str, cut_seconds: float) -> dict:
@@ -171,6 +209,31 @@ def self_test() -> int:
     scrambled = " ".join(reversed(normalise(script)))
     ok("a take that says every word in the wrong order is refused",
        not score_take(take("d", scrambled), script, 8.0)["pass"])
+
+    # THE HOLE LCS LEAVES. Everything added to the transcript is invisible to it.
+    invented = script + " And that is why everyone should be worried."
+    ok("...but an LCS ratio scores an INVENTED sentence as perfect",
+       word_accuracy(script, invented) == 1.0, str(word_accuracy(script, invented)))
+    s2 = score_take(take("inv", invented), script, 8.0)
+    ok("a take that invents a whole sentence is refused", not s2["pass"], str(s2["fails"]))
+    ok("...and the message says LCS is blind to additions",
+       any("blind to anything ADDED" in x for x in s2["fails"]))
+    doubled = "Texas Texas approved approved eight point nine gigawatts of large load. It has " \
+              "watched four gigawatts of it actually draw."
+    ok("a take that doubles words is refused",
+       not score_take(take("dbl", doubled), script, 8.0)["pass"])
+    # Tested on insertion_rate DIRECTLY rather than through score_take, because on this
+    # 21-word fixture the 0.97 accuracy floor means exact match and would decide the result.
+    # On a real sixty-second script of ~150 words it allows four, which is the point.
+    ok("...while a single mis-transcribed word is under the insertion ceiling",
+       insertion_rate(script, script.replace("watched", "watch")) < MAX_INSERTION,
+       f"{insertion_rate(script, script.replace('watched', 'watch')):.3f} vs {MAX_INSERTION}")
+    ok("...because refusing at exactly zero is the always-red gate that gets argued past",
+       MAX_INSERTION > 0)
+    ok("an identical transcript inserts nothing", insertion_rate(script, script) == 0.0)
+    ok("...and a dropped word is not counted as an insertion",
+       insertion_rate(script, " ".join(script.split()[:-3])) == 0.0,
+       "that is word_accuracy's job, and double-counting would make both numbers unreadable")
 
     ok("a monotone take is refused", not score_take(take("e", var=0.7), script, 8.0)["pass"])
 

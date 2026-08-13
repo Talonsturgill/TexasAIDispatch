@@ -95,11 +95,30 @@ def load_rule() -> dict:
         return {}
 
 
-def load_history() -> list[dict]:
+def load_history() -> tuple[list[dict], str | None]:
+    """(entries, error). An UNREADABLE ledger is an error, never an empty history.
+
+    The first version returned [] for both, and check_divergence returns early on an empty
+    history with the comment "nothing to diverge FROM yet, which is fine". That is true for the
+    very first Dispatch and false for a read failure, and the two were indistinguishable to the
+    caller: one trailing comma from a hand-edit disabled the entire cross-run variety engine and
+    the run shipped a shot-for-shot re-skin of yesterday with Gate 0 green.
+
+    load_rule() already got this right by returning an explicit stop, so the asymmetry lived
+    inside one file.
+    """
+    if not HISTORY.exists():
+        return [], None                      # a genuinely fresh repo, which is fine
     try:
-        return json.loads(HISTORY.read_text(encoding="utf-8")).get("dispatches", [])
-    except (OSError, json.JSONDecodeError):
-        return []
+        return json.loads(HISTORY.read_text(encoding="utf-8")).get("dispatches", []), None
+    except (OSError, json.JSONDecodeError) as exc:
+        try:
+            where = HISTORY.relative_to(REPO)
+        except ValueError:
+            where = HISTORY                  # a test may point this outside the repo
+        return [], (f"cannot read {where}: {exc}. The variety engine's whole "
+                    f"memory lives there, so an unreadable ledger silently turns off every "
+                    f"cross-run check. That is a stop, not an empty history.")
 
 
 def check_divergence(board: dict, history: list[dict], cfg: dict) -> list[str]:
@@ -193,8 +212,13 @@ def check_beat_mix(beat: str, history: list[dict], cfg: dict) -> list[str]:
     pictures are, over a rolling window.
     """
     mix = cfg.get("beat_mix") or {}
-    if not mix or not beat:
-        return []
+    if not mix:
+        return ["config/composition_axes.yaml declares no beat_mix, so the application-layer "
+                "drift rule is running on nothing."]
+    if not beat:
+        return ["the board declares no top-level `beat`, so the beat-mix rule cannot run at all. "
+                "Omitting the field turned off the entire 'has this show drifted back to filings' "
+                "check while Gate 0 reported clean. Name the beat this Dispatch leads with."]
     app = set(mix.get("application_beats") or [])
     ctx = set(mix.get("context_beats") or [])
     if beat not in app | ctx:
@@ -503,6 +527,31 @@ def self_test() -> int:
     ok("the FIRST ever Dispatch has nothing to diverge from and is allowed",
        not check_divergence(bd(), [], cfg))
 
+    # ---- A CORRUPT LEDGER IS A STOP, NOT AN EMPTY HISTORY
+    import tempfile as _tf
+    import os as _os
+    global HISTORY
+    _real = HISTORY
+    try:
+        with _tf.TemporaryDirectory() as td:
+            bad = Path(td) / "dispatch_history.json"
+            bad.write_text('{"dispatches": [ , ]}', encoding="utf-8")
+            HISTORY = bad
+            entries, err = load_history()
+            ok("a corrupt ledger returns an ERROR, not an empty history",
+               entries == [] and err is not None, f"{entries} / {err}")
+            ok("...and the message says the variety engine is off",
+               bool(err) and "silently turns off" in err, str(err))
+            good = Path(td) / "ok.json"
+            good.write_text('{"dispatches": [{"date": "2026-08-10"}]}', encoding="utf-8")
+            HISTORY = good
+            ok("a readable ledger loads", load_history() == ([{"date": "2026-08-10"}], None))
+            HISTORY = Path(td) / "absent.json"
+            ok("a MISSING ledger is a fresh repo and is fine", load_history() == ([], None))
+    finally:
+        HISTORY = _real
+    _os.environ.pop("_", None)
+
     # ---- THE BEAT MIX, which is variety of SUBJECT rather than of picture
     mix = cfg.get("beat_mix") or {}
     app = (mix.get("application_beats") or ["oilfield"])[0]
@@ -519,6 +568,12 @@ def self_test() -> int:
            app, [{"date": f"2026-08-0{i}", "beat": app} for i in range(1, 7)], cfg)))
     ok("a beat that is not in the mix at all is refused",
        any("not in config" in x for x in check_beat_mix("vibes", [], cfg)))
+    ok("a board that declares NO beat is refused rather than skipped",
+       any("cannot run at all" in x for x in check_beat_mix("", [], cfg)),
+       str(check_beat_mix("", [], cfg)))
+    ok("...and the message says omitting it turned the whole rule off",
+       any("drifted back to filings" in x or "turned off" in x
+           for x in check_beat_mix("", [], cfg)))
 
     if failures:
         print(f"\nstoryboard_check self-test: {failures} FAILED", file=sys.stderr)
@@ -543,8 +598,10 @@ def main() -> int:
         print(f"storyboard_check: cannot read the board: {exc}", file=sys.stderr)
         return 2
     cfg = load_rule()
-    history = load_history()
+    history, hist_err = load_history()
     problems = check(board)
+    if hist_err:
+        problems.append(hist_err)
     problems += check_divergence(board, history, cfg)
     problems += check_beat_mix(str(board.get("beat") or ""), history, cfg)
     if problems:

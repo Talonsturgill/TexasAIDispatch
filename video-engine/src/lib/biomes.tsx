@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {Stage3D, Plane, Atmosphere, Camera} from './stage3d';
 import {RegionLight, RegionName, LIGHTS, GradeLayer, tones, INK} from './lighting';
 import {Mesquite, PricklyPear} from './kit';
@@ -110,6 +111,11 @@ export const Biome: React.FC<{
   children?: React.ReactNode;
 }> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, children}) => {
   const p = BIOMES[region];
+  // The sky, horizon-haze and ground gradients used to be keyed by REGION, so two
+  // biomes of one region in a frame shared three paint servers. Identical palettes
+  // made that invisible, which is the worst kind of latent: it would have surfaced
+  // the first time a second biome of the same region carried a different groundY.
+  const uid = useUid('bio');
 
   // ROUGHNESS BY REGION. This is the shape half of what makes a region itself, and it
   // is as important as the palette: a flat horizon under a Trans-Pecos palette still
@@ -128,12 +134,12 @@ export const Biome: React.FC<{
         <Plane z={2200} fill>
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
             <defs>
-              <linearGradient id={`sky${region}`} x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`${uid}sky`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={p.sky[0]} />
                 <stop offset="100%" stopColor={p.sky[1]} />
               </linearGradient>
             </defs>
-            <rect width={W} height={H} fill={`url(#sky${region})`} />
+            <rect width={W} height={H} fill={`url(#${uid}sky)`} />
           </svg>
         </Plane>
 
@@ -169,21 +175,21 @@ export const Biome: React.FC<{
                   recorded as "a container's edge is not its content's edge": a band that
                   reaches full strength exactly where it is cut prints its own edge into
                   the picture. */}
-              <linearGradient id={`hz${region}`} x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`${uid}hz`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={p.sky[1]} stopOpacity="0.55" />
                 <stop offset="100%" stopColor={p.sky[1]} stopOpacity="0" />
               </linearGradient>
               {/* THE GROUND RECEDES. A flat fill is a rectangle; a fill that lightens
                   toward the horizon is a plane the camera is standing on. */}
-              <linearGradient id={`gr${region}`} x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`${uid}gr`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={p.near} />
                 <stop offset="22%" stopColor={p.ground} />
                 <stop offset="100%" stopColor={tones(p.ground).core} />
               </linearGradient>
             </defs>
             <path d={ridgePath(seed + 77, groundY - 18, r * 0.5)} fill={p.near} />
-            <rect x={0} y={groundY} width={W} height={H - groundY} fill={`url(#gr${region})`} />
-            <rect x={0} y={groundY - 90} width={W} height={130} fill={`url(#hz${region})`} />
+            <rect x={0} y={groundY} width={W} height={H - groundY} fill={`url(#${uid}gr)`} />
+            <rect x={0} y={groundY - 90} width={W} height={130} fill={`url(#${uid}hz)`} />
             {/* ground texture: scatter that gets sparser and smaller toward the horizon,
                 which is the cheapest honest perspective cue there is */}
             {Array.from({length: 150}, (_, i) => {

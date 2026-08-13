@@ -113,8 +113,13 @@ ephemeral container has destroyed a finished video before.
    ```
    python3 scripts/engine_lint.py
    python3 scripts/staging_check.py
+   python3 scripts/composition_check.py
+   python3 scripts/wiring_check.py
    cd video-engine && npx tsc --noEmit
    ```
+
+   `composition_check` is the one that proves the film can be rendered at all. The id in Phase 5
+   must be an id `Root.tsx` registers, and for the whole of this machine's life it was not.
    **If a gate is already red at wake, fix that before anything else.** A red gate at wake means
    the last run shipped past it.
 
@@ -283,9 +288,19 @@ The human is never the QA.
 ```
 python3 scripts/engine_lint.py
 python3 scripts/staging_check.py
-python3 scripts/flow_check.py
-python3 scripts/ship_gate.py
+python3 scripts/flow_check.py --board out/dispatch/storyboard.json \
+       --sfx out/dispatch/sfx_events.json
+python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
+       --claims out/dispatch/claims.json --script out/dispatch/vo_script.txt \
+       --captions out/dispatch/captions.json --audio out/dispatch/mix.json \
+       --report out/dispatch/report_card.json
 ```
+
+**PASS THE ARGUMENTS.** `engine_lint` and `staging_check` scan the repo and take none; the other
+two take inputs and EXIT 2 ON A USAGE MESSAGE without them. They were invoked bare for the whole
+of this machine's life, so every rubric hard fail and the panel score had never once been
+evaluated on a real run while `wiring_check` reported the repo fully wired. It now runs a bare
+invocation to see whether it exits 2, which is evidence rather than a claim.
 
 `staging_check` is the one that refuses an animal standing somewhere it does not live. A
 pronghorn in the Piney Woods is the same class of error as a Hill Country palette on a

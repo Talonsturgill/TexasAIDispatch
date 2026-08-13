@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {INK} from './lighting';
 
 // =============================================================================
@@ -157,7 +158,7 @@ export const Sweep: React.FC<{
   x: number; y: number; w: number; h: number; p: number; color?: string; vertical?: boolean;
 }> = ({x, y, w, h, p, color = SEE, vertical = false}) => {
   const t = Math.max(0, Math.min(1, p));
-  const id = `sw${Math.round(x)}${Math.round(y)}${vertical ? 'v' : 'h'}`;
+  const id = useUid('sw');
   return (
     <g>
       <defs>

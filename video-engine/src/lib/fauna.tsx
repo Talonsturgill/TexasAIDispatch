@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 
 // =============================================================================
@@ -254,7 +255,7 @@ export const Armadillo: React.FC<Beast & {leap?: number; rooting?: boolean}> = (
   const lift = hop * 40;
   const splay = hop * 15;
   const snuffle = rooting ? Math.sin(frame / 6) * 2 : 0;
-  const uid = `ar${seed}`;
+  const uid = useUid('ar');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K * facing} ${scale * K})`}>
       <defs><FormGradient id={`${uid}_s`} t={t} softness={0.55} /></defs>
@@ -332,7 +333,7 @@ export const Pronghorn: React.FC<Beast & {underFence?: number; alarmed?: boolean
   const L = useLight();
   const t = tones('#c9a978', L);
   const K = fit('pronghorn', 90);                       // local frame: 90 units at the shoulder
-  const uid = `ph${seed}`;
+  const uid = useUid('ph');
   const duck = Math.max(0, Math.min(1, underFence));
   // The chest really does go almost to the ground. 90 local units is 0.87 m at the
   // shoulder, so a body centre that starts at 0.76 m has to come down to about
@@ -602,7 +603,7 @@ export const Longhorn: React.FC<Beast & {hide?: string; horn?: number; grazing?:
   const coat = hide ?? herdHides(1, seed)[0];
   const t = tones(coat, L);
   const K = fit('longhorn', 130);                       // local frame: 130 units at the shoulder
-  const uid = `lh${seed}`;
+  const uid = useUid('lh');
   const breathe = Math.sin(frame / 26 + rnd(seed, 1) * 6) * 1.2;
   const tail = Math.sin(frame / 17 + rnd(seed, 2) * 6) * 5;
   // Tip to tip, in local units against a 118-unit shoulder. horn=1 is a mature
@@ -726,7 +727,7 @@ export const Whitetail: React.FC<Beast & {
   const t = tones('#a5764a', L);
   // South Texas deer are genuinely smaller, and that is a fact worth carrying.
   const K = fit('whitetail', 100) * (southTexas ? 0.88 : 1);
-  const uid = `wt${seed}`;
+  const uid = useUid('wt');
   const breathe = Math.sin(frame / 23 + rnd(seed, 1) * 6) * 1.2;
   const flick = Math.sin(frame / 11 + rnd(seed, 2) * 6) * 4;
   const WHITE = '#f4efe4';
@@ -810,7 +811,7 @@ export const Jackrabbit: React.FC<Beast & {loping?: boolean; backlit?: boolean}>
   const L = useLight();
   const t = tones('#9c8a70', L);
   const K = fit('jackrabbit', 100);                     // local frame: 100 units, ears up
-  const uid = `jr${seed}`;
+  const uid = useUid('jr');
   const swivel = Math.sin(frame / 29 + rnd(seed, 1) * 6) * 5;
   // Loping: the body stretches long and low and the ears go BACK.
   const lope = loping ? 1 : 0;
@@ -993,7 +994,7 @@ export const HornedLizard: React.FC<Beast> = ({
   const L = useLight();
   const t = tones('#b09468', L);
   const K = fit('hornedLizard', 40);                    // local frame: 40 units long
-  const uid = `hl${seed}`;
+  const uid = useUid('hl');
   const breathe = Math.sin(frame / 15 + rnd(seed, 1) * 6) * 0.4;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K * facing} ${scale * K})`}>
@@ -1045,7 +1046,7 @@ export const FeralHog: React.FC<Beast & {rooting?: boolean; boar?: boolean}> = (
   const L = useLight();
   const t = tones('#4a4038', L);
   const K = fit('feralHog', 100);                       // local frame: 100 units at the shoulder
-  const uid = `fh${seed}`;
+  const uid = useUid('fh');
   const shove = rooting ? Math.sin(frame / 7) * 4 : 0;
   const root = rooting ? 1 : 0;
   return (
@@ -1115,7 +1116,7 @@ export const Javelina: React.FC<Beast & {alarmed?: boolean}> = ({
   const L = useLight();
   const t = tones('#59544c', L);
   const K = fit('javelina', 65);                        // local frame: 65 units at the shoulder
-  const uid = `jv${seed}`;
+  const uid = useUid('jv');
   const breathe = Math.sin(frame / 19 + rnd(seed, 1) * 6) * 0.8;
   const mane = alarmed ? 1 : 0.25;
   return (
@@ -1168,7 +1169,7 @@ export const Coyote: React.FC<Beast & {trotting?: boolean; howling?: boolean}> =
   const L = useLight();
   const t = tones('#9a8264', L);
   const K = fit('coyote', 70);                          // local frame: 70 units at the shoulder
-  const uid = `cy${seed}`;
+  const uid = useUid('cy');
   const gait = trotting ? Math.sin(frame / 5) : 0;
   const howl = howling ? 1 : 0;
   return (
