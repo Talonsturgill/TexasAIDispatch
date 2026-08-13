@@ -148,53 +148,108 @@ export const AutonomousRig: React.FC<Rig & {
         <FormGradient id={`${uid}_c`} t={cab} softness={0.55} />
         <FormGradient id={`${uid}_t`} t={box} softness={0.35} />
       </defs>
-      <ContactShadow cx={-104} cy={2} rx={228} opacity={0.34} blur={11} />
+      <ContactShadow cx={-179} cy={2} rx={262} opacity={0.34} blur={11} />
 
       <g transform={`translate(0 ${bob})`}>
-        {/* ---- the trailer. A 53-foot van: a long flat box with a ribbed side, the
-                bogie set well forward of the rear, and the mud flaps behind it. */}
-        <rect x={-330} y={-78} width={252} height={56} rx={2} fill={`url(#${uid}_t)`}
+        {/* ---- the trailer. A 53-foot van, and the LENGTH is a measurement rather
+                than a look: at 100 local units to 4.15 m, 16.2 m of trailer is 390
+                units. The whole rig comes out about 21 m, which is what one is.
+
+                A FLAT BOX, NOT A TUBE. It used to carry the same form gradient as
+                the tractor and rendered as a cylinder -- a tanker, on the beat about
+                dry vans. A box has one plane facing the camera, so it takes a flat
+                fill with the ribs and a single top highlight doing the work. Same
+                law as the storm: a paint is a property of the form, and a gradient
+                that curves across a face says the face is curved. */}
+        <rect x={-436} y={-78} width={390} height={56} rx={2} fill={box.base}
           stroke={INK} strokeWidth={4.4} />
-        {Array.from({length: 13}, (_, i) => (
-          <path key={i} d={`M${-322 + i * 19},-76 L${-322 + i * 19},-24`}
-            stroke={box.shade} strokeWidth={1.6} opacity={0.4} />
+        <rect x={-436} y={-78} width={390} height={9} fill={box.key} opacity={0.75} />
+        <rect x={-436} y={-31} width={390} height={9} fill={box.shade} opacity={0.5} />
+        {Array.from({length: 20}, (_, i) => (
+          <path key={i} d={`M${-428 + i * 19.5},-76 L${-428 + i * 19.5},-24`}
+            stroke={box.shade} strokeWidth={1.6} opacity={0.42} />
         ))}
         {/* the underride bar, which every trailer has and no drawing remembers */}
-        <path d="M-330,-22 L-330,-9 L-296,-9" stroke={INK} strokeWidth={4} fill="none" />
-        <path d="M-78,-22 L-78,-30" stroke={INK} strokeWidth={4} />
+        <path d="M-436,-22 L-436,-9 L-402,-9" stroke={INK} strokeWidth={4} fill="none" />
+        <path d="M-46,-22 L-46,-30" stroke={INK} strokeWidth={4} />
         {/* the landing gear, up */}
-        <path d="M-146,-22 L-146,-13 M-152,-13 L-140,-13" stroke="#5c6169"
+        <path d="M-118,-22 L-118,-13 M-124,-13 L-112,-13" stroke="#5c6169"
           strokeWidth={3.4} fill="none" />
 
-        {/* ---- the tractor. Day cab: no sleeper, which is what a lane-haul
-                autonomous truck runs, and the shorter silhouette is a real tell. */}
-        <path d="M-78,-22 L-78,-86 q0,-8 8,-8 l22,0 l10,-22 q2,-5 8,-5 l34,0
-                 q7,0 9,6 l12,32 l0,63 q0,7 -8,7 l-88,0 q-8,0 -8,-7 Z"
+        {/* ---- THE TRACTOR, AND IT IS A CONVENTIONAL.
+
+                The first version drew a cab-over: flat front, windshield straight
+                above the bumper, no hood. That is a EUROPEAN truck. Every Class 8
+                lane-haul tractor on a Texas interstate has a LONG HOOD ahead of the
+                windshield -- the fleet this beat is actually about runs Peterbilt
+                579s and Volvo VNLs -- and the hood is not a detail, it is most of
+                the silhouette. A Texan reads a cab-over as "not from here" as fast
+                as they read a straw hat on a High Plains farmer.
+
+                A DAY CAB, though: no sleeper box behind the doors, because a
+                driverless lane-haul truck has nobody to sleep in one, and the
+                shorter back end is the real tell that this one is different. */}
+
+        {/* EVERY COORDINATE HERE IS ABSOLUTE. The first pass used relative `l` and `q`
+            segments and one of them ran the cab wall 119 units DOWN from the roof,
+            which put a slab of blue below the road. A long relative path is a chain
+            where one wrong link moves everything after it, and there is no reason to
+            take that on for a shape somebody has to reason about. */}
+
+        {/* the cab: -56 to 4 along the frame, roof at -108, windshield RAKED BACK
+            from the roof edge down to the hood line */}
+        <path d="M-56,-22 L-56,-100 Q-56,-108 -48,-108 L-16,-108 L4,-80 L4,-22 Z"
           fill={`url(#${uid}_c)`} stroke={INK} strokeWidth={4.6} strokeLinejoin="round" />
-        {/* the windshield, raked. Small, which is exactly the problem this file's
-            header is about. */}
-        <path d="M-24,-113 l30,0 q6,0 8,5 l9,24 l-49,0 Z" fill="#7f97a8"
-          stroke={INK} strokeWidth={3.6} strokeLinejoin="round" opacity={0.92} />
-        <path d="M-22,-110 l14,0 l-4,22 l-12,0 Z" fill="#a9bcc8" opacity={0.55} />
-        {/* the roof fairing behind the cab, and the side extenders */}
-        <path d="M-56,-94 q28,-6 44,-4" fill="none" stroke={cab.key} strokeWidth={4}
-          opacity={0.8} />
-        <RimLight d="M-24,-113 l30,0 q6,0 8,5" w={2.6} opacity={0.5} />
-        {/* the exhaust stack and mirror arm */}
-        <path d="M-60,-92 L-60,-40" stroke="#8c9298" strokeWidth={5} />
-        <path d="M24,-100 L34,-100 L34,-74" stroke="#4a5158" strokeWidth={3.4} fill="none" />
-        {/* the fifth wheel and the frame rail under the middle, which is the gap
-            that makes the proportion read */}
-        <rect x={-96} y={-30} width={44} height={9} fill="#41474e" stroke={INK}
+        <path d="M-14,-104 L-3,-104 L2,-84 L-14,-84 Z" fill="#7f97a8"
+          stroke={INK} strokeWidth={3.4} strokeLinejoin="round" opacity={0.92} />
+        <path d="M-13,-101 L-7,-101 L-5,-87 L-13,-87 Z" fill="#a9bcc8" opacity={0.55} />
+        {/* the side window and the door line, which is what says CAB rather than box */}
+        <rect x={-48} y={-96} width={30} height={26} rx={3} fill="#6f8798"
+          stroke={INK} strokeWidth={3} opacity={0.9} />
+        <path d="M-52,-68 L-52,-24" stroke={INK} strokeWidth={2.6} opacity={0.7} />
+        <circle cx={-22} cy={-62} r={2.6} fill="#3f464d" />
+        {/* the roof fairing, and the rim on the windshield edge */}
+        <path d="M-54,-108 L-18,-108" stroke={cab.key} strokeWidth={4} opacity={0.8} />
+        <RimLight d="M-16,-108 L4,-80" w={2.6} opacity={0.5} />
+
+        {/* the hood: from the cab front at 4 out to the bumper at 80, dropping
+            slightly toward the nose the way a conventional's does, with the fender
+            arched over the steer tyre */}
+        <path d="M4,-24 L4,-78 L56,-72 Q66,-71 68,-64 L74,-40 L74,-24 Z"
+          fill={`url(#${uid}_c)`} stroke={INK} strokeWidth={4.4} strokeLinejoin="round" />
+        <path d="M34,-24 Q34,-52 56,-52 Q76,-52 76,-24" fill="none" stroke={INK}
+          strokeWidth={3.4} opacity={0.55} />
+        {/* the grille, standing proud of the nose */}
+        <path d="M74,-64 L84,-60 L86,-30 L74,-26 Z" fill="#b9c0c6"
+          stroke={INK} strokeWidth={3.4} strokeLinejoin="round" />
+        {Array.from({length: 4}, (_, i) => (
+          <path key={i} d={`M76,${-56 + i * 8} L84,${-54 + i * 8}`} stroke="#6c737a"
+            strokeWidth={2.4} />
+        ))}
+        {/* the bumper and the headlamp */}
+        <rect x={70} y={-26} width={20} height={10} rx={2} fill="#9aa1a8"
+          stroke={INK} strokeWidth={3} />
+        <ellipse cx={73} cy={-38} rx={5} ry={6} fill="#e8e2cf" stroke={INK}
           strokeWidth={2.6} />
-        {/* the fuel tank, a horizontal cylinder, always polished even when the rest
-            of the truck is not */}
-        <rect x={-42} y={-44} width={46} height={20} rx={10} fill="#b9c0c6"
+        {/* the exhaust stack, which on a conventional runs UP THE BACK OF THE CAB
+            beside the fairing rather than out of the roof, and the mirror arm on the
+            A pillar where a driver who is not there would need it */}
+        <path d="M-58,-118 L-58,-34" stroke="#8c9298" strokeWidth={5} />
+        <path d="M-58,-118 l0,-6" stroke="#5b6167" strokeWidth={7} />
+        <path d="M2,-92 L12,-95 L12,-70" stroke="#4a5158" strokeWidth={3.4} fill="none" />
+        {/* the fifth wheel, under the trailer nose and behind the drives */}
+        <rect x={-70} y={-30} width={44} height={9} fill="#41474e" stroke={INK}
+          strokeWidth={2.6} />
+        {/* the fuel tank, a horizontal cylinder slung between the axles under the
+            cab door, always polished even when the rest of the truck is not */}
+        <rect x={-30} y={-21} width={44} height={15} rx={7} fill="#b9c0c6"
           stroke={INK} strokeWidth={3.4} />
 
-        {/* ---- wheels. Drives are duals, steer is a single, and the drive pair sits
-                close together rather than evenly spaced. */}
-        {[[36, 15], [-46, 15], [-64, 15], [-268, 14], [-292, 14]].map(([cx, r], i) => (
+        {/* ---- wheels. The steer sits under the HOOD on a conventional, well ahead
+                of the cab, which is the axle spacing that makes the shape read.
+                Drives are duals close together; the trailer bogie is set forward of
+                the rear end rather than at it. */}
+        {[[52, 15], [-34, 15], [-58, 15], [-390, 14], [-414, 14]].map(([cx, r], i) => (
           <g key={i} transform={`translate(${cx} ${-r})`}>
             <circle cx={0} cy={0} r={r} fill="#22262b" stroke={INK} strokeWidth={3.4} />
             <circle cx={0} cy={0} r={r * 0.52} fill="#8d949b" stroke={INK} strokeWidth={2.4} />
@@ -209,19 +264,19 @@ export const AutonomousRig: React.FC<Rig & {
         ))}
 
         {autonomous && (
-          <g transform="translate(-16 -113)">
+          <g transform="translate(-30 -110)">
             <SensorMast frame={frame} scale={0.42 / (K * scale)} seed={seed} sweeping={speed > 0} />
           </g>
         )}
         {badge && (
-          <g transform="translate(-300 -50)">
+          <g transform="translate(-400 -50)">
             <rect x={-19} y={-11} width={38} height={22} rx={3} fill="#1d232b"
               stroke="#e4ded2" strokeWidth={2} />
             <path d="M-9,0 l6,6 l12,-13" fill="none" stroke="#8fc3d8" strokeWidth={3}
               strokeLinecap="round" />
           </g>
         )}
-        {wear > 0.2 && <RustStreak x={-330} y={-78} w={252} h={56} seed={seed}
+        {wear > 0.2 && <RustStreak x={-436} y={-78} w={390} h={56} seed={seed}
           opacity={wear * 0.4} />}
       </g>
     </g>

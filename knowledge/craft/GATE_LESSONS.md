@@ -422,3 +422,34 @@ the first.
 structurally right now and it is not yet a storm anyone would photograph, and it took nine renders
 to get that far. It is written down rather than quietly left because the next person to open that
 component should know it is a known-soft spot and not a finished one.
+
+## 26. Six sheets shipped, three looked at
+
+The application sheets were written, registered, typechecked, passed every gate and merged. Three
+of the six had never been rendered. **A review surface nobody renders is exactly the artifact the
+sheet was built to prevent**, and it took writing the sheets to reproduce the fault one level up.
+
+What the three unlooked-at ones were hiding:
+
+**The truck was a CAB-OVER.** Flat front, windshield straight above the bumper, no hood. That is a
+European truck. Every Class 8 lane-haul tractor on a Texas interstate is a conventional with a
+long hood ahead of the windshield -- the fleet this beat is actually about runs Peterbilt 579s and
+Volvo VNLs -- and the hood is not a detail, it is most of the silhouette. On the one beat where
+Texas is genuinely first. A Texan reads a cab-over as "not from here" as fast as they read a straw
+hat on a High Plains farmer.
+
+`tsc` was clean, `engine_lint` was clean, `paint_ids` was clean, `registry_check` was clean. **Not
+one of eleven gates can tell you the vehicle is from the wrong continent.** Only a person looking
+can, and only if the sheet exists AND somebody renders it.
+
+The trailer had the same form gradient as the tractor and rendered as a CYLINDER -- a tanker, on
+the beat about dry vans. Entry 25's law again, arriving a fifth time: a box has one flat face and
+takes a flat fill; a gradient that curves across a face says the face is curved.
+
+And the plain bug underneath both: the cab path was a long chain of relative `l` and `q` segments,
+one of which ran the wall 119 units DOWN from the roof and put a slab of blue below the road
+surface. **A long relative path is a chain where one wrong link moves everything after it.** The
+rewrite is absolute coordinates throughout, for a shape somebody has to be able to reason about.
+
+The rule this leaves: **rendering the review surface is part of shipping it, not a follow-up.**
+A sheet that has not been looked at is not a review, it is a promise of one.
