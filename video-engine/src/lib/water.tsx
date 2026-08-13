@@ -109,13 +109,20 @@ export const StreamGauge: React.FC<Rig & {
         return <path key={i} d={`M7,${yy} L${major ? 26 : 18},${yy}`} stroke={INK}
           strokeWidth={major ? 2.4 : 1.4} opacity={0.85} />;
       })}
-      {/* the water against the plate. Drawn only when a stage was given. */}
+      {/* THE WATER, and it is a SURFACE rather than a swatch. The first version was a
+          flat rectangle butted against the plate, which reads as a colour sample
+          somebody left on the drawing. Water has a bright meniscus where it meets the
+          plate, a body you can see the plate through, and a far edge that recedes,
+          and all three are cheap. */}
       {lvl !== undefined && (
         <g>
-          <rect x={-40} y={lvl} width={110} height={-lvl} fill="#4d7386" opacity={0.55} />
-          <path d={`M-40,${lvl} q22,${Math.sin(frame / 13) * 2.2} 44,0
-                     t44,0 t22,0`} fill="none" stroke="#a9cdd9" strokeWidth={2.6}
-            opacity={0.85} />
+          <ellipse cx={12} cy={lvl} rx={130} ry={11} fill="#3f6273" opacity={0.42} />
+          <rect x={-118} y={lvl} width={260} height={-lvl + 6} fill="#4d7386" opacity={0.4} />
+          <path d={`M-118,${lvl} q30,${Math.sin(frame / 13) * 2.4} 62,0
+                     t62,0 t62,0 t62,0`} fill="none" stroke="#bcdae4" strokeWidth={3}
+            opacity={0.9} />
+          {/* the stripe of light that always sits just under a water line */}
+          <rect x={-118} y={lvl + 4} width={260} height={5} fill="#cfe6ef" opacity={0.28} />
         </g>
       )}
       {/* the flood-stage line. A LINE, never a shaded zone. */}
@@ -348,21 +355,74 @@ export const RainCell: React.FC<{
           stroke="#aeb9c2" strokeWidth={1.4} opacity={0.22 * intensity} />;
       })}
 
-      {/* the cell: a stack of overlapping lobes, biggest at the base */}
-      {Array.from({length: 9}, (_, i) => {
+      {/* THE CELL, IN TWO PARTS, and the first version got it wrong in a way only a
+          render showed: nine overlapping lobes all offset the same way stacked into a
+          spiral that read as a nautilus shell. A convective cell is a FLAT DARK BASE
+          with a TOWER rising off it, and the flat base is what a storm looks like
+          from underneath more than the tower is.
+
+          The base: a rank of wide low lobes at one height, which is the shelf. */}
+      {Array.from({length: 5}, (_, i) => {
         const k = rnd(seed, 40 + i);
-        const u = i / 8;
-        const r = (w * 0.2) * (1 - u * 0.42) * (0.7 + k * 0.6);
-        const px = cx + (k - 0.5) * w * 0.3 + shear * u * u * w * 0.3;
-        const py = base - u * h * 0.52 - r * 0.4;
-        return <ellipse key={i} cx={px} cy={py} rx={r * 1.35} ry={r}
-          fill={`url(#${uid}_cloud)`} opacity={0.92} />;
+        const px = cx + (i / 4 - 0.5) * w * 0.4;
+        return <ellipse key={`b${i}`} cx={px} cy={base - h * 0.03 - k * h * 0.02}
+          rx={w * (0.1 + k * 0.04)} ry={h * (0.018 + k * 0.01)}
+          fill="#6b737c" opacity={0.95} />;
       })}
-      {/* the anvil, sheared downwind. The tell that it is a real cell. */}
-      <ellipse cx={cx + shear * w * 0.3} cy={y + h * 0.1} rx={w * 0.36} ry={h * 0.06}
-        fill="#eceae6" opacity={0.85} />
-      <ellipse cx={cx + shear * w * 0.12} cy={y + h * 0.13} rx={w * 0.26} ry={h * 0.05}
-        fill="#e2e0dc" opacity={0.8} />
+      {/* The tower, and the proportion is the whole thing. The rewrite that fixed the
+          nautilus still read as one, because the lobes were a hundred and forty units
+          across in a tower a hundred and ninety tall: SIX OVERLAPPING CIRCLES IN A
+          SPACE ONE CIRCLE HIGH IS A BLOB whatever you do to the offsets. A cell is
+          three or four times taller than one of its lobes, so the tower runs nearly
+          the full box and the lobes are small enough to be countable. */}
+      {(() => {
+        // AND THE THING THAT TOOK FOUR RENDERS TO SEE. A gradient applied PER LOBE
+        // runs top to bottom of that lobe's own box, so every lobe in an overlapping
+        // cluster arrives with its own dark underside, and a column of dark
+        // undersides is a row of visible arcs the eye assembles into a spiral. Three
+        // rewrites went at the proportions, the offsets and the count and none of
+        // them could work, because the defect was never the geometry: THE CLUSTER
+        // WAS PAINTED AS TEN SHAPES INSTEAD OF AS ONE MASS.
+        //
+        // So the mass is flat and its overlaps are invisible, and the form comes
+        // from a second smaller pass up the lit side with a shaded rank along the
+        // base. Same shapes, same positions, and it stops being a shell. It is the
+        // sibling of the horizon-haze note in biomes.tsx: a fill that reaches full
+        // strength exactly where its shape is cut prints its own outline.
+        const lobes = Array.from({length: 10}, (_, i) => {
+          const k = rnd(seed, 60 + i);
+          const u = (i + 1) / 10;
+          const r = w * 0.19 * (1 - u * 0.35) * (0.88 + k * 0.24);
+          return {
+            r, u,
+            px: cx + shear * u * u * w * 0.1 + (k - 0.5) * w * 0.08,
+            py: base - h * 0.02 - u * (base - (y + h * 0.08)),
+          };
+        });
+        return (
+          <g>
+            {lobes.map((l, i) => (
+              <ellipse key={`m${i}`} cx={l.px} cy={l.py} rx={l.r * 1.25} ry={l.r}
+                fill="#9aa2ab" />
+            ))}
+            {lobes.slice(0, 4).map((l, i) => (
+              <ellipse key={`s${i}`} cx={l.px + l.r * 0.12} cy={l.py + l.r * 0.44}
+                rx={l.r * 1.02} ry={l.r * 0.52} fill="#717983" opacity={0.55} />
+            ))}
+            {lobes.map((l, i) => (
+              <ellipse key={`l${i}`} cx={l.px - l.r * 0.22} cy={l.py - l.r * 0.26}
+                rx={l.r * 1.02} ry={l.r * 0.86} fill="#e0e4e8"
+                opacity={0.14 + l.u * 0.22} />
+            ))}
+          </g>
+        );
+      })()}
+      {/* the anvil, sheared downwind off the top of the tower. The tell that it is a
+          real cell and not a cloud. */}
+      <ellipse cx={cx + shear * w * 0.26} cy={y + h * 0.11} rx={w * 0.3} ry={h * 0.042}
+        fill="#eceae6" opacity={0.9} />
+      <ellipse cx={cx + shear * w * 0.1} cy={y + h * 0.145} rx={w * 0.19} ry={h * 0.036}
+        fill="#e2e0dc" opacity={0.85} />
 
       {flash && (
         <g opacity={0.8}>

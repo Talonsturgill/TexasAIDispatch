@@ -392,3 +392,33 @@ points at the wrong file.** It looks like a sizing bug in the board, and every a
 there fails silently in a way that reads as "not wide enough yet".
 
 Nothing errored. The film simply looked like it had a border nobody gave it, on every scene.
+
+## 25. A gradient painted per shape prints every shape's edge
+
+`RainCell` drew a convective cell as ten overlapping ellipses, each filled with the same
+top-to-bottom gradient. It rendered as a **nautilus shell**. Three rewrites went at the geometry
+-- the lobe count, the offsets, the shear, the proportion of tower to lobe -- and every one of
+them produced a differently shaped shell, because the geometry was never the problem.
+
+A gradient applied per shape runs top-to-bottom of **that shape's own bounding box**. So every
+lobe in the cluster arrived carrying its own dark underside, and a column of dark undersides is a
+row of visible arcs that the eye assembles into a spiral. **The cluster was being painted as ten
+shapes when it needed to be painted as one mass.**
+
+The fix is not a better gradient. It is a flat fill for the whole cluster so the overlaps are
+invisible, then a second smaller pass up the lit side and a shaded rank along the base. Same
+shapes, same positions, and it stops being a shell.
+
+It is the same law as the horizon-haze note in `biomes.tsx` -- *a fill that reaches full strength
+exactly where its shape is cut prints its own edge into the picture* -- and lesson 5's stroke
+width and 18's blend mode: **a paint is a property of the CONTEXT a shape lands in, not of the
+shape.** That is now four separate doors onto one rule, which is how you know it is the rule.
+
+The trap inside the fix: the highlight pass printed circles of its own the first time, because it
+was drawn at high opacity against the flat mass. The second layer is subject to the same law as
+the first.
+
+**Honest note on the state of it.** `RainCell` is the weakest drawing in the library. It is
+structurally right now and it is not yet a storm anyone would photograph, and it took nine renders
+to get that far. It is written down rather than quietly left because the next person to open that
+component should know it is a known-soft spot and not a finished one.

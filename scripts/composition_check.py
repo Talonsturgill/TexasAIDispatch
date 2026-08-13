@@ -50,6 +50,16 @@ BY_HAND = {
     "FaunaSheet": "review surface for the bestiary",
     "VehicleSheet": "review surface for the fleet",
     "CivicSheet": "review surface for the civic kit",
+    # THE APPLICATION SHEETS. Rendered by hand when a module changes, the same as the
+    # four above. They are listed one by one rather than covered by a `*Sheet` glob,
+    # because a glob would mean the next composition somebody names "Sheet" is exempt
+    # by accident, and this file exists to catch exactly that.
+    "FarmSheet": "review surface for agriculture",
+    "RoadSheet": "review surface for freight",
+    "MachineRoomSheet": "review surface for compute",
+    "ClinicSheet": "review surface for the clinic",
+    "WaterSheet": "review surface for measurement and warning",
+    "PlantSheet": "review surface for the plant floor",
     "SensingSheet": "review surface for the overlays",
 }
 

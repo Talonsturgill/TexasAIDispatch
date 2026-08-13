@@ -262,6 +262,7 @@ export const CropRows: React.FC<{
   crop = 'cotton', growth = 0.7, vanish = 0.42,
 }) => {
   const L = useLight();
+  const uid = useUid('cr');
   const PALETTE = {
     cotton: {leaf: '#6f8a56', soil: '#a98963', boll: '#efe9dc'},
     sorghum: {leaf: '#7e8f4e', soil: '#a08258', boll: '#9c5f3a'},
@@ -274,7 +275,17 @@ export const CropRows: React.FC<{
   const rows = 46;
 
   return (
-    <g>
+    <g clipPath={`url(#${uid}_box)`}>
+      {/* CLIPPED TO ITS OWN BOX. The rows fan out to two and a half times the width
+          so the near end reaches past the frame, and the soil is only `w` wide, so
+          without this the outer rows hang in the air on both sides with nothing
+          under them. It shows on a flat sheet immediately and on a staged plane not
+          at all, which is why it needed a sheet to find. */}
+      <defs>
+        <clipPath id={`${uid}_box`}>
+          <rect x={x} y={y} width={w} height={h} />
+        </clipPath>
+      </defs>
       <rect x={x} y={y} width={w} height={h} fill={PALETTE.soil} />
       {Array.from({length: rows}, (_, i) => {
         const u = i / (rows - 1);
