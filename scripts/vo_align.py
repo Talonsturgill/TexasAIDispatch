@@ -137,7 +137,8 @@ def distribute(tokens: list[str], t0: float, t1: float) -> list[dict]:
     w = np.array([syllables(t) for t in tokens], dtype=float)
     edges = t0 + (t1 - t0) * np.concatenate([[0.0], np.cumsum(w) / w.sum()])
     return [{"word": tok, "start": round(float(edges[i]), 3), "end": round(float(edges[i + 1]), 3),
-             "anchored": False} for i, tok in enumerate(tokens)]
+             "anchored": False, "anchored_start": False, "anchored_end": False}
+            for i, tok in enumerate(tokens)]
 
 
 def align(x: np.ndarray, rate: int, script: str) -> dict:
@@ -150,31 +151,64 @@ def align(x: np.ndarray, rate: int, script: str) -> dict:
 
     # Share the words out across the runs by syllable weight, then pin each run's
     # first and last word to the MEASURED run edges.
+    # EVERY RUN GETS WORDS, and this is the anti-drift guarantee itself rather than a
+    # tidiness preference.
+    #
+    # The first version emitted at most ONE cut per token and then padded with empty groups,
+    # so trailing measured runs received nothing. Reproduced: runs at
+    # [(0.3,6.3),(6.7,7.0),(7.4,7.7)] against a 16-word script left run 2 empty, the last word
+    # ended at 7.0s while measured speech stopped at 7.7s, and that 0.7s is exactly the
+    # end-of-film caption drift this file exists to prevent. len(words)==len(tokens) still held
+    # so nothing raised, and the output reported boundaries_measured: 6 which ship_gate accepted
+    # as the evidence that alignment had happened.
+    #
+    # So the split is computed by proportional allocation with a floor of one token per run,
+    # and a run that cannot be given a word means there are fewer words than measured phrases,
+    # which is a real mismatch and is raised rather than padded over.
+    if len(tokens) < len(runs):
+        raise ValueError(
+            f"{len(tokens)} words against {len(runs)} measured speech runs. There are fewer words "
+            f"than phrases in the audio, so either the transcript is not this take's or the "
+            f"segmenter split on something that is not speech. Padding the extra runs with "
+            f"nothing would leave the film's last phrase uncaptioned and drifting.")
+
     weights = np.array([syllables(t) for t in tokens], dtype=float)
     span = np.array([b - a for a, b in runs], dtype=float)
-    want = np.cumsum(span / span.sum()) * weights.sum()
-    cuts, acc, k = [], 0.0, 0
+    target = np.cumsum(span / span.sum()) * weights.sum()
+    cuts: list[int] = []
+    acc = 0.0
+    k = 0
     for i, wt in enumerate(weights):
         acc += wt
-        if k < len(want) - 1 and acc >= want[k]:
+        remaining_runs = len(runs) - 1 - k
+        remaining_tokens = len(tokens) - (i + 1)
+        # cut when the syllable budget says so, OR when holding on would leave a later run
+        # with no tokens at all
+        if k < len(runs) - 1 and (acc >= target[k] or remaining_tokens <= remaining_runs):
             cuts.append(i + 1)
             k += 1
     groups, prev = [], 0
     for c in cuts + [len(tokens)]:
         groups.append(tokens[prev:c])
         prev = c
-    while len(groups) < len(runs):
-        groups.append([])
-    groups = groups[:len(runs)]
+    if len(groups) != len(runs) or any(not g for g in groups):
+        raise ValueError(
+            f"word allocation produced {[len(g) for g in groups]} across {len(runs)} runs. Every "
+            f"measured run must carry at least one word or its edge is not an anchor.")
 
     words: list[dict] = []
     for (t0, t1), toks in zip(runs, groups):
         ws = distribute(toks, t0, t1)
         if ws:
             # The ends of every run are MEASUREMENTS. This is the anti-drift anchor.
-            ws[0]["start"], ws[0]["anchored"] = round(t0, 3), True
-            ws[-1]["end"] = round(t1, 3)
-            ws[-1]["anchored"] = True
+            # A run's first word has a MEASURED START and a MODELLED END; its last word is
+            # the other way round. One `anchored` flag conflated the two, and cues() then
+            # broke on the first word of a run, ending a cue on a modelled time while
+            # stamping it source: measured_boundary.
+            ws[0]["start"], ws[0]["anchored_start"] = round(t0, 3), True
+            ws[-1]["end"], ws[-1]["anchored_end"] = round(t1, 3), True
+            for w in ws:
+                w["anchored"] = w["anchored_start"] or w["anchored_end"]
             words.extend(ws)
 
     if len(words) != len(tokens):
@@ -202,7 +236,8 @@ def cues(words: list[dict]) -> list[dict]:
     for w in words:
         cur.append(w)
         text = " ".join(x["word"] for x in cur)
-        ends_run = w["anchored"] and w is not cur[0]
+        # ONLY on a word whose END is measured. That is what makes the cue's end an anchor.
+        ends_run = w["anchored_end"]
         too_long = len(text) >= MAX_CUE_CHARS or (w["end"] - cur[0]["start"]) >= MAX_CUE_S
         if ends_run and (too_long or len(text) > MAX_CUE_CHARS * 0.55):
             out.append(cur)
@@ -292,9 +327,19 @@ def self_test() -> int:
 
     cs = cues(res["words"])
     ok("cues are produced", len(cs) >= 2, str(len(cs)))
-    ok("...and every cue boundary is a MEASURED one",
-       all(any(abs(c["start"] - a) < 1e-6 or abs(c["end"] - b) < 1e-6 for a, b in runs)
-           for c in cs))
+    # AND, not OR. The first version joined the two tests with `or`, so a cue whose END was a
+    # modelled mid-phrase time passed while being stamped source: measured_boundary, which
+    # ship_gate accepts as the evidence that alignment happened. The assertion described a
+    # property the code did not have.
+    ok("...and every cue STARTS on a measured edge",
+       all(any(abs(c["start"] - a) < 1e-6 for a, _ in runs) for c in cs),
+       str([c["start"] for c in cs]))
+    ok("...and every cue ENDS on one",
+       all(any(abs(c["end"] - b) < 1e-6 for _, b in runs) for c in cs),
+       str([c["end"] for c in cs]))
+    ok("...so no cue crosses a run edge, which is what the output file claims",
+       all(any(abs(c["start"] - a) < 1e-6 for a, _ in runs)
+           and any(abs(c["end"] - b) < 1e-6 for _, b in runs) for c in cs))
     ok("...and none is longer than is readable",
        all(len(c["text"]) <= MAX_CUE_CHARS * 1.4 for c in cs),
        str(max(len(c["text"]) for c in cs)))

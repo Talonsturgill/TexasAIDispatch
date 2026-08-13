@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 
 // =============================================================================
@@ -90,7 +91,7 @@ export const Pickup: React.FC<Rig & {
   const body = paint ?? TRUCK_PAINT[Math.floor(rnd(seed, 3) * TRUCK_PAINT.length)];
   const t = tones(body, L);
   const K = fit('pickup', 100);                         // local frame: 100 units to the roof
-  const uid = `pk${seed}`;
+  const uid = useUid('pk');
   // Door handles sit about 1.15 m up on a 2.0 m truck, so the dirt line is derived.
   const DIRT_Y = -(1.15 / 2.0) * 100;
   const whip = Math.sin(frame / 13 + rnd(seed, 5) * 6) * 3;
@@ -253,7 +254,7 @@ export const StockTrailer: React.FC<Rig & {loaded?: boolean; dirt?: number}> = (
   x = 0, y = 0, scale = 1, facing = 1, seed = 2, loaded = false, dirt = 0.5,
 }) => {
   const K = fit('stockTrailer', 100);                   // local frame: 100 units to the roof
-  const uid = `st${seed}`;
+  const uid = useUid('st');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K * facing} ${scale * K})`}>
       <defs>
@@ -310,7 +311,7 @@ export const TransformerHaul: React.FC<Rig & {dirt?: number; oversize?: boolean}
   const L = useLight();
   const t = tones('#6f7681', L);
   const K = fit('transformerHaul', 100);                // local frame: 100 units, loaded
-  const uid = `th${seed}`;
+  const uid = useUid('th');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K * facing} ${scale * K})`}>
       <defs><FormGradient id={`${uid}_t`} t={t} softness={0.6} /></defs>
@@ -389,7 +390,7 @@ export const Tanker: React.FC<Rig & {water?: boolean; dirt?: number}> = ({
   const L = useLight();
   const t = tones(water ? '#8d9aa4' : '#2f3338', L);
   const K = fit('tanker', 100);                         // local frame: 100 units to the barrel
-  const uid = `tk${seed}`;
+  const uid = useUid('tk');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K * facing} ${scale * K})`}>
       <defs><FormGradient id={`${uid}_t`} t={t} softness={0.75} /></defs>
@@ -444,7 +445,7 @@ export const Slab: React.FC<Rig & {candy?: string; trunkOpen?: boolean}> = ({
   const L = useLight();
   const t = tones(candy, L);
   const K = fit('slab', 100);                           // local frame: 100 units to the roof
-  const uid = `sl${seed}`;
+  const uid = useUid('sl');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K * facing} ${scale * K})`}>
       <defs><FormGradient id={`${uid}_b`} t={t} softness={0.35} /></defs>

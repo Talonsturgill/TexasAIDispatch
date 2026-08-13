@@ -1,0 +1,50 @@
+# SITING — where a machine does not belong.
+#
+# `knowledge/texas/FAUNA_AND_FLORA.md` says an animal is placed in a region that
+# actually has it, and `scripts/staging_check.py` enforces that against the HABITAT
+# map in fauna.tsx. The same class of error is available with machines and nothing
+# was watching it: a centre pivot standing in a Gulf marsh is exactly as wrong as a
+# pronghorn in the Piney Woods, and a Texan reads it just as fast.
+#
+# WHY THIS IS A DENYLIST WHEN FAUNA'S IS AN ALLOWLIST, and the difference is not
+# laziness. An animal's range is a fact with a boundary somebody has drawn, so the
+# confident statement is the positive one: here is where a pronghorn lives. A
+# machine's siting is a matter of what a place grows, pumps or builds, and Texas
+# does nearly everything nearly everywhere. Pumpjacks are in the Permian and the
+# Eagle Ford and also the East Texas field under the pines, which is the oldest of
+# them all. An allowlist there would encode a guess and refuse correct boards, and
+# a gate that refuses correct work is a gate a run learns to argue past.
+#
+# So only the confident negatives are written down, each with the reason. If a
+# board wants one of these anyway it is telling a story about an unusual place, and
+# that is a conversation worth having rather than a rule to bend silently.
+
+never_in:
+  centrePivot:
+    regions: [gulf, piney_woods]
+    why: >-
+      Centre pivots follow the Ogallala and the irrigated river valleys. The Gulf
+      prairie is rice under levee and flood irrigation, and the Piney Woods is
+      timber. A pivot in either reads as a stock image of farming rather than as
+      this place.
+
+  feedlotPen:
+    regions: [gulf, piney_woods, trans_pecos]
+    why: >-
+      Commercial cattle feeding in Texas is a Panhandle and Rolling Plains
+      industry, sited on grain, groundwater and the packing plants. The Gulf
+      marsh and the Piney Woods run cow-calf on pasture, and the Trans-Pecos
+      cannot water a yard.
+
+  soilProbe:
+    regions: [trans_pecos]
+    why: >-
+      A soil-moisture probe belongs in a cropped field. The Trans-Pecos is
+      rangeland and desert outside a handful of irrigated valleys, and a probe
+      standing in creosote reads as a prop.
+
+  cropRows:
+    regions: [trans_pecos]
+    why: >-
+      Row crop at any scale is not what the Trans-Pecos looks like. Use it for the
+      valley floors deliberately, and say so in the board, rather than by default.

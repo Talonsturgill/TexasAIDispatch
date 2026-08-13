@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, INK as LINK} from './lighting';
 import {ambientMouth} from './voice';
 import {humanIdle} from './motion';
@@ -219,6 +220,17 @@ export interface CharacterProps {
   age?: number;
   /** deterministic per-figure desync seed */
   seed?: number;
+  /** Extra desync for two figures of the SAME cast member in one shot.
+   *
+   *  `seed` is cast IDENTITY: `castProps` derives it from the roster index, and it
+   *  drives the hat's weave as well as the breath phase, so the same rancher must
+   *  carry the same one in every shot or their straw hat changes texture between
+   *  cuts. That makes it the wrong knob for desync, because two engineers placed in
+   *  one frame share a cast id and would breathe and blink in perfect lockstep,
+   *  which reads as a copy-paste rather than as two people. This is the knob for
+   *  that: `registry.tsx` fills it from the element's address on the board, so it is
+   *  distinct per instance and identical on every frame. */
+  phase?: number;
 }
 
 export const Character: React.FC<CharacterProps> = ({
@@ -244,6 +256,7 @@ export const Character: React.FC<CharacterProps> = ({
   build = 0.5,
   age = 0.4,
   seed = 0,
+  phase = 0,
 }) => {
   const L = useLight();
   const c = {...OUTFITS[outfit], ...(trim ? {trim} : {})};
@@ -259,10 +272,10 @@ export const Character: React.FC<CharacterProps> = ({
 
   // Per-figure desync so no two cast members breathe or blink together. Hashed from
   // the seed AND the costume, so two figures in the same outfit still differ.
-  const desync = seed * 2.7 + outfit.length * 1.7 + (facing === 1 ? 0 : 2.1);
+  const desync = seed * 2.7 + outfit.length * 1.7 + (facing === 1 ? 0 : 2.1) + phase;
   const idle = humanIdle(f, desync, idleGain);
 
-  const uid = `tc${Math.round(x)}_${Math.round(y)}_${outfit}_${headgear}_${facing}_${seed}`;
+  const uid = useUid('tc');
 
   // ------------------------------------------------------------------ proportions
   // ONE geometry system. `build` and `age` scale the SAME shapes; they never swap in
@@ -751,13 +764,34 @@ export const CAST: CastMember[] = [
    note: 'Black woman lineworker. Transmission, grid restoration.'},
   {id: 'resident',    outfit: 'work-shirt',   headgear: 'bare',          skin: SKIN[3], hair: HAIR[6], build: 0.6, age: 0.82, glasses: true,
    note: 'Older Hispanic woman at a hearing, a public comment desk.'},
+  // A FARMER IS NOT A RANCHER, and the hat is where Texas says so. A High Plains
+  // row-crop farmer wears a GIMME CAP, which the headgear notes already call the
+  // most-worn hat in working Texas and the least drawn. Putting a straw hat on the
+  // aquifer beat would be casting the cattle country next door.
+  {id: 'farmer',      outfit: 'work-shirt',   headgear: 'gimme-cap',     skin: SKIN[2], hair: HAIR[2], build: 0.56, age: 0.55,
+   note: 'High Plains row-crop farmer. Cotton and grain sorghum over the Ogallala.'},
+  {id: 'technician',  outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[5], hair: HAIR[4], build: 0.47, age: 0.36,
+   note: 'Fab technician, Taylor or Sherman. Badge on the collar, no hat on a clean floor.'},
+  {id: 'hydrologist', outfit: 'hi-vis',       headgear: 'ball-cap',      skin: SKIN[1], hair: HAIR[0], build: 0.5, age: 0.46,
+   note: 'River authority field hydrologist, servicing a gauge on a bank.'},
 ];
 
 /** Look a cast member up and spread it into a Character. Scenes should still override
  *  freely: the roster is a starting point and casting against the obvious is the point. */
 export const castProps = (id: string): Partial<CharacterProps> => {
   const m = CAST.find((x) => x.id === id);
-  if (!m) return {};
+  if (!m) {
+    // AN UNKNOWN CAST ID USED TO RETURN {}, which spread nothing into the Character
+    // and rendered the DEFAULTS: a work-shirted, bare-headed, mid-tone figure. So a
+    // board asking for `farmer` before there was a farmer got a plausible person,
+    // no error, and a frame that had quietly cast somebody else. That is the same
+    // silence `resolve()` in registry.tsx exists to break, one layer down, and it
+    // is worse here because the wrong answer LOOKS like an answer.
+    throw new Error(
+      `castProps: nobody in the roster is called "${id}". A missing cast member used ` +
+      `to render as the default figure, which is a casting decision nobody made. ` +
+      `Cast: ${CAST.map((c) => c.id).join(', ')}.`);
+  }
   const {id: _id, note: _note, ...rest} = m;
   return {...rest, seed: CAST.findIndex((x) => x.id === id) + 1};
 };

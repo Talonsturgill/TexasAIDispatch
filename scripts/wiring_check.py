@@ -37,6 +37,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -59,16 +60,55 @@ def workflow_text() -> str:
     return "\n".join(p.read_text(encoding="utf-8") for p in sorted(d.glob("*.yml"))) if d.exists() else ""
 
 
-def invokes(text: str, script: str) -> bool:
+def command_lines(text: str, path: str) -> list[str]:
+    """Every command in `text` that runs this file, with line continuations JOINED.
+
+    `path` is repo-relative and INCLUDES its directory (`scripts/foo.py`,
+    `tests/foo.mjs`). It used to be a bare filename with `scripts/` prepended here,
+    which quietly meant this file could only ever see the Python gates.
+
+    The first version inspected `([^\\n]*)` — the rest of ONE line — so a command written as
+
+        python3 scripts/mix.py \\
+            --self-test
+
+    read as a bare invocation with no --self-test on it. A backslash continuation is one
+    command and has to be read as one.
+    """
+    joined = re.sub(r"\\\s*\n\s*", " ", text)
+    out = []
+    for m in re.finditer(rf"[^\n]*{re.escape(path)}([^\n]*)", joined):
+        out.append(m.group(0).strip())
+    return out
+
+
+def invokes(text: str, path: str) -> bool:
     """A real invocation, NOT a --self-test mention.
 
     `python3 scripts/foo.py --self-test` proves the checker works. It does not prove anything
     runs it on the product. Counting it as wiring is how an orphan check stops being able to fail.
     """
-    for m in re.finditer(rf"scripts/{re.escape(script)}([^\n]*)", text):
-        if "--self-test" not in m.group(1):
-            return True
-    return False
+    return any("--self-test" not in c for c in command_lines(text, path))
+
+
+def usage_exit(script: str) -> bool:
+    """Does running this script with NO arguments exit 2 on a usage message?
+
+    THE EVIDENCE, NOT THE CLAIM. `invokes()` proves a prompt mentions the path. It cannot
+    prove the command can do anything, and the difference is not academic: Phase 6 invoked
+    `python3 scripts/ship_gate.py` and `python3 scripts/flow_check.py` bare, both exit 2 on
+    their usage line, and every rubric hard fail plus the panel score had therefore NEVER
+    been evaluated on a real run while this file reported "fully wired".
+
+    So a bare invocation is only wiring for a script that can actually RUN bare. That is a
+    fact about the script, so it is measured by running it rather than inferred.
+    """
+    try:
+        r = subprocess.run([sys.executable, str(REPO / "scripts" / script)],
+                           capture_output=True, timeout=60, cwd=REPO)
+        return r.returncode == 2
+    except (OSError, subprocess.SubprocessError):
+        return False
 
 
 def check() -> list[str]:
@@ -80,7 +120,11 @@ def check() -> list[str]:
     agent_dir = REPO / ".claude" / "agents"
     on_disk = {f.stem for f in agent_dir.glob("*.md")} if agent_dir.exists() else set()
     for a in sorted(on_disk):
-        if not re.search(rf"`{re.escape(a)}`", prompts):
+        # SPAWNED, not merely NAMED. The first version accepted a backticked name anywhere
+        # in any prompt, so an agent listed in an inventory table counted as wired and the
+        # very fault this file was written for would have gone green if the prompt had only
+        # mentioned `scorer` in a table.
+        if not re.search(rf"[Ss]pawn[^.\n]*`{re.escape(a)}`", prompts):
             p.append(f"ORPHAN AGENT: .claude/agents/{a}.md exists and no prompt spawns it by name. "
                      f"An agent nothing invokes is a capability the run does not have. This is the "
                      f"exact fault that left `scorer` unwired while every gate stayed green.")
@@ -94,13 +138,41 @@ def check() -> list[str]:
     for f in sorted((REPO / "scripts").glob("*.py")):
         if f.name in STANDALONE:
             continue
-        if not (invokes(prompts, f.name) or invokes(flows, f.name)):
+        if not (invokes(prompts, f"scripts/{f.name}") or invokes(flows, f"scripts/{f.name}")):
             p.append(f"ORPHAN SCRIPT: scripts/{f.name} is never run on real inputs by a prompt or "
                      f"a workflow. A --self-test in CI proves the checker works and proves nothing "
                      f"runs it on the product. Wire it, or list it in STANDALONE with a reason.")
+            continue
+        # A MENTION IS NOT AN INVOCATION EITHER. If a prompt runs it bare and it exits 2
+        # on a usage message, that gate has never seen the product.
+        bare = [c for c in command_lines(prompts, f"scripts/{f.name}")
+                if re.search(rf"scripts/{re.escape(f.name)}\s*$", c)]
+        if bare and usage_exit(f.name):
+            p.append(
+                f"UNARGUED GATE: a prompt runs `{bare[0]}` with no arguments and "
+                f"scripts/{f.name} exits 2 on its usage message, so it never evaluates anything. "
+                f"It looks wired, it is in CI, and it has never seen the product. Pass it the "
+                f"inputs it needs.")
     for name in sorted(set(re.findall(r"scripts/([a-z_]+\.py)", prompts))):
         if not (REPO / "scripts" / name).exists():
             p.append(f"GHOST SCRIPT: a prompt calls scripts/{name} and it does not exist.")
+
+    # ---- node tests
+    # The Python gates were the only thing this checked, and the engine's tests are
+    # node. A test suite nobody runs is the same orphan as a script nobody runs, and
+    # it is a WORSE one to leave uncovered, because a test file reads as proof that
+    # the thing it names is checked. `invokes` applies here for the same reason it
+    # does above: a workflow that runs only `--self-test` has proved the checker
+    # works on planted inputs and has never looked at the engine.
+    tests = REPO / "video-engine" / "tests"
+    for f in sorted(tests.glob("*.mjs")) if tests.exists() else []:
+        rel = f"tests/{f.name}"
+        if not (invokes(flows, rel) or invokes(prompts, rel)):
+            p.append(f"ORPHAN TEST: video-engine/{rel} is never run on the engine by a workflow "
+                     f"or a prompt. A test file nobody runs reads as coverage and is not.")
+    for name in sorted(set(re.findall(r"tests/([a-z_]+\.mjs)", flows + prompts))):
+        if tests.exists() and not (tests / name).exists():
+            p.append(f"GHOST TEST: something runs video-engine/tests/{name} and it does not exist.")
     return p
 
 
@@ -115,15 +187,27 @@ def self_test() -> int:
 
     # THE LESSON THE SIBLING PAID FOR.
     ok("a --self-test mention is NOT wiring",
-       not invokes("python3 scripts/foo.py --self-test", "foo.py"))
+       not invokes("python3 scripts/foo.py --self-test", "scripts/foo.py"))
     ok("...but a real invocation is",
-       invokes("python3 scripts/foo.py --board out/x.json", "foo.py"))
+       invokes("python3 scripts/foo.py --board out/x.json", "scripts/foo.py"))
     ok("...and a file that has BOTH counts as wired",
-       invokes("python3 scripts/foo.py --self-test\npython3 scripts/foo.py --board x", "foo.py"))
+       invokes("python3 scripts/foo.py --self-test\npython3 scripts/foo.py --board x",
+               "scripts/foo.py"))
     ok("a bare invocation with no arguments counts",
-       invokes("python3 scripts/foo.py\n", "foo.py"))
+       invokes("python3 scripts/foo.py\n", "scripts/foo.py"))
     ok("a different script's name does not satisfy it",
-       not invokes("python3 scripts/foobar.py --board x", "foo.py"))
+       not invokes("python3 scripts/foobar.py --board x", "scripts/foo.py"))
+
+    # THE NODE TESTS. `command_lines` prepended "scripts/" to a bare filename, so
+    # before this the checker could not see a path outside that one directory even
+    # if asked. A checker that is structurally unable to look at half the repo
+    # reports the same clean line as one that looked.
+    ok("a node test run on the engine counts as wired",
+       invokes("node tests/paint_ids.mjs\n", "tests/paint_ids.mjs"))
+    ok("...and running only its self-test does NOT",
+       not invokes("node tests/paint_ids.mjs --self-test\n", "tests/paint_ids.mjs"))
+    ok("...and a different test's name does not satisfy it",
+       not invokes("node tests/other.mjs\n", "tests/paint_ids.mjs"))
 
     real = check()
     ok("the repo itself is fully wired", not real, "\n      " + "\n      ".join(real))

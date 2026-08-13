@@ -68,25 +68,39 @@ MAX_OVERAGE = 0.04
 
 
 def strip_prose(src: str) -> str:
-    """Code only: docstrings and comments removed, so a scan cannot read prose.
+    """CODE only. Comments, docstrings AND string literals removed.
 
-    This file's own docstring explains at length that there is no resampler in it,
-    using the word. A banned-substring scan over the raw text would flag that
-    sentence, and the guarantee would look broken while being perfectly intact.
-    engine_lint learned this exact lesson the hard way.
+    A scan of this file for banned identifiers has to read what the file DOES, not what it
+    says. Three rounds of that lesson are baked in here:
+
+      engine_lint failed on its first run reading a comment that said a call was banned.
+      This file's docstring says "resampler" while explaining there is not one.
+      And main() carries the message "this mixer does not resample" as a plain STRING, which
+      survived comment-and-docstring stripping and turned the guarantee red the moment the
+      scan was widened to cover main() at all.
+
+    So string literals go too. A banned identifier never appears inside a string in real code
+    except as a message about itself, which is precisely the case being excluded.
     """
     triples = ('"' * 3, "'" * 3)
     out, i, n = [], 0, len(src)
     while i < n:
-        if src[i] == "#":
+        c = src[i]
+        if c == "#":
             j = src.find("\n", i)
             i = n if j < 0 else j
         elif src.startswith(triples, i):
             q = src[i:i + 3]
             j = src.find(q, i + 3)
             i = n if j < 0 else j + 3
+        elif c in ('"', "'"):
+            j = i + 1
+            while j < n and src[j] != c:
+                j += 2 if src[j] == "\\" else 1
+            out.append('""')
+            i = j + 1
         else:
-            out.append(src[i])
+            out.append(c)
             i += 1
     return "".join(out)
 
@@ -156,7 +170,15 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
             f"cannot name.")
         return np.zeros(0), {}, problems
 
-    n = int(max(cut_s, dur) * rate)
+    # THE BUFFER MUST HOLD THE VOICE, exactly.
+    #
+    # `int(max(cut_s, dur) * rate)` truncates, and dur is len(vo)/rate, so the float round trip
+    # int(len/rate*rate) lands one sample SHORT of len(vo) for a large fraction of sample counts.
+    # Reproduced at 22050, 24000, 44100 and 48000. It fires only when dur > cut_s, which is
+    # exactly the take that runs long and sits inside the 4% overage this code deliberately
+    # tolerates, and the mix() call in main() is outside its try block, so an unattended run died
+    # on "mix: broke: operands could not be broadcast" with no usable diagnostic.
+    n = max(len(vo), int(round(cut_s * rate)))
     master = np.zeros(n)
     master[: len(vo)] += vo
 
@@ -222,15 +244,53 @@ def self_test() -> int:
     # top of this file says the word "resampler" while explaining that there is not
     # one. Over the raw text this check would flag that sentence and the guarantee
     # would look broken while being intact.
+    # THE WHOLE FILE, not the part before self_test.
+    #
+    # The first version scanned `src.split("def self_test")[0]`, which is 58% of the source and
+    # excludes main() — including the sample-rate-mismatch refusal, which is the single most
+    # tempting place anybody would ever add a resampler. A guarantee that does not cover the
+    # place the temptation lives is not a guarantee.
+    #
+    # The self-test's own body is excluded by name so its banned-word LIST does not match itself.
+    # Everything EXCEPT this function: the banned-word list below is data, not a resampler.
+    # `rindex` for the definition, because this very function mentions "def main()" in an
+    # assertion and `index` cut the wrong span, leaving self_test in the scanned body and
+    # turning the guarantee red on its own test data.
     src = Path(__file__).read_text(encoding="utf-8")
-    body = src.split("def self_test", 1)[0]
+    body = src[:src.index("def self_test")] + src[src.rindex("def main()"):]
     code = strip_prose(body)
     ok("stripping prose leaves the real code behind", "def duck_envelope" in code)
+    ok("...and the scan reaches main(), where a resampler would be most tempting",
+       "def main" in code and "read_wav" in code)
+    ok("...and strips STRING LITERALS, not only comments and docstrings",
+       "does not resample" not in code,
+       "main() says so in a plain string, which survived the first two rounds of this lesson")
     ok("...and removes the docstring that talks about resampling", "chipmunk" not in code)
-    for banned in ("resample", "linspace", "stretch_audio", "speed_up", "librosa",
-                   "phase_vocoder", "scipy.signal"):
+    banned_terms = ("resample", "linspace", "stretch_audio", "speed_up", "librosa",
+                    "phase_vocoder", "scipy.signal")
+    for banned in banned_terms:
         ok(f"no {banned!r} anywhere in the mixer's code", banned not in code)
-    ok("...so a time-stretch cannot be reached from here even by accident", True)
+    # THE LOOP ABOVE WAS FOLLOWED BY `ok(..., True)`, which is a line that cannot go
+    # red dressed as the conclusion of the ones that can. Worse than useless: it read
+    # as the summary of the guarantee while asserting nothing about it.
+    #
+    # What a summary here can honestly check is that the loop was not VACUOUS. A loop
+    # over an empty list prints nothing and passes, and a scan of an empty string
+    # finds no banned word either, so both halves get pinned.
+    #
+    # The body half is checked STRUCTURALLY rather than by character count, because a
+    # length threshold on a file this heavily commented is a number nobody can defend
+    # and prose stripping legitimately removes two thirds of it. What the guarantee
+    # actually claims is that it covers the whole file, so that is the assertion: every
+    # function here except this one survives into the scanned text. It is also the
+    # check that would have caught the span-slicing bug this file already had twice.
+    defs = [ln.split("(")[0][4:] for ln in src.split("\n") if ln.startswith("def ")]
+    uncovered = [d for d in defs if d != "self_test" and f"def {d}" not in code]
+    ok("...and the scan covers every function in the file except this one",
+       len(banned_terms) >= 7 and not uncovered,
+       f"{len(banned_terms)} terms; missed {uncovered}")
+    # And a term that IS present must be found, or absence proves nothing.
+    ok("...and the scanner finds a term that is genuinely there", "duck_envelope" in code)
 
     sr = 24000
     t = np.arange(int(6.0 * sr)) / sr
@@ -253,6 +313,15 @@ def self_test() -> int:
        any("Trim the script" in x for x in probs))
     _, _, probs = mix(speech, sr, sfx, cut_s=6.05)
     ok("a hair over is tolerated, same as the soundcheck", not probs, str(probs))
+
+    # THE OFF-BY-ONE, at every rate a take might arrive at.
+    for r in (22050, 24000, 44100, 48000):
+        vo = np.zeros(int(r * 0.2527) + 1)
+        vo[::7] = 0.1
+        out, rep, pr = mix(vo, r, [], cut_s=len(vo) / r * 0.99)
+        ok(f"a take a hair over the cut mixes at {r} Hz without crashing", not pr, str(pr))
+        ok(f"...and the buffer holds every sample of it at {r} Hz",
+           rep.get("duration_s", 0) * r >= len(vo) - 1)
 
     # Ducking, measured from the voice.
     env = duck_envelope(speech, sr)
@@ -277,8 +346,14 @@ def self_test() -> int:
     ok("a quiet mix is brought up to the target",
        abs(integrated_lufs(out_q, sr) - rep_q["lufs_target"]) < 1.0,
        f"{integrated_lufs(out_q, sr):.2f} vs {rep_q['lufs_target']}")
+    # Compared against a FRESH reference rather than a variable from earlier in this
+    # function: the multi-rate loop above rebinds `rep`, and a test that reads a stale
+    # binding is testing something nobody chose.
+    _, rep_ref, _ = mix(speech, sr, [], cut_s=6.2)
     ok("...and normalisation changed the length by nothing at all",
-       rep_q["duration_s"] == rep["duration_s"])
+       rep_q["duration_s"] == rep_ref["duration_s"],
+       f"{rep_q['duration_s']} vs {rep_ref['duration_s']}")
+    ok("...and a gain is all it applied", abs(rep_q["master_gain_db"]) > 3)
 
     # The loudness meter is the SAME one, not a second implementation.
     ok("the loudness meter is imported, not reimplemented",

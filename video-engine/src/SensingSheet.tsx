@@ -61,7 +61,7 @@ export const SensingSheet: React.FC = () => {
 
         <Row ground={900} title={520} head="A mask, a sweep, and a readout"
           note="A mask's edge is RAGGED, because it follows a grid of predictions. A sweep classifies behind the line and not ahead of it, so the picture shows work happening.">
-          <DataCentre x={90} y={880} scale={0.42} seed={5} wear={0.3} />
+          <DataCentre x={90} y={880} scale={0.0117} seed={5} wear={0.3} />
           <Mask cx={218} cy={848} rx={128} ry={38} frame={f} seed={4} noise={0.3}
             label="thermal load 0.88" />
           <Sweep x={560} y={640} w={440} h={230} p={(f % 120) / 120} />
@@ -71,9 +71,9 @@ export const SensingSheet: React.FC = () => {
 
         <Row ground={1380} title={950} head="The plume the eye cannot see"
           note="Methane is invisible, and that is the entire reason there is a computer-vision story in the Permian. The frame shows the world as a person sees it and as the sensor does.">
-          <Pumpjack frame={f} x={230} y={1370} scale={0.8} seed={4} rpm={8} wear={0.5} />
+          <Pumpjack frame={f} x={230} y={1370} scale={0.05145} seed={4} rpm={8} wear={0.5} />
           <Pickup x={470} y={1372} frame={f} scale={0.16} seed={21} dirt={0.9} flagWhip />
-          <Pumpjack frame={f} x={790} y={1370} scale={0.8} seed={4} rpm={8} wear={0.5} />
+          <Pumpjack frame={f} x={790} y={1370} scale={0.05145} seed={4} rpm={8} wear={0.5} />
           <Plume x={790} y={1300} frame={f} seed={6} strength={1} rate="4.1 kg/h" />
           <text x={230} y={1404} fontSize={12.5} fill="#7a7266" textAnchor="middle"
             fontFamily="Georgia, serif">what a person sees</text>

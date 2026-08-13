@@ -13,9 +13,9 @@ export const RegionSheet: React.FC<{region?: RegionName}> = ({region = 'high_pla
     <Biome region={region} frame={f} seed={7} groundY={1290}>
       <div style={{position: 'absolute', inset: 0}}>
         <svg width={1080} height={1920} viewBox="0 0 1080 1920">
-          <DataCentre x={230} y={1300} scale={0.72} seed={3} />
-          <Pumpjack frame={f} x={840} y={1310} scale={0.62} seed={11} />
-          <WindTurbine frame={f} x={110} y={1300} scale={0.5} seed={5} />
+          <DataCentre x={230} y={1300} scale={0.02007} seed={3} />
+          <Pumpjack frame={f} x={840} y={1310} scale={0.03987} seed={11} />
+          <WindTurbine frame={f} x={110} y={1300} scale={0.004738} seed={5} />
           <text x={44} y={110} fontSize={44} fontWeight={700} fill="#101423"
             fontFamily="Georgia, serif">{region.replace(/_/g, ' ')}</text>
         </svg>

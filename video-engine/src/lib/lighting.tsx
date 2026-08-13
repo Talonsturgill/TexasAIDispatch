@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 
 // =============================================================================
 // LIGHTING / SHADOW / TEXTURE — the depth engine, lit by REGION.
@@ -232,14 +233,6 @@ export function paleTones(base: string, light: Light = LIGHT_DEFAULT): Tones {
 export const useTones = (base: string) => tones(base, useLight());
 export const usePaleTones = (base: string) => paleTones(base, useLight());
 
-// A deterministic id helper. No Math.random: it is banned in this runtime and would
-// break Remotion's deterministic render, which is what makes a re-render reviewable.
-function gid(seed: string): string {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
-  return `lg${(h >>> 0).toString(36)}`;
-}
-
 // ------------------------------------------------------------- form-shade gradient
 // A linear gradient across a shape's bounding box, oriented to the light, ramping
 // key -> base -> core -> shade.
@@ -314,7 +307,7 @@ export const ContactShadow: React.FC<{
   cx: number; cy: number; rx: number; ry?: number; opacity?: number; blur?: number;
 }> = ({cx, cy, rx, ry, opacity = 0.32, blur = 10}) => {
   const L = useLight();
-  const id = gid(`cs${cx}${cy}${rx}`);
+  const id = useUid('cs');
   const offX = -L.dir.x * rx * 0.5;
   return (
     <g>
@@ -396,7 +389,7 @@ export const RustStreak: React.FC<{
 export const CalicheDust: React.FC<{
   x: number; y: number; w: number; h: number; opacity?: number;
 }> = ({x, y, w, h, opacity = 0.34}) => {
-  const id = gid(`cal${x}${y}${w}`);
+  const id = useUid('cal');
   return (
     <g opacity={opacity}>
       <linearGradient id={id} x1="0%" y1="0%" x2="0%" y2="100%">
@@ -468,7 +461,7 @@ export const MesquiteLace: React.FC<{
 export const GradeLayer: React.FC<{
   f: number; bloom?: number; vignette?: number; grain?: number; warmth?: number;
 }> = ({f, bloom = 0.16, vignette = 0.24, grain = 0.05, warmth = 0.06}) => {
-  const id = gid(`grade${bloom}${vignette}`);
+  const id = useUid('grade');
   // Grain drifts on a 3-frame cycle so it reads as film rather than as a static
   // overlay, and it is deterministic from f so a re-render is identical.
   const gx = (f % 3) * 7, gy = (f % 5) * 5;

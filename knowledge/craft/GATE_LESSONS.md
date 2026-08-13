@@ -233,3 +233,192 @@ prompt or a workflow runs it *on real inputs*.
 
 The gate was verified the only way that counts: the orphan was put back on purpose and the check
 went red, then removed and it went green.
+
+## 20. Two of a thing were one thing, and the one surface that would have shown it could not
+
+An SVG gradient, clip path or filter is referenced by **document-global id**, and the browser takes
+the first match in document order without a word about the rest. Every drawn thing in this library
+built its ids out of `seed`:
+
+```
+const uid = `lh${seed}`;              // Longhorn, seed defaults to 5
+```
+
+so two longhorns staged without explicit distinct seeds both emitted `id="lh5_c"` and **the second
+animal was painted with the first animal's coat.** The two-letter tags collided across modules too:
+a whitetail and a civics water tower were both `wt`, so a deer and a tank at the same seed shared a
+gradient.
+
+Four checkers were green and each was blind for its own reason. `tsc` cannot see it, because an id
+is a string. `engine_lint` reads colour literals. `staging_check` reads which animal stands in which
+region. `composition_check` reads which composition ids exist.
+
+**The part worth keeping is why the review sheet could not find it.** The fauna sheet's herd row
+stages five longhorns as `seed={51 + i * 7}` — deliberately distinct, because a person typing a herd
+can see the result and fixes it on sight. So the single surface built to show a herd is the one
+surface **structurally incapable of reproducing the defect**, and every eye-check of it passed
+honestly. Then `Dispatch.tsx` arrived, placing elements from board JSON where `seed` is optional,
+and unseeded duplicates went from unlikely to ordinary in the same commit.
+
+**A hand-authored review surface is written by someone avoiding the failure. Data-driven staging is
+written by a routine that does not know the failure exists.** When staging moves from the first to
+the second, the review surfaces stop covering it and nothing announces the change.
+
+Three separate fixes, and the split between them is the lesson:
+
+- **Ids come from `useId()`.** Unique per instance, stable for a given tree, and *invisible*.
+- **Appearance may NOT come from `useId()`**, because tree position shifts when a sibling appears on
+  a frame condition, and an animal whose coat changed mid-shot would be far worse than two that
+  matched. It comes from the element's **address on the board**, which is distinct per instance and
+  identical on every frame.
+- **The address arithmetic adds rather than hashes.** The first version hashed `scene/plane/item`
+  and collided four times in two hundred draws, exactly as the birthday bound predicts. Hashing the
+  scene and *adding* the position inside the modulus makes same-scene collisions impossible instead
+  of unlikely, and the test enumerates all 32,768 positions rather than sampling. **A gate that goes
+  red one run in fifty is a gate people learn to re-run.**
+
+And the assertion that was wrong on the first pass, in the file written to catch this: it asked
+whether a hide colour was *present in the markup*. On a document with two gradients sharing an id
+both colours are present and only one is drawn, so it passed while the duplicate check beside it was
+correctly red. **Assert what a browser would paint, not what the document contains** — resolve
+`url(#x)` to the first definition the way the renderer does.
+
+Verified the only way that counts: the seed-derived uid was put back in `fauna.tsx` on purpose, both
+assertions went red, and it was removed and they went green.
+
+## 21. An assertion that cannot fail, in the file written to stop that
+
+Three of them, in three different gates, each dressed as the conclusion of the real
+assertions around it:
+
+```python
+ok("a story sharing only channel words is fresh", check_entities(...)[0] or True)
+ok("no key is reported as blocked, with its own exit code", blocked_code() == 3)
+ok("...so a time-stretch cannot be reached from here even by accident", True)
+```
+
+The first is unfailable by construction. The second compares a function to the constant it
+returns, so it holds however `main()` actually behaves, and what the routine needs to know is what
+the PROCESS exits with when the credential is missing. The third is a literal, placed immediately
+after a loop of seven real checks so it reads as their summary while asserting nothing.
+
+**The `or True` one is the instructive one, because it was also testing the wrong thing.** Its
+fixture shared a subject token with an earlier entry, so it re-proved the line above it about a
+single overlap and never staged what its own label promised. The `or True` had been appended to
+stop a line failing rather than to fix what it measured, and the label kept describing the test
+that was intended. **A label is a claim about a test. When they drift apart the label is what gets
+read, and the test is what runs.**
+
+Two more found in the same sweep, both silent rather than tautological. `recent()` returned the
+whole ledger when no `--today` was passed, and neither subcommand passes one, so `--days` was a
+no-op on every real invocation and the dedupe window was all of history. That direction of failure
+is the dangerous one: **a window that never ends does not miss repeats, it invents them**, and a
+gate that calls a new story a repeat is a gate a run learns to argue past. And the mixer's
+banned-word loop could have iterated over an empty list and printed nothing, so the summary line
+now checks that the scan covered every function in the file rather than asserting `True`.
+
+The general form of the question is now a gate of its own. `scripts/mutation_check.py` makes each
+declared threshold vacuous, one at a time, and requires that gate's own `--self-test` to go red.
+**A threshold that survives its own mutation is a threshold nothing is holding.** All eleven were
+caught, which is the first evidence in this repo that the self-tests are connected to the numbers
+they name rather than merely green. It runs in five seconds, which is the whole argument for
+keeping it in CI rather than doing it once by hand and trusting the memory of it.
+
+## 22. Gate 0 gated a document that was not the film
+
+`storyboard_check.py` read scenes whose `planes` were the labels a director writes -- sky, far
+ridge, mid, near band, hero. `Dispatch.tsx` renders scenes whose `planes` are `{z, items}`
+carrying named components. **Nothing converted one into the other and nothing compared them.**
+
+So every rule in the most expensive gate in the routine -- the composition fingerprint, the
+cross-run divergence memory, the never-two-films-alike guarantee, the beat mix, the tiling, the
+silent-first rule -- was being enforced against a board that was **not the thing Remotion would
+render**. A board could pass Gate 0 and stage nothing at all. The prompt's own Phase 5 line was
+`--props=...`, an ellipsis, because there was no step that produced the props and nobody had
+noticed there needed to be one.
+
+It is the same shape as entry 19, one level up. There, a file existed and nothing invoked it.
+Here, a *check* existed and nothing connected it to the artifact. **A gate is defined by the
+artifact it reads, not by the rules it contains**, and this one had drifted onto a neighbour.
+
+Two things kept it invisible. `len(planes)` is 5 for both shapes, so the plane-count rule passed
+either way. And the two halves were written months apart by different concerns, each internally
+coherent, so reading either file alone showed nothing wrong.
+
+**THE BOARD IS THE PROPS.** One document, gated and then rendered by path. The staging half is
+now checked as hard as the planning half -- every `kind` is a registry name, elements made of data
+have their data, planes run far to near with distinct z, nothing is sited where it does not
+belong, and a scene that stages nothing is refused -- because every one of those is a fault
+`Dispatch.tsx` hits at render time with the research, the script and the voice already paid for.
+
+And the trap inside the fix: the self-test's own fixture still used the old plane shape, so it
+passed while proving the checker worked on a document the product does not use. That is the same
+fault a third time, in the test for it.
+
+## 23. True scale is a system, not a per-file choice
+
+`fauna`, `vehicles` and `civics` fit every drawing to a real dimension, so `scale={1}` means one
+thing and a longhorn beside a person is right without anyone thinking about it. `kit` did not.
+Eleven objects were drawn at whatever size read well in a review sheet, so `scale` there was a
+private convention per component that a board author had to discover by rendering.
+
+It stayed invisible while scenes were hand-authored, because a person tuning a number until the
+frame looks right does not care what the number means. It surfaced the moment a board wrote the
+number from story data: a data centre came out shorter than the two people standing in front of
+it, and a grain elevator at `scale: 1` was seven frame-heights tall.
+
+**Converting the module is the easy half.** The ripple is that every existing call site's number
+now means something else, and the conversion is exact -- divide by the fit factor -- but only if
+you find them all, including the ones inside computed expressions in `biomes.tsx` that a regex for
+`scale={0.9}` will not match.
+
+The honest limit, written down rather than papered over: a gate that checked staged size from the
+height tables **would not have caught the frame that started this**. The centre pivot was the
+right height and forty feet too wide, because a quarter-mile machine is ten times longer than it
+is tall and the tables carry only height. A width-blind size gate would have gone green on a
+broken frame and been worse than no gate, so there is not one. The tools that work here are true
+scale so the numbers compose, and a render you actually look at.
+
+## 24. An `<svg>` clips, and a plane that recedes cannot reach the edge it was clipped to
+
+Each plane in `Dispatch.tsx` is an `<svg width={1080} viewBox="0 0 1080 1920">`, and an SVG clips
+to its viewport. So no plane could draw one pixel outside the frame. Meanwhile `Plane` scales a
+receding layer DOWN about the frame centre, so a ground treatment sized exactly to the frame
+arrived on screen about a hundred pixels narrow, with bare ground showing down both margins.
+
+Sizing the treatment wider does nothing, because the clip happens first. The fix is one line --
+`style={{overflow: 'visible'}}` -- and the reason it is worth an entry is that **the symptom
+points at the wrong file.** It looks like a sizing bug in the board, and every attempt to fix it
+there fails silently in a way that reads as "not wide enough yet".
+
+Nothing errored. The film simply looked like it had a border nobody gave it, on every scene.
+
+## 25. A gradient painted per shape prints every shape's edge
+
+`RainCell` drew a convective cell as ten overlapping ellipses, each filled with the same
+top-to-bottom gradient. It rendered as a **nautilus shell**. Three rewrites went at the geometry
+-- the lobe count, the offsets, the shear, the proportion of tower to lobe -- and every one of
+them produced a differently shaped shell, because the geometry was never the problem.
+
+A gradient applied per shape runs top-to-bottom of **that shape's own bounding box**. So every
+lobe in the cluster arrived carrying its own dark underside, and a column of dark undersides is a
+row of visible arcs that the eye assembles into a spiral. **The cluster was being painted as ten
+shapes when it needed to be painted as one mass.**
+
+The fix is not a better gradient. It is a flat fill for the whole cluster so the overlaps are
+invisible, then a second smaller pass up the lit side and a shaded rank along the base. Same
+shapes, same positions, and it stops being a shell.
+
+It is the same law as the horizon-haze note in `biomes.tsx` -- *a fill that reaches full strength
+exactly where its shape is cut prints its own edge into the picture* -- and lesson 5's stroke
+width and 18's blend mode: **a paint is a property of the CONTEXT a shape lands in, not of the
+shape.** That is now four separate doors onto one rule, which is how you know it is the rule.
+
+The trap inside the fix: the highlight pass printed circles of its own the first time, because it
+was drawn at high opacity against the flat mass. The second layer is subject to the same law as
+the first.
+
+**Honest note on the state of it.** `RainCell` is the weakest drawing in the library. It is
+structurally right now and it is not yet a storm anyone would photograph, and it took nine renders
+to get that far. It is written down rather than quietly left because the next person to open that
+component should know it is a known-soft spot and not a finished one.

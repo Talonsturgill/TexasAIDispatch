@@ -92,8 +92,17 @@ RETIRED = {"six flags", "confederate", "loteria", "lotería", "calavera", "headd
            "wood type", "rope border", "cowhide"}
 
 BRIMMED = {"felt-hat", "straw-hat", "stetson", "cowboy hat", "brimmed"}
+
+# Matched on WORD BOUNDARIES, and "unit" is gone.
+#
+# The first version tested these as bare substrings, so "community", "opportunity" and
+# "immunity" all contained "unit" and a rancher outside the community hall in Bandera was
+# reported as wearing a felt hat on a rig floor. That is a Hill Country scene this show is
+# built to draw, stopped by a message that makes no sense to whoever reads it, which is
+# GATE_LESSONS 11 exactly: a correct product reported as a violation is how a gate gets
+# switched off. The token actually meant is "pumping unit".
 HAZARD = {"rig floor", "rig-floor", "drill floor", "derrick", "workover", "wellhead",
-          "unit", "flowback", "frac"}
+          "pumping unit", "pump unit", "flowback", "frac", "wireline", "coiled tubing"}
 
 MAX_SCENE_S = 5.0
 CURRENCIES = {"motion", "emotion", "revelation"}
@@ -177,6 +186,10 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
     if int(captions.get("boundaries_measured") or 0) <= 0:
         fails.append("captions report no measured boundaries. A method name is a claim; the "
                      "count of boundaries taken off the waveform is the evidence for it.")
+    if not (captions.get("cues") or []):
+        fails.append(
+            "captions carry no cues at all. An empty list satisfied every per-cue rule below by "
+            "vacuous truth, so a film with no captions cleared the caption gate outright.")
     for cue in captions.get("cues") or []:
         src = str(cue.get("source") or "").lower()
         if not src or src in NOT_ALIGNED:
@@ -184,8 +197,18 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
                          f"than a measured boundary")
 
     # ---- 3. no time stretch
+    #
+    # FAILS CLOSED. A missing measurement is not compliance: `--audio` omitted entirely, or a
+    # mix report that simply has no time_stretch key, used to clear the one thing CLAUDE.md
+    # bans outright. The sibling check three lines above already gets this right for
+    # boundaries_measured, so the asymmetry lived inside one function.
     st = audio.get("time_stretch")
-    if st is not None and abs(float(st) - 1.0) > 1e-6:
+    if st is None:
+        fails.append(
+            "the audio report declares no time_stretch. A missing measurement is not compliance: "
+            "time-stretching is banned outright, so the mix has to SAY it did not, and mix.py "
+            "writes the field for exactly that reason. Pass --audio out/dispatch/mix.json.")
+    elif abs(float(st) - 1.0) > 1e-6:
         fails.append(
             f"audio was time-stretched by {st}. It is banned: it produces the "
             f"chipmunk-or-molasses artefact every viewer hears and cannot name. The fix for a "
@@ -228,7 +251,7 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
     # ---- 6. a brimmed hat where it is a safety violation
     for s in scenes:
         place = " ".join(str(s.get(k, "")) for k in ("on_screen", "location", "note")).lower()
-        if not any(h in place for h in HAZARD):
+        if not any(re.search(rf"(?<![a-z]){re.escape(h)}(?![a-z])", place) for h in HAZARD):
             continue
         for c in s.get("cast") or []:
             gear = str(c.get("headgear") or "").lower()
@@ -337,6 +360,42 @@ def self_test() -> int:
                  {"time_stretch": 1.0, "tracks": [{"id": "vo", "time_stretch": 0.94}]},
                  None, cmap)
     ok("...on any single track, not only the master", any("track vo" in x for x in f))
+
+    # ---- FAILING CLOSED. A missing measurement is not compliance.
+    f, _ = check(board, claims, script, caps, {}, None, cmap)
+    ok("an ABSENT audio report is a hard fail, not a pass",
+       any("declares no time_stretch" in x for x in f), str(f[:1]))
+    f, _ = check(board, claims, script, caps, {"lufs": -16, "tracks": [{"id": "vo"}]}, None, cmap)
+    ok("...and a report that simply omits the field is too",
+       any("declares no time_stretch" in x for x in f), str(f[:1]))
+    ok("...while the mix.py report, which always writes it, still ships",
+       not check(board, claims, script, caps,
+                 {"time_stretch": 1.0, "tracks": [{"id": "vo", "time_stretch": 1.0}]},
+                 None, cmap)[0])
+
+    f, _ = check(board, claims, script, dict(caps, cues=[]), audio, None, cmap)
+    ok("a film with NO captions at all is refused",
+       any("no cues at all" in x for x in f), str(f[:1]))
+    ok("...and the message says why an empty list passed everything",
+       any("vacuous truth" in x for x in f))
+
+    # ---- WORD BOUNDARIES. "community" is not a rig floor.
+    hill = {"runtime_s": 40.0, "scenes": [scene(i) for i in range(1, 9)]}
+    hill["scenes"][1]["on_screen"] = "a rancher outside the community hall in Bandera"
+    hill["scenes"][1]["cast"] = [{"id": "rancher", "headgear": "felt-hat"}]
+    f, _ = check(hill, claims, script, caps, audio, None, cmap)
+    ok("a felt hat outside the COMMUNITY hall is not a safety violation", not f, str(f[:1]))
+    for word in ("opportunity", "immunity", "unity"):
+        h2 = {"runtime_s": 40.0, "scenes": [scene(i) for i in range(1, 9)]}
+        h2["scenes"][1]["on_screen"] = f"a hearing about {word} in Kerrville"
+        h2["scenes"][1]["cast"] = [{"id": "rancher", "headgear": "felt-hat"}]
+        ok(f"...nor one near the word {word!r}", not check(h2, claims, script, caps, audio,
+                                                           None, cmap)[0])
+    pu = {"runtime_s": 40.0, "scenes": [scene(i) for i in range(1, 9)]}
+    pu["scenes"][1]["on_screen"] = "a hand at the pumping unit"
+    pu["scenes"][1]["cast"] = [{"id": "rancher", "headgear": "straw-hat"}]
+    ok("...but a straw hat at a PUMPING UNIT still is",
+       any("rig floor" in x for x in check(pu, claims, script, caps, audio, None, cmap)[0]))
 
     # 4. region vs county. THE FIRST LAW.
     wrong = {"runtime_s": 40.0, "scenes": [scene(i) for i in range(1, 9)]}

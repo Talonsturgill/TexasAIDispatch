@@ -1,0 +1,777 @@
+{
+  "_why": [
+    "THE BOARD IS THE PROPS, and this is the proof of it. One document: `storyboard_check` gates",
+    "this file and `npx remotion render Dispatch --props=examples/board.json` renders this file.",
+    "They used to be two documents that nothing converted between, so every divergence rule was",
+    "being enforced against a board that was not the film.",
+    "",
+    "It is a real board rather than a fixture. The story is variable-rate irrigation over the",
+    "Ogallala, which is the second-ranked beat in knowledge/texas/APPLICATIONS.md and the one the",
+    "engine could not draw at all until the agriculture module existed.",
+    "",
+    "NOTHING HERE IS A PUBLISHABLE CLAIM. There is no numeral in any super or caption, because a",
+    "published number traces to a fetched source and a computed value and this file has neither.",
+    "A run replaces the copy with its own, sourced."
+  ],
+  "runtime_s": 40,
+  "title": "One machine, a different answer every acre",
+  "beat": "farm-ranch-water",
+  "derived_from": "scratch",
+  "divergence_note": "Built from the pivot outward rather than from a landscape inward. The camera lives UNDER the machine looking up through the span for most of the film, the movement is the sweep of the circle rather than a traverse across it, and the turn is a cut to the ground in section where the water actually is. No prior board has stood beneath anything.",
+  "fingerprint": {
+    "pov": "under-the-pivot",
+    "motion_vector": "radial-emanate",
+    "hero_treatment": "machine-as-subject",
+    "layout": "horizon-thirds",
+    "register": "naturalistic-scene",
+    "camera_strategy": "truckAcross",
+    "light_story": "dawn-backlight",
+    "palette": "caliche, cotton green and a low sodium sun",
+    "metaphor": "a quarter-mile machine writing a different number on every acre it crosses"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Hale",
+      "camera_strategy": "truckAcross",
+      "beat": "motion",
+      "hero": "the pivot",
+      "super": "Hale County, before the heat",
+      "on_screen": "a centre pivot standing over cotton at first light, drop hoses hanging",
+      "what_moves": "the camera travels along the span while the drops sway and the wheels turn",
+      "cast": [
+        {
+          "id": "farmer",
+          "emotion": "watchful"
+        }
+      ],
+      "seed": 21,
+      "groundY": 1180,
+      "planes": [
+        {
+          "z": 900,
+          "label": "sky",
+          "items": [
+            {
+              "kind": "cattleEgret",
+              "x": 780,
+              "y": 360,
+              "scale": 0.7
+            }
+          ]
+        },
+        {
+          "z": 620,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "grainElevator",
+              "x": 760,
+              "y": 1010,
+              "scale": 0.074,
+              "props": {
+                "label": "CO-OP"
+              }
+            }
+          ]
+        },
+        {
+          "z": 340,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "centrePivot",
+              "x": 40,
+              "y": 1160,
+              "scale": 0.28,
+              "props": {
+                "spans": 6,
+                "prescription": [
+                  0.9,
+                  0.35,
+                  0.7,
+                  0.2,
+                  0.85,
+                  0.5
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "cropRows",
+              "x": -320,
+              "y": 1180,
+              "w": 1720,
+              "h": 620,
+              "props": {
+                "crop": "cotton",
+                "growth": 0.75,
+                "vanish": 0.38
+              }
+            }
+          ]
+        },
+        {
+          "z": 50,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "person",
+              "x": 300,
+              "y": 1560,
+              "scale": 0.9,
+              "props": {
+                "cast": "farmer",
+                "pose": "hands-hips",
+                "emotion": "watchful"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "start_s": 5,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Hale",
+      "camera_strategy": "riseWith",
+      "beat": "revelation",
+      "hero": "the prescription",
+      "super": "It is not watering the field",
+      "on_screen": "two adjacent spans running at plainly different rates over the same crop",
+      "what_moves": "the camera lifts from one drop hose to the whole machine and the difference resolves",
+      "seed": 34,
+      "groundY": 1120,
+      "planes": [
+        {
+          "z": 880,
+          "label": "sky",
+          "items": []
+        },
+        {
+          "z": 500,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "windTurbine",
+              "x": 940,
+              "y": 1000,
+              "scale": 0.038
+            }
+          ]
+        },
+        {
+          "z": 260,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "centrePivot",
+              "x": -120,
+              "y": 1120,
+              "scale": 0.385,
+              "props": {
+                "spans": 4,
+                "prescription": [
+                  0.95,
+                  0.15,
+                  0.9,
+                  0.25
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 120,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "soilProbe",
+              "x": 620,
+              "y": 1300,
+              "scale": 0.54
+            },
+            {
+              "kind": "cropRows",
+              "x": -320,
+              "y": 1180,
+              "w": 1720,
+              "h": 620,
+              "props": {
+                "crop": "cotton",
+                "growth": 0.62,
+                "vanish": 0.61
+              }
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "readout",
+              "x": 90,
+              "y": 300,
+              "props": {
+                "title": "SPAN RATE",
+                "rows": [
+                  [
+                    "span 2",
+                    "reduced"
+                  ],
+                  [
+                    "span 3",
+                    "full"
+                  ],
+                  [
+                    "source",
+                    "soil probe"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "start_s": 10,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Hale",
+      "camera_strategy": "craneDown",
+      "beat": "revelation",
+      "hero": "the ground",
+      "super": "The reason is under it",
+      "on_screen": "the ground opened in section, the saturated sand and the level in it",
+      "what_moves": "the camera comes down through the crop into the cut and the water line settles",
+      "seed": 47,
+      "groundY": 900,
+      "planes": [
+        {
+          "z": 700,
+          "label": "sky",
+          "items": []
+        },
+        {
+          "z": 420,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "windmill",
+              "x": 880,
+              "y": 900,
+              "scale": 0.18
+            }
+          ]
+        },
+        {
+          "z": 220,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "cropRows",
+              "x": -320,
+              "y": 700,
+              "w": 1720,
+              "h": 620,
+              "props": {
+                "crop": "cotton",
+                "growth": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "z": 80,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "groundSection",
+              "x": 90,
+              "y": 940,
+              "w": 900,
+              "h": 640,
+              "props": {
+                "waterTable": 0.42,
+                "historicTable": 0.2,
+                "labels": {
+                  "top": "sand and caliche",
+                  "table": "water now",
+                  "historic": "water then",
+                  "base": "bedrock"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "mesquite",
+              "x": -70,
+              "y": 1900,
+              "scale": 0.33
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "start_s": 15,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Castro",
+      "camera_strategy": "orbitReveal",
+      "beat": "emotion",
+      "hero": "the farmer",
+      "on_screen": "a farmer at the pivot panel with the machine turning behind",
+      "what_moves": "the camera circles and the span swings through frame behind the shoulder",
+      "cast": [
+        {
+          "id": "farmer",
+          "emotion": "tired"
+        }
+      ],
+      "seed": 58,
+      "groundY": 1200,
+      "planes": [
+        {
+          "z": 820,
+          "label": "sky",
+          "items": [
+            {
+              "kind": "turkeyVulture",
+              "x": 240,
+              "y": 300,
+              "scale": 0.45
+            }
+          ]
+        },
+        {
+          "z": 540,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "centrePivot",
+              "x": 500,
+              "y": 1080,
+              "scale": 0.27,
+              "props": {
+                "spans": 5
+              }
+            }
+          ]
+        },
+        {
+          "z": 280,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "stockTank",
+              "x": 820,
+              "y": 1220,
+              "scale": 0.16
+            }
+          ]
+        },
+        {
+          "z": 130,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "person",
+              "x": 420,
+              "y": 1520,
+              "scale": 1.0,
+              "props": {
+                "cast": "farmer",
+                "pose": "reach",
+                "emotion": "tired"
+              }
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "pricklyPear",
+              "x": 900,
+              "y": 1780,
+              "scale": 0.81
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "start_s": 20,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Castro",
+      "camera_strategy": "dollyThrough",
+      "beat": "motion",
+      "hero": "the feedyard",
+      "super": "Everything out here drinks",
+      "on_screen": "a feedyard pen rank with cattle at the bunk and the elevator behind",
+      "what_moves": "the camera pushes down the alley past pen after pen",
+      "seed": 63,
+      "groundY": 1240,
+      "planes": [
+        {
+          "z": 860,
+          "label": "sky",
+          "items": []
+        },
+        {
+          "z": 560,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "grainElevator",
+              "x": 120,
+              "y": 1060,
+              "scale": 0.078
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "feedlotPen",
+              "x": 60,
+              "y": 1300,
+              "scale": 0.74,
+              "props": {
+                "pens": 4,
+                "head": 8
+              }
+            }
+          ]
+        },
+        {
+          "z": 140,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "pickup",
+              "x": 760,
+              "y": 1520,
+              "scale": 0.77
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "cattleGuard",
+              "x": 300,
+              "y": 1840,
+              "scale": 1.6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "start_s": 25,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Castro",
+      "camera_strategy": "truckAcross",
+      "beat": "revelation",
+      "hero": "the tag",
+      "super": "and everything out here is watched",
+      "on_screen": "a close pass along the bunk, an ear tag catching the light on one animal",
+      "what_moves": "the camera travels the bunk line and the tag holds while the animals do not",
+      "seed": 71,
+      "groundY": 1300,
+      "planes": [
+        {
+          "z": 780,
+          "label": "sky",
+          "items": []
+        },
+        {
+          "z": 480,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "feedlotPen",
+              "x": 0,
+              "y": 1120,
+              "scale": 0.6,
+              "props": {
+                "pens": 3
+              }
+            }
+          ]
+        },
+        {
+          "z": 240,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "longhorn",
+              "x": 700,
+              "y": 1420,
+              "scale": 1.0
+            },
+            {
+              "kind": "longhorn",
+              "x": 940,
+              "y": 1430,
+              "scale": 1.0,
+              "facing": -1
+            }
+          ]
+        },
+        {
+          "z": 110,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "herdSensor",
+              "x": 380,
+              "y": 1360,
+              "scale": 5.0,
+              "props": {
+                "alert": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "confidenceSpread",
+              "x": 110,
+              "y": 1660,
+              "props": {
+                "values": [
+                  0.22,
+                  0.31,
+                  0.58,
+                  0.74,
+                  0.66
+                ],
+                "w": 300,
+                "h": 90
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "start_s": 30,
+      "duration_s": 5,
+      "region": "rolling_plains",
+      "county": "Taylor",
+      "camera_strategy": "craneDown",
+      "beat": "motion",
+      "hero": "the load",
+      "super": "The new neighbour drinks too",
+      "on_screen": "cooling towers running beside a slab, seen down over the pivot country",
+      "what_moves": "the camera comes down from the field onto the plant and the fans resolve",
+      "seed": 82,
+      "groundY": 1160,
+      "planes": [
+        {
+          "z": 900,
+          "label": "sky",
+          "items": []
+        },
+        {
+          "z": 600,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "latticeTower",
+              "x": 940,
+              "y": 1000,
+              "scale": 0.08
+            }
+          ]
+        },
+        {
+          "z": 320,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "dataCentre",
+              "x": -60,
+              "y": 1180,
+              "scale": 0.128,
+              "props": {
+                "wear": 0.2
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "coolingTower",
+              "x": 520,
+              "y": 1340,
+              "scale": 0.206,
+              "props": {
+                "cells": 3,
+                "humidity": 0.28
+              }
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "mesquite",
+              "x": -80,
+              "y": 2000,
+              "scale": 0.38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "start_s": 35,
+      "duration_s": 5,
+      "region": "high_plains",
+      "county": "Hale",
+      "camera_strategy": "riseWith",
+      "beat": "emotion",
+      "hero": "the circle",
+      "super": "Same water. Two answers.",
+      "on_screen": "the pivot again at full height, the crop under it uneven on purpose",
+      "what_moves": "the camera lifts off the crop until the whole span is in frame and holds",
+      "cast": [
+        {
+          "id": "farmer",
+          "emotion": "resolved"
+        }
+      ],
+      "seed": 96,
+      "groundY": 1140,
+      "planes": [
+        {
+          "z": 920,
+          "label": "sky",
+          "items": [
+            {
+              "kind": "cattleEgret",
+              "x": 200,
+              "y": 340,
+              "scale": 0.6,
+              "facing": -1
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "far ridge",
+          "items": [
+            {
+              "kind": "waterTower",
+              "x": 880,
+              "y": 1020,
+              "scale": 0.076
+            }
+          ]
+        },
+        {
+          "z": 280,
+          "label": "mid",
+          "items": [
+            {
+              "kind": "centrePivot",
+              "x": 20,
+              "y": 1140,
+              "scale": 0.33,
+              "props": {
+                "spans": 7,
+                "prescription": [
+                  0.85,
+                  0.3,
+                  0.9,
+                  0.15,
+                  0.75,
+                  0.4,
+                  0.6
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 130,
+          "label": "near band",
+          "items": [
+            {
+              "kind": "cropRows",
+              "x": -320,
+              "y": 1180,
+              "w": 1720,
+              "h": 620,
+              "props": {
+                "crop": "cotton",
+                "growth": 0.82,
+                "vanish": 0.55
+              }
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "hero",
+          "items": [
+            {
+              "kind": "person",
+              "x": 740,
+              "y": 1620,
+              "scale": 0.95,
+              "facing": -1,
+              "props": {
+                "cast": "farmer",
+                "pose": "stand",
+                "emotion": "resolved"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

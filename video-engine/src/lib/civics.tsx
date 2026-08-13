@@ -1,4 +1,5 @@
 import React from 'react';
+import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 
 // =============================================================================
@@ -68,7 +69,7 @@ export const Capitol: React.FC<Civic & {lit?: boolean}> = ({
   // THE PINK. Sunset-red granite, and it is the reason this component exists.
   const t = tones('#c98a7a', L);
   const K = fit('capitol', 200);                        // local frame: 200 units to the star
-  const uid = `cap${seed}`;
+  const uid = useUid('cap');
   const glow = lit ? 0.35 + Math.sin(frame / 40) * 0.05 : 0;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K})`}>
@@ -170,7 +171,7 @@ export const Courthouse: React.FC<Civic & {clockHour?: number}> = ({
   const L = useLight();
   const t = tones('#b08466', L);
   const K = fit('courthouse', 170);                     // local frame: 170 units to the finial
-  const uid = `ch${seed}`;
+  const uid = useUid('ch');
   const hand = (clockHour / 12) * Math.PI * 2 - Math.PI / 2;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K})`}>
@@ -244,7 +245,7 @@ export const HearingDais: React.FC<Civic & {seats?: number; seal?: boolean; widt
   const L = useLight();
   const t = tones('#6b4a30', L);
   const K = fit('dais', 100);                           // local frame: 100 units to the bench top
-  const uid = `dz${seed}`;
+  const uid = useUid('dz');
   const w = width;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K})`}>
@@ -312,7 +313,7 @@ export const WitnessTable: React.FC<Civic & {pages?: number; card?: boolean}> = 
   const L = useLight();
   const t = tones('#7a5c3e', L);
   const K = fit('witnessTable', 100);                   // local frame: 100 units to the top
-  const uid = `wt${seed}`;
+  const uid = useUid('wt');
   const stack = Math.min(46, Math.sqrt(Math.max(0, pages)) * 3.4);
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K})`}>
@@ -359,7 +360,7 @@ export const Podium: React.FC<Civic & {sealColor?: string; mics?: number}> = ({
   const L = useLight();
   const t = tones('#6b4a30', L);
   const K = fit('podium', 100);                         // local frame: 100 units to the top
-  const uid = `pd${seed}`;
+  const uid = useUid('pd');
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * K})`}>
       <defs><FormGradient id={`${uid}_w`} t={t} softness={0.6} /></defs>

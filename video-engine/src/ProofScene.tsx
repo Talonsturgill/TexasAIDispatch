@@ -61,16 +61,16 @@ export const ProofScene: React.FC = () => {
                 x={40 + i * 330} y={962 - i * 5} scale={0.46 + i * 0.03}
                 rpm={7 + i} abandoned={i === 2} wear={0.3 + i * 0.12} />
             ))}
-            <WindTurbine frame={f} x={980} y={958} scale={0.62} seed={3} />
+            <WindTurbine frame={f} x={980} y={958} scale={0.005875} seed={3} />
           </svg>
         </Plane>
 
         {/* transmission crossing the middle distance, conductors SAGGING */}
         <Plane z={520}>
           <svg width={1080} height={1920} viewBox="0 0 1080 1920">
-            <LatticeTower x={150} y={1058} scale={0.72} />
-            <LatticeTower x={640} y={1060} scale={0.75} />
-            <LatticeTower x={1090} y={1062} scale={0.72} />
+            <LatticeTower x={150} y={1058} scale={0.01338} />
+            <LatticeTower x={640} y={1060} scale={0.01393} />
+            <LatticeTower x={1090} y={1062} scale={0.01338} />
             <Conductor x1={150} y1={886} x2={640} y2={882} sag={0.10} />
             <Conductor x1={640} y1={882} x2={1090} y2={888} sag={0.10} />
             <Conductor x1={150} y1={912} x2={640} y2={908} sag={0.11} />
@@ -93,7 +93,7 @@ export const ProofScene: React.FC = () => {
         {/* the slab */}
         <Plane z={300}>
           <svg width={1080} height={1920} viewBox="0 0 1080 1920">
-            <DataCentre x={-40} y={1180} scale={1.5} seed={5} wear={0.25} />
+            <DataCentre x={-40} y={1180} scale={0.0418} seed={5} wear={0.25} />
           </svg>
         </Plane>
 
@@ -124,8 +124,8 @@ export const ProofScene: React.FC = () => {
                 scales up hard as the camera closes on it, so a foreground element placed
                 near frame centre grows across the subject and reads as a bug rather than as
                 depth. Put it where the truck sweeps it past the edge. */}
-            <Mesquite x={-90} y={2080} scale={5.4} seed={9} />
-            <Mesquite x={1180} y={2130} scale={4.6} seed={14} />
+            <Mesquite x={-90} y={2080} scale={0.2408} seed={9} />
+            <Mesquite x={1180} y={2130} scale={0.2051} seed={14} />
           </svg>
         </Plane>
       </Biome>

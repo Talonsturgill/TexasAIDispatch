@@ -7,6 +7,9 @@ import {CivicSheet} from './CivicSheet';
 import {SensingSheet} from './SensingSheet';
 import {RegionSheet} from './RegionSheet';
 import {ProofScene} from './ProofScene';
+import {FarmSheet, RoadSheet, MachineRoomSheet, ClinicSheet, WaterSheet,
+        PlantSheet} from './ApplicationSheets';
+import {Dispatch, DEFAULT_DISPATCH, dispatchMetadata} from './Dispatch';
 import {RegionName} from './lib/lighting';
 
 const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers', 'blackland',
@@ -14,6 +17,18 @@ const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers',
 
 export const RemotionRoot: React.FC = () => (
   <>
+    {/* THE DELIVERABLE, and it did not exist until 2026-08-12.
+        Phase 5 of the routine has always run `npx remotion render Dispatch`, and
+        nothing here was called Dispatch, so every unattended run died on "No
+        composition with the ID 'Dispatch' found" and produced no film.
+        `composition_check.py` now refuses any prompt that renders an id this file
+        does not register, in either direction.
+        Length comes from the board via calculateMetadata; a constant here would
+        truncate a long film or pad a short one with black, and a run reports both
+        as success. */}
+    <Composition id="Dispatch" component={Dispatch} fps={30} width={1080} height={1920}
+      defaultProps={DEFAULT_DISPATCH} calculateMetadata={dispatchMetadata}
+      durationInFrames={Math.round(DEFAULT_DISPATCH.runtime_s * 30)} />
     <Composition id="Proof" component={ProofScene} durationInFrames={150}
       fps={30} width={1080} height={1920} />
     <Composition id="CastSheet" component={CastSheet} durationInFrames={30}
@@ -28,6 +43,23 @@ export const RemotionRoot: React.FC = () => (
       fps={30} width={1080} height={2100} />
     <Composition id="SensingSheet" component={SensingSheet} durationInFrames={120}
       fps={30} width={1080} height={1720} />
+    {/* THE APPLICATION SHEETS. Six modules shipped with nothing that renders them, so
+        the only way to see a drawing was to write a board and render a film. Every row
+        carries a person, which is the assertion true scale makes: if a cabinet is not
+        chest-high and a cooling tower is not five of them, the size table is wrong and
+        this is where it shows. */}
+    <Composition id="FarmSheet" component={FarmSheet} durationInFrames={120}
+      fps={30} width={1080} height={2400} />
+    <Composition id="RoadSheet" component={RoadSheet} durationInFrames={120}
+      fps={30} width={1080} height={2200} />
+    <Composition id="MachineRoomSheet" component={MachineRoomSheet} durationInFrames={120}
+      fps={30} width={1080} height={2200} />
+    <Composition id="ClinicSheet" component={ClinicSheet} durationInFrames={120}
+      fps={30} width={1080} height={2000} />
+    <Composition id="WaterSheet" component={WaterSheet} durationInFrames={120}
+      fps={30} width={1080} height={2100} />
+    <Composition id="PlantSheet" component={PlantSheet} durationInFrames={120}
+      fps={30} width={1080} height={1700} />
     {REGIONS.map((r) => (
       <Composition key={r} id={`Region-${r.replace(/_/g, "-")}`} component={RegionSheet}
         durationInFrames={60} fps={30} width={1080} height={1920}

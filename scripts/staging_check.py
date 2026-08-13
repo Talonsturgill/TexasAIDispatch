@@ -156,8 +156,23 @@ def region_blocks(src: str) -> list[tuple[str, str]]:
         tag, region = m.group(1), m.group(2)
         if region not in REGIONS:
             continue
+        # A SELF-CLOSING TAG HAS NO BLOCK.
+        #
+        # There is no `</Tag>` for `<Biome region="gulf" />`, so `find` returned -1 and the
+        # block swallowed THE REST OF THE FILE: a correctly-wrapped scene further down had its
+        # animals reported against the self-closed region as well, producing a false hard fail
+        # on a placement that was right. The self-test assertion that claimed to cover this
+        # passed only because its fixture's remainder happened to be 7 characters long.
+        head_end = src.find(">", m.end())
+        if head_end > 0 and src[m.end():head_end + 1].rstrip().endswith("/>"):
+            out.append((region, ""))
+            continue
         end = src.find(f"</{tag}>", m.end())
-        out.append((region, src[m.end(): end if end > 0 else len(src)]))
+        if end < 0:
+            # An unclosed tag is a broken file rather than a block reaching the end of it.
+            out.append((region, ""))
+            continue
+        out.append((region, src[m.end():end]))
     return out
 
 
@@ -305,8 +320,20 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
        region_blocks('<Establishing region="gulf"><Grackle /></Establishing>')[0][0] == "gulf")
     ok("a region value that is not a region is not a block",
        not region_blocks('<Card region="left"><Grackle /></Card>'))
-    ok("a self-closing tag with a region does not swallow the rest of the file",
-       len(region_blocks('<Biome region="gulf" /><X/>')[0][1]) < 40)
+    # THE ASSERTION THAT PASSED BY ACCIDENT. The old one checked the block was under 40
+    # characters, and its fixture's remainder was 7, so it was satisfied by the fixture's
+    # length rather than by any code. Appending 100 characters flipped it to False.
+    long_tail = '<Biome region="gulf" />' + ("x" * 200) + \
+                '<Biome region="high_plains"><Pronghorn/></Biome>'
+    blocks = region_blocks(long_tail)
+    ok("a self-closing tag yields an EMPTY block, whatever follows it",
+       blocks[0] == ("gulf", ""), str(blocks[0]))
+    ok("...so an animal further down the file is not reported against it",
+       not any(b[0] == "gulf" and "Pronghorn" in b[1] for b in blocks), str(blocks))
+    ok("...while the properly wrapped block below still carries its animal",
+       any(b[0] == "high_plains" and "Pronghorn" in b[1] for b in blocks), str(blocks))
+    ok("an UNCLOSED tag is an empty block rather than the rest of the file",
+       region_blocks('<Biome region="gulf">' + "y" * 300)[0][1] == "")
 
     good = '<RegionLight region="trans_pecos"><Pronghorn x={1} /></RegionLight>'
     gb = region_blocks(good)
