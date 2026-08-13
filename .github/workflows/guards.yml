@@ -137,6 +137,18 @@ jobs:
           # gets switched off. The bar is READ from the rubric and never restated here.
           python3 scripts/ship_gate.py --self-test
 
+      - name: If the number moved, would the test notice
+        run: |
+          # Every gate has a --self-test, CI runs all of them, and they are all green. None of
+          # that is evidence: a green self-test means either the checker works or the checker is
+          # disconnected from what it checks, and those two look identical. The deep review found
+          # three assertions that could not fail whatever the code did, including one comparing a
+          # function to the constant it returns. This is the general form of the question. It
+          # makes each declared threshold vacuous, one at a time, and requires that gate's own
+          # self-test to go red. A threshold that survives is a threshold nothing is holding.
+          python3 scripts/mutation_check.py --self-test
+          python3 scripts/mutation_check.py
+
       - name: Engine typechecks
         run: |
           cd video-engine

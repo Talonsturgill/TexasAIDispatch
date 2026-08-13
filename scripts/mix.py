@@ -266,10 +266,31 @@ def self_test() -> int:
        "does not resample" not in code,
        "main() says so in a plain string, which survived the first two rounds of this lesson")
     ok("...and removes the docstring that talks about resampling", "chipmunk" not in code)
-    for banned in ("resample", "linspace", "stretch_audio", "speed_up", "librosa",
-                   "phase_vocoder", "scipy.signal"):
+    banned_terms = ("resample", "linspace", "stretch_audio", "speed_up", "librosa",
+                    "phase_vocoder", "scipy.signal")
+    for banned in banned_terms:
         ok(f"no {banned!r} anywhere in the mixer's code", banned not in code)
-    ok("...so a time-stretch cannot be reached from here even by accident", True)
+    # THE LOOP ABOVE WAS FOLLOWED BY `ok(..., True)`, which is a line that cannot go
+    # red dressed as the conclusion of the ones that can. Worse than useless: it read
+    # as the summary of the guarantee while asserting nothing about it.
+    #
+    # What a summary here can honestly check is that the loop was not VACUOUS. A loop
+    # over an empty list prints nothing and passes, and a scan of an empty string
+    # finds no banned word either, so both halves get pinned.
+    #
+    # The body half is checked STRUCTURALLY rather than by character count, because a
+    # length threshold on a file this heavily commented is a number nobody can defend
+    # and prose stripping legitimately removes two thirds of it. What the guarantee
+    # actually claims is that it covers the whole file, so that is the assertion: every
+    # function here except this one survives into the scanned text. It is also the
+    # check that would have caught the span-slicing bug this file already had twice.
+    defs = [ln.split("(")[0][4:] for ln in src.split("\n") if ln.startswith("def ")]
+    uncovered = [d for d in defs if d != "self_test" and f"def {d}" not in code]
+    ok("...and the scan covers every function in the file except this one",
+       len(banned_terms) >= 7 and not uncovered,
+       f"{len(banned_terms)} terms; missed {uncovered}")
+    # And a term that IS present must be found, or absence proves nothing.
+    ok("...and the scanner finds a term that is genuinely there", "duck_envelope" in code)
 
     sr = 24000
     t = np.arange(int(6.0 * sr)) / sr

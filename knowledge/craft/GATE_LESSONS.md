@@ -285,3 +285,41 @@ correctly red. **Assert what a browser would paint, not what the document contai
 
 Verified the only way that counts: the seed-derived uid was put back in `fauna.tsx` on purpose, both
 assertions went red, and it was removed and they went green.
+
+## 21. An assertion that cannot fail, in the file written to stop that
+
+Three of them, in three different gates, each dressed as the conclusion of the real
+assertions around it:
+
+```python
+ok("a story sharing only channel words is fresh", check_entities(...)[0] or True)
+ok("no key is reported as blocked, with its own exit code", blocked_code() == 3)
+ok("...so a time-stretch cannot be reached from here even by accident", True)
+```
+
+The first is unfailable by construction. The second compares a function to the constant it
+returns, so it holds however `main()` actually behaves, and what the routine needs to know is what
+the PROCESS exits with when the credential is missing. The third is a literal, placed immediately
+after a loop of seven real checks so it reads as their summary while asserting nothing.
+
+**The `or True` one is the instructive one, because it was also testing the wrong thing.** Its
+fixture shared a subject token with an earlier entry, so it re-proved the line above it about a
+single overlap and never staged what its own label promised. The `or True` had been appended to
+stop a line failing rather than to fix what it measured, and the label kept describing the test
+that was intended. **A label is a claim about a test. When they drift apart the label is what gets
+read, and the test is what runs.**
+
+Two more found in the same sweep, both silent rather than tautological. `recent()` returned the
+whole ledger when no `--today` was passed, and neither subcommand passes one, so `--days` was a
+no-op on every real invocation and the dedupe window was all of history. That direction of failure
+is the dangerous one: **a window that never ends does not miss repeats, it invents them**, and a
+gate that calls a new story a repeat is a gate a run learns to argue past. And the mixer's
+banned-word loop could have iterated over an empty list and printed nothing, so the summary line
+now checks that the scan covered every function in the file rather than asserting `True`.
+
+The general form of the question is now a gate of its own. `scripts/mutation_check.py` makes each
+declared threshold vacuous, one at a time, and requires that gate's own `--self-test` to go red.
+**A threshold that survives its own mutation is a threshold nothing is holding.** All eleven were
+caught, which is the first evidence in this repo that the self-tests are connected to the numbers
+they name rather than merely green. It runs in five seconds, which is the whole argument for
+keeping it in CI rather than doing it once by hand and trusting the memory of it.

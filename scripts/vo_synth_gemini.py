@@ -456,7 +456,34 @@ def self_test() -> int:
            not (out / "takes.json").exists())
 
     # ---- a missing credential is BLOCKED, which is not a failure and not a silent film
-    ok("no key is reported as blocked, with its own exit code", blocked_code() == 3)
+    #
+    # This used to read `ok(..., blocked_code() == 3)`, comparing a function to the
+    # constant it returns. That assertion holds however main() actually behaves, and
+    # what a run needs to know is not what the constant says, it is what the PROCESS
+    # exits with when the key is absent. Three exit codes matter here and they mean
+    # different things to the routine: 3 blocked, 2 a usage or input error, 1 a real
+    # failure. So the process is run.
+    import os as _os
+    import subprocess
+    with tempfile.TemporaryDirectory() as td:
+        script_path = Path(td) / "vo.txt"
+        script_path.write_text(clean, encoding="utf-8")
+        env = {k: v for k, v in _os.environ.items() if k != "GEMINI_API_KEY"}
+        r = subprocess.run([sys.executable, str(Path(__file__).resolve()),
+                            "--script", str(script_path), "--out", str(Path(td) / "takes")],
+                           capture_output=True, env=env, timeout=120)
+        ok("with no key the PROCESS exits 3, blocked rather than failed",
+           r.returncode == 3, f"exit {r.returncode}: {r.stderr.decode()[:120]}")
+        ok("...and says so on stderr, so a run reports blocked instead of shipping silence",
+           b"BLOCKED" in r.stderr and b"silent film" in r.stderr, r.stderr.decode()[:160])
+        ok("...and leaves no takes behind",
+           not (Path(td) / "takes" / "takes.json").exists())
+        # 3 has to be distinguishable from the codes either side of it, or the
+        # routine cannot tell a missing credential from a broken input.
+        r2 = subprocess.run([sys.executable, str(Path(__file__).resolve())],
+                            capture_output=True, env=env, timeout=120)
+        ok("...and a usage error is 2, a DIFFERENT code, so the two are distinguishable",
+           r2.returncode == 2 and r2.returncode != r.returncode, f"exit {r2.returncode}")
 
     if failures:
         print(f"\nvo_synth self-test: {failures} FAILED", file=sys.stderr)

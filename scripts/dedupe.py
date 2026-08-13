@@ -114,9 +114,20 @@ def save(d: dict) -> None:
 
 
 def recent(d: dict, days: int, today: str | None = None) -> list[dict]:
-    if not today:
-        return list(d.get("dispatches", []))
-    cut = dt.date.fromisoformat(today) - dt.timedelta(days=days)
+    """The window, which is a real window even when nobody passed a date.
+
+    THIS RETURNED THE WHOLE LEDGER when `today` was None, and neither `list` nor
+    `check` passes `--today`, so `--days` was a silent no-op on every real
+    invocation and the window was the entire history. That direction of failure is
+    the dangerous one: a window that never ends does not miss repeats, it invents
+    them, and a gate that calls a genuinely new story a repeat is a gate a run
+    learns to argue past. The docstring at the top of this file says so about the
+    tokeniser and the same is true of the window.
+
+    So the default is TODAY, and `--today` stays an override for tests rather than
+    the only thing that makes the parameter mean anything.
+    """
+    cut = dt.date.fromisoformat(today or dt.date.today().isoformat()) - dt.timedelta(days=days)
     out = []
     for e in d.get("dispatches", []):
         try:
@@ -183,9 +194,19 @@ def self_test() -> int:
     ok("one shared token is not enough",
        check_entities(hist, "Aurora, contouring, radiotherapy")[0],
        "a single overlap is a coincidence; two is a subject")
-    ok("a story sharing only channel words with a past one is fresh",
-       check_entities(hist, "Ogallala is not mentioned, sepsis, contouring, Methodist")[0]
-       or True)
+    # THIS ASSERTION USED TO END IN `or True`, which made it the one line in this
+    # file that could not go red. It was also testing the wrong thing: its fixture
+    # shared "ogallala" with an earlier entry, so it only re-proved the line above
+    # it about a single overlap. The label promised a story overlapping ONLY on
+    # channel words, so that is what it stages now -- four shared words, every one
+    # of them a stopword, no shared subject at all.
+    channel = [{"date": "2026-08-01", "topic": "Texas AI data center filing at the commission",
+                "entities": ["ERCOT", "docket", "rulemaking", "Abilene"]}]
+    fresh_c, why_c = check_entities(channel, "Texas AI data center filing, MD Anderson, contouring")
+    ok("a story overlapping a past one ONLY on channel words is fresh", fresh_c, why_c)
+    ok("...and it really did share words, so that was not a miss",
+       len({"texas", "ai", "data", "center", "filing"} &
+           set(re.findall(r"[a-z0-9']+", channel[0]["topic"].lower()))) >= 4)
 
     # The window.
     d = {"dispatches": [{"date": "2026-01-01", "topic": "old"},
@@ -195,6 +216,17 @@ def self_test() -> int:
        str([e["topic"] for e in recent(d, 30, "2026-08-12")]))
     ok("...and keeps what is inside it",
        len(recent(d, 400, "2026-08-12")) == 2)
+    # THE WINDOW WITH NO DATE PASSED, which is every real invocation: neither `list`
+    # nor `check` has a `--today`, so this path was the only one that ran and it
+    # returned the whole ledger. `--days` did nothing at all.
+    old = {"dispatches": [{"date": "1990-01-01", "topic": "long gone"},
+                          {"date": dt.date.today().isoformat(), "topic": "today"}]}
+    ok("the window applies even when nobody passes --today",
+       [e["topic"] for e in recent(old, 30)] == ["today"],
+       str([e["topic"] for e in recent(old, 30)]))
+    ok("...and a wide enough window still reaches back",
+       len(recent(old, 100000)) == 2)
+
     ok("an unparseable date is KEPT rather than silently dropped",
        len(recent({"dispatches": [{"date": "whenever", "topic": "x"}]}, 30, "2026-08-12")) == 1,
        "dropping it would let a malformed entry become a free pass to repeat")
