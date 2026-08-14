@@ -7,6 +7,7 @@ import * as Town from './lib/hometown';
 import * as Home from './lib/homeplace';
 import * as Tejano from './lib/tejano';
 import * as BlackTx from './lib/blacktexas';
+import * as Ball from './lib/football';
 import {Character, castProps} from './lib/Character';
 import {RegionLight, RegionName, INK} from './lib/lighting';
 import {MaterialDefs} from './lib/materials';
@@ -535,6 +536,38 @@ export const BlackTexasSheet: React.FC = () => (
       "means the fire is running right, and red is a meaning rather than a theme colour."} />
 );
 
+// ---------------------------------------------------------------- FOOTBALL
+const FOOTBALL_COLS = 4;
+const FOOTBALL_SPECS: Spec[] = [
+  {comp: Ball.GrandstandBowl, m: 14, label: 'grandstand and masts', p: {crowd: 0.8, masts: 2}, field: {w: 1080, h: 1200}},
+  {comp: Ball.Scoreboard, m: 6, w: 9.3, label: 'scoreboard (halide)', p: {home: 21, guest: 14, qtr: 3}, cast: 'operator'},
+  {comp: Ball.Scoreboard, m: 6, w: 9.3, label: 'scoreboard (LED)', p: {led: true, home: 35, guest: 7, seed: 5}, cast: 'operator'},
+  {comp: Ball.Official, m: 1.8, label: 'official (the stripes)', p: {}},
+  {comp: Ball.BlockingSled, m: 1.5, w: 2.6, label: 'blocking sled', p: {pads: 2}},
+  {comp: Ball.ChainGang, m: 1.75, label: 'chain gang and down box', p: {down: 2}, field: {w: 1080, h: 760}},
+  {comp: Ball.DrillTeam, m: 1.7, label: 'drill team (the kick line)', p: {count: 6, spread: 900}, field: {w: 1080, h: 820}},
+  {comp: Ball.WaterCooler, m: 0.92, label: 'sideline cooler', p: {cart: true}, person: false},
+  {comp: Ball.LettermanJacket, m: 0.72, label: 'letter jacket', p: {}, person: false},
+  {comp: Ball.ShoulderPads, m: 0.5, label: 'shoulder pads', p: {stand: true}, person: false},
+  {comp: Ball.Trophy, m: 0.5, label: 'trophy (the hat)', p: {kind: 'hat'}, person: false},
+  {comp: Ball.EndZonePylon, m: 0.46, label: 'end-zone pylon', p: {}, person: false},
+  {comp: Ball.Helmet, m: 0.30, w: 0.34, label: 'helmet (blank shell)', p: {mask: 'cage'}, person: false},
+  {comp: Ball.Football, m: 0.17, w: 0.28, label: 'the ball', p: {stripes: true}, person: false},
+  {comp: Ball.FootballAnnual, m: 0.28, label: 'preseason annual', p: {}, person: false},
+];
+
+export const FootballSheet: React.FC = () => (
+  <GridSheet cols={FOOTBALL_COLS} region="blackland" weather="night" bg="#171b23" dark
+    title="Football" specs={FOOTBALL_SPECS}
+    sub={
+      "The game as equipment, drawn FORM not MARK: no swoosh on the sleeve, no bolt on the " +
+      "cooler, no title on the annual, no school monogram on the jacket, every stamped " +
+      "surface left blank because the mark is live and the form carries the read anyway. Two " +
+      "things to check. The scoreboard era: incandescent digits are amber and bloom, LED are " +
+      "white and crisp, and that is a one-frame date stamp. And the facemask stands PROUD of " +
+      "the shell on a clip, it is not painted flat on the front."} />
+);
+
 // The composition height each sheet needs, computed from its own spec count and
 // column count. Root.tsx reads this so a sheet and its frame never disagree, and a
 // new artifact grows the frame automatically rather than clipping off the bottom.
@@ -547,4 +580,5 @@ export const SHEET_H: Record<string, number> = {
   HomeplaceSheet: sheetHeight(HOME_SPECS.length, HOME_COLS),
   TejanoSheet: sheetHeight(TEJANO_SPECS.length, TEJANO_COLS),
   BlackTexasSheet: sheetHeight(BLACK_SPECS.length, BLACK_COLS),
+  FootballSheet: sheetHeight(FOOTBALL_SPECS.length, FOOTBALL_COLS),
 };

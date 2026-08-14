@@ -17,6 +17,7 @@ import * as Town from './hometown';
 import * as Home from './homeplace';
 import * as Tejano from './tejano';
 import * as BlackTx from './blacktexas';
+import * as Football from './football';
 import {Character, castProps} from './Character';
 
 // =============================================================================
@@ -327,6 +328,24 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   hBCUBand: BlackTx.HBCUBand,
   emancipationPark: BlackTx.EmancipationPark,
   redDrink: BlackTx.RedDrink,
+
+  // FOOTBALL, the game as equipment. hometown draws the stadium and the ritual;
+  // this draws the objects, every stamped surface left blank because the mark is
+  // live and the form carries the recognition anyway. knowledge/texas/FOOTBALL.md.
+  helmet: Football.Helmet,
+  football: Football.Football,
+  shoulderPads: Football.ShoulderPads,
+  scoreboard: Football.Scoreboard,
+  chainGang: Football.ChainGang,
+  blockingSled: Football.BlockingSled,
+  waterCooler: Football.WaterCooler,
+  drillTeam: Football.DrillTeam,
+  lettermanJacket: Football.LettermanJacket,
+  footballAnnual: Football.FootballAnnual,
+  trophy: Football.Trophy,
+  endZonePylon: Football.EndZonePylon,
+  grandstandBowl: Football.GrandstandBowl,
+  official: Football.Official,
 };
 
 export const ELEMENT_NAMES = Object.keys(ELEMENTS).sort();
