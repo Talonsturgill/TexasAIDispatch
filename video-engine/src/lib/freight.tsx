@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, RustStreak, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // FREIGHT — the third beat, and the one where Texas is genuinely first.
@@ -33,8 +34,6 @@ import {tones, FormGradient, RimLight, ContactShadow, useLight, RustStreak, INK}
 // made and also the only way a sixty-second film can spend four seconds on it.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 export const FREIGHT_M: Record<string, {h: number; note: string}> = {
   tractor: {h: 4.0, note: 'day cab, ground to the top of the roof fairing'},

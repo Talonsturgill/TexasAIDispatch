@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // FAUNA — the animals, drawn so a Texan nods.
@@ -32,8 +33,6 @@ import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 // carries a HABITAT list and the staging gate can refuse a mis-placed animal.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 /**
  * Real-world size of every animal here, and which dimension the drawing is fitted

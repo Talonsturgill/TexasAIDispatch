@@ -1,5 +1,6 @@
 import React from 'react';
 import {useUid} from './uid';
+import {M} from './scale';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, Galvanized, RustStreak,
         CalicheDust, BrushedMetal, INK} from './lighting';
 
@@ -25,8 +26,6 @@ function rnd(seed: number, ch: number): number {
   return ((k >>> 8) % 10000) / 10000;
 }
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 /**
  * THE MODULE THAT SKIPPED TRUE SCALE, and the one that then broke a board.

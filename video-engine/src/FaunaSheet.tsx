@@ -5,6 +5,7 @@ import {Grackle, Mockingbird, Armadillo, Pronghorn, TurkeyVulture, Longhorn, Whi
   BatColumn, herdHides} from './lib/fauna';
 import {Character, castProps} from './lib/Character';
 import {RegionLight, GradeLayer, INK} from './lib/lighting';
+import {M} from './lib/scale';
 
 // A contact sheet of the bestiary, for LOOKING at. Not a scene.
 //
@@ -128,12 +129,12 @@ export const FaunaSheet: React.FC = () => {
               1.2 m, so every wire here is placed in metres and converted, not eyeballed */}
           <g>
             {[0.16, 0.38, 0.62, 0.88, 1.18].map((mh) => {
-              const wy = 1690 - mh * (610 / 1.7) * 0.55;
+              const wy = 1690 - mh * M * 0.55;
               return <line key={mh} x1={745} y1={wy} x2={995} y2={wy}
                 stroke="#8a7658" strokeWidth={1.8} />;
             })}
             {[770, 880, 990].map((px) => (
-              <line key={px} x1={px} y1={1691} x2={px} y2={1690 - 1.24 * (610 / 1.7) * 0.55}
+              <line key={px} x1={px} y1={1691} x2={px} y2={1690 - 1.24 * M * 0.55}
                 stroke="#5f4f38" strokeWidth={4} />
             ))}
           </g>

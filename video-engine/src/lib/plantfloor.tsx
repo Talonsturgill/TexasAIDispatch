@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, BrushedMetal, RustStreak, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // PLANT FLOOR — what Texas now makes, and the beat where the AI is inspection.
@@ -22,8 +23,6 @@ import {tones, FormGradient, ContactShadow, useLight, BrushedMetal, RustStreak, 
 // machine grey-green with one bright safety colour on the moving parts.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 export const PLANT_M: Record<string, {h: number; note: string}> = {
   robotArm: {h: 1.7, note: 'a mid-payload six-axis arm at rest, base to wrist'},

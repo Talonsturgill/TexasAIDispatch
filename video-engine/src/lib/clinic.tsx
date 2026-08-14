@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // CLINIC — the largest medical centre in the world is in Houston, and the engine
@@ -28,8 +29,6 @@ import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 // diagram of the workflow rather than a picture of a patient.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 export const CLINIC_M: Record<string, {h: number; note: string}> = {
   gantry: {h: 2.4, note: 'a CT or linac gantry, floor to the top of the ring'},

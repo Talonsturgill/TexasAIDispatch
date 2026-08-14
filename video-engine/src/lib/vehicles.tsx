@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // VEHICLES — what is actually parked in a Texas frame.
@@ -22,8 +23,6 @@ import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 // get to make in the background of a frame about something else.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 /**
  * Real height of every vehicle, and the local-frame height each is drawn at. The
