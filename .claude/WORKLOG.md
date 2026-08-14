@@ -101,6 +101,148 @@ share a green.
 | V15 | Wiring: nothing on disk unreachable, nothing named missing | **DONE** — found `scorer` orphaned, fixed it, and gated it |
 | V14 | Civics: the Capitol, the courthouse, the hearing room | **DONE** — the dome PINK, the tower centred, the dais taking a seat count |
 
+## Wave N — the nostalgia expansion (2026-08-14, current)
+
+### The directive
+
+> "okay now lets pivot to the artifact library for the video generating automation, spend a
+> session making those 10x better, and also increasing the amount of artifacts by 10x. this
+> aspect we want to feel super local so launch a research team to really help you get into the
+> mind of texans, and also to see visually what they saw growing up, and then fram our atficats
+> and scenes to that, I'm talking big time nostalgia for it all, this is a massive and hours-long
+> task so take your time, this is the stuff that the video engine should be able to access and
+> use and the stuff that Texans should love to see and recognize and connect with, be Great!
+> WOW the hell out of them"
+
+Plus, immediately after: **"and that's all of course in the video automation repo the dispatch."**
+
+### The measured starting point (2026-08-14, HEAD `0ea5fad`)
+
+| | count |
+|---|---|
+| `video-engine/src` | 10,393 lines / 31 files |
+| `src/lib` modules | 21 |
+| elements reachable through `registry.tsx` | **79** |
+| review sheets in `Root.tsx` | 12 |
+| `biomes.tsx` | 338 lines, the thinnest module carrying the most weight |
+
+What does NOT exist: any module for the roadside, the home, the school, the stadium, Tejano and
+border Texas, or Black Texas. The library can draw an oilfield and a data hall and can't draw the
+drive there, the house at the end of it, or the Friday night everybody in the frame grew up going
+to. That is the gap the directive names, and it is the reason a Dispatch currently looks like an
+explainer about Texas rather than a film made by somebody from there.
+
+### The reframe this wave turns on
+
+Everything in the library so far answers **what the story is about**. Nostalgia is not a subject.
+It is what the story is set IN, in the corner of the frame, unremarked. A viewer does not
+recognise a Dairy Queen because the film is about Dairy Queen. They recognise it because it went
+past the window while somebody was talking about something else, exactly the way it did every
+Saturday of their childhood.
+
+So this wave adds a **fifth house rule** to the four the engine already runs on:
+
+> **RECOGNITION OVER DECORATION.** An artifact earns its place by being recognised, not by being
+> pretty. The test is whether a Texan looks at it and thinks *I have been there* rather than
+> *that is nice*. Which means specificity beats polish every time: the right rusted gin sign
+> badly drawn lands, and a beautiful generic barn does not.
+
+The existing four stand and this one composes with them. "Maintained but worn" and "nothing is
+symmetric" are already recognition rules by another name. This one says out loud what they were
+reaching for.
+
+### The research team
+
+Six agents, running in parallel, each returning per-artifact JSON (`name`, `what`,
+`why_it_lands`, `geometry`, `palette`, `era_markers`, `regional`, `variants`, `scene_role`) plus
+a blunt "what an outsider gets wrong" section, because the outsider mistake is the single most
+useful thing a research doc can carry. FAUNA_AND_FLORA proved that in Wave V1 by leading every
+entry with it.
+
+| # | brief |
+|---|---|
+| 1 | Roadside and small-town Texas: the drive-by inventory |
+| 2 | Growing up in Texas: school, Friday night lights, mums, the bluebonnet photo |
+| 3 | Tejano, Mexican-American and border Texas |
+| 4 | The working land and what Texas runs on, with precise MOTION for each |
+| 5 | The nine Texases, plus a `sky_states` array |
+| 6 | The Texas home and yard, plus Black Texas: Juneteenth, Black rodeo, zydeco, SLAB, PVAMU |
+
+
+### Scope added mid-wave (owner, 2026-08-14)
+
+Five directives arrived after the first six research briefs, each widening the wave. All
+five are in scope and none of them replaces the artifact work.
+
+> "landmarks, anything Texas and famous, cartoons, shows, famous faces and names, actors,
+> folklores, cowboys, old ads and commercials, brands, that can all bring about nostalgia
+> also, launch some agents at any of those things that u didn't already"
+
+> "also geographical accuracy and topography, lat and long, get our system extremely well
+> versed with the landscape and how the actual land works and has worked historically"
+
+> "also sounds, this is huge, and sfx library you need to build out based on texas"
+
+> "also songs and tracks, we can lean Texas on those instead of always using the generic
+> kevin McLeod song u can find that day lol"
+
+**THE IP LINE, AND IT IS NOT OPTIONAL.** Three of those five directives point straight at
+material this project does not own: brands, characters, real people's faces, and recorded
+music. The library's answer is the same in every case and it is already written into
+`roadside.tsx`: **draw the FORM, never the MARK.** A thirty foot orange and white striped
+A-frame is a building type and the flying letter is a trademark. A propane tank in an alley
+is Texas and a cartoon character is somebody's property. A conjunto arrangement is an idiom
+and a recording of one is a licence.
+
+This is not timidity. The research keeps confirming that the FORM carries essentially all of
+the recognition anyway, which is the whole finding: a Texan recognises the striped A-frame
+from a mile away because it was built to be seen from an aeroplane, and the wordmark is not
+what they are reading at that distance. So every research brief for this half was written to
+return the protected element and the free vernacular underneath it as separate fields, and
+`engine_lint` refuses a brand string in the roadside module.
+
+Seven further agents, running:
+
+| brief | why |
+|---|---|
+| landmarks and built icons | the Capitol, the missions, Cadillac Ranch, the escarpment profiles |
+| Texas on screen | the SETTINGS those shows made legible, never the characters |
+| brands, old ads, the sign layer | the generic forms, and what real Texas signage actually looks like |
+| folklore and working cowboy craft | the hat crease by trade, the saddle, and La Llorona handled with respect |
+| physical geography and land history | so a Reeves County story stops getting Hill Country limestone |
+| the sound of Texas | an SFX library with real rates, and distance behaviour for flat country |
+| Texas music | an ORIGINAL house sound spec, plus an honest map of what is legally usable |
+
+### The modules
+
+| # | module | what it holds | status |
+|---|---|---|---|
+| 1 | `flora.tsx` | the plant silhouettes every region is built from | |
+| 2 | `skies.tsx` | Texas sky states as full-frame backdrops | |
+| 3 | `biomes.tsx` (expand) | the nine regions with true horizons | |
+| 4 | `roadside.tsx` | the drive-by Texas | |
+| 5 | `hometown.tsx` | school, stadium, the year's rituals | |
+| 6 | `tejano.tsx` | Tejano, Mexican-American and border Texas | |
+| 7 | `homeplace.tsx` | the house, the yard and the lease | |
+| 8 | `blacktexas.tsx` | Juneteenth, Black rodeo, zydeco, SLAB, freedmen's towns | |
+| 9 | registry + sheets | every artifact reachable, a review sheet per module | |
+| 10 | `knowledge/texas/NOSTALGIA.md` | the doctrine, so the next run inherits it | |
+
+Order is deliberate. `flora` and `skies` are the primitives every other module composes from, so
+they land first or the regions get built twice.
+
+### Rules specific to this wave
+
+- **Every artifact is rendered and LOOKED AT.** Waves V3, V5 and V10 each found bugs no typecheck
+  could see, and V3 found three in one pass. A sheet that has not been opened is not a sheet.
+- **True scale or it does not ship.** `KIT_M` declares metres, `fit()` converts. A drawing sized
+  by eye against a stage that has a real metre in it is the defect `staging_check` exists for.
+- **Reachable or it does not exist.** `registry_check` fails on an element that is authored and
+  not registered, because an unregistered name renders an empty plane with no error.
+- **Culture is drawn with the same care as the cast.** `CULTURE.md` already bans lotería and Day
+  of the Dead iconography. Modules 6 and 8 are exactly where that rule gets tested, and the
+  answer is the same as it was for the cast: draw the real thing specifically, or don't draw it.
+
 ## Rules this work obeys
 
 1. **Alaska is REFERENCE ONLY.** Never write to those repos. Never copy ledger memory.

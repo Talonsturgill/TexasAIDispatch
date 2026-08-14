@@ -1,5 +1,6 @@
 import React from 'react';
 import {useUid} from './uid';
+import {M} from './scale';
 import {tones, FormGradient, ContactShadow, useLight, Galvanized, RustStreak,
         CalicheDust, INK} from './lighting';
 
@@ -34,8 +35,6 @@ import {tones, FormGradient, ContactShadow, useLight, Galvanized, RustStreak,
 // it rather than this file printing a number it was not given.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 /**
  * Real dimensions, so `scale={1}` beside a person is right without anyone thinking

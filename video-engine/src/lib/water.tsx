@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, RustStreak, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // WATER — the beat this file exists to let the show handle CAREFULLY.
@@ -31,8 +32,6 @@ import {tones, FormGradient, ContactShadow, useLight, RustStreak, INK} from './l
 // safe, and there is no all-clear state in this file.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 export const WATER_M: Record<string, {h: number; note: string}> = {
   streamGauge: {h: 3.4, note: 'the staff plate and instrument shelter on its pile'},

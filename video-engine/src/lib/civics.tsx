@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
+import {M} from './scale';
 
 // =============================================================================
 // CIVICS — where the decisions on this beat are actually taken.
@@ -29,7 +30,6 @@ import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 //   about it, that is reported rather than staged.
 // =============================================================================
 
-const M = 610 / 1.7;
 
 export const CIVIC_M: Record<string, {h: number; note: string}> = {
   capitol: {h: 92.2, note: 'to the star in the Goddess of Liberty\'s hand'},

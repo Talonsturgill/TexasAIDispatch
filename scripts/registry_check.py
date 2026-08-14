@@ -52,6 +52,8 @@ REGISTRY = LIB / "registry.tsx"
 STAGEABLE = [
     "kit", "fauna", "vehicles", "civics", "sensing",
     "agriculture", "freight", "compute", "clinic", "water", "plantfloor",
+    # the nostalgia layer
+    "flora", "skies", "roadside", "hometown", "homeplace", "tejano", "blacktexas",
 ]
 
 # Everything else, with the reason. A module is excluded because of WHAT IT IS,
@@ -66,6 +68,7 @@ NOT_STAGEABLE = {
     "voice": "VO timing data for the mouth, not a drawing.",
     "registry": "this map.",
     "uid": "per-instance paint-server ids.",
+    "scale": "the metre and the seeded rng. Numbers, not geometry.",
 }
 
 # Components inside a stageable module that are deliberately not placeable on their

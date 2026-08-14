@@ -4,6 +4,7 @@ import {Biome} from './lib/biomes';
 import {Plane, CameraMoves, composeCams, Camera} from './lib/stage3d';
 import {GradeLayer} from './lib/lighting';
 import {Element, Placed} from './lib/registry';
+import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
 
 // =============================================================================
@@ -154,6 +155,11 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
                 looked like it had a border it was never given. */}
             <svg width={1080} height={1920} viewBox="0 0 1080 1920"
               style={{overflow: 'visible'}}>
+              {/* Once per plane <svg>, because a material overlay resolves url(#mat-*)
+                  within its own document and each plane is its own svg. Without this
+                  every bark, corrugated and granite surface the nostalgia modules
+                  paint would fall back to nothing in the finished film. */}
+              <MaterialDefs />
               {/* The ADDRESS is threaded in, not just the item. An element the board
                   did not seed takes its variation from where it stands, which is
                   distinct per instance and the same on every frame. See `seedFor`

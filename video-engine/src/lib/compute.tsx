@@ -1,5 +1,6 @@
 import React from 'react';
 import {useUid} from './uid';
+import {M} from './scale';
 import {tones, FormGradient, ContactShadow, useLight, Galvanized, RustStreak,
         BrushedMetal, INK} from './lighting';
 
@@ -33,8 +34,6 @@ import {tones, FormGradient, ContactShadow, useLight, Galvanized, RustStreak,
 // instead of an estimate dressed as a measurement.
 // =============================================================================
 
-/** Draw units per metre, from the Character rig: 610 units sole to crown at 1.70 m. */
-const M = 610 / 1.7;
 
 export const COMPUTE_M: Record<string, {h: number; note: string}> = {
   cabinet: {h: 2.0, note: 'a 42U rack, floor to the top of the frame'},

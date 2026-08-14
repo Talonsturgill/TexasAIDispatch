@@ -10,6 +10,13 @@ import * as Compute from './compute';
 import * as Clinic from './clinic';
 import * as Water from './water';
 import * as Plant from './plantfloor';
+import * as Flora from './flora';
+import * as Skies from './skies';
+import * as Road from './roadside';
+import * as Town from './hometown';
+import * as Home from './homeplace';
+import * as Tejano from './tejano';
+import * as BlackTx from './blacktexas';
 import {Character, castProps} from './Character';
 
 // =============================================================================
@@ -181,6 +188,145 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   conveyor: Plant.Conveyor,
   inspectionHead: Plant.InspectionHead,
   toolBay: Plant.ToolBay,
+
+  // -------------------------------------------------------------------------
+  // THE NOSTALGIA LAYER. Everything above this line is a SUBJECT: a pumpjack
+  // because the story is about oil, a data hall because the story is about
+  // compute. Nostalgia is not a subject. It is what the story is set IN, at the
+  // edge of frame, unremarked, and a viewer recognises it without being asked to.
+  //
+  // `knowledge/texas/NOSTALGIA.md` is the doctrine. The rule these modules run on
+  // is RECOGNITION OVER DECORATION: an artifact earns its place by being
+  // recognised, not by being pretty, so the right rusted gin sign badly drawn
+  // lands and a beautiful generic barn does not.
+  // -------------------------------------------------------------------------
+
+  // the plants a Texan places a frame by, before reading a word
+  liveOak: Flora.LiveOak,
+  pecan: Flora.Pecan,
+  loblolly: Flora.Loblolly,
+  postOak: Flora.PostOak,
+  boisDArc: Flora.BoisDArc,
+  cottonwood: Flora.Cottonwood,
+  baldCypress: Flora.BaldCypress,
+  asheJuniper: Flora.AsheJuniper,
+  crepeMyrtle: Flora.CrepeMyrtle,
+  huisache: Flora.Huisache,
+  sabalPalm: Flora.SabalPalm,
+  ocotillo: Flora.Ocotillo,
+  yucca: Flora.Yucca,
+  sotol: Flora.Sotol,
+  lechuguilla: Flora.Lechuguilla,
+  wildflowerVerge: Flora.WildflowerVerge,
+  bluebonnet: Flora.Bluebonnet,
+  bluestem: Flora.Bluestem,
+  cordgrass: Flora.Cordgrass,
+  grassTuft: Flora.GrassTuft,
+  sorghum: Flora.Sorghum,
+  cottonField: Flora.CottonField,
+  orchardRow: Flora.OrchardRow,
+  sunflower: Flora.Sunflower,
+  tumbleweed: Flora.Tumbleweed,
+
+  // the sky states. In most of Texas the sky IS the landscape.
+  thunderhead: Skies.Thunderhead,
+  supercell: Skies.Supercell,
+  shelfCloud: Skies.ShelfCloud,
+  blueNorther: Skies.BlueNorther,
+  sunsetBands: Skies.SunsetBands,
+  dustHaze: Skies.DustHaze,
+  gulfOvercast: Skies.GulfOvercast,
+  seaFog: Skies.SeaFog,
+  greenHailSky: Skies.GreenHailSky,
+  smokeSky: Skies.SmokeSky,
+  starfield: Skies.Starfield,
+  monsoonCells: Skies.MonsoonCells,
+  clearSky: Skies.ClearSky,
+  sky: Skies.Sky,
+
+  // the drive-by Texas, for the far and mid planes
+  stripedAFrame: Road.StripedAFrame,
+  mansardBox: Road.MansardBox,
+  driveInStalls: Road.DriveInStalls,
+  danceHall: Road.DanceHall,
+  icehouse: Road.Icehouse,
+  cottonGin: Road.CottonGin,
+  moduleYard: Road.ModuleYard,
+  feedStore: Road.FeedStore,
+  historicalMarker: Road.HistoricalMarker,
+  ranchGate: Road.RanchGate,
+  bootFence: Road.BootFence,
+  ghostSign: Road.GhostSign,
+  roadsideMemorial: Road.RoadsideMemorial,
+  motorCourt: Road.MotorCourt,
+  poleSign: Road.PoleSign,
+  billboard: Road.Billboard,
+  storefrontBlock: Road.StorefrontBlock,
+  deerBlind: Road.DeerBlind,
+  twoLane: Road.TwoLane,
+  cityLimitSign: Road.CityLimitSign,
+  countryChurch: Road.CountryChurch,
+  bandstand: Road.Bandstand,
+
+  // school, Friday night, and the year's rituals
+  lightMast: Town.LightMast,
+  bleachers: Town.Bleachers,
+  footballField: Town.Field,
+  marchingBlock: Town.MarchingBlock,
+  drumMajorStand: Town.DrumMajorStand,
+  homecomingMum: Town.HomecomingMum,
+  portableClassroom: Town.PortableClassroom,
+  schoolMarquee: Town.SchoolMarquee,
+  runThrough: Town.RunThrough,
+  showBarn: Town.ShowBarn,
+  showSteer: Town.ShowSteer,
+  schoolBus: Town.SchoolBus,
+  goalPost: Town.GoalPost,
+
+  // the house, the yard, and what is kept in view of the street
+  brickRanch: Home.BrickRanch,
+  carport: Home.Carport,
+  chestFreezer: Home.ChestFreezer,
+  windowUnit: Home.WindowUnit,
+  pierBeamHouse: Home.PierBeamHouse,
+  trailerHouse: Home.TrailerHouse,
+  homeYard: Home.Yard,
+  propaneTank: Home.PropaneTank,
+  clothesline: Home.Clothesline,
+  aboveGroundPool: Home.AboveGroundPool,
+  porchGlider: Home.PorchGlider,
+  satelliteDish: Home.SatelliteDish,
+  washateria: Home.Washateria,
+  burnBarrel: Home.BurnBarrel,
+
+  // Mexican-American and border Texas
+  paleteroCart: Tejano.PaleteroCart,
+  panaderiaRack: Tejano.PanaderiaRack,
+  raspaStand: Tejano.RaspaStand,
+  raspaCup: Tejano.RaspaCup,
+  conjuntoPair: Tejano.ConjuntoPair,
+  lowrider: Tejano.Lowrider,
+  yardShrine: Tejano.YardShrine,
+  tiendita: Tejano.Tiendita,
+  coloniaBlock: Tejano.ColoniaBlock,
+  pedestrianBridge: Tejano.PedestrianBridge,
+  escaramuzaRider: Tejano.EscaramuzaRider,
+  starPinata: Tejano.StarPinata,
+  comal: Tejano.Comal,
+  photoWall: Tejano.PhotoWall,
+
+  // Black Texas, which is coastal and rural and OLD before it is urban
+  barbecuePit: BlackTx.BarbecuePit,
+  churchFan: BlackTx.ChurchFan,
+  fanField: BlackTx.FanField,
+  sanctuary: BlackTx.Sanctuary,
+  trailRideColumn: BlackTx.TrailRideColumn,
+  buckingChute: BlackTx.BuckingChute,
+  frottoir: BlackTx.Frottoir,
+  shotgunHouse: BlackTx.ShotgunHouse,
+  hBCUBand: BlackTx.HBCUBand,
+  emancipationPark: BlackTx.EmancipationPark,
+  redDrink: BlackTx.RedDrink,
 };
 
 export const ELEMENT_NAMES = Object.keys(ELEMENTS).sort();
@@ -285,6 +431,9 @@ export const REQUIRED: Record<string, string[]> = {
   plume: ['x', 'y'],
   readout: ['x', 'y', 'rows'],
   confidenceSpread: ['x', 'y', 'values'],
+  // a sky with no state has no band table and renders the default,
+  // which is the silent-empty-plane failure one level down
+  sky: ['state'],
 };
 
 /** Where an element stands on the board. Its address is what varies it. */

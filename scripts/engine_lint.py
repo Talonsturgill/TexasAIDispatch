@@ -120,6 +120,44 @@ def check_files(root: Path) -> list[str]:
     return problems
 
 
+# THE METRE IS DEFINED ONCE. `const M = 610 / 1.7` was written out in TEN modules
+# before lib/scale.ts existed, and nothing was wrong with any of them, which is
+# exactly the condition CLAUDE.md names as dangerous: a number restated in a second
+# place is a number that will be wrong in one of them.
+#
+# The consequence here is worse than a wrong threshold because it is SILENT. Every
+# drawing in a module is sized against its own copy, so a module whose copy drifted
+# renders internally consistent and wrong only IN COMPARISON: a longhorn from one
+# file standing beside a person from another, both perfectly proportioned, at two
+# different scales. staging_check measures against the DECLARED metre, so a bad
+# metre passes its own check and this is the only place it can be caught.
+METRE = re.compile(r"\b610\s*/\s*1\.7\b")
+METRE_HOME = "lib/scale.ts"
+
+
+def check_metre(root: Path) -> list[str]:
+    """Exactly one definition of draw-units-per-metre in the whole engine."""
+    homes = []
+    for f in sorted(root.rglob("*.tsx")) + sorted(root.rglob("*.ts")):
+        t = strip_comments(f.read_text(encoding="utf-8"))
+        for m in METRE.finditer(t):
+            homes.append((f, t[: m.start()].count("\n") + 1))
+    if not homes:
+        return [
+            f"the metre is defined NOWHERE. {METRE_HOME} should carry "
+            f"`export const M = 610 / 1.7`, from the Character rig at 610 units sole "
+            f"to crown at 1.70 m. Without it nothing in the engine has a scale."
+        ]
+    return [
+        f"{f.name}:{line}: a second definition of the metre. It belongs in "
+        f"{METRE_HOME} and nowhere else, so import {{M}} from './scale'. Two copies "
+        f"that drift render internally consistent and wrong only in comparison, and "
+        f"staging_check measures against the declared metre so it cannot see it."
+        for f, line in homes
+        if not f.as_posix().endswith(METRE_HOME)
+    ]
+
+
 def check_palettes(root: Path) -> list[str]:
     """No two regions share a green or a ground. The vernacular law, where it is checkable."""
     f = root / "lib" / "biomes.tsx"
@@ -215,7 +253,7 @@ def self_test() -> int:
         ok("...and distinct greens pass", check_palettes(root) == [])
 
     # the shipped engine
-    live = check_files(LIB) + check_palettes(LIB)
+    live = check_files(LIB) + check_palettes(LIB) + check_metre(LIB)
     ok("the shipped engine is clean", live == [], str(live[:3]))
 
     if failures:
@@ -235,7 +273,7 @@ def main() -> int:
     if not LIB.exists():
         print(f"engine_lint: {LIB} does not exist", file=sys.stderr)
         return 2
-    problems = check_files(LIB) + check_palettes(LIB)
+    problems = check_files(LIB) + check_palettes(LIB) + check_metre(LIB)
     if not problems:
         n = len(list(LIB.rglob("*.tsx")))
         print(f"engine lint: clean, {n} engine source(s)")
