@@ -54,6 +54,7 @@ STAGEABLE = [
     "agriculture", "freight", "compute", "clinic", "water", "plantfloor",
     # the nostalgia layer
     "flora", "skies", "roadside", "hometown", "homeplace", "tejano", "blacktexas",
+    "football",
 ]
 
 # Everything else, with the reason. A module is excluded because of WHAT IT IS,

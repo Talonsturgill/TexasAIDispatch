@@ -10,7 +10,7 @@ import {ProofScene} from './ProofScene';
 import {FarmSheet, RoadSheet, MachineRoomSheet, ClinicSheet, WaterSheet,
         PlantSheet} from './ApplicationSheets';
 import {FloraSheet, FloraFieldSheet, SkySheet, RoadsideSheet, HometownSheet,
-        HomeplaceSheet, TejanoSheet, BlackTexasSheet, SHEET_H} from './NostalgiaSheets';
+        HomeplaceSheet, TejanoSheet, BlackTexasSheet, FootballSheet, SHEET_H} from './NostalgiaSheets';
 import {Dispatch, DEFAULT_DISPATCH, dispatchMetadata} from './Dispatch';
 import {RegionName} from './lib/lighting';
 
@@ -85,6 +85,8 @@ export const RemotionRoot: React.FC = () => (
       fps={30} width={1080} height={SHEET_H.TejanoSheet} />
     <Composition id="BlackTexasSheet" component={BlackTexasSheet} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.BlackTexasSheet} />
+    <Composition id="FootballSheet" component={FootballSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.FootballSheet} />
 
     {REGIONS.map((r) => (
       <Composition key={r} id={`Region-${r.replace(/_/g, "-")}`} component={RegionSheet}
