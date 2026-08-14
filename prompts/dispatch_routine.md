@@ -319,6 +319,40 @@ a beat with a sound that belongs to nothing. `knowledge/texas/SOUND.md` is the d
 mistake each sound corrects. If a scene needs a Texas sound the library lacks, add it to
 `scripts/foley.py` (with its `--self-test` staying green) rather than reaching for a generic cue.
 
+### MUSIC, AND THE CREDIT THAT LICENSES IT
+
+The bed is REAL Texas music by a real musician, not a generated track and not the
+nearest generic royalty-free cue. It is used under a permissive licence, and for those
+licences **the credit in the end card IS the licence**, so the credit is generated from
+the registry and checked before the film ships. A missing credit is not a style slip,
+it is using the work without a licence.
+
+```
+python3 scripts/music.py --list                    # the vetted registry
+python3 scripts/music.py --credits <track_id>      # the exact credit block
+```
+
+Pick a bed whose `mood` and `use` fit the piece, pass its `file` to `mix.py --bed`
+(the mixer TILES it under the film at 0.35 and ducks it under the voice), and put the
+generated credit block into the board's `credits` field so the end card renders it.
+Never hand-type a credit and never edit one: the string is the licence being paid, and
+`music.py` generates it in the TASL order the licence asks for.
+
+Only CC0 and CC BY are allowed, and `music.py` refuses everything else with the reason:
+NonCommercial breaks on our own commercial use, NoDerivatives breaks because we trim
+and sync, ShareAlike is viral, and crediting an all-rights-reserved recording licenses
+nothing at all. **If the registry has no track that fits, ship with no bed.** Silence
+under a good read is better than a licence nobody checked.
+
+Before delivery:
+
+```
+python3 scripts/music.py --verify-film out/dispatch/credits.txt --track <track_id>
+```
+
+`knowledge/texas/MUSIC.md` is the approach: where to source Texas music under these
+licences, how to vet a track, and the traps in full.
+
 ### CAPTIONS
 
 ```
