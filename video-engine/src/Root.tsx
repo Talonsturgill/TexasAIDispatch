@@ -9,6 +9,8 @@ import {RegionSheet} from './RegionSheet';
 import {ProofScene} from './ProofScene';
 import {FarmSheet, RoadSheet, MachineRoomSheet, ClinicSheet, WaterSheet,
         PlantSheet} from './ApplicationSheets';
+import {FloraSheet, FloraFieldSheet, SkySheet, RoadsideSheet, HometownSheet,
+        HomeplaceSheet, TejanoSheet, BlackTexasSheet, SHEET_H} from './NostalgiaSheets';
 import {Dispatch, DEFAULT_DISPATCH, dispatchMetadata} from './Dispatch';
 import {RegionName} from './lib/lighting';
 
@@ -60,6 +62,30 @@ export const RemotionRoot: React.FC = () => (
       fps={30} width={1080} height={2100} />
     <Composition id="PlantSheet" component={PlantSheet} durationInFrames={120}
       fps={30} width={1080} height={1700} />
+
+    {/* THE NOSTALGIA SHEETS. 113 artifacts across seven modules, and this repo has
+        learned twice at cost that a drawing nobody has LOOKED AT is not finished:
+        Wave V3 rendered the cast and found three bugs in one pass that no typecheck
+        could see. Each is 120 frames so the animated components have somewhere to
+        move, and each takes its height from SHEET_H so a new artifact grows the
+        frame instead of clipping off the bottom. */}
+    <Composition id="FloraSheet" component={FloraSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.FloraSheet} />
+    <Composition id="FloraFieldSheet" component={FloraFieldSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.FloraFieldSheet} />
+    <Composition id="SkySheet" component={SkySheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.SkySheet} />
+    <Composition id="RoadsideSheet" component={RoadsideSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.RoadsideSheet} />
+    <Composition id="HometownSheet" component={HometownSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.HometownSheet} />
+    <Composition id="HomeplaceSheet" component={HomeplaceSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.HomeplaceSheet} />
+    <Composition id="TejanoSheet" component={TejanoSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.TejanoSheet} />
+    <Composition id="BlackTexasSheet" component={BlackTexasSheet} durationInFrames={120}
+      fps={30} width={1080} height={SHEET_H.BlackTexasSheet} />
+
     {REGIONS.map((r) => (
       <Composition key={r} id={`Region-${r.replace(/_/g, "-")}`} component={RegionSheet}
         durationInFrames={60} fps={30} width={1080} height={1920}
