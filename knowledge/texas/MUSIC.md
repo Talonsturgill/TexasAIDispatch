@@ -73,6 +73,67 @@ with the date it was verified.
 6. Record it in `config/music/tracks.json` with `verified_on` set to the date you checked.
 7. Run `python3 scripts/music.py --check`. It refuses an incomplete entry.
 
+## What the search actually found (verified 2026-08-14)
+
+Two findings that change the strategy, both confirmed by fetching sources rather than recalled.
+
+**There is no meaningful pool of Texas-made CC BY or CC0 music.** Wikimedia Commons, the Internet
+Archive and the CC catalogues turned up zero verified Texas-based artists releasing under CC BY or
+CC0. Every promising lead failed the Texas test on inspection.
+
+**The Texas idiom you want is not public domain yet.** Verified against the Internet Archive's own
+catalogue: the earliest Blind Lemon Jefferson is 1926 and the earliest Bob Wills is 1935, with
+conjunto and Tejano recording beginning later still. Under the 100 year term those clear on
+2027-01-01 and 2036-01-01. **Texas blues, western swing, conjunto and Tejano are all still in
+copyright.** Blind Lemon Jefferson is close enough to be worth a calendar note.
+
+So the workable strategy is two-track:
+
+1. **Pre-1926 recordings by Texas-born artists, which are genuinely public domain.** This turned
+   out to be the real find, and it is better than it sounds: Eck Robertson of Amarillo recorded
+   Texas fiddle in 1922, and Texas fiddle is the direct ancestor of western swing. Vernon Dalhart
+   was born in Jefferson, Texas and took his stage name from two Texas towns. Both are in the
+   registry with the recording date as the basis and a copyright.gov or Cornell citation as
+   evidence.
+2. **CC BY and CC0 tracks in an adjacent idiom that are not literally Texas.** Old-time, rag,
+   hoedown, country and blues, honestly labelled in the registry as `NOT Texas`, because a bed
+   that merely sounds close should not be described as the real thing.
+
+The boundary is COMPUTED in `music.py`, not typed, so 1926 material surfaces on its own on
+2027-01-01 without anybody editing a cutoff.
+
+### The trap that was live in our own candidate list
+
+**UCSB claims copyright on its own transfers of post-1922 recordings and licenses them
+NonCommercial**, and those transfers are on the Internet Archive. Their licensing page states that
+cylinders recorded before 1922-12-31 "can be freely downloaded and used for whatever purpose,
+commercial or non-commercial", while transfers of recordings from 1923 on are "©2005-2022 by the
+Regents of the University of California" and "licensed for non-commercial use".
+
+That means the Edison 51459 transfer of Vernon Dalhart's "The Prisoner's Song" (1924) is
+**disqualified** even though the performance is public domain, because the digitisation carries an
+NC claim. The Victor transfer of "Wreck of the Old 97" does not, and that is the one in the
+registry. This is exactly the work-versus-transfer split, it was real in our first candidate set,
+and it is why `transfer_rights` is a separate field that `music.py` checks on its own.
+
+### Other traps confirmed
+
+- **Re-uploads mislabel licences.** The same Kevin MacLeod material appears on the Internet
+  Archive tagged, by different uploaders, as CC BY-ND, CC BY, CC BY-NC-ND and CC0. Only the
+  licensor's own domain or a licence-reviewed Commons page counts.
+- **Library of Congress "no known copyright" is not a licence.** The Lomax 1939 Southern States
+  trip holds 349 Texas audio items and the rights statement says access is "strictly for
+  educational and research purposes", pushes the legal assessment onto the user, and the items are
+  download-restricted. They are also unpublished field recordings, whose term the Copyright Office
+  page does not address. **Do not automate. Legal sign-off or nothing.**
+- **Modern realizations wearing historic dates.** Two Commons files titled as 1913 and 1915 Texas
+  recordings are 2026 synthesized realizations of public domain sheet music. Usable, but they must
+  never be credited as archival audio.
+- **Free Music Archive and Freesound disallow our crawler** in robots.txt, so nothing was taken
+  from them directly. The CC BY entries in the registry were verified on **Wikimedia Commons**,
+  which mirrors FMA, licence-reviews each file and records the original source URL. A person can
+  use FMA in a browser; an automated checker should read Commons.
+
 ## Where to look
 
 Filter by licence first, then by sound. The idioms worth having are the ones the visual library
