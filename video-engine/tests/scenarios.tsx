@@ -2,6 +2,7 @@ import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {ELEMENTS, ELEMENT_NAMES, REQUIRED, Element, seedFor} from '../src/lib/registry';
 import {Longhorn} from '../src/lib/fauna';
+import {MaterialDefs} from '../src/lib/materials';
 
 // =============================================================================
 // THE SCENARIOS the paint-id test renders. Kept as TSX rather than generated as a
@@ -42,7 +43,15 @@ export function everyElementTwice(): string {
       </g>
     );
   });
-  return renderToStaticMarkup(<svg width={1080} height={1920}>{parts}</svg>);
+  // MATERIALS ARE A DOCUMENT-LEVEL SINGLETON. `matFill('planks')` resolves to the
+  // fixed `url(#mat-planks)`, and materials.tsx emits those patterns ONCE per <svg>
+  // via <MaterialDefs/> -- an element cannot carry its own copy without defining the
+  // same fixed id twice, which the "no id defined twice" check above forbids. So the
+  // roadside/hometown/homeplace/blacktexas artifacts that fill with a material need
+  // the defs staged beside them, exactly as a real sheet stages them once. Without
+  // this, every url(#mat-*) here dangles.
+  return renderToStaticMarkup(
+    <svg width={1080} height={1920}><MaterialDefs />{parts}</svg>);
 }
 
 /** The reviewer's exact reproduction: two unseeded longhorns, two different hides. */
