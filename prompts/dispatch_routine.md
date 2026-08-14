@@ -299,6 +299,26 @@ Whole passage in ONE call for natural sentence-to-sentence flow. N takes, keep t
 
 **NEVER time-stretch audio.** If the read runs long, TRIM THE SCRIPT and re-synth those lines.
 
+### SOUND
+
+The sounds are HAND-SYNTHESISED Texas foley, not a sourced library, for the same reason the
+drawings are hand-built. Build the library, then write `sfx_events.json` by placing MOTIVATED
+sounds, one tied to a thing actually on screen in each beat, which is what `flow_check` demands.
+
+```
+python3 scripts/foley.py --build assets/sfx      # materialises the wavs (gitignored) + catalog.json
+```
+
+`assets/sfx/catalog.json` lists every sound with its `wav` path, `kind` (ambience or oneshot),
+`dur_s`, `tags`, and the on-screen `motivation` it belongs to. For each beat, pick the sound whose
+motivation matches the thing in the frame (a pumpjack shot gets `pumpjack`, a night pasture gets
+`cricket_night` under a `coyote_yip`), and write the event with that `wav`, an `at_s`, the `dur_s`,
+a `gain`, and a `what` that NAMES the on-screen thing so `flow_check` reads the motivation. A bed
+runs under the scene, a one-shot lands on the beat it marks. Never stack every beat, and never mark
+a beat with a sound that belongs to nothing. `knowledge/texas/SOUND.md` is the doctrine and the
+mistake each sound corrects. If a scene needs a Texas sound the library lacks, add it to
+`scripts/foley.py` (with its `--self-test` staying green) rather than reaching for a generic cue.
+
 ### CAPTIONS
 
 ```

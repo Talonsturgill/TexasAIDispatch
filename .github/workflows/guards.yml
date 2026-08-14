@@ -138,6 +138,10 @@ jobs:
           # And the mixer has no resampler in it. Not disabled, absent, and the self-test proves
           # the absence by scanning its own code with the prose stripped out.
           python3 scripts/mix.py --self-test
+          # The foley library is hand-synthesised, so every sound is checked to synthesise to a
+          # clean 48k buffer, to be deterministic, and its validator is fed known-bad buffers and
+          # required to reject each, so a green run is not a checker that stopped checking.
+          python3 scripts/foley.py --self-test
 
       - name: The rubric's hard fails, checked rather than promised
         run: |

@@ -349,3 +349,44 @@ they land first or the regions get built twice.
   check is a net rather than a method. Also: spell a Texas name phonetically IN THE SCRIPT, since
   the model reads what it is given and a note in a plan it never sees does nothing. Mexia, Boerne,
   Bexar, Manchaca, Refugio, Palacios.
+
+---
+
+## SFX WAVE — the Texas foley engine (2026-08-14, current)
+
+**Directive:** "also sounds, this is huge, and sfx library you need to build out based on texas."
+
+**The architecture, measured before building.** `mix.py` places motivated sounds from
+`sfx_events.json`; each event carries a `wav` path (loaded, never resampled) or inline `_samples`.
+The engine rate is **48000 Hz mono** (`vo_synth_gemini` resamples Gemini's 24k to 48k, `mix` matches
+the voice). `flow_check` demands each beat carry a MOTIVATED sound tied to a thing on screen and
+bans generic library-cue words. There was NO foley library. So the sound side gets built the way
+the picture side is: HAND-CODED from oscillators and filtered noise, never sourced, no licensing.
+
+**Plan.**
+- `scripts/foley.py` — procedural Texas foley. Synthesis primitives (osc, pink/brown noise, ADSR,
+  one-pole and biquad filters, seeded rng) plus a registry of named Texas sounds, each a function
+  to a normalized float mono array. Ambience beds (cicada wall, cricket night, blue norther,
+  gulf surf and gulls, dust rumble, Friday-night crowd, rain on tin) and one-shots (pumpjack groan,
+  windmill creak, screen-door spring, diesel idle, longhorn low, grackle, mockingbird, rattler,
+  bobwhite, coyote, train horn at a grade crossing, courthouse bell, spurs, dominoes, paletero
+  bells, conjunto accordion stab, drumline cadence, ref whistle, pads pop, far and near thunder,
+  hail on metal). Every sound MOTIVATED, matching flow_check.
+- WAVs are GENERATED, never committed: `foley.py --build assets/sfx/` materializes them (gitignored),
+  the small `catalog.json` is committed, mirroring the docs-are-generated rule.
+- `foley.py --self-test` — hermetic gate: every sound synthesizes, 48000 Hz, finite, non-clipping,
+  right duration, deterministic per seed.
+- `foley.py --audition out.wav` — the AUDIO CONTACT SHEET, the ear's review sheet, because a sound
+  nobody has HEARD is not finished.
+- `knowledge/texas/SOUND.md` — the sonic doctrine and the mistake each sound corrects.
+- Wire it: catalog into the routine's sound phase, `--self-test` into guards.
+
+**Status:** DONE and wired. `scripts/foley.py` synthesizes 31 Texas sounds (9 ambience beds,
+22 one-shots) at 48k mono, FFT-filtered so the whole gate runs in under a second, cached so each
+sound synthesizes once, deterministic per seed. `--self-test` (in guards) checks every sound is a
+clean buffer and feeds its validator known-bad inputs so it can go red. `--build` materialises the
+wavs (gitignored) plus `assets/sfx/catalog.json` (tracked, the interface). `--audition` writes the
+whole library end to end for the ear. `knowledge/texas/SOUND.md` is the doctrine; the routine's new
+SOUND step in `prompts/dispatch_routine.md` builds the library and places motivated events from the
+catalog, closing the gap where `sfx_events.json` was referenced but never authored. Music is
+deliberately out of scope (a song is a live work); the conjunto stab is the one musical gesture.
