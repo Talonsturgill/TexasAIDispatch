@@ -736,3 +736,51 @@ measurement, the reason, and what it would take.
 The rule this leaves: **a debt list is a claim, and claims get checked.** Ratchet the count so
 it can only shrink, split it so the number means something, and expect the list itself to be
 wrong about some of its own rows.
+
+---
+
+## 33. "It needs a rendered frame in front of a person" was true, and it was not a reason to wait
+
+Entry 32 parked two defects because fixing them meant changing a drawing on the strength of
+arithmetic, and it named the risk correctly. It then drew the wrong conclusion, because the
+rendered frame was one command away the whole time:
+
+    npx remotion still ClinicSheet out.png \
+      --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell
+
+About twenty seconds per sheet. Both drawings were obviously wrong the moment anyone looked, and
+looking also turned up things no amount of reasoning about the source had found.
+
+**The CT was two machines pretending to be one.** The bore was not merely high, it was 1.41 m
+across, which is a linac drum face and double a CT bore. The couch had been raised to 1.06 m to
+meet it, because a couch at its declared 0.75 m could not have reached that aperture at all. One
+shell, one aperture and one couch height were serving a 1.98 m CT and a 2.4 m linac, and the
+picture closed by bending the one dimension the table had already measured. **A shared component
+whose two cases have genuinely different dimensions gets drawn to one of them, and the other case
+then bends whatever is adjacent until the picture closes.**
+
+**The truck's cab roof was the smallest of its problems.** The van trailer's floor was drawn
+BELOW the fifth wheel plate it rests on, so the trailer passed through its own coupling, and its
+roof sat 0.87 m below the cab. The tyres were 1.24 m where a 22.5 inch tyre is 1.04 m, and at
+that radius the drive duals overlapped each other. The roof pod rendered 0.92 m because it was
+scaled by `0.42 / (K * scale)`, an expression that cancels the STAGING scale as well as the
+parent's fit, so the same truck got a pod six times bigger at one staging than another. **No
+single measurement could have caught that one**, which is why the check for it is a ratio of the
+pod's size at two stagings and not a size.
+
+The general rule that expression is now written to: **to place a true-scale child inside a
+true-scale parent, pass `scale={1 / K}`.** Cancel the parent's fit and nothing else. Divide by
+`K * scale` and the child stops riding the vehicle it belongs to.
+
+**And the reason all of this survived review.** The row where the rig is signed off drew the
+human reference at `scale={0.28}` against a rig at `scale={0.16}`, so the engineer stood 1.75
+times life size and the truck read a third smaller than it is. Ten rows across the review sheets
+do this. The sheets exist to be looked at, and the ruler in them was wrong. **A human reference
+staged at a different scale from its subject is worse than no reference, because a reviewer
+trusts it.** The Ref now carries the subject's own staging scale. The same row also cropped 161 px
+of its subject off the canvas, and a row that cannot show its subject cannot review it.
+
+The rule this leaves: **if a defect is parked because it needs eyes, go and use your eyes.**
+`WRONG_SIZE` is for a drawing somebody has looked at and cannot yet fix. It is never for one
+nobody has looked at, and "somebody has to see this" describes a twenty second command, not a
+blocker.

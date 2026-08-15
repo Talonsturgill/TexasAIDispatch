@@ -94,19 +94,20 @@ MULTIPLIER_EXEMPT: dict[str, str] = {
 # and it cannot quietly grow. It has already caught two of its own rows as false: flora's
 # orchard picks its species at render time, and the literal-only scan could not see it.
 WRONG_SIZE: dict[str, str] = {
-    # DRAWN, AND DRAWN AT THE WRONG SIZE. Two entries, and both are the same kind of problem:
-    # the number is provably wrong and the fix is a DRAWING change that somebody has to look
-    # at, not arithmetic anybody can apply blind.
-    "CLINIC_M.couch": "the CT patient couch. Its entry says 0.75 m working height and the "
-                      "drawing puts the surface at 62 local units in a frame where 140 is a "
-                      "2.4 m gantry, so it renders 1.06 m, 42 percent high. Lowering it moves "
-                      "the couch relative to the BORE it has to run into, so this one needs a "
-                      "rendered frame in front of somebody before it is touched.",
-    "FREIGHT_M.tractor": "the day cab roof. It draws at 108 local units where 100 is the 4.15 m "
-                         "rig to the mast top, so the roof renders 4.48 m: ABOVE the whole "
-                         "rig's declared height, with the mast standing on it. The fix is a "
-                         "redraw of a hand-shaped silhouette that was already corrected once "
-                         "for being a cab-over, so it needs eyes on a render.",
+    # DRAWN, AND DRAWN AT THE WRONG SIZE. Empty, and the dict stays because the category is
+    # real and will be needed again.
+    #
+    # It held two entries and both said the same thing: the fix needs a rendered frame in
+    # front of somebody, so it is not arithmetic anybody can apply blind. That was true and
+    # it was also the wrong conclusion, because the frame was one command away the whole
+    # time. `npx remotion still <Sheet> out.png --browser-executable=<chromium>` renders any
+    # review sheet in about twenty seconds, and both drawings were obviously wrong the moment
+    # anyone looked: the CT couch stood at the chest of the clinician beside it, and the
+    # truck's trailer roof sat a metre below its own cab.
+    #
+    # IF A DEFECT IS PARKED HERE BECAUSE IT NEEDS EYES, RENDER IT AND USE YOUR EYES. The
+    # entry is for a drawing somebody has looked at and cannot yet fix, never for one nobody
+    # has looked at.
 }
 
 # MEASURED, AND NOTHING DRAWS IT. Not debt in the drawing, because there is no drawing. Each is
@@ -161,12 +162,7 @@ def fit_calls(src: str) -> tuple[set[str], set[str]]:
     """
     literal: set[str] = set()
     selectable: set[str] = set()
-    for m in re.finditer(r"\bfit\(", src):
-        i, depth = m.end(), 1
-        while i < len(src) and depth:
-            depth += (src[i] == "(") - (src[i] == ")")
-            i += 1
-        inner = src[m.end():i - 1]
+    for inner in call_inners(src, "fit"):
         first = inner.split(",")[0] if "?" not in inner else inner.rsplit(",", 1)[0]
         words = set(STR_RE.findall(first))
         plain = re.fullmatch(r"\s*'(\w+)'\s*", first)
@@ -174,10 +170,42 @@ def fit_calls(src: str) -> tuple[set[str], set[str]]:
             literal.add(plain.group(1))
         selectable |= words
     return literal, selectable
-# `sub(part, parent, parentLocal)` sizes a SUB-PART inside an already-fitted parent, which is
-# the idiom that did not exist while twenty-four measured dimensions went undrawn. Both names
-# in it are a real use of the table.
-SUB_RE = re.compile(r"\bsub\('(\w+)',\s*'(\w+)'")
+
+
+def call_inners(src: str, name: str):
+    """The paren balanced argument text of every `name(...)` call in `src`.
+
+    A regex cannot do this. An argument list containing `(h / 70)` or a nested call ends
+    at the wrong paren, and the first argument then reads as a fragment.
+    """
+    for m in re.finditer(rf"\b{name}\(", src):
+        i, depth = m.end(), 1
+        while i < len(src) and depth:
+            depth += (src[i] == "(") - (src[i] == ")")
+            i += 1
+        yield src[m.end():i - 1]
+
+
+def sub_keys(src: str) -> set[str]:
+    """Every key any `sub(part, parent, parentLocal)` call could name.
+
+    `sub` sizes a SUB-PART inside an already-fitted parent, which is the idiom that did
+    not exist while twenty-four measured dimensions went undrawn. Both names in it are a
+    real use of the table.
+
+    THIS CARRIED THE SAME BLIND SPOT fit_calls was fixed for, and it was left behind
+    because only `fit` had a dynamic call at the time. A gantry that is a CT or a linac
+    needs `sub(ct ? 'couch' : 'treatmentCouch', 'gantry', 140)`, and a literal-only regex
+    read that as naming nothing, so two measured dimensions reported as never drawn while
+    they were being used exactly as intended.
+
+    The last argument is the parent's local extent and is never a key, so it is dropped
+    and every quoted word in what remains counts.
+    """
+    keys: set[str] = set()
+    for inner in call_inners(src, "sub"):
+        keys |= set(STR_RE.findall(inner.rsplit(",", 1)[0]))
+    return keys
 # a fit(...) call, allowing one level of nested parens, followed by * or /
 MULT_RE = re.compile(r"fit\([^()]*(?:\([^()]*\))?[^()]*\)\s*[*/]")
 
@@ -257,8 +285,7 @@ def check(verbose: bool = True) -> list[str]:
         # Anything a fit call COULD select counts as drawn. Only a plain literal that names
         # nothing is a typo, so only `literal` is held to the strict rule below.
         used = (selectable & keys) | literal
-        for part, parent in SUB_RE.findall(src):
-            used.update((part, parent))
+        used |= sub_keys(src)
         rel = path.relative_to(REPO)
 
         for k in sorted(literal - keys):
@@ -339,6 +366,21 @@ export const Bell: React.FC<X> = () => { const K = fit('bell', 40); };
     ok("a comment mentioning fit() is not a call",
        set(FIT_RE.findall(strip_comments("// see fit('ghost', 9)\nconst K = fit('post', 9);")))
        == {"post"})
+
+    # `sub`, WHICH HAD THE BLIND SPOT `fit` WAS ALREADY FIXED FOR. A literal-only regex
+    # read a dynamic first argument as naming nothing, so the CT gantry's two couch
+    # heights reported as measured and never drawn while both were in use.
+    ok("a plain sub names both its keys",
+       sub_keys("const b = sub('pressBox', 'bleacher', h);") == {"pressBox", "bleacher"})
+    ok("...a DYNAMIC part names every key it could select",
+       sub_keys("sub(ct ? 'couch' : 'treatmentCouch', 'gantry', 140)")
+       == {"couch", "treatmentCouch", "gantry"})
+    ok("...the local extent is not read as a key",
+       sub_keys("sub('a', 'b', wide ? 90 : 70)") == {"a", "b"})
+    ok("...and a parenthesised local does not end the call early",
+       sub_keys("sub('a', 'b', (h / 70))") == {"a", "b"})
+    ok("a comment mentioning sub() is not a call",
+       sub_keys(strip_comments("// see sub('ghost', 'x', 9)\nsub('a', 'b', 9);")) == {"a", "b"})
 
     # THE REFERENCE FLAG, which is how a frame-sized component declares it has nothing to fit.
     reffed = """export const DEMO_M: Record<string, {h: number; ref?: boolean}> = {

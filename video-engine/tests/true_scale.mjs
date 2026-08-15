@@ -83,6 +83,19 @@ try {
     const bad = P.oldBandScale();
     ok(`the band's pre-fix scale measures 13 cm and is refused (${bad.toFixed(3)} m)`,
        bad < 0.2);
+    // ...and so is the roof pod's, which failed in a way ONE measurement could not
+    // have caught: it came out a different size relative to the truck at every
+    // staging scale, so any single render of it could have looked correct.
+    const [at1, at16] = P.oldPodFractions();
+    ok(`the pod's pre-fix scale differs 6.25x between stagings (${(at16 / at1).toFixed(2)}x)`,
+       Math.abs(at16 / at1 - 6.25) < 0.01);
+    ok(`...and at the staging the sheet used it drew 0.92 m (${(at16 * 4.48).toFixed(2)} m)`,
+       at16 * 4.48 > 0.32);
+    // A REGEX THAT STOPS MATCHING MUST NOT READ AS A PASS. Every comparison against
+    // NaN is false, so a measurement reading nothing at all would slip through any
+    // bound written the other way round.
+    ok('a measurement whose shape is missing throws rather than reading nothing',
+       P.attrMisses());
     console.log(failures === 0 ? '\ntrue scale self-test: all passed'
                                : `\ntrue scale self-test: ${failures} FAILED`);
     process.exit(failures === 0 ? 0 : 1);

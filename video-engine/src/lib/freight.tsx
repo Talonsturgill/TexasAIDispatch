@@ -1,7 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, RustStreak, INK} from './lighting';
-import {M} from './scale';
+import {M, subber} from './scale';
 
 // =============================================================================
 // FREIGHT — the third beat, and the one where Texas is genuinely first.
@@ -37,13 +37,16 @@ import {M} from './scale';
 
 export const FREIGHT_M: Record<string, {h: number; note: string}> = {
   tractor: {h: 4.0, note: 'day cab, ground to the top of the roof fairing'},
-  autonomousRig: {h: 4.15, note: 'tractor and van trailer, to the top of the sensor mast'},
-  sensorMast: {h: 0.42, note: 'the roof pod itself, across its housing'},
+  autonomousRig: {h: 4.25, note: 'the whole rig to the top of the roof pod, under the 14 foot limit'},
+  sensorMast: {h: 0.25, note: 'the roof pod, housing and lidar drum'},
+  vanTrailer: {h: 4.11, note: 'a 53 foot dry van, ground to its roof'},
+  trailerDeck: {h: 1.22, note: 'the fifth wheel plate, which is also the van floor'},
   weighStation: {h: 5.6, note: 'to the top of the gantry sign'},
   dockDoor: {h: 4.3, note: 'a terminal dock door with its leveller'},
 };
 
 const fit = (k: keyof typeof FREIGHT_M, local: number) => (FREIGHT_M[k].h * M) / local;
+const sub = subber(FREIGHT_M);
 
 const rnd = (seed: number, ch: number) => {
   const k = ((seed * 2654435761) ^ (ch * 40503)) >>> 0;
@@ -67,7 +70,7 @@ export const SensorMast: React.FC<Rig & {sweeping?: boolean}> = ({
 }) => {
   const L = useLight();
   const uid = useUid('sm');
-  const K = fit('sensorMast', 100);
+  const K = fit('sensorMast', 83);            // local frame: 83 units to the top of the drum
   const t = tones('#d8d4cc', L);
   const a = sweeping ? (frame / 30) * 150 : rnd(seed, 1) * 360;
 
@@ -133,7 +136,21 @@ export const AutonomousRig: React.FC<Rig & {
 }) => {
   const L = useLight();
   const uid = useUid('ar');
-  const K = fit('autonomousRig', 100);        // local frame: 100 units to the mast top
+  // LOCAL FRAME: 102.6 units to the top of the roof pod. The reference is not round
+  // because the LENGTHS are what fixed it: 390 units of trailer has to be a 53 foot
+  // van, which is 16.15 m, and that pins the unit at 0.0414 m before any height is
+  // drawn. The first version used 100 and every vertical in the file was then read
+  // against a unit 3 percent short, which is not what went wrong here but is what
+  // would have hidden it.
+  const K = fit('autonomousRig', 102.6);
+  // THE HEIGHTS ARE DERIVED, because the first version typed them. The cab roof was
+  // drawn at 108 units in a frame whose whole rig was 100, so the roof stood above
+  // the top of the vehicle it belongs to and the pod stood on top of that. The van
+  // was worse and quieter: its floor was drawn BELOW the fifth wheel plate it sits
+  // on, so the trailer passed through the coupling that carries it.
+  const roof = sub('tractor', 'autonomousRig', 102.6);        // 96.6 units, 4.00 m
+  const vanTop = sub('vanTrailer', 'autonomousRig', 102.6);   // 99.2 units, 4.11 m
+  const deck = sub('trailerDeck', 'autonomousRig', 102.6);    // 29.5 units, 1.22 m
   const cab = tones(livery, L);
   const box = tones(trailerLivery, L);
   const spin = (frame / 30) * speed * 900;
@@ -160,19 +177,20 @@ export const AutonomousRig: React.FC<Rig & {
                 fill with the ribs and a single top highlight doing the work. Same
                 law as the storm: a paint is a property of the form, and a gradient
                 that curves across a face says the face is curved. */}
-        <rect x={-436} y={-78} width={390} height={56} rx={2} fill={box.base}
+        <rect x={-436} y={-vanTop} width={390} height={vanTop - deck} rx={2} fill={box.base}
           stroke={INK} strokeWidth={4.4} />
-        <rect x={-436} y={-78} width={390} height={9} fill={box.key} opacity={0.75} />
-        <rect x={-436} y={-31} width={390} height={9} fill={box.shade} opacity={0.5} />
+        <rect x={-436} y={-vanTop} width={390} height={9} fill={box.key} opacity={0.75} />
+        <rect x={-436} y={-deck - 9} width={390} height={9} fill={box.shade} opacity={0.5} />
         {Array.from({length: 20}, (_, i) => (
-          <path key={i} d={`M${-428 + i * 19.5},-76 L${-428 + i * 19.5},-24`}
+          <path key={i} d={`M${-428 + i * 19.5},${-vanTop + 2} L${-428 + i * 19.5},${-deck - 2}`}
             stroke={box.shade} strokeWidth={1.6} opacity={0.42} />
         ))}
-        {/* the underride bar, which every trailer has and no drawing remembers */}
-        <path d="M-436,-22 L-436,-9 L-402,-9" stroke={INK} strokeWidth={4} fill="none" />
-        <path d="M-46,-22 L-46,-30" stroke={INK} strokeWidth={4} />
+        {/* the underride bar, which every trailer has and no drawing remembers. Its
+            foot is at 0.55 m, which is the clearance the rule actually names. */}
+        <path d={`M-436,${-deck} L-436,-13 L-402,-13`} stroke={INK} strokeWidth={4} fill="none" />
+        <path d={`M-46,${-deck} L-46,${-deck - 8}`} stroke={INK} strokeWidth={4} />
         {/* the landing gear, up */}
-        <path d="M-118,-22 L-118,-13 M-124,-13 L-112,-13" stroke="#5c6169"
+        <path d={`M-118,${-deck} L-118,-10 M-124,-10 L-112,-10`} stroke="#5c6169"
           strokeWidth={3.4} fill="none" />
 
         {/* ---- THE TRACTOR, AND IT IS A CONVENTIONAL.
@@ -195,60 +213,78 @@ export const AutonomousRig: React.FC<Rig & {
             where one wrong link moves everything after it, and there is no reason to
             take that on for a shape somebody has to reason about. */}
 
-        {/* the cab: -56 to 4 along the frame, roof at -108, windshield RAKED BACK
-            from the roof edge down to the hood line */}
-        <path d="M-56,-22 L-56,-100 Q-56,-108 -48,-108 L-16,-108 L4,-80 L4,-22 Z"
+        {/* the cab: -56 to 4 along the frame, roof at the tractor's own declared
+            height, windshield RAKED BACK from the roof edge down to the hood line */}
+        <path d={`M-56,-24 L-56,${-roof + 7.6} Q-56,${-roof} -48,${-roof} `
+          + `L-18,${-roof} L4,-66 L4,-24 Z`}
           fill={`url(#${uid}_c)`} stroke={INK} strokeWidth={4.6} strokeLinejoin="round" />
-        <path d="M-14,-104 L-3,-104 L2,-84 L-14,-84 Z" fill="#7f97a8"
+        <path d={`M-16,${-roof + 4} L-5,${-roof + 4} L0,-70 L-16,-70 Z`} fill="#7f97a8"
           stroke={INK} strokeWidth={3.4} strokeLinejoin="round" opacity={0.92} />
-        <path d="M-13,-101 L-7,-101 L-5,-87 L-13,-87 Z" fill="#a9bcc8" opacity={0.55} />
-        {/* the side window and the door line, which is what says CAB rather than box */}
-        <rect x={-48} y={-96} width={30} height={26} rx={3} fill="#6f8798"
+        <path d={`M-15,${-roof + 7} L-9,${-roof + 7} L-7,-74 L-15,-74 Z`} fill="#a9bcc8"
+          opacity={0.55} />
+        {/* the side window and the door line, which is what says CAB rather than box.
+            The belt line is at 2.25 m, which is why a driver sits high enough to see
+            over a car and why the empty seat is invisible from the road. */}
+        <rect x={-48} y={-73.6} width={30} height={19.3} rx={3} fill="#6f8798"
           stroke={INK} strokeWidth={3} opacity={0.9} />
-        <path d="M-52,-68 L-52,-24" stroke={INK} strokeWidth={2.6} opacity={0.7} />
-        <circle cx={-22} cy={-62} r={2.6} fill="#3f464d" />
+        <path d="M-52,-52 L-52,-25" stroke={INK} strokeWidth={2.6} opacity={0.7} />
+        <circle cx={-22} cy={-49} r={2.6} fill="#3f464d" />
         {/* the roof fairing, and the rim on the windshield edge */}
-        <path d="M-54,-108 L-18,-108" stroke={cab.key} strokeWidth={4} opacity={0.8} />
-        <RimLight d="M-16,-108 L4,-80" w={2.6} opacity={0.5} />
+        <path d={`M-54,${-roof} L-18,${-roof}`} stroke={cab.key} strokeWidth={4} opacity={0.8} />
+        <RimLight d={`M-18,${-roof} L4,-66`} w={2.6} opacity={0.5} />
 
         {/* the hood: from the cab front at 4 out to the bumper at 80, dropping
             slightly toward the nose the way a conventional's does, with the fender
             arched over the steer tyre */}
-        <path d="M4,-24 L4,-78 L56,-72 Q66,-71 68,-64 L74,-40 L74,-24 Z"
+        <path d="M4,-24 L4,-66 L56,-61 Q66,-60 68,-54 L74,-34 L74,-24 Z"
           fill={`url(#${uid}_c)`} stroke={INK} strokeWidth={4.4} strokeLinejoin="round" />
-        <path d="M34,-24 Q34,-52 56,-52 Q76,-52 76,-24" fill="none" stroke={INK}
+        <path d="M34,-24 Q34,-38 55,-38 Q76,-38 76,-24" fill="none" stroke={INK}
           strokeWidth={3.4} opacity={0.55} />
         {/* the grille, standing proud of the nose */}
-        <path d="M74,-64 L84,-60 L86,-30 L74,-26 Z" fill="#b9c0c6"
+        <path d="M74,-54 L84,-51 L86,-28 L74,-26 Z" fill="#b9c0c6"
           stroke={INK} strokeWidth={3.4} strokeLinejoin="round" />
         {Array.from({length: 4}, (_, i) => (
-          <path key={i} d={`M76,${-56 + i * 8} L84,${-54 + i * 8}`} stroke="#6c737a"
+          <path key={i} d={`M76,${-48 + i * 6} L84,${-46 + i * 6}`} stroke="#6c737a"
             strokeWidth={2.4} />
         ))}
         {/* the bumper and the headlamp */}
-        <rect x={70} y={-26} width={20} height={10} rx={2} fill="#9aa1a8"
+        <rect x={70} y={-24} width={20} height={13} rx={2} fill="#9aa1a8"
           stroke={INK} strokeWidth={3} />
-        <ellipse cx={73} cy={-38} rx={5} ry={6} fill="#e8e2cf" stroke={INK}
+        <ellipse cx={73} cy={-31} rx={5} ry={6} fill="#e8e2cf" stroke={INK}
           strokeWidth={2.6} />
         {/* the exhaust stack, which on a conventional runs UP THE BACK OF THE CAB
-            beside the fairing rather than out of the roof, and the mirror arm on the
-            A pillar where a driver who is not there would need it */}
-        <path d="M-58,-118 L-58,-34" stroke="#8c9298" strokeWidth={5} />
-        <path d="M-58,-118 l0,-6" stroke="#5b6167" strokeWidth={7} />
-        <path d="M2,-92 L12,-95 L12,-70" stroke="#4a5158" strokeWidth={3.4} fill="none" />
-        {/* the fifth wheel, under the trailer nose and behind the drives */}
-        <rect x={-70} y={-30} width={44} height={9} fill="#41474e" stroke={INK}
+            beside the fairing rather than out of the roof, and STOPS AT THE ROOF:
+            a stack standing proud of the fairing is a vocational truck's, and on a
+            lane-haul unit it would meet the first 13 foot 6 overpass it came to.
+            The mirror arm sits on the A pillar where a driver who is not there would
+            need it. */}
+        <path d={`M-58,${-roof + 5} L-58,-30`} stroke="#8c9298" strokeWidth={5} />
+        <path d={`M-58,${-roof + 5} l0,-5`} stroke="#5b6167" strokeWidth={7} />
+        <path d="M2,-84 L12,-87 L12,-64" stroke="#4a5158" strokeWidth={3.4} fill="none" />
+        {/* the fifth wheel, under the trailer nose and behind the drives. Its plate
+            IS the van floor, so both come off the same measurement. */}
+        <rect x={-70} y={-deck} width={44} height={9} fill="#41474e" stroke={INK}
           strokeWidth={2.6} />
         {/* the fuel tank, a horizontal cylinder slung between the axles under the
             cab door, always polished even when the rest of the truck is not */}
-        <rect x={-30} y={-21} width={44} height={15} rx={7} fill="#b9c0c6"
+        <rect x={-30} y={-28} width={44} height={16} rx={8} fill="#b9c0c6"
           stroke={INK} strokeWidth={3.4} />
 
         {/* ---- wheels. The steer sits under the HOOD on a conventional, well ahead
                 of the cab, which is the axle spacing that makes the shape read.
                 Drives are duals close together; the trailer bogie is set forward of
-                the rear end rather than at it. */}
-        {[[52, 15], [-34, 15], [-58, 15], [-390, 14], [-414, 14]].map(([cx, r], i) => (
+                the rear end rather than at it.
+
+                ONE TYRE SIZE, 12.6 UNITS, WHICH IS A 1.04 M TYRE. They were drawn at
+                15, a 1.24 m tyre, and an oversized wheel is the single thing that
+                most makes a vehicle read as a toy. Shrinking them forced the axles
+                apart, which is the correction that matters: the tandem spacing is
+                1.32 m and the trailer bogie's is 1.25 m, and at the old radius the
+                duals overlapped each other by a fifth of a tyre.
+
+                The bogie also came forward. It sat 14.7 m behind the kingpin, and 40
+                feet is the limit a 53 foot van is built to. */}
+        {[[52, 12.6], [-30, 12.6], [-62, 12.6], [-327, 12.6], [-357, 12.6]].map(([cx, r], i) => (
           <g key={i} transform={`translate(${cx} ${-r})`}>
             <circle cx={0} cy={0} r={r} fill="#22262b" stroke={INK} strokeWidth={3.4} />
             <circle cx={0} cy={0} r={r * 0.52} fill="#8d949b" stroke={INK} strokeWidth={2.4} />
@@ -262,20 +298,31 @@ export const AutonomousRig: React.FC<Rig & {
           </g>
         ))}
 
+        {/* The pod, standing ON the roof rather than above it.
+
+            `scale={1 / K}` is the general form for putting a true-scale child inside
+            a true-scale parent: cancel the parent's FIT and nothing else. The child's
+            own fit then decides its size, and the staging `scale` still reaches it,
+            so the pod rides the truck when the truck is staged smaller.
+
+            Divide by `K * scale` instead and the pod comes out a fixed size on the
+            page no matter how the rig is staged, which is what the first version did
+            with a stray 0.42 on top. It rendered 0.92 m, taller than a bar stool,
+            and it would have rendered a different size in every scene. */}
         {autonomous && (
-          <g transform="translate(-30 -110)">
-            <SensorMast frame={frame} scale={0.42 / (K * scale)} seed={seed} sweeping={speed > 0} />
+          <g transform={`translate(-30 ${-roof})`}>
+            <SensorMast frame={frame} scale={1 / K} seed={seed} sweeping={speed > 0} />
           </g>
         )}
         {badge && (
-          <g transform="translate(-400 -50)">
+          <g transform="translate(-400 -64)">
             <rect x={-19} y={-11} width={38} height={22} rx={3} fill="#1d232b"
               stroke="#e4ded2" strokeWidth={2} />
             <path d="M-9,0 l6,6 l12,-13" fill="none" stroke="#8fc3d8" strokeWidth={3}
               strokeLinecap="round" />
           </g>
         )}
-        {wear > 0.2 && <RustStreak x={-436} y={-78} w={390} h={56} seed={seed}
+        {wear > 0.2 && <RustStreak x={-436} y={-vanTop} w={390} h={vanTop - deck} seed={seed}
           opacity={wear * 0.4} />}
       </g>
     </g>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
-import {M} from './scale';
+import {M, subber} from './scale';
 
 // =============================================================================
 // CLINIC — the largest medical centre in the world is in Houston, and the engine
@@ -31,8 +31,10 @@ import {M} from './scale';
 
 
 export const CLINIC_M: Record<string, {h: number; note: string}> = {
-  gantry: {h: 2.4, note: 'a CT or linac gantry, floor to the top of the ring'},
+  gantry: {h: 2.4, note: 'a linac gantry, floor to the top of the ring'},
+  ctGantry: {h: 1.98, note: 'a CT gantry, which is a shorter machine than a linac'},
   couch: {h: 0.75, note: 'the patient couch at its working height'},
+  treatmentCouch: {h: 1.2, note: 'a linac couch raised so the target sits at isocentre'},
   towerBlock: {h: 46, note: 'a hospital tower, twelve floors to the parapet'},
   readingStation: {h: 1.3, note: 'the desk and its two displays'},
   infusionPole: {h: 1.9, note: 'an IV pole at working height'},
@@ -57,6 +59,18 @@ interface Rig {
 //
 // The `bore` is the whole drawing. Get its diameter wrong relative to the couch and
 // the machine stops reading as something a person goes inside.
+//
+// WHICH IS EXACTLY WHAT HAPPENED. The first version drew ONE shell, ONE aperture and
+// ONE couch height for both machines, and the numbers it picked were a linac's: a
+// 1.41 m aperture centred 1.56 m off the floor. A CT bore is 0.70 m and its centre
+// is a metre up. A couch at its declared 0.75 m could not have reached that aperture
+// at all, so the couch had quietly been raised to 1.06 m to meet it, which put the
+// patient table at the chest of the clinician standing beside it.
+//
+// The lesson is not about CT scanners. A shared component whose two cases have
+// genuinely different dimensions will be drawn to ONE of them, and the other case
+// then bends whatever is adjacent until the picture closes. It closed here by
+// moving a dimension the table had already measured.
 // =============================================================================
 export const Gantry: React.FC<Rig & {
   kind?: 'ct' | 'linac';
@@ -69,9 +83,24 @@ export const Gantry: React.FC<Rig & {
 }) => {
   const L = useLight();
   const uid = useUid('gy');
-  const K = fit('gantry', 140);               // local frame: 140 units to the ring top
+  const K = fit('gantry', 140);               // local frame: 140 units to the linac's ring top
+  const sub = subber(CLINIC_M);
   const shell = tones('#e6e3dc', L);
   const ring = scanning > 0.05 ? (frame / 30) * 260 * scanning : rnd(seed, 1) * 360;
+
+  // EVERY HEIGHT HERE IS DERIVED, and the ones that differ between the machines
+  // differ because the machines do. The frame is the linac's, so the CT's shell and
+  // couch come back through `sub` rather than being typed at a fraction of it.
+  const ct = kind !== 'linac';
+  const top = ct ? sub('ctGantry', 'gantry', 140) : 140;   // 115.5 or 140: 1.98 m or 2.4 m
+  const halfW = ct ? 62 : 84;                              // 2.12 m across, or the linac's 2.88
+  const eye = ct ? 58 : 91;                                // aperture centre: 1.0 m isocentre, or the drum
+  const rBore = ct ? 20.4 : 41;                            // a 0.70 m bore, or the linac's drum face
+  const barY = ct ? 94 : 134;                              // the status strip sits ABOVE the aperture
+  const barW = ct ? 78 : 112;
+  // The couch. A CT scans at its working height and a linac couch is RAISED so the
+  // target sits at isocentre, so this is two dimensions and not one.
+  const deck = sub(ct ? 'couch' : 'treatmentCouch', 'gantry', 140);
 
   return (
     <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
@@ -83,33 +112,49 @@ export const Gantry: React.FC<Rig & {
           <stop offset="100%" stopColor="#4a545e" />
         </radialGradient>
       </defs>
-      <ContactShadow cx={0} cy={2} rx={96} opacity={0.3} blur={11} />
+      <ContactShadow cx={0} cy={2} rx={halfW * 1.14} opacity={0.3} blur={11} />
 
-      {/* the pedestal */}
-      <rect x={-84} y={-46} width={168} height={46} rx={4} fill={shell.core}
-        stroke={INK} strokeWidth={4} />
-
-      {/* the ring. A rounded square in front elevation, not a circle: the housing is
+      {/* The ring. A rounded square in front elevation, not a circle: the housing is
           a box and only the bore is round, and that difference is what stops it
-          looking like a washing machine. */}
-      <rect x={-84} y={-140} width={168} height={98} rx={22} fill={`url(#${uid}_s)`}
-        stroke={INK} strokeWidth={4.6} />
-      <circle cx={0} cy={-91} r={41} fill={`url(#${uid}_bore)`} stroke={INK}
+          looking like a washing machine.
+
+          A CT MEETS THE FLOOR. It is one monolith, rounded at the top and square at
+          the bottom, with a base cover seam near the floor. The pedestal it used to
+          stand on was the linac's stand, and a CT standing on a stand reads as an
+          appliance somebody wheeled in. A linac keeps the stand, because it has one. */}
+      {ct ? (
+        <>
+          <path d={`M${-halfW},0 L${-halfW},${-top + 22} Q${-halfW},${-top} ${-halfW + 22},${-top} `
+            + `L${halfW - 22},${-top} Q${halfW},${-top} ${halfW},${-top + 22} L${halfW},0 Z`}
+            fill={`url(#${uid}_s)`} stroke={INK} strokeWidth={4.6} strokeLinejoin="round" />
+          <path d={`M${-halfW + 4},-9 L${halfW - 4},-9`} stroke={INK} strokeWidth={2.4}
+            opacity={0.42} />
+        </>
+      ) : (
+        <>
+          <rect x={-halfW} y={-46} width={halfW * 2} height={46} rx={4} fill={shell.core}
+            stroke={INK} strokeWidth={4} />
+          <rect x={-halfW} y={-top} width={halfW * 2} height={top - 42} rx={22}
+            fill={`url(#${uid}_s)`} stroke={INK} strokeWidth={4.6} />
+        </>
+      )}
+      <circle cx={0} cy={-eye} r={rBore} fill={`url(#${uid}_bore)`} stroke={INK}
         strokeWidth={4} />
       {/* the rotating assembly inside the bore, seen as a faint arc */}
-      <g transform={`translate(0 -91) rotate(${ring})`} opacity={0.5}>
-        <path d="M0,-33 a33,33 0 0 1 24,10" fill="none" stroke="#8fb6cb" strokeWidth={5}
-          strokeLinecap="round" />
+      <g transform={`translate(0 ${-eye}) rotate(${ring})`} opacity={0.5}>
+        <path d={`M0,${-rBore * 0.8} a${rBore * 0.8},${rBore * 0.8} 0 0 1 ${rBore * 0.58},${rBore * 0.24}`}
+          fill="none" stroke="#8fb6cb" strokeWidth={5} strokeLinecap="round" />
       </g>
       {scanning > 0.05 && (
-        <circle cx={0} cy={-91} r={44} fill="none" stroke="#8fd4e4" strokeWidth={3}
+        <circle cx={0} cy={-eye} r={rBore * 1.075} fill="none" stroke="#8fd4e4" strokeWidth={3}
           opacity={0.28 + Math.abs(Math.sin(frame / 17)) * 0.2 * scanning} />
       )}
       {/* the status bar on the face, and the two indicator lamps every one of these
           has above the bore */}
-      <rect x={-56} y={-134} width={112} height={11} rx={3} fill="#20262c" />
-      <circle cx={-40} cy={-128.5} r={3.2} fill={scanning > 0.05 ? '#c8543a' : '#3f464c'} />
-      <circle cx={-28} cy={-128.5} r={3.2} fill="#5d9a63" />
+      <rect x={-barW / 2} y={-barY} width={barW} height={11} rx={3} fill="#20262c" />
+      <circle cx={-barW * 0.357} cy={-barY + 5.5} r={3.2}
+        fill={scanning > 0.05 ? '#c8543a' : '#3f464c'} />
+      <circle cx={-barW * 0.25} cy={-barY + 5.5} r={3.2} fill="#5d9a63" />
 
       {/* the linac's head and its couch arm, which is what makes the two machines
           different at a glance */}
@@ -122,14 +167,22 @@ export const Gantry: React.FC<Rig & {
         </g>
       )}
 
-      {/* the couch, running in. It is the human-sized object in the frame and the
-          reason the bore reads as a bore. */}
+      {/* the couch. It is the human-sized object in the frame and the reason the
+          aperture reads as something a person goes into.
+
+          THE BASE DOES NOT MOVE. On a real machine the cradle slides out of a table
+          that stays where it is, so the column is outside the animated group. It
+          used to travel with the couch, which meant the whole table walked into the
+          gantry. */}
+      <rect x={halfW + 8} y={-deck + 5} width={48} height={deck - 5} fill="#9aa0a6"
+        stroke={INK} strokeWidth={3} />
       <g transform={`translate(${-couch * 40} 0)`}>
-        <rect x={-16} y={-62} width={188} height={13} rx={5} fill="#c9c4bb"
-          stroke={INK} strokeWidth={3.4} />
-        <rect x={22} y={-58} width={140} height={5} rx={2} fill="#7f8f9c" opacity={0.7} />
-        <rect x={128} y={-49} width={17} height={49} fill="#9aa0a6" stroke={INK}
-          strokeWidth={3} />
+        {/* the cradle is THIN, because the clearance under it is a few centimetres:
+            all that separates the tabletop from the bottom of a 0.70 m bore. */}
+        <rect x={-16} y={-deck} width={150} height={5} rx={2.5} fill="#c9c4bb"
+          stroke={INK} strokeWidth={2.6} />
+        <rect x={20} y={-deck + 1.2} width={110} height={2.6} rx={1.3} fill="#7f8f9c"
+          opacity={0.7} />
       </g>
     </g>
   );
