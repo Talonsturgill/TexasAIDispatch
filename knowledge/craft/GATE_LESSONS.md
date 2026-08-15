@@ -696,3 +696,43 @@ sent somebody hunting a drawing that was correct.
 `linearGradient`.** That is the harness being wrong about the context, not the drawing being
 wrong, and a warning nobody can act on is one everybody learns to scroll past. The probe renders
 inside an `<svg>` now, which is the only place these are ever used.
+
+
+## 32. The debt list caught two of its own rows as false
+
+Entry 31 left twenty-four sub-parts recorded as drawn by an eyeballed fraction. Working through
+them, the list turned out to be wrong about three of its own rows, in two different ways, and
+both are worth more than the conversions were.
+
+**Two were never debt at all.** `flora.tsx` picks its orchard species at render:
+
+    fit(crop === 'peach' ? 'peachTree' : 'citrusTree', 70)
+
+`scale_check` matched only `fit('k'`, so it could see neither name, and both entries read as
+measured and never drawn. **The checker's blind spot became two lines of recorded debt for
+dimensions that were being used correctly the whole time.** A gate that reports a correct
+drawing as a fault is the fastest way to get a gate switched off, and this one had written its
+own false report down where it looked like a considered decision. The first argument is now read
+whole and paren balanced, so a key selected at render counts. The strict rule survives for the
+plain form: a literal naming nothing is still a typo and still fails.
+
+**Seventeen were not "drawn by a fraction", they were NOT DRAWN.** Nothing in the library
+references a church pew, a Leslie cabinet, a trail ride wagon or a drive-in order post. Those
+are measurements somebody took for components that do not exist yet. Calling that debt in the
+drawing is false: there is no drawing. The list is now two lists, `WRONG_SIZE` and
+`NOT_DRAWN_YET`, counted separately, **because one number covering both would mean nothing.**
+Two drawn at the wrong size is a fact somebody can act on this week. Nineteen of something
+undifferentiated is a number people learn to ignore.
+
+**And two of them are not being fixed today, on purpose.** The CT couch renders 1.06 m against
+its declared 0.75 m, and lowering it moves the couch relative to the BORE it has to run into.
+The freight cab roof renders 4.48 m against a 4.15 m rig, so the roof is above the whole rig
+with the mast standing on it, and the fix is a redraw of a silhouette that was hand-shaped and
+already corrected once for being a cab-over. Both are provably wrong and both need a rendered
+frame in front of a person. **Changing a drawing you cannot look at, on the strength of
+arithmetic, is how the cab-over got drawn in the first place.** They are recorded with the
+measurement, the reason, and what it would take.
+
+The rule this leaves: **a debt list is a claim, and claims get checked.** Ratchet the count so
+it can only shrink, split it so the number means something, and expect the list itself to be
+wrong about some of its own rows.

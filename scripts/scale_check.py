@@ -79,53 +79,101 @@ MULTIPLIER_EXEMPT: dict[str, str] = {
         "scaled to the accordion. Both metre entries are still doing their job.",
 }
 
-# A SUB-PART THAT IS DRAWN AS A FRACTION OF ITS FITTED PARENT, and has not been converted.
+# AN ENTRY NOTHING FITS ON, in two kinds, counted separately because they are not the same
+# problem and one number covering both would mean nothing.
 #
-# This is real debt and it is recorded rather than hidden. Each of these is a dimension
-# somebody measured and wrote down, while the drawing sizes that part by an eyeballed
-# fraction of the parent's local box. The press box is the worked example: TOWN_M says 3.2 m
-# and the drawing says `height={h * 0.30}`, which measures 2.10 m, so the table has been
-# outvoted by a fraction nobody checked.
+# `subber()` in scale.ts is the idiom for the first kind, and its absence is why there were so
+# many: a component calls `fit` once on its whole self, so a sub-part cannot call `fit` again
+# without scaling twice, and with no tool for the ratio an eyeballed fraction is what anybody
+# would reach for. The press box was the worked example and is now converted, measuring
+# 3.200 m against the 2.10 m it used to render.
 #
-# The idiom for doing it properly is not obvious, which is why there are so many: inside a
-# parent already scaled by K, a sub-part of real size S needs local extent S * M / K, which
-# works out as `localParent * (S / parentMetres)`. Converting each one means re-deriving that
-# part's path coordinates, which is drawing work and not a rename.
-#
-# THE LIST MAY ONLY SHRINK. A new orphan that is not in here fails, and an entry in here that
-# is no longer an orphan also fails, so fixing one forces its line out of this file. That is
-# the whole mechanism: the debt is countable, it blocks nothing that already ships, and it
-# cannot quietly grow.
-UNFITTED_SUBPART: dict[str, str] = {
-    "BLACKTX_M.brickStreet": "a laid street surface, drawn as a fraction of the block",
-    "BLACKTX_M.choirLoft": "drawn as a fraction of the sanctuary interior",
-    "BLACKTX_M.churchPew": "drawn as a fraction of the sanctuary interior",
-    "BLACKTX_M.organLeslie": "drawn as a fraction of the sanctuary interior",
-    "BLACKTX_M.pitStack": "the barbecue pit's stack, drawn off the pit body",
-    "BLACKTX_M.sousaphone": "the horn a band member carries, drawn off the player",
-    "BLACKTX_M.trailWagon": "drawn as a fraction of the trail scene",
-    "CLINIC_M.couch": "waiting room seating, drawn off the room",
-    "CLINIC_M.infusionPole": "drawn off the chair beside it",
-    "FLORA_M.citrusTree": "a Valley citrus, no component draws one yet",
-    "FLORA_M.paintbrush": "Indian paintbrush, drawn inside a wildflower field",
-    "FLORA_M.peachTree": "a Hill Country peach, no component draws one yet",
-    "FOOTBALL_M.chainPole": "the chain crew's pole, drawn off the chain run",
-    "FREIGHT_M.tractor": "the tractor unit, drawn as part of the whole rig",
-    "HOME_M.entryArch": "a ranch entry arch, drawn off the fence line",
-    "HOME_M.pecanYard": "a yard pecan, drawn off the house",
-    "TOWN_M.chainLink": "chain link fencing, drawn off the field it encloses",
-    "PLANT_M.palletStack": "drawn off the plant floor bay",
-    "ROAD_M.orderPost": "a drive-in order post, drawn off the canopy",
-    "TEJANO_M.charola": "a flat aluminium tray, and its entry records thickness, which is "
-                        "the same fault the comal had. It needs an across dimension.",
-    "TEJANO_M.mercadoStall": "drawn as a fraction of the mercado row",
-    "TEJANO_M.paleteroUmbrella": "the canopy above the cart, drawn off the cart",
-    "TEJANO_M.quinceCourt": "a court member, drawn off the quinceañera group",
+# BOTH LISTS MAY ONLY SHRINK. A new orphan that is in neither fails, and an entry in either
+# that is no longer an orphan ALSO fails, so paying one off forces its line out of this file.
+# That is the whole mechanism: the debt is countable, it blocks nothing that already ships,
+# and it cannot quietly grow. It has already caught two of its own rows as false: flora's
+# orchard picks its species at render time, and the literal-only scan could not see it.
+WRONG_SIZE: dict[str, str] = {
+    # DRAWN, AND DRAWN AT THE WRONG SIZE. Two entries, and both are the same kind of problem:
+    # the number is provably wrong and the fix is a DRAWING change that somebody has to look
+    # at, not arithmetic anybody can apply blind.
+    "CLINIC_M.couch": "the CT patient couch. Its entry says 0.75 m working height and the "
+                      "drawing puts the surface at 62 local units in a frame where 140 is a "
+                      "2.4 m gantry, so it renders 1.06 m, 42 percent high. Lowering it moves "
+                      "the couch relative to the BORE it has to run into, so this one needs a "
+                      "rendered frame in front of somebody before it is touched.",
+    "FREIGHT_M.tractor": "the day cab roof. It draws at 108 local units where 100 is the 4.15 m "
+                         "rig to the mast top, so the roof renders 4.48 m: ABOVE the whole "
+                         "rig's declared height, with the mast standing on it. The fix is a "
+                         "redraw of a hand-shaped silhouette that was already corrected once "
+                         "for being a cab-over, so it needs eyes on a render.",
+}
+
+# MEASURED, AND NOTHING DRAWS IT. Not debt in the drawing, because there is no drawing. Each is
+# a dimension somebody researched for a thing this library has no component for yet. Kept rather
+# than deleted so whoever builds the component finds the measurement already taken, beside the
+# module it belongs to. Counted separately from WRONG_SIZE because conflating "renders wrong"
+# with "does not render" is how a number stops meaning anything.
+NOT_DRAWN_YET: dict[str, str] = {
+    "BLACKTX_M.brickStreet": "nothing draws a brick street yet",
+    "BLACKTX_M.choirLoft": "nothing draws a choir loft yet",
+    "BLACKTX_M.churchPew": "nothing draws a pew yet",
+    "BLACKTX_M.organLeslie": "nothing draws a Leslie cabinet yet",
+    "BLACKTX_M.pitStack": "nothing draws a barbecue pit stack yet",
+    "BLACKTX_M.trailWagon": "nothing draws a trail ride wagon yet",
+    "CLINIC_M.infusionPole": "nothing draws an infusion pole yet",
+    "FLORA_M.paintbrush": "the wildflower field draws its mix as a MASS of coloured marks "
+                          "rather than as individual plants, so no single paintbrush is ever "
+                          "sized. The height is right and there is nothing to hang it on.",
+    "FOOTBALL_M.chainPole": "nothing draws the chain crew's pole yet",
+    "HOME_M.entryArch": "nothing draws a ranch entry arch yet",
+    "HOME_M.pecanYard": "nothing draws a yard pecan yet",
+    "TOWN_M.chainLink": "nothing draws chain link fencing yet",
+    "PLANT_M.palletStack": "nothing draws a pallet stack yet",
+    "ROAD_M.orderPost": "nothing draws a drive-in order post yet",
+    "TEJANO_M.mercadoStall": "nothing draws a mercado stall yet",
+    "TEJANO_M.paleteroUmbrella": "nothing draws the cart's umbrella yet",
+    "TEJANO_M.quinceCourt": "nothing draws a quinceañera court yet",
 }
 
 TABLE_RE = re.compile(r"(?:export )?const ([A-Z_]+_M)\s*[:=][^=]*=\s*\{(.*?)\n\};", re.S)
 ENTRY_RE = re.compile(r"^\s*(\w+):\s*\{([^}]*)\}", re.M)
 FIT_RE = re.compile(r"fit\('(\w+)'")
+STR_RE = re.compile(r"'(\w+)'")
+
+
+def fit_calls(src: str) -> tuple[set[str], set[str]]:
+    """(keys named by a plain `fit('k', ...)`, every key any fit call could select).
+
+    A FIT KEY IS NOT ALWAYS A LITERAL. `flora.tsx` picks its orchard species at render:
+
+        fit(crop === 'peach' ? 'peachTree' : 'citrusTree', 70)
+
+    Matching only `fit('k'` cannot see either name, so both entries read as measured and
+    never drawn, and the debt list carried two rows for dimensions that were being used
+    correctly all along. A checker that reports a correct drawing as a fault is the fastest
+    way to get a checker switched off.
+
+    So the first argument is read WHOLE, paren balanced, and every quoted word in it counts
+    as a key the call could select. The strict rule still applies to the plain form: a
+    literal that names nothing is a typo and stays a hard failure. A quoted word inside a
+    ternary that is not a key is just a comparison value and is not reported.
+    """
+    literal: set[str] = set()
+    selectable: set[str] = set()
+    for m in re.finditer(r"\bfit\(", src):
+        i, depth = m.end(), 1
+        while i < len(src) and depth:
+            depth += (src[i] == "(") - (src[i] == ")")
+            i += 1
+        inner = src[m.end():i - 1]
+        first = inner.split(",")[0] if "?" not in inner else inner.rsplit(",", 1)[0]
+        words = set(STR_RE.findall(first))
+        plain = re.fullmatch(r"\s*'(\w+)'\s*", first)
+        if plain:
+            literal.add(plain.group(1))
+        selectable |= words
+    return literal, selectable
 # `sub(part, parent, parentLocal)` sizes a SUB-PART inside an already-fitted parent, which is
 # the idiom that did not exist while twenty-four measured dimensions went undrawn. Both names
 # in it are a real use of the table.
@@ -176,13 +224,13 @@ def orphan_problems(rel: str, name: str, keys: set[str], ref: set[str],
     seen: set[str] = set()
     for k in sorted(keys - used - ref):
         qualified = f"{name}.{k}"
-        if qualified in UNFITTED_SUBPART:
+        if qualified in WRONG_SIZE or qualified in NOT_DRAWN_YET:
             seen.add(qualified)
             continue
         bad.append(f"{rel}: {name}.{k} is measured and never drawn. Either a sub-part is being "
                    f"sized by an eyeballed fraction instead of this entry, or the entry is "
                    f"speculative. Both make the table stop being the truth. If it is a sub-part "
-                   f"nobody has converted yet, record it in UNFITTED_SUBPART with what is true "
+                   f"nobody has converted yet, record it in WRONG_SIZE or NOT_DRAWN_YET with what is true "
                    f"about it. If the component is sized to the FRAME rather than to the world, "
                    f"mark the entry `ref: true` in the table.")
     for k in sorted(ref & used):
@@ -205,12 +253,15 @@ def check(verbose: bool = True) -> list[str]:
             continue
         seen_tables += 1
         name, keys, ref = got
-        used = set(FIT_RE.findall(src))
+        literal, selectable = fit_calls(src)
+        # Anything a fit call COULD select counts as drawn. Only a plain literal that names
+        # nothing is a typo, so only `literal` is held to the strict rule below.
+        used = (selectable & keys) | literal
         for part, parent in SUB_RE.findall(src):
             used.update((part, parent))
         rel = path.relative_to(REPO)
 
-        for k in sorted(used - keys):
+        for k in sorted(literal - keys):
             bad.append(f"{rel}: fit('{k}') names no entry in {name}. It throws at render, and a "
                        f"scene that throws is a scene nobody sees.")
         orphan_bad, orphan_seen = orphan_problems(str(rel), name, keys, ref, used)
@@ -243,14 +294,15 @@ def check(verbose: bool = True) -> list[str]:
     # THE DEBT LIST MAY ONLY SHRINK. An entry that is no longer an orphan has been paid off,
     # and leaving it here would keep a licence open for a fault that is fixed. This is what
     # makes the list a ratchet rather than a drawer.
-    for paid in sorted(set(UNFITTED_SUBPART) - seen_debt):
-        bad.append(f"UNFITTED_SUBPART still lists {paid}, which is now drawn to its own "
+    for paid in sorted((set(WRONG_SIZE) | set(NOT_DRAWN_YET)) - seen_debt):
+        bad.append(f"WRONG_SIZE or NOT_DRAWN_YET still lists {paid}, which is now drawn to its own "
                    f"dimension. Delete that line: the debt is paid and the list only shrinks.")
 
     if verbose and not bad:
         print(f"scale check: clean. {seen_tables} metre table(s), every key either drawn or "
-              f"declared reference, every fit whole. {len(UNFITTED_SUBPART)} sub-part(s) still "
-              f"drawn by fraction, recorded and shrinking.")
+              f"declared reference, every fit whole. {len(WRONG_SIZE)} drawn at the wrong "
+              f"size, {len(NOT_DRAWN_YET)} measured but not drawn yet. Both recorded, both "
+              f"shrinking.")
     return bad
 
 

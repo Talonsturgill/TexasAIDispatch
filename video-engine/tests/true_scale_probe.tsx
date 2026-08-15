@@ -2,7 +2,7 @@ import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {HBCUBand, BLACKTX_M} from '../src/lib/blacktexas';
 import {Bleachers, TOWN_M} from '../src/lib/hometown';
-import {Comal, RaspaCup, TEJANO_M} from '../src/lib/tejano';
+import {Comal, RaspaCup, PanaderiaRack, TEJANO_M} from '../src/lib/tejano';
 import {M} from '../src/lib/scale';
 
 // A two argument `scale(sx sy)` is how a component flips its facing, so the closing
@@ -36,6 +36,13 @@ export function measurements(): Row[] {
   const ck = scales(comal)[0];
   const cup = scales(draw(<RaspaCup h={70} />))[0];
 
+  // The sousaphone bell, inside the band block, sized through sub() off the player.
+  const bell = 90 * 1.09 * (BLACKTX_M.sousaphone.h / BLACKTX_M.bandMember.h);
+  // The bakery tray, sized through sub() off the rack rather than off however wide the
+  // rack happened to be drawn.
+  const rk = scales(draw(<PanaderiaRack h={200} w={300} charola />))[0];
+  const tray = 200 * (TEJANO_M.charola.h / TEJANO_M.panaderiaRack.h);
+
   // The bleacher stack emits `scale(K facing K)`, so the first number is K.
   const bk = scales(draw(<Bleachers h={120} w={520} />))[0];
   const boxLocal = 120 * (TOWN_M.pressBox.h / TOWN_M.bleacher.h);
@@ -53,6 +60,12 @@ export function measurements(): Row[] {
      why: `TOWN_M.bleacher declares ${TOWN_M.bleacher.h} m at the top row.`},
     {what: 'the press box', value: (boxLocal * bk) / M, lo: 2.9, hi: 3.5,
      why: `TOWN_M.pressBox declares ${TOWN_M.pressBox.h} m. It rendered 2.10 m as h * 0.30.`},
+    {what: 'the sousaphone bell', value: (bell * K) / M, lo: 0.66, hi: 0.86,
+     why: `BLACKTX_M.sousaphone declares ${BLACKTX_M.sousaphone.h} m. It drew 0.873 m as a `
+          + 'fraction of the player.'},
+    {what: 'the bakery tray across', value: (tray * rk) / M, lo: 0.40, hi: 0.52,
+     why: `TEJANO_M.charola declares ${TEJANO_M.charola.h} m across. Its entry used to record `
+          + 'thickness, which scales nothing, so the tray was a fraction of the rack width.'},
     {what: 'the raspa cup to the rim', value: (70 * 0.86 * cup) / M, lo: 0.16, hi: 0.24,
      why: `TEJANO_M.raspaCup declares ${TEJANO_M.raspaCup.h} m. It rendered 1.03 m.`},
   ];
