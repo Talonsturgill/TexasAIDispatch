@@ -5,6 +5,7 @@ import {Bleachers, TOWN_M} from '../src/lib/hometown';
 import {Comal, RaspaCup, PanaderiaRack, TEJANO_M} from '../src/lib/tejano';
 import {Gantry, CLINIC_M} from '../src/lib/clinic';
 import {AutonomousRig, FREIGHT_M} from '../src/lib/freight';
+import {RackRow, Cabinet, COMPUTE_M} from '../src/lib/compute';
 import {M} from '../src/lib/scale';
 
 // A two argument `scale(sx sy)` is how a component flips its facing, so the closing
@@ -114,6 +115,19 @@ export function measurements(): Row[] {
   const podShare = (markup: string) =>
     (83 * attr(markup, POD, 2)) / -attr(markup, POD, 1);
 
+  // ---- the cold aisle. A `Cabinet` calls its own fit, so nesting it inside a fitted
+  // `RackRow` is the same trap the pod fell into, and the near rank is the one to read:
+  // the emitted nested scale is `cabinetFit * whatever the row passed`, so dividing it
+  // back out recovers what the row passed and the metres follow from the table alone.
+  const cabK = scales(draw(<Cabinet scale={1} />))[0];
+  const aisle = (staging: number) => {
+    const all = scales(draw(<RackRow scale={staging} depth={7} />));
+    // the root is emitted first; the near rank is the largest of the nested scales.
+    return {root: all[0], passed: Math.max(...all.slice(1)) / cabK};
+  };
+  const a1 = aisle(1);
+  const nearCabinet = COMPUTE_M.cabinet.h * a1.passed * a1.root;
+
   return [
     {what: 'a marching band member', value: (90 * 1.09 * K) / M, lo: 1.5, hi: 1.95,
      why: 'the same rig height as the cast. It rendered 0.133 m when the fit was on a horn.'},
@@ -161,5 +175,13 @@ export function measurements(): Row[] {
      value: podShare(rig(0.16)) / podShare(r1), lo: 0.999, hi: 1.001,
      why: 'a part of a vehicle is the same part at every size the vehicle is drawn. This came '
           + 'out 6.25 when the pod was scaled by 0.42 / (K * scale).'},
+    {what: 'the cold aisle near rack', value: nearCabinet, lo: 1.85, hi: 2.25,
+     why: `COMPUTE_M.cabinet declares ${COMPUTE_M.cabinet.h} m. The rack row nested a fitted `
+          + 'Cabinet with `/ (K * scale)`, the pod\'s mistake in a second module, so at the '
+          + 'review sheet\'s 0.17 the aisle measured 8.51 m against a 2.6 m row.'},
+    {what: 'the cold aisle staged at 0.17, over the same aisle staged at 1',
+     value: aisle(0.17).passed / a1.passed, lo: 0.999, hi: 1.001,
+     why: 'a rack is the same rack at every size the room is drawn. This came out 5.88, which '
+          + 'is one over the staging scale, which is the whole tell for this class of bug.'},
   ];
 }
