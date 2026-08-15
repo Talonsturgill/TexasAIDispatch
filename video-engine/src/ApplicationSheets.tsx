@@ -6,6 +6,7 @@ import * as Compute from './lib/compute';
 import * as Clinic from './lib/clinic';
 import * as Water from './lib/water';
 import * as Plant from './lib/plantfloor';
+import {FONT} from './lib/type';
 import {Character, castProps} from './lib/Character';
 import {RegionLight, INK} from './lib/lighting';
 
@@ -62,7 +63,7 @@ const Note: React.FC<{x: number; y: number; text: string; cols?: number}> = ({
     <g>
       {lines.map((l, i) => (
         <text key={i} x={x} y={y + i * 17} fontSize={13} fill="#6a6a6a"
-          fontFamily="Georgia, serif">{l}</text>
+          fontFamily={FONT.body}>{l}</text>
       ))}
     </g>
   );
@@ -73,7 +74,7 @@ const Row: React.FC<{
 }> = ({ground, title, head, note, children}) => (
   <g>
     <text x={40} y={title} fontSize={21} fontWeight={700} fill={INK}
-      fontFamily="Georgia, serif">{head}</text>
+      fontFamily={FONT.display}>{head}</text>
     <Note x={40} y={title + 21} text={note} />
     <line x1={40} y1={ground} x2={1040} y2={ground} stroke="#cdbfa8" strokeWidth={2} />
     {children}
@@ -82,7 +83,7 @@ const Row: React.FC<{
 
 const Cap: React.FC<{x: number; y: number; children: string}> = ({x, y, children}) => (
   <text x={x} y={y + 21} fontSize={12.5} fill="#7a7266" textAnchor="middle"
-    fontFamily="Georgia, serif">{children}</text>
+    fontFamily={FONT.body}>{children}</text>
 );
 
 /** The scale reference. 1.70 m, 610 draw units, in every row. */
@@ -97,8 +98,8 @@ const Ref: React.FC<{x: number; y: number; f: number; cast?: string; scale?: num
 const Head: React.FC<{title: string; sub: string}> = ({title, sub}) => (
   <g>
     <text x={40} y={58} fontSize={42} fontWeight={700} fill={INK}
-      fontFamily="Georgia, serif">{title}</text>
-    <text x={40} y={88} fontSize={17} fill="#5a5a5a" fontFamily="Georgia, serif">{sub}</text>
+      fontFamily={FONT.display}>{title}</text>
+    <text x={40} y={88} fontSize={17} fill="#5a5a5a" fontFamily={FONT.body}>{sub}</text>
   </g>
 );
 

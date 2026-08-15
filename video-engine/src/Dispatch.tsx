@@ -6,6 +6,7 @@ import {GradeLayer} from './lib/lighting';
 import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
+import {FONT} from './lib/type';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -193,7 +194,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
           <g opacity={interpolate(f, [4, 18, dur - 12, dur - 2], [0, 1, 1, 0],
             {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}>
             <text x={64} y={210} fontSize={74} fontWeight={700} fill="#f2ede2"
-              fontFamily="Georgia, serif">{scene.super}</text>
+              fontFamily={FONT.display}>{scene.super}</text>
             <rect x={64} y={244} width={132} height={5} fill="#c8703a" />
           </g>
         )}
@@ -202,7 +203,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
             {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}))}>
             <rect x={54} y={1660} width={972} height={92} rx={6} fill="#0d1220" opacity={0.72} />
             <text x={78} y={1716} fontSize={34} fill="#e4ded2"
-              fontFamily="Georgia, serif">{scene.caption}</text>
+              fontFamily={FONT.body}>{scene.caption}</text>
           </g>
         )}
       </svg>
@@ -244,7 +245,7 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
           {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}>
           {wrapped.map((l, i) => (
             <text key={i} x={78} y={700 + i * 46} fontSize={l.head ? 30 : 26}
-              fill={l.head ? '#c8703a' : '#e4ded2'} fontFamily="Georgia, serif"
+              fill={l.head ? '#c8703a' : '#e4ded2'} fontFamily={FONT.body}
               letterSpacing={l.head ? 3 : 0}>{l.s}</text>
           ))}
         </g>

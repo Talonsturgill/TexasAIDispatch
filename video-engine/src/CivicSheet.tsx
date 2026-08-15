@@ -3,6 +3,7 @@ import {useCurrentFrame} from 'remotion';
 import {Capitol, Courthouse, HearingDais, WitnessTable, Podium, GreatWalk} from './lib/civics';
 import {Character, castProps} from './lib/Character';
 import {RegionLight, GradeLayer, INK} from './lib/lighting';
+import {FONT} from './lib/type';
 
 // The civic sheet. The rooms and buildings where the decisions on this beat are
 // actually taken, which the engine could not draw at all until now.
@@ -21,8 +22,8 @@ const Row: React.FC<{
 }> = ({ground, title, head, note, children}) => (
   <g>
     <text x={40} y={title} fontSize={21} fontWeight={700} fill={INK}
-      fontFamily="Georgia, serif">{head}</text>
-    <text x={40} y={title + 21} fontSize={13} fill="#6a6a6a" fontFamily="Georgia, serif">{note}</text>
+      fontFamily={FONT.display}>{head}</text>
+    <text x={40} y={title + 21} fontSize={13} fill="#6a6a6a" fontFamily={FONT.body}>{note}</text>
     <line x1={40} y1={ground} x2={1040} y2={ground} stroke="#cdbfa8" strokeWidth={2} />
     {children}
   </g>
@@ -30,7 +31,7 @@ const Row: React.FC<{
 
 const Cap: React.FC<{x: number; y: number; children: string}> = ({x, y, children}) => (
   <text x={x} y={y + 21} fontSize={12.5} fill="#7a7266" textAnchor="middle"
-    fontFamily="Georgia, serif">{children}</text>
+    fontFamily={FONT.body}>{children}</text>
 );
 
 export const CivicSheet: React.FC = () => {
@@ -39,8 +40,8 @@ export const CivicSheet: React.FC = () => {
     <svg width={1080} height={2100} viewBox="0 0 1080 2100" style={{background: '#efe7da'}}>
       <RegionLight region="blackland">
         <text x={40} y={58} fontSize={42} fontWeight={700} fill={INK}
-          fontFamily="Georgia, serif">Where it is decided</text>
-        <text x={40} y={88} fontSize={17} fill="#5a5a5a" fontFamily="Georgia, serif">
+          fontFamily={FONT.display}>Where it is decided</text>
+        <text x={40} y={88} fontSize={17} fill="#5a5a5a" fontFamily={FONT.body}>
           The Capitol, a courthouse square, and the two sides of a hearing room.
         </text>
 

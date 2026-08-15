@@ -2,6 +2,7 @@ import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {Character, CAST, castProps, SKIN} from './lib/Character';
 import {RegionLight, GradeLayer, INK} from './lib/lighting';
+import {FONT} from './lib/type';
 
 // A contact sheet of the whole cast, for looking at. Not a scene: this is the
 // review surface for Wave V3, because a typecheck says nothing about whether a
@@ -13,8 +14,8 @@ export const CastSheet: React.FC = () => {
     <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{background: '#efe7da'}}>
       <RegionLight region="cross_timbers">
         <text x={54} y={90} fontSize={46} fontWeight={700} fill={INK}
-          fontFamily="Georgia, serif">The cast</text>
-        <text x={54} y={130} fontSize={22} fill="#5a5a5a" fontFamily="Georgia, serif">
+          fontFamily={FONT.display}>The cast</text>
+        <text x={54} y={130} fontSize={22} fill="#5a5a5a" fontFamily={FONT.body}>
           Ten people, authored together, before any episode needed one.
         </text>
 
@@ -32,15 +33,15 @@ export const CastSheet: React.FC = () => {
                 emotion={i % 4 === 0 ? 'neutral' : i % 4 === 1 ? 'wry' : i % 4 === 2 ? 'worried' : 'smug'}
               />
               <text x={cx} y={cy + 470} fontSize={18} fill={INK} textAnchor="middle"
-                fontFamily="Georgia, serif" fontWeight={700}>{m.id}</text>
+                fontFamily={FONT.body} fontWeight={700}>{m.id}</text>
               <text x={cx} y={cy + 492} fontSize={13} fill="#6a6a6a" textAnchor="middle"
-                fontFamily="Georgia, serif">{m.outfit} / {m.headgear}</text>
+                fontFamily={FONT.body}>{m.outfit} / {m.headgear}</text>
             </g>
           );
         })}
 
         {/* the ramp itself, so a reviewer can see it is evenly spaced */}
-        <text x={54} y={1760} fontSize={20} fill={INK} fontFamily="Georgia, serif">
+        <text x={54} y={1760} fontSize={20} fill={INK} fontFamily={FONT.body}>
           The skin ramp, evenly spaced. A fill value only.
         </text>
         {SKIN.map((s, i) => (

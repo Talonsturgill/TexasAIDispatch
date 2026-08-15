@@ -5,6 +5,7 @@ import {Longhorn, Grackle} from './lib/fauna';
 import {Pumpjack, DataCentre} from './lib/kit';
 import {Pickup} from './lib/vehicles';
 import {RegionLight, GradeLayer, INK} from './lib/lighting';
+import {FONT} from './lib/type';
 
 // The sensing sheet. The overlays that make AI drawable at all, staged OVER real
 // subjects from the rest of the library, because an overlay on an empty background
@@ -19,8 +20,8 @@ const Row: React.FC<{
 }> = ({ground, title, head, note, children}) => (
   <g>
     <text x={40} y={title} fontSize={21} fontWeight={700} fill={INK}
-      fontFamily="Georgia, serif">{head}</text>
-    <text x={40} y={title + 21} fontSize={13} fill="#6a6a6a" fontFamily="Georgia, serif">{note}</text>
+      fontFamily={FONT.display}>{head}</text>
+    <text x={40} y={title + 21} fontSize={13} fill="#6a6a6a" fontFamily={FONT.body}>{note}</text>
     <line x1={40} y1={ground} x2={1040} y2={ground} stroke="#cdbfa8" strokeWidth={2} />
     {children}
   </g>
@@ -33,8 +34,8 @@ export const SensingSheet: React.FC = () => {
     <svg width={1080} height={1720} viewBox="0 0 1080 1720" style={{background: '#efe7da'}}>
       <RegionLight region="rolling_plains">
         <text x={40} y={58} fontSize={42} fontWeight={700} fill={INK}
-          fontFamily="Georgia, serif">What the machine sees</text>
-        <text x={40} y={88} fontSize={17} fill="#5a5a5a" fontFamily="Georgia, serif">
+          fontFamily={FONT.display}>What the machine sees</text>
+        <text x={40} y={88} fontSize={17} fill="#5a5a5a" fontFamily={FONT.body}>
           AI is invisible. The overlay is the only part of it you can draw.
         </text>
 
@@ -51,10 +52,10 @@ export const SensingSheet: React.FC = () => {
               {x: 800, y: 392, w: 96, h: 74, label: 'cow', conf: 0.61, wrong: true, track: 9},
             ]} />
           <text x={848} y={352} fontSize={12.5} fill="#a24a26" textAnchor="middle"
-            fontFamily="Georgia, serif">nothing is there</text>
+            fontFamily={FONT.body}>nothing is there</text>
           <ConfidenceSpread x={760} y={130} w={200} h={44} threshold={0.7}
             values={[0.94, 0.83, 0.71, 0.61, 0.55, 0.42, 0.38, 0.29, 0.22, 0.14]} />
-          <text x={760} y={196} fontSize={12} fill="#6a6a6a" fontFamily="Georgia, serif">
+          <text x={760} y={196} fontSize={12} fill="#6a6a6a" fontFamily={FONT.body}>
             a real distribution has a tail
           </text>
         </Row>
@@ -76,9 +77,9 @@ export const SensingSheet: React.FC = () => {
           <Pumpjack frame={f} x={790} y={1370} scale={0.05145} seed={4} rpm={8} wear={0.5} />
           <Plume x={790} y={1300} frame={f} seed={6} strength={1} rate="4.1 kg/h" />
           <text x={230} y={1404} fontSize={12.5} fill="#7a7266" textAnchor="middle"
-            fontFamily="Georgia, serif">what a person sees</text>
+            fontFamily={FONT.body}>what a person sees</text>
           <text x={790} y={1404} fontSize={12.5} fill="#7a7266" textAnchor="middle"
-            fontFamily="Georgia, serif">the same wellhead, on the camera</text>
+            fontFamily={FONT.body}>the same wellhead, on the camera</text>
         </Row>
 
         <Row ground={1660} title={1440} head="The honest counter-image"
@@ -91,7 +92,7 @@ export const SensingSheet: React.FC = () => {
               {x: 780, y: 1516, w: 160, h: 118, label: 'leak', conf: 0.88, track: 2},
             ]} />
           <text x={520} y={1672} fontSize={13} fill="#a24a26" textAnchor="middle"
-            fontFamily="Georgia, serif">two of four are false. That is the story, not a caveat.</text>
+            fontFamily={FONT.body}>two of four are false. That is the story, not a caveat.</text>
         </Row>
 
         <GradeLayer f={f} vignette={0.06} grain={0.03} bloom={0.05} />

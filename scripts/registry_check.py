@@ -71,6 +71,7 @@ NOT_STAGEABLE = {
     "uid": "per-instance paint-server ids.",
     "scale": "the metre and the seeded rng. Numbers, not geometry.",
     "type": "how wide a string is and where to break it. Measurements, not geometry.",
+    "fonts": "the @font-face block and the hold that waits for it. Every composition carries it through withFonts, and composition_check refuses one that does not.",
 }
 
 # Components inside a stageable module that are deliberately not placeable on their
