@@ -453,3 +453,117 @@ rewrite is absolute coordinates throughout, for a shape somebody has to be able 
 
 The rule this leaves: **rendering the review surface is part of shipping it, not a follow-up.**
 A sheet that has not been looked at is not a review, it is a promise of one.
+
+## 27. A gate that reads a field nobody writes
+
+`ship_gate.py` checks seven hard fails. Three of them read scene keys off the board, and each
+section carried its own hand-written tuple of key names. Between them those three tuples named
+**six fields the board has never had**: `supers`, `slide_text`, `lower_third`, `vo`, `note` and
+`location`. None of the three named `super`, which is the only authored string `Dispatch.tsx`
+paints on screen.
+
+So the compute-not-generate gate, the retired-motif gate and the rig-floor headgear gate all ran
+over an empty string for their entire life, and all three reported clear. Confirmed by planting
+into the real `examples/board.json`:
+
+- `super = "8,297 megawatts approved"`, a numeral authorised by nothing, **zero hard fails**.
+- `super = "Six Flags Over Texas"`, the motif retired because one of the six is the Confederate
+  flag, **zero hard fails**.
+
+The same strings in `supers`, a key nothing renders and nothing writes, were **caught**. The gate
+rejected the fabrication in a dead field and shipped it in the live one.
+
+**A misconfigured gate and a clean film are the same exit code.** That is what makes this class
+different from a gate that is merely wrong: there is no symptom anywhere. It prints its success
+line, CI goes green, and nothing in the output distinguishes "checked and found nothing" from
+"looked in a place that does not exist".
+
+The root cause is one line of the self-test. The fixture built its own `scene()` dict carrying
+`vo` and a `cast[].headgear`, and no `super` at all. **The gate was written against the fixture
+rather than against the board**, and nothing ever compared the two. Every planted defect in the
+self-test was planted in a field only the fixture had, so the tests passed honestly and proved
+nothing about a real board.
+
+Three things fix it, and the third is the one that generalises:
+
+1. The field names live in one place, `SCENE_COPY` and `SCENE_DIRECTION`, not in three tuples.
+2. `schema_bound()` refuses any name that is in neither the renderer's `Scene` interface nor any
+   scene of the board under check. **A name that writes to nothing is a hard fail**, so the next
+   phantom announces itself instead of passing.
+3. The self-test asserts its own fixture is a subset of `examples/board.json`. A fixture nobody
+   compares to a real artifact is a second schema, and a gate written against it checks a film
+   that does not exist.
+
+**Ask of every gate: what would this print if the thing it reads were missing entirely?** If the
+answer is "the success line", the gate is not connected to anything.
+
+## 28. Two functions, three documents, zero call sites
+
+`headgearConflict()` and `seasonalHat()` in `Character.tsx` are careful, well documented, and
+were called by **nothing**. Not by `Character`, not by `CastElement`, not by any gate.
+
+Three places said otherwise. `prompts/dispatch_routine.md` said `headgearConflict()` "refuses
+that pairing". It said `seasonalHat()` "takes the Dispatch date". `ship_gate.py` carried the
+comment "`headgearConflict()` guards the engine; this guards the board." Every one of those
+sentences described a function no code path reaches.
+
+That is worse than an absent check, because the documentation is the thing a reader consults
+before deciding whether a risk is covered, and here it said yes three times.
+
+The board half had its own version of the same fault. `ship_gate` read `scene.cast[].headgear`,
+an optional parallel declaration **no board in this repo writes**. What actually renders is
+`planes[].items[kind=person].props.cast` resolved through the roster, so the rancher, who is
+`straw-hat` in `CAST` and carries no `headgear` field anywhere, cleared the rig-floor check on
+every scene of every board.
+
+Fixed both ways. `ship_gate` resolves the hat from the placement through the roster, parsed out
+of the engine and **fail-closed**: a roster it cannot parse raises rather than returning a short
+table, because a gate that clears every scene against an empty roster is the same defect again.
+`tests/cast_safety.mjs` calls `headgearConflict()` on all thirteen entries, so the rule is live,
+and the roster is one keystroke from a felt hat on FR coveralls.
+
+**A function is dead until something calls it, and a comment saying it guards something is not a
+call site.** When a doc claims a protection, check the callers before believing it.
+
+## 29. The habitat rule was connected to a review sheet, not to the film
+
+`staging_check` refuses an animal standing somewhere it does not live. It works, its coverage
+rule has found a real gap before, and its own docstring warns that "a region passed through a
+variable" is beyond it.
+
+That warning was the whole defect and nobody followed it through. The rule matches a literal
+`region="high_plains"` in TSX. `Dispatch.tsx` renders `region={scene.region}`. Instrumented, the
+placement rule evaluates **exactly five animal placements, all five inside `ProofScene.tsx`**, a
+by-hand composition no run renders. **Zero in a Dispatch, ever.**
+
+So the gate written to stop a pronghorn in the Piney Woods had never looked at a frame of a
+film. Confirmed by planting into the real `examples/board.json`: a pronghorn in the Piney Woods,
+and a javelina in the Rolling Plains which is the literal example in this file's own docstring,
+both cleared Gate 0.
+
+Entry 22's shape exactly: **the gate drifted onto a neighbouring artifact when staging moved
+from hand-authored TSX to board JSON.** Nothing broke, because nothing was watching the move.
+
+The fix is not a cleverer regex. The board is JSON, the scene names its own region and every
+placement names its own kind, so on that artifact this is not a lint at all, it is a lookup.
+`--board` does the lookup, and the run and CI both pass the storyboard.
+
+**Its first run against the committed example board found four wrong placements**, in the file
+this repo offers as its reference:
+
+- two cattle egrets over irrigated cotton in Hale County, outside the range the map lists
+- **two Longhorns at a feedyard bunk in Castro County**, which is wrong twice: wrong region for
+  the breed, and wrong animal for the use, because commercial Panhandle feedyards run Angus
+  crosses. `FeedlotPen` already draws its own cattle at the bunk, so the Longhorns were
+  redundant as well as wrong. The board reached for the Longhorn because it is **the only
+  bovine in the library**, which is a real gap worth closing: the iconic animal is the only one
+  available, so it gets cast everywhere, which is exactly what the habitat map exists to stop.
+
+The egrets were changed to grackles, which the map already places on the High Plains, rather
+than widening `cattleEgret`'s range. **Widening the data to make a gate green is the ratchet
+failure**, and a range fact typed from memory is the compute-not-generate law broken on a
+different surface. Whether cattle egrets belong on the High Plains is a question for a source,
+and it is left open here rather than answered by whoever needed the build to pass.
+
+**When a gate's docstring names something it cannot see, that sentence is a bug report.** Read
+it as a defect awaiting confirmation, not as a limitation already accepted.

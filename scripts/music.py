@@ -53,10 +53,14 @@ import argparse
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 REGISTRY = REPO / "config" / "music" / "tracks.json"
+
+# Read once. The public-domain boundary depends on it and it must not shift mid-run.
+TODAY_YEAR = date.today().year
 
 # The licence table. `ok` is whether a track under it may be used, and `why` is the
 # reason, which is printed on refusal so the answer is never "because the script said
@@ -97,6 +101,23 @@ LICENCES = {
 # Every field a usable entry must carry. TASL (title, author, source, licence) is the
 # attribution the CC licences ask for, so each of those is required rather than nice.
 REQUIRED = ["id", "title", "artist", "source_url", "licence", "file", "verified_on"]
+
+# US sound-recording terms, from the Copyright Office and Cornell's chart: recordings
+# published before 1926 are public domain today, and 1926 to 1946 runs 100 years from
+# publication. So a recording clears on the first of January after its hundredth year.
+#
+# COMPUTED, not a typed cutoff, so the boundary advances on its own every New Year and
+# a 1926 recording becomes usable on 2027-01-01 without anybody editing this file.
+PD_TERM_YEARS = 100
+
+
+def pd_clear_year(publication_year: int) -> int:
+    """The first year in which the recording is public domain."""
+    return publication_year + PD_TERM_YEARS + 1
+
+
+def is_pd_now(publication_year: int, today_year: int) -> bool:
+    return pd_clear_year(publication_year) <= today_year
 
 
 def load(path: Path = REGISTRY) -> list[dict]:
@@ -150,10 +171,36 @@ def problems_with(track: dict) -> list[str]:
         return out
     if not lic["ok"]:
         out.append(f"{tid}: {lic['name']} is refused. {lic['why']}")
-    if str(track.get("licence")).lower() == "public_domain" and not track.get("pd_basis"):
-        out.append(f"{tid}: claims public domain without pd_basis. Say WHICH right is "
-                   f"public domain, the composition or the recording, because a PD "
-                   f"melody in a modern recording is still someone's recording.")
+    if str(track.get("licence")).lower() == "public_domain":
+        if not track.get("pd_basis"):
+            out.append(f"{tid}: claims public domain without pd_basis. Say WHICH right is "
+                       f"public domain, the composition or the recording, because a PD "
+                       f"melody in a modern recording is still someone's recording.")
+        year = track.get("publication_year")
+        if not isinstance(year, int):
+            out.append(f"{tid}: public domain by statute needs an integer "
+                       f"publication_year. The term runs from publication, so without "
+                       f"the year there is nothing to compute the term from.")
+        elif not is_pd_now(year, TODAY_YEAR):
+            out.append(f"{tid}: published {year}, which is still in copyright. It "
+                       f"clears on {pd_clear_year(year)}-01-01. Not before.")
+        if not track.get("pd_evidence"):
+            out.append(f"{tid}: public domain claim carries no pd_evidence URL. The "
+                       f"platform showing no licence is not evidence of anything.")
+
+    # THE TRANSFER IS A SEPARATE RIGHT FROM THE WORK, and this is not hypothetical.
+    # UCSB releases its pre-1923 cylinder transfers outright and claims copyright on
+    # its 1923-and-later ones under a NonCommercial licence, and those transfers are
+    # live on the Internet Archive. So a genuinely public-domain performance can
+    # arrive wrapped in an NC claim belonging to whoever digitised it.
+    tr = str(track.get("transfer_rights", "")).strip().lower()
+    if tr and tr not in ("none", "public_domain"):
+        trl = LICENCES.get(tr)
+        if trl is None:
+            out.append(f"{tid}: transfer_rights '{tr}' is not in the table.")
+        elif not trl["ok"]:
+            out.append(f"{tid}: the WORK is clear but the TRANSFER is {trl['name']}. "
+                       f"{trl['why']}. Find another transfer of the same performance.")
     # a licence id that disagrees with the linked deed is the quiet way a NC track
     # gets labelled BY, so the link is cross-checked against the id
     url = str(track.get("licence_url", "")).lower()
@@ -237,6 +284,27 @@ def self_test() -> int:
        any("missing required field 'artist'" in p for p in problems_with(dict(good, artist=""))))
     ok("public domain must say which right it claims",
        any("pd_basis" in p for p in problems_with(dict(good, licence="public_domain"))))
+
+    # PUBLIC DOMAIN BY STATUTE, and the boundary is computed so it advances by itself
+    pd = {"id": "p1", "title": "Old Thing", "artist": "Someone",
+          "source_url": "https://archive.org/details/x", "licence": "public_domain",
+          "publication_year": 1922, "pd_basis": "the RECORDING, published 1922",
+          "pd_evidence": "https://www.copyright.gov/", "transfer_rights": "none",
+          "file": "assets/music/x.mp3", "verified_on": "2026-08-14"}
+    ok("a pre-boundary recording is usable", not problems_with(pd))
+    ok("a still-in-copyright recording is refused with the year it clears",
+       any("clears on" in p for p in problems_with(dict(pd, publication_year=1935))))
+    ok("a public domain claim with no year is refused",
+       any("publication_year" in p for p in problems_with(dict(pd, publication_year=None))))
+    ok("a public domain claim with no evidence is refused",
+       any("pd_evidence" in p for p in problems_with(dict(pd, pd_evidence=""))))
+    ok("the boundary is computed, not typed: 1926 clears in 2027",
+       pd_clear_year(1926) == 2027 and not is_pd_now(1926, 2026) and is_pd_now(1926, 2027))
+
+    # THE TRANSFER IS ITS OWN RIGHT. This is the UCSB case, and it is real.
+    ok("a public domain work with an NC TRANSFER is refused",
+       any("TRANSFER" in p for p in problems_with(dict(pd, transfer_rights="cc-by-nc"))))
+    ok("a clean transfer passes", not problems_with(dict(pd, transfer_rights="none")))
     ok("a BY label pointing at an NC deed is caught",
        any("one of them is wrong" in p.lower() for p in problems_with(
            dict(good, licence_url="https://creativecommons.org/licenses/by-nc/4.0/"))))
