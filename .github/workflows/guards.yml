@@ -150,7 +150,19 @@ jobs:
           # The foley library is hand-synthesised, so every sound is checked to synthesise to a
           # clean 48k buffer, to be deterministic, and its validator is fed known-bad buffers and
           # required to reject each, so a green run is not a checker that stopped checking.
+          # THE VALIDATOR'S FIRST FOUR CHECKS CANNOT FIRE ON A REAL SOUND. Every sound
+          # function ends in normalize(x, peak), so the clip, silence, dtype and length
+          # tests are structurally unreachable and only the NaN test could ever go red.
+          # Proved by breaking the product: replacing _fft_filter with the identity, which
+          # turns all 31 sounds into raw white noise, left this printing "all passed" and
+          # exiting 0. So did an impulse plus six seconds of silence, and a 0.5 Hz sine.
+          # The spectral check is what holds the library, because filtering is what can
+          # actually break here and filtering is invisible to amplitude after a normalize.
           python3 scripts/foley.py --self-test
+          # AND THE BUILD PATH, which is what the routine runs and what writes the shipped
+          # wavs. It used to return a literal 0 after writing 31 files, checking nothing,
+          # while write_wav silently hard-clipped anything out of range on the way to disk.
+          python3 scripts/foley.py --build "$(mktemp -d)"
           # The music bed is licensed by its CREDIT, so the credit is machine-generated
           # and checked. The self-test proves each refusal fires (NonCommercial,
           # NoDerivatives, ShareAlike, all-rights-reserved, an unknown licence, a BY

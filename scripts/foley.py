@@ -47,6 +47,8 @@ from pathlib import Path
 
 import numpy as np
 
+REPO = Path(__file__).resolve().parents[1]
+
 SR = 48000  # the engine rate; mix.py refuses anything else
 
 
@@ -88,21 +90,53 @@ def white(dur, seed) -> np.ndarray:
 
 def pink(dur, seed) -> np.ndarray:
     """1/f noise by summing octave-spaced lowpassed whites. The summer air and the
-    crowd bed both live here rather than in flat white, which sounds like a TV off air."""
+    crowd bed both live here rather than in flat white, which sounds like a TV off air.
+
+    EACH BAND IS FILTERED FROM x, NOT FROM THE ONE BEFORE IT. The loop used to reassign
+    `b = one_pole_lp(b, ...)`, which CASCADES the filters: every octave was filtered on top
+    of all the previous ones, so the top two octaves came out about 3.2 dB dark and the
+    slope steepened to roughly -6 dB per octave where pink is -3. That is brown noise
+    wearing pink's name, sitting under gulf_surf, friday_night_crowd and cattle_auction,
+    which are the three beds that play under dialogue.
+    """
     x = white(dur, seed)
     out = np.zeros_like(x)
-    b = x.copy()
     for k in range(1, 7):
-        b = one_pole_lp(b, 2000 / (2 ** k))
-        out += b
+        out += one_pole_lp(x, 2000 / (2 ** k))
     return out / (np.max(np.abs(out)) + 1e-9)
 
 
 def brown(dur, seed) -> np.ndarray:
-    """1/f^2. The body of wind and thunder. A cumulative sum drifts, so it is
-    high-passed to sit still."""
+    """1/f^2. The body of wind and thunder. A cumulative sum drifts, so it is detrended and
+    then high-passed to sit still.
+
+    THE DETREND IS LOAD-BEARING. `np.cumsum` of white noise starts near zero and ends at a
+    large random value, so the buffer carries a step across its own wrap. `_fft_filter` is
+    circular and reads that step as signal, putting the peak of the entire buffer on sample
+    2: measured, a 6.4x spike over the body of the sound.
+
+    `normalize` then divides the real sound down against that artifact. In `thunder_near`
+    the roll landed at 0.167 where it should have been 1.0, six times too quiet, and the
+    docstring a few functions away says "the rumble collapses behind it. The order matters,
+    crack before roll, or it reads as far." It read as far. Measured centroid was 9,110 Hz
+    for NEAR thunder against 312 Hz for far, which is the crack left standing on its own.
+
+    Invisible to the validator, because the final peak is still exactly what normalize set
+    it to. Subtracting the straight line between the first and last sample makes the
+    endpoints meet, so the wrap carries no step and the filter has nothing spurious to
+    sharpen.
+
+    THE CORNER IS 25 Hz, NOT 12. Twelve removed almost nothing, and the brown-based sounds
+    were putting 60 to 74 percent of their energy BELOW 20 Hz, which is under the floor of
+    hearing: dust_wall 26 percent audible, thunder_far 29, thunder_near 28, diesel_idle 36,
+    blue_norther 40. Nothing plays that back, and it is what `normalize` scales against, so
+    those five sat perceptually far quieter than their peak claimed and any level match
+    between them and the bright sounds was wrong by an amount nothing measured. At 25 Hz
+    the audible share of all five roughly doubles and no audible content is touched.
+    """
     x = np.cumsum(white(dur, seed))
-    x = high_pass(x, 12)
+    x -= np.linspace(x[0], x[-1], len(x))
+    x = high_pass(x, 25)
     return x / (np.max(np.abs(x)) + 1e-9)
 
 
@@ -381,7 +415,13 @@ def longhorn_low(seed=13):
     f = lambda t: 150 - 40 * np.clip(t / 1.5, 0, 1) + 8 * np.sin(2 * np.pi * 5 * t)
     voice = saw(f, dur)
     voice = biquad_bp(voice, 400, 2) + biquad_bp(voice, 900, 2) * 0.6
-    breath = high_pass(white(dur, seed), 1500) * 0.15
+    # BREATH IS BAND-LIMITED, not merely high-passed. A bare high_pass leaves white noise
+    # running flat from 1.5 kHz to the 24 kHz Nyquist, and that is 22 kHz of bandwidth
+    # against a voice living in 400 to 900 Hz, so the hiss carried most of the spectral
+    # energy: the measured centroid of a COW'S LOW was 6,902 Hz. Real breath in an animal
+    # call rolls off long before 10 kHz. Peak level never showed it, because normalize sets
+    # the peak whatever the spectrum does.
+    breath = one_pole_lp(high_pass(white(dur, seed), 1500), 5000) * 0.15
     env = adsr(dur, 0.15, 0.3, 0.7, 0.7, 0.6)
     return normalize(fade((voice + breath) * env, 30), 0.85)
 
@@ -590,11 +630,17 @@ def pads_pop(seed=27):
     hard plastic CRACK together, then nothing. The sound two-a-days is about."""
     dur = 0.6
     thud = biquad_bp(white(0.12, seed), 120, 2) * expdecay(0.12, 0.04)
-    crack = high_pass(white(0.04, seed + 1), 2500) * expdecay(0.04, 0.008)
+    # Band-limited for the same reason as thunder's crack: hard plastic on hard plastic is
+    # a 2 to 9 kHz snap, not white noise running to 24 kHz. Unbounded, the crack carried
+    # the spectrum and a sound whose whole job is a low BODY thud measured at 9,276 Hz.
+    crack = one_pole_lp(high_pass(white(0.04, seed + 1), 2500), 9000) * expdecay(0.04, 0.008)
     out = np.zeros(int(dur * SR))
     place_into(out, normalize(thud) * 0.8, 0.0)
     place_into(out, fade(normalize(crack), 1) * 0.7, 0.005)
-    return normalize(out, 0.9)
+    # FADED AT BOTH ENDS. The thud starts at full amplitude on sample 0, so the timeline
+    # jumped from silence to -0.49 in one sample and mix.place() dropped a broadband click
+    # in ahead of the hit. It is the one impulsive sound that returned without a fade.
+    return normalize(fade(out, 4), 0.9)
 
 
 def thunder_far(seed=28):
@@ -611,7 +657,11 @@ def thunder_near(seed=29):
     sky's payoff. The order matters, crack before roll, or it reads as far."""
     dur = 4.0
     out = np.zeros(int(dur * SR))
-    crack = high_pass(white(0.15, seed), 800) * expdecay(0.15, 0.03)
+    # BAND-LIMITED. A bare high_pass leaves the crack flat from 800 Hz to the 24 kHz
+    # Nyquist, and a thunder crack is not a cymbal: its bite lives in the low kHz and the
+    # air takes the rest long before it reaches anybody. Unbounded, it carried enough
+    # spectral energy to leave NEAR thunder measuring brighter than a referee's whistle.
+    crack = one_pole_lp(high_pass(white(0.15, seed), 800), 6000) * expdecay(0.15, 0.03)
     place_into(out, normalize(crack) * 0.9, 0.0)
     roll = one_pole_lp(brown(dur, seed + 1), 300)
     roll *= (0.2 + 0.8 * np.exp(-((t_axis(dur) - 0.6) ** 2) / (2 * 0.9 ** 2)))
@@ -643,7 +693,13 @@ def highway_pass(seed=31):
     prox = np.exp(-((t - 2.0) ** 2) / (2 * 0.7 ** 2))
     # brighter as it nears: a wideband roar and a lowpassed body, crossfaded by prox
     tyre = white(dur, seed)
-    roar = (one_pole_lp(tyre, 1600) * (1 - prox) + one_pole_lp(tyre, 3500) * prox) * prox
+    # TWO POLES, not one. `one_pole_lp` rolls off at 6 dB per octave, so a 3.5 kHz corner
+    # is still only 9 dB down at 10 kHz and tyre roar arrived carrying most of its energy
+    # above the band it actually occupies. Cascading gives 12 dB per octave, which is what
+    # a car going past at night sounds like from the shoulder.
+    near = one_pole_lp(one_pole_lp(tyre, 3500), 3500)
+    far = one_pole_lp(one_pole_lp(tyre, 1600), 1600)
+    roar = (far * (1 - prox) + near * prox) * prox
     dopp = 1 + 0.06 * (t - 2.0)
     eng = am(brown(dur, seed + 1), 28, depth=0.6) * prox * 0.5
     return normalize(fade((roar + eng) * dopp, 120), 0.8)
@@ -720,10 +776,19 @@ def catalog() -> list[dict]:
     out = []
     for name, (fn, kind, motiv, tags) in SOUNDS.items():
         x = synth(name)
+        centroid, flatness, audible = spectrum(x)
         out.append({
             "name": name, "kind": kind, "motivation": motiv, "tags": tags,
             "dur_s": round(len(x) / SR, 3), "rate": SR,
             "wav": f"assets/sfx/{name}.wav",
+            # MEASURED, NEVER ASSERTED, and published for the same reason the rest of this
+            # project publishes its numbers: they are recomputable from the same inputs.
+            # They also make the committed catalog a fingerprint of the SOUND rather than
+            # of its name, so a DSP change that alters what a sound is cannot slip past the
+            # freshness check with the file list unchanged.
+            "centroid_hz": round(centroid, 1),
+            "flatness": round(flatness, 5),
+            "audible_share": round(audible, 4),
         })
     return out
 
@@ -738,10 +803,29 @@ def write_wav(path: Path, x: np.ndarray) -> None:
 
 
 def build(out_dir: Path) -> int:
+    """Write the library, and REFUSE to write a bad one.
+
+    This used to return a literal 0 after writing 31 files, checking nothing. `_valid`
+    existed and the code path that produces the shipped artifacts did not call it, so
+    `foley.py --build`, which is the command the routine actually runs, could not fail. On
+    top of that `write_wav` clips to [-1, 1], so a buffer that clipped was silently hard
+    clipped on the way to disk and still reported success.
+    """
+    bad: list[str] = []
     n = 0
     for name in SOUNDS:
-        write_wav(out_dir / f"{name}.wav", synth(name))
+        x = synth(name)
+        problems = _valid(x)
+        if problems:
+            bad.append(f"{name}: {', '.join(problems)}")
+            continue
+        write_wav(out_dir / f"{name}.wav", x)
         n += 1
+    if bad:
+        print(f"foley: refusing to ship {len(bad)} sound(s)", file=sys.stderr)
+        for b in bad:
+            print(f"  - {b}", file=sys.stderr)
+        return 1
     (out_dir / "catalog.json").write_text(json.dumps(catalog(), indent=2), encoding="utf-8")
     print(f"foley: built {n} sounds into {out_dir} at {SR} Hz mono")
     return 0
@@ -766,8 +850,45 @@ def audition(path: Path) -> int:
 
 
 # ---------------------------------------------------------------- self-test
+# WHITE NOISE MEASURES 0.56 HERE and the flattest real sound in the library, the
+# rattlesnake's rattle, measures 0.33. The ceiling sits between them with margin on both
+# sides. Spectral flatness is the geometric mean of the power spectrum over its arithmetic
+# mean: 1.0 is a perfectly flat spectrum, and anything that has been filtered, resonated or
+# enveloped falls orders of magnitude below it.
+FLATNESS_MAX = 0.45
+
+
+def spectrum(x: np.ndarray) -> tuple[float, float, float]:
+    """(centroid Hz, flatness, share of energy that is audible). Measured, never asserted."""
+    X = np.abs(np.fft.rfft(x)) + 1e-12
+    fr = np.fft.rfftfreq(len(x), 1 / SR)
+    P = X ** 2
+    centroid = float((fr * X).sum() / X.sum())
+    flatness = float(np.exp(np.log(P).mean()) / P.mean())
+    audible = float(P[(fr >= 20) & (fr <= 16000)].sum() / P.sum())
+    return centroid, flatness, audible
+
+
 def _valid(x: np.ndarray, dur_min=0.1) -> list[str]:
-    """The validator the gate reuses. Returns the reasons a buffer is unusable."""
+    """The validator the gate reuses. Returns the reasons a buffer is unusable.
+
+    THE FIRST FOUR CHECKS CANNOT FIRE ON A REAL SOUND, and that is why the fifth exists.
+    Every one of the 31 sound functions ends in `normalize(..., peak)`, which sets
+    max(abs(x)) to exactly `peak`, so the clip test, the silence test, the dtype test and
+    the length test are all structurally unreachable for anything this file produces. Only
+    the NaN test could ever go red.
+
+    That was proved by breaking the product rather than by reading it. Replacing
+    `_fft_filter` with the identity, which kills every lowpass, highpass and bandpass in
+    the library and turns cicada_wall and rattlesnake alike into raw white noise, left the
+    self-test printing "all passed (31 sounds)" and exiting 0. So did replacing every sound
+    with one impulse and six seconds of silence, and so did a 0.5 Hz sine.
+
+    They are kept because they are cheap and they are the right refusals for a buffer
+    arriving from somewhere else. But the check that holds the LIBRARY is the spectral one,
+    because the thing that can actually break here is the filtering, and filtering is
+    invisible to every amplitude measurement after a normalize.
+    """
     bad = []
     if x.dtype.kind != "f":
         bad.append("not float")
@@ -779,6 +900,12 @@ def _valid(x: np.ndarray, dur_min=0.1) -> list[str]:
         bad.append(f"clips at {np.max(np.abs(x)):.3f}")
     if np.max(np.abs(x)) < 0.05:
         bad.append("effectively silent")
+    if len(x) and np.all(np.isfinite(x)) and np.any(x):
+        _, flat, _ = spectrum(x)
+        if flat > FLATNESS_MAX:
+            bad.append(
+                f"spectrally flat at {flat:.3f}, which is white noise rather than a sound. "
+                f"Every filter that shapes this one has stopped doing anything.")
     return bad
 
 
@@ -802,7 +929,21 @@ def self_test() -> int:
 
     # the contract the rest of the engine enforces
     ok("everything is 48000 Hz by construction", SR == 48000)
-    ok("catalog names match the registry", [c["name"] for c in catalog()] == list(SOUNDS))
+    # THE COMMITTED CATALOG IS THE INTERFACE, so that is what gets compared.
+    #
+    # This assertion used to read `[c["name"] for c in catalog()] == list(SOUNDS)`, and
+    # `catalog()` builds its list by iterating SOUNDS and copying the key into "name". It
+    # compared list(SOUNDS) to list(SOUNDS) and could not fail on any input. What it reads
+    # as checking, and did not, is whether the TRACKED assets/sfx/catalog.json still
+    # matches the code. Nothing did. The routine picks its sounds out of that file, so a
+    # renamed or deleted sound would leave the interface stale with every gate green.
+    cat_path = REPO / "assets" / "sfx" / "catalog.json"
+    if cat_path.is_file():
+        committed = json.loads(cat_path.read_text(encoding="utf-8"))
+        ok("the COMMITTED catalog still matches what the code produces",
+           committed == catalog())
+    else:
+        ok("the committed catalog exists, since the routine picks sounds out of it", False)
     ok("every catalog entry names its on-screen motivation",
        all(c["motivation"] and len(c["motivation"]) > 8 for c in catalog()))
 

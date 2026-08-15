@@ -567,3 +567,60 @@ and it is left open here rather than answered by whoever needed the build to pas
 
 **When a gate's docstring names something it cannot see, that sentence is a bug report.** Read
 it as a defect awaiting confirmation, not as a limitation already accepted.
+
+## 30. A validator whose every check was unreachable
+
+`foley.py` synthesises 31 sounds and `_valid()` checks five things: dtype, NaN, length, clipping
+and silence. **Four of the five cannot fire on anything this file produces.** Every sound
+function ends in `normalize(x, peak)`, which sets `max(abs(x))` to exactly `peak`, so the clip
+test, the silence test, the length test and the dtype test are structurally unreachable. Only
+the NaN test could ever go red.
+
+Proved by breaking the product rather than by reading it. Replacing `_fft_filter` with the
+identity kills every lowpass, highpass and bandpass in the library, turning `cicada_wall` and
+`rattlesnake` alike into raw white noise. **Self-test: "all passed (31 sounds)", exit 0.** So did
+every sound replaced by one impulse and six seconds of silence. So did a 0.5 Hz sine, which is
+below hearing. So did noise at amplitude 1e-8, normalised up to 0.85 and reported CLEAN.
+
+The self-test's own red-team block fed `_valid` three synthetic buffers it built itself. Those
+are the only inputs on which those thresholds fire. **The gate was tested against inputs that
+could not come from the thing it guards.**
+
+And `build()`, which is the command the routine actually runs, never called `_valid` at all. It
+returned a literal 0 after writing 31 files, while `write_wav` clipped to [-1, 1] on the way to
+disk so a clipping buffer was silently hard-clipped and still reported success.
+
+The lesson is not "add a check". It is that **amplitude is invisible after a normalize**, so an
+amplitude gate on a normalised library measures the constant it just set. What can actually
+break here is the FILTERING, so the check has to be spectral. Spectral flatness separates them
+cleanly with no per-sound taste required: white noise measures 0.56, and the flattest real sound
+in the library, the rattlesnake, measures 0.33.
+
+Measuring finally also found the bugs that had been sitting in the DSP:
+
+- **`brown()` put the peak of every buffer on its own wrap.** `np.cumsum` of white noise starts
+  near zero and ends at a large random value, and `_fft_filter` is circular, so the step across
+  the wrap was read as signal: a 6.4x spike on sample 2. `normalize` then divided the real sound
+  down against the artifact. `thunder_near`'s roll ended up six times too quiet, and its
+  docstring says "the rumble collapses behind it. The order matters, crack before roll, or it
+  reads as far." It read as far, at a measured 9,110 Hz centroid for NEAR thunder against 312 Hz
+  for far.
+- **`pink()` cascaded its filters instead of summing independent ones**, so it was about 3.2 dB
+  dark in the top two octaves and sloped at -6 dB per octave where pink is -3. Brown noise
+  wearing pink's name, under the three beds that play beneath dialogue.
+- **Three sounds high-passed white noise with no upper bound**, leaving it flat to the 24 kHz
+  Nyquist. A cow's low measured 6,902 Hz. A shoulder-pad thud measured 9,276 Hz.
+- **Five sounds put 60 to 74 percent of their energy below 20 Hz**, under the floor of hearing,
+  and that is what `normalize` scaled against, so they were far quieter than their peak claimed.
+
+Every one of those was inaudible to a peak measurement and every one changed what a sound IS.
+
+The catalog assertion beside it was the same shape in miniature:
+`[c["name"] for c in catalog()] == list(SOUNDS)`, where `catalog()` builds its list by iterating
+`SOUNDS` and copying the key into `"name"`. It compared `list(SOUNDS)` to `list(SOUNDS)` and
+could not fail on any input. It now compares the **committed** `assets/sfx/catalog.json`, which
+carries each sound's measured centroid and flatness, so the tracked interface is a fingerprint
+of the sound rather than of its name.
+
+**Ask of any threshold: what value could the code produce that would trip it?** If the answer is
+none, the check is decoration, however carefully it is written.

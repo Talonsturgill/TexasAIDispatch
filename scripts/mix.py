@@ -392,7 +392,31 @@ def main() -> int:
                           f"at the voice's rate; this mixer does not resample.", file=sys.stderr)
                     return 1
                 e["_samples"] = clip
-        bed = read_wav(Path(a.bed))[0] if a.bed else None
+        # THE BED IS HELD TO THE SAME RATE AS EVERYTHING ELSE.
+        #
+        # This was `read_wav(Path(a.bed))[0]`, which threw the rate away twelve lines under
+        # the check above that REFUSES an sfx clip for exactly that reason. A 44,100 Hz bed,
+        # which is what every archive.org and Wikimedia Commons source is, got tiled into a
+        # 48,000 Hz timeline and played 8.84 percent fast under the entire film. About a
+        # semitone and a half sharp, for the whole runtime, with time_stretch 1.0 written
+        # into the report ship_gate then reads as evidence nothing was stretched.
+        #
+        # That is the one artefact CLAUDE.md bans outright, arriving through the single
+        # input nobody checked, and reported as compliant on the way out.
+        bed = None
+        if a.bed:
+            bed, r3 = read_wav(Path(a.bed))
+            if r3 != rate:
+                # THE DIRECTION MATTERS, and the first version of this line had it backwards.
+                # Samples cut at r3 and played out at `rate` run at rate/r3, so a 44,100 Hz
+                # bed on a 48,000 Hz timeline is 8.84 percent FAST, not the 8.13 percent that
+                # `r3/rate` gives. A wrong number in the message is the same defect the gate
+                # exists to stop, printed by the gate itself.
+                print(f"mix: the music bed {a.bed} is {r3} Hz against the voice's {rate} Hz. "
+                      f"Convert it to the voice's rate first. This mixer does not resample, "
+                      f"and tiling it as it is plays the whole film "
+                      f"{abs(rate / r3 - 1) * 100:.2f} percent off pitch.", file=sys.stderr)
+                return 1
     except (OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"mix: cannot read inputs: {exc}", file=sys.stderr)
         return 2
