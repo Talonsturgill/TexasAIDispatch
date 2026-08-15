@@ -4,10 +4,17 @@ name: guards
 # nothing about what it guards, so the self-test reintroduces known-bad inputs and requires
 # the checker to reject them before the real run is allowed to mean anything.
 
+# WHY NOT ON EVERY PUSH. `branches-ignore: [main]` fired this on every intermediate dev
+# commit and every unattended routine step, so each failing work-in-progress commit mailed
+# the maintainer a red, until the noise was the whole signal. Worse, it ran on everything
+# EXCEPT main, so the branch that ships was the one branch never validated, and a PR merged
+# with the repo's own GITHUB_TOKEN does not start a workflow either. The merge is where a
+# change becomes real. Now it runs on PRs and on main itself, matching the sibling repos.
+
 on:
   pull_request:
   push:
-    branches-ignore: [main]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -170,6 +177,14 @@ jobs:
           # refused, because a credit that does not ship is a licence not paid.
           python3 scripts/music.py --self-test
           python3 scripts/music.py --check
+          # AND THE SOURCES HAVE TO RESOLVE. --check verifies the field is a non-empty
+          # string and never that it leads anywhere: three of eleven entries pointed at
+          # Commons files that 404, and all eleven were reported usable. For a CC BY
+          # track that page IS the licence, so a run picking one would have generated a
+          # credit naming a page that does not exist and --verify-film would have passed
+          # it. A 404 is a hard fail here; an unreachable host is not, because a licence
+          # gate that goes red on a runner with no network is a gate everyone ignores.
+          python3 scripts/music.py --check-links
 
       - name: The rubric's hard fails, checked rather than promised
         run: |
