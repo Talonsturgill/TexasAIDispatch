@@ -115,7 +115,7 @@ export const FarmSheet: React.FC = () => {
           note="Drop hoses hanging to just above the crop, never an arc off the top. Over the Ogallala the arc evaporates before it lands, and drawing one says the opposite of what the beat is about. Spray density IS the per-span rate.">
           <Ag.CentrePivot x={70} y={560} frame={f} scale={0.1} seed={3}
             prescription={[0.95, 0.2, 0.8, 0.35, 0.9]} spans={5} />
-          <Ref x={980} y={560} f={f} />
+          <Ref x={980} y={560} f={f} scale={0.1} />
           <Cap x={520} y={566}>five spans, five rates, one pass</Cap>
         </Row>
 
@@ -126,13 +126,18 @@ export const FarmSheet: React.FC = () => {
 
         <Row ground={1480} title={1060} head="The town, the yard and the sensor"
           note="A grain elevator is visible twenty miles before the town is. A feedyard is a rank of pens, not a corral. A soil probe is deliberately small: it is the thing a viewer should have to notice.">
+          {/* THREE MAGNITUDES ON PURPOSE, which is the row's whole point and also why it
+              cannot hold one staging scale. A 40 m elevator at the soil probe's 0.36
+              would be five thousand pixels tall on a 1080 sheet. The ruler goes to the
+              probe, because a metre stake is the one thing here a viewer cannot size
+              from memory, and its label says the person is part of that pairing. */}
           <Ag.GrainElevator x={70} y={1480} scale={0.025} seed={5} label="CO-OP" />
           <Ag.FeedlotPen x={330} y={1480} frame={f} scale={0.3} seed={6} pens={3} head={6} />
           <Ag.SoilProbe x={880} y={1480} frame={f} scale={0.36} seed={7} />
-          <Ref x={980} y={1480} f={f} />
+          <Ref x={980} y={1480} f={f} scale={0.36} />
           <Cap x={150} y={1486}>grain elevator</Cap>
           <Cap x={520} y={1486}>feedyard pens</Cap>
-          <Cap x={880} y={1486}>soil probe</Cap>
+          <Cap x={880} y={1486}>soil probe, and a person</Cap>
         </Row>
 
         <Row ground={1700} title={1540} head="The tag, at true scale"
@@ -222,10 +227,16 @@ export const MachineRoomSheet: React.FC = () => {
 
         <Row ground={760} title={148} head="The aisle"
           note="Two ranks facing each other down a corridor, the containment roof over the top and the cable tray above that. A flat wall of cabinets is a server rack in a cupboard, and a room without cable is a diagram of a room.">
-          <Compute.RackRow x={520} y={720} frame={f} scale={0.17} seed={2} depth={7}
+          {/* 0.22 rather than 0.17, because the row had been framed around a rack row
+              drawing nearly four times its declared height, and once the cabinets
+              stopped cancelling the staging scale the aisle occupied a fifth of its
+              band. WIDTH is the limit, not height: the near rank reaches 300 local
+              units either side of centre, so 0.26 filled the band and cut the outer
+              cabinets off at both edges. This row stays short rather than cropped. */}
+          <Compute.RackRow x={505} y={740} frame={f} scale={0.22} seed={2} depth={7}
             load={0.74} unknown={[2]} openDoor={4} />
-          <Ref x={1000} y={760} f={f} cast="engineer" scale={0.3} />
-          <Cap x={540} y={706}>one rack drawn as an outline: the size of what is not public</Cap>
+          <Ref x={1035} y={760} f={f} cast="engineer" scale={0.22} />
+          <Cap x={500} y={706}>one rack drawn as an outline: the size of what is not public</Cap>
         </Row>
 
         <Row ground={1120} title={760} head="One cabinet"
@@ -234,7 +245,7 @@ export const MachineRoomSheet: React.FC = () => {
           <Compute.Cabinet x={380} y={1120} frame={f} scale={0.34} seed={4} load={0.8} open />
           <Compute.Cabinet x={560} y={1120} frame={f} scale={0.34} seed={9} load={0.2} fault={9} />
           <Compute.Cabinet x={740} y={1120} frame={f} scale={0.34} unknown />
-          <Ref x={950} y={1120} f={f} cast="engineer" scale={0.3} />
+          <Ref x={950} y={1120} f={f} cast="engineer" scale={0.34} />
           <Cap x={200} y={1126}>door shut</Cap>
           <Cap x={380} y={1126}>door open</Cap>
           <Cap x={560} y={1126}>a fault</Cap>
@@ -246,7 +257,7 @@ export const MachineRoomSheet: React.FC = () => {
           <Compute.CoolingTower x={70} y={1660} frame={f} scale={0.07} seed={3}
             cells={3} humidity={0.4} />
           <Compute.GeneratorBank x={520} y={1660} frame={f} scale={0.07} seed={4} units={3} />
-          <Ref x={1000} y={1660} f={f} cast="engineer" scale={0.3} />
+          <Ref x={1000} y={1660} f={f} cast="engineer" scale={0.07} />
           <Cap x={200} y={1666}>cooling cells</Cap>
           <Cap x={680} y={1666}>standby generation</Cap>
         </Row>
@@ -254,8 +265,13 @@ export const MachineRoomSheet: React.FC = () => {
         <Row ground={2080} title={1690} head="Where the power lands, and where the heat leaves"
           note="A switchgear line-up is cubicle after cubicle of the same door, which is what it looks like and why it reads as infrastructure. Direct-to-chip liquid is the current story and the reason these rooms changed shape.">
           <Compute.Switchgear x={90} y={2080} frame={f} scale={0.22} seed={5} bays={6} />
-          <Compute.CoolingDistributionUnit x={800} y={2080} frame={f} scale={0.28} seed={6} />
-          <Ref x={1010} y={2080} f={f} cast="engineer" scale={0.3} />
+          {/* ONE STAGING SCALE ACROSS THE ROW. The line-up was at 0.22 and the CDU at
+              0.28, so a 2.38 m switchgear cubicle and a 1.93 m CDU drew the same
+              height and the 1.7 m engineer drew taller than both. Every component
+              here is already true to its own metres, which is exactly what makes a
+              mixed staging scale a lie rather than a simplification. */}
+          <Compute.CoolingDistributionUnit x={800} y={2080} frame={f} scale={0.22} seed={6} />
+          <Ref x={1010} y={2080} f={f} cast="engineer" scale={0.22} />
           <Cap x={430} y={2086}>medium-voltage line-up</Cap>
           <Cap x={800} y={2086}>CDU</Cap>
         </Row>
@@ -295,7 +311,7 @@ export const ClinicSheet: React.FC = () => {
         <Row ground={1520} title={1260} head="Where the decision is actually made"
           note="Two displays angled toward one seat, because a reading room is set up for one person and it shows. The queue badge is a number the caller supplies and never one invented here.">
           <Clinic.ReadingStation x={330} y={1520} frame={f} scale={0.36} seed={3} lit alerts={7} />
-          <Ref x={800} y={1520} f={f} cast="clinician" scale={0.3} />
+          <Ref x={800} y={1520} f={f} cast="clinician" scale={0.36} />
         </Row>
 
         <Row ground={1940} title={1580} head="From outside, it is a skyline"
@@ -324,7 +340,7 @@ export const WaterSheet: React.FC = () => {
           <Water.StreamGauge x={220} y={700} frame={f} scale={0.22} seed={1}
             stage={0.42} threshold={0.72} />
           <Water.StreamGauge x={560} y={700} frame={f} scale={0.22} seed={4} reporting={false} />
-          <Ref x={900} y={700} f={f} cast="hydrologist" scale={0.3} />
+          <Ref x={900} y={700} f={f} cast="hydrologist" scale={0.22} />
           <Cap x={220} y={706}>a stage, and the flood line above it</Cap>
           <Cap x={560} y={706}>not reporting</Cap>
         </Row>
@@ -336,12 +352,20 @@ export const WaterSheet: React.FC = () => {
 
         <Row ground={1520} title={1120} head="The siren, and the phone"
           note="Sound is two thin arcs that fade. A cartoon blast of concentric rings turns an emergency into a graphic, and this is the one beat where that would be unforgivable. The banner text comes from the caller and nothing else does.">
+          {/* THE ONE ROW THAT CANNOT HOLD ONE STAGING SCALE, and it is not a lapse.
+              A 0.15 m handset staged with a 9 m siren mast is five pixels, so the
+              phone is blown up about six times and carries NO scale claim. Its label
+              says so, because a reviewer reads the sheet and not this comment.
+
+              The ruler therefore belongs to the siren, and it stands next to the
+              siren rather than off at x=900 between the two, where a reference is a
+              question rather than an answer. */}
           <Water.SirenMast x={220} y={1520} frame={f} scale={0.1} seed={3} sounding />
-          <Water.HandsetAlert x={620} y={1380} frame={f} scale={3.4} seed={5}
+          <Ref x={330} y={1520} f={f} cast="hydrologist" scale={0.1} />
+          <Water.HandsetAlert x={640} y={1380} frame={f} scale={3.4} seed={5}
             headline="FLASH FLOOD WARNING" body="Move to higher ground now." />
-          <Ref x={900} y={1520} f={f} cast="hydrologist" scale={0.3} />
-          <Cap x={220} y={1526}>outdoor warning siren</Cap>
-          <Cap x={620} y={1526}>the last hundred milliseconds</Cap>
+          <Cap x={220} y={1526}>outdoor warning siren, and a person</Cap>
+          <Cap x={640} y={1526}>the last hundred milliseconds, shown large</Cap>
         </Row>
 
         <Row ground={2060} title={1580} head="The weather itself, from a long way off"
@@ -365,8 +389,8 @@ export const PlantSheet: React.FC = () => {
 
         <Row ground={640} title={148} head="The arm, and why it is not friendly"
           note="A real arm moves in FAST STRAIGHT SEGMENTS with hard stops between them, it is fenced, and there is a light curtain across the opening. An arm that waves in a smooth arc is a stock illustration and anyone who works in one of these buildings reads it as one instantly.">
-          <RobotPair f={f} />
-          <Ref x={980} y={640} f={f} cast="technician" scale={0.3} />
+          <RobotPair f={f} scale={0.4} />
+          <Ref x={980} y={640} f={f} cast="technician" scale={0.4} />
           <Cap x={280} y={646}>cycling</Cap>
           <Cap x={640} y={646}>halted</Cap>
         </Row>
@@ -384,7 +408,7 @@ export const PlantSheet: React.FC = () => {
           note="A fab floor is a wall of enclosures. The stack light is the one part legible from across the room, so it is the part that carries the state, and the painted traffic lane is scuffed because it always is.">
           <Plant.ToolBay x={110} y={1620} frame={f} scale={0.19} seed={4} bays={4}
             state={['run', 'idle', 'down', 'run']} />
-          <Ref x={960} y={1620} f={f} cast="technician" scale={0.3} />
+          <Ref x={960} y={1620} f={f} cast="technician" scale={0.19} />
           <Cap x={480} y={1626}>run, idle, down, run</Cap>
         </Row>
       </RegionLight>
@@ -392,10 +416,15 @@ export const PlantSheet: React.FC = () => {
   );
 };
 
-/** Two arms on the same cycle at different phases, which is the point of the row. */
-const RobotPair: React.FC<{f: number}> = ({f}) => (
+/** Two arms on the same cycle at different phases, which is the point of the row.
+ *
+ *  THE STAGING SCALE IS A PROP AND NOT A CONSTANT IN HERE. It was 0.4 inside this
+ *  helper against a Ref the row staged at 0.3, so the technician stood three quarters
+ *  of the size the arms were drawn to, and no checker could see the pair because the
+ *  number was one level down. A row states its own scale. */
+const RobotPair: React.FC<{f: number; scale: number}> = ({f, scale}) => (
   <g>
-    <Plant.RobotArm x={280} y={640} frame={f} scale={0.4} seed={1} cycle={74} />
-    <Plant.RobotArm x={640} y={640} frame={f} scale={0.4} seed={5} halted />
+    <Plant.RobotArm x={280} y={640} frame={f} scale={scale} seed={1} cycle={74} />
+    <Plant.RobotArm x={640} y={640} frame={f} scale={scale} seed={5} halted />
   </g>
 );

@@ -263,6 +263,19 @@ jobs:
           python3 scripts/scale_check.py --self-test
           python3 scripts/scale_check.py
 
+      - name: The person next to a thing is the same size as it
+        run: |
+          # The review sheets exist so somebody can look at a component beside a human being
+          # and see whether it is right. Eleven of the fourteen rows carrying a human
+          # reference staged that person at a DIFFERENT scale from the thing measured, up to
+          # 3.2 times life size. The rig row is the one that cost something: an engineer at
+          # 0.28 against a truck at 0.16 made a cab roof drawn 12 percent too tall look
+          # fine, and it was signed off on that row twice.
+          #
+          # A ruler nobody checked is worse than no ruler, because a reviewer trusts it.
+          python3 scripts/sheet_ruler_check.py --self-test
+          python3 scripts/sheet_ruler_check.py
+
       - name: The hat rules are called by something
         run: |
           # headgearConflict() and seasonalHat() are two carefully written functions in

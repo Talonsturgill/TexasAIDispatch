@@ -209,6 +209,23 @@ def sub_keys(src: str) -> set[str]:
 # a fit(...) call, allowing one level of nested parens, followed by * or /
 MULT_RE = re.compile(r"fit\([^()]*(?:\([^()]*\))?[^()]*\)\s*[*/]")
 
+# A TRUE-SCALE CHILD INSIDE A TRUE-SCALE PARENT, placed with the staging scale cancelled.
+#
+# A component that calls `fit` and then renders another component that calls `fit` has to
+# cancel ONE thing: its own K. `scale={x / K}` does that, and the staging scale still reaches
+# the child, so the child rides the parent when the parent is staged smaller.
+#
+# `scale={x / (K * scale)}` cancels the staging too, and the child then holds a fixed size on
+# the page while everything around it shrinks. It shipped twice, in two modules, by two
+# different routes, and neither was visible in any single render because at scale 1 both forms
+# look plausible:
+#
+#   the truck's roof pod rendered 0.92 m at the sheet's 0.16, a box the size of a bar stool.
+#   the machine room's cold aisle rendered 8.51 m at the sheet's 0.17, against a 2.6 m row.
+#
+# Both were found by a person looking at a picture. This is the rule that means nobody has to.
+NEST_RE = re.compile(r"scale=\{[^}]*?/\s*\(\s*(?:K\s*\*\s*scale|scale\s*\*\s*K)\s*\)")
+
 
 def strip_comments(src: str) -> str:
     """Block and line comments out, so a fit() named in prose is not read as a call."""
@@ -294,6 +311,16 @@ def check(verbose: bool = True) -> list[str]:
         orphan_bad, orphan_seen = orphan_problems(str(rel), name, keys, ref, used)
         bad += orphan_bad
         seen_debt |= orphan_seen
+
+        for m in NEST_RE.finditer(src):
+            line_no = src[:m.start()].count("\n") + 1
+            bad.append(
+                f"{rel}:{line_no}: a nested component is placed with `/ (K * scale)`, which "
+                f"cancels the STAGING scale as well as this component's fit. The child then "
+                f"holds a fixed size on the page while its parent shrinks, so the same drawing "
+                f"is a different drawing at every staging and no single render shows it. Use "
+                f"`/ K`: cancel your own fit and nothing else.\n"
+                f"        {m.group(0)[:90]}")
 
         for i, line in enumerate(raw.splitlines(), 1):
             if line.lstrip().startswith("//") or not MULT_RE.search(line):
@@ -381,6 +408,19 @@ export const Bell: React.FC<X> = () => { const K = fit('bell', 40); };
        sub_keys("sub('a', 'b', (h / 70))") == {"a", "b"})
     ok("a comment mentioning sub() is not a call",
        sub_keys(strip_comments("// see sub('ghost', 'x', 9)\nsub('a', 'b', 9);")) == {"a", "b"})
+
+    # NESTING A TRUE-SCALE CHILD. Both shipped forms are replayed, because this one was
+    # written twice by two different routes and neither was visible in a single render.
+    ok("the roof pod's shipped expression IS caught",
+       bool(NEST_RE.search("<SensorMast frame={frame} scale={0.42 / (K * scale)} seed={seed} />")))
+    ok("...and the cold aisle's, which put a 0.62 on top",
+       bool(NEST_RE.search("<Cabinet frame={frame} scale={(d * 0.62) / (K * scale)} />")))
+    ok("...and the same thing written the other way round",
+       bool(NEST_RE.search("<X scale={d / (scale * K)} />")))
+    ok("the correct form passes", not NEST_RE.search("<SensorMast scale={1 / K} seed={seed} />"))
+    ok("...including one carrying a real ratio", not NEST_RE.search("<Cabinet scale={d / K} />"))
+    ok("a plain staging scale is not a nesting bug",
+       not NEST_RE.search("<Freight.AutonomousRig x={860} scale={0.115} />"))
 
     # THE REFERENCE FLAG, which is how a frame-sized component declares it has nothing to fit.
     reffed = """export const DEMO_M: Record<string, {h: number; ref?: boolean}> = {

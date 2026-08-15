@@ -784,3 +784,52 @@ The rule this leaves: **if a defect is parked because it needs eyes, go and use 
 `WRONG_SIZE` is for a drawing somebody has looked at and cannot yet fix. It is never for one
 nobody has looked at, and "somebody has to see this" describes a twenty second command, not a
 blocker.
+
+---
+
+## 34. The ruler in the picture was wrong, in eleven rows out of fourteen
+
+Entry 33 found the review sheets drawing the human reference at a different staging scale from
+the thing it measures, and fixed the two rows needed to verify that entry's own work. Going
+back for the rest, the count was not eight. **It was eleven of the fourteen rows that carry a
+reference at all**, because three had a bare `<Ref>` taking the helper's 0.32 default, which a
+scan for mismatched numbers cannot see. A default nobody chose is not agreement, it is silence.
+
+Three kinds, and only the first is the obvious one.
+
+**A number typed once and never compared.** A centre pivot at 0.1 with a person at the default
+0.32. A rack row at 0.17 with a person at 0.3. Each is a single wrong character, and each makes
+every component in the row unreviewable.
+
+**A row that stages its own subjects at two scales.** The machine room drew a 2.38 m switchgear
+line-up and a 1.93 m CDU the same height, with a 1.7 m engineer taller than both. Every one of
+those three is correct in its own metre table. **That is what makes a mixed staging scale a lie
+rather than a simplification**: nothing is wrong except the picture.
+
+**A scale hidden one level down.** `RobotPair` staged its arms at 0.4 inside a helper while the
+row staged the person at 0.3. No checker could see the pair, because the number was not in the
+row. The fix is not a smarter checker. **A row states its own scale**, so the helper takes it as
+a prop.
+
+Two rows genuinely cannot hold one scale and are exempt with the arithmetic, not with taste: a
+0.15 m handset beside a 9 m siren mast is five pixels, and a 40 m grain elevator at the soil
+probe's staging is five thousand. In both the ruler goes to the object a viewer cannot size from
+memory, it stands next to that object rather than between the two, and **the label on the sheet
+says so**, because a reviewer reads the sheet and not the source comment.
+
+### What the corrected ruler immediately found
+
+`Compute.RackRow` rendered **8.51 m against a declared 2.6 m**, nearly four times a rack. It
+nested a fitted `Cabinet` with `scale={(d * 0.62) / (K * scale)}`, the roof pod's mistake in a
+second module, written by a different route, three commits apart. At staging 1 the form looks
+plausible, which is why two authors wrote it and no render caught it.
+
+**The rule, and it is now a gate rather than a paragraph.** To place a true-scale child inside a
+true-scale parent, pass `scale={x / K}`. Cancel your own fit and nothing else, so the staging
+scale still reaches the child and the child rides the parent. `scale_check` refuses
+`/ (K * scale)` in any module, and its self-test replays both shipped forms.
+
+The through-line of 33 and 34 together: **a gate that measures a component cannot tell you the
+component is being compared against something wrong.** `true_scale` would have caught the cab
+roof and the rack row at any time in the last three weeks. Nobody ran it on them, because the
+picture looked right, and the picture looked right because the ruler in it was wrong.

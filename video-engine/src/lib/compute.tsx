@@ -224,7 +224,17 @@ export const RackRow: React.FC<Rig & {
           <g key={j}>
             {[-1, 1].map((s) => (
               <g key={s} transform={`translate(${s * cx} ${yy})`} opacity={0.55 + d * 0.45}>
-                <Cabinet frame={frame} scale={(d * 0.62) / (K * scale)}
+                {/* `/ K` and NOT `/ (K * scale)`. Dividing by the staging scale too
+                    cancelled it, so the cabinets held a fixed size on the page while
+                    the room around them shrank: at the review sheet's 0.17 the row
+                    rendered 8.51 m against a declared 2.6 m, nearly four times a rack.
+                    Cancel the parent's fit and nothing else, and the cabinets ride the
+                    room. Same defect as the truck's roof pod, same cure.
+
+                    `d` alone, with no 0.62 on top, because `d` IS the perspective
+                    depth and the near rank at d = 1 is a full size cabinet standing
+                    under the containment roof, which is where a rack actually is. */}
+                <Cabinet frame={frame} scale={d / K}
                   seed={seed * 7 + j * 13 + (s > 0 ? 101 : 0)} load={load}
                   open={s < 0 && j === openDoor}
                   unknown={s < 0 && unknown.includes(j)}
