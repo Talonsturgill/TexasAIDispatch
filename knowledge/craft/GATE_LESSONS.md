@@ -833,3 +833,54 @@ The through-line of 33 and 34 together: **a gate that measures a component canno
 component is being compared against something wrong.** `true_scale` would have caught the cab
 roof and the rack row at any time in the last three weeks. Nobody ran it on them, because the
 picture looked right, and the picture looked right because the ruler in it was wrong.
+
+---
+
+## 35. Nothing in this repo had ever read a character
+
+`HandsetAlert` drew "FLASH FLOOD WARNING" as one line at font size 9, inside a panel 70 units
+wide. The string is about 111 units. On the one beat this show has about an emergency message,
+the message ran off the glass, and the body line went with it.
+
+It passed everything. `tsc` sees a string. `engine_lint` reads colour literals. `scale_check`
+and `true_scale` measure drawings and treat a text node as opaque. Twenty-nine `<text>` elements
+in the library and **not one gate had ever looked at what was in one.**
+
+**Shortening the string would have fixed the string.** `headline` and `body` are props, so the
+next caller writes a longer warning and the panel overflows again with no warning of its own. A
+drawing that accepts text has to be able to set that text, so the banner now wraps at the
+panel's real inside width and the panel grows to hold the lines. The lock screen furniture below
+it follows the banner down instead of being drawn at a fixed y through it.
+
+**The widths were measured, not guessed and not read out of a font table.** A probe rendered
+real strings through the real renderer and the ink was measured off the PNG. Those measurements
+are the gate's fixtures, and the per-class estimate has to sit above every one of them:
+
+    FLASH FLOOD WARNING   369 px    0.647 em/char   bold
+    MMMMMMMMMM            282 px    0.940 em/char   bold
+    Move to higher ...    340 px    0.436 em/char   regular
+
+**An optimistic estimator makes every check downstream worthless while still reporting green**,
+which is why that half of the self-test runs first and is the load-bearing half.
+
+### The bound was wrong the first time, and the plant found it
+
+The first version of the check asked whether the banner was inside the glass. A planted body of
+one long sentence produced a **thirteen line banner ending at 61.5**, inside the glass and
+swamping the phone, and the check passed it. The real bound is not the glass, it is the home
+indicator: the lock screen furniture has to still have somewhere to be. Both numbers now come
+out of the component, so the gate cannot pass while the picture collides. **Planting a defect is
+how you find out your bound is the wrong bound**, and the first plant passing is the useful
+result, not the failure.
+
+### And the thing underneath all of it
+
+Every drawing in this engine asks for `Georgia, serif`, and **the repo ships no font at all.**
+`fc-match Georgia` on the render box returns DejaVu Serif. Sixty-two text sites, plus thirteen
+more asking for JetBrains Mono, render in whatever the machine happened to have, so the film's
+type is not the same film on two machines and every width in it is a width nobody chose. The
+measurements above were taken from that substitute.
+
+Wrapping is what makes this survivable rather than fatal: **a wrong width estimate moves a line
+break, where the hand-set font size it replaced moved text off the edge.** Choosing the
+typeface, and shipping it, is a design decision and it is still open.

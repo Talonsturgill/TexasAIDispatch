@@ -301,3 +301,19 @@ jobs:
           cd video-engine
           node tests/true_scale.mjs --self-test
           node tests/true_scale.mjs
+
+      - name: Text that has a box is inside it
+        run: |
+          # HandsetAlert drew "FLASH FLOOD WARNING" as one line at font size 9 in a panel
+          # 70 units wide. The string is about 111 units, so on the one beat this show has
+          # about an emergency message, the message ran off the glass. Nothing in the repo
+          # had ever read a character: tsc sees a string, engine_lint reads colours, and
+          # true_scale treats text as an opaque node.
+          #
+          # The self-test runs FIRST and it is the load-bearing half. It holds ink measured
+          # off a real render as fixtures and requires the width estimate to sit above every
+          # one of them, because an optimistic estimator makes every fit check below it
+          # worthless while still reporting green.
+          cd video-engine
+          node tests/type_fit.mjs --self-test
+          node tests/type_fit.mjs
