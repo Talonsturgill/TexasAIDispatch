@@ -253,6 +253,16 @@ jobs:
           node tests/paint_ids.mjs --self-test
           node tests/paint_ids.mjs
 
+      - name: Every metre table is checked, not just fauna's
+        run: |
+          # Seventeen modules export a *_M table of real dimensions and ONE of them was read
+          # by any gate. staging_check enforces the rule beautifully and only on fauna.tsx,
+          # because that is the module it was written for. Behind the other sixteen: a
+          # marching band 13 cm tall, a 0.92 m tortilla on a griddle sized from an ice cream
+          # cart's entry, and a raspa cup that scaled quadratically.
+          python3 scripts/scale_check.py --self-test
+          python3 scripts/scale_check.py
+
       - name: The hat rules are called by something
         run: |
           # headgearConflict() and seasonalHat() are two carefully written functions in
@@ -267,3 +277,14 @@ jobs:
           cd video-engine
           node tests/cast_safety.mjs --self-test
           node tests/cast_safety.mjs
+
+      - name: The drawing is the right size, measured not read
+        run: |
+          # scale_check reads TSX and cannot see whether what came out is the right SIZE,
+          # because that depends on path coordinates it does not evaluate. This renders each
+          # component and reads the emitted scale back off the markup. Its self-test replays
+          # the band's pre-fix code and requires the measurement to come out at 13 cm, so the
+          # gate is provably able to go red rather than only ever seeing corrected code.
+          cd video-engine
+          node tests/true_scale.mjs --self-test
+          node tests/true_scale.mjs

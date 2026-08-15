@@ -59,7 +59,13 @@ export const TEJANO_M: Record<string, {h: number; note: string}> = {
   quinceCourt: {h: 1.62, note: 'a court member standing, which is the cast rig height'},
   mercadoStall: {h: 2.6, note: 'a market stall under a shared shed roof'},
   pinataStar: {h: 0.9, note: 'a seven point star piñata across the widest cone pair'},
-  comal: {h: 0.02, note: 'a comal on a burner, which is a disc'},
+  // MEASURED ACROSS, NOT THROUGH. A flat thing seen from anywhere but edge on is sized by
+  // its DIAMETER, and its thickness scales nothing. The entry used to read 0.02, the height
+  // of the disc off the burner, which no drawing can be fitted to. So Comal borrowed the
+  // paletero CART's entry instead and rendered a 0.92 m tortilla, wider than the cook's
+  // shoulders, under a sheet label reading 30 cm.
+  comal: {h: 0.3, note: 'a comal measured ACROSS, which is the dimension that sets the drawing'},
+  raspaCup: {h: 0.2, note: 'a tall styrofoam raspa cup at the rim, before the dome of ice on top'},
   photoWall: {h: 2.2, note: 'a grandmother s photograph wall, floor to the top frame'},
   rotulo: {h: 4.0, note: 'a corner store at the parapet'},
   colonia: {h: 3.4, note: 'a self built house at the eave'},
@@ -366,7 +372,11 @@ export const RaspaCup: React.FC<TejanoProps & {
 }> = ({x = 0, y = 0, scale = 1, seed = 124, h = 70, syrup = '#E8607A',
        chamoy = true, gummies = 4}) => {
   const L = useLight();
-  const K = fit('paleteroCart', 90) * (h / 70);
+  // Fitted on the CUP, whose body runs h * 0.86 to the rim in this local frame. It used to
+  // borrow the paletero cart's entry and multiply by h/70, which sized a drink off a freezer
+  // box and rendered a 1.03 m cup. The h/70 was quadratic as well, because every path
+  // coordinate is already a multiple of h, so halving h quartered the drawing.
+  const K = fit('raspaCup', h * 0.86);
   const w = h * 0.52;
   return (
     <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
@@ -1278,7 +1288,8 @@ export const Comal: React.FC<TejanoProps & {
 }> = ({x = 0, y = 0, scale = 1, seed = 133, h = 90, puff = 0.5, stack = 4,
        corn = false, frame = 0}) => {
   const L = useLight();
-  const K = fit('paleteroCart', 90) * (h / 90);
+  // The comal disc spans h * 1.20 across in this local frame, and that is what is fitted.
+  const K = fit('comal', h * 1.2);
   const r = h * (corn ? 0.34 : 0.46);
   const rise = puff * (0.5 + 0.5 * Math.sin(frame / 11));
 

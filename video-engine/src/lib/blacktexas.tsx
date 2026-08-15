@@ -62,6 +62,12 @@ export const BLACKTX_M: Record<string, {h: number; note: string}> = {
   brickStreet: {h: 0.08, note: 'a laid brick street, which is a surface'},
   emancipationPavilion: {h: 4.5, note: 'an open air pavilion at the eave'},
   sousaphone: {h: 0.76, note: 'a sousaphone bell diameter, which is how they are sized'},
+  // A BAND IS MADE OF PEOPLE, so the block is scaled by a person and not by a horn.
+  // HBCUBand used to fit on the sousaphone and then multiply by 0.16, which cancelled the
+  // metre conversion it had just done and rendered the whole block 13 cm tall. The drum
+  // major stood ankle high on any cast member sharing the plane. A bell diameter is still
+  // the right way to size a sousaphone and the wrong way to size the person carrying it.
+  bandMember: {h: 1.7, note: 'a marching band member standing, the same rig height as the cast'},
   redDrink: {h: 0.22, note: 'a bottle of red soda'},
 };
 
@@ -874,7 +880,8 @@ export const HBCUBand: React.FC<BlackTxProps & {
        ranks = 4, files = 10, spread = 620, colours = ['#4A2A7A', '#D8B03C'],
        drumMajor = true, danceLine = 5, frame = 0}) => {
   const L = useLight();
-  const K = fit('sousaphone', h) * 0.16;
+  // Fitted on the PERSON, whose sole-to-crown run is h * 1.09 in this local frame.
+  const K = fit('bandMember', h * 1.09);
   const [uni, braid] = colours;
   const u = tones(uni, L);
   const brass = '#D8A83C';
