@@ -2,7 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, useLight, INK, RustStreak, CalicheDust} from './lighting';
 import {matFill} from './materials';
-import {fitter, rnd} from './scale';
+import {fitter, subber, rnd} from './scale';
 
 // =============================================================================
 // TEJANO — Mexican-American and border Texas, drawn with the same care as the cast.
@@ -50,7 +50,10 @@ export const TEJANO_M: Record<string, {h: number; note: string}> = {
   paleteroCart: {h: 1.0, note: 'the cart box at the lid, without the umbrella'},
   paleteroUmbrella: {h: 1.8, note: 'the canopy above the cart, at hand height plus'},
   panaderiaRack: {h: 1.9, note: 'an open bakery rack at the top shelf'},
-  charola: {h: 0.02, note: 'an aluminium tray, which is essentially flat'},
+  // MEASURED ACROSS, like the comal. A tray's thickness scales nothing, so the entry read
+  // 0.02 and the drawing sized it as a fraction of however wide the rack was drawn. A tray
+  // is a fixed real object and does not get wider when the rack does.
+  charola: {h: 0.46, note: 'a bakery tray measured ACROSS, which is what sets the drawing'},
   raspaStand: {h: 3.0, note: 'a raspa shack at the awning'},
   accordion: {h: 0.42, note: 'a three row diatonic button accordion, bellows closed'},
   bajoSexto: {h: 1.05, note: 'a bajo sexto, body and neck, held upright'},
@@ -74,6 +77,7 @@ export const TEJANO_M: Record<string, {h: number; note: string}> = {
 };
 
 const fit = fitter(TEJANO_M);
+const sub = subber(TEJANO_M);
 
 export interface TejanoProps {
   x?: number; y?: number; scale?: number; seed?: number; wear?: number;
@@ -285,7 +289,8 @@ export const PanaderiaRack: React.FC<TejanoProps & {
       {charola && (
         /* the tray and tongs, issued at the door, scratched all over */
         <g transform={`translate(0 ${h * 0.08})`}>
-          <rect x={-w * 0.26} y={-h * 0.04} width={w * 0.52} height={h * 0.035} rx={h * 0.008}
+          <rect x={-sub('charola', 'panaderiaRack', h) / 2} y={-h * 0.04}
+            width={sub('charola', 'panaderiaRack', h)} height={h * 0.035} rx={h * 0.008}
             fill="#B4B8BA" />
           {Array.from({length: 14}, (_, i) => (
             <line key={i} x1={-w * 0.24 + rnd(seed, i) * w * 0.48} y1={-h * 0.036}

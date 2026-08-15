@@ -2,7 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, useLight, INK, RustStreak, CalicheDust} from './lighting';
 import {matFill} from './materials';
-import {fitter, rnd} from './scale';
+import {fitter, subber, rnd} from './scale';
 
 // =============================================================================
 // BLACK TEXAS. The single most important correction this whole wave carries.
@@ -72,6 +72,7 @@ export const BLACKTX_M: Record<string, {h: number; note: string}> = {
 };
 
 const fit = fitter(BLACKTX_M);
+const sub = subber(BLACKTX_M);
 
 export interface BlackTxProps {
   x?: number; y?: number; scale?: number; seed?: number; wear?: number;
@@ -956,7 +957,13 @@ export const HBCUBand: React.FC<BlackTxProps & {
               <g>
                 <circle cx={h * 0.04} cy={-h * 0.86} r={h * 0.40} fill="none"
                   stroke={brass} strokeWidth={h * 0.09} />
-                <ellipse cx={h * 0.22} cy={-h * 1.26} rx={h * 0.28} ry={h * 0.13}
+                {/* THE BELL IS SIZED FROM ITS OWN ENTRY. It was rx={h * 0.28}, a 0.56
+                    local diameter, which measured 0.873 m against the 0.76 m the table
+                    records for a sousaphone bell. The horn is the biggest circle in the
+                    frame, so it is the one thing here worth getting right. */}
+                <ellipse cx={h * 0.22} cy={-h * 1.26}
+                  rx={sub('sousaphone', 'bandMember', h * 1.09) / 2}
+                  ry={sub('sousaphone', 'bandMember', h * 1.09) * 0.23}
                   fill={brass} />
               </g>
             ) : (
