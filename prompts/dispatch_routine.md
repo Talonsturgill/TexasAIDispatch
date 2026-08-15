@@ -76,9 +76,16 @@ and the rancher can be at a hearing. A cast used as a lookup table stops being a
 
 **Hats.** Real on a rancher, a Ranger, a sheriff, a rodeo competitor, a norteño musician. A
 costume on a Houston executive. A SAFETY VIOLATION on a rig floor, where it is a hard hat over an
-FR hood, and `headgearConflict()` refuses that pairing. The straw-to-felt season is dated and
-`seasonalHat()` takes the Dispatch date, because a January frame showing a straw working hat is
-simply wrong.
+FR hood. The straw-to-felt season is dated, because a January frame showing a straw working hat
+is simply wrong.
+
+**What actually holds those two rules**, since this paragraph once named two functions nothing
+called. A hat is a property of WHO IS IN THE SHOT, so put the right person in it: a rig floor
+stages the `operator` or the `engineer`, never the `rancher`. `ship_gate.py` resolves every
+`person` placement through the roster and refuses a brimmed hat on a hazard floor, and
+`tests/cast_safety.mjs` holds the roster itself to `headgearConflict()` and `seasonalHat()`, on
+every entry and every month of the year. Until 2026-08-15 neither function had a single call
+site, while this line and a gate comment both said they were guarding it. GATE_LESSONS 28.
 
 ---
 

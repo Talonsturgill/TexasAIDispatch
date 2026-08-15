@@ -453,3 +453,74 @@ rewrite is absolute coordinates throughout, for a shape somebody has to be able 
 
 The rule this leaves: **rendering the review surface is part of shipping it, not a follow-up.**
 A sheet that has not been looked at is not a review, it is a promise of one.
+
+## 27. A gate that reads a field nobody writes
+
+`ship_gate.py` checks seven hard fails. Three of them read scene keys off the board, and each
+section carried its own hand-written tuple of key names. Between them those three tuples named
+**six fields the board has never had**: `supers`, `slide_text`, `lower_third`, `vo`, `note` and
+`location`. None of the three named `super`, which is the only authored string `Dispatch.tsx`
+paints on screen.
+
+So the compute-not-generate gate, the retired-motif gate and the rig-floor headgear gate all ran
+over an empty string for their entire life, and all three reported clear. Confirmed by planting
+into the real `examples/board.json`:
+
+- `super = "8,297 megawatts approved"`, a numeral authorised by nothing, **zero hard fails**.
+- `super = "Six Flags Over Texas"`, the motif retired because one of the six is the Confederate
+  flag, **zero hard fails**.
+
+The same strings in `supers`, a key nothing renders and nothing writes, were **caught**. The gate
+rejected the fabrication in a dead field and shipped it in the live one.
+
+**A misconfigured gate and a clean film are the same exit code.** That is what makes this class
+different from a gate that is merely wrong: there is no symptom anywhere. It prints its success
+line, CI goes green, and nothing in the output distinguishes "checked and found nothing" from
+"looked in a place that does not exist".
+
+The root cause is one line of the self-test. The fixture built its own `scene()` dict carrying
+`vo` and a `cast[].headgear`, and no `super` at all. **The gate was written against the fixture
+rather than against the board**, and nothing ever compared the two. Every planted defect in the
+self-test was planted in a field only the fixture had, so the tests passed honestly and proved
+nothing about a real board.
+
+Three things fix it, and the third is the one that generalises:
+
+1. The field names live in one place, `SCENE_COPY` and `SCENE_DIRECTION`, not in three tuples.
+2. `schema_bound()` refuses any name that is in neither the renderer's `Scene` interface nor any
+   scene of the board under check. **A name that writes to nothing is a hard fail**, so the next
+   phantom announces itself instead of passing.
+3. The self-test asserts its own fixture is a subset of `examples/board.json`. A fixture nobody
+   compares to a real artifact is a second schema, and a gate written against it checks a film
+   that does not exist.
+
+**Ask of every gate: what would this print if the thing it reads were missing entirely?** If the
+answer is "the success line", the gate is not connected to anything.
+
+## 28. Two functions, three documents, zero call sites
+
+`headgearConflict()` and `seasonalHat()` in `Character.tsx` are careful, well documented, and
+were called by **nothing**. Not by `Character`, not by `CastElement`, not by any gate.
+
+Three places said otherwise. `prompts/dispatch_routine.md` said `headgearConflict()` "refuses
+that pairing". It said `seasonalHat()` "takes the Dispatch date". `ship_gate.py` carried the
+comment "`headgearConflict()` guards the engine; this guards the board." Every one of those
+sentences described a function no code path reaches.
+
+That is worse than an absent check, because the documentation is the thing a reader consults
+before deciding whether a risk is covered, and here it said yes three times.
+
+The board half had its own version of the same fault. `ship_gate` read `scene.cast[].headgear`,
+an optional parallel declaration **no board in this repo writes**. What actually renders is
+`planes[].items[kind=person].props.cast` resolved through the roster, so the rancher, who is
+`straw-hat` in `CAST` and carries no `headgear` field anywhere, cleared the rig-floor check on
+every scene of every board.
+
+Fixed both ways. `ship_gate` resolves the hat from the placement through the roster, parsed out
+of the engine and **fail-closed**: a roster it cannot parse raises rather than returning a short
+table, because a gate that clears every scene against an empty roster is the same defect again.
+`tests/cast_safety.mjs` calls `headgearConflict()` on all thirteen entries, so the rule is live,
+and the roster is one keystroke from a felt hat on FR coveralls.
+
+**A function is dead until something calls it, and a comment saying it guards something is not a
+call site.** When a doc claims a protection, check the callers before believing it.

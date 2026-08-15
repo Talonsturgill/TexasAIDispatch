@@ -158,6 +158,34 @@ jobs:
           # gets switched off. The bar is READ from the rubric and never restated here.
           python3 scripts/ship_gate.py --self-test
 
+      - name: The shipping gate reads fields that exist, on the board that really ships
+        run: |
+          # THE SELF-TEST ABOVE WAS GREEN WHILE THREE SECTIONS OF THAT GATE READ NOTHING.
+          # Between them they named six scene fields no board has ever had (supers,
+          # slide_text, lower_third, vo, note, location) and missed `super`, the one
+          # authored string Dispatch.tsx paints on screen. The fixture carried the phantom
+          # fields and the real board did not, so the gate checked a film that does not
+          # exist. A fabricated numeral and a retired motif both cleared it, in the field
+          # a viewer reads.
+          #
+          # This binds the gate's field names against examples/board.json, the 8-scene
+          # board this repo commits and that nothing in CI used to open at all.
+          python3 - <<'PY'
+          import importlib.util, json, sys
+          from pathlib import Path
+          spec = importlib.util.spec_from_file_location("sg", "scripts/ship_gate.py")
+          sg = importlib.util.module_from_spec(spec); spec.loader.exec_module(sg)
+          board = json.loads(Path("examples/board.json").read_text(encoding="utf-8"))
+          bad = sg.schema_bound(board, sg.SCENE_PROSE)
+          if bad:
+              sys.exit("\n".join(bad))
+          if "super" not in sg.scene_schema():
+              sys.exit("the renderer no longer declares `super`, and the copy gate reads it")
+          roster = sg.cast_roster()          # raises rather than returning a short table
+          print(f"bound: {len(sg.SCENE_PROSE)} prose field(s), {len(roster)} cast members, "
+                f"{len(board['scenes'])} scenes")
+          PY
+
       - name: If the number moved, would the test notice
         run: |
           # Every gate has a --self-test, CI runs all of them, and they are all green. None of
@@ -188,3 +216,18 @@ jobs:
           cd video-engine
           node tests/paint_ids.mjs --self-test
           node tests/paint_ids.mjs
+
+      - name: The hat rules are called by something
+        run: |
+          # headgearConflict() and seasonalHat() are two carefully written functions in
+          # Character.tsx with ZERO CALL SITES anywhere in the repo. The routine prompt says
+          # headgearConflict "refuses that pairing" and ship_gate's comment said it "guards
+          # the engine". Both sentences described a function nothing calls, which is worse
+          # than a missing check because three documents asserted the protection existed.
+          #
+          # The board half is fixed in ship_gate, which now resolves the hat off the actual
+          # placement. This is the engine half: the roster is data, one keystroke puts a felt
+          # hat on FR coveralls, and the rule written to catch that now runs on every entry.
+          cd video-engine
+          node tests/cast_safety.mjs --self-test
+          node tests/cast_safety.mjs
