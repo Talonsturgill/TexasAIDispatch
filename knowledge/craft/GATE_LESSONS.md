@@ -624,3 +624,56 @@ of the sound rather than of its name.
 
 **Ask of any threshold: what value could the code produce that would trip it?** If the answer is
 none, the check is decoration, however carefully it is written.
+
+## 31. Seventeen tables of real dimensions, one of them checked
+
+TRUE SCALE is this engine's founding law. One metre constant, a per-module `*_M` table of real
+dimensions, and `fit(key, local)` mapping a component's local box onto its real size, so a
+longhorn and a pickup on the same plane are right relative to each other.
+
+**Seventeen modules export a `*_M` table. One was read by any gate.** `staging_check` enforces
+the rule properly and only on `fauna.tsx`, because that is the module it was written for, and
+`engine_lint` only asserts that `610 / 1.7` appears exactly once. Nobody widened it when
+sixteen more tables arrived. The rule was never repealed, it was simply never extended, and
+that is quieter than a repeal.
+
+Behind the unchecked sixteen, measured off the rendered drawings:
+
+- **A marching band 13 cm tall.** `HBCUBand` fitted on a SOUSAPHONE and then multiplied the
+  result by `0.16`, which cancels the metre conversion it had just performed. The drum major
+  stood ankle high on any cast member sharing the plane.
+- **A 0.92 m tortilla.** `Comal` fitted on the paletero CART's entry, because its own
+  `TEJANO_M.comal` recorded `0.02`, the height of a disc off the burner, which no top-down
+  drawing can be scaled by. So the entry sat orphaned and the drawing borrowed a freezer box.
+- **A 1.03 m raspa cup** on the same borrowed entry, scaling QUADRATICALLY, because every path
+  coordinate is already a multiple of `h`, so halving `h` quartered the drawing.
+
+Three things came out of fixing it, and the second is the one worth stealing.
+
+**A multiplied `fit()` is almost always a bug.** `fit()` returns the complete scale. Multiplying
+it cancels the conversion. Five of the nine in the library are legitimate (a `scale` prop, real
+sexual dimorphism in grackles and whitetail, a fixed-local grass tuft, a ratio between two
+instruments) and each is now exempted BY NAME WITH A REASON, never by a pattern. A stale
+exemption that no longer matches anything fails, so a licence cannot outlive what it excused.
+
+**A metre entry that nothing draws is the table being outvoted.** Twenty-six were orphaned. Two
+belong to components sized to the FRAME rather than to the world, which is a real category: a
+crop field filling to a vanishing point, and a convective cell that is genuinely 900 m tall and
+would be 322,938 draw units in a 1080 wide frame. Those are marked `ref: true` in the data, next
+to the dimension, where a reader sees it. The other twenty-four are sub-parts drawn as
+fractions of a fitted parent, which is real debt, and it is RECORDED rather than hidden: a new
+orphan fails, and an entry that is no longer an orphan ALSO fails, so paying one off forces its
+line out of the file. **A debt list that can only shrink is a ratchet. One that only grows is a
+drawer.**
+
+**Reading the source cannot tell you the size.** `scale_check` catches the whole-component
+failures and structurally cannot see whether what came out is right, because that depends on
+path coordinates it does not evaluate. `tests/true_scale.mjs` renders each component and reads
+the emitted scale back off the markup. Its self-test replays the band's pre-fix code and
+requires the measurement to come out at 0.133 m, so the gate is provably able to go red instead
+of only ever seeing corrected code.
+
+The press box is the entry to read when this feels abstract. `TOWN_M.pressBox` says 3.2 m. The
+drawing says `height={h * 0.30}`, which measures 2.10 m. **The measurement was taken, written
+down, and then overruled by a fraction nobody checked**, and it is still like that today, in the
+recorded list, waiting for somebody to convert it.

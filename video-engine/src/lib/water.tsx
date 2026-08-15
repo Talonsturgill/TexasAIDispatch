@@ -33,11 +33,17 @@ import {M} from './scale';
 // =============================================================================
 
 
-export const WATER_M: Record<string, {h: number; note: string}> = {
+// `ref: true` marks an entry that is REFERENCE rather than a scale input, for a component
+// sized to the FRAME instead of to the world. See rainCell below.
+export const WATER_M: Record<string, {h: number; note: string; ref?: boolean}> = {
   streamGauge: {h: 3.4, note: 'the staff plate and instrument shelter on its pile'},
   lowWaterCrossing: {h: 1.2, note: 'the depth marker post beside the slab'},
   sirenMast: {h: 9.0, note: 'ground to the top of the siren head'},
-  rainCell: {h: 900, note: 'a convective cell, cloud base to anvil'},
+  // REFERENCE, not a scale input, and this one could not be anything else. A convective
+  // cell really is about 900 m from cloud base to anvil, which at true scale is 322,938
+  // draw units in a 1080 wide frame. RainCell is sized to the frame like sky and ground.
+  // The number is here because a storm is the one thing in this module people guess about.
+  rainCell: {h: 900, ref: true, note: 'a convective cell, cloud base to anvil'},
   handset: {h: 0.15, note: 'a phone, in the hand'},
 };
 

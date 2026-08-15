@@ -41,13 +41,19 @@ import {tones, FormGradient, ContactShadow, useLight, Galvanized, RustStreak,
  * about it. These are measurements and they belong in the source where the drawing
  * can be checked against them.
  */
-export const AG_M: Record<string, {h: number; note: string}> = {
+// `ref: true` marks an entry that is REFERENCE rather than a scale input, for a component
+// sized to the FRAME instead of to the world. See cropRows below.
+export const AG_M: Record<string, {h: number; note: string; ref?: boolean}> = {
   centrePivot: {h: 4.3, note: 'high-clearance tower, ground to the top of the pipe'},
   grainElevator: {h: 38, note: 'concrete silo bank to the top of the headhouse'},
   feedlotPen: {h: 1.6, note: 'to the top rail of the pen fence'},
   soilProbe: {h: 1.4, note: 'stake, solar panel and antenna above the row'},
   herdSensor: {h: 0.075, note: 'a cattle ear tag, across the face of the panel'},
-  cropRows: {h: 1.1, note: 'mature cotton at the top of the canopy'},
+  // REFERENCE, not a scale input. CropRows is sized to the FRAME: it takes w and h in draw
+  // units and fills a region to a vanishing point, the way ground and sky are treated. The
+  // real canopy height is recorded because somebody drawing cotton needs to know it, and
+  // there is nothing for `fit` to map it onto.
+  cropRows: {h: 1.1, ref: true, note: 'mature cotton at the top of the canopy'},
 };
 
 const fit = (k: keyof typeof AG_M, local: number) => (AG_M[k].h * M) / local;
