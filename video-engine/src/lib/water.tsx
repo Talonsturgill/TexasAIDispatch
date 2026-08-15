@@ -2,6 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, RustStreak, INK} from './lighting';
 import {M} from './scale';
+import {wrapToWidth} from './type';
 
 // =============================================================================
 // WATER — the beat this file exists to let the show handle CAREFULLY.
@@ -450,12 +451,49 @@ export const RainCell: React.FC<{
 // happily draw an empty banner, which is the honest picture of an alert nobody
 // wrote.
 // =============================================================================
+
+/**
+ * WHERE EVERY LINE OF THE BANNER GOES, given whatever the caller passed.
+ *
+ * Exported so a gate can call it on the real strings without rendering anything, and
+ * so the answer is one calculation rather than one in the drawing and another in the
+ * checker. `tests/type_fit.mjs` is the caller.
+ *
+ * THE DEFECT IT EXISTS FOR. The headline drew as ONE line at font size 9 in a panel
+ * 70 units wide. "FLASH FLOOD WARNING" is about 111 units, so the one beat this show
+ * has about an emergency message ran the message off the glass, and the body line
+ * went with it. Shortening that string would have fixed that string: these are props,
+ * and the next caller writes a longer warning.
+ */
+export const BANNER_INNER = 58;   // -29 to 29, the panel's inside width
+export const HOME_BAR = 78;       // the home indicator's y, the bottom of the usable screen
+
+export function alertBanner(headline?: string, body?: string) {
+  const head = headline ? wrapToWidth(headline, BANNER_INNER, 9, true) : [];
+  const rest = body ? wrapToWidth(body, BANNER_INNER, 7.4, false) : [];
+  const top = -72;
+  const headBase = top + 19;                                   // under the red rule
+  const lastHead = head.length ? headBase + (head.length - 1) * 10 : top + 11;
+  const bodyBase = lastHead + 10.1;
+  const lastBody = rest.length ? bodyBase + (rest.length - 1) * 8.6 : lastHead;
+  const bottom = lastBody + 7;                                 // descender plus padding
+  // The two furniture bars follow the banner down. The lower one's foot is what
+  // decides whether a banner has outgrown the phone, and it is returned rather than
+  // restated in the checker, so the gate cannot pass while the picture collides.
+  const furniture = [bottom + 13, bottom + 25];
+  return {
+    head, body: rest, top, headBase, bodyBase, bottom, height: bottom - top,
+    furniture, furnitureFoot: furniture[1] + 4,
+  };
+}
+
 export const HandsetAlert: React.FC<Rig & {
   headline?: string; body?: string; ringing?: boolean;
 }> = ({x = 0, y = 0, scale = 1, frame = 0, seed = 5, headline, body, ringing = true}) => {
   const uid = useUid('ha');
   const K = fit('handset', 100);
   const buzz = ringing ? Math.sin(frame / 2.2) * 1.6 : 0;
+  const banner = alertBanner(headline, body);
 
   return (
     <g transform={`translate(${x + buzz} ${y}) scale(${K * scale}) rotate(${
@@ -469,24 +507,36 @@ export const HandsetAlert: React.FC<Rig & {
       <rect x={-46} y={-96} width={92} height={192} rx={12} fill="#2b3138"
         stroke={INK} strokeWidth={5} />
       <rect x={-40} y={-88} width={80} height={176} rx={7} fill={`url(#${uid}_scr)`} />
-      {/* the banner */}
+      {/* THE BANNER WRAPS, and the panel is sized to what came out of the wrap.
+
+          It used to draw the headline as one line at font size 9 in a panel 70 units
+          wide. "FLASH FLOOD WARNING" is about 12.3 ems, which is 111 units, so the
+          one beat this show has about an emergency message ran the message off the
+          glass. The body line overflowed too.
+
+          Shortening the string would have fixed the string. `headline` and `body` are
+          props, so the panel has to survive whatever a caller passes: it wraps at the
+          panel's real inside width and then grows to hold the lines. A real alert on
+          a real lock screen is several lines deep for exactly this reason. */}
       <g>
-        <rect x={-35} y={-72} width={70} height={44} rx={6} fill="#e8e3d8" />
-        <rect x={-35} y={-72} width={70} height={11} rx={6} fill="#c8543a" />
-        <rect x={-35} y={-66} width={70} height={5} fill="#c8543a" />
-        {headline && (
-          <text x={-29} y={-49} fontSize={9} fontWeight={700} fill="#1f1a16"
-            fontFamily="Georgia, serif">{headline}</text>
-        )}
-        {body && (
-          <text x={-29} y={-37} fontSize={7.4} fill="#3b332a"
-            fontFamily="Georgia, serif">{body}</text>
-        )}
+        <rect x={-35} y={banner.top} width={70} height={banner.height} rx={6} fill="#e8e3d8" />
+        <rect x={-35} y={banner.top} width={70} height={11} rx={6} fill="#c8543a" />
+        <rect x={-35} y={banner.top + 6} width={70} height={5} fill="#c8543a" />
+        {banner.head.map((l, i) => (
+          <text key={`h${i}`} x={-29} y={banner.headBase + i * 10} fontSize={9} fontWeight={700}
+            fill="#1f1a16" fontFamily="Georgia, serif">{l}</text>
+        ))}
+        {banner.body.map((l, i) => (
+          <text key={`b${i}`} x={-29} y={banner.bodyBase + i * 8.6} fontSize={7.4}
+            fill="#3b332a" fontFamily="Georgia, serif">{l}</text>
+        ))}
       </g>
-      {/* the rest of the lock screen, as unreadable furniture */}
-      <rect x={-26} y={-14} width={52} height={5} rx={2.5} fill="#3a434c" />
-      <rect x={-32} y={-2} width={64} height={4} rx={2} fill="#2e363e" />
-      <rect x={-18} y={78} width={36} height={4} rx={2} fill="#4a545e" />
+      {/* the rest of the lock screen, as unreadable furniture. It FOLLOWS the banner,
+          which no longer has a fixed height: a longer warning pushes it down rather
+          than being drawn over it. */}
+      <rect x={-26} y={banner.furniture[0]} width={52} height={5} rx={2.5} fill="#3a434c" />
+      <rect x={-32} y={banner.furniture[1]} width={64} height={4} rx={2} fill="#2e363e" />
+      <rect x={-18} y={HOME_BAR} width={36} height={4} rx={2} fill="#4a545e" />
     </g>
   );
 };

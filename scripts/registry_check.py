@@ -70,6 +70,7 @@ NOT_STAGEABLE = {
     "registry": "this map.",
     "uid": "per-instance paint-server ids.",
     "scale": "the metre and the seeded rng. Numbers, not geometry.",
+    "type": "how wide a string is and where to break it. Measurements, not geometry.",
 }
 
 # Components inside a stageable module that are deliberately not placeable on their
