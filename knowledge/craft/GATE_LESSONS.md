@@ -524,3 +524,46 @@ and the roster is one keystroke from a felt hat on FR coveralls.
 
 **A function is dead until something calls it, and a comment saying it guards something is not a
 call site.** When a doc claims a protection, check the callers before believing it.
+
+## 29. The habitat rule was connected to a review sheet, not to the film
+
+`staging_check` refuses an animal standing somewhere it does not live. It works, its coverage
+rule has found a real gap before, and its own docstring warns that "a region passed through a
+variable" is beyond it.
+
+That warning was the whole defect and nobody followed it through. The rule matches a literal
+`region="high_plains"` in TSX. `Dispatch.tsx` renders `region={scene.region}`. Instrumented, the
+placement rule evaluates **exactly five animal placements, all five inside `ProofScene.tsx`**, a
+by-hand composition no run renders. **Zero in a Dispatch, ever.**
+
+So the gate written to stop a pronghorn in the Piney Woods had never looked at a frame of a
+film. Confirmed by planting into the real `examples/board.json`: a pronghorn in the Piney Woods,
+and a javelina in the Rolling Plains which is the literal example in this file's own docstring,
+both cleared Gate 0.
+
+Entry 22's shape exactly: **the gate drifted onto a neighbouring artifact when staging moved
+from hand-authored TSX to board JSON.** Nothing broke, because nothing was watching the move.
+
+The fix is not a cleverer regex. The board is JSON, the scene names its own region and every
+placement names its own kind, so on that artifact this is not a lint at all, it is a lookup.
+`--board` does the lookup, and the run and CI both pass the storyboard.
+
+**Its first run against the committed example board found four wrong placements**, in the file
+this repo offers as its reference:
+
+- two cattle egrets over irrigated cotton in Hale County, outside the range the map lists
+- **two Longhorns at a feedyard bunk in Castro County**, which is wrong twice: wrong region for
+  the breed, and wrong animal for the use, because commercial Panhandle feedyards run Angus
+  crosses. `FeedlotPen` already draws its own cattle at the bunk, so the Longhorns were
+  redundant as well as wrong. The board reached for the Longhorn because it is **the only
+  bovine in the library**, which is a real gap worth closing: the iconic animal is the only one
+  available, so it gets cast everywhere, which is exactly what the habitat map exists to stop.
+
+The egrets were changed to grackles, which the map already places on the High Plains, rather
+than widening `cattleEgret`'s range. **Widening the data to make a gate green is the ratchet
+failure**, and a range fact typed from memory is the compute-not-generate law broken on a
+different surface. Whether cattle egrets belong on the High Plains is a question for a source,
+and it is left open here rather than answered by whoever needed the build to pass.
+
+**When a gate's docstring names something it cannot see, that sentence is a bug report.** Read
+it as a defect awaiting confirmation, not as a limitation already accepted.

@@ -383,6 +383,7 @@ The human is never the QA.
 ```
 python3 scripts/engine_lint.py
 python3 scripts/staging_check.py
+python3 scripts/staging_check.py --board out/dispatch/storyboard.json
 python3 scripts/flow_check.py --board out/dispatch/storyboard.json \
        --sfx out/dispatch/sfx_events.json
 python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
@@ -391,15 +392,23 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
        --report out/dispatch/report_card.json
 ```
 
-**PASS THE ARGUMENTS.** `engine_lint` and `staging_check` scan the repo and take none; the other
-two take inputs and EXIT 2 ON A USAGE MESSAGE without them. They were invoked bare for the whole
-of this machine's life, so every rubric hard fail and the panel score had never once been
-evaluated on a real run while `wiring_check` reported the repo fully wired. It now runs a bare
-invocation to see whether it exits 2, which is evidence rather than a claim.
+**PASS THE ARGUMENTS.** `engine_lint` takes none; the rest take inputs and EXIT 2 ON A USAGE
+MESSAGE without them. They were invoked bare for the whole of this machine's life, so every
+rubric hard fail and the panel score had never once been evaluated on a real run while
+`wiring_check` reported the repo fully wired. It now runs a bare invocation to see whether it
+exits 2, which is evidence rather than a claim.
 
 `staging_check` is the one that refuses an animal standing somewhere it does not live. A
 pronghorn in the Piney Woods is the same class of error as a Hill Country palette on a
 Panhandle story, and it is worse than a wrong colour because a Texan can name it.
+
+**RUN IT TWICE, and the second run is the one that reaches the film.** Bare, it scans TSX for a
+literal `region="..."`. `Dispatch.tsx` renders `region={scene.region}`, a variable, so the bare
+scan cannot see a single frame of a Dispatch: instrumented, it evaluated five animal placements,
+all five in a by-hand sheet no run renders. `--board` reads the storyboard, where the scene names
+its own region and every placement names its own kind, which is a lookup rather than a lint. Its
+first run against the committed example board found four placements wrong, including two
+Longhorns in a Panhandle feedyard bunk where the fed cattle are Angus crosses.
 
 Then the panel. **Spawn three `scorer` agents in parallel, in a single message**, each briefed with
 `rubric.ship_threshold` READ out of `config/dispatch_rubric.yaml` and each given a different

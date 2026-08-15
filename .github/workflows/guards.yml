@@ -61,8 +61,17 @@ jobs:
           # HABITAT map in fauna.tsx was read by nothing. Its coverage rule found BatColumn with
           # no habitat entry, and its first real run found two species whose habitat lists were
           # simply wrong.
+          # --board IS THE HALF THAT REACHES A FILM. The source rule matches a literal
+          # region="..." in TSX, and Dispatch.tsx renders region={scene.region}, a variable,
+          # so the deliverable was structurally invisible to it: instrumented, it evaluated
+          # five animal placements, all five inside ProofScene.tsx, which no run renders.
+          # Zero in a Dispatch, ever. A pronghorn in the Piney Woods and a javelina in the
+          # Rolling Plains both cleared Gate 0 on the real board.
+          #
+          # Its first run against examples/board.json found four real placements wrong.
           python3 scripts/staging_check.py --self-test
           python3 scripts/staging_check.py
+          python3 scripts/staging_check.py --board examples/board.json
 
       - name: VO soundcheck self-test (best of N, and the take that reads a tag aloud)
         run: |

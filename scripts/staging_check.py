@@ -50,6 +50,7 @@ Exit 0 clean, 1 a problem, 2 the checker could not run.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -102,6 +103,59 @@ def parse_habitat(src: str) -> dict[str, list[str]]:
     out: dict[str, list[str]] = {}
     for key, body in re.findall(r"(\w+):\s*\[(.*?)\]", m.group(1), re.S):
         out[key] = re.findall(r"'([a-z_]+)'", body)
+    return out
+
+
+def board_problems(board: dict, habitat: dict[str, list[str]]) -> list[str]:
+    """PLACEMENT, checked on the BOARD, which is what a film is actually made of.
+
+    THE DEFECT THIS EXISTS FOR, and it is the loud rule above wearing a disguise.
+    `region_blocks` reads TSX and matches a literal `region="high_plains"`. Dispatch.tsx
+    renders `region={scene.region}`, a variable, so the deliverable is structurally
+    invisible to it. Instrumented, the source rule evaluates exactly five animal
+    placements, all five inside ProofScene.tsx, a by-hand composition no run renders. Zero
+    in a Dispatch, ever.
+
+    Confirmed by planting into the real examples/board.json: a pronghorn in the Piney
+    Woods, and a javelina in the Rolling Plains which is the literal defect this whole file
+    was written for, both passed Gate 0 clean.
+
+    The module docstring says a region passed through a variable is beyond a lint reading
+    TSX. That is true, and it was the wrong conclusion to stop at, because the board is
+    JSON: the scene names its own region and every placement names its own kind, so this is
+    not a lint at all, it is a lookup. Staging moved from hand-authored TSX to board JSON
+    and the gate stayed where it was.
+    """
+    if not habitat:
+        return ["the HABITAT map could not be read, so no placement was checked at all"]
+    out: list[str] = []
+    scanned = 0
+    for scene in board.get("scenes") or []:
+        region = str(scene.get("region") or "")
+        sid = scene.get("id")
+        if not region:
+            out.append(f"scene {sid} declares no region, so nothing standing in it can be "
+                       f"checked against a habitat at all")
+            continue
+        for plane in scene.get("planes") or []:
+            for item in plane.get("items") or []:
+                kind = str(item.get("kind") or "")
+                where = habitat.get(kind)
+                if where is None:
+                    continue                  # not an animal, or caught by COVERAGE instead
+                scanned += 1
+                if region not in where:
+                    out.append(
+                        f"scene {sid}: a {kind} is standing in {region}, and it lives in "
+                        f"{', '.join(where)}. A Texan can name this one, which is what makes "
+                        f"it cost more than a wrong colour.")
+    # FINDING NOTHING ANYWHERE IS A FAILURE, NOT A PASS. The source-side rule learned this
+    # the hard way and then counted region BLOCKS rather than placements, so it went green
+    # on two blocks while evaluating five placements in a file no run renders.
+    if scanned == 0 and (board.get("scenes") or []):
+        out.append("no animal placement was evaluated on this board at all. Either nothing "
+                   "alive is staged, or the board's kinds no longer match the HABITAT keys "
+                   "and this check has quietly stopped looking.")
     return out
 
 
@@ -375,6 +429,51 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
     except FileNotFoundError as exc:
         ok("the repo itself is clean", False, str(exc))
 
+    # ---------------------------------------------------------------- THE BOARD RULE
+    #
+    # The source rule above reads TSX. The FILM is JSON, and the renderer passes region as
+    # a variable, so none of it reaches a Dispatch. Each defect below was confirmed passing
+    # Gate 0 on the real board before this existed.
+    hab = {"pronghorn": ["high_plains", "trans_pecos", "rolling_plains"],
+           "javelina": ["south_texas", "trans_pecos", "hill_country"],
+           "longhorn": ["hill_country", "south_texas"]}
+
+    def bd(region, *kinds):
+        return {"scenes": [{"id": "s1", "region": region, "planes": [
+            {"z": 0, "items": [{"kind": k} for k in kinds]}]}]}
+
+    ok("a pronghorn in the Piney Woods is refused",
+       bool(board_problems(bd("piney_woods", "pronghorn"), hab)))
+    ok("a javelina in the Rolling Plains is refused, which is the defect this file is for",
+       bool(board_problems(bd("rolling_plains", "javelina"), hab)))
+    ok("...and the message names where it does live",
+       any("south_texas" in p for p in board_problems(bd("rolling_plains", "javelina"), hab)))
+    ok("a pronghorn on the High Plains is fine",
+       not board_problems(bd("high_plains", "pronghorn"), hab))
+    ok("a machine is not an animal and is left alone",
+       not board_problems(bd("piney_woods", "pronghorn", "windTurbine"), hab)[1:])
+    ok("a scene with no region is refused rather than skipped",
+       bool(board_problems({"scenes": [{"id": "s1", "planes": [
+           {"items": [{"kind": "pronghorn"}]}]}]}, hab)))
+    ok("a board where NOTHING alive was evaluated fails rather than passes",
+       any("stopped looking" in p for p in board_problems(bd("gulf", "windTurbine"), hab)))
+    ok("...and an unreadable HABITAT map fails rather than clearing every scene",
+       bool(board_problems(bd("gulf", "pronghorn"), {})))
+
+    # AND ON THE REAL BOARD, because a fixture is not a film.
+    real_board = REPO / "examples" / "board.json"
+    if real_board.is_file():
+        rb = json.loads(real_board.read_text(encoding="utf-8"))
+        habitat = parse_habitat(strip_comments(FAUNA.read_text(encoding="utf-8")))
+        rp = board_problems(rb, habitat)
+        ok("the shipping board places every animal where it lives", not rp,
+           "\n      " + "\n      ".join(rp))
+        planted = json.loads(json.dumps(rb))
+        planted["scenes"][0]["region"] = "piney_woods"
+        ok("...and moving that scene to the Piney Woods is caught",
+           bool(board_problems(planted, habitat)),
+           "the real board's animals are invisible to this rule")
+
     if failures:
         print(f"\nstaging_check self-test: {failures} FAILED", file=sys.stderr)
         return 1
@@ -385,12 +484,19 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--board", help="a storyboard JSON. THE ONLY WAY THE PLACEMENT RULE "
+                                    "reaches a film, since the renderer passes region as a "
+                                    "variable and the source scan cannot see it.")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
     try:
         problems = check()
-    except (OSError, FileNotFoundError) as exc:
+        if a.board:
+            habitat = parse_habitat(strip_comments(FAUNA.read_text(encoding="utf-8")))
+            board = json.loads(Path(a.board).read_text(encoding="utf-8"))
+            problems += board_problems(board, habitat)
+    except (OSError, FileNotFoundError, json.JSONDecodeError) as exc:
         print(f"staging_check: cannot run: {exc}", file=sys.stderr)
         return 2
     if problems:
@@ -398,7 +504,7 @@ def main() -> int:
         for p in problems:
             print(f"  - {p}", file=sys.stderr)
         return 1
-    print("staging check: clean")
+    print("staging check: clean" + (f", board {a.board} included" if a.board else ""))
     return 0
 
 
