@@ -302,6 +302,20 @@ jobs:
           node tests/true_scale.mjs --self-test
           node tests/true_scale.mjs
 
+      - name: The film is set in the faces this repo ships
+        run: |
+          # 74 text sites asked for `Georgia, serif` and the repo shipped no font. Georgia is a
+          # Microsoft face, so `fc-match Georgia` on a Linux render box returns DejaVu Serif and
+          # the film was set in whatever the machine happened to have. The film was not the same
+          # film on two machines, and every width in it came from a face nobody chose, which is
+          # why a panel sized to hold a line held it or did not depending on the host.
+          #
+          # Four things: every declared face is on disk, every family named is one this repo
+          # ships or a generic fallback, no stack is written out anywhere but lib/type.ts, and
+          # the OFL licence travels with the files.
+          python3 scripts/font_check.py --self-test
+          python3 scripts/font_check.py
+
       - name: Text that has a box is inside it
         run: |
           # HandsetAlert drew "FLASH FLOOD WARNING" as one line at font size 9 in a panel

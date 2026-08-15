@@ -3,6 +3,7 @@ import {useUid} from './uid';
 import {tones, useLight, INK} from './lighting';
 import {matFill} from './materials';
 import {fitter, rnd} from './scale';
+import {FONT} from './type';
 
 // =============================================================================
 // FOOTBALL — the game a Texan measures the week by, as OBJECTS.
@@ -259,7 +260,7 @@ export const Scoreboard: React.FC<FootballProps & {
   const uid = useUid('sb');
   const seg = (val: number, dx: number, dy: number, s: number) => (
     <text x={dx} y={dy} fontSize={s} fill={digit} opacity={lampOn}
-      fontFamily="'JetBrains Mono', monospace" fontWeight={700}
+      fontFamily={FONT.mono} fontWeight={700}
       textAnchor="middle" filter={led ? undefined : `url(#${uid}glow)`}>
       {String(val).padStart(2, '0')}</text>
   );
@@ -285,7 +286,7 @@ export const Scoreboard: React.FC<FootballProps & {
         return (
           <g key={lab}>
             <text x={cx} y={cabY + cabH * 0.2} fontSize={h * 0.06} fill={colours[1]}
-              textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontWeight={700}
+              textAnchor="middle" fontFamily={FONT.mono} fontWeight={700}
               opacity={0.9}>{lab}</text>
             {/* the removable panel the school name clips into, drawn BLANK */}
             <rect x={cx - w * 0.16} y={cabY + cabH * 0.26} width={w * 0.32} height={cabH * 0.14}
@@ -300,7 +301,7 @@ export const Scoreboard: React.FC<FootballProps & {
       <rect x={-w * 0.1} y={cabY + cabH * 0.5} width={w * 0.2} height={cabH * 0.34} rx={h * 0.01}
         fill="#0a0f18" />
       <text x={0} y={cabY + cabH * 0.2} fontSize={h * 0.05} fill={colours[1]}
-        textAnchor="middle" fontFamily="'JetBrains Mono', monospace" opacity={0.85}>QTR</text>
+        textAnchor="middle" fontFamily={FONT.mono} opacity={0.85}>QTR</text>
       {seg(qtr, 0, cabY + cabH * 0.76, h * 0.16)}
     </g>
   );
@@ -337,7 +338,7 @@ export const ChainGang: React.FC<FootballProps & {h?: number; down?: number}> = 
       <rect x={-chainLen * 0.5 - h * 0.14} y={-h * 1.08} width={h * 0.28} height={h * 0.24}
         rx={h * 0.02} fill="#f2ead6" stroke={pole.shade} strokeWidth={h * 0.012} />
       <text x={-chainLen * 0.5} y={-h * 0.9} fontSize={h * 0.2} fill={INK} textAnchor="middle"
-        fontFamily="'JetBrains Mono', monospace" fontWeight={700}>{down}</text>
+        fontFamily={FONT.mono} fontWeight={700}>{down}</text>
     </g>
   );
 };
@@ -550,7 +551,7 @@ export const LettermanJacket: React.FC<FootballProps & {h?: number; initial?: st
         fill={knit.shade} />
       {initial && (
         <text x={-w * 0.15} y={-h * 0.46} fontSize={h * 0.2} fill={wool.core} textAnchor="middle"
-          fontFamily="Georgia, serif" fontWeight={700}>{initial}</text>
+          fontFamily={FONT.body} fontWeight={700}>{initial}</text>
       )}
       <circle cx={-w * 0.15} cy={-h * 0.6} r={h * 0.014} fill="#d8d2c4" />
     </g>
@@ -588,7 +589,7 @@ export const FootballAnnual: React.FC<FootballProps & {h?: number; year?: string
       <rect x={-w * 0.5} y={-h} width={w} height={h * 0.14} fill={tones('#8a1a24', L).core} />
       {/* price and year, neutral */}
       <text x={w * 0.36} y={-h * 0.9} fontSize={h * 0.06} fill="#f2ead6" textAnchor="middle"
-        fontFamily="'JetBrains Mono', monospace">{year}</text>
+        fontFamily={FONT.mono}>{year}</text>
       {/* the block of tiny type at the foot, the district previews */}
       {Array.from({length: 6}).map((_, i) => (
         <line key={i} x1={-w * 0.4} y1={-h * 0.2 + i * h * 0.025} x2={w * 0.4}

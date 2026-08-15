@@ -2,7 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, RustStreak, INK} from './lighting';
 import {M} from './scale';
-import {wrapToWidth} from './type';
+import {FONT, wrapToWidth} from './type';
 
 // =============================================================================
 // WATER — the beat this file exists to let the show handle CAREFULLY.
@@ -155,7 +155,7 @@ export const StreamGauge: React.FC<Rig & {
 
       {stageLabel && (
         <text x={44} y={plateTop + 26} fontSize={20} fill="#2f3830"
-          fontFamily="Georgia, serif">{stageLabel}</text>
+          fontFamily={FONT.body}>{stageLabel}</text>
       )}
       {wear > 0.3 && <RustStreak x={-7} y={-160} w={14} h={150} seed={seed}
         opacity={wear * 0.6} />}
@@ -524,11 +524,11 @@ export const HandsetAlert: React.FC<Rig & {
         <rect x={-35} y={banner.top + 6} width={70} height={5} fill="#c8543a" />
         {banner.head.map((l, i) => (
           <text key={`h${i}`} x={-29} y={banner.headBase + i * 10} fontSize={9} fontWeight={700}
-            fill="#1f1a16" fontFamily="Georgia, serif">{l}</text>
+            fill="#1f1a16" fontFamily={FONT.body}>{l}</text>
         ))}
         {banner.body.map((l, i) => (
           <text key={`b${i}`} x={-29} y={banner.bodyBase + i * 8.6} fontSize={7.4}
-            fill="#3b332a" fontFamily="Georgia, serif">{l}</text>
+            fill="#3b332a" fontFamily={FONT.body}>{l}</text>
         ))}
       </g>
       {/* the rest of the lock screen, as unreadable furniture. It FOLLOWS the banner,

@@ -3,6 +3,7 @@ import {useUid} from './uid';
 import {M} from './scale';
 import {tones, FormGradient, ContactShadow, useLight, Galvanized, RustStreak,
         CalicheDust, INK} from './lighting';
+import {FONT} from './type';
 
 // =============================================================================
 // AGRICULTURE — the second beat, and the one the engine could not draw at all.
@@ -378,7 +379,7 @@ export const GrainElevator: React.FC<Rig & {silos?: number; label?: string}> = (
         seed={seed} opacity={wear * 0.55} />}
       {label && (
         <text x={w / 2} y={-74} textAnchor="middle" fontSize={17} fontWeight={700}
-          fill="#8b8172" opacity={0.72} fontFamily="Georgia, serif"
+          fill="#8b8172" opacity={0.72} fontFamily={FONT.body}
           transform={`rotate(-90 ${w / 2} -74)`}>{label}</text>
       )}
     </g>
@@ -589,19 +590,19 @@ export const GroundSection: React.FC<{
 
       {labels.top && (
         <text x={x + 14} y={y + 26} fontSize={19} fill="#3b332a" opacity={0.85}
-          fontFamily="Georgia, serif">{labels.top}</text>
+          fontFamily={FONT.body}>{labels.top}</text>
       )}
       {labels.table && (
         <text x={x + w - 14} y={wt - 12} textAnchor="end" fontSize={19} fill="#eaf3f6"
-          fontFamily="Georgia, serif">{labels.table}</text>
+          fontFamily={FONT.body}>{labels.table}</text>
       )}
       {labels.historic && ht !== undefined && (
         <text x={x + w - 14} y={ht - 10} textAnchor="end" fontSize={17} fill="#e4ded2"
-          opacity={0.8} fontFamily="Georgia, serif">{labels.historic}</text>
+          opacity={0.8} fontFamily={FONT.body}>{labels.historic}</text>
       )}
       {labels.base && (
         <text x={x + 14} y={y + h - 30} fontSize={17} fill="#eaf3f6" opacity={0.8}
-          fontFamily="Georgia, serif">{labels.base}</text>
+          fontFamily={FONT.body}>{labels.base}</text>
       )}
     </g>
   );

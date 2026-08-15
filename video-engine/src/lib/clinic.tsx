@@ -2,6 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 import {M, subber} from './scale';
+import {FONT} from './type';
 
 // =============================================================================
 // CLINIC — the largest medical centre in the world is in Houston, and the engine
@@ -271,7 +272,7 @@ export const ContourPlan: React.FC<{
       )}
       {label && (
         <text x={x + 16} y={y + h - 18} fontSize={19} fill="#cfd8de" opacity={0.85}
-          fontFamily="Georgia, serif">{label}</text>
+          fontFamily={FONT.body}>{label}</text>
       )}
     </g>
   );
@@ -323,7 +324,7 @@ export const ReadingStation: React.FC<Rig & {lit?: boolean; alerts?: number}> = 
         <g transform="translate(84 -122)">
           <circle cx={0} cy={0} r={13} fill="#c8703a" stroke={INK} strokeWidth={2.6} />
           <text x={0} y={5} textAnchor="middle" fontSize={15} fontWeight={700}
-            fill="#1b1512" fontFamily="Georgia, serif">{alerts}</text>
+            fill="#1b1512" fontFamily={FONT.body}>{alerts}</text>
         </g>
       )}
       {/* the chair, empty or not is the caller's business; drawn as a back and a

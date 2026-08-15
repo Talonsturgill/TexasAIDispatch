@@ -1,6 +1,7 @@
 import React from 'react';
 import {useUid} from './uid';
 import {INK} from './lighting';
+import {FONT} from './type';
 
 // =============================================================================
 // SENSING — how you draw a machine LOOKING at something.
@@ -100,13 +101,13 @@ export const Detections: React.FC<{
               <rect x={-1} y={-11} width={d.label.length * 6.4 + (showConf ? 30 : 8)} height={13}
                 fill={c} opacity={0.88} />
               <text x={2} y={-1.5} fontSize={9.5} fill="#0d1220" fontWeight={700}
-                fontFamily="ui-monospace, monospace">
+                fontFamily={FONT.mono}>
                 {d.label}{showConf ? ` ${d.conf.toFixed(2)}` : ''}
               </text>
             </g>
             {d.track !== undefined && (
               <text x={d.w - 2} y={d.h - 4} fontSize={8} fill={c} textAnchor="end"
-                fontFamily="ui-monospace, monospace" opacity={0.8}>#{d.track}</text>
+                fontFamily={FONT.mono} opacity={0.8}>#{d.track}</text>
             )}
           </g>
         );
@@ -141,7 +142,7 @@ export const Mask: React.FC<{
         strokeLinejoin="round" opacity={0.92} />
       {label && (
         <text x={cx} y={cy - ry - 8} fontSize={10} fill={color} textAnchor="middle"
-          fontFamily="ui-monospace, monospace" fontWeight={700}>{label}</text>
+          fontFamily={FONT.mono} fontWeight={700}>{label}</text>
       )}
     </g>
   );
@@ -221,7 +222,7 @@ export const Plume: React.FC<{
         <g transform="translate(46 -156)">
           <rect x={-4} y={-11} width={rate.length * 7.4 + 10} height={15} fill={ink}
             opacity={0.92} />
-          <text x={1} y={0} fontSize={11} fill="#0d1220" fontFamily="ui-monospace, monospace"
+          <text x={1} y={0} fontSize={11} fill="#0d1220" fontFamily={FONT.mono}
             fontWeight={700}>{rate}</text>
         </g>
       )}
@@ -246,15 +247,15 @@ export const Readout: React.FC<{
     <path d={`M0,0 L${w},0 M0,${18 + rows.length * 16 + (title ? 16 : 0)} L${w},${
       18 + rows.length * 16 + (title ? 16 : 0)}`} stroke={SEE} strokeWidth={HAIR} opacity={0.6} />
     {title && (
-      <text x={9} y={16} fontSize={10} fill={SEE} fontFamily="ui-monospace, monospace"
+      <text x={9} y={16} fontSize={10} fill={SEE} fontFamily={FONT.mono}
         fontWeight={700} letterSpacing={1}>{title.toUpperCase()}</text>
     )}
     {rows.map(([k, v], i) => (
       <g key={k} transform={`translate(0 ${(title ? 16 : 0) + 18 + i * 16})`}>
         <text x={9} y={0} fontSize={10.5} fill="#8fa4ae"
-          fontFamily="ui-monospace, monospace">{k}</text>
+          fontFamily={FONT.mono}>{k}</text>
         <text x={w - 9} y={0} fontSize={10.5} fill="#e4ded2" textAnchor="end"
-          fontFamily="ui-monospace, monospace" fontWeight={700}>{v}</text>
+          fontFamily={FONT.mono} fontWeight={700}>{v}</text>
       </g>
     ))}
     {/* the cursor, which is the cheapest possible sign that a thing is LIVE */}
@@ -289,7 +290,7 @@ export const ConfidenceSpread: React.FC<{
           <path d={`M0,${h - h * threshold} L${w},${h - h * threshold}`} stroke="#e4ded2"
             strokeWidth={HAIR} strokeDasharray="4 3" opacity={0.75} />
           <text x={w + 5} y={h - h * threshold + 3.5} fontSize={9} fill="#e4ded2"
-            fontFamily="ui-monospace, monospace">{threshold.toFixed(2)}</text>
+            fontFamily={FONT.mono}>{threshold.toFixed(2)}</text>
         </g>
       )}
     </g>

@@ -13,6 +13,7 @@ import {FloraSheet, FloraFieldSheet, SkySheet, RoadsideSheet, HometownSheet,
         HomeplaceSheet, TejanoSheet, BlackTexasSheet, FootballSheet, SHEET_H} from './NostalgiaSheets';
 import {Dispatch, DEFAULT_DISPATCH, dispatchMetadata} from './Dispatch';
 import {RegionName} from './lib/lighting';
+import {withFonts} from './lib/fonts';
 
 const REGIONS: RegionName[] = ['high_plains', 'rolling_plains', 'cross_timbers', 'blackland',
   'post_oak', 'piney_woods', 'gulf', 'south_texas', 'hill_country', 'trans_pecos'];
@@ -28,39 +29,39 @@ export const RemotionRoot: React.FC = () => (
         Length comes from the board via calculateMetadata; a constant here would
         truncate a long film or pad a short one with black, and a run reports both
         as success. */}
-    <Composition id="Dispatch" component={Dispatch} fps={30} width={1080} height={1920}
+    <Composition id="Dispatch" component={withFonts(Dispatch)} fps={30} width={1080} height={1920}
       defaultProps={DEFAULT_DISPATCH} calculateMetadata={dispatchMetadata}
       durationInFrames={Math.round(DEFAULT_DISPATCH.runtime_s * 30)} />
-    <Composition id="Proof" component={ProofScene} durationInFrames={150}
+    <Composition id="Proof" component={withFonts(ProofScene)} durationInFrames={150}
       fps={30} width={1080} height={1920} />
-    <Composition id="CastSheet" component={CastSheet} durationInFrames={30}
+    <Composition id="CastSheet" component={withFonts(CastSheet)} durationInFrames={30}
       fps={30} width={1080} height={1920} />
     {/* taller than a delivery frame on purpose: it is a review surface, and the
         1920 version collided four rows into an unreadable stack */}
-    <Composition id="FaunaSheet" component={FaunaSheet} durationInFrames={30}
+    <Composition id="FaunaSheet" component={withFonts(FaunaSheet)} durationInFrames={30}
       fps={30} width={1080} height={3200} />
-    <Composition id="VehicleSheet" component={VehicleSheet} durationInFrames={30}
+    <Composition id="VehicleSheet" component={withFonts(VehicleSheet)} durationInFrames={30}
       fps={30} width={1080} height={2560} />
-    <Composition id="CivicSheet" component={CivicSheet} durationInFrames={30}
+    <Composition id="CivicSheet" component={withFonts(CivicSheet)} durationInFrames={30}
       fps={30} width={1080} height={2100} />
-    <Composition id="SensingSheet" component={SensingSheet} durationInFrames={120}
+    <Composition id="SensingSheet" component={withFonts(SensingSheet)} durationInFrames={120}
       fps={30} width={1080} height={1720} />
     {/* THE APPLICATION SHEETS. Six modules shipped with nothing that renders them, so
         the only way to see a drawing was to write a board and render a film. Every row
         carries a person, which is the assertion true scale makes: if a cabinet is not
         chest-high and a cooling tower is not five of them, the size table is wrong and
         this is where it shows. */}
-    <Composition id="FarmSheet" component={FarmSheet} durationInFrames={120}
+    <Composition id="FarmSheet" component={withFonts(FarmSheet)} durationInFrames={120}
       fps={30} width={1080} height={2400} />
-    <Composition id="RoadSheet" component={RoadSheet} durationInFrames={120}
+    <Composition id="RoadSheet" component={withFonts(RoadSheet)} durationInFrames={120}
       fps={30} width={1080} height={2200} />
-    <Composition id="MachineRoomSheet" component={MachineRoomSheet} durationInFrames={120}
+    <Composition id="MachineRoomSheet" component={withFonts(MachineRoomSheet)} durationInFrames={120}
       fps={30} width={1080} height={2200} />
-    <Composition id="ClinicSheet" component={ClinicSheet} durationInFrames={120}
+    <Composition id="ClinicSheet" component={withFonts(ClinicSheet)} durationInFrames={120}
       fps={30} width={1080} height={2000} />
-    <Composition id="WaterSheet" component={WaterSheet} durationInFrames={120}
+    <Composition id="WaterSheet" component={withFonts(WaterSheet)} durationInFrames={120}
       fps={30} width={1080} height={2100} />
-    <Composition id="PlantSheet" component={PlantSheet} durationInFrames={120}
+    <Composition id="PlantSheet" component={withFonts(PlantSheet)} durationInFrames={120}
       fps={30} width={1080} height={1700} />
 
     {/* THE NOSTALGIA SHEETS. 113 artifacts across seven modules, and this repo has
@@ -69,27 +70,27 @@ export const RemotionRoot: React.FC = () => (
         could see. Each is 120 frames so the animated components have somewhere to
         move, and each takes its height from SHEET_H so a new artifact grows the
         frame instead of clipping off the bottom. */}
-    <Composition id="FloraSheet" component={FloraSheet} durationInFrames={120}
+    <Composition id="FloraSheet" component={withFonts(FloraSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.FloraSheet} />
-    <Composition id="FloraFieldSheet" component={FloraFieldSheet} durationInFrames={120}
+    <Composition id="FloraFieldSheet" component={withFonts(FloraFieldSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.FloraFieldSheet} />
-    <Composition id="SkySheet" component={SkySheet} durationInFrames={120}
+    <Composition id="SkySheet" component={withFonts(SkySheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.SkySheet} />
-    <Composition id="RoadsideSheet" component={RoadsideSheet} durationInFrames={120}
+    <Composition id="RoadsideSheet" component={withFonts(RoadsideSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.RoadsideSheet} />
-    <Composition id="HometownSheet" component={HometownSheet} durationInFrames={120}
+    <Composition id="HometownSheet" component={withFonts(HometownSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.HometownSheet} />
-    <Composition id="HomeplaceSheet" component={HomeplaceSheet} durationInFrames={120}
+    <Composition id="HomeplaceSheet" component={withFonts(HomeplaceSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.HomeplaceSheet} />
-    <Composition id="TejanoSheet" component={TejanoSheet} durationInFrames={120}
+    <Composition id="TejanoSheet" component={withFonts(TejanoSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.TejanoSheet} />
-    <Composition id="BlackTexasSheet" component={BlackTexasSheet} durationInFrames={120}
+    <Composition id="BlackTexasSheet" component={withFonts(BlackTexasSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.BlackTexasSheet} />
-    <Composition id="FootballSheet" component={FootballSheet} durationInFrames={120}
+    <Composition id="FootballSheet" component={withFonts(FootballSheet)} durationInFrames={120}
       fps={30} width={1080} height={SHEET_H.FootballSheet} />
 
     {REGIONS.map((r) => (
-      <Composition key={r} id={`Region-${r.replace(/_/g, "-")}`} component={RegionSheet}
+      <Composition key={r} id={`Region-${r.replace(/_/g, "-")}`} component={withFonts(RegionSheet)}
         durationInFrames={60} fps={30} width={1080} height={1920}
         defaultProps={{region: r}} />
     ))}

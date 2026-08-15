@@ -2,6 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, FormGradient, ContactShadow, useLight, INK} from './lighting';
 import {M} from './scale';
+import {FONT} from './type';
 
 // =============================================================================
 // VEHICLES — what is actually parked in a Texas frame.
@@ -235,7 +236,7 @@ export const Pickup: React.FC<Rig & {
               truck's height and it spanned the whole door like a bus livery. */}
           <rect x={-26} y={-54} width={40} height={11} rx={1.5} fill="#f2ede2" opacity={0.14} />
           <text x={-6} y={-46} fontSize={7} textAnchor="middle" fill="#f2ede2"
-            fontFamily="Georgia, serif" opacity={0.92} letterSpacing={0.5}
+            fontFamily={FONT.body} opacity={0.92} letterSpacing={0.5}
             transform={facing < 0 ? 'scale(-1 1) translate(12 0)' : undefined}>{decal}</text>
         </g>
       )}
@@ -364,7 +365,7 @@ export const TransformerHaul: React.FC<Rig & {dirt?: number; oversize?: boolean}
           <rect x={-104} y={-124} width={92} height={16} rx={2} fill="#e8c53f" stroke={INK}
             strokeWidth={2.4} />
           <text x={-58} y={-112} fontSize={11} textAnchor="middle" fill={INK}
-            fontFamily="Georgia, serif" fontWeight={700}
+            fontFamily={FONT.body} fontWeight={700}
             transform={facing < 0 ? 'scale(-1 1) translate(116 0)' : undefined}>OVERSIZE LOAD</text>
           {[-148, -8].map((fx) => (
             <path key={fx} d={`M${fx},-108 l0,-16 l14,5 l-14,5`} fill="#e0631f" stroke={INK}
@@ -418,7 +419,7 @@ export const Tanker: React.FC<Rig & {water?: boolean; dirt?: number}> = ({
       <circle cx={-36} cy={-20} r={5} fill="none" stroke="#5a6066" strokeWidth={3} />
       {water && (
         <text x={-46} y={-52} fontSize={16} textAnchor="middle" fill="#233" opacity={0.55}
-          fontFamily="Georgia, serif"
+          fontFamily={FONT.body}
           transform={facing < 0 ? 'scale(-1 1) translate(92 0)' : undefined}>NON-POTABLE</text>
       )}
       <rect x={-140} y={-30} width={280} height={6} fill="#a08a68" opacity={dirt * 0.5} />

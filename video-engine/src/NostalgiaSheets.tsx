@@ -12,6 +12,7 @@ import {Character, castProps} from './lib/Character';
 import {RegionLight, RegionName, INK} from './lib/lighting';
 import {MaterialDefs} from './lib/materials';
 import {M} from './lib/scale';
+import {FONT} from './lib/type';
 
 // =============================================================================
 // THE NOSTALGIA SHEETS — a review surface for the 113 artifacts of the nostalgia
@@ -109,7 +110,7 @@ const Note: React.FC<{
     <g>
       {lines.map((l, i) => (
         <text key={i} x={x} y={y + i * (size * 1.32)} fontSize={size}
-          fill={dark ? LIGHT_INK : INK} fontFamily="Georgia, serif" opacity={0.82}>{l}</text>
+          fill={dark ? LIGHT_INK : INK} fontFamily={FONT.body} opacity={0.82}>{l}</text>
       ))}
     </g>
   );
@@ -118,7 +119,7 @@ const Note: React.FC<{
 const Head: React.FC<{title: string; sub: string; dark?: boolean}> = ({title, sub, dark}) => (
   <g>
     <text x={PAD} y={64} fontSize={38} fill={dark ? LIGHT_INK : INK}
-      fontFamily="Georgia, serif" fontWeight="bold">{title}</text>
+      fontFamily={FONT.display} fontWeight="bold">{title}</text>
     <Note x={PAD} y={96} w={W - PAD * 2} text={sub} size={16} dark={dark} />
     <line x1={PAD} y1={HEADER - 24} x2={W - PAD} y2={HEADER - 24} stroke={dark ? LIGHT_INK : INK}
       strokeWidth={2} opacity={0.3} />
@@ -222,9 +223,9 @@ const GridSheet: React.FC<{
                 </g>
               )}
               <text x={x0 + 12} y={y0 + CELLH - 18} fontSize={13} fill={ink}
-                fontFamily="Georgia, serif" fontWeight="bold" opacity={0.9}>{sp.label}</text>
+                fontFamily={FONT.body} fontWeight="bold" opacity={0.9}>{sp.label}</text>
               <text x={x0 + 12} y={y0 + CELLH - 3} fontSize={11.5} fill={ink}
-                fontFamily="Georgia, serif" opacity={0.6}>
+                fontFamily={FONT.body} opacity={0.6}>
                 {sp.m >= 1 ? `${sp.m} m` : `${(sp.m * 100).toFixed(0)} cm`} true
               </text>
             </g>
@@ -323,7 +324,7 @@ export const FloraFieldSheet: React.FC = () => {
                 viewBox={`0 0 1080 ${s.nativeH}`} preserveAspectRatio="xMidYMax meet">
                 {React.createElement(s.comp, {x: 540, y: s.nativeH - 24, w: 1080, frame: f, ...s.p})}
               </svg>
-              <text x={bx} y={y + bh + 17} fontSize={13} fill={INK} fontFamily="Georgia, serif"
+              <text x={bx} y={y + bh + 17} fontSize={13} fill={INK} fontFamily={FONT.body}
                 opacity={0.85}>{s.label}</text>
             </g>
           );

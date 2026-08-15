@@ -6,6 +6,7 @@ import {Character, castProps} from './lib/Character';
 import {Pumpjack, DataCentre, LatticeTower, Conductor, WindTurbine, Mesquite} from './lib/kit';
 import {TurkeyVulture, Grackle, Mockingbird, Jackrabbit, Roadrunner} from './lib/fauna';
 import {GradeLayer, INK} from './lib/lighting';
+import {FONT} from './lib/type';
 
 // =============================================================================
 // THE PROOF SCENE — the whole stack in one shot, and the composition this show is
@@ -138,9 +139,9 @@ export const ProofScene: React.FC = () => {
         <GradeLayer f={f} vignette={0.2} grain={0.045} bloom={0.12} />
         <g opacity={interpolate(f, [6, 26], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}>
           <text x={64} y={220} fontSize={78} fontWeight={700} fill="#f2ede2"
-            fontFamily="Georgia, serif">The newest industry</text>
+            fontFamily={FONT.display}>The newest industry</text>
           <text x={64} y={310} fontSize={78} fontWeight={700} fill="#f2ede2"
-            fontFamily="Georgia, serif">sits on the oldest land</text>
+            fontFamily={FONT.display}>sits on the oldest land</text>
           <rect x={64} y={344} width={132} height={5} fill="#c8703a" />
         </g>
       </svg>

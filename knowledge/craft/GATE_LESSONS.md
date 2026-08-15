@@ -884,3 +884,49 @@ measurements above were taken from that substitute.
 Wrapping is what makes this survivable rather than fatal: **a wrong width estimate moves a line
 break, where the hand-set font size it replaced moved text off the edge.** Choosing the
 typeface, and shipping it, is a design decision and it is still open.
+
+---
+
+## 36. A width table belongs to a face, and the face has to be one you ship
+
+Entry 35 ended by naming the thing underneath it: 74 text sites asked for `Georgia, serif` and
+the repo shipped no font. Georgia is a Microsoft face, so `fc-match Georgia` on a Linux render
+box returns DejaVu Serif and **the film was not the same film on two machines.** The engine now
+sets in the site's three faces, Fraunces, Manrope and JetBrains Mono, shipped in
+`video-engine/public/fonts` under the OFL that permits it.
+
+**The bit that would have gone wrong quietly.** `lib/type.ts` estimates how wide a string is,
+and those numbers had been measured off DejaVu Serif. Manrope's lowercase is wider: a run of n's
+is 0.62 em against DejaVu's 0.497, so the moment the typeface changed the old `lower: 0.52` sat
+**under** the truth. Nothing would have reported it. Every gate would have stayed green while the
+one check that reads characters quietly started under-counting, which is the exact failure the
+entry above says makes everything downstream worthless.
+
+So the widths were measured again, in both faces at both weights, and the fixtures are now the
+widest of the four per string. **A width table is not a constant, it is a measurement of a
+specific face, and it expires when the face changes.**
+
+The two pathological runs are now asserted to be the ONLY strings the estimate goes under on. A
+caveat that is only written in a comment drifts; one the self-test pins cannot.
+
+### Three smaller things worth keeping
+
+**One stack, not seventy-four.** The same argument the metre constant won. A stack restated at 74
+sites was wrong at all 74 at once, and `font_check.py` now refuses a `fontFamily` literal
+anywhere but `lib/type.ts`.
+
+**Declared is not shipped.** The check that matters most is the dullest: every face
+`lib/fonts.tsx` declares must be a file on disk. A face declared and not shipped is the original
+defect with extra steps.
+
+**Loaded is not declared either.** Remotion captures a frame the moment React settles, so a font
+still arriving is a frame in the fallback, and it looks like every other frame. `withFonts` holds
+the capture with `delayRender`, and `composition_check.py` refuses a composition registered
+without it, because twenty-three registrations is twenty-three chances to forget and the one that
+forgot would look correct until somebody measured a glyph.
+
+### And the reason a review sheet earns its keep
+
+The migration was checked by rendering all sixteen compositions and comparing edge bleed against
+the pre-change renders, byte for byte at the margins. Identical. **That is a cheap, total answer
+to "did changing the typeface break a layout"**, and it exists only because the sheets exist.

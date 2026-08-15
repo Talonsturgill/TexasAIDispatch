@@ -3,6 +3,7 @@ import {useUid} from './uid';
 import {M} from './scale';
 import {tones, FormGradient, RimLight, ContactShadow, useLight, Galvanized, RustStreak,
         CalicheDust, BrushedMetal, INK} from './lighting';
+import {FONT} from './type';
 
 // =============================================================================
 // KIT — the drawable Texas inventory. knowledge/texas/KIT.md is the source.
@@ -464,11 +465,11 @@ export const WaterTower: React.FC<KitProps & {town?: string; year?: string; h?: 
         stroke={INK} strokeWidth={5} />
       {town && (
         <text x={0} y={-h * 0.62 - 20} fontSize={20} textAnchor="middle" fill={INK}
-          fontFamily="Georgia, serif" fontWeight={700}>{town}</text>
+          fontFamily={FONT.body} fontWeight={700}>{town}</text>
       )}
       {year && (
         <text x={0} y={-h * 0.62 - 2} fontSize={13} textAnchor="middle" fill="#8a4a24"
-          fontFamily="Georgia, serif">{year}</text>
+          fontFamily={FONT.body}>{year}</text>
       )}
       {wear > 0.2 && <RustStreak x={-50} y={-h * 0.62 - 40} w={100} h={44} seed={seed} opacity={wear * 0.6} />}
     </g>

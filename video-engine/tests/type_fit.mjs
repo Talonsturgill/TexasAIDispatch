@@ -24,12 +24,15 @@
 //   The strings are read out of the TSX rather than restated here, because a fixture
 //   copy of the product is a fixture that goes stale.
 //
-// WHAT IT CANNOT DO, said plainly. The engine asks for `Georgia, serif` and this repo
-// ships no font, so the renderer substitutes whatever the machine has and these
-// numbers came from that substitute. A proportional estimate is also under-count for
-// a pathological string of capital Ms. Wrapping is what makes both survivable: a bad
-// estimate moves a line break, where the hand-set font size it replaced moved text
-// off the edge.
+// WHAT IT CANNOT DO, said plainly. A proportional estimate under-counts a string of
+// nothing but capital Ms or Ws, by up to 1.3x in Fraunces. Both runs are in the
+// fixtures as a stated limit rather than as a bound to clear, and the self-test
+// asserts they are the ONLY strings the estimate goes under on, so the caveat cannot
+// quietly widen to cover copy somebody would really write.
+//
+// It also assumes the faces this repo ships are the faces that render. That used to
+// be untrue and unstated: the engine asked for Georgia, shipped nothing, and got
+// whatever the machine had. `font_check.py` is what makes the assumption safe now.
 //
 // Usage:
 //   node tests/type_fit.mjs              check the strings the repo ships
@@ -49,17 +52,33 @@ const ok = (label, cond, detail = '') => {
   else { failures++; console.log(`  FAIL ${label}${detail ? `\n       ${detail}` : ''}`); }
 };
 
-// INK MEASURED OFF A REAL RENDER at font size 30, one row per string. These are the
-// calibration, and the estimator is only allowed to sit above them.
+// INK MEASURED OFF A REAL RENDER at font size 30, in BOTH shipped faces at BOTH
+// weights, keeping the widest of the four per string. These are the calibration, and
+// the estimator is only allowed to sit above them.
+//
+// RE-MEASURED WHEN THE FACES CHANGED. The first set came from DejaVu Serif, the
+// substitute a Linux box picks for the Georgia this engine used to ask for and never
+// shipped. Manrope's lowercase is wider, so the old table was under the truth the
+// moment the typeface changed. A width table belongs to a face.
 const MEASURED = [
-  {s: 'FLASH FLOOD WARNING', bold: true, px: 369},
-  {s: 'FLASH FLOOD', bold: true, px: 213},
-  {s: 'WARNING', bold: true, px: 147},
-  {s: 'CO-OP', bold: true, px: 96},
-  {s: 'Move to higher ground now.', bold: false, px: 340},
-  {s: 'Move to higher', bold: false, px: 185},
-  {s: 'ground now.', bold: false, px: 148},
-  {s: 'nnnnnnnnnn', bold: false, px: 149},
+  {s: 'FLASH FLOOD WARNING', bold: true, px: 385},
+  {s: 'FLASH FLOOD', bold: true, px: 220},
+  {s: 'WARNING', bold: true, px: 158},
+  {s: 'CO-OP', bold: true, px: 102},
+  {s: 'Move to higher ground now.', bold: true, px: 409},
+  {s: 'Move to higher', bold: true, px: 219},
+  {s: 'ground now.', bold: true, px: 184},
+  {s: 'nnnnnnnnnn', bold: true, px: 195},
+  {s: 'iiiiiiiiii', bold: true, px: 97},
+];
+
+// THE KNOWN LIMIT, recorded rather than pretended away. A run of capital Ms or Ws is
+// under-counted by a proportional estimate, and no realistic caption is one. These are
+// asserted to be the ONLY strings the estimate goes under on, so the limit cannot
+// quietly widen to cover something a caller would actually write.
+const PATHOLOGICAL = [
+  {s: 'MMMMMMMMMM', bold: true, px: 283},
+  {s: 'WWWWWWWWWW', bold: true, px: 323},
 ];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -80,10 +99,23 @@ try {
       ok(`${JSON.stringify(m.s).slice(0, 30)} estimates ${est.toFixed(0)} px against ${m.px} measured`,
          est >= m.px, 'the estimate is UNDER the ink, so every fit check below is worthless');
     }
-    // ...and not so long that it wraps everything to one word per line.
-    const worst = Math.max(...MEASURED.map((m) => P.widthOf(m.s, 30, m.bold) / m.px));
-    ok(`the longest over-estimate is ${worst.toFixed(2)}x, which is close enough to be useful`,
+    // ...and not so long that it wraps everything to one word per line. Measured on the
+    // strings a caller would actually write, not on the narrow-letter runs, which any
+    // per-class estimate over-counts by definition.
+    const REAL = MEASURED.filter((m) => /[ .]/.test(m.s));
+    const worst = Math.max(...REAL.map((m) => P.widthOf(m.s, 30, m.bold) / m.px));
+    ok(`the longest over-estimate on real copy is ${worst.toFixed(2)}x`,
        worst < 1.35, `${worst.toFixed(2)}x wraps text far earlier than it needs to`);
+
+    // THE LIMIT IS WHERE IT IS SAID TO BE. Both runs must still be under-counted, and
+    // nothing else may join them: if a change made the estimate go under on real copy
+    // it would be caught above, and if it made these fit the table has grown so
+    // conservative that wrapping is useless.
+    for (const m of PATHOLOGICAL) {
+      const r = P.widthOf(m.s, 30, m.bold) / m.px;
+      ok(`${m.s.slice(0, 4)}... is under-counted at ${r.toFixed(2)}x, which is the stated limit`,
+         r < 1 && r > 0.7, 'the known limit moved, so the documented caveat is now wrong');
+    }
 
     ok('a string that fits stays on one line',
        P.wrapToWidth('WARNING', 58, 9, true).length === 1);

@@ -138,6 +138,21 @@ def check() -> list[str]:
         p.append(f"ORPHAN COMPOSITION: Root.tsx registers \"{cid}\" and nothing renders it. "
                  f"Render it from a prompt or a workflow, or list it in BY_HAND with a reason.")
 
+    # EVERY COMPOSITION CARRIES THE FONTS. `withFonts` mounts the @font-face block and
+    # holds the frame capture until the faces are ready. A composition that skips it
+    # renders in whatever the machine substitutes, which is exactly the fault the fonts
+    # were shipped to end, and it is invisible: the frame looks like every other frame
+    # until somebody measures a glyph. Twenty-three registrations is twenty-three
+    # chances to forget, so it is checked rather than remembered.
+    src = ROOT_TSX.read_text(encoding="utf-8")
+    for m in re.finditer(r'<Composition[^>]*?\bid=["\']?\{?([A-Za-z0-9_`${}.\-]+)[^>]*?'
+                         r'component=\{([^}]+)\}', src, re.S):
+        cid, comp = m.group(1), m.group(2).strip()
+        if not comp.startswith("withFonts("):
+            p.append(f'composition "{cid}" is registered as component={{{comp}}} and not through '
+                     f'withFonts(). It would render in whatever face the machine substitutes, '
+                     f'and it would look correct until somebody measured a glyph.')
+
     # THE DELIVERABLE ITSELF. Named explicitly, because the whole point of this file is
     # that the film is the thing most worth being certain about.
     if "Dispatch" not in reg:
