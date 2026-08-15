@@ -2,7 +2,7 @@ import React from 'react';
 import {useUid} from './uid';
 import {tones, useLight, INK, RustStreak, CalicheDust} from './lighting';
 import {matFill} from './materials';
-import {fitter, rnd} from './scale';
+import {fitter, subber, rnd} from './scale';
 
 // =============================================================================
 // HOMETOWN — school, Friday night, and the year's rituals.
@@ -60,6 +60,7 @@ export const TOWN_M: Record<string, {h: number; note: string}> = {
 };
 
 const fit = fitter(TOWN_M);
+const sub = subber(TOWN_M);
 
 export interface TownProps {
   x?: number; y?: number; scale?: number; seed?: number; wear?: number;
@@ -210,16 +211,23 @@ export const Bleachers: React.FC<TownProps & {
             r={h * 0.013} fill={col} opacity={0.9} />
         );
       })}
-      {pressBox && (
-        <g transform={`translate(0 ${-h})`}>
-          <rect x={-w * 0.17} y={-h * 0.30} width={w * 0.34} height={h * 0.30}
-            fill={alu.base} />
-          <rect x={-w * 0.155} y={-h * 0.24} width={w * 0.31} height={h * 0.13}
-            fill={night ? '#2A3038' : '#39424c'} />
-          <rect x={-w * 0.17} y={-h * 0.34} width={w * 0.34} height={h * 0.05}
-            fill={c1} />
-        </g>
-      )}
+      {pressBox && (() => {
+        // THE BOX IS SIZED FROM ITS OWN MEASUREMENT, not from a fraction of the bleacher.
+        // It used to be `height={h * 0.30}` inside a parent fitted to a 7 m bleacher, which
+        // rendered 2.10 m against the 3.2 m the table records: 34 percent short, on the one
+        // structure at a Texas high school field that everybody can picture.
+        const bx = sub('pressBox', 'bleacher', h);   // the box body, in this local frame
+        return (
+          <g transform={`translate(0 ${-h})`}>
+            <rect x={-w * 0.17} y={-bx} width={w * 0.34} height={bx} fill={alu.base} />
+            {/* the window band, its own proportion OF THE BOX rather than of the stack */}
+            <rect x={-w * 0.155} y={-bx * 0.80} width={w * 0.31} height={bx * 0.43}
+              fill={night ? '#2A3038' : '#39424c'} />
+            <rect x={-w * 0.17} y={-bx * 1.13} width={w * 0.34} height={bx * 0.17}
+              fill={c1} />
+          </g>
+        );
+      })()}
       {wear > 0.3 && <CalicheDust x={-w / 2} y={-h * 0.12} w={w} h={h * 0.12}
         opacity={wear * 0.4} />}
     </g>

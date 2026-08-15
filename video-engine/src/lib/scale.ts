@@ -46,6 +46,31 @@ export function fitter<T extends Record<string, {h: number}>>(table: T) {
 }
 
 /**
+ * A module's own `sub`: THE LOCAL EXTENT A SUB-PART NEEDS, inside a parent that has
+ * already been fitted.
+ *
+ * WHY THIS EXISTS. A component calls `fit` once, on its whole self, and everything
+ * inside it is then drawn in the parent's local frame. So a sub-part cannot call
+ * `fit` again without scaling twice. Having no tool for it, twenty-four sub-parts
+ * across this library were drawn as an eyeballed FRACTION of the parent instead,
+ * and their measured dimensions sat unread in the tables beside them.
+ *
+ * The press box is the worked example. `TOWN_M.pressBox` says 3.2 m. The drawing
+ * said `height={h * 0.30}` inside `Bleachers`, which is fitted to a 7 m bleacher,
+ * so it rendered 0.30 * 7 = 2.10 m. The measurement was taken, written down, and
+ * then overruled by a fraction nobody checked.
+ *
+ * The arithmetic is only a ratio: inside a parent whose `parentLocal` units are
+ * worth `table[parent].h` metres, a part that is `table[part].h` metres needs
+ * `parentLocal * (part / parent)` units. Written this way it also stays right when
+ * either measurement is revised, which a hardcoded 0.457 would not.
+ */
+export function subber<T extends Record<string, {h: number}>>(table: T) {
+  return (part: keyof T, parent: keyof T, parentLocal: number) =>
+    parentLocal * (table[part].h / table[parent].h);
+}
+
+/**
  * Deterministic 0..1 from a seed and a channel.
  *
  * Remotion renders frames independently, so anything that varies has to vary the

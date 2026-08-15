@@ -114,8 +114,6 @@ UNFITTED_SUBPART: dict[str, str] = {
     "HOME_M.entryArch": "a ranch entry arch, drawn off the fence line",
     "HOME_M.pecanYard": "a yard pecan, drawn off the house",
     "TOWN_M.chainLink": "chain link fencing, drawn off the field it encloses",
-    "TOWN_M.pressBox": "MEASURED WRONG TODAY. The table says 3.2 m and the drawing says "
-                       "h * 0.30, which renders 2.10 m, 34 percent short.",
     "PLANT_M.palletStack": "drawn off the plant floor bay",
     "ROAD_M.orderPost": "a drive-in order post, drawn off the canopy",
     "TEJANO_M.charola": "a flat aluminium tray, and its entry records thickness, which is "
@@ -128,6 +126,10 @@ UNFITTED_SUBPART: dict[str, str] = {
 TABLE_RE = re.compile(r"(?:export )?const ([A-Z_]+_M)\s*[:=][^=]*=\s*\{(.*?)\n\};", re.S)
 ENTRY_RE = re.compile(r"^\s*(\w+):\s*\{([^}]*)\}", re.M)
 FIT_RE = re.compile(r"fit\('(\w+)'")
+# `sub(part, parent, parentLocal)` sizes a SUB-PART inside an already-fitted parent, which is
+# the idiom that did not exist while twenty-four measured dimensions went undrawn. Both names
+# in it are a real use of the table.
+SUB_RE = re.compile(r"\bsub\('(\w+)',\s*'(\w+)'")
 # a fit(...) call, allowing one level of nested parens, followed by * or /
 MULT_RE = re.compile(r"fit\([^()]*(?:\([^()]*\))?[^()]*\)\s*[*/]")
 
@@ -204,6 +206,8 @@ def check(verbose: bool = True) -> list[str]:
         seen_tables += 1
         name, keys, ref = got
         used = set(FIT_RE.findall(src))
+        for part, parent in SUB_RE.findall(src):
+            used.update((part, parent))
         rel = path.relative_to(REPO)
 
         for k in sorted(used - keys):
@@ -301,9 +305,14 @@ export const Post: React.FC<X> = () => { const K = fit('post', 90); };
     new_orphan, seen = orphan_problems("demo.tsx", "DEMO_M", {"post", "ghost"}, set(), {"post"})
     ok("a NEW orphan nobody recorded is refused",
        any("measured and never drawn" in p for p in new_orphan), str(new_orphan))
-    recorded, seen = orphan_problems("hometown.tsx", "TOWN_M", {"pressBox"}, set(), set())
+    recorded, seen = orphan_problems("hometown.tsx", "TOWN_M", {"chainLink"}, set(), set())
     ok("...and one already recorded as debt is allowed through",
-       not recorded and seen == {"TOWN_M.pressBox"}, f"{recorded} / {seen}")
+       not recorded and seen == {"TOWN_M.chainLink"}, f"{recorded} / {seen}")
+    # THE PRESS BOX WAS THIS EXAMPLE UNTIL IT WAS PAID OFF, and the ratchet then demanded its
+    # line be deleted, which broke this assertion and made the payment visible here too.
+    paid, _ = orphan_problems("hometown.tsx", "TOWN_M", {"pressBox"}, set(), set())
+    ok("a paid-off entry is no longer excused, so the debt list cannot be a drawer",
+       any("measured and never drawn" in p for p in paid), str(paid))
     reffed_ok, _ = orphan_problems("water.tsx", "WATER_M", {"rainCell"}, {"rainCell"}, set())
     ok("...and a ref entry is not an orphan at all", not reffed_ok, str(reffed_ok))
     clash, _ = orphan_problems("water.tsx", "WATER_M", {"rainCell"}, {"rainCell"}, {"rainCell"})

@@ -1,10 +1,20 @@
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {HBCUBand, BLACKTX_M} from '../src/lib/blacktexas';
+import {Bleachers, TOWN_M} from '../src/lib/hometown';
 import {Comal, RaspaCup, TEJANO_M} from '../src/lib/tejano';
 import {M} from '../src/lib/scale';
 
-const scales = (m: string) => [...m.matchAll(/scale\(([-\d.]+)\)/g)].map((x) => parseFloat(x[1]));
+// A two argument `scale(sx sy)` is how a component flips its facing, so the closing
+// paren does not follow the first number. Matching only `scale(n)` read those as NaN.
+const scales = (m: string) =>
+  [...m.matchAll(/scale\(([-\d.]+)(?:[\s,]+[-\d.]+)?\)/g)].map((x) => parseFloat(x[1]));
+
+/** Render as the film does: inside an <svg>. Outside one React treats SVG elements as
+ *  HTML and warns about the casing of linearGradient, which is the harness being wrong
+ *  about the context rather than the drawing being wrong. */
+const draw = (node: React.ReactElement) =>
+  renderToStaticMarkup(<svg xmlns="http://www.w3.org/2000/svg">{node}</svg>);
 
 export interface Row {what: string; value: number; lo: number; hi: number; why: string}
 
@@ -18,13 +28,17 @@ export function oldBandScale(): number {
 }
 
 export function measurements(): Row[] {
-  const band = renderToStaticMarkup(<HBCUBand h={90} ranks={4} files={10} spread={620} />);
+  const band = draw(<HBCUBand h={90} ranks={4} files={10} spread={620} />);
   // root scale(1), the drum major at K * 1.25, then each rank at K * (1 - r * 0.05).
   const K = Math.max(...scales(band)) / 1.25;
 
-  const comal = renderToStaticMarkup(<Comal h={90} />);
+  const comal = draw(<Comal h={90} />);
   const ck = scales(comal)[0];
-  const cup = scales(renderToStaticMarkup(<RaspaCup h={70} />))[0];
+  const cup = scales(draw(<RaspaCup h={70} />))[0];
+
+  // The bleacher stack emits `scale(K facing K)`, so the first number is K.
+  const bk = scales(draw(<Bleachers h={120} w={520} />))[0];
+  const boxLocal = 120 * (TOWN_M.pressBox.h / TOWN_M.bleacher.h);
 
   return [
     {what: 'a marching band member', value: (90 * 1.09 * K) / M, lo: 1.5, hi: 1.95,
@@ -35,6 +49,10 @@ export function measurements(): Row[] {
      why: `TEJANO_M.comal declares ${TEJANO_M.comal.h} m across.`},
     {what: 'the flour tortilla', value: (2 * 90 * 0.46 * ck) / M, lo: 0.17, hi: 0.27,
      why: 'the docstring says seven to ten inches. It rendered 0.92 m.'},
+    {what: 'the bleacher stack', value: (120 * bk) / M, lo: 6.3, hi: 7.7,
+     why: `TOWN_M.bleacher declares ${TOWN_M.bleacher.h} m at the top row.`},
+    {what: 'the press box', value: (boxLocal * bk) / M, lo: 2.9, hi: 3.5,
+     why: `TOWN_M.pressBox declares ${TOWN_M.pressBox.h} m. It rendered 2.10 m as h * 0.30.`},
     {what: 'the raspa cup to the rim', value: (70 * 0.86 * cup) / M, lo: 0.16, hi: 0.24,
      why: `TEJANO_M.raspaCup declares ${TEJANO_M.raspaCup.h} m. It rendered 1.03 m.`},
   ];

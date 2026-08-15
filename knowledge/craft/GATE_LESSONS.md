@@ -673,7 +673,26 @@ the emitted scale back off the markup. Its self-test replays the band's pre-fix 
 requires the measurement to come out at 0.133 m, so the gate is provably able to go red instead
 of only ever seeing corrected code.
 
-The press box is the entry to read when this feels abstract. `TOWN_M.pressBox` says 3.2 m. The
-drawing says `height={h * 0.30}`, which measures 2.10 m. **The measurement was taken, written
-down, and then overruled by a fraction nobody checked**, and it is still like that today, in the
-recorded list, waiting for somebody to convert it.
+The press box was the entry to read when this felt abstract, and it is now the one to read for
+what paying a line off looks like. `TOWN_M.pressBox` said 3.2 m, the drawing said
+`height={h * 0.30}` inside a parent fitted to a 7 m bleacher, and it rendered 2.10 m. **The
+measurement was taken, written down, and then overruled by a fraction nobody checked.**
+
+Converting it turned up the reason all twenty-four existed. **There was no tool for it.** A
+component calls `fit` once, on its whole self, and everything inside is drawn in the parent's
+local frame, so a sub-part cannot call `fit` again without scaling twice. With no idiom for the
+ratio, a fraction is what anybody would reach for. `subber()` in `scale.ts` is that idiom now,
+and it is a ratio of the two measurements rather than a constant, so it stays right when either
+is revised. The press box measures 3.200 m.
+
+Two things the fix itself taught, both about the harness rather than the drawing:
+
+**The measurement read `NaN` and reported a failure for the wrong reason.** A component that
+flips its facing emits `scale(sx sy)`, and the regex matched only `scale(n)`. A wrong number is
+better than a missing one here, because `NaN` reads as "the drawing is broken" and would have
+sent somebody hunting a drawing that was correct.
+
+**Rendering a component outside an `<svg>` makes React warn about the casing of
+`linearGradient`.** That is the harness being wrong about the context, not the drawing being
+wrong, and a warning nobody can act on is one everybody learns to scroll past. The probe renders
+inside an `<svg>` now, which is the only place these are ever used.

@@ -44,7 +44,10 @@ const ok = (label, cond, detail = '') => {
 
 /** Every `scale(k)` a rendered document emits, in document order. */
 export function scalesIn(markup) {
-  return [...markup.matchAll(/scale\(([-\d.]+)\)/g)].map((m) => parseFloat(m[1]));
+  // A two argument `scale(sx sy)` is how a component flips its facing. Matching only
+  // `scale(n)` skipped those entirely and the measurement came out NaN.
+  return [...markup.matchAll(/scale\(([-\d.]+)(?:[\s,]+[-\d.]+)?\)/g)]
+    .map((m) => parseFloat(m[1]));
 }
 
 /** Draw units to metres. One metre constant, read from the engine, never restated. */
@@ -66,6 +69,13 @@ try {
     ok('every scale is read, in order',
        JSON.stringify(scalesIn('scale(1) scale(3) scale(0.5)')) === '[1,3,0.5]');
     ok('markup with no scale reads as empty', scalesIn('<g/>').length === 0);
+    // A TWO ARGUMENT scale IS HOW A COMPONENT FLIPS ITS FACING. Matching only `scale(n)`
+    // skipped those entirely and the bleacher measured NaN, which reads as a failure but
+    // for the wrong reason and would have sent somebody hunting the drawing.
+    ok('a two argument scale is read, taking the x factor',
+       scalesIn('<g transform="scale(2.09 2.09)">')[0] === 2.09);
+    ok('...and a comma separated one', scalesIn('scale(1.5, 1.5)')[0] === 1.5);
+    ok('...and a mirrored one keeps its sign', scalesIn('scale(-3 3)')[0] === -3);
     ok('draw units convert to metres', Math.abs(metres(610, 1, 610 / 1.7) - 1.7) < 1e-9);
     ok('...and a doubled scale doubles the metres',
        Math.abs(metres(610, 2, 610 / 1.7) - 3.4) < 1e-9);
