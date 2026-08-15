@@ -168,8 +168,17 @@ export const RoadSheet: React.FC = () => {
         <Row ground={600} title={148} head="The rig, and the silhouette that changed"
           note="A day cab, because that is what a lane-haul autonomous truck runs and the shorter shape is a real tell. The roof pod is what a viewer reads at highway distance: the empty seat is invisible at this size, which is the whole composition problem this beat has.">
           <Freight.Lane x={-40} y={438} w={1160} h={165} frame={f} speed={1} divided={false} />
-          <Freight.AutonomousRig x={760} y={560} frame={f} scale={0.16} seed={2} speed={1} />
-          <Ref x={1010} y={560} f={f} cast="engineer" scale={0.28} />
+          {/* 0.115, because at 0.16 the rig was 1241 px wide on a 1080 px sheet and
+              the trailer's back half hung off the canvas. A row that crops its
+              subject cannot review its subject, and this row's whole claim is about
+              a silhouette. */}
+          <Freight.AutonomousRig x={860} y={560} frame={f} scale={0.115} seed={2} speed={1} />
+          {/* THE REF CARRIES THE SUBJECT'S OWN STAGING SCALE, always. It was 0.28
+              against a rig at 0.16, so the engineer was drawn 1.75 times life size
+              and the truck read a third smaller than it is. A human ruler that is not
+              staged with the thing it stands beside is worse than no ruler, because a
+              reviewer trusts it: this row is where the cab roof was signed off. */}
+          <Ref x={1035} y={560} f={f} cast="engineer" scale={0.115} />
           <Cap x={560} y={566}>tractor, van trailer, mast</Cap>
         </Row>
 
@@ -193,7 +202,7 @@ export const RoadSheet: React.FC = () => {
           note="A driverless lane still ends at a dock, and the dock is where the people are. The weigh station is where the regulatory half of this beat is physically located.">
           <Freight.WeighStation x={100} y={2100} scale={0.11} seed={5} />
           <Freight.DockDoors x={520} y={2100} scale={0.11} seed={6} doors={5} occupied={[1, 3]} />
-          <Ref x={1020} y={2100} f={f} cast="engineer" scale={0.3} />
+          <Ref x={1020} y={2100} f={f} cast="engineer" scale={0.11} />
           <Cap x={190} y={2106}>weigh station</Cap>
           <Cap x={700} y={2106}>terminal dock</Cap>
         </Row>
