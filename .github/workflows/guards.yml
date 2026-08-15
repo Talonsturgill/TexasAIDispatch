@@ -4,10 +4,17 @@ name: guards
 # nothing about what it guards, so the self-test reintroduces known-bad inputs and requires
 # the checker to reject them before the real run is allowed to mean anything.
 
+# WHY NOT ON EVERY PUSH. `branches-ignore: [main]` fired this on every intermediate dev
+# commit and every unattended routine step, so each failing work-in-progress commit mailed
+# the maintainer a red, until the noise was the whole signal. Worse, it ran on everything
+# EXCEPT main, so the branch that ships was the one branch never validated, and a PR merged
+# with the repo's own GITHUB_TOKEN does not start a workflow either. The merge is where a
+# change becomes real. Now it runs on PRs and on main itself, matching the sibling repos.
+
 on:
   pull_request:
   push:
-    branches-ignore: [main]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -150,7 +157,19 @@ jobs:
           # The foley library is hand-synthesised, so every sound is checked to synthesise to a
           # clean 48k buffer, to be deterministic, and its validator is fed known-bad buffers and
           # required to reject each, so a green run is not a checker that stopped checking.
+          # THE VALIDATOR'S FIRST FOUR CHECKS CANNOT FIRE ON A REAL SOUND. Every sound
+          # function ends in normalize(x, peak), so the clip, silence, dtype and length
+          # tests are structurally unreachable and only the NaN test could ever go red.
+          # Proved by breaking the product: replacing _fft_filter with the identity, which
+          # turns all 31 sounds into raw white noise, left this printing "all passed" and
+          # exiting 0. So did an impulse plus six seconds of silence, and a 0.5 Hz sine.
+          # The spectral check is what holds the library, because filtering is what can
+          # actually break here and filtering is invisible to amplitude after a normalize.
           python3 scripts/foley.py --self-test
+          # AND THE BUILD PATH, which is what the routine runs and what writes the shipped
+          # wavs. It used to return a literal 0 after writing 31 files, checking nothing,
+          # while write_wav silently hard-clipped anything out of range on the way to disk.
+          python3 scripts/foley.py --build "$(mktemp -d)"
           # The music bed is licensed by its CREDIT, so the credit is machine-generated
           # and checked. The self-test proves each refusal fires (NonCommercial,
           # NoDerivatives, ShareAlike, all-rights-reserved, an unknown licence, a BY
@@ -158,6 +177,14 @@ jobs:
           # refused, because a credit that does not ship is a licence not paid.
           python3 scripts/music.py --self-test
           python3 scripts/music.py --check
+          # AND THE SOURCES HAVE TO RESOLVE. --check verifies the field is a non-empty
+          # string and never that it leads anywhere: three of eleven entries pointed at
+          # Commons files that 404, and all eleven were reported usable. For a CC BY
+          # track that page IS the licence, so a run picking one would have generated a
+          # credit naming a page that does not exist and --verify-film would have passed
+          # it. A 404 is a hard fail here; an unreachable host is not, because a licence
+          # gate that goes red on a runner with no network is a gate everyone ignores.
+          python3 scripts/music.py --check-links
 
       - name: The rubric's hard fails, checked rather than promised
         run: |

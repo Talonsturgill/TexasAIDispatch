@@ -176,6 +176,20 @@ def problems_with(track: dict) -> list[str]:
             out.append(f"{tid}: claims public domain without pd_basis. Say WHICH right is "
                        f"public domain, the composition or the recording, because a PD "
                        f"melody in a modern recording is still someone's recording.")
+        elif "recording" not in str(track["pd_basis"]).lower():
+            # THE BASIS HAS TO ADDRESS THE RECORDING, not merely be non-empty. The check
+            # was `if not track.get("pd_basis")`, so "x" passed.
+            #
+            # And it has to be the RECORDING specifically, which is the trap this field was
+            # added for. Every entry in this registry IS a sound recording, so a basis
+            # answering only about the composition has answered the wrong question: the
+            # melody of a 1902 song is long clear and the 1957 record of it is not. An
+            # earlier version of this check accepted either word and would have passed
+            # "the COMPOSITION is public domain" on a track whose recording rights nobody
+            # had looked at.
+            out.append(f"{tid}: pd_basis does not address the RECORDING. What this registry "
+                       f"uses is a record, so a public domain composition is not the "
+                       f"question. Say why the recording itself is clear.")
         year = track.get("publication_year")
         if not isinstance(year, int):
             out.append(f"{tid}: public domain by statute needs an integer "
@@ -193,18 +207,35 @@ def problems_with(track: dict) -> list[str]:
     # its 1923-and-later ones under a NonCommercial licence, and those transfers are
     # live on the Internet Archive. So a genuinely public-domain performance can
     # arrive wrapped in an NC claim belonging to whoever digitised it.
+    #
+    # AN ABSENT FIELD IS A PROBLEM, NOT A PASS. This read `if tr and tr not in (...)`, so
+    # OMITTING transfer_rights skipped the whole block, and the field is not in REQUIRED.
+    # Deleting one line from an entry turned the check this comment exists for off, and
+    # omission is the default state of a hand-added entry. The safe default for a right
+    # nobody has checked is no, which this file already says nine lines above about
+    # licences: `none` is a stated answer and silence is not.
     tr = str(track.get("transfer_rights", "")).strip().lower()
-    if tr and tr not in ("none", "public_domain"):
+    if not tr:
+        out.append(f"{tid}: no transfer_rights. Whoever digitised the record may hold rights "
+                   f"in the TRANSFER even when the work itself is clear, so this has to say "
+                   f"so explicitly. Write 'none' when there is no separate claim.")
+    elif tr not in ("none", "public_domain"):
         trl = LICENCES.get(tr)
         if trl is None:
             out.append(f"{tid}: transfer_rights '{tr}' is not in the table.")
         elif not trl["ok"]:
             out.append(f"{tid}: the WORK is clear but the TRANSFER is {trl['name']}. "
                        f"{trl['why']}. Find another transfer of the same performance.")
-    # a licence id that disagrees with the linked deed is the quiet way a NC track
-    # gets labelled BY, so the link is cross-checked against the id
+
+    # A licence id that disagrees with the linked deed is the quiet way an NC track gets
+    # labelled BY, so the link is cross-checked against the id.
+    #
+    # THE CROSS-CHECK RUNS FOR EVERY TRACK. It was guarded by `lic.get("url")`, and the
+    # public_domain table entry carries an empty url, so it was switched off for exactly
+    # the five tracks where the transfer trap is most likely to bite. A licence_url
+    # pointing at a BY-NC-ND deed on a public domain entry passed silently.
     url = str(track.get("licence_url", "")).lower()
-    if url and lic.get("url"):
+    if url:
         for term in ("nc", "nd", "sa"):
             if f"-{term}" in url and f"-{term}" not in str(track.get("licence")).lower():
                 out.append(f"{tid}: licence says '{track.get('licence')}' but "
@@ -264,7 +295,11 @@ def self_test() -> int:
     good = {"id": "t1", "title": "Caliche Road", "artist": "A Texan",
             "source_url": "https://example.org/t1", "licence": "cc-by-4.0",
             "licence_url": "https://creativecommons.org/licenses/by/4.0/",
-            "file": "assets/music/t1.wav", "verified_on": "2026-08-14", "modified": True}
+            "file": "assets/music/t1.wav", "verified_on": "2026-08-14", "modified": True,
+            # STATED, not omitted. This fixture had no transfer_rights and passed, because
+            # an absent field skipped the check entirely. Every entry in the real registry
+            # carries it, so requiring it costs nothing and closes the hole.
+            "transfer_rights": "none"}
 
     ok("a complete CC BY entry is usable", not problems_with(good))
     ok("its credit carries title, artist, source and licence",
@@ -298,6 +333,27 @@ def self_test() -> int:
        any("publication_year" in p for p in problems_with(dict(pd, publication_year=None))))
     ok("a public domain claim with no evidence is refused",
        any("pd_evidence" in p for p in problems_with(dict(pd, pd_evidence=""))))
+
+    # ---- THE THREE CHECKS THAT COULD NOT FIRE, each confirmed passing before this.
+    #
+    # An OMITTED field is the default state of a hand-added entry, and each of these was
+    # guarded by a truthiness test on the field itself, so deleting one line turned the
+    # check off. The safe default for a right nobody has checked is no.
+    ok("OMITTING transfer_rights is refused, not skipped",
+       any("no transfer_rights" in p
+           for p in problems_with({k: v for k, v in pd.items() if k != "transfer_rights"})))
+    ok("a pd_basis that is merely non-empty is refused",
+       any("does not address the RECORDING" in p
+           for p in problems_with(dict(pd, pd_basis="x"))))
+    ok("...and so is one answering only about the COMPOSITION, which is the actual trap",
+       any("does not address the RECORDING" in p for p in problems_with(
+           dict(pd, pd_basis="the COMPOSITION is public domain, published 1902"))))
+    ok("a public domain entry whose licence_url points at an NC deed is refused",
+       any("points at a 'nc' deed" in p for p in problems_with(
+           dict(pd, licence_url="https://creativecommons.org/licenses/by-nc-nd/4.0/"))))
+    ok("...and that cross-check used to be off for every public domain track",
+       any("deed" in p for p in problems_with(
+           dict(pd, licence_url="https://creativecommons.org/licenses/by-sa/4.0/"))))
     ok("the boundary is computed, not typed: 1926 clears in 2027",
        pd_clear_year(1926) == 2027 and not is_pd_now(1926, 2026) and is_pd_now(1926, 2027))
 
@@ -329,6 +385,59 @@ def self_test() -> int:
     return 1 if fails else 0
 
 
+def check_links(tracks: list[dict]) -> int:
+    """Every source_url has to RESOLVE, because for a CC BY track that page is the licence.
+
+    THE DEFECT THIS EXISTS FOR. Three of eleven entries pointed at Wikimedia Commons files
+    that 404. `--check` called all eleven usable, because it verifies that the field is a
+    non-empty string and never that it leads anywhere. A run picking one of those three
+    would have generated a credit naming a page that does not exist, `--verify-film` would
+    have passed it, and the film would have shipped paying a CC BY attribution with a dead
+    link as its only evidence. `verified_on` is a date somebody typed, not a check.
+
+    A 404 IS A HARD FAIL AND AN UNREACHABLE HOST IS NOT. The distinction matters: a licence
+    gate that goes red because a runner has no network teaches everyone to ignore it, which
+    is how a gate stops working. A refusal from the server is evidence; silence is not.
+    """
+    import urllib.error
+    import urllib.request
+
+    dead, unreachable = [], []
+    for t in tracks:
+        url = str(t.get("source_url", "")).strip()
+        tid = t.get("id", "<no id>")
+        if not url:
+            dead.append(f"{tid}: no source_url at all")
+            continue
+        req = urllib.request.Request(url, method="HEAD", headers={
+            "User-Agent": "TexasAIDispatch/1.0 (music registry link check)"})
+        try:
+            with urllib.request.urlopen(req, timeout=25) as r:
+                code = r.status
+            print(f"  {code}  {tid}")
+        except urllib.error.HTTPError as exc:
+            if exc.code in (403, 405):          # some hosts refuse HEAD, not the resource
+                print(f"  {exc.code}  {tid} (host refuses HEAD, not treated as dead)")
+                continue
+            dead.append(f"{tid}: {url} returns {exc.code}. For a CC BY track that page IS "
+                        f"the licence, so a credit pointing at it would name nothing.")
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            unreachable.append(f"{tid}: could not reach {url} ({exc})")
+
+    for u in unreachable:
+        print(f"  unreachable  {u}", file=sys.stderr)
+    if unreachable and not dead:
+        print(f"music: {len(unreachable)} source(s) unreachable and none refused. Network, "
+              f"not licence. Not failing on it.", file=sys.stderr)
+    if dead:
+        print(f"\nmusic: {len(dead)} dead source(s)", file=sys.stderr)
+        for d in dead:
+            print(f"  - {d}", file=sys.stderr)
+        return 1
+    print(f"music: every source resolves ({len(tracks)} track(s))")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--check", action="store_true")
@@ -337,6 +446,10 @@ def main() -> int:
     ap.add_argument("--verify-film", metavar="CREDITS_TXT")
     ap.add_argument("--track", metavar="TRACK_ID")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--check-links", action="store_true",
+                    help="fetch every source_url and refuse a dead one. Separate from "
+                         "--check because it needs the network, and network flakiness must "
+                         "never be able to fail a licence gate.")
     a = ap.parse_args()
 
     if a.self_test:
@@ -354,6 +467,9 @@ def main() -> int:
             return 1
         print(f"music: registry clean. {len(tracks)} track(s), {len(usable(tracks))} usable.")
         return 0
+
+    if a.check_links:
+        return check_links(tracks)
 
     if a.list:
         for t in tracks:
