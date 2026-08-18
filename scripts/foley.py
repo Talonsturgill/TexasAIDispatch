@@ -721,6 +721,74 @@ def gas_pump(seed=32):
     return normalize(out, 0.85)
 
 
+def server_hall(seed=33):
+    """A data hall from the cold aisle: the fan wall, and nothing else.
+
+    THE MISTAKE an outsider makes is a sci-fi hum, a low sine with a pulse in it. A hall
+    full of chassis fans is BROADBAND and almost featureless, closer to a waterfall than
+    to a machine, and its whole character sits in two places. There is a shelf around one
+    to three kilohertz where a few thousand rotors of nearly the same size beat against
+    each other, and there is 120 Hz from the power supplies, which is mains at double
+    frequency in a sixty hertz country and is the one pitch in the room.
+
+    It does not throb. A single fan spinning up would, and a wall of them averages that
+    out, so the only movement is a very slow wander as thermal control trims banks. That
+    stillness is the point: this is the loudest room a Texan can stand in and be unable to
+    say what it sounds like.
+
+    THE PUBLISHED CENTROID CAUGHT THE FIRST VERSION. Its spectral centroid came out at 4,651 Hz,
+    which put it between the crickets and a pair of spurs and made it the fourth brightest
+    thing in the library. A pink floor carries most of its energy up top and the rotor
+    shelf sat on it unfiltered, so what the docstring called a waterfall measured as a
+    hiss. The published centroid is in the catalog for exactly this, and the fix is a real
+    roll-off rather than a softer adjective.
+    """
+    dur = 6.0
+    # the fan floor, rolled off twice above the band a chassis rotor actually occupies
+    base = one_pole_lp(one_pole_lp(pink(dur, seed), 1200), 1200)
+    # the rotor shelf, band-limited and sat on top of the floor
+    shelf = biquad_bp(white(dur, seed + 1), 1400, 1.1) * 0.32
+    shelf += biquad_bp(white(dur, seed + 2), 2600, 1.6) * 0.10
+    # the supplies. 120 Hz and its third, steady, quiet, and never a melody
+    mains = sine(120, dur) * 0.16 + sine(360, dur) * 0.055
+    # thermal trim: a very slow wander, not a pulse
+    wander = 1 + 0.05 * np.sin(2 * np.pi * 0.07 * t_axis(dur))
+    return normalize(fade((base * 1.5 + shelf + mains) * wander, 200), 0.72)
+
+
+def substation_hum(seed=34):
+    """The transformer yard on the far side of the fence, from a hundred feet off.
+
+    Magnetostriction in the core, so the fundamental is 120 Hz and the harmonics are the
+    EVEN ones, and the reason two transformers in a yard sound alive rather than flat is
+    that they are not perfectly in step. Beating between them is the whole sound. A faint
+    corona hiss rides over it in dry air, which is the Texas half of it: on the Llano
+    Estacado in August that hiss is audible from the road and on the Gulf it is not.
+
+    THE PUBLISHED CENTROID CAUGHT THE FIRST VERSION. Corona at five percent of full scale,
+    HIGH-PASSED and therefore spread across every band up to Nyquist, put the measured
+    spectral centroid at 11,890 Hz and made a transformer the BRIGHTEST sound in this
+    library, above a rattlesnake and a referee's whistle. Five percent by amplitude is not
+    five percent by where the energy sits, and nothing but the catalog's own measurement
+    would have said so, because the buffer was clean and the peak was exactly what
+    normalize set it to. It is now a narrow band about an octave wide at a tenth of the
+    level, which is what a corona is from the road. Tuned against the measurement until
+    the centroid sat with the other low machines rather than with the birds.
+    """
+    dur = 5.0
+    t = t_axis(dur)
+    out = np.zeros_like(t)
+    # two cores, detuned by a fraction of a hertz, which is what makes the slow beat
+    for det, g in ((0.0, 1.0), (0.35, 0.8)):
+        out += (sine(120 + det, dur) * 0.55 * g
+                + sine(240 + det * 2, dur) * 0.22 * g
+                + sine(360 + det * 3, dur) * 0.12 * g
+                + sine(480 + det * 4, dur) * 0.05 * g)
+    corona = biquad_bp(white(dur, seed), 6200, 4.0) * 0.0018
+    corona *= 1 + 0.4 * np.sin(2 * np.pi * 0.9 * t + rng_for(seed).uniform(0, 6))
+    return normalize(fade(out * 0.5 + corona, 150), 0.8)
+
+
 # name -> (function, kind, motivation on screen, tags)
 SOUNDS = {
     # ambience beds, loopable, tied to a place
@@ -733,7 +801,9 @@ SOUNDS = {
     "rain_on_tin": (rain_on_tin, "ambience", "a porch or barn under a metal roof in a storm", ["rain", "storm", "home"]),
     "highway_pass": (highway_pass, "ambience", "a two-lane at night, a vehicle passing", ["road", "night", "rural"]),
     "cattle_auction": (cattle_auction, "ambience", "a sale barn, the auctioneer over the lot", ["ranch", "town", "livestock"]),
+    "server_hall": (server_hall, "ambience", "a data hall with the fan wall running, from the cold aisle", ["compute", "interior", "machine"]),
     # one-shots, tied to a thing
+    "substation_hum": (substation_hum, "oneshot", "a transformer yard beside a slab, heard from the fence", ["grid", "compute", "machine"]),
     "pumpjack": (pumpjack, "oneshot", "an oil pumpjack in the frame", ["oilfield", "permian", "machine"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),
