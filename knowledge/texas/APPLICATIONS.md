@@ -98,16 +98,43 @@ the show can be about a person rather than a system without straining.
 
 ### 5. The machines the science runs on
 
-- **TACC's Vista**: 72 NVIDIA GH200 nodes and 144 Grace Superchip nodes, 4.1 petaflops CPU and
-  **40.8 petaflops GPU** **[V]**.
-- **Horizon enters production spring 2026** and becomes **the largest academic supercomputer in the
-  United States**: 300 petaflops of simulation and **more than a hundredfold AI improvement over
-  Frontera** **[V]**.
+**CORRECTED 2026-08-18, and the corrections are the useful part.** Three figures on this beat were
+marked **[V]** and two of them were wrong in ways nothing here would ever have caught, because a
+mark is not a source and nobody left a URL beside them.
+
+- **TACC's Vista**: **600 Grace Hopper nodes and 256 Grace Grace nodes** **[V]**, per TACC's own
+  documentation.
+  **This line used to say 72 GH200 nodes and 144 Grace Superchip nodes. Those are CORES PER NODE**,
+  read off the spec table one column across and written down as machine counts, and the real
+  numbers are larger by most of an order of magnitude. A Vista node has 72 cores on one socket and
+  a Grace Grace node has 144 on two.
+  The **4.1 petaflops CPU and 40.8 petaflops GPU** that sat here are **[U]** and are NOT republished.
+  TACC states only per-node figures and no system total, `tacc.utexas.edu` refuses the fetcher, and
+  a figure that shares a line with a demonstrated transcription fault inherits its doubt.
+- Horizon is the flagship of the NSF Leadership-Class Computing Facility, and **its GPU half is
+  operational at 4,000 Blackwell GPUs while its CPU half is expected winter 2026 or early 2027**
+  **[V]**.
+  **This line used to say "Horizon enters production spring 2026" marked [V], and that date cannot
+  be sourced anywhere reachable.** It was going to be the hinge of the first Dispatch built off this
+  file. It is not in TACC's documentation, not in the July press release, and not on the NSF award
+  page. A show that says a public machine missed its date had better be able to say who set it.
+  The **300 petaflops** and the **hundredfold improvement over Frontera** are **[U]**. TACC's own
+  docs give 160 petaflops FP64 and 320 FP32 for the GPU component, and the hundredfold line is a
+  forward-looking projection about a machine nobody outside TACC can log into.
 - TACC leads an **NSF Leadership-Class Computing Facility** **[V]**.
 
-**THE VISUAL.** This is the one data centre in Texas that is not a private slab behind a berm: it is
-public, it is academic, and anybody's research can run on it. That contrast against the fenced
-hyperscale build is a whole film.
+**THE VISUAL, AND IT WAS WRONG, WHICH IS BETTER.** This paragraph used to read: *the one data centre
+in Texas that is not a private slab behind a berm, public, academic, and anybody's research can run
+on it.* Anybody's research can NOT run on it. TACC's own user guide, dated the 24th of July 2026,
+says Horizon is limited to internal users, and the machine is not on the TOP500 at all while the
+title for most powerful academic machine in the country sits at Texas A&M.
+
+The film is still there and it is a better one. What makes the public machine public is not its
+size, because it does not have size. **It is the paperwork.** Round Rock publishes what the campus
+draws and TACC publishes the queue names, the node caps and the rate a researcher is charged, and
+the private campus two hundred miles west publishes none of that. The only machine in Texas whose
+size a reader can actually check is the small one, and the reason it is checkable is that somebody
+has to be able to ask for time on it.
 
 ### 6. Weather, water and the warning that did not come
 
