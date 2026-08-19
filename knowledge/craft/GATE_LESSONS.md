@@ -1255,3 +1255,49 @@ of what "good" means. That is the right way to build it and it has a permanent b
 next defect is by construction the one nothing measures. When a change comes back green on every
 axis and worse in the product, do not re-read the metrics. **Ask what the product has that the
 metrics do not.**
+
+---
+
+## The film was right. The place it was drawn in belonged to somebody else.
+
+**2026-08-19. Eleven gates green, and a subtitle nobody could read.**
+
+The Docket's video feed went live as a vertical, one-film-per-screen feed, which lays its own
+title, caption and button rail over the picture. The first Dispatch went into it with its
+subtitle band at `y=1752`, 168 px off the bottom of a 1920 frame. The feed's overlay claims the
+bottom quarter. The two drew on top of each other, and each was perfectly legible alone.
+
+**Every gate was green and every one of them was right.** `ship_gate` proved the cue text came
+from the claims. `board_captions` proved the timings were measured against the final mix.
+`capFit` proved the line fitted its band. `flow_check` proved the rhythm. Nothing was wrong with
+the subtitle, the band, the frame or the film.
+
+**What none of them could know is that a quarter of the frame belongs to somebody else**, because
+nothing in this repo had ever written down that such a place exists.
+
+**This is one step further out than the usual entry here, and that is the point.** The catalogue
+above is full of faults with correct components and a wrong relationship, and every one of those
+relationships was between two things inside this repo: a plane's z and another plane's z, a
+figure and the claim under it, a table's height and a board's scale. This one is between the film
+and the SURFACE THAT PLAYS IT, which lives in a different repo and was never consulted, because
+nobody thought of it as a party to the composition at all.
+
+**What to check instead.** `video-engine/src/lib/safearea.ts` writes the reserve down, MEASURED
+off the live feed in a browser at the phone viewport that gives the worst case, with the snippet
+for re-measuring it. `SubtitleTrack` solves its position and its width against those constants,
+and `CAP_W` wraps to the safe width rather than the frame width, which is the half that would
+have failed quietly: a band correctly placed and then filled with lines measured against the
+whole frame puts its own text off its own plate. `safe_area_check` runs in Phase 6 and in
+`deliver_run.sh`.
+
+**The rule that gate actually enforces is the one worth copying.** It refuses a TYPED number in
+that geometry EVEN WHEN THE TYPED NUMBER IS LEGAL. A band that happens to sit somewhere legal
+today does not move when the feed's CSS changes and the constants are re-measured, so it would
+go wrong silently exactly once, on a day nobody was looking at that file. Its self-test asserts
+that a legal literal still fails, which is the assertion the rest of this catalogue would have
+wanted a dozen times.
+
+**The general lesson.** Ask what else is drawing on the frame. A composition is not finished at
+the edge of the picture when the picture is delivered inside something. The entry above says
+"ask what the product has that the metrics do not". This one says: **ask what the product is
+DELIVERED INTO, and whether anything in this repo has written that down.**

@@ -7,6 +7,7 @@ import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
 import {FONT, wrapToWidth, overflows} from './lib/type';
+import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -213,7 +214,13 @@ const fitPx = (text: string, base: number, maxW: number, perChar: number) => {
  * lines than the band holds, step the size down and re-wrap, and only stop when it fits.
  * A subtitle two points smaller is a subtitle. A subtitle missing its last word is a lie.
  */
-const CAP_W = 1080 - 78 - 30;
+/** The band's own margins, inside the safe area rather than inside the frame. `SAFE_RIGHT`
+ *  is where the feed's button rail starts, so the band stops short of it and the subtitle
+ *  never runs under a share button. See `lib/safearea.ts` for where the number came from. */
+const CAP_X = 54;
+const CAP_PAD_L = 24;
+const CAP_PAD_R = 24;
+const CAP_W = SAFE_RIGHT - CAP_X - CAP_PAD_L - CAP_PAD_R;
 const CAP_MAX_LINES = 3;
 
 /**
@@ -276,10 +283,11 @@ export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps})
     <svg width={1080} height={1920} viewBox="0 0 1080 1920"
       style={{position: 'absolute', inset: 0}}>
       <g opacity={op}>
-        <rect x={54} y={1752 - h} width={972} height={h} rx={6} fill="#0b0e15" opacity={0.86} />
+        <rect x={CAP_X} y={SAFE_BOTTOM - h} width={SAFE_RIGHT - CAP_X} height={h} rx={6}
+          fill="#0b0e15" opacity={0.86} />
         {lines.map((ln, i) => (
-          <text key={i} x={78} y={1752 - h + size * 0.55 + lead * (i + 0.75)} fontSize={size}
-            fill="#f2ede2" fontFamily={FONT.body}>{ln}</text>
+          <text key={i} x={CAP_X + CAP_PAD_L} y={SAFE_BOTTOM - h + size * 0.55 + lead * (i + 0.75)}
+            fontSize={size} fill="#f2ede2" fontFamily={FONT.body}>{ln}</text>
         ))}
       </g>
     </svg>

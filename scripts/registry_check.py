@@ -71,6 +71,10 @@ NOT_STAGEABLE = {
     "uid": "per-instance paint-server ids.",
     "scale": "the metre and the seeded rng. Numbers, not geometry.",
     "type": "how wide a string is and where to break it. Measurements, not geometry.",
+    "safearea": "where the FEED puts its own furniture, so the film knows not to draw there. "
+                "Two fractions and the frame they are fractions of. Nothing is staged with it, "
+                "the film's screen-space chrome is SOLVED against it, and safe_area_check "
+                "refuses a typed number in that geometry even when the number is legal.",
     "fonts": "the @font-face block and the hold that waits for it. Every composition carries it through withFonts, and composition_check refuses one that does not.",
 }
 
