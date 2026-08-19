@@ -39,6 +39,25 @@ from pathlib import Path
 SLACK_S = 0.0
 
 
+def engine_inputs(root: Path) -> list[Path]:
+    """Every source file the renderer reads, so a code edit counts as an input.
+
+    THE HOLE THIS CLOSES. `freshness_check` compared the film against the BOARD, the mix
+    and the captions, and a run edited `lib/biomes.tsx` after starting a render. The gate
+    stayed green, because a change to the code that draws the frame is invisible to a check
+    that only knows about data. That is the same defect this file was written for, one
+    layer down: a run reasoning about whether an edit "would have mattered" instead of
+    re-rendering, except here the run never got the chance to reason, because nothing
+    reported anything.
+
+    A film is stale against the code that drew it exactly as it is stale against the board.
+    """
+    if not root.exists():
+        return []
+    return sorted(p for p in root.rglob("*")
+                  if p.is_file() and p.suffix in (".tsx", ".ts", ".css"))
+
+
 def check(film: Path, inputs: list[Path]) -> list[str]:
     errs: list[str] = []
     if not film.exists():
@@ -88,6 +107,22 @@ def _self_test() -> int:
            any("board.json" in e for e in errs))
         ok("...and it says to re-render rather than to judge whether it mattered",
            any("would have mattered" in e for e in errs))
+
+        # THE ENGINE IS AN INPUT. A source edit after the render is the same staleness as a
+        # board edit, and it used to be invisible because this file only knew about data.
+        src = d / "src" / "lib"
+        src.mkdir(parents=True)
+        comp = src / "biomes.tsx"
+        comp.write_text("// drawn")
+        os.utime(comp, (time.time() - 600, time.time() - 600))
+        ok("an engine source older than the film is fresh",
+           not check(film, engine_inputs(d / "src")))
+        time.sleep(0.02)
+        comp.write_text("// drawn differently")      # a component moves on
+        ok("an engine source edited AFTER the render is refused",
+           bool(check(film, engine_inputs(d / "src"))))
+        ok("...and engine_inputs only picks up source files",
+           all(p.suffix in (".tsx", ".ts", ".css") for p in engine_inputs(d / "src")))
         ok("...and an input that did NOT move is not blamed",
            not any("mix.wav" in e for e in errs))
 
@@ -108,6 +143,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--film")
     ap.add_argument("--inputs", nargs="*", default=[])
+    ap.add_argument("--engine", default="video-engine/src",
+                    help="the engine source tree. A film is stale against the CODE that "
+                         "drew it as surely as against the board it drew from.")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:

@@ -481,7 +481,10 @@ python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
 python3 scripts/run_discipline.py --renders <how many full renders so far>
 ```
 
-**THE FILM MUST BE NEWER THAN THE BOARD IT SHIPS WITH.** Every gate above reads the BOARD and
+**THE FILM MUST BE NEWER THAN THE BOARD IT SHIPS WITH, AND NEWER THAN THE ENGINE THAT DREW
+IT.** The engine source is an input and the check reads it without being asked: a run edited
+`lib/biomes.tsx` after starting a render and the gate stayed green, because a change to the
+CODE that draws a frame was invisible to a check that only knew about data. Every gate above reads the BOARD and
 not one of them reads the FILM, so the whole suite can pass green on a board no frame was ever
 rendered from. That is not hypothetical: a run edited the board after rendering, re-ran every
 gate, and put a cut in front of three scorers that opened on the wrong scene and printed a
