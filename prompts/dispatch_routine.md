@@ -477,7 +477,21 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
 python3 scripts/super_evidence_check.py --board out/dispatch/storyboard.json \
        --claims out/dispatch/claims.json
 python3 scripts/board_scale_check.py --board out/dispatch/storyboard.json
+python3 scripts/floor_check.py --board out/dispatch/storyboard.json
 ```
+
+**`floor_check` is two rules about one geometry and both faults survived twenty five panel
+rounds.** A `floorOnly` hallShell paints the near floor, and in three interiors it sat NEARER
+than the racks standing on it, so it painted over their bases and left the bottom quarter of the
+frame a dead grey band. Every judge filed that band every round and nobody asked what was
+drawing it. The proof was in the same board the whole time: the one interior whose bases read
+correctly is the one whose floor sits BEHIND its racks. The second rule is that a baseline must
+project below the room's horizon, because a rank authored above it hangs in mid air, and judges
+diagnosed that as a scale error three separate times.
+
+**Compare in PROJECTED space, never in board `y`.** The horizon and the item sit on different
+planes, so their raw `y` values are not comparable. This check's own first draft compared them
+raw and called four correct scenes broken.
 
 **`board_scale_check` multiplies the board's `scale` by the module's own measured height and
 tells you what the object is in METRES.** `scale_check` reads the engine and proves every

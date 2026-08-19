@@ -152,6 +152,14 @@ jobs:
           # 1.56 m building, a bucket truck at 0.75 m beside a lineworker.
           python3 scripts/board_scale_check.py --self-test
 
+      - name: Things stand on the floor and the floor is behind them
+        run: |
+          # A floorOnly shell nearer than the racks paints over their bases; a baseline above the
+          # room's horizon leaves a rank hanging. Both survived 25 panel rounds because every
+          # existing gate checks a component and these live in the relationship between two
+          # planes. Its self-test also pins the trap: project before comparing, never raw y.
+          python3 scripts/floor_check.py --self-test
+
       - name: The storyboard, before a single frame is rendered
         run: |
           # Gate 0. Everything after this point costs a render, so a board that is wrong here

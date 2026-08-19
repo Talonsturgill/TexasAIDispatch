@@ -462,6 +462,23 @@ def check(board: dict) -> list[str]:
             p.append(f"scene {sid}: no county. The region comes FROM the county, so a region "
                      f"without one was chosen for how it looks.")
         planes = s.get("planes") or []
+        # AN EMPTY PLANE IS THE RESIDUE OF A BAD EDIT, and it counts toward the four-to-six
+        # depth budget while contributing no depth, so it hides the very shortfall the budget
+        # exists to catch. A judge reported one outright ("the aisle mouth plane is literally
+        # items: []"), and a later edit in the same run emptied two more by removing a plane's
+        # last item instead of moving it, which silently deleted the near floor from two
+        # interiors while every gate stayed green.
+        for pl in planes:
+            # Some self-test fixtures write a plane as a bare label string, which is the older
+            # shorthand this file still accepts. Only a real plane object can be empty.
+            if not isinstance(pl, dict):
+                continue
+            if not (pl.get("items") or []):
+                p.append(f"scene {sid}: the plane at z={pl.get('z')} "
+                         f"({pl.get('label') or 'unlabelled'!r}) holds no items. It counts "
+                         f"toward the depth budget and draws nothing, so it hides a shortfall "
+                         f"rather than causing one. Delete it, or put back whatever an edit "
+                         f"took out of it.")
         if not 4 <= len(planes) <= 6:
             p.append(f"scene {sid}: {len(planes)} planes. Four to six, or there is no depth "
                      f"for the camera to move through.")
