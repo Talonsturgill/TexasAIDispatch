@@ -1232,15 +1232,34 @@ export const PoleSign: React.FC<RoadProps & {
           </>
         )}
       </g>
-      {/* THE READER BOARD, AND IT IS FILLED WHEN DEAD TOO.
-          This was the surviving half of the basketball goal. The cabinet above it was
-          filled last round and this rect kept `fill: none`, so an OPEN OUTLINED RECTANGLE
-          went on rendering directly under a board, centred on the pole: a hoop under a
-          backboard. It survived in five frames including the hook and the closing image,
-          and the run believed the sign was fixed because the half it looked at was.
-          A dead reader board is still a board. Blank, filled and faded. */}
-      <rect x={-pw * 0.30} y={-h * 0.84} width={pw * 0.60} height={h * 0.10}
-        fill={dead ? steel.shade : '#2a3a52'} stroke={steel.core} strokeWidth={h * 0.008} />
+      {/* THE READER BOARD IS PART OF THE SIGN, NOT A RING HUNG UNDER IT.
+          Filling this rect killed the last transparent shape and the asset still read as
+          a basketball goal, because the shape was never only about the fill. A narrower
+          box, centred on the pole, floating in the gap between the pole top and the
+          cabinet above it, is a hoop under a backboard whatever colour it is painted. The
+          fill was the third fix aimed at the same silhouette and the silhouette is what a
+          viewer reads.
+          A real frontage-road reader board is the changeable-copy panel bolted to the
+          BOTTOM RAIL OF THE CABINET and it is the same width as the cabinet. Flush and
+          full width, there is no gap for a net to hang in and no ring to see: the sign is
+          one object with two bands, which is what it is. The lesson generalises past this
+          prop, and it is the one this file keeps relearning. When something reads as the
+          wrong object, change the geometry. Recolouring the parts leaves the drawing that
+          made the wrong shape exactly where it was. */}
+      <g transform={`translate(0 ${-h * 0.84 - ph})`}>
+        <rect x={-pw / 2} y={ph} width={pw} height={h * 0.105}
+          fill={dead ? steel.shade : '#2a3a52'} stroke={steel.core} strokeWidth={h * 0.012} />
+        {/* the track the plastic letters slide into, which is the one detail that says
+            reader board rather than blank panel */}
+        {Array.from({length: 2}, (_, i) => (
+          <path key={i} d={`M${-pw * 0.44},${ph + h * 0.105 * (0.36 + i * 0.34)} h${pw * 0.88}`}
+            stroke={steel.core} strokeWidth={h * 0.004} opacity={0.55} />
+        ))}
+        {/* and the collar where the pole takes the whole sign, wider than the pole so the
+            cabinet is carried rather than balanced on a stick */}
+        <rect x={-h * 0.048} y={ph + h * 0.105} width={h * 0.096} height={h * 0.030}
+          fill={steel.core} stroke={steel.shade} strokeWidth={h * 0.006} />
+      </g>
     </g>
   );
 };
