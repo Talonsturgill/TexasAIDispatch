@@ -554,6 +554,41 @@ A failing panel is an instruction to re-enter the loop, not a verdict on the run
 `ship_gate` then reads the report card and compares it to the same threshold from the same file, so
 the bar is applied twice and quoted zero times.
 
+### TRIAGE THE PANEL BEFORE YOU FIX ANYTHING (mandatory, and it is a command not a report)
+
+```
+python3 scripts/panel_triage.py --judge <a1,..,a6> --judge <b1,..,b6> --judge <c1,..,c6>
+```
+
+**Run this the moment the panel returns and BEFORE you read a single finding.** It reads the bar
+and the weights out of the rubric, computes `(bar - axis mean) * axis weight` for every axis,
+and ranks them. That product is what an axis is COSTING. Nothing else in the reports is.
+
+**Then work the top axis first, and batch the top two into one render.** A finding that does not
+touch a top-two axis waits, however concrete it is and however many judges filed it.
+
+**WHY THIS IS A RULE AND NOT ADVICE.** A run naturally fixes the defects it can SEE most easily,
+and that set is not the set costing the most points. On 2026-08-18 this machine spent round
+after round on props: an oak, a bucket truck, a pole sign, a building's width. Every one was a
+real defect, every one was verified fixed, and the mean went 6.74 to 6.75. The triage on that
+same panel said picture cost 0.167 and place cost 0.065, so place was worth a QUARTER of
+picture, and the run had been spending its rounds on place because a mis-drawn pumpjack is easy
+to see and "the frame is mostly empty" is not.
+
+Three things it tells you that a page of findings actively hides:
+
+- **An axis over the bar is worth nothing to improve**, and the praise for it is the most
+  misleading feedback in the reports, because it reads as encouragement. Story was 1.10 over.
+- **An axis costing under 0.05 never justifies a render by itself.** It rides along in a batch.
+- **A wide spread between judges is a signal, not noise.** If they differ by a point or more,
+  read their evidence before acting: one of them is looking at something the others are not, and
+  averaging it away throws out the reason.
+
+**When it says the panel clears the bar, STOP EDITING AND DELIVER.** Another round past the bar
+is a chance to regress something that already passes, and this machine has done exactly that: a
+round once traded a correct super for one resting on a PARTIAL claim, and another turned a thin
+treeline into a wall, both while trying to improve a film that was closer than it looked.
+
 ## PHASE 7 — DELIVER, FULLY DONE
 
 No pending states.
