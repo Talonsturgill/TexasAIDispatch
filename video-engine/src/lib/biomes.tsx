@@ -108,8 +108,18 @@ export const Biome: React.FC<{
   /** how far up the frame the ground line sits */
   groundY?: number;
   weather?: 'norther' | 'dust' | 'overcast' | 'night';
+  /** THE SCENE IS INDOORS, so the region draws its LIGHT and not its plants.
+   *
+   *  A scene still declares its county and its region inside a building, because the
+   *  building is in a place and the light through its door is that place's light. What it
+   *  must not do is grow the region's flora on the floor. The vegetation plane sits at
+   *  z=210 and a machine-room shell sits far behind it, so every interior in this film was
+   *  rendering a row of server cabinets standing in shortgrass and mesquite. That is the
+   *  first law broken twice over in one frame: it tells a viewer the racks are outdoors,
+   *  and it tells them Taylor County grows inside. */
+  interior?: boolean;
   children?: React.ReactNode;
-}> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, children}) => {
+}> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, interior, children}) => {
   const p = BIOMES[region];
   // The sky, horizon-haze and ground gradients used to be keyed by REGION, so two
   // biomes of one region in a frame shared three paint servers. Identical palettes
@@ -165,7 +175,13 @@ export const Biome: React.FC<{
           </Atmosphere>
         </Plane>
 
-        {/* ---- near band + ground -------------------------------------------- */}
+        {/* ---- near band + ground, and NOT INDOORS ---------------------------- */}
+        {/* Indoors the floor is the building's, drawn by whatever shell the board stands
+            up. An outdoor ground plane sits NEARER than that shell, so it paints the
+            region's dirt over the room from the front. Every interior in this film was
+            dodging that by pushing groundY down to 1900 to shove the band off frame,
+            which is a workaround that works until a camera tilts. */}
+        {!interior && (
         <Plane z={420} fill>
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
             <defs>
@@ -205,13 +221,16 @@ export const Biome: React.FC<{
             })}
           </svg>
         </Plane>
+        )}
 
-        {/* ---- vegetation, per region ---------------------------------------- */}
-        <Plane z={210}>
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
-            <Vegetation region={region} seed={seed} groundY={groundY} />
-          </svg>
-        </Plane>
+        {/* ---- vegetation, per region, and NOT INDOORS ------------------------ */}
+        {!interior && (
+          <Plane z={210}>
+            <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+              <Vegetation region={region} seed={seed} groundY={groundY} />
+            </svg>
+          </Plane>
+        )}
 
         {children}
       </Stage3D>
@@ -219,8 +238,88 @@ export const Biome: React.FC<{
   );
 };
 
-/** The plants that make a region itself. Mesquite is the default across west and south
- *  Texas and it is LOW, CROOKED, WIDE AND LACY. The Piney Woods is the one region where
+/** A LIMBED OAK, which is the shape half of the eastern two thirds of Texas and the one
+ *  the mesquite default got wrong. `spread` above 1 is a live oak, whose limbs leave the
+ *  trunk low and reach out nearly as far as the tree is tall. `spread` near 0.9 is a post
+ *  oak, which is stouter, more upright and denser. The crown is BLOBBED FROM OFFSET LOBES
+ *  rather than drawn as one ellipse, because a single ellipse is a lollipop and reads as
+ *  clip art at any size. Nothing here is symmetric: the lobe offsets and the limb angles
+ *  are drawn off the seed and the two sides never match. */
+const LimbedOak: React.FC<{
+  x: number; y: number; h: number; spread: number; seed: number;
+  leaf: string; leafLit: string; bark: string; limbs?: number;
+}> = ({x, y, h, spread, seed, leaf, leafLit, bark, limbs = 5}) => {
+  const lean = (rnd(seed, 1) - 0.5) * 10;
+  const w = h * spread;
+  const trunkH = h * (spread > 1 ? 0.24 : 0.42);
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${lean * 0.25})`}>
+      <path d={`M${-h * 0.045},0 q${lean * 0.3},${-trunkH * 0.6} ${h * 0.012},${-trunkH}
+                l${h * 0.07},0 q${lean * 0.2},${trunkH * 0.6} ${h * 0.02},${trunkH} Z`}
+        fill={bark} stroke={INK} strokeWidth={h * 0.018} strokeLinejoin="round" />
+      {/* The limbs leave the trunk LOW and go sideways BEFORE they go up, and they end
+          UNDER THE CANOPY. The first version solved the curve for a tip near the ground,
+          so every tree in three regions grew a set of bare sticks out sideways below its
+          own crown and read as storm damage. A limb that ends outside the leaves is a
+          limb a viewer sees as broken. */}
+      {Array.from({length: limbs}, (_, i) => {
+        const t = limbs === 1 ? 0.5 : i / (limbs - 1);
+        const dir = t < 0.5 ? -1 : 1;
+        const reach = w * 0.5 * (0.30 + rnd(seed, 20 + i) * 0.45) * dir;
+        const tipY = -trunkH - h * (0.16 + rnd(seed, 30 + i) * 0.24);
+        return (
+          <path key={i}
+            d={`M0,${-trunkH * 0.72} Q${reach * 0.66},${-trunkH * 0.98} ${reach},${tipY}`}
+            stroke={bark} strokeWidth={h * (0.028 - i * 0.002)} fill="none" strokeLinecap="round" />
+        );
+      })}
+      {/* the crown, as offset lobes over the limb ends */}
+      {Array.from({length: 7}, (_, i) => {
+        const a = (i / 7) * Math.PI * 2 + rnd(seed, 40 + i) * 0.9;
+        const rr = 0.30 + rnd(seed, 50 + i) * 0.32;
+        const cx = Math.cos(a) * w * 0.5 * rr;
+        const cy = -trunkH - h * 0.30 + Math.sin(a) * h * 0.20 * rr;
+        const rx = w * (0.19 + rnd(seed, 60 + i) * 0.13);
+        return (
+          <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={rx * (0.60 + rnd(seed, 70 + i) * 0.28)}
+            fill={i % 3 === 0 ? leafLit : leaf} stroke={INK} strokeWidth={h * 0.014}
+            opacity={0.97} />
+        );
+      })}
+    </g>
+  );
+};
+
+/** Bunch grass, which is what is BETWEEN the trees in a savannah and the reason a
+ *  savannah does not read as a mown park. Clumps, never a lawn. */
+const BunchGrass: React.FC<{seed: number; groundY: number; n: number; color: string; hh?: number}> = ({
+  seed, groundY, n, color, hh = 26,
+}) => (
+  <g>
+    {Array.from({length: n}, (_, i) => {
+      const gx = rnd(seed, 200 + i) * W;
+      const gy = groundY + 24 + Math.pow(rnd(seed, 300 + i), 1.5) * (H - groundY - 40);
+      const near = (gy - groundY) / Math.max(1, H - groundY);
+      const s = 0.45 + near * 1.5;
+      return (
+        <g key={i} transform={`translate(${gx} ${gy}) scale(${s})`}>
+          {Array.from({length: 5}, (_, k) => (
+            <path key={k}
+              d={`M0,0 q${(k - 2) * 4},${-hh * 0.6} ${(k - 2) * 11},${-hh * (0.7 + rnd(seed, 400 + i * 5 + k) * 0.6)}`}
+              stroke={color} strokeWidth={2.4} fill="none" strokeLinecap="round"
+              opacity={0.55 + near * 0.35} />
+          ))}
+        </g>
+      );
+    })}
+  </g>
+);
+
+/** The plants that make a region itself. There is NO SHARED DEFAULT: every region names
+ *  its own flora, because a shared default is how blackland, post oak, cross timbers and
+ *  rolling plains all ended up drawn as one mesquite prairie, which told a viewer in three
+ *  different Texases that they lived in a fourth. Mesquite is real in the rolling plains
+ *  and it is LOW, CROOKED, WIDE AND LACY. The Piney Woods is the one region where
  *  verticals dominate, because the trees are genuinely tall and straight. */
 const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> = ({
   region, seed, groundY,
@@ -325,14 +424,85 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
           </g>
         </g>
       );
-    default:
+    case 'rolling_plains':
+      // MESQUITE COUNTRY, and the one region where the old shared default was accidentally
+      // right. It is drawn deliberately here instead: low, wide, lacy, standing in
+      // shortgrass with bare ground showing between the clumps. The invasion is real and a
+      // rolling-plains frame with no mesquite in it is the wrong place.
       return (
         <g>
-          {Array.from({length: 7}, (_, i) => (
-            <Mesquite key={i} x={rnd(seed, i) * W} y={groundY + 14 + rnd(seed, 20 + i) * 70}
-              scale={(0.03567) + rnd(seed, 30 + i) * 0.03121} seed={seed + i * 11} />
+          <BunchGrass seed={seed + 3} groundY={groundY} n={54} color="#8a8a58" hh={20} />
+          {Array.from({length: 8}, (_, i) => (
+            <Mesquite key={i} x={rnd(seed, i) * W} y={groundY + 16 + Math.pow(rnd(seed, 20 + i), 1.4) * 240}
+              w={190} h={82}
+              scale={(0.030) + rnd(seed, 30 + i) * 0.034} seed={seed + i * 11} />
           ))}
         </g>
       );
+    case 'post_oak':
+      // THE POST OAK SAVANNAH, and the word savannah is the whole instruction. Individual
+      // trees with real daylight between them and grass running right up to each trunk.
+      // Not a forest and not a prairie, and it is the only place in Texas that looks like
+      // this. The crowns are ROUNDED AND DENSE and the trunks are short and stout.
+      return (
+        <g>
+          <BunchGrass seed={seed + 5} groundY={groundY} n={70} color="#7f8f4e" hh={24} />
+          {Array.from({length: 6}, (_, i) => {
+            const gy = groundY + 18 + Math.pow(rnd(seed, 20 + i), 1.5) * 300;
+            const near = (gy - groundY) / Math.max(1, H - groundY);
+            return (
+              <LimbedOak key={i}
+                x={((i + 0.5) / 6) * W + (rnd(seed, i) - 0.5) * 120} y={gy}
+                h={110 + near * 210} spread={0.92} seed={seed + i * 17}
+                leaf="#5a7040" leafLit="#748a4e" bark="#4f4034" limbs={4} />
+            );
+          })}
+        </g>
+      );
+    case 'cross_timbers':
+      // THE THICKET THE NAME IS FOR. Post oak and blackjack packed close enough that the
+      // early crossings had to be surveyed, so this is the one eastern region drawn DENSE
+      // and overlapping. Crowns touch and the ground barely shows through.
+      return (
+        <g>
+          <BunchGrass seed={seed + 7} groundY={groundY} n={34} color="#6f7f4a" hh={18} />
+          {Array.from({length: 14}, (_, i) => {
+            const gy = groundY + 10 + Math.pow(rnd(seed, 20 + i), 1.3) * 280;
+            const near = (gy - groundY) / Math.max(1, H - groundY);
+            return (
+              <LimbedOak key={i}
+                x={rnd(seed, i) * W} y={gy}
+                h={96 + near * 170} spread={0.86} seed={seed + i * 23}
+                leaf="#4e6339" leafLit="#63784a" bark="#4a3c30" limbs={3} />
+            );
+          })}
+        </g>
+      );
+    case 'blackland':
+      // BLACKLAND PRAIRIE, which is farmed and has been for a hundred and fifty years, so
+      // the trees are FEW and they stand in fence lines and creek bottoms rather than
+      // scattered over the field. What is left of the prairie is tall grass, not short.
+      // The tree is a LIVE OAK: low, spreading, limbs leaving the trunk near the ground
+      // and reaching out about as far as the tree is tall.
+      return (
+        <g>
+          <BunchGrass seed={seed + 11} groundY={groundY} n={64} color="#8c9a5c" hh={34} />
+          {Array.from({length: 3}, (_, i) => {
+            const gy = groundY + 22 + rnd(seed, 20 + i) * 190;
+            const near = (gy - groundY) / Math.max(1, H - groundY);
+            return (
+              <LimbedOak key={i}
+                x={[0.13, 0.58, 0.87][i] * W + (rnd(seed, i) - 0.5) * 90} y={gy}
+                h={120 + near * 190} spread={1.45} seed={seed + i * 29}
+                leaf="#46603c" leafLit="#5d7a49" bark="#463a30" limbs={5} />
+            );
+          })}
+        </g>
+      );
+    default:
+      // Unreachable: every RegionName above names its own flora, and this exists only so
+      // the switch is total. A new region MUST author its plants rather than inherit
+      // somebody else's, which is the fault this default used to hide.
+      return <g />;
   }
 };

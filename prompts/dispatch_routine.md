@@ -367,11 +367,26 @@ python3 scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/s
        --out out/dispatch/mix.wav --cut <runtime>
 python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt \
        --out out/dispatch
+python3 scripts/board_captions.py --board out/dispatch/storyboard.json \
+       --captions out/dispatch/captions.json
 ```
 
 Alignment runs on the FINAL mixed audio and every cue comes from the words JSON. Approximated,
 scaled or hand-shifted timings are banned, and `ship_gate` checks the EVIDENCE for alignment
 rather than the name of the method: the count of boundaries actually measured off the waveform.
+
+**THE CUES GO INTO THE BOARD, AND THEN THE FILM RENDERS AGAIN.** The picture's bottom band is a
+subtitle and a subtitle is the narration, so the picture depends on the audio and the Phase 5
+render is the FIRST of two. Re-run the render command from Phase 5 after `board_captions`, and
+read the QA on the second one.
+
+This is the ordering that was wrong. The band used to carry `scene.caption`, an editorial line
+written at storyboard time, in the subtitle's seat and the subtitle's face, while the narration
+underneath it said something else. A viewer reading along was reading a caption of a sentence
+nobody spoke, and every gate was green, because one gate checked the caption file was honestly
+aligned and another checked `scene.caption` was clean copy and NOTHING checked that the words on
+screen were the words in the room. `scene.caption` now renders as a kicker under the super, where
+it reads as a note on the title rather than as a transcript.
 
 `mix.py` has no resampler in it, deliberately. If the read runs long it refuses and tells you by
 how much. The fix is a shorter script and a re-synth of those lines, never a stretch.

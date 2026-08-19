@@ -53,16 +53,46 @@ export interface Scene {
   planes: {z: number; label?: string; items: Placed[]}[];
   /** screen-space, never in the world: see the note on chrome below */
   super?: string;
+  /** THE EDITORIAL LINE, and it is NOT a subtitle. It carries the fact the super is too
+   *  short to hold. It used to render in a dark band across the bottom of the frame in
+   *  the same face and weight a subtitle uses, while the actual narration ran underneath
+   *  it saying something else, so a viewer reading along was reading a caption of a
+   *  sentence nobody spoke. It renders under the super now, as a kicker on the title,
+   *  and the bottom of the frame belongs to `captions` alone. */
   caption?: string;
   weather?: 'norther' | 'dust' | 'overcast' | 'night';
+  /** The scene is INDOORS. The region still names the light, because a room in Abilene is
+   *  lit by Abilene, and the region's plants and dirt stay outside where they live. */
+  interior?: boolean;
   seed?: number;
   groundY?: number;
+}
+
+/** One burned-in subtitle cue, in FILM-GLOBAL seconds.
+ *
+ *  These are not authored. `scripts/board_captions.py` folds them into the board from
+ *  `out/dispatch/captions.json`, which is produced by alignment against the FINAL mixed
+ *  audio, so the text on screen is the text in the room and the timing is measured
+ *  rather than guessed. */
+export interface Cue {
+  id: string;
+  start: number;
+  end: number;
+  text: string;
+  source?: string;
 }
 
 export type DispatchProps = {
   runtime_s: number;
   scenes: Scene[];
   title?: string;
+  /** THE SUBTITLES, and they are film-global on purpose.
+   *
+   *  A cue is bounded by where the speaker actually stopped, which has nothing to do with
+   *  where the cut is, so cues straddle scene boundaries routinely. Rendering them inside
+   *  each scene's Sequence would silently truncate every straddling cue at the cut, and a
+   *  half-sentence subtitle is the fault that is hardest to see in a still. */
+  captions?: Cue[];
   /** THE CREDITS, and for the music they are not a courtesy.
    *
    *  A bed under a permissive licence is granted in exchange for the attribution, so
@@ -148,18 +178,86 @@ const fitPx = (text: string, base: number, maxW: number, perChar: number) => {
  * whatever is left rather than dropping it, since losing the end of a sentence silently
  * is the exact fault this exists to stop.
  */
-const CAP_PER_LINE = Math.floor((1080 - 78 - 30) / (34 * 0.5));
-const capLines = (text?: string): string[] => {
-  if (!text) return [];
+const wrapTo = (text: string, perLine: number, maxLines: number): string[] => {
   const out: string[] = [];
   let cur = '';
   for (const w of text.trim().split(/\s+/)) {
     const next = cur ? `${cur} ${w}` : w;
-    if (next.length > CAP_PER_LINE && cur && out.length < 1) { out.push(cur); cur = w; }
+    if (next.length > perLine && cur && out.length < maxLines - 1) { out.push(cur); cur = w; }
     else cur = next;
   }
   if (cur) out.push(cur);
-  return out.slice(0, 2);
+  return out.slice(0, maxLines);
+};
+
+/**
+ * The subtitle band. It SHRINKS BEFORE IT DROPS, and that ordering is the whole point.
+ *
+ * `wrapTo` lets the last line absorb the remainder rather than losing it, which is right
+ * for an editorial line and catastrophic for a subtitle: a cue that will not fit in two
+ * lines then renders its whole tail off the right edge of the frame. The film shipped
+ * "the only machine in Texas you can check is the small on" with the last word gone.
+ *
+ * So the size is solved rather than assumed. Try the base size; if the cue needs more
+ * lines than the band holds, step the size down and re-wrap, and only stop when it fits.
+ * A subtitle two points smaller is a subtitle. A subtitle missing its last word is a lie.
+ */
+const CAP_W = 1080 - 78 - 30;
+const CAP_MAX_LINES = 3;
+const capFit = (text?: string): {lines: string[]; size: number} => {
+  if (!text) return {lines: [], size: 36};
+  for (let size = 36; size >= 24; size -= 2) {
+    const per = Math.floor(CAP_W / (size * 0.5));
+    const lines = wrapTo(text, per, CAP_MAX_LINES + 1);
+    if (lines.length <= CAP_MAX_LINES && lines.every((l) => l.length <= per)) {
+      return {lines, size};
+    }
+  }
+  const per = Math.floor(CAP_W / (24 * 0.5));
+  return {lines: wrapTo(text, per, CAP_MAX_LINES), size: 24};
+};
+
+/** The kicker under the super. It lives in the left two thirds so it never reaches
+ *  across the frame the way a subtitle does, which is half of what keeps the two
+ *  readable as different things, and it gets three lines because it is narrower. */
+const KICK_W = 640;
+const KICK_PER_LINE = Math.floor(KICK_W / (29 * 0.5));
+const kickLines = (text?: string): string[] =>
+  text ? wrapTo(text, KICK_PER_LINE, 3) : [];
+
+/**
+ * THE SUBTITLE TRACK. Film-global, driven by measured cues, and the only thing that
+ * ever occupies the bottom band.
+ *
+ * It reads the frame in the composition's own timebase rather than a Sequence's, which
+ * is why it is mounted beside the scenes and not inside one.
+ */
+export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps}) => {
+  const f = useCurrentFrame();
+  const t = f / fps;
+  const cue = cues.find((c) => t >= c.start && t < c.end);
+  if (!cue) return null;
+  const {lines, size} = capFit(cue.text);
+  const lead = size * 1.22;
+  const h = size * 1.1 + lines.length * lead;
+  // A hard cut between cues reads as a flicker, so each one fades over four frames at
+  // its own edges. The fade is clamped inside the cue, never past it: a subtitle that
+  // outlives the words it transcribes is the same lie as one that says something else.
+  const inF = Math.max(0, (t - cue.start) * fps);
+  const outF = Math.max(0, (cue.end - t) * fps);
+  const op = clamp01(Math.min(inF / 4, outF / 4, 1));
+  return (
+    <svg width={1080} height={1920} viewBox="0 0 1080 1920"
+      style={{position: 'absolute', inset: 0}}>
+      <g opacity={op}>
+        <rect x={54} y={1752 - h} width={972} height={h} rx={6} fill="#0b0e15" opacity={0.86} />
+        {lines.map((ln, i) => (
+          <text key={i} x={78} y={1752 - h + size * 0.55 + lead * (i + 0.75)} fontSize={size}
+            fill="#f2ede2" fontFamily={FONT.body}>{ln}</text>
+        ))}
+      </g>
+    </svg>
+  );
 };
 
 /** One scene, staged from data. */
@@ -187,7 +285,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
   return (
     <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>
       <Biome region={scene.region} frame={f} camera={camera} seed={scene.seed ?? 1}
-        groundY={scene.groundY ?? 1060} weather={scene.weather}>
+        groundY={scene.groundY ?? 1060} weather={scene.weather} interior={scene.interior}>
         {scene.planes.map((pl, i) => (
           <Plane key={i} z={pl.z}>
             {/* OVERFLOW VISIBLE, and it is not a nicety. An <svg> clips to its
@@ -240,19 +338,21 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
           </g>
         )}
         {scene.caption && (
-          <g opacity={clamp01(interpolate(f, [2, 12], [0, 1],
+          <g opacity={clamp01(interpolate(f, [6, 20, dur - 12, dur - 2], [0, 1, 1, 0],
             {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}))}>
-            {/* THE CAPTION WRAPS, same fault and same evidence. The first Dispatch shipped
+            {/* THE KICKER, sitting on the super's rule rather than in the subtitle's seat.
+                It still WRAPS, same fault and same evidence: the first Dispatch shipped
                 "Per site large load metering is confidential, so the number stays i" off
-                the right edge. A caption carries the fact the super is too short to hold,
-                so a caption that runs off the frame loses the fact. */}
-            <rect x={54} y={1752 - (40 + capLines(scene.caption).length * 42)} width={972}
-              height={40 + capLines(scene.caption).length * 42} rx={6} fill="#0d1220"
-              opacity={0.72} />
-            {capLines(scene.caption).map((ln, i) => (
-              <text key={i} x={78}
-                y={1752 - (40 + capLines(scene.caption).length * 42) + 34 + i * 42}
-                fontSize={34} fill="#e4ded2" fontFamily={FONT.body}>{ln}</text>
+                the right edge, and a line that carries the fact loses the fact when it runs
+                off the frame. */}
+            <rect x={64} y={266} width={KICK_W + 28}
+              height={16 + kickLines(scene.caption).length * 38} rx={4} fill="#0d1220"
+              opacity={0.80} />
+            <rect x={64} y={266} width={4}
+              height={16 + kickLines(scene.caption).length * 38} fill="#c8703a" />
+            {kickLines(scene.caption).map((ln, i) => (
+              <text key={i} x={84} y={266 + 30 + i * 38}
+                fontSize={29} fill="#d9d2c4" fontFamily={FONT.body}>{ln}</text>
             ))}
           </g>
         )}
@@ -304,7 +404,7 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
   );
 };
 
-export const Dispatch: React.FC<DispatchProps> = ({scenes, credits, credits_s = 4}) => {
+export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
   return (
@@ -315,6 +415,13 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, credits, credits_s = 
           <DispatchScene scene={s} fps={fps} />
         </Sequence>
       ))}
+      {/* Mounted OUTSIDE the scene sequences and BEFORE the credits card, so a cue that
+          straddles a cut survives it and no cue paints over the attribution. */}
+      {captions && captions.length > 0 && (
+        <Sequence from={0} durationInFrames={Math.max(1, Math.round(end * fps))}>
+          <SubtitleTrack cues={captions} fps={fps} />
+        </Sequence>
+      )}
       {credits && credits.trim() && (
         <Sequence from={Math.round(end * fps)}
           durationInFrames={Math.max(1, Math.round(credits_s * fps))}>
