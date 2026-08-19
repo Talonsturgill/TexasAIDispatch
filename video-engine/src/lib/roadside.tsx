@@ -1151,19 +1151,32 @@ export const PoleSign: React.FC<RoadProps & {
         fill={steel.core} />
       <RustStreak x={-h * 0.024} y={-h * 0.30} w={h * 0.048} h={h * 0.30}
         opacity={wear * 0.7} />
-      {starburst && (
+      {/* A DEAD SIGN HAS NO STARBURST, and drawing one made this asset a basketball goal.
+          The flourish is a radial spray of twelve lines centred on the pole, directly under
+          an empty rectangular frame. Backboard, hoop, net, pole. A scorer named it outright
+          after three earlier rounds had reported a "starburst artifact" without recognising
+          what shape it was making, and it is the film's bookend prop in four scenes.
+
+          It was also wrong on its own terms: the starburst IS the neon flourish, so a sign
+          whose panel is gone and whose tubes are broken has lost it too. Live signs keep it.
+          Dead ones get the two mounting arms the panel used to hang from, which is what is
+          actually left on a frontage road. */}
+      {starburst && !dead && (
         <g transform={`translate(0 ${-h * 0.86})`}>
           {Array.from({length: 12}, (_, i) => {
             const a = (i / 12) * Math.PI * 2;
             const r = i % 2 ? h * 0.09 : h * 0.17;
             return (
               <line key={i} x1={0} y1={0} x2={Math.cos(a) * r} y2={Math.sin(a) * r}
-                stroke={dead ? '#8a8a86' : '#e0563c'} strokeWidth={h * 0.010}
-                opacity={dead ? 0.6 : 1} />
+                stroke="#e0563c" strokeWidth={h * 0.010} />
             );
           })}
         </g>
       )}
+      {dead && [-1, 1].map((s) => (
+        <line key={s} x1={0} y1={-h * 0.80} x2={s * pw * 0.34} y2={-h * 0.84 - ph * 0.06}
+          stroke={steel.shade} strokeWidth={h * 0.014} strokeLinecap="round" />
+      ))}
       <g transform={`translate(0 ${-h * 0.84 - ph})`}>
         {dead ? (
           /* THE EMPTY FRAME. The panel is gone and you can see sky through it. */

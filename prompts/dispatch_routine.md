@@ -94,9 +94,11 @@ site, while this line and a gate comment both said they were guarding it. GATE_L
 The ship threshold lives in `config/dispatch_rubric.yaml` and nowhere else. When you brief the
 panel, READ `rubric.ship_threshold` out of that file and put THAT number in the brief.
 
-The sibling lost five panel rounds to this. Its prompt said 9.0 while the rubric had said 7.5 for
-two weeks. The panel was briefed 9.0, scored the film 7.08, and returned ship:false on a cut that
-was already over the real bar. Two judges flagged the divergence unprompted and the run kept
+The sibling lost five panel rounds to this. Its prompt carried a bar the rubric had not held for
+two weeks, the panel was briefed the stale one, and it returned ship:false on a cut that was
+already over the real one. **This paragraph used to prove its own point by quoting both numbers**,
+so the file that forbids a second copy of the bar carried one, three lines under the sentence
+forbidding it. They agreed that day, which is the only reason it looked harmless. Two judges flagged the divergence unprompted and the run kept
 grading against the wrong number anyway. **A number restated in a second place is a number that
 will be wrong in one of them.**
 
@@ -463,6 +465,22 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
        --captions out/dispatch/captions.json --audio out/dispatch/mix.json \
        --report out/dispatch/report_card.json
 ```
+
+```
+python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
+       --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json
+```
+
+**THE FILM MUST BE NEWER THAN THE BOARD IT SHIPS WITH.** Every gate above reads the BOARD and
+not one of them reads the FILM, so the whole suite can pass green on a board no frame was ever
+rendered from. That is not hypothetical: a run edited the board after rendering, re-ran every
+gate, and put a cut in front of three scorers that opened on the wrong scene and printed a
+caption list two passes out of date. All three found it independently and the run had not,
+because the greener the suite the more confident the wrong answer looks.
+
+Run it after the mux and again after any board edit. If it fails, RE-RENDER, re-mux and
+re-extract the frames. Do not reason about whether the change would have mattered: that
+judgement is exactly what a stale render defeats.
 
 **PASS THE ARGUMENTS.** `engine_lint` takes none; the rest take inputs and EXIT 2 ON A USAGE
 MESSAGE without them. They were invoked bare for the whole of this machine's life, so every

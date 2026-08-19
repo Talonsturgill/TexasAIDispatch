@@ -112,7 +112,18 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
                 f"would re-cut the film to the wrong places. Reconcile the board's vo with "
                 f"out/dispatch/vo_script.txt and align again.")
             continue
-        targets[idx] = max(0.0, float(words[i]["start"]) - lead)
+        # THE LEAD COMES OUT OF THE SILENCE, NEVER OUT OF THE PREVIOUS LINE'S TAIL.
+        #
+        # A flat 0.28s pre-roll is a J-cut and it is right whenever there is 0.28s of silence
+        # to take it from. When two lines run closer together than that, the cut lands BEFORE
+        # the previous line has finished, so its last word plays over the next picture.
+        # Measured on this film: "hour." 0.120s late, "size." 0.100s late, "no." 0.072s late,
+        # each a whole word of one scene's sentence arriving on the following scene, and one
+        # of them crossing a county line. The pre-roll was stealing from the tail every time
+        # the read did not leave it room.
+        prev_end = float(words[i - 1]["end"]) if i > 0 else 0.0
+        gap = max(0.0, float(words[i]["start"]) - prev_end)
+        targets[idx] = max(0.0, float(words[i]["start"]) - min(lead, gap * 0.5))
         cursor = i + 1
 
     if errs:
@@ -290,6 +301,26 @@ def _self_test() -> int:
     ok("...the first scene still starts at zero", st[0] == 0.0)
     ok("...a spoken scene lands just before its own first word",
        abs(st[2] - (11.10 - LEAD_DEFAULT)) < 0.01)
+
+    # THE TAIL IS NOT THE LEAD'S TO SPEND. Two lines closer together than the pre-roll used
+    # to put the cut before the previous line finished, so its last word played over the
+    # next picture. On this film that sent three whole words onto the following scene and
+    # one of them across a county line.
+    tight = wordstream([
+        ("Off", 0.30), ("road", 0.60),
+        ("Half", 0.86), ("running", 1.20),      # only 0.06s after "road" ends at 0.80
+        ("What", 20.0), ("makes", 20.3),
+    ])
+    tb = {"runtime_s": 40, "scenes": [
+        {"id": "s01", "start_s": 0, "duration_s": 10, "vo": "Off road"},
+        {"id": "s02", "start_s": 10, "duration_s": 10, "vo": "Half running"},
+        {"id": "s03", "start_s": 20, "duration_s": 20, "vo": "What makes"}]}
+    tr, te = retime(tb, tight, min_scene=0.2)
+    ok("a cut never lands before the previous line has finished", not te)
+    cut = tr["scenes"][1]["start_s"]
+    ok("...so the previous line's last word stays in its own scene", cut >= 0.80 - 1e-6)
+    ok("...while a line with real silence in front still gets the full pre-roll",
+       abs(tr["scenes"][2]["start_s"] - (20.0 - LEAD_DEFAULT)) < 0.01)
     ok("...and so does the last one", abs(st[3] - (51.10 - LEAD_DEFAULT)) < 0.01)
     ok("...the silent scene is interpolated between its spoken neighbours",
        st[1] > st[0] and st[1] < st[2])
