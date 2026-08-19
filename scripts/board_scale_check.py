@@ -91,11 +91,12 @@ DEBT: dict[str, tuple[float, str]] = {
     # is a child and a person at 2.12 m is nearly seven feet, and every other size in the film
     # is judged by eye against them. Fixing this is the highest value line here, not the
     # cheapest, because it is what makes every other error visible.
-    # 1.25 is 2.12 m, nearly seven feet, in s05 and s09. s02's 0.70 is a 1.19 m technician and
-    # is the low side of the same fault; both are inside this one line because the ledger records
-    # the worst tolerated and this kind is wrong in both directions at once. Whichever a run
-    # fixes first, it lowers this line.
-    "person":       ((0.70, 1.25), "2.12 m in s05 and s09, and a 1.19 m technician in s02"),
+    # PAID OFF 2026-08-19, and the line stays as the record rather than as a waiver. The board
+    # carried a 1.19 m technician in s02 and 2.12 m people in s05 and s09; all four persons are
+    # now 1.0, which is 1.70 m, which is the definition the metre itself comes from. A person is
+    # also the safe one to fix, because a person is about a third as wide as tall, so correcting
+    # the height cannot push the width out of frame the way it does on a vehicle.
+    # No entry means no tolerance: any person off the band now fails outright.
 }
 
 TABLE_RE = re.compile(r"(?:export )?const ([A-Z_]+_M)\s*[:=][^=]*=\s*\{(.*?)\n\};", re.S)
@@ -193,8 +194,22 @@ def self_test() -> int:
 
     f, _, _ = check(board({"kind": "person", "scale": 1.0}), H)
     ok("true scale passes", not f, str(f))
-    f, _, _ = check(board({"kind": "person", "scale": 1.15}), H)
+    f, _, _ = check(board({"kind": "windmill", "scale": 1.15}), H)
     ok("natural variation passes", not f, str(f))
+
+    # THE PERSON BAND, which is tighter than the generic one and has to be tested as itself.
+    # This case used a person at 1.15 before the band existed, and retiring the person debt line
+    # turned it red: 1.15 is 1.95 m, six foot five, which the band is right to refuse. The band
+    # stayed and the case moved to a kind that carries the generic band, which is what the case
+    # was actually about.
+    f, _, _ = check(board({"kind": "person", "scale": 1.10}), H)
+    ok("a 1.87 m person passes", not f, str(f))
+    f, _, _ = check(board({"kind": "person", "scale": 0.85}), H)
+    ok("a 1.45 m person passes", not f, str(f))
+    f, _, _ = check(board({"kind": "person", "scale": 1.25}), H)
+    ok("a 2.12 m person fails now the debt is paid", bool(f), "no fail raised")
+    f, _, _ = check(board({"kind": "person", "scale": 0.70}), H)
+    ok("a 1.19 m adult fails now the debt is paid", bool(f), "no fail raised")
 
     # THE DEFECT, REPLAYED: a kind with no debt line, used as a distance dial.
     f, _, _ = check(board({"kind": "windmill", "scale": 0.1}), H)
