@@ -312,17 +312,23 @@ const LimbedOak: React.FC<{
   // around their UNION and no internal rings, so the eye reads one scalloped crown with
   // tonal variation inside it. The lobes still hang on the limb tips and are still narrower
   // than the gaps, so the silhouette is lumpy and asymmetric rather than a dome.
+  // THE FOLIAGE RIDES THE WHOLE LIMB. Two lobes parked at each tip left the splay bare
+  // between trunk and crown, which is a pad on a stick: three panels running called this
+  // an umbrella acacia, and it is the nearest and largest tree in every Williamson frame
+  // including the closing one. Four overlapping clumps per limb, growing outward from the
+  // fork to past the tip, close the crown over its own structure and leave sky only at the
+  // outer margin. Same treatment `flora.tsx` got, in the second file that draws this tree.
   const lobes: {cx: number; cy: number; rx: number; ry: number; fill: string}[] = [];
-  arms.forEach(({reach, tipY, i}) => {
-    const rx = w * (0.115 + rnd(seed, 60 + i) * 0.045);
-    const ry = rx * (0.58 + rnd(seed, 70 + i) * 0.24);
-    const cx = reach * 0.94, cy = tipY - h * 0.045;
-    lobes.push({cx, cy, rx, ry, fill: i % 3 === 0 ? leafLit : leaf});
-    lobes.push({
-      cx: cx + (rnd(seed, 100 + i) - 0.5) * rx * 1.5,
-      cy: cy - ry * (0.45 + rnd(seed, 110 + i) * 0.5),
-      rx: rx * 0.64, ry: ry * 0.74,
-      fill: i % 3 === 0 ? leaf : leafLit,
+  arms.forEach(({reach, tipY, originY, i}) => {
+    [0.34, 0.57, 0.79, 1.0].forEach((u, k) => {
+      const rx = w * (0.085 + 0.055 * u) * (0.9 + rnd(seed, 60 + i * 4 + k) * 0.2);
+      const ry = rx * (0.62 + rnd(seed, 70 + i * 4 + k) * 0.2);
+      lobes.push({
+        cx: reach * u * 0.96 + (rnd(seed, 100 + i * 4 + k) - 0.5) * rx * 0.5,
+        cy: originY + (tipY - originY) * u - h * (0.015 + 0.035 * u),
+        rx, ry,
+        fill: (i + k) % 3 === 0 ? leafLit : leaf,
+      });
     });
   });
   // THE INTERIOR IS TWO SMALL LOBES, NEVER ONE WIDE DISC. There used to be a single ellipse
@@ -350,7 +356,7 @@ const LimbedOak: React.FC<{
       {arms.map(({reach, tipY, originY, i}) => (
         <path key={i}
           d={`M0,${originY} Q${reach * 0.70},${originY - trunkH * 0.22} ${reach},${tipY}`}
-          stroke={bark} strokeWidth={h * (0.032 - Math.floor(i / 2) * 0.005)} fill="none"
+          stroke={bark} strokeWidth={h * (0.075 - Math.floor(i / 2) * 0.010)} fill="none"
           strokeLinecap="round" />
       ))}
       {lobes.map((l, k) => (
@@ -681,7 +687,7 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
               <LimbedOak key={i}
                 x={[0.13, 0.58, 0.87][i] * W + (rnd(seed, i) - 0.5) * 90} y={gy}
                 h={120 + near * 190} spread={1.45} seed={seed + i * 29}
-                leaf="#46603c" leafLit="#5d7a49" bark="#463a30" limbs={5} />
+                leaf="#284439" leafLit="#3a5c4a" bark="#3f342b" limbs={5} />
             );
           })}
         </g>
