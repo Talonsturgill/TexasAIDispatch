@@ -40,7 +40,15 @@ PERSPECTIVE = 1400.0        # matches lib/stage3d.tsx; the camera, not a tuning 
 FRAME_MID = 960.0           # half of the 1920 composition height
 
 # Kinds that stand on the floor of a room. A readout is chrome and a hallShell is the room.
-STANDS_ON_FLOOR = {"cabinet", "rackRow", "person", "readingStation"}
+STANDS_ON_FLOOR = {
+    # indoors
+    "cabinet", "rackRow", "person", "readingStation",
+    # outdoors: anything with a foot on the dirt. A sky item (turkeyVulture) and a thing drawn
+    # as ground texture (grassTuft, bluestem) are deliberately absent, since neither claims to
+    # stand anywhere.
+    "mansardBox", "poleSign", "transformer", "dataCentre", "coolingTower", "generatorBank",
+    "pumpjack", "liveOak", "mesquite", "pricklyPear", "bucketTruck", "pickup", "cattleGuard",
+}
 
 # A baseline this far above the horizon is floating. A couple of pixels is the floor line's own
 # stroke width and is not worth failing a correct board over.
@@ -93,6 +101,30 @@ def check(board: dict) -> list[str]:
                         f"{hz - base:.0f}px ABOVE the room's horizon, so it is standing on "
                         f"nothing. Judges read a floating row as a scale error three separate "
                         f"times. Raise y until the baseline projects below {hz:.0f}.")
+        # RULE 3 — outdoors, a thing standing on the ground sits BELOW the horizon.
+        # The interior rules above only ever fire in a room, because they need a hallShell to
+        # find the horizon. Every exterior fault of the same family therefore had no gate at
+        # all, and judges reported three of them in one round: a pole sign whose post ends in
+        # mid air, halls the ground appears to run through, and a treeline standing off the
+        # deck.
+        #
+        # The geometry is not a matter of taste. The horizon IS eye level, so ground recedes
+        # UPWARD toward it and never past it. An item whose baseline projects ABOVE the ground
+        # line at its own depth is standing on nothing, exactly as a rack above a room's horizon
+        # is. Same fault, same arithmetic, different room.
+        ground = sc.get("groundY")
+        if ground is not None and not shells and not floors:
+            for z, it in standing:
+                base = project(it["y"], z)
+                gline = project(ground, z)
+                if base < gline - FLOAT_TOLERANCE_PX:
+                    fails.append(
+                        f"{sid}: {it['kind']} at z={z}, y={it['y']} has its baseline "
+                        f"{gline - base:.0f}px ABOVE the ground line at its own depth. Outdoors "
+                        f"the horizon is eye level, so ground rises toward it and never past "
+                        f"it, and a base above it is a thing standing off the deck. Raise y "
+                        f"until the baseline projects below {gline:.0f}.")
+
     return fails
 
 
@@ -134,6 +166,27 @@ def self_test() -> int:
     # floor. A gate that fails correct work is a gate somebody turns off.
     ok("does NOT flag an item whose raw y looks high but projects onto the floor",
        not check(scene(560, 520, 1500)), str(check(scene(560, 520, 1500))))
+
+    # RULE 3, THE EXTERIOR CASE. Same arithmetic as rule 2, different room, and it had no gate
+    # at all until three judges reported three separate symptoms of it in one round.
+    def outdoor(y, z, ground=1060):
+        return {"scenes": [{"id": "s14", "groundY": ground, "planes": [
+            {"z": z, "items": [{"kind": "liveOak", "x": 100, "y": y, "scale": 0.17}]}]}]}
+
+    ok("an exterior item standing on its ground passes", not check(outdoor(1150, 640)))
+    f = check(outdoor(1000, 640))
+    ok("catches an exterior item floating above its ground line", bool(f), "no fail raised")
+    ok("...and reports it in projected pixels at the item's own depth",
+       bool(f) and "ABOVE the ground line at its own depth" in f[0], f[0] if f else "")
+    # THE SAME TRAP AS RULE 2: the ground line and the item are on different planes, so a raw
+    # y comparison is meaningless. Here y=1030 is numerically BELOW groundY=1060, which a naive
+    # check reads as standing; projected at z=640 it is floating.
+    ok("does NOT clear an item whose raw y looks low but projects above the ground",
+       bool(check(outdoor(1030, 640))), "projection was not applied")
+    # A sky item claims to stand nowhere and must not be dragged into this.
+    ok("a sky item is not asked to stand on anything",
+       not check({"scenes": [{"id": "s07", "groundY": 950, "planes": [
+           {"z": 700, "items": [{"kind": "turkeyVulture", "x": 700, "y": 360, "scale": 0.42}]}]}]}))
 
     # A scene with no room at all is not an interior and is not this check's business.
     ok("an exterior with no hallShell is left alone",
