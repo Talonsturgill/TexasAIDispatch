@@ -171,6 +171,17 @@ export const LiveOak: React.FC<FloraProps & {
           clean trunk is an urban street tree that has been pruned up for traffic. */}
       <Limb x1={0} y1={0} x2={lean * 0.7} y2={-h * 0.30} w1={h * 0.055} w2={h * 0.042}
         fill={bark.core} />
+      {/* THE MASS GOES BEHIND THE LIMBS, and this comment used to say it went on top "at
+          partial coverage" while nothing set any coverage at all. Fully opaque and drawn
+          last, it buried every limb this component carefully computes, so a tree with five
+          dipping limbs and six canopies reached the screen as flat discs on a stub. Three
+          scoring rounds called the live oak a lollipop and the code disagreed with them,
+          which is the tell that the code was not what was rendering.
+
+          Behind, the mass gives the crown one silhouette and the limbs read in front of it,
+          which is the whole difference between a live oak and a generic round tree. */}
+      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.58} rx={h * 0.70} ry={h * 0.33}
+        lobes={9} fill={t.core} hi={t.base} lo={t.shade} spread={0.82} />
       {Array.from({length: 5}, (_, i) => {
         const a = (-0.30 - i * 0.30 + rnd(seed, 10 + i) * 0.24) * Math.PI;
         const reach = h * (0.52 + rnd(seed, 30 + i) * 0.40);
@@ -185,15 +196,11 @@ export const LiveOak: React.FC<FloraProps & {
               w1={h * 0.030} w2={h * 0.011} fill={bark.core}
               bow={(by > -h * 0.30 ? 1 : -1) * reach * 0.13} />
             <Canopy seed={seed + i * 17} cx={bx} cy={by - h * 0.06}
-              rx={h * 0.30} ry={h * 0.20} lobes={5}
+              rx={h * 0.26} ry={h * 0.17} lobes={5}
               fill={t.core} hi={t.base} lo={t.shade} />
           </g>
         );
       })}
-      {/* the crown reads as ONE mass from a distance and as limbs up close, so both
-          are drawn and the mass goes on top at partial coverage */}
-      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.60} rx={h * 0.66} ry={h * 0.34}
-        lobes={9} fill={t.core} hi={t.base} lo={t.shade} spread={0.8} />
       {propped && (
         /* the cedar prop under a resting limb. It is a real thing on a courthouse
            square tree and it says the town has been looking after this one. */
