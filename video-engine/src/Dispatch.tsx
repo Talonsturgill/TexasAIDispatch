@@ -128,6 +128,40 @@ export const DEFAULT_DISPATCH: DispatchProps = {
 
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 
+/**
+ * A font size that keeps `text` inside `maxW`, never larger than `base`.
+ *
+ * `perChar` is the average advance width as a fraction of the font size for the display
+ * face this show sets its supers in. It is an ESTIMATE and deliberately a pessimistic
+ * one, because the fault it prevents is a word running off the frame and the cost of
+ * being wrong the other way is a super a few points smaller than it had to be.
+ */
+const fitPx = (text: string, base: number, maxW: number, perChar: number) => {
+  const need = Math.max(1, text.length) * perChar;
+  return Math.min(base, Math.max(34, maxW / need));
+};
+
+/**
+ * The caption, greedily wrapped to at most two lines.
+ *
+ * Two is the ceiling because a third would sit over the picture. The last line absorbs
+ * whatever is left rather than dropping it, since losing the end of a sentence silently
+ * is the exact fault this exists to stop.
+ */
+const CAP_PER_LINE = Math.floor((1080 - 78 - 30) / (34 * 0.5));
+const capLines = (text?: string): string[] => {
+  if (!text) return [];
+  const out: string[] = [];
+  let cur = '';
+  for (const w of text.trim().split(/\s+/)) {
+    const next = cur ? `${cur} ${w}` : w;
+    if (next.length > CAP_PER_LINE && cur && out.length < 1) { out.push(cur); cur = w; }
+    else cur = next;
+  }
+  if (cur) out.push(cur);
+  return out.slice(0, 2);
+};
+
 /** One scene, staged from data. */
 export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps}) => {
   const f = useCurrentFrame();
@@ -193,7 +227,14 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
         {scene.super && (
           <g opacity={interpolate(f, [4, 18, dur - 12, dur - 2], [0, 1, 1, 0],
             {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}>
-            <text x={64} y={210} fontSize={74} fontWeight={700} fill="#f2ede2"
+            {/* SHRINK TO FIT, because SVG TEXT DOES NOT WRAP AND DOES NOT CLIP EITHER.
+                It just keeps drawing past the frame edge. The first Dispatch rendered a
+                super reading "4,000 of them, already runnin" with every gate green: the
+                string was checked for numerals and for retired motifs and never for
+                whether it FITS. The CreditsCard below already wraps for this exact reason
+                and the super never got the same treatment. */}
+            <text x={64} y={210} fontSize={fitPx(scene.super, 74, 1080 - 64 - 40, 0.52)}
+              fontWeight={700} fill="#f2ede2"
               fontFamily={FONT.display}>{scene.super}</text>
             <rect x={64} y={244} width={132} height={5} fill="#c8703a" />
           </g>
@@ -201,9 +242,18 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
         {scene.caption && (
           <g opacity={clamp01(interpolate(f, [2, 12], [0, 1],
             {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}))}>
-            <rect x={54} y={1660} width={972} height={92} rx={6} fill="#0d1220" opacity={0.72} />
-            <text x={78} y={1716} fontSize={34} fill="#e4ded2"
-              fontFamily={FONT.body}>{scene.caption}</text>
+            {/* THE CAPTION WRAPS, same fault and same evidence. The first Dispatch shipped
+                "Per site large load metering is confidential, so the number stays i" off
+                the right edge. A caption carries the fact the super is too short to hold,
+                so a caption that runs off the frame loses the fact. */}
+            <rect x={54} y={1752 - (40 + capLines(scene.caption).length * 42)} width={972}
+              height={40 + capLines(scene.caption).length * 42} rx={6} fill="#0d1220"
+              opacity={0.72} />
+            {capLines(scene.caption).map((ln, i) => (
+              <text key={i} x={78}
+                y={1752 - (40 + capLines(scene.caption).length * 42) + 34 + i * 42}
+                fontSize={34} fill="#e4ded2" fontFamily={FONT.body}>{ln}</text>
+            ))}
           </g>
         )}
       </svg>
