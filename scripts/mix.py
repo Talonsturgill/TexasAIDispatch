@@ -454,6 +454,11 @@ def main() -> int:
     ap.add_argument("--bed")
     ap.add_argument("--out", default="out/dispatch/mix.wav")
     ap.add_argument("--cut", type=float, default=60.0)
+    ap.add_argument("--vo-at", type=float, default=0.0, help=(
+        "seconds of picture before the voice arrives. A film opens on an image and THEN "
+        "somebody starts talking, and a read placed at sample zero leaves the opening shot "
+        "nowhere to live: the board's silent hook had 0.30s before the first word, so the "
+        "hook was a third of a second long. This is PLACEMENT, not a stretch."))
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -502,6 +507,13 @@ def main() -> int:
         print(f"mix: cannot read inputs: {exc}", file=sys.stderr)
         return 2
 
+    # The lead-in is silence PREPENDED to the voice, so every downstream time (the ducking
+    # envelope, the stem, the alignment) is computed on the placed read rather than on the
+    # bare take with an offset carried alongside it. An offset that has to be remembered is
+    # an offset that will be forgotten by one of the four things that need it.
+    if a.vo_at > 0:
+        vo = np.concatenate([np.zeros(int(round(a.vo_at * rate))), vo])
+
     out, report, problems = mix(vo, rate, events, a.cut, bed)
     if problems:
         print("mix: refused\n", file=sys.stderr)
@@ -509,6 +521,26 @@ def main() -> int:
             print(f"  - {x}", file=sys.stderr)
         return 1
     write_wav(Path(a.out), out, rate)
+
+    # THE VOICE STEM, ON THE MASTER'S OWN TIMELINE, written because the aligner needs it.
+    #
+    # Alignment must describe the audio a viewer hears, so it runs on the mix. Detecting the
+    # PAUSES there is a different matter: the bed and the foley play under the whole read and
+    # never fall to the take's noise floor, so the segmenter cannot see a silence and merges
+    # phrases into runs seconds long. The first Dispatch measured a five word cue holding for
+    # 7.06 seconds that way, with every boundary honestly measured and the result unusable.
+    #
+    # This is the same recording at the same offsets, zero padded to the master's exact
+    # sample count, because the voice is placed at sample zero and NOTHING here is ever time
+    # stretched. Reconstructing it downstream would work today and rot the first time the
+    # placement changes, so the mixer states it rather than leaving it to be inferred.
+    stem = np.zeros(len(out))
+    stem[: min(len(vo), len(out))] = vo[: min(len(vo), len(out))]
+    stem_path = Path(a.out).with_name(Path(a.out).stem + "_vo.wav")
+    write_wav(stem_path, stem, rate)
+    report["voice_stem"] = str(stem_path)
+    report["voice_stem_samples"] = int(len(stem))
+
     Path(a.out).with_suffix(".json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     # PRINT WHAT IT REACHED, NOT WHAT IT AIMED AT. This line used to print the TARGET
     # whatever the master actually measured, so a mix two dB short reported the target back

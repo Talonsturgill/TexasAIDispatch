@@ -396,7 +396,37 @@ python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_
        --out out/dispatch
 python3 scripts/board_captions.py --board out/dispatch/storyboard.json \
        --captions out/dispatch/captions.json
+python3 scripts/board_retime.py --board out/dispatch/storyboard.json \
+       --words out/dispatch/words.json --sfx out/dispatch/sfx_events.json
 ```
+
+**ALIGN ON THE MIX, DETECT ON THE VOICE, AND THEY ARE THE SAME TIMELINE.** `mix.py` writes
+`mix_vo.wav`, the stem on the master's own clock. Pass it as `--voice`. The mix carries an
+ambience bed under the whole read that never falls to the take's noise floor, so a segmenter
+pointed at the mix cannot see a pause: it measured a five word cue holding for 7.06 seconds
+and returned 63 of 114 word times modelled. Nothing is ever time stretched here, so the stem's
+silences ARE the mix's silences. This is not a substitute measurement, it is the same one
+taken where the bed is not standing in front of it.
+
+**THEN THE BOARD IS RE-CUT TO THE READ.** `board_retime` is the step this machine ran without
+for its whole life, and its absence was the single largest defect in the first Dispatch: two
+of three scorers found it independently. The board is authored in Phase 4 on a uniform five
+second grid, because five is a round number and no word has been synthesised yet. The read
+never lands on that grid. Nothing moved the cuts, so for half the runtime the narration
+described the PREVIOUS shot, the half built hall played under the line about the access
+notice, and every gate was green because every asset was correct and merely five seconds
+from where it belonged.
+
+It moves the scene starts to the measured start of each scene's own `vo` line, carries the
+beats inside each shot with it, and re-anchors every foley event to wherever its scene went.
+That last part is not optional: re-cutting the picture without the sound leaves a transformer
+humming over a machine room two hundred miles away.
+
+**A SCENE IS NOW AS LONG AS ITS OWN SENTENCE TAKES TO SAY**, so the board must be written to
+survive that. If a scene runs past the ceiling, SPLIT THE BEAT rather than holding the shot:
+the closing line here needed three scenes where the board had one holding for thirteen
+seconds. `--vo-at` on `mix.py` buys the silent hook its room, since a read placed at sample
+zero leaves the opening shot a third of a second to live in.
 
 Alignment runs on the FINAL mixed audio and every cue comes from the words JSON. Approximated,
 scaled or hand-shifted timings are banned, and `ship_gate` checks the EVIDENCE for alignment

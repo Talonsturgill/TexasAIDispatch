@@ -65,9 +65,25 @@ MIN_RUN_S = 0.12
 # How far above the noise floor counts as speech, in dB.
 SPEECH_OVER_FLOOR_DB = 12.0
 
+# ...and how far BELOW the speech level still counts, which is the guard that holds when
+# the floor estimate is useless. A stem zero padded to a master's length has no room tone
+# at all, so a floor-relative threshold alone lands under every frame and returns the whole
+# film as one run. Belt and braces on purpose: either rule alone has a real waveform that
+# defeats it.
+SPEECH_UNDER_PEAK_DB = 32.0
+
 # A caption cue should be readable. Two lines of about forty characters.
 MAX_CUE_CHARS = 84
-MAX_CUE_S = 6.0
+
+# HOW LONG A CUE MAY HOLD, and six seconds was far too generous.
+#
+# A cue holds until the next measured boundary, so a long ceiling does not merely allow a
+# long cue, it allows a cue to PRINT WORDS BEFORE THEY ARE SPOKEN. The first Dispatch shipped
+# an 8.9 second closing cue carrying three sentences, which put "the only machine in Texas
+# you can check is the small one" on screen five seconds before the narrator said it. The
+# film spoiled its own ending in its own subtitle, and every gate was green because every
+# boundary really was measured. Measured and readable are different properties.
+MAX_CUE_S = 3.4
 
 
 def read_wav(path: Path) -> tuple[np.ndarray, int]:
@@ -106,10 +122,23 @@ def speech_runs(x: np.ndarray, rate: int) -> list[tuple[float, float]]:
         return [(0.0, len(x) / rate)]
     energy = np.sqrt((x[:frames * win].reshape(frames, win) ** 2).mean(axis=1)) + 1e-9
     db = 20 * np.log10(energy)
-    # The noise floor of THIS take, not a constant. A take recorded hotter or quieter
-    # than the last one gets its own threshold.
-    floor = float(np.percentile(db, 10))
-    thresh = floor + SPEECH_OVER_FLOOR_DB
+
+    # THE FLOOR IS ESTIMATED OVER ROOM TONE, NEVER OVER DIGITAL SILENCE.
+    #
+    # A percentile over every frame is right for a recording, which always has some room
+    # tone, and catastrophically wrong for a stem that has been zero padded to a master's
+    # length. Padding is exact zeros, so the tenth percentile lands near -180 dB, the
+    # threshold lands 12 dB above that, EVERY frame counts as speech, and the whole film
+    # comes back as one run. Measured on this repo's own mix: 3 runs and a 47 second cue,
+    # from a change that was supposed to find MORE boundaries.
+    #
+    # So frames at true silence are excluded from the estimate, and the threshold is also
+    # held within a fixed range of the speech level. Either guard alone is defeatable: the
+    # first by a stem with dither in the pad, the second by a recording with no quiet part.
+    live = db[db > -120.0]
+    floor = float(np.percentile(live, 10)) if live.size else float(np.min(db))
+    loud = float(np.percentile(db, 95))
+    thresh = max(floor + SPEECH_OVER_FLOOR_DB, loud - SPEECH_UNDER_PEAK_DB)
     voiced = db > thresh
     runs, start = [], None
     for i, v in enumerate(voiced):
@@ -357,6 +386,29 @@ def self_test() -> int:
     except ValueError:
         ok("silence is refused rather than aligned to nothing", True)
 
+    # A STEM ZERO PADDED TO A MASTER'S LENGTH, which is what the mixer now writes and what
+    # the aligner is now pointed at. This is the exact shape that broke it: the floor
+    # estimate landed near -180 dB over the pad, the threshold went under every frame, and
+    # the whole film came back as ONE run with a 47 second cue. Every boundary was still
+    # honestly "measured", which is why nothing downstream caught it.
+    padded = np.concatenate([audio, np.zeros(int(sr * 4.5))])
+    pruns = speech_runs(padded, sr)
+    ok("a stem zero padded to a master's length still segments",
+       len(pruns) == len(runs), f"{len(pruns)} runs against {len(runs)} unpadded")
+    ok("...and the padding is not itself heard as speech",
+       all(b <= len(audio) / sr + 0.25 for _, b in pruns),
+       str(max(b for _, b in pruns)))
+    ok("...and the run edges did not move",
+       all(abs(a1 - a2) < 1e-6 and abs(b1 - b2) < 1e-6
+           for (a1, b1), (a2, b2) in zip(runs, pruns)))
+
+    # ...and the other half of the guard: a recording with NO quiet part must not have its
+    # threshold dragged down to nothing either.
+    hot = audio + np.random.default_rng(3).normal(0, 0.02, len(audio))
+    ok("a take with no quiet part still segments into phrases",
+       1 < len(speech_runs(hot, sr)) <= len(runs) + 2,
+       str(len(speech_runs(hot, sr))))
+
     if failures:
         print(f"\nvo_align self-test: {failures} FAILED", file=sys.stderr)
         return 1
@@ -368,6 +420,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--wav")
     ap.add_argument("--script")
+    ap.add_argument("--voice", help=(
+        "the VO stem, on the mix's own timeline. Boundaries are detected here and applied "
+        "to --wav. See the note in main() for why this is not a shortcut."))
     ap.add_argument("--out", default="out/dispatch")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
@@ -382,6 +437,42 @@ def main() -> int:
     except (OSError, ValueError) as exc:
         print(f"vo_align: cannot read inputs: {exc}", file=sys.stderr)
         return 2
+
+    # DETECT ON THE VOICE, MEASURE AGAINST THE MIX, AND THEY ARE THE SAME TIMELINE.
+    #
+    # Alignment must describe the audio a viewer actually hears, so the routine says to run
+    # it on the FINAL MIX. Running the ENERGY DETECTION there too is the part that was
+    # wrong: the mix carries an ambience bed and foley under the whole read, which never
+    # drops to the take's noise floor, so the segmenter cannot see a pause. Every real
+    # silence between phrases was masked by a room tone, runs merged across them, and a five
+    # word cue was measured holding for 7.06 seconds. 63 of 114 word times came out modelled
+    # against 51 measured, and two of three scorers called it approximation, correctly.
+    #
+    # The VO stem is the same recording on the same timeline at the same offsets, because
+    # nothing in this machine is ever time stretched. So its silences ARE the mix's
+    # silences, and detecting them there is not a substitute measurement, it is the same
+    # measurement taken where the bed is not standing in front of it.
+    if a.voice:
+        try:
+            v, vrate = read_wav(Path(a.voice))
+        except (OSError, ValueError) as exc:
+            print(f"vo_align: cannot read --voice: {exc}", file=sys.stderr)
+            return 2
+        if vrate != rate:
+            print(f"vo_align: the voice stem is {vrate} Hz and the mix is {rate} Hz, so "
+                  f"their sample indices are not the same timeline. Refusing rather than "
+                  f"resampling a measurement.", file=sys.stderr)
+            return 1
+        drift = abs(len(v) / vrate - len(x) / rate)
+        if drift > 0.5:
+            print(f"vo_align: the voice stem is {len(v)/vrate:.2f}s and the mix is "
+                  f"{len(x)/rate:.2f}s, {drift:.2f}s apart. A stem that is not the mix's "
+                  f"own timeline would move every boundary. Refusing.", file=sys.stderr)
+            return 1
+        # pad or trim ONLY to the mix's exact sample count, never to make one fit the other
+        if len(v) < len(x):
+            v = np.concatenate([v, np.zeros(len(x) - len(v), dtype=v.dtype)])
+        x = v[:len(x)]
     try:
         res = align(x, rate, script)
     except ValueError as exc:
