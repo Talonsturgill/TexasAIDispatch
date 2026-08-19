@@ -261,8 +261,18 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
         # anything else, and it is written out so the claim is checkable rather than
         # a matter of trusting this docstring.
         "time_stretch": 1.0,
+        # THE BED IS RECORDED BECAUSE THE CREDIT IS THE LICENCE.
+        # It was mixed in and never written down, so `mix.json` listed two tracks on a
+        # film whose end card credits a third. Nothing could tell a film that credits
+        # music it does not contain from one that contains music it does not credit, and
+        # the second of those is using somebody's work without the licence that permits
+        # it. `music.py --verify-film` checked the credit string was present and had no
+        # way to check the audio. Now it does.
         "tracks": [{"id": "vo", "time_stretch": 1.0},
-                   {"id": "sfx", "time_stretch": 1.0, "events": len(sfx)}],
+                   {"id": "sfx", "time_stretch": 1.0, "events": len(sfx)}]
+                  + ([{"id": "bed", "time_stretch": 1.0, "tiled_under_at": 0.35}]
+                     if bed is not None else []),
+        "bed": bed is not None,
         "sfx_events": len(sfx),
     }
     return normalised, report, problems
