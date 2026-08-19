@@ -1228,8 +1228,15 @@ export const PoleSign: React.FC<RoadProps & {
           </>
         )}
       </g>
+      {/* THE READER BOARD, AND IT IS FILLED WHEN DEAD TOO.
+          This was the surviving half of the basketball goal. The cabinet above it was
+          filled last round and this rect kept `fill: none`, so an OPEN OUTLINED RECTANGLE
+          went on rendering directly under a board, centred on the pole: a hoop under a
+          backboard. It survived in five frames including the hook and the closing image,
+          and the run believed the sign was fixed because the half it looked at was.
+          A dead reader board is still a board. Blank, filled and faded. */}
       <rect x={-pw * 0.30} y={-h * 0.84} width={pw * 0.60} height={h * 0.10}
-        fill={dead ? 'none' : '#2a3a52'} stroke={steel.shade} strokeWidth={h * 0.008} />
+        fill={dead ? steel.shade : '#2a3a52'} stroke={steel.core} strokeWidth={h * 0.008} />
     </g>
   );
 };

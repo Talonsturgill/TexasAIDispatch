@@ -103,7 +103,7 @@ export const Cabinet: React.FC<Rig & {
     return (
       <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
         <ContactShadow cx={0} cy={1} rx={22} opacity={0.22} blur={6} />
-        <rect x={-19} y={-100} width={38} height={100} fill="#232a31" opacity={0.96} />
+        <rect x={-19} y={-100} width={38} height={100} fill="#12161b" opacity={0.97} />
         <rect x={-19} y={-100} width={38} height={100} fill="none" stroke="#8d97a1"
           strokeWidth={2.4} strokeDasharray="7 6" opacity={0.85} />
       </g>
