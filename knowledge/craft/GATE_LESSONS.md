@@ -930,3 +930,67 @@ forgot would look correct until somebody measured a glyph.
 The migration was checked by rendering all sixteen compositions and comparing edge bleed against
 the pre-change renders, byte for byte at the margins. Identical. **That is a cheap, total answer
 to "did changing the typeface break a layout"**, and it exists only because the sheets exist.
+
+## Round twelve: three faults, one shape, and none of them a gate's fault
+
+Nothing in this entry was caught by a check. Every one of them was found by looking at a
+frame, and the reason is the same in all three: **a gate reads a file, and a viewer reads a
+silhouette.** No assertion in this repo has ever been able to look at a shape and say what
+object it is. That is not a gap to close with a cleverer gate. It is the argument for
+rendering a still and reading it before believing anything.
+
+### The stand was seeded per scene, so one place was four places
+
+`Vegetation` took the scene's seed. Four Round Rock shots therefore grew four different
+stands of live oak at four different scales, and four Abilene shots four different brakes of
+mesquite. Every gate passed, because every frame was internally correct. A scorer read it as
+four locations and said so on the place axis, and was right.
+
+**Standing woody plants are landmarks and belong to the REGION, not the shot.** Grass may keep
+the scene seed, because nobody tracks a tuft across a cut. The general rule: ask of any
+randomised element whether a viewer is supposed to recognise it from the shot before. If yes,
+it cannot be seeded on the shot.
+
+### A drawing can be correct in code and wrong on screen, and this is the fourth time
+
+`LimbedOak` computed five limbs, placed a lobe on each limb tip, and read as a green blob. The
+lobes were `w*0.20` to `w*0.30` hung on tips about `w*0.15` apart, so each one overlapped both
+neighbours and the crown closed. **A lobe has to be smaller than the gap it hangs over or there
+is no gap.** Separating them then produced five ringed circles on five bare ribs, which reads
+as broccoli, because each lobe carried its own ink outline and a viewer counts outlines. The
+crown is one silhouette made of lobes, which is not the same object as many outlined lobes:
+draw them twice, fat in ink underneath and in leaf colour on top, and the union has one edge.
+
+Four instances of this shape now, and they are worth listing together because the list is the
+lesson. A caption file honestly aligned that never reached the picture. A credits colon fixed
+in a file the renderer does not read. A board edited after its own render. And a `Canopy`
+centre ellipse that painted over the limb geometry both tree components had just computed.
+
+### When something reads as the wrong object, change the geometry
+
+The dead pole sign took three passes and stayed a basketball goal. The starburst came off. The
+open frame was filled. The reader board was filled. Each fix was correct about the part it
+touched and none of them moved the shape: a narrower box centred on the pole, floating in the
+gap under a wider board, is a hoop under a backboard whatever colour it is painted. It only
+stopped being one when the reader board moved flush against the cabinet's bottom rail at the
+cabinet's full width, which is also where a real one is.
+
+**Recolouring the parts leaves the drawing that made the wrong shape exactly where it was.**
+The same fault in a second file the same day: the bucket truck's compartment doors were
+`fill="none"` over a near-white body, so they took the body's colour and became four white
+crates on a flatbed. An unfilled shape is made of whatever is behind it, and what is behind it
+is never what the shape is supposed to be made of.
+
+### A scale that is random is a scale that is wrong
+
+The rolling-plains mesquites drew `scale` from the seed with no reference to how far down the
+frame they stood. A tree nearer the camera was as likely to be drawn small as large, so the
+picture was telling the eye two different distances for one tree. That is a scale error in the
+strict sense `lib/scale.ts` exists to prevent, and the metre file cannot catch it, because
+every individual tree was a legal size. **Size comes from depth. The seed varies it a little
+around that and never sets it.**
+
+The same block was also drawing crowns over twice as wide as the lane they were stratified
+into, which is why stratifying x had not stopped them merging into a hedge. A spacing rule is
+worth nothing until the thing being spaced is measured against it, and the ceiling should be
+solved against the spacing rather than chosen and hoped for.
