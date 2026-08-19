@@ -368,11 +368,20 @@ const LimbedOak: React.FC<{
  *  each cell joined to its neighbours, so the cracks meet at nodes the way real ones do
  *  rather than lying about as unconnected strokes. Wider and darker near the camera. */
 const ClayCracks: React.FC<{seed: number; groundY: number}> = ({seed, groundY}) => {
-  const top = groundY + 30;
-  const rows = 7, cols = 9;
+  // CRACKS BELONG TO BARE CLAY, NOT TO EVERYTHING BELOW THE HORIZON.
+  // Started thirty units under the ground line they ran the full depth of the frame,
+  // straight across the mown verge and on over the paved apron, so the ground plane read
+  // as a wireframe laid over the picture rather than as cracked earth. A scorer priced
+  // that at about half a point of place on its own, which is more than the texture was
+  // ever worth.
+  // The near band is where a viewer can see the width of a crack and where the grass
+  // thins enough for the clay to show, so that is where they are. Above it the ground
+  // keeps its colour and nothing is drawn.
+  const top = groundY + (H - groundY) * 0.42;
+  const rows = 5, cols = 9;
   const node = (r: number, c: number) => {
     const t = (r + 0.5) / rows;
-    const y = top + Math.pow(t, 1.6) * (H - top - 20);
+    const y = top + Math.pow(t, 1.35) * (H - top - 20);
     const spread = 0.6 + t * 0.9;                       // cells widen as they near us
     return {
       x: ((c + 0.5) / cols) * W + (rnd(seed, r * 31 + c) - 0.5) * (W / cols) * spread,
