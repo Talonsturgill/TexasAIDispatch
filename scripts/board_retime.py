@@ -234,11 +234,22 @@ def retime_sfx(scenes: list[dict], events: list[dict]) -> tuple[list[dict], list
                 f"to move it with. A sound that is not anchored to a picture is the library "
                 f"whoosh this project does not use.")
             continue
-        if "at_s_authored" not in ev:
-            ev["at_s_authored"] = float(ev.get("at_s") or 0)
-        offset = ev["at_s_authored"] - auth_start[sid]
-        frac = offset / (authored[sid] or 1.0)
-        ev["at_s"] = round(float(s["start_s"]) + frac * float(s["duration_s"]), 3)
+        # WHAT IS REMEMBERED IS THE OFFSET INSIDE THE SHOT, NOT A TIME ON A CLOCK.
+        #
+        # This first stored the event's absolute authored second and rebuilt the authored
+        # grid by accumulating scene durations. That is correct exactly until the board
+        # gains or loses a scene, and then every event after the change is off by that
+        # scene's length: cutting one scene here moved a sound out of the shot that
+        # motivates it, and flow_check reported the next scene as silent. A position that
+        # has to be recomputed from its neighbours is a position that breaks when a
+        # neighbour goes.
+        if "frac_authored" not in ev:
+            at = float(ev.get("at_s_authored", ev.get("at_s") or 0))
+            ev["frac_authored"] = round(
+                max(0.0, (at - auth_start[sid]) / (authored[sid] or 1.0)), 4)
+            ev.pop("at_s_authored", None)
+        ev["at_s"] = round(
+            float(s["start_s"]) + float(ev["frac_authored"]) * float(s["duration_s"]), 3)
         # a sound may not outlast the shot that motivates it
         if ev.get("dur_s"):
             ev["dur_s"] = round(min(float(ev["dur_s"]), float(s["duration_s"])), 3)
@@ -372,6 +383,18 @@ def _self_test() -> int:
     got2, _ = retime_sfx(sb["scenes"], json.loads(json.dumps(got)))
     ok("...and re-timing the sound twice lands where once did",
        all(abs(x["at_s"] - y["at_s"]) < 1e-6 for x, y in zip(got, got2)))
+
+    # CUTTING A SCENE MUST NOT MOVE ANOTHER SCENE'S SOUND. The board loses scenes: a beat
+    # the read cannot host gets cut, and every sound after it used to shift by that scene's
+    # length, out of the shot that motivates it. flow_check then reported the WRONG scene
+    # as silent, which is a fault that points at the wrong place.
+    fewer = json.loads(json.dumps(sb))
+    fewer["scenes"] = [x for x in fewer["scenes"] if x["id"] != "s02"]
+    kept = json.loads(json.dumps([g for g in got if g["id"] != "s02-snd"]))
+    after, _ = retime_sfx(fewer["scenes"], kept)
+    s3b = next(x for x in fewer["scenes"] if x["id"] == "s03")
+    ok("cutting a scene leaves every other scene's sound inside its own shot",
+       s3b["start_s"] <= after[-1]["at_s"] <= s3b["start_s"] + s3b["duration_s"])
 
     print()
     print("board_retime self-test: " + ("all passed" if not fails else f"{len(fails)} FAILED"))

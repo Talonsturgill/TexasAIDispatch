@@ -186,15 +186,27 @@ export const DataCentre: React.FC<KitProps & {w?: number; h?: number; units?: nu
         <line key={i} x1={(i + 1) * 74} y1={-h} x2={(i + 1) * 74} y2={0} stroke={INK}
           strokeWidth={2.4} opacity={0.45} />
       ))}
-      {/* roof units in rows */}
-      {Array.from({length: units}, (_, i) => (
-        <g key={i}>
-          <rect x={26 + i * ((w - 60) / units)} y={-h - 26} width={(w - 60) / units - 14}
-            height={26} fill="#9aa3ad" stroke={INK} strokeWidth={4} />
-          <BrushedMetal x={26 + i * ((w - 60) / units)} y={-h - 26}
-            w={(w - 60) / units - 14} h={26} opacity={0.2} />
-        </g>
-      ))}
+      {/* Roof units in rows.
+          THE ONE THING EVERYBODY KNOWS ABOUT THESE BUILDINGS IS THAT THEY HAVE NO WINDOWS,
+          and this row was making them look like they do. Pale #9aa3ad boxes at 26 high with
+          a brushed sheen, gapped evenly along the whole roofline, read at feed size as a
+          continuous mullioned clerestory band: the slab below is drawn windowless and
+          correct, and the roof was putting the glazing back on. A scorer named it a
+          greenhouse and traced it to exactly this loop.
+          Dark, squatter, and gapped WIDER than they are drawn, so the eye reads separate
+          plant standing on a roof rather than a glass band running through it. */}
+      {Array.from({length: units}, (_, i) => {
+        const pitch = (w - 60) / units;
+        const uw = pitch * 0.52;
+        return (
+          <g key={i}>
+            <rect x={26 + i * pitch + pitch * 0.24} y={-h - 19} width={uw}
+              height={19} fill="#565e67" stroke={INK} strokeWidth={4} />
+            <BrushedMetal x={26 + i * pitch + pitch * 0.24} y={-h - 19}
+              w={uw} h={19} opacity={0.12} />
+          </g>
+        );
+      })}
       {/* louvre bank: a data centre is mostly air handling and it should look it */}
       <rect x={w * 0.62} y={-h + 22} width={w * 0.3} height={h - 44} fill="#8d949c"
         stroke={INK} strokeWidth={4} />

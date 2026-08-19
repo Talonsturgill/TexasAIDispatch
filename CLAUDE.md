@@ -134,11 +134,17 @@ Needs `GEMINI_API_KEY`. The voice pick is auditioned and recorded in `config/voi
 The ship threshold lives in `config/dispatch_rubric.yaml` and nowhere else. Do not type a bar into
 a prompt, a brief, or a verdict file.
 
-The sibling lost five panel rounds to this: its prompt said 9.0 while the rubric had said 7.5 for
-two weeks. The panel was briefed 9.0, scored the film 7.08, and returned ship:false on a cut that
-was already over the real bar. Two judges flagged the divergence unprompted and the run kept
-grading against the wrong number anyway. **A number restated in a second place is a number that
-will be wrong in one of them.**
+The sibling lost five panel rounds to this. Its prompt carried a bar the rubric had not held for
+two weeks, the panel was briefed the stale one, and it returned ship:false on a cut that was
+already over the real one. Two judges flagged the divergence unprompted and the run kept grading
+against the wrong number anyway. **A number restated in a second place is a number that will be
+wrong in one of them.**
+
+**And this paragraph used to prove it.** It told the story by quoting both numbers, so the file
+that forbids a second copy of the bar carried one, four lines under the sentence forbidding it. A
+scorer caught it and was right to: the numbers happened to agree that day, which is the only
+reason it looked harmless, and agreement is a state a file drifts out of rather than a property it
+has. The story works without them. Anyone who needs the number reads the rubric.
 
 ## Sibling repos
 

@@ -87,12 +87,25 @@ export const Cabinet: React.FC<Rig & {
   const slots = 21;
 
   if (unknown) {
+    // AN UNCOUNTED RACK IS A SILHOUETTE, NOT A WIREFRAME.
+    //
+    // This drew a fully transparent rectangle with an X across it, which is the diagram
+    // convention for "empty" and is the wrong idea twice over. The rack is not empty, it is
+    // UNCOUNTED, and a see-through box lets the floor, the wall and every rack behind it
+    // print straight through the shape. A row of them overlapping became a lattice of stray
+    // dashes and crossing diagonals over black: the film's central comparison, solid versus
+    // dashed, rendering as a render error. A whole panel of scorers called it that.
+    //
+    // Filled, it occludes what is behind it exactly as its counted neighbour does, so the
+    // two read as the same object in the same room and the ONLY difference between them is
+    // that one has its doors and its lights and the other is a shape nobody outside the
+    // company has a number for. That is the actual argument.
     return (
       <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
+        <ContactShadow cx={0} cy={1} rx={22} opacity={0.22} blur={6} />
+        <rect x={-19} y={-100} width={38} height={100} fill="#232a31" opacity={0.96} />
         <rect x={-19} y={-100} width={38} height={100} fill="none" stroke="#8d97a1"
-          strokeWidth={3} strokeDasharray="7 6" opacity={0.8} />
-        <path d="M-19,-100 L19,0 M19,-100 L-19,0" stroke="#8d97a1" strokeWidth={1.6}
-          opacity={0.28} />
+          strokeWidth={2.4} strokeDasharray="7 6" opacity={0.85} />
       </g>
     );
   }

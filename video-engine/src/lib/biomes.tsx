@@ -107,7 +107,7 @@ export const Biome: React.FC<{
   seed?: number;
   /** how far up the frame the ground line sits */
   groundY?: number;
-  weather?: 'norther' | 'dust' | 'overcast' | 'night';
+  weather?: 'norther' | 'dust' | 'overcast' | 'night' | 'late';
   /** THE SCENE IS INDOORS, so the region draws its LIGHT and not its plants.
    *
    *  A scene still declares its county and its region inside a building, because the
@@ -137,6 +137,17 @@ export const Biome: React.FC<{
   };
   const r = rough[region];
 
+  // THE SKY IS PART OF THE WEATHER, and it was the half that did not move. `RegionLight`
+  // shades every OBJECT to the weather, and the sky gradient behind them stayed keyed to
+  // the region alone. So a scene asking for late light got warm shading on the building
+  // standing against the same midday blue it stood against fifty seconds earlier, and the
+  // change read as a colour-grade slip rather than as an hour passing. The two have to
+  // agree or neither is believed.
+  const sky: [string, string] =
+    weather === 'late' ? ['#6f86ad', '#f0b978']
+    : weather === 'night' ? ['#1b2436', '#3d4a63']
+    : p.sky;
+
   return (
     <RegionLight region={region} weather={weather}>
       <Stage3D camera={camera}>
@@ -145,8 +156,8 @@ export const Biome: React.FC<{
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
             <defs>
               <linearGradient id={`${uid}sky`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={p.sky[0]} />
-                <stop offset="100%" stopColor={p.sky[1]} />
+                <stop offset="0%" stopColor={sky[0]} />
+                <stop offset="100%" stopColor={sky[1]} />
               </linearGradient>
             </defs>
             <rect width={W} height={H} fill={`url(#${uid}sky)`} />
@@ -155,7 +166,7 @@ export const Biome: React.FC<{
 
         {/* ---- far land ------------------------------------------------------ */}
         <Plane z={1500} fill>
-          <Atmosphere z={1500} skyTint={p.sky[1]} strength={region === 'trans_pecos' ? 0.35 : 1}>
+          <Atmosphere z={1500} skyTint={sky[1]} strength={region === 'trans_pecos' ? 0.35 : 1}>
             {/* THE TRANS-PECOS INVERSION: the cleanest air in Texas keeps distant
                 mountains saturated instead of hazing them out, which reverses the usual
                 atmospheric perspective rule. So its haze strength is turned down rather
@@ -168,7 +179,7 @@ export const Biome: React.FC<{
 
         {/* ---- mid land ------------------------------------------------------ */}
         <Plane z={900} fill>
-          <Atmosphere z={900} skyTint={p.sky[1]}>
+          <Atmosphere z={900} skyTint={sky[1]}>
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
               <path d={ridgePath(seed + 31, groundY - 96, r * 0.8)} fill={p.mid} />
             </svg>
@@ -192,8 +203,8 @@ export const Biome: React.FC<{
                   reaches full strength exactly where it is cut prints its own edge into
                   the picture. */}
               <linearGradient id={`${uid}hz`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={p.sky[1]} stopOpacity="0.55" />
-                <stop offset="100%" stopColor={p.sky[1]} stopOpacity="0" />
+                <stop offset="0%" stopColor={sky[1]} stopOpacity="0.55" />
+                <stop offset="100%" stopColor={sky[1]} stopOpacity="0" />
               </linearGradient>
               {/* THE GROUND RECEDES. A flat fill is a rectangle; a fill that lightens
                   toward the horizon is a plane the camera is standing on. */}

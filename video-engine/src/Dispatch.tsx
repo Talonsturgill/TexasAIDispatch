@@ -60,7 +60,7 @@ export interface Scene {
    *  sentence nobody spoke. It renders under the super now, as a kicker on the title,
    *  and the bottom of the frame belongs to `captions` alone. */
   caption?: string;
-  weather?: 'norther' | 'dust' | 'overcast' | 'night';
+  weather?: 'norther' | 'dust' | 'overcast' | 'night' | 'late';
   /** The scene is INDOORS. The region still names the light, because a room in Abilene is
    *  lit by Abilene, and the region's plants and dirt stay outside where they live. */
   interior?: boolean;
