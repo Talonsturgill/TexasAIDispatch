@@ -75,7 +75,11 @@ DEBT: dict[str, tuple[float, str]] = {
     "bucketTruck":  (0.22,  "0.75 m beside a 1.79 m lineworker. A judge called it a cup."),
     "cattleGuard":  (0.50,  "0.15 m. A cattle guard is a pit, so the error reads as texture."),
     "coolingTower": (0.15,  "1.35 m against a 9 m tower"),
-    "dataCentre":   (0.062, "0.74 m. The Abilene hall as a footstool."),
+    # 0.062 was paid down to 0.15 on 2026-08-19, when s07's halls turned out to be
+    # rendering at half the height of the cooling plant beside them in the one shot
+    # whose stated hero is how much of the horizon the campus takes. s09 still holds
+    # 0.075, so the line stays until that one is paid too.
+    "dataCentre":   (0.075, "0.90 m in s09. s07 paid down from 0.062 to 0.15."),
     "liveOak":      (0.1668, "2.34 m. A live oak that a person could look over."),
     "mansardBox":   (0.30,  "1.56 m. The building is shorter than the people inside it."),
     "mesquite":     (0.12,  "0.72 m, and it is drawn with the live oak's canopy besides"),
