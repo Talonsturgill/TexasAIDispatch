@@ -30,7 +30,7 @@ while read -r id t; do
     "out/dispatch/scene_$id.png" -loglevel error </dev/null
 done < /tmp/_frames.txt
 
-DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$FILM")
+DUR=$(npx --prefix video-engine remotion ffprobe "$FILM" 2>&1 | grep -oE "Duration: [0-9:.]+" | head -1 | sed -E "s/Duration: ([0-9]+):([0-9]+):([0-9.]+)/\1 \2 \3/" | awk "{print \$1*3600+\$2*60+\$3}")
 npx --prefix video-engine remotion ffmpeg -y -ss 0.4 -i "$FILM" -frames:v 1 \
   out/dispatch/poster.png -loglevel error </dev/null
 npx --prefix video-engine remotion ffmpeg -y -ss "$(python3 -c "print(max(0,$DUR-0.6))")" \
