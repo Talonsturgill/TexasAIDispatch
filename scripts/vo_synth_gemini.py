@@ -62,7 +62,19 @@ REPO = Path(__file__).resolve().parents[1]
 # a preview model mid-run, and a run that dies there has no voice at all.
 MODEL_PRIMARY = "gemini-3.1-flash-tts-preview"
 MODEL_FAILOVER = "gemini-2.5-pro-preview-tts"
-MODEL_TRANSCRIBE = "gemini-3.1-flash-preview"
+# THE SOUNDCHECK'S EYES, and it was pointed at a model that does not exist.
+#
+# `gemini-3.1-flash-preview` is not a published model id. The 3.1 flash family ships as
+# `-lite-preview`, `-image-preview` and `-tts-preview`, and the plain text one is
+# `gemini-3-flash-preview` without the point one. So every take SYNTHESISED CORRECTLY and
+# then 404'd on the transcription a line later, the loop counted that as a take failure,
+# and three good reads were thrown away and retried into the failover. The run reported
+# "no take was rendered" for a voice step whose audio was fine.
+#
+# Nothing could have caught it earlier. `--self-test` is hermetic and never calls the API,
+# which is right, and the name only has to be wrong once to burn every take of every run.
+# It is now checked against the live model list rather than typed from memory.
+MODEL_TRANSCRIBE = "gemini-3-flash-preview"
 ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
 # The same vocabulary vo_soundcheck greps for in a transcript. Imported by value
@@ -155,7 +167,16 @@ def parse_pcm(data: bytes, mime: str) -> tuple[np.ndarray, int]:
     rate = int(m.group(1))
     if not (8000 <= rate <= 96000):
         raise ValueError(f"implausible sample rate {rate}")
-    if "L16" not in (mime or "") and "pcm" not in (mime or "").lower():
+    # CASE INSENSITIVE, and the case is the whole bug. RFC 2586 spells the subtype
+    # `audio/L16`, and the API returns `audio/l16; rate=24000; channels=1` in lower case.
+    # This test was `"L16" not in mime`, so every take from the PRIMARY model was decoded,
+    # rejected as an unknown encoding, and counted as a failure, and after two of them the
+    # run fell over to the secondary and shipped from there. Nothing said so above a line
+    # of stderr. config/voices.yaml describes the failover as the answer to repeated 500s,
+    # which is a different situation entirely, so the ledger would have recorded a voice
+    # the film was never read in.
+    low = (mime or "").lower()
+    if "l16" not in low and "pcm" not in low:
         raise ValueError(f"unexpected audio encoding {mime!r}; this decoder handles L16 PCM")
     x = np.frombuffer(data, dtype="<i2").astype(np.float64) / 32768.0
     return x, rate
@@ -325,6 +346,20 @@ def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str) -> int
         for attempt in range(3):
             try:
                 x, rate = synth_one(prompt, voice, key, model)
+                # THE ENGINE RATE IS 48 kHz AND THIS IS WHERE THE TAKE JOINS IT.
+                #
+                # This file's own header says "vo_synth_gemini resamples Gemini's 24k to
+                # 48k", CLAUDE.md says it, and foley.py repeats it as the contract every
+                # sound in the library is built against. Nothing did it. `_to_48k` existed
+                # and was called in exactly one place, inside `integrated_lufs`, to satisfy
+                # BS.1770's 48 kHz specification, so the resampler was present, correct and
+                # wired to the measurement instead of to the artifact.
+                #
+                # The take was written at whatever the API returned, which is 24 kHz, and
+                # the fault surfaced at the very end of the run in `mix.py`, which refuses a
+                # sound at a rate other than the voice's and named a 48 kHz foley wav as the
+                # odd one out. The mixer was right and it was pointing at the wrong file.
+                x, rate = _to_48k(x, rate), 48000
                 wav = out / f"{tid}.wav"
                 write_wav(wav, x, rate)
                 t = {"id": tid, "model": model, "voice": voice, "wav": str(wav), **measure(x, rate)}
@@ -402,6 +437,15 @@ def self_test() -> int:
     x, rate = parse_pcm(pcm, "audio/L16;codec=pcm;rate=24000")
     ok("PCM decodes and the rate comes from the mimeType", rate == 24000 and len(x) == 24000)
     ok("...and one second of it measures as one second", abs(len(x) / rate - 1.0) < 1e-6)
+    # THE ENGINE RATE, asserted on the thing that actually reaches the mixer. The header of
+    # this file, CLAUDE.md and foley.py all state that a take is resampled to 48 kHz, and
+    # for the whole of this machine's life none of them was true: `_to_48k` was only ever
+    # called on the way into the loudness meter. mix.py refuses a mismatched rate, so the
+    # cost was a run reaching its final step with a finished film and no usable voice.
+    up = _to_48k(x, rate)
+    ok("a take is resampled to the 48 kHz engine rate", len(up) == 48000)
+    ok("...and resampling does not change how long it is",
+       abs(len(up) / 48000 - len(x) / rate) < 1e-3)
     for bad, why in [("audio/L16;codec=pcm", "no rate"), ("audio/L16;rate=3", "implausible rate"),
                      ("audio/mpeg;rate=24000", "not PCM")]:
         try:

@@ -59,6 +59,27 @@ TAG_WORDS = {
 TARGET_LUFS = -16.0
 LUFS_TOLERANCE = 1.5
 
+# THE RANGE A RAW TAKE HAS TO BE IN, which is NOT the same thing as the target above.
+#
+# This check used to be `abs(lufs - TARGET_LUFS) > LUFS_TOLERANCE`, applied to the RAW
+# TAKE. `mix.py` imports TARGET_LUFS from this file and normalises the finished master to
+# it with a single gain (`gain = 10 ** ((target_lufs - measured) / 20)`), so the level a
+# take is rendered at is BY DESIGN not the level that ships. The gate was holding an
+# intermediate artifact to the specification of the final one.
+#
+# It is not a theoretical fault. On the first real run every take from the primary model
+# came back between -18 and -22 LUFS with word accuracy 1.000, no spoken tags, healthy
+# pitch variance, and two of the three inside the cut, and all three were refused for a
+# property the very next step in the pipeline exists to correct.
+#
+# THE RULE THAT IS ACTUALLY WORTH ENFORCING HERE is whether the mixer's single gain can
+# rescue the take. Too quiet and normalising up lifts the noise floor with it. Above the
+# target by much and the synth has probably already clipped, and no gain undoes that.
+# So this is a floor and a ceiling rather than an equality, and the equality still lives
+# in `mix.py`, which refuses outright when normalising to the target would clip.
+LUFS_RESCUE_FLOOR = -14.0        # dB below target
+LUFS_RESCUE_CEILING = 6.0        # dB above target
+
 # Below this, a read is a drone. Pitch variance in semitones, measured over voiced frames.
 MIN_PITCH_VARIANCE = 1.8
 
@@ -157,8 +178,17 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
             f"runs {overage * 100:.1f}% over the cut. TRIM THE SCRIPT and re-synth those lines. "
             f"Do NOT time-stretch: it is banned, and it produces an artefact every viewer hears "
             f"and cannot name")
-    if abs(lufs - TARGET_LUFS) > LUFS_TOLERANCE:
-        fails.append(f"integrated loudness {lufs:.1f} LUFS against a {TARGET_LUFS} target")
+    delta = lufs - TARGET_LUFS
+    if delta < LUFS_RESCUE_FLOOR:
+        fails.append(
+            f"integrated loudness {lufs:.1f} LUFS is {-delta:.1f} dB under the {TARGET_LUFS} "
+            f"target. mix.py normalises with a single gain, and lifting a take this quiet "
+            f"lifts its noise floor with it")
+    elif delta > LUFS_RESCUE_CEILING:
+        fails.append(
+            f"integrated loudness {lufs:.1f} LUFS is {delta:.1f} dB over the {TARGET_LUFS} "
+            f"target, which is the level a take that clipped during synthesis comes back at. "
+            f"No gain undoes clipping")
 
     # The composite is only used to RANK passing takes. It never overrides a fail.
     rank = acc * 3 + min(var, 6.0) / 6 - abs(lufs - TARGET_LUFS) / 10 - max(0.0, overage) * 4
@@ -243,7 +273,18 @@ def self_test() -> int:
        any("TRIM THE SCRIPT" in x for x in over["fails"]), str(over["fails"]))
     ok("...while a take a hair over is tolerated", score_take(take("g", dur=8.2), script, 8.0)["pass"])
 
-    ok("an off-target loudness is refused", not score_take(take("h", lufs=-9.0), script, 8.0)["pass"])
+    ok("a take loud enough to have clipped in synthesis is refused",
+       not score_take(take("h", lufs=-9.0), script, 8.0)["pass"])
+    # THE FLOOR AND THE CEILING, and both have to be able to go red or the range is
+    # decoration. -31 is seventeen dB under target, which no single gain rescues.
+    ok("a take too quiet for the mixer's gain to rescue is refused",
+       not score_take(take("h2", lufs=-31.0), script, 8.0)["pass"])
+    # AND THE CASE THE OLD RULE GOT WRONG. A take a few dB under target is exactly what
+    # mix.py is built to normalise, and refusing it threw away three clean reads on the
+    # first real run of this machine.
+    ok("a take a few dB under target PASSES, because the mixer normalises",
+       score_take(take("h3", lufs=-21.8), script, 8.0)["pass"],
+       str(score_take(take("h3", lufs=-21.8), script, 8.0)["fails"]))
 
     # Choosing.
     res = choose([take("lo", var=2.0), take("hi", var=5.0), take("bad", "nope")], script, 8.0)
