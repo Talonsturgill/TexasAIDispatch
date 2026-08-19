@@ -680,13 +680,28 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
               cannot see the width of is not a crack. */}
           <ClayCracks seed={sceneSeed + 17} groundY={groundY} />
           <BunchGrass seed={sceneSeed + 11} groundY={groundY} n={64} color="#8c9a5c" hh={34} />
-          {Array.from({length: 3}, (_, i) => {
+          {/* TWO, AT THE EDGES, BECAUSE THREE AT TRUE OAK SIZE IS A HEDGE.
+              Giving the oaks their real height was right and it walled the building off:
+              three crowns 1.45 times as wide as they are tall, on the vegetation plane in
+              FRONT of the block, close into a continuous mass across the frame. A blackland
+              yard is farmed country where the trees stand in the fence line, so they belong
+              at the edges framing what the shot is about rather than across the middle of
+              it. The building is the subject of every one of these four shots. */}
+          {Array.from({length: 2}, (_, i) => {
             const gy = groundY + 22 + rnd(seed, 20 + i) * 190;
             const near = (gy - groundY) / Math.max(1, H - groundY);
             return (
               <LimbedOak key={i}
-                x={[0.13, 0.58, 0.87][i] * W + (rnd(seed, i) - 0.5) * 90} y={gy}
-                h={120 + near * 190} spread={1.45} seed={seed + i * 29}
+                x={[0.10, 0.90][i] * W + (rnd(seed, i) - 0.5) * 70} y={gy}
+                // A LIVE OAK IS 12 TO 15 METRES AND THIS DREW IT AT ABOUT THREE.
+                // At h 120 to 175 the crown's 22 lobes render 16 to 27px each under a 3px
+                // ink stroke, so they merge into one smooth mass and the limbs, drawn first,
+                // are buried entirely. That is why two rounds of crown rebuilds were correct
+                // in code and invisible on screen: the construction was never given enough
+                // pixels to BE a construction. It was also a true scale error, the animal
+                // beside a person fault GATE_LESSONS names, since the oak stood a quarter
+                // the height of a pad-mount transformer at nearly the same depth.
+                h={300 + near * 330} spread={1.30} seed={seed + i * 29}
                 leaf="#284439" leafLit="#3a5c4a" bark="#3f342b" limbs={5} />
             );
           })}
