@@ -152,6 +152,14 @@ jobs:
           # 1.56 m building, a bucket truck at 0.75 m beside a lineworker.
           python3 scripts/board_scale_check.py --self-test
 
+      - name: An edit does what it said it would, in the units the viewer sees
+        run: |
+          # A board edit is written in board units and read in screen pixels. Nothing did that
+          # arithmetic at edit time, so a run could describe an edit correctly, pass every gate,
+          # and ship something else. It happened four times in one day: a deleted floor, a
+          # vanished building, a truck wider than the frame, and groundY twice.
+          python3 scripts/board_diff.py --self-test
+
       - name: Things stand on the floor and the floor is behind them
         run: |
           # A floorOnly shell nearer than the racks paints over their bases; a baseline above the

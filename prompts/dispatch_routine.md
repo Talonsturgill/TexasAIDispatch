@@ -688,6 +688,30 @@ exact cause and an exact repair, apply them all, then render. The gate reports t
 render count and says so above four. It is a warning rather than a failure because a hard
 round can honestly need several, and a gate that blocks honest work gets switched off.
 
+**DIFF THE BOARD BEFORE YOU RENDER. Every time an edit touches geometry.**
+
+```
+cp out/dispatch/storyboard.json /tmp/board.before.json     # before you edit
+python3 scripts/board_diff.py --before /tmp/board.before.json \
+       --after out/dispatch/storyboard.json
+```
+
+A board edit is written in board units and what reaches a viewer is screen pixels after
+projection, and nothing was doing that arithmetic at edit time. So a run could make an edit,
+describe it accurately, watch every gate go green, and ship something else. On 2026-08-19 that
+happened four times in one day: "move the floor behind the racks" DELETED the floor from two
+interiors, a z push meant to hold a building's framing made it vanish, true scale made a bucket
+truck wider than the frame, and raising `groundY` hid the building twice.
+
+Every one was legal geometry and individually correct arithmetic. **The defect was never the
+value, it was the gap between what the edit was supposed to do and what it did**, and no gate
+can see that because no gate knows what you meant. This one does not either, but it tells you
+what CHANGED in the units the viewer reads, so you can see whether it matches what you said.
+
+It flags the four shapes that have actually bitten: something disappeared, something appeared,
+something changed on-screen size by more than a third, something left the frame. It costs
+nothing and it is much cheaper than the fourteen minute render that found three of those.
+
 **A CHECK STILL IS FOR A QUESTION YOU CANNOT ANSWER ANY OTHER WAY.** `remotion still` is
 forty seconds, so it is cheap against a render and expensive against reading the code.
 Render one when the answer is genuinely visual and you have a specific thing to look at.
