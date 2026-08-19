@@ -1094,3 +1094,43 @@ now.
 against the board that had actually shipped the defect, where it goes red and names s11, and then
 against the corrected board, where it goes green. A gate that has never been shown the fault it
 was written for is a gate nobody has tested.
+
+---
+
+## True scale is not a free win, and the check still is what said so
+
+The board was authoring every exterior object at a fraction of true scale, using `scale` as a
+distance dial when `z` is the distance dial. `board_scale_check.py` measures it: a 0.40 m pickup,
+a 0.36 m pad transformer, a 1.56 m building, a 0.75 m bucket truck standing beside a 2.12 m
+lineworker. Three judges filed three separate craft defects in one round and every one was that
+arithmetic.
+
+The obvious repair is to set `scale: 1.0` everywhere and solve `z` to hold the same apparent
+size, which preserves the framing exactly for anything shot on its own. **Half of that repair is
+wrong, and one check still cost forty seconds and proved it.**
+
+At true scale the bucket truck at z=420 renders 938px tall and **2065px wide in a 1080px frame**.
+It swallowed the shot: the truck body became abstract slabs across the midground, the bucket a
+white box floating at head height, and the data centre the scene is about vanished behind it. The
+result was far worse than the toy it replaced.
+
+**WIDTH IS THE BINDING CONSTRAINT AND HEIGHT IS THE ONE EVERY DIMENSION TABLE RECORDS.** Every
+`*_M` entry is a height, `fit()` solves on height, and every size argument in this file until now
+was made in heights. A bucket truck is roughly 2.2 times wider than tall and a strip building is
+3.5 times wider than tall, so the moment either is honest about its height in a 9:16 frame, its
+width leaves the picture. The board's miniature scales were not only an error. They were also
+compensating for a camera that sits closer than any vehicle or building can be shot from.
+
+So the fix is a re-stage, not a multiplier: the object goes to true scale AND much further out,
+where it is small because it is FAR rather than small because it is a toy. For that truck the
+arithmetic is z near 4000, giving 318px tall and 700px wide, against a 587px person at z=55.
+
+Two rules fall out.
+
+**A size prescription that names only a height is half a prescription.** Ask what the object's
+width does at that size before applying it.
+
+**Gate 0 is cheaper than a render and it caught the rest.** The same restructure put seven planes
+in one scene and two planes at the same z in another, and `storyboard_check` refused both before
+a frame was drawn. The one thing it could not tell me was what the frame would look like, which
+is exactly and only what a check still is for.
