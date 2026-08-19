@@ -394,8 +394,16 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
         else:
             out.append(cur)
     out = split_at_cuts(out, cuts)
+    # THE LABEL IS COMPUTED, NEVER ASSERTED. It was a constant string on every cue, so it said
+    # "measured_boundary" whatever the edges actually were, and the one field downstream reads as
+    # evidence of alignment was the one field nothing checked.
     return [{"id": f"c{i + 1}", "start": g[0]["start"], "end": g[-1]["end"],
-             "text": " ".join(x["word"] for x in g), "source": "measured_boundary"}
+             "text": " ".join(x["word"] for x in g),
+             "source": ("measured_boundary"
+                        if g[0].get("anchored_start") and g[-1].get("anchored_end")
+                        else "modelled_edge"),
+             "start_measured": bool(g[0].get("anchored_start")),
+             "end_measured": bool(g[-1].get("anchored_end"))}
             for i, g in enumerate(out)]
 
 
@@ -426,7 +434,19 @@ def split_at_cuts(groups, cuts):
         piece = []
         for w in g:
             piece.append(w)
-            # break at the last measured word end at or before the next cut this piece crosses
+            # ONLY AT A MEASURED BOUNDARY. The first version of this checked that the word ended
+            # before the cut and the next began after it, and never checked that the boundary was
+            # one the aligner had actually MEASURED. So it split mid-run on a modelled word time
+            # and the cue was still stamped `measured_boundary` downstream, which is a fabricated
+            # timing wearing the label that proves it is not one. `ship_gate` reads that label as
+            # the evidence that alignment happened. Twenty of thirty four cue edges were modelled
+            # and all seventeen cues claimed otherwise.
+            #
+            # Where no measured boundary sits near the cut, the cue is LEFT SPANNING. A caption
+            # that outlives its shot is a craft cost; an invented timing is a hard fail, and the
+            # trade is not close.
+            if not w.get("anchored_end"):
+                continue
             nxt = next((c for c in inside if c > piece[0]["start"]), None)
             if nxt is not None and w["end"] <= nxt and w is not g[-1]:
                 after = g[g.index(w) + 1]
