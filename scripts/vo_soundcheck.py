@@ -148,6 +148,84 @@ def spoken_tags(transcript: str) -> list[str]:
     return sorted(words & TAG_WORDS)
 
 
+# ---------------------------------------------------------------- the figures
+#
+# THE CHECK THIS SHOW MOST NEEDED AND DID NOT HAVE.
+#
+# `word_accuracy` is an ordered LCS over normalised tokens, which is the right shape for
+# prose and is BLIND TO A MISREAD NUMBER on this project, for a reason nobody would guess:
+# the script spells its figures out ("fifty thousand") so the model reads them the way a
+# person says them, and the transcriber writes them back as DIGITS ("50,000"). Those tokens
+# never match, so a figure contributes the same small accuracy loss whatever the take
+# actually said.
+#
+# Measured on a real run. Three takes came back and one of them said FIFTY FIVE THOUSAND
+# where the script says fifty thousand. It scored word accuracy 0.974, exactly the same as
+# the take that said it correctly, and it was refused only because it also ran long. Had it
+# been the short one, this machine would have published a wrong number in a film whose
+# entire argument is that only a checkable number is worth anything.
+#
+# So figures are canonicalised on BOTH sides and compared as figures. A mismatch is its own
+# refusal rather than a rounding error inside an accuracy ratio.
+_UNITS = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+          "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+          "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16, "seventeen": 17,
+          "eighteen": 18, "nineteen": 19}
+_TENS = {"twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60,
+         "seventy": 70, "eighty": 80, "ninety": 90}
+_SCALES = {"hundred": 100, "thousand": 1000, "million": 1000000, "billion": 1000000000}
+
+
+def figures(text: str) -> list[int]:
+    """Every figure a listener would hear, whether it was written as words or as digits.
+
+    Deliberately integers only. This show's spoken figures are counts and ranks, and a
+    decimal that reads as "point three" would need its own handling the day one is spoken.
+    """
+    out: list[int] = []
+    cur = 0        # the number being assembled from words
+    part = 0       # the part below the current scale word
+    live = False
+    for tok in re.findall(r"[a-z']+|\d[\d,]*", (text or "").lower()):
+        if tok and tok[0].isdigit():
+            if live:
+                out.append(cur + part); cur = part = 0; live = False
+            out.append(int(tok.replace(",", "")))
+            continue
+        if tok in _UNITS:
+            part += _UNITS[tok]; live = True
+        elif tok in _TENS:
+            part += _TENS[tok]; live = True
+        elif tok == "hundred":
+            part = max(1, part) * 100; live = True
+        elif tok in _SCALES:
+            cur += max(1, part) * _SCALES[tok]; part = 0; live = True
+        elif tok == "and" and live:
+            continue
+        elif live:
+            out.append(cur + part); cur = part = 0; live = False
+    if live:
+        out.append(cur + part)
+    return out
+
+
+def figure_mismatch(script: str, transcript: str) -> list[str]:
+    """Figures the take did not say, and figures it said that the script does not have."""
+    want, got = figures(script), figures(transcript)
+    from collections import Counter
+    w, g = Counter(want), Counter(got)
+    missing = sorted((w - g).elements())
+    extra = sorted((g - w).elements())
+    problems = []
+    if missing:
+        problems.append(f"the script says {', '.join(f'{n:,}' for n in missing)} and the take "
+                        f"does not")
+    if extra:
+        problems.append(f"the take says {', '.join(f'{n:,}' for n in extra)} and the script "
+                        f"does not")
+    return problems
+
+
 def score_take(take: dict, script: str, cut_seconds: float) -> dict:
     """Grade one take. Returns the verdict and every measurement behind it."""
     acc = word_accuracy(script, take.get("transcript", ""))
@@ -171,6 +249,10 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
             f"worst failure a narrated film has.")
     if tags:
         fails.append(f"spoke a stage direction out loud: {', '.join(tags)}")
+    for m in figure_mismatch(script, take.get("transcript", "")):
+        fails.append(f"A FIGURE IS WRONG. {m}. Word accuracy cannot see this, because the "
+                     f"script spells figures out and the transcriber writes them as digits, "
+                     f"so the tokens never match whatever the take said.")
     if var < MIN_PITCH_VARIANCE:
         fails.append(f"pitch variance {var:.2f} semitones is a drone")
     if overage > MAX_OVERAGE:
@@ -272,6 +354,30 @@ def self_test() -> int:
     ok("...and the message says TRIM rather than stretch",
        any("TRIM THE SCRIPT" in x for x in over["fails"]), str(over["fails"]))
     ok("...while a take a hair over is tolerated", score_take(take("g", dur=8.2), script, 8.0)["pass"])
+
+    # ---------------------------------------------------------------- THE FIGURES
+    #
+    # The case that motivated the check, verbatim from a real run. All three takes came back
+    # with word accuracy 0.974 and one of them said FIFTY FIVE THOUSAND where the script says
+    # fifty thousand. The accuracy metric could not tell them apart.
+    ok("a figure spelled out and the same figure in digits are the same figure",
+       figures("an estimated fifty thousand") == figures("an estimated 50,000"),
+       f'{figures("an estimated fifty thousand")} vs {figures("an estimated 50,000")}')
+    ok("...and a MISREAD figure is caught, which word accuracy cannot do",
+       bool(figure_mismatch("an estimated fifty thousand", "an estimated 55,000")))
+    ok("...while the correct reading passes",
+       not figure_mismatch("an estimated fifty thousand", "an estimated 50,000"))
+    ok("a dropped figure is caught too",
+       bool(figure_mismatch("rank sixty six and rank ninety", "rank 66 and rank")))
+    ok("compound figures parse",
+       figures("twenty four places ahead") == [24],
+       str(figures("twenty four places ahead")))
+    # AND IT HAS TO REACH THE VERDICT, not just exist as a function. A take that says the
+    # wrong number must be refused even when every other measurement is clean.
+    misread = take("m", transcript="an estimated 55,000 accelerators")
+    ok("a take that misreads a figure is REFUSED on the verdict",
+       not score_take(misread, "an estimated fifty thousand accelerators", 8.0)["pass"],
+       str(score_take(misread, "an estimated fifty thousand accelerators", 8.0)["fails"]))
 
     ok("a take loud enough to have clipped in synthesis is refused",
        not score_take(take("h", lufs=-9.0), script, 8.0)["pass"])
