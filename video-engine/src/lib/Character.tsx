@@ -92,6 +92,37 @@ export const HEAD_R = 52;
 export const FEET_Y = 500;
 export const HEAD_CY = -58;
 
+/** How far down the neck runs from the head group's origin. */
+export const NECK_H = 104;
+
+/**
+ * WHERE THE NECK ENDS AND WHERE THE SHOULDER BEGINS, in character draw units.
+ *
+ * Exported so `tests/cast_safety.mjs` can hold every roster entry to the join rather than
+ * trusting that it looks right in the one frame somebody happened to render.
+ *
+ * THE DEFECT. The head group sits at a constant offset from the origin while the shoulder
+ * line is `150 + stoop`, and `stoop` grows with age. The two therefore drift apart, and a
+ * 34 unit neck left about fifteen draw units of background between the jaw and the collar.
+ * At `scale` 0.5 that is invisible. At 1.55, which is what a close shot uses, it is a
+ * floating rectangle, and the first Dispatch shipped it on all three of its scenes with a
+ * person in them and scored two panels down on craft for it.
+ *
+ * Both numbers come from the same expressions the render uses. If either drawing moves and
+ * this does not, the test goes red, which is the point of deriving it here rather than
+ * writing the answer down in the test.
+ */
+export function neckJoin(age: number): {neckBottom: number; shoulderApex: number} {
+  const stoop = age * 6;
+  const shoulderY = 150 + stoop;
+  return {
+    // head group translate + the rect's own bottom edge
+    neckBottom: 86 + stoop * 0.5 + HEAD_CY + 40 + NECK_H,
+    // the torso group translate + the apex of its quadratic shoulder curve
+    shoulderApex: stoop * 0.4 + shoulderY - 33,
+  };
+}
+
 export type Pose = 'stand' | 'arms-crossed' | 'point' | 'panic' | 'raise' | 'carry' | 'hands-hips';
 export type Emotion = 'neutral' | 'angry' | 'worried' | 'shock' | 'smug' | 'wry';
 
@@ -380,6 +411,27 @@ export const Character: React.FC<CharacterProps> = ({
         {hand(farArm, 'far')}
       </g>
 
+      {/* ---------------------------------------------------------------- neck
+          DRAWN BEFORE THE TORSO, AND LONG, so the shirt covers where it ends.
+
+          It used to be a 34 unit rect inside the head group, and the head group sits at a
+          CONSTANT offset from the origin while the shoulder line is `150 + stoop`. So the
+          two moved apart: the neck's bottom edge landed about fifteen draw units above the
+          shoulder curve's apex and left a band of background between the jaw and the
+          collar. At `scale` 0.5 that is five pixels and invisible. At 1.55, which is what
+          a close shot uses, it is a floating rectangle, and the first Dispatch put it on
+          all three of its scenes with a person in them.
+
+          A longer neck alone would not fix it, because the head group renders AFTER the
+          torso and the extra length would draw a skin coloured stripe down the shirt. So
+          the neck moves here, ahead of the torso, and runs far enough down that no
+          combination of age and build can open the join again. What a viewer sees is the
+          part between the chin and the collar, which is what a neck is. */}
+      <g transform={`translate(0 ${86 + stoop * 0.5}) rotate(${sway * 0.8})`}>
+        <rect x={-16} y={HEAD_CY + 40} width={32} height={NECK_H} fill={skin}
+          stroke={INK} strokeWidth={5} />
+      </g>
+
       {/* ---------------------------------------------------------------- torso */}
       <g transform={`rotate(${sway * 0.5}) translate(0 ${stoop * 0.4})`}>
         <path
@@ -397,8 +449,8 @@ export const Character: React.FC<CharacterProps> = ({
 
       {/* ---------------------------------------------------------------- head */}
       <g transform={`translate(0 ${86 + stoop * 0.5}) rotate(${sway * 0.8})`}>
-        {/* neck + under-chin AO */}
-        <rect x={-16} y={HEAD_CY + 40} width={32} height={34} fill={skin} stroke={INK} strokeWidth={5} />
+        {/* the under-chin shadow. The neck itself is drawn before the torso now, see
+            the note there, so only the AO that belongs to the head stays here. */}
         <ellipse cx={0} cy={HEAD_CY + 42} rx={21} ry={7} fill={skinShade} opacity={0.5} />
 
         <circle cx={0} cy={HEAD_CY} r={headR} fill={`url(#${uid}_skin)`} stroke={INK} strokeWidth={6} />

@@ -50,7 +50,7 @@ const ok = (label, cond, detail = '') => {
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 function run(C) {
-  const {CAST, headgearConflict, seasonalHat} = C;
+  const {CAST, headgearConflict, seasonalHat, neckJoin} = C;
 
   // The roster is real and whole. A parse that quietly returns three people would
   // pass every rule below by having almost nothing to check.
@@ -89,6 +89,28 @@ function run(C) {
   ok('the year turns over exactly twice, so there is one straw season and one felt',
      hats.filter((h, i) => i > 0 && h !== hats[i - 1]).length === 2, hats.join(','));
 
+  // ---------------------------------------------------------------- THE JOIN
+  //
+  // The head group sits at a CONSTANT offset from the origin and the shoulder line is
+  // `150 + stoop`, which grows with age, so the two drift apart. A 34 unit neck left about
+  // fifteen draw units of background between the jaw and the collar. Invisible at scale
+  // 0.5, a floating rectangle at 1.55, and the first Dispatch shipped it on all three of
+  // its scenes with a person in them.
+  //
+  // Held on EVERY roster entry rather than on one, because the gap is a function of `age`
+  // and the roster is data somebody edits.
+  for (const c of CAST) {
+    const {neckBottom, shoulderApex} = neckJoin(c.age);
+    ok(`${c.id}: the neck reaches into the torso (${(neckBottom - shoulderApex).toFixed(1)} units of overlap)`,
+       neckBottom > shoulderApex + 8,
+       `neck ends at ${neckBottom.toFixed(1)} and the shoulder begins at ${shoulderApex.toFixed(1)}`);
+  }
+  // And at the oldest a roster could ever go, so a new entry cannot reopen it.
+  const extreme = neckJoin(1);
+  ok('the join survives the oldest figure the rig can draw',
+     extreme.neckBottom > extreme.shoulderApex + 8,
+     `${extreme.neckBottom.toFixed(1)} vs ${extreme.shoulderApex.toFixed(1)}`);
+
   return failures;
 }
 
@@ -123,6 +145,22 @@ function selfTest(C) {
      && seasonalHat('2026-09-30') === 'straw-hat' && seasonalHat('2026-10-01') === 'felt-hat',
      [3, 4, 9, 10].map((m) => `${m}:${seasonalHat(`2026-${String(m).padStart(2, '0')}-15`)}`)
        .join(' '));
+
+  // THE JOIN RULE MUST BE ABLE TO GO RED, or it proves nothing about the rig.
+  // These are the geometry the rig had BEFORE the fix: a 34 unit neck.
+  const brokenJoin = (age) => {
+    const stoop = age * 6;
+    return {neckBottom: 86 + stoop * 0.5 + C.HEAD_CY + 40 + 34,
+            shoulderApex: stoop * 0.4 + 150 + stoop - 33};
+  };
+  const b = brokenJoin(0.82);
+  ok('the join rule refuses the 34 unit neck this rig actually shipped with',
+     !(b.neckBottom > b.shoulderApex + 8),
+     `a 34 unit neck measured ${(b.neckBottom - b.shoulderApex).toFixed(1)} units of overlap`);
+  const g = C.neckJoin(0.82);
+  ok('...and accepts the one that replaced it',
+     g.neckBottom > g.shoulderApex + 8,
+     `${(g.neckBottom - g.shoulderApex).toFixed(1)}`);
 
   return failures;
 }
