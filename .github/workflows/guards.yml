@@ -126,6 +126,48 @@ jobs:
           python3 scripts/registry_check.py --self-test
           python3 scripts/registry_check.py
 
+      - name: The next round is spent where the mean actually moves
+        run: |
+          # A run fixes the defects it can SEE most easily, and that is not the set costing the
+          # most points. Round after round went on props while the mean moved 6.74 to 6.75; the
+          # triage on that same panel said picture cost 0.167 and place 0.065. It also reads the
+          # bar and weights out of the rubric rather than carrying a copy, and its self-test
+          # asserts that this file contains neither.
+          python3 scripts/panel_triage.py --self-test
+
+      - name: A figure on screen is evidenced for the shot it sits on
+        run: |
+          # Every numeral gate here answers a question about the FIGURE: is it in the authorised
+          # set. This fault is a property of the PAIRING, so no tightening of those would ever
+          # have reached it. A super carried one research group's simulation rate over another
+          # group's code port, from a claim the fact check marked PARTIAL, for four rounds with
+          # every check green.
+          python3 scripts/super_evidence_check.py --self-test
+
+      - name: A board scale means something in metres
+        run: |
+          # scale_check reads the engine and proves the dimension tables are wired. It cannot see
+          # this, because every component renders true size at scale 1 and the BOARD was using
+          # scale as a distance dial. Measured: a 0.40 m pickup, a 0.36 m pad transformer, a
+          # 1.56 m building, a bucket truck at 0.75 m beside a lineworker.
+          python3 scripts/board_scale_check.py --self-test
+
+      - name: An edit does what it said it would, in the units the viewer sees
+        run: |
+          # A board edit is written in board units and read in screen pixels. Nothing did that
+          # arithmetic at edit time, so a run could describe an edit correctly, pass every gate,
+          # and ship something else. It happened four times in one day: a deleted floor, a
+          # vanished building, a truck wider than the frame, and groundY twice.
+          python3 scripts/board_diff.py --self-test
+
+      - name: Things stand on the floor and the floor is behind them
+        run: |
+          # A floorOnly shell nearer than the racks paints over their bases; a baseline above the
+          # room's horizon leaves a rank hanging. Both survived 25 panel rounds because every
+          # existing gate checks a component and these live in the relationship between two
+          # planes. Its self-test also pins the trap: project before comparing, never raw y.
+          python3 scripts/floor_check.py --self-test
+
       - name: The storyboard, before a single frame is rendered
         run: |
           # Gate 0. Everything after this point costs a render, so a board that is wrong here

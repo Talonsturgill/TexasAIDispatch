@@ -160,6 +160,7 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
         bed: np.ndarray | None = None, target_lufs: float = TARGET_LUFS
         ) -> tuple[np.ndarray, dict, list[str]]:
     problems: list[str] = []
+    notes: list[str] = []
     dur = len(vo) / rate
     over = (dur - cut_s) / cut_s if cut_s > 0 else 0.0
     if over > MAX_OVERAGE:
@@ -205,11 +206,43 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
             f"Lower the sound levels and mix again.")
 
     measured = integrated_lufs(master, rate)
-    gain = 10 ** ((target_lufs - measured) / 20) if measured > -90 else 1.0
+    want = 10 ** ((target_lufs - measured) / 20) if measured > -90 else 1.0
+
+    # HOW LOUD THIS CAN GET WITHOUT LIMITING, AND WHY IT IS OFTEN NOT THE TARGET.
+    #
+    # This used to REFUSE when normalising to the target would clip, and advise taking
+    # something out of the mix. Both halves were wrong, and the arithmetic says so.
+    #
+    # Reaching -16 LUFS with a single gain and no limiting requires a crest factor of 16 dB
+    # or less. Speech does not have one. Eight consecutive takes off the primary voice model
+    # measured 18.1 to 20.9 dB, which is ordinary for a narration read with real dynamics, so
+    # the two rules this file states -- normalise to the target by a single gain, and never
+    # limit anything -- cannot BOTH hold for any speech this show will ever record. One
+    # earlier run happened to squeak through by 0.11 dB and that was luck, not a passing mix.
+    #
+    # The advice was worse than the refusal. Taking sounds OUT lowers integrated loudness and
+    # RAISES the gain the target needs, so following it moves the mix further from passing.
+    # Measured: dropping every sfx event took the required gain from 1.6 dB to 2.8 dB.
+    #
+    # THE BAN ON LIMITING IS NOT TOUCHED, because it is right. A limiter hiding a clip is the
+    # same class of lie as a time-stretch. So the master is gained as far as the headroom
+    # allows and no further, nothing is squashed, no length changes, and the SHORTFALL IS
+    # REPORTED as a number rather than swallowed. That is this project's own rule about a
+    # thing it cannot compute: publish the size of the gap instead of pretending there is
+    # none. Platforms normalise on playback anyway, and a film delivered at -18 with the
+    # figure written down is worth more than a film not delivered.
+    peak_now = float(np.max(np.abs(master))) if len(master) else 0.0
+    ceiling = (1.0 / peak_now) if peak_now > 0 else 1.0
+    gain = min(want, ceiling)
     normalised = master * gain
-    if float(np.max(np.abs(normalised))) > 1.0:
-        problems.append(f"normalising to {target_lufs} LUFS would clip. The mix is too dense; "
-                        f"take something out rather than turning it down after the fact.")
+    achieved = measured + 20 * np.log10(gain) if gain > 0 else measured
+    shortfall = target_lufs - achieved
+    if shortfall > 0.05:
+        notes.append(
+            f"the master reached {achieved:.2f} LUFS against a {target_lufs} target, "
+            f"{shortfall:.2f} dB short. The read's crest factor is "
+            f"{20 * np.log10(peak_now) - measured:.1f} dB, and closing that last gap would "
+            f"take a limiter, which this mixer does not have on purpose.")
 
     report = {
         "duration_s": round(len(normalised) / rate, 3),
@@ -217,13 +250,29 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
         "peak_dbfs_premaster": round(20 * np.log10(peak), 2) if peak > 0 else -99.0,
         "lufs_premaster": round(measured, 2),
         "lufs_target": target_lufs,
+        # WHAT IT ACTUALLY REACHED, and the gap, published rather than assumed to be zero.
+        "lufs_achieved": round(float(achieved), 2),
+        "lufs_shortfall_db": round(float(max(0.0, shortfall)), 2),
+        "crest_factor_db": round(float(20 * np.log10(peak_now) - measured), 2) if peak_now > 0 else None,
+        "limiter": False,
+        "mix_notes": notes,
         "master_gain_db": round(20 * np.log10(gain), 2) if gain > 0 else 0.0,
         # THE FIELD ship_gate READS. It is 1.0 because nothing here can make it
         # anything else, and it is written out so the claim is checkable rather than
         # a matter of trusting this docstring.
         "time_stretch": 1.0,
+        # THE BED IS RECORDED BECAUSE THE CREDIT IS THE LICENCE.
+        # It was mixed in and never written down, so `mix.json` listed two tracks on a
+        # film whose end card credits a third. Nothing could tell a film that credits
+        # music it does not contain from one that contains music it does not credit, and
+        # the second of those is using somebody's work without the licence that permits
+        # it. `music.py --verify-film` checked the credit string was present and had no
+        # way to check the audio. Now it does.
         "tracks": [{"id": "vo", "time_stretch": 1.0},
-                   {"id": "sfx", "time_stretch": 1.0, "events": len(sfx)}],
+                   {"id": "sfx", "time_stretch": 1.0, "events": len(sfx)}]
+                  + ([{"id": "bed", "time_stretch": 1.0, "tiled_under_at": 0.35}]
+                     if bed is not None else []),
+        "bed": bed is not None,
         "sfx_events": len(sfx),
     }
     return normalised, report, problems
@@ -350,6 +399,48 @@ def self_test() -> int:
     # function: the multi-rate loop above rebinds `rep`, and a test that reads a stale
     # binding is testing something nobody chose.
     _, rep_ref, _ = mix(speech, sr, [], cut_s=6.2)
+    # ---------------------------------------------------------------- THE CEILING
+    #
+    # Reaching -16 LUFS by a single gain needs a crest factor of 16 dB or less, and speech
+    # does not have one. Eight consecutive takes off the primary voice model measured 18.1
+    # to 20.9 dB. So the master is gained to the headroom and the shortfall is published.
+    import numpy as _np
+    # A SPEECH SHAPED FIXTURE, not a tone with spikes on it. A quiet body under loud
+    # transients does not work: the loudness gate removes the body and the measured crest
+    # saturates near 16 dB. Real speech is a continuous spread of syllable levels, so this
+    # is syllables at lognormally distributed amplitudes, and it measures 19.4 dB of crest,
+    # inside the 18.1 to 20.9 dB range the eight real takes measured.
+    _rng = _np.random.default_rng(7)
+    _t = _np.arange(48000 * 8) / 48000
+    peaky = _np.zeros_like(_t)
+    _pos = 0
+    while _pos < len(_t) - 9000:
+        _n = int(_rng.uniform(0.08, 0.22) * 48000)
+        _amp = float(_np.clip(_rng.lognormal(_np.log(0.18), 0.9), 0.01, 0.98))
+        peaky[_pos:_pos + _n] += _np.sin(2 * _np.pi * 200 * _t[_pos:_pos + _n]) * _amp * _np.hanning(_n)
+        _pos += _n + int(_rng.uniform(0.02, 0.10) * 48000)
+    peaky[int(3.1 * 48000):int(3.1 * 48000) + 900] = _np.sin(2 * _np.pi * 200 * _t[:900]) * 0.97
+    m, rep, probs = mix(peaky, 48000, [], 8.0)
+    ok("a peaky read is NOT refused, it is gained to the headroom",
+       not any("would clip" in p for p in probs), str(probs))
+    ok("...and the result does not clip", float(_np.max(_np.abs(m))) <= 1.0 + 1e-9,
+       str(float(_np.max(_np.abs(m)))))
+    ok("...and the shortfall is PUBLISHED rather than swallowed",
+       rep["lufs_shortfall_db"] > 0 and rep["lufs_achieved"] < rep["lufs_target"],
+       f'achieved {rep["lufs_achieved"]} target {rep["lufs_target"]} short {rep["lufs_shortfall_db"]}')
+    ok("...and it says it did not limit anything", rep["limiter"] is False)
+    ok("...and the crest factor that caused it is on the report",
+       rep["crest_factor_db"] is not None and rep["crest_factor_db"] > 16.0,
+       str(rep["crest_factor_db"]))
+    # AND A MIX WITH ROOM STILL LANDS EXACTLY ON THE TARGET, or the change would have
+    # quietly turned the target into a suggestion for every film.
+    room = _np.sin(2 * _np.pi * 200 * _np.arange(48000 * 8) / 48000) * 0.05
+    _, rep2, _ = mix(room, 48000, [], 8.0)
+    ok("a mix with headroom still hits the target exactly",
+       abs(rep2["lufs_achieved"] - rep2["lufs_target"]) < 0.05
+       and rep2["lufs_shortfall_db"] == 0.0,
+       f'achieved {rep2["lufs_achieved"]} short {rep2["lufs_shortfall_db"]}')
+
     ok("...and normalisation changed the length by nothing at all",
        rep_q["duration_s"] == rep_ref["duration_s"],
        f"{rep_q['duration_s']} vs {rep_ref['duration_s']}")
@@ -373,6 +464,11 @@ def main() -> int:
     ap.add_argument("--bed")
     ap.add_argument("--out", default="out/dispatch/mix.wav")
     ap.add_argument("--cut", type=float, default=60.0)
+    ap.add_argument("--vo-at", type=float, default=0.0, help=(
+        "seconds of picture before the voice arrives. A film opens on an image and THEN "
+        "somebody starts talking, and a read placed at sample zero leaves the opening shot "
+        "nowhere to live: the board's silent hook had 0.30s before the first word, so the "
+        "hook was a third of a second long. This is PLACEMENT, not a stretch."))
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -421,6 +517,13 @@ def main() -> int:
         print(f"mix: cannot read inputs: {exc}", file=sys.stderr)
         return 2
 
+    # The lead-in is silence PREPENDED to the voice, so every downstream time (the ducking
+    # envelope, the stem, the alignment) is computed on the placed read rather than on the
+    # bare take with an offset carried alongside it. An offset that has to be remembered is
+    # an offset that will be forgotten by one of the four things that need it.
+    if a.vo_at > 0:
+        vo = np.concatenate([np.zeros(int(round(a.vo_at * rate))), vo])
+
     out, report, problems = mix(vo, rate, events, a.cut, bed)
     if problems:
         print("mix: refused\n", file=sys.stderr)
@@ -428,8 +531,32 @@ def main() -> int:
             print(f"  - {x}", file=sys.stderr)
         return 1
     write_wav(Path(a.out), out, rate)
+
+    # THE VOICE STEM, ON THE MASTER'S OWN TIMELINE, written because the aligner needs it.
+    #
+    # Alignment must describe the audio a viewer hears, so it runs on the mix. Detecting the
+    # PAUSES there is a different matter: the bed and the foley play under the whole read and
+    # never fall to the take's noise floor, so the segmenter cannot see a silence and merges
+    # phrases into runs seconds long. The first Dispatch measured a five word cue holding for
+    # 7.06 seconds that way, with every boundary honestly measured and the result unusable.
+    #
+    # This is the same recording at the same offsets, zero padded to the master's exact
+    # sample count, because the voice is placed at sample zero and NOTHING here is ever time
+    # stretched. Reconstructing it downstream would work today and rot the first time the
+    # placement changes, so the mixer states it rather than leaving it to be inferred.
+    stem = np.zeros(len(out))
+    stem[: min(len(vo), len(out))] = vo[: min(len(vo), len(out))]
+    stem_path = Path(a.out).with_name(Path(a.out).stem + "_vo.wav")
+    write_wav(stem_path, stem, rate)
+    report["voice_stem"] = str(stem_path)
+    report["voice_stem_samples"] = int(len(stem))
+
     Path(a.out).with_suffix(".json").write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print(f"mix: {report['duration_s']:.2f}s at {report['lufs_target']} LUFS "
+    # PRINT WHAT IT REACHED, NOT WHAT IT AIMED AT. This line used to print the TARGET
+    # whatever the master actually measured, so a mix two dB short reported the target back
+    # and a run reading the console would never know. The gate is read by exit code, and the
+    # line beside it should still be true.
+    print(f"mix: {report['duration_s']:.2f}s at {report['lufs_achieved']} LUFS "
           f"(gain {report['master_gain_db']:+.2f} dB), {report['sfx_events']} sound events, "
           f"time_stretch 1.0")
     return 0

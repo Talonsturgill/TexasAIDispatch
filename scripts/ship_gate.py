@@ -131,7 +131,18 @@ CURRENCIES = {"motion", "emotion", "revelation"}
 # whoever stages the shot. It never reaches the screen, so it carries no numeral duty, and
 # it certainly carries motif duty, because a retired motif in a direction is one somebody
 # then draws.
-SCENE_COPY = ("super",)
+# EVERY SURFACE A VIEWER READS, and the caption was not one of them.
+#
+# `Dispatch.tsx` paints two strings over the picture. It paints `super` at 74px and
+# `caption` at 34px in a band across the lower third, and until now this gate scanned
+# the first and not the second. So the compute-not-generate law, which is the reason a
+# reader should believe a number here over a number somewhere else, was enforced on one
+# of the two places this project prints numbers on screen.
+#
+# It is not hypothetical. The first Dispatch put "Rank 66 sits in College Station. Rank
+# 90 is Frontera" in a caption, which is three figures the gate never looked at. They
+# happen to trace, and that is luck rather than a check.
+SCENE_COPY = ("super", "caption")
 SCENE_DIRECTION = ("on_screen", "what_moves", "hero")
 SCENE_PROSE = SCENE_COPY + SCENE_DIRECTION
 
@@ -457,6 +468,9 @@ def self_test() -> int:
         s = {"id": f"s{i}", "start_s": (i - 1) * 5.0, "duration_s": 5.0, "beat": "motion",
              "region": "rolling_plains", "county": "Taylor", "camera_strategy": "truckAcross",
              "hero": "the switchyard", "super": "Taylor County",
+             # The caption joined SCENE_COPY on 2026-08-18 and the parity assertion below
+             # caught this fixture the moment it did, which is the assertion doing its job.
+             "caption": "A substation yard on the Rolling Plains.",
              "on_screen": "a substation yard", "what_moves": "the camera pushes",
              "cast": [{"id": "engineer", "emotion": "watchful"}],
              "planes": [{"z": 0, "label": "ground", "items": [
@@ -599,6 +613,15 @@ def self_test() -> int:
     sup["scenes"][0]["super"] = "8,297 megawatts approved"
     f, _ = check(sup, claims, script, caps, audio, None, cmap)
     ok("a fabricated numeral in the SUPER, which is the text a viewer reads, is refused",
+       any("8297 traces to no verified claim" in x for x in f), str(f[:1]))
+
+    # THE OTHER SURFACE A VIEWER READS. Dispatch.tsx paints `caption` at 34px in a band
+    # across the lower third, and this gate scanned only the super until 2026-08-18. The
+    # first Dispatch put three rank figures in captions that nothing here ever looked at.
+    cap = {"runtime_s": 40.0, "scenes": [scene(i) for i in range(1, 9)]}
+    cap["scenes"][0]["caption"] = "Rank 8,297 in the June list"
+    f, _ = check(cap, claims, script, caps, audio, None, cmap)
+    ok("a fabricated numeral in the CAPTION is refused too, not only in the super",
        any("8297 traces to no verified claim" in x for x in f), str(f[:1]))
 
     mot = {"runtime_s": 40.0, "scenes": [scene(i) for i in range(1, 9)]}

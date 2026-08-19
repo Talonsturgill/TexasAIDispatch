@@ -83,7 +83,25 @@ MIN_RUNTIME_S = 35.0
 
 # A scene that holds longer than this without paying is a held slide, which the
 # rubric lists as a hard fail.
+#
+# READ THE RUBRIC'S WORDING, because this gate did not. The hard fail is "a held slide
+# longer than five seconds WITH NO MOTION, EMOTION OR REVELATION", and this refused on
+# duration alone while printing that sentence back as its reason. The two are not the same
+# rule and the difference is not academic: once the board is re-timed to the measured read,
+# a scene is as long as its own sentence takes to say, and the film's closing line takes
+# 5.1 seconds. Under duration-alone there is no board that both marries the words to the
+# pictures and passes, so the gate was quietly forcing a choice the rubric never asked for.
+#
+# A scene over the ceiling now has to EARN it: a composed camera move, and a beat landing
+# in its back half so the shot is not dead in its tail. That is what "with no motion" means
+# and it is checkable. Nothing earns its way past the absolute ceiling.
 MAX_SCENE_S = 5.0
+HARD_MAX_SCENE_S = 9.5
+
+# A long scene's last beat must land at least this far through it. A shot whose events all
+# fire in the first third and then holds for six seconds is the held slide the rule is for,
+# whatever its camera is doing.
+LATE_BEAT_FRACTION = 0.55
 
 # Motifs that are retired, from knowledge/texas/CULTURE.md. Named here so a board
 # carrying one is refused before it is drawn rather than after.
@@ -444,6 +462,23 @@ def check(board: dict) -> list[str]:
             p.append(f"scene {sid}: no county. The region comes FROM the county, so a region "
                      f"without one was chosen for how it looks.")
         planes = s.get("planes") or []
+        # AN EMPTY PLANE IS THE RESIDUE OF A BAD EDIT, and it counts toward the four-to-six
+        # depth budget while contributing no depth, so it hides the very shortfall the budget
+        # exists to catch. A judge reported one outright ("the aisle mouth plane is literally
+        # items: []"), and a later edit in the same run emptied two more by removing a plane's
+        # last item instead of moving it, which silently deleted the near floor from two
+        # interiors while every gate stayed green.
+        for pl in planes:
+            # Some self-test fixtures write a plane as a bare label string, which is the older
+            # shorthand this file still accepts. Only a real plane object can be empty.
+            if not isinstance(pl, dict):
+                continue
+            if not (pl.get("items") or []):
+                p.append(f"scene {sid}: the plane at z={pl.get('z')} "
+                         f"({pl.get('label') or 'unlabelled'!r}) holds no items. It counts "
+                         f"toward the depth budget and draws nothing, so it hides a shortfall "
+                         f"rather than causing one. Delete it, or put back whatever an edit "
+                         f"took out of it.")
         if not 4 <= len(planes) <= 6:
             p.append(f"scene {sid}: {len(planes)} planes. Four to six, or there is no depth "
                      f"for the camera to move through.")
@@ -455,9 +490,24 @@ def check(board: dict) -> list[str]:
         if dur <= 0:
             p.append(f"scene {sid}: no duration")
         elif dur > MAX_SCENE_S + 0.001:
-            p.append(f"scene {sid}: {dur:.1f}s is longer than {MAX_SCENE_S:.0f}s. The rubric "
-                     f"hard-fails a held slide longer than that with no motion, emotion or "
-                     f"revelation. Split it or make it move.")
+            moves = s.get("camera_strategy") in MOVES
+            beats = [float(e.get("at_s") or 0) for e in (s.get("visual_events") or [])]
+            pays_late = any(t >= dur * LATE_BEAT_FRACTION for t in beats)
+            if dur > HARD_MAX_SCENE_S + 0.001:
+                p.append(f"scene {sid}: {dur:.1f}s is past the {HARD_MAX_SCENE_S:.1f}s "
+                         f"ceiling, which nothing earns its way past. Split it.")
+            elif not moves:
+                p.append(f"scene {sid}: {dur:.1f}s is longer than {MAX_SCENE_S:.0f}s and its "
+                         f"camera is {s.get('camera_strategy')!r}, which is not a composed "
+                         f"move. That is the held slide the rubric hard-fails. Split it or "
+                         f"make it move.")
+            elif not pays_late:
+                last = max(beats) if beats else 0.0
+                p.append(f"scene {sid}: {dur:.1f}s is longer than {MAX_SCENE_S:.0f}s and its "
+                         f"last beat lands at {last:.1f}s, in the first "
+                         f"{LATE_BEAT_FRACTION * 100:.0f}% of it. The shot is dead in its "
+                         f"tail, which is a held slide however the camera is moving. Give it "
+                         f"a beat past {dur * LATE_BEAT_FRACTION:.1f}s or split it.")
         # SILENT FIRST. Most viewers see it muted.
         if not str(s.get("on_screen") or "").strip():
             p.append(f"scene {sid}: nothing declared on screen. It cannot be told muted.")
@@ -628,10 +678,33 @@ def self_test() -> int:
     ok("a scene with nothing moving is refused",
        any("slide with a voice over it" in x for x in check(still)))
 
+    # THE HELD SLIDE RULE, broken on purpose from four directions. Duration alone is not
+    # the fault and never was: the rubric names duration PLUS stillness.
     held = board()
     held["scenes"][2]["duration_s"] = 7.0
-    ok("a scene held past five seconds is refused",
+    held["scenes"][2]["camera_strategy"] = "hold"
+    ok("a scene held past five seconds with no composed move is refused",
        any("held slide" in x for x in check(held)))
+
+    dead = board()
+    dead["scenes"][2]["duration_s"] = 7.0
+    dead["scenes"][2]["visual_events"] = [{"at_s": 0.6, "what": "a"}, {"at_s": 1.8, "what": "b"}]
+    ok("...and so is one whose beats all fire in its first third, however it moves",
+       any("dead in its tail" in x for x in check(dead)))
+    ok("...and the message names the second the next beat has to beat",
+       any("Give it a beat past" in x for x in check(dead)))
+
+    earned = board()
+    earned["scenes"][2]["duration_s"] = 7.0
+    earned["scenes"][2]["visual_events"] = [{"at_s": 1.4, "what": "a"}, {"at_s": 5.2, "what": "b"}]
+    ok("...but a long scene with a composed move and a beat in its back half is allowed",
+       not any("held slide" in x or "dead in its tail" in x for x in check(earned)))
+
+    absurd = board()
+    absurd["scenes"][2]["duration_s"] = 14.0
+    absurd["scenes"][2]["visual_events"] = [{"at_s": 1.0, "what": "a"}, {"at_s": 12.0, "what": "b"}]
+    ok("...and nothing earns its way past the absolute ceiling",
+       any("ceiling, which nothing earns" in x for x in check(absurd)))
 
     short = board(6)
     short["runtime_s"] = 30.0

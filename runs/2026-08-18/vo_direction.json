@@ -1,0 +1,266 @@
+{
+ "schema": "vo_direction/1",
+ "consumer": "scripts/vo_synth_gemini.py reads only `overall` and `lines[].{intent,emphasis,energy,pause_after}` and assembles the preamble itself. Every other key here is for the director and is ignored by the tool.",
+ "date": "2026-08-18",
+ "story": "Horizon at Round Rock, half a machine behind a door that says internal users, against a private campus that publishes nothing.",
+ "picture_cut_seconds": 58.0,
+ "voice_and_model": "NOT restated here. vo_synth_gemini.py reads the voice from config/voices.yaml and holds the model constants itself. A name written in a second place is a name that will be wrong in one of them.",
+ "overall": "One continuous read of eight sentences. Nothing here is performed as its own item, and each sentence takes its level from the one before it. The speaker is somebody who has driven past this building, telling you a thing they think you should know, at the pace people actually talk. Dry, unhurried, willing to leave a silence. The arc is planned. Settle in low, tighten through the middle, reach the highest point once at the private campus, then step down twice and stay down. The last third is the quietest part of the film and the most certain part of it. No sentence lifts at its end, and the final sentence lifts least of all. Energy is given below on a scale of one to ten that holds across the whole piece, where five is a level speaking register. A held count is about half a second at this tempo. The silences are written, not accidents, so leave them in.\n\nTHE FULL STOPS ARE THE MOST IMPORTANT DIRECTION HERE. Land every sentence. Come to a real stop at each full stop and leave a clear beat of silence there, then start the next sentence fresh. Do not run one sentence into the next and do not breathe in the middle of a clause. A held beat belongs AT the full stop and nowhere else. This matters because the silences in this read are measured and used to place the subtitles, so a stop that lands where the sentence ends puts the caption where the sentence ends, and a breath taken mid clause breaks a line in a place no reader would choose.",
+ "lines": [
+  {
+   "n": 1,
+   "text": "Off a frontage road in Round Rock, in a building that used to be a call center, sits the public supercomputer.",
+   "words": 18,
+   "intent": "Place the building before naming what is in it, and let the name arrive as the last word rather than as an announcement",
+   "emphasis": "supercomputer, arrived at and not pushed",
+   "energy": "5 of 10, the baseline everything else is measured against. Level and unhurried, no lift on Round Rock",
+   "pause_after": "about half a second of air",
+   "pause_after_beats": 1,
+   "risk": "Two front loaded clauses invite an explainer lilt. Both commas are small steps down, never steps up. Round Rock is said exactly as written."
+  },
+  {
+   "n": 2,
+   "text": "Half of it is running. Four thousand accelerators. The rest comes this winter.",
+   "words": 13,
+   "intent": "Three short facts counted off, the shape of a hand tapping a table",
+   "emphasis": "Half",
+   "energy": "6 of 10, up one. A touch quicker and more clipped, and the middle fragment falls like a full sentence",
+   "pause_after": "about half a second of air",
+   "pause_after_beats": 1,
+   "risk": "Four thousand accelerators is a fragment and will want to rise like a list item. It has to fall. This is the only figure in the first half and it is a statement, not a reveal."
+  },
+  {
+   "n": 3,
+   "text": "The operator's own user guide says access is limited to internal users.",
+   "words": 12,
+   "intent": "The closed door, quoted rather than argued",
+   "emphasis": "internal",
+   "energy": "4 of 10, a clear step down. Plainer and lower than anything before it, with no colour added to the guide's own words",
+   "pause_after": "about a second of air. The contradiction lands in the silence and not in the delivery",
+   "pause_after_beats": 2,
+   "risk": "The model may put irony on internal users. Read it as the guide's own sentence, without comment. The line is already dry and any help kills it."
+  },
+  {
+   "n": 4,
+   "text": "The queue table under it is finished, priced by the node hour.",
+   "words": 12,
+   "intent": "Turn the door around. The machine is finished right down to what it costs",
+   "emphasis": "priced",
+   "energy": "5 of 10, back up one. More precise than line three but no louder, because the specificity is the whole point",
+   "pause_after": "about three quarters of a second",
+   "pause_after_beats": 1.5,
+   "risk": "node hour is the fact and it sits at the end of the sentence where a read trails off. Full weight on the last two words, level, no fade."
+  },
+  {
+   "n": 5,
+   "text": "West of there, Abilene's private campus has an estimated fifty thousand in one building. Nobody outside publishes that.",
+   "words": 18,
+   "intent": "The scale comparison, then the second sentence takes the air straight back out",
+   "emphasis": "fifty",
+   "energy": "8 of 10 on the first sentence, the highest point in the film and the only one. Then down to 4 of 10 on the second sentence, inside the same breath group",
+   "pause_after": "about three quarters of a second",
+   "pause_after_beats": 1.5,
+   "risk": "The number will want to be sold. estimated is doing honest work and must not be swallowed on the way to it. Nobody outside publishes that carries no triumph, and every line after this one depends on it staying small."
+  },
+  {
+   "n": 6,
+   "text": "Somebody spent three years porting code for a door that still says no.",
+   "words": 13,
+   "intent": "The person in the story, and the only sentence with a somebody in it",
+   "emphasis": "three",
+   "energy": "4 of 10, the biggest single drop in the piece. Nearer and drier, the closest this gets to somebody talking across a table",
+   "pause_after": "about a second of air, the longest hold in the film. The turn comes out of this silence",
+   "pause_after_beats": 2,
+   "risk": "still says no invites a knowing drop or a smile. Play it straight. A wink here spends the credit the whole last third needs."
+  },
+  {
+   "n": 7,
+   "text": "What makes a public machine public was never its size. The city measured the water and put it on a page.",
+   "words": 21,
+   "intent": "The turn, then the answer. Two separate thoughts with a held silence of about half a second between them",
+   "emphasis": "page",
+   "energy": "6 of 10 on the first sentence, because a turn needs shape. Then 3 of 10 on the second, the quietest line in the film. The most important fact arrives at the lowest level, on purpose, and nothing lifts on page",
+   "pause_after": "about a second of air",
+   "pause_after_beats": 2,
+   "risk": "The two sentences will run together into one breath and lose the turn. They are two thoughts. If the second one rises it becomes a slogan, and this show does not have slogans."
+  },
+  {
+   "n": 8,
+   "text": "The only machine in Texas you can check is the small one.",
+   "words": 12,
+   "intent": "Land it and stop",
+   "emphasis": "check",
+   "energy": "4 of 10. Lower and more certain than the middle of the film, a shade above the line before it so it reads as settled rather than as trailing away. No lift anywhere, least of all on the last three words",
+   "pause_after": "about a second of air before the film ends",
+   "pause_after_beats": 2,
+   "risk": "The commonest failure is a rise at the end, which turns a Dispatch into a speech. The second commonest is a fade into nothing. small one is said at full weight and level, then the read stops."
+  }
+ ],
+ "energy_map": "5, 6, 4, 5, 8, 4, 6 falling to 3, 4. One peak at line five, two deliberate drops after it, and a floor at line seven that sits directly under the fact the film is for.",
+ "cut": {
+  "why": "158 words does not fit 58 seconds at any pace this show is willing to use, and time stretching is banned outright. The only legal fix is fewer words.",
+  "locked_script_words": 158,
+  "planned_read_words": 119,
+  "duration_model": {
+   "method": "words divided by a dry documentary rate, plus the written silences. Not a measurement, a planning band. The real number comes from vo_synth_gemini.py measuring the take.",
+   "rate_words_per_second": [
+    2.4,
+    2.9
+   ],
+   "planned_silence_seconds": 7.0,
+   "at_158_words_seconds": [
+    61.5,
+    72.8
+   ],
+   "at_126_words_seconds": [
+    50.4,
+    59.5
+   ],
+   "at_119_words_seconds": [
+    48.0,
+    56.6
+   ],
+   "reading": "126 words still breaches 58 at the slow end, and slow is the end this show reads at. 119 fits at every pace in the band, which is why the cut list runs to the bottom rather than stopping at the first count that looks plausible."
+  },
+  "cut_list": [
+   {
+    "order": 1,
+    "target": "line 6, deleted whole",
+    "lose": "The most powerful academic machine in the country is in College Station, twenty four places ahead of Frontera, which belongs to the people running Horizon.",
+    "words_lost": 25,
+    "words_after": 133,
+    "why": "The only sentence that can leave without touching the spine. It is the third counter image and the weakest of the three, and it spends 25 of 158 words on two extra place names, one system name and a rank. The other two counter images cost 12 and 13 words each and hit harder.",
+    "cost": "The film stops saying Horizon, Frontera and College Station out loud. See naming_option below, which buys Horizon back for nothing."
+   },
+   {
+    "order": 2,
+    "target": "line 3",
+    "lose": "The guide the operator writes for its users says",
+    "gain": "The operator's own user guide says",
+    "words_lost": 3,
+    "words_after": 130,
+    "why": "The original says users twice in fifteen words and buries the possessive in a relative clause. Shorter and clearer at once, and limited to internal users stays verbatim because it is the quoted fact."
+   },
+   {
+    "order": 3,
+    "target": "line 4",
+    "lose": "under that notice ... down to a rate by the node hour",
+    "gain": "under it ... priced by the node hour",
+    "words_lost": 4,
+    "words_after": 126,
+    "why": "down to a rate by is four words of runway in front of the only word that matters. priced puts the fact on the emphasis word."
+   },
+   {
+    "order": 4,
+    "target": "line 5",
+    "lose": "the private campus at Abilene has an estimated fifty thousand accelerators",
+    "gain": "Abilene's private campus has an estimated fifty thousand",
+    "words_lost": 3,
+    "words_after": 123,
+    "why": "accelerators was established in line two, so the second one is an echo the ear supplies for free. estimated is untouchable, it is the difference between a measured number and a modeled one."
+   },
+   {
+    "order": 5,
+    "target": "line 1",
+    "lose": "that used to take phone orders",
+    "gain": "that used to be a call center",
+    "words_lost": 2,
+    "words_after": 121,
+    "why": "Same image, two fewer syllable clusters in front of the reveal. The frontage road stays because that is the Texas of it."
+   },
+   {
+    "order": 6,
+    "target": "line 2",
+    "lose": "The other half comes this winter",
+    "gain": "The rest comes this winter",
+    "words_lost": 1,
+    "words_after": 120,
+    "why": "half appears twice in fourteen words and the first one is the emphasis word. Give it back its exclusivity."
+   },
+   {
+    "order": 7,
+    "target": "line 7 of the locked script, line 6 after cut 1",
+    "lose": "porting a code",
+    "gain": "porting code",
+    "words_lost": 1,
+    "words_after": 119,
+    "why": "a code is the physicist's own idiom and is right in print. Spoken, the article puts a stumble in the middle of the warmest line in the film."
+   }
+  ],
+  "stop_here": "Apply cuts 1 through 7. That is the planned read at 119 words.",
+  "contingency_cuts": {
+   "when": "Only if take one measures over 58.0 seconds. Take them in this order and re-synth the whole passage, never a stretch and never a splice.",
+   "list": [
+    {
+     "order": "C1",
+     "lose": "The rest comes this winter",
+     "words_after": 114,
+     "cost": "Loses the half a machine schedule. The picture can carry a dark second half."
+    },
+    {
+     "order": "C2",
+     "lose": "in a building that used to be a call center",
+     "words_after": 107,
+     "cost": "Real. The call centre is the hook. Only take this if the shot plan shows the building clearly enough to say it without words."
+    },
+    {
+     "order": "C3",
+     "lose": "Somebody spent three years porting code for a door that still says no.",
+     "words_after": 94,
+     "cost": "Severe. This is the only person in the film. Last resort."
+    }
+   ]
+  },
+  "protected": [
+   "line 7 in full, both sentences. It is the turn and the answer, and it is what the brief says the last third is for.",
+   "line 8 in full. Twelve words, and the film ends on them.",
+   "the word estimated in line 5.",
+   "Nobody outside publishes that. Cutting it turns a comparison of transparency into a comparison of size, which is the take the story explicitly rejected."
+  ],
+  "naming_option": {
+   "recommended": true,
+   "problem": "Cut 1 removes the only spoken mention of Horizon, so the film never names the machine it is about.",
+   "fix": "Line 1 becomes: Off a frontage road in Round Rock, in a building that used to be a call center, sits Horizon, the public supercomputer. Pay for it in line 2, which becomes: Half is running.",
+   "net_words": 119,
+   "note": "Two words in, two words out, no duration cost. The reveal still lands on supercomputer, and Half is running is a cleaner first beat of the counted off group. Direction is unchanged on both lines."
+  },
+  "how_to_apply": "Rewrite out/dispatch/vo_script.txt to the cut_script below before synthesis. vo_synth_gemini.py reads the script file, and captions come from forced alignment on the final mix, so a script that does not match the audio breaks the captions as well as the read."
+ },
+ "cut_script": [
+  "Off a frontage road in Round Rock, in a building that used to be a call center, sits the public supercomputer.",
+  "Half of it is running. Four thousand accelerators. The rest comes this winter.",
+  "The operator's own user guide says access is limited to internal users.",
+  "The queue table under it is finished, priced by the node hour.",
+  "West of there, Abilene's private campus has an estimated fifty thousand in one building. Nobody outside publishes that.",
+  "Somebody spent three years porting code for a door that still says no.",
+  "What makes a public machine public was never its size. The city measured the water and put it on a page.",
+  "The only machine in Texas you can check is the small one."
+ ],
+ "names": {
+  "checked_against": "TexasAIDocket/knowledge/shared/TEXAS_PRONUNCIATION.md and the pronunciation block in config/voices.yaml",
+  "spoken_in_this_piece": [
+   "Round Rock",
+   "Abilene",
+   "College Station",
+   "Frontera",
+   "Horizon"
+  ],
+  "on_the_mispronunciation_list": [],
+  "respellings_inserted": "none",
+  "why": "None of these five is on the list. Round Rock and Abilene are said the way they are spelled, and College Station, Frontera and Horizon are ordinary. A phonetic respelling invented for a name that does not need one is a new defect rather than a safety net, because the model reads exactly what it is given and would say the respelling.",
+  "after_cut_1": "Only Round Rock and Abilene are still spoken, and Horizon returns in line one if the naming option is taken."
+ },
+ "digits": {
+  "state": "clean",
+  "check": "The locked script has no digits and every figure is spelled out on purpose. The cut rewrites introduce none. Four thousand, fifty thousand and three years all stay as words. Any digit in this plan is in the director's notes, which are never spoken."
+ },
+ "tags": {
+  "state": "clean",
+  "check": "No direction vocabulary appears anywhere in the spoken text or in the cut script. Every note about how a line feels lives in this file, which vo_synth_gemini.py puts in the preamble above the fence and never inside it. A narrator who says the word excited has ended the film."
+ },
+ "assembled_prompt_is_preview": true,
+ "assembled_prompt_note": "vo_synth_gemini.py builds the real prompt at call time from this file plus whatever vo_script.txt holds, so this is a preview of the 119 word cut and not the input. If the two ever disagree, build_prompt is right.",
+ "assembled_prompt": "You are performing a narration for a short documentary film. Read ONLY the text inside the fenced block at the end of this message, exactly as written, and speak none of these instructions.\n\nDelivery: a person who knows the subject, telling you something they think you should know, at the pace somebody actually talks. Slightly dry. Willing to leave a silence. The authority comes from the facts being right, so the delivery does not work for it. Not a news anchor, not a documentary hush, not an explainer's bright upward lilt.\n\nPer-line direction:\nOne continuous read of eight sentences. Nothing here is performed as its own item, and each sentence takes its level from the one before it. The speaker is somebody who has driven past this building, telling you a thing they think you should know, at the pace people actually talk. Dry, unhurried, willing to leave a silence. The arc is planned. Settle in low, tighten through the middle, reach the highest point once at the private campus, then step down twice and stay down. The last third is the quietest part of the film and the most certain part of it. No sentence lifts at its end, and the final sentence lifts least of all. Energy is given below on a scale of one to ten that holds across the whole piece, where five is a level speaking register. A held count is about half a second at this tempo. The silences are written, not accidents, so leave them in.\nLine 1; intent: Place the building before naming what is in it, and let the name arrive as the last word rather than as an announcement; emphasis: supercomputer, arrived at and not pushed; energy: 5 of 10, the baseline everything else is measured against. Level and unhurried, no lift on Round Rock; pause after: about half a second of air\nLine 2; intent: Three short facts counted off, the shape of a hand tapping a table; emphasis: Half; energy: 6 of 10, up one. A touch quicker and more clipped, and the middle fragment falls like a full sentence; pause after: about half a second of air\nLine 3; intent: The closed door, quoted rather than argued; emphasis: internal; energy: 4 of 10, a clear step down. Plainer and lower than anything before it, with no colour added to the guide's own words; pause after: about a second of air. The contradiction lands in the silence and not in the delivery\nLine 4; intent: Turn the door around. The machine is finished right down to what it costs; emphasis: priced; energy: 5 of 10, back up one. More precise than line three but no louder, because the specificity is the whole point; pause after: about three quarters of a second\nLine 5; intent: The scale comparison, then the second sentence takes the air straight back out; emphasis: fifty; energy: 8 of 10 on the first sentence, the highest point in the film and the only one. Then down to 4 of 10 on the second sentence, inside the same breath group; pause after: about three quarters of a second\nLine 6; intent: The person in the story, and the only sentence with a somebody in it; emphasis: three; energy: 4 of 10, the biggest single drop in the piece. Nearer and drier, the closest this gets to somebody talking across a table; pause after: about a second of air, the longest hold in the film. The turn comes out of this silence\nLine 7; intent: The turn, then the answer. Two separate thoughts with a held silence of about half a second between them; emphasis: page; energy: 6 of 10 on the first sentence, because a turn needs shape. Then 3 of 10 on the second, the quietest line in the film. The most important fact arrives at the lowest level, on purpose, and nothing lifts on page; pause after: about a second of air\nLine 8; intent: Land it and stop; emphasis: check; energy: 4 of 10. Lower and more certain than the middle of the film, a shade above the line before it so it reads as settled rather than as trailing away. No lift anywhere, least of all on the last three words; pause after: about a second of air before the film ends\n\n-----BEGIN SPOKEN TEXT-----\nOff a frontage road in Round Rock, in a building that used to be a call center, sits the public supercomputer.\nHalf of it is running. Four thousand accelerators. The rest comes this winter.\nThe operator's own user guide says access is limited to internal users.\nThe queue table under it is finished, priced by the node hour.\nWest of there, Abilene's private campus has an estimated fifty thousand in one building. Nobody outside publishes that.\nSomebody spent three years porting code for a door that still says no.\nWhat makes a public machine public was never its size. The city measured the water and put it on a page.\nThe only machine in Texas you can check is the small one.\n-----END SPOKEN TEXT-----\n\n\nTHE FULL STOPS ARE THE MOST IMPORTANT DIRECTION HERE. Land every sentence. Come to a real stop at each full stop and leave a clear beat of silence there, then start the next sentence fresh. Do not run one sentence into the next and do not breathe in the middle of a clause. A held beat belongs AT the full stop and nowhere else. This matters because the silences in this read are measured and used to place the subtitles, so a stop that lands where the sentence ends puts the caption where the sentence ends, and a breath taken mid clause breaks a line in a place no reader would choose.",
+ "_run_note": "The College Station sentence was cut whole in the end, which is cut one of the director's list as written. The primary TTS model reads slower than the failover the first synth fell back to, so the read had to fit 60 seconds at 66 seconds per 135 words rather than at the failover's pace. The fact it carried is still in the film, in that scene's caption and on its panel, so nothing was lost except the narration of it.",
+ "_resynth_note": "Round 15: the panel traced every dangling caption and the thesis arriving early to ONE upstream cause, that this reader stopped at 5 of 11 sentence ends. The segmentation policy was tuned three times against a read that gave it nowhere clean to cut. The fix is the read."
+}

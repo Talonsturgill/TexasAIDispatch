@@ -87,12 +87,25 @@ export const Cabinet: React.FC<Rig & {
   const slots = 21;
 
   if (unknown) {
+    // AN UNCOUNTED RACK IS A SILHOUETTE, NOT A WIREFRAME.
+    //
+    // This drew a fully transparent rectangle with an X across it, which is the diagram
+    // convention for "empty" and is the wrong idea twice over. The rack is not empty, it is
+    // UNCOUNTED, and a see-through box lets the floor, the wall and every rack behind it
+    // print straight through the shape. A row of them overlapping became a lattice of stray
+    // dashes and crossing diagonals over black: the film's central comparison, solid versus
+    // dashed, rendering as a render error. A whole panel of scorers called it that.
+    //
+    // Filled, it occludes what is behind it exactly as its counted neighbour does, so the
+    // two read as the same object in the same room and the ONLY difference between them is
+    // that one has its doors and its lights and the other is a shape nobody outside the
+    // company has a number for. That is the actual argument.
     return (
       <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
+        <ContactShadow cx={0} cy={1} rx={22} opacity={0.22} blur={6} />
+        <rect x={-19} y={-100} width={38} height={100} fill="#12161b" opacity={0.97} />
         <rect x={-19} y={-100} width={38} height={100} fill="none" stroke="#8d97a1"
-          strokeWidth={3} strokeDasharray="7 6" opacity={0.8} />
-        <path d="M-19,-100 L19,0 M19,-100 L-19,0" stroke="#8d97a1" strokeWidth={1.6}
-          opacity={0.28} />
+          strokeWidth={2.4} strokeDasharray="7 6" opacity={0.85} />
       </g>
     );
   }
@@ -529,6 +542,182 @@ export const CoolingDistributionUnit: React.FC<Rig & {flowing?: boolean}> = ({
         </g>
       ))}
       {wear > 0.12 && <BrushedMetal x={-26} y={-100} w={52} h={100} opacity={wear * 2} />}
+    </g>
+  );
+};
+
+/**
+ * THE ROOM ITSELF, and the reason it had to exist.
+ *
+ * `Dispatch.tsx` wraps every scene's planes inside `<Biome>`, and a Biome
+ * unconditionally draws a sky, two ridgelines, a ground band and regional
+ * vegetation before it draws `{children}`. There is no interior mode and no
+ * board-level way to turn it off. So the first Dispatch boarded four scenes in a
+ * machine room and rendered **racks standing in a night-time Blackland prairie**,
+ * with a sky gradient over them and mesquite growing between the cabinets. Every
+ * gate was green: `storyboard_check` reads the board and not the render, and a
+ * board cannot say "indoors".
+ *
+ * This is the cheap fix and it is the right one. It is a BACKDROP, not a rebuild
+ * of the stage: a board puts it on the furthest plane and everything the scene
+ * stages sits in front of it.
+ *
+ * IT IS DRAWN ENORMOUS ON PURPOSE. A `Plane` at z renders its contents at
+ * PERSPECTIVE / (PERSPECTIVE + z) about the frame centre, so a shell authored at
+ * exactly 1080 by 1920 arrives too small to reach the edges it was drawn to cover
+ * and leaves a strip of prairie down both margins. That is the same fault the
+ * `overflow: visible` note in Dispatch.tsx records one level up. So the geometry
+ * runs far outside the frame in every direction and the cost is overdraw, which is
+ * free.
+ *
+ * The room is a COLD AISLE seen down its length: a dark ceiling with the tray
+ * running away from the viewer, a lit containment slot, and a pale floor that
+ * takes the light. It is deliberately plain, because everything that carries the
+ * scene is staged in front of it.
+ */
+export const HallShell: React.FC<{
+  frame?: number; seed?: number;
+  /** where the floor meets the far wall, in board coordinates */
+  horizonY?: number;
+  /** 0 a dark room lit by the racks, 1 a room with its own overhead lighting on */
+  lit?: number;
+  /** THE SECOND HALF OF THE SAME FIX, and it needs its own instance.
+   *
+   *  A Biome draws its regional vegetation at z=210, BEFORE `{children}`, so a board
+   *  plane deeper than that sits behind the grass. One shell on the far plane hides
+   *  the sky and the ridges and leaves mesquite growing between the cabinets in the
+   *  foreground, which is what the first render of this film actually did. So a
+   *  second instance goes on a plane just in front of z=210 carrying floor only,
+   *  which covers the vegetation without putting a ceiling in front of the racks. */
+  floorOnly?: boolean;
+}> = ({frame = 0, seed = 1, horizonY = 1180, lit = 0.55, floorOnly = false}) => {
+  const uid = useUid('hall');
+  const L = useLight();
+  const t = tones('#20262e', L);
+  // far outside the frame in every direction: see the note above
+  const X0 = -1600, X1 = 2680, Y0 = -1400, Y1 = 3320;
+  const cx = 540;
+  const floor = Math.max(400, Math.min(1700, horizonY));
+  return (
+    <g>
+      <defs>
+        <linearGradient id={`${uid}-ceil`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#0b0e13" />
+          <stop offset="1" stopColor={t.shade} />
+        </linearGradient>
+        <linearGradient id={`${uid}-floor`} x1="0" y1="0" x2="0" y2="1">
+          {/* DARKER TOWARD THE VIEWER, which is the opposite of the first version and
+              is not a taste call. `Cabinet`'s `unknown` outline is a #8d97a1 dashed
+              stroke, and over a floor that brightened to #b3bac1 at the bottom of frame
+              the dashes vanished exactly where the comparison shot needs them most. A
+              real cold aisle is lit from the containment slot overhead anyway, so the
+              floor falling off toward the camera is also what the room does. */}
+          <stop offset="0" stopColor="#6f7883" />
+          <stop offset="0.45" stopColor="#545c66" />
+          <stop offset="1" stopColor="#3a4049" />
+        </linearGradient>
+        <linearGradient id={`${uid}-slot`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#cfe6ee" stopOpacity={0.85 * lit} />
+          <stop offset="1" stopColor="#cfe6ee" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+
+      {/* ceiling, and the back wall behind everything */}
+      {!floorOnly && (
+        <rect x={X0} y={Y0} width={X1 - X0} height={floor - Y0} fill={`url(#${uid}-ceil)`} />
+      )}
+      {/* the floor, which is what actually makes the room read as a corridor */}
+      <rect x={X0} y={floor} width={X1 - X0} height={Y1 - floor} fill={`url(#${uid}-floor)`} />
+      {/* the containment slot running away down the aisle: the one detail that
+          separates a room built this year from a render of one */}
+      {!floorOnly && <path d={`M${cx - 90},${floor - 210} L${cx + 90},${floor - 210} L${cx + 620},${Y0}
+                L${cx - 620},${Y0} Z`} fill={`url(#${uid}-slot)`} />}
+      {/* the overhead tray, drawn in perspective toward the same vanishing point */}
+      {!floorOnly && [-1, 1].map((s) => (
+        <path key={s} d={`M${cx + s * 700},${Y0 + 320} L${cx + s * 132},${floor - 236}`}
+          stroke={t.key} strokeWidth={7} fill="none" opacity={0.6} />
+      ))}
+
+      {/* WHAT IS ACTUALLY OVER A COLD AISLE, and its absence was the film's largest
+          single defect by weight. Three scorers on three different lenses reported the
+          same thing from three directions: forty to fifty percent of the frame carrying
+          empty ceiling in eight of twelve shots, with the subject pinned in a band across
+          the middle. The room was drawn from the floor up and stopped at the racks.
+
+          The camera cannot fix it. Dollying in to fill the height enlarges the readout
+          past the frame edge and clips its labels, and booming only trades dead ceiling
+          for dead floor, both of which were tried and both of which made a frame worse.
+          The upper half is empty because there is nothing in it, so the repair is to put
+          there what is genuinely there: LADDER TRAY with rungs, and the row of luminaires
+          that lights the aisle. That also motivates the light the room already has, which
+          was arriving from a slot with no fixture in it.
+
+          Everything converges on the same vanishing point the tray and the slot already
+          use, and the rungs bunch toward it, which is what makes a receding plane read as
+          receding rather than as a pattern. */}
+      {!floorOnly && (() => {
+        const yNear = Y0 + 320, yFar = floor - 236;
+        const halfAt = (u: number) => 700 - 568 * u;
+        const yAt = (u: number) => yNear + (yFar - yNear) * u;
+        const rungs = 14;
+        return (
+          <g>
+            {/* the two tray stringers get their rungs, which is the difference between a
+                cable tray and a line somebody drew on a ceiling */}
+            {Array.from({length: rungs}, (_, k) => {
+              // bunched toward the vanishing point, never evenly spaced
+              const u = 1 - Math.pow(1 - (k + 0.5) / rungs, 1.9);
+              const h = halfAt(u), y = yAt(u);
+              const w = 8 - 6.2 * u;
+              return (
+                <g key={`r${k}`} opacity={0.30 + 0.34 * (1 - u)}>
+                  <path d={`M${cx - h},${y} L${cx - h + 118 * (1 - u * 0.82)},${y}`}
+                    stroke={t.key} strokeWidth={w} strokeLinecap="round" />
+                  <path d={`M${cx + h},${y} L${cx + h - 118 * (1 - u * 0.82)},${y}`}
+                    stroke={t.key} strokeWidth={w} strokeLinecap="round" />
+                </g>
+              );
+            })}
+            {/* the luminaire run down the middle. Lit ones carry the room's own light and
+                one is dark, because a hall with every fixture working is a render of a
+                hall rather than a hall. */}
+            {Array.from({length: 9}, (_, k) => {
+              const u = 1 - Math.pow(1 - (k + 0.6) / 9, 1.7);
+              const h = halfAt(u) * 0.30, y = yAt(u);
+              const hh = Math.max(3, 30 * (1 - u * 0.86));
+              const dead = k === 5;
+              return (
+                <g key={`l${k}`}>
+                  <rect x={cx - h} y={y} width={h * 2} height={hh} rx={hh * 0.35}
+                    fill={dead ? '#2a3038' : '#dfeef5'}
+                    opacity={dead ? 0.5 : (0.30 + 0.55 * lit) * (0.45 + 0.55 * (1 - u))} />
+                  {!dead && (
+                    <rect x={cx - h * 1.7} y={y - hh * 0.5} width={h * 3.4} height={hh * 2}
+                      rx={hh} fill="#cfe6ee"
+                      opacity={0.10 * lit * (0.4 + 0.6 * (1 - u))} />
+                  )}
+                </g>
+              );
+            })}
+          </g>
+        );
+      })()}
+      {/* floor tile joints, receding. Nothing here is symmetric: the pitch is
+          seeded so two halls in one film are not the same floor. */}
+      {Array.from({length: 9}, (_, i) => {
+        const k = (i + 1) / 10;
+        const y = floor + (Y1 - floor) * k * k;
+        return <path key={i} d={`M${X0},${y} L${X1},${y}`} stroke="#6f7883"
+          strokeWidth={1.6} opacity={0.35} />;
+      })}
+      {Array.from({length: 7}, (_, i) => {
+        const off = (i - 3) * 190 + ((seed * 37) % 40) - 20;
+        return <path key={i} d={`M${cx + off * 0.22},${floor} L${cx + off * 6.2},${Y1}`}
+          stroke="#6f7883" strokeWidth={1.6} opacity={0.3} />;
+      })}
+      {/* the far wall's own shadow line, so the floor does not float */}
+      <path d={`M${X0},${floor} L${X1},${floor}`} stroke="#0b0e13" strokeWidth={4}
+        opacity={0.55} />
     </g>
   );
 };

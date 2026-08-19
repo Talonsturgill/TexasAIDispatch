@@ -57,7 +57,32 @@ TAG_WORDS = {
 # video, and it is an EXTERNAL number rather than one measured from our own takes, which would
 # drift toward whatever we happened to render first.
 TARGET_LUFS = -16.0
-LUFS_TOLERANCE = 1.5
+# LUFS_TOLERANCE was deleted on 2026-08-19. Nothing read it. The equality check it belonged to
+# was replaced on purpose by LUFS_RESCUE_FLOOR and LUFS_RESCUE_CEILING below, for the reason
+# written out there, and the constant was left behind unread. A dead threshold is worse than no
+# threshold: `mutation_check` reported it as guarded by nothing, which was true and was never
+# going to be fixable, because a value nothing reads cannot be held by any test.
+
+# THE RANGE A RAW TAKE HAS TO BE IN, which is NOT the same thing as the target above.
+#
+# This check used to be `abs(lufs - TARGET_LUFS) > LUFS_TOLERANCE`, applied to the RAW
+# TAKE. `mix.py` imports TARGET_LUFS from this file and normalises the finished master to
+# it with a single gain (`gain = 10 ** ((target_lufs - measured) / 20)`), so the level a
+# take is rendered at is BY DESIGN not the level that ships. The gate was holding an
+# intermediate artifact to the specification of the final one.
+#
+# It is not a theoretical fault. On the first real run every take from the primary model
+# came back between -18 and -22 LUFS with word accuracy 1.000, no spoken tags, healthy
+# pitch variance, and two of the three inside the cut, and all three were refused for a
+# property the very next step in the pipeline exists to correct.
+#
+# THE RULE THAT IS ACTUALLY WORTH ENFORCING HERE is whether the mixer's single gain can
+# rescue the take. Too quiet and normalising up lifts the noise floor with it. Above the
+# target by much and the synth has probably already clipped, and no gain undoes that.
+# So this is a floor and a ceiling rather than an equality, and the equality still lives
+# in `mix.py`, which refuses outright when normalising to the target would clip.
+LUFS_RESCUE_FLOOR = -14.0        # dB below target
+LUFS_RESCUE_CEILING = 6.0        # dB above target
 
 # Below this, a read is a drone. Pitch variance in semitones, measured over voiced frames.
 MIN_PITCH_VARIANCE = 1.8
@@ -127,6 +152,84 @@ def spoken_tags(transcript: str) -> list[str]:
     return sorted(words & TAG_WORDS)
 
 
+# ---------------------------------------------------------------- the figures
+#
+# THE CHECK THIS SHOW MOST NEEDED AND DID NOT HAVE.
+#
+# `word_accuracy` is an ordered LCS over normalised tokens, which is the right shape for
+# prose and is BLIND TO A MISREAD NUMBER on this project, for a reason nobody would guess:
+# the script spells its figures out ("fifty thousand") so the model reads them the way a
+# person says them, and the transcriber writes them back as DIGITS ("50,000"). Those tokens
+# never match, so a figure contributes the same small accuracy loss whatever the take
+# actually said.
+#
+# Measured on a real run. Three takes came back and one of them said FIFTY FIVE THOUSAND
+# where the script says fifty thousand. It scored word accuracy 0.974, exactly the same as
+# the take that said it correctly, and it was refused only because it also ran long. Had it
+# been the short one, this machine would have published a wrong number in a film whose
+# entire argument is that only a checkable number is worth anything.
+#
+# So figures are canonicalised on BOTH sides and compared as figures. A mismatch is its own
+# refusal rather than a rounding error inside an accuracy ratio.
+_UNITS = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+          "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+          "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16, "seventeen": 17,
+          "eighteen": 18, "nineteen": 19}
+_TENS = {"twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60,
+         "seventy": 70, "eighty": 80, "ninety": 90}
+_SCALES = {"hundred": 100, "thousand": 1000, "million": 1000000, "billion": 1000000000}
+
+
+def figures(text: str) -> list[int]:
+    """Every figure a listener would hear, whether it was written as words or as digits.
+
+    Deliberately integers only. This show's spoken figures are counts and ranks, and a
+    decimal that reads as "point three" would need its own handling the day one is spoken.
+    """
+    out: list[int] = []
+    cur = 0        # the number being assembled from words
+    part = 0       # the part below the current scale word
+    live = False
+    for tok in re.findall(r"[a-z']+|\d[\d,]*", (text or "").lower()):
+        if tok and tok[0].isdigit():
+            if live:
+                out.append(cur + part); cur = part = 0; live = False
+            out.append(int(tok.replace(",", "")))
+            continue
+        if tok in _UNITS:
+            part += _UNITS[tok]; live = True
+        elif tok in _TENS:
+            part += _TENS[tok]; live = True
+        elif tok == "hundred":
+            part = max(1, part) * 100; live = True
+        elif tok in _SCALES:
+            cur += max(1, part) * _SCALES[tok]; part = 0; live = True
+        elif tok == "and" and live:
+            continue
+        elif live:
+            out.append(cur + part); cur = part = 0; live = False
+    if live:
+        out.append(cur + part)
+    return out
+
+
+def figure_mismatch(script: str, transcript: str) -> list[str]:
+    """Figures the take did not say, and figures it said that the script does not have."""
+    want, got = figures(script), figures(transcript)
+    from collections import Counter
+    w, g = Counter(want), Counter(got)
+    missing = sorted((w - g).elements())
+    extra = sorted((g - w).elements())
+    problems = []
+    if missing:
+        problems.append(f"the script says {', '.join(f'{n:,}' for n in missing)} and the take "
+                        f"does not")
+    if extra:
+        problems.append(f"the take says {', '.join(f'{n:,}' for n in extra)} and the script "
+                        f"does not")
+    return problems
+
+
 def score_take(take: dict, script: str, cut_seconds: float) -> dict:
     """Grade one take. Returns the verdict and every measurement behind it."""
     acc = word_accuracy(script, take.get("transcript", ""))
@@ -150,6 +253,10 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
             f"worst failure a narrated film has.")
     if tags:
         fails.append(f"spoke a stage direction out loud: {', '.join(tags)}")
+    for m in figure_mismatch(script, take.get("transcript", "")):
+        fails.append(f"A FIGURE IS WRONG. {m}. Word accuracy cannot see this, because the "
+                     f"script spells figures out and the transcriber writes them as digits, "
+                     f"so the tokens never match whatever the take said.")
     if var < MIN_PITCH_VARIANCE:
         fails.append(f"pitch variance {var:.2f} semitones is a drone")
     if overage > MAX_OVERAGE:
@@ -157,12 +264,42 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
             f"runs {overage * 100:.1f}% over the cut. TRIM THE SCRIPT and re-synth those lines. "
             f"Do NOT time-stretch: it is banned, and it produces an artefact every viewer hears "
             f"and cannot name")
-    if abs(lufs - TARGET_LUFS) > LUFS_TOLERANCE:
-        fails.append(f"integrated loudness {lufs:.1f} LUFS against a {TARGET_LUFS} target")
+    delta = lufs - TARGET_LUFS
+    if delta < LUFS_RESCUE_FLOOR:
+        fails.append(
+            f"integrated loudness {lufs:.1f} LUFS is {-delta:.1f} dB under the {TARGET_LUFS} "
+            f"target. mix.py normalises with a single gain, and lifting a take this quiet "
+            f"lifts its noise floor with it")
+    elif delta > LUFS_RESCUE_CEILING:
+        fails.append(
+            f"integrated loudness {lufs:.1f} LUFS is {delta:.1f} dB over the {TARGET_LUFS} "
+            f"target, which is the level a take that clipped during synthesis comes back at. "
+            f"No gain undoes clipping")
 
     # The composite is only used to RANK passing takes. It never overrides a fail.
-    rank = acc * 3 + min(var, 6.0) / 6 - abs(lufs - TARGET_LUFS) / 10 - max(0.0, overage) * 4
+    # HOW WELL THE TAKE CAPTIONS, which nothing here measured until 2026-08-19.
+    #
+    # Captions may only break where the reader actually stopped, so the number of PAUSES in a
+    # take decides how many cue boundaries exist to choose from. A take with few pauses forces
+    # long cards that break mid sentence, and three judges in a row docked craft and voice for
+    # exactly that while every soundcheck metric stayed green, because accuracy, pitch variance,
+    # duration and loudness are all blind to it.
+    #
+    # Measured, not assumed: a re-synth chosen on the old metrics alone came back with 43 of 117
+    # word times measured against the previous take's 56 of 114, and its captions went from 3 of
+    # 8 cues ending mid sentence to 5 of 6. The take was better on every graded axis and worse on
+    # screen.
+    #
+    # This is a RANKING TERM and not a hard fail. A read with few pauses is not wrong, it is
+    # just harder to caption, and a gate that refused it would be refusing a legitimate
+    # performance over a downstream formatting cost.
+    pauses = take.get("speech_runs")
+    pause_bonus = 0.0 if pauses is None else min(pauses, 14) / 14 * 1.5
+
+    rank = (acc * 3 + min(var, 6.0) / 6 - abs(lufs - TARGET_LUFS) / 10
+            - max(0.0, overage) * 4 + pause_bonus)
     return {"id": take.get("id"), "pass": not fails, "fails": fails, "rank": round(rank, 4),
+            "speech_runs": pauses,
             "accuracy": round(acc, 4), "insertion": round(ins, 4), "tags": tags,
             "pitch_variance": var, "duration_s": dur, "lufs": lufs,
             "overage": round(overage, 4)}
@@ -243,7 +380,42 @@ def self_test() -> int:
        any("TRIM THE SCRIPT" in x for x in over["fails"]), str(over["fails"]))
     ok("...while a take a hair over is tolerated", score_take(take("g", dur=8.2), script, 8.0)["pass"])
 
-    ok("an off-target loudness is refused", not score_take(take("h", lufs=-9.0), script, 8.0)["pass"])
+    # ---------------------------------------------------------------- THE FIGURES
+    #
+    # The case that motivated the check, verbatim from a real run. All three takes came back
+    # with word accuracy 0.974 and one of them said FIFTY FIVE THOUSAND where the script says
+    # fifty thousand. The accuracy metric could not tell them apart.
+    ok("a figure spelled out and the same figure in digits are the same figure",
+       figures("an estimated fifty thousand") == figures("an estimated 50,000"),
+       f'{figures("an estimated fifty thousand")} vs {figures("an estimated 50,000")}')
+    ok("...and a MISREAD figure is caught, which word accuracy cannot do",
+       bool(figure_mismatch("an estimated fifty thousand", "an estimated 55,000")))
+    ok("...while the correct reading passes",
+       not figure_mismatch("an estimated fifty thousand", "an estimated 50,000"))
+    ok("a dropped figure is caught too",
+       bool(figure_mismatch("rank sixty six and rank ninety", "rank 66 and rank")))
+    ok("compound figures parse",
+       figures("twenty four places ahead") == [24],
+       str(figures("twenty four places ahead")))
+    # AND IT HAS TO REACH THE VERDICT, not just exist as a function. A take that says the
+    # wrong number must be refused even when every other measurement is clean.
+    misread = take("m", transcript="an estimated 55,000 accelerators")
+    ok("a take that misreads a figure is REFUSED on the verdict",
+       not score_take(misread, "an estimated fifty thousand accelerators", 8.0)["pass"],
+       str(score_take(misread, "an estimated fifty thousand accelerators", 8.0)["fails"]))
+
+    ok("a take loud enough to have clipped in synthesis is refused",
+       not score_take(take("h", lufs=-9.0), script, 8.0)["pass"])
+    # THE FLOOR AND THE CEILING, and both have to be able to go red or the range is
+    # decoration. -31 is seventeen dB under target, which no single gain rescues.
+    ok("a take too quiet for the mixer's gain to rescue is refused",
+       not score_take(take("h2", lufs=-31.0), script, 8.0)["pass"])
+    # AND THE CASE THE OLD RULE GOT WRONG. A take a few dB under target is exactly what
+    # mix.py is built to normalise, and refusing it threw away three clean reads on the
+    # first real run of this machine.
+    ok("a take a few dB under target PASSES, because the mixer normalises",
+       score_take(take("h3", lufs=-21.8), script, 8.0)["pass"],
+       str(score_take(take("h3", lufs=-21.8), script, 8.0)["fails"]))
 
     # Choosing.
     res = choose([take("lo", var=2.0), take("hi", var=5.0), take("bad", "nope")], script, 8.0)

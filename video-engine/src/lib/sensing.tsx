@@ -240,29 +240,66 @@ export const Plume: React.FC<{
  */
 export const Readout: React.FC<{
   x: number; y: number; rows: [string, string][]; title?: string; w?: number; frame?: number;
-}> = ({x, y, rows, title, w = 200, frame = 0}) => (
-  <g transform={`translate(${x} ${y})`}>
-    <rect x={0} y={0} width={w} height={18 + rows.length * 16 + (title ? 16 : 0)}
-      fill="#0d1220" opacity={0.72} />
-    <path d={`M0,0 L${w},0 M0,${18 + rows.length * 16 + (title ? 16 : 0)} L${w},${
-      18 + rows.length * 16 + (title ? 16 : 0)}`} stroke={SEE} strokeWidth={HAIR} opacity={0.6} />
-    {title && (
-      <text x={9} y={16} fontSize={10} fill={SEE} fontFamily={FONT.mono}
-        fontWeight={700} letterSpacing={1}>{title.toUpperCase()}</text>
-    )}
-    {rows.map(([k, v], i) => (
-      <g key={k} transform={`translate(0 ${(title ? 16 : 0) + 18 + i * 16})`}>
-        <text x={9} y={0} fontSize={10.5} fill="#8fa4ae"
-          fontFamily={FONT.mono}>{k}</text>
-        <text x={w - 9} y={0} fontSize={10.5} fill="#e4ded2" textAnchor="end"
-          fontFamily={FONT.mono} fontWeight={700}>{v}</text>
-      </g>
-    ))}
-    {/* the cursor, which is the cheapest possible sign that a thing is LIVE */}
-    <rect x={w - 9} y={6} width={5} height={2}
-      fill={SEE} opacity={Math.sin(frame / 8) > 0 ? 0.9 : 0.15} />
-  </g>
-);
+}> = ({x, y, rows, title, w = 200, frame = 0}) => {
+  // TYPE SCALES WITH THE PANEL, and it did not, which is why five scenes of a film shipped
+  // their revelations in four physical pixels.
+  //
+  // This was authored as the corner of the frame where the machine says what it thinks, at
+  // a fixed 10.5px against a default width of 200. That is right at 200. A board asking for
+  // 460 or 840 is asking for a panel four times the size with the same tiny type in it, and
+  // a whole panel of scorers independently reported the same thing: the readouts carry the
+  // argument and nobody can read them at feed size.
+  //
+  // So the size is derived from the width the caller asked for. A small instrument panel is
+  // still a small instrument panel; a wide one gets type to match. Clamped at both ends so a
+  // 200 unit panel stays an instrument and a 900 unit panel does not become a headline.
+  // AND IT MUST ALSO FIT SIDEWAYS, which the first version of that fix did not check.
+  // The label sets from the left and the value is anchored to the right, so nothing
+  // errors and nothing clips when they collide -- they simply OVERPRINT, and the film
+  // rendered "on Vi30ta times faster" where it meant a label and a number. SVG text does
+  // not wrap, does not clip and does not push its neighbour, so a layout that assumes a
+  // string is narrow enough is a layout that will one day draw two strings in one place.
+  //
+  // The face is monospaced, which is the one case where a width can be COMPUTED rather
+  // than guessed. ADV is the advance as a fraction of the size, held slightly wide on
+  // purpose: being a point small costs nothing and being a point large costs the row.
+  const ADV = 0.62;
+  const PAD = 0.85;                       // side padding, in units of the row size
+  const GAP = 1.4;                        // the gutter a reader needs between the two
+  const widest = rows.reduce((m, [k, v]) => Math.max(m, k.length + v.length), 0);
+  const fits = widest > 0 ? w / (widest * ADV + 2 * PAD + GAP) : 38;
+  const fs = Math.max(9, Math.min(38, w * 0.075, fits));
+  const lead = fs * 1.5;
+  const pad = fs * PAD;
+  const tfs = title
+    ? Math.max(9, Math.min(fs * 0.68, (w - 2 * pad) / Math.max(1, title.length * ADV)))
+    : 0;
+  const top = title ? tfs + fs * 0.7 : fs * 0.5;
+  const h = top + rows.length * lead + fs * 0.6;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      {/* OPAQUE, not translucent. A 0.72 fill let the racks behind it through and dropped
+          the contrast of the one thing in frame a viewer is asked to read. */}
+      <rect x={0} y={0} width={w} height={h} fill="#0b0e15" opacity={0.94} rx={fs * 0.15} />
+      <path d={`M0,0 L${w},0 M0,${h} L${w},${h}`} stroke={SEE} strokeWidth={HAIR * 1.6}
+        opacity={0.7} />
+      {title && (
+        <text x={pad} y={tfs + fs * 0.15} fontSize={tfs} fill={SEE} fontFamily={FONT.mono}
+          fontWeight={700} letterSpacing={1}>{title.toUpperCase()}</text>
+      )}
+      {rows.map(([k, v], i) => (
+        <g key={k} transform={`translate(0 ${top + lead * (i + 0.8)})`}>
+          <text x={pad} y={0} fontSize={fs} fill="#9db2bd" fontFamily={FONT.mono}>{k}</text>
+          <text x={w - pad} y={0} fontSize={fs} fill="#f2ede2" textAnchor="end"
+            fontFamily={FONT.mono} fontWeight={700}>{v}</text>
+        </g>
+      ))}
+      {/* the cursor, which is the cheapest possible sign that a thing is LIVE */}
+      <rect x={w - pad} y={fs * 0.4} width={fs * 0.45} height={fs * 0.16}
+        fill={SEE} opacity={Math.sin(frame / 8) > 0 ? 0.9 : 0.15} />
+    </g>
+  );
+};
 
 /**
  * A CONFIDENCE SPREAD, drawn as a strip of bars.

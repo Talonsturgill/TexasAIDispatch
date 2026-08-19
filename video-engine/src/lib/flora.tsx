@@ -99,24 +99,65 @@ export interface FloraProps {
 const Canopy: React.FC<{
   seed: number; cx: number; cy: number; rx: number; ry: number;
   lobes?: number; fill: string; hi: string; lo: string; spread?: number;
-}> = ({seed, cx, cy, rx, ry, lobes = 6, fill, hi, lo, spread = 0.62}) => (
-  <g>
-    {Array.from({length: lobes}, (_, i) => {
-      const a = (i / lobes) * Math.PI * 2 + rnd(seed, i) * 0.9;
-      const d = spread * (0.45 + rnd(seed, 20 + i) * 0.55);
-      const lx = cx + Math.cos(a) * rx * d;
-      const ly = cy + Math.sin(a) * ry * d * 0.8;
-      const lr = rx * (0.40 + rnd(seed, 40 + i) * 0.26);
-      // Lobes above the centre catch the key, lobes below sit in the mass's own shade.
-      const shade = ly < cy ? hi : lo;
-      return (
-        <ellipse key={i} cx={lx} cy={ly} rx={lr} ry={lr * (0.72 + rnd(seed, 60 + i) * 0.3)}
-          fill={i % 3 === 0 ? shade : fill} />
-      );
-    })}
-    <ellipse cx={cx} cy={cy} rx={rx * 0.72} ry={ry * 0.68} fill={fill} />
-  </g>
-);
+}> = ({seed, cx, cy, rx, ry, lobes = 6, fill, hi, lo, spread = 0.62}) => {
+  // ONE SILHOUETTE MADE OF LOBES, DRAWN THE SAME WAY THE BIOME'S OAK DRAWS ITS OWN.
+  //
+  // This component and `LimbedOak` in `lib/biomes.tsx` draw the SAME SPECIES, and a panel
+  // read both in one frame and said so: the mid-ground oaks had splayed limbs and a
+  // scalloped crown while the far treeline directly behind them was still an opaque blob.
+  // A rebuild that reaches one of two call sites is the four-times-repeated fault of this
+  // engine wearing a new hat, and the cure is that both files now use the same
+  // construction rather than that somebody remembers to edit both.
+  //
+  // The construction: every lobe is drawn twice, once fat in ink underneath and once in
+  // leaf colour on top. The ink pass leaves ONE continuous edge around the union of the
+  // lobes and no rings inside it, so the crown reads as a single scalloped mass with
+  // value changes in it rather than as a soft cloud or as a bag of circles. In a
+  // thick-outline idiom a shape with no outline reads as fog, and the far treeline was
+  // reading as fog.
+  const strokeW = Math.max(1.6, rx * 0.075);
+  const shapes: {x: number; y: number; rx: number; ry: number; fill: string}[] = [];
+  for (let i = 0; i < lobes; i++) {
+    const a = (i / lobes) * Math.PI * 2 + rnd(seed, i) * 0.9;
+    const d = spread * (0.45 + rnd(seed, 20 + i) * 0.55);
+    const ly = cy + Math.sin(a) * ry * d * 0.8;
+    const lr = rx * (0.40 + rnd(seed, 40 + i) * 0.26);
+    // Lobes above the centre catch the key, lobes below sit in the mass's own shade.
+    const shade = ly < cy ? hi : lo;
+    shapes.push({
+      x: cx + Math.cos(a) * rx * d, y: ly,
+      rx: lr, ry: lr * (0.72 + rnd(seed, 60 + i) * 0.3),
+      fill: i % 3 === 0 ? shade : fill,
+    });
+  }
+  // NO SOLID CENTRE. A filled ellipse under the lobes is what turned every crown in the
+  // film into a dome: the lobes gave it an irregular edge and this gave it an opaque
+  // middle, so at any scale under about 0.2 the lobes vanished into it and what survived
+  // was a flat disc on a stick. Scorers called it a lollipop and lily pads on a stick
+  // across four rounds. The two ties below are deliberately SMALLER than the lobes they
+  // tie, because a tie wide enough to touch both sides is the solid centre again under
+  // another name, which is the mistake this same paragraph had to be written about twice.
+  for (let k = 0; k < 2; k++) {
+    shapes.push({
+      x: cx + (rnd(seed, 80 + k) - 0.5) * rx * 0.5,
+      y: cy + (rnd(seed, 90 + k) - 0.5) * ry * 0.4,
+      rx: rx * (0.22 + rnd(seed, 100 + k) * 0.10),
+      ry: ry * (0.26 + rnd(seed, 110 + k) * 0.12),
+      fill: k ? fill : hi,
+    });
+  }
+  return (
+    <g>
+      {shapes.map((l, k) => (
+        <ellipse key={`o${k}`} cx={l.x} cy={l.y} rx={l.rx} ry={l.ry}
+          fill={INK} stroke={INK} strokeWidth={strokeW} strokeLinejoin="round" />
+      ))}
+      {shapes.map((l, k) => (
+        <ellipse key={`f${k}`} cx={l.x} cy={l.y} rx={l.rx} ry={l.ry} fill={l.fill} />
+      ))}
+    </g>
+  );
+};
 
 /** A limb that TAPERS. A stroked path is a constant-width tube, and a tree branch
  *  that does not narrow toward its tip is the second tell after the lollipop crown.
@@ -161,7 +202,9 @@ export const LiveOak: React.FC<FloraProps & {
        h = 120, leaned = false, propped = false}) => {
   const L = useLight();
   const K = fit('liveOak', h);
-  const t = tones(season === 'winter' ? '#3f5540' : '#41603f', L);
+  // EVERGREEN. A live oak holds its leaf through the winter and its green is a dark
+  // blue green, not the yellow green this was sharing with the grass under it.
+  const t = tones(season === 'winter' ? '#263f36' : '#284439', L);
   const bark = tones('#5a4a3c', L);
   const lean = leaned ? 13 * facing : (rnd(seed, 1) - 0.5) * 5;
 
@@ -169,31 +212,60 @@ export const LiveOak: React.FC<FloraProps & {
     <g transform={`translate(${x} ${y}) scale(${K * scale * facing} ${K * scale})`}>
       {/* the trunk is SHORT and thick and divides low. A live oak with three metres of
           clean trunk is an urban street tree that has been pruned up for traffic. */}
-      <Limb x1={0} y1={0} x2={lean * 0.7} y2={-h * 0.30} w1={h * 0.055} w2={h * 0.042}
+      <Limb x1={0} y1={0} x2={lean * 0.7} y2={-h * 0.25} w1={h * 0.085} w2={h * 0.070}
         fill={bark.core} />
-      {Array.from({length: 5}, (_, i) => {
-        const a = (-0.30 - i * 0.30 + rnd(seed, 10 + i) * 0.24) * Math.PI;
-        const reach = h * (0.52 + rnd(seed, 30 + i) * 0.40);
-        const bx = lean * 0.7 + Math.cos(a) * reach;
-        // THE DIP. A live oak limb sags under its own weight and then turns up at the
-        // tip, so the low ones come back toward the ground. A limb drawn as a straight
-        // ray from the trunk is a maple.
-        const by = -h * 0.30 + Math.sin(a) * reach * 0.62;
+      {/* THE LIVE OAK, BUILT TO THE SPEC A SCORER FINALLY WROTE DOWN.
+          Four rounds called this a lollipop, then a recoloured mesquite, and each fix moved
+          a lobe rather than the architecture. The four things that actually separate a live
+          oak from every other tree in this library, all of them structural:
+
+          ONE. IT IS WIDER THAN IT IS TALL. Spread runs 1.3 to 2 times height. This was
+          taller than wide, which is the single reason it kept reading as somebody else's
+          tree no matter what the crown did.
+          TWO. THE TRUNK DIVIDES LOW, around a quarter of tree height, into three to five
+          limbs of TRUNK-LIKE THICKNESS that run near horizontal and dip at the tips. Thin
+          diverging stems of equal weight are a mesquite, which is exactly what a scorer
+          said this was.
+          THREE. FOLIAGE RIDES ALONG THE LIMBS in overlapping clumps, with sky at the crown
+          edge. A pad capping the end of each stem is the broccoli this drew before.
+          FOUR. IT IS EVERGREEN. Dark blue green all year, never the yellow green it was
+          sharing with the grass it stands in. */}
+      {Array.from({length: 4}, (_, i) => {
+        // near horizontal, fanned across the full spread rather than radiating evenly
+        const side = i % 2 === 0 ? -1 : 1;
+        const rank = Math.floor(i / 2) / 1;
+        const reach = h * (0.66 + rank * 0.30 + (rnd(seed, 30 + i) - 0.5) * 0.14) * side;
+        const rise = -h * (0.10 + rank * 0.16 + rnd(seed, 40 + i) * 0.10);
+        const x0 = lean * 0.7, y0 = -h * 0.25;
+        const tipX = x0 + reach, tipY = y0 + rise;
         return (
           <g key={i}>
-            <Limb x1={lean * 0.7} y1={-h * 0.30} x2={bx} y2={by}
-              w1={h * 0.030} w2={h * 0.011} fill={bark.core}
-              bow={(by > -h * 0.30 ? 1 : -1) * reach * 0.13} />
-            <Canopy seed={seed + i * 17} cx={bx} cy={by - h * 0.06}
-              rx={h * 0.30} ry={h * 0.20} lobes={5}
-              fill={t.core} hi={t.base} lo={t.shade} />
+            {/* THE LIMB IS TRUNK-THICK AND DARK, not a pale armature. A scorer read the
+                old thin tan limb as a stick and the crown as pads sitting on it, so the
+                whole tree read as an African acacia. It carries the bark colour at real
+                oak weight and dips, sagging under its own load and lifting at the tip. */}
+            <Limb x1={x0} y1={y0} x2={tipX} y2={tipY}
+              w1={h * 0.11} w2={h * 0.05} fill={bark.core}
+              bow={Math.abs(reach) * 0.22} />
+            {/* THE FOLIAGE IS A CONTINUOUS MASS RIDING THE WHOLE LIMB, NOT PADS ON THE END.
+                Three separated clumps left the bare splay showing between them, which is the
+                exact defect the spec names: a pad capping a stick. Five overlapping clumps
+                that grow from near the fork to past the tip close over the limb into one
+                lumpy crown edge, with sky only at the outer margin. Bigger, denser, and set
+                lower over the limb so the mass sits ON the branch rather than floating. */}
+            {[0.30, 0.48, 0.66, 0.83, 1.0].map((u, k) => (
+              <Canopy key={k} seed={seed + i * 17 + k * 5}
+                cx={x0 + reach * u}
+                cy={y0 + rise * u - h * (0.02 + 0.05 * u) + Math.abs(reach) * 0.22 * (1 - Math.abs(2 * u - 1)) * 0.5}
+                rx={h * (0.20 + 0.12 * u)} ry={h * (0.15 + 0.08 * u)}
+                lobes={5} fill={t.core} hi={t.base} lo={t.shade} spread={0.72} />
+            ))}
           </g>
         );
       })}
-      {/* the crown reads as ONE mass from a distance and as limbs up close, so both
-          are drawn and the mass goes on top at partial coverage */}
-      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.60} rx={h * 0.66} ry={h * 0.34}
-        lobes={9} fill={t.core} hi={t.base} lo={t.shade} spread={0.8} />
+      {/* the interior over the fork, small, so the crown has a middle without a dome */}
+      <Canopy seed={seed + 3} cx={lean * 0.5} cy={-h * 0.40} rx={h * 0.22} ry={h * 0.13}
+        lobes={3} fill={t.core} hi={t.base} lo={t.shade} spread={0.6} />
       {propped && (
         /* the cedar prop under a resting limb. It is a real thing on a courthouse
            square tree and it says the town has been looking after this one. */

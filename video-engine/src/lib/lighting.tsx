@@ -59,8 +59,13 @@ export const LIGHTS: Record<string, Light> = {
   },
   // Rolling Plains — red beds take the light warm, so the shade side goes violet.
   rolling_plains: {
-    dir: {x: -0.34, y: -0.94}, key: '#ffe9c0', fill: '#b7a2b8', rim: '#fff2dd',
-    keyLift: 0.16, coreDrop: 0.05, shadeDrop: 0.18,
+    // Harder than blackland by a real margin, not a rounding one. REGIONS.md: high-plains
+    // hardness, red dirt takes the light warm, "so shadow sides go violet". The violet fill
+    // was already right and the CONTRAST was not: at 0.18 against blackland's 0.14 the two
+    // regions were shading almost identically, so a scorer reported the light not separating
+    // at all and was right about the effect even though the hue was correct.
+    dir: {x: -0.34, y: -0.94}, key: '#fff0c4', fill: '#a78fb0', rim: '#fff6e2',
+    keyLift: 0.20, coreDrop: 0.06, shadeDrop: 0.25,
   },
   // Cross Timbers — broken oak over prairie, so the light is dappled where the
   // timber is. Mid everything; this is the state's most neutral light.
@@ -123,6 +128,15 @@ export const WEATHER: Record<string, Partial<Light>> = {
   dust:    {key: '#f3d9a6', fill: '#b9a488', rim: '#f8e6c2', keyLift: 0.11, shadeDrop: 0.13},
   overcast:{key: '#e8e6e0', fill: '#a9adb2', rim: '#f2f1ee', keyLift: 0.07, shadeDrop: 0.09},
   night:   {key: '#9fb6d8', fill: '#2b3a52', rim: '#c9dcf5', keyLift: 0.10, shadeDrop: 0.26},
+  // THE LAST OF IT. A low warm sun with long shade, and it was missing.
+  //
+  // Three closing scenes were authored for "late light", "going dark behind the roof line"
+  // and "the last of the light on the parapet", the mansard box carried night:true, and all
+  // three rendered in the same flat midday as the establishing shot fifty seconds earlier.
+  // The board asked for a light this palette did not have, so nothing errored and the
+  // emotional close simply had no light to close on. A bookend that returns to the same
+  // building in the same sun is not a bookend, it is a repeat.
+  late:    {key: '#ffd7a3', fill: '#7d6a58', rim: '#ffeccb', keyLift: 0.13, shadeDrop: 0.20},
 };
 
 /** The default when a scene has not declared a region. Deliberately the most

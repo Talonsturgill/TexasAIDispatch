@@ -930,3 +930,328 @@ forgot would look correct until somebody measured a glyph.
 The migration was checked by rendering all sixteen compositions and comparing edge bleed against
 the pre-change renders, byte for byte at the margins. Identical. **That is a cheap, total answer
 to "did changing the typeface break a layout"**, and it exists only because the sheets exist.
+
+## Round twelve: three faults, one shape, and none of them a gate's fault
+
+Nothing in this entry was caught by a check. Every one of them was found by looking at a
+frame, and the reason is the same in all three: **a gate reads a file, and a viewer reads a
+silhouette.** No assertion in this repo has ever been able to look at a shape and say what
+object it is. That is not a gap to close with a cleverer gate. It is the argument for
+rendering a still and reading it before believing anything.
+
+### The stand was seeded per scene, so one place was four places
+
+`Vegetation` took the scene's seed. Four Round Rock shots therefore grew four different
+stands of live oak at four different scales, and four Abilene shots four different brakes of
+mesquite. Every gate passed, because every frame was internally correct. A scorer read it as
+four locations and said so on the place axis, and was right.
+
+**Standing woody plants are landmarks and belong to the REGION, not the shot.** Grass may keep
+the scene seed, because nobody tracks a tuft across a cut. The general rule: ask of any
+randomised element whether a viewer is supposed to recognise it from the shot before. If yes,
+it cannot be seeded on the shot.
+
+### A drawing can be correct in code and wrong on screen, and this is the fourth time
+
+`LimbedOak` computed five limbs, placed a lobe on each limb tip, and read as a green blob. The
+lobes were `w*0.20` to `w*0.30` hung on tips about `w*0.15` apart, so each one overlapped both
+neighbours and the crown closed. **A lobe has to be smaller than the gap it hangs over or there
+is no gap.** Separating them then produced five ringed circles on five bare ribs, which reads
+as broccoli, because each lobe carried its own ink outline and a viewer counts outlines. The
+crown is one silhouette made of lobes, which is not the same object as many outlined lobes:
+draw them twice, fat in ink underneath and in leaf colour on top, and the union has one edge.
+
+Four instances of this shape now, and they are worth listing together because the list is the
+lesson. A caption file honestly aligned that never reached the picture. A credits colon fixed
+in a file the renderer does not read. A board edited after its own render. And a `Canopy`
+centre ellipse that painted over the limb geometry both tree components had just computed.
+
+### When something reads as the wrong object, change the geometry
+
+The dead pole sign took three passes and stayed a basketball goal. The starburst came off. The
+open frame was filled. The reader board was filled. Each fix was correct about the part it
+touched and none of them moved the shape: a narrower box centred on the pole, floating in the
+gap under a wider board, is a hoop under a backboard whatever colour it is painted. It only
+stopped being one when the reader board moved flush against the cabinet's bottom rail at the
+cabinet's full width, which is also where a real one is.
+
+**Recolouring the parts leaves the drawing that made the wrong shape exactly where it was.**
+The same fault in a second file the same day: the bucket truck's compartment doors were
+`fill="none"` over a near-white body, so they took the body's colour and became four white
+crates on a flatbed. An unfilled shape is made of whatever is behind it, and what is behind it
+is never what the shape is supposed to be made of.
+
+### A scale that is random is a scale that is wrong
+
+The rolling-plains mesquites drew `scale` from the seed with no reference to how far down the
+frame they stood. A tree nearer the camera was as likely to be drawn small as large, so the
+picture was telling the eye two different distances for one tree. That is a scale error in the
+strict sense `lib/scale.ts` exists to prevent, and the metre file cannot catch it, because
+every individual tree was a legal size. **Size comes from depth. The seed varies it a little
+around that and never sets it.**
+
+The same block was also drawing crowns over twice as wide as the lane they were stratified
+into, which is why stratifying x had not stopped them merging into a hedge. A spacing rule is
+worth nothing until the thing being spaced is measured against it, and the ceiling should be
+solved against the spacing rather than chosen and hoped for.
+
+## The wait that watched itself, and why it is a file rather than a comment
+
+A step that takes ninety seconds held a run for forty minutes, and nothing anywhere
+reported a problem, because the failure and the success look identical from outside.
+
+The script wanted to wait out a render and wrote the obvious thing:
+
+```
+while pgrep -f "remotion render Dispatch" >/dev/null; do sleep 15; done
+```
+
+`pgrep -f` matches the FULL COMMAND LINE of every process on the box, and the waiting
+shell's own command line contains the pattern, because it is right there in the `while`
+condition. The loop matched itself. The condition was true forever and could not become
+false no matter what the render did.
+
+**The same mistake was then made a second time, at the top level, within the hour**, by a
+wait written as `while pgrep -f finish_render.sh; do sleep 10; done`. That is the tell
+that it is not a typo. It is the obvious thing to write, it is wrong, and it is invisible:
+a self-matching wait and a genuinely slow job produce identical evidence, which is no
+evidence at all.
+
+`scripts/waitfor.sh` is the fix, and getting it right took three tries that its own
+self-test caught one after another. Each failure is worth keeping, because each was a
+plausible answer that did not work:
+
+1. **Excluding `$$` is not enough.** The subshell that runs `pgrep` is a child and carries
+   the pattern too.
+2. **Excluding the process GROUP is not enough either.** The harness wrapper that launched
+   the script is an ANCESTOR in a different group, and its command line contains the whole
+   command string. The unit that has to be excluded is the ancestor chain, walked with
+   `ps -o ppid=`.
+3. **A pid you cannot inspect is not evidence the job is running.** The `$(...)` subshells
+   the loop spawns to read `ps` carry the pattern and then exit, so `pgrep` returns pids
+   that are already gone. Counting that empty answer as a live match kept the loop spinning
+   even after the exclusion was correct, which is the original bug wearing a third hat: the
+   waiter seeing its own machinery and calling it the job.
+
+Two rules fall out, and the helper enforces both.
+
+**Prefer a PID to a pattern.** A pid cannot match itself and needs no exclusion reasoning.
+`wait_for_pids` is the form to reach for whenever the pid is available.
+
+**Every wait carries a deadline.** A wait that cannot time out can hang the run, and the
+one outcome law says a blocked run reports an error, which it cannot do from inside an
+infinite loop. Note that in the failing self-test runs above, the deadline is the only
+reason anything was ever reported at all. The guard that saved the diagnosis was the
+belt, not the braces.
+
+---
+
+## The right number over the wrong picture
+
+**What shipped, four rounds running, with every numeral gate green.**
+
+Scene s11 printed the super "about ninety nanoseconds a day" over a shot whose readout, caption
+and character are all one researcher's three year EPW port. Ninety is a real number. It was
+fetched, it was verified enough to be in the claims file, and it was in the authorised set that
+`ship_gate` and `numeral_lint` check against. It belongs to NAMD, a different code by a
+different group. The claim it comes from is PARTIAL, and that claim's own note reads "The subject
+matter of the simulation is NOT verified and is not stated." The frame stated it.
+
+Scene s09 printed "the number comes from an analyst" over the caption carrying Abilene's fifty
+thousand accelerators. That figure's claim says in its own note that it "is attributed to the
+operator". The analyst framing belonged to a different claim about a different quantity, two
+paragraphs away in the same source.
+
+**Why every gate was green, and why it always would have been.**
+
+A numeral gate answers "is this figure a member of the authorised set". That is a property of the
+figure. Both defects are properties of the PAIRING: the figure and the picture it sits on. A
+set-membership test is structurally incapable of seeing the difference, so no amount of
+tightening it would ever have caught this. The check that was missing was not a stricter version
+of a check that existed. It was a check of a different kind.
+
+This is the general shape and it is worth naming, because this repo keeps meeting it: **a gate
+that validates a component in isolation cannot see a fault that lives in the relationship between
+two components.** The oak that was the right shape and a quarter the height of the transformer
+beside it was the same shape. So was the arm outline that was correct and drawn at
+`opacity={0.001}`.
+
+**What to check instead.** `scripts/super_evidence_check.py`. A super is checked against its own
+`super_claim` and nothing else: the claim must exist, must be VERIFIED rather than PARTIAL, and
+must itself carry every figure and every proper noun the super states. Not the claims file. That
+claim.
+
+**And its own first version proved the second lesson in this file.** It emitted partial number
+runs on the theory that more candidate values meant more chances to match a differently spelled
+source, reading 4 out of "four hundred", 40 out of "forty eight", and 1 out of the "one" in "both
+rooms, one scale". Since the check demands every figure it is handed be evidenced, each partial
+became a demand no source could meet, and the gate went red on four supers that were correct.
+**A gate that fails correct work is a gate somebody turns off**, and the only repair it would
+have accepted was rewriting good copy to satisfy a parser. Each of those four is a self-test case
+now.
+
+**How it was proven, and this is the only proof that counts.** Not by reading it. It was run
+against the board that had actually shipped the defect, where it goes red and names s11, and then
+against the corrected board, where it goes green. A gate that has never been shown the fault it
+was written for is a gate nobody has tested.
+
+---
+
+## True scale is not a free win, and the check still is what said so
+
+The board was authoring every exterior object at a fraction of true scale, using `scale` as a
+distance dial when `z` is the distance dial. `board_scale_check.py` measures it: a 0.40 m pickup,
+a 0.36 m pad transformer, a 1.56 m building, a 0.75 m bucket truck standing beside a 2.12 m
+lineworker. Three judges filed three separate craft defects in one round and every one was that
+arithmetic.
+
+The obvious repair is to set `scale: 1.0` everywhere and solve `z` to hold the same apparent
+size, which preserves the framing exactly for anything shot on its own. **Half of that repair is
+wrong, and one check still cost forty seconds and proved it.**
+
+At true scale the bucket truck at z=420 renders 938px tall and **2065px wide in a 1080px frame**.
+It swallowed the shot: the truck body became abstract slabs across the midground, the bucket a
+white box floating at head height, and the data centre the scene is about vanished behind it. The
+result was far worse than the toy it replaced.
+
+**WIDTH IS THE BINDING CONSTRAINT AND HEIGHT IS THE ONE EVERY DIMENSION TABLE RECORDS.** Every
+`*_M` entry is a height, `fit()` solves on height, and every size argument in this file until now
+was made in heights. A bucket truck is roughly 2.2 times wider than tall and a strip building is
+3.5 times wider than tall, so the moment either is honest about its height in a 9:16 frame, its
+width leaves the picture. The board's miniature scales were not only an error. They were also
+compensating for a camera that sits closer than any vehicle or building can be shot from.
+
+So the fix is a re-stage, not a multiplier: the object goes to true scale AND much further out,
+where it is small because it is FAR rather than small because it is a toy. For that truck the
+arithmetic is z near 4000, giving 318px tall and 700px wide, against a 587px person at z=55.
+
+Two rules fall out.
+
+**A size prescription that names only a height is half a prescription.** Ask what the object's
+width does at that size before applying it.
+
+**Gate 0 is cheaper than a render and it caught the rest.** The same restructure put seven planes
+in one scene and two planes at the same z in another, and `storyboard_check` refused both before
+a frame was drawn. The one thing it could not tell me was what the frame would look like, which
+is exactly and only what a check still is for.
+
+---
+
+## groundY is coupled to every fixed-y item in the scene, and it has now hidden the building twice
+
+A scorer prescribes it in almost every round, because dead sky is the easiest defect to see and
+raising the horizon is the obvious cure. It has been applied twice and it has failed twice, the
+same way both times.
+
+`groundY` moves the horizon. It does NOT move the items, whose `y` baselines are authored
+absolutely. Raise it and the near plane's ground fill rises with it, over the top of everything
+staged on the planes behind. On round 21 it orphaned the mansard box and turned dead sky into
+dead ground. On round 24, with `groundY` at 880 instead of 1060, **the building disappeared from
+the closing shot entirely** and the frame became a transformer and a pole sign in an empty
+field. Nothing errored. Every gate stayed green. The film simply no longer contained its subject.
+
+**The cure for dead sky is never the horizon on its own.** In this shot it was the building's
+authored WIDTH: a 3.47:1 block spans a 9:16 frame end to end, so it read as an awning rather
+than a building, and cutting `props.w` from 520 to 240 gave it two end walls, a visible
+storefront and a legible small-in-its-yard read at the same horizon and the same scale. The sky
+above it stayed exactly as tall and stopped mattering, because the frame finally had a subject.
+
+If the horizon genuinely must move, every item standing on that ground moves with it in the same
+edit, and the pair is verified with a check still before it reaches a render.
+
+**Why there is no gate here, stated rather than skipped.** The failure is an occlusion between a
+near plane's ground fill and items on farther planes, so seeing it requires resolving what is
+drawn over what, which is the renderer's job and not a board property. A height-versus-horizon
+heuristic was drafted and thrown away because near-plane items legitimately sit far below the
+horizon line, so it would have failed correct scenes, and this file already records what that
+costs. The honest artifact is this entry plus the rule that a `groundY` change is verified with a
+still. A gate that cannot be written correctly is worth less than a lesson that is.
+
+---
+
+## The number was in the statement, not in the quote, and it wore a VERIFIED badge
+
+`claims.json` gives every claim a `statement`, a `value_text`, a `quote` and a `verdict`. Three
+of those are written by the model that read the source. **One is the source.** Nothing enforced
+the difference, so a figure asserted in a `statement` was indistinguishable, to every gate in
+this repo, from a figure somebody actually fetched.
+
+The film printed a readout row reading `on Vista | 30 times faster`. The claim behind it is
+marked VERIFIED, and its quote is entirely about three years of porting a code from CPUs to
+GPUs. **It contains no speed-up figure of any kind.** A judge found it, called it the single
+thing most likely to embarrass this show, and was right: an unsourced number that looks
+unsourced gets questioned, and an unsourced number wearing a verification badge does not.
+
+Measured across the whole board, **five of eleven figures printed by readouts appeared in no
+fetched sentence anywhere in the claims file.**
+
+**Why every existing gate was green, again.** `numeral_lint` and `ship_gate` check a numeral
+against `authorised_numerals`, a set computed from the claims file. `30` is in that set. The
+check is set membership, and the fault is one layer down, in whether the claim's own evidence
+carries what the claim asserts. And `super_evidence_check`, written for exactly this family of
+fault, only ever read SUPERS. **A readout carries no claim binding at all**, and a readout is
+where the numbers actually live: the queue table, the speed-ups, the water.
+
+**What to check instead.** `super_evidence_check` now reads readout rows too, against
+`evidence_text()` rather than the whole claim, and `evidence_text()` is the `quote` and nothing
+else. The one legitimate exception is a table, where a source publishes rows and the quote
+captures one of them, and it is DECLARED per claim as `quote_is_excerpt` with `excerpt_of`
+naming what it excerpts, rather than inferred by the checker. An exception somebody wrote on
+purpose can be audited; a hole the checker leaves open for everything cannot.
+
+**And the repair was not the same in both places, which is the part worth remembering.** The
+queue table was real: a re-fetch returned all four rows verbatim, so the quote was widened and
+the film keeps its best readout. The Vista figure was not there to find. Its source is serving a
+500 today with no archived copy, so it could not even be re-checked, and the row came off the
+screen. **A gate that had only ever said "drop it" would have cost the queue table too. Re-fetch
+first, then drop what is genuinely not there.**
+
+The wider finding, recorded because it will outlive this run: five of twenty claims in this film
+cite one press release that is currently unreachable. Their quotes were captured at fetch time
+and remain the evidence, but nothing in this repo records that a source has since gone dark, and
+a run that needed to re-verify one of them today could not.
+
+---
+
+## The take was better on every graded axis and worse on screen
+
+`vo_soundcheck` grades a take on word accuracy, spoken-tag leakage, pitch variance, duration
+against the cut, and loudness. Five real measurements, every one of them earned by a defect that
+shipped. **None of them can see how well a take CAPTIONS**, and captions are half of what a
+viewer reads.
+
+The mechanism, and it is not obvious until it bites: a caption boundary may only sit on a
+measured silence, because approximated timings are a hard fail. So **the number of pauses in a
+read decides how many boundaries the segmenter has to choose from.** A take with few pauses
+forces long cards that break mid sentence, and no amount of work on the segmenter can fix it,
+because the boundaries genuinely are not there.
+
+Measured on 2026-08-19, re-synthesising one line to correct an unsourced phrase:
+
+| | old take | new take, chosen on the old metrics |
+|---|---|---|
+| word accuracy | 0.974 | 0.974 |
+| loudness after mix | -18.91 LUFS | **-17.88 LUFS**, a dB better |
+| line 1 sourcing | unsourced | **corrected** |
+| pauses in the read | **29** | 23 |
+| word times measured | 56 of 114 | 43 of 117 |
+| cues ending mid sentence | 3 of 8 | **5 of 6** |
+| longest caption card | 9.9 s, 124 chars | **11.0 s, 141 chars** |
+
+Better on truth, better on loudness, tied on accuracy, and visibly worse in the frame. Three
+judges had already docked craft and voice for mid-sentence cards, so this would have traded a
+truth fix for a regression in the axis those same judges were complaining about, and every
+metric in the soundcheck would have stayed green while it happened.
+
+**What to check instead.** `vo_synth_gemini` now records `speech_runs` per take, counted by
+importing `vo_align.speech_runs` rather than reimplementing the silence threshold, and
+`vo_soundcheck` carries it as a RANKING term. Deliberately not a hard fail: a read with few
+pauses is a legitimate performance, it is just expensive to caption, and refusing it outright
+would be a gate overruling a director on a formatting cost.
+
+**The general lesson, which is the one worth carrying.** Every metric here was added because
+something shipped wrong, so the metric set is a list of past failures rather than a description
+of what "good" means. That is the right way to build it and it has a permanent blind spot: the
+next defect is by construction the one nothing measures. When a change comes back green on every
+axis and worse in the product, do not re-read the metrics. **Ask what the product has that the
+metrics do not.**

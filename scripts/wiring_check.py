@@ -47,6 +47,15 @@ REPO = Path(__file__).resolve().parents[1]
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
     "wiring_check.py": "this file, run by CI and by hand",
+    # A DIAGNOSTIC, not a run step. It measures what render concurrency this container is
+    # fastest at, which changes when the container changes and not between runs. Wiring it
+    # into the routine would spend four minutes of every run re-deriving a constant, which
+    # is the opposite of what it exists for. Its answer lives in prompts/dispatch_routine.md
+    # and in out/dispatch/render_bench.json.
+    "render_bench.py": "a container-level benchmark, run when the machine changes",
+    # Sourced as a shell library by finish_render.sh rather than invoked on inputs. Its
+    # --self-test is the thing that proves it, and there is no product for it to read.
+    "waitfor.sh": "a shell library, sourced rather than run, proven by its own self-test",
 }
 
 

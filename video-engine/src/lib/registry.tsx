@@ -170,6 +170,7 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   generatorBank: Compute.GeneratorBank,
   switchgear: Compute.Switchgear,
   coolingUnit: Compute.CoolingDistributionUnit,
+  hallShell: Compute.HallShell,
 
   // the largest medical centre in the world
   gantry: Clinic.Gantry,

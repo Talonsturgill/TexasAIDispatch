@@ -529,9 +529,19 @@ export const BucketTruck: React.FC<Rig & {boom?: number; dirt?: number}> = ({
           a line truck and not a flatbed */}
       <rect x={-120} y={-64} width={156} height={36} fill="#e0e3e6" stroke={INK}
         strokeWidth={3.2} />
+      {/* A DOOR IS A PANEL, NOT A HOLE. These were `fill="none"` over a near-white body,
+          so four unfilled rectangles on a white slab read as four white boxes and the
+          truck read as a flatbed carrying crates. Exactly the fault the pole sign's
+          reader-board had, in a second file: an open rectangle drawn on top of something
+          takes the colour of what is behind it, and what is behind it is never what the
+          shape is supposed to be made of. A door gets its own fill and a handle. */}
       {[-112, -76, -40, -4].map((dx) => (
-        <rect key={dx} x={dx} y={-60} width={30} height={28} rx={2} fill="none"
-          stroke="#9aa0a6" strokeWidth={2.2} />
+        <g key={dx}>
+          <rect x={dx} y={-60} width={30} height={28} rx={2} fill="#cdd2d6"
+            stroke="#8d949a" strokeWidth={2.2} />
+          <path d={`M${dx + 22},-50 l0,8`} stroke="#6f767c" strokeWidth={2.4}
+            strokeLinecap="round" />
+        </g>
       ))}
       {/* outriggers down when the boom is up, because a boom up on its wheels is
           a thing no lineman has ever done */}
@@ -539,16 +549,25 @@ export const BucketTruck: React.FC<Rig & {boom?: number; dirt?: number}> = ({
         <path key={ox} d={`M${ox},-40 l${ox < 0 ? -14 : 14},22 l0,6`} stroke="#e8c53f"
           strokeWidth={4} fill="none" strokeLinecap="round" />
       ))}
+      {/* THE STOWED BOOM RESTS ON SOMETHING. Without a cradle it hung in the air just
+          clear of the body, and since it was painted the same near-white as the body and
+          the bucket, the whole assembly read as a loose white slab floating over the bed
+          rather than as a boom lying in its rest. The cradle is drawn first so the boom
+          lands in it, and the boom and bucket step down in value from the body so the
+          three shapes separate instead of merging into one white mass. */}
+      <path d="M-74,-58 L-46,-58 L-52,-78 L-68,-78 Z" fill="#b4babf" stroke={INK}
+        strokeWidth={3} strokeLinejoin="round" />
+      <circle cx={-60} cy={-66} r={7} fill="#8d949a" stroke={INK} strokeWidth={2.6} />
       {/* the boom */}
       <g transform={`translate(-60 -66) rotate(${ang})`}>
-        <rect x={0} y={-7} width={ext} height={14} rx={3} fill="#dfe2e5" stroke={INK}
+        <rect x={0} y={-7} width={ext} height={14} rx={3} fill="#c2c7cc" stroke={INK}
           strokeWidth={3} />
-        <rect x={ext * 0.5} y={-5} width={ext * 0.5} height={10} rx={2} fill="#c9ccd0"
+        <rect x={ext * 0.5} y={-5} width={ext * 0.5} height={10} rx={2} fill="#a8aeb4"
           stroke={INK} strokeWidth={2.2} />
         <g transform={`translate(${ext} 0) rotate(${-ang})`}>
-          <path d="M-13,-20 L13,-20 L11,4 L-11,4 Z" fill="#f0f2f4" stroke={INK}
+          <path d="M-13,-20 L13,-20 L11,4 L-11,4 Z" fill="#e6e9ec" stroke={INK}
             strokeWidth={3} strokeLinejoin="round" />
-          <path d="M-13,-10 L13,-10" stroke="#b8bcc0" strokeWidth={2} />
+          <path d="M-13,-10 L13,-10" stroke="#8d949a" strokeWidth={2} />
         </g>
       </g>
       <rect x={-124} y={-30} width={230} height={5} fill="#a08a68" opacity={dirt * 0.45} />

@@ -895,9 +895,13 @@ export const BootFence: React.FC<RoadProps & {
           }).join(' ')} />
       ))}
       {Array.from({length: posts}, (_, i) => {
-        const px = -span / 2 + i * pitch;
+        // KIT.md marks this verified: "cedar posts that LEAN. A perfectly straight fence
+        // line is a tell." Both halves were the tell here. The pitch was exact, and the
+        // lean was plus or minus two degrees, which is invisible at feed size and might as
+        // well be zero. A real fence line wanders.
+        const px = -span / 2 + i * pitch + (rnd(seed, 200 + i) - 0.5) * pitch * 0.24;
         const s = K * scale;
-        const lean = (rnd(seed, i) - 0.5) * 4;
+        const lean = (rnd(seed, i) - 0.5) * 13;
         const hasBoot = i < boots;
         return (
           <g key={i} transform={`translate(${px} 0) scale(${s}) rotate(${lean})`}>
@@ -1151,24 +1155,53 @@ export const PoleSign: React.FC<RoadProps & {
         fill={steel.core} />
       <RustStreak x={-h * 0.024} y={-h * 0.30} w={h * 0.048} h={h * 0.30}
         opacity={wear * 0.7} />
-      {starburst && (
+      {/* A DEAD SIGN HAS NO STARBURST, and drawing one made this asset a basketball goal.
+          The flourish is a radial spray of twelve lines centred on the pole, directly under
+          an empty rectangular frame. Backboard, hoop, net, pole. A scorer named it outright
+          after three earlier rounds had reported a "starburst artifact" without recognising
+          what shape it was making, and it is the film's bookend prop in four scenes.
+
+          It was also wrong on its own terms: the starburst IS the neon flourish, so a sign
+          whose panel is gone and whose tubes are broken has lost it too. Live signs keep it.
+          Dead ones get the two mounting arms the panel used to hang from, which is what is
+          actually left on a frontage road. */}
+      {starburst && !dead && (
         <g transform={`translate(0 ${-h * 0.86})`}>
           {Array.from({length: 12}, (_, i) => {
             const a = (i / 12) * Math.PI * 2;
             const r = i % 2 ? h * 0.09 : h * 0.17;
             return (
               <line key={i} x1={0} y1={0} x2={Math.cos(a) * r} y2={Math.sin(a) * r}
-                stroke={dead ? '#8a8a86' : '#e0563c'} strokeWidth={h * 0.010}
-                opacity={dead ? 0.6 : 1} />
+                stroke="#e0563c" strokeWidth={h * 0.010} />
             );
           })}
         </g>
       )}
+
       <g transform={`translate(0 ${-h * 0.84 - ph})`}>
         {dead ? (
-          /* THE EMPTY FRAME. The panel is gone and you can see sky through it. */
+          <>
+          {/* THE BLANK CABINET, not an empty frame.
+             An outlined rectangle you can see sky through, sitting on a pole above a
+             bracket, is a BASKETBALL BACKBOARD. Two scorers said so outright and three
+             earlier rounds reported a "starburst artifact" without recognising the shape
+             the parts were making together. Removing the starburst was not enough and the
+             V bracket that replaced it made the read worse, because a hoop is exactly a
+             bracket under a board.
+             What is actually left on a frontage road when a tenant leaves is the cabinet:
+             a filled, faded, blank box that reads as a sign with nothing on it. Filled
+             kills the backboard, and it is also what is true. */}
+          <rect x={-pw / 2} y={0} width={pw} height={ph} fill={steel.shade} />
           <rect x={-pw / 2} y={0} width={pw} height={ph} fill="none"
-            stroke={steel.shade} strokeWidth={h * 0.020} />
+            stroke={steel.core} strokeWidth={h * 0.016} />
+          {/* the bolt line along the bottom rail, where the panel used to clip in */}
+          {Array.from({length: 5}, (_, i) => (
+            <circle key={i} cx={-pw * 0.36 + i * pw * 0.18} cy={ph * 0.9}
+              r={h * 0.006} fill="#4d4a46" />
+          ))}
+          <RustStreak x={-pw * 0.18} y={ph * 0.55} w={pw * 0.2} h={ph * 0.5}
+            opacity={wear * 0.8} />
+          </>
         ) : (
           <>
             {/* sun-yellowed plastic with the printing ghosted */}
@@ -1199,8 +1232,34 @@ export const PoleSign: React.FC<RoadProps & {
           </>
         )}
       </g>
-      <rect x={-pw * 0.30} y={-h * 0.84} width={pw * 0.60} height={h * 0.10}
-        fill={dead ? 'none' : '#2a3a52'} stroke={steel.shade} strokeWidth={h * 0.008} />
+      {/* THE READER BOARD IS PART OF THE SIGN, NOT A RING HUNG UNDER IT.
+          Filling this rect killed the last transparent shape and the asset still read as
+          a basketball goal, because the shape was never only about the fill. A narrower
+          box, centred on the pole, floating in the gap between the pole top and the
+          cabinet above it, is a hoop under a backboard whatever colour it is painted. The
+          fill was the third fix aimed at the same silhouette and the silhouette is what a
+          viewer reads.
+          A real frontage-road reader board is the changeable-copy panel bolted to the
+          BOTTOM RAIL OF THE CABINET and it is the same width as the cabinet. Flush and
+          full width, there is no gap for a net to hang in and no ring to see: the sign is
+          one object with two bands, which is what it is. The lesson generalises past this
+          prop, and it is the one this file keeps relearning. When something reads as the
+          wrong object, change the geometry. Recolouring the parts leaves the drawing that
+          made the wrong shape exactly where it was. */}
+      <g transform={`translate(0 ${-h * 0.84 - ph})`}>
+        <rect x={-pw / 2} y={ph} width={pw} height={h * 0.105}
+          fill={dead ? steel.shade : '#2a3a52'} stroke={steel.core} strokeWidth={h * 0.012} />
+        {/* the track the plastic letters slide into, which is the one detail that says
+            reader board rather than blank panel */}
+        {Array.from({length: 2}, (_, i) => (
+          <path key={i} d={`M${-pw * 0.44},${ph + h * 0.105 * (0.36 + i * 0.34)} h${pw * 0.88}`}
+            stroke={steel.core} strokeWidth={h * 0.004} opacity={0.55} />
+        ))}
+        {/* and the collar where the pole takes the whole sign, wider than the pole so the
+            cabinet is carried rather than balanced on a stick */}
+        <rect x={-h * 0.048} y={ph + h * 0.105} width={h * 0.096} height={h * 0.030}
+          fill={steel.core} stroke={steel.shade} strokeWidth={h * 0.006} />
+      </g>
     </g>
   );
 };

@@ -94,9 +94,11 @@ site, while this line and a gate comment both said they were guarding it. GATE_L
 The ship threshold lives in `config/dispatch_rubric.yaml` and nowhere else. When you brief the
 panel, READ `rubric.ship_threshold` out of that file and put THAT number in the brief.
 
-The sibling lost five panel rounds to this. Its prompt said 9.0 while the rubric had said 7.5 for
-two weeks. The panel was briefed 9.0, scored the film 7.08, and returned ship:false on a cut that
-was already over the real bar. Two judges flagged the divergence unprompted and the run kept
+The sibling lost five panel rounds to this. Its prompt carried a bar the rubric had not held for
+two weeks, the panel was briefed the stale one, and it returned ship:false on a cut that was
+already over the real one. **This paragraph used to prove its own point by quoting both numbers**,
+so the file that forbids a second copy of the bar carried one, three lines under the sentence
+forbidding it. They agreed that day, which is the only reason it looked harmless. Two judges flagged the divergence unprompted and the run kept
 grading against the wrong number anyway. **A number restated in a second place is a number that
 will be wrong in one of them.**
 
@@ -273,11 +275,39 @@ Scenes are code, story is data, and **the data is the board Gate 0 just passed.*
 document written from it. The same file, by path.
 
 ```
-cd video-engine && npx remotion render Dispatch out/dispatch/film.mp4 \
-  --props=../out/dispatch/storyboard.json
+touch out/dispatch/render_started        # see the note under freshness_check
+cd video-engine && npx remotion render Dispatch ../out/dispatch/silent.mp4 \
+  --props=../out/dispatch/storyboard.json --concurrency=100% --log=error
 ```
 
+**`--concurrency=100%` IS NOT OPTIONAL, AND IT IS THE SINGLE CHEAPEST MINUTE IN THIS
+ROUTINE.** Remotion defaults to about half the cores, so on the four core container every
+render this machine has ever done left two of them idle and took twice as long as it had
+to. A run does several full renders, and the cost of the default was paid every time
+without anything reporting it, because a render that is half as fast still exits 0. It is
+written as a PERCENTAGE rather than a number so it follows the machine the run lands on
+instead of pinning a count that will be wrong the first time the container is resized.
+
+Watch memory rather than the flag if a render dies: each worker is a browser page, so the
+ceiling is RAM per page, not cores.
+
 **Read the QA, not the exit code.** A scene that draws nothing renders without error.
+
+### THE MUX, AND NEVER WITH `-shortest`
+
+The picture renders silent. The mixed audio goes in afterward:
+
+```
+npx remotion ffmpeg -y -i ../out/dispatch/silent.mp4 -i ../out/dispatch/mix.wav \
+  -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k ../out/dispatch/film.mp4
+```
+
+**`-shortest` TRUNCATES THE FILM TO THE AUDIO.** The mix is the length of the read and the
+picture is the read plus the credits card, so `-shortest` silently cuts the credits off
+the end and the encode still reports success. For a permissively licensed bed that is the
+attribution going unpaid, which is the same fault as a credit that scrolls past too fast
+to read, arrived at by a different route. Verify the muxed duration is longer than the
+mix, not equal to it.
 
 A board can express most shots. When it cannot, write a bespoke scene component and register it
 in `lib/registry.tsx` — the engine is a floor, not a ceiling, and `registry_check.py` will hold
@@ -367,11 +397,65 @@ python3 scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/s
        --out out/dispatch/mix.wav --cut <runtime>
 python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt \
        --out out/dispatch
+python3 scripts/board_captions.py --board out/dispatch/storyboard.json \
+       --captions out/dispatch/captions.json
+python3 scripts/board_retime.py --board out/dispatch/storyboard.json \
+       --words out/dispatch/words.json --sfx out/dispatch/sfx_events.json
 ```
+
+**ALIGN ON THE MIX, DETECT ON THE VOICE, AND THEY ARE THE SAME TIMELINE.** `mix.py` writes
+`mix_vo.wav`, the stem on the master's own clock. Pass it as `--voice`. The mix carries an
+ambience bed under the whole read that never falls to the take's noise floor, so a segmenter
+pointed at the mix cannot see a pause: it measured a five word cue holding for 7.06 seconds
+and returned 63 of 114 word times modelled. Nothing is ever time stretched here, so the stem's
+silences ARE the mix's silences. This is not a substitute measurement, it is the same one
+taken where the bed is not standing in front of it.
+
+**`at_s` IS DERIVED AND `at_s_authored` IS THE INPUT, so a hand edit to `at_s` is thrown
+away.** `board_retime` recomputes every `at_s` from `at_s_authored` and the scene's new
+duration, which is its whole job, so moving a beat by editing `at_s` is a no-op that looks
+exactly like a change. A run moved this film's only hook beat from 3.58s to 0.60s that way,
+re-ran the step, rendered, and put the OLD timing in front of a panel, which read the board
+and reported the fix as never made. Nothing errored. **Move a beat by editing
+`at_s_authored`.** The step now prints a warning when it discards a hand edit, and
+`run_discipline.py` fails if this paragraph ever goes missing.
+
+**THEN THE BOARD IS RE-CUT TO THE READ.** `board_retime` is the step this machine ran without
+for its whole life, and its absence was the single largest defect in the first Dispatch: two
+of three scorers found it independently. The board is authored in Phase 4 on a uniform five
+second grid, because five is a round number and no word has been synthesised yet. The read
+never lands on that grid. Nothing moved the cuts, so for half the runtime the narration
+described the PREVIOUS shot, the half built hall played under the line about the access
+notice, and every gate was green because every asset was correct and merely five seconds
+from where it belonged.
+
+It moves the scene starts to the measured start of each scene's own `vo` line, carries the
+beats inside each shot with it, and re-anchors every foley event to wherever its scene went.
+That last part is not optional: re-cutting the picture without the sound leaves a transformer
+humming over a machine room two hundred miles away.
+
+**A SCENE IS NOW AS LONG AS ITS OWN SENTENCE TAKES TO SAY**, so the board must be written to
+survive that. If a scene runs past the ceiling, SPLIT THE BEAT rather than holding the shot:
+the closing line here needed three scenes where the board had one holding for thirteen
+seconds. `--vo-at` on `mix.py` buys the silent hook its room, since a read placed at sample
+zero leaves the opening shot a third of a second to live in.
 
 Alignment runs on the FINAL mixed audio and every cue comes from the words JSON. Approximated,
 scaled or hand-shifted timings are banned, and `ship_gate` checks the EVIDENCE for alignment
 rather than the name of the method: the count of boundaries actually measured off the waveform.
+
+**THE CUES GO INTO THE BOARD, AND THEN THE FILM RENDERS AGAIN.** The picture's bottom band is a
+subtitle and a subtitle is the narration, so the picture depends on the audio and the Phase 5
+render is the FIRST of two. Re-run the render command from Phase 5 after `board_captions`, and
+read the QA on the second one.
+
+This is the ordering that was wrong. The band used to carry `scene.caption`, an editorial line
+written at storyboard time, in the subtitle's seat and the subtitle's face, while the narration
+underneath it said something else. A viewer reading along was reading a caption of a sentence
+nobody spoke, and every gate was green, because one gate checked the caption file was honestly
+aligned and another checked `scene.caption` was clean copy and NOTHING checked that the words on
+screen were the words in the room. `scene.caption` now renders as a kicker under the super, where
+it reads as a note on the title rather than as a transcript.
 
 `mix.py` has no resampler in it, deliberately. If the read runs long it refuses and tells you by
 how much. The fix is a shorter script and a re-synth of those lines, never a stretch.
@@ -390,7 +474,71 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
        --claims out/dispatch/claims.json --script out/dispatch/vo_script.txt \
        --captions out/dispatch/captions.json --audio out/dispatch/mix.json \
        --report out/dispatch/report_card.json
+python3 scripts/super_evidence_check.py --board out/dispatch/storyboard.json \
+       --claims out/dispatch/claims.json
+python3 scripts/board_scale_check.py --board out/dispatch/storyboard.json
+python3 scripts/floor_check.py --board out/dispatch/storyboard.json
 ```
+
+**`floor_check` is two rules about one geometry and both faults survived twenty five panel
+rounds.** A `floorOnly` hallShell paints the near floor, and in three interiors it sat NEARER
+than the racks standing on it, so it painted over their bases and left the bottom quarter of the
+frame a dead grey band. Every judge filed that band every round and nobody asked what was
+drawing it. The proof was in the same board the whole time: the one interior whose bases read
+correctly is the one whose floor sits BEHIND its racks. The second rule is that a baseline must
+project below the room's horizon, because a rank authored above it hangs in mid air, and judges
+diagnosed that as a scale error three separate times.
+
+**Compare in PROJECTED space, never in board `y`.** The horizon and the item sit on different
+planes, so their raw `y` values are not comparable. This check's own first draft compared them
+raw and called four correct scenes broken.
+
+**`board_scale_check` multiplies the board's `scale` by the module's own measured height and
+tells you what the object is in METRES.** `scale_check` reads the engine and proves every
+dimension table is wired to a `fit()`, and it is blind to this, because the fault is not in the
+engine: every component renders true size at `scale: 1` and the board was using `scale` as a
+distance dial. **`z` is the distance dial.** Measured, the exteriors were a doll's house, and
+three judges filed three separate craft defects in one round that were all this one arithmetic.
+
+The current state is a per-kind DEBT ledger rather than a wall of failures, because a gate that
+blocks every delivery gets commented out. Anything new or anything worse fails at once. **A run
+that fixes a line lowers it in the same commit**, and `person` is already retired.
+
+**`super_evidence_check` is the one that catches the RIGHT NUMBER OVER THE WRONG PICTURE**, and
+it exists because nothing else here could. Every numeral gate proves a figure is a member of the
+authorised set computed from the claims file. That is a property of the FIGURE. The fault this
+show keeps shipping is a property of the PAIRING: a real, fetched, authorised number printed
+over a shot it is not the number for. A super carrying another group's result off another
+machine passed every check four rounds running, because the number was never the problem.
+
+So a super is checked against ITS OWN `super_claim` and nothing else. The claim has to exist, be
+VERIFIED rather than PARTIAL, and actually carry every figure and every proper noun the super
+states, in its own statement, value_text, quote or note.
+
+It does NOT read the caption or the VO. Those are bound to the audio, so a fault found there
+costs a re-synth and is a different decision. Extending it there is the next upgrade, not a
+half-built branch of this one.
+
+```
+python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
+       --started out/dispatch/render_started \
+       --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json
+python3 scripts/run_discipline.py --renders <how many full renders so far>
+```
+
+**THE FILM MUST BE NEWER THAN THE BOARD IT SHIPS WITH, AND NEWER THAN THE ENGINE THAT DREW
+IT.** The engine source is an input and the check reads it without being asked: a run edited
+`lib/biomes.tsx` after starting a render and the gate stayed green, because a change to the
+CODE that draws a frame was invisible to a check that only knew about data. Every gate above reads the BOARD and
+not one of them reads the FILM, so the whole suite can pass green on a board no frame was ever
+rendered from. That is not hypothetical: a run edited the board after rendering, re-ran every
+gate, and put a cut in front of three scorers that opened on the wrong scene and printed a
+caption list two passes out of date. All three found it independently and the run had not,
+because the greener the suite the more confident the wrong answer looks.
+
+Run it after the mux and again after any board edit. If it fails, RE-RENDER, re-mux and
+re-extract the frames. Do not reason about whether the change would have mattered: that
+judgement is exactly what a stale render defeats.
 
 **PASS THE ARGUMENTS.** `engine_lint` takes none; the rest take inputs and EXIT 2 ON A USAGE
 MESSAGE without them. They were invoked bare for the whole of this machine's life, so every
@@ -417,28 +565,96 @@ believe it. Three independent scores, and a spread between them is information r
 
 A failing panel is an instruction to re-enter the loop, not a verdict on the run.
 
+**AND THE LOOP INCLUDES PHASE 4.** This is the correction that matters most, because for four
+consecutive rounds on 2026-08-19 it did not. The mean went 6.74, 6.75, 6.77, 6.75 while every
+round fixed real, verified defects, and the reason was structural: the fix loop was
+fix -> render -> panel, and it never returned to the board. A finding that is a BOARD-DESIGN fact
+can only ever be answered with a prop edit, and a prop edit structurally cannot reach it.
+
+`panel_triage` detects this and says so. When it prints STOP FIXING PROPS, the next round is a
+BOARD change and not another polish pass:
+
+- a scene whose composition repeats another's gets RE-STAGED, not re-lit
+- a frame that pays nothing gets a different SHOT, not another object in it
+- a beat held across three scenes becomes one scene, or three different ideas
+
+**Record every round**, or the next run cannot see its own trend:
+
+```
+python3 scripts/panel_triage.py --judge <a> --judge <b> --judge <c> --round <n> --record
+```
+
+That history lived in a gitignored scratch file until the day this was written, so every
+container rebuild erased the only evidence the machine was or was not improving, and four flat
+rounds went unnoticed because nothing could see them. It is `ledger/panel_history.json` now.
+
 `ship_gate` then reads the report card and compares it to the same threshold from the same file, so
 the bar is applied twice and quoted zero times.
 
+### TRIAGE THE PANEL BEFORE YOU FIX ANYTHING (mandatory, and it is a command not a report)
+
+```
+python3 scripts/panel_triage.py --judge <a1,..,a6> --judge <b1,..,b6> --judge <c1,..,c6>
+```
+
+**Run this the moment the panel returns and BEFORE you read a single finding.** It reads the bar
+and the weights out of the rubric, computes `(bar - axis mean) * axis weight` for every axis,
+and ranks them. That product is what an axis is COSTING. Nothing else in the reports is.
+
+**Then work the top axis first, and batch the top two into one render.** A finding that does not
+touch a top-two axis waits, however concrete it is and however many judges filed it.
+
+**WHY THIS IS A RULE AND NOT ADVICE.** A run naturally fixes the defects it can SEE most easily,
+and that set is not the set costing the most points. On 2026-08-18 this machine spent round
+after round on props: an oak, a bucket truck, a pole sign, a building's width. Every one was a
+real defect, every one was verified fixed, and the mean went 6.74 to 6.75. The triage on that
+same panel said picture cost 0.167 and place cost 0.065, so place was worth a QUARTER of
+picture, and the run had been spending its rounds on place because a mis-drawn pumpjack is easy
+to see and "the frame is mostly empty" is not.
+
+Three things it tells you that a page of findings actively hides:
+
+- **An axis over the bar is worth nothing to improve**, and the praise for it is the most
+  misleading feedback in the reports, because it reads as encouragement. Story was 1.10 over.
+- **An axis costing under 0.05 never justifies a render by itself.** It rides along in a batch.
+- **A wide spread between judges is a signal, not noise.** If they differ by a point or more,
+  read their evidence before acting: one of them is looking at something the others are not, and
+  averaging it away throws out the reason.
+
+**When it says the panel clears the bar, STOP EDITING AND DELIVER.** Another round past the bar
+is a chance to regress something that already passes, and this machine has done exactly that: a
+round once traded a correct super for one resting on a PARTIAL claim, and another turned a thin
+treeline into a wall, both while trying to improve a film that was closer than it looked.
+
 ## PHASE 7 — DELIVER, FULLY DONE
-
-**Record the run in the variety engine BEFORE you merge**, because a run that ships without being
-recorded is a run the next one is free to re-skin:
-
-```
-python3 scripts/dedupe.py add --date <date> --topic "<topic>" --slug <slug> --beat <beat> \
-       --entities "<a,b,c>" --fingerprint out/dispatch/storyboard.json
-```
-
 
 No pending states.
 
-1. Copy artifacts to `runs/<date>/`.
-2. Update the dedupe ledger.
-3. Commit, push, open a **ready (not draft)** PR, and **MERGE it in the same run.**
-4. Publish the feed entry into `TexasAIDocket`'s `docs/videos/videos.json`. **That is the only
+**Steps 1 to 4 are a program, not a checklist. Run it:**
+
+```
+bash scripts/deliver_run.sh --date <date> --topic "<topic>" --slug <slug> \
+     --beat <beat> --entities "<a,b,c>"
+```
+
+It re-runs the gates by exit code and stops on any red, writes the variety ledger BEFORE
+anything is merged, copies the artifacts, commits out loud and pushes with backoff. **The
+ordering is the load-bearing part and that is why it is code**: a run that ships without being
+recorded in the variety engine is a run the next one is free to re-skin, and the day that
+happens the ledger will say the two films were different.
+
+It also REFUSES three things, which is the half a checklist never does. A red gate stops the
+delivery, because the merge is the one moment a stale green is unrecoverable. A film older than
+the board it is supposed to render stops the delivery, because the board is the props. And a
+`runs/<date>/dispatch.mp4` NEWER than the film about to replace it stops the delivery and asks,
+because that is the shape "overwriting a shipped artifact" actually takes.
+
+Then, by hand, because these need the GitHub tools rather than a shell:
+
+5. Open a **ready (not draft)** PR and **MERGE it in the same run.**
+6. Publish the feed entry into `TexasAIDocket`'s `docs/videos/videos.json`. **That is the only
    file this repo writes there, ever.**
-5. `rm .git/ACTOR`.
+7. `rm .git/ACTOR`.
 
 ## PHASE 8 — RETROSPECTIVE AND SELF-UPGRADE
 
@@ -458,6 +674,73 @@ said, what degraded if anything, the VO soundcheck report, and the machine upgra
 **DRAFT ONLY. NEVER SEND.**
 
 ---
+
+## HOW THIS RUN SPENDS ITS TIME (checked by `run_discipline.py`)
+
+Every rule here is one this machine has already broken, and each cost real time on a run
+that had none to spare. `scripts/run_discipline.py` fails the build on the ones a machine
+can see, and its `--self-test` breaks each on purpose to prove it can still go red.
+
+**BATCH THE CHEAP PRECISE FIXES. One render, many fixes, never the reverse.** A render is
+fourteen minutes and an edit is two lines, so a run that renders once per finding spends
+its afternoon watching a progress bar. When a panel returns, take EVERY finding that has an
+exact cause and an exact repair, apply them all, then render. The gate reports the run's
+render count and says so above four. It is a warning rather than a failure because a hard
+round can honestly need several, and a gate that blocks honest work gets switched off.
+
+**DIFF THE BOARD BEFORE YOU RENDER. Every time an edit touches geometry.**
+
+```
+cp out/dispatch/storyboard.json /tmp/board.before.json     # before you edit
+python3 scripts/board_diff.py --before /tmp/board.before.json \
+       --after out/dispatch/storyboard.json
+```
+
+A board edit is written in board units and what reaches a viewer is screen pixels after
+projection, and nothing was doing that arithmetic at edit time. So a run could make an edit,
+describe it accurately, watch every gate go green, and ship something else. On 2026-08-19 that
+happened four times in one day: "move the floor behind the racks" DELETED the floor from two
+interiors, a z push meant to hold a building's framing made it vanish, true scale made a bucket
+truck wider than the frame, and raising `groundY` hid the building twice.
+
+Every one was legal geometry and individually correct arithmetic. **The defect was never the
+value, it was the gap between what the edit was supposed to do and what it did**, and no gate
+can see that because no gate knows what you meant. This one does not either, but it tells you
+what CHANGED in the units the viewer reads, so you can see whether it matches what you said.
+
+It flags the four shapes that have actually bitten: something disappeared, something appeared,
+something changed on-screen size by more than a third, something left the frame. It costs
+nothing and it is much cheaper than the fourteen minute render that found three of those.
+
+**A CHECK STILL IS FOR A QUESTION YOU CANNOT ANSWER ANY OTHER WAY.** `remotion still` is
+forty seconds, so it is cheap against a render and expensive against reading the code.
+Render one when the answer is genuinely visual and you have a specific thing to look at.
+Do not render one to confirm a change you can reason about, and do not render three in a
+row nudging a number: solve the number, then look once.
+
+**NEVER POLL FOR A PATTERN YOUR OWN COMMAND LINE CONTAINS.** `pgrep -f "<pattern>"` matches
+the shell running the loop, so `while pgrep -f ...` waits for itself forever and looks
+exactly like a slow job. Use `scripts/waitfor.sh`, which excludes the ancestor chain and
+carries a deadline. **Every wait carries a deadline**, because a run that hangs silently is
+worse than one that fails loudly and the one outcome law cannot report an error from inside
+an infinite loop.
+
+**NEVER SILENCE A COMMAND WHOSE OUTPUT IS THE SIGNAL.** `git commit ... >/dev/null` hid a
+commit that did not happen, and the working tree looked committed for another twenty
+minutes. This is the same rule as running a gate by its exit code rather than its last
+line, one layer up. Verify a write landed.
+
+**MEASURE A PRESCRIPTION BEFORE TAKING IT.** A scorer's fix comes with reasoning, and the
+reasoning can be wrong about this particular input even when the diagnosis is right. One
+asked for a caption ceiling of 5.5s so a cue would split at a boundary they reasoned was a
+sentence end. Swept against the actual read it was not, and 5.5 broke the film's thesis in
+the ugliest available place. Take the diagnosis, sweep the number.
+
+**THE CAMERA CANNOT FILL AN EMPTY ROOM.** When a frame is half empty, ask what is missing
+from the room before reaching for a camera offset. Dollying in to fill the height enlarges
+everything else past the frame edge, and booming trades a dead ceiling for a dead floor.
+Both were tried on the same shot and both made it worse. What fixed it was drawing the
+cable tray and the luminaires that are genuinely over a cold aisle.
 
 ## ACCURACY AND CULTURAL RESPECT
 

@@ -186,15 +186,27 @@ export const DataCentre: React.FC<KitProps & {w?: number; h?: number; units?: nu
         <line key={i} x1={(i + 1) * 74} y1={-h} x2={(i + 1) * 74} y2={0} stroke={INK}
           strokeWidth={2.4} opacity={0.45} />
       ))}
-      {/* roof units in rows */}
-      {Array.from({length: units}, (_, i) => (
-        <g key={i}>
-          <rect x={26 + i * ((w - 60) / units)} y={-h - 26} width={(w - 60) / units - 14}
-            height={26} fill="#9aa3ad" stroke={INK} strokeWidth={4} />
-          <BrushedMetal x={26 + i * ((w - 60) / units)} y={-h - 26}
-            w={(w - 60) / units - 14} h={26} opacity={0.2} />
-        </g>
-      ))}
+      {/* Roof units in rows.
+          THE ONE THING EVERYBODY KNOWS ABOUT THESE BUILDINGS IS THAT THEY HAVE NO WINDOWS,
+          and this row was making them look like they do. Pale #9aa3ad boxes at 26 high with
+          a brushed sheen, gapped evenly along the whole roofline, read at feed size as a
+          continuous mullioned clerestory band: the slab below is drawn windowless and
+          correct, and the roof was putting the glazing back on. A scorer named it a
+          greenhouse and traced it to exactly this loop.
+          Dark, squatter, and gapped WIDER than they are drawn, so the eye reads separate
+          plant standing on a roof rather than a glass band running through it. */}
+      {Array.from({length: units}, (_, i) => {
+        const pitch = (w - 60) / units;
+        const uw = pitch * 0.52;
+        return (
+          <g key={i}>
+            <rect x={26 + i * pitch + pitch * 0.24} y={-h - 19} width={uw}
+              height={19} fill="#565e67" stroke={INK} strokeWidth={4} />
+            <BrushedMetal x={26 + i * pitch + pitch * 0.24} y={-h - 19}
+              w={uw} h={19} opacity={0.12} />
+          </g>
+        );
+      })}
       {/* louvre bank: a data centre is mostly air handling and it should look it */}
       <rect x={w * 0.62} y={-h + 22} width={w * 0.3} height={h - 44} fill="#8d949c"
         stroke={INK} strokeWidth={4} />
@@ -225,30 +237,54 @@ export const Transformer: React.FC<KitProps> = ({
     <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <defs><FormGradient id={`${uid}_t`} t={tb} softness={0.58} /></defs>
       <ContactShadow cx={0} cy={2} rx={78} opacity={0.3} blur={10} />
-      {/* tank */}
-      <rect x={-58} y={-104} width={116} height={104} rx={4} fill={`url(#${uid}_t)`}
+      {/* THE PAD. A four and a half tonne transformer does not stand on a lawn: it sits on
+          a poured concrete pad with a chamfered edge, and the pad is most of what tells a
+          viewer it is equipment rather than a box somebody left out. A scorer noticed it
+          standing loose on grass in four frames. */}
+      <path d="M-66,2 L66,2 L58,-12 L-58,-12 Z" fill="#b3ada2" stroke={INK} strokeWidth={4}
+        strokeLinejoin="round" />
+      <path d="M-58,-12 L58,-12" stroke="#9a948a" strokeWidth={3} />
+      {/* THE FINS WERE DRAWING A MICROCHIP.
+          Six small horizontal tabs sticking out of each side of a nearly square tank is an
+          integrated circuit die with its pin rows, and a scorer read it as exactly that in
+          the opening frame of a film about supercomputers, where it is the largest detailed
+          object on screen. Every part was individually plausible and the silhouette they
+          made together was a CPU.
+          A radiator on a pad-mount transformer is a BANK OF TALL VERTICAL FINS clamped along
+          the tank side between a top and bottom header. Verticals cannot read as pins, and a
+          tank taller than it is wide cannot read as a die. Same rule the pole sign took three
+          passes to learn: when something reads as the wrong object, change the geometry. */}
+      {/* tank, TALLER THAN IT IS WIDE */}
+      <rect x={-46} y={-124} width={92} height={124} rx={4} fill={`url(#${uid}_t)`}
         stroke={INK} strokeWidth={5} />
-      {/* RADIATOR FINS — draw them, they are the tell */}
       {[-1, 1].map((s) => (
         <g key={s}>
-          {Array.from({length: 6}, (_, i) => (
-            <rect key={i} x={s === -1 ? -78 : 58} y={-96 + i * 15} width={20} height={10}
-              fill="#79818a" stroke={INK} strokeWidth={2.6} />
+          <rect x={s === -1 ? -72 : 46} y={-112} width={26} height={9}
+            fill="#79818a" stroke={INK} strokeWidth={3} />
+          <rect x={s === -1 ? -72 : 46} y={-34} width={26} height={9}
+            fill="#79818a" stroke={INK} strokeWidth={3} />
+          {Array.from({length: 7}, (_, i) => (
+            <rect key={i} x={(s === -1 ? -70 : 48) + i * 3.4} y={-105} width={2.0} height={72}
+              fill="#6d757e" stroke={INK} strokeWidth={0.9} />
           ))}
         </g>
       ))}
+      {/* the low-voltage cabinet door, which no microchip has */}
+      <rect x={-26} y={-58} width={52} height={50} rx={2} fill="#7c848d"
+        stroke={INK} strokeWidth={3.4} />
+      <path d={`M18,-36 l0,10`} stroke={INK} strokeWidth={3} strokeLinecap="round" />
       {/* BUSHINGS on top — the porcelain stacks */}
-      {[-30, 0, 30].map((bx) => (
+      {[-24, 0, 24].map((bx) => (
         <g key={bx}>
-          <path d={`M${bx - 9},-104 l3,-30 h12 l3,30 Z`} fill="#d9d2c4" stroke={INK} strokeWidth={4} />
+          <path d={`M${bx - 9},-124 l3,-28 h12 l3,28 Z`} fill="#d9d2c4" stroke={INK} strokeWidth={4} />
           {[0, 1, 2].map((i) => (
-            <ellipse key={i} cx={bx} cy={-112 - i * 9} rx={12 - i} ry={3.4} fill="#e6e0d2"
+            <ellipse key={i} cx={bx} cy={-132 - i * 9} rx={12 - i} ry={3.4} fill="#e6e0d2"
               stroke={INK} strokeWidth={2.4} />
           ))}
         </g>
       ))}
-      <Galvanized x={-58} y={-104} w={116} h={104} seed={seed} opacity={0.12} />
-      {wear > 0.25 && <RustStreak x={-58} y={-104} w={116} h={104} seed={seed} opacity={wear * 0.7} />}
+      <Galvanized x={-46} y={-124} w={92} h={124} seed={seed} opacity={0.12} />
+      {wear > 0.25 && <RustStreak x={-46} y={-124} w={92} h={124} seed={seed} opacity={wear * 0.7} />}
     </g>
   );
 };
@@ -432,10 +468,17 @@ export const CattleGuard: React.FC<KitProps & {w?: number}> = ({
   const K = fit('cattleGuard');
   return (
   <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
-    <rect x={-w / 2} y={-16} width={w} height={32} fill="#6f6558" stroke={INK} strokeWidth={4} />
+    {/* THE GAP IS THE WHOLE POINT AND THERE WAS NO GAP.
+        Nine pipes were stroked at width 3.4 on a pitch of 3.4, so every pipe touched its
+        neighbours and the deck rendered as one flat grey slab. A scorer read it as a blank
+        plank lying in the road and was right to: what stops a cow is that she can see down
+        between the pipes, and a drawing with no daylight in it is not a cattle guard, it is
+        a bridge. The base is the PIT under the deck, which is dark, and the pipes are
+        narrower than their pitch so the dark shows through in stripes. */}
+    <rect x={-w / 2} y={-16} width={w} height={32} fill="#22201c" stroke={INK} strokeWidth={4} />
     {Array.from({length: 9}, (_, i) => (
       <line key={i} x1={-w / 2 + 8} y1={-13 + i * 3.4} x2={w / 2 - 8} y2={-13 + i * 3.4}
-        stroke="#b9b0a2" strokeWidth={3.4} strokeLinecap="round" />
+        stroke="#b9b0a2" strokeWidth={1.9} strokeLinecap="butt" />
     ))}
     {/* wing fences, leaning slightly, because a straight fence line is a tell */}
     {[-1, 1].map((s) => (
@@ -494,13 +537,27 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
       <path d={`M0,0 q${2 + lean * 0.2},-16 12,-28 q10,-12 30,-14`} stroke="#4a3a2c"
         strokeWidth={8} fill="none" strokeLinecap="round" />
       <path d={`M0,0 q1,-20 3,-34`} stroke="#4a3a2c" strokeWidth={6} fill="none" strokeLinecap="round" />
-      {/* the crown: WIDER THAN TALL, and light comes through all of it */}
+      {/* the crown: WIDER THAN TALL, and light comes through all of it.
+          A SOFT MASS UNDER THE LEAVES, because 78 scattered ellipses read as a lacy crown
+          at thumbnail size and as CONFETTI at hero size, and this tree is drawn at both in
+          one film. The mass gives the crown a silhouette to belong to; the scatter still
+          does all the work of letting light through its edge. */}
       {Array.from({length: 3}, (_, i) => {
-        const cx = (i - 1) * w * 0.30 + (rnd(seed, 50 + i) - 0.5) * 18;
-        const cy = -h * 0.52 - (rnd(seed, 60 + i)) * 12;
+        const cx = (i - 1) * w * 0.31 + (rnd(seed, 50 + i) - 0.5) * 20;
+        const cy = -h * 0.52 - (rnd(seed, 60 + i)) * 26;
         return (
           <g key={i}>
-            {Array.from({length: 26}, (_, k) => {
+            {/* the mass is LOBED AND PARTIAL, never a dome. A single opaque ellipse under
+                the leaflets reads as a solid canopy at feed size, and a mesquite that light
+                does not come through is not a mesquite: FAUNA_AND_FLORA says low, crooked,
+                WIDE AND LACY, and lacy is the half that was missing. Smaller, offset and
+                translucent, so the leaflets and the gaps between the three clusters carry
+                the silhouette instead of being painted over by it. */}
+            <ellipse cx={cx + (rnd(seed, 90 + i) - 0.5) * w * 0.10}
+              cy={cy + (rnd(seed, 95 + i) - 0.5) * h * 0.12}
+              rx={w * 0.145} ry={h * 0.165}
+              fill="#5f7047" opacity={0.42} />
+            {Array.from({length: 54}, (_, k) => {
               const kk = (k * 22695477 + seed * 1013904223 + i * 7919) >>> 0;
               const a = ((kk >>> 4) % 1000) / 1000 * Math.PI * 2;
               const rr = Math.sqrt(((kk >>> 14) % 1000) / 1000);
@@ -508,7 +565,8 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
                 <ellipse key={k}
                   cx={cx + Math.cos(a) * w * 0.24 * rr}
                   cy={cy + Math.sin(a) * h * 0.30 * rr}
-                  rx={2 + ((kk >>> 24) % 4) * 0.6} ry={1.4 + ((kk >>> 20) % 3) * 0.5}
+                  rx={w * 0.021 + ((kk >>> 24) % 4) * w * 0.006}
+                  ry={h * 0.017 + ((kk >>> 20) % 3) * h * 0.008}
                   fill={(kk >>> 9) % 3 === 0 ? '#8fa06a' : '#5f7047'}
                   opacity={0.6 + ((kk >>> 6) % 40) / 100} />
               );
@@ -529,9 +587,18 @@ export const PricklyPear: React.FC<KitProps & {pads?: number}> = ({
   return (
   <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
     {Array.from({length: pads}, (_, i) => {
-      const a = (rnd(seed, i) - 0.5) * 70 + (i - pads / 2) * 12;
-      const px = (rnd(seed, 20 + i) - 0.5) * 44;
-      const py = -14 - i * 9 - rnd(seed, 30 + i) * 14;
+      // SPRAWL, don't stack. The old placement walked straight up the y axis with a small
+      // x jitter, which is a pile of plates. A clump spreads sideways as fast as it climbs
+      // and leans its outer pads away from the centre.
+      // A clump is roughly as wide as it is tall. The first pass at this pushed the pads
+      // out sideways faster than they climbed and the plant crawled off the frame edge
+      // reading as a caterpillar, which is a different wrong from the pile of plates it
+      // replaced. Fan them: rising and spreading at about the same rate.
+      const side = i % 2 ? 1 : -1;
+      const out = (i / Math.max(1, pads - 1));
+      const a = (rnd(seed, i) - 0.5) * 40 + side * (14 + out * 30);
+      const px = side * out * 26 + (rnd(seed, 20 + i) - 0.5) * 16;
+      const py = -14 - out * 52 - rnd(seed, 30 + i) * 14;
       const rx = 15 + rnd(seed, 40 + i) * 6;
       return (
         <g key={i} transform={`translate(${px} ${py}) rotate(${a})`}>

@@ -438,6 +438,38 @@ def check_links(tracks: list[dict]) -> int:
     return 0
 
 
+def verify_bed_matches_credit(credits_path, mix_path) -> list[str]:
+    """THE CREDIT IS THE LICENCE, so it has to agree with the audio in both directions.
+
+    Crediting a bed the film does not contain is merely untrue. Containing one the film
+    does not credit is USING THE WORK WITHOUT THE LICENCE, because for CC BY and for a
+    public-domain recording being attributed, the credit is the whole of what is owed.
+    This check existed for the string and not for the sound: it read the end card and had
+    no idea whether any music was in the mix. `mix.py` now records the bed and this reads
+    both sides.
+    """
+    import json as _json
+    from pathlib import Path as _P
+    errs = []
+    cp, mp = _P(credits_path), _P(mix_path)
+    if not cp.exists() or not mp.exists():
+        return []
+    credited = "MUSIC" in cp.read_text(encoding="utf-8").upper()
+    try:
+        mixed = bool(_json.loads(mp.read_text(encoding="utf-8")).get("bed"))
+    except Exception:
+        return []
+    if credited and not mixed:
+        errs.append("the end card credits music and mix.json records no bed. Either the "
+                    "bed was never passed to mix.py, or the credit names a track the film "
+                    "does not contain.")
+    if mixed and not credited:
+        errs.append("mix.json records a music bed and the end card credits none. THAT IS "
+                    "THE LICENCE UNPAID: for these licences the credit is the whole of "
+                    "what is owed for the use.")
+    return errs
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--check", action="store_true")
@@ -510,6 +542,11 @@ def main() -> int:
             print(f"  - {p}", file=sys.stderr)
         if probs:
             print("music: the film may not ship with this track", file=sys.stderr)
+            return 1
+        bed_errs = verify_bed_matches_credit(a.verify_film, 'out/dispatch/mix.json')
+        if bed_errs:
+            for e in bed_errs:
+                print(f'music: {e}')
             return 1
         print(f"music: credit for '{t['id']}' is present and complete.")
         return 0

@@ -92,6 +92,37 @@ export const HEAD_R = 52;
 export const FEET_Y = 500;
 export const HEAD_CY = -58;
 
+/** How far down the neck runs from the head group's origin. */
+export const NECK_H = 104;
+
+/**
+ * WHERE THE NECK ENDS AND WHERE THE SHOULDER BEGINS, in character draw units.
+ *
+ * Exported so `tests/cast_safety.mjs` can hold every roster entry to the join rather than
+ * trusting that it looks right in the one frame somebody happened to render.
+ *
+ * THE DEFECT. The head group sits at a constant offset from the origin while the shoulder
+ * line is `150 + stoop`, and `stoop` grows with age. The two therefore drift apart, and a
+ * 34 unit neck left about fifteen draw units of background between the jaw and the collar.
+ * At `scale` 0.5 that is invisible. At 1.55, which is what a close shot uses, it is a
+ * floating rectangle, and the first Dispatch shipped it on all three of its scenes with a
+ * person in them and scored two panels down on craft for it.
+ *
+ * Both numbers come from the same expressions the render uses. If either drawing moves and
+ * this does not, the test goes red, which is the point of deriving it here rather than
+ * writing the answer down in the test.
+ */
+export function neckJoin(age: number): {neckBottom: number; shoulderApex: number} {
+  const stoop = age * 6;
+  const shoulderY = 150 + stoop;
+  return {
+    // head group translate + the rect's own bottom edge
+    neckBottom: 86 + stoop * 0.5 + HEAD_CY + 40 + NECK_H,
+    // the torso group translate + the apex of its quadratic shoulder curve
+    shoulderApex: stoop * 0.4 + shoulderY - 33,
+  };
+}
+
 export type Pose = 'stand' | 'arms-crossed' | 'point' | 'panic' | 'raise' | 'carry' | 'hands-hips';
 export type Emotion = 'neutral' | 'angry' | 'worried' | 'shock' | 'smug' | 'wry';
 
@@ -193,7 +224,32 @@ export interface CharacterProps {
   headgear?: Headgear;
   /** a value from SKIN. A fill only: it never changes the line work. */
   skin?: string;
+  /**
+   * FACIAL SHAPE LANGUAGE, 0 to 1, and it is the vernacular's own answer to the question
+   * this rig had left unanswered.
+   *
+   * The two laws say facial variation lives in SHAPE LANGUAGE APPLIED EVENLY ACROSS ALL
+   * CHARACTERS, and that skin tone is a fill that never touches the line work. The second
+   * half was implemented and the first was not, so every person this show has drawn wore
+   * one face: a circle of radius `HEAD_R`, identical eye spacing, identical jaw. A panel
+   * read two characters in two scenes and reported them as the same person with the fill
+   * changed, which is exactly the failure the law is written to prevent, arrived at from
+   * the cautious side rather than the caricaturing one.
+   *
+   * This is ONE geometry at a setting, never a different geometry per person. The same
+   * three numbers move for everybody: how round or long the skull is, how far apart the
+   * eyes sit, how heavy the brow rides. 0 is a wide round face and 1 is a narrow long
+   * one, and no value produces a feature another value cannot. That is what keeps
+   * variation from sliding into caricature in a thick-outline idiom.
+   */
+  face?: number;
   hair?: string;
+  /** iris colour. A fill only, like `skin`, and it never changes the line work.
+   *  The DEFAULT IS DARK BROWN because the default is what the whole cast gets, and
+   *  the one that used to be here was a blue-grey applied to every person this show
+   *  has ever drawn. That is the same fault as the white man in a hat: the first
+   *  value authored becomes the reach forever unless somebody makes the common case
+   *  the default. */
   eyes?: string;
   facing?: 1 | -1;
   scale?: number;
@@ -240,8 +296,9 @@ export const Character: React.FC<CharacterProps> = ({
   outfit = 'work-shirt',
   headgear = 'bare',
   skin = SKIN[2],
+  face = 0.5,
   hair = HAIR[2],
-  eyes = '#41607d',
+  eyes = '#3a2a20',
   facing = 1,
   scale = 1,
   x = 0,
@@ -283,6 +340,14 @@ export const Character: React.FC<CharacterProps> = ({
   const shoulderW = 74 + build * 20;
   const waistW = 56 + build * 30;
   const headR = HEAD_R;
+  // The face's own three numbers, all off the one `face` value so they move together and
+  // a character cannot end up with a long skull and wide-set eyes by independent accident.
+  // The range is deliberately narrow: these read at the size a person is actually drawn
+  // here, and anything wider starts making faces rather than making people.
+  const fv = Math.max(0, Math.min(1, face));
+  const headRX = headR * (1.07 - fv * 0.14);
+  const headRY = headR * (0.95 + fv * 0.12);
+  const eyeX = 22 * (1.06 - fv * 0.13);
   const stoop = age * 6;              // older figures carry a little forward lean
 
   // ------------------------------------------------------------------ walk / idle
@@ -297,13 +362,42 @@ export const Character: React.FC<CharacterProps> = ({
   const shoulderY = 150 + stoop;
   const armUp = 78, armFore = 70;
 
-  let nearUp = 8, nearFore = 12, farUp = -8, farFore = 10;
+  // THE FAR ARM'S ELBOW HAS TO MIRROR TOO, AND IT DID NOT.
+  //
+  // `armChain` measures both angles the same way round, from straight-down toward +x, so
+  // mirroring an arm means negating `up` AND `fore`. Every two-handed pose here negated
+  // only `up`. The far elbow therefore bent the SAME way as the near one, which on a
+  // mirrored shoulder throws the forearm across the front of the body: `hands-hips` and
+  // `arms-crossed` both rendered as one hand on a hip and one arm reaching out, and the
+  // only thing separating them was twelve degrees on the near arm, which is invisible at
+  // the size a person is drawn here. A scorer read a board asking for two different poses
+  // and saw one, twice, and called the prop ignored. It was not ignored. It was mirrored
+  // half way, which looks exactly like being ignored and is harder to find.
+  //
+  // Small poses hid it. At rest the angles are 8 and 12 degrees, so the same error puts
+  // the far wrist two degrees off vertical and nobody sees it. A bug that only shows up
+  // once a value gets large is a bug that ships.
+  //
+  // NOTHING IS SYMMETRIC, so the mirrored side is not an exact negation. Each pose leans
+  // a few degrees off true, because a person standing with their hands on their hips does
+  // not hold them level and a vector rig will if nobody stops it.
+  let nearUp = 8, nearFore = 12, farUp = -8, farFore = -10;
   if (pose === 'point')       { nearUp = 8 + ge * 62; nearFore = 12 - ge * 4; }
   else if (pose === 'raise')  { nearUp = 8 + ge * 150; nearFore = 12 + ge * 18; }
-  else if (pose === 'panic')  { nearUp = 8 + ge * 140; farUp = -8 - ge * 130; nearFore = 30; farFore = 30; }
-  else if (pose === 'carry')  { nearUp = 46; nearFore = 62; farUp = -40; farFore = 58; }
-  else if (pose === 'hands-hips') { nearUp = 40; nearFore = 96; farUp = -40; farFore = 96; }
-  else if (pose === 'arms-crossed') { nearUp = 52; nearFore = 84; farUp = -52; farFore = 84; }
+  else if (pose === 'panic')  { nearUp = 8 + ge * 140; farUp = -8 - ge * 130; nearFore = 30; farFore = -30; }
+  else if (pose === 'carry')  { nearUp = 46; nearFore = 62; farUp = -40; farFore = -58; }
+  // SOLVED FROM WHERE THE HAND HAS TO END UP, not guessed at as a pair of angles.
+  // `armChain` measures both angles from straight-down toward +x and compounds them, so a
+  // POSITIVE fore angle carries the forearm further round the same way the upper arm went,
+  // which throws the wrist outward and upward. Both two-handed poses had positive fore
+  // angles and both therefore rendered as a raised open shrug, whatever the board asked
+  // for. The forearm has to come BACK, which is a negative fore angle on the near side.
+  //
+  // hands on hips: elbow out and down, forearm returning in to the waist.
+  else if (pose === 'hands-hips') { nearUp = 50; nearFore = -95; farUp = -46; farFore = 92; }
+  // arms crossed: elbows closer in, forearms nearly horizontal across the chest with each
+  // hand arriving near the opposite elbow.
+  else if (pose === 'arms-crossed') { nearUp = 30; nearFore = -143; farUp = -26; farFore = 139; }
   if (walking) { nearUp += Math.sin(wp + Math.PI) * 16; farUp += Math.sin(wp) * 16; }
 
   const nearArm = armChain(shoulderW * 0.5, shoulderY, nearUp, nearFore, armUp, armFore);
@@ -326,13 +420,37 @@ export const Character: React.FC<CharacterProps> = ({
   const sleeve = (a: ArmChain) =>
     `M${a.sx},${a.sy} L${a.ex},${a.ey} L${a.wx},${a.wy}`;
 
-  const hand = (a: ArmChain, key: string) => (
-    <g key={key}>
-      <circle cx={a.wx} cy={a.wy} r={13} fill={skin} stroke={INK} strokeWidth={5} />
-      <path d={`M${a.wx - 5},${a.wy + 2} q5,5 10,0`} stroke={skinShade} strokeWidth={2.6}
-        fill="none" opacity={0.6} strokeLinecap="round" />
-    </g>
-  );
+  // A HAND IS A MITT ON THE END OF A FOREARM, NOT A DISC AT THE WRIST.
+  //
+  // This was a circle of radius 13 centred exactly on the wrist joint, inside a sleeve
+  // stroked at width 28. So it was NARROWER than the arm it terminated and it sat at the
+  // arm's end rather than past it, which reads as a bead threaded on a tube. Three
+  // scorers described it the same way without conferring: detached orange discs floating
+  // clear of the cuff.
+  //
+  // The fix is to give it the forearm's own direction, which `armChain` already returns
+  // as `wristDeg`. The mitt extends BEYOND the wrist along that direction, so it reads as
+  // continuing the limb, and it is rotated with it, so it turns when the arm turns rather
+  // than staying a circle at every pose. A thumb sits on the leading edge, which is the
+  // one detail that separates a hand from a paddle at this size.
+  const hand = (a: ArmChain, key: string) => {
+    const rad = (a.wristDeg * Math.PI) / 180;
+    const dx = Math.sin(rad), dy = Math.cos(rad);
+    const cx = a.wx + dx * 9, cy = a.wy + dy * 9;
+    return (
+      <g key={key} transform={`rotate(${-a.wristDeg} ${cx} ${cy})`}>
+        {/* the thumb, on the leading edge and drawn first so the palm laps over it */}
+        <ellipse cx={cx - 9} cy={cy - 3} rx={5.5} ry={7.5} fill={skin}
+          stroke={INK} strokeWidth={4.5} />
+        {/* the palm and closed fingers as one soft mitt, a shade wider than the sleeve so
+            the hand ENDS the arm instead of being swallowed by it */}
+        <ellipse cx={cx} cy={cy} rx={11.5} ry={15.5} fill={skin}
+          stroke={INK} strokeWidth={5} />
+        <path d={`M${cx - 6},${cy + 5} q6,4.5 12,0`} stroke={skinShade} strokeWidth={2.6}
+          fill="none" opacity={0.6} strokeLinecap="round" />
+      </g>
+    );
+  };
 
   return (
     // `y` IS THE FEET ANCHOR, as the draw-space contract says. The local origin sits at
@@ -372,12 +490,43 @@ export const Character: React.FC<CharacterProps> = ({
       </g>
 
       {/* ---------------------------------------------------------------- far arm */}
+      {/* THE ARM OUTLINE WAS DRAWN AT opacity 0.001, WHICH IS INVISIBLE.
+          The sleeve is stroked in the shirt's own colour over the shirt, so with no ink
+          edge between them the arm has nothing separating it from the torso and simply
+          disappears into it. What a viewer is left with is a skin-coloured hand hanging in
+          space with no arm attached, which is exactly what three scorers reported round
+          after round as detached discs floating clear of the cuff. Every fix aimed at the
+          HAND missed, because the hand was never the fault: rebuilding it as a mitt made a
+          better-shaped object float.
+          The outline goes UNDER the sleeve and is drawn at full strength, which is the
+          house idiom everything else in this library already uses. */}
       <g opacity={0.92}>
+        <path d={sleeve(farArm)} stroke={INK} strokeWidth={34} fill="none"
+          strokeLinecap="round" strokeLinejoin="round" />
         <path d={sleeve(farArm)} stroke={c.shade} strokeWidth={26} fill="none"
           strokeLinecap="round" strokeLinejoin="round" />
-        <path d={sleeve(farArm)} stroke={INK} strokeWidth={31} fill="none"
-          strokeLinecap="round" strokeLinejoin="round" opacity={0.001} />
         {hand(farArm, 'far')}
+      </g>
+
+      {/* ---------------------------------------------------------------- neck
+          DRAWN BEFORE THE TORSO, AND LONG, so the shirt covers where it ends.
+
+          It used to be a 34 unit rect inside the head group, and the head group sits at a
+          CONSTANT offset from the origin while the shoulder line is `150 + stoop`. So the
+          two moved apart: the neck's bottom edge landed about fifteen draw units above the
+          shoulder curve's apex and left a band of background between the jaw and the
+          collar. At `scale` 0.5 that is five pixels and invisible. At 1.55, which is what
+          a close shot uses, it is a floating rectangle, and the first Dispatch put it on
+          all three of its scenes with a person in them.
+
+          A longer neck alone would not fix it, because the head group renders AFTER the
+          torso and the extra length would draw a skin coloured stripe down the shirt. So
+          the neck moves here, ahead of the torso, and runs far enough down that no
+          combination of age and build can open the join again. What a viewer sees is the
+          part between the chin and the collar, which is what a neck is. */}
+      <g transform={`translate(0 ${86 + stoop * 0.5}) rotate(${sway * 0.8})`}>
+        <rect x={-16} y={HEAD_CY + 40} width={32} height={NECK_H} fill={skin}
+          stroke={INK} strokeWidth={5} />
       </g>
 
       {/* ---------------------------------------------------------------- torso */}
@@ -397,26 +546,34 @@ export const Character: React.FC<CharacterProps> = ({
 
       {/* ---------------------------------------------------------------- head */}
       <g transform={`translate(0 ${86 + stoop * 0.5}) rotate(${sway * 0.8})`}>
-        {/* neck + under-chin AO */}
-        <rect x={-16} y={HEAD_CY + 40} width={32} height={34} fill={skin} stroke={INK} strokeWidth={5} />
-        <ellipse cx={0} cy={HEAD_CY + 42} rx={21} ry={7} fill={skinShade} opacity={0.5} />
+        {/* the under-chin shadow. The neck itself is drawn before the torso now, see
+            the note there, so only the AO that belongs to the head stays here. */}
+        <ellipse cx={0} cy={HEAD_CY + headRY * 0.81} rx={headRX * 0.40} ry={7} fill={skinShade} opacity={0.5} />
 
-        <circle cx={0} cy={HEAD_CY} r={headR} fill={`url(#${uid}_skin)`} stroke={INK} strokeWidth={6} />
-        {/* ears — same geometry every character, sized from headR */}
+        <ellipse cx={0} cy={HEAD_CY} rx={headRX} ry={headRY} fill={`url(#${uid}_skin)`}
+          stroke={INK} strokeWidth={6} />
+        {/* ears — same geometry every character, hung off the skull's own width so they
+            stay on the head at every setting rather than floating off a wide one */}
         {[-1, 1].map((s) => (
-          <ellipse key={s} cx={s * headR * 0.96} cy={HEAD_CY + 8} rx={headR * 0.17} ry={headR * 0.24}
+          <ellipse key={s} cx={s * headRX * 0.96} cy={HEAD_CY + 8} rx={headR * 0.17} ry={headR * 0.24}
             fill={skin} stroke={INK} strokeWidth={4.5} />
         ))}
 
         {/* eyes */}
         {[-1, 1].map((s) => (
           <g key={s}>
-            <ellipse cx={s * 22} cy={HEAD_CY - 4} rx={eyeR} ry={eyeR * blink} fill="#ffffff"
+            <ellipse cx={s * eyeX} cy={HEAD_CY - 4} rx={eyeR} ry={eyeR * blink} fill="#ffffff"
               stroke={INK} strokeWidth={3.4} />
             {blink > 0.25 && (
               <>
-                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.52} fill={eyes} />
-                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.26} fill={INK} />
+                {/* THE IRIS FILLS MOST OF THE EYE. At 0.52 of the sclera the white ring
+                    around it was wider than the iris, which is the anatomy of a person
+                    who has just been startled, and every character in the film wore it in
+                    every shot. A resting eye shows very little sclera. This is shape
+                    language applied evenly across the whole cast, which is where the
+                    vernacular says facial variation is allowed to live. */}
+                <circle cx={s * eyeX + 2} cy={HEAD_CY - 4} r={eyeR * 0.68} fill={eyes} />
+                <circle cx={s * eyeX + 2} cy={HEAD_CY - 4} r={eyeR * 0.31} fill={INK} />
               </>
             )}
           </g>
@@ -424,7 +581,7 @@ export const Character: React.FC<CharacterProps> = ({
         {/* brows — ONE shape, rotated and offset by emotion. Never a different shape
             per character, which is where caricature enters. */}
         {[-1, 1].map((s) => (
-          <path key={s} d={`M${s * 30},${HEAD_CY - 22 + browY} q${-s * 11},-6 ${-s * 22},0`}
+          <path key={s} d={`M${s * (eyeX + 8)},${HEAD_CY - 22 + browY} q${-s * 11},-6 ${-s * eyeX},0`}
             stroke={INK} strokeWidth={5.5} fill="none" strokeLinecap="round"
             transform={`rotate(${s * browTil} ${s * 22} ${HEAD_CY - 22 + browY})`} />
         ))}
@@ -443,9 +600,9 @@ export const Character: React.FC<CharacterProps> = ({
 
         {glasses && (
           <g stroke={INK} strokeWidth={4} fill="none" opacity={0.9}>
-            <circle cx={-22} cy={HEAD_CY - 4} r={eyeR + 6} />
-            <circle cx={22} cy={HEAD_CY - 4} r={eyeR + 6} />
-            <path d={`M${-22 + eyeR + 6},${HEAD_CY - 4} h${44 - 2 * (eyeR + 6)}`} />
+            <circle cx={-eyeX} cy={HEAD_CY - 4} r={eyeR + 6} />
+            <circle cx={eyeX} cy={HEAD_CY - 4} r={eyeR + 6} />
+            <path d={`M${-eyeX + eyeR + 6},${HEAD_CY - 4} h${2 * eyeX - 2 * (eyeR + 6)}`} />
           </g>
         )}
 
@@ -462,13 +619,17 @@ export const Character: React.FC<CharacterProps> = ({
 
       {/* ---------------------------------------------------------------- near arm */}
       <g>
+        <path d={sleeve(nearArm)} stroke={INK} strokeWidth={36} fill="none"
+          strokeLinecap="round" strokeLinejoin="round" />
         <path d={sleeve(nearArm)} stroke={`url(#${uid}_main)`} strokeWidth={28} fill="none"
           strokeLinecap="round" strokeLinejoin="round" />
-        <path d={sleeve(nearArm)} stroke={INK} strokeWidth={33} fill="none"
-          strokeLinecap="round" strokeLinejoin="round" opacity={0.001} />
         {/* cuff */}
-        <circle cx={nearArm.wx} cy={nearArm.wy} r={15} fill="none" stroke={c.trim}
-          strokeWidth={4} opacity={0.85} />
+        {/* the cuff is the END OF THE SLEEVE and sits behind the hand. Drawn as a ring
+            centred on the wrist it circled the hand instead, which is half of why the
+            hand read as a separate object stuck on. */}
+        <circle cx={nearArm.wx - Math.sin((nearArm.wristDeg * Math.PI) / 180) * 3}
+          cy={nearArm.wy - Math.cos((nearArm.wristDeg * Math.PI) / 180) * 3}
+          r={13} fill="none" stroke={c.trim} strokeWidth={4} opacity={0.85} />
         {hand(nearArm, 'near')}
       </g>
     </g>
@@ -740,39 +901,41 @@ export interface CastMember {
   build: number;
   age: number;
   glasses?: boolean;
+  /** this person's setting on the one facial geometry. See `face` on the rig. */
+  face: number;
   note: string;
 }
 
 export const CAST: CastMember[] = [
-  {id: 'engineer',    outfit: 'fr-coveralls', headgear: 'hard-hat',      skin: SKIN[3], hair: HAIR[0], build: 0.45, age: 0.35,
+  {id: 'engineer',    outfit: 'fr-coveralls', headgear: 'hard-hat',      skin: SKIN[3], hair: HAIR[0], face: 0.42, build: 0.45, age: 0.35,
    note: 'Hispanic woman engineer. Permian, petrochemical, substation.'},
-  {id: 'rancher',     outfit: 'pearl-snaps',  headgear: 'straw-hat',     skin: SKIN[1], hair: HAIR[6], build: 0.62, age: 0.78,
+  {id: 'rancher',     outfit: 'pearl-snaps',  headgear: 'straw-hat',     skin: SKIN[1], hair: HAIR[6], face: 0.18, build: 0.62, age: 0.78,
    note: 'White rancher, older. Hat is real and seasonal: straw Easter to Labor Day.'},
-  {id: 'executive',   outfit: 'business',     headgear: 'bare',          skin: SKIN[6], hair: HAIR[0], build: 0.48, age: 0.5,
+  {id: 'executive',   outfit: 'business',     headgear: 'bare',          skin: SKIN[6], hair: HAIR[0], face: 0.62, build: 0.48, age: 0.5,
    note: 'Black woman executive. Houston, Dallas, a committee room.'},
-  {id: 'dctech',      outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[4], hair: HAIR[0], build: 0.5, age: 0.32, glasses: true,
+  {id: 'dctech',      outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[4], hair: HAIR[0], face: 0.74, build: 0.5, age: 0.32, glasses: true,
    note: 'South Asian data centre technician. Hard hat only in the yard.'},
-  {id: 'owner',       outfit: 'apron',        headgear: 'bare',          skin: SKIN[2], hair: HAIR[0], build: 0.55, age: 0.55,
+  {id: 'owner',       outfit: 'apron',        headgear: 'bare',          skin: SKIN[2], hair: HAIR[0], face: 0.3, build: 0.55, age: 0.55,
    note: 'Vietnamese-American small business owner. Gulf Coast, Houston.'},
-  {id: 'operator',    outfit: 'fr-coveralls', headgear: 'hard-hat-hood', skin: SKIN[7], hair: HAIR[0], build: 0.68, age: 0.48,
+  {id: 'operator',    outfit: 'fr-coveralls', headgear: 'hard-hat-hood', skin: SKIN[7], hair: HAIR[0], face: 0.1, build: 0.68, age: 0.48,
    note: 'Black petrochemical operator. Ship channel, Beaumont. Gas monitor at the collar.'},
-  {id: 'hand',        outfit: 'work-shirt',   headgear: 'palm-straw',    skin: SKIN[4], hair: HAIR[0], build: 0.5, age: 0.42,
+  {id: 'hand',        outfit: 'work-shirt',   headgear: 'palm-straw',    skin: SKIN[4], hair: HAIR[0], face: 0.55, build: 0.5, age: 0.42,
    note: 'Hispanic man, norteño palm straw. Taller narrower crown, flatter brim.'},
-  {id: 'clinician',   outfit: 'scrubs',       headgear: 'scrub-cap',     skin: SKIN[0], hair: HAIR[4], build: 0.44, age: 0.38,
+  {id: 'clinician',   outfit: 'scrubs',       headgear: 'scrub-cap',     skin: SKIN[0], hair: HAIR[4], face: 0.8, build: 0.44, age: 0.38,
    note: 'White woman in scrubs. Houston medical centre.'},
-  {id: 'lineworker',  outfit: 'line-fr',      headgear: 'hard-hat',      skin: SKIN[5], hair: HAIR[0], build: 0.58, age: 0.44,
+  {id: 'lineworker',  outfit: 'line-fr',      headgear: 'hard-hat',      skin: SKIN[5], hair: HAIR[0], face: 0.36, build: 0.58, age: 0.44,
    note: 'Black woman lineworker. Transmission, grid restoration.'},
-  {id: 'resident',    outfit: 'work-shirt',   headgear: 'bare',          skin: SKIN[3], hair: HAIR[6], build: 0.6, age: 0.82, glasses: true,
+  {id: 'resident',    outfit: 'work-shirt',   headgear: 'bare',          skin: SKIN[3], hair: HAIR[6], face: 0.66, build: 0.6, age: 0.82, glasses: true,
    note: 'Older Hispanic woman at a hearing, a public comment desk.'},
   // A FARMER IS NOT A RANCHER, and the hat is where Texas says so. A High Plains
   // row-crop farmer wears a GIMME CAP, which the headgear notes already call the
   // most-worn hat in working Texas and the least drawn. Putting a straw hat on the
   // aquifer beat would be casting the cattle country next door.
-  {id: 'farmer',      outfit: 'work-shirt',   headgear: 'gimme-cap',     skin: SKIN[2], hair: HAIR[2], build: 0.56, age: 0.55,
+  {id: 'farmer',      outfit: 'work-shirt',   headgear: 'gimme-cap',     skin: SKIN[2], hair: HAIR[2], face: 0.24, build: 0.56, age: 0.55,
    note: 'High Plains row-crop farmer. Cotton and grain sorghum over the Ogallala.'},
-  {id: 'technician',  outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[5], hair: HAIR[4], build: 0.47, age: 0.36,
+  {id: 'technician',  outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[5], hair: HAIR[4], face: 0.88, build: 0.47, age: 0.36,
    note: 'Fab technician, Taylor or Sherman. Badge on the collar, no hat on a clean floor.'},
-  {id: 'hydrologist', outfit: 'hi-vis',       headgear: 'ball-cap',      skin: SKIN[1], hair: HAIR[0], build: 0.5, age: 0.46,
+  {id: 'hydrologist', outfit: 'hi-vis',       headgear: 'ball-cap',      skin: SKIN[1], hair: HAIR[0], face: 0.48, build: 0.5, age: 0.46,
    note: 'River authority field hydrologist, servicing a gauge on a bank.'},
 ];
 

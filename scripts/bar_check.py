@@ -34,8 +34,20 @@ RUBRIC = REPO / "config" / "dispatch_rubric.yaml"
 # A threshold ASSERTION: a bar-ish word, then a number, close together. Deliberately narrow.
 # "the bar is read out of the rubric" must not trip it, so a sentence only counts when an actual
 # numeral follows the word.
+# `holds the bar AT 7.5` slipped straight through the first version, which only knew the bar
+# as "is", "was" or "of". It sat in `.claude/WORKLOG.md`, a file `CLAUDE.md` orders every agent
+# to read FIRST, and it misbriefed all three judges on four consecutive panel rounds. Each one
+# flagged the divergence unprompted, which is the sibling's exact failure re-enacted here while
+# a gate written for that failure stayed green.
+# The verbs are enumerated rather than made into a wildcard, because a pattern loose enough to
+# catch every phrasing also catches "the bar is read out of the rubric", and a gate that fails
+# correct prose is one somebody deletes.
 CLAIM = re.compile(
-    r"(ship[_ ]?threshold|the bar (?:is|was|of)|bar:|threshold (?:is|of|:)|scores? (?:above|below|of))"
+    r"(ship[_ ]?threshold"
+    r"|(?:the |a )?\bbar\b (?:is|was|of|at|to|stands? at|holds? at|sits? at)"
+    r"|holds? the \bbar\b (?:at|to)"
+    r"|\bbar\b:|threshold (?:is|of|at|:)"
+    r"|scores? (?:above|below|of))"
     r"[^\n\d]{0,24}(\d+(?:\.\d+)?)", re.I)
 
 SCAN_EXT = {".md", ".py", ".yaml", ".yml", ".txt", ".tsx", ".ts", ".json"}
@@ -112,6 +124,18 @@ def self_test() -> int:
            all(not o.split(":")[0].endswith("dispatch_rubric.yaml") for o in offenders(root)))
 
     live = offenders(REPO)
+    # THE PHRASING THAT ESCAPED, and it escaped into the one file CLAUDE.md orders every agent
+    # to read first, where it misbriefed all three judges on four consecutive panel rounds.
+    ok("catches 'holds the bar at N', which the first pattern missed",
+       bool(CLAIM.search("the rubric holds the bar at 7.5 WITH the reason")))
+    ok("...and 'the bar stands at N'", bool(CLAIM.search("the bar stands at 7.0 today")))
+    # AND THE PROSE IT MUST NOT TOUCH. Widening the pattern immediately went red on
+    # scale_check's own docstring, where a goalpost crossbar sits at 5.04 m.
+    ok("does NOT read a goalpost crossbar as a threshold",
+       not CLAIM.search("a goalpost crossbar at 5.04 m, against its own docstring"))
+    ok("...and does not flag a sentence that says the bar is READ rather than what it is",
+       not CLAIM.search("the bar is read out of the rubric and never quoted"))
+
     ok("the shipped repo states the bar exactly once", live == [], str(live[:2]))
 
     if failures:
