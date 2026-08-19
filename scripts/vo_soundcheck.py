@@ -277,8 +277,29 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
             f"No gain undoes clipping")
 
     # The composite is only used to RANK passing takes. It never overrides a fail.
-    rank = acc * 3 + min(var, 6.0) / 6 - abs(lufs - TARGET_LUFS) / 10 - max(0.0, overage) * 4
+    # HOW WELL THE TAKE CAPTIONS, which nothing here measured until 2026-08-19.
+    #
+    # Captions may only break where the reader actually stopped, so the number of PAUSES in a
+    # take decides how many cue boundaries exist to choose from. A take with few pauses forces
+    # long cards that break mid sentence, and three judges in a row docked craft and voice for
+    # exactly that while every soundcheck metric stayed green, because accuracy, pitch variance,
+    # duration and loudness are all blind to it.
+    #
+    # Measured, not assumed: a re-synth chosen on the old metrics alone came back with 43 of 117
+    # word times measured against the previous take's 56 of 114, and its captions went from 3 of
+    # 8 cues ending mid sentence to 5 of 6. The take was better on every graded axis and worse on
+    # screen.
+    #
+    # This is a RANKING TERM and not a hard fail. A read with few pauses is not wrong, it is
+    # just harder to caption, and a gate that refused it would be refusing a legitimate
+    # performance over a downstream formatting cost.
+    pauses = take.get("speech_runs")
+    pause_bonus = 0.0 if pauses is None else min(pauses, 14) / 14 * 1.5
+
+    rank = (acc * 3 + min(var, 6.0) / 6 - abs(lufs - TARGET_LUFS) / 10
+            - max(0.0, overage) * 4 + pause_bonus)
     return {"id": take.get("id"), "pass": not fails, "fails": fails, "rank": round(rank, 4),
+            "speech_runs": pauses,
             "accuracy": round(acc, 4), "insertion": round(ins, 4), "tags": tags,
             "pitch_variance": var, "duration_s": dur, "lufs": lufs,
             "overage": round(overage, 4)}

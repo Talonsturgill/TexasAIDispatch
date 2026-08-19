@@ -256,11 +256,29 @@ def pitch_spread_semitones(x: np.ndarray, rate: int) -> float:
     return float(np.std(semis))
 
 
+def count_speech_runs(x: np.ndarray, rate: int) -> int:
+    """HOW MANY PAUSES THE READER ACTUALLY TOOK, which decides how well the take captions.
+
+    A caption boundary may only sit on a measured silence, so a take with few pauses leaves the
+    segmenter nothing to choose from and forces long cards that break mid sentence. Nothing in
+    this pipeline measured it, so a re-synth could be better on accuracy, pitch, duration and
+    loudness and still ship worse captions than the take it replaced. It did exactly that.
+
+    Deliberately imported from `vo_align` rather than reimplemented: that module owns what
+    counts as a silence, and a second copy of the threshold here is the fault this repo's own
+    law names.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from vo_align import speech_runs
+    return len(speech_runs(x, rate))
+
+
 def measure(x: np.ndarray, rate: int) -> dict:
     return {
         "duration_s": round(len(x) / rate, 3),
         "lufs": round(integrated_lufs(x, rate), 2),
         "pitch_variance_semitones": round(pitch_spread_semitones(x, rate), 3),
+        "speech_runs": count_speech_runs(x, rate),
         "sample_rate": rate,
     }
 
@@ -540,6 +558,24 @@ def blocked_code() -> int:
     return 3
 
 
+# THE DAILY QUOTA IS A SHARED, EXHAUSTIBLE RESOURCE, and a run that burns it does not just
+# fail itself: it fails every later run today, including the one that ships. This machine
+# synthesised fifteen takes on 2026-08-19 across five batches, chasing a read whose captions
+# broke well, and the owner had to say stop.
+#
+# A batch is capped here rather than left to judgement, because judgement is what spent them.
+# `--takes` above the cap is refused with the count already on disk, so the decision to spend
+# more is deliberate and visible instead of incidental.
+MAX_TAKES_PER_BATCH = 4
+
+
+def takes_already_on_disk(out_root: Path) -> int:
+    """Every take this run has rendered, across every batch directory."""
+    parent = out_root.parent if out_root.name else out_root
+    return sum(1 for d in parent.glob("takes*") if d.is_dir()
+               for _ in d.glob("*.wav"))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--script", help="the locked VO script")
@@ -549,6 +585,14 @@ def main() -> int:
     ap.add_argument("--voice", default=None, help="overrides config/voices.yaml")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
+
+    if not a.self_test and a.takes > MAX_TAKES_PER_BATCH:
+        spent = takes_already_on_disk(Path(a.out))
+        print(f"vo_synth: --takes {a.takes} is over the {MAX_TAKES_PER_BATCH} per batch cap, "
+              f"and this run has already rendered {spent} take(s). The daily quota is shared "
+              f"with every later run today, including the one that ships. Run smaller batches "
+              f"on purpose, or raise MAX_TAKES_PER_BATCH with a reason.", file=sys.stderr)
+        return 2
     if a.self_test:
         return self_test()
     if not a.script:

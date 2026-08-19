@@ -1210,3 +1210,48 @@ The wider finding, recorded because it will outlive this run: five of twenty cla
 cite one press release that is currently unreachable. Their quotes were captured at fetch time
 and remain the evidence, but nothing in this repo records that a source has since gone dark, and
 a run that needed to re-verify one of them today could not.
+
+---
+
+## The take was better on every graded axis and worse on screen
+
+`vo_soundcheck` grades a take on word accuracy, spoken-tag leakage, pitch variance, duration
+against the cut, and loudness. Five real measurements, every one of them earned by a defect that
+shipped. **None of them can see how well a take CAPTIONS**, and captions are half of what a
+viewer reads.
+
+The mechanism, and it is not obvious until it bites: a caption boundary may only sit on a
+measured silence, because approximated timings are a hard fail. So **the number of pauses in a
+read decides how many boundaries the segmenter has to choose from.** A take with few pauses
+forces long cards that break mid sentence, and no amount of work on the segmenter can fix it,
+because the boundaries genuinely are not there.
+
+Measured on 2026-08-19, re-synthesising one line to correct an unsourced phrase:
+
+| | old take | new take, chosen on the old metrics |
+|---|---|---|
+| word accuracy | 0.974 | 0.974 |
+| loudness after mix | -18.91 LUFS | **-17.88 LUFS**, a dB better |
+| line 1 sourcing | unsourced | **corrected** |
+| pauses in the read | **29** | 23 |
+| word times measured | 56 of 114 | 43 of 117 |
+| cues ending mid sentence | 3 of 8 | **5 of 6** |
+| longest caption card | 9.9 s, 124 chars | **11.0 s, 141 chars** |
+
+Better on truth, better on loudness, tied on accuracy, and visibly worse in the frame. Three
+judges had already docked craft and voice for mid-sentence cards, so this would have traded a
+truth fix for a regression in the axis those same judges were complaining about, and every
+metric in the soundcheck would have stayed green while it happened.
+
+**What to check instead.** `vo_synth_gemini` now records `speech_runs` per take, counted by
+importing `vo_align.speech_runs` rather than reimplementing the silence threshold, and
+`vo_soundcheck` carries it as a RANKING term. Deliberately not a hard fail: a read with few
+pauses is a legitimate performance, it is just expensive to caption, and refusing it outright
+would be a gate overruling a director on a formatting cost.
+
+**The general lesson, which is the one worth carrying.** Every metric here was added because
+something shipped wrong, so the metric set is a list of past failures rather than a description
+of what "good" means. That is the right way to build it and it has a permanent blind spot: the
+next defect is by construction the one nothing measures. When a change comes back green on every
+axis and worse in the product, do not re-read the metrics. **Ask what the product has that the
+metrics do not.**
