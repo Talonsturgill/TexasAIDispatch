@@ -478,7 +478,25 @@ python3 scripts/super_evidence_check.py --board out/dispatch/storyboard.json \
        --claims out/dispatch/claims.json
 python3 scripts/board_scale_check.py --board out/dispatch/storyboard.json
 python3 scripts/floor_check.py --board out/dispatch/storyboard.json
+python3 scripts/safe_area_check.py
 ```
+
+**`safe_area_check` is the first gate here that is not about the film at all.** It is about the
+space between the film and the surface that plays it. The Docket's feed is vertical and one film
+per screen, so it lays its own title, caption and button rail over the picture, and on
+2026-08-19 the film's subtitle band drew underneath the feed's caption. Both were legible alone
+and neither was legible together.
+
+**Every gate was green and every one of them was right.** The cue traced to a claim, the timing
+was measured, the line fitted its band, the band was inside the frame. What none of them could
+know is that a quarter of the bottom of the frame belongs to somebody else, because until
+`video-engine/src/lib/safearea.ts` existed nothing in this repo had written down that such a
+place exists. The reserve there is MEASURED off the live feed in a browser, at the phone
+viewport that gives the worst case, and the file carries the snippet for re-measuring it.
+
+The check that matters is the second one. It refuses a TYPED number in the band's geometry even
+when the typed number is legal, because a band that happens to sit somewhere legal today does
+not move when the feed's CSS changes and the constants are re-measured.
 
 **`floor_check` is two rules about one geometry and both faults survived twenty five panel
 rounds.** A `floorOnly` hallShell paints the near floor, and in three interiors it sat NEARER
@@ -652,8 +670,45 @@ because that is the shape "overwriting a shipped artifact" actually takes.
 Then, by hand, because these need the GitHub tools rather than a shell:
 
 5. Open a **ready (not draft)** PR and **MERGE it in the same run.**
-6. Publish the feed entry into `TexasAIDocket`'s `docs/videos/videos.json`. **That is the only
-   file this repo writes there, ever.**
+6. **Publish the feed entry, and leave that site CURRENT.** Two steps, and the second is not
+   optional:
+
+   ```
+   python3 scripts/publish_feed.py --date <date> --county <County> --caption "..."
+
+   cd ../TexasAIDocket
+   echo dispatch > .git/ACTOR
+   python3 scripts/site/site_build.py          # the pages that COUNT the video
+   python3 scripts/site/site_fresh_check.py    # must exit 0
+   python3 scripts/shared/ownership_check.py --actor dispatch --diff HEAD
+   ```
+
+   **The first line used to be prose saying "prepend one entry to `docs/videos/videos.json`",
+   and the first run that followed it wrote an entry with no `id`.** Nothing failed. The feed
+   page derives a fallback id from the date and the title when the field is absent, exactly so
+   a hand-written entry is not a broken page, and that fallback is what shipped. A derived id
+   is stable only for as long as an editorial title is, which is not a promise anybody made.
+
+   `publish_feed.py` composes the entry from the run's own artifacts, so the title, the beat,
+   the id and both media paths are DERIVED and only the caption and the county are typed. It
+   checks the caption against house style rather than trusting it, it replaces rather than
+   duplicates on a re-run, and it builds the 720p phone rendition and the jpeg thumb that the
+   feed prefers on a narrow viewport. The master is about 3.5 Mbit, which is right for the
+   archive and punishing in a feed that buffers the next film before a reader has asked for it.
+
+   **Writing the feed changes a number the site displays**, so appending the entry and stopping
+   leaves the front page saying there are fewer videos than there are. On 2026-08-19 that took
+   the count from zero to one, `index.html` still said zero, and CI went red on a pull request
+   whose only content was the file this repo is contracted to write. Waiting for the sibling's
+   next daily run to reconcile it is a whole cycle where the video is live and the site says it
+   does not exist, on the one surface a reader looks at.
+
+   `ownership.yaml` there lists `dispatch` under `rebuild_by` for `docs/**` for exactly this.
+   That is permission to REGENERATE, never to edit: `site_fresh_check` proves byte equality
+   against a fresh build, so a bad publish fails that check rather than corrupting a page.
+
+   **`videos.json` is still the only file this repo AUTHORS there, ever.** Everything else in
+   that command is generated output being brought back into agreement with it.
 7. `rm .git/ACTOR`.
 
 ## PHASE 8 — RETROSPECTIVE AND SELF-UPGRADE
