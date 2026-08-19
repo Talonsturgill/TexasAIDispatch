@@ -204,7 +204,7 @@ export const LiveOak: React.FC<FloraProps & {
   const K = fit('liveOak', h);
   // EVERGREEN. A live oak holds its leaf through the winter and its green is a dark
   // blue green, not the yellow green this was sharing with the grass under it.
-  const t = tones(season === 'winter' ? '#2b4438' : '#2f4a3d', L);
+  const t = tones(season === 'winter' ? '#263f36' : '#284439', L);
   const bark = tones('#5a4a3c', L);
   const lean = leaned ? 13 * facing : (rnd(seed, 1) - 0.5) * 5;
 
@@ -240,18 +240,25 @@ export const LiveOak: React.FC<FloraProps & {
         const tipX = x0 + reach, tipY = y0 + rise;
         return (
           <g key={i}>
-            {/* THE DIP: the limb sags under its own weight and lifts at the tip, so the bow
-                is on the far side of the chord from the trunk. */}
+            {/* THE LIMB IS TRUNK-THICK AND DARK, not a pale armature. A scorer read the
+                old thin tan limb as a stick and the crown as pads sitting on it, so the
+                whole tree read as an African acacia. It carries the bark colour at real
+                oak weight and dips, sagging under its own load and lifting at the tip. */}
             <Limb x1={x0} y1={y0} x2={tipX} y2={tipY}
-              w1={h * 0.075} w2={h * 0.030} fill={bark.core}
-              bow={Math.abs(reach) * 0.20} />
-            {/* clumps RIDING the limb, growing outward, not one pad at the end */}
-            {[0.42, 0.70, 0.96].map((u, k) => (
+              w1={h * 0.11} w2={h * 0.05} fill={bark.core}
+              bow={Math.abs(reach) * 0.22} />
+            {/* THE FOLIAGE IS A CONTINUOUS MASS RIDING THE WHOLE LIMB, NOT PADS ON THE END.
+                Three separated clumps left the bare splay showing between them, which is the
+                exact defect the spec names: a pad capping a stick. Five overlapping clumps
+                that grow from near the fork to past the tip close over the limb into one
+                lumpy crown edge, with sky only at the outer margin. Bigger, denser, and set
+                lower over the limb so the mass sits ON the branch rather than floating. */}
+            {[0.30, 0.48, 0.66, 0.83, 1.0].map((u, k) => (
               <Canopy key={k} seed={seed + i * 17 + k * 5}
                 cx={x0 + reach * u}
-                cy={y0 + rise * u - h * (0.055 + 0.055 * u) + Math.abs(reach) * 0.20 * (1 - Math.abs(2 * u - 1)) * 0.5}
-                rx={h * (0.16 + 0.10 * u)} ry={h * (0.11 + 0.055 * u)}
-                lobes={4} fill={t.core} hi={t.base} lo={t.shade} spread={0.66} />
+                cy={y0 + rise * u - h * (0.02 + 0.05 * u) + Math.abs(reach) * 0.22 * (1 - Math.abs(2 * u - 1)) * 0.5}
+                rx={h * (0.20 + 0.12 * u)} ry={h * (0.15 + 0.08 * u)}
+                lobes={5} fill={t.core} hi={t.base} lo={t.shade} spread={0.72} />
             ))}
           </g>
         );
