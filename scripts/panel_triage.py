@@ -38,6 +38,23 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 RUBRIC = REPO / "config" / "dispatch_rubric.yaml"
+# COMMITTED, because the run's own trend is the only evidence that the machine is improving and
+# it was living in a gitignored scratch file that dies with the container.
+HISTORY = REPO / "ledger" / "panel_history.json"
+
+# THE PLATEAU RULE, and it is the one thing here that changes what the run DOES.
+#
+# On 2026-08-19 the mean went 6.74, 6.75, 6.77, 6.75 across four consecutive rounds. Every round
+# fixed real defects, every fix was verified, and the film did not move. The reason is structural:
+# Phase 6 says a failing panel is an instruction to re-enter the loop, and the loop is
+# fix -> render -> panel. It never returns to Phase 4. So a finding that is a BOARD-DESIGN fact
+# (six interiors built from one shell, a closing beat that is one image three times, half a frame
+# that pays nothing) can only ever be answered with a prop edit, and prop edits cannot reach it.
+#
+# A flat mean across this many rounds is therefore not bad luck and not a harder round. It is the
+# run answering board questions with prop answers, and the only fix is to stop polishing.
+PLATEAU_ROUNDS = 3
+PLATEAU_SPAN = 0.06
 
 # An axis this far over the bar is banked. Work on it returns nothing and the panel's praise for
 # it is the most misleading feedback in the report, because it reads as encouragement to do more
@@ -88,6 +105,28 @@ def triage(judges: list[dict[str, float]], bar: float, weights: dict[str, float]
             "ship": mean >= bar}
 
 
+def with_history(t: dict, history: list[dict]) -> dict:
+    t["plateau"] = plateau(history, t["mean"])
+    return t
+
+
+def read_history() -> list[dict]:
+    if not HISTORY.exists():
+        return []
+    try:
+        return json.loads(HISTORY.read_text()).get("rounds", [])
+    except Exception:
+        return []
+
+
+def plateau(history: list[dict], mean: float) -> tuple[bool, list[float]]:
+    """Has the mean stopped moving? Includes THIS round, so it fires on the round it is true."""
+    means = [float(r["mean"]) for r in history[-(PLATEAU_ROUNDS - 1):]] + [mean]
+    if len(means) < PLATEAU_ROUNDS:
+        return False, means
+    return (max(means) - min(means)) < PLATEAU_SPAN, means
+
+
 def render(t: dict) -> str:
     out = [f"\n  panel mean {t['mean']:.3f}   bar {t['bar']:.2f}   "
            + ("CLEARS THE BAR" if t["ship"] else f"gap {t['gap']:.3f}"), ""]
@@ -124,6 +163,21 @@ def render(t: dict) -> str:
         out.append(f"  {r['axis']} is {r['mean'] - t['bar']:.2f} OVER the bar and is worth "
                    f"nothing to improve. Praise for it in the reports is the most misleading "
                    f"feedback in them.")
+    stuck, means = t.get("plateau", (False, []))
+    if stuck:
+        out.append("")
+        out.append("  THE MEAN HAS NOT MOVED IN "
+                   f"{len(means)} ROUNDS ({', '.join(f'{m:.2f}' for m in means)}).")
+        out.append("  STOP FIXING PROPS. Every round has fixed real defects and the film has not")
+        out.append("  moved, which means the remaining findings are BOARD-DESIGN facts and a prop")
+        out.append("  edit structurally cannot reach them. Re-enter PHASE 4 and change the board:")
+        out.append("    - a scene whose composition repeats another's gets re-staged, not re-lit")
+        out.append("    - a frame that pays nothing gets a different SHOT, not another object")
+        out.append("    - a beat held across three scenes becomes one scene or three ideas")
+        out.append("  A fourth round of prop edits is the run answering a board question with a")
+        out.append("  prop answer, which is what produced this flat line in the first place.")
+        out.append("")
+
     wide = [r for r in t["rows"] if r["spread"] >= 1.0]
     for r in wide:
         out.append(f"  The judges disagree by {r['spread']:.1f} on {r['axis']}, so read their "
@@ -170,6 +224,23 @@ def self_test() -> int:
     ok("a passing panel is told to deliver, not to keep editing",
        ht["ship"] and "deliver" in render(ht))
 
+    # THE PLATEAU RULE, which is the only thing here that changes what the run DOES.
+    flat = [{"mean": 6.743}, {"mean": 6.753}, {"mean": 6.769}]
+    t2 = with_history(triage([dict(zip(weights, (6.6, 7.7, 6.5, 6.8, 6.2, 6.6)))], bar, weights),
+                      flat)
+    ok("a flat mean across three rounds is detected", t2["plateau"][0], str(t2["plateau"]))
+    ok("...and the report says to stop fixing props and re-board",
+       "STOP FIXING PROPS" in render(t2) and "PHASE 4" in render(t2))
+    # AND IT MUST NOT FIRE ON A RUN THAT IS ACTUALLY CLIMBING, or it would send a working run
+    # back to the board and cost it the round it was about to win.
+    climbing = [{"mean": 6.20}, {"mean": 6.55}, {"mean": 6.80}]
+    t3 = with_history(triage([dict(zip(weights, (7.1, 7.7, 6.9, 7.15, 6.8, 6.9)))], bar, weights),
+                      climbing)
+    ok("does NOT fire on a run whose mean is climbing", not t3["plateau"][0], str(t3["plateau"]))
+    # Nor before there is enough history to know.
+    t4 = with_history(triage([dict(zip(weights, (6.6, 7.7, 6.5, 6.8, 6.2, 6.6)))], bar, weights), [])
+    ok("...nor on the first round, when there is nothing to compare", not t4["plateau"][0])
+
     # A WIDE SPREAD IS A SIGNAL, not noise to average away.
     split = [dict(zip(weights, (4, 7, 7, 7, 7, 7))), dict(zip(weights, (9, 7, 7, 7, 7, 7))),
              dict(zip(weights, (7, 7, 7, 7, 7, 7)))]
@@ -185,6 +256,9 @@ def main() -> int:
     ap.add_argument("--scores", help="JSON: [{axis: score, ...}, ...] one object per judge")
     ap.add_argument("--judge", action="append", default=[],
                     help="one judge's scores, comma separated, in the rubric's axis order")
+    ap.add_argument("--round", type=int, help="this panel round's number, to record the trend")
+    ap.add_argument("--record", action="store_true",
+                    help="append this round's mean to ledger/panel_history.json")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -212,7 +286,21 @@ def main() -> int:
         print(f"panel_triage: some judge is missing {missing}", file=sys.stderr)
         return 2
 
-    print(render(triage(judges, bar, weights)))
+    history = read_history()
+    t = with_history(triage(judges, bar, weights), history)
+    print(render(t))
+
+    if a.record:
+        HISTORY.parent.mkdir(parents=True, exist_ok=True)
+        rounds = history + [{"round": a.round, "mean": round(t["mean"], 3),
+                             "axes": {r["axis"]: round(r["mean"], 2) for r in t["rows"]}}]
+        HISTORY.write_text(json.dumps({"_why": (
+            "The run's own trend. It lived in a gitignored scratch file until 2026-08-19, so "
+            "every container rebuild erased the only evidence that the machine was or was not "
+            "improving, and four flat rounds went unnoticed because nothing could see them."),
+            "rounds": rounds}, indent=1) + "\n")
+        print(f"\n  recorded round {a.round} at {t['mean']:.3f} in "
+              f"{HISTORY.relative_to(REPO)}")
     return 0
 
 

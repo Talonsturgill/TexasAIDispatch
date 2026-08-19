@@ -215,8 +215,37 @@ def check_panel_rounds(rounds: int | None) -> list[str]:
     return []
 
 
+def check_piped_exit_codes() -> list[str]:
+    """RULE 7. Never read `$?` after piping a gate through anything.
+
+    `python3 scripts/x.py | tail -3; echo $?` reports TAIL's exit status, which is 0 whatever the
+    gate did. This repo's founding instruction is to run gates BY EXIT CODE rather than by their
+    last line, and piping to read the last line defeats it in the most literal possible way: the
+    output looks like a report and the status is a lie.
+
+    I did it three times on 2026-08-19. Once it hid a red `board_captions`, once a red
+    `super_evidence_check`, and once a self-test that was failing on its own bar guard while
+    printing `exit=0`. Each time the visible text was correct and the number beside it was not.
+
+    The cure is two lines instead of one: redirect to a file, echo the status, then read the file.
+    """
+    errs = []
+    pat = re.compile(r"scripts/\w+\.py[^\n|]*\|[^\n]*(tail|head|grep)[^\n]*;\s*echo[^\n]*\$\?")
+    for p in _shell_and_py():
+        if p.name == "run_discipline.py":
+            continue
+        for i, line in _executable_lines(p):
+            if pat.search(line):
+                errs.append(
+                    f"{p.relative_to(REPO)}:{i}: pipes a gate and then reads `$?`, which is the "
+                    f"exit status of the PIPE's last command and not the gate's. Redirect to a "
+                    f"file, echo the status, then read the file.")
+    return errs
+
+
 CHECKS = [
     ("self-matching waits", check_self_matching_waits),
+    ("exit codes are not read through a pipe", check_piped_exit_codes),
     ("silenced git writes", check_silenced_git),
     ("derived-field rule is written down", check_derived_fields),
     ("panel frames come from the film", check_panel_frames_come_from_the_film),

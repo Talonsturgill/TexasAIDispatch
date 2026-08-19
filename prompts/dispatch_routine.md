@@ -565,6 +565,29 @@ believe it. Three independent scores, and a spread between them is information r
 
 A failing panel is an instruction to re-enter the loop, not a verdict on the run.
 
+**AND THE LOOP INCLUDES PHASE 4.** This is the correction that matters most, because for four
+consecutive rounds on 2026-08-19 it did not. The mean went 6.74, 6.75, 6.77, 6.75 while every
+round fixed real, verified defects, and the reason was structural: the fix loop was
+fix -> render -> panel, and it never returned to the board. A finding that is a BOARD-DESIGN fact
+can only ever be answered with a prop edit, and a prop edit structurally cannot reach it.
+
+`panel_triage` detects this and says so. When it prints STOP FIXING PROPS, the next round is a
+BOARD change and not another polish pass:
+
+- a scene whose composition repeats another's gets RE-STAGED, not re-lit
+- a frame that pays nothing gets a different SHOT, not another object in it
+- a beat held across three scenes becomes one scene, or three different ideas
+
+**Record every round**, or the next run cannot see its own trend:
+
+```
+python3 scripts/panel_triage.py --judge <a> --judge <b> --judge <c> --round <n> --record
+```
+
+That history lived in a gitignored scratch file until the day this was written, so every
+container rebuild erased the only evidence the machine was or was not improving, and four flat
+rounds went unnoticed because nothing could see them. It is `ledger/panel_history.json` now.
+
 `ship_gate` then reads the report card and compares it to the same threshold from the same file, so
 the bar is applied twice and quoted zero times.
 
