@@ -225,6 +225,12 @@ export interface CharacterProps {
   /** a value from SKIN. A fill only: it never changes the line work. */
   skin?: string;
   hair?: string;
+  /** iris colour. A fill only, like `skin`, and it never changes the line work.
+   *  The DEFAULT IS DARK BROWN because the default is what the whole cast gets, and
+   *  the one that used to be here was a blue-grey applied to every person this show
+   *  has ever drawn. That is the same fault as the white man in a hat: the first
+   *  value authored becomes the reach forever unless somebody makes the common case
+   *  the default. */
   eyes?: string;
   facing?: 1 | -1;
   scale?: number;
@@ -272,7 +278,7 @@ export const Character: React.FC<CharacterProps> = ({
   headgear = 'bare',
   skin = SKIN[2],
   hair = HAIR[2],
-  eyes = '#41607d',
+  eyes = '#3a2a20',
   facing = 1,
   scale = 1,
   x = 0,
@@ -467,8 +473,14 @@ export const Character: React.FC<CharacterProps> = ({
               stroke={INK} strokeWidth={3.4} />
             {blink > 0.25 && (
               <>
-                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.52} fill={eyes} />
-                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.26} fill={INK} />
+                {/* THE IRIS FILLS MOST OF THE EYE. At 0.52 of the sclera the white ring
+                    around it was wider than the iris, which is the anatomy of a person
+                    who has just been startled, and every character in the film wore it in
+                    every shot. A resting eye shows very little sclera. This is shape
+                    language applied evenly across the whole cast, which is where the
+                    vernacular says facial variation is allowed to live. */}
+                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.68} fill={eyes} />
+                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.31} fill={INK} />
               </>
             )}
           </g>
