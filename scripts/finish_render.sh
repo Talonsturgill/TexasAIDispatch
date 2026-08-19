@@ -9,10 +9,16 @@ cd /home/user/TexasAIDispatch
 # whatever pattern it waits on, so the loop matches itself and spins forever. It did
 # exactly that and looked like a slow render for forty minutes. `waitfor.sh` excludes
 # the ancestor chain and carries a hard deadline, and its --self-test proves both.
+# The render log path is an ARGUMENT with a default, not a literal. It was literal, so every
+# round edited this file to bump render6 to render7, which is a source change with no meaning
+# that shows up in every diff and is one typo away from tailing the previous round's log and
+# reporting the previous round's result.
+LOG="${1:-/tmp/render.log}"
+
 source "$(dirname "$0")/waitfor.sh"
 wait_for_pattern "remotion render Dispatch" 2400 || {
   echo "render did not finish inside the deadline" >&2; exit 3; }
-echo "RENDER: $(tail -1 /tmp/render6.log)"
+echo "RENDER: $(tail -1 "$LOG")"
 
 cd video-engine
 npx remotion ffmpeg -y -i ../out/dispatch/silent.mp4 -i ../out/dispatch/mix.wav \
