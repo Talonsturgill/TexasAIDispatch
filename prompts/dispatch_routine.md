@@ -527,23 +527,33 @@ the bar is applied twice and quoted zero times.
 
 ## PHASE 7 — DELIVER, FULLY DONE
 
-**Record the run in the variety engine BEFORE you merge**, because a run that ships without being
-recorded is a run the next one is free to re-skin:
-
-```
-python3 scripts/dedupe.py add --date <date> --topic "<topic>" --slug <slug> --beat <beat> \
-       --entities "<a,b,c>" --fingerprint out/dispatch/storyboard.json
-```
-
-
 No pending states.
 
-1. Copy artifacts to `runs/<date>/`.
-2. Update the dedupe ledger.
-3. Commit, push, open a **ready (not draft)** PR, and **MERGE it in the same run.**
-4. Publish the feed entry into `TexasAIDocket`'s `docs/videos/videos.json`. **That is the only
+**Steps 1 to 4 are a program, not a checklist. Run it:**
+
+```
+bash scripts/deliver_run.sh --date <date> --topic "<topic>" --slug <slug> \
+     --beat <beat> --entities "<a,b,c>"
+```
+
+It re-runs the gates by exit code and stops on any red, writes the variety ledger BEFORE
+anything is merged, copies the artifacts, commits out loud and pushes with backoff. **The
+ordering is the load-bearing part and that is why it is code**: a run that ships without being
+recorded in the variety engine is a run the next one is free to re-skin, and the day that
+happens the ledger will say the two films were different.
+
+It also REFUSES three things, which is the half a checklist never does. A red gate stops the
+delivery, because the merge is the one moment a stale green is unrecoverable. A film older than
+the board it is supposed to render stops the delivery, because the board is the props. And a
+`runs/<date>/dispatch.mp4` NEWER than the film about to replace it stops the delivery and asks,
+because that is the shape "overwriting a shipped artifact" actually takes.
+
+Then, by hand, because these need the GitHub tools rather than a shell:
+
+5. Open a **ready (not draft)** PR and **MERGE it in the same run.**
+6. Publish the feed entry into `TexasAIDocket`'s `docs/videos/videos.json`. **That is the only
    file this repo writes there, ever.**
-5. `rm .git/ACTOR`.
+7. `rm .git/ACTOR`.
 
 ## PHASE 8 — RETROSPECTIVE AND SELF-UPGRADE
 
