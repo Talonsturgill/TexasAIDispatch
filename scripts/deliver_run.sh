@@ -75,7 +75,10 @@ run_gate ship_gate        python3 scripts/ship_gate.py --board "$OUT/storyboard.
     --captions "$OUT/captions.json" --audio "$OUT/mix.json"
 run_gate super_evidence   python3 scripts/super_evidence_check.py --board "$OUT/storyboard.json" \
     --claims "$OUT/claims.json"
-run_gate board_scale       python3 scripts/board_scale_check.py --board "$OUT/storyboard.json"
+run_gate board_scale      python3 scripts/board_scale_check.py --board "$OUT/storyboard.json"
+run_gate floor_check      python3 scripts/floor_check.py --board "$OUT/storyboard.json"
+run_gate bar_check        python3 scripts/bar_check.py
+run_gate mutation_check   python3 scripts/mutation_check.py
 run_gate freshness_check  python3 scripts/freshness_check.py --film "$OUT/film.mp4" \
     --started "$OUT/render_started" \
     --inputs "$OUT/storyboard.json" "$OUT/mix.wav" "$OUT/captions.json"
