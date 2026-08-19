@@ -1,75 +1,106 @@
 {
- "runs": [
-  {
-   "date": "2026-08-18",
-   "run": "the August 18th Dispatch",
-   "panel_rounds": 27,
-   "shipped": "below the bar, on the owner's explicit direction",
-   "final_panel": [
-    6.32,
-    6.6,
-    6.49
-   ],
-   "_why_this_file": "What the machine learned, separate from what the film became. Every entry below is a fault that had already SHIPPED past a fully green suite, which is the only kind worth recording: a gate written for a fault nobody has committed is a guess.",
-   "gates_added": [
+  "runs": [
     {
-     "name": "super_evidence_check",
-     "fault": "the right number over the wrong picture. A super carried one research group's result over another group's machine, from a PARTIAL claim whose own note says the subject is unverified. Later extended to readouts and to requiring the FETCHED QUOTE rather than a statement a model wrote: five of eleven readout figures sat in no fetched sentence."
+      "date": "2026-08-19",
+      "run": "the feed session, after the August 18th Dispatch shipped",
+      "_why_this_file": "What the machine learned, separate from what the film became.",
+      "trigger": "The Docket's videos page became a vertical one-film-per-screen feed, and the first Dispatch drew its subtitle band underneath the feed's own caption. Eleven gates green, and neither line readable.",
+      "gates_added": [
+        {
+          "name": "safe_area_check",
+          "fault": "The film was correct and the PLACE IT WAS DRAWN IN belonged to somebody else. The subtitle band sat 168 px off the bottom of a 1920 frame and the feed's overlay claims the bottom quarter. Every gate in the repo reads the board, the claims, the mix or the frame, and each was right. None could know a quarter of the frame is not the film's, because nothing here had written down that such a place exists.",
+          "rule_worth_copying": "It refuses a TYPED number in that geometry EVEN WHEN THE TYPED NUMBER IS LEGAL. A band that happens to sit somewhere legal today does not move when the feed's CSS changes and the constants are re-measured, so it goes wrong silently exactly once."
+        }
+      ],
+      "modules_added": [
+        {
+          "name": "video-engine/src/lib/safearea.ts",
+          "what": "The feed's reserve, MEASURED off the live feed in a browser at the phone viewport that gives the worst case (bottom 25.03 percent, right 14.19 percent), with the snippet for re-measuring it. SubtitleTrack solves position and width against it, and CAP_W wraps to the safe width rather than the frame width."
+        }
+      ],
+      "steps_made_programs": [
+        {
+          "name": "scripts/publish_feed.py",
+          "was": "a prose line in Phase 7 saying \"prepend one entry to docs/videos/videos.json\"",
+          "fault": "The first run that followed it wrote an entry with no `id`, and nothing failed, because the feed page derives a fallback id from the date and the title exactly so a hand-written entry is not a broken page. A derived id is stable only for as long as an editorial title is.",
+          "now": "Derives the title, the beat, the id and both media paths from the run's own artifacts, so only the caption and the county are typed. Checks the caption against house style rather than trusting it. Replaces rather than duplicates on a re-run. Builds the 720p phone rendition and the jpeg thumb the feed prefers on a narrow viewport: 29.5 MB to 11.2 MB, and an 845 KB poster to 45 KB."
+        }
+      ],
+      "still_owed": [
+        "The shipped August 18th film still carries its band at the old position. The engine fix reaches the next render, not that one, and re-rendering was not worth a fourteen minute render on a film the owner had already called shipped.",
+        "The four items owed from the 2026-08-18 entry are unchanged: the shot list is two locations, two Abilene VO lines call a disclosed figure an estimate, c19 wants splitting, and caption_claim and readout_claim bindings are not authored yet."
+      ]
     },
     {
-     "name": "board_scale_check",
-     "fault": "the board used `scale` as a distance dial when `z` is the distance dial. A 0.40 m pickup, a 0.36 m pad transformer, a 1.56 m building. Three judges filed three separate craft defects in one round and all three were that one arithmetic."
-    },
-    {
-     "name": "floor_check",
-     "fault": "the near floor drew IN FRONT of the racks, which was the dead grey band twenty five rounds had reported. Extended outdoors it found seven items standing above their own ground line, including the hall two judges called see-through and one prescribed an opaque fill for. The fill was never transparent."
-    },
-    {
-     "name": "panel_triage",
-     "fault": "rounds were spent on the cheapest defect to SEE rather than the costliest to carry, and nothing detected that the mean had stopped moving. It now escalates to a re-board after three flat rounds."
-    },
-    {
-     "name": "board_diff",
-     "fault": "an edit is written in board units and read in screen pixels, and nothing did that arithmetic at edit time. Replayed against three real failures it names all three with no render."
-    },
-    {
-     "name": "bar_check widened",
-     "fault": "a stale threshold sat in .claude/WORKLOG.md, the one file CLAUDE.md orders every agent to read FIRST, and misbriefed all three judges for four consecutive rounds. bar_check knew the bar as is/was/of and the worklog said 'holds the bar AT'."
-    },
-    {
-     "name": "vo_soundcheck pause density",
-     "fault": "a take can be better on word accuracy, loudness and duration and worse on screen, because the number of PAUSES decides how well it can caption. Nothing measured it."
-    },
-    {
-     "name": "storyboard_check empty plane",
-     "fault": "a plane with no items counts toward the depth budget and draws nothing, so it hides a shortfall rather than causing one. Found three, one of them the declared payoff plane of a scene."
-    },
-    {
-     "name": "run_discipline rules 6 and 7",
-     "fault": "pkill -f matched my own shell and killed it mid-edit; and reading an exit code through a pipe reported tail's status, hiding two red gates and a failing self-test."
-    },
-    {
-     "name": "vo_synth batch cap",
-     "fault": "fifteen takes went out across five batches chasing a read that captioned well, and the owner had to say stop."
+      "date": "2026-08-18",
+      "run": "the August 18th Dispatch",
+      "panel_rounds": 27,
+      "shipped": "below the bar, on the owner's explicit direction",
+      "final_panel": [
+        6.32,
+        6.6,
+        6.49
+      ],
+      "_why_this_file": "What the machine learned, separate from what the film became. Every entry below is a fault that had already SHIPPED past a fully green suite, which is the only kind worth recording: a gate written for a fault nobody has committed is a guess.",
+      "gates_added": [
+        {
+          "name": "super_evidence_check",
+          "fault": "the right number over the wrong picture. A super carried one research group's result over another group's machine, from a PARTIAL claim whose own note says the subject is unverified. Later extended to readouts and to requiring the FETCHED QUOTE rather than a statement a model wrote: five of eleven readout figures sat in no fetched sentence."
+        },
+        {
+          "name": "board_scale_check",
+          "fault": "the board used `scale` as a distance dial when `z` is the distance dial. A 0.40 m pickup, a 0.36 m pad transformer, a 1.56 m building. Three judges filed three separate craft defects in one round and all three were that one arithmetic."
+        },
+        {
+          "name": "floor_check",
+          "fault": "the near floor drew IN FRONT of the racks, which was the dead grey band twenty five rounds had reported. Extended outdoors it found seven items standing above their own ground line, including the hall two judges called see-through and one prescribed an opaque fill for. The fill was never transparent."
+        },
+        {
+          "name": "panel_triage",
+          "fault": "rounds were spent on the cheapest defect to SEE rather than the costliest to carry, and nothing detected that the mean had stopped moving. It now escalates to a re-board after three flat rounds."
+        },
+        {
+          "name": "board_diff",
+          "fault": "an edit is written in board units and read in screen pixels, and nothing did that arithmetic at edit time. Replayed against three real failures it names all three with no render."
+        },
+        {
+          "name": "bar_check widened",
+          "fault": "a stale threshold sat in .claude/WORKLOG.md, the one file CLAUDE.md orders every agent to read FIRST, and misbriefed all three judges for four consecutive rounds. bar_check knew the bar as is/was/of and the worklog said 'holds the bar AT'."
+        },
+        {
+          "name": "vo_soundcheck pause density",
+          "fault": "a take can be better on word accuracy, loudness and duration and worse on screen, because the number of PAUSES decides how well it can caption. Nothing measured it."
+        },
+        {
+          "name": "storyboard_check empty plane",
+          "fault": "a plane with no items counts toward the depth budget and draws nothing, so it hides a shortfall rather than causing one. Found three, one of them the declared payoff plane of a scene."
+        },
+        {
+          "name": "run_discipline rules 6 and 7",
+          "fault": "pkill -f matched my own shell and killed it mid-edit; and reading an exit code through a pipe reported tail's status, hiding two red gates and a failing self-test."
+        },
+        {
+          "name": "vo_synth batch cap",
+          "fault": "fifteen takes went out across five batches chasing a read that captioned well, and the owner had to say stop."
+        }
+      ],
+      "sibling_fixes": [
+        "site_build deleted docs/videos/videos.json, which its own ownership note forbids, and site_fresh_check structurally cannot see it because it builds into a temp dir. The build now carries externally owned files through the wipe by name.",
+        "ownership.yaml lists dispatch under rebuild_by for docs/**, because writing the feed changes a number the site displays and the publish could not otherwise leave that site consistent with its own ledgers."
+      ],
+      "prescriptions_refused": [
+        "z=3104 to hold the block's framing: hid it behind the horizon band",
+        "the bucket truck at true scale: 2065px wide in a 1080px frame",
+        "raising groundY: hid the building, twice in one run",
+        "w:395 h:66: renders 1837px wide, not the 864 claimed, because fit() normalises on height",
+        "an opaque fill for the Abilene halls: the fill was already opaque and the hall was floating"
+      ],
+      "still_owed": [
+        "The shot list is the ceiling. Nine of twelve scenes are two locations, six deliver their payload as a text panel, and the hook opens on the building the film argues is unremarkable. Those are Phase 4 decisions and no defect pass reaches them.",
+        "Two Abilene VO lines call a disclosed figure an estimate and then say nobody publishes it. c19's own note says the opposite. Two lines and a re-synth.",
+        "The rubric's traceability hard fail names the quote but the gate applies the VERIFIED test only to supers, so rubric and gate diverge on the one PARTIAL claim that carries a script figure. Split c19.",
+        "A caption_claim and readout_claim binding, so a figure can be checked against the SUBJECT it is printed over and not only against quote containment."
+      ]
     }
-   ],
-   "sibling_fixes": [
-    "site_build deleted docs/videos/videos.json, which its own ownership note forbids, and site_fresh_check structurally cannot see it because it builds into a temp dir. The build now carries externally owned files through the wipe by name.",
-    "ownership.yaml lists dispatch under rebuild_by for docs/**, because writing the feed changes a number the site displays and the publish could not otherwise leave that site consistent with its own ledgers."
-   ],
-   "prescriptions_refused": [
-    "z=3104 to hold the block's framing: hid it behind the horizon band",
-    "the bucket truck at true scale: 2065px wide in a 1080px frame",
-    "raising groundY: hid the building, twice in one run",
-    "w:395 h:66: renders 1837px wide, not the 864 claimed, because fit() normalises on height",
-    "an opaque fill for the Abilene halls: the fill was already opaque and the hall was floating"
-   ],
-   "still_owed": [
-    "The shot list is the ceiling. Nine of twelve scenes are two locations, six deliver their payload as a text panel, and the hook opens on the building the film argues is unremarkable. Those are Phase 4 decisions and no defect pass reaches them.",
-    "Two Abilene VO lines call a disclosed figure an estimate and then say nobody publishes it. c19's own note says the opposite. Two lines and a re-synth.",
-    "The rubric's traceability hard fail names the quote but the gate applies the VERIFIED test only to supers, so rubric and gate diverge on the one PARTIAL claim that carries a script figure. Split c19.",
-    "A caption_claim and readout_claim binding, so a figure can be checked against the SUBJECT it is printed over and not only against quote containment."
-   ]
-  }
- ]
+  ]
 }
