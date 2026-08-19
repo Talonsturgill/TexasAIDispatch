@@ -50,7 +50,7 @@
               "scale": 1,
               "props": {
                 "horizonY": 1420,
-                "lit": 0.5
+                "lit": 0.9
               }
             }
           ]
@@ -164,12 +164,12 @@
       "vo": "",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.2,
+          "what": "the near cabinets begin to pass out of frame on both sides"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.6,
+          "what": "the technician resolves at the far end of the aisle"
         }
       ]
     },
@@ -185,7 +185,7 @@
       "caption": "It used to take phone orders. Now it takes allocations.",
       "hero": "an ordinary brick block off a frontage road",
       "beat": "motion",
-      "on_screen": "a long brick block with arched windows set back off a frontage road, a pole sign with nothing written on it, live oaks behind the roof line, a transformer in the side yard, a pickup rolling along the near lane",
+      "on_screen": "a low mansard roofed commercial box set back off a frontage road, a pole sign with nothing written on it, live oaks behind the roof line, a transformer in the side yard, a pickup rolling along the near lane",
       "what_moves": "the camera drifts left to right along the front of the building, the pickup runs the near lane against the drift, and the oaks slide open behind the roof",
       "cast": [],
       "planes": [
@@ -218,10 +218,15 @@
           "label": "the block",
           "items": [
             {
-              "kind": "storefrontBlock",
-              "x": 100,
-              "y": 1200,
-              "scale": 0.26
+              "kind": "mansardBox",
+              "x": 70,
+              "y": 1215,
+              "scale": 0.42,
+              "props": {
+                "w": 760,
+                "h": 150,
+                "closed": true
+              }
             }
           ]
         },
@@ -231,9 +236,12 @@
           "items": [
             {
               "kind": "poleSign",
-              "x": 800,
-              "y": 1215,
-              "scale": 0.24
+              "x": 820,
+              "y": 1230,
+              "scale": 0.24,
+              "props": {
+                "dead": true
+              }
             },
             {
               "kind": "transformer",
@@ -283,12 +291,12 @@
       "vo": "Off a frontage road in Round Rock, in a building that took phone orders, sits Horizon.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.0,
+          "what": "the pole sign clears the roof line"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.4,
+          "what": "the pickup crosses the near lane"
         }
       ]
     },
@@ -394,12 +402,12 @@
       "vo": "",
       "visual_events": [
         {
-          "at_s": 0.84,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.1,
+          "what": "the transformer pad drops out of frame"
         },
         {
-          "at_s": 2.22,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.5,
+          "what": "the cooling tower fans come into view"
         }
       ]
     },
@@ -553,12 +561,12 @@
       "vo": "Half is running. The rest comes this winter.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.3,
+          "what": "the first dashed outline passes under the camera"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.8,
+          "what": "the count of empty ranks resolves"
         }
       ]
     },
@@ -686,11 +694,11 @@
       "visual_events": [
         {
           "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "what": "the panel turns square to the viewer"
         },
         {
           "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "what": "the access line lands"
         }
       ]
     },
@@ -708,7 +716,7 @@
       "hero": "a fully specified price list for a door nobody outside can open",
       "beat": "revelation",
       "on_screen": "the production queue table lit on the end wall of the hall, queue names against node caps and runtime limits and a charge rate, with the cabinets it charges for working in front of it",
-      "what_moves": "the camera trucks across the end wall so the table slides through the frame while the cabinets in front of it pass the other way, which is the parallax doing the reading",
+      "what_moves": "the camera trucks across the hall so the cabinets behind the table slide past it at their own rate, which is the parallax doing the reading",
       "cast": [],
       "planes": [
         {
@@ -721,23 +729,63 @@
               "y": 0,
               "scale": 1,
               "props": {
-                "horizonY": 1400,
-                "lit": 0.6
+                "horizonY": 1420,
+                "lit": 0.55
               }
             }
           ]
         },
         {
           "z": 430,
+          "label": "mid ranks",
+          "items": [
+            {
+              "kind": "cabinet",
+              "x": 20,
+              "y": 1560,
+              "scale": 0.75
+            },
+            {
+              "kind": "cabinet",
+              "x": 500,
+              "y": 1560,
+              "scale": 0.75
+            },
+            {
+              "kind": "cabinet",
+              "x": 980,
+              "y": 1560,
+              "scale": 0.75
+            }
+          ]
+        },
+        {
+          "z": 200,
+          "label": "the floor",
+          "items": [
+            {
+              "kind": "hallShell",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "horizonY": 1420,
+                "floorOnly": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 90,
           "label": "the table",
           "items": [
             {
               "kind": "readout",
-              "x": 250,
+              "x": 120,
               "y": 1080,
               "props": {
                 "title": "production queues",
-                "w": 580,
+                "w": 840,
                 "rows": [
                   [
                     "gb",
@@ -759,70 +807,18 @@
               }
             }
           ]
-        },
-        {
-          "z": 220,
-          "label": "mid ranks",
-          "items": [
-            {
-              "kind": "cabinet",
-              "x": 20,
-              "y": 1660,
-              "scale": 0.85
-            },
-            {
-              "kind": "cabinet",
-              "x": 500,
-              "y": 1660,
-              "scale": 0.85
-            },
-            {
-              "kind": "cabinet",
-              "x": 980,
-              "y": 1660,
-              "scale": 0.85
-            }
-          ]
-        },
-        {
-          "z": 60,
-          "label": "aisle floor",
-          "items": [
-            {
-              "kind": "hallShell",
-              "x": 0,
-              "y": 0,
-              "scale": 1,
-              "props": {
-                "horizonY": 1400,
-                "floorOnly": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": -380,
-              "y": 1990,
-              "scale": 1.45
-            },
-            {
-              "kind": "cabinet",
-              "x": 1180,
-              "y": 1990,
-              "scale": 1.45
-            }
-          ]
         }
       ],
       "start_s": 25.0,
       "vo": "The queue table under it is finished, priced by the node hour.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.2,
+          "what": "the first queue row enters the frame"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.6,
+          "what": "the charge rate column arrives"
         }
       ]
     },
@@ -937,12 +933,12 @@
       "vo": "West of there, the private campus at Abilene has an estimated fifty thousand accelerators in one building.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.5,
+          "what": "the mesquite drops below the frame"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.9,
+          "what": "both halls run out past the edges"
         }
       ]
     },
@@ -960,7 +956,7 @@
       "hero": "the two machines in one frame, drawn to the same scale",
       "beat": "revelation",
       "on_screen": "one frame split down the middle, the public machine on the left drawn as solid lit cabinets that stop where they stop, the private one on the right drawn as dashed empty outlines because nobody outside publishes a count for it, running straight off the edge of the frame and not stopping",
-      "what_moves": "the camera trucks right so the solid side leaves the frame and the dashed outlines keep arriving, and they are still arriving when the shot ends",
+      "what_moves": "the camera trucks right so the three solid cabinets leave the frame and the dashed outlines keep arriving at the same size on the same floor, and they are still arriving when the shot ends",
       "cast": [],
       "planes": [
         {
@@ -974,89 +970,38 @@
               "scale": 1,
               "props": {
                 "horizonY": 1560,
-                "lit": 0.35
+                "lit": 0.32
               }
             }
           ]
         },
         {
           "z": 520,
-          "label": "the counted side",
+          "label": "the run continuing into depth",
           "items": [
             {
               "kind": "cabinet",
-              "x": 30,
-              "y": 1420,
-              "scale": 0.52
-            },
-            {
-              "kind": "cabinet",
-              "x": 190,
-              "y": 1420,
-              "scale": 0.52
-            },
-            {
-              "kind": "cabinet",
-              "x": 350,
-              "y": 1420,
-              "scale": 0.52
-            }
-          ]
-        },
-        {
-          "z": 300,
-          "label": "the uncounted side",
-          "items": [
-            {
-              "kind": "cabinet",
-              "x": 600,
-              "y": 1600,
-              "scale": 0.8,
+              "x": 700,
+              "y": 1330,
+              "scale": 0.5,
               "props": {
                 "unknown": true
               }
             },
             {
               "kind": "cabinet",
-              "x": 760,
-              "y": 1600,
-              "scale": 0.8,
+              "x": 830,
+              "y": 1330,
+              "scale": 0.5,
               "props": {
                 "unknown": true
               }
             },
             {
               "kind": "cabinet",
-              "x": 920,
-              "y": 1600,
-              "scale": 0.8,
-              "props": {
-                "unknown": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": 1080,
-              "y": 1600,
-              "scale": 0.8,
-              "props": {
-                "unknown": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": 1240,
-              "y": 1600,
-              "scale": 0.8,
-              "props": {
-                "unknown": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": 1400,
-              "y": 1600,
-              "scale": 0.8,
+              "x": 960,
+              "y": 1330,
+              "scale": 0.5,
               "props": {
                 "unknown": true
               }
@@ -1064,8 +1009,68 @@
           ]
         },
         {
-          "z": 140,
-          "label": "nearer, still uncounted",
+          "z": 300,
+          "label": "one scale, both rooms",
+          "items": [
+            {
+              "kind": "cabinet",
+              "x": 60,
+              "y": 1620,
+              "scale": 0.8
+            },
+            {
+              "kind": "cabinet",
+              "x": 230,
+              "y": 1620,
+              "scale": 0.8
+            },
+            {
+              "kind": "cabinet",
+              "x": 400,
+              "y": 1620,
+              "scale": 0.8
+            },
+            {
+              "kind": "cabinet",
+              "x": 620,
+              "y": 1620,
+              "scale": 0.8,
+              "props": {
+                "unknown": true
+              }
+            },
+            {
+              "kind": "cabinet",
+              "x": 790,
+              "y": 1620,
+              "scale": 0.8,
+              "props": {
+                "unknown": true
+              }
+            },
+            {
+              "kind": "cabinet",
+              "x": 960,
+              "y": 1620,
+              "scale": 0.8,
+              "props": {
+                "unknown": true
+              }
+            },
+            {
+              "kind": "cabinet",
+              "x": 1130,
+              "y": 1620,
+              "scale": 0.8,
+              "props": {
+                "unknown": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "the floor",
           "items": [
             {
               "kind": "hallShell",
@@ -1076,54 +1081,6 @@
                 "horizonY": 1560,
                 "floorOnly": true
               }
-            },
-            {
-              "kind": "cabinet",
-              "x": 700,
-              "y": 1860,
-              "scale": 1.2,
-              "props": {
-                "unknown": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": 940,
-              "y": 1860,
-              "scale": 1.2,
-              "props": {
-                "unknown": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": 1180,
-              "y": 1860,
-              "scale": 1.2,
-              "props": {
-                "unknown": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": 1420,
-              "y": 1860,
-              "scale": 1.2,
-              "props": {
-                "unknown": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 45,
-          "label": "the counted foreground",
-          "items": [
-            {
-              "kind": "cabinet",
-              "x": -60,
-              "y": 2080,
-              "scale": 1.5
             }
           ]
         }
@@ -1132,12 +1089,12 @@
       "vo": "Nobody outside publishes that.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.3,
+          "what": "the solid cabinets begin to leave the frame"
         },
         {
           "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "what": "the dashed run is still arriving"
         }
       ]
     },
@@ -1150,15 +1107,15 @@
       "seed": 109,
       "groundY": 1230,
       "super": "nobody publishes it",
-      "caption": "Per site large load metering is confidential, so the number stays inside.",
+      "caption": "Capacities for these sites have not been reported consistently.",
       "hero": "the one person on that road who ought to know the load and cannot",
       "beat": "emotion",
-      "on_screen": "a ranch gate and a cattle guard on the county road at the edge of the campus, a lineworker stopped by her bucket truck at the fence looking across at the halls, the halls low and far behind the wire",
+      "on_screen": "a cattle guard on the county road at the edge of the campus, a lineworker stopped by her bucket truck looking across at the halls, the halls low and far behind her",
       "what_moves": "the camera comes down onto the fence line until the lineworker is the biggest thing in frame, the halls stay exactly as far away as they were, and she goes back to the truck",
       "cast": [
         {
           "id": "lineworker",
-          "feeling": "the one on that road whose job is the load, and she can't look it up either"
+          "feeling": "the one on that road whose job is the load, looking at a thing with no published number on it"
         }
       ],
       "planes": [
@@ -1185,10 +1142,13 @@
           "label": "the fence line",
           "items": [
             {
-              "kind": "ranchGate",
-              "x": 580,
-              "y": 1260,
-              "scale": 0.4
+              "kind": "cattleGuard",
+              "x": 520,
+              "y": 1300,
+              "scale": 1.1,
+              "props": {
+                "w": 300
+              }
             }
           ]
         },
@@ -1197,19 +1157,10 @@
           "label": "the county road",
           "items": [
             {
-              "kind": "cattleGuard",
-              "x": 180,
-              "y": 1330,
-              "scale": 0.7,
-              "props": {
-                "w": 260
-              }
-            },
-            {
               "kind": "bucketTruck",
               "x": 760,
-              "y": 1350,
-              "scale": 0.2,
+              "y": 1360,
+              "scale": 0.22,
               "facing": -1
             }
           ]
@@ -1220,9 +1171,9 @@
           "items": [
             {
               "kind": "person",
-              "x": 330,
-              "y": 1760,
-              "scale": 1.3,
+              "x": 300,
+              "y": 1740,
+              "scale": 1.25,
               "props": {
                 "cast": "lineworker",
                 "pose": "hands-hips",
@@ -1231,9 +1182,9 @@
             },
             {
               "kind": "pricklyPear",
-              "x": 960,
-              "y": 1700,
-              "scale": 0.32
+              "x": 980,
+              "y": 1720,
+              "scale": 0.3
             }
           ]
         }
@@ -1242,12 +1193,12 @@
       "vo": "",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.2,
+          "what": "the lineworker becomes the largest thing in frame"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.6,
+          "what": "the halls stay exactly as far away"
         }
       ]
     },
@@ -1380,11 +1331,11 @@
       "visual_events": [
         {
           "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "what": "the switchgear yard swings out from behind the building"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.8,
+          "what": "the rank gap lands"
         }
       ]
     },
@@ -1418,6 +1369,18 @@
               "x": 760,
               "y": 1150,
               "scale": 0.16
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "the rack against the wall",
+          "items": [
+            {
+              "kind": "rackRow",
+              "x": -120,
+              "y": 1360,
+              "scale": 0.3
             }
           ]
         },
@@ -1481,9 +1444,9 @@
           "items": [
             {
               "kind": "person",
-              "x": 300,
-              "y": 1760,
-              "scale": 1.55,
+              "x": 360,
+              "y": 1720,
+              "scale": 1.3,
               "props": {
                 "cast": "resident",
                 "outfit": "polo-badge",
@@ -1499,8 +1462,8 @@
           "items": [
             {
               "kind": "confidenceSpread",
-              "x": 90,
-              "y": 1880,
+              "x": 110,
+              "y": 1640,
               "props": {
                 "values": [
                   0.12,
@@ -1512,8 +1475,8 @@
                   0.9,
                   1.0
                 ],
-                "w": 900,
-                "h": 150
+                "w": 880,
+                "h": 160
               }
             }
           ]
@@ -1523,12 +1486,12 @@
       "vo": "Somebody spent three years porting code for a door that says no.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.3,
+          "what": "the bars begin to climb the near frame"
         },
         {
           "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "what": "her face becomes the biggest thing in the shot"
         }
       ]
     },
@@ -1544,7 +1507,7 @@
       "caption": "The city measured the water here and put the figure on a page.",
       "hero": "the same unremarkable block, at the end of the day",
       "beat": "emotion",
-      "on_screen": "the brick block off the frontage road again in late light, the blank pole sign catching the last of it, the transformer in the yard, and a small lit panel giving the water the city measured and published, live oaks going dark behind the roof line",
+      "on_screen": "the low mansard roofed box off the frontage road again in late light, the blank pole sign catching the last of it, the transformer in the yard, and a small lit panel giving the water the city measured and published, live oaks going dark behind the roof line",
       "what_moves": "the camera comes down from over the oaks to the height the film started at, the light on the pole sign warms as it falls, and the frame settles and holds",
       "cast": [],
       "planes": [
@@ -1571,10 +1534,16 @@
           "label": "the block",
           "items": [
             {
-              "kind": "storefrontBlock",
-              "x": 80,
-              "y": 1210,
-              "scale": 0.24
+              "kind": "mansardBox",
+              "x": 60,
+              "y": 1225,
+              "scale": 0.4,
+              "props": {
+                "w": 760,
+                "h": 150,
+                "closed": true,
+                "night": true
+              }
             }
           ]
         },
@@ -1584,9 +1553,12 @@
           "items": [
             {
               "kind": "poleSign",
-              "x": 820,
-              "y": 1225,
-              "scale": 0.25
+              "x": 830,
+              "y": 1240,
+              "scale": 0.25,
+              "props": {
+                "dead": true
+              }
             },
             {
               "kind": "transformer",
@@ -1644,12 +1616,12 @@
       "vo": "What makes it public was never its size. The city measured the water and put it on a page. The only machine in Texas you can check is the small one.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the move is under way and the near plane has begun to pass"
+          "at_s": 1.2,
+          "what": "the light on the pole sign warms"
         },
         {
-          "at_s": 3.7,
-          "what": "the shot has changed what it is showing"
+          "at_s": 3.6,
+          "what": "the frame settles at the height it started at"
         }
       ]
     }
