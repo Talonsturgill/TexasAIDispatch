@@ -224,6 +224,25 @@ export interface CharacterProps {
   headgear?: Headgear;
   /** a value from SKIN. A fill only: it never changes the line work. */
   skin?: string;
+  /**
+   * FACIAL SHAPE LANGUAGE, 0 to 1, and it is the vernacular's own answer to the question
+   * this rig had left unanswered.
+   *
+   * The two laws say facial variation lives in SHAPE LANGUAGE APPLIED EVENLY ACROSS ALL
+   * CHARACTERS, and that skin tone is a fill that never touches the line work. The second
+   * half was implemented and the first was not, so every person this show has drawn wore
+   * one face: a circle of radius `HEAD_R`, identical eye spacing, identical jaw. A panel
+   * read two characters in two scenes and reported them as the same person with the fill
+   * changed, which is exactly the failure the law is written to prevent, arrived at from
+   * the cautious side rather than the caricaturing one.
+   *
+   * This is ONE geometry at a setting, never a different geometry per person. The same
+   * three numbers move for everybody: how round or long the skull is, how far apart the
+   * eyes sit, how heavy the brow rides. 0 is a wide round face and 1 is a narrow long
+   * one, and no value produces a feature another value cannot. That is what keeps
+   * variation from sliding into caricature in a thick-outline idiom.
+   */
+  face?: number;
   hair?: string;
   /** iris colour. A fill only, like `skin`, and it never changes the line work.
    *  The DEFAULT IS DARK BROWN because the default is what the whole cast gets, and
@@ -277,6 +296,7 @@ export const Character: React.FC<CharacterProps> = ({
   outfit = 'work-shirt',
   headgear = 'bare',
   skin = SKIN[2],
+  face = 0.5,
   hair = HAIR[2],
   eyes = '#3a2a20',
   facing = 1,
@@ -320,6 +340,14 @@ export const Character: React.FC<CharacterProps> = ({
   const shoulderW = 74 + build * 20;
   const waistW = 56 + build * 30;
   const headR = HEAD_R;
+  // The face's own three numbers, all off the one `face` value so they move together and
+  // a character cannot end up with a long skull and wide-set eyes by independent accident.
+  // The range is deliberately narrow: these read at the size a person is actually drawn
+  // here, and anything wider starts making faces rather than making people.
+  const fv = Math.max(0, Math.min(1, face));
+  const headRX = headR * (1.07 - fv * 0.14);
+  const headRY = headR * (0.95 + fv * 0.12);
+  const eyeX = 22 * (1.06 - fv * 0.13);
   const stoop = age * 6;              // older figures carry a little forward lean
 
   // ------------------------------------------------------------------ walk / idle
@@ -479,19 +507,21 @@ export const Character: React.FC<CharacterProps> = ({
       <g transform={`translate(0 ${86 + stoop * 0.5}) rotate(${sway * 0.8})`}>
         {/* the under-chin shadow. The neck itself is drawn before the torso now, see
             the note there, so only the AO that belongs to the head stays here. */}
-        <ellipse cx={0} cy={HEAD_CY + 42} rx={21} ry={7} fill={skinShade} opacity={0.5} />
+        <ellipse cx={0} cy={HEAD_CY + headRY * 0.81} rx={headRX * 0.40} ry={7} fill={skinShade} opacity={0.5} />
 
-        <circle cx={0} cy={HEAD_CY} r={headR} fill={`url(#${uid}_skin)`} stroke={INK} strokeWidth={6} />
-        {/* ears — same geometry every character, sized from headR */}
+        <ellipse cx={0} cy={HEAD_CY} rx={headRX} ry={headRY} fill={`url(#${uid}_skin)`}
+          stroke={INK} strokeWidth={6} />
+        {/* ears — same geometry every character, hung off the skull's own width so they
+            stay on the head at every setting rather than floating off a wide one */}
         {[-1, 1].map((s) => (
-          <ellipse key={s} cx={s * headR * 0.96} cy={HEAD_CY + 8} rx={headR * 0.17} ry={headR * 0.24}
+          <ellipse key={s} cx={s * headRX * 0.96} cy={HEAD_CY + 8} rx={headR * 0.17} ry={headR * 0.24}
             fill={skin} stroke={INK} strokeWidth={4.5} />
         ))}
 
         {/* eyes */}
         {[-1, 1].map((s) => (
           <g key={s}>
-            <ellipse cx={s * 22} cy={HEAD_CY - 4} rx={eyeR} ry={eyeR * blink} fill="#ffffff"
+            <ellipse cx={s * eyeX} cy={HEAD_CY - 4} rx={eyeR} ry={eyeR * blink} fill="#ffffff"
               stroke={INK} strokeWidth={3.4} />
             {blink > 0.25 && (
               <>
@@ -501,8 +531,8 @@ export const Character: React.FC<CharacterProps> = ({
                     every shot. A resting eye shows very little sclera. This is shape
                     language applied evenly across the whole cast, which is where the
                     vernacular says facial variation is allowed to live. */}
-                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.68} fill={eyes} />
-                <circle cx={s * 22 + 2} cy={HEAD_CY - 4} r={eyeR * 0.31} fill={INK} />
+                <circle cx={s * eyeX + 2} cy={HEAD_CY - 4} r={eyeR * 0.68} fill={eyes} />
+                <circle cx={s * eyeX + 2} cy={HEAD_CY - 4} r={eyeR * 0.31} fill={INK} />
               </>
             )}
           </g>
@@ -510,7 +540,7 @@ export const Character: React.FC<CharacterProps> = ({
         {/* brows — ONE shape, rotated and offset by emotion. Never a different shape
             per character, which is where caricature enters. */}
         {[-1, 1].map((s) => (
-          <path key={s} d={`M${s * 30},${HEAD_CY - 22 + browY} q${-s * 11},-6 ${-s * 22},0`}
+          <path key={s} d={`M${s * (eyeX + 8)},${HEAD_CY - 22 + browY} q${-s * 11},-6 ${-s * eyeX},0`}
             stroke={INK} strokeWidth={5.5} fill="none" strokeLinecap="round"
             transform={`rotate(${s * browTil} ${s * 22} ${HEAD_CY - 22 + browY})`} />
         ))}
@@ -529,9 +559,9 @@ export const Character: React.FC<CharacterProps> = ({
 
         {glasses && (
           <g stroke={INK} strokeWidth={4} fill="none" opacity={0.9}>
-            <circle cx={-22} cy={HEAD_CY - 4} r={eyeR + 6} />
-            <circle cx={22} cy={HEAD_CY - 4} r={eyeR + 6} />
-            <path d={`M${-22 + eyeR + 6},${HEAD_CY - 4} h${44 - 2 * (eyeR + 6)}`} />
+            <circle cx={-eyeX} cy={HEAD_CY - 4} r={eyeR + 6} />
+            <circle cx={eyeX} cy={HEAD_CY - 4} r={eyeR + 6} />
+            <path d={`M${-eyeX + eyeR + 6},${HEAD_CY - 4} h${2 * eyeX - 2 * (eyeR + 6)}`} />
           </g>
         )}
 
@@ -826,39 +856,41 @@ export interface CastMember {
   build: number;
   age: number;
   glasses?: boolean;
+  /** this person's setting on the one facial geometry. See `face` on the rig. */
+  face: number;
   note: string;
 }
 
 export const CAST: CastMember[] = [
-  {id: 'engineer',    outfit: 'fr-coveralls', headgear: 'hard-hat',      skin: SKIN[3], hair: HAIR[0], build: 0.45, age: 0.35,
+  {id: 'engineer',    outfit: 'fr-coveralls', headgear: 'hard-hat',      skin: SKIN[3], hair: HAIR[0], face: 0.42, build: 0.45, age: 0.35,
    note: 'Hispanic woman engineer. Permian, petrochemical, substation.'},
-  {id: 'rancher',     outfit: 'pearl-snaps',  headgear: 'straw-hat',     skin: SKIN[1], hair: HAIR[6], build: 0.62, age: 0.78,
+  {id: 'rancher',     outfit: 'pearl-snaps',  headgear: 'straw-hat',     skin: SKIN[1], hair: HAIR[6], face: 0.18, build: 0.62, age: 0.78,
    note: 'White rancher, older. Hat is real and seasonal: straw Easter to Labor Day.'},
-  {id: 'executive',   outfit: 'business',     headgear: 'bare',          skin: SKIN[6], hair: HAIR[0], build: 0.48, age: 0.5,
+  {id: 'executive',   outfit: 'business',     headgear: 'bare',          skin: SKIN[6], hair: HAIR[0], face: 0.62, build: 0.48, age: 0.5,
    note: 'Black woman executive. Houston, Dallas, a committee room.'},
-  {id: 'dctech',      outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[4], hair: HAIR[0], build: 0.5, age: 0.32, glasses: true,
+  {id: 'dctech',      outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[4], hair: HAIR[0], face: 0.74, build: 0.5, age: 0.32, glasses: true,
    note: 'South Asian data centre technician. Hard hat only in the yard.'},
-  {id: 'owner',       outfit: 'apron',        headgear: 'bare',          skin: SKIN[2], hair: HAIR[0], build: 0.55, age: 0.55,
+  {id: 'owner',       outfit: 'apron',        headgear: 'bare',          skin: SKIN[2], hair: HAIR[0], face: 0.3, build: 0.55, age: 0.55,
    note: 'Vietnamese-American small business owner. Gulf Coast, Houston.'},
-  {id: 'operator',    outfit: 'fr-coveralls', headgear: 'hard-hat-hood', skin: SKIN[7], hair: HAIR[0], build: 0.68, age: 0.48,
+  {id: 'operator',    outfit: 'fr-coveralls', headgear: 'hard-hat-hood', skin: SKIN[7], hair: HAIR[0], face: 0.1, build: 0.68, age: 0.48,
    note: 'Black petrochemical operator. Ship channel, Beaumont. Gas monitor at the collar.'},
-  {id: 'hand',        outfit: 'work-shirt',   headgear: 'palm-straw',    skin: SKIN[4], hair: HAIR[0], build: 0.5, age: 0.42,
+  {id: 'hand',        outfit: 'work-shirt',   headgear: 'palm-straw',    skin: SKIN[4], hair: HAIR[0], face: 0.55, build: 0.5, age: 0.42,
    note: 'Hispanic man, norteño palm straw. Taller narrower crown, flatter brim.'},
-  {id: 'clinician',   outfit: 'scrubs',       headgear: 'scrub-cap',     skin: SKIN[0], hair: HAIR[4], build: 0.44, age: 0.38,
+  {id: 'clinician',   outfit: 'scrubs',       headgear: 'scrub-cap',     skin: SKIN[0], hair: HAIR[4], face: 0.8, build: 0.44, age: 0.38,
    note: 'White woman in scrubs. Houston medical centre.'},
-  {id: 'lineworker',  outfit: 'line-fr',      headgear: 'hard-hat',      skin: SKIN[5], hair: HAIR[0], build: 0.58, age: 0.44,
+  {id: 'lineworker',  outfit: 'line-fr',      headgear: 'hard-hat',      skin: SKIN[5], hair: HAIR[0], face: 0.36, build: 0.58, age: 0.44,
    note: 'Black woman lineworker. Transmission, grid restoration.'},
-  {id: 'resident',    outfit: 'work-shirt',   headgear: 'bare',          skin: SKIN[3], hair: HAIR[6], build: 0.6, age: 0.82, glasses: true,
+  {id: 'resident',    outfit: 'work-shirt',   headgear: 'bare',          skin: SKIN[3], hair: HAIR[6], face: 0.66, build: 0.6, age: 0.82, glasses: true,
    note: 'Older Hispanic woman at a hearing, a public comment desk.'},
   // A FARMER IS NOT A RANCHER, and the hat is where Texas says so. A High Plains
   // row-crop farmer wears a GIMME CAP, which the headgear notes already call the
   // most-worn hat in working Texas and the least drawn. Putting a straw hat on the
   // aquifer beat would be casting the cattle country next door.
-  {id: 'farmer',      outfit: 'work-shirt',   headgear: 'gimme-cap',     skin: SKIN[2], hair: HAIR[2], build: 0.56, age: 0.55,
+  {id: 'farmer',      outfit: 'work-shirt',   headgear: 'gimme-cap',     skin: SKIN[2], hair: HAIR[2], face: 0.24, build: 0.56, age: 0.55,
    note: 'High Plains row-crop farmer. Cotton and grain sorghum over the Ogallala.'},
-  {id: 'technician',  outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[5], hair: HAIR[4], build: 0.47, age: 0.36,
+  {id: 'technician',  outfit: 'polo-badge',   headgear: 'bare',          skin: SKIN[5], hair: HAIR[4], face: 0.88, build: 0.47, age: 0.36,
    note: 'Fab technician, Taylor or Sherman. Badge on the collar, no hat on a clean floor.'},
-  {id: 'hydrologist', outfit: 'hi-vis',       headgear: 'ball-cap',      skin: SKIN[1], hair: HAIR[0], build: 0.5, age: 0.46,
+  {id: 'hydrologist', outfit: 'hi-vis',       headgear: 'ball-cap',      skin: SKIN[1], hair: HAIR[0], face: 0.48, build: 0.5, age: 0.46,
    note: 'River authority field hydrologist, servicing a gauge on a bank.'},
 ];
 

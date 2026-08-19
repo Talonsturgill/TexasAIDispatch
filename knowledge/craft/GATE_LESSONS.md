@@ -994,3 +994,52 @@ The same block was also drawing crowns over twice as wide as the lane they were 
 into, which is why stratifying x had not stopped them merging into a hedge. A spacing rule is
 worth nothing until the thing being spaced is measured against it, and the ceiling should be
 solved against the spacing rather than chosen and hoped for.
+
+## The wait that watched itself, and why it is a file rather than a comment
+
+A step that takes ninety seconds held a run for forty minutes, and nothing anywhere
+reported a problem, because the failure and the success look identical from outside.
+
+The script wanted to wait out a render and wrote the obvious thing:
+
+```
+while pgrep -f "remotion render Dispatch" >/dev/null; do sleep 15; done
+```
+
+`pgrep -f` matches the FULL COMMAND LINE of every process on the box, and the waiting
+shell's own command line contains the pattern, because it is right there in the `while`
+condition. The loop matched itself. The condition was true forever and could not become
+false no matter what the render did.
+
+**The same mistake was then made a second time, at the top level, within the hour**, by a
+wait written as `while pgrep -f finish_render.sh; do sleep 10; done`. That is the tell
+that it is not a typo. It is the obvious thing to write, it is wrong, and it is invisible:
+a self-matching wait and a genuinely slow job produce identical evidence, which is no
+evidence at all.
+
+`scripts/waitfor.sh` is the fix, and getting it right took three tries that its own
+self-test caught one after another. Each failure is worth keeping, because each was a
+plausible answer that did not work:
+
+1. **Excluding `$$` is not enough.** The subshell that runs `pgrep` is a child and carries
+   the pattern too.
+2. **Excluding the process GROUP is not enough either.** The harness wrapper that launched
+   the script is an ANCESTOR in a different group, and its command line contains the whole
+   command string. The unit that has to be excluded is the ancestor chain, walked with
+   `ps -o ppid=`.
+3. **A pid you cannot inspect is not evidence the job is running.** The `$(...)` subshells
+   the loop spawns to read `ps` carry the pattern and then exit, so `pgrep` returns pids
+   that are already gone. Counting that empty answer as a live match kept the loop spinning
+   even after the exclusion was correct, which is the original bug wearing a third hat: the
+   waiter seeing its own machinery and calling it the job.
+
+Two rules fall out, and the helper enforces both.
+
+**Prefer a PID to a pattern.** A pid cannot match itself and needs no exclusion reasoning.
+`wait_for_pids` is the form to reach for whenever the pid is available.
+
+**Every wait carries a deadline.** A wait that cannot time out can hang the run, and the
+one outcome law says a blocked run reports an error, which it cannot do from inside an
+infinite loop. Note that in the failing self-test runs above, the deadline is the only
+reason anything was ever reported at all. The guard that saved the diagnosis was the
+belt, not the braces.

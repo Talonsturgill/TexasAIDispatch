@@ -444,10 +444,17 @@ export const CattleGuard: React.FC<KitProps & {w?: number}> = ({
   const K = fit('cattleGuard');
   return (
   <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
-    <rect x={-w / 2} y={-16} width={w} height={32} fill="#6f6558" stroke={INK} strokeWidth={4} />
+    {/* THE GAP IS THE WHOLE POINT AND THERE WAS NO GAP.
+        Nine pipes were stroked at width 3.4 on a pitch of 3.4, so every pipe touched its
+        neighbours and the deck rendered as one flat grey slab. A scorer read it as a blank
+        plank lying in the road and was right to: what stops a cow is that she can see down
+        between the pipes, and a drawing with no daylight in it is not a cattle guard, it is
+        a bridge. The base is the PIT under the deck, which is dark, and the pipes are
+        narrower than their pitch so the dark shows through in stripes. */}
+    <rect x={-w / 2} y={-16} width={w} height={32} fill="#22201c" stroke={INK} strokeWidth={4} />
     {Array.from({length: 9}, (_, i) => (
       <line key={i} x1={-w / 2 + 8} y1={-13 + i * 3.4} x2={w / 2 - 8} y2={-13 + i * 3.4}
-        stroke="#b9b0a2" strokeWidth={3.4} strokeLinecap="round" />
+        stroke="#b9b0a2" strokeWidth={1.9} strokeLinecap="butt" />
     ))}
     {/* wing fences, leaning slightly, because a straight fence line is a tell */}
     {[-1, 1].map((s) => (
