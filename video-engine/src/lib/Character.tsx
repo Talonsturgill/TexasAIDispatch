@@ -413,13 +413,37 @@ export const Character: React.FC<CharacterProps> = ({
   const sleeve = (a: ArmChain) =>
     `M${a.sx},${a.sy} L${a.ex},${a.ey} L${a.wx},${a.wy}`;
 
-  const hand = (a: ArmChain, key: string) => (
-    <g key={key}>
-      <circle cx={a.wx} cy={a.wy} r={13} fill={skin} stroke={INK} strokeWidth={5} />
-      <path d={`M${a.wx - 5},${a.wy + 2} q5,5 10,0`} stroke={skinShade} strokeWidth={2.6}
-        fill="none" opacity={0.6} strokeLinecap="round" />
-    </g>
-  );
+  // A HAND IS A MITT ON THE END OF A FOREARM, NOT A DISC AT THE WRIST.
+  //
+  // This was a circle of radius 13 centred exactly on the wrist joint, inside a sleeve
+  // stroked at width 28. So it was NARROWER than the arm it terminated and it sat at the
+  // arm's end rather than past it, which reads as a bead threaded on a tube. Three
+  // scorers described it the same way without conferring: detached orange discs floating
+  // clear of the cuff.
+  //
+  // The fix is to give it the forearm's own direction, which `armChain` already returns
+  // as `wristDeg`. The mitt extends BEYOND the wrist along that direction, so it reads as
+  // continuing the limb, and it is rotated with it, so it turns when the arm turns rather
+  // than staying a circle at every pose. A thumb sits on the leading edge, which is the
+  // one detail that separates a hand from a paddle at this size.
+  const hand = (a: ArmChain, key: string) => {
+    const rad = (a.wristDeg * Math.PI) / 180;
+    const dx = Math.sin(rad), dy = Math.cos(rad);
+    const cx = a.wx + dx * 9, cy = a.wy + dy * 9;
+    return (
+      <g key={key} transform={`rotate(${-a.wristDeg} ${cx} ${cy})`}>
+        {/* the thumb, on the leading edge and drawn first so the palm laps over it */}
+        <ellipse cx={cx - 9} cy={cy - 3} rx={5.5} ry={7.5} fill={skin}
+          stroke={INK} strokeWidth={4.5} />
+        {/* the palm and closed fingers as one soft mitt, a shade wider than the sleeve so
+            the hand ENDS the arm instead of being swallowed by it */}
+        <ellipse cx={cx} cy={cy} rx={11.5} ry={15.5} fill={skin}
+          stroke={INK} strokeWidth={5} />
+        <path d={`M${cx - 6},${cy + 5} q6,4.5 12,0`} stroke={skinShade} strokeWidth={2.6}
+          fill="none" opacity={0.6} strokeLinecap="round" />
+      </g>
+    );
+  };
 
   return (
     // `y` IS THE FEET ANCHOR, as the draw-space contract says. The local origin sits at
@@ -583,8 +607,12 @@ export const Character: React.FC<CharacterProps> = ({
         <path d={sleeve(nearArm)} stroke={INK} strokeWidth={33} fill="none"
           strokeLinecap="round" strokeLinejoin="round" opacity={0.001} />
         {/* cuff */}
-        <circle cx={nearArm.wx} cy={nearArm.wy} r={15} fill="none" stroke={c.trim}
-          strokeWidth={4} opacity={0.85} />
+        {/* the cuff is the END OF THE SLEEVE and sits behind the hand. Drawn as a ring
+            centred on the wrist it circled the hand instead, which is half of why the
+            hand read as a separate object stuck on. */}
+        <circle cx={nearArm.wx - Math.sin((nearArm.wristDeg * Math.PI) / 180) * 3}
+          cy={nearArm.wy - Math.cos((nearArm.wristDeg * Math.PI) / 180) * 3}
+          r={13} fill="none" stroke={c.trim} strokeWidth={4} opacity={0.85} />
         {hand(nearArm, 'near')}
       </g>
     </g>

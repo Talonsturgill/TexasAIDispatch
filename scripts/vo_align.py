@@ -93,6 +93,16 @@ MAX_CUE_S = 3.4
 # At these values the film gets 8 cues, 3 of which end mid clause, down from 6 of 11, and
 # "What makes it public was never its size." emits whole. The cost is a longest cue of
 # 8.4 seconds, which shows its last phrase early. That trade is disclosed in the email.
+# SWEPT, NOT CHOSEN, AND THE TRADE IS REAL IN BOTH DIRECTIONS.
+# A scorer asked for 5.5 so the thesis cue would split back at its measured 40.096
+# boundary, which they reasoned was a whole-sentence break. Measured against the actual
+# read it is not: at 5.5 and at 6.0 the split lands inside the thesis, giving "...what
+# makes it public was never" then "its size", which breaks the film's one sentence in the
+# ugliest available place. At 7.0 the sentence survives whole and its last phrase appears
+# about 3.6 seconds before it is spoken.
+# Only 5 of this reader's 11 sentence ends fall on a measured silence, so no policy can
+# have both. The sentence the film exists to deliver reads as a sentence, and the early
+# reveal is disclosed in the email rather than hidden.
 HARD_CUE_CHARS = 120
 HARD_CUE_S = 7.0
 
