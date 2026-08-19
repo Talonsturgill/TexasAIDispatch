@@ -98,6 +98,7 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
 
     # ---- locate every spoken scene's own line, left to right -------------------------
     targets: dict[int, float] = {}
+    _anchor_idx: dict[int, int] = {}
     cursor = 0
     for idx, s in enumerate(scenes):
         line = (s.get("vo") or "").strip()
@@ -124,6 +125,7 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
         prev_end = float(words[i - 1]["end"]) if i > 0 else 0.0
         gap = max(0.0, float(words[i]["start"]) - prev_end)
         targets[idx] = max(0.0, float(words[i]["start"]) - min(lead, gap * 0.5))
+        _anchor_idx[idx] = i
         cursor = i + 1
 
     if errs:
@@ -208,7 +210,24 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
 
         if abs(was - starts[i]) > 0.05:
             moved.append((s.get("id", i), was, round(starts[i], 3)))
-    board["retimed_to"] = "measured_word_starts"
+    # SAY WHAT IS TRUE, NOT WHAT SOUNDS TRUE. This field read "measured_word_starts", and a
+    # scorer checked it: five of twelve cuts sat on word starts flagged anchored:false. The
+    # cuts ARE placed at each scene's own line start, which is the useful claim, but whether
+    # that start was measured off the waveform or modelled by syllable weight inside a phrase
+    # depends on where the reader breathed. A shipped field that overstates its own data is
+    # the fault this run has now found in story.md, in two vo fields and here.
+    measured = sum(1 for i in targets
+                   if words[max(0, min(len(words) - 1, _anchor_idx.get(i, 0)))]
+                   .get("anchored_start"))
+    board["retimed_to"] = "vo_line_starts"
+    board["retime_evidence"] = {
+        "cuts_placed": len(targets),
+        "on_measured_word_starts": measured,
+        "on_modelled_word_starts": len(targets) - measured,
+        "_why": "A cut is placed at the start of the line its scene carries. That word's time "
+                "is measured when the reader paused before it and modelled by syllable weight "
+                "when they did not, so this counts both rather than claiming all are measured.",
+    }
     board["_retime_moved"] = moved
     return board, []
 
@@ -327,7 +346,10 @@ def _self_test() -> int:
     ok("...starts strictly increase", all(st[i] < st[i + 1] for i in range(len(st) - 1)))
     ok("...and the film is still its own length",
        abs(sum(s["duration_s"] for s in b["scenes"]) - 60) < 0.01)
-    ok("...and it records that it was re-timed", b.get("retimed_to") == "measured_word_starts")
+    ok("...and it records that it was re-timed", b.get("retimed_to") == "vo_line_starts")
+    ok("...and it counts how many cuts sit on a MEASURED word start rather than claiming all do",
+       b["retime_evidence"]["on_measured_word_starts"]
+       + b["retime_evidence"]["on_modelled_word_starts"] == b["retime_evidence"]["cuts_placed"])
 
     # The beats inside a scene must travel with it.
     ev_board = json.loads(json.dumps(board))

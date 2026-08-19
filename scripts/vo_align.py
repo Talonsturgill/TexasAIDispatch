@@ -288,8 +288,14 @@ def cues(words: list[dict]) -> list[dict]:
         held = w["end"] - cur[0]["start"]
         too_long = len(text) >= MAX_CUE_CHARS or held >= MAX_CUE_S
         tok = w["word"].rstrip('"”')
-        # A cue that is barely started should not break just because the reader breathed.
-        long_enough = len(text) >= MAX_CUE_CHARS * 0.30 or held >= MAX_CUE_S * 0.45
+        # A SENTENCE END THAT THE READER ACTUALLY PAUSED AT IS THE BEST BREAK THERE IS, and
+        # this threshold was throwing them away. Requiring 30 percent of the character
+        # budget before honouring a full stop meant a short sentence like "Half is running."
+        # could not close its own cue, so the cue ran on and swallowed the next sentence
+        # across a 1.24 second measured silence. Of the eleven sentences here only three end
+        # on a measured boundary, so discarding one of the three for being short is
+        # discarding a third of everything this method can offer.
+        long_enough = len(text) >= 12 or held >= 0.7
         if too_long \
                 or (tok.endswith(SENTENCE_END) and long_enough) \
                 or (tok.endswith(CLAUSE_END) and len(text) >= MAX_CUE_CHARS * 0.60):
