@@ -73,6 +73,8 @@ run_gate flow_check       python3 scripts/flow_check.py --board "$OUT/storyboard
 run_gate ship_gate        python3 scripts/ship_gate.py --board "$OUT/storyboard.json" \
     --claims "$OUT/claims.json" --script "$OUT/vo_script.txt" \
     --captions "$OUT/captions.json" --audio "$OUT/mix.json"
+run_gate super_evidence   python3 scripts/super_evidence_check.py --board "$OUT/storyboard.json" \
+    --claims "$OUT/claims.json"
 run_gate freshness_check  python3 scripts/freshness_check.py --film "$OUT/film.mp4" \
     --started "$OUT/render_started" \
     --inputs "$OUT/storyboard.json" "$OUT/mix.wav" "$OUT/captions.json"

@@ -474,7 +474,24 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
        --claims out/dispatch/claims.json --script out/dispatch/vo_script.txt \
        --captions out/dispatch/captions.json --audio out/dispatch/mix.json \
        --report out/dispatch/report_card.json
+python3 scripts/super_evidence_check.py --board out/dispatch/storyboard.json \
+       --claims out/dispatch/claims.json
 ```
+
+**`super_evidence_check` is the one that catches the RIGHT NUMBER OVER THE WRONG PICTURE**, and
+it exists because nothing else here could. Every numeral gate proves a figure is a member of the
+authorised set computed from the claims file. That is a property of the FIGURE. The fault this
+show keeps shipping is a property of the PAIRING: a real, fetched, authorised number printed
+over a shot it is not the number for. A super carrying another group's result off another
+machine passed every check four rounds running, because the number was never the problem.
+
+So a super is checked against ITS OWN `super_claim` and nothing else. The claim has to exist, be
+VERIFIED rather than PARTIAL, and actually carry every figure and every proper noun the super
+states, in its own statement, value_text, quote or note.
+
+It does NOT read the caption or the VO. Those are bound to the audio, so a fault found there
+costs a re-synth and is a different decision. Extending it there is the next upgrade, not a
+half-built branch of this one.
 
 ```
 python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
