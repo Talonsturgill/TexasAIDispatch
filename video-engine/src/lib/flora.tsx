@@ -114,7 +114,22 @@ const Canopy: React.FC<{
           fill={i % 3 === 0 ? shade : fill} />
       );
     })}
-    <ellipse cx={cx} cy={cy} rx={rx * 0.72} ry={ry * 0.68} fill={fill} />
+    {/* NO SOLID CENTRE. This filled ellipse under the lobes is what turned every crown in
+        the film into a dome: the lobes gave it an irregular edge and this gave it an opaque
+        middle, so at any scale under about 0.2 the lobes vanished into it and what survived
+        was a flat disc on a stick. Scorers called it a lollipop and lily pads on a stick
+        across four rounds.
+        The lobes ARE the crown. Two smaller inner lobes tie them together without closing
+        the gaps, and the gaps are the point: a live oak and a mesquite are both trees you
+        see sky through, and that is half of what tells them apart from a maple. */}
+    {[0, 1].map((k) => (
+      <ellipse key={`in${k}`}
+        cx={cx + (rnd(seed, 80 + k) - 0.5) * rx * 0.5}
+        cy={cy + (rnd(seed, 90 + k) - 0.5) * ry * 0.4}
+        rx={rx * (0.34 + rnd(seed, 100 + k) * 0.16)}
+        ry={ry * (0.40 + rnd(seed, 110 + k) * 0.18)}
+        fill={k ? fill : hi} opacity={0.92} />
+    ))}
   </g>
 );
 

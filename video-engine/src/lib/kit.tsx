@@ -512,12 +512,20 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
           one film. The mass gives the crown a silhouette to belong to; the scatter still
           does all the work of letting light through its edge. */}
       {Array.from({length: 3}, (_, i) => {
-        const cx = (i - 1) * w * 0.30 + (rnd(seed, 50 + i) - 0.5) * 18;
-        const cy = -h * 0.52 - (rnd(seed, 60 + i)) * 12;
+        const cx = (i - 1) * w * 0.37 + (rnd(seed, 50 + i) - 0.5) * 26;
+        const cy = -h * 0.52 - (rnd(seed, 60 + i)) * 26;
         return (
           <g key={i}>
-            <ellipse cx={cx} cy={cy} rx={w * 0.20} ry={h * 0.25}
-              fill="#5f7047" opacity={0.55} />
+            {/* the mass is LOBED AND PARTIAL, never a dome. A single opaque ellipse under
+                the leaflets reads as a solid canopy at feed size, and a mesquite that light
+                does not come through is not a mesquite: FAUNA_AND_FLORA says low, crooked,
+                WIDE AND LACY, and lacy is the half that was missing. Smaller, offset and
+                translucent, so the leaflets and the gaps between the three clusters carry
+                the silhouette instead of being painted over by it. */}
+            <ellipse cx={cx + (rnd(seed, 90 + i) - 0.5) * w * 0.10}
+              cy={cy + (rnd(seed, 95 + i) - 0.5) * h * 0.12}
+              rx={w * 0.145} ry={h * 0.165}
+              fill="#5f7047" opacity={0.42} />
             {Array.from({length: 54}, (_, k) => {
               const kk = (k * 22695477 + seed * 1013904223 + i * 7919) >>> 0;
               const a = ((kk >>> 4) % 1000) / 1000 * Math.PI * 2;
@@ -548,9 +556,14 @@ export const PricklyPear: React.FC<KitProps & {pads?: number}> = ({
   return (
   <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
     {Array.from({length: pads}, (_, i) => {
-      const a = (rnd(seed, i) - 0.5) * 70 + (i - pads / 2) * 12;
-      const px = (rnd(seed, 20 + i) - 0.5) * 44;
-      const py = -14 - i * 9 - rnd(seed, 30 + i) * 14;
+      // SPRAWL, don't stack. The old placement walked straight up the y axis with a small
+      // x jitter, which is a pile of plates. A clump spreads sideways as fast as it climbs
+      // and leans its outer pads away from the centre.
+      const side = i % 2 ? 1 : -1;
+      const out = (i / Math.max(1, pads - 1));
+      const a = (rnd(seed, i) - 0.5) * 46 + side * (18 + out * 44);
+      const px = side * out * 52 + (rnd(seed, 20 + i) - 0.5) * 20;
+      const py = -12 - out * 46 - rnd(seed, 30 + i) * 16;
       const rx = 15 + rnd(seed, 40 + i) * 6;
       return (
         <g key={i} transform={`translate(${px} ${py}) rotate(${a})`}>

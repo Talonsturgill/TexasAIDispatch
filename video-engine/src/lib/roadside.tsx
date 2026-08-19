@@ -895,9 +895,13 @@ export const BootFence: React.FC<RoadProps & {
           }).join(' ')} />
       ))}
       {Array.from({length: posts}, (_, i) => {
-        const px = -span / 2 + i * pitch;
+        // KIT.md marks this verified: "cedar posts that LEAN. A perfectly straight fence
+        // line is a tell." Both halves were the tell here. The pitch was exact, and the
+        // lean was plus or minus two degrees, which is invisible at feed size and might as
+        // well be zero. A real fence line wanders.
+        const px = -span / 2 + i * pitch + (rnd(seed, 200 + i) - 0.5) * pitch * 0.24;
         const s = K * scale;
-        const lean = (rnd(seed, i) - 0.5) * 4;
+        const lean = (rnd(seed, i) - 0.5) * 13;
         const hasBoot = i < boots;
         return (
           <g key={i} transform={`translate(${px} 0) scale(${s}) rotate(${lean})`}>
