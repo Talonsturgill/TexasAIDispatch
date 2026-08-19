@@ -1043,3 +1043,54 @@ one outcome law says a blocked run reports an error, which it cannot do from ins
 infinite loop. Note that in the failing self-test runs above, the deadline is the only
 reason anything was ever reported at all. The guard that saved the diagnosis was the
 belt, not the braces.
+
+---
+
+## The right number over the wrong picture
+
+**What shipped, four rounds running, with every numeral gate green.**
+
+Scene s11 printed the super "about ninety nanoseconds a day" over a shot whose readout, caption
+and character are all one researcher's three year EPW port. Ninety is a real number. It was
+fetched, it was verified enough to be in the claims file, and it was in the authorised set that
+`ship_gate` and `numeral_lint` check against. It belongs to NAMD, a different code by a
+different group. The claim it comes from is PARTIAL, and that claim's own note reads "The subject
+matter of the simulation is NOT verified and is not stated." The frame stated it.
+
+Scene s09 printed "the number comes from an analyst" over the caption carrying Abilene's fifty
+thousand accelerators. That figure's claim says in its own note that it "is attributed to the
+operator". The analyst framing belonged to a different claim about a different quantity, two
+paragraphs away in the same source.
+
+**Why every gate was green, and why it always would have been.**
+
+A numeral gate answers "is this figure a member of the authorised set". That is a property of the
+figure. Both defects are properties of the PAIRING: the figure and the picture it sits on. A
+set-membership test is structurally incapable of seeing the difference, so no amount of
+tightening it would ever have caught this. The check that was missing was not a stricter version
+of a check that existed. It was a check of a different kind.
+
+This is the general shape and it is worth naming, because this repo keeps meeting it: **a gate
+that validates a component in isolation cannot see a fault that lives in the relationship between
+two components.** The oak that was the right shape and a quarter the height of the transformer
+beside it was the same shape. So was the arm outline that was correct and drawn at
+`opacity={0.001}`.
+
+**What to check instead.** `scripts/super_evidence_check.py`. A super is checked against its own
+`super_claim` and nothing else: the claim must exist, must be VERIFIED rather than PARTIAL, and
+must itself carry every figure and every proper noun the super states. Not the claims file. That
+claim.
+
+**And its own first version proved the second lesson in this file.** It emitted partial number
+runs on the theory that more candidate values meant more chances to match a differently spelled
+source, reading 4 out of "four hundred", 40 out of "forty eight", and 1 out of the "one" in "both
+rooms, one scale". Since the check demands every figure it is handed be evidenced, each partial
+became a demand no source could meet, and the gate went red on four supers that were correct.
+**A gate that fails correct work is a gate somebody turns off**, and the only repair it would
+have accepted was rewriting good copy to satisfy a parser. Each of those four is a self-test case
+now.
+
+**How it was proven, and this is the only proof that counts.** Not by reading it. It was run
+against the board that had actually shipped the defect, where it goes red and names s11, and then
+against the corrected board, where it goes green. A gate that has never been shown the fault it
+was written for is a gate nobody has tested.
