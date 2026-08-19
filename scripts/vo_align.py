@@ -57,7 +57,7 @@ REPO = Path(__file__).resolve().parents[1]
 # A gap shorter than this is a stop consonant, not a phrase boundary. Below it the
 # segmenter would shatter every word into its own run and every boundary would be
 # "measured" while meaning nothing.
-MIN_GAP_S = 0.18
+MIN_GAP_S = 0.12
 
 # A run shorter than this is a click or a breath.
 MIN_RUN_S = 0.12
@@ -70,7 +70,7 @@ SPEECH_OVER_FLOOR_DB = 12.0
 # at all, so a floor-relative threshold alone lands under every frame and returns the whole
 # film as one run. Belt and braces on purpose: either rule alone has a real waveform that
 # defeats it.
-SPEECH_UNDER_PEAK_DB = 32.0
+SPEECH_UNDER_PEAK_DB = 26.0
 
 # A caption cue should be readable. Two lines of about forty characters.
 MAX_CUE_CHARS = 84
@@ -260,19 +260,49 @@ def align(x: np.ndarray, rate: int, script: str) -> dict:
 
 
 def cues(words: list[dict]) -> list[dict]:
-    """Cues that break ONLY on measured boundaries."""
+    """Cues that break ONLY on measured boundaries, and PREFER the ones that make sense.
+
+    MEASURED IS NOT THE SAME AS READABLE, and this took the whole difference on the chin.
+    Every run edge is a real silence in the read, so breaking at the first long-enough one
+    is defensible and produced twelve cues that each ended on a dangling word: "...The
+    operator's", "...Nobody", "...has an estimated", then the next one opening "hour. West
+    of there". A reader's breaths do not fall at clause ends, and a subtitle cut on breath
+    reads as a transcript of someone being interrupted.
+
+    So the CHOICE among measured boundaries is made by sense. Every candidate is still a
+    silence somebody measured off the waveform, nothing is invented and nothing is shifted:
+    the only thing that changed is which of the available true boundaries gets used. A break
+    after a full stop is taken early, a break after a comma is taken later, and a break in
+    the middle of a clause is taken only when the cue would otherwise outstay its welcome.
+    """
+    SENTENCE_END = (".", "!", "?", '."', '!"', '?"')
+    CLAUSE_END = (",", ";", ":")
+
     out, cur = [], []
     for w in words:
         cur.append(w)
         text = " ".join(x["word"] for x in cur)
         # ONLY on a word whose END is measured. That is what makes the cue's end an anchor.
-        ends_run = w["anchored_end"]
-        too_long = len(text) >= MAX_CUE_CHARS or (w["end"] - cur[0]["start"]) >= MAX_CUE_S
-        if ends_run and (too_long or len(text) > MAX_CUE_CHARS * 0.55):
+        if not w["anchored_end"]:
+            continue
+        held = w["end"] - cur[0]["start"]
+        too_long = len(text) >= MAX_CUE_CHARS or held >= MAX_CUE_S
+        tok = w["word"].rstrip('"”')
+        # A cue that is barely started should not break just because the reader breathed.
+        long_enough = len(text) >= MAX_CUE_CHARS * 0.30 or held >= MAX_CUE_S * 0.45
+        if too_long \
+                or (tok.endswith(SENTENCE_END) and long_enough) \
+                or (tok.endswith(CLAUSE_END) and len(text) >= MAX_CUE_CHARS * 0.60):
             out.append(cur)
             cur = []
     if cur:
-        out.append(cur)
+        # The tail is short enough to join its neighbour rather than flash on its own, and
+        # joining costs nothing because the boundary between them was measured either way.
+        if out and len(" ".join(x["word"] for x in cur)) < MAX_CUE_CHARS * 0.28 \
+                and (cur[-1]["end"] - out[-1][0]["start"]) < MAX_CUE_S * 1.5:
+            out[-1].extend(cur)
+        else:
+            out.append(cur)
     return [{"id": f"c{i + 1}", "start": g[0]["start"], "end": g[-1]["end"],
              "text": " ".join(x["word"] for x in g), "source": "measured_boundary"}
             for i, g in enumerate(out)]
@@ -374,6 +404,20 @@ def self_test() -> int:
        str(max(len(c["text"]) for c in cs)))
     ok("the cues reconstruct the script exactly",
        " ".join(c["text"] for c in cs) == script, " ".join(c["text"] for c in cs)[:80])
+
+    # A CUE SHOULD NOT END ON A DANGLING WORD. Every boundary here is still measured; the
+    # only thing under test is which of the true boundaries got chosen.
+    def tail(c):
+        return c["text"].rstrip('"”')[-1:]
+    ends_clean = sum(1 for c in cs if tail(c) in ".!?,;:")
+    ok("most cues end on a full stop or a clause end, not mid-phrase",
+       ends_clean >= max(1, int(len(cs) * 0.7)), f"{ends_clean} of {len(cs)}")
+    ok("...and no cue is a lone orphan fragment",
+       all(len(c["text"]) >= 8 for c in cs),
+       min((c["text"] for c in cs), key=len, default=""))
+    ok("...while every cue edge is still a measured run edge",
+       all(any(abs(c["start"] - a) < 1e-6 for a, _ in runs)
+           and any(abs(c["end"] - b) < 1e-6 for _, b in runs) for c in cs))
 
     try:
         align(audio, sr, "")
