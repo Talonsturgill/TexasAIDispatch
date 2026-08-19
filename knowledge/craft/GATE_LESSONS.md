@@ -1134,3 +1134,35 @@ width does at that size before applying it.
 in one scene and two planes at the same z in another, and `storyboard_check` refused both before
 a frame was drawn. The one thing it could not tell me was what the frame would look like, which
 is exactly and only what a check still is for.
+
+---
+
+## groundY is coupled to every fixed-y item in the scene, and it has now hidden the building twice
+
+A scorer prescribes it in almost every round, because dead sky is the easiest defect to see and
+raising the horizon is the obvious cure. It has been applied twice and it has failed twice, the
+same way both times.
+
+`groundY` moves the horizon. It does NOT move the items, whose `y` baselines are authored
+absolutely. Raise it and the near plane's ground fill rises with it, over the top of everything
+staged on the planes behind. On round 21 it orphaned the mansard box and turned dead sky into
+dead ground. On round 24, with `groundY` at 880 instead of 1060, **the building disappeared from
+the closing shot entirely** and the frame became a transformer and a pole sign in an empty
+field. Nothing errored. Every gate stayed green. The film simply no longer contained its subject.
+
+**The cure for dead sky is never the horizon on its own.** In this shot it was the building's
+authored WIDTH: a 3.47:1 block spans a 9:16 frame end to end, so it read as an awning rather
+than a building, and cutting `props.w` from 520 to 240 gave it two end walls, a visible
+storefront and a legible small-in-its-yard read at the same horizon and the same scale. The sky
+above it stayed exactly as tall and stopped mattering, because the frame finally had a subject.
+
+If the horizon genuinely must move, every item standing on that ground moves with it in the same
+edit, and the pair is verified with a check still before it reaches a render.
+
+**Why there is no gate here, stated rather than skipped.** The failure is an occlusion between a
+near plane's ground fill and items on farther planes, so seeing it requires resolving what is
+drawn over what, which is the renderer's job and not a board property. A height-versus-horizon
+heuristic was drafted and thrown away because near-plane items legitimately sit far below the
+horizon line, so it would have failed correct scenes, and this file already records what that
+costs. The honest artifact is this entry plus the rule that a `groundY` change is verified with a
+still. A gate that cannot be written correctly is worth less than a lesson that is.
