@@ -84,6 +84,17 @@ MAX_CUE_CHARS = 84
 # film spoiled its own ending in its own subtitle, and every gate was green because every
 # boundary really was measured. Measured and readable are different properties.
 MAX_CUE_S = 3.4
+# The ceiling a cue is only allowed to pass when its sentence has not ended yet. Above
+# this it breaks wherever the next measured boundary is, because an unreadably long cue
+# is its own defect. Both are generous: the longest sentence in a Dispatch read so far is
+# about a hundred and five characters and the band holds three lines.
+# Tuned by sweeping against the ACTUAL read rather than chosen, because the only thing
+# that matters is how many cues this reader's own silences let end at a clause boundary.
+# At these values the film gets 8 cues, 3 of which end mid clause, down from 6 of 11, and
+# "What makes it public was never its size." emits whole. The cost is a longest cue of
+# 8.4 seconds, which shows its last phrase early. That trade is disclosed in the email.
+HARD_CUE_CHARS = 120
+HARD_CUE_S = 7.0
 
 
 def read_wav(path: Path) -> tuple[np.ndarray, int]:
@@ -296,9 +307,31 @@ def cues(words: list[dict]) -> list[dict]:
         # on a measured boundary, so discarding one of the three for being short is
         # discarding a third of everything this method can offer.
         long_enough = len(text) >= 12 or held >= 0.7
-        if too_long \
-                or (tok.endswith(SENTENCE_END) and long_enough) \
-                or (tok.endswith(CLAUSE_END) and len(text) >= MAX_CUE_CHARS * 0.60):
+        # A SENTENCE IS THE UNIT A READER READS, AND THE CEILING WAS CUTTING IT IN HALF.
+        #
+        # `too_long` fired on its own, so a cue hit 84 characters or 3.4 seconds and broke
+        # at whatever measured boundary came next, whether or not the sentence had ended.
+        # Six of eleven cues broke mid phrase and the film's thesis reached the screen as
+        # the fragment "it public was never its size", decapitated at the exact instant it
+        # was supposed to land.
+        #
+        # A panel separated two things this function had run together. What the rubric bans
+        # is INVENTING A TIMING. What it does not ban is choosing which words go in which
+        # cue. Adjacent measured runs can be merged and the cue still takes the FIRST run's
+        # measured start and the LAST run's measured end, so every boundary stays a silence
+        # somebody measured off the waveform and nothing is shifted by a millisecond.
+        # Segmentation is a policy, not a principle, and it had been defended as a
+        # principle.
+        #
+        # So the soft ceiling now only breaks a cue when the sentence is ALREADY over, and
+        # a genuinely runaway cue falls back to a hard ceiling well above it. Sentence ends
+        # need no length gate at all: a short sentence is a fine cue and gating it is what
+        # made "Half is running." swallow the sentence after it across a measured silence.
+        ends_sentence = tok.endswith(SENTENCE_END)
+        runaway = len(text) >= HARD_CUE_CHARS or held >= HARD_CUE_S
+        if ends_sentence \
+                or runaway \
+                or (tok.endswith(CLAUSE_END) and len(text) >= 64):
             out.append(cur)
             cur = []
     if cur:
@@ -391,7 +424,12 @@ def self_test() -> int:
        all(w["anchored"] for w in r2["words"] if w["end"] >= measured_end - 1e-6))
 
     cs = cues(res["words"])
-    ok("cues are produced", len(cs) >= 2, str(len(cs)))
+    # THIS FIXTURE'S AUDIO HAS THREE SPEECH RUNS AND ITS SCRIPT HAS THREE SENTENCES, and
+    # they do not line up, which is the whole point: a reader breathes where they like.
+    # Under the sentence-first policy the cue count follows the SENTENCES that end on a
+    # measured boundary, not the run count, so this asserts at least one cue rather than a
+    # number that would silently encode the old break-anywhere behaviour.
+    ok("cues are produced", len(cs) >= 1, str(len(cs)))
     # AND, not OR. The first version joined the two tests with `or`, so a cue whose END was a
     # modelled mid-phrase time passed while being stamped source: measured_boundary, which
     # ship_gate accepts as the evidence that alignment happened. The assertion described a
@@ -405,9 +443,37 @@ def self_test() -> int:
     ok("...so no cue crosses a run edge, which is what the output file claims",
        all(any(abs(c["start"] - a) < 1e-6 for a, _ in runs)
            and any(abs(c["end"] - b) < 1e-6 for _, b in runs) for c in cs))
-    ok("...and none is longer than is readable",
-       all(len(c["text"]) <= MAX_CUE_CHARS * 1.4 for c in cs),
+    # THE CEILING IS A TRIGGER, NOT A CAP, and the gate has to say so or it is asserting a
+    # guarantee the method cannot make. A cue may only end where the reader stopped, so
+    # once the ceiling is passed the cue still has to run on to the NEXT measured boundary.
+    # The overshoot is therefore bounded by one speech run, not by zero. Asserting a hard
+    # cap here went red on a legitimate output, which is the right way round: the gate
+    # noticed the code and the code was correct.
+    OVERSHOOT = 1.25
+    ok("...and none overshoots the hard ceiling by more than one run",
+       all(len(c["text"]) <= HARD_CUE_CHARS * OVERSHOOT for c in cs),
        str(max(len(c["text"]) for c in cs)))
+
+    # THE PROPERTY THE WHOLE CHANGE EXISTS FOR, asserted directly rather than inferred from
+    # a length. A cue may only end mid sentence when the reader gave it no choice.
+    def ends_clean(c):
+        return c["text"].rstrip().endswith((".", "!", "?", '."', '!"', '?"'))
+    ok("...and no cue ends mid sentence unless it hit the hard ceiling",
+       all(ends_clean(c) or len(c["text"]) >= HARD_CUE_CHARS * 0.9
+           or c is cs[-1] for c in cs),
+       str([c["text"][-24:] for c in cs]))
+
+    # AND IT CAN STILL GO RED. A script whose sentence ends fall where the reader does NOT
+    # pause has no measured boundary to break on, so the old policy would have chopped it
+    # mid phrase and the new one must run to the hard ceiling instead of inventing a break.
+    # Feeding a single unbroken clause proves the fallback fires rather than looping.
+    long_words = [{"word": f"w{i}", "start": i * 0.3, "end": i * 0.3 + 0.28,
+                   "anchored_start": True, "anchored_end": True, "anchored": True}
+                  for i in range(90)]
+    lc = cues(long_words)
+    ok("a clause with no sentence end still terminates at the hard ceiling",
+       len(lc) >= 2 and all(len(c["text"]) <= HARD_CUE_CHARS * OVERSHOOT for c in lc),
+       f"{len(lc)} cue(s), longest {max(len(c['text']) for c in lc)}")
     ok("the cues reconstruct the script exactly",
        " ".join(c["text"] for c in cs) == script, " ".join(c["text"] for c in cs)[:80])
 

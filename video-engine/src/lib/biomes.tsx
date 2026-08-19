@@ -364,6 +364,46 @@ const LimbedOak: React.FC<{
   );
 };
 
+/** THE POLYGONAL DROUGHT CRACK of the blackland prairie. Vertices on a jittered grid,
+ *  each cell joined to its neighbours, so the cracks meet at nodes the way real ones do
+ *  rather than lying about as unconnected strokes. Wider and darker near the camera. */
+const ClayCracks: React.FC<{seed: number; groundY: number}> = ({seed, groundY}) => {
+  const top = groundY + 30;
+  const rows = 7, cols = 9;
+  const node = (r: number, c: number) => {
+    const t = (r + 0.5) / rows;
+    const y = top + Math.pow(t, 1.6) * (H - top - 20);
+    const spread = 0.6 + t * 0.9;                       // cells widen as they near us
+    return {
+      x: ((c + 0.5) / cols) * W + (rnd(seed, r * 31 + c) - 0.5) * (W / cols) * spread,
+      y: y + (rnd(seed, 200 + r * 31 + c) - 0.5) * 30 * spread,
+      t,
+    };
+  };
+  const segs: {a: {x: number; y: number; t: number}; b: {x: number; y: number; t: number}}[] = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const a = node(r, c);
+      if (c + 1 < cols && rnd(seed, 400 + r * 31 + c) > 0.18) segs.push({a, b: node(r, c + 1)});
+      if (r + 1 < rows && rnd(seed, 600 + r * 31 + c) > 0.30) segs.push({a, b: node(r + 1, c)});
+    }
+  }
+  return (
+    <g>
+      {segs.map((sg, i) => {
+        const t = (sg.a.t + sg.b.t) / 2;
+        const mx = (sg.a.x + sg.b.x) / 2 + (rnd(seed, 800 + i) - 0.5) * 26;
+        const my = (sg.a.y + sg.b.y) / 2 + (rnd(seed, 900 + i) - 0.5) * 14;
+        return (
+          <path key={i} d={`M${sg.a.x},${sg.a.y} Q${mx},${my} ${sg.b.x},${sg.b.y}`}
+            stroke="#241f19" strokeWidth={0.8 + t * 3.2} fill="none"
+            strokeLinecap="round" opacity={0.16 + t * 0.34} />
+        );
+      })}
+    </g>
+  );
+};
+
 /** Bunch grass, which is what is BETWEEN the trees in a savannah and the reason a
  *  savannah does not read as a mown park. Clumps, never a lawn. */
 const BunchGrass: React.FC<{seed: number; groundY: number; n: number; color: string; hh?: number}> = ({
@@ -608,6 +648,17 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
       // and reaching out about as far as the tree is tall.
       return (
         <g>
+          {/* THE BLACK CRACKING CLAY, and its absence was the most expensive thing missing
+              from this region. REGIONS.md ranks ground second only to light and calls the
+              polygonal drought crack one of the most drawable textures in the state, and
+              the blackland here was a smooth colour gradient with grass on it. A Williamson
+              County viewer in August recognises the building and does not recognise the
+              yard, which is the first law broken by omission.
+              The crack is a POLYGON NETWORK, not a scatter of lines: the clay shrinks away
+              from itself and the plates it leaves have shared edges, so each crack starts
+              where another one ended. Drawn on the near half only, because a crack you
+              cannot see the width of is not a crack. */}
+          <ClayCracks seed={sceneSeed + 17} groundY={groundY} />
           <BunchGrass seed={sceneSeed + 11} groundY={groundY} n={64} color="#8c9a5c" hh={34} />
           {Array.from({length: 3}, (_, i) => {
             const gy = groundY + 22 + rnd(seed, 20 + i) * 190;
