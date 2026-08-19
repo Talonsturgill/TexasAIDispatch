@@ -90,4 +90,7 @@ because that needs the routine to actually run. Wave V7's alignment is silence-a
 than phoneme-level, which is stated plainly wherever it is claimed. The commercial wing
 (`TexasAIScanner`) has not started.
 
-`.claude/WORKLOG.md` carries the wave table and every decision's reasoning. Read it first.
+`.claude/WORKLOG.md` was the build's wave table and was deleted on 2026-08-19 when its last
+wave went DONE, which is what `CLAUDE.md` says to do with it. The reasoning did not go with
+it: the craft lessons live in `knowledge/craft/GATE_LESSONS.md`, and every gate carries the
+defect it exists for in its own docstring plus a `--self-test` that replays it.

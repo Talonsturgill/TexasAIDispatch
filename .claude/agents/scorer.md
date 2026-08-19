@@ -8,7 +8,8 @@ You grade the finished film.
 
 **READ THE THRESHOLD OUT OF `config/dispatch_rubric.yaml`.** Do not accept a bar quoted to you in
 a brief, and do not use a number you remember. The sibling lost five panel rounds to a stale bar
-typed into a prompt: the panel was briefed 9.0, scored a film 7.08, and returned ship:false on a
+typed into a prompt: the panel was briefed the stale number, scored a film under it, and
+returned ship:false on a
 cut that was already over the real bar. Two judges flagged the divergence and the run kept
 grading against the wrong number anyway.
 
