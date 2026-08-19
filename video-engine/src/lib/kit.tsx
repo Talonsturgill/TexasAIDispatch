@@ -237,30 +237,54 @@ export const Transformer: React.FC<KitProps> = ({
     <g transform={`translate(${x} ${y}) scale(${K * scale})`}>
       <defs><FormGradient id={`${uid}_t`} t={tb} softness={0.58} /></defs>
       <ContactShadow cx={0} cy={2} rx={78} opacity={0.3} blur={10} />
-      {/* tank */}
-      <rect x={-58} y={-104} width={116} height={104} rx={4} fill={`url(#${uid}_t)`}
+      {/* THE PAD. A four and a half tonne transformer does not stand on a lawn: it sits on
+          a poured concrete pad with a chamfered edge, and the pad is most of what tells a
+          viewer it is equipment rather than a box somebody left out. A scorer noticed it
+          standing loose on grass in four frames. */}
+      <path d="M-66,2 L66,2 L58,-12 L-58,-12 Z" fill="#b3ada2" stroke={INK} strokeWidth={4}
+        strokeLinejoin="round" />
+      <path d="M-58,-12 L58,-12" stroke="#9a948a" strokeWidth={3} />
+      {/* THE FINS WERE DRAWING A MICROCHIP.
+          Six small horizontal tabs sticking out of each side of a nearly square tank is an
+          integrated circuit die with its pin rows, and a scorer read it as exactly that in
+          the opening frame of a film about supercomputers, where it is the largest detailed
+          object on screen. Every part was individually plausible and the silhouette they
+          made together was a CPU.
+          A radiator on a pad-mount transformer is a BANK OF TALL VERTICAL FINS clamped along
+          the tank side between a top and bottom header. Verticals cannot read as pins, and a
+          tank taller than it is wide cannot read as a die. Same rule the pole sign took three
+          passes to learn: when something reads as the wrong object, change the geometry. */}
+      {/* tank, TALLER THAN IT IS WIDE */}
+      <rect x={-46} y={-124} width={92} height={124} rx={4} fill={`url(#${uid}_t)`}
         stroke={INK} strokeWidth={5} />
-      {/* RADIATOR FINS — draw them, they are the tell */}
       {[-1, 1].map((s) => (
         <g key={s}>
-          {Array.from({length: 6}, (_, i) => (
-            <rect key={i} x={s === -1 ? -78 : 58} y={-96 + i * 15} width={20} height={10}
-              fill="#79818a" stroke={INK} strokeWidth={2.6} />
+          <rect x={s === -1 ? -72 : 46} y={-112} width={26} height={9}
+            fill="#79818a" stroke={INK} strokeWidth={3} />
+          <rect x={s === -1 ? -72 : 46} y={-34} width={26} height={9}
+            fill="#79818a" stroke={INK} strokeWidth={3} />
+          {Array.from({length: 7}, (_, i) => (
+            <rect key={i} x={(s === -1 ? -70 : 48) + i * 3.4} y={-105} width={2.0} height={72}
+              fill="#6d757e" stroke={INK} strokeWidth={0.9} />
           ))}
         </g>
       ))}
+      {/* the low-voltage cabinet door, which no microchip has */}
+      <rect x={-26} y={-58} width={52} height={50} rx={2} fill="#7c848d"
+        stroke={INK} strokeWidth={3.4} />
+      <path d={`M18,-36 l0,10`} stroke={INK} strokeWidth={3} strokeLinecap="round" />
       {/* BUSHINGS on top — the porcelain stacks */}
-      {[-30, 0, 30].map((bx) => (
+      {[-24, 0, 24].map((bx) => (
         <g key={bx}>
-          <path d={`M${bx - 9},-104 l3,-30 h12 l3,30 Z`} fill="#d9d2c4" stroke={INK} strokeWidth={4} />
+          <path d={`M${bx - 9},-124 l3,-28 h12 l3,28 Z`} fill="#d9d2c4" stroke={INK} strokeWidth={4} />
           {[0, 1, 2].map((i) => (
-            <ellipse key={i} cx={bx} cy={-112 - i * 9} rx={12 - i} ry={3.4} fill="#e6e0d2"
+            <ellipse key={i} cx={bx} cy={-132 - i * 9} rx={12 - i} ry={3.4} fill="#e6e0d2"
               stroke={INK} strokeWidth={2.4} />
           ))}
         </g>
       ))}
-      <Galvanized x={-58} y={-104} w={116} h={104} seed={seed} opacity={0.12} />
-      {wear > 0.25 && <RustStreak x={-58} y={-104} w={116} h={104} seed={seed} opacity={wear * 0.7} />}
+      <Galvanized x={-46} y={-124} w={92} h={124} seed={seed} opacity={0.12} />
+      {wear > 0.25 && <RustStreak x={-46} y={-124} w={92} h={124} seed={seed} opacity={wear * 0.7} />}
     </g>
   );
 };

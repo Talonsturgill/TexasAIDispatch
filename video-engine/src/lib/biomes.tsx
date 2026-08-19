@@ -377,6 +377,11 @@ const ClayCracks: React.FC<{seed: number; groundY: number}> = ({seed, groundY}) 
   // The near band is where a viewer can see the width of a crack and where the grass
   // thins enough for the clay to show, so that is where they are. Above it the ground
   // keeps its colour and nothing is drawn.
+  //
+  // A CRACK IS A SHADOW, so it is DARKER than the fill it opens in. Drawn pale it reads as
+  // a wireframe laid over the ground, which is what a scorer saw: a grid rather than clay.
+  // The plates also have to vary about three to one in area, because a network of equal
+  // cells is a mesh and shrinking clay does not make one.
   const top = groundY + (H - groundY) * 0.42;
   const rows = 5, cols = 9;
   const node = (r: number, c: number) => {
@@ -384,8 +389,8 @@ const ClayCracks: React.FC<{seed: number; groundY: number}> = ({seed, groundY}) 
     const y = top + Math.pow(t, 1.35) * (H - top - 20);
     const spread = 0.6 + t * 0.9;                       // cells widen as they near us
     return {
-      x: ((c + 0.5) / cols) * W + (rnd(seed, r * 31 + c) - 0.5) * (W / cols) * spread,
-      y: y + (rnd(seed, 200 + r * 31 + c) - 0.5) * 30 * spread,
+      x: ((c + 0.5) / cols) * W + (rnd(seed, r * 31 + c) - 0.5) * (W / cols) * spread * 1.7,
+      y: y + (rnd(seed, 200 + r * 31 + c) - 0.5) * 62 * spread,
       t,
     };
   };
@@ -405,8 +410,8 @@ const ClayCracks: React.FC<{seed: number; groundY: number}> = ({seed, groundY}) 
         const my = (sg.a.y + sg.b.y) / 2 + (rnd(seed, 900 + i) - 0.5) * 14;
         return (
           <path key={i} d={`M${sg.a.x},${sg.a.y} Q${mx},${my} ${sg.b.x},${sg.b.y}`}
-            stroke="#241f19" strokeWidth={0.8 + t * 3.2} fill="none"
-            strokeLinecap="round" opacity={0.16 + t * 0.34} />
+            stroke="#17130e" strokeWidth={0.7 + t * 3.6} fill="none"
+            strokeLinecap="round" opacity={0.34 + t * 0.46} />
         );
       })}
     </g>

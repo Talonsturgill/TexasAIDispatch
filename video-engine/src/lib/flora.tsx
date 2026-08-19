@@ -202,7 +202,9 @@ export const LiveOak: React.FC<FloraProps & {
        h = 120, leaned = false, propped = false}) => {
   const L = useLight();
   const K = fit('liveOak', h);
-  const t = tones(season === 'winter' ? '#3f5540' : '#41603f', L);
+  // EVERGREEN. A live oak holds its leaf through the winter and its green is a dark
+  // blue green, not the yellow green this was sharing with the grass under it.
+  const t = tones(season === 'winter' ? '#2b4438' : '#2f4a3d', L);
   const bark = tones('#5a4a3c', L);
   const lean = leaned ? 13 * facing : (rnd(seed, 1) - 0.5) * 5;
 
@@ -210,44 +212,53 @@ export const LiveOak: React.FC<FloraProps & {
     <g transform={`translate(${x} ${y}) scale(${K * scale * facing} ${K * scale})`}>
       {/* the trunk is SHORT and thick and divides low. A live oak with three metres of
           clean trunk is an urban street tree that has been pruned up for traffic. */}
-      <Limb x1={0} y1={0} x2={lean * 0.7} y2={-h * 0.30} w1={h * 0.055} w2={h * 0.042}
+      <Limb x1={0} y1={0} x2={lean * 0.7} y2={-h * 0.25} w1={h * 0.085} w2={h * 0.070}
         fill={bark.core} />
-      {/* THE MASS GOES BEHIND THE LIMBS, and this comment used to say it went on top "at
-          partial coverage" while nothing set any coverage at all. Fully opaque and drawn
-          last, it buried every limb this component carefully computes, so a tree with five
-          dipping limbs and six canopies reached the screen as flat discs on a stub. Three
-          scoring rounds called the live oak a lollipop and the code disagreed with them,
-          which is the tell that the code was not what was rendering.
+      {/* THE LIVE OAK, BUILT TO THE SPEC A SCORER FINALLY WROTE DOWN.
+          Four rounds called this a lollipop, then a recoloured mesquite, and each fix moved
+          a lobe rather than the architecture. The four things that actually separate a live
+          oak from every other tree in this library, all of them structural:
 
-          Behind, the mass gives the crown one silhouette and the limbs read in front of it,
-          which is the whole difference between a live oak and a generic round tree. */}
-      {/* A LIVE OAK IS LOBES ON LIMBS, NOT A CLOUD OVER THEM. This nine-lobe canopy spanned
-          the whole crown and merged into one mass at every scale the film actually uses, so
-          the five limbs drawn under it never showed and four rounds of scorers called the
-          tree a lollipop and lily pads on a stick. What is left is the limb-end canopies
-          below plus two small ties, which is three to five separated lobes with sky between
-          them on visible down-sweeping limbs: the shape FAUNA_AND_FLORA describes. */}
-      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.50} rx={h * 0.40} ry={h * 0.20}
-        lobes={3} fill={t.core} hi={t.base} lo={t.shade} spread={0.7} />
-      {Array.from({length: 5}, (_, i) => {
-        const a = (-0.30 - i * 0.30 + rnd(seed, 10 + i) * 0.24) * Math.PI;
-        const reach = h * (0.52 + rnd(seed, 30 + i) * 0.40);
-        const bx = lean * 0.7 + Math.cos(a) * reach;
-        // THE DIP. A live oak limb sags under its own weight and then turns up at the
-        // tip, so the low ones come back toward the ground. A limb drawn as a straight
-        // ray from the trunk is a maple.
-        const by = -h * 0.30 + Math.sin(a) * reach * 0.62;
+          ONE. IT IS WIDER THAN IT IS TALL. Spread runs 1.3 to 2 times height. This was
+          taller than wide, which is the single reason it kept reading as somebody else's
+          tree no matter what the crown did.
+          TWO. THE TRUNK DIVIDES LOW, around a quarter of tree height, into three to five
+          limbs of TRUNK-LIKE THICKNESS that run near horizontal and dip at the tips. Thin
+          diverging stems of equal weight are a mesquite, which is exactly what a scorer
+          said this was.
+          THREE. FOLIAGE RIDES ALONG THE LIMBS in overlapping clumps, with sky at the crown
+          edge. A pad capping the end of each stem is the broccoli this drew before.
+          FOUR. IT IS EVERGREEN. Dark blue green all year, never the yellow green it was
+          sharing with the grass it stands in. */}
+      {Array.from({length: 4}, (_, i) => {
+        // near horizontal, fanned across the full spread rather than radiating evenly
+        const side = i % 2 === 0 ? -1 : 1;
+        const rank = Math.floor(i / 2) / 1;
+        const reach = h * (0.66 + rank * 0.30 + (rnd(seed, 30 + i) - 0.5) * 0.14) * side;
+        const rise = -h * (0.10 + rank * 0.16 + rnd(seed, 40 + i) * 0.10);
+        const x0 = lean * 0.7, y0 = -h * 0.25;
+        const tipX = x0 + reach, tipY = y0 + rise;
         return (
           <g key={i}>
-            <Limb x1={lean * 0.7} y1={-h * 0.30} x2={bx} y2={by}
-              w1={h * 0.052} w2={h * 0.020} fill={bark.core}
-              bow={(by > -h * 0.30 ? 1 : -1) * reach * 0.13} />
-            <Canopy seed={seed + i * 17} cx={bx} cy={by - h * 0.06}
-              rx={h * 0.26} ry={h * 0.17} lobes={5}
-              fill={t.core} hi={t.base} lo={t.shade} />
+            {/* THE DIP: the limb sags under its own weight and lifts at the tip, so the bow
+                is on the far side of the chord from the trunk. */}
+            <Limb x1={x0} y1={y0} x2={tipX} y2={tipY}
+              w1={h * 0.075} w2={h * 0.030} fill={bark.core}
+              bow={Math.abs(reach) * 0.20} />
+            {/* clumps RIDING the limb, growing outward, not one pad at the end */}
+            {[0.42, 0.70, 0.96].map((u, k) => (
+              <Canopy key={k} seed={seed + i * 17 + k * 5}
+                cx={x0 + reach * u}
+                cy={y0 + rise * u - h * (0.055 + 0.055 * u) + Math.abs(reach) * 0.20 * (1 - Math.abs(2 * u - 1)) * 0.5}
+                rx={h * (0.16 + 0.10 * u)} ry={h * (0.11 + 0.055 * u)}
+                lobes={4} fill={t.core} hi={t.base} lo={t.shade} spread={0.66} />
+            ))}
           </g>
         );
       })}
+      {/* the interior over the fork, small, so the crown has a middle without a dome */}
+      <Canopy seed={seed + 3} cx={lean * 0.5} cy={-h * 0.40} rx={h * 0.22} ry={h * 0.13}
+        lobes={3} fill={t.core} hi={t.base} lo={t.shade} spread={0.6} />
       {propped && (
         /* the cedar prop under a resting limb. It is a real thing on a courthouse
            square tree and it says the town has been looking after this one. */
