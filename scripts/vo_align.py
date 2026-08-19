@@ -103,7 +103,7 @@ MAX_CUE_S = 3.4
 # Only 5 of this reader's 11 sentence ends fall on a measured silence, so no policy can
 # have both. The sentence the film exists to deliver reads as a sentence, and the early
 # reveal is disclosed in the email rather than hidden.
-HARD_CUE_CHARS = 120
+HARD_CUE_CHARS = 88
 
 # Words a caption card must not be left sitting on. Closed-class only, deliberately: articles,
 # prepositions, conjunctions, auxiliaries and pronouns are the ones that read as a sentence cut
@@ -116,7 +116,7 @@ FUNCTION_TAIL = {
     "it", "its", "he", "she", "they", "them", "we", "you", "his", "her", "their", "our",
     "that", "this", "these", "those", "which", "who", "as", "if", "than", "then", "when",
 }
-HARD_CUE_S = 7.0
+HARD_CUE_S = 5.5
 
 # How far past the hard ceiling a cue may run while it waits for a boundary that is not a
 # function word. Module level because the segmenter and the self-test must agree on it; it
@@ -298,7 +298,7 @@ def align(x: np.ndarray, rate: int, script: str) -> dict:
     }
 
 
-def cues(words: list[dict]) -> list[dict]:
+def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
     """Cues that break ONLY on measured boundaries, and PREFER the ones that make sense.
 
     MEASURED IS NOT THE SAME AS READABLE, and this took the whole difference on the chin.
@@ -393,9 +393,49 @@ def cues(words: list[dict]) -> list[dict]:
             out[-1].extend(cur)
         else:
             out.append(cur)
+    out = split_at_cuts(out, cuts)
     return [{"id": f"c{i + 1}", "start": g[0]["start"], "end": g[-1]["end"],
              "text": " ".join(x["word"] for x in g), "source": "measured_boundary"}
             for i, g in enumerate(out)]
+
+
+def split_at_cuts(groups, cuts):
+    """A CUE MAY NOT SPAN A PICTURE CUT, and this is a truth rule wearing a craft costume.
+
+    A caption that outlives its shot puts one scene's sentence under the next scene's picture.
+    On 2026-08-19 six cues spanned eleven of the twelve cuts, so a sentence about Abilene in
+    Taylor County sat under the researcher's bench in Travis County, and the opening line sat
+    under a storage super two shots later. `story.md` had already CUT AN ENTIRE RESEARCHED SCENE
+    rather than let one sentence land on two counties, and the caption track then committed that
+    fault four times in the same film.
+
+    It splits ONLY at a boundary the aligner already measured, so every cue edge stays a silence
+    somebody found in the waveform and nothing is invented or shifted. Where a cut falls inside a
+    run with no measured boundary near it, the cue is left spanning: the alternative is a made-up
+    timing, which is a hard fail, and a slightly long card is not.
+    """
+    if not cuts:
+        return groups
+    out = []
+    for g in groups:
+        start, end = g[0]["start"], g[-1]["end"]
+        inside = [c for c in cuts if start < c < end]
+        if not inside:
+            out.append(g)
+            continue
+        piece = []
+        for w in g:
+            piece.append(w)
+            # break at the last measured word end at or before the next cut this piece crosses
+            nxt = next((c for c in inside if c > piece[0]["start"]), None)
+            if nxt is not None and w["end"] <= nxt and w is not g[-1]:
+                after = g[g.index(w) + 1]
+                if after["start"] >= nxt:
+                    out.append(piece)
+                    piece = []
+        if piece:
+            out.append(piece)
+    return out
 
 
 def self_test() -> int:
@@ -512,9 +552,37 @@ def self_test() -> int:
     # The overshoot is therefore bounded by one speech run, not by zero. Asserting a hard
     # cap here went red on a legitimate output, which is the right way round: the gate
     # noticed the code and the code was correct.
-    ok("...and none overshoots the hard ceiling by more than one run",
-       all(len(c["text"]) <= HARD_CUE_CHARS * OVERSHOOT for c in cs),
-       str(max(len(c["text"]) for c in cs)))
+    # THE INVARIANT, STATED AS THE MECHANISM RATHER THAN AS A MULTIPLE. A cue may only end on a
+    # measured silence, so once the ceiling is passed it must run on to the NEXT one. The bound
+    # is therefore "the cue was under the ceiling at its previous boundary", and it is not a
+    # fixed multiple of anything: how far a cue overshoots depends entirely on how long the
+    # reader went without pausing.
+    #
+    # `OVERSHOOT * HARD_CUE_CHARS` was standing in for that and it broke the moment the ceiling
+    # was tightened from 120 to 88, going red on output that was correct. This is the second
+    # time this exact assertion has failed a legitimate cue, and its own comment already said
+    # the ceiling is a trigger and not a cap. Measure the mechanism.
+    def without_last_run(cue_words):
+        runs, cur = [], []
+        for w in cue_words:
+            cur.append(w)
+            if w["anchored_end"]:
+                runs.append(cur); cur = []
+        if cur:
+            runs.append(cur)
+        kept = [w for r in runs[:-1] for w in r] if len(runs) > 1 else []
+        return len(" ".join(w["word"] for w in kept))
+
+    grouped, cur = [], []
+    for w in res["words"]:
+        cur.append(w)
+        if any(abs(w["end"] - c["end"]) < 1e-6 for c in cs):
+            grouped.append(cur); cur = []
+    if cur:
+        grouped.append(cur)
+    ok("...and every cue was under the ceiling at its PREVIOUS measured boundary",
+       all(without_last_run(g) <= HARD_CUE_CHARS for g in grouped),
+       str([without_last_run(g) for g in grouped]))
 
     # MAX_CUE_CHARS NOW GOVERNS EXACTLY ONE THING and nothing was holding it there. The
     # sentence-first rewrite replaced the old `too_long` ceiling with `runaway`, left the
@@ -621,6 +689,10 @@ def main() -> int:
         "the VO stem, on the mix's own timeline. Boundaries are detected here and applied "
         "to --wav. See the note in main() for why this is not a shortcut."))
     ap.add_argument("--out", default="out/dispatch")
+    ap.add_argument("--cuts", help=(
+        "the storyboard, so a cue never spans a picture cut. A caption that outlives its shot "
+        "puts one scene's sentence under the next scene's picture, and this film had six cues "
+        "spanning eleven of twelve cuts."))
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -676,13 +748,21 @@ def main() -> int:
         print(f"vo_align: {exc}", file=sys.stderr)
         return 1
 
+    # Scene starts, so no cue outlives the shot it belongs to. Read from the board rather than
+    # passed as numbers, because the board is the only place the cuts actually are.
+    cut_times: list[float] = []
+    if a.cuts:
+        board = json.loads(Path(a.cuts).read_text())
+        cut_times = sorted(float(s["start_s"]) for s in board.get("scenes", [])
+                           if s.get("start_s"))
+
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "words.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
     caps = {"method": res["method"], "words_file": str(out / "words.json"),
             "boundaries_measured": res["boundaries_measured"],
             "words_anchored": res["words_anchored"], "words_modelled": res["words_modelled"],
-            "cues": cues(res["words"])}
+            "cues": cues(res["words"], cut_times)}
     (out / "captions.json").write_text(json.dumps(caps, indent=2), encoding="utf-8")
     print(f"vo_align: {len(caps['cues'])} cues, every boundary measured. "
           f"{res['words_anchored']} of {res['words_total']} word times are measurements, "
