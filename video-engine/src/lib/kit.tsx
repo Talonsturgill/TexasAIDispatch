@@ -512,7 +512,7 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
           one film. The mass gives the crown a silhouette to belong to; the scatter still
           does all the work of letting light through its edge. */}
       {Array.from({length: 3}, (_, i) => {
-        const cx = (i - 1) * w * 0.37 + (rnd(seed, 50 + i) - 0.5) * 26;
+        const cx = (i - 1) * w * 0.31 + (rnd(seed, 50 + i) - 0.5) * 20;
         const cy = -h * 0.52 - (rnd(seed, 60 + i)) * 26;
         return (
           <g key={i}>
@@ -559,11 +559,15 @@ export const PricklyPear: React.FC<KitProps & {pads?: number}> = ({
       // SPRAWL, don't stack. The old placement walked straight up the y axis with a small
       // x jitter, which is a pile of plates. A clump spreads sideways as fast as it climbs
       // and leans its outer pads away from the centre.
+      // A clump is roughly as wide as it is tall. The first pass at this pushed the pads
+      // out sideways faster than they climbed and the plant crawled off the frame edge
+      // reading as a caterpillar, which is a different wrong from the pile of plates it
+      // replaced. Fan them: rising and spreading at about the same rate.
       const side = i % 2 ? 1 : -1;
       const out = (i / Math.max(1, pads - 1));
-      const a = (rnd(seed, i) - 0.5) * 46 + side * (18 + out * 44);
-      const px = side * out * 52 + (rnd(seed, 20 + i) - 0.5) * 20;
-      const py = -12 - out * 46 - rnd(seed, 30 + i) * 16;
+      const a = (rnd(seed, i) - 0.5) * 40 + side * (14 + out * 30);
+      const px = side * out * 26 + (rnd(seed, 20 + i) - 0.5) * 16;
+      const py = -14 - out * 52 - rnd(seed, 30 + i) * 14;
       const rx = 15 + rnd(seed, 40 + i) * 6;
       return (
         <g key={i} transform={`translate(${px} ${py}) rotate(${a})`}>
