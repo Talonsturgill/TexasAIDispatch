@@ -476,7 +476,19 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
        --report out/dispatch/report_card.json
 python3 scripts/super_evidence_check.py --board out/dispatch/storyboard.json \
        --claims out/dispatch/claims.json
+python3 scripts/board_scale_check.py --board out/dispatch/storyboard.json
 ```
+
+**`board_scale_check` multiplies the board's `scale` by the module's own measured height and
+tells you what the object is in METRES.** `scale_check` reads the engine and proves every
+dimension table is wired to a `fit()`, and it is blind to this, because the fault is not in the
+engine: every component renders true size at `scale: 1` and the board was using `scale` as a
+distance dial. **`z` is the distance dial.** Measured, the exteriors were a doll's house, and
+three judges filed three separate craft defects in one round that were all this one arithmetic.
+
+The current state is a per-kind DEBT ledger rather than a wall of failures, because a gate that
+blocks every delivery gets commented out. Anything new or anything worse fails at once. **A run
+that fixes a line lowers it in the same commit**, and `person` is already retired.
 
 **`super_evidence_check` is the one that catches the RIGHT NUMBER OVER THE WRONG PICTURE**, and
 it exists because nothing else here could. Every numeral gate proves a figure is a member of the
