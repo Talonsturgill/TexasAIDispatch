@@ -273,11 +273,38 @@ Scenes are code, story is data, and **the data is the board Gate 0 just passed.*
 document written from it. The same file, by path.
 
 ```
-cd video-engine && npx remotion render Dispatch out/dispatch/film.mp4 \
-  --props=../out/dispatch/storyboard.json
+cd video-engine && npx remotion render Dispatch ../out/dispatch/silent.mp4 \
+  --props=../out/dispatch/storyboard.json --concurrency=100% --log=error
 ```
 
+**`--concurrency=100%` IS NOT OPTIONAL, AND IT IS THE SINGLE CHEAPEST MINUTE IN THIS
+ROUTINE.** Remotion defaults to about half the cores, so on the four core container every
+render this machine has ever done left two of them idle and took twice as long as it had
+to. A run does several full renders, and the cost of the default was paid every time
+without anything reporting it, because a render that is half as fast still exits 0. It is
+written as a PERCENTAGE rather than a number so it follows the machine the run lands on
+instead of pinning a count that will be wrong the first time the container is resized.
+
+Watch memory rather than the flag if a render dies: each worker is a browser page, so the
+ceiling is RAM per page, not cores.
+
 **Read the QA, not the exit code.** A scene that draws nothing renders without error.
+
+### THE MUX, AND NEVER WITH `-shortest`
+
+The picture renders silent. The mixed audio goes in afterward:
+
+```
+npx remotion ffmpeg -y -i ../out/dispatch/silent.mp4 -i ../out/dispatch/mix.wav \
+  -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k ../out/dispatch/film.mp4
+```
+
+**`-shortest` TRUNCATES THE FILM TO THE AUDIO.** The mix is the length of the read and the
+picture is the read plus the credits card, so `-shortest` silently cuts the credits off
+the end and the encode still reports success. For a permissively licensed bed that is the
+attribution going unpaid, which is the same fault as a credit that scrolls past too fast
+to read, arrived at by a different route. Verify the muxed duration is longer than the
+mix, not equal to it.
 
 A board can express most shots. When it cannot, write a bespoke scene component and register it
 in `lib/registry.tsx` — the engine is a floor, not a ceiling, and `registry_check.py` will hold
