@@ -494,13 +494,19 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
       <path d={`M0,0 q${2 + lean * 0.2},-16 12,-28 q10,-12 30,-14`} stroke="#4a3a2c"
         strokeWidth={8} fill="none" strokeLinecap="round" />
       <path d={`M0,0 q1,-20 3,-34`} stroke="#4a3a2c" strokeWidth={6} fill="none" strokeLinecap="round" />
-      {/* the crown: WIDER THAN TALL, and light comes through all of it */}
+      {/* the crown: WIDER THAN TALL, and light comes through all of it.
+          A SOFT MASS UNDER THE LEAVES, because 78 scattered ellipses read as a lacy crown
+          at thumbnail size and as CONFETTI at hero size, and this tree is drawn at both in
+          one film. The mass gives the crown a silhouette to belong to; the scatter still
+          does all the work of letting light through its edge. */}
       {Array.from({length: 3}, (_, i) => {
         const cx = (i - 1) * w * 0.30 + (rnd(seed, 50 + i) - 0.5) * 18;
         const cy = -h * 0.52 - (rnd(seed, 60 + i)) * 12;
         return (
           <g key={i}>
-            {Array.from({length: 26}, (_, k) => {
+            <ellipse cx={cx} cy={cy} rx={w * 0.20} ry={h * 0.25}
+              fill="#5f7047" opacity={0.55} />
+            {Array.from({length: 54}, (_, k) => {
               const kk = (k * 22695477 + seed * 1013904223 + i * 7919) >>> 0;
               const a = ((kk >>> 4) % 1000) / 1000 * Math.PI * 2;
               const rr = Math.sqrt(((kk >>> 14) % 1000) / 1000);
@@ -508,7 +514,8 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
                 <ellipse key={k}
                   cx={cx + Math.cos(a) * w * 0.24 * rr}
                   cy={cy + Math.sin(a) * h * 0.30 * rr}
-                  rx={2 + ((kk >>> 24) % 4) * 0.6} ry={1.4 + ((kk >>> 20) % 3) * 0.5}
+                  rx={w * 0.021 + ((kk >>> 24) % 4) * w * 0.006}
+                  ry={h * 0.017 + ((kk >>> 20) % 3) * h * 0.008}
                   fill={(kk >>> 9) % 3 === 0 ? '#8fa06a' : '#5f7047'}
                   opacity={0.6 + ((kk >>> 6) % 40) / 100} />
               );
