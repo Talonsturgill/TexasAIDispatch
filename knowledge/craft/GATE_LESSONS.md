@@ -1166,3 +1166,47 @@ heuristic was drafted and thrown away because near-plane items legitimately sit 
 horizon line, so it would have failed correct scenes, and this file already records what that
 costs. The honest artifact is this entry plus the rule that a `groundY` change is verified with a
 still. A gate that cannot be written correctly is worth less than a lesson that is.
+
+---
+
+## The number was in the statement, not in the quote, and it wore a VERIFIED badge
+
+`claims.json` gives every claim a `statement`, a `value_text`, a `quote` and a `verdict`. Three
+of those are written by the model that read the source. **One is the source.** Nothing enforced
+the difference, so a figure asserted in a `statement` was indistinguishable, to every gate in
+this repo, from a figure somebody actually fetched.
+
+The film printed a readout row reading `on Vista | 30 times faster`. The claim behind it is
+marked VERIFIED, and its quote is entirely about three years of porting a code from CPUs to
+GPUs. **It contains no speed-up figure of any kind.** A judge found it, called it the single
+thing most likely to embarrass this show, and was right: an unsourced number that looks
+unsourced gets questioned, and an unsourced number wearing a verification badge does not.
+
+Measured across the whole board, **five of eleven figures printed by readouts appeared in no
+fetched sentence anywhere in the claims file.**
+
+**Why every existing gate was green, again.** `numeral_lint` and `ship_gate` check a numeral
+against `authorised_numerals`, a set computed from the claims file. `30` is in that set. The
+check is set membership, and the fault is one layer down, in whether the claim's own evidence
+carries what the claim asserts. And `super_evidence_check`, written for exactly this family of
+fault, only ever read SUPERS. **A readout carries no claim binding at all**, and a readout is
+where the numbers actually live: the queue table, the speed-ups, the water.
+
+**What to check instead.** `super_evidence_check` now reads readout rows too, against
+`evidence_text()` rather than the whole claim, and `evidence_text()` is the `quote` and nothing
+else. The one legitimate exception is a table, where a source publishes rows and the quote
+captures one of them, and it is DECLARED per claim as `quote_is_excerpt` with `excerpt_of`
+naming what it excerpts, rather than inferred by the checker. An exception somebody wrote on
+purpose can be audited; a hole the checker leaves open for everything cannot.
+
+**And the repair was not the same in both places, which is the part worth remembering.** The
+queue table was real: a re-fetch returned all four rows verbatim, so the quote was widened and
+the film keeps its best readout. The Vista figure was not there to find. Its source is serving a
+500 today with no archived copy, so it could not even be re-checked, and the row came off the
+screen. **A gate that had only ever said "drop it" would have cost the queue table too. Re-fetch
+first, then drop what is genuinely not there.**
+
+The wider finding, recorded because it will outlive this run: five of twenty claims in this film
+cite one press release that is currently unreachable. Their quotes were captured at fetch time
+and remain the evidence, but nothing in this repo records that a source has since gone dark, and
+a run that needed to re-verify one of them today could not.

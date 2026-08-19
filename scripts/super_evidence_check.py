@@ -166,6 +166,75 @@ def claim_text(c: dict) -> str:
     return " ".join(str(c.get(k) or "") for k in ("statement", "value_text", "quote", "note"))
 
 
+def evidence_text(c: dict) -> str:
+    """ONLY THE FETCHED SENTENCE, and this distinction is the whole of the second check.
+
+    `statement` and `value_text` are written by the model that read the source. `quote` is what
+    the source actually says. A figure present only in the first two has been asserted, not
+    evidenced, and it is wearing a VERIFIED badge while it does so, which is worse than an
+    obviously unsourced number because nothing downstream will question it.
+
+    A judge found exactly this and named it the single thing most likely to embarrass the show:
+    a readout row printing `on Vista | 30 times faster` against a claim whose quote is entirely
+    about three years of porting and contains no speed-up figure of any kind.
+
+    THE ONE LEGITIMATE EXCEPTION IS A TABLE, and it is declared per claim rather than inferred.
+    A source that publishes a queue table is quoted by one representative row, and the remaining
+    rows live in `value_text`. That claim sets `quote_is_excerpt: true` with `excerpt_of` saying
+    what the excerpt is one row of. The exception is then auditable: it is a field somebody
+    wrote on purpose, not a hole the checker leaves open for everything.
+    """
+    if c.get("quote_is_excerpt"):
+        return " ".join(str(c.get(k) or "") for k in ("quote", "value_text"))
+    return str(c.get("quote") or "")
+
+
+def printed_figures(board: dict):
+    """Every figure a READOUT prints, which is the surface no gate has ever read.
+
+    A super is one line and gets checked against its own claim. A readout is a table of rows,
+    it carries no claim binding at all, and it is where the numbers actually live: the queue
+    table, the speed-ups, the water. Five of eleven figures printed by the readouts in this
+    film appeared in no fetched sentence anywhere in the claims file.
+    """
+    for sc in board.get("scenes", []):
+        for pl in sc.get("planes", []):
+            for it in pl.get("items", []):
+                if it.get("kind") != "readout":
+                    continue
+                props = it.get("props") or {}
+                for row in props.get("rows") or []:
+                    for cell in (row if isinstance(row, (list, tuple)) else [row]):
+                        for v in figures(str(cell)):
+                            yield sc.get("id", "?"), str(cell), v
+
+
+def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
+    """RULE 6. A figure on a readout appears in some claim's FETCHED text.
+
+    Deliberately checked against the whole file rather than one bound claim, because a readout
+    carries no `super_claim` and inventing one would be a schema change made by a gate. This is
+    the weaker form of the super rule and it still catches what has actually shipped.
+    """
+    fails: list[str] = []
+    evidence = " ".join(evidence_text(c) for c in claims.get("claims", []))
+    have = figures(evidence)
+    seen: set[tuple[str, float]] = set()
+    for sid, cell, v in printed_figures(board):
+        if v in have or (sid, v) in seen:
+            continue
+        seen.add((sid, v))
+        fails.append(
+            f"{sid}: a readout prints {cell!r}, and {v:g} appears in no claim's fetched quote. "
+            f"It may well sit in a claim's statement or value_text, which is exactly the fault: "
+            f"those are written by the model that read the source and the quote is what the "
+            f"source says. If the figure is genuinely in the source, widen that claim's quote to "
+            f"the sentence carrying it. If the source publishes a table, set "
+            f"`quote_is_excerpt: true` on the claim with `excerpt_of` naming what it excerpts. "
+            f"If neither, the row does not go on screen.")
+    return fails
+
+
 def check(board: dict, claims: dict) -> tuple[list[str], list[str]]:
     fails: list[str] = []
     notes: list[str] = []
@@ -218,6 +287,7 @@ def check(board: dict, claims: dict) -> tuple[list[str], list[str]]:
                 f"{sid}: super {sup!r} names {absent}, which {cid} never mentions. A result "
                 f"cannot be moved to a different institution, machine or place by a headline.")
 
+    fails += check_printed_figures_are_quoted(board, claims)
     return fails, notes
 
 
@@ -296,6 +366,37 @@ def self_test() -> int:
 
     f, _ = check(board({"id": "sy", "super": "ninety nanoseconds", "super_claim": "c99"}), CLAIMS)
     ok("catches a super_claim that does not exist", bool(f), "no fail raised")
+
+    # ---------------------------------------------------------------- readouts
+    # THE SURFACE NO GATE HAS EVER READ. A super is one line bound to one claim; a readout is a
+    # table of rows bound to nothing, and it is where the numbers actually live.
+    def rd(*rows):
+        return {"scenes": [{"id": "s11", "planes": [{"z": 90, "items": [
+            {"kind": "readout", "x": 0, "y": 0, "props": {"title": "t", "rows": list(rows)}}]}]}]}
+
+    TABLED = {"claims": [dict(CLAIMS["claims"][0]),
+                         {"id": "c6", "verdict": "VERIFIED",
+                          "statement": "the queue table is fully specified",
+                          "quote": "gb | Grace Blackwell | 128 | 48 hrs | 1 SU",
+                          "value_text": "gb-large, 512 nodes, 48 hours, 1 SU",
+                          "quote_is_excerpt": True,
+                          "excerpt_of": "one representative row of the published queue table"}]}
+
+    f, _ = check(rd(["on test nodes", "80 times faster"]), CLAIMS)
+    ok("a readout figure that IS in a fetched quote passes", not f, str(f))
+
+    # THE DEFECT, REPLAYED: 30 is in c16's statement and in no quote anywhere.
+    f, _ = check(rd(["on Vista", "30 times faster"]), CLAIMS)
+    ok("catches a readout figure evidenced only by a model-written statement",
+       bool(f), "no fail raised")
+    ok("...and says to widen the quote or drop the row",
+       bool(f) and "widen that claim's quote" in f[0], f[0] if f else "")
+
+    # THE ONE LEGITIMATE EXCEPTION, and it must be DECLARED rather than inferred.
+    f, _ = check(rd(["gb-large", "512 nodes"]), CLAIMS)
+    ok("a table row absent from the quote fails when nothing declares an excerpt", bool(f))
+    f, _ = check(rd(["gb-large", "512 nodes"]), TABLED)
+    ok("...and passes once the claim declares quote_is_excerpt", not f, str(f))
 
     print(f"super_evidence_check: {fails} failure(s)")
     return 1 if fails else 0

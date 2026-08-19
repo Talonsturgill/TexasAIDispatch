@@ -90,14 +90,21 @@ def check_self_matching_waits() -> list[str]:
     ancestor chain and carries a deadline; anything else waiting on a pattern is the bug.
     """
     errs = []
-    pat = re.compile(r"(while|until).*pgrep\s+-f", re.I)
+    # `pkill -f` and `pgrep -f` are the same hazard and only one of them was checked. On
+    # 2026-08-19 a run typed `pkill -f "remotion render Dispatch"` to stop a stale render and
+    # killed ITS OWN SHELL, because the shell's command line contained the pattern. The command
+    # died at exit 144 with three later edits in the same invocation never running, and the run
+    # spent a minute working out why its own file had not changed.
+    # A wait that matches itself spins; a kill that matches itself dies. Same bug, same cure:
+    # exclude the ancestor chain, or use a pid.
+    pat = re.compile(r"((while|until).*pgrep\s+-f)|(pkill\s+-f)", re.I)
     for p in _shell_and_py():
         if p.name in ("waitfor.sh", "run_discipline.py"):
             continue
         for i, line in _executable_lines(p):
             if pat.search(line):
                 errs.append(
-                    f"{p.relative_to(REPO)}:{i}: waits on a `pgrep -f` pattern. Its own "
+                    f"{p.relative_to(REPO)}:{i}: matches a process by a `-f` pattern. Its own "
                     f"command line contains that pattern, so the loop matches itself and "
                     f"spins forever, looking exactly like a slow job. "
                     f"`source scripts/waitfor.sh` and use wait_for_pattern or wait_for_pids.")
