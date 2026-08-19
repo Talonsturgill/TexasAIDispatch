@@ -49,8 +49,8 @@
               "y": 0,
               "scale": 1,
               "props": {
-                "horizonY": 1420,
-                "lit": 0.9
+                "horizonY": 1500,
+                "lit": 0.95
               }
             }
           ]
@@ -61,33 +61,33 @@
           "items": [
             {
               "kind": "cabinet",
-              "x": -40,
-              "y": 1300,
-              "scale": 0.5
+              "x": -20,
+              "y": 1436,
+              "scale": 0.7
             },
             {
               "kind": "cabinet",
-              "x": 300,
-              "y": 1300,
-              "scale": 0.5
+              "x": 310,
+              "y": 1436,
+              "scale": 0.7
             },
             {
               "kind": "cabinet",
               "x": 640,
-              "y": 1300,
-              "scale": 0.5
+              "y": 1436,
+              "scale": 0.7
             },
             {
               "kind": "cabinet",
-              "x": 980,
-              "y": 1300,
-              "scale": 0.5
+              "x": 970,
+              "y": 1436,
+              "scale": 0.7
             },
             {
               "kind": "person",
-              "x": 470,
-              "y": 1330,
-              "scale": 0.5,
+              "x": 475,
+              "y": 1436,
+              "scale": 0.7,
               "props": {
                 "cast": "dctech",
                 "pose": "stand"
@@ -101,15 +101,15 @@
           "items": [
             {
               "kind": "cabinet",
-              "x": -150,
-              "y": 1560,
-              "scale": 0.82
+              "x": -180,
+              "y": 1529,
+              "scale": 0.85
             },
             {
               "kind": "cabinet",
               "x": 920,
-              "y": 1560,
-              "scale": 0.82
+              "y": 1529,
+              "scale": 0.85
             }
           ]
         },
@@ -118,26 +118,16 @@
           "label": "near rank",
           "items": [
             {
-              "kind": "hallShell",
-              "x": 0,
-              "y": 0,
-              "scale": 1,
-              "props": {
-                "horizonY": 1420,
-                "floorOnly": true
-              }
+              "kind": "cabinet",
+              "x": -390,
+              "y": 1647,
+              "scale": 1.03
             },
             {
               "kind": "cabinet",
-              "x": -330,
-              "y": 1790,
-              "scale": 1.2
-            },
-            {
-              "kind": "cabinet",
-              "x": 1120,
-              "y": 1790,
-              "scale": 1.2
+              "x": 1150,
+              "y": 1647,
+              "scale": 1.03
             }
           ]
         },
@@ -147,15 +137,15 @@
           "items": [
             {
               "kind": "cabinet",
-              "x": -560,
-              "y": 2060,
-              "scale": 1.7
+              "x": -640,
+              "y": 1827,
+              "scale": 1.3
             },
             {
               "kind": "cabinet",
-              "x": 1360,
-              "y": 2060,
-              "scale": 1.7
+              "x": 1420,
+              "y": 1827,
+              "scale": 1.3
             }
           ]
         }
@@ -171,7 +161,8 @@
           "at_s": 3.6,
           "what": "the technician resolves at the far end of the aisle"
         }
-      ]
+      ],
+      "interior": true
     },
     {
       "id": "s02",
@@ -307,7 +298,7 @@
       "county": "Williamson",
       "camera_strategy": "riseWith",
       "seed": 103,
-      "groundY": 1150,
+      "groundY": 950,
       "super": "the plant behind it",
       "caption": "Standby generators, a switchgear line, a cooling tower.",
       "hero": "the plant that gives the building away",
@@ -321,15 +312,20 @@
           "label": "roof line",
           "items": [
             {
-              "kind": "storefrontBlock",
+              "kind": "mansardBox",
               "x": -200,
-              "y": 1180,
-              "scale": 0.24
+              "y": 980,
+              "scale": 0.3,
+              "props": {
+                "w": 760,
+                "h": 150,
+                "closed": true
+              }
             },
             {
               "kind": "coolingTower",
               "x": 680,
-              "y": 1150,
+              "y": 950,
               "scale": 0.17
             }
           ]
@@ -341,7 +337,7 @@
             {
               "kind": "switchgear",
               "x": 80,
-              "y": 1220,
+              "y": 1020,
               "scale": 0.24
             }
           ]
@@ -353,7 +349,7 @@
             {
               "kind": "generatorBank",
               "x": 520,
-              "y": 1300,
+              "y": 1100,
               "scale": 0.2,
               "props": {
                 "running": true
@@ -368,13 +364,13 @@
             {
               "kind": "transformer",
               "x": 120,
-              "y": 1420,
+              "y": 1220,
               "scale": 0.16
             },
             {
               "kind": "transformer",
               "x": 480,
-              "y": 1428,
+              "y": 1228,
               "scale": 0.16
             }
           ]
@@ -386,13 +382,13 @@
             {
               "kind": "grassTuft",
               "x": 880,
-              "y": 1800,
+              "y": 1600,
               "scale": 0.4
             },
             {
               "kind": "bluestem",
               "x": 180,
-              "y": 1830,
+              "y": 1630,
               "scale": 0.05
             }
           ]
@@ -421,7 +417,7 @@
       "groundY": 1900,
       "weather": "night",
       "super": "half of it is not here",
-      "caption": "Four thousand accelerators are running. The rest comes this winter.",
+      "caption": "Four thousand accelerators are running. The rest comes winter or early next year.",
       "hero": "an aisle where every other rank is an empty outline",
       "beat": "revelation",
       "on_screen": "the same hall from up in the roof, and every second rank is a dashed empty outline with nothing inside it standing beside the solid lit ones, so the room reads half built from above",
@@ -568,7 +564,8 @@
           "at_s": 3.8,
           "what": "the count of empty ranks resolves"
         }
-      ]
+      ],
+      "interior": true
     },
     {
       "id": "s05",
@@ -700,7 +697,8 @@
           "at_s": 3.7,
           "what": "the access line lands"
         }
-      ]
+      ],
+      "interior": true
     },
     {
       "id": "s06",
@@ -820,7 +818,8 @@
           "at_s": 3.6,
           "what": "the charge rate column arrives"
         }
-      ]
+      ],
+      "interior": true
     },
     {
       "id": "s07",
@@ -829,7 +828,7 @@
       "county": "Taylor",
       "camera_strategy": "riseWith",
       "seed": 107,
-      "groundY": 1150,
+      "groundY": 950,
       "super": "Abilene",
       "caption": "West of there, on the red beds, the private campus.",
       "hero": "how much of the horizon the private campus takes",
@@ -845,7 +844,7 @@
             {
               "kind": "turkeyVulture",
               "x": 700,
-              "y": 560,
+              "y": 360,
               "scale": 0.42
             }
           ]
@@ -856,9 +855,9 @@
           "items": [
             {
               "kind": "dataCentre",
-              "x": -160,
-              "y": 1180,
-              "scale": 0.115,
+              "x": -260,
+              "y": 1010,
+              "scale": 0.062,
               "props": {
                 "w": 820,
                 "h": 120,
@@ -868,14 +867,26 @@
             },
             {
               "kind": "dataCentre",
-              "x": 580,
-              "y": 1184,
-              "scale": 0.115,
+              "x": 420,
+              "y": 1013,
+              "scale": 0.062,
               "props": {
                 "w": 820,
                 "h": 120,
                 "units": 10,
                 "wear": 0.14
+              }
+            },
+            {
+              "kind": "dataCentre",
+              "x": 1100,
+              "y": 1011,
+              "scale": 0.062,
+              "props": {
+                "w": 820,
+                "h": 120,
+                "units": 10,
+                "wear": 0.13
               }
             }
           ]
@@ -887,13 +898,13 @@
             {
               "kind": "generatorBank",
               "x": 120,
-              "y": 1240,
+              "y": 1040,
               "scale": 0.16
             },
             {
               "kind": "coolingTower",
               "x": 740,
-              "y": 1230,
+              "y": 1030,
               "scale": 0.15
             }
           ]
@@ -905,7 +916,7 @@
             {
               "kind": "mesquite",
               "x": 930,
-              "y": 1350,
+              "y": 1150,
               "scale": 0.12
             }
           ]
@@ -917,13 +928,13 @@
             {
               "kind": "mesquite",
               "x": 110,
-              "y": 1640,
+              "y": 1440,
               "scale": 0.17
             },
             {
               "kind": "pricklyPear",
               "x": 980,
-              "y": 1740,
+              "y": 1540,
               "scale": 0.34
             }
           ]
@@ -970,7 +981,24 @@
               "scale": 1,
               "props": {
                 "horizonY": 1560,
-                "lit": 0.32
+                "lit": 0.62
+              }
+            }
+          ]
+        },
+        {
+          "z": 560,
+          "label": "the floor, behind the run",
+          "items": [
+            {
+              "kind": "hallShell",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "horizonY": 1560,
+                "floorOnly": true,
+                "lit": 0.62
               }
             }
           ]
@@ -982,8 +1010,8 @@
             {
               "kind": "cabinet",
               "x": 700,
-              "y": 1330,
-              "scale": 0.5,
+              "y": 1180,
+              "scale": 0.59,
               "props": {
                 "unknown": true
               }
@@ -991,8 +1019,8 @@
             {
               "kind": "cabinet",
               "x": 830,
-              "y": 1330,
-              "scale": 0.5,
+              "y": 1180,
+              "scale": 0.59,
               "props": {
                 "unknown": true
               }
@@ -1000,8 +1028,8 @@
             {
               "kind": "cabinet",
               "x": 960,
-              "y": 1330,
-              "scale": 0.5,
+              "y": 1180,
+              "scale": 0.59,
               "props": {
                 "unknown": true
               }
@@ -1015,26 +1043,26 @@
             {
               "kind": "cabinet",
               "x": 60,
-              "y": 1620,
-              "scale": 0.8
+              "y": 1420,
+              "scale": 0.944
             },
             {
               "kind": "cabinet",
               "x": 230,
-              "y": 1620,
-              "scale": 0.8
+              "y": 1420,
+              "scale": 0.944
             },
             {
               "kind": "cabinet",
               "x": 400,
-              "y": 1620,
-              "scale": 0.8
+              "y": 1420,
+              "scale": 0.944
             },
             {
               "kind": "cabinet",
               "x": 620,
-              "y": 1620,
-              "scale": 0.8,
+              "y": 1420,
+              "scale": 0.944,
               "props": {
                 "unknown": true
               }
@@ -1042,8 +1070,8 @@
             {
               "kind": "cabinet",
               "x": 790,
-              "y": 1620,
-              "scale": 0.8,
+              "y": 1420,
+              "scale": 0.944,
               "props": {
                 "unknown": true
               }
@@ -1051,8 +1079,8 @@
             {
               "kind": "cabinet",
               "x": 960,
-              "y": 1620,
-              "scale": 0.8,
+              "y": 1420,
+              "scale": 0.944,
               "props": {
                 "unknown": true
               }
@@ -1060,26 +1088,10 @@
             {
               "kind": "cabinet",
               "x": 1130,
-              "y": 1620,
-              "scale": 0.8,
+              "y": 1420,
+              "scale": 0.944,
               "props": {
                 "unknown": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 150,
-          "label": "the floor",
-          "items": [
-            {
-              "kind": "hallShell",
-              "x": 0,
-              "y": 0,
-              "scale": 1,
-              "props": {
-                "horizonY": 1560,
-                "floorOnly": true
               }
             }
           ]
@@ -1096,7 +1108,8 @@
           "at_s": 3.7,
           "what": "the dashed run is still arriving"
         }
-      ]
+      ],
+      "interior": true
     },
     {
       "id": "s09",
@@ -1105,9 +1118,9 @@
       "county": "Taylor",
       "camera_strategy": "craneDown",
       "seed": 109,
-      "groundY": 1230,
+      "groundY": 1030,
       "super": "nobody publishes it",
-      "caption": "Capacities for these sites have not been reported consistently.",
+      "caption": "Power capacities for these sites have not been reported consistently.",
       "hero": "the one person on that road who ought to know the load and cannot",
       "beat": "emotion",
       "on_screen": "a cattle guard on the county road at the edge of the campus, a lineworker stopped by her bucket truck looking across at the halls, the halls low and far behind her",
@@ -1126,7 +1139,7 @@
             {
               "kind": "dataCentre",
               "x": 40,
-              "y": 1180,
+              "y": 980,
               "scale": 0.075,
               "props": {
                 "w": 900,
@@ -1144,7 +1157,7 @@
             {
               "kind": "cattleGuard",
               "x": 520,
-              "y": 1300,
+              "y": 1100,
               "scale": 1.1,
               "props": {
                 "w": 300
@@ -1159,9 +1172,24 @@
             {
               "kind": "bucketTruck",
               "x": 760,
-              "y": 1360,
+              "y": 1160,
               "scale": 0.22,
               "facing": -1
+            },
+            {
+              "kind": "readout",
+              "x": 560,
+              "y": 700,
+              "props": {
+                "title": "an outside analyst, not a meter",
+                "w": 460,
+                "rows": [
+                  [
+                    "power capacity",
+                    "not reported consistently"
+                  ]
+                ]
+              }
             }
           ]
         },
@@ -1172,7 +1200,7 @@
             {
               "kind": "person",
               "x": 300,
-              "y": 1740,
+              "y": 1540,
               "scale": 1.25,
               "props": {
                 "cast": "lineworker",
@@ -1183,7 +1211,7 @@
             {
               "kind": "pricklyPear",
               "x": 980,
-              "y": 1720,
+              "y": 1520,
               "scale": 0.3
             }
           ]
@@ -1209,12 +1237,12 @@
       "county": "Brazos",
       "camera_strategy": "orbitReveal",
       "seed": 110,
-      "groundY": 1150,
+      "groundY": 970,
       "super": "the title is elsewhere",
       "caption": "Rank 66 sits in College Station. Rank 90 is Frontera, at TACC.",
       "hero": "the machine that actually holds the ranking",
       "beat": "revelation",
-      "on_screen": "a university machine room building standing in the post oak savannah with real windows and a walk up to the door, post oaks spaced wide with grass between them, a switchgear yard to one side, and a panel giving the two ranks",
+      "on_screen": "a university machine building in the post oak savannah with a walk running up to its door, post oaks spaced wide with grass between them, a switchgear yard to one side, and a panel giving the two ranks",
       "what_moves": "the camera orbits the building so the walk swings round into view and the switchgear yard comes out from behind it, and the post oaks part as it goes",
       "cast": [],
       "planes": [
@@ -1225,19 +1253,19 @@
             {
               "kind": "postOak",
               "x": 70,
-              "y": 1190,
+              "y": 1010,
               "scale": 0.15
             },
             {
               "kind": "postOak",
               "x": 520,
-              "y": 1176,
+              "y": 996,
               "scale": 0.13
             },
             {
               "kind": "postOak",
               "x": 980,
-              "y": 1188,
+              "y": 1008,
               "scale": 0.14
             }
           ]
@@ -1249,13 +1277,13 @@
             {
               "kind": "dataCentre",
               "x": 120,
-              "y": 1220,
-              "scale": 0.12,
+              "y": 1040,
+              "scale": 0.085,
               "props": {
-                "w": 680,
-                "h": 145,
-                "units": 7,
-                "wear": 0.2
+                "w": 560,
+                "h": 170,
+                "units": 4,
+                "wear": 0.3
               }
             }
           ]
@@ -1267,14 +1295,24 @@
             {
               "kind": "switchgear",
               "x": 730,
-              "y": 1280,
+              "y": 1100,
               "scale": 0.13
             },
             {
               "kind": "transformer",
               "x": 180,
-              "y": 1295,
+              "y": 1115,
               "scale": 0.1
+            },
+            {
+              "kind": "greatWalk",
+              "x": 560,
+              "y": 1220,
+              "scale": 1.0,
+              "props": {
+                "w": 1500,
+                "rows": 9
+              }
             }
           ]
         },
@@ -1285,7 +1323,7 @@
             {
               "kind": "readout",
               "x": 300,
-              "y": 1330,
+              "y": 1150,
               "props": {
                 "title": "the June list",
                 "w": 480,
@@ -1314,13 +1352,13 @@
             {
               "kind": "grassTuft",
               "x": 880,
-              "y": 1800,
+              "y": 1620,
               "scale": 0.42
             },
             {
               "kind": "bluestem",
               "x": 240,
-              "y": 1840,
+              "y": 1660,
               "scale": 0.05
             }
           ]
@@ -1351,7 +1389,7 @@
       "caption": "Thirty times faster on Vista. Eighty on the test nodes.",
       "hero": "the person who did the work before the door opened",
       "beat": "emotion",
-      "on_screen": "a researcher close to the camera at a lit workstation showing the code she has spent three years porting, her face filling a good part of the frame, a rack against the wall behind her and a live oak through the window line, a strip of bars climbing across the near ground",
+      "on_screen": "a researcher close to the camera at a lit workstation showing the code she has spent three years porting, her face filling a good part of the frame, a rack against the wall behind her, a strip of bars climbing across the near ground",
       "what_moves": "the camera travels in on her until the bars fill the near frame and her face is the biggest thing in the shot, the bars climb the whole way in, and she never looks up from the station",
       "cast": [
         {
@@ -1361,47 +1399,8 @@
       ],
       "planes": [
         {
-          "z": 580,
-          "label": "the window line",
-          "items": [
-            {
-              "kind": "liveOak",
-              "x": 760,
-              "y": 1150,
-              "scale": 0.16
-            }
-          ]
-        },
-        {
-          "z": 400,
-          "label": "the rack against the wall",
-          "items": [
-            {
-              "kind": "rackRow",
-              "x": -120,
-              "y": 1360,
-              "scale": 0.3
-            }
-          ]
-        },
-        {
-          "z": 330,
-          "label": "the bench",
-          "items": [
-            {
-              "kind": "readingStation",
-              "x": 640,
-              "y": 1520,
-              "scale": 0.7,
-              "props": {
-                "lit": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 150,
-          "label": "the result",
+          "z": 205,
+          "label": "the room",
           "items": [
             {
               "kind": "hallShell",
@@ -1409,17 +1408,50 @@
               "y": 0,
               "scale": 1,
               "props": {
-                "horizonY": 1460,
-                "floorOnly": true
+                "horizonY": 1280,
+                "lit": 0.88
               }
-            },
+            }
+          ]
+        },
+        {
+          "z": 170,
+          "label": "the rack against the wall",
+          "items": [
+            {
+              "kind": "rackRow",
+              "x": -160,
+              "y": 1300,
+              "scale": 0.34
+            }
+          ]
+        },
+        {
+          "z": 130,
+          "label": "the bench",
+          "items": [
+            {
+              "kind": "readingStation",
+              "x": 610,
+              "y": 1470,
+              "scale": 0.72,
+              "props": {
+                "lit": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 90,
+          "label": "the result",
+          "items": [
             {
               "kind": "readout",
-              "x": 470,
-              "y": 1080,
+              "x": 430,
+              "y": 1060,
               "props": {
                 "title": "the port, three years of it",
-                "w": 420,
+                "w": 400,
                 "rows": [
                   [
                     "on Vista",
@@ -1439,13 +1471,13 @@
           ]
         },
         {
-          "z": 60,
+          "z": 55,
           "label": "the desk",
           "items": [
             {
               "kind": "person",
-              "x": 360,
-              "y": 1720,
+              "x": 340,
+              "y": 1700,
               "scale": 1.3,
               "props": {
                 "cast": "resident",
@@ -1463,7 +1495,7 @@
             {
               "kind": "confidenceSpread",
               "x": 110,
-              "y": 1640,
+              "y": 1540,
               "props": {
                 "values": [
                   0.12,
@@ -1476,7 +1508,7 @@
                   1.0
                 ],
                 "w": 880,
-                "h": 160
+                "h": 130
               }
             }
           ]
@@ -1493,7 +1525,9 @@
           "at_s": 3.7,
           "what": "her face becomes the biggest thing in the shot"
         }
-      ]
+      ],
+      "weather": "night",
+      "interior": true
     },
     {
       "id": "s12",
@@ -1508,7 +1542,7 @@
       "hero": "the same unremarkable block, at the end of the day",
       "beat": "emotion",
       "on_screen": "the low mansard roofed box off the frontage road again in late light, the blank pole sign catching the last of it, the transformer in the yard, and a small lit panel giving the water the city measured and published, live oaks going dark behind the roof line",
-      "what_moves": "the camera comes down from over the oaks to the height the film started at, the light on the pole sign warms as it falls, and the frame settles and holds",
+      "what_moves": "the camera comes down from over the oaks to the height the film started at, the pole sign's empty frame passes the lens, and the shot settles and holds",
       "cast": [],
       "planes": [
         {
@@ -1626,5 +1660,78 @@
       ]
     }
   ],
-  "credits": "MUSIC\n\"Sallie Gooden\" by A.C. \"Eck\" Robertson (https://archive.org/details/ACEckRobertsonSallieGoodenVictor18956) - Public domain: the RECORDING, Victor 18956, published 1923, before the 1926 boundary. - trimmed and synced to picture"
+  "credits": "MUSIC\n\"Sallie Gooden\" by A.C. \"Eck\" Robertson (https://archive.org/details/ACEckRobertsonSallieGoodenVictor18956) - Public domain: the RECORDING, Victor 18956, published 1923, before the 1926 boundary. - trimmed and synced to picture",
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.3,
+      "end": 2.92,
+      "text": "Off a frontage road in Round Rock, in a building",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 3.38,
+      "end": 10.44,
+      "text": "that took phone orders, sits",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 11.1,
+      "end": 14.94,
+      "text": "Horizon. Half is running. The rest comes winter or early next year.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 15.18,
+      "end": 21.38,
+      "text": "The operator's own guide says access is limited",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 23.24,
+      "end": 27.64,
+      "text": "to internal users. The queue table under it is finished,",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 27.86,
+      "end": 32.18,
+      "text": "priced by the node hour. West of there, the private campus at Abilene",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 33.38,
+      "end": 37.64,
+      "text": "has an estimated fifty thousand accelerators in",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 39.2,
+      "end": 46.0,
+      "text": "one building. Nobody outside publishes that. Somebody spent three years",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 46.88,
+      "end": 50.7,
+      "text": "porting code for a door that says no. What makes it public was never",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c10",
+      "start": 51.1,
+      "end": 60.0,
+      "text": "its size. The city measured the water and put it on a page. The only machine in Texas you can check is the small one.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored"
 }

@@ -9,7 +9,7 @@ Dedupe: FRESH. The ledger is empty, so this is Dispatch number one and nothing i
 
 Horizon, the NSF Leadership-Class Computing Facility flagship, is powered on and half a
 machine. Its GPU racks are live and its CPU half is not expected until winter or early next
-year. It was to enter production in the spring. TACC's own user guide, dated the 24th of
+year. A production date was asserted in this repo's own research file and could not be sourced anywhere, so this film never says one. TACC's own user guide, dated the 24th of
 July, says the system is limited to internal users. The press release the same month says it
 will soon open broadly to the research community. Nobody is lying. The gap between the
 announcement and the login prompt is the story.
@@ -67,7 +67,7 @@ check it is that somebody has to be able to ask for time on it.
 2. A physicist's group that spent three years rewriting a code for a machine it cannot log
    into, and got its payoff at a two day hackathon on test nodes.
 3. The title for most powerful university machine in the country is not held in Austin at
-   all. It is held in College Station, by a machine that was in beta when it took it.
+   all. It is held in College Station, by a machine at rank 66.
 
 ## The Texas of it
 
