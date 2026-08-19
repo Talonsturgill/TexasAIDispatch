@@ -57,7 +57,11 @@ TAG_WORDS = {
 # video, and it is an EXTERNAL number rather than one measured from our own takes, which would
 # drift toward whatever we happened to render first.
 TARGET_LUFS = -16.0
-LUFS_TOLERANCE = 1.5
+# LUFS_TOLERANCE was deleted on 2026-08-19. Nothing read it. The equality check it belonged to
+# was replaced on purpose by LUFS_RESCUE_FLOOR and LUFS_RESCUE_CEILING below, for the reason
+# written out there, and the constant was left behind unread. A dead threshold is worse than no
+# threshold: `mutation_check` reported it as guarded by nothing, which was true and was never
+# going to be fixable, because a value nothing reads cannot be held by any test.
 
 # THE RANGE A RAW TAKE HAS TO BE IN, which is NOT the same thing as the target above.
 #

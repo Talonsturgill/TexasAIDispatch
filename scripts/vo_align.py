@@ -325,7 +325,6 @@ def cues(words: list[dict]) -> list[dict]:
         if not w["anchored_end"]:
             continue
         held = w["end"] - cur[0]["start"]
-        too_long = len(text) >= MAX_CUE_CHARS or held >= MAX_CUE_S
         tok = w["word"].rstrip('"”')
         # A SENTENCE END THAT THE READER ACTUALLY PAUSED AT IS THE BEST BREAK THERE IS, and
         # this threshold was throwing them away. Requiring 30 percent of the character
@@ -441,6 +440,18 @@ def self_test() -> int:
     ok(f"a {MIN_GAP_S * 1000:.0f}ms stop consonant does not split a phrase",
        len(speech_runs(stop, sr)) == 1, str(len(speech_runs(stop, sr))))
 
+    # ...AND THE OTHER DIRECTION, which is the half that was missing and which let a mutation
+    # test drive MIN_GAP_S to 9.0 seconds with this whole file still green. The case above
+    # only ever gets EASIER as the threshold grows: a 60 ms gap fails to split at 0.12 and
+    # fails to split at 9.0, so it cannot fail on any input in the direction that matters.
+    # GATE_LESSONS already names that shape, an assertion that cannot go red.
+    # A REAL pause is the thing a caption anchors to, so a real pause has to split. The gap
+    # here is a literal 0.4 s and is deliberately NOT written in terms of MIN_GAP_S, because
+    # a test phrased in the constant it is guarding moves with it and holds nothing.
+    pause = np.concatenate([gap(0.3), phrase(0.8), gap(0.4), phrase(0.8), gap(0.3)])
+    ok("a real 400ms pause DOES split a phrase, which is what a caption anchors to",
+       len(speech_runs(pause, sr)) == 2, str(len(speech_runs(pause, sr))))
+
     script = ("Texas approved eight point nine gigawatts of large load. It has watched four "
               "gigawatts of that actually draw. The gap is the story.")
     res = align(audio, sr, script)
@@ -504,6 +515,25 @@ def self_test() -> int:
     ok("...and none overshoots the hard ceiling by more than one run",
        all(len(c["text"]) <= HARD_CUE_CHARS * OVERSHOOT for c in cs),
        str(max(len(c["text"]) for c in cs)))
+
+    # MAX_CUE_CHARS NOW GOVERNS EXACTLY ONE THING and nothing was holding it there. The
+    # sentence-first rewrite replaced the old `too_long` ceiling with `runaway`, left the
+    # `too_long` assignment sitting unread, and MAX_CUE_CHARS quietly became a constant that
+    # only decides whether a short trailing run JOINS the cue before it rather than flashing
+    # on its own. A mutation to 9999 makes that join unconditional: every tail merges, however
+    # long, and a caption card that should have been its own beat gets swallowed.
+    # So the guard is on the join, phrased in literals rather than in the constant it guards.
+    # The tail must be long in CHARACTERS and short in SECONDS. The join is two conditions
+    # ANDed, and the first attempt at this case used a tail that ran past the time condition,
+    # so the join was refused for the wrong reason and the case passed at both values of the
+    # constant. That is the same shape as the MIN_GAP_S case above: a test that cannot go red.
+    joinable = [{"word": "Yes.", "start": 0.0, "end": 0.4, "anchored_end": True}]
+    tail_words = "the city measured every gallon and published all of it".split()
+    long_tail = [{"word": w, "start": 0.6 + i * 0.22, "end": 0.6 + i * 0.22 + 0.18,
+                  "anchored_end": True} for i, w in enumerate(tail_words)]
+    tail_cues = cues(joinable + long_tail)
+    ok("a long trailing run is its own cue and is NOT swallowed by the one before it",
+       len(tail_cues) >= 2, f"{len(tail_cues)} cue(s): {[c['text'][:28] for c in tail_cues]}")
 
     # THE PROPERTY THE WHOLE CHANGE EXISTS FOR, asserted directly rather than inferred from
     # a length. A cue may only end mid sentence when the reader gave it no choice.
