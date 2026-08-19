@@ -1,79 +1,165 @@
 {
   "method": "silence_anchored",
-  "words_file": "out/dispatch/words.json",
-  "boundaries_measured": 68,
-  "words_anchored": 51,
-  "words_modelled": 63,
+  "words_file": "/tmp/final_cap/words.json",
+  "boundaries_measured": 46,
+  "words_anchored": 43,
+  "words_modelled": 74,
   "cues": [
     {
       "id": "c1",
-      "start": 0.3,
-      "end": 2.92,
+      "start": 1.68,
+      "end": 3.58,
       "text": "Off a frontage road in Round Rock, in a building",
-      "source": "measured_boundary"
+      "source": "measured_boundary",
+      "start_measured": true,
+      "end_measured": true
     },
     {
       "id": "c2",
-      "start": 3.38,
-      "end": 10.44,
-      "text": "that took phone orders, sits",
-      "source": "measured_boundary"
+      "start": 4.32,
+      "end": 7.62,
+      "text": "that used to be a call center, sits Horizon.",
+      "source": "modelled_edge",
+      "start_measured": true,
+      "end_measured": false
     },
     {
       "id": "c3",
-      "start": 11.1,
-      "end": 14.94,
-      "text": "Horizon. Half is running. The rest comes winter or early next year.",
-      "source": "measured_boundary"
+      "start": 7.62,
+      "end": 10.2,
+      "text": "Half is running. The",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": true
     },
     {
       "id": "c4",
-      "start": 15.18,
-      "end": 21.38,
-      "text": "The operator's own guide says access is limited",
-      "source": "measured_boundary"
+      "start": 11.54,
+      "end": 13.111,
+      "text": "rest comes winter or early next year.",
+      "source": "modelled_edge",
+      "start_measured": true,
+      "end_measured": false
     },
     {
       "id": "c5",
-      "start": 23.24,
-      "end": 27.64,
-      "text": "to internal users. The queue table under it is finished,",
-      "source": "measured_boundary"
+      "start": 13.111,
+      "end": 18.5,
+      "text": "The operator's own guide says access is limited to internal users.",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": false
     },
     {
       "id": "c6",
-      "start": 27.86,
-      "end": 32.18,
-      "text": "priced by the node hour. West of there, the private campus at Abilene",
-      "source": "measured_boundary"
+      "start": 18.5,
+      "end": 19.52,
+      "text": "The queue table under",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": true
     },
     {
       "id": "c7",
-      "start": 33.38,
-      "end": 37.64,
-      "text": "has an estimated fifty thousand accelerators in",
-      "source": "measured_boundary"
+      "start": 21.08,
+      "end": 24.457,
+      "text": "it is finished, priced by the node hour.",
+      "source": "modelled_edge",
+      "start_measured": true,
+      "end_measured": false
     },
     {
       "id": "c8",
-      "start": 39.2,
-      "end": 46.0,
-      "text": "one building. Nobody outside publishes that. Somebody spent three years",
-      "source": "measured_boundary"
+      "start": 24.457,
+      "end": 27.34,
+      "text": "West of there, the private campus",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": true
     },
     {
       "id": "c9",
-      "start": 46.88,
-      "end": 50.7,
-      "text": "porting code for a door that says no. What makes it public was never",
-      "source": "measured_boundary"
+      "start": 28.72,
+      "end": 29.637,
+      "text": "at Abilene has",
+      "source": "modelled_edge",
+      "start_measured": true,
+      "end_measured": false
     },
     {
       "id": "c10",
-      "start": 51.1,
-      "end": 60.0,
-      "text": "its size. The city measured the water and put it on a page. The only machine in Texas you can check is the small one.",
-      "source": "measured_boundary"
+      "start": 29.637,
+      "end": 33.025,
+      "text": "an estimated fifty thousand accelerators in one building.",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c11",
+      "start": 33.025,
+      "end": 36.312,
+      "text": "Nobody outside publishes that.",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c12",
+      "start": 36.312,
+      "end": 36.92,
+      "text": "Somebody",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": true
+    },
+    {
+      "id": "c13",
+      "start": 38.76,
+      "end": 41.567,
+      "text": "spent three years porting code for a door that says no.",
+      "source": "modelled_edge",
+      "start_measured": true,
+      "end_measured": false
+    },
+    {
+      "id": "c14",
+      "start": 41.567,
+      "end": 45.662,
+      "text": "What makes it public was never its size.",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c15",
+      "start": 45.662,
+      "end": 46.64,
+      "text": "The city measured",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": true
+    },
+    {
+      "id": "c16",
+      "start": 48.12,
+      "end": 51.664,
+      "text": "the water and put it on a page.",
+      "source": "modelled_edge",
+      "start_measured": true,
+      "end_measured": false
+    },
+    {
+      "id": "c17",
+      "start": 51.664,
+      "end": 58.7,
+      "text": "The only machine in Texas you can check is the small one.",
+      "source": "modelled_edge",
+      "start_measured": false,
+      "end_measured": true
     }
-  ]
+  ],
+  "cue_edges_measured": 14,
+  "cue_edges_total": 34,
+  "_provenance": "Every cue edge is labelled from the word table rather than asserted. The builder used to stamp measured_boundary on every cue unconditionally, so the one field ship_gate reads as evidence of alignment was the one field nothing checked. Found by a judge on 2026-08-19."
 }

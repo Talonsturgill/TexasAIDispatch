@@ -1,5 +1,5 @@
 {
-  "runtime_s": 60.0,
+  "runtime_s": 59.2,
   "title": "The only machine you can check",
   "beat": "science-machines",
   "derived_from": "scratch",
@@ -15,22 +15,166 @@
     "palette": "red bed dirt and mown blackland green against rack black, one sodium amber",
     "metaphor": "a published queue table on a door nobody outside can open"
   },
-  "credits_s": 6,
+  "credits_s": 4.5,
   "scenes": [
     {
       "id": "s01",
-      "duration_s": 5,
+      "duration_s": 4.04,
+      "region": "blackland",
+      "county": "Williamson",
+      "camera_strategy": "truckAcross",
+      "seed": 102,
+      "groundY": 1180,
+      "super": "it used to be a call center",
+      "caption": "",
+      "hero": "an ordinary brick block off a frontage road",
+      "beat": "motion",
+      "on_screen": "a low mansard roofed commercial box set back off a frontage road, a pole sign with nothing written on it, live oaks behind the roof line, a transformer in the side yard, a pickup rolling along the near lane",
+      "what_moves": "the camera drifts left to right along the front of the building, the pickup runs the near lane against the drift, and the oaks slide open behind the roof",
+      "cast": [],
+      "planes": [
+        {
+          "z": 620,
+          "label": "far treeline",
+          "items": [
+            {
+              "kind": "liveOak",
+              "x": 60,
+              "y": 1197,
+              "scale": 0.3051,
+              "seed": 101
+            },
+            {
+              "kind": "liveOak",
+              "x": 480,
+              "y": 1204,
+              "scale": 0.2806,
+              "seed": 133
+            },
+            {
+              "kind": "liveOak",
+              "x": 960,
+              "y": 1193,
+              "scale": 0.3086,
+              "seed": 128
+            }
+          ]
+        },
+        {
+          "z": 380,
+          "label": "the block",
+          "items": [
+            {
+              "kind": "mansardBox",
+              "x": 70,
+              "y": 1215,
+              "scale": 0.42,
+              "props": {
+                "w": 330,
+                "h": 150,
+                "closed": false
+              }
+            }
+          ]
+        },
+        {
+          "z": 200,
+          "label": "sign and yard",
+          "items": [
+            {
+              "kind": "poleSign",
+              "x": 820,
+              "y": 1230,
+              "scale": 0.19,
+              "props": {
+                "dead": true
+              }
+            },
+            {
+              "kind": "transformer",
+              "x": 300,
+              "y": 1245,
+              "scale": 0.08
+            },
+            {
+              "kind": "person",
+              "x": 430,
+              "y": 1245,
+              "scale": 1.0,
+              "props": {
+                "cast": "dctech",
+                "pose": "hands-hips",
+                "emotion": "wry"
+              }
+            }
+          ]
+        },
+        {
+          "z": 90,
+          "label": "the frontage road",
+          "items": [
+            {
+              "kind": "twoLane",
+              "x": 0,
+              "y": 1470,
+              "props": {
+                "w": 1080,
+                "h": 700,
+                "divided": false
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "near lane",
+          "items": [
+            {
+              "kind": "pickup",
+              "x": 600,
+              "y": 1450,
+              "scale": 0.2,
+              "facing": -1
+            },
+            {
+              "kind": "grassTuft",
+              "x": 120,
+              "y": 1840,
+              "scale": 0.35
+            }
+          ]
+        }
+      ],
+      "start_s": 0.0,
+      "vo": "Off a frontage road in Round Rock, in a building",
+      "visual_events": [
+        {
+          "at_s": 2.828,
+          "what": "the pole sign clears the roof line",
+          "at_s_authored": 3.5
+        },
+        {
+          "at_s": 0.404,
+          "what": "the pickup crosses the near lane",
+          "at_s_authored": 0.5
+        }
+      ],
+      "duration_authored": 5.0,
+      "super_claim": "c7"
+    },
+    {
+      "id": "s02",
+      "duration_s": 3.58,
       "region": "blackland",
       "county": "Williamson",
       "camera_strategy": "dollyThrough",
       "seed": 101,
       "groundY": 1900,
-      "weather": "night",
-      "super": "this is in Round Rock",
+      "super": "this is what is in it",
       "caption": "The public machine, phase one, and it is already running.",
       "hero": "a cold aisle that fills the frame",
       "beat": "revelation",
-      "on_screen": "the cold aisle of a machine room, ranks of black cabinets stepping away on both sides under a lit containment slot, green port lights climbing every door, one technician standing small between the far ranks",
+      "on_screen": "the cold aisle of the machine room inside that same building, ranks of black cabinets stepping away on both sides under a lit containment slot, green port lights climbing every door, one technician standing small between the far ranks, and this is Horizon itself sitting in a room that took phone orders for a catalogue company until somebody gutted it",
       "what_moves": "the camera travels down the aisle and the near cabinets pass out of frame on both sides, the port lights flicker out of step rank to rank, the technician stays where he is while the room moves past him",
       "cast": [
         {
@@ -87,7 +231,7 @@
               "kind": "person",
               "x": 475,
               "y": 1436,
-              "scale": 0.7,
+              "scale": 1.0,
               "props": {
                 "cast": "dctech",
                 "pose": "stand"
@@ -150,274 +294,34 @@
           ]
         }
       ],
-      "start_s": 0.0,
-      "vo": "",
+      "start_s": 4.04,
+      "vo": "that used to be a call center, sits Horizon.",
       "visual_events": [
         {
-          "at_s": 1.2,
-          "what": "the near cabinets begin to pass out of frame on both sides"
+          "at_s": 0.859,
+          "what": "the near cabinets begin to pass out of frame on both sides",
+          "at_s_authored": 1.2
         },
         {
-          "at_s": 3.6,
-          "what": "the technician resolves at the far end of the aisle"
+          "at_s": 2.578,
+          "what": "the technician resolves at the far end of the aisle",
+          "at_s_authored": 3.6
         }
       ],
+      "duration_authored": 5.0,
       "interior": true
     },
     {
-      "id": "s02",
-      "duration_s": 5,
-      "region": "blackland",
-      "county": "Williamson",
-      "camera_strategy": "truckAcross",
-      "seed": 102,
-      "groundY": 1180,
-      "super": "and this is the building",
-      "caption": "It used to take phone orders. Now it takes allocations.",
-      "hero": "an ordinary brick block off a frontage road",
-      "beat": "motion",
-      "on_screen": "a low mansard roofed commercial box set back off a frontage road, a pole sign with nothing written on it, live oaks behind the roof line, a transformer in the side yard, a pickup rolling along the near lane",
-      "what_moves": "the camera drifts left to right along the front of the building, the pickup runs the near lane against the drift, and the oaks slide open behind the roof",
-      "cast": [],
-      "planes": [
-        {
-          "z": 620,
-          "label": "far treeline",
-          "items": [
-            {
-              "kind": "liveOak",
-              "x": 60,
-              "y": 1150,
-              "scale": 0.19
-            },
-            {
-              "kind": "liveOak",
-              "x": 480,
-              "y": 1142,
-              "scale": 0.17
-            },
-            {
-              "kind": "liveOak",
-              "x": 960,
-              "y": 1154,
-              "scale": 0.18
-            }
-          ]
-        },
-        {
-          "z": 380,
-          "label": "the block",
-          "items": [
-            {
-              "kind": "mansardBox",
-              "x": 70,
-              "y": 1215,
-              "scale": 0.42,
-              "props": {
-                "w": 760,
-                "h": 150,
-                "closed": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 200,
-          "label": "sign and yard",
-          "items": [
-            {
-              "kind": "poleSign",
-              "x": 820,
-              "y": 1230,
-              "scale": 0.24,
-              "props": {
-                "dead": true
-              }
-            },
-            {
-              "kind": "transformer",
-              "x": 150,
-              "y": 1245,
-              "scale": 0.15
-            }
-          ]
-        },
-        {
-          "z": 90,
-          "label": "the frontage road",
-          "items": [
-            {
-              "kind": "twoLane",
-              "x": 0,
-              "y": 1470,
-              "props": {
-                "w": 1080,
-                "h": 700,
-                "divided": false
-              }
-            }
-          ]
-        },
-        {
-          "z": 30,
-          "label": "near lane",
-          "items": [
-            {
-              "kind": "pickup",
-              "x": 600,
-              "y": 1450,
-              "scale": 0.2,
-              "facing": -1
-            },
-            {
-              "kind": "grassTuft",
-              "x": 120,
-              "y": 1840,
-              "scale": 0.35
-            }
-          ]
-        }
-      ],
-      "start_s": 5.0,
-      "vo": "Off a frontage road in Round Rock, in a building that took phone orders, sits Horizon.",
-      "visual_events": [
-        {
-          "at_s": 1.0,
-          "what": "the pole sign clears the roof line"
-        },
-        {
-          "at_s": 3.4,
-          "what": "the pickup crosses the near lane"
-        }
-      ]
-    },
-    {
-      "id": "s03",
-      "duration_s": 5,
-      "region": "blackland",
-      "county": "Williamson",
-      "camera_strategy": "riseWith",
-      "seed": 103,
-      "groundY": 950,
-      "super": "the plant behind it",
-      "caption": "Standby generators, a switchgear line, a cooling tower.",
-      "hero": "the plant that gives the building away",
-      "beat": "motion",
-      "on_screen": "the side yard of the same block, a bank of standby generators, a switchgear line along the fence, a cooling tower standing over the roof, two transformers on the pad, mown blackland grass to the verge",
-      "what_moves": "the camera lifts off the transformer pad and rises past the switchgear to the cooling tower, whose fans are turning the whole way up",
-      "cast": [],
-      "planes": [
-        {
-          "z": 600,
-          "label": "roof line",
-          "items": [
-            {
-              "kind": "mansardBox",
-              "x": -200,
-              "y": 980,
-              "scale": 0.3,
-              "props": {
-                "w": 760,
-                "h": 150,
-                "closed": true
-              }
-            },
-            {
-              "kind": "coolingTower",
-              "x": 680,
-              "y": 950,
-              "scale": 0.17
-            }
-          ]
-        },
-        {
-          "z": 390,
-          "label": "switchgear line",
-          "items": [
-            {
-              "kind": "switchgear",
-              "x": 80,
-              "y": 1020,
-              "scale": 0.24
-            }
-          ]
-        },
-        {
-          "z": 220,
-          "label": "the generators",
-          "items": [
-            {
-              "kind": "generatorBank",
-              "x": 520,
-              "y": 1100,
-              "scale": 0.2,
-              "props": {
-                "running": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 100,
-          "label": "transformer pad",
-          "items": [
-            {
-              "kind": "transformer",
-              "x": 120,
-              "y": 1220,
-              "scale": 0.16
-            },
-            {
-              "kind": "transformer",
-              "x": 480,
-              "y": 1228,
-              "scale": 0.16
-            }
-          ]
-        },
-        {
-          "z": 30,
-          "label": "the verge",
-          "items": [
-            {
-              "kind": "grassTuft",
-              "x": 880,
-              "y": 1600,
-              "scale": 0.4
-            },
-            {
-              "kind": "bluestem",
-              "x": 180,
-              "y": 1630,
-              "scale": 0.05
-            }
-          ]
-        }
-      ],
-      "start_s": 10.0,
-      "vo": "",
-      "visual_events": [
-        {
-          "at_s": 1.1,
-          "what": "the transformer pad drops out of frame"
-        },
-        {
-          "at_s": 3.5,
-          "what": "the cooling tower fans come into view"
-        }
-      ]
-    },
-    {
       "id": "s04",
-      "duration_s": 5,
+      "duration_s": 5.491,
       "region": "blackland",
       "county": "Williamson",
       "camera_strategy": "craneDown",
       "seed": 104,
       "groundY": 1900,
       "weather": "night",
-      "super": "half of it is not here",
-      "caption": "Four thousand accelerators are running. The rest comes winter or early next year.",
+      "super": "four hundred petabytes of storage",
+      "caption": "Four thousand accelerators are running.",
       "hero": "an aisle where every other rank is an empty outline",
       "beat": "revelation",
       "on_screen": "the same hall from up in the roof, and every second rank is a dashed empty outline with nothing inside it standing beside the solid lit ones, so the room reads half built from above",
@@ -441,35 +345,51 @@
           ]
         },
         {
+          "z": 560,
+          "label": "the floor, behind the run",
+          "items": [
+            {
+              "kind": "hallShell",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "horizonY": 1450,
+                "floorOnly": true
+              }
+            }
+          ]
+        },
+        {
           "z": 520,
           "label": "far ranks",
           "items": [
             {
               "kind": "cabinet",
-              "x": -40,
-              "y": 1360,
-              "scale": 0.55
+              "x": 90,
+              "y": 1560,
+              "scale": 0.5
             },
             {
               "kind": "cabinet",
-              "x": 280,
-              "y": 1360,
-              "scale": 0.55,
+              "x": 340,
+              "y": 1560,
+              "scale": 0.5,
               "props": {
                 "unknown": true
               }
             },
             {
               "kind": "cabinet",
-              "x": 600,
-              "y": 1360,
-              "scale": 0.55
+              "x": 590,
+              "y": 1560,
+              "scale": 0.5
             },
             {
               "kind": "cabinet",
-              "x": 920,
-              "y": 1360,
-              "scale": 0.55,
+              "x": 840,
+              "y": 1560,
+              "scale": 0.5,
               "props": {
                 "unknown": true
               }
@@ -482,9 +402,9 @@
           "items": [
             {
               "kind": "cabinet",
-              "x": -120,
+              "x": 40,
               "y": 1620,
-              "scale": 0.86,
+              "scale": 0.7,
               "props": {
                 "unknown": true
               }
@@ -493,59 +413,13 @@
               "kind": "cabinet",
               "x": 340,
               "y": 1620,
-              "scale": 0.86
+              "scale": 0.7
             },
             {
               "kind": "cabinet",
-              "x": 800,
+              "x": 640,
               "y": 1620,
-              "scale": 0.86,
-              "props": {
-                "unknown": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 130,
-          "label": "near ranks",
-          "items": [
-            {
-              "kind": "hallShell",
-              "x": 0,
-              "y": 0,
-              "scale": 1,
-              "props": {
-                "horizonY": 1450,
-                "floorOnly": true
-              }
-            },
-            {
-              "kind": "cabinet",
-              "x": -260,
-              "y": 1880,
-              "scale": 1.25
-            },
-            {
-              "kind": "cabinet",
-              "x": 560,
-              "y": 1880,
-              "scale": 1.25,
-              "props": {
-                "unknown": true
-              }
-            }
-          ]
-        },
-        {
-          "z": 40,
-          "label": "aisle mouth",
-          "items": [
-            {
-              "kind": "cabinet",
-              "x": -540,
-              "y": 2120,
-              "scale": 1.7,
+              "scale": 0.7,
               "props": {
                 "unknown": true
               }
@@ -553,30 +427,34 @@
           ]
         }
       ],
-      "start_s": 15.0,
-      "vo": "Half is running. The rest comes this winter.",
+      "start_s": 7.62,
+      "vo": "Half is running. The rest comes winter or early next year.",
       "visual_events": [
         {
-          "at_s": 1.3,
-          "what": "the first dashed outline passes under the camera"
+          "at_s": 1.428,
+          "what": "the first dashed outline passes under the camera",
+          "at_s_authored": 1.3
         },
         {
-          "at_s": 3.8,
-          "what": "the count of empty ranks resolves"
+          "at_s": 4.173,
+          "what": "the count of empty ranks resolves",
+          "at_s_authored": 3.8
         }
       ],
-      "interior": true
+      "interior": true,
+      "duration_authored": 5.0,
+      "super_claim": "c2"
     },
     {
       "id": "s05",
-      "duration_s": 5,
+      "duration_s": 5.389,
       "region": "blackland",
       "county": "Williamson",
       "camera_strategy": "orbitReveal",
       "seed": 105,
       "groundY": 1880,
       "weather": "night",
-      "super": "internal users only",
+      "super": "dated July 24th",
       "caption": "The operator's own user guide, dated July 24th, says so.",
       "hero": "one line of the operator's own documentation",
       "beat": "revelation",
@@ -601,6 +479,22 @@
               "props": {
                 "horizonY": 1430,
                 "lit": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "z": 470,
+          "label": "the floor, behind the run",
+          "items": [
+            {
+              "kind": "hallShell",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "horizonY": 1430,
+                "floorOnly": true
               }
             }
           ]
@@ -663,20 +557,10 @@
           "label": "the reader",
           "items": [
             {
-              "kind": "hallShell",
-              "x": 0,
-              "y": 0,
-              "scale": 1,
-              "props": {
-                "horizonY": 1430,
-                "floorOnly": true
-              }
-            },
-            {
               "kind": "person",
               "x": 330,
               "y": 1830,
-              "scale": 1.25,
+              "scale": 1.0,
               "props": {
                 "cast": "dctech",
                 "pose": "arms-crossed",
@@ -686,30 +570,34 @@
           ]
         }
       ],
-      "start_s": 20.0,
+      "start_s": 13.111,
       "vo": "The operator's own guide says access is limited to internal users.",
       "visual_events": [
         {
-          "at_s": 1.4,
-          "what": "the panel turns square to the viewer"
+          "at_s": 1.509,
+          "what": "the panel turns square to the viewer",
+          "at_s_authored": 1.4
         },
         {
-          "at_s": 3.7,
-          "what": "the access line lands"
+          "at_s": 3.988,
+          "what": "the access line lands",
+          "at_s_authored": 3.7
         }
       ],
-      "interior": true
+      "interior": true,
+      "duration_authored": 5.0,
+      "super_claim": "c4"
     },
     {
       "id": "s06",
-      "duration_s": 5,
+      "duration_s": 5.957,
       "region": "blackland",
       "county": "Williamson",
       "camera_strategy": "truckAcross",
       "seed": 106,
       "groundY": 1860,
       "weather": "night",
-      "super": "every queue has a price",
+      "super": "forty eight hours is the ceiling",
       "caption": "Node caps, runtime limits, and a rate charged by the node hour.",
       "hero": "a fully specified price list for a door nobody outside can open",
       "beat": "revelation",
@@ -729,6 +617,22 @@
               "props": {
                 "horizonY": 1420,
                 "lit": 0.55
+              }
+            }
+          ]
+        },
+        {
+          "z": 470,
+          "label": "the floor, behind the run",
+          "items": [
+            {
+              "kind": "hallShell",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "horizonY": 1420,
+                "floorOnly": true
               }
             }
           ]
@@ -754,22 +658,6 @@
               "x": 980,
               "y": 1560,
               "scale": 0.75
-            }
-          ]
-        },
-        {
-          "z": 200,
-          "label": "the floor",
-          "items": [
-            {
-              "kind": "hallShell",
-              "x": 0,
-              "y": 0,
-              "scale": 1,
-              "props": {
-                "horizonY": 1420,
-                "floorOnly": true
-              }
             }
           ]
         },
@@ -807,23 +695,27 @@
           ]
         }
       ],
-      "start_s": 25.0,
+      "start_s": 18.5,
       "vo": "The queue table under it is finished, priced by the node hour.",
       "visual_events": [
         {
-          "at_s": 1.2,
-          "what": "the first queue row enters the frame"
+          "at_s": 1.43,
+          "what": "the first queue row enters the frame",
+          "at_s_authored": 1.2
         },
         {
-          "at_s": 3.6,
-          "what": "the charge rate column arrives"
+          "at_s": 4.289,
+          "what": "the charge rate column arrives",
+          "at_s_authored": 3.6
         }
       ],
-      "interior": true
+      "interior": true,
+      "duration_authored": 5.0,
+      "super_claim": "c6"
     },
     {
       "id": "s07",
-      "duration_s": 5,
+      "duration_s": 5.18,
       "region": "rolling_plains",
       "county": "Taylor",
       "camera_strategy": "riseWith",
@@ -857,7 +749,7 @@
               "kind": "dataCentre",
               "x": -260,
               "y": 1010,
-              "scale": 0.062,
+              "scale": 0.15,
               "props": {
                 "w": 820,
                 "h": 120,
@@ -869,7 +761,7 @@
               "kind": "dataCentre",
               "x": 420,
               "y": 1013,
-              "scale": 0.062,
+              "scale": 0.15,
               "props": {
                 "w": 820,
                 "h": 120,
@@ -881,7 +773,7 @@
               "kind": "dataCentre",
               "x": 1100,
               "y": 1011,
-              "scale": 0.062,
+              "scale": 0.15,
               "props": {
                 "w": 820,
                 "h": 120,
@@ -940,22 +832,25 @@
           ]
         }
       ],
-      "start_s": 30.0,
-      "vo": "West of there, the private campus at Abilene has an estimated fifty thousand accelerators in one building.",
+      "start_s": 24.457,
+      "vo": "West of there, the private campus at Abilene has",
       "visual_events": [
         {
-          "at_s": 1.5,
-          "what": "the mesquite drops below the frame"
+          "at_s": 1.554,
+          "what": "the mesquite drops below the frame",
+          "at_s_authored": 1.5
         },
         {
-          "at_s": 3.9,
-          "what": "both halls run out past the edges"
+          "at_s": 4.04,
+          "what": "both halls run out past the edges",
+          "at_s_authored": 3.9
         }
-      ]
+      ],
+      "duration_authored": 5.0
     },
     {
       "id": "s08",
-      "duration_s": 5,
+      "duration_s": 3.388,
       "region": "rolling_plains",
       "county": "Taylor",
       "camera_strategy": "truckAcross",
@@ -966,7 +861,7 @@
       "caption": "Solid is counted. Dashed is nobody outside knowing.",
       "hero": "the two machines in one frame, drawn to the same scale",
       "beat": "revelation",
-      "on_screen": "one frame split down the middle, the public machine on the left drawn as solid lit cabinets that stop where they stop, the private one on the right drawn as dashed empty outlines because nobody outside publishes a count for it, running straight off the edge of the frame and not stopping",
+      "on_screen": "the same cold aisle scale on both sides of one frame, three counted cabinets lit and doored on the left and a run of uncounted ones marching off to the right in dashed outline, the floor visible between every one of them, and no way to count the dashed run because nobody outside the companies publishes what is in it",
       "what_moves": "the camera trucks right so the three solid cabinets leave the frame and the dashed outlines keep arriving at the same size on the same floor, and they are still arriving when the shot ends",
       "cast": [],
       "planes": [
@@ -1010,8 +905,8 @@
             {
               "kind": "cabinet",
               "x": 700,
-              "y": 1180,
-              "scale": 0.59,
+              "y": 1485,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
@@ -1019,8 +914,8 @@
             {
               "kind": "cabinet",
               "x": 830,
-              "y": 1180,
-              "scale": 0.59,
+              "y": 1485,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
@@ -1028,8 +923,8 @@
             {
               "kind": "cabinet",
               "x": 960,
-              "y": 1180,
-              "scale": 0.59,
+              "y": 1485,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
@@ -1044,52 +939,52 @@
               "kind": "cabinet",
               "x": 60,
               "y": 1420,
-              "scale": 0.944
+              "scale": 0.62
             },
             {
               "kind": "cabinet",
               "x": 230,
               "y": 1420,
-              "scale": 0.944
+              "scale": 0.62
             },
             {
               "kind": "cabinet",
               "x": 400,
               "y": 1420,
-              "scale": 0.944
+              "scale": 0.62
             },
             {
               "kind": "cabinet",
-              "x": 620,
+              "x": 640,
               "y": 1420,
-              "scale": 0.944,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
             },
             {
               "kind": "cabinet",
-              "x": 790,
+              "x": 920,
               "y": 1420,
-              "scale": 0.944,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
             },
             {
               "kind": "cabinet",
-              "x": 960,
+              "x": 1200,
               "y": 1420,
-              "scale": 0.944,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
             },
             {
               "kind": "cabinet",
-              "x": 1130,
+              "x": 1480,
               "y": 1420,
-              "scale": 0.944,
+              "scale": 0.62,
               "props": {
                 "unknown": true
               }
@@ -1097,33 +992,36 @@
           ]
         }
       ],
-      "start_s": 35.0,
-      "vo": "Nobody outside publishes that.",
+      "start_s": 29.637,
+      "vo": "an estimated fifty thousand accelerators in one building.",
       "visual_events": [
         {
-          "at_s": 1.3,
-          "what": "the solid cabinets begin to leave the frame"
+          "at_s": 0.881,
+          "what": "the solid cabinets begin to leave the frame",
+          "at_s_authored": 1.3
         },
         {
-          "at_s": 3.7,
-          "what": "the dashed run is still arriving"
+          "at_s": 2.507,
+          "what": "the dashed run is still arriving",
+          "at_s_authored": 3.7
         }
       ],
-      "interior": true
+      "interior": true,
+      "duration_authored": 5.0
     },
     {
       "id": "s09",
-      "duration_s": 5,
+      "duration_s": 3.287,
       "region": "rolling_plains",
       "county": "Taylor",
       "camera_strategy": "craneDown",
       "seed": 109,
       "groundY": 1030,
-      "super": "nobody publishes it",
+      "super": "nobody publishes the power",
       "caption": "Power capacities for these sites have not been reported consistently.",
       "hero": "the one person on that road who ought to know the load and cannot",
       "beat": "emotion",
-      "on_screen": "a cattle guard on the county road at the edge of the campus, a lineworker stopped by her bucket truck looking across at the halls, the halls low and far behind her",
+      "on_screen": "a cattle guard on the county road at the edge of the campus, a lineworker stopped by her bucket truck looking across at the halls, the halls low and far behind her, and a lit panel in the clear beside her saying the power capacity is not reported consistently and that the figure everybody outside quotes comes from an analyst rather than a meter, so nobody outside the companies publishes what the site actually draws",
       "what_moves": "the camera comes down onto the fence line until the lineworker is the biggest thing in frame, the halls stay exactly as far away as they were, and she goes back to the truck",
       "cast": [
         {
@@ -1139,7 +1037,7 @@
             {
               "kind": "dataCentre",
               "x": 40,
-              "y": 980,
+              "y": 1048,
               "scale": 0.075,
               "props": {
                 "w": 900,
@@ -1155,10 +1053,23 @@
           "label": "the fence line",
           "items": [
             {
+              "kind": "bootFence",
+              "x": 540,
+              "y": 1470,
+              "scale": 0.3,
+              "props": {
+                "posts": 13,
+                "span": 3400,
+                "h": 62,
+                "boots": 0,
+                "wires": 4
+              }
+            },
+            {
               "kind": "cattleGuard",
-              "x": 520,
-              "y": 1100,
-              "scale": 1.1,
+              "x": 800,
+              "y": 1506,
+              "scale": 0.5,
               "props": {
                 "w": 300
               }
@@ -1171,18 +1082,18 @@
           "items": [
             {
               "kind": "bucketTruck",
-              "x": 760,
-              "y": 1160,
-              "scale": 0.22,
+              "x": 430,
+              "y": 1500,
+              "scale": 0.44,
               "facing": -1
             },
             {
               "kind": "readout",
-              "x": 560,
+              "x": 380,
               "y": 700,
               "props": {
                 "title": "an outside analyst, not a meter",
-                "w": 460,
+                "w": 640,
                 "rows": [
                   [
                     "power capacity",
@@ -1201,7 +1112,7 @@
               "kind": "person",
               "x": 300,
               "y": 1540,
-              "scale": 1.25,
+              "scale": 1.0,
               "props": {
                 "cast": "lineworker",
                 "pose": "hands-hips",
@@ -1217,176 +1128,33 @@
           ]
         }
       ],
-      "start_s": 40.0,
-      "vo": "",
+      "start_s": 33.025,
+      "vo": "Nobody outside publishes that.",
       "visual_events": [
         {
-          "at_s": 1.2,
-          "what": "the lineworker becomes the largest thing in frame"
+          "at_s": 0.789,
+          "what": "the lineworker becomes the largest thing in frame",
+          "at_s_authored": 1.2
         },
         {
-          "at_s": 3.6,
-          "what": "the halls stay exactly as far away"
-        }
-      ]
-    },
-    {
-      "id": "s10",
-      "duration_s": 5,
-      "region": "post_oak",
-      "county": "Brazos",
-      "camera_strategy": "orbitReveal",
-      "seed": 110,
-      "groundY": 970,
-      "super": "the title is elsewhere",
-      "caption": "Rank 66 sits in College Station. Rank 90 is Frontera, at TACC.",
-      "hero": "the machine that actually holds the ranking",
-      "beat": "revelation",
-      "on_screen": "a university machine building in the post oak savannah with a walk running up to its door, post oaks spaced wide with grass between them, a switchgear yard to one side, and a panel giving the two ranks",
-      "what_moves": "the camera orbits the building so the walk swings round into view and the switchgear yard comes out from behind it, and the post oaks part as it goes",
-      "cast": [],
-      "planes": [
-        {
-          "z": 640,
-          "label": "post oak savannah",
-          "items": [
-            {
-              "kind": "postOak",
-              "x": 70,
-              "y": 1010,
-              "scale": 0.15
-            },
-            {
-              "kind": "postOak",
-              "x": 520,
-              "y": 996,
-              "scale": 0.13
-            },
-            {
-              "kind": "postOak",
-              "x": 980,
-              "y": 1008,
-              "scale": 0.14
-            }
-          ]
-        },
-        {
-          "z": 420,
-          "label": "the machine building",
-          "items": [
-            {
-              "kind": "dataCentre",
-              "x": 120,
-              "y": 1040,
-              "scale": 0.085,
-              "props": {
-                "w": 560,
-                "h": 170,
-                "units": 4,
-                "wear": 0.3
-              }
-            }
-          ]
-        },
-        {
-          "z": 230,
-          "label": "the yard",
-          "items": [
-            {
-              "kind": "switchgear",
-              "x": 730,
-              "y": 1100,
-              "scale": 0.13
-            },
-            {
-              "kind": "transformer",
-              "x": 180,
-              "y": 1115,
-              "scale": 0.1
-            },
-            {
-              "kind": "greatWalk",
-              "x": 560,
-              "y": 1220,
-              "scale": 1.0,
-              "props": {
-                "w": 1500,
-                "rows": 9
-              }
-            }
-          ]
-        },
-        {
-          "z": 90,
-          "label": "the ranking",
-          "items": [
-            {
-              "kind": "readout",
-              "x": 300,
-              "y": 1150,
-              "props": {
-                "title": "the June list",
-                "w": 480,
-                "rows": [
-                  [
-                    "College Station",
-                    "rank 66"
-                  ],
-                  [
-                    "next university machine",
-                    "rank 90"
-                  ],
-                  [
-                    "and rank 90 is",
-                    "Frontera, at TACC"
-                  ]
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "z": 30,
-          "label": "the lawn",
-          "items": [
-            {
-              "kind": "grassTuft",
-              "x": 880,
-              "y": 1620,
-              "scale": 0.42
-            },
-            {
-              "kind": "bluestem",
-              "x": 240,
-              "y": 1660,
-              "scale": 0.05
-            }
-          ]
+          "at_s": 2.367,
+          "what": "the halls stay exactly as far away",
+          "at_s_authored": 3.6
         }
       ],
-      "start_s": 45.0,
-      "vo": "",
-      "visual_events": [
-        {
-          "at_s": 1.4,
-          "what": "the switchgear yard swings out from behind the building"
-        },
-        {
-          "at_s": 3.8,
-          "what": "the rank gap lands"
-        }
-      ]
+      "duration_authored": 5.0,
+      "super_claim": "c20"
     },
     {
       "id": "s11",
-      "duration_s": 5,
+      "duration_s": 5.255,
       "region": "blackland",
       "county": "Travis",
       "camera_strategy": "dollyThrough",
       "seed": 111,
       "groundY": 1500,
-      "super": "three years of work",
-      "caption": "Thirty times faster on Vista. Eighty on the test nodes.",
+      "super": "eighty times faster, on test nodes",
+      "caption": "Eighty times faster on the test nodes.",
       "hero": "the person who did the work before the door opened",
       "beat": "emotion",
       "on_screen": "a researcher close to the camera at a lit workstation showing the code she has spent three years porting, her face filling a good part of the frame, a rack against the wall behind her, a strip of bars climbing across the near ground",
@@ -1438,6 +1206,25 @@
               "props": {
                 "lit": true
               }
+            },
+            {
+              "kind": "confidenceSpread",
+              "x": 600,
+              "y": 1120,
+              "props": {
+                "values": [
+                  0.12,
+                  0.16,
+                  0.3,
+                  0.44,
+                  0.61,
+                  0.78,
+                  0.9,
+                  1.0
+                ],
+                "w": 430,
+                "h": 170
+              }
             }
           ]
         },
@@ -1447,16 +1234,12 @@
           "items": [
             {
               "kind": "readout",
-              "x": 430,
-              "y": 1060,
+              "x": 250,
+              "y": 700,
               "props": {
                 "title": "the port, three years of it",
-                "w": 400,
+                "w": 560,
                 "rows": [
-                  [
-                    "on Vista",
-                    "30 times faster"
-                  ],
                   [
                     "on test nodes",
                     "80 times faster"
@@ -1476,9 +1259,9 @@
           "items": [
             {
               "kind": "person",
-              "x": 340,
-              "y": 1700,
-              "scale": 1.3,
+              "x": 430,
+              "y": 1555,
+              "scale": 1.0,
               "props": {
                 "cast": "resident",
                 "outfit": "polo-badge",
@@ -1487,62 +1270,160 @@
               }
             }
           ]
-        },
-        {
-          "z": 20,
-          "label": "the near bars",
-          "items": [
-            {
-              "kind": "confidenceSpread",
-              "x": 110,
-              "y": 1540,
-              "props": {
-                "values": [
-                  0.12,
-                  0.16,
-                  0.3,
-                  0.44,
-                  0.61,
-                  0.78,
-                  0.9,
-                  1.0
-                ],
-                "w": 880,
-                "h": 130
-              }
-            }
-          ]
         }
       ],
-      "start_s": 50.0,
+      "start_s": 36.312,
       "vo": "Somebody spent three years porting code for a door that says no.",
       "visual_events": [
         {
-          "at_s": 1.3,
-          "what": "the bars begin to climb the near frame"
+          "at_s": 1.366,
+          "what": "the bars begin to climb the near frame",
+          "at_s_authored": 1.3
         },
         {
-          "at_s": 3.7,
-          "what": "her face becomes the biggest thing in the shot"
+          "at_s": 3.889,
+          "what": "her face becomes the biggest thing in the shot",
+          "at_s_authored": 3.7
         }
       ],
       "weather": "night",
-      "interior": true
+      "interior": true,
+      "duration_authored": 5.0,
+      "super_claim": "c15"
     },
     {
       "id": "s12",
-      "duration_s": 5,
+      "duration_s": 4.095,
       "region": "blackland",
       "county": "Williamson",
       "camera_strategy": "craneDown",
       "seed": 112,
-      "groundY": 1180,
-      "super": "the one you can check",
-      "caption": "The city measured the water here and put the figure on a page.",
+      "groundY": 1120,
+      "super": "two hundred thirteen thousand square feet",
+      "caption": "Round Rock publishes the size of this building.",
       "hero": "the same unremarkable block, at the end of the day",
       "beat": "emotion",
-      "on_screen": "the low mansard roofed box off the frontage road again in late light, the blank pole sign catching the last of it, the transformer in the yard, and a small lit panel giving the water the city measured and published, live oaks going dark behind the roof line",
-      "what_moves": "the camera comes down from over the oaks to the height the film started at, the pole sign's empty frame passes the lens, and the shot settles and holds",
+      "on_screen": "the low mansard roofed box off the frontage road again in late light, small and plain in its own yard next to the size of the halls the film has just left, the blank pole sign catching the last of it, the transformer in the yard, live oaks going dark behind the roof line, and nothing about what makes this one public that is a matter of how big it is",
+      "what_moves": "the camera comes down from over the oaks to the height the film started at, the whole block shrinking into its yard as it goes, and the pole sign's empty frame passes the lens",
+      "cast": [],
+      "planes": [
+        {
+          "z": 1500,
+          "label": "far treeline",
+          "items": [
+            {
+              "kind": "liveOak",
+              "x": 110,
+              "y": 1150,
+              "scale": 0.1712,
+              "seed": 84
+            },
+            {
+              "kind": "liveOak",
+              "x": 545,
+              "y": 1141,
+              "scale": 0.1668,
+              "seed": 135
+            },
+            {
+              "kind": "liveOak",
+              "x": 975,
+              "y": 1156,
+              "scale": 0.1749,
+              "seed": 207
+            }
+          ]
+        },
+        {
+          "z": 900,
+          "label": "the block",
+          "items": [
+            {
+              "kind": "mansardBox",
+              "x": 540,
+              "y": 1225,
+              "scale": 0.3,
+              "props": {
+                "w": 330,
+                "h": 150,
+                "closed": false,
+                "night": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 200,
+          "label": "sign and yard",
+          "items": [
+            {
+              "kind": "poleSign",
+              "x": 740,
+              "y": 1225,
+              "scale": 0.19,
+              "props": {
+                "dead": true
+              }
+            },
+            {
+              "kind": "transformer",
+              "x": 250,
+              "y": 1232,
+              "scale": 0.08
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "the verge",
+          "items": [
+            {
+              "kind": "grassTuft",
+              "x": 180,
+              "y": 1830,
+              "scale": 0.36
+            },
+            {
+              "kind": "bluestem",
+              "x": 620,
+              "y": 1800,
+              "scale": 0.05
+            }
+          ]
+        }
+      ],
+      "start_s": 41.567,
+      "vo": "What makes it public was never its size.",
+      "visual_events": [
+        {
+          "at_s": 0.983,
+          "what": "the light on the pole sign warms",
+          "at_s_authored": 1.2
+        },
+        {
+          "at_s": 2.948,
+          "what": "the frame settles at the height it started at",
+          "at_s_authored": 3.6
+        }
+      ],
+      "duration_authored": 5.0,
+      "weather": "late",
+      "super_claim": "c7"
+    },
+    {
+      "id": "s13",
+      "duration_s": 6.002,
+      "region": "blackland",
+      "county": "Williamson",
+      "camera_strategy": "orbitReveal",
+      "seed": 113,
+      "groundY": 1180,
+      "super": "two million gallons a year",
+      "caption": "The city measured the water here and put the figure on a page.",
+      "hero": "the panel in the yard, and the figure on it",
+      "beat": "revelation",
+      "on_screen": "the lit panel in the side yard carrying the water the city measured and published, the transformer beside it, the mansard roof line and the pole sign behind, live oaks going dark past the roof",
+      "what_moves": "the camera swings around the panel so the figure on it comes square to the lens, and the building slides behind it",
       "cast": [],
       "planes": [
         {
@@ -1551,15 +1432,24 @@
           "items": [
             {
               "kind": "liveOak",
-              "x": 140,
-              "y": 1150,
-              "scale": 0.2
+              "x": 110,
+              "y": 1197,
+              "scale": 0.1712,
+              "seed": 84
             },
             {
               "kind": "liveOak",
-              "x": 870,
-              "y": 1145,
-              "scale": 0.19
+              "x": 545,
+              "y": 1205,
+              "scale": 0.1668,
+              "seed": 135
+            },
+            {
+              "kind": "liveOak",
+              "x": 975,
+              "y": 1192,
+              "scale": 0.1749,
+              "seed": 207
             }
           ]
         },
@@ -1571,11 +1461,11 @@
               "kind": "mansardBox",
               "x": 60,
               "y": 1225,
-              "scale": 0.4,
+              "scale": 0.3,
               "props": {
-                "w": 760,
+                "w": 330,
                 "h": 150,
-                "closed": true,
+                "closed": false,
                 "night": true
               }
             }
@@ -1589,30 +1479,30 @@
               "kind": "poleSign",
               "x": 830,
               "y": 1240,
-              "scale": 0.25,
+              "scale": 0.19,
               "props": {
                 "dead": true
               }
             },
             {
               "kind": "transformer",
-              "x": 260,
-              "y": 1250,
-              "scale": 0.15
+              "x": 720,
+              "y": 1300,
+              "scale": 0.08
             }
           ]
         },
         {
-          "z": 90,
+          "z": 60,
           "label": "what was measured",
           "items": [
             {
               "kind": "readout",
-              "x": 320,
-              "y": 1330,
+              "x": 120,
+              "y": 1160,
               "props": {
                 "title": "measured by the City of Round Rock",
-                "w": 440,
+                "w": 840,
                 "rows": [
                   [
                     "water, a year",
@@ -1646,92 +1536,272 @@
           ]
         }
       ],
-      "start_s": 55.0,
-      "vo": "What makes it public was never its size. The city measured the water and put it on a page. The only machine in Texas you can check is the small one.",
+      "start_s": 45.662,
+      "vo": "The city measured the water and put it on a page.",
       "visual_events": [
         {
-          "at_s": 1.2,
-          "what": "the light on the pole sign warms"
+          "at_s": 1.32,
+          "what": "the panel comes square to the lens and the figure resolves",
+          "at_s_authored": 1.1
         },
         {
-          "at_s": 3.6,
-          "what": "the frame settles at the height it started at"
+          "at_s": 4.081,
+          "what": "the building slides behind it and the yard opens up",
+          "at_s_authored": 3.4
         }
-      ]
+      ],
+      "duration_authored": 5.0,
+      "weather": "late",
+      "super_claim": "c9"
+    },
+    {
+      "id": "s14",
+      "duration_s": 7.536,
+      "region": "blackland",
+      "county": "Williamson",
+      "camera_strategy": "riseWith",
+      "seed": 114,
+      "groundY": 1060,
+      "super": "the guide says it is in progress",
+      "caption": "Somebody has to be able to ask for time on it.",
+      "hero": "the whole block, small, at the end of the day",
+      "beat": "emotion",
+      "on_screen": "the low mansard box whole and small in the frame off its frontage road, the dead pole sign, the transformer, the yard, live oaks dark behind the roof line and the last of the light on the parapet",
+      "what_moves": "the camera rises off the yard until the whole building sits small in the frame, and the shot settles and holds",
+      "cast": [],
+      "planes": [
+        {
+          "z": 1800,
+          "label": "far treeline",
+          "items": [
+            {
+              "kind": "liveOak",
+              "x": 110,
+              "y": 1150,
+              "scale": 0.1712,
+              "seed": 84
+            },
+            {
+              "kind": "liveOak",
+              "x": 545,
+              "y": 1141,
+              "scale": 0.1668,
+              "seed": 135
+            },
+            {
+              "kind": "liveOak",
+              "x": 975,
+              "y": 1156,
+              "scale": 0.1749,
+              "seed": 207
+            }
+          ]
+        },
+        {
+          "z": 1150,
+          "label": "the block",
+          "items": [
+            {
+              "kind": "mansardBox",
+              "x": 470,
+              "y": 1225,
+              "scale": 0.3,
+              "props": {
+                "w": 330,
+                "h": 150,
+                "closed": false,
+                "night": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 200,
+          "label": "sign and yard",
+          "items": [
+            {
+              "kind": "poleSign",
+              "x": 845,
+              "y": 1225,
+              "scale": 0.19,
+              "props": {
+                "dead": true
+              }
+            },
+            {
+              "kind": "transformer",
+              "x": 185,
+              "y": 1232,
+              "scale": 0.08
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "the verge",
+          "items": [
+            {
+              "kind": "grassTuft",
+              "x": 180,
+              "y": 1830,
+              "scale": 0.36
+            },
+            {
+              "kind": "bluestem",
+              "x": 620,
+              "y": 1800,
+              "scale": 0.05
+            }
+          ]
+        }
+      ],
+      "start_s": 51.664,
+      "vo": "The only machine in Texas you can check is the small one.",
+      "visual_events": [
+        {
+          "at_s": 1.959,
+          "what": "the light on the parapet warms as the frame lifts",
+          "at_s_authored": 1.3
+        },
+        {
+          "at_s": 5.577,
+          "what": "the building settles small in the frame and holds",
+          "at_s_authored": 3.7
+        }
+      ],
+      "duration_authored": 5.0,
+      "weather": "late",
+      "super_claim": "c5"
     }
   ],
-  "credits": "MUSIC\n\"Sallie Gooden\" by A.C. \"Eck\" Robertson (https://archive.org/details/ACEckRobertsonSallieGoodenVictor18956) - Public domain: the RECORDING, Victor 18956, published 1923, before the 1926 boundary. - trimmed and synced to picture",
+  "credits": "MUSIC\n\"Sallie Gooden\" by A.C. \"Eck\" Robertson\nhttps://archive.org/details/ACEckRobertsonSallieGoodenVictor18956\nThe RECORDING is public domain. Victor 18956, published 1923, before the 1926 boundary.\nTrimmed and synced to picture.",
   "captions": [
     {
       "id": "c1",
-      "start": 0.3,
-      "end": 2.92,
+      "start": 1.68,
+      "end": 3.58,
       "text": "Off a frontage road in Round Rock, in a building",
       "source": "measured_boundary"
     },
     {
       "id": "c2",
-      "start": 3.38,
-      "end": 10.44,
-      "text": "that took phone orders, sits",
-      "source": "measured_boundary"
+      "start": 4.32,
+      "end": 7.62,
+      "text": "that used to be a call center, sits Horizon.",
+      "source": "modelled_edge"
     },
     {
       "id": "c3",
-      "start": 11.1,
-      "end": 14.94,
-      "text": "Horizon. Half is running. The rest comes winter or early next year.",
-      "source": "measured_boundary"
+      "start": 7.62,
+      "end": 10.2,
+      "text": "Half is running. The",
+      "source": "modelled_edge"
     },
     {
       "id": "c4",
-      "start": 15.18,
-      "end": 21.38,
-      "text": "The operator's own guide says access is limited",
-      "source": "measured_boundary"
+      "start": 11.54,
+      "end": 13.111,
+      "text": "rest comes winter or early next year.",
+      "source": "modelled_edge"
     },
     {
       "id": "c5",
-      "start": 23.24,
-      "end": 27.64,
-      "text": "to internal users. The queue table under it is finished,",
-      "source": "measured_boundary"
+      "start": 13.111,
+      "end": 18.5,
+      "text": "The operator's own guide says access is limited to internal users.",
+      "source": "modelled_edge"
     },
     {
       "id": "c6",
-      "start": 27.86,
-      "end": 32.18,
-      "text": "priced by the node hour. West of there, the private campus at Abilene",
-      "source": "measured_boundary"
+      "start": 18.5,
+      "end": 19.52,
+      "text": "The queue table under",
+      "source": "modelled_edge"
     },
     {
       "id": "c7",
-      "start": 33.38,
-      "end": 37.64,
-      "text": "has an estimated fifty thousand accelerators in",
-      "source": "measured_boundary"
+      "start": 21.08,
+      "end": 24.457,
+      "text": "it is finished, priced by the node hour.",
+      "source": "modelled_edge"
     },
     {
       "id": "c8",
-      "start": 39.2,
-      "end": 46.0,
-      "text": "one building. Nobody outside publishes that. Somebody spent three years",
-      "source": "measured_boundary"
+      "start": 24.457,
+      "end": 27.34,
+      "text": "West of there, the private campus",
+      "source": "modelled_edge"
     },
     {
       "id": "c9",
-      "start": 46.88,
-      "end": 50.7,
-      "text": "porting code for a door that says no. What makes it public was never",
-      "source": "measured_boundary"
+      "start": 28.72,
+      "end": 29.637,
+      "text": "at Abilene has",
+      "source": "modelled_edge"
     },
     {
       "id": "c10",
-      "start": 51.1,
-      "end": 60.0,
-      "text": "its size. The city measured the water and put it on a page. The only machine in Texas you can check is the small one.",
-      "source": "measured_boundary"
+      "start": 29.637,
+      "end": 33.025,
+      "text": "an estimated fifty thousand accelerators in one building.",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c11",
+      "start": 33.025,
+      "end": 36.312,
+      "text": "Nobody outside publishes that.",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c12",
+      "start": 36.312,
+      "end": 36.92,
+      "text": "Somebody",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c13",
+      "start": 38.76,
+      "end": 41.567,
+      "text": "spent three years porting code for a door that says no.",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c14",
+      "start": 41.567,
+      "end": 45.662,
+      "text": "What makes it public was never its size.",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c15",
+      "start": 45.662,
+      "end": 46.64,
+      "text": "The city measured",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c16",
+      "start": 48.12,
+      "end": 51.664,
+      "text": "the water and put it on a page.",
+      "source": "modelled_edge"
+    },
+    {
+      "id": "c17",
+      "start": 51.664,
+      "end": 58.7,
+      "text": "The only machine in Texas you can check is the small one.",
+      "source": "modelled_edge"
     }
   ],
-  "caption_method": "silence_anchored"
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 12,
+    "on_measured_word_starts": 2,
+    "on_modelled_word_starts": 10,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
 }

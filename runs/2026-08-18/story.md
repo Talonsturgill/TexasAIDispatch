@@ -61,13 +61,20 @@ So the closing thought is not that the public machine is losing. It is that **th
 machine in Texas whose size you can actually check is the small one**, and the reason you can
 check it is that somebody has to be able to ask for time on it.
 
-## The counter-images, and there are three
+## The counter-images, and the film shows two of three
 
 1. The user guide that says internal users only, dated, in TACC's own hand.
 2. A physicist's group that spent three years rewriting a code for a machine it cannot log
    into, and got its payoff at a two day hackathon on test nodes.
 3. The title for most powerful university machine in the country is not held in Austin at
-   all. It is held in College Station, by a machine at rank 66.
+   all. It is held in College Station, by a machine at rank 66. **This one is researched and
+   verified and it is NOT in the film.** The script never says it, so the scene carrying it
+   was silent, and once the board was cut to the measured read the only room left for it was
+   2.4 seconds wedged inside the previous sentence. The measured cost of keeping it was that
+   a sentence about Abilene in Taylor County played over a picture of College Station in
+   Brazos. One sentence landing on two counties is a worse fault than one counter-image going
+   unshown, so the scene is cut and the film carries two. It is banked, with its claims, for a
+   run whose script has a line for it.
 
 ## The Texas of it
 
@@ -77,7 +84,18 @@ Three counties, three regions, three different lights, and none of them chosen f
 |---|---|---|
 | Williamson | blackland | Round Rock, the Sabey campus, the old call centre |
 | Taylor | rolling_plains | Abilene, the private campus |
-| Brazos | post_oak | College Station, the machine that actually holds the title |
+| Travis | blackland | the researcher's bench, the three years of porting |
+| ~~Brazos~~ | ~~post_oak~~ | cut with the ranking scene, see the counter-images above |
+
+**A second scene was cut for the same reason.** A generator yard behind the Round Rock block,
+silent by design, sat between two sentences the measured read leaves 0.68 seconds between. Two
+silent scenes were being wedged into that gap, which is why the word "Horizon" was landing on
+the generators two cuts after the building it belongs to. Line one now splits across the two
+shots that carry it, the yard and the machine, and the generator beat is banked.
+
+**What the film shows is twelve scenes across three counties.** Not fourteen and not four. The
+cuts are here rather than in a note nobody reads, because a planning document that describes a
+film nobody rendered is the same fault as a claim that traces to nothing.
 
 `knowledge/texas/` says the newest industry sitting on the oldest landscape is the best
 recurring composition this show has. Here the newest industry is sitting on a nineteen
