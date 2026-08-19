@@ -15,7 +15,14 @@ different memory. `100%` was a real improvement over the default and it was stil
 assumption, which is the same shape of mistake as the default was: a number believed
 rather than measured.
 
-THE CEILING IS MEMORY, NOT CORES. Each worker is a browser page, so oversubscribing trades
+THE CEILING IS THE CORE COUNT, AND IT IS ENFORCED. Remotion refuses `--concurrency`
+above the number of cores outright, so `100%` is not merely a good default, it is the
+maximum this machine will accept. The ~44 percent CPU that prompted this file is
+therefore inherent to the pipeline: workers wait on layout, paint and the handoff to the
+encoder, and no flag fills that in. Kept as a measurement rather than deleted, because
+the next run to notice the idle CPU will otherwise reach for the same wrong lever.
+
+THE OTHER CEILING IS MEMORY. Each worker is a browser page, so oversubscribing trades
 RAM for throughput. This measures resident memory alongside frames per second and refuses
 to recommend a setting that would not fit, because a render that dies at frame 1500 costs
 more than the minutes it saved.
@@ -95,8 +102,13 @@ def main() -> int:
         return 2
 
     n = cores()
+    # REMOTION HARD CAPS CONCURRENCY AT THE CORE COUNT. `resolveConcurrency` throws
+    # "Maximum for --concurrency is N (number of cores on this system)" and the render
+    # dies before it bundles. So oversubscribing is not a lever that exists here, however
+    # much idle CPU the box shows, and anything above `n` is not worth a trial slot.
+    # This was measured by trying it, which is the only way the cap announces itself.
     trials = ([s.strip() for s in a.settings.split(",") if s.strip()]
-              or ["100%", str(n + 2), str(n * 2), str(n * 3)])
+              or ["100%"] + [str(k) for k in (max(1, n // 2), max(1, n - 1)) if k != n])
 
     ram = total_ram_mb()
     print(f"cores={n}  ram={ram}MB  frames per trial={a.frames}")

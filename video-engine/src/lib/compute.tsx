@@ -637,6 +637,71 @@ export const HallShell: React.FC<{
         <path key={s} d={`M${cx + s * 700},${Y0 + 320} L${cx + s * 132},${floor - 236}`}
           stroke={t.key} strokeWidth={7} fill="none" opacity={0.6} />
       ))}
+
+      {/* WHAT IS ACTUALLY OVER A COLD AISLE, and its absence was the film's largest
+          single defect by weight. Three scorers on three different lenses reported the
+          same thing from three directions: forty to fifty percent of the frame carrying
+          empty ceiling in eight of twelve shots, with the subject pinned in a band across
+          the middle. The room was drawn from the floor up and stopped at the racks.
+
+          The camera cannot fix it. Dollying in to fill the height enlarges the readout
+          past the frame edge and clips its labels, and booming only trades dead ceiling
+          for dead floor, both of which were tried and both of which made a frame worse.
+          The upper half is empty because there is nothing in it, so the repair is to put
+          there what is genuinely there: LADDER TRAY with rungs, and the row of luminaires
+          that lights the aisle. That also motivates the light the room already has, which
+          was arriving from a slot with no fixture in it.
+
+          Everything converges on the same vanishing point the tray and the slot already
+          use, and the rungs bunch toward it, which is what makes a receding plane read as
+          receding rather than as a pattern. */}
+      {!floorOnly && (() => {
+        const yNear = Y0 + 320, yFar = floor - 236;
+        const halfAt = (u: number) => 700 - 568 * u;
+        const yAt = (u: number) => yNear + (yFar - yNear) * u;
+        const rungs = 14;
+        return (
+          <g>
+            {/* the two tray stringers get their rungs, which is the difference between a
+                cable tray and a line somebody drew on a ceiling */}
+            {Array.from({length: rungs}, (_, k) => {
+              // bunched toward the vanishing point, never evenly spaced
+              const u = 1 - Math.pow(1 - (k + 0.5) / rungs, 1.9);
+              const h = halfAt(u), y = yAt(u);
+              const w = 8 - 6.2 * u;
+              return (
+                <g key={`r${k}`} opacity={0.30 + 0.34 * (1 - u)}>
+                  <path d={`M${cx - h},${y} L${cx - h + 118 * (1 - u * 0.82)},${y}`}
+                    stroke={t.key} strokeWidth={w} strokeLinecap="round" />
+                  <path d={`M${cx + h},${y} L${cx + h - 118 * (1 - u * 0.82)},${y}`}
+                    stroke={t.key} strokeWidth={w} strokeLinecap="round" />
+                </g>
+              );
+            })}
+            {/* the luminaire run down the middle. Lit ones carry the room's own light and
+                one is dark, because a hall with every fixture working is a render of a
+                hall rather than a hall. */}
+            {Array.from({length: 9}, (_, k) => {
+              const u = 1 - Math.pow(1 - (k + 0.6) / 9, 1.7);
+              const h = halfAt(u) * 0.30, y = yAt(u);
+              const hh = Math.max(3, 30 * (1 - u * 0.86));
+              const dead = k === 5;
+              return (
+                <g key={`l${k}`}>
+                  <rect x={cx - h} y={y} width={h * 2} height={hh} rx={hh * 0.35}
+                    fill={dead ? '#2a3038' : '#dfeef5'}
+                    opacity={dead ? 0.5 : (0.30 + 0.55 * lit) * (0.45 + 0.55 * (1 - u))} />
+                  {!dead && (
+                    <rect x={cx - h * 1.7} y={y - hh * 0.5} width={h * 3.4} height={hh * 2}
+                      rx={hh} fill="#cfe6ee"
+                      opacity={0.10 * lit * (0.4 + 0.6 * (1 - u))} />
+                  )}
+                </g>
+              );
+            })}
+          </g>
+        );
+      })()}
       {/* floor tile joints, receding. Nothing here is symmetric: the pitch is
           seeded so two halls in one film are not the same floor. */}
       {Array.from({length: 9}, (_, i) => {

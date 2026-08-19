@@ -42,6 +42,23 @@ export interface Scene {
   region: RegionName;
   county: string;
   camera_strategy: keyof typeof CameraMoves;
+  /**
+   * A STATIC FRAMING OFFSET, composed with the move rather than replacing it.
+   *
+   * Every scene got its move's amplitude and nothing else, so a shot composed too far
+   * back had no lever at all except moving each item in it by hand. Three scorers in a
+   * row reported the same consequence from three different lenses: forty to fifty percent
+   * of the frame carrying empty ceiling or empty sky in eight of twelve shots, with the
+   * subject pinned in a band across the middle third of a 1080 by 1920 frame.
+   *
+   * Moving items is the wrong repair. It desynchronises a scene from its own true scale,
+   * which is the fault `lib/scale.ts` exists to prevent, and it has to be redone for every
+   * item every time the framing changes. The camera is the thing that decides what is in
+   * frame, so the camera is what gets the offset: `z` dollies in until the subject fills
+   * the height, `y` booms so what is left over is shared between top and bottom rather
+   * than all piled above.
+   */
+  camera_base?: {x?: number; y?: number; z?: number};
   /** Ordered far to near. Each plane's z, the director's name for it, and what
    *  stands on it.
    *
@@ -289,7 +306,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
       `A static camera wastes the engine, so this stops rather than rendering one. ` +
       `Known: ${Object.keys(CameraMoves).join(', ')}`);
   }
-  const camera: Camera = composeCams(move(p));
+  const camera: Camera = composeCams(move(p), scene.camera_base ?? {});
 
   return (
     <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>

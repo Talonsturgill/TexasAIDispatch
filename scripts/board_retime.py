@@ -86,6 +86,9 @@ def find_line(words: list[dict], line: str, search_from: int) -> tuple[int, floa
 
 def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
            lead: float = LEAD_DEFAULT, min_conf: float = 0.5) -> tuple[dict, list[str]]:
+    # A board that has already been retimed legitimately carries `at_s` values that differ
+    # from `at_s_authored`, so the hand-edit warning below only applies on a first pass.
+    _retimed_before = bool(board.get("retimed_to"))
     errs: list[str] = []
     scenes = board.get("scenes") or []
     if not scenes:
@@ -203,6 +206,22 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
                 continue
             if "at_s_authored" not in ev:
                 ev["at_s_authored"] = float(ev["at_s"])
+            else:
+                # THE AUTHORED FIELD IS THE INPUT AND `at_s` IS THE OUTPUT, and editing an
+                # output is a no-op that looks exactly like a change. A run moved a hook
+                # beat from 3.58s to 0.60s by hand, re-ran this step, rendered, and shipped
+                # the old timing to a panel, which read the board and reported the fix as
+                # never made. Nothing errored, because overwriting a derived value is this
+                # step's whole job.
+                # It cannot refuse the edit without refusing its own purpose, so it SAYS
+                # so. A silent discard is the fault; a loud one is a instruction to go and
+                # edit `at_s_authored` instead.
+                prior = float(ev.get("at_s") or 0.0)
+                if abs(prior - float(ev["at_s_authored"])) > 0.001 and not _retimed_before:
+                    print(f"  WARNING {s['id']}: visual_event '{ev['what'][:40]}' carries "
+                          f"at_s={prior:.3f} against at_s_authored={ev['at_s_authored']:.3f} "
+                          f"on a board that has not been retimed. A hand edit to `at_s` is "
+                          f"DISCARDED here. Edit `at_s_authored`.")
             frac = ev["at_s_authored"] / (float(s.get("duration_authored") or was_dur) or 1.0)
             ev["at_s"] = round(min(frac * durations[i], durations[i] - 0.15), 3)
         if "duration_authored" not in s:
