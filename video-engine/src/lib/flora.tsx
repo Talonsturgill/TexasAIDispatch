@@ -99,39 +99,65 @@ export interface FloraProps {
 const Canopy: React.FC<{
   seed: number; cx: number; cy: number; rx: number; ry: number;
   lobes?: number; fill: string; hi: string; lo: string; spread?: number;
-}> = ({seed, cx, cy, rx, ry, lobes = 6, fill, hi, lo, spread = 0.62}) => (
-  <g>
-    {Array.from({length: lobes}, (_, i) => {
-      const a = (i / lobes) * Math.PI * 2 + rnd(seed, i) * 0.9;
-      const d = spread * (0.45 + rnd(seed, 20 + i) * 0.55);
-      const lx = cx + Math.cos(a) * rx * d;
-      const ly = cy + Math.sin(a) * ry * d * 0.8;
-      const lr = rx * (0.40 + rnd(seed, 40 + i) * 0.26);
-      // Lobes above the centre catch the key, lobes below sit in the mass's own shade.
-      const shade = ly < cy ? hi : lo;
-      return (
-        <ellipse key={i} cx={lx} cy={ly} rx={lr} ry={lr * (0.72 + rnd(seed, 60 + i) * 0.3)}
-          fill={i % 3 === 0 ? shade : fill} />
-      );
-    })}
-    {/* NO SOLID CENTRE. This filled ellipse under the lobes is what turned every crown in
-        the film into a dome: the lobes gave it an irregular edge and this gave it an opaque
-        middle, so at any scale under about 0.2 the lobes vanished into it and what survived
-        was a flat disc on a stick. Scorers called it a lollipop and lily pads on a stick
-        across four rounds.
-        The lobes ARE the crown. Two smaller inner lobes tie them together without closing
-        the gaps, and the gaps are the point: a live oak and a mesquite are both trees you
-        see sky through, and that is half of what tells them apart from a maple. */}
-    {[0, 1].map((k) => (
-      <ellipse key={`in${k}`}
-        cx={cx + (rnd(seed, 80 + k) - 0.5) * rx * 0.5}
-        cy={cy + (rnd(seed, 90 + k) - 0.5) * ry * 0.4}
-        rx={rx * (0.34 + rnd(seed, 100 + k) * 0.16)}
-        ry={ry * (0.40 + rnd(seed, 110 + k) * 0.18)}
-        fill={k ? fill : hi} opacity={0.92} />
-    ))}
-  </g>
-);
+}> = ({seed, cx, cy, rx, ry, lobes = 6, fill, hi, lo, spread = 0.62}) => {
+  // ONE SILHOUETTE MADE OF LOBES, DRAWN THE SAME WAY THE BIOME'S OAK DRAWS ITS OWN.
+  //
+  // This component and `LimbedOak` in `lib/biomes.tsx` draw the SAME SPECIES, and a panel
+  // read both in one frame and said so: the mid-ground oaks had splayed limbs and a
+  // scalloped crown while the far treeline directly behind them was still an opaque blob.
+  // A rebuild that reaches one of two call sites is the four-times-repeated fault of this
+  // engine wearing a new hat, and the cure is that both files now use the same
+  // construction rather than that somebody remembers to edit both.
+  //
+  // The construction: every lobe is drawn twice, once fat in ink underneath and once in
+  // leaf colour on top. The ink pass leaves ONE continuous edge around the union of the
+  // lobes and no rings inside it, so the crown reads as a single scalloped mass with
+  // value changes in it rather than as a soft cloud or as a bag of circles. In a
+  // thick-outline idiom a shape with no outline reads as fog, and the far treeline was
+  // reading as fog.
+  const strokeW = Math.max(1.6, rx * 0.075);
+  const shapes: {x: number; y: number; rx: number; ry: number; fill: string}[] = [];
+  for (let i = 0; i < lobes; i++) {
+    const a = (i / lobes) * Math.PI * 2 + rnd(seed, i) * 0.9;
+    const d = spread * (0.45 + rnd(seed, 20 + i) * 0.55);
+    const ly = cy + Math.sin(a) * ry * d * 0.8;
+    const lr = rx * (0.40 + rnd(seed, 40 + i) * 0.26);
+    // Lobes above the centre catch the key, lobes below sit in the mass's own shade.
+    const shade = ly < cy ? hi : lo;
+    shapes.push({
+      x: cx + Math.cos(a) * rx * d, y: ly,
+      rx: lr, ry: lr * (0.72 + rnd(seed, 60 + i) * 0.3),
+      fill: i % 3 === 0 ? shade : fill,
+    });
+  }
+  // NO SOLID CENTRE. A filled ellipse under the lobes is what turned every crown in the
+  // film into a dome: the lobes gave it an irregular edge and this gave it an opaque
+  // middle, so at any scale under about 0.2 the lobes vanished into it and what survived
+  // was a flat disc on a stick. Scorers called it a lollipop and lily pads on a stick
+  // across four rounds. The two ties below are deliberately SMALLER than the lobes they
+  // tie, because a tie wide enough to touch both sides is the solid centre again under
+  // another name, which is the mistake this same paragraph had to be written about twice.
+  for (let k = 0; k < 2; k++) {
+    shapes.push({
+      x: cx + (rnd(seed, 80 + k) - 0.5) * rx * 0.5,
+      y: cy + (rnd(seed, 90 + k) - 0.5) * ry * 0.4,
+      rx: rx * (0.22 + rnd(seed, 100 + k) * 0.10),
+      ry: ry * (0.26 + rnd(seed, 110 + k) * 0.12),
+      fill: k ? fill : hi,
+    });
+  }
+  return (
+    <g>
+      {shapes.map((l, k) => (
+        <ellipse key={`o${k}`} cx={l.x} cy={l.y} rx={l.rx} ry={l.ry}
+          fill={INK} stroke={INK} strokeWidth={strokeW} strokeLinejoin="round" />
+      ))}
+      {shapes.map((l, k) => (
+        <ellipse key={`f${k}`} cx={l.x} cy={l.y} rx={l.rx} ry={l.ry} fill={l.fill} />
+      ))}
+    </g>
+  );
+};
 
 /** A limb that TAPERS. A stroked path is a constant-width tube, and a tree branch
  *  that does not narrow toward its tip is the second tell after the lollipop crown.

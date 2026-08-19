@@ -6,7 +6,7 @@ import {GradeLayer} from './lib/lighting';
 import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
-import {FONT} from './lib/type';
+import {FONT, wrapToWidth, overflows} from './lib/type';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -178,17 +178,11 @@ const fitPx = (text: string, base: number, maxW: number, perChar: number) => {
  * whatever is left rather than dropping it, since losing the end of a sentence silently
  * is the exact fault this exists to stop.
  */
-const wrapTo = (text: string, perLine: number, maxLines: number): string[] => {
-  const out: string[] = [];
-  let cur = '';
-  for (const w of text.trim().split(/\s+/)) {
-    const next = cur ? `${cur} ${w}` : w;
-    if (next.length > perLine && cur && out.length < maxLines - 1) { out.push(cur); cur = w; }
-    else cur = next;
-  }
-  if (cur) out.push(cur);
-  return out.slice(0, maxLines);
-};
+// `wrapTo` used to live here, wrapping on a CHARACTER COUNT. Both of its callers now go
+// through `wrapToWidth` in `lib/type.ts`, which wraps on the measured widths of the face
+// actually shipped, so it is gone rather than left sitting as a second answer to the one
+// question. Two wrapping rules in one file is how a caption ends up clipped in one place
+// and correct in another with nothing reporting the difference.
 
 /**
  * The subtitle band. It SHRINKS BEFORE IT DROPS, and that ordering is the whole point.
@@ -204,26 +198,41 @@ const wrapTo = (text: string, perLine: number, maxLines: number): string[] => {
  */
 const CAP_W = 1080 - 78 - 30;
 const CAP_MAX_LINES = 3;
+
+/**
+ * IT WRAPPED ON A CHARACTER COUNT AND THE FRAME IS MEASURED IN PIXELS.
+ *
+ * This budgeted `size * 0.5` per character and fitted by `l.length <= per`. Half an em
+ * is not what the shipped face draws: `lib/type.ts` measured Manrope and a run of
+ * lowercase n comes out at 0.62 em, so every estimate here came in UNDER the truth and a
+ * line the counter called safe reached past the frame edge. A scorer read the Abilene
+ * caption with the word "thousand" clipped off the right side, and called it the only
+ * illegible type in the film.
+ *
+ * `GATE_LESSONS.md` already carries this entry, from the round the typeface changed: a
+ * width table is not a constant, it is a measurement of a specific face, and it expires
+ * when the face changes. The lesson was written down and this function never read it,
+ * because it kept its own private estimate instead of asking the module whose whole job
+ * is answering the question. One measurement, one caller.
+ */
 const capFit = (text?: string): {lines: string[]; size: number} => {
   if (!text) return {lines: [], size: 36};
-  for (let size = 36; size >= 24; size -= 2) {
-    const per = Math.floor(CAP_W / (size * 0.5));
-    const lines = wrapTo(text, per, CAP_MAX_LINES + 1);
-    if (lines.length <= CAP_MAX_LINES && lines.every((l) => l.length <= per)) {
+  for (let size = 36; size >= 22; size -= 2) {
+    const lines = wrapToWidth(text, CAP_W, size);
+    if (lines.length <= CAP_MAX_LINES && overflows(text, CAP_W, size).length === 0) {
       return {lines, size};
     }
   }
-  const per = Math.floor(CAP_W / (24 * 0.5));
-  return {lines: wrapTo(text, per, CAP_MAX_LINES), size: 24};
+  return {lines: wrapToWidth(text, CAP_W, 22), size: 22};
 };
 
 /** The kicker under the super. It lives in the left two thirds so it never reaches
  *  across the frame the way a subtitle does, which is half of what keeps the two
  *  readable as different things, and it gets three lines because it is narrower. */
 const KICK_W = 640;
-const KICK_PER_LINE = Math.floor(KICK_W / (29 * 0.5));
+/** Measured, for the same reason `capFit` is. A character count was wrong here too. */
 const kickLines = (text?: string): string[] =>
-  text ? wrapTo(text, KICK_PER_LINE, 3) : [];
+  text ? wrapToWidth(text, KICK_W, 29).slice(0, 3) : [];
 
 /**
  * THE SUBTITLE TRACK. Film-global, driven by measured cues, and the only thing that

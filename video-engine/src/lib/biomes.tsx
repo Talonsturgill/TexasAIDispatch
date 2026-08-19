@@ -536,15 +536,26 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
               written to prevent: the picture was telling the eye two different distances
               for one tree. Size now comes from depth and the seed only varies it a little
               around that. */}
-          {Array.from({length: 6}, (_, i) => {
-            const depth = (i * 5 % 6) / 5;                       // stratified in y, not clumped
-            const gy = groundY + 16 + Math.pow(0.15 + depth * 0.85, 1.4) * 240;
+          {/* THE CEILING IS SOLVED, NOT CHOSEN, AND THE FIRST ATTEMPT CHOSE IT.
+              Lanes plus a depth ramp still shipped a hedge across the base of the Abilene
+              cooling towers, because the ramp's top end was nearly twice what the lane
+              could hold. The crown's half extent in the drawing's own units is the cluster
+              offset plus the scatter radius, about 0.577 of `w`, so the widest tree is
+              `2 * 0.577 * w * fit('mesquite', h) * scale` across and that has to fit
+              inside a fraction of `W / lanes`. The numbers below come out of that
+              inequality with room to spare, and the ramp is compressed so the far trees do
+              not collapse to specks in the bargain: a scorer called them knee-high sage
+              dots in the same round another called the near ones a hedge, and the two
+              complaints are the same ramp seen from its two ends. */}
+          {Array.from({length: 5}, (_, i) => {
+            const depth = (i * 3 % 5) / 4;                       // stratified in y, not clumped
+            const gy = groundY + 16 + Math.pow(0.18 + depth * 0.82, 1.35) * 240;
             const near = (gy - groundY) / 240;
             return (
               <Mesquite key={i}
-                x={((i + 0.5) / 6) * W + (rnd(seed, i) - 0.5) * (W / 6) * 0.36}
+                x={((i + 0.5) / 5) * W + (rnd(seed, i) - 0.5) * (W / 5) * 0.30}
                 y={gy} w={190} h={82}
-                scale={(0.0140 + near * 0.0125) * (0.92 + rnd(seed, 30 + i) * 0.16)}
+                scale={(0.0118 + near * 0.0068) * (0.94 + rnd(seed, 30 + i) * 0.12)}
                 seed={seed + i * 11} />
             );
           })}

@@ -31,7 +31,13 @@ while read -r id t; do
 done < /tmp/_frames.txt
 
 DUR=$(npx --prefix video-engine remotion ffprobe "$FILM" 2>&1 | grep -oE "Duration: [0-9:.]+" | head -1 | sed -E "s/Duration: ([0-9]+):([0-9]+):([0-9.]+)/\1 \2 \3/" | awk "{print \$1*3600+\$2*60+\$3}")
-npx --prefix video-engine remotion ffmpeg -y -ss 0.4 -i "$FILM" -frames:v 1 \
+# THE POSTER IS TAKEN AFTER THE TYPE HAS SETTLED, NOT AT THE HEAD OF THE FILM.
+# At 0.4s the super and the caption plate are still fading up, so the feed thumbnail
+# shipped a grey title and a grey chip over pale sky and was the least legible frame in
+# the film. All three scorers said so independently, and one of them read it as the
+# picture being washed out rather than as the capture being early. A poster is a still
+# that has to work alone; it is taken where the frame is finished.
+npx --prefix video-engine remotion ffmpeg -y -ss 1.9 -i "$FILM" -frames:v 1 \
   out/dispatch/poster.png -loglevel error </dev/null
 npx --prefix video-engine remotion ffmpeg -y -ss "$(python3 -c "print(max(0,$DUR-0.6))")" \
   -i "$FILM" -frames:v 1 out/dispatch/credits_frame.png -loglevel error </dev/null

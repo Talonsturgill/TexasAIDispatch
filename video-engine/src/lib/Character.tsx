@@ -334,13 +334,35 @@ export const Character: React.FC<CharacterProps> = ({
   const shoulderY = 150 + stoop;
   const armUp = 78, armFore = 70;
 
-  let nearUp = 8, nearFore = 12, farUp = -8, farFore = 10;
+  // THE FAR ARM'S ELBOW HAS TO MIRROR TOO, AND IT DID NOT.
+  //
+  // `armChain` measures both angles the same way round, from straight-down toward +x, so
+  // mirroring an arm means negating `up` AND `fore`. Every two-handed pose here negated
+  // only `up`. The far elbow therefore bent the SAME way as the near one, which on a
+  // mirrored shoulder throws the forearm across the front of the body: `hands-hips` and
+  // `arms-crossed` both rendered as one hand on a hip and one arm reaching out, and the
+  // only thing separating them was twelve degrees on the near arm, which is invisible at
+  // the size a person is drawn here. A scorer read a board asking for two different poses
+  // and saw one, twice, and called the prop ignored. It was not ignored. It was mirrored
+  // half way, which looks exactly like being ignored and is harder to find.
+  //
+  // Small poses hid it. At rest the angles are 8 and 12 degrees, so the same error puts
+  // the far wrist two degrees off vertical and nobody sees it. A bug that only shows up
+  // once a value gets large is a bug that ships.
+  //
+  // NOTHING IS SYMMETRIC, so the mirrored side is not an exact negation. Each pose leans
+  // a few degrees off true, because a person standing with their hands on their hips does
+  // not hold them level and a vector rig will if nobody stops it.
+  let nearUp = 8, nearFore = 12, farUp = -8, farFore = -10;
   if (pose === 'point')       { nearUp = 8 + ge * 62; nearFore = 12 - ge * 4; }
   else if (pose === 'raise')  { nearUp = 8 + ge * 150; nearFore = 12 + ge * 18; }
-  else if (pose === 'panic')  { nearUp = 8 + ge * 140; farUp = -8 - ge * 130; nearFore = 30; farFore = 30; }
-  else if (pose === 'carry')  { nearUp = 46; nearFore = 62; farUp = -40; farFore = 58; }
-  else if (pose === 'hands-hips') { nearUp = 40; nearFore = 96; farUp = -40; farFore = 96; }
-  else if (pose === 'arms-crossed') { nearUp = 52; nearFore = 84; farUp = -52; farFore = 84; }
+  else if (pose === 'panic')  { nearUp = 8 + ge * 140; farUp = -8 - ge * 130; nearFore = 30; farFore = -30; }
+  else if (pose === 'carry')  { nearUp = 46; nearFore = 62; farUp = -40; farFore = -58; }
+  // hands on hips: elbows OUT, forearms coming back IN to the waist on both sides
+  else if (pose === 'hands-hips') { nearUp = 44; nearFore = 104; farUp = -38; farFore = -110; }
+  // arms crossed: forearms nearly horizontal ACROSS the chest, each hand near the other
+  // elbow, so the fore angle is much larger and the upper arms hang closer to the body
+  else if (pose === 'arms-crossed') { nearUp = 26; nearFore = 128; farUp = -20; farFore = -134; }
   if (walking) { nearUp += Math.sin(wp + Math.PI) * 16; farUp += Math.sin(wp) * 16; }
 
   const nearArm = armChain(shoulderW * 0.5, shoulderY, nearUp, nearFore, armUp, armFore);
