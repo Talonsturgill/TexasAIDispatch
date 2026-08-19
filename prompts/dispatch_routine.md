@@ -410,6 +410,15 @@ and returned 63 of 114 word times modelled. Nothing is ever time stretched here,
 silences ARE the mix's silences. This is not a substitute measurement, it is the same one
 taken where the bed is not standing in front of it.
 
+**`at_s` IS DERIVED AND `at_s_authored` IS THE INPUT, so a hand edit to `at_s` is thrown
+away.** `board_retime` recomputes every `at_s` from `at_s_authored` and the scene's new
+duration, which is its whole job, so moving a beat by editing `at_s` is a no-op that looks
+exactly like a change. A run moved this film's only hook beat from 3.58s to 0.60s that way,
+re-ran the step, rendered, and put the OLD timing in front of a panel, which read the board
+and reported the fix as never made. Nothing errored. **Move a beat by editing
+`at_s_authored`.** The step now prints a warning when it discards a hand edit, and
+`run_discipline.py` fails if this paragraph ever goes missing.
+
 **THEN THE BOARD IS RE-CUT TO THE READ.** `board_retime` is the step this machine ran without
 for its whole life, and its absence was the single largest defect in the first Dispatch: two
 of three scorers found it independently. The board is authored in Phase 4 on a uniform five
@@ -469,6 +478,7 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
 ```
 python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
        --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json
+python3 scripts/run_discipline.py --renders <how many full renders so far>
 ```
 
 **THE FILM MUST BE NEWER THAN THE BOARD IT SHIPS WITH.** Every gate above reads the BOARD and
@@ -548,6 +558,49 @@ said, what degraded if anything, the VO soundcheck report, and the machine upgra
 **DRAFT ONLY. NEVER SEND.**
 
 ---
+
+## HOW THIS RUN SPENDS ITS TIME (checked by `run_discipline.py`)
+
+Every rule here is one this machine has already broken, and each cost real time on a run
+that had none to spare. `scripts/run_discipline.py` fails the build on the ones a machine
+can see, and its `--self-test` breaks each on purpose to prove it can still go red.
+
+**BATCH THE CHEAP PRECISE FIXES. One render, many fixes, never the reverse.** A render is
+fourteen minutes and an edit is two lines, so a run that renders once per finding spends
+its afternoon watching a progress bar. When a panel returns, take EVERY finding that has an
+exact cause and an exact repair, apply them all, then render. The gate reports the run's
+render count and says so above four. It is a warning rather than a failure because a hard
+round can honestly need several, and a gate that blocks honest work gets switched off.
+
+**A CHECK STILL IS FOR A QUESTION YOU CANNOT ANSWER ANY OTHER WAY.** `remotion still` is
+forty seconds, so it is cheap against a render and expensive against reading the code.
+Render one when the answer is genuinely visual and you have a specific thing to look at.
+Do not render one to confirm a change you can reason about, and do not render three in a
+row nudging a number: solve the number, then look once.
+
+**NEVER POLL FOR A PATTERN YOUR OWN COMMAND LINE CONTAINS.** `pgrep -f "<pattern>"` matches
+the shell running the loop, so `while pgrep -f ...` waits for itself forever and looks
+exactly like a slow job. Use `scripts/waitfor.sh`, which excludes the ancestor chain and
+carries a deadline. **Every wait carries a deadline**, because a run that hangs silently is
+worse than one that fails loudly and the one outcome law cannot report an error from inside
+an infinite loop.
+
+**NEVER SILENCE A COMMAND WHOSE OUTPUT IS THE SIGNAL.** `git commit ... >/dev/null` hid a
+commit that did not happen, and the working tree looked committed for another twenty
+minutes. This is the same rule as running a gate by its exit code rather than its last
+line, one layer up. Verify a write landed.
+
+**MEASURE A PRESCRIPTION BEFORE TAKING IT.** A scorer's fix comes with reasoning, and the
+reasoning can be wrong about this particular input even when the diagnosis is right. One
+asked for a caption ceiling of 5.5s so a cue would split at a boundary they reasoned was a
+sentence end. Swept against the actual read it was not, and 5.5 broke the film's thesis in
+the ugliest available place. Take the diagnosis, sweep the number.
+
+**THE CAMERA CANNOT FILL AN EMPTY ROOM.** When a frame is half empty, ask what is missing
+from the room before reaching for a camera offset. Dollying in to fill the height enlarges
+everything else past the frame edge, and booming trades a dead ceiling for a dead floor.
+Both were tried on the same shot and both made it worse. What fixed it was drawing the
+cable tray and the luminaires that are genuinely over a cold aisle.
 
 ## ACCURACY AND CULTURAL RESPECT
 
