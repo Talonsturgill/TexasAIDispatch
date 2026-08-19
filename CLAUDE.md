@@ -66,7 +66,16 @@ writes an essay about integrity.
 
 ## The two laws of drawing Texas
 
-From `knowledge/texas/VERNACULAR.md`, and they govern every frame.
+From `TexasAIDocket/knowledge/shared/TEXAS_VERNACULAR.md`, and they govern every frame. It
+lives in the sibling repo because the two products draw the same Texas, and this file used to
+cite it as `knowledge/texas/VERNACULAR.md` HERE, which does not exist and never has. A scorer
+went looking for the source every art decision is supposed to trace to and could not find it.
+
+**That doc says of itself that its research pass was truncated in delivery and only its
+addenda arrived**, and its own closing section lists what is still owed: the per-region light,
+vegetation, buildings and vehicles. That gap is not academic. It is exactly where this show
+keeps getting marked down, because a region with no drawing notes of its own inherits another
+region's drawing, which is the first law broken by omission rather than by choice.
 
 **One. A Texan forgives a stylized drawing. A Texan does not forgive being told they live
 somewhere they don't.** Style is free. Place is not. The Panhandle and Houston do not share a
