@@ -275,6 +275,7 @@ Scenes are code, story is data, and **the data is the board Gate 0 just passed.*
 document written from it. The same file, by path.
 
 ```
+touch out/dispatch/render_started        # see the note under freshness_check
 cd video-engine && npx remotion render Dispatch ../out/dispatch/silent.mp4 \
   --props=../out/dispatch/storyboard.json --concurrency=100% --log=error
 ```
@@ -477,6 +478,7 @@ python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
 
 ```
 python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
+       --started out/dispatch/render_started \
        --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json
 python3 scripts/run_discipline.py --renders <how many full renders so far>
 ```

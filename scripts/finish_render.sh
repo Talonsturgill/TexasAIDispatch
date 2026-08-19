@@ -28,6 +28,7 @@ for f in silent.mp4 mix.wav film.mp4; do
 done
 
 python3 scripts/freshness_check.py --film out/dispatch/film.mp4 \
+  --started out/dispatch/render_started \
   --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json
 echo "freshness exit=$?"
 
