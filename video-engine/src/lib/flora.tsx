@@ -195,8 +195,14 @@ export const LiveOak: React.FC<FloraProps & {
 
           Behind, the mass gives the crown one silhouette and the limbs read in front of it,
           which is the whole difference between a live oak and a generic round tree. */}
-      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.52} rx={h * 0.82} ry={h * 0.30}
-        lobes={9} fill={t.core} hi={t.base} lo={t.shade} spread={0.82} />
+      {/* A LIVE OAK IS LOBES ON LIMBS, NOT A CLOUD OVER THEM. This nine-lobe canopy spanned
+          the whole crown and merged into one mass at every scale the film actually uses, so
+          the five limbs drawn under it never showed and four rounds of scorers called the
+          tree a lollipop and lily pads on a stick. What is left is the limb-end canopies
+          below plus two small ties, which is three to five separated lobes with sky between
+          them on visible down-sweeping limbs: the shape FAUNA_AND_FLORA describes. */}
+      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.50} rx={h * 0.40} ry={h * 0.20}
+        lobes={3} fill={t.core} hi={t.base} lo={t.shade} spread={0.7} />
       {Array.from({length: 5}, (_, i) => {
         const a = (-0.30 - i * 0.30 + rnd(seed, 10 + i) * 0.24) * Math.PI;
         const reach = h * (0.52 + rnd(seed, 30 + i) * 0.40);

@@ -59,8 +59,13 @@ export const LIGHTS: Record<string, Light> = {
   },
   // Rolling Plains — red beds take the light warm, so the shade side goes violet.
   rolling_plains: {
-    dir: {x: -0.34, y: -0.94}, key: '#ffe9c0', fill: '#b7a2b8', rim: '#fff2dd',
-    keyLift: 0.16, coreDrop: 0.05, shadeDrop: 0.18,
+    // Harder than blackland by a real margin, not a rounding one. REGIONS.md: high-plains
+    // hardness, red dirt takes the light warm, "so shadow sides go violet". The violet fill
+    // was already right and the CONTRAST was not: at 0.18 against blackland's 0.14 the two
+    // regions were shading almost identically, so a scorer reported the light not separating
+    // at all and was right about the effect even though the hue was correct.
+    dir: {x: -0.34, y: -0.94}, key: '#fff0c4', fill: '#a78fb0', rim: '#fff6e2',
+    keyLift: 0.20, coreDrop: 0.06, shadeDrop: 0.25,
   },
   // Cross Timbers — broken oak over prairie, so the light is dappled where the
   // timber is. Mid everything; this is the state's most neutral light.

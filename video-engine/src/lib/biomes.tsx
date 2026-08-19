@@ -38,7 +38,14 @@ export const BIOMES: Record<RegionName, BiomePalette> = {
     ground: '#c8b088', veg: '#9aa06a', accent: '#d9a441',
   },
   rolling_plains: {
-    sky: ['#7b9ec2', '#d6cfc4'], far: '#9d7a63', mid: '#a87f63', near: '#b08468',
+    // THE SKY WAS CARRYING NONE OF THE REGIONAL LOAD. REGIONS.md calls light the single most
+    // important field and says this region has "similar hardness to the High Plains" with red
+    // dirt taking the light warm. Its sky was a pale blue two shades off blackland's, so the
+    // separation between Round Rock and Abilene was being done entirely by ground colour
+    // while the thing above the horizon said they were the same afternoon. Deeper at the
+    // zenith for the hardness, and warm at the horizon because the red beds throw their own
+    // colour back up into it.
+    sky: ['#5f88b8', '#e2c3a4'], far: '#9d7a63', mid: '#a87f63', near: '#b08468',
     ground: '#b5795a', veg: '#7d8a5c', accent: '#c8703a',
   },
   cross_timbers: {
@@ -73,6 +80,16 @@ export const BIOMES: Record<RegionName, BiomePalette> = {
     sky: ['#5f7fae', '#e0b488'], far: '#6a5a72', mid: '#8a6a62', near: '#a07a5e',
     ground: '#b08a63', veg: '#6b7355', accent: '#e08a3c',
   },
+};
+
+/** THE SEED THAT MAKES A PLACE A PLACE. One fixed number per region, so the standing
+ *  woody plants of that region are the SAME STAND in every shot of it. See the note on
+ *  `Vegetation` for the defect this closes. These are arbitrary and must never be changed
+ *  to chase a nicer arrangement in one shot, because they are shared by all of them. */
+const REGION_SEED: Record<RegionName, number> = {
+  high_plains: 4102, rolling_plains: 7717, cross_timbers: 2213, blackland: 5309,
+  post_oak: 8821, piney_woods: 6607, gulf: 3391, south_texas: 9103,
+  hill_country: 1487, trans_pecos: 2749,
 };
 
 /** deterministic 0..1 */
@@ -262,54 +279,87 @@ const LimbedOak: React.FC<{
 }> = ({x, y, h, spread, seed, leaf, leafLit, bark, limbs = 5}) => {
   const lean = (rnd(seed, 1) - 0.5) * 10;
   const w = h * spread;
-  const trunkH = h * (spread > 1 ? 0.24 : 0.42);
+  const trunkH = h * (spread > 1 ? 0.30 : 0.46);
+
+  // THE LIMBS ARE SOLVED ONCE AND THE CROWN HANGS OFF THE ANSWER. The geometry used to be
+  // recomputed from the seed in two separate loops, which is how a lobe silently stops
+  // sitting on the tip it is supposed to hang on the first time either copy is edited.
+  //
+  // EVERY LIMB USED TO LEAVE THE TRUNK AT ONE POINT, about a sixth of the way up, and fan
+  // out from it. That is an umbrella frame, and with a ball on the end of each rib it read
+  // as broccoli. Limbs leave a live oak at DIFFERENT HEIGHTS along a trunk that is visibly
+  // a trunk, so the origin climbs with the limb's rank and the trunk is taller than it was.
+  //
+  // `dir` also came from `t < 0.5`, so a five-limb tree put two limbs left and three right,
+  // every one within about a third of the span of its neighbour: the tips crowded the
+  // middle instead of reaching the edges. Parity alternates them and the reach grows with
+  // rank, which is what the tree actually does. The two sides get different counts, so
+  // nothing here is symmetric.
+  const arms = Array.from({length: limbs}, (_, i) => {
+    const dir = i % 2 === 0 ? -1 : 1;
+    const rank = Math.floor(i / 2) / Math.max(1, Math.ceil(limbs / 2) - 1 || 1);
+    const reach = w * 0.5 * (0.34 + rank * 0.62 + (rnd(seed, 20 + i) - 0.5) * 0.16) * dir;
+    const tipY = -trunkH - h * (0.30 - rank * 0.16 + rnd(seed, 30 + i) * 0.12);
+    const originY = -trunkH * (0.34 + rank * 0.52 + rnd(seed, 40 + i) * 0.12);
+    return {reach, tipY, originY, i};
+  });
+
+  // THE CROWN IS ONE SILHOUETTE MADE OF MANY LOBES, AND THAT IS NOT THE SAME THING AS MANY
+  // OUTLINED LOBES. Giving each lobe its own ink outline is what made this read as a bag of
+  // balls: a viewer counts the outlines, and five circles with five rings around them are
+  // five circles no matter how they are arranged. Drawing the same shapes twice, once fat
+  // in ink underneath and once in leaf colour on top, leaves a single continuous edge
+  // around their UNION and no internal rings, so the eye reads one scalloped crown with
+  // tonal variation inside it. The lobes still hang on the limb tips and are still narrower
+  // than the gaps, so the silhouette is lumpy and asymmetric rather than a dome.
+  const lobes: {cx: number; cy: number; rx: number; ry: number; fill: string}[] = [];
+  arms.forEach(({reach, tipY, i}) => {
+    const rx = w * (0.115 + rnd(seed, 60 + i) * 0.045);
+    const ry = rx * (0.58 + rnd(seed, 70 + i) * 0.24);
+    const cx = reach * 0.94, cy = tipY - h * 0.045;
+    lobes.push({cx, cy, rx, ry, fill: i % 3 === 0 ? leafLit : leaf});
+    lobes.push({
+      cx: cx + (rnd(seed, 100 + i) - 0.5) * rx * 1.5,
+      cy: cy - ry * (0.45 + rnd(seed, 110 + i) * 0.5),
+      rx: rx * 0.64, ry: ry * 0.74,
+      fill: i % 3 === 0 ? leaf : leafLit,
+    });
+  });
+  // THE INTERIOR IS TWO SMALL LOBES, NEVER ONE WIDE DISC. There used to be a single ellipse
+  // of rx = w*0.30 parked over the crown centre "so the gaps are gaps and not holes", and
+  // it did the opposite: it was wide enough to touch both inner lobes and it welded the
+  // crown shut. That is the same opaque-middle fault the kit's shared `Canopy` carried for
+  // four rounds, which is twice this mistake has been made in two files by drawing the hole
+  // instead of trusting the structure.
+  [-1, 1].forEach((sgn, k) => lobes.push({
+    cx: sgn * w * (0.10 + rnd(seed, 80 + k) * 0.05),
+    cy: -trunkH - h * (0.26 + rnd(seed, 85 + k) * 0.10),
+    rx: w * 0.105, ry: h * 0.085,
+    fill: k === 0 ? leaf : leafLit,
+  }));
+
   return (
     <g transform={`translate(${x} ${y}) rotate(${lean * 0.25})`}>
-      <path d={`M${-h * 0.045},0 q${lean * 0.3},${-trunkH * 0.6} ${h * 0.012},${-trunkH}
-                l${h * 0.07},0 q${lean * 0.2},${trunkH * 0.6} ${h * 0.02},${trunkH} Z`}
+      <path d={`M${-h * 0.05},0 q${lean * 0.3},${-trunkH * 0.6} ${h * 0.014},${-trunkH}
+                l${h * 0.078},0 q${lean * 0.2},${trunkH * 0.6} ${h * 0.022},${trunkH} Z`}
         fill={bark} stroke={INK} strokeWidth={h * 0.018} strokeLinejoin="round" />
-      {/* The limbs leave the trunk LOW and go sideways BEFORE they go up, and they end
-          UNDER THE CANOPY. The first version solved the curve for a tip near the ground,
-          so every tree in three regions grew a set of bare sticks out sideways below its
-          own crown and read as storm damage. A limb that ends outside the leaves is a
-          limb a viewer sees as broken. */}
-      {Array.from({length: limbs}, (_, i) => {
-        const t = limbs === 1 ? 0.5 : i / (limbs - 1);
-        const dir = t < 0.5 ? -1 : 1;
-        const reach = w * 0.5 * (0.30 + rnd(seed, 20 + i) * 0.45) * dir;
-        const tipY = -trunkH - h * (0.16 + rnd(seed, 30 + i) * 0.24);
-        return (
-          <path key={i}
-            d={`M0,${-trunkH * 0.72} Q${reach * 0.66},${-trunkH * 0.98} ${reach},${tipY}`}
-            stroke={bark} strokeWidth={h * (0.028 - i * 0.002)} fill="none" strokeLinecap="round" />
-        );
-      })}
-      {/* THE CROWN SITS ON THE LIMB ENDS, NOT OVER THE WHOLE TREE.
-          Seven big lobes scattered across the crown area cover the limbs that were just
-          drawn, so this rendered as a stack of flat discs on a stub and scorers called it a
-          lollipop three rounds running. Exactly the same fault as the kit's LiveOak, in a
-          second component, which is the tell that the mistake is in how a tree is being
-          thought about rather than in one file.
-          A live oak's foliage clusters at the ENDS of its limbs and you see the structure
-          between them. So each lobe is anchored to a limb tip, and it is smaller than the
-          span it hangs on. */}
-      {Array.from({length: limbs}, (_, i) => {
-        const t = limbs === 1 ? 0.5 : i / (limbs - 1);
-        const dir = t < 0.5 ? -1 : 1;
-        const reach = w * 0.5 * (0.30 + rnd(seed, 20 + i) * 0.45) * dir;
-        const tipY = -trunkH - h * (0.16 + rnd(seed, 30 + i) * 0.24);
-        const rx = w * (0.20 + rnd(seed, 60 + i) * 0.10);
-        return (
-          <g key={i}>
-            <ellipse cx={reach * 0.92} cy={tipY - h * 0.05} rx={rx}
-              ry={rx * (0.58 + rnd(seed, 70 + i) * 0.24)}
-              fill={i % 3 === 0 ? leafLit : leaf} stroke={INK} strokeWidth={h * 0.013} />
-          </g>
-        );
-      })}
-      {/* one lobe over the crown centre, so the gaps between limbs are gaps and not holes */}
-      <ellipse cx={0} cy={-trunkH - h * 0.30} rx={w * 0.30} ry={h * 0.17}
-        fill={leaf} stroke={INK} strokeWidth={h * 0.013} />
+      {/* The limbs go sideways BEFORE they go up and they end UNDER THE CANOPY. The first
+          version solved the curve for a tip near the ground, so every tree in three regions
+          grew bare sticks out sideways below its own crown and read as storm damage. A limb
+          that ends outside the leaves is a limb a viewer sees as broken. */}
+      {arms.map(({reach, tipY, originY, i}) => (
+        <path key={i}
+          d={`M0,${originY} Q${reach * 0.70},${originY - trunkH * 0.22} ${reach},${tipY}`}
+          stroke={bark} strokeWidth={h * (0.032 - Math.floor(i / 2) * 0.005)} fill="none"
+          strokeLinecap="round" />
+      ))}
+      {lobes.map((l, k) => (
+        <ellipse key={`o${k}`} cx={l.cx} cy={l.cy} rx={l.rx} ry={l.ry}
+          fill={INK} stroke={INK} strokeWidth={h * 0.024} strokeLinejoin="round" />
+      ))}
+      {lobes.map((l, k) => (
+        <ellipse key={`f${k}`} cx={l.cx} cy={l.cy} rx={l.rx} ry={l.ry} fill={l.fill} />
+      ))}
     </g>
   );
 };
@@ -346,8 +396,18 @@ const BunchGrass: React.FC<{seed: number; groundY: number; n: number; color: str
  *  and it is LOW, CROOKED, WIDE AND LACY. The Piney Woods is the one region where
  *  verticals dominate, because the trees are genuinely tall and straight. */
 const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> = ({
-  region, seed, groundY,
+  region, seed: sceneSeed, groundY,
 }) => {
+  // THE STAND IS THE PLACE, AND THE PLACE DOES NOT RESHUFFLE BETWEEN CUTS.
+  // Every scene passed its own seed here, so the four Round Rock shots each drew a
+  // DIFFERENT stand of oaks at a different scale, and the four Abilene shots a different
+  // brake of mesquite. A viewer reads that as four locations, not four looks at one, and a
+  // panel read it exactly that way: the far treeline changed size across s01, s12, s13 and
+  // s14 while the voice said it was still the same yard. Standing woody plants are
+  // LANDMARKS and are seeded on the REGION, so the same trees stand in the same places at
+  // the same size in every shot of that place. Grass keeps the scene seed, because grass is
+  // texture rather than landmark and a viewer never tracks a tuft from one cut to the next.
+  const seed = REGION_SEED[region];
   switch (region) {
     case 'high_plains':
       // Almost no trees. A LONE TREE IS A LANDMARK, not scenery, so there is exactly one.
@@ -455,12 +515,39 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
       // rolling-plains frame with no mesquite in it is the wrong place.
       return (
         <g>
-          <BunchGrass seed={seed + 3} groundY={groundY} n={54} color="#8a8a58" hh={20} />
-          {Array.from({length: 8}, (_, i) => (
-            <Mesquite key={i} x={rnd(seed, i) * W} y={groundY + 16 + Math.pow(rnd(seed, 20 + i), 1.4) * 240}
-              w={190} h={82}
-              scale={(0.030) + rnd(seed, 30 + i) * 0.034} seed={seed + i * 11} />
-          ))}
+          <BunchGrass seed={sceneSeed + 3} groundY={groundY} n={54} color="#8a8a58" hh={20} />
+          {/* BARE GROUND SHOWS BETWEEN THE CLUMPS, and none of it did. Three separate
+              faults, and stratifying x only fixed the first of them.
+
+              ONE. Eight purely random x values put crowns on top of each other, so the
+              right third of the Abilene frame was a continuous hedge lying across the
+              cooling towers. Six lanes with the jitter held inside its own lane.
+
+              TWO. Lanes are worth nothing if the crown is wider than the lane, and it was:
+              `scale` ran to 0.064, which through `fit('mesquite', 82)` draws a crown about
+              350 px across in a 154 px lane. Every arrangement merges at that size. The
+              ceiling below is solved against the lane width rather than chosen, so the
+              widest crown is a little over half its lane and adjacent crowns cannot touch
+              no matter what the seed does.
+
+              THREE. `scale` was random and UNCORRELATED WITH DEPTH, so a tree low in the
+              frame, which is nearer the camera, was as likely to be drawn small as large.
+              That is a scale error in the strict sense the engine's own metre file was
+              written to prevent: the picture was telling the eye two different distances
+              for one tree. Size now comes from depth and the seed only varies it a little
+              around that. */}
+          {Array.from({length: 6}, (_, i) => {
+            const depth = (i * 5 % 6) / 5;                       // stratified in y, not clumped
+            const gy = groundY + 16 + Math.pow(0.15 + depth * 0.85, 1.4) * 240;
+            const near = (gy - groundY) / 240;
+            return (
+              <Mesquite key={i}
+                x={((i + 0.5) / 6) * W + (rnd(seed, i) - 0.5) * (W / 6) * 0.36}
+                y={gy} w={190} h={82}
+                scale={(0.0140 + near * 0.0125) * (0.92 + rnd(seed, 30 + i) * 0.16)}
+                seed={seed + i * 11} />
+            );
+          })}
         </g>
       );
     case 'post_oak':
@@ -470,7 +557,7 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
       // this. The crowns are ROUNDED AND DENSE and the trunks are short and stout.
       return (
         <g>
-          <BunchGrass seed={seed + 5} groundY={groundY} n={70} color="#7f8f4e" hh={24} />
+          <BunchGrass seed={sceneSeed + 5} groundY={groundY} n={70} color="#7f8f4e" hh={24} />
           {Array.from({length: 6}, (_, i) => {
             const gy = groundY + 18 + Math.pow(rnd(seed, 20 + i), 1.5) * 300;
             const near = (gy - groundY) / Math.max(1, H - groundY);
@@ -489,7 +576,7 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
       // and overlapping. Crowns touch and the ground barely shows through.
       return (
         <g>
-          <BunchGrass seed={seed + 7} groundY={groundY} n={34} color="#6f7f4a" hh={18} />
+          <BunchGrass seed={sceneSeed + 7} groundY={groundY} n={34} color="#6f7f4a" hh={18} />
           {Array.from({length: 14}, (_, i) => {
             const gy = groundY + 10 + Math.pow(rnd(seed, 20 + i), 1.3) * 280;
             const near = (gy - groundY) / Math.max(1, H - groundY);
@@ -510,7 +597,7 @@ const Vegetation: React.FC<{region: RegionName; seed: number; groundY: number}> 
       // and reaching out about as far as the tree is tall.
       return (
         <g>
-          <BunchGrass seed={seed + 11} groundY={groundY} n={64} color="#8c9a5c" hh={34} />
+          <BunchGrass seed={sceneSeed + 11} groundY={groundY} n={64} color="#8c9a5c" hh={34} />
           {Array.from({length: 3}, (_, i) => {
             const gy = groundY + 22 + rnd(seed, 20 + i) * 190;
             const near = (gy - groundY) / Math.max(1, H - groundY);
