@@ -41,6 +41,9 @@ REPO = Path(__file__).resolve().parent.parent
 # need several, and a gate that blocks honest work gets disabled.
 RENDER_BUDGET = 4
 
+# Panel rounds, which are the other way a run burns a day. See check_panel_rounds.
+ROUND_BUDGET = 8
+
 
 def _is_comment(line: str) -> bool:
     """A line that only talks about a pattern is not a line that runs it."""
@@ -182,6 +185,29 @@ def check_concurrency_claims() -> list[str]:
     return errs
 
 
+def check_panel_rounds(rounds: int | None) -> list[str]:
+    """RULE 6. Count the ROUNDS, not just the renders, and say when the loop stopped learning.
+
+    A round is a panel plus a batch of fixes. Renders were budgeted here from the first version
+    and rounds were not, so a run could stay under the render budget by batching and still spend
+    twenty-two rounds, which is what happened on 2026-08-18. The tell is not the count on its own.
+    It is a round whose fixes come back scored LOWER than the round before, which means the run
+    is guessing rather than diagnosing, and two of that run's three round-21 fixes were
+    regressions it had to undo the next round.
+
+    This is a WARNING, never a failure. The one outcome law says a failing panel is an
+    instruction to re-enter the loop, so a gate that stopped a run for taking too many rounds
+    would be a hatch out of the law, which is the one thing it must not be.
+    """
+    if rounds is None or rounds <= ROUND_BUDGET:
+        return []
+    print(f"\n  note  {rounds} panel rounds. Past about {ROUND_BUDGET}, the thing to check is "
+          f"whether the last round's score went DOWN. A round that scores lower than the one "
+          f"before it was a guess, and the repair is to measure the defect before prescribing "
+          f"for it rather than to run another round.")
+    return []
+
+
 CHECKS = [
     ("self-matching waits", check_self_matching_waits),
     ("silenced git writes", check_silenced_git),
@@ -269,6 +295,8 @@ def main() -> int:
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--renders", type=int, default=None,
                     help="how many full renders this run has done, for the batching report")
+    ap.add_argument("--rounds", type=int, default=None,
+                    help="how many panel rounds this run has done, for the diagnosis report")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -278,6 +306,8 @@ def main() -> int:
         errs = fn()
         print(f"  {'ok  ' if not errs else 'FAIL'}  {label}")
         problems += errs
+
+    check_panel_rounds(a.rounds)
 
     if a.renders is not None and a.renders > RENDER_BUDGET:
         print(f"\n  note  {a.renders} renders this run, over the {RENDER_BUDGET} budget. "
