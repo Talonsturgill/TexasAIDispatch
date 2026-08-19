@@ -1173,15 +1173,31 @@ export const PoleSign: React.FC<RoadProps & {
           })}
         </g>
       )}
-      {dead && [-1, 1].map((s) => (
-        <line key={s} x1={0} y1={-h * 0.80} x2={s * pw * 0.34} y2={-h * 0.84 - ph * 0.06}
-          stroke={steel.shade} strokeWidth={h * 0.014} strokeLinecap="round" />
-      ))}
+
       <g transform={`translate(0 ${-h * 0.84 - ph})`}>
         {dead ? (
-          /* THE EMPTY FRAME. The panel is gone and you can see sky through it. */
+          <>
+          {/* THE BLANK CABINET, not an empty frame.
+             An outlined rectangle you can see sky through, sitting on a pole above a
+             bracket, is a BASKETBALL BACKBOARD. Two scorers said so outright and three
+             earlier rounds reported a "starburst artifact" without recognising the shape
+             the parts were making together. Removing the starburst was not enough and the
+             V bracket that replaced it made the read worse, because a hoop is exactly a
+             bracket under a board.
+             What is actually left on a frontage road when a tenant leaves is the cabinet:
+             a filled, faded, blank box that reads as a sign with nothing on it. Filled
+             kills the backboard, and it is also what is true. */}
+          <rect x={-pw / 2} y={0} width={pw} height={ph} fill={steel.shade} />
           <rect x={-pw / 2} y={0} width={pw} height={ph} fill="none"
-            stroke={steel.shade} strokeWidth={h * 0.020} />
+            stroke={steel.core} strokeWidth={h * 0.016} />
+          {/* the bolt line along the bottom rail, where the panel used to clip in */}
+          {Array.from({length: 5}, (_, i) => (
+            <circle key={i} cx={-pw * 0.36 + i * pw * 0.18} cy={ph * 0.9}
+              r={h * 0.006} fill="#4d4a46" />
+          ))}
+          <RustStreak x={-pw * 0.18} y={ph * 0.55} w={pw * 0.2} h={ph * 0.5}
+            opacity={wear * 0.8} />
+          </>
         ) : (
           <>
             {/* sun-yellowed plastic with the printing ghosted */}

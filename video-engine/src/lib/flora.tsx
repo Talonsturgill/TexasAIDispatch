@@ -180,7 +180,7 @@ export const LiveOak: React.FC<FloraProps & {
 
           Behind, the mass gives the crown one silhouette and the limbs read in front of it,
           which is the whole difference between a live oak and a generic round tree. */}
-      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.58} rx={h * 0.70} ry={h * 0.33}
+      <Canopy seed={seed} cx={lean * 0.5} cy={-h * 0.52} rx={h * 0.82} ry={h * 0.30}
         lobes={9} fill={t.core} hi={t.base} lo={t.shade} spread={0.82} />
       {Array.from({length: 5}, (_, i) => {
         const a = (-0.30 - i * 0.30 + rnd(seed, 10 + i) * 0.24) * Math.PI;
@@ -193,7 +193,7 @@ export const LiveOak: React.FC<FloraProps & {
         return (
           <g key={i}>
             <Limb x1={lean * 0.7} y1={-h * 0.30} x2={bx} y2={by}
-              w1={h * 0.030} w2={h * 0.011} fill={bark.core}
+              w1={h * 0.052} w2={h * 0.020} fill={bark.core}
               bow={(by > -h * 0.30 ? 1 : -1) * reach * 0.13} />
             <Canopy seed={seed + i * 17} cx={bx} cy={by - h * 0.06}
               rx={h * 0.26} ry={h * 0.17} lobes={5}

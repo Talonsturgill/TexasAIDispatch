@@ -284,19 +284,32 @@ const LimbedOak: React.FC<{
             stroke={bark} strokeWidth={h * (0.028 - i * 0.002)} fill="none" strokeLinecap="round" />
         );
       })}
-      {/* the crown, as offset lobes over the limb ends */}
-      {Array.from({length: 7}, (_, i) => {
-        const a = (i / 7) * Math.PI * 2 + rnd(seed, 40 + i) * 0.9;
-        const rr = 0.30 + rnd(seed, 50 + i) * 0.32;
-        const cx = Math.cos(a) * w * 0.5 * rr;
-        const cy = -trunkH - h * 0.30 + Math.sin(a) * h * 0.20 * rr;
-        const rx = w * (0.19 + rnd(seed, 60 + i) * 0.13);
+      {/* THE CROWN SITS ON THE LIMB ENDS, NOT OVER THE WHOLE TREE.
+          Seven big lobes scattered across the crown area cover the limbs that were just
+          drawn, so this rendered as a stack of flat discs on a stub and scorers called it a
+          lollipop three rounds running. Exactly the same fault as the kit's LiveOak, in a
+          second component, which is the tell that the mistake is in how a tree is being
+          thought about rather than in one file.
+          A live oak's foliage clusters at the ENDS of its limbs and you see the structure
+          between them. So each lobe is anchored to a limb tip, and it is smaller than the
+          span it hangs on. */}
+      {Array.from({length: limbs}, (_, i) => {
+        const t = limbs === 1 ? 0.5 : i / (limbs - 1);
+        const dir = t < 0.5 ? -1 : 1;
+        const reach = w * 0.5 * (0.30 + rnd(seed, 20 + i) * 0.45) * dir;
+        const tipY = -trunkH - h * (0.16 + rnd(seed, 30 + i) * 0.24);
+        const rx = w * (0.20 + rnd(seed, 60 + i) * 0.10);
         return (
-          <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={rx * (0.60 + rnd(seed, 70 + i) * 0.28)}
-            fill={i % 3 === 0 ? leafLit : leaf} stroke={INK} strokeWidth={h * 0.014}
-            opacity={0.97} />
+          <g key={i}>
+            <ellipse cx={reach * 0.92} cy={tipY - h * 0.05} rx={rx}
+              ry={rx * (0.58 + rnd(seed, 70 + i) * 0.24)}
+              fill={i % 3 === 0 ? leafLit : leaf} stroke={INK} strokeWidth={h * 0.013} />
+          </g>
         );
       })}
+      {/* one lobe over the crown centre, so the gaps between limbs are gaps and not holes */}
+      <ellipse cx={0} cy={-trunkH - h * 0.30} rx={w * 0.30} ry={h * 0.17}
+        fill={leaf} stroke={INK} strokeWidth={h * 0.013} />
     </g>
   );
 };
