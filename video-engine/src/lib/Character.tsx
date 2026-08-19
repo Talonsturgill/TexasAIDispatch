@@ -386,11 +386,18 @@ export const Character: React.FC<CharacterProps> = ({
   else if (pose === 'raise')  { nearUp = 8 + ge * 150; nearFore = 12 + ge * 18; }
   else if (pose === 'panic')  { nearUp = 8 + ge * 140; farUp = -8 - ge * 130; nearFore = 30; farFore = -30; }
   else if (pose === 'carry')  { nearUp = 46; nearFore = 62; farUp = -40; farFore = -58; }
-  // hands on hips: elbows OUT, forearms coming back IN to the waist on both sides
-  else if (pose === 'hands-hips') { nearUp = 44; nearFore = 104; farUp = -38; farFore = -110; }
-  // arms crossed: forearms nearly horizontal ACROSS the chest, each hand near the other
-  // elbow, so the fore angle is much larger and the upper arms hang closer to the body
-  else if (pose === 'arms-crossed') { nearUp = 26; nearFore = 128; farUp = -20; farFore = -134; }
+  // SOLVED FROM WHERE THE HAND HAS TO END UP, not guessed at as a pair of angles.
+  // `armChain` measures both angles from straight-down toward +x and compounds them, so a
+  // POSITIVE fore angle carries the forearm further round the same way the upper arm went,
+  // which throws the wrist outward and upward. Both two-handed poses had positive fore
+  // angles and both therefore rendered as a raised open shrug, whatever the board asked
+  // for. The forearm has to come BACK, which is a negative fore angle on the near side.
+  //
+  // hands on hips: elbow out and down, forearm returning in to the waist.
+  else if (pose === 'hands-hips') { nearUp = 50; nearFore = -95; farUp = -46; farFore = 92; }
+  // arms crossed: elbows closer in, forearms nearly horizontal across the chest with each
+  // hand arriving near the opposite elbow.
+  else if (pose === 'arms-crossed') { nearUp = 30; nearFore = -143; farUp = -26; farFore = 139; }
   if (walking) { nearUp += Math.sin(wp + Math.PI) * 16; farUp += Math.sin(wp) * 16; }
 
   const nearArm = armChain(shoulderW * 0.5, shoulderY, nearUp, nearFore, armUp, armFore);
@@ -483,11 +490,21 @@ export const Character: React.FC<CharacterProps> = ({
       </g>
 
       {/* ---------------------------------------------------------------- far arm */}
+      {/* THE ARM OUTLINE WAS DRAWN AT opacity 0.001, WHICH IS INVISIBLE.
+          The sleeve is stroked in the shirt's own colour over the shirt, so with no ink
+          edge between them the arm has nothing separating it from the torso and simply
+          disappears into it. What a viewer is left with is a skin-coloured hand hanging in
+          space with no arm attached, which is exactly what three scorers reported round
+          after round as detached discs floating clear of the cuff. Every fix aimed at the
+          HAND missed, because the hand was never the fault: rebuilding it as a mitt made a
+          better-shaped object float.
+          The outline goes UNDER the sleeve and is drawn at full strength, which is the
+          house idiom everything else in this library already uses. */}
       <g opacity={0.92}>
+        <path d={sleeve(farArm)} stroke={INK} strokeWidth={34} fill="none"
+          strokeLinecap="round" strokeLinejoin="round" />
         <path d={sleeve(farArm)} stroke={c.shade} strokeWidth={26} fill="none"
           strokeLinecap="round" strokeLinejoin="round" />
-        <path d={sleeve(farArm)} stroke={INK} strokeWidth={31} fill="none"
-          strokeLinecap="round" strokeLinejoin="round" opacity={0.001} />
         {hand(farArm, 'far')}
       </g>
 
@@ -602,10 +619,10 @@ export const Character: React.FC<CharacterProps> = ({
 
       {/* ---------------------------------------------------------------- near arm */}
       <g>
+        <path d={sleeve(nearArm)} stroke={INK} strokeWidth={36} fill="none"
+          strokeLinecap="round" strokeLinejoin="round" />
         <path d={sleeve(nearArm)} stroke={`url(#${uid}_main)`} strokeWidth={28} fill="none"
           strokeLinecap="round" strokeLinejoin="round" />
-        <path d={sleeve(nearArm)} stroke={INK} strokeWidth={33} fill="none"
-          strokeLinecap="round" strokeLinejoin="round" opacity={0.001} />
         {/* cuff */}
         {/* the cuff is the END OF THE SLEEVE and sits behind the hand. Drawn as a ring
             centred on the wrist it circled the hand instead, which is half of why the
