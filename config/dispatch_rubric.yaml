@@ -62,7 +62,18 @@ rubric:
         captions aligned to the final mix rather than approximated?
 
   hard_fails:
-    - a numeral on screen or in the script that does not trace to a verified claim
+    # TIGHTENED 2026-08-19, and the wording is the whole of it. This used to read "does not
+    # trace to a verified claim", which a judge showed is satisfied by a claim's `statement` or
+    # `value_text` -- fields a model writes after reading the source. The film printed a readout
+    # row against a claim marked VERIFIED whose fetched quote contained no such figure at all,
+    # and every numeral gate stayed green because the numeral was in the authorised set.
+    # Measured across that board, five of eleven readout figures sat in no fetched sentence.
+    # The evidence is the QUOTE. `super_evidence_check` enforces this over supers and readouts,
+    # with a per-claim `quote_is_excerpt` for sources that publish a table, declared rather than
+    # inferred. This is a tightening, never a loosening: nothing that passed before on real
+    # fetched evidence fails now.
+    - a numeral on screen or in the script that does not appear in the fetched QUOTE of a
+      verified claim, rather than merely in a statement or value_text written about it
     - a caption timing that was approximated, scaled or hand-shifted rather than force-aligned
     - audio time-stretched to fit a cut
     - a region that does not match the story's county
