@@ -1,0 +1,240 @@
+{
+  "_why": "The only source of truth the script and the frames may draw from. Every numeral on screen or in the read traces to a claim here, and every claim traces to a page that was fetched and read twice on 2026-08-18. Anything the validator could not stand up is in `dropped` and cannot be said.",
+  "date": "2026-08-18",
+  "story": "Who actually gets to use the largest public supercomputer in Texas",
+  "claims": [
+    {
+      "id": "c1",
+      "statement": "Horizon's GPU computing racks are operational, totaling 4,000 NVIDIA NVL4 Blackwell GPUs and 2,000 NVIDIA Grace GB200 CPUs.",
+      "value_text": "4,000 Blackwell GPUs and 2,000 Grace CPUs",
+      "quote": "its graphical processing unit (GPU) computing racks are operational, totaling 4,000 NVIDIA NVL4 Blackwell GPUs and 2,000 NVIDIA Grace GB200 CPUs",
+      "url": "https://www.eurekalert.org/news-releases/1135145",
+      "source_type": "university press release (UT Austin, via EurekAlert), 2026-07-07",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c2",
+      "statement": "Horizon carries 400 petabytes of local all-solid-state storage.",
+      "value_text": "400 petabytes of storage",
+      "quote": "400PB of storage delivering more than 8TB/s of read/write bandwidth",
+      "url": "https://docs.tacc.utexas.edu/hpc/horizon/",
+      "source_type": "primary operator documentation (TACC)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "CORRECTS THE PRESS RELEASE, which says 400 petaflops of storage. Storage is not measured in petaflops."
+    },
+    {
+      "id": "c3",
+      "statement": "The CPU half of Horizon is expected to come online in Winter 2026 or early 2027.",
+      "value_text": "Winter 2026 or early 2027",
+      "quote": "The CPU part of Horizon is expected to come online in Winter 2026 or early 2027",
+      "url": "https://www.eurekalert.org/news-releases/1135145",
+      "source_type": "university press release (UT Austin, via EurekAlert), 2026-07-07",
+      "retrieved": "2026-08-18",
+      "verdict": "PARTIAL",
+      "note": "The DATE is safe. The CPU count in the same sentence conflicts with TACC's own docs and is not published."
+    },
+    {
+      "id": "c4",
+      "statement": "TACC's own Horizon user guide states the machine is still limited to internal users, dated the 24th of July 2026.",
+      "value_text": "Horizon is still limited only to internal users, dated July 24th",
+      "quote": "Horizon is still limited only to internal users. (07/24/2026)",
+      "url": "https://docs.tacc.utexas.edu/hpc/horizon/",
+      "source_type": "primary operator documentation (TACC)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c5",
+      "statement": "The Horizon user guide says of itself that it is unfinished.",
+      "value_text": "This user guide is in progress",
+      "quote": "This user guide is in progress",
+      "url": "https://docs.tacc.utexas.edu/hpc/horizon/",
+      "source_type": "primary operator documentation (TACC)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c6",
+      "statement": "Horizon's queue table is fully specified, with six queues, node caps, runtime limits and a charge rate per node-hour.",
+      "value_text": "gb, 128 nodes, 48 hours, 1 SU. gb-large, 512 nodes, 48 hours, 1 SU. vv, 256 nodes, 48 hours, 0.25 SUs. vv-large, 1024 nodes, 48 hours, 0.25 SUs.",
+      "quote": "gb | Grace Blackwell | 128 | 48 hrs | 1 SU",
+      "url": "https://docs.tacc.utexas.edu/hpc/horizon/",
+      "source_type": "primary operator documentation (TACC)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c7",
+      "statement": "Sabey Data Centers redeveloped the former Sears call center at 1300 Louis Henna Boulevard in Round Rock, completing its first 213,000 square foot building in fall 2024.",
+      "value_text": "the former Sears call center at 1300 Louis Henna Boulevard, first building 213,000 square feet",
+      "quote": "Sabey Data Centers redeveloped the former Sears call center at 1300 Louis Henna Boulevard, completing its first 213,000-square-foot building in fall 2024",
+      "url": "https://www.roundrocktexas.gov/city-departments/administration/data-centers-in-round-rock/",
+      "source_type": "municipal government page (City of Round Rock)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c8",
+      "statement": "The Sabey campus is planned to reach 84 megawatts across 430,000 square feet and will host Horizon.",
+      "value_text": "an eventual 84 megawatt, 430,000 square foot campus",
+      "quote": "an eventual 84-megawatt, 430,000-square-foot campus that will host the Texas Advanced Computing Center's Horizon supercomputer.",
+      "url": "https://www.roundrocktexas.gov/city-departments/administration/data-centers-in-round-rock/",
+      "source_type": "municipal government page (City of Round Rock)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "84 MW is the eventual WHOLE CAMPUS. TACC's docs separately give Horizon a 20 MW data center. Never say Horizon draws 84 megawatts."
+    },
+    {
+      "id": "c9",
+      "statement": "The City of Round Rock monitored the Sabey facility's water use over a year and found it uses roughly as much as about 15 single-family homes, or 2 million gallons.",
+      "value_text": "about 15 single-family homes, 2 million gallons a year",
+      "quote": "The City of Round Rock monitored water use from Sabey over the past year and found that the facility uses roughly the same amount of water on an annual basis as about 15 single-family homes (2 million gallons).",
+      "url": "https://www.roundrocktexas.gov/city-departments/administration/data-centers-in-round-rock/",
+      "source_type": "municipal government page (City of Round Rock)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "Attribute to the City of Round Rock on screen. It is a page from a city that benefits from the facility."
+    },
+    {
+      "id": "c10",
+      "statement": "Texas A&M's VISION is rank 66 on the June 2026 TOP500 at 34.82 petaflops Rmax.",
+      "value_text": "rank 66, 34.82 petaflops",
+      "quote": "VISION - NVIDIA DGX H200 ... 110,960 | 34,820,000 | 51,162,600",
+      "url": "https://top500.org/site/48957/",
+      "source_type": "benchmark list of record (TOP500), June 2026 list",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "34,820,000 GFlop/s and 34.82 PFlop/s are the same quantity. Never mix the units in one frame."
+    },
+    {
+      "id": "c11",
+      "statement": "Texas A&M's own release states 34.85 petaflops, which matches neither TOP500's Rmax nor its Rpeak. The published figure is 34.82.",
+      "value_text": "34.82 petaflops is the correct figure",
+      "quote": "VISION delivers 34.85 petaflops",
+      "url": "https://stories.tamu.edu/news/2026/06/25/texas-am-supercomputer-named-most-powerful-among-us-universities/",
+      "source_type": "university news release (Texas A&M), 2026-06-25",
+      "retrieved": "2026-08-18",
+      "verdict": "PARTIAL",
+      "note": "Recorded so the discrepancy is on the record. 34.85 is not published by this film."
+    },
+    {
+      "id": "c12",
+      "statement": "VISION stands 24 positions ahead of the next United States university-operated system, and rank 66 plus 24 is rank 90, which on the same list is TACC's Frontera.",
+      "value_text": "24 positions ahead",
+      "quote": "VISION stands 24 positions ahead of the next U.S. university-operated system, placing Texas A&M at the forefront of academic supercomputing.",
+      "url": "https://stories.tamu.edu/news/2026/06/25/texas-am-supercomputer-named-most-powerful-among-us-universities/",
+      "source_type": "university news release (Texas A&M), 2026-06-25",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "Checks arithmetically against TOP500 without the release's help. 66 plus 24 is 90, and rank 90 is Frontera."
+    },
+    {
+      "id": "c13",
+      "statement": "TACC's entry on the June 2026 TOP500 is Frontera at rank 90, 23.52 petaflops Rmax, built in 2019. Horizon does not appear on the list.",
+      "value_text": "Frontera, rank 90, 23.52 petaflops",
+      "quote": "Frontera - Dell C6420, Xeon Platinum 8280 28C 2.7GHz, Mellanox InfiniBand HDR | 2019 | DELL | 448,448 | 23,516,400 | 38,745,907",
+      "url": "https://top500.org/site/48958/",
+      "source_type": "benchmark list of record (TOP500), June 2026 list",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c14",
+      "statement": "In one drug discovery project on VISION, researchers screened more than 10 million compounds in about a week.",
+      "value_text": "more than 10 million compounds in about a week",
+      "quote": "In one drug-discovery project, researchers screened more than 10 million compounds in about a week, using computing power that would have taken years in a previous environment.",
+      "url": "https://stories.tamu.edu/news/2026/06/25/texas-am-supercomputer-named-most-powerful-among-us-universities/",
+      "source_type": "university news release (Texas A&M), 2026-06-25",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "Both hedges are in the source and must stay."
+    },
+    {
+      "id": "c15",
+      "statement": "At an NVIDIA hackathon hosted by TACC in May 2026, an EPW team achieved an 80-fold acceleration in optical absorption spectra calculations on Horizon TEST NODES.",
+      "value_text": "an 80-fold acceleration on Horizon test nodes",
+      "quote": "At an NVIDIA Hackathon hosted by TACC in May 2026, the group's EPW team achieved an 80-fold acceleration in optical absorption spectra calculations on Horizon test nodes",
+      "url": "https://www.eurekalert.org/news-releases/1135145",
+      "source_type": "university press release (UT Austin, via EurekAlert), 2026-07-07",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "TEST NODES, not Horizon. The film says test nodes."
+    },
+    {
+      "id": "c16",
+      "statement": "Feliciano Giustino's group spent three years porting the EPW code from CPUs to GPUs and demonstrated a 30-fold speed up on Vista's GPU accelerators.",
+      "value_text": "three years of porting, a 30-fold speed up on Vista",
+      "quote": "For the past three years, his group has been porting the EPW code from CPUs to GPUs, a major software engineering effort that enables faster, larger-scale simulations of electron-phonon interactions critical to understanding superconductivity and other quantum phenomena.",
+      "url": "https://www.eurekalert.org/news-releases/1135145",
+      "source_type": "university press release (UT Austin, via EurekAlert), 2026-07-07",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "His institute affiliation is NOT sourced by any fetched sentence and is not stated."
+    },
+    {
+      "id": "c17",
+      "statement": "NAMD work on Vista reaches simulation rates of about 90 nanoseconds of simulated time per day and scaled to 512 Vista nodes.",
+      "value_text": "about 90 nanoseconds of simulated time per day, scaling to 512 nodes",
+      "quote": "they're getting simulation rates of about 90 nanoseconds per day",
+      "url": "https://www.eurekalert.org/news-releases/1135145",
+      "source_type": "university press release (UT Austin, via EurekAlert), 2026-07-07",
+      "retrieved": "2026-08-18",
+      "verdict": "PARTIAL",
+      "note": "The two figures are not contiguous in the source and are never quoted as one sentence. The subject matter of the simulation is NOT verified and is not stated."
+    },
+    {
+      "id": "c18",
+      "statement": "ESTIMATE. Epoch AI puts Stargate Abilene's operational capacity at 0.3 gigawatts, derived from an Oracle post implying 200 megawatts of IT power was operational as of the 22nd of April 2026.",
+      "value_text": "an estimated 0.3 gigawatts, from 200 megawatts disclosed",
+      "quote": "a subsequent post by Oracle implied that only 200 megawatts (or about 0.3 GW of total facility power by our estimate) was operational as of April 22nd",
+      "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+      "source_type": "ESTIMATE. Third-party research analysis (Epoch AI), published 2026-04-17, corrected 2026-04-23",
+      "retrieved": "2026-08-18",
+      "verdict": "PARTIAL",
+      "note": "WEAKEST SOURCE IN THE FILE. Modeled, not measured, and four months old. Any use is labelled an estimate on screen."
+    },
+    {
+      "id": "c19",
+      "statement": "ESTIMATE. Epoch AI reports an estimated four of Abilene's eight buildings operational, and that Crusoe disclosed 50,000 Blackwell GPUs per building.",
+      "value_text": "an estimated four of eight buildings, at 50,000 Blackwell GPUs per building",
+      "quote": "Abilene, which was disclosed by Crusoe to have 50,000 Blackwell GPUs per building.",
+      "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+      "source_type": "ESTIMATE. Third-party research analysis (Epoch AI), published 2026-04-17",
+      "retrieved": "2026-08-18",
+      "verdict": "PARTIAL",
+      "note": "50,000 per building is attributed to the operator and is the strongest figure on that page. Four times 50,000 is an inference nobody stated and is never computed on screen."
+    },
+    {
+      "id": "c20",
+      "statement": "No page comparable to the City of Round Rock's exists for the Abilene campus. Epoch AI states power capacities for the Stargate sites have not been reported consistently.",
+      "value_text": "not reported consistently",
+      "quote": "Power capacities for the Stargate sites have not been reported consistently.",
+      "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+      "source_type": "third-party research analysis (Epoch AI)",
+      "retrieved": "2026-08-18",
+      "verdict": "VERIFIED",
+      "note": "The absence of a public number is the most defensible thing this film says about Abilene."
+    }
+  ],
+  "authorised_numerals": [
+    "4000", "2000", "400", "24", "66", "90", "34.82", "23.52", "50000", "200",
+    "15", "2", "1300", "213000", "430000", "84", "512", "128", "256", "1024",
+    "48", "1", "0.25", "10", "30", "80", "0.3", "20", "2026", "2027", "2024",
+    "2019", "8", "4", "6", "3", "110960", "448448", "34820000", "23516400"
+  ],
+  "dropped": [
+    "Horizon was scheduled to enter production in spring 2026. THE HINGE THIS FILM WAS FIRST BUILT ON, and it cannot be sourced anywhere reachable today. knowledge/texas/APPLICATIONS.md asserts it marked verified with no URL, and the sibling claim on the same line is provably wrong, so that mark is not trustworthy. The film does not assert a broken promise it cannot source.",
+    "VISION was in beta testing when it took the title. No source in the set.",
+    "Feliciano Giustino is at UT Austin's Oden Institute. Not in any fetched sentence.",
+    "The NAMD Vista work concerns glutamate transport. The word appears in no fetched sentence.",
+    "Vista has 72 GH200 nodes and 144 Grace Superchip nodes. FALSE. Those are CORES PER NODE. TACC's docs give 600 Grace Hopper nodes and 256 Grace Grace nodes. knowledge/texas/APPLICATIONS.md carries the error marked verified.",
+    "Vista delivers 4.1 petaflops CPU and 40.8 petaflops GPU. Not re-verifiable today and inherits the doubt from the node-count error on the same line.",
+    "Horizon is 300 petaflops and the largest academic supercomputer in the United States. Not sourced, partly contradicted by TACC's own 160 and 320 petaflop figures, and the superlative is currently false in the only public ranking.",
+    "Horizon has 800 GB/sec Infiniband. Almost certainly a garbling of the Quantum-X800 product name, and gigabytes against gigabits is an eightfold error.",
+    "Horizon is in Williamson County. True and commonly known, but no fetched sentence on the city page states it, so it is not spoken.",
+    "Abilene's projected 1.2 GW equals 1.0 million H100-equivalents. The same page gives an identical gigawattage for another site at 2.5 million, so one of the two is wrong and the page does not say which."
+  ],
+  "notes": "tacc.utexas.edu returns 403 to the fetcher on both system pages while docs.tacc.utexas.edu serves normally, and the operator's live user documentation is the better source anyway. A first-pass fetch of the TOP500 site pages returned a confident rank column that does not exist on those pages, invented by pairing unrelated table values; the second fetch with a literal-extraction prompt showed the real columns. That artifact is recorded because it is exactly what this gate exists to catch."
+}
