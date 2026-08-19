@@ -57,6 +57,17 @@ LIB = REPO / "video-engine" / "src" / "lib"
 # person may be a head shorter. Nothing legitimate is a fifth of its own species.
 SCALE_MIN, SCALE_MAX = 0.5, 2.0
 
+# SOME KINDS VARY MUCH LESS THAN THAT, and the generic band is useless on them. A person is the
+# case that matters, because the person is the reference object the whole engine is measured
+# against. Adult height spans maybe a fifth, not a factor of four, so a technician at `scale:
+# 1.25` is 2.12 m and sailed straight through the generic band on the first version of this
+# gate. The tighter band is what catches it. Anything outside a kind's band still falls through
+# to the debt ledger, so a deliberate child or a deliberate giant is written down rather than
+# waved past.
+BANDS: dict[str, tuple[float, float]] = {
+    "person": (0.82, 1.12),        # 1.39 m to 1.90 m, which is the adult range this cast draws
+}
+
 # THE DEBT. kind -> (worst scale currently tolerated, why it is here).
 # Every line is a defect that has shipped. Lower a number when a run fixes one; never raise one.
 DEBT: dict[str, tuple[float, str]] = {
@@ -76,6 +87,15 @@ DEBT: dict[str, tuple[float, str]] = {
     "readingStation": (0.72, "0.94 m, close enough that it is the cheapest line to clear"),
     "transformer":  (0.08,  "0.36 m against a 4.5 m pad transformer"),
     "cabinet":      (0.50,  "1.00 m against a 2 m rack cabinet"),
+    # THE REFERENCE OBJECT ITSELF, which is the worst line in this ledger. A person at 1.19 m
+    # is a child and a person at 2.12 m is nearly seven feet, and every other size in the film
+    # is judged by eye against them. Fixing this is the highest value line here, not the
+    # cheapest, because it is what makes every other error visible.
+    # 1.25 is 2.12 m, nearly seven feet, in s05 and s09. s02's 0.70 is a 1.19 m technician and
+    # is the low side of the same fault; both are inside this one line because the ledger records
+    # the worst tolerated and this kind is wrong in both directions at once. Whichever a run
+    # fixes first, it lowers this line.
+    "person":       ((0.70, 1.25), "2.12 m in s05 and s09, and a 1.19 m technician in s02"),
 }
 
 TABLE_RE = re.compile(r"(?:export )?const ([A-Z_]+_M)\s*[:=][^=]*=\s*\{(.*?)\n\};", re.S)
@@ -84,8 +104,17 @@ H_RE = re.compile(r"h:\s*([\d.]+)")
 
 
 def measured_heights(lib: Path) -> dict[str, float]:
-    """kind -> real height in metres, from the modules' own dimension tables."""
-    out: dict[str, float] = {}
+    """kind -> real height in metres, from the modules' own dimension tables.
+
+    `person` is seeded by hand and it is the only one that is, because a person is not IN a
+    dimension table: the person IS the table. `lib/scale.ts` defines the metre as 610 draw
+    units over 1.70 m, taken from the Character rig sole to crown, so `person` at `scale: 1` is
+    1.70 m BY CONSTRUCTION and every other measurement in the engine is expressed against it.
+    Leaving the reference object out of the check meant the one item whose size defines all the
+    others was the one item nothing could check, and the board had a technician at 1.19 m and
+    two people at 2.12 m.
+    """
+    out: dict[str, float] = {"person": 1.70}
     for p in sorted(lib.glob("*.tsx")):
         for _name, body in TABLE_RE.findall(p.read_text(encoding="utf-8")):
             for key, inner in ENTRY_RE.findall(body):
@@ -118,10 +147,19 @@ def check(board: dict, heights: dict[str, float]) -> tuple[list[str], list[str],
             continue
         real = h * scale
         rows.append(f"    {sid:<5} z={str(z):<6} {kind:<16} scale {scale:<8} -> {real:6.2f} m")
-        if SCALE_MIN <= scale <= SCALE_MAX:
+        lo_band, hi_band = BANDS.get(kind, (SCALE_MIN, SCALE_MAX))
+        if lo_band <= scale <= hi_band:
             continue
         allowed, why = DEBT.get(kind, (None, ""))
-        if allowed is not None and scale >= allowed - 1e-9:
+        # A debt line records the tolerated RANGE, because a kind can be wrong in both
+        # directions at once and `person` is. Recording only the high side let every low value
+        # through under it, which is the shape of a waiver that quietly stops meaning anything.
+        # A bare number is shorthand for "this far below the band and no further".
+        lo_ok, hi_ok = (allowed if isinstance(allowed, tuple)
+                        else (allowed, None) if allowed is not None else (None, None))
+        if lo_ok is not None and lo_band > scale >= lo_ok - 1e-9:
+            continue
+        if hi_ok is not None and hi_band < scale <= hi_ok + 1e-9:
             continue
         if allowed is None:
             fails.append(
