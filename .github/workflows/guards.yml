@@ -26,7 +26,9 @@ concurrency:
 
 jobs:
   guards:
-    runs-on: ubuntu-latest
+    # Pin the runner image. Media measurements are part of the product contract,
+    # so silently inheriting a new `ubuntu-latest` image is not reproducible CI.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,6 +37,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+
+      - name: Install media tooling
+        run: |
+          # Hosted-runner images do not promise ffmpeg. The preflight, feed, voice,
+          # music and freshness gates must fail closed when it is absent, so CI owns
+          # the dependency explicitly instead of weakening those gates.
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
 
       - name: Install dependencies
         run: |
