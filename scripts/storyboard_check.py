@@ -62,6 +62,7 @@ Exit 0 clean, 1 the board is not ready, 2 the checker could not run.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import re
 import sys
@@ -70,6 +71,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 AXES_FILE = REPO / "config" / "composition_axes.yaml"
 HISTORY = REPO / "ledger" / "dispatch_history.json"
+RUN_LIMITS = REPO / "config" / "run_limits.json"
 
 REGIONS = {"high_plains", "rolling_plains", "cross_timbers", "blackland", "post_oak",
            "piney_woods", "gulf", "south_texas", "hill_country", "trans_pecos"}
@@ -78,8 +80,9 @@ MOVES = {"dollyThrough", "orbitReveal", "craneDown", "truckAcross", "riseWith"}
 
 CURRENCIES = {"motion", "emotion", "revelation"}
 
-# The degradation ladder's floor. Shorter than this is not a Dispatch.
-MIN_RUNTIME_S = 35.0
+PAYLOAD_MODES = {"picture", "mixed", "text_panel"}
+HOOK_STRATEGIES = {"visual_anomaly", "result_first", "scale_reveal", "human_stakes",
+                   "before_after"}
 
 # A scene that holds longer than this without paying is a held slide, which the
 # rubric lists as a hard fail.
@@ -110,6 +113,127 @@ RETIRED = {"six flags", "confederate", "loteria", "lotería", "calavera", "headd
 
 
 SITING_FILE = REPO / "config" / "siting.yaml"
+
+
+def board_limits() -> dict:
+    """The structural ceiling, read from the run contract rather than restated here."""
+    raw = json.loads(RUN_LIMITS.read_text(encoding="utf-8"))
+    out = raw.get("board") or {}
+    required = {
+        "min_runtime_s", "max_runtime_s", "min_scenes", "max_scenes",
+        "max_visual_family_share", "max_top_two_family_share", "max_text_panel_share",
+        "max_same_family_in_last_three", "hook_payoff_by_s",
+    }
+    missing = sorted(required - set(out))
+    if missing:
+        raise ValueError(f"{RUN_LIMITS} is missing board limit(s): {', '.join(missing)}")
+    return out
+
+
+def structural_problems(board: dict, cfg: dict) -> list[str]:
+    """The Phase 4 ceiling, before voice, music, agents, or a full render are paid for.
+
+    The first Dispatch proved that scene-to-scene signature checks are not enough. Nine of
+    twelve scenes could still collapse into two visual constructions, six could still deliver
+    their payload as text, and the final three could still return to the same building. These
+    are film-level ratios. A per-scene gate cannot see them.
+    """
+    scenes = board.get("scenes") or []
+    if not scenes:
+        return ["the board has no scenes"]
+    p: list[str] = []
+    n = len(scenes)
+    minimum, maximum = int(cfg["min_scenes"]), int(cfg["max_scenes"])
+    if n < minimum or n > maximum:
+        p.append(f"the board has {n} scenes. The bounded format is {minimum} to {maximum}; "
+                 f"a larger shot list multiplies every later render and review pass.")
+
+    runtime = float(board.get("runtime_s") or 0)
+    lo, hi = float(cfg["min_runtime_s"]), float(cfg["max_runtime_s"])
+    if runtime < lo or runtime > hi:
+        p.append(f"runtime {runtime:.1f}s is outside the bounded {lo:.0f} to {hi:.0f}s format. "
+                 f"Change the script and board before synthesis rather than paying to trim later.")
+
+    families: list[str] = []
+    scene_ids: list[str] = []
+    text_panels = 0
+    for i, scene in enumerate(scenes):
+        sid = str(scene.get("id") or "")
+        if not re.fullmatch(r"s[1-9][0-9]*", sid):
+            p.append(f"scene #{i + 1}: id {sid!r} must be s followed by a positive integer. "
+                     "Scene ids become artifact filenames, so paths and arbitrary prose are "
+                     "not accepted here.")
+        else:
+            scene_ids.append(sid)
+        display_id = sid or f"#{i + 1}"
+        family = str(scene.get("visual_family") or "").strip()
+        if not family:
+            p.append(f"scene {display_id}: no visual_family. The run cannot count repeated locations "
+                     f"or constructions when the board declines to name them.")
+        elif not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", family):
+            p.append(f"scene {display_id}: visual_family {family!r} is not a stable lower-case slug.")
+        else:
+            families.append(family)
+
+        payload = str(scene.get("payload_mode") or "")
+        if payload not in PAYLOAD_MODES:
+            p.append(f"scene {display_id}: payload_mode {payload!r} is not one of "
+                     f"{', '.join(sorted(PAYLOAD_MODES))}.")
+        if payload == "text_panel":
+            text_panels += 1
+
+    duplicates = sorted(sid for sid, count in Counter(scene_ids).items() if count > 1)
+    if duplicates:
+        p.append(f"scene ids are not unique: {', '.join(duplicates)}. Frame extraction and "
+                 "review reports would overwrite one scene with another.")
+
+    if len(families) == n:
+        counts = Counter(families)
+        largest_name, largest = counts.most_common(1)[0]
+        share = largest / n
+        if share > float(cfg["max_visual_family_share"]) + 1e-9:
+            p.append(f"visual family {largest_name!r} carries {largest} of {n} scenes "
+                     f"({share:.0%}). That is a repeated set, not a visual progression.")
+        top = counts.most_common(2)
+        top_total = sum(value for _, value in top)
+        top_share = top_total / n
+        if len(top) == 2 and top_share > float(cfg["max_top_two_family_share"]) + 1e-9:
+            p.append(f"the top two visual families carry {top_total} of {n} scenes "
+                     f"({top_share:.0%}). The August 18th film was nine of twelve, and no "
+                     f"prop pass could raise that ceiling.")
+        tail = families[-3:]
+        if len(tail) == 3:
+            tail_name, tail_count = Counter(tail).most_common(1)[0]
+            if tail_count > int(cfg["max_same_family_in_last_three"]):
+                p.append(f"the final three scenes use {tail_name!r} {tail_count} times. A close "
+                         f"that returns to one image three times is repetition, not a bookend.")
+
+    text_share = text_panels / n
+    if text_share > float(cfg["max_text_panel_share"]) + 1e-9:
+        p.append(f"{text_panels} of {n} scenes deliver their payload as a text panel "
+                 f"({text_share:.0%}). Figures may support a picture; they cannot become the film.")
+
+    first = scenes[0]
+    first_id = first.get("id") or "#1"
+    strategy = str(first.get("hook_strategy") or "")
+    if strategy not in HOOK_STRATEGIES:
+        p.append(f"scene {first_id}: hook_strategy {strategy!r} is not one of "
+                 f"{', '.join(sorted(HOOK_STRATEGIES))}. An establishing shot is not a hook.")
+    try:
+        payoff = float(first.get("hook_payoff_s"))
+    except (TypeError, ValueError):
+        payoff = -1
+    ceiling = float(cfg["hook_payoff_by_s"])
+    if payoff < 0 or payoff > ceiling:
+        p.append(f"scene {first_id}: hook_payoff_s must land from 0 to {ceiling:.1f}s. "
+                 f"The first frame is the scroll decision, not setup for one later.")
+    if first.get("payload_mode") == "text_panel":
+        p.append(f"scene {first_id}: the hook is a text panel. The picture must make the first "
+                 f"claim with the sound off.")
+    if first.get("beat") not in {"motion", "revelation"}:
+        p.append(f"scene {first_id}: the hook pays in {first.get('beat')!r}. Open on visible "
+                 f"change or revelation, then earn the emotional context.")
+    return p
 
 
 def plane_signature(planes: list) -> tuple:
@@ -439,12 +563,14 @@ def check(board: dict) -> list[str]:
     except (OSError, ImportError) as exc:
         return [f"cannot read config/siting.yaml: {exc}. Same reason: a missing rule file is "
                 f"a stop, not a silent pass."]
+    try:
+        quality = board_limits()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        return [f"cannot read the structural limits: {exc}. A missing ceiling is an unbounded "
+                f"run, which is the fault this gate exists to prevent."]
 
+    p += structural_problems(board, quality)
     runtime = float(board.get("runtime_s") or 0)
-    if runtime < MIN_RUNTIME_S:
-        p.append(f"runtime {runtime:.0f}s is under the {MIN_RUNTIME_S:.0f}s floor in the "
-                 f"degradation ladder. Rung (b) says a shorter film is allowed with the "
-                 f"shortfall named, but not shorter than this.")
 
     # ---- structure, per scene
     for i, s in enumerate(scenes, 1):
@@ -576,6 +702,26 @@ def self_test() -> int:
         if not cond:
             failures += 1
 
+    # This is the approved cheap-stage format contract. It is duplicated here on purpose:
+    # run_limits.json is the runtime source of truth, while this assertion makes any future
+    # relaxation an explicit test change rather than an invisible way to force a weak board
+    # through. mutation_check.py proves every value is held by this test.
+    expected_board_limits = {
+        "min_runtime_s": 35,
+        "max_runtime_s": 55,
+        "min_scenes": 6,
+        "max_scenes": 10,
+        "max_visual_family_share": 0.4,
+        "max_top_two_family_share": 0.67,
+        "max_text_panel_share": 0.34,
+        "max_same_family_in_last_three": 2,
+        "hook_payoff_by_s": 2.0,
+    }
+    actual_board_limits = board_limits()
+    ok("the approved bounded-film format has not drifted",
+       actual_board_limits == expected_board_limits,
+       f"expected {expected_board_limits}, got {actual_board_limits}")
+
     def planes(i):
         """A real staged stack, because THE BOARD IS THE PROPS.
 
@@ -605,19 +751,68 @@ def self_test() -> int:
              "region": "high_plains", "county": "Taylor", "camera_strategy": "dollyThrough",
              "planes": planes(i), "hero": f"h{i}",
              "cast": [{"id": "rancher", "emotion": "worried"}], "beat": "motion",
-             "on_screen": "a substation yard", "what_moves": "the camera pushes past a pole"}
+             "on_screen": "a substation yard", "what_moves": "the camera pushes past a pole",
+             "visual_family": f"location-{i}", "payload_mode": "picture"}
+        if i == 1:
+            s.update({"hook_strategy": "visual_anomaly", "hook_payoff_s": 0.8})
         s.update(kw)
         return s
 
     def board(n=8, **kw):
         moves = sorted(MOVES)
         scenes = [scene(i, camera_strategy=moves[i % len(moves)],
-                        beat=["motion", "emotion", "revelation"][i % 3]) for i in range(1, n + 1)]
+                        beat=["motion", "emotion", "revelation"][(i - 1) % 3])
+                  for i in range(1, n + 1)]
         b = {"runtime_s": n * 5.0, "scenes": scenes}
         b.update(kw)
         return b
 
     ok("a good board passes", not check(board()), str(check(board())))
+
+    # THE AUGUST 18TH CEILING, expressed at the board level rather than as a note after
+    # twenty-seven panels. The individual scenes are legal. The distribution is the fault.
+    repeated = board(10)
+    for i, s in enumerate(repeated["scenes"]):
+        s["visual_family"] = "cold-aisle" if i < 4 else (
+            "round-rock-exterior" if i < 7 else f"other-{i}")
+    got = check(repeated)
+    ok("two visual constructions carrying most of the film are refused before rendering",
+       any("top two visual families" in x for x in got), str(got[:3]))
+
+    closing = board()
+    for s in closing["scenes"][-3:]:
+        s["visual_family"] = "the-same-building"
+    ok("three closing scenes on the same building are refused",
+       any("final three scenes" in x for x in check(closing)))
+
+    panels = board()
+    for s in panels["scenes"][:4]:
+        s["payload_mode"] = "text_panel"
+    ok("a film that turns its payload into text panels is refused",
+       any("deliver their payload as a text panel" in x for x in check(panels)))
+
+    weak_hook = board()
+    weak_hook["scenes"][0].pop("hook_strategy")
+    weak_hook["scenes"][0].pop("hook_payoff_s")
+    weak_hook["scenes"][0]["payload_mode"] = "text_panel"
+    got = check(weak_hook)
+    ok("an establishing card with no two-second visual payoff is not a hook",
+       any("establishing shot is not a hook" in x for x in got)
+       and any("first frame is the scroll decision" in x for x in got)
+       and any("hook is a text panel" in x for x in got), str(got[:4]))
+
+    oversized = board(11)
+    ok("a shot list above the bounded ceiling is refused",
+       any("bounded format" in x for x in check(oversized)))
+
+    unsafe_id = board()
+    unsafe_id["scenes"][2]["id"] = "../../poster"
+    ok("a scene id that could escape an artifact filename is refused",
+       any("artifact filenames" in x for x in check(unsafe_id)))
+    duplicate_id = board()
+    duplicate_id["scenes"][2]["id"] = duplicate_id["scenes"][1]["id"]
+    ok("duplicate scene ids cannot overwrite review frames",
+       any("not unique" in x for x in check(duplicate_id)))
 
     # THE DEFECT THIS FILE IS FOR: a relabel pretending to be divergence.
     same = board()
@@ -710,7 +905,7 @@ def self_test() -> int:
     short["runtime_s"] = 30.0
     short["scenes"] = short["scenes"][:6]
     ok("a film under the 35s floor is refused",
-       any("floor in the degradation ladder" in x for x in check(short)))
+       any("outside the bounded" in x for x in check(short)))
 
     motif = board()
     motif["scenes"][4]["on_screen"] = "a rope border around the six flags of Texas"

@@ -1,0 +1,27 @@
+{
+  "schema": "dispatch_run_limits/1",
+  "resources": {
+    "research_agents": 3,
+    "validator_agents": 1,
+    "storyboard_critics": 1,
+    "preflight_renders": 3,
+    "reboards": 1,
+    "voice_directors": 1,
+    "panel_rounds": 2,
+    "scorer_calls": 6,
+    "full_renders": 4,
+    "tts_calls": 4,
+    "reported_tokens": 250000
+  },
+  "board": {
+    "min_runtime_s": 35,
+    "max_runtime_s": 55,
+    "min_scenes": 6,
+    "max_scenes": 10,
+    "max_visual_family_share": 0.4,
+    "max_top_two_family_share": 0.67,
+    "max_text_panel_share": 0.34,
+    "max_same_family_in_last_three": 2,
+    "hook_payoff_by_s": 2.0
+  }
+}

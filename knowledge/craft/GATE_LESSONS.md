@@ -995,7 +995,7 @@ into, which is why stratifying x had not stopped them merging into a hedge. A sp
 worth nothing until the thing being spaced is measured against it, and the ceiling should be
 solved against the spacing rather than chosen and hoped for.
 
-## The wait that watched itself, and why it is a file rather than a comment
+## The wait that watched itself, and why the waiter was retired
 
 A step that takes ninety seconds held a run for forty minutes, and nothing anywhere
 reported a problem, because the failure and the success look identical from outside.
@@ -1017,9 +1017,11 @@ that it is not a typo. It is the obvious thing to write, it is wrong, and it is 
 a self-matching wait and a genuinely slow job produce identical evidence, which is no
 evidence at all.
 
-`scripts/waitfor.sh` is the fix, and getting it right took three tries that its own
-self-test caught one after another. Each failure is worth keeping, because each was a
-plausible answer that did not work:
+The first repair was `scripts/waitfor.sh`, and getting it right took three tries that its own
+self-test caught one after another. The helper has since been retired: full renders now run
+synchronously through `scripts/render_dispatch.sh`, which is simpler evidence than discovering a
+process after launch. Each failed waiter is still worth keeping here, because each was a plausible
+answer that did not work:
 
 1. **Excluding `$$` is not enough.** The subshell that runs `pgrep` is a child and carries
    the pattern too.
@@ -1033,14 +1035,14 @@ plausible answer that did not work:
    even after the exclusion was correct, which is the original bug wearing a third hat: the
    waiter seeing its own machinery and calling it the job.
 
-Two rules fall out, and the helper enforces both.
+Two rules fall out, and the current render wrapper enforces the stronger form.
 
-**Prefer a PID to a pattern.** A pid cannot match itself and needs no exclusion reasoning.
-`wait_for_pids` is the form to reach for whenever the pid is available.
+**Prefer a synchronous command. If background work is genuinely required, retain its PID rather
+than rediscovering it by pattern.** A pid cannot match itself and needs no exclusion reasoning.
 
 **Every wait carries a deadline.** A wait that cannot time out can hang the run, and the
-one outcome law says a blocked run reports an error, which it cannot do from inside an
-infinite loop. Note that in the failing self-test runs above, the deadline is the only
+bounded terminal contract says a blocked run becomes `needs_review`, which it cannot do from
+inside an infinite loop. Note that in the failing self-test runs above, the deadline is the only
 reason anything was ever reported at all. The guard that saved the diagnosis was the
 belt, not the braces.
 

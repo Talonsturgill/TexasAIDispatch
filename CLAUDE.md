@@ -29,7 +29,7 @@ Git identity is `Talon Sturgill <Talon.sturgill@gmail.com>`. The container defau
 
 ## Delivery and merge policy (AUTHORITATIVE — overrides any draft-PR default)
 
-Runs SHIP AUTONOMOUSLY. When a run's gates pass, the run branch is merged to `main` **without a
+Runs SHIP AUTONOMOUSLY only from controller state `publishable`. When a run's gates pass, the run branch is merged to `main` **without a
 human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
 **MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
 before the email. The email is the only human touchpoint and it gates the POST, not the merge.
@@ -44,25 +44,25 @@ Three things still stop and ask, in any session:
 - anything that SENDS rather than drafts (these routines never send)
 - deleting or overwriting shipped run artifacts under `runs/`
 
-## THE ONE OUTCOME LAW
+## THE BOUNDED RUN CONTRACT
 
-**A run has exactly one terminal state: a delivered video.** Not a failed run, not a partial run,
-not a handoff, not a banked run, not a clean stop, not a resumable state.
+A Dispatch run has exactly two terminal states: `publishable` or `needs_review`.
 
-This is inherited from the sibling, where the rule had to be written four times because each
-closure was specific and the next run invented a new sentence the old closure did not literally
-name. The hatches that have actually been used, and are now dead:
+- `publishable` requires a hash-bound final report at or above the rubric with no hard fail.
+- `needs_review` preserves the complete package when a gate, budget, credential, or final panel
+  prevents unattended publication. It never writes the feed or merges run artifacts.
 
-| the sentence a run used | why it is dead |
-|---|---|
-| "no story clears the bar, so I ship nothing" | There is always news. The story gate plus a ladder of fallbacks. |
-| "the remaining defects are cosmetic, shipping below bar with disclosure" | The ship gate is hash-bound with no override flag. |
-| "I can't reach the bar, so I report a failed run" | A failing panel is an instruction to re-enter the loop. |
-| "I ran out of runway, so I banked the work and queued the story" | Context is not a budget. Nothing measures one. |
+`scripts/run_controller.py` owns every expensive allowance in `config/run_limits.json`: three
+researchers and one validator, one reboard, bounded animatics, four external audio-model calls,
+four full renders, and two three-judge panels. A reservation happens before spend. A new shell,
+folder, or batch cannot reset the run ledger.
 
-**Your own context is not a legitimate cause and never will be.** The harness summarises and the
-run continues. A run that is genuinely blocked reports an error; a run that is rationalising
-writes an essay about integrity.
+The routine gets one corrective pass after the first finished-cut panel. The second panel is
+final. There is no instruction to keep polishing below bar, which is how the first film reached
+27 rounds and 81 scorer calls while regressing.
+
+An explicit owner override is recorded by the controller for a human owner only. The unattended
+routine never invokes or recommends it.
 
 ## The two laws of drawing Texas
 
@@ -115,9 +115,10 @@ frames in Python, it is wrong.
 ## Voice
 
 **Gemini TTS**, owner's decision. `gemini-3.1-flash-tts-preview` primary,
-`gemini-2.5-pro-preview-tts` as the failover on repeated 500s. The whole passage is synthesised
-in ONE call for natural sentence-to-sentence flow, N takes are rendered, and a soundcheck keeps
-the best: word accuracy, no spoken-tag leak, pitch variance, duration, loudness.
+`gemini-2.5-pro-preview-tts` as the failover on repeated 500s. Each take synthesises the whole
+passage for natural sentence-to-sentence flow and spends a second call on verbatim soundcheck.
+The run-wide controller permits four external audio-model calls total across every retry and
+batch, so the normal path is two takes and a fifth call is mechanically refused.
 
 **Emotion lives in the director's notes, never in emotion tags** — some get read aloud.
 

@@ -38,6 +38,7 @@ Exit 0 mixed, 1 it does not fit or it clips, 2 could not run.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import wave
@@ -65,6 +66,14 @@ DUCK_RELEASE_S = 0.35
 # tolerance vo_soundcheck uses, because two different answers to "is this too long"
 # would let a take pass one and fail the other.
 MAX_OVERAGE = 0.04
+
+
+def file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def strip_prose(src: str) -> str:
@@ -157,7 +166,8 @@ def place(bus: np.ndarray, clip: np.ndarray, at_s: float, rate: int, gain: float
 
 
 def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
-        bed: np.ndarray | None = None, target_lufs: float = TARGET_LUFS
+        bed: np.ndarray | None = None, target_lufs: float = TARGET_LUFS,
+        bed_gap_db: float | None = None, bed_track_id: str | None = None
         ) -> tuple[np.ndarray, dict, list[str]]:
     problems: list[str] = []
     notes: list[str] = []
@@ -170,6 +180,29 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
             f"those lines. Stretching to fit produces an artefact every viewer hears and "
             f"cannot name.")
         return np.zeros(0), {}, problems
+
+    bed_source_lufs: float | None = None
+    bed_gain_db: float | None = None
+    bed_gain = 0.0
+    if bed is not None:
+        if not bed_track_id or not str(bed_track_id).strip():
+            problems.append(
+                "a music bed requires its registry --bed-track id. Delivery must be able to "
+                "prove the audio, approved metadata, and generated credit name the same work.")
+            return np.zeros(0), {}, problems
+        if bed_gap_db is None or not 12 <= bed_gap_db <= 30:
+            problems.append(
+                "a music bed requires --bed-gap-db from its approved registry metadata "
+                "(12 to 30 dB below the measured voice). A universal scalar is not a mix.")
+            return np.zeros(0), {}, problems
+        voice_lufs = integrated_lufs(vo, rate)
+        bed_source_lufs = integrated_lufs(bed, rate)
+        if voice_lufs < -90 or bed_source_lufs < -90:
+            problems.append("the voice or music bed is digital silence, so a relative bed level "
+                            "cannot be measured")
+            return np.zeros(0), {}, problems
+        bed_gain_db = voice_lufs - float(bed_gap_db) - bed_source_lufs
+        bed_gain = 10 ** (bed_gain_db / 20)
 
     # THE BUFFER MUST HOLD THE VOICE, exactly.
     #
@@ -195,7 +228,7 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
               float(e.get("gain") or 1.0))
     if bed is not None:
         reps = int(np.ceil(n / max(1, len(bed))))
-        under += np.tile(bed, reps)[:n] * 0.35
+        under += np.tile(bed, reps)[:n] * bed_gain
     master += under * env[:n]
 
     peak = float(np.max(np.abs(master))) if len(master) else 0.0
@@ -266,13 +299,20 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
         # film whose end card credits a third. Nothing could tell a film that credits
         # music it does not contain from one that contains music it does not credit, and
         # the second of those is using somebody's work without the licence that permits
-        # it. `music.py --verify-film` checked the credit string was present and had no
+        # it. The old string-only music check said the credit was present and had no
         # way to check the audio. Now it does.
         "tracks": [{"id": "vo", "time_stretch": 1.0},
                    {"id": "sfx", "time_stretch": 1.0, "events": len(sfx)}]
-                  + ([{"id": "bed", "time_stretch": 1.0, "tiled_under_at": 0.35}]
+                  + ([{"id": bed_track_id, "role": "bed", "time_stretch": 1.0,
+                       "gap_below_voice_db": bed_gap_db,
+                       "source_lufs": round(float(bed_source_lufs), 2),
+                       "gain_db": round(float(bed_gain_db), 2)}]
                      if bed is not None else []),
         "bed": bed is not None,
+        "bed_track_id": bed_track_id if bed is not None else None,
+        "bed_gap_below_voice_db": bed_gap_db if bed is not None else None,
+        "bed_source_lufs": round(float(bed_source_lufs), 2) if bed_source_lufs is not None else None,
+        "bed_gain_db": round(float(bed_gain_db), 2) if bed_gain_db is not None else None,
         "sfx_events": len(sfx),
     }
     return normalised, report, problems
@@ -352,6 +392,29 @@ def self_test() -> int:
     ok("the mix is at least as long as the cut", rep["duration_s"] >= 6.2 - 0.01)
     ok("the report states time_stretch 1.0 as a checkable field", rep["time_stretch"] == 1.0)
     ok("...on every track too", all(tr["time_stretch"] == 1.0 for tr in rep["tracks"]))
+
+    bed = 0.08 * np.sin(2 * np.pi * 330 * t)
+    _, bed_rep, bed_probs = mix(
+        speech, sr, [], cut_s=6.2, bed=bed, bed_gap_db=18, bed_track_id="test-bed")
+    ok("a music bed is placed from measured loudness, not a fixed scalar",
+       not bed_probs and bed_rep["bed_gap_below_voice_db"] == 18, str(bed_probs))
+    ok("...and the source measurement and applied gain are published",
+       bed_rep["bed_source_lufs"] is not None and bed_rep["bed_gain_db"] is not None)
+    _, _, no_gap = mix(
+        speech, sr, [], cut_s=6.2, bed=bed, bed_track_id="test-bed")
+    ok("a bed without an approved relative level is refused",
+       any("requires --bed-gap-db" in p for p in no_gap), str(no_gap))
+    _, _, no_id = mix(speech, sr, [], cut_s=6.2, bed=bed, bed_gap_db=18)
+    ok("a bed without its registry identity is refused",
+       any("--bed-track" in p for p in no_id), str(no_id))
+    quieter_bed = bed * 0.1
+    _, quiet_bed_rep, quiet_bed_probs = mix(
+        speech, sr, [], cut_s=6.2, bed=quieter_bed, bed_gap_db=18,
+        bed_track_id="test-bed")
+    ok("two differently mastered beds land at the same level relative to voice",
+       not quiet_bed_probs
+       and abs((bed_rep["bed_source_lufs"] + bed_rep["bed_gain_db"])
+               - (quiet_bed_rep["bed_source_lufs"] + quiet_bed_rep["bed_gain_db"])) < 0.1)
 
     # THE REFUSAL.
     _, _, probs = mix(speech, sr, sfx, cut_s=5.0)
@@ -462,6 +525,12 @@ def main() -> int:
     ap.add_argument("--vo")
     ap.add_argument("--sfx")
     ap.add_argument("--bed")
+    ap.add_argument("--bed-track",
+                    help="registry id of --bed; required with a bed and written into mix.json")
+    ap.add_argument("--bed-manifest",
+                    help="hash-bound preparation manifest from prepare_music.py")
+    ap.add_argument("--bed-gap-db", type=float,
+                    help="approved registry level below measured voice; required with --bed")
     ap.add_argument("--out", default="out/dispatch/mix.wav")
     ap.add_argument("--cut", type=float, default=60.0)
     ap.add_argument("--vo-at", type=float, default=0.0, help=(
@@ -476,6 +545,15 @@ def main() -> int:
     if not a.vo:
         print("mix: pass --vo, or --self-test", file=sys.stderr)
         return 2
+    bed_args = (a.bed, a.bed_track, a.bed_manifest)
+    if any(bool(x) for x in bed_args) and not all(bool(x) for x in bed_args):
+        print("mix: --bed, --bed-track, and --bed-manifest must be supplied together",
+              file=sys.stderr)
+        return 2
+    if a.bed_gap_db is not None and not a.bed:
+        print("mix: --bed-gap-db has no meaning without --bed", file=sys.stderr)
+        return 2
+    preparation: dict = {}
     try:
         vo, rate = read_wav(Path(a.vo))
         raw = json.loads(Path(a.sfx).read_text(encoding="utf-8")) if a.sfx else []
@@ -501,6 +579,15 @@ def main() -> int:
         # input nobody checked, and reported as compliant on the way out.
         bed = None
         if a.bed:
+            from prepare_music import verify as verify_preparation
+
+            prep_problems = verify_preparation(
+                Path(a.bed_manifest), str(a.bed_track), Path(a.bed))
+            if prep_problems:
+                for problem in prep_problems:
+                    print(f"mix: {problem}", file=sys.stderr)
+                return 1
+            preparation = json.loads(Path(a.bed_manifest).read_text(encoding="utf-8"))
             bed, r3 = read_wav(Path(a.bed))
             if r3 != rate:
                 # THE DIRECTION MATTERS, and the first version of this line had it backwards.
@@ -524,13 +611,24 @@ def main() -> int:
     if a.vo_at > 0:
         vo = np.concatenate([np.zeros(int(round(a.vo_at * rate))), vo])
 
-    out, report, problems = mix(vo, rate, events, a.cut, bed)
+    out, report, problems = mix(vo, rate, events, a.cut, bed,
+                                bed_gap_db=a.bed_gap_db, bed_track_id=a.bed_track)
     if problems:
         print("mix: refused\n", file=sys.stderr)
         for x in problems:
             print(f"  - {x}", file=sys.stderr)
         return 1
     write_wav(Path(a.out), out, rate)
+    report["master_file"] = str(a.out)
+    report["master_sha256"] = file_sha256(Path(a.out))
+    if a.bed:
+        report.update({
+            "bed_file": str(a.bed),
+            "bed_file_sha256": file_sha256(Path(a.bed)),
+            "bed_source_sha256": preparation["source_sha256"],
+            "bed_preparation_manifest": str(a.bed_manifest),
+            "bed_preparation_sha256": file_sha256(Path(a.bed_manifest)),
+        })
 
     # THE VOICE STEM, ON THE MASTER'S OWN TIMELINE, written because the aligner needs it.
     #

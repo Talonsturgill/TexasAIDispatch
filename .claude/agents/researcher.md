@@ -1,6 +1,6 @@
 ---
 name: researcher
-description: Beat-specific researcher for the daily Texas AI Dispatch. Spawned in parallel, one per beat. Uses WebSearch and WebFetch, reads full pages before citing, returns structured JSON findings with sources and confidence. Never spawns further agents.
+description: One of at most three beat-specific researchers for a Dispatch. Spawned once in a bounded parallel batch, reads full pages before citing, and returns structured sourced findings. Never spawns further agents.
 tools: WebSearch, WebFetch, Read
 ---
 

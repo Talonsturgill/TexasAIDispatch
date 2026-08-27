@@ -41,8 +41,10 @@ WHAT MAY BE USED, and this is the part that is easy to get wrong.
 licences, how to vet it, and the traps in full.
 
   music.py --check                       # validate the registry
+  music.py --select --brief music_brief.json  # prints a fitting id or NO_BED
+  music.py --fit <track_id> --brief music_brief.json
   music.py --credits <track_id>          # the exact credit block for one track
-  music.py --verify-film <credits.txt> --track <id>   # the shipping gate
+  music.py --verify-package <credits.txt> --mix <mix.json>  # the shipping gate
   music.py --self-test                   # hermetic, gates every build
 
 Exit 0 ok, 1 a check failed, 2 could not run.
@@ -50,6 +52,7 @@ Exit 0 ok, 1 a check failed, 2 could not run.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -101,6 +104,12 @@ LICENCES = {
 # Every field a usable entry must carry. TASL (title, author, source, licence) is the
 # attribution the CC licences ask for, so each of those is required rather than nice.
 REQUIRED = ["id", "title", "artist", "source_url", "licence", "file", "verified_on"]
+EDITORIAL_REQUIRED = [
+    "enabled", "moods", "uses", "avoid", "traits", "energy", "era_texture",
+    "era_fit", "speech_masking", "mix_gap_db",
+]
+ENERGY = {"low", "medium", "high"}
+MASKING = {"low", "medium", "high"}
 
 # US sound-recording terms, from the Copyright Office and Cornell's chart: recordings
 # published before 1926 are public domain today, and 1926 to 1946 runs 100 years from
@@ -109,6 +118,19 @@ REQUIRED = ["id", "title", "artist", "source_url", "licence", "file", "verified_
 # COMPUTED, not a typed cutoff, so the boundary advances on its own every New Year and
 # a 1926 recording becomes usable on 2027-01-01 without anybody editing this file.
 PD_TERM_YEARS = 100
+
+
+def file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def repo_path(value: str) -> Path:
+    path = Path(value)
+    return path if path.is_absolute() else REPO / path
 
 
 def pd_clear_year(publication_year: int) -> int:
@@ -163,6 +185,28 @@ def problems_with(track: dict) -> list[str]:
     for f in REQUIRED:
         if not str(track.get(f, "")).strip():
             out.append(f"{tid}: missing required field '{f}'")
+    for f in EDITORIAL_REQUIRED:
+        if f not in track:
+            out.append(f"{tid}: missing editorial field '{f}'")
+    if "enabled" in track and not isinstance(track.get("enabled"), bool):
+        out.append(f"{tid}: enabled must be true or false")
+    for f in ("moods", "uses", "avoid", "traits", "era_fit"):
+        value = track.get(f)
+        if value is not None and (not isinstance(value, list)
+                                  or any(not str(x).strip() for x in value)):
+            out.append(f"{tid}: {f} must be a list of non-empty tags")
+    for f in ("moods", "uses", "traits", "era_fit"):
+        if isinstance(track.get(f), list) and not track[f]:
+            out.append(f"{tid}: {f} cannot be empty")
+    if track.get("energy") not in ENERGY:
+        out.append(f"{tid}: energy must be one of {', '.join(sorted(ENERGY))}")
+    if track.get("speech_masking") not in MASKING:
+        out.append(f"{tid}: speech_masking must be one of {', '.join(sorted(MASKING))}")
+    if not str(track.get("era_texture", "")).strip():
+        out.append(f"{tid}: era_texture must describe what the recording sounds like")
+    gap = track.get("mix_gap_db")
+    if not isinstance(gap, (int, float)) or isinstance(gap, bool) or not 12 <= gap <= 30:
+        out.append(f"{tid}: mix_gap_db must be a number from 12 to 30 dB below the voice")
     lic = licence_of(track)
     if lic is None:
         out.append(f"{tid}: licence '{track.get('licence')}' is not in the table. An "
@@ -240,6 +284,11 @@ def problems_with(track: dict) -> list[str]:
             if f"-{term}" in url and f"-{term}" not in str(track.get("licence")).lower():
                 out.append(f"{tid}: licence says '{track.get('licence')}' but "
                            f"licence_url points at a '{term}' deed. One of them is wrong.")
+    if track.get("enabled") is True:
+        asset = REPO / str(track.get("file", ""))
+        if not asset.is_file():
+            out.append(f"{tid}: enabled but its playable asset is missing at {asset}. "
+                       "A catalogue row is not a music library.")
     return out
 
 
@@ -256,7 +305,62 @@ def check(tracks: list[dict]) -> list[str]:
 
 
 def usable(tracks: list[dict]) -> list[dict]:
-    return [t for t in tracks if not problems_with(t)]
+    return [t for t in tracks if t.get("enabled") is True and not problems_with(t)]
+
+
+def fit_problems(track: dict, brief: dict) -> list[str]:
+    """Why this legally valid track does not fit this film's declared sound brief."""
+    out = problems_with(track)
+    tid = track.get("id", "<no id>")
+    if track.get("enabled") is not True:
+        out.append(f"{tid}: disabled; it has no approved playable asset")
+        return out
+
+    mood_raw = brief.get("moods", brief.get("mood", []))
+    moods = {str(x).strip().lower() for x in (
+        mood_raw if isinstance(mood_raw, list) else [mood_raw]) if str(x).strip()}
+    use = str(brief.get("use", "")).strip().lower()
+    energy = str(brief.get("energy", "")).strip().lower()
+    era = str(brief.get("era", "")).strip().lower()
+    avoid_raw = brief.get("avoid", [])
+    avoid = {str(x).strip().lower() for x in (
+        avoid_raw if isinstance(avoid_raw, list) else [avoid_raw]) if str(x).strip()}
+    topics_raw = brief.get("topics", [])
+    contexts = {str(x).strip().lower() for x in (
+        topics_raw if isinstance(topics_raw, list) else [topics_raw]) if str(x).strip()}
+    contexts.add(use)
+
+    if not moods or not use or energy not in ENERGY or not era:
+        out.append(f"{tid}: the brief must declare moods, use, energy, and era")
+        return out
+    if not moods.intersection(str(x).lower() for x in track.get("moods", [])):
+        out.append(f"{tid}: no mood overlap with {sorted(moods)}")
+    if use not in {str(x).lower() for x in track.get("uses", [])}:
+        out.append(f"{tid}: not approved for use {use!r}")
+    if energy != track.get("energy"):
+        out.append(f"{tid}: energy is {track.get('energy')}, not {energy}")
+    if era not in {str(x).lower() for x in track.get("era_fit", [])}:
+        out.append(f"{tid}: era {era!r} does not fit its {track.get('era_texture')}")
+    collisions = contexts.intersection(str(x).lower() for x in track.get("avoid", []))
+    if collisions:
+        out.append(f"{tid}: explicitly avoided context(s): {', '.join(sorted(collisions))}")
+    traits = {str(x).lower() for x in track.get("traits", [])}
+    collisions = avoid.intersection(traits)
+    if collisions:
+        out.append(f"{tid}: brief rejects its trait(s): {', '.join(sorted(collisions))}")
+    return out
+
+
+def select_track(tracks: list[dict], brief: dict) -> dict | None:
+    """A missing fit means no bed. It never means 'pick the only file on disk'."""
+    fitting = [t for t in tracks if not fit_problems(t, brief)]
+    if not fitting:
+        return None
+    moods = {str(x).strip().lower() for x in
+             (brief.get("moods") or [brief.get("mood")]) if str(x).strip()}
+    fitting.sort(key=lambda t: (-len(moods.intersection(
+        str(x).strip().lower() for x in t.get("moods", []))), t["id"]))
+    return fitting[0]
 
 
 def verify_film(credits_text: str, track: dict) -> list[str]:
@@ -295,7 +399,12 @@ def self_test() -> int:
     good = {"id": "t1", "title": "Caliche Road", "artist": "A Texan",
             "source_url": "https://example.org/t1", "licence": "cc-by-4.0",
             "licence_url": "https://creativecommons.org/licenses/by/4.0/",
-            "file": "assets/music/t1.wav", "verified_on": "2026-08-14", "modified": True,
+            "file": "assets/music/sallie_gooden_1923.mp3", "verified_on": "2026-08-14",
+            "modified": True, "enabled": True, "moods": ["measured"],
+            "uses": ["policy-history"], "avoid": ["data-centers"],
+            "traits": ["acoustic", "restrained"], "energy": "low",
+            "era_texture": "clean acoustic recording", "era_fit": ["contemporary"],
+            "speech_masking": "low", "mix_gap_db": 18,
             # STATED, not omitted. This fixture had no transfer_rights and passed, because
             # an absent field skipped the check entirely. Every entry in the real registry
             # carries it, so requiring it costs nothing and closes the hole.
@@ -325,7 +434,11 @@ def self_test() -> int:
           "source_url": "https://archive.org/details/x", "licence": "public_domain",
           "publication_year": 1922, "pd_basis": "the RECORDING, published 1922",
           "pd_evidence": "https://www.copyright.gov/", "transfer_rights": "none",
-          "file": "assets/music/x.mp3", "verified_on": "2026-08-14"}
+          "file": "assets/music/x.mp3", "verified_on": "2026-08-14",
+          "enabled": False, "moods": ["archival"], "uses": ["music-history"],
+          "avoid": [], "traits": ["shellac-noise"], "energy": "medium",
+          "era_texture": "archival shellac", "era_fit": ["1920s"],
+          "speech_masking": "high", "mix_gap_db": 20}
     ok("a pre-boundary recording is usable", not problems_with(pd))
     ok("a still-in-copyright recording is refused with the year it clears",
        any("clears on" in p for p in problems_with(dict(pd, publication_year=1935))))
@@ -365,6 +478,19 @@ def self_test() -> int:
        any("one of them is wrong" in p.lower() for p in problems_with(
            dict(good, licence_url="https://creativecommons.org/licenses/by-nc/4.0/"))))
     ok("duplicate ids are caught", any("duplicate" in p for p in check([good, dict(good)])))
+    ok("an enabled catalogue row with no playable asset is refused",
+       any("playable asset is missing" in p for p in problems_with(
+           dict(good, id="missing", file="assets/music/does-not-exist.wav"))))
+
+    brief = {"moods": ["measured"], "use": "policy-history", "energy": "low",
+             "era": "contemporary", "avoid": ["busy-midrange"], "topics": ["water"]}
+    ok("a track must match mood, use, energy, era, and avoid tags",
+       not fit_problems(good, brief))
+    ok("an explicitly avoided story context rejects the track",
+       any("avoided context" in p for p in fit_problems(
+           good, dict(brief, topics=["data-centers"]))))
+    ok("no matching track resolves to no bed",
+       select_track([good], dict(brief, energy="high")) is None)
 
     # THE SHIPPING GATE must actually fail
     ok("a film with no credits is refused", bool(verify_film("", good)))
@@ -373,6 +499,56 @@ def self_test() -> int:
     ok("a film whose credits omit the licence is refused",
        any("licence" in p.lower() for p in verify_film('MUSIC "Caliche Road" by A Texan', good)))
     ok("a complete credits block passes", not verify_film(credits_block([good]), good))
+
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        credits, mix_report = root / "credits.txt", root / "mix.json"
+        board, master = root / "board.json", root / "mix.wav"
+        prepared, preparation = root / "bed.wav", root / "bed-preparation.json"
+        credits.write_text(credits_block([good]) + "\n", encoding="utf-8")
+        board.write_text(json.dumps({"credits": credits.read_text()}) + "\n", encoding="utf-8")
+        master.write_bytes(b"master")
+        prepared.write_bytes(b"prepared-bed")
+        source_hash = file_sha256(REPO / good["file"])
+        preparation.write_text(json.dumps({
+            "schema": "dispatch_music_preparation/1", "track_id": "t1",
+            "source_sha256": source_hash, "prepared_sha256": file_sha256(prepared),
+            "time_stretch": 1.0}) + "\n", encoding="utf-8")
+        base_mix = {"bed": True, "bed_track_id": "t1", "bed_gap_below_voice_db": 18,
+                    "bed_file": str(prepared), "bed_file_sha256": file_sha256(prepared),
+                    "bed_source_sha256": source_hash,
+                    "bed_preparation_manifest": str(preparation),
+                    "bed_preparation_sha256": file_sha256(preparation),
+                    "master_sha256": file_sha256(master)}
+        mix_report.write_text(json.dumps(base_mix) + "\n",
+                              encoding="utf-8")
+        ok("a mixed bed is bound to its registry row, approved gap, and exact credit",
+           not verify_package(credits, mix_report, board, master, [good]))
+        mix_report.write_text(json.dumps(dict(base_mix, bed_track_id="wrong")) + "\n")
+        ok("a generic or substituted bed id is refused",
+           any("not in the registry" in x
+               for x in verify_package(credits, mix_report, board, master, [good])))
+        mix_report.write_text(json.dumps(dict(base_mix, bed_gap_below_voice_db=12)) + "\n")
+        ok("a bed mixed above its approved level is refused",
+           any("approved registry metadata" in x
+               for x in verify_package(credits, mix_report, board, master, [good])))
+        prepared.write_bytes(b"substituted-bed")
+        mix_report.write_text(json.dumps(base_mix) + "\n")
+        ok("a prepared asset changed after mixing is refused",
+           any("prepared bed" in x
+               for x in verify_package(credits, mix_report, board, master, [good])))
+        prepared.write_bytes(b"prepared-bed")
+        no_bed_mix = {"bed": False, "bed_track_id": None,
+                      "master_sha256": file_sha256(master)}
+        mix_report.write_text(json.dumps(no_bed_mix) + "\n")
+        ok("a no-bed mix is refused a stray music credit",
+           any("credits music" in x
+               for x in verify_package(credits, mix_report, board, master, [good])))
+        credits.write_text("", encoding="utf-8")
+        board.write_text('{"credits": ""}\n', encoding="utf-8")
+        ok("no bed and no music credit is a clean package",
+           not verify_package(credits, mix_report, board, master, [good]))
 
     # an empty registry is a legitimate state, not a crash
     ok("an empty registry validates cleanly", check([]) == [])
@@ -438,8 +614,9 @@ def check_links(tracks: list[dict]) -> int:
     return 0
 
 
-def verify_bed_matches_credit(credits_path, mix_path) -> list[str]:
-    """THE CREDIT IS THE LICENCE, so it has to agree with the audio in both directions.
+def verify_package(credits_path: Path, mix_path: Path, board_path: Path, master_path: Path,
+                   tracks: list[dict]) -> list[str]:
+    """Bind the recorded bed id, registry approval, mix level, and generated credit.
 
     Crediting a bed the film does not contain is merely untrue. Containing one the film
     does not credit is USING THE WORK WITHOUT THE LICENCE, because for CC BY and for a
@@ -448,17 +625,33 @@ def verify_bed_matches_credit(credits_path, mix_path) -> list[str]:
     no idea whether any music was in the mix. `mix.py` now records the bed and this reads
     both sides.
     """
-    import json as _json
-    from pathlib import Path as _P
-    errs = []
-    cp, mp = _P(credits_path), _P(mix_path)
-    if not cp.exists() or not mp.exists():
-        return []
-    credited = "MUSIC" in cp.read_text(encoding="utf-8").upper()
+    errs: list[str] = []
+    if not mix_path.is_file():
+        return [f"the mix report is missing at {mix_path}; bed use cannot be verified"]
     try:
-        mixed = bool(_json.loads(mp.read_text(encoding="utf-8")).get("bed"))
-    except Exception:
-        return []
+        mix_report = json.loads(mix_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"cannot read the mix report {mix_path}: {exc}"]
+    try:
+        credits_text = credits_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        credits_text = ""
+    except OSError as exc:
+        return [f"cannot read credits {credits_path}: {exc}"]
+    try:
+        board = json.loads(board_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"cannot read the rendered board {board_path}: {exc}"]
+    rendered_credits = str(board.get("credits") or "")
+    if " ".join(rendered_credits.split()) != " ".join(credits_text.split()):
+        errs.append("the board Remotion renders does not carry the exact generated credits.txt. "
+                    "A correct sidecar cannot pay a licence for a credit absent from the film.")
+    if not master_path.is_file():
+        errs.append(f"the mixed master is missing at {master_path}")
+    elif mix_report.get("master_sha256") != file_sha256(master_path):
+        errs.append("the mixed master differs from the audio hash recorded by mix.py")
+    credited = bool(re.search(r"(?im)^\s*MUSIC\s*$", credits_text))
+    mixed = bool(mix_report.get("bed"))
     if credited and not mixed:
         errs.append("the end card credits music and mix.json records no bed. Either the "
                     "bed was never passed to mix.py, or the credit names a track the film "
@@ -467,6 +660,59 @@ def verify_bed_matches_credit(credits_path, mix_path) -> list[str]:
         errs.append("mix.json records a music bed and the end card credits none. THAT IS "
                     "THE LICENCE UNPAID: for these licences the credit is the whole of "
                     "what is owed for the use.")
+    if not mixed:
+        stale = [name for name in ("bed_track_id", "bed_file_sha256", "bed_source_sha256")
+                 if mix_report.get(name)]
+        if stale:
+            errs.append("mix.json records no bed but still carries bed evidence: "
+                        + ", ".join(stale))
+        return errs
+
+    track_id = str(mix_report.get("bed_track_id") or "").strip()
+    if not track_id:
+        errs.append("mix.json records a bed but no bed_track_id. The old generic 'bed' label "
+                    "cannot prove which recording is in the film.")
+        return errs
+    by_id = {str(t.get("id")): t for t in tracks}
+    track = by_id.get(track_id)
+    if not track:
+        errs.append(f"mix.json names bed {track_id!r}, which is not in the registry")
+        return errs
+    errs.extend(problems_with(track))
+    if track.get("enabled") is not True:
+        errs.append(f"{track_id}: the mixed bed is disabled")
+    errs.extend(verify_film(credits_text, track))
+    source = REPO / str(track.get("file") or "")
+    if not source.is_file() or mix_report.get("bed_source_sha256") != file_sha256(source):
+        errs.append(f"{track_id}: the registry source differs from the source hash mix.py used")
+    prepared_value = str(mix_report.get("bed_file") or "")
+    prepared = repo_path(prepared_value) if prepared_value else Path("")
+    if not prepared_value or not prepared.is_file() \
+            or mix_report.get("bed_file_sha256") != file_sha256(prepared):
+        errs.append(f"{track_id}: the prepared bed is missing or differs from the file mix.py used")
+    prep_value = str(mix_report.get("bed_preparation_manifest") or "")
+    prep_path = repo_path(prep_value) if prep_value else Path("")
+    try:
+        prep = json.loads(prep_path.read_text(encoding="utf-8"))
+        prep_hash_ok = mix_report.get("bed_preparation_sha256") == file_sha256(prep_path)
+        prep_fields_ok = (prep.get("schema") == "dispatch_music_preparation/1"
+                          and prep.get("track_id") == track_id
+                          and prep.get("source_sha256") == mix_report.get("bed_source_sha256")
+                          and prep.get("prepared_sha256") == mix_report.get("bed_file_sha256")
+                          and float(prep.get("time_stretch")) == 1.0)
+        if not prep_hash_ok or not prep_fields_ok:
+            errs.append(f"{track_id}: the preparation manifest is changed or does not bind the "
+                        "same source and prepared audio")
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        errs.append(f"{track_id}: the hash-bound music preparation manifest is missing or invalid")
+    try:
+        actual_gap = float(mix_report.get("bed_gap_below_voice_db"))
+        approved_gap = float(track.get("mix_gap_db"))
+        if abs(actual_gap - approved_gap) > 0.01:
+            errs.append(f"{track_id}: mix.json used a {actual_gap:g} dB bed gap but the approved "
+                        f"registry metadata requires {approved_gap:g} dB")
+    except (TypeError, ValueError):
+        errs.append(f"{track_id}: mix.json or the registry has no numeric approved bed gap")
     return errs
 
 
@@ -475,7 +721,21 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--credits", metavar="TRACK_ID")
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--select", action="store_true",
+                    help="select a fitting enabled asset, or print NO_BED")
+    ap.add_argument("--fit", metavar="TRACK_ID",
+                    help="prove one enabled asset fits --brief")
+    ap.add_argument("--brief", metavar="JSON",
+                    help="sound brief with moods, use, energy, era, avoid, and topics")
     ap.add_argument("--verify-film", metavar="CREDITS_TXT")
+    ap.add_argument("--verify-package", metavar="CREDITS_TXT",
+                    help="bind mix.json bed identity and level to the registry and credit")
+    ap.add_argument("--mix", default="out/dispatch/mix.json",
+                    help="mix report used by --verify-package")
+    ap.add_argument("--board", default="out/dispatch/storyboard.json",
+                    help="exact rendered board used by --verify-package")
+    ap.add_argument("--master", default="out/dispatch/mix.wav",
+                    help="mixed master whose hash is used by --verify-package")
     ap.add_argument("--track", metavar="TRACK_ID")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--check-links", action="store_true",
@@ -505,10 +765,39 @@ def main() -> int:
 
     if a.list:
         for t in tracks:
-            mark = "ok " if not problems_with(t) else "NO "
+            mark = "ready" if t in usable(tracks) else ("off  " if not problems_with(t) else "NO   ")
             print(f"  {mark} {t.get('id'):24} {t.get('licence'):18} {t.get('title')}")
         if not tracks:
             print("  (registry is empty: no vetted track has been added yet)")
+        return 0
+
+    if a.select or a.fit:
+        if not a.brief:
+            print("music: --select and --fit require --brief", file=sys.stderr)
+            return 2
+        try:
+            brief = json.loads(Path(a.brief).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"music: cannot read brief: {exc}", file=sys.stderr)
+            return 2
+        if a.fit:
+            track = by_id.get(a.fit)
+            if not track:
+                print(f"music: no track '{a.fit}' in the registry", file=sys.stderr)
+                return 2
+            probs = fit_problems(track, brief)
+            if probs:
+                for p in probs:
+                    print(f"  - {p}", file=sys.stderr)
+                print("music: this bed does not fit. Ship with no bed.", file=sys.stderr)
+                return 1
+            print(f"music: {track['id']} fits; mix it {track['mix_gap_db']} dB below the voice")
+            return 0
+        track = select_track(tracks, brief)
+        if track is None:
+            print("NO_BED")
+        else:
+            print(track["id"])
         return 0
 
     if a.credits:
@@ -517,6 +806,8 @@ def main() -> int:
             print(f"music: no track '{a.credits}' in the registry", file=sys.stderr)
             return 2
         probs = problems_with(t)
+        if t.get("enabled") is not True:
+            probs.append(f"{t['id']}: disabled; no approved playable asset")
         if probs:
             for p in probs:
                 print(f"  - {p}", file=sys.stderr)
@@ -538,20 +829,29 @@ def main() -> int:
             print(f"music: cannot read credits: {exc}", file=sys.stderr)
             return 2
         probs = problems_with(t) + verify_film(text, t)
+        if t.get("enabled") is not True:
+            probs.append(f"{t['id']}: disabled; no approved playable asset")
         for p in probs:
             print(f"  - {p}", file=sys.stderr)
         if probs:
             print("music: the film may not ship with this track", file=sys.stderr)
             return 1
-        bed_errs = verify_bed_matches_credit(a.verify_film, 'out/dispatch/mix.json')
-        if bed_errs:
-            for e in bed_errs:
-                print(f'music: {e}')
-            return 1
         print(f"music: credit for '{t['id']}' is present and complete.")
         return 0
 
-    print("music: pass --check, --list, --credits ID, --verify-film FILE --track ID, "
+    if a.verify_package:
+        probs = verify_package(Path(a.verify_package), Path(a.mix), Path(a.board),
+                               Path(a.master), tracks)
+        for p in probs:
+            print(f"  - {p}", file=sys.stderr)
+        if probs:
+            print("music: bed, registry, mix, and credit do not form one package", file=sys.stderr)
+            return 1
+        print("music: bed choice, approved level, and generated credit form one package")
+        return 0
+
+    print("music: pass --check, --list, --select/--fit with --brief, --credits ID, "
+          "--verify-film FILE --track ID, --verify-package CREDITS --mix MIX, "
           "or --self-test", file=sys.stderr)
     return 2
 
