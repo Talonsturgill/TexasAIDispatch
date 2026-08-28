@@ -24,25 +24,35 @@ Every one of those is a rule now, and a rule nobody checks is a rule that lasts 
 This is the checker. Run it before you commit and before you ship.
 
     python3 scripts/run_discipline.py                  # lint the machine
-    python3 scripts/run_discipline.py --renders 3      # ...and report the run's render count
+    python3 scripts/run_discipline.py --state out/dispatch/run_state.json
     python3 scripts/run_discipline.py --self-test      # prove each rule can go red
 """
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+LIMITS = REPO / "config" / "run_limits.json"
 
-# A run that renders more than this is almost certainly spending a render per fix rather
-# than batching. It is a WARNING and not a failure, because a genuinely hard round can
-# need several, and a gate that blocks honest work gets disabled.
-RENDER_BUDGET = 4
 
-# Panel rounds, which are the other way a run burns a day. See check_panel_rounds.
-ROUND_BUDGET = 8
+def resource_limit(name: str) -> int:
+    raw = json.loads(LIMITS.read_text(encoding="utf-8"))
+    value = (raw.get("resources") or {}).get(name)
+    if not isinstance(value, int) or value < 1:
+        raise ValueError(f"{LIMITS} has no positive limit for {name}")
+    return value
+
+
+RENDER_BUDGET = (
+    resource_limit("full_renders")
+    + resource_limit("cleanup_renders")
+    + resource_limit("rescue_renders")
+)
+ROUND_BUDGET = resource_limit("panel_rounds")
 
 
 def _is_comment(line: str) -> bool:
@@ -55,7 +65,7 @@ def _executable_lines(p: Path):
     """Yield (lineno, line) for lines that could actually RUN.
 
     PROSE THAT DESCRIBES AN ANTI-PATTERN IS NOT THE ANTI-PATTERN, and this check learned
-    that twice on its first two real runs. It flagged the comment in `finish_render.sh`
+    that twice on its first two real runs. It flagged a comment in the old render waiter
     that warns against self-matching waits, and then it flagged the paragraph in the
     routine that teaches the same rule. Both times the "fix" it was demanding was to delete
     the warning, which would have removed the only thing standing between the next author
@@ -86,8 +96,8 @@ def check_self_matching_waits() -> list[str]:
     """RULE 1. Never poll for a pattern your own command line contains.
 
     `pgrep -f "<pattern>"` matches every process on the box, including the shell running
-    the loop, so the condition can never go false. `scripts/waitfor.sh` excludes the
-    ancestor chain and carries a deadline; anything else waiting on a pattern is the bug.
+    the loop, so the condition can never go false. Full renders now run synchronously through
+    `scripts/render_dispatch.sh`; a caller that truly needs background work must retain its PID.
     """
     errs = []
     # `pkill -f` and `pgrep -f` are the same hazard and only one of them was checked. On
@@ -99,15 +109,15 @@ def check_self_matching_waits() -> list[str]:
     # exclude the ancestor chain, or use a pid.
     pat = re.compile(r"((while|until).*pgrep\s+-f)|(pkill\s+-f)", re.I)
     for p in _shell_and_py():
-        if p.name in ("waitfor.sh", "run_discipline.py"):
+        if p.name == "run_discipline.py":
             continue
         for i, line in _executable_lines(p):
             if pat.search(line):
                 errs.append(
                     f"{p.relative_to(REPO)}:{i}: matches a process by a `-f` pattern. Its own "
                     f"command line contains that pattern, so the loop matches itself and "
-                    f"spins forever, looking exactly like a slow job. "
-                    f"`source scripts/waitfor.sh` and use wait_for_pattern or wait_for_pids.")
+                    f"spins forever, looking exactly like a slow job. Run it synchronously, "
+                    f"or retain and wait on the exact PID with a deadline.")
     return errs
 
 
@@ -193,7 +203,7 @@ def check_concurrency_claims() -> list[str]:
 
 
 def check_panel_rounds(rounds: int | None) -> list[str]:
-    """RULE 6. Count the ROUNDS, not just the renders, and say when the loop stopped learning.
+    """RULE 6. Count and enforce panel rounds.
 
     A round is a panel plus a batch of fixes. Renders were budgeted here from the first version
     and rounds were not, so a run could stay under the render budget by batching and still spend
@@ -202,17 +212,36 @@ def check_panel_rounds(rounds: int | None) -> list[str]:
     is guessing rather than diagnosing, and two of that run's three round-21 fixes were
     regressions it had to undo the next round.
 
-    This is a WARNING, never a failure. The one outcome law says a failing panel is an
-    instruction to re-enter the loop, so a gate that stopped a run for taking too many rounds
-    would be a hatch out of the law, which is the one thing it must not be.
+    The old checker printed a note and returned success. The August run therefore passed this
+    gate through 27 rounds. The controller now refuses the spend before it happens; this second
+    check makes a tampered or hand-built run fail at delivery too.
     """
     if rounds is None or rounds <= ROUND_BUDGET:
         return []
-    print(f"\n  note  {rounds} panel rounds. Past about {ROUND_BUDGET}, the thing to check is "
-          f"whether the last round's score went DOWN. A round that scores lower than the one "
-          f"before it was a guess, and the repair is to measure the defect before prescribing "
-          f"for it rather than to run another round.")
-    return []
+    return [f"{rounds} panel rounds exceeds the mechanical {ROUND_BUDGET}-round cap. "
+            "Another panel is not authorised. Complete the playable video with hard-fail and "
+            "deterministic repairs, then persist it for review."]
+
+
+def check_full_renders(renders: int | None) -> list[str]:
+    """A render over the shared cap is not a suggestion; it is a stopped run."""
+    if renders is None or renders <= RENDER_BUDGET:
+        return []
+    return [f"{renders} full renders exceeds the mechanical {RENDER_BUDGET}-render cap. "
+            "Stop optional iteration and persist the best registered playable video."]
+
+
+def state_counts(path: Path) -> tuple[int, int]:
+    """Read the controller rather than trusting counts retyped at delivery."""
+    sys.path.insert(0, str(REPO / "scripts"))
+    from run_controller import read_state
+
+    state = read_state(path)
+    usage = state.get("usage") or {}
+    renders = sum(int(usage.get(name, 0)) for name in (
+        "full_renders", "cleanup_renders", "rescue_renders"
+    ))
+    return renders, int(usage.get("panel_rounds", 0))
 
 
 def check_piped_exit_codes() -> list[str]:
@@ -321,6 +350,11 @@ def self_test() -> int:
         ok("catches panel frames older than the film",
            bool(check_panel_frames_come_from_the_film()))
 
+        ok("a panel round over the shared cap is a hard failure",
+           bool(check_panel_rounds(ROUND_BUDGET + 1)))
+        ok("a full render over the shared cap is a hard failure",
+           bool(check_full_renders(RENDER_BUDGET + 1)))
+
     REPO = real
     print(f"run_discipline: {fails} failure(s)")
     return 1 if fails else 0
@@ -333,6 +367,7 @@ def main() -> int:
                     help="how many full renders this run has done, for the batching report")
     ap.add_argument("--rounds", type=int, default=None,
                     help="how many panel rounds this run has done, for the diagnosis report")
+    ap.add_argument("--state", help="run_state.json; authoritative when supplied")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -343,12 +378,19 @@ def main() -> int:
         print(f"  {'ok  ' if not errs else 'FAIL'}  {label}")
         problems += errs
 
-    check_panel_rounds(a.rounds)
-
-    if a.renders is not None and a.renders > RENDER_BUDGET:
-        print(f"\n  note  {a.renders} renders this run, over the {RENDER_BUDGET} budget. "
-              f"That is usually a render spent per fix rather than a batch. Cheap precise "
-              f"fixes are free to batch: the expensive step is the render, not the edit.")
+    renders, rounds = a.renders, a.rounds
+    if a.state:
+        try:
+            renders, rounds = state_counts(Path(a.state))
+        except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+            problems.append(f"cannot read the authoritative run state {a.state}: {exc}")
+    round_problems = check_panel_rounds(rounds)
+    render_problems = check_full_renders(renders)
+    print(f"  {'ok  ' if not round_problems else 'FAIL'}  panel round budget"
+          + (f" ({rounds}/{ROUND_BUDGET})" if rounds is not None else ""))
+    print(f"  {'ok  ' if not render_problems else 'FAIL'}  full render budget"
+          + (f" ({renders}/{RENDER_BUDGET})" if renders is not None else ""))
+    problems += round_problems + render_problems
 
     if problems:
         print("\nrun_discipline: " + f"{len(problems)} problem(s)\n")

@@ -38,9 +38,8 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 RUBRIC = REPO / "config" / "dispatch_rubric.yaml"
-# COMMITTED, because the run's own trend is the only evidence that the machine is improving and
-# it was living in a gitignored scratch file that dies with the container.
-HISTORY = REPO / "ledger" / "panel_history.json"
+RUN_LIMITS = REPO / "config" / "run_limits.json"
+DEFAULT_HISTORY = REPO / "out" / "dispatch" / "panel_history.json"
 
 # THE PLATEAU RULE, and it is the one thing here that changes what the run DOES.
 #
@@ -110,13 +109,44 @@ def with_history(t: dict, history: list[dict]) -> dict:
     return t
 
 
-def read_history() -> list[dict]:
-    if not HISTORY.exists():
+def report_card(t: dict, reports: list[dict], round_number: int | None) -> dict:
+    """One machine-computed card for the controller and ship gate.
+
+    A high mean never averages away one judge's hard fail. The card records the individual
+    reports so the aggregate remains auditable rather than becoming a number copied by hand.
+    """
+    hard = []
+    for report in reports:
+        for item in report.get("hard_fails") or []:
+            if str(item) not in hard:
+                hard.append(str(item))
+    axes = {row["axis"]: round(float(row["mean"]), 3) for row in t["rows"]}
+    score = round(float(t["mean"]), 3)
+    return {"schema": "dispatch_report_card/1", "round": round_number,
+            "score": score, "weighted_score": score,
+            "ship": score >= float(t["bar"]) and not hard,
+            "axes": axes, "hard_fails": hard, "judges": reports}
+
+
+def panel_round_limit() -> int:
+    raw = json.loads(RUN_LIMITS.read_text(encoding="utf-8"))
+    return int(raw["resources"]["panel_rounds"])
+
+
+def read_history(path: Path, run_id: str | None = None) -> list[dict]:
+    if not path.exists():
         return []
     try:
-        return json.loads(HISTORY.read_text()).get("rounds", [])
-    except Exception:
-        return []
+        raw = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"cannot read {path}: {exc}") from exc
+    owner = raw.get("run_id")
+    if run_id and owner != run_id:
+        raise ValueError(
+            f"{path} belongs to run {owner!r}, not {run_id!r}. Panel history must be owned and "
+            "never crosses runs."
+        )
+    return raw.get("rounds", [])
 
 
 def plateau(history: list[dict], mean: float) -> tuple[bool, list[float]]:
@@ -217,8 +247,8 @@ def self_test() -> int:
     ok("...and the report says to work picture first", "WORK PICTURE FIRST" in txt)
     ok("...and says story is over the bar", "story is" in txt and "OVER the bar" in txt)
 
-    # A PASSING PANEL MUST STOP THE EDITING. The one outcome law is a delivered video, and a
-    # run that keeps polishing past the bar is how a regression gets shipped.
+    # A PASSING PANEL MUST STOP THE EDITING. A run that keeps polishing past the bar is how a
+    # regression gets shipped, and the controller has a terminal state for that reason.
     high = [dict(zip(weights, (9, 9, 9, 9, 9, 9)))]
     ht = triage(high, bar, weights)
     ok("a passing panel is told to deliver, not to keep editing",
@@ -246,6 +276,32 @@ def self_test() -> int:
              dict(zip(weights, (7, 7, 7, 7, 7, 7)))]
     ok("a 5 point disagreement is surfaced rather than averaged away",
        "judges disagree by 5.0" in render(triage(split, bar, weights)))
+    card = report_card(triage(high, bar, weights),
+                       [{"axes": high[0], "hard_fails": ["held slide"]}], 1)
+    ok("one judge's hard fail survives a high aggregate score",
+       card["ship"] is False and card["hard_fails"] == ["held slide"])
+
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        hp = Path(td) / "panel_history.json"
+        hp.write_text(json.dumps({"run_id": "one", "rounds": flat}) + "\n")
+        ok("a run can read its own private panel history",
+           len(read_history(hp, "one")) == len(flat))
+        try:
+            read_history(hp, "two")
+            crossed = True
+        except ValueError:
+            crossed = False
+        ok("panel history from another run is refused", not crossed)
+        hp.write_text(json.dumps({"rounds": flat}) + "\n")
+        try:
+            read_history(hp, "one")
+            unowned = True
+        except ValueError:
+            unowned = False
+        ok("an unowned legacy history cannot leak into a new run", not unowned)
+    ok("the panel round cap comes from the shared run contract",
+       panel_round_limit() == 5)
 
     print(f"panel_triage: {fails} failure(s)")
     return 1 if fails else 0
@@ -258,7 +314,11 @@ def main() -> int:
                     help="one judge's scores, comma separated, in the rubric's axis order")
     ap.add_argument("--round", type=int, help="this panel round's number, to record the trend")
     ap.add_argument("--record", action="store_true",
-                    help="append this round's mean to ledger/panel_history.json")
+                    help="append this round's mean to this run's private history")
+    ap.add_argument("--history", default=str(DEFAULT_HISTORY),
+                    help="this run's panel_history.json")
+    ap.add_argument("--run-id", help="run id that owns --history (required with --record)")
+    ap.add_argument("--out-report", help="write the aggregate report card used for delivery")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -266,8 +326,10 @@ def main() -> int:
 
     bar, weights = read_rubric()
     judges: list[dict[str, float]] = []
+    raw_reports: list[dict] = []
     if a.scores:
         raw = json.loads(Path(a.scores).read_text())
+        raw_reports = raw
         judges = [{k: float(v) for k, v in (j.get("axes") or j).items()} for j in raw]
     for spec in a.judge:
         vals = [float(x) for x in spec.split(",")]
@@ -276,6 +338,7 @@ def main() -> int:
                   f"({', '.join(weights)}), got {len(vals)}", file=sys.stderr)
             return 2
         judges.append(dict(zip(weights, vals)))
+        raw_reports.append({"axes": judges[-1], "hard_fails": []})
     if not judges:
         print("panel_triage: pass --scores or one --judge per judge, or --self-test",
               file=sys.stderr)
@@ -286,21 +349,41 @@ def main() -> int:
         print(f"panel_triage: some judge is missing {missing}", file=sys.stderr)
         return 2
 
-    history = read_history()
+    if a.round is not None and (a.round < 1 or a.round > panel_round_limit()):
+        print(f"panel_triage: round {a.round} is outside the mechanical 1 to "
+              f"{panel_round_limit()} limit. Do no-panel hard-fail cleanup and persist the "
+              "playable review video instead of scoring again.",
+              file=sys.stderr)
+        return 1
+    if a.record and (a.round is None or not a.run_id):
+        print("panel_triage: --record requires --round and --run-id", file=sys.stderr)
+        return 2
+    history_path = Path(a.history)
+    try:
+        history = read_history(history_path, a.run_id)
+    except ValueError as exc:
+        print(f"panel_triage: {exc}", file=sys.stderr)
+        return 2
     t = with_history(triage(judges, bar, weights), history)
     print(render(t))
 
+    if a.out_report:
+        card = report_card(t, raw_reports, a.round)
+        target = Path(a.out_report)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(card, indent=2) + "\n", encoding="utf-8")
+        print(f"\n  report card -> {target} ({'ship' if card['ship'] else 'needs review'})")
+
     if a.record:
-        HISTORY.parent.mkdir(parents=True, exist_ok=True)
+        history_path.parent.mkdir(parents=True, exist_ok=True)
         rounds = history + [{"round": a.round, "mean": round(t["mean"], 3),
                              "axes": {r["axis"]: round(r["mean"], 2) for r in t["rows"]}}]
-        HISTORY.write_text(json.dumps({"_why": (
-            "The run's own trend. It lived in a gitignored scratch file until 2026-08-19, so "
-            "every container rebuild erased the only evidence that the machine was or was not "
-            "improving, and four flat rounds went unnoticed because nothing could see them."),
+        history_path.write_text(json.dumps({"run_id": a.run_id, "_why": (
+            "This run's private trend. It is deliberately not the legacy global ledger: a new "
+            "film cannot inherit another film's plateau or continue its round count."),
             "rounds": rounds}, indent=1) + "\n")
         print(f"\n  recorded round {a.round} at {t['mean']:.3f} in "
-              f"{HISTORY.relative_to(REPO)}")
+              f"{history_path}")
     return 0
 
 

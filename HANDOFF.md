@@ -1,7 +1,9 @@
-# Handoff — what only you can do
+# Handoff — credentials, routine setup, and current truth
 
-Everything in this repo works when run by hand. These are the things that need an account, a key
-or a click, and none of them blocks the build.
+One Dispatch shipped on 2026-08-18. It exposed the failure modes the current machine is designed
+around: 27 panel rounds, 81 scorer calls, repeated visual constructions, text-heavy scenes, an
+ill-fitting 1923 fiddle bed, and subtitles colliding with the live feed overlay. The shipped run
+under `runs/2026-08-18/` is regression evidence and must not be rewritten.
 
 ---
 
@@ -32,8 +34,9 @@ credential.
 Set `GEMINI_API_KEY` in the routine environment. `generativelanguage.googleapis.com` has to be
 reachable under the environment's network policy.
 
-Cost is small per Dispatch, and the model is `gemini-3.1-flash-tts-preview` with
-`gemini-2.5-pro-preview-tts` as the failover on repeated 500s.
+The model is `gemini-3.1-flash-tts-preview` with `gemini-2.5-pro-preview-tts` as the failover on
+repeated 500s. Every synthesis and verbatim-soundcheck request debits the same run ledger. Four
+external audio-model calls is the hard run-wide ceiling, including retries and later batches.
 
 **Audition the voice before the first real run.** `config/voices.yaml` carries a DEFAULT so the
 machine runs rather than blocking on a preference, and it says so in the file. It also carries the
@@ -60,35 +63,36 @@ manifest. The routine environment needs push access to that repo for the step to
 
 ---
 
-## What is done and what is not
+## What is done and what remains operational
 
-**Done.** The research (`knowledge/texas/`, five docs written against sources). The engine:
-`stage3d` ported verbatim, `lighting` rebuilt with ten regional lights, the cast rig with ten
-people authored in one pass, ten biomes, the industrial and rural kit, and fifteen species of
-fauna drawn at true scale against the cast rig. The routine prompt, five agents, the rubric that
-holds the bar. A proof scene that renders 150 frames with three composed camera moves.
+The engine, Texas knowledge, agents, rubric, licence checks, caption/alignment path, and product
+gates are present. The remediation adds:
 
-**Every script the routine calls now exists**, each with a `--self-test` that replays the defect
-it was built for, and all ten are wired into CI:
+- one atomic controller for calls, tokens, elapsed time, preflights, renders, panels, and terminal
+  state;
+- an early structural board gate plus quarter-scale animatic and measured pixel-motion check;
+- up to four batched corrections and five three-judge panels, with a machine-computed report card
+  that preserves any judge's hard fail;
+- a locked post-panel-five cleanup mode, one cleanup render, and one last-resort full-render
+  attempt;
+- a no-empty-run invariant: every terminal state owns an exact MP4, while below-bar cuts persist
+  under `runs/review/` without touching the shipped feed; each successful cut is snapshotted, and
+  a failed renderer falls back to an inspected-animatic upscale or timed storyboard-card reel that
+  is mechanically review-only;
+- a run-wide four-call voice quota instead of a per-batch suggestion;
+- an opt-in music registry that requires a playable file and mood/use/energy/era/avoid fit, with
+  measured bed level relative to voice;
+- final-film mobile and desktop feed compositing; and
+- `deliver_run.sh --verify-only`, which runs the package checks without writing a ledger, run
+  artifact, commit, PR, merge, or feed entry.
 
-| gate | what it refuses |
-|---|---|
-| `engine_lint` | a corrupted colour literal, which a browser drops silently and paints the default |
-| `bar_check` | the ship threshold written down in more than one place |
-| `staging_check` | an animal standing in a region it does not live in |
-| `storyboard_check` | a relabel pretending to be composition divergence, before a frame is rendered |
-| `flow_check` | a rest across a cut, a beat with no motivated sound, a picture the voice carries |
-| `vo_synth_gemini` | a prompt whose spoken body contains direction, refused before a call is spent |
-| `vo_soundcheck` | the take that reads a stage direction aloud, and the drone |
-| `vo_align` | caption boundaries that do not trace to measured silence |
-| `mix` | a read that does not fit. There is no resampler in that file, and its self-test proves the absence |
-| `ship_gate` | the rubric's hard fails, six of the seven checked mechanically |
+On a fresh renderer, either set `REMOTION_BROWSER_EXECUTABLE` to an existing compatible headless
+shell or allow Remotion to manage one. The repository no longer pins a runner-specific `/opt`
+browser revision.
 
-**Still open, and the honest list.** The engine renders a proof scene, not yet a full Dispatch
-from a story: nothing has been driven end to end with real research through to a delivered file,
-because that needs the routine to actually run. Wave V7's alignment is silence-anchored rather
-than phoneme-level, which is stated plainly wherever it is claimed. The commercial wing
-(`TexasAIScanner`) has not started.
+The next real routine execution should begin in `dry-run` mode with publishing disabled. It needs
+the Gemini key and a render-capable runner to exercise the external voice and Remotion browser;
+only after that rehearsal is green should the scheduled production routine be enabled.
 
 `.claude/WORKLOG.md` was the build's wave table and was deleted on 2026-08-19 when its last
 wave went DONE, which is what `CLAUDE.md` says to do with it. The reasoning did not go with

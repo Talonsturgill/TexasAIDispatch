@@ -14,11 +14,24 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 FILM=out/dispatch/film.mp4
 BOARD=out/dispatch/storyboard.json
+OUT=out/dispatch
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --film) FILM="$2"; shift 2 ;;
+    --board) BOARD="$2"; shift 2 ;;
+    --out) OUT="$2"; shift 2 ;;
+    *) echo "extract_frames: unknown argument $1" >&2; exit 2 ;;
+  esac
+done
 [ -f "$FILM" ] || { echo "no film at $FILM"; exit 2; }
+[ -f "$BOARD" ] || { echo "no board at $BOARD"; exit 2; }
+mkdir -p "$OUT"
 
-rm -f out/dispatch/scene_s*.png out/dispatch/poster.png out/dispatch/credits_frame.png
+rm -f "$OUT"/scene_s*.png "$OUT"/poster.png "$OUT"/credits_frame.png
 
-python3 - "$BOARD" <<'PY' > /tmp/_frames.txt
+FRAME_LIST=$(mktemp)
+trap 'rm -f "$FRAME_LIST"' EXIT
+python3 - "$BOARD" <<'PY' > "$FRAME_LIST"
 import json, sys
 b = json.load(open(sys.argv[1]))
 for s in b['scenes']:
@@ -26,21 +39,20 @@ for s in b['scenes']:
 PY
 
 while read -r id t; do
-  npx --prefix video-engine remotion ffmpeg -y -ss "$t" -i "$FILM" -frames:v 1 \
-    "out/dispatch/scene_$id.png" -loglevel error </dev/null
-done < /tmp/_frames.txt
+  ffmpeg -y -ss "$t" -i "$FILM" -frames:v 1 "$OUT/scene_$id.png" \
+    -loglevel error </dev/null
+done < "$FRAME_LIST"
 
-DUR=$(npx --prefix video-engine remotion ffprobe "$FILM" 2>&1 | grep -oE "Duration: [0-9:.]+" | head -1 | sed -E "s/Duration: ([0-9]+):([0-9]+):([0-9.]+)/\1 \2 \3/" | awk "{print \$1*3600+\$2*60+\$3}")
+DUR=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$FILM")
 # THE POSTER IS TAKEN AFTER THE TYPE HAS SETTLED, NOT AT THE HEAD OF THE FILM.
 # At 0.4s the super and the caption plate are still fading up, so the feed thumbnail
 # shipped a grey title and a grey chip over pale sky and was the least legible frame in
 # the film. All three scorers said so independently, and one of them read it as the
 # picture being washed out rather than as the capture being early. A poster is a still
 # that has to work alone; it is taken where the frame is finished.
-npx --prefix video-engine remotion ffmpeg -y -ss 1.9 -i "$FILM" -frames:v 1 \
-  out/dispatch/poster.png -loglevel error </dev/null
-npx --prefix video-engine remotion ffmpeg -y -ss "$(python3 -c "print(max(0,$DUR-0.6))")" \
-  -i "$FILM" -frames:v 1 out/dispatch/credits_frame.png -loglevel error </dev/null
+ffmpeg -y -ss 1.9 -i "$FILM" -frames:v 1 "$OUT/poster.png" -loglevel error </dev/null
+ffmpeg -y -ss "$(python3 -c "print(max(0,$DUR-0.6))")" -i "$FILM" -frames:v 1 \
+  "$OUT/credits_frame.png" -loglevel error </dev/null
 
-ls -1 out/dispatch/scene_s*.png out/dispatch/poster.png out/dispatch/credits_frame.png
+ls -1 "$OUT"/scene_s*.png "$OUT"/poster.png "$OUT"/credits_frame.png
 echo "frames extracted from $FILM (duration ${DUR}s)"

@@ -39,6 +39,7 @@ Exit 0 every mutation was caught, 1 one survived, 2 the checker could not run.
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -46,49 +47,99 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 
-# (file, the line as written, the line mutated, what the mutation breaks)
+# (target file, self-test file, text as written, mutated text, what the mutation breaks)
 #
 # Each `new` value is chosen to make the threshold VACUOUS rather than merely
 # different, because a small nudge can land inside a fixture's slack and survive
 # for an honest reason. A vacuous threshold has no honest reason to survive.
-MUTATIONS: list[tuple[str, str, str, str]] = [
-    ("scripts/flow_check.py", "MAX_REST_S = 5.0", "MAX_REST_S = 99.0",
+MUTATIONS: list[tuple[str, str, str, str, str]] = [
+    ("scripts/flow_check.py", "scripts/flow_check.py",
+     "MAX_REST_S = 5.0", "MAX_REST_S = 99.0",
      "the never-rest cadence: how long the picture may sit still"),
-    ("scripts/ship_gate.py", "MAX_SCENE_S = 5.0", "MAX_SCENE_S = 99.0",
+    ("scripts/ship_gate.py", "scripts/ship_gate.py",
+     "MAX_SCENE_S = 5.0", "MAX_SCENE_S = 99.0",
      "the hard fail on a scene that outstays the cut"),
-    ("scripts/storyboard_check.py", "MIN_RUNTIME_S = 35.0", "MIN_RUNTIME_S = 0.0",
-     "a film too short to be a film"),
-    ("scripts/storyboard_check.py", "MAX_SCENE_S = 5.0", "MAX_SCENE_S = 99.0",
+    ("scripts/storyboard_check.py", "scripts/storyboard_check.py",
+     "MAX_SCENE_S = 5.0", "MAX_SCENE_S = 99.0",
      "the same ceiling at Gate 0, before a frame is rendered"),
-    ("scripts/vo_align.py", "MIN_GAP_S = 0.12", "MIN_GAP_S = 9.0",
+    ("scripts/vo_align.py", "scripts/vo_align.py",
+     "MIN_GAP_S = 0.12", "MIN_GAP_S = 9.0",
      "what counts as a silence worth anchoring a caption to"),
-    ("scripts/vo_align.py", "MAX_CUE_CHARS = 84", "MAX_CUE_CHARS = 9999",
+    ("scripts/vo_align.py", "scripts/vo_align.py",
+     "MAX_CUE_CHARS = 84", "MAX_CUE_CHARS = 9999",
      "whether a short trailing run joins the cue before it or flashes on its own"),
-    ("scripts/vo_soundcheck.py", "MIN_PITCH_VARIANCE = 1.8", "MIN_PITCH_VARIANCE = 0.0",
+    ("scripts/vo_soundcheck.py", "scripts/vo_soundcheck.py",
+     "MIN_PITCH_VARIANCE = 1.8", "MIN_PITCH_VARIANCE = 0.0",
      "the drone: a read with no pitch movement in it"),
-    ("scripts/vo_soundcheck.py", "MAX_INSERTION = 0.06", "MAX_INSERTION = 1.0",
+    ("scripts/vo_soundcheck.py", "scripts/vo_soundcheck.py",
+     "MAX_INSERTION = 0.06", "MAX_INSERTION = 1.0",
      "words the narrator added that the script does not contain"),
-    ("scripts/mix.py", "MAX_OVERAGE = 0.04", "MAX_OVERAGE = 9.0",
+    ("scripts/mix.py", "scripts/mix.py",
+     "MAX_OVERAGE = 0.04", "MAX_OVERAGE = 9.0",
      "a voice that runs past the cut, which is TRIM THE SCRIPT and never stretch"),
-    ("scripts/dedupe.py", "DUP_TOKENS = 2", "DUP_TOKENS = 99",
+    ("scripts/dedupe.py", "scripts/dedupe.py",
+     "DUP_TOKENS = 2", "DUP_TOKENS = 99",
      "how many shared subject tokens make two stories the same story"),
 ]
 
+# The new bounded-run and board contracts live in data so every consumer reads one source of
+# truth. Their tests intentionally live in the enforcing scripts, so these are cross-file
+# mutations: alter the data, then run the controller or board self-test that owns the policy.
+for _name, _value in {
+    "research_agents": 3,
+    "validator_agents": 1,
+    "storyboard_critics": 1,
+    "preflight_renders": 6,
+    "reboards": 4,
+    "voice_directors": 1,
+    "panel_rounds": 5,
+    "scorer_calls": 15,
+    "full_renders": 5,
+    "cleanup_renders": 1,
+    "rescue_renders": 1,
+    "tts_calls": 4,
+    "reported_tokens": 250000,
+}.items():
+    MUTATIONS.append((
+        "config/run_limits.json", "scripts/run_controller.py",
+        f'"{_name}": {_value}', f'"{_name}": 999999',
+        f"the approved run-wide {_name} ceiling",
+    ))
 
-def survives(path: Path, old: str, new: str, timeout: int = 600) -> tuple[bool, str]:
-    """Mutate, run the file's own --self-test, restore. True if it stayed green.
+for _name, _value, _mutated in [
+    ("min_runtime_s", "35", "0"),
+    ("max_runtime_s", "55", "999"),
+    ("min_scenes", "6", "0"),
+    ("max_scenes", "10", "999"),
+    ("max_visual_family_share", "0.4", "1.0"),
+    ("max_top_two_family_share", "0.67", "1.0"),
+    ("max_text_panel_share", "0.34", "1.0"),
+    ("max_same_family_in_last_three", "2", "999"),
+    ("hook_payoff_by_s", "2.0", "999.0"),
+]:
+    MUTATIONS.append((
+        "config/run_limits.json", "scripts/storyboard_check.py",
+        f'"{_name}": {_value}', f'"{_name}": {_mutated}',
+        f"the approved board {_name} boundary",
+    ))
 
-    The original text is held in memory and restored in a `finally`, so an
-    interrupt or a crash cannot leave a mutated gate on disk. That matters more
-    than usual here: a surviving mutation in a committed file is a weakened gate
-    that looks like ordinary source.
+
+def survives(path: Path, old: str, new: str, timeout: int = 600,
+             gate: Path | None = None) -> tuple[bool, str]:
+    """Mutate, run the owning --self-test, restore. True if it stayed green.
+
+    ``check`` calls this only inside a disposable copy of the repository. The
+    original text is still restored in a `finally` so the next mutation sees a clean
+    fixture, but safety does not depend on cleanup: even SIGKILL can only strand a
+    temporary copy, never weaken the working source.
     """
     src = path.read_text(encoding="utf-8")
     if old not in src:
         return True, f"pattern not present: {old!r} (the table is stale)"
     try:
         path.write_text(src.replace(old, new, 1), encoding="utf-8")
-        r = subprocess.run([sys.executable, str(path), "--self-test"],
+        test_path = gate or path
+        r = subprocess.run([sys.executable, str(test_path), "--self-test"],
                            capture_output=True, timeout=timeout, cwd=REPO)
         return r.returncode == 0, ""
     except (OSError, subprocess.SubprocessError) as exc:
@@ -99,19 +150,32 @@ def survives(path: Path, old: str, new: str, timeout: int = 600) -> tuple[bool, 
 
 def check() -> list[str]:
     out: list[str] = []
-    for rel, old, new, why in MUTATIONS:
-        p = REPO / rel
-        if not p.exists():
-            out.append(f"MISSING: {rel} is in the mutation table and not on disk.")
-            continue
-        lived, note = survives(p, old, new)
-        label = f"{rel}: {old} -> {new}"
-        if lived:
-            out.append(
-                f"SURVIVED: {label}. That threshold guards {why}, and its own self-test "
-                f"stays green when it is made vacuous, so nothing is holding it. "
-                f"{note}".strip())
-        print(f"  {'SURVIVED' if lived else 'caught  '}  {label}")
+    with tempfile.TemporaryDirectory(prefix="dispatch-mutations-") as td:
+        sandbox = Path(td) / "repo"
+        shutil.copytree(
+            REPO,
+            sandbox,
+            ignore=shutil.ignore_patterns(
+                ".git", "node_modules", "out", "runs", "__pycache__", ".pytest_cache"
+            ),
+        )
+        for rel, gate_rel, old, new, why in MUTATIONS:
+            p = sandbox / rel
+            gate = sandbox / gate_rel
+            if not p.exists():
+                out.append(f"MISSING: {rel} is in the mutation table and not on disk.")
+                continue
+            if not gate.exists():
+                out.append(f"MISSING: {gate_rel} owns a mutation test and is not on disk.")
+                continue
+            lived, note = survives(p, old, new, gate=gate)
+            label = f"{rel}: {old} -> {new}"
+            if lived:
+                out.append(
+                    f"SURVIVED: {label}. That threshold guards {why}, and its own self-test "
+                    f"stays green when it is made vacuous, so nothing is holding it. "
+                    f"{note}".strip())
+            print(f"  {'SURVIVED' if lived else 'caught  '}  {label}")
     return out
 
 
@@ -163,8 +227,26 @@ def self_test() -> int:
         ok("a pattern that is no longer in the file is SURVIVED, not silently skipped",
            lived3 and "stale" in note3, note3)
 
+        # Policy often lives in JSON while its executable assertion lives in a checker. Prove
+        # that the harness runs the selected owner rather than trying to execute the data file.
+        policy = Path(td) / "policy.json"
+        policy.write_text('{"limit": 5}\n', encoding="utf-8")
+        cross_gate = Path(td) / "cross_gate.py"
+        cross_gate.write_text(
+            "import json, pathlib, sys\n"
+            f"p = pathlib.Path({str(policy)!r})\n"
+            "ok = json.loads(p.read_text())['limit'] == 5\n"
+            "sys.exit(0 if '--self-test' in sys.argv and ok else 1)\n",
+            encoding="utf-8")
+        lived4, note4 = survives(
+            policy, '"limit": 5', '"limit": 999', gate=cross_gate)
+        ok("a data threshold is caught by its owning cross-file self-test",
+           not lived4, note4 or "it survived")
+        ok("...and the data file is restored",
+           policy.read_text(encoding="utf-8") == '{"limit": 5}\n')
+
     ok("the table covers every gate that declares a threshold",
-       len({m[0] for m in MUTATIONS}) >= 6, f"{len({m[0] for m in MUTATIONS})} files")
+       len({m[0] for m in MUTATIONS}) >= 7, f"{len({m[0] for m in MUTATIONS})} files")
 
     if failures:
         print(f"\nmutation_check self-test: {failures} FAILED", file=sys.stderr)

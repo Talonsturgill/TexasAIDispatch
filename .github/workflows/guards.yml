@@ -26,7 +26,9 @@ concurrency:
 
 jobs:
   guards:
-    runs-on: ubuntu-latest
+    # Pin the runner image. Media measurements are part of the product contract,
+    # so silently inheriting a new `ubuntu-latest` image is not reproducible CI.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -36,6 +38,16 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Install media tooling
+        run: |
+          # Hosted-runner images do not promise ffmpeg. The preflight, feed, voice,
+          # music and freshness gates must fail closed when it is absent, so CI owns
+          # the dependency explicitly instead of weakening those gates.
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
+
       - name: Install dependencies
         run: |
           # numpy is not optional here. The voice gates decode raw PCM, measure BS.1770
@@ -43,7 +55,7 @@ jobs:
           # need does not skip them, it FAILS them. This repo has already lost a first push to
           # exactly that, and the wrong fix is to make a gate skip when its dependency is
           # missing: a skipped test and a passing test are the same colour.
-          pip install --quiet pyyaml numpy requests
+          pip install --quiet pyyaml numpy requests pillow
 
       - name: Engine lint self-test (the defects tsc is structurally blind to)
         run: |
@@ -175,6 +187,29 @@ jobs:
           # measured on the composition signature rather than the label: six scenes that all say
           # dollyThrough over the same planes read as a varied board and play as one shot.
           python3 scripts/storyboard_check.py --self-test
+          python3 scripts/storyboard_check.py --board examples/board.json
+
+      - name: Expensive work is bounded and no run ends empty
+        run: |
+          # The August run reached 27 panels because its budgets printed notes and exited 0.
+          # Spend every allowance, then prove the next reservation goes red and a dry-run
+          # package can never become delivery authority.
+          python3 scripts/run_controller.py --self-test
+          python3 scripts/preflight_animatic.py --self-test
+          python3 scripts/run_discipline.py --self-test
+          python3 scripts/run_discipline.py
+          bash -n scripts/render_dispatch.sh scripts/package_review_run.sh
+
+      - name: The exact final film fits the phone and desktop feed
+        run: |
+          # Code geometry alone missed the first shipped collision. This also exercises the
+          # actual ffmpeg compositor, and its self-test replays the old subtitle reserve.
+          python3 scripts/safe_area_check.py --self-test
+          python3 scripts/safe_area_check.py
+          python3 scripts/feed_composite_check.py --self-test
+          python3 scripts/feed_composite_check.py
+          python3 scripts/render_manifest.py --self-test
+          python3 scripts/freshness_check.py --self-test
 
       - name: The cut flows, and the ear moves with the eye
         run: |
@@ -190,6 +225,13 @@ jobs:
           # its drone measurement to the threshold vo_soundcheck refuses on, because two files
           # that agree by convention rather than by test drift apart unwatched.
           python3 scripts/vo_synth_gemini.py --self-test
+          # Missing voice credentials may never produce either a silent public film or no film.
+          # This deterministic fallback is marked review-only and exists solely so the renderer
+          # can preserve a playable visual cut.
+          python3 scripts/fallback_audio.py --self-test
+          # If Remotion itself fails, the inspected animatic (or timed storyboard cards) still
+          # becomes a playable, explicitly non-publishable review MP4 instead of an empty run.
+          python3 scripts/rescue_video.py --self-test
           # Caption boundaries land on measured silence, so error re-anchors every phrase instead
           # of accumulating across the film.
           python3 scripts/vo_align.py --self-test
@@ -212,6 +254,18 @@ jobs:
           # wavs. It used to return a literal 0 after writing 31 files, checking nothing,
           # while write_wav silently hard-clipped anything out of range on the way to disk.
           python3 scripts/foley.py --build "$(mktemp -d)"
+          # Registry sources may be MP3 while the mixer accepts only measured PCM WAV. The
+          # explicit preparation step converts the real enabled asset and binds both hashes;
+          # swapping either side must make later package verification red.
+          python3 scripts/prepare_music.py --self-test
+          music_verify_dir="${RUNNER_TEMP}/dispatch-music"
+          mkdir -p "$music_verify_dir"
+          python3 scripts/prepare_music.py --track sallie_gooden_1923 \
+            --out "$music_verify_dir/bed.wav" \
+            --manifest "$music_verify_dir/bed.json"
+          python3 scripts/prepare_music.py --verify --track sallie_gooden_1923 \
+            --out "$music_verify_dir/bed.wav" \
+            --manifest "$music_verify_dir/bed.json"
           # The music bed is licensed by its CREDIT, so the credit is machine-generated
           # and checked. The self-test proves each refusal fires (NonCommercial,
           # NoDerivatives, ShareAlike, all-rights-reserved, an unknown licence, a BY
@@ -219,6 +273,10 @@ jobs:
           # refused, because a credit that does not ship is a licence not paid.
           python3 scripts/music.py --self-test
           python3 scripts/music.py --check
+          test "$(python3 scripts/music.py --select \
+            --brief examples/music_brief_modern_infrastructure.json)" = "NO_BED"
+          test "$(python3 scripts/music.py --select \
+            --brief examples/music_brief_archival_fiddle.json)" = "sallie_gooden_1923"
           # AND THE SOURCES HAVE TO RESOLVE. --check verifies the field is a non-empty
           # string and never that it leads anywhere: three of eleven entries pointed at
           # Commons files that 404, and all eleven were reported usable. For a CC BY
@@ -281,6 +339,30 @@ jobs:
           cd video-engine
           npm ci --no-audit --no-fund
           npx tsc --noEmit
+
+      - name: The cheap animatic really renders
+        timeout-minutes: 10
+        run: |
+          # Unit fixtures prove the pixel-motion inspector can distinguish a held slide from
+          # motion. This is the integration half: render the real example board through Remotion,
+          # inspect the resulting MP4, and bind the passing report to that exact board. The local
+          # Codex executor may not be allowed to download Remotion's browser, so the browser-capable
+          # CI runner owns this proof on every PR and main merge.
+          verify_dir="${RUNNER_TEMP}/dispatch-preflight"
+          mkdir -p "$verify_dir"
+          python3 scripts/run_controller.py \
+            --state "$verify_dir/run_state.json" init \
+            --run-id ci-example --mode dry-run
+          python3 scripts/preflight_animatic.py \
+            --board examples/board.json \
+            --film "$verify_dir/preflight.mp4" \
+            --sheet "$verify_dir/preflight-contact-sheet.png" \
+            --report "$verify_dir/preflight.json" \
+            --state "$verify_dir/run_state.json"
+          python3 scripts/preflight_animatic.py \
+            --board examples/board.json \
+            --film "$verify_dir/preflight.mp4" \
+            --verify-report "$verify_dir/preflight.json"
 
       - name: Two of a thing are two things
         run: |

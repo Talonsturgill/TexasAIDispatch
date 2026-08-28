@@ -703,12 +703,17 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     for f in ("board", "claims", "script", "captions", "audio", "report"):
         ap.add_argument(f"--{f}")
+    ap.add_argument("--pre-panel", action="store_true",
+                    help="run product hard fails before scoring; final delivery still requires report")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
-    if not a.board:
-        print("ship_gate: pass --board (and the rest), or --self-test", file=sys.stderr)
+    required = ("board", "claims", "script", "captions", "audio") + (() if a.pre_panel else ("report",))
+    missing = [name for name in required if not getattr(a, name)]
+    if missing:
+        print("ship_gate: missing required input(s): " + ", ".join(
+            f"--{name}" for name in missing), file=sys.stderr)
         return 2
     try:
         board = load(a.board, {})
@@ -716,7 +721,7 @@ def main() -> int:
         script = load(a.script, "")
         captions = load(a.captions, {})
         audio = load(a.audio, {})
-        report = load(a.report, None) if a.report else None
+        report = None if a.pre_panel else load(a.report, None)
         county_map = json.loads(COUNTY_MAP.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         print(f"ship_gate: cannot read inputs: {exc}", file=sys.stderr)

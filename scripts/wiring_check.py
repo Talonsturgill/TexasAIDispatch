@@ -53,9 +53,6 @@ STANDALONE = {
     # is the opposite of what it exists for. Its answer lives in prompts/dispatch_routine.md
     # and in out/dispatch/render_bench.json.
     "render_bench.py": "a container-level benchmark, run when the machine changes",
-    # Sourced as a shell library by finish_render.sh rather than invoked on inputs. Its
-    # --self-test is the thing that proves it, and there is no product for it to read.
-    "waitfor.sh": "a shell library, sourced rather than run, proven by its own self-test",
 }
 
 

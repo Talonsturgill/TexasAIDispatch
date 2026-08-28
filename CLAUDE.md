@@ -29,7 +29,7 @@ Git identity is `Talon Sturgill <Talon.sturgill@gmail.com>`. The container defau
 
 ## Delivery and merge policy (AUTHORITATIVE — overrides any draft-PR default)
 
-Runs SHIP AUTONOMOUSLY. When a run's gates pass, the run branch is merged to `main` **without a
+Runs SHIP AUTONOMOUSLY only from controller state `publishable`. When a run's gates pass, the run branch is merged to `main` **without a
 human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
 **MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
 before the email. The email is the only human touchpoint and it gates the POST, not the merge.
@@ -44,25 +44,36 @@ Three things still stop and ask, in any session:
 - anything that SENDS rather than drafts (these routines never send)
 - deleting or overwriting shipped run artifacts under `runs/`
 
-## THE ONE OUTCOME LAW
+## THE BOUNDED RUN CONTRACT
 
-**A run has exactly one terminal state: a delivered video.** Not a failed run, not a partial run,
-not a handoff, not a banked run, not a clean stop, not a resumable state.
+A Dispatch run has exactly two terminal states: `publishable` or `needs_review`.
 
-This is inherited from the sibling, where the rule had to be written four times because each
-closure was specific and the next run invented a new sentence the old closure did not literally
-name. The hatches that have actually been used, and are now dead:
+- `publishable` requires a hash-bound final report at or above the rubric with no hard fail.
+- `needs_review` preserves a playable video and the complete package when a gate, budget,
+  credential, or final panel prevents unattended publication. It never writes the feed or merges
+  into the shipped-run path.
 
-| the sentence a run used | why it is dead |
-|---|---|
-| "no story clears the bar, so I ship nothing" | There is always news. The story gate plus a ladder of fallbacks. |
-| "the remaining defects are cosmetic, shipping below bar with disclosure" | The ship gate is hash-bound with no override flag. |
-| "I can't reach the bar, so I report a failed run" | A failing panel is an instruction to re-enter the loop. |
-| "I ran out of runway, so I banked the work and queued the story" | Context is not a budget. Nothing measures one. |
+`scripts/run_controller.py` owns every expensive allowance in `config/run_limits.json`: three
+researchers and one validator, four corrective reboards, six cheap animatics, four external
+audio-model calls, five normal full renders, and five three-judge panels. A reservation happens
+before spend. A new shell, folder, or batch cannot reset the run ledger.
 
-**Your own context is not a legitimate cause and never will be.** The harness summarises and the
-run continues. A run that is genuinely blocked reports an error; a run that is rationalising
-writes an essay about integrity.
+Rounds one through four may each produce one batched corrective pass. Reserving round five locks
+`hard_fail_cleanup`: no sixth panel or sixteenth scorer call can be disguised in a new shell.
+After that, only hard fails and deterministic no-panel repairs continue, with one cleanup render.
+If normal rendering was exhausted without an artifact, one controller-owned rescue render exists.
+
+**A cost boundary may stop iteration; it may not erase the day's product.** Budget exhaustion is
+non-terminal completion mode. `render_dispatch.sh` registers the exact MP4, board, and manifest,
+and `needs_review` is refused until `package_review_run.sh` copies them into tracked
+`runs/review/<date>-<slug>/`. `out/` is gitignored and does not count. A run that cannot publish
+still commits a playable review video on its branch; it never silently ends with no film. Each
+registration snapshots an immutable last-good trio. If no full render survives,
+`rescue_video.py` upscales the hash-bound animatic or creates timed storyboard cards, supplies an
+audio stream, and registers that MP4 as review-only. A panel score cannot promote that rescue.
+
+An explicit owner override is recorded by the controller for a human owner only. The unattended
+routine never invokes or recommends it.
 
 ## The two laws of drawing Texas
 
@@ -115,9 +126,10 @@ frames in Python, it is wrong.
 ## Voice
 
 **Gemini TTS**, owner's decision. `gemini-3.1-flash-tts-preview` primary,
-`gemini-2.5-pro-preview-tts` as the failover on repeated 500s. The whole passage is synthesised
-in ONE call for natural sentence-to-sentence flow, N takes are rendered, and a soundcheck keeps
-the best: word accuracy, no spoken-tag leak, pitch variance, duration, loudness.
+`gemini-2.5-pro-preview-tts` as the failover on repeated 500s. Each take synthesises the whole
+passage for natural sentence-to-sentence flow and spends a second call on verbatim soundcheck.
+The run-wide controller permits four external audio-model calls total across every retry and
+batch, so the normal path is two takes and a fifth call is mechanically refused.
 
 **Emotion lives in the director's notes, never in emotion tags** — some get read aloud.
 
@@ -181,7 +193,9 @@ history and Alaska's would poison them.
 - `scripts/` — the gates and the build steps. Run them by EXIT CODE, never by last line.
 - `video-engine/` — the Remotion project. `src/lib/` is the reusable cast and juice.
 - `assets/` — fonts, voice reference, committed art data.
-- `out/` — per-run scratch (gitignored). `runs/` — shipped artifacts.
+- `out/` — per-run scratch (gitignored). `runs/<date>/` — shipped artifacts.
+  `runs/review/<date>-<slug>/` — durable playable videos awaiting a human decision and never
+  added to the feed automatically.
 
 ## House rules that never bend
 

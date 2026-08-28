@@ -34,6 +34,10 @@
       "id": "s1",
       "start_s": 0,
       "duration_s": 5,
+      "visual_family": "pivot-under-span",
+      "payload_mode": "picture",
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 0.8,
       "region": "high_plains",
       "county": "Hale",
       "camera_strategy": "truckAcross",
@@ -143,6 +147,8 @@
       "id": "s2",
       "start_s": 5,
       "duration_s": 5,
+      "visual_family": "prescription-map",
+      "payload_mode": "mixed",
       "region": "high_plains",
       "county": "Hale",
       "camera_strategy": "riseWith",
@@ -154,11 +160,6 @@
       "seed": 34,
       "groundY": 1120,
       "planes": [
-        {
-          "z": 880,
-          "label": "sky",
-          "items": []
-        },
         {
           "z": 500,
           "label": "far ridge",
@@ -251,6 +252,8 @@
       "id": "s3",
       "start_s": 10,
       "duration_s": 5,
+      "visual_family": "soil-section",
+      "payload_mode": "picture",
       "region": "high_plains",
       "county": "Hale",
       "camera_strategy": "craneDown",
@@ -262,11 +265,6 @@
       "seed": 47,
       "groundY": 900,
       "planes": [
-        {
-          "z": 700,
-          "label": "sky",
-          "items": []
-        },
         {
           "z": 420,
           "label": "far ridge",
@@ -338,6 +336,8 @@
       "id": "s4",
       "start_s": 15,
       "duration_s": 5,
+      "visual_family": "farmer-portrait",
+      "payload_mode": "picture",
       "region": "high_plains",
       "county": "Castro",
       "camera_strategy": "orbitReveal",
@@ -429,6 +429,8 @@
       "id": "s5",
       "start_s": 20,
       "duration_s": 5,
+      "visual_family": "feedyard-alley",
+      "payload_mode": "picture",
       "region": "high_plains",
       "county": "Castro",
       "camera_strategy": "dollyThrough",
@@ -440,11 +442,6 @@
       "seed": 63,
       "groundY": 1240,
       "planes": [
-        {
-          "z": 860,
-          "label": "sky",
-          "items": []
-        },
         {
           "z": 560,
           "label": "far ridge",
@@ -504,6 +501,8 @@
       "id": "s6",
       "start_s": 25,
       "duration_s": 5,
+      "visual_family": "cattle-tag",
+      "payload_mode": "mixed",
       "region": "high_plains",
       "county": "Castro",
       "camera_strategy": "truckAcross",
@@ -515,11 +514,6 @@
       "seed": 71,
       "groundY": 1300,
       "planes": [
-        {
-          "z": 780,
-          "label": "sky",
-          "items": []
-        },
         {
           "z": 480,
           "label": "far ridge",
@@ -538,7 +532,14 @@
         {
           "z": 240,
           "label": "mid",
-          "items": []
+          "items": [
+            {
+              "kind": "pickup",
+              "x": 820,
+              "y": 1390,
+              "scale": 0.48
+            }
+          ]
         },
         {
           "z": 110,
@@ -584,6 +585,8 @@
       "id": "s7",
       "start_s": 30,
       "duration_s": 5,
+      "visual_family": "electric-load",
+      "payload_mode": "mixed",
       "region": "rolling_plains",
       "county": "Taylor",
       "camera_strategy": "craneDown",
@@ -595,11 +598,6 @@
       "seed": 82,
       "groundY": 1160,
       "planes": [
-        {
-          "z": 900,
-          "label": "sky",
-          "items": []
-        },
         {
           "z": 600,
           "label": "far ridge",
@@ -662,6 +660,8 @@
       "id": "s8",
       "start_s": 35,
       "duration_s": 5,
+      "visual_family": "aerial-circle",
+      "payload_mode": "picture",
       "region": "high_plains",
       "county": "Hale",
       "camera_strategy": "riseWith",

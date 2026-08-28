@@ -35,7 +35,8 @@ convention rather than by test drift apart on the day nobody is looking.
 
     vo_synth_gemini.py --script out/dispatch/vo_script.txt \\
                        --direction out/dispatch/vo_direction.json \\
-                       --out out/dispatch/takes --takes 3
+                       --out out/dispatch/takes --takes 2 \\
+                       --run-state out/dispatch/run_state.json
     vo_synth_gemini.py --self-test
 
 Exit 0 takes were rendered, 1 a refusal or a failure, 2 the tool could not run,
@@ -303,7 +304,54 @@ def call_api(url: str, payload: dict, key: str, timeout: int = 180) -> dict:
     return r.json()
 
 
-def synth_one(prompt: str, voice: str, key: str, model: str) -> tuple[np.ndarray, int]:
+class CallBudgetExhausted(RuntimeError):
+    """The shared run ledger refused an external audio-model call."""
+
+
+def response_tokens(js: dict) -> int:
+    """Return provider-reported usage when the endpoint supplies it."""
+    usage = js.get("usageMetadata") or {}
+    value = usage.get("totalTokenCount")
+    if value is None:
+        value = sum(int(usage.get(k) or 0) for k in (
+            "promptTokenCount", "candidatesTokenCount", "thoughtsTokenCount"))
+    try:
+        return max(0, int(value or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
+def reserve_tts_call(state_path: Path, note: str) -> None:
+    sys.path.insert(0, str(REPO / "scripts"))
+    from run_controller import reserve
+
+    accepted, message = reserve(state_path, {"tts_calls": 1}, note)
+    if not accepted:
+        raise CallBudgetExhausted(message)
+
+
+def budgeted_api(url: str, payload: dict, key: str, state_path: Path, note: str) -> dict:
+    """Reserve before the network, then record observed time and tokens afterward."""
+    sys.path.insert(0, str(REPO / "scripts"))
+    from run_controller import record_telemetry
+
+    reserve_tts_call(state_path, note)
+    started = time.monotonic()
+    js: dict | None = None
+    try:
+        js = call_api(url, payload, key)
+        return js
+    finally:
+        elapsed_ms = int(round((time.monotonic() - started) * 1000))
+        tokens = response_tokens(js) if js is not None else 0
+        accepted, message = record_telemetry(
+            state_path, "tts_calls", elapsed_ms, tokens, note)
+        if not accepted and sys.exc_info()[0] is None:
+            raise CallBudgetExhausted(message)
+
+
+def synth_one(prompt: str, voice: str, key: str, model: str,
+              state_path: Path) -> tuple[np.ndarray, int]:
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -311,7 +359,8 @@ def synth_one(prompt: str, voice: str, key: str, model: str) -> tuple[np.ndarray
             "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}},
         },
     }
-    js = call_api(ENDPOINT.format(model=model), payload, key)
+    js = budgeted_api(ENDPOINT.format(model=model), payload, key, state_path,
+                      f"voice synthesis with {model}")
     try:
         part = js["candidates"][0]["content"]["parts"][0]["inlineData"]
     except (KeyError, IndexError) as exc:
@@ -319,7 +368,7 @@ def synth_one(prompt: str, voice: str, key: str, model: str) -> tuple[np.ndarray
     return parse_pcm(base64.b64decode(part["data"]), part.get("mimeType", ""))
 
 
-def transcribe(x: np.ndarray, rate: int, key: str) -> str:
+def transcribe(x: np.ndarray, rate: int, key: str, state_path: Path) -> str:
     """Verbatim transcript, so word accuracy can be measured against the script.
 
     Uses the same credential and no extra dependency. Asked for verbatim explicitly,
@@ -340,14 +389,16 @@ def transcribe(x: np.ndarray, rate: int, key: str) -> str:
         {"inlineData": {"mimeType": "audio/wav",
                         "data": base64.b64encode(buf.getvalue()).decode()}},
     ]}]}
-    js = call_api(ENDPOINT.format(model=MODEL_TRANSCRIBE), payload, key)
+    js = budgeted_api(ENDPOINT.format(model=MODEL_TRANSCRIBE), payload, key, state_path,
+                      f"verbatim soundcheck with {MODEL_TRANSCRIBE}")
     try:
         return js["candidates"][0]["content"]["parts"][0]["text"].strip()
     except (KeyError, IndexError):
         return ""
 
 
-def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str) -> int:
+def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str,
+        state_path: Path | None = None) -> int:
     prompt, refusals = build_prompt(script, plan)
     if refusals:
         print("vo_synth: REFUSED before spending a call\n", file=sys.stderr)
@@ -363,7 +414,9 @@ def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str) -> int
         tid = f"take{i + 1}"
         for attempt in range(3):
             try:
-                x, rate = synth_one(prompt, voice, key, model)
+                if state_path is None:
+                    raise ValueError("a run state is required before an external call")
+                x, rate = synth_one(prompt, voice, key, model, state_path)
                 # THE ENGINE RATE IS 48 kHz AND THIS IS WHERE THE TAKE JOINS IT.
                 #
                 # This file's own header says "vo_synth_gemini resamples Gemini's 24k to
@@ -378,14 +431,21 @@ def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str) -> int
                 # sound at a rate other than the voice's and named a 48 kHz foley wav as the
                 # odd one out. The mixer was right and it was pointing at the wrong file.
                 x, rate = _to_48k(x, rate), 48000
+                transcript = transcribe(x, rate, key, state_path)
                 wav = out / f"{tid}.wav"
                 write_wav(wav, x, rate)
                 t = {"id": tid, "model": model, "voice": voice, "wav": str(wav), **measure(x, rate)}
-                t["transcript"] = transcribe(x, rate, key)
+                t["transcript"] = transcript
                 takes.append(t)
                 print(f"  {tid}  {t['duration_s']:.1f}s  {t['lufs']:.1f} LUFS  "
                       f"spread {t['pitch_variance_semitones']:.2f} st  ({model})")
                 break
+            except CallBudgetExhausted as exc:
+                print(f"  {tid}: {exc}", file=sys.stderr)
+                print("vo_synth: the run-wide call budget closed further voice attempts. Use "
+                      "the best completed take and finish a playable video; starting a new "
+                      "takes directory cannot reset it.", file=sys.stderr)
+                return 1
             except Exception as exc:                                    # noqa: BLE001
                 fails += 1
                 print(f"  {tid} attempt {attempt + 1}: {exc}", file=sys.stderr)
@@ -517,6 +577,22 @@ def self_test() -> int:
         ok("...and leaves no takes.json for a later step to misread as success",
            not (out / "takes.json").exists())
 
+    # The quota belongs to the run, not to a CLI batch or output directory.
+    with tempfile.TemporaryDirectory() as td:
+        sys.path.insert(0, str(REPO / "scripts"))
+        from run_controller import initialise
+        state = Path(td) / "run_state.json"
+        initialise(state, "voice-budget-test", "dry-run")
+        for i in range(4):
+            reserve_tts_call(state, f"batch {i + 1}")
+        try:
+            reserve_tts_call(state, "a fifth call in a new batch")
+            fifth_refused = False
+        except CallBudgetExhausted:
+            fifth_refused = True
+        ok("a fifth call is refused even when earlier calls claimed separate batches",
+           fifth_refused)
+
     # ---- a missing credential is BLOCKED, which is not a failure and not a silent film
     #
     # This used to read `ok(..., blocked_code() == 3)`, comparing a function to the
@@ -558,53 +634,51 @@ def blocked_code() -> int:
     return 3
 
 
-# THE DAILY QUOTA IS A SHARED, EXHAUSTIBLE RESOURCE, and a run that burns it does not just
-# fail itself: it fails every later run today, including the one that ships. This machine
-# synthesised fifteen takes on 2026-08-19 across five batches, chasing a read whose captions
-# broke well, and the owner had to say stop.
-#
-# A batch is capped here rather than left to judgement, because judgement is what spent them.
-# `--takes` above the cap is refused with the count already on disk, so the decision to spend
-# more is deliberate and visible instead of incidental.
-MAX_TAKES_PER_BATCH = 4
-
-
-def takes_already_on_disk(out_root: Path) -> int:
-    """Every take this run has rendered, across every batch directory."""
-    parent = out_root.parent if out_root.name else out_root
-    return sum(1 for d in parent.glob("takes*") if d.is_dir()
-               for _ in d.glob("*.wav"))
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--script", help="the locked VO script")
     ap.add_argument("--direction", help="vo_direction.json from the vo-director agent")
     ap.add_argument("--out", default="out/dispatch/takes")
-    ap.add_argument("--takes", type=int, default=3)
+    ap.add_argument("--takes", type=int, default=2)
+    ap.add_argument("--run-state", default="out/dispatch/run_state.json",
+                    help="shared run ledger; synthesis and transcription both debit it")
     ap.add_argument("--voice", default=None, help="overrides config/voices.yaml")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
 
-    if not a.self_test and a.takes > MAX_TAKES_PER_BATCH:
-        spent = takes_already_on_disk(Path(a.out))
-        print(f"vo_synth: --takes {a.takes} is over the {MAX_TAKES_PER_BATCH} per batch cap, "
-              f"and this run has already rendered {spent} take(s). The daily quota is shared "
-              f"with every later run today, including the one that ships. Run smaller batches "
-              f"on purpose, or raise MAX_TAKES_PER_BATCH with a reason.", file=sys.stderr)
-        return 2
     if a.self_test:
         return self_test()
     if not a.script:
         print("vo_synth: pass --script, or --self-test", file=sys.stderr)
+        return 2
+    if a.takes < 1:
+        print("vo_synth: --takes must be positive", file=sys.stderr)
         return 2
 
     key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not key:
         print("vo_synth: BLOCKED. GEMINI_API_KEY is not set, so no take can be rendered.\n"
               "Everything else in this run still works. Report the voice step as blocked and "
-              "do NOT ship a silent film.", file=sys.stderr)
+              "do NOT ship a silent film. If no prior take exists, use fallback_audio.py to "
+              "produce an explicitly review-only visual MP4 instead of ending empty.",
+              file=sys.stderr)
         return blocked_code()
+
+    state_path = Path(a.run_state)
+    try:
+        sys.path.insert(0, str(REPO / "scripts"))
+        from run_controller import read_state
+        state = read_state(state_path)
+        remaining = int(state["limits"]["tts_calls"]) - int(state["usage"]["tts_calls"])
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        print(f"vo_synth: cannot read the shared run state {state_path}: {exc}", file=sys.stderr)
+        return 2
+    minimum_calls = a.takes * 2
+    if minimum_calls > remaining:
+        print(f"vo_synth: {a.takes} take(s) require at least {minimum_calls} external calls "
+              f"(synthesis plus verbatim soundcheck), but this run has {remaining} left. "
+              "Choose fewer takes before spending anything.", file=sys.stderr)
+        return 1
 
     try:
         script = Path(a.script).read_text(encoding="utf-8")
@@ -623,7 +697,7 @@ def main() -> int:
             print(f"vo_synth: no voice: {exc}. Set one in {cfg} or pass --voice.", file=sys.stderr)
             return 2
 
-    return run(script, plan, Path(a.out), a.takes, voice, key)
+    return run(script, plan, Path(a.out), a.takes, voice, key, state_path)
 
 
 if __name__ == "__main__":

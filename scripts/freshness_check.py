@@ -180,13 +180,17 @@ def main() -> int:
     if not a.film:
         print("freshness_check: pass --film and --inputs, or --self-test", file=sys.stderr)
         return 2
-    errs = check(Path(a.film), [Path(x) for x in a.inputs])
+    explicit = [Path(x) for x in a.inputs]
+    engine = engine_inputs(Path(a.engine))
+    started = Path(a.started) if a.started else None
+    errs = check(Path(a.film), explicit + engine, started)
     if errs:
         print("freshness: the film is STALE\n", file=sys.stderr)
         for e in errs:
             print(f"  - {e}", file=sys.stderr)
         return 1
-    print(f"freshness: {a.film} is newer than all {len(a.inputs)} of its inputs.")
+    print(f"freshness: {a.film} is downstream of all {len(explicit) + len(engine)} data and "
+          "engine inputs.")
     return 0
 
 

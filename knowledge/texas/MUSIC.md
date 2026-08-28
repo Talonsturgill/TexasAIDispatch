@@ -162,8 +162,13 @@ fields, so the credit generator treats it identically.
 ```
 python3 scripts/music.py --list                  # what is vetted
 python3 scripts/music.py --credits <track_id>    # the exact credit block
-# put that block in the board's `credits` field, pass the file to mix.py --bed
-python3 scripts/music.py --verify-film out/dispatch/credits.txt --track <track_id>
+python3 scripts/prepare_music.py --track <track_id> --out out/dispatch/music_bed.wav \
+  --manifest out/dispatch/music_bed.json
+# Put the generated block in the board's `credits` field. mix.py receives the prepared WAV,
+# registry id, manifest, and approved gap; delivery verifies all of them as one package.
+python3 scripts/music.py --verify-package out/dispatch/credits.txt \
+  --mix out/dispatch/mix.json --board out/dispatch/storyboard.json \
+  --master out/dispatch/mix.wav
 ```
 
 The credit renders as an end card, generated from the registry. It wraps and never breaks a URL
