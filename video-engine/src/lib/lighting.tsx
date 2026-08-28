@@ -353,8 +353,17 @@ export const ContactShadow: React.FC<{
   const offX = -L.dir.x * rx * 0.5;
   // Clear air tightens the penumbra and deepens the umbra. The caller's numbers are
   // the soft, pale end; nothing gets softer or paler than what a component asked for.
-  const b = blur * (1 - 0.72 * c);
-  const op = Math.min(0.62, opacity * (0.85 + 0.9 * c));
+  // TUNED 2026-08-28, second pass, because the first one did not reach the frame. Making
+  // the response LINEAR in clarity left High Plains in the middle of the range: a call at
+  // blur 10 came out at 5.8, which is still a smudge, and a judge looking at the rendered
+  // film reported no cast shadow anywhere for the second round running. The relationship
+  // was right and the curve was too gentle to be visible, which is its own lesson: a fix
+  // is not landed until somebody sees it in the picture.
+  //
+  // The falloff is now steep at the dry end, so a Permian noon puts down a nearly hard
+  // edge, the Trans-Pecos a harder one, and the Gulf keeps the soft pool it should have.
+  const b = blur * (0.10 + 0.90 * Math.pow(1 - c, 1.6));
+  const op = Math.min(0.66, opacity * (0.9 + 1.3 * c));
   return (
     <g>
       <filter id={id} x="-40%" y="-40%" width="180%" height="180%">

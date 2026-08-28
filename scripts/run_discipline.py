@@ -39,20 +39,54 @@ REPO = Path(__file__).resolve().parent.parent
 LIMITS = REPO / "config" / "run_limits.json"
 
 
-def resource_limit(name: str) -> int:
+def resource_limit(name: str, *, block: str = "resources") -> int:
     raw = json.loads(LIMITS.read_text(encoding="utf-8"))
-    value = (raw.get("resources") or {}).get(name)
+    value = (raw.get(block) or {}).get(name)
     if not isinstance(value, int) or value < 1:
-        raise ValueError(f"{LIMITS} has no positive limit for {name}")
+        raise ValueError(f"{LIMITS} has no positive {block} entry for {name}")
     return value
 
 
-RENDER_BUDGET = (
+def resource_ceiling(name: str) -> int:
+    """The HARD STOP for a resource, which is not the same number as the target.
+
+    THIS CHECKER WAS ENFORCING THE TARGET AS A CAP, and on 2026-08-28 that blocked a
+    delivery the rest of the machine had already passed.
+
+    `run_limits.json` carries two numbers per resource since the owner's decision that
+    an empty run is worse than an expensive one. `resources` is the SPEND TARGET, a goal
+    a run should try to stay inside. `escalation_ceiling` is the stop. Between them the
+    controller GRANTS the work and records a `budget_escalated` event.
+
+    Reading `resources` here made this file a second, stricter authority on a number the
+    controller had already granted past, so a run could hold a hash-bound passing panel
+    and a playable film and still be refused delivery by a lint rule for spend the
+    controller itself had authorised. That is the escalation cancelling itself again, in
+    a third file: `run_controller` locked hard-fail cleanup at the target for the same
+    reason, and `vo_synth`'s self-test asserted a fifth call was refused for the same
+    reason. **When a contract grows a second number, every reader of the first one is a
+    bug until proven otherwise.**
+
+    So the CAP is the ceiling and the target is still reported, because a run that went
+    past its goal should see that it did.
+    """
+    raw = json.loads(LIMITS.read_text(encoding="utf-8"))
+    ceiling = (raw.get("escalation_ceiling") or {}).get(name)
+    return ceiling if isinstance(ceiling, int) and ceiling >= 1 else resource_limit(name)
+
+
+RENDER_TARGET = (
     resource_limit("full_renders")
     + resource_limit("cleanup_renders")
     + resource_limit("rescue_renders")
 )
-ROUND_BUDGET = resource_limit("panel_rounds")
+RENDER_BUDGET = (
+    resource_ceiling("full_renders")
+    + resource_ceiling("cleanup_renders")
+    + resource_ceiling("rescue_renders")
+)
+ROUND_TARGET = resource_limit("panel_rounds")
+ROUND_BUDGET = resource_ceiling("panel_rounds")
 
 
 def _is_comment(line: str) -> bool:
@@ -387,9 +421,11 @@ def main() -> int:
     round_problems = check_panel_rounds(rounds)
     render_problems = check_full_renders(renders)
     print(f"  {'ok  ' if not round_problems else 'FAIL'}  panel round budget"
-          + (f" ({rounds}/{ROUND_BUDGET})" if rounds is not None else ""))
+          + (f" ({rounds}/{ROUND_TARGET} target, {ROUND_BUDGET} ceiling)"
+             if rounds is not None else ""))
     print(f"  {'ok  ' if not render_problems else 'FAIL'}  full render budget"
-          + (f" ({renders}/{RENDER_BUDGET})" if renders is not None else ""))
+          + (f" ({renders}/{RENDER_TARGET} target, {RENDER_BUDGET} ceiling)"
+             if renders is not None else ""))
     problems += round_problems + render_problems
 
     if problems:

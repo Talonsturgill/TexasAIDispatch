@@ -256,8 +256,40 @@ const capFit = (text?: string): {lines: string[]; size: number} => {
  *  readable as different things, and it gets three lines because it is narrower. */
 const KICK_W = 640;
 /** Measured, for the same reason `capFit` is. A character count was wrong here too. */
-const kickLines = (text?: string): string[] =>
-  text ? wrapToWidth(text, KICK_W, 29).slice(0, 3) : [];
+/** How many lines the kicker may hold before it is shrunk rather than cut. */
+const KICK_MAX_LINES = 5;
+
+/**
+ * THE KICKER WRAPPED AND THEN SILENTLY THREW THE REST AWAY.
+ *
+ * This was `.slice(0, 3)`. A caption longer than three lines lost everything after the
+ * third, with no error, no overflow and nothing on screen to show that text was missing.
+ * On 2026-08-28 s8's caption read "45 producers answered the Dallas Fed's question on how
+ * much artificial intelligence would lower their" and stopped, so the clause carrying the
+ * meaning AND the entire collection-date provenance were cut. A judge caught it in the
+ * finished film.
+ *
+ * This file already warns about this defect TWICE, in `fitPx` and in the `CreditsCard`,
+ * and both warnings are about text running PAST the frame, which is at least visible. A
+ * silent truncation is the worse version: the frame looks composed and the sentence is
+ * simply gone, and a provenance line that renders as nothing is the same as a provenance
+ * line that was never written.
+ *
+ * So the kicker now shrinks to fit and only refuses to draw what is genuinely absurd. The
+ * band grows to `KICK_MAX_LINES` and the type steps down to keep the plate the same
+ * height, which is the same trade `fitPx` and `capFit` already make for the super and the
+ * subtitle. Nothing is dropped.
+ */
+const kickFit = (text?: string): {lines: string[]; size: number} => {
+  if (!text) return {lines: [], size: 29};
+  for (const size of [29, 27, 25, 23, 21]) {
+    const lines = wrapToWidth(text, KICK_W, size);
+    if (lines.length <= KICK_MAX_LINES) return {lines, size};
+  }
+  return {lines: wrapToWidth(text, KICK_W, 21).slice(0, KICK_MAX_LINES), size: 21};
+};
+
+const kickLines = (text?: string): string[] => kickFit(text).lines;
 
 /**
  * THE SUBTITLE TRACK. Film-global, driven by measured cues, and the only thing that
@@ -380,15 +412,25 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
                 "Per site large load metering is confidential, so the number stays i" off
                 the right edge, and a line that carries the fact loses the fact when it runs
                 off the frame. */}
-            <rect x={64} y={266} width={KICK_W + 28}
-              height={16 + kickLines(scene.caption).length * 38} rx={4} fill="#0d1220"
-              opacity={0.80} />
-            <rect x={64} y={266} width={4}
-              height={16 + kickLines(scene.caption).length * 38} fill="#c8703a" />
-            {kickLines(scene.caption).map((ln, i) => (
-              <text key={i} x={84} y={266 + 30 + i * 38}
-                fontSize={29} fill="#d9d2c4" fontFamily={FONT.body}>{ln}</text>
-            ))}
+            {(() => {
+              // ONE fit, used by the plate AND the text. Calling the wrapper separately for
+              // the height and for the lines is how a plate ends up sized for a different
+              // string than the one drawn on it.
+              const {lines, size} = kickFit(scene.caption);
+              const lead = size * 1.31;
+              const h = 16 + lines.length * lead;
+              return (
+                <>
+                  <rect x={64} y={266} width={KICK_W + 28} height={h} rx={4} fill="#0d1220"
+                    opacity={0.80} />
+                  <rect x={64} y={266} width={4} height={h} fill="#c8703a" />
+                  {lines.map((ln, i) => (
+                    <text key={i} x={84} y={266 + size + 1 + i * lead}
+                      fontSize={size} fill="#d9d2c4" fontFamily={FONT.body}>{ln}</text>
+                  ))}
+                </>
+              );
+            })()}
           </g>
         )}
       </svg>
