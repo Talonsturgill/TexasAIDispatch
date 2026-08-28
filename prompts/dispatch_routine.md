@@ -387,7 +387,25 @@ NUMERALS and that sentence had none.
 that is the reader: before synthesis, put the script and the claims file in front of the
 `validator` and ask, line by line, what each sentence asserts and which fetched quote
 carries it. That pass spends no voice and no render, which is the whole reason it belongs
-here rather than in the panel.
+here rather than in the panel. On 2026-08-28 it returned EIGHT blocking faults, three of
+which no judge had reached in four rounds, and every one was free to fix at that moment.
+
+**WHEN THAT AUDIT SAYS THE FILM ASSERTS MORE THAN ITS EVIDENCE, RE-FETCH BEFORE YOU
+REWRITE.** Two of those eight were not wording faults at all. The claim behind the film's
+opening image held only "A drawing of the Grim Reaper illustrates the risk that workers
+face around heavy equipment", which places the drawing nowhere, so the line, the metaphor
+and the placard's own rendered words all read as invented. The source sentence before the
+stored one says a gate surrounds the drilling floor with a sign reading Red Zone,
+Restricted Area. **A quote clipped too tight is indistinguishable downstream from a
+fabrication**, and it is worse than a missing claim, because a missing claim stops the run
+and a narrow one passes every check and then reads as a lie to the first person who looks
+hard. Widen the excerpt, stamp the claim with the date and the reason, and only rewrite
+the line if the source really does not carry it.
+
+**AND THE DIRECTION IS A SECOND COPY OF THE SCRIPT.** `vo_direction.json` holds a `text`
+per line and its intents quote their own lines back, so a built prompt carries the script
+twice. Change a line and the notes go stale, and the reader may speak either one. It did.
+`build_prompt` now refuses on disagreement, before the call, printing both.
 
 ```
 python3 scripts/run_controller.py consume --resource voice_directors --note "final VO plan"
