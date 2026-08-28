@@ -260,26 +260,42 @@ export const RigFloor: React.FC<Rig & {
           same strip bigger, which is exactly what round two reported. It is now a
           foreshortened quad receding from the near edge, with the tread plate
           distributed across it. */}
-      <path d={`M${-half},26 L${half},26 L${half * 0.52},-300 L${-half * 0.52},-300 Z`}
+      <path d={`M${-half},26 L${half},26 L${half * 0.52},-120 L${-half * 0.52},-120 Z`}
         fill={`url(#${uid}_s)`} stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-      <BrushedMetal x={-half * 0.52} y={-300} w={w * 0.52} h={326} opacity={0.16} />
+      <BrushedMetal x={-half * 0.52} y={-120} w={w * 0.52} h={146} opacity={0.16} />
       {/* non-slip tread, converging with the deck so the plane reads as receding */}
       {Array.from({length: Math.floor(w / 34)}, (_, i) => {
         const u = (i + 0.5) / Math.floor(w / 34);
         const nx = -half + u * w;
         const fx = -half * 0.52 + u * w * 0.52;
-        return <path key={i} d={`M${nx},22 L${fx},-296`} stroke={INK} strokeWidth={1.9}
+        return <path key={i} d={`M${nx},22 L${fx},-116`} stroke={INK} strokeWidth={1.9}
           opacity={0.26} />;
       })}
       {/* the far edge of the floor, so the square has a back to it */}
-      <path d={`M${-half * 0.52},-300 L${half * 0.52},-300`} stroke={INK} strokeWidth={4}
+      {/* THE FAR HANDRAIL, and it is what actually makes the plane read as horizontal.
+          Three rounds asked for this floor and the first two diagnoses both said DEPTH.
+          Depth was never the problem. A receding quad with a rail along its NEAR edge
+          only has no way to prove it is a floor rather than a wall, and deepening it to
+          300 units put its far edge 1.88 m ABOVE the top of the 1.12 m rail enclosing
+          it, which no horizontal surface can do. So the quad now stops just above the
+          rail line and a SECOND rail stands on its far edge. A plane between two rails
+          is a floor; a plane behind one rail is a ramp. */}
+      {Array.from({length: Math.max(2, Math.floor(w / 190))}, (_, i) => {
+        const n = Math.max(2, Math.floor(w / 190));
+        const px = -half * 0.52 + (i / (n - 1)) * w * 0.52;
+        return <path key={`fp${i}`} d={`M${px},-120 L${px},-178`} stroke={`url(#${uid}_r)`}
+          strokeWidth={5} strokeLinecap="round" />;
+      })}
+      <path d={`M${-half * 0.52},-178 L${half * 0.52},-176`} stroke={`url(#${uid}_r)`}
+        strokeWidth={6} strokeLinecap="round" fill="none" />
+      <path d={`M${-half * 0.52},-120 L${half * 0.52},-120`} stroke={INK} strokeWidth={4}
         opacity={0.75} />
 
       {/* rotary table, set into the deck behind the rail */}
-      <ellipse cx={-30} cy={-150} rx={66} ry={22} fill="#3f4750" stroke={INK} strokeWidth={4.5} />
-      <g transform={`rotate(${spin} -30 -150)`} opacity={0.9}>
-        <ellipse cx={-30} cy={-150} rx={42} ry={14} fill="#59636e" stroke={INK} strokeWidth={3} />
-        <path d="M-72,-150 L12,-150" stroke={INK} strokeWidth={3} />
+      <ellipse cx={-30} cy={-70} rx={66} ry={20} fill="#3f4750" stroke={INK} strokeWidth={4.5} />
+      <g transform={`rotate(${spin} -30 -70)`} opacity={0.9}>
+        <ellipse cx={-30} cy={-70} rx={42} ry={13} fill="#59636e" stroke={INK} strokeWidth={3} />
+        <path d="M-72,-70 L12,-70" stroke={INK} strokeWidth={3} />
       </g>
 
       {/* the handrail: posts, top rail, mid rail, and a kick plate */}
