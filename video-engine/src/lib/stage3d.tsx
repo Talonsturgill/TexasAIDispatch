@@ -240,10 +240,22 @@ export const Atmosphere: React.FC<{
         reads as a lighting mistake rather than as a div with a border.
 
         A far plane can be pushed arbitrarily deep, so the veil is oversized enough to survive
-        any plausible depth: at inset -150% it still covers frame down to a 0.25x scale, i.e.
-        z of about 4200 at the default perspective. It is a flat fill, so overdraw is free.
+        any plausible depth. It is a flat fill, so overdraw is free.
+
+        WIDENED 2026-08-28, and the thing that exposed it is worth writing down. At inset -150%
+        the veil is 4x the frame, so it covers down to a 0.25x plane scale, which is z of about
+        4200. That was "any plausible depth" only because nothing in the library was BIG. A
+        drilling rig is 44 m to the crown, and at true scale it does not fit a 1080x1920 frame
+        until the plane is around z 10000, which is a 0.12x scale and less than half the old
+        veil's reach. So the first honest attempt to stage the new `derrick` would have printed
+        exactly the hard-edged lighter panel this comment already warns about.
+
+        The bound is arithmetic rather than taste: a veil at inset -N% is (1 + 2N/100)x the
+        frame and covers down to a scale of 1/(1 + 2N/100). At -500% that is 11x the frame,
+        good to a 0.0909x scale, which is z of about 14000 at the default perspective. That
+        clears the tallest thing the library can now stage with room over it.
       */}
-      <div style={{position: 'absolute', inset: '-150%', background: skyTint, opacity: 0.34 * a, pointerEvents: 'none'}} />
+      <div style={{position: 'absolute', inset: '-500%', background: skyTint, opacity: 0.34 * a, pointerEvents: 'none'}} />
     </div>
   );
 };

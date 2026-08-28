@@ -10,6 +10,7 @@ import * as Compute from './compute';
 import * as Clinic from './clinic';
 import * as Water from './water';
 import * as Plant from './plantfloor';
+import * as Drill from './drilling';
 import * as Flora from './flora';
 import * as Skies from './skies';
 import * as Road from './roadside';
@@ -190,6 +191,15 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   conveyor: Plant.Conveyor,
   inspectionHead: Plant.InspectionHead,
   toolBay: Plant.ToolBay,
+
+  // the rig floor. APPLICATIONS.md ranks the oilfield first of the eight beats and
+  // the engine could draw a pumpjack, which is production, and nothing of drilling.
+  derrick: Drill.Derrick,
+  rigFloor: Drill.RigFloor,
+  redZoneSign: Drill.RedZoneSign,
+  ironRoughneck: Drill.IronRoughneck,
+  doghouse: Drill.Doghouse,
+  pipeRack: Drill.PipeRack,
 
   // -------------------------------------------------------------------------
   // THE NOSTALGIA LAYER. Everything above this line is a SUBJECT: a pumpjack
