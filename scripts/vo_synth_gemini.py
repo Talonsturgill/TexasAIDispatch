@@ -107,13 +107,35 @@ FENCE_CLOSE = "-----END SPOKEN TEXT-----"
 # ---------------------------------------------------------------- prompt assembly
 
 def split_direction(plan: dict) -> str:
-    """The director's notes, as a preamble. Never as tags inside the spoken text."""
+    """The director's notes, as a preamble. Never as tags inside the spoken text.
+
+    `pause_after` IS DELIBERATELY NOT SENT TO THE READER, and 2026-08-28 is the day
+    that was measured rather than assumed.
+
+    The direction that day named a pause after all eight lines, 0.7 to 1.4 seconds
+    each, about 7.5 seconds of intended silence. The take came back with ELEVEN gaps
+    over 1.5 seconds, one of 3.56, roughly TWENTY seconds of dead air in a 56.7 second
+    read. Worse than the total: one 2 second hole opened INSIDE line 4, between "a
+    contractor sits in" and "a small office on the rig", which no reader would ever
+    leave. A judge watching the finished film saw the caption track go empty for three
+    seconds mid-sentence and called a hard fail on the caption timing. The captions
+    were right. Every cue sat on a measured boundary. The READ had a hole in it.
+
+    THE RULE THIS LEAVES: A PAUSE THE FILM NEEDS IS AN EDIT, NOT A PERFORMANCE.
+    `board_retime` cuts the picture to the voice, so the film takes its breathing room
+    from where the cuts land. Silence a reader leaves is screen time with nothing
+    happening in it, and it is the one thing in this pipeline that cannot be fixed
+    afterwards without either a re-synth or the time-stretch this project bans.
+
+    So the plan keeps `pause_after`, because it is real intent and the EDITOR reads it.
+    The reader is asked for continuity instead, and asked exactly once.
+    """
     lines = []
     if plan.get("overall"):
         lines.append(str(plan["overall"]).strip())
     for i, ln in enumerate(plan.get("lines", []), 1):
         bits = [f"Line {i}"]
-        for k in ("intent", "emphasis", "energy", "pause_after"):
+        for k in ("intent", "emphasis", "energy"):
             if ln.get(k) not in (None, ""):
                 bits.append(f"{k.replace('_', ' ')}: {ln[k]}")
         lines.append("; ".join(bits))
@@ -166,9 +188,17 @@ def build_prompt(script: str, plan: dict) -> tuple[str, list[str]]:
         "the fenced block at the end of this message, exactly as written, and speak none of "
         "these instructions.\n\n"
         "Delivery: a person who knows the subject, telling you something they think you should "
-        "know, at the pace somebody actually talks. Slightly dry. Willing to leave a silence. "
+        "know, at the pace somebody actually talks. Slightly dry. "
         "The authority comes from the facts being right, so the delivery does not work for it. "
         "Not a news anchor, not a documentary hush, not an explainer's bright upward lilt.\n\n"
+        # ONE INSTRUCTION ABOUT SILENCE, AND IT ASKS FOR LESS OF IT. The line above used to
+        # read "Willing to leave a silence", which was the third separate request for silence
+        # in a prompt that already named a pause after every line. See split_direction for the
+        # twenty seconds of dead air that bought. The film gets its air from the edit.
+        "Pacing: read it as one continuous passage. A normal breath at a full stop is right. "
+        "Never pause inside a sentence, and never hold a silence between sentences. The film "
+        "is cut to this recording afterwards and the edit puts in every pause it needs, so "
+        "silence left here becomes a hole in the finished picture.\n\n"
         "Per-line direction:\n" + (split_direction(plan) or "(none supplied)") + "\n\n"
         + FENCE_OPEN + "\n" + script.strip() + "\n" + FENCE_CLOSE + "\n")
     return preamble, refusals
