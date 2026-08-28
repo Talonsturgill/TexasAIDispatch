@@ -70,7 +70,8 @@ synthesis rather than after it.
 | C | picture, engine: contact shadows vary with the region's air | **DONE** |
 | D | picture, board: every scene contains its declared hero; the derrick is in the rig scenes | **DONE** |
 | E | voice: re-synth, re-align, re-mix, re-cut | **DONE** |
-| F | render, panel round 5, deliver | IN PROGRESS |
+| F | render, panel round 5, deliver | **SUPERSEDED, see below** |
+| G | delivery gates, corrective render, panel round 6, deliver | IN PROGRESS |
 
 ## Budget at the start of this pass
 
@@ -142,3 +143,52 @@ Every framing fault in round 4 is downstream of this. It was worked around this 
 per-scene scale, because re-architecting the depth ceiling mid-run would have burned the
 renders that were the point. **The real fix is to move the Biome's backdrop planes back so
 z up to about 3000 is usable**, and it is a proposal, not a change made here.
+
+
+## Round 5 cleared the bar and could not be delivered
+
+| judge | score | ship |
+|---|---|---|
+| picture | 7.13 | yes |
+| place | 7.38 | yes |
+| story | 6.81 | no |
+| **mean** | **7.110** | over the bar, no hard fail from any judge |
+
+Round 4's caption hard fail is retired on evidence rather than assertion. The story judge
+checked all eighteen cue boundaries against `words.json` individually rather than trusting the
+`measured_boundary` label, and found eighteen of eighteen on a word flagged anchored.
+
+**Then `deliver_run.sh` found three red gates on the exact board that panel had just cleared**,
+and `finish --result publishable` had already been called, so the controller correctly refused
+the render that would have fixed them. The run was reopened with a scar.
+
+That ordering fault is now the routine's own rule and a GATE_LESSONS entry: **a passing panel is
+not permission to close.** Three judges read the film, the board, the claims and the frames.
+They never open `board_scale_check`'s debt ledger or run `flow_check`, so their verdict is not
+evidence about either. The gates are the cheap half and they run first now.
+
+## Corrected in the round 6 render
+
+- The kicker caption **silently discarded** everything past three lines, cutting s8's meaning
+  clause and its whole collection-date provenance. It shrinks to fit now, and the plate and the
+  text are sized from ONE fit rather than two calls.
+- The pumpjack's crank floated disconnected because the component's comment claimed a pitman arm
+  it never drew. Isolated by re-rendering with the vegetation plane off, which killed every
+  filter theory. The rod is drawn now.
+- Contact shadows, second tuning. The first was linear in clarity and left High Plains
+  mid-range, so a judge reported no shadow for the second round running.
+- `run_discipline` was enforcing the spend target as a cap. Third file with that bug.
+- The derrick is recorded as measured DEBT with the arithmetic that makes it unavoidable.
+
+## Shipping with these known, priced and unfixed
+
+Stated plainly so the next run starts from them rather than rediscovering them:
+
+1. **No fence in either scene the narration calls "past the fence."** No component exists and
+   building one unreviewed at the end of a passing run was the worse risk. Top item for tomorrow.
+2. **Line 8 drops c17's five-year horizon** and **c6's injury statistic is narrated unattributed**
+   though it is an Exxon executive's, in a film about Exxon. Both need a re-synth and the
+   external audio calls are spent at their ceiling.
+3. **s9 is the weakest frame in the film** and the longest scene in it.
+4. **Place has been the weakest axis four rounds running**, and the root cause has not moved: the
+   per-region light TEXAS_VERNACULAR says it never delivered.
