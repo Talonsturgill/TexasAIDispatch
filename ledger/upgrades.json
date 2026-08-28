@@ -159,6 +159,67 @@
     }
    ],
    "what_the_panel_could_not_be_talked_out_of": "Script line 4 says the contractor at the screen is the person who did that work on the floor. Claim c2's fetched quote supports only that a contractor sits in an office operating robotic machinery. Nothing says that person previously worked the floor. It is the same class of inference as the Exxon/Helmerich and Payne fusion the validator killed on the same story, it was inherited from this run's own story.md, and it survived three rounds because it reads as obviously true. Fixing it needs a re-synth and the four audio-model calls were spent."
+  },
+  {
+   "date": "2026-08-28",
+   "run": "the Midland red zone Dispatch, round 5 corrective pass after the owner refused the needs_review outcome",
+   "trigger": "Owner, verbatim: an empty run is worse than an expensive one, the definition of done is a delivered video, and there should be a layer that checks what the voice is about to say BEFORE the synthesis rather than after the film. Panel round 4 then returned picture 6.60, place 6.97 and story 6.04 with a caption hard fail, so the run had both a mandate and a specific list.",
+   "what_the_pass_established": [
+    "THE CAPTION HARD FAIL WAS NOT THE CAPTIONS. Every cue carried source measured_boundary with both edges true. The three second hole a judge saw mid sentence was in the AUDIO, measured at -55 dB from 22.6 s to 25.4 s in mix_vo.wav. The take carried eleven pauses over 1.5 s, one of 3.56 s, about twenty seconds of dead air in a 56.7 second read. A judge reading a symptom correctly can still name the wrong organ, and the way to tell is to measure the artifact rather than argue.",
+    "THE VALIDATOR MOVED IN FRONT OF THE SYNTHESIS AND IMMEDIATELY PAID FOR ITSELF. Eight blocking faults on the rewritten script, three of which four rounds of panel had not reached, all free to fix at that point. This is the owner's question answered with a measurement.",
+    "TWO OF THOSE EIGHT WERE NOT WORDING FAULTS. The stored excerpts were too narrow to carry what the film said, and a re-fetch settled both in the film's favour. The gate the run was about to fail was a description of the record, not of the world."
+   ],
+   "engine_fixes": [
+    {
+     "name": "lighting.ContactShadow varies with the region's air",
+     "fault": "Two judges on the same round said the Midland noon frames had no cast shadow anywhere and every object floated. The shadow was drawn at every call site, identically in every region, because blur and opacity were constants a component author picked by eye. A Permian noon and a Galveston haze put down the same weak grey smudge.",
+     "fix": "shadeDrop drives both. The relationship was already written down in the LIGHTS table eighty lines above and was connected to nothing. A caller's numbers are read as the humid, soft end of a range rather than as the answer, so no call site changed and every region separates."
+    },
+    {
+     "name": "the rig scenes now contain the rig",
+     "fault": "s2, s3, s4 and s6 all stand ON a drilling rig and not one of them showed the derrick, so each spent its top 45 percent on empty grey sky. Four scenes, one fault, and it is a PLACE fault before it is a composition one.",
+     "fix": "a mast plane in each, which also fixed the emptiness that three judges had described four different ways"
+    },
+    {
+     "name": "every scene contains its declared hero",
+     "fault": "s4's hero was the lit window and the render showed roof and sky, because a near deck 1080 units wide stood in front of the cabin and riseWith then lifted what was left off the bottom of frame. s8 declared its walking beam and horse head both inside the frame and delivered neither. s9 was 70 percent empty sky behind a mesquite planted across the horizon it exists to open onto.",
+     "fix": "per scene reframing, checked on free `remotion still` renders rather than on metered ones"
+    }
+   ],
+   "tooling_fixes": [
+    {
+     "name": "vo_synth build_prompt refuses when the direction disagrees with the script",
+     "fault": "vo_direction.json holds a text per line and its intents quote their own lines back, so a prompt carries the script twice. Line 7 was changed to Their own people and the notes kept saying Their own crews. The model spoke the stale copy and a TTS call was spent on the one word the evidence forbids.",
+     "fix": "refuse on disagreement, printing both, before the call. This is CLAUDE.md's founding defect applied to a LINE rather than to a number."
+    },
+    {
+     "name": "the evidence gate is exercised in the self-test",
+     "fault": "every assertion passed evidence_dir=None, so the whole branch was dead code under --self-test. It shipped with subprocess never imported and with a reference to an argparse namespace that exists only inside main(). Green twice.",
+     "fix": "the directory is passed in rather than read off a module global, and the gate runs against a real board in the suite"
+    },
+    {
+     "name": "vo_align looks ahead at what declining a boundary costs",
+     "fault": "a cue sat at 77 characters and 4.7 seconds, inside every ceiling, declined a measured boundary for ending on the word are, and the next boundary was seven seconds later. The card came out at 182 characters held for 11.7 seconds against an 88 character ceiling. The cue was never too long at any point where it could have been stopped.",
+     "fix": "both break rules consult the next measured boundary. Longest card 182 to 124, nothing held over 7 seconds, every edge still measured off the waveform."
+    },
+    {
+     "name": "hard-fail cleanup locks at the ceiling, not at the target",
+     "fault": "the controller locked when usage equalled limits, and escalation raises limits to exactly the usage it grants, so the first round past the target would have locked cleanup and ended iteration while the ledger advertised a ceiling of nine the run could never reach. The escalation cancelled itself in one comparison.",
+     "fix": "lock at the ceiling; CLAUDE.md's stale round-five prose corrected with it; four self-test assertions that were grading a correct machine as broken rewritten to prove both halves"
+    }
+   ],
+   "proposals_not_taken": [
+    {
+     "what": "move the Biome's filled backdrop planes back so z up to about 3000 is usable",
+     "why": "PERSPECTIVE 1400 with M = 610/1.7 puts 1080 draw units across roughly 3.0 m at z=0, and the backdrop planes make anything past z of about 880 invisible, capping the reduction at about 0.61. So an 8.4 m drill floor, a 10 m pumpjack and a 44 m derrick CANNOT be framed whole at true scale, and the library's answer has quietly been to author far objects at sub-true scale, which is the one thing scale.ts exists to forbid. EVERY framing fault round 4 reported is downstream of this.",
+     "why_not_now": "re-architecting the depth ceiling mid-run would have burned the renders that were the point. Worked around per scene and written down instead."
+    },
+    {
+     "what": "a real phoneme-level forced aligner",
+     "why": "vo_align is silence anchored and says so honestly in its own docstring. Cue edges are measured and word times inside a phrase are modelled and labelled. A judge reading the rubric's force-aligned wording called a hard fail on the method name rather than on the evidence. The evidence is sound and the NAME is a standing liability.",
+     "why_not_now": "the environment has no ASR model and pulling one in is not a mid-run change"
+    }
+   ]
   }
  ]
 }
