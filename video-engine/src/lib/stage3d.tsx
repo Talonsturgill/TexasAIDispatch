@@ -51,9 +51,36 @@ const W = 1080, H = 1920;
 // The camera transform is the INVERSE of the camera pose applied to the world:
 // move the world opposite the camera. Rotations first (orbit about the world),
 // then translate. Order chosen so a positive z dollies INTO the scene.
+/**
+ * A CONSTANT BOOM, and it is a framing correction rather than a camera move.
+ *
+ * A 9:16 frame and a camera at eye level put the subject low and a great deal of sky
+ * high, and the feed then lays its own furniture over the bottom of the picture. Round
+ * two measured both ends of that: 40 to 50 percent of s2, s3 and s4 was empty gradient,
+ * while the only human in the film and one scene's named hero were sitting inside the
+ * band the feed covers with UI. The film was paying rent on the top of the frame and
+ * putting its subjects where the surface hides them.
+ *
+ * It is applied BEFORE the perspective divide, so a plane at depth z shifts by
+ * BOOM * PERSPECTIVE / (PERSPECTIVE + z): near subjects rise most and far ones least,
+ * which is what a real boom does and is why this is not the same as nudging every
+ * item's y. Supers and captions live outside Stage3D and do not move with it, so the
+ * subjects come up out from under the caption band as well.
+ *
+ * The board is untouched. That matters here: the animatic allowance was spent, so a
+ * staging fix was not renderable and an engine fix was.
+ */
+// MEASURED, not chosen. 200 recovered the dead sky in s2, s3 and s4 and wrecked s8,
+// whose `riseWith` already lifts and which then lost the walking beam and horse head
+// that are the only two things making a pumpjack read as a pumpjack. The closing
+// frame carries the film's third move, so it outranks headroom. 120 keeps most of
+// the recovery and leaves s8 intact.
+const BOOM = 120;
+
 function worldTransform(cam: Camera): string {
   const {x = 0, y = 0, z = 0, rotY = 0, rotX = 0, rotZ = 0} = cam;
   return [
+    `translateY(${-BOOM}px)`,
     `translateZ(${z}px)`,
     `rotateX(${-rotX}deg)`,
     `rotateY(${-rotY}deg)`,

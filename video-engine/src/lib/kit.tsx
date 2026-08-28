@@ -88,7 +88,10 @@ export const Pumpjack: React.FC<KitProps & {
   const t = abandoned ? ph : ph + (frame / 30) * (rpm / 60) * Math.PI * 2;
   const beamDeg = Math.sin(t) * 13;
 
-  const body = abandoned ? '#7a6a5a' : '#4d6b86';
+  // DARKER THAN IT WAS, because the closing frame of the August 28th film put this
+  // silhouette against a bleached noon sky and a judge could barely separate the two.
+  // A pumpjack reads by its shape, and a shape needs a value gap to read at all.
+  const body = abandoned ? '#6d5e50' : '#3c5468';
   const tb = tones(body, L);
   const uid = useUid('pj');
 
@@ -131,7 +134,7 @@ export const Pumpjack: React.FC<KitProps & {
       {/* prime mover shed */}
       <rect x={-104} y={-64} width={62} height={56} rx={3} fill="#6f7a5e" stroke={INK} strokeWidth={5} />
       {wear > 0.2 && <RustStreak x={-104} y={-64} w={62} h={56} seed={seed} opacity={wear} />}
-      {wear > 0.2 && <RustStreak x={-6} y={-150} w={12} h={142} seed={seed + 7} opacity={wear * 0.8} />}
+      {wear > 0.2 && <RustStreak x={-6} y={-60} w={12} h={52} seed={seed + 7} opacity={wear * 0.8} />}
       {abandoned && <CalicheDust x={-140} y={-70} w={280} h={70} opacity={0.5} />}
     </g>
   );

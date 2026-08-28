@@ -241,7 +241,11 @@ export const RigFloor: React.FC<Rig & {
   const half = w / 2;
 
   const spin = turning ? ((frame / 30) * (360 / turning)) % 360 : 0;
-  const gateDeg = -68 * Math.max(0, Math.min(1, open));
+  // A GATE STANDING AJAR, NOT ONE LYING DOWN. At 68 degrees of swing a half-open
+  // gate presents its placard almost face-on and low in frame, and it reads as a
+  // sign that has fallen off rather than as a way in. 44 keeps the gate legible as
+  // a gate at every value the board uses.
+  const gateDeg = -44 * Math.max(0, Math.min(1, open));
 
   return (
     <g transform={`translate(${x} ${y}) scale(${K * scale * facing} ${K * scale})`}>
@@ -250,21 +254,32 @@ export const RigFloor: React.FC<Rig & {
         <FormGradient id={`${uid}_r`} t={rail} softness={0.6} />
       </defs>
 
-      {/* the deck itself, running out past the frame */}
-      <rect x={-half} y={0} width={w} height={26} fill={`url(#${uid}_s)`}
-        stroke={INK} strokeWidth={5} />
-      <BrushedMetal x={-half} y={0} w={w} h={26} opacity={0.2} />
-      {/* the non-slip tread plate, which is what a deck actually looks like */}
-      {Array.from({length: Math.floor(w / 26)}, (_, i) => (
-        <path key={i} d={`M${-half + 8 + i * 26},4 L${-half + 18 + i * 26},22`}
-          stroke={INK} strokeWidth={1.9} opacity={0.34} />
-      ))}
+      {/* THE DECK IS A PLANE, NOT A KERB. This drew a 26 unit strip, which is a side
+          elevation, so the film's own central image, the square of steel with nobody
+          standing on it, could not read at ANY depth. Moving it in z only made the
+          same strip bigger, which is exactly what round two reported. It is now a
+          foreshortened quad receding from the near edge, with the tread plate
+          distributed across it. */}
+      <path d={`M${-half},26 L${half},26 L${half * 0.78},-52 L${-half * 0.78},-52 Z`}
+        fill={`url(#${uid}_s)`} stroke={INK} strokeWidth={5} strokeLinejoin="round" />
+      <BrushedMetal x={-half * 0.78} y={-52} w={w * 0.78} h={78} opacity={0.16} />
+      {/* non-slip tread, converging with the deck so the plane reads as receding */}
+      {Array.from({length: Math.floor(w / 34)}, (_, i) => {
+        const u = (i + 0.5) / Math.floor(w / 34);
+        const nx = -half + u * w;
+        const fx = -half * 0.78 + u * w * 0.78;
+        return <path key={i} d={`M${nx},22 L${fx},-48`} stroke={INK} strokeWidth={1.7}
+          opacity={0.22} />;
+      })}
+      {/* the far edge of the floor, so the square has a back to it */}
+      <path d={`M${-half * 0.78},-52 L${half * 0.78},-52`} stroke={INK} strokeWidth={4}
+        opacity={0.75} />
 
       {/* rotary table, set into the deck behind the rail */}
-      <ellipse cx={-30} cy={-2} rx={62} ry={17} fill="#3f4750" stroke={INK} strokeWidth={4.5} />
-      <g transform={`rotate(${spin} -30 -2)`} opacity={0.9}>
-        <ellipse cx={-30} cy={-2} rx={40} ry={11} fill="#59636e" stroke={INK} strokeWidth={3} />
-        <path d="M-70,-2 L10,-2" stroke={INK} strokeWidth={3} />
+      <ellipse cx={-30} cy={-18} rx={66} ry={19} fill="#3f4750" stroke={INK} strokeWidth={4.5} />
+      <g transform={`rotate(${spin} -30 -18)`} opacity={0.9}>
+        <ellipse cx={-30} cy={-18} rx={42} ry={12} fill="#59636e" stroke={INK} strokeWidth={3} />
+        <path d="M-72,-18 L12,-18" stroke={INK} strokeWidth={3} />
       </g>
 
       {/* the handrail: posts, top rail, mid rail, and a kick plate */}
@@ -369,7 +384,10 @@ export const RedZoneSign: React.FC<Rig & {
       {/* wired on through two corner holes, one wire slacker than the other */}
       <circle cx={-54} cy={-38} r={3} fill="#2a2723" />
       <circle cx={54} cy={-38} r={3} fill="#2a2723" />
-      {wear > 0.2 && <RustStreak x={-62} y={-20} w={124} h={66} seed={seed} opacity={wear * 0.5} />}
+      {/* from the two wire holes and nowhere else. Streaks across the printed face were
+          crossing RESTRICTED AREA on the one frame that has to stop a scroll. */}
+      {wear > 0.2 && <RustStreak x={-58} y={-40} w={116} h={16} seed={seed}
+        opacity={wear * 0.5} />}
     </g>
   );
 };
@@ -545,7 +563,14 @@ export const Doghouse: React.FC<Rig & {
         stroke={INK} strokeWidth={4.5} />
       <path d="M66,-66 L66,-52" stroke={INK} strokeWidth={3.4} />
 
-      {wear > 0.2 && <RustStreak x={-90} y={-152} w={180} h={138} seed={seed} opacity={wear * 0.7} />}
+      {/* RUST RUNS ON STEEL, NOT ON GLASS. This was one call across the whole box, so
+          the drips crossed the window and both console screens, and two judges read an
+          opaque cabin as see-through because of it. Split above and below the glazing:
+          the roof-to-window seam, and the sill down to the skid. */}
+      {wear > 0.2 && <RustStreak x={-90} y={-152} w={180} h={22} seed={seed}
+        opacity={wear * 0.7} />}
+      {wear > 0.2 && <RustStreak x={-90} y={-74} w={180} h={60} seed={seed + 4}
+        opacity={wear * 0.7} />}
       {wear > 0.3 && <CalicheDust x={-96} y={-40} w={192} h={40} opacity={0.4} />}
     </g>
   );

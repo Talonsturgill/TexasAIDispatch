@@ -117,6 +117,18 @@ export function ridgePath(seed: number, yBase: number, rough: number, steps = 24
 }
 
 // ---------------------------------------------------------------- the biome
+
+/** Lift a hex toward white. The horizon under a vertical sun is not the zenith colour
+ *  with haze on it, it is BLEACHED, and REGIONS.md calls light "the single most
+ *  important field". */
+function bleach(hex: string, t: number): string {
+  const h = hex.replace('#', '');
+  const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const m = (v: number) => Math.round(v + (255 - v) * t);
+  return `#${((1 << 24) + (m(r) << 16) + (m(g) << 8) + m(b)).toString(16).slice(1)}`;
+}
+
 export const Biome: React.FC<{
   region: RegionName;
   frame: number;
@@ -160,6 +172,9 @@ export const Biome: React.FC<{
   // made that invisible, which is the worst kind of latent: it would have surfaced
   // the first time a second biome of the same region carried a different groundY.
   const uid = useUid('bio');
+  // 0 for a low sun, 1 for one straight overhead. LIGHTS carries the direction
+  // already, so the sky does not need its own table to disagree with.
+  const noon = Math.max(0, Math.min(1, (-LIGHTS[region].dir.y - 0.86) / 0.14));
 
   // ROUGHNESS BY REGION. This is the shape half of what makes a region itself, and it
   // is as important as the palette: a flat horizon under a Trans-Pecos palette still
@@ -189,9 +204,18 @@ export const Biome: React.FC<{
         <Plane z={2200} fill>
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
             <defs>
+              {/* THE HORIZON BLEACHES UNDER A VERTICAL SUN. The board declares
+                  `light_story: noon-hard` and a "bleached Permian sky", and every
+                  frame of the August 28th cut delivered flat periwinkle instead: no
+                  bleach, no glare, nothing that says the sun is overhead. The ramp
+                  is driven by the region's OWN key direction rather than a list of
+                  region names, so a region whose sun is low keeps its gradient and
+                  one whose sun is near vertical gets the wash it should have. */}
               <linearGradient id={`${uid}sky`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={sky[0]} />
-                <stop offset="100%" stopColor={sky[1]} />
+                <stop offset={`${Math.max(2, (groundY / H) * 100 - 26)}%`}
+                  stopColor={sky[1]} />
+                <stop offset="100%" stopColor={bleach(sky[1], noon * 0.62)} />
               </linearGradient>
             </defs>
             <rect width={W} height={H} fill={`url(#${uid}sky)`} />
