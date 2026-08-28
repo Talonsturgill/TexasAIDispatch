@@ -1414,3 +1414,34 @@ rewritten.
 boundaries are a description of reality that nobody re-examines. Note the widening in the claim
 itself, with the date and the reason, so the next reader can tell a verified narrow quote from a
 verified complete one.
+
+## A passing panel is not permission to close
+
+On 2026-08-28 the Dispatch took a panel round that cleared the bar, called
+`run_controller finish --result publishable`, and only then ran `deliver_run.sh`, which re-runs
+every gate before a delivery. Three were red on the exact board those three judges had just
+passed:
+
+- `run_discipline` was enforcing the spend TARGET as a hard cap, so it refused delivery for
+  renders the controller itself had already granted under escalation.
+- `board_scale_check` refused four derricks drawn at a fifth of true scale.
+- `flow_check` refused s7, because the integrity fix that removed an unsupported claim from the
+  shot direction also removed the words that made the picture match its own narration.
+
+By then `publishable` was terminal, so the controller correctly refused the render that would
+have fixed any of it, and the run had to be reopened and re-graded. The cost was a full render
+and a panel round, both spent on a film that could not ship.
+
+**Three judges cannot see a mechanical gate.** They read the film, the board, the claims and the
+frames. They do not open `board_scale_check`'s debt ledger or run `flow_check`, so nothing they
+say is evidence about either. Treating their verdict as clearance is the sibling's `guards_local`
+lesson wearing a different costume: a green banner measuring something narrower than the thing it
+appeared to certify.
+
+**What to check instead.** `deliver_run.sh --verify-only` runs before `finish`, and ideally before
+the panel, because the gates are the cheap half. All three of these were free to find and cost
+three scorer calls to find late.
+
+**The general lesson.** Order your checks by what they cost and what they can see. An expensive
+judgement that cannot see a cheap mechanical fault should never run first, and a terminal state
+should be the LAST thing a run sets, never a thing it sets and then tries to work behind.

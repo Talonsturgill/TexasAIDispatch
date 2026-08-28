@@ -760,12 +760,31 @@ worth nothing to improve; a small deficit rides along rather than buying its own
 judge spread is evidence to inspect.
 
 If any round clears, stop editing and close the controller. `render_dispatch.sh` has already
-registered the exact playable film, so the controller binds the passing report to a real artifact:
+registered the exact playable film, so the controller binds the passing report to a real artifact.
+
+**RUN THE DELIVERY GATES FIRST. `finish` IS THE LAST THING A RUN DOES, NOT THE FIRST.**
 
 ```
+bash scripts/deliver_run.sh --verify-only          # every gate, by exit code
 python3 scripts/run_controller.py finish --result publishable \
   --report out/dispatch/report_card.json
 ```
+
+On 2026-08-28 that order was reversed and it cost a render and a panel round. The run took a
+clearing panel, called `finish --result publishable`, and only then ran `deliver_run.sh`, which
+re-runs every gate and found THREE red on the exact board the panel had just cleared. By then
+`publishable` was terminal, so the controller correctly refused the render that would have fixed
+them, and the run had to be reopened with a scar on its record.
+
+**A PANEL DOES NOT CERTIFY DELIVERABILITY, and this is the lesson under the ordering.** Three
+judges read the film and the board. They cannot see that `board_scale_check` refuses a derrick, or
+that `flow_check` refuses a scene whose picture stopped naming its own subject, because those are
+mechanical gates on files the panel never opens. A run that treats a passing panel as permission
+to close has skipped a check rather than passed one, which is the sibling's `guards_local` lesson
+arriving here in a different costume.
+
+The gates are also the cheaper half. Running them BEFORE the panel would have caught all three for
+free; running them after spent three scorer calls on a film that could not ship.
 
 If rounds one through four fail, make **one batched corrective pass per round**. Work the
 highest-cost axis first and at most the top two axes that materially contribute to the gap. A
