@@ -65,12 +65,12 @@ synthesis rather than after it.
 
 | # | wave | status |
 |---|---|---|
-| A | script truth: rewrite lines 1, 3, 6, 8 against the quotes; re-run `script_evidence_check`; validator audit BEFORE any TTS spend | TODO |
-| B | board integrity: s7 `on_screen` stops re-asserting the struck claim; declare c14 under s6's readout; drop decorative c9 from s5; date the Dallas Fed survey on screen; fingerprint metaphor off "gate" | TODO |
-| C | picture, engine: hard-noon contact shadows across all nine scenes; the deck stops reading as corrugated roofing | TODO |
-| D | picture, board: s4 must contain its hero; s8 pumpjack whole in frame; s9 stops being 70 percent empty sky; s6 machine out from under the frame edge | TODO |
-| E | voice: one re-synth of the corrected script, directed to kill the dead air; re-align, re-mix | TODO |
-| F | render, panel round 5, deliver | TODO |
+| A | script truth, audited BEFORE any TTS spend | **DONE** |
+| B | board integrity: struck claims out of the shot directions, c14 declared, survey dated | **DONE** |
+| C | picture, engine: contact shadows vary with the region's air | **DONE** |
+| D | picture, board: every scene contains its declared hero; the derrick is in the rig scenes | **DONE** |
+| E | voice: re-synth, re-align, re-mix, re-cut | **DONE** |
+| F | render, panel round 5, deliver | IN PROGRESS |
 
 ## Budget at the start of this pass
 
@@ -94,3 +94,51 @@ The escalation paragraph says escalation buys more ATTEMPTS at the bar and raise
 `hard_fail_cleanup`", which was written under the old fixed-allowance model and would end
 iteration at exactly the round this pass needs. Both cannot be in force. Fix the prose in
 Wave F, in the same commit as the ledger entry, and say which one governs and why.
+
+
+## What Wave A actually returned, and why it was worth the ordering
+
+The pre-synthesis audit found EIGHT blocking faults, three of which no judge had
+reached, and every one was free to fix at that moment. Two were not wording problems at
+all. Two claims had been stored with excerpts too narrow to carry what the film said, and
+a re-fetch settled both in the film's favour:
+
+- c5 held only "A drawing of the Grim Reaper illustrates the risk...", which places the
+  drawing nowhere, so the placard's rendered words traced to `value_text` rather than to a
+  quote. The source sentence before it reads "a gate surrounds the drilling floor with a
+  sign reading 'Red Zone: Restricted Area.'" The gate is real. The whole threshold
+  metaphor is evidenced rather than invented, and the round 4 judge's "the film invented
+  the placement" was right about the FILE and wrong about the world.
+- c4 began at "operates more than 30 drilling rigs", naming nobody.
+
+**The lesson is about excerpt width, not about wording.** A quote clipped too tight reads
+as a fabrication downstream, and the repair is a re-fetch, never a rewrite that says less
+than the source does.
+
+## Three engine and tooling faults this pass found by breaking things on purpose
+
+1. **The reader was handed two scripts.** `vo_direction.json` restates every line, so the
+   prompt carried the script twice and the model spoke the stale copy. `build_prompt` now
+   refuses on disagreement. This is CLAUDE.md's founding defect applied to a LINE rather
+   than to a number.
+2. **The evidence gate was dead code under `--self-test`.** Every assertion passed
+   `evidence_dir=None`, so a missing `subprocess` import and a reference to an argparse
+   global both shipped green. GATE_LESSONS' recurring shape exactly.
+3. **A caption ceiling was passed without ever being crossed.** The cue sat at 77
+   characters, inside every limit, declined a measured boundary for ending on "are", and
+   the next boundary was seven seconds later. 182 characters, 11.7 seconds. Both break
+   rules now look ahead at what declining a boundary costs.
+
+## A finding too big for this run, recorded rather than acted on
+
+**The virtual camera frames about three metres of world.** `PERSPECTIVE = 1400` with
+`M = 610/1.7` puts 1080 draw units across roughly 3.0 m at z=0, and the Biome's own filled
+backdrop planes make anything past z of about 880 invisible, which caps the reduction at
+about 0.61. So an 8.4 m drill floor, a 10 m pumpjack and a 44 m derrick CANNOT be framed
+whole at true scale, and the library's answer has quietly been to author far objects at
+sub-true `scale`, which is the one thing `scale.ts` exists to forbid.
+
+Every framing fault in round 4 is downstream of this. It was worked around this run by
+per-scene scale, because re-architecting the depth ceiling mid-run would have burned the
+renders that were the point. **The real fix is to move the Biome's backdrop planes back so
+z up to about 3000 is usable**, and it is a proposal, not a change made here.

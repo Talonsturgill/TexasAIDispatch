@@ -1303,3 +1303,114 @@ wanted a dozen times.
 the edge of the picture when the picture is delivered inside something. The entry above says
 "ask what the product has that the metrics do not". This one says: **ask what the product is
 DELIVERED INTO, and whether anything in this repo has written that down.**
+
+## The ceiling was passed without ever being crossed
+
+Caption cards on the August 28th Dispatch came out at 182 characters held for 11.7 seconds,
+against an 88 character ceiling and a 5.5 second one. Both ceilings were in force. Neither was
+ever violated at any moment a check could have fired.
+
+`vo_align.cues` breaks only at a boundary the segmenter measured off the waveform, which is
+right, and defers a break that would land on a function word, which is also right. A card ending
+in "are" reads as broken. The deferral was bounded by characters, and that bound is
+unenforceable, because BETWEEN TWO MEASURED BOUNDARIES THERE IS BY DEFINITION NOWHERE TO STOP.
+The cue stood at 77 characters and 4.7 seconds, comfortably inside every limit, declined the
+boundary in front of it, and the next one was seven seconds down the road.
+
+**So the cue was never too long at any point where it could have been stopped.** Every guard
+evaluated a true statement about the present and none of them could see what declining cost.
+
+**What to check instead.** A rule that defers an action to "the next opportunity" is incomplete
+until it knows when the next opportunity is. Both break rules now look ahead to the next measured
+boundary and take the one in front of them when declining would blow the hard ceiling. Nothing
+was invented and nothing was shifted: the change is only WHICH of the available true boundaries
+gets used, which was always a policy rather than a principle.
+
+**The general lesson, and it is not about captions.** When a guard is written as a threshold on
+the current state, ask what happens between states. A gate that samples a continuous quantity at
+discrete opportunities is only as good as the spacing of those opportunities, and the spacing is
+usually a property of the DATA rather than of the code, so it changes without anybody editing
+anything. Here the spacing changed because the narrator was directed to stop leaving silences.
+One correct fix in the voice moved a ceiling in the captions that nobody had connected to it.
+
+## The reader was handed two scripts and spoke the stale one
+
+`vo_direction.json` carries a `text` field on every line and its intents quote their own lines
+back at the performer. So a built TTS prompt contains the script TWICE: once in the director's
+notes, once inside the fence that marks what to speak.
+
+Round 5 changed line 7 from "Their own crews" to "Their own people", because no fetched quote
+says crews. `vo_script.txt` was updated. The notes were not. The prompt went out carrying both
+wordings and the model spoke the one the evidence forbids.
+
+**This is CLAUDE.md's founding defect applied to a LINE rather than to a number.** That file has
+said for months that a number restated in a second place is a number that will be wrong in one of
+them, and it is about a rubric threshold. Nothing had noticed that the same structure existed in
+the voice prompt, at higher stakes, because the second copy is not labelled as a copy. It is
+labelled as direction.
+
+**What to check instead.** `build_prompt` refuses when the direction's per-line text disagrees
+with the fenced script, printing both, before the call. Broken on purpose in both directions to
+prove it goes red.
+
+**The general lesson.** Grep your own prompts for the payload. Anywhere a prompt explains what it
+is about to ask for, it probably contains a paraphrase of the thing itself, and a paraphrase is a
+second copy that nothing updates. The fix is not discipline about syncing. It is a check that
+they agree, run at the moment the two are assembled into one message.
+
+## Three faults shipped green because the branch under test was never entered
+
+The evidence gate added to `vo_synth_gemini.build_prompt` ran only when an `evidence_dir` was
+supplied. Every assertion in `--self-test` passed `None`. The suite was green, twice, over two
+sessions, on a function that could not execute: `subprocess` was never imported, and the
+directory was read as `Path(a.script).parent`, an argparse namespace that exists only inside
+`main()`. The first real invocation died on NameError, before the API call, which is the only
+piece of luck in it.
+
+The same session found the same shape twice more. `vo_synth`'s budget self-test asserted that a
+fifth TTS call is refused, which had been true under the old fixed cap and would now fail a
+correct machine. And `run_controller` locked hard-fail cleanup when usage equalled `limits`,
+which is exactly right for a fixed cap and self-defeating under escalation, because escalation
+raises `limits` to precisely the usage it grants. The first round past the target would have
+locked cleanup and ended iteration while the ledger advertised a ceiling the run could not reach.
+
+**What to check instead.** For every branch a gate has, ask which self-test assertion enters it,
+by name. If the answer is none, the branch is undefended whatever the banner says. And when a
+contract changes, the tests written against the OLD contract do not fail loudly, they pass
+loudly, and the ones that do fail are the ones now describing a correct machine as broken.
+
+**The general lesson.** A green suite is evidence about the assertions that ran. This catalogue
+keeps recording it and it keeps arriving in a new costume: a gate connected to nothing, an
+assertion that cannot fail, and now a branch nothing calls and a test still grading against a
+retired rule. **The way to find out whether a gate works is not to read it. It is to break the
+product on purpose and watch.**
+
+## The quote was clipped too tight and the film looked like it had invented the world
+
+Panel round 4 found that the Dispatch's opening line, "a reaper painted on a gate", rested on a
+claim whose fetched quote reads only "A drawing of the Grim Reaper illustrates the risk that
+workers face around heavy equipment and pressurized systems." That quote places the drawing
+nowhere. The judge concluded the film had invented the gate and built its whole structure on it,
+and the fingerprint metaphor, two scenes and the placard's own rendered words all traced back to
+the invention. On the file in front of it, the judge was right.
+
+The source sentence immediately before the stored one reads: "On one of Exxon's automated rigs in
+Midland, a gate surrounds the drilling floor with a sign reading 'Red Zone: Restricted Area.'"
+The gate is real. The placard's wording is verbatim. A second claim in the same file began at
+"operates more than 30 drilling rigs", so the film's "Exxon runs more than thirty rigs" rested on
+an elided subject that the source names in the same sentence.
+
+**A quote clipped too tight is indistinguishable downstream from a fabrication**, and it is
+worse than a missing claim, because a missing claim stops the run and a narrow one passes every
+check and then reads as a lie to the first person who looks hard.
+
+**What to check instead.** When a scorer or a validator says the film asserts more than its
+evidence carries, the first move is to RE-FETCH and test whether the excerpt is too narrow, not
+to rewrite the line to say less. Two of the eight blocking faults in that audit were repaired by
+widening the record rather than by weakening the film. The other six were real and the line was
+rewritten.
+
+**The general lesson.** The claims file is the only world the run can see, so its excerpt
+boundaries are a description of reality that nobody re-examines. Note the widening in the claim
+itself, with the date and the reason, so the next reader can tell a verified narrow quote from a
+verified complete one.

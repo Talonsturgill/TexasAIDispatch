@@ -272,19 +272,35 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         event(state, "render_reserved_with_last_good_preserved",
               film_sha256=state["deliverable"].get("film_sha256"))
     event(state, "reserved", resources=amounts, note=note)
-    if ("panel_rounds" in amounts
-            and state["usage"]["panel_rounds"] == state["limits"]["panel_rounds"]):
+    # CLEANUP LOCKS AT THE CEILING, NOT AT THE TARGET, and under escalation those are two
+    # different numbers on purpose.
+    #
+    # This read `usage == limits`, which was exactly right while `limits` was a fixed cap
+    # and became self-defeating the moment escalation started moving it. Escalation raises
+    # `limits` to precisely the usage it is granting, so `usage == limits` is TRUE after
+    # every escalated reservation. The first panel round past the target would have locked
+    # hard-fail cleanup and ended iteration, while the ledger recorded a ceiling of nine
+    # rounds the run could never reach.
+    #
+    # That is the whole escalation policy cancelling itself in one comparison: the run
+    # would still stop at round five, still write up a failure instead of a film, and now
+    # do it while claiming it had budget left. An empty run is worse than an expensive one.
+    panel_ceiling = int((state.get("escalation_ceiling") or {}).get(
+        "panel_rounds", state["limits"]["panel_rounds"]))
+    if "panel_rounds" in amounts and state["usage"]["panel_rounds"] >= panel_ceiling:
         state["phase"] = CLEANUP_PHASE
         event(
             state,
             "panel_cap_reached",
             panel_rounds=state["usage"]["panel_rounds"],
+            ceiling=panel_ceiling,
             next_mode="hard fails and deterministic no-panel fixes only",
         )
     save(path, state)
     used = ", ".join(f"{k}={state['usage'][k]}/{state['limits'][k]}" for k in amounts)
     suffix = (
-        "; fifth panel reserved, so hard-fail cleanup is now locked and no sixth panel exists"
+        f"; the panel ceiling of {panel_ceiling} is reached, so hard-fail cleanup is now "
+        f"locked and no further panel exists"
         if state.get("phase") == CLEANUP_PHASE and "panel_rounds" in amounts else ""
     )
     return True, f"run controller: reserved {used}{suffix}"
@@ -971,15 +987,40 @@ def self_test() -> int:
         ok("scorer calls cannot be spent outside an atomic panel",
            not reserve(p, {"scorer_calls": 3}, "side-door judges")[0])
         ok("a partial panel cannot consume a full-panel round", not reserve_panel(p, 1)[0])
-        for n in range(5):
+        # THE TARGET AND THE CEILING ARE TWO DIFFERENT NUMBERS, and this block used to
+        # assume they were one. It drove the run to five rounds and asserted that the
+        # fifth locked cleanup, which was exactly right under the fixed allowance and
+        # describes a BROKEN machine under escalation: a run that stops iterating at the
+        # target has cancelled the escalation the ledger says it has.
+        #
+        # So it proves both halves now. Past the target the panel is GRANTED, because an
+        # empty run is worse than an expensive one. At the ceiling it is refused, because
+        # escalation buys attempts and is not an open tab.
+        target_rounds = int(read_state(p)["limits"]["panel_rounds"])
+        ceiling_rounds = int(ceilings().get("panel_rounds", target_rounds))
+        ok("the panel ceiling sits above the target, so escalation has somewhere to go",
+           ceiling_rounds > target_rounds, f"target {target_rounds}, ceiling {ceiling_rounds}")
+
+        for n in range(target_rounds):
             ok(f"panel {n + 1} reserves one round and three judges",
                reserve_panel(p, 3, f"round {n + 1}")[0])
+        ok("reaching the TARGET does not lock cleanup, because there is budget beyond it",
+           read_state(p)["phase"] != CLEANUP_PHASE)
+        ok("...and the next panel is granted rather than ending the run",
+           reserve_panel(p, 3, "one past the target")[0])
+
+        for n in range(target_rounds + 1, ceiling_rounds):
+            ok(f"panel {n + 1} is granted on the way to the ceiling",
+               reserve_panel(p, 3, f"round {n + 1}")[0])
         s = read_state(p)
-        ok("the fifth panel locks hard-fail cleanup", s["phase"] == CLEANUP_PHASE)
-        ok("five panels consumed exactly fifteen scorer calls",
-           s["usage"]["panel_rounds"] == 5 and s["usage"]["scorer_calls"] == 15)
-        ok("a sixth panel is mechanically refused without killing cheap cleanup",
-           not reserve_panel(p, 3, "round six")[0]
+        ok("the panel that reaches the CEILING locks hard-fail cleanup",
+           s["phase"] == CLEANUP_PHASE, f"phase {s['phase']}")
+        ok("every panel consumed exactly three scorer calls",
+           s["usage"]["panel_rounds"] == ceiling_rounds
+           and s["usage"]["scorer_calls"] == ceiling_rounds * 3,
+           f"{s['usage']['panel_rounds']} rounds, {s['usage']['scorer_calls']} calls")
+        ok("a panel past the ceiling is mechanically refused without killing cheap cleanup",
+           not reserve_panel(p, 3, "one past the ceiling")[0]
            and read_state(p)["terminal_state"] is None)
         ok("a phase command cannot escape hard-fail cleanup",
            not set_phase(p, "panel")[0] and read_state(p)["phase"] == CLEANUP_PHASE)
