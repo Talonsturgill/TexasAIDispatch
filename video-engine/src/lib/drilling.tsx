@@ -4,6 +4,7 @@ import {
   tones, FormGradient, ContactShadow, useLight, BrushedMetal, RustStreak, CalicheDust, INK,
 } from './lighting';
 import {M, fitter} from './scale';
+import {FONT} from './type';
 
 // =============================================================================
 // DRILLING — the rig floor, and the beat this engine could not draw.
@@ -326,7 +327,7 @@ export const RedZoneSign: React.FC<Rig & {
       <rect x={-62} y={-46} width={124} height={26} rx={3} fill="#b3372c"
         stroke={INK} strokeWidth={5} />
       <text x={0} y={-26} textAnchor="middle" fontSize={17} fontWeight={800}
-        fill="#f4efe6" fontFamily="system-ui, sans-serif" letterSpacing={0.6}>{label}</text>
+        fill="#f4efe6" fontFamily={FONT.body} letterSpacing={0.6}>{label}</text>
 
       {/* THE REAPER. Read from a rendered frame rather than from the code: the first
           pass was a lumpy blob that read as a chess pawn, because the robe was as
@@ -359,10 +360,10 @@ export const RedZoneSign: React.FC<Rig & {
       </g>
 
       <text x={22} y={6} textAnchor="middle" fontSize={10} fontWeight={800}
-        fill="#2a2723" fontFamily="system-ui, sans-serif"
+        fill="#2a2723" fontFamily={FONT.body}
         letterSpacing={0.2}>{sub.split(' ')[0]}</text>
       <text x={22} y={20} textAnchor="middle" fontSize={10} fontWeight={800}
-        fill="#2a2723" fontFamily="system-ui, sans-serif"
+        fill="#2a2723" fontFamily={FONT.body}
         letterSpacing={0.2}>{sub.split(' ')[1] ?? ''}</text>
 
       {/* wired on through two corner holes, one wire slacker than the other */}
