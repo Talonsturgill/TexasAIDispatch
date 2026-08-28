@@ -128,6 +128,28 @@ def build_prompt(script: str, plan: dict) -> tuple[str, list[str]]:
     """
     refusals = []
     body_words = set(re.findall(r"[a-z']+", script.lower()))
+    # THE SCRIPT'S EVIDENCE IS CHECKED BEFORE A CALL IS SPENT, for the same reason the
+    # direction vocabulary is. On 2026-08-28 a line asserting that the man at the screen
+    # was the man the machine displaced went into the voice, the mix, the captions and two
+    # full renders, and was found by a judge reading the finished film in panel round
+    # three. Nothing had read the narration for evidence, because ship_gate reads it only
+    # for numerals and that sentence had none.
+    #
+    # A fault here is free. The same fault after this line costs a TTS call, an alignment,
+    # a retime and a render.
+    board_for_evidence = Path(a.script).parent / "storyboard.json"
+    claims_for_evidence = Path(a.script).parent / "claims.json"
+    if board_for_evidence.exists() and claims_for_evidence.exists():
+        proof = subprocess.run(
+            [sys.executable, str(Path(__file__).with_name("script_evidence_check.py")),
+             "--board", str(board_for_evidence), "--claims", str(claims_for_evidence)],
+            capture_output=True, text=True)
+        if proof.returncode != 0:
+            refusals.append(
+                "the SCRIPT is not evidenced. Every narrated line must name the claims it "
+                "rests on and every figure and name in it must sit in one of their fetched "
+                "quotes:\n" + (proof.stdout or proof.stderr).strip())
+
     spoken_direction = sorted(body_words & TAG_WORDS)
     if spoken_direction:
         refusals.append(

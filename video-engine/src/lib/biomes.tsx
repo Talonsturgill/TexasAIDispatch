@@ -275,6 +275,40 @@ export const Biome: React.FC<{
             <path d={ridgePath(seed + 77, groundY - 18, r * 0.5)} fill={p.near} />
             <rect x={0} y={groundY} width={W} height={H - groundY} fill={`url(#${uid}gr)`} />
             <rect x={0} y={groundY - 90} width={W} height={130} fill={`url(#${uid}hz)`} />
+            {/* A SCRAPED LOCATION HAS HISTORY ON IT, and the first version of this flag
+                only took the plants away. A judge read the result exactly right: the pad
+                went from wrong-because-it-grew-things to flat untextured beige, which is a
+                different wrongness rather than a fix. A location is bladed, and the blade
+                leaves arcs; trucks turn in the same place every time and leave ruts; the
+                spoil goes to a berm at the edge. Those three marks are what says somebody
+                built this, and they are why a pad does not read as a beach. */}
+            {scraped && (
+              <g opacity={0.5}>
+                {Array.from({length: 7}, (_, i) => {
+                  const gy = groundY + 40 + i * ((H - groundY) / 8);
+                  const bow = 26 + rnd(seed + 91, i) * 34;
+                  return (
+                    <path key={`blade${i}`}
+                      d={`M${-60},${gy} Q${W / 2},${gy - bow} ${W + 60},${gy + bow * 0.3}`}
+                      stroke={INK} strokeWidth={1.6} fill="none"
+                      opacity={0.10 + rnd(seed + 92, i) * 0.07} />
+                  );
+                })}
+                {Array.from({length: 2}, (_, i) => {
+                  const x0 = W * (0.24 + i * 0.42);
+                  return (
+                    <path key={`rut${i}`}
+                      d={`M${x0},${H} Q${x0 + (i ? -70 : 60)},${groundY + 190} `
+                        + `${x0 + (i ? -150 : 130)},${groundY + 46}`}
+                      stroke={INK} strokeWidth={7} fill="none" opacity={0.075} />
+                  );
+                })}
+                <path d={`M0,${groundY + 12} Q${W * 0.34},${groundY - 6} ${W * 0.62},${groundY + 9} `
+                        + `T${W},${groundY + 4}`}
+                  stroke={INK} strokeWidth={5} fill="none" opacity={0.13} />
+              </g>
+            )}
+
             {/* ground texture: scatter that gets sparser and smaller toward the horizon,
                 which is the cheapest honest perspective cue there is */}
             {Array.from({length: 150}, (_, i) => {

@@ -367,6 +367,28 @@ Gemini TTS. Reserve and spawn the one `vo-director` first; it plans the read int
 `out/dispatch/vo_direction.json` following `knowledge/craft/VO_DIRECTION.md`, per-line intent,
 emphasis, and energy contrast.
 
+**THE SCRIPT IS EVIDENCED BEFORE IT IS SPOKEN.** Every scene's `vo` names the claims it
+rests on in `vo_claims`, exactly as a super names its `super_claim`, and the check runs
+BEFORE synthesis because a fault here is free and the same fault after it costs a TTS
+call, an alignment, a retime and a render:
+
+```
+python3 scripts/script_evidence_check.py --board out/dispatch/storyboard.json \
+       --claims out/dispatch/claims.json
+```
+
+`vo_synth` refuses to spend a call until that passes, the same way it refuses a script
+carrying direction vocabulary. On 2026-08-28 a line asserting that the man at the screen
+was the man the machine displaced reached the voice, the mix, two renders and three panel
+rounds before a judge caught it, because `ship_gate` reads the narration only for
+NUMERALS and that sentence had none.
+
+**It cannot catch a semantic claim made in common words, and it says so.** What closes
+that is the reader: before synthesis, put the script and the claims file in front of the
+`validator` and ask, line by line, what each sentence asserts and which fetched quote
+carries it. That pass spends no voice and no render, which is the whole reason it belongs
+here rather than in the panel.
+
 ```
 python3 scripts/run_controller.py consume --resource voice_directors --note "final VO plan"
 python3 scripts/vo_synth_gemini.py --script out/dispatch/vo_script.txt \
