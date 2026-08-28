@@ -1,0 +1,37 @@
+{
+  "duration_s": 55.0,
+  "cut_s": 55.0,
+  "peak_dbfs_premaster": -2.06,
+  "lufs_premaster": -22.91,
+  "lufs_target": -16.0,
+  "lufs_achieved": -20.84,
+  "lufs_shortfall_db": 4.84,
+  "crest_factor_db": 20.84,
+  "limiter": false,
+  "mix_notes": [
+    "the master reached -20.84 LUFS against a -16.0 target, 4.84 dB short. The read's crest factor is 20.8 dB, and closing that last gap would take a limiter, which this mixer does not have on purpose."
+  ],
+  "master_gain_db": 2.06,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 12
+    }
+  ],
+  "bed": false,
+  "bed_track_id": null,
+  "bed_gap_below_voice_db": null,
+  "bed_source_lufs": null,
+  "bed_gain_db": null,
+  "sfx_events": 12,
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "ebccce561a70ebed2ae99bb929cbed3e1caa8f01638228b8743210f886f1a9dd",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2640000
+}

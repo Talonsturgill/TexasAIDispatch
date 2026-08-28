@@ -1,0 +1,889 @@
+{
+  "runtime_s": 55.0,
+  "title": "The grade the machine had to clear",
+  "beat": "oilfield",
+  "derived_from": "scratch",
+  "divergence_note": "Designed from a placard outward rather than from a landscape inward. The film never shows a whole rig and never stands back from one: it lives inside the fence line at hand and head height, the movement is a repeated in-and-out bite by one machine rather than a traverse across a place, and the hero is an absence, the square of steel with nobody on it. The August 18th film accumulated a building out of racks under night practical light. This one is hard noon on caliche and works by subtraction.",
+  "fingerprint": {
+    "pov": "eye-level-immersive",
+    "motion_vector": "push-in-only",
+    "hero_treatment": "absence-as-subject",
+    "layout": "fullbleed-split",
+    "register": "naturalistic-scene",
+    "camera_strategy": "dollyThrough",
+    "light_story": "noon-hard",
+    "palette": "caliche white, safety yellow and drilling red oxide under a bleached Permian sky",
+    "metaphor": "a hand painted reaper on a gate nobody needs to walk through any more"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 4.687,
+      "duration_authored": 6.875,
+      "visual_family": "gate-and-sign",
+      "payload_mode": "picture",
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 0.9,
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "dollyThrough",
+      "beat": "revelation",
+      "hero": "the placard",
+      "super": "",
+      "vo": "Somebody painted a reaper on a gate at a drilling rig in Midland, Texas.",
+      "on_screen": "a hazard placard wired crooked to a yellow handrail gate, a hooded figure with a scythe painted on it, hard noon light on caliche, and the steel deck it guards running away behind",
+      "what_moves": "the camera pushes in until the hooded figure resolves out of the placard, while the pipe handling machine keeps working on the deck behind the gate",
+      "cast": [],
+      "seed": 11,
+      "groundY": 1440,
+      "visual_events": [
+        {
+          "at_s_authored": 1.238,
+          "what": "the hooded figure resolves out of the placard",
+          "at_s": 0.844
+        },
+        {
+          "at_s_authored": 4.675,
+          "what": "the machine bites a joint on the deck behind the gate",
+          "at_s": 3.187
+        }
+      ],
+      "planes": [
+        {
+          "z": 620,
+          "label": "the pad beyond",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": 760,
+              "y": 1700,
+              "scale": 1,
+              "props": {
+                "courses": 3,
+                "perCourse": 8
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "the deck",
+          "items": [
+            {
+              "kind": "rigFloor",
+              "x": 40,
+              "y": 1780,
+              "scale": 1,
+              "props": {
+                "open": 0,
+                "turning": 7,
+                "sign": false,
+                "w": 940
+              }
+            }
+          ]
+        },
+        {
+          "z": 110,
+          "label": "the machine at work",
+          "items": [
+            {
+              "kind": "ironRoughneck",
+              "x": -220,
+              "y": 1800,
+              "scale": 1,
+              "props": {
+                "cycle": 4.8
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "the placard",
+          "items": [
+            {
+              "kind": "redZoneSign",
+              "x": 520,
+              "y": 1020,
+              "scale": 1.7,
+              "props": {
+                "tilt": -3.4
+              }
+            }
+          ]
+        }
+      ],
+      "scraped": true
+    },
+    {
+      "id": "s2",
+      "start_s": 4.687,
+      "duration_s": 6.055,
+      "duration_authored": 6.875,
+      "visual_family": "empty-floor",
+      "payload_mode": "picture",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "truckAcross",
+      "beat": "emotion",
+      "hero": "the empty deck",
+      "super": "Midland, Texas",
+      "super_claim": "c1",
+      "vo": "Behind it is the square of steel where about a third of significant drilling injuries happen.",
+      "on_screen": "the square of steel past a gate standing open, tread plate and rotary table, the handrail running out of frame both ways, and not one person standing on it",
+      "what_moves": "the camera travels the length of the rail so the open gate and the empty deck slide past, and the rotary keeps turning under it",
+      "cast": [],
+      "seed": 12,
+      "groundY": 1380,
+      "visual_events": [
+        {
+          "at_s_authored": 1.513,
+          "what": "the open gate passes the camera",
+          "at_s": 1.333
+        },
+        {
+          "at_s_authored": 4.95,
+          "what": "the far end of the empty deck comes into frame",
+          "at_s": 4.36
+        }
+      ],
+      "planes": [
+        {
+          "z": 700,
+          "label": "the sky over the pad",
+          "items": [
+            {
+              "kind": "turkeyVulture",
+              "x": 820,
+              "y": 520,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 430,
+          "label": "the back of the floor",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": 780,
+              "y": 1660,
+              "scale": 1,
+              "props": {
+                "courses": 2,
+                "perCourse": 7
+              }
+            }
+          ]
+        },
+        {
+          "z": 190,
+          "label": "the machine, stopped",
+          "items": [
+            {
+              "kind": "ironRoughneck",
+              "x": -160,
+              "y": 1780,
+              "scale": 1,
+              "props": {
+                "halted": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "the rail",
+          "items": [
+            {
+              "kind": "rigFloor",
+              "x": -60,
+              "y": 1800,
+              "scale": 1,
+              "props": {
+                "open": 0.5,
+                "turning": 7,
+                "sign": true,
+                "w": 1020
+              }
+            }
+          ]
+        }
+      ],
+      "scraped": true
+    },
+    {
+      "id": "s3",
+      "start_s": 10.742,
+      "duration_s": 6.798,
+      "duration_authored": 6.875,
+      "visual_family": "the-machine",
+      "payload_mode": "picture",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "orbitReveal",
+      "beat": "motion",
+      "hero": "the iron roughneck",
+      "super": "",
+      "vo": "The pipe crossing that floor weighs roughly two thousand pounds. Nobody stands under it.",
+      "on_screen": "the pipe handling machine at the rotary, a column on a track with hydraulic hose down its back, biting a joint of drill pipe and spinning it",
+      "what_moves": "the machine drives out on its track, bites, spins the joint and withdraws, while the camera circles it",
+      "cast": [],
+      "seed": 13,
+      "groundY": 1500,
+      "visual_events": [
+        {
+          "at_s_authored": 1.65,
+          "what": "the wrench drives out and bites the joint",
+          "at_s": 1.632
+        },
+        {
+          "at_s_authored": 5.362,
+          "what": "the joint spins up and the machine withdraws",
+          "at_s": 5.302
+        }
+      ],
+      "planes": [
+        {
+          "z": 640,
+          "label": "the yard",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": -320,
+              "y": 1680,
+              "scale": 1,
+              "props": {
+                "courses": 3,
+                "perCourse": 9
+              }
+            }
+          ]
+        },
+        {
+          "z": 330,
+          "label": "the deck",
+          "items": [
+            {
+              "kind": "rigFloor",
+              "x": 120,
+              "y": 1720,
+              "scale": 1,
+              "props": {
+                "open": 0.4,
+                "turning": 5,
+                "sign": false,
+                "w": 900
+              }
+            }
+          ]
+        },
+        {
+          "z": 280,
+          "label": "the machine",
+          "items": [
+            {
+              "kind": "ironRoughneck",
+              "x": 360,
+              "y": 1800,
+              "scale": 1,
+              "props": {
+                "cycle": 4.6
+              }
+            }
+          ]
+        },
+        {
+          "z": 25,
+          "label": "the scraped pad",
+          "items": [
+            {
+              "kind": "tumbleweed",
+              "x": 60,
+              "y": 1900,
+              "scale": 0.9
+            }
+          ]
+        }
+      ],
+      "scraped": true
+    },
+    {
+      "id": "s4",
+      "start_s": 17.54,
+      "duration_s": 6.81,
+      "duration_authored": 6.875,
+      "visual_family": "the-box",
+      "payload_mode": "picture",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "riseWith",
+      "beat": "emotion",
+      "hero": "the lit window",
+      "super": "",
+      "vo": "The contractor who did that work sits in a small office on the rig, at a screen.",
+      "on_screen": "a skidded steel cabin on the rig with one long window, two screens burning inside it, and the shoulders and head of the person at the console showing through the glass",
+      "what_moves": "the camera lifts from the deck plate to the lit window while the screens flicker and the machine keeps working behind the cabin",
+      "cast": [],
+      "seed": 14,
+      "groundY": 1400,
+      "visual_events": [
+        {
+          "at_s_authored": 1.375,
+          "what": "the window clears the deck plate as the camera lifts",
+          "at_s": 1.362
+        },
+        {
+          "at_s_authored": 5.088,
+          "what": "the machine completes a bite behind the cabin",
+          "at_s": 5.04
+        }
+      ],
+      "planes": [
+        {
+          "z": 700,
+          "label": "the pad beyond",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": -320,
+              "y": 1720,
+              "scale": 1,
+              "props": {
+                "courses": 3,
+                "perCourse": 8
+              }
+            }
+          ]
+        },
+        {
+          "z": 380,
+          "label": "the machine, behind",
+          "items": [
+            {
+              "kind": "ironRoughneck",
+              "x": 820,
+              "y": 1760,
+              "scale": 1,
+              "props": {
+                "cycle": 5.2
+              }
+            }
+          ]
+        },
+        {
+          "z": 140,
+          "label": "the cabin",
+          "items": [
+            {
+              "kind": "doghouse",
+              "x": 240,
+              "y": 1800,
+              "scale": 1,
+              "props": {
+                "lit": true,
+                "occupied": true,
+                "live": 1
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "the rail in front of it",
+          "items": [
+            {
+              "kind": "rigFloor",
+              "x": -140,
+              "y": 1900,
+              "scale": 1,
+              "props": {
+                "open": 0,
+                "sign": false,
+                "w": 1080
+              }
+            }
+          ]
+        }
+      ],
+      "scraped": true
+    },
+    {
+      "id": "s5",
+      "start_s": 24.35,
+      "duration_s": 8.51,
+      "duration_authored": 6.875,
+      "visual_family": "under-the-rig",
+      "payload_mode": "picture",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "craneDown",
+      "beat": "revelation",
+      "hero": "the substructure overhead",
+      "super": "",
+      "vo": "Exxon runs more than thirty rigs in the Permian. Two of them work this way.",
+      "on_screen": "underneath the rig, the braced steel of the substructure overhead and the legs running up out of frame, an operator in a hard hat and flame resistant coveralls standing on the caliche looking up",
+      "what_moves": "the camera comes down the leg onto the operator while the travelling block runs in the mast overhead",
+      "cast": [
+        {
+          "id": "operator",
+          "emotion": "watchful"
+        }
+      ],
+      "seed": 15,
+      "groundY": 1560,
+      "visual_events": [
+        {
+          "at_s_authored": 1.788,
+          "what": "the block runs down the mast overhead",
+          "at_s": 2.213
+        },
+        {
+          "at_s_authored": 5.225,
+          "what": "the camera settles on the operator on the caliche",
+          "at_s": 6.468
+        }
+      ],
+      "planes": [
+        {
+          "z": 2100,
+          "label": "the rig overhead",
+          "items": [
+            {
+              "kind": "derrick",
+              "x": 300,
+              "y": 2935,
+              "scale": 1,
+              "props": {
+                "block": 0.4,
+                "hoisting": 9,
+                "racked": 9
+              }
+            }
+          ]
+        },
+        {
+          "z": 640,
+          "label": "the yard",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": 900,
+              "y": 1700,
+              "scale": 1,
+              "props": {
+                "courses": 3,
+                "perCourse": 8
+              }
+            }
+          ]
+        },
+        {
+          "z": 260,
+          "label": "the cabin, from outside",
+          "items": [
+            {
+              "kind": "doghouse",
+              "x": -180,
+              "y": 1820,
+              "scale": 1,
+              "props": {
+                "lit": true,
+                "occupied": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 55,
+          "label": "the operator",
+          "items": [
+            {
+              "kind": "person",
+              "x": 830,
+              "y": 1700,
+              "scale": 1,
+              "props": {
+                "cast": "operator",
+                "pose": "hands-hips",
+                "emotion": "watchful"
+              }
+            }
+          ]
+        }
+      ],
+      "scraped": true
+    },
+    {
+      "id": "s6",
+      "start_s": 32.86,
+      "duration_s": 7.896,
+      "duration_authored": 6.875,
+      "visual_family": "the-grade",
+      "payload_mode": "mixed",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "dollyThrough",
+      "beat": "revelation",
+      "hero": "the mark it was set",
+      "super": "",
+      "vo": "The company supplying them had already told investors what a robotic rig has to clear.",
+      "on_screen": "a panel stating the mark any robotic rig is set against, held over the working deck, with the pipe handling machine running its cycle behind it",
+      "what_moves": "the machine completes a full bite and withdraw behind the panel while the panel holds",
+      "cast": [],
+      "seed": 16,
+      "groundY": 1420,
+      "visual_events": [
+        {
+          "at_s_authored": 1.65,
+          "what": "the machine drives out and bites behind the panel",
+          "at_s": 1.895
+        },
+        {
+          "at_s_authored": 4.95,
+          "what": "the machine withdraws and the panel holds",
+          "at_s": 5.685
+        }
+      ],
+      "planes": [
+        {
+          "z": 720,
+          "label": "the pad beyond",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": 760,
+              "y": 1720,
+              "scale": 1,
+              "props": {
+                "courses": 2,
+                "perCourse": 7
+              }
+            }
+          ]
+        },
+        {
+          "z": 430,
+          "label": "the machine",
+          "items": [
+            {
+              "kind": "ironRoughneck",
+              "x": 520,
+              "y": 1820,
+              "scale": 1,
+              "props": {
+                "cycle": 3.2
+              }
+            }
+          ]
+        },
+        {
+          "z": 380,
+          "label": "the deck",
+          "items": [
+            {
+              "kind": "rigFloor",
+              "x": -100,
+              "y": 1740,
+              "scale": 1,
+              "props": {
+                "open": 0,
+                "turning": 6,
+                "sign": false,
+                "w": 900
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "the panel",
+          "items": [
+            {
+              "kind": "readout",
+              "x": 260,
+              "y": 760,
+              "props": {
+                "title": "WHAT HELMERICH AND PAYNE TOLD INVESTORS",
+                "rows": [
+                  [
+                    "the mark",
+                    "its own crews' average"
+                  ],
+                  [
+                    "the result",
+                    "cleared"
+                  ],
+                  [
+                    "the customer",
+                    "not named"
+                  ]
+                ],
+                "w": 560
+              }
+            }
+          ]
+        }
+      ],
+      "scraped": true
+    },
+    {
+      "id": "s7",
+      "start_s": 40.756,
+      "duration_s": 5.617,
+      "duration_authored": 6.875,
+      "visual_family": "the-words",
+      "payload_mode": "mixed",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "truckAcross",
+      "beat": "emotion",
+      "hero": "the latched gate",
+      "super": "\"at least as well as what our people are performing\"",
+      "super_claim": "c13",
+      "vo": "Their own crews. At least as well as what our people are performing.",
+      "on_screen": "tight on the latched gate and its placard filling the near frame, the lit cabin behind it where the work the crews used to do on the floor is now done at a screen, and the machine stopped on the deck",
+      "what_moves": "the camera travels the short way across the latched gate so the placard crosses the frame and the cabin light comes out from behind it",
+      "cast": [],
+      "seed": 17,
+      "groundY": 1360,
+      "visual_events": [
+        {
+          "at_s_authored": 1.65,
+          "what": "the placard crosses the near frame",
+          "at_s": 1.348
+        },
+        {
+          "at_s_authored": 5.088,
+          "what": "the lit cabin clears the gate behind it",
+          "at_s": 4.157
+        }
+      ],
+      "planes": [
+        {
+          "z": 520,
+          "label": "the pad beyond",
+          "items": [
+            {
+              "kind": "pipeRack",
+              "x": -340,
+              "y": 1660,
+              "scale": 1,
+              "props": {
+                "courses": 2,
+                "perCourse": 6
+              }
+            }
+          ]
+        },
+        {
+          "z": 240,
+          "label": "the machine, stopped",
+          "items": [
+            {
+              "kind": "ironRoughneck",
+              "x": 760,
+              "y": 1780,
+              "scale": 1,
+              "props": {
+                "halted": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 70,
+          "label": "the cabin behind",
+          "items": [
+            {
+              "kind": "doghouse",
+              "x": 560,
+              "y": 1800,
+              "scale": 1,
+              "props": {
+                "lit": true,
+                "occupied": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 14,
+          "label": "the latched gate",
+          "items": [
+            {
+              "kind": "rigFloor",
+              "x": -80,
+              "y": 1780,
+              "scale": 1,
+              "props": {
+                "open": 0,
+                "turning": 9,
+                "sign": true,
+                "w": 380
+              }
+            }
+          ]
+        }
+      ],
+      "caption": "Michael Lennox, Helmerich and Payne, on a robotic rig for a customer the company did not name",
+      "scraped": true
+    },
+    {
+      "id": "s8",
+      "start_s": 46.373,
+      "duration_s": 8.627,
+      "duration_authored": 6.875,
+      "visual_family": "past-the-fence",
+      "payload_mode": "picture",
+      "region": "high_plains",
+      "county": "Midland",
+      "camera_strategy": "riseWith",
+      "beat": "revelation",
+      "hero": "the country past the fence",
+      "super": "62% expected no reduction",
+      "super_claim": "c19",
+      "vo": "Past the fence, most producers the Dallas Fed asked expect none of it off the price of a well.",
+      "on_screen": "outside the fence line on open caliche, a working pumpjack against a bleached sky with a lone mesquite beyond it, tumbleweed against the wire and prickly pear in the near corner",
+      "what_moves": "the camera lifts off the pumpjack to the open country while the unit finishes a stroke",
+      "cast": [],
+      "seed": 18,
+      "groundY": 1300,
+      "visual_events": [
+        {
+          "at_s_authored": 1.513,
+          "what": "the pumpjack completes a stroke",
+          "at_s": 1.899
+        },
+        {
+          "at_s_authored": 5.225,
+          "what": "the open country opens out as the camera lifts",
+          "at_s": 6.557
+        }
+      ],
+      "planes": [
+        {
+          "z": 780,
+          "label": "the far country",
+          "items": [
+            {
+              "kind": "mesquite",
+              "x": 900,
+              "y": 1552,
+              "scale": 0.35
+            }
+          ]
+        },
+        {
+          "z": 450,
+          "label": "the pumpjack",
+          "items": [
+            {
+              "kind": "pumpjack",
+              "x": 180,
+              "y": 1673,
+              "scale": 0.7,
+              "props": {
+                "rpm": 6,
+                "wear": 0.4
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "the fence line",
+          "items": [
+            {
+              "kind": "tumbleweed",
+              "x": 800,
+              "y": 1840,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "the brush",
+          "items": [
+            {
+              "kind": "pricklyPear",
+              "x": -60,
+              "y": 1900,
+              "scale": 1
+            }
+          ]
+        }
+      ],
+      "scraped": false
+    }
+  ],
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 8,
+    "on_measured_word_starts": 3,
+    "on_modelled_word_starts": 5,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  },
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.32,
+      "end": 8.62,
+      "text": "Somebody painted a reaper on a gate at a drilling rig in Midland, Texas. Behind it is the square of steel where about a third of significant",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 9.0,
+      "end": 16.76,
+      "text": "drilling injuries happen. The pipe crossing that floor weighs roughly two thousand pounds. Nobody stands under it.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 17.82,
+      "end": 24.76,
+      "text": "The contractor who did that work sits in a small office on the rig, at a screen. Exxon",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 25.64,
+      "end": 30.54,
+      "text": "runs more than thirty rigs in the Permian.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 30.7,
+      "end": 31.88,
+      "text": "Two of them work this way.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 33.14,
+      "end": 41.12,
+      "text": "The company supplying them had already told investors what a robotic rig has to clear. Their own",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 42.66,
+      "end": 49.98,
+      "text": "crews. At least as well as what our people are performing. Past the fence, most producers",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 50.56,
+      "end": 54.82,
+      "text": "the Dallas Fed asked expect none of it off the price of a well.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored"
+}
