@@ -361,6 +361,7 @@ jobs:
             --state "$verify_dir/run_state.json"
           python3 scripts/preflight_animatic.py \
             --board examples/board.json \
+            --film "$verify_dir/preflight.mp4" \
             --verify-report "$verify_dir/preflight.json"
 
       - name: Two of a thing are two things
