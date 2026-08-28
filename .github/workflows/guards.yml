@@ -189,7 +189,7 @@ jobs:
           python3 scripts/storyboard_check.py --self-test
           python3 scripts/storyboard_check.py --board examples/board.json
 
-      - name: Expensive work is bounded before it is spent
+      - name: Expensive work is bounded and no run ends empty
         run: |
           # The August run reached 27 panels because its budgets printed notes and exited 0.
           # Spend every allowance, then prove the next reservation goes red and a dry-run
@@ -198,6 +198,7 @@ jobs:
           python3 scripts/preflight_animatic.py --self-test
           python3 scripts/run_discipline.py --self-test
           python3 scripts/run_discipline.py
+          bash -n scripts/render_dispatch.sh scripts/package_review_run.sh
 
       - name: The exact final film fits the phone and desktop feed
         run: |
@@ -224,6 +225,13 @@ jobs:
           # its drone measurement to the threshold vo_soundcheck refuses on, because two files
           # that agree by convention rather than by test drift apart unwatched.
           python3 scripts/vo_synth_gemini.py --self-test
+          # Missing voice credentials may never produce either a silent public film or no film.
+          # This deterministic fallback is marked review-only and exists solely so the renderer
+          # can preserve a playable visual cut.
+          python3 scripts/fallback_audio.py --self-test
+          # If Remotion itself fails, the inspected animatic (or timed storyboard cards) still
+          # becomes a playable, explicitly non-publishable review MP4 instead of an empty run.
+          python3 scripts/rescue_video.py --self-test
           # Caption boundaries land on measured silence, so error re-anchors every phrase instead
           # of accumulating across the film.
           python3 scripts/vo_align.py --self-test

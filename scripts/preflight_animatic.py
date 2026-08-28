@@ -4,7 +4,8 @@
 The board gate catches declared repetition. This program checks the declaration reached pixels:
 the opening changes before two seconds, every motion/revelation scene visibly changes, and a
 contact sheet from the animatic can be reviewed before expensive work begins. The shared run
-controller permits the original board and one reboard, never an open-ended storyboard loop.
+controller permits the original board, four bounded corrections, and one final timing pass—never
+an open-ended storyboard loop.
 """
 from __future__ import annotations
 
@@ -46,6 +47,19 @@ def probe(film: Path) -> tuple[int, int, float]:
         check=True, capture_output=True, text=True).stdout)
     stream = raw["streams"][0]
     return int(stream["width"]), int(stream["height"]), float(raw["format"]["duration"])
+
+
+def report_problems(saved: dict, board: Path, film: Path) -> list[str]:
+    errs = []
+    if saved.get("pass") is not True:
+        errs.append("the preflight report is not passing")
+    if saved.get("board_sha256") != sha256(board):
+        errs.append("the preflight report belongs to a different board")
+    if not film.is_file():
+        errs.append("the preflight film is missing")
+    elif saved.get("film_sha256") != sha256(film):
+        errs.append("the preflight film changed after inspection")
+    return errs
 
 
 def frame(film: Path, at_s: float, width: int = 135, height: int = 240) -> np.ndarray:
@@ -166,6 +180,15 @@ def self_test() -> int:
            str(still_score))
         ok("real pixel change measures above the motion floor", moving_score > MOTION_FLOOR,
            str(moving_score))
+        board = root / "board.json"
+        board.write_text('{"runtime_s": 2.2, "scenes": []}\n', encoding="utf-8")
+        saved = {"pass": True, "board_sha256": sha256(board),
+                 "film_sha256": sha256(moving)}
+        ok("a report is bound to both its board and inspected animatic",
+           not report_problems(saved, board, moving))
+        moving.write_bytes(static.read_bytes())
+        ok("a substituted animatic is refused even when the board did not move",
+           bool(report_problems(saved, board, moving)))
     print(f"preflight_animatic: {failures} failure(s)")
     return 1 if failures else 0
 
@@ -189,18 +212,19 @@ def main() -> int:
         board = json.loads(board_path.read_text(encoding="utf-8"))
         if args.verify_report:
             saved = json.loads(Path(args.verify_report).read_text(encoding="utf-8"))
-            if saved.get("pass") is not True or saved.get("board_sha256") != sha256(board_path):
-                print("preflight_animatic: report is failing or belongs to a different board",
-                      file=sys.stderr)
+            errs = report_problems(saved, board_path, film)
+            if errs:
+                for err in errs:
+                    print(f"preflight_animatic: {err}", file=sys.stderr)
                 return 1
-            print("preflight_animatic: passing animatic is hash-bound to this board")
+            print("preflight_animatic: passing animatic is hash-bound to this board and film")
             return 0
         if not args.inspect_only:
             render(board_path.resolve(), film.resolve(), Path(args.state))
         report, problems = inspect_animatic(board, film)
         contact_sheet(board, film, Path(args.sheet))
         report.update({"pass": not problems, "problems": problems,
-                       "board_sha256": sha256(board_path),
+                       "board_sha256": sha256(board_path), "film_sha256": sha256(film),
                        "film": str(film), "contact_sheet": str(args.sheet)})
         Path(args.report).parent.mkdir(parents=True, exist_ok=True)
         Path(args.report).write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

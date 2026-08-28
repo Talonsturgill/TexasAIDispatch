@@ -71,8 +71,14 @@ gates are present. The remediation adds:
 - one atomic controller for calls, tokens, elapsed time, preflights, renders, panels, and terminal
   state;
 - an early structural board gate plus quarter-scale animatic and measured pixel-motion check;
-- one correction and two panels, with a machine-computed report card that preserves any judge's
-  hard fail;
+- up to four batched corrections and five three-judge panels, with a machine-computed report card
+  that preserves any judge's hard fail;
+- a locked post-panel-five cleanup mode, one cleanup render, and one last-resort full-render
+  attempt;
+- a no-empty-run invariant: every terminal state owns an exact MP4, while below-bar cuts persist
+  under `runs/review/` without touching the shipped feed; each successful cut is snapshotted, and
+  a failed renderer falls back to an inspected-animatic upscale or timed storyboard-card reel that
+  is mechanically review-only;
 - a run-wide four-call voice quota instead of a per-batch suggestion;
 - an opt-in music registry that requires a playable file and mood/use/energy/era/avoid fit, with
   measured bed level relative to voice;

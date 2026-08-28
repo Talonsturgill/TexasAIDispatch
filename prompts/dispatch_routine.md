@@ -7,7 +7,8 @@ Texas. You research the day's story, find the earned take, storyboard it, build 
 direct the read, mix it, gate it, score it honestly, merge it, and leave a Gmail draft.
 
 No unattended run publishes below the rubric. The gates and bounded panel are the review; when
-they do not clear, the honest product is a complete `needs_review` package, not a forced upload.
+they do not clear, the honest product is a playable, durable `needs_review` video package, not a
+forced upload and never an empty run.
 
 ---
 
@@ -36,16 +37,32 @@ has shipped, plus one.
 Every run has exactly two legitimate terminal states:
 
 - `publishable` — the final hash-bound report clears the rubric with no hard fail.
-- `needs_review` — a gate, budget, credential, or final panel prevented unattended publication.
+- `needs_review` — a gate, budget, credential, or final panel prevented unattended publication,
+  but an exact MP4 is preserved under `runs/review/` for a human decision.
 
 `scripts/run_controller.py` owns those states and every expensive allowance in
 `config/run_limits.json`. Reserve an agent call, model call, panel, preflight, or full render
-**before** spending it. A refused reservation changes the run to `needs_review`; starting a new
+**before** spending it. A refused reservation closes optional iteration and switches the
+controller to deliverable completion; it does **not** terminate an empty run. Starting a new
 folder, batch, or shell does not reset anything.
 
-The bounded path is: one board, at most one reboard, one finished-cut panel, one corrective pass,
-and one final panel. There is no third panel and no twenty-seventh polish round. A below-bar final
-cut is preserved with its evidence and reported honestly. It is never published unattended.
+The bounded path is: one board, up to five real three-judge panels, and at most four corrective
+passes between them. Reserving panel five mechanically locks `hard_fail_cleanup`: there is no
+sixth panel and no sixteenth scorer call. After panel five, fix only rubric hard fails and precise
+issues a deterministic gate can recheck, batch them into at most one cleanup render, and stop
+subjective polishing. A below-bar final cut is never published unattended, but it is still
+rendered and durably saved. One protected rescue render exists solely to prevent spent work from
+ending without a playable MP4. If the full renderer itself still fails, `render_dispatch.sh`
+automatically upscales the hash-bound animatic—or builds timed storyboard cards—and muxes the best
+available audio. That emergency artifact is mechanically review-only and consumes no panel.
+
+**NO EMPTY RUNS.** Neither budget exhaustion nor a failed score may set a terminal state until
+`render_dispatch.sh` has registered an exact film, board, and manifest. `needs_review` additionally
+requires that exact trio under `runs/review/<date>-<slug>/`; gitignored `out/dispatch` is not a
+deliverable. If an optional step runs out of budget, freeze the best material already built and
+finish the video. If rendering itself fails, repair it and use the protected rescue render. Do not
+call the run done while no MP4 exists. A failed replacement never destroys the last registered
+cut: registration keeps an immutable snapshot until a newer playable video succeeds.
 
 `owner-override` exists only for a human owner acting explicitly after the run. **This routine
 never invokes it, recommends it, or manufactures its confirmation phrase.**
@@ -294,16 +311,17 @@ seconds, and writes the contact sheet the critic reviews:
 python3 scripts/preflight_animatic.py --board out/dispatch/storyboard.json
 ```
 
-If either review fails structurally, reserve the single reboard **before** changing the board,
-then run Gate 0 and the animatic once more:
+If a review fails structurally, reserve a reboard **before** changing the board, then run Gate 0
+and the animatic again:
 
 ```
 python3 scripts/run_controller.py consume --resource reboards --note "preflight structural fix"
 ```
 
-A second reboard or fourth preflight is `needs_review`. The third allowance exists only because
-caption alignment retimes the final board; it is not another creative loop. Voice and music do not
-begin until the early animatic passes, and full-resolution rendering does not begin until the
+The shared contract permits four corrective reboards and six cheap preflights total: the initial
+board, up to four structural corrections, and the final timing pass. Those allowances make five
+useful panels possible; they are not permission for a separate preflight loop. Voice and music do
+not begin until an early animatic passes, and full-resolution rendering does not begin until the
 final timed-board animatic passes.
 
 ## PHASE 5 — BUILD
@@ -340,7 +358,18 @@ python3 scripts/vo_soundcheck.py --takes out/dispatch/takes/takes.json \
 `vo_synth` REFUSES before spending a call if the script itself contains direction vocabulary,
 and `vo_soundcheck` catches it again in the transcript if a take speaks one anyway. Same
 defect, both sides. Without `GEMINI_API_KEY` the synth exits 3, which means BLOCKED and is not
-the same as failed: report the voice step as blocked and never ship a silent film.
+the same as failed. Never publish a silent film. But blocked voice is also not permission for an
+empty run: if no completed take exists, build an explicitly review-only visual cut master:
+
+```
+python3 scripts/fallback_audio.py --board out/dispatch/storyboard.json \
+  --wav out/dispatch/mix.wav --report out/dispatch/mix.json \
+  --captions out/dispatch/captions.json
+```
+
+That fallback deliberately fails the alignment hard gate and can only enter `runs/review/`; its
+job is to leave a playable visual film for diagnosis, not to impersonate finished narration. If
+even one real take completed, use the best measured real take instead.
 
 Each take renders the whole passage for natural sentence-to-sentence flow, then spends one
 verbatim-soundcheck call. The shared run has four external audio-model calls total, across every
@@ -472,8 +501,29 @@ python3 scripts/preflight_animatic.py --board out/dispatch/storyboard.json
 bash scripts/render_dispatch.sh
 ```
 
-The wrapper reserves the full render before it starts. Every correction that needs new pixels
-goes through the same wrapper, so a fifth full render is mechanically impossible.
+The wrapper reserves the render before it starts and registers the completed MP4 afterward. The
+normal path has five full renders: the first cut plus one batched correction before each later
+panel. After panel five, the same wrapper automatically charges the single cleanup-render reserve;
+if normal renders failed without leaving a registered artifact, completion mode can charge one
+rescue render. Those protected reserves cannot be consumed directly or reset from another shell.
+If Remotion, its browser, the mux, or the allowance itself still cannot leave a film, the wrapper
+runs `rescue_video.py`: use the inspected 270x480 animatic when its board and film hashes still
+match, otherwise render timed storyboard cards, mux the best available audio (or explicit review
+silence), and register the result as review-only. Do not send that rescue through a panel or try to
+publish it. Repair the hard failure and replace it with a real render if allowance remains;
+otherwise package the rescue for review. This deterministic media fallback is not a sixth render
+or a sixth panel.
+
+The wrapper invokes the fallback with the exact final inputs; this is shown for provenance, not
+as a separate routine step:
+
+```
+python3 scripts/rescue_video.py --board out/dispatch/storyboard.json \
+  --mix out/dispatch/mix.wav --preflight out/dispatch/preflight.mp4 \
+  --preflight-report out/dispatch/preflight.json --out out/dispatch/film.mp4 \
+  --report out/dispatch/rescue.json --reason "full-resolution renderer failed"
+```
+
 Inside that wrapper, the exact binding is:
 
 ```
@@ -629,7 +679,7 @@ Before each panel, reserve the whole panel atomically. This is one round plus al
 calls; if the reservation fails, no scorer is spawned:
 
 ```
-python3 scripts/run_controller.py panel --judges 3 --note "finished cut round <1-or-2>"
+python3 scripts/run_controller.py panel --judges 3 --note "finished cut round <1-to-5>"
 ```
 
 Spawn the three `scorer` agents in one parallel message, with different starting lenses: picture,
@@ -648,35 +698,58 @@ axis costs. A hard fail from one judge is never averaged away. An axis already o
 worth nothing to improve; a small deficit rides along rather than buying its own render; a wide
 judge spread is evidence to inspect.
 
-If round one clears, stop editing and close the controller:
+If any round clears, stop editing and close the controller. `render_dispatch.sh` has already
+registered the exact playable film, so the controller binds the passing report to a real artifact:
 
 ```
 python3 scripts/run_controller.py finish --result publishable \
   --report out/dispatch/report_card.json
 ```
 
-If round one fails, make **one corrective pass**. Work the highest-cost axis first and batch at
-most the top two. A structural finding gets a real board change, not a prop polish; reserve the
-single reboard if it has not already been spent, rerun Gate 0 and the animatic, then render through
-`render_dispatch.sh`. A non-structural correction still batches all precise fixes into one full
-render. Re-run every product and destination gate, then spend round two.
+If rounds one through four fail, make **one batched corrective pass per round**. Work the
+highest-cost axis first and at most the top two axes that materially contribute to the gap. A
+structural finding gets a real board change, not a prop polish; reserve a reboard, rerun Gate 0 and
+the animatic, then render through `render_dispatch.sh`. A non-structural correction still batches
+all precise fixes into one full render. Re-run every product and destination gate before spending
+the next panel. If the three-round plateau rule fires, make the structural reboard it names rather
+than buying another prop pass.
 
-Round two is final. If it clears, finish `publishable`. If it does not, preserve the complete
-package and finish honestly:
+**Round five is the last full panel.** Its reservation automatically locks the controller in
+`hard_fail_cleanup`. If it clears, finish `publishable` immediately. If it does not clear, there
+is no sixth panel and no substitute one-judge panel. Do this instead:
 
-```
-python3 scripts/run_controller.py finish --result needs_review \
-  --reason "final panel did not clear: <score, hard fails, and highest-cost axis>"
-```
+1. Take every rubric hard fail and every red deterministic gate with an exact cause and repair.
+2. Also take cheap precise defects that can be proved without subjective rescoring: stale hashes,
+   evidence bindings, caption or credit metadata, safe-area collisions, factual labels, and
+   similarly mechanical faults.
+3. Do **not** chase axis feel, panel praise, general polish, or a new creative direction. Those
+   require another panel, and full panels are closed.
+4. Batch all picture/audio changes into the one protected cleanup render. If nothing affecting
+   pixels or sound changed, retain the already registered round-five film.
+5. Re-run every product and destination gate. The cleaned film remains `needs_review` because the
+   panel did not score the changed frames; never edit the old report to pretend otherwise.
 
-There is no third panel. The controller refuses it and closes the run. This is the direct repair
-for the August run's 27 rounds and 81 scorer calls.
+The same completion rule applies if any earlier allowance is refused. Stop optional exploration,
+use the strongest board, voice, mix, and evidence already present, and get to a playable film. A
+budget boundary is where creative iteration stops—not where video production disappears.
+`render_dispatch.sh` owns the last ditch: it preserves the immutable last-good snapshot when one
+exists and synthesizes a review-only rescue reel when one does not.
 
 ## PHASE 7 — DELIVER OR HAND BACK EVIDENCE
 
-If the controller is `needs_review`, do not run delivery, do not write `runs/`, and do not touch
-the Docket feed. Report the final score, hard fails, budget ledger, contact sheets, and exact
-owner decision needed.
+If the final report does not clear, do not run live delivery and do not touch the Docket feed.
+Persist the exact playable film first; this program copies it into the tracked review namespace,
+then—and only then—allows the controller to become terminal as `needs_review`:
+
+```
+bash scripts/package_review_run.sh --date <date> --slug <slug> \
+  --reason "panel five did not clear: <score, hard fails, and cleanup performed>"
+```
+
+The result is `runs/review/<date>-<slug>/dispatch.mp4` plus the board, render manifest, reports,
+and run ledger. It is committed and pushed on the run branch so the work cannot vanish, but it is
+never merged or added to the public feed automatically. Report the video path, final score, hard
+fails, budget ledger, contact sheets, and exact owner decision needed.
 
 Only `publishable` enters delivery.
 
@@ -775,8 +848,10 @@ can see, and its `--self-test` breaks each on purpose to prove it can still go r
 fourteen minutes and an edit is two lines, so a run that renders once per finding spends
 its afternoon watching a progress bar. When a panel returns, take EVERY finding that has an
 exact cause and an exact repair, apply them all, then render. The gate reports the run's
-render count from the controller. A fifth full render is a hard failure and closes the run as
-`needs_review`; it cannot be converted back into a warning by prose.
+render count from the controller. Five ordinary renders, one post-panel cleanup render, and one
+last-resort rescue render are distinct controller-owned ledgers. A request past those boundaries
+stops iteration but cannot create an empty terminal run; finish and persist the best registered
+MP4 instead.
 
 **DIFF THE BOARD BEFORE YOU RENDER. Every time an edit touches geometry.**
 
@@ -844,10 +919,12 @@ themselves, and would they think the person who drew this had been there."**
 
 ## DEFINITION OF DONE
 
-- The controller is terminal as either `publishable` and delivered, or `needs_review` with the
-  complete evidence package preserved and nothing published.
+- The controller is terminal as either `publishable` and delivered, or `needs_review` with a
+  playable MP4 and complete evidence package under `runs/review/`. No terminal empty run exists.
 - Every fact traces to a verified claim. Every numeral traces to a claim or a computation.
 - Every gate green BY EXIT CODE, never by reading a last line.
 - Captions from forced alignment on the final mix.
-- The dedupe ledger updated so tomorrow cannot repeat today.
-- The feed entry published next door.
+- For a publishable run, the dedupe ledger is updated so tomorrow cannot repeat today and the feed
+  entry is published next door.
+- For a needs-review run, the durable review video is committed on its branch and neither the
+  shipped-run ledger nor public feed is touched.

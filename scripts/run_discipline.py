@@ -47,7 +47,11 @@ def resource_limit(name: str) -> int:
     return value
 
 
-RENDER_BUDGET = resource_limit("full_renders")
+RENDER_BUDGET = (
+    resource_limit("full_renders")
+    + resource_limit("cleanup_renders")
+    + resource_limit("rescue_renders")
+)
 ROUND_BUDGET = resource_limit("panel_rounds")
 
 
@@ -215,15 +219,16 @@ def check_panel_rounds(rounds: int | None) -> list[str]:
     if rounds is None or rounds <= ROUND_BUDGET:
         return []
     return [f"{rounds} panel rounds exceeds the mechanical {ROUND_BUDGET}-round cap. "
-            "This run must end needs_review; another panel is not authorised."]
+            "Another panel is not authorised. Complete the playable video with hard-fail and "
+            "deterministic repairs, then persist it for review."]
 
 
 def check_full_renders(renders: int | None) -> list[str]:
-    """A fifth full render is not a suggestion to batch better; it is a stopped run."""
+    """A render over the shared cap is not a suggestion; it is a stopped run."""
     if renders is None or renders <= RENDER_BUDGET:
         return []
     return [f"{renders} full renders exceeds the mechanical {RENDER_BUDGET}-render cap. "
-            "This run must end needs_review."]
+            "Stop optional iteration and persist the best registered playable video."]
 
 
 def state_counts(path: Path) -> tuple[int, int]:
@@ -233,7 +238,10 @@ def state_counts(path: Path) -> tuple[int, int]:
 
     state = read_state(path)
     usage = state.get("usage") or {}
-    return int(usage.get("full_renders", 0)), int(usage.get("panel_rounds", 0))
+    renders = sum(int(usage.get(name, 0)) for name in (
+        "full_renders", "cleanup_renders", "rescue_renders"
+    ))
+    return renders, int(usage.get("panel_rounds", 0))
 
 
 def check_piped_exit_codes() -> list[str]:
@@ -342,9 +350,9 @@ def self_test() -> int:
         ok("catches panel frames older than the film",
            bool(check_panel_frames_come_from_the_film()))
 
-        ok("a third panel round is a hard failure",
+        ok("a panel round over the shared cap is a hard failure",
            bool(check_panel_rounds(ROUND_BUDGET + 1)))
-        ok("a fifth full render is a hard failure",
+        ok("a full render over the shared cap is a hard failure",
            bool(check_full_renders(RENDER_BUDGET + 1)))
 
     REPO = real

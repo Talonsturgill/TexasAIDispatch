@@ -49,17 +49,28 @@ Three things still stop and ask, in any session:
 A Dispatch run has exactly two terminal states: `publishable` or `needs_review`.
 
 - `publishable` requires a hash-bound final report at or above the rubric with no hard fail.
-- `needs_review` preserves the complete package when a gate, budget, credential, or final panel
-  prevents unattended publication. It never writes the feed or merges run artifacts.
+- `needs_review` preserves a playable video and the complete package when a gate, budget,
+  credential, or final panel prevents unattended publication. It never writes the feed or merges
+  into the shipped-run path.
 
 `scripts/run_controller.py` owns every expensive allowance in `config/run_limits.json`: three
-researchers and one validator, one reboard, bounded animatics, four external audio-model calls,
-four full renders, and two three-judge panels. A reservation happens before spend. A new shell,
-folder, or batch cannot reset the run ledger.
+researchers and one validator, four corrective reboards, six cheap animatics, four external
+audio-model calls, five normal full renders, and five three-judge panels. A reservation happens
+before spend. A new shell, folder, or batch cannot reset the run ledger.
 
-The routine gets one corrective pass after the first finished-cut panel. The second panel is
-final. There is no instruction to keep polishing below bar, which is how the first film reached
-27 rounds and 81 scorer calls while regressing.
+Rounds one through four may each produce one batched corrective pass. Reserving round five locks
+`hard_fail_cleanup`: no sixth panel or sixteenth scorer call can be disguised in a new shell.
+After that, only hard fails and deterministic no-panel repairs continue, with one cleanup render.
+If normal rendering was exhausted without an artifact, one controller-owned rescue render exists.
+
+**A cost boundary may stop iteration; it may not erase the day's product.** Budget exhaustion is
+non-terminal completion mode. `render_dispatch.sh` registers the exact MP4, board, and manifest,
+and `needs_review` is refused until `package_review_run.sh` copies them into tracked
+`runs/review/<date>-<slug>/`. `out/` is gitignored and does not count. A run that cannot publish
+still commits a playable review video on its branch; it never silently ends with no film. Each
+registration snapshots an immutable last-good trio. If no full render survives,
+`rescue_video.py` upscales the hash-bound animatic or creates timed storyboard cards, supplies an
+audio stream, and registers that MP4 as review-only. A panel score cannot promote that rescue.
 
 An explicit owner override is recorded by the controller for a human owner only. The unattended
 routine never invokes or recommends it.
@@ -182,7 +193,9 @@ history and Alaska's would poison them.
 - `scripts/` — the gates and the build steps. Run them by EXIT CODE, never by last line.
 - `video-engine/` — the Remotion project. `src/lib/` is the reusable cast and juice.
 - `assets/` — fonts, voice reference, committed art data.
-- `out/` — per-run scratch (gitignored). `runs/` — shipped artifacts.
+- `out/` — per-run scratch (gitignored). `runs/<date>/` — shipped artifacts.
+  `runs/review/<date>-<slug>/` — durable playable videos awaiting a human decision and never
+  added to the feed automatically.
 
 ## House rules that never bend
 

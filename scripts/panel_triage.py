@@ -301,7 +301,7 @@ def self_test() -> int:
             unowned = False
         ok("an unowned legacy history cannot leak into a new run", not unowned)
     ok("the panel round cap comes from the shared run contract",
-       panel_round_limit() == 2)
+       panel_round_limit() == 5)
 
     print(f"panel_triage: {fails} failure(s)")
     return 1 if fails else 0
@@ -351,7 +351,8 @@ def main() -> int:
 
     if a.round is not None and (a.round < 1 or a.round > panel_round_limit()):
         print(f"panel_triage: round {a.round} is outside the mechanical 1 to "
-              f"{panel_round_limit()} limit. End needs_review instead of scoring again.",
+              f"{panel_round_limit()} limit. Do no-panel hard-fail cleanup and persist the "
+              "playable review video instead of scoring again.",
               file=sys.stderr)
         return 1
     if a.record and (a.round is None or not a.run_id):

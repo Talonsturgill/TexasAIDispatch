@@ -1041,8 +1041,8 @@ Two rules fall out, and the current render wrapper enforces the stronger form.
 than rediscovering it by pattern.** A pid cannot match itself and needs no exclusion reasoning.
 
 **Every wait carries a deadline.** A wait that cannot time out can hang the run, and the
-bounded terminal contract says a blocked run becomes `needs_review`, which it cannot do from
-inside an infinite loop. Note that in the failing self-test runs above, the deadline is the only
+bounded terminal contract says a blocked run must finish a durable `needs_review` video, which it
+cannot do from inside an infinite loop. Note that in the failing self-test runs above, the deadline is the only
 reason anything was ever reported at all. The guard that saved the diagnosis was the
 belt, not the braces.
 

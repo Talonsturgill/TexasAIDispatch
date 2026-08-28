@@ -442,8 +442,9 @@ def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str,
                 break
             except CallBudgetExhausted as exc:
                 print(f"  {tid}: {exc}", file=sys.stderr)
-                print("vo_synth: run-wide call budget closed this run. End needs_review; "
-                      "starting a new takes directory cannot reset it.", file=sys.stderr)
+                print("vo_synth: the run-wide call budget closed further voice attempts. Use "
+                      "the best completed take and finish a playable video; starting a new "
+                      "takes directory cannot reset it.", file=sys.stderr)
                 return 1
             except Exception as exc:                                    # noqa: BLE001
                 fails += 1
@@ -658,7 +659,9 @@ def main() -> int:
     if not key:
         print("vo_synth: BLOCKED. GEMINI_API_KEY is not set, so no take can be rendered.\n"
               "Everything else in this run still works. Report the voice step as blocked and "
-              "do NOT ship a silent film.", file=sys.stderr)
+              "do NOT ship a silent film. If no prior take exists, use fallback_audio.py to "
+              "produce an explicitly review-only visual MP4 instead of ending empty.",
+              file=sys.stderr)
         return blocked_code()
 
     state_path = Path(a.run_state)

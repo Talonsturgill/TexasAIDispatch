@@ -47,13 +47,31 @@ def build(film: Path, board: Path) -> dict:
             "feed_layout_sha256": file_sha256(FEED_LAYOUT)}
 
 
-def problems(manifest: dict, film: Path, board: Path) -> list[str]:
+def artifact_problems(manifest: dict, film: Path, board: Path) -> list[str]:
+    """Check the immutable artifact pair without requiring today's source checkout.
+
+    A needs-review package is allowed to preserve the last playable cut after a later source edit
+    breaks rendering. Its manifest must still name the exact film and board it was built from,
+    but comparing that historical engine hash with the now-edited worktree would make the safety
+    copy impossible to recover. Publication uses :func:`problems`, which adds that current-source
+    requirement back.
+    """
     out = []
     if manifest.get("schema") != SCHEMA:
         return [f"manifest is not {SCHEMA}"]
     expected = build(film, board)
-    for field in ("film_sha256", "board_sha256", "engine_sha256", "safearea_sha256",
-                  "feed_layout_sha256"):
+    for field in ("film_sha256", "board_sha256"):
+        if manifest.get(field) != expected[field]:
+            out.append(f"{field} differs from the exact artifact or source now presented")
+    return out
+
+
+def problems(manifest: dict, film: Path, board: Path) -> list[str]:
+    out = artifact_problems(manifest, film, board)
+    if out:
+        return out
+    expected = build(film, board)
+    for field in ("engine_sha256", "safearea_sha256", "feed_layout_sha256"):
         if manifest.get(field) != expected[field]:
             out.append(f"{field} differs from the exact artifact or source now presented")
     return out
@@ -79,6 +97,13 @@ def self_test() -> int:
         film.write_bytes(b"film-one")
         board.write_text('{"changed": true}\n', encoding="utf-8")
         ok("a board edited after rendering is refused", bool(problems(manifest, film, board)))
+        manifest["engine_sha256"] = "historical-engine"
+        film.write_bytes(b"film-one")
+        board.write_text("{}\n", encoding="utf-8")
+        ok("a historical engine remains valid review provenance",
+           not artifact_problems(manifest, film, board))
+        ok("...but cannot impersonate a current-source publication",
+           bool(problems(manifest, film, board)))
     print(f"render_manifest: {failures} failure(s)")
     return 1 if failures else 0
 
