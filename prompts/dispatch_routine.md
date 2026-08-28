@@ -34,6 +34,18 @@ has shipped, plus one.
 
 ## THE BOUNDED TERMINAL CONTRACT
 
+**A FAILED RUN IS NOT A THING, owner's decision 2026-08-28.** The definition of done is
+a DELIVERED VIDEO. `config/run_limits.json` now carries a spend TARGET and a hard
+CEILING per resource, and between them `run_controller` grants the work and records the
+overage as a `budget_escalated` event rather than refusing. A run that has stopped can
+be reopened with `run_controller reopen --reason ...`, which grants no budget, leaves
+every reservation already spent as spent, and keeps the prior terminal state as a scar.
+
+An empty run is worse than an expensive one. What escalation never buys is a lower bar:
+the rubric threshold, every hard fail, the numeral-traces-to-a-fetched-quote rule, the
+ban on time-stretching and the alignment evidence are all unreachable from it. It buys
+more ATTEMPTS at clearing the bar, which is the only thing that was ever missing.
+
 Every run has exactly two legitimate terminal states:
 
 - `publishable` — the final hash-bound report clears the rubric with no hard fail.
@@ -134,12 +146,21 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
 4. Read `CLAUDE.md`, `.claude/WORKLOG.md` if it exists, `knowledge/texas/`, `knowledge/craft/`.
 5. Preflight the gates on a clean checkout:
    ```
+   python3 scripts/env_check.py
    python3 scripts/engine_lint.py
    python3 scripts/staging_check.py
    python3 scripts/composition_check.py
    python3 scripts/wiring_check.py
    cd video-engine && npx tsc --noEmit
    ```
+
+   **`env_check` runs FIRST because it is the one that proves this container can make a
+   film at all.** On 2026-08-28 all the others passed green on a machine with no numpy,
+   no Pillow, no ffmpeg, no ffprobe and no Remotion browser. Every one of those failures
+   lands AFTER an expensive reservation: numpy died at the Phase 5 foley build, Pillow
+   died after Gate 0 had passed, and a missing browser would have paid a 109 MB download
+   inside a metered render. The rest of this list proves the ENGINE is wired. It proves
+   nothing about whether audio can be built or a film muxed.
 
    `composition_check` is the one that proves the film can be rendered at all. The id in Phase 5
    must be an id `Root.tsx` registers, and for the whole of this machine's life it was not.
