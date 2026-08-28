@@ -82,6 +82,7 @@ export interface Scene {
   /** The scene is INDOORS. The region still names the light, because a room in Abilene is
    *  lit by Abilene, and the region's plants and dirt stay outside where they live. */
   interior?: boolean;
+  scraped?: boolean;
   seed?: number;
   groundY?: number;
 }
@@ -319,7 +320,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
   return (
     <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>
       <Biome region={scene.region} frame={f} camera={camera} seed={scene.seed ?? 1}
-        groundY={scene.groundY ?? 1060} weather={scene.weather} interior={scene.interior}>
+        groundY={scene.groundY ?? 1060} weather={scene.weather} interior={scene.interior} scraped={scene.scraped}>
         {scene.planes.map((pl, i) => (
           <Plane key={i} z={pl.z}>
             {/* OVERFLOW VISIBLE, and it is not a nicety. An <svg> clips to its

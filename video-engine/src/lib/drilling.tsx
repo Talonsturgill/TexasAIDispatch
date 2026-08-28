@@ -398,6 +398,8 @@ export const IronRoughneck: React.FC<Rig & {
   const body = tones(livery, L);
   const steel = tones('#79808a', L);
 
+  // Well centre in the local frame. The jaws travel to it and the joint stands in it.
+  const WELL_X = 144;
   const u = halted ? 0.34 : (frame / 30 / cycle) % 1;
   // hold, drive in fast, bite, withdraw. A hydraulic machine does not ease.
   const reach = u < 0.16 ? 0 : u < 0.3 ? (u - 0.16) / 0.14
@@ -446,10 +448,19 @@ export const IronRoughneck: React.FC<Rig & {
         )}
       </g>
 
-      {/* the joint of pipe it is working, standing in the rotary */}
-      <path d={`M${112},-176 L${112},-6`} stroke="#7d6a55" strokeWidth={13} />
-      <path d={`M${112},-176 L${112},-6`} stroke={INK} strokeWidth={3} opacity={0.55}
+      {/* THE JOINT OF PIPE, AT WELL CENTRE, WHERE THE JAWS ACTUALLY REACH.
+          It was drawn at x=112 while the wrench travels to 90 + 54 = 144 at full
+          reach, so the machine closed on nothing and opened on nothing and a judge
+          read the whole scene as two unrelated orange objects. The tongs and the
+          pipe now share one number. */}
+      <path d={`M${WELL_X},-186 L${WELL_X},-6`} stroke="#7d6a55" strokeWidth={15} />
+      <path d={`M${WELL_X - 5},-186 L${WELL_X - 5},-6`} stroke="#6b5a48" strokeWidth={4}
+        opacity={0.7} />
+      <path d={`M${WELL_X},-186 L${WELL_X},-6`} stroke={INK} strokeWidth={3.4} opacity={0.6}
         fill="none" />
+      {/* the tool joint, the upset collar every stand has at its box end */}
+      <rect x={WELL_X - 11} y={-120} width={22} height={26} rx={3} fill="#8a7660"
+        stroke={INK} strokeWidth={3} />
 
       {wear > 0.2 && <RustStreak x={-22} y={-150} w={44} h={142} seed={seed} opacity={wear * 0.6} />}
     </g>

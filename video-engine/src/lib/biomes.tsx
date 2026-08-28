@@ -135,8 +135,25 @@ export const Biome: React.FC<{
    *  first law broken twice over in one frame: it tells a viewer the racks are outdoors,
    *  and it tells them Taylor County grows inside. */
   interior?: boolean;
+  /** THE SCENE IS A WORKING LOCATION, so the region draws its light and its dirt and
+   *  NOT its plants.
+   *
+   *  This is `interior`'s outdoor twin and it exists for the same defect one step out
+   *  of the door. A drilling location is scraped, bladed and bermed caliche out to the
+   *  fence, because anything growing on it is a fire load and a trip hazard, and it is
+   *  re-bladed every time a rig moves. The vegetation plane sits at z=210, so on
+   *  2026-08-28 the August 28th Dispatch rendered shortgrass tufts and a round leafy
+   *  tree ON the pad in four scenes, and the same plane drew a mesquite straight
+   *  THROUGH the driller's cabin, which a judge read as the cabin being unfilled.
+   *
+   *  Two judges filed it independently as a place fault and both were right: a Permian
+   *  hand knows a location does not grow anything. `interior` already proved the shape
+   *  of the fix, which is that the plants are the part a scene must be able to decline
+   *  without declining the place. */
+  scraped?: boolean;
   children?: React.ReactNode;
-}> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, interior, children}) => {
+}> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, interior, scraped,
+       children}) => {
   const p = BIOMES[region];
   // The sky, horizon-haze and ground gradients used to be keyed by REGION, so two
   // biomes of one region in a frame shared three paint servers. Identical palettes
@@ -252,7 +269,7 @@ export const Biome: React.FC<{
         )}
 
         {/* ---- vegetation, per region, and NOT INDOORS ------------------------ */}
-        {!interior && (
+        {!interior && !scraped && (
           <Plane z={210}>
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
               <Vegetation region={region} seed={seed} groundY={groundY} />
