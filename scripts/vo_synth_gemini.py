@@ -669,7 +669,19 @@ def main() -> int:
         sys.path.insert(0, str(REPO / "scripts"))
         from run_controller import read_state
         state = read_state(state_path)
-        remaining = int(state["limits"]["tts_calls"]) - int(state["usage"]["tts_calls"])
+        # THE HEADROOM COMES FROM THE CONTROLLER'S RULE, NOT A SECOND COPY OF IT.
+        # This read `limits - usage`, which was the whole rule right up until the
+        # controller learned to escalate past the spend target toward a hard ceiling on
+        # 2026-08-28. After that it was a stale duplicate: it refused, before spending
+        # anything, work the controller would have granted, and the run could not
+        # re-synth a line the panel had shown was WRONG. A budget rule written down in
+        # two places is a rule that will be wrong in one of them, which is this repo's
+        # founding defect, so the ceiling is read from the same ledger the controller
+        # writes rather than re-derived here.
+        ceiling = int((state.get("escalation_ceiling") or {}).get(
+            "tts_calls", state["limits"]["tts_calls"]))
+        headroom = max(int(state["limits"]["tts_calls"]), ceiling)
+        remaining = headroom - int(state["usage"]["tts_calls"])
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
         print(f"vo_synth: cannot read the shared run state {state_path}: {exc}", file=sys.stderr)
         return 2

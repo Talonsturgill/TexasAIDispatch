@@ -260,26 +260,26 @@ export const RigFloor: React.FC<Rig & {
           same strip bigger, which is exactly what round two reported. It is now a
           foreshortened quad receding from the near edge, with the tread plate
           distributed across it. */}
-      <path d={`M${-half},26 L${half},26 L${half * 0.78},-52 L${-half * 0.78},-52 Z`}
+      <path d={`M${-half},26 L${half},26 L${half * 0.52},-300 L${-half * 0.52},-300 Z`}
         fill={`url(#${uid}_s)`} stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-      <BrushedMetal x={-half * 0.78} y={-52} w={w * 0.78} h={78} opacity={0.16} />
+      <BrushedMetal x={-half * 0.52} y={-300} w={w * 0.52} h={326} opacity={0.16} />
       {/* non-slip tread, converging with the deck so the plane reads as receding */}
       {Array.from({length: Math.floor(w / 34)}, (_, i) => {
         const u = (i + 0.5) / Math.floor(w / 34);
         const nx = -half + u * w;
-        const fx = -half * 0.78 + u * w * 0.78;
-        return <path key={i} d={`M${nx},22 L${fx},-48`} stroke={INK} strokeWidth={1.7}
-          opacity={0.22} />;
+        const fx = -half * 0.52 + u * w * 0.52;
+        return <path key={i} d={`M${nx},22 L${fx},-296`} stroke={INK} strokeWidth={1.9}
+          opacity={0.26} />;
       })}
       {/* the far edge of the floor, so the square has a back to it */}
-      <path d={`M${-half * 0.78},-52 L${half * 0.78},-52`} stroke={INK} strokeWidth={4}
+      <path d={`M${-half * 0.52},-300 L${half * 0.52},-300`} stroke={INK} strokeWidth={4}
         opacity={0.75} />
 
       {/* rotary table, set into the deck behind the rail */}
-      <ellipse cx={-30} cy={-18} rx={66} ry={19} fill="#3f4750" stroke={INK} strokeWidth={4.5} />
-      <g transform={`rotate(${spin} -30 -18)`} opacity={0.9}>
-        <ellipse cx={-30} cy={-18} rx={42} ry={12} fill="#59636e" stroke={INK} strokeWidth={3} />
-        <path d="M-72,-18 L12,-18" stroke={INK} strokeWidth={3} />
+      <ellipse cx={-30} cy={-150} rx={66} ry={22} fill="#3f4750" stroke={INK} strokeWidth={4.5} />
+      <g transform={`rotate(${spin} -30 -150)`} opacity={0.9}>
+        <ellipse cx={-30} cy={-150} rx={42} ry={14} fill="#59636e" stroke={INK} strokeWidth={3} />
+        <path d="M-72,-150 L12,-150" stroke={INK} strokeWidth={3} />
       </g>
 
       {/* the handrail: posts, top rail, mid rail, and a kick plate */}

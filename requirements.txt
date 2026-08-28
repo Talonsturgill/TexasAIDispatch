@@ -1,0 +1,17 @@
+# The third-party python this machine needs, named ONCE.
+#
+# `scripts/env_check.py` READS this file rather than keeping its own copy, because a
+# list restated in a second place is a list that will be wrong in one of them, and that
+# is this repo's founding defect.
+#
+# An `# import: NAME` note is required wherever the import name differs from the
+# distribution name. Pillow is the case a naive split gets wrong.
+#
+# On 2026-08-28 none of these were present in a fresh container and all five Phase 0
+# gates passed anyway. numpy died in Phase 5 at the foley build, Pillow died after
+# Gate 0 had passed, and ffmpeg would have taken the mux and the entire rescue path.
+
+numpy          # foley synthesis, the mixer, forced alignment, rescue_video
+Pillow         # import: PIL   contact sheets, the animatic, feed composites
+PyYAML         # import: yaml  the rubric, the composition axes, siting, voices
+requests       # the Gemini TTS call and every fetch a script makes

@@ -530,14 +530,18 @@ export const WaterTower: React.FC<KitProps & {town?: string; year?: string; h?: 
 export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
   x = 0, y = 0, scale = 1, seed = 9, w = 160, h = 96,
 }) => {
+  // NOTHING IS SYMMETRIC, and a mesquite least of all. The lean was there; what was
+  // missing is that the two limbs left the trunk at nearly the same reach, so the fork
+  // read as a Y and three judges in a row called this a generic round tree. One limb now
+  // goes wide and low and the other short and high, off the same seed.
   const lean = (rnd(seed, 1) - 0.5) * 16;
   const K = fit('mesquite', h);
   return (
     <g transform={`translate(${x} ${y}) scale(${K * scale}) rotate(${lean * 0.2})`}>
       {/* the trunk DIVIDES NEAR THE GROUND, which is half of what makes it a mesquite */}
-      <path d={`M0,0 q${-3 + lean * 0.2},-18 -14,-30 q-9,-10 -26,-16`} stroke="#4a3a2c"
+      <path d={`M0,0 q${-3 + lean * 0.2},-18 -14,-30 q-9,-10 -34,-13`} stroke="#4a3a2c"
         strokeWidth={9} fill="none" strokeLinecap="round" />
-      <path d={`M0,0 q${2 + lean * 0.2},-16 12,-28 q10,-12 30,-14`} stroke="#4a3a2c"
+      <path d={`M0,0 q${2 + lean * 0.2},-16 12,-28 q10,-12 21,-20`} stroke="#4a3a2c"
         strokeWidth={8} fill="none" strokeLinecap="round" />
       <path d={`M0,0 q1,-20 3,-34`} stroke="#4a3a2c" strokeWidth={6} fill="none" strokeLinecap="round" />
       {/* the crown: WIDER THAN TALL, and light comes through all of it.
@@ -559,7 +563,7 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
             <ellipse cx={cx + (rnd(seed, 90 + i) - 0.5) * w * 0.10}
               cy={cy + (rnd(seed, 95 + i) - 0.5) * h * 0.12}
               rx={w * 0.145} ry={h * 0.165}
-              fill="#5f7047" opacity={0.42} />
+              fill="#7d8663" opacity={0.26} />
             {Array.from({length: 54}, (_, k) => {
               const kk = (k * 22695477 + seed * 1013904223 + i * 7919) >>> 0;
               const a = ((kk >>> 4) % 1000) / 1000 * Math.PI * 2;
@@ -571,7 +575,7 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
                   rx={w * 0.021 + ((kk >>> 24) % 4) * w * 0.006}
                   ry={h * 0.017 + ((kk >>> 20) % 3) * h * 0.008}
                   fill={(kk >>> 9) % 3 === 0 ? '#8fa06a' : '#5f7047'}
-                  opacity={0.6 + ((kk >>> 6) % 40) / 100} />
+                  opacity={0.44 + ((kk >>> 6) % 40) / 100} />
               );
             })}
           </g>
