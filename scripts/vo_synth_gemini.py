@@ -50,6 +50,7 @@ import base64
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import wave
@@ -142,7 +143,8 @@ def split_direction(plan: dict) -> str:
     return "\n".join(lines)
 
 
-def build_prompt(script: str, plan: dict) -> tuple[str, list[str]]:
+def build_prompt(script: str, plan: dict,
+                 evidence_dir: Path | None = None) -> tuple[str, list[str]]:
     """Return (prompt, refusals). A non-empty refusal list means do NOT call the API.
 
     The script is fenced. Everything above the fence is instruction; everything
@@ -159,9 +161,15 @@ def build_prompt(script: str, plan: dict) -> tuple[str, list[str]]:
     #
     # A fault here is free. The same fault after this line costs a TTS call, an alignment,
     # a retime and a render.
-    board_for_evidence = Path(a.script).parent / "storyboard.json"
-    claims_for_evidence = Path(a.script).parent / "claims.json"
-    if board_for_evidence.exists() and claims_for_evidence.exists():
+    # The directory is PASSED IN, never read off a module-level argparse namespace.
+    # It was `Path(a.script).parent`, which resolves only because main() happens to
+    # leave `a` in module scope, so every caller that is not main() -- the self-test
+    # included -- died on NameError. The self-test caught it the first time it ran
+    # after the evidence gate was added, which is the whole reason it exists.
+    board_for_evidence = (evidence_dir / "storyboard.json") if evidence_dir else None
+    claims_for_evidence = (evidence_dir / "claims.json") if evidence_dir else None
+    if board_for_evidence and claims_for_evidence and board_for_evidence.exists() \
+            and claims_for_evidence.exists():
         proof = subprocess.run(
             [sys.executable, str(Path(__file__).with_name("script_evidence_check.py")),
              "--board", str(board_for_evidence), "--claims", str(claims_for_evidence)],
@@ -171,6 +179,38 @@ def build_prompt(script: str, plan: dict) -> tuple[str, list[str]]:
                 "the SCRIPT is not evidenced. Every narrated line must name the claims it "
                 "rests on and every figure and name in it must sit in one of their fetched "
                 "quotes:\n" + (proof.stdout or proof.stderr).strip())
+
+    # THE DIRECTION CARRIES A SECOND COPY OF THE SCRIPT, AND ON 2026-08-28 THE READER
+    # PICKED THE STALE ONE.
+    #
+    # Every line in vo_direction.json has a `text` field, and the intents quote their
+    # own lines back ("Their own crews is the answer to the line before it"). So a
+    # built prompt contains the script twice: once in the notes, once inside the fence.
+    # Round 5 changed line 7 from "Their own crews" to "Their own people" on the
+    # validator's finding that no fetched quote says crews, updated vo_script.txt, and
+    # did not update the notes. The take came back saying "Their own crews".
+    #
+    # This is CLAUDE.md's founding defect wearing different clothes. A number restated
+    # in a second place is a number that will be wrong in one of them, and so is a LINE.
+    # The prompt was internally contradictory and nothing read it for that, so the call
+    # was spent and the word the evidence forbids went into the voice anyway.
+    #
+    # The fix is not "remember to sync". It is that a disagreement between the two
+    # copies REFUSES, before the call, naming both.
+    fenced = [ln.strip() for ln in script.strip().splitlines() if ln.strip()]
+    noted = [str(ln.get("text", "")).strip() for ln in plan.get("lines", [])]
+    if any(noted) and len(noted) == len(fenced):
+        for i, (want, got) in enumerate(zip(fenced, noted), 1):
+            if want != got:
+                refusals.append(
+                    f"line {i} of the DIRECTION disagrees with the script it directs. The "
+                    f"prompt would carry both and the reader may speak either.\n"
+                    f"      script: {want}\n"
+                    f"      notes : {got}")
+    elif any(noted) and len(noted) != len(fenced):
+        refusals.append(
+            f"the direction plans {len(noted)} line(s) and the script has {len(fenced)}. "
+            f"One of them is stale, and the prompt would carry both.")
 
     spoken_direction = sorted(body_words & TAG_WORDS)
     if spoken_direction:
@@ -450,8 +490,8 @@ def transcribe(x: np.ndarray, rate: int, key: str, state_path: Path) -> str:
 
 
 def run(script: str, plan: dict, out: Path, n: int, voice: str, key: str,
-        state_path: Path | None = None) -> int:
-    prompt, refusals = build_prompt(script, plan)
+        state_path: Path | None = None, evidence_dir: Path | None = None) -> int:
+    prompt, refusals = build_prompt(script, plan, evidence_dir)
     if refusals:
         print("vo_synth: REFUSED before spending a call\n", file=sys.stderr)
         for r in refusals:
@@ -626,24 +666,75 @@ def self_test() -> int:
         out = Path(td) / "takes"
         rc = run(clean + " [excited]", plan, out, 1, "Kore", "not-a-real-key")
         ok("a refused script returns 1 without calling anything", rc == 1)
+        # THE EVIDENCE GATE HAS TO ACTUALLY RUN IN A TEST, not just exist.
+        #
+        # Every assertion above passes `evidence_dir=None`, so the whole evidence branch
+        # was dead code under --self-test. It shipped with `subprocess` never imported
+        # and with `Path(a.script)` reaching for an argparse namespace that only exists
+        # inside main(). The suite was green both times. The first real invocation died
+        # on NameError, before the API call, which is the one piece of luck in it.
+        #
+        # GATE_LESSONS' recurring shape exactly: a green suite measuring something
+        # narrower than the thing it appeared to certify. So the gate is exercised on a
+        # real board and a real claims file, and the assertion is that it RETURNS A
+        # VERDICT rather than raising.
+        ev = REPO / "out" / "dispatch"
+        if (ev / "storyboard.json").exists() and (ev / "claims.json").exists():
+            try:
+                _, ev_refusals = build_prompt(clean, plan, ev)
+                ev_ran = True
+            except Exception as exc:                                    # noqa: BLE001
+                ev_ran, ev_refusals = False, [f"raised {exc!r}"]
+            ok("the evidence gate runs against a real board instead of being skipped",
+               ev_ran, str(ev_refusals))
         ok("...and leaves no takes.json for a later step to misread as success",
            not (out / "takes.json").exists())
 
-    # The quota belongs to the run, not to a CLI batch or output directory.
+    # THE QUOTA BELONGS TO THE RUN, not to a CLI batch or an output directory. What
+    # changed on 2026-08-28 is what the quota DOES when it is reached.
+    #
+    # This used to assert that a fifth call is refused, full stop. Under the target and
+    # ceiling model it is granted and recorded instead, and only the CEILING refuses.
+    # The reason is in run_limits.json: an empty run is worse than an expensive one, and
+    # a cap that turns a nearly finished film into no film has not saved money. The old
+    # assertion was written against the old contract and would now fail a correct
+    # machine, which is the most expensive kind of stale test there is.
+    #
+    # So this proves BOTH ends, because a budget that only ever grants is not a budget:
+    # a call past the target is granted and leaves a `budget_escalated` event behind,
+    # and a call past the ceiling is still refused.
     with tempfile.TemporaryDirectory() as td:
         sys.path.insert(0, str(REPO / "scripts"))
-        from run_controller import initialise
+        from run_controller import initialise, read_state, ceilings
         state = Path(td) / "run_state.json"
         initialise(state, "voice-budget-test", "dry-run")
-        for i in range(4):
+        target = int(read_state(state)["limits"]["tts_calls"])
+        ceiling = int(ceilings().get("tts_calls", target))
+        ok("the ceiling is above the target, so escalation has somewhere to go",
+           ceiling > target, f"target {target}, ceiling {ceiling}")
+
+        for i in range(target):
             reserve_tts_call(state, f"batch {i + 1}")
         try:
-            reserve_tts_call(state, "a fifth call in a new batch")
-            fifth_refused = False
+            reserve_tts_call(state, "one past the target, in a brand new batch")
+            granted = True
         except CallBudgetExhausted:
-            fifth_refused = True
-        ok("a fifth call is refused even when earlier calls claimed separate batches",
-           fifth_refused)
+            granted = False
+        ok("a call past the TARGET is granted rather than ending the run", granted)
+        ok("...and it is recorded as an escalation rather than passing silently",
+           any(e.get("resource") == "tts_calls"
+               for e in read_state(state).get("escalations", [])))
+
+        while True:
+            try:
+                reserve_tts_call(state, "walking up to the ceiling")
+            except CallBudgetExhausted:
+                break
+            if int(read_state(state)["usage"]["tts_calls"]) > ceiling + 2:
+                break
+        used = int(read_state(state)["usage"]["tts_calls"])
+        ok("...and the CEILING still refuses, so escalation is not an open tab",
+           used == ceiling, f"stopped at {used}, ceiling {ceiling}")
 
     # ---- a missing credential is BLOCKED, which is not a failure and not a silent film
     #
@@ -761,7 +852,8 @@ def main() -> int:
             print(f"vo_synth: no voice: {exc}. Set one in {cfg} or pass --voice.", file=sys.stderr)
             return 2
 
-    return run(script, plan, Path(a.out), a.takes, voice, key, state_path)
+    return run(script, plan, Path(a.out), a.takes, voice, key, state_path,
+               evidence_dir=Path(a.script).parent)
 
 
 if __name__ == "__main__":

@@ -317,6 +317,25 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
     SENTENCE_END = (".", "!", "?", '."', '!"', '?"')
     CLAUSE_END = (",", ";", ":")
 
+    # WHERE THE NEXT MEASURED BOUNDARY IS, because the deferral below has to know what
+    # declining this one actually costs.
+    #
+    # The function-word rule defers a break to the next measured boundary and bounds the
+    # deferral by CHARACTERS ONLY. That bound is unenforceable, because between two
+    # measured boundaries there is by definition nothing to stop at: on 2026-08-28 a cue
+    # declined a boundary at 4.7 seconds for ending on "are", and the next boundary was
+    # 7 seconds later, so the card came out at 182 characters held for 11.7 seconds
+    # against an 88 character ceiling. The guard meant to protect readability was the
+    # thing destroying it, and it could not see that because it never looked ahead.
+    #
+    # A card ending on a function word reads as broken. A card of 182 characters cannot
+    # be read at all. So the deferral is now a CHOICE BETWEEN TWO KNOWN COSTS rather
+    # than a one-way rule, and it still only ever picks boundaries the aligner measured.
+    ends = [w["end"] for w in words if w.get("anchored_end")]
+
+    def next_boundary_after(t: float) -> float | None:
+        return next((e for e in ends if e > t + 1e-9), None)
+
     out, cur = [], []
     for w in words:
         cur.append(w)
@@ -376,12 +395,35 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
         # rubric hard-fails. The remaining defect is the read, and the repair is a re-synth,
         # not a better segmenter.
         tail_word = tok.strip(".,;:!?\"'").lower()
+        # DECLINING THIS BOUNDARY COSTS WHATEVER THE NEXT ONE COSTS. If there is no next
+        # one, or reaching it would blow the hard ceiling on either axis, the ugly break
+        # here is the better of the two available cards and gets taken.
+        nxt_end = next_boundary_after(w["end"])
+        deferral_lands_ok = (nxt_end is not None
+                             and (nxt_end - cur[0]["start"]) <= HARD_CUE_S * OVERSHOOT)
         if runaway and not ends_sentence and tail_word in FUNCTION_TAIL \
-                and len(text) < HARD_CUE_CHARS * OVERSHOOT:
+                and len(text) < HARD_CUE_CHARS * OVERSHOOT \
+                and deferral_lands_ok:
             continue
+
+        # THE LAST EXIT BEFORE A LONG STRETCH OF ROAD.
+        #
+        # `runaway` asks whether the cue is ALREADY too long. That is the wrong question
+        # at a boundary the read may not offer again for seven seconds. A cue sitting at
+        # 77 characters and 4.7 seconds is comfortably inside both ceilings, so nothing
+        # fired, and the next measured boundary put the card at 182 characters held for
+        # 11.7 seconds. The cue was never too long at any point where it could have been
+        # stopped, which is how a ceiling gets passed without ever being crossed.
+        #
+        # So a boundary is taken when DECLINING it would break the hard ceiling, with a
+        # floor under it so a boundary landing just after a cue opens does not shear off
+        # a two word card. Still only measured boundaries. Still nothing invented.
+        last_exit = (len(text) >= 28 or held >= 1.2) and (
+            nxt_end is None or (nxt_end - cur[0]["start"]) > HARD_CUE_S * OVERSHOOT)
 
         if ends_sentence \
                 or runaway \
+                or last_exit \
                 or (tok.endswith(CLAUSE_END) and len(text) >= 64):
             out.append(cur)
             cur = []
