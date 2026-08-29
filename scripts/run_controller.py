@@ -1001,15 +1001,53 @@ def self_test() -> int:
         ok("the panel ceiling sits above the target, so escalation has somewhere to go",
            ceiling_rounds > target_rounds, f"target {target_rounds}, ceiling {ceiling_rounds}")
 
-        for n in range(target_rounds):
-            ok(f"panel {n + 1} reserves one round and three judges",
-               reserve_panel(p, 3, f"round {n + 1}")[0])
+        # BOUNDED, because `mutation_check` sets these very numbers to 999999.
+        #
+        # This loop read `range(target_rounds)` straight out of the contract, which is right
+        # until something deliberately makes the contract absurd. `mutation_check` mutates
+        # `"panel_rounds": 5` to `"panel_rounds": 999999` and runs this suite to prove the
+        # threshold is guarded, so the loop tried a MILLION reservations, each one an atomic
+        # state write to disk. The assertion it exists for still fired correctly, eventually;
+        # what it cost was about 45 seconds per mutated row across thirteen rows, which turned
+        # a two minute gate into a forty minute one and looked exactly like a hang.
+        #
+        # A self-test that reads a number from the file under test has to assume that number
+        # is hostile, because the whole point of a mutation checker is that one day it will be.
+        # `ok()` records and returns, so nothing here stopped on the first refusal either.
+        # DRAIN A RESOURCE TO ITS CEILING, AND STOP IF IT REFUSES.
+        #
+        # These loops were `while usage[r] < CEIL[r]: reserve(...)`, which spins forever the
+        # moment a reservation is REFUSED, because usage then never moves. That never happened
+        # on a sane contract. `mutation_check` exists to feed this suite an insane one, and on
+        # 2026-08-28 mutating `"panel_rounds": 5` to 999999 drove the ledger into hard-fail
+        # cleanup early, every later reservation was refused, and the suite hung. Each of the
+        # thirteen run_limits rows paid that cost, which turned a two minute gate into a forty
+        # minute one that looked exactly like a hang and hid a real finding behind it.
+        #
+        # A self-test that reads numbers from the file under test must treat them as hostile.
+        def drain(res_key: str, amounts: dict, note: str, cap: int = 40) -> None:
+            for _ in range(cap):
+                if int(read_state(p)["usage"].get(res_key, 0)) >= int(CEIL[res_key]):
+                    return
+                if not reserve(p, dict(amounts), note)[0]:
+                    return
+
+        LOOP_CAP = 24
+        granted = 0
+        for n in range(min(target_rounds, LOOP_CAP)):
+            got = reserve_panel(p, 3, f"round {n + 1}")[0]
+            ok(f"panel {n + 1} reserves one round and three judges", got)
+            if not got:
+                break
+            granted += 1
+        ok("the target is small enough to walk, so this suite is testing the real contract",
+           target_rounds <= LOOP_CAP, f"target {target_rounds} exceeds the {LOOP_CAP} cap")
         ok("reaching the TARGET does not lock cleanup, because there is budget beyond it",
            read_state(p)["phase"] != CLEANUP_PHASE)
         ok("...and the next panel is granted rather than ending the run",
            reserve_panel(p, 3, "one past the target")[0])
 
-        for n in range(target_rounds + 1, ceiling_rounds):
+        for n in range(granted + 1, min(ceiling_rounds, LOOP_CAP)):
             ok(f"panel {n + 1} is granted on the way to the ceiling",
                reserve_panel(p, 3, f"round {n + 1}")[0])
         s = read_state(p)
@@ -1034,8 +1072,7 @@ def self_test() -> int:
         ok("the cleanup render uses its protected ledger, not an ordinary round render",
            s["usage"]["full_renders"] == 0 and s["usage"][CLEANUP_RENDER_RESOURCE] == 1)
         # Escalates to the cleanup ceiling, then stops. Read from config, never restated.
-        while read_state(p)["usage"][CLEANUP_RENDER_RESOURCE] < CEIL[CLEANUP_RENDER_RESOURCE]:
-            reserve(p, {"full_renders": 1}, "another cleanup render")
+        drain(CLEANUP_RENDER_RESOURCE, {"full_renders": 1}, "another cleanup render")
         ok("cleanup renders stop at their ceiling and still do not end an empty terminal",
            not reserve(p, {"full_renders": 1}, "past the cleanup ceiling")[0]
            and read_state(p)["terminal_state"] is None)
@@ -1047,8 +1084,7 @@ def self_test() -> int:
                reserve(p, {"full_renders": 1}, f"render {n + 1}")[0])
         ok("a sixth ordinary render ESCALATES past the spend target rather than stopping",
            reserve(p, {"full_renders": 1}, "sixth attempt")[0])
-        while read_state(p)["usage"]["full_renders"] < CEIL["full_renders"]:
-            reserve(p, {"full_renders": 1}, "further attempt")
+        drain("full_renders", {"full_renders": 1}, "further attempt")
         ok("an ordinary render past the CEILING switches to completion instead of ending empty",
            not reserve(p, {"full_renders": 1}, "past the render ceiling")[0]
            and read_state(p)["phase"] == COMPLETION_PHASE)
@@ -1070,8 +1106,7 @@ def self_test() -> int:
                reserve(p, {"preflight_renders": 1}, f"preview {n}")[0])
         ok("a seventh preflight ESCALATES rather than being refused",
            reserve(p, {"preflight_renders": 1}, "another preview")[0])
-        while read_state(p)["usage"]["preflight_renders"] < CEIL["preflight_renders"]:
-            reserve(p, {"preflight_renders": 1}, "further preview")
+        drain("preflight_renders", {"preflight_renders": 1}, "further animatic")
         ok("preflights stop at their ceiling",
            not reserve(p, {"preflight_renders": 1}, "past the preflight ceiling")[0])
         # A separate state makes the reboard case independent of completion mode.
@@ -1081,8 +1116,7 @@ def self_test() -> int:
             reserve(p, {"reboards": 1}, f"structural correction {n + 1}")
         ok("a fifth reboard ESCALATES rather than being refused",
            reserve(p, {"reboards": 1}, "another board")[0])
-        while read_state(p)["usage"]["reboards"] < CEIL["reboards"]:
-            reserve(p, {"reboards": 1}, "further board")
+        drain("reboards", {"reboards": 1}, "further reboard")
         ok("reboards stop at their ceiling",
            not reserve(p, {"reboards": 1}, "past the reboard ceiling")[0])
 
@@ -1092,8 +1126,7 @@ def self_test() -> int:
             ok(f"TTS call {n + 1} clears", reserve(p, {"tts_calls": 1}, "take")[0])
         ok("a fifth TTS call ESCALATES, which is what lets a run FIX a bad line rather than "
            "ship it", reserve(p, {"tts_calls": 1}, "take five")[0])
-        while read_state(p)["usage"]["tts_calls"] < CEIL["tts_calls"]:
-            reserve(p, {"tts_calls": 1}, "further take")
+        drain("tts_calls", {"tts_calls": 1}, "further take")
         ok("TTS calls stop at their ceiling",
            not reserve(p, {"tts_calls": 1}, "past the tts ceiling")[0])
 
