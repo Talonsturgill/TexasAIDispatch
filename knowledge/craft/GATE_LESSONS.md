@@ -1445,3 +1445,101 @@ three scorer calls to find late.
 **The general lesson.** Order your checks by what they cost and what they can see. An expensive
 judgement that cannot see a cheap mechanical fault should never run first, and a terminal state
 should be the LAST thing a run sets, never a thing it sets and then tries to work behind.
+
+## The email that gates the post did not contain the post
+
+The Gmail draft is the only human touchpoint in this routine and its stated job is to gate the
+POST. On 2026-08-29 it ran to about a hundred and forty lines of panel scores, axis tables,
+budget ledgers and eight machine defects with their root causes, and it carried **no caption and
+no link to the video**. The owner's reply was that the one thing they needed most was not there.
+
+**The routine's own spec is where it came from.** Phase 9 opened by calling this email the thing
+that gates the post, then listed what to include: the honest score, what the gates said, what
+degraded, the VO soundcheck, and the machine upgrades. Five items, every one internal reporting.
+The post was not among them. A run following that list exactly produces exactly that email.
+
+**What to check instead.** The draft body is written to `runs/<date>/email.md` first and created
+in Gmail from that file, so what ships is an artifact a gate can read rather than a side effect
+of a tool call nothing can inspect. `email_check` refuses a missing or short caption, a missing
+media link, the github.io host, a house-rule breach in the caption, and **the post being buried**,
+which is a check on POSITION rather than presence.
+
+**The general lesson, and it is not about email.** When a deliverable has an audience, its spec
+must name the thing the audience needs FIRST, and a checklist that lists only what the author
+finds interesting will be followed faithfully to the wrong result. Ask of any output: who opens
+this, and what is the first thing they need. If the spec does not put that first, the spec is the
+defect and no amount of care at the keyboard fixes it.
+
+## The build was proven and the publication was assumed
+
+The run merged both repos, rebuilt the site, and reported the film live. The owner looked at the
+site and could not find it.
+
+Every gate that ran was correct. `publish_feed` wrote the entry, `site_fresh_check` proved 639
+built files matched a fresh rebuild byte for byte, `ownership_check` proved the write stayed in
+its lane. Then the run said "verified on main: the feed holds both films", and what it had
+actually verified was **a JSON file in a git checkout**.
+
+**Every one of those checks would have passed identically if GitHub Pages had never deployed.**
+That day it resolved itself, since Pages landed nine minutes after the merge and the feed carries
+a ten minute cache, so the owner had looked inside a genuinely stale window. The outcome was fine
+and the process was not, and a run that cannot tell those apart will one day report a film live
+that is not.
+
+**What to check instead.** `live_check` fetches the PUBLISHED feed over the network, requires
+today's entry in it by date, and HEADs every media URL for a 200 with a real content length. It
+is the widest version of this catalogue's recurring shape: the gap is not between two files in
+the repo, it is between the repository and the internet.
+
+**The general lesson.** A build gate is not a publication gate. Whenever a pipeline ends in
+something other people load, the last check has to be a request to the thing they load, from
+outside, over the wire. Proving you produced the right bytes is not proving anybody can get them.
+
+## Four copies of the same gate, and every timing after that was a lie
+
+A session left four backgrounded `deliver_run.sh --verify-only` runs alive, then killed their
+parent shells. Their `mutation_check` children reparented to init and kept going: four concurrent
+copies of the heaviest gate in the repo, each copying the whole checkout and running a full
+self-test suite per mutation.
+
+Nothing looked broken. Every process was doing legitimate work and no gate was red. What it
+produced was a container so starved that `run_controller --self-test`, which takes **2.8 seconds**
+on a clear box, timed out at two minutes and then took four. The session read that measurement as
+the truth about the suite, concluded the gates were inherently slow, and spent the next half hour
+engineering around a problem it had created.
+
+**A slow gate and a contended gate produce identical evidence.** That is the same shape as the
+self-matching wait in `run_discipline` rule 1, where a spinning loop and a slow job are
+indistinguishable from the outside. The symptom cannot tell you the cause.
+
+**What to check instead.** `mutation_check` refuses to run twice at once, naming the pid that
+holds the lock, and clears a stale lock from a killed run rather than obeying it. Before trusting
+any timing, ask what else is running: `ps -ef | grep` costs a second and the wrong number costs an
+afternoon.
+
+**The general lesson.** Measurements taken on a machine you have not looked at are not
+measurements. When something is unexpectedly slow, the first hypothesis is contention you caused,
+not inherent cost, and the cheapest way to tell them apart is to clear the box and measure again.
+
+## The panel graded a film the gates would refuse
+
+Panel round 5 returned a mean over the rubric bar with no hard fail from any of three judges, and
+the run called it done. `deliver_run.sh` then re-ran every gate and found THREE red on the exact
+board the panel had just cleared: the derrick's scale, a scene whose picture had stopped naming
+its own subject, and the render count. `publishable` was already terminal, so the controller
+correctly refused the render that would have fixed them, and the run had to be reopened.
+
+**A panel does not certify deliverability.** Three judges read the film, the board, the claims
+and the frames. They never open the debt ledger and they never run a gate, so their verdict is
+not evidence about either. The gates are also the CHEAPER half, so the ordering spent a whole
+round and three scorer calls on a film that could not ship.
+
+**What to check instead.** The routine had already said "run the gates before the panel" in
+prose. Prose is not a boundary against an ordering mistake. `run_controller panel` now refuses a
+reservation without a current `preship_check` verdict, and the verdict is stamped with the
+board's own sha256, so editing the board after the gates ran invalidates it.
+
+**The general lesson.** When one check is cheap and another is expensive, and neither subsumes
+the other, the cheap one runs first and the ordering belongs in the machine rather than in a
+paragraph. Any expensive step that can be invalidated by a cheap one afterwards is a step in the
+wrong place.

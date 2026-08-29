@@ -786,6 +786,19 @@ arriving here in a different costume.
 The gates are also the cheaper half. Running them BEFORE the panel would have caught all three for
 free; running them after spent three scorer calls on a film that could not ship.
 
+**THAT IS NO LONGER ADVICE.** `run_controller panel` REFUSES a reservation without a current
+preship verdict, so the ordering is mechanical rather than remembered:
+
+```
+python3 scripts/preship_check.py --board out/dispatch/storyboard.json
+```
+
+It runs every gate a panel cannot see, by exit code, and writes a verdict stamped with the
+board's own sha256. **Edit the board and the verdict stops matching**, so a panel can never
+grade a cut the gates have not seen. `--force-no-preship` exists for an emergency and writes a
+`preship_bypassed` event, because an escape hatch nobody can see afterwards is the same as no
+rule at all.
+
 If rounds one through four fail, make **one batched corrective pass per round**. Work the
 highest-cost axis first and at most the top two axes that materially contribute to the gap. A
 structural finding gets a real board change, not a prop polish; reserve a reboard, rerun Gate 0 and
@@ -911,10 +924,58 @@ and stop.
 
 ## PHASE 9 — GMAIL DRAFT
 
-The only human touchpoint, and it gates the POST, not the merge. The honest score, what the gates
-said, what degraded if anything, the VO soundcheck report, and the machine upgrades.
+The only human touchpoint, and it gates the POST, not the merge.
+
+**SO IT HAS TO CONTAIN THE POST, AND THIS SPEC USED TO FORGET THAT.** It said exactly what
+is above and then listed five things to include, every one of them internal reporting, and
+the post was not among them. On 2026-08-29 a run followed that list precisely and produced a
+hundred and forty honest lines with no caption and no link to the video. The owner's reply:
+the one thing I needed most is not actually there. **A deliverable that is not in the spec is
+a deliverable that goes missing, and no amount of care at the keyboard fixes a list.**
+
+The draft body is WRITTEN to `runs/<date>/email.md` first, then created in Gmail from that
+file, so what ships is a committed artifact a gate can read rather than a side effect of a
+tool call nothing can inspect afterwards.
+
+**The post comes first, the report goes under it.** In order:
+
+1. **The media links.** The film on the site, the full master, the phone rendition, the
+   poster. Runtime, dimensions and both file sizes, so the owner knows what they are handling.
+2. **The caption**, fenced between `-----BEGIN CAPTION-----` and `-----END CAPTION-----` so it
+   can be copied without editing. It is published copy the moment it is pasted, so every house
+   rule applies to it.
+3. **The sources**, ready for the first comment.
+4. Then, and only then: the honest score, what the gates said, what degraded, the VO
+   soundcheck, and the machine upgrades.
+
+```
+python3 scripts/email_check.py --email runs/<date>/email.md --date <date>
+```
+
+It refuses a missing or short caption, a missing media link, the github.io host, a house-rule
+breach in the caption, and **the post being buried**, which is a check on POSITION rather than
+on presence, because an email carrying every required string at line 140 has still failed at
+the one thing it is for.
 
 **DRAFT ONLY. NEVER SEND.**
+
+## PHASE 10 — PROVE IT IS ACTUALLY LIVE
+
+```
+python3 scripts/live_check.py --date <date> --wait 600
+```
+
+**A BUILD GATE IS NOT A PUBLICATION GATE.** `site_fresh_check` proves the built pages match a
+fresh rebuild byte for byte; it says nothing about whether GitHub Pages deployed, whether the
+media resolves, or whether the CDN is serving a ten minute old copy. On 2026-08-29 a run
+reported the film live having checked a JSON file in a git checkout, the owner could not find
+it on the site, and every gate that had run would have passed identically if Pages had never
+deployed at all.
+
+`live_check` fetches the PUBLISHED feed, requires TODAY'S entry in it by date, and HEADs every
+media URL for a 200 with a real content length. Pages typically lands within ten minutes of the
+merge and the feed carries a ten minute cache, so `--wait` is normal rather than a workaround,
+and the delay it observed is reported as a number.
 
 ---
 
@@ -923,6 +984,16 @@ said, what degraded if anything, the VO soundcheck report, and the machine upgra
 Every rule here is one this machine has already broken, and each cost real time on a run
 that had none to spare. `scripts/run_discipline.py` fails the build on the ones a machine
 can see, and its `--self-test` breaks each on purpose to prove it can still go red.
+
+**NEVER LEAVE A GATE RUNNING IN THE BACKGROUND AND WALK AWAY FROM IT.** On 2026-08-29 four
+backgrounded `deliver_run.sh --verify-only` invocations were left alive, their parent shells were
+killed, and the orphaned `mutation_check` children reparented to init and kept running: four
+concurrent copies of the heaviest gate in the repo, each copying the whole checkout. Nothing
+looked broken and every process was doing legitimate work. What it produced was a container so
+starved that `run_controller --self-test`, which takes 2.8 seconds, timed out at two minutes, and
+the session then spent half an hour working around a slowness it had caused. **A slow gate and a
+contended gate produce identical evidence.** `mutation_check` now refuses to run twice at once and
+names the pid holding the lock, and a stale lock from a killed run is cleared rather than obeyed.
 
 **BATCH THE CHEAP PRECISE FIXES. One render, many fixes, never the reverse.** A render is
 fourteen minutes and an edit is two lines, so a run that renders once per finding spends

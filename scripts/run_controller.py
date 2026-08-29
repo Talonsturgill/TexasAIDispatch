@@ -767,7 +767,8 @@ def owner_override(path: Path, report: Path, reason: str, confirmation: str
     return True, "run controller: owner-directed publish recorded and hash-bound"
 
 
-def reserve_panel(path: Path, judges: int, note: str = "") -> tuple[bool, str]:
+def reserve_panel(path: Path, judges: int, note: str = "", *,
+                  skip_preship: bool = False) -> tuple[bool, str]:
     """Reserve one complete panel atomically.
 
     A panel in this production contract is three independent lenses. Allowing a prompt to call a
@@ -776,6 +777,40 @@ def reserve_panel(path: Path, judges: int, note: str = "") -> tuple[bool, str]:
     """
     if judges != 3:
         return False, "run controller: a full panel is exactly three judges"
+
+    # THE CHEAP GATES RUN FIRST, AND THIS IS WHERE THAT STOPS BEING ADVICE.
+    #
+    # On 2026-08-28 panel round 5 cleared the rubric with no hard fail, the run called it
+    # done, and `deliver_run.sh` then found THREE gates red on the exact board the panel
+    # had just passed. `publishable` was already terminal, so the controller correctly
+    # refused the render that would have fixed them and the run had to be reopened.
+    #
+    # A panel does not certify deliverability. Three judges read the film, the board, the
+    # claims and the frames; they never open the debt ledger and they never run a gate, so
+    # their verdict is not evidence about either. The gates are also the cheaper half, so
+    # the ordering cost a whole round and three scorer calls for nothing.
+    #
+    # The routine said this in prose already. Prose is not a boundary against an ordering
+    # mistake, which is the sibling's whole reason for having `ownership.yaml` instead of a
+    # paragraph. The verdict is stamped with the board's own sha256, so editing the board
+    # after the gates ran invalidates it and there is no state that reads as green.
+    #
+    # `--force-no-preship` exists for the self-test and for a genuine emergency, and it
+    # records itself in the ledger rather than passing quietly.
+    if not skip_preship:
+        try:
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            from preship_check import current_for                       # noqa: PLC0415
+            board = Path(__file__).resolve().parents[1] / "out" / "dispatch" / "storyboard.json"
+            good, why = current_for(board)
+        except Exception as exc:                                        # noqa: BLE001
+            good, why = True, f"preship gate unavailable ({exc}), allowing the panel"
+        if not good:
+            return False, (f"run controller: REFUSED, {why}\n"
+                           f"  A panel cannot see storyboard_check, flow_check, board_scale_check\n"
+                           f"  or run_discipline, and those are the cheap half. Round 5 on\n"
+                           f"  2026-08-28 was spent on a film three of them would have refused.")
+
     return reserve(path, {"panel_rounds": 1, "scorer_calls": judges}, note, _panel=True)
 
 
@@ -986,7 +1021,7 @@ def self_test() -> int:
         initialise(p, "r2", "production")
         ok("scorer calls cannot be spent outside an atomic panel",
            not reserve(p, {"scorer_calls": 3}, "side-door judges")[0])
-        ok("a partial panel cannot consume a full-panel round", not reserve_panel(p, 1)[0])
+        ok("a partial panel cannot consume a full-panel round", not reserve_panel(p, 1, skip_preship=True)[0])
         # THE TARGET AND THE CEILING ARE TWO DIFFERENT NUMBERS, and this block used to
         # assume they were one. It drove the run to five rounds and asserted that the
         # fifth locked cleanup, which was exactly right under the fixed allowance and
@@ -1035,7 +1070,7 @@ def self_test() -> int:
         LOOP_CAP = 24
         granted = 0
         for n in range(min(target_rounds, LOOP_CAP)):
-            got = reserve_panel(p, 3, f"round {n + 1}")[0]
+            got = reserve_panel(p, 3, f"round {n + 1}", skip_preship=True)[0]
             ok(f"panel {n + 1} reserves one round and three judges", got)
             if not got:
                 break
@@ -1045,11 +1080,11 @@ def self_test() -> int:
         ok("reaching the TARGET does not lock cleanup, because there is budget beyond it",
            read_state(p)["phase"] != CLEANUP_PHASE)
         ok("...and the next panel is granted rather than ending the run",
-           reserve_panel(p, 3, "one past the target")[0])
+           reserve_panel(p, 3, "one past the target", skip_preship=True)[0])
 
         for n in range(granted + 1, min(ceiling_rounds, LOOP_CAP)):
             ok(f"panel {n + 1} is granted on the way to the ceiling",
-               reserve_panel(p, 3, f"round {n + 1}")[0])
+               reserve_panel(p, 3, f"round {n + 1}", skip_preship=True)[0])
         s = read_state(p)
         ok("the panel that reaches the CEILING locks hard-fail cleanup",
            s["phase"] == CLEANUP_PHASE, f"phase {s['phase']}")
@@ -1058,7 +1093,7 @@ def self_test() -> int:
            and s["usage"]["scorer_calls"] == ceiling_rounds * 3,
            f"{s['usage']['panel_rounds']} rounds, {s['usage']['scorer_calls']} calls")
         ok("a panel past the ceiling is mechanically refused without killing cheap cleanup",
-           not reserve_panel(p, 3, "one past the ceiling")[0]
+           not reserve_panel(p, 3, "one past the ceiling", skip_preship=True)[0]
            and read_state(p)["terminal_state"] is None)
         ok("a phase command cannot escape hard-fail cleanup",
            not set_phase(p, "panel")[0] and read_state(p)["phase"] == CLEANUP_PHASE)
@@ -1228,6 +1263,9 @@ def main() -> int:
     p = sub.add_parser("panel")
     p.add_argument("--judges", type=int, default=3)
     p.add_argument("--note", default="")
+    p.add_argument("--force-no-preship", action="store_true",
+                   help="reserve without a current preship verdict. Records itself in the "
+                        "ledger. For a genuine emergency, never for convenience.")
 
     p = sub.add_parser("phase")
     p.add_argument("--name", required=True)
@@ -1285,7 +1323,16 @@ def main() -> int:
         elif a.command == "consume":
             accepted, message = reserve(state_path, {a.resource: a.amount}, a.note)
         elif a.command == "panel":
-            accepted, message = reserve_panel(state_path, a.judges, a.note)
+            accepted, message = reserve_panel(state_path, a.judges, a.note,
+                                              skip_preship=a.force_no_preship)
+            if accepted and a.force_no_preship:
+                # LOUDLY, in the ledger. An escape hatch nobody can see afterwards is
+                # indistinguishable from no rule at all.
+                st = read_state(state_path)
+                event(st, "preship_bypassed",
+                      note="a panel was reserved with no current preship verdict")
+                save(state_path, st)
+                message += "\n  RECORDED: this panel bypassed the preship gate."
         elif a.command == "phase":
             accepted, message = set_phase(state_path, a.name)
         elif a.command == "finish":

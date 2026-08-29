@@ -39,7 +39,9 @@ Exit 0 every mutation was caught, 1 one survived, 2 the checker could not run.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -287,6 +289,55 @@ def self_test() -> int:
     return 0
 
 
+# WHERE THE LOCK LIVES. One at a time, per checkout.
+LOCK = REPO / "out" / "gates" / "mutation_check.lock"
+
+
+@contextlib.contextmanager
+def only_one():
+    """Refuse to run while another copy is running, and say which one.
+
+    THE COST OF NOT HAVING THIS, measured on 2026-08-29. This gate copies the repository
+    and runs a full self-test suite for every mutation. A session left four backgrounded
+    `deliver_run.sh --verify-only` invocations alive, killed their parent shells, and the
+    orphaned checkers reparented to init and kept going: four concurrent copies of the
+    heaviest gate in the repo, each thrashing the disk and the CPU of the same container.
+
+    Nothing looked broken. Every process was doing legitimate work. What it produced was a
+    machine so starved that `run_controller --self-test`, which takes 2.8 seconds on a
+    clear box, timed out at two minutes and then took four, and the session concluded from
+    that measurement that the suite was inherently slow and spent the next half hour
+    working around a problem it had created.
+
+    **A slow gate and a contended gate produce identical evidence**, which is the same
+    shape as the self-matching wait in `run_discipline` rule 1: the symptom cannot tell
+    you the cause, so the machine has to refuse the state rather than the operator having
+    to notice it.
+
+    A stale lock from a killed run is cleared rather than obeyed, because a gate that can
+    be permanently disabled by a SIGKILL is worse than no lock at all.
+    """
+    LOCK.parent.mkdir(parents=True, exist_ok=True)
+    if LOCK.exists():
+        try:
+            other = int(LOCK.read_text(encoding="utf-8").strip() or 0)
+        except ValueError:
+            other = 0
+        alive = other > 0 and Path(f"/proc/{other}").exists()
+        if alive:
+            raise SystemExit(
+                f"mutation_check: pid {other} is already running this gate in {REPO}.\n"
+                f"  This copies the repo and runs a full self-test per mutation, so two at\n"
+                f"  once starve each other and every timing you take afterwards is wrong.\n"
+                f"  Wait for it, or kill {other} if it is orphaned.")
+        LOCK.unlink(missing_ok=True)          # stale, from a killed run
+    LOCK.write_text(str(os.getpid()), encoding="utf-8")
+    try:
+        yield
+    finally:
+        LOCK.unlink(missing_ok=True)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--self-test", action="store_true")
@@ -295,7 +346,8 @@ def main() -> int:
         return self_test()
 
     print(f"mutating {len(MUTATIONS)} declared thresholds\n")
-    problems = check()
+    with only_one():
+        problems = check()
     if problems:
         print(f"\nmutation: {len(problems)} threshold(s) guarded by nothing\n", file=sys.stderr)
         for x in problems:
