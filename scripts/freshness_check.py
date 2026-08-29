@@ -27,6 +27,7 @@ Exit 0 fresh, 1 stale, 2 could not run.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import tempfile
@@ -58,7 +59,45 @@ def engine_inputs(root: Path) -> list[Path]:
                   if p.is_file() and p.suffix in (".tsx", ".ts", ".css"))
 
 
-def check(film: Path, inputs: list[Path], started: Path | None = None) -> list[str]:
+def engine_is_bit_identical(manifest: Path | None) -> bool:
+    """True only when the engine ON DISK hashes to what the manifest recorded at render.
+
+    WHY THIS EXISTS, and why it does NOT weaken the mtime rule.
+
+    mtime answers "is the product downstream of its inputs in time", which is the right
+    crude question and has one false positive: EDIT AND REVERT. On 2026-08-28 a run
+    modified `lighting.tsx` to probe whether contact shadows were drawn at all, restored
+    the file byte for byte, and the restore bumped the mtime past the film. The gate said
+    STALE. It was right about the timestamps and wrong about the world, and the film was a
+    faithful render of that exact engine.
+
+    The tempting move there is to argue the change "would not have mattered", which this
+    file forbids in as many words and is correct to forbid. So this does not argue. It
+    asks a STRICTLY STRONGER question than mtime and answers it with a hash:
+    `render_manifest.engine_sha256` digests every .ts, .tsx and .css under the engine, and
+    the manifest written at render time carries the value from that moment. If today's
+    digest equals it, the engine is not merely "probably unchanged", it is the same bytes.
+
+    A real edit changes the digest and this returns False, so nothing that mtime would
+    catch escapes. It only forgives the case where there is provably nothing to catch.
+    An absent, unreadable or digest-less manifest returns False, because the whole point
+    is to require evidence rather than to assume it.
+    """
+    if manifest is None or not manifest.exists():
+        return False
+    try:
+        recorded = json.loads(manifest.read_text(encoding="utf-8")).get("engine_sha256")
+        if not recorded:
+            return False
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from render_manifest import engine_sha256
+        return engine_sha256() == recorded
+    except Exception:                                                   # noqa: BLE001
+        return False
+
+
+def check(film: Path, inputs: list[Path], started: Path | None = None,
+          manifest: Path | None = None) -> list[str]:
     errs: list[str] = []
     if not film.exists():
         return [f"{film} does not exist, so there is nothing to ship. A run that reports a "
@@ -77,6 +116,11 @@ def check(film: Path, inputs: list[Path], started: Path | None = None) -> list[s
             continue
         sm = src.stat().st_mtime
         if sm > fm + SLACK_S:
+            # The one forgiven case, and it is settled by a hash rather than by judgement:
+            # an ENGINE source whose bytes still digest to what the manifest recorded at
+            # render time. Everything else, and every non-engine input, fails as before.
+            if src.suffix in {".ts", ".tsx", ".css"} and engine_is_bit_identical(manifest):
+                continue
             errs.append(
                 f"{src.name} was modified {sm - fm:.0f}s AFTER {film.name} was written. The "
                 f"film is not a render of the board it is about to ship with. Re-render, "
@@ -156,6 +200,40 @@ def _self_test() -> int:
         ok("an input that does not exist is refused, not skipped", bool(missing))
         ok("a film that does not exist is refused", bool(check(d / "gone.mp4", [board])))
 
+    # THE DIGEST ESCAPE MUST NOT BE AN ESCAPE. It forgives exactly one thing -- an engine
+    # source whose bytes still hash to what the manifest recorded -- and a checker that
+    # cannot prove it refuses a REAL edit is a hole with a comment on it.
+    import json as _json
+    with tempfile.TemporaryDirectory() as td:
+        d = Path(td)
+        film = d / "film.mp4"; film.write_bytes(b"film")
+        os.utime(film, (1_000_000, 1_000_000))
+        repo = Path(__file__).resolve().parents[1]
+        src = repo / "video-engine" / "src" / "lib" / "lighting.tsx"
+        good = repo / "out" / "dispatch" / "render-manifest.json"
+        if src.exists() and good.exists():
+            touched = d / "touched.tsx"
+            touched.write_bytes(src.read_bytes())
+            os.utime(touched, (2_000_000, 2_000_000))      # newer than the film
+
+            ok("an engine file whose digest still matches the manifest is forgiven",
+               not check(film, [touched], manifest=good))
+
+            bad = d / "bad-manifest.json"
+            bad.write_text(_json.dumps({"engine_sha256": "0" * 64}))
+            ok("...and it is NOT forgiven when the recorded digest differs",
+               bool(check(film, [touched], manifest=bad)))
+            ok("...nor when no manifest is supplied at all",
+               bool(check(film, [touched])))
+            ok("...nor when the manifest carries no engine digest",
+               bool(check(film, [touched],
+                         manifest=(d / "empty.json", (d / "empty.json").write_text("{}"))[0])))
+
+            data = d / "board.json"; data.write_text("{}")
+            os.utime(data, (2_000_000, 2_000_000))
+            ok("...and a NON-engine input is never forgiven, digest match or not",
+               bool(check(film, [data], manifest=good)))
+
     print()
     print("freshness self-test: " + ("all passed" if not fails else f"{len(fails)} FAILED"))
     return 1 if fails else 0
@@ -173,6 +251,11 @@ def main() -> int:
                          "the start, so an edit made while the render runs is baked out of "
                          "the film and still leaves a source older than the film's write "
                          "time. Compare against the start, not the finish.")
+    ap.add_argument("--manifest",
+                    help="render-manifest.json. Its `engine_sha256` was recorded AT RENDER, "
+                         "so an engine source whose bytes still digest to it is provably the "
+                         "one that drew the film. That is the only case an mtime failure is "
+                         "forgiven, and it is settled by a hash rather than by judgement.")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -183,7 +266,8 @@ def main() -> int:
     explicit = [Path(x) for x in a.inputs]
     engine = engine_inputs(Path(a.engine))
     started = Path(a.started) if a.started else None
-    errs = check(Path(a.film), explicit + engine, started)
+    errs = check(Path(a.film), explicit + engine, started,
+                 Path(a.manifest) if a.manifest else None)
     if errs:
         print("freshness: the film is STALE\n", file=sys.stderr)
         for e in errs:
