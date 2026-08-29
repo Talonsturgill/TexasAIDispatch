@@ -53,15 +53,40 @@ A Dispatch run has exactly two terminal states: `publishable` or `needs_review`.
   credential, or final panel prevents unattended publication. It never writes the feed or merges
   into the shipped-run path.
 
-`scripts/run_controller.py` owns every expensive allowance in `config/run_limits.json`: three
-researchers and one validator, four corrective reboards, six cheap animatics, four external
-audio-model calls, five normal full renders, and five three-judge panels. A reservation happens
-before spend. A new shell, folder, or batch cannot reset the run ledger.
+**AN EMPTY RUN IS WORSE THAN AN EXPENSIVE ONE (owner, 2026-08-28). A failed run is not a
+thing and the definition of done is a DELIVERED VIDEO.** `config/run_limits.json` carries a
+spend TARGET and a hard CEILING per resource. Inside the target a run was efficient, which is
+still the goal. Between target and ceiling `run_controller` GRANTS the work and records a
+`budget_escalated` event. Only the ceiling refuses.
 
-Rounds one through four may each produce one batched corrective pass. Reserving round five locks
-`hard_fail_cleanup`: no sixth panel or sixteenth scorer call can be disguised in a new shell.
-After that, only hard fails and deterministic no-panel repairs continue, with one cleanup render.
-If normal rendering was exhausted without an artifact, one controller-owned rescue render exists.
+A run that has already stopped is reopened with `run_controller reopen --reason ...`. It grants
+no budget, every reservation already spent stays spent, and the prior terminal state is kept as
+a scar rather than erased.
+
+**Escalation never buys a lower bar.** The rubric threshold, every hard fail, the
+numeral-traces-to-a-fetched-quote rule, the ban on time-stretching and the alignment evidence
+are unreachable from it. It buys more ATTEMPTS at clearing the bar, which is the only thing
+that was ever missing on the day this rule was written: a cut fourteen thousandths short, with
+a playable film, no hard fails and every remaining fix already written down, stopped because
+the renders had run out.
+
+`scripts/run_controller.py` owns every expensive allowance. A reservation happens before spend.
+A new shell, folder, or batch cannot reset the run ledger, and reopening does not either.
+
+Each panel round may produce one batched corrective pass. Reserving the round that reaches the
+panel CEILING locks `hard_fail_cleanup`, so no further panel and no further scorer call can be
+disguised in a new shell. After that, only hard fails and deterministic no-panel repairs
+continue, with one cleanup render. If normal rendering was exhausted without an artifact, one
+controller-owned rescue render exists.
+
+**The lock is at the ceiling and never at the target, and on 2026-08-28 those stopped being the
+same number.** This paragraph used to say round five locked cleanup, which was correct under the
+old fixed allowance and became a contradiction the moment escalation was added four paragraphs
+above. The controller carried the same contradiction in one comparison: it locked when usage
+equalled `limits`, and escalation raises `limits` to exactly the usage it grants, so the first
+round past the target would have locked cleanup and ended iteration while the ledger advertised a
+ceiling the run could never reach. A budget that cancels its own escalation is worse than no
+escalation, because it stops the run anyway and reports that it had room.
 
 **A cost boundary may stop iteration; it may not erase the day's product.** Budget exhaustion is
 non-terminal completion mode. `render_dispatch.sh` registers the exact MP4, board, and manifest,

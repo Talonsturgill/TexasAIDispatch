@@ -51,9 +51,36 @@ const W = 1080, H = 1920;
 // The camera transform is the INVERSE of the camera pose applied to the world:
 // move the world opposite the camera. Rotations first (orbit about the world),
 // then translate. Order chosen so a positive z dollies INTO the scene.
+/**
+ * A CONSTANT BOOM, and it is a framing correction rather than a camera move.
+ *
+ * A 9:16 frame and a camera at eye level put the subject low and a great deal of sky
+ * high, and the feed then lays its own furniture over the bottom of the picture. Round
+ * two measured both ends of that: 40 to 50 percent of s2, s3 and s4 was empty gradient,
+ * while the only human in the film and one scene's named hero were sitting inside the
+ * band the feed covers with UI. The film was paying rent on the top of the frame and
+ * putting its subjects where the surface hides them.
+ *
+ * It is applied BEFORE the perspective divide, so a plane at depth z shifts by
+ * BOOM * PERSPECTIVE / (PERSPECTIVE + z): near subjects rise most and far ones least,
+ * which is what a real boom does and is why this is not the same as nudging every
+ * item's y. Supers and captions live outside Stage3D and do not move with it, so the
+ * subjects come up out from under the caption band as well.
+ *
+ * The board is untouched. That matters here: the animatic allowance was spent, so a
+ * staging fix was not renderable and an engine fix was.
+ */
+// MEASURED, not chosen. 200 recovered the dead sky in s2, s3 and s4 and wrecked s8,
+// whose `riseWith` already lifts and which then lost the walking beam and horse head
+// that are the only two things making a pumpjack read as a pumpjack. The closing
+// frame carries the film's third move, so it outranks headroom. 120 keeps most of
+// the recovery and leaves s8 intact.
+const BOOM = 120;
+
 function worldTransform(cam: Camera): string {
   const {x = 0, y = 0, z = 0, rotY = 0, rotX = 0, rotZ = 0} = cam;
   return [
+    `translateY(${-BOOM}px)`,
     `translateZ(${z}px)`,
     `rotateX(${-rotX}deg)`,
     `rotateY(${-rotY}deg)`,
@@ -240,10 +267,22 @@ export const Atmosphere: React.FC<{
         reads as a lighting mistake rather than as a div with a border.
 
         A far plane can be pushed arbitrarily deep, so the veil is oversized enough to survive
-        any plausible depth: at inset -150% it still covers frame down to a 0.25x scale, i.e.
-        z of about 4200 at the default perspective. It is a flat fill, so overdraw is free.
+        any plausible depth. It is a flat fill, so overdraw is free.
+
+        WIDENED 2026-08-28, and the thing that exposed it is worth writing down. At inset -150%
+        the veil is 4x the frame, so it covers down to a 0.25x plane scale, which is z of about
+        4200. That was "any plausible depth" only because nothing in the library was BIG. A
+        drilling rig is 44 m to the crown, and at true scale it does not fit a 1080x1920 frame
+        until the plane is around z 10000, which is a 0.12x scale and less than half the old
+        veil's reach. So the first honest attempt to stage the new `derrick` would have printed
+        exactly the hard-edged lighter panel this comment already warns about.
+
+        The bound is arithmetic rather than taste: a veil at inset -N% is (1 + 2N/100)x the
+        frame and covers down to a scale of 1/(1 + 2N/100). At -500% that is 11x the frame,
+        good to a 0.0909x scale, which is z of about 14000 at the default perspective. That
+        clears the tallest thing the library can now stage with room over it.
       */}
-      <div style={{position: 'absolute', inset: '-150%', background: skyTint, opacity: 0.34 * a, pointerEvents: 'none'}} />
+      <div style={{position: 'absolute', inset: '-500%', background: skyTint, opacity: 0.34 * a, pointerEvents: 'none'}} />
     </div>
   );
 };

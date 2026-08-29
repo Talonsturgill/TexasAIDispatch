@@ -317,18 +317,59 @@ export const RimLight: React.FC<{d: string; w?: number; color?: string; opacity?
 // Texas noon is high. The offset scales with the light's horizontal component, so a
 // High Plains midday shadow sits almost under the object and a Trans-Pecos evening
 // shadow reaches. Nothing else has to change for that to read.
+//
+// AND ITS HARDNESS IS A FUNCTION OF THE AIR, which is the half this got wrong until
+// 2026-08-28. Two judges on the same round said the Midland noon frames had no cast
+// shadow anywhere and that every object floated. They were reading a real fault. The
+// shadow was drawn, in every module, at every call site. It was drawn IDENTICALLY in
+// every region, because `blur` and `opacity` were constants a component author picked
+// by eye, so a Permian noon and a Galveston haze put down the same weak grey smudge.
+//
+// The relationship was already written down eighty lines above this one and simply was
+// not connected to anything: "A humid region has a SMALL shadeDrop because the air
+// fills the shadow. A clear dry region has a large one." That is the whole physics of
+// a shadow edge. Dry clear air scatters little into the umbra, so the shadow is dark
+// and its edge is crisp. Humid hazy air fills it, so it is pale and soft.
+//
+// So `shadeDrop` now drives both, and a caller's `blur` and `opacity` are read as the
+// HUMID END of a range rather than as the answer. Nothing at any call site changes and
+// every region separates: High Plains and Trans-Pecos put down a hard dark pool, the
+// Gulf keeps its soft one, and the difference is a measurement rather than a mood.
+//
+// WHY NOT JUST HARDEN EVERY SHADOW. Because that trades one wrong constant for
+// another, and PLACE is the axis this show keeps losing. A shadow that is equally hard
+// in Beaumont and Marfa is the first law broken by omission: a region with no light of
+// its own inherits another region's light.
+
+/** 0 for the haziest air in the table, 1 for the clearest. */
+const clarity = (L: Light) => Math.max(0, Math.min(1, (L.shadeDrop - 0.09) / 0.17));
+
 export const ContactShadow: React.FC<{
   cx: number; cy: number; rx: number; ry?: number; opacity?: number; blur?: number;
 }> = ({cx, cy, rx, ry, opacity = 0.32, blur = 10}) => {
   const L = useLight();
   const id = useUid('cs');
+  const c = clarity(L);
   const offX = -L.dir.x * rx * 0.5;
+  // Clear air tightens the penumbra and deepens the umbra. The caller's numbers are
+  // the soft, pale end; nothing gets softer or paler than what a component asked for.
+  // TUNED 2026-08-28, second pass, because the first one did not reach the frame. Making
+  // the response LINEAR in clarity left High Plains in the middle of the range: a call at
+  // blur 10 came out at 5.8, which is still a smudge, and a judge looking at the rendered
+  // film reported no cast shadow anywhere for the second round running. The relationship
+  // was right and the curve was too gentle to be visible, which is its own lesson: a fix
+  // is not landed until somebody sees it in the picture.
+  //
+  // The falloff is now steep at the dry end, so a Permian noon puts down a nearly hard
+  // edge, the Trans-Pecos a harder one, and the Gulf keeps the soft pool it should have.
+  const b = blur * (0.10 + 0.90 * Math.pow(1 - c, 1.6));
+  const op = Math.min(0.66, opacity * (0.9 + 1.3 * c));
   return (
     <g>
       <filter id={id} x="-40%" y="-40%" width="180%" height="180%">
-        <feGaussianBlur stdDeviation={blur} />
+        <feGaussianBlur stdDeviation={b} />
       </filter>
-      <ellipse cx={cx + offX} cy={cy} rx={rx} ry={ry ?? rx * 0.24} fill={INK} opacity={opacity}
+      <ellipse cx={cx + offX} cy={cy} rx={rx} ry={ry ?? rx * 0.24} fill={INK} opacity={op}
         filter={`url(#${id})`} />
     </g>
   );

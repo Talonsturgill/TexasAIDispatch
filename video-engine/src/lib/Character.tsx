@@ -917,7 +917,7 @@ export const CAST: CastMember[] = [
    note: 'South Asian data centre technician. Hard hat only in the yard.'},
   {id: 'owner',       outfit: 'apron',        headgear: 'bare',          skin: SKIN[2], hair: HAIR[0], face: 0.3, build: 0.55, age: 0.55,
    note: 'Vietnamese-American small business owner. Gulf Coast, Houston.'},
-  {id: 'operator',    outfit: 'fr-coveralls', headgear: 'hard-hat-hood', skin: SKIN[7], hair: HAIR[0], face: 0.1, build: 0.68, age: 0.48,
+  {id: 'operator',    outfit: 'fr-coveralls', headgear: 'hard-hat-hood', skin: SKIN[7], hair: HAIR[0], face: 0.1, build: 0.68, age: 0.48, glasses: true,
    note: 'Black petrochemical operator. Ship channel, Beaumont. Gas monitor at the collar.'},
   {id: 'hand',        outfit: 'work-shirt',   headgear: 'palm-straw',    skin: SKIN[4], hair: HAIR[0], face: 0.55, build: 0.5, age: 0.42,
    note: 'Hispanic man, norteño palm straw. Taller narrower crown, flatter brim.'},

@@ -1,106 +1,225 @@
 {
-  "runs": [
+ "runs": [
+  {
+   "date": "2026-08-19",
+   "run": "the feed session, after the August 18th Dispatch shipped",
+   "_why_this_file": "What the machine learned, separate from what the film became.",
+   "trigger": "The Docket's videos page became a vertical one-film-per-screen feed, and the first Dispatch drew its subtitle band underneath the feed's own caption. Eleven gates green, and neither line readable.",
+   "gates_added": [
     {
-      "date": "2026-08-19",
-      "run": "the feed session, after the August 18th Dispatch shipped",
-      "_why_this_file": "What the machine learned, separate from what the film became.",
-      "trigger": "The Docket's videos page became a vertical one-film-per-screen feed, and the first Dispatch drew its subtitle band underneath the feed's own caption. Eleven gates green, and neither line readable.",
-      "gates_added": [
-        {
-          "name": "safe_area_check",
-          "fault": "The film was correct and the PLACE IT WAS DRAWN IN belonged to somebody else. The subtitle band sat 168 px off the bottom of a 1920 frame and the feed's overlay claims the bottom quarter. Every gate in the repo reads the board, the claims, the mix or the frame, and each was right. None could know a quarter of the frame is not the film's, because nothing here had written down that such a place exists.",
-          "rule_worth_copying": "It refuses a TYPED number in that geometry EVEN WHEN THE TYPED NUMBER IS LEGAL. A band that happens to sit somewhere legal today does not move when the feed's CSS changes and the constants are re-measured, so it goes wrong silently exactly once."
-        }
-      ],
-      "modules_added": [
-        {
-          "name": "video-engine/src/lib/safearea.ts",
-          "what": "The feed's reserve, MEASURED off the live feed in a browser at the phone viewport that gives the worst case (bottom 25.03 percent, right 14.19 percent), with the snippet for re-measuring it. SubtitleTrack solves position and width against it, and CAP_W wraps to the safe width rather than the frame width."
-        }
-      ],
-      "steps_made_programs": [
-        {
-          "name": "scripts/publish_feed.py",
-          "was": "a prose line in Phase 7 saying \"prepend one entry to docs/videos/videos.json\"",
-          "fault": "The first run that followed it wrote an entry with no `id`, and nothing failed, because the feed page derives a fallback id from the date and the title exactly so a hand-written entry is not a broken page. A derived id is stable only for as long as an editorial title is.",
-          "now": "Derives the title, the beat, the id and both media paths from the run's own artifacts, so only the caption and the county are typed. Checks the caption against house style rather than trusting it. Replaces rather than duplicates on a re-run. Builds the 720p phone rendition and the jpeg thumb the feed prefers on a narrow viewport: 29.5 MB to 11.2 MB, and an 845 KB poster to 45 KB."
-        }
-      ],
-      "still_owed": [
-        "The shipped August 18th film still carries its band at the old position. The engine fix reaches the next render, not that one, and re-rendering was not worth a fourteen minute render on a film the owner had already called shipped.",
-        "The four items owed from the 2026-08-18 entry are unchanged: the shot list is two locations, two Abilene VO lines call a disclosed figure an estimate, c19 wants splitting, and caption_claim and readout_claim bindings are not authored yet."
-      ]
+     "name": "safe_area_check",
+     "fault": "The film was correct and the PLACE IT WAS DRAWN IN belonged to somebody else. The subtitle band sat 168 px off the bottom of a 1920 frame and the feed's overlay claims the bottom quarter. Every gate in the repo reads the board, the claims, the mix or the frame, and each was right. None could know a quarter of the frame is not the film's, because nothing here had written down that such a place exists.",
+     "rule_worth_copying": "It refuses a TYPED number in that geometry EVEN WHEN THE TYPED NUMBER IS LEGAL. A band that happens to sit somewhere legal today does not move when the feed's CSS changes and the constants are re-measured, so it goes wrong silently exactly once."
+    }
+   ],
+   "modules_added": [
+    {
+     "name": "video-engine/src/lib/safearea.ts",
+     "what": "The feed's reserve, MEASURED off the live feed in a browser at the phone viewport that gives the worst case (bottom 25.03 percent, right 14.19 percent), with the snippet for re-measuring it. SubtitleTrack solves position and width against it, and CAP_W wraps to the safe width rather than the frame width."
+    }
+   ],
+   "steps_made_programs": [
+    {
+     "name": "scripts/publish_feed.py",
+     "was": "a prose line in Phase 7 saying \"prepend one entry to docs/videos/videos.json\"",
+     "fault": "The first run that followed it wrote an entry with no `id`, and nothing failed, because the feed page derives a fallback id from the date and the title exactly so a hand-written entry is not a broken page. A derived id is stable only for as long as an editorial title is.",
+     "now": "Derives the title, the beat, the id and both media paths from the run's own artifacts, so only the caption and the county are typed. Checks the caption against house style rather than trusting it. Replaces rather than duplicates on a re-run. Builds the 720p phone rendition and the jpeg thumb the feed prefers on a narrow viewport: 29.5 MB to 11.2 MB, and an 845 KB poster to 45 KB."
+    }
+   ],
+   "still_owed": [
+    "The shipped August 18th film still carries its band at the old position. The engine fix reaches the next render, not that one, and re-rendering was not worth a fourteen minute render on a film the owner had already called shipped.",
+    "The four items owed from the 2026-08-18 entry are unchanged: the shot list is two locations, two Abilene VO lines call a disclosed figure an estimate, c19 wants splitting, and caption_claim and readout_claim bindings are not authored yet."
+   ]
+  },
+  {
+   "date": "2026-08-18",
+   "run": "the August 18th Dispatch",
+   "panel_rounds": 27,
+   "shipped": "below the bar, on the owner's explicit direction",
+   "final_panel": [
+    6.32,
+    6.6,
+    6.49
+   ],
+   "_why_this_file": "What the machine learned, separate from what the film became. Every entry below is a fault that had already SHIPPED past a fully green suite, which is the only kind worth recording: a gate written for a fault nobody has committed is a guess.",
+   "gates_added": [
+    {
+     "name": "super_evidence_check",
+     "fault": "the right number over the wrong picture. A super carried one research group's result over another group's machine, from a PARTIAL claim whose own note says the subject is unverified. Later extended to readouts and to requiring the FETCHED QUOTE rather than a statement a model wrote: five of eleven readout figures sat in no fetched sentence."
     },
     {
-      "date": "2026-08-18",
-      "run": "the August 18th Dispatch",
-      "panel_rounds": 27,
-      "shipped": "below the bar, on the owner's explicit direction",
-      "final_panel": [
-        6.32,
-        6.6,
-        6.49
-      ],
-      "_why_this_file": "What the machine learned, separate from what the film became. Every entry below is a fault that had already SHIPPED past a fully green suite, which is the only kind worth recording: a gate written for a fault nobody has committed is a guess.",
-      "gates_added": [
-        {
-          "name": "super_evidence_check",
-          "fault": "the right number over the wrong picture. A super carried one research group's result over another group's machine, from a PARTIAL claim whose own note says the subject is unverified. Later extended to readouts and to requiring the FETCHED QUOTE rather than a statement a model wrote: five of eleven readout figures sat in no fetched sentence."
-        },
-        {
-          "name": "board_scale_check",
-          "fault": "the board used `scale` as a distance dial when `z` is the distance dial. A 0.40 m pickup, a 0.36 m pad transformer, a 1.56 m building. Three judges filed three separate craft defects in one round and all three were that one arithmetic."
-        },
-        {
-          "name": "floor_check",
-          "fault": "the near floor drew IN FRONT of the racks, which was the dead grey band twenty five rounds had reported. Extended outdoors it found seven items standing above their own ground line, including the hall two judges called see-through and one prescribed an opaque fill for. The fill was never transparent."
-        },
-        {
-          "name": "panel_triage",
-          "fault": "rounds were spent on the cheapest defect to SEE rather than the costliest to carry, and nothing detected that the mean had stopped moving. It now escalates to a re-board after three flat rounds."
-        },
-        {
-          "name": "board_diff",
-          "fault": "an edit is written in board units and read in screen pixels, and nothing did that arithmetic at edit time. Replayed against three real failures it names all three with no render."
-        },
-        {
-          "name": "bar_check widened",
-          "fault": "a stale threshold sat in .claude/WORKLOG.md, the one file CLAUDE.md orders every agent to read FIRST, and misbriefed all three judges for four consecutive rounds. bar_check knew the bar as is/was/of and the worklog said 'holds the bar AT'."
-        },
-        {
-          "name": "vo_soundcheck pause density",
-          "fault": "a take can be better on word accuracy, loudness and duration and worse on screen, because the number of PAUSES decides how well it can caption. Nothing measured it."
-        },
-        {
-          "name": "storyboard_check empty plane",
-          "fault": "a plane with no items counts toward the depth budget and draws nothing, so it hides a shortfall rather than causing one. Found three, one of them the declared payoff plane of a scene."
-        },
-        {
-          "name": "run_discipline rules 6 and 7",
-          "fault": "pkill -f matched my own shell and killed it mid-edit; and reading an exit code through a pipe reported tail's status, hiding two red gates and a failing self-test."
-        },
-        {
-          "name": "vo_synth batch cap",
-          "fault": "fifteen takes went out across five batches chasing a read that captioned well, and the owner had to say stop."
-        }
-      ],
-      "sibling_fixes": [
-        "site_build deleted docs/videos/videos.json, which its own ownership note forbids, and site_fresh_check structurally cannot see it because it builds into a temp dir. The build now carries externally owned files through the wipe by name.",
-        "ownership.yaml lists dispatch under rebuild_by for docs/**, because writing the feed changes a number the site displays and the publish could not otherwise leave that site consistent with its own ledgers."
-      ],
-      "prescriptions_refused": [
-        "z=3104 to hold the block's framing: hid it behind the horizon band",
-        "the bucket truck at true scale: 2065px wide in a 1080px frame",
-        "raising groundY: hid the building, twice in one run",
-        "w:395 h:66: renders 1837px wide, not the 864 claimed, because fit() normalises on height",
-        "an opaque fill for the Abilene halls: the fill was already opaque and the hall was floating"
-      ],
-      "still_owed": [
-        "The shot list is the ceiling. Nine of twelve scenes are two locations, six deliver their payload as a text panel, and the hook opens on the building the film argues is unremarkable. Those are Phase 4 decisions and no defect pass reaches them.",
-        "Two Abilene VO lines call a disclosed figure an estimate and then say nobody publishes it. c19's own note says the opposite. Two lines and a re-synth.",
-        "The rubric's traceability hard fail names the quote but the gate applies the VERIFIED test only to supers, so rubric and gate diverge on the one PARTIAL claim that carries a script figure. Split c19.",
-        "A caption_claim and readout_claim binding, so a figure can be checked against the SUBJECT it is printed over and not only against quote containment."
-      ]
+     "name": "board_scale_check",
+     "fault": "the board used `scale` as a distance dial when `z` is the distance dial. A 0.40 m pickup, a 0.36 m pad transformer, a 1.56 m building. Three judges filed three separate craft defects in one round and all three were that one arithmetic."
+    },
+    {
+     "name": "floor_check",
+     "fault": "the near floor drew IN FRONT of the racks, which was the dead grey band twenty five rounds had reported. Extended outdoors it found seven items standing above their own ground line, including the hall two judges called see-through and one prescribed an opaque fill for. The fill was never transparent."
+    },
+    {
+     "name": "panel_triage",
+     "fault": "rounds were spent on the cheapest defect to SEE rather than the costliest to carry, and nothing detected that the mean had stopped moving. It now escalates to a re-board after three flat rounds."
+    },
+    {
+     "name": "board_diff",
+     "fault": "an edit is written in board units and read in screen pixels, and nothing did that arithmetic at edit time. Replayed against three real failures it names all three with no render."
+    },
+    {
+     "name": "bar_check widened",
+     "fault": "a stale threshold sat in .claude/WORKLOG.md, the one file CLAUDE.md orders every agent to read FIRST, and misbriefed all three judges for four consecutive rounds. bar_check knew the bar as is/was/of and the worklog said 'holds the bar AT'."
+    },
+    {
+     "name": "vo_soundcheck pause density",
+     "fault": "a take can be better on word accuracy, loudness and duration and worse on screen, because the number of PAUSES decides how well it can caption. Nothing measured it."
+    },
+    {
+     "name": "storyboard_check empty plane",
+     "fault": "a plane with no items counts toward the depth budget and draws nothing, so it hides a shortfall rather than causing one. Found three, one of them the declared payoff plane of a scene."
+    },
+    {
+     "name": "run_discipline rules 6 and 7",
+     "fault": "pkill -f matched my own shell and killed it mid-edit; and reading an exit code through a pipe reported tail's status, hiding two red gates and a failing self-test."
+    },
+    {
+     "name": "vo_synth batch cap",
+     "fault": "fifteen takes went out across five batches chasing a read that captioned well, and the owner had to say stop."
     }
-  ]
+   ],
+   "sibling_fixes": [
+    "site_build deleted docs/videos/videos.json, which its own ownership note forbids, and site_fresh_check structurally cannot see it because it builds into a temp dir. The build now carries externally owned files through the wipe by name.",
+    "ownership.yaml lists dispatch under rebuild_by for docs/**, because writing the feed changes a number the site displays and the publish could not otherwise leave that site consistent with its own ledgers."
+   ],
+   "prescriptions_refused": [
+    "z=3104 to hold the block's framing: hid it behind the horizon band",
+    "the bucket truck at true scale: 2065px wide in a 1080px frame",
+    "raising groundY: hid the building, twice in one run",
+    "w:395 h:66: renders 1837px wide, not the 864 claimed, because fit() normalises on height",
+    "an opaque fill for the Abilene halls: the fill was already opaque and the hall was floating"
+   ],
+   "still_owed": [
+    "The shot list is the ceiling. Nine of twelve scenes are two locations, six deliver their payload as a text panel, and the hook opens on the building the film argues is unremarkable. Those are Phase 4 decisions and no defect pass reaches them.",
+    "Two Abilene VO lines call a disclosed figure an estimate and then say nobody publishes it. c19's own note says the opposite. Two lines and a re-synth.",
+    "The rubric's traceability hard fail names the quote but the gate applies the VERIFIED test only to supers, so rubric and gate diverge on the one PARTIAL claim that carries a script figure. Split c19.",
+    "A caption_claim and readout_claim binding, so a figure can be checked against the SUBJECT it is printed over and not only against quote containment."
+   ]
+  },
+  {
+   "date": "2026-08-28",
+   "run": "the Midland red zone Dispatch, which ended needs_review at 6.986 against the bar",
+   "trigger": "knowledge/texas/APPLICATIONS.md ranks the oilfield FIRST of the eight application beats and the engine could not draw a drilling rig at all. It had a pumpjack, which is production, and nothing of drilling. A library that cannot draw its own top beat does not fail loudly, it silently reroutes every story toward whatever it already has.",
+   "modules_added": [
+    {
+     "name": "video-engine/src/lib/drilling.tsx",
+     "what": "derrick, rigFloor, redZoneSign, ironRoughneck, doghouse, pipeRack, all registered",
+     "note": "The reaper on the placard is an industrial hazard glyph and deliberately NOT a decorated skull. CULTURE.md retires calavera imagery and the two are different things. Three separate judges checked the distinction independently and all three cleared it."
+    }
+   ],
+   "engine_fixes": [
+    {
+     "name": "stage3d aerial-perspective veil",
+     "fault": "The veil covered the frame down to a 0.25x plane scale, about z 4200, and its own comment called that 'any plausible depth'. That was true only because nothing in the library was big. A 44 m derrick needs far more, and the first honest attempt to stage one printed exactly the hard-edged panel the comment warns about.",
+     "fix": "inset -150% to -500%, with the arithmetic written beside the value"
+    },
+    {
+     "name": "biomes scraped flag",
+     "fault": "A drilling location is scraped caliche to the fence and the vegetation plane at z=210 was growing shortgrass and a round leafy tree ON the pad in four scenes, and drawing a mesquite straight THROUGH the driller's cabin. A judge read that as the cabin being an unfilled shape and prescribed a fill. The fill was never the fault.",
+     "fix": "`scraped`, which is `interior`'s outdoor twin, suppressing the vegetation plane"
+    },
+    {
+     "name": "IronRoughneck telescoping sleeve",
+     "fault": "The boom slid out on `ext` and the column did not, leaving open sky between them, and the joint of pipe was drawn at a reach the wrench never travelled to and sat outside the frame. A judge reported 'two unrelated orange objects' and no pipe in the jaws. There was a pipe. It was off camera.",
+     "fix": "a sleeve anchored to the column that grows with the reach; travel and well centre share one number"
+    }
+   ],
+   "sounds_added": [
+    {
+     "name": "rig_floor",
+     "note": "the diesel bed at steady load with the mud pumps pulsing through it"
+    },
+    {
+     "name": "iron_roughneck",
+     "note": "drive-out, steel bite, a ratchet that slows"
+    }
+   ],
+   "proposals_not_taken": [
+    {
+     "what": "scripts/env_check.py in the Phase 0 preflight",
+     "why": "A fresh container could not produce a film and all five Phase 0 gates passed on it. numpy, Pillow, ffmpeg, ffprobe and the Remotion browser were all absent, and each failure lands AFTER an expensive reservation rather than before it. Phase 0 proves the engine is wired and proves nothing about whether audio can be built or a film muxed. There is no requirements.txt."
+    },
+    {
+     "what": "the bar contradiction between the routine and CLAUDE.md",
+     "why": "prompts/dispatch_routine.md orders the panel brief to carry the number read from the rubric. CLAUDE.md forbids typing a bar into a prompt or a brief by name. Both are authoritative and they cannot both be followed. Two judges flagged it unprompted in round 1 and both said the same thing: the numbers agreed that day, and agreement is luck rather than a property. Rounds 2 and 3 briefed the POINTER instead and every judge read the value itself and reported it back, which satisfies both files. The routine's paragraph should order the pointer, and bar_check should fail on a digit matching the threshold appearing anywhere in prompts/."
+    },
+    {
+     "what": "the biome's own planes are an undocumented ceiling on board depth",
+     "why": "biomes draws filled planes at z 2200, 1500, 900, 420 and 210. Nothing in prompts/ or knowledge/craft/ says so. A board plane past ~820 is invisible and anything past 210 has vegetation drawn over it. GATE_LESSONS' own true-scale entry prescribes 'z near 4000', which is behind the sky band and works only in the interiors it was written from. Combined with board_scale_check's 0.5 to 2.0 band it means a 44 m derrick cannot be shown whole at any legal depth, which is a real product constraint nobody had written down."
+    },
+    {
+     "what": "board_retime silently skips a visual_event that has no at_s",
+     "why": "at_s is the field it derives, so a board authored with only at_s_authored, which is what the routine describes, has every event skipped and Gate 0 reads every late beat as landing at 0.0s. The step reported success, moved twelve sounds, and quietly did nothing to sixteen events. Seed it or fail loudly; silence is the wrong answer."
+    }
+   ],
+   "what_the_panel_could_not_be_talked_out_of": "Script line 4 says the contractor at the screen is the person who did that work on the floor. Claim c2's fetched quote supports only that a contractor sits in an office operating robotic machinery. Nothing says that person previously worked the floor. It is the same class of inference as the Exxon/Helmerich and Payne fusion the validator killed on the same story, it was inherited from this run's own story.md, and it survived three rounds because it reads as obviously true. Fixing it needs a re-synth and the four audio-model calls were spent."
+  },
+  {
+   "date": "2026-08-28",
+   "run": "the Midland red zone Dispatch, round 5 corrective pass after the owner refused the needs_review outcome",
+   "trigger": "Owner, verbatim: an empty run is worse than an expensive one, the definition of done is a delivered video, and there should be a layer that checks what the voice is about to say BEFORE the synthesis rather than after the film. Panel round 4 then returned picture 6.60, place 6.97 and story 6.04 with a caption hard fail, so the run had both a mandate and a specific list.",
+   "what_the_pass_established": [
+    "THE CAPTION HARD FAIL WAS NOT THE CAPTIONS. Every cue carried source measured_boundary with both edges true. The three second hole a judge saw mid sentence was in the AUDIO, measured at -55 dB from 22.6 s to 25.4 s in mix_vo.wav. The take carried eleven pauses over 1.5 s, one of 3.56 s, about twenty seconds of dead air in a 56.7 second read. A judge reading a symptom correctly can still name the wrong organ, and the way to tell is to measure the artifact rather than argue.",
+    "THE VALIDATOR MOVED IN FRONT OF THE SYNTHESIS AND IMMEDIATELY PAID FOR ITSELF. Eight blocking faults on the rewritten script, three of which four rounds of panel had not reached, all free to fix at that point. This is the owner's question answered with a measurement.",
+    "TWO OF THOSE EIGHT WERE NOT WORDING FAULTS. The stored excerpts were too narrow to carry what the film said, and a re-fetch settled both in the film's favour. The gate the run was about to fail was a description of the record, not of the world."
+   ],
+   "engine_fixes": [
+    {
+     "name": "lighting.ContactShadow varies with the region's air",
+     "fault": "Two judges on the same round said the Midland noon frames had no cast shadow anywhere and every object floated. The shadow was drawn at every call site, identically in every region, because blur and opacity were constants a component author picked by eye. A Permian noon and a Galveston haze put down the same weak grey smudge.",
+     "fix": "shadeDrop drives both. The relationship was already written down in the LIGHTS table eighty lines above and was connected to nothing. A caller's numbers are read as the humid, soft end of a range rather than as the answer, so no call site changed and every region separates."
+    },
+    {
+     "name": "the rig scenes now contain the rig",
+     "fault": "s2, s3, s4 and s6 all stand ON a drilling rig and not one of them showed the derrick, so each spent its top 45 percent on empty grey sky. Four scenes, one fault, and it is a PLACE fault before it is a composition one.",
+     "fix": "a mast plane in each, which also fixed the emptiness that three judges had described four different ways"
+    },
+    {
+     "name": "every scene contains its declared hero",
+     "fault": "s4's hero was the lit window and the render showed roof and sky, because a near deck 1080 units wide stood in front of the cabin and riseWith then lifted what was left off the bottom of frame. s8 declared its walking beam and horse head both inside the frame and delivered neither. s9 was 70 percent empty sky behind a mesquite planted across the horizon it exists to open onto.",
+     "fix": "per scene reframing, checked on free `remotion still` renders rather than on metered ones"
+    }
+   ],
+   "tooling_fixes": [
+    {
+     "name": "vo_synth build_prompt refuses when the direction disagrees with the script",
+     "fault": "vo_direction.json holds a text per line and its intents quote their own lines back, so a prompt carries the script twice. Line 7 was changed to Their own people and the notes kept saying Their own crews. The model spoke the stale copy and a TTS call was spent on the one word the evidence forbids.",
+     "fix": "refuse on disagreement, printing both, before the call. This is CLAUDE.md's founding defect applied to a LINE rather than to a number."
+    },
+    {
+     "name": "the evidence gate is exercised in the self-test",
+     "fault": "every assertion passed evidence_dir=None, so the whole branch was dead code under --self-test. It shipped with subprocess never imported and with a reference to an argparse namespace that exists only inside main(). Green twice.",
+     "fix": "the directory is passed in rather than read off a module global, and the gate runs against a real board in the suite"
+    },
+    {
+     "name": "vo_align looks ahead at what declining a boundary costs",
+     "fault": "a cue sat at 77 characters and 4.7 seconds, inside every ceiling, declined a measured boundary for ending on the word are, and the next boundary was seven seconds later. The card came out at 182 characters held for 11.7 seconds against an 88 character ceiling. The cue was never too long at any point where it could have been stopped.",
+     "fix": "both break rules consult the next measured boundary. Longest card 182 to 124, nothing held over 7 seconds, every edge still measured off the waveform."
+    },
+    {
+     "name": "hard-fail cleanup locks at the ceiling, not at the target",
+     "fault": "the controller locked when usage equalled limits, and escalation raises limits to exactly the usage it grants, so the first round past the target would have locked cleanup and ended iteration while the ledger advertised a ceiling of nine the run could never reach. The escalation cancelled itself in one comparison.",
+     "fix": "lock at the ceiling; CLAUDE.md's stale round-five prose corrected with it; four self-test assertions that were grading a correct machine as broken rewritten to prove both halves"
+    }
+   ],
+   "proposals_not_taken": [
+    {
+     "what": "move the Biome's filled backdrop planes back so z up to about 3000 is usable",
+     "why": "PERSPECTIVE 1400 with M = 610/1.7 puts 1080 draw units across roughly 3.0 m at z=0, and the backdrop planes make anything past z of about 880 invisible, capping the reduction at about 0.61. So an 8.4 m drill floor, a 10 m pumpjack and a 44 m derrick CANNOT be framed whole at true scale, and the library's answer has quietly been to author far objects at sub-true scale, which is the one thing scale.ts exists to forbid. EVERY framing fault round 4 reported is downstream of this.",
+     "why_not_now": "re-architecting the depth ceiling mid-run would have burned the renders that were the point. Worked around per scene and written down instead."
+    },
+    {
+     "what": "a real phoneme-level forced aligner",
+     "why": "vo_align is silence anchored and says so honestly in its own docstring. Cue edges are measured and word times inside a phrase are modelled and labelled. A judge reading the rubric's force-aligned wording called a hard fail on the method name rather than on the evidence. The evidence is sound and the NAME is a standing liability.",
+     "why_not_now": "the environment has no ASR model and pulling one in is not a mid-run change"
+    }
+   ]
+  }
+ ]
 }

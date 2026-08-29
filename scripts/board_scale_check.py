@@ -83,6 +83,28 @@ DEBT: dict[str, tuple[float, str]] = {
     "liveOak":      (0.1668, "2.34 m. A live oak that a person could look over."),
     "mansardBox":   (0.30,  "1.56 m. The building is shorter than the people inside it."),
     "mesquite":     (0.12,  "0.72 m, and it is drawn with the live oak's canopy besides"),
+    # THE DEPTH CEILING, and this line is different from every other one above it.
+    #
+    # Every other entry is a drawing authored at the wrong size and fixable by editing a
+    # number. This one is ARITHMETIC, and the arithmetic was measured on 2026-08-28:
+    #
+    #   PERSPECTIVE is 1400 and M is 610/1.7, so 1080 draw units span about 3.0 m at z=0.
+    #   A plane at depth z scales by 1400/(1400+z), and the Biome's own filled backdrop
+    #   planes occlude anything past z of roughly 880, capping the reduction near 0.61.
+    #   A 44 m derrick is 15787 draw units. At the deepest usable z it is still about
+    #   10000 units tall and 2300 wide against a 1080x1920 frame, so the frame holds two
+    #   legs and no rig. Pushed past the ceiling to z 2100, where s5 puts it, the
+    #   Atmosphere haze washes it to a flat grey field and a judge called it fog.
+    #
+    # So a derrick cannot currently be BOTH true scale and legible, and four scenes of
+    # this film are standing on a rig that has to show its mast. It ships wrong and it
+    # ships written down.
+    #
+    # THE PAYDOWN IS NOT A SMALLER NUMBER HERE. It is moving the Biome's backdrop planes
+    # back so z up to about 3000 is usable, which drops the required scale to roughly 0.45
+    # and puts this line inside the generic band. That is the fix, it is recorded in
+    # ledger/upgrades.json as a proposal, and it was too large to make mid-run.
+    "derrick":      (0.22,  "9.68 m against a 44 m mast. Not an authoring error: the engine's depth ceiling makes a true-scale derrick unframable. See the arithmetic above."),
     "pickup":       (0.20,  "0.40 m"),
     "poleSign":     (0.08,  "0.88 m against an 11 m sign"),
     "pricklyPear":  (0.30,  "0.36 m, which is a young pad cluster and nearly defensible"),

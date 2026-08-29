@@ -66,6 +66,21 @@ def limits(path: Path = LIMITS_FILE) -> dict[str, int]:
     return resources
 
 
+def ceilings(path: Path = LIMITS_FILE) -> dict[str, int]:
+    """The HARD stop per resource, against which `limits()` is only the spend target.
+
+    Between the two the controller grants the work and records the overage. Missing
+    entries fall back to the target, so a resource with no ceiling declared behaves
+    exactly as it did before escalation existed.
+    """
+    raw = load_json(path)
+    out = dict(limits(path))
+    for name, value in (raw.get("escalation_ceiling") or {}).items():
+        if name in out and isinstance(value, int) and value >= out[name]:
+            out[name] = value
+    return out
+
+
 def threshold(path: Path = RUBRIC_FILE) -> float:
     import yaml
 
@@ -97,6 +112,11 @@ def read_state(path: Path) -> dict:
     state = load_json(path)
     if state.get("schema") != SCHEMA:
         raise ValueError(f"{path} is not {SCHEMA}")
+    # A ledger written before escalation existed carries no ceiling. Fill it in on read
+    # rather than refusing to resume, because refusing here would strand exactly the run
+    # this feature exists to rescue.
+    if not state.get("escalation_ceiling"):
+        state["escalation_ceiling"] = ceilings()
     expected = set(limits())
     present = set(state.get("limits") or {})
     if expected != present:
@@ -138,6 +158,7 @@ def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
         "review_required": False,
         "review_reasons": [],
         "limits": owned,
+        "escalation_ceiling": ceilings(),
         "usage": {name: 0 for name in owned},
         "events": [],
     }
@@ -197,6 +218,30 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
           > int(state["limits"]["full_renders"])):
         amounts[RESCUE_RENDER_RESOURCE] = amounts.pop("full_renders")
 
+    # ---- ESCALATE BEFORE REFUSING. Owner's decision, 2026-08-28: an empty run is worse
+    # than an expensive one, and the definition of done is a DELIVERED VIDEO.
+    #
+    # `limits` is the spend TARGET and `escalation_ceiling` is the hard stop. Between the
+    # two the work is GRANTED and the overage is recorded, loudly, as its own event. The
+    # August 28th Dispatch stopped fourteen thousandths under the bar, with a playable
+    # film, no hard fails and every remaining fix already written down, because renders had
+    # run out. That is the cost model making an editorial call it has no standing to make.
+    #
+    # THIS BUYS ATTEMPTS AT THE BAR AND NEVER LOWERS IT. No quality gate is reachable from
+    # here: not the rubric threshold, not a hard fail, not the numeral rule, not alignment.
+    ceilings = state.get("escalation_ceiling") or {}
+    for name, amount in list(amounts.items()):
+        after = int(state["usage"].get(name, 0)) + amount
+        cap = int(state["limits"].get(name, 0))
+        ceiling = int(ceilings.get(name, cap))
+        if after > cap and after <= ceiling:
+            state["limits"][name] = after
+            state.setdefault("escalations", []).append(
+                {"resource": name, "from": cap, "to": after, "ceiling": ceiling,
+                 "at": now(), "note": note})
+            event(state, "budget_escalated", resource=name, was=cap, now=after,
+                  ceiling=ceiling, note=note)
+
     over = []
     for name, amount in amounts.items():
         after = int(state["usage"].get(name, 0)) + amount
@@ -227,19 +272,35 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         event(state, "render_reserved_with_last_good_preserved",
               film_sha256=state["deliverable"].get("film_sha256"))
     event(state, "reserved", resources=amounts, note=note)
-    if ("panel_rounds" in amounts
-            and state["usage"]["panel_rounds"] == state["limits"]["panel_rounds"]):
+    # CLEANUP LOCKS AT THE CEILING, NOT AT THE TARGET, and under escalation those are two
+    # different numbers on purpose.
+    #
+    # This read `usage == limits`, which was exactly right while `limits` was a fixed cap
+    # and became self-defeating the moment escalation started moving it. Escalation raises
+    # `limits` to precisely the usage it is granting, so `usage == limits` is TRUE after
+    # every escalated reservation. The first panel round past the target would have locked
+    # hard-fail cleanup and ended iteration, while the ledger recorded a ceiling of nine
+    # rounds the run could never reach.
+    #
+    # That is the whole escalation policy cancelling itself in one comparison: the run
+    # would still stop at round five, still write up a failure instead of a film, and now
+    # do it while claiming it had budget left. An empty run is worse than an expensive one.
+    panel_ceiling = int((state.get("escalation_ceiling") or {}).get(
+        "panel_rounds", state["limits"]["panel_rounds"]))
+    if "panel_rounds" in amounts and state["usage"]["panel_rounds"] >= panel_ceiling:
         state["phase"] = CLEANUP_PHASE
         event(
             state,
             "panel_cap_reached",
             panel_rounds=state["usage"]["panel_rounds"],
+            ceiling=panel_ceiling,
             next_mode="hard fails and deterministic no-panel fixes only",
         )
     save(path, state)
     used = ", ".join(f"{k}={state['usage'][k]}/{state['limits'][k]}" for k in amounts)
     suffix = (
-        "; fifth panel reserved, so hard-fail cleanup is now locked and no sixth panel exists"
+        f"; the panel ceiling of {panel_ceiling} is reached, so hard-fail cleanup is now "
+        f"locked and no further panel exists"
         if state.get("phase") == CLEANUP_PHASE and "panel_rounds" in amounts else ""
     )
     return True, f"run controller: reserved {used}{suffix}"
@@ -632,6 +693,49 @@ def record_telemetry(path: Path, resource: str, elapsed_ms: int, tokens: int,
     )
 
 
+def reopen(path: Path, reason: str) -> tuple[bool, str]:
+    """Take a stopped run OUT of its terminal state so it can be finished properly.
+
+    WHY THIS EXISTS. Owner's decision, 2026-08-28: a failed run is not a thing. The
+    definition of done is a DELIVERED VIDEO. Before this, a run that went terminal as
+    `needs_review` was over: the ledger was closed and the only way onward was to hand
+    edit the state file, which is exactly the "a new shell resets the ledger" move the
+    contract forbids, and forbids for good reasons.
+
+    So the way onward is a COMMAND, and it behaves like one:
+
+      IT NEVER TOUCHES USAGE. Every reservation this run has already spent stays spent.
+      Re-opening buys nothing and hides nothing; it only says the run is not finished.
+
+      IT IS NOT AN OVERRIDE. `owner-override` publishes a cut that did not clear the
+      bar. This does the opposite: it re-opens the run so the cut can be MADE to clear
+      it. Nothing about the rubric, the hard fails or the evidence rules is reachable
+      from here.
+
+      IT LEAVES THE SCAR. The prior terminal state and its reason are kept in
+      `reopened_from`, and the event log carries the whole history, so a later reader
+      sees that this run stopped once and why.
+    """
+    state = read_state(path)
+    if state.get("terminal_state") is None:
+        return False, "run controller: the run is not terminal, so there is nothing to reopen"
+    if not reason.strip():
+        return False, "run controller: reopening requires a reason"
+    was, was_why = state["terminal_state"], state.get("terminal_reason")
+    state.setdefault("reopened_from", []).append(
+        {"terminal_state": was, "terminal_reason": was_why, "at": now(),
+         "reason": reason.strip()})
+    state["terminal_state"] = None
+    state["terminal_reason"] = None
+    state["review_required"] = False
+    state["review_reasons"] = []
+    state["phase"] = "reopened"
+    event(state, "reopened", was=was, reason=reason.strip())
+    save(path, state)
+    return True, (f"run controller: reopened from {was}. Usage is untouched and every "
+                  f"reservation already spent stays spent.")
+
+
 def owner_override(path: Path, report: Path, reason: str, confirmation: str
                    ) -> tuple[bool, str]:
     state = read_state(path)
@@ -676,6 +780,7 @@ def reserve_panel(path: Path, judges: int, note: str = "") -> tuple[bool, str]:
 
 
 def self_test() -> int:
+    CEIL = ceilings()
     failures = 0
 
     def ok(label: str, condition: bool, detail: str = "") -> None:
@@ -843,13 +948,28 @@ def self_test() -> int:
         for n in range(3):
             ok(f"research reservation {n + 1} clears",
                reserve(p, {"research_agents": 1}, "candidate")[0])
+        # ESCALATION, and the pair of assertions is the whole contract. Past the spend
+        # TARGET the work is granted and the overage is recorded; past the CEILING it is
+        # refused. Owner's decision 2026-08-28: an empty run is worse than an expensive one.
         allowed, _ = reserve(p, {"research_agents": 1}, "the fourth candidate")
         s = read_state(p)
-        ok("a fourth researcher is refused", not allowed)
-        ok("budget exhaustion requires review without terminating empty",
+        ok("a fourth researcher ESCALATES rather than being refused, because the target is "
+           "a spend goal and the ceiling is the stop", allowed)
+        ok("the escalation is recorded as its own visible ledger entry",
+           any(e["resource"] == "research_agents" and e["from"] == 3 and e["to"] == 4
+               for e in s.get("escalations", [])))
+        ok("an escalated reservation IS counted, because it was really spent",
+           s["usage"]["research_agents"] == 4)
+        ok("escalating does not push the run toward a terminal review",
+           s["terminal_state"] is None and s["phase"] != COMPLETION_PHASE)
+        refused, _ = reserve(p, {"research_agents": 1}, "past the ceiling")
+        s = read_state(p)
+        ok("the CEILING still refuses, so escalation is bounded rather than infinite",
+           not refused)
+        ok("hitting the ceiling requires review without terminating empty",
            s["review_required"] and s["terminal_state"] is None
            and s["phase"] == COMPLETION_PHASE)
-        ok("the refused call was not counted", s["usage"]["research_agents"] == 3)
+        ok("the refused call was not counted", s["usage"]["research_agents"] == 4)
         ok("an empty run cannot finish needs_review",
            not finish(p, "needs_review", reason="research budget exhausted",
                       review_package=root / "missing")[0])
@@ -867,15 +987,78 @@ def self_test() -> int:
         ok("scorer calls cannot be spent outside an atomic panel",
            not reserve(p, {"scorer_calls": 3}, "side-door judges")[0])
         ok("a partial panel cannot consume a full-panel round", not reserve_panel(p, 1)[0])
-        for n in range(5):
-            ok(f"panel {n + 1} reserves one round and three judges",
+        # THE TARGET AND THE CEILING ARE TWO DIFFERENT NUMBERS, and this block used to
+        # assume they were one. It drove the run to five rounds and asserted that the
+        # fifth locked cleanup, which was exactly right under the fixed allowance and
+        # describes a BROKEN machine under escalation: a run that stops iterating at the
+        # target has cancelled the escalation the ledger says it has.
+        #
+        # So it proves both halves now. Past the target the panel is GRANTED, because an
+        # empty run is worse than an expensive one. At the ceiling it is refused, because
+        # escalation buys attempts and is not an open tab.
+        target_rounds = int(read_state(p)["limits"]["panel_rounds"])
+        ceiling_rounds = int(ceilings().get("panel_rounds", target_rounds))
+        ok("the panel ceiling sits above the target, so escalation has somewhere to go",
+           ceiling_rounds > target_rounds, f"target {target_rounds}, ceiling {ceiling_rounds}")
+
+        # BOUNDED, because `mutation_check` sets these very numbers to 999999.
+        #
+        # This loop read `range(target_rounds)` straight out of the contract, which is right
+        # until something deliberately makes the contract absurd. `mutation_check` mutates
+        # `"panel_rounds": 5` to `"panel_rounds": 999999` and runs this suite to prove the
+        # threshold is guarded, so the loop tried a MILLION reservations, each one an atomic
+        # state write to disk. The assertion it exists for still fired correctly, eventually;
+        # what it cost was about 45 seconds per mutated row across thirteen rows, which turned
+        # a two minute gate into a forty minute one and looked exactly like a hang.
+        #
+        # A self-test that reads a number from the file under test has to assume that number
+        # is hostile, because the whole point of a mutation checker is that one day it will be.
+        # `ok()` records and returns, so nothing here stopped on the first refusal either.
+        # DRAIN A RESOURCE TO ITS CEILING, AND STOP IF IT REFUSES.
+        #
+        # These loops were `while usage[r] < CEIL[r]: reserve(...)`, which spins forever the
+        # moment a reservation is REFUSED, because usage then never moves. That never happened
+        # on a sane contract. `mutation_check` exists to feed this suite an insane one, and on
+        # 2026-08-28 mutating `"panel_rounds": 5` to 999999 drove the ledger into hard-fail
+        # cleanup early, every later reservation was refused, and the suite hung. Each of the
+        # thirteen run_limits rows paid that cost, which turned a two minute gate into a forty
+        # minute one that looked exactly like a hang and hid a real finding behind it.
+        #
+        # A self-test that reads numbers from the file under test must treat them as hostile.
+        def drain(res_key: str, amounts: dict, note: str, cap: int = 40) -> None:
+            for _ in range(cap):
+                if int(read_state(p)["usage"].get(res_key, 0)) >= int(CEIL[res_key]):
+                    return
+                if not reserve(p, dict(amounts), note)[0]:
+                    return
+
+        LOOP_CAP = 24
+        granted = 0
+        for n in range(min(target_rounds, LOOP_CAP)):
+            got = reserve_panel(p, 3, f"round {n + 1}")[0]
+            ok(f"panel {n + 1} reserves one round and three judges", got)
+            if not got:
+                break
+            granted += 1
+        ok("the target is small enough to walk, so this suite is testing the real contract",
+           target_rounds <= LOOP_CAP, f"target {target_rounds} exceeds the {LOOP_CAP} cap")
+        ok("reaching the TARGET does not lock cleanup, because there is budget beyond it",
+           read_state(p)["phase"] != CLEANUP_PHASE)
+        ok("...and the next panel is granted rather than ending the run",
+           reserve_panel(p, 3, "one past the target")[0])
+
+        for n in range(granted + 1, min(ceiling_rounds, LOOP_CAP)):
+            ok(f"panel {n + 1} is granted on the way to the ceiling",
                reserve_panel(p, 3, f"round {n + 1}")[0])
         s = read_state(p)
-        ok("the fifth panel locks hard-fail cleanup", s["phase"] == CLEANUP_PHASE)
-        ok("five panels consumed exactly fifteen scorer calls",
-           s["usage"]["panel_rounds"] == 5 and s["usage"]["scorer_calls"] == 15)
-        ok("a sixth panel is mechanically refused without killing cheap cleanup",
-           not reserve_panel(p, 3, "round six")[0]
+        ok("the panel that reaches the CEILING locks hard-fail cleanup",
+           s["phase"] == CLEANUP_PHASE, f"phase {s['phase']}")
+        ok("every panel consumed exactly three scorer calls",
+           s["usage"]["panel_rounds"] == ceiling_rounds
+           and s["usage"]["scorer_calls"] == ceiling_rounds * 3,
+           f"{s['usage']['panel_rounds']} rounds, {s['usage']['scorer_calls']} calls")
+        ok("a panel past the ceiling is mechanically refused without killing cheap cleanup",
+           not reserve_panel(p, 3, "one past the ceiling")[0]
            and read_state(p)["terminal_state"] is None)
         ok("a phase command cannot escape hard-fail cleanup",
            not set_phase(p, "panel")[0] and read_state(p)["phase"] == CLEANUP_PHASE)
@@ -888,8 +1071,10 @@ def self_test() -> int:
         s = read_state(p)
         ok("the cleanup render uses its protected ledger, not an ordinary round render",
            s["usage"]["full_renders"] == 0 and s["usage"][CLEANUP_RENDER_RESOURCE] == 1)
-        ok("a second post-panel cleanup render is refused but still not an empty terminal",
-           not reserve(p, {"full_renders": 1}, "another cleanup render")[0]
+        # Escalates to the cleanup ceiling, then stops. Read from config, never restated.
+        drain(CLEANUP_RENDER_RESOURCE, {"full_renders": 1}, "another cleanup render")
+        ok("cleanup renders stop at their ceiling and still do not end an empty terminal",
+           not reserve(p, {"full_renders": 1}, "past the cleanup ceiling")[0]
            and read_state(p)["terminal_state"] is None)
 
         p = root / "rescue.json"
@@ -897,8 +1082,11 @@ def self_test() -> int:
         for n in range(5):
             ok(f"ordinary full render {n + 1} is reserved",
                reserve(p, {"full_renders": 1}, f"render {n + 1}")[0])
-        ok("an ordinary render over cap switches to completion instead of ending empty",
-           not reserve(p, {"full_renders": 1}, "failed sixth attempt")[0]
+        ok("a sixth ordinary render ESCALATES past the spend target rather than stopping",
+           reserve(p, {"full_renders": 1}, "sixth attempt")[0])
+        drain("full_renders", {"full_renders": 1}, "further attempt")
+        ok("an ordinary render past the CEILING switches to completion instead of ending empty",
+           not reserve(p, {"full_renders": 1}, "past the render ceiling")[0]
            and read_state(p)["phase"] == COMPLETION_PHASE)
         ok("completion mode retains one controller-owned rescue render",
            reserve(p, {"full_renders": 1}, "deliverable rescue")[0]
@@ -916,21 +1104,31 @@ def self_test() -> int:
         for n in range(3, 7):
             ok(f"preflight {n} is allowed",
                reserve(p, {"preflight_renders": 1}, f"preview {n}")[0])
-        ok("a seventh preflight is mechanically refused",
-           not reserve(p, {"preflight_renders": 1}, "another preview")[0])
+        ok("a seventh preflight ESCALATES rather than being refused",
+           reserve(p, {"preflight_renders": 1}, "another preview")[0])
+        drain("preflight_renders", {"preflight_renders": 1}, "further animatic")
+        ok("preflights stop at their ceiling",
+           not reserve(p, {"preflight_renders": 1}, "past the preflight ceiling")[0])
         # A separate state makes the reboard case independent of completion mode.
         p = root / "reboards.json"
         initialise(p, "r2c", "dry-run")
         for n in range(4):
             reserve(p, {"reboards": 1}, f"structural correction {n + 1}")
-        ok("a fifth reboard is mechanically refused",
-           not reserve(p, {"reboards": 1}, "another board")[0])
+        ok("a fifth reboard ESCALATES rather than being refused",
+           reserve(p, {"reboards": 1}, "another board")[0])
+        drain("reboards", {"reboards": 1}, "further reboard")
+        ok("reboards stop at their ceiling",
+           not reserve(p, {"reboards": 1}, "past the reboard ceiling")[0])
 
         p = root / "tts.json"
         initialise(p, "r3", "production")
         for n in range(4):
             ok(f"TTS call {n + 1} clears", reserve(p, {"tts_calls": 1}, "take")[0])
-        ok("a fifth TTS call is refused", not reserve(p, {"tts_calls": 1}, "take five")[0])
+        ok("a fifth TTS call ESCALATES, which is what lets a run FIX a bad line rather than "
+           "ship it", reserve(p, {"tts_calls": 1}, "take five")[0])
+        drain("tts_calls", {"tts_calls": 1}, "further take")
+        ok("TTS calls stop at their ceiling",
+           not reserve(p, {"tts_calls": 1}, "past the tts ceiling")[0])
 
         low = root / "low.json"
         low.write_text(json.dumps({"score": threshold() - 0.1, "hard_fails": []}) + "\n")
@@ -975,6 +1173,23 @@ def self_test() -> int:
         override_review = durable_review(p, "override")
         finish(p, "needs_review", reason="panel budget exhausted",
                review_package=override_review, review_root=root / "runs" / "review")
+        # REOPEN, and the load-bearing assertion is that it grants nothing.
+        pr = root / "reopen.json"
+        initialise(pr, "reopen", "dry-run")
+        reserve(pr, {"research_agents": 1}, "one")
+        ok("a run that is not terminal cannot be reopened", not reopen(pr, "why")[0])
+        st = read_state(pr); st["terminal_state"] = "needs_review"
+        st["terminal_reason"] = "stopped short"; save(pr, st)
+        ok("reopening requires a reason", not reopen(pr, "   ")[0])
+        ok("a terminal run reopens", reopen(pr, "owner directed the run be finished")[0])
+        st = read_state(pr)
+        ok("reopening clears the terminal state", st["terminal_state"] is None)
+        ok("REOPENING GRANTS NO BUDGET: usage is exactly what it was",
+           st["usage"]["research_agents"] == 1)
+        ok("the prior terminal state is kept as a scar rather than erased",
+           st["reopened_from"][0]["terminal_state"] == "needs_review"
+           and st["reopened_from"][0]["terminal_reason"] == "stopped short")
+
         ok("an owner override needs the exact confirmation",
            not owner_override(p, low, "owner accepts this cut", "yes")[0])
         ok("an explicit owner override is recorded",
@@ -1047,6 +1262,9 @@ def main() -> int:
     p.add_argument("--tokens", type=int, default=0)
     p.add_argument("--note", default="")
 
+    p = sub.add_parser("reopen")
+    p.add_argument("--reason", required=True)
+
     p = sub.add_parser("owner-override")
     p.add_argument("--report", required=True)
     p.add_argument("--reason", required=True)
@@ -1090,6 +1308,10 @@ def main() -> int:
         elif a.command == "telemetry":
             accepted, message = record_telemetry(
                 state_path, a.resource, a.elapsed_ms, a.tokens, a.note)
+        elif a.command == "reopen":
+            accepted, message = reopen(Path(a.state), a.reason)
+            print(message)
+            return 0 if accepted else 1
         elif a.command == "owner-override":
             accepted, message = owner_override(
                 state_path, Path(a.report), a.reason, a.confirm)

@@ -1,0 +1,231 @@
+{
+ "for_date": "2026-08-28",
+ "film": "The grade the machine had to beat",
+ "scenes": 8,
+ "board_runtime_s": 40.0,
+ "voice": {
+  "name": "Charon",
+  "read_from": "config/voices.yaml",
+  "status": "default_pending_audition",
+  "note": "Read from config, never assumed. voices.yaml says this is a default rather than an audition result, so the run should not describe it as an auditioned pick in any report."
+ },
+ "BLOCKING_BEFORE_ANY_CALL": [],
+ "pronunciation": {
+  "verdict": "NO name in this script needs a phonetic respelling, and adding one where it is not needed is its own failure.",
+  "checked": [
+   {
+    "name": "Midland",
+    "in_table": false,
+    "say": "MID lund",
+    "action": "leave as written. Midland is not in TEXAS_PRONUNCIATION.md's trap list and is not a shibboleth. It is said the way it is spelled. Respelling a name that is not a trap invites a mangled read of a word the model already has right, and it is the first ten seconds of the film."
+   },
+   {
+    "name": "Texas",
+    "in_table": false,
+    "action": "leave as written."
+   },
+   {
+    "name": "Permian",
+    "in_table": false,
+    "say": "PER mee un",
+    "action": "leave as written, and WATCH IT in the verbatim transcript. It is a basin and period name in general English rather than a Texas place name, so it is dictionary settled rather than a guess. If a take comes back saying anything else, the contingency respelling to put in the script is PURR-mee-un. Do not pre-emptively insert it."
+   },
+   {
+    "name": "Exxon",
+    "in_table": false,
+    "say": "EK son",
+    "action": "leave as written."
+   },
+   {
+    "name": "Dallas",
+    "in_table": false,
+    "say": "DAL us",
+    "action": "leave as written."
+   }
+  ],
+  "note": "TEXAS_PRONUNCIATION.md section 5 says an unverified spoken proper noun is a stop rather than a warning. Every proper noun here resolves, so nothing is being guessed at."
+ },
+ "timing": {
+  "read_target_s": 45,
+  "the_rule": "A pause the film needs is an EDIT, not a performance.",
+  "why": "The 2026-08-28 take was directed with a named pause after all eight lines, about 7.5 s of intended silence, and came back with roughly 20 s of dead air in a 56.7 s read including a 2 s hole inside line 4. board_retime cuts the picture to the voice, so the film takes its air from where the cuts land. Silence in the take is screen time with nothing in it, and the only ways out of it are a re-synth or the time stretch this project bans.",
+  "pause_after_is_for_the_editor": true
+ },
+ "trims": {
+  "instruction": "These are the words to LOSE if the cut must come in. Ranked. Never a time stretch.",
+  "no_cut_lines": {
+   "5": "every figure is claim bound and the Permian is the sourced region",
+   "6": "legally load bearing. 'supplying them' is what keeps the film from fusing two sources into one claim, and 'had already' is the chronology the validator required. A later pass must not trim this line for time.",
+   "7": "the second sentence is a verbatim quotation and is never touched"
+  },
+  "ranked": [
+   {
+    "rank": 1,
+    "line": 8,
+    "cut": "Past the fence,",
+    "saves_words": 3,
+    "why": "the scene is literally outside the fence line on open caliche, so the picture already says it. This is the single biggest available saving.",
+    "cost": "loses the spoken pivot, though the camera is performing the pivot anyway.",
+    "result": "Most producers the Dallas Fed asked expect none of it off the price of a well."
+   },
+   {
+    "rank": 2,
+    "line": 4,
+    "cut": "small",
+    "saves_words": 1,
+    "why": "the cabin is on screen and its size is visible.",
+    "result": "The contractor who did that work sits in an office on the rig, at a screen.",
+    "do_not": "do not reorder. The last three words are the image and must arrive last."
+   },
+   {
+    "rank": 3,
+    "line": 2,
+    "cut": "of steel",
+    "saves_words": 2,
+    "why": "tread plate and rotary table are the whole frame.",
+    "result": "Behind it is the square where about a third of significant drilling injuries happen."
+   },
+   {
+    "rank": 4,
+    "line": 1,
+    "cut": "drilling",
+    "saves_words": 1,
+    "why": "line 2 says drilling injuries, so keep the word in exactly one of the two lines and line 2 is where it is doing work.",
+    "result": "Somebody painted a reaper on a gate at a rig in Midland, Texas."
+   },
+   {
+    "rank": 5,
+    "line": 2,
+    "cut": "is the square where",
+    "saves_words": 3,
+    "why": "DEEPEST available cut and it costs real picture. Only if 47 seconds is a hard ceiling.",
+    "result": "Behind it, about a third of significant drilling injuries happen.",
+    "cost": "loses the square, which is the film's absence-as-subject hero."
+   }
+  ],
+  "never_cut": [
+   "roughly, in line 3, and about, in line 2. They are the honest hedges and a hedge is the last thing to lose, not the first.",
+   "Nobody stands under it. Four words, and it is the hero of the picture.",
+   "who did that work, in line 4. It is the only thing linking the man to the floor in line 3."
+  ]
+ },
+ "measurement_watch": [
+  "figures() will parse 2000, 30 and 2 out of this script and compare them against the transcript as figures. The read must land 'two thousand' and 'thirty' cleanly, because a misread figure is its own hard fail that word accuracy is blind to.",
+  "'about a third' is a FALSE POSITIVE RISK on that same check. If the transcriber writes it back as 'one third' or '1/3', figures() sees an extra 1, or an extra 1 and 3, and the take hard fails with A FIGURE IS WRONG on a line that was read perfectly. If that failure appears, the cause is the transcription and the fix is another take, never a change to the fact.",
+  "MIN_PITCH_VARIANCE is 1.8 semitones. The 3 to 7 range this plan directs, with real level drops at lines 2, 4 and 7, clears it with room. A read that ignored the drops would not.",
+  "The plan gives the caption segmenter roughly ten silences to break on, eight between lines and two inside lines 3 and 7. speech_runs is a ranking term in vo_soundcheck and a take with somewhere to break captions ranks above one without.",
+  "Line 7 drops in LEVEL and never into breath. A breathy line drops voiced frames out of the pitch track, which shrinks the measured spread toward the drone threshold, and it drags integrated loudness down for no gain."
+ ],
+ "house_rule_note": "Line 7 contains 'our people' and this project bans first person in published copy. It is a verbatim quotation from an earnings call and the docket's own house rules say a verbatim quote is never touched. Recorded here so a later gate or a later reader does not 'fix' it.",
+ "overall": "Eight lines, ONE CONTINUOUS READ with no held silences, about forty five seconds end to end. A person who has stood at this fence, describing what is behind it to somebody who has not. Dry and unhurried, and never working for the authority, because the facts are doing that. Energy below is a 1 to 10 scale where 6 is a plain spoken statement and 3 is pulled right down while still fully voiced. Never go breathy. The shape is 6, a drop to 4, a small lift, another drop, out to 6, up to 7, then a hard fall to 3 on line 7 which is the whole film, closing at 4. It ends lower and more certain than its middle and it never rises to finish. This film is not mourning the work and it is not admiring the machine. It reports.",
+ "lines": [
+  {
+   "n": 1,
+   "scene": "s1",
+   "text": "Somebody drew the Grim Reaper on the gate around a drilling floor in Midland, Texas.",
+   "words": 15,
+   "intent": "Open by putting the viewer at a fence on a caliche pad and state the strange thing plainly, as an observation rather than a teaser. Let the place name land clean and do not lift the end of the line.",
+   "emphasis": "\"Grim Reaper\"",
+   "energy": "6 of 10, the reference the rest of the film is measured against",
+   "pause_after": "2 units, about 0.9 seconds",
+   "pause_after_beats": 2,
+   "estimated_speech_s": 5.2,
+   "risk": "Mild length risk. The bigger risk is a teaser reading, a lift on Texas that turns a fact into a hook. The hooded figure resolves at 0.9 seconds on its own and the voice must not chase it."
+  },
+  {
+   "n": 2,
+   "scene": "s2",
+   "text": "Behind it is the square of steel where about a third of significant drilling injuries happen.",
+   "words": 16,
+   "intent": "This is the reason the floor is empty. Deliver it as a fact the listener half knew already, level and unhurried, with no extra weight on the word injuries. The silence after it does the work the voice must not do.",
+   "emphasis": "\"third\"",
+   "energy": "4 of 10, a clear drop from line 1, lower and a shade slower and still fully voiced",
+   "pause_after": "2.5 units, about 1.1 seconds",
+   "pause_after_beats": 2.5,
+   "estimated_speech_s": 6.3,
+   "risk": "THE MOST OVER-PERFORMED LINE IN THE FILM. Any weight on injuries turns the piece into a eulogy for the job, which story.md forbids outright. The drop to 4 is what makes it land. Also runs long at 16 words."
+  },
+  {
+   "n": 3,
+   "scene": "s3",
+   "text": "The pipe crossing that floor weighs roughly two thousand pounds.",
+   "words": 10,
+   "intent": "Two sentences. Give the weight as a plain measurement with no lift on the figure, a breath at the full stop, then land the four short words that are the whole picture. Do not hold that breath.",
+   "emphasis": "\"machine\"",
+   "energy": "5 of 10, a small lift on the physical fact that falls again inside the line so the second sentence sits under the first",
+   "pause_after": "2 units, about 0.9 seconds",
+   "pause_after_beats": 2,
+   "estimated_speech_s": 5.5,
+   "risk": "The temptation is to hit two thousand pounds. Do not. The emphasis goes to the payload, and the number is stronger stated than sold. two thousand must be heard as two thousand, since the figure check compares it against the transcript."
+  },
+  {
+   "n": 4,
+   "scene": "s4",
+   "text": "A contractor sits in a small office on the rig, operating robotic machinery from a screen.",
+   "words": 16,
+   "intent": "Say it as an ordinary fact about somebody's working day, with no pity in it and no relief either. This line is one sentence and it runs straight through. The last three words are the image, so let them arrive last and unhurried.",
+   "emphasis": "\"screen\"",
+   "energy": "4 of 10, back down to line 2's level",
+   "pause_after": "2 units, about 0.9 seconds",
+   "pause_after_beats": 2,
+   "estimated_speech_s": 6.3,
+   "risk": "Longest line in the first half at 18 words and the worst words per second in the film. Cut small. A softening or a sympathetic reading here is the same failure as line 2 from the other direction."
+  },
+  {
+   "n": 5,
+   "scene": "s5",
+   "text": "Exxon runs more than thirty rigs in the Permian. Two of them are automated.",
+   "words": 14,
+   "intent": "Widen out. Two clean facts with a full stop between them, and the second one is the one that matters. Read both figures as written words and let them arrive whole.",
+   "emphasis": "\"Two\"",
+   "energy": "6 of 10, the widest breath in the film and back up to the opening level",
+   "pause_after": "1.5 units, about 0.7 seconds",
+   "pause_after_beats": 1.5,
+   "estimated_speech_s": 5.5,
+   "risk": "Permian is the one word in the script to check on the verbatim transcript. Nothing in this line may be trimmed, so its time has to come from elsewhere."
+  },
+  {
+   "n": 6,
+   "scene": "s6",
+   "text": "The drilling contractor that supplied one of those two told investors what it expected a robotic rig to do.",
+   "words": 19,
+   "intent": "The setup for the turn. Lean forward and keep it moving, and finish the line open rather than closed so the answer is still owed at the cut.",
+   "emphasis": "\"already\"",
+   "energy": "7 of 10, the highest point in the film and the only line that leans",
+   "pause_after": "1.5 units, about 0.7 seconds",
+   "pause_after_beats": 1.5,
+   "estimated_speech_s": 5.0,
+   "risk": "SHOWN HERE WITH THE FIX APPLIED. The locked script says beat, which both gates refuse. See BLOCKING_BEFORE_ANY_CALL b1. This is the loud line whose only job is to make line 7's drop audible, so 7 of 10 is deliberate and it must not creep higher and become a sell."
+  },
+  {
+   "n": 7,
+   "scene": "s7",
+   "text": "Their own people. At least as well as what our people are performing.",
+   "words": 13,
+   "intent": "The turn and the quietest place in the film. The first sentence answers the line before it, so land it low and level as a complete statement. The second sentence is read rather than said, at that same low level and a shade slower, in somebody else's words. Put no weight at all on our and none on people. The final word is somebody else's vocabulary and it lands dry and falls. Stay fully voiced rather than going breathy, and leave no gap between the two sentences.",
+   "emphasis": "\"performing\"",
+   "energy": "3 of 10, the lowest point in the film and a hard fall from line 6",
+   "pause_after": "3 units, about 1.4 seconds, the longest silence in the film",
+   "pause_after_beats": 3,
+   "estimated_speech_s": 6.2,
+   "risk": "THE LINE THE FILM LIVES OR DIES ON. our people is a quotation of an executive, not the narrator speaking. Three mechanisms make that audible without adding a single word. One, Their own crews. is a complete sentence with a real full stop, and the silence after it is the opening quotation mark. Two, the quoted sentence sits at a different level and tempo, read off a page rather than said. Three, and this is the one that matters most, ZERO stress on our. Stress our and the narrator works for the company and the film is over. Sending the emphasis to performing is what protects it, because performing is the corporate word and hearing it land dry is what marks the whole sentence as borrowed. The super carries the quotation marks on screen, so the voice must not try to perform them.",
+   "no_cut": true
+  },
+  {
+   "n": 8,
+   "scene": "s8",
+   "text": "Past the fence, most producers the Dallas Fed asked expect artificial intelligence to take nothing off their break even price for new wells.",
+   "words": 23,
+   "intent": "The honest shrug from outside the fence. Report what these people said without a trace of triumph and without a sneer at anybody. The last words come down in level and ease off, and the line ends without a lift. This is a full stop and not a punchline.",
+   "emphasis": "\"nothing\"",
+   "energy": "4 of 10, up a little off line 7 and still under the middle of the film",
+   "pause_after": "2 units of silence to close, about 0.9 seconds",
+   "pause_after_beats": 2,
+   "estimated_speech_s": 7.4,
+   "risk": "Longest line in the film at 20 words and the one most likely to run over. It is also the commonest failure the doctrine names, a read that rises to finish. It must land lower and more certain than the middle. A rising kicker here reads as a sneer at the technology, which the film has spent fifty seconds refusing to do."
+  }
+ ],
+ "assembled_prompt_note": "This is the exact string vo_synth_gemini.build_prompt() will produce from this plan, once line 6's beat becomes clear. Reproduced so the run can see the fence sits in one place, the direction is entirely above it, and only the script is inside it. Two words in the preamble are in TAG_WORDS and cannot be removed, emphasis and pause, because vo_synth's split_direction() builds those labels from its own key names. Every other word of direction here was chosen to avoid the vocabulary, which is why the silences are counted in units rather than in beats.",
+ "assembled_prompt": "You are performing a narration for a short documentary film. Read ONLY the text inside the fenced block at the end of this message, exactly as written, and speak none of these instructions.\n\nDelivery: a person who knows the subject, telling you something they think you should know, at the pace somebody actually talks. Slightly dry. Willing to leave a silence. The authority comes from the facts being right, so the delivery does not work for it. Not a news anchor, not a documentary hush, not an explainer's bright upward lilt.\n\nPer-line direction:\nEight lines, one continuous read, about fifty seconds end to end. A person who has stood at this fence, describing what is behind it to somebody who has not. Dry, unhurried, willing to leave a silence, and never working for the authority, because the facts are doing that. Energy below is a 1 to 10 scale where 6 is a plain spoken statement and 3 is pulled right down while still fully voiced. Never go breathy. The shape is 6, a drop to 4, a small lift, another drop, out to 6, up to 7, then a hard fall to 3 on line 7 which is the whole film, closing at 4. It ends lower and more certain than its middle and it never rises to finish. One rhythmic unit is about 0.45 seconds and the silences below are given in those. This film is not mourning the work and it is not admiring the machine. It reports.\nLine 1; intent: Open by putting the viewer at a fence on a caliche pad and state the strange thing plainly, as an observation rather than a teaser. Let the place name land clean and do not lift the end of the line.; emphasis: \"reaper\"; energy: 6 of 10, the reference the rest of the film is measured against; pause after: 2 units, about 0.9 seconds\nLine 2; intent: This is the reason the floor is empty. Deliver it as a fact the listener half knew already, level and unhurried, with no extra weight on the word injuries. The silence after it does the work the voice must not do.; emphasis: \"third\"; energy: 4 of 10, a clear drop from line 1, lower and a shade slower and still fully voiced; pause after: 2.5 units, about 1.1 seconds\nLine 3; intent: Two sentences. Give the weight as a plain measurement with no lift on the figure, take a short breath at the full stop, then land the four short words that are the whole picture.; emphasis: \"Nobody\"; energy: 5 of 10, a small lift on the physical fact that falls again inside the line so the second sentence sits under the first; pause after: 2 units, about 0.9 seconds\nLine 4; intent: The man who used to stand on that floor. Say it as an ordinary fact about somebody's working day, with no pity in it and no relief either. The last three words are the image, so let them arrive last and unhurried.; emphasis: \"screen\"; energy: 4 of 10, back down to line 2's level; pause after: 2 units, about 0.9 seconds\nLine 5; intent: Widen out. Two clean facts with a full stop between them, and the second one is the one that matters. Read both figures as written words and let them arrive whole.; emphasis: \"Two\"; energy: 6 of 10, the widest breath in the film and back up to the opening level; pause after: 1.5 units, about 0.7 seconds\nLine 6; intent: The setup for the turn. Lean forward and keep it moving, and finish the line open rather than closed so the answer is still owed when the silence starts.; emphasis: \"already\"; energy: 7 of 10, the highest point in the film and the only line that leans; pause after: 1.5 units, about 0.7 seconds\nLine 7; intent: The turn and the quietest place in the film. Their own crews is the answer to the line before it, so land it low and level as a complete statement. Then hold two full units of silence, about 0.9 seconds. Then the second sentence is read rather than said, at that same low level and a shade slower, in somebody else's words. Put no weight at all on our and none on people. The final word is somebody else's vocabulary and it lands dry and falls. Stay fully voiced at this level rather than going breathy.; emphasis: \"performing\"; energy: 3 of 10, the lowest point in the film and a hard fall from line 6; pause after: 3 units, about 1.4 seconds, the longest silence in the film\nLine 8; intent: The honest shrug from outside the fence. Report what these people said without a trace of triumph and without a sneer at anybody. The last five words come down in level and ease off, and the line ends without a lift. This is a full stop and not a punchline.; emphasis: \"none\"; energy: 4 of 10, up a little off line 7 and still under the middle of the film; pause after: 2 units of silence to close, about 0.9 seconds\n\n-----BEGIN SPOKEN TEXT-----\nSomebody painted a reaper on a gate at a drilling rig in Midland, Texas.\nBehind it is the square of steel where about a third of significant drilling injuries happen.\nThe pipe crossing that floor weighs roughly two thousand pounds. Nobody stands under it.\nThe contractor who did that work sits in a small office on the rig, at a screen.\nExxon runs more than thirty rigs in the Permian. Two of them work this way.\nThe company supplying them had already told investors what a robotic rig has to clear.\nTheir own crews. At least as well as what our people are performing.\nPast the fence, most producers the Dallas Fed asked expect none of it off the price of a well.\n-----END SPOKEN TEXT-----\n",
+ "planned_against": "vo_script.txt as rewritten in round 5 against the fetched quotes"
+}

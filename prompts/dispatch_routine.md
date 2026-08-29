@@ -34,6 +34,18 @@ has shipped, plus one.
 
 ## THE BOUNDED TERMINAL CONTRACT
 
+**A FAILED RUN IS NOT A THING, owner's decision 2026-08-28.** The definition of done is
+a DELIVERED VIDEO. `config/run_limits.json` now carries a spend TARGET and a hard
+CEILING per resource, and between them `run_controller` grants the work and records the
+overage as a `budget_escalated` event rather than refusing. A run that has stopped can
+be reopened with `run_controller reopen --reason ...`, which grants no budget, leaves
+every reservation already spent as spent, and keeps the prior terminal state as a scar.
+
+An empty run is worse than an expensive one. What escalation never buys is a lower bar:
+the rubric threshold, every hard fail, the numeral-traces-to-a-fetched-quote rule, the
+ban on time-stretching and the alignment evidence are all unreachable from it. It buys
+more ATTEMPTS at clearing the bar, which is the only thing that was ever missing.
+
 Every run has exactly two legitimate terminal states:
 
 - `publishable` — the final hash-bound report clears the rubric with no hard fail.
@@ -134,12 +146,21 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
 4. Read `CLAUDE.md`, `.claude/WORKLOG.md` if it exists, `knowledge/texas/`, `knowledge/craft/`.
 5. Preflight the gates on a clean checkout:
    ```
+   python3 scripts/env_check.py
    python3 scripts/engine_lint.py
    python3 scripts/staging_check.py
    python3 scripts/composition_check.py
    python3 scripts/wiring_check.py
    cd video-engine && npx tsc --noEmit
    ```
+
+   **`env_check` runs FIRST because it is the one that proves this container can make a
+   film at all.** On 2026-08-28 all the others passed green on a machine with no numpy,
+   no Pillow, no ffmpeg, no ffprobe and no Remotion browser. Every one of those failures
+   lands AFTER an expensive reservation: numpy died at the Phase 5 foley build, Pillow
+   died after Gate 0 had passed, and a missing browser would have paid a 109 MB download
+   inside a metered render. The rest of this list proves the ENGINE is wired. It proves
+   nothing about whether audio can be built or a film muxed.
 
    `composition_check` is the one that proves the film can be rendered at all. The id in Phase 5
    must be an id `Root.tsx` registers, and for the whole of this machine's life it was not.
@@ -345,6 +366,46 @@ you to registering it rather than leaving a drawing no board can reach.
 Gemini TTS. Reserve and spawn the one `vo-director` first; it plans the read into
 `out/dispatch/vo_direction.json` following `knowledge/craft/VO_DIRECTION.md`, per-line intent,
 emphasis, and energy contrast.
+
+**THE SCRIPT IS EVIDENCED BEFORE IT IS SPOKEN.** Every scene's `vo` names the claims it
+rests on in `vo_claims`, exactly as a super names its `super_claim`, and the check runs
+BEFORE synthesis because a fault here is free and the same fault after it costs a TTS
+call, an alignment, a retime and a render:
+
+```
+python3 scripts/script_evidence_check.py --board out/dispatch/storyboard.json \
+       --claims out/dispatch/claims.json
+```
+
+`vo_synth` refuses to spend a call until that passes, the same way it refuses a script
+carrying direction vocabulary. On 2026-08-28 a line asserting that the man at the screen
+was the man the machine displaced reached the voice, the mix, two renders and three panel
+rounds before a judge caught it, because `ship_gate` reads the narration only for
+NUMERALS and that sentence had none.
+
+**It cannot catch a semantic claim made in common words, and it says so.** What closes
+that is the reader: before synthesis, put the script and the claims file in front of the
+`validator` and ask, line by line, what each sentence asserts and which fetched quote
+carries it. That pass spends no voice and no render, which is the whole reason it belongs
+here rather than in the panel. On 2026-08-28 it returned EIGHT blocking faults, three of
+which no judge had reached in four rounds, and every one was free to fix at that moment.
+
+**WHEN THAT AUDIT SAYS THE FILM ASSERTS MORE THAN ITS EVIDENCE, RE-FETCH BEFORE YOU
+REWRITE.** Two of those eight were not wording faults at all. The claim behind the film's
+opening image held only "A drawing of the Grim Reaper illustrates the risk that workers
+face around heavy equipment", which places the drawing nowhere, so the line, the metaphor
+and the placard's own rendered words all read as invented. The source sentence before the
+stored one says a gate surrounds the drilling floor with a sign reading Red Zone,
+Restricted Area. **A quote clipped too tight is indistinguishable downstream from a
+fabrication**, and it is worse than a missing claim, because a missing claim stops the run
+and a narrow one passes every check and then reads as a lie to the first person who looks
+hard. Widen the excerpt, stamp the claim with the date and the reason, and only rewrite
+the line if the source really does not carry it.
+
+**AND THE DIRECTION IS A SECOND COPY OF THE SCRIPT.** `vo_direction.json` holds a `text`
+per line and its intents quote their own lines back, so a built prompt carries the script
+twice. Change a line and the notes go stale, and the reader may speak either one. It did.
+`build_prompt` now refuses on disagreement, before the call, printing both.
 
 ```
 python3 scripts/run_controller.py consume --resource voice_directors --note "final VO plan"
@@ -699,12 +760,31 @@ worth nothing to improve; a small deficit rides along rather than buying its own
 judge spread is evidence to inspect.
 
 If any round clears, stop editing and close the controller. `render_dispatch.sh` has already
-registered the exact playable film, so the controller binds the passing report to a real artifact:
+registered the exact playable film, so the controller binds the passing report to a real artifact.
+
+**RUN THE DELIVERY GATES FIRST. `finish` IS THE LAST THING A RUN DOES, NOT THE FIRST.**
 
 ```
+bash scripts/deliver_run.sh --verify-only          # every gate, by exit code
 python3 scripts/run_controller.py finish --result publishable \
   --report out/dispatch/report_card.json
 ```
+
+On 2026-08-28 that order was reversed and it cost a render and a panel round. The run took a
+clearing panel, called `finish --result publishable`, and only then ran `deliver_run.sh`, which
+re-runs every gate and found THREE red on the exact board the panel had just cleared. By then
+`publishable` was terminal, so the controller correctly refused the render that would have fixed
+them, and the run had to be reopened with a scar on its record.
+
+**A PANEL DOES NOT CERTIFY DELIVERABILITY, and this is the lesson under the ordering.** Three
+judges read the film and the board. They cannot see that `board_scale_check` refuses a derrick, or
+that `flow_check` refuses a scene whose picture stopped naming its own subject, because those are
+mechanical gates on files the panel never opens. A run that treats a passing panel as permission
+to close has skipped a check rather than passed one, which is the sibling's `guards_local` lesson
+arriving here in a different costume.
+
+The gates are also the cheaper half. Running them BEFORE the panel would have caught all three for
+free; running them after spent three scorer calls on a film that could not ship.
 
 If rounds one through four fail, make **one batched corrective pass per round**. Work the
 highest-cost axis first and at most the top two axes that materially contribute to the gap. A

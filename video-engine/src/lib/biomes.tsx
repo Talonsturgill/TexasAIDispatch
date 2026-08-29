@@ -117,6 +117,18 @@ export function ridgePath(seed: number, yBase: number, rough: number, steps = 24
 }
 
 // ---------------------------------------------------------------- the biome
+
+/** Lift a hex toward white. The horizon under a vertical sun is not the zenith colour
+ *  with haze on it, it is BLEACHED, and REGIONS.md calls light "the single most
+ *  important field". */
+function bleach(hex: string, t: number): string {
+  const h = hex.replace('#', '');
+  const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const m = (v: number) => Math.round(v + (255 - v) * t);
+  return `#${((1 << 24) + (m(r) << 16) + (m(g) << 8) + m(b)).toString(16).slice(1)}`;
+}
+
 export const Biome: React.FC<{
   region: RegionName;
   frame: number;
@@ -135,14 +147,34 @@ export const Biome: React.FC<{
    *  first law broken twice over in one frame: it tells a viewer the racks are outdoors,
    *  and it tells them Taylor County grows inside. */
   interior?: boolean;
+  /** THE SCENE IS A WORKING LOCATION, so the region draws its light and its dirt and
+   *  NOT its plants.
+   *
+   *  This is `interior`'s outdoor twin and it exists for the same defect one step out
+   *  of the door. A drilling location is scraped, bladed and bermed caliche out to the
+   *  fence, because anything growing on it is a fire load and a trip hazard, and it is
+   *  re-bladed every time a rig moves. The vegetation plane sits at z=210, so on
+   *  2026-08-28 the August 28th Dispatch rendered shortgrass tufts and a round leafy
+   *  tree ON the pad in four scenes, and the same plane drew a mesquite straight
+   *  THROUGH the driller's cabin, which a judge read as the cabin being unfilled.
+   *
+   *  Two judges filed it independently as a place fault and both were right: a Permian
+   *  hand knows a location does not grow anything. `interior` already proved the shape
+   *  of the fix, which is that the plants are the part a scene must be able to decline
+   *  without declining the place. */
+  scraped?: boolean;
   children?: React.ReactNode;
-}> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, interior, children}) => {
+}> = ({region, frame, camera = {}, seed = 1, groundY = 1290, weather, interior, scraped,
+       children}) => {
   const p = BIOMES[region];
   // The sky, horizon-haze and ground gradients used to be keyed by REGION, so two
   // biomes of one region in a frame shared three paint servers. Identical palettes
   // made that invisible, which is the worst kind of latent: it would have surfaced
   // the first time a second biome of the same region carried a different groundY.
   const uid = useUid('bio');
+  // 0 for a low sun, 1 for one straight overhead. LIGHTS carries the direction
+  // already, so the sky does not need its own table to disagree with.
+  const noon = Math.max(0, Math.min(1, (-LIGHTS[region].dir.y - 0.86) / 0.14));
 
   // ROUGHNESS BY REGION. This is the shape half of what makes a region itself, and it
   // is as important as the palette: a flat horizon under a Trans-Pecos palette still
@@ -172,9 +204,18 @@ export const Biome: React.FC<{
         <Plane z={2200} fill>
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
             <defs>
+              {/* THE HORIZON BLEACHES UNDER A VERTICAL SUN. The board declares
+                  `light_story: noon-hard` and a "bleached Permian sky", and every
+                  frame of the August 28th cut delivered flat periwinkle instead: no
+                  bleach, no glare, nothing that says the sun is overhead. The ramp
+                  is driven by the region's OWN key direction rather than a list of
+                  region names, so a region whose sun is low keeps its gradient and
+                  one whose sun is near vertical gets the wash it should have. */}
               <linearGradient id={`${uid}sky`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={sky[0]} />
-                <stop offset="100%" stopColor={sky[1]} />
+                <stop offset={`${Math.max(2, (groundY / H) * 100 - 26)}%`}
+                  stopColor={sky[1]} />
+                <stop offset="100%" stopColor={bleach(sky[1], noon * 0.62)} />
               </linearGradient>
             </defs>
             <rect width={W} height={H} fill={`url(#${uid}sky)`} />
@@ -234,6 +275,40 @@ export const Biome: React.FC<{
             <path d={ridgePath(seed + 77, groundY - 18, r * 0.5)} fill={p.near} />
             <rect x={0} y={groundY} width={W} height={H - groundY} fill={`url(#${uid}gr)`} />
             <rect x={0} y={groundY - 90} width={W} height={130} fill={`url(#${uid}hz)`} />
+            {/* A SCRAPED LOCATION HAS HISTORY ON IT, and the first version of this flag
+                only took the plants away. A judge read the result exactly right: the pad
+                went from wrong-because-it-grew-things to flat untextured beige, which is a
+                different wrongness rather than a fix. A location is bladed, and the blade
+                leaves arcs; trucks turn in the same place every time and leave ruts; the
+                spoil goes to a berm at the edge. Those three marks are what says somebody
+                built this, and they are why a pad does not read as a beach. */}
+            {scraped && (
+              <g opacity={0.5}>
+                {Array.from({length: 7}, (_, i) => {
+                  const gy = groundY + 40 + i * ((H - groundY) / 8);
+                  const bow = 26 + rnd(seed + 91, i) * 34;
+                  return (
+                    <path key={`blade${i}`}
+                      d={`M${-60},${gy} Q${W / 2},${gy - bow} ${W + 60},${gy + bow * 0.3}`}
+                      stroke={INK} strokeWidth={1.6} fill="none"
+                      opacity={0.10 + rnd(seed + 92, i) * 0.07} />
+                  );
+                })}
+                {Array.from({length: 2}, (_, i) => {
+                  const x0 = W * (0.24 + i * 0.42);
+                  return (
+                    <path key={`rut${i}`}
+                      d={`M${x0},${H} Q${x0 + (i ? -70 : 60)},${groundY + 190} `
+                        + `${x0 + (i ? -150 : 130)},${groundY + 46}`}
+                      stroke={INK} strokeWidth={7} fill="none" opacity={0.075} />
+                  );
+                })}
+                <path d={`M0,${groundY + 12} Q${W * 0.34},${groundY - 6} ${W * 0.62},${groundY + 9} `
+                        + `T${W},${groundY + 4}`}
+                  stroke={INK} strokeWidth={5} fill="none" opacity={0.13} />
+              </g>
+            )}
+
             {/* ground texture: scatter that gets sparser and smaller toward the horizon,
                 which is the cheapest honest perspective cue there is */}
             {Array.from({length: 150}, (_, i) => {
@@ -252,7 +327,7 @@ export const Biome: React.FC<{
         )}
 
         {/* ---- vegetation, per region, and NOT INDOORS ------------------------ */}
-        {!interior && (
+        {!interior && !scraped && (
           <Plane z={210}>
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
               <Vegetation region={region} seed={seed} groundY={groundY} />

@@ -790,6 +790,65 @@ def substation_hum(seed=34):
 
 
 # name -> (function, kind, motivation on screen, tags)
+def rig_floor(seed=33):
+    """A drilling rig working, heard standing on the pad.
+
+    THE MISTAKE THIS CORRECTS is reaching for `server_hall` or `diesel_idle` because a
+    rig is "a machine". A data hall is a broadband fan wall with no event in it, and a
+    pickup idling has no load. A rig under power is a diesel bed at STEADY LOAD with
+    the mud pumps pulsing through it at about one stroke a second, and that pulse is
+    the tell: it is the sound of the hole being circulated, and a rig without it is a
+    rig that is shut down.
+    """
+    dur = 6.0
+    r = rng_for(seed)
+    bed = one_pole_lp(brown(dur, seed), 210)
+    t = t_axis(dur)
+    drone = sine(44, dur) * 0.40 + sine(88, dur) * 0.30 + sine(131, dur) * 0.14
+    drone = drone * (0.86 + 0.14 * np.sin(2 * np.pi * t / 2.7))
+    out = bed * 0.62 + drone * 0.46
+    tt = 0.18
+    while tt < dur - 0.25:
+        thud = biquad_bp(white(0.14, seed + int(tt * 10)), 118, 3) * expdecay(0.14, 0.05)
+        place_into(out, fade(normalize(thud), 4) * 0.30, tt + r.uniform(-0.02, 0.02))
+        tt += 1.05
+    return normalize(fade(out, 140), 0.85)
+
+
+def iron_roughneck(seed=34):
+    """The pipe handler making a connection, and the ORDER is the whole sound.
+
+    Three events: the hydraulic drive-out, a hard steel BITE as the tongs close on the
+    joint, then the spin, a ratchet that slows as the connection comes up to torque.
+    A smooth servo whir is the wrong machine here for exactly the reason `plantfloor`
+    refuses a friendly arm: this thing moves in fast segments with hard stops, and a
+    sound that glides is a sound belonging to something else.
+    """
+    dur = 4.0
+    out = np.zeros(int(round(dur * SR)))
+
+    whine = sine(lambda t: 240 + 210 * np.clip(t / 0.7, 0, 1), 0.7) * 0.55
+    whine = whine + biquad_bp(white(0.7, seed), 1500, 3) * 0.25
+    whine = whine * adsr(0.7, 0.08, 0.10, 0.70, 0.16, 0.7)
+    place_into(out, normalize(whine) * 0.46, 0.15)
+
+    bite = (biquad_bp(white(0.28, seed + 1), 2400, 5) * expdecay(0.28, 0.03)
+            + biquad_bp(white(0.28, seed + 2), 610, 8) * expdecay(0.28, 0.09))
+    place_into(out, fade(normalize(bite), 2) * 0.95, 0.95)
+
+    tt, gap = 1.16, 0.045
+    while tt < 2.62:
+        tick = biquad_bp(white(0.03, seed + int(tt * 100)), 3100, 6) * expdecay(0.03, 0.008)
+        place_into(out, fade(normalize(tick), 2) * 0.38, tt)
+        gap *= 1.09
+        tt += gap
+
+    back = sine(lambda t: 330 - 150 * np.clip(t / 0.6, 0, 1), 0.6)
+    back = back * adsr(0.6, 0.06, 0.10, 0.60, 0.20, 0.6)
+    place_into(out, normalize(back) * 0.32, 2.72)
+    return normalize(fade(out, 40), 0.9)
+
+
 SOUNDS = {
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
@@ -802,9 +861,11 @@ SOUNDS = {
     "highway_pass": (highway_pass, "ambience", "a two-lane at night, a vehicle passing", ["road", "night", "rural"]),
     "cattle_auction": (cattle_auction, "ambience", "a sale barn, the auctioneer over the lot", ["ranch", "town", "livestock"]),
     "server_hall": (server_hall, "ambience", "a data hall with the fan wall running, from the cold aisle", ["compute", "interior", "machine"]),
+    "rig_floor": (rig_floor, "ambience", "a drilling rig under power, heard standing on the pad", ["oilfield", "permian", "machine", "drilling"]),
     # one-shots, tied to a thing
     "substation_hum": (substation_hum, "oneshot", "a transformer yard beside a slab, heard from the fence", ["grid", "compute", "machine"]),
     "pumpjack": (pumpjack, "oneshot", "an oil pumpjack in the frame", ["oilfield", "permian", "machine"]),
+    "iron_roughneck": (iron_roughneck, "oneshot", "the pipe handling machine on a rig floor making a connection", ["oilfield", "drilling", "machine", "automation"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),
     "diesel_idle": (diesel_idle, "oneshot", "a diesel pickup idling", ["road", "ranch", "machine"]),

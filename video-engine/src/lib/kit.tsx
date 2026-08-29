@@ -88,7 +88,10 @@ export const Pumpjack: React.FC<KitProps & {
   const t = abandoned ? ph : ph + (frame / 30) * (rpm / 60) * Math.PI * 2;
   const beamDeg = Math.sin(t) * 13;
 
-  const body = abandoned ? '#7a6a5a' : '#4d6b86';
+  // DARKER THAN IT WAS, because the closing frame of the August 28th film put this
+  // silhouette against a bleached noon sky and a judge could barely separate the two.
+  // A pumpjack reads by its shape, and a shape needs a value gap to read at all.
+  const body = abandoned ? '#6d5e50' : '#3c5468';
   const tb = tones(body, L);
   const uid = useUid('pj');
 
@@ -122,7 +125,32 @@ export const Pumpjack: React.FC<KitProps & {
         <circle cx={-118} cy={-150} r={11} fill="#2a323d" stroke={INK} strokeWidth={3.4} />
       </g>
 
-      {/* pitman arms + crank, tied to the same phase so the linkage is honest */}
+      {/* THE PITMAN ARM, which this comment has always claimed and never drawn.
+          It said "pitman arms + crank, tied to the same phase so the linkage is honest"
+          and then drew a disc with a stub inside it and nothing joining that disc to the
+          beam it drives. At hero scale the crank sits under the A-frame and reads as part
+          of the machine. At the small scale a far unit needs, it detaches completely: the
+          August 28th film put a lone dark circle out on open caliche beside the rig and a
+          judge called it a porthole or a lens artifact and made it the round's first fix.
+          They were reading the pixels correctly. There was no linkage, only a claim of one
+          in a comment, which is the exact shape GATE_LESSONS keeps recording.
+          The rod runs from the crank pin to the beam's tail, both already driven by `t`,
+          so the linkage now IS what the comment says it is. Drawn before the crank so the
+          disc caps it. */}
+      {(() => {
+        const th = (beamDeg * Math.PI) / 180;
+        // the beam's tail, carried round by the same rotation the beam group applies
+        const tailX = -118 * Math.cos(th);
+        const tailY = -150 - 118 * Math.sin(th);
+        const pinX = -118 + Math.cos(t) * 26;
+        const pinY = -78 + Math.sin(t) * 26;
+        return (
+          <path d={`M${pinX},${pinY} L${tailX},${tailY}`} stroke={`url(#${uid}_b)`}
+            strokeWidth={11} strokeLinecap="round" />
+        );
+      })()}
+
+      {/* crank, tied to the same phase as the beam so the linkage above is honest */}
       <g transform={`translate(-118 -78)`}>
         <circle cx={0} cy={0} r={26} fill="#3f4a58" stroke={INK} strokeWidth={5} />
         <path d={`M0,0 L${Math.cos(t) * 26},${Math.sin(t) * 26}`} stroke="#2a323d" strokeWidth={7} />
@@ -131,7 +159,7 @@ export const Pumpjack: React.FC<KitProps & {
       {/* prime mover shed */}
       <rect x={-104} y={-64} width={62} height={56} rx={3} fill="#6f7a5e" stroke={INK} strokeWidth={5} />
       {wear > 0.2 && <RustStreak x={-104} y={-64} w={62} h={56} seed={seed} opacity={wear} />}
-      {wear > 0.2 && <RustStreak x={-6} y={-150} w={12} h={142} seed={seed + 7} opacity={wear * 0.8} />}
+      {wear > 0.2 && <RustStreak x={-6} y={-60} w={12} h={52} seed={seed + 7} opacity={wear * 0.8} />}
       {abandoned && <CalicheDust x={-140} y={-70} w={280} h={70} opacity={0.5} />}
     </g>
   );
@@ -527,14 +555,18 @@ export const WaterTower: React.FC<KitProps & {town?: string; year?: string; h?: 
 export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
   x = 0, y = 0, scale = 1, seed = 9, w = 160, h = 96,
 }) => {
+  // NOTHING IS SYMMETRIC, and a mesquite least of all. The lean was there; what was
+  // missing is that the two limbs left the trunk at nearly the same reach, so the fork
+  // read as a Y and three judges in a row called this a generic round tree. One limb now
+  // goes wide and low and the other short and high, off the same seed.
   const lean = (rnd(seed, 1) - 0.5) * 16;
   const K = fit('mesquite', h);
   return (
     <g transform={`translate(${x} ${y}) scale(${K * scale}) rotate(${lean * 0.2})`}>
       {/* the trunk DIVIDES NEAR THE GROUND, which is half of what makes it a mesquite */}
-      <path d={`M0,0 q${-3 + lean * 0.2},-18 -14,-30 q-9,-10 -26,-16`} stroke="#4a3a2c"
+      <path d={`M0,0 q${-3 + lean * 0.2},-18 -14,-30 q-9,-10 -34,-13`} stroke="#4a3a2c"
         strokeWidth={9} fill="none" strokeLinecap="round" />
-      <path d={`M0,0 q${2 + lean * 0.2},-16 12,-28 q10,-12 30,-14`} stroke="#4a3a2c"
+      <path d={`M0,0 q${2 + lean * 0.2},-16 12,-28 q10,-12 21,-20`} stroke="#4a3a2c"
         strokeWidth={8} fill="none" strokeLinecap="round" />
       <path d={`M0,0 q1,-20 3,-34`} stroke="#4a3a2c" strokeWidth={6} fill="none" strokeLinecap="round" />
       {/* the crown: WIDER THAN TALL, and light comes through all of it.
@@ -556,7 +588,7 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
             <ellipse cx={cx + (rnd(seed, 90 + i) - 0.5) * w * 0.10}
               cy={cy + (rnd(seed, 95 + i) - 0.5) * h * 0.12}
               rx={w * 0.145} ry={h * 0.165}
-              fill="#5f7047" opacity={0.42} />
+              fill="#7d8663" opacity={0.26} />
             {Array.from({length: 54}, (_, k) => {
               const kk = (k * 22695477 + seed * 1013904223 + i * 7919) >>> 0;
               const a = ((kk >>> 4) % 1000) / 1000 * Math.PI * 2;
@@ -568,7 +600,7 @@ export const Mesquite: React.FC<KitProps & {w?: number; h?: number}> = ({
                   rx={w * 0.021 + ((kk >>> 24) % 4) * w * 0.006}
                   ry={h * 0.017 + ((kk >>> 20) % 3) * h * 0.008}
                   fill={(kk >>> 9) % 3 === 0 ? '#8fa06a' : '#5f7047'}
-                  opacity={0.6 + ((kk >>> 6) % 40) / 100} />
+                  opacity={0.44 + ((kk >>> 6) % 40) / 100} />
               );
             })}
           </g>

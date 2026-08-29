@@ -317,6 +317,25 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
     SENTENCE_END = (".", "!", "?", '."', '!"', '?"')
     CLAUSE_END = (",", ";", ":")
 
+    # WHERE THE NEXT MEASURED BOUNDARY IS, because the deferral below has to know what
+    # declining this one actually costs.
+    #
+    # The function-word rule defers a break to the next measured boundary and bounds the
+    # deferral by CHARACTERS ONLY. That bound is unenforceable, because between two
+    # measured boundaries there is by definition nothing to stop at: on 2026-08-28 a cue
+    # declined a boundary at 4.7 seconds for ending on "are", and the next boundary was
+    # 7 seconds later, so the card came out at 182 characters held for 11.7 seconds
+    # against an 88 character ceiling. The guard meant to protect readability was the
+    # thing destroying it, and it could not see that because it never looked ahead.
+    #
+    # A card ending on a function word reads as broken. A card of 182 characters cannot
+    # be read at all. So the deferral is now a CHOICE BETWEEN TWO KNOWN COSTS rather
+    # than a one-way rule, and it still only ever picks boundaries the aligner measured.
+    ends = [w["end"] for w in words if w.get("anchored_end")]
+
+    def next_boundary_after(t: float) -> float | None:
+        return next((e for e in ends if e > t + 1e-9), None)
+
     out, cur = [], []
     for w in words:
         cur.append(w)
@@ -376,12 +395,35 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
         # rubric hard-fails. The remaining defect is the read, and the repair is a re-synth,
         # not a better segmenter.
         tail_word = tok.strip(".,;:!?\"'").lower()
+        # DECLINING THIS BOUNDARY COSTS WHATEVER THE NEXT ONE COSTS. If there is no next
+        # one, or reaching it would blow the hard ceiling on either axis, the ugly break
+        # here is the better of the two available cards and gets taken.
+        nxt_end = next_boundary_after(w["end"])
+        deferral_lands_ok = (nxt_end is not None
+                             and (nxt_end - cur[0]["start"]) <= HARD_CUE_S * OVERSHOOT)
         if runaway and not ends_sentence and tail_word in FUNCTION_TAIL \
-                and len(text) < HARD_CUE_CHARS * OVERSHOOT:
+                and len(text) < HARD_CUE_CHARS * OVERSHOOT \
+                and deferral_lands_ok:
             continue
+
+        # THE LAST EXIT BEFORE A LONG STRETCH OF ROAD.
+        #
+        # `runaway` asks whether the cue is ALREADY too long. That is the wrong question
+        # at a boundary the read may not offer again for seven seconds. A cue sitting at
+        # 77 characters and 4.7 seconds is comfortably inside both ceilings, so nothing
+        # fired, and the next measured boundary put the card at 182 characters held for
+        # 11.7 seconds. The cue was never too long at any point where it could have been
+        # stopped, which is how a ceiling gets passed without ever being crossed.
+        #
+        # So a boundary is taken when DECLINING it would break the hard ceiling, with a
+        # floor under it so a boundary landing just after a cue opens does not shear off
+        # a two word card. Still only measured boundaries. Still nothing invented.
+        last_exit = (len(text) >= 28 or held >= 1.2) and (
+            nxt_end is None or (nxt_end - cur[0]["start"]) > HARD_CUE_S * OVERSHOOT)
 
         if ends_sentence \
                 or runaway \
+                or last_exit \
                 or (tok.endswith(CLAUSE_END) and len(text) >= 64):
             out.append(cur)
             cur = []
@@ -615,13 +657,26 @@ def self_test() -> int:
     # ANDed, and the first attempt at this case used a tail that ran past the time condition,
     # so the join was refused for the wrong reason and the case passed at both values of the
     # constant. That is the same shape as the MIN_GAP_S case above: a test that cannot go red.
+    # THE TAIL MUST BE UNANCHORED, or this case cannot reach the code it is guarding.
+    #
+    # It used to end every tail word with `anchored_end: True`, which was correct until the
+    # `last_exit` rule was added: a final anchored word now always breaks its own cue, so the
+    # leftover `cur` the join operates on never existed and the assertion counted two cues at
+    # BOTH values of the constant. `mutation_check` caught it the same day, which is the
+    # entire reason that checker exists -- the guard still read as a guard and was holding
+    # nothing.
+    #
+    # The join only ever sees words the segmenter could not break on, so the tail is
+    # unanchored, and the assertion is on WHETHER THE JOIN HAPPENED rather than on a cue
+    # count that other rules also move. Verified to discriminate: 2 cues at 84, 1 at 9999.
     joinable = [{"word": "Yes.", "start": 0.0, "end": 0.4, "anchored_end": True}]
-    tail_words = "the city measured every gallon and published all of it".split()
-    long_tail = [{"word": w, "start": 0.6 + i * 0.22, "end": 0.6 + i * 0.22 + 0.18,
-                  "anchored_end": True} for i, w in enumerate(tail_words)]
+    tail_words = "the city measured every gallon".split()
+    long_tail = [{"word": w, "start": 0.6 + i * 0.14, "end": 0.6 + i * 0.14 + 0.12,
+                  "anchored_end": False} for i, w in enumerate(tail_words)]
     tail_cues = cues(joinable + long_tail)
-    ok("a long trailing run is its own cue and is NOT swallowed by the one before it",
-       len(tail_cues) >= 2, f"{len(tail_cues)} cue(s): {[c['text'][:28] for c in tail_cues]}")
+    ok("a trailing run too long to join is its own cue, NOT swallowed by the one before it",
+       len(tail_cues) >= 2 and tail_cues[0]["text"] == "Yes.",
+       f"{len(tail_cues)} cue(s): {[c['text'][:34] for c in tail_cues]}")
 
     # THE PROPERTY THE WHOLE CHANGE EXISTS FOR, asserted directly rather than inferred from
     # a length. A cue may only end mid sentence when the reader gave it no choice.

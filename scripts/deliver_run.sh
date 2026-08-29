@@ -106,7 +106,7 @@ run_gate feed_composite   python3 scripts/feed_composite_check.py --film "$OUT/f
 run_gate bar_check        python3 scripts/bar_check.py
 run_gate mutation_check   python3 scripts/mutation_check.py
 run_gate freshness_check  python3 scripts/freshness_check.py --film "$OUT/film.mp4" \
-    --started "$OUT/render_started" \
+    --started "$OUT/render_started" --manifest "$OUT/render-manifest.json" \
     --inputs "$OUT/storyboard.json" "$OUT/mix.wav" "$OUT/captions.json"
 [ "$fail" -eq 0 ] || { echo "a gate is red. Delivery stops here, which is the point." >&2; exit 1; }
 

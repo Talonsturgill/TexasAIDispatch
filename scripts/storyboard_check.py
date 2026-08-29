@@ -708,7 +708,12 @@ def self_test() -> int:
     # through. mutation_check.py proves every value is held by this test.
     expected_board_limits = {
         "min_runtime_s": 35,
-        "max_runtime_s": 55,
+        # 55 -> 62 on 2026-08-28, owner directed, and THIS ASSERTION IS WHY THE CHANGE IS
+        # VISIBLE. The tripwire did its job: it refused to let a format relaxation happen
+        # quietly and made it an explicit edit here, which is exactly what it was written
+        # for. The band is a FORMAT choice; nothing about the rubric, the hard fails or the
+        # evidence rules moved with it.
+        "max_runtime_s": 62,
         "min_scenes": 6,
         "max_scenes": 10,
         "max_visual_family_share": 0.4,

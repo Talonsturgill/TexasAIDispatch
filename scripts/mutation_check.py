@@ -39,6 +39,7 @@ Exit 0 every mutation was caught, 1 one survived, 2 the checker could not run.
 from __future__ import annotations
 
 import argparse
+import json
 import shutil
 import subprocess
 import sys
@@ -85,38 +86,69 @@ MUTATIONS: list[tuple[str, str, str, str, str]] = [
 # The new bounded-run and board contracts live in data so every consumer reads one source of
 # truth. Their tests intentionally live in the enforcing scripts, so these are cross-file
 # mutations: alter the data, then run the controller or board self-test that owns the policy.
-for _name, _value in {
-    "research_agents": 3,
-    "validator_agents": 1,
-    "storyboard_critics": 1,
-    "preflight_renders": 6,
-    "reboards": 4,
-    "voice_directors": 1,
-    "panel_rounds": 5,
-    "scorer_calls": 15,
-    "full_renders": 5,
-    "cleanup_renders": 1,
-    "rescue_renders": 1,
-    "tts_calls": 4,
-    "reported_tokens": 250000,
-}.items():
+# THE VALUE IS READ, NEVER TYPED, and this table proved why on 2026-08-28.
+#
+# It hardcoded every threshold it mutates. `survives()` returns True when its `old`
+# pattern is absent, because a mutation that could not be applied is indistinguishable
+# from one that was applied and not caught. So the day `max_runtime_s` moved from 55 to
+# 62 by an owner-directed change, this table went stale, and the gate would have FAILED
+# a correct repository -- after about forty minutes of work, since every row runs a full
+# self-test.
+#
+# That is this run's fifth instance of one defect: a number written down in a second
+# place. run_controller, vo_synth's self-test, run_discipline and panel_triage all read a
+# spend target as a hard cap after the contract grew a ceiling. This file is the same
+# shape pointed at itself -- the mutation checker, whose whole job is asking whether a
+# threshold is really guarded, could not tell that the threshold it was guarding had
+# moved.
+#
+# So the CURRENT value comes out of the file and only the MUTANT is a literal. A row can
+# no longer go stale, and a name that disappears from the contract fails loudly here
+# instead of silently passing as "not present".
+_LIMITS = json.loads((REPO / "config" / "run_limits.json").read_text(encoding="utf-8"))
+
+def _resource(name: str) -> int:
+    try:
+        return int(_LIMITS["resources"][name])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise SystemExit(
+            f"mutation_check: config/run_limits.json has no resources.{name}. The mutation "
+            f"table names a threshold the contract no longer has, which means this checker "
+            f"is guarding something that moved. Fix the table, do not delete the row.") from exc
+
+
+def _board(name: str) -> object:
+    try:
+        return _LIMITS["board"][name]
+    except (KeyError, TypeError) as exc:
+        raise SystemExit(
+            f"mutation_check: config/run_limits.json has no board.{name}.") from exc
+
+
+for _name in [
+    "research_agents", "validator_agents", "storyboard_critics", "preflight_renders",
+    "reboards", "voice_directors", "panel_rounds", "scorer_calls", "full_renders",
+    "cleanup_renders", "rescue_renders", "tts_calls", "reported_tokens",
+]:
+    _value = _resource(_name)
     MUTATIONS.append((
         "config/run_limits.json", "scripts/run_controller.py",
         f'"{_name}": {_value}', f'"{_name}": 999999',
         f"the approved run-wide {_name} ceiling",
     ))
 
-for _name, _value, _mutated in [
-    ("min_runtime_s", "35", "0"),
-    ("max_runtime_s", "55", "999"),
-    ("min_scenes", "6", "0"),
-    ("max_scenes", "10", "999"),
-    ("max_visual_family_share", "0.4", "1.0"),
-    ("max_top_two_family_share", "0.67", "1.0"),
-    ("max_text_panel_share", "0.34", "1.0"),
-    ("max_same_family_in_last_three", "2", "999"),
-    ("hook_payoff_by_s", "2.0", "999.0"),
+for _name, _mutated in [
+    ("min_runtime_s", "0"),
+    ("max_runtime_s", "999"),
+    ("min_scenes", "0"),
+    ("max_scenes", "999"),
+    ("max_visual_family_share", "1.0"),
+    ("max_top_two_family_share", "1.0"),
+    ("max_text_panel_share", "1.0"),
+    ("max_same_family_in_last_three", "999"),
+    ("hook_payoff_by_s", "999.0"),
 ]:
+    _value = json.dumps(_board(_name))
     MUTATIONS.append((
         "config/run_limits.json", "scripts/storyboard_check.py",
         f'"{_name}": {_value}', f'"{_name}": {_mutated}',
