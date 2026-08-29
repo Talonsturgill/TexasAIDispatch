@@ -657,13 +657,26 @@ def self_test() -> int:
     # ANDed, and the first attempt at this case used a tail that ran past the time condition,
     # so the join was refused for the wrong reason and the case passed at both values of the
     # constant. That is the same shape as the MIN_GAP_S case above: a test that cannot go red.
+    # THE TAIL MUST BE UNANCHORED, or this case cannot reach the code it is guarding.
+    #
+    # It used to end every tail word with `anchored_end: True`, which was correct until the
+    # `last_exit` rule was added: a final anchored word now always breaks its own cue, so the
+    # leftover `cur` the join operates on never existed and the assertion counted two cues at
+    # BOTH values of the constant. `mutation_check` caught it the same day, which is the
+    # entire reason that checker exists -- the guard still read as a guard and was holding
+    # nothing.
+    #
+    # The join only ever sees words the segmenter could not break on, so the tail is
+    # unanchored, and the assertion is on WHETHER THE JOIN HAPPENED rather than on a cue
+    # count that other rules also move. Verified to discriminate: 2 cues at 84, 1 at 9999.
     joinable = [{"word": "Yes.", "start": 0.0, "end": 0.4, "anchored_end": True}]
-    tail_words = "the city measured every gallon and published all of it".split()
-    long_tail = [{"word": w, "start": 0.6 + i * 0.22, "end": 0.6 + i * 0.22 + 0.18,
-                  "anchored_end": True} for i, w in enumerate(tail_words)]
+    tail_words = "the city measured every gallon".split()
+    long_tail = [{"word": w, "start": 0.6 + i * 0.14, "end": 0.6 + i * 0.14 + 0.12,
+                  "anchored_end": False} for i, w in enumerate(tail_words)]
     tail_cues = cues(joinable + long_tail)
-    ok("a long trailing run is its own cue and is NOT swallowed by the one before it",
-       len(tail_cues) >= 2, f"{len(tail_cues)} cue(s): {[c['text'][:28] for c in tail_cues]}")
+    ok("a trailing run too long to join is its own cue, NOT swallowed by the one before it",
+       len(tail_cues) >= 2 and tail_cues[0]["text"] == "Yes.",
+       f"{len(tail_cues)} cue(s): {[c['text'][:34] for c in tail_cues]}")
 
     # THE PROPERTY THE WHOLE CHANGE EXISTS FOR, asserted directly rather than inferred from
     # a length. A cue may only end mid sentence when the reader gave it no choice.
