@@ -129,8 +129,30 @@ def report_card(t: dict, reports: list[dict], round_number: int | None) -> dict:
 
 
 def panel_round_limit() -> int:
+    """The CEILING, because the target is a spend goal and only the ceiling refuses.
+
+    THE FOURTH FILE WITH THIS BUG, and the count is the point.
+
+    `run_limits.json` has carried two numbers per resource since the owner's decision that
+    an empty run is worse than an expensive one. `resources` is the target; the run may go
+    past it, and `run_controller` grants the overage and records it. This function read the
+    target and refused round 6 of a run the controller had already granted six rounds to,
+    on a film that had cleared the bar twice.
+
+    The same defect, in order, on 2026-08-28: `run_controller` locked hard-fail cleanup at
+    the target; `vo_synth`'s self-test asserted a fifth TTS call was refused; `run_discipline`
+    capped renders at the target and blocked a delivery; and this. Every one of them was
+    correct code under the old contract and became a bug the moment a second number existed,
+    and NONE of them failed loudly. Three passed green while enforcing a retired rule, and
+    the fourth refused a legal action with a confident message naming the wrong limit.
+
+    **When a contract grows a second number, every reader of the first one is a bug until
+    proven otherwise.** That is the rule; this file is the fourth piece of evidence for it.
+    """
     raw = json.loads(RUN_LIMITS.read_text(encoding="utf-8"))
-    return int(raw["resources"]["panel_rounds"])
+    target = int(raw["resources"]["panel_rounds"])
+    ceiling = (raw.get("escalation_ceiling") or {}).get("panel_rounds")
+    return int(ceiling) if isinstance(ceiling, int) and ceiling >= target else target
 
 
 def read_history(path: Path, run_id: str | None = None) -> list[dict]:
@@ -300,8 +322,18 @@ def self_test() -> int:
         except ValueError:
             unowned = False
         ok("an unowned legacy history cannot leak into a new run", not unowned)
-    ok("the panel round cap comes from the shared run contract",
-       panel_round_limit() == 5)
+    # THE CAP IS READ, NEVER TYPED, and this assertion used to type it. `== 5` was the
+    # target's value on the day it was written, so the test passed by agreeing with a
+    # literal rather than by proving the file is consulted, and it went red the moment the
+    # contract grew a ceiling. A test that hardcodes the number it is checking cannot tell
+    # a correct change from a regression, which is exactly what happened here.
+    _raw = json.loads(RUN_LIMITS.read_text(encoding="utf-8"))
+    _target = int(_raw["resources"]["panel_rounds"])
+    _ceiling = int((_raw.get("escalation_ceiling") or {}).get("panel_rounds", _target))
+    ok("the panel round cap comes from the shared run contract, not from a literal here",
+       panel_round_limit() == _ceiling)
+    ok("...and it is the CEILING, because the target is a spend goal only the controller "
+       "may grant past", panel_round_limit() >= _target)
 
     print(f"panel_triage: {fails} failure(s)")
     return 1 if fails else 0
