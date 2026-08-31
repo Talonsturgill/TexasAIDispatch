@@ -25,6 +25,16 @@ establishing shot, title, or promise that something will become interesting late
 **Silent-first.** Play the board with the sound off in your head. Most viewers will. If the story
 only works with narration, it is a podcast with pictures and it fails here.
 
+**Sentence-to-pixel proof.** Ignore `on_screen`, `what_moves` and `hero` on the first pass. For
+each VO line, inspect `visual_proof.must_show`, resolve every `item_id` into `planes[].items`, and
+ask whether those actual components and props make the sentence literal. A generic pickup under a
+readout is not a model joining records. If the binding is technically present but visually tiny
+or dominated by unrelated context, revise it.
+
+**Docket flow.** The scene roles should cause one another: movement, consequence, honest limit,
+then agency. A list of facts can be accurate and still have no story. The close should answer
+"what happens next" rather than merely restate the hook.
+
 **The five-second rule.** Every five seconds pays in motion, emotion or revelation. Walk the board
 and mark which currency each beat pays in. A stretch that pays in none is the defect.
 

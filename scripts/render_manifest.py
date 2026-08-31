@@ -14,6 +14,7 @@ REPO = Path(__file__).resolve().parents[1]
 ENGINE = REPO / "video-engine" / "src"
 SAFEAREA = ENGINE / "lib" / "safearea.ts"
 FEED_LAYOUT = REPO / "config" / "feed_layout.json"
+PUBLIC = REPO / "video-engine" / "public"
 SCHEMA = "dispatch_render_manifest/1"
 
 
@@ -37,12 +38,32 @@ def engine_sha256(root: Path = ENGINE) -> str:
     return h.hexdigest()
 
 
+def generated_media_sha256(board: Path) -> str:
+    """Digest every exceptional plate the board can put into the rendered pixels."""
+    data = json.loads(board.read_text(encoding="utf-8"))
+    h = hashlib.sha256()
+    for scene in data.get("scenes") or []:
+        media = scene.get("generated_media")
+        if not isinstance(media, dict):
+            continue
+        relative = str(media.get("file") or "")
+        path = PUBLIC / relative
+        if not path.is_file():
+            raise FileNotFoundError(f"generated plate missing: {path}")
+        h.update(relative.encode())
+        h.update(b"\0")
+        h.update(path.read_bytes())
+        h.update(b"\0")
+    return h.hexdigest()
+
+
 def build(film: Path, board: Path) -> dict:
     return {"schema": SCHEMA,
             "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             "film": str(film), "film_sha256": file_sha256(film),
             "board": str(board), "board_sha256": file_sha256(board),
             "engine_sha256": engine_sha256(),
+            "generated_media_sha256": generated_media_sha256(board),
             "safearea_sha256": file_sha256(SAFEAREA),
             "feed_layout_sha256": file_sha256(FEED_LAYOUT)}
 
@@ -59,7 +80,7 @@ def artifact_problems(manifest: dict, film: Path, board: Path) -> list[str]:
     out = []
     if manifest.get("schema") != SCHEMA:
         return [f"manifest is not {SCHEMA}"]
-    expected = build(film, board)
+    expected = {"film_sha256": file_sha256(film), "board_sha256": file_sha256(board)}
     for field in ("film_sha256", "board_sha256"):
         if manifest.get(field) != expected[field]:
             out.append(f"{field} differs from the exact artifact or source now presented")
@@ -71,7 +92,8 @@ def problems(manifest: dict, film: Path, board: Path) -> list[str]:
     if out:
         return out
     expected = build(film, board)
-    for field in ("engine_sha256", "safearea_sha256", "feed_layout_sha256"):
+    for field in ("engine_sha256", "generated_media_sha256", "safearea_sha256",
+                  "feed_layout_sha256"):
         if manifest.get(field) != expected[field]:
             out.append(f"{field} differs from the exact artifact or source now presented")
     return out

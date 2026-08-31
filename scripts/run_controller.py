@@ -338,7 +338,14 @@ def board_runtime(board: dict) -> float:
     declared = float(board.get("runtime_s") or 0)
     scene_end = max((float(s.get("start_s") or 0) + float(s.get("duration_s") or 0)
                      for s in board.get("scenes") or []), default=0.0)
-    return max(declared, scene_end)
+    story_end = max(declared, scene_end)
+    # Credits are picture, not metadata. The Remotion composition appends this readable tail
+    # after the final story scene, so registration must judge the same runtime the renderer
+    # calculated. Comparing only `runtime_s` rejected a correct 47.5-second film whose story
+    # ended at 42 seconds and whose sourced sign-off held for another 5.5 seconds.
+    credit_tail = (float(board.get("credits_s") or 0)
+                   if str(board.get("credits") or "").strip() else 0.0)
+    return story_end + credit_tail
 
 
 def playability_problems(film: Path, expected_duration: float | None = None) -> list[str]:
@@ -847,18 +854,56 @@ def self_test() -> int:
     ok("the approved run-wide cost contract has not drifted",
        actual_limits == expected_limits,
        f"expected {expected_limits}, got {actual_limits}")
+    ok("a burned-in credits tail is part of the rendered board runtime",
+       board_runtime({"runtime_s": 42, "scenes": [], "credits": "SOURCES\nSITE",
+                      "credits_s": 5.5}) == 47.5)
+    ok("an empty credits field does not add an invisible tail",
+       board_runtime({"runtime_s": 42, "scenes": [], "credits": "",
+                      "credits_s": 5.5}) == 42)
 
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
         seed_film = root / "seed.mp4"
-        made_seed = subprocess.run([
-            "ffmpeg", "-v", "error", "-y",
-            "-f", "lavfi", "-i", "color=c=black:s=1080x1920:r=30:d=0.5",
-            "-f", "lavfi", "-i", "anullsrc=r=48000:cl=mono",
-            "-t", "0.5", "-c:v", "libx264", "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-shortest", str(seed_film),
-        ], capture_output=True).returncode == 0
-        ok("the self-test can create a real playable fixture", made_seed)
+
+        # The local workspace deliberately puts Remotion's lean ffmpeg first on PATH because
+        # it owns the production mux. That build does not include the lavfi `color` and
+        # `anullsrc` sources this SELF-TEST uses to make a fixture. A full system ffmpeg is also
+        # installed locally, while CI exposes its full build directly. Select by measured
+        # capability rather than assuming the first binary named ffmpeg carries every filter.
+        ffmpeg_fixture_bin: Path | None = None
+        seen_ffmpeg: set[Path] = set()
+        for directory in os.environ.get("PATH", "").split(os.pathsep):
+            candidate = Path(directory) / "ffmpeg"
+            try:
+                resolved = candidate.resolve(strict=True)
+            except OSError:
+                continue
+            if resolved in seen_ffmpeg or not os.access(resolved, os.X_OK):
+                continue
+            seen_ffmpeg.add(resolved)
+            probe = subprocess.run([str(resolved), "-hide_banner", "-filters"],
+                                   capture_output=True, text=True)
+            filters = probe.stdout + probe.stderr
+            if probe.returncode == 0 and " color " in filters and " anullsrc " in filters:
+                ffmpeg_fixture_bin = resolved
+                break
+
+        made_seed = False
+        fixture_detail = "no installed ffmpeg provides the color and anullsrc test filters"
+        if ffmpeg_fixture_bin is not None:
+            fixture = subprocess.run([
+                str(ffmpeg_fixture_bin), "-v", "error", "-y",
+                "-f", "lavfi", "-i", "color=c=black:s=1080x1920:r=30:d=0.5",
+                "-f", "lavfi", "-i", "anullsrc=r=48000:cl=mono",
+                "-t", "0.5", "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                "-c:a", "aac", "-shortest", str(seed_film),
+            ], capture_output=True, text=True)
+            made_seed = fixture.returncode == 0 and seed_film.exists()
+            fixture_detail = (f"{ffmpeg_fixture_bin}: {fixture.stderr.strip()}"
+                              if not made_seed else str(ffmpeg_fixture_bin))
+        ok("the self-test can create a real playable fixture", made_seed, fixture_detail)
+        if not made_seed:
+            return 1
 
         def attach_deliverable(state_path: Path, label: str, *, review_only: bool = False
                                ) -> tuple[Path, Path, Path]:

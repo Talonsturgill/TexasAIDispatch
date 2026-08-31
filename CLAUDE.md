@@ -140,8 +140,12 @@ Corollaries that are hard rules:
 
 ## The engine
 
-**Remotion + React + hand-authored SVG.** No WebGL, no canvas, no image assets. Depth is real
-browser 3D projection through one shared virtual camera in `video-engine/src/lib/stage3d.tsx`.
+**Remotion + React + hand-authored SVG is the core visual language.** No WebGL and no canvas.
+Ordinary scene art is code-native. The only raster or generated-media exception is the bounded,
+manifested plate lane in `scripts/generated_media.py`: it may supply a real texture, location, or
+mechanism the native library cannot make literal, but it never owns exact text, figures, joins,
+arrows, limits, decisions, or an item bound to visual proof. Depth remains real browser 3D
+projection through one shared virtual camera in `video-engine/src/lib/stage3d.tsx`.
 
 **RETIRED, never for new work, history only:** any per-frame PIL or Taichi raymarcher, and every
 doc describing one. The sibling carries a retired `dimensional.py` pipeline and a
@@ -197,7 +201,7 @@ history and Alaska's would poison them.
 ## Layout
 
 - `prompts/` — `dispatch_routine.md` is the single source of truth for the routine.
-  `ROUTINE_PROMPT.txt` is the thin pointer pasted into the routines UI.
+  `ROUTINE_PROMPT.txt` is the thin pointer pasted into a fresh Codex task or a routines UI.
 - `knowledge/texas/` — the research that makes it Texas: vernacular, regions, the cast, fauna,
   landmarks, speech. Every art decision traces here.
   **`APPLICATIONS.md` is where a STORY comes from, and it corrects a real error.** This show is

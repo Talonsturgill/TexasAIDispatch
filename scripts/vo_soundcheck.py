@@ -100,13 +100,35 @@ def normalise(s: str) -> list[str]:
     return re.findall(r"[a-z0-9']+", s.lower())
 
 
+def fidelity_tokens(s: str) -> list[str]:
+    """Words used by the prose-fidelity checks, with spoken figures removed.
+
+    Figures have their own stricter comparison below, where spelled-out and digit forms are
+    canonicalised and a wrong value is a hard failure. Counting those same figures again as raw
+    prose tokens made a correct ``twenty-four thousand`` / ``24,000`` transcription look like
+    three dropped words plus two insertions. Removing only the numeric phrase here keeps the
+    responsibilities separate: prose checks prose, and ``figure_mismatch`` checks the value.
+    """
+    out: list[str] = []
+    live_figure = False
+    for tok in re.findall(r"[a-z']+|\d[\d,]*", (s or "").lower()):
+        if tok[0].isdigit() or tok in _UNITS or tok in _TENS or tok in _SCALES:
+            live_figure = True
+            continue
+        if live_figure and tok in {"and", "point"}:
+            continue
+        live_figure = False
+        out.append(tok)
+    return out
+
+
 def word_accuracy(script: str, transcript: str) -> float:
     """Share of the SCRIPT's words that survived into the transcript, in order.
 
     A plain set comparison would score a take that says every word in a scrambled order as
     perfect, so this is a longest-common-subsequence ratio rather than a bag of words.
     """
-    a, b = normalise(script), normalise(transcript)
+    a, b = fidelity_tokens(script), fidelity_tokens(transcript)
     if not a:
         return 0.0
     # LCS length, O(len(a) * len(b)) which is fine for a sixty second script
@@ -133,14 +155,16 @@ def insertion_rate(script: str, transcript: str) -> float:
     grep only catches it if the invention happens to use direction vocabulary, and a short one
     fits inside the 4 percent duration tolerance.
     """
-    a, b = normalise(script), normalise(transcript)
+    a, b = fidelity_tokens(script), fidelity_tokens(transcript)
     if not b:
         return 0.0
     # Multiset difference: a doubled word counts once as an insertion, which is right, because
     # saying "approved approved" adds one word that is not in the script.
     from collections import Counter
     extra = Counter(b) - Counter(a)
-    return sum(extra.values()) / len(b)
+    # Keep the historical denominator (all spoken tokens), so separating figure notation from
+    # prose does not silently tighten the documented six-percent tolerance on short scripts.
+    return sum(extra.values()) / max(1, len(normalise(transcript)))
 
 
 def spoken_tags(transcript: str) -> list[str]:
@@ -388,6 +412,12 @@ def self_test() -> int:
     ok("a figure spelled out and the same figure in digits are the same figure",
        figures("an estimated fifty thousand") == figures("an estimated 50,000"),
        f'{figures("an estimated fifty thousand")} vs {figures("an estimated 50,000")}')
+    ok("equivalent figure notation does not lower prose accuracy",
+       word_accuracy("an estimated fifty thousand", "an estimated 50,000") == 1.0,
+       str(word_accuracy("an estimated fifty thousand", "an estimated 50,000")))
+    ok("...or count as invented prose",
+       insertion_rate("an estimated fifty thousand", "an estimated 50,000") == 0.0,
+       str(insertion_rate("an estimated fifty thousand", "an estimated 50,000")))
     ok("...and a MISREAD figure is caught, which word accuracy cannot do",
        bool(figure_mismatch("an estimated fifty thousand", "an estimated 55,000")))
     ok("...while the correct reading passes",

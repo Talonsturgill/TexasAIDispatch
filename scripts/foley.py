@@ -849,6 +849,88 @@ def iron_roughneck(seed=34):
     return normalize(fade(out, 40), 0.9)
 
 
+def document_parse(seed=35):
+    """A paper record becoming structured labels, heard at the document rather than as UI.
+
+    The tell is a short paper draw followed by two dry index-card locks. It avoids the generic
+    computer whoosh that made a literal evidence scene sound like a software commercial.
+    """
+    dur = 2.8
+    out = np.zeros(int(dur * SR))
+    paper = one_pole_lp(high_pass(white(0.62, seed), 260), 3600)
+    paper *= np.hanning(len(paper))
+    place_into(out, normalize(paper) * 0.38, 0.08)
+    for i, at in enumerate((0.82, 1.46)):
+        click = (biquad_bp(white(0.065, seed + i + 1), 1850 + i * 320, 4)
+                 * expdecay(0.065, 0.014))
+        body = (biquad_bp(white(0.08, seed + i + 11), 280, 3)
+                * expdecay(0.08, 0.025))
+        lock = np.zeros(max(len(click), len(body)))
+        lock[:len(click)] += click
+        lock[:len(body)] += body * 0.6
+        place_into(out, fade(normalize(lock), 2) * 0.62, at)
+    return normalize(fade(out, 35), 0.78)
+
+
+def record_join(seed=36):
+    """Two visible record cards meeting and latching into one joined record.
+
+    Two different register ticks answer each other, then one low mechanical latch lands. The
+    order carries the join; a steady server bed cannot say that two sources became one.
+    """
+    dur = 2.4
+    out = np.zeros(int(dur * SR))
+    for i, (at, freq) in enumerate(((0.24, 760), (0.62, 1040))):
+        tick = sine(freq, 0.12) * expdecay(0.12, 0.035)
+        tick += biquad_bp(white(0.12, seed + i), freq * 1.8, 5) * expdecay(0.12, 0.02) * 0.3
+        place_into(out, fade(normalize(tick), 3) * 0.52, at)
+    latch_noise = biquad_bp(white(0.18, seed + 8), 210, 3) * expdecay(0.18, 0.055)
+    latch_tone = sine(115, 0.22) * expdecay(0.22, 0.08) * 0.45
+    latch = np.zeros(max(len(latch_noise), len(latch_tone)))
+    latch[:len(latch_noise)] += latch_noise
+    latch[:len(latch_tone)] += latch_tone
+    place_into(out, fade(normalize(latch), 3) * 0.78, 1.06)
+    return normalize(fade(out, 30), 0.8)
+
+
+def causal_break(seed=37):
+    """An association remains while a visible causal arrow breaks.
+
+    A paired line tone begins together, a dry snap interrupts the upper line, and the lower tone
+    decays intact. The sound makes the limit legible without pretending the evidence disappeared.
+    """
+    dur = 1.7
+    out = np.zeros(int(dur * SR))
+    intact = sine(176, dur) * expdecay(dur, 0.95) * 0.26
+    upper = sine(264, 0.78) * expdecay(0.78, 0.8) * 0.18
+    out[:len(intact)] += intact
+    out[:len(upper)] += upper
+    snap_top = high_pass(white(0.055, seed), 1700) * expdecay(0.055, 0.009)
+    snap_body = biquad_bp(white(0.11, seed + 1), 420, 4) * expdecay(0.11, 0.03)
+    snap = np.zeros(max(len(snap_top), len(snap_body)))
+    snap[:len(snap_top)] += snap_top
+    snap[:len(snap_body)] += snap_body
+    place_into(out, fade(normalize(snap), 2) * 0.8, 0.76)
+    return normalize(fade(out, 20), 0.76)
+
+
+def field_marker(seed=38):
+    """Candidate road segments entering an engineer's field-inspection queue.
+
+    Three measured marker taps, not an alarm: the list is becoming a work queue, not issuing an
+    automated repair order. A faint clipboard scrape ties the taps to field work.
+    """
+    dur = 2.5
+    out = np.zeros(int(dur * SR))
+    scrape = one_pole_lp(high_pass(white(0.7, seed), 450), 3000) * np.hanning(int(0.7 * SR))
+    place_into(out, normalize(scrape) * 0.18, 0.06)
+    for i, at in enumerate((0.42, 0.98, 1.56)):
+        tap = (biquad_bp(white(0.075, seed + 1 + i), 720 + i * 90, 5)
+               * expdecay(0.075, 0.019))
+        place_into(out, fade(normalize(tap), 2) * (0.48 + i * 0.07), at)
+    return normalize(fade(out, 30), 0.74)
+
+
 SOUNDS = {
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
@@ -866,6 +948,10 @@ SOUNDS = {
     "substation_hum": (substation_hum, "oneshot", "a transformer yard beside a slab, heard from the fence", ["grid", "compute", "machine"]),
     "pumpjack": (pumpjack, "oneshot", "an oil pumpjack in the frame", ["oilfield", "permian", "machine"]),
     "iron_roughneck": (iron_roughneck, "oneshot", "the pipe handling machine on a rig floor making a connection", ["oilfield", "drilling", "machine", "automation"]),
+    "document_parse": (document_parse, "oneshot", "a visible document stream turning narrative prose into mechanism labels", ["records", "document", "labels", "analysis"]),
+    "record_join": (record_join, "oneshot", "two visible record cards joining into one linked record", ["records", "join", "analysis"]),
+    "causal_break": (causal_break, "oneshot", "a visible causal arrow breaking while an association line remains", ["evidence", "limit", "analysis"]),
+    "field_marker": (field_marker, "oneshot", "candidate road segments entering an engineer field inspection queue", ["road", "inspection", "engineer"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),
     "diesel_idle": (diesel_idle, "oneshot", "a diesel pickup idling", ["road", "ranch", "machine"]),

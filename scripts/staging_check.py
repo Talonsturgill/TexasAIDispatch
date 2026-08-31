@@ -149,13 +149,28 @@ def board_problems(board: dict, habitat: dict[str, list[str]]) -> list[str]:
                         f"scene {sid}: a {kind} is standing in {region}, and it lives in "
                         f"{', '.join(where)}. A Texan can name this one, which is what makes "
                         f"it cost more than a wrong colour.")
-    # FINDING NOTHING ANYWHERE IS A FAILURE, NOT A PASS. The source-side rule learned this
-    # the hard way and then counted region BLOCKS rather than placements, so it went green
-    # on two blocks while evaluating five placements in a file no run renders.
+    # FINDING NOTHING WITHOUT AN EXPLICIT SCOPE DECISION IS A FAILURE, NOT A PASS. The
+    # source-side rule learned this the hard way and then counted region BLOCKS rather than
+    # placements, so it went green on two blocks while evaluating five placements in a file
+    # no run renders. But forcing a decorative animal into a records or infrastructure story
+    # is also a staging defect. A no-fauna board therefore has to say so, with a reviewable
+    # reason; silence still fails closed.
+    scope = board.get("fauna_scope")
     if scanned == 0 and (board.get("scenes") or []):
-        out.append("no animal placement was evaluated on this board at all. Either nothing "
-                   "alive is staged, or the board's kinds no longer match the HABITAT keys "
-                   "and this check has quietly stopped looking.")
+        status = scope.get("status") if isinstance(scope, dict) else None
+        reason = str(scope.get("reason") or "").strip() if isinstance(scope, dict) else ""
+        if status != "none":
+            out.append("no animal placement was evaluated on this board at all, and "
+                       "fauna_scope.status is not 'none'. Either declare and justify a "
+                       "no-fauna editorial scope, or the board's kinds no longer match the "
+                       "HABITAT keys and this check has quietly stopped looking.")
+        elif len(reason.split()) < 8:
+            out.append("fauna_scope says no animals belong in this film, but its reason is "
+                       "too thin to audit. Explain in at least eight words why fauna would "
+                       "not illustrate any claim in this story.")
+    elif scanned and isinstance(scope, dict) and scope.get("status") == "none":
+        out.append(f"fauna_scope says 'none', but {scanned} animal placement(s) are staged. "
+                   "The board and its declared editorial scope disagree.")
     return out
 
 
@@ -457,6 +472,24 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
            {"items": [{"kind": "pronghorn"}]}]}]}, hab)))
     ok("a board where NOTHING alive was evaluated fails rather than passes",
        any("stopped looking" in p for p in board_problems(bd("gulf", "windTurbine"), hab)))
+    scoped = bd("gulf", "windTurbine")
+    scoped["fauna_scope"] = {
+        "status": "none",
+        "reason": "This records story contains no animal claim or wildlife consequence.",
+    }
+    ok("a justified no-fauna documentary scope passes without decorative wildlife",
+       not board_problems(scoped, hab), str(board_problems(scoped, hab)))
+    thin = bd("gulf", "windTurbine")
+    thin["fauna_scope"] = {"status": "none", "reason": "Not relevant."}
+    ok("a no-fauna scope needs a reason substantial enough to audit",
+       any("too thin" in p for p in board_problems(thin, hab)))
+    inconsistent = bd("high_plains", "pronghorn")
+    inconsistent["fauna_scope"] = {
+        "status": "none",
+        "reason": "This records story contains no animal claim or wildlife consequence.",
+    }
+    ok("a board cannot declare no fauna while visibly staging an animal",
+       any("disagree" in p for p in board_problems(inconsistent, hab)))
     ok("...and an unreadable HABITAT map fails rather than clearing every scene",
        bool(board_problems(bd("gulf", "pronghorn"), {})))
 

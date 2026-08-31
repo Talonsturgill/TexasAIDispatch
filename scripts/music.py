@@ -69,6 +69,9 @@ TODAY_YEAR = date.today().year
 # reason, which is printed on refusal so the answer is never "because the script said
 # no". Keyed by a normalised id.
 LICENCES = {
+    "project-original": {"ok": True, "name": "Project original", "url": "",
+                         "why": "synthesised in this repository from original code; no "
+                                "third-party recording or sample"},
     "cc0": {"ok": True, "name": "CC0 1.0",
             "url": "https://creativecommons.org/publicdomain/zero/1.0/",
             "why": "public domain dedication, no conditions"},
@@ -161,7 +164,9 @@ def credit_line(track: dict) -> str:
     bits = [f'"{track["title"]}" by {track["artist"]}']
     if track.get("source_url"):
         bits.append(f'({track["source_url"]})')
-    if str(track.get("licence")).lower() == "public_domain":
+    if str(track.get("licence")).lower() == "project-original":
+        bits.append("- Project original, synthesised in the Texas AI Docket repository")
+    elif str(track.get("licence")).lower() == "public_domain":
         bits.append(f'- {name}: {track.get("pd_basis", "basis not stated")}')
     else:
         url = lic.get("url", "")

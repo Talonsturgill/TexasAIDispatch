@@ -7,20 +7,24 @@ under `runs/2026-08-18/` is regression evidence and must not be rewritten.
 
 ---
 
-## 1. Create the routine
+## 1. Start the routine
 
-At claude.ai/code/routines. **One routine.**
+The primary workflow is now a deliberate local morning start. Open the Texas AI project in
+Codex and paste the contents of `prompts/ROUTINE_PROMPT.txt`. That short text points the task at
+this repository's versioned `prompts/dispatch_routine.md`, which remains the only master.
 
-| routine | prompt file | cadence |
+| start | prompt file | cadence |
 |---|---|---|
-| Texas AI Dispatch | `prompts/dispatch_routine.md` | daily |
+| Fresh local Codex task | `prompts/ROUTINE_PROMPT.txt` | once each morning |
 
-The trigger prompt is the contents of `prompts/ROUTINE_PROMPT.txt`, which says only *read that
-file from main and execute it*. That indirection is deliberate: the real instructions stay
-versioned and reviewable in the repo rather than living in a settings box nobody diffs.
+The indirection is deliberate: the real instructions stay versioned and reviewable in GitHub
+rather than living in a chat or settings box nobody diffs. The local checkout is used when it is
+attached. The trigger falls back to `main` on GitHub only when no checkout is available.
 
-**Set permissions to `bypassPermissions`.** An unattended run wedges forever on a permission
-prompt with nobody there to answer it.
+The task runs autonomously after the morning message, but the Mac, network connection, and Codex
+app must remain available until the run reaches `publishable` or `needs_review`. A hosted
+scheduled task can use the same pointer later, but it needs its own environment and credentials;
+it cannot read the local workspace secret.
 
 **Connectors:** Gmail, for the draft. Nothing else is required.
 
@@ -31,8 +35,12 @@ prompt with nobody there to answer it.
 The voice is Gemini TTS, which is the one part of this machine that cannot run without a
 credential.
 
-Set `GEMINI_API_KEY` in the routine environment. `generativelanguage.googleapis.com` has to be
-reachable under the environment's network policy.
+For the local Texas AI project, store the key with the workspace's interactive
+`scripts/set-dispatch-gemini-key.sh` helper. It writes outside every Git repository with mode
+`600`. Every routine command runs through the Dispatch `scripts/run_with_env.sh` entry point,
+which loads that key without evaluating or printing its file. A hosted runner instead sets
+`GEMINI_API_KEY` in its own environment. `generativelanguage.googleapis.com` has to be reachable
+under the environment's network policy.
 
 The model is `gemini-3.1-flash-tts-preview` with `gemini-2.5-pro-preview-tts` as the failover on
 repeated 500s. Every synthesis and verbatim-soundcheck request debits the same run ledger. Four
@@ -90,9 +98,10 @@ On a fresh renderer, either set `REMOTION_BROWSER_EXECUTABLE` to an existing com
 shell or allow Remotion to manage one. The repository no longer pins a runner-specific `/opt`
 browser revision.
 
-The next real routine execution should begin in `dry-run` mode with publishing disabled. It needs
-the Gemini key and a render-capable runner to exercise the external voice and Remotion browser;
-only after that rehearsal is green should the scheduled production routine be enabled.
+Run a `dry-run` when moving to a new machine or changing the renderer. The normal morning trigger
+uses production mode and checks the Gemini credential, pinned Python environment, ffmpeg,
+ffprobe, Node, browser, clean worktree, and repository wiring at wake before it spends research,
+voice, or render budget.
 
 `.claude/WORKLOG.md` was the build's wave table and was deleted on 2026-08-19 when its last
 wave went DONE, which is what `CLAUDE.md` says to do with it. The reasoning did not go with
