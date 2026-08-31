@@ -68,6 +68,8 @@ import re
 import sys
 from pathlib import Path
 
+import shot_coherence
+
 REPO = Path(__file__).resolve().parents[1]
 AXES_FILE = REPO / "config" / "composition_axes.yaml"
 HISTORY = REPO / "ledger" / "dispatch_history.json"
@@ -83,6 +85,8 @@ CURRENCIES = {"motion", "emotion", "revelation"}
 PAYLOAD_MODES = {"picture", "mixed", "text_panel"}
 HOOK_STRATEGIES = {"visual_anomaly", "result_first", "scale_reveal", "human_stakes",
                    "before_after"}
+STORY_ROLES = {"hook", "movement", "mechanism", "scale", "consequence", "limit", "agency",
+               "close"}
 
 # A scene that holds longer than this without paying is a held slide, which the
 # rubric lists as a hard fail.
@@ -234,6 +238,48 @@ def structural_problems(board: dict, cfg: dict) -> list[str]:
         p.append(f"scene {first_id}: the hook pays in {first.get('beat')!r}. Open on visible "
                  f"change or revelation, then earn the emotional context.")
     return p
+
+
+def story_arc_problems(scenes: list[dict]) -> list[str]:
+    """The editorial flow: movement -> consequence -> limit -> agency, not eight facts.
+
+    A board can have varied compositions and still feel incoherent because each scene answers a
+    different question. Stable story roles make the turn inspectable without dictating the
+    number of scenes between them.
+    """
+    if not scenes:
+        return []
+    out: list[str] = []
+    roles: list[str] = []
+    for scene in scenes:
+        sid = str(scene.get("id") or "?")
+        role = str(scene.get("story_role") or "")
+        roles.append(role)
+        if role not in STORY_ROLES:
+            out.append(f"scene {sid}: story_role {role!r} is not one of "
+                       f"{', '.join(sorted(STORY_ROLES))}. The film needs an editorial arc, "
+                       "not only a shot list.")
+    if roles[0] != "hook":
+        out.append("scene one must carry story_role 'hook': the first picture is the decision")
+    if roles[-1] != "close":
+        out.append("the final scene must carry story_role 'close': agency needs a destination")
+    for required in ("movement", "consequence", "limit", "agency"):
+        if required not in roles:
+            out.append(f"the story arc has no {required!r} beat")
+    # The important causality. A limit before consequence has nothing to limit, and agency
+    # before the limit reads as a call to action before the viewer knows what the tool cannot do.
+    positions = {role: roles.index(role) for role in ("movement", "consequence", "limit", "agency")
+                 if role in roles}
+    if len(positions) == 4 and not (
+            positions["movement"] < positions["consequence"] < positions["limit"]
+            < positions["agency"]):
+        out.append("story roles must progress movement -> consequence -> limit -> agency")
+    for i in range(2, len(roles)):
+        if roles[i] and roles[i] == roles[i - 1] == roles[i - 2]:
+            out.append(f"scenes {scenes[i - 2].get('id')}, {scenes[i - 1].get('id')} and "
+                       f"{scenes[i].get('id')} all carry story_role {roles[i]!r}. One beat held "
+                       "across three cuts is one scene or three ideas, not flow.")
+    return out
 
 
 def plane_signature(planes: list) -> tuple:
@@ -570,6 +616,10 @@ def check(board: dict) -> list[str]:
                 f"run, which is the fault this gate exists to prevent."]
 
     p += structural_problems(board, quality)
+    p += story_arc_problems(scenes)
+    # The old "say it, show it" rule read on_screen and what_moves, which Remotion never
+    # renders. This resolves the narrated idea to the same item objects handed to the engine.
+    p += shot_coherence.check(board)
     runtime = float(board.get("runtime_s") or 0)
 
     # ---- structure, per scene
@@ -752,12 +802,15 @@ def self_test() -> int:
         ]
 
     def scene(i, **kw):
+        roles = ["hook", "movement", "mechanism", "scale", "consequence", "limit", "agency",
+                 "close"]
         s = {"id": f"s{i}", "start_s": (i - 1) * 5.0, "duration_s": 5.0,
              "region": "high_plains", "county": "Taylor", "camera_strategy": "dollyThrough",
              "planes": planes(i), "hero": f"h{i}",
              "cast": [{"id": "rancher", "emotion": "worried"}], "beat": "motion",
              "on_screen": "a substation yard", "what_moves": "the camera pushes past a pole",
-             "visual_family": f"location-{i}", "payload_mode": "picture"}
+             "visual_family": f"location-{i}", "payload_mode": "picture",
+             "story_role": roles[min(i - 1, len(roles) - 1)]}
         if i == 1:
             s.update({"hook_strategy": "visual_anomaly", "hook_payoff_s": 0.8})
         s.update(kw)
@@ -773,6 +826,18 @@ def self_test() -> int:
         return b
 
     ok("a good board passes", not check(board()), str(check(board())))
+
+    no_limit = board()
+    no_limit["scenes"][5]["story_role"] = "mechanism"
+    got = check(no_limit)
+    ok("a polished sequence with no honest limit is refused",
+       any("no 'limit' beat" in x for x in got), str(got[:3]))
+
+    wrong_arc = board()
+    wrong_arc["scenes"][4]["story_role"], wrong_arc["scenes"][5]["story_role"] = (
+        wrong_arc["scenes"][5]["story_role"], wrong_arc["scenes"][4]["story_role"])
+    ok("agency cannot arrive before the consequence and limit are understood",
+       any("movement -> consequence -> limit -> agency" in x for x in check(wrong_arc)))
 
     # THE AUGUST 18TH CEILING, expressed at the board level rather than as a note after
     # twenty-seven panels. The individual scenes are legal. The distribution is the fault.

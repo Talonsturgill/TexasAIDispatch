@@ -4,6 +4,15 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# A caller may export this before launching bash, but macOS strips DYLD_* variables when a
+# protected system shell starts. Restore the lookup beside Remotion's bundled ffmpeg here, in
+# the process that actually launches it. Other platforms simply keep their existing PATH.
+COMPOSITOR_BIN="$PWD/video-engine/node_modules/@remotion/compositor-darwin-arm64"
+if [ -x "$COMPOSITOR_BIN/ffmpeg" ]; then
+  export PATH="$COMPOSITOR_BIN:$PATH"
+  export DYLD_LIBRARY_PATH="$COMPOSITOR_BIN${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+fi
+
 BOARD="out/dispatch/storyboard.json"
 MIX="out/dispatch/mix.wav"
 CAPTIONS="out/dispatch/captions.json"
@@ -53,11 +62,15 @@ fi
 
 PRIMARY_OK=0
 if [ "$RESERVED" -eq 1 ] && [ -f "$PREFLIGHT" ] && [ -f "$PREFLIGHT_FILM" ] \
+   && python3 scripts/generated_media.py --board "$BOARD" --verify \
    && python3 scripts/preflight_animatic.py --board "$BOARD" --film "$PREFLIGHT_FILM" \
       --verify-report "$PREFLIGHT"; then
   touch "$STARTED"
   BOARD_ABS="$(realpath "$BOARD")"
-  SILENT_ABS="$(realpath -m "$SILENT")"
+  # BSD realpath on macOS has no GNU `-m` flag. The output directory already exists, so
+  # resolve that directory and append the filename without requiring the file to exist yet.
+  SILENT_DIR_ABS="$(cd "$(dirname "$SILENT")" && pwd)"
+  SILENT_ABS="$SILENT_DIR_ABS/$(basename "$SILENT")"
   if (
     cd video-engine
     npx remotion render Dispatch "$SILENT_ABS" --props="$BOARD_ABS" \
@@ -82,6 +95,7 @@ else
   rm -f "$RESCUE_REPORT"
 fi
 
+python3 scripts/generated_media.py --board "$BOARD" --verify
 python3 scripts/freshness_check.py --film "$FILM" --started "$STARTED" \
   --inputs "$BOARD" "$MIX" "$CAPTIONS"
 python3 scripts/render_manifest.py --film "$FILM" --board "$BOARD" --out "$MANIFEST"

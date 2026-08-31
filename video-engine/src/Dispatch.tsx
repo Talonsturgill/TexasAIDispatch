@@ -1,13 +1,15 @@
 import React from 'react';
-import {useCurrentFrame, useVideoConfig, Sequence, interpolate, Easing} from 'remotion';
+import {useCurrentFrame, useVideoConfig, Sequence, interpolate, Easing, Img, OffthreadVideo,
+  staticFile} from 'remotion';
 import {Biome} from './lib/biomes';
-import {Plane, CameraMoves, composeCams, Camera} from './lib/stage3d';
+import {Plane, Stage3D, CameraMoves, composeCams, Camera} from './lib/stage3d';
 import {GradeLayer} from './lib/lighting';
 import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
-import {FONT, wrapToWidth, overflows} from './lib/type';
+import {FONT, wrapToWidth, overflows, widthOf} from './lib/type';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
+import {RoadEvidenceEpisode} from './RoadEvidenceEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -85,6 +87,21 @@ export interface Scene {
   scraped?: boolean;
   seed?: number;
   groundY?: number;
+  /** Optional exceptional plate, generated and hash-bound by scripts/generated_media.py.
+   *  It replaces the biome but NOT the renderer-native evidence planes or chrome. */
+  generated_media?: {
+    id: string;
+    kind: 'image' | 'video';
+    file: string;
+    prompt: string;
+    why: string;
+    must_depict: string[];
+    replaces_item_ids: string[];
+    model?: string;
+    pan_x?: number;
+    pan_y?: number;
+    zoom?: number;
+  };
 }
 
 /** One burned-in subtitle cue, in FILM-GLOBAL seconds.
@@ -122,6 +139,11 @@ export type DispatchProps = {
   credits?: string;
   /** How long the end card holds. Long enough to read is the only requirement. */
   credits_s?: number;
+  /** A lead story may opt into a compiled episode instead of asking the generic plane renderer
+   *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
+   *  evidenced contract, while a named episode performs its visual argument. Unknown templates
+   *  are refused below instead of silently falling back to a slideshow. */
+  cinematic_template?: 'road-evidence-v2';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -180,14 +202,13 @@ const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 /**
  * A font size that keeps `text` inside `maxW`, never larger than `base`.
  *
- * `perChar` is the average advance width as a fraction of the font size for the display
- * face this show sets its supers in. It is an ESTIMATE and deliberately a pessimistic
- * one, because the fault it prevents is a word running off the frame and the cost of
- * being wrong the other way is a super a few points smaller than it had to be.
+ * The display face is measured in `lib/type.ts`; using that one shared measurement keeps
+ * this fitter in sync when the shipped font changes. The old private `0.52em` character
+ * guess under-counted all-caps Fraunces and let long supers run beyond the right edge.
  */
-const fitPx = (text: string, base: number, maxW: number, perChar: number) => {
-  const need = Math.max(1, text.length) * perChar;
-  return Math.min(base, Math.max(34, maxW / need));
+const fitPx = (text: string, base: number, maxW: number) => {
+  const needAtOnePx = Math.max(1, widthOf(text, 1, true));
+  return Math.min(base, Math.max(28, maxW / needAtOnePx));
 };
 
 /**
@@ -327,6 +348,47 @@ export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps})
   );
 };
 
+/** A generated documentary plate remains only a plate. Precise labels, figures and claims are
+ *  still drawn by the evidence components above it, which keeps the truth surface deterministic. */
+const MediaPlate: React.FC<{media: NonNullable<Scene['generated_media']>; frame: number;
+  duration: number}> = ({media, frame, duration}) => {
+  if (!media.file.startsWith('generated/') || media.file.includes('..')) {
+    throw new Error(`generated media must live under public/generated, got ${media.file}`);
+  }
+  const progress = clamp01(frame / Math.max(1, duration));
+  const zoom = media.zoom ?? 1.08;
+  const transform = `translate(${(media.pan_x ?? 0) * progress}px, ` +
+    `${(media.pan_y ?? 0) * progress}px) scale(${1 + (zoom - 1) * progress})`;
+  const style: React.CSSProperties = {
+    position: 'absolute', inset: 0, width: 1080, height: 1920, objectFit: 'cover',
+    transform, transformOrigin: '50% 50%',
+  };
+  if (media.kind === 'image') return <Img src={staticFile(media.file)} style={style} />;
+  if (media.kind === 'video') {
+    return <OffthreadVideo src={staticFile(media.file)} style={style} muted />;
+  }
+  throw new Error(`generated media kind must be image or video, got ${String(media.kind)}`);
+};
+
+/** The exact plane objects from the board. Shared by deterministic biomes and generated plates
+ *  so optional media cannot fork the staging contract into a second renderer. */
+const ScenePlanes: React.FC<{scene: Scene; frame: number; skipIds?: string[]}> =
+({scene, frame, skipIds = []}) => (
+  <>
+    {scene.planes.map((pl, i) => (
+      <Plane key={i} z={pl.z}>
+        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{overflow: 'visible'}}>
+          <MaterialDefs />
+          {pl.items.filter((item) => !item.id || !skipIds.includes(item.id)).map((item, j) => (
+            <Element key={item.id ?? `${item.kind}-${j}`} item={item} frame={frame}
+              at={{scene: scene.id, plane: i, item: j}} />
+          ))}
+        </svg>
+      </Plane>
+    ))}
+  </>
+);
+
 /** One scene, staged from data. */
 export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps}) => {
   const f = useCurrentFrame();
@@ -351,37 +413,24 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
 
   return (
     <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>
-      <Biome region={scene.region} frame={f} camera={camera} seed={scene.seed ?? 1}
-        groundY={scene.groundY ?? 1060} weather={scene.weather} interior={scene.interior} scraped={scene.scraped}>
-        {scene.planes.map((pl, i) => (
-          <Plane key={i} z={pl.z}>
-            {/* OVERFLOW VISIBLE, and it is not a nicety. An <svg> clips to its
-                viewport, so with the default a plane could not draw one pixel outside
-                0..1080 -- and a plane pushed back by perspective is scaled DOWN about
-                the frame centre, so it can no longer reach the edges it was just
-                clipped to. The result was a bare strip down both margins of every
-                receding plane: a ground treatment sized exactly to the frame arrived
-                on screen a hundred pixels narrow. Nothing errored, and the film
-                looked like it had a border it was never given. */}
-            <svg width={1080} height={1920} viewBox="0 0 1080 1920"
-              style={{overflow: 'visible'}}>
-              {/* Once per plane <svg>, because a material overlay resolves url(#mat-*)
-                  within its own document and each plane is its own svg. Without this
-                  every bark, corrugated and granite surface the nostalgia modules
-                  paint would fall back to nothing in the finished film. */}
-              <MaterialDefs />
-              {/* The ADDRESS is threaded in, not just the item. An element the board
-                  did not seed takes its variation from where it stands, which is
-                  distinct per instance and the same on every frame. See `seedFor`
-                  for why appearance may not come from tree position. */}
-              {pl.items.map((item, j) => (
-                <Element key={`${item.kind}-${j}`} item={item} frame={f}
-                  at={{scene: scene.id, plane: i, item: j}} />
-              ))}
-            </svg>
-          </Plane>
-        ))}
-      </Biome>
+      {scene.generated_media ? (
+        <>
+          <MediaPlate media={scene.generated_media} frame={f} duration={dur} />
+          <Stage3D camera={camera} background="transparent">
+            <ScenePlanes scene={scene} frame={f}
+              skipIds={scene.generated_media.replaces_item_ids} />
+          </Stage3D>
+        </>
+      ) : (
+        <Biome region={scene.region} frame={f} camera={camera} seed={scene.seed ?? 1}
+          groundY={scene.groundY ?? 1060} weather={scene.weather} interior={scene.interior}
+          scraped={scene.scraped}>
+          {/* OVERFLOW VISIBLE and MaterialDefs live inside ScenePlanes. Keeping the one stack
+              shared with generated plates prevents optional media from becoming a second,
+              less-gated scene format. */}
+          <ScenePlanes scene={scene} frame={f} />
+        </Biome>
+      )}
 
       {/* SCREEN-SPACE CHROME STAYS OUTSIDE Stage3D. A super or a caption is not a
           world object, and putting one in the world is how a title ends up lying
@@ -398,7 +447,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
                 string was checked for numerals and for retired motifs and never for
                 whether it FITS. The CreditsCard below already wraps for this exact reason
                 and the super never got the same treatment. */}
-            <text x={64} y={210} fontSize={fitPx(scene.super, 74, 1080 - 64 - 40, 0.52)}
+            <text x={64} y={210} fontSize={fitPx(scene.super, 74, 1080 - 64 - 40)}
               fontWeight={700} fill="#f2ede2"
               fontFamily={FONT.display}>{scene.super}</text>
             <rect x={64} y={244} width={132} height={5} fill="#c8703a" />
@@ -481,9 +530,14 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
   );
 };
 
-export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4}) => {
+export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4,
+  cinematic_template}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
+  if (cinematic_template === 'road-evidence-v2') {
+    return <RoadEvidenceEpisode scenes={scenes} captions={captions} credits={credits}
+      credits_s={credits_s} />;
+  }
   return (
     <>
       {scenes.map((s) => (

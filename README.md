@@ -23,5 +23,13 @@ public record and the site. This repo writes exactly one file there: the videos 
 - `scripts/rescue_video.py` — deterministic review video when the full renderer fails.
 - `scripts/package_review_run.sh` — persists a playable non-published run instead of ending empty.
 - `scripts/deliver_run.sh --verify-only` — the publishing-disabled package rehearsal.
+- `scripts/run_with_env.sh` — one safe command entry point for local Codex and hosted runners.
+- `scripts/score.py` — deterministic source generator for the checked-in original Texas signal
+  bed; daily runs select and verify the WAV rather than rewriting it.
+
+For the local morning workflow, open the Texas AI project and paste the contents of
+`prompts/ROUTINE_PROMPT.txt`. The pointer delegates to the versioned master routine. Local
+commands go through `scripts/run_with_env.sh`, which uses the workspace's external environment
+and secret loader without copying a credential into this repository.
 
 Read `CLAUDE.md` first. It carries the laws.

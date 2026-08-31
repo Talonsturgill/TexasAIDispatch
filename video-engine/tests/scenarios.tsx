@@ -21,6 +21,22 @@ const FIXTURES: Record<string, Record<string, unknown>> = {
   plume: {x: 500, y: 700},
   readout: {x: 80, y: 120, rows: [['load', '78,412 MW']]},
   confidenceSpread: {x: 80, y: 900, values: [0.2, 0.5, 0.8]},
+  documentStream: {
+    title: 'inspection narratives', count: '180,000',
+    sample: 'standing water on curve', status: 'parsed and retained',
+  },
+  dataJoin: {
+    leftTitle: 'crash record', leftCount: 'wet surface',
+    rightTitle: 'inspection note', rightCount: 'road texture', result: 'candidate segment',
+  },
+  associationDiagram: {
+    leftLabel: 'wet crashes', rightLabel: 'road texture',
+    relation: 'associated in the record', limit: 'not proof of cause',
+  },
+  inspectionMap: {
+    title: 'field queue', county: 'Harris County',
+    segments: ['curve 14', 'lane 8', 'ramp 3'], status: 'human inspection next',
+  },
 };
 
 /**

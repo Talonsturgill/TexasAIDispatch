@@ -47,6 +47,7 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import os
 import re
 import shutil
 import subprocess
@@ -65,6 +66,12 @@ BINARIES = {
     "ffprobe": "duration and stream checks in render_dispatch, publish_feed and the gates",
     "node": "Remotion renders through it",
     "npx": "every remotion invocation in preflight_animatic and render_dispatch",
+}
+
+FFMPEG_CAPABILITIES = {
+    "filters": ("color", "anullsrc", "fps", "format"),
+    "demuxers": ("concat",),
+    "encoders": ("libx264", "aac"),
 }
 
 
@@ -102,6 +109,33 @@ def missing_binaries() -> list[tuple[str, str]]:
     return [(name, why) for name, why in BINARIES.items() if shutil.which(name) is None]
 
 
+def missing_ffmpeg_capabilities_from(outputs: dict[str, str]) -> list[str]:
+    """Read the name column from ffmpeg's capability tables, not prose descriptions."""
+    missing: list[str] = []
+    for table, wanted in FFMPEG_CAPABILITIES.items():
+        names = set()
+        for line in outputs.get(table, "").splitlines():
+            columns = line.split()
+            if len(columns) >= 2:
+                names.add(columns[1])
+        missing.extend(f"{table}:{name}" for name in wanted if name not in names)
+    return missing
+
+
+def missing_ffmpeg_capabilities() -> list[str]:
+    binary = shutil.which("ffmpeg")
+    if not binary:
+        return []  # missing_binaries already reports this more clearly
+    outputs: dict[str, str] = {}
+    for table in FFMPEG_CAPABILITIES:
+        result = subprocess.run([binary, "-hide_banner", f"-{table}"], capture_output=True,
+                                text=True)
+        if result.returncode != 0:
+            return [f"{table}:unreadable"]
+        outputs[table] = result.stdout + result.stderr
+    return missing_ffmpeg_capabilities_from(outputs)
+
+
 def browser_present() -> tuple[bool, str]:
     """Is a Remotion-usable browser already on disk.
 
@@ -117,23 +151,37 @@ def browser_present() -> tuple[bool, str]:
     return False, "no chrome-headless-shell under video-engine/node_modules/.remotion"
 
 
-def report() -> tuple[int, list[str]]:
+def voice_credential_present(env: dict[str, str] | None = None) -> bool:
+    """Return only presence, never the credential or anything derived from it."""
+    source = os.environ if env is None else env
+    return bool(source.get("GEMINI_API_KEY", "").strip())
+
+
+def report(*, require_voice: bool = False) -> tuple[int, list[str]]:
     lines: list[str] = []
     mods = missing_modules()
     bins = missing_binaries()
+    ffmpeg_features = missing_ffmpeg_capabilities()
     ok_browser, browser_note = browser_present()
+    missing_voice = require_voice and not voice_credential_present()
 
     for imp, dist in mods:
         lines.append(f"  MISSING  python module {imp!r} (pip name {dist})")
     for name, why in bins:
         lines.append(f"  MISSING  {name} on PATH, needed for {why}")
+    if ffmpeg_features:
+        lines.append("  MISSING  full ffmpeg capabilities needed by the rescue and proof paths: "
+                     + ", ".join(ffmpeg_features))
     if not ok_browser:
         lines.append(f"  MISSING  the Remotion browser: {browser_note}")
+    if missing_voice:
+        lines.append("  MISSING  GEMINI_API_KEY, needed for the production narration path")
 
     if not lines:
         n = len(wanted_modules())
+        voice_note = " The production voice credential is present." if require_voice else ""
         return 0, [f"env: ready. {n} python module(s), {len(BINARIES)} binary(ies), "
-                   f"and a Remotion browser at {browser_note}."]
+                   f"and a Remotion browser at {browser_note}.{voice_note}"]
 
     lines.append("")
     lines.append("  This run cannot finish a film. Fix it HERE, at wake, where it is free:")
@@ -142,8 +190,13 @@ def report() -> tuple[int, list[str]]:
     if bins:
         lines.append(f"    apt-get update && apt-get install -y "
                      f"{' '.join(n for n, _ in bins if n in ('ffmpeg',))or 'ffmpeg'}")
+    if ffmpeg_features:
+        lines.append("    install a full ffmpeg build and put it ahead of any lean renderer binary")
     if not ok_browser:
         lines.append("    cd video-engine && npm ci && npx remotion browser ensure")
+    if missing_voice:
+        lines.append("    configure GEMINI_API_KEY in the runner environment, or use the supported "
+                     "local workspace wrapper")
     lines.append("")
     lines.append("  Every one of these fails LATER otherwise, after researchers, a validator,")
     lines.append("  animatics and possibly a full render have already been spent.")
@@ -191,6 +244,21 @@ def self_test() -> int:
 
     ok("ffmpeg is on the required list, because the rescue path cannot run without it",
        "ffmpeg" in BINARIES)
+    fake_tables = {
+        "filters": " .. color V->V\n .. anullsrc |->A\n .. fps V->V\n .. format V->V\n",
+        "demuxers": " D concat Virtual concatenation script\n",
+        "encoders": " V..... libx264 H.264\n A..... aac AAC\n",
+    }
+    ok("the full ffmpeg capability set passes",
+       not missing_ffmpeg_capabilities_from(fake_tables))
+    broken_tables = dict(fake_tables)
+    broken_tables["filters"] = broken_tables["filters"].replace(" .. fps V->V\n", "")
+    ok("a lean ffmpeg missing a production filter is detected",
+       missing_ffmpeg_capabilities_from(broken_tables) == ["filters:fps"])
+    ok("an absent production voice credential is detected without printing a value",
+       not voice_credential_present({}))
+    ok("a present production voice credential is accepted",
+       voice_credential_present({"GEMINI_API_KEY": "test-only-placeholder"}))
 
     print(f"env_check: {failures} failure(s)")
     return 1 if failures else 0
@@ -200,11 +268,13 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--require-voice", action="store_true",
+                    help="also require GEMINI_API_KEY without printing its value")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
     try:
-        code, lines = report()
+        code, lines = report(require_voice=a.require_voice)
     except (OSError, FileNotFoundError) as exc:
         print(f"env_check: could not run: {exc}", file=sys.stderr)
         return 2

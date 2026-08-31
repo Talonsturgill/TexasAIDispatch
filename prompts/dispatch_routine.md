@@ -10,6 +10,36 @@ No unattended run publishes below the rubric. The gates and bounded panel are th
 they do not clear, the honest product is a playable, durable `needs_review` video package, not a
 forced upload and never an empty run.
 
+## INVOCATION CONTRACT
+
+This file is the one master routine. `prompts/ROUTINE_PROMPT.txt` is only the short pointer a
+person pastes into a fresh task. Do not copy this procedure into the task prompt and do not let a
+UI prompt become a second source of truth.
+
+The default morning invocation is `production`. Use `dry-run` only when the trigger explicitly
+asks for a rehearsal or the host has never completed one. A fresh task continues autonomously
+through the controller's terminal state; it does not stop merely because the first MP4 rendered.
+
+**Run every repository command through `bash scripts/run_with_env.sh`.** In the local Texas AI
+project that helper activates the pinned external Python environment, exposes Remotion's own
+ffmpeg and ffprobe, changes to this repository, and loads the private Gemini credential without
+evaluating or printing its file. In a hosted runner it forwards into the environment supplied by
+the host. Shell calls do not share exports, so use the helper on every call, not only the first.
+For a compound command, pass a shell, for example:
+
+```
+bash scripts/run_with_env.sh python3 scripts/env_check.py --require-voice
+bash scripts/run_with_env.sh bash -lc 'cd video-engine && npx tsc --noEmit'
+```
+
+Never open, print, log, copy, commit, or quote the credential. Its presence is established only
+by `env_check.py --require-voice` and the voice program's exit code.
+
+The named briefs under `.claude/agents/` are role contracts, not a dependency on one vendor's
+UI. Read the exact brief before spawning the available isolated worker for that role. If the
+runtime genuinely has no isolated-worker capability, perform that role serially, record the
+degradation in the run log, and keep the same gates and budgets.
+
 ---
 
 ## THE SHOWSTOPPER STANDARD (read this before everything else)
@@ -29,6 +59,35 @@ least one**:
 The test at every stage: **would a stranger stop scrolling on this frame?** If you are unsure, the
 answer is no and the frame gets redone. "Fine" is a fail. The bar is the best frame this channel
 has shipped, plus one.
+
+### THE VISUAL SENTENCE — what the Alaska reference made undeniable
+
+Motion is not a camera drifting past a finished panel. Every scene is one sentence a viewer can
+say aloud as **X DOES Y**: subject, action, emotion, annotation. If the verb is "shows", "sits",
+"stands", "contains" or "waits", it is a composition description, not a scene. Write that object
+doing something whose result changes the state of the argument.
+
+One physical throughline carries through at least three quarters of the film: the same document,
+machine, measurement, map mark, person, characterised object, colour path or literal handoff. It
+must begin in one state and finish in another. Match cuts and transformations count; eight new
+panels with the same palette do not. The turn uses reveal grammar—telegraph, disclose, HOLD—and the
+closing image completes or deliberately breaks the opening image. End on a button, not a summary.
+
+The generic plane renderer is the safe floor and the cheap preflight language. A lead Dispatch is
+an authored film, so after the board passes, compile a story-specific episode component when the
+generic renderer would make the central action look like an interface panel. Register its id as
+`cinematic_template`; an unknown id fails instead of falling back. The board remains the timing,
+evidence, captions and visual-proof contract. The component performs it. The sister project's best
+run used this division; copy the production principle, never its Alaska art, characters or state.
+
+Every cut lands in stages, not one simultaneous pop: anticipation, primary action, reaction, then
+the annotation after the viewer has seen the thing. Continuous idle life is quiet and subordinate.
+At most one event overshoots. The point is causality, not motion wallpaper.
+
+Every finished file carries its own ending: at least five readable seconds with TEXAS AI DOCKET,
+TexasAIDocket.com, compact primary-source labels, and any generated music credit. Source credits
+exist even when music correctly resolves to no bed. The last visual beat hands cleanly into this
+sign-off; the film never simply stops when the narration does.
 
 ---
 
@@ -110,8 +169,9 @@ site, while this line and a gate comment both said they were guarding it. GATE_L
 
 ## THE BAR IS READ, NEVER QUOTED
 
-The ship threshold lives in `config/dispatch_rubric.yaml` and nowhere else. When you brief the
-panel, READ `rubric.ship_threshold` out of that file and put THAT number in the brief.
+The ship threshold lives in `config/dispatch_rubric.yaml` and nowhere else. Give every panel
+judge that exact file path and require the judge to read `rubric.ship_threshold` directly. Do
+not copy the number into a brief, prompt, verdict template, or message.
 
 The sibling lost five panel rounds to this. Its prompt carried a bar the rubric had not held for
 two weeks, the panel was briefed the stale one, and it returned ship:false on a cut that was
@@ -140,18 +200,22 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
 
 ## PHASE 0 — WAKE
 
-1. `echo dispatch > .git/ACTOR`.
-2. `git fetch origin main && git checkout -B claude/dispatch-<date> origin/main`.
-3. `cd video-engine && npm ci` if `node_modules` is absent.
+1. Inspect `git status --short --branch` before any checkout. The normal morning starts from a
+   clean tree. If the tree is dirty, preserve it and stop for review rather than stashing,
+   resetting, or building a daily run on top of unshipped development work.
+2. `git fetch origin main`. From a clean tree, create `claude/dispatch-<date>` at `origin/main`.
+   If that exact daily branch already exists, inspect its run state and resume it rather than
+   resetting it. The branch declares the Dispatch lane; no routine writes `.git/ACTOR`.
+3. Run `npm ci` inside `video-engine` only when `node_modules` is absent.
 4. Read `CLAUDE.md`, `.claude/WORKLOG.md` if it exists, `knowledge/texas/`, `knowledge/craft/`.
-5. Preflight the gates on a clean checkout:
+5. Preflight the gates on the clean checkout, through the environment helper:
    ```
-   python3 scripts/env_check.py
-   python3 scripts/engine_lint.py
-   python3 scripts/staging_check.py
-   python3 scripts/composition_check.py
-   python3 scripts/wiring_check.py
-   cd video-engine && npx tsc --noEmit
+   bash scripts/run_with_env.sh python3 scripts/env_check.py --require-voice
+   bash scripts/run_with_env.sh python3 scripts/engine_lint.py
+   bash scripts/run_with_env.sh python3 scripts/staging_check.py
+   bash scripts/run_with_env.sh python3 scripts/composition_check.py
+   bash scripts/run_with_env.sh python3 scripts/wiring_check.py
+   bash scripts/run_with_env.sh bash -lc 'cd video-engine && npx tsc --noEmit'
    ```
 
    **`env_check` runs FIRST because it is the one that proves this container can make a
@@ -166,8 +230,8 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
    must be an id `Root.tsx` registers, and for the whole of this machine's life it was not.
    **If a gate is already red at wake, fix that before anything else.** A red gate at wake means
    the last run shipped past it.
-6. Initialise the controller in production mode. Do not delete an existing state to obtain a
-   fresh budget.
+6. Initialise the controller in the mode named by the invocation contract. Do not delete an
+   existing state to obtain a fresh budget.
 
 ## PHASE 1 — RESEARCH
 
@@ -180,14 +244,17 @@ python3 scripts/dedupe.py list --days 30
 That is the exclusion list: what has been covered, and which beats have already led. Do not
 research a story on it, and do not lead with a beat that is already at its cap.
 
-**THIS SHOW IS ABOUT THE APPLICATION LAYER.** Read `knowledge/texas/APPLICATIONS.md` before you
-write a single query. A docket tracks decisions and one already exists next door and publishes
-every day. **This show is not its video edition.** The default Dispatch is somebody using a tool,
-at work, in a real place, and a decision is context rather than the subject.
+**THIS IS THE MOVING PICTURE DESK OF TEXAS AI DOCKET.** Start with the record next door: which
+decision, filing, hearing, contract, deployment, deadline or published result moved today? Then
+follow that movement into the application layer: who now does what differently, in which Texas
+place, with what consequence and what limit. Read `knowledge/texas/APPLICATIONS.md` before the
+first query because policy without the work is minutes from a meeting, while an application with
+no dated movement is a generic technology story. The Dispatch needs both.
 
-An earlier version of this list had nine beats and six were policy or infrastructure. That is a
-show about what is being decided about AI in Texas, which is a different and much smaller show, and
-it is the reason this paragraph exists.
+The record's own grammar is the editorial spine: **what it is, what changed, where it is, when it
+happens, what happens next, and whether a Texan still has a way in.** A story does not have to be
+published in the record already, but if it is outside the record the researcher must say whether
+it is a candidate for it and why.
 
 Choose no more than three materially different beats. Before each `researcher` is spawned:
 
@@ -220,9 +287,9 @@ truck does not stop at, the planner whose job the planning assistant changes, th
 its siren after the flood. A film that only shows the tool working is an advertisement, and the
 scorer's `story` axis will say so.
 
-The record next door is a source, not a substitute: `TexasAIDocket`'s `ledger/docket.json` is a
-fact-checked account of Texas AI decisions and it will often name the day's story before a search
-does. **Use it to find the decision behind the work, not to pick the story.**
+`TexasAIDocket`'s `ledger/docket.json` is the first candidate source, not an optional appendix.
+Use it to find the movement behind the work, then search primary sources for what has changed
+since the entry and for the application consequence the record may not carry yet.
 
 ## PHASE 2 — FACT CHECK (hard gate)
 
@@ -239,8 +306,18 @@ a viewer should believe a number here.
 
 ## PHASE 3 — PICK THE STORY
 
-One story. Say in writing why this one and not the others. Check the dedupe ledger: no topic
-repeats inside 30 days.
+One story. Write `out/dispatch/story_selection.json`, exposing the selected movement and at least
+one rejected alternative. It names the Docket status/id, actor, action, object, event type, date,
+county, why today, consequence, application change, honest counter-image, earned take, primary
+sources, what happens next and who can still act. Then gate it:
+
+```
+python3 scripts/story_selection_check.py --selection out/dispatch/story_selection.json
+```
+
+Check the dedupe ledger: no topic repeats inside 30 days. A good trend with no dated Texas
+movement does not clear this phase; keep searching for the decision, deployment or result that
+made it current.
 
 **There is always news.** "No story clears the bar" is a dead hatch.
 
@@ -280,12 +357,32 @@ Declare per scene:
     caption over it and reports success.
 - `cast` — who is on screen and what they are FEELING
 - `beat` — the currency this five seconds pays in: motion, emotion or revelation
+- `story_role` — `hook`, `movement`, `mechanism`, `scale`, `consequence`, `limit`, `agency`, or
+  `close`. Across the film the causal spine is movement -> consequence -> limit -> agency. Three
+  cuts on one role are one scene or three ideas, not flow.
 - `on_screen` and `what_moves` — so the scene can be told muted
+- `visual_sentence` — `subject`, an active `action`, `emotion`, and the short `annotation` the
+  pixels earn. This is the X-DOES-Y contract, not a second description of the composition.
 - `visual_family` — a stable lower-case slug for the location or construction, so repeated sets
   are counted across the whole film instead of hidden behind different captions
 - `payload_mode` — `picture`, `mixed`, or `text_panel`; figures may support a picture, but text
   panels may not become the film
 - on scene one, `hook_strategy` and `hook_payoff_s`; the visible payoff lands by two seconds
+- every item that proves a spoken idea gets a stable lower-case `id`
+- `visual_proof` on every narrated scene:
+  - `mute_takeaway` — what a stranger learns from the pixels with captions and audio hidden
+  - `must_show` — one to four concrete concepts, each bound by `item_ids` to the exact objects in
+    `planes[].items` that carry it. The component name and its genuinely visible props must say
+    the concept; a pickup cannot satisfy "180,000 pavement records" because a paragraph says so.
+  - `change` — a visible transformation with the `item_ids` that undergo it
+- `visual_events[].item_ids` — the scheduled beat acts on the same rendered objects. A prose-only
+  event is not motion.
+- at board level, `fauna_scope`. Use `{"status":"none","reason":"..."}` only when no animal
+  illustrates a reported fact or consequence, and make the reason specific. This keeps the
+  habitat gate connected without inserting decorative wildlife into a records story.
+- at board level, `cinematic_template` plus `cinematic_contract`: one `throughline` with subject,
+  different opening and closing states and the scene ids it crosses; `turn_scene`; and the final
+  `button`. Add `credits` and `credits_s` for the sourced, branded sign-off.
 
 **79 things can stand on a plane and most of them are the show.** `lib/kit`, `fauna`, `vehicles`
 and `civics` draw the LAND and the furniture on it. `agriculture`, `freight`, `compute`, `clinic`,
@@ -303,8 +400,18 @@ python3 scripts/registry_check.py      # what exists, and proof every drawing is
 
 ```
 python3 scripts/dedupe.py check --entities "<the story's real entities>" --beat <beat>
+python3 scripts/story_selection_check.py --selection out/dispatch/story_selection.json
 python3 scripts/storyboard_check.py --board out/dispatch/storyboard.json
+python3 scripts/watchability_check.py --board out/dispatch/storyboard.json
+python3 scripts/shot_coherence.py --board out/dispatch/storyboard.json
+python3 scripts/staging_check.py --board out/dispatch/storyboard.json
+python3 scripts/board_scale_check.py --board out/dispatch/storyboard.json
+python3 scripts/floor_check.py --board out/dispatch/storyboard.json
 ```
+
+These board-readable checks run HERE, before a preflight. Running them again in Phase 6 is
+defence in depth. The August 30 rehearsal paid for a full render before discovering person scale
+and floor-baseline faults that were already present in the JSON.
 
 **THE BOARD MUST DECLARE A COMPOSITION FINGERPRINT** across every axis in
 `config/composition_axes.yaml`, plus `derived_from: scratch` and a `divergence_note` of at least
@@ -326,7 +433,9 @@ python3 scripts/run_controller.py consume --resource storyboard_critics \
 
 Then render the quarter-scale animatic. The program reserves the preflight before Remotion,
 measures actual pixel change in every motion/revelation scene, proves the hook changes before two
-seconds, and writes the contact sheet the critic reviews:
+seconds, and writes a contact sheet that prints each shot's VO, muted takeaway and required
+concepts beside the actual frame. Review the sheet once WITH those words and once with them
+covered. If the frame needs its explanation, it does not pass:
 
 ```
 python3 scripts/preflight_animatic.py --board out/dispatch/storyboard.json
@@ -357,9 +466,29 @@ preflight is hash-bound to the same board, reserves `full_renders` before starti
 available cores, muxes without `-shortest`, checks the film against data and engine sources from
 the render-start marker, and extracts the panel frames from the final MP4.
 
-A board can express most shots. When it cannot, write a bespoke scene component and register it
-in `lib/registry.tsx` — the engine is a floor, not a ceiling, and `registry_check.py` will hold
-you to registering it rather than leaving a drawing no board can reach.
+A board can express most proof shots. When the lead film's central action would become a large
+interface panel, write a bespoke episode component and register its id through `Dispatch.tsx` as
+the board's `cinematic_template`. For one exceptional prop inside the generic renderer, write a
+bespoke scene component and register it in `lib/registry.tsx`. The engine is a floor, not a
+ceiling. A compiled episode still reads the same board timings, captions and credits; a second
+private storyboard inside TypeScript is not allowed.
+
+Generated media is an exception lane, not the default visual language. Use it only when a real
+texture, location, or mechanism cannot be made literal with native components. Exact text,
+figures, joins, arrows, limits, and decisions remain renderer-native. Each request declares why
+it is needed, one to four things it must depict, and `replaces_item_ids` for the exact background
+objects it supersedes; it may never replace an item bound to `visual_proof` or a visual event.
+The configured per-run ceiling is two stills and one short video:
+
+```
+python3 scripts/generated_media.py --board out/dispatch/storyboard.json --plan
+python3 scripts/generated_media.py --board out/dispatch/storyboard.json --generate
+python3 scripts/generated_media.py --board out/dispatch/storyboard.json --verify
+```
+
+The manifest binds every plate to its full prompt and bytes. Preflight and the full-render wrapper
+both verify that binding. If generation fails, reboard the shot into native components; never
+silently render a stale plate or ask a generative model to own exact wording.
 
 ### VOICE
 
@@ -614,6 +743,7 @@ The human is never the QA.
 python3 scripts/engine_lint.py
 python3 scripts/staging_check.py
 python3 scripts/staging_check.py --board out/dispatch/storyboard.json
+python3 scripts/watchability_check.py --board out/dispatch/storyboard.json
 python3 scripts/flow_check.py --board out/dispatch/storyboard.json \
        --sfx out/dispatch/sfx_events.json
 python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
@@ -878,11 +1008,17 @@ Then, by hand, because these need the GitHub tools rather than a shell:
    python3 scripts/publish_feed.py --date <date> --county <County> --caption "..."
 
    cd ../TexasAIDocket
-   echo dispatch > .git/ACTOR
-   python3 scripts/site/site_build.py          # the pages that COUNT the video
-   python3 scripts/site/site_fresh_check.py    # must exit 0
-   python3 scripts/shared/ownership_check.py --actor dispatch --diff HEAD
+   .venv/bin/python scripts/site/site_build.py          # the pages that COUNT the video
+   .venv/bin/python scripts/site/site_fresh_check.py    # must exit 0
+   .venv/bin/python scripts/shared/ownership_check.py --actor dispatch --diff HEAD
    ```
+
+   Before `publish_feed.py` writes there, the Docket checkout must be clean and on a
+   `claude/dispatch-<date>` branch created from its current `origin/main`, or resuming that exact
+   branch. That prefix declares the lane under Docket's ownership law. Never write
+   `.git/ACTOR`. Commit the feed and regenerated pages with `TXDOCKET_ACTOR=dispatch` in the
+   commit environment, push, open a ready PR, wait for its exact-head guards, merge it, and then
+   verify the canonical site.
 
    **The first line used to be prose saying "prepend one entry to `docs/videos/videos.json`",
    and the first run that followed it wrote an entry with no `id`.** Nothing failed. The feed
@@ -910,7 +1046,6 @@ Then, by hand, because these need the GitHub tools rather than a shell:
 
    **`videos.json` is still the only file this repo AUTHORS there, ever.** Everything else in
    that command is generated output being brought back into agreement with it.
-7. `rm .git/ACTOR`.
 
 ## PHASE 8 — RETROSPECTIVE AND SELF-UPGRADE
 

@@ -12,6 +12,14 @@
 # the last frame so the credits card is looked at by somebody.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+
+# See render_dispatch.sh: macOS removes a caller's DYLD_* variables while starting bash.
+# Re-establish the sibling-library lookup before invoking Remotion's ffmpeg and ffprobe.
+COMPOSITOR_BIN="$PWD/video-engine/node_modules/@remotion/compositor-darwin-arm64"
+if [ -x "$COMPOSITOR_BIN/ffmpeg" ]; then
+  export PATH="$COMPOSITOR_BIN:$PATH"
+  export DYLD_LIBRARY_PATH="$COMPOSITOR_BIN${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+fi
 FILM=out/dispatch/film.mp4
 BOARD=out/dispatch/storyboard.json
 OUT=out/dispatch

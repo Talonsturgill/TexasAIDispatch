@@ -264,9 +264,12 @@ def main() -> int:
     print(json.dumps(new, indent=2))
     print(f"\nThe feed now holds {len(feed['videos'])} film(s). NEXT, and not in this script, "
           f"because writing the feed changes a number the site displays:\n"
-          f"  cd {a.docket} && echo dispatch > .git/ACTOR\n"
-          f"  python3 scripts/site/site_build.py && python3 scripts/site/site_fresh_check.py\n"
-          f"  python3 scripts/shared/ownership_check.py --actor dispatch --diff HEAD")
+          f"  cd {a.docket}\n"
+          f"  .venv/bin/python scripts/site/site_build.py && "
+          f".venv/bin/python scripts/site/site_fresh_check.py\n"
+          f"  .venv/bin/python scripts/shared/ownership_check.py --actor dispatch --diff HEAD\n"
+          f"The Docket checkout must already be on its claude/dispatch-{a.date} branch. "
+          f"Commit with TXDOCKET_ACTOR=dispatch; never write .git/ACTOR.")
     return 0
 
 

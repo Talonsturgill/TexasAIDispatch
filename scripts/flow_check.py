@@ -48,6 +48,8 @@ import re
 import sys
 from pathlib import Path
 
+import shot_coherence
+
 REPO = Path(__file__).resolve().parents[1]
 
 # Longest stretch with no visual event before the eye is resting. Chosen from the
@@ -82,6 +84,9 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
     scenes = sorted(board.get("scenes") or [], key=lambda s: float(s.get("start_s") or 0))
     if not scenes:
         return ["no scenes to flow"]
+    # Gate 0 should already have run this. Re-running it here makes flow_check honest when called
+    # directly and prevents its own later word-overlap heuristic from becoming a weaker answer.
+    p += shot_coherence.check(board)
     runtime = float(board.get("runtime_s") or 0)
 
     # ---- A REST, measured ACROSS boundaries rather than inside scenes.
@@ -145,7 +150,7 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
                      f"therefore marks nothing. The picture needs one sound that belongs to a "
                      f"thing in it.")
             continue
-        on = words(s.get("on_screen", "")) | words(s.get("what_moves", ""))
+        on = shot_coherence.scene_visual_tokens(s)
         motivated = [e for e in mine
                      if words(e.get("source", "")) & on
                      and not (words(e.get("source", "")) & UNMOTIVATED)]
@@ -165,8 +170,7 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
         if not vo:
             continue
         subject = words(vo)
-        shown = words(s.get("on_screen", "")) | words(s.get("what_moves", "")) | \
-            {w for c in (s.get("cast") or []) for w in words(str(c.get("id", "")))}
+        shown = shot_coherence.scene_visual_tokens(s)
         if subject and not (subject & shown):
             uncovered.append((s.get("id"), vo[:60]))
     for sid, line in uncovered:
@@ -199,14 +203,26 @@ def self_test() -> int:
                 "region": "high_plains",
                 "on_screen": f"a pumpjack{i} beside a substation transformer",
                 "what_moves": f"the pumpjack{i} strokes and the camera pushes past",
-                "vo": f"The transformer beside that pumpjack{i} is the whole constraint.",
+                "vo": "The transformer beside that pumpjack is the whole constraint.",
                 "cast": [{"id": "rancher"}],
-                "visual_events": [{"at_s": 2.5, "what": "the beam reaches bottom"}],
+                "planes": [{"items": [
+                    {"id": f"pump-{i}", "kind": "pumpjack"},
+                    {"id": f"transformer-{i}", "kind": "transformer"},
+                ]}],
+                "visual_proof": {
+                    "mute_takeaway": "a transformer visibly constrains the working pumpjack",
+                    "must_show": [{"concept": "transformer pumpjack",
+                                   "item_ids": [f"pump-{i}", f"transformer-{i}"]}],
+                    "change": {"description": "the pumpjack beam moves beside the transformer",
+                               "item_ids": [f"pump-{i}", f"transformer-{i}"]},
+                },
+                "visual_events": [{"at_s": 2.5, "what": "the beam reaches bottom",
+                                   "item_ids": [f"pump-{i}"]}],
             })
         return {"runtime_s": n * 5.0, "scenes": scenes}
 
     def sfx(n=6):
-        return [{"at_s": (i - 1) * 5.0 + 1.0, "dur_s": 1.2, "source": f"pumpjack{i} bearing groan"}
+        return [{"at_s": (i - 1) * 5.0 + 1.0, "dur_s": 1.2, "source": "pumpjack bearing groan"}
                 for i in range(1, n + 1)]
 
     ok("a flowing cut passes", not check(board(), sfx()), str(check(board(), sfx())))

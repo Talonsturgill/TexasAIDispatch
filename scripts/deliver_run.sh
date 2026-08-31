@@ -84,6 +84,7 @@ else
 fi
 run_gate run_discipline python3 scripts/run_discipline.py --state "$STATE"
 run_gate storyboard_check python3 scripts/storyboard_check.py --board "$OUT/storyboard.json"
+run_gate watchability     python3 scripts/watchability_check.py --board "$OUT/storyboard.json"
 run_gate staging_check    python3 scripts/staging_check.py --board "$OUT/storyboard.json"
 run_gate flow_check       python3 scripts/flow_check.py --board "$OUT/storyboard.json" \
     --sfx "$OUT/sfx_events.json"
@@ -176,4 +177,5 @@ done
 
 say "pushed"
 echo "Next, and NOT in this script: open a ready (not draft) PR and merge it in the same run,"
-echo "then append the feed entry in TexasAIDocket, then rm .git/ACTOR."
+echo "then publish the feed on a clean TexasAIDocket claude/dispatch-$DATE branch."
+echo "That branch and TXDOCKET_ACTOR=dispatch declare the lane; never write .git/ACTOR."

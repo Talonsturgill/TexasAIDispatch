@@ -19,6 +19,7 @@ import * as Home from './homeplace';
 import * as Tejano from './tejano';
 import * as BlackTx from './blacktexas';
 import * as Football from './football';
+import * as Evidence from './evidence';
 import {Character, castProps} from './Character';
 
 // =============================================================================
@@ -50,6 +51,9 @@ import {Character, castProps} from './Character';
 // =============================================================================
 
 export interface Placed {
+  /** Stable storyboard address used by visual-proof and event bindings. The renderer does not
+   *  infer meaning from it; gates use it to prove a sentence points at this exact item. */
+  id?: string;
   /** a key in ELEMENTS */
   kind: string;
   x?: number;
@@ -138,6 +142,12 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   plume: Sensing.Plume,
   readout: Sensing.Readout,
   confidenceSpread: Sensing.ConfidenceSpread,
+
+  // editorial evidence — source records, joins, limits and human handoffs
+  documentStream: Evidence.DocumentStream,
+  dataJoin: Evidence.DataJoin,
+  associationDiagram: Evidence.AssociationDiagram,
+  inspectionMap: Evidence.InspectionMap,
 
   // -------------------------------------------------------------------------
   // THE APPLICATION LAYER. Everything above this line draws the LAND and the
@@ -461,6 +471,10 @@ export const REQUIRED: Record<string, string[]> = {
   plume: ['x', 'y'],
   readout: ['x', 'y', 'rows'],
   confidenceSpread: ['x', 'y', 'values'],
+  documentStream: ['title', 'count', 'sample', 'status'],
+  dataJoin: ['leftTitle', 'leftCount', 'rightTitle', 'rightCount', 'result'],
+  associationDiagram: ['leftLabel', 'rightLabel', 'relation', 'limit'],
+  inspectionMap: ['title', 'county', 'segments', 'status'],
   // a sky with no state has no band table and renders the default,
   // which is the silent-empty-plane failure one level down
   sky: ['state'],
@@ -478,7 +492,9 @@ export const Element: React.FC<{item: Placed; frame: number; at?: Addr}> = ({
   item, frame, at,
 }) => {
   const C = resolve(item.kind);
-  const {kind, props, ...rest} = item;
+  // `id` belongs to the board contract, not to the drawing component. Do not leak it into
+  // arbitrary SVG props; the address below already carries the renderer's structural identity.
+  const {id: _id, kind, props, ...rest} = item;
   const where = at ? `${at.scene}/${at.plane}/${at.item}` : '(unaddressed)';
 
   const need = REQUIRED[kind];
