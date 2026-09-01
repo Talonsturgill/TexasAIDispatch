@@ -324,7 +324,7 @@ const SceneArt: React.FC<{index: number; p: number; frame: number}> = ({index, p
       rotate={-4 + p * 8} />
     <g opacity={phase(p, 0.55, 0.8)}>
       <text x="540" y="1218" textAnchor="middle" fontFamily={FONT.display} fontSize="48"
-        fontWeight="760" fill={C.paper}>WHO ASKS FIRST?</text>
+        fontWeight="760" fill={C.paper}>WHO ASKS NEXT?</text>
       <text x="540" y="1282" textAnchor="middle" fontFamily={FONT.body} fontSize="22"
         letterSpacing="5" fill={C.teal}>FOLLOW THE RECORD</text>
     </g>
