@@ -149,15 +149,12 @@ ls -la "$DEST" | tail -n +2
 say "commit"
 git -C "$REPO" add -- "$DEST" ledger/dispatch_history.json
 git -C "$REPO" status --short -- "$DEST" ledger/dispatch_history.json | sed -n '1,20p'
-if ! git -C "$REPO" commit -m "$(cat <<MSG
-Ship the $DATE Dispatch
-
-$TOPIC
-
-Panel cleared the bar in config/dispatch_rubric.yaml. Artifacts and the variety
-ledger entry land together, so the next run's dedupe sees this one.
-MSG
-)"; then
+printf -v COMMIT_MESSAGE '%s\n\n%s\n\n%s\n%s' \
+  "Ship the $DATE Dispatch" \
+  "$TOPIC" \
+  "Panel cleared the bar in config/dispatch_rubric.yaml. Artifacts and the variety" \
+  "ledger entry land together, so the next run's dedupe sees this one."
+if ! git -C "$REPO" commit -m "$COMMIT_MESSAGE"; then
   echo "commit failed"
   exit 1
 fi

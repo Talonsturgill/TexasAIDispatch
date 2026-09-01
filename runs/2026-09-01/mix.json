@@ -1,0 +1,50 @@
+{
+  "duration_s": 56.5,
+  "cut_s": 56.5,
+  "peak_dbfs_premaster": -2.82,
+  "lufs_premaster": -21.52,
+  "lufs_target": -16.0,
+  "lufs_achieved": -18.69,
+  "lufs_shortfall_db": 2.69,
+  "crest_factor_db": 18.69,
+  "limiter": false,
+  "mix_notes": [
+    "the master reached -18.69 LUFS against a -16.0 target, 2.69 dB short. The read's crest factor is 18.7 dB, and closing that last gap would take a limiter, which this mixer does not have on purpose."
+  ],
+  "master_gain_db": 2.82,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 13
+    },
+    {
+      "id": "texas_signal_bed",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -41.07,
+      "gain_db": 0.58
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "texas_signal_bed",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -41.07,
+  "bed_gain_db": 0.58,
+  "sfx_events": 13,
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "d2d3d5d0566f275b2fc7717d0ee3c00a9c02a06cd61a8943c6067c1b9277ec5e",
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "968b345c06b88a1bbd7aa4928b0081721d5d8e1d9aa3067f72e7d114277370d2",
+  "bed_source_sha256": "4cf14b1e83ac98c71a64d94085b3e4dcf539e46ae7766694bebae82e61aec6c8",
+  "bed_preparation_manifest": "out/dispatch/music_preparation.json",
+  "bed_preparation_sha256": "8af129d54d130f5fba294381f7dbe654dfbd08229b08a2c38d81f7ab3da3c092",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2712000
+}
