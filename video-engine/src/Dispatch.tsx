@@ -10,6 +10,7 @@ import type {RegionName} from './lib/lighting';
 import {FONT, wrapToWidth, overflows, widthOf} from './lib/type';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
 import {RoadEvidenceEpisode} from './RoadEvidenceEpisode';
+import {AlloyLoopEpisode} from './AlloyLoopEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -143,7 +144,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'road-evidence-v2';
+  cinematic_template?: 'road-evidence-v2' | 'alloy-loop-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -536,6 +537,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
   if (cinematic_template === 'road-evidence-v2') {
     return <RoadEvidenceEpisode scenes={scenes} captions={captions} credits={credits}
+      credits_s={credits_s} />;
+  }
+  if (cinematic_template === 'alloy-loop-v1') {
+    return <AlloyLoopEpisode scenes={scenes} captions={captions} credits={credits}
       credits_s={credits_s} />;
   }
   return (

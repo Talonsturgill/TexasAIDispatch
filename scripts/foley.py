@@ -931,6 +931,119 @@ def field_marker(seed=38):
     return normalize(fade(out, 30), 0.74)
 
 
+def alloy_furnace(seed=39):
+    """An induction furnace bringing a visible alloy charge up to heat.
+
+    The electrical body rises under a close, directional flame-like wash, then a small
+    crucible ring lands. It belongs to molten metal in frame, not to a generic factory bed.
+    """
+    dur = 3.4
+    t = t_axis(dur)
+    mains = sine(120, dur) * 0.26 + sine(240, dur) * 0.12
+    drive = np.clip(t / 0.75, 0, 1) * (0.84 + 0.16 * np.sin(2 * np.pi * 1.8 * t))
+    heat = biquad_bp(white(dur, seed), 2850, 1.6) * drive * 0.22
+    out = mains * drive + heat
+    ring = sine(780, 0.34) * expdecay(0.34, 0.10)
+    ring += sine(1320, 0.34) * expdecay(0.34, 0.07) * 0.45
+    place_into(out, fade(normalize(ring), 4) * 0.36, 2.72)
+    return normalize(fade(out, 80), 0.78)
+
+
+def robot_servo(seed=40):
+    """A visible industrial arm indexing a metal coupon through two hard moves.
+
+    Two controlled motor ramps end in dry mechanical stops. The segmented motion keeps the
+    cue attached to the arm's authored movement instead of implying an always-on robot room.
+    """
+    dur = 2.6
+    out = np.zeros(int(dur * SR))
+    for i, (at, rise, fall) in enumerate(((0.12, 310, 690), (1.20, 420, 770))):
+        move = sine(lambda t, lo=rise, hi=fall: lo + (hi - lo) * np.sin(np.pi * np.clip(t / 0.72, 0, 1)), 0.72)
+        move += biquad_bp(white(0.72, seed + i), 1700 + i * 180, 5) * 0.12
+        move *= adsr(0.72, 0.06, 0.08, 0.68, 0.14, 0.7)
+        place_into(out, normalize(move) * 0.48, at)
+        stop = biquad_bp(white(0.08, seed + 10 + i), 520, 4) * expdecay(0.08, 0.018)
+        place_into(out, fade(normalize(stop), 2) * 0.54, at + 0.70)
+    return normalize(fade(out, 35), 0.78)
+
+
+def metal_quench(seed=41):
+    """A hot metal coupon entering a visible quench bath.
+
+    The first contact spits, the steam bloom expands, and the coupon gives one damped ring.
+    That sequence distinguishes heat treatment from rain, surf, or an unmotivated hiss.
+    """
+    dur = 2.8
+    t = t_axis(dur)
+    spit = biquad_bp(white(dur, seed), 3600, 5.0) * np.exp(-t / 0.48)
+    steam = biquad_bp(white(dur, seed + 1), 1350, 3.2)
+    steam *= np.clip(t / 0.24, 0, 1) * np.exp(-t / 1.25) * 0.55
+    ring = sine(690, 0.55) * expdecay(0.55, 0.16)
+    out = spit * 0.52 + steam * 0.46
+    place_into(out, fade(normalize(ring), 4) * 0.25, 0.08)
+    return normalize(fade(out, 35), 0.80)
+
+
+def test_press(seed=42):
+    """A visible materials test press loading a coupon until the measurement lands.
+
+    A hydraulic rise tightens into a short metal report, followed by a quieter release. The
+    event says test result, not fabrication, and gives the animation a physical punctuation.
+    """
+    dur = 2.2
+    out = np.zeros(int(dur * SR))
+    load = sine(lambda t: 82 + 105 * np.clip(t / 1.0, 0, 1), 1.05)
+    load += biquad_bp(white(1.05, seed), 620, 4) * 0.14
+    load *= np.clip(t_axis(1.05) / 0.18, 0, 1) * np.clip((1.05 - t_axis(1.05)) / 0.10, 0, 1)
+    place_into(out, normalize(load) * 0.42, 0.08)
+    report = biquad_bp(white(0.14, seed + 1), 1450, 5) * expdecay(0.14, 0.025)
+    report += sine(245, 0.14) * expdecay(0.14, 0.05) * 0.5
+    place_into(out, fade(normalize(report), 2) * 0.82, 1.10)
+    release = sine(lambda t: 210 - 90 * np.clip(t / 0.55, 0, 1), 0.55) * expdecay(0.55, 0.22)
+    place_into(out, normalize(release) * 0.24, 1.42)
+    return normalize(fade(out, 35), 0.82)
+
+
+def pencil_scratch(seed=43):
+    """A hand visibly writing a hypothesis or interpretation on paper.
+
+    Three short graphite strokes change direction and end with a pencil-set tap. It makes the
+    human judgment beat tactile without turning it into a keyboard or software-interface cue.
+    """
+    dur = 2.5
+    out = np.zeros(int(dur * SR))
+    r = rng_for(seed)
+    for i, (at, length) in enumerate(((0.12, 0.46), (0.76, 0.54), (1.46, 0.42))):
+        stroke = one_pole_lp(high_pass(white(length, seed + i), 700), 4300)
+        grain = 0.55 + 0.45 * np.sin(2 * np.pi * (22 + r.uniform(-3, 4)) * t_axis(length))
+        stroke *= np.hanning(len(stroke)) * grain
+        place_into(out, normalize(stroke) * 0.34, at)
+    tap = biquad_bp(white(0.06, seed + 8), 980, 5) * expdecay(0.06, 0.014)
+    place_into(out, fade(normalize(tap), 2) * 0.46, 2.12)
+    return normalize(fade(out, 30), 0.70)
+
+
+def review_stamp(seed=44):
+    """A visible review gate or NEXT QUESTION stamp landing on a paper record.
+
+    A brief rubber compression precedes the wooden body impact and a dry paper release. The
+    cue belongs to the authored stamp, avoiding a cinematic hit that has no object in frame.
+    """
+    dur = 1.35
+    out = np.zeros(int(dur * SR))
+    press = biquad_bp(white(0.18, seed), 520, 4) * np.hanning(int(0.18 * SR))
+    place_into(out, normalize(press) * 0.22, 0.12)
+    body = biquad_bp(white(0.10, seed + 1), 260, 3) * expdecay(0.10, 0.027)
+    edge = biquad_bp(white(0.06, seed + 2), 1900, 5) * expdecay(0.06, 0.012)
+    hit = np.zeros(max(len(body), len(edge)))
+    hit[:len(body)] += body
+    hit[:len(edge)] += edge * 0.55
+    place_into(out, fade(normalize(hit), 2) * 0.82, 0.32)
+    lift = one_pole_lp(high_pass(white(0.28, seed + 3), 650), 3100) * np.hanning(int(0.28 * SR))
+    place_into(out, normalize(lift) * 0.18, 0.58)
+    return normalize(fade(out, 25), 0.78)
+
+
 SOUNDS = {
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
@@ -952,6 +1065,12 @@ SOUNDS = {
     "record_join": (record_join, "oneshot", "two visible record cards joining into one linked record", ["records", "join", "analysis"]),
     "causal_break": (causal_break, "oneshot", "a visible causal arrow breaking while an association line remains", ["evidence", "limit", "analysis"]),
     "field_marker": (field_marker, "oneshot", "candidate road segments entering an engineer field inspection queue", ["road", "inspection", "engineer"]),
+    "alloy_furnace": (alloy_furnace, "oneshot", "a visible alloy charge heating in an induction furnace", ["materials", "metal", "furnace", "laboratory"]),
+    "robot_servo": (robot_servo, "oneshot", "a visible industrial robot indexing a metal coupon", ["materials", "robot", "automation", "laboratory"]),
+    "metal_quench": (metal_quench, "oneshot", "a visible hot metal coupon entering a quench bath", ["materials", "metal", "heat_treatment", "laboratory"]),
+    "test_press": (test_press, "oneshot", "a visible materials test press loading a coupon", ["materials", "test", "measurement", "laboratory"]),
+    "pencil_scratch": (pencil_scratch, "oneshot", "a visible hand writing a hypothesis or interpretation", ["human", "judgment", "paper", "analysis"]),
+    "review_stamp": (review_stamp, "oneshot", "a visible review gate or question stamp landing on a paper record", ["review", "stamp", "paper", "decision"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),
     "diesel_idle": (diesel_idle, "oneshot", "a diesel pickup idling", ["road", "ranch", "machine"]),

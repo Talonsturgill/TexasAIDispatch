@@ -17,6 +17,15 @@ if [ "$#" -eq 0 ]; then
   exit 2
 fi
 
+# A login shell is allowed to rebuild PATH from the host's profile. On the local workspace that
+# discarded the external Dispatch virtualenv after this helper had activated it, so the documented
+# compound-command form failed the wake check while direct invocations passed. Compound commands
+# need shell parsing, not a second login. Normalize the old form so saved triggers remain safe.
+if [ "$#" -ge 2 ] && [ "$1" = "bash" ] && [ "$2" = "-lc" ]; then
+  shift 2
+  set -- bash -c "$@"
+fi
+
 if [ -x "$workspace_runner" ]; then
   exec "$workspace_runner" "$@"
 fi
