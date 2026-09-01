@@ -29,7 +29,7 @@ For a compound command, pass a shell, for example:
 
 ```
 bash scripts/run_with_env.sh python3 scripts/env_check.py --require-voice
-bash scripts/run_with_env.sh bash -lc 'cd video-engine && npx tsc --noEmit'
+bash scripts/run_with_env.sh bash -c 'cd video-engine && npx tsc --noEmit'
 ```
 
 Never open, print, log, copy, commit, or quote the credential. Its presence is established only
@@ -215,7 +215,7 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
    bash scripts/run_with_env.sh python3 scripts/staging_check.py
    bash scripts/run_with_env.sh python3 scripts/composition_check.py
    bash scripts/run_with_env.sh python3 scripts/wiring_check.py
-   bash scripts/run_with_env.sh bash -lc 'cd video-engine && npx tsc --noEmit'
+   bash scripts/run_with_env.sh bash -c 'cd video-engine && npx tsc --noEmit'
    ```
 
    **`env_check` runs FIRST because it is the one that proves this container can make a
