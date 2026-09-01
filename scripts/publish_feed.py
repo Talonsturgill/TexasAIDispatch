@@ -46,13 +46,35 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-FFMPEG = REPO / "video-engine" / "node_modules" / "@remotion" / \
-    "compositor-linux-x64-gnu" / "ffmpeg"
+
+
+def find_ffmpeg() -> Path | None:
+    """Find Remotion's platform binary first, then a system FFmpeg.
+
+    Local morning runs happen on Apple silicon while cloud runners use Linux. Hard-coding the
+    Linux compositor made a successful local publish silently omit both feed renditions.
+    """
+    compositor = REPO / "video-engine" / "node_modules" / "@remotion"
+    candidates = (
+        compositor / "compositor-linux-x64-gnu" / "ffmpeg",
+        compositor / "compositor-linux-arm64-gnu" / "ffmpeg",
+        compositor / "compositor-darwin-arm64" / "ffmpeg",
+        compositor / "compositor-darwin-x64" / "ffmpeg",
+    )
+    bundled = next((path for path in candidates if path.is_file()), None)
+    if bundled:
+        return bundled
+    system = shutil.which("ffmpeg")
+    return Path(system) if system else None
+
+
+FFMPEG = find_ffmpeg()
 
 # The rendition. 720x1280 keeps the vertical shape, and the bitrate is the one that held the
 # subtitle band legible at 720 in a side by side, which is the only thing in this film that
@@ -123,8 +145,8 @@ def renditions(run: Path) -> tuple[bool, bool]:
     """
     film, poster = run / "dispatch.mp4", run / "poster.png"
     mobile, thumb = run / "dispatch-720.mp4", run / "poster-540.jpg"
-    if not FFMPEG.exists():
-        print(f"  ffmpeg not found at {FFMPEG}, so no rendition. The feed falls back.")
+    if FFMPEG is None:
+        print("  ffmpeg not found in Remotion or PATH, so no rendition. The feed falls back.")
         return mobile.exists(), thumb.exists()
     if not mobile.exists():
         subprocess.run([str(FFMPEG), "-v", "error", "-y", "-i", str(film),
@@ -164,6 +186,15 @@ def self_test() -> int:
         print(f"  {'ok  ' if cond else 'FAIL'}  {label}{'' if cond else '  ' + extra}")
         if not cond:
             fails += 1
+
+    installed = list((REPO / "video-engine" / "node_modules" / "@remotion").glob(
+        "compositor-*/ffmpeg"))
+    if installed:
+        ok("selects an installed platform compositor instead of a hard-coded platform",
+           FFMPEG in installed, str(FFMPEG))
+    else:
+        ok("uses a real system FFmpeg when no compositor is installed",
+           FFMPEG is None or FFMPEG.is_file(), str(FFMPEG))
 
     board = {"title": "The only machine you can check", "beat": "science-machines"}
     good = ("Horizon, the public supercomputer, has its first half running in a redeveloped "
