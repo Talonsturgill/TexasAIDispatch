@@ -1,0 +1,131 @@
+{
+  "for_date": "2026-09-03",
+  "film": "What the ground still holds",
+  "scenes": 8,
+  "board_runtime_s": 46,
+  "readiness": "ready_for_synthesis",
+  "voice": {
+    "read_from": "config/voices.yaml",
+    "status": "use_repository_voice_selection",
+    "note": "Do not represent the configured default as an audition winner."
+  },
+  "pronunciation": {
+    "verdict": "Ralls is cleared by the director's direct verification of the Texas Almanac pronunciation guide. Preserve the locked script spelling and send its supported pronunciation in the synthesis preamble.",
+    "checked": [
+      {
+        "name": "Ralls",
+        "lines": [2, 8],
+        "source_checked": "https://www.texasalmanac.com/uploaded/pronunciation-guide/texas-almanac-pronunciation-guide.pdf",
+        "source_location": "Page 13, zero-indexed page 12, Ralls entry. Directly fetched and verified by the director.",
+        "respelling": "rahlz",
+        "confidence": "B, one authoritative non-crowd source",
+        "status": "verified_by_director",
+        "action": "Say Ralls as rahlz. This instruction is included in overall so the synthesizer actually receives it. Keep the locked text unchanged and listen for the name in soundcheck."
+      },
+      {
+        "name": "Autonomous Pivot",
+        "lines": [3],
+        "status": "ordinary_English_product_name",
+        "action": "Read the two words as ordinary English, without a slogan cadence."
+      },
+      {
+        "name": "AI",
+        "lines": [5],
+        "status": "initialism",
+        "action": "Say the two letters distinctly. Do not expand or pronounce as a single word."
+      }
+    ]
+  },
+  "timing": {
+    "script_word_count_whitespace": 88,
+    "read_target_s": 43,
+    "requested_range_s": [43, 49],
+    "pause_after_is_for_the_editor": true,
+    "pause_after_unit": "relative natural sentence beats, not inserted seconds",
+    "note": "The locked script contains 88 whitespace-delimited words, not roughly 112. The lower edge of the requested range fits a measured conversational read. Never manufacture a 49-second take with long gaps or drawn vowels. Measure the actual continuous read and retime picture to it. No time stretching.",
+    "if_long": "First prefer a complete shorter natural take. If a director-approved script cut becomes necessary, line 2 could lose its introductory sentence, or line 8 could lose the repeated date. This plan makes neither edit."
+  },
+  "overall": "An informed person standing beside a working farm machine, telling a neighbor why it is worth looking closer. Plain contemporary American delivery with Texas familiarity in the restraint, not an imitated drawl, cowboy persona or announcer voice. Start alert and curious, gain clean forward motion through the machinery, then make the sentence about missing measured results the quietest and most certain point. Stay fully voiced there, not breathy. Recover modestly for the invitation and finish lower than the middle, with no advertising lift. Let the hook question sound genuinely curious rather than amazed. Keep the technical explanation conversational and connected. Aim near forty-three seconds for this short passage through a measured speaking rate, never by padding silence. Pronounce the town Ralls as rahlz, one syllable, as verified in the Texas Almanac pronunciation guide. Speak AI as two letters and keep Autonomous Pivot an ordinary name, not a slogan. The parent prompt supplies the continuity instruction.",
+  "lines": [
+    {
+      "n": 1,
+      "scene": "s1",
+      "text": "This pivot waters a field. What if it could read the ground?",
+      "intent": "Ground the first sentence in visible machinery, then turn toward the surprising question without pretending the machine literally reads soil like a person.",
+      "emphasis": "read",
+      "energy": "six of ten to begin, seven on the question, with a contained curious rise",
+      "pause_after": 0.5,
+      "risk": "Do not overact the question or exaggerate could into a magical claim."
+    },
+    {
+      "n": 2,
+      "scene": "s2",
+      "text": "The next stop is Ralls. A free field day on September ninth.",
+      "intent": "Bring the hook into a real upcoming visit, dropping into useful local information rather than an event-commercial read.",
+      "emphasis": "free",
+      "energy": "five of ten, a downward step from the hook",
+      "pause_after": 0.25,
+      "risk": "Use the verified Ralls pronunciation from overall and confirm it in soundcheck. September ninth must remain clear and future-facing, not sound like a past report."
+    },
+    {
+      "n": 3,
+      "scene": "s3",
+      "text": "On the program is Autonomous Pivot. Its sensors ride the irrigation machine.",
+      "intent": "Move from the program to the literal sensor in the picture. Keep the second sentence moving as the camera follows the mechanism.",
+      "emphasis": "ride",
+      "energy": "six of ten, a modest practical lift",
+      "pause_after": 0.25,
+      "risk": "Autonomous is a product name here, not proof that the equipment independently makes every decision. Do not spotlight it as a capability claim."
+    },
+    {
+      "n": 4,
+      "scene": "s4",
+      "text": "It uses reflected signals to estimate soil moisture.",
+      "intent": "Explain one causal step cleanly. Treat the result as an estimate while the picture shows the reflected signal.",
+      "emphasis": "estimate",
+      "energy": "six of ten, level with the preceding line and precisely articulated",
+      "pause_after": 0.25,
+      "risk": "Reflected signals and soil moisture contain clustered consonants. Keep them clear without separating the sentence into chunks."
+    },
+    {
+      "n": 5,
+      "scene": "s5",
+      "text": "The AI reads crop images and weather helps shape irrigation advice.",
+      "intent": "Connect the two inputs to advice, with the clearest mechanical momentum in the passage. Keep crop images and weather as distinct parts of the causal explanation.",
+      "emphasis": "advice",
+      "energy": "seven of ten, the explanation's high point without added volume or salesmanship",
+      "pause_after": 0.5,
+      "risk": "Say AI as the letters A and I. Preserve every word, including helps. No mid-sentence break after images and no implication that the radar itself is the AI model."
+    },
+    {
+      "n": 6,
+      "scene": "s6",
+      "text": "The announcement gives no measured water-saving result.",
+      "intent": "Land the evidentiary limit as the most trustworthy sentence. Make it quietly definite, not apologetic and not ominous.",
+      "emphasis": "no",
+      "energy": "three of ten, the largest drop and the quietest line, still fully voiced",
+      "pause_after": 0.5,
+      "risk": "Do not swallow no, rush measured, or imply the tool has been proved ineffective. The sentence describes what the announcement does not provide."
+    },
+    {
+      "n": 7,
+      "scene": "s7",
+      "text": "The free event lets a farmer see equipment and meet producers and researchers.",
+      "intent": "Recover toward the practical value of a visit and a conversation. Keep people in the foreground rather than selling attendance.",
+      "emphasis": "meet",
+      "energy": "five of ten, a restrained recovery from the factual limit",
+      "pause_after": 0.25,
+      "risk": "The last three nouns can become a list-song. Keep producers and researchers together as the people available to speak with."
+    },
+    {
+      "n": 8,
+      "scene": "s8",
+      "text": "On September ninth, near Ralls, bring the questions only your field can answer.",
+      "intent": "Return the decision to the farmer and the particular field. Finish on useful agency, with the pitch settling rather than rising into a promotional sign-off.",
+      "emphasis": "your",
+      "energy": "four of ten, lower and more certain than the technical middle",
+      "pause_after": 0,
+      "risk": "Keep the second Ralls pronunciation consistent with the first. Keep the date compact because it is repeated. Do not add a dramatic tail after answer."
+    }
+  ]
+}

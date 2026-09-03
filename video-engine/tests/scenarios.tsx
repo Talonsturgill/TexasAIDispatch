@@ -37,6 +37,13 @@ const FIXTURES: Record<string, Record<string, unknown>> = {
     title: 'field queue', county: 'Harris County',
     segments: ['curve 14', 'lane 8', 'ramp 3'], status: 'human inspection next',
   },
+  radarEstimate: {label: 'SOIL MOISTURE ESTIMATE', sublabel: 'REFLECTED SIGNALS'},
+  fieldObservations: {label: 'OBSERVATIONS BECOME ADVICE', result: 'IRRIGATION ADVICE',
+    cropLabel: 'CROP IMAGES', weatherLabel: 'WEATHER'},
+  irrigationAdvice: {label: 'IRRIGATION ADVICE', status: 'NOT A RESULT'},
+  fieldDayNotice: {title: 'UPCOMING FIELD DAY', date: 'SEPTEMBER 9TH',
+    place: 'NEAR RALLS', detail: 'FREE EVENT'},
+  farmlandLayer: {layer: 'sky'},
 };
 
 /**

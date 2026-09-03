@@ -1,0 +1,393 @@
+{
+  "created_at": "2026-09-03T11:45:05.272564Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/6144297b0f4cc1c6-40ace5bdf47ff9f2-65aa755e43b97a9a/storyboard.json",
+    "board_sha256": "40ace5bdf47ff9f2d3417c4bf1b334cf6aa21efd7f9dd3830b2797ba9ca401e3",
+    "film": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/6144297b0f4cc1c6-40ace5bdf47ff9f2-65aa755e43b97a9a/dispatch.mp4",
+    "film_sha256": "6144297b0f4cc1c645530b0de67e0a3f45f968503f1c24c69577ca7dd3483e51",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/6144297b0f4cc1c6-40ace5bdf47ff9f2-65aa755e43b97a9a/render-manifest.json",
+    "manifest_sha256": "65aa755e43b97a9a12fcee2be9a4bcf83cbc576873b1c1b8f67aa8e31e7e39ba",
+    "registered_at": "2026-09-03T14:00:06.649423Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 2,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "events": [
+    {
+      "at": "2026-09-03T11:45:05.275102Z",
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-09-03T11:45:05.526089Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-09-03T11:45:05.758545Z",
+      "kind": "reserved",
+      "note": "the road Texas autonomous freight movement",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-03T11:45:06.014999Z",
+      "kind": "reserved",
+      "note": "clinic Texas patient-facing AI deployment",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-03T11:45:06.247309Z",
+      "kind": "reserved",
+      "note": "farm ranch water Texas practical AI movement",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-03T11:50:17.546659Z",
+      "kind": "reserved",
+      "note": "Independent source and numeral verification for Ralls irrigation field-day selection",
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:00:53.182065Z",
+      "kind": "reserved",
+      "note": "Independent Gate0 critique of pivot observation-to-human-decision story",
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:02:29.868419Z",
+      "kind": "reserved",
+      "note": "Independent critic correction: remove repeated notice scene, retain sensing pivot, perform recommendation handoff and result limitation",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:06:52.562683Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:16:04.909780Z",
+      "kind": "phase",
+      "name": "voice"
+    },
+    {
+      "at": "2026-09-03T12:16:05.663277Z",
+      "kind": "reserved",
+      "note": "Final continuous read following inspected animatic and independent semantic audit",
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:19:42.899190Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:20:18.681891Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2053
+      }
+    },
+    {
+      "at": "2026-09-03T12:20:18.711322Z",
+      "elapsed_ms": 35733,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2053,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-03T12:20:20.474697Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:20:32.210805Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 2500
+      }
+    },
+    {
+      "at": "2026-09-03T12:20:32.428328Z",
+      "elapsed_ms": 11658,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2500,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-03T12:22:16.294667Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:22:41.884842Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2219
+      }
+    },
+    {
+      "at": "2026-09-03T12:22:41.902790Z",
+      "elapsed_ms": 25546,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2219,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-03T12:22:43.518705Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:22:55.456496Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 2624
+      }
+    },
+    {
+      "at": "2026-09-03T12:22:55.558513Z",
+      "elapsed_ms": 11813,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2624,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-03T12:50:54.574502Z",
+      "kind": "phase",
+      "name": "render"
+    },
+    {
+      "at": "2026-09-03T12:50:56.711996Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T12:54:18.221764Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:05:26.335614Z",
+      "film_sha256": "e228826b14c73fd7aa4897b72c9e6174243513ab23f8e36aca659e8c11261b61",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "65bc6582c7deb8ddde3e3343a5ae72293324b4d76936e8f07f2ea033feff09f2",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-03T13:08:55.904618Z",
+      "kind": "reserved",
+      "note": "finished cut round 1: full 48.7 second irrigation film with measured acoustic caption alignment",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-03T13:14:24.652048Z",
+      "kind": "reserved",
+      "note": "Round 1 batch: visible wheel-to-sensor hook, feed-safe headings, people on foreground soil beside distant pivot, measured quiet-consonant caption edges",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:15:39.535640Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:23:32.317133Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:25:05.462780Z",
+      "film_sha256": "e228826b14c73fd7aa4897b72c9e6174243513ab23f8e36aca659e8c11261b61",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-03T13:25:05.463106Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:33:40.903432Z",
+      "film_sha256": "c59ebe6482a53bb0b3d42101fc0b7ae4a2bf739c38348c5ef536962b34fabd8e",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "619731c7f4610282d1d8352dbd72ed0312e6611efd6c6808863bbf4554653fdd",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-03T13:34:18.076040Z",
+      "kind": "reserved",
+      "note": "finished cut round 2: feed-safe hook and grounded meeting, quiet-consonant acoustic correction",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-03T13:42:42.098939Z",
+      "kind": "reserved",
+      "note": "Round2 hard fail: shorten unchanged credits from5.5 to5.0 seconds, preserve all source lines",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:43:12.336740Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T13:45:27.480486Z",
+      "film_sha256": "c59ebe6482a53bb0b3d42101fc0b7ae4a2bf739c38348c5ef536962b34fabd8e",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-03T13:45:27.481290Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-03T14:00:06.649464Z",
+      "film_sha256": "6144297b0f4cc1c645530b0de67e0a3f45f968503f1c24c69577ca7dd3483e51",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "65aa755e43b97a9a12fcee2be9a4bcf83cbc576873b1c1b8f67aa8e31e7e39ba",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-03T14:01:11.312447Z",
+      "kind": "reserved",
+      "note": "Finished cut round3 after static-credit correction; film6144297b board40ace5bd",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-03T14:24:04.439774Z",
+      "kind": "finished",
+      "report_sha256": "aa3d551315d0bdd6872fde0f1154cf8ba04c4b9f265ed410ec99dd9e41348db8",
+      "result": "publishable",
+      "score": 7.282
+    }
+  ],
+  "final_report": {
+    "film_sha256": "6144297b0f4cc1c645530b0de67e0a3f45f968503f1c24c69577ca7dd3483e51",
+    "path": "out/dispatch/report_card.json",
+    "score": 7.282,
+    "sha256": "aa3d551315d0bdd6872fde0f1154cf8ba04c4b9f265ed410ec99dd9e41348db8"
+  },
+  "limits": {
+    "cleanup_renders": 1,
+    "full_renders": 5,
+    "panel_rounds": 5,
+    "preflight_renders": 6,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 15,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "render",
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-09-03",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": "publishable",
+  "updated_at": "2026-09-03T14:24:04.439790Z",
+  "usage": {
+    "cleanup_renders": 0,
+    "full_renders": 3,
+    "panel_rounds": 3,
+    "preflight_renders": 5,
+    "reboards": 3,
+    "reported_tokens": 9396,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 9,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  }
+}

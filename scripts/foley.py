@@ -1044,6 +1044,39 @@ def review_stamp(seed=44):
     return normalize(fade(out, 25), 0.78)
 
 
+def irrigation_pivot(seed=45):
+    """Illustrated electric pivot drive and falling irrigation spray.
+
+    A restrained gear tone under water landing on soil, not a diesel tractor or
+    stock-tank windmill. This is designed foley, never claimed as field recording.
+    """
+    dur = 6.0
+    t = t_axis(dur)
+    motor = sine(118, dur) * 0.28 + sine(236, dur) * 0.12
+    motor *= 0.86 + 0.14 * np.sin(2 * np.pi * 0.7 * t)
+    water = one_pole_lp(high_pass(white(dur, seed), 380), 2600)
+    water = one_pole_lp(water, 2600) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.33 * t) ** 2)
+    grit = biquad_bp(white(dur, seed + 1), 490, 4) * 0.08
+    return normalize(fade(motor + water * 0.55 + grit, 220), 0.74)
+
+
+def observation_trace(seed=46):
+    """Quiet sonification of a drawn sensor observation becoming an estimate.
+
+    The audible trace belongs to the editorial graphic, not to radar in the air.
+    Two dry strokes and a soft endpoint avoid a space-age sonar ping.
+    """
+    dur = 1.8
+    out = np.zeros(int(dur * SR))
+    for i, (at, length) in enumerate(((0.08, 0.55), (0.76, 0.55))):
+        stroke = biquad_bp(white(length, seed + i), 1100 + i * 240, 3)
+        stroke *= np.hanning(len(stroke))
+        place_into(out, normalize(stroke) * 0.30, at)
+    endpoint = sine(330, 0.16) * expdecay(0.16, 0.04)
+    place_into(out, fade(normalize(endpoint), 4) * 0.18, 1.40)
+    return normalize(fade(out, 30), 0.60)
+
+
 SOUNDS = {
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
@@ -1057,6 +1090,7 @@ SOUNDS = {
     "cattle_auction": (cattle_auction, "ambience", "a sale barn, the auctioneer over the lot", ["ranch", "town", "livestock"]),
     "server_hall": (server_hall, "ambience", "a data hall with the fan wall running, from the cold aisle", ["compute", "interior", "machine"]),
     "rig_floor": (rig_floor, "ambience", "a drilling rig under power, heard standing on the pad", ["oilfield", "permian", "machine", "drilling"]),
+    "irrigation_pivot": (irrigation_pivot, "ambience", "a visible irrigation pivot with a turning drive and falling spray", ["farm", "water", "pivot", "machine"]),
     # one-shots, tied to a thing
     "substation_hum": (substation_hum, "oneshot", "a transformer yard beside a slab, heard from the fence", ["grid", "compute", "machine"]),
     "pumpjack": (pumpjack, "oneshot", "an oil pumpjack in the frame", ["oilfield", "permian", "machine"]),
@@ -1070,6 +1104,7 @@ SOUNDS = {
     "metal_quench": (metal_quench, "oneshot", "a visible hot metal coupon entering a quench bath", ["materials", "metal", "heat_treatment", "laboratory"]),
     "test_press": (test_press, "oneshot", "a visible materials test press loading a coupon", ["materials", "test", "measurement", "laboratory"]),
     "pencil_scratch": (pencil_scratch, "oneshot", "a visible hand writing a hypothesis or interpretation", ["human", "judgment", "paper", "analysis"]),
+    "observation_trace": (observation_trace, "oneshot", "sonification of a visible sensor observation graphic becoming an estimate", ["sensor", "estimate", "analysis", "illustration"]),
     "review_stamp": (review_stamp, "oneshot", "a visible review gate or question stamp landing on a paper record", ["review", "stamp", "paper", "decision"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),

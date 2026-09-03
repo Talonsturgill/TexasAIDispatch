@@ -164,6 +164,11 @@ def report(*, require_voice: bool = False) -> tuple[int, list[str]]:
     ffmpeg_features = missing_ffmpeg_capabilities()
     ok_browser, browser_note = browser_present()
     missing_voice = require_voice and not voice_credential_present()
+    if require_voice:
+        from vo_align import alignment_model
+        if not shutil.which("whisper-cli") or not alignment_model().is_file():
+            lines.append("  MISSING  acoustic alignment: install pinned whisper.cpp and the model "
+                         "in config/alignment.json; set DISPATCH_WHISPER_MODEL to its external path")
 
     for imp, dist in mods:
         lines.append(f"  MISSING  python module {imp!r} (pip name {dist})")

@@ -77,7 +77,7 @@ run_gate() {
 }
 if [ "$VERIFY_ONLY" -eq 1 ]; then
   run_gate package_authority python3 scripts/run_controller.py --state "$STATE" \
-      check-package --report "$REPORT"
+      check-verification --report "$REPORT"
 else
   run_gate delivery_authority python3 scripts/run_controller.py --state "$STATE" \
       check-delivery --report "$REPORT"
@@ -88,6 +88,8 @@ run_gate watchability     python3 scripts/watchability_check.py --board "$OUT/st
 run_gate staging_check    python3 scripts/staging_check.py --board "$OUT/storyboard.json"
 run_gate flow_check       python3 scripts/flow_check.py --board "$OUT/storyboard.json" \
     --sfx "$OUT/sfx_events.json"
+run_gate acoustic_alignment python3 scripts/vo_align.py --verify --wav "$OUT/mix.wav" \
+    --voice "$OUT/mix_vo.wav" --script "$OUT/vo_script.txt" --out "$OUT" --cuts "$OUT/storyboard.json"
 # `--audio` wants mix.json, the mix REPORT, not mix.wav. Handed the wave file it dies on a
 # decode error rather than reporting all clear, which is the correct way for a gate to be
 # misused, and the invocation is written down here so the next run does not rediscover it.
@@ -140,9 +142,13 @@ cp "$OUT/film.mp4"        "$DEST/dispatch.mp4"
 cp "$OUT/poster.png"      "$DEST/poster.png"
 for f in storyboard.json claims.json captions.json words.json mix.json sfx_events.json \
          vo_direction.json vo_script.txt story.md research_notes.md scale_notes.md credits.txt \
+         acoustic-asr.json acoustic-asr-meta.json alignment_aliases.json \
+         script_audit.json validation.json \
          render-manifest.json feed-composite.json feed-composite.png; do
   [ -f "$OUT/$f" ] && cp "$OUT/$f" "$DEST/$f"
 done
+cp "$REPORT" "$DEST/report_card.json"
+cp "$STATE" "$DEST/run_state.json"
 ls -la "$DEST" | tail -n +2
 
 # ---------------------------------------------------------------- 4. commit and push, out loud

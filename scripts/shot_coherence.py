@@ -75,6 +75,11 @@ VISIBLE_PROPS: dict[str, set[str]] = {
     "dataJoin": {"leftTitle", "leftCount", "rightTitle", "rightCount", "result"},
     "associationDiagram": {"leftLabel", "rightLabel", "relation", "limit"},
     "inspectionMap": {"title", "county", "segments", "status"},
+    "pivotRig": {"label"},
+    "radarEstimate": {"label", "sublabel"},
+    "fieldObservations": {"label", "result", "cropLabel", "weatherLabel"},
+    "irrigationAdvice": {"label", "status"},
+    "fieldDayNotice": {"title", "date", "place", "detail"},
 }
 
 

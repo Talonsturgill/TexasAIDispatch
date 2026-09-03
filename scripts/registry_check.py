@@ -52,7 +52,7 @@ REGISTRY = LIB / "registry.tsx"
 STAGEABLE = [
     "kit", "fauna", "vehicles", "civics", "sensing",
     "agriculture", "freight", "compute", "clinic", "water", "plantfloor", "drilling",
-    "evidence",
+    "evidence", "irrigation",
     # the nostalgia layer
     "flora", "skies", "roadside", "hometown", "homeplace", "tejano", "blacktexas",
     "football",

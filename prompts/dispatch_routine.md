@@ -384,6 +384,12 @@ Declare per scene:
   different opening and closing states and the scene ids it crosses; `turn_scene`; and the final
   `button`. Add `credits` and `credits_s` for the sourced, branded sign-off.
 
+**The credits are part of the film.** The held-slide hard fail applies after the story too.
+Use at most five seconds for the shared static credit card, retain every required source and
+licence line, and inspect the actual ending. A longer credit tail needs a purposeful reveal,
+not an entrance fade followed by an overlong still. On September 3rd a 5.5-second tail became
+5.1 seconds of identical pixels after its fade and correctly blocked an otherwise clearing cut.
+
 **79 things can stand on a plane and most of them are the show.** `lib/kit`, `fauna`, `vehicles`
 and `civics` draw the LAND and the furniture on it. `agriculture`, `freight`, `compute`, `clinic`,
 `water` and `plantfloor` draw the six application beats `knowledge/texas/APPLICATIONS.md` ranks.
@@ -631,7 +637,7 @@ catalogue rows, licence defects, competing vocals, era mismatch, and story conte
 python3 scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json \
        --out out/dispatch/mix.wav --cut <runtime>
 python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt \
-       --out out/dispatch
+       --voice out/dispatch/mix_vo.wav --out out/dispatch
 python3 scripts/board_captions.py --board out/dispatch/storyboard.json \
        --captions out/dispatch/captions.json
 python3 scripts/board_retime.py --board out/dispatch/storyboard.json \
@@ -645,6 +651,27 @@ pointed at the mix cannot see a pause: it measured a five word cue holding for 7
 and returned 63 of 114 word times modelled. Nothing is ever time stretched here, so the stem's
 silences ARE the mix's silences. This is not a substitute measurement, it is the same one
 taken where the bed is not standing in front of it.
+
+**IDENTIFY THE WORDS BEFORE TRUSTING THE PAUSES.** `vo_align.py` now uses pinned whisper.cpp
+DTW token positions to assign the reconciled script to the measured speech runs. It does not
+use the CLI's approximate word offsets and does not call attention positions phoneme boundaries.
+The old syllable-budget assignment could put the wrong words between genuine silences while
+every count passed. Production refuses a missing model, absent DTW, mismatched transcript or
+stale audio binding. `config/alignment.json` pins the CLI version and model URL/hash; install
+whisper.cpp and keep the model outside the repo, setting `DISPATCH_WHISPER_MODEL` when needed.
+Never supply the locked script as an ASR prompt. A sourced single-name homophone spelling may
+be recorded in `out/dispatch/alignment_aliases.json`; no numeral or timing overrides.
+
+Inspect quiet consonants at phrase ends when acoustic positions and cue edges disagree.
+The aligner uses strong speech to establish each phrase and a quieter connected-edge threshold
+to retain unvoiced endings. Never extend a cue by hand to a model timestamp. Reproduce a real
+measurement defect in the waveform, repair its detection with positive and negative tests, then
+regenerate captions and the film. Isolated low-level noise must not become a new speech phrase.
+
+After cuts and foley move, remix with the same VO offset, align again with `--voice` and
+`--cuts out/dispatch/storyboard.json`, fold the captions, and confirm the retime is stable.
+Preship and delivery recompute the word-to-run assignments and cues against the hash-bound
+ASR output. Caption correctness is no longer inferred from a positive boundary count.
 
 **`at_s` IS DERIVED AND `at_s_authored` IS THE INPUT, so a hand edit to `at_s` is thrown
 away.** `board_retime` recomputes every `at_s` from `at_s_authored` and the scene's new
@@ -899,6 +926,10 @@ bash scripts/deliver_run.sh --verify-only          # every gate, by exit code
 python3 scripts/run_controller.py finish --result publishable \
   --report out/dispatch/report_card.json
 ```
+
+The publishing-disabled path uses `check-verification` so an open, passing candidate can run
+its gates without closing the controller. This grants no publication authority. The real delivery
+path still requires production mode and the unchanged final report bound by `finish`.
 
 On 2026-08-28 that order was reversed and it cost a render and a panel round. The run took a
 clearing panel, called `finish --result publishable`, and only then ran `deliver_run.sh`, which
