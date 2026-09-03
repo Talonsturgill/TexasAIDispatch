@@ -194,6 +194,7 @@ SPEECH_OVER_FLOOR_DB = 12.0
 # film as one run. Belt and braces on purpose: either rule alone has a real waveform that
 # defeats it.
 SPEECH_UNDER_PEAK_DB = 26.0
+SPEECH_EDGE_UNDER_PEAK_DB = 38.0
 
 # A caption cue should be readable. Two lines of about forty characters.
 MAX_CUE_CHARS = 84
@@ -301,7 +302,12 @@ def speech_runs(x: np.ndarray, rate: int) -> list[tuple[float, float]]:
     floor = float(np.percentile(live, 10)) if live.size else float(np.min(db))
     loud = float(np.percentile(db, 95))
     thresh = max(floor + SPEECH_OVER_FLOOR_DB, loud - SPEECH_UNDER_PEAK_DB)
-    voiced = db > thresh
+    # Strong speech seeds a phrase, but quiet unvoiced consonants belong to it too.
+    # The final /th/ in the September ninth take was below the core threshold and
+    # the caption vanished before it. Hysteresis retains connected quieter edges;
+    # a low-energy island with no strong speech is never promoted into a phrase.
+    edge_thresh = max(floor + SPEECH_OVER_FLOOR_DB, loud - SPEECH_EDGE_UNDER_PEAK_DB)
+    voiced = db > edge_thresh
     runs, start = [], None
     for i, v in enumerate(voiced):
         if v and start is None:
@@ -318,7 +324,8 @@ def speech_runs(x: np.ndarray, rate: int) -> list[tuple[float, float]]:
             merged[-1][1] = b
         else:
             merged.append([a, b])
-    return [(a, b) for a, b in merged if b - a >= MIN_RUN_S]
+    return [(a, b) for a, b in merged if b - a >= MIN_RUN_S
+            and np.any(db[round(a * rate / win):round(b * rate / win)] > thresh)]
 
 
 def distribute(tokens: list[str], t0: float, t1: float) -> list[dict]:
@@ -648,6 +655,7 @@ def self_test() -> int:
     ok("uneven speech assigns words by acoustics, not the longer run's syllable budget",
        list(map(len, groups)) == [2, 4] and evidence[-1]["speech_run"] == 1)
     for label, bad in [("wrong words", [{"text": "Wrong", "center": 1.0}] + heard[1:]),
+                       ("a single early acoustic outlier", [dict(heard[0], center=-0.2)] + heard[1:]),
                        ("unexplained late timing", [dict(w, center=w["center"] + 10) for w in heard]),
                        ("missing words", heard[:-1])]:
         try:
@@ -709,6 +717,17 @@ def self_test() -> int:
     pause = np.concatenate([gap(0.3), phrase(0.8), gap(0.4), phrase(0.8), gap(0.3)])
     ok("a real 400ms pause DOES split a phrase, which is what a caption anchors to",
        len(speech_runs(pause, sr)) == 2, str(len(speech_runs(pause, sr))))
+
+    quiet_edge = np.concatenate([gap(0.3), phrase(0.8), gap(0.06),
+                                 phrase(0.18) * 0.025, gap(0.4)])
+    edge_runs = speech_runs(quiet_edge, sr)
+    ok("quiet final consonants stay attached to the strong phrase",
+       len(edge_runs) == 1 and abs(edge_runs[0][1] - 1.34) < 0.05, str(edge_runs))
+    quiet_island = np.concatenate([gap(0.3), phrase(0.8), gap(0.4),
+                                   phrase(0.18) * 0.025, gap(0.4)])
+    island_runs = speech_runs(quiet_island, sr)
+    ok("an isolated quiet noise without strong speech is not a phrase",
+       len(island_runs) == 1 and abs(island_runs[0][1] - 1.1) < 0.05, str(island_runs))
 
     script = ("Texas approved eight point nine gigawatts of large load. It has watched four "
               "gigawatts of that actually draw. The gap is the story.")

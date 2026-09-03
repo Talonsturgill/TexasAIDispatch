@@ -66,7 +66,7 @@ export const PivotRig: React.FC<At & {sensor?: boolean; spray?: boolean; label?:
       {[0, 1, 2].map(i => <path key={i} d={`M${-25 - i * 26},${65 + i * 40} q61,37 ${122 + i * 52},0`}
         fill="none" stroke={C.blue} strokeWidth={3} opacity={0.2 + 0.65 * ((frame / 38 + i / 3) % 1)}/>)}
     </g>}
-    {label && <text x={-120} y={-700} fill={C.paper} fontFamily={FONT.body} fontSize={39}
+    {label && <text x={-120} y={-700} fill={C.paper} fontFamily={FONT.body} fontSize={30}
       fontWeight={700}>{label}</text>}
   </g>;
 };
@@ -104,7 +104,7 @@ export const RadarEstimate: React.FC<At & {label: string; sublabel: string}> = (
       <path d="M85,310 Q220,190 94,102" fill="none" stroke={C.paper} strokeWidth={3}
         strokeDasharray="10 9" strokeDashoffset={-frame * 1.2}/>
     </g>
-    <text x={-450} y={-505} fill={C.paper} fontFamily={FONT.display} fontWeight={700} fontSize={56}>{label}</text>
+    <text x={-450} y={-505} fill={C.paper} fontFamily={FONT.display} fontWeight={700} fontSize={46}>{label}</text>
     <text x={-445} y={405} fill={C.paper} fontFamily={FONT.body} fontSize={35}>{sublabel}</text>
   </g>;
 };
@@ -112,7 +112,7 @@ export const RadarEstimate: React.FC<At & {label: string; sublabel: string}> = (
 export const FieldObservations: React.FC<At & {label: string; result: string; cropLabel: string; weatherLabel: string}> = ({
   x = 540, y = 800, scale = 1, frame = 0, progress = 0, label, result, cropLabel, weatherLabel,
 }) => <g transform={`translate(${x} ${y}) scale(${scale})`}>
-  <text x={-400} y={-325} fill={C.paper} fontFamily={FONT.display} fontSize={52} fontWeight={700}>{label}</text>
+  <text x={-400} y={-325} fill={C.paper} fontFamily={FONT.display} fontSize={44} fontWeight={700}>{label}</text>
   <g transform={`translate(${-200 + 45 * progress} -90) rotate(${-5 + progress * 4})`}>
     <rect x={-160} y={-135} width={285} height={225} rx={12} fill="#9ca769" stroke={C.ink} strokeWidth={8}/>
     {[-100, -10, 80].map((cx, i) => <path key={cx} d={`M${cx},60 v-140 m0,70 q-55,-48 -55,-20 q12,33 55,29 m0,-45 q48,-40 48,-17 q-17,30 -48,28`}

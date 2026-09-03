@@ -656,6 +656,12 @@ whisper.cpp and keep the model outside the repo, setting `DISPATCH_WHISPER_MODEL
 Never supply the locked script as an ASR prompt. A sourced single-name homophone spelling may
 be recorded in `out/dispatch/alignment_aliases.json`; no numeral or timing overrides.
 
+Inspect quiet consonants at phrase ends when acoustic positions and cue edges disagree.
+The aligner uses strong speech to establish each phrase and a quieter connected-edge threshold
+to retain unvoiced endings. Never extend a cue by hand to a model timestamp. Reproduce a real
+measurement defect in the waveform, repair its detection with positive and negative tests, then
+regenerate captions and the film. Isolated low-level noise must not become a new speech phrase.
+
 After cuts and foley move, remix with the same VO offset, align again with `--voice` and
 `--cuts out/dispatch/storyboard.json`, fold the captions, and confirm the retime is stable.
 Preship and delivery recompute the word-to-run assignments and cues against the hash-bound
