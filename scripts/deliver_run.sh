@@ -77,7 +77,7 @@ run_gate() {
 }
 if [ "$VERIFY_ONLY" -eq 1 ]; then
   run_gate package_authority python3 scripts/run_controller.py --state "$STATE" \
-      check-package --report "$REPORT"
+      check-verification --report "$REPORT"
 else
   run_gate delivery_authority python3 scripts/run_controller.py --state "$STATE" \
       check-delivery --report "$REPORT"

@@ -664,6 +664,32 @@ def check_package(path: Path, report: Path) -> tuple[bool, str]:
     return True, "run controller: package matches the hash-bound passing report"
 
 
+def check_verification(path: Path, report: Path) -> tuple[bool, str]:
+    """Permit read-only gates before finish without granting any delivery authority.
+
+    The routine must verify before closing the controller, so asking check_package here
+    deadlocked a good open run: that function deliberately requires the final report bound
+    by finish. Closed runs retain that strict hash check. Open candidates must have a real
+    publication-quality registered film and a clearing report, but remain open and unable to
+    copy, commit, push or publish through check_delivery.
+    """
+    state = read_state(path)
+    if state.get("terminal_state") is not None:
+        return check_package(path, report)
+    errs = deliverable_problems(state, publication=True)
+    if errs:
+        return False, "run controller: verification candidate is not ready: " + "; ".join(errs)
+    if not report.is_file():
+        return False, "run controller: verification requires an existing report"
+    score, hard = report_result(report)
+    if score < threshold() or hard:
+        return False, "run controller: verification report does not clear the rubric"
+    return True, (
+        "run controller: candidate eligible for read-only verification; "
+        "run remains open and delivery is not authorised"
+    )
+
+
 def check_delivery(path: Path, report: Path) -> tuple[bool, str]:
     state = read_state(path)
     if state.get("mode") != "production":
@@ -1229,9 +1255,45 @@ def self_test() -> int:
 
         high = root / "high.json"
         high.write_text(json.dumps({"score": threshold(), "ship": True, "hard_fails": []}) + "\n")
+        candidate = root / "candidate.json"
+        initialise(candidate, "candidate", "production")
+        ok("an empty run cannot enter package verification",
+           not check_verification(candidate, high)[0])
+        attach_deliverable(candidate, "candidate")
+        before_verification = candidate.read_bytes()
+        ok("an open passing candidate can verify BEFORE finish",
+           check_verification(candidate, high)[0])
+        ok("verification does not mutate or close the controller",
+           candidate.read_bytes() == before_verification)
+        ok("read-only verification never authorises delivery",
+           not check_delivery(candidate, high)[0])
+        ok("a below-bar candidate cannot verify",
+           not check_verification(candidate, low)[0])
+        hard_report = root / "candidate-hard-fail.json"
+        hard_report.write_text(json.dumps({"score": threshold() + 1, "ship": False,
+                                           "hard_fails": ["static slide"]}) + "\n")
+        ok("a high score cannot hide a candidate hard fail",
+           not check_verification(candidate, hard_report)[0])
+        ok("verification refuses a missing report",
+           not check_verification(candidate, root / "absent-report.json")[0])
+        candidate_film = Path(read_state(candidate)["deliverable"]["film"])
+        candidate_film.write_bytes(b"not a playable registered film")
+        ok("verification refuses changed registered media",
+           not check_verification(candidate, high)[0])
+        rescue_candidate = root / "rescue-candidate.json"
+        initialise(rescue_candidate, "rescue-candidate", "production")
+        attach_deliverable(rescue_candidate, "candidate-rescue", review_only=True)
+        ok("read-only candidate verification cannot accept a review-only rescue",
+           not check_verification(rescue_candidate, high)[0])
+        delivery_script = (REPO / "scripts" / "deliver_run.sh").read_text(encoding="utf-8")
+        verification_branch = delivery_script.split('if [ "$VERIFY_ONLY" -eq 1 ]; then', 1)[1].split("else", 1)[0]
+        ok("verify-only is wired to pre-terminal verification, not closed-run authority",
+           "check-verification" in verification_branch and "check-package" not in verification_branch)
         p = root / "dry.json"
         initialise(p, "r5", "dry-run")
         attach_deliverable(p, "dry")
+        ok("an open dry run can verify without publication authority",
+           check_verification(p, high)[0] and not check_delivery(p, high)[0])
         ok("a passing dry run may finish its editorial work",
            finish(p, "publishable", report=high)[0])
         ok("...and may verify the package without publishing",
@@ -1246,6 +1308,8 @@ def self_test() -> int:
         ok("the exact report is authorised", check_delivery(p, high)[0])
         high.write_text(json.dumps({"score": threshold() + 1, "ship": True}) + "\n")
         ok("a changed report is refused after approval", not check_delivery(p, high)[0])
+        ok("closed-run verification still refuses a changed approved report",
+           not check_verification(p, high)[0])
 
         p = root / "override.json"
         initialise(p, "r7", "production")
@@ -1339,6 +1403,9 @@ def main() -> int:
     p = sub.add_parser("check-package")
     p.add_argument("--report", required=True)
 
+    p = sub.add_parser("check-verification")
+    p.add_argument("--report", required=True)
+
     p = sub.add_parser("telemetry")
     p.add_argument("--resource", required=True)
     p.add_argument("--elapsed-ms", type=int, required=True)
@@ -1397,6 +1464,8 @@ def main() -> int:
             accepted, message = check_delivery(state_path, Path(a.report))
         elif a.command == "check-package":
             accepted, message = check_package(state_path, Path(a.report))
+        elif a.command == "check-verification":
+            accepted, message = check_verification(state_path, Path(a.report))
         elif a.command == "telemetry":
             accepted, message = record_telemetry(
                 state_path, a.resource, a.elapsed_ms, a.tokens, a.note)

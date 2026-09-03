@@ -384,6 +384,12 @@ Declare per scene:
   different opening and closing states and the scene ids it crosses; `turn_scene`; and the final
   `button`. Add `credits` and `credits_s` for the sourced, branded sign-off.
 
+**The credits are part of the film.** The held-slide hard fail applies after the story too.
+Use at most five seconds for the shared static credit card, retain every required source and
+licence line, and inspect the actual ending. A longer credit tail needs a purposeful reveal,
+not an entrance fade followed by an overlong still. On September 3rd a 5.5-second tail became
+5.1 seconds of identical pixels after its fade and correctly blocked an otherwise clearing cut.
+
 **79 things can stand on a plane and most of them are the show.** `lib/kit`, `fauna`, `vehicles`
 and `civics` draw the LAND and the furniture on it. `agriculture`, `freight`, `compute`, `clinic`,
 `water` and `plantfloor` draw the six application beats `knowledge/texas/APPLICATIONS.md` ranks.
@@ -920,6 +926,10 @@ bash scripts/deliver_run.sh --verify-only          # every gate, by exit code
 python3 scripts/run_controller.py finish --result publishable \
   --report out/dispatch/report_card.json
 ```
+
+The publishing-disabled path uses `check-verification` so an open, passing candidate can run
+its gates without closing the controller. This grants no publication authority. The real delivery
+path still requires production mode and the unchanged final report bound by `finish`.
 
 On 2026-08-28 that order was reversed and it cost a render and a panel round. The run took a
 clearing panel, called `finish --result publishable`, and only then ran `deliver_run.sh`, which
