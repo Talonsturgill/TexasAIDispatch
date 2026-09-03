@@ -12,9 +12,11 @@ it belongs to.
 
 WHAT THIS ACTUALLY DOES, said exactly, because the difference matters.
 
-There is no ASR model in this environment, so this is not a phoneme-level forced
-aligner and calling it one would be the precise dishonesty this project exists
-against. It is SILENCE ANCHORED:
+Whisper.cpp DTW token positions identify WHICH words occupy each measured speech
+run. They are acoustic estimates, not phoneme boundaries. The old proportional
+assignment could put the next sentence in the previous pause while every count
+passed. Production now requires exact transcript reconciliation and a pinned,
+hash-bound ASR sidecar. This remains SILENCE ANCHORED, not phoneme forced alignment:
 
   MEASURED. Speech runs are found in the audio itself, by energy against a noise
   floor computed from the quietest part of this take. Every run boundary is a real
@@ -44,8 +46,12 @@ Exit 0 aligned, 1 the audio and the script cannot be reconciled, 2 could not run
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
 import re
+import shutil
+import subprocess
 import sys
 import wave
 from pathlib import Path
@@ -53,6 +59,123 @@ from pathlib import Path
 import numpy as np
 
 REPO = Path(__file__).resolve().parents[1]
+
+
+def alignment_model() -> Path:
+    """External model cache, never a model binary committed with the film."""
+    config = json.loads((REPO / "config/alignment.json").read_text())
+    return Path(os.environ.get("DISPATCH_WHISPER_MODEL") or
+                REPO.parents[1] / ".models/whisper" / config["filename"])
+
+
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def canonical(text: str) -> list[str]:
+    from vo_soundcheck import figure_tokens, _UNITS, _TENS
+    return [str(_UNITS.get(t, _TENS.get(t, t))) for t in figure_tokens(text)]
+
+
+def acoustic_words(raw: dict) -> list[dict]:
+    """Read DTW attention positions, NOT the CLI's proportional word offsets.
+
+    DTW values are centiseconds and are estimated token positions, not measured
+    word starts or phonemes. Their only job is identifying which measured speech
+    run contains each word. Silence still supplies the caption boundaries.
+    """
+    result = []
+    for segment in raw.get("transcription", []):
+        text = segment.get("text", "").strip()
+        if not canonical(text):
+            continue
+        positions = [float(t["t_dtw"]) / 100 for t in segment.get("tokens", [])
+                     if not t.get("text", "").startswith("[_")
+                     and re.search(r"[a-zA-Z0-9]", t.get("text", ""))
+                     and float(t.get("t_dtw", -1)) >= 0]
+        if not positions or len(text.split()) != 1:
+            raise ValueError(f"no usable single-word DTW evidence for {text!r}; use -nfa -ml 1 -sow")
+        result.append({"text": text, "center": float(np.median(positions))})
+    if not result or any(a["center"] > b["center"] for a, b in zip(result, result[1:])):
+        raise ValueError("empty or nonmonotonic acoustic word evidence")
+    return result
+
+
+def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
+                    heard: list[dict], aliases: list[dict]) -> tuple[list[list[str]], list[dict]]:
+    """Exact lexical reconciliation, then acoustic assignment to measured runs.
+
+    An explicit, sourced homophone exception may reconcile a proper-name spelling.
+    No fuzzy matching, dropped words, guessed timestamps or numeral substitutions.
+    """
+    alias_map = {}
+    for row in aliases:
+        a, b = canonical(row.get("heard", "")), canonical(row.get("script", ""))
+        if (len(a) != 1 or len(b) != 1 or any(t.isdigit() for t in a + b)
+                or not row.get("reason") or not row.get("source")):
+            raise ValueError("alignment aliases must be sourced single-word nonnumeric spellings")
+        alias_map[a[0]] = b[0]
+    expected = [(part, i) for i, word in enumerate(tokens) for part in canonical(word)]
+    actual = [(alias_map.get(part, part), float(w["center"]))
+              for w in heard for part in canonical(w["text"])]
+    if [p for p, _ in expected] != [p for p, _ in actual]:
+        import difflib
+        diff = list(difflib.ndiff([p for p, _ in expected], [p for p, _ in actual]))
+        raise ValueError("ASR does not reconcile with the locked script: " +
+                         " ".join(p for p in diff if not p.startswith("  ")))
+    groups = [[] for _ in runs]
+    evidence = []
+    previous = -1
+    for i, token in enumerate(tokens):
+        positions = [actual[j][1] for j, (_, owner) in enumerate(expected) if owner == i]
+        if not positions:
+            raise ValueError(f"script word {token!r} has no acoustic match")
+        center = float(np.median(positions))
+        distances = [max(a - center, 0, center - b) for a, b in runs]
+        run = min(range(len(runs)), key=lambda n: distances[n])
+        if distances[run] > 0.25 or run < previous:
+            raise ValueError(f"ambiguous/outlying acoustic position for {token!r} at {center:.3f}s")
+        previous = run
+        groups[run].append(token)
+        evidence.append({"word": token, "dtw_center_s": round(center, 3), "speech_run": run})
+    if any(not group for group in groups):
+        raise ValueError("a measured speech run has no reconciled acoustic words")
+    return groups, evidence
+
+
+def transcribe(voice: Path, out: Path) -> tuple[dict, dict]:
+    config = json.loads((REPO / "config/alignment.json").read_text())
+    model = alignment_model()
+    if not shutil.which("whisper-cli") or not model.is_file():
+        raise ValueError("install whisper.cpp and the pinned config/alignment.json model; "
+                         "set DISPATCH_WHISPER_MODEL to its external path")
+    if digest(model) != config["sha256"]:
+        raise ValueError("alignment model hash differs from config/alignment.json")
+    raw_path, meta_path = out / "acoustic-asr.json", out / "acoustic-asr-meta.json"
+    binding = {"voice_sha256": digest(voice), "model_sha256": config["sha256"],
+               "engine": config["engine"], "version": config["version"],
+               "dtw": config["model"], "flash_attention": False}
+    if raw_path.exists() and meta_path.exists():
+        meta = json.loads(meta_path.read_text())
+        if all(meta.get(k) == v for k, v in binding.items()) and meta.get("asr_sha256") == digest(raw_path):
+            return json.loads(raw_path.read_text()), meta
+    version = subprocess.run(["whisper-cli", "--version"], capture_output=True, text=True,
+                             check=True, timeout=300)
+    if config["version"] not in version.stdout + version.stderr:
+        raise ValueError("whisper-cli version differs from config/alignment.json")
+    analysis = out / "alignment-16k.wav"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(voice), "-ar", "16000",
+                    "-ac", "1", "-c:a", "pcm_s16le", str(analysis)], check=True, timeout=120)
+    command = ["whisper-cli", "-m", str(model), "-f", str(analysis), "-l", "en", "-ojf",
+               "-of", str(raw_path.with_suffix("")), "-dtw", config["model"], "-nfa",
+               "-ml", "1", "-sow", "-t", "4", "-np"]
+    with (out / "acoustic-asr.log").open("w") as log:
+        subprocess.run(command, stdout=log, stderr=log, check=True, timeout=600)
+    raw = json.loads(raw_path.read_text())
+    acoustic_words(raw)  # A disabled DTW pass must not be cached as success.
+    meta = dict(binding, asr_sha256=digest(raw_path), command=command)
+    meta_path.write_text(json.dumps(meta, indent=2) + "\n")
+    return raw, meta
 
 # A gap shorter than this is a stop consonant, not a phrase boundary. Below it the
 # segmenter would shatter every word into its own run and every boundary would be
@@ -209,7 +332,8 @@ def distribute(tokens: list[str], t0: float, t1: float) -> list[dict]:
             for i, tok in enumerate(tokens)]
 
 
-def align(x: np.ndarray, rate: int, script: str) -> dict:
+def align(x: np.ndarray, rate: int, script: str, heard: list[dict] | None = None,
+          aliases: list[dict] | None = None) -> dict:
     tokens = script.split()
     if not tokens:
         raise ValueError("the script is empty")
@@ -264,6 +388,10 @@ def align(x: np.ndarray, rate: int, script: str) -> dict:
             f"word allocation produced {[len(g) for g in groups]} across {len(runs)} runs. Every "
             f"measured run must carry at least one word or its edge is not an anchor.")
 
+    matching = []
+    if heard is not None:
+        groups, matching = acoustic_groups(tokens, runs, heard, aliases or [])
+
     words: list[dict] = []
     for (t0, t1), toks in zip(runs, groups):
         ws = distribute(toks, t0, t1)
@@ -284,16 +412,19 @@ def align(x: np.ndarray, rate: int, script: str) -> dict:
 
     anchored = sum(1 for w in words if w["anchored"])
     return {
-        "method": "silence_anchored",
+        "method": "silence_anchored" if heard is not None else "proportional_silence_review_only",
+        "acoustic_matching": matching,
+        "speech_runs": runs,
         "boundaries_measured": len(runs) * 2,
         "words_total": len(words),
         "words_anchored": anchored,
         "words_modelled": len(words) - anchored,
         "sample_rate": rate,
         "duration_s": round(len(x) / rate, 3),
-        "note": ("Run edges are measured off this waveform. Word boundaries inside a run are "
-                 "modelled by syllable weight and carry anchored:false. No cue crosses a run "
-                 "edge, so error re-anchors at every phrase and cannot accumulate."),
+        "note": ("ASR DTW positions identify the words in each measured speech run. "
+                 "Caption edges use waveform silence; word boundaries inside each run remain "
+                 "syllable-modelled and explicitly unmeasured. This is not phoneme forced alignment."
+                 if heard is not None else "Proportional word assignment: synthetic tests only, never publish."),
         "words": words,
     }
 
@@ -508,6 +639,31 @@ def self_test() -> int:
         print(f"  {'ok  ' if cond else 'FAIL'}  {label}{'' if cond else '  ' + extra}")
         if not cond:
             failures += 1
+
+    uneven_runs = [(0.3, 3.0), (4.0, 5.0)]
+    heard = [{"text": "Short", "center": 1.0}, {"text": "line.", "center": 2.7},
+             {"text": "This", "center": 4.1}, {"text": "has", "center": 4.3},
+             {"text": "more", "center": 4.5}, {"text": "words.", "center": 4.8}]
+    groups, evidence = acoustic_groups("Short line. This has more words.".split(), uneven_runs, heard, [])
+    ok("uneven speech assigns words by acoustics, not the longer run's syllable budget",
+       list(map(len, groups)) == [2, 4] and evidence[-1]["speech_run"] == 1)
+    for label, bad in [("wrong words", [{"text": "Wrong", "center": 1.0}] + heard[1:]),
+                       ("unexplained late timing", [dict(w, center=w["center"] + 10) for w in heard]),
+                       ("missing words", heard[:-1])]:
+        try:
+            acoustic_groups("Short line. This has more words.".split(), uneven_runs, bad, [])
+            refused = False
+        except ValueError:
+            refused = True
+        ok(f"acoustic assignment refuses {label}", refused)
+    ok("ordinal notation preserves the value", canonical("ninth") == canonical("9th"))
+    ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
+    try:
+        acoustic_words({"transcription": [{"text": "word", "tokens": [{"text": "word", "t_dtw": -1}]}]})
+        refused = False
+    except ValueError:
+        refused = True
+    ok("flash-attention-disabled DTW absence is refused", refused)
 
     ok("syllables are counted roughly right",
        [syllables(w) for w in ["gigawatt", "the", "Abilene", "queue", "interconnection"]]
@@ -764,6 +920,8 @@ def main() -> int:
         "the VO stem, on the mix's own timeline. Boundaries are detected here and applied "
         "to --wav. See the note in main() for why this is not a shortcut."))
     ap.add_argument("--out", default="out/dispatch")
+    ap.add_argument("--aliases", help="sourced proper-name ASR spelling exceptions, never timing edits")
+    ap.add_argument("--verify", action="store_true", help="recompute and verify existing acoustic evidence only")
     ap.add_argument("--cuts", help=(
         "the storyboard, so a cue never spans a picture cut. A caption that outlives its shot "
         "puts one scene's sentence under the next scene's picture, and this film had six cues "
@@ -817,8 +975,27 @@ def main() -> int:
         if len(v) < len(x):
             v = np.concatenate([v, np.zeros(len(x) - len(v), dtype=v.dtype)])
         x = v[:len(x)]
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
     try:
-        res = align(x, rate, script)
+        alias_path = Path(a.aliases) if a.aliases else out / "alignment_aliases.json"
+        aliases = json.loads(alias_path.read_text()) if alias_path.exists() else []
+        voice_path = Path(a.voice or a.wav)
+        if a.verify:
+            raw_path = out / "acoustic-asr.json"
+            raw = json.loads(raw_path.read_text())
+            meta = json.loads((out / "acoustic-asr-meta.json").read_text())
+            config = json.loads((REPO / "config/alignment.json").read_text())
+            if (meta.get("voice_sha256") != digest(voice_path)
+                    or meta.get("asr_sha256") != digest(raw_path)
+                    or meta.get("model_sha256") != config["sha256"]
+                    or meta.get("version") != config["version"] or meta.get("flash_attention") is not False):
+                raise ValueError("stale or missing acoustic provenance binding")
+        else:
+            raw, meta = transcribe(voice_path, out)
+        res = align(x, rate, script, acoustic_words(raw), aliases)
+        res["provenance"] = dict(meta, mix_sha256=digest(Path(a.wav)),
+                                 script_sha256=digest(Path(a.script)), aliases=aliases)
     except ValueError as exc:
         print(f"vo_align: {exc}", file=sys.stderr)
         return 1
@@ -831,13 +1008,23 @@ def main() -> int:
         cut_times = sorted(float(s["start_s"]) for s in board.get("scenes", [])
                            if s.get("start_s"))
 
-    out = Path(a.out)
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "words.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
     caps = {"method": res["method"], "words_file": str(out / "words.json"),
             "boundaries_measured": res["boundaries_measured"],
             "words_anchored": res["words_anchored"], "words_modelled": res["words_modelled"],
+            "acoustic_words_matched": len(res["acoustic_matching"]),
             "cues": cues(res["words"], cut_times)}
+    if a.verify:
+        saved_words = json.loads((out / "words.json").read_text())
+        saved_caps = json.loads((out / "captions.json").read_text())
+        if Path(saved_caps.get("words_file", "")).resolve() == (out / "words.json").resolve():
+            saved_caps["words_file"] = caps["words_file"]
+        # JSON represents measured run tuples as lists; compare its canonical representation.
+        if saved_words != json.loads(json.dumps(res)) or saved_caps != caps:
+            print("vo_align: stored words/cues differ from recomputed acoustic evidence", file=sys.stderr)
+            return 1
+        print("vo_align: verified audio, script, ASR, word-to-run assignment and caption boundaries")
+        return 0
+    (out / "words.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
     (out / "captions.json").write_text(json.dumps(caps, indent=2), encoding="utf-8")
     print(f"vo_align: {len(caps['cues'])} cues, every boundary measured. "
           f"{res['words_anchored']} of {res['words_total']} word times are measurements, "

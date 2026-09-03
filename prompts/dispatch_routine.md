@@ -631,7 +631,7 @@ catalogue rows, licence defects, competing vocals, era mismatch, and story conte
 python3 scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json \
        --out out/dispatch/mix.wav --cut <runtime>
 python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt \
-       --out out/dispatch
+       --voice out/dispatch/mix_vo.wav --out out/dispatch
 python3 scripts/board_captions.py --board out/dispatch/storyboard.json \
        --captions out/dispatch/captions.json
 python3 scripts/board_retime.py --board out/dispatch/storyboard.json \
@@ -645,6 +645,21 @@ pointed at the mix cannot see a pause: it measured a five word cue holding for 7
 and returned 63 of 114 word times modelled. Nothing is ever time stretched here, so the stem's
 silences ARE the mix's silences. This is not a substitute measurement, it is the same one
 taken where the bed is not standing in front of it.
+
+**IDENTIFY THE WORDS BEFORE TRUSTING THE PAUSES.** `vo_align.py` now uses pinned whisper.cpp
+DTW token positions to assign the reconciled script to the measured speech runs. It does not
+use the CLI's approximate word offsets and does not call attention positions phoneme boundaries.
+The old syllable-budget assignment could put the wrong words between genuine silences while
+every count passed. Production refuses a missing model, absent DTW, mismatched transcript or
+stale audio binding. `config/alignment.json` pins the CLI version and model URL/hash; install
+whisper.cpp and keep the model outside the repo, setting `DISPATCH_WHISPER_MODEL` when needed.
+Never supply the locked script as an ASR prompt. A sourced single-name homophone spelling may
+be recorded in `out/dispatch/alignment_aliases.json`; no numeral or timing overrides.
+
+After cuts and foley move, remix with the same VO offset, align again with `--voice` and
+`--cuts out/dispatch/storyboard.json`, fold the captions, and confirm the retime is stable.
+Preship and delivery recompute the word-to-run assignments and cues against the hash-bound
+ASR output. Caption correctness is no longer inferred from a positive boundary count.
 
 **`at_s` IS DERIVED AND `at_s_authored` IS THE INPUT, so a hand edit to `at_s` is thrown
 away.** `board_retime` recomputes every `at_s` from `at_s_authored` and the scene's new

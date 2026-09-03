@@ -1,4 +1,26 @@
-# September 1st, 2026 production run
+# September 3rd, 2026 production run
+
+## Current owner directive and checkpoint
+
+"run the video pipeline end-end all the way through so we can see ur best output, and also turn this into a daily task that you run"
+
+- Fresh branch `claude/dispatch-2026-09-03` from `origin/main` at `6d0a540471c7`.
+- The September 1st run below is historical and fully shipped. Its completed scratch is preserved at `out/archive/2026-09-01-production-complete/`.
+- Current controller: `out/dispatch/run_state.json`, production run `2026-09-03`.
+- Environment, engine, staging, composition, wiring and TypeScript preflight passed.
+- Three independent reserved researchers completed road, clinic and water reports. Selected the fresh Ralls irrigation field day. Independent semantic audit PASS, with no fabricated savings or autonomous nozzle-control claims.
+- Bespoke eight-scene irrigation film authored and wired through the registry. Critic corrections removed a repeated card, retained the sensor and advice object, and made the limitation a scoped question. First animatic rendered, motion/hook passed and contact sheet inspected. Caption-area and contrast corrections batched before final timing.
+- VO direction is locked, with Ralls pronunciation verified in the Texas Almanac. Two complete Gemini takes passed soundcheck after repairing ordinal normalization with wrong-date regression tests; take 2 was selected. The final mix is 43.2 seconds, unchanged speed, with eight motivated sounds and no music bed.
+- Found and repaired a production timing defect: proportional assignment attached the wrong script words to real pauses. Pinned whisper.cpp DTW now identifies each word's speech run, while actual waveform silence still supplies cue edges. Eleven correct cues, all eight line starts anchored, and stable picture/foley retime verified. Preship and delivery independently recompute acoustic evidence; stale or mismatched inputs fail closed. External model cache is in the wrapper `.models/whisper/`, no credential involved.
+- Registry paint-id rendering and current 13-gate preship passed. Final timed animatic is rendering; full-resolution film, panel and delivery remain pending.
+- Dispatch release, isolated Docket feed/deployment/live Computer Use and unsent Gmail verification remain to do. No production release claim yet.
+- The Docket checkout now contains unrelated dirty water work. Use an isolated checkout for feed publication; do not follow the historical clean-checkout instruction below.
+- Daily heartbeat `texas-ai-dispatch-daily` is ACTIVE at 7 a.m. Eastern. It reads the master routine and resumes the day's run. Local execution requires the Mac and Codex app running.
+- Every expensive action must be reserved first. Every Dispatch command uses `bash scripts/run_with_env.sh`. Never expose credentials or send email. A passing panel is not delivery.
+
+---
+
+## Historical September 1st checkpoint (subsequently completed and published)
 
 ## Owner directive
 

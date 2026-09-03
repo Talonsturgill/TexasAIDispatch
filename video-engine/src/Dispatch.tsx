@@ -11,6 +11,7 @@ import {FONT, wrapToWidth, overflows, widthOf} from './lib/type';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
 import {RoadEvidenceEpisode} from './RoadEvidenceEpisode';
 import {AlloyLoopEpisode} from './AlloyLoopEpisode';
+import {IrrigationEpisode} from './IrrigationEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -46,6 +47,8 @@ export interface Scene {
   region: RegionName;
   county: string;
   camera_strategy: keyof typeof CameraMoves;
+  camera_secondary?: keyof typeof CameraMoves;
+  camera_entry?: {x?: number; y?: number; z?: number; until_progress: number};
   /**
    * A STATIC FRAMING OFFSET, composed with the move rather than replacing it.
    *
@@ -144,7 +147,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'road-evidence-v2' | 'alloy-loop-v1';
+  cinematic_template?: 'road-evidence-v2' | 'alloy-loop-v1' | 'irrigation-judgment-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -541,6 +544,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   }
   if (cinematic_template === 'alloy-loop-v1') {
     return <AlloyLoopEpisode scenes={scenes} captions={captions} credits={credits}
+      credits_s={credits_s} />;
+  }
+  if (cinematic_template === 'irrigation-judgment-v1') {
+    return <IrrigationEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits}
       credits_s={credits_s} />;
   }
   return (

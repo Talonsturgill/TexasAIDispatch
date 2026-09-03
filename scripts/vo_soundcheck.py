@@ -111,7 +111,7 @@ def fidelity_tokens(s: str) -> list[str]:
     """
     out: list[str] = []
     live_figure = False
-    for tok in re.findall(r"[a-z']+|\d[\d,]*", (s or "").lower()):
+    for tok in figure_tokens(s):
         if tok[0].isdigit() or tok in _UNITS or tok in _TENS or tok in _SCALES:
             live_figure = True
             continue
@@ -203,6 +203,23 @@ _TENS = {"twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60,
          "seventy": 70, "eighty": 80, "ninety": 90}
 _SCALES = {"hundred": 100, "thousand": 1000, "million": 1000000, "billion": 1000000000}
 
+# Dates arrive as "ninth" in the script and "9th" in an equally faithful transcript.
+# Compare their values, including wrong or dropped ordinals, rather than treating
+# the correct date as an invented numeral and the suffix as invented prose.
+_ORDINALS = dict(zip(
+    "first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth "
+    "thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth "
+    "thirtieth fortieth fiftieth sixtieth seventieth eightieth ninetieth hundredth thousandth millionth billionth".split(),
+    "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen "
+    "sixteen seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety "
+    "hundred thousand million billion".split()))
+
+
+def figure_tokens(text: str) -> list[str]:
+    tokens = re.findall(r"\d[\d,]*(?:st|nd|rd|th)?\b|[a-z']+", (text or "").lower())
+    return [re.sub(r"(\d)(?:st|nd|rd|th)$", r"\1", tok) if tok[0].isdigit()
+            else _ORDINALS.get(tok, tok) for tok in tokens]
+
 
 def figures(text: str) -> list[int]:
     """Every figure a listener would hear, whether it was written as words or as digits.
@@ -214,7 +231,7 @@ def figures(text: str) -> list[int]:
     cur = 0        # the number being assembled from words
     part = 0       # the part below the current scale word
     live = False
-    for tok in re.findall(r"[a-z']+|\d[\d,]*", (text or "").lower()):
+    for tok in figure_tokens(text):
         if tok and tok[0].isdigit():
             if live:
                 out.append(cur + part); cur = part = 0; live = False
@@ -427,6 +444,17 @@ def self_test() -> int:
     ok("compound figures parse",
        figures("twenty four places ahead") == [24],
        str(figures("twenty four places ahead")))
+    ok("the real Ralls date has the same value in either transcript spelling",
+       figures("September ninth") == figures("September 9th") == [9])
+    ok("ordinal spelling is neither lost nor invented prose",
+       word_accuracy("near Ralls on September ninth", "near Ralls on September 9th") == 1.0
+       and insertion_rate("near Ralls on September ninth", "near Ralls on September 9th") == 0.0)
+    ok("a wrong ordinal date stays a hard figure failure",
+       bool(figure_mismatch("September ninth", "September 19th")))
+    ok("a dropped ordinal stays a failure",
+       bool(figure_mismatch("September ninth", "September")))
+    ok("compound ordinal dates preserve the whole number",
+       figures("the twenty-first") == figures("the 21st") == [21])
     # AND IT HAS TO REACH THE VERDICT, not just exist as a function. A take that says the
     # wrong number must be refused even when every other measurement is clean.
     misread = take("m", transcript="an estimated 55,000 accelerators")

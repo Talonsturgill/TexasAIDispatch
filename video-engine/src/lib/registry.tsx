@@ -20,6 +20,7 @@ import * as Tejano from './tejano';
 import * as BlackTx from './blacktexas';
 import * as Football from './football';
 import * as Evidence from './evidence';
+import * as Irrigation from './irrigation';
 import {Character, castProps} from './Character';
 
 // =============================================================================
@@ -148,6 +149,12 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   dataJoin: Evidence.DataJoin,
   associationDiagram: Evidence.AssociationDiagram,
   inspectionMap: Evidence.InspectionMap,
+  pivotRig: Irrigation.PivotRig,
+  radarEstimate: Irrigation.RadarEstimate,
+  fieldObservations: Irrigation.FieldObservations,
+  irrigationAdvice: Irrigation.IrrigationAdvice,
+  fieldDayNotice: Irrigation.FieldDayNotice,
+  farmlandLayer: Irrigation.FarmlandLayer,
 
   // -------------------------------------------------------------------------
   // THE APPLICATION LAYER. Everything above this line draws the LAND and the
@@ -475,6 +482,11 @@ export const REQUIRED: Record<string, string[]> = {
   dataJoin: ['leftTitle', 'leftCount', 'rightTitle', 'rightCount', 'result'],
   associationDiagram: ['leftLabel', 'rightLabel', 'relation', 'limit'],
   inspectionMap: ['title', 'county', 'segments', 'status'],
+  radarEstimate: ['label', 'sublabel'],
+  fieldObservations: ['label', 'result', 'cropLabel', 'weatherLabel'],
+  irrigationAdvice: ['label', 'status'],
+  fieldDayNotice: ['title', 'date', 'place', 'detail'],
+  farmlandLayer: ['layer'],
   // a sky with no state has no band table and renders the default,
   // which is the silent-empty-plane failure one level down
   sky: ['state'],
