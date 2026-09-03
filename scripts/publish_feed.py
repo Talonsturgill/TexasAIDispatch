@@ -55,11 +55,16 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def find_ffmpeg() -> Path | None:
-    """Find Remotion's platform binary first, then a system FFmpeg.
+    """Use the environment's standalone FFmpeg, then a platform compositor fallback.
 
     Local morning runs happen on Apple silicon while cloud runners use Linux. Hard-coding the
     Linux compositor made a successful local publish silently omit both feed renditions.
+    Remotion's macOS binary also needs private dylib paths when launched outside Remotion.
+    The pinned environment has already checked its standalone media tools, so prefer those.
     """
+    system = shutil.which("ffmpeg")
+    if system:
+        return Path(system)
     compositor = REPO / "video-engine" / "node_modules" / "@remotion"
     candidates = (
         compositor / "compositor-linux-x64-gnu" / "ffmpeg",
@@ -70,8 +75,7 @@ def find_ffmpeg() -> Path | None:
     bundled = next((path for path in candidates if path.is_file()), None)
     if bundled:
         return bundled
-    system = shutil.which("ffmpeg")
-    return Path(system) if system else None
+    return None
 
 
 FFMPEG = find_ffmpeg()
@@ -187,14 +191,20 @@ def self_test() -> int:
         if not cond:
             fails += 1
 
-    installed = list((REPO / "video-engine" / "node_modules" / "@remotion").glob(
-        "compositor-*/ffmpeg"))
-    if installed:
-        ok("selects an installed platform compositor instead of a hard-coded platform",
-           FFMPEG in installed, str(FFMPEG))
-    else:
-        ok("uses a real system FFmpeg when no compositor is installed",
-           FFMPEG is None or FFMPEG.is_file(), str(FFMPEG))
+    from unittest.mock import patch
+    with patch("shutil.which", return_value="/tested/bin/ffmpeg"), \
+            patch.object(Path, "is_file", return_value=True):
+        ok("standalone FFmpeg wins even when a private compositor is installed",
+           find_ffmpeg() == Path("/tested/bin/ffmpeg"))
+    fallback = REPO / "video-engine/node_modules/@remotion/compositor-darwin-arm64/ffmpeg"
+    with patch("shutil.which", return_value=None), \
+            patch.object(Path, "is_file", lambda path: path == fallback):
+        ok("without standalone tooling the installed platform compositor is found",
+           find_ffmpeg() == fallback)
+    with patch("shutil.which", return_value=None), \
+            patch.object(Path, "is_file", return_value=False):
+        ok("missing media tooling is not invented", find_ffmpeg() is None)
+    ok("the actual selected media tool exists", FFMPEG is None or FFMPEG.is_file(), str(FFMPEG))
 
     board = {"title": "The only machine you can check", "beat": "science-machines"}
     good = ("Horizon, the public supercomputer, has its first half running in a redeveloped "
