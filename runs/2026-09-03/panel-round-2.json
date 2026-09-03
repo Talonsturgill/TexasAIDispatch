@@ -1,0 +1,59 @@
+[
+  {
+    "score": 7.104,
+    "ship": true,
+    "axes": {
+      "hook": 6.9,
+      "story": 8.0,
+      "picture": 7.1,
+      "place": 6.5,
+      "craft": 6.8,
+      "voice": 7.0
+    },
+    "hard_fails": [],
+    "weakest_axis": "place",
+    "one_sentence_fix": "Replace the perfectly striped field and clean steel surfaces with restrained High Plains details such as uneven planted rows, a worn caliche access track and rubbed galvanization, while preserving the repaired sensor framing and foreground cast separation."
+  },
+  {
+    "score": 7.356,
+    "ship": false,
+    "axes": {
+      "hook": 7.2,
+      "story": 8.0,
+      "picture": 7.6,
+      "place": 6.8,
+      "craft": 7.3,
+      "voice": 6.9
+    },
+    "hard_fails": [
+      "The credits become static at 43.60 s and remain unchanged through the 48.70 s end: a 5.10 s held slide. Independent FFmpeg freezedetect with a five-second duration reports freeze_start 43.6, and CreditsCard confirms only a twelve-frame entrance fade. The current rubric provides no credits exception."
+    ],
+    "weakest_axis": "place",
+    "one_sentence_fix": "Set this episode's credits duration to 5.0 seconds while preserving every source line, then render and independently verify that no static interval exceeds five seconds."
+  },
+  {
+    "score": 7.386,
+    "ship": true,
+    "axes": {
+      "hook": 7.1,
+      "story": 8.1,
+      "picture": 7.6,
+      "place": 7.0,
+      "craft": 7.2,
+      "voice": 7.0
+    },
+    "hard_fails": [],
+    "weakest_axis": "place",
+    "one_sentence_fix": "For the next craft pass, add a continuous wheel track and a few irregular stubble or worn-soil patches around the same pivot so the High Plains field reads as worked ground rather than perfectly repeated stripes, without implying a measured farming result.",
+    "lens": "place",
+    "round": 2,
+    "film_sha256": "c59ebe6482a53bb0b3d42101fc0b7ae4a2bf739c38348c5ef536962b34fabd8e",
+    "board_sha256": "49e0ff39350ffe8d0c9e65dc00c375d95bc4348b911e469b0bbec9c254439b9f",
+    "evidence_file": "out/dispatch/scorer-place-round-2-evidence.md",
+    "review_limitations": [
+      "Reviewed fresh film-derived full-resolution scene frames, feed composite, credits and independently extracted 2fps opening and meeting contact sheets. Not continuous real-time playback.",
+      "Audio assessment is based on acoustic evidence, independent transcripts, current timing verification and metrics. No listening claim or subjective accent certification.",
+      "This agent researched the water beat and wrote the VO performance plan before serving as a scorer. It is an evidence-led new-product review, not a wholly uninvolved blind judge."
+    ]
+  }
+]
