@@ -1,0 +1,134 @@
+{
+  "validator_role": "independent adversarial validator",
+  "validated_on": "2026-09-03",
+  "story": "Before the water falls",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "TAWC lists an upcoming field day on September 9th, 2026 from 8:30 to 11:30 a.m. at Lloyd and Angela Arthur's farm, 1102 Co Rd 135, Ralls, Texas.",
+      "quote": "Wednesday, September 9, 2026\n8:30 - 11:30AM\nLloyd & Angela Arthur farm\n1102 Co Rd 135\nRalls, TX",
+      "url": "https://www.depts.ttu.edu/tawc/events/index.php",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official",
+      "source_locator": "September Field Day, event listing. Whitespace-normalized block."
+    },
+    {
+      "id": "c2",
+      "text": "The field day is free. The organizer lists presentations followed by field demonstrations and an opportunity to see irrigation equipment and crops.",
+      "quote": "free field day",
+      "url": "https://www.depts.ttu.edu/tawc/events/index.php",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official",
+      "source_locator": "September Field Day, paragraphs immediately after event listing."
+    },
+    {
+      "id": "c3",
+      "text": "Texas Tech's announcement is dated August 31st, 2026.",
+      "quote": "August 31, 2026",
+      "url": "https://www.depts.ttu.edu/agriculturalsciences/news/posts/2026/09/pss-texas-alliance-for-water-conservation-schedules-2026-field-day.php",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official",
+      "source_locator": "Norman Martin byline."
+    },
+    {
+      "id": "c4",
+      "text": "Autonomous Pivot's Daniel Jenkins is scheduled to present the company's irrigation approach. This is a presentation announcement, not a new equipment installation.",
+      "quote": "Daniel Jenkins, vice president of sales and marketing for Autonomous Pivot, will discuss the company’s approach to automating irrigation.",
+      "url": "https://www.depts.ttu.edu/agriculturalsciences/news/posts/2026/09/pss-texas-alliance-for-water-conservation-schedules-2026-field-day.php",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official",
+      "source_locator": "Agenda paragraph naming Daniel Jenkins."
+    },
+    {
+      "id": "c5",
+      "text": "Texas Tech identifies Lloyd Arthur as a Crosby County producer.",
+      "quote": "A Visit with Lloyd Arthur, Crosby County Producer - May 2020",
+      "url": "https://www.depts.ttu.edu/tawc/resources/index.php",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official",
+      "source_locator": "Field Talks."
+    },
+    {
+      "id": "c6",
+      "text": "TAWC's Spring 2024 account describes radar riding ahead of irrigation. Returned ground signals supply an additional soil-moisture estimate.",
+      "quote": "Proprietary algorithms analyze the reflected signal from the soil, remove noise, and provide a supplementary estimation for soil moisture.",
+      "url": "https://www.depts.ttu.edu/tawc/news/newsletter/spring24.pdf",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official_historical_technical_description",
+      "source_locator": "Printed page 3, ground-penetrating-radar paragraph. Line-wrap whitespace normalized."
+    },
+    {
+      "id": "c7",
+      "text": "The historical account describes crop images and weather informing water-loss estimates; multiple observations update estimated soil water and irrigation advice. It does not describe direct vision of roots.",
+      "quote": "AI image processing provides accurate growth-stages",
+      "url": "https://www.depts.ttu.edu/tawc/news/newsletter/spring24.pdf",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_official_historical_technical_description",
+      "source_locator": "Printed page 3, sensors paragraph and following water-balance paragraphs."
+    },
+    {
+      "id": "c8",
+      "text": "The current vendor describes pivot-mounted sensors gathering soil, crop and environmental observations while the pivot rotates. Its published output is alerts, insights and recommendations supporting farm decisions.",
+      "quote": "Field data is analyzed to deliver alerts, insights, and recommendations that help optimize irrigation, fertilization, and crop protection decisions.",
+      "url": "https://www.autonomouspivot.com/",
+      "retrieved": "2026-09-03",
+      "source_type": "primary_vendor_description_not_performance_validation",
+      "source_locator": "Real-Time Insights, corroborated by Better Decisions for Every Acre and Full-Field Monitoring sections."
+    }
+  ],
+  "rejected": [
+    {
+      "claim": "The September 9th event has already happened or demonstrated results.",
+      "reason": "It remains upcoming on the validation date. Use future tense."
+    },
+    {
+      "claim": "Autonomous Pivot was newly installed at the Arthur farm.",
+      "reason": "The announcement names a vendor presentation. The historical newsletter separately describes TAWC field-site use and the Arthur operation, without establishing this installation."
+    },
+    {
+      "claim": "AI saved a measured amount of water, raised yield, reduced costs, or restored the aquifer on this farm.",
+      "reason": "No admitted primary source reports measured outcomes for this farm. Vendor benefit language is not a field result."
+    },
+    {
+      "claim": "The system directly and automatically switches every nozzle without a farmer's decision.",
+      "reason": "Current vendor page establishes monitoring and advice. Historical account describes prescription export as a step toward automation, not proof of unattended per-nozzle actuation here."
+    },
+    {
+      "claim": "The radar sees roots or directly measures exact soil-water truth everywhere.",
+      "reason": "Technical account describes a supplementary estimate from reflected signals. Avoid root imaging, exact unlabeled gauges and field-wide certainty."
+    },
+    {
+      "claim": "The newsletter independently validates the vendor's accuracy or benefits.",
+      "reason": "It is a university operator newsletter with descriptive and vendor-like first-person passages, not a controlled comparative performance study."
+    },
+    {
+      "claim": "Drip irrigation, rainwater harvesting and the listed remote-sensing research are all Autonomous Pivot functions.",
+      "reason": "The event lists distinct speakers, technologies and research. Keep them separate."
+    },
+    {
+      "claim": "The morning time is explicitly labeled Central in the primary listing.",
+      "reason": "The listing omits timezone. Local Texas time is a reasonable inference, not an exact source quotation. Use the printed time or label the inference."
+    }
+  ],
+  "visual_constraints": [
+    "Label mechanism footage as an illustration. Do not imply on-site video or an authenticated likeness of the Arthurs.",
+    "Use a single pivot throughline. Sensors observe; estimated soil water reaches a recommendation; a generic producer reviews it.",
+    "A moisture slice is a model illustration, not a precise root scan. Show estimate explicitly and omit fabricated numeric readings.",
+    "Do not attach the diagram to an assertion of a new Arthur-farm installation.",
+    "End with future-tense invitation, the sourced date and location, and clear primary-source credits.",
+    "Crosby County High Plains visual setting. Avoid mountains, desert cactus stereotypes or Hill Country terrain.",
+    "Field-day interest is not evidence of measured savings. Do not animate an aquifer refilling."
+  ],
+  "source_method": {
+    "independent_refetch": true,
+    "sources_read": [
+      "Full university announcement, 281 lines including navigation.",
+      "Full university resources page, 288 lines including navigation.",
+      "Full eight-page newsletter extraction, 349 lines. Screenshot requests timed out; no visual-only PDF claims admitted.",
+      "Full current vendor page, 116 lines.",
+      "Full organizer event page, 259 lines including navigation."
+    ],
+    "quotation_handling": "Exact short extracts within per-source quotation limits. Source locators identify surrounding paragraphs read in full. Whitespace in PDF and listing blocks is normalized; words and numeric values are not paraphrased inside quotes.",
+    "performance_boundary": "University event reporting establishes agenda and access. University newsletter establishes a historical technical account. Vendor page establishes current product description only. No independent measured-benefit claim is admitted."
+  }
+}

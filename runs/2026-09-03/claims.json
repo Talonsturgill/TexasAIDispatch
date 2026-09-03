@@ -1,0 +1,142 @@
+{
+  "date": "2026-09-03",
+  "validator": "independent validator, same reserved role as validation.json",
+  "claims": [
+    {
+      "id": "c1",
+      "verdict": "VERIFIED",
+      "statement": "TAWC lists September 9th, 2026, 8:30 to 11:30 a.m., at Lloyd and Angela Arthur's farm near Ralls.",
+      "value_text": "September 9, 2026. 8:30 to 11:30 a.m. 1102 Co Rd 135, Ralls, Texas.",
+      "quote": "Wednesday, September 9, 2026\n8:30 - 11:30AM\nLloyd & Angela Arthur farm\n1102 Co Rd 135\nRalls, TX",
+      "url": "https://www.depts.ttu.edu/tawc/events/index.php",
+      "source": "Texas Alliance for Water Conservation event listing",
+      "source_type": "primary_official",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Upcoming field day, not a completed demonstration. Block whitespace normalized."
+    },
+    {
+      "id": "c2",
+      "verdict": "VERIFIED",
+      "statement": "Admission is free. The organizer offers equipment viewing and conversations with producers and researchers.",
+      "quote": "free field day",
+      "url": "https://www.depts.ttu.edu/tawc/events/index.php",
+      "source": "Texas Alliance for Water Conservation event listing",
+      "source_type": "primary_official",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Full September Field Day section read. Its following paragraph lists presentations, equipment operation, crop tour and discussion."
+    },
+    {
+      "id": "c3",
+      "verdict": "VERIFIED",
+      "statement": "Texas Tech published the announcement on August 31st, 2026.",
+      "value_text": "August 31, 2026",
+      "quote": "August 31, 2026",
+      "url": "https://www.depts.ttu.edu/agriculturalsciences/news/posts/2026/09/pss-texas-alliance-for-water-conservation-schedules-2026-field-day.php",
+      "source": "Texas Tech Davis College NewsCenter",
+      "source_type": "primary_official",
+      "retrieved": "2026-09-03"
+    },
+    {
+      "id": "c4",
+      "verdict": "VERIFIED",
+      "statement": "Autonomous Pivot is on the field-day program through a scheduled presentation by Daniel Jenkins.",
+      "quote": "Daniel Jenkins, vice president of sales and marketing for Autonomous Pivot, will discuss the company’s approach to automating irrigation.",
+      "url": "https://www.depts.ttu.edu/agriculturalsciences/news/posts/2026/09/pss-texas-alliance-for-water-conservation-schedules-2026-field-day.php",
+      "source": "Texas Tech Davis College NewsCenter",
+      "source_type": "primary_official",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Program listing, not evidence of new AP equipment on the Arthur farm."
+    },
+    {
+      "id": "c5",
+      "verdict": "VERIFIED",
+      "statement": "Texas Tech identifies Lloyd Arthur as a Crosby County producer.",
+      "quote": "A Visit with Lloyd Arthur, Crosby County Producer - May 2020",
+      "url": "https://www.depts.ttu.edu/tawc/resources/index.php",
+      "source": "Texas Alliance for Water Conservation resources",
+      "source_type": "primary_official",
+      "retrieved": "2026-09-03"
+    },
+    {
+      "id": "c6",
+      "verdict": "VERIFIED",
+      "statement": "TAWC's historical technical account describes reflected signals producing an additional soil-moisture estimate.",
+      "quote": "Proprietary algorithms analyze the reflected signal from the soil, remove noise, and provide a supplementary estimation for soil moisture.",
+      "url": "https://www.depts.ttu.edu/tawc/news/newsletter/spring24.pdf",
+      "source": "TAWC Spring 2024 newsletter, printed page 3",
+      "source_type": "primary_official_historical_technical_description",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Radar ahead of irrigation; signal-derived estimate, not root imaging or measured savings. Line-wrap whitespace normalized."
+    },
+    {
+      "id": "c7",
+      "verdict": "VERIFIED",
+      "statement": "The newsletter describes crop-image and weather observations feeding estimated water use, soil-water estimates and irrigation recommendations.",
+      "quote": "AI image processing",
+      "url": "https://www.depts.ttu.edu/tawc/news/newsletter/spring24.pdf",
+      "source": "TAWC Spring 2024 newsletter, printed pages 3 and 4",
+      "source_type": "primary_official_historical_technical_description",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Full sensor, water-balance, crop-coverage and recommendation paragraphs read. The excerpt preserves source language, but the film must not independently promise accuracy."
+    },
+    {
+      "id": "c8",
+      "verdict": "VERIFIED",
+      "statement": "The vendor describes sensors mounted on existing irrigation pivots.",
+      "quote": "sensors directly onto irrigation pivots",
+      "url": "https://www.autonomouspivot.com/",
+      "source": "Autonomous Pivot current product page",
+      "source_type": "primary_vendor_description_not_performance_validation",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Better Decisions for Every Acre explains on-pivot observations. Treat as product description, not a new Arthur-farm installation."
+    },
+    {
+      "id": "c9",
+      "verdict": "VERIFIED",
+      "statement": "The entire Texas Tech field-day announcement reports no measured water-saving result.",
+      "quote": "will discuss",
+      "url": "https://www.depts.ttu.edu/agriculturalsciences/news/posts/2026/09/pss-texas-alliance-for-water-conservation-schedules-2026-field-day.php",
+      "source": "Texas Tech Davis College full announcement",
+      "source_type": "primary_official_scoped_absence_inference",
+      "retrieved": "2026-09-03",
+      "evidence_type": "scoped_absence_check",
+      "evidence_scope": "Validator re-read the entire article from headline through contact block. It announces activities and goals. It reports installation area for a different company and a producer count, but no measured water-saving result. This is an inference from full-document inspection, not a quotation asserting absence and not a claim that no study exists elsewhere.",
+      "source_bytes_sha256": "d2039ddf73ee086086c82d106bea6a50ad05387b1113ef7f7e81681e34f28441",
+      "quote_scope_note": "Exact phrase anchors the source's future-tense agenda. The quoted words alone do not establish absence; full-document review does."
+    },
+    {
+      "id": "c10",
+      "verdict": "VERIFIED",
+      "statement": "The vendor describes analyzed observations becoming alerts and recommendations for irrigation decisions.",
+      "quote": "Field data is analyzed to deliver alerts, insights, and recommendations",
+      "url": "https://www.autonomouspivot.com/",
+      "source": "Autonomous Pivot current product page",
+      "source_type": "primary_vendor_description_not_performance_validation",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Real-Time Insights section. Advice is supported; neither exclusive human control nor automatic nozzle commands are established."
+    },
+    {
+      "id": "c11",
+      "verdict": "VERIFIED",
+      "statement": "The technical account used for the mechanism is the TAWC Spring 2024 newsletter.",
+      "value_text": "Spring 2024",
+      "quote": "Spring 2024",
+      "url": "https://www.depts.ttu.edu/tawc/news/newsletter/spring24.pdf",
+      "source": "TAWC Quarterly Newsletter header",
+      "source_type": "primary_official_historical_publication_metadata",
+      "retrieved": "2026-09-03",
+      "evidence_scope": "Publication header in independently fetched full PDF extraction. Supports the year printed in credits; not a date of a new deployment."
+    }
+  ],
+  "rejected": [
+    {"claim": "Completed September 9th event", "reason": "Upcoming at publication time."},
+    {"claim": "New Autonomous Pivot installation on Arthur farm", "reason": "Program listing does not establish installation."},
+    {"claim": "Measured farm water savings, yield gain, cost reduction or aquifer recovery", "reason": "No admitted outcome study establishes these claims."},
+    {"claim": "Automatic individual nozzle control on this farm", "reason": "Monitoring and recommendations do not establish actuation."},
+    {"claim": "Radar images roots or knows exact moisture everywhere", "reason": "Reflected signals yield estimates."},
+    {"claim": "University newsletter independently validates accuracy", "reason": "Descriptive operator account is not comparative performance research."},
+    {"claim": "All field-day technologies are Autonomous Pivot functions", "reason": "Distinct speakers and systems appear on the program."},
+    {"claim": "The event listing explicitly labels its time Central", "reason": "Timezone is omitted; local-time interpretation is an inference."}
+  ],
+  "evidence_policy": "No invented numerical authorization list. Event values are transcribed from the organizer. Short quotes are exact, context is separately labeled, and scoped absence is explicitly an inference."
+}

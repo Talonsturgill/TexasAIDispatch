@@ -1,0 +1,287 @@
+{
+  "audit_date": "2026-09-03",
+  "role": "independent validator, continuation of original reservation",
+  "verdict": "PASS",
+  "audited_files": [
+    "out/dispatch/vo_script.txt",
+    "out/dispatch/storyboard.json",
+    "out/dispatch/validation.json"
+  ],
+  "scope": "Narration and authored semantic labels passed. This verdict does not verify final rendered readability, animation performance, or sound.",
+  "scenes": [
+    {
+      "scene": "s1",
+      "line": "This pivot waters a field. What if it could read the ground?",
+      "claims": [
+        "c8",
+        "c6"
+      ],
+      "assertions": [
+        {
+          "assertion": "A center pivot waters a field",
+          "supported": true,
+          "reason": "Generic illustrated irrigation mechanism; vendor names irrigation pivots."
+        },
+        {
+          "assertion": "Read the ground",
+          "supported": true,
+          "reason": "Rhetorical hook, later qualified by an estimate. Must not become direct root vision."
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "No factual spoken numerals or names. Crosby metadata supported by c5.",
+      "original_line": "This pivot waters a field. What if it could read the ground?",
+      "original_required_edit": "Add visible MECHANISM ILLUSTRATION label at the initial mechanism sequence. The exact apparatus is not authenticated footage of Arthur farm.",
+      "resolution": "Persistent per-shot SYSTEM ILLUSTRATION / NOT FIELD FOOTAGE overlay verified in Shot source. Generic mechanism, not Arthur-farm installation.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s2",
+      "line": "The next stop is Ralls. A free field day on September ninth.",
+      "claims": [
+        "c1",
+        "c2"
+      ],
+      "assertions": [
+        {
+          "assertion": "Free upcoming event near Ralls on September ninth",
+          "supported": true,
+          "reason": "Organizer's current event listing establishes all three."
+        },
+        {
+          "assertion": "TAWC and Arthur farm in notice",
+          "supported": true,
+          "reason": "Event organizer and venue are explicit."
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "Ralls, September ninth and digit 9 map to c1. TAWC and Arthur farm map to organizer provenance and c1.",
+      "original_line": "The next stop is Ralls: a free field day on September ninth.",
+      "original_required_edit": "Replace colon with period. Use SEPTEMBER 9TH in published notice props and other displayed date labels.",
+      "resolution": "Colon removed and visible SEPTEMBER 9TH props verified. Upcoming/future framing remains.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s3",
+      "line": "On the program is Autonomous Pivot. Its sensors ride the irrigation machine.",
+      "claims": [
+        "c4",
+        "c8"
+      ],
+      "assertions": [
+        {
+          "assertion": "Autonomous Pivot on program",
+          "supported": true,
+          "reason": "Scheduled Jenkins presentation explicitly named."
+        },
+        {
+          "assertion": "Sensors mounted on irrigation machine",
+          "supported": true,
+          "reason": "Current vendor product page says sensors mount onto pivots."
+        },
+        {
+          "assertion": "This exact system installed at Arthur farm",
+          "supported": false,
+          "reason": "Not stated in VO but could be implied by continuity. Illustration label and presentation framing must prevent it.",
+          "current_status": "REJECTED_INTERPRETATION_NOT_ASSERTED"
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "Autonomous Pivot maps to c4; no factual numerals.",
+      "original_line": "On the program: Autonomous Pivot. Its sensors ride the irrigation machine.",
+      "original_required_edit": "Replace colon with 'is'. Keep illustration disclosure during mechanism explanation.",
+      "resolution": "Colon removed; c4/c8 bindings correct. Persistent illustration disclosure limits installation inference.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s4",
+      "line": "It uses reflected signals to estimate soil moisture.",
+      "claims": [
+        "c6"
+      ],
+      "assertions": [
+        {
+          "assertion": "Reflected signals yield moisture estimate",
+          "supported": true,
+          "reason": "Historical TAWC technical description explicitly describes this."
+        },
+        {
+          "assertion": "Not root images",
+          "supported": true,
+          "reason": "Scope clarification consistent with signal-derived estimate, not a claim about every possible radar application."
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "No factual numerals or names. Do not add invented percent gauges.",
+      "original_line": "It uses reflected signals to estimate soil moisture.",
+      "original_required_edit": "Add historical source year to mechanism credit or caption so current product marketing is not mistaken for a newly validated specification.",
+      "resolution": "Estimate language remains; no root imagery claim. Credits now say Spring 2024; c11 verifies exact source header.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s5",
+      "line": "The crop images and weather help shape advice about irrigation.",
+      "claims": [
+        "c7",
+        "c10"
+      ],
+      "assertions": [
+        {
+          "assertion": "Crop images and weather inform irrigation advice",
+          "supported": true,
+          "reason": "Full newsletter sensor/water-balance paragraphs and vendor recommendation section support the causal description."
+        },
+        {
+          "assertion": "Advice is a command that drives nozzles",
+          "supported": false,
+          "reason": "Neither narration nor authored sheet currently says command. Keep advice label and do not draw actuation arrows.",
+          "current_status": "REJECTED_INTERPRETATION_NOT_ASSERTED"
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "No factual numerals or names.",
+      "original_line": "The crop images and weather help shape advice about irrigation.",
+      "original_required_edit": "Change vo_claims from c7,c8 to c7,c10 because canonical c8 is now the sensor-mounting claim.",
+      "resolution": "c7/c10 bindings correct. Current line supported. Proposed alternative explicitly naming AI is also approved against the historical image-processing account.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s6",
+      "line": "The announcement gives no measured water-saving result.",
+      "claims": [
+        "c9"
+      ],
+      "assertions": [
+        {
+          "assertion": "This announcement contains no measured savings result",
+          "supported": true,
+          "reason": "Full announcement independently re-fetched and read. Goals and plans are present, measured water savings absent. This is scoped absence, not absence of all external research."
+        },
+        {
+          "assertion": "AP has no savings evidence anywhere or does not save water",
+          "supported": false,
+          "reason": "Broader negative claim is not supported and must not be inferred from crossed-out art.",
+          "current_status": "REJECTED_INTERPRETATION_NOT_ASSERTED"
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "No factual numerals or names. The prose remains advice, not command.",
+      "original_line": "But the announcement gives no measured water-saving result.",
+      "original_required_edit": "Remove sentence-opening But; cite c9 rather than c4; replace broad visual NOT A SAVINGS RESULT with NO MEASURED RESULT IN THIS ANNOUNCEMENT or equivalent two-line scoped wording.",
+      "resolution": "Sentence-opening But removed; c9 binding correct. Authored art has WATER SAVINGS / NOT REPORTED / IN THIS ANNOUNCEMENT with question mark, no false performance graph or universal negative.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s7",
+      "line": "The free event lets a farmer see equipment and meet producers and researchers.",
+      "claims": [
+        "c2"
+      ],
+      "assertions": [
+        {
+          "assertion": "Attendees can view equipment and discuss farming with producers and researchers",
+          "supported": true,
+          "reason": "Full event section offers those activities. It is still a future opportunity."
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "No factual numerals or names.",
+      "original_line": "The free event lets farmers see equipment and talk to producers and researchers.",
+      "original_required_edit": "None factually. Keep COME SEE invitation and generic cast, not reenacted completed event or named Arthur likeness.",
+      "resolution": "Current singular-farmer wording is supported. Generic cast and future invitation remain, no named likeness or completed-event assertion.",
+      "verdict": "PASS"
+    },
+    {
+      "scene": "s8",
+      "line": "On September ninth, near Ralls, bring the questions only your field can answer.",
+      "claims": [
+        "c1",
+        "c2"
+      ],
+      "assertions": [
+        {
+          "assertion": "September ninth event near Ralls",
+          "supported": true,
+          "reason": "Organizer's date and venue established."
+        },
+        {
+          "assertion": "Bring your own field questions",
+          "supported": true,
+          "reason": "Editorial invitation, not a promised technical outcome."
+        }
+      ],
+      "required_edit": null,
+      "numerals_and_names": "Ralls, September ninth and digit 9 map to c1. Arthur farm maps to c1.",
+      "original_line": "On September ninth, near Ralls: bring the questions only your field can answer.",
+      "original_required_edit": "Replace colon with comma; published date props use SEPTEMBER 9TH. Keep question language rhetorical, not a promise that event answers every site-specific problem.",
+      "resolution": "Colon removed, ordinal displayed, sourced future invitation retained.",
+      "verdict": "PASS"
+    }
+  ],
+  "global_findings": [
+    "Source words and numerical event values were independently verified. No performance numeral is admitted.",
+    "The runtime, seed and 3D coordinates are production metadata, not real-world factual claims.",
+    "Current storyboard remains a recommendation narrative. Human review is shown, but the film must not assert that AP lacks any automation feature universally.",
+    "Credits identify TTU/TAWC and vendor correctly. Historical newsletter year should be disclosed, and original illustration should be visible before the credits too.",
+    "A canonical VERIFIED claims file now exists, including an explicitly labeled scoped-absence inference c9 and separate recommendation claim c10.",
+    "Common-word evidence gate can pass unsupported semantics. This audit does not treat its lexical result as semantic validation.",
+    "c11 now carries exact Spring 2024 publication metadata for the credit year. Canonical source quotations remain at or below 25 words per source."
+  ],
+  "required_claim_bindings": {
+    "s1": [
+      "c8",
+      "c6"
+    ],
+    "s2": [
+      "c1",
+      "c2"
+    ],
+    "s3": [
+      "c4",
+      "c8"
+    ],
+    "s4": [
+      "c6"
+    ],
+    "s5": [
+      "c7",
+      "c10"
+    ],
+    "s6": [
+      "c9"
+    ],
+    "s7": [
+      "c2"
+    ],
+    "s8": [
+      "c1",
+      "c2"
+    ]
+  },
+  "absence_check": {
+    "claim": "c9",
+    "scope": "Complete article headline through contact block",
+    "source_bytes_sha256": "d2039ddf73ee086086c82d106bea6a50ad05387b1113ef7f7e81681e34f28441",
+    "finding": "No measured water-saving outcome reported. This is not a quotation and not a universal negative claim."
+  },
+  "recheck_required": "Final rendered readability and audio require separate review. Replacing s5 with the approved alternative is semantically approved; record fresh file hashes after that text edit.",
+  "terminal": true,
+  "input_sha256": {
+    "board": "399717ac0a5adcedb0f5dda856b83477bb4b503401ce4357e457dd4c64f6ef57",
+    "vo": "e123ea7d018493121f35e3dab372031260418a9b90eb719448a600bc18cbb217"
+  },
+  "authored_labels_verified_in": [
+    "video-engine/src/IrrigationEpisode.tsx",
+    "video-engine/src/lib/irrigation.tsx"
+  ],
+  "proposed_approved_alternative": {
+    "scene": "s5",
+    "line": "The AI reads crop images and weather helps shape irrigation advice.",
+    "claims": [
+      "c7",
+      "c10"
+    ],
+    "verdict": "APPROVED",
+    "reason": "Historical account describes AI crop-image interpretation and weather-informed estimates feeding recommendations. No actuation or independent accuracy promise."
+  }
+}
