@@ -1,0 +1,149 @@
+{
+  "for_date": "2026-09-06",
+  "film": "Before the match",
+  "scenes": 8,
+  "board_runtime_s": 40.0,
+  "readiness": "ready_for_synthesis",
+  "voice": {
+    "read_from": "config/voices.yaml",
+    "status": "use_repository_voice_selection",
+    "note": "Do not represent the configured default as an audition winner."
+  },
+  "pronunciation": {
+    "verdict": "Progreso is verified in the Texas Almanac pronunciation guide. Preserve the locked script spelling and send the supported pronunciation in the synthesis preamble.",
+    "checked": [
+      {
+        "name": "Progreso",
+        "lines": [
+          1
+        ],
+        "source_checked": "https://www.texasalmanac.com/drupal-backup/images/topics/TownPronunciationGuide.pdf",
+        "source_location": "PDF page 13, zero-indexed page 12, Progreso entry.",
+        "respelling": "proh-GREH-soh",
+        "confidence": "B, one authoritative non-crowd source",
+        "status": "verified_by_director",
+        "action": "Say Progreso as proh-GREH-soh, with the stress on the middle syllable. Keep the locked text unchanged and confirm the name in soundcheck."
+      },
+      {
+        "name": "AI",
+        "lines": [
+          4
+        ],
+        "status": "initialism",
+        "action": "Say the two letters distinctly. Do not expand or pronounce them as a single word."
+      },
+      {
+        "name": "CBP",
+        "lines": [
+          6,
+          8
+        ],
+        "status": "initialism",
+        "action": "Say the three letters distinctly and consistently."
+      },
+      {
+        "name": "U.S.",
+        "lines": [
+          7
+        ],
+        "status": "initialism",
+        "action": "Say U.S. as the two letters."
+      }
+    ]
+  },
+  "timing": {
+    "script_word_count_whitespace": 114,
+    "read_target_s": 42,
+    "requested_range_s": [
+      40,
+      45
+    ],
+    "pause_after_is_for_the_editor": true,
+    "pause_after_unit": "relative natural sentence beats, not inserted seconds",
+    "note": "The mechanism section should move a shade faster than the opening and closing while remaining conversational. Read the passage continuously with ordinary sentence breaths. The edit, not the synthesis, supplies the deliberate space after line 7 before the final absence. Never pad the take or time-stretch it.",
+    "if_long": "Return to the director for an approved shorter script. The first low-cost candidates are 'at the bridge' in line 2 and 'also' in line 5. This plan makes neither edit."
+  },
+  "overall": "A restrained, intelligent and plainspoken read from someone who has watched this crossing work. Open close and observational, as if noticing the walking pace beside one traveler rather than announcing a surveillance story. Let the dated account bring a small step forward, then move a shade quicker through camera height, ordinary obstructions, the modeled zone and image suitability. On CBP said, make the attribution unmistakable and drop sharply into the unpublished measures. Skepticism comes from the clean separation between the claim and the missing evidence, never from sarcasm, menace or melodrama. Recover only enough to state the opt-out lane. Finish lower than the mechanism middle, with the last absence level and unresolved as a matter of public accountability, never as a trailer reveal or a verdict. Keep the full passage connected and fully voiced. Pronounce Progreso as proh-GREH-soh. Say AI, CBP and U.S. as separate letters, and read September 1 as September first.",
+  "lines": [
+    {
+      "n": 1,
+      "scene": "s1",
+      "text": "At Progreso, the biometric test had to account for travelers’ walking pace.",
+      "intent": "Begin inside an ordinary walk. Share the observation at close range and let the human pace, not the technology, establish the film.",
+      "emphasis": "walking pace",
+      "energy": "four of ten, intimate and alert with no ominous weight",
+      "pause_after": 0.25,
+      "risk": "Use the verified Progreso pronunciation from overall and confirm it in soundcheck. Do not make biometric test sound like a warning or a reveal."
+    },
+    {
+      "n": 2,
+      "scene": "s2",
+      "text": "On September 1, the agency published its account of the operational assessment at the bridge.",
+      "intent": "Move from the observed walk into the public record. Make the publication the action and keep the agency language conversational.",
+      "emphasis": "published",
+      "energy": "five of ten, a small factual step forward from the opening",
+      "pause_after": 0.25,
+      "risk": "Read September 1 as September first. Operational assessment can become bureaucratic if over-separated. Keep it in the sentence flow."
+    },
+    {
+      "n": 3,
+      "scene": "s3",
+      "text": "Cameras were mounted at different heights, and the test had to account for hats, sunglasses, and umbrellas.",
+      "intent": "Start the mechanism run. Let the changing camera positions lead naturally into the ordinary things that interrupt a view of a face.",
+      "emphasis": "different heights",
+      "energy": "six of ten, quicker and more physical without adding volume",
+      "pause_after": 0.2,
+      "risk": "Do not turn hats, sunglasses, and umbrellas into a list-song. Keep the three items connected to one moving traveler."
+    },
+    {
+      "n": 4,
+      "scene": "s4",
+      "text": "AI and other technologies modeled the capture zone and observed pedestrian movement. Tests also ran after dark.",
+      "intent": "Carry the mechanism through the modeled space in one clean motion, then land the night test as a compact extension of the same work.",
+      "emphasis": "modeled",
+      "energy": "seven of ten, the quickest and most active point in the read",
+      "pause_after": 0.25,
+      "risk": "Say AI as separate letters. Keep both sentences connected, and do not imply that the technologies made identity or enforcement decisions."
+    },
+    {
+      "n": 5,
+      "scene": "s5",
+      "text": "The partners also analyzed whether facial images were suitable for biometric matching.",
+      "intent": "Narrow from the full capture zone to one image and one threshold. Make suitability clearly precede matching rather than collapse into it.",
+      "emphasis": "suitable",
+      "energy": "six of ten, a measured step down from the mechanism peak",
+      "pause_after": 0.5,
+      "risk": "Facial images, suitable and biometric matching need crisp articulation. Do not suggest that matching accuracy was measured or published."
+    },
+    {
+      "n": 6,
+      "scene": "s6",
+      "text": "CBP said capture exceeded expectations. The article published no numerical accuracy rate, image-retention period, or final future-deployment selection.",
+      "intent": "Make the skeptical turn through attribution. Give said a dry edge, then remove any edge from the delivery and state the three unpublished measures with quiet certainty.",
+      "emphasis": "said",
+      "energy": "three of ten, the sharpest drop and the quietest point while staying fully voiced",
+      "pause_after": 0.5,
+      "risk": "Do not sneer at exceeded expectations or darken the absences into an accusation. Keep the second sentence intelligible at speed and keep all three missing disclosures distinct."
+    },
+    {
+      "n": 7,
+      "scene": "s7",
+      "text": "U.S. citizens could take an opt-out lane instead.",
+      "intent": "State the available choice exactly at its sourced scope. Recover slightly, but keep the sentence practical and free of reassurance.",
+      "emphasis": "U.S. citizens",
+      "energy": "four of ten, a restrained recovery from the evidentiary drop",
+      "pause_after": 1.0,
+      "risk": "The scope belongs to U.S. citizens, not every traveler. The editor should use the longest inter-line space here before the closing absence, while the synthesis remains continuous."
+    },
+    {
+      "n": 8,
+      "scene": "s8",
+      "text": "The assessment supported CBP’s planning, but the article announced no final selection for future deployment.",
+      "intent": "Begin as a low statement of what the assessment did, then let but hinge into what the public record still does not contain. End on unresolved authority and accountability.",
+      "emphasis": "no final selection",
+      "energy": "three and a half of ten, lower than the middle and level through the final words",
+      "pause_after": 0,
+      "risk": "Do not rise on future deployment, add a dramatic tail or imply that selection has been rejected. This is an unresolved public decision, not a trailer line."
+    }
+  ]
+}

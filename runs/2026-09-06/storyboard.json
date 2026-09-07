@@ -1,0 +1,1430 @@
+{
+  "title": "Before the match",
+  "date": "2026-09-06",
+  "runtime_s": 52.5,
+  "lead_beat": "record-and-rule",
+  "beat": "record-and-rule",
+  "derived_from": "scratch",
+  "divergence_note": "This film begins inside a moving pedestrian's capture frame and follows one walk through a weathered South Texas pergola. A radial biometric aperture, split lane and deliberately blank measurement window replace the machine portraits, field traverse and laboratory loop of the previous films.",
+  "fingerprint": {
+    "pov": "instrument-screen",
+    "motion_vector": "radial-emanate",
+    "hero_treatment": "single-worker-hero",
+    "layout": "hud-instrument-frame",
+    "register": "tactile-collage",
+    "camera_strategy": "dollyThrough",
+    "light_story": "night-practical",
+    "palette": "weathered pergola white, border-night teal, sodium amber and opt-out blue",
+    "metaphor": "a moving face inside a capture frame whose measurement window stays blank"
+  },
+  "fauna_scope": {
+    "status": "none",
+    "reason": "The sourced subject is an ordinary pedestrian walkway and camera assessment; wildlife would turn a lived border crossing into decorative scenery."
+  },
+  "cinematic_template": "border-capture-v1",
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "one ordinary traveler and the amber capture frame following the same walk",
+      "opening_state": "the traveler enters a live camera test already in motion",
+      "closing_state": "the traveler clears the walkway while the future selection gate remains open",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ]
+    },
+    "turn_scene": "s6",
+    "button": "The walk completes, but the proof and permanent selection remain unfinished."
+  },
+  "credits_s": 5.0,
+  "credits": "TEXAS AI DOCKET\ntexasaidocket.com\nSOURCES\nDHS S&T · Progreso operational assessment\nOriginal illustration and sound design\nMUSIC\n\"Deep Haze\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 5.22,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "dollyThrough",
+      "camera_secondary": "riseWith",
+      "camera_base": {
+        "y": -40,
+        "z": -80
+      },
+      "groundY": 1080,
+      "weather": "night",
+      "seed": 906,
+      "vo": "At Progreso, the biometric test had to account for travelers’ walking pace.",
+      "vo_claims": [
+        "c2",
+        "c6"
+      ],
+      "super": "",
+      "super_claim": "",
+      "beat": "motion",
+      "story_role": "hook",
+      "visual_family": "walking-capture",
+      "payload_mode": "picture",
+      "hero": "one traveler crossing the amber aperture",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "focused"
+        }
+      ],
+      "on_screen": "An ordinary traveler advances through the weathered pergola as an amber capture frame finds the moving face.",
+      "what_moves": "The traveler crosses the frame, pergola posts rush past, and the capture corners close around the face before two seconds.",
+      "visual_sentence": {
+        "subject": "one traveler",
+        "action": "crosses the walkway while the capture aperture closes around a moving face",
+        "emotion": "ordinary motion becoming consequential",
+        "annotation": "THE WALK IS THE INPUT"
+      },
+      "visual_proof": {
+        "mute_takeaway": "A traveler keeps moving while a biometric capture frame actively finds the face.",
+        "must_show": [
+          {
+            "concept": "traveler flow",
+            "item_ids": [
+              "traveler"
+            ]
+          },
+          {
+            "concept": "biometric capture frame",
+            "item_ids": [
+              "capture"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The traveler enters the aperture and the capture corners lock onto the moving face.",
+          "item_ids": [
+            "traveler",
+            "capture"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.731,
+          "at_s_authored": 0.7,
+          "description": "The traveler steps into the live walkway.",
+          "item_ids": [
+            "traveler"
+          ]
+        },
+        {
+          "at_s": 1.67,
+          "at_s_authored": 1.6,
+          "description": "The amber aperture finds the moving face.",
+          "item_ids": [
+            "capture",
+            "traveler"
+          ]
+        },
+        {
+          "at_s": 4.28,
+          "at_s_authored": 4.1,
+          "description": "The traveler carries the locked frame deeper into the walkway, proving that walking pace remains the input.",
+          "item_ids": [
+            "capture",
+            "traveler",
+            "walkway"
+          ]
+        }
+      ],
+      "hook_strategy": "human_stakes",
+      "hook_payoff_s": 1.6,
+      "planes": [
+        {
+          "z": 360,
+          "label": "south-texas-night",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": true,
+                "mode": "approach"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "camera-kiosks",
+          "items": [
+            {
+              "id": "cameras",
+              "kind": "cameraArray",
+              "props": {
+                "mode": "kiosk",
+                "active": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 110,
+          "label": "moving-traveler",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "walk",
+                "carry": "bag",
+                "label": "WALKING PACE"
+              }
+            }
+          ]
+        },
+        {
+          "z": 24,
+          "label": "capture-aperture",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "lock",
+                "label": "IMAGE CAPTURE"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s2",
+      "start_s": 5.22,
+      "duration_s": 5.62,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "craneDown",
+      "camera_secondary": "truckAcross",
+      "groundY": 1080,
+      "weather": "late",
+      "seed": 907,
+      "vo": "On September 1, the agency published its account of the operational assessment at the bridge.",
+      "vo_claims": [
+        "c1",
+        "c3"
+      ],
+      "super": "AGENCY ACCOUNT PUBLISHED",
+      "super_claim": "c1",
+      "beat": "revelation",
+      "story_role": "movement",
+      "visual_family": "source-on-walkway",
+      "payload_mode": "mixed",
+      "hero": "the source page entering the same walk",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "focused"
+        }
+      ],
+      "on_screen": "The dated agency account folds out above the live walkway while the traveler and amber frame continue beneath it.",
+      "what_moves": "The source card drops from the rafters, opens to the dated assessment line, and the traveler passes behind its translucent edge.",
+      "visual_sentence": {
+        "subject": "the agency account",
+        "action": "drops into the walkway and opens on the operational assessment",
+        "emotion": "a private test entering the public record",
+        "annotation": "PUBLISHED THIS WEEK"
+      },
+      "visual_proof": {
+        "mute_takeaway": "A dated source reveals that the bridge activity was an operational assessment.",
+        "must_show": [
+          {
+            "concept": "operational assessment source reveal",
+            "item_ids": [
+              "source"
+            ]
+          },
+          {
+            "concept": "bridge pergola walkway",
+            "item_ids": [
+              "walkway"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The source card unfolds over the same moving walkway and exposes the assessment status.",
+          "item_ids": [
+            "source",
+            "walkway"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.899,
+          "at_s_authored": 0.8,
+          "description": "The source card drops from a pergola beam.",
+          "item_ids": [
+            "source"
+          ]
+        },
+        {
+          "at_s": 3.822,
+          "at_s_authored": 3.4,
+          "description": "The operational-assessment line underlines itself.",
+          "item_ids": [
+            "source"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "daylit-bridge",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": false,
+                "mode": "source"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "continuing-walk",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "behind",
+                "carry": "bag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "agency-page",
+          "items": [
+            {
+              "id": "source",
+              "kind": "sourceReveal",
+              "props": {
+                "date": "SEPTEMBER 1 · 2026",
+                "status": "OPERATIONAL ASSESSMENT",
+                "place": "PROGRESO"
+              }
+            }
+          ]
+        },
+        {
+          "z": 24,
+          "label": "throughline-aperture",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "trace",
+                "label": "PUBLIC RECORD"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s3",
+      "start_s": 10.84,
+      "duration_s": 6.46,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "truckAcross",
+      "camera_secondary": "orbitReveal",
+      "groundY": 1080,
+      "weather": "late",
+      "seed": 908,
+      "vo": "Cameras were mounted at different heights, and the test had to account for hats, sunglasses, and umbrellas.",
+      "vo_claims": [
+        "c4",
+        "c6"
+      ],
+      "super": "WALKING PACE MATTERED",
+      "super_claim": "",
+      "beat": "motion",
+      "story_role": "mechanism",
+      "visual_family": "height-and-occlusion",
+      "payload_mode": "picture",
+      "hero": "camera heights tested against ordinary travelers",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "unbothered"
+        }
+      ],
+      "on_screen": "Three camera eyes at different heights track a traveler whose hat, glasses and umbrella interrupt the face in sequence.",
+      "what_moves": "The camera trucks past the staggered lenses while the traveler raises an umbrella and the capture frame repeatedly loses and reacquires the face.",
+      "visual_sentence": {
+        "subject": "staggered cameras and a traveler",
+        "action": "trade sightlines as ordinary carried objects interrupt the face",
+        "emotion": "friction inside an ordinary commute",
+        "annotation": "HEIGHT · PACE · OCCLUSION"
+      },
+      "visual_proof": {
+        "mute_takeaway": "Camera positions and everyday occlusions change what the array can see while people keep walking.",
+        "must_show": [
+          {
+            "concept": "camera array at different heights",
+            "item_ids": [
+              "cameras"
+            ]
+          },
+          {
+            "concept": "human factors with hats and umbrellas",
+            "item_ids": [
+              "factors"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The umbrella crosses the face and the staggered camera array reacquires it from another height.",
+          "item_ids": [
+            "cameras",
+            "factors",
+            "capture"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.163,
+          "at_s_authored": 0.9,
+          "description": "The three camera heads wake at visibly different heights.",
+          "item_ids": [
+            "cameras"
+          ]
+        },
+        {
+          "at_s": 4.522,
+          "at_s_authored": 3.5,
+          "description": "An umbrella masks the face before the lower view reacquires it.",
+          "item_ids": [
+            "factors",
+            "capture",
+            "cameras"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "weathered-pergola",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": false,
+                "mode": "cross"
+              }
+            }
+          ]
+        },
+        {
+          "z": 225,
+          "label": "staggered-lenses",
+          "items": [
+            {
+              "id": "cameras",
+              "kind": "cameraArray",
+              "props": {
+                "mode": "heights",
+                "active": true
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "ordinary-occlusions",
+          "items": [
+            {
+              "id": "factors",
+              "kind": "humanFactors",
+              "props": {
+                "items": [
+                  "HAT",
+                  "SUNGLASSES",
+                  "UMBRELLA"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 22,
+          "label": "reacquiring-frame",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "reacquire",
+                "label": "FACE IN MOTION"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s4",
+      "start_s": 17.3,
+      "duration_s": 7.68,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "orbitReveal",
+      "camera_secondary": "dollyThrough",
+      "groundY": 1080,
+      "weather": "night",
+      "seed": 909,
+      "vo": "AI and other technologies modeled the capture zone and observed pedestrian movement. Tests also ran after dark.",
+      "vo_claims": [
+        "c5",
+        "c7"
+      ],
+      "super": "THE CAPTURE ZONE WAS MODELED",
+      "super_claim": "c5",
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "visual_family": "capture-zone-model",
+      "payload_mode": "picture",
+      "hero": "the pergola turning into a measured volume",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "focused"
+        }
+      ],
+      "on_screen": "The same pergola rotates into a luminous wireframe volume while a pedestrian path leaves a measured ribbon through it.",
+      "what_moves": "Daylight wipes into night, the pergola extrudes into a wireframe, and the travel path draws itself from foreground to exit.",
+      "visual_sentence": {
+        "subject": "the capture zone",
+        "action": "turns from a weathered walkway into a luminous model of pedestrian movement",
+        "emotion": "the ordinary made computational",
+        "annotation": "ZONE → MODEL"
+      },
+      "visual_proof": {
+        "mute_takeaway": "The physical capture zone becomes a model that traces pedestrian movement in both lighting states.",
+        "must_show": [
+          {
+            "concept": "capture zone frame",
+            "item_ids": [
+              "capture"
+            ]
+          },
+          {
+            "concept": "pedestrian movement traveler flow",
+            "item_ids": [
+              "traveler"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The walkway flips from day to night while the traveler path extrudes into a measured volume.",
+          "item_ids": [
+            "walkway",
+            "traveler",
+            "capture"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.229,
+          "at_s_authored": 0.8,
+          "description": "The weathered posts snap into a three-dimensional wireframe.",
+          "item_ids": [
+            "walkway",
+            "capture"
+          ]
+        },
+        {
+          "at_s": 5.53,
+          "at_s_authored": 3.6,
+          "description": "Daylight collapses to night and the traveler path keeps drawing.",
+          "item_ids": [
+            "walkway",
+            "traveler"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 365,
+          "label": "day-night-walkway",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": true,
+                "mode": "wireframe"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "tracked-path",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "trail",
+                "carry": "bag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "modeled-volume",
+          "items": [
+            {
+              "id": "zone",
+              "kind": "captureZone",
+              "props": {
+                "mode": "model",
+                "label": "3D CAPTURE ZONE"
+              }
+            }
+          ]
+        },
+        {
+          "z": 22,
+          "label": "zone-aperture",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "volume",
+                "label": "PEDESTRIAN MOVEMENT"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s5",
+      "start_s": 24.98,
+      "duration_s": 5.14,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "riseWith",
+      "camera_secondary": "orbitReveal",
+      "groundY": 1080,
+      "weather": "night",
+      "seed": 910,
+      "vo": "The partners also analyzed whether facial images were suitable for biometric matching.",
+      "vo_claims": [
+        "c5"
+      ],
+      "super": "SUITABILITY FOR MATCHING",
+      "super_claim": "c5",
+      "beat": "revelation",
+      "story_role": "consequence",
+      "visual_family": "suitability-gate",
+      "payload_mode": "mixed",
+      "hero": "one captured face meeting a suitability gate",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "neutral"
+        }
+      ],
+      "on_screen": "The amber face tile rises from the moving traveler, enters a suitability gate, and stops before a separate matching chamber.",
+      "what_moves": "The face tile lifts, rotates, receives a suitability mark, and the matching chamber remains visibly one step farther away.",
+      "visual_sentence": {
+        "subject": "one facial image",
+        "action": "moves through a suitability gate and stops before biometric matching",
+        "emotion": "precision without false certainty",
+        "annotation": "IMAGE → SUITABLE? → MATCH"
+      },
+      "visual_proof": {
+        "mute_takeaway": "A facial image is screened for suitability before the distinct biometric matching step.",
+        "must_show": [
+          {
+            "concept": "facial image suitability pipeline",
+            "item_ids": [
+              "pipeline"
+            ]
+          },
+          {
+            "concept": "biometric matching capture frame",
+            "item_ids": [
+              "capture"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The face tile enters the suitability gate and the matching chamber stays separate.",
+          "item_ids": [
+            "pipeline",
+            "capture"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.822,
+          "at_s_authored": 0.8,
+          "description": "The face tile lifts out of the travel path.",
+          "item_ids": [
+            "capture",
+            "pipeline"
+          ]
+        },
+        {
+          "at_s": 3.598,
+          "at_s_authored": 3.5,
+          "description": "The suitability gate marks the image while matching remains one chamber ahead.",
+          "item_ids": [
+            "pipeline"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "fading-walkway",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": true,
+                "mode": "fade"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "traveler-origin",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "origin",
+                "carry": "bag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "suitability-pipeline",
+          "items": [
+            {
+              "id": "pipeline",
+              "kind": "suitabilityPipeline",
+              "props": {
+                "label": "IMAGE SUITABILITY",
+                "next": "BIOMETRIC MATCHING"
+              }
+            }
+          ]
+        },
+        {
+          "z": 22,
+          "label": "face-source",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "source",
+                "label": ""
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s6",
+      "start_s": 30.12,
+      "duration_s": 3.86,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "craneDown",
+      "camera_secondary": "orbitReveal",
+      "groundY": 1080,
+      "weather": "night",
+      "seed": 911,
+      "vo": "CBP said capture exceeded expectations.",
+      "vo_claims": [
+        "c9"
+      ],
+      "super": "CBP SAID CAPTURE EXCEEDED EXPECTATIONS",
+      "super_claim": "c9",
+      "beat": "emotion",
+      "story_role": "consequence",
+      "visual_family": "agency-claim-iris",
+      "payload_mode": "picture",
+      "hero": "the agency claim circling an opening camera iris",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "guarded"
+        }
+      ],
+      "on_screen": "The agency phrase flashes across a lens as the camera iris opens over the same physical walkway.",
+      "what_moves": "The claim circles the iris, the aperture opens, and the inactive camera columns recede behind it.",
+      "visual_sentence": {
+        "subject": "CBP's account of capture performance",
+        "action": "places the bright agency claim inside the camera iris before the evidentiary turn",
+        "emotion": "a brief lift held at attribution distance",
+        "annotation": "CBP SAID"
+      },
+      "visual_proof": {
+        "mute_takeaway": "CBP described capture as exceeding expectations; the phrase remains visibly attributed to the agency.",
+        "must_show": [
+          {
+            "concept": "capture exceeded expectations iris",
+            "item_ids": [
+              "capture"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The attributed phrase circles the lens as the iris opens.",
+          "item_ids": [
+            "capture",
+            "cameras"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.54,
+          "at_s_authored": 0.7,
+          "description": "The attributed agency phrase enters the camera iris.",
+          "item_ids": [
+            "capture"
+          ]
+        },
+        {
+          "at_s": 1.93,
+          "at_s_authored": 2.5,
+          "description": "The iris opens past the resting assessment cameras.",
+          "item_ids": [
+            "capture",
+            "cameras"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "darkened-walkway",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": true,
+                "mode": "dim"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "assessment-cameras",
+          "items": [
+            {
+              "id": "cameras",
+              "kind": "cameraArray",
+              "props": {
+                "mode": "rest",
+                "active": false
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "traveler-through-claim",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "behind"
+              }
+            }
+          ]
+        },
+        {
+          "z": 22,
+          "label": "opening-iris",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "iris",
+                "label": "EXCEEDED EXPECTATIONS"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s7",
+      "start_s": 33.98,
+      "duration_s": 6.72,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "orbitReveal",
+      "camera_secondary": "truckAcross",
+      "groundY": 1080,
+      "weather": "night",
+      "seed": 915,
+      "vo": "The article published no numerical accuracy rate, image-retention period, or final future-deployment selection.",
+      "vo_claims": [
+        "c10"
+      ],
+      "super": "NOT PUBLISHED IN THE ARTICLE",
+      "super_claim": "c10",
+      "beat": "emotion",
+      "story_role": "limit",
+      "visual_family": "three-open-disclosure-windows",
+      "payload_mode": "mixed",
+      "hero": "three staggered evidence windows left visibly open",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "guarded"
+        }
+      ],
+      "on_screen": "Three separate windows open along the physical walkway for the accuracy rate, retention period, and future-selection decision the article did not publish.",
+      "what_moves": "The three disclosure windows arrive one at a time, then a NOT PUBLISHED marker lands after the viewer has counted all three.",
+      "visual_sentence": {
+        "subject": "three missing public disclosures",
+        "action": "opens separate windows for accuracy, retention and future selection before marking the set unpublished",
+        "emotion": "the quiet drop from promise to proof",
+        "annotation": "NOT PUBLISHED"
+      },
+      "visual_proof": {
+        "mute_takeaway": "The article leaves the accuracy rate, image-retention period and final future-selection decision unpublished.",
+        "must_show": [
+          {
+            "concept": "accuracy retention metrics blind",
+            "item_ids": [
+              "metrics"
+            ]
+          },
+          {
+            "concept": "future selection metrics blind",
+            "item_ids": [
+              "metrics"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Accuracy, retention and future selection open as three distinct blank fields before the unpublished marker lands.",
+          "item_ids": [
+            "metrics"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.806,
+          "at_s_authored": 0.6,
+          "description": "The accuracy-rate window opens without a published number.",
+          "item_ids": [
+            "metrics"
+          ]
+        },
+        {
+          "at_s": 2.688,
+          "at_s_authored": 2.0,
+          "description": "The image-retention window opens without a published period.",
+          "item_ids": [
+            "metrics"
+          ]
+        },
+        {
+          "at_s": 4.301,
+          "at_s_authored": 3.2,
+          "description": "The future-selection window opens without a final choice.",
+          "item_ids": [
+            "metrics"
+          ]
+        },
+        {
+          "at_s": 5.376,
+          "at_s_authored": 4.0,
+          "description": "A NOT PUBLISHED marker lands after all three windows are visible.",
+          "item_ids": [
+            "metrics"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "darkened-walkway",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": true,
+                "mode": "dim"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "assessment-cameras",
+          "items": [
+            {
+              "id": "cameras",
+              "kind": "cameraArray",
+              "props": {
+                "mode": "rest",
+                "active": false
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "traveler-behind-disclosures",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "behind"
+              }
+            }
+          ]
+        },
+        {
+          "z": 90,
+          "label": "staggered-open-evidence-windows",
+          "items": [
+            {
+              "id": "metrics",
+              "kind": "metricsBlind",
+              "props": {
+                "rows": [
+                  "ACCURACY RATE",
+                  "RETENTION PERIOD",
+                  "FUTURE SELECTION"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s8",
+      "start_s": 40.7,
+      "duration_s": 3.34,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "truckAcross",
+      "camera_secondary": "riseWith",
+      "groundY": 1080,
+      "weather": "late",
+      "seed": 912,
+      "vo": "U.S. citizens could take an opt-out lane instead.",
+      "vo_claims": [
+        "c8"
+      ],
+      "super": "OPT-OUT LANE",
+      "super_claim": "c8",
+      "beat": "motion",
+      "story_role": "agency",
+      "visual_family": "split-walkway-choice",
+      "payload_mode": "picture",
+      "hero": "one traveler peeling away from the capture zone",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "decisive"
+        }
+      ],
+      "on_screen": "The walkway divides into a lit capture path and a blue opt-out path; the same traveler takes the turn while the camera frame continues straight.",
+      "what_moves": "The floor opens into two paths, the traveler bends into the blue lane, and the amber capture frame overshoots along the other route.",
+      "visual_sentence": {
+        "subject": "the opt-out lane",
+        "action": "peels one traveler away from the capture zone while the aperture continues forward",
+        "emotion": "a narrow but visible choice",
+        "annotation": "U.S. CITIZENS · OPT OUT"
+      },
+      "visual_proof": {
+        "mute_takeaway": "A marked opt-out lane lets a U.S. citizen leave the image-capture path.",
+        "must_show": [
+          {
+            "concept": "opt out lane",
+            "item_ids": [
+              "lanes"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The traveler turns into the opt-out path while the capture frame continues down the other lane.",
+          "item_ids": [
+            "lanes",
+            "traveler",
+            "capture"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.468,
+          "at_s_authored": 0.7,
+          "description": "The concrete path splits into capture and opt-out lanes.",
+          "item_ids": [
+            "lanes"
+          ]
+        },
+        {
+          "at_s": 2.138,
+          "at_s_authored": 3.2,
+          "description": "The traveler chooses the blue turn while the aperture misses the branch.",
+          "item_ids": [
+            "traveler",
+            "lanes",
+            "capture"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "forked-pergola",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": false,
+                "mode": "fork"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "lane-geometry",
+          "items": [
+            {
+              "id": "lanes",
+              "kind": "optOutLane",
+              "props": {
+                "capture": "CAPTURE AREA",
+                "optout": "OPT-OUT LANE"
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "traveler-turn",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "branch",
+                "carry": "bag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 22,
+          "label": "aperture-overshoot",
+          "items": [
+            {
+              "id": "capture",
+              "kind": "captureFrame",
+              "props": {
+                "mode": "overshoot",
+                "label": "CAPTURE AREA"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s9",
+      "start_s": 44.04,
+      "duration_s": 8.46,
+      "region": "south_texas",
+      "county": "Hidalgo",
+      "camera_strategy": "riseWith",
+      "camera_secondary": "dollyThrough",
+      "groundY": 1080,
+      "weather": "night",
+      "seed": 913,
+      "vo": "The assessment supported CBP’s planning, but the article announced no final selection for future deployment.",
+      "vo_claims": [
+        "c3",
+        "c10"
+      ],
+      "super": "NO FINAL SELECTION ANNOUNCED",
+      "super_claim": "c10",
+      "beat": "revelation",
+      "story_role": "close",
+      "visual_family": "unfinished-selection-gate",
+      "payload_mode": "picture",
+      "hero": "the empty selection bracket beyond a completed walk",
+      "cast": [
+        {
+          "id": "traveler",
+          "emotion": "released"
+        }
+      ],
+      "on_screen": "The traveler becomes a small figure beyond the pergola while the assessment camera array sits behind an unlatched CBP sequence: assessment, planning, selection.",
+      "what_moves": "The traveler clears the last post, the assessment and planning lights travel forward, and the article's final-selection bracket remains dark as the camera rises away.",
+      "visual_sentence": {
+        "subject": "the future CBP selection",
+        "action": "remains an open future-deployment bracket after the traveler completes the assessment walk",
+        "emotion": "resolved motion with unresolved authority",
+        "annotation": "ASSESSMENT → PLANNING → ?"
+      },
+      "visual_proof": {
+        "mute_takeaway": "The walk is complete but the CBP deployment decision remains at planning rather than final selection.",
+        "must_show": [
+          {
+            "concept": "CBP deployment decision",
+            "item_ids": [
+              "decision"
+            ]
+          },
+          {
+            "concept": "camera array",
+            "item_ids": [
+              "cameras"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The traveler exits while the decision track advances only from assessment to planning and stops before selection.",
+          "item_ids": [
+            "traveler",
+            "decision",
+            "cameras"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.354,
+          "at_s_authored": 0.8,
+          "description": "The traveler crosses beyond the final pergola post.",
+          "item_ids": [
+            "traveler"
+          ]
+        },
+        {
+          "at_s": 6.091,
+          "at_s_authored": 3.6,
+          "description": "The decision pulse reaches planning and stops before the empty selection bracket.",
+          "item_ids": [
+            "decision",
+            "cameras"
+          ]
+        }
+      ],
+      "planes": [
+        {
+          "z": 360,
+          "label": "last-pergola-view",
+          "items": [
+            {
+              "id": "walkway",
+              "kind": "pergolaWalkway",
+              "props": {
+                "night": true,
+                "mode": "exit"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "camera-array-at-rest",
+          "items": [
+            {
+              "id": "cameras",
+              "kind": "cameraArray",
+              "props": {
+                "mode": "rest",
+                "active": false
+              }
+            }
+          ]
+        },
+        {
+          "z": 105,
+          "label": "completed-walk",
+          "items": [
+            {
+              "id": "traveler",
+              "kind": "travelerFlow",
+              "props": {
+                "mode": "exit",
+                "carry": "bag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 22,
+          "label": "unfinished-selection",
+          "items": [
+            {
+              "id": "decision",
+              "kind": "deploymentDecision",
+              "props": {
+                "stage": "planning",
+                "selected": false,
+                "actor": "CBP"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.0
+    }
+  ],
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.28,
+      "end": 4.8,
+      "text": "At Progreso, the biometric test had to account for travelers’ walking pace.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 5.5,
+      "end": 10.38,
+      "text": "On September 1, the agency published its account of the operational assessment at the bridge.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 11.12,
+      "end": 15.22,
+      "text": "Cameras were mounted at different heights, and the test had to account for hats,",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 15.36,
+      "end": 16.86,
+      "text": "sunglasses, and umbrellas.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 17.58,
+      "end": 22.04,
+      "text": "AI and other technologies modeled the capture zone and observed pedestrian movement.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 22.74,
+      "end": 24.32,
+      "text": "Tests also ran after dark.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 25.26,
+      "end": 29.34,
+      "text": "The partners also analyzed whether facial images were suitable for biometric matching.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 30.4,
+      "end": 33.38,
+      "text": "CBP said capture exceeded expectations.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 34.26,
+      "end": 38.2,
+      "text": "The article published no numerical accuracy rate, image-retention period,",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c10",
+      "start": 38.46,
+      "end": 40.06,
+      "text": "or final future-deployment selection.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c11",
+      "start": 40.98,
+      "end": 43.4,
+      "text": "U.S. citizens could take an opt-out lane instead.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c12",
+      "start": 44.32,
+      "end": 49.7,
+      "text": "The assessment supported CBP’s planning, but the article announced no final selection for future deployment.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 9,
+    "on_measured_word_starts": 9,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}
