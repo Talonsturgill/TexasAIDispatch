@@ -8,7 +8,7 @@ THE VIDEO
   Poster image        https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-09-06/poster.png
   Poster, small       https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-09-06/poster-540.jpg
 
-  52.5 seconds. Master 1080x1920, 21.7 MB. Phone 720x1280, 9.4 MB.
+  57.5 seconds. Master 1080x1920, 21.7 MB. Phone 720x1280, 9.4 MB.
   H.264 MP4 with burned captions, continuous narration, sourced music and original sound design.
 
 THE CAPTION, TO POST WITH IT
@@ -61,7 +61,7 @@ THE READ AND MIX
 
 Gemini Charon was selected after two complete takes and verbatim transcript soundchecks. Twelve
 voice calls include synthesis and independent readback. Twelve caption cues were forced-aligned to
-measured speech. The 52.5-second mix contains ten motivated sound effects and the sourced track
+measured speech. The 57.5-second film contains ten motivated sound effects and the sourced track
 "Deep Haze" by Kevin MacLeod, kept 19 dB below the voice. Final loudness is -18.52 LUFS. The mix
 preserves its peaks instead of using a limiter to force the final 2.52 dB to the target.
 

@@ -1122,6 +1122,8 @@ tool call nothing can inspect afterwards.
 
 1. **The media links.** The film on the site, the full master, the phone rendition, the
    poster. Runtime, dimensions and both file sizes, so the owner knows what they are handling.
+   Runtime means the shipped MP4, including the credit tail. Derive it from storyboard
+   `runtime_s + credits_s` or probe the final film; never copy the shorter narration/mix runtime.
 2. **The caption**, fenced between `-----BEGIN CAPTION-----` and `-----END CAPTION-----` so it
    can be copied without editing. It is published copy the moment it is pasted, so every house
    rule applies to it.
