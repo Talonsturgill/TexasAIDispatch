@@ -46,6 +46,7 @@ Exit 0 the email is postable, 1 it is not, 2 the checker could not run.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -134,6 +135,22 @@ def check(email: Path, date: str) -> list[str]:
     if "talonsturgill.github.io" in text.lower():
         p.append("the email links the github.io host, which carries the owner's personal name "
                  "and is never published on any surface")
+
+    # THE FILM RUNTIME, NOT THE MIX RUNTIME. The storyboard's runtime_s ends where
+    # narration and mix end; credits_s is the held attribution tail in the shipped MP4.
+    # The September 6 draft initially reported only runtime_s and silently dropped the
+    # five-second credit tail. Read both fields so the human sees the asset's real length.
+    board = email.parent / "storyboard.json"
+    if board.exists():
+        try:
+            payload = json.loads(board.read_text(encoding="utf-8"))
+            film_runtime = float(payload["runtime_s"]) + float(payload.get("credits_s", 0))
+            expected = f"{film_runtime:.1f} seconds"
+            if expected not in text:
+                p.append(f"the email does not report the shipped film runtime ({expected}). "
+                         "Use storyboard runtime_s plus credits_s, never the shorter mix length.")
+        except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
+            p.append(f"the shipped storyboard cannot establish the film runtime: {exc}")
 
     # THE POST COMES FIRST. Position, not presence.
     first_link = next((i for i, ln in enumerate(lines, 1)
@@ -227,6 +244,18 @@ Panel mean 7.193.
                      encoding="utf-8")
         ok("...but a clock time is left alone, because a colon between digits is a number",
            not check(f, d), str(check(f, d)))
+
+        # RUNTIME INCLUDES THE CREDIT TAIL. The mix and narration can end before the
+        # actual video, so runtime_s on its own is not the duration the owner handles.
+        board = Path(td) / "storyboard.json"
+        board.write_text(json.dumps({"runtime_s": 40.0, "credits_s": 5.0}), encoding="utf-8")
+        right_runtime = good.replace("  Poster   ", "  45.0 seconds.\n  Poster   ")
+        f.write_text(right_runtime, encoding="utf-8")
+        ok("the shipped runtime includes the credit tail", not check(f, d), str(check(f, d)))
+        f.write_text(right_runtime.replace("45.0 seconds", "40.0 seconds"), encoding="utf-8")
+        probs = check(f, d)
+        ok("the narration-only runtime is refused",
+           any("shipped film runtime" in x for x in probs), str(probs))
 
     print(f"email_check: {fails} failure(s)")
     return 1 if fails else 0
