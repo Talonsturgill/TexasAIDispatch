@@ -1,6 +1,9 @@
 # Music — real Texas musicians, used under a licence, paid for with the credit
 
-`scripts/music.py` enforces this. `config/music/tracks.json` is the vetted registry.
+`scripts/source_music.py` sources and validates real recordings from the vetted candidate pool.
+`scripts/music.py` enforces the registry, story fit, attribution, mix binding and shipping gate.
+`config/music/sources.json` is the source pool; `config/music/tracks.json` is the downloaded,
+validated registry.
 This is the approach: what the credit actually buys, what may be used, where to find it, and
 how to vet a track before it goes near a film.
 
@@ -70,8 +73,11 @@ with the date it was verified.
 3. Confirm the licence URL matches the licence name.
 4. Confirm the uploader is the rights holder, or that the page says so. A re-upload licenses nothing.
 5. If it claims public domain, write down which right and why.
-6. Record it in `config/music/tracks.json` with `verified_on` set to the date you checked.
-7. Run `python3 scripts/music.py --check`. It refuses an incomplete entry.
+6. Record its complete metadata in `config/music/sources.json`; never put a synthesized or
+   project-original cue in this pool.
+7. Run `python3 scripts/source_music.py --check`, then source it. The source command downloads and
+   decodes the exact audio before writing a usable registry row.
+8. Run `python3 scripts/music.py --check`. It refuses an incomplete or synthetic enabled entry.
 
 ## What the search actually found (verified 2026-08-14)
 
@@ -160,7 +166,9 @@ fields, so the credit generator treats it identically.
 ## The workflow
 
 ```
-python3 scripts/music.py --list                  # what is vetted
+python3 scripts/source_music.py --brief out/dispatch/music_brief.json
+python3 scripts/music.py --select --brief out/dispatch/music_brief.json
+python3 scripts/music.py --fit <track_id> --brief out/dispatch/music_brief.json
 python3 scripts/music.py --credits <track_id>    # the exact credit block
 python3 scripts/prepare_music.py --track <track_id> --out out/dispatch/music_bed.wav \
   --manifest out/dispatch/music_bed.json
@@ -171,11 +179,13 @@ python3 scripts/music.py --verify-package out/dispatch/credits.txt \
   --master out/dispatch/mix.wav
 ```
 
-The credit renders as an end card, generated from the registry. It wraps and never breaks a URL
-across two lines, because the licence URL is part of the attribution and half a URL is not one.
+The credit renders as an end card, generated from the registry. It names the track and artist,
+shows a compact human source label, and names the licence. The full source evidence URL remains in
+the registry rather than becoming a raw repository/blob URL or commit SHA on screen.
 
-**If nothing in the registry fits, ship with no bed.** Silence under a good read is better than a
-licence nobody checked, and the empty registry is a legitimate state rather than a failure.
+**If nothing in the source pool fits, add a properly licensed real track.** An unlicensed or
+synthetic bed is never an expedient. If a real legal track still cannot be sourced, stop the run at
+`needs_review`; do not publish a downgraded mix.
 
 ## What this is not
 
@@ -183,3 +193,5 @@ This is not a case for generating music. A synthesized bed avoids the licensing 
 loses the thing that made the question worth answering, which is that a real player from this
 state sounds like this state. The sound effects are synthesized because there is no foley artist
 being credited; the music is sourced because there is a musician, and crediting them is the point.
+An old `project-original` row may remain disabled for history, but the gate refuses it if anyone
+enables it.

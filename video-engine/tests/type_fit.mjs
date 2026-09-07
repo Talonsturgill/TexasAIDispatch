@@ -123,6 +123,14 @@ try {
        P.wrapToWidth('FLASH FLOOD WARNING', 58, 9, true).length === 3);
     ok('an unbreakable word is kept whole and REPORTED rather than silently cut',
        P.overflows('ANTIDISESTABLISHMENTARIANISM', 58, 9, true).length === 1);
+    const sourceUrl = '(https://github.com/Talonsturgill/TexasAIDispatch/blob/'
+      + '40f17322f5779c37490eb50e948ea54951041733/scripts/score.py)';
+    const urlLines = P.wrapBreakableToWidth(sourceUrl, 924, 26);
+    ok('a commit-pinned credit URL continues inside the visible frame',
+       urlLines.length > 1 && urlLines.every((line) => P.widthOf(line, 26) <= 924),
+       JSON.stringify(urlLines));
+    ok('...and visual wrapping keeps every URL character exactly',
+       urlLines.join('') === sourceUrl, urlLines.join(''));
     ok('empty text is no lines rather than a crash', P.wrapToWidth('', 58, 9).length === 1);
 
     // THE MEASUREMENT CAN GO RED. The shipped layout is replayed: one line, no wrap.

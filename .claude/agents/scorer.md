@@ -27,6 +27,11 @@ story survives without the figure. Read `config/dispatch_rubric.yaml`.
 **Hard fails are absolute.** They are listed in the rubric and any one of them fails the film
 whatever the weighted score says.
 
+The numeral rule's sole exception is intentionally narrow: a licence version such as the one in
+`CC BY 4.0` is allowed only inside the `music.py`-generated credit after
+`music.py --verify-package` passes. It does not exempt source dates, internal record ids, commit
+SHAs, repository paths, or any other number in the film.
+
 Return `{score, ship, axes: {...}, hard_fails: [], weakest_axis, one_sentence_fix}`.
 
 `one_sentence_fix` is what the run acts on. Make it executable: a fix somebody can apply and

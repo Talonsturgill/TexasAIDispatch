@@ -595,20 +595,33 @@ a beat with a sound that belongs to nothing. `knowledge/texas/SOUND.md` is the d
 mistake each sound corrects. If a scene needs a Texas sound the library lacks, add it to
 `scripts/foley.py` (with its `--self-test` staying green) rather than reaching for a generic cue.
 
-### MUSIC IS OPT-IN; NO BED IS THE DEFAULT
+### REAL, ATTRIBUTED MUSIC IS REQUIRED
 
-The August film used the only audio file on disk even though fast, noisy 1923 fiddle did not fit a
-modern infrastructure story. That fallback is gone. Start with no music. A bed is allowed only
-when `out/dispatch/music_brief.json` declares `moods`, `use`, `energy`, `era`, `topics`, and
-`avoid`, and an **enabled, playable** registry asset fits every field:
+Music is part of the editorial direction, not a generic layer and never a synthesized fallback.
+Every Dispatch must use a real recording by a named artist under a licence that permits commercial
+use, editing and synchronization. `out/dispatch/music_brief.json` declares `moods`, `use`,
+`energy`, `era`, `topics`, and `avoid`. Source a fresh fitting track from the vetted candidate
+library; this downloads and decodes the exact asset, validates its duration, avoids the ten most
+recent published beds when another fit exists, and registers complete attribution metadata:
+
+```
+python3 scripts/source_music.py --brief out/dispatch/music_brief.json
+```
+
+If no candidate fits, research and add a properly licensed real track to
+`config/music/sources.json`, then run the source step again. Do not synthesize a replacement, reuse
+the first file on disk, or silently ship without music. If no legal real track can be sourced after
+a genuine attempt, the run ends `needs_review` with the playable video package; it is not published.
+
+After sourcing, prove that the downloaded, enabled registry asset fits every field:
 
 ```
 python3 scripts/music.py --select --brief out/dispatch/music_brief.json
 ```
 
-`NO_BED` is a successful, preferred result. If an id is returned, prove it explicitly, generate
-its credit, prepare the source as a hash-bound 48 kHz WAV, and pass the prepared file, manifest,
-id, and registry `mix_gap_db` to the mixer:
+An id must be returned. Prove it explicitly, generate its credit, prepare the source as a
+hash-bound 48 kHz WAV, and pass the prepared file, manifest, id, and registry `mix_gap_db` to the
+mixer:
 
 ```
 python3 scripts/music.py --fit <track_id> --brief out/dispatch/music_brief.json
@@ -621,15 +634,17 @@ python3 scripts/mix.py ... --bed out/dispatch/music_bed.wav --bed-track <track_i
 ```
 
 The mixer measures the voice and bed, places the bed at that relative gap, then ducks it. There is
-no universal `0.35` scalar. Never hand-type a credit. Before delivery, a film with music must run
+no universal `0.35` scalar. Never hand-type a credit: use the exact generated title, artist,
+compact source label and licence. Credits must not contain internal Docket record ids, raw
+TexasAIDispatch repository/blob links, commit SHAs or other implementation identifiers. Before
+delivery, every film must run
 `music.py --verify-package out/dispatch/credits.txt --mix out/dispatch/mix.json \
 --board out/dispatch/storyboard.json --master out/dispatch/mix.wav`; this binds the exact mixed
 track, decoded asset, approved relative level, rendered board credit, and master to the registry.
-A film without music carries neither a music credit nor a bed.
 
 Only CC0, public-domain recordings with evidence, and CC BY are allowed. Missing files, disabled
-catalogue rows, licence defects, competing vocals, era mismatch, and story contexts in a track's
-`avoid` list all resolve to no bed.
+catalogue rows, project-original synthesis, licence defects, competing vocals, era mismatch, and
+story contexts in a track's `avoid` list are all unshippable.
 
 ### CAPTIONS
 

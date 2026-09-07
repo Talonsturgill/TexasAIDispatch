@@ -53,10 +53,9 @@ STANDALONE = {
     # is the opposite of what it exists for. Its answer lives in prompts/dispatch_routine.md
     # and in out/dispatch/render_bench.json.
     "render_bench.py": "a container-level benchmark, run when the machine changes",
-    # The source generator for the checked-in, project-original Texas signal bed. A daily run
-    # selects and verifies the committed WAV through music.py; rebuilding an identical tracked
-    # asset every morning would only dirty the checkout and make the wake contract impossible.
-    "score.py": "rebuilds the committed original score only when that score is intentionally changed",
+    # Historical only. Project-original synthesis is now an explicitly unshippable fallback;
+    # source_music.py obtains real, named-artist recordings for every daily run.
+    "score.py": "historical generator for an explicitly disabled and unshippable old score",
 }
 
 

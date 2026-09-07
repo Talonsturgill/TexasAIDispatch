@@ -20,6 +20,10 @@ WHAT MAY BE USED, and this is the part that is easy to get wrong.
     CC0 / public domain dedication  no attribution legally required; we credit anyway
     CC BY (any version)             attribution required, commercial ok, edits ok
 
+  NOT A SHIPPABLE MUSIC BED
+    project-original synthesis     this is the generic fallback that repeatedly degraded the
+                                   show. Keep old rows readable, but never enable or ship one.
+
   REFUSED, each for a specific reason rather than caution
     CC BY-NC (any NonCommercial)  the Dispatch supports a commercial practice, so the
                                   NonCommercial term is broken by our own use of it
@@ -69,9 +73,11 @@ TODAY_YEAR = date.today().year
 # reason, which is printed on refusal so the answer is never "because the script said
 # no". Keyed by a normalised id.
 LICENCES = {
+    # Historical rows remain parseable so the registry can explain their status. An enabled
+    # project-original row is refused explicitly in problems_with(): the daily show uses a real
+    # recording by a named musician, never this old crash-net path.
     "project-original": {"ok": True, "name": "Project original", "url": "",
-                         "why": "synthesised in this repository from original code; no "
-                                "third-party recording or sample"},
+                         "why": "historical project synthesis; never a shippable Dispatch bed"},
     "cc0": {"ok": True, "name": "CC0 1.0",
             "url": "https://creativecommons.org/publicdomain/zero/1.0/",
             "why": "public domain dedication, no conditions"},
@@ -163,7 +169,9 @@ def credit_line(track: dict) -> str:
     name = lic.get("name", track.get("licence", "?"))
     bits = [f'"{track["title"]}" by {track["artist"]}']
     if track.get("source_url"):
-        bits.append(f'({track["source_url"]})')
+        # A compact human source belongs on screen. The full evidence URL stays in the registry,
+        # but raw repository paths, blob SHAs and tracking-heavy URLs do not belong in credits.
+        bits.append(f'({track.get("source_label") or track["source_url"]})')
     if str(track.get("licence")).lower() == "project-original":
         bits.append("- Project original, synthesised in the Texas AI Docket repository")
     elif str(track.get("licence")).lower() == "public_domain":
@@ -220,6 +228,9 @@ def problems_with(track: dict) -> list[str]:
         return out
     if not lic["ok"]:
         out.append(f"{tid}: {lic['name']} is refused. {lic['why']}")
+    if track.get("enabled") is True and str(track.get("licence")).lower() == "project-original":
+        out.append(f"{tid}: project-original synthesis is not a shippable music bed. "
+                   "Source a real recording by a named artist and generate its attribution.")
     if str(track.get("licence")).lower() == "public_domain":
         if not track.get("pd_basis"):
             out.append(f"{tid}: claims public domain without pd_basis. Say WHICH right is "
@@ -420,6 +431,13 @@ def self_test() -> int:
        all(s in credit_line(good) for s in
            ("Caliche Road", "A Texan", "example.org/t1", "CC BY 4.0")))
     ok("and it declares that we changed it", "trimmed and synced" in credit_line(good))
+    ok("an enabled project-original fallback is unshippable",
+       any("not a shippable music bed" in p for p in problems_with(
+           dict(good, licence="project-original", licence_url=""))))
+    labelled = dict(good, source_label="example.org")
+    ok("a screen credit uses the compact source label instead of a raw URL",
+       "(example.org)" in credit_line(labelled)
+       and labelled["source_url"] not in credit_line(labelled))
 
     # THE REFUSALS, each for its own reason
     for lic, word in (("cc-by-nc", "NonCommercial"), ("cc-by-nd", "NoDerivatives"),

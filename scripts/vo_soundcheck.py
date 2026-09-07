@@ -96,11 +96,41 @@ MAX_OVERAGE = 0.04
 MAX_INSERTION = 0.06
 
 
+def speech_spelling(s: str) -> str:
+    """Canonicalise punctuation that cannot change what the narrator said.
+
+    The locked script is typographic copy while both Gemini's transcript and whisper.cpp
+    return plain text.  Treating a curly possessive as two words, or ``U.S.`` as two words
+    while ``US`` is one, made a verbatim take fail on typography rather than speech.
+    """
+    s = (s or "").replace("\u2018", "'").replace("\u2019", "'")
+    return re.sub(r"\b(?:[A-Za-z]\.){2,}", lambda m: m.group(0).replace(".", ""), s)
+
+
 def normalise(s: str) -> list[str]:
-    return re.findall(r"[a-z0-9']+", s.lower())
+    return re.findall(r"[a-z0-9']+", speech_spelling(s).lower())
 
 
-def fidelity_tokens(s: str) -> list[str]:
+def alias_map(aliases: list[dict] | None) -> dict[str, str]:
+    """Validate sourced, single-name ASR spellings and return heard -> script.
+
+    This is deliberately exact rather than fuzzy.  It can reconcile an ASR spelling such as
+    ``Progresso`` after the pronunciation has been sourced; it cannot excuse a dropped word,
+    an invented phrase, a number, or a timing edit.
+    """
+    result: dict[str, str] = {}
+    for row in aliases or []:
+        heard, script = normalise(row.get("heard", "")), normalise(row.get("script", ""))
+        if (len(heard) != 1 or len(script) != 1
+                or any(tok.isdigit() for tok in heard + script)
+                or not row.get("reason") or not row.get("source")):
+            raise ValueError(
+                "soundcheck aliases must be sourced single-word nonnumeric ASR spellings")
+        result[heard[0]] = script[0]
+    return result
+
+
+def fidelity_tokens(s: str, aliases: list[dict] | None = None) -> list[str]:
     """Words used by the prose-fidelity checks, with spoken figures removed.
 
     Figures have their own stricter comparison below, where spelled-out and digit forms are
@@ -111,7 +141,9 @@ def fidelity_tokens(s: str) -> list[str]:
     """
     out: list[str] = []
     live_figure = False
-    for tok in figure_tokens(s):
+    aliases_by_heard = alias_map(aliases)
+    for raw_tok in figure_tokens(s):
+        tok = aliases_by_heard.get(raw_tok, raw_tok)
         if tok[0].isdigit() or tok in _UNITS or tok in _TENS or tok in _SCALES:
             live_figure = True
             continue
@@ -122,13 +154,13 @@ def fidelity_tokens(s: str) -> list[str]:
     return out
 
 
-def word_accuracy(script: str, transcript: str) -> float:
+def word_accuracy(script: str, transcript: str, aliases: list[dict] | None = None) -> float:
     """Share of the SCRIPT's words that survived into the transcript, in order.
 
     A plain set comparison would score a take that says every word in a scrambled order as
     perfect, so this is a longest-common-subsequence ratio rather than a bag of words.
     """
-    a, b = fidelity_tokens(script), fidelity_tokens(transcript)
+    a, b = fidelity_tokens(script, aliases), fidelity_tokens(transcript, aliases)
     if not a:
         return 0.0
     # LCS length, O(len(a) * len(b)) which is fine for a sixty second script
@@ -141,7 +173,7 @@ def word_accuracy(script: str, transcript: str) -> float:
     return prev[len(b)] / len(a)
 
 
-def insertion_rate(script: str, transcript: str) -> float:
+def insertion_rate(script: str, transcript: str, aliases: list[dict] | None = None) -> float:
     """Share of the TRANSCRIPT that is NOT in the script.
 
     THE HOLE IN word_accuracy. LCS measures how much of `a` survives into `b`, and it is
@@ -155,7 +187,7 @@ def insertion_rate(script: str, transcript: str) -> float:
     grep only catches it if the invention happens to use direction vocabulary, and a short one
     fits inside the 4 percent duration tolerance.
     """
-    a, b = fidelity_tokens(script), fidelity_tokens(transcript)
+    a, b = fidelity_tokens(script, aliases), fidelity_tokens(transcript, aliases)
     if not b:
         return 0.0
     # Multiset difference: a doubled word counts once as an insertion, which is right, because
@@ -216,7 +248,8 @@ _ORDINALS = dict(zip(
 
 
 def figure_tokens(text: str) -> list[str]:
-    tokens = re.findall(r"\d[\d,]*(?:st|nd|rd|th)?\b|[a-z']+", (text or "").lower())
+    tokens = re.findall(r"\d[\d,]*(?:st|nd|rd|th)?\b|[a-z']+",
+                        speech_spelling(text).lower())
     return [re.sub(r"(\d)(?:st|nd|rd|th)$", r"\1", tok) if tok[0].isdigit()
             else _ORDINALS.get(tok, tok) for tok in tokens]
 
@@ -271,9 +304,10 @@ def figure_mismatch(script: str, transcript: str) -> list[str]:
     return problems
 
 
-def score_take(take: dict, script: str, cut_seconds: float) -> dict:
+def score_take(take: dict, script: str, cut_seconds: float,
+               aliases: list[dict] | None = None) -> dict:
     """Grade one take. Returns the verdict and every measurement behind it."""
-    acc = word_accuracy(script, take.get("transcript", ""))
+    acc = word_accuracy(script, take.get("transcript", ""), aliases)
     tags = spoken_tags(take.get("transcript", ""))
     var = float(take.get("pitch_variance_semitones", 0.0))
     dur = float(take.get("duration_s", 0.0))
@@ -281,7 +315,7 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
 
     overage = (dur - cut_seconds) / cut_seconds if cut_seconds > 0 else 0.0
 
-    ins = insertion_rate(script, take.get("transcript", ""))
+    ins = insertion_rate(script, take.get("transcript", ""), aliases)
 
     fails = []
     if acc < 0.97:
@@ -346,8 +380,9 @@ def score_take(take: dict, script: str, cut_seconds: float) -> dict:
             "overage": round(overage, 4)}
 
 
-def choose(takes: list[dict], script: str, cut_seconds: float) -> dict:
-    scored = [score_take(t, script, cut_seconds) for t in takes]
+def choose(takes: list[dict], script: str, cut_seconds: float,
+           aliases: list[dict] | None = None) -> dict:
+    scored = [score_take(t, script, cut_seconds, aliases) for t in takes]
     passing = [s for s in scored if s["pass"]]
     passing.sort(key=lambda s: -s["rank"])
     return {"chosen": passing[0]["id"] if passing else None,
@@ -371,6 +406,30 @@ def self_test() -> int:
                 "pitch_variance_semitones": var, "duration_s": dur, "lufs": lufs}
 
     ok("a clean take passes", score_take(take("a"), script, 8.0)["pass"])
+
+    # Typography and ASR spelling are not speech errors.  The script uses smart punctuation,
+    # while both transcription engines return plain text; dotted initialisms are likewise one
+    # spoken unit whether the transcript keeps the dots or not.
+    typography = "Travelers’ pace shaped CBP’s test for U.S. citizens."
+    plain = "Travelers' pace shaped CBP's test for US citizens."
+    ok("smart apostrophes and dotted initialisms compare as the same speech",
+       word_accuracy(typography, plain) == 1.0,
+       str((fidelity_tokens(typography), fidelity_tokens(plain))))
+
+    sourced_alias = [{"heard": "Progresso", "script": "Progreso",
+                      "reason": "ASR spelling of a verified pronunciation",
+                      "source": "Texas Almanac pronunciation guide"}]
+    ok("a sourced single-name ASR spelling can reconcile without fuzzy matching",
+       word_accuracy("At Progreso today", "At Progresso today", sourced_alias) == 1.0)
+    ok("the same spelling difference still fails without the explicit alias",
+       word_accuracy("At Progreso today", "At Progresso today") < 1.0)
+    try:
+        alias_map([{"heard": "fifty", "script": "50", "reason": "not allowed",
+                    "source": "fixture"}])
+        bad_alias_refused = False
+    except ValueError:
+        bad_alias_refused = True
+    ok("a numeric alias is refused", bad_alias_refused)
 
     # THE ONE THAT ENDS A FILM.
     spoken = script + " excited"
@@ -497,6 +556,7 @@ def main() -> int:
     ap.add_argument("--takes", help="JSON file of rendered takes with their measurements")
     ap.add_argument("--script", help="the locked VO script")
     ap.add_argument("--cut", type=float, default=60.0, help="the cut length in seconds")
+    ap.add_argument("--aliases", help="sourced proper-name ASR spelling exceptions")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -507,11 +567,13 @@ def main() -> int:
     try:
         takes = json.loads(Path(a.takes).read_text(encoding="utf-8"))
         script = Path(a.script).read_text(encoding="utf-8")
+        aliases = json.loads(Path(a.aliases).read_text(encoding="utf-8")) if a.aliases else []
     except (OSError, json.JSONDecodeError) as exc:
         print(f"vo_soundcheck: cannot read inputs: {exc}", file=sys.stderr)
         return 2
 
-    res = choose(takes if isinstance(takes, list) else takes.get("takes", []), script, a.cut)
+    res = choose(takes if isinstance(takes, list) else takes.get("takes", []), script, a.cut,
+                 aliases)
     for t in res["takes"]:
         mark = "CHOSEN" if t["id"] == res["chosen"] else ("pass" if t["pass"] else "FAIL")
         print(f"  [{mark:>6}] {t['id']}  acc {t['accuracy']:.3f}  var {t['pitch_variance']:.2f}  "
