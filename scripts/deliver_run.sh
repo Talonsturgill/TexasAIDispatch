@@ -90,6 +90,8 @@ run_gate flow_check       python3 scripts/flow_check.py --board "$OUT/storyboard
     --sfx "$OUT/sfx_events.json"
 run_gate acoustic_alignment python3 scripts/vo_align.py --verify --wav "$OUT/mix.wav" \
     --voice "$OUT/mix_vo.wav" --script "$OUT/vo_script.txt" --out "$OUT" --cuts "$OUT/storyboard.json"
+run_gate music_sources    python3 scripts/source_music.py --check
+run_gate music_registry   python3 scripts/music.py --check
 # `--audio` wants mix.json, the mix REPORT, not mix.wav. Handed the wave file it dies on a
 # decode error rather than reporting all clear, which is the correct way for a gate to be
 # misused, and the invocation is written down here so the next run does not rediscover it.

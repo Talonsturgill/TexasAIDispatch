@@ -75,7 +75,9 @@ rubric:
     # inferred. This is a tightening, never a loosening: nothing that passed before on real
     # fetched evidence fails now.
     - a numeral on screen or in the script that does not appear in the fetched QUOTE of a
-      verified claim, rather than merely in a statement or value_text written about it
+      verified claim, rather than merely in a statement or value_text written about it; the sole
+      exception is a licence-version numeral inside the music.py-generated credit when
+      music.py --verify-package binds that exact credit to a verified registry row
     - a caption timing that was approximated, scaled or hand-shifted rather than force-aligned
     - audio time-stretched to fit a cut
     - a region that does not match the story's county

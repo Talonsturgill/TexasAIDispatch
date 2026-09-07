@@ -1077,6 +1077,115 @@ def observation_trace(seed=46):
     return normalize(fade(out, 30), 0.60)
 
 
+def concrete_footsteps(seed=47):
+    """One ordinary traveler crossing the concrete pedestrian bridge.
+
+    Alternating shoe bodies, short sole scrapes and a restrained bag rustle keep the
+    opening attached to a person already in motion. This is designed foley, not a
+    claim to be location sound from Progreso.
+    """
+    dur = 3.2
+    out = np.zeros(int(dur * SR))
+    r = rng_for(seed)
+    for i, at in enumerate((0.18, 0.70, 1.22, 1.75, 2.28, 2.82)):
+        body = biquad_bp(white(0.11, seed + i), 155 + (i % 2) * 28, 2.5)
+        body *= expdecay(0.11, 0.027)
+        sole = one_pole_lp(high_pass(white(0.15, seed + 20 + i), 700), 3800)
+        sole *= expdecay(0.15, 0.038)
+        step = np.zeros(max(len(body), len(sole)))
+        step[:len(body)] += body
+        step[:len(sole)] += sole * 0.22
+        place_into(out, fade(normalize(step), 3) * r.uniform(0.46, 0.62), at)
+    rustle = one_pole_lp(high_pass(white(dur, seed + 40), 380), 2600)
+    rustle *= (0.04 + 0.035 * np.sin(2 * np.pi * 1.92 * t_axis(dur)))
+    return normalize(fade(out + rustle, 70), 0.72)
+
+
+def camera_reacquire(seed=48):
+    """The visible staggered camera array losing and reacquiring a moving face.
+
+    A quiet physical lens motor changes pitch between two dry shutter-like locks.
+    It avoids a science-fiction scan tone: the subject is camera placement and
+    image capture, not an imaginary identity alarm.
+    """
+    dur = 1.65
+    out = np.zeros(int(dur * SR))
+    servo = sine(lambda t: 210 + 250 * np.sin(np.pi * np.clip(t / 1.0, 0, 1)), 1.0)
+    servo += biquad_bp(white(1.0, seed), 1250, 5) * 0.10
+    servo *= adsr(1.0, 0.05, 0.10, 0.58, 0.18, 0.65)
+    place_into(out, normalize(servo) * 0.34, 0.12)
+    for i, at in enumerate((0.38, 1.08)):
+        lock = biquad_bp(white(0.07, seed + i + 1), 1720 + i * 260, 4.5)
+        lock *= expdecay(0.07, 0.014)
+        body = biquad_bp(white(0.09, seed + i + 8), 310, 3) * expdecay(0.09, 0.026)
+        click = np.zeros(max(len(lock), len(body)))
+        click[:len(lock)] += lock
+        click[:len(body)] += body * 0.42
+        place_into(out, fade(normalize(click), 2) * 0.58, at)
+    return normalize(fade(out, 25), 0.74)
+
+
+def suitability_gate(seed=49):
+    """A visible facial-image tile entering the suitability gate before matching.
+
+    The tile slides on a paper-dry rail, a two-part gate closes, and a third chamber
+    remains audibly separate. The sequence reinforces the article's workflow without
+    inventing a pass result.
+    """
+    dur = 2.1
+    out = np.zeros(int(dur * SR))
+    slide = one_pole_lp(high_pass(white(0.82, seed), 420), 3300)
+    slide *= np.hanning(len(slide))
+    place_into(out, normalize(slide) * 0.25, 0.08)
+    for i, at in enumerate((0.78, 1.04)):
+        gate = biquad_bp(white(0.13, seed + i + 1), 360 + i * 90, 4)
+        gate *= expdecay(0.13, 0.035)
+        place_into(out, fade(normalize(gate), 3) * 0.62, at)
+    distant = sine(410, 0.24) * expdecay(0.24, 0.07)
+    place_into(out, fade(normalize(distant), 5) * 0.18, 1.55)
+    return normalize(fade(out, 35), 0.74)
+
+
+def lane_choice(seed=50):
+    """The concrete path visibly splitting into capture and opt-out lanes.
+
+    Two floor-marker strokes separate, then the traveler's footsteps turn into the
+    blue branch. It sounds like a path and a choice, not a generic transition.
+    """
+    dur = 1.9
+    out = np.zeros(int(dur * SR))
+    for i, (at, f0) in enumerate(((0.08, 760), (0.28, 1040))):
+        mark = biquad_bp(white(0.48, seed + i), f0, 3.5) * np.hanning(int(0.48 * SR))
+        place_into(out, normalize(mark) * 0.25, at)
+    for i, at in enumerate((0.78, 1.22, 1.62)):
+        step = biquad_bp(white(0.10, seed + 10 + i), 170 + i * 18, 2.7)
+        step *= expdecay(0.10, 0.026)
+        place_into(out, fade(normalize(step), 3) * (0.44 + i * 0.04), at)
+    return normalize(fade(out, 30), 0.68)
+
+
+def decision_stop(seed=51):
+    """The visible CBP decision track advancing to planning and stopping before selection.
+
+    Two grounded relay latches land, followed by an unresolved open contact. The last
+    node stays unclaimed; there is deliberately no triumphant completion tone.
+    """
+    dur = 2.2
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.22, 0.88)):
+        relay = biquad_bp(white(0.12, seed + i), 260 + i * 54, 3.5)
+        relay *= expdecay(0.12, 0.032)
+        edge = biquad_bp(white(0.05, seed + 8 + i), 1700, 5) * expdecay(0.05, 0.010)
+        event = np.zeros(max(len(relay), len(edge)))
+        event[:len(relay)] += relay
+        event[:len(edge)] += edge * 0.34
+        place_into(out, fade(normalize(event), 2) * 0.62, at)
+    open_contact = sine(188, 0.72) * expdecay(0.72, 0.28)
+    open_contact += sine(281, 0.72) * expdecay(0.72, 0.20) * 0.32
+    place_into(out, fade(normalize(open_contact), 8) * 0.24, 1.34)
+    return normalize(fade(out, 35), 0.70)
+
+
 SOUNDS = {
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
@@ -1105,6 +1214,11 @@ SOUNDS = {
     "test_press": (test_press, "oneshot", "a visible materials test press loading a coupon", ["materials", "test", "measurement", "laboratory"]),
     "pencil_scratch": (pencil_scratch, "oneshot", "a visible hand writing a hypothesis or interpretation", ["human", "judgment", "paper", "analysis"]),
     "observation_trace": (observation_trace, "oneshot", "sonification of a visible sensor observation graphic becoming an estimate", ["sensor", "estimate", "analysis", "illustration"]),
+    "concrete_footsteps": (concrete_footsteps, "oneshot", "one visible traveler walking on the concrete pedestrian bridge", ["traveler", "walk", "concrete", "bridge"]),
+    "camera_reacquire": (camera_reacquire, "oneshot", "the visible camera array and capture frame reacquiring a moving face", ["camera", "capture", "face", "motion"]),
+    "suitability_gate": (suitability_gate, "oneshot", "a visible facial image entering the suitability gate before biometric matching", ["facial_image", "suitability", "biometric", "matching"]),
+    "lane_choice": (lane_choice, "oneshot", "the visible concrete path splitting as a traveler enters the opt-out lane", ["traveler", "path", "opt_out", "lane"]),
+    "decision_stop": (decision_stop, "oneshot", "the visible CBP decision track stopping at planning before selection", ["CBP", "decision", "planning", "selection"]),
     "review_stamp": (review_stamp, "oneshot", "a visible review gate or question stamp landing on a paper record", ["review", "stamp", "paper", "decision"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),

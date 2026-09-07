@@ -7,11 +7,12 @@ import {GradeLayer} from './lib/lighting';
 import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
-import {FONT, wrapToWidth, overflows, widthOf} from './lib/type';
+import {FONT, wrapBreakableToWidth, wrapToWidth, overflows, widthOf} from './lib/type';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
 import {RoadEvidenceEpisode} from './RoadEvidenceEpisode';
 import {AlloyLoopEpisode} from './AlloyLoopEpisode';
 import {IrrigationEpisode} from './IrrigationEpisode';
+import {BorderCaptureEpisode} from './BorderCaptureEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -147,7 +148,8 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'road-evidence-v2' | 'alloy-loop-v1' | 'irrigation-judgment-v1';
+  cinematic_template?: 'road-evidence-v2' | 'alloy-loop-v1' | 'irrigation-judgment-v1' |
+    'border-capture-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -502,21 +504,18 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
   // attribution, so a credit clipped by the frame is a licence not actually paid on
   // screen, while every string check upstream still passes. GATE_LESSONS: a gate that
   // reads text cannot see text that has not been laid out yet.
-  const PER = 52;                       // characters that fit at 27px in 1080 wide
+  const CREDIT_W = 924;                 // x=78 through x=1002, measured in frame units
   const wrapped: {s: string; head: boolean}[] = [];
   for (const raw of text.split('\n')) {
     const l = raw.trim();
     if (!l) continue;
     const head = l === l.toUpperCase() && l.length < 24;
-    if (head) { wrapped.push({s: l, head}); continue; }
-    let cur = '';
-    for (const w of l.split(' ')) {
-      // a long URL is never broken: it is moved to its own line whole, because a URL
-      // split across two lines is not a URL anyone can follow.
-      if ((cur + ' ' + w).trim().length > PER && cur) { wrapped.push({s: cur.trim(), head}); cur = w; }
-      else cur += ' ' + w;
+    // A commit-pinned URL can be wider than the entire frame. Preserve every character, but
+    // continue the token on the next VISUAL line. Keeping it whole ran it off screen and made
+    // the source less followable than an exact, plainly continued URL.
+    for (const line of wrapBreakableToWidth(l, CREDIT_W, head ? 30 : 26)) {
+      wrapped.push({s: line, head});
     }
-    if (cur.trim()) wrapped.push({s: cur.trim(), head});
   }
   return (
     <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>
@@ -549,6 +548,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   if (cinematic_template === 'irrigation-judgment-v1') {
     return <IrrigationEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits}
       credits_s={credits_s} />;
+  }
+  if (cinematic_template === 'border-capture-v1') {
+    return <BorderCaptureEpisode runtime_s={end} scenes={scenes} captions={captions}
+      credits={credits} credits_s={credits_s} />;
   }
   return (
     <>

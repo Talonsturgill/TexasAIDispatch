@@ -107,6 +107,11 @@ def fit_lines(draw: ImageDraw.ImageDraw, value: str, font: ImageFont.FreeTypeFon
     return "\n".join(lines)
 
 
+def ffconcat_path(path: Path) -> str:
+    """Return the absolute entry ffconcat needs for repo-relative temporary paths."""
+    return path.resolve().as_posix()
+
+
 def card(scene: dict, index: int, total: int, out: Path) -> None:
     image = Image.new("RGB", (WIDTH, HEIGHT), "#07131f")
     draw = ImageDraw.Draw(image)
@@ -161,8 +166,11 @@ def storyboard_visual(board: dict, seconds: float, out: Path, root: Path) -> Non
     concat = root / "cards.ffconcat"
     lines = ["ffconcat version 1.0"]
     for image, duration in cards:
-        lines.extend((f"file '{image.as_posix()}'", f"duration {duration:.6f}"))
-    lines.append(f"file '{cards[-1][0].as_posix()}'")
+        # ffconcat resolves relative entries against the concat file's directory. Passing a
+        # repo-relative temp path therefore duplicated ``out/dispatch`` and made rescue fail at
+        # exactly the moment it was supposed to be dependable. Persist absolute entries.
+        lines.extend((f"file '{ffconcat_path(image)}'", f"duration {duration:.6f}"))
+    lines.append(f"file '{ffconcat_path(cards[-1][0])}'")
     concat.write_text("\n".join(lines) + "\n", encoding="utf-8")
     subprocess.run([
         "ffmpeg", "-v", "error", "-y", "-safe", "0", "-f", "concat", "-i", str(concat),
@@ -243,6 +251,11 @@ def self_test() -> int:
         nonlocal failures
         print(f"  {'ok  ' if condition else 'FAIL'}  {label}")
         failures += 0 if condition else 1
+
+    # The production caller passes repo-relative output paths. ffconcat must not be allowed to
+    # reinterpret those paths relative to the concat file and duplicate their directory prefix.
+    ok("ffconcat rescue paths resolve from the process cwd",
+       Path(ffconcat_path(Path("out/dispatch/rescue-test.png"))).is_absolute())
 
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)

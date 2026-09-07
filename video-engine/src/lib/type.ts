@@ -132,6 +132,53 @@ export function wrapToWidth(
   return lines.length ? lines : [''];
 }
 
+/**
+ * Break text to a measured width, including an otherwise unbreakable token.
+ *
+ * This is for display-only provenance such as a commit-pinned URL.  Every character is kept,
+ * and an overlong token is continued on the next visual line without adding a hyphen or other
+ * character that is not part of the source.  Ordinary editorial copy should keep using
+ * `wrapToWidth`, whose refusal to disguise an overlong word is the safer default.
+ */
+export function wrapBreakableToWidth(
+  s: string, maxUnits: number, fontSize: number, bold = false,
+): string[] {
+  const lines: string[] = [];
+  let line = '';
+  const flush = () => {
+    if (line) lines.push(line);
+    line = '';
+  };
+
+  for (const word of s.split(/\s+/).filter(Boolean)) {
+    const pieces: string[] = [];
+    let piece = '';
+    for (const ch of word) {
+      if (piece && widthOf(piece + ch, fontSize, bold) > maxUnits) {
+        pieces.push(piece);
+        piece = ch;
+      } else {
+        piece += ch;
+      }
+    }
+    if (piece) pieces.push(piece);
+
+    for (let i = 0; i < pieces.length; i++) {
+      const candidate = line ? `${line}${i === 0 ? ' ' : ''}${pieces[i]}` : pieces[i];
+      if (line && widthOf(candidate, fontSize, bold) > maxUnits) {
+        flush();
+        line = pieces[i];
+      } else {
+        line = candidate;
+      }
+      // A continuation of one unbroken token must start on the next visual line.
+      if (i < pieces.length - 1) flush();
+    }
+  }
+  flush();
+  return lines.length ? lines : [''];
+}
+
 /** The lines of `s` that still do not fit, which is only ever an unbreakable word. */
 export const overflows = (
   s: string, maxUnits: number, fontSize: number, bold = false,

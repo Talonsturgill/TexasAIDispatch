@@ -80,6 +80,20 @@ VISIBLE_PROPS: dict[str, set[str]] = {
     "fieldObservations": {"label", "result", "cropLabel", "weatherLabel"},
     "irrigationAdvice": {"label", "status"},
     "fieldDayNotice": {"title", "date", "place", "detail"},
+    # The Progreso vocabulary. Every field listed here is either drawn as text or
+    # switches an unmistakable geometry in biometrics.tsx; arbitrary props remain
+    # invisible to this gate.
+    "pergolaWalkway": {"mode", "night"},
+    "cameraArray": {"mode", "active"},
+    "travelerFlow": {"mode", "label"},
+    "captureFrame": {"mode", "label"},
+    "sourceReveal": {"date", "status", "place"},
+    "humanFactors": {"items"},
+    "captureZone": {"label"},
+    "suitabilityPipeline": {"label", "next"},
+    "metricsBlind": {"rows"},
+    "optOutLane": {"capture", "optout"},
+    "deploymentDecision": {"stage", "selected", "actor", "mode"},
 }
 
 

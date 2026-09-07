@@ -21,6 +21,7 @@ import * as BlackTx from './blacktexas';
 import * as Football from './football';
 import * as Evidence from './evidence';
 import * as Irrigation from './irrigation';
+import * as Biometrics from './biometrics';
 import {Character, castProps} from './Character';
 
 // =============================================================================
@@ -155,6 +156,21 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   irrigationAdvice: Irrigation.IrrigationAdvice,
   fieldDayNotice: Irrigation.FieldDayNotice,
   farmlandLayer: Irrigation.FarmlandLayer,
+
+  // the Progreso pedestrian-biometric assessment: one continuous walk from
+  // physical camera placement through capture, suitability, opt out and the
+  // still-open deployment decision
+  pergolaWalkway: Biometrics.PergolaWalkway,
+  cameraArray: Biometrics.CameraArray,
+  travelerFlow: Biometrics.TravelerFlow,
+  captureFrame: Biometrics.CaptureFrame,
+  sourceReveal: Biometrics.SourceReveal,
+  humanFactors: Biometrics.HumanFactors,
+  captureZone: Biometrics.CaptureZone,
+  suitabilityPipeline: Biometrics.SuitabilityPipeline,
+  metricsBlind: Biometrics.MetricsBlind,
+  optOutLane: Biometrics.OptOutLane,
+  deploymentDecision: Biometrics.DeploymentDecision,
 
   // -------------------------------------------------------------------------
   // THE APPLICATION LAYER. Everything above this line draws the LAND and the
