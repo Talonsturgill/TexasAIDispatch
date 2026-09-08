@@ -1,0 +1,135 @@
+{
+  "for_date": "2026-09-08",
+  "film": "The clock that has not started",
+  "scenes": 8,
+  "board_runtime_s": 48.2,
+  "readiness": "ready_for_synthesis",
+  "voice": {
+    "read_from": "config/voices.yaml",
+    "status": "use_repository_voice_selection",
+    "note": "Use Charon as the configured default. Do not represent it as an audition winner."
+  },
+  "pronunciation": {
+    "verdict": "No uncommon Texas place name needs a sourced override. Preserve the locked text and confirm Brownsville, moratorium, and the dates in soundcheck.",
+    "checked": [
+      {
+        "name": "Brownsville",
+        "lines": [1, 2, 8],
+        "status": "common Texas place name",
+        "action": "Say BROWNS-vill naturally, without theatrical regional coloring."
+      },
+      {
+        "name": "moratorium",
+        "lines": [1, 8],
+        "status": "legal-process term",
+        "action": "Keep all syllables clear and do not rush the final occurrence."
+      },
+      {
+        "name": "November seventeenth and November eighteenth",
+        "lines": [5, 6],
+        "status": "adjacent dates",
+        "action": "Land the one-day distinction clearly: vote on the seventeenth; conditional start on the eighteenth."
+      }
+    ]
+  },
+  "timing": {
+    "script_word_count_whitespace": 106,
+    "read_target_s": 43,
+    "requested_range_s": [40, 45],
+    "pause_after_is_for_the_editor": true,
+    "pause_after_unit": "relative natural sentence beats, not inserted seconds",
+    "note": "Read continuously with ordinary sentence breaths. Move slightly quicker through the six study subjects, then make the proposed dates deliberate. The strongest beat is the one-day hinge between November seventeenth and November eighteenth. Never pad or time-stretch.",
+    "if_long": "Return for a shorter script; do not accelerate the final two lines or alter the date distinction."
+  },
+  "overall": "A restrained, intelligent Texas civic-process read from someone who has followed a city agenda closely and is separating what the commission did from what has not happened yet. Plainspoken, dry and fully voiced, with no campaign cadence, legal-drama weight or broadcast-news lift. Start with modest forward motion on the vote to begin a process, then lower the second sentence so the inactive status is unmistakable. Move a shade quicker through the missing code rule, the study subjects, the proposed task-force return and the calendar. Treat every proposal word as load-bearing: proposed is not scheduled, if is not when, would is not will, and possible is not automatic. At line 6, make the conditional the turn and drop below the mechanism section. Recover only slightly for the possible extension. In the final line, allow the hearing process to move, leave a clean beat, then land still not in effect level and certain. The ending is a current legal status, not a warning, verdict or trailer reveal. Keep the authority in the precision of the facts.",
+  "lines": [
+    {
+      "n": 1,
+      "scene": "s1",
+      "text": "Brownsville voted to start a data-center moratorium process. The moratorium itself did not start.",
+      "intent": "Deliver the action first, then immediately narrow its legal meaning.",
+      "emphasis": "process; not started",
+      "energy": "six of ten on the vote, dropping to four of ten on the correction",
+      "pause_after": 0.3,
+      "risk": "Do not imply a ban, pause, or active moratorium."
+    },
+    {
+      "n": 2,
+      "scene": "s2",
+      "text": "Brownsville's code has no specific data-center rules, city staff said.",
+      "intent": "Make the empty code slot the reason for the process.",
+      "emphasis": "no specific rules",
+      "energy": "four and a half of ten, factual and clean",
+      "pause_after": 0.25,
+      "risk": "Do not overstate this as no regulation of any kind."
+    },
+    {
+      "n": 3,
+      "scene": "s3",
+      "text": "The city wants to study electricity, water, noise, land use, infrastructure, and fiscal effects.",
+      "intent": "Let the six questions widen around the central subject in one connected phrase.",
+      "emphasis": "study",
+      "energy": "five and a half of ten, slightly quicker but not list-like",
+      "pause_after": 0.25,
+      "risk": "Keep every study subject distinct without turning the list into a chant."
+    },
+    {
+      "n": 4,
+      "scene": "s4",
+      "text": "The proposal calls for reactivating an environmental task force to study data centers and recommend rules.",
+      "intent": "Hold proposal and calls for in the foreground so the body never sounds active yet.",
+      "emphasis": "proposal; calls for",
+      "energy": "four and a half of ten, conditional and precise",
+      "pause_after": 0.3,
+      "risk": "Do not read reactivating as a completed action."
+    },
+    {
+      "n": 5,
+      "scene": "s5",
+      "text": "Administrators proposed another hearing, two readings, and a November seventeenth final vote.",
+      "intent": "Move across select proposed dates and land on the proposed vote date without implying a complete statutory sequence.",
+      "emphasis": "proposed; November seventeenth",
+      "energy": "five of ten, measured forward motion",
+      "pause_after": 0.35,
+      "risk": "Do not make the calendar sound adopted or exhaustive."
+    },
+    {
+      "n": 6,
+      "scene": "s6",
+      "text": "If the ordinance passes on the proposed schedule, the ninety-day clock would begin November eighteenth.",
+      "intent": "Make the conditional gate and one-day chronology the film's turn.",
+      "emphasis": "If; November eighteenth",
+      "energy": "three and a half of ten, the clearest and most deliberate sentence",
+      "pause_after": 0.5,
+      "risk": "Keep eighteenth distinct from seventeenth and never imply the clock is running now."
+    },
+    {
+      "n": 7,
+      "scene": "s7",
+      "text": "The city says an additional ninety-day extension is possible after further proceedings.",
+      "intent": "Describe bounded optional authority, not an automatic second period.",
+      "emphasis": "possible; further proceedings",
+      "energy": "four of ten, careful and finite",
+      "pause_after": 0.65,
+      "risk": "Do not make the extension automatic or open-ended."
+    },
+    {
+      "n": 8,
+      "scene": "s8",
+      "text": "So the hearing process is moving. The moratorium is still not in effect.",
+      "intent": "Close on two different statuses and leave the public process open.",
+      "emphasis": "moving; not in effect",
+      "energy": "three and a half of ten, low and resolved without finality",
+      "pause_after": 0,
+      "risk": "No dramatic tail; the ordinance remains unresolved."
+    }
+  ],
+  "risks": [
+    {"type": "status_collapse", "severity": "high", "note": "Initiation of the process must never sound like adoption or activation of the moratorium."},
+    {"type": "conditional_loss", "severity": "high", "note": "Proposed, if, would and possible must remain clearly audible."},
+    {"type": "date_confusion", "severity": "medium", "note": "November seventeenth is the proposed final vote; November eighteenth is the conditional clock start."},
+    {"type": "list_cadence", "severity": "medium", "note": "Lines 3 and 5 must stay connected thoughts, not bureaucratic list-song."},
+    {"type": "false_drama", "severity": "high", "note": "The inactive moratorium is a precise civic status, not a scandal cue or trailer reveal."},
+    {"type": "runtime_pressure", "severity": "medium", "note": "Retime picture if needed; never time-stretch the narration."}
+  ]
+}

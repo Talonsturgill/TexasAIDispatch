@@ -1,0 +1,729 @@
+{
+  "created_at": "2026-09-08T12:44:46.220390Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/301584bb417bf7a9-9c03d430c8b11964-8cc71000cc202418/storyboard.json",
+    "board_sha256": "9c03d430c8b119640cc4837caf19a101f91bc8d585f77ef6e9f818d83e6a67f0",
+    "film": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/301584bb417bf7a9-9c03d430c8b11964-8cc71000cc202418/dispatch.mp4",
+    "film_sha256": "301584bb417bf7a9e8d19c9e91821679a37429d4a647d48b124d547930ccac06",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/301584bb417bf7a9-9c03d430c8b11964-8cc71000cc202418/render-manifest.json",
+    "manifest_sha256": "8cc71000cc202418f498e49780296fe717aa91d145c053f1d27cf9c93ae3f2e5",
+    "registered_at": "2026-09-08T16:27:56.062232Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 2,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-09-08T15:47:51.402203Z",
+      "ceiling": 12,
+      "from": 4,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 5
+    },
+    {
+      "at": "2026-09-08T15:48:24.101717Z",
+      "ceiling": 12,
+      "from": 5,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 6
+    },
+    {
+      "at": "2026-09-08T15:48:33.146940Z",
+      "ceiling": 12,
+      "from": 6,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 7
+    },
+    {
+      "at": "2026-09-08T15:49:04.023509Z",
+      "ceiling": 12,
+      "from": 7,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 8
+    },
+    {
+      "at": "2026-09-08T16:04:54.603534Z",
+      "ceiling": 16,
+      "from": 6,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 7
+    },
+    {
+      "at": "2026-09-08T16:08:35.223790Z",
+      "ceiling": 16,
+      "from": 7,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 8
+    },
+    {
+      "at": "2026-09-08T16:23:36.151498Z",
+      "ceiling": 16,
+      "from": 8,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 9
+    },
+    {
+      "at": "2026-09-08T16:24:32.711589Z",
+      "ceiling": 16,
+      "from": 9,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 10
+    },
+    {
+      "at": "2026-09-08T16:26:40.850921Z",
+      "ceiling": 16,
+      "from": 10,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 11
+    },
+    {
+      "at": "2026-09-08T16:26:58.946455Z",
+      "ceiling": 14,
+      "from": 5,
+      "note": "full-resolution Dispatch render",
+      "resource": "full_renders",
+      "to": 6
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-08T12:44:46.220755Z",
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-09-08T12:44:46.257322Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-09-08T12:45:29.081361Z",
+      "kind": "reserved",
+      "note": "Brownsville data-center moratorium beat",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-08T12:45:29.117487Z",
+      "kind": "reserved",
+      "note": "Austin parks AI surveillance policy beat",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-08T12:45:29.151798Z",
+      "kind": "reserved",
+      "note": "Fresh Texas AI decision beat outside recent ledger topics",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-08T14:47:26.354879Z",
+      "kind": "reserved",
+      "note": "Adversarial pavement claims and story validation",
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:19:09.384994Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:27:26.058781Z",
+      "kind": "phase",
+      "name": "storyboard"
+    },
+    {
+      "at": "2026-09-08T15:27:26.100154Z",
+      "kind": "reserved",
+      "note": "Brownsville board taste and cinematic coherence critique after validator edits",
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:37:04.929357Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:38:18.815783Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:39:13.790154Z",
+      "kind": "phase",
+      "name": "voice"
+    },
+    {
+      "at": "2026-09-08T15:39:13.825633Z",
+      "kind": "reserved",
+      "note": "Brownsville restrained civic-process narration direction",
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:44:13.222776Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:44:41.784229Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2554
+      }
+    },
+    {
+      "at": "2026-09-08T15:44:41.785604Z",
+      "elapsed_ms": 28559,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2554,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:44:41.855246Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:44:52.888439Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 3083
+      }
+    },
+    {
+      "at": "2026-09-08T15:44:52.889918Z",
+      "elapsed_ms": 11032,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 3083,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:44:55.223950Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:45:26.342184Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2527
+      }
+    },
+    {
+      "at": "2026-09-08T15:45:26.343497Z",
+      "elapsed_ms": 31116,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2527,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:45:26.376869Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:45:37.256462Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 2718
+      }
+    },
+    {
+      "at": "2026-09-08T15:45:37.266462Z",
+      "elapsed_ms": 10878,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2718,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:47:51.402655Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 5,
+      "resource": "tts_calls",
+      "was": 4
+    },
+    {
+      "at": "2026-09-08T15:47:51.402661Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:48:24.054699Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2493
+      }
+    },
+    {
+      "at": "2026-09-08T15:48:24.056821Z",
+      "elapsed_ms": 32651,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2493,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:48:24.101731Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 6,
+      "resource": "tts_calls",
+      "was": 5
+    },
+    {
+      "at": "2026-09-08T15:48:24.101738Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:48:30.925005Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 1944
+      }
+    },
+    {
+      "at": "2026-09-08T15:48:30.928090Z",
+      "elapsed_ms": 6822,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1944,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:48:33.146947Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 7,
+      "resource": "tts_calls",
+      "was": 6
+    },
+    {
+      "at": "2026-09-08T15:48:33.146951Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:49:03.984530Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2393
+      }
+    },
+    {
+      "at": "2026-09-08T15:49:03.986983Z",
+      "elapsed_ms": 30836,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2393,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:49:04.023520Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 8,
+      "resource": "tts_calls",
+      "was": 7
+    },
+    {
+      "at": "2026-09-08T15:49:04.023527Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:49:15.107257Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 2332
+      }
+    },
+    {
+      "at": "2026-09-08T15:49:15.110130Z",
+      "elapsed_ms": 11082,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2332,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-08T15:58:00.943478Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T15:59:11.192106Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:00:02.379296Z",
+      "kind": "phase",
+      "name": "gates"
+    },
+    {
+      "at": "2026-09-08T16:00:02.425201Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:01:11.258532Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:01:33.484455Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:02:24.281603Z",
+      "film_sha256": "bd54ffcc9744c30b005acaa619e6c1a73abdd3b8e84a06a67231885fbf0b83d8",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "63adba408a2341e63271658c590311f620fd919e4c2d17a1df48bffafc525e0f",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-08T16:04:54.603667Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 7,
+      "resource": "preflight_renders",
+      "was": 6
+    },
+    {
+      "at": "2026-09-08T16:04:54.603673Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:05:24.859953Z",
+      "film_sha256": "bd54ffcc9744c30b005acaa619e6c1a73abdd3b8e84a06a67231885fbf0b83d8",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-08T16:05:24.860055Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:06:13.818843Z",
+      "film_sha256": "c8a8a606be6adbddc0557998bf97fa8d6a5f651fdf3b7c717304a0c5570e27b1",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "9e6a85e5aa5882dc9612a503426018a36424b8cab18157aff9b0bfa18782ed67",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-08T16:08:35.223921Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 8,
+      "resource": "preflight_renders",
+      "was": 7
+    },
+    {
+      "at": "2026-09-08T16:08:35.223926Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:08:57.671816Z",
+      "film_sha256": "c8a8a606be6adbddc0557998bf97fa8d6a5f651fdf3b7c717304a0c5570e27b1",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-08T16:08:57.671933Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:09:46.722792Z",
+      "film_sha256": "13808923a66e1d3bf85c79a2b8b50f2aa867f49193c769b048f11e2d08070895",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "d5616171b5261c1a0b35b5fe223a2e5565f336662ebb885ee6e5268bd45de9c6",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-08T16:10:32.111285Z",
+      "kind": "reserved",
+      "note": "finished cut round 1",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-08T16:23:36.151936Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 9,
+      "resource": "preflight_renders",
+      "was": 8
+    },
+    {
+      "at": "2026-09-08T16:23:36.151945Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:24:32.711819Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 10,
+      "resource": "preflight_renders",
+      "was": 9
+    },
+    {
+      "at": "2026-09-08T16:24:32.711826Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:24:59.652591Z",
+      "film_sha256": "13808923a66e1d3bf85c79a2b8b50f2aa867f49193c769b048f11e2d08070895",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-08T16:24:59.652813Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:25:51.875300Z",
+      "film_sha256": "2e2b38173cde9c00c248a1ad1353a77cd35926f442846624fd5f8c9095bbc23d",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "468a2603ec9583b1fa8be81fe64a81e46390713b90aaf1d708a5bb20dd48b6cf",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-08T16:26:40.851259Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 11,
+      "resource": "preflight_renders",
+      "was": 10
+    },
+    {
+      "at": "2026-09-08T16:26:40.851265Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:26:58.946653Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "full-resolution Dispatch render",
+      "now": 6,
+      "resource": "full_renders",
+      "was": 5
+    },
+    {
+      "at": "2026-09-08T16:26:58.946659Z",
+      "film_sha256": "2e2b38173cde9c00c248a1ad1353a77cd35926f442846624fd5f8c9095bbc23d",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-08T16:26:58.946661Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-08T16:27:56.062244Z",
+      "film_sha256": "301584bb417bf7a9e8d19c9e91821679a37429d4a647d48b124d547930ccac06",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "8cc71000cc202418f498e49780296fe717aa91d145c053f1d27cf9c93ae3f2e5",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-08T16:28:09.596757Z",
+      "kind": "reserved",
+      "note": "finished cut round 2",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-08T16:32:28.456590Z",
+      "kind": "finished",
+      "report_sha256": "48cc276d7debf455741a216951df07683839164bf47869c90f7a2ab9d2ddba63",
+      "result": "publishable",
+      "score": 7.958
+    }
+  ],
+  "final_report": {
+    "film_sha256": "301584bb417bf7a9e8d19c9e91821679a37429d4a647d48b124d547930ccac06",
+    "path": "out/dispatch/report_card.json",
+    "score": 7.958,
+    "sha256": "48cc276d7debf455741a216951df07683839164bf47869c90f7a2ab9d2ddba63"
+  },
+  "limits": {
+    "cleanup_renders": 1,
+    "full_renders": 6,
+    "panel_rounds": 5,
+    "preflight_renders": 11,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 15,
+    "storyboard_critics": 1,
+    "tts_calls": 8,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "gates",
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-09-08",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": "publishable",
+  "updated_at": "2026-09-08T16:32:28.456595Z",
+  "usage": {
+    "cleanup_renders": 0,
+    "full_renders": 6,
+    "panel_rounds": 2,
+    "preflight_renders": 11,
+    "reboards": 0,
+    "reported_tokens": 20044,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 6,
+    "storyboard_critics": 1,
+    "tts_calls": 8,
+    "validator_agents": 1,
+    "voice_directors": 1
+  }
+}
