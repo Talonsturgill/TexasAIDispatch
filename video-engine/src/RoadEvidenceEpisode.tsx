@@ -48,7 +48,10 @@ export type RoadEvidenceProps = {
   captions?: Cue[];
   credits?: string;
   credits_s?: number;
+  mode?: 'crash-evidence' | 'pavement-inspection';
 };
+
+type EpisodeSceneProps = {dur: number; mode?: RoadEvidenceProps['mode']};
 
 const Texture: React.FC<{frame: number; warm?: boolean}> = ({frame, warm = false}) => (
   <>
@@ -152,7 +155,7 @@ const RoadPerspective: React.FC<{frame: number; split?: number; mark?: number}> 
   </g>;
 };
 
-const S1: React.FC<{dur: number}> = ({dur}) => {
+const S1: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const enter = ease(prog(f, 0, 24));
   const scan = ease(prog(f, 28, Math.min(dur - 8, 72)));
@@ -175,23 +178,26 @@ const S1: React.FC<{dur: number}> = ({dur}) => {
       <line x1={135 + scan * 760} y1={485} x2={80 + scan * 760} y2={1245}
         stroke={TEAL} strokeWidth={10} opacity={0.64} />
       <text x={72} y={390} fontFamily={FONT.display} fontSize={82} fontWeight={700}
-        fill={PAPER}>A ROAD CLUE</text>
+        fill={PAPER}>{mode === 'pavement-inspection' ? 'A ROAD CRACK' : 'A ROAD CLUE'}</text>
       <text x={72} y={468} fontFamily={FONT.display} fontSize={82} fontWeight={700}
-        fill={AMBER}>HID IN A SENTENCE.</text>
+        fill={AMBER}>{mode === 'pavement-inspection' ? 'HID IN A FLAT IMAGE.' : 'HID IN A SENTENCE.'}</text>
     </g>
     <Eyebrow text="TEXAS AI DOCKET · FIELD NOTE" frame={f} number="01" />
   </svg></AbsoluteFill>;
 };
 
-const S2: React.FC<{dur: number}> = ({dur}) => {
+const S2: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const build = ease(prog(f, 6, 38));
   const countP = ease(prog(f, 22, Math.min(dur - 20, 130)));
-  const count = Math.round(countP * 24000).toLocaleString('en-US');
+  const count = Math.round(countP * (mode === 'pavement-inspection' ? 703000 : 24000)).toLocaleString('en-US');
   return <AbsoluteFill><svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
     <Texture frame={f} />
-    <Eyebrow text="UNIVERSITY OF HOUSTON · TXDOT-FUNDED RESEARCH" frame={f} number="02" />
-    <Headline lines={[`${count}+`, 'POLICE NARRATIVES']} frame={f} y={270} size={92}
+    <Eyebrow text={mode === 'pavement-inspection'
+      ? 'TEXAS STATE · TXDOT-FUNDED RESEARCH'
+      : 'UNIVERSITY OF HOUSTON · TXDOT-FUNDED RESEARCH'} frame={f} number="02" />
+    <Headline lines={[`${count}${mode === 'pavement-inspection' ? '' : '+'}`,
+      mode === 'pavement-inspection' ? 'LANE MILES' : 'POLICE NARRATIVES']} frame={f} y={270} size={92}
       accent={AMBER} />
     <g transform={`translate(540 ${900 + 22 * Math.sin(f / 18)})`}>
       <rect x={-310} y={-190} width={620} height={410} rx={42} fill="#112431" stroke="#456579"
@@ -201,7 +207,7 @@ const S2: React.FC<{dur: number}> = ({dur}) => {
         width={50} height={60} rx={6} fill={i / 6 < countP ? TEAL : '#1d4651'}
         opacity={0.48 + 0.35 * Math.sin(f / 8 + i)} />)}
       <text x={0} y={75} textAnchor="middle" fontFamily={FONT.mono} fontSize={24}
-        fill={PAPER}>REPORTS ENTER MODEL</text>
+        fill={PAPER}>{mode === 'pavement-inspection' ? '2D + 3D ENTER MODEL' : 'REPORTS ENTER MODEL'}</text>
       <rect x={-210} y={116} width={420} height={18} rx={9} fill="#1f3b46" />
       <rect x={-210} y={116} width={420 * countP} height={18} rx={9} fill={AMBER} />
     </g>
@@ -210,7 +216,9 @@ const S2: React.FC<{dur: number}> = ({dur}) => {
       const y = 1500 - phase * 650;
       const x = 200 + (i % 3) * 330 + Math.sin(f / 8 + i) * 14;
       return <ReportRibbon key={i} frame={f + i * 13} x={x} y={y} scale={0.36}
-        rotate={i % 2 ? 7 : -8} progress={phase * build} label={i === 2 ? 'CURVE LOSS' : 'WET ROAD DETAIL'} />;
+        rotate={i % 2 ? 7 : -8} progress={phase * build}
+        label={mode === 'pavement-inspection' ? (i === 2 ? '3D DEPTH MAP' : '2D SURFACE IMAGE')
+          : (i === 2 ? 'CURVE LOSS' : 'WET ROAD DETAIL')} />;
     })}
     <g opacity={ease(prog(f, dur - 68, dur - 24))}>
       <path d="M540,1210 C540,1330 775,1350 800,1510" fill="none" stroke={TEAL}
@@ -224,31 +232,32 @@ const S2: React.FC<{dur: number}> = ({dur}) => {
   </svg></AbsoluteFill>;
 };
 
-const S3: React.FC<{dur: number}> = ({dur}) => {
+const S3: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const lock1 = ease(prog(f, 12, 38));
   const lock2 = ease(prog(f, 34, Math.min(68, dur - 5)));
   const payoff = ease(prog(f, Math.round(dur * 0.56), Math.round(dur * 0.78)));
   return <AbsoluteFill><svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
     <Texture frame={f} /><Rain frame={f} opacity={0.18} />
-    <Eyebrow text="THE PARSE · WORDS BECOME MECHANISMS" frame={f} number="03" />
+    <Eyebrow text={mode === 'pavement-inspection'
+      ? 'THE PAIR · COLOR MEETS DEPTH' : 'THE PARSE · WORDS BECOME MECHANISMS'} frame={f} number="03" />
     <ReportRibbon frame={f} x={540} y={520} scale={1.28} progress={ease(prog(f, 0, 16))}
-      label="VEHICLE LOST CONTROL ON WET CURVE" />
+      label={mode === 'pavement-inspection' ? '2D IMAGE + 3D RANGE MAP' : 'VEHICLE LOST CONTROL ON WET CURVE'} />
     <g opacity={lock1 * (1 - 0.88 * payoff)} transform={`translate(0 ${26 * (1 - lock1)})`}>
       <rect x={90} y={815} width={900} height={170} rx={28} fill="#102936" stroke={TEAL}
         strokeWidth={7} />
       <text x={540} y={895} textAnchor="middle" fontFamily={FONT.display} fontSize={66}
-        fontWeight={700} fill={PAPER}>HYDROPLANING</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'SURFACE STAIN?' : 'HYDROPLANING'}</text>
       <text x={540} y={950} textAnchor="middle" fontFamily={FONT.mono} fontSize={22}
-        fill={TEAL}>MECHANISM LABEL 01 · LOCKED</text>
+        fill={TEAL}>{mode === 'pavement-inspection' ? '2D INTENSITY · AMBIGUOUS' : 'MECHANISM LABEL 01 · LOCKED'}</text>
     </g>
     <g opacity={lock2 * (1 - 0.88 * payoff)} transform={`translate(0 ${26 * (1 - lock2)})`}>
       <rect x={90} y={1025} width={900} height={170} rx={28} fill="#2c2318" stroke={AMBER}
         strokeWidth={7} />
       <text x={540} y={1105} textAnchor="middle" fontFamily={FONT.display} fontSize={62}
-        fontWeight={700} fill={PAPER}>CURVE-RELATED LOSS</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'TRUE DEPTH CHANGE' : 'CURVE-RELATED LOSS'}</text>
       <text x={540} y={1160} textAnchor="middle" fontFamily={FONT.mono} fontSize={22}
-        fill={AMBER}>MECHANISM LABEL 02 · LOCKED</text>
+        fill={AMBER}>{mode === 'pavement-inspection' ? '3D RANGE · MEASURED' : 'MECHANISM LABEL 02 · LOCKED'}</text>
     </g>
     <g opacity={lock2 * (1 - payoff)}>
       <path d="M540,665 V795 M540,985 V1015" stroke={PAPER} strokeWidth={8}
@@ -259,30 +268,32 @@ const S3: React.FC<{dur: number}> = ({dur}) => {
       <rect x={76} y={790} width={928} height={300} rx={34} fill="#07131c" opacity={0.94}
         stroke={AMBER} strokeWidth={6} />
       <text x={540} y={910} textAnchor="middle" fontFamily={FONT.display} fontSize={76}
-        fontWeight={700} fill={PAPER}>THE TABLE NEVER</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'THE DEPTH MAP' : 'THE TABLE NEVER'}</text>
       <text x={540} y={1000} textAnchor="middle" fontFamily={FONT.display} fontSize={76}
-        fontWeight={700} fill={AMBER}>HAD THESE FIELDS.</text>
+        fontWeight={700} fill={AMBER}>{mode === 'pavement-inspection' ? 'BREAKS THE TIE.' : 'HAD THESE FIELDS.'}</text>
     </g>
   </svg></AbsoluteFill>;
 };
 
-const S4: React.FC<{dur: number}> = ({dur}) => {
+const S4: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const join = ease(prog(f, 18, Math.min(84, dur * 0.72)));
   const cells = Math.floor(join * 180000).toLocaleString('en-US');
   return <AbsoluteFill><svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
     <Texture frame={f} />
-    <Eyebrow text="THE JOIN · NARRATIVE MEETS PAVEMENT" frame={f} number="04" />
+    <Eyebrow text={mode === 'pavement-inspection'
+      ? 'THE SCAN · TWO VIEWS BECOME DAMAGE' : 'THE JOIN · NARRATIVE MEETS PAVEMENT'} frame={f} number="04" />
     <g transform={`translate(${120 + join * 300} 565) scale(${0.82 - join * 0.2})`}>
-      <ReportRibbon frame={f} x={0} y={0} scale={1} progress={1} label="HYDROPLANING · CURVE LOSS" />
+      <ReportRibbon frame={f} x={0} y={0} scale={1} progress={1}
+        label={mode === 'pavement-inspection' ? 'INTENSITY + RANGE' : 'HYDROPLANING · CURVE LOSS'} />
     </g>
     <g transform={`translate(${900 - join * 300} 565)`}>
       <rect x={-240} y={-112} width={480} height={224} rx={24} fill="#122c38" stroke={TEAL}
         strokeWidth={7} />
       <text x={0} y={-38} textAnchor="middle" fontFamily={FONT.mono} fontSize={22}
-        fill={TEAL}>PAVEMENT RECORDS</text>
+        fill={TEAL}>{mode === 'pavement-inspection' ? 'PIXEL-LEVEL MAP' : 'PAVEMENT RECORDS'}</text>
       <text x={0} y={50} textAnchor="middle" fontFamily={FONT.display} fontSize={66}
-        fontWeight={700} fill={PAPER}>{cells}</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'DAMAGE' : cells}</text>
     </g>
     <g opacity={join}>
       <circle cx={540} cy={565} r={34 + 12 * Math.sin(f / 5)} fill={AMBER} stroke={INK}
@@ -305,18 +316,21 @@ const S4: React.FC<{dur: number}> = ({dur}) => {
       <rect x={130} y={1240} width={820} height={122} rx={61} fill="#163c38" stroke={TEAL}
         strokeWidth={7} />
       <text x={540} y={1317} textAnchor="middle" fontFamily={FONT.display} fontSize={48}
-        fontWeight={700} fill={PAPER}>ONE LINKED ROAD RECORD</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection'
+          ? 'ONE PRIORITIZED REPAIR REPORT' : 'ONE LINKED ROAD RECORD'}</text>
     </g>
   </svg></AbsoluteFill>;
 };
 
-const S5: React.FC<{dur: number}> = ({dur}) => {
+const S5: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const converge = ease(prog(f, 10, Math.min(70, dur - 18)));
   return <AbsoluteFill><svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
     <Texture frame={f} /><Rain frame={f} opacity={0.55} />
-    <Eyebrow text="THE PATTERN · WET CRASHES MEET ROAD TEXTURE" frame={f} number="05" />
-    <Headline lines={['FRICTION.', 'TEXTURE.', 'WET CRASHES.']} frame={f} y={300} size={78}
+    <Eyebrow text={mode === 'pavement-inspection'
+      ? 'THE PRIORITY · NOT EVERY MARK IS THE SAME' : 'THE PATTERN · WET CRASHES MEET ROAD TEXTURE'} frame={f} number="05" />
+    <Headline lines={mode === 'pavement-inspection'
+      ? ['HAIRLINE.', 'POTHOLE.', 'CRUMBLING.'] : ['FRICTION.', 'TEXTURE.', 'WET CRASHES.']} frame={f} y={300} size={78}
       accent={AMBER} />
     <g transform="translate(0 860)">
       <path d="M0,0 H1080 V670 H0 Z" fill="#29353a" />
@@ -340,14 +354,15 @@ const S5: React.FC<{dur: number}> = ({dur}) => {
       <rect x={145} y={1080} width={790} height={150} rx={28} fill="#123936" stroke={TEAL}
         strokeWidth={8} />
       <text x={540} y={1152} textAnchor="middle" fontFamily={FONT.display} fontSize={56}
-        fontWeight={700} fill={PAPER}>STRONG ASSOCIATION</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'DAMAGE SEVERITY' : 'STRONG ASSOCIATION'}</text>
       <text x={540} y={1200} textAnchor="middle" fontFamily={FONT.mono} fontSize={20}
-        fill={TEAL}>THE TWO RECORDS MOVE TOGETHER</text>
+        fill={TEAL}>{mode === 'pavement-inspection'
+          ? 'THE SURFACE BECOMES A PRIORITY' : 'THE TWO RECORDS MOVE TOGETHER'}</text>
     </g>
   </svg></AbsoluteFill>;
 };
 
-const S6: React.FC<{dur: number}> = ({dur}) => {
+const S6: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const attempt = ease(prog(f, 6, 46));
   const snap = ease(prog(f, 46, Math.min(76, dur - 4)));
@@ -359,12 +374,12 @@ const S6: React.FC<{dur: number}> = ({dur}) => {
       <rect x={100} y={440} width={340} height={220} rx={34} fill="#322718" stroke={AMBER}
         strokeWidth={8} />
       <text x={270} y={540} textAnchor="middle" fontFamily={FONT.display} fontSize={48}
-        fontWeight={700} fill={PAPER}>CONDITIONS</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'MODEL SCORE' : 'CONDITIONS'}</text>
       <circle cx={270} cy={600} r={18} fill={AMBER} />
       <rect x={640} y={440} width={340} height={220} rx={34} fill="#123734" stroke={TEAL}
         strokeWidth={8} />
       <text x={810} y={540} textAnchor="middle" fontFamily={FONT.display} fontSize={48}
-        fontWeight={700} fill={PAPER}>HIGHER RISK</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'REPAIR MONEY' : 'HIGHER RISK'}</text>
       <circle cx={810} cy={600} r={18} fill={TEAL} />
     </g>
     <path d="M270,620 C350,850 730,850 810,620" fill="none" stroke={TEAL}
@@ -372,7 +387,7 @@ const S6: React.FC<{dur: number}> = ({dur}) => {
     <g opacity={attempt}>
       <rect x={320} y={795} width={440} height={88} rx={44} fill="#164a43" />
       <text x={540} y={850} textAnchor="middle" fontFamily={FONT.mono} fontSize={24}
-        fontWeight={700} fill={TEAL}>LINKED IN THE RECORD</text>
+        fontWeight={700} fill={TEAL}>{mode === 'pavement-inspection' ? 'INFORMED BY THE RECORD' : 'LINKED IN THE RECORD'}</text>
     </g>
     <g opacity={snap} transform={`translate(0 ${32 * (1 - snap)})`}>
       <path d="M160,930 H465 M615,930 H900" stroke={RED} strokeWidth={18}
@@ -382,14 +397,16 @@ const S6: React.FC<{dur: number}> = ({dur}) => {
       <path d="M490,875 L590,985 M590,875 L490,985" stroke={PAPER} strokeWidth={18}
         strokeLinecap="round" />
       <text x={540} y={1110} textAnchor="middle" fontFamily={FONT.display} fontSize={100}
-        fontWeight={700} fill={PAPER}>LINKED ≠ CAUSED</text>
+        fontWeight={700} fill={PAPER}>{mode === 'pavement-inspection' ? 'SCORE ≠ WORK ORDER' : 'LINKED ≠ CAUSED'}</text>
       <text x={540} y={1190} textAnchor="middle" fontFamily={FONT.mono} fontSize={24}
-        fill={AMBER}>THE MODEL FLAGS A PATTERN. IT DOES NOT PROVE THE REASON.</text>
+        fill={AMBER}>{mode === 'pavement-inspection'
+          ? 'THE MODEL RANKS DAMAGE. PEOPLE SCHEDULE REPAIRS.'
+          : 'THE MODEL FLAGS A PATTERN. IT DOES NOT PROVE THE REASON.'}</text>
     </g>
   </svg></AbsoluteFill>;
 };
 
-const S7: React.FC<{dur: number}> = ({dur}) => {
+const S7: React.FC<EpisodeSceneProps> = ({dur}) => {
   const f = useCurrentFrame();
   const active = Math.min(3, Math.floor(Math.max(0, f - 8) / 20) + 1);
   const handoff = ease(prog(f, 42, Math.min(84, dur - 3)));
@@ -444,7 +461,7 @@ const S7: React.FC<{dur: number}> = ({dur}) => {
   </svg></AbsoluteFill>;
 };
 
-const S8: React.FC<{dur: number}> = ({dur}) => {
+const S8: React.FC<EpisodeSceneProps> = ({dur, mode}) => {
   const f = useCurrentFrame();
   const land = ease(prog(f, 0, Math.min(72, dur * 0.35)));
   const button = ease(prog(f, Math.max(80, dur * 0.45), Math.max(115, dur - 32)));
@@ -464,7 +481,8 @@ const S8: React.FC<{dur: number}> = ({dur}) => {
       <circle cx={-176} cy={356} r={28} fill="#bd7b45" stroke={INK} strokeWidth={8} />
     </g>
     <ReportRibbon frame={f} x={340} y={1190 + 290 * land} scale={0.55 - 0.15 * button}
-      rotate={-12 + 12 * button} progress={1 - 0.7 * button} label="WET CURVE DETAIL" />
+      rotate={-12 + 12 * button} progress={1 - 0.7 * button}
+      label={mode === 'pavement-inspection' ? 'PIXEL-LEVEL DAMAGE' : 'WET CURVE DETAIL'} />
     <Eyebrow text="THE DECISION · MACHINE FINDS, ENGINEER CHOOSES" frame={f} number="08" />
     <g opacity={button} transform={`translate(0 ${32 * (1 - button)})`}>
       <rect x={64} y={260} width={952} height={425} rx={38} fill="#09151e" opacity={0.9}
@@ -472,7 +490,7 @@ const S8: React.FC<{dur: number}> = ({dur}) => {
       <text x={100} y={370} fontFamily={FONT.display} fontSize={76} fontWeight={700}
         fill={PAPER}>THE MODEL FOUND</text>
       <text x={100} y={454} fontFamily={FONT.display} fontSize={76} fontWeight={700}
-        fill={AMBER}>THE ROAD CLUE.</text>
+        fill={AMBER}>{mode === 'pavement-inspection' ? 'THE ROAD DAMAGE.' : 'THE ROAD CLUE.'}</text>
       <text x={100} y={565} fontFamily={FONT.display} fontSize={62} fontWeight={700}
         fill={PAPER}>ENGINEERS STILL</text>
       <text x={100} y={638} fontFamily={FONT.display} fontSize={62} fontWeight={700}
@@ -480,7 +498,8 @@ const S8: React.FC<{dur: number}> = ({dur}) => {
     </g>
     <g opacity={ease(prog(f, dur - 58, dur - 20))}>
       <text x={68} y={1330} fontFamily={FONT.mono} fontSize={22} fill={PAPER}
-        letterSpacing={2}>THE SENTENCE THE TABLE DROPPED</text>
+        letterSpacing={2}>{mode === 'pavement-inspection'
+          ? 'THE CRACK THAT BECAME A WORK QUEUE' : 'THE SENTENCE THE TABLE DROPPED'}</text>
       <path d="M68,1365 H470" stroke={AMBER} strokeWidth={7} />
     </g>
   </svg></AbsoluteFill>;
@@ -551,7 +570,7 @@ const Credits: React.FC<{text: string; dur: number}> = ({text, dur}) => {
 const SCENES = [S1, S2, S3, S4, S5, S6, S7, S8];
 
 export const RoadEvidenceEpisode: React.FC<RoadEvidenceProps> = ({scenes, captions = [],
-  credits = '', credits_s = 5.5}) => {
+  credits = '', credits_s = 5.5, mode = 'crash-evidence'}) => {
   const storyEnd = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
   const globalF = useCurrentFrame();
   return <AbsoluteFill style={{backgroundColor: NIGHT}}>
@@ -560,7 +579,7 @@ export const RoadEvidenceEpisode: React.FC<RoadEvidenceProps> = ({scenes, captio
       const dur = Math.max(1, Math.round(scene.duration_s * FPS));
       return <Sequence key={scene.id} from={Math.round(scene.start_s * FPS)} durationInFrames={dur}
         name={`${scene.id.toUpperCase()} · ${i + 1}`}>
-        <Comp dur={dur} />
+        <Comp dur={dur} mode={mode} />
       </Sequence>;
     })}
     {captions.length > 0 && <Sequence from={0} durationInFrames={Math.round(storyEnd * FPS)}>

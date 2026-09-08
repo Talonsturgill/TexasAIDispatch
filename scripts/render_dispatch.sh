@@ -5,11 +5,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # A caller may export this before launching bash, but macOS strips DYLD_* variables when a
-# protected system shell starts. Restore the lookup beside Remotion's bundled ffmpeg here, in
-# the process that actually launches it. Other platforms simply keep their existing PATH.
+# protected system shell starts. Restore the library lookup beside Remotion's bundled ffmpeg
+# here, in the process that actually launches it. Do not prepend that directory to PATH: the
+# bundled ffmpeg is deliberately lean, while mux and rescue require the full system build that
+# run_with_env placed first.
 COMPOSITOR_BIN="$PWD/video-engine/node_modules/@remotion/compositor-darwin-arm64"
 if [ -x "$COMPOSITOR_BIN/ffmpeg" ]; then
-  export PATH="$COMPOSITOR_BIN:$PATH"
   export DYLD_LIBRARY_PATH="$COMPOSITOR_BIN${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
 fi
 

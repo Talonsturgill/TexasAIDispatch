@@ -625,7 +625,7 @@ mixer:
 
 ```
 python3 scripts/music.py --fit <track_id> --brief out/dispatch/music_brief.json
-python3 scripts/music.py --credits <track_id>
+python3 scripts/music.py --credits <track_id> > out/dispatch/music_credit.txt
 python3 scripts/prepare_music.py --track <track_id> --out out/dispatch/music_bed.wav \
   --manifest out/dispatch/music_bed.json
 python3 scripts/mix.py ... --bed out/dispatch/music_bed.wav --bed-track <track_id> \
@@ -634,10 +634,14 @@ python3 scripts/mix.py ... --bed out/dispatch/music_bed.wav --bed-track <track_i
 ```
 
 The mixer measures the voice and bed, places the bed at that relative gap, then ducks it. There is
-no universal `0.35` scalar. Never hand-type a credit: use the exact generated title, artist,
-compact source label and licence. Credits must not contain internal Docket record ids, raw
-TexasAIDispatch repository/blob links, commit SHAs or other implementation identifiers. Before
-delivery, every film must run
+no universal `0.35` scalar. Never hand-type a music credit: use the exact generated title, artist,
+compact source label and licence from `music_credit.txt`. Build `out/dispatch/credits.txt` from
+the compact editorial SOURCES block, `TexasAIDocket.com`, and that exact generated MUSIC block;
+paste the complete `credits.txt` unchanged into the storyboard's `credits` field. Credits must not
+contain internal Docket record ids, raw TexasAIDispatch repository/blob links, commit SHAs or other
+implementation identifiers. The on-screen numeral rule still applies to official track titles:
+if a title contains a numeral the rubric does not exempt, select another fitting track rather than
+altering the artist's title or shipping an ungrounded numeral. Before delivery, every film must run
 `music.py --verify-package out/dispatch/credits.txt --mix out/dispatch/mix.json \
 --board out/dispatch/storyboard.json --master out/dispatch/mix.wav`; this binds the exact mixed
 track, decoded asset, approved relative level, rendered board credit, and master to the registry.

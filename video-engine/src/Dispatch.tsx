@@ -13,6 +13,7 @@ import {RoadEvidenceEpisode} from './RoadEvidenceEpisode';
 import {AlloyLoopEpisode} from './AlloyLoopEpisode';
 import {IrrigationEpisode} from './IrrigationEpisode';
 import {BorderCaptureEpisode} from './BorderCaptureEpisode';
+import {BrownsvilleMoratoriumEpisode} from './BrownsvilleMoratoriumEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -148,8 +149,8 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'road-evidence-v2' | 'alloy-loop-v1' | 'irrigation-judgment-v1' |
-    'border-capture-v1';
+  cinematic_template?: 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
+    'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -541,6 +542,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
     return <RoadEvidenceEpisode scenes={scenes} captions={captions} credits={credits}
       credits_s={credits_s} />;
   }
+  if (cinematic_template === 'pavement-inspection-v1') {
+    return <RoadEvidenceEpisode scenes={scenes} captions={captions} credits={credits}
+      credits_s={credits_s} mode="pavement-inspection" />;
+  }
   if (cinematic_template === 'alloy-loop-v1') {
     return <AlloyLoopEpisode scenes={scenes} captions={captions} credits={credits}
       credits_s={credits_s} />;
@@ -551,6 +556,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   }
   if (cinematic_template === 'border-capture-v1') {
     return <BorderCaptureEpisode runtime_s={end} scenes={scenes} captions={captions}
+      credits={credits} credits_s={credits_s} />;
+  }
+  if (cinematic_template === 'brownsville-moratorium-v1') {
+    return <BrownsvilleMoratoriumEpisode runtime_s={end} scenes={scenes} captions={captions}
       credits={credits} credits_s={credits_s} />;
   }
   return (
