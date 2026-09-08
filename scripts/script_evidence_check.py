@@ -119,8 +119,27 @@ def tokens(text: str) -> tuple[set[str], set[str]]:
     return numerals, names
 
 
+MONTH_ALIASES = {
+    "jan": "january", "jan.": "january",
+    "feb": "february", "feb.": "february",
+    "mar": "march", "mar.": "march",
+    "apr": "april", "apr.": "april",
+    "jun": "june", "jun.": "june",
+    "jul": "july", "jul.": "july",
+    "aug": "august", "aug.": "august",
+    "sep": "september", "sep.": "september", "sept": "september", "sept.": "september",
+    "oct": "october", "oct.": "october",
+    "nov": "november", "nov.": "november",
+    "dec": "december", "dec.": "december",
+}
+
+
 def normalise(s: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "", s.lower())
+    # Source excerpts often abbreviate calendar months while narration expands them. Those are
+    # the same named date, not an unsupported proper noun. Canonicalise whole month tokens before
+    # stripping punctuation so Nov. and November share one evidence surface.
+    words = re.findall(r"[a-z]+\.?|\d+", s.lower())
+    return "".join(MONTH_ALIASES.get(word, word.rstrip(".")) for word in words)
 
 
 def check(board: dict, claims: dict) -> list[str]:
@@ -217,6 +236,11 @@ def self_test() -> int:
 
     ok("a figure present in the cited quote passes",
        not check(board("More than 30 rigs in the Permian.", ("c4",)), claims))
+
+    dated = {"claims": [{"id": "c7", "verdict": "VERIFIED",
+                           "quote": "a hearing on Oct. 6 and final vote on Nov. 17"}]}
+    ok("expanded month names match abbreviated months in fetched source quotes",
+       not check(board("October hearing; November final vote.", ("c7",)), dated))
 
     # The fixture that taught this: "Exxon runs more than 30 rigs in the Permian" cites c4,
     # whose quote is "operates more than 30 drilling rigs in the Permian Basin, two of which

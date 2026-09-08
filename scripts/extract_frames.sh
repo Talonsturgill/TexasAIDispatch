@@ -14,10 +14,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # See render_dispatch.sh: macOS removes a caller's DYLD_* variables while starting bash.
-# Re-establish the sibling-library lookup before invoking Remotion's ffmpeg and ffprobe.
+# Re-establish the sibling-library lookup for Remotion's bundled binaries without replacing
+# the full system ffmpeg selected by run_with_env. Frame proof does not get to silently switch
+# the media toolchain after Gate 0 has checked it.
 COMPOSITOR_BIN="$PWD/video-engine/node_modules/@remotion/compositor-darwin-arm64"
 if [ -x "$COMPOSITOR_BIN/ffmpeg" ]; then
-  export PATH="$COMPOSITOR_BIN:$PATH"
   export DYLD_LIBRARY_PATH="$COMPOSITOR_BIN${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
 fi
 FILM=out/dispatch/film.mp4
