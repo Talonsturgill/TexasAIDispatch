@@ -14,6 +14,7 @@ import {AlloyLoopEpisode} from './AlloyLoopEpisode';
 import {IrrigationEpisode} from './IrrigationEpisode';
 import {BorderCaptureEpisode} from './BorderCaptureEpisode';
 import {BrownsvilleMoratoriumEpisode} from './BrownsvilleMoratoriumEpisode';
+import {HospitalExitEpisode} from './HospitalExitEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -150,7 +151,8 @@ export type DispatchProps = {
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
   cinematic_template?: 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
-    'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1';
+    'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
+    'hospital-exit-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -560,6 +562,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   }
   if (cinematic_template === 'brownsville-moratorium-v1') {
     return <BrownsvilleMoratoriumEpisode runtime_s={end} scenes={scenes} captions={captions}
+      credits={credits} credits_s={credits_s} />;
+  }
+  if (cinematic_template === 'hospital-exit-v1') {
+    return <HospitalExitEpisode runtime_s={end} scenes={scenes} captions={captions}
       credits={credits} credits_s={credits_s} />;
   }
   return (

@@ -530,7 +530,8 @@ def self_test() -> int:
         board, master = root / "board.json", root / "mix.wav"
         prepared, preparation = root / "bed.wav", root / "bed-preparation.json"
         credits.write_text(credits_block([good]) + "\n", encoding="utf-8")
-        board.write_text(json.dumps({"credits": credits.read_text()}) + "\n", encoding="utf-8")
+        board.write_text(json.dumps({"credits": credits.read_text(), "runtime_s": 10,
+                                     "credits_s": 2}) + "\n", encoding="utf-8")
         master.write_bytes(b"master")
         prepared.write_bytes(b"prepared-bed")
         source_hash = file_sha256(REPO / good["file"])
@@ -543,11 +544,15 @@ def self_test() -> int:
                     "bed_source_sha256": source_hash,
                     "bed_preparation_manifest": str(preparation),
                     "bed_preparation_sha256": file_sha256(preparation),
-                    "master_sha256": file_sha256(master)}
+                    "master_sha256": file_sha256(master), "duration_s": 12.0}
         mix_report.write_text(json.dumps(base_mix) + "\n",
                               encoding="utf-8")
         ok("a mixed bed is bound to its registry row, approved gap, and exact credit",
            not verify_package(credits, mix_report, board, master, [good]))
+        mix_report.write_text(json.dumps(dict(base_mix, duration_s=10.0)) + "\n")
+        ok("the music bed must continue through the rendered credit tail",
+           any("credit tail" in x
+               for x in verify_package(credits, mix_report, board, master, [good])))
         mix_report.write_text(json.dumps(dict(base_mix, bed_track_id="wrong")) + "\n")
         ok("a generic or substituted bed id is refused",
            any("not in the registry" in x
@@ -669,6 +674,14 @@ def verify_package(credits_path: Path, mix_path: Path, board_path: Path, master_
     if " ".join(rendered_credits.split()) != " ".join(credits_text.split()):
         errs.append("the board Remotion renders does not carry the exact generated credits.txt. "
                     "A correct sidecar cannot pay a licence for a credit absent from the film.")
+    required_duration = float(board.get("runtime_s") or 0) + float(board.get("credits_s") or 0)
+    mixed_duration = float(mix_report.get("duration_s") or mix_report.get("cut_s") or 0)
+    if required_duration > 0 and mixed_duration + 0.05 < required_duration:
+        errs.append(
+            f"the mixed master is {mixed_duration:.2f}s but the rendered film is "
+            f"{required_duration:.2f}s including its credit tail. The licensed music bed must "
+            "continue through the artist attribution instead of cutting to silence when the "
+            "credit appears.")
     if not master_path.is_file():
         errs.append(f"the mixed master is missing at {master_path}")
     elif mix_report.get("master_sha256") != file_sha256(master_path):
