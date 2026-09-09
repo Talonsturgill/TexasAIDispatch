@@ -654,7 +654,7 @@ story contexts in a track's `avoid` list are all unshippable.
 
 ```
 python3 scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json \
-       --out out/dispatch/mix.wav --cut <runtime>
+       --out out/dispatch/mix.wav --cut <runtime_s + credits_s>
 python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt \
        --voice out/dispatch/mix_vo.wav --out out/dispatch
 python3 scripts/board_captions.py --board out/dispatch/storyboard.json \
@@ -724,6 +724,12 @@ zero leaves the opening shot a third of a second to live in.
 Alignment runs on the FINAL mixed audio and every cue comes from the words JSON. Approximated,
 scaled or hand-shifted timings are banned, and `ship_gate` checks the EVIDENCE for alignment
 rather than the name of the method: the count of boundaries actually measured off the waveform.
+
+**THE MUSIC PLAYS THROUGH THE CREDITS.** `runtime_s` is the narrated picture runtime and
+`credits_s` is the sourced sign-off appended by the renderer. The mixed master therefore lasts
+`runtime_s + credits_s`, even though the voice soundcheck still uses the narrated runtime. A
+master cut at `runtime_s` turns the licensed bed off exactly when the artist credit appears and
+makes the ending feel broken. `music.py --verify-package` enforces the full length.
 
 **THE CUES GO INTO THE BOARD, THEN THE TIMED BOARD GETS ITS FINAL CHEAP ANIMATIC.** The picture's
 bottom band is the narration, so the picture depends on the audio. Re-run Gate 0 and
