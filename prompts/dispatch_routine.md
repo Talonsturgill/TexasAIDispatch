@@ -1046,6 +1046,17 @@ ordering is the load-bearing part and that is why it is code**: a run that ships
 recorded in the variety engine is a run the next one is free to re-skin, and the day that
 happens the ledger will say the two films were different.
 
+Delivery also binds `validation.json` to the current storyboard date and verified claim ids. A
+validator report left over from a prior run is a hard failure even when that report was valid for
+the older film. Existing and readable is not the same thing as current evidence.
+
+The delivery program runs this exact product check before it copies the validator report:
+
+```
+python3 scripts/validation_check.py --validation out/dispatch/validation.json \
+  --claims out/dispatch/claims.json --board out/dispatch/storyboard.json
+```
+
 It also REFUSES three things, which is the half a checklist never does. A red gate stops the
 delivery, because the merge is the one moment a stale green is unrecoverable. A film older than
 the board it is supposed to render stops the delivery, because the board is the props. And a
