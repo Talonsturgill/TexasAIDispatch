@@ -1,0 +1,170 @@
+{
+  "for_date": "2026-09-09",
+  "film": "The clock that has not started",
+  "scenes": 9,
+  "board_runtime_s": 49.5,
+  "readiness": "ready_for_synthesis",
+  "voice": {
+    "read_from": "config/voices.yaml",
+    "status": "use_repository_voice_selection",
+    "note": "Use the configured repository voice. Do not represent the default as an audition winner."
+  },
+  "pronunciation": {
+    "verdict": "No uncommon Texas place name requires a sourced override. Preserve the locked text and confirm Houston, AI, the decimal figures, and self-fulfilling in soundcheck.",
+    "checked": [
+      {
+        "name": "Houston Methodist",
+        "lines": [1],
+        "status": "Texas institutional name with repository pronunciation guidance",
+        "action": "Say Houston as HYOO-stun and keep Methodist joined to it as the institution name."
+      },
+      {
+        "name": "AI",
+        "lines": [4, 7],
+        "status": "initialism",
+        "action": "Say the letters A and I distinctly without expanding them."
+      },
+      {
+        "name": "79.5 percent and 37.9 percent",
+        "lines": [4],
+        "status": "decimal comparison",
+        "action": "Read as seventy-nine point five percent and thirty-seven point nine percent. Keep both decimals exact and distinct."
+      },
+      {
+        "name": "self-fulfilling",
+        "lines": [6],
+        "status": "compound term",
+        "action": "Keep the compound connected and fully articulated without giving it dramatic weight."
+      }
+    ]
+  },
+  "timing": {
+    "script_word_count_whitespace": 153,
+    "read_target_s": 51,
+    "requested_range_s": [49, 55],
+    "pause_after_is_for_the_editor": true,
+    "pause_after_unit": "relative natural sentence beats, not inserted seconds",
+    "note": "Read the nine lines as one continuous passage with ordinary sentence breaths and clean forward motion. The numerical comparison needs room for both decimals, while the remaining transitions should not acquire held silences. Fit the picture to the natural take. Never pad, rush unnaturally, or time-stretch.",
+    "if_long": "Return to the director for a shorter script. Do not accelerate the decimal comparison, clip the workflow caveat, or time-stretch the recording. This plan makes no change to the locked script."
+  },
+  "overall": "One continuous, natural read from a person who understands both hospital operations and study design and wants the listener to notice the difference between a result and a fair workflow comparison. Plain contemporary American delivery with Texas familiarity in the restraint, not an imitated drawl, medical-commercial polish, broadcast-news lift, or courtroom gravity. Begin conversationally and establish the competing estimates without declaring a winner. Build modest momentum through the later checkpoints, then make the line with the two percentages the first major drop and the most deliberate quantitative moment. Recover only enough to explain why that timing matters. Lift for the methodological turn in line 6, then drop on the fact that the AI was not enabled automatically. Make line 8 quiet and exact because it carries the study's scope limit. The final line should recover toward the research standard, then settle lower on the next clock to start, without turning it into a slogan. Say Houston as HYOO-stun, speak AI as the letters A and I, and articulate each decimal completely. Keep the passage connected. The editor reads pause_after and places breathing room in the cut, so do not hold silences between lines. Never time-stretch.",
+  "lines": [
+    {
+      "n": 1,
+      "scene": "s1",
+      "text": "At Houston Methodist, two estimates tried to name the same thing: the patient's discharge date.",
+      "intent": "Place the listener inside the hospital and establish one shared forecasting target.",
+      "emphasis": "same",
+      "energy": "five and a half of ten, an alert conversational baseline",
+      "pause_after": 0.2,
+      "risk": "Keep Houston at HYOO-stun. Do not make the institution sound promotional or turn the opening into a contest announcement."
+    },
+    {
+      "n": 2,
+      "scene": "s2",
+      "text": "At admission, they were close on error. Case managers still named the exact day more often.",
+      "intent": "Establish the close starting point, then reveal the practical distinction without crowning a winner.",
+      "emphasis": "exact",
+      "energy": "five of ten, a slight drop that gains a little motion in the second sentence",
+      "pause_after": 0.15,
+      "risk": "Do not blur close on error into equivalence. Keep the second sentence factual, without competitive color."
+    },
+    {
+      "n": 3,
+      "scene": "s3",
+      "text": "At the later checkpoints, the case managers pulled ahead on error.",
+      "intent": "Advance the comparison in time and prepare the listener for the measured gap.",
+      "emphasis": "later",
+      "energy": "six of ten, a contained lift and the start of forward momentum",
+      "pause_after": 0.2,
+      "risk": "Pulled ahead can invite sports cadence. Keep it analytical and leave the actual size of the gap for the next line."
+    },
+    {
+      "n": 4,
+      "scene": "s4",
+      "text": "In the analysis labeled 24 hours, 79.5 percent of their estimates landed within one day. The AI managed 37.9 percent.",
+      "intent": "Land the central numerical comparison with enough space for both figures to remain exact.",
+      "emphasis": "37.9",
+      "energy": "three of ten, the first major drop and the quietest numerical delivery",
+      "pause_after": 0.35,
+      "risk": "Highest articulation risk. Say both decimals and both percent markers completely. Do not celebrate the case managers, shame the AI, or imply causation."
+    },
+    {
+      "n": 5,
+      "scene": "s5",
+      "text": "That is when the authors say accurate dates are most actionable for bed management.",
+      "intent": "Connect the measured timing to its operational use while keeping the attribution visible.",
+      "emphasis": "actionable",
+      "energy": "four and a half of ten, a restrained recovery from the figures",
+      "pause_after": 0.25,
+      "risk": "Keep authors say audible so the operational interpretation remains attributed. Avoid management-consulting polish on actionable."
+    },
+    {
+      "n": 6,
+      "scene": "s6",
+      "text": "But they also name a problem with the comparison. Case manager estimates were visible to care teams and may have become partly self-fulfilling.",
+      "intent": "Turn from the result to the study-design problem and explain the possible feedback loop.",
+      "emphasis": "comparison",
+      "energy": "six and a half of ten on the turn, easing to five through the explanation",
+      "pause_after": 0.25,
+      "risk": "The opening turn must stay connected to line 5. Preserve may and partly, and keep self-fulfilling clear without making it sound accusatory."
+    },
+    {
+      "n": 7,
+      "scene": "s7",
+      "text": "The AI estimates were accessible in the record, but not enabled automatically.",
+      "intent": "State the asymmetry in how the competing estimates entered clinical work.",
+      "emphasis": "not",
+      "energy": "four of ten, a definite drop from the methodological turn",
+      "pause_after": 0.35,
+      "risk": "Do not swallow not or convert accessible into actively used. Say AI as two letters and keep automatically fluid."
+    },
+    {
+      "n": 8,
+      "scene": "s8",
+      "text": "So the study measured accuracy inside two different workflow conditions. It did not measure downstream decisions or patient outcomes.",
+      "intent": "Define exactly what the study comparison can and cannot establish.",
+      "emphasis": "different",
+      "energy": "two and a half of ten, the lowest and most certain point in the passage",
+      "pause_after": 0.45,
+      "risk": "Make did not measure fully audible without implying that the study lacks value. Keep decisions and patient outcomes together as the unmeasured downstream scope."
+    },
+    {
+      "n": 9,
+      "scene": "s9",
+      "text": "The paper calls for prospective, outcome-based testing before judging whether the extra complexity is worth it. That is the next clock to start.",
+      "intent": "Close with the evidence standard that would answer the remaining practical question.",
+      "emphasis": "prospective",
+      "energy": "five of ten on the testing standard, settling to four on the final sentence",
+      "pause_after": 0,
+      "risk": "Keep prospective and outcome-based distinct. Do not give the final metaphor trailer weight, upward lift, or a sales-pitch finish."
+    }
+  ],
+  "risks": [
+    {
+      "type": "numeral_accuracy",
+      "severity": "high",
+      "note": "Both decimal percentages must be spoken exactly and remain attached to the correct estimator."
+    },
+    {
+      "type": "causal_overreach",
+      "severity": "high",
+      "note": "The read must not turn an accuracy comparison under different workflow conditions into proof that one estimator caused better outcomes."
+    },
+    {
+      "type": "qualification_loss",
+      "severity": "high",
+      "note": "May, partly, not, and did not measure are load-bearing qualifications and must remain fully audible."
+    },
+    {
+      "type": "institutional_polish",
+      "severity": "medium",
+      "note": "The piece should not sound like a hospital advertisement, AI product pitch, or contest recap."
+    },
+    {
+      "type": "runtime_pressure",
+      "severity": "medium",
+      "note": "Use a natural continuous take and retime or trim through the authorized script path if needed. Never time-stretch."
+    }
+  ]
+}
