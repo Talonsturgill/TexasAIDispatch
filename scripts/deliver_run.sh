@@ -102,6 +102,8 @@ run_gate music_package    python3 scripts/music.py --verify-package "$OUT/credit
     --mix "$OUT/mix.json" --board "$OUT/storyboard.json" --master "$OUT/mix.wav"
 run_gate super_evidence   python3 scripts/super_evidence_check.py --board "$OUT/storyboard.json" \
     --claims "$OUT/claims.json"
+run_gate validation_match python3 scripts/validation_check.py --validation "$OUT/validation.json" \
+    --claims "$OUT/claims.json" --board "$OUT/storyboard.json"
 run_gate board_scale      python3 scripts/board_scale_check.py --board "$OUT/storyboard.json"
 run_gate floor_check      python3 scripts/floor_check.py --board "$OUT/storyboard.json"
 run_gate safe_area_check  python3 scripts/safe_area_check.py
