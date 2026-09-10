@@ -1,0 +1,51 @@
+{
+  "for_date": "2026-09-10",
+  "film": "The seat stays empty",
+  "scenes": 10,
+  "board_runtime_s": 60.0,
+  "readiness": "ready_for_synthesis",
+  "voice": {
+    "read_from": "config/voices.yaml",
+    "status": "use_repository_voice_selection",
+    "note": "Use the configured repository voice. Do not represent the default as an audition winner."
+  },
+  "pronunciation": {
+    "verdict": "No uncommon Texas place name requires a sourced override. Preserve the locked text and confirm Fort Worth, Dallas-Fort Worth, Joby, FAA, San Antonio, and Houston in soundcheck.",
+    "checked": [
+      {"name": "Fort Worth and Dallas-Fort Worth", "lines": [1, 2], "status": "common Texas place and metro names", "action": "Say Fort Worth naturally as two clean words. Keep Dallas-Fort Worth connected as one metro-area name."},
+      {"name": "Joby", "lines": [2], "status": "company name", "action": "Say Joby as JOH-bee without product-launch emphasis."},
+      {"name": "FAA", "lines": [6, 8], "status": "initialism", "action": "Say the letters F, A, A distinctly without expanding them."},
+      {"name": "San Antonio", "lines": [7], "status": "common Texas place name", "action": "Use the ordinary Texas English pronunciation and keep the two words connected."},
+      {"name": "Houston", "lines": [7], "status": "Texas place name with repository guidance", "action": "Say Houston as HYOO-stun."}
+    ]
+  },
+  "timing": {
+    "script_word_count_whitespace": 131,
+    "read_target_s": 57,
+    "requested_range_s": [54, 60],
+    "pause_after_is_for_the_editor": true,
+    "pause_after_unit": "relative natural sentence beats, not inserted seconds",
+    "note": "Read all ten lines as one continuous passage with ordinary sentence breaths. Let the route gain motion through the middle, but make the passenger limit and evidence gate deliberate. Do not pad the take to the board runtime or hold silence between lines. Fit the picture to the natural read.",
+    "if_long": "Return to the director for a shorter script. The cleanest optional clause for an authorized trim is and eventually Houston in line 7. Do not compress line 8, blur its passenger stages, or alter the recording speed."
+  },
+  "overall": "A restrained, conversational read from someone who understands that an empty seat is the operational story, not a failure to launch. Plain contemporary American delivery with North Texas familiarity in the place names, not an imitated drawl, aviation-commercial polish, broadcast-news lift, or futuristic wonder. Open with quiet confidence and let nobody land dry after a slight inward turn. Lift into the week of test flights, then become more exact when separating the piloted air taxi from the autonomous demonstration aircraft. Make no passengers the quietest and most important fact in the first half. Recover through route validation and FAA evidence, then widen modestly for the proposed Texas network without selling it. Drop again for the passenger ladder so later, oversight, could, and non-paying remain fully audible. The final two lines should feel like the answer earned by the route, lower and more certain than the network section. Land flight log rather than promise, then stop without a slogan cadence. Say Joby as JOH-bee, FAA as three letters, and Houston as HYOO-stun. Keep the passage connected. The editor reads pause_after and places breathing room in the cut, so do not hold silences between lines. Never alter the recording speed.",
+  "lines": [
+    {"n": 1, "scene": "s1", "text": "In Fort Worth, the most important passenger is nobody.", "intent": "Open on the paradox and make the empty seat feel deliberate.", "emphasis": "nobody", "energy": "five of ten at the start, dropping to three on the final word", "pause_after": 0.3, "risk": "Do not play nobody as a joke, mystery-trailer reveal, or criticism of the aircraft. Keep Fort Worth natural and unforced."},
+    {"n": 2, "scene": "s2", "text": "Joby's electric air taxi begins a week of Dallas-Fort Worth test flights.", "intent": "Move from the empty seat into the real flight activity beginning now.", "emphasis": "begins", "energy": "six of ten, a clean lift from the dry opening", "pause_after": 0.2, "risk": "Say Joby as JOH-bee. Keep Dallas-Fort Worth connected and avoid product-launch excitement."},
+    {"n": 3, "scene": "s3", "text": "It lifts with a pilot. The autonomous demonstration uses a different aircraft.", "intent": "Separate the two aircraft before the listener can merge their claims.", "emphasis": "different", "energy": "five of ten, more precise and controlled than line 2", "pause_after": 0.3, "risk": "Keep the full stop between the two facts. Do not imply that the air taxi itself flies autonomously."},
+    {"n": 4, "scene": "s4", "text": "That separation matters. The first phase carries no passengers.", "intent": "Land the operational limit as the key fact behind the empty seat.", "emphasis": "no", "energy": "two and a half of ten, the largest drop and the quietest line in the first half", "pause_after": 0.4, "risk": "Make no fully audible without sounding ominous or disappointed. Do not turn first phase into a permanent prohibition."},
+    {"n": 5, "scene": "s5", "text": "The work is not selling a ride. It is tracing and validating a route.", "intent": "Reframe the campaign from commerce to methodical route work.", "emphasis": "validating", "energy": "four and a half of ten, a restrained recovery with practical motion", "pause_after": 0.2, "risk": "Preserve not and keep tracing and validating connected. Avoid advertising cadence on ride."},
+    {"n": 6, "scene": "s6", "text": "Those flights give the FAA operational evidence for the rules that come next.", "intent": "Convert repeated flights into the evidence needed for future standards.", "emphasis": "evidence", "energy": "six of ten, the passage's clearest mechanism lift", "pause_after": 0.25, "risk": "Say FAA as three letters. Do not imply that the flights themselves create or settle the future rules."},
+    {"n": 7, "scene": "s7", "text": "The proposed network runs from Dallas toward Austin, San Antonio, and eventually Houston.", "intent": "Widen from one route to the conditional Texas-scale vision.", "emphasis": "proposed", "energy": "seven of ten, the widest point in the passage without added salesmanship", "pause_after": 0.3, "risk": "Proposed and eventually are load-bearing. Keep the city list moving rather than singing it, and say Houston as HYOO-stun."},
+    {"n": 8, "scene": "s8", "text": "Only later, under FAA oversight, could the ladder move from pilot only to non-paying riders, then paying ones.", "intent": "Bring the expanding vision back under the staged passenger rules.", "emphasis": "later", "energy": "three and a half of ten, a deliberate drop from the network view", "pause_after": 0.4, "risk": "Longest and most qualification-heavy line. Preserve only later, oversight, could, non-paying, and then. Do not rush the stages or make progression sound automatic."},
+    {"n": 9, "scene": "s9", "text": "So the empty seat is not a missing product. It is the evidence gate.", "intent": "Resolve the opening paradox by turning absence into a threshold.", "emphasis": "evidence", "energy": "five of ten on the reframe, settling to four on the second sentence", "pause_after": 0.35, "risk": "Do not sound defensive on missing product or triumphant on evidence gate. The metaphor should feel earned and plain."},
+    {"n": 10, "scene": "s10", "text": "Before a rider can enter, the route must clear. The flight log matters more than the promise.", "intent": "Close on the observable record that must precede a passenger.", "emphasis": "log", "energy": "four of ten, lower and more certain than the middle with a firm downward finish", "pause_after": 0, "risk": "Keep must clear tied to the route rather than suggesting a current failure. Do not give promise a dramatic tail or lift the final word."}
+  ],
+  "risks": [
+    {"type": "aircraft_conflation", "severity": "high", "note": "The piloted electric air taxi and autonomous demonstration aircraft must remain audibly distinct."},
+    {"type": "qualification_loss", "severity": "high", "note": "First phase, proposed, eventually, only later, under FAA oversight, could, and non-paying are load-bearing qualifications."},
+    {"type": "commercial_cadence", "severity": "high", "note": "The read must not sound like a Joby advertisement, passenger-service launch, or futuristic product reveal."},
+    {"type": "place_pronunciation", "severity": "medium", "note": "Fort Worth, Dallas-Fort Worth, San Antonio, and Houston should sound locally ordinary rather than over-enunciated."},
+    {"type": "runtime_pressure", "severity": "medium", "note": "Use a natural continuous take. If it runs long, return for an authorized script trim and never alter the recording speed."}
+  ]
+}
