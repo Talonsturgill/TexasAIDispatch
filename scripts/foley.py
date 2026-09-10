@@ -914,6 +914,72 @@ def causal_break(seed=37):
     return normalize(fade(out, 20), 0.76)
 
 
+def aircraft_rotor(seed=53):
+    """A close electric-aircraft rotor and prop-wash bed tied to a visible aircraft.
+
+    Four slightly offset blade rates create the tell: a controlled multi-rotor pulse rather
+    than a helicopter chop or a generic engine drone. Filtered air carries the lift while the
+    low harmonics keep it physical beneath narration.
+    """
+    dur = 6.0
+    air = one_pole_lp(high_pass(white(dur, seed), 55), 4200) * 0.24
+    out = air * (0.55 + 0.45 * (0.5 + 0.5 * sine(2.7, dur)))
+    for i, rate in enumerate((18.2, 19.0, 20.1, 21.0)):
+        blade = sine(rate, dur, phase=i * 0.7) + sine(rate * 2, dur, phase=i) * 0.28
+        out += blade * (0.08 + i * 0.008)
+    rise = np.clip(t_axis(dur) / 0.7, 0, 1)
+    return normalize(fade(out * (0.48 + 0.52 * rise), 120), 0.76)
+
+
+def seatbelt_latch(seed=54):
+    """A visible passenger-seat buckle drawing tight and locking.
+
+    Webbing first, then a small sprung metal latch. The cloth-to-metal order keeps the sound
+    attached to the seat instead of reading as a generic interface click.
+    """
+    dur = 1.15
+    out = np.zeros(int(dur * SR))
+    webbing = one_pole_lp(high_pass(white(0.36, seed), 400), 5200) * np.hanning(int(0.36 * SR))
+    place_into(out, normalize(webbing) * 0.25, 0.06)
+    metal = sine(1220, 0.16) * expdecay(0.16, 0.035)
+    metal += biquad_bp(white(0.16, seed + 1), 3100, 7) * expdecay(0.16, 0.018) * 0.42
+    place_into(out, normalize(metal) * 0.78, 0.43)
+    return normalize(fade(out, 18), 0.82)
+
+
+def passenger_gate_drop(seed=55):
+    """A visible passenger barrier swinging down and seating in its stop.
+
+    A short motor movement resolves into rubber-backed metal contact. It is a controlled airport
+    barrier, not a prison door and not an ominous impact.
+    """
+    dur = 1.65
+    out = np.zeros(int(dur * SR))
+    motor = sine(lambda t: 240 - 90 * np.clip(t / 0.8, 0, 1), 0.82)
+    motor += one_pole_lp(white(0.82, seed), 900) * 0.12
+    place_into(out, normalize(motor * adsr(0.82, 0.06, 0.08, 0.62, 0.18, 0.62)) * 0.42, 0.05)
+    stop = biquad_bp(white(0.22, seed + 1), 360, 3) * expdecay(0.22, 0.055)
+    place_into(out, normalize(stop) * 0.76, 0.82)
+    return normalize(fade(out, 20), 0.82)
+
+
+def route_marker(seed=56):
+    """A visible amber route line passing measured checkpoints on a map.
+
+    Three warm relay tones arrive in sequence and end on a dry marker tap. It belongs to the
+    path being traced; it never pretends that a real cockpit or agency emits these tones.
+    """
+    dur = 1.9
+    out = np.zeros(int(dur * SR))
+    for i, (at, freq) in enumerate(((0.10, 420), (0.48, 520), (0.86, 620))):
+        tone = sine(freq, 0.22) * expdecay(0.22, 0.07)
+        tone += sine(freq * 2, 0.22) * expdecay(0.22, 0.045) * 0.18
+        place_into(out, fade(normalize(tone), 4) * 0.42, at)
+    tap = biquad_bp(white(0.10, seed + 9), 1600, 5) * expdecay(0.10, 0.02)
+    place_into(out, normalize(tap) * 0.65, 1.26)
+    return normalize(fade(out, 24), 0.76)
+
+
 def field_marker(seed=38):
     """Candidate road segments entering an engineer's field-inspection queue.
 
@@ -1207,6 +1273,10 @@ SOUNDS = {
     "document_parse": (document_parse, "oneshot", "a visible document stream turning narrative prose into mechanism labels", ["records", "document", "labels", "analysis"]),
     "record_join": (record_join, "oneshot", "two visible record cards joining into one linked record", ["records", "join", "analysis"]),
     "causal_break": (causal_break, "oneshot", "a visible causal arrow breaking while an association line remains", ["evidence", "limit", "analysis"]),
+    "aircraft_rotor": (aircraft_rotor, "ambience", "a visible electric aircraft lifting or flying on its route", ["aircraft", "flight", "rotor", "route"]),
+    "seatbelt_latch": (seatbelt_latch, "oneshot", "a visible empty passenger seat buckle drawing tight and locking", ["seat", "buckle", "passenger", "gate"]),
+    "passenger_gate_drop": (passenger_gate_drop, "oneshot", "a visible passenger barrier or later-stage gate dropping closed", ["passenger", "rider", "gate", "limit"]),
+    "route_marker": (route_marker, "oneshot", "a visible route line passing measured checkpoints on a map", ["route", "map", "network", "test"]),
     "field_marker": (field_marker, "oneshot", "candidate road segments entering an engineer field inspection queue", ["road", "inspection", "engineer"]),
     "alloy_furnace": (alloy_furnace, "oneshot", "a visible alloy charge heating in an induction furnace", ["materials", "metal", "furnace", "laboratory"]),
     "robot_servo": (robot_servo, "oneshot", "a visible industrial robot indexing a metal coupon", ["materials", "robot", "automation", "laboratory"]),
