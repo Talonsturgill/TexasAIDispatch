@@ -1,0 +1,1613 @@
+{
+  "date": "2026-09-10",
+  "title": "The seat stays empty",
+  "topic": "Today's Dallas-Fort Worth air taxi campaign starts with no passengers",
+  "slug": "the-seat-stays-empty",
+  "beat": "the-road",
+  "runtime_s": 54.0,
+  "credits_s": 5.0,
+  "cinematic_template": "empty-seat-flight-v1",
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "one amber route line",
+      "opening_state": "trapped beneath an empty passenger seat",
+      "closing_state": "stopped at the passenger buckle until the flight log clears",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ]
+    },
+    "turn_scene": "s4",
+    "button": "Watch the flight log, not the promise"
+  },
+  "derived_from": "scratch",
+  "divergence_note": "This film begins inside an empty passenger seat and makes absence its hero. An amber route line rises vertically through two deliberately distinct aircraft, hits a physical evidence gate, then becomes a Texas network only after the limit is visible. It uses cockpit macro views, runway voids and ascent rather than yesterday's lateral hospital comparison.",
+  "fingerprint": {
+    "pov": "macro-closeup",
+    "motion_vector": "vertical-rise",
+    "hero_treatment": "absence-as-subject",
+    "layout": "single-object-void",
+    "register": "tactile-collage",
+    "camera_strategy": "riseWith",
+    "light_story": "night-practical",
+    "palette": "runway charcoal + beacon amber + instrument cyan + Texas dawn coral",
+    "metaphor": "an empty passenger seat as the evidence gate"
+  },
+  "fauna_scope": {
+    "status": "none",
+    "reason": "No animal illustrates an aircraft route test, passenger limit, or FAA evidence decision, so decorative wildlife would weaken the reported mechanism."
+  },
+  "credits": "SOURCES\nJoby Aviation · Texas Department of Transportation · Federal Aviation Administration · SEC filing\nTexasAIDocket.com\nMUSIC\n\"Immersed\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 5.88,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "riseWith",
+      "camera_secondary": "dollyThrough",
+      "hero": "empty-passenger-seat",
+      "seed": 101,
+      "groundY": 1370,
+      "super": "THE MOST IMPORTANT PASSENGER",
+      "caption": "is nobody",
+      "vo": "In Fort Worth, the most important passenger is nobody.",
+      "vo_claims": [
+        "c1",
+        "c4",
+        "c14"
+      ],
+      "beat": "revelation",
+      "story_role": "hook",
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 0.8,
+      "visual_family": "empty-cabin",
+      "payload_mode": "picture",
+      "on_screen": "An empty passenger seat snaps into light while a pilot sits beyond it and rotor shadows begin turning.",
+      "what_moves": "The buckle tightens itself, rotor shadows accelerate, and the route line escapes from beneath the empty cushion.",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "focused"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the empty passenger seat",
+        "action": "locks its buckle while the route line slips away",
+        "emotion": "expectant restraint",
+        "annotation": "NO RIDER"
+      },
+      "planes": [
+        {
+          "z": 760,
+          "label": "rotor shadow",
+          "items": [
+            {
+              "id": "hangar-sky",
+              "kind": "clearSky",
+              "x": 540,
+              "y": 500,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "airport place",
+          "items": [
+            {
+              "id": "haslet-sign",
+              "kind": "cityLimitSign",
+              "x": 760,
+              "y": 980,
+              "scale": 0.9,
+              "props": {
+                "label": "HASLET"
+              }
+            }
+          ]
+        },
+        {
+          "z": 240,
+          "label": "evidence seat",
+          "items": [
+            {
+              "id": "empty-seat",
+              "kind": "associationDiagram",
+              "x": 130,
+              "y": 1050,
+              "scale": 0.9,
+              "props": {
+                "leftLabel": "PILOT",
+                "rightLabel": "EMPTY PASSENGER SEAT",
+                "relation": "BESIDE",
+                "limit": "TODAY"
+              }
+            }
+          ]
+        },
+        {
+          "z": 80,
+          "label": "pilot",
+          "items": [
+            {
+              "id": "pilot",
+              "kind": "person",
+              "x": 720,
+              "y": 1450,
+              "scale": 0.85,
+              "props": {
+                "cast": "engineer",
+                "pose": "seated",
+                "emotion": "focused"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "an empty passenger seat beside a pilot is today's central fact",
+        "must_show": [
+          {
+            "concept": "empty passenger seat",
+            "item_ids": [
+              "empty-seat",
+              "pilot"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the empty seat buckle locks while the pilot remains beyond it",
+          "item_ids": [
+            "empty-seat",
+            "pilot"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.784,
+          "at_s_authored": 0.8,
+          "what": "the empty passenger seat snaps into the light",
+          "item_ids": [
+            "empty-seat"
+          ]
+        },
+        {
+          "at_s": 4.116,
+          "at_s_authored": 4.2,
+          "what": "the pilot starts the rotor while the seat stays empty",
+          "item_ids": [
+            "pilot",
+            "empty-seat"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s2",
+      "start_s": 5.88,
+      "duration_s": 4.9,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "craneDown",
+      "camera_secondary": "riseWith",
+      "hero": "dfw-test-flight",
+      "seed": 102,
+      "groundY": 1380,
+      "super": "A WEEK OF TEST FLIGHTS",
+      "caption": "starts today",
+      "vo": "Joby's electric air taxi begins a week of Dallas-Fort Worth test flights.",
+      "vo_claims": [
+        "c1",
+        "c5"
+      ],
+      "beat": "motion",
+      "story_role": "movement",
+      "visual_family": "alliance-runway",
+      "payload_mode": "picture",
+      "on_screen": "A five-rotor electric aircraft rises above an industrial runway as one amber route line draws beneath it.",
+      "what_moves": "Rotors spin, landing gear clears the runway, and the route line crosses the Dallas-Fort Worth test map.",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "focused"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the piloted electric air taxi",
+        "action": "rises from the industrial runway and draws its first test route",
+        "emotion": "controlled lift",
+        "annotation": "TEST FLIGHT"
+      },
+      "planes": [
+        {
+          "z": 780,
+          "label": "Texas dawn",
+          "items": [
+            {
+              "id": "runway-sky",
+              "kind": "sunsetBands",
+              "x": 540,
+              "y": 480,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "airport edge",
+          "items": [
+            {
+              "id": "industrial-airport",
+              "kind": "dockDoors",
+              "x": 470,
+              "y": 1030,
+              "scale": 0.8
+            }
+          ]
+        },
+        {
+          "z": 260,
+          "label": "test route",
+          "items": [
+            {
+              "id": "test-map",
+              "kind": "inspectionMap",
+              "x": 100,
+              "y": 920,
+              "scale": 0.9,
+              "props": {
+                "title": "DALLAS FORT WORTH TEST FLIGHTS",
+                "county": "TARRANT",
+                "segments": [
+                  "ALLIANCE",
+                  "ROUTE",
+                  "RETURN"
+                ],
+                "status": "STARTS TODAY"
+              }
+            }
+          ]
+        },
+        {
+          "z": 70,
+          "label": "runway",
+          "items": [
+            {
+              "id": "test-lane",
+              "kind": "lane",
+              "x": 60,
+              "y": 1500,
+              "scale": 1.0
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Dallas Fort Worth test flights leave Alliance and trace a route",
+        "must_show": [
+          {
+            "concept": "Dallas Fort Worth test flights",
+            "item_ids": [
+              "test-map",
+              "test-lane"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the test route draws outward from the Alliance runway",
+          "item_ids": [
+            "test-map",
+            "test-lane"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.817,
+          "at_s_authored": 1.0,
+          "what": "the test aircraft lifts from the runway",
+          "item_ids": [
+            "test-lane"
+          ]
+        },
+        {
+          "at_s": 3.593,
+          "at_s_authored": 4.4,
+          "what": "the Dallas Fort Worth route finishes drawing",
+          "item_ids": [
+            "test-map"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s3",
+      "start_s": 10.78,
+      "duration_s": 5.04,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "truckAcross",
+      "camera_secondary": "orbitReveal",
+      "hero": "two-aircraft",
+      "seed": 103,
+      "groundY": 1360,
+      "super": "SEPARATE AIRCRAFT",
+      "caption": "one piloted, one autonomous",
+      "vo": "It lifts with a pilot. The autonomous demonstration uses a different aircraft.",
+      "vo_claims": [
+        "c2",
+        "c3",
+        "c9"
+      ],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "visual_family": "split-flightline",
+      "payload_mode": "mixed",
+      "on_screen": "The frame tears into two flight lanes. A person sits inside the eVTOL while an autonomous Caravan flies on the other side.",
+      "what_moves": "The two aircraft cross in opposite directions while a divider locks between them.",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "alert"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the two aircraft",
+        "action": "cross separate lanes and refuse to merge into one claim",
+        "emotion": "clarifying tension",
+        "annotation": "DO NOT CONFLATE"
+      },
+      "planes": [
+        {
+          "z": 760,
+          "label": "split sky",
+          "items": [
+            {
+              "id": "split-sky",
+              "kind": "blueNorther",
+              "x": 540,
+              "y": 470,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 510,
+          "label": "flight lanes",
+          "items": [
+            {
+              "id": "split-lanes",
+              "kind": "lane",
+              "x": 80,
+              "y": 1110,
+              "scale": 0.95
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "aircraft distinction",
+          "items": [
+            {
+              "id": "aircraft-split",
+              "kind": "associationDiagram",
+              "x": 110,
+              "y": 910,
+              "scale": 0.9,
+              "props": {
+                "leftLabel": "PILOTED ELECTRIC AIR TAXI",
+                "rightLabel": "AUTONOMOUS J208",
+                "relation": "TWO AIRCRAFT",
+                "limit": "DO NOT CONFLATE"
+              }
+            }
+          ]
+        },
+        {
+          "z": 70,
+          "label": "visible pilot",
+          "items": [
+            {
+              "id": "split-pilot",
+              "kind": "person",
+              "x": 260,
+              "y": 1440,
+              "scale": 0.82,
+              "props": {
+                "cast": "engineer",
+                "pose": "seated",
+                "emotion": "alert"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "the piloted electric air taxi and autonomous J208 are different aircraft",
+        "must_show": [
+          {
+            "concept": "piloted electric air taxi autonomous J208",
+            "item_ids": [
+              "aircraft-split",
+              "split-pilot"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the two aircraft split into separate lanes around the pilot",
+          "item_ids": [
+            "aircraft-split",
+            "split-pilot"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.84,
+          "at_s_authored": 1.0,
+          "what": "the piloted air taxi enters its own lane",
+          "item_ids": [
+            "split-pilot",
+            "aircraft-split"
+          ]
+        },
+        {
+          "at_s": 3.696,
+          "at_s_authored": 4.4,
+          "what": "the autonomous J208 separates behind the divider",
+          "item_ids": [
+            "aircraft-split"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s4",
+      "start_s": 15.82,
+      "duration_s": 4.7,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "dollyThrough",
+      "camera_secondary": "truckAcross",
+      "hero": "no-passengers-gate",
+      "seed": 104,
+      "groundY": 1380,
+      "super": "NO PASSENGERS",
+      "caption": "that is the rule",
+      "vo": "That separation matters. The first phase carries no passengers.",
+      "vo_claims": [
+        "c6"
+      ],
+      "beat": "emotion",
+      "story_role": "consequence",
+      "visual_family": "passenger-gate",
+      "payload_mode": "mixed",
+      "on_screen": "Passenger silhouettes approach a runway gate and stop. The empty seat remains visible beyond it.",
+      "what_moves": "The gate drops, rider silhouettes halt, and the amber route line passes alone underneath.",
+      "cast": [
+        {
+          "id": "owner",
+          "emotion": "checked"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the first passenger group",
+        "action": "halts when the test gate drops across the route",
+        "emotion": "checked expectation",
+        "annotation": "FIRST PHASE"
+      },
+      "planes": [
+        {
+          "z": 770,
+          "label": "airport dark",
+          "items": [
+            {
+              "id": "gate-sky",
+              "kind": "clearSky",
+              "x": 540,
+              "y": 470,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "runway behind gate",
+          "items": [
+            {
+              "id": "gate-runway",
+              "kind": "lane",
+              "x": 60,
+              "y": 1280,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "phase rule",
+          "items": [
+            {
+              "id": "phase-rule",
+              "kind": "readout",
+              "x": 120,
+              "y": 900,
+              "scale": 0.9,
+              "props": {
+                "x": 0,
+                "y": 0,
+                "rows": [
+                  [
+                    "FIRST PHASE",
+                    "NO PASSENGERS"
+                  ],
+                  [
+                    "WORK",
+                    "ROUTE TEST"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 65,
+          "label": "waiting rider",
+          "items": [
+            {
+              "id": "waiting-rider",
+              "kind": "person",
+              "x": 690,
+              "y": 1470,
+              "scale": 0.84,
+              "props": {
+                "cast": "owner",
+                "pose": "waiting",
+                "emotion": "checked"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "the first Texas phase stops passengers before the test route",
+        "must_show": [
+          {
+            "concept": "first phase no passengers",
+            "item_ids": [
+              "phase-rule",
+              "waiting-rider"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the passenger stops while the no passengers rule closes the gate",
+          "item_ids": [
+            "phase-rule",
+            "waiting-rider"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.705,
+          "at_s_authored": 0.9,
+          "what": "the first phase passenger walks toward the gate",
+          "item_ids": [
+            "waiting-rider"
+          ]
+        },
+        {
+          "at_s": 3.368,
+          "at_s_authored": 4.3,
+          "what": "the no passengers rule drops and stops the rider",
+          "item_ids": [
+            "phase-rule",
+            "waiting-rider"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s5",
+      "start_s": 20.52,
+      "duration_s": 4.72,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "orbitReveal",
+      "camera_secondary": "craneDown",
+      "hero": "route-validation",
+      "seed": 105,
+      "groundY": 1380,
+      "super": "TRACE THE ROUTE",
+      "caption": "then validate it",
+      "vo": "The work is not selling a ride. It is tracing and validating a route.",
+      "vo_claims": [
+        "c6"
+      ],
+      "beat": "motion",
+      "story_role": "consequence",
+      "visual_family": "route-table",
+      "payload_mode": "picture",
+      "on_screen": "An amber route line winds across an aerial airport diagram, encounters weather and airspace marks, then resolves into a flight log.",
+      "what_moves": "The line searches, bends around constraints, and stamps each traversed segment into the log.",
+      "cast": [
+        {
+          "id": "operator",
+          "emotion": "intent"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the test route",
+        "action": "searches across the map and turns each segment into evidence",
+        "emotion": "methodical suspense",
+        "annotation": "VALIDATING"
+      },
+      "planes": [
+        {
+          "z": 760,
+          "label": "map ground",
+          "items": [
+            {
+              "id": "map-sky",
+              "kind": "clearSky",
+              "x": 540,
+              "y": 470,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "airport grid",
+          "items": [
+            {
+              "id": "airport-lane",
+              "kind": "lane",
+              "x": 50,
+              "y": 1240,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 240,
+          "label": "route map",
+          "items": [
+            {
+              "id": "route-map",
+              "kind": "inspectionMap",
+              "x": 110,
+              "y": 900,
+              "scale": 0.9,
+              "props": {
+                "title": "TRACE AND VALIDATE",
+                "county": "DALLAS FORT WORTH",
+                "segments": [
+                  "DEPART",
+                  "CROSS",
+                  "RETURN"
+                ],
+                "status": "ROUTE TEST"
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "route operator",
+          "items": [
+            {
+              "id": "route-operator",
+              "kind": "person",
+              "x": 760,
+              "y": 1450,
+              "scale": 0.84,
+              "props": {
+                "cast": "operator",
+                "pose": "point",
+                "emotion": "intent"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "an operator traces and validates the Dallas Fort Worth test route",
+        "must_show": [
+          {
+            "concept": "trace validate route",
+            "item_ids": [
+              "route-map",
+              "route-operator"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the traced route becomes a validated flight segment",
+          "item_ids": [
+            "route-map",
+            "route-operator"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.865,
+          "at_s_authored": 1.1,
+          "what": "the operator starts tracing the route",
+          "item_ids": [
+            "route-operator",
+            "route-map"
+          ]
+        },
+        {
+          "at_s": 3.461,
+          "at_s_authored": 4.4,
+          "what": "the route returns and stamps its test result",
+          "item_ids": [
+            "route-map"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s6",
+      "start_s": 25.24,
+      "duration_s": 4.86,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "craneDown",
+      "camera_secondary": "dollyThrough",
+      "hero": "operational-evidence",
+      "seed": 106,
+      "groundY": 1360,
+      "super": "FLIGHTS BECOME EVIDENCE",
+      "caption": "evidence becomes standards",
+      "vo": "Those flights give the FAA operational evidence for the rules that come next.",
+      "vo_claims": [
+        "c11"
+      ],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "visual_family": "flight-log",
+      "payload_mode": "mixed",
+      "on_screen": "Each flight path peels off the sky as a paper strip and stacks into an operational evidence file beneath an FAA standards gate.",
+      "what_moves": "Route trails fold into log strips, the strips stack, and the standards gate brightens only when the evidence arrives.",
+      "cast": [
+        {
+          "id": "operator",
+          "emotion": "measuring"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the flight log",
+        "action": "catches each route and feeds an unopened standards gate",
+        "emotion": "earned anticipation",
+        "annotation": "OPERATIONAL EVIDENCE"
+      },
+      "planes": [
+        {
+          "z": 780,
+          "label": "flight trails",
+          "items": [
+            {
+              "id": "evidence-sky",
+              "kind": "sunsetBands",
+              "x": 540,
+              "y": 460,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "route trace",
+          "items": [
+            {
+              "id": "evidence-lane",
+              "kind": "lane",
+              "x": 60,
+              "y": 1240,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "flight log",
+          "items": [
+            {
+              "id": "flight-log",
+              "kind": "documentStream",
+              "x": 100,
+              "y": 880,
+              "scale": 0.9,
+              "props": {
+                "title": "OPERATIONAL EVIDENCE",
+                "count": "FLIGHT LOG",
+                "sample": "ROUTE PROCEDURE RESULT",
+                "status": "FOR FAA STANDARDS"
+              }
+            }
+          ]
+        },
+        {
+          "z": 65,
+          "label": "evidence operator",
+          "items": [
+            {
+              "id": "evidence-operator",
+              "kind": "person",
+              "x": 760,
+              "y": 1460,
+              "scale": 0.84,
+              "props": {
+                "cast": "operator",
+                "pose": "review",
+                "emotion": "measuring"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "each flight route becomes operational evidence for FAA standards",
+        "must_show": [
+          {
+            "concept": "flight operational evidence FAA standards",
+            "item_ids": [
+              "flight-log",
+              "evidence-operator"
+            ]
+          }
+        ],
+        "change": {
+          "description": "flight routes stack into an operational evidence log",
+          "item_ids": [
+            "flight-log",
+            "evidence-operator"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.81,
+          "at_s_authored": 1.0,
+          "what": "the first flight route peels into the log",
+          "item_ids": [
+            "flight-log"
+          ]
+        },
+        {
+          "at_s": 3.645,
+          "at_s_authored": 4.5,
+          "what": "the evidence operator feeds the standards gate",
+          "item_ids": [
+            "flight-log",
+            "evidence-operator"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s7",
+      "start_s": 30.1,
+      "duration_s": 5.86,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "riseWith",
+      "camera_secondary": "orbitReveal",
+      "hero": "texas-triangle-route",
+      "seed": 107,
+      "groundY": 1380,
+      "super": "ONE ROUTE BECOMES A NETWORK",
+      "caption": "only on the proposed map",
+      "vo": "The proposed network runs from Dallas toward Austin, San Antonio, and eventually Houston.",
+      "vo_claims": [
+        "c10"
+      ],
+      "beat": "motion",
+      "story_role": "scale",
+      "visual_family": "texas-network",
+      "payload_mode": "picture",
+      "on_screen": "The amber route line pulls the camera above North Texas and lights Dallas, Austin, San Antonio, then a dimmer eventual Houston node.",
+      "what_moves": "The line travels south city by city while the Texas outline rises around it.",
+      "cast": [],
+      "visual_sentence": {
+        "subject": "the proposed Texas network",
+        "action": "grows south from Dallas and leaves Houston deliberately dimmer",
+        "emotion": "expanding possibility",
+        "annotation": "PROPOSED"
+      },
+      "planes": [
+        {
+          "z": 770,
+          "label": "Texas night",
+          "items": [
+            {
+              "id": "network-sky",
+              "kind": "starfield",
+              "x": 540,
+              "y": 460,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 510,
+          "label": "state road field",
+          "items": [
+            {
+              "id": "network-lane",
+              "kind": "lane",
+              "x": 70,
+              "y": 1270,
+              "scale": 0.95
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "Texas network",
+          "items": [
+            {
+              "id": "texas-network",
+              "kind": "inspectionMap",
+              "x": 100,
+              "y": 900,
+              "scale": 0.9,
+              "props": {
+                "title": "PROPOSED TEXAS NETWORK",
+                "county": "DALLAS AUSTIN SAN ANTONIO HOUSTON",
+                "segments": [
+                  "DALLAS",
+                  "AUSTIN",
+                  "SAN ANTONIO",
+                  "HOUSTON EVENTUALLY"
+                ],
+                "status": "REGIONAL FLIGHTS"
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "network marker",
+          "items": [
+            {
+              "id": "network-marker",
+              "kind": "cityLimitSign",
+              "x": 710,
+              "y": 1460,
+              "scale": 0.9,
+              "props": {
+                "label": "TEXAS"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "a proposed network links Dallas Austin San Antonio and eventually Houston",
+        "must_show": [
+          {
+            "concept": "Dallas Austin San Antonio Houston proposed network",
+            "item_ids": [
+              "texas-network",
+              "network-marker"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the proposed route grows from Dallas toward the other Texas cities",
+          "item_ids": [
+            "texas-network",
+            "network-marker"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.879,
+          "at_s_authored": 0.9,
+          "what": "the route lights Dallas and turns south",
+          "item_ids": [
+            "texas-network"
+          ]
+        },
+        {
+          "at_s": 4.2,
+          "at_s_authored": 4.3,
+          "what": "the eventual Houston node appears dimmer",
+          "item_ids": [
+            "texas-network",
+            "network-marker"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s8",
+      "start_s": 35.96,
+      "duration_s": 7.38,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "dollyThrough",
+      "camera_secondary": "craneDown",
+      "hero": "passenger-ladder",
+      "seed": 108,
+      "groundY": 1380,
+      "super": "PILOT STAGE BEFORE RIDERS",
+      "caption": "later stages stay behind gates",
+      "vo": "Only later, under FAA oversight, could the ladder move from pilot only to non-paying riders, then paying ones.",
+      "vo_claims": [
+        "c7"
+      ],
+      "beat": "revelation",
+      "story_role": "limit",
+      "visual_family": "passenger-ladder",
+      "payload_mode": "mixed",
+      "on_screen": "Three passenger stages stand as illuminated steps, but the route line occupies only the first and the later gates remain shut.",
+      "what_moves": "The pilot-only step lights. A non-paying rider appears behind one gate, a paying rider behind another, and neither gate opens.",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "ready"
+        },
+        {
+          "id": "owner",
+          "emotion": "waiting"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the FAA passenger ladder",
+        "action": "lights the pilot-only step and holds later riders behind closed gates",
+        "emotion": "disciplined patience",
+        "annotation": "LATER"
+      },
+      "planes": [
+        {
+          "z": 760,
+          "label": "oversight dark",
+          "items": [
+            {
+              "id": "ladder-sky",
+              "kind": "clearSky",
+              "x": 540,
+              "y": 470,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "passenger lane",
+          "items": [
+            {
+              "id": "ladder-lane",
+              "kind": "lane",
+              "x": 60,
+              "y": 1280,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 240,
+          "label": "stage ladder",
+          "items": [
+            {
+              "id": "passenger-ladder",
+              "kind": "associationDiagram",
+              "x": 100,
+              "y": 900,
+              "scale": 0.9,
+              "props": {
+                "leftLabel": "PILOT ONLY",
+                "rightLabel": "NON-PAYING RIDERS",
+                "relation": "THEN",
+                "limit": "PAYING RIDERS LATER UNDER FAA OVERSIGHT"
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "waiting passenger",
+          "items": [
+            {
+              "id": "later-rider",
+              "kind": "person",
+              "x": 750,
+              "y": 1460,
+              "scale": 0.84,
+              "props": {
+                "cast": "owner",
+                "pose": "waiting",
+                "emotion": "waiting"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "FAA oversight keeps non-paying and paying riders behind later gates",
+        "must_show": [
+          {
+            "concept": "pilot only non-paying riders paying riders FAA oversight",
+            "item_ids": [
+              "passenger-ladder",
+              "later-rider"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the pilot-only stage lights while later passenger gates stay closed",
+          "item_ids": [
+            "passenger-ladder",
+            "later-rider"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.23,
+          "at_s_authored": 1.0,
+          "what": "the pilot-only stage lights",
+          "item_ids": [
+            "passenger-ladder"
+          ]
+        },
+        {
+          "at_s": 5.535,
+          "at_s_authored": 4.5,
+          "what": "the later rider reaches the closed FAA gate",
+          "item_ids": [
+            "later-rider",
+            "passenger-ladder"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s9",
+      "start_s": 43.34,
+      "duration_s": 4.5,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "orbitReveal",
+      "camera_secondary": "truckAcross",
+      "hero": "empty-seat-evidence-gate",
+      "seed": 109,
+      "groundY": 1370,
+      "super": "THE EMPTY SEAT IS THE GATE",
+      "caption": "not the missing product",
+      "vo": "So the empty seat is not a missing product. It is the evidence gate.",
+      "vo_claims": [
+        "c6",
+        "c7",
+        "c11"
+      ],
+      "beat": "emotion",
+      "story_role": "agency",
+      "visual_family": "seat-reveal",
+      "payload_mode": "picture",
+      "on_screen": "The empty seat rotates in darkness and its seat belt becomes the crossbar of an evidence gate across the route line.",
+      "what_moves": "The buckle stretches across the route, catches the amber line, and turns from an absence into a threshold.",
+      "cast": [],
+      "visual_sentence": {
+        "subject": "the empty seat belt",
+        "action": "stretches into an evidence gate and catches the route line",
+        "emotion": "sober resolve",
+        "annotation": "EVIDENCE FIRST"
+      },
+      "planes": [
+        {
+          "z": 770,
+          "label": "cabin void",
+          "items": [
+            {
+              "id": "seat-sky",
+              "kind": "starfield",
+              "x": 540,
+              "y": 460,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 510,
+          "label": "route beneath seat",
+          "items": [
+            {
+              "id": "seat-route",
+              "kind": "lane",
+              "x": 60,
+              "y": 1280,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "seat becomes gate",
+          "items": [
+            {
+              "id": "seat-gate",
+              "kind": "associationDiagram",
+              "x": 100,
+              "y": 900,
+              "scale": 0.9,
+              "props": {
+                "leftLabel": "EMPTY SEAT",
+                "rightLabel": "EVIDENCE GATE",
+                "relation": "BECOMES",
+                "limit": "NOT A COMMERCIAL RIDE"
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "test status",
+          "items": [
+            {
+              "id": "test-status",
+              "kind": "readout",
+              "x": 560,
+              "y": 1370,
+              "scale": 0.8,
+              "props": {
+                "x": 0,
+                "y": 0,
+                "rows": [
+                  [
+                    "ROUTE",
+                    "TESTING"
+                  ],
+                  [
+                    "PASSENGER",
+                    "EMPTY"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "the empty passenger seat becomes the evidence gate across the route",
+        "must_show": [
+          {
+            "concept": "empty seat evidence gate",
+            "item_ids": [
+              "seat-gate",
+              "test-status"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the empty seat becomes an evidence gate across the route",
+          "item_ids": [
+            "seat-gate",
+            "seat-route"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.75,
+          "at_s_authored": 1.0,
+          "what": "the empty seat rotates into view",
+          "item_ids": [
+            "seat-gate"
+          ]
+        },
+        {
+          "at_s": 3.3,
+          "at_s_authored": 4.4,
+          "what": "the seat belt becomes the evidence gate",
+          "item_ids": [
+            "seat-gate",
+            "seat-route"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s10",
+      "start_s": 47.84,
+      "duration_s": 6.16,
+      "region": "cross_timbers",
+      "county": "Tarrant",
+      "camera_strategy": "riseWith",
+      "camera_secondary": "dollyThrough",
+      "hero": "flight-log-button",
+      "seed": 110,
+      "groundY": 1380,
+      "super": "CLEAR THE ROUTE",
+      "caption": "watch the flight log",
+      "vo": "Before a rider can enter, the route must clear. The flight log matters more than the promise.",
+      "vo_claims": [
+        "c6",
+        "c11"
+      ],
+      "beat": "motion",
+      "story_role": "close",
+      "visual_family": "runway-button",
+      "payload_mode": "picture",
+      "on_screen": "The camera rises from the stopped buckle to an airport flight board where route, result and next stage wait to be filled by evidence.",
+      "what_moves": "The amber line scans the blank flight log, then stops on the button Watch the flight log.",
+      "cast": [
+        {
+          "id": "operator",
+          "emotion": "accountable"
+        }
+      ],
+      "visual_sentence": {
+        "subject": "the route line",
+        "action": "scans the flight log and stops on the evidence button",
+        "emotion": "accountable focus",
+        "annotation": "WATCH THE LOG"
+      },
+      "planes": [
+        {
+          "z": 780,
+          "label": "runway dawn",
+          "items": [
+            {
+              "id": "button-sky",
+              "kind": "sunsetBands",
+              "x": 540,
+              "y": 460,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "airport runway",
+          "items": [
+            {
+              "id": "button-lane",
+              "kind": "lane",
+              "x": 60,
+              "y": 1280,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "flight log button",
+          "items": [
+            {
+              "id": "watch-log",
+              "kind": "inspectionMap",
+              "x": 100,
+              "y": 900,
+              "scale": 0.9,
+              "props": {
+                "title": "WATCH THE FLIGHT LOG",
+                "county": "TEXAS",
+                "segments": [
+                  "ROUTE",
+                  "RESULT",
+                  "NEXT STAGE"
+                ],
+                "status": "CLEAR THE ROUTE FIRST"
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "accountable operator",
+          "items": [
+            {
+              "id": "log-operator",
+              "kind": "person",
+              "x": 760,
+              "y": 1460,
+              "scale": 0.84,
+              "props": {
+                "cast": "operator",
+                "pose": "point",
+                "emotion": "accountable"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "the operator must clear the route in the flight log before a rider enters",
+        "must_show": [
+          {
+            "concept": "clear route flight log rider",
+            "item_ids": [
+              "watch-log",
+              "log-operator"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the route line scans the flight log and stops at the next stage",
+          "item_ids": [
+            "watch-log",
+            "log-operator"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.924,
+          "at_s_authored": 0.9,
+          "what": "the route line enters the flight log",
+          "item_ids": [
+            "watch-log"
+          ]
+        },
+        {
+          "at_s": 4.62,
+          "at_s_authored": 4.5,
+          "what": "the operator points to the next stage after the result",
+          "item_ids": [
+            "watch-log",
+            "log-operator"
+          ]
+        }
+      ],
+      "duration_authored": 6.0
+    }
+  ],
+  "captions": [
+    {
+      "id": "c1",
+      "start": 1.58,
+      "end": 5.3,
+      "text": "In Fort Worth, the most important passenger is nobody.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 6.16,
+      "end": 10.34,
+      "text": "Joby's electric air taxi begins a week of Dallas-Fort Worth test flights.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 11.06,
+      "end": 12.12,
+      "text": "It lifts with a pilot.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 12.7,
+      "end": 15.4,
+      "text": "The autonomous demonstration uses a different aircraft.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 16.1,
+      "end": 17.42,
+      "text": "That separation matters.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 18.04,
+      "end": 20.06,
+      "text": "The first phase carries no passengers.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 20.8,
+      "end": 22.32,
+      "text": "The work is not selling a ride.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 22.7,
+      "end": 24.72,
+      "text": "It is tracing and validating a route.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 25.52,
+      "end": 29.46,
+      "text": "Those flights give the FAA operational evidence for the rules that come next.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c10",
+      "start": 30.38,
+      "end": 34.06,
+      "text": "The proposed network runs from Dallas toward Austin, San Antonio,",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c11",
+      "start": 34.24,
+      "end": 35.2,
+      "text": "and eventually Houston.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c12",
+      "start": 36.24,
+      "end": 41.9,
+      "text": "Only later, under FAA oversight, could the ladder move from pilot only to non-paying riders,",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c13",
+      "start": 42.08,
+      "end": 42.94,
+      "text": "then paying ones.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c14",
+      "start": 43.62,
+      "end": 46.12,
+      "text": "So the empty seat is not a missing product.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c15",
+      "start": 46.36,
+      "end": 47.42,
+      "text": "It is the evidence gate.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c16",
+      "start": 48.12,
+      "end": 50.56,
+      "text": "Before a rider can enter, the route must clear.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c17",
+      "start": 51.1,
+      "end": 53.08,
+      "text": "The flight log matters more than the promise.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 10,
+    "on_measured_word_starts": 10,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}

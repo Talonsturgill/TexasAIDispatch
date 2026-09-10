@@ -87,6 +87,11 @@ def acoustic_words(raw: dict) -> list[dict]:
     result = []
     for segment in raw.get("transcription", []):
         text = segment.get("text", "").strip()
+        # whisper.cpp may emit a bracketed no-speech sentinel for a zero-padded tail.
+        # It is metadata about silence, not spoken lexical evidence. Tokenization can split
+        # [BLANK_AUDIO] into printable pieces, so filtering only token strings is too late.
+        if re.fullmatch(r"\[[A-Z0-9_ -]+\]", text, flags=re.IGNORECASE):
+            continue
         if not canonical(text):
             continue
         positions = [float(t["t_dtw"]) / 100 for t in segment.get("tokens", [])
@@ -101,6 +106,20 @@ def acoustic_words(raw: dict) -> list[dict]:
     return result
 
 
+def lexical_analysis_samples(x: np.ndarray, rate: int, pad_s: float = 0.8) -> int:
+    """Keep the voice timeline, but do not ask ASR to invent words inside zero padding.
+
+    `mix.py` correctly pads the isolated voice stem to the full music-and-credits master. The
+    timing must keep its leading silence, but whisper.cpp can hallucinate a lexical word several
+    seconds into the all-zero tail. Trimming only samples after the final nonzero PCM value plus
+    a fixed cushion changes no speech position and leaves the master itself untouched.
+    """
+    nz = np.flatnonzero(np.abs(x) > 1e-8)
+    if not len(nz):
+        return len(x)
+    return min(len(x), int(nz[-1]) + 1 + int(round(pad_s * rate)))
+
+
 def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
                     heard: list[dict], aliases: list[dict]) -> tuple[list[list[str]], list[dict]]:
     """Exact lexical reconciliation, then acoustic assignment to measured runs.
@@ -108,16 +127,31 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
     An explicit, sourced homophone exception may reconcile a proper-name spelling.
     No fuzzy matching, dropped words, guessed timestamps or numeral substitutions.
     """
-    alias_map = {}
+    alias_map: dict[str, list[tuple[int | None, str]]] = {}
     for row in aliases:
         a, b = canonical(row.get("heard", "")), canonical(row.get("script", ""))
+        occurrence = row.get("occurrence")
         if (len(a) != 1 or len(b) != 1 or any(t.isdigit() for t in a + b)
-                or not row.get("reason") or not row.get("source")):
+                or not row.get("reason") or not row.get("source")
+                or (occurrence is not None and
+                    (not isinstance(occurrence, int) or occurrence < 1))):
             raise ValueError("alignment aliases must be sourced single-word nonnumeric spellings")
-        alias_map[a[0]] = b[0]
+        rules = alias_map.setdefault(a[0], [])
+        if any(existing == occurrence for existing, _ in rules):
+            raise ValueError("alignment aliases cannot repeat the same heard-word occurrence")
+        rules.append((occurrence, b[0]))
     expected = [(part, i) for i, word in enumerate(tokens) for part in canonical(word)]
-    actual = [(alias_map.get(part, part), float(w["center"]))
-              for w in heard for part in canonical(w["text"])]
+    actual = []
+    heard_counts: dict[str, int] = {}
+    for w in heard:
+        for part in canonical(w["text"]):
+            heard_counts[part] = heard_counts.get(part, 0) + 1
+            replacement = part
+            for occurrence, target in alias_map.get(part, []):
+                if occurrence is None or occurrence == heard_counts[part]:
+                    replacement = target
+                    break
+            actual.append((replacement, float(w["center"])))
     if [p for p, _ in expected] != [p for p, _ in actual]:
         import difflib
         diff = list(difflib.ndiff([p for p, _ in expected], [p for p, _ in actual]))
@@ -152,9 +186,13 @@ def transcribe(voice: Path, out: Path) -> tuple[dict, dict]:
     if digest(model) != config["sha256"]:
         raise ValueError("alignment model hash differs from config/alignment.json")
     raw_path, meta_path = out / "acoustic-asr.json", out / "acoustic-asr-meta.json"
+    voice_x, voice_rate = read_wav(voice)
+    analysis_samples = lexical_analysis_samples(voice_x, voice_rate)
+    analysis_duration_s = round(analysis_samples / voice_rate, 6)
     binding = {"voice_sha256": digest(voice), "model_sha256": config["sha256"],
                "engine": config["engine"], "version": config["version"],
-               "dtw": config["model"], "flash_attention": False}
+               "dtw": config["model"], "flash_attention": False,
+               "analysis_duration_s": analysis_duration_s}
     if raw_path.exists() and meta_path.exists():
         meta = json.loads(meta_path.read_text())
         if all(meta.get(k) == v for k, v in binding.items()) and meta.get("asr_sha256") == digest(raw_path):
@@ -164,7 +202,8 @@ def transcribe(voice: Path, out: Path) -> tuple[dict, dict]:
     if config["version"] not in version.stdout + version.stderr:
         raise ValueError("whisper-cli version differs from config/alignment.json")
     analysis = out / "alignment-16k.wav"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(voice), "-ar", "16000",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(voice), "-t",
+                    f"{analysis_duration_s:.6f}", "-ar", "16000",
                     "-ac", "1", "-c:a", "pcm_s16le", str(analysis)], check=True, timeout=120)
     command = ["whisper-cli", "-m", str(model), "-f", str(analysis), "-l", "en", "-ojf",
                "-of", str(raw_path.with_suffix("")), "-dtw", config["model"], "-nfa",
@@ -654,6 +693,13 @@ def self_test() -> int:
     groups, evidence = acoustic_groups("Short line. This has more words.".split(), uneven_runs, heard, [])
     ok("uneven speech assigns words by acoustics, not the longer run's syllable budget",
        list(map(len, groups)) == [2, 4] and evidence[-1]["speech_run"] == 1)
+    duplicate_heard = [{"text": "than", "center": 1.0}, {"text": "than", "center": 2.0}]
+    occurrence_alias = [{"heard": "than", "script": "then", "occurrence": 1,
+                         "reason": "fixture recognition error", "source": "fixture"}]
+    groups2, _ = acoustic_groups("then than".split(), [(0.3, 3.0)],
+                                 duplicate_heard, occurrence_alias)
+    ok("a sourced alias can target one occurrence without corrupting a later true word",
+       groups2 == [["then", "than"]], str(groups2))
     for label, bad in [("wrong words", [{"text": "Wrong", "center": 1.0}] + heard[1:]),
                        ("a single early acoustic outlier", [dict(heard[0], center=-0.2)] + heard[1:]),
                        ("unexplained late timing", [dict(w, center=w["center"] + 10) for w in heard]),
@@ -672,6 +718,19 @@ def self_test() -> int:
     except ValueError:
         refused = True
     ok("flash-attention-disabled DTW absence is refused", refused)
+    marker = acoustic_words({"transcription": [
+        {"text": "word", "tokens": [{"text": "word", "t_dtw": 10}]},
+        {"text": "[BLANK_AUDIO]", "tokens": [
+            {"text": "BL", "t_dtw": 100}, {"text": "ANK", "t_dtw": 100},
+            {"text": "AUD", "t_dtw": 100}, {"text": "IO", "t_dtw": 100}
+        ]}
+    ]})
+    ok("a bracketed no-speech marker in a zero-padded tail is not treated as spoken words",
+       [w["text"] for w in marker] == ["word"], str(marker))
+    padded = np.concatenate([np.zeros(100), np.ones(100) * 0.1, np.zeros(100)])
+    ok("ASR analysis preserves leading silence and trims only the zero-padded tail",
+       lexical_analysis_samples(padded, 100, 0.8) == 280,
+       str(lexical_analysis_samples(padded, 100, 0.8)))
 
     ok("syllables are counted roughly right",
        [syllables(w) for w in ["gigawatt", "the", "Abilene", "queue", "interconnection"]]
