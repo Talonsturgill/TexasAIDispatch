@@ -1,0 +1,1676 @@
+{
+  "schema": "dispatch_storyboard/1",
+  "date": "2026-09-11",
+  "runtime_s": 58,
+  "title": "The warning stays local",
+  "beat": "weather-and-emergency",
+  "topic": "UT San Antonio off-grid flood warning prototype",
+  "cinematic_template": "local-flood-node-v1",
+  "derived_from": "scratch",
+  "divergence_note": "The camera is sliced into one flooded street and follows a single cyan heartbeat vertically through water, hardware and radio space. The story accumulates upward around the same node, rather than crossing a landscape, drifting past documents or isolating a hero in an empty field. Its storm-black, limestone and warning-coral world is new to the recent films.",
+  "fingerprint": {
+    "pov": "cross-section-cutaway",
+    "motion_vector": "accumulate-fill",
+    "hero_treatment": "machine-as-subject",
+    "layout": "stacked-layers",
+    "register": "blueprint-technical",
+    "camera_strategy": "riseWith",
+    "light_story": "storm-dramatic",
+    "palette": "storm slate, wet limestone, sensor cyan and warning coral",
+    "metaphor": "one cyan heartbeat keeps climbing after the grid and cloud go black"
+  },
+  "fauna_scope": {
+    "status": "none",
+    "reason": "No animal illustrates the prototype mechanism, evidence limit, or public consequence in this flood-warning story."
+  },
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "the flood node's cyan heartbeat",
+      "opening_state": "alone and still alive in a blacked-out storm",
+      "closing_state": "carried as a warning toward an untested Texas street",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ]
+    },
+    "turn_scene": "s8",
+    "button": "The warning still has to reach the street."
+  },
+  "credits_s": 5,
+  "credits": "SOURCES\nUT SAN ANTONIO · SEPTEMBER 2026\nTEXAS AI DOCKET\nTEXASAIDOCKET.COM\n\nMUSIC\n\"Lightless Dawn\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "story_role": "hook",
+      "start_s": 0.0,
+      "duration_s": 7.24,
+      "visual_family": "outage-crossing",
+      "payload_mode": "picture",
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 1.2,
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "riseWith",
+      "beat": "motion",
+      "hero": "the node",
+      "super": "THE WARNING STAYS LOCAL",
+      "caption": "Bexar County · one node against the outage",
+      "on_screen": "a dark low-water crossing loses power, cell service and cloud while one cyan sensor heartbeat remains",
+      "what_moves": "three distant systems blink out and the node emits a living pulse above rising water",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "alert"
+        }
+      ],
+      "groundY": 1390,
+      "planes": [
+        {
+          "z": 820,
+          "label": "storm sky",
+          "items": [
+            {
+              "id": "storm-cell",
+              "kind": "rainCell",
+              "x": 560,
+              "y": 320,
+              "scale": 0.9
+            }
+          ]
+        },
+        {
+          "z": 540,
+          "label": "dead infrastructure",
+          "items": [
+            {
+              "id": "grid-line",
+              "kind": "transformer",
+              "x": 860,
+              "y": 1380,
+              "scale": 0.13
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "crossing",
+          "items": [
+            {
+              "id": "dark-crossing",
+              "kind": "lowWaterCrossing",
+              "x": 80,
+              "y": 1110,
+              "scale": 0.62
+            }
+          ]
+        },
+        {
+          "z": 130,
+          "label": "status",
+          "items": [
+            {
+              "id": "outage-status",
+              "kind": "readout",
+              "x": 92,
+              "y": 420,
+              "scale": 0.9,
+              "props": {
+                "rows": [
+                  [
+                    "GRID",
+                    "OFF"
+                  ],
+                  [
+                    "CELL",
+                    "OFF"
+                  ],
+                  [
+                    "CLOUD",
+                    "OFF"
+                  ],
+                  [
+                    "LOCAL NODE",
+                    "ON"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "living node",
+          "items": [
+            {
+              "id": "live-node",
+              "kind": "streamGauge",
+              "x": 760,
+              "y": 1280,
+              "scale": 0.76
+            }
+          ]
+        }
+      ],
+      "vo": "When power, cell service and cloud go dark, this local flood node keeps thinking.",
+      "vo_claims": [
+        "c6",
+        "c4",
+        "c7"
+      ],
+      "visual_sentence": {
+        "subject": "one local flood node",
+        "action": "keeps pulsing after the grid, cell and cloud paths die",
+        "emotion": "defiance",
+        "annotation": "LOCAL NODE / ON"
+      },
+      "visual_proof": {
+        "mute_takeaway": "A local flood node remains on after three remote systems fail.",
+        "must_show": [
+          {
+            "concept": "local flood sensor node stays on",
+            "item_ids": [
+              "outage-status",
+              "live-node"
+            ]
+          }
+        ],
+        "change": {
+          "description": "grid, cell and cloud switch off while the local node begins pulsing",
+          "item_ids": [
+            "outage-status",
+            "live-node"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.609,
+          "what": "grid, cell and cloud indicators snap off",
+          "item_ids": [
+            "outage-status",
+            "grid-line"
+          ],
+          "at_s_authored": 1.0
+        },
+        {
+          "at_s": 5.953,
+          "what": "the node answers with a cyan heartbeat",
+          "item_ids": [
+            "live-node"
+          ],
+          "at_s_authored": 3.7
+        }
+      ],
+      "duration_authored": 4.5
+    },
+    {
+      "id": "s2",
+      "story_role": "movement",
+      "start_s": 7.24,
+      "duration_s": 4.9,
+      "visual_family": "prototype-bench",
+      "payload_mode": "mixed",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "orbitReveal",
+      "beat": "revelation",
+      "hero": "the prototype",
+      "super": "BUILT BY A UT SAN ANTONIO TEAM",
+      "caption": "Chen Pan's team · field-ready prototype",
+      "on_screen": "an exploded flood node assembles above the official UT San Antonio source card",
+      "what_moves": "solar, sensing, compute and radio parts click around the same cyan core",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "intent"
+        }
+      ],
+      "groundY": 1390,
+      "planes": [
+        {
+          "z": 760,
+          "label": "source wall",
+          "items": [
+            {
+              "id": "utsa-source",
+              "kind": "documentStream",
+              "x": 90,
+              "y": 350,
+              "scale": 0.86,
+              "props": {
+                "title": "UT SAN ANTONIO",
+                "count": "FIELD-READY PROTOTYPE",
+                "sample": "CHEN PAN TEAM",
+                "status": "PUBLISHED SEPTEMBER 2026"
+              }
+            }
+          ]
+        },
+        {
+          "z": 470,
+          "label": "workbench",
+          "items": [
+            {
+              "id": "bench-node",
+              "kind": "streamGauge",
+              "x": 520,
+              "y": 1150,
+              "scale": 0.9
+            }
+          ]
+        },
+        {
+          "z": 260,
+          "label": "radio hardware",
+          "items": [
+            {
+              "id": "radio-mast",
+              "kind": "sirenMast",
+              "x": 850,
+              "y": 1130,
+              "scale": 1.0
+            }
+          ]
+        },
+        {
+          "z": 100,
+          "label": "maker",
+          "items": [
+            {
+              "id": "builder",
+              "kind": "person",
+              "x": 220,
+              "y": 1390,
+              "scale": 0.82,
+              "props": {
+                "cast": "engineer",
+                "pose": "point",
+                "emotion": "intent"
+              }
+            }
+          ]
+        }
+      ],
+      "vo": "Chen Pan's UT San Antonio team built the field-ready prototype.",
+      "vo_claims": [
+        "c2"
+      ],
+      "visual_sentence": {
+        "subject": "the prototype",
+        "action": "assembles around the university's dated source record",
+        "emotion": "purpose",
+        "annotation": "FIELD-READY PROTOTYPE"
+      },
+      "visual_proof": {
+        "mute_takeaway": "UT San Antonio identifies Chen Pan's team and a field-ready prototype.",
+        "must_show": [
+          {
+            "concept": "UT San Antonio field-ready prototype",
+            "item_ids": [
+              "utsa-source"
+            ]
+          },
+          {
+            "concept": "Chen Pan team",
+            "item_ids": [
+              "utsa-source"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the source strips land and the prototype parts assemble",
+          "item_ids": [
+            "utsa-source",
+            "bench-node"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.891,
+          "what": "the official source record slides into frame",
+          "item_ids": [
+            "utsa-source"
+          ],
+          "at_s_authored": 1.0
+        },
+        {
+          "at_s": 3.385,
+          "what": "the sensor body assembles around its cyan core",
+          "item_ids": [
+            "bench-node",
+            "radio-mast"
+          ],
+          "at_s_authored": 3.8
+        }
+      ],
+      "duration_authored": 5.5
+    },
+    {
+      "id": "s3",
+      "story_role": "mechanism",
+      "start_s": 12.14,
+      "duration_s": 6.24,
+      "visual_family": "power-cutaway",
+      "payload_mode": "picture",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "craneDown",
+      "beat": "motion",
+      "hero": "the power loop",
+      "super": "LIGHT BECOMES BACKUP",
+      "caption": "ambient light → battery → stored pulse",
+      "on_screen": "a cutaway energy path charges the node while the surrounding grid blacks out",
+      "what_moves": "amber charge falls into storage and returns as a cyan heartbeat during the storm",
+      "groundY": 1420,
+      "planes": [
+        {
+          "z": 720,
+          "label": "storm ceiling",
+          "items": [
+            {
+              "id": "overcast-cell",
+              "kind": "rainCell",
+              "x": 540,
+              "y": 300,
+              "scale": 0.82
+            }
+          ]
+        },
+        {
+          "z": 450,
+          "label": "power diagram",
+          "items": [
+            {
+              "id": "power-loop",
+              "kind": "associationDiagram",
+              "x": 100,
+              "y": 520,
+              "scale": 0.9,
+              "props": {
+                "leftLabel": "AMBIENT LIGHT",
+                "rightLabel": "BATTERY + BACKUP",
+                "relation": "CHARGES",
+                "limit": "STORM / GRID OUTAGE"
+              }
+            }
+          ]
+        },
+        {
+          "z": 230,
+          "label": "failed grid",
+          "items": [
+            {
+              "id": "dead-transformer",
+              "kind": "transformer",
+              "x": 820,
+              "y": 1430,
+              "scale": 0.14
+            }
+          ]
+        },
+        {
+          "z": 70,
+          "label": "powered node",
+          "items": [
+            {
+              "id": "powered-node",
+              "kind": "streamGauge",
+              "x": 500,
+              "y": 1320,
+              "scale": 0.82
+            }
+          ]
+        }
+      ],
+      "vo": "Ambient light charges backup storage, keeping the node alive through storms and grid outages.",
+      "vo_claims": [
+        "c6"
+      ],
+      "visual_sentence": {
+        "subject": "the node's energy loop",
+        "action": "stores dim storm light and returns it as a heartbeat",
+        "emotion": "resilience",
+        "annotation": "LIGHT → STORAGE → NODE"
+      },
+      "visual_proof": {
+        "mute_takeaway": "Ambient light charges battery backup for operation during a storm outage.",
+        "must_show": [
+          {
+            "concept": "ambient light charges battery backup",
+            "item_ids": [
+              "power-loop"
+            ]
+          },
+          {
+            "concept": "storm grid outage",
+            "item_ids": [
+              "power-loop",
+              "dead-transformer"
+            ]
+          }
+        ],
+        "change": {
+          "description": "charge enters storage as the grid transformer darkens",
+          "item_ids": [
+            "power-loop",
+            "dead-transformer",
+            "powered-node"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.152,
+          "what": "amber charge descends from light into backup storage",
+          "item_ids": [
+            "power-loop"
+          ],
+          "at_s_authored": 1.2
+        },
+        {
+          "at_s": 3.744,
+          "what": "the grid goes black while the node pulse continues",
+          "item_ids": [
+            "dead-transformer",
+            "powered-node"
+          ],
+          "at_s_authored": 3.9
+        }
+      ],
+      "duration_authored": 6.5
+    },
+    {
+      "id": "s4",
+      "story_role": "scale",
+      "start_s": 18.38,
+      "duration_s": 4.46,
+      "visual_family": "water-column",
+      "payload_mode": "picture",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "riseWith",
+      "beat": "motion",
+      "hero": "the sensor stack",
+      "super": "WATER CLIMBS THE STACK",
+      "caption": "optical levels + local weather readings",
+      "on_screen": "muddy water fills a vertical cutaway and trips optical sensors one after another",
+      "what_moves": "the water surface rises and cyan sensor marks ignite from bottom to top",
+      "groundY": 1420,
+      "planes": [
+        {
+          "z": 700,
+          "label": "rain",
+          "items": [
+            {
+              "id": "rain-band",
+              "kind": "rainCell",
+              "x": 560,
+              "y": 320,
+              "scale": 0.86
+            }
+          ]
+        },
+        {
+          "z": 430,
+          "label": "crossing slab",
+          "items": [
+            {
+              "id": "flooded-crossing",
+              "kind": "lowWaterCrossing",
+              "x": 60,
+              "y": 1080,
+              "scale": 0.64
+            }
+          ]
+        },
+        {
+          "z": 220,
+          "label": "sensor levels",
+          "items": [
+            {
+              "id": "level-readout",
+              "kind": "readout",
+              "x": 90,
+              "y": 430,
+              "scale": 0.9,
+              "props": {
+                "count": "4 OPTICAL WATER SENSORS",
+                "rows": [
+                  [
+                    "OPTICAL WATER SENSOR",
+                    "LOW"
+                  ],
+                  [
+                    "OPTICAL WATER SENSOR",
+                    "RISING"
+                  ],
+                  [
+                    "OPTICAL WATER SENSOR",
+                    "HIGH"
+                  ],
+                  [
+                    "WEATHER READINGS",
+                    "LIVE"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 60,
+          "label": "node",
+          "items": [
+            {
+              "id": "level-node",
+              "kind": "streamGauge",
+              "x": 760,
+              "y": 1300,
+              "scale": 0.8
+            }
+          ]
+        }
+      ],
+      "vo": "Four optical sensors track rising water beside weather readings.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_sentence": {
+        "subject": "the muddy waterline",
+        "action": "climbs the mast and wakes each optical level in sequence",
+        "emotion": "escalation",
+        "annotation": "LOW / RISING / HIGH"
+      },
+      "visual_proof": {
+        "mute_takeaway": "Rising water triggers optical sensors at different heights beside weather readings.",
+        "must_show": [
+          {
+            "concept": "optical water sensors rising high",
+            "item_ids": [
+              "level-readout",
+              "level-node"
+            ]
+          },
+          {
+            "concept": "weather readings live",
+            "item_ids": [
+              "level-readout"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the waterline fills upward and sensor states climb from low to high",
+          "item_ids": [
+            "level-readout",
+            "level-node",
+            "flooded-crossing"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.765,
+          "what": "muddy water reaches the first optical level",
+          "item_ids": [
+            "level-node",
+            "flooded-crossing"
+          ],
+          "at_s_authored": 1.2
+        },
+        {
+          "at_s": 2.549,
+          "what": "the top status flips from rising to high",
+          "item_ids": [
+            "level-readout",
+            "level-node"
+          ],
+          "at_s_authored": 4.0
+        }
+      ],
+      "duration_authored": 7.0
+    },
+    {
+      "id": "s5",
+      "story_role": "mechanism",
+      "start_s": 22.84,
+      "duration_s": 4.54,
+      "visual_family": "chip-cutaway",
+      "payload_mode": "mixed",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "dollyThrough",
+      "beat": "revelation",
+      "hero": "the microcontroller",
+      "super": "THE DECISION HAPPENS ON THE NODE",
+      "caption": "current + recent signals · TinyML on device",
+      "on_screen": "sensor pulses enter an enlarged microcontroller and resolve into a local flood-risk decision",
+      "what_moves": "raw signals compress into one cyan decision without leaving the node",
+      "groundY": 1420,
+      "planes": [
+        {
+          "z": 760,
+          "label": "incoming signals",
+          "items": [
+            {
+              "id": "signal-stream",
+              "kind": "documentStream",
+              "x": 80,
+              "y": 390,
+              "scale": 0.8,
+              "props": {
+                "title": "SENSOR SIGNALS",
+                "count": "CURRENT + RECENT",
+                "sample": "WATER · WEATHER",
+                "status": "LOCAL INPUT"
+              }
+            }
+          ]
+        },
+        {
+          "z": 420,
+          "label": "chip",
+          "items": [
+            {
+              "id": "local-compute",
+              "kind": "associationDiagram",
+              "x": 90,
+              "y": 650,
+              "scale": 0.92,
+              "props": {
+                "leftLabel": "CURRENT + RECENT DATA",
+                "rightLabel": "LOW-POWER MICROCONTROLLER",
+                "relation": "TINYML RUNS HERE",
+                "limit": "NO FIRST TRIP TO CLOUD"
+              }
+            }
+          ]
+        },
+        {
+          "z": 210,
+          "label": "decision",
+          "items": [
+            {
+              "id": "risk-decision",
+              "kind": "readout",
+              "x": 170,
+              "y": 1160,
+              "scale": 0.86,
+              "props": {
+                "rows": [
+                  [
+                    "LOCAL FLOOD RISK",
+                    "EVALUATING"
+                  ],
+                  [
+                    "NODE DECISION",
+                    "ON DEVICE"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 70,
+          "label": "core",
+          "items": [
+            {
+              "id": "compute-node",
+              "kind": "streamGauge",
+              "x": 830,
+              "y": 1350,
+              "scale": 0.64
+            }
+          ]
+        }
+      ],
+      "vo": "Tiny ML evaluates current and recent signals on the node.",
+      "vo_claims": [
+        "c4"
+      ],
+      "visual_sentence": {
+        "subject": "the low-power microcontroller",
+        "action": "pulls raw readings inward and resolves a local risk decision",
+        "emotion": "concentration",
+        "annotation": "TINYML RUNS HERE"
+      },
+      "visual_proof": {
+        "mute_takeaway": "Current and recent sensor data are evaluated by TinyML on the local microcontroller.",
+        "must_show": [
+          {
+            "concept": "current recent sensor signals",
+            "item_ids": [
+              "signal-stream",
+              "local-compute"
+            ]
+          },
+          {
+            "concept": "TinyML low-power microcontroller",
+            "item_ids": [
+              "local-compute"
+            ]
+          }
+        ],
+        "change": {
+          "description": "many sensor signals collapse into one on-device flood-risk decision",
+          "item_ids": [
+            "signal-stream",
+            "local-compute",
+            "risk-decision"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.908,
+          "what": "current and recent readings stream into the chip",
+          "item_ids": [
+            "signal-stream",
+            "local-compute"
+          ],
+          "at_s_authored": 1.1
+        },
+        {
+          "at_s": 3.137,
+          "what": "the on-device decision ignites at the chip center",
+          "item_ids": [
+            "local-compute",
+            "risk-decision"
+          ],
+          "at_s_authored": 3.8
+        }
+      ],
+      "duration_authored": 5.5
+    },
+    {
+      "id": "s6",
+      "story_role": "consequence",
+      "start_s": 27.38,
+      "duration_s": 4.86,
+      "visual_family": "severed-cloud",
+      "payload_mode": "picture",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "orbitReveal",
+      "beat": "revelation",
+      "hero": "the broken route",
+      "super": "CUT THE DISTANT LOOP",
+      "caption": "server-independent first inference",
+      "on_screen": "a topology cutaway separates the node's completed local loop from dark grid, cellular and distant-cloud routes",
+      "what_moves": "three remote paths shear away while a tight cyan inference loop closes around the physical node",
+      "groundY": 1420,
+      "planes": [
+        {
+          "z": 680,
+          "label": "distant systems",
+          "items": [
+            {
+              "id": "remote-status",
+              "kind": "readout",
+              "x": 110,
+              "y": 360,
+              "scale": 0.9,
+              "props": {
+                "rows": [
+                  [
+                    "GRID",
+                    "OFF"
+                  ],
+                  [
+                    "CELL",
+                    "OFF"
+                  ],
+                  [
+                    "CLOUD",
+                    "OFF"
+                  ],
+                  [
+                    "LOCAL INFERENCE",
+                    "ON"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "broken route",
+          "items": [
+            {
+              "id": "server-route",
+              "kind": "associationDiagram",
+              "x": 100,
+              "y": 650,
+              "scale": 0.92,
+              "props": {
+                "leftLabel": "FLOOD NODE",
+                "rightLabel": "DISTANT CLOUD",
+                "relation": "RAW DATA PATH CUT",
+                "limit": "FIRST INFERENCE STAYS LOCAL"
+              }
+            }
+          ]
+        },
+        {
+          "z": 170,
+          "label": "local decision",
+          "items": [
+            {
+              "id": "local-result",
+              "kind": "readout",
+              "x": 180,
+              "y": 1150,
+              "scale": 0.86,
+              "props": {
+                "rows": [
+                  [
+                    "IMMINENT RISK",
+                    "LOCAL"
+                  ],
+                  [
+                    "DECISION",
+                    "COMPLETE"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 55,
+          "label": "node heartbeat",
+          "items": [
+            {
+              "id": "turn-node",
+              "kind": "streamGauge",
+              "x": 820,
+              "y": 1360,
+              "scale": 0.66
+            }
+          ]
+        }
+      ],
+      "vo": "The first decision skips the distant server, cell tower and power line.",
+      "vo_claims": [
+        "c4",
+        "c7"
+      ],
+      "visual_sentence": {
+        "subject": "the local decision loop",
+        "action": "closes inside the node as three remote routes snap away",
+        "emotion": "release",
+        "annotation": "LOCAL INFERENCE / ON"
+      },
+      "visual_proof": {
+        "mute_takeaway": "Local inference completes although grid, cellular and cloud paths are off.",
+        "must_show": [
+          {
+            "concept": "local inference on",
+            "item_ids": [
+              "remote-status",
+              "server-route"
+            ]
+          },
+          {
+            "concept": "first inference stays local",
+            "item_ids": [
+              "server-route",
+              "local-result"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the cloud route breaks while the local inference changes to complete",
+          "item_ids": [
+            "server-route",
+            "local-result",
+            "turn-node"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.972,
+          "what": "the grid, cell and cloud routes fracture",
+          "item_ids": [
+            "remote-status",
+            "server-route"
+          ],
+          "at_s_authored": 1.0
+        },
+        {
+          "at_s": 3.596,
+          "what": "the local loop closes and the decision reads complete",
+          "item_ids": [
+            "local-result",
+            "turn-node"
+          ],
+          "at_s_authored": 3.7
+        }
+      ],
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s7",
+      "story_role": "consequence",
+      "start_s": 32.24,
+      "duration_s": 6.18,
+      "visual_family": "radio-handoff",
+      "payload_mode": "picture",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "truckAcross",
+      "beat": "motion",
+      "hero": "the LoRa report",
+      "super": "THE WARNING STILL HAS TO TRAVEL",
+      "caption": "LoRa report → local monitoring hub",
+      "on_screen": "a coral radio packet leaves the node, crosses a rain-black street and lands on a local monitoring console",
+      "what_moves": "the packet travels visibly from sensor to the hub console while cellular icons remain dark",
+      "cast": [
+        {
+          "id": "dispatcher",
+          "emotion": "focused"
+        }
+      ],
+      "groundY": 1410,
+      "planes": [
+        {
+          "z": 760,
+          "label": "storm distance",
+          "items": [
+            {
+              "id": "radio-rain",
+              "kind": "rainCell",
+              "x": 560,
+              "y": 300,
+              "scale": 0.86
+            }
+          ]
+        },
+        {
+          "z": 470,
+          "label": "radio relation",
+          "items": [
+            {
+              "id": "lora-path",
+              "kind": "associationDiagram",
+              "x": 90,
+              "y": 480,
+              "scale": 0.92,
+              "props": {
+                "leftLabel": "FLOOD NODE",
+                "rightLabel": "LOCAL HUB",
+                "relation": "LORA REPORT",
+                "limit": "NOT CELLULAR"
+              }
+            }
+          ]
+        },
+        {
+          "z": 250,
+          "label": "source node",
+          "items": [
+            {
+              "id": "radio-node",
+              "kind": "streamGauge",
+              "x": 170,
+              "y": 1260,
+              "scale": 0.74
+            }
+          ]
+        },
+        {
+          "z": 110,
+          "label": "receiving handset",
+          "items": [
+            {
+              "id": "hub-alert",
+              "kind": "handsetAlert",
+              "x": 760,
+              "y": 1070,
+              "scale": 0.72
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "dispatcher",
+          "items": [
+            {
+              "id": "dispatcher",
+              "kind": "person",
+              "x": 890,
+              "y": 1430,
+              "scale": 1.0,
+              "facing": -1,
+              "props": {
+                "cast": "engineer",
+                "pose": "point",
+                "emotion": "focused"
+              }
+            }
+          ]
+        }
+      ],
+      "vo": "Long Range radio sends data to a local central hub so emergency teams can monitor conditions.",
+      "vo_claims": [
+        "c7"
+      ],
+      "visual_sentence": {
+        "subject": "the LoRa report",
+        "action": "leaps across the blacked-out street and lands on the local monitoring console",
+        "emotion": "urgency",
+        "annotation": "NODE → LOCAL HUB"
+      },
+      "visual_proof": {
+        "mute_takeaway": "A LoRa report travels from the flood node to a local hub without cellular service.",
+        "must_show": [
+          {
+            "concept": "LoRa report local hub",
+            "item_ids": [
+              "lora-path"
+            ]
+          },
+          {
+            "concept": "not cellular",
+            "item_ids": [
+              "lora-path"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the report leaves the flood node and turns the local hub alert on",
+          "item_ids": [
+            "lora-path",
+            "radio-node",
+            "hub-alert"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.133,
+          "what": "a radio ring expands from the flood node",
+          "item_ids": [
+            "radio-node",
+            "lora-path"
+          ],
+          "at_s_authored": 1.1
+        },
+        {
+          "at_s": 3.914,
+          "what": "the packet lands and the local handset wakes",
+          "item_ids": [
+            "lora-path",
+            "hub-alert"
+          ],
+          "at_s_authored": 3.8
+        }
+      ],
+      "duration_authored": 6.0
+    },
+    {
+      "id": "s8",
+      "story_role": "limit",
+      "start_s": 38.42,
+      "duration_s": 6.64,
+      "visual_family": "evidence-bench",
+      "payload_mode": "mixed",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "craneDown",
+      "beat": "emotion",
+      "hero": "the unfilled map pin",
+      "super": "FIELD-READY IS NOT FIELD-DEPLOYED",
+      "caption": "prototype · initial validation · no named installation",
+      "on_screen": "the glowing node stops at the edge of a wet street while an installation pin remains an empty outline",
+      "what_moves": "a confident prototype stamp lands, then an empty location pin blocks the node from crossing into deployment",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "measured"
+        }
+      ],
+      "groundY": 1410,
+      "planes": [
+        {
+          "z": 720,
+          "label": "evidence record",
+          "items": [
+            {
+              "id": "prototype-record",
+              "kind": "documentStream",
+              "x": 90,
+              "y": 380,
+              "scale": 0.86,
+              "props": {
+                "title": "FIELD-READY PROTOTYPE",
+                "count": "INITIAL MODEL VALIDATION",
+                "sample": "NO NAMED INSTALLATION",
+                "status": "PRODUCT WORK NEXT"
+              }
+            }
+          ]
+        },
+        {
+          "z": 420,
+          "label": "empty site map",
+          "items": [
+            {
+              "id": "empty-site",
+              "kind": "inspectionMap",
+              "x": 80,
+              "y": 720,
+              "scale": 0.84,
+              "props": {
+                "title": "INSTALLATION SITE",
+                "county": "NOT NAMED",
+                "segments": [
+                  "PROTOTYPE",
+                  "FIELD TEST",
+                  "DEPLOYMENT"
+                ],
+                "status": "OPEN"
+              }
+            }
+          ]
+        },
+        {
+          "z": 190,
+          "label": "prototype",
+          "items": [
+            {
+              "id": "bench-prototype",
+              "kind": "streamGauge",
+              "x": 520,
+              "y": 1310,
+              "scale": 0.78
+            }
+          ]
+        },
+        {
+          "z": 55,
+          "label": "reviewer",
+          "items": [
+            {
+              "id": "measured-engineer",
+              "kind": "person",
+              "x": 820,
+              "y": 1430,
+              "scale": 1.0,
+              "facing": -1,
+              "props": {
+                "cast": "engineer",
+                "pose": "hands-hips",
+                "emotion": "measured"
+              }
+            }
+          ]
+        }
+      ],
+      "vo": "Here is the honest frame: a prototype, initial validation and no named installation site.",
+      "vo_claims": [
+        "c2",
+        "c5",
+        "c9"
+      ],
+      "visual_sentence": {
+        "subject": "the field-ready node",
+        "action": "halts before an empty installation pin instead of pretending it is deployed",
+        "emotion": "restraint",
+        "annotation": "NO NAMED INSTALLATION"
+      },
+      "visual_proof": {
+        "mute_takeaway": "The evidence is a prototype with initial validation, not a named field deployment.",
+        "must_show": [
+          {
+            "concept": "field-ready prototype initial validation",
+            "item_ids": [
+              "prototype-record"
+            ]
+          },
+          {
+            "concept": "no named installation",
+            "item_ids": [
+              "prototype-record",
+              "empty-site"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the prototype advances but stops at the unfilled installation marker",
+          "item_ids": [
+            "prototype-record",
+            "empty-site",
+            "bench-prototype"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.949,
+          "what": "the prototype and initial-validation stamps land",
+          "item_ids": [
+            "prototype-record",
+            "bench-prototype"
+          ],
+          "at_s_authored": 1.0
+        },
+        {
+          "at_s": 4.174,
+          "what": "an empty installation pin drops and stops the path",
+          "item_ids": [
+            "empty-site",
+            "bench-prototype"
+          ],
+          "at_s_authored": 4.4
+        }
+      ],
+      "duration_authored": 7.0
+    },
+    {
+      "id": "s9",
+      "story_role": "agency",
+      "start_s": 45.06,
+      "duration_s": 4.3,
+      "visual_family": "street-test",
+      "payload_mode": "picture",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "dollyThrough",
+      "beat": "emotion",
+      "hero": "the field test",
+      "super": "MAKE THE WARNING REACH THE STREET",
+      "caption": "weatherize · install · test the handoff",
+      "on_screen": "an engineer carries the still-pulsing node from bench space toward an outlined low-water-crossing test target",
+      "what_moves": "the cyan heartbeat leaves the diagram and approaches the roadway, but the proof path remains dashed and incomplete",
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "resolved"
+        }
+      ],
+      "groundY": 1410,
+      "planes": [
+        {
+          "z": 800,
+          "label": "storm horizon",
+          "items": [
+            {
+              "id": "closing-rain",
+              "kind": "rainCell",
+              "x": 570,
+              "y": 290,
+              "scale": 0.88
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "field test notice",
+          "items": [
+            {
+              "id": "field-test",
+              "kind": "fieldDayNotice",
+              "x": 90,
+              "y": 370,
+              "scale": 0.84,
+              "props": {
+                "title": "FIELD TEST",
+                "date": "NEXT",
+                "place": "A REAL STREET",
+                "detail": "WEATHERIZATION · DEPLOYMENT"
+              }
+            }
+          ]
+        },
+        {
+          "z": 310,
+          "label": "street",
+          "items": [
+            {
+              "id": "test-crossing",
+              "kind": "lowWaterCrossing",
+              "x": 50,
+              "y": 1080,
+              "scale": 0.66
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "warning",
+          "items": [
+            {
+              "id": "street-alert",
+              "kind": "handsetAlert",
+              "x": 760,
+              "y": 950,
+              "scale": 0.68
+            },
+            {
+              "id": "closing-node",
+              "kind": "streamGauge",
+              "x": 690,
+              "y": 1320,
+              "scale": 0.72
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "engineer",
+          "items": [
+            {
+              "id": "field-engineer",
+              "kind": "person",
+              "x": 300,
+              "y": 1440,
+              "scale": 1.0,
+              "props": {
+                "cast": "engineer",
+                "pose": "carry",
+                "emotion": "resolved"
+              }
+            }
+          ]
+        }
+      ],
+      "vo": "The work ahead is weatherization and deployment beyond the lab.",
+      "vo_claims": [
+        "c9"
+      ],
+      "visual_sentence": {
+        "subject": "the cyan heartbeat",
+        "action": "leaves the bench and crosses toward a real low-water street",
+        "emotion": "resolve",
+        "annotation": "THE NEXT TEST IS OUTSIDE"
+      },
+      "visual_proof": {
+        "mute_takeaway": "The next step is a weatherized installation and field test on a real Texas street.",
+        "must_show": [
+          {
+            "concept": "weatherization deployment",
+            "item_ids": [
+              "field-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the engineer carries the pulsing node from bench state toward an unresolved street test",
+          "item_ids": [
+            "field-test",
+            "test-crossing",
+            "closing-node",
+            "field-engineer"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 0.662,
+          "what": "the field-test card opens a path out of the lab",
+          "item_ids": [
+            "field-test",
+            "field-engineer"
+          ],
+          "at_s_authored": 1.0
+        },
+        {
+          "at_s": 2.58,
+          "what": "the node heartbeat reaches the dashed boundary but the field-proof marker stays open",
+          "item_ids": [
+            "test-crossing",
+            "closing-node",
+            "street-alert"
+          ],
+          "at_s_authored": 3.9
+        }
+      ],
+      "duration_authored": 6.5
+    },
+    {
+      "id": "s10",
+      "story_role": "close",
+      "start_s": 49.36,
+      "duration_s": 8.64,
+      "visual_family": "warning-button",
+      "payload_mode": "picture",
+      "region": "hill_country",
+      "county": "Bexar",
+      "camera_strategy": "riseWith",
+      "beat": "emotion",
+      "hero": "the surviving warning",
+      "super": "THE WARNING STILL HAS TO REACH THE STREET",
+      "caption": "the field-proof path remains open",
+      "on_screen": "the opening storm returns as the cyan heartbeat reaches the edge of the flooded road, where the final path remains an open outline",
+      "what_moves": "the node pulse travels to the waterline and stops before an unlit field-proof marker",
+      "groundY": 1410,
+      "planes": [
+        {
+          "z": 800,
+          "label": "storm bookend",
+          "items": [
+            {
+              "id": "button-rain",
+              "kind": "rainCell",
+              "x": 560,
+              "y": 290,
+              "scale": 0.88
+            }
+          ]
+        },
+        {
+          "z": 520,
+          "label": "button text",
+          "items": [
+            {
+              "id": "warning-button",
+              "kind": "readout",
+              "x": 110,
+              "y": 390,
+              "scale": 0.9,
+              "props": {
+                "rows": [
+                  [
+                    "LOCAL NODE",
+                    "ALIVE"
+                  ],
+                  [
+                    "FIELD PROOF",
+                    "STILL OPEN"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "flooded street",
+          "items": [
+            {
+              "id": "button-crossing",
+              "kind": "lowWaterCrossing",
+              "x": 55,
+              "y": 1080,
+              "scale": 0.66
+            }
+          ]
+        },
+        {
+          "z": 140,
+          "label": "surviving signal",
+          "items": [
+            {
+              "id": "button-node",
+              "kind": "streamGauge",
+              "x": 290,
+              "y": 1300,
+              "scale": 0.74
+            },
+            {
+              "id": "button-alert",
+              "kind": "handsetAlert",
+              "x": 760,
+              "y": 980,
+              "scale": 0.7
+            }
+          ]
+        }
+      ],
+      "vo": "A local node matters only if its warning survives the flood.",
+      "vo_claims": [
+        "c4",
+        "c7"
+      ],
+      "visual_sentence": {
+        "subject": "the surviving warning",
+        "action": "reaches the flooded street and stops at the still-open field test",
+        "emotion": "earned resolve",
+        "annotation": "FIELD PROOF STILL OPEN"
+      },
+      "visual_proof": {
+        "mute_takeaway": "The local node is alive, but field proof at a real street remains open.",
+        "must_show": [
+          {
+            "concept": "local node alive",
+            "item_ids": [
+              "warning-button",
+              "button-node"
+            ]
+          },
+          {
+            "concept": "field proof still open",
+            "item_ids": [
+              "warning-button",
+              "button-crossing"
+            ]
+          }
+        ],
+        "change": {
+          "description": "the cyan node pulse reaches the flood and stops at the open field-proof marker",
+          "item_ids": [
+            "warning-button",
+            "button-node",
+            "button-alert",
+            "button-crossing"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "at_s": 1.462,
+          "what": "the opening heartbeat reappears inside the storm",
+          "item_ids": [
+            "button-node",
+            "button-rain"
+          ],
+          "at_s_authored": 1.1
+        },
+        {
+          "at_s": 5.051,
+          "what": "the pulse reaches the road and stops before the unlit field-proof marker",
+          "item_ids": [
+            "button-node",
+            "button-crossing",
+            "button-alert",
+            "warning-button"
+          ],
+          "at_s_authored": 3.8
+        }
+      ],
+      "duration_authored": 6.5
+    }
+  ],
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.86,
+      "end": 6.48,
+      "text": "When power, cell service and cloud go dark, this local flood node keeps thinking.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 7.52,
+      "end": 11.48,
+      "text": "Chen Pan's UT San Antonio team built the field-ready prototype.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 12.42,
+      "end": 17.7,
+      "text": "Ambient light charges backup storage, keeping the node alive through storms and grid outages.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 18.66,
+      "end": 22.14,
+      "text": "Four optical sensors track rising water beside weather readings.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 23.12,
+      "end": 26.86,
+      "text": "Tiny ML evaluates current and recent signals on the node.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 27.66,
+      "end": 31.64,
+      "text": "The first decision skips the distant server, cell tower and power line.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 32.52,
+      "end": 37.68,
+      "text": "Long Range radio sends data to a local central hub so emergency teams can monitor conditions.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 38.7,
+      "end": 44.5,
+      "text": "Here is the honest frame: a prototype, initial validation and no named installation site.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 45.34,
+      "end": 48.66,
+      "text": "The work ahead is weatherization and deployment beyond the lab.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c10",
+      "start": 49.64,
+      "end": 52.96,
+      "text": "A local node matters only if its warning survives the flood.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 10,
+    "on_measured_word_starts": 10,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}

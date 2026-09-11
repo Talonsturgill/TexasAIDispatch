@@ -1,0 +1,50 @@
+{
+  "duration_s": 63.0,
+  "cut_s": 63.0,
+  "peak_dbfs_premaster": -1.81,
+  "lufs_premaster": -19.16,
+  "lufs_target": -16.0,
+  "lufs_achieved": -17.35,
+  "lufs_shortfall_db": 1.35,
+  "crest_factor_db": 17.35,
+  "limiter": false,
+  "mix_notes": [
+    "the master reached -17.35 LUFS against a -16.0 target, 1.35 dB short. The read's crest factor is 17.4 dB, and closing that last gap would take a limiter, which this mixer does not have on purpose."
+  ],
+  "master_gain_db": 1.81,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 11
+    },
+    {
+      "id": "lightless_dawn",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -28.37,
+      "gain_db": -9.63
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "lightless_dawn",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -28.37,
+  "bed_gain_db": -9.63,
+  "sfx_events": 11,
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "56821e4743a237aa6175cda35c83e1b832fd0abf0f2cf3f9cc6fe3b214bbfe63",
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "0cf871748dae5f96e42380d7b5793cf754cc2639736b4b5f79e7c482fb79d46b",
+  "bed_source_sha256": "59fd69e4432c95887d626e8055113da8fb0da9a8ccac85c6b7da6a6031c4f325",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "74a7e4be5d8552ebd0065d79e6d0c682c3d98d67314222fa83d42c2886b8c31a",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 3024000
+}

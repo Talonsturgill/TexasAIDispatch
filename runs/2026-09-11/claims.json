@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-11",
+  "source": "independent validator re-fetch of the official UT San Antonio announcement",
+  "claims": [
+    {
+      "id": "c1", "verdict": "VERIFIED",
+      "statement": "UT San Antonio published the source article on September 8, 2026.",
+      "value_text": "September 8, 2026", "quote": "September 8, 2026",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "This verifies the announcement date, not a deployment or hardware-release date."
+    },
+    {
+      "id": "c2", "verdict": "VERIFIED",
+      "statement": "UT San Antonio reports that Chen Pan's team engineered a field-ready prototype combining solar energy harvesting, environmental sensing, long-range wireless radios and on-device machine learning.",
+      "quote": "Led by Chen Pan, PhD, assistant professor of electrical engineering in the Margie and Bill Klesse College of Engineering and Integrated Design, the team engineered a field-ready prototype that combines solar energy harvesting, multi-sensor environmental tracking, long-range wireless radios and on-device machine learning.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "Field-ready is the university's descriptor for the prototype; it is not evidence of a completed field deployment."
+    },
+    {
+      "id": "c3", "verdict": "VERIFIED",
+      "statement": "The prototype combines temperature, humidity, light and precipitation sensing with four optical water-level sensors mounted at different heights.",
+      "value_text": "four optical water-level sensors", "quote": "The resulting prototype combines temperature, humidity, light and precipitation sensing, as well as four optical water-level sensors mounted at varying heights.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "The source supports four vertically separated optical sensors but does not specify their spacing, dimensions or physical appearance."
+    },
+    {
+      "id": "c4", "verdict": "VERIFIED",
+      "statement": "TinyML compresses the machine-learning algorithms for a low-power microcontroller, and the on-device model evaluates current and recent sensor data for localized imminent flood risk without relying on a central server for that inference.",
+      "quote": "Pan's system sidesteps this roadblock by using TinyML — a branch of computer science that compresses machine learning algorithms so they can run directly on small, low-power microcontrollers. This on-device AI evaluates current and recent sensor data to predict localized, imminent flood risk without relying on a central server.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "The first flood-risk inference is local to the node. Reports are subsequently sent to a local central hub."
+    },
+    {
+      "id": "c5", "verdict": "VERIFIED",
+      "statement": "The reported 98.82% figure is validation accuracy from initial post-training assessments, not demonstrated real-world field performance.",
+      "value_text": "98.82% validation accuracy in initial assessments post-training", "quote": "So far, the AI has performed well, achieving 98.82% validation accuracy in initial assessments post-training.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "The article supplies no field detection rate, false-alarm rate, operational uptime result or performance result from a named deployment."
+    },
+    {
+      "id": "c6", "verdict": "VERIFIED",
+      "statement": "UT San Antonio says the sensing node uses ambient-light energy harvesting to charge a built-in battery and backup energy storage for operation through storms, overcast conditions and grid outages.",
+      "quote": "To keep operating through heavy storms and overcast days, the sensing node relies on a self-sustaining solar power system. An onboard power chip collects ambient light to charge a built-in battery and backup energy storage units, allowing the device to run indefinitely on a fraction of the energy used by a smartphone.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "This is the university's description of the design; the article does not provide an independently measured field-uptime result."
+    },
+    {
+      "id": "c7", "verdict": "VERIFIED",
+      "statement": "When rising-water risk is detected, the described node sends LoRa radio reports without cell towers or power lines, and those reports arrive at a local central hub for emergency-team monitoring.",
+      "value_text": "more than a half-mile through city streets; up to five miles in open areas; destination is a local central hub",
+      "quote": "When the station detects rising water risks, it sends lightweight radio signals using LoRa (Long Range) wireless technology. These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas without needing cell towers or power lines. The data arrives instantly at a local central hub, where emergency teams can monitor conditions from miles away.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "Local inference occurs on the sensing node; LoRa then carries data to a local hub. The article does not say the node sends alerts directly to residents' phones."
+    },
+    {
+      "id": "c8", "verdict": "VERIFIED",
+      "statement": "The article describes a central-monitoring architecture in which server software aggregates node reports and a second, larger model generates predictive dashboard maps.",
+      "quote": "At the central monitoring site, custom server software aggregates data from multiple deployed nodes across a town or watershed. A second, larger AI model analyzes spatial and temporal patterns across the network to generate an interactive web dashboard with predictive maps.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "This verifies the architecture described by the university, not the existence of a currently operating multi-node network, named monitoring site or public dashboard."
+    },
+    {
+      "id": "c9", "verdict": "VERIFIED",
+      "statement": "Patent protection and conversion of the prototype into a weatherized commercial product are described as current or future work.",
+      "quote": "Pan is currently pursuing patent protection for the hardware architecture. The team aims to refine the design into a sleeker, weatherized commercial product suitable for deployment by small coastal municipalities, homeowners' associations, agricultural operations and industrial sites.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "The named organizations are categories of potential users, not identified customers, test partners or current deployment hosts."
+    },
+    {
+      "id": "c10", "verdict": "VERIFIED",
+      "statement": "UT San Antonio says the project was funded in part through the Texas Coastal Management Program under a NOAA Office for Coastal Management award.",
+      "value_text": "NOAA Award No. NA23NOS4190249",
+      "quote": "This project was funded in part by a Texas Coastal Management Program grant approved by the Texas Land Commissioner, providing financial assistance under the Coastal Zone Management Act of 1972, as amended, awarded by the National Oceanic and Atmospheric Administration (NOAA), Office for Coastal Management, pursuant to NOAA Award No. NA23NOS4190249.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "Funded in part must be retained; the source does not say this award funded the entire project."
+    },
+    {
+      "id": "c11", "verdict": "VERIFIED",
+      "statement": "UT San Antonio frames the problem as hyper-local flooding that regional models and satellite imagery can miss, including isolated rural dips and campus access roads.",
+      "quote": "While regional weather models and satellite imaging offer essential big-picture forecasts, they can miss hyper-local flash floods. A drainage channel behind a neighborhood, an isolated rural dip or a campus access road might submerge rapidly while surrounding areas remain dry.",
+      "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+      "source_title": "UT San Antonio, self-powered smart warning system announcement", "source_type": "primary_official", "retrieved": "2026-09-11",
+      "note": "These are illustrative location types in the article, not identified prototype installation or test sites."
+    }
+  ]
+}
