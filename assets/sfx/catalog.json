@@ -194,6 +194,23 @@
     "audible_share": 0.9998
   },
   {
+    "name": "storm_runoff",
+    "kind": "ambience",
+    "motivation": "visible rainwater climbing across a low-water crossing",
+    "tags": [
+      "water",
+      "storm",
+      "road",
+      "flood"
+    ],
+    "dur_s": 6.0,
+    "rate": 48000,
+    "wav": "assets/sfx/storm_runoff.wav",
+    "centroid_hz": 2770.6,
+    "flatness": 0.00643,
+    "audible_share": 0.9981
+  },
+  {
     "name": "substation_hum",
     "kind": "oneshot",
     "motivation": "a transformer yard beside a slab, heard from the fence",
@@ -290,6 +307,57 @@
     "centroid_hz": 10326.7,
     "flatness": 0.01184,
     "audible_share": 0.9919
+  },
+  {
+    "name": "sensor_heartbeat",
+    "kind": "oneshot",
+    "motivation": "the visible cyan status pulse on a self-powered sensing node",
+    "tags": [
+      "sensor",
+      "node",
+      "status",
+      "pulse"
+    ],
+    "dur_s": 1.45,
+    "rate": 48000,
+    "wav": "assets/sfx/sensor_heartbeat.wav",
+    "centroid_hz": 657.5,
+    "flatness": 0.0,
+    "audible_share": 1.0
+  },
+  {
+    "name": "lora_packet",
+    "kind": "oneshot",
+    "motivation": "a visible LoRa report leaving the flood node and landing at the local hub",
+    "tags": [
+      "radio",
+      "LoRa",
+      "sensor",
+      "hub"
+    ],
+    "dur_s": 1.9,
+    "rate": 48000,
+    "wav": "assets/sfx/lora_packet.wav",
+    "centroid_hz": 824.8,
+    "flatness": 0.0,
+    "audible_share": 1.0
+  },
+  {
+    "name": "warning_bloom",
+    "kind": "oneshot",
+    "motivation": "the visible coral warning at the far side of the flooded street",
+    "tags": [
+      "warning",
+      "street",
+      "flood",
+      "signal"
+    ],
+    "dur_s": 1.8,
+    "rate": 48000,
+    "wav": "assets/sfx/warning_bloom.wav",
+    "centroid_hz": 504.1,
+    "flatness": 0.0,
+    "audible_share": 1.0
   },
   {
     "name": "aircraft_rotor",

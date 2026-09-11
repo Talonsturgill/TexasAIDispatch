@@ -849,6 +849,81 @@ def iron_roughneck(seed=34):
     return normalize(fade(out, 40), 0.9)
 
 
+def storm_runoff(seed=57):
+    """Visible rainwater climbing across a low-water crossing.
+
+    A low turbulent sheet carries irregular stone-edge splashes. It belongs to water visibly
+    moving over pavement, not to a metal roof, beach surf, or a generic storm wash.
+    """
+    dur = 6.0
+    t = t_axis(dur)
+    body = one_pole_lp(high_pass(pink(dur, seed), 90), 3200)
+    surge = 0.58 + 0.42 * (0.5 + 0.5 * np.sin(2 * np.pi * 0.17 * t + 0.8))
+    out = body * surge * 0.42
+    r = rng_for(seed)
+    for i in range(12):
+        at = r.uniform(0.12, dur - 0.35)
+        splash = biquad_bp(white(0.24, seed + 10 + i), r.uniform(900, 2300), 2.2)
+        splash *= expdecay(0.24, r.uniform(0.045, 0.10))
+        place_into(out, fade(normalize(splash), 3) * r.uniform(0.12, 0.26), at)
+    return normalize(fade(out, 160), 0.76)
+
+
+def sensor_heartbeat(seed=58):
+    """The visible cyan status pulse on a self-powered sensing node.
+
+    Two restrained electromechanical ticks and a short low body repeat once. It reads as a
+    physical status beacon rather than a medical monitor or a generic interface notification.
+    """
+    dur = 1.45
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.12, 0.46)):
+        tone = sine(620 + i * 90, 0.18) * expdecay(0.18, 0.045)
+        body = sine(124, 0.22) * expdecay(0.22, 0.075) * 0.28
+        click = biquad_bp(white(0.05, seed + i), 2200, 6) * expdecay(0.05, 0.010)
+        event = np.zeros(max(len(tone), len(body), len(click)))
+        event[:len(tone)] += tone
+        event[:len(body)] += body
+        event[:len(click)] += click * 0.24
+        place_into(out, fade(normalize(event), 3) * (0.62 if i == 0 else 0.48), at)
+    return normalize(fade(out, 24), 0.74)
+
+
+def lora_packet(seed=59):
+    """A visible LoRa report leaving the flood node and landing at the local hub.
+
+    A narrow rising packet train crosses the stereo-implied arc and resolves in one dry receiver
+    latch. It sonifies the drawn radio packet; it is not presented as the device's real sound.
+    """
+    dur = 1.9
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.10, 0.31, 0.52, 0.73)):
+        freq = 480 + i * 120
+        packet = sine(freq, 0.14) * expdecay(0.14, 0.045)
+        packet += sine(freq * 2, 0.14) * expdecay(0.14, 0.025) * 0.18
+        place_into(out, fade(normalize(packet), 3) * (0.32 + i * 0.06), at)
+    latch = biquad_bp(white(0.12, seed), 820, 4) * expdecay(0.12, 0.028)
+    place_into(out, fade(normalize(latch), 2) * 0.68, 1.18)
+    return normalize(fade(out, 24), 0.76)
+
+
+def warning_bloom(seed=60):
+    """The visible coral warning at the far side of the flooded street.
+
+    A restrained two-note rise opens into a warm sustained ring. It marks a warning becoming
+    visible without imitating an official siren, phone alert, or emergency-service device.
+    """
+    dur = 1.8
+    out = np.zeros(int(dur * SR))
+    for at, freq, gain in ((0.08, 330, 0.46), (0.42, 495, 0.58)):
+        tone = sine(freq, 0.72) * expdecay(0.72, 0.28)
+        tone += sine(freq * 1.5, 0.72) * expdecay(0.72, 0.18) * 0.18
+        place_into(out, fade(normalize(tone), 7) * gain, at)
+    ring = sine(660, 0.6) * expdecay(0.6, 0.24)
+    place_into(out, fade(normalize(ring), 7) * 0.34, 0.92)
+    return normalize(fade(out, 32), 0.74)
+
+
 def document_parse(seed=35):
     """A paper record becoming structured labels, heard at the document rather than as UI.
 
@@ -1266,6 +1341,7 @@ SOUNDS = {
     "server_hall": (server_hall, "ambience", "a data hall with the fan wall running, from the cold aisle", ["compute", "interior", "machine"]),
     "rig_floor": (rig_floor, "ambience", "a drilling rig under power, heard standing on the pad", ["oilfield", "permian", "machine", "drilling"]),
     "irrigation_pivot": (irrigation_pivot, "ambience", "a visible irrigation pivot with a turning drive and falling spray", ["farm", "water", "pivot", "machine"]),
+    "storm_runoff": (storm_runoff, "ambience", "visible rainwater climbing across a low-water crossing", ["water", "storm", "road", "flood"]),
     # one-shots, tied to a thing
     "substation_hum": (substation_hum, "oneshot", "a transformer yard beside a slab, heard from the fence", ["grid", "compute", "machine"]),
     "pumpjack": (pumpjack, "oneshot", "an oil pumpjack in the frame", ["oilfield", "permian", "machine"]),
@@ -1273,6 +1349,9 @@ SOUNDS = {
     "document_parse": (document_parse, "oneshot", "a visible document stream turning narrative prose into mechanism labels", ["records", "document", "labels", "analysis"]),
     "record_join": (record_join, "oneshot", "two visible record cards joining into one linked record", ["records", "join", "analysis"]),
     "causal_break": (causal_break, "oneshot", "a visible causal arrow breaking while an association line remains", ["evidence", "limit", "analysis"]),
+    "sensor_heartbeat": (sensor_heartbeat, "oneshot", "the visible cyan status pulse on a self-powered sensing node", ["sensor", "node", "status", "pulse"]),
+    "lora_packet": (lora_packet, "oneshot", "a visible LoRa report leaving the flood node and landing at the local hub", ["radio", "LoRa", "sensor", "hub"]),
+    "warning_bloom": (warning_bloom, "oneshot", "the visible coral warning at the far side of the flooded street", ["warning", "street", "flood", "signal"]),
     "aircraft_rotor": (aircraft_rotor, "ambience", "a visible electric aircraft lifting or flying on its route", ["aircraft", "flight", "rotor", "route"]),
     "seatbelt_latch": (seatbelt_latch, "oneshot", "a visible empty passenger seat buckle drawing tight and locking", ["seat", "buckle", "passenger", "gate"]),
     "passenger_gate_drop": (passenger_gate_drop, "oneshot", "a visible passenger barrier or later-stage gate dropping closed", ["passenger", "rider", "gate", "limit"]),
