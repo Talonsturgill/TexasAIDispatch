@@ -189,33 +189,36 @@ def evidence_text(c: dict) -> str:
     return str(c.get("quote") or "")
 
 
-def printed_figures(board: dict):
-    """Every figure a READOUT prints, which is the surface no gate has ever read.
+def prop_strings(value):
+    """Every string nested inside a rendered item's props."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for child in value.values():
+            yield from prop_strings(child)
+    elif isinstance(value, (list, tuple)):
+        for child in value:
+            yield from prop_strings(child)
 
-    A super is one line and gets checked against its own claim. A readout is a table of rows,
-    it carries no claim binding at all, and it is where the numbers actually live: the queue
-    table, the speed-ups, the water. Five of eleven figures printed by the readouts in this
-    film appeared in no fetched sentence anywhere in the claims file.
+
+def printed_figures(board: dict):
+    """Every figure carried by any rendered item's props.
+
+    This began as a readout-only check. The proof-gate film then put an unsourced countdown in
+    a clock item's ``detail`` prop, outside every surface the gate walked. Renderer props are
+    display material regardless of component kind, so all nested strings are checked now.
     """
     for sc in board.get("scenes", []):
         for pl in sc.get("planes", []):
             for it in pl.get("items", []):
-                if it.get("kind") != "readout":
-                    continue
                 props = it.get("props") or {}
-                for row in props.get("rows") or []:
-                    for cell in (row if isinstance(row, (list, tuple)) else [row]):
-                        for v in figures(str(cell)):
-                            yield sc.get("id", "?"), str(cell), v
+                for cell in prop_strings(props):
+                    for v in figures(cell):
+                        yield sc.get("id", "?"), cell, v
 
 
 def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
-    """RULE 6. A figure on a readout appears in some claim's FETCHED text.
-
-    Deliberately checked against the whole file rather than one bound claim, because a readout
-    carries no `super_claim` and inventing one would be a schema change made by a gate. This is
-    the weaker form of the super rule and it still catches what has actually shipped.
-    """
+    """RULE 6. A figure in rendered item props appears in some claim's FETCHED text."""
     fails: list[str] = []
     evidence = " ".join(evidence_text(c) for c in claims.get("claims", []))
     have = figures(evidence)
@@ -225,7 +228,7 @@ def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
             continue
         seen.add((sid, v))
         fails.append(
-            f"{sid}: a readout prints {cell!r}, and {v:g} appears in no claim's fetched quote. "
+            f"{sid}: a rendered item prints {cell!r}, and {v:g} appears in no claim's fetched quote. "
             f"It may well sit in a claim's statement or value_text, which is exactly the fault: "
             f"those are written by the model that read the source and the quote is what the "
             f"source says. If the figure is genuinely in the source, widen that claim's quote to "
@@ -397,6 +400,12 @@ def self_test() -> int:
     ok("a table row absent from the quote fails when nothing declares an excerpt", bool(f))
     f, _ = check(rd(["gb-large", "512 nodes"]), TABLED)
     ok("...and passes once the claim declares quote_is_excerpt", not f, str(f))
+
+    clock = {"scenes": [{"id": "s10", "planes": [{"z": 90, "items": [
+        {"kind": "fieldDayNotice", "props": {"detail": "starts in 3 days"}}
+    ]}]}]}
+    f, _ = check(clock, CLAIMS)
+    ok("a numeral in a non-readout rendered prop is checked too", bool(f), "no fail raised")
 
     print(f"super_evidence_check: {fails} failure(s)")
     return 1 if fails else 0

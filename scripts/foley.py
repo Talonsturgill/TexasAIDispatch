@@ -1327,6 +1327,137 @@ def decision_stop(seed=51):
     return normalize(fade(out, 35), 0.70)
 
 
+def proof_gate_clamp(seed=61):
+    """The visible algorithm candidate striking the descending formal-proof gate."""
+    dur = 1.65
+    out = np.zeros(int(dur * SR))
+    approach = sine(lambda t: 118 + 92 * np.clip(t / 0.58, 0, 1), 0.62)
+    approach *= np.hanning(len(approach))
+    place_into(out, normalize(approach) * 0.28, 0.05)
+    body = biquad_bp(white(0.18, seed), 230, 3.0) * expdecay(0.18, 0.045)
+    edge = high_pass(white(0.06, seed + 1), 1800) * expdecay(0.06, 0.012)
+    hit = np.zeros(max(len(body), len(edge)))
+    hit[:len(body)] += body
+    hit[:len(edge)] += edge * 0.38
+    place_into(out, fade(normalize(hit), 2) * 0.82, 0.64)
+    ring = sine(392, 0.72) * expdecay(0.72, 0.19)
+    place_into(out, fade(normalize(ring), 6) * 0.20, 0.76)
+    return normalize(fade(out, 25), 0.78)
+
+
+def matrix_bus_rise(seed=62):
+    """The visible matrix bus energising the simulation, data and AI machines above it."""
+    dur = 1.9
+    out = np.zeros(int(dur * SR))
+    for i, (at, freq) in enumerate(((0.12, 196), (0.52, 294), (0.92, 392))):
+        tone = sine(freq, 0.52) * expdecay(0.52, 0.17)
+        edge = biquad_bp(white(0.10, seed + i), freq * 2.4, 4) * expdecay(0.10, 0.022)
+        pulse = np.zeros(len(tone))
+        pulse[:len(tone)] += tone
+        pulse[:len(edge)] += edge * 0.18
+        place_into(out, fade(normalize(pulse), 4) * (0.34 + i * 0.08), at)
+    return normalize(fade(out, 28), 0.72)
+
+
+def candidate_branch(seed=63):
+    """The visible AI search tree fanning one seed into several candidate branches."""
+    dur = 2.1
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.14, 0.38, 0.62, 0.86, 1.10, 1.34)):
+        freq = 330 + i * 67
+        tone = sine(freq, 0.28) * expdecay(0.28, 0.075)
+        edge = biquad_bp(white(0.055, seed + i), freq * 1.8, 5) * expdecay(0.055, 0.012)
+        tick = np.zeros(len(tone))
+        tick[:len(tone)] += tone
+        tick[:len(edge)] += edge * 0.22
+        place_into(out, fade(normalize(tick), 3) * (0.26 + i * 0.035), at)
+    return normalize(fade(out, 30), 0.68)
+
+
+def prompt_diverge(seed=64):
+    """Three visible same-prompt traces separating into inconsistent endpoints."""
+    dur = 2.0
+    out = np.zeros(int(dur * SR))
+    for i, end in enumerate((246, 337, 448)):
+        glide = sine(lambda t, e=end: 285 + (e - 285) * np.clip(t / 1.18, 0, 1), 1.35)
+        glide *= adsr(1.35, 0.06, 0.16, 0.42, 0.30, 0.55)
+        place_into(out, normalize(glide) * 0.18, 0.13 + i * 0.12)
+    snap = high_pass(white(0.08, seed), 1500) * expdecay(0.08, 0.016)
+    place_into(out, fade(normalize(snap), 2) * 0.42, 1.48)
+    return normalize(fade(out, 34), 0.66)
+
+
+def derivation_unfold(seed=65):
+    """The visible opaque code block opening into five ordered derivation layers."""
+    dur = 2.45
+    out = np.zeros(int(dur * SR))
+    paper = one_pole_lp(high_pass(white(0.72, seed), 400), 3200) * np.hanning(int(0.72 * SR))
+    place_into(out, normalize(paper) * 0.22, 0.08)
+    for i, at in enumerate((0.46, 0.78, 1.10, 1.42, 1.74)):
+        lock = biquad_bp(white(0.08, seed + 1 + i), 620 + i * 115, 4) * expdecay(0.08, 0.020)
+        place_into(out, fade(normalize(lock), 2) * (0.34 + i * 0.035), at)
+    return normalize(fade(out, 30), 0.70)
+
+
+def proof_press_clamp(seed=66):
+    """The visible correctness and cost jaws closing around a planned Lean derivation."""
+    dur = 2.3
+    out = np.zeros(int(dur * SR))
+    slide = sine(lambda t: 72 + 84 * np.clip(t / 1.0, 0, 1), 1.1)
+    slide += biquad_bp(white(1.1, seed), 510, 3.5) * 0.10
+    slide *= adsr(1.1, 0.12, 0.22, 0.52, 0.18, 0.58)
+    place_into(out, normalize(slide) * 0.34, 0.10)
+    clamp_noise = biquad_bp(white(0.15, seed + 1), 250, 3) * expdecay(0.15, 0.038)
+    clamp_tone = sine(174, 0.42) * expdecay(0.42, 0.12)
+    clamp = np.zeros(max(len(clamp_noise), len(clamp_tone)))
+    clamp[:len(clamp_noise)] += clamp_noise
+    clamp[:len(clamp_tone)] += clamp_tone * 0.42
+    place_into(out, fade(normalize(clamp), 3) * 0.78, 1.12)
+    return normalize(fade(out, 35), 0.76)
+
+
+def reuse_tile_lock(seed=67):
+    """The visible conditional proposal tile travelling toward the planned reuse assembly."""
+    dur = 2.05
+    out = np.zeros(int(dur * SR))
+    travel = sine(lambda t: 244 + 112 * np.clip(t / 0.95, 0, 1), 1.0)
+    travel *= np.hanning(len(travel))
+    place_into(out, normalize(travel) * 0.20, 0.08)
+    for i, at in enumerate((1.04, 1.30)):
+        click = biquad_bp(white(0.10, seed + i), 420 + i * 280, 4) * expdecay(0.10, 0.024)
+        place_into(out, fade(normalize(click), 2) * (0.52 + i * 0.10), at)
+    return normalize(fade(out, 26), 0.70)
+
+
+def result_shelf_stop(seed=68):
+    """The visible application rail advancing and stopping at the empty results shelf."""
+    dur = 2.2
+    out = np.zeros(int(dur * SR))
+    rail = sine(164, 1.25) * adsr(1.25, 0.08, 0.15, 0.34, 0.22, 0.45)
+    rail += biquad_bp(white(1.25, seed), 780, 4) * 0.08
+    place_into(out, normalize(rail) * 0.27, 0.06)
+    stop = biquad_bp(white(0.13, seed + 1), 220, 3) * expdecay(0.13, 0.036)
+    place_into(out, fade(normalize(stop), 2) * 0.68, 1.26)
+    unresolved = sine(185, 0.64) * expdecay(0.64, 0.25)
+    place_into(out, fade(normalize(unresolved), 7) * 0.18, 1.42)
+    return normalize(fade(out, 34), 0.70)
+
+
+def library_open(seed=69):
+    """The visible open-software library doors separating as the proposed object approaches."""
+    dur = 2.4
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.10, 0.22)):
+        door = one_pole_lp(high_pass(white(0.66, seed + i), 240), 2200)
+        door *= np.hanning(len(door))
+        place_into(out, normalize(door) * 0.20, at)
+    settle = biquad_bp(white(0.10, seed + 4), 340, 3.2) * expdecay(0.10, 0.028)
+    place_into(out, fade(normalize(settle), 2) * 0.50, 0.88)
+    pencil = one_pole_lp(high_pass(white(0.48, seed + 5), 760), 4100) * np.hanning(int(0.48 * SR))
+    place_into(out, normalize(pencil) * 0.20, 1.26)
+    return normalize(fade(out, 32), 0.68)
+
+
 SOUNDS = {
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
@@ -1369,6 +1500,15 @@ SOUNDS = {
     "lane_choice": (lane_choice, "oneshot", "the visible concrete path splitting as a traveler enters the opt-out lane", ["traveler", "path", "opt_out", "lane"]),
     "decision_stop": (decision_stop, "oneshot", "the visible CBP decision track stopping at planning before selection", ["CBP", "decision", "planning", "selection"]),
     "review_stamp": (review_stamp, "oneshot", "a visible review gate or question stamp landing on a paper record", ["review", "stamp", "paper", "decision"]),
+    "proof_gate_clamp": (proof_gate_clamp, "oneshot", "the visible algorithm candidate striking the descending formal-proof gate", ["algorithm", "candidate", "proof", "gate"]),
+    "matrix_bus_rise": (matrix_bus_rise, "oneshot", "the visible matrix bus energising the simulation, data and AI machines above it", ["matrix", "simulation", "data", "ai"]),
+    "candidate_branch": (candidate_branch, "oneshot", "the visible AI search tree fanning one seed into several candidate branches", ["ai", "search", "candidate", "tree"]),
+    "prompt_diverge": (prompt_diverge, "oneshot", "three visible same-prompt traces separating into inconsistent endpoints", ["prompt", "variance", "trace", "ai"]),
+    "derivation_unfold": (derivation_unfold, "oneshot", "the visible opaque code block opening into five ordered derivation layers", ["code", "derivation", "layers", "proof"]),
+    "proof_press_clamp": (proof_press_clamp, "oneshot", "the visible correctness and cost jaws closing around a planned Lean derivation", ["lean", "proof", "correctness", "cost"]),
+    "reuse_tile_lock": (reuse_tile_lock, "oneshot", "the visible conditional proposal tile travelling toward the planned reuse assembly", ["proof", "reuse", "tile", "assembly"]),
+    "result_shelf_stop": (result_shelf_stop, "oneshot", "the visible application rail advancing and stopping at the empty results shelf", ["applications", "results", "limit", "shelf"]),
+    "library_open": (library_open, "oneshot", "the visible open-software library doors separating as the proposed object approaches", ["software", "library", "open", "object"]),
     "windmill_creak": (windmill_creak, "oneshot", "an Aermotor windmill over a stock tank", ["ranch", "water", "machine"]),
     "screen_door": (screen_door, "oneshot", "a screen door on a house", ["home", "punctuation"]),
     "diesel_idle": (diesel_idle, "oneshot", "a diesel pickup idling", ["road", "ranch", "machine"]),

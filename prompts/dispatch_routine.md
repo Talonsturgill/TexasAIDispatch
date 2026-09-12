@@ -85,9 +85,10 @@ the annotation after the viewer has seen the thing. Continuous idle life is quie
 At most one event overshoots. The point is causality, not motion wallpaper.
 
 Every finished file carries its own ending: at least five readable seconds with TEXAS AI DOCKET,
-TexasAIDocket.com, compact primary-source labels, and any generated music credit. Source credits
-exist even when music correctly resolves to no bed. The last visual beat hands cleanly into this
-sign-off; the film never simply stops when the narration does.
+compact primary-source labels, and any generated music credit. Do not put the owner's Docket or
+Dispatch URL in the credits. Source credits exist even when music correctly resolves to no bed.
+The last visual beat hands cleanly into this sign-off; the film never simply stops when the
+narration does.
 
 ---
 
@@ -636,10 +637,11 @@ python3 scripts/mix.py ... --bed out/dispatch/music_bed.wav --bed-track <track_i
 The mixer measures the voice and bed, places the bed at that relative gap, then ducks it. There is
 no universal `0.35` scalar. Never hand-type a music credit: use the exact generated title, artist,
 compact source label and licence from `music_credit.txt`. Build `out/dispatch/credits.txt` from
-the compact editorial SOURCES block, `TexasAIDocket.com`, and that exact generated MUSIC block;
-paste the complete `credits.txt` unchanged into the storyboard's `credits` field. Credits must not
-contain internal Docket record ids, raw TexasAIDispatch repository/blob links, commit SHAs or other
-implementation identifiers. The on-screen numeral rule still applies to official track titles:
+the compact editorial SOURCES block, the `TEXAS AI DOCKET` brand line, and that exact generated
+MUSIC block; paste the complete `credits.txt` unchanged into the storyboard's `credits` field.
+Credits must not contain the owner's Docket or Dispatch URL, internal Docket record ids, raw
+TexasAIDispatch repository/blob links, commit SHAs or other implementation identifiers. The
+on-screen numeral rule still applies to official track titles:
 if a title contains a numeral the rubric does not exempt, select another fitting track rather than
 altering the artist's title or shipping an ungrounded numeral. Before delivery, every film must run
 `music.py --verify-package out/dispatch/credits.txt --mix out/dispatch/mix.json \
