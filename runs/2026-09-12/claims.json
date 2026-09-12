@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-12",
+  "source": "current independent re-fetch of the official NSF award API and program solicitation",
+  "source_hashes": {
+    "nsf_award_api_sha256": "05e582e2addfb096f12237ef248726437fb4c0213b1261220bda7641c05284ec",
+    "nsf_program_page_sha256": "dad93d9271632df66d5db20d9312d47b3964d12cbc4c225ebf09bb071b5b2821"
+  },
+  "claims": [
+    {
+      "id": "proof_c1", "verdict": "VERIFIED",
+      "statement": "NSF award 2616828 identifies Rice University as the awardee and Hengrui Luo as principal investigator.",
+      "quote": "agency: NSF; id: 2616828; awardeeName: William Marsh Rice University; awardeeCity: HOUSTON; awardeeStateCode: TX; piFirstName: HENGRUI; piLastName: LUO",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "Rice University is in Houston, Harris County; the university faculty profile independently confirms Luo's Rice appointment."
+    },
+    {
+      "id": "proof_c2", "verdict": "VERIFIED",
+      "statement": "The award was dated August 17, 2026 and its funded term starts September 15, 2026.",
+      "value_text": "award date 08/17/2026; start date 09/15/2026",
+      "quote": "date: 08/17/2026; startDate: 09/15/2026",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "The September 15 date is a start date, not proof that experiments or software have already begun."
+    },
+    {
+      "id": "proof_c3", "verdict": "VERIFIED",
+      "statement": "The current NSF record lists 150,000 dollars in obligated funds for the Rice award.",
+      "value_text": "$150,000", "quote": "fundsObligatedAmt: 150000",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "This is the current obligated amount, not a valuation of resulting software."
+    },
+    {
+      "id": "proof_c4", "verdict": "VERIFIED",
+      "statement": "The project targets numerical linear algebra, which the award describes as foundational to scientific simulation, data analysis and AI.",
+      "quote": "Numerical linear algebra (NLA) is foundational to mathematical and statistical computing, scientific simulation, data analysis, and artificial intelligence.",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "Foundational does not mean every named application will use the eventual research outputs."
+    },
+    {
+      "id": "proof_c5", "verdict": "VERIFIED",
+      "statement": "The award says reinforcement learning and large language models can explore algorithm designs efficiently but may produce opaque or inconsistent results without guarantees.",
+      "quote": "AI methods, including reinforcement learning (RL) and large language models (LLMs), can explore algorithm designs efficiently, but they may produce opaque or inconsistent results without dependable guarantees.",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "The project is designed around this limitation; it does not establish that a particular model has already failed."
+    },
+    {
+      "id": "proof_c6", "verdict": "VERIFIED",
+      "statement": "LAAM will represent each candidate as a structured mathematical derivation recording transformations, loops, primitives, parameters and symbolic costs.",
+      "quote": "LAAM will represent each candidate as a structured mathematical derivation that records algebraic transformations, nested-loop organization, compositional primitives, admissible parameters, and symbolic arithmetic and communication costs.",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "Will represent is a stated research design, not a completed artifact."
+    },
+    {
+      "id": "proof_c7", "verdict": "VERIFIED",
+      "statement": "The project plans Bayesian optimization and reinforcement learning methods to find promising distinct candidates while limiting expensive proof and evaluation calls.",
+      "quote": "identify promising and mathematically distinct candidates while minimizing expensive proof and evaluation calls",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "This is planned methodology."
+    },
+    {
+      "id": "proof_c8", "verdict": "VERIFIED",
+      "statement": "Lean is planned to certify deterministic correctness and cost claims before AI-generated candidates become reusable mathematical objects.",
+      "quote": "Lean will certify deterministic correctness and cost claims, thereby converting AI-generated candidates into reusable mathematical objects rather than opaque algorithmic programs. Finally, a verified mathematical library will attach machine-readable accuracy, precondition, cost, and confidence contracts to certified routines and record certificate-backed provenance.",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "Lean is the proof assistant named in the award; certification is a planned condition, not an already published result."
+    },
+    {
+      "id": "proof_c9", "verdict": "VERIFIED",
+      "statement": "The project treats prompt-to-prompt variation as a measurement problem and plans inference to distinguish genuine improvements from model-induced randomness.",
+      "quote": "Because LLM-generated algorithms and proofs vary across prompts, the LAAM will also develop sequentially valid inference to separate genuine algorithmic improvements from model-induced randomness.",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "The award does not publish a finished evaluation result."
+    },
+    {
+      "id": "proof_c10", "verdict": "VERIFIED",
+      "statement": "The award names possible applications including principal component analysis, least squares, regression, low-rank approximation and matrix completion.",
+      "quote": "principal component analysis, least squares, regression, low-rank approximation, and matrix completion",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "These are intended application areas, not documented deployments."
+    },
+    {
+      "id": "proof_c11", "verdict": "VERIFIED",
+      "statement": "The award promises openly available software and educational materials and public workshops.",
+      "quote": "The investigators will release openly available software and educational materials, host public workshops, and broaden participation.",
+      "url": "https://api.nsf.gov/services/v1/awards/2616828.json",
+      "source_title": "National Science Foundation Award 2616828", "source_type": "National Science Foundation official award API", "retrieved": "2026-09-12",
+      "note": "The record gives no release dates or workshop dates."
+    },
+    {
+      "id": "proof_c12", "verdict": "VERIFIED",
+      "statement": "NSF's program requires collaboration between scientific computing and formal reasoning expertise and puts correctness on equal footing with performance.",
+      "quote": "The CS2 program puts correctness on an equal footing with performance",
+      "url": "https://www.nsf.gov/funding/opportunities/cs2-correctness-scientific-computing-systems/nsf24-571/solicitation",
+      "source_title": "NSF 24-571: Correctness for Scientific Computing Systems", "source_type": "primary_official", "retrieved": "2026-09-12",
+      "note": "This describes the funding program, not a measured result from the Rice award."
+    }
+  ],
+  "rejected_or_unsupported": [
+    "No claim that LAAM software already exists or has produced a new algorithm.",
+    "No claim that the project has improved the speed or reliability of a named deployed system.",
+    "No claim that Lean independently evaluates real-world usefulness; the record limits its stated role to formal correctness and cost claims.",
+    "No claim that the public can comment on or apply to the award."
+  ]
+}
