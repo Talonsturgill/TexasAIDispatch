@@ -143,7 +143,7 @@ CURRENCIES = {"motion", "emotion", "revelation"}
 # 90 is Frontera" in a caption, which is three figures the gate never looked at. They
 # happen to trace, and that is luck rather than a check.
 SCENE_COPY = ("super", "caption")
-SCENE_DIRECTION = ("on_screen", "what_moves", "hero")
+SCENE_DIRECTION = ("on_screen", "what_moves")
 SCENE_PROSE = SCENE_COPY + SCENE_DIRECTION
 
 ENGINE = REPO / "video-engine" / "src"

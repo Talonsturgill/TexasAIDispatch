@@ -1,0 +1,50 @@
+{
+  "duration_s": 67.0,
+  "cut_s": 67.0,
+  "peak_dbfs_premaster": -1.74,
+  "lufs_premaster": -20.81,
+  "lufs_target": -16.0,
+  "lufs_achieved": -19.07,
+  "lufs_shortfall_db": 3.07,
+  "crest_factor_db": 19.07,
+  "limiter": false,
+  "mix_notes": [
+    "the master reached -19.07 LUFS against a -16.0 target, 3.07 dB short. The read's crest factor is 19.1 dB, and closing that last gap would take a limiter, which this mixer does not have on purpose."
+  ],
+  "master_gain_db": 1.74,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 10
+    },
+    {
+      "id": "sincerely",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -16.44,
+      "gain_db": -23.34
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "sincerely",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -16.44,
+  "bed_gain_db": -23.34,
+  "sfx_events": 10,
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "ccfe9b866838e6d4a579b20d84f9c6059264b803500fee397d3d48dcd7d7db43",
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "560718a2f29d12f63aecf3245f871bb7bd8710cf0b2265e7f35e8a35c42589a0",
+  "bed_source_sha256": "1da4a58ebbae4f2bbdf297e441574788cc85cb59600b03b2dcc93f6a699927cc",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "c4c08f4b9bf76e24c06b6c64ac5559f9ef86385f5b188d842798b32af6f7e598",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 3216000
+}

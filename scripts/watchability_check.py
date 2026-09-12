@@ -83,8 +83,10 @@ def check(board: dict, dispatch_source: str = "") -> list[str]:
     credits = str(board.get("credits") or "").strip()
     if "SOURCES" not in credits.upper():
         errs.append("the film has no SOURCES block in its burned-in ending")
-    if "TEXASAIDOCKET.COM" not in credits.upper():
-        errs.append("the burned-in ending does not tell the viewer where the Docket lives")
+    if "TEXAS AI DOCKET" not in credits.upper():
+        errs.append("the burned-in ending does not carry the Docket brand")
+    if "TEXASAIDOCKET.COM" in credits.upper() or "TEXASAIDISPATCH" in credits.upper():
+        errs.append("the burned-in credits include the owner's own site or Dispatch link")
     if float(board.get("credits_s") or 0) < 5.0:
         errs.append("the sourced sign-off must hold at least five seconds at phone size")
     return errs
@@ -105,7 +107,7 @@ def self_test() -> int:
             "turn_scene": "s1", "button": "The report found what the table dropped",
         },
         "scenes": [scene], "credits_s": 5.5,
-        "credits": "SOURCES\nPRIMARY SOURCE\nTEXASAIDOCKET.COM",
+        "credits": "TEXAS AI DOCKET\nSOURCES\nPRIMARY SOURCE",
     }
     failures = 0
 
@@ -128,6 +130,9 @@ def self_test() -> int:
     no_end = json.loads(json.dumps(good))
     no_end["credits"] = ""
     ok("a film without a sourced sign-off is refused", bool(check(no_end, "fixture-v2")))
+    self_link = json.loads(json.dumps(good))
+    self_link["credits"] += "\nTEXASAIDOCKET.COM"
+    ok("an owner link in the credits is refused", bool(check(self_link, "fixture-v2")))
     print(f"watchability_check: {failures} failure(s)")
     return 1 if failures else 0
 
