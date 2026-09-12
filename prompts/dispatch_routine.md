@@ -574,7 +574,24 @@ batch and retry. Two successful takes exhaust it. A fifth call is impossible, no
 
 **Emotion lives in the director's notes, NEVER in emotion tags** — some get read aloud.
 
-**NEVER time-stretch audio.** If the read runs long, TRIM THE SCRIPT and re-synth those lines.
+**NEVER time-stretch audio.** If an otherwise accurate continuous take misses the picture ceiling
+only because of measured dead-air gaps, make one bounded silence-only recovery before spending
+another model call:
+
+```
+python3 scripts/compact_take.py --source out/dispatch/takes/<take-id>.wav \
+       --out out/dispatch/takes/<take-id>_compact.wav \
+       --report out/dispatch/takes/<take-id>_compact.json \
+       --takes-json out/dispatch/takes/takes.json --take-id <take-id>
+python3 scripts/vo_soundcheck.py --takes out/dispatch/takes/takes.json \
+       --script out/dispatch/vo_script.txt --cut <runtime>
+```
+
+`compact_take.py` may remove only waveform intervals below its declared silence threshold. It
+hash-binds the source and output, records every removed interval, and declares `time_stretch: 1.0`.
+It is not permission to clip voiced frames, splice different performances together, resample, or
+speed up speech. If the verified compact take still runs long, TRIM THE SCRIPT and re-synth the
+authorized shorter passage.
 
 ### SOUND
 
