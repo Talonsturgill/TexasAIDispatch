@@ -52,7 +52,10 @@ THE GATES AND RELEASE
 The production controller ended publishable only after the exact final film cleared factual,
 evidence, caption, visual, audio, credits, rendition and delivery-package checks. The film, board,
 manifest and final evidence package are hash-bound. Dispatch PR 46 passed exact-head guards and
-merged; the rendition follow-up and Docket feed release are tracked separately below.
+merged. Dispatch PR 47 added the permanent renditions and email package. Docket PR 300 published
+the feed after exact-head CI, and post-merge guards and release succeeded on Docket commit
+24d196608e66df5ac4e44f2fe8820900a5f79b3e. The live desktop and 390x844 phone players were then
+verified with sound, complete-frame sizing, captions and the real music credit.
 
 THE READ AND MIX
 
