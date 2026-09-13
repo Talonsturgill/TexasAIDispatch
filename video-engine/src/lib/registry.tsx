@@ -20,6 +20,7 @@ import * as Tejano from './tejano';
 import * as BlackTx from './blacktexas';
 import * as Football from './football';
 import * as Evidence from './evidence';
+import * as Magnets from './magnets';
 import * as Irrigation from './irrigation';
 import * as Biometrics from './biometrics';
 import {Character, castProps} from './Character';
@@ -144,6 +145,18 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   plume: Sensing.Plume,
   readout: Sensing.Readout,
   confidenceSpread: Sensing.ConfidenceSpread,
+
+  compoundRecipe: Magnets.CompoundRecipe,
+  candidateSpecimen: Magnets.CandidateSpecimen,
+  materialSupply: Magnets.MaterialSupply,
+  labWindow: Magnets.LabWindow,
+  labBench: Magnets.LabBench,
+  permanentMotor: Magnets.PermanentMotor,
+  candidateLattice: Magnets.CandidateLattice,
+  synthesisBench: Magnets.SynthesisBench,
+  magnetMeasure: Magnets.MagnetMeasure,
+  researchGrant: Magnets.ResearchGrant,
+  commercialPath: Magnets.CommercialPath,
 
   // editorial evidence — source records, joins, limits and human handoffs
   documentStream: Evidence.DocumentStream,

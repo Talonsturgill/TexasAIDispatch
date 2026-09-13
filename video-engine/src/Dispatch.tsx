@@ -18,6 +18,7 @@ import {HospitalExitEpisode} from './HospitalExitEpisode';
 import {EmptySeatFlightEpisode} from './EmptySeatFlightEpisode';
 import {LocalFloodNodeEpisode} from './LocalFloodNodeEpisode';
 import {ProofGateEpisode} from './ProofGateEpisode';
+import {MagnetCandidateEpisode} from './MagnetCandidateEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -156,7 +157,7 @@ export type DispatchProps = {
   cinematic_template?: 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
-    'proof-gate-v1';
+    'proof-gate-v1' | 'magnet-candidate-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -578,6 +579,10 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   }
   if (cinematic_template === 'local-flood-node-v1') {
     return <LocalFloodNodeEpisode runtime_s={end} scenes={scenes} captions={captions}
+      credits={credits} credits_s={credits_s} />;
+  }
+  if (cinematic_template === 'magnet-candidate-v1') {
+    return <MagnetCandidateEpisode runtime_s={end} scenes={scenes} captions={captions}
       credits={credits} credits_s={credits_s} />;
   }
   if (cinematic_template === 'proof-gate-v1') {

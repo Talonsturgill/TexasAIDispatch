@@ -1458,7 +1458,62 @@ def library_open(seed=69):
     return normalize(fade(out, 32), 0.68)
 
 
+
+def blower_fan(seed=70):
+    """The visible existing blower motor: close air and a soft blade-rate pulse."""
+    dur = 5.5
+    air = one_pole_lp(one_pole_lp(high_pass(white(dur, seed), 80), 1400), 1800)
+    body = sine(120, dur) * 0.10 + air * 0.6
+    body *= 0.82 + 0.18 * sine(24, dur)
+    return normalize(fade(body, 180), 0.7)
+
+
+def material_candidate(seed=71):
+    """Graphic sonification of a visible copper candidate assembling or travelling.
+
+    Dry resonant taps follow the drawn object; this is not a recording of atomic motion.
+    """
+    dur = 2.4
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.06, 0.48, 1.05)):
+        tap = sine(430 + i * 75, 0.38) * expdecay(0.38, 0.065)
+        tap += sine(970 + i * 95, 0.38) * expdecay(0.38, 0.033) * 0.18
+        place_into(out, fade(tap, 5) * 0.55, at)
+    return normalize(fade(out, 30), 0.7)
+
+
+def research_announcement(seed=72):
+    """A visible paper announcement unfolds with two dry folds and a soft landing."""
+    dur = 2.1
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((0.05, 0.52)):
+        fold = one_pole_lp(high_pass(white(0.35, seed+i), 650), 3200)
+        fold *= np.hanning(len(fold))
+        place_into(out, normalize(fold) * 0.36, at)
+    tap = biquad_bp(white(0.15, seed+3), 450, 3) * expdecay(0.15, 0.045)
+    place_into(out, normalize(fade(tap, 4)) * 0.28, 1.10)
+    return normalize(fade(out, 20), 0.7)
+
+
+def sample_lower(seed=73):
+    """A visible illustrated sample holder lowers into the measurement chamber.
+
+    A short controlled motor and seating click describe placement, never a test result.
+    """
+    dur = 2.2
+    out = np.zeros(int(dur * SR))
+    drive = sine(lambda t: 210 - 65 * t, 1.05) * np.hanning(int(1.05*SR))
+    place_into(out, drive * 0.35, 0.05)
+    seat = sine(660, 0.16) * expdecay(0.16, 0.035)
+    place_into(out, fade(seat, 4) * 0.55, 1.12)
+    return normalize(fade(out, 25), 0.7)
+
+
 SOUNDS = {
+    "blower_fan": (blower_fan, "ambience", "the visible existing blower fan turning in its permanent magnet motor", ["motor", "blower", "fan"]),
+    "material_candidate": (material_candidate, "oneshot", "graphic sonification of the visible copper material candidate assembling or travelling", ["candidate", "compound", "material"]),
+    "research_announcement": (research_announcement, "oneshot", "the visible research announcement paper unfolding", ["paper", "research", "announcement"]),
+    "sample_lower": (sample_lower, "oneshot", "the visible illustrated sample holder lowering into the measurement chamber", ["sample", "measure", "instrument"]),
     # ambience beds, loopable, tied to a place
     "cicada_wall": (cicada_wall, "ambience", "a summer daytime exterior, any region", ["summer", "day", "insect"]),
     "cricket_night": (cricket_night, "ambience", "a rural night exterior", ["night", "insect", "rural"]),

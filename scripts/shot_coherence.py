@@ -64,6 +64,15 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    "compoundRecipe": {"label", "status"},
+    "candidateSpecimen": {"label", "status"},
+    "materialSupply": {"label", "status"},
+    "permanentMotor": {"label", "status"},
+    "candidateLattice": {"label", "status"},
+    "synthesisBench": {"label", "status"},
+    "magnetMeasure": {"label", "status"},
+    "researchGrant": {"label", "status", "detail"},
+    "commercialPath": {"label", "status"},
     "readout": {"rows"},
     "detections": {"items"},
     "mask": {"label"},
@@ -385,6 +394,10 @@ def self_test() -> int:
     ok("atmosphere cannot be the sole evidence even when its metadata repeats the claim",
        any("proved only by atmosphere" in p for p in check(atmosphere)))
 
+    magnet = {"kind": "candidateLattice", "props": {"label": "AI COMPOUND", "status": "PROPOSED"}}
+    ok("magnet proof reads its rendered labels", "compound" in item_visual_tokens(magnet))
+    magnet["props"] = {"invented_evidence": "AI COMPOUND"}
+    ok("unrendered magnet metadata cannot satisfy a claim", "compound" not in item_visual_tokens(magnet))
     print(f"shot_coherence: {failures} failure(s)")
     return 1 if failures else 0
 
