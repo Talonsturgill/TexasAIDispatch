@@ -1,0 +1,18 @@
+# Harris County credibility review, round 1
+
+Reviewed at 2026-09-13T14:11:37.623799+00:00.
+
+Film SHA-256: 9d06d15bb08f51fc13f4a90395435886c984465b2d440534bea8b49e188ded79; independently matches render-manifest.json. No other scorer results were read. The score is computed directly from the current rubric weights: 7.122; no upward rounding.
+
+Personally inspected the eight final-film scene PNGs, poster, credits frame and feed composite. Also read the current board, claims, validation, research notes, preflight report, render manifest, captions.json, words.json, mix.json, takes/takes.json and music preparation manifest.
+
+- Hook: The first image is a legible blower/magnet cutaway with a moving physical subject, not a title card. It makes an everyday cooling appliance the entry point.
+- Story: The university and September announcement are explicit. The sequence explains the paired predictions, physical synthesis and testing, then retains commercialization as a goal. The ending returns to an existing fan alongside a separate candidate. The movement is accurately dated but older than today's issue; no new same-day result is invented.
+- Picture: Each scene has its own literal object or process, including the two prediction systems, laboratory kit, sourcing boundary and candidate/market separation. The supplied current-board preflight metrics show visible changes throughout. This is a strong explanatory sequence, although the recurring window and static observer make several compositions feel similar.
+- Place: Houston/Harris attribution, an indoor university research setting, cooling application and unbrimmed technical cast are credible. There is no mismatched regional ecology or banned costume. Place remains the weakest axis because the room could belong to almost any research university; the Houston identity is chiefly carried by text. This assessment does not penalize the required vector house style.
+- Craft: Headline and speech captions remain legible in the feed composite, and depth separates foreground bench, hero and observer. In scene 5 the smaller measurement/status labels crowd the bench and person; scene 4 partially hides the observer behind the process graphic. The credits are legible in the full frame but dense at reduced feed size.
+- Voice: The supplied take transcript agrees with the validated text. Every displayed caption cue begins and ends on a measured acoustic boundary; the syllable-modelled internal word boundaries in words.json are explicitly disclosed and are not used as cue edges. Mix and stem reports retain unit time-stretch. The measured master is quieter than its configured loudness target. These support the technical portion of the voice score, not a claim about a personally heard performance.
+
+No observed rubric hard fail. The only displayed numeral beyond the announcement date is in the generated music-license credit; the preparation/credit chain is documented and the exact-head preship/ship-gate verification was supplied in the brief. No invented measurement result appears: scene 5 uses an unknown output and states that no project data is shown.
+
+Limits: This interface cannot receive audio, so I did not listen to the read or music and cannot personally certify timbre, pronunciation or the subjective mix. I also did not have continuous in-model video playback; motion judgment uses actual final-film stills, the current-board preflight motion samples and the previously inspected component animation logic. No film inputs were edited. The review does not establish live playback, permanent media availability or publication.

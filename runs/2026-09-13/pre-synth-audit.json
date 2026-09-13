@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-13",
+  "role": "independent validator pre-synthesis readback",
+  "result": "PASS",
+  "audited_artifacts": {
+    "out/dispatch/storyboard.json": "dcc05b032fb0adf3fedda36b167dc58aef4f2b4be6ab32bd219cd5b7be831d9e",
+    "video-engine/src/lib/magnets.tsx": "e0e77762f1bd53757e9de6339d8fd96e03b799a9fc35e39e8fa06c36e6118463"
+  },
+  "vo_readback": {
+    "exact_match_to_validated_script": true,
+    "script_evidence_problems": [],
+    "super_evidence_problems": [],
+    "super_evidence_notes": []
+  },
+  "findings": [
+    {
+      "id": "visual-curve",
+      "severity": "required",
+      "scene": "s5",
+      "file": "video-engine/src/lib/magnets.tsx",
+      "component": "MagnetMeasure",
+      "observed": "Animated axes and a specific copper curve rising through several bends, while the label says ILLUSTRATED TEST.",
+      "why": "No measured project result or curve was verified. Its shape communicates data even without axis values.",
+      "fix": "Remove the fabricated result curve. Animate sample insertion and a neutral planned measurement/output stage, with PLANNED MEASUREMENT clearly visible.",
+      "status": "resolved on final factual readback",
+      "resolution": "Confirmed arbitrary curve removed. Blank outlined output and question mark remain; displayed status explicitly says NO PROJECT DATA SHOWN."
+    },
+    {
+      "id": "reliability-copy",
+      "severity": "required",
+      "scene": "s6",
+      "observed": "Visible RELIABLE MATERIALS plus caption The goal is more reliable domestic materials.",
+      "why": "These restore the ambiguity already removed from VO: source reliability concerns sourcing and manufacture, not a proven durable or superior material.",
+      "fix": "Use DOMESTIC SUPPLY GOAL and a caption explicitly saying more reliable domestic sourcing and manufacture.",
+      "status": "resolved on final factual readback",
+      "resolution": "Confirmed s6 uses MaterialSupply schematic, DOMESTIC SOURCING GOAL, SOURCE AND MAKE MORE RELIABLY, and sourcing-specific caption."
+    },
+    {
+      "id": "test-state",
+      "severity": "required",
+      "scene": "s6",
+      "file": "video-engine/src/lib/magnets.tsx",
+      "component": "PermanentMotor mode=future",
+      "observed": "Hardcoded TESTS STILL AHEAD.",
+      "why": "The source establishes planned synthesis and validation but not the current state of every sample.",
+      "fix": "Replace with MATERIALS MUST BE TESTED or another general prerequisite that does not invent current test status.",
+      "status": "resolved on final factual readback",
+      "resolution": "Confirmed TESTS STILL AHEAD absent from code; general MATERIALS MUST BE TESTED wording is used. No asserted pass/fail outcome or test date."
+    },
+    {
+      "id": "current-vs-candidate",
+      "severity": "required metadata consistency",
+      "scene": "s1,s6",
+      "observed": "visual_sentence.subject identifies the spinning motor as the copper-colored magnet candidate.",
+      "why": "Opening and returning spinning motor scenes demonstrate an existing application; the proposed material is not verified in a working motor.",
+      "fix": "Identify these scenes as an existing permanent-magnet motor in metadata; keep the candidate separate in s8.",
+      "status": "resolved on final factual readback",
+      "resolution": "Confirmed s1 subject/status identifies existing motor; s6 subject is proposed domestic supply; s8 separates candidate specimen from existing blower."
+    },
+    {
+      "id": "recipe-binding",
+      "severity": "recommended evidence correction",
+      "scene": "s4",
+      "observed": "The super from compound to recipe binds only c4, the compound-prediction claim.",
+      "why": "The recipe portion rests on c5 chemical pathway prediction.",
+      "fix": "Bind the super to c5; retain c4 and c5 for VO.",
+      "status": "resolved on final factual readback",
+      "resolution": "Confirmed s4 super binds c5 and separate CompoundRecipe graphic labels BOTH ARE PREDICTIONS and POSSIBLE ROUTE."
+    }
+  ],
+  "accepted_with_limits": [
+    "All eight VO lines match the validated script and preserve the September 1 announcement date.",
+    "ResearchGrant is a stylized announcement with no forged seal, invented award ID or funding figure.",
+    "CandidateLattice is a generic editorial symbol with no element labels, formula or asserted reconstruction; keep it that way. A schematic caption would make the visual status clearest.",
+    "The CommercialPath barrier can illustrate testing as a prerequisite. It must remain an editorial workflow diagram, not a claimed failed test, legal approval gate or verified project status.",
+    "s8 keeps a proposed candidate separate from the spinning motor; maintain that separation in the final render.",
+    "New CompoundRecipe labels both AI stages as predictions and the synthesis route as possible.",
+    "New MaterialSupply labels domestic manufacture as a goal, not an existing deployment.",
+    "New CandidateSpecimen remains separated from the motor and carries the general testing prerequisite."
+  ],
+  "validation_report_amended": true,
+  "next_action": "Proceed to narration and rendered QA. Factual readback is complete for the recorded code and displayed copy; this is not a rendered visual/audio review or panel score.",
+  "initial_result": "NEEDS_FIXES",
+  "completed_at_utc": "2026-09-13T13:56:44.140916+00:00",
+  "previous_artifact_hashes": {
+    "out/dispatch/storyboard.json": "d87e7c4e5f1a85e3429bdcb570f0fe24788ef4d3cb9b158c107c24af166ee457",
+    "video-engine/src/lib/magnets.tsx": "5b05cd98561aa1dfe9fba4f3c660615560a35d57f1ba67d48fd449a5f6539abf"
+  },
+  "remaining_factual_blockers": []
+}

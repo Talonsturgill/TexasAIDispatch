@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-13",
+  "source": "https://www.uh.edu/news-events/stories/2026/september/09012026-doe-grant-permanent-magnets.php",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+  ],
+  "rejected": [
+    "Many air conditioners turn on permanent magnets. Ambiguous causal wording: magnets are components of motors, not the energy supply. Revised to the blower motor application.",
+    "Another AI will find ways to make them. Overstates prediction as successful synthesis; source promises predicted chemical pathways.",
+    "Testing comes next. No immediate test schedule is reported; pipeline includes making candidates before validation.",
+    "The goal is reliable domestic materials for motors. Reliability could be read as proven material performance; source describes more reliable domestic sourcing and manufacture.",
+    "A better replacement magnet now exists or powers an air conditioner. Announcement funds a research pipeline and sets a future commercialization milestone; no replacement result is established.",
+    "The award happened today or was executed on September 1. September 1 is the university article date; September 13 is this Dispatch date. No executed-award date verified.",
+    "The umbrella initiative has a reconciled funding total. UH body gives $100 million, while the linked federal page title gives $72 million; the fetched federal body was empty. Omit the umbrella total; no amounts enter verified claims."
+  ],
+  "required_edits_applied": [
+    "In validated-script.json, the opening now identifies the permanent-magnet blower motor.",
+    "In validated-script.json, both AI functions are predictions in a plan, rather than demonstrated synthesis success.",
+    "In validated-script.json, prediction, fabrication and tests are described as planned stages without inventing a testing date or claiming no samples exist.",
+    "In validated-script.json, reliability is explicitly about sourcing and manufacture.",
+    "The validated script and verified claims omit umbrella funding totals and better-magnet results.",
+    "Confirmed arbitrary curve removed. Blank outlined output and question mark remain; displayed status explicitly says NO PROJECT DATA SHOWN.",
+    "Confirmed s6 uses MaterialSupply schematic, DOMESTIC SOURCING GOAL, SOURCE AND MAKE MORE RELIABLY, and sourcing-specific caption.",
+    "Confirmed TESTS STILL AHEAD absent from code; general MATERIALS MUST BE TESTED wording is used. No asserted pass/fail outcome or test date.",
+    "Confirmed s1 subject/status identifies existing motor; s6 subject is proposed domestic supply; s8 separates candidate specimen from existing blower.",
+    "Confirmed s4 super binds c5 and separate CompoundRecipe graphic labels BOTH ARE PREDICTIONS and POSSIBLE ROUTE."
+  ],
+  "scope": "Validated VO matched all eight current board scenes. Board captions, supers, item props and magnets.tsx displayed strings and diagram logic received factual readback; recorded in pre-synth-audit.json. No rendered visual/audio scoring performed.",
+  "pre_synth_readback": {
+    "result": "PASS",
+    "completed_at_utc": "2026-09-13T13:56:44.140916+00:00",
+    "artifact_hashes": {
+      "out/dispatch/storyboard.json": "dcc05b032fb0adf3fedda36b167dc58aef4f2b4be6ab32bd219cd5b7be831d9e",
+      "video-engine/src/lib/magnets.tsx": "e0e77762f1bd53757e9de6339d8fd96e03b799a9fc35e39e8fa06c36e6118463"
+    },
+    "remaining_factual_blockers": []
+  }
+}
