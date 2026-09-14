@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-14",
+  "source": "Independent validator; live web refetch on 2026-09-14T10:58:44.824689+00:00",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+  ],
+  "rejected": [
+    "The truck is ready for a road its safety case has not cleared. Source does not establish readiness of a particular truck or clearance of a particular road; engineering verification remains. Replaced with incomplete highway-launch safety case.",
+    "The reported 93% is a 93% chance of a safe trip, independent safety certification, or regulatory launch approval. Company explicitly defines the metric as safety-case claims and evidence materially complete; no independent verification or regulatory approval is supplied.",
+    "Driverless long-haul service already launched on Dallas\u2013Houston, or Dallas County is the announced initial driverless launch location. Dallas\u2013Houston is historical freight context; Texas-wide initial driverless geography comes from the June prospectus, with no initial route or county specified.",
+    "Final verification and validation still come next. Implies those activities have not begun. Source says remaining work is concentrated there. Repaired to still remain.",
+    "The 93% milestone was measured September 8. September 8 is announcement date; metric is measured at August end.",
+    "Atlas early-2027 public-road expansion is Kodiak\u2019s year-end highway launch. Different programs and timelines. Atlas page was refetched but these figures are excluded."
+  ],
+  "required_edits_applied": [
+    "Approved script removes truck readiness and road-clearance assertions.",
+    "Approved metric line distinguishes September announcement from August-end measurement.",
+    "Approved Texas line attributes initial market to June filing.",
+    "Approved route line is bounded by mandatory existing-service frame labels.",
+    "Approved remaining-work line avoids claiming verification has not begun.",
+    "Take-two source script uses verified numeric 93% in scenes 2 and 4, with no change to value or metric definition.",
+    "Take-two source script says The June filing in scene 5, retaining attribution to the same company prospectus.",
+    "Take-two source script omits final in scene 7; engineering verification and validation still remain is supported by c3.",
+    "Director shortened the final-check sentence to Testing and validation still remain after independent ASR misheard engineering. Both terms remain verbatim supported by c2/c3.",
+    "Final source script scene1 says Kodiak still has a highway safety case to finish; supported by c6 and c3 without asserting truck or launch readiness.",
+    "Final source script scene7 says Work remains on the safety case; supported by c2/c3 and precise verification/validation frame labels retained.",
+    "Current board VO matches all eight approved source-script lines exactly; required context labels remain present in the board.",
+    "Final bounded take source script scene7 says The safety case is unfinished, supported by c3/c6; board VO and safety-case visual concept match. Earlier scene7 variants are superseded."
+  ],
+  "retrieved": "2026-09-14T10:58:44.824689+00:00",
+  "scope_note": "Claims and exact proposed script validated before voiceover; controller must implement approved text and required frame labels and bind final board with validation_check.",
+  "approved_script_sha256": "177b6100105032a4b40da19ef725286ae79051a912ccd841abae163b66610d9a",
+  "script_revised_at": "2026-09-14T11:20:48.364130+00:00",
+  "script_sha256": "177b6100105032a4b40da19ef725286ae79051a912ccd841abae163b66610d9a"
+}

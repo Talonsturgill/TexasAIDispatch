@@ -1,0 +1,50 @@
+{
+  "duration_s": 43.0,
+  "cut_s": 43.0,
+  "peak_dbfs_premaster": -1.48,
+  "lufs_premaster": -19.86,
+  "lufs_target": -16.0,
+  "lufs_achieved": -18.37,
+  "lufs_shortfall_db": 2.37,
+  "crest_factor_db": 18.37,
+  "limiter": false,
+  "mix_notes": [
+    "the master reached -18.37 LUFS against a -16.0 target, 2.37 dB short. The read's crest factor is 18.4 dB, and closing that last gap would take a limiter, which this mixer does not have on purpose."
+  ],
+  "master_gain_db": 1.48,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 8
+    },
+    {
+      "id": "amazing_plan",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 20.0,
+      "source_lufs": -27.28,
+      "gain_db": -12.52
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "amazing_plan",
+  "bed_gap_below_voice_db": 20.0,
+  "bed_source_lufs": -27.28,
+  "bed_gain_db": -12.52,
+  "sfx_events": 8,
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "f5e96bc6cd6a91385b0a43ac2ba4058429b699bc93f63db86ea087173bbed5fa",
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "6f6f74a6ad4d7bcc0b2c05f13825c8daee0a59d9802795bc768891656e9774be",
+  "bed_source_sha256": "76c8b73bd16b7c0437fcaf38b3503149426b3638b8b0fb6e731b330478ffe77d",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "0e540746129a5b1e734a2e0f1bb9253a83b33c78ab882b7e3ad16453a4664527",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2064000
+}
