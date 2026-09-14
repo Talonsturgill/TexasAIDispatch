@@ -1,0 +1,115 @@
+{
+  "date": "2026-09-14",
+  "role": "validator",
+  "result": "PASS_WITH_DROPS",
+  "approved_lines": [
+    {
+      "scene": 1,
+      "voiceover": "Kodiak still has a highway safety case to finish.",
+      "claim_ids": [
+        "c6",
+        "c3"
+      ]
+    },
+    {
+      "scene": 2,
+      "voiceover": "On September eighth, Kodiak reported 93% readiness through August.",
+      "claim_ids": [
+        "c1"
+      ]
+    },
+    {
+      "scene": 3,
+      "voiceover": "That measures claims and evidence materially complete.",
+      "claim_ids": [
+        "c2"
+      ]
+    },
+    {
+      "scene": 4,
+      "voiceover": "It is not a 93% chance of a safe trip.",
+      "claim_ids": [
+        "c2",
+        "c1"
+      ]
+    },
+    {
+      "scene": 5,
+      "voiceover": "The June filing names Texas as the initial launch market.",
+      "claim_ids": [
+        "c4"
+      ]
+    },
+    {
+      "scene": 6,
+      "voiceover": "It already reports freight runs between Dallas and Houston.",
+      "claim_ids": [
+        "c5"
+      ]
+    },
+    {
+      "scene": 7,
+      "voiceover": "The safety case is unfinished.",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ]
+    },
+    {
+      "scene": 8,
+      "voiceover": "Year-end is the target. The evidence still has work to do.",
+      "claim_ids": [
+        "c1",
+        "c3"
+      ]
+    }
+  ],
+  "rejected_statements": [
+    {
+      "claim": "The truck is ready for a road its safety case has not cleared.",
+      "reason": "Source does not establish readiness of a particular truck or clearance of a particular road; engineering verification remains. Replaced with incomplete highway-launch safety case."
+    },
+    {
+      "claim": "The reported 93% is a 93% chance of a safe trip, independent safety certification, or regulatory launch approval.",
+      "reason": "Company explicitly defines the metric as safety-case claims and evidence materially complete; no independent verification or regulatory approval is supplied."
+    },
+    {
+      "claim": "Driverless long-haul service already launched on Dallas–Houston, or Dallas County is the announced initial driverless launch location.",
+      "reason": "Dallas–Houston is historical freight context; Texas-wide initial driverless geography comes from the June prospectus, with no initial route or county specified."
+    },
+    {
+      "claim": "Final verification and validation still come next.",
+      "reason": "Implies those activities have not begun. Source says remaining work is concentrated there. Repaired to still remain."
+    },
+    {
+      "claim": "The 93% milestone was measured September 8.",
+      "reason": "September 8 is announcement date; metric is measured at August end."
+    },
+    {
+      "claim": "Atlas early-2027 public-road expansion is Kodiak’s year-end highway launch.",
+      "reason": "Different programs and timelines. Atlas page was refetched but these figures are excluded."
+    }
+  ],
+  "mandatory_frame_context": [
+    "Scene 2 must display SAFETY CASE so readiness has an explicit object.",
+    "Scene 6 must display EXISTING SERVICE and DRIVERLESS LAUNCH STILL PLANNED; Dallas–Houston is context, not a launch-route forecast.",
+    "Scene 5 must retain June filing attribution for the Texas initial-market claim.",
+    "Dallas County may be editorial county context only; never describe it as an announced launch county.",
+    "No green certification stamp, road clearance, locked launch date or crash-probability depiction.",
+    "Line 4 is an explanation derived from the metric definition, not a quotation."
+  ],
+  "word_count": 70,
+  "sources_refetched": [
+    "https://kodiak.ai/news/driverless-long-haul-on-track-arm-93",
+    "https://www.sec.gov/Archives/edgar/data/1853138/000162828026041930/kodiakaiinc-424b3.htm",
+    "https://investors.kodiak.ai/news-releases/news-release-details/kodiak-begins-hauling-freight-autonomously-roehl-transport",
+    "https://kodiak.ai/news/atlas-driverless-permian-expansion"
+  ],
+  "read_scope": "Read full substantive company releases and forward-looking caveats; read prospectus cover date, Business commercialization/safety-case sections, not entire securities filing.",
+  "county_note": "Dallas appears as the freight hub/city. No primary geographic county-boundary source was needed for voiceover, which says Dallas only.",
+  "script_sha256": "177b6100105032a4b40da19ef725286ae79051a912ccd841abae163b66610d9a",
+  "revised_at": "2026-09-14T11:20:48.364130+00:00",
+  "revision_note": "Final bounded take scene7 says The safety case is unfinished. This accurately narrows existing c3/c6: company is completing the highway launch safety case and remaining work is identified. Every board VO line matches the source script. No new research, assertion, alignment alias, override, forced match, or retiming authorized.",
+  "board_script_match": true,
+  "board_context_review": "Current scene7 binder title SAFETY CASE and must-show safety case reflect the narrower line. Unchanged scenes preserve safety-case readiness, June filing attribution, existing freight and planned driverless launch."
+}
