@@ -1,0 +1,31 @@
+{
+  "voice_sha256": "61ad58c99ca885303c22587659185f55c6df40408b7c92facc70cba0c57c655b",
+  "model_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "engine": "whisper.cpp",
+  "version": "1.9.2",
+  "dtw": "base.en",
+  "flash_attention": false,
+  "analysis_duration_s": 36.015896,
+  "asr_sha256": "68d05059166f6bcd72bbe30c6be8075c27a5944b249936f40dcc9540de477394",
+  "command": [
+    "whisper-cli",
+    "-m",
+    "/Users/t/Desktop/TexasAIDocket/.models/whisper/ggml-base.en.bin",
+    "-f",
+    "out/dispatch/alignment-16k.wav",
+    "-l",
+    "en",
+    "-ojf",
+    "-of",
+    "out/dispatch/acoustic-asr",
+    "-dtw",
+    "base.en",
+    "-nfa",
+    "-ml",
+    "1",
+    "-sow",
+    "-t",
+    "4",
+    "-np"
+  ]
+}
