@@ -6,8 +6,8 @@ Phone rendition: https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch
 Poster: https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-09-15/poster.png
 
 Runtime 42.0 seconds, including the five-second credits tail.
-Master 1080 x 1920, 14,815,133 bytes.
-Phone 720 x 1280, 7,021,236 bytes.
+Master 1080 x 1920, 14,791,144 bytes.
+Phone 720 x 1280, 7,015,385 bytes.
 
 -----BEGIN CAPTION-----
 A Texas A&M research project in College Station starts today with a plan to build digital twins for freshwater systems. Sensor readings, weather and maintenance records would help models anticipate failures that spread. The NSF award describes planned tools and workshops for operators. It reports no measured service improvements. The real test still belongs at the pump.
@@ -19,7 +19,7 @@ https://api.nsf.gov/services/v1/awards.json?id=2640086&printFields=id,title,abst
 Docket record tx-2026-0149: https://texasaidocket.com/
 
 Score and verification
-Three independent reviewers scored the exact rendered cut 7.254, 7.284 and 7.134. Weighted panel mean 7.224 against the configured 7.0 bar. All recommended shipping, with no hard fails.
+In the final of two rounds, three independent reviewers scored the exact rendered cut 7.254, 7.284 and 7.134. Weighted panel mean 7.224 against the configured 7.0 bar. All recommended shipping, with no hard fails.
 All delivery gates passed by exit code, including evidence, validation, staging, acoustic alignment, music package, site overlay composite, mutation tests and exact render freshness.
 
 Limits and polish
@@ -32,6 +32,6 @@ Direct listening was unavailable. Voice assessment used transcript, acoustic, ti
 Music: Immersed by Kevin MacLeod, incompetech.com. CC BY 4.0, https://creativecommons.org/licenses/by/4.0/. Trimmed and synced to picture. Source https://www.incompetech.com/music/royalty-free/index.html?isrc=USUAN1600010
 
 Machine upgrades
-Added reusable freshwater pump/model diagrams and the episode route. Registered both components, with coherence tests proving that unrendered metadata cannot stand in for visible evidence. Added two synthetic, picture-motivated pump/model sounds and verified the foley catalogue.
+Added reusable freshwater pump/model diagrams and the episode route. Registered both components, with coherence tests proving that unrendered metadata cannot stand in for visible evidence. Added two synthetic, picture-motivated pump/model sounds and verified the foley catalogue. Exact-head CI exposed missing default props in the new registry component. The fix passes the registry rendering test, scale, text-fit and TypeScript checks. A second full render and panel renewed the delivery evidence.
 
 Review the film and caption before posting. This message is a draft only. No email or social post was sent.

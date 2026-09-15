@@ -1,13 +1,13 @@
 {
   "created_at": "2026-09-15T20:47:19.042790Z",
   "deliverable": {
-    "board": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/ff2ba8b1fa553a85-7e7a92a904c12f9d-f03b83f97135d982/storyboard.json",
+    "board": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/ba80e001dcdc33aa-7e7a92a904c12f9d-3f6c5e7127979374/storyboard.json",
     "board_sha256": "7e7a92a904c12f9dd208871ec6e0ae617111e8e80d60ec5b6e3dedaf334e98da",
-    "film": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/ff2ba8b1fa553a85-7e7a92a904c12f9d-f03b83f97135d982/dispatch.mp4",
-    "film_sha256": "ff2ba8b1fa553a85154e1a4063a22fcbda1e65e30bc122129e5203d7d7b5d50c",
-    "manifest": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/ff2ba8b1fa553a85-7e7a92a904c12f9d-f03b83f97135d982/render-manifest.json",
-    "manifest_sha256": "f03b83f97135d98298c87b9a3b594b2b846e07a2c93119085a47229bbe0ed8cd",
-    "registered_at": "2026-09-15T21:04:26.774384Z",
+    "film": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/ba80e001dcdc33aa-7e7a92a904c12f9d-3f6c5e7127979374/dispatch.mp4",
+    "film_sha256": "ba80e001dcdc33aa69b6939ac55849eb4c58e5b0ce47bd70e44f0c673b0472a6",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/ba80e001dcdc33aa-7e7a92a904c12f9d-3f6c5e7127979374/render-manifest.json",
+    "manifest_sha256": "3f6c5e71279793741fcd71e34437bea9c815a1e7c56c39fa1701ad6482d8169f",
+    "registered_at": "2026-09-15T21:20:27.990959Z",
     "review_only": false,
     "review_reason": null
   },
@@ -319,13 +319,55 @@
       "report_sha256": "fcc9a0da9125cb0616bfc48c474ab53ba8d4c5d9aa11234684a3f20983313d64",
       "result": "publishable",
       "score": 7.224
+    },
+    {
+      "at": "2026-09-15T21:17:54.357148Z",
+      "kind": "reopened",
+      "reason": "Exact-head CI found FreshwaterSystem missing default label in registry rendering. Repair reusable defaults and refresh the scored film binding before release.",
+      "was": "publishable"
+    },
+    {
+      "at": "2026-09-15T21:18:11.504519Z",
+      "film_sha256": "ff2ba8b1fa553a85154e1a4063a22fcbda1e65e30bc122129e5203d7d7b5d50c",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-09-15T21:18:11.504780Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-15T21:20:27.990972Z",
+      "film_sha256": "ba80e001dcdc33aa69b6939ac55849eb4c58e5b0ce47bd70e44f0c673b0472a6",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "3f6c5e71279793741fcd71e34437bea9c815a1e7c56c39fa1701ad6482d8169f",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-15T21:21:41.426426Z",
+      "kind": "reserved",
+      "note": "Review refreshed exact film after reusable default-value repair and second full render",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-15T21:23:22.460569Z",
+      "kind": "finished",
+      "report_sha256": "05a7e942dd7b693023b0f2d7f185f4149364b6deeb28962ddb3df6be4a8da2e6",
+      "result": "publishable",
+      "score": 7.224
     }
   ],
   "final_report": {
-    "film_sha256": "ff2ba8b1fa553a85154e1a4063a22fcbda1e65e30bc122129e5203d7d7b5d50c",
+    "film_sha256": "ba80e001dcdc33aa69b6939ac55849eb4c58e5b0ce47bd70e44f0c673b0472a6",
     "path": "out/dispatch/report_card.json",
     "score": 7.224,
-    "sha256": "fcc9a0da9125cb0616bfc48c474ab53ba8d4c5d9aa11234684a3f20983313d64"
+    "sha256": "05a7e942dd7b693023b0f2d7f185f4149364b6deeb28962ddb3df6be4a8da2e6"
   },
   "limits": {
     "cleanup_renders": 1,
@@ -343,24 +385,32 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "research",
+  "phase": "reopened",
+  "reopened_from": [
+    {
+      "at": "2026-09-15T21:17:54.356753Z",
+      "reason": "Exact-head CI found FreshwaterSystem missing default label in registry rendering. Repair reusable defaults and refresh the scored film binding before release.",
+      "terminal_reason": null,
+      "terminal_state": "publishable"
+    }
+  ],
   "review_reasons": [],
   "review_required": false,
   "run_id": "2026-09-15",
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": "publishable",
-  "updated_at": "2026-09-15T21:09:17.949540Z",
+  "updated_at": "2026-09-15T21:23:22.460576Z",
   "usage": {
     "cleanup_renders": 0,
-    "full_renders": 1,
-    "panel_rounds": 1,
+    "full_renders": 2,
+    "panel_rounds": 2,
     "preflight_renders": 3,
     "reboards": 1,
     "reported_tokens": 10671,
     "rescue_renders": 0,
     "research_agents": 2,
-    "scorer_calls": 3,
+    "scorer_calls": 6,
     "storyboard_critics": 1,
     "tts_calls": 6,
     "validator_agents": 1,
