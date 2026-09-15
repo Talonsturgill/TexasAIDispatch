@@ -64,6 +64,7 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    "freshwaterSystem": {"label"},
     "compoundRecipe": {"label", "status"},
     "candidateSpecimen": {"label", "status"},
     "materialSupply": {"label", "status"},
@@ -398,6 +399,10 @@ def self_test() -> int:
     ok("magnet proof reads its rendered labels", "compound" in item_visual_tokens(magnet))
     magnet["props"] = {"invented_evidence": "AI COMPOUND"}
     ok("unrendered magnet metadata cannot satisfy a claim", "compound" not in item_visual_tokens(magnet))
+    freshwater = {"kind": "freshwaterSystem", "props": {"label": "pump stops"}}
+    ok("freshwater proof reads its rendered label", "pump" in item_visual_tokens(freshwater))
+    freshwater["props"] = {"unrendered_note": "pump stops"}
+    ok("freshwater unrendered notes cannot satisfy proof", "pump" not in item_visual_tokens(freshwater))
     print(f"shot_coherence: {failures} failure(s)")
     return 1 if failures else 0
 

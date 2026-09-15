@@ -1509,7 +1509,23 @@ def sample_lower(seed=73):
     return normalize(fade(out, 25), 0.7)
 
 
+def freshwater_fault(seed=74):
+    """A water pump rotor coasts down and stops in the illustrative section."""
+    dur = 1.2
+    rotor = sine(lambda t: 155 - 70*t, dur) * np.exp(-np.arange(int(dur*SR))/SR*3)
+    return normalize(fade(rotor, 25), 0.55)
+
+
+def freshwater_trace(seed=75):
+    """Quiet graphic sonification of the drawn model path, not utility telemetry."""
+    dur = 0.8
+    trace = sine(lambda t: 380 + 110*t, dur) * np.hanning(int(dur*SR))
+    return normalize(fade(trace, 20), 0.45)
+
+
 SOUNDS = {
+    "freshwater_fault": (freshwater_fault, "oneshot", "the illustrative water pump rotor stopping", ["pump", "water"]),
+    "freshwater_trace": (freshwater_trace, "oneshot", "graphic sonification of the visible freshwater model path or empty evidence slot", ["model", "water", "illustration"]),
     "blower_fan": (blower_fan, "ambience", "the visible existing blower fan turning in its permanent magnet motor", ["motor", "blower", "fan"]),
     "material_candidate": (material_candidate, "oneshot", "graphic sonification of the visible copper material candidate assembling or travelling", ["candidate", "compound", "material"]),
     "research_announcement": (research_announcement, "oneshot", "the visible research announcement paper unfolding", ["paper", "research", "announcement"]),

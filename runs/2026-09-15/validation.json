@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-15",
+  "source": "Independent validator; NSF API re-fetched directly, including researcher URL",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9"
+  ],
+  "rejected": [
+    "The award starts today. Award date is September 9; September 15 is project startDate. Changed to research project starts today.",
+    "It would help operators anticipate failures that spread. Conditional phrasing can imply demonstrated capability. Changed to an explicit research goal.",
+    "A Texas utility has deployed these digital twins. No utility deployment is reported in the abstract.",
+    "The project has reduced outages or saved water. The award contains only prospective benefits and no measured improvements.",
+    "A pump failure occurred today. Opening is hypothetical; retain visible ILLUSTRATIVE SCENARIO to avoid misreporting an event."
+  ],
+  "required_edits_applied": [
+    "Verified narration substitutes research project for award in start-date line.",
+    "Verified narration explicitly frames anticipation as a goal.",
+    "Verified narration limits absent measurements to this award.",
+    "Opening is approved only as an illustrative scenario; parent confirms ILLUSTRATIVE SCENARIO and research labels.",
+    "Shortened the institution name in narration to Texas to avoid an ambiguous acronym transcription; full institution remains visible and in c2."
+  ],
+  "source_urls": [
+    "https://api.nsf.gov/services/v1/awards.json?id=2640086&printFields=id,title,abstractText,date,startDate,expDate,awardeeName,awardeeCity,awardeeStateCode,estimatedTotalAmt,fundsObligatedAmt,piFirstName,piLastName",
+    "https://api.nsf.gov/services/v1/awards/2640086.json"
+  ],
+  "scope": "Narration fact-check; rendered label visibility must be checked during visual QA."
+}

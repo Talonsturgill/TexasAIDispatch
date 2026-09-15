@@ -1,3 +1,4 @@
+import * as Freshwater from './freshwater';
 import React from 'react';
 import * as Kit from './kit';
 import * as Fauna from './fauna';
@@ -87,6 +88,8 @@ const CastElement: React.FC<any> = (p) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ELEMENTS: Record<string, React.FC<any>> = {
+  freshwaterSystem: Freshwater.FreshwaterSystem,
+  freshwaterBackdrop: Freshwater.FreshwaterBackdrop,
   // people
   person: CastElement,
 
