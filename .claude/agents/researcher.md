@@ -23,3 +23,14 @@ source_type, confidence, why_it_matters, supports_movement}]}`.
 
 `why_it_matters` is the field that earns your keep. A finding with no answer to it is noise, and
 the director will drop it.
+
+## Filmability brief
+
+Also return `filmability: {viewer_question, opening_action, mechanism, human_consequence,
+source_limit, three_key_images, asset_leads}`. Prefer a specific visible decision or mechanism
+over another general announcement. Each asset lead names the source URL, relevant image/footage,
+what it proves, rights or attribution evidence, and whether a native illustration would be more
+honest. Do not invent footage, infer a licence from search thumbnails, or mistake a plausible
+reconstruction for observed reality. Find the strongest primary-source limitation as carefully
+as the strongest hook. The director will turn these findings into a new film, not a relabelled
+version of the reference episode.

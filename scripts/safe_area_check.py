@@ -118,6 +118,11 @@ def check(src: str, C: dict[str, float]) -> list[str]:
             f"be placed inside the safe area and then filled with lines wrapped to the full "
             f"frame, so the text runs off its own plate and under the feed's buttons.")
 
+    credit = re.search(r"const CREDIT_W\s*=\s*([^;]+);", src)
+    if not credit or "SAFE_RIGHT" not in credit.group(1):
+        fails.append("CreditsCard wraps attribution to the frame instead of SAFE_RIGHT; "
+                     "long source and licence lines can run under the feed's buttons.")
+
     # RULE 4 — the reserves have to be at least as big as what was measured. A reserve that
     # drifts below its own measurement is a reserve somebody shrank to make a line fit.
     if C["FEED_BOTTOM_RESERVE"] < 0.2503:
@@ -162,6 +167,9 @@ def self_test() -> int:
     ok("catches a correctly placed band filled with frame-width lines", bool(f), str(f))
     ok("...and says the text runs off its own plate",
        bool(f) and any("off its own plate" in x for x in f), str(f))
+    credit_wide = live.replace("const CREDIT_W = SAFE_RIGHT - 78;", "const CREDIT_W = 924;")
+    ok("catches the attribution width that reached under the phone button rail",
+       any("CreditsCard" in problem for problem in check(credit_wide, C)))
 
     # A RESERVE SHRUNK TO MAKE A LINE FIT.
     f = check(live, {**C, "FEED_BOTTOM_RESERVE": 0.10})

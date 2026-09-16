@@ -272,6 +272,8 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
     """Returns (hard_fails, notes). Notes are recorded, not refused."""
     fails: list[str] = []
     notes: list[str] = []
+    if board.get("reference_only"):
+        fails.append("reference_only: an engineering rehearsal cannot be published as a daily episode")
     scenes = sorted(board.get("scenes") or [], key=lambda s: float(s.get("start_s") or 0))
 
     # ---- 0. this gate is reading fields that exist
@@ -284,6 +286,8 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
     # ---- 1. every numeral traces to a verified claim
     allowed = authorised(claims)
     surfaces = [("the script", script)]
+    if board.get("documentary_copy"):
+        surfaces.append(("documentary source copy", json.dumps(board["documentary_copy"])))
     for s in scenes:
         for k in SCENE_COPY:
             if s.get(k):
@@ -488,6 +492,9 @@ def self_test() -> int:
 
     f, n = check(board, claims, script, caps, audio, None, cmap)
     ok("a clean package ships", not f, str(f))
+    f, _ = check(dict(board, reference_only=True), claims, script, caps, audio, None, cmap)
+    ok("an engineering reference cannot masquerade as the next daily film",
+       any("reference_only" in problem for problem in f))
 
     # 1. an untraceable numeral
     f, _ = check(board, claims, script + " Some 12,400 acres.", caps, audio, None, cmap)
@@ -728,6 +735,12 @@ def main() -> int:
         return 2
 
     fails, notes = check(board, claims, script, captions, audio, report, county_map)
+    import documentary_check
+    import documentary_review
+    fails.extend(documentary_check.check(board))
+    if documentary_check.required(board) and not a.pre_panel:
+        film = Path(a.board).parent / "film.mp4"
+        fails.extend(documentary_review.publication_problems(Path(a.board), film, (report or {}).get("judges")))
     for n in notes:
         print(f"  note: {n}")
     if fails:

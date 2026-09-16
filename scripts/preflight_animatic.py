@@ -23,6 +23,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+import documentary_check
 
 REPO = Path(__file__).resolve().parents[1]
 ENGINE = REPO / "video-engine"
@@ -123,6 +124,14 @@ def inspect_animatic(board: dict, film: Path) -> tuple[dict, list[str]]:
         start, length = float(scene["start_s"]), float(scene["duration_s"])
         left = min(duration - 0.05, start + max(0.08, length * 0.2))
         right = min(duration - 0.02, start + max(0.16, length * 0.8))
+        # A fast action followed by a reading hold can finish before the old 20% sample.
+        # Sample across the actual directed actions; keep the same motion threshold.
+        # This measures visibility only. The exact-film attention panel judges meaning.
+        if documentary_check.required(board) and scene.get("visual_events"):
+            events = scene["visual_events"]
+            left = max(start, start + min(e["at_s"] for e in events) - .12)
+            right = min(start + length - .02,
+                        start + max(e["at_s"] + e.get("duration_s", .6) for e in events) + .12)
         score = motion_score(film, left, right)
         required = scene.get("beat") in {"motion", "revelation"}
         row = {"id": scene.get("id", f"s{i + 1}"), "beat": scene.get("beat"),
@@ -241,21 +250,22 @@ def self_test() -> int:
         # Remotion's bundled FFmpeg is deliberately small and has no lavfi source filters.
         # Build fixtures with Pillow so the self-test exercises only capabilities used by
         # production inspection: PNG input, H.264 output and PNG frame pipes.
-        for name, animated in (("static", False), ("moving", True)):
+        for name, animated in (("static", False), ("moving", True), ("early", True)):
             seq = root / name
             seq.mkdir()
             for i in range(27):
                 fixture = Image.new("RGB", (270, 480), "#17324d")
                 if animated:
                     draw = ImageDraw.Draw(fixture)
-                    x = 8 + i * 8
+                    position = min(i, 3) * 3 if name == "early" else i
+                    x = 8 + position * 8
                     draw.rectangle((x, 130, x + 72, 250), fill="#e7b45c")
-                    draw.line((0, 320 + i * 2, 269, 250 + i * 2),
+                    draw.line((0, 320 + position * 2, 269, 250 + position * 2),
                               fill="#bcd5ce", width=12)
                 fixture.save(seq / f"{i:03d}.png")
             subprocess.run([FFMPEG, "-v", "error", "-y", "-framerate", "12",
                             "-i", str(seq / "%03d.png"), "-c:v", "libx264",
-                            "-pix_fmt", "yuv420p", str(static if not animated else moving)],
+                           "-pix_fmt", "yuv420p", str(root / (name + ".mp4"))],
                            check=True)
         still_score = motion_score(static, 0.2, 1.8)
         moving_score = motion_score(moving, 0.2, 1.8)
@@ -263,6 +273,16 @@ def self_test() -> int:
            str(still_score))
         ok("real pixel change measures above the motion floor", moving_score > MOTION_FLOOR,
            str(moving_score))
+        early_board = {"runtime_s": 2.25, "documentary": {"schema": "dispatch_documentary/1"},
+                       "scenes": [{"id": "early", "start_s": 0, "duration_s": 2.25,
+                                   "beat": "motion", "visual_events": [{"at_s": 0, "duration_s": .25}]}]}
+        early_film = root / "early.mp4"
+        ok("the old sample pair misses an early action followed by a hold",
+           motion_score(early_film, .45, 1.8) < MOTION_FLOOR)
+        ok("directed samples see the early action without lowering the floor",
+           not inspect_animatic(early_board, early_film)[1])
+        ok("inventing action times cannot rescue a held slide",
+           bool(inspect_animatic(early_board, static)[1]))
         board = root / "board.json"
         board.write_text('{"runtime_s": 2.2, "scenes": []}\n', encoding="utf-8")
         saved = {"pass": True, "board_sha256": sha256(board),
@@ -281,6 +301,10 @@ def self_test() -> int:
                       static, sheet)
         ok("the review artifact carries one full frame plus its semantic panel",
            Image.open(sheet).size == (1440, 844), str(Image.open(sheet).size))
+    # This existing CI entry point also exercises the documentary policy and rejection path.
+    import documentary_review
+    failures += documentary_check.self_test()
+    failures += documentary_review.self_test()
     print(f"preflight_animatic: {failures} failure(s)")
     return 1 if failures else 0
 
@@ -302,6 +326,9 @@ def main() -> int:
     try:
         board_path, film = Path(args.board), Path(args.film)
         board = json.loads(board_path.read_text(encoding="utf-8"))
+        direction_errors = documentary_check.check(board)
+        if direction_errors:
+            raise ValueError("; ".join(direction_errors))
         if args.verify_report:
             saved = json.loads(Path(args.verify_report).read_text(encoding="utf-8"))
             errs = report_problems(saved, board_path, film)
@@ -324,6 +351,15 @@ def main() -> int:
             for problem in problems:
                 print(f"  - {problem}", file=sys.stderr)
             return 1
+        if documentary_check.required(board):
+            # The critic gets the same event player for the rough cut. A full render replaces
+            # it with a pack bound to the final MP4; preship refuses the rough cut's hash.
+            import documentary_review
+            review_path = Path(args.report).parent / "attention-review.json"
+            review = documentary_review.build(board_path, film, review_path)
+            review_errors = documentary_review.report_problems(review, board_path, film, review_path)
+            if review_errors:
+                raise ValueError("; ".join(review_errors))
         print(f"preflight_animatic: motion and hook clear -> {args.sheet}")
         return 0
     except (OSError, ValueError, KeyError, json.JSONDecodeError,

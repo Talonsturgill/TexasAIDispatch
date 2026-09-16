@@ -61,6 +61,7 @@ STAGEABLE = [
 # Everything else, with the reason. A module is excluded because of WHAT IT IS,
 # never because listing it would make this checker go red.
 NOT_STAGEABLE = {
+    "direction": "film-global board action clocks and interpolation. No drawing geometry.",
     "lighting": "light, ramps and surface treatments. Applied to a drawing, not placed as one.",
     "materials": "pattern defs emitted once per document by MaterialDefs.",
     "motion": "timing functions and the idle rig. No geometry of its own.",

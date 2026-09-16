@@ -85,6 +85,8 @@ fi
 run_gate run_discipline python3 scripts/run_discipline.py --state "$STATE"
 run_gate storyboard_check python3 scripts/storyboard_check.py --board "$OUT/storyboard.json"
 run_gate watchability     python3 scripts/watchability_check.py --board "$OUT/storyboard.json"
+run_gate documentary_review python3 scripts/documentary_review.py --board "$OUT/storyboard.json" \
+    --film "$OUT/film.mp4" --verify
 run_gate staging_check    python3 scripts/staging_check.py --board "$OUT/storyboard.json"
 run_gate flow_check       python3 scripts/flow_check.py --board "$OUT/storyboard.json" \
     --sfx "$OUT/sfx_events.json"
@@ -153,6 +155,10 @@ for f in storyboard.json claims.json captions.json words.json mix.json sfx_event
 done
 cp "$REPORT" "$DEST/report_card.json"
 cp "$STATE" "$DEST/run_state.json"
+# Generate portable review links against the delivered filename and copied board. The review
+# still binds the same film bytes, and does not inherit an out/ path from the working player.
+python3 scripts/documentary_review.py --board "$DEST/storyboard.json" \
+    --film "$DEST/dispatch.mp4" --out "$DEST/attention-review.json"
 ls -la "$DEST" | tail -n +2
 
 # ---------------------------------------------------------------- 4. commit and push, out loud

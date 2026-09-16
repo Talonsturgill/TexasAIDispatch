@@ -351,6 +351,8 @@ def main() -> int:
                     help="this run's panel_history.json")
     ap.add_argument("--run-id", help="run id that owns --history (required with --record)")
     ap.add_argument("--out-report", help="write the aggregate report card used for delivery")
+    ap.add_argument("--board", default="out/dispatch/storyboard.json")
+    ap.add_argument("--film", help="exact film; defaults to film.mp4 beside the board")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -397,10 +399,23 @@ def main() -> int:
         print(f"panel_triage: {exc}", file=sys.stderr)
         return 2
     t = with_history(triage(judges, bar, weights), history)
-    print(render(t))
+    attention_errors = []
+    board_path = Path(a.board)
+    if board_path.exists():
+        import documentary_review
+        film = Path(a.film) if a.film else board_path.parent / "film.mp4"
+        attention_errors = documentary_review.publication_problems(board_path, film, raw_reports)
+    elif a.out_report:
+        attention_errors = ["the report cannot certify an absent storyboard"]
+    if attention_errors:
+        print("Attention review blocks delivery: " + "; ".join(attention_errors))
+    else:
+        print(render(t))
 
     if a.out_report:
         card = report_card(t, raw_reports, a.round)
+        card["hard_fails"].extend(attention_errors)
+        card["ship"] = card["ship"] and not attention_errors
         target = Path(a.out_report)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(card, indent=2) + "\n", encoding="utf-8")

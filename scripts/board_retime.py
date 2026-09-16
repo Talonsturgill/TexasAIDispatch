@@ -224,6 +224,12 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
                           f"DISCARDED here. Edit `at_s_authored`.")
             frac = ev["at_s_authored"] / (float(s.get("duration_authored") or was_dur) or 1.0)
             ev["at_s"] = round(min(frac * durations[i], durations[i] - 0.15), 3)
+            if "duration_s" in ev:
+                # Scale from the authored duration, never the previous retime. A clipped or
+                # excessively slow action is then rejected by documentary_check, not hidden.
+                ev.setdefault("duration_s_authored", float(ev["duration_s"]))
+                ev["duration_s"] = round(float(ev["duration_s_authored"]) * durations[i] /
+                    (float(s.get("duration_authored") or was_dur) or 1.0), 3)
         if "duration_authored" not in s:
             s["duration_authored"] = was_dur
 
@@ -373,7 +379,8 @@ def _self_test() -> int:
     # The beats inside a scene must travel with it.
     ev_board = json.loads(json.dumps(board))
     for s in ev_board["scenes"]:
-        s["visual_events"] = [{"at_s": 1.5, "what": "a"}, {"at_s": 13.5, "what": "b"}]
+        s["visual_events"] = [{"at_s": 1.5, "duration_s": .6, "what": "a"},
+                              {"at_s": 13.5, "duration_s": .6, "what": "b"}]
     be, ee = retime(ev_board, words)
     ok("re-timing carries a scene's visual events with it", not ee)
     ok("...and no event is left firing after its own scene has ended",
@@ -394,6 +401,11 @@ def _self_test() -> int:
            for x, y in zip(be["scenes"], again["scenes"])))
     ok("...and neither do the beats inside the shots",
        all(abs(p["at_s"] - q["at_s"]) < 1e-6
+           for x, y in zip(be["scenes"], again["scenes"])
+           for p, q in zip(x["visual_events"], y["visual_events"])))
+    ok("...action durations are scaled once from the authored clock",
+       all(abs(p["duration_s"] - q["duration_s"]) < 1e-6
+           and abs(p["duration_s"] / x["duration_s"] - .6 / 15.0) < .001
            for x, y in zip(be["scenes"], again["scenes"])
            for p, q in zip(x["visual_events"], y["visual_events"])))
 

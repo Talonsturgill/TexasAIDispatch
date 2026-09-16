@@ -22,7 +22,7 @@ structural ceiling. Props cannot repair it later.
 **The two-second hook is a picture.** Scene one names a real strategy and visible payoff. An
 establishing shot, title, or promise that something will become interesting later is not a hook.
 
-**Silent-first.** Play the board with the sound off in your head. Most viewers will. If the story
+**Picture-led.** Follow the action with the narration and labels covered. If the story
 only works with narration, it is a podcast with pictures and it fails here.
 
 **Sentence-to-pixel proof.** Ignore `on_screen`, `what_moves` and `hero` on the first pass. For
@@ -35,12 +35,20 @@ or dominated by unrelated context, revise it.
 then agency. A list of facts can be accurate and still have no story. The close should answer
 "what happens next" rather than merely restate the hook.
 
-**The five-second rule.** Every five seconds pays in motion, emotion or revelation. Walk the board
-and mark which currency each beat pays in. A stretch that pays in none is the defect.
+**Attention earns each interval.** Read `config/documentary.json` and the craft guide. Resolve
+`attention_beats` through the scene event ids, including the gap to the ending. The hook must
+actually pay off within the policy window. A line of text, a camera drift or an animated dash
+cannot rescue a subject that does nothing. The faster direction asks for action, consequence,
+evidence or human response while preserving time to understand each idea.
 
-**A static camera wastes the engine.** Each scene names a move from CameraMoves and composes two
-or three. A board where half the scenes are static is a board that has not used the thing that
-makes this show look expensive.
+**Motivated framing.** The camera can hold while a subject acts or evidence is read. Move it to
+reveal a relationship, follow an action or change the viewer's understanding. Do not add orbiting
+or zooming merely to advertise the engine. A continuous action may span multiple scene records.
+
+**Three images before a finished film.** Identify the opening payoff, central mechanism and
+closing consequence. Ask which image will be remembered and what question it resolves. If these
+are three cards with labels, reboard before spending a render. Check the actual source of every
+reconstruction and whether its visual certainty exceeds the reporting.
 
 **Region correctness.** The scene's region comes from the story's county. A board that puts a Hill
 Country palette on a Panhandle story is wrong before it is drawn.

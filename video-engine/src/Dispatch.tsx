@@ -20,6 +20,7 @@ import {HospitalExitEpisode} from './HospitalExitEpisode';
 import {EmptySeatFlightEpisode} from './EmptySeatFlightEpisode';
 import {LocalFloodNodeEpisode} from './LocalFloodNodeEpisode';
 import {ProofGateEpisode} from './ProofGateEpisode';
+import {FreshwaterDocumentaryEpisode} from './FreshwaterDocumentaryEpisode';
 import {MagnetCandidateEpisode} from './MagnetCandidateEpisode';
 
 // =============================================================================
@@ -85,6 +86,7 @@ export interface Scene {
    *  differently the captions read. */
   planes: {z: number; label?: string; items: Placed[]}[];
   /** screen-space, never in the world: see the note on chrome below */
+  visual_events?: {id?: string; at_s: number; duration_s?: number; item_ids?: string[]}[];
   super?: string;
   /** THE EDITORIAL LINE, and it is NOT a subtitle. It carries the fact the super is too
    *  short to hold. It used to render in a dark band across the bottom of the frame in
@@ -159,7 +161,7 @@ export type DispatchProps = {
   cinematic_template?: 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
-    'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1';
+    'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -514,7 +516,7 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
   // attribution, so a credit clipped by the frame is a licence not actually paid on
   // screen, while every string check upstream still passes. GATE_LESSONS: a gate that
   // reads text cannot see text that has not been laid out yet.
-  const CREDIT_W = 924;                 // x=78 through x=1002, measured in frame units
+  const CREDIT_W = SAFE_RIGHT - 78;     // Long attribution lines also avoid the feed button rail.
   const wrapped: {s: string; head: boolean}[] = [];
   for (const raw of text.split('\n')) {
     const l = raw.trim();
@@ -544,7 +546,7 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
 };
 
 export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4,
-  cinematic_template}) => {
+  cinematic_template, documentary_copy}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
   if (cinematic_template === 'highway-safety-case-v1') {
@@ -590,6 +592,9 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
     return <MagnetCandidateEpisode runtime_s={end} scenes={scenes} captions={captions}
       credits={credits} credits_s={credits_s} />;
   }
+  if (cinematic_template === 'freshwater-documentary-v2') {
+    return <FreshwaterDocumentaryEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} documentary_copy={documentary_copy}/>;
+  }
   if (cinematic_template === 'freshwater-twin-v1') {
     return <FreshwaterTwinEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} />;
   }
@@ -597,6 +602,7 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
     return <ProofGateEpisode runtime_s={end} scenes={scenes} captions={captions}
       credits={credits} credits_s={credits_s} />;
   }
+  if (cinematic_template) throw new Error('Unknown cinematic_template '+cinematic_template);
   return (
     <>
       {scenes.map((s) => (

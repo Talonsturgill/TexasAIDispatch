@@ -48,6 +48,7 @@ for input in "$BOARD" "$MIX" "$CAPTIONS" "$STATE"; do
 done
 
 mkdir -p "$(dirname "$SILENT")" "$(dirname "$FILM")"
+python3 scripts/documentary_check.py --board "$BOARD"
 REVIEW_ONLY=0
 RESCUE_REASON=""
 RESERVED=1
@@ -113,6 +114,10 @@ else
     --film "$FILM" --board "$BOARD" --manifest "$MANIFEST"
 fi
 bash scripts/extract_frames.sh --film "$FILM" --board "$BOARD" --out "$(dirname "$FILM")"
+if [ "$REVIEW_ONLY" -eq 0 ]; then
+  python3 scripts/documentary_review.py --board "$BOARD" --film "$FILM" \
+    --out "$(dirname "$FILM")/attention-review.json"
+fi
 if [ "$REVIEW_ONLY" -eq 1 ]; then
   echo "render_dispatch: full renderer failed; playable review rescue registered, never publish it"
 else

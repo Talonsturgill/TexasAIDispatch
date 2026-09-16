@@ -210,8 +210,12 @@ def _self_test() -> int:
         os.utime(film, (1_000_000, 1_000_000))
         repo = Path(__file__).resolve().parents[1]
         src = repo / "video-engine" / "src" / "lib" / "lighting.tsx"
-        good = repo / "out" / "dispatch" / "render-manifest.json"
-        if src.exists() and good.exists():
+        # A test must not borrow yesterday's rendered manifest: editing the engine would
+        # make the positive fixture stale, while a fresh CI checkout silently skipped it.
+        from render_manifest import engine_sha256
+        good = d / "current-engine.json"
+        good.write_text(_json.dumps({"engine_sha256": engine_sha256()}))
+        if src.exists():
             touched = d / "touched.tsx"
             touched.write_bytes(src.read_bytes())
             os.utime(touched, (2_000_000, 2_000_000))      # newer than the film
