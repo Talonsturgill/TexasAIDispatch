@@ -493,19 +493,25 @@ export const Longhorn: React.FC<Beast> = () => { const K = fit('longhorn', 130);
     ok("...and an unreadable HABITAT map fails rather than clearing every scene",
        bool(board_problems(bd("gulf", "pronghorn"), {})))
 
-    # AND ON THE REAL BOARD, because a fixture is not a film.
+    # Check the current render reference and retain the actual fauna regression board.
+    # The documentary reference deliberately has no animals; moving its pump does not
+    # create a habitat violation. Keep the original pronghorn mutation meaningful.
     real_board = REPO / "examples" / "board.json"
     if real_board.is_file():
         rb = json.loads(real_board.read_text(encoding="utf-8"))
         habitat = parse_habitat(strip_comments(FAUNA.read_text(encoding="utf-8")))
         rp = board_problems(rb, habitat)
-        ok("the shipping board places every animal where it lives", not rp,
+        ok("the current render reference has a valid habitat scope", not rp,
            "\n      " + "\n      ".join(rp))
-        planted = json.loads(json.dumps(rb))
+        legacy_path = REPO / "examples" / "legacy-board.json"
+        legacy = json.loads(legacy_path.read_text(encoding="utf-8"))
+        ok("the preserved fauna board places every animal where it lives",
+           not board_problems(legacy, habitat))
+        planted = json.loads(json.dumps(legacy))
         planted["scenes"][0]["region"] = "piney_woods"
         ok("...and moving that scene to the Piney Woods is caught",
            bool(board_problems(planted, habitat)),
-           "the real board's animals are invisible to this rule")
+           "the preserved board's animals are invisible to this rule")
 
     if failures:
         print(f"\nstaging_check self-test: {failures} FAILED", file=sys.stderr)

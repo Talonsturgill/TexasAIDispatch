@@ -44,6 +44,12 @@ degradation in the run log, and keep the same gates and budgets.
 
 ## THE SHOWSTOPPER STANDARD (read this before everything else)
 
+Read `knowledge/craft/DOCUMENTARY_ATTENTION.md` before story selection and boarding. Make a
+miniature documentary with a specific action, causal continuity and evidence that earns the
+claim. Use its attention-beat review in the board critique, animatic and final-film panel.
+Read `config/documentary.json` for the faster pacing target and first-payoff window. The
+checkpoint asks for a meaningful viewer reward, with continuity and short comprehension holds.
+
 A showstopper is a video a stranger stops scrolling for, FEELS something during, and remembers
 one image from. It trades in three currencies, and **every five seconds of runtime must pay in at
 least one**:
@@ -118,15 +124,13 @@ Every run has exactly two legitimate terminal states:
 controller to deliverable completion; it does **not** terminate an empty run. Starting a new
 folder, batch, or shell does not reset anything.
 
-The bounded path is: one board, up to five real three-judge panels, and at most four corrective
-passes between them. Reserving panel five mechanically locks `hard_fail_cleanup`: there is no
-sixth panel and no sixteenth scorer call. After panel five, fix only rubric hard fails and precise
-issues a deterministic gate can recheck, batch them into at most one cleanup render, and stop
-subjective polishing. A below-bar final cut is never published unattended, but it is still
-rendered and durably saved. One protected rescue render exists solely to prevent spent work from
-ending without a playable MP4. If the full renderer itself still fails, `render_dispatch.sh`
-automatically upscales the hash-bound animatic—or builds timed storyboard cards—and muxes the best
-available audio. That emergency artifact is mechanically review-only and consumes no panel.
+The bounded path and escalation ceiling come from `config/run_limits.json`. Treat resource
+limits as targets and let `run_controller.py` grant or refuse overages; do not stop because an
+old prose example names an earlier count. At the controller's final panel boundary, enter
+`hard_fail_cleanup`: fix only hard fails and precise issues a deterministic gate can recheck,
+batch those repairs, and stop subjective polishing. A below-bar final cut is preserved for
+review. If the full renderer still fails, `render_dispatch.sh` preserves the passing animatic or
+timed storyboard cards with the best available audio. That emergency artifact is review-only.
 
 **NO EMPTY RUNS.** Neither budget exhaustion nor a failed score may set a terminal state until
 `render_dispatch.sh` has registered an exact film, board, and manifest. `needs_review` additionally
@@ -347,7 +351,9 @@ Declare per scene:
 - `region` — from the story's county
 - `county` — the region comes FROM it, so a region without one was chosen for how it looks
 - `camera_strategy` — a named move from `CameraMoves`: dollyThrough, orbitReveal, craneDown,
-  truckAcross, riseWith. **A scene with a static camera wastes the engine.**
+  truckAcross, riseWith. Motivate the framing with the action. An authored episode may hold the
+  camera while its subject acts or while the viewer reads evidence; camera drift alone is not
+  meaningful motion. Retain the field for renderer compatibility.
 - `planes` — 4 to 6, **ordered far to near**, each `{z, label, items}`:
   - `z` is depth, descending down the list. Two planes at the same z have no parallax between
     them, which is the one thing the depth was for.
@@ -368,7 +374,7 @@ Declare per scene:
   are counted across the whole film instead of hidden behind different captions
 - `payload_mode` — `picture`, `mixed`, or `text_panel`; figures may support a picture, but text
   panels may not become the film
-- on scene one, `hook_strategy` and `hook_payoff_s`; the visible payoff lands by two seconds
+- on scene one, `hook_strategy` and `hook_payoff_s`; the visible payoff lands within `config/documentary.json`'s first-payoff window
 - every item that proves a spoken idea gets a stable lower-case `id`
 - `visual_proof` on every narrated scene:
   - `mute_takeaway` — what a stranger learns from the pixels with captions and audio hidden
@@ -378,6 +384,11 @@ Declare per scene:
   - `change` — a visible transformation with the `item_ids` that undergo it
 - `visual_events[].item_ids` — the scheduled beat acts on the same rendered objects. A prose-only
   event is not motion.
+- `documentary` and `attention_beats` at board level — the narrative question, payoff and source
+  limit, plus viewer rewards tied by stable `event_id` to the actual rendered items and events,
+  using the fields in `DOCUMENTARY_ATTENTION.md`. The critic and final panel inspect their
+  rendered changes, continuity and sound motivation. Enforce the actual interval limits from
+  `config/documentary.json`; a count of cuts is not proof of watchability.
 - at board level, `fauna_scope`. Use `{"status":"none","reason":"..."}` only when no animal
   illustrates a reported fact or consequence, and make the reason specific. This keeps the
   habitat gate connected without inserting decorative wildlife into a records story.
@@ -722,8 +733,7 @@ and reported the fix as never made. Nothing errored. **Move a beat by editing
 
 **THEN THE BOARD IS RE-CUT TO THE READ.** `board_retime` is the step this machine ran without
 for its whole life, and its absence was the single largest defect in the first Dispatch: two
-of three scorers found it independently. The board is authored in Phase 4 on a uniform five
-second grid, because five is a round number and no word has been synthesised yet. The read
+of three scorers found it independently. The board is authored in Phase 4 on an initial timing grid, because five is a round number and no word has been synthesised yet. The read
 never lands on that grid. Nothing moved the cuts, so for half the runtime the narration
 described the PREVIOUS shot, the half built hall played under the line about the access
 notice, and every gate was green because every asset was correct and merely five seconds
@@ -762,18 +772,16 @@ python3 scripts/preflight_animatic.py --board out/dispatch/storyboard.json
 bash scripts/render_dispatch.sh
 ```
 
-The wrapper reserves the render before it starts and registers the completed MP4 afterward. The
-normal path has five full renders: the first cut plus one batched correction before each later
-panel. After panel five, the same wrapper automatically charges the single cleanup-render reserve;
-if normal renders failed without leaving a registered artifact, completion mode can charge one
-rescue render. Those protected reserves cannot be consumed directly or reset from another shell.
+The wrapper reserves the render before it starts and registers the completed MP4 afterward.
+Use the controller's live allowances in `config/run_limits.json` for ordinary renders, cleanup
+and rescue. The wrapper charges the appropriate ledger; these allowances cannot be consumed
+directly or reset from another shell.
 If Remotion, its browser, the mux, or the allowance itself still cannot leave a film, the wrapper
 runs `rescue_video.py`: use the inspected 270x480 animatic when its board and film hashes still
 match, otherwise render timed storyboard cards, mux the best available audio (or explicit review
 silence), and register the result as review-only. Do not send that rescue through a panel or try to
 publish it. Repair the hard failure and replace it with a real render if allowance remains;
-otherwise package the rescue for review. This deterministic media fallback is not a sixth render
-or a sixth panel.
+otherwise package the rescue for review. This deterministic media fallback is not another subjective review round.
 
 The wrapper invokes the fallback with the exact final inputs; this is shown for provenance, not
 as a separate routine step:
@@ -815,6 +823,10 @@ python3 scripts/engine_lint.py
 python3 scripts/staging_check.py
 python3 scripts/staging_check.py --board out/dispatch/storyboard.json
 python3 scripts/watchability_check.py --board out/dispatch/storyboard.json
+python3 scripts/documentary_check.py --board out/dispatch/storyboard.json
+python3 scripts/documentary_review.py --board out/dispatch/storyboard.json \
+       --film out/dispatch/film.mp4 --verify
+(cd video-engine && node tests/direction.mjs)
 python3 scripts/flow_check.py --board out/dispatch/storyboard.json \
        --sfx out/dispatch/sfx_events.json
 python3 scripts/ship_gate.py --board out/dispatch/storyboard.json \
@@ -944,6 +956,17 @@ calls; if the reservation fails, no scorer is spawned:
 python3 scripts/run_controller.py panel --judges 3 --note "finished cut round <1-to-5>"
 ```
 
+For documentary films, the full renderer produces `attention-review.html`, `.png` and `.json`
+beside the MP4. Open the exact-film player and inspect every action at phone size, then watch
+transitions with sound when tools allow and muted. Record any listening limitation honestly.
+Use the contact sheet to check tiny subjects, cropping, text collisions and misleading evidence.
+Do not infer a successful film from a storyboard or a pixel-motion score.
+
+Pass those artifacts and the current film hash to each scorer. Their `attention_review` is
+mandatory; a rejection by one judge is a delivery blocker even if the mean clears the rubric.
+`panel_triage.py` carries those failures into the controller's report. `ship_gate.py` independently
+rechecks the three reviews against the exact final film. Do not alter the film after that review.
+
 Spawn the three `scorer` agents in one parallel message, with different starting lenses: picture,
 story, and whether a Texan from that county would believe it. Save their exact JSON objects as a
 three-item array in `out/dispatch/panel-round-<n>.json`. Then aggregate, preserve every judge's
@@ -1004,7 +1027,7 @@ grade a cut the gates have not seen. `--force-no-preship` exists for an emergenc
 `preship_bypassed` event, because an escape hatch nobody can see afterwards is the same as no
 rule at all.
 
-If rounds one through four fail, make **one batched corrective pass per round**. Work the
+While the controller permits another panel, make **one batched corrective pass per failing round**. Work the
 highest-cost axis first and at most the top two axes that materially contribute to the gap. A
 structural finding gets a real board change, not a prop polish; reserve a reboard, rerun Gate 0 and
 the animatic, then render through `render_dispatch.sh`. A non-structural correction still batches
@@ -1012,9 +1035,9 @@ all precise fixes into one full render. Re-run every product and destination gat
 the next panel. If the three-round plateau rule fires, make the structural reboard it names rather
 than buying another prop pass.
 
-**Round five is the last full panel.** Its reservation automatically locks the controller in
-`hard_fail_cleanup`. If it clears, finish `publishable` immediately. If it does not clear, there
-is no sixth panel and no substitute one-judge panel. Do this instead:
+**The controller determines the final panel from the configured ceiling.** At that boundary,
+it locks `hard_fail_cleanup`. If the cut clears, finish `publishable`. Otherwise no substitute
+one-judge review or unreserved extra panel is allowed. Do this instead:
 
 1. Take every rubric hard fail and every red deterministic gate with an exact cause and repair.
 2. Also take cheap precise defects that can be proved without subjective rescoring: stale hashes,
@@ -1022,8 +1045,8 @@ is no sixth panel and no substitute one-judge panel. Do this instead:
    similarly mechanical faults.
 3. Do **not** chase axis feel, panel praise, general polish, or a new creative direction. Those
    require another panel, and full panels are closed.
-4. Batch all picture/audio changes into the one protected cleanup render. If nothing affecting
-   pixels or sound changed, retain the already registered round-five film.
+4. Batch all picture/audio changes within the protected cleanup-render allowance. If nothing affecting
+   pixels or sound changed, retain the already registered final-panel film.
 5. Re-run every product and destination gate. The cleaned film remains `needs_review` because the
    panel did not score the changed frames; never edit the old report to pretend otherwise.
 
@@ -1041,7 +1064,7 @@ then—and only then—allows the controller to become terminal as `needs_review
 
 ```
 bash scripts/package_review_run.sh --date <date> --slug <slug> \
-  --reason "panel five did not clear: <score, hard fails, and cleanup performed>"
+  --reason "final panel did not clear: <score, hard fails, and cleanup performed>"
 ```
 
 The result is `runs/review/<date>-<slug>/dispatch.mp4` plus the board, render manifest, reports,
@@ -1222,8 +1245,8 @@ names the pid holding the lock, and a stale lock from a killed run is cleared ra
 fourteen minutes and an edit is two lines, so a run that renders once per finding spends
 its afternoon watching a progress bar. When a panel returns, take EVERY finding that has an
 exact cause and an exact repair, apply them all, then render. The gate reports the run's
-render count from the controller. Five ordinary renders, one post-panel cleanup render, and one
-last-resort rescue render are distinct controller-owned ledgers. A request past those boundaries
+render count from the controller. Ordinary renders, post-panel cleanup renders, and rescue renders use distinct controller-owned
+ledgers, with their current targets and ceilings in `config/run_limits.json`. A request past those boundaries
 stops iteration but cannot create an empty terminal run; finish and persist the best registered
 MP4 instead.
 

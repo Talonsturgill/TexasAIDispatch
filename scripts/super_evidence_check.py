@@ -208,6 +208,9 @@ def printed_figures(board: dict):
     a clock item's ``detail`` prop, outside every surface the gate walked. Renderer props are
     display material regardless of component kind, so all nested strings are checked now.
     """
+    for cell in prop_strings(board.get("documentary_copy") or {}):
+        for v in figures(cell):
+            yield "documentary_copy", cell, v
     for sc in board.get("scenes", []):
         for pl in sc.get("planes", []):
             for it in pl.get("items", []):
@@ -407,6 +410,9 @@ def self_test() -> int:
     f, _ = check(clock, CLAIMS)
     ok("a numeral in a non-readout rendered prop is checked too", bool(f), "no fail raised")
 
+    copy_board = {"scenes": [], "documentary_copy": {"award": "Award 987654321"}}
+    ok("documentary source copy cannot print an unquoted figure",
+       bool(check_printed_figures_are_quoted(copy_board, {"claims": []})))
     print(f"super_evidence_check: {fails} failure(s)")
     return 1 if fails else 0
 

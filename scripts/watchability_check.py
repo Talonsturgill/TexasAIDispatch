@@ -14,6 +14,7 @@ import json
 import math
 import sys
 from pathlib import Path
+import documentary_check
 
 REPO = Path(__file__).resolve().parents[1]
 DISPATCH = REPO / "video-engine" / "src" / "Dispatch.tsx"
@@ -22,7 +23,7 @@ STATIC_OPENERS = ("shows ", "sits ", "stands ", "waits ", "is ", "has ", "contai
 
 
 def check(board: dict, dispatch_source: str = "") -> list[str]:
-    errs: list[str] = []
+    errs: list[str] = documentary_check.check(board)
     scenes = board.get("scenes") or []
     template = str(board.get("cinematic_template") or "").strip()
     if not template:

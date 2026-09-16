@@ -56,6 +56,9 @@ def gates(board: Path, claims: Path, script: Path, captions: Path,
     s = str(REPO / "scripts")
     return [
         ("storyboard_check", [f"{s}/storyboard_check.py", "--board", str(board)]),
+        ("watchability_check", [f"{s}/watchability_check.py", "--board", str(board)]),
+        ("documentary_review", [f"{s}/documentary_review.py", "--board", str(board),
+                                "--film", str(audio.parent / "film.mp4"), "--verify"]),
         ("staging_check", [f"{s}/staging_check.py", "--board", str(board)]),
         ("flow_check", [f"{s}/flow_check.py", "--board", str(board), "--sfx", str(sfx)]),
         ("board_scale_check", [f"{s}/board_scale_check.py", "--board", str(board)]),

@@ -1,0 +1,26 @@
+// This data drives the picture and its review timeline. Times are on the preserved voice clock.
+export const PILOT = {
+  fps: 30, runtime: 42, creditsStart: 37,
+  pull: [2.6, 4.65], twin: [8.05, 10.6], inputs: [12.3, 13.6, 14.9],
+  forecast: [16.7, 19.5], evidence: 20.33, absence: 24.65,
+  workshop: 28.4, returnPump: 32.3, closing: 35.3,
+  events: [
+    {at: 0, action: 'Rotor turns in extreme close-up', reason: 'Immediate tangible action', claim: 'c1'},
+    {at: 2.15, action: 'Rotor coasts to a stop', reason: 'First visible problem', claim: 'c1'},
+    {at: 2.6, action: 'Pullback follows the failure into branches', reason: 'One failure can travel', claim: 'c1'},
+    {at: 5.1, action: 'Dated College Station research locator appears', reason: 'Establish source and place', claim: 'c2'},
+    {at: 8.05, action: 'Wireframe twin separates from physical pump', reason: 'Reveal the proposed mechanism', claim: 'c3'},
+    {at: 12.3, action: 'Sensor icon sends input to model', reason: 'Make an abstract input tangible', claim: 'c4'},
+    {at: 13.6, action: 'Weather input joins sensor input', reason: 'Add a different source', claim: 'c4'},
+    {at: 14.9, action: 'Maintenance record folds into input stream', reason: 'Complete the proposed input set', claim: 'c4'},
+    {at: 16.7, action: 'Model traces a possible cascade', reason: 'Show the research objective', claim: 'c5'},
+    {at: 20.33, action: 'Model recedes behind a source extract', reason: 'Turn from possibility to evidence', claim: 'c6'},
+    {at: 22.5, action: 'Support research is underlined', reason: 'Expose the claim boundary', claim: 'c6'},
+    {at: 24.65, action: 'Results space remains unfilled', reason: 'Missing evidence is not zero improvement', claim: 'c7'},
+    {at: 28.4, action: 'Model moves into a laptop beside a training manual', reason: 'Show planned practitioner tools', claim: 'c8'},
+    {at: 30.1, action: 'An illustrative hand traces a model branch', reason: 'Connect the tools to operator use', claim: 'c8'},
+    {at: 32.3, action: 'Match back to the original stopped pump', reason: 'Return to the unresolved real-world test', claim: 'c9'},
+    {at: 35.3, action: 'Closing title resolves the opening question', reason: 'Memorable final image', claim: 'c9'},
+    {at: 37, action: 'Readable source and music credits', reason: 'Attribution', claim: 'credits'},
+  ],
+} as const;

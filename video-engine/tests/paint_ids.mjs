@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Event identities also own distinct clocks; exercise them in this established identity suite.
+import './direction.mjs';
 // =============================================================================
 // PAINT-SERVER IDS AND PER-INSTANCE VARIATION, checked on rendered markup.
 //

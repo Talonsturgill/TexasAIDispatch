@@ -36,3 +36,33 @@ Return `{score, ship, axes: {...}, hard_fails: [], weakest_axis, one_sentence_fi
 
 `one_sentence_fix` is what the run acts on. Make it executable: a fix somebody can apply and
 re-render, not a direction to feel differently about the piece.
+
+## Documentary attention review
+
+Read `knowledge/craft/DOCUMENTARY_ATTENTION.md` and `config/documentary.json`. For current boards,
+inspect the exact final MP4, `attention-review.html`, `attention-review.png`, and its hash index.
+Seek every directed interval, then inspect transitions at phone size. Review the pictures with
+captions mentally covered: a line of copy or drifting camera cannot supply the event's meaning.
+Judge causal continuity, readable action, information density and the final answer. Counted
+beats and changed pixels are technical evidence only. Do not award quality because the creator
+says the piece is cinematic. Name the weakest actual interval even when passing.
+
+Add this object to your report, using the film hash from the reviewed artifact:
+
+```
+"attention_review": {
+  "film_sha256": "<sha256 of the film you inspected>",
+  "pass": true,
+  "hook_observed": "<what changed and when>",
+  "continuity_observed": "<what stayed recognizable across a named transition>",
+  "remembered_image": "<the specific picture and why it carries meaning>",
+  "weakest_interval": "<the least effective interval, its cause and concrete repair>",
+  "weakest_at_s": 0,
+  "audio_basis": "<direct listening, or precisely which measurements/transcript were available>"
+}
+```
+
+Set `pass` false for an unearned pause, irrelevant change, confusing cut, deceptive reconstruction,
+or unreadable subject. All three reviews must accept the current film. Never claim to have heard
+a recording if your tools only expose frames, timing or transcripts. Mark that limit explicitly;
+waveform evidence cannot establish a natural or compelling performance.
