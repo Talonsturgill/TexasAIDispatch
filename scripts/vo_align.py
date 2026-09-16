@@ -74,6 +74,10 @@ def digest(path: Path) -> str:
 
 def canonical(text: str) -> list[str]:
     from vo_soundcheck import figure_tokens, _UNITS, _TENS
+    # Open and closed spellings of this compound encode identical speech. Expand
+    # both to the same lexical parts while retaining every original DTW position.
+    # This is deliberately a spelling map, never fuzzy matching or dropped words.
+    text = re.sub(r"\boilfield\b", "oil field", text, flags=re.IGNORECASE)
     return [str(_UNITS.get(t, _TENS.get(t, t))) for t in figure_tokens(text)]
 
 
@@ -710,6 +714,19 @@ def self_test() -> int:
         except ValueError:
             refused = True
         ok(f"acoustic assignment refuses {label}", refused)
+    compound_groups, compound_evidence = acoustic_groups(
+        ["oilfield"], [(0.2, 2.0)],
+        [{"text": "oil", "center": 0.6}, {"text": "field", "center": 1.2}], [])
+    ok("an open compound preserves both acoustic positions and one script word",
+       compound_groups == [["oilfield"]] and compound_evidence[0]["dtw_center_s"] == 0.9)
+    for text in ("oil", "oil filter", "field oil", "oil 5 field"):
+        try:
+            acoustic_groups(["oilfield"], [(0.2, 2.0)],
+                            [{"text": w, "center": 0.5+i*0.2} for i,w in enumerate(text.split())], [])
+            refused = False
+        except ValueError:
+            refused = True
+        ok("compound normalization still refuses " + text, refused)
     ok("ordinal notation preserves the value", canonical("ninth") == canonical("9th"))
     ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
     try:
