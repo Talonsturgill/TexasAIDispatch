@@ -9,7 +9,9 @@ import {GradeLayer} from './lib/lighting';
 import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
-import {FONT, wrapBreakableToWidth, wrapToWidth, overflows, widthOf} from './lib/type';
+import {FONT, wrapToWidth, widthOf} from './lib/type';
+import {captionLayout, creditLayout} from './lib/editorial';
+import {DocketMark} from './branding/DocketMark';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
 import {HighwaySafetyCaseEpisode} from './HighwaySafetyCaseEpisode';
 import {RoadEvidenceEpisode} from './RoadEvidenceEpisode';
@@ -230,66 +232,16 @@ const fitPx = (text: string, base: number, maxW: number) => {
   return Math.min(base, Math.max(28, maxW / needAtOnePx));
 };
 
-/**
- * The caption, greedily wrapped to at most two lines.
- *
- * Two is the ceiling because a third would sit over the picture. The last line absorbs
- * whatever is left rather than dropping it, since losing the end of a sentence silently
- * is the exact fault this exists to stop.
- */
-// `wrapTo` used to live here, wrapping on a CHARACTER COUNT. Both of its callers now go
-// through `wrapToWidth` in `lib/type.ts`, which wraps on the measured widths of the face
-// actually shipped, so it is gone rather than left sitting as a second answer to the one
-// question. Two wrapping rules in one file is how a caption ends up clipped in one place
-// and correct in another with nothing reporting the difference.
-
-/**
- * The subtitle band. It SHRINKS BEFORE IT DROPS, and that ordering is the whole point.
- *
- * `wrapTo` lets the last line absorb the remainder rather than losing it, which is right
- * for an editorial line and catastrophic for a subtitle: a cue that will not fit in two
- * lines then renders its whole tail off the right edge of the frame. The film shipped
- * "the only machine in Texas you can check is the small on" with the last word gone.
- *
- * So the size is solved rather than assumed. Try the base size; if the cue needs more
- * lines than the band holds, step the size down and re-wrap, and only stop when it fits.
- * A subtitle two points smaller is a subtitle. A subtitle missing its last word is a lie.
- */
-/** The band's own margins, inside the safe area rather than inside the frame. `SAFE_RIGHT`
- *  is where the feed's button rail starts, so the band stops short of it and the subtitle
- *  never runs under a share button. See `lib/safearea.ts` for where the number came from. */
+/** Editorial captions keep every spoken word, in balanced bold lines. Geometry is
+ * solved inside the feed reserve and font widths come from the shared measured table.
+ * Dense cues fail with a readable correction instead of shrinking into tiny paragraphs. */
 const CAP_X = 54;
 const CAP_PAD_L = 24;
 const CAP_PAD_R = 24;
 const CAP_W = SAFE_RIGHT - CAP_X - CAP_PAD_L - CAP_PAD_R;
-const CAP_MAX_LINES = 3;
 
-/**
- * IT WRAPPED ON A CHARACTER COUNT AND THE FRAME IS MEASURED IN PIXELS.
- *
- * This budgeted `size * 0.5` per character and fitted by `l.length <= per`. Half an em
- * is not what the shipped face draws: `lib/type.ts` measured Manrope and a run of
- * lowercase n comes out at 0.62 em, so every estimate here came in UNDER the truth and a
- * line the counter called safe reached past the frame edge. A scorer read the Abilene
- * caption with the word "thousand" clipped off the right side, and called it the only
- * illegible type in the film.
- *
- * `GATE_LESSONS.md` already carries this entry, from the round the typeface changed: a
- * width table is not a constant, it is a measurement of a specific face, and it expires
- * when the face changes. The lesson was written down and this function never read it,
- * because it kept its own private estimate instead of asking the module whose whole job
- * is answering the question. One measurement, one caller.
- */
-const capFit = (text?: string): {lines: string[]; size: number} => {
-  if (!text) return {lines: [], size: 36};
-  for (let size = 36; size >= 22; size -= 2) {
-    const lines = wrapToWidth(text, CAP_W, size);
-    if (lines.length <= CAP_MAX_LINES && overflows(text, CAP_W, size).length === 0) {
-      return {lines, size};
-    }
-  }
-  return {lines: wrapToWidth(text, CAP_W, 22), size: 22};
-};
+const capFit = (text?: string): {lines: string[]; size: number} =>
+  captionLayout(text ?? '', CAP_W);
 
 /** The kicker under the super. It lives in the left two thirds so it never reaches
  *  across the frame the way a subtitle does, which is half of what keeps the two
@@ -341,29 +293,33 @@ const kickLines = (text?: string): string[] => kickFit(text).lines;
 export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps}) => {
   const f = useCurrentFrame();
   const t = f / fps;
-  const cue = cues.find((c) => t >= c.start && t < c.end);
-  if (!cue) return null;
-  const {lines, size} = capFit(cue.text);
-  const lead = size * 1.22;
-  const h = size * 1.1 + lines.length * lead;
-  // A hard cut between cues reads as a flicker, so each one fades over four frames at
-  // its own edges. The fade is clamped inside the cue, never past it: a subtitle that
-  // outlives the words it transcribes is the same lie as one that says something else.
-  const inF = Math.max(0, (t - cue.start) * fps);
-  const outF = Math.max(0, (cue.end - t) * fps);
-  const op = clamp01(Math.min(inF / 4, outF / 4, 1));
+  const layouts = React.useMemo(() => cues.map((cue) => capFit(cue.text)), [cues]);
+  const index = cues.findIndex((cue) => t >= cue.start && t < cue.end);
+  if (index < 0) return null;
+  const cue = cues[index];
+  const {lines, size} = layouts[index];
+  const lead = size * 1.34;
+  const h = lines.length * lead + 24;
+  const settle = interpolate((t - cue.start) * fps, [0, 6], [6, 0],
+    {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  // The whole measured cue is visible from its first frame. No simulated word clock,
+  // typewriter reveal, or fade that steals reading time from its measured boundaries.
   return (
-    <svg width={1080} height={1920} viewBox="0 0 1080 1920"
-      style={{position: 'absolute', inset: 0}}>
-      <g opacity={op}>
-        <rect x={CAP_X} y={SAFE_BOTTOM - h} width={SAFE_RIGHT - CAP_X} height={h} rx={6}
-          fill="#0b0e15" opacity={0.86} />
-        {lines.map((ln, i) => (
-          <text key={i} x={CAP_X + CAP_PAD_L} y={SAFE_BOTTOM - h + size * 0.55 + lead * (i + 0.75)}
-            fontSize={size} fill="#f2ede2" fontFamily={FONT.body}>{ln}</text>
-        ))}
-      </g>
-    </svg>
+    <div aria-label="Narration captions" style={{position: 'absolute', left: CAP_X,
+      top: SAFE_BOTTOM - h + settle, width: SAFE_RIGHT - CAP_X, height: h}}>
+      <div style={{position: 'absolute', left: 0, top: 8, bottom: 20,
+        width: 4, background: '#e0956a'}}/>
+      {lines.map((line, i) => (
+        <div key={i} style={{position: 'absolute', left: 10, top: 8 + i * lead,
+          // Native inline sizing follows actual font ink advances. The conservative
+          // width table chooses breaks, but no longer leaves an oversized dark slab.
+          width: 'max-content', maxWidth: SAFE_RIGHT - CAP_X - 10,
+          padding: `0 ${CAP_PAD_L - 10}px`, borderRadius: 5,
+          fontFamily: FONT.body, fontSize: size, fontWeight: 700,
+          lineHeight: `${lead - 5}px`, whiteSpace: 'pre',
+          background: '#080b12', color: '#f2ede2'}}>{line}</div>
+      ))}
+    </div>
   );
 };
 
@@ -506,41 +462,39 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
   );
 };
 
-/** The end card. Plain, dark, legible, and it holds still: a credit that slides or
- *  fades out early is a credit that was not read, and for the music that is the
- *  licence going unpaid. Set in the body serif at caption size, left aligned, because
- *  a centred block of licence text is decoration pretending to be a title. */
+/** A publication sign-off with a recognisable masthead and a held, complete colophon.
+ * Only the mark/masthead settles into place. Attribution is visible for the whole card. */
 export const CreditsCard: React.FC<{text: string}> = ({text}) => {
   const f = useCurrentFrame();
-  // SVG TEXT DOES NOT WRAP, and the first render of this card ran the attribution off
-  // the right edge mid-URL. That is not a layout nit: the licence URL is part of the
-  // attribution, so a credit clipped by the frame is a licence not actually paid on
-  // screen, while every string check upstream still passes. GATE_LESSONS: a gate that
-  // reads text cannot see text that has not been laid out yet.
-  const CREDIT_W = SAFE_RIGHT - 78;     // Long attribution lines also avoid the feed button rail.
-  const wrapped: {s: string; head: boolean}[] = [];
-  for (const raw of text.split('\n')) {
-    const l = raw.trim();
-    if (!l) continue;
-    const head = l === l.toUpperCase() && l.length < 24;
-    // A commit-pinned URL can be wider than the entire frame. Preserve every character, but
-    // continue the token on the next VISUAL line. Keeping it whole ran it off screen and made
-    // the source less followable than an exact, plainly continued URL.
-    for (const line of wrapBreakableToWidth(l, CREDIT_W, head ? 30 : 26)) {
-      wrapped.push({s: line, head});
-    }
-  }
+  const {fps} = useVideoConfig();
+  const CREDIT_W = SAFE_RIGHT - 78;
+  const rows = React.useMemo(() => creditLayout(text, CREDIT_W, 850, SAFE_BOTTOM - 28), [text]);
+  const enter = interpolate(f, [0, Math.round(fps * 0.4)], [0, 1],
+    {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
   return (
-    <div style={{position: 'absolute', inset: 0, background: '#0d1220'}}>
-      <svg width={1080} height={1920} viewBox="0 0 1080 1920">
-        <g opacity={interpolate(f, [0, 12], [0, 1],
-          {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}>
-          {wrapped.map((l, i) => (
-            <text key={i} x={78} y={700 + i * 46} fontSize={l.head ? 30 : 26}
-              fill={l.head ? '#c8703a' : '#e4ded2'} fontFamily={FONT.body}
-              letterSpacing={l.head ? 3 : 0}>{l.s}</text>
-          ))}
+    <div style={{position: 'absolute', inset: 0, background: '#08060f'}}>
+      <svg width={1080} height={1920} viewBox="0 0 1080 1920" aria-label="Texas AI Docket credits">
+        {/* Registration rules and the flag's colour band tie the card to the publication. */}
+        <path d={`M78 148H${SAFE_RIGHT}M78 817H${SAFE_RIGHT}`} stroke="#3a3040" strokeWidth={2}/>
+        <path d="M78 148H205" stroke="#e0956a" strokeWidth={5}/>
+        <text x={78} y={116} fontSize={22} fontFamily={FONT.mono} letterSpacing={3}
+          fill="#e0956a">THE DAILY DISPATCH</text>
+        <g transform={`translate(78 ${205 + (1 - enter) * 18})`} opacity={0.4 + 0.6 * enter}>
+          <DocketMark/>
+          <text x={0} y={220} fontFamily={FONT.display} fontWeight={700} fontSize={66}
+            fill="#ede6d6">Texas AI</text>
+          <text x={-5} y={364} fontFamily={FONT.display} fontWeight={700} fontSize={142}
+            fill="#ede6d6">Docket</text>
         </g>
+        <path d={`M78 627H${78 + CREDIT_W * enter}`} stroke="#e0956a" strokeWidth={3}/>
+        <text x={78} y={704} fontSize={28} fontFamily={FONT.body} fill="#c9bece">Visit the Docket</text>
+        <text x={78} y={766} fontSize={46} fontWeight={700} fontFamily={FONT.body}
+          fill="#ede6d6">texasaidocket.com</text>
+        <path d={`M${SAFE_RIGHT - 57} 747h44m-15 -15 15 15-15 15`}
+          fill="none" stroke="#e0956a" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round"/>
+        {rows.map((row, i) => <text key={i} x={78} y={row.y} fontSize={row.size}
+          fontFamily={row.heading ? FONT.mono : FONT.body} letterSpacing={row.heading ? 3 : 0}
+          fill={row.heading ? '#e0956a' : '#ede6d6'}>{row.text}</text>)}
       </svg>
     </div>
   );

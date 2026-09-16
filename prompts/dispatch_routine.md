@@ -397,6 +397,15 @@ Declare per scene:
   `button`. Add `credits` and `credits_s` for the sourced, branded sign-off.
 
 **The credits are part of the film.** The held-slide hard fail applies after the story too.
+New episodes use the shared `SubtitleTrack` and `CreditsCard` from `Dispatch.tsx`. The captions
+use bold, balanced lines with fitted backplates and a restrained entrance, on their measured
+cue boundaries. Never add a guessed word clock, typewriter reveal or custom paragraph panel.
+Plan short spoken thoughts with natural phrase breaks. If a cue is too dense for the shared
+layout, use real measured speech boundaries or revise the read; do not shrink it into fine print.
+The closing card carries the existing Lone Star mark, Fraunces masthead, website invitation and
+separate source/music colophon. Preserve the complete generated attribution and hold it readable
+for the whole credit tail. Inspect both a long caption and the closing card inside the phone
+feed composite. Do not replace this shared identity with one-off plain text in a new episode.
 Use at most five seconds for the shared static credit card, retain every required source and
 licence line, and inspect the actual ending. A longer credit tail needs a purposeful reveal,
 not an entrance fade followed by an overlong still. On September 3rd a 5.5-second tail became

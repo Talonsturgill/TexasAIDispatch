@@ -153,8 +153,7 @@ def self_test() -> int:
     ok("the shipped engine passes", not check(live, C), str(check(live, C)))
 
     # THE DEFECT, REPLAYED. This is the band exactly as it shipped on 2026-08-19.
-    broke = live.replace("y={SAFE_BOTTOM - h}", "y={1752 - h}") \
-                .replace("width={SAFE_RIGHT - CAP_X}", "width={972}")
+    broke = live.replace("SAFE_BOTTOM - h + settle", "1752 - h + settle")
     f = check(broke, C)
     ok("catches the band that shipped under the feed's caption", bool(f), "no fail raised")
     ok("...and names the reason rather than the number",
@@ -177,8 +176,7 @@ def self_test() -> int:
 
     # A LITERAL THAT HAPPENS TO BE LEGAL IS STILL A LITERAL, so the check must not be
     # satisfied by a number in range. This is the whole point of rule 1.
-    legal = live.replace("y={SAFE_BOTTOM - h}", "y={1400 - h}") \
-                .replace("width={SAFE_RIGHT - CAP_X}", "width={860}")
+    legal = live.replace("SAFE_BOTTOM - h + settle", "1400 - h + settle")
     ok("a legal literal is still a fail", bool(check(legal, C)), "a typed number passed")
 
     print(f"safe_area_check: {fails} failure(s)")
