@@ -1,0 +1,321 @@
+{
+  "created_at": "2026-09-16T07:03:59.436185Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/dd6aa53e880bcfc1-9cf3f42de1f52907-c6da90a72f4a9a44/storyboard.json",
+    "board_sha256": "9cf3f42de1f52907a58441e82d09fb5aa14c3768007fb9ff9e003b82e4272f5e",
+    "film": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/dd6aa53e880bcfc1-9cf3f42de1f52907-c6da90a72f4a9a44/dispatch.mp4",
+    "film_sha256": "dd6aa53e880bcfc19308bd4b584dd5f2b57c9903941c890d7b84e4bfa06b0b03",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/dd6aa53e880bcfc1-9cf3f42de1f52907-c6da90a72f4a9a44/render-manifest.json",
+    "manifest_sha256": "c6da90a72f4a9a44729288d537d402252a438d9e7bce42ce30d13b73ac44b680",
+    "registered_at": "2026-09-16T07:36:04.248261Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 2,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "events": [
+    {
+      "at": "2026-09-16T07:03:59.436345Z",
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-09-16T07:03:59.475741Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-09-16T07:03:59.505310Z",
+      "kind": "reserved",
+      "note": "clinic documentation and imaging",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:03:59.534934Z",
+      "kind": "reserved",
+      "note": "oilfield and underground automation",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:03:59.563529Z",
+      "kind": "reserved",
+      "note": "education and conversational tutor",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:07:37.702161Z",
+      "kind": "phase",
+      "name": "fact-check"
+    },
+    {
+      "at": "2026-09-16T07:07:37.731009Z",
+      "kind": "reserved",
+      "note": "Navasota primary claims and proposed narration",
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:16:24.243971Z",
+      "kind": "phase",
+      "name": "storyboard"
+    },
+    {
+      "at": "2026-09-16T07:16:24.272888Z",
+      "kind": "reserved",
+      "note": "original mineral proving ground board",
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:17:53.902807Z",
+      "kind": "reserved",
+      "note": "critic repairs physical repeat, tool transfer and fresh-specimen descent",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:20:03.705338Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:25:09.095477Z",
+      "kind": "reserved",
+      "note": "Animatic framing repair: title clearance and tool aperture",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:25:09.124224Z",
+      "kind": "reserved",
+      "note": "Final validated nine-line narration direction",
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:25:30.309080Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:27:28.117650Z",
+      "kind": "phase",
+      "name": "audio"
+    },
+    {
+      "at": "2026-09-16T07:27:28.228013Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:27:57.796582Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2133
+      }
+    },
+    {
+      "at": "2026-09-16T07:27:57.798128Z",
+      "elapsed_ms": 29566,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2133,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-16T07:27:57.840621Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:28:04.202901Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 1540
+      }
+    },
+    {
+      "at": "2026-09-16T07:28:04.204823Z",
+      "elapsed_ms": 6361,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1540,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-16T07:28:06.137737Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:28:31.671731Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2213
+      }
+    },
+    {
+      "at": "2026-09-16T07:28:31.673941Z",
+      "elapsed_ms": 25533,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2213,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-16T07:28:31.715348Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:28:44.138527Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 3077
+      }
+    },
+    {
+      "at": "2026-09-16T07:28:44.139108Z",
+      "elapsed_ms": 12422,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 3077,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-16T07:32:06.445804Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:32:48.264203Z",
+      "kind": "phase",
+      "name": "render"
+    },
+    {
+      "at": "2026-09-16T07:32:48.325884Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-16T07:36:04.248275Z",
+      "film_sha256": "dd6aa53e880bcfc19308bd4b584dd5f2b57c9903941c890d7b84e4bfa06b0b03",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "c6da90a72f4a9a44729288d537d402252a438d9e7bce42ce30d13b73ac44b680",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-16T07:37:45.876075Z",
+      "kind": "reserved",
+      "note": "Finished Navasota documentary round 1",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-16T07:47:29.565856Z",
+      "kind": "finished",
+      "report_sha256": "93f86d13dd6434218681af9dc39c472588a7d00175062e806c75fd0623e30213",
+      "result": "publishable",
+      "score": 7.167
+    }
+  ],
+  "final_report": {
+    "film_sha256": "dd6aa53e880bcfc19308bd4b584dd5f2b57c9903941c890d7b84e4bfa06b0b03",
+    "path": "out/dispatch/report_card.json",
+    "score": 7.167,
+    "sha256": "93f86d13dd6434218681af9dc39c472588a7d00175062e806c75fd0623e30213"
+  },
+  "limits": {
+    "cleanup_renders": 1,
+    "full_renders": 5,
+    "panel_rounds": 5,
+    "preflight_renders": 6,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 15,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "render",
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-09-16",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": "publishable",
+  "updated_at": "2026-09-16T07:47:29.565864Z",
+  "usage": {
+    "cleanup_renders": 0,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 3,
+    "reboards": 2,
+    "reported_tokens": 8963,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 3,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  }
+}

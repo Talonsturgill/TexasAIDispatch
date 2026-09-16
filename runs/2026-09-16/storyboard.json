@@ -1,0 +1,1817 @@
+{
+  "date": "2026-09-16",
+  "title": "The rock goes in",
+  "topic": "SMU proposed Navasota mineral proving ground",
+  "beat": "oilfield",
+  "derived_from": "scratch",
+  "cinematic_template": "mineral-proving-ground-v1",
+  "runtime_s": 43.99999999999999,
+  "credits_s": 5,
+  "credits": "TEXAS AI DOCKET\n\nSOURCES\nSMU News\nU.S. Department of Energy\n\nMUSIC\n\"Thinking Music\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture\n",
+  "fingerprint": {
+    "pov": "macro-closeup",
+    "motion_vector": "vertical-descent",
+    "hero_treatment": "machine-as-subject",
+    "layout": "stacked-layers",
+    "register": "editorial-schematic",
+    "camera_strategy": "craneDown",
+    "light_story": "night-practical",
+    "palette": "deep petrol, mineral amber, sandy strata and pale steel",
+    "metaphor": "a deliberately built rock descends into a well to become a test"
+  },
+  "divergence_note": "Original mineral core and vertical drilling cutaways replace the previous radial water network and horizontal paper highway. Physical fabrication, downhole contact, simulated worker practice and a blocked proposal create distinct spaces in a dark mineral palette.",
+  "fauna_scope": {
+    "status": "none",
+    "reason": "No animal illustrates the engineered mineral specimen, drilling tests, worker training or award-negotiation status."
+  },
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "The patterned mineral-bearing rock and its vertical test well",
+      "opening_state": "An intact engineered rock descends underground as an unexplained reversal",
+      "closing_state": "A visibly drilled specimen withdraws and a different intact one approaches the next test",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ]
+    },
+    "turn_scene": "s7",
+    "button": "The next engineered rock enters because the purpose is testing the tools, not claiming a successful mine."
+  },
+  "documentary": {
+    "schema": "dispatch_documentary/1",
+    "viewer_question": "Why put mineral-bearing rock underground?",
+    "payoff": "An engineered rock visibly descends into the test well within the first second.",
+    "source_limit": "These are schematic proposed actions. DOE selected the project for award negotiations; the announcements report no completed facility or results.",
+    "hero_image": "A mineral-patterned rock inside a well, with a drill above it and a sensor path returning to the surface.",
+    "closing_answer": "The rock goes in so the tools can be tested, repeatedly, with results still to come.",
+    "hook_payoff_event": "lower-rock"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 4.36,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "craneDown",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "well-mineral-test",
+      "visual_family": "well-cutaway",
+      "payload_mode": "picture",
+      "story_role": "hook",
+      "beat": "motion",
+      "super": "Mineral-bearing rock underground",
+      "super_claim": "c2",
+      "caption": "Illustrated proposal",
+      "vo": "Why put mineral-bearing rock underground?",
+      "vo_claims": [
+        "c2",
+        "c8"
+      ],
+      "on_screen": "A mineral-bearing specimen descends into a well instead of leaving it",
+      "what_moves": "The hoist lowers the mineral-bearing rock inside the existing well. The inset exposes mineral inclusions within the same rock",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The hoist lowers the mineral-bearing rock inside the existing well",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "Mineral-bearing rock underground"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "A mineral-bearing specimen descends into a well instead of leaving it",
+        "must_show": [
+          {
+            "concept": "Mineral-bearing rock underground",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The hoist lowers the mineral-bearing rock inside the existing well. The inset exposes mineral inclusions within the same rock",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "lower-rock",
+          "at_s": 0.174,
+          "duration_s": 0.719,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The hoist lowers the mineral-bearing rock inside the existing well",
+          "slot": "a",
+          "at_s_authored": 0.16,
+          "duration_s_authored": 0.66
+        },
+        {
+          "id": "reveal-engineered",
+          "at_s": 2.453,
+          "duration_s": 0.61,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The inset exposes mineral inclusions within the same rock",
+          "slot": "b",
+          "at_s_authored": 2.25,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "well apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 30,
+              "y": 380,
+              "scale": 1.08,
+              "props": {
+                "mode": "well",
+                "label": "Mineral-bearing rock underground"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 0.82,
+      "duration_authored": 4.0
+    },
+    {
+      "id": "s2",
+      "start_s": 4.36,
+      "duration_s": 5.36,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "riseWith",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": false,
+      "hero": "field-mineral-test",
+      "visual_family": "field-station",
+      "payload_mode": "picture",
+      "story_role": "movement",
+      "beat": "motion",
+      "super": "SMU plans Navasota tests",
+      "super_claim": "c1",
+      "caption": "Illustrated proposal",
+      "vo": "SMU plans a test facility at an existing drilling site in Navasota.",
+      "vo_claims": [
+        "c1",
+        "c6",
+        "c8"
+      ],
+      "on_screen": "The same rock is situated below an existing drilling test center",
+      "what_moves": "The mast rises into view while the rock stays anchored below it. The ground opens to expose the existing test well under the rig",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The mast rises into view while the rock stays anchored below it",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "SMU plans Navasota tests"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "The same rock is situated below an existing drilling test center",
+        "must_show": [
+          {
+            "concept": "SMU plans Navasota tests",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The mast rises into view while the rock stays anchored below it. The ground opens to expose the existing test well under the rig",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "reveal-site",
+          "at_s": 0.191,
+          "duration_s": 0.667,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The mast rises into view while the rock stays anchored below it",
+          "slot": "a",
+          "at_s_authored": 0.16,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "open-existing-well",
+          "at_s": 3.109,
+          "duration_s": 0.667,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The ground opens to expose the existing test well under the rig",
+          "slot": "b",
+          "at_s_authored": 2.61,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "field apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 100,
+              "y": 455,
+              "scale": 0.93,
+              "props": {
+                "mode": "field",
+                "label": "SMU plans Navasota tests"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 4.5
+    },
+    {
+      "id": "s3",
+      "start_s": 9.72,
+      "duration_s": 5.96,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "orbitReveal",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "mould-mineral-test",
+      "visual_family": "material-workbench",
+      "payload_mode": "picture",
+      "story_role": "mechanism",
+      "beat": "revelation",
+      "super": "Engineered rock inside existing wells",
+      "super_claim": "c2",
+      "caption": "Illustrated proposal",
+      "vo": "The team would engineer mineral-bearing rock, then place it inside existing wells.",
+      "vo_claims": [
+        "c2"
+      ],
+      "on_screen": "A manufactured mineral-bearing rock enters a well for controlled tests",
+      "what_moves": "Mould halves close around an engineered mineral pattern. The mould separates and releases the patterned rock. The specimen slides into the visible existing well casing",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "Mould halves close around an engineered mineral pattern",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "Engineered rock inside existing wells"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "A manufactured mineral-bearing rock enters a well for controlled tests",
+        "must_show": [
+          {
+            "concept": "Engineered rock inside existing wells",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Mould halves close around an engineered mineral pattern. The mould separates and releases the patterned rock. The specimen slides into the visible existing well casing",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "make-rock",
+          "at_s": 0.417,
+          "duration_s": 0.642,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "Mould halves close around an engineered mineral pattern",
+          "slot": "a",
+          "at_s_authored": 0.364,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "open-mould",
+          "at_s": 2.503,
+          "duration_s": 0.642,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The mould separates and releases the patterned rock",
+          "slot": "b",
+          "at_s_authored": 2.184,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "place-rock",
+          "at_s": 4.53,
+          "duration_s": 0.642,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The specimen slides into the visible existing well casing",
+          "slot": "c",
+          "at_s_authored": 3.952,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "mould apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 48,
+              "y": 392,
+              "scale": 1.03,
+              "props": {
+                "mode": "mould",
+                "label": "Engineered rock inside existing wells"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.2
+    },
+    {
+      "id": "s4",
+      "start_s": 15.68,
+      "duration_s": 4.55,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "craneDown",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "drill-mineral-test",
+      "visual_family": "well-cutaway",
+      "payload_mode": "picture",
+      "story_role": "mechanism",
+      "beat": "motion",
+      "super": "Drilling and sensing tests",
+      "super_claim": "c3",
+      "caption": "Illustrated proposal",
+      "vo": "Drilling and sensing technologies could be tested, again and again.",
+      "vo_claims": [
+        "c3"
+      ],
+      "on_screen": "A drill acts on the known rock and a sensor responds to the action",
+      "what_moves": "The drill advances into the mineral-bearing test rock. Sensor response travels upward to an explicitly schematic trace. The drill physically retracts from the still-drilled rock to prepare another technology trial",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The drill advances into the mineral-bearing test rock",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "Drilling and sensing tests"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "A drill acts on the known rock and a sensor responds to the action",
+        "must_show": [
+          {
+            "concept": "Drilling and sensing tests",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The drill advances into the mineral-bearing test rock. Sensor response travels upward to an explicitly schematic trace. The drill physically retracts from the still-drilled rock to prepare another technology trial",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "test-drill",
+          "at_s": 0.319,
+          "duration_s": 0.531,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The drill advances into the mineral-bearing test rock",
+          "slot": "a",
+          "at_s_authored": 0.336,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "read-sensor",
+          "at_s": 1.911,
+          "duration_s": 0.531,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "Sensor response travels upward to an explicitly schematic trace",
+          "slot": "b",
+          "at_s_authored": 2.016,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "repeat-trial",
+          "at_s": 3.458,
+          "duration_s": 0.531,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The drill physically retracts from the still-drilled rock to prepare another technology trial",
+          "slot": "c",
+          "at_s_authored": 3.648,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "drill apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 68,
+              "y": 392,
+              "scale": 1,
+              "props": {
+                "mode": "drill",
+                "label": "Drilling and sensing tests"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 4.8
+    },
+    {
+      "id": "s5",
+      "start_s": 20.23,
+      "duration_s": 3.95,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "truckAcross",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "tools-mineral-test",
+      "visual_family": "tool-transfer",
+      "payload_mode": "picture",
+      "story_role": "scale",
+      "beat": "motion",
+      "super": "Oilfield automation for mining",
+      "super_claim": "c4",
+      "caption": "Illustrated proposal",
+      "vo": "The project would adapt oilfield automation for mining.",
+      "vo_claims": [
+        "c4"
+      ],
+      "on_screen": "An oilfield drilling tool moves into the mineral testing task",
+      "what_moves": "The same oilfield tool travels from its left pedestal into the mining test station. The tool engages the same mineral-bearing test material. The control collars clamp inward around the test drill",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The same oilfield tool travels from its left pedestal into the mining test station",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "Oilfield automation for mining"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "An oilfield drilling tool moves into the mineral testing task",
+        "must_show": [
+          {
+            "concept": "Oilfield automation for mining",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The same oilfield tool travels from its left pedestal into the mining test station. The tool engages the same mineral-bearing test material. The control collars clamp inward around the test drill",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "transfer-tool",
+          "at_s": 0.276,
+          "duration_s": 0.527,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The same oilfield tool travels from its left pedestal into the mining test station",
+          "slot": "a",
+          "at_s_authored": 0.294,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "engage-rock",
+          "at_s": 1.659,
+          "duration_s": 0.527,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The tool engages the same mineral-bearing test material",
+          "slot": "b",
+          "at_s_authored": 1.764,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "close-control",
+          "at_s": 3.002,
+          "duration_s": 0.527,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The control collars clamp inward around the test drill",
+          "slot": "c",
+          "at_s_authored": 3.192,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "tools apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 68,
+              "y": 392,
+              "scale": 1,
+              "props": {
+                "mode": "tools",
+                "label": "Oilfield automation for mining"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 4.2
+    },
+    {
+      "id": "s6",
+      "start_s": 24.18,
+      "duration_s": 6.54,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "dollyThrough",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "training-mineral-test",
+      "visual_family": "human-training",
+      "payload_mode": "picture",
+      "story_role": "consequence",
+      "beat": "emotion",
+      "super": "Students and workers would train",
+      "super_claim": "c5",
+      "caption": "Illustrated proposal",
+      "vo": "Students and workers would train with AI and digital twins, alongside hands-on practice.",
+      "vo_claims": [
+        "c5"
+      ],
+      "on_screen": "A learner operates a simulated drill alongside hands-on practice tools",
+      "what_moves": "The engineer reaches for the training control. The wireframe simulated drill descends in response. A physical practice specimen and tools enter the workbench",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The engineer reaches for the training control",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "Students and workers would train"
+      },
+      "cast": [
+        {
+          "id": "engineer",
+          "emotion": "neutral"
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A learner operates a simulated drill alongside hands-on practice tools",
+        "must_show": [
+          {
+            "concept": "Students and workers would train",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The engineer reaches for the training control. The wireframe simulated drill descends in response. A physical practice specimen and tools enter the workbench",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "use-controls",
+          "at_s": 0.458,
+          "duration_s": 0.591,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The engineer reaches for the training control",
+          "slot": "a",
+          "at_s_authored": 0.434,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "rehearse-twin",
+          "at_s": 2.747,
+          "duration_s": 0.591,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The wireframe simulated drill descends in response",
+          "slot": "b",
+          "at_s_authored": 2.604,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "practice-tools",
+          "at_s": 4.97,
+          "duration_s": 0.591,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "A physical practice specimen and tools enter the workbench",
+          "slot": "c",
+          "at_s_authored": 4.712,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "training apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 42,
+              "y": 385,
+              "scale": 1.03,
+              "props": {
+                "mode": "training",
+                "label": "Students and workers would train"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 6.2
+    },
+    {
+      "id": "s7",
+      "start_s": 30.72,
+      "duration_s": 5.36,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "truckAcross",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": false,
+      "hero": "award-mineral-test",
+      "visual_family": "field-station",
+      "payload_mode": "mixed",
+      "story_role": "limit",
+      "beat": "revelation",
+      "super": "Selected for award negotiations",
+      "super_claim": "c6",
+      "caption": "Illustrated proposal",
+      "vo": "For now, the Energy Department has selected the project for award negotiations.",
+      "vo_claims": [
+        "c6"
+      ],
+      "on_screen": "The selection paper remains in front of a facility still to be developed",
+      "what_moves": "The selection folder enters in front of the unbuilt test facility. The folded cover withdraws to expose the source-backed award-negotiation status",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The selection folder enters in front of the unbuilt test facility",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "Selected for award negotiations"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "The selection paper remains in front of a facility still to be developed",
+        "must_show": [
+          {
+            "concept": "Selected for award negotiations",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The selection folder enters in front of the unbuilt test facility. The folded cover withdraws to expose the source-backed award-negotiation status",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "open-selection",
+          "at_s": 0.375,
+          "duration_s": 0.518,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The selection folder enters in front of the unbuilt test facility",
+          "slot": "a",
+          "at_s_authored": 0.406,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "read-status",
+          "at_s": 3.05,
+          "duration_s": 0.518,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The folded cover withdraws to expose the source-backed award-negotiation status",
+          "slot": "b",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "award apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 68,
+              "y": 392,
+              "scale": 1,
+              "props": {
+                "mode": "award",
+                "label": "Selected for award negotiations"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 5.8
+    },
+    {
+      "id": "s8",
+      "start_s": 36.08,
+      "duration_s": 4.76,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "riseWith",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "limit-mineral-test",
+      "visual_family": "evidence-table",
+      "payload_mode": "mixed",
+      "story_role": "agency",
+      "beat": "revelation",
+      "super": "No test results reported",
+      "super_claim": "c7",
+      "caption": "Illustrated proposal",
+      "vo": "These announcements report no completed testbed or test results.",
+      "vo_claims": [
+        "c7"
+      ],
+      "on_screen": "The source announcements leave the test result field unfilled",
+      "what_moves": "The outlined test tool retracts as an empty results clipboard opens. The clipboard cover slides away to reveal an unfilled results field",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The outlined test tool retracts as an empty results clipboard opens",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "No test results reported"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "The source announcements leave the test result field unfilled",
+        "must_show": [
+          {
+            "concept": "No test results reported",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The outlined test tool retracts as an empty results clipboard opens. The clipboard cover slides away to reveal an unfilled results field",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "stop-for-evidence",
+          "at_s": 0.333,
+          "duration_s": 0.592,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The outlined test tool retracts as an empty results clipboard opens",
+          "slot": "a",
+          "at_s_authored": 0.315,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "open-results",
+          "at_s": 2.644,
+          "duration_s": 0.592,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The clipboard cover slides away to reveal an unfilled results field",
+          "slot": "b",
+          "at_s_authored": 2.5,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "limit apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 68,
+              "y": 392,
+              "scale": 1,
+              "props": {
+                "mode": "limit",
+                "label": "No test results reported"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 4.5
+    },
+    {
+      "id": "s9",
+      "start_s": 40.84,
+      "duration_s": 3.16,
+      "region": "post_oak",
+      "county": "Grimes",
+      "camera_strategy": "craneDown",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "transition_s": 0.24,
+      "interior": true,
+      "hero": "close-mineral-test",
+      "visual_family": "well-cutaway",
+      "payload_mode": "picture",
+      "story_role": "close",
+      "beat": "motion",
+      "super": "The rock goes in to test the tools",
+      "super_claim": "c2",
+      "caption": "Illustrated proposal",
+      "vo": "The rock goes in so the tools can be tested.",
+      "vo_claims": [
+        "c2",
+        "c3",
+        "c8"
+      ],
+      "on_screen": "The used rock remains drilled while a new specimen prepares the next trial",
+      "what_moves": "The cut rock lifts out to the left while the drill retracts. A different intact specimen moves into the top of the well. The fresh specimen descends inside the well toward the next test position",
+      "visual_sentence": {
+        "subject": "The engineered mineral rock and the associated test tools",
+        "action": "The cut rock lifts out to the left while the drill retracts",
+        "emotion": "Curiosity turns to care about the evidence still required",
+        "annotation": "The rock goes in to test the tools"
+      },
+      "cast": [],
+      "visual_proof": {
+        "mute_takeaway": "The used rock remains drilled while a new specimen prepares the next trial",
+        "must_show": [
+          {
+            "concept": "The rock goes in to test the tools",
+            "item_ids": [
+              "mineral-test"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The cut rock lifts out to the left while the drill retracts. A different intact specimen moves into the top of the well. The fresh specimen descends inside the well toward the next test position",
+          "item_ids": [
+            "mineral-test"
+          ]
+        }
+      },
+      "visual_events": [
+        {
+          "id": "withdraw-tested-rock",
+          "at_s": 0.221,
+          "duration_s": 0.369,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The cut rock lifts out to the left while the drill retracts",
+          "slot": "a",
+          "at_s_authored": 0.336,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "stage-next-rock",
+          "at_s": 1.327,
+          "duration_s": 0.369,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "A different intact specimen moves into the top of the well",
+          "slot": "b",
+          "at_s_authored": 2.016,
+          "duration_s_authored": 0.56
+        },
+        {
+          "id": "lower-next-test",
+          "at_s": 2.402,
+          "duration_s": 0.369,
+          "item_ids": [
+            "mineral-test"
+          ],
+          "what": "The fresh specimen descends inside the well toward the next test position",
+          "slot": "c",
+          "at_s_authored": 3.648,
+          "duration_s_authored": 0.56
+        }
+      ],
+      "planes": [
+        {
+          "z": 650,
+          "label": "petrol atmosphere",
+          "items": [
+            {
+              "id": "ground-haze",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "haze"
+              }
+            }
+          ]
+        },
+        {
+          "z": 370,
+          "label": "post oak silhouettes",
+          "items": [
+            {
+              "id": "ground-oak",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "oak"
+              }
+            }
+          ]
+        },
+        {
+          "z": 95,
+          "label": "close apparatus",
+          "items": [
+            {
+              "id": "mineral-test",
+              "kind": "provingGroundRig",
+              "x": 68,
+              "y": 392,
+              "scale": 1,
+              "props": {
+                "mode": "close",
+                "label": "The rock goes in to test the tools"
+              }
+            }
+          ]
+        },
+        {
+          "z": 30,
+          "label": "worn workbench lip",
+          "items": [
+            {
+              "id": "ground-bench",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "bench"
+              }
+            }
+          ]
+        },
+        {
+          "z": -18,
+          "label": "near casing shadow",
+          "items": [
+            {
+              "id": "ground-near",
+              "kind": "testbenchBackdrop",
+              "props": {
+                "mode": "near"
+              }
+            }
+          ]
+        }
+      ],
+      "duration_authored": 4.8
+    }
+  ],
+  "attention_beats": [
+    {
+      "event_id": "lower-rock",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The hoist lowers the mineral-bearing rock inside the existing well",
+      "viewer_reward": "A mineral-bearing specimen descends into a well instead of leaving it",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "reveal-engineered",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The inset exposes mineral inclusions within the same rock",
+      "viewer_reward": "A mineral-bearing specimen descends into a well instead of leaving it",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "reveal-site",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The mast rises into view while the rock stays anchored below it",
+      "viewer_reward": "The same rock is situated below an existing drilling test center",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "open-existing-well",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The ground opens to expose the existing test well under the rig",
+      "viewer_reward": "The same rock is situated below an existing drilling test center",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "make-rock",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Mould halves close around an engineered mineral pattern",
+      "viewer_reward": "A manufactured mineral-bearing rock enters a well for controlled tests",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "open-mould",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The mould separates and releases the patterned rock",
+      "viewer_reward": "A manufactured mineral-bearing rock enters a well for controlled tests",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "place-rock",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The specimen slides into the visible existing well casing",
+      "viewer_reward": "A manufactured mineral-bearing rock enters a well for controlled tests",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "test-drill",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The drill advances into the mineral-bearing test rock",
+      "viewer_reward": "A drill acts on the known rock and a sensor responds to the action",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "read-sensor",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Sensor response travels upward to an explicitly schematic trace",
+      "viewer_reward": "A drill acts on the known rock and a sensor responds to the action",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "repeat-trial",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The drill physically retracts from the still-drilled rock to prepare another technology trial",
+      "viewer_reward": "A drill acts on the known rock and a sensor responds to the action",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "transfer-tool",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The same oilfield tool travels from its left pedestal into the mining test station",
+      "viewer_reward": "An oilfield drilling tool moves into the mineral testing task",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "engage-rock",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The tool engages the same mineral-bearing test material",
+      "viewer_reward": "An oilfield drilling tool moves into the mineral testing task",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "close-control",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The control collars clamp inward around the test drill",
+      "viewer_reward": "An oilfield drilling tool moves into the mineral testing task",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "use-controls",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The engineer reaches for the training control",
+      "viewer_reward": "A learner operates a simulated drill alongside hands-on practice tools",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "rehearse-twin",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The wireframe simulated drill descends in response",
+      "viewer_reward": "A learner operates a simulated drill alongside hands-on practice tools",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "practice-tools",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "human_action",
+      "visible_change": "A physical practice specimen and tools enter the workbench",
+      "viewer_reward": "A learner operates a simulated drill alongside hands-on practice tools",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "open-selection",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The selection folder enters in front of the unbuilt test facility",
+      "viewer_reward": "The selection paper remains in front of a facility still to be developed",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "read-status",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The folded cover withdraws to expose the source-backed award-negotiation status",
+      "viewer_reward": "The selection paper remains in front of a facility still to be developed",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "stop-for-evidence",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The outlined test tool retracts as an empty results clipboard opens",
+      "viewer_reward": "The source announcements leave the test result field unfilled",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "open-results",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The clipboard cover slides away to reveal an unfilled results field",
+      "viewer_reward": "The source announcements leave the test result field unfilled",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "withdraw-tested-rock",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The cut rock lifts out to the left while the drill retracts",
+      "viewer_reward": "The used rock remains drilled while a new specimen prepares the next trial",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "stage-next-rock",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "resolution",
+      "visible_change": "A different intact specimen moves into the top of the well",
+      "viewer_reward": "The used rock remains drilled while a new specimen prepares the next trial",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    },
+    {
+      "event_id": "lower-next-test",
+      "item_ids": [
+        "mineral-test"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The fresh specimen descends inside the well toward the next test position",
+      "viewer_reward": "The used rock remains drilled while a new specimen prepares the next trial",
+      "continuity_from": "The copper-flecked engineered rock stays identifiable across the test, tool and training contexts.",
+      "sound_action": "A brief mechanical action sound follows the visible tool, hoist, control or paper; the illustrative trace uses quiet sonification."
+    }
+  ],
+  "captions": [
+    {
+      "id": "c1",
+      "start": 1.1,
+      "end": 4.06,
+      "text": "Why put mineral-bearing rock underground?",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 4.64,
+      "end": 9.34,
+      "text": "SMU plans a test facility at an existing drilling site in Navasota.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 10.0,
+      "end": 15.14,
+      "text": "The team would engineer mineral-bearing rock, then place it inside existing wells.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 15.96,
+      "end": 19.98,
+      "text": "Drilling and sensing technologies could be tested, again and again.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 20.48,
+      "end": 23.7,
+      "text": "The project would adapt oilfield automation for mining.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 24.46,
+      "end": 30.2,
+      "text": "Students and workers would train with AI and digital twins, alongside hands-on practice.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 31.0,
+      "end": 35.6,
+      "text": "For now, the Energy Department has selected the project for award negotiations.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 36.36,
+      "end": 40.26,
+      "text": "These announcements report no completed testbed or test results.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 41.12,
+      "end": 43.58,
+      "text": "The rock goes in so the tools can be tested.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 9,
+    "on_measured_word_starts": 9,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}

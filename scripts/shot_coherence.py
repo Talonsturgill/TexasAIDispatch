@@ -64,6 +64,7 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    "provingGroundRig": {"label"},
     "freshwaterSystem": {"label"},
     "compoundRecipe": {"label", "status"},
     "candidateSpecimen": {"label", "status"},
@@ -399,6 +400,9 @@ def self_test() -> int:
     ok("magnet proof reads its rendered labels", "compound" in item_visual_tokens(magnet))
     magnet["props"] = {"invented_evidence": "AI COMPOUND"}
     ok("unrendered magnet metadata cannot satisfy a claim", "compound" not in item_visual_tokens(magnet))
+    rig = {"kind": "provingGroundRig", "props": {"label": "engineered mineral rock", "imaginary": "gold output"}}
+    ok("proving ground visible label carries the concept", concept_match("mineral rock", [rig])[0])
+    ok("unpainted proving ground metadata cannot supply proof", not concept_match("gold output", [rig])[0])
     freshwater = {"kind": "freshwaterSystem", "props": {"label": "pump stops"}}
     ok("freshwater proof reads its rendered label", "pump" in item_visual_tokens(freshwater))
     freshwater["props"] = {"unrendered_note": "pump stops"}

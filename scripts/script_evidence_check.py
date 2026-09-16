@@ -88,7 +88,7 @@ PROPER = re.compile(r"\b([A-Z][a-z]{2,})\b")
 NOT_NAMES = {
     "The", "This", "That", "There", "They", "Their", "These", "Those", "Then", "Than",
     "And", "But", "For", "Nobody", "Somebody", "Anybody", "Behind", "Past", "Two",
-    "What", "When", "Where", "With", "Without", "About", "After", "Before", "Every",
+    "What", "When", "Where", "Why", "With", "Without", "About", "After", "Before", "Every",
     "Most", "Some", "One", "Its", "His", "Her", "Our", "Your", "Not", "Now", "Here",
     "Only", "Just", "Still", "Behind", "Under", "Over", "Out", "Off", "Into", "From",
 }
@@ -222,6 +222,14 @@ def self_test() -> int:
         if cited is not None:
             s["vo_claims"] = list(cited)
         return {"scenes": [s]}
+
+    ok("a why question is grammatical rather than a company name",
+       not check(board("Why use controls on the rig?"), claims))
+    ok("a why question still refuses an unsupported company",
+       any("names" in p and "Chevron" in p
+           for p in check(board("Why does Chevron use controls?"), claims)))
+    ok("a why question still refuses an unsupported figure",
+       any("figure" in p for p in check(board("Why operate 99 rigs?", ("c4",)), claims)))
 
     ok("an evidenced line passes",
        not check(board("A contractor sits in a small office on the rig."), claims))

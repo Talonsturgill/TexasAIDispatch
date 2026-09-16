@@ -1523,7 +1523,26 @@ def freshwater_trace(seed=75):
     return normalize(fade(trace, 20), 0.45)
 
 
+def mineral_drive(seed=76):
+    """The illustrated mineral-test hoist or drill moves under a controlled motor."""
+    dur = 0.9
+    t = t_axis(dur)
+    motor = sine(lambda t: 135 + 25*np.sin(t*np.pi/dur), dur)
+    grit = one_pole_lp(white(dur, seed), 900) * 0.15
+    return normalize(fade((motor*0.65+grit)*np.hanning(len(t)), 20), 0.55)
+
+
+def mineral_control(seed=77):
+    """The illustrated training lever makes physical contact with its stop."""
+    dur = 0.35
+    tap = sine(440, dur)*expdecay(dur, 0.035)
+    body = sine(155, dur)*expdecay(dur, 0.07)*0.4
+    return normalize(fade(tap+body, 5), 0.5)
+
+
 SOUNDS = {
+    "mineral_drive": (mineral_drive, "oneshot", "the visible illustrated mineral rock hoist or drilling tool moving", ["mineral", "rock", "drilling", "test"]),
+    "mineral_control": (mineral_control, "oneshot", "the visible training lever contacting its stop", ["training", "lever", "control"]),
     "freshwater_fault": (freshwater_fault, "oneshot", "the illustrative water pump rotor stopping", ["pump", "water"]),
     "freshwater_trace": (freshwater_trace, "oneshot", "graphic sonification of the visible freshwater model path or empty evidence slot", ["model", "water", "illustration"]),
     "blower_fan": (blower_fan, "ambience", "the visible existing blower fan turning in its permanent magnet motor", ["motor", "blower", "fan"]),

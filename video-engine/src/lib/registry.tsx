@@ -1,3 +1,4 @@
+import * as Proving from './provingground';
 import * as Freshwater from './freshwater';
 import React from 'react';
 import * as Kit from './kit';
@@ -88,6 +89,8 @@ const CastElement: React.FC<any> = (p) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ELEMENTS: Record<string, React.FC<any>> = {
+  provingGroundRig: Proving.ProvingGroundRig,
+  testbenchBackdrop: Proving.TestbenchBackdrop,
   freshwaterSystem: Freshwater.FreshwaterSystem,
   freshwaterBackdrop: Freshwater.FreshwaterBackdrop,
   // people
