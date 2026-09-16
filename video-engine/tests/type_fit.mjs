@@ -93,6 +93,31 @@ try {
   });
   const P = createRequire(import.meta.url)(outfile);
 
+  // The exact long cue that prompted the caption redesign must remain complete,
+  // readable and inside the phone's button rail with the new bold typography.
+  const caption = 'The team would engineer mineral-bearing rock, then place it inside existing wells.';
+  const captionWidth = 918 - 54 - 24 - 24;
+  const fit = P.captionLayout(caption, captionWidth);
+  ok('editorial captions preserve every word in at most three bold lines',
+     fit.lines.join(' ') === caption && fit.lines.length <= 3 && fit.size >= 32);
+  ok('every bold caption line fits beside the phone rail',
+     fit.lines.every((line) => P.widthOf(line, fit.size, true) <= captionWidth));
+  ok('the final caption line is balanced rather than a stranded word',
+     fit.lines.at(-1).split(' ').length > 1);
+  const attribution = '"Thinking Music" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 '
+    + '(https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture';
+  const rawCredit = `TEXAS AI DOCKET\nSOURCES\nSMU News\nU.S. Department of Energy\nMUSIC\n${attribution}`;
+  const creditRows = P.creditLayout(rawCredit, 918 - 78, 850, 1421 - 28);
+  ok('the designed colophon keeps every source and licence character',
+     creditRows.map((row) => row.text).join('').replace(/\s/g, '')
+     === rawCredit.replace('TEXAS AI DOCKET', '').replace(/\s/g, ''));
+  ok('credit baselines and descenders stay above the feed overlay',
+     creditRows.every((row) => row.y + 10 <= 1421 - 28 && row.size >= 22));
+  let refused = false;
+  try { P.creditLayout(('Very long source and attribution '.repeat(100)), 840, 850, 1393); }
+  catch { refused = true; }
+  ok('overfull credits fail instead of dropping attribution below the feed', refused);
+
   if (process.argv.includes('--self-test')) {
     for (const m of MEASURED) {
       const est = P.widthOf(m.s, 30, m.bold);
