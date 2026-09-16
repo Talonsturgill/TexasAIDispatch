@@ -1,0 +1,112 @@
+{
+  "date": "2026-09-16",
+  "source": "Independent pre-synthesis semantic validator",
+  "result": "PASS_WITH_DROPS",
+  "script_sha256": "8e3c65c3474fbc96a1dcfca952666fb3debea96aca5e54c1d41f30401bdbda34",
+  "word_count": 91,
+  "scope": "Nine-line proposed-script.txt. No rendered-film, listening, or live playback review claimed.",
+  "lines": [
+    {
+      "scene_id": "s1",
+      "line": 1,
+      "vo": "Why put mineral-bearing rock underground?",
+      "vo_claims": [
+        "c2",
+        "c8"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "A purpose question about the sourced plan to engineer mineral-bearing rock and put it inside existing wells; no prior extraction, economic value or completed placement is implied."
+    },
+    {
+      "scene_id": "s2",
+      "line": 2,
+      "vo": "SMU plans a test facility at an existing drilling site in Navasota.",
+      "vo_claims": [
+        "c1",
+        "c6",
+        "c8"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Plan, institution, location and test purpose are all sourced."
+    },
+    {
+      "scene_id": "s3",
+      "line": 3,
+      "vo": "The team would engineer mineral-bearing rock, then place it inside existing wells.",
+      "vo_claims": [
+        "c2"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Future/conditional placement; no claim of rock being returned after extraction."
+    },
+    {
+      "scene_id": "s4",
+      "line": 4,
+      "vo": "Drilling and sensing technologies could be tested, again and again.",
+      "vo_claims": [
+        "c3"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Supported repeat technology testing, not restoration of a damaged specimen."
+    },
+    {
+      "scene_id": "s5",
+      "line": 5,
+      "vo": "The project would adapt oilfield automation for mining.",
+      "vo_claims": [
+        "c4"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Oilfield is a plain-language paraphrase of oil-and-gas technology transfer."
+    },
+    {
+      "scene_id": "s6",
+      "line": 6,
+      "vo": "Students and workers would train with AI and digital twins, alongside hands-on practice.",
+      "vo_claims": [
+        "c5"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Would marks planned training; AI is training aid, not a model said to learn trial results."
+    },
+    {
+      "scene_id": "s7",
+      "line": 7,
+      "vo": "For now, the Energy Department has selected the project for award negotiations.",
+      "vo_claims": [
+        "c6"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Preserves DOE’s precise administrative stage."
+    },
+    {
+      "scene_id": "s8",
+      "line": 8,
+      "vo": "These announcements report no completed testbed or test results.",
+      "vo_claims": [
+        "c7"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Absence is explicitly bounded to the two inspected announcements."
+    },
+    {
+      "scene_id": "s9",
+      "line": 9,
+      "vo": "The rock goes in so the tools can be tested.",
+      "vo_claims": [
+        "c2",
+        "c3",
+        "c8"
+      ],
+      "verdict": "PASS",
+      "semantic_check": "Purpose summary within the established planned mechanism; no successful extraction claim."
+    }
+  ],
+  "required_visual_limits": [
+    "Schematic animation must stay visibly framed as a proposed mechanism.",
+    "Never return a drilled specimen to intact condition; replace it for another test or use a cut to a separate test.",
+    "No measured trace can be styled as real project data; label schematic traces as illustrations.",
+    "Human training visuals must indicate planned activity.",
+    "Do not connect sensor output to an AI learning node unless explicitly marked as an unverified idea and omitted from factual narration."
+  ]
+}
