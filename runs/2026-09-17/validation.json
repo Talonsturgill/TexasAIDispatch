@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-17",
+  "source": "validator",
+  "validator_identity": "independent research_education validating different researcher source set",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9"
+  ],
+  "rejected": [
+    "The system/report does not measure how long patients wait for appointments. A published report omitting a measure cannot establish that the system or institution never measures it. Replaced with a statement bounded to the September report.",
+    "Clinic teams are still refining the workflow, including referral orders. Sources establish technical evolution and a launched feature, but not this actor and present-day activity. Replaced with an explicit editorial question for clinic leaders.",
+    "Reported savings prove earlier patient appointments or better clinical outcomes. Administrative processing/time figures and claimed impact are not a measured appointment-wait or patient outcome study. No care outcome is asserted.",
+    "Every fax still requires manual human approval, or all human review was removed. Neither universal is stated. Sources describe partial workflow automation and record integration.",
+    "iDFAX launched on September 16 or September 17, 2026. September 16 is the university report date; both sources describe earlier pilot and deployment.",
+    "Large staff-hour, cost, percent, or appointment-equivalent savings as independently established benefits. Sources are institutional/vendor accounts with differently scoped figures. The film drops magnitudes and appointment equivalents; only attributed time-saved statement remains.",
+    "The animated sample fax demonstrates measured system accuracy or is real patient information. No production system or patient record was inspected. Animation must remain a labelled illustration."
+  ],
+  "required_edits_applied": [
+    "In validated-script.txt, narrowed no-measurement claim to no appointment waiting times in this report.",
+    "In validated-script.txt, replaced unsupported clinic-team current activity with explicit editorial question for clinic leaders.",
+    "Omitted savings magnitudes, appointment equivalents, launch-today framing, universal human-approval assertions and patient benefit claims.",
+    "Mapped narration line by line and distinguished editorial questions/closing framing from empirical claims.",
+    "Replaced ordinal first-handoff metaphor with literal chart arrival and the bounded unanswered earlier-care question.",
+    "Added The before clinic leaders in the editorial question; semantic scope and source conclusions unchanged.",
+    "Orthographic correction only: split UTHealth to UT Health in spoken line 2 to match the two-token U-T Health pronunciation. Same institution and factual claim; no resynthesis or audio alteration."
+  ],
+  "validated_script_sha256": "97d5435626ae334b84a49588bd1da56b37ea399929335fb3c7aeaddbd87867a1",
+  "retrieved_utc": "2026-09-17T12:42:31.362063+00:00",
+  "evidence_manifest": "out/dispatch/validation-source-audit.json",
+  "line_mapping": "out/dispatch/validated-script-map.json",
+  "conditions": [
+    "Publishable text is validated-script.txt; parent must copy those exact lines to board/narration before synthesis.",
+    "No claim is made that validator watched a production system or finished film.",
+    "Animation must be labelled illustration and contain no actual or purported patient details."
+  ]
+}

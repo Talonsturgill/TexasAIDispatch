@@ -1,0 +1,93 @@
+{
+  "date": "2026-09-17",
+  "script": "out/dispatch/validated-script.txt",
+  "lines": [
+    {
+      "line": 1,
+      "text": "A fax arrives. Which patient's chart does it belong in?",
+      "claims": [
+        "c4",
+        "c9"
+      ],
+      "kind": "editorial_question",
+      "note": "Illustrative incoming-document problem, no measured outcome."
+    },
+    {
+      "line": 2,
+      "text": "On September sixteenth, UT Health Houston reported its AI system handling that work.",
+      "claims": [
+        "c1",
+        "c2"
+      ],
+      "kind": "sourced_paraphrase",
+      "note": "Report date, not launch date. UT Health is an orthographic separation of the same UTHealth Houston institutional name and the directed U-T pronunciation; no factual or spoken-word change."
+    },
+    {
+      "line": 3,
+      "text": "Staff used to read each fax and enter the patient details.",
+      "claims": [
+        "c3"
+      ],
+      "kind": "sourced_paraphrase",
+      "note": "Historical manual-work description."
+    },
+    {
+      "line": 4,
+      "text": "Now the software extracts those details and links the document to the chart.",
+      "claims": [
+        "c4",
+        "c9"
+      ],
+      "kind": "sourced_paraphrase",
+      "note": "Conceptual illustration, no perfect-match claim."
+    },
+    {
+      "line": 5,
+      "text": "It also sorts and separates documents, cutting down the filing work.",
+      "claims": [
+        "c5"
+      ],
+      "kind": "sourced_paraphrase",
+      "note": "Administrative workflow only."
+    },
+    {
+      "line": 6,
+      "text": "The university reports time saved. That is its own account.",
+      "claims": [
+        "c6"
+      ],
+      "kind": "attributed_claim",
+      "note": "No magnitude or independent outcome certification."
+    },
+    {
+      "line": 7,
+      "text": "The report gives no appointment waiting times.",
+      "claims": [
+        "c7"
+      ],
+      "kind": "source_scope_audit",
+      "note": "Absence bounded to September university report."
+    },
+    {
+      "line": 8,
+      "text": "The clinic leaders can ask whether less filing means earlier care.",
+      "claims": [
+        "c6",
+        "c7"
+      ],
+      "kind": "editorial_question",
+      "note": "Suggested evaluative question for the clinic leaders in the institutional setting, not a claim that they announced a study or that care improved. Added definite article does not change the source-backed scope."
+    },
+    {
+      "line": 9,
+      "text": "The fax reaches its chart. Earlier care is still a question.",
+      "claims": [
+        "c4",
+        "c7",
+        "c9"
+      ],
+      "kind": "editorial_framing",
+      "note": "Editorial close: source-backed document linking resolves the opening. Earlier care remains an unanswered evaluation question because the report does not give appointment waiting times."
+    }
+  ]
+}

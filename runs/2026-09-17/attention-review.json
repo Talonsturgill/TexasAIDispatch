@@ -1,0 +1,364 @@
+{
+  "schema": "dispatch_attention_review/1",
+  "scope": "Review aid, no automated creative verdict",
+  "board_sha256": "661fd34195071ed0b0100910b923fd7f137a08d8c7828d4657f2116b5d92fb82",
+  "film_sha256": "700392edf23a680775949704610f7ecd06a073c0d374d33dbfdb7dcf2e354930",
+  "width": 1080,
+  "height": 1920,
+  "duration_s": 44.667,
+  "timeline": [
+    {
+      "event_id": "fax-arrives",
+      "item_ids": [
+        "fax"
+      ],
+      "change_type": "reveal",
+      "visible_change": "The incoming fax slides into view from the left",
+      "viewer_reward": "A medical document needs a destination",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s1",
+      "start_s": 0.077,
+      "end_s": 0.753,
+      "event_duration_s": 0.676,
+      "sample_before_s": 0,
+      "sample_after_s": 0.873
+    },
+    {
+      "event_id": "identity-lifts",
+      "item_ids": [
+        "fax"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Patient identity separates from the inked document as a mint glyph",
+      "viewer_reward": "The fax carries the clue to its destination",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s1",
+      "start_s": 0.772,
+      "end_s": 1.351,
+      "event_duration_s": 0.579,
+      "sample_before_s": 0.652,
+      "sample_after_s": 1.471
+    },
+    {
+      "event_id": "record-fan",
+      "item_ids": [
+        "chart"
+      ],
+      "change_type": "comparison",
+      "visible_change": "Several record spines fan open around the identity token",
+      "viewer_reward": "Choosing the appropriate record is the task",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s1",
+      "start_s": 2.606,
+      "end_s": 3.233,
+      "event_duration_s": 0.627,
+      "sample_before_s": 2.4859999999999998,
+      "sample_after_s": 3.353
+    },
+    {
+      "event_id": "clinic-reveal",
+      "item_ids": [
+        "clinic"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "The view opens from the fax to a Houston clinic window and desk",
+      "viewer_reward": "The workflow belongs to a working Houston clinic",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s2",
+      "start_s": 4.618,
+      "end_s": 5.451,
+      "event_duration_s": 0.833,
+      "sample_before_s": 4.498,
+      "sample_after_s": 5.571
+    },
+    {
+      "event_id": "report-dates",
+      "item_ids": [
+        "report"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A dated source leaf unfolds beside the still-visible fax",
+      "viewer_reward": "This is a new report on an existing service",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s2",
+      "start_s": 7.891,
+      "end_s": 8.665,
+      "event_duration_s": 0.774,
+      "sample_before_s": 7.771,
+      "sample_after_s": 8.784999999999998
+    },
+    {
+      "event_id": "staff-reads",
+      "item_ids": [
+        "desk"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The staff member moves a reading pointer along the fax",
+      "viewer_reward": "Staff previously located the identity by hand",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s3",
+      "start_s": 10.552,
+      "end_s": 11.118,
+      "event_duration_s": 0.566,
+      "sample_before_s": 10.432,
+      "sample_after_s": 11.238
+    },
+    {
+      "event_id": "staff-files",
+      "item_ids": [
+        "desk",
+        "chart"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The hand copies the patient marker from the fax into the record",
+      "viewer_reward": "Reading and entry used staff effort",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s3",
+      "start_s": 12.573,
+      "end_s": 13.139,
+      "event_duration_s": 0.566,
+      "sample_before_s": 12.453000000000001,
+      "sample_after_s": 13.258999999999999
+    },
+    {
+      "event_id": "extract-fields",
+      "item_ids": [
+        "fax"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The patient glyph and detail lines lift from the fax into a structured strip",
+      "viewer_reward": "Software extracts identity data",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s4",
+      "start_s": 14.399,
+      "end_s": 15.042,
+      "event_duration_s": 0.643,
+      "sample_before_s": 14.279,
+      "sample_after_s": 15.161999999999999
+    },
+    {
+      "event_id": "match-chart",
+      "item_ids": [
+        "chart"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The matching record spine moves forward as other spines recede",
+      "viewer_reward": "Identity directs the record association",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s4",
+      "start_s": 16.414,
+      "end_s": 17.014,
+      "event_duration_s": 0.6,
+      "sample_before_s": 16.294,
+      "sample_after_s": 17.134
+    },
+    {
+      "event_id": "link-seats",
+      "item_ids": [
+        "fax"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The amber-corner document seats inside the matching mint record",
+      "viewer_reward": "The incoming document reaches its chart",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s4",
+      "start_s": 17.785,
+      "end_s": 18.385,
+      "event_duration_s": 0.6,
+      "sample_before_s": 17.665,
+      "sample_after_s": 18.505000000000003
+    },
+    {
+      "event_id": "split-pages",
+      "item_ids": [
+        "fax"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "A bundled document separates into distinct electronic sheets",
+      "viewer_reward": "Software separates documents for handling",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s5",
+      "start_s": 19.038,
+      "end_s": 19.729,
+      "event_duration_s": 0.691,
+      "sample_before_s": 18.918,
+      "sample_after_s": 19.849
+    },
+    {
+      "event_id": "classify-stack",
+      "item_ids": [
+        "fax",
+        "desk"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Separate sheets settle into distinct trays while the already-linked amber fax stays in its chart",
+      "viewer_reward": "Sorting reduces the manual filing task",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s5",
+      "start_s": 21.294,
+      "end_s": 21.939,
+      "event_duration_s": 0.645,
+      "sample_before_s": 21.174,
+      "sample_after_s": 22.059
+    },
+    {
+      "event_id": "workload-clears",
+      "item_ids": [
+        "desk"
+      ],
+      "change_type": "comparison",
+      "visible_change": "Filing pages clear from a small staff-work clock without a numerical scale",
+      "viewer_reward": "The reported benefit is administrative time",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s6",
+      "start_s": 23.458,
+      "end_s": 24.054,
+      "event_duration_s": 0.596,
+      "sample_before_s": 23.337999999999997,
+      "sample_after_s": 24.174
+    },
+    {
+      "event_id": "source-stamp",
+      "item_ids": [
+        "report"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The source leaf turns to face the viewer beside the clock with its UTHealth label",
+      "viewer_reward": "The result comes from the operator itself",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s6",
+      "start_s": 25.613,
+      "end_s": 26.209,
+      "event_duration_s": 0.596,
+      "sample_before_s": 25.493,
+      "sample_after_s": 26.329
+    },
+    {
+      "event_id": "wait-separates",
+      "item_ids": [
+        "clinic"
+      ],
+      "change_type": "reveal",
+      "visible_change": "A waiting chair and patient emerge beyond the chart, with a separate unmeasured clock",
+      "viewer_reward": "A filed document is not a measured appointment outcome",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s7",
+      "start_s": 27.61,
+      "end_s": 28.135,
+      "event_duration_s": 0.525,
+      "sample_before_s": 27.49,
+      "sample_after_s": 28.255000000000003
+    },
+    {
+      "event_id": "clock-opens",
+      "item_ids": [
+        "report"
+      ],
+      "change_type": "evidence",
+      "visible_change": "An editorial question outside the source account marks the missing appointment-time measurement",
+      "viewer_reward": "The public account has no waiting-time measure",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s7",
+      "start_s": 29.29,
+      "end_s": 29.745,
+      "event_duration_s": 0.455,
+      "sample_before_s": 29.169999999999998,
+      "sample_after_s": 29.865000000000002
+    },
+    {
+      "event_id": "question-handoff",
+      "item_ids": [
+        "desk",
+        "chart",
+        "fax"
+      ],
+      "change_type": "human_action",
+      "visible_change": "A visible hand moves the already-linked chart toward the patient-side threshold",
+      "viewer_reward": "Clinical teams can examine the next handoff",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s8",
+      "start_s": 30.767,
+      "end_s": 31.455,
+      "event_duration_s": 0.688,
+      "sample_before_s": 30.647,
+      "sample_after_s": 31.575
+    },
+    {
+      "event_id": "care-question",
+      "item_ids": [
+        "clinic"
+      ],
+      "change_type": "reveal",
+      "visible_change": "The patient clock remains open with a question mark as the record reaches the threshold",
+      "viewer_reward": "Earlier care remains a question, not a reported result",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s8",
+      "start_s": 33.077,
+      "end_s": 33.716,
+      "event_duration_s": 0.639,
+      "sample_before_s": 32.957,
+      "sample_after_s": 33.836
+    },
+    {
+      "event_id": "bookend-seats",
+      "item_ids": [
+        "chart",
+        "fax"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The folder closes over the retained amber-corner fax, preserving the completed filing",
+      "viewer_reward": "The opening question now has an answer",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s9",
+      "start_s": 35.281,
+      "end_s": 35.941,
+      "event_duration_s": 0.66,
+      "sample_before_s": 35.161,
+      "sample_after_s": 36.061
+    },
+    {
+      "event_id": "patient-remains",
+      "item_ids": [
+        "clinic"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The camera widens enough to retain the patient beyond the closed chart",
+      "viewer_reward": "The chart is filed while the patient outcome remains separate",
+      "continuity_from": "The same amber-corner fax and mint patient glyph remain recognizable across the handoff.",
+      "sound_action": "Soft synthesized document movement follows the visible fax, chart or source leaf; no claim of recorded clinical sound.",
+      "scene_id": "s9",
+      "start_s": 37.686,
+      "end_s": 38.346,
+      "event_duration_s": 0.66,
+      "sample_before_s": 37.566,
+      "sample_after_s": 38.465999999999994
+    }
+  ],
+  "contact_sheet": {
+    "file": "attention-review.png",
+    "sha256": "c79dc1a2d19d0251a10933a951c441b64123af9d667832df749336192c0201a0"
+  },
+  "player": {
+    "file": "attention-review.html",
+    "sha256": "1802ce9e22cf0ccce446c15f3bc1944445b069953dd2e004469d302b7253ec48"
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "created_at": "2026-09-17T12:35:17.301120Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/700392edf23a6807-661fd34195071ed0-f0033f8f3d54bd77/storyboard.json",
+    "board_sha256": "661fd34195071ed0b0100910b923fd7f137a08d8c7828d4657f2116b5d92fb82",
+    "film": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/700392edf23a6807-661fd34195071ed0-f0033f8f3d54bd77/dispatch.mp4",
+    "film_sha256": "700392edf23a680775949704610f7ecd06a073c0d374d33dbfdb7dcf2e354930",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/out/dispatch/deliverables/700392edf23a6807-661fd34195071ed0-f0033f8f3d54bd77/render-manifest.json",
+    "manifest_sha256": "f0033f8f3d54bd77797def743658ce82a627d94b5db06ed70aa43485440ebb2e",
+    "registered_at": "2026-09-17T13:12:59.373333Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 2,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "events": [
+    {
+      "at": "2026-09-17T12:35:17.301293Z",
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-09-17T12:35:17.328862Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-09-17T12:35:31.001622Z",
+      "kind": "reserved",
+      "note": "clinic-and-bench human documentation action",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:35:31.028877Z",
+      "kind": "reserved",
+      "note": "education conversational tutoring",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:35:31.056330Z",
+      "kind": "reserved",
+      "note": "what-texas-makes new deployed automation",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:38:12.411954Z",
+      "kind": "phase",
+      "name": "fact-check"
+    },
+    {
+      "at": "2026-09-17T12:38:12.439315Z",
+      "kind": "reserved",
+      "note": "Independent iDFAX primary source and line-by-line proposed narration audit",
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:48:23.184153Z",
+      "kind": "phase",
+      "name": "storyboard"
+    },
+    {
+      "at": "2026-09-17T12:48:23.270049Z",
+      "kind": "reserved",
+      "note": "Independent red-team of fresh fax-to-chart board after Gate 0",
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:50:12.485817Z",
+      "kind": "reserved",
+      "note": "Critic revision: bind actual prop modes, remove fabricated report field, preserve patient at close",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:54:32.132116Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:55:19.794582Z",
+      "kind": "reserved",
+      "note": "Actual early frames: enlarge manual copy and closing patient reveal, repair cramped stage and desk occlusion",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:58:01.389988Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-17T12:59:41.677839Z",
+      "kind": "phase",
+      "name": "build"
+    },
+    {
+      "at": "2026-09-17T13:00:07.056059Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:01:00.846745Z",
+      "kind": "reserved",
+      "note": "Directed continuous read after inspected passing early animatic",
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:03:10.449387Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:03:36.700630Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2093
+      }
+    },
+    {
+      "at": "2026-09-17T13:03:36.703488Z",
+      "elapsed_ms": 26249,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2093,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-17T13:03:36.738251Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:03:46.215796Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 2075
+      }
+    },
+    {
+      "at": "2026-09-17T13:03:46.218049Z",
+      "elapsed_ms": 9473,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2075,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-17T13:03:47.928335Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:04:23.818308Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "resources": {
+        "reported_tokens": 2244
+      }
+    },
+    {
+      "at": "2026-09-17T13:04:23.820326Z",
+      "elapsed_ms": 35888,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2244,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-17T13:04:23.866690Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:04:30.033662Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resources": {
+        "reported_tokens": 1767
+      }
+    },
+    {
+      "at": "2026-09-17T13:04:30.035911Z",
+      "elapsed_ms": 6164,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1767,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-17T13:10:29.162965Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:11:32.147729Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-17T13:12:40.778972Z",
+      "kind": "phase",
+      "name": "qa"
+    },
+    {
+      "at": "2026-09-17T13:12:59.373342Z",
+      "film_sha256": "700392edf23a680775949704610f7ecd06a073c0d374d33dbfdb7dcf2e354930",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "f0033f8f3d54bd77797def743658ce82a627d94b5db06ed70aa43485440ebb2e",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-17T13:14:02.928565Z",
+      "kind": "reserved",
+      "note": "Three independent judges of first exact final iDFAX film and attention intervals",
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-17T13:23:38.059597Z",
+      "kind": "finished",
+      "report_sha256": "f277115feff3cdd2812eb749b8ad9c90eb7c13732723fd8bad5f1866f4cea807",
+      "result": "publishable",
+      "score": 7.129
+    }
+  ],
+  "final_report": {
+    "film_sha256": "700392edf23a680775949704610f7ecd06a073c0d374d33dbfdb7dcf2e354930",
+    "path": "out/dispatch/report_card.json",
+    "score": 7.129,
+    "sha256": "f277115feff3cdd2812eb749b8ad9c90eb7c13732723fd8bad5f1866f4cea807"
+  },
+  "limits": {
+    "cleanup_renders": 1,
+    "full_renders": 5,
+    "panel_rounds": 5,
+    "preflight_renders": 6,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 15,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "qa",
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-09-17",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": "publishable",
+  "updated_at": "2026-09-17T13:23:38.059604Z",
+  "usage": {
+    "cleanup_renders": 0,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 4,
+    "reboards": 2,
+    "reported_tokens": 8179,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 3,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  }
+}
