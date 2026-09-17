@@ -1,3 +1,4 @@
+import * as Faxwork from './faxwork';
 import * as Proving from './provingground';
 import * as Freshwater from './freshwater';
 import React from 'react';
@@ -89,6 +90,11 @@ const CastElement: React.FC<any> = (p) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ELEMENTS: Record<string, React.FC<any>> = {
+  faxDocument: Faxwork.FaxDocument,
+  faxChart: Faxwork.FaxChart,
+  faxDesk: Faxwork.FaxDesk,
+  faxReport: Faxwork.FaxReport,
+  faxClinic: Faxwork.FaxClinic,
   provingGroundRig: Proving.ProvingGroundRig,
   testbenchBackdrop: Proving.TestbenchBackdrop,
   freshwaterSystem: Freshwater.FreshwaterSystem,
