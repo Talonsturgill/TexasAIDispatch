@@ -64,6 +64,11 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    "faxDocument": {"label"},
+    "faxChart": {"label"},
+    "faxDesk": {"label"},
+    "faxReport": {"label", "date"},
+    "faxClinic": {"label"},
     "provingGroundRig": {"label"},
     "freshwaterSystem": {"label"},
     "compoundRecipe": {"label", "status"},
@@ -143,7 +148,10 @@ def item_visual_tokens(item: dict) -> set[str]:
     kind = str(item.get("kind") or "")
     out = tokens(kind)
     bag = {**item, **(item.get("props") or {})}
-    visible = {key: bag.get(key) for key in VISIBLE_PROPS.get(kind, set()) if key in bag}
+    keys = VISIBLE_PROPS.get(kind, set())
+    if kind == "faxReport" and bag.get("mode") == "limit":
+        keys = keys - {"date"}  # Editorial absence annotation is not a dated source facsimile.
+    visible = {key: bag.get(key) for key in keys if key in bag}
     out |= tokens(" ".join(strings(visible)))
     return out
 
@@ -407,6 +415,17 @@ def self_test() -> int:
     ok("freshwater proof reads its rendered label", "pump" in item_visual_tokens(freshwater))
     freshwater["props"] = {"unrendered_note": "pump stops"}
     ok("freshwater unrendered notes cannot satisfy proof", "pump" not in item_visual_tokens(freshwater))
+    for kind in ("faxDocument", "faxChart", "faxDesk", "faxReport", "faxClinic"):
+        fax = {"kind": kind, "props": {"label": "referral identity", "hidden": "patient outcome"}}
+        ok(f"{kind} painted label supports its concept", concept_match("referral identity", [fax])[0])
+        ok(f"{kind} invisible metadata supplies no evidence", not concept_match("patient outcome", [fax])[0])
+        fax["props"] = {"mode": "referral identity", "description": "referral identity"}
+        ok(f"{kind} mode and description cannot replace a painted label",
+           not concept_match("referral identity", [fax])[0])
+    dated_fax_report = {"kind": "faxReport", "props": {"mode": "report", "date": "September 16th"}}
+    ok("source report date is painted evidence", "september" in item_visual_tokens(dated_fax_report))
+    dated_fax_report["props"]["mode"] = "limit"
+    ok("limit annotation cannot claim an unpainted date", "september" not in item_visual_tokens(dated_fax_report))
     print(f"shot_coherence: {failures} failure(s)")
     return 1 if failures else 0
 

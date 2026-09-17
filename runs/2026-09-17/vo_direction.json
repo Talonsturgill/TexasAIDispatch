@@ -1,0 +1,114 @@
+{
+  "overall": "A knowledgeable person telling one listener about an ordinary clinical chore that reveals a useful AI mechanism. Begin curious and concrete, move with purpose through the filing actions, then lower the energy as the report reaches its source limit. Keep the delivery slightly dry, clear and conversational. The emotional turn comes from changing emphasis and intention, not from exaggerated pitch or volume. The source limit is the quietest point but remains fully audible. End grounded, with the physical question answered and the care question still open. Read the locked words exactly; the picture follows the natural performance, and the voice is never time-stretched.",
+  "lines": [
+    {
+      "text": "A fax arrives. Which patient's chart does it belong in?",
+      "intent": "Make the arriving object immediate, then ask the practical matching question with mild curiosity.",
+      "emphasis": "chart",
+      "energy": "3 of 5; alert opening, with a small inquisitive lift",
+      "pause_after": 0.1,
+      "risk": "Keep the short opening statement connected to the question; avoid theatrical suspense."
+    },
+    {
+      "text": "On September sixteenth, UT Health Houston reported its AI system handling that work.",
+      "intent": "Locate the report and identify the institution plainly. Speak UT Health as you tee Health and Houston as HYOO-stun; AI as ay eye.",
+      "emphasis": "reported",
+      "energy": "3 of 5; settle into grounded explanation",
+      "pause_after": 0.0,
+      "risk": "Date plus institution and acronym lengthen the line. Enunciate without racing or separating the name into disconnected fragments."
+    },
+    {
+      "text": "Staff used to read each fax and enter the patient details.",
+      "intent": "Make the repetitive human task tangible, with a slight weight on the manual action.",
+      "emphasis": "read",
+      "energy": "2 of 5; a modest downward step toward the staff task",
+      "pause_after": 0.0,
+      "risk": "Keep patient details together; this describes the prior workflow, not a universal claim about present-day staffing."
+    },
+    {
+      "text": "Now the software extracts those details and links the document to the chart.",
+      "intent": "Carry the listener through extraction to the chart in a single purposeful forward movement.",
+      "emphasis": "links",
+      "energy": "4 of 5; clearest lift as the mechanism resolves",
+      "pause_after": 0.0,
+      "risk": "Longest mechanism sentence. Maintain connected phrasing across both verbs; do not insert a breath after details."
+    },
+    {
+      "text": "It also sorts and separates documents, cutting down the filing work.",
+      "intent": "Continue the explanation as another useful physical action, then ease out of the list.",
+      "emphasis": "separates",
+      "energy": "3 of 5; sustain motion, a little lower than the reveal",
+      "pause_after": 0.1,
+      "risk": "Keep sorts and separates distinct but unforced. Comma changes inflection rather than creating a gap."
+    },
+    {
+      "text": "The university reports time saved. That is its own account.",
+      "intent": "Turn from operation to evidence ownership; make the institutional attribution audible and matter-of-fact.",
+      "emphasis": "reports",
+      "energy": "2 of 5; lower energy signals the evidentiary turn",
+      "pause_after": 0.1,
+      "risk": "The short second sentence stays connected to the first; no sarcastic stress or insinuation."
+    },
+    {
+      "text": "The report gives no appointment waiting times.",
+      "intent": "Land the precise missing measure simply; give the negation clean presence without dramatizing it.",
+      "emphasis": "no",
+      "energy": "1 of 5; quietest energy, fully voiced at clear normal audibility",
+      "pause_after": 0.3,
+      "risk": "Do not whisper or swallow appointment waiting times. The limitation concerns this report only."
+    },
+    {
+      "text": "The clinic leaders can ask whether less filing means earlier care.",
+      "intent": "Bring the listener back to the practical question a clinic leader can ask, with a modest human lift.",
+      "emphasis": "care",
+      "energy": "2 of 5; gently engaged after the limit, no sales pitch",
+      "pause_after": 0.0,
+      "risk": "Keep whether as a real condition. Do not sound as though earlier care has been demonstrated."
+    },
+    {
+      "text": "The fax reaches its chart. Earlier care is still a question.",
+      "intent": "Resolve the document journey in the first sentence, then finish lower on the still-open outcome question.",
+      "emphasis": "question",
+      "energy": "2 of 5; grounded close, below the mechanism peak",
+      "pause_after": 0.3,
+      "risk": "Second sentence is a declarative limit, with a falling finish. No extra words or trailing sigh."
+    }
+  ],
+  "pause_units": "beats; editorial intent only, deliberately excluded from synthesis direction by split_direction",
+  "continuity": "One whole-passage synthesis call. Connected explanation, energy contrast and ordinary punctuation; no prescribed silence between each sentence. Pauses above are available to the editor, not fixed gaps for the reader.",
+  "pronunciation_check": {
+    "guide": "../TexasAIDocket/knowledge/shared/TEXAS_PRONUNCIATION.md",
+    "AI": "Separate letter names: ay eye",
+    "September sixteenth": "Normal date pronunciation; maintain final th consonant.",
+    "UT Health Houston": "U-T Health Houston: you tee Health HYOO-stun; instruction explicitly requested by the director, Houston matched to Texas pronunciation guide"
+  },
+  "voice_source": "config/voices.yaml; synthesis resolves the configured voice, no voice override is embedded in the prompt",
+  "voice_config_status": "default_pending_audition",
+  "timing_risk": "Line 2 carries the date, institution and acronym; line 4 has the longest linked action. Preserve natural cadence and words. If either is overlong, notify the director for a picture retime or an authorized script trim followed by renewed evidence binding; do not alter the locked script or stretch the take.",
+  "script_sha256": "97d5435626ae334b84a49588bd1da56b37ea399929335fb3c7aeaddbd87867a1",
+  "expressive_prompt": "You are performing a narration for a short documentary film. Read ONLY the text inside the fenced block at the end of this message, exactly as written, and speak none of these instructions.\n\nDelivery: a person who knows the subject, telling you something they think you should know, at the pace somebody actually talks. Slightly dry. The authority comes from the facts being right, so the delivery does not work for it. Not a news anchor, not a documentary hush, not an explainer's bright upward lilt.\n\nPacing: read it as one continuous passage. A normal breath at a full stop is right. Never pause inside a sentence, and never hold a silence between sentences. The film is cut to this recording afterwards and the edit puts in every pause it needs, so silence left here becomes a hole in the finished picture.\n\nPer-line direction:\nA knowledgeable person telling one listener about an ordinary clinical chore that reveals a useful AI mechanism. Begin curious and concrete, move with purpose through the filing actions, then lower the energy as the report reaches its source limit. Keep the delivery slightly dry, clear and conversational. The emotional turn comes from changing emphasis and intention, not from exaggerated pitch or volume. The source limit is the quietest point but remains fully audible. End grounded, with the physical question answered and the care question still open. Read the locked words exactly; the picture follows the natural performance, and the voice is never time-stretched.\nLine 1; intent: Make the arriving object immediate, then ask the practical matching question with mild curiosity.; emphasis: chart; energy: 3 of 5; alert opening, with a small inquisitive lift\nLine 2; intent: Locate the report and identify the institution plainly. Speak UT Health as you tee Health and Houston as HYOO-stun; AI as ay eye.; emphasis: reported; energy: 3 of 5; settle into grounded explanation\nLine 3; intent: Make the repetitive human task tangible, with a slight weight on the manual action.; emphasis: read; energy: 2 of 5; a modest downward step toward the staff task\nLine 4; intent: Carry the listener through extraction to the chart in a single purposeful forward movement.; emphasis: links; energy: 4 of 5; clearest lift as the mechanism resolves\nLine 5; intent: Continue the explanation as another useful physical action, then ease out of the list.; emphasis: separates; energy: 3 of 5; sustain motion, a little lower than the reveal\nLine 6; intent: Turn from operation to evidence ownership; make the institutional attribution audible and matter-of-fact.; emphasis: reports; energy: 2 of 5; lower energy signals the evidentiary turn\nLine 7; intent: Land the precise missing measure simply; give the negation clean presence without dramatizing it.; emphasis: no; energy: 1 of 5; quietest energy, fully voiced at clear normal audibility\nLine 8; intent: Bring the listener back to the practical question a clinic leader can ask, with a modest human lift.; emphasis: care; energy: 2 of 5; gently engaged after the limit, no sales pitch\nLine 9; intent: Resolve the document journey in the first sentence, then finish lower on the still-open outcome question.; emphasis: question; energy: 2 of 5; grounded close, below the mechanism peak\n\n-----BEGIN SPOKEN TEXT-----\nA fax arrives. Which patient's chart does it belong in?\nOn September sixteenth, UT Health Houston reported its AI system handling that work.\nStaff used to read each fax and enter the patient details.\nNow the software extracts those details and links the document to the chart.\nIt also sorts and separates documents, cutting down the filing work.\nThe university reports time saved. That is its own account.\nThe report gives no appointment waiting times.\nThe clinic leaders can ask whether less filing means earlier care.\nThe fax reaches its chart. Earlier care is still a question.\n-----END SPOKEN TEXT-----\n",
+  "consistency_verification": {
+    "script_words": 97,
+    "script_lines": 9,
+    "direction_lines_match": true,
+    "spoken_body_exact": true,
+    "single_spoken_fence": true,
+    "pause_after_excluded_from_reader": true,
+    "configured_voice": "Charon",
+    "voice_name_excluded_from_prompt": true,
+    "prompt_refusals": [],
+    "synthesis_performed": false,
+    "orthographic_update_only": true,
+    "current_board_evidence_recheck": "Root must rerun after syncing board and vo_script; this update checked exact direction/script text only."
+  },
+  "orthographic_correction": {
+    "date": "2026-09-17T13:06:48.325002+00:00",
+    "before": "On September sixteenth, UTHealth Houston reported its AI system handling that work.",
+    "after": "On September sixteenth, UT Health Houston reported its AI system handling that work.",
+    "reason": "Separate the institution token UTHealth into UT Health to represent the same pronounced U-T Health sequence. No change of institution, proposition or audio.",
+    "alignment_observation": "Parent reports both whole-take ASR transcripts otherwise exact and this tokenization discrepancy; this orthographic approval does not claim independent listening.",
+    "actual_synthesized_prompt": "out/dispatch/takes/prompt.txt",
+    "actual_synthesized_prompt_sha256": "f8942312536a376c3f5ff51b77c6d492ca7632f84d9e682916971271198a0494",
+    "assembled_prompt_status": "Regenerated for current orthography only; not sent for synthesis."
+  }
+}

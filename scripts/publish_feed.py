@@ -82,7 +82,8 @@ FFMPEG = find_ffmpeg()
 
 # The rendition. 720x1280 keeps the vertical shape, and the bitrate is the one that held the
 # subtitle band legible at 720 in a side by side, which is the only thing in this film that
-# fails first under compression.
+# fails first under compression. Use it as a ceiling, not a bitrate target: simple vector
+# films otherwise grow larger than their master. CRF preserves detail without padding them.
 MOBILE_H = 1280
 MOBILE_BITRATE = "1400k"
 MOBILE_AUDIO = "96k"
@@ -155,7 +156,8 @@ def renditions(run: Path) -> tuple[bool, bool]:
     if not mobile.exists():
         subprocess.run([str(FFMPEG), "-v", "error", "-y", "-i", str(film),
                         "-vf", f"scale=-2:{MOBILE_H}", "-c:v", "libx264", "-preset", "medium",
-                        "-b:v", MOBILE_BITRATE, "-profile:v", "high", "-pix_fmt", "yuv420p",
+                        "-crf", "23", "-maxrate", MOBILE_BITRATE, "-bufsize", "2800k",
+                        "-profile:v", "high", "-pix_fmt", "yuv420p",
                         "-movflags", "+faststart",
                         "-c:a", "aac", "-b:a", MOBILE_AUDIO, str(mobile)], check=True)
     if not thumb.exists() and poster.exists():
