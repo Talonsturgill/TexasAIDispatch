@@ -1,0 +1,339 @@
+{
+  "schema": "dispatch_attention_review/1",
+  "scope": "Review aid, no automated creative verdict",
+  "board_sha256": "5e20324d970bca3e058728a47043b8a68bfc4354e0348692a1d21670342f3214",
+  "film_sha256": "636b03c2087e5904a93063a0c703e8f3657af3c9aba1c6d79097c0375f74da02",
+  "width": 1080,
+  "height": 1920,
+  "duration_s": 51.8,
+  "timeline": [
+    {
+      "event_id": "reach-stop",
+      "item_ids": [
+        "participant",
+        "robot",
+        "cup"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The person reaches toward the mug and stops with a clear gap.",
+      "viewer_reward": "The person reaches toward the mug and stops with a clear gap.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s1",
+      "start_s": 0.242,
+      "end_s": 0.92,
+      "event_duration_s": 0.678,
+      "sample_before_s": 0.122,
+      "sample_after_s": 1.04
+    },
+    {
+      "event_id": "gap-reveal",
+      "item_ids": [
+        "robot",
+        "cup"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The wrist and cup remain separated as the robot rotates its elbow.",
+      "viewer_reward": "The wrist and cup remain separated as the robot rotates its elbow.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s1",
+      "start_s": 3.049,
+      "end_s": 3.727,
+      "event_duration_s": 0.678,
+      "sample_before_s": 2.929,
+      "sample_after_s": 3.847
+    },
+    {
+      "event_id": "award-enter",
+      "item_ids": [
+        "evidence"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A federal award sheet slides into the room beside the robot.",
+      "viewer_reward": "A federal award sheet slides into the room beside the robot.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold.",
+      "scene_id": "s2",
+      "start_s": 5.141,
+      "end_s": 5.984,
+      "event_duration_s": 0.843,
+      "sample_before_s": 5.021,
+      "sample_after_s": 6.104
+    },
+    {
+      "event_id": "room-reveal",
+      "item_ids": [
+        "room",
+        "participant"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "The laboratory wall opens to the apartment workspace and person.",
+      "viewer_reward": "The laboratory wall opens to the apartment workspace and person.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s2",
+      "start_s": 8.633,
+      "end_s": 9.476,
+      "event_duration_s": 0.843,
+      "sample_before_s": 8.513,
+      "sample_after_s": 9.596
+    },
+    {
+      "event_id": "arm-adjust",
+      "item_ids": [
+        "robot",
+        "cup"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The robot lowers its wrist toward the persons comfortable reach.",
+      "viewer_reward": "The robot lowers its wrist toward the persons comfortable reach.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s3",
+      "start_s": 11.137,
+      "end_s": 11.913,
+      "event_duration_s": 0.776,
+      "sample_before_s": 11.017000000000001,
+      "sample_after_s": 12.033
+    },
+    {
+      "event_id": "person-respond",
+      "item_ids": [
+        "participant"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The person raises a free hand in response to the adjusted offer.",
+      "viewer_reward": "The person raises a free hand in response to the adjusted offer.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s3",
+      "start_s": 14.35,
+      "end_s": 15.126,
+      "event_duration_s": 0.776,
+      "sample_before_s": 14.23,
+      "sample_after_s": 15.245999999999999
+    },
+    {
+      "event_id": "cup-deliver",
+      "item_ids": [
+        "cup",
+        "participant"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The mug crosses the remaining gap into the offered hand.",
+      "viewer_reward": "The mug crosses the remaining gap into the offered hand.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Soft ceramic contact when the person supports the mug, then silence.",
+      "scene_id": "s4",
+      "start_s": 16.602,
+      "end_s": 17.168,
+      "event_duration_s": 0.566,
+      "sample_before_s": 16.482,
+      "sample_after_s": 17.288
+    },
+    {
+      "event_id": "gripper-release",
+      "item_ids": [
+        "robot",
+        "cup"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The robot opens its gripper after the person supports the mug.",
+      "viewer_reward": "The robot opens its gripper after the person supports the mug.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s4",
+      "start_s": 18.945,
+      "end_s": 19.511,
+      "event_duration_s": 0.566,
+      "sample_before_s": 18.825,
+      "sample_after_s": 19.631
+    },
+    {
+      "event_id": "home-open",
+      "item_ids": [
+        "room"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "A home doorway opens behind the same robot and person.",
+      "viewer_reward": "A home doorway opens behind the same robot and person.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s5",
+      "start_s": 20.668,
+      "end_s": 21.306,
+      "event_duration_s": 0.638,
+      "sample_before_s": 20.548,
+      "sample_after_s": 21.426000000000002
+    },
+    {
+      "event_id": "reach-changes",
+      "item_ids": [
+        "participant",
+        "robot",
+        "cup"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The same persons hand and supported cup move lower; the robot lowers its open gripper in response.",
+      "viewer_reward": "The same persons hand and supported cup move lower; the robot lowers its open gripper in response.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s5",
+      "start_s": 23.313,
+      "end_s": 23.951,
+      "event_duration_s": 0.638,
+      "sample_before_s": 23.192999999999998,
+      "sample_after_s": 24.071
+    },
+    {
+      "event_id": "frame-reveal",
+      "item_ids": [
+        "evidence",
+        "room"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The university source sheet enters above the illustration without framing it as a photograph.",
+      "viewer_reward": "The university source sheet enters above the illustration without framing it as a photograph.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold.",
+      "scene_id": "s6",
+      "start_s": 25.219,
+      "end_s": 25.832,
+      "event_duration_s": 0.613,
+      "sample_before_s": 25.099,
+      "sample_after_s": 25.952
+    },
+    {
+      "event_id": "boundary-reveal",
+      "item_ids": [
+        "evidence"
+      ],
+      "change_type": "reveal",
+      "visible_change": "The care-results field slides away from the mug demonstration field, leaving visible separation.",
+      "viewer_reward": "The care-results field slides away from the mug demonstration field, leaving visible separation.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold.",
+      "scene_id": "s6",
+      "start_s": 27.759,
+      "end_s": 28.372,
+      "event_duration_s": 0.613,
+      "sample_before_s": 27.639,
+      "sample_after_s": 28.492
+    },
+    {
+      "event_id": "page-open",
+      "item_ids": [
+        "evidence"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The announcement sheet slides into view with the consent commitment.",
+      "viewer_reward": "The announcement sheet slides into view with the consent commitment.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold.",
+      "scene_id": "s7",
+      "start_s": 29.714,
+      "end_s": 30.649,
+      "event_duration_s": 0.935,
+      "sample_before_s": 29.593999999999998,
+      "sample_after_s": 30.769000000000002
+    },
+    {
+      "event_id": "choice-open",
+      "item_ids": [
+        "door",
+        "participant"
+      ],
+      "change_type": "human_action",
+      "visible_change": "An unselected participation door opens beside the person, an illustration of future choice.",
+      "viewer_reward": "An unselected participation door opens beside the person, an illustration of future choice.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s7",
+      "start_s": 33.588,
+      "end_s": 34.523,
+      "event_duration_s": 0.935,
+      "sample_before_s": 33.468,
+      "sample_after_s": 34.643
+    },
+    {
+      "event_id": "person-choose",
+      "item_ids": [
+        "participant",
+        "door"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The person raises a hand and the doorway stays under their control.",
+      "viewer_reward": "The person raises a hand and the doorway stays under their control.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s8",
+      "start_s": 36.312,
+      "end_s": 37.018,
+      "event_duration_s": 0.706,
+      "sample_before_s": 36.192,
+      "sample_after_s": 37.138
+    },
+    {
+      "event_id": "robot-yield",
+      "item_ids": [
+        "robot",
+        "door"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The robot rolls back from the threshold, leaving space for the person.",
+      "viewer_reward": "The robot rolls back from the threshold, leaving space for the person.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s8",
+      "start_s": 39.235,
+      "end_s": 39.941,
+      "event_duration_s": 0.706,
+      "sample_before_s": 39.115,
+      "sample_after_s": 40.061
+    },
+    {
+      "event_id": "support-reveal",
+      "item_ids": [
+        "participant",
+        "cup"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The person lifts the supported cup, moving their hand and mug together.",
+      "viewer_reward": "The person lifts the supported cup, moving their hand and mug together.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s9",
+      "start_s": 41.31,
+      "end_s": 41.897,
+      "event_duration_s": 0.587,
+      "sample_before_s": 41.190000000000005,
+      "sample_after_s": 42.016999999999996
+    },
+    {
+      "event_id": "finish-hand",
+      "item_ids": [
+        "robot"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The open robot gripper withdraws while the person keeps the mug within reach.",
+      "viewer_reward": "The open robot gripper withdraws while the person keeps the mug within reach.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet.",
+      "scene_id": "s9",
+      "start_s": 44.691,
+      "end_s": 45.278,
+      "event_duration_s": 0.587,
+      "sample_before_s": 44.571000000000005,
+      "sample_after_s": 45.397999999999996
+    }
+  ],
+  "contact_sheet": {
+    "file": "attention-review.png",
+    "sha256": "83657fcd46bf7e9d20d0251ce933ab65912c43801bce7071b34d402aa30b8def"
+  },
+  "player": {
+    "file": "attention-review.html",
+    "sha256": "4fcf2be52282970fc9fd0898acf55b8ad0f0f98d773e9fc495cf4213a6561f01"
+  }
+}

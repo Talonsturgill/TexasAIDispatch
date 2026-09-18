@@ -1,0 +1,163 @@
+{
+  "date": "2026-09-18",
+  "source": "Independent validator: fresh NSF API response, NSF center announcement, UT center announcement and all three alternative URLs re-fetched independently; raw award response also retrieved with urllib after browser fetch error.",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+  ],
+  "rejected": [
+    "The award or center was newly announced today: rejected. Federal award date is August 25, university announcement August 27, and award term start September 1.",
+    "The drawn out-of-reach cup failure occurred at UT: rejected. The source describes no such failed handoff; all depicted sequences require ILLUSTRATION / RESEARCH GOAL labeling.",
+    "Consent and opt-out procedures are already implemented: rejected. The university describes work the ethics board will develop.",
+    "Robots already deliver improved rehabilitation, independent living, reduced caregiver work, or safe long-term deployment: rejected. These sources establish aims and demonstration imagery, not care outcomes.",
+    "The two docket entries establish separate awards: rejected. Both refer to federal award 2535195.",
+    "Current header date of Eastwoods Park faculty spotlight proves a fresh deployment: rejected as unestablished publication provenance; excluded from approved narration.",
+    "The Sony haptic demonstration establishes autonomous AI Jenga: rejected. Fresh page describes teleoperation and does not substantiate that claim."
+  ],
+  "required_edits_applied": [
+    "Replaced the seventh approved narration line with explicit future-tense consent development in this approved-text record.",
+    "Restricted all physical cup imagery to native illustration/research-goal meaning; no observed failure claim is approved.",
+    "Scoped absence of care results to the university announcement, rather than asserting no research exists elsewhere.",
+    "Excluded duplicate-award, current-deployment, clinical-benefit, and already-complete-consent interpretations from claims.",
+    "Widened c1 verbatim data excerpt to include freshly re-fetched awardeeName, title and startDate fields so the quote-based evidence checker can verify UT Austin.",
+    "Changed approved line eight to The community is meant to help shape where and how robots are deployed; same verified meaning and c6 mapping.",
+    "Approved the grammar-only generic singular a robot in line eight; c6 and its future participation scope remain unchanged."
+  ],
+  "approved_spoken_lines": [
+    {
+      "line": 1,
+      "text": "A robot can offer a cup and still miss the person.",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ],
+      "qualification": "Editorial illustrative hook; must not be presented as observed robot failure."
+    },
+    {
+      "line": 2,
+      "text": "At UT Austin, a federally funded research center began its award term this month.",
+      "claim_ids": [
+        "c1"
+      ],
+      "qualification": "September 2026 edition only. Term start, not facility opening."
+    },
+    {
+      "line": 3,
+      "text": "The researchers describe a goal. A robot could adjust its reach to a person.",
+      "claim_ids": [
+        "c3"
+      ],
+      "qualification": "Conditional research illustration."
+    },
+    {
+      "line": 4,
+      "text": "The point is to bring the drink where that person can reach it.",
+      "claim_ids": [
+        "c3"
+      ],
+      "qualification": "Explanation of proposed benefit, not measured result."
+    },
+    {
+      "line": 5,
+      "text": "The harder test is sharing homes and care settings over time.",
+      "claim_ids": [
+        "c2"
+      ],
+      "qualification": "Editorial difficulty comparison grounded in long-term research scope."
+    },
+    {
+      "line": 6,
+      "text": "The university pictures a mug handoff in a simulated apartment.",
+      "claim_ids": [
+        "c4"
+      ],
+      "qualification": "The source photograph is a demonstration setting; native film artwork is illustration."
+    },
+    {
+      "line": 7,
+      "text": "Its announcement says consent and opt out procedures will be developed. It reports no care results.",
+      "claim_ids": [
+        "c5"
+      ],
+      "qualification": "Future commitment and explicit source limit."
+    },
+    {
+      "line": 8,
+      "text": "The community is meant to help shape where and how a robot is deployed.",
+      "claim_ids": [
+        "c6"
+      ],
+      "qualification": "Generic singular a robot preserves the promised community role in deployment decisions; this is not a named robot or an operating enrollment claim."
+    },
+    {
+      "line": 9,
+      "text": "The useful handoff ends within reach. The research still has to get there.",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ],
+      "qualification": "Editorial ending about establishing sustained useful assistance; must not imply robots cannot currently pass cups."
+    }
+  ],
+  "approved_supers": [
+    {
+      "text": "UT Austin",
+      "claim_ids": [
+        "c1"
+      ],
+      "qualification": "Verified institution."
+    },
+    {
+      "text": "Award term began this month",
+      "claim_ids": [
+        "c1"
+      ],
+      "qualification": "September edition only."
+    },
+    {
+      "text": "Research goal",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ],
+      "qualification": "Required distinction from current performance."
+    },
+    {
+      "text": "Simulated apartment",
+      "claim_ids": [
+        "c4"
+      ],
+      "qualification": "Use only when discussing the university demonstration setting."
+    },
+    {
+      "text": "Consent still to develop",
+      "claim_ids": [
+        "c5"
+      ],
+      "qualification": "Announcement future-tense commitment; not a finding that current lab work lacks consent."
+    },
+    {
+      "text": "Within reach",
+      "claim_ids": [
+        "c3"
+      ],
+      "qualification": "Illustrative goal only, not an achieved clinical result."
+    }
+  ],
+  "scope": "Source/wording approval only. No narration synthesis, frame, audio, or final-film approval is claimed. Conditions must be maintained in the rendered film.",
+  "quote_context_note": "Quotes are verbatim short source excerpts; complete surrounding paragraphs and entire pages were re-fetched and read. Source locators identify the complete context without reproducing the copyrighted article.",
+  "completed_at_utc": "2026-09-18T17:04:40.908569+00:00",
+  "fetched_urls": [
+    "https://api.nsf.gov/services/v1/awards.json?id=2535195&printFields=id,title,awardeeName,awardeeStateCode,awardeeCity,piFirstName,piLastName,date,startDate,expDate,estimatedTotalAmt,fundsObligatedAmt,abstractText,fundProgramName",
+    "https://news.utexas.edu/2026/08/27/ut-to-lead-nsf-center-that-will-study-how-robots-and-people-learn-to-live-and-work-together/",
+    "https://www.nsf.gov/news/nsf-launches-three-new-science-technology-centers-90m",
+    "https://sites.utexas.edu/hcrl/2026/09/04/reimagining-human-robot-interaction-a-sony-ut-austin-collaboration/",
+    "https://www.cs.utexas.edu/news/2026/roberto-martin-martin-earns-nsf-career-award-household-robotics-research",
+    "https://robotics.utexas.edu/index.php/news/201"
+  ]
+}
