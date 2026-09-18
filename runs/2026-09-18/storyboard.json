@@ -1,0 +1,1932 @@
+{
+  "date": "2026-09-18",
+  "title": "Within reach",
+  "beat": "science-machines",
+  "entities": [
+    "UT Austin",
+    "human and robot co-adaptation",
+    "Joydeep Biswas",
+    "NSF 2535195"
+  ],
+  "runtime_s": 46.8,
+  "credits_s": 5,
+  "credits": "TEXAS AI DOCKET\nSOURCES\nUT Austin\nNSF award record\n\nMUSIC\n\"Thinking Music\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "derived_from": "scratch",
+  "divergence_note": "This episode starts inside a physical handoff, follows a single coral mug between a mobile robot and an older participant, opens the room into research settings, then gives the participant control of the doorway. It replaces the prior exploded paperwork and vertical borehole with eye-level domestic action and a continuous human-scale relationship.",
+  "fingerprint": {
+    "pov": "eye-level-immersive",
+    "motion_vector": "horizontal-traverse",
+    "hero_treatment": "single-worker-hero",
+    "layout": "centered-hero-lowerthird",
+    "register": "naturalistic-scene",
+    "camera_strategy": "truckAcross",
+    "light_story": "noon-hard",
+    "palette": "plaster cream, sage green, coral ceramic and graphite",
+    "metaphor": "the cup must cross the last gap on the persons terms"
+  },
+  "cinematic_template": "coadapt-handoff-v1",
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "The coral mug offered by the robot to the same participant",
+      "opening_state": "beyond the persons comfortable reach",
+      "closing_state": "supported within reach as a research goal, not a proven patient benefit",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ]
+    },
+    "turn_scene": "s6",
+    "button": "The handoff can reach the person while the research still has work ahead."
+  },
+  "fauna_scope": {
+    "status": "none",
+    "reason": "Indoor assistive robotics research and participant choice contain no animal-related fact."
+  },
+  "documentary": {
+    "schema": "dispatch_documentary/1",
+    "viewer_question": "Does offering a cup mean the robot has helped the person?",
+    "payoff": "The visible reach gap makes task completion different from useful assistance.",
+    "source_limit": "Reach adjustment is a proposed research goal; the reported photograph is a simulated apartment and the sources establish no care outcome.",
+    "hero_image": "A coral mug moves from an unreachable robot grip toward the same human hand.",
+    "closing_answer": "The goal is assistance within the persons reach; testing and participant choice remain work to do.",
+    "hook_payoff_event": "reach-stop"
+  },
+  "attention_beats": [
+    {
+      "event_id": "reach-stop",
+      "item_ids": [
+        "participant",
+        "robot",
+        "cup"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The person reaches toward the mug and stops with a clear gap.",
+      "viewer_reward": "The person reaches toward the mug and stops with a clear gap.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "gap-reveal",
+      "item_ids": [
+        "robot",
+        "cup"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The wrist and cup remain separated as the robot rotates its elbow.",
+      "viewer_reward": "The wrist and cup remain separated as the robot rotates its elbow.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "award-enter",
+      "item_ids": [
+        "evidence"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A federal award sheet slides into the room beside the robot.",
+      "viewer_reward": "A federal award sheet slides into the room beside the robot.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold."
+    },
+    {
+      "event_id": "room-reveal",
+      "item_ids": [
+        "room",
+        "participant"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "The laboratory wall opens to the apartment workspace and person.",
+      "viewer_reward": "The laboratory wall opens to the apartment workspace and person.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "arm-adjust",
+      "item_ids": [
+        "robot",
+        "cup"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The robot lowers its wrist toward the persons comfortable reach.",
+      "viewer_reward": "The robot lowers its wrist toward the persons comfortable reach.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "person-respond",
+      "item_ids": [
+        "participant"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The person raises a free hand in response to the adjusted offer.",
+      "viewer_reward": "The person raises a free hand in response to the adjusted offer.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "cup-deliver",
+      "item_ids": [
+        "cup",
+        "participant"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The mug crosses the remaining gap into the offered hand.",
+      "viewer_reward": "The mug crosses the remaining gap into the offered hand.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Soft ceramic contact when the person supports the mug, then silence."
+    },
+    {
+      "event_id": "gripper-release",
+      "item_ids": [
+        "robot",
+        "cup"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The robot opens its gripper after the person supports the mug.",
+      "viewer_reward": "The robot opens its gripper after the person supports the mug.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "home-open",
+      "item_ids": [
+        "room"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "A home doorway opens behind the same robot and person.",
+      "viewer_reward": "A home doorway opens behind the same robot and person.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "reach-changes",
+      "item_ids": [
+        "participant",
+        "robot",
+        "cup"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The same persons hand and supported cup move lower; the robot lowers its open gripper in response.",
+      "viewer_reward": "The same persons hand and supported cup move lower; the robot lowers its open gripper in response.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "frame-reveal",
+      "item_ids": [
+        "evidence",
+        "room"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The university source sheet enters above the illustration without framing it as a photograph.",
+      "viewer_reward": "The university source sheet enters above the illustration without framing it as a photograph.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold."
+    },
+    {
+      "event_id": "boundary-reveal",
+      "item_ids": [
+        "evidence"
+      ],
+      "change_type": "reveal",
+      "visible_change": "The care-results field slides away from the mug demonstration field, leaving visible separation.",
+      "viewer_reward": "The care-results field slides away from the mug demonstration field, leaving visible separation.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold."
+    },
+    {
+      "event_id": "page-open",
+      "item_ids": [
+        "evidence"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The announcement sheet slides into view with the consent commitment.",
+      "viewer_reward": "The announcement sheet slides into view with the consent commitment.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Paper rustle on the moving source sheet, then a quiet hold."
+    },
+    {
+      "event_id": "choice-open",
+      "item_ids": [
+        "door",
+        "participant"
+      ],
+      "change_type": "human_action",
+      "visible_change": "An unselected participation door opens beside the person, an illustration of future choice.",
+      "viewer_reward": "An unselected participation door opens beside the person, an illustration of future choice.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "person-choose",
+      "item_ids": [
+        "participant",
+        "door"
+      ],
+      "change_type": "human_action",
+      "visible_change": "The person raises a hand and the doorway stays under their control.",
+      "viewer_reward": "The person raises a hand and the doorway stays under their control.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "robot-yield",
+      "item_ids": [
+        "robot",
+        "door"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The robot rolls back from the threshold, leaving space for the person.",
+      "viewer_reward": "The robot rolls back from the threshold, leaving space for the person.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "support-reveal",
+      "item_ids": [
+        "participant",
+        "cup"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The person lifts the supported cup, moving their hand and mug together.",
+      "viewer_reward": "The person lifts the supported cup, moving their hand and mug together.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    },
+    {
+      "event_id": "finish-hand",
+      "item_ids": [
+        "robot"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The open robot gripper withdraws while the person keeps the mug within reach.",
+      "viewer_reward": "The open robot gripper withdraws while the person keeps the mug within reach.",
+      "continuity_from": "The same coral mug and civilian participant persist with the same robot.",
+      "sound_action": "Quiet synthetic servo follows the moving robot joint; human holds stay quiet."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 4.84,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "dollyThrough",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 160
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "reach-detail"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "worried",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "near apartment shelf edge",
+          "items": [
+            {
+              "id": "shelf-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shelf"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "motion",
+      "story_role": "hook",
+      "visual_family": "reach-detail",
+      "payload_mode": "picture",
+      "on_screen": "The person reaches toward the mug and stops with a clear gap. A robot can offer a cup and still miss the person.",
+      "what_moves": "The person reaches toward the mug and stops with a clear gap. The wrist and cup remain separated as the robot rotates its elbow.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The person reaches toward the mug and stops with a clear gap.",
+        "emotion": "careful curiosity",
+        "annotation": "A cup can still miss"
+      },
+      "super": "A cup can still miss",
+      "caption": "",
+      "vo": "A robot can offer a cup and still miss the person.",
+      "vo_claims": [
+        "c2",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "reach-stop",
+          "at_s": 0.242,
+          "duration_s": 0.678,
+          "item_ids": [
+            "participant",
+            "robot",
+            "cup"
+          ],
+          "what": "The person reaches toward the mug and stops with a clear gap.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "gap-reveal",
+          "at_s": 3.049,
+          "duration_s": 0.678,
+          "item_ids": [
+            "robot",
+            "cup"
+          ],
+          "what": "The wrist and cup remain separated as the robot rotates its elbow.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The person reaches toward the mug and stops with a clear gap.",
+        "must_show": [
+          {
+            "concept": "robot offers cup",
+            "item_ids": [
+              "robot",
+              "cup"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The person reaches toward the mug and stops with a clear gap.",
+          "item_ids": [
+            "participant",
+            "cup"
+          ]
+        }
+      },
+      "hook_strategy": "human_stakes",
+      "hook_payoff_s": 0.95,
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "gripper",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s2",
+      "start_s": 4.84,
+      "duration_s": 6.02,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "craneDown",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 40
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "laboratory-room"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "primary research evidence",
+          "items": [
+            {
+              "id": "evidence",
+              "kind": "coadaptEvidence",
+              "x": 110,
+              "y": 475,
+              "scale": 1,
+              "props": {
+                "label": "Award term began this month",
+                "mode": "award"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "movement",
+      "visual_family": "laboratory-room",
+      "payload_mode": "mixed",
+      "on_screen": "A federal award sheet slides into the room beside the robot. At UT Austin, a federally funded research center began its award term this month.",
+      "what_moves": "A federal award sheet slides into the room beside the robot. The laboratory wall opens to the apartment workspace and person.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "A federal award sheet slides into the room beside the robot.",
+        "emotion": "careful curiosity",
+        "annotation": "UT Austin"
+      },
+      "super": "UT Austin",
+      "caption": "",
+      "vo": "At UT Austin, a federally funded research center began its award term this month.",
+      "vo_claims": [
+        "c1"
+      ],
+      "visual_events": [
+        {
+          "id": "award-enter",
+          "at_s": 0.301,
+          "duration_s": 0.843,
+          "item_ids": [
+            "evidence"
+          ],
+          "what": "A federal award sheet slides into the room beside the robot.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "room-reveal",
+          "at_s": 3.793,
+          "duration_s": 0.843,
+          "item_ids": [
+            "room",
+            "participant"
+          ],
+          "what": "The laboratory wall opens to the apartment workspace and person.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A federal award sheet slides into the room beside the robot.",
+        "must_show": [
+          {
+            "concept": "robot research award",
+            "item_ids": [
+              "robot",
+              "evidence"
+            ]
+          }
+        ],
+        "change": {
+          "description": "A federal award sheet slides into the room beside the robot.",
+          "item_ids": [
+            "evidence"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "gripper",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s3",
+      "start_s": 10.86,
+      "duration_s": 5.54,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "truckAcross",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 160
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "reach-detail"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "near apartment shelf edge",
+          "items": [
+            {
+              "id": "shelf-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shelf"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "visual_family": "reach-detail",
+      "payload_mode": "picture",
+      "on_screen": "The robot lowers its wrist toward the persons comfortable reach. The researchers describe a goal. A robot could adjust its reach to a person.",
+      "what_moves": "The robot lowers its wrist toward the persons comfortable reach. The person raises a free hand in response to the adjusted offer.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The robot lowers its wrist toward the persons comfortable reach.",
+        "emotion": "careful curiosity",
+        "annotation": "Help that adjusts"
+      },
+      "super": "Help that adjusts",
+      "caption": "",
+      "vo": "The researchers describe a goal. A robot could adjust its reach to a person.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "arm-adjust",
+          "at_s": 0.277,
+          "duration_s": 0.776,
+          "item_ids": [
+            "robot",
+            "cup"
+          ],
+          "what": "The robot lowers its wrist toward the persons comfortable reach.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "person-respond",
+          "at_s": 3.49,
+          "duration_s": 0.776,
+          "item_ids": [
+            "participant"
+          ],
+          "what": "The person raises a free hand in response to the adjusted offer.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The robot lowers its wrist toward the persons comfortable reach.",
+        "must_show": [
+          {
+            "concept": "robot",
+            "item_ids": [
+              "robot"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The robot lowers its wrist toward the persons comfortable reach.",
+          "item_ids": [
+            "robot",
+            "cup"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "gripper",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s4",
+      "start_s": 16.4,
+      "duration_s": 4.04,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "dollyThrough",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 160
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "handoff-close"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "near apartment shelf edge",
+          "items": [
+            {
+              "id": "shelf-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shelf"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "motion",
+      "story_role": "consequence",
+      "visual_family": "handoff-close",
+      "payload_mode": "picture",
+      "on_screen": "The mug crosses the remaining gap into the offered hand. The point is to bring the drink where that person can reach it.",
+      "what_moves": "The mug crosses the remaining gap into the offered hand. The robot opens its gripper after the person supports the mug.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The mug crosses the remaining gap into the offered hand.",
+        "emotion": "careful curiosity",
+        "annotation": "Within reach"
+      },
+      "super": "Within reach",
+      "caption": "",
+      "vo": "The point is to bring the drink where that person can reach it.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "cup-deliver",
+          "at_s": 0.202,
+          "duration_s": 0.566,
+          "item_ids": [
+            "cup",
+            "participant"
+          ],
+          "what": "The mug crosses the remaining gap into the offered hand.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "gripper-release",
+          "at_s": 2.545,
+          "duration_s": 0.566,
+          "item_ids": [
+            "robot",
+            "cup"
+          ],
+          "what": "The robot opens its gripper after the person supports the mug.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The mug crosses the remaining gap into the offered hand.",
+        "must_show": [
+          {
+            "concept": "person cup",
+            "item_ids": [
+              "cup",
+              "participant"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The mug crosses the remaining gap into the offered hand.",
+          "item_ids": [
+            "cup",
+            "participant"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "transfer",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s5",
+      "start_s": 20.44,
+      "duration_s": 4.56,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "orbitReveal",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 40
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shared-building",
+                "label": "Homes and care"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "near apartment shelf edge",
+          "items": [
+            {
+              "id": "shelf-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shelf"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "consequence",
+      "visual_family": "shared-building",
+      "payload_mode": "picture",
+      "on_screen": "A home doorway opens behind the same robot and person. The harder test is sharing homes and care settings over time.",
+      "what_moves": "A home doorway opens behind the same robot and person. The same persons hand and supported cup move lower; the robot lowers its open gripper in response.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "A home doorway opens behind the same robot and person.",
+        "emotion": "careful curiosity",
+        "annotation": "Life keeps changing"
+      },
+      "super": "Life keeps changing",
+      "caption": "",
+      "vo": "The harder test is sharing homes and care settings over time.",
+      "vo_claims": [
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "home-open",
+          "at_s": 0.228,
+          "duration_s": 0.638,
+          "item_ids": [
+            "room"
+          ],
+          "what": "A home doorway opens behind the same robot and person.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "reach-changes",
+          "at_s": 2.873,
+          "duration_s": 0.638,
+          "item_ids": [
+            "participant",
+            "robot",
+            "cup"
+          ],
+          "what": "The same persons hand and supported cup move lower; the robot lowers its open gripper in response.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A home doorway opens behind the same robot and person.",
+        "must_show": [
+          {
+            "concept": "homes care",
+            "item_ids": [
+              "room"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The doorway opens, then the hand and mug lower and the robot responds to the changed reach.",
+          "item_ids": [
+            "room"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "human-supported",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s6",
+      "start_s": 25.0,
+      "duration_s": 4.38,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "craneDown",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 40
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "source-evidence"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "primary research evidence",
+          "items": [
+            {
+              "id": "evidence",
+              "kind": "coadaptEvidence",
+              "x": 110,
+              "y": 475,
+              "scale": 1,
+              "props": {
+                "label": "Simulated apartment",
+                "mode": "source"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "limit",
+      "visual_family": "source-evidence",
+      "payload_mode": "mixed",
+      "on_screen": "The university source sheet enters above the illustration without framing it as a photograph. The university pictures a mug handoff in a simulated apartment.",
+      "what_moves": "The university source sheet enters above the illustration without framing it as a photograph. The care-results field slides away from the mug demonstration field, leaving visible separation.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The university source sheet enters above the illustration without framing it as a photograph.",
+        "emotion": "careful curiosity",
+        "annotation": "A simulated apartment"
+      },
+      "super": "A simulated apartment",
+      "caption": "",
+      "vo": "The university pictures a mug handoff in a simulated apartment.",
+      "vo_claims": [
+        "c4"
+      ],
+      "visual_events": [
+        {
+          "id": "frame-reveal",
+          "at_s": 0.219,
+          "duration_s": 0.613,
+          "item_ids": [
+            "evidence",
+            "room"
+          ],
+          "what": "The university source sheet enters above the illustration without framing it as a photograph.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "boundary-reveal",
+          "at_s": 2.759,
+          "duration_s": 0.613,
+          "item_ids": [
+            "evidence"
+          ],
+          "what": "The care-results field slides away from the mug demonstration field, leaving visible separation.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The university source sheet enters above the illustration without framing it as a photograph.",
+        "must_show": [
+          {
+            "concept": "simulated apartment mug",
+            "item_ids": [
+              "evidence",
+              "cup"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The university source sheet enters above the illustration without framing it as a photograph.",
+          "item_ids": [
+            "evidence",
+            "room"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "human-supported",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s7",
+      "start_s": 29.38,
+      "duration_s": 6.68,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "truckAcross",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 40
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "source-evidence"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "participation threshold behind the same person",
+          "items": [
+            {
+              "id": "door",
+              "kind": "consentDoor",
+              "x": 725,
+              "y": 811,
+              "scale": 1,
+              "props": {
+                "label": "Participation"
+              }
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 45,
+          "label": "primary research evidence",
+          "items": [
+            {
+              "id": "evidence",
+              "kind": "coadaptEvidence",
+              "x": 70,
+              "y": 420,
+              "scale": 0.75,
+              "props": {
+                "label": "Consent still to develop",
+                "mode": "consent"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "limit",
+      "visual_family": "source-evidence",
+      "payload_mode": "mixed",
+      "on_screen": "The announcement sheet slides into view with the consent commitment. Its announcement says consent and opt out procedures will be developed. It reports no care results.",
+      "what_moves": "The announcement sheet slides into view with the consent commitment. An unselected participation door opens beside the person, an illustration of future choice.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The announcement sheet slides into view with the consent commitment.",
+        "emotion": "careful curiosity",
+        "annotation": "Consent still to develop"
+      },
+      "super": "Consent still to develop",
+      "caption": "",
+      "vo": "Its announcement says consent and opt out procedures will be developed. It reports no care results.",
+      "vo_claims": [
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "page-open",
+          "at_s": 0.334,
+          "duration_s": 0.935,
+          "item_ids": [
+            "evidence"
+          ],
+          "what": "The announcement sheet slides into view with the consent commitment.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "choice-open",
+          "at_s": 4.208,
+          "duration_s": 0.935,
+          "item_ids": [
+            "door",
+            "participant"
+          ],
+          "what": "An unselected participation door opens beside the person, an illustration of future choice.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The announcement sheet slides into view with the consent commitment.",
+        "must_show": [
+          {
+            "concept": "consent",
+            "item_ids": [
+              "evidence"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The announcement sheet folds open to the consent commitment.",
+          "item_ids": [
+            "evidence"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "human-supported",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release",
+        "door": "A floor-level doorway stays open across the cut, then opens further with the persons choice."
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s8",
+      "start_s": 36.06,
+      "duration_s": 5.04,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "riseWith",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 40
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shared-building"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "participation threshold behind the same person",
+          "items": [
+            {
+              "id": "door",
+              "kind": "consentDoor",
+              "x": 725,
+              "y": 811,
+              "scale": 1,
+              "props": {
+                "label": "Participation"
+              }
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "motion",
+      "story_role": "agency",
+      "visual_family": "shared-building",
+      "payload_mode": "picture",
+      "on_screen": "The person raises a hand and the doorway stays under their control. The community is meant to help shape where and how a robot is deployed.",
+      "what_moves": "The person raises a hand and the doorway stays under their control. The robot rolls back from the threshold, leaving space for the person.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The person raises a hand and the doorway stays under their control.",
+        "emotion": "careful curiosity",
+        "annotation": "People shape the test"
+      },
+      "super": "People shape the test",
+      "caption": "",
+      "vo": "The community is meant to help shape where and how a robot is deployed.",
+      "vo_claims": [
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "person-choose",
+          "at_s": 0.252,
+          "duration_s": 0.706,
+          "item_ids": [
+            "participant",
+            "door"
+          ],
+          "what": "The person raises a hand and the doorway stays under their control.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "robot-yield",
+          "at_s": 3.175,
+          "duration_s": 0.706,
+          "item_ids": [
+            "robot",
+            "door"
+          ],
+          "what": "The robot rolls back from the threshold, leaving space for the person.",
+          "at_s_authored": 3.15,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The person raises a hand and the doorway stays under their control.",
+        "must_show": [
+          {
+            "concept": "robot participation",
+            "item_ids": [
+              "participant",
+              "robot",
+              "door"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The person raises a hand and the doorway stays under their control.",
+          "item_ids": [
+            "participant",
+            "door"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "human-supported",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release",
+        "door": "A floor-level doorway stays open across the cut, then opens further with the persons choice."
+      },
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s9",
+      "start_s": 41.1,
+      "duration_s": 5.7,
+      "region": "blackland",
+      "county": "Travis",
+      "camera_strategy": "dollyThrough",
+      "camera_base": {
+        "x": 0,
+        "y": 0,
+        "z": 160
+      },
+      "interior": true,
+      "planes": [
+        {
+          "z": 620,
+          "label": "apartment walls and window",
+          "items": [
+            {
+              "id": "room",
+              "kind": "coadaptRoom",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "handoff-close"
+              }
+            }
+          ]
+        },
+        {
+          "z": 350,
+          "label": "room foreground floor edge",
+          "items": [
+            {
+              "id": "floor-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 145,
+          "label": "contact-bound robot, hand and cup",
+          "items": [
+            {
+              "id": "robot",
+              "kind": "coadaptRobot",
+              "x": 230,
+              "y": 1350,
+              "scale": 1
+            },
+            {
+              "id": "participant",
+              "kind": "person",
+              "x": 760,
+              "y": 1345,
+              "scale": 1,
+              "facing": -1,
+              "props": {
+                "cast": "resident",
+                "pose": "point",
+                "emotion": "neutral",
+                "idleGain": 0
+              }
+            },
+            {
+              "id": "cup",
+              "kind": "handoffCup",
+              "x": 490,
+              "y": 1020,
+              "scale": 1
+            }
+          ]
+        },
+        {
+          "z": 40,
+          "label": "near apartment shelf edge",
+          "items": [
+            {
+              "id": "shelf-edge",
+              "kind": "coadaptFurnishing",
+              "x": 0,
+              "y": 0,
+              "scale": 1,
+              "props": {
+                "mode": "shelf"
+              }
+            }
+          ]
+        }
+      ],
+      "cast": [
+        {
+          "id": "resident",
+          "emotion": "attentive"
+        }
+      ],
+      "beat": "motion",
+      "story_role": "close",
+      "visual_family": "handoff-close",
+      "payload_mode": "picture",
+      "on_screen": "The person lifts the supported cup, moving their hand and mug together. The useful handoff ends within reach. The research still has to get there.",
+      "what_moves": "The person lifts the supported cup, moving their hand and mug together. The open robot gripper withdraws while the person keeps the mug within reach.",
+      "visual_sentence": {
+        "subject": "The same robot, cup and participant",
+        "action": "The person lifts the supported cup, moving their hand and mug together.",
+        "emotion": "careful curiosity",
+        "annotation": "The work ahead"
+      },
+      "super": "The work ahead",
+      "caption": "",
+      "vo": "The useful handoff ends within reach. The research still has to get there.",
+      "vo_claims": [
+        "c2",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "support-reveal",
+          "at_s": 0.21,
+          "duration_s": 0.587,
+          "item_ids": [
+            "participant",
+            "cup"
+          ],
+          "what": "The person lifts the supported cup, moving their hand and mug together.",
+          "at_s_authored": 0.25,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "finish-hand",
+          "at_s": 3.591,
+          "duration_s": 0.587,
+          "item_ids": [
+            "robot"
+          ],
+          "what": "The open robot gripper withdraws while the person keeps the mug within reach.",
+          "at_s_authored": 4.284,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The person lifts the supported cup, moving their hand and mug together.",
+        "must_show": [
+          {
+            "concept": "handoff cup within reach",
+            "item_ids": [
+              "cup",
+              "robot"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The open robot gripper withdraws while the person keeps the mug within reach.",
+          "item_ids": [
+            "robot",
+            "cup"
+          ]
+        }
+      },
+      "illustration_label": "ILLUSTRATION / RESEARCH GOAL",
+      "continuity_state": {
+        "cup": "human-supported",
+        "screen_direction": "robot left, same civilian right, coral mug handle to the right",
+        "contact": "Shared wrist/cup endpoint; human support established before gripper release"
+      },
+      "duration_authored": 6.8
+    }
+  ],
+  "research_illustration": {
+    "notice": "ILLUSTRATION / RESEARCH GOAL",
+    "meaning": "The actor, failed reach, adaptation and participation gesture are constructed explanations, not observed UT events.",
+    "source_document": "A text sheet cites the announcement. It never depicts the university photograph."
+  },
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.56,
+      "end": 4.48,
+      "text": "A robot can offer a cup and still miss the person.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 5.12,
+      "end": 10.62,
+      "text": "At UT Austin, a federally funded research center began its award term this month.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 11.1,
+      "end": 12.8,
+      "text": "The researchers describe a goal.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 13.32,
+      "end": 16.04,
+      "text": "A robot could adjust its reach to a person.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 16.68,
+      "end": 19.92,
+      "text": "The point is to bring the drink where that person can reach it.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 20.72,
+      "end": 24.62,
+      "text": "The harder test is sharing homes and care settings over time.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 25.28,
+      "end": 28.96,
+      "text": "The university pictures a mug handoff in a simulated apartment.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 29.66,
+      "end": 33.34,
+      "text": "Its announcement says consent and opt out procedures will be developed.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 33.88,
+      "end": 35.56,
+      "text": "It reports no care results.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c10",
+      "start": 36.34,
+      "end": 40.5,
+      "text": "The community is meant to help shape where and how a robot is deployed.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c11",
+      "start": 41.38,
+      "end": 43.4,
+      "text": "The useful handoff ends within reach.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c12",
+      "start": 44.12,
+      "end": 45.84,
+      "text": "The research still has to get there.",
+      "source": "measured_boundary"
+    }
+  ],
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 9,
+    "on_measured_word_starts": 9,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}

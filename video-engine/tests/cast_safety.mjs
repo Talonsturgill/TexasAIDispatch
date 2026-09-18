@@ -111,6 +111,18 @@ function run(C) {
      extreme.neckBottom > extreme.shoulderApex + 8,
      `${extreme.neckBottom.toFixed(1)} vs ${extreme.shoulderApex.toFixed(1)}`);
 
+  // Physical constraints for point-pose props, including a cup held while the arm lowers.
+  for (const c of CAST) {
+    const palms = [0,.12,.5,1].map(g => {
+      const a=C.pointingArm(c.build??.5,c.age??0,g), p=C.palmPoint(a);
+      ok(`${c.id}: arm segments retain their length at gesture ${g}`,
+         Math.abs(Math.hypot(a.ex-a.sx,a.ey-a.sy)-78)<1e-8 &&
+         Math.abs(Math.hypot(a.wx-a.ex,a.wy-a.ey)-70)<1e-8);
+      ok(`${c.id}: contact lies inside the drawn palm`, Math.abs(Math.hypot(p.x-a.wx,p.y-a.wy)-9)<1e-8);
+      return p;
+    });
+    ok(`${c.id}: lowering the point pose visibly lowers its support`, palms[1].y-palms[3].y>40);
+  }
   return failures;
 }
 

@@ -1,0 +1,425 @@
+{
+  "schema": "dispatch_report_card/1",
+  "round": 2,
+  "score": 7.381,
+  "weighted_score": 7.381,
+  "ship": true,
+  "axes": {
+    "voice": 6.733,
+    "place": 6.867,
+    "craft": 7.367,
+    "picture": 7.3,
+    "hook": 7.7,
+    "story": 8.0
+  },
+  "hard_fails": [],
+  "judges": [
+    {
+      "score": 7.266,
+      "ship": true,
+      "axes": {
+        "hook": 7.6,
+        "story": 7.8,
+        "picture": 7.2,
+        "place": 6.8,
+        "craft": 7.1,
+        "voice": 6.8
+      },
+      "hard_fails": [],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Add a source-matched UT research-apartment fixture to the s2 room reveal so Austin is carried by the setting as well as the institution name.",
+      "attention_review": {
+        "film_sha256": "636b03c2087e5904a93063a0c703e8f3657af3c9aba1c6d79097c0375f74da02",
+        "pass": true,
+        "hook_observed": "At 0.12s the participant arm is down; by 0.58-1.04s it reaches and stops short of the coral mug. The gap is apparent with captions hidden and resolves the visual promise inside the opening window.",
+        "continuity_observed": "The same coral mug, right-facing handle, robot left and civilian right persist through the 16.40s close-view cut. The participant supports the handle before the gripper opens at 18.95-19.63s. At the formerly problematic 36.06s join, the floor-level participation door remains visibly open in both the 35.98s and 36.14s frames; the person raises the free hand and the robot later retreats, retaining the same cup and spatial relationship.",
+        "remembered_image": "The person keeps the coral mug while the open robot gripper withdraws: a clear visual answer to the opening offer that remained outside the persons reach.",
+        "weakest_interval": "8.63-9.60s in s2: the modest upper-right room/window opening offers less new context than the central arm actions. The award sheet still earns a readable evidence hold, so this is a quality opportunity rather than a blocking pause. Replace or augment that reveal with one source-matched UT research-apartment fixture that makes the lab-to-domestic context more specific.",
+        "weakest_at_s": 8.633,
+        "audio_basis": "No direct listening was available. Reviewed current vo_script.txt, selected-takes.json transcript, captions.json, words.json and alignment-final.log, plus mix.json. The report records 12 caption cues with measured boundaries, 116 acoustic word matches, no time stretching, -21.34 LUFS and 9 effects. Internal word timings are explicitly modelled inside speech runs, while displayed caption edges are measured. These materials do not establish natural delivery, acting or perceived audio balance; the voice score is evidence-limited."
+      },
+      "review_basis": {
+        "film": "out/dispatch/film.mp4",
+        "dimensions": [
+          1080,
+          1920
+        ],
+        "duration_s": 51.8,
+        "actual_mp4_sampling": "Decoded before, midpoint and after frames for every one of the 18 directed intervals and both sides of all nine scene endings; inspected full-frame contact sheets at 360px portrait width, with captions mentally hidden for the action review.",
+        "frames": "out/dispatch/judge-picture-frames-r2/",
+        "additional_review": "Current attention-review.html, attention-review.json with matching film hash, attention-review.png, feed-composite.png, captions, screenplay, selected-take transcript and full credits frame.",
+        "independent": "No other judge reports or scores were read. Creative scores are based on the observed pictures and supplied narrative, not on gate success.",
+        "threshold_source": "config/dispatch_rubric.yaml",
+        "blocking_reason": null,
+        "music_credit_verification": "music.py --verify-package out/dispatch/credits.txt --mix out/dispatch/mix.json passed for the current package."
+      },
+      "axis_notes": {
+        "hook": "Specific, quickly legible person/cup mismatch; the enlarged illustration qualification is unobstructed.",
+        "story": "The proposed benefit leads to a clear limit: an award and simulated handoff do not establish care results. Future consent/community participation and the within-reach ending complete the arc.",
+        "picture": "The central robot/cup/hand actions retain physical attachment through offer, transfer, supported lowering, release and final withdrawal. The revised floor-level door allows the participation gesture and yielding robot to be understood as one spatial event.",
+        "place": "No observed Travis County mismatch in cast, interior or equipment. Austin is still established predominantly by UT text; a specific source-matched research-apartment detail could strengthen place.",
+        "craft": "Main actions, captions, illustration label and complete credits are readable at phone width. Door-state continuity is repaired. The repeated room framing is restrained but modest; the top fade slightly washes the small UT announcement source strip on s7 while its consent headline remains clear.",
+        "voice": "Plain, carefully qualified script and measured caption edges are supported. No direct vocal-performance or final-mix listening conclusion is claimed."
+      },
+      "interval_observations": [
+        {
+          "event_id": "reach-stop",
+          "observed": "Arm rises and stops short of coral mug; clear opening action."
+        },
+        {
+          "event_id": "gap-reveal",
+          "observed": "Robot elbow/wrist changes position while the human/cup gap remains understandable."
+        },
+        {
+          "event_id": "award-enter",
+          "observed": "Federal award sheet enters above the pair and settles into a readable source hold."
+        },
+        {
+          "event_id": "room-reveal",
+          "observed": "Right room/window element opens while award evidence remains available; modest contextual development and weakest location beat."
+        },
+        {
+          "event_id": "arm-adjust",
+          "observed": "Robot wrist and attached cup approach the offered human hand."
+        },
+        {
+          "event_id": "person-respond",
+          "observed": "Free arm rises while cup/robot/offered-hand relation stays stable."
+        },
+        {
+          "event_id": "cup-deliver",
+          "observed": "Cup and supporting arm move toward the person; free arm settles."
+        },
+        {
+          "event_id": "gripper-release",
+          "observed": "Gripper opens after the person supports the handle; no unsupported cup state observed."
+        },
+        {
+          "event_id": "home-open",
+          "observed": "Background opening changes while same person, robot and supported cup persist."
+        },
+        {
+          "event_id": "reach-changes",
+          "observed": "Human hand and supported cup lower together; robot wrist follows the altered reach."
+        },
+        {
+          "event_id": "frame-reveal",
+          "observed": "UT source sheet enters separately above the illustration; simulated-apartment context is legible."
+        },
+        {
+          "event_id": "boundary-reveal",
+          "observed": "Care-results field separates visibly from demonstration field, clarifying that they are different claims."
+        },
+        {
+          "event_id": "page-open",
+          "observed": "Consent sheet enters; main consent text readable, small source strip slightly faded by the header background."
+        },
+        {
+          "event_id": "choice-open",
+          "observed": "Door at the participants floor line opens behind the person, retaining their readable silhouette and supported cup."
+        },
+        {
+          "event_id": "person-choose",
+          "observed": "Door remains open across the cut as free hand rises; no reset or repeated opening."
+        },
+        {
+          "event_id": "robot-yield",
+          "observed": "Robot rolls left away from participant and door, increasing the physical gap while person keeps the cup."
+        },
+        {
+          "event_id": "support-reveal",
+          "observed": "Hand and cup rise together in close view, answering the original reach problem."
+        },
+        {
+          "event_id": "finish-hand",
+          "observed": "Open gripper withdraws further while mug stays supported; quiet, legible closing consequence."
+        }
+      ],
+      "hard_fail_review": {
+        "unsupported_numerals": "No narrative or illustration numerals observed; only the complete generated music licence credit carries its allowed version numeral.",
+        "caption_timing": "Displayed cue start/end fields and acoustic evidence are measured rather than hand-shifted; modelled internal word timing is explicitly disclosed.",
+        "audio_stretch": "Current mix and all tracks report time_stretch 1.0.",
+        "place_and_motifs": "No region contradiction, retired motif or prohibited rig-floor hat observed.",
+        "held_slides": "Main story alternates visible subject changes and earned evidence reading; no observed non-credit static slide longer than the rubric allowance.",
+        "narrated_binding": "Narrated reach, assistance, demonstration, consent and choice are tied to visible cup/arm, evidence-card or door/retreat changes.",
+        "cinematic_contract": "Current board uses coadapt-handoff-v1 with a physical coral-mug throughline, demonstration-versus-results turn, opening/closing bookend and source credit sign-off."
+      }
+    },
+    {
+      "score": 7.352,
+      "ship": true,
+      "axes": {
+        "hook": 7.7,
+        "story": 8.0,
+        "picture": 7.2,
+        "place": 6.8,
+        "craft": 7.4,
+        "voice": 6.7
+      },
+      "hard_fails": [],
+      "weakest_axis": "voice",
+      "one_sentence_fix": "For a future polish pass, audition the unchanged final mix at ordinary phone volume and address any lost words through level or dynamics adjustment without changing take speed or measured cue timing.",
+      "attention_review": {
+        "film_sha256": "636b03c2087e5904a93063a0c703e8f3657af3c9aba1c6d79097c0375f74da02",
+        "pass": true,
+        "hook_observed": "The person raises the reaching hand from 0.24 to 0.92 seconds and stops before the coral mug, leaving an unmistakable gap at phone width; the later elbow movement preserves that mismatch rather than hiding it.",
+        "continuity_observed": "The same person, coral mug and green robot retain their identity and contact relationship through the 16.4-second close cut and 20.44-second wide cut. At 35.94, 36.06 and 36.18 seconds the floor-level participation doorway stays open behind the person; the subsequent raised hand and robot withdrawal continue the sequence without a state reset.",
+        "remembered_image": "At 18.95 to 19.51 seconds the robot opens its gripper while the person retains the coral mug, and at 41.31 to 41.90 seconds the hand and mug lift together. The closing withdrawal leaves useful assistance literally within the persons reach.",
+        "weakest_interval": "29.71 to 33.34 seconds. The consent source sheet supplies relevant future-tense evidence, but its small UT Austin attribution approaches the pale header fade while the body repeats the scene title. Lower the sheet slightly on a future polish pass so the attribution is more distinct. The main consent statement and research-goal qualifier remain readable, so this is not a blocking unreadable-subject defect.",
+        "weakest_at_s": 30.77,
+        "audio_basis": "No direct listening was available. Reviewed the selected take2 exact transcript and 45.88-second duration, mix.json showing time_stretch 1.0 on all tracks and -21.34 LUFS achieved loudness, captions.json with every displayed cue boundary measured, whisper.cpp DTW acoustic metadata, and the current preship acoustic_alignment pass. These support text and timing assessment only; naturalness, emotional performance and perceived audio balance were not heard."
+      },
+      "axis_notes": {
+        "hook": "The attempted reach and conspicuous coral mug establish a concrete question immediately with sound off. The illustration notice is readable before the first caption.",
+        "story": "The federal award is correctly described as beginning its term this month. Proposed reach adjustment stays conditional, consent development stays future tense, and no care outcome is claimed. The demonstration-versus-care-results separation changes the interpretation of the successful-looking handoff, then the final sentence keeps the research burden explicit.",
+        "picture": "Approach, contact, gripper release, changing reach, participation doorway, human gesture, robot retreat and supported cup all change visible subjects. The repaired doorway now participates in the same physical space and continues across the cut. The wall-panel reveal adds less information than the cup actions, but the overall sequence stays causal and comprehensible.",
+        "place": "The civilian cast, robot and indoor research setting do not contradict Travis County. Local specificity rests mainly on the sourced UT Austin attribution rather than distinctive room architecture, which limits the place score without creating a region mismatch.",
+        "craft": "The clear title area and larger illustration notice improve hierarchy. Captions and the dominant actions stay legible at phone width, and the full music/source colophon fits. The consent card attribution is a minor remaining hierarchy weakness. The visually larger handoff and closing return are motivated by the action.",
+        "voice": "Conservative evidence-limited score based on exact transcript, acoustic cue alignment and original take duration. No direct performance assessment is claimed. The measured master level is below the mixers target, making ordinary-phone-volume audition the useful next audio check."
+      },
+      "interval_observations": [
+        {
+          "event_id": "reach-stop",
+          "observed": "Hand rises and stops with a clear gap before the mug."
+        },
+        {
+          "event_id": "gap-reveal",
+          "observed": "Robot elbow changes angle while cup and reaching hand remain separated."
+        },
+        {
+          "event_id": "award-enter",
+          "observed": "NSF award-term sheet enters above the same pair without claiming a new award today."
+        },
+        {
+          "event_id": "room-reveal",
+          "observed": "Room panel opens while the date evidence and actor remain recognizable; modest contextual reward."
+        },
+        {
+          "event_id": "arm-adjust",
+          "observed": "Robot moves the mug toward the reachable hand position."
+        },
+        {
+          "event_id": "person-respond",
+          "observed": "Free arm rises in response while the offered-hand identity stays stable."
+        },
+        {
+          "event_id": "cup-deliver",
+          "observed": "Mug meets the offered hand in the closer composition."
+        },
+        {
+          "event_id": "gripper-release",
+          "observed": "Robot gripper opens; human keeps support of the mug."
+        },
+        {
+          "event_id": "home-open",
+          "observed": "Wider interior reveal retains the same handoff participants."
+        },
+        {
+          "event_id": "reach-changes",
+          "observed": "Hand and supported cup lower together, with the open robot wrist following."
+        },
+        {
+          "event_id": "frame-reveal",
+          "observed": "University evidence card appears separately from the illustrated scene."
+        },
+        {
+          "event_id": "boundary-reveal",
+          "observed": "Care-results field separates from demonstration field, making the evidentiary limit explicit."
+        },
+        {
+          "event_id": "page-open",
+          "observed": "Consent commitment card enters; wording remains future tense."
+        },
+        {
+          "event_id": "choice-open",
+          "observed": "Participation door behind the person opens and stays open into the following scene."
+        },
+        {
+          "event_id": "person-choose",
+          "observed": "Person raises hand; the doorway continues opening from its retained state."
+        },
+        {
+          "event_id": "robot-yield",
+          "observed": "Robot rolls away from the person and threshold while the mug remains with the person."
+        },
+        {
+          "event_id": "support-reveal",
+          "observed": "Person lifts the mug with the same supporting hand."
+        },
+        {
+          "event_id": "finish-hand",
+          "observed": "Open robot gripper withdraws; person keeps mug within reach."
+        }
+      ],
+      "review_basis": {
+        "created_at_utc": "2026-09-18T17:56:31.830846+00:00",
+        "independent": true,
+        "other_judge_reports_read": false,
+        "film_duration_s": 51.8,
+        "phone_frame_width_px": 390,
+        "coverage": "Fresh before/middle/after extractions of all 18 directed intervals and before/at/after extractions of all eight scene joins from the current exact MP4, plus current attention contact sheet, current feed composite and credits frame.",
+        "temporary_frame_directory": "/tmp/dispatch-story-r2-636b03c2",
+        "attention_pack_hashes_verified": true,
+        "script_claims_validation_reviewed": true,
+        "music_credit_package": "Independently reran scripts/music.py --verify-package out/dispatch/credits.txt successfully.",
+        "ship_blockers": [],
+        "audio_limit": "No direct listening; ship verdict uses the explicitly limited voice assessment and verified timing evidence."
+      }
+    },
+    {
+      "score": 7.526,
+      "ship": true,
+      "axes": {
+        "hook": 7.8,
+        "story": 8.2,
+        "picture": 7.5,
+        "place": 7.0,
+        "craft": 7.6,
+        "voice": 6.7
+      },
+      "hard_fails": [],
+      "weakest_axis": "voice",
+      "one_sentence_fix": "For a later quality pass, audition the final mix through a phone speaker and rebalance narration level if necessary, preserving the unstretched take and regenerating alignment for any changed audio.",
+      "attention_review": {
+        "film_sha256": "636b03c2087e5904a93063a0c703e8f3657af3c9aba1c6d79097c0375f74da02",
+        "pass": true,
+        "hook_observed": "The civilian reaches from 0.24 to 0.92 seconds and stops short of the coral mug; at 1.04 seconds the reach gap is unmistakable at a 390-pixel phone width. The action supplies a concrete problem while the larger ILLUSTRATION / RESEARCH GOAL label prevents it reading as a documented failure.",
+        "continuity_observed": "The same coral mug, right-facing handle, civilian, and robot-left/person-right relationship remain recognizable through the 16.40-second close-view cut and the 18.95 to 19.51-second release. At 35.91, 36.06 and 36.21 seconds the participation door remains open and grounded behind the civilian, without the prior reset. The hand rises from 36.31 to 37.02 seconds, then the robot backs away from 39.24 to 39.94 seconds while the person retains the mug.",
+        "remembered_image": "The open robot gripper pulls away while the coral mug remains in the person's supported hand. The participant at the open doorway and the retreating robot also make agency visible without needing the participation label.",
+        "weakest_interval": "8.63 to 9.60 seconds. The upper-right room panel opens while the award card remains available to read, giving a modest domestic-space cue but less new information than the handoff or agency actions. A later polish pass could reveal a source-grounded apartment fixture behind that panel to make the setting more specific; this interval does not obstruct understanding or create an unearned pause.",
+        "weakest_at_s": 8.633,
+        "audio_basis": "No direct listening or auditory input. Reviewed the current selected-take transcript, vo-soundcheck.txt, mix.json, captions.json, words.json and alignment-final.log. The records show an exact reconciled transcript, 12 cues at measured waveform boundaries, 28 measured boundary words, 88 explicitly modelled interior word times, unity time stretch, 9 SFX events, a music bed 20 dB below voice, and a -21.34 LUFS master. They support transcript and timing evidence; they do not establish a natural or compelling performance."
+      },
+      "review_method": {
+        "artifact": "out/dispatch/film.mp4",
+        "phone_width_px": 390,
+        "directed_intervals_inspected": 18,
+        "interval_sampling": "Before, midpoint and after every current attention-index interval, independently extracted from this exact MP4 using ffmpeg.",
+        "event_sample_count": 54,
+        "joins_inspected_s": [
+          4.84,
+          10.86,
+          16.4,
+          20.44,
+          25.0,
+          29.38,
+          36.06,
+          41.1,
+          46.8
+        ],
+        "join_sampling": "Every join minus 0.15 seconds, at the join, and plus 0.15 seconds.",
+        "join_sample_count": 27,
+        "credits_sample_s": 49.2,
+        "inspection_frames": "/tmp/dispatch-county-r2-636b03c2/",
+        "supporting_artifacts": [
+          "attention-review.html",
+          "attention-review.json",
+          "attention-review.png",
+          "feed-composite.png",
+          "storyboard.json",
+          "claims.json",
+          "validation.json",
+          "vo_script.txt",
+          "mix.json",
+          "captions.json",
+          "words.json",
+          "alignment-final.log",
+          "vo-soundcheck.txt",
+          "takes/selected-takes.json"
+        ],
+        "attention_pack_hashes_verified": true,
+        "music_package_verification": "music.py --verify-package out/dispatch/credits.txt --mix out/dispatch/mix.json --board out/dispatch/storyboard.json --master out/dispatch/mix.wav returned exit 0.",
+        "other_judge_reports_read": false
+      },
+      "axes_rationale": {
+        "hook": "A legible reach-and-stop action pays off the opening question before the sentence ends; the persistent larger illustration label is clear.",
+        "story": "Current award-term timing and conditional research goals are distinct from the earlier announcement; the simulated setting, future consent work and absence of reported care results establish a credible limit. The final supported cup resolves the initial reach problem while the caption keeps the research goal conditional.",
+        "picture": "All central ideas are attached to visible objects and changes. Gripper release, changed reach, separated results field, doorway choice, robot retreat and final supported cup are understandable. The room reveal is weaker but remains relevant context alongside readable evidence.",
+        "place": "The indoor kit, ordinary civilian clothing and restrained setting are plausible for Travis County university robotics research; there is no contradictory regional scenery, costume, inappropriate industrial hat or retired motif. The interior remains generic rather than strongly identifiable as Austin.",
+        "craft": "The revised door is grounded and continuous; the human signal and robot retreat share the same space. Captions stay legible without covering the mug or face, the larger header stays clear of scenery, and the 390-pixel credit sample preserves every source and music-credit line. The small source-card masthead in the consent scene partly meets the pale header wash, but the consent statement and source context remain understandable.",
+        "voice": "The transcript is reconciled to actual speech runs and cue boundaries are measured in the final audio, with no stretch reported. The score remains conservative because direct performance listening was unavailable and the measured master is relatively quiet."
+      },
+      "interval_observations": [
+        {
+          "event_id": "reach-stop",
+          "observed": "Hand moves from hanging to outstretched and stops short of the coral mug; large illustration label remains readable."
+        },
+        {
+          "event_id": "gap-reveal",
+          "observed": "Robot elbow and wrist adjust while the mug remains visibly beyond the hand."
+        },
+        {
+          "event_id": "award-enter",
+          "observed": "NSF award-term card enters and settles above the persistent robot, mug and civilian; core statement remains legible."
+        },
+        {
+          "event_id": "room-reveal",
+          "observed": "Upper-right room panel opens while the award evidence stays readable; a modest domestic-context reveal."
+        },
+        {
+          "event_id": "arm-adjust",
+          "observed": "Robot wrist and mug move toward the person's hand in a readable cause-and-response arrangement."
+        },
+        {
+          "event_id": "person-respond",
+          "observed": "Civilian raises the free hand while the robot maintains the adjusted offer."
+        },
+        {
+          "event_id": "cup-deliver",
+          "observed": "Close view retains the same cup and hand; mug reaches a supported position while the free arm lowers."
+        },
+        {
+          "event_id": "gripper-release",
+          "observed": "Robot gripper opens with the cup already supported by the person."
+        },
+        {
+          "event_id": "home-open",
+          "observed": "Domestic wall opening appears behind the person while the retained cup carries continuity into a shared-setting discussion."
+        },
+        {
+          "event_id": "reach-changes",
+          "observed": "Person's supported cup and hand lower together, followed by the open robot gripper."
+        },
+        {
+          "event_id": "frame-reveal",
+          "observed": "University evidence card states simulated apartment and distinguishes the drawn mug demonstration from care results."
+        },
+        {
+          "event_id": "boundary-reveal",
+          "observed": "Care-results field slides away from the mug demonstration and keeps its Not established text readable."
+        },
+        {
+          "event_id": "page-open",
+          "observed": "Consent-development source card enters above a now floor-level participation door behind the civilian."
+        },
+        {
+          "event_id": "choice-open",
+          "observed": "Grounded doorway opens behind the same person; the source still states future consent development."
+        },
+        {
+          "event_id": "person-choose",
+          "observed": "Door remains open across scene entry while the person raises a free hand in that same threshold."
+        },
+        {
+          "event_id": "robot-yield",
+          "observed": "Robot rolls left, increasing the space between its open gripper and the person who retains the cup at the doorway."
+        },
+        {
+          "event_id": "support-reveal",
+          "observed": "Closer view preserves the civilian and cup as they lift together; the robot remains disengaged."
+        },
+        {
+          "event_id": "finish-hand",
+          "observed": "Robot gripper withdraws farther while cup and hand stay together; the closing caption preserves the research limitation."
+        }
+      ],
+      "hard_fail_audit": "No rubric hard fail observed. No unsourced numeric readout is shown; the licence-version credit passes the package verifier. Caption edges trace to measured speech boundaries and the mix reports no time stretch. Place and cast do not contradict Travis County, prohibited motifs are absent, subject actions continue through every story scene, and the registered coadapt-handoff-v1 template supplies the physical cup throughline, turn and ending. The previously rejected doorway reset is absent in the new exact-film samples.",
+      "blocking_findings": [],
+      "nonblocking_quality_notes": [
+        "The 8.63-second location reveal is less informative than the physical handoff and agency passages.",
+        "The consent source-card masthead could sit slightly lower beneath the header wash.",
+        "Direct listening is unverified; no listening or retention claim is supported by this review."
+      ]
+    }
+  ]
+}

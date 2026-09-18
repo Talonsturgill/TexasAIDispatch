@@ -64,6 +64,9 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    "coadaptRoom": {"label"},
+    "coadaptEvidence": {"label"},
+    "consentDoor": {"label"},
     "faxDocument": {"label"},
     "faxChart": {"label"},
     "faxDesk": {"label"},
@@ -422,6 +425,12 @@ def self_test() -> int:
         fax["props"] = {"mode": "referral identity", "description": "referral identity"}
         ok(f"{kind} mode and description cannot replace a painted label",
            not concept_match("referral identity", [fax])[0])
+    for kind in ("coadaptRoom", "coadaptEvidence", "consentDoor"):
+        prop = {"kind": kind, "props": {"label": "research consent", "hidden": "care outcome"}}
+        ok(f"{kind} painted label supplies evidence", concept_match("research consent", [prop])[0])
+        ok(f"{kind} hidden metadata supplies no evidence", not concept_match("care outcome", [prop])[0])
+        prop["props"] = {"mode": "care outcome"}
+        ok(f"{kind} mode cannot replace painted evidence", not concept_match("care outcome", [prop])[0])
     dated_fax_report = {"kind": "faxReport", "props": {"mode": "report", "date": "September 16th"}}
     ok("source report date is painted evidence", "september" in item_visual_tokens(dated_fax_report))
     dated_fax_report["props"]["mode"] = "limit"
