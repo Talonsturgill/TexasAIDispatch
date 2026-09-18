@@ -33,6 +33,6 @@ Charon take two matches all 116 spoken words. Take one was rejected because it s
 Machine upgrades
 1. Added an original co-adaptation episode with one persistent mug, shared palm contact geometry, supported handoff, gripper release and continuous participation doorway.
 2. Extended the rendered-label coherence registry with positive and negative tests. Unpainted prop metadata cannot pass as visible evidence. Cast safety checks now verify arm segment lengths and palm contact across the cast.
-3. Added two original synthetic effects for the visible assistive servo motion and ceramic handoff.
+3. Added two original synthetic effects for the visible assistive servo motion and ceramic handoff. Repaired a dead source link on an unused, disabled catalog entry using a verified Library of Congress recording history. The shipped music and film are unchanged.
 
 Music is Thinking Music by Kevin MacLeod, licensed under CC BY 4.0, trimmed and synced to picture. Complete attribution appears in the credit tail.
