@@ -1540,7 +1540,25 @@ def mineral_control(seed=77):
     return normalize(fade(tap+body, 5), 0.5)
 
 
+def assistive_servo(seed=91):
+    """One short, quiet move of the visible illustrated assistive robot wrist."""
+    dur = .7
+    t = t_axis(dur)
+    drive = sine(lambda t: 225 + 90*np.sin(np.pi*t/dur), dur)
+    drive += biquad_bp(white(dur, seed), 1150, 4)*.05
+    return normalize(fade(drive*np.sin(np.pi*t/dur)**2, 25), .42)
+
+
+def ceramic_handoff(seed=92):
+    """A very soft damped contact as the illustrated mug handle meets a hand."""
+    dur = .3
+    tap = sine(540, dur)*expdecay(dur, .035)
+    tap += sine(1310, dur)*expdecay(dur, .018)*.12
+    return normalize(fade(tap, 4), .35)
+
 SOUNDS = {
+    "assistive_servo": (assistive_servo, "oneshot", "the visible illustrated assistive robot wrist moving", ["robot", "wrist", "illustration"]),
+    "ceramic_handoff": (ceramic_handoff, "oneshot", "the visible illustrated cup handle contacting the persons hand", ["cup", "hand", "handoff"]),
     "mineral_drive": (mineral_drive, "oneshot", "the visible illustrated mineral rock hoist or drilling tool moving", ["mineral", "rock", "drilling", "test"]),
     "mineral_control": (mineral_control, "oneshot", "the visible training lever contacting its stop", ["training", "lever", "control"]),
     "freshwater_fault": (freshwater_fault, "oneshot", "the illustrative water pump rotor stopping", ["pump", "water"]),

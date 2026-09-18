@@ -1,3 +1,4 @@
+import * as Coadapt from './coadaptation';
 import * as Faxwork from './faxwork';
 import * as Proving from './provingground';
 import * as Freshwater from './freshwater';
@@ -90,6 +91,12 @@ const CastElement: React.FC<any> = (p) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ELEMENTS: Record<string, React.FC<any>> = {
+  coadaptFurnishing: Coadapt.CoadaptFurnishing,
+  coadaptRobot: Coadapt.CoadaptRobot,
+  handoffCup: Coadapt.HandoffCup,
+  coadaptRoom: Coadapt.CoadaptRoom,
+  coadaptEvidence: Coadapt.CoadaptEvidence,
+  consentDoor: Coadapt.ConsentDoor,
   faxDocument: Faxwork.FaxDocument,
   faxChart: Faxwork.FaxChart,
   faxDesk: Faxwork.FaxDesk,

@@ -87,6 +87,16 @@ export function armChain(sx: number, sy: number, upDeg: number, foreDeg: number,
 /** Head geometry, stated once. Everything on the face is positioned RELATIVE to the
  *  head centre, and the hair and headgear are authored around the origin and translated
  *  onto it, so no coordinate has to carry the offset by hand. */
+/** Shared point-pose geometry for contact-bound props. Same solver as the visible arm. */
+export function pointingArm(build: number, age: number, gesture: number): ArmChain {
+ const ge=settle01(Math.max(0,Math.min(1,gesture)));
+ return armChain((74+build*20)*.5,150+age*6,8+ge*62,12-ge*4,78,70);
+}
+export function palmPoint(arm: ArmChain) {
+ const a=arm.wristDeg*Math.PI/180;
+ return {x:arm.wx+Math.sin(a)*9,y:arm.wy+Math.cos(a)*9};
+}
+
 export const HEAD_R = 52;
 /** local y of the ground under the feet, so `y` can be a ground line */
 export const FEET_Y = 500;
@@ -267,6 +277,8 @@ export interface CharacterProps {
    *  A gesture already extended in the first frame of its shot and unchanged for six
    *  seconds is a pose wearing a gesture's clothes. */
   gesture?: number;
+  /** Lift the free hand while a point-pose hand keeps supporting an object. */
+  farGesture?: number;
   idleGain?: number;
   trim?: string;
   /** body build, 0 = slight, 1 = heavy. Varied across the whole cast, not only where
@@ -308,6 +320,7 @@ export const Character: React.FC<CharacterProps> = ({
   walkPhase,
   glasses = false,
   gesture = 1,
+  farGesture = 0,
   idleGain = 1,
   trim,
   build = 0.5,
@@ -400,7 +413,8 @@ export const Character: React.FC<CharacterProps> = ({
   else if (pose === 'arms-crossed') { nearUp = 30; nearFore = -143; farUp = -26; farFore = 139; }
   if (walking) { nearUp += Math.sin(wp + Math.PI) * 16; farUp += Math.sin(wp) * 16; }
 
-  const nearArm = armChain(shoulderW * 0.5, shoulderY, nearUp, nearFore, armUp, armFore);
+  farUp -= Math.max(0,Math.min(1,farGesture))*112;
+  const nearArm = pose === 'point' && !walking ? pointingArm(build,age,gesture) : armChain(shoulderW * 0.5, shoulderY, nearUp, nearFore, armUp, armFore);
   const farArm  = armChain(-shoulderW * 0.5, shoulderY, farUp, farFore, armUp, armFore);
 
   // ------------------------------------------------------------------ face
@@ -434,9 +448,7 @@ export const Character: React.FC<CharacterProps> = ({
   // than staying a circle at every pose. A thumb sits on the leading edge, which is the
   // one detail that separates a hand from a paddle at this size.
   const hand = (a: ArmChain, key: string) => {
-    const rad = (a.wristDeg * Math.PI) / 180;
-    const dx = Math.sin(rad), dy = Math.cos(rad);
-    const cx = a.wx + dx * 9, cy = a.wy + dy * 9;
+    const {x: cx, y: cy} = palmPoint(a);
     return (
       <g key={key} transform={`rotate(${-a.wristDeg} ${cx} ${cy})`}>
         {/* the thumb, on the leading edge and drawn first so the palm laps over it */}
