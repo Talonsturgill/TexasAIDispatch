@@ -1,0 +1,132 @@
+{
+  "date": "2026-09-19",
+  "source": "independent adversarial validator; fresh primary-source fetches and quote checks; no video viewing claimed",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11"
+  ],
+  "rejected": [
+    "In the company\u2019s demonstration, contact sensing separates sugar from flour. Separates could imply a physical sorting action; only the company\u2019s description was reviewed, not the video or measured performance. Reworded as an attributed distinction claim.",
+    "An unfamiliar sample still needs teaching. The software does not begin knowing everything. Overgeneralized beyond the documented database example. Replaced with the company\u2019s described teaching example.",
+    "The planned lab will let robotics teams test what material sensing could add. Unqualified future outcome suggests certainty; changed to is meant to help and retained planned.",
+    "An Austin lab or deployed robot already performs these illustrated tasks. Announcement establishes office opening but lab is future tense. Conceptual original visuals must not imply observed operation.",
+    "TDLR project proves Si-Ware\u2019s lab construction, timing, cost, or size. The TDLR record is another tenant at the same building; retained solely as county evidence.",
+    "The Vimeo film was watched or its motion and performance independently verified. Only page description and oEmbed metadata were read. Direct page request returned 403; accessible oEmbed returned matching company description.",
+    "A flour result certifies allergen safety or a sensor recognizes any material at a distance. No detection-limit or safety validation supplied; product baseline is contact use with application-specific evaluation."
+  ],
+  "required_edits_applied": [
+    "Line 2: changed 'On September seventeenth, Si-Ware announced its new Austin headquarters.' to 'On September seventeenth, Si-Ware announced its new United States headquarters in Austin.'.",
+    "Line 3: changed 'Its planned lab will let robotics teams test what material sensing could add.' to 'Its planned lab is meant to help robotics teams test what material sensing could add.'.",
+    "Line 5: changed \"In the company's demonstration, contact sensing separates sugar from flour.\" to 'Si-Ware says its contact demonstration distinguishes sugar from flour.'.",
+    "Line 6: changed 'An unfamiliar sample still needs teaching. The software does not begin knowing everything.' to 'The company also describes teaching the system to recognize an unknown sample.'.",
+    "Replaced visual_limit with explicit original-illustration, contact-sensing, unknown-input and planned-lab restrictions."
+  ],
+  "line_by_line": [
+    {
+      "line": 1,
+      "claim_ids": [
+        "c4"
+      ],
+      "verdict": "SUPPORTED_ILLUSTRATION",
+      "note": "Native two-dish illustration of company-described visual ambiguity; no assertion this is Austin footage."
+    },
+    {
+      "line": 2,
+      "claim_ids": [
+        "c1"
+      ],
+      "verdict": "VERIFIED",
+      "note": "September seventeenth exactly corresponds to source September 17, 2026."
+    },
+    {
+      "line": 3,
+      "claim_ids": [
+        "c2"
+      ],
+      "verdict": "VERIFIED",
+      "note": "Future lab and intended work preserved."
+    },
+    {
+      "line": 4,
+      "claim_ids": [
+        "c3",
+        "c10"
+      ],
+      "verdict": "VERIFIED",
+      "note": "Conceptual optical mechanism, not measured data."
+    },
+    {
+      "line": 5,
+      "claim_ids": [
+        "c4",
+        "c6"
+      ],
+      "verdict": "VERIFIED",
+      "note": "Explicit company attribution and contact baseline."
+    },
+    {
+      "line": 6,
+      "claim_ids": [
+        "c5",
+        "c11"
+      ],
+      "verdict": "VERIFIED",
+      "note": "Company description of training, not universal or guaranteed learning."
+    },
+    {
+      "line": 7,
+      "claim_ids": [
+        "c7",
+        "c11"
+      ],
+      "verdict": "SUPPORTED_EDITORIAL_INFERENCE",
+      "note": "Why the proposed capability matters; no observed benefit claim."
+    },
+    {
+      "line": 8,
+      "claim_ids": [
+        "c2",
+        "c6",
+        "c7"
+      ],
+      "verdict": "SUPPORTED_EDITORIAL_INFERENCE",
+      "note": "Invitation and need for application testing supported; ending states editorial caution."
+    }
+  ],
+  "number_checks": [
+    {
+      "source_literal": "September 17, 2026",
+      "narration": "September seventeenth",
+      "verdict": "EXACT_DATE_EQUIVALENT"
+    },
+    {
+      "source_literal": "8701 N. Mopac Expressway, Ste 480",
+      "claim": "c8",
+      "verdict": "EXACT_ADDRESS"
+    },
+    {
+      "source_literal": "78759-8376",
+      "claim": "c8",
+      "verdict": "EXACT_POSTAL_CODE"
+    }
+  ],
+  "geography": {
+    "region": "Austin / Central Texas",
+    "county": "Travis",
+    "basis": "Company office address joined to official TDLR building county; different tenant, geography only"
+  },
+  "source_fetch_manifest": "out/dispatch/research/validator-sources/fetch-manifest.json",
+  "candidate_vo_sha256": "7c80583d849b50f9b18d77d75dc032befc83399b30368ec496b100ceb7bc3d22",
+  "reviewed_at": "2026-09-19T12:01:43.063424+00:00",
+  "render_review_status": "Not performed; this is source/script validation only."
+}

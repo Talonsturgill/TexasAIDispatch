@@ -1,0 +1,3 @@
+# Scale and source honesty
+
+Macro sample dishes, the sensor head and optical bands are original conceptual diagrams without asserted dimensions. Colors and curves are explanatory, not measured spectra or visible wavelengths. The light return differs in opacity rather than wavelength length. Gold, mint and plum sample tags preserve identity across diagram changes. The bench scenes are illustrative workspaces, not representations of a surveyed Si-Ware facility. Registered human figures retain their library scale. Source sample and active benches were raised150board units after caption-clearance inspection; board_diff confirmed no object disappearance or size change.

@@ -1,3 +1,4 @@
+import * as Spectral from './spectral';
 import * as Coadapt from './coadaptation';
 import * as Faxwork from './faxwork';
 import * as Proving from './provingground';
@@ -91,6 +92,15 @@ const CastElement: React.FC<any> = (p) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ELEMENTS: Record<string, React.FC<any>> = {
+  trainingExample: Spectral.TrainingExample,
+  applicationRecord: Spectral.ApplicationRecord,
+  spectralSurface: Spectral.SpectralSurface,
+  powderSample: Spectral.PowderSample,
+  contactSensor: Spectral.ContactSensor,
+  absorptionBands: Spectral.AbsorptionBands,
+  spectralComparison: Spectral.SpectralComparison,
+  feasibilityBench: Spectral.FeasibilityBench,
+  austinLabEvidence: Spectral.AustinLabEvidence,
   coadaptFurnishing: Coadapt.CoadaptFurnishing,
   coadaptRobot: Coadapt.CoadaptRobot,
   handoffCup: Coadapt.HandoffCup,
