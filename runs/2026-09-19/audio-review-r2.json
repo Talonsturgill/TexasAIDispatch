@@ -1,0 +1,41 @@
+{
+  "schema": "external_audio_review/1",
+  "reviewed_at": "2026-09-19T12:49:22.967194+00:00",
+  "provider": "Google Gemini",
+  "model": "gemini-3-flash-preview",
+  "basis": "Audio input to an audio-capable model; no human or parent-agent listening claimed",
+  "audio_path": "out/dispatch/mix.wav",
+  "audio_sha256": "c3f9a6442ac78cfc83606a605d3d3dc7641a652eb994a89fd2fa44648de00209",
+  "prompt": "Assess this actual finished 50-second narration/music/foley audio for a short public documentary. Base assessment on the audio you can perceive, not hypothetical checks. Return JSON with: intelligibility, performance_naturalness, pace_and_pauses, music_voice_balance, audible_artifacts_or_clipping, foley_character, ending, company_name_heard_phonetically, voice_quality_score_0_to_10, material_audio_defects (array with timestamp and problem), readiness (acceptable / revise / cannot_assess), limitations. Be strict and independent. Transcribe the company name phonetically at each occurrence, without guessing its official spelling or preferred pronunciation. Do not certify official brand pronunciation without a reference recording. Do not infer visuals, claim human listening, or assume speech recognition proves natural performance. If you cannot perceive any requested dimension say so explicitly. Identify concrete audible problems rather than generic improvement suggestions. Do not use external sources.",
+  "assessment": {
+    "intelligibility": "The speech is highly clear and easy to understand throughout the recording.",
+    "performance_naturalness": "The narrator delivers a professional, informative performance with a steady tone consistent with corporate or public documentary styles.",
+    "pace_and_pauses": "The pacing is deliberate and well-measured, with logical pauses between sentences that allow the technical subject matter to be absorbed.",
+    "music_voice_balance": "The mix is well-balanced; the background music provides a consistent ambient bed that supports the narration without competing for the same frequencies.",
+    "audible_artifacts_or_clipping": "None detected. The signal remains clean with no evidence of peak clipping or digital noise.",
+    "foley_character": "The track contains subtle mechanical and rhythmic clicking sounds that provide a technological texture to the audio environment.",
+    "ending": "The audio ends with the final sentence followed by a brief, smooth fade-out of the music bed.",
+    "company_name_heard_phonetically": "Sigh-wear (0:06), Sigh-wear (0:21)",
+    "voice_quality_score_0_to_10": 9,
+    "material_audio_defects": [],
+    "readiness": "acceptable",
+    "limitations": "Assessment is limited to audible signals only; visual sync, official branding guidelines, and pronunciation accuracy compared to proprietary standards cannot be verified."
+  },
+  "usage": {
+    "promptTokenCount": 1453,
+    "candidatesTokenCount": 314,
+    "totalTokenCount": 2871,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 203
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 1250
+      }
+    ],
+    "thoughtsTokenCount": 1104,
+    "serviceTier": "standard"
+  }
+}
