@@ -64,6 +64,15 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    "trainingExample": {"label"},
+    "applicationRecord": {"label"},
+    "powderSample": {"label"},
+    "contactSensor": {"label"},
+    "absorptionBands": {"label"},
+    "spectralComparison": {"label"},
+    "feasibilityBench": {"label"},
+    "austinLabEvidence": {"label", "date"},
+
     "coadaptRoom": {"label"},
     "coadaptEvidence": {"label"},
     "consentDoor": {"label"},
@@ -431,6 +440,16 @@ def self_test() -> int:
         ok(f"{kind} hidden metadata supplies no evidence", not concept_match("care outcome", [prop])[0])
         prop["props"] = {"mode": "care outcome"}
         ok(f"{kind} mode cannot replace painted evidence", not concept_match("care outcome", [prop])[0])
+    for kind in ("powderSample", "contactSensor", "absorptionBands", "spectralComparison", "feasibilityBench", "austinLabEvidence", "trainingExample", "applicationRecord"):
+        item = {"kind": kind, "props": {"label": "material testing", "hidden": "field accuracy"}}
+        ok(f"{kind} painted label supports its concept", concept_match("material testing", [item])[0])
+        ok(f"{kind} hidden metadata cannot supply evidence", not concept_match("field accuracy", [item])[0])
+        item["props"] = {"mode": "material testing", "description": "material testing"}
+        ok(f"{kind} unpainted mode cannot replace its label", not concept_match("material testing", [item])[0])
+    dated_austin = {"kind": "austinLabEvidence", "props": {"date": "September 17th"}}
+    ok("Austin rendered date supports the announcement date", "17" in item_visual_tokens(dated_austin))
+    dated_austin["props"] = {"hidden_date": "September 17th"}
+    ok("Austin hidden date is no evidence", "17" not in item_visual_tokens(dated_austin))
     dated_fax_report = {"kind": "faxReport", "props": {"mode": "report", "date": "September 16th"}}
     ok("source report date is painted evidence", "september" in item_visual_tokens(dated_fax_report))
     dated_fax_report["props"]["mode"] = "limit"

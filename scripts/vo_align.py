@@ -727,6 +727,19 @@ def self_test() -> int:
         except ValueError:
             refused = True
         ok("compound normalization still refuses " + text, refused)
+    company_alias = [{"heard": "Seyware", "script": "Si-Ware", "reason": "source-name spelling", "source": "https://www.si-ware.com/"}]
+    company_groups, company_evidence = acoustic_groups(
+        ["Si-Ware"], [(0.2, 2.0)], [{"text": "Seyware", "center": 0.9}], company_alias)
+    ok("a hyphenated sourced name preserves the actual acoustic position",
+       company_groups == [["Si-Ware"]] and company_evidence[0]["dtw_center_s"] == 0.9)
+    for wrong in ("Otherware", "Ware", "Seyware 17", "Seyware Seyware"):
+        try:
+            acoustic_groups(["Si-Ware"], [(0.2, 2.0)],
+                [{"text": w, "center": 0.5+i*0.2} for i,w in enumerate(wrong.split())], company_alias)
+            refused = False
+        except ValueError:
+            refused = True
+        ok("sourced name reconciliation still refuses " + wrong, refused)
     ok("ordinal notation preserves the value", canonical("ninth") == canonical("9th"))
     ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
     try:

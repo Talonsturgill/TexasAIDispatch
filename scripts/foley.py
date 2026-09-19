@@ -1556,7 +1556,25 @@ def ceramic_handoff(seed=92):
     tap += sine(1310, dur)*expdecay(dur, .018)*.12
     return normalize(fade(tap, 4), .35)
 
+def spectral_contact(seed=93):
+    """A subdued physical touch of the illustrated sensing head or test stop."""
+    dur = .32
+    tone = sine(315, dur)*expdecay(dur, .065)
+    tone += sine(790, dur)*expdecay(dur, .032)*.18
+    return normalize(fade(tone, 6), .38)
+
+
+def spectral_response(seed=94):
+    """Conceptual light-response sonification, never a recording of a sensor."""
+    dur = .7
+    t = t_axis(dur)
+    signal = (sine(520, dur)+sine(780, dur)*.18)*np.hanning(len(t))
+    return normalize(fade(signal, 20), .32)
+
+
 SOUNDS = {
+    "spectral_contact": (spectral_contact, "oneshot", "the illustrated spectral contact head, sample or testing stop touching", ["sensor", "sample", "contact", "test"]),
+    "spectral_response": (spectral_response, "oneshot", "sonification of a visible conceptual spectral response or reference match", ["light", "spectral", "response", "reference"]),
     "assistive_servo": (assistive_servo, "oneshot", "the visible illustrated assistive robot wrist moving", ["robot", "wrist", "illustration"]),
     "ceramic_handoff": (ceramic_handoff, "oneshot", "the visible illustrated cup handle contacting the persons hand", ["cup", "hand", "handoff"]),
     "mineral_drive": (mineral_drive, "oneshot", "the visible illustrated mineral rock hoist or drilling tool moving", ["mineral", "rock", "drilling", "test"]),

@@ -104,6 +104,10 @@ def speech_spelling(s: str) -> str:
     while ``US`` is one, made a verbatim take fail on typography rather than speech.
     """
     s = (s or "").replace("\u2018", "'").replace("\u2019", "'")
+    # The registered company name is one hyphenated proper name. Joining its
+    # typography enables the ordinary sourced single-name spelling alias; it does
+    # not merge arbitrary words, numbers, or a different company name.
+    s = re.sub(r"\bSi-Ware\b", "Siware", s, flags=re.IGNORECASE)
     return re.sub(r"\b(?:[A-Za-z]\.){2,}", lambda m: m.group(0).replace(".", ""), s)
 
 
@@ -416,6 +420,16 @@ def self_test() -> int:
        word_accuracy(typography, plain) == 1.0,
        str((fidelity_tokens(typography), fidelity_tokens(plain))))
 
+    brand_alias = [{"heard": "Sciware", "script": "Si-Ware",
+                    "reason": "ASR orthography for the sourced company name",
+                    "source": "https://www.si-ware.com/"}]
+    ok("a hyphenated company name retains one exact lexical identity",
+       word_accuracy("Si-Ware announced", "Sciware announced", brand_alias) == 1.0)
+    ok("brand spelling still needs the explicit sourced alias",
+       word_accuracy("Si-Ware announced", "Sciware announced") < 1.0)
+    for wrong in ("Ware announced", "Otherware announced", "Sciware did not announce", "Si 17 Ware announced"):
+        ok("brand spelling normalization refuses " + wrong,
+           word_accuracy("Si-Ware announced", wrong, brand_alias) < 1.0)
     sourced_alias = [{"heard": "Progresso", "script": "Progreso",
                       "reason": "ASR spelling of a verified pronunciation",
                       "source": "Texas Almanac pronunciation guide"}]
