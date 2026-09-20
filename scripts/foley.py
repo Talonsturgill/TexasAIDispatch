@@ -1572,7 +1572,38 @@ def spectral_response(seed=94):
     return normalize(fade(signal, 20), .32)
 
 
+def screwworm_wings(seed=95):
+    """Hand-synthesized wing flutter for the visibly illustrated fly."""
+    dur = .8
+    t = t_axis(dur)
+    buzz = sine(175, dur) + .22*sine(350, dur)
+    flutter = (.4+.6*np.sin(2*np.pi*22*t)**2)*np.hanning(len(t))
+    return normalize(fade(buzz*flutter, 20), .28)
+
+
+def forecast_clue(seed=96):
+    """Graphic sonification of the ecological forecast illustration, not live telemetry."""
+    dur = .7
+    t = t_axis(dur)
+    trace = (sine(lambda t: 370+100*t, dur)+.12*sine(680, dur))*np.hanning(len(t))
+    return normalize(fade(trace, 20), .30)
+
+
+def ranch_gate(seed=97):
+    """A short physical hinge and latch on the visible livestock transport gate."""
+    dur = .8
+    out = np.zeros(int(dur*SR))
+    hinge = biquad_bp(white(.55, seed), 650, 4)*np.hanning(int(.55*SR))
+    place_into(out, normalize(hinge)*.12, 0)
+    latch = (sine(330, .18)+.24*sine(770, .18))*expdecay(.18, .035)
+    place_into(out, fade(latch, 4)*.4, .57)
+    return normalize(fade(out, 10), .4)
+
+
 SOUNDS = {
+    "screwworm_wings": (screwworm_wings, "oneshot", "the visible illustrated sterile or wild fly moving its wings", ["fly", "insect", "wings"]),
+    "forecast_clue": (forecast_clue, "oneshot", "graphic sonification of the visible ecological forecast landscape or clues", ["forecast", "landscape", "model", "habitat"]),
+    "ranch_gate": (ranch_gate, "oneshot", "the visible ranch livestock transport gate closing", ["ranch", "livestock", "gate", "transport"]),
     "spectral_contact": (spectral_contact, "oneshot", "the illustrated spectral contact head, sample or testing stop touching", ["sensor", "sample", "contact", "test"]),
     "spectral_response": (spectral_response, "oneshot", "sonification of a visible conceptual spectral response or reference match", ["light", "spectral", "response", "reference"]),
     "assistive_servo": (assistive_servo, "oneshot", "the visible illustrated assistive robot wrist moving", ["robot", "wrist", "illustration"]),

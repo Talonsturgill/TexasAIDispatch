@@ -64,6 +64,8 @@ ATMOSPHERE = {
 # board attach ``label: 24,000 RECORDS`` to a pickup that never renders that label and pass the
 # same lie under a new field name.
 VISIBLE_PROPS: dict[str, set[str]] = {
+    **{kind: {"label"} for kind in ("screwwormCycle", "screwwormForecast", "screwwormDispatch", "screwwormRoute")},
+    "screwwormResearch": {"label", "date"},
     "trainingExample": {"label"},
     "applicationRecord": {"label"},
     "powderSample": {"label"},
@@ -446,6 +448,14 @@ def self_test() -> int:
         ok(f"{kind} hidden metadata cannot supply evidence", not concept_match("field accuracy", [item])[0])
         item["props"] = {"mode": "material testing", "description": "material testing"}
         ok(f"{kind} unpainted mode cannot replace its label", not concept_match("material testing", [item])[0])
+    for kind in ("screwwormCycle", "screwwormForecast", "screwwormResearch", "screwwormDispatch", "screwwormRoute"):
+        item = {"kind": kind, "props": {"label": "sterile flies", "hidden": "proven accuracy"}}
+        ok(f"{kind} visible label supports its concept", concept_match("sterile flies", [item])[0])
+        ok(f"{kind} unpainted metadata supplies no evidence", not concept_match("proven accuracy", [item])[0])
+        item["props"] = {"mode": "sterile flies"}
+        ok(f"{kind} mode cannot replace a visible label", not concept_match("sterile flies", [item])[0])
+        item["props"] = {"date": "September 15th"}
+        ok(f"{kind} date accepted only when drawn", ("15" in item_visual_tokens(item)) == (kind == "screwwormResearch"))
     dated_austin = {"kind": "austinLabEvidence", "props": {"date": "September 17th"}}
     ok("Austin rendered date supports the announcement date", "17" in item_visual_tokens(dated_austin))
     dated_austin["props"] = {"hidden_date": "September 17th"}
