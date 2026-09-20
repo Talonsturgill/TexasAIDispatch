@@ -1,0 +1,54 @@
+{
+  "schema": "external_audio_review/1",
+  "reviewed_at": "2026-09-20T07:55:00.130116+00:00",
+  "provider": "Google Gemini",
+  "model": "gemini-3-flash-preview",
+  "basis": "Audio input to an audio-capable model; no human or parent-agent listening claimed",
+  "audio_path": "out/dispatch/mix.wav",
+  "audio_sha256": "ddad939a0ebc77055467a695060fb35b89a560e9367596cc14388922f686c1e7",
+  "prompt": "Assess this actual finished narration/music/foley audio for a short public documentary. Base assessment on the audio you can perceive, not hypothetical checks. Return JSON with: intelligibility, performance_naturalness, pace_and_pauses, music_voice_balance, audible_artifacts_or_clipping, foley_character, ending, place_name_heard_phonetically, voice_quality_score_0_to_10, material_audio_defects (array with timestamp and problem), readiness (acceptable / revise / cannot_assess), limitations. Be strict and independent. Transcribe the Texas place name phonetically, without assuming the intended spelling. Do not infer visuals, claim human listening, or assume speech recognition proves natural performance. If you cannot perceive any requested dimension say so explicitly. Identify concrete audible problems rather than generic improvement suggestions. Do not use external sources.",
+  "assessment": {
+    "intelligibility": "Excellent. Every word is clearly enunciated and easily understandable.",
+    "performance_naturalness": "Professional documentary style. It feels slightly formal and deliberate rather than conversational, which is appropriate for the subject matter.",
+    "pace_and_pauses": "Steady and measured. The pauses between sentences provide sufficient time for the information to be absorbed without feeling slow.",
+    "music_voice_balance": "Well-balanced. The atmospheric background pad remains at a low enough volume to never compete with the narration frequencies.",
+    "audible_artifacts_or_clipping": "None detected. No digital clipping or significant compression artifacts are audible.",
+    "foley_character": "Ambient scientific/industrial drone. It provides a sterile, clinical backdrop that matches the 'lab' and 'AI' themes mentioned in the text.",
+    "ending": "The audio ends cleanly following the final word, though the music tail is short.",
+    "place_name_heard_phonetically": "KERR-vil",
+    "voice_quality_score_0_to_10": 9,
+    "material_audio_defects": [
+      {
+        "timestamp": "0:01",
+        "problem": "Minor mouth click audible between 'fought' and 'with'."
+      },
+      {
+        "timestamp": "0:14",
+        "problem": "Soft breath intake is audible before the word 'USDA's'."
+      },
+      {
+        "timestamp": "0:34",
+        "problem": "Slightly sharp plosive on the 'p' in the word 'suspected'."
+      }
+    ],
+    "readiness": "acceptable",
+    "limitations": "Assessment is based on the provided monophonic or stereo mixdown; cannot evaluate multi-track stems or spatial audio accuracy. Visual synchronization cannot be assessed."
+  },
+  "usage": {
+    "promptTokenCount": 1407,
+    "candidatesTokenCount": 416,
+    "totalTokenCount": 2760,
+    "promptTokensDetails": [
+      {
+        "modality": "AUDIO",
+        "tokenCount": 1225
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 182
+      }
+    ],
+    "thoughtsTokenCount": 937,
+    "serviceTier": "standard"
+  }
+}

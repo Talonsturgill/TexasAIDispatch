@@ -1,3 +1,4 @@
+import * as Screwworm from './screwworm';
 import * as Spectral from './spectral';
 import * as Coadapt from './coadaptation';
 import * as Faxwork from './faxwork';
@@ -92,6 +93,13 @@ const CastElement: React.FC<any> = (p) => {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ELEMENTS: Record<string, React.FC<any>> = {
+  screwwormSurface: Screwworm.ScrewwormSurface,
+  screwwormCycle: Screwworm.ScrewwormCycle,
+  screwwormForecast: Screwworm.ScrewwormForecast,
+  screwwormResearch: Screwworm.ScrewwormResearch,
+  screwwormDispatch: Screwworm.ScrewwormDispatch,
+  screwwormRoute: Screwworm.ScrewwormRoute,
+
   trainingExample: Spectral.TrainingExample,
   applicationRecord: Spectral.ApplicationRecord,
   spectralSurface: Spectral.SpectralSurface,

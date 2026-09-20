@@ -1,0 +1,162 @@
+{
+  "date": "2026-09-20",
+  "source": "independent validator; fresh primary-page refetches and source snapshots",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11",
+    "c12"
+  ],
+  "rejected": [
+    "The hard part is where to release them. The supplied narration ranks this as the hardest challenge; no source makes that comparative assessment. Replace with a neutral location question.",
+    "A new USDA report from Kerrville. The source locates the quoted lab director in Kerrville; it does not establish where the report was authored. Attribute the statement to that lab director.",
+    "The model has a blind spot: people can transport infested animals. The research draft makes the limitation categorical. ARS says not every scenario is predictable, especially transport, rather than claiming every model excludes it.",
+    "A rancher can move animals when the defined quarantine restrictions are lifted. This candidate consequence requires all remaining movement conditions and exact zone geography. It is excluded from this short film; no zone-release claim is accepted here."
+  ],
+  "required_edits_applied": [
+    "Bound the date claim to publication rather than an invented deployment date.",
+    "Bound Kerrville attribution to the named laboratory director.",
+    "Accepted only the limited transport-prediction statement.",
+    "Excluded zone-release and unrestricted-animal-movement claims from the verified claim set.",
+    "Replaced the unsupported difficulty ranking with the neutral release-location question.",
+    "Replaced ambiguous report geography with precise Kerrville lab-director attribution.",
+    "Bound every final narration scene to verified claims; all other storyboard fields were preserved.",
+    "Expanded every evidence excerpt to the complete supporting sentence or passage from the independently fetched snapshot; c6 was also bound to s2 for explicit sterile-fly terminology."
+  ],
+  "source_evidence_manifest": "out/dispatch/validation-sources/manifest.json",
+  "claims_sha256": "a9fa159d437a1433ba568b1e77f6f02c4103d812383401b52780c7d86e713547",
+  "retrieved_utc": "2026-09-20T07:23:57.124324+00:00",
+  "independent_refetch": true,
+  "exact_quotes_verified_against_snapshots": true,
+  "narration_audit": {
+    "status": "PASS",
+    "final_script_audit_pending": false,
+    "word_count": 96,
+    "script_sha256": "5f5f6b6a59a2c4be4720898552532304b18d56515fa1d30694adfb6e3dcd74ea",
+    "scene_findings": [
+      {
+        "scene_id": "s1",
+        "text": "This fly is fought with more flies.",
+        "claim_ids": [
+          "c7",
+          "c8"
+        ],
+        "verdict": "PASS",
+        "finding": "SIT purpose supported. The phrase describes a control method without promising eradication."
+      },
+      {
+        "scene_id": "s2",
+        "text": "Sterile males mate with wild females. Their eggs never hatch.",
+        "claim_ids": [
+          "c7",
+          "c8",
+          "c6"
+        ],
+        "verdict": "PASS",
+        "finding": "Sterile male and wild female mating yields nonviable eggs. This is the biological mechanism, not a field success rate."
+      },
+      {
+        "scene_id": "s3",
+        "text": "The next question is where to release them.",
+        "claim_ids": [
+          "c6"
+        ],
+        "verdict": "PASS",
+        "finding": "Neutral editorial transition to release location, an explicitly documented model application. Prior unsupported ranking removed."
+      },
+      {
+        "scene_id": "s4",
+        "text": "USDA's lab director in Kerrville says AI models already guide that choice.",
+        "claim_ids": [
+          "c1",
+          "c2",
+          "c3",
+          "c5",
+          "c6"
+        ],
+        "verdict": "PASS",
+        "finding": "Precisely attributes existing model use to the quoted lab director in Kerrville. Prior report-origin ambiguity removed."
+      },
+      {
+        "scene_id": "s5",
+        "text": "Habitat, weather and past outbreaks become clues to where screwworm could spread.",
+        "claim_ids": [
+          "c3",
+          "c4"
+        ],
+        "verdict": "PASS",
+        "finding": "Habitat suitability, temperature, precipitation and historical outbreaks are documented inputs. Could preserves predictive uncertainty."
+      },
+      {
+        "scene_id": "s6",
+        "text": "That helps direct traps, surveillance and sterile insects.",
+        "claim_ids": [
+          "c5",
+          "c6"
+        ],
+        "verdict": "PASS",
+        "finding": "Existing surveillance, adult trapping and SIT placement use is explicitly reported by ARS."
+      },
+      {
+        "scene_id": "s7",
+        "text": "The models can't predict every trip carrying an infested animal.",
+        "claim_ids": [
+          "c9"
+        ],
+        "verdict": "PASS",
+        "finding": "Cannot predict every trip is a bounded paraphrase of the stated transport-related prediction limit; it does not claim all transport is unmodeled."
+      },
+      {
+        "scene_id": "s8",
+        "text": "Livestock owners should check animals and report suspected cases. Never move an animal suspected of infestation.",
+        "claim_ids": [
+          "c10",
+          "c11",
+          "c12"
+        ],
+        "verdict": "PASS",
+        "finding": "TAHC supports monitoring and immediate reporting. USDA explicitly prohibits moving suspected infested animals."
+      },
+      {
+        "scene_id": "s9",
+        "text": "The forecast helps place the flies. People still have to stop the ride.",
+        "claim_ids": [
+          "c6",
+          "c9",
+          "c12"
+        ],
+        "verdict": "PASS",
+        "finding": "Editorial synthesis of release-location guidance and the owner instruction. Board continuity retains the suspected-animal scenario from s8 and a closed loading gate; it does not forbid all animal movement."
+      }
+    ]
+  },
+  "numeric_scope": "Only the sourced publication date is approved for numeric on-screen use. Do not display invented risk percentages, model accuracy or case totals.",
+  "visual_scope": "Original labeled illustrations only; no invented actual forecast, measured release boundary, observed ranch footage or proof of eradication.",
+  "wording_scan": "Zero prohibited whole-word matches in newly authored claim prose.",
+  "illustration_audit": {
+    "status": "PASS_AT_BOARD_STAGE",
+    "basis": "Authored scene descriptions and continuity, not a rendered-film inspection.",
+    "sex_and_sterility_colors": "Teal male and coral female are author-defined teaching colors. Identify their roles and display an illustration label; these colors are not diagnostic traits or evidence of sterility.",
+    "nonhatch_sequence": "Closed eggs correctly illustrate the cited nonviable-egg mechanism. No measured success percentage or claim that the whole wild population has stopped reproducing is approved.",
+    "transport_sequence": "A fictional owner observes a possible problem, reports it and stops a proposed trip; no diagnosis from color or a glance is asserted.",
+    "forecast_sequence": "Original conceptual landscape and target only; no measured risk surface, actual release polygon or geographical forecast is verified.",
+    "render_review_required": "Final judges must verify readable illustration labeling and that the intended limited claims survive the actual visual presentation."
+  },
+  "board_sha256_after_claim_binding": "73c791f021b686807b2a905ac582ac07e85257b4192f35abfb21b749409a3bd6",
+  "updated_utc": "2026-09-20T07:29:44.889286+00:00",
+  "internal_editorial_note": "The director was notified that documentary.source_limit should say models cannot predict every animal-transport scenario. That board field was left untouched under the field-only edit instruction; final narration already uses the bounded form.",
+  "evidence_excerpt_audit": {
+    "status": "PASS",
+    "exact_snapshot_matches": 12,
+    "scope": "Evidence passages support the full accepted statement, including publication context, model inputs, existing operational use and owner instructions."
+  }
+}

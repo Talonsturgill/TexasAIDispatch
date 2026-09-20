@@ -1,0 +1,11 @@
+{
+  "reason": "base.en rendered sterile as steril and screwworm as screwwarm on the same recovery take. Pinned small.en independently recognizes every ordinary word; only the source-backed Kerrville orthography alias remains. First take still fails small.en for stop/stock and is rejected.",
+  "source": "https://huggingface.co/api/models/ggerganov/whisper.cpp/tree/5359861c739e955e79d9a303bcbc70fb988958b1",
+  "verified_sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d",
+  "gate_policy": "Exact words, hash bindings, DTW requirement and measured caption boundaries unchanged. No script prompt or ordinary-word exception supplied.",
+  "evidence": [
+    "align-candidate.log",
+    "small-model-check/asr.json",
+    "small-model-recovery/asr.json"
+  ]
+}

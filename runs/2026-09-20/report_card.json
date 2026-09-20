@@ -1,0 +1,364 @@
+{
+  "schema": "dispatch_report_card/1",
+  "round": 1,
+  "score": 7.477,
+  "weighted_score": 7.477,
+  "ship": true,
+  "axes": {
+    "place": 6.833,
+    "craft": 7.1,
+    "voice": 7.433,
+    "picture": 7.467,
+    "hook": 7.733,
+    "story": 8.0
+  },
+  "hard_fails": [],
+  "judges": [
+    {
+      "judge": "picture",
+      "round": 1,
+      "score": 7.504,
+      "ship": true,
+      "axes": {
+        "hook": 7.8,
+        "story": 8.1,
+        "picture": 7.7,
+        "place": 6.7,
+        "craft": 6.9,
+        "voice": 7.4
+      },
+      "hard_fails": [],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Move the closing gate upward or shorten its lower rails so that it clears the supporting suspicion label throughout 42.9\u201343.9 seconds, preserving the trailer stop and final captions.",
+      "rubric_source": "config/dispatch_rubric.yaml, read during this review; weighted total computed without rounding",
+      "axis_reasons": {
+        "hook": "At 0.55 seconds the lid visibly separates and the teal flies rise; by 1.10 seconds the release is legible without captions. A coral fly waits beside them. This is an immediate action and useful visual contrast, although the first still image is a plain instructional arrangement.",
+        "story": "The dated USDA report, attributed Kerrville director, operational application, forecast limitation and animal-owner action form a coherent sequence. The last gate answers the transport problem. Current sourcing is clear; the film avoids unsupported AI-only outcomes and does not use the excluded Zone 10 release.",
+        "picture": "All 20 directed intervals were inspected in exact-film before, middle and after frames. Pairing leads to closed eggs; the same landscape takes habitat, weather, outbreak markers, a target, trap and sterile fly release. Trailer motion leads to an inspection, phone and closed gate. Most meaning survives covering captions. A report sliding into place is less absorbing than the mechanism, and the closing gate intrudes on supporting text.",
+        "place": "Kerr County research and Kerrville are explicitly identified, and pale limestone-colored ground, low hills, scrub and ranch equipment are compatible with the setting. The landscape is deliberately schematic and the trees are generic blobs, so a local viewer receives limited place recognition beyond the attribution. No incompatible biome or wardrobe was observed.",
+        "craft": "The recurring teal fly, coral fly, ochre landscape and teal target preserve continuity across cuts. Captions stay legible at 360 pixels. The film has generous negative space and some long flat intervals while evidence is read. At the end, the gate overlaps a supporting label; the diagonal-road trailer also appears slightly detached from the road surface. These weaken finish without obscuring the action.",
+        "voice": "The exact mix has an external audio-capable model assessment accepting clarity and balance while describing a formal performance and minor artifacts. Silence-anchored caption boundaries and exact acoustic reconciliation support timing; these are not my own listening. That limited basis supports a cautious passing score rather than an independently heard performance verdict."
+      },
+      "attention_review": {
+        "film_sha256": "fd1e186005cb74d2037682601e30686b9211fadda881864c3aba9d967d5ecd3c",
+        "pass": true,
+        "hook_observed": "The release container lid lifts and teal flies rise during 0.11\u20130.98 seconds; the 0.546-second decoded frame already shows the physical release. They approach the coral female during 1.58\u20132.37 seconds. The first visible payoff arrives within the current policy window.",
+        "continuity_observed": "Across 8.21\u20138.71 seconds the same teal and coral fly pair stays above a landscape that unfolds beneath it. Across 22.19\u201322.69 seconds the same tree positions, outbreak markers and teal target remain while the trap and release aircraft enter, so input selection leads into intervention.",
+        "remembered_image": "The paired teal and coral flies above five closed eggs and an ended reproductive path: the counterintuitive opening release becomes a comprehensible biological mechanism.",
+        "weakest_interval": "42.9\u201343.9 seconds: the trailer and closing gate resolve the story, but the gate rails extend down across the supporting suspicion label and the large fly competes with the target patch. Raise or shorten the gate to clear the label; preserve the visible vehicle stop. The action and captions remain understandable, so this is a limited craft defect.",
+        "weakest_at_s": 42.9,
+        "audio_basis": "No direct listening by this judge. Reviewed audio-review-r1.json: Gemini-3-flash-preview received audio input for the exact mix SHA256 ddad939a0ebc77055467a695060fb35b89a560e9367596cc14388922f686c1e7 and marked it acceptable, reporting clear narration, low music balance, KERR-vil, and minor click/breath/plosive observations at approximate timestamps. Reviewed mix.json: 49-second mix, time_stretch 1.0, -19.24 LUFS, 19 dB bed gap and nine SFX events. Reviewed acoustic-asr.json/meta, voice-selection.json, words.json and captions.json: small.en acoustic matching covers all 96 script words after the recorded Kerrville alias; all 11 cue endpoints are measured, with 67 interior word times explicitly modeled. These records cannot establish my own auditory judgment of acting, acoustic texture or picture/sound synchronization."
+      },
+      "review_coverage": {
+        "visual_method": "Decoded the identified final MP4 with ffmpeg at every directed event before, midpoint and after; viewed all 60 frames at 360x640. Also decoded and viewed 27 frames around all nine cuts including the credit transition. Read the exact-film HTML player and JSON index, viewed the contact sheet and feed composites. No continuous audiovisual playback or direct listening claimed.",
+        "event_ids": [
+          "release-open",
+          "male-arrives",
+          "pair-connect",
+          "eggs-close",
+          "world-unfold",
+          "target-asks",
+          "kerrville-page",
+          "researcher-points",
+          "habitat-build",
+          "weather-falls",
+          "history-target",
+          "trap-lowers",
+          "release-target",
+          "trailer-crosses",
+          "forecast-stops",
+          "inspect-animal",
+          "report-call",
+          "gate-shuts",
+          "target-returns",
+          "stop-ride"
+        ],
+        "phone_frame_size": [
+          360,
+          640
+        ],
+        "event_frames": 60,
+        "transition_frames": 27,
+        "caption_hidden_review": "Mentally covered caption blocks while inspecting the same sequences; the model selection, trailer travel and stopped trip remain visible.",
+        "credits": "Five-second credit section inspected; sourced date and music licence credit are visible.",
+        "evidence": [
+          "claims.json",
+          "validation.json",
+          "storyboard.json",
+          "attention-review.html",
+          "attention-review.json",
+          "attention-review.png",
+          "feed-composite.png",
+          "captions.json",
+          "words.json",
+          "mix.json",
+          "audio-review-r1.json",
+          "acoustic-asr.json",
+          "acoustic-asr-meta.json",
+          "voice-selection.json",
+          "preship-r1.log"
+        ],
+        "other_judge_reports_consulted": false,
+        "prior_role_disclosure": "This agent previously researched this beat and prepared voice direction; it did not author the renderer. This picture assessment uses the final rendered artifact and did not inspect other judges scores."
+      },
+      "release_limit": "Passing score with a small optional craft repair; no observed hard failure. Voice judgment relies on the explicitly identified external audio assessment."
+    },
+    {
+      "score": 7.372,
+      "ship": true,
+      "axes": {
+        "hook": 7.6,
+        "story": 7.8,
+        "picture": 7.1,
+        "place": 7.2,
+        "craft": 6.9,
+        "voice": 7.5
+      },
+      "hard_fails": [],
+      "weakest_axis": "craft",
+      "one_sentence_fix": "Place the s7 trailer wheels on the road centerline and move the final gate below the supporting label, then shorten the redundant second trailer advance.",
+      "attention_review": {
+        "film_sha256": "fd1e186005cb74d2037682601e30686b9211fadda881864c3aba9d967d5ecd3c",
+        "pass": true,
+        "hook_observed": "At 0.000, 0.546 and 1.104 seconds the lid opens and teal flies rise out while the coral female stays identifiable; the opening offers a physical payoff before its first caption finishes.",
+        "continuity_observed": "Across the 3.72-second cut the same teal/coral pair remains at the same scale and location; across 8.36 seconds it becomes the terrain question, and the repeated teal target connects habitat clues at 20.28 seconds to trap and release actions at 22.57 and 24.18 seconds.",
+        "remembered_image": "The coral reproductive path terminating beneath the eggs at about 6.65 seconds makes the sterile-mating consequence memorable; the closing fly above a stopped trailer then assigns separate roles to forecast and owner.",
+        "weakest_interval": "28.436\u201329.097 seconds: the second short trailer advance contributes less than the preceding move, and the wheels appear above the road stripe. Put the wheels on the route and shorten this continuation to give the inspection transition more emphasis. This is a weak continuation within a moving shot, not a held slide or a deceptive reconstruction.",
+        "weakest_at_s": 28.436,
+        "audio_basis": "No direct listening by this scorer. I read the exact-mix Google Gemini audio-capable assessment in audio-review-r1.json, whose input hash matches mix.wav (ddad939a0ebc77055467a695060fb35b89a560e9367596cc14388922f686c1e7). It reports clear, somewhat formal delivery, KERR-vil, suitable music balance and three minor mouth/breath/plosive artifacts. I independently read mix.json: time_stretch 1.0, achieved loudness -19.24 LUFS, and music 19 dB below voice. Caption evidence includes 96 acoustic matches and measured cue boundaries. These sources support intelligibility and alignment confidence but do not make this my own listening or a human performance judgment."
+      },
+      "axis_evidence": {
+        "hook": "The first second has a clear release action and color contrast. The spacious layout reduces immediacy somewhat, but it is an action rather than a title card.",
+        "story": "The film explains sterile mating, introduces the current USDA application through its Kerrville lab director, shows model inputs and interventions, acknowledges unpredictable animal transport, and ends with a specific owner action. No unsupported launch date or eradication claim is made.",
+        "picture": "All twenty intervals have actual subject or evidence changes in extracted current-film frames. Terrain is reused to preserve the mechanism, although the second trailer advance is repetitive. The small released fly group is recognizable as a group rather than a detail study.",
+        "place": "Kerr County attribution, pale limestone-like terrain, scrub palette and ranch cast are coherent for the stated illustrative setting. It remains a generalized schematic rather than a richly observed Kerrville location.",
+        "craft": "Good type separation, consistent role colors and physical state changes. The off-road wheel placement and final gate-label crossing are visible polish defects. The lower reserved area produces substantial empty space, but the principal story remains readable in the feed composite.",
+        "voice": "Scored with reduced confidence from external audio-capable review plus exact-mix measurements and acoustic caption evidence. That review describes a clear, deliberate performance with minor artifacts; I did not hear the recording myself."
+      },
+      "verification": {
+        "rubric": "Read config/dispatch_rubric.yaml in full and computed the exact weighted sum using Decimal; compared directly with its configured field without rounding upward.",
+        "review_method": "Independently sought the hash-verified MP4 with FFmpeg, extracting before, midpoint and after frames for every directed interval at a 390-pixel-wide phone scale. Inspected all sixty samples, eighteen samples around all nine scene/credit transitions, the attention contact sheet, its JSON hash index, the HTML player source and its exact film binding, and the feed composite. This was frame-based visual review, not real-time audiovisual playback.",
+        "attention_html": "Read its seek controls and exact-film URL binding; no shared CUA tab was used.",
+        "caption_alignment": "All eleven displayed caption cues have measured start/end boundaries tied to the current mix. words.json honestly calls this silence-anchored acoustic alignment, not phoneme forced alignment; its modeled interior word timings do not determine the displayed sentence-cue edges. No scaled or hand-shifted cue timing was found.",
+        "time_stretch": "mix.json records 1.0 for voice, effects and music.",
+        "numerals": "The September date appears in the verified ARS archive excerpt. Ran music.py --verify-package against current credits.txt successfully; the license-version exception is bound to that approved package.",
+        "technical_gates": "Read current render and mix bindings; no claim of independently repeating all preship or deployment tests.",
+        "script_claims": "Read vo_script.txt, claims.json and validation.json. The accepted claim set supports the narration and the qualified transport instruction."
+      },
+      "nonblocking_defects": [
+        {
+          "at_s": 27.093,
+          "problem": "Trailer wheels are offset above the road stripe.",
+          "impact": "Reduces physical grounding; the trailer and transport concept remain legible."
+        },
+        {
+          "at_s": 43.026,
+          "problem": "Gate bars cross the right end of SUSPECT ANIMAL STAYS.",
+          "impact": "Minor supporting-label interference; the main caption, stationary trailer and closed gate remain clear."
+        }
+      ],
+      "directed_interval_observations": [
+        {
+          "event_id": "release-open",
+          "start_s": 0.109,
+          "end_s": 0.984,
+          "observed": "Lid rises and teal flies emerge from the illustrated container; the release is visibly complete by the 1.104-second sample."
+        },
+        {
+          "event_id": "male-arrives",
+          "start_s": 1.581,
+          "end_s": 2.369,
+          "observed": "The principal teal male enlarges and shifts toward the coral female; distinct colors retain identity."
+        },
+        {
+          "event_id": "pair-connect",
+          "start_s": 3.952,
+          "end_s": 4.711,
+          "observed": "The pair closes together and a connected path leads to eggs."
+        },
+        {
+          "event_id": "eggs-close",
+          "start_s": 5.771,
+          "end_s": 6.53,
+          "observed": "The reproductive path ends in a visible coral bar; the nonhatching consequence remains readable with captions covered."
+        },
+        {
+          "event_id": "world-unfold",
+          "start_s": 8.546,
+          "end_s": 9.155,
+          "observed": "The flattened terrain opens while the male becomes a small terrain marker and the female fades."
+        },
+        {
+          "event_id": "target-asks",
+          "start_s": 9.624,
+          "end_s": 10.233,
+          "observed": "The teal selection ring grows and shifts over the terrain, posing a release-location choice."
+        },
+        {
+          "event_id": "kerrville-page",
+          "start_s": 11.537,
+          "end_s": 12.249,
+          "observed": "An illustrated USDA ARS page slides in beside the researcher and names the September publication date."
+        },
+        {
+          "event_id": "researcher-points",
+          "start_s": 14.661,
+          "end_s": 15.373,
+          "observed": "The researcher extends a hand toward the repeated terrain inset while its target resolves; this is evidence attribution, not observed lab footage."
+        },
+        {
+          "event_id": "habitat-build",
+          "start_s": 16.709,
+          "end_s": 17.523,
+          "observed": "Shrubs grow from the initially bare conceptual terrain."
+        },
+        {
+          "event_id": "weather-falls",
+          "start_s": 18.311,
+          "end_s": 19.125,
+          "observed": "Rain strokes descend and the sun shifts into view above the habitat."
+        },
+        {
+          "event_id": "history-target",
+          "start_s": 20.282,
+          "end_s": 21.096,
+          "observed": "Coral outbreak tokens descend and the teal target resolves; the diagram remains explicitly conceptual."
+        },
+        {
+          "event_id": "trap-lowers",
+          "start_s": 22.572,
+          "end_s": 23.332,
+          "observed": "The trap descends beside the landscape markers."
+        },
+        {
+          "event_id": "release-target",
+          "start_s": 24.181,
+          "end_s": 24.941,
+          "observed": "The aircraft crosses and a small group of teal flies descends onto the target field."
+        },
+        {
+          "event_id": "trailer-crosses",
+          "start_s": 26.762,
+          "end_s": 27.423,
+          "observed": "A recognizable trailer travels across the route illustration beyond the soft estimate; the wheels sit above the road stripe."
+        },
+        {
+          "event_id": "forecast-stops",
+          "start_s": 28.436,
+          "end_s": 29.097,
+          "observed": "The trailer continues a short distance farther. This is the weakest development because it adds little beyond the preceding move."
+        },
+        {
+          "event_id": "inspect-animal",
+          "start_s": 31.025,
+          "end_s": 31.827,
+          "observed": "The owner leans and extends a hand toward the animal; the suspected-case label prevents this from appearing to be a verified field diagnosis."
+        },
+        {
+          "event_id": "report-call",
+          "start_s": 33.159,
+          "end_s": 33.961,
+          "observed": "A phone becomes visible at the owner\u2019s hand, providing a concrete reporting action."
+        },
+        {
+          "event_id": "gate-shuts",
+          "start_s": 35.629,
+          "end_s": 36.431,
+          "observed": "A physical gate extends across the foreground while owner and animal remain in place."
+        },
+        {
+          "event_id": "target-returns",
+          "start_s": 38.522,
+          "end_s": 39.444,
+          "observed": "A large teal fly moves onto the repeated target field above the transport diagram."
+        },
+        {
+          "event_id": "stop-ride",
+          "start_s": 41.984,
+          "end_s": 42.906,
+          "observed": "The trailer approaches, stops short, and the perpendicular gate closes. Its lower bars overlap the right edge of the short supporting label."
+        }
+      ],
+      "review_artifacts": [
+        "/tmp/scorer-story-r1/intervals-1.png",
+        "/tmp/scorer-story-r1/intervals-2.png",
+        "/tmp/scorer-story-r1/intervals-3.png",
+        "/tmp/scorer-story-r1/intervals-4.png",
+        "/tmp/scorer-story-r1/intervals-5.png",
+        "/tmp/scorer-story-r1/transitions-1.png",
+        "/tmp/scorer-story-r1/transitions-2.png",
+        "/tmp/scorer-story-r1/transitions-3.png"
+      ],
+      "reviewed_at": "2026-09-20T08:02:56.940823+00:00",
+      "starting_lens": "story",
+      "independent_review": true
+    },
+    {
+      "score": 7.554,
+      "ship": true,
+      "axes": {
+        "hook": 7.8,
+        "story": 8.1,
+        "picture": 7.6,
+        "place": 6.6,
+        "craft": 7.5,
+        "voice": 7.4
+      },
+      "hard_fails": [],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Give the report scene a small Kerr County locator and vary the schematic habitat canopy spacing and silhouettes to strengthen the local setting.",
+      "judge": "independent place reviewer",
+      "round": 1,
+      "date": "2026-09-20",
+      "rubric_source": "config/dispatch_rubric.yaml",
+      "axis_notes": {
+        "hook": "The container opens before the first second and the teal fly rises beside a coral fly by 1.10s. The physical contradiction is visible without captions; the mechanism payoff follows at 4-6.65s. The first frame is a recognizable diagram rather than title furniture, though the empty page area lowers immediacy.",
+        "story": "September 15 is visibly bound to the USDA report, Kerrville is attributed to research leadership, and the model use turns into a practical limit at 26.6s. The check-report-stop sequence gives owners an action and the final two-track tableau resolves the release/transport question. No accuracy or eradication result is invented.",
+        "picture": "All twenty scheduled intervals were inspected using exact-film before/mid/after frames. The lid, fly pairing, closed egg path, unfolding terrain, rain and historical points, descending trap, release swarm, trailer and gate change physically. The long report hold has less narrative energy, and recurring map stages reuse the same small canopy forms.",
+        "place": "Kerr County/Kerrville attribution is legible and sourced; muted limestone/ochre colors, low woody vegetation, cattle, stock trailer and ranch clothing are compatible with the Hill Country. No county mismatch or retired motif appears. Yet the evenly stamped trees, floating slab and anonymous lab figure provide limited county-specific observation; location is carried chiefly by the words.",
+        "craft": "Phone-width cuts preserve teal/coral identity and map orientation. Illustration and no-live-forecast labeling are visible; captions remain separate from the large subjects. The report scene is functional but flat, with an arm gesture doing little after the source date is readable. The final truck halt is concrete and readable.",
+        "voice": "This score is deliberately limited by indirect audio evidence. The exact-mix external audio-input review reports clear speech, acceptable balance and KERR-vil pronunciation, with minor mouth-click/breath/plosive notes. All eleven caption cue boundaries are measured, the acoustic pass matches all ninety-six words, and mix metadata reports no time stretch. I did not directly listen and cannot independently certify acting or those artifact timestamps."
+      },
+      "attention_review": {
+        "film_sha256": "fd1e186005cb74d2037682601e30686b9211fadda881864c3aba9d967d5ecd3c",
+        "pass": true,
+        "hook_observed": "At 0.00s a teal fly is inside a release container beside a coral wild female; by 0.546s the lid has separated and by 1.104s the fly is above it. The opposing colors stay readable at phone width.",
+        "continuity_observed": "Across the 3.72s cut the same teal/coral pair becomes the labeled mating diagram; at 8.36s that pair remains above the unfolding landscape. The map/tree layout and teal release target continue through the 22.34s trap/aircraft scene. The stock trailer returns in the closing tableau after the ranch gate sequence.",
+        "remembered_image": "The large teal fly over the chosen habitat above a stock trailer stopped at a gate at 43.026s: two separate forms of control remain visible in one picture.",
+        "weakest_interval": "14.661-15.373s: the anonymous lab figure raises an arm toward a report already readable for several seconds. It is relevant but adds little new understanding or sense of Kerrville. Add a small Kerr County locator and have the gesture connect that locator to the report/model inset. This is a nonblocking craft improvement, not an unearned gap beyond the policy window.",
+        "weakest_at_s": 14.661,
+        "audio_basis": "No direct listening by this judge. Read the Google Gemini audio-input assessment in audio-review-r1.json bound to mix.wav SHA256 ddad939a0ebc77055467a695060fb35b89a560e9367596cc14388922f686c1e7; confirmed mix.json names that same hash. Also read captions.json, acoustic-asr-meta.json, alignment-model-upgrade.json and align-final.log. External review finds acceptable intelligibility/balance and KERR-vil, plus minor mouth-click, breath and plosive notes; its timestamps are not independently confirmed. Measured captions and waveform/mix metadata cannot establish expressive performance."
+      },
+      "inspection_evidence": {
+        "film_sha256": "fd1e186005cb74d2037682601e30686b9211fadda881864c3aba9d967d5ecd3c",
+        "attention_index_sha256": "cf46854a34995ecb93f812e79b4923bd2efa60409035e7feda5f792d7c531dd3",
+        "contact_sheet_viewed": true,
+        "attention_player_html_read": true,
+        "attention_player_binding_verified": true,
+        "method": "Inspected exact-MP4 ffmpeg extractions at before/mid/after times for every directed interval plus paired frames across every scene cut and credit transition; phone frames were scaled to 390 by 693. Read player controls/index and viewed attention-review.png and feed-composite.png. No browser playback or direct audio listening is claimed.",
+        "directed_intervals_inspected": 20,
+        "phone_transition_count": 9,
+        "artifact_paths": [
+          "out/dispatch/film.mp4",
+          "out/dispatch/attention-review.html",
+          "out/dispatch/attention-review.json",
+          "out/dispatch/attention-review.png",
+          "out/dispatch/feed-composite.png",
+          "out/dispatch/storyboard.json",
+          "out/dispatch/claims.json",
+          "out/dispatch/validation.json",
+          "out/dispatch/vo_script.txt",
+          "out/dispatch/post_caption.txt",
+          "out/dispatch/feed_caption.txt",
+          "out/dispatch/audio-review-r1.json",
+          "out/dispatch/mix.json",
+          "out/dispatch/captions.json",
+          "out/dispatch/acoustic-asr-meta.json",
+          "out/dispatch/align-final.log"
+        ],
+        "hard_fail_review": "No unsupported on-screen numeral observed: the report/date trace to c1 and the music licence numeral appears in the generated credit. All caption cue boundaries are recorded as measured rather than manually placed; all tracks report time_stretch 1.0. No mismatched region, retired motif, unsafe worksite hat, unearned long hold or generic-renderer fallback observed."
+      },
+      "created_utc": "2026-09-20T08:02:35.962050+00:00"
+    }
+  ]
+}
