@@ -100,6 +100,15 @@ def main():
         write(proof_path, bad)
         assert any("too little" in x for x in q.preview_problems(board, cinema)), "unused stage must fail"
         write(proof_path, proof)
+        static = copy.deepcopy(proof)
+        static["samples"]["s1"][1] = copy.deepcopy(static["samples"]["s1"][0])
+        write(proof_path, static)
+        assert any("does not visibly develop" in e for e in q.preview_problems(board, cinema))
+        write(proof_path, proof)
+        partial = q.read(board)
+        partial["scenes"][0]["duration_s"] = 1
+        partial["scenes"].append({"id": "s2", "start_s": 1, "duration_s": 3, "visual_events": []})
+        assert any("required share" in e for e in q.plan_problems(partial))
         changed = q.read(board)
         changed["cinema"]["dimensional_scene_ids"] = []
         assert q.plan_problems(changed)
