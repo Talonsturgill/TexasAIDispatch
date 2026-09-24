@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-24",
+  "claims": [
+    {
+      "id": "c1",
+      "statement": "Aurora held its Analyst and Investor Day in Dallas on September 23rd, 2026.",
+      "text": "Aurora held its Analyst and Investor Day in Dallas on September 23rd, 2026.",
+      "quote": "Dallas, TX – September 23 – Aurora Innovation, Inc. (NASDAQ: AUR) today is hosting its 2026 Analyst and Investor Day, providing the investment community a firsthand look at its commercial driverless trucking operations.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1828108/000182810826000082/businesswire-aurora2026ana.htm",
+      "retrieved": "2026-09-24",
+      "source_type": "primary_corporate_sec",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/aurora-release.txt",
+      "value_text": "September 23rd, 2026",
+      "scope_note": "Event location and date; not a date when rides were completed.",
+      "evidence_scope": "Full supporting passage, independently checked against SEC filing."
+    },
+    {
+      "id": "c2",
+      "statement": "Aurora offered attendees rides without a person behind the wheel on a segment of its Dallas to Houston commercial route.",
+      "text": "Aurora offered attendees rides without a person behind the wheel on a segment of its Dallas to Houston commercial route.",
+      "quote": "Attendees will have the opportunity to ride in Aurora Driver-powered trucks, without a person behind the wheel, on a segment of Aurora’s Dallas-to-Houston commercial route.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1828108/000182810826000082/businesswire-aurora2026ana.htm",
+      "retrieved": "2026-09-24",
+      "source_type": "primary_corporate_sec",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/aurora-release.txt",
+      "value_text": "offered ride on route segment",
+      "scope_note": "Offer only, with no completed passenger ride established.",
+      "evidence_scope": "Full supporting passage, independently checked against SEC filing."
+    },
+    {
+      "id": "c3",
+      "statement": "Aurora reports more than 500,000 driverless miles since commercial launch.",
+      "text": "Aurora reports more than 500,000 driverless miles since commercial launch.",
+      "quote": "The Aurora Driver is engineered to be one of the safest and most experienced drivers on the road having safely completed over 500,000 driverless miles since commercial launch.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1828108/000182810826000082/businesswire-aurora2026ana.htm",
+      "retrieved": "2026-09-24",
+      "source_type": "primary_corporate_sec",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/aurora-release.txt",
+      "value_text": "over 500,000 driverless miles",
+      "scope_note": "Company report; the distance does not establish a comparative safety result.",
+      "evidence_scope": "Full supporting passage, independently checked against SEC filing."
+    },
+    {
+      "id": "c4",
+      "statement": "Aurora reports an average annualized rate above 225,000 miles per year for trucks operating for McLane, Werner and other customers.",
+      "text": "Aurora reports an average annualized rate above 225,000 miles per year for trucks operating for McLane, Werner and other customers.",
+      "quote": "Aurora Driver-powered trucks operating for McLane, Werner, and other customers are already averaging an annualized rate of over 225,000 miles per year, more than double the utilization of a traditional truck.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1828108/000182810826000082/businesswire-aurora2026ana.htm",
+      "retrieved": "2026-09-24",
+      "source_type": "primary_corporate_sec",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/aurora-release.txt",
+      "value_text": "over 225,000 miles per year, annualized",
+      "scope_note": "A run rate, not miles logged over a complete year by every truck.",
+      "evidence_scope": "Full supporting passage, independently checked against SEC filing."
+    },
+    {
+      "id": "c5",
+      "statement": "Aurora presents McLane executive Eric Hildenbrand saying its drivers can focus on their expertise and customer service.",
+      "text": "Aurora presents McLane executive Eric Hildenbrand saying its drivers can focus on their expertise and customer service.",
+      "quote": "It allows us to continue delivering exceptional service to our customers, while enabling our drivers to focus on the areas where their expertise and customer service make the greatest impact.” –Eric Hildenbrand, Chief Legal, Strategy, & Administrative Officer, McLane",
+      "url": "https://www.sec.gov/Archives/edgar/data/1828108/000182810826000082/auroraanalystinvestorday.htm",
+      "retrieved": "2026-09-24",
+      "source_type": "primary_corporate_sec",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/aurora-slides.txt",
+      "value_text": "McLane drivers focus on customer service",
+      "scope_note": "Attributed customer view in company slides; no job transfers or workforce count are verified.",
+      "evidence_scope": "Full supporting passage, independently checked against SEC filing."
+    },
+    {
+      "id": "c6",
+      "statement": "Aurora cautions that future safety and fleet claims are uncertain projections.",
+      "text": "Aurora cautions that future safety and fleet claims are uncertain projections.",
+      "quote": "These statements are based on managementʼs current beliefs and assumptions and are neither promises nor guarantees, but involve known and unknown risks, uncertainties and other important factors that may cause our actual results, performance or achievements to be materially different from any future results, performance or achievements expressed or implied by the forward-looking statements.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1828108/000182810826000082/auroraanalystinvestorday.htm",
+      "retrieved": "2026-09-24",
+      "source_type": "primary_corporate_sec",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/aurora-slides.txt",
+      "value_text": "neither promises nor guarantees",
+      "scope_note": "The filing does not supply an independent comparison of safety outcomes.",
+      "evidence_scope": "Full supporting passage, independently checked against SEC filing."
+    }
+  ],
+  "rejected": [
+    {
+      "claim": "The offered rides occurred",
+      "reason": "The filing only offers an opportunity."
+    },
+    {
+      "claim": "The accumulated miles prove safer driving",
+      "reason": "No comparative crash or exposure result is provided."
+    },
+    {
+      "claim": "Each truck drove 225,000 miles in a completed year",
+      "reason": "The figure is an annualized average rate."
+    }
+  ],
+  "source_evidence_manifest": "out/dispatch/validation-sources/manifest.json"
+}
