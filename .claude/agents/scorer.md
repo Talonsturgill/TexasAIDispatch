@@ -47,6 +47,13 @@ Judge causal continuity, readable action, information density and the final answ
 beats and changed pixels are technical evidence only. Do not award quality because the creator
 says the piece is cinematic. Name the weakest actual interval even when passing.
 
+Assess speed and understanding together. Identify the visible developments and their times in
+the finished film. Inspect setup, camera travel, settling and the closing story tail for dead
+time. A glossy surface, an orbit or a new label earns no pacing credit by itself. Also name
+anything that arrives too fast to follow. Check whether one viewing communicates the central
+claim and its source limit, with a recognizable subject across the cuts. Trim repeated setup
+before asking for faster narration. Voice is never time-stretched.
+
 Add this object to your report, using the film hash from the reviewed artifact:
 
 ```
@@ -55,14 +62,22 @@ Add this object to your report, using the film hash from the reviewed artifact:
   "pass": true,
   "hook_observed": "<what changed and when>",
   "continuity_observed": "<what stayed recognizable across a named transition>",
+  "pacing_observed": "<timed subject developments and any unearned pause or rushed handoff>",
+  "comprehension_observed": "<what the viewer can understand after one viewing and any overload>",
   "remembered_image": "<the specific picture and why it carries meaning>",
   "weakest_interval": "<the least effective interval, its cause and concrete repair>",
   "weakest_at_s": 0,
+  "weakest_end_s": 1,
   "audio_basis": "<direct listening, or precisely which measurements/transcript were available>"
 }
 ```
 
-Set `pass` false for an unearned pause, irrelevant change, confusing cut, deceptive reconstruction,
-or unreadable subject. All three reviews must accept the current film. Never claim to have heard
-a recording if your tools only expose frames, timing or transcripts. Mark that limit explicitly;
+The pacing and comprehension observations and the end of the weakest interval are required for
+boards dated on or after `pacing_review_effective_date` in the policy. Earlier released films
+keep their original review contract. These fields record a review, not an automatic quality score.
+
+Set `pass` false for an unearned pause, rushed or confusing handoff, irrelevant change, deceptive
+reconstruction, or unreadable subject. All three reviews must accept the current film. Never
+claim to have heard a recording if your tools only expose frames, timing or transcripts. Mark
+that limit explicitly;
 waveform evidence cannot establish a natural or compelling performance.

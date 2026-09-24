@@ -22,7 +22,12 @@ def digest(path: Path) -> str:
         for chunk in iter(lambda:f.read(1024*1024),b""):h.update(chunk)
     return h.hexdigest()
 
-def panel_problems(scores: list, film_hash: str, runtime: float) -> list[str]:
+def pacing_review_required(board: dict) -> bool:
+    # Preserve the review contract of films released before this upgrade.
+    return str(board.get("date") or "") >= direction.policy()["pacing_review_effective_date"]
+
+def panel_problems(scores: list, film_hash: str, runtime: float, *,
+                   require_pacing: bool = False) -> list[str]:
     if not isinstance(scores,list) or len(scores)!=3:return ["three independent attention reviews required"]
     errors=[]
     for i,judge in enumerate(scores):
@@ -31,12 +36,19 @@ def panel_problems(scores: list, film_hash: str, runtime: float) -> list[str]:
             errors.append(f"judge {i+1} has no attention_review");continue
         if review.get("film_sha256")!=film_hash:errors.append(f"judge {i+1} reviewed different film bytes")
         if review.get("pass") is not True:errors.append(f"judge {i+1} did not accept the attention/continuity")
-        for key in ("hook_observed","continuity_observed","remembered_image","weakest_interval","audio_basis"):
+        fields=("hook_observed","continuity_observed","remembered_image","weakest_interval","audio_basis")
+        if require_pacing:
+            fields+=("pacing_observed","comprehension_observed")
+        for key in fields:
             if not isinstance(review.get(key),str) or len(review[key].strip())<12:
                 errors.append(f"judge {i+1} lacks a concrete {key}")
         at=review.get("weakest_at_s")
         if not direction.finite(at) or not 0<=at<runtime:
             errors.append(f"judge {i+1} needs a real weakest_at_s within the story")
+        if require_pacing:
+            end=review.get("weakest_end_s")
+            if not (direction.finite(at) and direction.finite(end) and 0<=at<end<=runtime):
+                errors.append(f"judge {i+1} needs weakest_end_s after weakest_at_s and within the story")
     return errors
 
 def report_problems(report:dict, board:Path, film:Path, out:Path) -> list[str]:
@@ -60,7 +72,8 @@ def publication_problems(board_path:Path, film:Path, judges:list) -> list[str]:
         out=film.parent/"attention-review.json"
         errors=direction.check(board)
         errors+=report_problems(json.loads(out.read_text()),board_path,film,out)
-        errors+=panel_problems(judges,digest(film),float(board["runtime_s"]))
+        errors+=panel_problems(judges,digest(film),float(board["runtime_s"]),
+                               require_pacing=pacing_review_required(board))
         return errors
     except (OSError,ValueError,TypeError,KeyError) as exc:
         return ["exact-film attention review unavailable: "+str(exc)]
@@ -138,6 +151,33 @@ def self_test()->int:
     ok("one stale judge blocks acceptance",bool(panel_problems(panel,"abc",6)))
     panel[1]["attention_review"]=dict(good_review,**{"pass":False})
     ok("one creative rejection is not averaged away",bool(panel_problems(panel,"abc",6)))
+    paced_review={**good_review,
+       "pacing_observed":"At 0.3s the rotor halts, then at 3s the connected branch lights",
+       "comprehension_observed":"The branch follows the fault; the source still describes a proposal",
+       "weakest_end_s":2.8}
+    def paced_panel():
+        return [{"attention_review":dict(paced_review)} for _ in range(3)]
+    ok("current policy activates pace reviews",
+       pacing_review_required({"date":direction.policy()["pacing_review_effective_date"]}))
+    ok("the released September 19 film keeps its original review contract",
+       not pacing_review_required({"date":"2026-09-19"}))
+    ok("complete pacing reviews pass",
+       not panel_problems(paced_panel(),"abc",6,require_pacing=True))
+    for judge in range(3):
+        for key in ("pacing_observed","comprehension_observed","weakest_end_s"):
+            missing=paced_panel()
+            del missing[judge]["attention_review"][key]
+            errors=panel_problems(missing,"abc",6,require_pacing=True)
+            ok(f"judge {judge+1} cannot omit {key}",any(key in error for error in errors))
+    for end in (2,1,7,float("nan"),float("inf"),True,"3"):
+        invalid=paced_panel()
+        invalid[0]["attention_review"]["weakest_end_s"]=end
+        ok(f"invalid weakest interval end {end!r} fails",
+           bool(panel_problems(invalid,"abc",6,require_pacing=True)))
+    empty=paced_panel()
+    empty[0]["attention_review"]["pacing_observed"]="   "
+    ok("blank pace observations fail",
+       bool(panel_problems(empty,"abc",6,require_pacing=True)))
     with tempfile.TemporaryDirectory() as td:
         root=Path(td);board=root/"board.json";film=root/"film.mp4";out=root/"review.json"
         board.write_text("{}");film.write_bytes(b"film")
@@ -161,7 +201,32 @@ def self_test()->int:
                 "--board",str(board),"--film",str(film),"--out-report",str(card),
                 "--history",str(root/"history.json")],check=True,capture_output=True,text=True)
             return json.loads(card.read_text())
-        ok("real triage accepts three current review fixtures",aggregate()["ship"] is True)
+        ok("real triage preserves the earlier review contract",aggregate()["ship"] is True)
+        current_board=json.loads(board.read_text())
+        current_board["date"]=direction.policy()["pacing_review_effective_date"]
+        board.write_text(json.dumps(current_board))
+        report["board_sha256"]=digest(board)
+        out.write_text(json.dumps(report))
+        judges=[{"axes":axes,"hard_fails":[],
+                 "attention_review":dict(paced_review,film_sha256=digest(film))} for _ in range(3)]
+        ok("real triage accepts three complete pacing reviews",aggregate()["ship"] is True)
+        for key in ("pacing_observed","comprehension_observed","weakest_end_s"):
+            saved=judges[1]["attention_review"].pop(key)
+            rejected=aggregate()
+            ok(f"real triage refuses missing {key} despite high scores",
+               rejected["ship"] is False and any(key in error for error in rejected["hard_fails"]))
+            judges[1]["attention_review"][key]=saved
+        def panel_cli():
+            scores.write_text(json.dumps(judges))
+            return subprocess.run([sys.executable,str(REPO/"scripts/documentary_review.py"),
+                "--board",str(board),"--film",str(film),"--panel",str(scores)],
+                capture_output=True,text=True)
+        ok("panel verification CLI accepts complete pacing reviews",panel_cli().returncode==0)
+        saved=judges[2]["attention_review"].pop("pacing_observed")
+        rejected_cli=panel_cli()
+        ok("panel verification CLI refuses missing pace evidence",
+           rejected_cli.returncode==1 and "pacing_observed" in rejected_cli.stderr)
+        judges[2]["attention_review"]["pacing_observed"]=saved
         judges[1]["attention_review"]["pass"]=False
         rejected=aggregate()
         ok("real triage carries one rejection into its high-score card",
@@ -188,7 +253,8 @@ def main()->int:
             errors=report_problems(json.loads(out.read_text()),board_path,film,out)
         elif a.panel:
             errors=report_problems(json.loads(out.read_text()),board_path,film,out)
-            errors+=panel_problems(json.loads(Path(a.panel).read_text()),digest(film),float(board["runtime_s"]))
+            errors+=panel_problems(json.loads(Path(a.panel).read_text()),digest(film),float(board["runtime_s"]),
+                                   require_pacing=pacing_review_required(board))
         else:
             build(board_path,film,out);errors=[]
         for error in errors:print("documentary_review: "+error,file=sys.stderr)
