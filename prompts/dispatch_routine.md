@@ -1159,6 +1159,17 @@ Then, by hand, because these need the GitHub tools rather than a shell:
    commit environment, push, open a ready PR, wait for its exact-head guards, merge it, and then
    verify the canonical site.
 
+   **A repairable Docket CI failure is still part of delivering this film.** Read the failing
+   job, reproduce the defect, and fix it in the owning lane. For overdue record checks, inspect
+   same-day Docket daily work first; reuse only source-supported record updates, or re-verify
+   the cited sources yourself. Commit record changes on a separate `claude/daily-` branch with
+   `Actor: daily`, rebuild generated pages, pass exact-head CI, and merge that repair. Do not
+   import a held carousel or unrelated record admissions. Then bring the feed branch up to
+   current `main`, regenerate its pages, pass its exact-head CI, merge, and verify live playback.
+   Never lower a gate, claim a blocked source was read, or merge a red check. Use `needs_review`
+   only when a genuine source, access, quality, credential, or external blocker remains after
+   reasonable repair, and record the attempted fix and next action.
+
    **The first line used to be prose saying "prepend one entry to `docs/videos/videos.json`",
    and the first run that followed it wrote an entry with no `id`.** Nothing failed. The feed
    page derives a fallback id from the date and the title when the field is absent, exactly so

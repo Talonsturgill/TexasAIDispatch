@@ -202,7 +202,7 @@ has. The story works without them. Anyone who needs the number reads the rubric.
 
 | Repo | Relationship |
 |---|---|
-| `TexasAIDocket` | the record, the site, the carousel. **This repo writes exactly one file there: `docs/videos/videos.json`**, appended by the publish step. Nothing else, ever. |
+| `TexasAIDocket` | the record, the site, the carousel. The Dispatch feed step authors only `docs/videos/videos.json` and regenerates the site. If a Docket gate exposes stale records or another routine defect, repair it in a separate Docket branch and the correct actor lane, with its own source evidence and exact-head CI. Never treat the feed step as permission to edit the ledger. |
 | `TexasAIScanner` | the Bottleneck Scanner backend. No overlap. |
 
 The Alaska repos (`alaskaaicarousels`, `alaska-ai-weekly`, `alaska-ai-scanner`) are REFERENCE
