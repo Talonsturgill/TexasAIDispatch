@@ -54,8 +54,8 @@ frames and motion before completing the whole episode. The
 checkpoint asks for a meaningful viewer reward, with continuity and short comprehension holds.
 
 A showstopper is a video a stranger stops scrolling for, FEELS something during, and remembers
-one image from. It trades in three currencies, and **every five seconds of runtime must pay in at
-least one**:
+one image from. It trades in three currencies. **Each meaningful development must arrive within
+the timing policy in `config/documentary.json`**, including the final story tail:
 
 - **MOTION.** Something is visibly HAPPENING. A character acts, a pumpjack strokes, papers storm,
   a bar overtakes a baseline. Never a held slide with a voice over it.
@@ -350,7 +350,13 @@ only when the first leaves the mechanism unclear. Before extending the episode, 
 passage with final surfaces and motivated sound under the existing preflight allowance, inspect
 it at phone size, and record the weakest interval in the worklog. Give the storyboard critic
 the chosen visual language and the reason for it. The optical study in experiments/cinema is a
-technical reference, never today's story.
+technical reference, never today's story. Its camera-led pullback is not a pacing example.
+
+Keep the daily cut quick. Block the subject's action on the board clock before polishing
+surfaces. Carry the same event windows into the finished hero passage. Cut repeated setup and
+idle camera travel, preserve short comprehension holds, and let each consequence lead into the
+next action. Detail earns its place by making the mechanism clearer at phone size. It earns no
+extra runtime. Use the existing animatic and hero preflight allowances for these checks.
 
 **THE BOARD IS THE PROPS.** `out/dispatch/storyboard.json` is one document: the thing Gate 0
 gates and the thing Remotion renders, unchanged. It used to be two. This file described a board
@@ -984,7 +990,10 @@ Use the contact sheet to check tiny subjects, cropping, text collisions and misl
 Do not infer a successful film from a storyboard or a pixel-motion score.
 
 Pass those artifacts and the current film hash to each scorer. Their `attention_review` is
-mandatory; a rejection by one judge is a delivery blocker even if the mean clears the rubric.
+mandatory. For current films, each judge must record timed pacing observations, one-viewing
+comprehension, and both ends of the weakest interval under the scorer brief's policy. Review
+fast handoffs as critically as idle holds. A rejection by one judge is a delivery blocker even
+if the mean clears the rubric.
 `panel_triage.py` carries those failures into the controller's report. `ship_gate.py` independently
 rechecks the three reviews against the exact final film. Do not alter the film after that review.
 

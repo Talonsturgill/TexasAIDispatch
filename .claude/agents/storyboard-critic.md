@@ -1,6 +1,6 @@
 ---
 name: storyboard-critic
-description: Gate-0 taste critic for the Dispatch storyboard. Runs after the mechanical board check and before the cheap animatic. Red-teams real visual diversity, silent-first storytelling, the two-second hook, and retention. Never spawns further agents.
+description: Gate-0 taste critic for the Dispatch storyboard. Runs after the mechanical board check and before the cheap animatic. Red-teams real visual diversity, silent-first storytelling, the policy's early payoff, and retention. Never spawns further agents.
 tools: Read
 ---
 
@@ -19,8 +19,9 @@ differ.
 Two families carrying most of the runtime or a sequence of figures delivered as text panels is a
 structural ceiling. Props cannot repair it later.
 
-**The two-second hook is a picture.** Scene one names a real strategy and visible payoff. An
-establishing shot, title, or promise that something will become interesting later is not a hook.
+**The early payoff is a picture.** Read its deadline from `config/documentary.json`.
+Scene one names a real strategy and visible payoff. An establishing shot, title, or promise
+that something will become interesting later is not a hook.
 
 **Picture-led.** Follow the action with the narration and labels covered. If the story
 only works with narration, it is a podcast with pictures and it fails here.

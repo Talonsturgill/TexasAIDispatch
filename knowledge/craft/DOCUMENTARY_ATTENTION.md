@@ -65,8 +65,12 @@ After rendering, `documentary_review.py` creates an attention player with per-ev
 a before/after contact sheet and a JSON index hash-bound to the board and final MP4. The normal
 render wrapper builds it. Preship and delivery reject stale or missing artifacts. All three judges
 must return the exact-film `attention_review` described in their scorer brief. A judge's creative
-rejection blocks publication even if the weighted mean passes. This is evidence for human-style
-review, not an automated declaration that the pictures are good.
+rejection blocks publication even if the weighted mean passes. From the policy's
+`pacing_review_effective_date`, every judge must supply `pacing_observed`,
+`comprehension_observed`, and a finite `weakest_end_s` after `weakest_at_s`. Describe actual
+timed developments, dead or rushed intervals, and what a viewer understands after one viewing.
+The checker enforces complete reviews. It does not decide whether an action is compelling.
+Earlier released films keep their original review contract.
 
 The camera may hold while a subject acts or the viewer reads evidence. A stationary camera is
 not the same thing as a held slide. Do not introduce an unrelated move merely to satisfy a camera

@@ -35,6 +35,23 @@ Do not reuse its lens script as a daily story.
 Use the existing controller reservations for hero preflights. Stay within the existing resource
 ceilings; no new shell or experiment resets a daily run's state.
 
+## Keep the daily pace
+
+Use the hook deadline, action lengths and reward spacing in `config/documentary.json`.
+Block the visible action on that clock before polishing surfaces, then keep those event windows
+through the finished passage. A more detailed model earns no extra screen time. The optical
+study's camera-led pullback is a known weak interval, not an editing reference.
+
+Enter on an action, show its consequence, and carry a recognizable subject into the next
+development. Cut repeated setup and idle travel. Preserve a short hold when a reveal, comparison
+or source limit needs to register. Every cut needs continuity and one dominant idea. Constant
+motion can be tiring while a held camera can contain a fast, readable action.
+
+Judge the actual phone-sized cut with labels mentally covered. Identify both an unearned pause
+and any handoff that arrives too quickly to understand, if either exists. Trim redundant prose
+before requesting a faster read, and never time-stretch narration. Use the existing animatic and
+hero preflight budgets. Additional treatments are for unresolved visual questions.
+
 ## Deterministic dimensional scenes
 
 Import CinematicStage from video-engine/src/lib/cinema/CinematicStage.tsx.
