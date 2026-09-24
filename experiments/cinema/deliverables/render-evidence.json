@@ -1,0 +1,72 @@
+{
+  "schema": "cinema_study/1",
+  "renders": {
+    "vector": {
+      "film": "vector.mp4",
+      "film_sha256": "18595c6b40cefb3f56bebd7c1077e4424a698ee05979b920eda530d2e2e36cfd",
+      "engine_sha256": "8e06eeab9782ab9c7c52502c20e8c473f836c955e3645dacb7650cb82f9202cf",
+      "audio_sha256": "1ca9c2f8f7b1dd8f4bef5cc02af16089561d83a07e0607f039c0e6a1bd58c33f",
+      "render_and_mux_seconds": 11.29,
+      "width": 540,
+      "height": 960,
+      "duration_s": 20.0
+    },
+    "dimensional": {
+      "film": "dimensional.mp4",
+      "film_sha256": "bb8b56b015af990e1fd0e9dd097f7d98514fb55a8ab8d815c974f1e8d87ae1f0",
+      "engine_sha256": "8e06eeab9782ab9c7c52502c20e8c473f836c955e3645dacb7650cb82f9202cf",
+      "audio_sha256": "1ca9c2f8f7b1dd8f4bef5cc02af16089561d83a07e0607f039c0e6a1bd58c33f",
+      "render_and_mux_seconds": 14.64,
+      "width": 540,
+      "height": 960,
+      "duration_s": 20.0
+    },
+    "hybrid": {
+      "film": "hybrid-master.mp4",
+      "film_sha256": "bc7f4e0aecca2277f950d982834a2ef372af0fcc2537390b8f4b7190efbfbe2a",
+      "engine_sha256": "8e06eeab9782ab9c7c52502c20e8c473f836c955e3645dacb7650cb82f9202cf",
+      "audio_sha256": "1ca9c2f8f7b1dd8f4bef5cc02af16089561d83a07e0607f039c0e6a1bd58c33f",
+      "render_and_mux_seconds": 30.23,
+      "width": 1080,
+      "height": 1920,
+      "duration_s": 20.0,
+      "preview_sha256": "46dd4edde3d7cfd7361ab0c2e9002b8650625257a43866062e1b8dbdb769ddad"
+    }
+  },
+  "engine_sha256": "8e06eeab9782ab9c7c52502c20e8c473f836c955e3645dacb7650cb82f9202cf",
+  "sound_source_sha256": "c8078aab660ab4d42d2f71594eccc38d9f9f2489dbffd7d5d4471c04aa65dd15",
+  "package_lock_sha256": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71",
+  "audio_sha256": "1ca9c2f8f7b1dd8f4bef5cc02af16089561d83a07e0607f039c0e6a1bd58c33f",
+  "scope": "Illustrative design study. No daily publication authority or audience score.",
+  "controller_usage": {
+    "cleanup_renders": 0,
+    "full_renders": 10,
+    "panel_rounds": 0,
+    "preflight_renders": 5,
+    "reboards": 0,
+    "reported_tokens": 31380,
+    "rescue_renders": 0,
+    "research_agents": 0,
+    "scorer_calls": 0,
+    "storyboard_critics": 0,
+    "tts_calls": 2,
+    "validator_agents": 0,
+    "voice_directors": 0
+  },
+  "audio_measurement": {
+    "method": "FFmpeg ebur128 on final AAC film",
+    "integrated_lufs": -18.4,
+    "true_peak_dbfs": -4.0,
+    "speech": false,
+    "music": false,
+    "description": "Original foley and schematic sonification"
+  },
+  "contact_sheet_sha256": "c5f2df639954d1fd80648316188ca04d1784bc16a186d358cd34ef99062f1b7b",
+  "poster_sha256": "7a5fc74dfe7b6419450ae49a3bd10a898ae12f989ff8b777b4f04d4bbfe7d549",
+  "review_basis": {
+    "visual": "Actual final MP4 contact sheet and Computer Use playback at 390 pixels and desktop",
+    "audio": "FFmpeg final AAC measurements and hash-bound Gemini audiovisual critique",
+    "human_panel": false,
+    "audience_test": false
+  }
+}

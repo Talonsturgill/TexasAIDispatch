@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Through the lens · Texas AI Docket</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#061217;color:#ecebdc;font-family:Georgia,serif}main{max-width:1120px;margin:auto;padding:38px 26px;display:grid;grid-template-columns:minmax(300px,470px) 1fr;gap:64px;align-items:center;min-height:100svh}.player{position:relative;max-height:88svh;aspect-ratio:9/16;justify-self:center;width:100%;border:1px solid #344248;background:#02090d;box-shadow:0 30px 110px #0008}video{width:100%;height:100%;display:block}h1{font-size:clamp(44px,5vw,76px);font-weight:400;line-height:.99;letter-spacing:-2px;margin:25px 0}p{font-family:system-ui;line-height:1.6;color:#aebeb9;max-width:39ch;font-size:16px}.eyebrow,button,small{font-family:system-ui;letter-spacing:.12em;font-size:11px;text-transform:uppercase}.eyebrow{color:#cfaa6d}nav{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 20px}button{background:transparent;border:1px solid #365055;padding:13px 15px;color:#c5d4ce;cursor:pointer;border-radius:3px}button[aria-pressed=true]{background:#d5b77d;color:#101d22;border-color:#d5b77d}button:hover{border-color:#d5b77d}button:focus-visible,a:focus-visible{outline:2px solid #efcf8b;outline-offset:5px}a{color:#d5b77d;text-underline-offset:5px}small{display:block;color:#708d8c;line-height:1.8;margin-top:25px}.controls{display:flex;gap:8px;margin-top:15px}#description{min-height:80px}
+@media(max-width:760px){main{display:flex;flex-direction:column;padding:16px 18px 35px;gap:23px;min-height:0}.player{max-height:72svh;width:auto;max-width:100%}.copy{width:100%;max-width:450px}h1{font-size:45px;margin:14px 0}nav{margin:20px 0 10px}p{font-size:14px;max-width:45ch}small{margin-top:15px}.eyebrow{font-size:10px}}
+</style></head>
+<body><main>
+<div class="player"><video id="film" src="hybrid.mp4" controls playsinline preload="metadata" poster="poster.jpg" aria-label="Through the lens visual study"></video></div>
+<div class="copy"><div class="eyebrow">Texas AI Docket · Motion studies</div><h1>Through<br>the lens.</h1>
+<p>One mechanism. Three ways to see it.</p>
+<nav aria-label="Visual treatment">
+<button data-mode="vector" aria-pressed="false">Illustrated</button>
+<button data-mode="dimensional" aria-pressed="false">Dimensional</button>
+<button data-mode="hybrid" aria-pressed="true">Hybrid</button>
+</nav>
+<p id="description" aria-live="polite">Sculpted optics meet precise illustrated annotations. An exploded view reveals the assembly and a schematic light path.</p>
+<div class="controls"><button id="restart">Play from start</button><button id="mute" aria-pressed="false">Sound on</button></div>
+<small>Original code and sound<br>Illustrative design study · schematic optics<br>Original foley and sonification · no narration</small>
+<p><a href="hybrid-master.mp4">Open the full-resolution film</a></p>
+</div></main>
+<script>
+const film=document.getElementById('film');
+const description=document.getElementById('description');
+const text={vector:'An illustrated treatment with gradients, moving blades and the same sequence of actions.',dimensional:'Sculpted optical groups, authored light and physical surfaces, without explanatory callouts.',hybrid:'Sculpted optics meet precise illustrated annotations. An exploded view reveals the assembly and a schematic light path.'};
+let generation=0;
+for(const button of document.querySelectorAll('[data-mode]')) button.addEventListener('click',()=>{
+ const time=film.currentTime,playing=!film.paused,mode=button.dataset.mode,own=++generation;
+ film.pause(); film.src=mode+'.mp4';
+ for(const b of document.querySelectorAll('[data-mode]')) b.setAttribute('aria-pressed',String(b===button));
+ description.textContent=text[mode];
+ film.addEventListener('loadedmetadata',()=>{if(own!==generation)return;film.currentTime=Math.min(time,film.duration-.05);if(playing)film.play().catch(()=>{});},{once:true});
+ film.load();
+});
+document.getElementById('restart').addEventListener('click',()=>{film.currentTime=0;film.play().catch(()=>{});});
+document.getElementById('mute').addEventListener('click',e=>{film.muted=!film.muted;e.currentTarget.textContent=film.muted?'Sound off':'Sound on';e.currentTarget.setAttribute('aria-pressed',String(film.muted));});
+</script></body></html>

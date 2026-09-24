@@ -1,0 +1,319 @@
+{
+  "created_at": "2026-09-24T00:25:21.210168Z",
+  "escalation_ceiling": {
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 2,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-09-24T00:44:35.639584Z",
+      "ceiling": 14,
+      "from": 5,
+      "note": "Corrected dimensional optical study",
+      "resource": "full_renders",
+      "to": 6
+    },
+    {
+      "at": "2026-09-24T00:44:50.263809Z",
+      "ceiling": 14,
+      "from": 6,
+      "note": "Corrected hybrid optical study",
+      "resource": "full_renders",
+      "to": 7
+    },
+    {
+      "at": "2026-09-24T00:55:46.811733Z",
+      "ceiling": 14,
+      "from": 7,
+      "note": "Corrected vector optical study",
+      "resource": "full_renders",
+      "to": 8
+    },
+    {
+      "at": "2026-09-24T00:55:58.143732Z",
+      "ceiling": 14,
+      "from": 8,
+      "note": "Corrected dimensional optical study",
+      "resource": "full_renders",
+      "to": 9
+    },
+    {
+      "at": "2026-09-24T00:56:12.850501Z",
+      "ceiling": 14,
+      "from": 9,
+      "note": "Corrected hybrid optical study",
+      "resource": "full_renders",
+      "to": 10
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-24T00:25:21.210337Z",
+      "kind": "initialised",
+      "mode": "dry-run"
+    },
+    {
+      "at": "2026-09-24T00:28:53.582729Z",
+      "kind": "reserved",
+      "note": "Three treatments keyframe sheet",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:30:11.313058Z",
+      "kind": "reserved",
+      "note": "Framing and iris correction keyframes",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:31:06.702987Z",
+      "kind": "reserved",
+      "note": "Matched vector comparison",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:31:36.933526Z",
+      "kind": "reserved",
+      "note": "Matched dimensional comparison",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:32:21.735654Z",
+      "kind": "reserved",
+      "note": "Matched hybrid comparison",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:36:05.439352Z",
+      "kind": "reserved",
+      "note": "Selected hybrid full resolution",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:37:12.133140Z",
+      "kind": "reserved",
+      "note": "Out-of-order pixel reproducibility check",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:37:40.284897Z",
+      "kind": "reserved",
+      "note": "Audiovisual critique of exact hybrid study",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:37:57.523319Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: Audiovisual study review",
+      "resources": {
+        "reported_tokens": 8747
+      }
+    },
+    {
+      "at": "2026-09-24T00:37:57.525631Z",
+      "elapsed_ms": 17135,
+      "kind": "telemetry",
+      "note": "Audiovisual study review",
+      "reported_tokens": 8747,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-24T00:42:20.591214Z",
+      "kind": "reserved",
+      "note": "SVG correction still. Recorded after CLI syntax error; render already completed.",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:44:23.364976Z",
+      "kind": "reserved",
+      "note": "Corrected vector optical study",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:44:35.639786Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "Corrected dimensional optical study",
+      "now": 6,
+      "resource": "full_renders",
+      "was": 5
+    },
+    {
+      "at": "2026-09-24T00:44:35.639791Z",
+      "kind": "reserved",
+      "note": "Corrected dimensional optical study",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:44:50.263900Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "Corrected hybrid optical study",
+      "now": 7,
+      "resource": "full_renders",
+      "was": 6
+    },
+    {
+      "at": "2026-09-24T00:44:50.263905Z",
+      "kind": "reserved",
+      "note": "Corrected hybrid optical study",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:47:41.202848Z",
+      "kind": "reserved",
+      "note": "Comparative audiovisual review of final three films",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:48:16.914133Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: Final comparative audiovisual review",
+      "resources": {
+        "reported_tokens": 22633
+      }
+    },
+    {
+      "at": "2026-09-24T00:48:16.916633Z",
+      "elapsed_ms": 35588,
+      "kind": "telemetry",
+      "note": "Final comparative audiovisual review",
+      "reported_tokens": 22633,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-24T00:49:58.276608Z",
+      "kind": "reserved",
+      "note": "Three actual-render CI smoke frames",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:55:46.811847Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "Corrected vector optical study",
+      "now": 8,
+      "resource": "full_renders",
+      "was": 7
+    },
+    {
+      "at": "2026-09-24T00:55:46.811852Z",
+      "kind": "reserved",
+      "note": "Corrected vector optical study",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:55:58.143922Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "Corrected dimensional optical study",
+      "now": 9,
+      "resource": "full_renders",
+      "was": 8
+    },
+    {
+      "at": "2026-09-24T00:55:58.143927Z",
+      "kind": "reserved",
+      "note": "Corrected dimensional optical study",
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-24T00:56:12.851445Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "Corrected hybrid optical study",
+      "now": 10,
+      "resource": "full_renders",
+      "was": 9
+    },
+    {
+      "at": "2026-09-24T00:56:12.851452Z",
+      "kind": "reserved",
+      "note": "Corrected hybrid optical study",
+      "resources": {
+        "full_renders": 1
+      }
+    }
+  ],
+  "limits": {
+    "cleanup_renders": 1,
+    "full_renders": 10,
+    "panel_rounds": 5,
+    "preflight_renders": 6,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 15,
+    "storyboard_critics": 1,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "dry-run",
+  "phase": "wake",
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "cinema-2026-09-23",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": null,
+  "updated_at": "2026-09-24T00:56:12.851453Z",
+  "usage": {
+    "cleanup_renders": 0,
+    "full_renders": 10,
+    "panel_rounds": 0,
+    "preflight_renders": 5,
+    "reboards": 0,
+    "reported_tokens": 31380,
+    "rescue_renders": 0,
+    "research_agents": 0,
+    "scorer_calls": 0,
+    "storyboard_critics": 0,
+    "tts_calls": 2,
+    "validator_agents": 0,
+    "voice_directors": 0
+  }
+}

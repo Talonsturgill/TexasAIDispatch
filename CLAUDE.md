@@ -140,12 +140,23 @@ Corollaries that are hard rules:
 
 ## The engine
 
-**Remotion + React + hand-authored SVG is the core visual language.** No WebGL and no canvas.
-Ordinary scene art is code-native. The only raster or generated-media exception is the bounded,
-manifested plate lane in `scripts/generated_media.py`: it may supply a real texture, location, or
-mechanism the native library cannot make literal, but it never owns exact text, figures, joins,
-arrows, limits, decisions, or an item bound to visual proof. Depth remains real browser 3D
-projection through one shared virtual camera in `video-engine/src/lib/stage3d.tsx`.
+**Remotion + React + TypeScript is the production engine.** Use SVG for exact diagrams and
+editorial overlays. The owner authorized a dimensional and hybrid lane on September 23rd, 2026.
+Three.js through `@remotion/three` may draw original geometry, optical surfaces, physically
+motivated lighting and camera moves. `lib/cinema/CinematicStage.tsx` supplies the shared studio
+and `lib/cinema/motion.ts` supplies stateless motion. Read
+`knowledge/craft/CINEMATIC_PRODUCTION.md` before using this lane.
+
+Every visible state comes from the board clock through `useCurrentFrame()`. No wall clock,
+incremental simulation, unseeded random input or asynchronous texture changes. Imported assets
+need rights and provenance; original procedural geometry needs no external asset service.
+Exact text, evidence, figures and captions remain native and source-bound. A dimensional scene
+uses the same board item and event ids, alignment, source limits, safe areas and final-film
+review as every other episode. A dark or missing WebGL frame is a render failure, never a
+reason to substitute a different film silently.
+
+Existing SVG/CSS-depth episodes remain reproducible. The bounded generated-media lane in
+`scripts/generated_media.py` remains available under its existing manifest and evidence rules.
 
 **RETIRED, never for new work, history only:** any per-frame PIL or Taichi raymarcher, and every
 doc describing one. The sibling carries a retired `dimensional.py` pipeline and a

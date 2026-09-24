@@ -47,7 +47,10 @@ degradation in the run log, and keep the same gates and budgets.
 Read `knowledge/craft/DOCUMENTARY_ATTENTION.md` before story selection and boarding. Make a
 miniature documentary with a specific action, causal continuity and evidence that earns the
 claim. Use its attention-beat review in the board critique, animatic and final-film panel.
-Read `config/documentary.json` for the faster pacing target and first-payoff window. The
+Read `config/documentary.json` for the faster pacing target and first-payoff window.
+Read `knowledge/craft/CINEMATIC_PRODUCTION.md` for visual development, renderer choice and the
+finished hero passage. Choose the visual language from the story and prove it with rendered
+frames and motion before completing the whole episode. The
 checkpoint asks for a meaningful viewer reward, with continuity and short comprehension holds.
 
 A showstopper is a video a stranger stops scrolling for, FEELS something during, and remembers
@@ -339,6 +342,15 @@ our best recurring composition and it is true.
 
 Where the show gets good. Board every beat: what is on screen, what moves, what the camera does,
 what the viewer LEARNS AS A PICTURE.
+
+Choose SVG, dimensional or hybrid rendering from the visible action. For a mechanism whose
+depth or moving light explains its operation, build the hardest passage with
+`lib/cinema/CinematicStage.tsx` and the existing board event clock. Compare a second treatment
+only when the first leaves the mechanism unclear. Before extending the episode, render this
+passage with final surfaces and motivated sound under the existing preflight allowance, inspect
+it at phone size, and record the weakest interval in the worklog. Give the storyboard critic
+the chosen visual language and the reason for it. The optical study in experiments/cinema is a
+technical reference, never today's story.
 
 **THE BOARD IS THE PROPS.** `out/dispatch/storyboard.json` is one document: the thing Gate 0
 gates and the thing Remotion renders, unchanged. It used to be two. This file described a board

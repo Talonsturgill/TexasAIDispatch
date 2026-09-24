@@ -1,0 +1,125 @@
+[
+  {
+    "command": [
+      "python3",
+      "scripts/engine_lint.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 0.6
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/engine_lint.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.21
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/bar_check.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 1.28
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/bar_check.py"
+    ],
+    "exit_code": 0,
+    "seconds": 1.08
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/composition_check.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07,
+    "prior_exit_code": 1,
+    "resolution": "Extended the composition guard to pair alternate entrypoints with their ids. Real negative fixtures pass."
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/composition_check.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.04,
+    "prior_exit_code": 1,
+    "resolution": "Extended the composition guard to pair alternate entrypoints with their ids. Real negative fixtures pass."
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/wiring_check.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 1.69
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/wiring_check.py"
+    ],
+    "exit_code": 0,
+    "seconds": 1.77
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/registry_check.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/registry_check.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.05
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/font_check.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/font_check.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/run_discipline.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "seconds": 0.09
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/run_discipline.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.23
+  }
+]
