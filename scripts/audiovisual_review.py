@@ -2,6 +2,7 @@
 """Obtain an independent Gemini picture-and-sound review of exact MP4 bytes."""
 import argparse
 import base64
+import hashlib
 import json
 import os
 import sys
@@ -22,15 +23,19 @@ LENSES = {
 
 def media_part(film, key, inline_limit=14_000_000):
     """Use exact bytes; full dimensional films can exceed the inline request limit."""
-    if film.stat().st_size <= inline_limit:
-        return {"inlineData": {"mimeType": "video/mp4", "data": base64.b64encode(film.read_bytes()).decode()},
-                "videoMetadata": {"fps": 5}}, None
+    data = film.read_bytes()
+    source_hash = hashlib.sha256(data).hexdigest()
+    if len(data) > 70_000_000:
+        raise ValueError("review film exceeds the bounded media size")
+    if len(data) <= inline_limit:
+        return {"inlineData": {"mimeType": "video/mp4", "data": base64.b64encode(data).decode()},
+                "videoMetadata": {"fps": 5}}, None, source_hash
     base = "https://generativelanguage.googleapis.com"
     headers = {"x-goog-api-key": key}
     try:
         start = requests.post(base + "/upload/v1beta/files", headers={
             **headers, "X-Goog-Upload-Protocol": "resumable", "X-Goog-Upload-Command": "start",
-            "X-Goog-Upload-Header-Content-Length": str(film.stat().st_size),
+            "X-Goog-Upload-Header-Content-Length": str(len(data)),
             "X-Goog-Upload-Header-Content-Type": "video/mp4"},
             json={"file": {"display_name": "Dispatch exact-film review"}}, timeout=30)
         if start.status_code != 200:
@@ -41,7 +46,7 @@ def media_part(film, key, inline_limit=14_000_000):
             raise ValueError("video upload endpoint is outside the expected provider")
         uploaded = requests.post(url, headers={"X-Goog-Upload-Command": "upload, finalize",
                                   "X-Goog-Upload-Offset": "0", "Content-Type": "video/mp4"},
-                                 data=film.read_bytes(), timeout=120)
+                                 data=data, timeout=120)
         if uploaded.status_code != 200:
             raise ValueError(f"video upload returned HTTP {uploaded.status_code}")
         item = uploaded.json()["file"]
@@ -49,7 +54,7 @@ def media_part(film, key, inline_limit=14_000_000):
         for _ in range(30):
             if item.get("state") == "ACTIVE":
                 return {"fileData": {"mimeType": "video/mp4", "fileUri": item["uri"]},
-                        "videoMetadata": {"fps": 5}}, name
+                        "videoMetadata": {"fps": 5}}, name, source_hash
             if item.get("state") == "FAILED":
                 raise ValueError("video processing failed")
             time.sleep(2)
@@ -94,7 +99,7 @@ dimensional_action (concrete descriptive strings), defects (array of concrete fi
 Use plain prose without the whole words prohibited by the project's writing rule
 (matter, matters, mattered, mattering).
 Review lens: """ + LENSES[role]
-    part, upload = media_part(film, key)
+    part, upload, film_hash = media_part(film, key)
     payload = {"contents": [{"role": "user", "parts": [
         part,
         {"text": prompt}]}],
@@ -119,11 +124,13 @@ Review lens: """ + LENSES[role]
     raw = response.json()
     record_telemetry(state, "audiovisual_reviews", round((time.monotonic() - started) * 1000),
                      int((raw.get("usageMetadata") or {}).get("totalTokenCount") or 0),
-                     request_id + " " + role + " exact film " + digest(film))
+                     request_id + " " + role + " exact film " + film_hash)
+    if digest(film) != film_hash:
+        raise ValueError("film changed while the audiovisual provider was reviewing it; no approval recorded")
     response_path = out.with_name(out.stem + "-response.json")
     response_path.write_text(json.dumps(raw, indent=2) + "\n")
     receipt = {"schema": "dispatch_audiovisual_review/1", "request_id": request_id,
-               "film_sha256": digest(film), "role": role, "model": model,
+               "film_sha256": film_hash, "role": role, "model": model,
                "basis": "Independent audiovisual model observation, not human listening",
                "response": {"file": response_path.name, "sha256": digest(response_path)}}
     out.write_text(json.dumps(receipt, indent=2) + "\n")
