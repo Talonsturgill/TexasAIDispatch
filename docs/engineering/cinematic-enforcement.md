@@ -39,7 +39,8 @@ The final AAC is independently measured at release. All existing pacing windows 
 - An actual Gemini 3.8 Flash audiovisual request observed sound in a seven-second optical-study
   clip and rejected its weak camera-led development. The gate returned failure. No passing
   creative verdict was substituted. An earlier provider request returned HTTP 404 and was also
-  recorded as spent without approval.
+  recorded as spent without approval. The Files API upload and processing path was also exercised
+  on exact MP4 bytes for films too large for inline requests.
 
 The exact future daily film still needs to pass its own tests. Pixel coverage cannot establish
 taste, prove every mechanical interpretation or guarantee that viewers will watch.
