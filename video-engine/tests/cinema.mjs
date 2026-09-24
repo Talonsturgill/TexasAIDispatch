@@ -26,3 +26,6 @@ for(const file of ['src/lib/cinema/motion.ts','src/lib/cinema/Studio.tsx','src/l
 const deps=JSON.parse(readFileSync('package.json','utf8')).dependencies;
 assert.equal(deps['@remotion/three'],deps.remotion,'Remotion adapters must have the same pin');
 console.log('cinema: deterministic seeking, action progression, all frame states, camera clearance and dependency pins pass');
+
+// The existing CI entry also exercises the actual shared WebGL stage.
+await import('./cinema-proof.mjs');

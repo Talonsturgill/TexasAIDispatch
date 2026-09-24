@@ -142,10 +142,10 @@ Corollaries that are hard rules:
 
 **Remotion + React + TypeScript is the production engine.** Use SVG for exact diagrams and
 editorial overlays. The owner authorized a dimensional and hybrid lane on September 23rd, 2026.
-Three.js through `@remotion/three` may draw original geometry, optical surfaces, physically
+New editions must meet `config/cinematic_production.json`. Three.js through `@remotion/three` must draw original geometry, optical surfaces, physically
 motivated lighting and camera moves. `lib/cinema/CinematicStage.tsx` supplies the shared studio
 and `lib/cinema/motion.ts` supplies stateless motion. Read
-`knowledge/craft/CINEMATIC_PRODUCTION.md` before using this lane.
+`knowledge/craft/CINEMATIC_PRODUCTION.md` before every run.
 
 Every visible state comes from the board clock through `useCurrentFrame()`. No wall clock,
 incremental simulation, unseeded random input or asynchronous texture changes. Imported assets
@@ -164,6 +164,12 @@ doc describing one. The sibling carries a retired `dimensional.py` pipeline and 
 frames in Python, it is wrong.
 
 ## Voice
+
+New mixes use explicit dynamic loudness mastering after checking the unmastered sum for clipping.
+The mastering report records the filter, before and after measurements and exact sample count.
+Gain control is permitted and documented. Time-stretching remains banned. The final encoded
+film must meet the loudness and true-peak policy; a written shortfall no longer permits release.
+
 
 **Gemini TTS**, owner's decision. `gemini-3.1-flash-tts-preview` primary,
 `gemini-2.5-pro-preview-tts` as the failover on repeated 500s. Each take synthesises the whole

@@ -1,39 +1,11 @@
 #!/usr/bin/env python3
-"""mix.py — assemble the final track. Never stretch anything to make it fit.
+"""Assemble an unclipped reference mix, then explicitly master the delivery track.
 
-WHY THIS EXISTS
-
-The Dispatch has a voice, a set of motivated sounds and a bed. Something has to put
-them on one timeline at the right levels, and that something is the last place a
-tempting shortcut lives.
-
-THE SHORTCUT, and why it is closed by construction. When the read runs a little long
-against the cut, the fix that takes one line of code is to resample the voice by four
-percent. It produces the chipmunk-or-molasses artefact every viewer hears and cannot
-name, and it is banned in CLAUDE.md. **This mixer has no resampler in it.** Not a
-disabled one, not one behind a flag. If the voice does not fit, it says by how much
-and stops, because the fix for a long read is a shorter script.
-
-WHAT IT DOES, and what each number is.
-
-  DUCKING. The bed and the sounds drop under the voice, driven by an envelope
-  measured from the voice track itself rather than from the cue list, so a line that
-  runs long ducks for as long as it actually runs.
-
-  HEADROOM. Sums are checked for clipping and reported. Nothing is limited silently:
-  a mix that clips is a mix that needs different levels, and a limiter hiding it is
-  the same class of lie as a time-stretch.
-
-  LOUDNESS. The master is normalised to the target by a single GAIN, which changes no
-  timing and no timbre. The measurement is the BS.1770 one in `vo_synth_gemini.py`,
-  imported rather than reimplemented, because two loudness meters in one repo will
-  disagree on the day it matters.
-
-    mix.py --vo out/dispatch/takes/take2.wav --sfx out/dispatch/sfx_events.json \\
-           --out out/dispatch/mix.wav --cut 62.0
-    mix.py --self-test
-
-Exit 0 mixed, 1 it does not fit or it clips, 2 could not run.
+Voice placement and every sample count remain unchanged. The mix function retains the
+linear reference path for deterministic tests and reports any headroom shortfall. The CLI
+then applies the documented master_audio dynamics and two-pass loudness stage, verifies
+its measured output and records the complete treatment in mix.json. Source clipping is
+refused before mastering. Captions are aligned against the finished mastered waveform.
 """
 from __future__ import annotations
 
@@ -241,29 +213,8 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
     measured = integrated_lufs(master, rate)
     want = 10 ** ((target_lufs - measured) / 20) if measured > -90 else 1.0
 
-    # HOW LOUD THIS CAN GET WITHOUT LIMITING, AND WHY IT IS OFTEN NOT THE TARGET.
-    #
-    # This used to REFUSE when normalising to the target would clip, and advise taking
-    # something out of the mix. Both halves were wrong, and the arithmetic says so.
-    #
-    # Reaching -16 LUFS with a single gain and no limiting requires a crest factor of 16 dB
-    # or less. Speech does not have one. Eight consecutive takes off the primary voice model
-    # measured 18.1 to 20.9 dB, which is ordinary for a narration read with real dynamics, so
-    # the two rules this file states -- normalise to the target by a single gain, and never
-    # limit anything -- cannot BOTH hold for any speech this show will ever record. One
-    # earlier run happened to squeak through by 0.11 dB and that was luck, not a passing mix.
-    #
-    # The advice was worse than the refusal. Taking sounds OUT lowers integrated loudness and
-    # RAISES the gain the target needs, so following it moves the mix further from passing.
-    # Measured: dropping every sfx event took the required gain from 1.6 dB to 2.8 dB.
-    #
-    # THE BAN ON LIMITING IS NOT TOUCHED, because it is right. A limiter hiding a clip is the
-    # same class of lie as a time-stretch. So the master is gained as far as the headroom
-    # allows and no further, nothing is squashed, no length changes, and the SHORTFALL IS
-    # REPORTED as a number rather than swallowed. That is this project's own rule about a
-    # thing it cannot compute: publish the size of the gap instead of pretending there is
-    # none. Platforms normalise on playback anyway, and a film delivered at -18 with the
-    # figure written down is worth more than a film not delivered.
+    # Preserve an unclipped linear reference. The CLI masters this buffer explicitly and
+    # reports dynamics separately; a reference shortfall is never final delivery clearance.
     peak_now = float(np.max(np.abs(master))) if len(master) else 0.0
     ceiling = (1.0 / peak_now) if peak_now > 0 else 1.0
     gain = min(want, ceiling)
@@ -275,7 +226,7 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
             f"the master reached {achieved:.2f} LUFS against a {target_lufs} target, "
             f"{shortfall:.2f} dB short. The read's crest factor is "
             f"{20 * np.log10(peak_now) - measured:.1f} dB, and closing that last gap would "
-            f"take a limiter, which this mixer does not have on purpose.")
+            f"require the explicit mastering stage before delivery.")
 
     report = {
         "duration_s": round(len(normalised) / rate, 3),
@@ -619,6 +570,13 @@ def main() -> int:
             print(f"  - {x}", file=sys.stderr)
         return 1
     write_wav(Path(a.out), out, rate)
+    from master_audio import master
+    mastering = master(Path(a.out))
+    report["mastering"] = mastering
+    report["limiter"] = mastering["limiter"]
+    report["lufs_achieved"] = mastering["after"]["integrated_lufs"]
+    report["lufs_shortfall_db"] = max(0.0, report["lufs_target"] - report["lufs_achieved"])
+    report["mix_notes"] = ["Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."]
     report["master_file"] = str(a.out)
     report["master_sha256"] = file_sha256(Path(a.out))
     if a.bed:

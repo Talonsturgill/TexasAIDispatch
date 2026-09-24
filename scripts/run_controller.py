@@ -542,6 +542,23 @@ def review_package_problems(state: dict, package: Path) -> list[str]:
     return errs
 
 
+def cinematic_report_problems(state: dict, report: Path) -> list[str]:
+    from production_quality import required, publication_problems, policy
+    saved = state.get("deliverable") or {}
+    board = Path(saved["board"])
+    data = load_json(board)
+    run_date = str(state.get("run_id") or "")[:10]
+    import re
+    if state.get("mode") == "production" and re.fullmatch(r"\d{4}-\d{2}-\d{2}", run_date) and run_date >= policy()["effective_date"] and data.get("date") != run_date:
+        return ["cinematic production board date differs from the production run"]
+    if not required(data):
+        return []
+    film = report.parent / "film.mp4"
+    if not film.is_file() or digest(film) != saved.get("film_sha256"):
+        return ["cinematic report must accompany the exact registered final film"]
+    return publication_problems(board, film, load_json(report).get("judges", []))
+
+
 def finish(path: Path, result: str, reason: str = "", report: Path | None = None,
            review_package: Path | None = None, *, review_root: Path | None = None
            ) -> tuple[bool, str]:
@@ -604,6 +621,9 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
             + "; ".join(publication_errs)
             + ". Preserve it for review or complete a current full-resolution render."
         )
+    quality_errors = cinematic_report_problems(state, report)
+    if quality_errors:
+        return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
     bar = threshold()
     if score < bar or hard:
@@ -658,6 +678,9 @@ def check_package(path: Path, report: Path) -> tuple[bool, str]:
             "run controller: the report presented for delivery is missing or differs from the "
             "passing report that closed the run"
         )
+    quality_errors = cinematic_report_problems(state, report)
+    if quality_errors:
+        return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
     if score < threshold() or hard:
         return False, "run controller: the delivery report no longer clears the rubric"
@@ -681,6 +704,9 @@ def check_verification(path: Path, report: Path) -> tuple[bool, str]:
         return False, "run controller: verification candidate is not ready: " + "; ".join(errs)
     if not report.is_file():
         return False, "run controller: verification requires an existing report"
+    quality_errors = cinematic_report_problems(state, report)
+    if quality_errors:
+        return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
     if score < threshold() or hard:
         return False, "run controller: verification report does not clear the rubric"
@@ -783,6 +809,9 @@ def owner_override(path: Path, report: Path, reason: str, confirmation: str
     errs = deliverable_problems(state, publication=True)
     if errs:
         return False, "run controller: owner override has no exact video: " + "; ".join(errs)
+    quality_errors = cinematic_report_problems(state, report)
+    if quality_errors:
+        return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
     state["terminal_state"] = "publishable"
     state["terminal_reason"] = None
@@ -875,6 +904,7 @@ def self_test() -> int:
         "rescue_renders": 1,
         "tts_calls": 4,
         "reported_tokens": 250000,
+        "audiovisual_reviews": 21,
     }
     actual_limits = limits()
     ok("the approved run-wide cost contract has not drifted",

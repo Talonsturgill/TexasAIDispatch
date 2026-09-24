@@ -8,8 +8,8 @@ A passing technical gate is necessary and does not establish visual appeal.
 
 ## Choose the medium from the action
 
-Use SVG for precise diagrams, maps, source extracts and expressive illustration.
-Use Three.js for actions whose comprehension improves with depth, surface response, moving
+Use SVG for precise diagrams, maps, source extracts and expressive illustration within the hybrid film.
+Use Three.js for the required dimensional opening and story coverage, choosing actions whose comprehension improves with depth, surface response, moving
 light or a camera that travels around a mechanism. Use a hybrid when a dimensional action needs
 a small editorial annotation. A topic is not a reason to repeat yesterday's scene.
 
@@ -92,3 +92,42 @@ not the evidence required to publish it.
 
 Consult the installed version before using newer documentation features. This integration
 deliberately retains the existing Remotion pin and does not depend on WebGPU-only APIs.
+
+## Mandatory adoption for new editions
+
+From September 25th, 2026, use `config/cinematic_production.json`. The dimensional opening,
+finished hero preview and minimum dimensional runtime share are release requirements.
+SVG remains available for diagrams and overlays inside the hybrid film. A wholly SVG daily
+episode no longer qualifies. Historical films retain their original contract.
+
+Add `cinema` to the board with `version` from the policy, `hero_scene_id`,
+`dimensional_scene_ids`, and concrete `visible_action`, `human_consequence` and `source_limit`.
+Use the shared CinematicStage for these scenes. Its first board event must perform the visible
+action. Do not satisfy the stage check with a background plate or decorative object.
+
+After the final board clock, captions and mastered mix are ready, run:
+
+```sh
+bash scripts/run_with_env.sh python scripts/cinema_proof.py
+bash scripts/run_with_env.sh python scripts/audiovisual_review.py --role hero --film out/dispatch/cinema/hero.mp4 --out out/dispatch/cinema/hero-review.json
+bash scripts/run_with_env.sh python scripts/production_quality.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --preview
+```
+
+Inspect the full-quality hero at phone size before extending its treatment across the episode.
+The renderer checks this evidence before a normal full render. The proof removes the shared stage
+and compares real pixels, checks visible action, binds board, engine, policy and mix hashes, and
+compares approved sample frames against the final MP4. Rebuild proof after any changed input.
+Never create or edit a passing proof manually. The provider response is retained verbatim.
+
+After preship and panel reservation, each independent judge gets its own audiovisual lens.
+Run audiovisual_review.py with role picture, story or sound, the exact final film.mp4 and
+out/dispatch/cinema/<role>-review.json. Each judge reads its provider response, critiques any
+model error against the film, and records audiovisual_role and audiovisual_receipt_sha256 in
+its report. Every lens must approve the exact MP4 and report timestamped visual and audio
+observations. Metadata and transcripts alone no longer clear audio review. These are model
+observations, never human listening. Missing provider access leaves the film needs_review.
+
+The review calls use their own controller resource derived from existing preview and scorer
+allowances. All attempts, including failures, count. Existing limits are unchanged.
+A passing automated check still cannot guarantee compelling art. Judges must reject weak
+human action, decorative depth, confusing transitions, accidental crops and cosmetic beats.

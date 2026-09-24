@@ -33,6 +33,7 @@ import argparse
 import json
 import re
 import sys
+import subprocess
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -404,9 +405,16 @@ def main() -> int:
     ap.add_argument("--state", help="run_state.json; authoritative when supplied")
     a = ap.parse_args()
     if a.self_test:
-        return self_test()
+        code = self_test()
+        if code:
+            return code
+        return subprocess.run([sys.executable, str(REPO / "scripts/production_quality_test.py")],
+                              cwd=REPO).returncode
 
     problems = []
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        from production_quality import ci_problems
+        problems += ci_problems()
     for label, fn in CHECKS:
         errs = fn()
         print(f"  {'ok  ' if not errs else 'FAIL'}  {label}")

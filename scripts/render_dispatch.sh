@@ -64,6 +64,7 @@ fi
 
 PRIMARY_OK=0
 if [ "$RESERVED" -eq 1 ] && [ -f "$PREFLIGHT" ] && [ -f "$PREFLIGHT_FILM" ] \
+   && python3 scripts/production_quality.py --board "$BOARD" --mix "$MIX" --preview \
    && python3 scripts/generated_media.py --board "$BOARD" --verify \
    && python3 scripts/preflight_animatic.py --board "$BOARD" --film "$PREFLIGHT_FILM" \
       --verify-report "$PREFLIGHT"; then
@@ -88,7 +89,7 @@ if [ "$RESERVED" -eq 1 ] && [ -f "$PREFLIGHT" ] && [ -f "$PREFLIGHT_FILM" ] \
     RESCUE_REASON="full-resolution render or final audio mux failed"
   fi
 elif [ -z "$RESCUE_REASON" ]; then
-  RESCUE_REASON="no passing hash-bound final-board animatic was available to the full renderer"
+  RESCUE_REASON="required cinematic preview or exact-board animatic was missing, stale or rejected; inspect the preceding gate errors"
 fi
 
 if [ "$PRIMARY_OK" -eq 0 ]; then
