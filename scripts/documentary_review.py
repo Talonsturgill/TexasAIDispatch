@@ -74,6 +74,8 @@ def publication_problems(board_path:Path, film:Path, judges:list) -> list[str]:
         errors+=report_problems(json.loads(out.read_text()),board_path,film,out)
         errors+=panel_problems(judges,digest(film),float(board["runtime_s"]),
                                require_pacing=pacing_review_required(board))
+        from production_quality import publication_problems as quality_problems
+        errors += quality_problems(board_path, film, judges)
         return errors
     except (OSError,ValueError,TypeError,KeyError) as exc:
         return ["exact-film attention review unavailable: "+str(exc)]
@@ -257,6 +259,9 @@ def main()->int:
                                    require_pacing=pacing_review_required(board))
         else:
             build(board_path,film,out);errors=[]
+        if a.verify or a.panel:
+            from production_quality import publication_problems as quality_problems
+            errors += quality_problems(board_path, film, json.loads(Path(a.panel).read_text()) if a.panel else None)
         for error in errors:print("documentary_review: "+error,file=sys.stderr)
         if not errors:print("documentary_review: exact film review evidence ready -> "+str(out))
         return int(bool(errors))

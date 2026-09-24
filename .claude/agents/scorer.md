@@ -81,3 +81,16 @@ reconstruction, or unreadable subject. All three reviews must accept the current
 claim to have heard a recording if your tools only expose frames, timing or transcripts. Mark
 that limit explicitly;
 waveform evidence cannot establish a natural or compelling performance.
+
+## Required audiovisual evidence for upgraded editions
+
+For boards covered by config/cinematic_production.json, inspect the finished hero proof and
+the exact final film. Each judge must have its own picture, story or sound provider receipt
+from scripts/audiovisual_review.py. Add audiovisual_role and audiovisual_receipt_sha256 to
+the top level of your report. Read the raw response and assess its claims against actual
+frames. Flag uncertain or wrong observations. Never convert a model observation into a
+claim that you personally heard the audio. Missing audible-media evidence blocks publication.
+
+Reject tiny actions, generic icons, decorative 3D and camera-only beats even if the technical
+pixel floor passes. The central human action must read at phone size with labels covered.
+A weak interval that obscures the film's consequence requires repair, regardless of mean score.

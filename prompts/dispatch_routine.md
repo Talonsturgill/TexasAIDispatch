@@ -1,3 +1,34 @@
+# Mandatory upgraded production contract
+
+Read knowledge/craft/CINEMATIC_PRODUCTION.md and config/cinematic_production.json in full.
+For new editions, its dimensional opening, runtime coverage, finished hero proof, exact-film
+audiovisual reviews and final audio measurements are mandatory. Follow its commands before
+the full render and after panel reservation. Do not substitute a whole-film animatic for the
+hero proof. Do not use transcript-only reviews as audible-media evidence. Do not manually
+author or alter provider receipts. Keep the existing quick pacing windows and resource ledger.
+If required evidence is unavailable, preserve the playable needs_review package.
+
+Use the wrapper for these commands after the final mix and board clock are ready.
+
+```sh
+bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json
+bash scripts/run_with_env.sh python scripts/audiovisual_review.py --role hero --film out/dispatch/cinema/hero.mp4 --out out/dispatch/cinema/hero-review.json
+bash scripts/run_with_env.sh python scripts/production_quality.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --preview
+```
+
+After preship and the panel reservation, obtain the three independent provider observations.
+Give each scoring agent its own receipt and raw response. The agent still performs its own
+picture, continuity and evidence review.
+
+```sh
+bash scripts/run_with_env.sh python scripts/audiovisual_review.py --role picture --film out/dispatch/film.mp4 --out out/dispatch/cinema/picture-review.json
+bash scripts/run_with_env.sh python scripts/audiovisual_review.py --role story --film out/dispatch/film.mp4 --out out/dispatch/cinema/story-review.json
+bash scripts/run_with_env.sh python scripts/audiovisual_review.py --role sound --film out/dispatch/film.mp4 --out out/dispatch/cinema/sound-review.json
+```
+
+scripts/master_audio.py is the explicit mastering library invoked by mix.py before it writes
+the final report. It preserves sample count and publishes compression and loudness measurements.
+
 # TEXAS AI DISPATCH — MASTER ROUTINE (DAILY)
 
 ## ROLE
@@ -343,8 +374,8 @@ our best recurring composition and it is true.
 Where the show gets good. Board every beat: what is on screen, what moves, what the camera does,
 what the viewer LEARNS AS A PICTURE.
 
-Choose SVG, dimensional or hybrid rendering from the visible action. For a mechanism whose
-depth or moving light explains its operation, build the hardest passage with
+Build a hybrid film under the mandatory cinematic policy. Use dimensional action for the
+opening and required story coverage, with SVG for precise overlays and diagrams. Build the hardest passage with
 `lib/cinema/CinematicStage.tsx` and the existing board event clock. Compare a second treatment
 only when the first leaves the mechanism unclear. Before extending the episode, render this
 passage with final surfaces and motivated sound under the existing preflight allowance, inspect
@@ -1366,3 +1397,17 @@ themselves, and would they think the person who drew this had been there."**
   entry is published next door.
 - For a needs-review run, the durable review video is committed on its branch and neither the
   shipped-run ledger nor public feed is touched.
+
+
+## Upgrade verification
+
+The existing CI commands run_discipline.py and tests/cinema.mjs execute the cinematic contract
+tests and the real shared-stage rendering test. The normal CI discipline invocation also checks
+changed run packages against the event base. Missing comparison evidence fails CI.
+
+For a production-tooling change, run these same narrow checks through the environment wrapper.
+
+```sh
+bash scripts/run_with_env.sh python scripts/production_quality_test.py
+bash scripts/run_with_env.sh bash -c 'cd video-engine && node tests/cinema-proof.mjs'
+```

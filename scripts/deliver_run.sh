@@ -153,6 +153,10 @@ for f in storyboard.json claims.json captions.json words.json mix.json sfx_event
          render-manifest.json feed-composite.json feed-composite.png; do
   [ -f "$OUT/$f" ] && cp "$OUT/$f" "$DEST/$f"
 done
+if [ -d "$OUT/cinema" ]; then
+  mkdir -p "$DEST/cinema"
+  cp -R "$OUT/cinema/." "$DEST/cinema/"
+fi
 cp "$REPORT" "$DEST/report_card.json"
 cp "$STATE" "$DEST/run_state.json"
 # Generate portable review links against the delivered filename and copied board. The review

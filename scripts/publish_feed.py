@@ -288,6 +288,13 @@ def main() -> int:
     has_mobile, has_thumb = renditions(run)
 
     board = json.loads((run / "storyboard.json").read_text(encoding="utf-8"))
+    from production_quality import required, publication_problems
+    if required(board):
+        errors = publication_problems(run / "storyboard.json", run / "dispatch.mp4",
+                                     json.loads((run / "report_card.json").read_text()).get("judges", []))
+        if errors:
+            print("publish_feed: " + "; ".join(errors), file=sys.stderr)
+            return 1
     new = entry(a.date, board, a.caption, a.county, has_mobile, has_thumb)
 
     target = Path(a.docket) / "docs" / "videos" / "videos.json"

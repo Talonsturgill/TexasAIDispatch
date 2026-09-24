@@ -1,4 +1,5 @@
 import React from 'react';
+import {ProvenDispatch} from './lib/cinema/ProofContext';
 import {Composition} from 'remotion';
 import {CastSheet} from './CastSheet';
 import {FaunaSheet} from './FaunaSheet';
@@ -29,7 +30,7 @@ export const RemotionRoot: React.FC = () => (
         Length comes from the board via calculateMetadata; a constant here would
         truncate a long film or pad a short one with black, and a run reports both
         as success. */}
-    <Composition id="Dispatch" component={withFonts(Dispatch)} fps={30} width={1080} height={1920}
+    <Composition id="Dispatch" component={withFonts(ProvenDispatch)} fps={30} width={1080} height={1920}
       defaultProps={DEFAULT_DISPATCH} calculateMetadata={dispatchMetadata}
       durationInFrames={Math.round(DEFAULT_DISPATCH.runtime_s * 30)} />
     <Composition id="Proof" component={withFonts(ProofScene)} durationInFrames={150}

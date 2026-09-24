@@ -90,7 +90,8 @@ def run(board: Path, claims: Path, script: Path, captions: Path, audio: Path,
     red: list[str] = []
     for name, cmd in gates(board, claims, script, captions, audio, sfx, state):
         if not Path(cmd[0]).exists():
-            lines.append(f"  skip  {name} (not in this checkout)")
+            lines.append(f"  FAIL  {name} (required gate missing from checkout)")
+            red.append(name)
             continue
         # BY EXIT CODE, never by the last line. A report that prints advice on failure and
         # one clean line on success looks reassuring either way under `tail -1`.

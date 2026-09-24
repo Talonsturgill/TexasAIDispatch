@@ -148,6 +148,14 @@ export interface Cue {
 }
 
 export type DispatchProps = {
+  cinema?: {
+    version: string;
+    hero_scene_id: string;
+    dimensional_scene_ids: string[];
+    visible_action: string;
+    human_consequence: string;
+    source_limit: string;
+  };
   runtime_s: number;
   scenes: Scene[];
   title?: string;

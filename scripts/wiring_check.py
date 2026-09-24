@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "master_audio.py": "Library called by mix.py; production_quality_test exercises real mastering and encoded audio.",
     "wiring_check.py": "this file, run by CI and by hand",
     # A DIAGNOSTIC, not a run step. It measures what render concurrency this container is
     # fastest at, which changes when the container changes and not between runs. Wiring it

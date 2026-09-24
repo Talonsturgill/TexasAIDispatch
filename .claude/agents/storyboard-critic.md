@@ -57,3 +57,10 @@ Country palette on a Panhandle story is wrong before it is drawn.
 Return `{verdict: 'pass'|'revise', notes: [{scene, problem, fix}], strongest_frame, weakest_frame}`.
 
 `weakest_frame` is required. Every board has one and naming it is more useful than praise.
+
+
+For editions covered by config/cinematic_production.json, reject a missing cinema plan,
+a wholly SVG treatment, decorative dimensional content, or a hero action that cannot be
+understood at phone size. Check the dimensional opening and runtime share against the policy.
+Require a real customer or human action where the story claims one. Review the finished hero
+proof before the full cut. A camera move, texture change or tiny hand gesture is not sufficient.

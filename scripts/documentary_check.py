@@ -108,7 +108,8 @@ def check(board: dict) -> list[str]:
     doc = board.get("documentary")
     if not isinstance(doc,dict) or doc.get("schema") != "dispatch_documentary/1":
         return ["current boards require documentary.schema dispatch_documentary/1"]
-    errors = []
+    from production_quality import plan_problems
+    errors = plan_problems(board)
     for key in ("viewer_question","payoff","source_limit","hero_image","closing_answer"):
         if not isinstance(doc.get(key),str) or len(doc[key].strip())<12:
             errors.append(f"documentary.{key} needs a specific editorial answer")
