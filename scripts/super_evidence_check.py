@@ -215,9 +215,14 @@ def printed_figures(board: dict):
         for pl in sc.get("planes", []):
             for it in pl.get("items", []):
                 props = it.get("props") or {}
-                for cell in prop_strings(props):
-                    for v in figures(cell):
-                        yield sc.get("id", "?"), cell, v
+                # These keys are event-clock wiring read by the renderer, never painted text.
+                # Scene IDs such as s7-segment-lights carry an incidental digit.
+                for key, value in props.items():
+                    if key in {"primary_event", "secondary_event", "tertiary_event"}:
+                        continue
+                    for cell in prop_strings(value):
+                        for v in figures(cell):
+                            yield sc.get("id", "?"), cell, v
 
 
 def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
@@ -409,6 +414,16 @@ def self_test() -> int:
     ]}]}]}
     f, _ = check(clock, CLAIMS)
     ok("a numeral in a non-readout rendered prop is checked too", bool(f), "no fail raised")
+
+    wired = {"scenes": [{"id": "s7", "planes": [{"items": [
+        {"kind": "freightEvidence", "props": {"primary_event": "s7-segment-lights",
+                                              "label": "Distance reported"}}
+    ]}]}]}
+    ok("event-clock IDs are not mistaken for painted numerals",
+       not check_printed_figures_are_quoted(wired, CLAIMS))
+    wired["scenes"][0]["planes"][0]["items"][0]["props"]["value"] = "7 unreported trips"
+    ok("a visible numeral remains checked beside event-clock wiring",
+       bool(check_printed_figures_are_quoted(wired, CLAIMS)))
 
     copy_board = {"scenes": [], "documentary_copy": {"award": "Award 987654321"}}
     ok("documentary source copy cannot print an unquoted figure",

@@ -1055,6 +1055,48 @@ def route_marker(seed=56):
     return normalize(fade(out, 24), 0.76)
 
 
+def freight_door(seed=90):
+    """The illustrated heavy truck cab door swings open beside the empty seat."""
+    dur = 1.35
+    out = np.zeros(int(dur * SR))
+    hinge = sine(lambda t: 115 - 43 * np.clip(t / .9, 0, 1), .95)
+    hinge += one_pole_lp(white(.95, seed), 950) * .24
+    place_into(out, hinge * adsr(.95, .08, .3, .45, .16, .55) * .38, .04)
+    stop = biquad_bp(white(.24, seed + 1), 340, 2.5) * expdecay(.24, .07)
+    place_into(out, normalize(stop) * .56, .89)
+    return normalize(fade(out, 20), .78)
+
+
+def freight_roll(seed=91):
+    """The visible illustrated freight truck rolls along the road or toward the dock."""
+    dur = 2.1
+    body = one_pole_lp(high_pass(white(dur, seed), 38), 850)
+    tire = biquad_bp(white(dur, seed + 1), 1100, 1.8) * .16
+    pulse = .55 + .45 * (sine(3.2, dur) + 1) / 2
+    return normalize(fade((body * .65 + tire) * pulse, 160), .68)
+
+
+def freight_count(seed=92):
+    """Visible truck wheel and reported mileage ring advance, with small mechanical ticks."""
+    dur = 1.7
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((.1, .4, .73, 1.08, 1.42)):
+        tick = biquad_bp(white(.08, seed + i), 850 + 95*i, 4) * expdecay(.08, .018)
+        place_into(out, normalize(tick) * (.33 + .06*i), at)
+    return normalize(fade(out, 12), .76)
+
+
+def offer_card(seed=93):
+    """The visible illustrated paper offer moves into its labeled tray."""
+    dur = 1.15
+    out = np.zeros(int(dur * SR))
+    slide = one_pole_lp(high_pass(white(.8, seed), 600), 4800) * np.hanning(int(.8 * SR))
+    place_into(out, normalize(slide) * .34, .04)
+    landing = biquad_bp(white(.15, seed + 1), 1150, 4) * expdecay(.15, .032)
+    place_into(out, normalize(landing) * .62, .78)
+    return normalize(fade(out, 15), .76)
+
+
 def field_marker(seed=38):
     """Candidate road segments entering an engineer's field-inspection queue.
 
@@ -1644,6 +1686,10 @@ SOUNDS = {
     "seatbelt_latch": (seatbelt_latch, "oneshot", "a visible empty passenger seat buckle drawing tight and locking", ["seat", "buckle", "passenger", "gate"]),
     "passenger_gate_drop": (passenger_gate_drop, "oneshot", "a visible passenger barrier or later-stage gate dropping closed", ["passenger", "rider", "gate", "limit"]),
     "route_marker": (route_marker, "oneshot", "a visible route line passing measured checkpoints on a map", ["route", "map", "network", "test"]),
+    "freight_door": (freight_door, "oneshot", "the visible illustrated freight cab door opening beside the empty seat", ["freight", "cab", "door", "seat"]),
+    "freight_roll": (freight_roll, "oneshot", "the visible illustrated freight truck rolling along the road or toward the dock", ["freight", "truck", "road", "dock"]),
+    "freight_count": (freight_count, "oneshot", "the visible truck wheel and company reported distance ring advancing", ["truck", "wheel", "distance", "mileage"]),
+    "offer_card": (offer_card, "oneshot", "the visible illustrated paper ride offer moving into its labeled tray", ["ride", "offer", "card", "tray"]),
     "field_marker": (field_marker, "oneshot", "candidate road segments entering an engineer field inspection queue", ["road", "inspection", "engineer"]),
     "alloy_furnace": (alloy_furnace, "oneshot", "a visible alloy charge heating in an induction furnace", ["materials", "metal", "furnace", "laboratory"]),
     "robot_servo": (robot_servo, "oneshot", "a visible industrial robot indexing a metal coupon", ["materials", "robot", "automation", "laboratory"]),
