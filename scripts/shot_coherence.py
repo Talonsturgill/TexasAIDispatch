@@ -124,6 +124,9 @@ VISIBLE_PROPS: dict[str, set[str]] = {
     "metricsBlind": {"rows"},
     "optOutLane": {"capture", "optout"},
     "deploymentDecision": {"stage", "selected", "actor", "mode"},
+    # FreightEvidence paints both strings in the finished episode. The other freight
+    # components use their mode for shape and do not paint their board labels.
+    "freightEvidence": {"label", "status", "value"},
 }
 
 
@@ -464,6 +467,11 @@ def self_test() -> int:
     ok("source report date is painted evidence", "september" in item_visual_tokens(dated_fax_report))
     dated_fax_report["props"]["mode"] = "limit"
     ok("limit annotation cannot claim an unpainted date", "september" not in item_visual_tokens(dated_fax_report))
+    freight = {"kind": "freightEvidence", "props": {"label": "empty driver seat", "status": "ride offered", "hidden": "completed ride"}}
+    ok("freight painted label supports the seat", concept_match("empty driver seat", [freight])[0])
+    ok("freight hidden claim supplies no completed ride", not concept_match("completed ride", [freight])[0])
+    freight["props"] = {"mode": "empty driver seat", "unpainted": "ride offered"}
+    ok("freight mode cannot replace the visible label", not concept_match("empty driver seat", [freight])[0])
     print(f"shot_coherence: {failures} failure(s)")
     return 1 if failures else 0
 

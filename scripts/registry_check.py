@@ -51,7 +51,7 @@ REGISTRY = LIB / "registry.tsx"
 # has to be in ELEMENTS.
 STAGEABLE = [
     "kit", "fauna", "vehicles", "civics", "sensing",
-    "agriculture", "freight", "compute", "clinic", "water", "plantfloor", "drilling",
+    "agriculture", "freight", "freightinvitation", "compute", "clinic", "water", "plantfloor", "drilling",
     "evidence", "irrigation", "biometrics", "magnets", "freshwater", "provingground", "faxwork", "coadaptation", "spectral", "screwworm",
     # the nostalgia layer
     "flora", "skies", "roadside", "hometown", "homeplace", "tejano", "blacktexas",

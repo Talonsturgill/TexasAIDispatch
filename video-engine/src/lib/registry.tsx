@@ -12,6 +12,7 @@ import * as Civics from './civics';
 import * as Sensing from './sensing';
 import * as Ag from './agriculture';
 import * as Freight from './freight';
+import * as FreightInvitation from './freightinvitation';
 import * as Compute from './compute';
 import * as Clinic from './clinic';
 import * as Water from './water';
@@ -241,6 +242,10 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
 
   // the road that already has no driver on it
   autonomousRig: Freight.AutonomousRig,
+  freightBackdrop: FreightInvitation.FreightBackdrop,
+  freightRoute: FreightInvitation.FreightRoute,
+  freightCab: FreightInvitation.FreightCab,
+  freightEvidence: FreightInvitation.FreightEvidence,
   sensorMast: Freight.SensorMast,
   cabView: Freight.CabView,
   lane: Freight.Lane,
