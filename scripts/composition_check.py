@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -79,9 +80,9 @@ BY_HAND = {
 BY_HAND_PREFIX = ("Region-",)
 
 
-def registered() -> set[str]:
+def registered(root: Path | None = None) -> set[str]:
     """Composition ids Root.tsx actually registers, literals and template forms alike."""
-    src = ROOT_TSX.read_text(encoding="utf-8")
+    src = (root or ROOT_TSX).read_text(encoding="utf-8")
     ids = set(re.findall(r'<Composition[^>]*?\bid=["\']([A-Za-z0-9_-]+)["\']', src, re.S))
     # The generated set: id={`Region-${...}`} mapped over a REGIONS list.
     #
@@ -94,20 +95,31 @@ def registered() -> set[str]:
     for m in re.finditer(r'id=\{`([A-Za-z-]+)\$\{', src):
         for r in regions:
             ids.add(m.group(1) + r.replace("_", "-"))
+    # The optical benchmark has its own registerRoot entrypoint and a finite inline map.
+    # Read its actual treatment list and concatenated id, rather than guessing prefixes.
+    pattern = r"\(\[([^]]+)\]\s+as\s+\w+\[\]\)\.map\(\s*(\w+)\s*=>\s*<Composition[^>]*?id=\{['\"]([^'\"]+)['\"]\+(\w+)\}"
+    for values, variable, prefix, used in re.findall(pattern, src, re.S):
+        if variable == used:
+            ids.update(prefix + value for value in re.findall(r"['\"]([a-zA-Z0-9_-]+)['\"]", values))
     return ids
 
 
-def rendered() -> dict[str, str]:
+REQUEST = re.compile(r"remotion\s+(?:render|still)\s+"
+                     r"(?:(?P<entry>[A-Za-z0-9_./-]+\.[cm]?[jt]sx?)\s+)?"
+                     r"(?P<id>[A-Za-z0-9_-]+)(?=\s|$|`)")
+
+
+def rendered() -> dict[tuple[str, str], str]:
     """Composition ids some prompt or workflow renders, mapped to the command that does."""
-    out: dict[str, str] = {}
+    out: dict[tuple[str, str], str] = {}
     files = list((REPO / "prompts").glob("*.md"))
     wf = REPO / ".github" / "workflows"
     if wf.exists():
         files += list(wf.glob("*.yml"))
     for f in files:
         for line in f.read_text(encoding="utf-8").splitlines():
-            for m in re.finditer(r"remotion\s+(?:render|still)\s+([A-Za-z0-9_-]+)", line):
-                out.setdefault(m.group(1), f"{f.relative_to(REPO)}: {line.strip()}")
+            for m in REQUEST.finditer(line):
+                out.setdefault((m.group("entry") or "", m.group("id")), f"{f.relative_to(REPO)}: {line.strip()}")
     return out
 
 
@@ -124,16 +136,30 @@ def check() -> list[str]:
                  f"Both mean the rule below is running on nothing.")
         return p
 
-    for cid, where in sorted(ren.items()):
-        if cid not in reg:
+    entry_roots = {"": ROOT_TSX}
+    for entry, _cid in ren:
+        if entry:
+            path = (REPO / "video-engine" / entry).resolve()
+            if not path.is_relative_to((REPO / "video-engine").resolve()):
+                p.append(f"render entrypoint leaves the engine: {entry}")
+                continue
+            if not path.is_file():
+                p.append(f"render entrypoint is missing: {entry}")
+                continue
+            entry_roots[entry] = path
+    for (entry, cid), where in sorted(ren.items()):
+        if entry not in entry_roots:
+            continue
+        available = registered(entry_roots[entry])
+        if cid not in available:
             p.append(
-                f"GHOST COMPOSITION: {where} renders \"{cid}\" and Root.tsx does not register it. "
+                f"GHOST COMPOSITION: {where} renders \"{cid}\" and its selected entrypoint does not register it. "
                 f"Remotion exits with \"No composition with the ID '{cid}' found\", after the "
                 f"research, the board, the scenes and the voice are all already done. "
-                f"Registered: {', '.join(sorted(reg))}")
+                f"Registered: {', '.join(sorted(available))}")
 
     for cid in sorted(reg):
-        if cid in ren or cid in BY_HAND or cid.startswith(BY_HAND_PREFIX):
+        if ("", cid) in ren or cid in BY_HAND or cid.startswith(BY_HAND_PREFIX):
             continue
         p.append(f"ORPHAN COMPOSITION: Root.tsx registers \"{cid}\" and nothing renders it. "
                  f"Render it from a prompt or a workflow, or list it in BY_HAND with a reason.")
@@ -144,7 +170,16 @@ def check() -> list[str]:
     # were shipped to end, and it is invisible: the frame looks like every other frame
     # until somebody measures a glyph. Twenty-three registrations is twenty-three
     # chances to forget, so it is checked rather than remembered.
-    src = ROOT_TSX.read_text(encoding="utf-8")
+    src = "\n".join(path.read_text(encoding="utf-8") for path in entry_roots.values())
+    for entry, path in entry_roots.items():
+        if not entry:
+            continue
+        ids = registered(path)
+        if not ids:
+            p.append(f"parsed ZERO compositions from selected entrypoint {entry}")
+        for cid in sorted(ids):
+            if (entry, cid) not in ren:
+                p.append(f"ORPHAN COMPOSITION: {entry} registers {cid} but no workflow renders it")
     for m in re.finditer(r'<Composition[^>]*?\bid=["\']?\{?([A-Za-z0-9_`${}.\-]+)[^>]*?'
                          r'component=\{([^}]+)\}', src, re.S):
         cid, comp = m.group(1), m.group(2).strip()
@@ -162,6 +197,7 @@ def check() -> list[str]:
 
 
 def self_test() -> int:
+    global REPO, ROOT_TSX
     failures = 0
 
     def ok(label, cond, extra=""):
@@ -177,7 +213,7 @@ def self_test() -> int:
        str(sorted(reg)))
 
     ren = rendered()
-    ok("the routine's render command is found", "Dispatch" in ren, str(sorted(ren)))
+    ok("the routine's render command is found", ("", "Dispatch") in ren, str(sorted(ren)))
 
     # THE FAULT THIS FILE IS FOR, on synthetic input so it cannot pass by luck.
     fake_reg = {"Proof", "CastSheet"}
@@ -196,6 +232,56 @@ def self_test() -> int:
        re.search(r"remotion\s+(?:render|still)\s+([A-Za-z0-9_-]+)",
                  "npx remotion still Region-high-plains out/x.png").group(1)
        == "Region-high-plains")
+
+    request = REQUEST.search("npx remotion still src/cinema/index.tsx Cinema-hybrid out/x.png")
+    ok("an explicit entrypoint and its composition stay paired",
+       request is not None and request.group("entry") == "src/cinema/index.tsx"
+       and request.group("id") == "Cinema-hybrid")
+    cinema = REPO / "video-engine/src/cinema/index.tsx"
+    if cinema.exists():
+        ids = registered(cinema)
+        ok("the alternate root reads every actual treatment",
+           ids == {"Cinema-vector", "Cinema-dimensional", "Cinema-hybrid"}, str(ids))
+        ok("an alternate composition is absent from the default root",
+           "Cinema-hybrid" not in reg)
+        ok("an unknown alternate id remains a ghost", "Cinema-missing" not in ids)
+
+    # Exercise the real checker against complete alternate-entry fixtures.
+    # A label parser alone would miss selecting the right id from the wrong root.
+    original_repo, original_root = REPO, ROOT_TSX
+    root_source = ROOT_TSX.read_text()
+    cinema_source = cinema.read_text() if cinema.exists() else ""
+    with tempfile.TemporaryDirectory() as temporary:
+        try:
+            REPO = Path(temporary)
+            ROOT_TSX = REPO / "video-engine/src/Root.tsx"
+            alternate = REPO / "video-engine/src/cinema/index.tsx"
+            alternate.parent.mkdir(parents=True)
+            ROOT_TSX.write_text(root_source)
+            alternate.write_text(cinema_source)
+            prompts = REPO / "prompts"
+            prompts.mkdir()
+            prompt = prompts / "probe.md"
+            base = "npx remotion render Dispatch out.mp4\n"
+            base += "\n".join(f"npx remotion still src/cinema/index.tsx Cinema-{mode} out.png"
+                              for mode in ("vector", "dimensional", "hybrid"))
+            prompt.write_text(base)
+            ok("complete alternate-root fixture passes", not check(), str(check()))
+            prompt.write_text(base.replace("Cinema-hybrid", "Dispatch"))
+            ok("a real id from the wrong root is rejected",
+               any("GHOST COMPOSITION" in problem for problem in check()))
+            prompt.write_text(base.replace("Cinema-hybrid", "Cinema-unknown"))
+            ok("an unknown alternate id fails the real checker",
+               any("GHOST COMPOSITION" in problem for problem in check()))
+            prompt.write_text(base.replace("src/cinema/index.tsx", "src/missing.tsx"))
+            ok("a missing render entrypoint is rejected",
+               any("entrypoint is missing" in problem for problem in check()))
+            prompt.write_text(base)
+            alternate.write_text(cinema_source.replace("withFonts(CinemaStudy)", "CinemaStudy"))
+            ok("alternate roots still require loaded fonts",
+               any("not through withFonts" in problem for problem in check()))
+        finally:
+            REPO, ROOT_TSX = original_repo, original_root
 
     real = check()
     ok("the repo itself is clean", not real, "\n      " + "\n      ".join(real))

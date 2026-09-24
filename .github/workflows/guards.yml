@@ -339,6 +339,16 @@ jobs:
           cd video-engine
           npm ci --no-audit --no-fund
           npx tsc --noEmit
+          node tests/cinema.mjs
+
+      - name: The dimensional and illustrated subjects really render
+        timeout-minutes: 5
+        run: |
+          cd video-engine
+          npx remotion still src/cinema/index.tsx Cinema-hybrid "$RUNNER_TEMP/cinema-hybrid.png" --frame=230 --scale=.25 --gl=angle
+          npx remotion still src/cinema/index.tsx Cinema-vector "$RUNNER_TEMP/cinema-vector.png" --frame=230 --scale=.25 --gl=angle
+          npx remotion still src/cinema/index.tsx Cinema-dimensional "$RUNNER_TEMP/cinema-dimensional.png" --frame=230 --scale=.25 --gl=angle
+          python3 tests/cinema_pixels.py "$RUNNER_TEMP/cinema-hybrid.png" "$RUNNER_TEMP/cinema-vector.png" "$RUNNER_TEMP/cinema-dimensional.png"
 
       - name: The cheap animatic really renders
         timeout-minutes: 10

@@ -3,6 +3,8 @@ import {existsSync} from 'node:fs';
 
 Config.setVideoImageFormat('jpeg');
 Config.setConcurrency(4);
+// Required by the native dimensional lane; SVG episodes retain their existing renderer.
+Config.setChromiumOpenGlRenderer('angle');
 // A browser path belongs to the runner, not to the repository. The old config pinned one
 // Playwright cache revision under /opt; every other machine failed before rendering a frame.
 // When the runner supplies a path, verify it. Otherwise Remotion manages its own compatible
