@@ -381,7 +381,7 @@ Declare per scene:
     in `ELEMENTS` and nothing else. A scene whose planes are all empty renders as a biome with a
     caption over it and reports success.
 - `cast` — who is on screen and what they are FEELING
-- `beat` — the currency this five seconds pays in: motion, emotion or revelation
+- `beat` names the scene currency. Motion, emotion or revelation.
 - `story_role` — `hook`, `movement`, `mechanism`, `scale`, `consequence`, `limit`, `agency`, or
   `close`. Across the film the causal spine is movement -> consequence -> limit -> agency. Three
   cuts on one role are one scene or three ideas, not flow.
