@@ -90,6 +90,23 @@ def main():
             judges.append({"audiovisual_role": role, "audiovisual_receipt_sha256": q.digest(p)})
         assert not q.publication_problems(board, film, judges), q.publication_problems(board, film, judges)
         print("PASS complete synthetic evidence validates, including actual encoded audio and frame comparison")
+        base_board = q.read(board)
+        expanded = copy.deepcopy(base_board)
+        expanded["scenes"][0]["duration_s"] = 2
+        expanded["scenes"].append({"id": "s2", "start_s": 2, "duration_s": 3,
+                                   "visual_events": [{"at_s": .1, "duration_s": .8}]})
+        expanded["runtime_s"] = 5
+        expanded["cinema"]["dimensional_scene_ids"].append("s2")
+        expanded["cinema"]["hero_passage_end_scene_id"] = "s2"
+        assert not q.plan_problems(expanded)
+        write(board, expanded)
+        expanded_proof = copy.deepcopy(proof)
+        expanded_proof["board_sha256"] = q.digest(board)
+        write(proof_path, expanded_proof)
+        assert any("full declared passage" in e for e in q.preview_problems(board, cinema)), (
+            "a hero clipped to the first scene cannot certify a longer opening passage")
+        write(board, base_board)
+        write(proof_path, proof)
         for key in ("board_sha256", "engine_sha256", "policy_sha256"):
             bad = copy.deepcopy(proof); bad[key] = "stale"; write(proof_path, bad)
             assert q.preview_problems(board, cinema), key

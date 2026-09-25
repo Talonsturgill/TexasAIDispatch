@@ -51,6 +51,13 @@ closing consequence. Ask which image will be remembered and what question it res
 are three cards with labels, reboard before spending a render. Check the actual source of every
 reconstruction and whether its visual certainty exceeds the reporting.
 
+**Visual access before visual promises.** For each of those three images, name the public
+reference or source fact that permits its depiction. If the pivotal action occurs inside a
+private interface, lab or workplace that no source shows, do not approve a sequence of invented
+screens and pointing gestures as observed workflow. Require an explicitly illustrated mechanism
+whose state visibly changes, or send the director back to a more filmable source-backed angle.
+An event list with verbs is insufficient when the same generic panel remains the dominant image.
+
 **Region correctness.** The scene's region comes from the story's county. A board that puts a Hill
 Country palette on a Panhandle story is wrong before it is drawn.
 

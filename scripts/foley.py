@@ -1684,7 +1684,77 @@ def clinical_display(seed=105):
     return normalize(fade((tonal + air) * pulse, 200), .63)
 
 
+def survey_page(seed=106):
+    """The visible industrial survey page turns: paper draw, then a soft desk stop."""
+    dur = 0.9
+    out = np.zeros(int(dur * SR))
+    draw = one_pole_lp(high_pass(white(0.55, seed), 340), 4200)
+    place_into(out, fade(draw * np.hanning(len(draw)), 8) * 0.5, 0.02)
+    stop = biquad_bp(white(0.1, seed + 1), 520, 2.5) * expdecay(0.1, 0.025)
+    place_into(out, fade(normalize(stop), 3) * 0.22, 0.62)
+    return normalize(fade(out, 12), 0.7)
+
+
+def survey_slip(seed=107):
+    """A small report slip slides out of the form and seats in its named channel."""
+    dur = 0.8
+    out = np.zeros(int(dur * SR))
+    slide = one_pole_lp(high_pass(white(0.5, seed), 550), 4200)
+    place_into(out, fade(slide * np.hanning(len(slide)), 8) * 0.36, 0.02)
+    latch = sine(490, 0.15) * expdecay(0.15, 0.035)
+    place_into(out, fade(latch, 3) * 0.18, 0.55)
+    return normalize(fade(out, 10), 0.68)
+
+
+def survey_tray(seed=108):
+    """The visible late PDF page settles into the metal receiving tray."""
+    dur = 1.0
+    out = np.zeros(int(dur * SR))
+    paper = one_pole_lp(high_pass(white(0.46, seed), 420), 3800)
+    place_into(out, fade(paper * np.hanning(len(paper)), 8) * 0.35, 0.03)
+    metal = sine(410, 0.28) * expdecay(0.28, 0.08)
+    place_into(out, fade(metal, 4) * 0.28, 0.51)
+    return normalize(fade(out, 12), 0.68)
+
+
+def survey_tab(seed=109):
+    """The Governor update date tab clicks into the closing form image."""
+    dur = 0.6
+    click = biquad_bp(white(dur, seed), 1250, 2.5) * expdecay(dur, 0.045)
+    low = sine(285, dur) * expdecay(dur, 0.085)
+    return normalize(fade(click * 0.4 + low * 0.24, 4), 0.65)
+
+
+def survey_slot(seed=110):
+    """The visible empty survey-return drawer slides open and meets its stop."""
+    dur = 1.2
+    out = np.zeros(int(dur * SR))
+    slide = one_pole_lp(high_pass(white(0.86, seed), 170), 2600)
+    place_into(out, fade(slide * np.hanning(len(slide)), 18) * 0.25, 0.03)
+    stop = biquad_bp(white(0.19, seed + 1), 380, 3) * expdecay(0.19, 0.05)
+    place_into(out, fade(normalize(stop), 4) * 0.4, 0.89)
+    return normalize(fade(out, 15), 0.68)
+
+
+def planner_pencil(seed=111):
+    """A pencil reaches the blank direct-report cell and taps the paper once."""
+    dur = 0.7
+    out = np.zeros(int(dur * SR))
+    touch = one_pole_lp(high_pass(white(0.18, seed), 650), 4600)
+    place_into(out, fade(touch * np.hanning(len(touch)), 3) * 0.28, 0.04)
+    tap = biquad_bp(white(0.12, seed + 1), 760, 2.8) * expdecay(0.12, 0.025)
+    body = sine(390, 0.12) * expdecay(0.12, 0.047)
+    place_into(out, fade(normalize(tap + body * 0.3), 3) * 0.62, 0.31)
+    return normalize(fade(out, 8), 0.72)
+
+
 SOUNDS = {
+    "survey_page": (survey_page, "oneshot", "the visible industrial survey form page turning", ["survey", "form", "paper"]),
+    "survey_slip": (survey_slip, "oneshot", "a visible report slip sliding from the survey form into its labeled channel", ["report", "form", "slip"]),
+    "survey_tray": (survey_tray, "oneshot", "the visible late PDF form landing in its metal receiving tray", ["pdf", "form", "tray"]),
+    "survey_tab": (survey_tab, "oneshot", "the visible Governor update date tab clicking into the closing form", ["governor", "update", "tab"]),
+    "survey_slot": (survey_slot, "oneshot", "the visible empty survey response slot sliding open", ["survey", "response", "slot"]),
+    "planner_pencil": (planner_pencil, "oneshot", "the visible planner pencil tapping an empty direct-report cell", ["planner", "pencil", "direct", "report"]),
     "citation_leaf": (citation_leaf, "oneshot", "the visible copper-edged citation leaf sliding or unfolding inside the illustrated chart", ["citation", "paper", "chart", "source"]),
     "clinical_chart_tap": (clinical_chart_tap, "oneshot", "the illustrated clinician hand touching the visible chart citation", ["clinician", "hand", "chart", "citation"]),
     "adoption_threshold": (adoption_threshold, "oneshot", "sonification of the visible UTMB reported-use band crossing the halfway marker", ["reported", "use", "threshold", "band"]),
