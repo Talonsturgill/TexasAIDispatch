@@ -1,0 +1,78 @@
+{
+  "duration_s": 42.25,
+  "cut_s": 42.25,
+  "peak_dbfs_premaster": -2.68,
+  "lufs_premaster": -22.76,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.3,
+  "lufs_shortfall_db": 0.3000000000000007,
+  "crest_factor_db": 20.08,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 2.68,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 13
+    },
+    {
+      "id": "sincerely",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -16.44,
+      "gain_db": -25.32
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "sincerely",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -16.44,
+  "bed_gain_db": -25.32,
+  "sfx_events": 13,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -20.12,
+      "true_peak_dbtp": 0.02
+    },
+    "after": {
+      "integrated_lufs": -16.3,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.24:measured_TP=-4.65:measured_LRA=15.40:measured_thresh=-35.16:offset=0.82",
+    "measurement": {
+      "input_i": "-24.24",
+      "input_tp": "-4.65",
+      "input_lra": "15.40",
+      "input_thresh": "-35.16",
+      "output_i": "-16.16",
+      "output_tp": "-2.00",
+      "output_lra": "5.40",
+      "output_thresh": "-26.72",
+      "normalization_type": "dynamic",
+      "target_offset": "0.16"
+    },
+    "samples": 2028000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "fbd9115c155078d8b3910105adff2c4d814edc68d3f45d0c3ba67aa49306fb88",
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "560718a2f29d12f63aecf3245f871bb7bd8710cf0b2265e7f35e8a35c42589a0",
+  "bed_source_sha256": "1da4a58ebbae4f2bbdf297e441574788cc85cb59600b03b2dcc93f6a699927cc",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "0509280c5f5ebaef3cdaeb97970e36a85ed31b825d7f0e7b0310d4e626131241",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2028000
+}
