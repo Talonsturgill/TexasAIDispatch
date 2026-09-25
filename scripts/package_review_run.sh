@@ -6,13 +6,14 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 REPO="$PWD"
 
-DATE=""; SLUG=""; REASON=""; NO_PUSH=0
+DATE=""; SLUG=""; REASON=""; BLOCKER_REPORT=""; NO_PUSH=0
 STATE="out/dispatch/run_state.json"
 while [ $# -gt 0 ]; do
   case "$1" in
     --date) DATE="$2"; shift 2 ;;
     --slug) SLUG="$2"; shift 2 ;;
     --reason) REASON="$2"; shift 2 ;;
+    --blocker-report) BLOCKER_REPORT="$2"; shift 2 ;;
     --state) STATE="$2"; shift 2 ;;
     --no-push) NO_PUSH=1; shift ;;
     *) echo "package_review_run: unknown argument $1" >&2; exit 2 ;;
@@ -43,14 +44,29 @@ python3 scripts/run_controller.py --state "$STATE" materialize-deliverable \
   --directory "$DEST"
 for name in poster.png claims.json captions.json words.json mix.json sfx_events.json \
             vo_direction.json vo_script.txt story.md research_notes.md scale_notes.md \
-            credits.txt feed-composite.json feed-composite.png report_card.json rescue.json; do
+            credits.txt feed-composite.json feed-composite.png report_card.json rescue.json \
+            validation.json attention-review.json attention-review.png preflight-contact-sheet.png; do
   [ ! -f "$OUT/$name" ] || cp "$OUT/$name" "$DEST/$name"
 done
+if [ -d "$OUT/cinema" ]; then
+  mkdir -p "$DEST/cinema"
+  for source in "$OUT"/cinema/*review*.json; do
+    [ ! -f "$source" ] || cp "$source" "$DEST/cinema/"
+  done
+fi
+if [ -n "$BLOCKER_REPORT" ]; then
+  [ -f "$BLOCKER_REPORT" ] || { echo "package_review_run: missing blocker report" >&2; exit 2; }
+  cp "$BLOCKER_REPORT" "$DEST/blocker-report.json"
+fi
 
 # Only now may the controller become terminal: the exact MP4, board and manifest already exist
 # in the tracked review namespace rather than only in gitignored scratch.
-python3 scripts/run_controller.py --state "$STATE" finish --result needs_review \
-  --reason "$REASON" --review-package "$DEST"
+finish_args=(--state "$STATE" finish --result needs_review \
+  --reason "$REASON" --review-package "$DEST")
+if [ -n "$BLOCKER_REPORT" ]; then
+  finish_args+=(--blocker-report "$DEST/blocker-report.json")
+fi
+python3 scripts/run_controller.py "${finish_args[@]}"
 cp "$STATE" "$DEST/run_state.json"
 
 echo "package_review_run: durable playable video -> ${DEST#$REPO/}/dispatch.mp4"
