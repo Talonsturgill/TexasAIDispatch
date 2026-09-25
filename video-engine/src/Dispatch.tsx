@@ -30,6 +30,7 @@ import {ProofGateEpisode} from './ProofGateEpisode';
 import {FreshwaterDocumentaryEpisode} from './FreshwaterDocumentaryEpisode';
 import {MagnetCandidateEpisode} from './MagnetCandidateEpisode';
 import {FreightInvitationEpisode} from './FreightInvitationEpisode';
+import {CitationInChartEpisode} from './CitationInChartEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -183,7 +184,7 @@ export type DispatchProps = {
   cinematic_template?: "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
-    'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1';
+    'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'citation-in-chart-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -529,6 +530,9 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   }
   if (cinematic_template === 'freight-invitation-v1') {
     return <FreightInvitationEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}/>;
+  }
+  if (cinematic_template === 'citation-in-chart-v1') {
+    return <CitationInChartEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}/>;
   }
   if (cinematic_template === 'coadapt-handoff-v1') {
     return <CoadaptHandoffEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}/>;

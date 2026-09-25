@@ -1642,7 +1642,54 @@ def ranch_gate(seed=97):
     return normalize(fade(out, 10), .4)
 
 
+def citation_leaf(seed=101):
+    """Dry paper edge sliding across the illustrated clinical chart."""
+    dur = .62
+    paper = high_pass(pink(dur, seed), 370) * np.sin(np.pi * np.clip(t_axis(dur) / dur, 0, 1)) ** 1.5
+    edge = biquad_bp(white(dur, seed + 1), 3100, 2.5) * expdecay(dur, .11)
+    return normalize(fade(paper * .72 + edge * .22, 15), .8)
+
+
+def clinical_chart_tap(seed=102):
+    """A restrained finger-on-glass contact at the visible source card."""
+    dur = .32
+    contact = sine(lambda t: 540 - 180 * t / dur, dur) * expdecay(dur, .065)
+    surface = biquad_bp(white(dur, seed), 1400, 1.8) * expdecay(dur, .026)
+    return normalize(fade(contact * .34 + surface * .18, 4), .78)
+
+
+def adoption_threshold(seed=103):
+    """A short sonified tick as the reported-use band crosses its midpoint."""
+    dur = .46
+    tick = sine(780, dur) * expdecay(dur, .13)
+    wood = one_pole_lp(white(dur, seed), 900) * expdecay(dur, .035)
+    return normalize(fade(tick * .35 + wood * .08, 4), .78)
+
+
+def inspection_lens(seed=104):
+    """Soft rotational contact as the visible answer-inspection lens flips."""
+    dur = .58
+    friction = biquad_bp(white(dur, seed), 1100, 1.4) * np.sin(np.pi * t_axis(dur) / dur) ** 2
+    stop = sine(320, dur) * np.exp(-((t_axis(dur)-.31)/.055)**2)
+    return normalize(fade(friction * .24 + stop * .2, 9), .8)
+
+
+def clinical_display(seed=105):
+    """Quiet electrical bed from the visible illustrated clinical record display."""
+    dur = 6.3
+    t = t_axis(dur)
+    tonal = sine(164, dur) * .18 + sine(328, dur) * .05
+    air = biquad_bp(white(dur, seed), 1700, 1.1) * .12
+    pulse = 0.84 + .16 * np.sin(2 * np.pi * .21 * t)
+    return normalize(fade((tonal + air) * pulse, 200), .63)
+
+
 SOUNDS = {
+    "citation_leaf": (citation_leaf, "oneshot", "the visible copper-edged citation leaf sliding or unfolding inside the illustrated chart", ["citation", "paper", "chart", "source"]),
+    "clinical_chart_tap": (clinical_chart_tap, "oneshot", "the illustrated clinician hand touching the visible chart citation", ["clinician", "hand", "chart", "citation"]),
+    "adoption_threshold": (adoption_threshold, "oneshot", "sonification of the visible UTMB reported-use band crossing the halfway marker", ["reported", "use", "threshold", "band"]),
+    "inspection_lens": (inspection_lens, "oneshot", "the visible answer-accuracy inspection lens rotating to expose the missing test", ["answer", "accuracy", "lens", "test"]),
+    "clinical_display": (clinical_display, "ambience", "the illuminated illustrated clinical chart display remaining open in the foreground", ["clinical", "chart", "display", "illustration"]),
     "screwworm_wings": (screwworm_wings, "oneshot", "the visible illustrated sterile or wild fly moving its wings", ["fly", "insect", "wings"]),
     "forecast_clue": (forecast_clue, "oneshot", "graphic sonification of the visible ecological forecast landscape or clues", ["forecast", "landscape", "model", "habitat"]),
     "ranch_gate": (ranch_gate, "oneshot", "the visible ranch livestock transport gate closing", ["ranch", "livestock", "gate", "transport"]),
