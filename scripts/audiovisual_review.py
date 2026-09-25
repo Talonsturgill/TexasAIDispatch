@@ -96,6 +96,9 @@ Return JSON only with pass (boolean), audio_access (boolean),
 visual_observations and audio_observations (each at least two objects with at_s numeric seconds
 and observation describing specific perceived events), pacing, comprehension, weakest_interval,
 dimensional_action (concrete descriptive strings), defects (array of concrete fixes).
+Write weakest_interval as a specific start and end time in seconds followed by a description
+of the actual observed weakness in that span.
+It must be at least 20 characters long. Do not return only a pair of timestamps.
 Use plain prose without the whole words prohibited by the project's writing rule
 (matter, matters, mattered, mattering).
 Review lens: """ + LENSES[role]
