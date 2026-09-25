@@ -1143,12 +1143,27 @@ exists and synthesizes a review-only rescue reel when one does not.
 ## PHASE 7 — DELIVER OR HAND BACK EVIDENCE
 
 If the final report does not clear, do not run live delivery and do not touch the Docket feed.
-Persist the exact playable film first; this program copies it into the tracked review namespace,
-then—and only then—allows the controller to become terminal as `needs_review`:
+Preserve the exact playable film while repairing the failed lens. A review-only rescue is a
+last-good artifact, not a conclusion. A creative rejection with a specific repair or a viable
+source-backed story pivot remains active work. When the same visual approach receives a second
+picture or story rejection, change the story or its central action before another proof.
+
+For runs dated September 25, 2026 onward, `needs_review` requires a packaged
+`blocker-report.json` using `dispatch_review_blocker/1`. Bind it to the run ID and exact film
+SHA-256. Record the unresolved source, access, external, or quality cause; hash-bound evidence
+files under the package; each attempted repair and its observed result; and the next concrete
+action. A quality blocker also requires an attempted source-backed story pivot and its observed
+result. A reason string alone cannot close production. Do not write a speculative blocker report
+while a sourced repair remains feasible.
+
+Only after a genuine unresolved blocker remains, persist the exact playable film. This program
+copies it into the tracked review namespace and allows the controller to become terminal as
+`needs_review`:
 
 ```
 bash scripts/package_review_run.sh --date <date> --slug <slug> \
-  --reason "final panel did not clear: <score, hard fails, and cleanup performed>"
+  --reason "<unresolved blocker and observed attempts>" \
+  --blocker-report out/dispatch/blocker-report.json
 ```
 
 The result is `runs/review/<date>-<slug>/dispatch.mp4` plus the board, render manifest, reports,

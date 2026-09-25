@@ -28,6 +28,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -542,6 +543,66 @@ def review_package_problems(state: dict, package: Path) -> list[str]:
     return errs
 
 
+def review_blocker_problems(state: dict, package: Path, report: Path | None) -> list[str]:
+    """A current production run may close only with a specific, evidenced blocker.
+
+    A rejected creative cut is an instruction to repair or change stories. A plain
+    reason string made that repair path look like a terminal result on September 25.
+    Older runs retain their original contract.
+    """
+    run_date = str(state.get("run_id") or "")[:10]
+    if (state.get("mode") != "production"
+            or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", run_date)
+            or run_date < "2026-09-25"):
+        return []
+    if report is None or not report.is_file() or report.resolve() != (package / "blocker-report.json").resolve():
+        return ["current production review closure requires packaged --blocker-report"]
+    try:
+        data = load_json(report)
+    except (OSError, ValueError, TypeError) as exc:
+        return [f"blocker report is unreadable: {exc}"]
+    errors = []
+    if data.get("schema") != "dispatch_review_blocker/1":
+        errors.append("blocker report uses the wrong schema")
+    if data.get("run_id") != state.get("run_id"):
+        errors.append("blocker report belongs to another run")
+    if data.get("film_sha256") != (state.get("deliverable") or {}).get("film_sha256"):
+        errors.append("blocker report belongs to another film")
+    kind = data.get("kind")
+    if kind not in {"source_unresolved", "access_unresolved", "external_unresolved",
+                    "quality_unresolved"}:
+        errors.append("blocker report must classify the unresolved cause")
+    if len(str(data.get("next_action") or "").strip()) < 30:
+        errors.append("blocker report needs a specific next action")
+    attempts = data.get("attempted_repairs")
+    if not isinstance(attempts, list) or len(attempts) < (2 if kind == "quality_unresolved" else 1):
+        errors.append("blocker report needs actual attempted repairs")
+    else:
+        for attempt in attempts:
+            if not isinstance(attempt, dict) or any(
+                len(str(attempt.get(key) or "").strip()) < 20 for key in ("action", "result")
+            ):
+                errors.append("each attempted repair needs an action and observed result")
+                break
+    evidence = data.get("evidence")
+    if not isinstance(evidence, list) or not evidence:
+        errors.append("blocker report needs exact packaged evidence")
+    else:
+        for item in evidence:
+            if not isinstance(item, dict):
+                errors.append("blocker evidence entry must be an object")
+                continue
+            target = (package / str(item.get("file") or "")).resolve()
+            if not target.is_relative_to(package.resolve()) or not target.is_file() or digest(target) != item.get("sha256"):
+                errors.append("blocker evidence is missing, changed or outside the package")
+    if kind == "quality_unresolved":
+        pivot = data.get("story_pivot") or {}
+        if any(len(str(pivot.get(key) or "").strip()) < 20
+               for key in ("candidate", "source_url", "observed_result")):
+            errors.append("quality closure requires an attempted source-backed story pivot")
+    return errors
+
+
 def cinematic_report_problems(state: dict, report: Path) -> list[str]:
     from production_quality import required, publication_problems, policy
     saved = state.get("deliverable") or {}
@@ -560,7 +621,8 @@ def cinematic_report_problems(state: dict, report: Path) -> list[str]:
 
 
 def finish(path: Path, result: str, reason: str = "", report: Path | None = None,
-           review_package: Path | None = None, *, review_root: Path | None = None
+           review_package: Path | None = None, blocker_report: Path | None = None,
+           *, review_root: Path | None = None
            ) -> tuple[bool, str]:
     if result not in TERMINAL:
         return False, f"run controller: unknown terminal state {result}"
@@ -596,6 +658,9 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
         package_errs = review_package_problems(state, review_package)
         if package_errs:
             return False, "run controller: " + "; ".join(package_errs)
+        blocker_errs = review_blocker_problems(state, review_package, blocker_report)
+        if blocker_errs:
+            return False, "run controller: " + "; ".join(blocker_errs)
         state["review_required"] = True
         if reason.strip() not in state.setdefault("review_reasons", []):
             state["review_reasons"].append(reason.strip())
@@ -605,6 +670,7 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
             "path": str(review_package),
             "film_sha256": state["deliverable"]["film_sha256"],
             "manifest_sha256": state["deliverable"]["manifest_sha256"],
+            "blocker_report_sha256": digest(blocker_report) if blocker_report else None,
         }
         event(state, "finished", result=result, reason=reason.strip(),
               review_package=str(review_package))
@@ -1002,6 +1068,43 @@ def self_test() -> int:
         if not made_seed:
             return 1
 
+        blocker_package = root / "runs" / "review" / "blocker-test"
+        blocker_package.mkdir(parents=True)
+        blocker_evidence = blocker_package / "hero-review.json"
+        blocker_evidence.write_text('{"pass": false}\n', encoding="utf-8")
+        blocker_path = blocker_package / "blocker-report.json"
+        blocker_state = {"run_id": "2026-09-25", "mode": "production",
+                         "deliverable": {"film_sha256": digest(seed_film)}}
+        blocker_data = {
+            "schema": "dispatch_review_blocker/1", "run_id": "2026-09-25",
+            "film_sha256": digest(seed_film), "kind": "quality_unresolved",
+            "evidence": [{"file": "hero-review.json", "sha256": digest(blocker_evidence)}],
+            "attempted_repairs": [
+                {"action": "Redesigned the main physical action across all three acts",
+                 "result": "The current exact hero reviewer still rejected the repeated action"},
+                {"action": "Built a second verified story and inspected its phone-size frames",
+                 "result": "The second source could not support the claimed consequence"}],
+            "story_pivot": {"candidate": "Another current Texas event with a visible action",
+                            "source_url": "https://example.com/independent-primary-record",
+                            "observed_result": "The source did not verify the required outcome"},
+            "next_action": "Obtain a primary record of the observed outcome and rebuild the hero passage"}
+        blocker_path.write_text(json.dumps(blocker_data), encoding="utf-8")
+        ok("a reason alone cannot close a current production run",
+           bool(review_blocker_problems(blocker_state, blocker_package, None)))
+        ok("complete blocker evidence can close only after a story pivot",
+           not review_blocker_problems(blocker_state, blocker_package, blocker_path))
+        no_pivot = dict(blocker_data); no_pivot.pop("story_pivot")
+        blocker_path.write_text(json.dumps(no_pivot), encoding="utf-8")
+        ok("quality closure refuses a missing source-backed pivot",
+           bool(review_blocker_problems(blocker_state, blocker_package, blocker_path)))
+        blocker_path.write_text(json.dumps(blocker_data), encoding="utf-8")
+        blocker_evidence.write_text('{"pass": true}\n', encoding="utf-8")
+        ok("quality closure refuses changed reviewer evidence",
+           bool(review_blocker_problems(blocker_state, blocker_package, blocker_path)))
+        old_state = dict(blocker_state); old_state["run_id"] = "2026-09-24"
+        ok("already released runs retain their review contract",
+           not review_blocker_problems(old_state, blocker_package, None))
+
         def attach_deliverable(state_path: Path, label: str, *, review_only: bool = False
                                ) -> tuple[Path, Path, Path]:
             from render_manifest import build
@@ -1032,6 +1135,27 @@ def self_test() -> int:
             ):
                 (package / name).write_bytes(Path(source).read_bytes())
             return package
+
+        current = root / "current-review-state.json"
+        initialise(current, "2026-09-25", "production")
+        attach_deliverable(current, "current-review", review_only=True)
+        current_package = durable_review(current, "current-review")
+        ok("a playable current cut cannot close with only a reason",
+           not finish(current, "needs_review", reason="hero reviewer rejected the film",
+                      review_package=current_package,
+                      review_root=root / "runs" / "review")[0])
+        current_evidence = current_package / "hero-review.json"
+        current_evidence.write_text('{"pass": false}\n', encoding="utf-8")
+        current_data = dict(blocker_data)
+        current_data["film_sha256"] = read_state(current)["deliverable"]["film_sha256"]
+        current_data["evidence"] = [{"file": "hero-review.json",
+                                     "sha256": digest(current_evidence)}]
+        current_report = current_package / "blocker-report.json"
+        current_report.write_text(json.dumps(current_data), encoding="utf-8")
+        ok("only a packaged exact-film blocker report permits current review closure",
+           finish(current, "needs_review", reason="verified quality blocker after a source pivot",
+                  review_package=current_package, blocker_report=current_report,
+                  review_root=root / "runs" / "review")[0])
 
         p = root / "snapshot-state.json"
         initialise(p, "snapshot", "dry-run")
@@ -1497,6 +1621,7 @@ def main() -> int:
     p.add_argument("--reason", default="")
     p.add_argument("--report")
     p.add_argument("--review-package")
+    p.add_argument("--blocker-report")
 
     p = sub.add_parser("register-deliverable")
     p.add_argument("--film", required=True)
@@ -1573,7 +1698,8 @@ def main() -> int:
         elif a.command == "finish":
             accepted, message = finish(
                 state_path, a.result, a.reason, Path(a.report) if a.report else None,
-                Path(a.review_package) if a.review_package else None)
+                Path(a.review_package) if a.review_package else None,
+                Path(a.blocker_report) if a.blocker_report else None)
         elif a.command == "register-deliverable":
             accepted, message = register_deliverable(
                 state_path, Path(a.film), Path(a.board), Path(a.manifest),
