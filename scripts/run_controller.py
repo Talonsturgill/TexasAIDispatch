@@ -795,6 +795,47 @@ def reopen(path: Path, reason: str) -> tuple[bool, str]:
                   f"reservation already spent stays spent.")
 
 
+def extend_preflight_ceiling(path: Path, new_ceiling: int, reason: str,
+                             owner_authorized: bool) -> tuple[bool, str]:
+    """Record an owner-directed bounded increment without resetting run usage."""
+    state = read_state(path)
+    name = "preflight_renders"
+    old = int(state["escalation_ceiling"][name])
+    if not owner_authorized or not reason.strip():
+        return False, "run controller: a preflight extension needs owner authorization and a reason"
+    if int(state["usage"][name]) != old:
+        return False, "run controller: a preflight extension is only for an exhausted ceiling"
+    if not old < new_ceiling <= old + 4:
+        return False, "run controller: each owner-directed extension adds at most four attempts"
+    state["escalation_ceiling"][name] = new_ceiling
+    event(state, "owner_preflight_extension", resource=name, previous_ceiling=old,
+          new_ceiling=new_ceiling, usage_unchanged=state["usage"][name], reason=reason.strip())
+    save(path, state)
+    return True, (f"run controller: owner-authorized preflight ceiling {old} -> {new_ceiling}; "
+                  f"usage remains {state['usage'][name]}")
+
+
+def extend_agent_ceiling(path: Path, name: str, reason: str,
+                         owner_authorized: bool) -> tuple[bool, str]:
+    """Permit one more review or review-only rescue after an owner-directed repair.
+
+    This is a recorded reservation allowance, never a review verdict or quality bypass.
+    """
+    state = read_state(path)
+    allowed = {"storyboard_critics", "validator_agents", "voice_directors",
+               "research_agents", "audiovisual_reviews", "rescue_renders"}
+    if name not in allowed or not owner_authorized or not reason.strip():
+        return False, "run controller: agent extension requires an allowed role, owner direction and reason"
+    old = int(state["escalation_ceiling"][name])
+    if int(state["usage"][name]) != old:
+        return False, "run controller: agent extension is only for an exhausted ceiling"
+    state["escalation_ceiling"][name] = old + 1
+    event(state, "owner_agent_extension", resource=name, previous_ceiling=old,
+          new_ceiling=old + 1, usage_unchanged=state["usage"][name], reason=reason.strip())
+    save(path, state)
+    return True, f"run controller: owner-authorized {name} ceiling {old} -> {old + 1}"
+
+
 def owner_override(path: Path, report: Path, reason: str, confirmation: str
                    ) -> tuple[bool, str]:
     state = read_state(path)
@@ -1364,6 +1405,48 @@ def self_test() -> int:
            st["reopened_from"][0]["terminal_state"] == "needs_review"
            and st["reopened_from"][0]["terminal_reason"] == "stopped short")
 
+        extension = root / "extension.json"
+        initialise(extension, "owner-extension", "production")
+        st = read_state(extension)
+        original_ceiling = st["escalation_ceiling"]["preflight_renders"]
+        st["usage"]["preflight_renders"] = original_ceiling
+        st["terminal_state"] = "needs_review"
+        save(extension, st)
+        ok("an unapproved extension is refused",
+           not extend_preflight_ceiling(extension, original_ceiling + 4,
+                                        "owner direction", False)[0])
+        ok("a larger extension is refused",
+           not extend_preflight_ceiling(extension, original_ceiling + 5,
+                                        "owner direction", True)[0])
+        ok("the owner-directed extension records an exhausted same-run allowance",
+           extend_preflight_ceiling(extension, original_ceiling + 4,
+                                    "owner direction", True)[0])
+        st = read_state(extension)
+        ok("extension retains usage and terminal history",
+           st["usage"]["preflight_renders"] == original_ceiling
+           and st["terminal_state"] == "needs_review"
+           and st["events"][-1]["kind"] == "owner_preflight_extension")
+        st["usage"]["preflight_renders"] = original_ceiling + 4
+        save(extension, st)
+        ok("a further owner-directed extension keeps the same ledger",
+           extend_preflight_ceiling(extension, original_ceiling + 8,
+                                    "same owner direction", True)[0]
+           and read_state(extension)["usage"]["preflight_renders"] == original_ceiling + 4)
+
+        st = read_state(extension)
+        for resource in ("audiovisual_reviews", "rescue_renders"):
+            st["usage"][resource] = st["escalation_ceiling"][resource]
+        save(extension, st)
+        ok("review ceiling cannot extend without owner direction",
+           not extend_agent_ceiling(extension, "audiovisual_reviews", "review repair", False)[0])
+        for resource in ("audiovisual_reviews", "rescue_renders"):
+            before = read_state(extension)
+            old_ceiling = before["escalation_ceiling"][resource]
+            ok(f"owner-directed {resource} extension preserves spent work",
+               extend_agent_ceiling(extension, resource, "review repair", True)[0]
+               and read_state(extension)["usage"][resource] == old_ceiling
+               and read_state(extension)["escalation_ceiling"][resource] == old_ceiling + 1)
+
         ok("an owner override needs the exact confirmation",
            not owner_override(p, low, "owner accepts this cut", "yes")[0])
         ok("an explicit owner override is recorded",
@@ -1445,6 +1528,16 @@ def main() -> int:
     p = sub.add_parser("reopen")
     p.add_argument("--reason", required=True)
 
+    p = sub.add_parser("extend-preflight-ceiling")
+    p.add_argument("--to", type=int, required=True)
+    p.add_argument("--reason", required=True)
+    p.add_argument("--owner-authorized", action="store_true")
+
+    p = sub.add_parser("extend-agent-ceiling")
+    p.add_argument("--resource", required=True)
+    p.add_argument("--reason", required=True)
+    p.add_argument("--owner-authorized", action="store_true")
+
     p = sub.add_parser("owner-override")
     p.add_argument("--report", required=True)
     p.add_argument("--reason", required=True)
@@ -1503,6 +1596,12 @@ def main() -> int:
             accepted, message = reopen(Path(a.state), a.reason)
             print(message)
             return 0 if accepted else 1
+        elif a.command == "extend-preflight-ceiling":
+            accepted, message = extend_preflight_ceiling(
+                state_path, a.to, a.reason, a.owner_authorized)
+        elif a.command == "extend-agent-ceiling":
+            accepted, message = extend_agent_ceiling(
+                state_path, a.resource, a.reason, a.owner_authorized)
         elif a.command == "owner-override":
             accepted, message = owner_override(
                 state_path, Path(a.report), a.reason, a.confirm)

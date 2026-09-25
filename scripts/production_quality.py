@@ -50,6 +50,15 @@ def plan_problems(board):
         errors.append("the opening scene must use CinematicStage")
     if plan.get("hero_scene_id") not in ids:
         errors.append("the hero scene must be a dimensional story scene")
+    passage_end = plan.get("hero_passage_end_scene_id", plan.get("hero_scene_id"))
+    if passage_end not in ids:
+        errors.append("hero passage must end on a dimensional story scene")
+    elif plan.get("hero_scene_id") in ids:
+        ordered = list(scenes)
+        if ordered.index(passage_end) < ordered.index(plan.get("hero_scene_id")):
+            errors.append("hero passage cannot end before its opening scene")
+        if not all(sid in ids for sid in ordered[ordered.index(plan.get("hero_scene_id")):ordered.index(passage_end)+1]):
+            errors.append("every hero passage scene must have dimensional stage coverage")
     coverage = sum(float(scenes[i]["duration_s"]) for i in ids)
     if coverage < float(board.get("runtime_s") or 0) * policy()["min_dimensional_runtime_share"]:
         errors.append("dimensional action must cover the required share of story runtime")
@@ -82,9 +91,11 @@ def preview_problems(board_path, root, mix=None, film=None):
             errors.append("cinematic preview used a different final mix")
         clip = asset(root, proof["hero"])
         hero = next(s for s in board["scenes"] if s["id"] == board["cinema"]["hero_scene_id"])
+        passage_end = next(s for s in board["scenes"] if s["id"] == board["cinema"].get("hero_passage_end_scene_id", hero["id"]))
+        passage_duration = float(passage_end["start_s"]) + float(passage_end["duration_s"]) - float(hero["start_s"])
         w, h, dur = probe(clip)
-        if (w, h) != (1080, 1920) or abs(dur - float(hero["duration_s"])) > .12:
-            errors.append("hero preview must contain the full scene at delivery resolution")
+        if (w, h) != (1080, 1920) or abs(dur - passage_duration) > .12:
+            errors.append("hero preview must contain the full declared passage at delivery resolution")
         errors += av_problems(root / "hero-review.json", clip, "hero")
         samples = proof["samples"]
         ids = board["cinema"]["dimensional_scene_ids"]

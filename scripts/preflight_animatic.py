@@ -24,6 +24,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import documentary_check
+import critic_gate
 
 REPO = Path(__file__).resolve().parents[1]
 ENGINE = REPO / "video-engine"
@@ -329,6 +330,10 @@ def main() -> int:
         direction_errors = documentary_check.check(board)
         if direction_errors:
             raise ValueError("; ".join(direction_errors))
+        critique_errors = critic_gate.check(
+            board_path, board_path.parent / "storyboard_critic.json")
+        if critique_errors:
+            raise ValueError("; ".join(critique_errors))
         if args.verify_report:
             saved = json.loads(Path(args.verify_report).read_text(encoding="utf-8"))
             errs = report_problems(saved, board_path, film)
