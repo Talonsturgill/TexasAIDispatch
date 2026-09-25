@@ -35,8 +35,9 @@ def build(board, mix, state):
     without.write_text(json.dumps(dict(data, __cinemaProofWithoutStage=True)))
     scenes = {s["id"]: s for s in data["scenes"]}
     hero = scenes[data["cinema"]["hero_scene_id"]]
+    passage_end = scenes[data["cinema"].get("hero_passage_end_scene_id", hero["id"])]
     begin = round(float(hero["start_s"]) * 30)
-    end = begin + round(float(hero["duration_s"]) * 30) - 1
+    end = round((float(passage_end["start_s"]) + float(passage_end["duration_s"])) * 30) - 1
     base = ["npx", "remotion"]
     args = ["--gl=angle", "--concurrency=50%", "--log=error"]
     run(base + ["render", "Dispatch", str((root / "hero-silent.mp4").resolve()),

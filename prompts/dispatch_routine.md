@@ -88,6 +88,19 @@ A showstopper is a video a stranger stops scrolling for, FEELS something during,
 one image from. It trades in three currencies. **Each meaningful development must arrive within
 the timing policy in `config/documentary.json`**, including the final story tail:
 
+Before spending the first animatic, write the opening, central and closing images beside the
+source or permitted visual reference for each. For an action inside a private product or
+workplace, do not mistake a generic reconstruction for footage or a source-specific mechanism.
+If the principal action cannot be depicted credibly from available evidence, choose another
+current story while the work is still cheap. A critic's pass on event descriptions does not
+replace inspection of the actual rendered subject.
+
+If an exact-film picture or story reviewer rejects the visual grammar itself, stop making small
+changes to the same cards, hand or dashboard. Redesign the main action across opening, middle
+and ending, then check all three at phone size before spending another finished hero proof.
+After a second rejection of that grammar, revisit story selection with the research and
+storyboard roles. Keep the same controller ledger and preserve its last playable video.
+
 - **MOTION.** Something is visibly HAPPENING. A character acts, a pumpjack strokes, papers storm,
   a bar overtakes a baseline. Never a held slide with a voice over it.
 - **EMOTION.** A face, human or characterised object, is FEELING the beat. Worry, defiance,
@@ -501,10 +514,20 @@ scene file. You do not relax the rule to pass it, you change the composition.
 
 Reserve and spawn one `storyboard-critic`. It red-teams the board for genuine composition
 divergence rather than a relabel, for silent-first storytelling, and for retention.
+Record its actual verdict, reviewer identity, weakest frame and current concept digest in
+`out/dispatch/storyboard_critic.json`. `preflight_animatic.py` refuses to render when that
+independent verdict is `revise`, absent, or belongs to an older concept. A correction must be
+reviewed again; do not reinterpret `revise` as permission to keep rendering the same idea.
+The critic gate ignores derived caption and measured timing changes, so the final timed-board
+animatic keeps the approved visual concept without another independent call. Run the
+independent verdict gate on the current board before reserving a preflight. The animatic
+command repeats this check so a missed manual step cannot spend the render allowance.
 
 ```
 python3 scripts/run_controller.py consume --resource storyboard_critics \
   --note "board before animatic"
+python3 scripts/critic_gate.py --board out/dispatch/storyboard.json \
+  --report out/dispatch/storyboard_critic.json
 ```
 
 Then render the quarter-scale animatic. The program reserves the preflight before Remotion,

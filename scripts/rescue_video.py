@@ -37,7 +37,7 @@ def runtime(board: dict) -> float:
     declared = float(board.get("runtime_s") or 0)
     end = max((float(s.get("start_s") or 0) + float(s.get("duration_s") or 0)
                for s in board.get("scenes") or []), default=0.0)
-    value = max(declared, end)
+    value = max(declared, end) + max(0.0, float(board.get("credits_s") or 0))
     if value <= 0:
         raise ValueError("the storyboard has no positive runtime")
     return value
@@ -262,6 +262,7 @@ def self_test() -> int:
         board = root / "board.json"
         board.write_text(json.dumps({
             "runtime_s": 0.6,
+            "credits_s": 0.2,
             "scenes": [{"id": "s1", "start_s": 0, "duration_s": 0.6,
                         "super": "The fallback still tells you what survived",
                         "caption": "A review reel is better evidence than an empty run."}],
@@ -280,11 +281,13 @@ def self_test() -> int:
            and card_result["audio_source"] == "review_only_silence")
         ok("the rescue report is bound to the bytes it describes",
            card_result["film_sha256"] == digest(film) and card_result["review_only"])
+        ok("a sourced sign-off extends the rescue film",
+           abs(float((info.get("format") or {}).get("duration") or 0) - 0.8) < 0.15)
 
         preflight = root / "preflight.mp4"
         subprocess.run([
             "ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i",
-            "testsrc2=s=270x480:r=12:d=0.6", "-pix_fmt", "yuv420p", str(preflight),
+            "testsrc2=s=270x480:r=12:d=0.8", "-pix_fmt", "yuv420p", str(preflight),
         ], check=True)
         preflight_report = root / "preflight.json"
         preflight_report.write_text(json.dumps({
