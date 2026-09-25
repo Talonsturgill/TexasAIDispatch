@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-25",
+  "claims": [
+    {
+      "id": "c1",
+      "statement": "On September 24, the attorney general announced an investigation into hundreds of Texas data-center developments over missing TWDB water-use survey responses.",
+      "text": "On September 24, the attorney general announced an investigation into hundreds of Texas data-center developments over missing TWDB water-use survey responses.",
+      "quote": "September 24, 2026 | Press Release. Attorney General Ken Paxton is investigating Texas data center developments that have not provided a response to the Texas Water Development Board’s (“TWDB”) water use survey. My office is currently investigating hundreds of data center developments",
+      "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-paxton-launches-landmark-investigation-hundreds-data-center-developments-texas",
+      "retrieved": "2026-09-25",
+      "source_type": "primary_official",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/ag.txt",
+      "value_text": "September 24; hundreds under investigation",
+      "scope_note": "The release names 18 counties but no operator, measured site volume, completed penalty or adjudicated violation."
+    },
+    {
+      "id": "c2",
+      "statement": "The online TWDB water-use survey portal closed July 1, 2026, and TWDB accepts past-due PDF forms.",
+      "text": "The online TWDB water-use survey portal closed July 1, 2026, and TWDB accepts past-due PDF forms.",
+      "quote": "The Online Water Use Survey application closed July 1, 2026. If you would like to submit a past-due survey, please use a PDF form and email the complete survey to the Water Use Survey Team.",
+      "url": "https://www.twdb.texas.gov/waterplanning/waterusesurvey/",
+      "retrieved": "2026-09-25",
+      "source_type": "primary_official",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/twdb.txt",
+      "value_text": "late PDF submission accepted",
+      "scope_note": "This is a route for a late response, not proof that any investigated site has filed."
+    },
+    {
+      "id": "c3",
+      "statement": "The 2025 TWDB Industrial Water Use Survey form requests sources and volumes in gallons; groundwater, surface and purchased sources carry monthly rows and metered-or-estimated fields, while reuse is a separate annual field.",
+      "text": "The 2025 TWDB Industrial Water Use Survey form requests sources and volumes in gallons; groundwater, surface and purchased sources carry monthly rows and metered-or-estimated fields, while reuse is a separate annual field.",
+      "quote": "INDUSTRIAL Water Use Survey for Calendar Year 2025. Pumped Groundwater (Self-Supplied). Surface Water under a TCEQ Water Right (Self-Supplied). Purchased Water. Volume of Water Intake in Gallons. January February March April May June July August September October November December. Metered or Estimated.",
+      "url": "https://www.twdb.texas.gov/waterplanning/waterusesurvey/survey/doc/2025/2025_Industrial.pdf",
+      "retrieved": "2026-09-25",
+      "source_type": "primary_official",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/2025_Industrial.txt",
+      "value_text": "aquifer surface supplier reuse monthly gallons metered estimated",
+      "scope_note": "The blank sample form illustrates reporting fields. It is not evidence that a named development received or returned this exact form."
+    },
+    {
+      "id": "c4",
+      "statement": "TWDB says the annual Water Use Survey supports regional and state water planning.",
+      "text": "TWDB says the annual Water Use Survey supports regional and state water planning.",
+      "quote": "The annual Water Use Survey was created to collect annual data of water use in Texas to support this directive for state and regional water planning, modeling, and resource management.",
+      "url": "https://www.twdb.texas.gov/waterplanning/waterusesurvey/",
+      "retrieved": "2026-09-25",
+      "source_type": "primary_official",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/twdb.txt",
+      "value_text": "survey supports state and regional water planning",
+      "scope_note": "A missing response limits respondent-specific survey data; it is not proof that planners have no estimates or that use is zero."
+    },
+    {
+      "id": "c5",
+      "statement": "The Governor’s office says TWDB must give an initial enforcement progress update by October 14, 2026.",
+      "text": "The Governor’s office says TWDB must give an initial enforcement progress update by October 14, 2026.",
+      "quote": "TWDB shall update the Office of the Governor by October 14, 2026, on the progress of its enforcement activities, with further updates thereafter, including when the audit is complete.",
+      "url": "https://gov.texas.gov/news/post/governor-abbott-directs-twdb-to-penalize-data-center-reporting-failures",
+      "retrieved": "2026-09-25",
+      "source_type": "primary_official",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/validation-sources/governor.txt",
+      "value_text": "October 14, 2026 progress update",
+      "scope_note": "This is an update date for TWDB, not a data-center survey filing deadline or proof of completed enforcement."
+    }
+  ],
+  "rejected": [
+    "No site-level water volume, violation finding, or completed penalty appears in the announcement.",
+    "A blank state form is a sample, not a submitted form from any investigated development.",
+    "The separate ERCOT information request has a distinct deadline and is not merged with the annual TWDB form."
+  ],
+  "source_evidence_manifest": "out/dispatch/validation-sources/manifest.json"
+}
