@@ -253,7 +253,14 @@ const FoldedFlashing:React.FC=()=>{
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
  const lift=.80*(1-a), forward=.38*(1-a), headY=mix(.25,-.04,c);
- const toolY=headY+.15*(1-b)+d*.82, turn=-c*Math.PI*6;
+ const toolY=headY+d*.29+.08*Math.sin(b*Math.PI)+.20*Math.sin(d*Math.PI), turn=-c*Math.PI*6;
+ const toolX=mix(mix(.86,.10,b),.86,d), toolZ=mix(mix(.30,1.15,b),.30,d);
+ const reach=Math.min(1,e*4), roll=Math.max(0,(e-.25)/.75), rollZ=.94+roll*.48;
+ const left:V3=[mix(mix(-.86,-.78,b),-.70,reach),mix(lift+mix(-.02,.04,b),.33,reach),mix(forward+mix(1.15,.40,b),rollZ,reach)];
+ const gripAngle=-c*Math.PI*.30;
+ const wrist:V3=[toolX+.23*Math.cos(gripAngle)+.04*Math.sin(gripAngle),toolY+.57,toolZ-.23*Math.sin(gripAngle)+.04*Math.cos(gripAngle)];
+ const leftWrist:V3=[left[0]+.295,left[1]+.012,left[2]];
+
  return <>
  <Box p={[0,-1.05,.18]} s={[2.3,1.9,2.64]} c="#98735e" round={.008}/>
  {Array.from({length:10},(_,row)=>Array.from({length:5},(_,col)=><Box key={row+'-'+col}
@@ -270,8 +277,8 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  <Box p={[0,-1.70,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
  <Box p={[0,-.185,.18]} s={[2.3,.17,2.64]} c="#786d57"/>
  <Box p={[0,-.112,.18]} s={[2.3,.024,2.64]} c="#354d45"/>
- <Box p={[0,-.065,-.33]} s={[2.26,.05,1.54]} c="#586a59" round={.014}/>
- {[-.68,0,.68].map(x=><Box key={x} p={[x,-.037,-.33]} s={[.018,.006,1.51]} c="#425649"/>)}
+ <Box p={[0,-.030,-.08]} s={[2.26,.05,2.04]} c="#586a59" round={.014}/>
+ {[-.68,0,.68].map(x=><Box key={x} p={[x,-.002,-.08]} s={[.018,.006,2.01]} c="#425649"/>)}
  <group position={[0,lift,forward]}>
   <FoldedFlashing/>
   {[-.72,.72].map(x=><group key={x}>
@@ -286,7 +293,7 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
    <Box p={[0,.023,0]} s={[.15,.004,.025]} c="#334a42"/><Box p={[0,.024,0]} s={[.025,.004,.15]} c="#334a42"/>
   </group>
  </group>
- <group position={[.10+(1-b)*2.8+d*2.25,toolY,1.15+d*.15]}>
+ <group position={[toolX,toolY,toolZ]}>
   <group rotation={[0,turn,0]}>
    <Box p={[0,.13,0]} s={[.033,.21,.033]} c="#b6c1b5" metal={.85}/>
    <mesh position={[0,.30,0]}><cylinderGeometry args={[.10,.06,.14,24]}/><meshStandardMaterial color="#30443d" metalness={.5} roughness={.3}/></mesh>
@@ -298,14 +305,39 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
    {[.41,.51,.61,.71].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,-.28]}><torusGeometry args={[.155,.039,10,24,Math.PI*1.5]}/><meshStandardMaterial color="#ba8c6d" roughness={.72}/></mesh>)}
    <Ball p={[.16,.57,.025]} s={[.11,.24,.12]} c="#b28265"/>
    <Rod from={[.19,.73,.12]} to={[-.015,.60,.18]} radius={.054} c="#c09070"/>
-   <Rod from={[.23,.57,.04]} to={[.72,.60,.07]} radius={.11} c="#b58769"/>
-   <Rod from={[.65,.60,.07]} to={[2.0,.70,.1]} radius={.15} c="#477080"/>
+
   </group>
  </group>
- <group position={[-3.1*(1-e),.22-.255*e,1.10]}>
-  <Box p={[0,0,0]} s={[2.26,.035,.46]} c="#536b5b" round={.01}/>
-  {[-.68,0,.68].map(x=><Box key={x} p={[x,.020,0]} s={[.016,.005,.43]} c="#405747"/>)}
-  <Hand p={[-.92,.059,.12]} r={[0,-Math.PI/2,0]} scale={.82}/>
+ {/* One kneeling illustrated worker owns both hands throughout the action. */}
+ <group position={[.15,.52,.08]} rotation={[.10,0,0]}>
+  <Box p={[0,0,0]} s={[.70,.76,.40]} c="#477080" round={.13}/>
+  <Box p={[0,-.28,.215]} s={[.72,.13,.055]} c="#335767" round={.018}/>
+  <Box p={[-.18,.08,.218]} s={[.20,.18,.025]} c="#568394" round={.022}/>
+  <Rod from={[0,.29,0]} to={[0,.46,0]} radius={.11} c="#b58769"/>
+  <Ball p={[0,.65,.025]} s={[.24,.28,.23]} c="#b58769"/>
+  <Ball p={[0,.79,-.045]} s={[.245,.15,.22]} c="#43453e"/>
+  <Ball p={[0,.65,.244]} s={[.049,.067,.035]} c="#ba8c6d"/>
+  {[-.082,.082].map(x=><Ball key={x} p={[x,.708,.230]} s={[.013,.012,.007]} c="#33413d"/>)}
+  <Box p={[0,.552,.233]} s={[.079,.008,.004]} c="#885f4d"/>
+ </group>
+ <Rod from={[-.08,.25,-.04]} to={[-.31,.10,-.36]} radius={.15} c="#354e60"/>
+ <Rod from={[.40,.25,-.04]} to={[.55,.10,-.40]} radius={.15} c="#354e60"/>
+ <Box p={[-.34,.03,-.52]} s={[.29,.16,.40]} c="#30443f" round={.06}/>
+ <Box p={[.58,.03,-.55]} s={[.29,.16,.40]} c="#30443f" round={.06}/>
+ <Rod from={[-.20,.79,.18]} to={[-.56,.70,.65]} radius={.105} c="#477080"/>
+ <Ball p={[-.56,.70,.65]} s={[.115,.11,.11]} c="#b58769"/>
+ <Rod from={[-.56,.70,.65]} to={leftWrist} radius={.085} c="#b58769"/>
+ <Rod from={[.50,.79,.18]} to={[.92,.64,.48]} radius={.105} c="#477080"/>
+ <Ball p={[.92,.64,.48]} s={[.115,.11,.11]} c="#b58769"/>
+ <Rod from={[.92,.64,.48]} to={wrist} radius={.085} c="#b58769"/>
+ <Hand p={left} r={[0,Math.PI/2,0]} scale={.82}/>
+ {roll>0&&<Box p={[0,-.0325,.94+roll*.24]} s={[2.10,.055,Math.max(.002,roll*.48)]} c="#536b5b" round={.004}/>}
+ <group position={[0,.14,rollZ]} rotation={[0,0,Math.PI/2]}>
+  <group rotation={[0,roll*3.3,0]}>
+   <mesh castShadow><cylinderGeometry args={[.145,.145,2.10,40]}/><meshStandardMaterial color="#536b5b" roughness={.79}/></mesh>
+   <Box p={[.147,0,0]} s={[.009,2.08,.014]} c="#8fac91"/>
+  </group>
+  {[-1.055,1.055].map(y=><mesh key={y} position={[0,y,0]}><cylinderGeometry args={[.105,.105,.012,32]}/><meshStandardMaterial color="#8d927a" roughness={.84}/></mesh>)}
  </group>
  </>;
 };
@@ -390,7 +422,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[2.4,3.2,8.8],target:[0,-.55,.85],fov:42}:
+ id==='s6'?{position:[2.4,3.2,8.8],target:[0,-.55,.85],fov:50}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
