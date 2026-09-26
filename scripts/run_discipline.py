@@ -238,7 +238,7 @@ def check_concurrency_claims() -> list[str]:
     return errs
 
 
-def check_panel_rounds(rounds: int | None) -> list[str]:
+def check_panel_rounds(rounds: int | None, budget: int = ROUND_BUDGET) -> list[str]:
     """RULE 6. Count and enforce panel rounds.
 
     A round is a panel plus a batch of fixes. Renders were budgeted here from the first version
@@ -252,16 +252,16 @@ def check_panel_rounds(rounds: int | None) -> list[str]:
     gate through 27 rounds. The controller now refuses the spend before it happens; this second
     check makes a tampered or hand-built run fail at delivery too.
     """
-    if rounds is None or rounds <= ROUND_BUDGET:
+    if rounds is None or rounds <= budget:
         return []
     return [f"{rounds} panel rounds exceeds the mechanical {ROUND_BUDGET}-round cap. "
             "Another panel is not authorised. Complete the playable video with hard-fail and "
             "deterministic repairs, then persist it for review."]
 
 
-def check_full_renders(renders: int | None) -> list[str]:
+def check_full_renders(renders: int | None, budget: int = RENDER_BUDGET) -> list[str]:
     """A render over the shared cap is not a suggestion; it is a stopped run."""
-    if renders is None or renders <= RENDER_BUDGET:
+    if renders is None or renders <= budget:
         return []
     return [f"{renders} full renders exceeds the mechanical {RENDER_BUDGET}-render cap. "
             "Stop optional iteration and persist the best registered playable video."]
@@ -422,13 +422,21 @@ def main() -> int:
         problems += errs
 
     renders, rounds = a.renders, a.rounds
+    render_budget, round_budget = RENDER_BUDGET, ROUND_BUDGET
     if a.state:
         try:
             renders, rounds = state_counts(Path(a.state))
+            from run_controller import read_state
+            from production_lifecycle import allowance_problems
+            state = read_state(Path(a.state))
+            problems += allowance_problems(state)
+            caps = state["escalation_ceiling"]
+            render_budget = sum(caps[k] for k in ("full_renders", "cleanup_renders", "rescue_renders"))
+            round_budget = caps["panel_rounds"]
         except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
             problems.append(f"cannot read the authoritative run state {a.state}: {exc}")
-    round_problems = check_panel_rounds(rounds)
-    render_problems = check_full_renders(renders)
+    round_problems = check_panel_rounds(rounds, round_budget)
+    render_problems = check_full_renders(renders, render_budget)
     print(f"  {'ok  ' if not round_problems else 'FAIL'}  panel round budget"
           + (f" ({rounds}/{ROUND_TARGET} target, {ROUND_BUDGET} ceiling)"
              if rounds is not None else ""))

@@ -12,6 +12,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -123,6 +124,15 @@ def film_review_problems(board: dict, report: dict, preflight: dict,
         errors.append("the structural phone report belongs to different film bytes")
     if preflight.get("renderer_sha256") != renderer_digest(board):
         errors.append("the structural phone report belongs to different scene code")
+    if str(board.get("date") or "") >= "2026-09-26":
+        for field in ("subject_recognition", "contact_and_consequence", "surface_finish", "closing_payoff"):
+            observation = (report.get("phone_observations") or {}).get(field, {})
+            start, end = observation.get("start_s"), observation.get("end_s")
+            if (observation.get("pass") is not True or type(start) not in (int, float)
+                    or type(end) not in (int, float) or not math.isfinite(start)
+                    or not math.isfinite(end) or not 0 <= start < end
+                    or len(str(observation.get("observed") or "").strip()) < 30):
+                errors.append(f"phone critique lacks timed passing evidence for {field}")
     return errors
 
 

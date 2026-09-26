@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""run_controller.py - enforce the cost and terminal-state contract for one Dispatch.
+"""run_controller.py - reserve production work and require verified shipment to finish.
 
-The August 18th run had budgets written as warnings and a law that allowed only delivery. That
-combination could describe runaway work and could not stop it. This controller owns the opposite
-contract. Expensive work is reserved before it is spent and a limit is mechanical, but a refused
-optional spend can never terminate an empty run. It switches the run to completion mode until a
-playable, hash-bound MP4 is durably packaged as either ``publishable`` or ``needs_review``.
+Production stays active through creative repairs and publication. A passing report grants
+release authority; a rejected-film checkpoint never completes production. Resource boundaries
+require a diagnosed, finite repair batch with changed inputs and retained usage. Rehearsals
+retain bounded legacy outcomes and cannot publish.
 
 The prompt makes editorial decisions. This file decides whether another expensive action is
 allowed.
@@ -41,7 +40,7 @@ LIMITS_FILE = REPO / "config" / "run_limits.json"
 RUBRIC_FILE = REPO / "config" / "dispatch_rubric.yaml"
 DEFAULT_STATE = REPO / "out" / "dispatch" / "run_state.json"
 SCHEMA = "dispatch_run_state/1"
-TERMINAL = {"publishable", "needs_review"}
+TERMINAL = {"shipped", "publishable", "needs_review"}  # rehearsal retains legacy outcomes
 CLEANUP_PHASE = "hard_fail_cleanup"
 COMPLETION_PHASE = "deliverable_completion"
 CLEANUP_RENDER_RESOURCE = "cleanup_renders"
@@ -123,7 +122,7 @@ def read_state(path: Path) -> dict:
     if expected != present:
         raise ValueError(
             f"{path} snapshots {sorted(present)}, but the controller owns {sorted(expected)}. "
-            "Start a new run from the current limits rather than silently changing one in flight."
+            "Repair this ledger schema from retained reservation evidence; never replace it with a fresh run."
         )
     return state
 
@@ -282,7 +281,7 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     # Five panels are room to improve, not permission to start another loop. The controller
     # locks this phase when the fifth panel is reserved. Refusing a sixth panel is intentionally
     # non-terminal: the run may still batch deterministic hard-fail and cheap gate repairs.
-    if state.get("phase") in LOCKED_PHASES and PANEL_RESOURCES.intersection(amounts):
+    if state.get("mode") != "production" and state.get("phase") in LOCKED_PHASES and PANEL_RESOURCES.intersection(amounts):
         event(state, "panel_refused_in_cleanup", attempted=amounts, note=note)
         save(path, state)
         return False, (
@@ -292,9 +291,9 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         )
 
     amounts = dict(amounts)
-    if state.get("phase") == CLEANUP_PHASE and "full_renders" in amounts:
+    if state.get("mode") != "production" and state.get("phase") == CLEANUP_PHASE and "full_renders" in amounts:
         amounts[CLEANUP_RENDER_RESOURCE] = amounts.pop("full_renders")
-    elif (state.get("phase") == COMPLETION_PHASE and "full_renders" in amounts
+    elif (state.get("mode") != "production" and state.get("phase") == COMPLETION_PHASE and "full_renders" in amounts
           and int(state["usage"].get("full_renders", 0)) + amounts["full_renders"]
           > int(state["limits"]["full_renders"])):
         amounts[RESCUE_RENDER_RESOURCE] = amounts.pop("full_renders")
@@ -335,9 +334,11 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         review_reason = "budget exhausted: " + reason
         if review_reason not in state.setdefault("review_reasons", []):
             state["review_reasons"].append(review_reason)
-        state["phase"] = COMPLETION_PHASE
+        state["phase"] = "repair_planning" if state.get("mode") == "production" else COMPLETION_PHASE
         event(state, "budget_exhausted", attempted=amounts, note=note, reason=reason)
         save(path, state)
+        if state.get("mode") == "production":
+            return False, f"run controller: {reason}. Work remains active. Diagnose exact evidence, begin-repair, change the mechanism, then authorize-repair before another paid attempt."
         return False, (
             f"run controller: {reason}. The attempted work was not spent. Full panels are now "
             "closed, but the run is NOT terminal: use the best existing material, produce and "
@@ -370,7 +371,7 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     # do it while claiming it had budget left. An empty run is worse than an expensive one.
     panel_ceiling = int((state.get("escalation_ceiling") or {}).get(
         "panel_rounds", state["limits"]["panel_rounds"]))
-    if "panel_rounds" in amounts and state["usage"]["panel_rounds"] >= panel_ceiling:
+    if state.get("mode") != "production" and "panel_rounds" in amounts and state["usage"]["panel_rounds"] >= panel_ceiling:
         state["phase"] = CLEANUP_PHASE
         event(
             state,
@@ -397,7 +398,7 @@ def set_phase(path: Path, name: str) -> tuple[bool, str]:
         return False, (
             f"run controller: {name} is controller-owned, not a phase a prompt can select"
         )
-    if state.get("phase") in LOCKED_PHASES:
+    if state.get("mode") != "production" and state.get("phase") in LOCKED_PHASES:
         return False, (
             f"run controller: {state.get('phase')} is locked. A phase command cannot reopen "
             "panels or abandon deliverable completion."
@@ -704,11 +705,29 @@ def cinematic_report_problems(state: dict, report: Path) -> list[str]:
 
 def finish(path: Path, result: str, reason: str = "", report: Path | None = None,
            review_package: Path | None = None, blocker_report: Path | None = None,
-           *, review_root: Path | None = None
+           *, review_root: Path | None = None, shipment: Path | None = None
            ) -> tuple[bool, str]:
     if result not in TERMINAL:
         return False, f"run controller: unknown terminal state {result}"
     state = read_state(path)
+    if state.get("mode") == "production" and result == "needs_review":
+        return False, "run controller: production cannot finish as needs_review. Checkpoint the film and continue repair; only verified shipment completes production."
+    if result == "shipped":
+        from shipment_check import verify_shipment
+        if state.get("mode") != "production" or shipment is None:
+            return False, "run controller: shipped requires production mode and --shipment evidence"
+        approved, why = check_package(path, Path((state.get("final_report") or {}).get("path", "")))
+        if not approved:
+            return False, why
+        proof, errors = verify_shipment(state, shipment)
+        if errors:
+            return False, "run controller: shipment unproven: " + "; ".join(errors)
+        state["terminal_state"] = "shipped"
+        state["phase"] = "shipped"
+        state["shipment"] = proof
+        event(state, "finished", result="shipped", shipment_sha256=digest(shipment))
+        save(path, state)
+        return True, "run controller: shipped; exact film, merged CI, deployment, phone playback and unsent draft verified"
     current = state.get("terminal_state")
     if current:
         if current == result == "needs_review" and review_package is not None:
@@ -784,12 +803,14 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
         event(state, "publish_refused", score=score, report=str(report), reasons=why)
         save(path, state)
         return False, (
-            "run controller: NEEDS REVIEW, but not empty and not terminal. "
+            "run controller: active repair required. "
             + "; ".join(why)
-            + ". Save the registered film as a durable review package."
+            + ". Checkpoint the registered film and repair the exact failed evidence."
         )
 
-    state["terminal_state"] = "publishable"
+    state["terminal_state"] = None if state.get("mode") == "production" else "publishable"
+    state["release_status"] = "publishable"
+    state["phase"] = "publishing"
     state["terminal_reason"] = None
     state["final_report"] = {
         "path": str(report),
@@ -797,7 +818,7 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
         "score": score,
         "film_sha256": state["deliverable"]["film_sha256"],
     }
-    event(state, "finished", result="publishable", score=score,
+    event(state, "release_authorized", result="publishable", score=score,
           report_sha256=state["final_report"]["sha256"])
     save(path, state)
     return True, f"run controller: publishable at panel score {score:.3f}"
@@ -811,7 +832,7 @@ def check_package(path: Path, report: Path) -> tuple[bool, str]:
     push, merge, or update the feed.
     """
     state = read_state(path)
-    if state.get("terminal_state") != "publishable":
+    if state.get("release_status") != "publishable" and state.get("terminal_state") != "publishable":
         return False, (
             f"run controller: terminal state is {state.get('terminal_state')!r}, not publishable"
         )
@@ -845,7 +866,7 @@ def check_verification(path: Path, report: Path) -> tuple[bool, str]:
     copy, commit, push or publish through check_delivery.
     """
     state = read_state(path)
-    if state.get("terminal_state") is not None:
+    if state.get("terminal_state") is not None or state.get("release_status") == "publishable":
         return check_package(path, report)
     errs = deliverable_problems(state, publication=True)
     if errs:
@@ -890,11 +911,16 @@ def record_telemetry(path: Path, resource: str, elapsed_ms: int, tokens: int,
         accepted, message = reserve(
             path, {"reported_tokens": tokens}, f"telemetry for {resource}: {note}".strip())
     state = read_state(path)
+    if not accepted:
+        # Provider usage is an observation after a reserved call, never an optional
+        # reservation to discard. Keep the actual cost even across a batch boundary.
+        state["usage"]["reported_tokens"] += tokens
+        event(state, "observed_token_overage", tokens=tokens, refusal=message)
     event(state, "telemetry", resource=resource, elapsed_ms=elapsed_ms,
           reported_tokens=tokens, note=note)
     save(path, state)
     if not accepted:
-        return False, message
+        return True, "run controller: actual token usage recorded; diagnose the batch boundary before more calls"
     return True, (
         f"run controller: recorded {resource} telemetry: {elapsed_ms} ms, {tokens} token(s)"
     )
@@ -924,6 +950,8 @@ def reopen(path: Path, reason: str) -> tuple[bool, str]:
       sees that this run stopped once and why.
     """
     state = read_state(path)
+    if state.get("terminal_state") == "shipped":
+        return False, "run controller: shipped editions are immutable"
     if state.get("terminal_state") is None:
         return False, "run controller: the run is not terminal, so there is nothing to reopen"
     if not reason.strip():
@@ -936,7 +964,8 @@ def reopen(path: Path, reason: str) -> tuple[bool, str]:
     state["terminal_reason"] = None
     state["review_required"] = False
     state["review_reasons"] = []
-    state["phase"] = "reopened"
+    state.pop("release_status", None)
+    state["phase"] = "active_repair"
     event(state, "reopened", was=was, reason=reason.strip())
     save(path, state)
     return True, (f"run controller: reopened from {was}. Usage is untouched and every "
@@ -1054,14 +1083,16 @@ def reserve_panel(path: Path, judges: int, note: str = "", *,
     #
     # `--force-no-preship` exists for the self-test and for a genuine emergency, and it
     # records itself in the ledger rather than passing quietly.
+    if skip_preship and read_state(path).get("mode") == "production":
+        return False, "run controller: production cannot bypass preship"
     if not skip_preship:
         try:
             sys.path.insert(0, str(Path(__file__).resolve().parent))
             from preship_check import current_for                       # noqa: PLC0415
-            board = Path(__file__).resolve().parents[1] / "out" / "dispatch" / "storyboard.json"
+            board = path.parent / "storyboard.json"
             good, why = current_for(board)
         except Exception as exc:                                        # noqa: BLE001
-            good, why = True, f"preship gate unavailable ({exc}), allowing the panel"
+            good, why = False, f"preship gate unavailable ({exc}); repair it before the panel"
         if not good:
             return False, (f"run controller: REFUSED, {why}\n"
                            f"  A panel cannot see storyboard_check, flow_check, board_scale_check\n"
@@ -1242,8 +1273,8 @@ def self_test() -> int:
                                      "sha256": digest(current_evidence)}]
         current_report = current_package / "blocker-report.json"
         current_report.write_text(json.dumps(current_data), encoding="utf-8")
-        ok("only a packaged exact-film blocker report permits current review closure",
-           finish(current, "needs_review", reason="verified quality blocker after a source pivot",
+        ok("even a complete blocker report cannot close production",
+           not finish(current, "needs_review", reason="verified quality blocker after a source pivot",
                   review_package=current_package, blocker_report=current_report,
                   review_root=root / "runs" / "review")[0])
 
@@ -1269,7 +1300,7 @@ def self_test() -> int:
            == saved_snapshot["manifest_sha256"])
 
         p = root / "review-rescue-state.json"
-        initialise(p, "review-rescue", "production")
+        initialise(p, "review-rescue", "dry-run")
         attach_deliverable(p, "review-rescue", review_only=True)
         rescue_report = root / "review-rescue-report.json"
         rescue_report.write_text(json.dumps({
@@ -1335,7 +1366,7 @@ def self_test() -> int:
                p, small_film, small_board, small_manifest)[0])
 
         p = root / "research.json"
-        ok("initialises a production ledger", initialise(p, "r1", "production")[0])
+        ok("initialises a production ledger", initialise(p, "r1", "dry-run")[0])
         for n in range(3):
             ok(f"research reservation {n + 1} clears",
                reserve(p, {"research_agents": 1}, "candidate")[0])
@@ -1374,7 +1405,7 @@ def self_test() -> int:
                   review_package=rp, review_root=root / "runs" / "review")[0])
 
         p = root / "panels.json"
-        initialise(p, "r2", "production")
+        initialise(p, "r2", "dry-run")
         ok("scorer calls cannot be spent outside an atomic panel",
            not reserve(p, {"scorer_calls": 3}, "side-door judges")[0])
         ok("a partial panel cannot consume a full-panel round", not reserve_panel(p, 1, skip_preship=True)[0])
@@ -1524,7 +1555,7 @@ def self_test() -> int:
         low = root / "low.json"
         low.write_text(json.dumps({"score": threshold() - 0.1, "hard_fails": []}) + "\n")
         p = root / "low-state.json"
-        initialise(p, "r4", "production")
+        initialise(p, "r4", "dry-run")
         attach_deliverable(p, "low")
         accepted, _ = finish(p, "publishable", report=low)
         ok("a below-bar report cannot become publishable", not accepted)
@@ -1602,6 +1633,10 @@ def self_test() -> int:
         override_review = durable_review(p, "override")
         finish(p, "needs_review", reason="panel budget exhausted",
                review_package=override_review, review_root=root / "runs" / "review")
+        # Historical owner-override fixture, never an autonomous production transition.
+        legacy = read_state(p)
+        legacy["terminal_state"] = "needs_review"
+        save(p, legacy)
         # REOPEN, and the load-bearing assertion is that it grants nothing.
         pr = root / "reopen.json"
         initialise(pr, "reopen", "dry-run")
@@ -1773,8 +1808,7 @@ def main() -> int:
     p.add_argument("--judges", type=int, default=3)
     p.add_argument("--note", default="")
     p.add_argument("--force-no-preship", action="store_true",
-                   help="reserve without a current preship verdict. Records itself in the "
-                        "ledger. For a genuine emergency, never for convenience.")
+                   help="rehearsal-only reservation without preship; production refuses this option.")
 
     p = sub.add_parser("phase")
     p.add_argument("--name", required=True)
@@ -1785,6 +1819,7 @@ def main() -> int:
     p.add_argument("--report")
     p.add_argument("--review-package")
     p.add_argument("--blocker-report")
+    p.add_argument("--shipment", type=Path)
 
     p = sub.add_parser("register-deliverable")
     p.add_argument("--film", required=True)
@@ -1838,6 +1873,14 @@ def main() -> int:
     p.add_argument("--reason", required=True)
     p.add_argument("--confirm", required=True)
 
+    p = sub.add_parser("checkpoint")
+    p.add_argument("--reason", required=True)
+    p.add_argument("--review-package", type=Path, required=True)
+    p.add_argument("--blocker-report", type=Path)
+    for command in ("begin-repair", "authorize-repair"):
+        p = sub.add_parser(command)
+        p.add_argument("--plan", type=Path, required=True)
+    sub.add_parser("pending")
     sub.add_parser("status")
     a = ap.parse_args()
     if a.self_test:
@@ -1869,7 +1912,18 @@ def main() -> int:
             accepted, message = finish(
                 state_path, a.result, a.reason, Path(a.report) if a.report else None,
                 Path(a.review_package) if a.review_package else None,
-                Path(a.blocker_report) if a.blocker_report else None)
+                Path(a.blocker_report) if a.blocker_report else None, shipment=a.shipment)
+        elif a.command in {"checkpoint", "begin-repair", "authorize-repair", "pending"}:
+            from production_lifecycle import checkpoint, begin_repair, authorize_repair, pending
+            if a.command == "pending":
+                print(json.dumps(pending(REPO), indent=2))
+                return 0
+            if a.command == "checkpoint":
+                accepted, message = checkpoint(state_path, a.review_package, a.reason, a.blocker_report)
+            elif a.command == "begin-repair":
+                accepted, message = begin_repair(state_path, a.plan)
+            else:
+                accepted, message = authorize_repair(state_path, a.plan)
         elif a.command == "register-deliverable":
             accepted, message = register_deliverable(
                 state_path, Path(a.film), Path(a.board), Path(a.manifest),

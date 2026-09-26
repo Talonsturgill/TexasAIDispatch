@@ -83,3 +83,13 @@ and result of each event against the actual shared caption band and title overla
 phone frames at all three moments, not only a representative contact-sheet frame. A moving
 object whose landing is hidden by captions fails even if its path is visible. The ending of an
 action must remain readable long enough to explain the next shot.
+
+For editions dated September 26 onward, inspect the exact phone MP4 before reading the
+director's explanation. Record phone_observations with subject_recognition,
+contact_and_consequence, surface_finish, and closing_payoff. Each contains pass,
+start_s, end_s and observed: describe the actual pixels and the specific action.
+Reject placeholder boxes standing in for recognizable machinery or homes, ambiguous
+props, floating transfers, rigid cleanup gestures, and an ending that repeats setup.
+Do not infer a resolved human outcome when the sources leave it unknown. Judge the
+source-backed limit as an image with a visible consequence. A code-plan pass cannot
+populate these observations; only the current rendered phone film can.

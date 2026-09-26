@@ -33,7 +33,7 @@ Runs SHIP AUTONOMOUSLY only from controller state `publishable`. When a run's ga
 human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
 **MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
 before the email. The email is the only human touchpoint and it gates the POST, not the merge.
-Failed runs commit evidence to their branch and do NOT merge.
+Rejected films remain active repair. Only approved release artifacts enter the public feed.
 
 This wins for development sessions too. An unmerged upgrade is worse than no upgrade: the next
 run checks out `main`, so it silently does not get the fix, while the ledger says the machine
@@ -44,61 +44,47 @@ Three things still stop and ask, in any session:
 - anything that SENDS rather than drafts (these routines never send)
 - deleting or overwriting shipped run artifacts under `runs/`
 
-## THE BOUNDED RUN CONTRACT
+## PRODUCTION COMPLETION AND AUTONOMOUS REPAIR
 
-A Dispatch run has exactly two terminal states: `publishable` or `needs_review`.
+Production has one terminal state: `shipped`. A passing exact-film panel authorizes
+publication through `finish --result publishable`, which leaves production open in
+`publishing`. Completion requires merged exact-head green CI in both repositories,
+the matching Pages deployment, permanent media serving the reviewed bytes,
+canonical phone playback through Computer Use, and a correctly addressed,
+read-back Gmail draft carrying DRAFT and no SENT label.
 
-- `publishable` requires a hash-bound final report at or above the rubric with no hard fail.
-- `needs_review` preserves a playable video and the complete package when a gate, budget,
-  credential, or final panel prevents unattended publication. It never writes the feed or merges
-  into the shipped-run path.
+A rejection or exhausted allowance remains active repair. The owner has authorized
+autonomous correction; do not ask for another creative-repair approval. Preserve the
+last playable native film and exact reviewer evidence, diagnose all current defects,
+then open one evidence-bound repair batch. Keep usage charged. Every paid call and
+render is still reserved before it starts. A batch never relaxes a quality gate.
 
-**AN EMPTY RUN IS WORSE THAN AN EXPENSIVE ONE (owner, 2026-08-28). A failed run is not a
-thing and the definition of done is a DELIVERED VIDEO.** `config/run_limits.json` carries a
-spend TARGET and a hard CEILING per resource. Inside the target a run was efficient, which is
-still the goal. Between target and ceiling `run_controller` GRANTS the work and records a
-`budget_escalated` event. Only the ceiling refuses.
+Run `run_controller.py begin-repair --plan out/dispatch/repair-plan.json` before
+editing. The plan records root_cause, repair, mechanism_change, expected_visible_result,
+failure_evidence and failure_evidence_sha256, plus changed_inputs containing path,
+before_path and before_sha256. Retain the actual baseline files. Reserve the reboard,
+change the named production inputs, fill their after_sha256 values, and run
+`run_controller.py authorize-repair --plan out/dispatch/repair-plan.json`.
+The plan's resources map requests only the calls needed for this correction.
+The controller limits each batch, checks changed bytes, refuses repeated use of a
+failed attempt, and preserves all earlier charges. Three scorers remain one atomic
+panel. After two rejections of the same mechanism, change the mechanism or select
+a source-backed filmable angle before another attempt.
 
-A run that has already stopped is reopened with `run_controller reopen --reason ...`. It grants
-no budget, every reservation already spent stays spent, and the prior terminal state is kept as
-a scar rather than erased.
+A checkpoint is crash recovery, never completion. `package_review_run.sh` saves the
+film and evidence with the controller still active. Resume that edition until it ships.
+The legacy needs_review outcome is refused in production. Reopen a legacy stopped
+controller without resetting usage. Missing external access leaves work incomplete;
+record the real evidence and next executable step without claiming delivery.
 
-**Escalation never buys a lower bar.** The rubric threshold, every hard fail, the
-numeral-traces-to-a-fetched-quote rule, the ban on time-stretching and the alignment evidence
-are unreachable from it. It buys more ATTEMPTS at clearing the bar, which is the only thing
-that was ever missing on the day this rule was written: a cut fourteen thousandths short, with
-a playable film, no hard fails and every remaining fix already written down, stopped because
-the renders had run out.
+Run `python3 scripts/run_controller.py pending` at wake before creating an edition.
+Resume the returned active worktree and its ledger before starting another date.
+Preserve unrelated changes in place and use an isolated clean checkout for tooling
+repairs. Never delete a ledger or substitute a fresh budget.
 
-`scripts/run_controller.py` owns every expensive allowance. A reservation happens before spend.
-A new shell, folder, or batch cannot reset the run ledger, and reopening does not either.
-
-Each panel round may produce one batched corrective pass. Reserving the round that reaches the
-panel CEILING locks `hard_fail_cleanup`, so no further panel and no further scorer call can be
-disguised in a new shell. After that, only hard fails and deterministic no-panel repairs
-continue, with one cleanup render. If normal rendering was exhausted without an artifact, one
-controller-owned rescue render exists.
-
-**The lock is at the ceiling and never at the target, and on 2026-08-28 those stopped being the
-same number.** This paragraph used to say round five locked cleanup, which was correct under the
-old fixed allowance and became a contradiction the moment escalation was added four paragraphs
-above. The controller carried the same contradiction in one comparison: it locked when usage
-equalled `limits`, and escalation raises `limits` to exactly the usage it grants, so the first
-round past the target would have locked cleanup and ended iteration while the ledger advertised a
-ceiling the run could never reach. A budget that cancels its own escalation is worse than no
-escalation, because it stops the run anyway and reports that it had room.
-
-**A cost boundary may stop iteration; it may not erase the day's product.** Budget exhaustion is
-non-terminal completion mode. `render_dispatch.sh` registers the exact MP4, board, and manifest,
-and `needs_review` is refused until `package_review_run.sh` copies them into tracked
-`runs/review/<date>-<slug>/`. `out/` is gitignored and does not count. A run that cannot publish
-still commits a playable review video on its branch; it never silently ends with no film. Each
-registration snapshots an immutable last-good trio. If no full render survives,
-`rescue_video.py` upscales the hash-bound animatic or creates timed storyboard cards, supplies an
-audio stream, and registers that MP4 as review-only. A panel score cannot promote that rescue.
-
-An explicit owner override is recorded by the controller for a human owner only. The unattended
-routine never invokes or recommends it.
+`owner-override` and preship bypass are unavailable to the autonomous production
+routine. Native rendering, hero approval, all three exact-byte audiovisual lenses,
+caption alignment, audio measurement and every release gate remain required.
 
 ## The two laws of drawing Texas
 
