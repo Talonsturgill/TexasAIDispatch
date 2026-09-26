@@ -247,33 +247,63 @@ const FoldedFlashing:React.FC=()=>{
   const section=new THREE.Shape();
   const profile=[[-.82,-.065],[-1.55,-.065],[-1.55,-.50],[-1.68,-.64],[-1.655,-.665],[-1.515,-.515],[-1.515,-.10],[-.82,-.10]];
   profile.forEach(([z,y],i)=>i?section.lineTo(z,y):section.moveTo(z,y));section.closePath();
-  return new THREE.ExtrudeGeometry(section,{depth:2.3,bevelEnabled:false,steps:1});
+  return new THREE.ExtrudeGeometry(section,{depth:2.3,bevelEnabled:true,bevelThickness:.005,bevelSize:.007,bevelSegments:2,steps:1});
  },[]);
  return <mesh position={[-1.15,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
-const Flashing:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
- {/* The wall and roof remain one attached mass throughout the local explanatory cutaway. */}
- <Box p={[0,-.86,.18]} s={[2.3,1.52,2.64]} c="#98735e"/>
- {Array.from({length:8},(_,row)=>Array.from({length:5},(_,col)=><Box key={row+'-'+col}
-   p={[-1.035+col*.46+(row%2)*.06,-.24-row*.17,1.507]} s={[.42,.142,.016]}
+const Flashing:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
+ const lift=.80*(1-a), forward=.38*(1-a), headY=mix(.25,-.04,c);
+ const toolY=headY+lift+.76*(1-b)+d*.82, turn=-c*Math.PI*6;
+ return <>
+ <Box p={[0,-1.05,.18]} s={[2.3,1.9,2.64]} c="#98735e" round={.008}/>
+ {Array.from({length:10},(_,row)=>Array.from({length:5},(_,col)=><Box key={row+'-'+col}
+   p={[-1.035+col*.46+(row%2)*.06,-.24-row*.17,1.507]} s={[.42,.142,.016]} round={.005}
    c={['#a27b62','#b18d73','#977059'][(row+col)%3]}/>))}
+ {Array.from({length:10},(_,row)=>Array.from({length:6},(_,col)=><Box key={'side'+row+'-'+col}
+   p={[1.157,-.24-row*.17,-.94+col*.44]} s={[.016,.142,.40]} round={.005}
+   c={['#97735e','#ac8468','#a27a62'][(row+col)%3]}/>))}
+ <Box p={[0,-1.27,1.555]} s={[1.04,.83,.095]} c={cream} round={.015}/>
+ <Box p={[0,-1.27,1.61]} s={[.91,.70,.02]} c="#557c86" metal={.3}/>
+ <Box p={[0,-1.27,1.633]} s={[.04,.70,.03]} c={cream}/>
+ <Box p={[0,-1.34,1.633]} s={[.91,.035,.03]} c={cream}/>
+ <Box p={[-.23,-1.12,1.645]} s={[.14,.26,.008]} c="#a6bfb9"/>
+ <Box p={[0,-1.70,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
  <Box p={[0,-.185,.18]} s={[2.3,.17,2.64]} c="#786d57"/>
  <Box p={[0,-.112,.18]} s={[2.3,.024,2.64]} c="#354d45"/>
- <FoldedFlashing/>
- {[-.72,0,.72].map(x=><group key={x}>
-  <Rod from={[x,-.058,1.15]} to={[x,-.34,1.15]} radius={.025} c="#65716b"/>
-  <Ball p={[x,-.052,1.15]} s={[.07,.012,.07]} c="#52675d"/>
-  <Box p={[x,-.038,1.15]} s={[.067,.005,.009]} c="#bdc9b8"/>
- </group>)}
- <group position={[0,0,-a*.88]}>
-  <Box p={[0,-.04,.75]} s={[2.26,.03,1.45]} c="#53695c"/>
+ <Box p={[0,-.065,-.33]} s={[2.26,.05,1.54]} c="#586a59" round={.014}/>
+ {[-.68,0,.68].map(x=><Box key={x} p={[x,-.037,-.33]} s={[.018,.006,1.51]} c="#425649"/>)}
+ <group position={[0,lift,forward]}>
+  <FoldedFlashing/>
+  {[-.72,.72].map(x=><group key={x}>
+   <Ball p={[x,-.052,1.15]} s={[.074,.014,.074]} c="#52675d"/>
+   <Box p={[x,-.035,1.15]} s={[.075,.005,.009]} c="#d2d9c9"/>
+  </group>)}
+  <Hand p={[-.86-b*2.7,-.02+b*.22,1.15+b*.25]} r={[0,-Math.PI/2,0]} scale={.82}/>
+  <group position={[.10,headY,1.15]} rotation={[0,turn,0]}>
+   <Rod from={[0,-.31,0]} to={[0,-.025,0]} radius={.032} c="#87958a"/>
+   {Array.from({length:6},(_,i)=><mesh key={i} position={[0,-.055-i*.046,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[.042,.009,6,20]}/><meshStandardMaterial color="#a5b2a8" metalness={.8} roughness={.24}/></mesh>)}
+   <mesh><cylinderGeometry args={[.105,.105,.04,32]}/><meshStandardMaterial color="#cad2c7" metalness={.85} roughness={.22}/></mesh>
+   <Box p={[0,.023,0]} s={[.15,.004,.025]} c="#334a42"/><Box p={[0,.024,0]} s={[.025,.004,.15]} c="#334a42"/>
+  </group>
  </group>
- <Box p={[0,-.022,mix(1.15,.45,b)]} s={[2.10,.025,.25]} c="#53695c"/>
- <group position={[-c*1.45,0,Math.sin(c*Math.PI)*.10]}>
-  <Box p={[-.22,-.39,1.72]} s={[.92,.63,.08]} c="#a99271"/>
-  {[-.46,-.16,.14].map(x=><Box key={x} p={[x,-.39,1.763]} s={[.012,.59,.005]} c="#756b56"/>)}
+ <group position={[.10+d*2.25,toolY,1.15+d*.15]}>
+  <group rotation={[0,turn,0]}>
+   <Box p={[0,.13,0]} s={[.033,.21,.033]} c="#b6c1b5" metal={.85}/>
+   <mesh position={[0,.30,0]}><cylinderGeometry args={[.10,.06,.14,24]}/><meshStandardMaterial color="#30443d" metalness={.5} roughness={.3}/></mesh>
+   <mesh position={[0,.55,0]}><cylinderGeometry args={[.125,.125,.42,32]}/><meshStandardMaterial color="#d59952" roughness={.42}/></mesh>
+   {[0,1,2,3,4,5].map(i=><Box key={i} p={[Math.cos(i*Math.PI/3)*.116,.55,Math.sin(i*Math.PI/3)*.116]} s={[.034,.32,.034]} c="#40554c" round={.01}/>)}
+   <mesh position={[0,.81,0]}><sphereGeometry args={[.14,24,16]}/><meshStandardMaterial color="#30483f" roughness={.4}/></mesh>
+  </group>
+  <group rotation={[0,-c*Math.PI*.30,0]}>
+   {[.41,.51,.61,.71].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,-.28]}><torusGeometry args={[.155,.039,10,24,Math.PI*1.5]}/><meshStandardMaterial color="#ba8c6d" roughness={.72}/></mesh>)}
+   <Ball p={[.16,.57,.025]} s={[.11,.24,.12]} c="#b28265"/>
+   <Rod from={[.19,.73,.12]} to={[-.015,.60,.18]} radius={.054} c="#c09070"/>
+   <Rod from={[.23,.57,.04]} to={[.72,.60,.07]} radius={.11} c="#b58769"/>
+   <Rod from={[.65,.60,.07]} to={[2.0,.70,.1]} radius={.15} c="#477080"/>
+  </group>
  </group>
-</>;
+ </>;
+};
 const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  const sweep=mix(.60,-.60,b), foot:V3=[sweep,-.51,.87], top:V3=[sweep+.30,.88,.52];
  const grip=(t:number)=>foot.map((v,i)=>mix(v,top[i],t)) as V3;
@@ -355,7 +385,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[2.7,2.8,8.3],target:[0,-.55,.70],fov:42}:
+ id==='s6'?{position:[2.4,3.2,8.8],target:[0,-.55,.85],fov:42}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
@@ -367,7 +397,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
- {id==='s6'&&<Flashing a={a} b={b} c={c}/>}
+ {id==='s6'&&<Flashing a={a} b={b} c={c} d={d}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
  {id==='s9'&&<EvidenceComparison a={a} b={b} c={c} d={d}/>}
@@ -387,7 +417,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC 5</div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
- {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ROOF SECTION</div>}
+ {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ATTACHMENT</div>}
  {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:34,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATIVE COMPARISON</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}

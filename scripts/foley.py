@@ -1678,7 +1678,21 @@ def yard_broom_sweep(seed=101):
     return normalize(fade(texture * envelope, 25), .35)
 
 
+def roof_fastener_turn(seed=103):
+    """Designed hand-tool friction and seating, never a field recording."""
+    dur=1.10
+    out=np.zeros(int(dur*SR))
+    for i,at in enumerate((.03,.34,.66)):
+        friction=one_pole_lp(high_pass(white(.24,seed+i),420),2400)
+        friction*=np.sin(np.pi*t_axis(.24)/.24)**2
+        place_into(out,normalize(friction)*.22,at)
+    seat=biquad_bp(white(.09,seed+9),720,2.2)*expdecay(.09,.022)
+    place_into(out,normalize(fade(seat,3))*.35,.98)
+    return normalize(fade(out,12),.68)
+
+
 SOUNDS = {
+    "roof_fastener_turn": (roof_fastener_turn, "oneshot", "the visible hand-held screwdriver turning and seating a roof fastener", ["roof", "hand", "tool"]),
     "brush_truck_roll": (brush_truck_roll, "oneshot", "the visible illustrated brush truck rolling past the curbside house", ["brush", "truck", "street"]),
     "brush_camera_shutter": (brush_camera_shutter, "oneshot", "the visible brush-truck side camera taking a still image", ["camera", "shutter", "capture"]),
     "paper_photo_slide": (paper_photo_slide, "oneshot", "the visible printed camera photo or notice sliding across a desk or into a hand", ["photo", "paper", "notice"]),
