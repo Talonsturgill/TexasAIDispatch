@@ -285,7 +285,6 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
    <Ball p={[x,-.052,1.15]} s={[.074,.014,.074]} c="#52675d"/>
    <Box p={[x,-.035,1.15]} s={[.075,.005,.009]} c="#d2d9c9"/>
   </group>)}
-  <Hand p={[-.86-b*2.7,-.02+b*.22,1.15+b*.25]} r={[0,-Math.PI/2,0]} scale={.82}/>
   <group position={[.10,headY,1.15]} rotation={[0,turn,0]}>
    <Rod from={[0,-.31,0]} to={[0,-.025,0]} radius={.032} c="#87958a"/>
    {Array.from({length:6},(_,i)=><mesh key={i} position={[0,-.055-i*.046,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[.042,.009,6,20]}/><meshStandardMaterial color="#a5b2a8" metalness={.8} roughness={.24}/></mesh>)}
