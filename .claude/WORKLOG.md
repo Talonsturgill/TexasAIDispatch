@@ -7,3 +7,8 @@ The full-resolution hero, picture, and story provider verdicts rejected crude ho
 All ten authorized reboards were used, and no owner-approved extension was present. The packaged blocker report records actual repair attempts, evidence hashes, a source-backed alternate opening treatment, and the next structural revision. The controller is terminal `needs_review`; do not reclassify this cut as publishable. A separate rule PR #70 permits a future evidence-bound, one-step owner-authorized reboard extension and clarifies the active-repair path.
 
 No media PR, Docket feed edit, deployment, canonical live link, Gmail draft, email send, or social publication was made for this edition. The September 25 release and unrelated checkouts remain intact.
+
+
+## Owner correction — September 26, active repair
+
+The earlier terminal packaging was invalid. The same controller is reopened; the native film SHA-256 remains 9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd and all usage is unchanged. PR #71 repairs production closure and evidence-bound autonomous repair. Merge current main into this clean owned branch after the tooling fix clears exact-head CI. The compact defect ledger is runs/review/2026-09-26-dallas-brush-camera/repair-plan.md. No film approval, publication, or draft success has been added.
