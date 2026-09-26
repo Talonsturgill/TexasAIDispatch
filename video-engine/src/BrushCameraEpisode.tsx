@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import {Img, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
@@ -264,49 +264,64 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=fals
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
  </>;
 };
-const SideWater:React.FC<{progress:number;flowTime:number}>=({progress,flowTime})=>{
- const curve=useMemo(()=>new THREE.CatmullRomCurve3([
-  [-1.45,.34,.49],[-.55,.34,.49],[.40,.34,.49],[.73,.245,.49],
-  [1.47,.245,.49],[1.65,.11,.49],[1.66,-.43,.49],[1.97,-.72,.49]
- ].map(p=>new THREE.Vector3(...p))),[]);
- const geometry=useMemo(()=>new THREE.TubeGeometry(curve,90,.020,10,false),[curve]);
- geometry.setDrawRange(0,Math.floor(Math.min(1,progress)*90)*60);
+const RunoffSheet:React.FC<{progress:number;elapsed:number;spread:number}>=({progress,elapsed,spread})=>{
+ // Separate falling ribbons keep the facade visible. Highlights travel with gravity.
+ const paths=useMemo(()=>Array.from({length:5},(_,i)=>new THREE.CatmullRomCurve3([
+  [ .62+i*.18,.49,1.35],[.62+i*.18,.46,1.58],[.62+i*.18,.08,1.63],
+  [.62+i*.18,-.10,1.92],[.62+i*.18,-.20-i*.015,2.25]
+ ].map(v=>new THREE.Vector3(...v)))),[]);
+ const geometries=useMemo(()=>paths.map(curve=>new THREE.TubeGeometry(curve,40,.033+spread*.030,7,false)),[paths,spread]);
+ useEffect(()=>()=>geometries.forEach(g=>g.dispose()),[geometries]);
+ return <>{paths.map((curve,i)=>{
+  const live=Math.min(1,progress*(1.16-i*.035))*(i>=3?spread:1);
+  const geometry=geometries[i];
+  geometry.setDrawRange(0,Math.floor(live*40)*42);
+  return <group key={i}>
+   <mesh geometry={geometry}><meshStandardMaterial color="#65c9d6" transparent opacity={.72} roughness={.14} metalness={.13}/></mesh>
+   {Array.from({length:3},(_,j)=>{
+    const t=(elapsed*.72+i*.137+j/3)%1,p=curve.getPoint(t),q=curve.getPoint(Math.max(0,t-.085));
+    return t<=live?<Rod key={j} from={[p.x,p.y+.006,p.z+.013]} to={[q.x,q.y+.006,q.z+.013]} radius={.020} c="#cff3ed"/>:null;
+   })}
+  </group>;
+ })}</>;
+};
+const RainRoof:React.FC<{a:number;b:number;c:number;d:number;elapsed:number}>=({a,b,c,d,elapsed})=>{
+ const wetEnd=mix(-.75,1.46,b),wetDepth=wetEnd+1.65;
  return <>
-  <mesh geometry={geometry}><meshStandardMaterial color="#308cad" transparent opacity={.65} roughness={.2}/></mesh>
-  {[0,.25,.5,.75].map((offset,i)=>{
-   const t=(flowTime*.38+offset)%1;
-   const v=curve.getPoint(t);
-   return t<=progress&&progress>.02?<Ball key={i} p={[v.x,v.y,v.z]} s={[.065,.075,.065]} c="#75e1ef"/>:null;
-  })}
+ <Box p={[0,3,-6]} s={[50,35,.2]} c="#7b989b"/>
+ <Box p={[0,-2.05,1.29]} s={[8,4.8,.32]} c="#92745e"/>
+ {Array.from({length:19},(_,row)=>Array.from({length:13},(_,col)=>
+  <Box key={row+'-'+col} p={[-3.85+col*.63+(row%2)*.20,.19-row*.247,1.46]} s={[.594,.213,.045]} c={['#a2795e','#9c735c','#b08766','#956c55'][(row*5+col*7)%4]} round={.008}/>
+ ))}
+ <Box p={[0,.29,-.62]} s={[8.2,.22,4.08]} c="#867d64"/>
+ <Box p={[0,.43,-.64]} s={[8.24,.058,4.12]} c="#3c5b55"/>
+ {[-3.2,-1.6,0,1.6,3.2].map(x=><Box key={x} p={[x,.464,-.68]} s={[.019,.009,3.90]} c="#526d62"/>)}
+ <Box p={[0,.456,1.23]} s={[8.32,.050,.64]} c="#c9d1c2" metal={.70} round={.008}/>
+ <Box p={[0,.205,1.55]} s={[8.32,.49,.055]} c="#b6c4b9" metal={.68} round={.008}/>
+ <Box p={[0,-.045,1.63]} s={[8.32,.054,.20]} c="#c4d1c4" r={[-.18,0,0]} metal={.70}/>
+ <group position={[-.50,-.55,1.55]} scale={.54}>
+  <Box p={[0,0,0]} s={[1.53,2.02,.16]} c="#d1c3a5" round={.022}/>
+  <Box p={[0,0,.095]} s={[1.32,1.81,.055]} c="#4d7481" metal={.35}/>
+  <Box p={[0,0,.137]} s={[.055,1.80,.046]} c="#c8ba9f"/><Box p={[0,0,.137]} s={[1.31,.055,.046]} c="#c8ba9f"/>
+  <Box p={[0,-1.03,.15]} s={[1.72,.095,.32]} c="#b1a287"/>
+ </group>
+ {b>0&&<mesh position={[.98,.483,-1.65+wetDepth/2]} rotation={[-Math.PI/2,0,0]}>
+  <planeGeometry args={[1.14,wetDepth]}/><meshStandardMaterial color="#4fbccc" transparent opacity={.55*b} roughness={.13} metalness={.23}/>
+ </mesh>}
+ {b>0&&<Rod from={[.41,.493,wetEnd]} to={[1.55,.493,wetEnd]} radius={.024} c="#a0e2df"/>}
+ {Array.from({length:42},(_,i)=>{
+  const x=-3.6+((i*37)%97)/97*7.2,z=-2.4+((i*53)%89)/89*3.85,phase=(elapsed*1.27+i*.381)%1,y=.50+(1-phase)*3.8;
+  return <group key={i}>
+   {a>0&&<Rod from={[x,y,z]} to={[x-.026,y+.22,z-.032]} radius={.014} c="#a2d5d7"/>}
+   {a>.2&&phase>.80&&<mesh position={[x,.492,z]} rotation={[-Math.PI/2,0,0]} scale={[(phase-.80)*2.2,(phase-.80)*2.2,1]}><ringGeometry args={[.13,.17,20]}/><meshBasicMaterial color="#b9e7e5" transparent opacity={(1-phase)*3} side={THREE.DoubleSide}/></mesh>}
+  </group>;
+ })}
+ {c>0&&<RunoffSheet progress={c} elapsed={elapsed} spread={d}/>}
  </>;
 };
-const FoldedMetal:React.FC=()=>{
- const shape=useMemo(()=>{
-  const s=new THREE.Shape();
-  s.moveTo(-.10,.20);s.lineTo(1.62,.20);s.lineTo(1.62,-.52);
-  s.lineTo(1.85,-.59);s.lineTo(1.81,-.67);s.lineTo(1.54,-.59);
-  s.lineTo(1.54,.12);s.lineTo(-.10,.12);s.closePath();return s;
- },[]);
- return <mesh position={[0,0,-.35]}><extrudeGeometry args={[shape,{depth:.8,bevelEnabled:false}]}/><meshStandardMaterial color="#dae1dc" metalness={.55} roughness={.3}/></mesh>;
-};
-const RoofSection:React.FC<{a:number;b:number;c:number;flowTime:number}>=({a,b,c,flowTime})=><>
- <Table home/>
- <group position={[-.35,.55,.02]} scale={.78}>
-  <Box p={[-.06,-.45,.04]} s={[3.18,.50,.8]} c="#9c6240" round={.008}/>
-  {[-1.35,-.85,-.35,.15,.65,1.15].map(x=><Box key={x} p={[x,-.45,.45]} s={[.018,.42,.012]} c="#624b35" r={[0,0,.25]}/>)}
-  <Box p={[-.06,-.12,.04]} s={[3.18,.16,.8]} c="#ead6a2"/>
-  <Box p={[-.06,.045,.04]} s={[3.18,.14,.8]} c="#203e3c"/>
-  <FoldedMetal/>
-  <Box p={[-.55,.257,.04]} s={[2.40,.11,.8]} c="#4b7967"/>
-  <Box p={[mix(0,4.3,a),-.15,.59]} s={[3.65,1.18,.12]} c="#aa9374" round={.012}/>
-  <SideWater progress={b*.72+c*.28} flowTime={flowTime}/>
- </group>
- <group position={[-.80,.035,1.75]} rotation={[0,-.06,0]}><Paper p={[0,0,0]} roof scale={.56}/></group>
- <group position={[.90,.035,1.75]} rotation={[0,.06,0]}><Paper p={[0,0,0]} scale={.56}/></group>
-</>;
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
- const a=progress(0),b=progress(1),c=progress(2),id=scene.id;
+ const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[0,2.1,8.6],target:[0,-.05,-.4],fov:38}:
  id==='s3'?{position:[0,2.1,8.6],target:[.10,-.05,-.4],fov:42}:
@@ -314,7 +329,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
- id==='s9'?{position:[.9,2.4,8],target:[0,-.15,.4],fov:43}:
+ id==='s9'?{position:[3.2,2.7,7.4],target:[.20,-.20,.8],fov:44}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
@@ -326,7 +341,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s6'&&<Flashing a={a} b={b}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b}/>}
- {id==='s9'&&<RoofSection a={a} b={b} c={c} flowTime={Math.max(0,time-scene.start_s-(scene.visual_events?.[1]?.at_s??0))}/>}
+ {id==='s9'&&<RainRoof a={a} b={b} c={c} d={d} elapsed={time-scene.start_s}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
@@ -346,7 +361,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {['s2','s3'].includes(scene.id)&&<div style={{position:'absolute',left:94,right:130,top:510,height:650,border:'3px solid #d8e0c280',borderRadius:18,boxShadow:scene.id==='s2'&&p(1)>.4?'inset 0 0 0 8px #e1e1cb':'none'}}>
  <div style={{position:'absolute',left:20,top:20,fontFamily:FONT.mono,fontSize:23,color:cream}}>{scene.id==='s2'?'SIDE CAMERA / ILLUSTRATION':'COMPUTER VISION / ILLUSTRATION'}</div></div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
- {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:32,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATED ROOF SECTION</div>}
+ {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:32,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATIVE ROOF EDGE</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}
  <Sequence from={Math.round(runtime_s*fps)} durationInFrames={Math.round(credits_s*fps)}><CreditsCard text={credits}/></Sequence>

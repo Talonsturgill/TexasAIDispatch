@@ -117,7 +117,7 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   coadaptRoom: Coadapt.CoadaptRoom,
   coadaptEvidence: Coadapt.CoadaptEvidence,
   consentDoor: Coadapt.ConsentDoor,
-  roofSection: Roof.RoofSectionDiagram,
+  roofEdge: Roof.RoofEdgeIllustration,
   faxDocument: Faxwork.FaxDocument,
   faxChart: Faxwork.FaxChart,
   faxDesk: Faxwork.FaxDesk,

@@ -1,11 +1,11 @@
 import React from 'react';
 
-/** Illustrative roof-edge section. The dimensional episode stages the same layer relationship. */
-export const RoofSectionDiagram: React.FC = () => <g>
-  <path d="M-180 -100H150V0H-180Z" fill="#9c6240"/>
-  <path d="M-180 -130H150V-100H-180Z" fill="#ead6a2"/>
-  <path d="M-180 -155H150V-130H-180Z" fill="#203e3c"/>
-  <path d="M-20 -169H167V-27L188 -20L184 -6L153 -17V-153H-20Z" fill="#dae1dc"/>
-  <path d="M-180 -190H55V-169H-180Z" fill="#4b7967"/>
-  <path d="M-158 -197H36Q61 -197 77 -176H150Q174 -176 174 -150V-33L201 -11" fill="none" stroke="#36bed9" strokeWidth="7"/>
+/** Generic roof-edge water illustration, also staged dimensionally in the episode. */
+export const RoofEdgeIllustration: React.FC=()=><g>
+ <path d="M-180 -120H180V0H-180Z" fill="#a2795e"/>
+ {Array.from({length:5},(_,r)=><path key={r} d={`M-180 ${-110+r*24}H180`} stroke="#ccb491" strokeWidth="3"/>)}
+ <path d="M-180 -200H150L180 -135H-180Z" fill="#3c5b55"/>
+ <path d="M-180 -143H185V-116L194 -109L190 -101L175 -108V-131H-180Z" fill="#cad5c8"/>
+ <path d="M-75 -195H55L80 -136H-80Z" fill="#64c4ce" opacity=".6"/>
+ <path d="M-80 -136H80V-100L100 -20H-55L-80 -100Z" fill="#79d0d8" opacity=".6"/>
 </g>;
