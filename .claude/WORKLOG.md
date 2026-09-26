@@ -75,3 +75,7 @@ B16 native closing hero passed, but the current full film was rejected for repea
 ## September 26 B18 attached roof repair
 
 B17 phone review rejected the detached roof slab before native spending. B18 keeps a brick wall, roof and continuous folded metal fixed, enlarges three fastener contacts, and moves only a local explanatory cover. The source-approved narration and measured captions are reused unchanged. Independent code and exact-phone review remain required before the native roof hero.
+
+## September 26 B19–B21 roof action repair
+
+B19 corrected brick/metal depth and passed exact phone review, but native hero 978af16f was rejected for weak early action and rough diagram finish. B20 replaced passive cutaway covers with a held cap seating on an attached residential roof, a gripped screwdriver seating the fastener, and tool withdrawal. Source validator11 approved the clearly illustrative scope; narration remains the approved 95-word take. Fresh sound cues and measured alignment were verified. The B20 phone 1cce528a exposed a tool hover across title/source labels before contact. B21 replaces that hover with a side approach at work height. No native spend was made on the rejected B20 phone. Every review and resource reservation remains in the controller; exact changed phone, native hero and final three-lens review precede shipment.
