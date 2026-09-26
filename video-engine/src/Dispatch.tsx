@@ -14,7 +14,7 @@ import {Element, Placed} from './lib/registry';
 import {MaterialDefs} from './lib/materials';
 import type {RegionName} from './lib/lighting';
 import {FONT, wrapToWidth, widthOf} from './lib/type';
-import {captionLayout, creditLayout, CAPTION_BAND, CAPTION_TEXT_WIDTH} from './lib/editorial';
+import {captionLayout, creditLayout, CAPTION_BAND} from './lib/editorial';
 import {DocketMark} from './branding/DocketMark';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './lib/safearea';
 import {HighwaySafetyCaseEpisode} from './HighwaySafetyCaseEpisode';
@@ -256,7 +256,8 @@ const fitPx = (text: string, base: number, maxW: number) => {
  * Dense cues fail with a readable correction instead of shrinking into tiny paragraphs. */
 const CAP_X = CAPTION_BAND.left;
 const CAP_PAD_L = CAPTION_BAND.padding;
-const CAP_W = CAPTION_TEXT_WIDTH;
+const CAP_PAD_R = CAPTION_BAND.padding;
+const CAP_W = SAFE_RIGHT - CAP_X - CAP_PAD_L - CAP_PAD_R;
 
 const capFit = (text?: string): {lines: string[]; size: number} =>
   captionLayout(text ?? '', CAP_W);
@@ -318,13 +319,13 @@ export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps})
   const {lines, size} = layouts[index];
   const lead = size * 1.23;
   const h = lines.length * lead + 20;
-  const settle = interpolate((t - cue.start) * fps, [0, 6], [6, 0],
+  const settle = interpolate((t - cue.start) * fps, [0, 6], [-6, 0],
     {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   // The whole measured cue is visible from its first frame. No simulated word clock,
   // typewriter reveal, or fade that steals reading time from its measured boundaries.
   return (
     <div aria-label="Narration captions" style={{position: 'absolute', left: CAP_X,
-      top: CAPTION_BAND.bottom - h - settle, width: SAFE_RIGHT - CAP_X, height: h,
+      top: SAFE_BOTTOM - h + settle, width: SAFE_RIGHT - CAP_X, height: h,
       background:'rgba(8,11,18,.91)',borderLeft:'4px solid #e0956a',borderRadius:5}}>
       {lines.map((line, i) => (
         <div key={i} style={{position: 'absolute', left: CAP_PAD_L, top: 9 + i * lead,
