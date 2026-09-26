@@ -107,3 +107,7 @@ Phone25fd12aa shows the secured shaft and passes motion0.0194. Independent criti
 ## B32 visible insertion
 
 Native B31 hero76ce16ef heard the narration and recognized the architectural cutaway but rejected its nearly static fastener. B32db9f015 increases axial travel from0.285 to0.955 world units, with fixedfov38 framing preserving the full trajectory. Insertion and seating each have motivated mechanical sound. Same source scope and96-word narration reused; mix45.5s at−16.34LUFS with12SFX, no time stretch and0cutmoves. Independent code69 passed. Changed phoneab1acc73 passes motion0.01399 and root frames show substantial descent; independent phone70 and native audiovisual review remain pending.
+
+## B33 end on physical contact
+
+B32 native hero68c65668 now recognizes insertion but rejects the inactive concluding hold and insufficient mechanical sound. B33 removes5.74s of measured silence from one continuous96-word take, preserving every word at original speed. Story35s plus5s credits, mix−16.39LUFS; ten measured cues, no retimed-cut drift. The full-depth section opens first, two substantial thread advances precede section narrowing, then the final descent and pad compression finish0.20s before the cut. Designed threaded friction and contact are stronger and synchronized to those stages. Source scope remains unchanged and transparently rebound. Foley self-test, storyboard, flow, source, super and documentary checks pass. Independent code71 and exact phone/native reviews remain mandatory.

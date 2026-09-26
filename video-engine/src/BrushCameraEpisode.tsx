@@ -252,10 +252,11 @@ const FoldedFlashing:React.FC=()=>{
  return <mesh position={[-2.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
- const open=a*(1-.5*e), cutWidth=1.30*open, left=.10-cutWidth/2, right=.10+cutWidth/2;
+ const open=a*(1-.5*d), cutWidth=1.30*open, left=.10-cutWidth/2, right=.10+cutWidth/2;
  const capWidth=cutWidth, capLeft=left, capRight=right;
- const depth=.46+.80*d, padH=mix(.12,.04,c), headY=mix(.95,.075,b)-.08*c;
- const turn=-(b*3+c*2)*Math.PI*2;
+ const compression=Math.max(0,(e-.275/.355)/(.08/.355));
+ const depth=1.26, padH=mix(.12,.04,compression), headY=.95-.30*b-.30*c-.355*e;
+ const turn=-(b*2+c*2+e*2)*Math.PI*2;
  const thread=useMemo(()=>{
   const points=Array.from({length:321},(_,i)=>{const q=i/320,angle=q*Math.PI*16;return new THREE.Vector3(Math.cos(angle)*.065,-.045-q*.83,Math.sin(angle)*.065);});
   return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points),320,.012,8,false);
