@@ -71,3 +71,7 @@ Removed the repeated document-placement scene and nine spoken words using a meas
 ## September 26 B17 opening and roof repair
 
 B16 native closing hero passed, but the current full film was rejected for repeated facade views and unclear roof geometry. B17 replaces that opening repetition with a held image arriving for review, then a sourced illustration of the city-reported notice volume. The roof now reveals fixed overlap, fastener contact and folded edge. Independent source10 approved revised wording; voice director2 planned a new continuous 95-word read. Its 37-second take has exact transcript accuracy, no stretch and fresh measured caption boundaries. Current code critic and phone/native review remain required.
+
+## September 26 B18 attached roof repair
+
+B17 phone review rejected the detached roof slab before native spending. B18 keeps a brick wall, roof and continuous folded metal fixed, enlarges three fastener contacts, and moves only a local explanatory cover. The source-approved narration and measured captions are reused unchanged. Independent code and exact-phone review remain required before the native roof hero.

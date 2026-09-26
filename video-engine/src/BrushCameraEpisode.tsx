@@ -247,25 +247,31 @@ const FoldedFlashing:React.FC=()=>{
   const section=new THREE.Shape();
   const profile=[[-.82,-.065],[-1.51,-.065],[-1.51,-.50],[-1.64,-.64],[-1.615,-.665],[-1.475,-.515],[-1.475,-.10],[-.82,-.10]];
   profile.forEach(([z,y],i)=>i?section.lineTo(z,y):section.moveTo(z,y));section.closePath();
-  return new THREE.ExtrudeGeometry(section,{depth:3.8,bevelEnabled:false,steps:1});
+  return new THREE.ExtrudeGeometry(section,{depth:2.3,bevelEnabled:false,steps:1});
  },[]);
- return <mesh position={[-1.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
+ return <mesh position={[-1.15,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
 const Flashing:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
- <Box p={[0,-.32,-.02]} s={[3.8,.43,2.88]} c="#9a8161"/>
- <Box p={[0,-.096,-.02]} s={[3.8,.022,2.88]} c="#354d45"/>
+ {/* The wall and roof remain one attached mass throughout the local explanatory cutaway. */}
+ <Box p={[0,-.86,.18]} s={[2.3,1.52,2.64]} c="#98735e"/>
+ {Array.from({length:8},(_,row)=>Array.from({length:5},(_,col)=><Box key={row+'-'+col}
+   p={[-1.035+col*.46+(row%2)*.06,-.24-row*.17,1.507]} s={[.42,.142,.016]}
+   c={['#a27b62','#b18d73','#977059'][(row+col)%3]}/>))}
+ <Box p={[0,-.185,.18]} s={[2.3,.17,2.64]} c="#786d57"/>
+ <Box p={[0,-.112,.18]} s={[2.3,.024,2.64]} c="#354d45"/>
  <FoldedFlashing/>
- {[-1.40,-.70,0,.70,1.40].map(x=><group key={x}>
-  <Rod from={[x,-.058,1.15]} to={[x,-.34,1.15]} radius={.018} c="#65716b"/>
-  <Ball p={[x,-.052,1.15]} s={[.046,.012,.046]} c="#52675d"/>
+ {[-.72,0,.72].map(x=><group key={x}>
+  <Rod from={[x,-.058,1.15]} to={[x,-.34,1.15]} radius={.025} c="#65716b"/>
+  <Ball p={[x,-.052,1.15]} s={[.07,.012,.07]} c="#52675d"/>
+  <Box p={[x,-.038,1.15]} s={[.067,.005,.009]} c="#bdc9b8"/>
  </group>)}
  <group position={[0,0,-a*.88]}>
-  <Box p={[0,-.04,.75]} s={[3.74,.03,1.45]} c="#53695c"/>
+  <Box p={[0,-.04,.75]} s={[2.26,.03,1.45]} c="#53695c"/>
  </group>
- <Box p={[0,-.022,mix(1.15,.48,b)]} s={[3.28,.025,.19]} c="#53695c"/>
- <group position={[0,-c*.78,0]}>
-  <Box p={[0,-.39,1.72]} s={[3.8,.63,.10]} c="#a99271"/>
-  {[-1.4,-.7,0,.7,1.4].map(x=><Box key={x} p={[x,-.33,1.774]} s={[.012,.40,.005]} c="#756b56"/>)}
+ <Box p={[0,-.022,mix(1.15,.45,b)]} s={[2.10,.025,.25]} c="#53695c"/>
+ <group position={[-c*1.45,0,Math.sin(c*Math.PI)*.10]}>
+  <Box p={[-.22,-.39,1.72]} s={[.92,.63,.08]} c="#a99271"/>
+  {[-.46,-.16,.14].map(x=><Box key={x} p={[x,-.39,1.763]} s={[.012,.59,.005]} c="#756b56"/>)}
  </group>
 </>;
 const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
@@ -349,7 +355,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[2,3.2,11.5],target:[0,-.55,.70],fov:47}:
+ id==='s6'?{position:[2.7,2.8,8.3],target:[0,-.55,.70],fov:42}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
