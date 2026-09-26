@@ -188,7 +188,39 @@ def av_problems(path, film, role):
     except (OSError, ValueError, KeyError, TypeError, IndexError, subprocess.SubprocessError) as exc:
         return ["audiovisual evidence unavailable: " + str(exc)]
 
+# One explicit owner decision, not a reusable unattended override. New films and
+# changed bytes remain subject to the ordinary cinematic and panel contract.
+OWNER_RELEASE_2026_09_25 = (
+    "0c21df37a82e3bf58b49e6205a23021b6a99d126f67161c26101d5ac3b3d10bf",
+    "9368dc8510a3ea7d4c7123590be4473134f234e5d2fa284aa9b83f107d6e1972",
+    "e99abf3f75a977c5dd48b0342bec05f8d77ed84a961ca84dd11ca142aec2395b",
+)
+
+def owner_release_problems(board_path, film):
+    root = Path(board_path).parent
+    approval = root / "owner_release.json"
+    if not approval.is_file():
+        return None
+    try:
+        actual = (digest(film), digest(board_path), digest(approval))
+        if actual != OWNER_RELEASE_2026_09_25:
+            return ["owner exception applies only to the exact September 25 film, board and approval"]
+        report = read(root / "report_card.json")
+        if (report.get("publication_mode") != "owner_directed_exception"
+                or report.get("score") is not None or report.get("judges") != []
+                or report.get("picture_review") != "rejected"
+                or report.get("film_sha256") != actual[0]):
+            return ["owner release must preserve rejected review and unscored status honestly"]
+        from validation_check import check
+        return audio_problems(film) + check(root / "validation.json", root / "claims.json", board_path)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["owner release evidence unavailable: " + str(exc)]
+
+
 def publication_problems(board_path, film, judges=None):
+    owner_errors = owner_release_problems(board_path, film)
+    if owner_errors is not None:
+        return owner_errors
     board = read(board_path)
     if not required(board):
         return []

@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-25",
+  "source": "Independent validator checked the city notice, Legistar, CBS, KERA, the governor release, retained governor letter, and indexed official city hearing transcript excerpts. The transcript origin returned HTTP 403; the saved excerpts came from the official search index. No footage playback is claimed.",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "d1",
+    "d2",
+    "d3",
+    "d4",
+    "d5",
+    "d6",
+    "d7",
+    "d8",
+    "d9"
+  ],
+  "rejected": [
+    "The hearing did not enact a Denton local moratorium.",
+    "Twenty meeting speakers do not represent every city resident.",
+    "No specific post-hearing Denton filing, project approval or household bill effect is documented.",
+    "The local hearing and statewide permit halt are separate actions."
+  ],
+  "required_edits_applied": [
+    "Narration distinguishes the uncast local vote from the separate state permit directive.",
+    "The board marks the city application token as one blank illustration and shows the conditional city shutter retracting; no real application is depicted.",
+    "The script attributes near-capacity transmission to city staff as reported by CBS."
+  ],
+  "validator_identity": "/root/denton_validator",
+  "validated_at_utc": "2026-09-26T00:22:49Z",
+  "board_sha256": "941c8064845466dec8f3e8b2614220a40232bb0dec4d5c922644a9b7dff41fed",
+  "claims_sha256": "38628d1bf1229daab34ff41d36cabd0a70d5777ea7c2680d1b3d30c0df36770f",
+  "validation_scope": "Board, renderer source, static generated images, captions, and cited text only; no rendered video, audio, or city footage review.",
+  "current_board_verdict": "PASS_TEXT_CAPTIONS_AND_SOURCE_ATTRIBUTION",
+  "current_board_notes": [
+    "All nine source quotations match retained snapshots after punctuation and whitespace normalization.",
+    "The blue-card and no-vote transcript cards use neutral City hearing attribution with no unsupported timestamp.",
+    "The transcript was retrieved through the official search index because direct origin access returned HTTP 403; no hearing footage was watched.",
+    "The saved September 21 governor letter hash matches the source manifest and supports the state directive, not observed permit implementation.",
+    "The white opening card, blue call stack, register, resident, and chamber are labeled illustrations, not observed paperwork steps or identified attendees.",
+    "Twenty refers to hearing speakers. October 27 is the second hearing, not a scheduled vote.",
+    "The city proposal is conditional; no actual Denton filing, approval, or agency action is depicted."
+  ],
+  "pending_delivery_checks": [],
+  "captions_sha256": "661b26560ceb29ec7734b1b3fd955597cc9bca7424cf561cfb56ef37e69698d1",
+  "vo_script_sha256": "e057235872c345745bbf2599c2052bba82b9797b87b6a26fa83b149b741fa90d",
+  "caption_checks": {
+    "method": "silence_anchored",
+    "cues": 11,
+    "script_board_text_equal": true,
+    "captions_script_text_equal": true,
+    "all_cues_within_scene": true,
+    "audience_copy_banned_word_hits": 0
+  },
+  "static_generated_image_sha256": {
+    "denton-civic-chamber.png": "43abb0454387449e158a852420a1eaab1a7428ba7b10ab69b26dfdfb1cc21fe2",
+    "denton-resident-illustration.png": "c85a4445485d0c1aee0084f5f319bf29ff3244ae7c589a14c6bd93b49fb44118"
+  },
+  "source_manifest_sha256": "4302c13e7bbc82733505f399fc0c1122eeec9bc3f66c582735a7e78ecdb3e298"
+}

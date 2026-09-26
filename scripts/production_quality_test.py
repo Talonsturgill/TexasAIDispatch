@@ -213,6 +213,18 @@ def main():
         assert q.changed_runs("HEAD^", repository), "CI must reject a manually committed unproven film"
         print("PASS Git-diff CI path rejects a manually committed unproven edition")
         print("PASS already published editions retain their original review contract")
+    owner_package = q.REPO / "runs" / "2026-09-25"
+    assert q.owner_release_problems(owner_package / "storyboard.json", owner_package / "dispatch.mp4") == []
+    with tempfile.TemporaryDirectory() as tmp:
+        altered = Path(tmp)
+        for name in ("storyboard.json", "owner_release.json"):
+            (altered / name).write_bytes((owner_package / name).read_bytes())
+        (altered / "dispatch.mp4").write_bytes(b"different unapproved video")
+        assert q.owner_release_problems(altered / "storyboard.json", altered / "dispatch.mp4")
+        (altered / "dispatch.mp4").write_bytes((owner_package / "dispatch.mp4").read_bytes())
+        (altered / "owner_release.json").write_text("{}")
+        assert q.owner_release_problems(altered / "storyboard.json", altered / "dispatch.mp4")
+    print("PASS only the exact owner-approved cut qualifies; changed film or approval is refused")
     return 0
 
 if __name__ == "__main__":
