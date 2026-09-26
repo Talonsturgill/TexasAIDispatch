@@ -264,28 +264,27 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=fals
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
  </>;
 };
-const RunoffSheet:React.FC<{progress:number;elapsed:number;spread:number}>=({progress,elapsed,spread})=>{
- // Separate falling ribbons keep the facade visible. Highlights travel with gravity.
- const paths=useMemo(()=>Array.from({length:5},(_,i)=>new THREE.CatmullRomCurve3([
-  [ .62+i*.18,.49,1.35],[.62+i*.18,.46,1.58],[.62+i*.18,.08,1.63],
-  [.62+i*.18,-.10,1.92],[.62+i*.18,-.20-i*.015,2.25]
- ].map(v=>new THREE.Vector3(...v)))),[]);
- const geometries=useMemo(()=>paths.map(curve=>new THREE.TubeGeometry(curve,40,.033+spread*.030,7,false)),[paths,spread]);
- useEffect(()=>()=>geometries.forEach(g=>g.dispose()),[geometries]);
- return <>{paths.map((curve,i)=>{
-  const live=Math.min(1,progress*(1.16-i*.035))*(i>=3?spread:1);
-  const geometry=geometries[i];
-  geometry.setDrawRange(0,Math.floor(live*40)*42);
-  return <group key={i}>
-   <mesh geometry={geometry}><meshStandardMaterial color="#65c9d6" transparent opacity={.72} roughness={.14} metalness={.13}/></mesh>
-   {Array.from({length:3},(_,j)=>{
-    const t=(elapsed*.72+i*.137+j/3)%1,p=curve.getPoint(t),q=curve.getPoint(Math.max(0,t-.085));
-    return t<=live?<Rod key={j} from={[p.x,p.y+.006,p.z+.013]} to={[q.x,q.y+.006,q.z+.013]} radius={.020} c="#cff3ed"/>:null;
-   })}
-  </group>;
+const RunoffParticles:React.FC<{progress:number;elapsed:number;extraElapsed:number}>=({progress,elapsed,extraElapsed})=>{
+ // Deterministic parcels: surface contact, fixed-edge travel, then gravity-driven free fall.
+ const geometry=useMemo(()=>new THREE.SphereGeometry(1,10,8),[]);
+ const material=useMemo(()=>new THREE.MeshPhysicalMaterial({color:'#a0e5e8',transparent:true,opacity:.72,roughness:.12,metalness:.02,clearcoat:1}),[]);
+ useEffect(()=>()=>{geometry.dispose();material.dispose();},[geometry,material]);
+ return <>{Array.from({length:248},(_,i)=>{
+  const extraAge=extraElapsed-(i-112)/136*.25;
+  if(i>=112&&extraAge<0)return null;
+  const phase=i<112?(elapsed*1.43+i*.61803398875)%1:(extraAge*1.8)%1;
+  if(phase>progress)return null;
+  const seed=(i*.754877666)%1, jitter=Math.sin(i*9.7+elapsed*11)*.014;
+  let x=.56+seed*.83+jitter,y:number,z:number;
+  if(phase<.25){const t=phase/.25;y=.492;z=1.12+t*.47;}
+  else if(phase<.64){const t=(phase-.25)/.39;y=.492-.51*t;z=1.59+.10*t;}
+  else{const age=(phase-.64)*.92;y=-.018-2.8*age*age;z=1.69+1.10*age;x+=Math.sin(i*13.1)*age*.18;}
+  const fall=Math.max(0,phase-.64),radius=.021+((i*31)%17)/1700;
+  return <mesh key={i} geometry={geometry} material={material} position={[x,y,z]}
+   scale={[radius,phase<.25?.010:radius+fall*.11,phase<.25?radius*1.9:radius]}/>;
  })}</>;
 };
-const RainRoof:React.FC<{a:number;b:number;c:number;d:number;elapsed:number}>=({a,b,c,d,elapsed})=>{
+const RainRoof:React.FC<{a:number;b:number;c:number;elapsed:number;extraElapsed:number}>=({a,b,c,elapsed,extraElapsed})=>{
  const wetEnd=mix(-.75,1.46,b),wetDepth=wetEnd+1.65;
  return <>
  <Box p={[0,3,-6]} s={[50,35,.2]} c="#7b989b"/>
@@ -316,7 +315,7 @@ const RainRoof:React.FC<{a:number;b:number;c:number;d:number;elapsed:number}>=({
    {a>.2&&phase>.80&&<mesh position={[x,.492,z]} rotation={[-Math.PI/2,0,0]} scale={[(phase-.80)*2.2,(phase-.80)*2.2,1]}><ringGeometry args={[.13,.17,20]}/><meshBasicMaterial color="#b9e7e5" transparent opacity={(1-phase)*3} side={THREE.DoubleSide}/></mesh>}
   </group>;
  })}
- {c>0&&<RunoffSheet progress={c} elapsed={elapsed} spread={d}/>}
+ {c>0&&<RunoffParticles progress={c} elapsed={elapsed} extraElapsed={extraElapsed}/>}
  </>;
 };
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
@@ -341,7 +340,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s6'&&<Flashing a={a} b={b}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b}/>}
- {id==='s9'&&<RainRoof a={a} b={b} c={c} d={d} elapsed={time-scene.start_s}/>}
+ {id==='s9'&&<RainRoof a={a} b={b} c={c} elapsed={time-scene.start_s} extraElapsed={time-scene.start_s-(scene.visual_events?.[3]?.at_s??0)}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
