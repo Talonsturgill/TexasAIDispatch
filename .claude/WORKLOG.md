@@ -111,3 +111,7 @@ Native B31 hero76ce16ef heard the narration and recognized the architectural cut
 ## B33 end on physical contact
 
 B32 native hero68c65668 now recognizes insertion but rejects the inactive concluding hold and insufficient mechanical sound. B33 removes5.74s of measured silence from one continuous96-word take, preserving every word at original speed. Story35s plus5s credits, mix−16.39LUFS; ten measured cues, no retimed-cut drift. The full-depth section opens first, two substantial thread advances precede section narrowing, then the final descent and pad compression finish0.20s before the cut. Designed threaded friction and contact are stronger and synchronized to those stages. Source scope remains unchanged and transparently rebound. Foley self-test, storyboard, flow, source, super and documentary checks pass. Independent code71 and exact phone/native reviews remain mandatory.
+
+## B34 deterministic canvas capture
+
+B33 exactphone24925ddb passed independently; nativehero30cc0987 received an audiovisual pass. Fullnativefilm4a3a38f5 at40s failed the pre-panel proof: frame153 shows DOM labels over an empty3D canvas, whereas the matching native still shows the handoff desk. The other15 sampled frames differ by about1.8MAE. No final panel was spent. The shared stage now preserves its drawing buffer and synchronously renders the fully committed frame and camera before capture. This advances no simulation and changes no story, narration or timeline. Changed exact phone/native/full proof remains required.
