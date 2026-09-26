@@ -95,3 +95,7 @@ B26 phone passed, but native hero88367ea3 again rejected hand animation, tool ex
 ## 2026-09-26 B28–B29 closure repair
 
 B28 native hero 4a5ccd54 was rejected for whole-brick closure popping and ambiguous roof wording. B29 replaces binary visibility with continuously clipped brick faces and uses a fresh continuous96-word take with explicit flagged-roof-feature wording. Take40.12s, transcript0.990 with recorded proper-name alias, pitch6.589; finalmix45.5s at-16.34LUFS,no stretch. Measured cuts/captions moved; all action durations<=1.1s. Independent source15 and code63 finishing after temporary agent capacity failures. B29 authorized allowance retained; attempted duplicate authorization refused harmlessly, original bound plan preserved and derived alignment inputs recorded separately. No current native/final/release approval yet; edition remains active.
+
+## B30–B31 retained-section correction
+
+B30 phone d1375efc passed motion0.00765 but root exact30.9s inspection found the restored foreground metal concealed the threaded shaft. Code projection had not proved visibility through foreground layers. B31 commit23968a8 retains one continuous inspection section through both metal and backing. Same approved source scope,96-word take,45.5-second mix and measured captions are reused. Independent code67 and changed phone review remain required before native rendering.
