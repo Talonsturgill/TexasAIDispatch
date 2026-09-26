@@ -253,7 +253,7 @@ const FoldedFlashing:React.FC=()=>{
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
  const open=a*(1-.5*e), cutWidth=1.30*open, left=.10-cutWidth/2, right=.10+cutWidth/2;
- const capWidth=1.30*a*(1-e), capLeft=.10-capWidth/2, capRight=.10+capWidth/2;
+ const capWidth=cutWidth, capLeft=left, capRight=right;
  const depth=.46+.80*d, padH=mix(.12,.04,c), headY=mix(.28,.075,b)-.08*c;
  const turn=-(b*3+c*2)*Math.PI*2;
  const thread=useMemo(()=>{
