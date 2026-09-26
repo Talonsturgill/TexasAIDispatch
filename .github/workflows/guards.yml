@@ -195,6 +195,7 @@ jobs:
           # Spend every allowance, then prove the next reservation goes red and a dry-run
           # package can never become delivery authority.
           python3 scripts/run_controller.py --self-test
+          python3 scripts/production_lifecycle_test.py
           python3 scripts/critic_gate.py --self-test
           python3 scripts/audiovisual_review_test.py
           python3 scripts/production_quality_test.py
