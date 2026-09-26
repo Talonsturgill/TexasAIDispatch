@@ -99,3 +99,7 @@ B28 native hero 4a5ccd54 was rejected for whole-brick closure popping and ambigu
 ## B30–B31 retained-section correction
 
 B30 phone d1375efc passed motion0.00765 but root exact30.9s inspection found the restored foreground metal concealed the threaded shaft. Code projection had not proved visibility through foreground layers. B31 commit23968a8 retains one continuous inspection section through both metal and backing. Same approved source scope,96-word take,45.5-second mix and measured captions are reused. Independent code67 and changed phone review remain required before native rendering.
+
+## B31 review-text synchronization
+
+Phone25fd12aa shows the secured shaft and passes motion0.0194. Independent critic68 found one attention description still implied full closure although the scene event described the retained section. The two review-only strings now agree with the pixels. preflight_animatic adds a narrow evidence-preserving rebind: the complete board must be identical except visible_change/viewer_reward strings, source must not consume those fields, and original passing board/film/renderer/critic bindings must validate. Original board text/report remain embedded as evidence. Changed event identity, timing, missing fields, unchanged inputs and ordinary stale-film checks remain rejected. Full self-test passes. This saved an identical preview render; native and final reviews remain required.
