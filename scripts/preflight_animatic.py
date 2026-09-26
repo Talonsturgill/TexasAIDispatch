@@ -77,6 +77,9 @@ def report_problems(saved: dict, board: Path, film: Path) -> list[str]:
         errs.append("the preflight report is not passing")
     if saved.get("board_sha256") != sha256(board):
         errs.append("the preflight report belongs to a different board")
+    data = json.loads(board.read_text(encoding="utf-8"))
+    if data.get("cinematic_template") and saved.get("renderer_sha256") != critic_gate.renderer_digest(data):
+        errs.append("the preflight report belongs to different renderer code or generated image bytes")
     if not film.is_file():
         errs.append("the preflight film is missing")
     elif saved.get("film_sha256") != sha256(film):
@@ -224,6 +227,10 @@ def render(board: Path, film: Path, state: Path) -> None:
                             "--board", str(board), "--verify"])
     if media.returncode:
         raise RuntimeError("a requested generated plate is missing or stale; no animatic was spent")
+    caption_fit = subprocess.run(["node", str(ENGINE / "tests" / "caption_board_fit.mjs"),
+                                  "--board", str(board)], cwd=ENGINE)
+    if caption_fit.returncode:
+        raise RuntimeError("an exact board caption overflows the phone band; no animatic was spent")
     accepted, message = reserve(state, {"preflight_renders": 1}, "quarter-scale animatic")
     print(message, file=sys.stdout if accepted else sys.stderr)
     if not accepted:
@@ -343,12 +350,18 @@ def main() -> int:
                 return 1
             print("preflight_animatic: passing animatic is hash-bound to this board and film")
             return 0
+        if args.inspect_only and board.get("cinematic_template") and Path(args.report).is_file():
+            old = json.loads(Path(args.report).read_text(encoding="utf-8"))
+            stale = report_problems(old, board_path, film)
+            if stale:
+                raise ValueError("inspect-only cannot rebind an older cinematic film: " + "; ".join(stale))
         if not args.inspect_only:
             render(board_path.resolve(), film.resolve(), Path(args.state))
         report, problems = inspect_animatic(board, film)
         contact_sheet(board, film, Path(args.sheet))
         report.update({"pass": not problems, "problems": problems,
                        "board_sha256": sha256(board_path), "film_sha256": sha256(film),
+                       "renderer_sha256": critic_gate.renderer_digest(board),
                        "film": str(film), "contact_sheet": str(args.sheet)})
         Path(args.report).parent.mkdir(parents=True, exist_ok=True)
         Path(args.report).write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

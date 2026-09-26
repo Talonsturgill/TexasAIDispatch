@@ -81,7 +81,8 @@ if [ "$RESERVED" -eq 1 ] && [ -f "$PREFLIGHT" ] && [ -f "$PREFLIGHT_FILM" ] \
     # A slow render is usable; a maximum-concurrency render that dies is not.
     RENDER_CONCURRENCY="${DISPATCH_RENDER_CONCURRENCY:-50%}"
     npx remotion render Dispatch "$SILENT_ABS" --props="$BOARD_ABS" \
-      --concurrency="$RENDER_CONCURRENCY" --timeout=120000 --log=warn
+      --concurrency="$RENDER_CONCURRENCY" --timeout=120000 \
+      --image-format=png --crf=16 --log=warn
   ) && ffmpeg -v error -y -i "$SILENT" -i "$MIX" -map 0:v:0 -map 1:a:0 \
        -c:v copy -c:a aac -b:a 320k "$FILM"; then
     PRIMARY_OK=1

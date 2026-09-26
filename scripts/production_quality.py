@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 import numpy as np
 from PIL import Image
-from render_manifest import file_sha256 as digest, engine_sha256
+from render_manifest import file_sha256 as digest, engine_sha256, generated_media_sha256
 from preflight_animatic import frame, probe, FFMPEG
 from vo_soundcheck import TARGET_LUFS
 
@@ -73,6 +73,38 @@ def asset(root, item):
         raise ValueError("cinematic evidence file missing, changed or outside its package")
     return p
 
+def stage_sample_problems(board, root, samples, film=None):
+    """Measure actual rendered 3D pixels before spending an audiovisual review."""
+    errors = []
+    ids = board["cinema"]["dimensional_scene_ids"]
+    if sorted(samples) != sorted(ids):
+        return ["cinematic proof must cover every declared dimensional scene"]
+    scenes = {s["id"]: s for s in board["scenes"]}
+    for sid in ids:
+        scene = scenes[sid]
+        pair = samples[sid]
+        ev = scene["visual_events"][0]
+        times = [float(scene["start_s"]) + float(ev["at_s"]),
+                 float(scene["start_s"]) + float(ev["at_s"]) + float(ev["duration_s"])]
+        effects = []
+        for idx, at in enumerate(times):
+            normal = image(asset(root, pair[idx]["normal"]))
+            removed = image(asset(root, pair[idx]["without_stage"]))
+            effect = normal - removed
+            effects.append(effect)
+            area = float((np.max(np.abs(effect), axis=2) > 12).mean())
+            if area < policy()["min_stage_pixel_share"]:
+                errors.append(sid + " has too little visible CinematicStage content")
+            if film is not None:
+                current = frame(film, round(at * 30) / 30, 270, 480).astype(float)
+                if float(np.abs(current - normal).mean()) > policy()["max_final_frame_mae"]:
+                    errors.append(sid + " final pixels differ from the approved preview")
+        moving = float((np.max(np.abs(effects[1] - effects[0]), axis=2) > 12).mean())
+        if moving < policy()["min_stage_action_pixel_share"]:
+            errors.append(sid + " dimensional subject does not visibly develop during its action")
+    return errors
+
+
 def preview_problems(board_path, root, mix=None, film=None):
     board = read(board_path)
     if not required(board):
@@ -84,6 +116,7 @@ def preview_problems(board_path, root, mix=None, film=None):
         root = Path(root)
         proof = read(root / "proof.json")
         for key, expected in (("board_sha256", digest(board_path)), ("engine_sha256", engine_sha256()),
+                              ("generated_media_sha256", generated_media_sha256(board_path)),
                               ("policy_sha256", digest(POLICY))):
             if proof.get(key) != expected:
                 errors.append("cinematic preview has stale " + key)
@@ -97,34 +130,7 @@ def preview_problems(board_path, root, mix=None, film=None):
         if (w, h) != (1080, 1920) or abs(dur - passage_duration) > .12:
             errors.append("hero preview must contain the full declared passage at delivery resolution")
         errors += av_problems(root / "hero-review.json", clip, "hero")
-        samples = proof["samples"]
-        ids = board["cinema"]["dimensional_scene_ids"]
-        if sorted(samples) != sorted(ids):
-            errors.append("cinematic proof must cover every declared dimensional scene")
-        scenes = {s["id"]: s for s in board["scenes"]}
-        for sid in ids:
-            scene = scenes[sid]
-            pair = samples[sid]
-            # Action times come from the board, never from a declared coverage score.
-            ev = scene["visual_events"][0]
-            times = [float(scene["start_s"]) + float(ev["at_s"]),
-                     float(scene["start_s"]) + float(ev["at_s"]) + float(ev["duration_s"])]
-            effects = []
-            for idx, at in enumerate(times):
-                normal = image(asset(root, pair[idx]["normal"]))
-                removed = image(asset(root, pair[idx]["without_stage"]))
-                effect = normal - removed
-                effects.append(effect)
-                area = float((np.max(np.abs(effect), axis=2) > 12).mean())
-                if area < policy()["min_stage_pixel_share"]:
-                    errors.append(sid + " has too little visible CinematicStage content")
-                if film is not None:
-                    current = frame(film, round(at * 30) / 30, 270, 480).astype(float)
-                    if float(np.abs(current - normal).mean()) > policy()["max_final_frame_mae"]:
-                        errors.append(sid + " final pixels differ from the approved preview")
-            moving = float((np.max(np.abs(effects[1] - effects[0]), axis=2) > 12).mean())
-            if moving < policy()["min_stage_action_pixel_share"]:
-                errors.append(sid + " dimensional subject does not visibly develop during its action")
+        errors += stage_sample_problems(board, root, proof["samples"], film=film)
     except (OSError, ValueError, KeyError, TypeError, IndexError, subprocess.SubprocessError) as exc:
         errors.append("cinematic preview unavailable: " + str(exc))
     return errors

@@ -6,8 +6,10 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-from production_quality import REPO, POLICY, digest, engine_sha256, read, plan_problems
+from production_quality import REPO, POLICY, digest, engine_sha256, read, plan_problems, stage_sample_problems
+from render_manifest import generated_media_sha256
 from run_controller import reserve
+import critic_gate
 
 def run(argv, cwd=None):
     subprocess.run(argv, cwd=cwd, check=True)
@@ -17,10 +19,19 @@ def build(board, mix, state):
     data = json.loads(board_bytes)
     expected = {"board_sha256": hashlib.sha256(board_bytes).hexdigest(),
                 "engine_sha256": engine_sha256(), "policy_sha256": digest(POLICY),
-                "mix_sha256": digest(mix)}
+                "mix_sha256": digest(mix),
+                "generated_media_sha256": generated_media_sha256(board)}
     errors = plan_problems(data)
     if errors or not data.get("cinema"):
         raise ValueError("; ".join(errors) or "a current cinema plan is required")
+    if str(data.get("date") or "") >= "2026-09-25":
+        phone_film = board.parent / "preflight.mp4"
+        phone_report = read(board.parent / "preflight.json")
+        critic_report = read(board.parent / "storyboard_critic.json")
+        phone_errors = critic_gate.film_review_problems(
+            data, critic_report, phone_report, expected["board_sha256"], digest(phone_film))
+        if phone_errors:
+            raise ValueError("phone visual review is not current: " + "; ".join(phone_errors))
     ok, message = reserve(state, {"preflight_renders": 1}, "finished cinematic hero and stage ablation batch")
     if not ok:
         raise ValueError(message)
@@ -39,7 +50,9 @@ def build(board, mix, state):
     begin = round(float(hero["start_s"]) * 30)
     end = round((float(passage_end["start_s"]) + float(passage_end["duration_s"])) * 30) - 1
     base = ["npx", "remotion"]
-    args = ["--gl=angle", "--concurrency=50%", "--log=error"]
+    # Preserve native text and illustrated edge detail in the hero that is
+    # actually reviewed; the small animatic remains intentionally cheap.
+    args = ["--gl=angle", "--concurrency=50%", "--image-format=png", "--crf=16", "--log=error"]
     run(base + ["render", "Dispatch", str((root / "hero-silent.mp4").resolve()),
                 "--props=" + str(props.resolve()), f"--frames={begin}-{end}"] + args,
         REPO / "video-engine")
@@ -66,8 +79,12 @@ def build(board, mix, state):
                 pair[kind] = entry(path)
             pairs.append(pair)
         proof["samples"][sid] = pairs
+    stage_errors = stage_sample_problems(data, root, proof["samples"])
+    if stage_errors:
+        raise ValueError("dimensional proof failed before audiovisual review: " + "; ".join(stage_errors))
     actual = {"board_sha256": digest(board), "engine_sha256": engine_sha256(),
-              "policy_sha256": digest(POLICY), "mix_sha256": digest(mix)}
+              "policy_sha256": digest(POLICY), "mix_sha256": digest(mix),
+              "generated_media_sha256": generated_media_sha256(board)}
     if actual != expected:
         raise ValueError("production inputs changed during hero rendering; preview approval invalid")
     (root / "proof.json").write_text(json.dumps(proof, indent=2) + "\n")

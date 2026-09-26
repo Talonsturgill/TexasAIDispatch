@@ -71,3 +71,15 @@ a wholly SVG treatment, decorative dimensional content, or a hero action that ca
 understood at phone size. Check the dimensional opening and runtime share against the policy.
 Require a real customer or human action where the story claims one. Review the finished hero
 proof before the full cut. A camera move, texture change or tiny hand gesture is not sufficient.
+
+**A person must perform the claimed action.** A generated presenter cutout sliding, fading, or
+crossfading between poses does not establish a handoff. Inspect where the object starts, what
+moves it, where it lands, and what changes afterward. Reject disconnected hands, duplicate props,
+unmotivated disappearance, or an idle figure held through the opening. If the medium cannot
+perform the action credibly, redesign the shot before granting a code-plan pass.
+
+**Review the occupied picture space.** Check the principal subject at the beginning, contact,
+and result of each event against the actual shared caption band and title overlays. Inspect
+phone frames at all three moments, not only a representative contact-sheet frame. A moving
+object whose landing is hidden by captions fails even if its path is visible. The ending of an
+action must remain readable long enough to explain the next shot.
