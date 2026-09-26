@@ -974,7 +974,7 @@ def extend_agent_ceiling(path: Path, name: str, reason: str,
     """
     state = read_state(path)
     allowed = {"storyboard_critics", "validator_agents", "voice_directors",
-               "research_agents", "audiovisual_reviews", "rescue_renders"}
+               "research_agents", "audiovisual_reviews", "rescue_renders", "reboards"}
     if name not in allowed or not owner_authorized or not reason.strip():
         return False, "run controller: agent extension requires an allowed role, owner direction and reason"
     old = int(state["escalation_ceiling"][name])
@@ -1687,12 +1687,14 @@ def self_test() -> int:
         plan_path.write_text(json.dumps(plan))
 
         st = read_state(extension)
-        for resource in ("audiovisual_reviews", "rescue_renders"):
+        for resource in ("audiovisual_reviews", "rescue_renders", "reboards"):
             st["usage"][resource] = st["escalation_ceiling"][resource]
         save(extension, st)
         ok("review ceiling cannot extend without owner direction",
            not extend_agent_ceiling(extension, "audiovisual_reviews", "review repair", False)[0])
-        for resource in ("audiovisual_reviews", "rescue_renders"):
+        ok("a reboard ceiling cannot extend without owner direction",
+           not extend_agent_ceiling(extension, "reboards", "picture repair", False, plan_path)[0])
+        for resource in ("audiovisual_reviews", "rescue_renders", "reboards"):
             before = read_state(extension)
             old_ceiling = before["escalation_ceiling"][resource]
             ok(f"owner-directed {resource} extension preserves spent work",
