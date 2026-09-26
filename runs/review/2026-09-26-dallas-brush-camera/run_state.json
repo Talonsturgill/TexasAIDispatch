@@ -796,6 +796,12 @@
       "reason": "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures",
       "result": "needs_review",
       "review_package": "runs/review/2026-09-26-dallas-brush-camera"
+    },
+    {
+      "at": "2026-09-26T15:47:47.118873Z",
+      "kind": "reopened",
+      "reason": "Owner correction: rejected video packaging was an invalid terminal outcome. Continue the same edition through diagnosed structural repair and verified shipment; retain all spent usage and exact prior evidence.",
+      "was": "needs_review"
     }
   ],
   "limits": {
@@ -815,23 +821,28 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "deliverable_completion",
+  "phase": "active_repair",
+  "reopened_from": [
+    {
+      "at": "2026-09-26T15:47:47.118763Z",
+      "reason": "Owner correction: rejected video packaging was an invalid terminal outcome. Continue the same edition through diagnosed structural repair and verified shipment; retain all spent usage and exact prior evidence.",
+      "terminal_reason": "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures",
+      "terminal_state": "needs_review"
+    }
+  ],
   "review_package": {
     "blocker_report_sha256": "5a93813a83ab46b0d18c93b2b5e34272528a791fdef43b75ce4a4f77f9865f6b",
     "film_sha256": "9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
     "manifest_sha256": "cb578be36d84fae1eeaf83c3e09b9e89fa3dcf39317e6f9f6cb02430ff1aa8a2",
     "path": "runs/review/2026-09-26-dallas-brush-camera"
   },
-  "review_reasons": [
-    "Hero provider rejected static placeholder opening; native cut is for review only",
-    "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures"
-  ],
-  "review_required": true,
+  "review_reasons": [],
+  "review_required": false,
   "run_id": "2026-09-26",
   "schema": "dispatch_run_state/1",
-  "terminal_reason": "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures",
-  "terminal_state": "needs_review",
-  "updated_at": "2026-09-26T15:08:10.003227Z",
+  "terminal_reason": null,
+  "terminal_state": null,
+  "updated_at": "2026-09-26T15:47:47.118875Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
