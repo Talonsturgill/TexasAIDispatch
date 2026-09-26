@@ -1,3 +1,11 @@
+## September 26 B12 closing action and narration repair
+
+B11 native hero recognized screw contact and seating but rejected long holds before withdrawal. B12 removes the repeated city-process sentence from the original take at measured silent boundaries, preserving the performance and the explicit unknown outcome. Fresh ASR and acoustic alignment bind all 11 cues to the edited mix. The generic attachment scene now runs 4.02 seconds with continuous contact, seating, withdrawal and clearance, in a 46-second film including credits. Tool grip, thumb contact and edge definition are improved. Source scope is reused transparently from validator8; the illustration does not establish Morrison construction. Native hero, current full-film audiovisual panel and release verification remain required.
+
+## September 26 B9 exterior runoff repair, active production
+
+Two rejected tabletop heroes prompted a new exterior roof sequence. The B8 phone review caught a striped curtain over the window. B9 replaces that pane with separate downward streams beside the window, traveling highlights, and two additional streams that grow during the final event. The fixed flashing, rain contact, accumulated wet front and unresolved case limit remain. Numeric projection keeps the outlet above the caption top and the window clear. Code-plan review passes; current exact phone review is pending. Unchanged verified narration, alignment and source claims are reused. Native hero sound, final film and three AV lenses, CI, deployment, playback and unsent draft remain required.
+
 ## September 26 evidence continuity and audiovisual transport
 
 Independent final picture review of native film 0127a01b rejected the loss of the candidate marker between camera capture and a simplified desk print. The code now uses one exact native-frame crop in the captured still, a physical inspection monitor and the handled print, with the same candidate window preserved. The scan accumulates visible inspection traces. The separate resident notice remains readable during its closing lift. Native textures carry crop provenance and byte hashes through critic and render manifests, with substitution rejection tests.

@@ -268,9 +268,9 @@ const Attachment:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  const headY=mix(.62,-.06,b), toolY=headY+mix(.55,0,a)+c*.72;
  const gap=.15*(1-b);
  return <>
- <Box p={[0,-.54,-.25]} s={[5,.605,3.4]} c="#94765d"/>
+ <Box p={[0,-.54,-.25]} s={[5,.605,3.4]} c="#94765d" round={.035}/>
  {Array.from({length:6},(_,i)=><Box key={i} p={[-2.1+i*.84,-.258,-.25]} s={[.02,.008,3.2]} c="#b79772"/>)}
- <Box p={[0,-.2025,-.25]} s={[5.06,.07,3.44]} c="#425c53"/>
+ <Box p={[0,-.2025,-.25]} s={[5.06,.07,3.44]} c="#425c53" round={.02}/>
  <Box p={[0,-.21,1.49]} s={[5.08,.38,.12]} c="#aa8c6b"/>
  <group position={[0,gap,0]}>
   <Box p={[0,-.13,.96]} s={[3.9,.075,1.1]} c="#bfcabc" metal={.65} round={.009}/>
@@ -288,9 +288,12 @@ const Attachment:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
   <group rotation={[0,-b*Math.PI*8,0]}><Box p={[0,.14,0]} s={[.044,.23,.044]} c="#9eada1" metal={.8}/></group>
   <mesh position={[0,.31,0]}><cylinderGeometry args={[.12,.08,.18,20]}/><meshStandardMaterial color="#33473f" metalness={.4} roughness={.35}/></mesh>
   <mesh position={[0,.62,0]}><cylinderGeometry args={[.15,.15,.52,24]}/><meshStandardMaterial color="#d18e48" roughness={.46}/></mesh>
+  {[.39,.43,.47].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[.153,.008,6,24]}/><meshStandardMaterial color="#44564a" roughness={.65}/></mesh>)}
   <mesh position={[0,.94,0]}><cylinderGeometry args={[.17,.15,.15,24]}/><meshStandardMaterial color="#263f3d" roughness={.6}/></mesh>
   {[.51,.63,.75,.87].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,-.25]}><torusGeometry args={[.18,.044,8,20,Math.PI*1.45]}/><meshStandardMaterial color="#b58769" roughness={.7}/></mesh>)}
-  <Box p={[.19,.70,.045]} s={[.20,.48,.24]} c="#ad7f62" round={.045}/>
+  <Box p={[.19,.70,.045]} s={[.20,.48,.24]} c="#ad7f62" round={.07}/>
+  <Rod from={[.24,.86,.14]} to={[-.02,.72,.20]} radius={.064} c="#bd9071"/>
+  <Ball p={[-.02,.72,.20]} s={[.068,.055,.062]} c="#bd9071"/>
   <Rod from={[.25,.72,.04]} to={[.80,.74,.05]} radius={.13} c="#b58769"/>
   <Rod from={[.66,.74,.05]} to={[2.10,.79,.09]} radius={.19} c="#477080"/>
  </group>
