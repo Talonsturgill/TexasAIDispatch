@@ -252,72 +252,48 @@ const FoldedFlashing:React.FC=()=>{
  return <mesh position={[-2.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
- const lift=.80*(1-a), forward=.38*(1-a), headY=mix(.25,-.04,c);
- const toolY=headY+d*.90+.08*Math.sin(b*Math.PI)+.20*Math.sin(d*Math.PI), turn=-c*Math.PI*6;
- const toolX=mix(mix(1.25,.10,b),2.70,d), toolZ=mix(mix(.35,1.15,b),.40,d);
- const reach=Math.min(1,e*4), roll=Math.max(0,(e-.25)/.75), rollZ=.60+roll*.82;
- const left:V3=[mix(mix(-.86,-.78,b),-.70,reach),mix(lift+mix(-.02,.04,b),.33+.055*roll,reach),mix(forward+mix(1.15,.40,b),rollZ,reach)];
- const gripAngle=-c*Math.PI*.30;
- const wrist:V3=[toolX+.23*Math.cos(gripAngle)+.04*Math.sin(gripAngle),toolY+.57,toolZ-.23*Math.sin(gripAngle)+.04*Math.cos(gripAngle)];
- const leftWrist:V3=[left[0]-.55,left[1]+.012,left[2]];
-
+ const open=a*(1-e), cutWidth=.96*open, left=-.38, right=left+cutWidth;
+ const depth=.46+.80*d, padH=mix(.12,.04,c), headY=mix(.28,.075,b)-.08*c;
+ const turn=-(b*3+c*2)*Math.PI*2;
+ const thread=useMemo(()=>{
+  const points=Array.from({length:321},(_,i)=>{const q=i/320,angle=q*Math.PI*16;return new THREE.Vector3(Math.cos(angle)*.065,-.045-q*.83,Math.sin(angle)*.065);});
+  return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points),320,.012,8,false);
+ },[]);
+ const metalBand=(x:number,width:number)=><group position={[x,0,0]} scale={[width/5.8,1,1]}><FoldedFlashing/></group>;
  return <>
- <Box p={[0,-2.05,-1.25]} s={[5.8,3.9,5.50]} c="#98735e" round={.008}/>
- {Array.from({length:22},(_,row)=>Array.from({length:13},(_,col)=><Box key={row+'-'+col}
-   p={[-2.78+col*.46+(row%2)*.06,-.24-row*.17,1.507]} s={[.42,.142,.016]} round={.005}
-   c={['#a27b62','#b18d73','#977059'][(row+col)%3]}/>))}
- <Box p={[0,-1.27,1.555]} s={[1.04,.83,.095]} c={cream} round={.015}/>
- <Box p={[0,-1.27,1.61]} s={[.91,.70,.02]} c="#557c86" metal={.3}/>
- <Box p={[0,-1.27,1.633]} s={[.04,.70,.03]} c={cream}/>
- <Box p={[0,-1.34,1.633]} s={[.91,.035,.03]} c={cream}/>
- <Box p={[-.23,-1.12,1.645]} s={[.14,.26,.008]} c="#a6bfb9"/>
- <Box p={[0,-1.70,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
- <Box p={[0,-.185,-1.25]} s={[5.8,.17,5.50]} c="#786d57"/>
- <Box p={[0,-.112,-1.25]} s={[5.8,.024,5.50]} c="#354d45"/>
+ {/* A section plane reveals one attached architectural assembly; no prop floats. */}
+ <Box p={[0,-2.05,-1.445]} s={[5.8,3.9,5.11]} c="#9f7c62"/>
+ <Box p={[-1.64,-2.05,1.30]} s={[2.52,3.9,.40]} c="#98735e"/>
+ <Box p={[(right+2.9)/2,-2.05,1.30]} s={[2.9-right,3.9,.40]} c="#98735e"/>
+ {cutWidth>0&&<Box p={[(left+right)/2,(-4-depth)/2,1.30]} s={[cutWidth,4-depth,.40]} c="#98735e"/>}
+ {Array.from({length:22},(_,row)=>Array.from({length:13},(_,col)=>{
+  const x=-2.78+col*.46+(row%2)*.06,y=-.24-row*.17;
+  return x>left-.20&&x<right+.20&&y>-depth-.08?null:<Box key={row+'-'+col} p={[x,y,1.507]} s={[.42,.142,.016]} round={.006} c={['#a27b62','#b18d73','#977059'][(row+col)%3]}/>;
+ }))}
+ <Box p={[0,-1.52,1.555]} s={[1.04,.73,.095]} c={cream} round={.015}/>
+ <Box p={[0,-1.52,1.61]} s={[.91,.60,.02]} c="#557c86" metal={.3}/>
+ <Box p={[0,-1.52,1.633]} s={[.04,.60,.03]} c={cream}/>
+ <Box p={[0,-1.56,1.633]} s={[.91,.035,.03]} c={cream}/>
+ <Box p={[0,-1.90,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
+ <Box p={[0,-.295,-1.445]} s={[5.8,.38,5.11]} c="#b99060"/>
+ {[-.15,-.22,-.30,-.38,-.45].map(y=><Box key={y} p={[0,y,1.112]} s={[5.8,.009,.008]} c="#8d6b47"/>)}
+ <Box p={[-1.64,-.295,1.30]} s={[2.52,.38,.40]} c="#b99060"/>
+ <Box p={[(right+2.9)/2,-.295,1.30]} s={[2.9-right,.38,.40]} c="#b99060"/>
  <Box p={[0,-.030,-1.5]} s={[5.8,.05,4.88]} c="#45594c" round={.014}/>
  {[-2.4,-1.6,-.8,0,.8,1.6,2.4].map(x=><Box key={x} p={[x,-.002,-1.5]} s={[.018,.006,4.8]} c="#354a3d"/>)}
- <group position={[0,lift,forward]}>
-  <FoldedFlashing/>
-  {[-.72,.72].map(x=><group key={x}>
-   <Ball p={[x,-.052,1.15]} s={[.074,.014,.074]} c="#52675d"/>
-   <Box p={[x,-.035,1.15]} s={[.075,.005,.009]} c="#d2d9c9"/>
-  </group>)}
-  <group position={[.10,headY,1.15]} rotation={[0,turn,0]}>
-   <Rod from={[0,-.31,0]} to={[0,-.025,0]} radius={.032} c="#87958a"/>
-   {Array.from({length:6},(_,i)=><mesh key={i} position={[0,-.055-i*.046,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[.042,.009,6,20]}/><meshStandardMaterial color="#a5b2a8" metalness={.8} roughness={.24}/></mesh>)}
-   <mesh><cylinderGeometry args={[.105,.105,.04,32]}/><meshStandardMaterial color="#cad2c7" metalness={.85} roughness={.22}/></mesh>
-   <Box p={[0,.023,0]} s={[.15,.004,.025]} c="#334a42"/><Box p={[0,.024,0]} s={[.025,.004,.15]} c="#334a42"/>
-  </group>
+ {metalBand(-1.64,2.52)}
+ {metalBand((right+2.9)/2,2.9-right)}
+ {cutWidth>0&&<Box p={[(left+right)/2,-.0825,.97]} s={[cutWidth,.035,.30]} c="#d7ded1" metal={.75}/>}
+ {/* The cross section exposes the shaft and helical thread at the front cut face. */}
+ <mesh position={[.10,-.065+padH/2,1.15]} castShadow><cylinderGeometry args={[.185,.185,padH,48]}/><meshStandardMaterial color="#33483d" roughness={.83}/></mesh>
+ <group position={[.10,headY,1.15]} rotation={[0,turn,0]}>
+  <mesh position={[0,-.47,0]} castShadow><cylinderGeometry args={[.043,.043,.90,32]}/><meshStandardMaterial color="#bcc8bd" metalness={.88} roughness={.22}/></mesh>
+  <mesh geometry={thread} castShadow><meshStandardMaterial color="#dbe2d7" metalness={.85} roughness={.24}/></mesh>
+  <mesh castShadow><cylinderGeometry args={[.145,.145,.04,48]}/><meshStandardMaterial color="#d7dfd3" metalness={.87} roughness={.21}/></mesh>
+  <Box p={[0,.023,0]} s={[.22,.004,.035]} c="#334a42"/>
+  <Box p={[0,.024,0]} s={[.035,.004,.22]} c="#334a42"/>
  </group>
- <group position={[toolX,toolY,toolZ]}>
-  <group rotation={[0,turn,0]}>
-   <Box p={[0,.13,0]} s={[.033,.21,.033]} c="#b6c1b5" metal={.85}/>
-   <mesh position={[0,.30,0]}><cylinderGeometry args={[.10,.06,.14,24]}/><meshStandardMaterial color="#30443d" metalness={.5} roughness={.3}/></mesh>
-   <mesh position={[0,.55,0]}><cylinderGeometry args={[.125,.125,.42,32]}/><meshStandardMaterial color="#d59952" roughness={.42}/></mesh>
-   {[0,1,2,3,4,5].map(i=><Box key={i} p={[Math.cos(i*Math.PI/3)*.116,.55,Math.sin(i*Math.PI/3)*.116]} s={[.034,.32,.034]} c="#40554c" round={.01}/>)}
-   <mesh position={[0,.81,0]}><sphereGeometry args={[.14,24,16]}/><meshStandardMaterial color="#30483f" roughness={.4}/></mesh>
-  </group>
-  <group rotation={[0,-c*Math.PI*.30,0]}>
-   {[.41,.51,.61,.71].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,-.28]}><torusGeometry args={[.155,.039,10,24,Math.PI*1.5]}/><meshStandardMaterial color="#ba8c6d" roughness={.72}/></mesh>)}
-   <Ball p={[.16,.57,.025]} s={[.11,.24,.12]} c="#b28265"/>
-   <Rod from={[.19,.73,.12]} to={[-.015,.60,.18]} radius={.054} c="#c09070"/>
-
-  </group>
- </group>
- {/* The close shot crops connected forearms at the physical frame edges. */}
- <Rod from={[-5,left[1]+.12,left[2]-.05]} to={leftWrist} radius={.115} c="#477080"/>
- <Rod from={leftWrist} to={[left[0]-.22,left[1]+.015,left[2]]} radius={.087} c="#b58769"/>
- <Rod from={[5,toolY+.76,toolZ-.20]} to={[wrist[0]+.30,wrist[1]+.03,wrist[2]]} radius={.13} c="#477080"/>
- <Rod from={[wrist[0]+.30,wrist[1]+.03,wrist[2]]} to={wrist} radius={.095} c="#b58769"/>
- <Hand p={left} r={[0,-Math.PI/2,0]} scale={.82}/>
- {roll>0&&<Box p={[-.25,.0225,.60+roll*.41]} s={[2.10,.055,Math.max(.002,roll*.82)]} c="#b0b9a0" round={.004}/>}
- <group position={[-.25,.14+.055*roll,rollZ]} rotation={[0,0,Math.PI/2]}>
-  <group rotation={[0,roll*3.3,0]}>
-   <mesh castShadow><cylinderGeometry args={[.145,.145,2.10,40]}/><meshStandardMaterial color="#b0b9a0" roughness={.79}/></mesh>
-   <Box p={[.147,0,0]} s={[.009,2.08,.014]} c="#405745"/>
-  </group>
-  {[-1.055,1.055].map(y=><mesh key={y} position={[0,y,0]}><cylinderGeometry args={[.105,.105,.012,32]}/><meshStandardMaterial color="#8d927a" roughness={.84}/></mesh>)}
- </group>
+ {[-1.4,1.4].map(x=><group key={x}><Ball p={[x,-.048,1.15]} s={[.105,.024,.105]} c="#9eafa1"/><Box p={[x,-.020,1.15]} s={[.14,.004,.016]} c="#35483e"/></group>)}
  </>;
 };
 const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
@@ -433,7 +409,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC 5</div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
- {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ATTACHMENT</div>}
+ {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE CUTAWAY</div>}
  {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:34,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATIVE COMPARISON</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}
