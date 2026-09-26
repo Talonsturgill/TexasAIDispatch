@@ -254,7 +254,7 @@ const FoldedFlashing:React.FC=()=>{
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
  const open=a*(1-.5*e), cutWidth=1.30*open, left=.10-cutWidth/2, right=.10+cutWidth/2;
  const capWidth=cutWidth, capLeft=left, capRight=right;
- const depth=.46+.80*d, padH=mix(.12,.04,c), headY=mix(.28,.075,b)-.08*c;
+ const depth=.46+.80*d, padH=mix(.12,.04,c), headY=mix(.95,.075,b)-.08*c;
  const turn=-(b*3+c*2)*Math.PI*2;
  const thread=useMemo(()=>{
   const points=Array.from({length:321},(_,i)=>{const q=i/320,angle=q*Math.PI*16;return new THREE.Vector3(Math.cos(angle)*.065,-.045-q*.83,Math.sin(angle)*.065);});
@@ -385,7 +385,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[1.6,3.3,6.3],target:[.1,-.78,1.0],fov:30}:
+ id==='s6'?{position:[1.6,3.3,6.3],target:[.1,-.25,1.0],fov:38}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
