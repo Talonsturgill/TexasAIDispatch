@@ -1,3 +1,11 @@
+## September 26 evidence continuity and audiovisual transport
+
+Independent final picture review of native film 0127a01b rejected the loss of the candidate marker between camera capture and a simplified desk print. The code now uses one exact native-frame crop in the captured still, a physical inspection monitor and the handled print, with the same candidate window preserved. The scan accumulates visible inspection traces. The separate resident notice remains readable during its closing lift. Native textures carry crop provenance and byte hashes through critic and render manifests, with substitution rejection tests.
+
+Story and sound requests disconnected after about sixty-three seconds without verdicts. The review transport now uses the provider's documented streamGenerateContent SSE endpoint and retains the unmodified chunks alongside assembled response text. Tests prove incomplete responses fail and rejected results remain rejected. The review prompt now states the existing attribution-tail exemption while retaining every story/action rejection condition. This is policy alignment, not a passing verdict. Documentation checked for this specific transport question: https://ai.google.dev/api/generate-content#method:-models.streamgeneratecontent .
+
+New exact phone, native proof and independent final reviews remain required. No release is claimed by this checkpoint.
+
 ## September 26 resumed Dallas film, camera determinism repair
 
 The native b2 film (685d9afddebbc2b3) failed its exact-frame comparison against cold proof stills. The shared camera retained an earlier scene projection during sequential rendering. Studio now sets authored field of view and refreshes the projection matrix, through a tested helper, before capture. Warm/cold projection and actual native-stage regression checks pass. Critic bindings now cover Studio and the projection helper, with changed-dependency rejection tests.

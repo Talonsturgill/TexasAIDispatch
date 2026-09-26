@@ -38,6 +38,23 @@ def engine_sha256(root: Path = ENGINE) -> str:
     return h.hexdigest()
 
 
+def native_media_paths(data: dict, public: Path = PUBLIC) -> list[Path]:
+    """Bind deterministic film-derived textures without claiming generated photography."""
+    paths = []
+    for item in data.get("native_media") or []:
+        relative = str(item.get("file") or "")
+        path = Path(relative)
+        if path.is_absolute() or ".." in path.parts or not relative.startswith("evidence/"):
+            raise ValueError("native texture must stay in public/evidence")
+        asset = public / path
+        if file_sha256(asset) != item.get("sha256"):
+            raise ValueError("native texture bytes changed: " + relative)
+        if len(str(item.get("basis") or "")) < 30:
+            raise ValueError("native texture lacks recorded provenance")
+        paths.append(asset)
+    return paths
+
+
 def generated_media_sha256(board: Path) -> str:
     """Digest every exceptional plate the board can put into the rendered pixels."""
     data = json.loads(board.read_text(encoding="utf-8"))
@@ -51,6 +68,11 @@ def generated_media_sha256(board: Path) -> str:
         if not path.is_file():
             raise FileNotFoundError(f"generated plate missing: {path}")
         h.update(relative.encode())
+        h.update(b"\0")
+        h.update(path.read_bytes())
+        h.update(b"\0")
+    for path in native_media_paths(data):
+        h.update(path.relative_to(PUBLIC).as_posix().encode())
         h.update(b"\0")
         h.update(path.read_bytes())
         h.update(b"\0")
@@ -126,6 +148,18 @@ def self_test() -> int:
            not artifact_problems(manifest, film, board))
         ok("...but cannot impersonate a current-source publication",
            bool(problems(manifest, film, board)))
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td); (root / "evidence").mkdir()
+        texture = root / "evidence" / "capture.png"; texture.write_bytes(b"native-frame")
+        data = {"native_media": [{"file": "evidence/capture.png", "sha256": file_sha256(texture),
+                                  "basis": "Exact crop of a known native rendered illustration frame."}]}
+        ok("native texture binds its recorded bytes", native_media_paths(data, root) == [texture])
+        texture.write_bytes(b"changed-frame")
+        try:
+            native_media_paths(data, root); rejected = False
+        except ValueError:
+            rejected = True
+        ok("changed native texture fails before rendering", rejected)
     print(f"render_manifest: {failures} failure(s)")
     return 1 if failures else 0
 

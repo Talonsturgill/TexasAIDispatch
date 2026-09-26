@@ -1,7 +1,8 @@
 import React, {useMemo} from 'react';
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-import {Sequence, useCurrentFrame, useVideoConfig} from 'remotion';
+import {Img, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {useLoader} from '@react-three/fiber';
 import {CinematicStage} from './lib/cinema/CinematicStage';
 import {actionProgress, actionWindows, requireAction} from './lib/direction';
 import {cue, mix, type V3} from './lib/cinema/motion';
@@ -101,16 +102,30 @@ const Street:React.FC<{a:number;b:number}>=({a,b})=><>
  </group>}
  <Truck x={mix(.72,-1.65,a*.48+b*.52)} closed={Math.sin(a*Math.PI)**12} travel={a+b}/>
 </>;
+const PhotoSurface:React.FC=()=>{
+ const texture=useLoader(THREE.TextureLoader,staticFile('evidence/dallas-captured-facade.png'));
+ texture.colorSpace=THREE.SRGBColorSpace;
+ return <mesh><planeGeometry args={[2.8,1.89]}/><meshBasicMaterial map={texture}/></mesh>;
+};
 // The camera view is an attached optical viewport. No photograph floats into the street.
 const Capture:React.FC<{a:number;b:number;scan?:boolean}>=({a,b,scan=false})=><>
  <Box p={[0,-.57,0]} s={[15,.12,10]} c="#667558"/>
- <group position={[scan?0:mix(.65,-.35,Math.min(1,a*.55+b*.45)),0,0]}><House scale={.83}/></group>
+ {scan?<group position={[0,.48,.15]}>
+ <Box p={[0,0,-.08]} s={[3.06,2.12,.14]} c="#364d55" round={.06}/>
+ <PhotoSurface/>
+ <Box p={[0,-1.15,-.11]} s={[.25,.38,.23]} c="#364d55"/>
+ <Box p={[0,-1.34,.10]} s={[1.4,.10,.72]} c="#4a6264"/>
+ </group>:<group position={[mix(.65,-.35,Math.min(1,a*.55+b*.45)),0,0]}><House scale={.83}/></group>}
  <Box p={[0,-.51,1.6]} s={[15,.05,2.1]} c="#556467"/>
  <Box p={[0,-.40,.52]} s={[15,.16,.14]} c="#bec0ac"/>
  {scan&&<>
-  <Box p={[mix(-1.52,1.43,a),.60,.19]} s={[.025,1.76,.02]} c="#b3e4ce"/>
-  {b>.01&&<group position={[-.70,.60,.23]} scale={b}>
-   {[-1,1].map(sign=><React.Fragment key={sign}><Box p={[sign*.33,0,0]} s={[.025,.64,.02]} c={copper}/><Box p={[0,sign*.32,0]} s={[.68,.025,.02]} c={copper}/></React.Fragment>)}
+  {Array.from({length:8},(_,col)=>Array.from({length:4},(_,row)=>{
+   const visible=a>(col+1)/8; return visible?<mesh key={col+'-'+row} position={[-1.225+col*.35,-.22+row*.44,.20]}><planeGeometry args={[.32,.40]}/><meshBasicMaterial color="#8fddc3" transparent opacity={.16}/></mesh>:null;
+  }))}
+
+  <Box p={[mix(-1.39,1.39,a),.48,.22]} s={[.035,1.89,.02]} c="#b3e4ce"/>
+  {b>.01&&<group position={[-1.095,.682,.24]} scale={b}>
+   {[-1,1].map(sign=><React.Fragment key={sign}><Box p={[sign*.31,0,0]} s={[.055,.79,.02]} c={copper}/><Box p={[0,sign*.385,0]} s={[.66,.055,.02]} c={copper}/></React.Fragment>)}
   </group>}
  </>}
 </>;
@@ -147,16 +162,25 @@ const Table:React.FC<{home?:boolean}>=({home=false})=><>
   <Box p={[0,0,.062]} s={[.055,1.23,.035]} c={cream}/>
  </group>}
 </>;
+// One conserved image joins capture, candidate marking and manual inspection.
+const CapturedPrint:React.FC=()=>{
+ return <>
+ <Box p={[0,0,0]} s={[3.06,.035,2.12]} c={cream} round={.025}/>
+ <group position={[0,.022,0]} rotation={[-Math.PI/2,0,0]}><PhotoSurface/></group>
+ {[-1,1].map(sign=><React.Fragment key={sign}>
+  <Box p={[-1.095+sign*.31,.035,-.202]} s={[.055,.013,.79]} c={copper}/>
+  <Box p={[-1.095,.035,-.202+sign*.385]} s={[.66,.013,.055]} c={copper}/>
+ </React.Fragment>)}
+ </>;
+};
 const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
- const py=.055+c*.27;return <>
+ return <>
  <Table/>
- <group position={[-.22,py,-.18]} rotation={[c*.29,0,-.055]}>
-  <Paper p={[0,0,0]} house/>
-  <Box p={[-.27,.027,.05]} s={[.35,.007,.025]} c={copper}/>
-  <Hand p={[mix(1.4,.50,a),.10,.22]} r={[0,1.4,0]}/>
+ <group position={[0,.06+c*.30,-.20]} rotation={[c*.18,0,0]}>
+  <CapturedPrint/>
+  <Hand p={[mix(-2.30,-1.57,a),.11,mix(-.37,.06,b)]} r={[0,-Math.PI/2,0]} scale={.78}/>
  </group>
- <Box p={[-1.63,.09,-.36]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
- <Rod from={[-.4,.09,.61]} to={[-.4+b*.46,.09,.27]} radius={.025} c="#c59d68"/>
+ <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
  </>;
 };
 const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
@@ -223,7 +247,7 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=fals
  const move=closing?1:a*.35+b*.65;
  return <>
  <Table home/>
- <group position={[-.62,closing?mix(.028,.44,a)*(1-b)+.028*b:.028,.08]} rotation={[closing?-.45*a*(1-b):0,-.06,0]}>
+ <group position={[-.62,closing?mix(.028,.44,a)*(1-b)+.028*b:.028,.08]} rotation={[closing?.25*a*(1-b):0,-.06,0]}>
  <Paper p={[0,0,0]} scale={.9}/>
  {closing&&<Hand p={[.44,.08,.25]} r={[0,1.2,0]} scale={.72}/>}
  </group>
@@ -239,7 +263,9 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),id=scene.id;
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
- ['s2','s3'].includes(id)?{position:[0,2.1,8.6],target:[0,-.05,-.4],fov:38}:
+ id==='s2'?{position:[0,2.1,8.6],target:[0,-.05,-.4],fov:38}:
+ id==='s3'?{position:[0,2.1,8.6],target:[.10,-.05,-.4],fov:42}:
+ id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
@@ -269,6 +295,9 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  <div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div>
+ {scene.id==='s2'&&p(1)>.12&&<div style={{position:'absolute',left:106,top:575,width:830,height:560,overflow:'hidden',border:'6px solid #eee4cb'}}>
+ <Img src={staticFile('evidence/dallas-captured-facade.png')} style={{width:'100%',height:'100%',objectFit:'fill'}}/>
+ </div>}
  {['s2','s3'].includes(scene.id)&&<div style={{position:'absolute',left:94,right:130,top:510,height:650,border:'3px solid #d8e0c280',borderRadius:18,boxShadow:scene.id==='s2'&&p(1)>.4?'inset 0 0 0 8px #e1e1cb':'none'}}>
  <div style={{position:'absolute',left:20,top:20,fontFamily:FONT.mono,fontSize:23,color:cream}}>{scene.id==='s2'?'SIDE CAMERA / ILLUSTRATION':'COMPUTER VISION / ILLUSTRATION'}</div></div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}

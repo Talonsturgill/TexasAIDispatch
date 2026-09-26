@@ -48,6 +48,8 @@ def renderer_digest(board: dict) -> str | None:
              REPO / "video-engine" / "src" / "lib" / "cinema" / "Studio.tsx",
              REPO / "video-engine" / "src" / "lib" / "cinema" / "projection.ts",
              REPO / "video-engine" / "src" / "lib" / "direction.ts"]
+    from render_manifest import native_media_paths
+    files.extend(native_media_paths(board))
     h = hashlib.sha256()
     for file in files:
         h.update(str(file.relative_to(REPO)).encode())

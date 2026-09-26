@@ -7,6 +7,23 @@ from unittest.mock import patch
 import audiovisual_review as av
 
 class ReviewReuse(unittest.TestCase):
+    def test_stream_preserves_real_chunks_and_rejects_incomplete_results(self):
+        from unittest.mock import Mock
+        chunks = [
+            {"responseId": "real-provider-id", "candidates": [{"content": {"parts": [{"text": '{"pass":'}]}}]},
+            {"responseId": "real-provider-id", "candidates": [{"content": {"parts": [{"text": "false}"}]}, "finishReason": "STOP"}],
+             "usageMetadata": {"totalTokenCount": 123}}]
+        response = Mock()
+        response.iter_lines.return_value = [b"data: " + json.dumps(c).encode() for c in chunks]
+        result = av.streamed_response(response)
+        self.assertEqual(result["provider_chunks"], chunks)
+        self.assertFalse(json.loads("".join(p["text"] for p in result["candidates"][0]["content"]["parts"]))["pass"])
+        self.assertEqual(result["usageMetadata"]["totalTokenCount"], 123)
+        response.iter_lines.return_value = [b"data: " + json.dumps(chunks[0]).encode()]
+        with self.assertRaisesRegex(ValueError, "incomplete"):
+            av.streamed_response(response)
+
+
     def test_exact_result_reused_before_reservation_or_network(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp); film=root/"film.mp4"; film.write_bytes(b"exact film")
