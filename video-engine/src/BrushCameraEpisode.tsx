@@ -255,17 +255,19 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  {Array.from({length:13},(_,i)=><Rod key={i} from={[sweep-.28+i*.046,-.47,.90]} to={[sweep-.31+i*.049,-.55,.97]} radius={.012} c="#d6bb80"/>)}
  </>;
 };
-const Evidence:React.FC<{a:number;b:number;closing?:boolean;settled?:boolean}>=({a,b,closing=false,settled=false})=>{
- const move=closing?1:a*.35+b*.65;
+const Evidence:React.FC<{a:number;b:number;c?:number;closing?:boolean;settled?:boolean}>=({a,b,c=0,closing=false,settled=false})=>{
+ const move=closing?1:a;
+ const lift=settled?0:.18*(1-b)+Math.sin(a*Math.PI)*.08;
+ const release=settled?0:c;
  return <>
  <Table home/>
- <group position={[-.62,closing?mix(.028,.44,a)*(1-b)+.028*b:.028,.08]} rotation={[closing?.25*a*(1-b):0,-.06,0]}>
+ <group position={[-.62,closing?mix(-.0015,.44,a)*(1-b)-.0015*b:-.0015,.08]} rotation={[closing?.25*a*(1-b):0,-.06,0]}>
  <Paper p={[0,0,0]} scale={.9}/>
  {closing&&<Hand p={[.44,.08,.25]} r={[0,1.2,0]} scale={.72}/>}
  </group>
- <group position={[mix(1.61,.57,move),.045,-.02]} rotation={[0,.08,0]}>
+ <group position={[mix(1.14,.57,move),-.002+lift,-.02-.18*Math.sin(a*Math.PI)]} rotation={[settled?0:.16*(1-b),mix(.24,.08,b),0]}>
   <Paper p={[0,0,0]} roof scale={.85}/>
-  {!settled&&<Hand p={[.48,.09,.31]} r={[0,1.18,0]} scale={.72}/>}
+  {!settled&&<Hand p={[-.48-release*2.3,.062+release*.25+.08*Math.sin(release*Math.PI),.31+release*.30]} r={[0,-1.18-release*.12,0]} scale={.72}/>}
  </group>
 
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
@@ -273,14 +275,14 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean;settled?:boolean}>=(
 };
 const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  // The table and both documents stay where scene eight left them.
- const loupeX=mix(1.50,.74,b)-c*.08+d*.97, loupeZ=mix(.60,.16,b)+d*.23;
+ const loupeX=mix(1.50,.74,b)-c*.08+d*.97, loupeZ=mix(.60,.16,b)-.10*Math.sin(b*Math.PI)+d*.23;
  const dx=loupeX-.57,dz=loupeZ+.02;
  const paperX=(Math.cos(.08)*dx-Math.sin(.08)*dz)/.85;
  const paperZ=(Math.sin(.08)*dx+Math.cos(.08)*dz)/.85;
  const focus:[number,number]=[.5+paperX/.98,.5-(paperZ+.03)/.78];
  return <>
  <Evidence a={1} b={1} settled/>
- <group position={[.57,.057,-.02]} rotation={[0,.08,0]}>
+ <group position={[.57,.010,-.02]} rotation={[0,.08,0]}>
   <mesh position={[mix(.72,0,a),.008,0]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[1.02,1.05]}/><meshPhysicalMaterial color="#d3e0d4" transparent opacity={.10} roughness={.12} depthWrite={false}/></mesh>
   <group position={[mix(.72,0,a),.02,0]}>
    <Box p={[.26,0,.36]} s={[.52,.008,.035]} c={copper}/>
@@ -290,7 +292,7 @@ const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c
   </group>
   <Hand p={[mix(1.10,.40,a),.035,.25]} r={[0,1.20,0]} scale={.52}/>
  </group>
- <group position={[loupeX,.24+c*.025,loupeZ]}>
+ <group position={[loupeX,.193+.07*Math.sin(b*Math.PI)+.035*Math.sin(c*Math.PI)+d*.20,loupeZ]}>
   <mesh rotation={[-Math.PI/2,0,0]} castShadow><torusGeometry args={[.365,.028,12,64]}/><meshStandardMaterial color="#384e4a" metalness={.8} roughness={.25}/></mesh>
   <group position={[0,.002,0]}><RoofDiagram loupe focus={focus}/></group>
   <mesh position={[0,.008,0]} rotation={[-Math.PI/2,0,0]}><circleGeometry args={[.34,64]}/><meshPhysicalMaterial color="#e1f0e6" transparent opacity={.055} roughness={.04} depthWrite={false}/></mesh>
@@ -309,7 +311,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
- id==='s9'?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
+ ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
@@ -320,7 +322,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s5'&&<Notice a={a} b={b}/>}
  {id==='s6'&&<Flashing a={a} b={b}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
- {id==='s8'&&<Evidence a={a} b={b}/>}
+ {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
  {id==='s9'&&<EvidenceComparison a={a} b={b} c={c} d={d}/>}
  </CinematicStage>;
 };

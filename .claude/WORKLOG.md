@@ -1,3 +1,7 @@
+## September 26 B15 visible document placement
+
+B14 native comparison explained the dispute and had audible narration, but its early paper travel was cropped and the motion appeared mechanical. The revised placement uses the same readable table framing as the optical comparison: immediate curved carry, quick descent to actual table contact, and a hand exit before the cut. Loupe approach and withdrawal follow shallow arcs. Three short placement events retain the existing quick pacing limits. Original narration is retained; paper contact timing and acoustic captions were rebuilt and verified. Current phone and native audiovisual gates remain mandatory before final rendering.
+
 ## September 26 B13 evidence-comparison pivot
 
 Two native fastening passages failed story relevance. The ending now stays with the illustrative roof document and notice: a hand registers a tracing, a held loupe enlarges the printed flashing contour, follows it, and clears the comparison. The diagram is explicitly explanatory, never the actual Morrison document or a known city decision. The hero includes the short setup and comparison in scenes eight and nine. Phone projection and fingertip contact were repaired before rendering; source and critic checks bind current inputs. Narration is retained, paper contact replaces the motor, and acoustic alignment is reverified. All native audiovisual, final panel and shipment gates remain.
