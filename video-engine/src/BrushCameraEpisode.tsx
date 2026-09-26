@@ -256,7 +256,7 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  const toolY=headY+d*.90+.08*Math.sin(b*Math.PI)+.20*Math.sin(d*Math.PI), turn=-c*Math.PI*6;
  const toolX=mix(mix(1.25,.10,b),2.70,d), toolZ=mix(mix(.35,1.15,b),.40,d);
  const reach=Math.min(1,e*4), roll=Math.max(0,(e-.25)/.75), rollZ=.60+roll*.82;
- const left:V3=[mix(mix(-.86,-.78,b),-.70,reach),mix(lift+mix(-.02,.04,b),.33,reach),mix(forward+mix(1.15,.40,b),rollZ,reach)];
+ const left:V3=[mix(mix(-.86,-.78,b),-.70,reach),mix(lift+mix(-.02,.04,b),.33+.055*roll,reach),mix(forward+mix(1.15,.40,b),rollZ,reach)];
  const gripAngle=-c*Math.PI*.30;
  const wrist:V3=[toolX+.23*Math.cos(gripAngle)+.04*Math.sin(gripAngle),toolY+.57,toolZ-.23*Math.sin(gripAngle)+.04*Math.cos(gripAngle)];
  const leftWrist:V3=[left[0]-.55,left[1]+.012,left[2]];
@@ -272,8 +272,8 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  <Box p={[0,-1.34,1.633]} s={[.91,.035,.03]} c={cream}/>
  <Box p={[-.23,-1.12,1.645]} s={[.14,.26,.008]} c="#a6bfb9"/>
  <Box p={[0,-1.70,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
- <Box p={[0,-.185,.18]} s={[5.8,.17,5.50]} c="#786d57"/>
- <Box p={[0,-.112,.18]} s={[5.8,.024,5.50]} c="#354d45"/>
+ <Box p={[0,-.185,-1.25]} s={[5.8,.17,5.50]} c="#786d57"/>
+ <Box p={[0,-.112,-1.25]} s={[5.8,.024,5.50]} c="#354d45"/>
  <Box p={[0,-.030,-1.5]} s={[5.8,.05,4.88]} c="#45594c" round={.014}/>
  {[-2.4,-1.6,-.8,0,.8,1.6,2.4].map(x=><Box key={x} p={[x,-.002,-1.5]} s={[.018,.006,4.8]} c="#354a3d"/>)}
  <group position={[0,lift,forward]}>
@@ -310,8 +310,8 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  <Rod from={[5,toolY+.76,toolZ-.20]} to={[wrist[0]+.30,wrist[1]+.03,wrist[2]]} radius={.13} c="#477080"/>
  <Rod from={[wrist[0]+.30,wrist[1]+.03,wrist[2]]} to={wrist} radius={.095} c="#b58769"/>
  <Hand p={left} r={[0,-Math.PI/2,0]} scale={.82}/>
- {roll>0&&<Box p={[-.25,-.0325,.60+roll*.41]} s={[2.10,.055,Math.max(.002,roll*.82)]} c="#b0b9a0" round={.004}/>}
- <group position={[-.25,.14,rollZ]} rotation={[0,0,Math.PI/2]}>
+ {roll>0&&<Box p={[-.25,.0225,.60+roll*.41]} s={[2.10,.055,Math.max(.002,roll*.82)]} c="#b0b9a0" round={.004}/>}
+ <group position={[-.25,.14+.055*roll,rollZ]} rotation={[0,0,Math.PI/2]}>
   <group rotation={[0,roll*3.3,0]}>
    <mesh castShadow><cylinderGeometry args={[.145,.145,2.10,40]}/><meshStandardMaterial color="#b0b9a0" roughness={.79}/></mesh>
    <Box p={[.147,0,0]} s={[.009,2.08,.014]} c="#405745"/>
