@@ -137,7 +137,7 @@ const Hand:React.FC<{p:V3;r?:V3;scale?:number}>=({p,r=[0,0,0],scale=1})=><group 
  <Box p={[0,.025,.70]} s={[.33,.22,.34]} c="#477080" round={.04}/>
 </group>;
 // A printed explanatory diagram, explicitly not a photograph or the resident's actual document.
-const roofDiagramSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480"><rect width="600" height="480" fill="#e8dfc6"/><path d="M35 48H550V303H35Z" fill="#456258"/><path d="M45 95H540M45 150H540M45 205H540M145 48V300M350 48V300" fill="none" stroke="#718579" stroke-width="4"/><path d="M35 300H550V414H35Z" fill="#967458"/><path d="M35 320H550M35 353H550M35 386H550M135 320V353M380 320V353M245 353V386M470 353V386" fill="none" stroke="#bc9c76" stroke-width="4"/><path d="M35 265H552V347L569 364L555 379L525 356V291H35Z" fill="#c8d0ba" stroke="#293e39" stroke-width="5"/><path d="M42 273H538V350L559 370" fill="none" stroke="#f7f3d5" stroke-width="5"/><path d="M45 249H525" stroke="#243c36" stroke-width="8"/><path d="M390 240H580V393H390Z" fill="none" stroke="#ca8759" stroke-width="5" stroke-dasharray="15 8"/></svg>';
+const roofDiagramSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480"><rect width="600" height="480" fill="#e8dfc6"/><path d="M35 48H550V303H35Z" fill="#456258"/><path d="M45 95H540M45 150H540M45 205H540M145 48V300M350 48V300" fill="none" stroke="#718579" stroke-width="4"/><path d="M35 300H550V414H35Z" fill="#967458"/><path d="M35 320H550M35 353H550M35 386H550M135 320V353M380 320V353M245 353V386M470 353V386" fill="none" stroke="#bc9c76" stroke-width="4"/><path d="M35 350H455V408L480 437L450 467L405 424V416H35Z" fill="#e2e8d8" stroke="#173d36" stroke-width="9"/><path d="M45 361H442V417L466 440" fill="none" stroke="#f7f3d5" stroke-width="5"/><path d="M45 338H435" stroke="#243c36" stroke-width="8"/><path d="M340 320H505V473H340Z" fill="none" stroke="#ca8759" stroke-width="8" stroke-dasharray="15 8"/></svg>';
 const RoofDiagram:React.FC<{loupe?:boolean;focus?:[number,number]}>=({loupe=false,focus=[.5,.5]})=>{
  const source=useLoader(THREE.TextureLoader,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(roofDiagramSvg));
  const texture=useMemo(()=>{const t=source.clone();t.colorSpace=THREE.SRGBColorSpace;if(loupe)t.repeat.set(.43,.43);t.needsUpdate=true;return t;},[source,loupe]);
@@ -273,7 +273,7 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean;settled?:boolean}>=(
 };
 const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  // The table and both documents stay where scene eight left them.
- const loupeX=mix(1.50,.74,b)-c*.15+d*.97, loupeZ=mix(.60,.16,b)+d*.23;
+ const loupeX=mix(1.50,.74,b)-c*.08+d*.97, loupeZ=mix(.60,.16,b)+d*.23;
  const dx=loupeX-.57,dz=loupeZ+.02;
  const paperX=(Math.cos(.08)*dx-Math.sin(.08)*dz)/.85;
  const paperZ=(Math.sin(.08)*dx+Math.cos(.08)*dz)/.85;
@@ -283,10 +283,10 @@ const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c
  <group position={[.57,.057,-.02]} rotation={[0,.08,0]}>
   <mesh position={[mix(.72,0,a),.008,0]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[1.02,1.05]}/><meshPhysicalMaterial color="#d3e0d4" transparent opacity={.10} roughness={.12} depthWrite={false}/></mesh>
   <group position={[mix(.72,0,a),.02,0]}>
-   <Box p={[.26,0,.17]} s={[.37,.008,.012]} c={copper}/>
-   <Box p={[.435,0,.04]} s={[.012,.008,.27]} c={copper}/>
-   <Box p={[.26,0,-.095]} s={[.37,.008,.012]} c={copper}/>
-   <Box p={[.075,0,.04]} s={[.012,.008,.27]} c={copper}/>
+   <Box p={[.26,0,.36]} s={[.52,.008,.035]} c={copper}/>
+   <Box p={[.505,0,.22]} s={[.035,.008,.30]} c={copper}/>
+   <Box p={[.26,0,.08]} s={[.52,.008,.035]} c={copper}/>
+   <Box p={[.015,0,.22]} s={[.035,.008,.30]} c={copper}/>
   </group>
   <Hand p={[mix(1.10,.40,a),.035,.25]} r={[0,1.20,0]} scale={.52}/>
  </group>
