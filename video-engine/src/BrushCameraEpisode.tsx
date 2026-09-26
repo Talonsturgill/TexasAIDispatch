@@ -252,7 +252,8 @@ const FoldedFlashing:React.FC=()=>{
  return <mesh position={[-2.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
- const open=a*(1-e), cutWidth=1.30*open, left=-.55, right=left+cutWidth;
+ const open=a*(1-.5*e), cutWidth=1.30*open, left=.10-cutWidth/2, right=.10+cutWidth/2;
+ const capWidth=1.30*a*(1-e), capLeft=.10-capWidth/2, capRight=.10+capWidth/2;
  const depth=.46+.80*d, padH=mix(.12,.04,c), headY=mix(.28,.075,b)-.08*c;
  const turn=-(b*3+c*2)*Math.PI*2;
  const thread=useMemo(()=>{
@@ -263,7 +264,7 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  return <>
  {/* A section plane reveals one attached architectural assembly; no prop floats. */}
  <Box p={[0,-2.05,-1.445]} s={[5.8,3.9,5.11]} c="#9f7c62"/>
- <Box p={[-1.725,-2.05,1.30]} s={[2.35,3.9,.40]} c="#98735e"/>
+ <Box p={[(-2.9+left)/2,-2.05,1.30]} s={[left+2.9,3.9,.40]} c="#98735e"/>
  <Box p={[(right+2.9)/2,-2.05,1.30]} s={[2.9-right,3.9,.40]} c="#98735e"/>
  {cutWidth>0&&<Box p={[(left+right)/2,(-4-depth)/2,1.30]} s={[cutWidth,4-depth,.40]} c="#98735e"/>}
  {Array.from({length:22},(_,row)=>Array.from({length:13},(_,col)=>{
@@ -284,13 +285,13 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  <Box p={[0,-1.90,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
  <Box p={[0,-.295,-1.445]} s={[5.8,.38,5.11]} c="#b99060"/>
  {[-.15,-.22,-.30,-.38,-.45].map(y=><Box key={y} p={[0,y,1.112]} s={[5.8,.009,.008]} c="#8d6b47"/>)}
- <Box p={[-1.725,-.295,1.30]} s={[2.35,.38,.40]} c="#b99060"/>
+ <Box p={[(-2.9+left)/2,-.295,1.30]} s={[left+2.9,.38,.40]} c="#b99060"/>
  <Box p={[(right+2.9)/2,-.295,1.30]} s={[2.9-right,.38,.40]} c="#b99060"/>
  <Box p={[0,-.030,-1.5]} s={[5.8,.05,4.88]} c="#45594c" round={.014}/>
  {[-2.4,-1.6,-.8,0,.8,1.6,2.4].map(x=><Box key={x} p={[x,-.002,-1.5]} s={[.018,.006,4.8]} c="#354a3d"/>)}
- {metalBand(-1.725,2.35)}
- {metalBand((right+2.9)/2,2.9-right)}
- {cutWidth>0&&<Box p={[(left+right)/2,-.0825,.97]} s={[cutWidth,.035,.30]} c="#d7ded1" metal={.75}/>}
+ {metalBand((-2.9+capLeft)/2,capLeft+2.9)}
+ {metalBand((capRight+2.9)/2,2.9-capRight)}
+ {capWidth>0&&<Box p={[.10,-.0825,.97]} s={[capWidth,.035,.30]} c="#d7ded1" metal={.75}/>}
  {/* The cross section exposes the shaft and helical thread at the front cut face. */}
  <mesh position={[.10,-.065+padH/2,1.15]} castShadow><cylinderGeometry args={[.185,.185,padH,48]}/><meshStandardMaterial color="#33483d" roughness={.83}/></mesh>
  <group position={[.10,headY,1.15]} rotation={[0,turn,0]}>
