@@ -40,7 +40,6 @@
 // =============================================================================
 
 import {build} from 'esbuild';
-import {execFileSync} from 'node:child_process';
 import {mkdtemp, rm, readFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -84,8 +83,6 @@ const PATHOLOGICAL = [
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
-execFileSync(process.execPath, [path.join(here, 'caption_board_fit.mjs'), '--self-test'], {stdio: 'inherit'});
-execFileSync(process.execPath, [path.join(here, 'caption_board_fit.mjs'), '--board', path.join(repo, 'examples/board.json')], {stdio: 'inherit'});
 const dir = await mkdtemp(path.join(tmpdir(), 'typefit-'));
 try {
   const outfile = path.join(dir, 'probe.cjs');

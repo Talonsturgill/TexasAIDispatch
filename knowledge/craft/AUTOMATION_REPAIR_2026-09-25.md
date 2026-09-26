@@ -6,6 +6,8 @@ and its story-specific assets.
 The repeated costs came from attempts without a consolidated correction, board approvals
 that survived renderer changes, and late inspection of phone framing and caption overlap.
 
+- The critic allowance covers the two required review stages and bounded batched repair,
+  avoiding a ceiling that was already exhausted by the first candidate.
 - Duplicate preview inputs are refused before charging. A retained infrastructure failure
   can authorize one charged retry without erasing usage.
 - Authorized ceiling increases require retained failure evidence, a concrete repair, and

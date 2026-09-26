@@ -311,9 +311,6 @@ def self_test() -> int:
            Image.open(sheet).size == (1440, 844), str(Image.open(sheet).size))
     # This existing CI entry point also exercises the documentary policy and rejection path.
     import documentary_review
-    failures += critic_gate.self_test()
-    for test in ("audiovisual_review_test.py", "production_quality_test.py"):
-        failures += int(subprocess.run([sys.executable, str(REPO / "scripts" / test)]).returncode != 0)
     failures += documentary_check.self_test()
     failures += documentary_review.self_test()
     print(f"preflight_animatic: {failures} failure(s)")

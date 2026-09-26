@@ -1088,7 +1088,7 @@ def self_test() -> int:
     expected_limits = {
         "research_agents": 3,
         "validator_agents": 1,
-        "storyboard_critics": 1,
+        "storyboard_critics": 2,
         "preflight_renders": 6,
         "reboards": 4,
         "voice_directors": 1,
@@ -1101,6 +1101,8 @@ def self_test() -> int:
         "reported_tokens": 250000,
         "audiovisual_reviews": 21,
     }
+    ok("critic budget covers code and phone reviews for three candidates",
+       CEIL["storyboard_critics"] == 6 and expected_limits["storyboard_critics"] == 2)
     actual_limits = limits()
     ok("the approved run-wide cost contract has not drifted",
        actual_limits == expected_limits,

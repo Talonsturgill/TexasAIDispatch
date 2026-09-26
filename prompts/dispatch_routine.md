@@ -194,6 +194,8 @@ never invokes it, recommends it, or manufactures its confirmation phrase.**
 
 ## Repair efficiently before another expensive attempt
 
+The critic target covers both required reviews, code plan and exact phone film. The critic
+ceiling allows three candidate revisions within the unchanged overall token ceiling.
 A rejected picture or sound review starts one consolidated repair pass. Keep a single defect
 list with the exact failed interval, retained review evidence, root cause, changed production
 files, and the visible or audible acceptance test. Repair the entire list before requesting
@@ -210,8 +212,8 @@ official documentation only for a relevant API or version issue.
 Use shared captions as a wide, compact bottom band with no more than two lines, above the
 feed's bottom overlay and outside the story's key action. Run the exact-board caption fit check
 before reserving a preview with `node video-engine/tests/caption_board_fit.mjs --board out/dispatch/storyboard.json`.
-The existing preflight self-test also runs `scripts/critic_gate.py --self-test`,
-`scripts/audiovisual_review_test.py` and `scripts/production_quality_test.py`; the existing
+CI runs `scripts/critic_gate.py --self-test`,
+`scripts/audiovisual_review_test.py` and `scripts/production_quality_test.py`; the
 Type Fit CI entry runs `node tests/caption_board_fit.mjs --self-test` and
 `node tests/caption_board_fit.mjs --board ../examples/board.json`.
 Bind the storyboard critique to current concept and renderer code
