@@ -268,7 +268,14 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
  {cutWidth>0&&<Box p={[(left+right)/2,(-4-depth)/2,1.30]} s={[cutWidth,4-depth,.40]} c="#98735e"/>}
  {Array.from({length:22},(_,row)=>Array.from({length:13},(_,col)=>{
   const x=-2.78+col*.46+(row%2)*.06,y=-.24-row*.17;
-  return x>left-.20&&x<right+.20&&y>-depth-.08?null:<Box key={row+'-'+col} p={[x,y,1.507]} s={[.42,.142,.016]} round={.006} c={['#a27b62','#b18d73','#977059'][(row+col)%3]}/>;
+  const bx0=x-.21,bx1=x+.21,by0=y-.071,by1=y+.071;
+  const color=['#a27b62','#b18d73','#977059'][(row+col)%3];
+  const piece=(key:string,x0:number,x1:number,y0:number,y1:number)=>x1-x0>.0001&&y1-y0>.0001?<Box key={key} p={[(x0+x1)/2,(y0+y1)/2,1.507]} s={[x1-x0,y1-y0,.016]} round={Math.min(.005,(x1-x0)/4,(y1-y0)/4)} c={color}/>:null;
+  return <group key={row+'-'+col}>
+   {piece('left',bx0,Math.min(bx1,left),by0,by1)}
+   {piece('right',Math.max(bx0,right),bx1,by0,by1)}
+   {piece('below',Math.max(bx0,left),Math.min(bx1,right),by0,Math.min(by1,-depth))}
+  </group>;
  }))}
  <Box p={[0,-1.52,1.555]} s={[1.04,.73,.095]} c={cream} round={.015}/>
  <Box p={[0,-1.52,1.61]} s={[.91,.60,.02]} c="#557c86" metal={.3}/>
