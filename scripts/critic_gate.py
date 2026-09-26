@@ -45,6 +45,8 @@ def renderer_digest(board: dict) -> str | None:
         raise ValueError(f"cannot find renderer source import for {component}")
     files = [router, REPO / "video-engine" / "src" / (imported.group(1) + ".tsx"),
              REPO / "video-engine" / "src" / "lib" / "cinema" / "CinematicStage.tsx",
+             REPO / "video-engine" / "src" / "lib" / "cinema" / "Studio.tsx",
+             REPO / "video-engine" / "src" / "lib" / "cinema" / "projection.ts",
              REPO / "video-engine" / "src" / "lib" / "direction.ts"]
     h = hashlib.sha256()
     for file in files:
@@ -183,6 +185,15 @@ def self_test() -> int:
     checks.append(("critic binds the routed cinematic scene code",not problems(cinematic,bound)))
     stale={**bound,"renderer_sha256":"0"*64}
     checks.append(("stale cinematic scene code cannot unlock preflight",bool(problems(cinematic,stale))))
+    from unittest.mock import patch
+    original_read = Path.read_bytes
+    for dependency in ("Studio.tsx", "projection.ts"):
+        target = REPO / "video-engine" / "src" / "lib" / "cinema" / dependency
+        def changed_bytes(path, target=target):
+            return original_read(path) + (b"\n// changed projection" if path == target else b"")
+        with patch.object(Path, "read_bytes", changed_bytes):
+            checks.append((f"changed {dependency} invalidates cinematic approval",
+                           bool(problems(cinematic, bound))))
     sample=REPO / "video-engine" / "public" / "generated" / "denton-civic-chamber.png"
     if sample.is_file():
         visual=copy.deepcopy(cinematic)

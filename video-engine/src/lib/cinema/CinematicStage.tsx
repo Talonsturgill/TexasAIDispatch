@@ -20,7 +20,7 @@ export const CinematicStage:React.FC<{
    camera={{fov,near:.05,far:100}}
    gl={{antialias:true,alpha:true,powerPreference:'high-performance',
      toneMapping:THREE.ACESFilmicToneMapping,toneMappingExposure:exposure}}>
-   <Studio position={position} target={target}/>
+   <Studio position={position} target={target} fov={fov}/>
    {children}
  </ThreeCanvas>;
 };

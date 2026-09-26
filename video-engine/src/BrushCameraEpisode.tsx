@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useMemo} from 'react';
+import * as THREE from 'three';
+import {RoundedBoxGeometry} from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import {Sequence, useCurrentFrame, useVideoConfig} from 'remotion';
 import {CinematicStage} from './lib/cinema/CinematicStage';
 import {actionProgress, actionWindows, requireAction} from './lib/direction';
@@ -7,290 +9,271 @@ import {GradeLayer} from './lib/lighting';
 import {FONT} from './lib/type';
 import {CreditsCard, SubtitleTrack, type DispatchProps, type Scene} from './Dispatch';
 
-const navy = '#102631';
-const cream = '#efe5cf';
-const copper = '#d9845a';
-const mint = '#80cbbd';
-
-const Block: React.FC<{position: V3; size: V3; color: string; rotation?: V3; metal?: number}> =
-  ({position, size, color, rotation = [0, 0, 0], metal = 0}) =>
-    <mesh position={position} rotation={rotation} castShadow receiveShadow>
-      <boxGeometry args={size}/>
-      <meshStandardMaterial color={color} metalness={metal} roughness={metal ? .42 : .83}/>
-    </mesh>;
-
-const Wheel: React.FC<{x: number; z: number}> = ({x, z}) =>
-  <group position={[x, -.65, z]} rotation={[Math.PI / 2, 0, 0]}>
-    <mesh castShadow><cylinderGeometry args={[.38, .38, .17, 20]}/><meshStandardMaterial color="#1b292d" roughness={.92}/></mesh>
-    <mesh position={[0, .10, 0]}><cylinderGeometry args={[.18, .18, .02, 18]}/><meshStandardMaterial color="#a6a39a" metalness={.68} roughness={.43}/></mesh>
-  </group>;
-
-const BrickHouse: React.FC<{roofOpen?: number; z?: number}> = ({roofOpen = 0, z = -2.15}) =>
-  <group position={[1.73, -.35, z]}>
-    <Block position={[0, .43, 0]} size={[3.2, 1.85, 1.4]} color="#9b6e59"/>
-    <Block position={[-.85, .28, .72]} size={[.68, .75, .04]} color="#405865"/>
-    <Block position={[.84, .28, .72]} size={[.68, .75, .04]} color="#405865"/>
-    <Block position={[.05, -.06, .73]} size={[.62, 1.02, .08]} color="#4a5350"/>
-    <group position={[0, 1.46, 0]} rotation={[0, 0, -.12 * roofOpen]}>
-      <Block position={[-.78, 0, 0]} size={[2.02, .19, 1.8]} rotation={[0, 0, .36]} color="#534941"/>
-      <Block position={[.78, 0, 0]} size={[2.02, .19, 1.8]} rotation={[0, 0, -.36]} color="#534941"/>
-      <Block position={[.06, -.04, .91]} size={[.66, .08, .10]} color="#b5bbb7" metal={.62}/>
-    </group>
-    <Block position={[0, -1.12, 1.2]} size={[3.95, .09, 1.4]} color="#596243"/>
-  </group>;
-
-const BrushTruck: React.FC<{x: number; shutter?: number; wheelTurn?: number}> =
-  ({x, shutter = 0, wheelTurn = 0}) =>
-  <group position={[x, -.23, 1.26]} rotation={[0, -.06 * wheelTurn, 0]}>
-    <Block position={[.25, .05, 0]} size={[3.35, 1.47, 1.35]} color="#3e7767" metal={.22}/>
-    <Block position={[-1.7, -.06, 0]} size={[1.18, 1.28, 1.29]} color="#e1d7bf" metal={.13}/>
-    <Block position={[-1.7, .31, .66]} size={[.77, .55, .035]} color="#527581"/>
-    <Block position={[.33, .73, 0]} size={[3.19, .13, 1.42]} color="#264f4a"/>
-    <Block position={[.32, -.74, 0]} size={[3.55, .18, 1.48]} color="#27393b"/>
-    <Block position={[1.32, .36, .73]} size={[.49, .45, .20]} color="#20383d" metal={.46}/>
-    <mesh position={[1.33, .36, .86]} rotation={[Math.PI / 2, 0, 0]}>
-      <cylinderGeometry args={[.22, .22, .12, 24]}/>
-      <meshPhysicalMaterial color={shutter > .2 ? mint : '#203237'} metalness={.55}
-        roughness={.24} clearcoat={1} emissive={shutter > .2 ? '#3c9d94' : '#000000'} emissiveIntensity={.62}/>
-    </mesh>
-    <Wheel x={-1.6} z={.72}/><Wheel x={1.25} z={.72}/>
-    <Wheel x={-1.6} z={-.72}/><Wheel x={1.25} z={-.72}/>
-    {Array.from({length: 6}, (_, i) =>
-      <Block key={i} position={[.04 + i * .40, -.90, -.48]} size={[.09, .34, .12]} color="#867d65"/>)}
-  </group>;
-
-const Photo: React.FC<{position: V3; rotation?: V3; scale?: number; flagged?: boolean; mode?: 'house' | 'roof'}> =
-  ({position, rotation = [0, 0, 0], scale = 1, flagged = false, mode = 'house'}) =>
-  <group position={position} rotation={rotation} scale={scale}>
-    <Block position={[0, 0, 0]} size={[2.12, 2.62, .08]} color="#e9e1ca"/>
-    <Block position={[0, .22, .052]} size={[1.76, 1.85, .022]} color={mode === 'roof' ? '#665f56' : '#536b70'}/>
-    {mode === 'house' ? <>
-      <Block position={[0, -.02, .068]} size={[1.40, .66, .012]} color="#a6765b"/>
-      <Block position={[0, .43, .069]} size={[1.55, .13, .012]} rotation={[0, 0, -.17]} color="#4c4540"/>
-      <Block position={[.34, .35, .084]} size={[.50, .06, .012]} color="#ccd4cc" metal={.45}/>
-    </> : <>
-      <Block position={[0, .15, .07]} size={[1.55, .12, .02]} rotation={[0, 0, -.24]} color="#383d3a"/>
-      <Block position={[.28, .32, .09]} size={[.68, .09, .02]} color="#d4d8cf" metal={.66}/>
-    </>}
-    {flagged && <Block position={[.35, .32, .10]} size={[.68, .68, .014]} color={copper}/>}
-  </group>;
-
-const Letter: React.FC<{position: V3; rotation?: V3; shade?: string; scale?: number}> =
-  ({position, rotation = [0, 0, 0], shade = cream, scale = 1}) =>
-  <group position={position} rotation={rotation} scale={scale}>
-    <Block position={[0, 0, 0]} size={[2.1, 2.76, .07]} color={shade}/>
-    <Block position={[-.51, .98, .045]} size={[.75, .065, .01]} color="#254d59"/>
-    {[.57, .38, .19, -.05].map((y, i) =>
-      <Block key={i} position={[-.14 + (i === 3 ? -.20 : 0), y, .045]}
-        size={[i === 3 ? 1.14 : 1.62, .033, .01]} color="#aab6ad"/>)}
-    <Block position={[-.31, -.57, .046]} size={[1.06, .12, .01]} color={copper}/>
-  </group>;
-
-const Person: React.FC<{reach: number; z?: number}> = ({reach, z = -.72}) =>
-  <group position={[1.85, -.76, z]}>
-    <mesh position={[0, 1.78, 0]} castShadow><sphereGeometry args={[.42, 18, 18]}/><meshStandardMaterial color="#9d6d51" roughness={.9}/></mesh>
-    <Block position={[0, .60, 0]} size={[1.03, 1.83, .50]} color="#3e6071"/>
-    <Block position={[-.52 - 1.15 * reach, .75 - .34 * reach, .05]}
-      rotation={[0, 0, -.20 - .35 * reach]} size={[.28, 1.15, .28]} color="#9d6d51"/>
-    <Block position={[-.57 - 1.68 * reach, .28 - .45 * reach, .05]}
-      size={[.36, .17, .25]} color="#a87959"/>
-  </group>;
-
-const ReviewingHand: React.FC<{reach: number; lift?: number}> = ({reach, lift = 0}) => {
-  const x = mix(2.9, -.05, reach);
-  const y = mix(.23, -.69, reach);
-  return <group position={[0, .35 * lift, 0]}>
-    <Block position={[mix(3.22, 1.28, reach), mix(.17, -.40, reach), .65]}
-      size={[2.1, .45, .48]} rotation={[0, 0, -.20 * reach]} color="#3e6071"/>
-    <Block position={[x, y, .74]} size={[.86, .32, .48]}
-      rotation={[0, 0, -.13 * reach]} color="#a87959"/>
-    {[0, 1, 2, 3].map(i => <Block key={i}
-      position={[x - .43 - .11 * reach, y + .12 - i * .085, .82]}
-      size={[.38, .066, .11]} color="#a87959"/>)}
-  </group>;
+const cream='#eee4cb', ink='#17323d', copper='#df956a', green='#396a5f';
+const Box:React.FC<{p:V3;s:V3;c:string;r?:V3;round?:number;metal?:number}>=({p,s,c,r=[0,0,0],round=0,metal=0})=>{
+ const geometry=useMemo(()=>round?new RoundedBoxGeometry(...s,2,round):new THREE.BoxGeometry(...s),[...s,round]);
+ return <mesh geometry={geometry} position={p} rotation={r} castShadow receiveShadow><meshStandardMaterial color={c} roughness={metal?.36:.76} metalness={metal}/></mesh>;
 };
-
-const stageCamera = (id: string): {position: V3; target: V3} => {
-  if (id === 's1') return {position: [-.40, 5.2, 11.5], target: [0, -1.05, 1.1]};
-  if (id === 's2') return {position: [0, 1.7, 8.0], target: [0, -.40, -1.0]};
-  if (id === 's3') return {position: [-.40, 5.2, 11.5], target: [0, -1.05, 1.1]};
-  if (['s4', 's8'].includes(id)) return {position: [.1, 4.0, 6.7], target: [0, -.86, .35]};
-  if (id === 's9') return {position: [.2, 3.15, 7.8], target: [.2, -1.0, -.4]};
-  if (id === 's7') return {position: [-.4, 3.4, 9.2], target: [0, -.55, 1.2]};
-  if (id === 's6') return {position: [0, 3.0, 8.0], target: [0, -.3, .6]};
-  return {position: [.35, 2.0, 7.2], target: [.35, -1.0, 0]};
+const Ball:React.FC<{p:V3;s:V3;c:string}>=({p,s,c})=><mesh position={p} scale={s} castShadow><sphereGeometry args={[1,24,16]}/><meshStandardMaterial color={c} roughness={.78}/></mesh>;
+const Rod:React.FC<{from:V3;to:V3;radius:number;c:string}>=({from,to,radius,c})=>{
+ const v=new THREE.Vector3(...to).sub(new THREE.Vector3(...from));
+ const q=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),v.clone().normalize());
+ return <mesh position={from.map((x,i)=>(x+to[i])/2) as V3} quaternion={q} castShadow><cylinderGeometry args={[radius,radius,v.length(),16]}/><meshStandardMaterial color={c} roughness={.68}/></mesh>;
 };
-
-const Street: React.FC<{id: string; a: number; b: number}> = ({id, a, b}) => {
-  const truckX = id === 's1' ? mix(-4.5, -.9, a) : id === 's2' ? mix(-1.15, .30, a) : .25;
-  return <>
-    <Block position={[0, -1.30, 0]} size={[20, .10, 10]} color="#455357"/>
-    <Block position={[0, -1.18, -1.28]} size={[20, .10, .19]} color="#c8bfa8"/>
-    <BrickHouse z={4.55}/>
-    <BrushTruck x={truckX} shutter={id === 's2' ? b : id === 's3' ? 1 : a} wheelTurn={a}/>
-    {id === 's1' && <Photo position={[truckX + 1.32, mix(.28, 1.20, b), mix(2.10, 3.12, b)]}
-      rotation={[0, -.08, .10 * (1-a)]} scale={mix(.04, .49, a)} />}
-    {id === 's2' && b > .02 && <Photo position={[truckX + 1.32, mix(.3, .52, b), mix(2.12, 3.3, b)]}
-      rotation={[0, -.08, .08 * (1-b)]} scale={mix(.03, .57, b)} />}
-    {id === 's3' && <Photo position={[mix(.78, -.25, a), mix(.34, .15, a), mix(2.2, 3.45, a)]}
-      rotation={[0, -.12, .08 * (1-a)]} scale={mix(.2, .86, a)} flagged={b > .5}/>}
-  </>;
+const Gable:React.FC=()=>{
+ const geometry=useMemo(()=>{
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute([-1.65,1.41,.75,1.65,1.41,.75,0,1.96,.75],3));g.computeVertexNormals();return g;
+ },[]);
+ return <mesh geometry={geometry} castShadow><meshStandardMaterial color="#c0b294" side={THREE.DoubleSide}/></mesh>;
 };
+const Ring:React.FC<{p:V3;radius:number;tube:number;c:string}>=({p,radius,tube,c})=><mesh position={p} castShadow><torusGeometry args={[radius,tube,10,40]}/><meshStandardMaterial color={c} metalness={.6} roughness={.29}/></mesh>;
 
-const CaptureView: React.FC<{a: number; b: number}> = ({a, b}) => <>
-  <Block position={[0, -1.27, -2]} size={[20, .11, 10]} color="#485657"/>
-  <Block position={[0, -1.15, 1.58]} size={[20, .13, .38]} color="#d7c9ac"/>
-  <group position={[mix(3.9, -1.85, a), 0, -.45]}>
-    <BrickHouse z={0}/>
-  </group>
-  <Block position={[-2.85, .10, 3.52]} size={[.22, 4.1, .12]} color="#213c3c"/>
-  <Block position={[2.85, .10, 3.52]} size={[.22, 4.1, .12]} color="#213c3c"/>
-  <Block position={[0, 2.12, 3.52]} size={[5.9, .16, .12]} color="#213c3c"/>
-  <Block position={[0, -1.81, 3.52]} size={[5.9, .16, .12]} color="#213c3c"/>
-  {b > .01 && <Photo position={[.18, mix(-1.4, -.1, b), 3.70]}
-    scale={mix(.02, .58, b)} rotation={[0, 0, -.04 * (1-b)]}/>}
+// A finished residential model, with continuous roof/wall joints and attached flashing.
+const House:React.FC<{scale?:number;p?:V3;flat?:boolean}>=({scale=1,p=[0,0,-1.15],flat=false})=><group position={p} scale={scale}>
+ <Box p={[0,.62,0]} s={[3.3,1.9,1.48]} c="#a17962" round={.025}/>
+ {Array.from({length:12},(_,row)=>Array.from({length:8},(_,col)=><Box key={`${row}-${col}`} p={[-1.49+col*.39+(row%2)*.12,-.24+row*.145,.748]} s={[.35,.118,.019]} c={['#a17a64','#96715f','#b1886d','#a78068'][(row*7+col*3)%4]}/>))}
+ {[-.95,.95].map(x=><group key={x} position={[x,.62,.79]}>
+  <Box p={[0,0,0]} s={[.72,.88,.075]} c={cream}/><Box p={[0,0,.05]} s={[.60,.76,.027]} c="#608087" metal={.3}/>
+  <Box p={[0,0,.075]} s={[.035,.76,.03]} c={cream}/><Box p={[0,-.10,.075]} s={[.60,.035,.03]} c={cream}/>
+  <Box p={[0,-.46,.08]} s={[.85,.055,.16]} c="#cfbba0"/>
+  <Box p={[-.17,.11,.09]} s={[.16,.34,.008]} c="#abc1bc"/>
+ </group>)}
+ <Box p={[0,.32,.79]} s={[.59,1.34,.09]} c="#4b5f55" round={.018}/>
+ <Box p={[0,1.01,.84]} s={[.49,.05,.09]} c={cream}/>
+ <Box p={[0,.50,.85]} s={[.4,.39,.015]} c="#43584f"/>
+ <Ball p={[.20,.28,.86]} s={[.033,.033,.026]} c="#ccb678"/>
+ <Box p={[0,-.37,1.02]} s={[.91,.13,.65]} c="#a4a498"/>
+ <Box p={[0,-.47,1.40]} s={[1.12,.08,.38]} c="#b9b3a2"/>
+ {flat?<group position={[0,1.64,0]}><Box p={[0,0,0]} s={[3.46,.14,1.72]} c="#737b6a"/><Box p={[0,.13,.86]} s={[3.48,.23,.12]} c="#a99b80"/><Box p={[0,.27,.86]} s={[3.58,.045,.19]} c="#d0d5c5" metal={.7}/><Box p={[0,.15,.945]} s={[3.56,.24,.024]} c="#aebead" metal={.65}/></group>:<group position={[0,1.70,0]}>
+  {[-1,1].map(side=><group key={side} position={[side*.88,0,0]} rotation={[0,0,-side*.30]}>
+   <Box p={[0,0,0]} s={[1.87,.10,1.85]} c="#4a4d45"/>
+   {Array.from({length:8},(_,j)=><Box key={j} p={[0,.057,-.81+j*.23]} s={[1.86,.022,.013]} c="#75766a"/>)}
+   {Array.from({length:6},(_,j)=><Box key={j} p={[-.78+j*.31,.058,0]} s={[.012,.021,1.84]} c="#606359"/>)}
+  </group>)}
+  <Rod from={[0,.29,-.94]} to={[0,.29,.94]} radius={.04} c="#73796a"/>
+ </group>}
+ {!flat&&<Gable/>}
+ <Box p={[0,1.405,.93]} s={[3.62,.12,.13]} c="#b1b5a9" metal={.55}/>
+ <Box p={[1.64,.48,.95]} s={[.07,1.84,.07]} c="#a6aca1" metal={.35}/>
+ <Box p={[-.69,1.50,.94]} s={[.73,.07,.12]} c="#dde1cd" metal={.68}/>
+ <Box p={[0,-.52,0]} s={[4.15,.14,3.1]} c="#6c7658" round={.05}/>
+ {[-1.45,1.40].map((x,i)=><group key={x}><Ball p={[x,-.16,.85]} s={[.36,.28,.30]} c={i?'#4d6851':'#57744c'}/><Ball p={[x+.21,-.20,.80]} s={[.21,.23,.25]} c="#687f54"/></group>)}
+ <Box p={[0,-.43,1.37]} s={[.93,.04,.95]} c="#b4b2a0"/>
+</group>;
+const Lens:React.FC<{closed:number}>=({closed})=><group>
+ <Box p={[0,0,-.19]} s={[.59,.48,.45]} c="#283b3b" round={.06} metal={.25}/>
+ <Ring p={[0,0,.07]} radius={.205} tube={.045} c="#a8b2a4"/>
+ <mesh position={[0,0,.075]}><circleGeometry args={[.168,40]}/><meshPhysicalMaterial color="#193e48" metalness={.3} roughness={.10} clearcoat={1}/></mesh>
+ <Ring p={[0,0,.083]} radius={.108} tube={.012} c="#4d999f"/>
+ <Ball p={[-.046,.056,.089]} s={[.05,.02,.008]} c="#b6e5df"/>
+ <Box p={[0,.22-closed*.18,.10]} s={[.34,closed*.37+.002,.018]} c="#192e34"/>
+ {[-.23,.23].map(x=>[-.17,.17].map(y=><Ball key={`${x}-${y}`} p={[x,y,.045]} s={[.02,.02,.009]} c="#bbbba6"/>))}
+</group>;
+const Truck:React.FC<{x:number;closed:number;travel:number}>=({x,closed,travel})=><group position={[x,-.04,1.6]} scale={.57}>
+ <Box p={[.3,.40,0]} s={[3.35,1.5,1.45]} c={green} round={.085} metal={.2}/>
+ {Array.from({length:7},(_,i)=><Box key={i} p={[-1.08+i*.47,.40,.752]} s={[.045,1.24,.035]} c="#658675" metal={.2}/>)}
+ <Box p={[.22,1.17,0]} s={[3.3,.07,1.51]} c="#97a392" metal={.4}/>
+ <Box p={[-1.97,.21,0]} s={[1.20,1.20,1.35]} c="#d4cdb5" round={.12} metal={.2}/>
+ <Box p={[-1.98,.58,.69]} s={[.84,.47,.036]} c="#467783" round={.04} metal={.25}/>
+ <Box p={[-2.61,.20,0]} s={[.14,.51,1.40]} c="#9fa698" round={.035} metal={.7}/>
+ {[-.48,.48].map(z=><Box key={z} p={[-2.70,.32,z]} s={[.018,.14,.22]} c="#ffe1a2"/>)}
+ <Box p={[-1.54,.12,.72]} s={[.14,.045,.03]} c="#607168"/>
+ <Box p={[-1.95,-.51,.78]} s={[1.08,.08,.25]} c="#8c9b91" metal={.55}/>
+ <Box p={[-.03,-.54,0]} s={[4.70,.18,1.4]} c="#203638"/>
+ {[-1.90,1.22].map(wx=>[-.78,.78].map(z=><group key={`${wx}-${z}`} position={[wx,-.51,z]} rotation={[0,0,travel*5]}>
+  <mesh rotation={[Math.PI/2,0,0]} castShadow><cylinderGeometry args={[.42,.42,.22,32]}/><meshStandardMaterial color="#243438" roughness={.94}/></mesh>
+  <Ring p={[0,0,z>0?.12:-.12]} radius={.26} tube={.045} c="#73867e"/>
+  <Ball p={[0,0,z>0?.13:-.13]} s={[.13,.13,.035]} c="#bbbdad"/>
+  {[0,1,2,3,4,5].map(i=><Ball key={i} p={[.18*Math.cos(i*Math.PI/3),.18*Math.sin(i*Math.PI/3),z>0?.14:-.14]} s={[.027,.027,.012]} c="#c0c4b4"/>)}</group>))}
+ <group position={[.6,1.30,-.42]} rotation={[0,Math.PI,0]} scale={1.4}><Box p={[0,-.13,-.28]} s={[.13,.28,.12]} c="#9cae9b" metal={.6}/><Lens closed={closed}/></group>
+ <Box p={[1.3,.17,.79]} s={[.64,.12,.02]} c="#a8b593"/>
+ <Box p={[1.65,-.10,.79]} s={[.08,.09,.025]} c="#cf7650"/>
+</group>;
+const Street:React.FC<{a:number;b:number}>=({a,b})=><>
+ <Box p={[0,-.65,0]} s={[15,.15,12]} c="#5d685d"/>
+ <Box p={[0,-.51,1.47]} s={[15,.08,2.7]} c="#515f61"/>
+ <Box p={[0,-.42,.03]} s={[15,.18,.14]} c="#b6b5a3"/>
+ <Box p={[0,-.47,.21]} s={[15,.04,.25]} c="#858d81"/>
+ <House scale={.76} p={[0,0,-1.20]}/>
+ {a>.03&&<group position={[0,.46,-.57]} scale={Math.min(1,a*2)}>
+ {[-1,1].map(sign=><React.Fragment key={sign}><Box p={[sign*1.13,0,0]} s={[.022,1.12,.01]} c="#dceac6"/><Box p={[0,sign*.56,0]} s={[2.28,.022,.01]} c="#dceac6"/></React.Fragment>)}
+ </group>}
+ <Truck x={mix(.72,-1.65,a*.48+b*.52)} closed={Math.sin(a*Math.PI)**12} travel={a+b}/>
 </>;
+// The camera view is an attached optical viewport. No photograph floats into the street.
+const Capture:React.FC<{a:number;b:number;scan?:boolean}>=({a,b,scan=false})=><>
+ <Box p={[0,-.57,0]} s={[15,.12,10]} c="#667558"/>
+ <group position={[scan?0:mix(.65,-.35,Math.min(1,a*.55+b*.45)),0,0]}><House scale={.83}/></group>
+ <Box p={[0,-.51,1.6]} s={[15,.05,2.1]} c="#556467"/>
+ <Box p={[0,-.40,.52]} s={[15,.16,.14]} c="#bec0ac"/>
+ {scan&&<>
+  <Box p={[mix(-1.52,1.43,a),.60,.19]} s={[.025,1.76,.02]} c="#b3e4ce"/>
+  {b>.01&&<group position={[-.70,.60,.23]} scale={b}>
+   {[-1,1].map(sign=><React.Fragment key={sign}><Box p={[sign*.33,0,0]} s={[.025,.64,.02]} c={copper}/><Box p={[0,sign*.32,0]} s={[.68,.025,.02]} c={copper}/></React.Fragment>)}
+  </group>}
+ </>}
+</>;
+const Hand:React.FC<{p:V3;r?:V3;scale?:number}>=({p,r=[0,0,0],scale=1})=><group position={p} rotation={r} scale={scale}>
+ <Box p={[0,0,0]} s={[.31,.12,.37]} c="#b28265" round={.048}/>
+ {[0,1,2,3].map(i=><Box key={i} p={[-.112+i*.074,-.003,-.24+(i===0?.035:0)]} s={[.064,.105,.22]} c="#bc8b6b" round={.025}/>)}
+ <Box p={[.19,-.01,-.04]} s={[.15,.12,.11]} c="#b28265" r={[0,.45,0]} round={.035}/>
+ <Box p={[0,.015,.37]} s={[.25,.16,.43]} c="#b28265" round={.055}/>
+ <Box p={[0,.025,.70]} s={[.33,.22,.34]} c="#477080" round={.04}/>
+</group>;
+const Paper:React.FC<{p:V3;r?:V3;roof?:boolean;house?:boolean;scale?:number}>=({p,r=[0,0,0],roof=false,house=false,scale=1})=><group position={p} rotation={r} scale={scale}>
+ <Box p={[0,0,0]} s={[1.19,.018,1.54]} c={cream} round={.009}/>
+ <Box p={[-.29,.014,-.53]} s={[.45,.004,.075]} c={ink}/>
+ {house?<>
+  <Box p={[0,.015,-.04]} s={[.98,.005,.84]} c="#829485"/>
+  <Box p={[0,.025,.02]} s={[.82,.01,.43]} c="#ae876b"/>
+  <Box p={[0,.031,-.22]} s={[.90,.01,.12]} c="#4a5b50"/>
+  {[-.27,.27].map(x=><Box key={x} p={[x,.039,.02]} s={[.17,.012,.19]} c="#456d77"/>)}
+  <Box p={[0,.039,.07]} s={[.14,.012,.28]} c="#4b5f55"/>
+ </>:roof?<>
+  <Box p={[0,.015,-.03]} s={[.98,.005,.78]} c="#66685a"/>
+  {Array.from({length:5},(_,i)=><Box key={i} p={[0,.021,-.31+i*.14]} s={[.97,.003,.01]} c="#879183"/>)}
+  <Box p={[0,.025,.19]} s={[.95,.014,.085]} c="#c8d0bf" metal={.6}/>
+ </>:Array.from({length:6},(_,i)=><Box key={i} p={[-.08,.014,-.29+i*.11]} s={[i===5?.62:.84,.003,.017]} c="#7a8880"/>)}
+ <Box p={[-.26,.013,.57]} s={[.46,.003,.035]} c={copper}/>
+</group>;
+const Table:React.FC<{home?:boolean}>=({home=false})=><>
+ <Box p={[0,-.11,0]} s={[5,.19,4]} c={home?'#857357':'#586c6a'} round={.055}/>
+ {Array.from({length:6},(_,i)=><Box key={i} p={[-2.25+i*.85,-.011,0]} s={[.016,.003,3.90]} c={home?'#665c47':'#607772'}/>)}
+ {home?<><Box p={[-1.98,.82,-2.0]} s={[1.90,2.1,.12]} c="#c8bda1"/><Box p={[2.51,.82,-2.0]} s={[.95,2.1,.12]} c="#c8bda1"/><Box p={[.54,-.01,-2.0]} s={[3.4,.38,.12]} c="#c8bda1"/><Box p={[.54,1.82,-2.0]} s={[3.4,.26,.12]} c="#c8bda1"/><House flat scale={.73} p={[.45,.12,-3.3]}/></>:<Box p={[0,.82,-2.0]} s={[6,2.1,.12]} c="#8caaa4"/>}
+ {home&&<group position={[.74,1.02,-1.88]}>
+  {[-.86,.86].map(x=><Box key={x} p={[x,0,0]} s={[.075,1.32,.08]} c={cream}/>)}
+  <Box p={[0,-.24,.055]} s={[1.53,.055,.015]} c="#c1c5b3" metal={.4}/>
+  <Box p={[0,0,.062]} s={[.055,1.23,.035]} c={cream}/>
+ </group>}
+</>;
+const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
+ const py=.055+c*.27;return <>
+ <Table/>
+ <group position={[-.22,py,-.18]} rotation={[c*.29,0,-.055]}>
+  <Paper p={[0,0,0]} house/>
+  <Box p={[-.27,.027,.05]} s={[.35,.007,.025]} c={copper}/>
+  <Hand p={[mix(1.4,.50,a),.10,.22]} r={[0,1.4,0]}/>
+ </group>
+ <Box p={[-1.63,.09,-.36]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
+ <Rod from={[-.4,.09,.61]} to={[-.4+b*.46,.09,.27]} radius={.025} c="#c59d68"/>
+ </>;
+};
+const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
+ const pull=a*.65+b*.35;return <>
+ <Box p={[0,.18,-1.12]} s={[4,3.7,.2]} c="#a58269"/>
+ {Array.from({length:16},(_,r)=><Box key={r} p={[0,-1.45+r*.21,-1.008]} s={[4,.013,.01]} c="#bc9d82"/>)}
+ <Box p={[.84,.21,-.96]} s={[1.22,2.81,.11]} c="#4b655b" round={.03}/>
+ <Box p={[-.77,.38,-.84]} s={[1.06,.68,.36]} c="#2c4348" round={.045} metal={.18}/>
+ <Box p={[-.77,.63,-.635]} s={[.84,.075,.035]} c="#132e36"/>
+ <group position={[mix(-.77,-.15,pull),mix(.57,.19,pull),mix(-.54,.48,pull)]} rotation={[mix(1.40,.7,pull),0,.08]}>
+  <Paper p={[0,0,0]} scale={.57}/>
+  <Hand p={[.26,.07,.09]} r={[0,1.25,0]} scale={.65}/>
+ </group>
+ <Ball p={[1.25,.15,-.87]} s={[.06,.06,.04]} c="#c8b877"/>
+ </>;
+};
+const Flashing:React.FC<{a:number;b:number}>=({a,b})=><>
+ <Box p={[0,-.36,-.05]} s={[4,.17,3]} c="#354848"/>
+ {[-1.25,0,1.25].map(x=><Box key={x} p={[x,-.261,-.05]} s={[1.21,.018,2.75]} c="#43574f"/>)}
+ <Box p={[0,-.26,1.44]} s={[4,.42,.11]} c="#a39275"/>
+ <Box p={[0,-.031,1.41]} s={[4,.043,.31]} c="#c6cbbc" metal={.7}/>
+ <Box p={[0,-.15,1.55]} s={[4,.25,.035]} c="#bac3b2" metal={.72}/>
+ <Box p={[0,-.28,1.58]} s={[4,.026,.09]} c="#96a99b" metal={.7}/>
+ {[-1.5,-.75,0,.75,1.5].map(x=><Ball key={x} p={[x,-.001,1.40]} s={[.025,.012,.025]} c="#53665d"/>)}
+ <group position={[0,0,mix(0,-1.05,a)]}>
+  <Box p={[0,-.04,1.13]} s={[3.84,.025,.67]} c="#53695c"/>
+ </group>
+ {Array.from({length:7},(_,i)=>{
+  const t=Math.max(0,Math.min(1,(b*1.7-i*.10)));
+  const z=mix(.79,1.78,Math.min(1,t*1.3));
+  const y=t<.72?-.007:-.007-Math.pow((t-.72)*4.5,2);
+  return t>0&&t<1?<Ball key={i} p={[-1.25+i*.39,y,z]} s={[.078,.062,.11]} c="#57cde1"/>:null;
+ })}
 
-const Desk: React.FC<{id: string; a: number; b: number; c: number}> = ({id, a, b, c}) =>
-  <>
-    <Block position={[0, -1.24, 0]} size={[8.8, .32, 5.8]} color="#654b39"/>
-    <Block position={[0, -1.47, 0]} size={[8.8, .15, 5.8]} color="#2d3434"/>
-    <Block position={[-2.95, -.95, -1.23]} size={[1.45, .16, .84]} color="#526566"/>
-    {id === 's4' && <>
-      <Photo position={[mix(-3.4, -.62, a), -.91 + .35 * c, .36]}
-        rotation={[-Math.PI/2 + .30 * c, 0, -.06]} scale={.72} flagged={b > .2}/>
-      <ReviewingHand reach={b} lift={c}/>
-    </>}
-    {id === 's8' && <>
-      <Block position={[0, .83, -2.75]} size={[8.7, 4.4, .2]} color="#a9775d"/>
-      <Block position={[2.9, 1.02, -2.59]} size={[1.7, 1.9, .14]} color="#79959b"/>
-      <Letter position={[mix(-3, -.80, a), -.91, .28]} rotation={[-Math.PI / 2, 0, -.08]} />
-      <Photo position={[mix(3, 1.03, b), -.87, .38]} rotation={[-Math.PI / 2, 0, .08]}
-        scale={.82} mode="roof"/>
-    </>}
-  </>;
+</>;
+const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
+ const sweep=mix(.60,-.60,b), foot:V3=[sweep,-.51,.87], top:V3=[sweep+.30,.88,.52];
+ const grip=(t:number)=>foot.map((v,i)=>mix(v,top[i],t)) as V3;
+ const h1=grip(.83),h2=grip(.58);
+ return <>
+ <Box p={[0,-.59,0]} s={[7,.13,6]} c="#9d9b76"/>
+ <House flat scale={.65} p={[0,.0,-2.6]}/>
+ <group position={[-.12,0,0]}>
+  <Box p={[-.28,-.41,.1]} s={[.34,.16,.59]} c="#3c4d48" round={.07}/><Box p={[.31,-.41,.04]} s={[.34,.16,.59]} c="#3c4d48" round={.07}/>
+  <Rod from={[-.26,-.32,.02]} to={[-.21,.32,-.06]} radius={.13} c="#3c5362"/><Rod from={[.30,-.32,.0]} to={[.18,.32,-.06]} radius={.13} c="#3c5362"/>
+  <group position={[0,.53,.07+a*.13]} rotation={[a*.15,0,-.06]}>
+   <Box p={[0,0,0]} s={[.66,.76,.39]} c="#397285" round={.14}/>
+   <Rod from={[0,.26,0]} to={[0,.47,0]} radius={.12} c="#ad7b60"/>
+   <Ball p={[0,.64,.01]} s={[.24,.29,.235]} c="#b58769"/>
+   <Ball p={[0,.77,-.06]} s={[.25,.18,.21]} c="#4b4940"/>
+   <Ball p={[.20,.70,-.17]} s={[.12,.14,.12]} c="#4b4940"/>
+   <Ball p={[0,.64,.233]} s={[.06,.066,.041]} c="#b58769"/>
+  </group>
+ </group>
+ <Rod from={[-.40,.69,.20]} to={[-.52,.32,.53]} radius={.09} c="#b58769"/><Rod from={[-.52,.32,.53]} to={h2} radius={.074} c="#b58769"/>
+ <Rod from={[.18,.71,.20]} to={[.47,.50,.35]} radius={.09} c="#b58769"/><Rod from={[.47,.50,.35]} to={h1} radius={.074} c="#b58769"/>
+ <Rod from={foot} to={top} radius={.027} c="#c2a06d"/>
+ {[h1,h2].map((p,i)=><Ball key={i} p={p} s={[.10,.075,.075]} c="#ba8a6b"/>)}
+ <Box p={[sweep,-.46,.87]} s={[.62,.11,.22]} c="#a7834f" round={.018}/>
+ {Array.from({length:13},(_,i)=><Rod key={i} from={[sweep-.28+i*.046,-.47,.90]} to={[sweep-.31+i*.049,-.55,.97]} radius={.012} c="#d6bb80"/>)}
+ </>;
+};
+const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=false})=>{
+ const move=closing?1:a*.35+b*.65;
+ return <>
+ <Table home/>
+ <group position={[-.62,closing?mix(.028,.44,a)*(1-b)+.028*b:.028,.08]} rotation={[closing?-.45*a*(1-b):0,-.06,0]}>
+ <Paper p={[0,0,0]} scale={.9}/>
+ {closing&&<Hand p={[.44,.08,.25]} r={[0,1.2,0]} scale={.72}/>}
+ </group>
+ <group position={[mix(1.61,.57,move),.045,-.02]} rotation={[0,.08,0]}>
+  <Paper p={[0,0,0]} roof scale={.85}/>
+  <Hand p={[.48,.09,.31]} r={[0,1.18,0]} scale={.72}/>
+ </group>
 
-const HomeLimit: React.FC<{a: number; b: number}> = ({a, b}) =>
-  <>
-    <Block position={[0, -1.28, 0]} size={[9, .11, 6.8]} color="#63694c"/>
-    <group position={[-.8, 0, 0]}>
-      <BrickHouse/>
-      <group position={[.85, 0, 0]}><Person reach={a} z={.30}/></group>
-      {b > .01 && <>
-        <Block position={[1.75, 1.12, -1.02]} size={[2.02 * b, .14, .12]} color="#f2a475"/>
-        <Block position={[1.75, .70, -1.02]} size={[2.02 * b, .14, .12]} color="#f2a475"/>
-        <Block position={[.74, .91, -1.02]} size={[.14, .52 * b, .12]} color="#f2a475"/>
-        <Block position={[2.76, .91, -1.02]} size={[.14, .52 * b, .12]} color="#f2a475"/>
-      </>}
-    </group>
-    <Letter position={[mix(-2.8, -.58, a), mix(-1.12, -.85, a), .35]}
-      rotation={[0, 0, -.11 * (1-a)]} scale={.52}/>
-  </>;
-
-const Yard: React.FC<{a: number; b: number}> = ({a, b}) =>
-  <>
-    <Block position={[0, -1.29, 0]} size={[9, .12, 6]} color="#77765a"/>
-    <BrickHouse/>
-    <group position={[.28, -.50, 1.25]} rotation={[0, 0, .28 * a]}>
-      <mesh position={[0, 1.34, 0]} castShadow><sphereGeometry args={[.34, 20, 20]}/><meshStandardMaterial color="#9d6d51"/></mesh>
-      <Block position={[0, .49, 0]} size={[.86, 1.24, .52]} color="#356375"/>
-      <Block position={[-.28, -.49, 0]} size={[.24, .84, .34]} color="#283f4b"/>
-      <Block position={[.28, -.49, 0]} size={[.24, .84, .34]} color="#283f4b"/>
-      <Block position={[mix(-.04, -.44, b), .33, .34]} rotation={[0, 0, mix(-.22, -.58, b)]}
-        size={[.23, 1.18, .25]} color="#9d6d51"/>
-      <Block position={[.53, .35, .13]} rotation={[0, 0, .31]} size={[.23, .85, .25]} color="#9d6d51"/>
-      <Block position={[mix(-.16, -.96, b), -.16, .50]}
-        size={[.34, .20, .30]} color="#a87959"/>
-    </group>
-    <Block position={[mix(.25, -.55, b), -.25, 1.76]}
-      rotation={[0, 0, -.16 - .14 * b]} size={[.11, 1.63, .12]} color="#d2a476"/>
-    <Block position={[mix(.25, -.55, b), -1.05, 1.76]}
-      size={[1.16, .13, .43]} color="#be9961"/>
-    {Array.from({length: 6}, (_, i) => <Block key={i}
-      position={[mix(-.25 + i * .19, -1.05 + i * .19, b), -1.16, 1.94]}
-      size={[.07, .19, .22]} color="#d8bc83"/>)}
-  </>;
-
-const Door: React.FC<{a: number; b: number}> = ({a, b}) =>
-  <>
-    <Block position={[0, -1.25, -.12]} size={[9, .11, 5]} color="#5c624f"/>
-    <Block position={[0, .87, -1.91]} size={[8.5, 4.6, .27]} color="#936d59"/>
-    <Block position={[1.81, .53, -1.73]} size={[1.65, 3.55, .14]} color="#4c574e"/>
-    <Block position={[-1.90, .12, -1.72]} size={[2.08, 1.05, .34]} color="#273d40" metal={.18}/>
-    <Block position={[-1.90, .26, -1.49]} size={[1.50, .12, .09]} color="#171f21"/>
-    <Letter position={[mix(-1.9, .56, a), mix(.20, -.44, a), mix(-1.2, -.62, a)]}
-      rotation={[0, 0, -.10 * a]}/>
-    <Person reach={b}/>
-  </>;
-
-const Roof: React.FC<{a: number; b: number}> = ({a, b}) =>
-  <>
-    <Block position={[0, -1.26, 0]} size={[8.2, .18, 5.5]} color="#4a5252"/>
-    <Block position={[0, -.35, -.42]} size={[7.2, .24, 3.8]} rotation={[0, 0, -.24]} color="#574d43"/>
-    <Block position={[.20, -.10, 1.22]} size={[2.35, .08, .20]} color="#b8c1bd" metal={.62}/>
-    <mesh position={[.20, .03, 1.35]}>
-      <boxGeometry args={[1.64, .08, .06]}/>
-      <meshStandardMaterial color="#d2d8d1" metalness={.7} roughness={.28}
-        emissive="#e5ede7" emissiveIntensity={.08 + .34 * a}/>
-    </mesh>
-    <Block position={[mix(-.92, 1.34, a), .09, 1.43]} size={[.22, .13, .10]}
-      color="#f2f4e7" metal={.72}/>
-    <Photo position={[mix(-.55, -.39, b), mix(.65, .86, b), 1.54]}
-      rotation={[0, mix(-.45, -.10, b), -.11]} scale={mix(.32, .36, b)} mode="roof"/>
-  </>;
-
-const PhysicalStory: React.FC<{scene: Scene; time: number; windows: ReturnType<typeof actionWindows>}> =
-  ({scene, time, windows}) => {
-    const events = scene.visual_events ?? [];
-    const progress = (i: number) => events[i]?.id ? actionProgress(requireAction(windows, events[i].id), time) : 0;
-    const a = progress(0), b = progress(1), c = progress(2);
-    const cam = stageCamera(scene.id);
-    return <CinematicStage position={cam.position} target={cam.target}
-      fov={scene.id === 's7' ? 47 : scene.id === 's6' ? 43 : 39}>
-      {['s1', 's3'].includes(scene.id) && <Street id={scene.id} a={a} b={b}/>} 
-      {scene.id === 's2' && <CaptureView a={a} b={b}/>}
-      {['s4', 's8'].includes(scene.id) && <Desk id={scene.id} a={a} b={b} c={c}/>}
-      {scene.id === 's5' && <Door a={a} b={b}/>}
-      {scene.id === 's6' && <Roof a={a} b={b}/>}
-      {scene.id === 's7' && <Yard a={a} b={b}/>}
-      {scene.id === 's9' && <HomeLimit a={a} b={b}/>}
-    </CinematicStage>;
-  };
-
-export const BrushCameraEpisode: React.FC<DispatchProps> = ({
-  runtime_s, scenes, captions = [], credits = '', credits_s = 5,
-  __cinemaProofWithoutStage = false,
-}) => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
-  const time = frame / fps;
-  const windows = actionWindows(scenes);
-  const scene = scenes.find(s => time >= s.start_s && time < s.start_s + s.duration_s) ?? scenes[scenes.length - 1];
-  const story = time < runtime_s;
-  const enter = cue(time, scene.start_s + .08, scene.start_s + .50);
-  return <div style={{position: 'absolute', inset: 0, background: navy, color: cream}}>
-    {story && <>
-      {!__cinemaProofWithoutStage && <PhysicalStory scene={scene} time={time} windows={windows}/>}
-      <div style={{position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg,#102631ce 0%,transparent 21%,transparent 69%,#1026318c 100%)',
-        pointerEvents: 'none'}}/>
-      <div style={{position: 'absolute', left: 70, top: 93, fontFamily: FONT.mono,
-        fontSize: 26, letterSpacing: 3.3, color: cream}}>TEXAS AI DISPATCH</div>
-      <div style={{position: 'absolute', left: 70, top: 139, fontFamily: FONT.mono,
-        fontSize: 18, letterSpacing: 2.1, color: mint}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
-      {scene.id === 's6' && <div style={{position: 'absolute', left: 70, top: 175,
-        fontFamily: FONT.mono, fontSize: 18, letterSpacing: 2, color: copper}}>
-        SEPARATE REPORTED CASE / NBC 5
-      </div>}
-      <div style={{position: 'absolute', left: 70, right: 118, top: 246,
-        opacity: enter, transform: `translateY(${mix(19, 0, enter)}px)`,
-        fontFamily: FONT.display, fontSize: 70, lineHeight: 1.02,
-        textShadow: '0 4px 16px #102631bb'}}>{scene.super}</div>
-      <GradeLayer f={frame} vignette={.13} grain={.012} bloom={.01}/>
-      <SubtitleTrack cues={captions} fps={fps}/>
-    </>}
-    <Sequence from={Math.round(runtime_s * fps)} durationInFrames={Math.round(credits_s * fps)}>
-      <CreditsCard text={credits}/>
-    </Sequence>
-  </div>;
+ <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
+ </>;
+};
+const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
+ const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
+ const a=progress(0),b=progress(1),c=progress(2),id=scene.id;
+ const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
+ ['s2','s3'].includes(id)?{position:[0,2.1,8.6],target:[0,-.05,-.4],fov:38}:
+ id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
+ id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
+ id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
+ id==='s9'?{position:[.1,4,6.2],target:[0,-.30,-.60],fov:45}:
+ {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
+ return <CinematicStage {...camera} exposure={1.15}>
+ <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
+ <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
+ {id==='s1'&&<Street a={a} b={b}/>}
+ {['s2','s3'].includes(id)&&<Capture a={a} b={b} scan={id==='s3'}/>}
+ {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
+ {id==='s5'&&<Notice a={a} b={b}/>}
+ {id==='s6'&&<Flashing a={a} b={b}/>}
+ {id==='s7'&&<Cleanup a={a} b={b}/>}
+ {id==='s8'&&<Evidence a={a} b={b}/>}
+ {id==='s9'&&<Evidence a={a} b={b} closing/>}
+ </CinematicStage>;
+};
+export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
+ const frame=useCurrentFrame(),{fps}=useVideoConfig(),time=frame/fps,windows=actionWindows(scenes);
+ const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
+ const p=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
+ return <div style={{position:'absolute',inset:0,background:ink,color:cream}}>
+ {time<runtime_s&&<>
+ {!__cinemaProofWithoutStage&&<PhysicalStory scene={scene} time={time} windows={windows}/>}
+ <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
+ <div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
+ <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
+ <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div>
+ {['s2','s3'].includes(scene.id)&&<div style={{position:'absolute',left:94,right:130,top:510,height:650,border:'3px solid #d8e0c280',borderRadius:18,boxShadow:scene.id==='s2'&&p(1)>.4?'inset 0 0 0 8px #e1e1cb':'none'}}>
+ <div style={{position:'absolute',left:20,top:20,fontFamily:FONT.mono,fontSize:23,color:cream}}>{scene.id==='s2'?'SIDE CAMERA / ILLUSTRATION':'COMPUTER VISION / ILLUSTRATION'}</div></div>}
+ {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
+ <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
+ </>}
+ <Sequence from={Math.round(runtime_s*fps)} durationInFrames={Math.round(credits_s*fps)}><CreditsCard text={credits}/></Sequence>
+ </div>;
 };
