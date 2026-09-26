@@ -190,8 +190,8 @@ caption alignment, audio measurement and every release gate remain required.
 
 ## Repair efficiently before another expensive attempt
 
-The critic target covers both required reviews, code plan and exact phone film. The critic
-ceiling allows three candidate revisions within the unchanged overall token ceiling.
+The critic target covers both required reviews, code plan and exact phone film. The initial
+boundary allows three candidate revisions before a diagnosed repair batch is required.
 A rejected picture or sound review starts one consolidated repair pass. Keep a single defect
 list with the exact failed interval, retained review evidence, root cause, changed production
 files, and the visible or audible acceptance test. Repair the entire list before requesting
@@ -707,7 +707,8 @@ even one real take completed, use the best measured real take instead.
 
 Each take renders the whole passage for natural sentence-to-sentence flow, then spends one
 verbatim-soundcheck call. The shared run has four external audio-model calls total, across every
-batch and retry. Two successful takes exhaust it. A fifth call is impossible, not discouraged.
+batch and retry as an initial target. Further calls require the controller's recorded allowance;
+never synthesize outside a reservation or reset the counter.
 
 **Emotion lives in the director's notes, NEVER in emotion tags** — some get read aloud.
 
@@ -1152,9 +1153,8 @@ python3 scripts/preship_check.py --board out/dispatch/storyboard.json
 
 It runs every gate a panel cannot see, by exit code, and writes a verdict stamped with the
 board's own sha256. **Edit the board and the verdict stops matching**, so a panel can never
-grade a cut the gates have not seen. `--force-no-preship` exists for an emergency and writes a
-`preship_bypassed` event, because an escape hatch nobody can see afterwards is the same as no
-rule at all.
+grade a cut the gates have not seen. Production rejects the preship bypass option;
+that option exists only for rehearsal self-tests.
 
 While the controller permits another panel, make **one batched corrective pass per failing round**. Work the
 highest-cost axis first and at most the top two axes that materially contribute to the gap. A

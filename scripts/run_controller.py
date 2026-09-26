@@ -1808,8 +1808,7 @@ def main() -> int:
     p.add_argument("--judges", type=int, default=3)
     p.add_argument("--note", default="")
     p.add_argument("--force-no-preship", action="store_true",
-                   help="reserve without a current preship verdict. Records itself in the "
-                        "ledger. For a genuine emergency, never for convenience.")
+                   help="rehearsal-only reservation without preship; production refuses this option.")
 
     p = sub.add_parser("phase")
     p.add_argument("--name", required=True)
