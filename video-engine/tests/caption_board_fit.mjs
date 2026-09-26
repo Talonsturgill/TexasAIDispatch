@@ -38,7 +38,12 @@ try {
     if (arg < 0 || !process.argv[arg + 1]) throw new Error('usage: caption_board_fit.mjs --board FILE');
     const board = JSON.parse(await readFile(process.argv[arg + 1], 'utf8'));
     const cues = board.captions || [];
-    if (String(board.date || "") >= "2026-09-25" && !cues.length) throw new Error("current board has no narration captions to inspect");
+    const earlyMuted = process.argv.includes('--early-muted-animatic');
+    if (String(board.date || "") >= "2026-09-25" && !cues.length) {
+      if (!earlyMuted || board.caption_method || board.retimed_to || board.retime_evidence)
+        throw new Error("current timed board has no measured narration captions to inspect");
+      console.log('caption_board_fit: early muted picture animatic has no cues; final timed board must be checked');
+    }
     for (const cue of cues) check(cue);
     console.log(`caption_board_fit: ${cues.length} exact board cues fit the lower two-line band`);
   }

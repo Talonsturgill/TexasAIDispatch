@@ -1642,7 +1642,47 @@ def ranch_gate(seed=97):
     return normalize(fade(out, 10), .4)
 
 
+def brush_truck_roll(seed=98):
+    """The illustrated Dallas brush truck rolls past a curbside home."""
+    dur = 1.8
+    t = t_axis(dur)
+    engine = sine(68, dur) * .45 + sine(136, dur) * .12
+    tire = one_pole_lp(white(dur, seed), 450) * .22
+    envelope = np.sin(np.pi * t / dur) ** 2
+    return normalize(fade((engine + tire) * envelope, 25), .50)
+
+
+def brush_camera_shutter(seed=99):
+    """A dry double shutter click when the illustrated side camera takes a still."""
+    dur = .38
+    out = np.zeros(int(dur * SR))
+    click = high_pass(white(.09, seed), 1100) * expdecay(.09, .013)
+    place_into(out, normalize(click) * .32, .02)
+    place_into(out, normalize(click) * .21, .20)
+    return normalize(fade(out, 5), .42)
+
+
+def paper_photo_slide(seed=100):
+    """The visible printed camera photo or notice slides across a surface."""
+    dur = 1.1
+    surface = one_pole_lp(high_pass(white(dur, seed), 520), 4200)
+    envelope = np.hanning(int(dur * SR))
+    return normalize(fade(surface * envelope, 25), .32)
+
+
+def yard_broom_sweep(seed=101):
+    """Bristles of the visible broom pass over bare yard ground once."""
+    dur = 1.25
+    texture = one_pole_lp(high_pass(white(dur, seed), 340), 3600)
+    envelope = np.hanning(int(dur * SR))
+    return normalize(fade(texture * envelope, 25), .35)
+
+
 SOUNDS = {
+    "brush_truck_roll": (brush_truck_roll, "oneshot", "the visible illustrated brush truck rolling past the curbside house", ["brush", "truck", "street"]),
+    "brush_camera_shutter": (brush_camera_shutter, "oneshot", "the visible brush-truck side camera taking a still image", ["camera", "shutter", "capture"]),
+    "paper_photo_slide": (paper_photo_slide, "oneshot", "the visible printed camera photo or notice sliding across a desk or into a hand", ["photo", "paper", "notice"]),
+    "yard_broom_sweep": (yard_broom_sweep, "oneshot", "the visible broom sweeping across bare yard ground", ["yard", "broom", "sweep"]),
     "screwworm_wings": (screwworm_wings, "oneshot", "the visible illustrated sterile or wild fly moving its wings", ["fly", "insect", "wings"]),
     "forecast_clue": (forecast_clue, "oneshot", "graphic sonification of the visible ecological forecast landscape or clues", ["forecast", "landscape", "model", "habitat"]),
     "ranch_gate": (ranch_gate, "oneshot", "the visible ranch livestock transport gate closing", ["ranch", "livestock", "gate", "transport"]),

@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-26",
+  "verdict": "pass",
+  "review_scope": "exact-muted-phone-preflight",
+  "phone_verdict": "pass",
+  "reviewer_identity": "/root/storyboard_critic",
+  "reviewed_at": "2026-09-26T14:55:45Z",
+  "concept_sha256": "5dcb9f39454ef9ae7a0b119d9d8b6c8fd7a17b5866d9fea472ca7bf5fe22f713",
+  "renderer_sha256": "4adc6bb305339f6250cf9eb1b23a2ae29706aa31b0a5e32d3fb6a81cf34cb29b",
+  "reviewed_preflight_sha256": "f26ea350a25d8a5d9154fa82a6b768a9417b4c80e1f31b59e5c94f3e058ad9bb",
+  "rejected_preflight_sha256": "68fe33c371c56faa99bfaacbaee7531d7d3eea0cde2b428b942272091cbc20de",
+  "prior_rejected_timed_preflight_sha256": "e2d803eb742687003a278d269020567a8b91f30752ee4f3c74c5d616df0ff371",
+  "prior_approved_preflight_sha256": "d8dfb23ec818d2df905e0a95b24d054f40cb3d637af515f1ea20cbe2ef6eec04",
+  "prior_rejected_preflight_sha256": "7fe54f43dd633fc15320238f6966f12b2149b52b99cc7e4ff8e939beb69fbdad",
+  "weakest_frame": "s9, 40.5–42.5 seconds: the resident remains cropped at the right edge and the enlarged roof bracket competes with the title. The document reaches the hand and the caption stays below it; recheck this crowded close in the full-resolution film and feed composite.",
+  "summary": "PASS for exact muted 270x480 timed phone preflight8, bound to the reviewed MP4 hash. I inspected the current contact sheet and exact phone frames through the repaired roof, yard, and close. In s6 the roof photo, traveling glint, and entire fixed strip sit above the caption band through both cues. In s7 the resident's head is fully visible and the broom tines meet the ground above the band throughout the sweep. The previously repaired s4 hand contacts and lifts the photo early enough to avoid the long static hold. The s9 document reaches the hand while its caption stays below the action. The close remains crowded but readable. This is no audio or native-resolution approval.",
+  "evidence_for_code_plan_pass": [
+    "The s4 board has image arrival, hand contact, and photo lift as three timed events; the renderer drives reviewer reach and matched photo/hand lift from those event progress values.",
+    "The s6 physical objects and glint remain the approved comparison action while the camera field of view expands to 43 degrees.",
+    "The s7 broom shaft, head, tines, and gripping hand retain one shared lateral sweep value while the camera field of view expands to 47 degrees.",
+    "The s9 document-to-hand close is unchanged."
+  ],
+  "prior_rejection_evidence": [
+    "At 23.5–27.5 seconds the s6 caption band still overlaps the stationary flashing. The roof photo and glint remain visible, but the viewer cannot see the complete strip while its function is narrated.",
+    "At 29.5–32.0 seconds the moving s7 broom head/tines meet the band top and their contact with the ground remains weak. The resident's head stays partly beyond the top of the frame.",
+    "At 15.5–17.5 seconds s4 now shows a hand contacting and lifting the marked photo, resolving the earlier static-photo hold.",
+    "At 40.0–42.5 seconds the s9 caption stays below the document and hand. The oversized roof bracket and cropped resident remain the prior close composition risk."
+  ],
+  "evidence_for_phone_pass": [
+    "At 23.7, 25.0, and 27.3 seconds the s6 roof photo and fixed flashing are visible above the caption band. The glint moves along the exposed strip while the photo tilts into comparison.",
+    "At 29.5, 30.1, 31.8, and 32.6 seconds the s7 resident's head is inside the top frame; the gripping hand, broom head, and tines remain visible above the caption band as the tines touch bare ground.",
+    "The s4 hand now contacts and lifts the marked image by roughly 15.5–17.5 seconds, and the s9 second cue stays below the document and hand.",
+    "The full-cut contact sheet retains the camera-to-photo-to-notice-to-roof-to-yard-to-document progression and a source-limited ending."
+  ],
+  "required_final_checks": [
+    "Inspect the current native-resolution full film at phone size and in the feed composite, especially the crowded s9 title, bracket, and cropped resident.",
+    "Confirm burned captions stay below the action and the bracket remains understandable once the real feed overlay is present.",
+    "Review measured encoded audio and sound separately; this muted preflight provides no listening evidence."
+  ],
+  "phone_review_note": "Only the current exact muted timed MP4 hash f26ea350a25d8a5d9154fa82a6b768a9417b4c80e1f31b59e5c94f3e058ad9bb is approved for phone-picture preflight. Earlier timed hashes remain rejected for hidden action. No audio or native final file was reviewed."
+}

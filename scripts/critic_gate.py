@@ -72,11 +72,13 @@ def concept_digest(board: dict) -> str:
                 "retimed_to", "retime_evidence"):
         plan.pop(key, None)
     for scene in plan.get("scenes") or []:
-        for key in ("start_s", "duration_s", "caption"):
+        for key in ("start_s", "duration_s", "duration_authored", "caption"):
             scene.pop(key, None)
         for event in scene.get("visual_events") or []:
             event.pop("at_s", None)
             event.pop("duration_s", None)
+            event.pop("at_s_authored", None)
+            event.pop("duration_s_authored", None)
     raw = json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(raw).hexdigest()
 
@@ -147,7 +149,10 @@ def self_test() -> int:
     changed=copy.deepcopy(board);changed["scenes"][0]["vo"]="Another story"
     checks.append(("creative revision invalidates the pass",bool(problems(changed,report))))
     timed=copy.deepcopy(board);timed["scenes"][0]["start_s"]=1.2
+    timed["scenes"][0]["duration_authored"]=4
     timed["scenes"][0]["visual_events"][0]["at_s"]=.22
+    timed["scenes"][0]["visual_events"][0]["at_s_authored"]=.1
+    timed["scenes"][0]["visual_events"][0]["duration_s_authored"]=.7
     timed["captions"]=[{"text":"A source-backed action"}]
     checks.append(("measured retime and captions retain it",not problems(timed,report)))
     phone={**report,"review_scope":"exact-muted-phone-preflight",

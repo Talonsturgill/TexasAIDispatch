@@ -1,0 +1,851 @@
+{
+  "created_at": "2026-09-26T13:36:38.511424Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-26/out/dispatch/deliverables/9510905683415a41-92c313fa31756da4-cb578be36d84fae1/storyboard.json",
+    "board_sha256": "92c313fa31756da428fef44c620e70a00d60adf79aadf9ab1c961d19d1e84d30",
+    "film": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-26/out/dispatch/deliverables/9510905683415a41-92c313fa31756da4-cb578be36d84fae1/dispatch.mp4",
+    "film_sha256": "9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-26/out/dispatch/deliverables/9510905683415a41-92c313fa31756da4-cb578be36d84fae1/render-manifest.json",
+    "manifest_sha256": "cb578be36d84fae1eeaf83c3e09b9e89fa3dcf39317e6f9f6cb02430ff1aa8a2",
+    "registered_at": "2026-09-26T15:00:56.001326Z",
+    "review_only": true,
+    "review_reason": "Hero provider rejected static placeholder opening; native cut is for review only"
+  },
+  "escalation_ceiling": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 6,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-09-26T13:59:46.160792Z",
+      "ceiling": 6,
+      "from": 2,
+      "note": "new house-facing capture and hand-contact mechanism",
+      "resource": "storyboard_critics",
+      "to": 3
+    },
+    {
+      "at": "2026-09-26T13:59:57.496004Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "revised nine-scene board source audit",
+      "resource": "validator_agents",
+      "to": 2
+    },
+    {
+      "at": "2026-09-26T14:04:00.210538Z",
+      "ceiling": 6,
+      "from": 3,
+      "note": "source-safe visual revision after validator critique",
+      "resource": "storyboard_critics",
+      "to": 4
+    },
+    {
+      "at": "2026-09-26T14:07:11.624321Z",
+      "ceiling": 6,
+      "from": 4,
+      "note": "explicit Morrison case transition and exterior outcome image",
+      "resource": "storyboard_critics",
+      "to": 5
+    },
+    {
+      "at": "2026-09-26T14:11:24.789077Z",
+      "ceiling": 10,
+      "from": 4,
+      "note": "phone animatic: roof photo offscreen, reviewer crop, empty upper frame",
+      "resource": "reboards",
+      "to": 5
+    },
+    {
+      "at": "2026-09-26T14:11:59.045330Z",
+      "ceiling": 6,
+      "from": 5,
+      "note": "reframed roof and phone-action picture repair; plan plus phone check",
+      "resource": "storyboard_critics",
+      "to": 6
+    },
+    {
+      "at": "2026-09-26T14:15:21.639536Z",
+      "ceiling": 10,
+      "from": 5,
+      "note": "phone reviewer rejected repeated capture, covered flashing, weak hand and broom",
+      "resource": "reboards",
+      "to": 6
+    },
+    {
+      "at": "2026-09-26T14:22:47.935646Z",
+      "ceiling": 10,
+      "from": 6,
+      "note": "phone framing repair after third exact animatic",
+      "resource": "reboards",
+      "to": 7
+    },
+    {
+      "at": "2026-09-26T14:28:26.706865Z",
+      "ceiling": 10,
+      "from": 7,
+      "note": "early roof action and closing document contact after fourth phone rejection",
+      "resource": "reboards",
+      "to": 8
+    },
+    {
+      "at": "2026-09-26T14:48:25.637267Z",
+      "ceiling": 10,
+      "from": 8,
+      "note": "timed caption-action collision and late reviewer contact",
+      "resource": "reboards",
+      "to": 9
+    },
+    {
+      "at": "2026-09-26T14:50:47.211941Z",
+      "ceiling": 16,
+      "from": 6,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 7
+    },
+    {
+      "at": "2026-09-26T14:53:30.046752Z",
+      "ceiling": 10,
+      "from": 9,
+      "note": "Reframe roof flashing and broom contact after exact timed phone rejection 68fe33c3",
+      "resource": "reboards",
+      "to": 10
+    },
+    {
+      "at": "2026-09-26T14:54:46.410436Z",
+      "ceiling": 16,
+      "from": 7,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 8
+    },
+    {
+      "at": "2026-09-26T14:56:33.387566Z",
+      "ceiling": 16,
+      "from": 8,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 9
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-26T13:36:38.511569Z",
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-09-26T13:38:10.836890Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-09-26T13:38:10.921145Z",
+      "kind": "reserved",
+      "note": "FAA Zipline Texas delivery proposal",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:38:11.006256Z",
+      "kind": "reserved",
+      "note": "Dallas brush truck camera citations",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:41:24.548173Z",
+      "kind": "phase",
+      "name": "fact_check"
+    },
+    {
+      "at": "2026-09-26T13:41:24.634001Z",
+      "kind": "reserved",
+      "note": "Dallas",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:51:05.504018Z",
+      "kind": "phase",
+      "name": "storyboard"
+    },
+    {
+      "at": "2026-09-26T13:51:05.532745Z",
+      "kind": "reserved",
+      "note": "initial Dallas camera board",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:52:20.864505Z",
+      "kind": "reserved",
+      "note": "critic rejected reviewer, yard action and camera orientation",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:55:50.527415Z",
+      "kind": "reserved",
+      "note": "revised camera, reviewer, yard and source limit",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:57:50.007112Z",
+      "kind": "reserved",
+      "note": "second critic rejected opening capture and hand contact",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:59:46.161051Z",
+      "ceiling": 6,
+      "kind": "budget_escalated",
+      "note": "new house-facing capture and hand-contact mechanism",
+      "now": 3,
+      "resource": "storyboard_critics",
+      "was": 2
+    },
+    {
+      "at": "2026-09-26T13:59:46.161057Z",
+      "kind": "reserved",
+      "note": "new house-facing capture and hand-contact mechanism",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-26T13:59:57.496112Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "revised nine-scene board source audit",
+      "now": 2,
+      "resource": "validator_agents",
+      "was": 1
+    },
+    {
+      "at": "2026-09-26T13:59:57.496118Z",
+      "kind": "reserved",
+      "note": "revised nine-scene board source audit",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:01:38.817574Z",
+      "kind": "reserved",
+      "note": "source audit: fixed camera, unproved debris, home/city case separation",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:04:00.210642Z",
+      "ceiling": 6,
+      "kind": "budget_escalated",
+      "note": "source-safe visual revision after validator critique",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-09-26T14:04:00.210648Z",
+      "kind": "reserved",
+      "note": "source-safe visual revision after validator critique",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:05:43.280048Z",
+      "kind": "reserved",
+      "note": "separate reported Morrison case and distinct exterior ending",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:07:11.624642Z",
+      "ceiling": 6,
+      "kind": "budget_escalated",
+      "note": "explicit Morrison case transition and exterior outcome image",
+      "now": 5,
+      "resource": "storyboard_critics",
+      "was": 4
+    },
+    {
+      "at": "2026-09-26T14:07:11.624648Z",
+      "kind": "reserved",
+      "note": "explicit Morrison case transition and exterior outcome image",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:09:13.201939Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "5a786c87e9091851c944718af0ba5d1edb9341ac05d5800943cdcb33e0efde14",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:11:24.789292Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "phone animatic: roof photo offscreen, reviewer crop, empty upper frame",
+      "now": 5,
+      "resource": "reboards",
+      "was": 4
+    },
+    {
+      "at": "2026-09-26T14:11:24.789366Z",
+      "kind": "reserved",
+      "note": "phone animatic: roof photo offscreen, reviewer crop, empty upper frame",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:11:59.045431Z",
+      "ceiling": 6,
+      "kind": "budget_escalated",
+      "note": "reframed roof and phone-action picture repair; plan plus phone check",
+      "now": 6,
+      "resource": "storyboard_critics",
+      "was": 5
+    },
+    {
+      "at": "2026-09-26T14:11:59.045436Z",
+      "kind": "reserved",
+      "note": "reframed roof and phone-action picture repair; plan plus phone check",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:13:01.506815Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "f9e1c213066467cd8c3cdddda7a24244119327b8b074d243563fd58ccd8f4676",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:15:21.639727Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "phone reviewer rejected repeated capture, covered flashing, weak hand and broom",
+      "now": 6,
+      "resource": "reboards",
+      "was": 5
+    },
+    {
+      "at": "2026-09-26T14:15:21.639732Z",
+      "kind": "reserved",
+      "note": "phone reviewer rejected repeated capture, covered flashing, weak hand and broom",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:20:51.245188Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "a178dd2060df2ffceec5b987813340d4f0fe6b9a5d71f7df2faa9ff64c6e9f2e",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:22:47.935838Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "phone framing repair after third exact animatic",
+      "now": 7,
+      "resource": "reboards",
+      "was": 6
+    },
+    {
+      "at": "2026-09-26T14:22:47.935843Z",
+      "kind": "reserved",
+      "note": "phone framing repair after third exact animatic",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:25:23.591281Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "8c4cf66db6f933f564c4d6087c4bec35f10f0d92a17bbec6805b97bb2384286c",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:28:26.707064Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "early roof action and closing document contact after fourth phone rejection",
+      "now": 8,
+      "resource": "reboards",
+      "was": 7
+    },
+    {
+      "at": "2026-09-26T14:28:26.707068Z",
+      "kind": "reserved",
+      "note": "early roof action and closing document contact after fourth phone rejection",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:30:54.088404Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "322913f10c97fab7d205138bc23d4f9efab8189621c8d27816be7f5dd4424d87",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:33:39.297425Z",
+      "kind": "reserved",
+      "note": "accepted early phone animatic, final VO plan",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:36:49.791535Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:37:16.514561Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2422
+      }
+    },
+    {
+      "at": "2026-09-26T14:37:16.516458Z",
+      "elapsed_ms": 26720,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2422,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-26T14:37:16.564202Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:37:23.457949Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2011
+      }
+    },
+    {
+      "at": "2026-09-26T14:37:23.461447Z",
+      "elapsed_ms": 6892,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2011,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-26T14:37:25.598416Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:37:50.027354Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2300
+      }
+    },
+    {
+      "at": "2026-09-26T14:37:50.029244Z",
+      "elapsed_ms": 24426,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2300,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-26T14:37:50.061156Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:38:00.611776Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2648
+      }
+    },
+    {
+      "at": "2026-09-26T14:38:00.615304Z",
+      "elapsed_ms": 10549,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2648,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-26T14:44:42.478671Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "68166a7ca80ef23900f6673f947543d786b4b567659d7408188b47fe9c349d5e",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:48:25.637568Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "timed caption-action collision and late reviewer contact",
+      "now": 9,
+      "resource": "reboards",
+      "was": 8
+    },
+    {
+      "at": "2026-09-26T14:48:25.637573Z",
+      "kind": "reserved",
+      "note": "timed caption-action collision and late reviewer contact",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:50:47.212294Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 7,
+      "resource": "preflight_renders",
+      "was": 6
+    },
+    {
+      "at": "2026-09-26T14:50:47.212300Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "79bb925ff003f41737ed6b3fa4d43af2c5fa1ba7ab8481bf09eee21d761111bc",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:53:30.046856Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "Reframe roof flashing and broom contact after exact timed phone rejection 68fe33c3",
+      "now": 10,
+      "resource": "reboards",
+      "was": 9
+    },
+    {
+      "at": "2026-09-26T14:53:30.046862Z",
+      "kind": "reserved",
+      "note": "Reframe roof flashing and broom contact after exact timed phone rejection 68fe33c3",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:54:46.410724Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 8,
+      "resource": "preflight_renders",
+      "was": 7
+    },
+    {
+      "at": "2026-09-26T14:54:46.410731Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "93e64823f2475fd8850011c88e7734478417e24764baef13f837357d0740daa3",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:56:33.387747Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 9,
+      "resource": "preflight_renders",
+      "was": 8
+    },
+    {
+      "at": "2026-09-26T14:56:33.387753Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "6b29c65c97ef55120c582dfc697a122e3a101698005c2f840aacd81d3b60d0a1",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:58:15.076746Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-26T14:58:24.219837Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 2270bd06-bd9a-493b-bb3c-6edd00b45c4b hero exact film e2c8ea2a12627ca54f22109506c56f1cb9b519e4ef1c3deadd82ba6fe4f52ebc",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 4759
+      }
+    },
+    {
+      "at": "2026-09-26T14:58:24.224358Z",
+      "elapsed_ms": 9130,
+      "kind": "telemetry",
+      "note": "2270bd06-bd9a-493b-bb3c-6edd00b45c4b hero exact film e2c8ea2a12627ca54f22109506c56f1cb9b519e4ef1c3deadd82ba6fe4f52ebc",
+      "reported_tokens": 4759,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-26T14:59:32.233358Z",
+      "kind": "reserved",
+      "note": "native-resolution playable review cut after rejected hero; no release approval",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-26T15:00:56.001338Z",
+      "film_sha256": "9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "cb578be36d84fae1eeaf83c3e09b9e89fa3dcf39317e6f9f6cb02430ff1aa8a2",
+      "review_only": true
+    },
+    {
+      "at": "2026-09-26T15:02:23.902214Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-26T15:02:47.089230Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 45aa4f24-ddac-4a35-ba5e-2643230ae729 picture exact film 9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 18807
+      }
+    },
+    {
+      "at": "2026-09-26T15:02:47.092548Z",
+      "elapsed_ms": 23177,
+      "kind": "telemetry",
+      "note": "45aa4f24-ddac-4a35-ba5e-2643230ae729 picture exact film 9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+      "reported_tokens": 18807,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-26T15:02:53.817791Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-26T15:03:06.538030Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 4ae53c1b-b39d-4f17-bcb3-378085b4267d story exact film 9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 19183
+      }
+    },
+    {
+      "at": "2026-09-26T15:03:06.542134Z",
+      "elapsed_ms": 12713,
+      "kind": "telemetry",
+      "note": "4ae53c1b-b39d-4f17-bcb3-378085b4267d story exact film 9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+      "reported_tokens": 19183,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-26T15:03:11.978292Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-26T15:04:14.529270Z",
+      "elapsed_ms": 62543,
+      "kind": "telemetry",
+      "note": "provider connection failure for sound",
+      "reported_tokens": 0,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-26T15:04:37.954378Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-26T15:05:43.319628Z",
+      "elapsed_ms": 65357,
+      "kind": "telemetry",
+      "note": "provider connection failure for sound",
+      "reported_tokens": 0,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-26T15:08:10.003094Z",
+      "kind": "finished",
+      "reason": "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures",
+      "result": "needs_review",
+      "review_package": "runs/review/2026-09-26-dallas-brush-camera"
+    }
+  ],
+  "limits": {
+    "audiovisual_reviews": 21,
+    "cleanup_renders": 1,
+    "full_renders": 5,
+    "panel_rounds": 5,
+    "preflight_renders": 9,
+    "reboards": 10,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 15,
+    "storyboard_critics": 6,
+    "tts_calls": 4,
+    "validator_agents": 2,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "deliverable_completion",
+  "review_package": {
+    "blocker_report_sha256": "5a93813a83ab46b0d18c93b2b5e34272528a791fdef43b75ce4a4f77f9865f6b",
+    "film_sha256": "9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd",
+    "manifest_sha256": "cb578be36d84fae1eeaf83c3e09b9e89fa3dcf39317e6f9f6cb02430ff1aa8a2",
+    "path": "runs/review/2026-09-26-dallas-brush-camera"
+  },
+  "review_reasons": [
+    "Hero provider rejected static placeholder opening; native cut is for review only",
+    "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures"
+  ],
+  "review_required": true,
+  "run_id": "2026-09-26",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": "Native cut rejected by exact-byte hero, picture and story reviews; all ten authorized reboards used, no owner-approved extension, sound lens inaccessible after two connection failures",
+  "terminal_state": "needs_review",
+  "updated_at": "2026-09-26T15:08:10.003227Z",
+  "usage": {
+    "audiovisual_reviews": 5,
+    "cleanup_renders": 0,
+    "full_renders": 1,
+    "panel_rounds": 0,
+    "preflight_renders": 9,
+    "reboards": 10,
+    "reported_tokens": 52130,
+    "rescue_renders": 0,
+    "research_agents": 2,
+    "scorer_calls": 0,
+    "storyboard_critics": 6,
+    "tts_calls": 4,
+    "validator_agents": 2,
+    "voice_directors": 1
+  }
+}

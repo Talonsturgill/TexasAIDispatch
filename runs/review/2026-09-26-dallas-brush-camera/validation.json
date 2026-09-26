@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-26",
+  "source": "Independent direct review of the Dallas city approval and Finance Committee briefing, FOX 4 report, and NBC 5 article. NBC loaded in the in-app browser; command-line and web text fetches returned HTTP 403. The September 8 city manager memo was not directly retrieved, so its figures and inspection detail remain attributed to the reporting outlets.",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11",
+    "c12"
+  ],
+  "rejected": [
+    "AI automatically issues tickets or sends citations without a person: The city's primary briefing says this is not automated ticketing and says a human participates in all actions. FOX reports an in-person inspection before a citation.",
+    "Every courtesy notice was preceded by an in-person property inspection: The in-person requirement in FOX's account of the memo concerns citations. The sources do not establish an inspection before each courtesy notice.",
+    "The city directly verified 3,700 notices and 57 citations in a retrieved September 8 memo: The September 8 memo was not directly retrieved. NBC and FOX report its figures; claims keep that attribution.",
+    "Morrison's roof was in violation or she received a citation: Her alleged roof defect was disputed with documentation; NBC describes a courtesy notice and does not report her receiving a citation.",
+    "The October 19 briefing is confirmed on a current official agenda: Only FOX's September 18 report of the planned briefing was verified; no current official notice was obtained.",
+    "Ten thousand properties were scanned as a current program total: FOX attributes 10,000 to a September 8 memo, while NBC reports 21,000 addresses with potential violations over four months. The units and periods differ, and a direct memo was unavailable."
+  ],
+  "required_edits_applied": [
+    "The claims file excludes automatic citation and any in-person inspection requirement for courtesy notices.",
+    "The 3,700 notice figure, 57 citations at 34 properties, and citation-inspection sequence retain explicit news-source and reported-memo attribution.",
+    "Morrison's disputed roof condition remains an allegation in a courtesy notice; the claims file does not say she received a citation.",
+    "The October 19 briefing remains a FOX-reported plan rather than a confirmed current city agenda."
+  ],
+  "validator_identity": "/root/validate_dallas",
+  "validated_at_utc": "2026-09-26T13:48:56Z",
+  "claims_sha256": "f0127a1b3e557497cc4ef8212101db8f0f417a7a4e6fdeed65f76375f62ebf20",
+  "source_manifest_sha256": "cdc6a22fcaec05fc2b1716a6d30e7cdefb05f8f742f75f3cfc0b324f004b015e",
+  "validation_scope": "Source quotations and claim scope only. No current storyboard, narration, captions, rendered film, or audio has yet been reviewed by this validator.",
+  "current_board_verdict": "NOT_REVIEWED",
+  "pending_delivery_checks": [
+    "Compare every storyboard frame, narration line, visible number, and caption to these exact claim IDs.",
+    "Recheck current board and claim hashes after any script or frame revision.",
+    "The final film and measured audio require separate independent review."
+  ]
+}

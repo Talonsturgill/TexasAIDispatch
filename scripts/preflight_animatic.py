@@ -227,8 +227,13 @@ def render(board: Path, film: Path, state: Path) -> None:
                             "--board", str(board), "--verify"])
     if media.returncode:
         raise RuntimeError("a requested generated plate is missing or stale; no animatic was spent")
-    caption_fit = subprocess.run(["node", str(ENGINE / "tests" / "caption_board_fit.mjs"),
-                                  "--board", str(board)], cwd=ENGINE)
+    board_data = json.loads(board.read_text(encoding="utf-8"))
+    caption_args = ["node", str(ENGINE / "tests" / "caption_board_fit.mjs"),
+                    "--board", str(board)]
+    if not board_data.get("captions") and not any(
+            board_data.get(key) for key in ("caption_method", "retimed_to", "retime_evidence")):
+        caption_args.append("--early-muted-animatic")
+    caption_fit = subprocess.run(caption_args, cwd=ENGINE)
     if caption_fit.returncode:
         raise RuntimeError("an exact board caption overflows the phone band; no animatic was spent")
     accepted, message = reserve(state, {"preflight_renders": 1}, "quarter-scale animatic")
