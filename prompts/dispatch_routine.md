@@ -182,8 +182,15 @@ timed storyboard cards with the best available audio. That emergency artifact is
 **NO EMPTY RUNS.** Neither budget exhaustion nor a failed score may set a terminal state until
 `render_dispatch.sh` has registered an exact film, board, and manifest. `needs_review` additionally
 requires that exact trio under `runs/review/<date>-<slug>/`; gitignored `out/dispatch` is not a
-deliverable. If an optional step runs out of budget, freeze the best material already built and
-finish the video. If rendering itself fails, repair it and use the protected rescue render. Do not
+deliverable. If a creative review rejects the film at a resource ceiling, keep it in active
+repair: record the exact rejected bytes, combine the defects into one structural picture
+or story correction, and plan changed production inputs before another spend. The owner
+may authorize one evidence-bound `reboards` extension through
+`extend-agent-ceiling --resource reboards --repair-plan <json> --owner-authorized`;
+the controller refuses reuse of the same revision. Without that authorization, preserve
+a native-resolution playable review cut and the concrete repair plan. An unapproved
+animatic or upscale is never a finished target. If rendering itself fails, repair it
+and use the protected rescue render. Do not
 call the run done while no MP4 exists. A failed replacement never destroys the last registered
 cut: registration keeps an immutable snapshot until a newer playable video succeeds.
 
