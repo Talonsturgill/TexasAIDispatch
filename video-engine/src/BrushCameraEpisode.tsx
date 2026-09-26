@@ -253,7 +253,7 @@ const FoldedFlashing:React.FC=()=>{
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  const lift=.80*(1-a), forward=.38*(1-a), headY=mix(.25,-.04,c);
- const toolY=headY+lift+.76*(1-b)+d*.82, turn=-c*Math.PI*6;
+ const toolY=headY+.15*(1-b)+d*.82, turn=-c*Math.PI*6;
  return <>
  <Box p={[0,-1.05,.18]} s={[2.3,1.9,2.64]} c="#98735e" round={.008}/>
  {Array.from({length:10},(_,row)=>Array.from({length:5},(_,col)=><Box key={row+'-'+col}
@@ -286,7 +286,7 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
    <Box p={[0,.023,0]} s={[.15,.004,.025]} c="#334a42"/><Box p={[0,.024,0]} s={[.025,.004,.15]} c="#334a42"/>
   </group>
  </group>
- <group position={[.10+d*2.25,toolY,1.15+d*.15]}>
+ <group position={[.10+(1-b)*2.8+d*2.25,toolY,1.15+d*.15]}>
   <group rotation={[0,turn,0]}>
    <Box p={[0,.13,0]} s={[.033,.21,.033]} c="#b6c1b5" metal={.85}/>
    <mesh position={[0,.30,0]}><cylinderGeometry args={[.10,.06,.14,24]}/><meshStandardMaterial color="#30443d" metalness={.5} roughness={.3}/></mesh>
