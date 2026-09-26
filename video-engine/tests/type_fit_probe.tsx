@@ -5,4 +5,4 @@
 // layout is a checker that agrees with itself.
 export {widthEm, widthOf, wrapBreakableToWidth, wrapToWidth, overflows} from '../src/lib/type';
 export {alertBanner, BANNER_INNER, HOME_BAR} from '../src/lib/water';
-export {captionLayout, creditLayout} from '../src/lib/editorial';
+export {captionLayout, creditLayout, CAPTION_BAND, CAPTION_TEXT_WIDTH} from '../src/lib/editorial';

@@ -168,6 +168,80 @@ def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
     return True, f"run controller: initialised {run_id} in {mode} mode at {path}"
 
 
+def preflight_identity(path: Path, note: str) -> str | None:
+    """Hash production inputs, scoped by operation (animatic versus hero)."""
+    board = path.parent / "storyboard.json"
+    if not board.is_file():
+        return None  # Research before the board exists.
+    files = [board]
+    files += [p for p in path.parent.iterdir()
+              if p.is_file() and p.name in {"mix.wav", "captions.json", "words.json", "generated_media.json"}]
+    for directory in (REPO / "video-engine/src", REPO / "video-engine/public"):
+        if directory.exists():
+            files += [p for p in directory.rglob("*") if p.is_file()]
+    content = [(str(p), digest(p)) for p in sorted(files)]
+    # Production callers use these fixed operations. Free-form wording is not identity.
+    operation = "hero" if note in {"hero", "finished cinematic hero and stage ablation batch"} else "animatic"
+    return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
+
+
+def retry_preflight(path: Path, operation: str, evidence: Path, reason: str) -> tuple[bool, str]:
+    state = read_state(path)
+    identity = preflight_identity(path, operation)
+    if state.get("terminal_state") or not identity or len(reason.strip()) < 20 or not evidence.is_file():
+        return False, "run controller: retry needs an active board, exact operation, retained failure log and concrete infrastructure fix"
+    proof = digest(evidence)
+    if not any(e.get("preflight_identity") == identity for e in state.get("events", [])):
+        return False, "run controller: no previous reservation for these inputs"
+    if any(e.get("kind") == "preflight_retry_authorized" and e.get("evidence_sha256") == proof
+           for e in state.get("events", [])):
+        return False, "run controller: this failure log already authorized a retry"
+    state["preflight_retry"] = identity
+    event(state, "preflight_retry_authorized", evidence=str(evidence.resolve()),
+          evidence_sha256=proof, reason=reason, input_identity=identity)
+    save(path, state)
+    return True, "run controller: one infrastructure retry recorded; earlier spend stays charged"
+
+
+def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tuple[dict, str]:
+    """An extension buys one diagnosed revision, not an endlessly reusable reason."""
+    if plan_path is None:
+        return {}, "a ceiling extension requires --repair-plan with failure evidence and changed inputs"
+    try:
+        plan = load_json(plan_path)
+        plan_hash = digest(plan_path)
+        changed = []
+        for field in ("root_cause", "repair", "expected_visible_result"):
+            if not isinstance(plan.get(field), str) or len(plan[field].strip()) < 20:
+                return {}, f"repair plan needs a concrete {field}"
+        evidence = Path(plan["failure_evidence"])
+        if not evidence.is_file() or digest(evidence) != plan.get("failure_evidence_sha256"):
+            return {}, "repair plan failure evidence is missing or changed"
+        for item in plan.get("changed_inputs", []):
+            source = Path(item["path"])
+            before = item.get("before_sha256", "")
+            after = item.get("after_sha256", "")
+            baseline = Path(item["before_path"])
+            if (len(before) != 64 or before == after or not source.is_file()
+                    or not baseline.is_file() or digest(baseline) != before
+                    or digest(source) != after):
+                return {}, "repair plan changed input is stale or unchanged"
+            changed.append({"path": str(source.resolve()), "before_sha256": before, "after_sha256": after})
+        if not changed:
+            return {}, "repair plan must bind at least one changed input"
+        # Identity ignores rewritten plan prose: new wording cannot buy the same revision again.
+        revision = hashlib.sha256(json.dumps(
+            sorted((item["path"], item["after_sha256"]) for item in changed),
+            sort_keys=True).encode()).hexdigest()
+        if any(e.get("resource") == name and e.get("repair_revision") == revision
+               for e in state.get("events", [])):
+            return {}, "this revision already extended that resource; consolidate repair before more spend"
+        return {"repair_plan_sha256": plan_hash, "repair_plan": plan,
+                "repair_revision": revision}, ""
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {}, f"invalid repair plan: {exc}"
+
+
 def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False
             ) -> tuple[bool, str]:
     state = read_state(path)
@@ -187,6 +261,12 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             "run controller: panel_rounds and scorer_calls are one controller-owned atomic "
             "reservation; use the panel command with exactly three judges"
         )
+
+    preview_identity = preflight_identity(path, note) if "preflight_renders" in amounts else None
+    if (preview_identity and state.get("preflight_retry") != preview_identity
+            and any(e.get("preflight_identity") == preview_identity for e in state.get("events", []))):
+        return False, ("run controller: identical preflight inputs were already reserved for this operation. "
+                       "Reuse the existing preview; repair production inputs before rendering again.")
 
     # This allowance is deliberately not a public spend token. Once the fifth panel has been
     # reserved, a normal full-render reservation automatically debits the one cleanup render as
@@ -272,7 +352,9 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         # render is attempted: reserving work is not evidence that the replacement succeeded.
         event(state, "render_reserved_with_last_good_preserved",
               film_sha256=state["deliverable"].get("film_sha256"))
-    event(state, "reserved", resources=amounts, note=note)
+    if preview_identity == state.get("preflight_retry"):
+        state.pop("preflight_retry", None)
+    event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity)
     # CLEANUP LOCKS AT THE CEILING, NOT AT THE TARGET, and under escalation those are two
     # different numbers on purpose.
     #
@@ -862,7 +944,7 @@ def reopen(path: Path, reason: str) -> tuple[bool, str]:
 
 
 def extend_preflight_ceiling(path: Path, new_ceiling: int, reason: str,
-                             owner_authorized: bool) -> tuple[bool, str]:
+                             owner_authorized: bool, repair_plan: Path | None = None) -> tuple[bool, str]:
     """Record an owner-directed bounded increment without resetting run usage."""
     state = read_state(path)
     name = "preflight_renders"
@@ -873,16 +955,19 @@ def extend_preflight_ceiling(path: Path, new_ceiling: int, reason: str,
         return False, "run controller: a preflight extension is only for an exhausted ceiling"
     if not old < new_ceiling <= old + 4:
         return False, "run controller: each owner-directed extension adds at most four attempts"
+    proof, problem = repair_plan_evidence(state, name, repair_plan)
+    if problem:
+        return False, "run controller: " + problem
     state["escalation_ceiling"][name] = new_ceiling
     event(state, "owner_preflight_extension", resource=name, previous_ceiling=old,
-          new_ceiling=new_ceiling, usage_unchanged=state["usage"][name], reason=reason.strip())
+          new_ceiling=new_ceiling, usage_unchanged=state["usage"][name], reason=reason.strip(), **proof)
     save(path, state)
     return True, (f"run controller: owner-authorized preflight ceiling {old} -> {new_ceiling}; "
                   f"usage remains {state['usage'][name]}")
 
 
 def extend_agent_ceiling(path: Path, name: str, reason: str,
-                         owner_authorized: bool) -> tuple[bool, str]:
+                         owner_authorized: bool, repair_plan: Path | None = None) -> tuple[bool, str]:
     """Permit one more review or review-only rescue after an owner-directed repair.
 
     This is a recorded reservation allowance, never a review verdict or quality bypass.
@@ -895,9 +980,12 @@ def extend_agent_ceiling(path: Path, name: str, reason: str,
     old = int(state["escalation_ceiling"][name])
     if int(state["usage"][name]) != old:
         return False, "run controller: agent extension is only for an exhausted ceiling"
+    proof, problem = repair_plan_evidence(state, name, repair_plan)
+    if problem:
+        return False, "run controller: " + problem
     state["escalation_ceiling"][name] = old + 1
     event(state, "owner_agent_extension", resource=name, previous_ceiling=old,
-          new_ceiling=old + 1, usage_unchanged=state["usage"][name], reason=reason.strip())
+          new_ceiling=old + 1, usage_unchanged=state["usage"][name], reason=reason.strip(), **proof)
     save(path, state)
     return True, f"run controller: owner-authorized {name} ceiling {old} -> {old + 1}"
 
@@ -1529,6 +1617,23 @@ def self_test() -> int:
            st["reopened_from"][0]["terminal_state"] == "needs_review"
            and st["reopened_from"][0]["terminal_reason"] == "stopped short")
 
+        repair_source = root / "repair-scene.tsx"
+        repair_source.write_text("old idle scene")
+        old_digest = digest(repair_source)
+        baseline = root / "before-scene.tsx"
+        baseline.write_bytes(repair_source.read_bytes())
+        repair_source.write_text("physical handoff revision")
+        failure_log = root / "failed-review.json"
+        failure_log.write_text('{"pass": false, "reason": "no visible handoff"}')
+        plan_path = root / "repair-plan.json"
+        plan = {"root_cause": "The old scene has no visible handoff.",
+                "repair": "Animate the hand meeting the lectern.",
+                "expected_visible_result": "The card reaches a visible physical stop.",
+                "failure_evidence": str(failure_log),
+                "failure_evidence_sha256": digest(failure_log),
+                "changed_inputs": [{"path": str(repair_source), "before_path": str(baseline), "before_sha256": old_digest,
+                                    "after_sha256": digest(repair_source)}]}
+        plan_path.write_text(json.dumps(plan))
         extension = root / "extension.json"
         initialise(extension, "owner-extension", "production")
         st = read_state(extension)
@@ -1541,10 +1646,10 @@ def self_test() -> int:
                                         "owner direction", False)[0])
         ok("a larger extension is refused",
            not extend_preflight_ceiling(extension, original_ceiling + 5,
-                                        "owner direction", True)[0])
+                                        "owner direction", True, plan_path)[0])
         ok("the owner-directed extension records an exhausted same-run allowance",
            extend_preflight_ceiling(extension, original_ceiling + 4,
-                                    "owner direction", True)[0])
+                                    "owner direction", True, plan_path)[0])
         st = read_state(extension)
         ok("extension retains usage and terminal history",
            st["usage"]["preflight_renders"] == original_ceiling
@@ -1552,10 +1657,32 @@ def self_test() -> int:
            and st["events"][-1]["kind"] == "owner_preflight_extension")
         st["usage"]["preflight_renders"] = original_ceiling + 4
         save(extension, st)
-        ok("a further owner-directed extension keeps the same ledger",
-           extend_preflight_ceiling(extension, original_ceiling + 8,
-                                    "same owner direction", True)[0]
+        ok("a repeated extension of the same revision is refused without charging",
+           not extend_preflight_ceiling(extension, original_ceiling + 8,
+                                        "same owner direction", True, plan_path)[0]
            and read_state(extension)["usage"]["preflight_renders"] == original_ceiling + 4)
+        plan["repair"] = "Different prose describing the same exact repair."
+        plan_path.write_text(json.dumps(plan))
+        ok("rewriting plan prose cannot buy the same revision again",
+           not extend_preflight_ceiling(extension, original_ceiling + 8,
+                                        "new wording", True, plan_path)[0])
+        another_failure = root / "another-failure.json"
+        another_failure.write_text('{"pass": false, "reason": "same defect restated"}')
+        plan["failure_evidence"] = str(another_failure)
+        plan["failure_evidence_sha256"] = digest(another_failure)
+        plan_path.write_text(json.dumps(plan))
+        ok("new failure wording cannot extend unchanged production bytes",
+           not extend_preflight_ceiling(extension, original_ceiling + 8,
+                                        "new review wording", True, plan_path)[0])
+        ok("a blind owner-authorized extension is refused",
+           not extend_preflight_ceiling(extension, original_ceiling + 8,
+                                        "keep trying", True)[0])
+        plan["changed_inputs"][0]["after_sha256"] = "0" * 64
+        plan_path.write_text(json.dumps(plan))
+        ok("stale changed-input evidence is refused",
+           not repair_plan_evidence(read_state(extension), "audiovisual_reviews", plan_path)[0])
+        plan["changed_inputs"][0]["after_sha256"] = digest(repair_source)
+        plan_path.write_text(json.dumps(plan))
 
         st = read_state(extension)
         for resource in ("audiovisual_reviews", "rescue_renders"):
@@ -1567,9 +1694,41 @@ def self_test() -> int:
             before = read_state(extension)
             old_ceiling = before["escalation_ceiling"][resource]
             ok(f"owner-directed {resource} extension preserves spent work",
-               extend_agent_ceiling(extension, resource, "review repair", True)[0]
+               extend_agent_ceiling(extension, resource, "review repair", True, plan_path)[0]
                and read_state(extension)["usage"][resource] == old_ceiling
                and read_state(extension)["escalation_ceiling"][resource] == old_ceiling + 1)
+
+        preview_dir = root / "identity-preview"
+        preview_dir.mkdir()
+        preview_state = preview_dir / "run_state.json"
+        initialise(preview_state, "identity-preview", "production")
+        preview_board = preview_dir / "storyboard.json"
+        preview_board.write_text('{"scene": "idle"}')
+        ok("first preview reserves normally", reserve(preview_state, {"preflight_renders": 1}, "animatic")[0])
+        before_usage = read_state(preview_state)["usage"]["preflight_renders"]
+        ok("identical preview is refused before spend",
+           not reserve(preview_state, {"preflight_renders": 1}, "animatic")[0]
+           and read_state(preview_state)["usage"]["preflight_renders"] == before_usage)
+        ok("rewriting a reservation note cannot bypass duplicate detection",
+           not reserve(preview_state, {"preflight_renders": 1}, "same preview with new wording")[0])
+        ok("hero is a distinct required operation",
+           reserve(preview_state, {"preflight_renders": 1}, "hero")[0])
+        preview_board.write_text('{"scene": "physical handoff"}')
+        ok("changed production inputs permit the repaired preview",
+           reserve(preview_state, {"preflight_renders": 1}, "animatic")[0])
+        ok("infrastructure retry requires retained evidence",
+           not retry_preflight(preview_state, "animatic", root / "missing.log",
+                               "Repaired the renderer executable path.")[0])
+        renderer_log = root / "renderer-failure.log"
+        renderer_log.write_text("render process exited 127: Chromium executable not found")
+        ok("a retained failure enables one charged infrastructure retry",
+           retry_preflight(preview_state, "animatic", renderer_log,
+                           "Repaired the renderer executable path.")[0]
+           and reserve(preview_state, {"preflight_renders": 1}, "animatic")[0])
+        ok("infrastructure retry is single use",
+           not reserve(preview_state, {"preflight_renders": 1}, "animatic")[0]
+           and not retry_preflight(preview_state, "animatic", renderer_log,
+                                   "Repaired the renderer executable path.")[0])
 
         ok("an owner override needs the exact confirmation",
            not owner_override(p, low, "owner accepts this cut", "yes")[0])
@@ -1653,12 +1812,19 @@ def main() -> int:
     p = sub.add_parser("reopen")
     p.add_argument("--reason", required=True)
 
+    p = sub.add_parser("retry-preflight")
+    p.add_argument("--operation", required=True)
+    p.add_argument("--evidence", type=Path, required=True)
+    p.add_argument("--reason", required=True)
+
     p = sub.add_parser("extend-preflight-ceiling")
+    p.add_argument("--repair-plan", type=Path, required=True)
     p.add_argument("--to", type=int, required=True)
     p.add_argument("--reason", required=True)
     p.add_argument("--owner-authorized", action="store_true")
 
     p = sub.add_parser("extend-agent-ceiling")
+    p.add_argument("--repair-plan", type=Path, required=True)
     p.add_argument("--resource", required=True)
     p.add_argument("--reason", required=True)
     p.add_argument("--owner-authorized", action="store_true")
@@ -1722,12 +1888,14 @@ def main() -> int:
             accepted, message = reopen(Path(a.state), a.reason)
             print(message)
             return 0 if accepted else 1
+        elif a.command == "retry-preflight":
+            accepted, message = retry_preflight(state_path, a.operation, a.evidence, a.reason)
         elif a.command == "extend-preflight-ceiling":
             accepted, message = extend_preflight_ceiling(
-                state_path, a.to, a.reason, a.owner_authorized)
+                state_path, a.to, a.reason, a.owner_authorized, a.repair_plan)
         elif a.command == "extend-agent-ceiling":
             accepted, message = extend_agent_ceiling(
-                state_path, a.resource, a.reason, a.owner_authorized)
+                state_path, a.resource, a.reason, a.owner_authorized, a.repair_plan)
         elif a.command == "owner-override":
             accepted, message = owner_override(
                 state_path, Path(a.report), a.reason, a.confirm)

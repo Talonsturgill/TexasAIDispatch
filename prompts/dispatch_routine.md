@@ -192,6 +192,58 @@ never invokes it, recommends it, or manufactures its confirmation phrase.**
 
 ---
 
+## Repair efficiently before another expensive attempt
+
+A rejected picture or sound review starts one consolidated repair pass. Keep a single defect
+list with the exact failed interval, retained review evidence, root cause, changed production
+files, and the visible or audible acceptance test. Repair the entire list before requesting
+another review. After two rejections of the same creative defect, redesign the mechanism or
+staging before a third attempt. A succession of small translations, fades, new labels or
+camera drift is not a structural correction.
+
+Reuse unchanged source research, validated claims, narration takes and forced alignment.
+Rerun only the checks whose inputs changed, then run the complete release verification once
+the exact final film is ready. Keep the three independent final audiovisual judges and all
+quality thresholds. Consult the pinned Remotion guidance already in this repository; refresh
+official documentation only for a relevant API or version issue.
+
+Use shared captions as a wide, compact bottom band with no more than two lines, above the
+feed's bottom overlay and outside the story's key action. Run the exact-board caption fit check
+before reserving a preview with `node video-engine/tests/caption_board_fit.mjs --board out/dispatch/storyboard.json`.
+The existing preflight self-test also runs `scripts/critic_gate.py --self-test`,
+`scripts/audiovisual_review_test.py` and `scripts/production_quality_test.py`; the existing
+Type Fit CI entry runs `node tests/caption_board_fit.mjs --self-test` and
+`node tests/caption_board_fit.mjs --board ../examples/board.json`.
+Bind the storyboard critique to current concept and renderer code
+hashes. Store `renderer_sha256` from `critic_gate.renderer_digest(board)` alongside the
+concept digest in `storyboard_critic.json`. After the independent critic watches the current
+muted phone MP4, store `review_scope: "exact-muted-phone-preflight"` and its exact
+`reviewed_preflight_sha256` in that same report. A code-plan pass alone cannot unlock the hero.
+Inspect the exact phone preview, including the start, contact and consequence of each
+action; a contact sheet alone cannot prove continuity. Approve that preview before spending
+on the native full-resolution hero with sound. Render hero and final output with PNG frame
+capture and the configured high-quality encoder settings. A scaled phone preview never proves
+sharpness. Inspect native final frames and the final phone/feed composites, and obtain actual
+exact-byte audiovisual evidence before release.
+
+The controller refuses duplicate preflight inputs for the same operation without charging
+again. Reuse the existing artifact. For an actual renderer or infrastructure failure, preserve
+the failure log and document the concrete repair through
+`run_controller.py retry-preflight --operation "quarter-scale animatic" --evidence <log> --reason <infrastructure-fix>` (use the hero reservation's exact operation for a hero).
+This allows one charged retry and does not erase prior spend or approve quality.
+
+Any explicitly owner-authorized ceiling extension also requires `--repair-plan <json>`.
+The plan contains root_cause, repair, expected_visible_result, failure_evidence,
+failure_evidence_sha256, and changed_inputs. Each changed input contains path,
+before_path (the retained pre-repair file), before_sha256, and after_sha256.
+The controller checks actual bytes and permits only one extension per resource for that
+revision. Rewording the plan does not create another allowance. Do not request serial
+extensions for an unchanged failure. Limits still apply; a refused optional spend starts
+diagnosis and artifact preservation, never a success claim. Existing closure requirements
+remain in force, including publication, live playback and the verified unsent draft.
+
+---
+
 ## THE TWO LAWS OF DRAWING TEXAS
 
 They govern every frame and they are in `CLAUDE.md` and `knowledge/texas/`.

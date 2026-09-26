@@ -1,15 +1,19 @@
+import {SAFE_BOTTOM, SAFE_RIGHT} from './safearea';
 import {widthOf, wrapBreakableToWidth, wrapToWidth} from './type';
+
+export const CAPTION_BAND = {left: 36, padding: 12, right: SAFE_RIGHT, bottom: SAFE_BOTTOM};
+export const CAPTION_TEXT_WIDTH = CAPTION_BAND.right - CAPTION_BAND.left - 2 * CAPTION_BAND.padding;
 
 /** Balance complete phrases without inventing word timings or dropping a word. */
 export function captionLayout(text: string, width: number): {lines: string[]; size: number} {
   const words = text.trim().split(/\s+/).filter(Boolean);
   if (!words.length) return {lines: [], size: 48};
-  for (let size = 48; size >= 32; size -= 2) {
+  for (const size of [44, 42, 40, 38, 36, 34, 32, 30, 29]) {
     const greedy = wrapToWidth(text, width, size, true);
-    if (greedy.length > 3 || greedy.some((line) => widthOf(line, size, true) > width)) continue;
+    if (greedy.length > 2 || greedy.some((line) => widthOf(line, size, true) > width)) continue;
     const count = greedy.length;
     const target = widthOf(words.join(' '), size, true) / count;
-    // At most three lines. Minimise raggedness across all lines, including the last,
+    // At most two lines. Minimise raggedness across both lines,
     // so a lone trailing word doesn't hang below a nearly full paragraph.
     const solve = (start: number, remaining: number): {lines: string[]; cost: number} | null => {
       if (!remaining) return start === words.length ? {lines: [], cost: 0} : null;
@@ -27,7 +31,7 @@ export function captionLayout(text: string, width: number): {lines: string[]; si
     };
     return {lines: solve(0, count)?.lines ?? greedy, size};
   }
-  throw new Error('Caption is too dense for three readable lines. Rebuild shorter cues from measured speech boundaries.');
+  throw new Error('Caption is too dense for two readable lines. Rebuild shorter cues from measured speech boundaries.');
 }
 
 export type CreditRow = {text: string; heading: boolean; y: number; size: number};

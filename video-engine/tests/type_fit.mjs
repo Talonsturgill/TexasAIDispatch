@@ -40,6 +40,7 @@
 // =============================================================================
 
 import {build} from 'esbuild';
+import {execFileSync} from 'node:child_process';
 import {mkdtemp, rm, readFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -83,6 +84,8 @@ const PATHOLOGICAL = [
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
+execFileSync(process.execPath, [path.join(here, 'caption_board_fit.mjs'), '--self-test'], {stdio: 'inherit'});
+execFileSync(process.execPath, [path.join(here, 'caption_board_fit.mjs'), '--board', path.join(repo, 'examples/board.json')], {stdio: 'inherit'});
 const dir = await mkdtemp(path.join(tmpdir(), 'typefit-'));
 try {
   const outfile = path.join(dir, 'probe.cjs');
@@ -96,14 +99,19 @@ try {
   // The exact long cue that prompted the caption redesign must remain complete,
   // readable and inside the phone's button rail with the new bold typography.
   const caption = 'The team would engineer mineral-bearing rock, then place it inside existing wells.';
-  const captionWidth = 918 - 54 - 24 - 24;
+  const captionWidth = P.CAPTION_TEXT_WIDTH;
   const fit = P.captionLayout(caption, captionWidth);
-  ok('editorial captions preserve every word in at most three bold lines',
-     fit.lines.join(' ') === caption && fit.lines.length <= 3 && fit.size >= 32);
+  ok('editorial captions preserve every word in at most two bold lines',
+     fit.lines.join(' ') === caption && fit.lines.length <= 2 && fit.size >= 29);
   ok('every bold caption line fits beside the phone rail',
      fit.lines.every((line) => P.widthOf(line, fit.size, true) <= captionWidth));
   ok('the final caption line is balanced rather than a stranded word',
      fit.lines.at(-1).split(' ').length > 1);
+  const longCue = 'The proposal would halt acceptance, processing, and approval of new data-center applications.';
+  const longFit = P.captionLayout(longCue, captionWidth);
+  ok('a dense current-news cue fits in two lower-band lines without dropping speech',
+     longFit.lines.join(' ') === longCue && longFit.lines.length === 2 && longFit.size >= 29
+     && longFit.lines.every((line) => P.widthOf(line, longFit.size, true) <= captionWidth));
   const attribution = '"Thinking Music" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 '
     + '(https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture';
   const rawCredit = `TEXAS AI DOCKET\nSOURCES\nSMU News\nU.S. Department of Energy\nMUSIC\n${attribution}`;

@@ -71,6 +71,7 @@ def main():
             "scenes": [{"id": "s1", "start_s": 0, "duration_s": 4,
                         "visual_events": [{"at_s": .1, "duration_s": .8}]}]})
         proof = {"board_sha256": q.digest(board), "engine_sha256": q.engine_sha256(),
+                 "generated_media_sha256": q.generated_media_sha256(board),
                  "policy_sha256": q.digest(q.POLICY), "mix_sha256": q.digest(wav),
                  "hero": {"file": "hero.mp4", "sha256": q.digest(film)}, "samples": {"s1": []}}
         (cinema / "hero.mp4").write_bytes(film.read_bytes())
