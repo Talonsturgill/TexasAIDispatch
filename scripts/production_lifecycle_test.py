@@ -169,6 +169,14 @@ class ShipmentTest(unittest.TestCase):
         self.assertTrue(ship.draft_problems(wrong, "owner@example.com", body))
         self.assertTrue(ship.draft_problems(gmail, "wrong@example.com", body))
         self.assertTrue(ship.draft_problems(gmail, "owner@example.com", "another edition"))
+        connector = {"draft_id": "draft-1", "message": {
+            "id": "message-1", "label_ids": ["DRAFT"],
+            "payload": {"mime_type": "text/html", "parts": None,
+                        "headers": [{"name": "To", "value": "owner@example.com"}],
+                        "body": {"content": "<p>Watch the source-grounded film.</p><p>The email remains a draft.</p>"}}}}
+        self.assertFalse(ship.draft_problems(connector, "owner@example.com", body))
+        connector["message"]["payload"]["body"]["content"] = "<p>A different film.</p>"
+        self.assertTrue(ship.draft_problems(connector, "owner@example.com", body))
         master = b"actual final film bytes"
         mobile = self.root / "phone.mp4"
         mobile.write_bytes(b"phone rendition bytes")

@@ -9,6 +9,7 @@ import json
 import re
 import subprocess
 from email.utils import getaddresses
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -47,22 +48,44 @@ def bound_file(item):
     return p
 
 
+class BodyText(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.text = []
+
+    def handle_data(self, data):
+        self.text.append(data)
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"p", "br", "div", "li", "pre"}:
+            self.text.append("\n")
+
+
 def text_parts(payload):
     parts = []
-    if payload.get("mimeType") == "text/plain" and payload.get("body", {}).get("data"):
-        raw = payload["body"]["data"]
-        parts.append(base64.urlsafe_b64decode(raw + "=" * (-len(raw) % 4)).decode())
-    for part in payload.get("parts", []):
+    mime = payload.get("mimeType", payload.get("mime_type"))
+    body = payload.get("body") or {}
+    content = body.get("content")
+    raw = body.get("data") or body.get("base64_url_content")
+    if content is None and raw:
+        content = base64.urlsafe_b64decode(raw + "=" * (-len(raw) % 4)).decode()
+    if mime in {"text/plain", "text/html"} and content is not None:
+        if mime == "text/html":
+            parser = BodyText()
+            parser.feed(content)
+            content = "".join(parser.text)
+        parts.append(content)
+    for part in payload.get("parts") or []:
         parts += text_parts(part)
     return parts
 
 
 def draft_problems(raw, expected_to, expected_body):
-    # Gmail users.drafts.get(format=full) shape, retained from actual tool/API readback.
+    # Native API or connector message, retained unchanged inside a draft-id envelope.
     message = raw.get("message", {})
-    labels = message.get("labelIds", [])
+    labels = message.get("labelIds", message.get("label_ids", []))
     errors = []
-    if not raw.get("id") or not message.get("id") or "DRAFT" not in labels or any(
+    if not (raw.get("draft_id") or raw.get("id")) or not message.get("id") or "DRAFT" not in labels or any(
             str(label).startswith("SENT") for label in labels):
         errors.append("Gmail readback must identify an unsent DRAFT message")
     headers = message.get("payload", {}).get("headers", [])
@@ -73,8 +96,10 @@ def draft_problems(raw, expected_to, expected_body):
     if any(h.get("name", "").lower() in {"cc", "bcc"} and h.get("value", "").strip()
            for h in headers):
         errors.append("Gmail draft includes an unconfigured additional recipient")
-    body = "\n".join(text_parts(message.get("payload", {}))).replace("\r\n", "\n").strip()
-    if body != expected_body.replace("\r\n", "\n").strip():
+    bodies = text_parts(message.get("payload", {}))
+    # HTML and plain MIME alternatives may wrap lines differently. Every visible word
+    # must still match the committed email. Keep full raw readback for audit.
+    if not bodies or any(" ".join(body.split()) != " ".join(expected_body.split()) for body in bodies):
         errors.append("Gmail readback body differs from the committed email")
     return errors
 
@@ -169,7 +194,8 @@ def verify_shipment(state, manifest):
                 "manifest_path": str(manifest.resolve()), "manifest_sha256": digest(manifest),
                 "dispatch": release, "feed": feed_pr, "deployment": deploy,
                 "live_url": data["live_url"], "master_url": master_url,
-                "mobile_url": mobile_url, "gmail_draft_id": load_json(gmail)["id"],
+                "mobile_url": mobile_url,
+                "gmail_draft_id": load_json(gmail).get("draft_id") or load_json(gmail)["id"],
                 "evidence": {k: data[k] for k in ("email", "gmail_readback", "phone_playback",
                                                 "delivery_routing", "mobile")}}, []
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as exc:

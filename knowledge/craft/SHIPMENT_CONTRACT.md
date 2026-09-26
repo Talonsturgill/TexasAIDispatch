@@ -29,12 +29,14 @@ the published rendition; the email file is the committed media-first email body.
 ## Gmail readback
 
 Retrieve the draft after creation or update, with full message data. Retain the
-Gmail `users.drafts.get(format=full)` object: `id`, `message.id`,
-`message.labelIds`, and `message.payload` with headers and MIME body parts.
+Gmail API draft object, or an envelope with `draft_id` from creation/listing and
+`message` containing the unchanged Gmail read tool's `structuredContent` object.
+The checker supports native `labelIds`/`mimeType`/base64 data and the installed
+connector's `label_ids`/`mime_type`/decoded `content` representation.
 The checker requires DRAFT, rejects any SENT label, compares the exact recipient,
-decodes the plain text body, and compares it to the email file. If the available
-connector transforms these fields, use its actual returned data to obtain the
-full draft through the supported API; never invent omitted labels or body data.
+decodes plain or HTML MIME bodies, and compares all visible words to the email
+file. HTML may wrap paragraphs, but preserve the visible source URLs and wording
+from email.md. Retain the raw tool response; never invent omitted labels or body data.
 Never send the message.
 
 ## Canonical phone playback
