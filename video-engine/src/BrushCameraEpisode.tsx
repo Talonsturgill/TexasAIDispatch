@@ -245,7 +245,7 @@ const FoldedFlashing:React.FC=()=>{
  const geometry=useMemo(()=>{
   // A continuous extruded sheet wraps the fixed roof edge; profile matches the closing diagram.
   const section=new THREE.Shape();
-  const profile=[[-.82,-.065],[-1.51,-.065],[-1.51,-.50],[-1.64,-.64],[-1.615,-.665],[-1.475,-.515],[-1.475,-.10],[-.82,-.10]];
+  const profile=[[-.82,-.065],[-1.55,-.065],[-1.55,-.50],[-1.68,-.64],[-1.655,-.665],[-1.515,-.515],[-1.515,-.10],[-.82,-.10]];
   profile.forEach(([z,y],i)=>i?section.lineTo(z,y):section.moveTo(z,y));section.closePath();
   return new THREE.ExtrudeGeometry(section,{depth:2.3,bevelEnabled:false,steps:1});
  },[]);
