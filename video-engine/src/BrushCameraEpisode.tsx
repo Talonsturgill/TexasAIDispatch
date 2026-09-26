@@ -197,6 +197,15 @@ const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
  <Ball p={[1.25,.15,-.87]} s={[.06,.06,.04]} c="#c8b877"/>
  </>;
 };
+const WaterPath:React.FC<{progress:number;section?:boolean}>=({progress,section=false})=>{
+ const points:V3[]=section?
+  [[0,.15,-.65],[0,.15,.28],[0,.16,.62],[0,.12,.96],[0,-.03,1.08],[0,-.42,1.10],[0,-.67,1.24]]:
+  [[0,.045,.70],[0,.045,1.14],[0,.045,1.40],[0,.01,1.56],[0,-.21,1.61],[0,-.58,1.68]];
+ const curve=useMemo(()=>new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p))),[section]);
+ const geometry=useMemo(()=>new THREE.TubeGeometry(curve,60,.035,8,false),[curve]);
+ geometry.setDrawRange(0,Math.floor(Math.min(1,progress)*60)*48);
+ return <>{[-.75,0,.75].map(x=><mesh key={x} position={[x,0,0]} geometry={geometry}><meshStandardMaterial color="#4fcde1" roughness={.18} metalness={.15}/></mesh>)}</>;
+};
 const Flashing:React.FC<{a:number;b:number}>=({a,b})=><>
  <Box p={[0,-.36,-.05]} s={[4,.17,3]} c="#354848"/>
  {[-1.25,0,1.25].map(x=><Box key={x} p={[x,-.261,-.05]} s={[1.21,.018,2.75]} c="#43574f"/>)}
@@ -208,12 +217,8 @@ const Flashing:React.FC<{a:number;b:number}>=({a,b})=><>
  <group position={[0,0,mix(0,-1.05,a)]}>
   <Box p={[0,-.04,1.13]} s={[3.84,.025,.67]} c="#53695c"/>
  </group>
- {Array.from({length:7},(_,i)=>{
-  const t=Math.max(0,Math.min(1,(b*1.7-i*.10)));
-  const z=mix(.79,1.78,Math.min(1,t*1.3));
-  const y=t<.72?-.007:-.007-Math.pow((t-.72)*4.5,2);
-  return t>0&&t<1?<Ball key={i} p={[-1.25+i*.39,y,z]} s={[.078,.062,.11]} c="#57cde1"/>:null;
- })}
+ <WaterPath progress={b}/>
+
 
 </>;
 const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
@@ -259,6 +264,39 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=fals
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
  </>;
 };
+const SideWater:React.FC<{progress:number}>=({progress})=>{
+ const curve=useMemo(()=>new THREE.CatmullRomCurve3([
+  [-1.45,.34,.49],[-.55,.34,.49],[.40,.34,.49],[.73,.245,.49],
+  [1.47,.245,.49],[1.65,.11,.49],[1.66,-.43,.49],[1.97,-.72,.49]
+ ].map(p=>new THREE.Vector3(...p))),[]);
+ const geometry=useMemo(()=>new THREE.TubeGeometry(curve,90,.04,10,false),[curve]);
+ geometry.setDrawRange(0,Math.floor(Math.min(1,progress)*90)*60);
+ return <mesh geometry={geometry}><meshStandardMaterial color="#36bed9" roughness={.25}/></mesh>;
+};
+const FoldedMetal:React.FC=()=>{
+ const shape=useMemo(()=>{
+  const s=new THREE.Shape();
+  s.moveTo(-.10,.20);s.lineTo(1.62,.20);s.lineTo(1.62,-.52);
+  s.lineTo(1.85,-.59);s.lineTo(1.81,-.67);s.lineTo(1.54,-.59);
+  s.lineTo(1.54,.12);s.lineTo(-.10,.12);s.closePath();return s;
+ },[]);
+ return <mesh position={[0,0,-.35]}><extrudeGeometry args={[shape,{depth:.8,bevelEnabled:false}]}/><meshStandardMaterial color="#dae1dc" metalness={.55} roughness={.3}/></mesh>;
+};
+const RoofSection:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
+ <Table home/>
+ <group position={[-.35,.55,.02]} scale={.78}>
+  <Box p={[-.06,-.45,.04]} s={[3.18,.50,.8]} c="#9c6240" round={.008}/>
+  {[-1.35,-.85,-.35,.15,.65,1.15].map(x=><Box key={x} p={[x,-.45,.45]} s={[.018,.42,.012]} c="#624b35" r={[0,0,.25]}/>)}
+  <Box p={[-.06,-.12,.04]} s={[3.18,.16,.8]} c="#ead6a2"/>
+  <Box p={[-.06,.045,.04]} s={[3.18,.14,.8]} c="#203e3c"/>
+  <FoldedMetal/>
+  <Box p={[-.55,.257,.04]} s={[2.40,.11,.8]} c="#4b7967"/>
+  <Box p={[mix(0,4.3,a),-.15,.59]} s={[3.65,1.18,.12]} c="#aa9374" round={.012}/>
+  <SideWater progress={b*.72+c*.28}/>
+ </group>
+ <group position={[-.80,.035,1.75]} rotation={[0,-.06,0]}><Paper p={[0,0,0]} roof scale={.56}/></group>
+ <group position={[.90,.035,1.75]} rotation={[0,.06,0]}><Paper p={[0,0,0]} scale={.56}/></group>
+</>;
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),id=scene.id;
@@ -269,7 +307,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
- id==='s9'?{position:[.1,4,6.2],target:[0,-.30,-.60],fov:45}:
+ id==='s9'?{position:[.9,2.4,8],target:[0,-.15,.4],fov:43}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
@@ -281,7 +319,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s6'&&<Flashing a={a} b={b}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b}/>}
- {id==='s9'&&<Evidence a={a} b={b} closing/>}
+ {id==='s9'&&<RoofSection a={a} b={b} c={c}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
@@ -301,6 +339,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {['s2','s3'].includes(scene.id)&&<div style={{position:'absolute',left:94,right:130,top:510,height:650,border:'3px solid #d8e0c280',borderRadius:18,boxShadow:scene.id==='s2'&&p(1)>.4?'inset 0 0 0 8px #e1e1cb':'none'}}>
  <div style={{position:'absolute',left:20,top:20,fontFamily:FONT.mono,fontSize:23,color:cream}}>{scene.id==='s2'?'SIDE CAMERA / ILLUSTRATION':'COMPUTER VISION / ILLUSTRATION'}</div></div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
+ {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:32,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATED ROOF SECTION</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}
  <Sequence from={Math.round(runtime_s*fps)} durationInFrames={Math.round(credits_s*fps)}><CreditsCard text={credits}/></Sequence>

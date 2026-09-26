@@ -1,3 +1,4 @@
+import * as Roof from './roofsection';
 import * as Screwworm from './screwworm';
 import * as Spectral from './spectral';
 import * as Coadapt from './coadaptation';
@@ -116,6 +117,7 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   coadaptRoom: Coadapt.CoadaptRoom,
   coadaptEvidence: Coadapt.CoadaptEvidence,
   consentDoor: Coadapt.ConsentDoor,
+  roofSection: Roof.RoofSectionDiagram,
   faxDocument: Faxwork.FaxDocument,
   faxChart: Faxwork.FaxChart,
   faxDesk: Faxwork.FaxDesk,
