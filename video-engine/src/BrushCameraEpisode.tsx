@@ -264,14 +264,21 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=fals
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
  </>;
 };
-const SideWater:React.FC<{progress:number}>=({progress})=>{
+const SideWater:React.FC<{progress:number;flowTime:number}>=({progress,flowTime})=>{
  const curve=useMemo(()=>new THREE.CatmullRomCurve3([
   [-1.45,.34,.49],[-.55,.34,.49],[.40,.34,.49],[.73,.245,.49],
   [1.47,.245,.49],[1.65,.11,.49],[1.66,-.43,.49],[1.97,-.72,.49]
  ].map(p=>new THREE.Vector3(...p))),[]);
- const geometry=useMemo(()=>new THREE.TubeGeometry(curve,90,.04,10,false),[curve]);
+ const geometry=useMemo(()=>new THREE.TubeGeometry(curve,90,.020,10,false),[curve]);
  geometry.setDrawRange(0,Math.floor(Math.min(1,progress)*90)*60);
- return <mesh geometry={geometry}><meshStandardMaterial color="#36bed9" roughness={.25}/></mesh>;
+ return <>
+  <mesh geometry={geometry}><meshStandardMaterial color="#308cad" transparent opacity={.65} roughness={.2}/></mesh>
+  {[0,.25,.5,.75].map((offset,i)=>{
+   const t=(flowTime*.38+offset)%1;
+   const v=curve.getPoint(t);
+   return t<=progress&&progress>.02?<Ball key={i} p={[v.x,v.y,v.z]} s={[.065,.075,.065]} c="#75e1ef"/>:null;
+  })}
+ </>;
 };
 const FoldedMetal:React.FC=()=>{
  const shape=useMemo(()=>{
@@ -282,7 +289,7 @@ const FoldedMetal:React.FC=()=>{
  },[]);
  return <mesh position={[0,0,-.35]}><extrudeGeometry args={[shape,{depth:.8,bevelEnabled:false}]}/><meshStandardMaterial color="#dae1dc" metalness={.55} roughness={.3}/></mesh>;
 };
-const RoofSection:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
+const RoofSection:React.FC<{a:number;b:number;c:number;flowTime:number}>=({a,b,c,flowTime})=><>
  <Table home/>
  <group position={[-.35,.55,.02]} scale={.78}>
   <Box p={[-.06,-.45,.04]} s={[3.18,.50,.8]} c="#9c6240" round={.008}/>
@@ -292,7 +299,7 @@ const RoofSection:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
   <FoldedMetal/>
   <Box p={[-.55,.257,.04]} s={[2.40,.11,.8]} c="#4b7967"/>
   <Box p={[mix(0,4.3,a),-.15,.59]} s={[3.65,1.18,.12]} c="#aa9374" round={.012}/>
-  <SideWater progress={b*.72+c*.28}/>
+  <SideWater progress={b*.72+c*.28} flowTime={flowTime}/>
  </group>
  <group position={[-.80,.035,1.75]} rotation={[0,-.06,0]}><Paper p={[0,0,0]} roof scale={.56}/></group>
  <group position={[.90,.035,1.75]} rotation={[0,.06,0]}><Paper p={[0,0,0]} scale={.56}/></group>
@@ -319,7 +326,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s6'&&<Flashing a={a} b={b}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b}/>}
- {id==='s9'&&<RoofSection a={a} b={b} c={c}/>}
+ {id==='s9'&&<RoofSection a={a} b={b} c={c} flowTime={Math.max(0,time-scene.start_s-(scene.visual_events?.[1]?.at_s??0))}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{

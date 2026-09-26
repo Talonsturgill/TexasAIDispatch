@@ -7,6 +7,18 @@ from unittest.mock import patch
 import audiovisual_review as av
 
 class ReviewReuse(unittest.TestCase):
+    def test_hero_scope_does_not_require_complete_film_credits(self):
+        hero = av.review_prompt("hero")
+        self.assertIn("short finished passage", hero)
+        self.assertIn("not required inside this passage", hero)
+        self.assertNotIn("held for at least five seconds", hero)
+        self.assertIn("Still reject idle holds", hero)
+        for role in ("picture", "story", "sound"):
+            prompt = av.review_prompt(role)
+            self.assertIn("held for at least five seconds", prompt)
+            self.assertNotIn("not required inside this passage", prompt)
+            self.assertIn("If audio is unavailable, set audio_access false and pass false", prompt)
+
     def test_stream_preserves_real_chunks_and_rejects_incomplete_results(self):
         from unittest.mock import Mock
         chunks = [
