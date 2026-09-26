@@ -251,7 +251,7 @@ const FoldedFlashing:React.FC=()=>{
  },[]);
  return <mesh position={[-1.15,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
-const Flashing:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
+const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
  const lift=.80*(1-a), forward=.38*(1-a), headY=mix(.25,-.04,c);
  const toolY=headY+.15*(1-b)+d*.82, turn=-c*Math.PI*6;
  return <>
@@ -301,6 +301,11 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
    <Rod from={[.23,.57,.04]} to={[.72,.60,.07]} radius={.11} c="#b58769"/>
    <Rod from={[.65,.60,.07]} to={[2.0,.70,.1]} radius={.15} c="#477080"/>
   </group>
+ </group>
+ <group position={[-3.1*(1-e),.22-.255*e,1.10]}>
+  <Box p={[0,0,0]} s={[2.26,.035,.46]} c="#536b5b" round={.01}/>
+  {[-.68,0,.68].map(x=><Box key={x} p={[x,.020,0]} s={[.016,.005,.43]} c="#405747"/>)}
+  <Hand p={[-.92,.059,.12]} r={[0,-Math.PI/2,0]} scale={.82}/>
  </group>
  </>;
 };
@@ -379,7 +384,7 @@ const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c
 };
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
- const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
+ const a=progress(0),b=progress(1),c=progress(2),d=progress(3),e=progress(4),id=scene.id;
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
@@ -397,7 +402,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
- {id==='s6'&&<Flashing a={a} b={b} c={c} d={d}/>}
+ {id==='s6'&&<Flashing a={a} b={b} c={c} d={d} e={e}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
  {id==='s9'&&<EvidenceComparison a={a} b={b} c={c} d={d}/>}
