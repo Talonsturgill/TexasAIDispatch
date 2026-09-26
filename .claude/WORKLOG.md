@@ -103,3 +103,7 @@ B30 phone d1375efc passed motion0.00765 but root exact30.9s inspection found the
 ## B31 review-text synchronization
 
 Phone25fd12aa shows the secured shaft and passes motion0.0194. Independent critic68 found one attention description still implied full closure although the scene event described the retained section. The two review-only strings now agree with the pixels. preflight_animatic adds a narrow evidence-preserving rebind: the complete board must be identical except visible_change/viewer_reward strings, source must not consume those fields, and original passing board/film/renderer/critic bindings must validate. Original board text/report remain embedded as evidence. Changed event identity, timing, missing fields, unchanged inputs and ordinary stale-film checks remain rejected. Full self-test passes. This saved an identical preview render; native and final reviews remain required.
+
+## B32 visible insertion
+
+Native B31 hero76ce16ef heard the narration and recognized the architectural cutaway but rejected its nearly static fastener. B32db9f015 increases axial travel from0.285 to0.955 world units, with fixedfov38 framing preserving the full trajectory. Insertion and seating each have motivated mechanical sound. Same source scope and96-word narration reused; mix45.5s at−16.34LUFS with12SFX, no time stretch and0cutmoves. Independent code69 passed. Changed phoneab1acc73 passes motion0.01399 and root frames show substantial descent; independent phone70 and native audiovisual review remain pending.
