@@ -32,3 +32,10 @@ export const EvidenceLoupe: React.FC=()=><g>
  <path d="M-90 -80H70V-10L85 8L67 24L45 0V-58H-90Z" fill="#b8c4ae" stroke="#3e5449" strokeWidth="7"/>
  <path d="M83 -17L200 100" stroke="#304c4a" strokeWidth="30" strokeLinecap="round"/>
 </g>;
+
+// Semantic plane equivalents for the dimensional desk and fixed roof cutaway.
+export const ReviewWall: React.FC=()=><g><rect x="-500" y="-500" width="1000" height="1000" fill="#8caaa4"/></g>;
+export const ReviewDesk: React.FC=()=><g><path d="M-450 -160H450L520 220H-520Z" fill="#586c6a"/><path d="M-520 220H520V255H-520Z" fill="#334f57"/></g>;
+export const ReviewHand: React.FC=()=><g fill="#bc8b6b"><ellipse cx="0" cy="0" rx="55" ry="38"/>{[-35,-12,12,35].map(x=><rect key={x} x={x-8} y="-76" width="16" height="70" rx="8"/>)}<rect x="-40" y="20" width="80" height="130" rx="28"/><rect x="-49" y="110" width="98" height="70" rx="18" fill="#477080"/></g>;
+export const FixedRoofFlashing: React.FC=()=><g><path d="M-220 -80H185V25L215 57L193 77L157 38V-48H-220Z" fill="#d7ded1" stroke="#52675d" strokeWidth="6"/></g>;
+export const RoofFascia: React.FC=()=><g><rect x="-220" y="-20" width="440" height="130" fill="#a99271"/>{[-140,-70,0,70,140].map(x=><path key={x} d={'M'+x+' -20V110'} stroke="#756b56" strokeWidth="4"/>)}</g>;

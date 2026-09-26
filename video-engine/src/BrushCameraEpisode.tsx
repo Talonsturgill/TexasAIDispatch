@@ -91,7 +91,7 @@ const Truck:React.FC<{x:number;closed:number;travel:number}>=({x,closed,travel})
  <Box p={[1.3,.17,.79]} s={[.64,.12,.02]} c="#a8b593"/>
  <Box p={[1.65,-.10,.79]} s={[.08,.09,.025]} c="#cf7650"/>
 </group>;
-const Street:React.FC<{a:number;b:number}>=({a,b})=><>
+const Street:React.FC<{a:number;b:number;drive:number}>=({a,b,drive})=><>
  <Box p={[0,-.65,0]} s={[15,.15,12]} c="#5d685d"/>
  <Box p={[0,-.51,1.47]} s={[15,.08,2.7]} c="#515f61"/>
  <Box p={[0,-.42,.03]} s={[15,.18,.14]} c="#b6b5a3"/>
@@ -100,7 +100,7 @@ const Street:React.FC<{a:number;b:number}>=({a,b})=><>
  {a>.03&&<group position={[0,.46,-.57]} scale={Math.min(1,a*2)}>
  {[-1,1].map(sign=><React.Fragment key={sign}><Box p={[sign*1.13,0,0]} s={[.022,1.12,.01]} c="#dceac6"/><Box p={[0,sign*.56,0]} s={[2.28,.022,.01]} c="#dceac6"/></React.Fragment>)}
  </group>}
- <Truck x={mix(.72,-1.65,a*.48+b*.52)} closed={Math.sin(a*Math.PI)**12} travel={a+b}/>
+ <Truck x={mix(.72,-1.65,drive)} closed={Math.sin(a*Math.PI)**12} travel={drive*2}/>
 </>;
 const PhotoSurface:React.FC=()=>{
  const texture=useLoader(THREE.TextureLoader,staticFile('evidence/dallas-captured-facade.png'));
@@ -178,26 +178,46 @@ const Table:React.FC<{home?:boolean}>=({home=false})=><>
  </group>}
 </>;
 // One conserved image joins capture, candidate marking and manual inspection.
-const CapturedPrint:React.FC=()=>{
+const CapturedPrint:React.FC<{marked?:number}>=({marked=1})=>{
  return <>
  <Box p={[0,0,0]} s={[3.06,.035,2.12]} c={cream} round={.025}/>
  <group position={[0,.022,0]} rotation={[-Math.PI/2,0,0]}><PhotoSurface/></group>
- {[-1,1].map(sign=><React.Fragment key={sign}>
-  <Box p={[-1.095+sign*.31,.035,-.202]} s={[.055,.013,.79]} c={copper}/>
-  <Box p={[-1.095,.035,-.202+sign*.385]} s={[.66,.013,.055]} c={copper}/>
+ {marked>0&&[-1,1].map(sign=><React.Fragment key={sign}>
+  <Box p={[-1.095+sign*.31,.035,-.202]} s={[.055,.013,.79*marked]} c={copper}/>
+  <Box p={[-1.095,.035,-.202+sign*.385]} s={[.66*marked,.013,.055]} c={copper}/>
  </React.Fragment>)}
  </>;
 };
+const ReviewArrival:React.FC<{a:number;b:number}>=({a,b})=><>
+ <Table/>
+ <group position={[mix(2.75,0,a),.008,-.20]}>
+  <CapturedPrint marked={Math.max(0,(b-.50)*2)}/>
+  {b>0&&b<.55&&<Box p={[mix(-1.39,1.39,Math.min(1,b*2)),.045,0]} s={[.035,.012,1.89]} c="#b3e4ce"/>}
+  <Hand p={[-1.25-b*2.5,.079,.12+b*.20]} r={[0,-Math.PI/2,0]} scale={.78}/>
+ </group>
+ <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
+</>;
 const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
  return <>
  <Table/>
- <group position={[0,.06+c*.30,-.20]} rotation={[c*.18,0,0]}>
+ <group position={[0,.008+c*.30,-.20]} rotation={[c*.18,0,0]}>
   <CapturedPrint/>
-  <Hand p={[mix(-2.30,-1.57,a),.11,mix(-.37,.06,b)]} r={[0,-Math.PI/2,0]} scale={.78}/>
+  <Hand p={[mix(-2.30,-1.57,a),.079,mix(-.37,.06,b)]} r={[0,-Math.PI/2,0]} scale={.78}/>
  </group>
  <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
  </>;
 };
+const NoticeQueue:React.FC<{a:number;b:number}>=({a,b})=><>
+ <Table/>
+ {[0,1,2,3,4,5].map(i=><Paper key={i} p={[i%2*.035,.012+i*.020,-.20]} scale={1.35}/>)}
+ <group position={[mix(-1.8,0,a),mix(.64,.14,a),-.20]}>
+  {[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}
+  <group position={[0,b*.14,b*.85]} rotation={[b*.10,0,0]}>
+   <Paper p={[0,.075,0]} scale={1.35}/>
+   <Hand p={[.65,.12,.10]} r={[0,Math.PI/2,0]} scale={.8}/>
+  </group>
+ </group>
+</>;
 const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
  const pull=a*.65+b*.35;return <>
  <Box p={[0,.18,-1.12]} s={[4,3.7,.2]} c="#a58269"/>
@@ -221,20 +241,32 @@ const WaterPath:React.FC<{progress:number;section?:boolean}>=({progress,section=
  geometry.setDrawRange(0,Math.floor(Math.min(1,progress)*60)*48);
  return <>{[-.75,0,.75].map(x=><mesh key={x} position={[x,0,0]} geometry={geometry}><meshStandardMaterial color="#4fcde1" roughness={.18} metalness={.15}/></mesh>)}</>;
 };
-const Flashing:React.FC<{a:number;b:number}>=({a,b})=><>
- <Box p={[0,-.36,-.05]} s={[4,.17,3]} c="#354848"/>
- {[-1.25,0,1.25].map(x=><Box key={x} p={[x,-.261,-.05]} s={[1.21,.018,2.75]} c="#43574f"/>)}
- <Box p={[0,-.26,1.44]} s={[4,.42,.11]} c="#a39275"/>
- <Box p={[0,-.031,1.41]} s={[4,.043,.31]} c="#c6cbbc" metal={.7}/>
- <Box p={[0,-.15,1.55]} s={[4,.25,.035]} c="#bac3b2" metal={.72}/>
- <Box p={[0,-.28,1.58]} s={[4,.026,.09]} c="#96a99b" metal={.7}/>
- {[-1.5,-.75,0,.75,1.5].map(x=><Ball key={x} p={[x,-.001,1.40]} s={[.025,.012,.025]} c="#53665d"/>)}
- <group position={[0,0,mix(0,-1.05,a)]}>
-  <Box p={[0,-.04,1.13]} s={[3.84,.025,.67]} c="#53695c"/>
+const FoldedFlashing:React.FC=()=>{
+ const geometry=useMemo(()=>{
+  // A continuous extruded sheet wraps the fixed roof edge; profile matches the closing diagram.
+  const section=new THREE.Shape();
+  const profile=[[-.82,-.065],[-1.51,-.065],[-1.51,-.50],[-1.64,-.64],[-1.615,-.665],[-1.475,-.515],[-1.475,-.10],[-.82,-.10]];
+  profile.forEach(([z,y],i)=>i?section.lineTo(z,y):section.moveTo(z,y));section.closePath();
+  return new THREE.ExtrudeGeometry(section,{depth:3.8,bevelEnabled:false,steps:1});
+ },[]);
+ return <mesh position={[-1.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
+};
+const Flashing:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
+ <Box p={[0,-.32,-.02]} s={[3.8,.43,2.88]} c="#9a8161"/>
+ <Box p={[0,-.096,-.02]} s={[3.8,.022,2.88]} c="#354d45"/>
+ <FoldedFlashing/>
+ {[-1.40,-.70,0,.70,1.40].map(x=><group key={x}>
+  <Rod from={[x,-.058,1.15]} to={[x,-.34,1.15]} radius={.018} c="#65716b"/>
+  <Ball p={[x,-.052,1.15]} s={[.046,.012,.046]} c="#52675d"/>
+ </group>)}
+ <group position={[0,0,-a*.88]}>
+  <Box p={[0,-.04,.75]} s={[3.74,.03,1.45]} c="#53695c"/>
  </group>
- <WaterPath progress={b}/>
-
-
+ <Box p={[0,-.022,mix(1.15,.48,b)]} s={[3.28,.025,.19]} c="#53695c"/>
+ <group position={[0,-c*.78,0]}>
+  <Box p={[0,-.39,1.72]} s={[3.8,.63,.10]} c="#a99271"/>
+  {[-1.4,-.7,0,.7,1.4].map(x=><Box key={x} p={[x,-.33,1.774]} s={[.012,.40,.005]} c="#756b56"/>)}
+ </group>
 </>;
 const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  const sweep=mix(.60,-.60,b), foot:V3=[sweep,-.51,.87], top:V3=[sweep+.30,.88,.52];
@@ -313,22 +345,23 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
- id==='s2'?{position:[0,2.1,8.6],target:[0,-.05,-.4],fov:38}:
- id==='s3'?{position:[0,2.1,8.6],target:[.10,-.05,-.4],fov:42}:
+ id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
+ id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
+ id==='s6'?{position:[2,3.2,11.5],target:[0,-.55,.70],fov:47}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
  <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
- {id==='s1'&&<Street a={a} b={b}/>}
- {['s2','s3'].includes(id)&&<Capture a={a} b={b} scan={id==='s3'}/>}
+ {id==='s1'&&<Street a={a} b={b} drive={Math.min(1,(time-scene.start_s)/scene.duration_s)}/>}
+ {id==='s2'&&<NoticeQueue a={a} b={b}/>}
+ {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
- {id==='s6'&&<Flashing a={a} b={b}/>}
+ {id==='s6'&&<Flashing a={a} b={b} c={c}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
  {id==='s9'&&<EvidenceComparison a={a} b={b} c={c} d={d}/>}
@@ -345,12 +378,10 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  <div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div>
- {scene.id==='s2'&&p(1)>.12&&<div style={{position:'absolute',left:106,top:575,width:830,height:560,overflow:'hidden',border:'6px solid #eee4cb'}}>
- <Img src={staticFile('evidence/dallas-captured-facade.png')} style={{width:'100%',height:'100%',objectFit:'fill'}}/>
- </div>}
- {['s2','s3'].includes(scene.id)&&<div style={{position:'absolute',left:94,right:130,top:510,height:650,border:'3px solid #d8e0c280',borderRadius:18,boxShadow:scene.id==='s2'&&p(1)>.4?'inset 0 0 0 8px #e1e1cb':'none'}}>
- <div style={{position:'absolute',left:20,top:20,fontFamily:FONT.mono,fontSize:23,color:cream}}>{scene.id==='s2'?'SIDE CAMERA / ILLUSTRATION':'COMPUTER VISION / ILLUSTRATION'}</div></div>}
+ {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC 5</div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
+ {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
+ {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ROOF SECTION</div>}
  {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:34,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATIVE COMPARISON</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}

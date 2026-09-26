@@ -67,3 +67,7 @@ The earlier terminal packaging was invalid. The same controller is reopened; the
 ## September 26 B16 closing repair
 
 Removed the repeated document-placement scene and nine spoken words using a measured silent PCM cut. The 41.96-second edit closes with one brief illustrative optical comparison and explicitly preserves the unreported outcome. Shared hand geometry now uses rounded palm, finger and wrist surfaces. Independent code critic37 passed source scope, contact and caption framing; current phone, native hero and final audiovisual reviews remain pending. No shipment is claimed.
+
+## September 26 B17 opening and roof repair
+
+B16 native closing hero passed, but the current full film was rejected for repeated facade views and unclear roof geometry. B17 replaces that opening repetition with a held image arriving for review, then a sourced illustration of the city-reported notice volume. The roof now reveals fixed overlap, fastener contact and folded edge. Independent source10 approved revised wording; voice director2 planned a new continuous 95-word read. Its 37-second take has exact transcript accuracy, no stretch and fresh measured caption boundaries. Current code critic and phone/native review remain required.
