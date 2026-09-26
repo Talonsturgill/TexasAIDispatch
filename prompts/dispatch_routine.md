@@ -302,7 +302,11 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
 2. `git fetch origin main`. Run `python3 scripts/run_controller.py pending` and resume its
    active edition first. Only when none exists, create `claude/dispatch-<date>` at `origin/main`.
    If that exact daily branch already exists, inspect its run state and resume it rather than
-   resetting it. The branch declares the Dispatch lane; no routine writes `.git/ACTOR`.
+   resetting it. Before resuming production, merge fetched `origin/main` into the clean owned
+   edition branch so current controller fixes actually execute. Resolve conflicts while
+   preserving edition assets and usage; never copy old controller scripts over current main.
+   Read the master routine from the refreshed checkout. The branch declares the Dispatch
+   lane; no routine writes `.git/ACTOR`.
 3. Run `npm ci` inside `video-engine` only when `node_modules` is absent.
 4. Read `CLAUDE.md`, `.claude/WORKLOG.md` if it exists, `knowledge/texas/`, `knowledge/craft/`.
 5. Preflight the gates on the clean checkout, through the environment helper:

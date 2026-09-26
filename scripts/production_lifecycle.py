@@ -140,6 +140,7 @@ def pending(repo):
         candidates = [root / "out/dispatch/run_state.json"]
         # A crash may leave only the committed checkpoint.
         candidates += list((root / "runs/review").glob("*/run_state.json"))
+        candidates += list((root / "runs").glob("*/run_state.json"))
         for path in candidates:
             if not path.is_file():
                 continue
@@ -151,13 +152,16 @@ def pending(repo):
             found.append({"run_id": state["run_id"], "state": str(path),
                           "worktree": str(root), "phase": state.get("phase"),
                           "legacy_terminal": state.get("terminal_state"),
+                          "shipment_recorded": bool(state.get("shipment")),
                           "film_sha256": (state.get("deliverable") or {}).get("film_sha256")})
     # The mutable controller wins over the committed crash snapshot for each edition.
     found.sort(key=lambda x: (x["run_id"], "/out/dispatch/" not in x["state"]))
     unique = {}
+    shipped = {item["run_id"] for item in found
+               if item["legacy_terminal"] == "shipped" and item["shipment_recorded"]}
     for item in found:
         unique.setdefault(item["run_id"], item)
-    return [item for item in unique.values() if item["legacy_terminal"] != "shipped"]
+    return [item for item in unique.values() if item["run_id"] not in shipped]
 
 
 def allowance_problems(state):

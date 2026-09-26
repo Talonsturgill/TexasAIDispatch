@@ -122,7 +122,7 @@ def read_state(path: Path) -> dict:
     if expected != present:
         raise ValueError(
             f"{path} snapshots {sorted(present)}, but the controller owns {sorted(expected)}. "
-            "Start a new run from the current limits rather than silently changing one in flight."
+            "Repair this ledger schema from retained reservation evidence; never replace it with a fresh run."
         )
     return state
 

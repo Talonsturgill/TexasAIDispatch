@@ -135,6 +135,7 @@ class LifecycleTest(unittest.TestCase):
             self.assertEqual(len(result), 1)
             self.assertEqual(result[0]["state"], str(current / "run_state.json"))
             state["terminal_state"] = "shipped"
+            state["shipment"] = {"film_sha256": "verified receipt fixture"}
             c.save(current / "run_state.json", state)
             self.assertFalse(life.pending(self.root))
 
