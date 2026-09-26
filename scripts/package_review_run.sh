@@ -59,9 +59,8 @@ if [ -n "$BLOCKER_REPORT" ]; then
   cp "$BLOCKER_REPORT" "$DEST/blocker-report.json"
 fi
 
-# Only now may the controller become terminal: the exact MP4, board and manifest already exist
-# in the tracked review namespace rather than only in gitignored scratch.
-finish_args=(--state "$STATE" finish --result needs_review \
+# Save a nonterminal checkpoint. Continue repair after preserving these exact bytes.
+finish_args=(--state "$STATE" checkpoint \
   --reason "$REASON" --review-package "$DEST")
 if [ -n "$BLOCKER_REPORT" ]; then
   finish_args+=(--blocker-report "$DEST/blocker-report.json")
@@ -80,7 +79,7 @@ git -C "$REPO" status --short -- "$DEST" | sed -n '1,40p'
 if git -C "$REPO" diff --cached --quiet -- "$DEST"; then
   echo "package_review_run: exact review package is already committed"
 else
-  git -C "$REPO" commit -m "Save the $DATE Dispatch for review"
+  git -C "$REPO" commit -m "Checkpoint the $DATE Dispatch for continued repair"
   git -C "$REPO" log -1 --stat | sed -n '1,30p'
 fi
 
@@ -94,4 +93,4 @@ for attempt in 1 2 3 4 5; do
   sleep "$delay"
   delay=$((delay * 2))
 done
-echo "package_review_run: pushed review evidence; do not merge or publish it automatically"
+echo "package_review_run: pushed repair checkpoint; resume this edition until verified shipment"

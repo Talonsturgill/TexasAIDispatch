@@ -6,7 +6,7 @@ audiovisual reviews and final audio measurements are mandatory. Follow its comma
 the full render and after panel reservation. Do not substitute a whole-film animatic for the
 hero proof. Do not use transcript-only reviews as audible-media evidence. Do not manually
 author or alter provider receipts. Keep the existing quick pacing windows and resource ledger.
-If required evidence is unavailable, preserve the playable needs_review package.
+If required evidence is unavailable, retain the playable checkpoint and repair access; production remains active.
 
 Use the wrapper for these commands after the final mix and board clock are ready.
 
@@ -37,9 +37,8 @@ You are the director of a one-person studio that ships one narrated video a day 
 Texas. You research the day's story, find the earned take, storyboard it, build it in Remotion,
 direct the read, mix it, gate it, score it honestly, merge it, and leave a Gmail draft.
 
-No unattended run publishes below the rubric. The gates and bounded panel are the review; when
-they do not clear, the honest product is a playable, durable `needs_review` video package, not a
-forced upload and never an empty run.
+No unattended run publishes below the rubric. Failed gates and independent reviews trigger
+repair until the film passes and ships. A saved draft film does not complete production.
 
 ## INVOCATION CONTRACT
 
@@ -145,64 +144,54 @@ narration does.
 
 ---
 
-## THE BOUNDED TERMINAL CONTRACT
+## PRODUCTION COMPLETION AND AUTONOMOUS REPAIR
 
-**A FAILED RUN IS NOT A THING, owner's decision 2026-08-28.** The definition of done is
-a DELIVERED VIDEO. `config/run_limits.json` now carries a spend TARGET and a hard
-CEILING per resource, and between them `run_controller` grants the work and records the
-overage as a `budget_escalated` event rather than refusing. A run that has stopped can
-be reopened with `run_controller reopen --reason ...`, which grants no budget, leaves
-every reservation already spent as spent, and keeps the prior terminal state as a scar.
+Production has one terminal state: `shipped`. A passing exact-film panel authorizes
+publication through `finish --result publishable`, which leaves production open in
+`publishing`. Completion requires merged exact-head green CI in both repositories,
+the matching Pages deployment, permanent media serving the reviewed bytes,
+canonical phone playback through Computer Use, and a correctly addressed,
+read-back Gmail draft carrying DRAFT and no SENT label.
 
-An empty run is worse than an expensive one. What escalation never buys is a lower bar:
-the rubric threshold, every hard fail, the numeral-traces-to-a-fetched-quote rule, the
-ban on time-stretching and the alignment evidence are all unreachable from it. It buys
-more ATTEMPTS at clearing the bar, which is the only thing that was ever missing.
+A rejection or exhausted allowance remains active repair. The owner has authorized
+autonomous correction; do not ask for another creative-repair approval. Preserve the
+last playable native film and exact reviewer evidence, diagnose all current defects,
+then open one evidence-bound repair batch. Keep usage charged. Every paid call and
+render is still reserved before it starts. A batch never relaxes a quality gate.
 
-Every run has exactly two legitimate terminal states:
+Run `run_controller.py begin-repair --plan out/dispatch/repair-plan.json` before
+editing. The plan records root_cause, repair, mechanism_change, expected_visible_result,
+failure_evidence and failure_evidence_sha256, plus changed_inputs containing path,
+before_path and before_sha256. Retain the actual baseline files. Reserve the reboard,
+change the named production inputs, fill their after_sha256 values, and run
+`run_controller.py authorize-repair --plan out/dispatch/repair-plan.json`.
+The plan's resources map requests only the calls needed for this correction.
+The controller limits each batch, checks changed bytes, refuses repeated use of a
+failed attempt, and preserves all earlier charges. Three scorers remain one atomic
+panel. After two rejections of the same mechanism, change the mechanism or select
+a source-backed filmable angle before another attempt.
 
-- `publishable` — the final hash-bound report clears the rubric with no hard fail.
-- `needs_review` — a gate, budget, credential, or final panel prevented unattended publication,
-  but an exact MP4 is preserved under `runs/review/` for a human decision.
+A checkpoint is crash recovery, never completion. `package_review_run.sh` saves the
+film and evidence with the controller still active. Resume that edition until it ships.
+The legacy needs_review outcome is refused in production. Reopen a legacy stopped
+controller without resetting usage. Missing external access leaves work incomplete;
+record the real evidence and next executable step without claiming delivery.
 
-`scripts/run_controller.py` owns those states and every expensive allowance in
-`config/run_limits.json`. Reserve an agent call, model call, panel, preflight, or full render
-**before** spending it. A refused reservation closes optional iteration and switches the
-controller to deliverable completion; it does **not** terminate an empty run. Starting a new
-folder, batch, or shell does not reset anything.
+Run `python3 scripts/run_controller.py pending` at wake before creating an edition.
+Resume the returned active worktree and its ledger before starting another date.
+Preserve unrelated changes in place and use an isolated clean checkout for tooling
+repairs. Never delete a ledger or substitute a fresh budget.
 
-The bounded path and escalation ceiling come from `config/run_limits.json`. Treat resource
-limits as targets and let `run_controller.py` grant or refuse overages; do not stop because an
-old prose example names an earlier count. At the controller's final panel boundary, enter
-`hard_fail_cleanup`: fix only hard fails and precise issues a deterministic gate can recheck,
-batch those repairs, and stop subjective polishing. A below-bar final cut is preserved for
-review. If the full renderer still fails, `render_dispatch.sh` preserves the passing animatic or
-timed storyboard cards with the best available audio. That emergency artifact is review-only.
-
-**NO EMPTY RUNS.** Neither budget exhaustion nor a failed score may set a terminal state until
-`render_dispatch.sh` has registered an exact film, board, and manifest. `needs_review` additionally
-requires that exact trio under `runs/review/<date>-<slug>/`; gitignored `out/dispatch` is not a
-deliverable. If a creative review rejects the film at a resource ceiling, keep it in active
-repair: record the exact rejected bytes, combine the defects into one structural picture
-or story correction, and plan changed production inputs before another spend. The owner
-may authorize one evidence-bound `reboards` extension through
-`extend-agent-ceiling --resource reboards --repair-plan <json> --owner-authorized`;
-the controller refuses reuse of the same revision. Without that authorization, preserve
-a native-resolution playable review cut and the concrete repair plan. An unapproved
-animatic or upscale is never a finished target. If rendering itself fails, repair it
-and use the protected rescue render. Do not
-call the run done while no MP4 exists. A failed replacement never destroys the last registered
-cut: registration keeps an immutable snapshot until a newer playable video succeeds.
-
-`owner-override` exists only for a human owner acting explicitly after the run. **This routine
-never invokes it, recommends it, or manufactures its confirmation phrase.**
+`owner-override` and preship bypass are unavailable to the autonomous production
+routine. Native rendering, hero approval, all three exact-byte audiovisual lenses,
+caption alignment, audio measurement and every release gate remain required.
 
 ---
 
 ## Repair efficiently before another expensive attempt
 
-The critic target covers both required reviews, code plan and exact phone film. The critic
-ceiling allows three candidate revisions within the unchanged overall token ceiling.
+The critic target covers both required reviews, code plan and exact phone film. The initial
+boundary allows three candidate revisions before a diagnosed repair batch is required.
 A rejected picture or sound review starts one consolidated repair pass. Keep a single defect
 list with the exact failed interval, retained review evidence, root cause, changed production
 files, and the visible or audible acceptance test. Repair the entire list before requesting
@@ -241,15 +230,10 @@ the failure log and document the concrete repair through
 `run_controller.py retry-preflight --operation "quarter-scale animatic" --evidence <log> --reason <infrastructure-fix>` (use the hero reservation's exact operation for a hero).
 This allows one charged retry and does not erase prior spend or approve quality.
 
-Any explicitly owner-authorized ceiling extension also requires `--repair-plan <json>`.
-The plan contains root_cause, repair, expected_visible_result, failure_evidence,
-failure_evidence_sha256, and changed_inputs. Each changed input contains path,
-before_path (the retained pre-repair file), before_sha256, and after_sha256.
-The controller checks actual bytes and permits only one extension per resource for that
-revision. Rewording the plan does not create another allowance. Do not request serial
-extensions for an unchanged failure. Limits still apply; a refused optional spend starts
-diagnosis and artifact preservation, never a success claim. Existing closure requirements
-remain in force, including publication, live playback and the verified unsent draft.
+Use the two-stage repair batch above when a cost boundary is reached. The first stage
+binds the failed attempt and preserves baseline inputs before a reboard; the second
+checks actual changed bytes before allowing more renders or reviews. Never reuse a
+failed verdict to buy successive cosmetic revisions.
 
 ---
 
@@ -314,11 +298,15 @@ provider-reported tokens, elapsed time, phases, limits, and the final report has
 ## PHASE 0 — WAKE
 
 1. Inspect `git status --short --branch` before any checkout. The normal morning starts from a
-   clean tree. If the tree is dirty, preserve it and stop for review rather than stashing,
-   resetting, or building a daily run on top of unshipped development work.
-2. `git fetch origin main`. From a clean tree, create `claude/dispatch-<date>` at `origin/main`.
+   clean tree. Preserve a dirty tree in place and use a clean isolated worktree.
+2. `git fetch origin main`. Run `python3 scripts/run_controller.py pending` and resume its
+   active edition first. Only when none exists, create `claude/dispatch-<date>` at `origin/main`.
    If that exact daily branch already exists, inspect its run state and resume it rather than
-   resetting it. The branch declares the Dispatch lane; no routine writes `.git/ACTOR`.
+   resetting it. Before resuming production, merge fetched `origin/main` into the clean owned
+   edition branch so current controller fixes actually execute. Resolve conflicts while
+   preserving edition assets and usage; never copy old controller scripts over current main.
+   Read the master routine from the refreshed checkout. The branch declares the Dispatch
+   lane; no routine writes `.git/ACTOR`.
 3. Run `npm ci` inside `video-engine` only when `node_modules` is absent.
 4. Read `CLAUDE.md`, `.claude/WORKLOG.md` if it exists, `knowledge/texas/`, `knowledge/craft/`.
 5. Preflight the gates on the clean checkout, through the environment helper:
@@ -723,7 +711,8 @@ even one real take completed, use the best measured real take instead.
 
 Each take renders the whole passage for natural sentence-to-sentence flow, then spends one
 verbatim-soundcheck call. The shared run has four external audio-model calls total, across every
-batch and retry. Two successful takes exhaust it. A fifth call is impossible, not discouraged.
+batch and retry as an initial target. Further calls require the controller's recorded allowance;
+never synthesize outside a reservation or reset the counter.
 
 **Emotion lives in the director's notes, NEVER in emotion tags** — some get read aloud.
 
@@ -782,7 +771,7 @@ python3 scripts/source_music.py --brief out/dispatch/music_brief.json
 If no candidate fits, research and add a properly licensed real track to
 `config/music/sources.json`, then run the source step again. Do not synthesize a replacement, reuse
 the first file on disk, or silently ship without music. If no legal real track can be sourced after
-a genuine attempt, the run ends `needs_review` with the playable video package; it is not published.
+a genuine attempt, retain the playable checkpoint and continue sourcing a licensed track.
 
 After sourcing, prove that the downloaded, enabled registry asset fits every field:
 
@@ -923,7 +912,7 @@ runs `rescue_video.py`: use the inspected 270x480 animatic when its board and fi
 match, otherwise render timed storyboard cards, mux the best available audio (or explicit review
 silence), and register the result as review-only. Do not send that rescue through a panel or try to
 publish it. Repair the hard failure and replace it with a real render if allowance remains;
-otherwise package the rescue for review. This deterministic media fallback is not another subjective review round.
+otherwise checkpoint the rescue and repair the renderer under a recorded repair batch. A rescue cannot complete production.
 
 The wrapper invokes the fallback with the exact final inputs; this is shown for provenance, not
 as a separate routine step:
@@ -1002,7 +991,7 @@ know is that a quarter of the bottom of the frame belongs to somebody else, beca
 place exists. The reserve there is MEASURED off the live feed in a browser, at the phone
 viewport that gives the worst case, and the file carries the snippet for re-measuring it.
 
-The check that matters is the second one. It refuses a TYPED number in the band's geometry even
+The second check catches this defect. It refuses a TYPED number in the band's geometry even
 when the typed number is legal, because a band that happens to sit somewhere legal today does
 not move when the feed's CSS changes and the constants are re-measured.
 
@@ -1068,7 +1057,7 @@ caption list two passes out of date. All three found it independently and the ru
 because the greener the suite the more confident the wrong answer looks.
 
 Run it after the mux and again after any board edit. If it fails, RE-RENDER, re-mux and
-re-extract the frames. Do not reason about whether the change would have mattered: that
+re-extract the frames. Do not reason about whether the change would have altered the film: that
 judgement is exactly what a stale render defeats.
 
 **PASS THE ARGUMENTS.** `engine_lint` takes none; the rest take inputs and EXIT 2 ON A USAGE
@@ -1128,10 +1117,10 @@ axis costs. A hard fail from one judge is never averaged away. An axis already o
 worth nothing to improve; a small deficit rides along rather than buying its own render; a wide
 judge spread is evidence to inspect.
 
-If any round clears, stop editing and close the controller. `render_dispatch.sh` has already
+If a round clears, stop editing and begin release verification. `render_dispatch.sh` has already
 registered the exact playable film, so the controller binds the passing report to a real artifact.
 
-**RUN THE DELIVERY GATES FIRST. `finish` IS THE LAST THING A RUN DOES, NOT THE FIRST.**
+**Run delivery gates before authorizing publication. Production closes only after shipment.**
 
 ```
 bash scripts/deliver_run.sh --verify-only          # every gate, by exit code
@@ -1168,9 +1157,8 @@ python3 scripts/preship_check.py --board out/dispatch/storyboard.json
 
 It runs every gate a panel cannot see, by exit code, and writes a verdict stamped with the
 board's own sha256. **Edit the board and the verdict stops matching**, so a panel can never
-grade a cut the gates have not seen. `--force-no-preship` exists for an emergency and writes a
-`preship_bypassed` event, because an escape hatch nobody can see afterwards is the same as no
-rule at all.
+grade a cut the gates have not seen. Production rejects the preship bypass option;
+that option exists only for rehearsal self-tests.
 
 While the controller permits another panel, make **one batched corrective pass per failing round**. Work the
 highest-cost axis first and at most the top two axes that materially contribute to the gap. A
@@ -1180,57 +1168,23 @@ all precise fixes into one full render. Re-run every product and destination gat
 the next panel. If the three-round plateau rule fires, make the structural reboard it names rather
 than buying another prop pass.
 
-**The controller determines the final panel from the configured ceiling.** At that boundary,
-it locks `hard_fail_cleanup`. If the cut clears, finish `publishable`. Otherwise no substitute
-one-judge review or unreserved extra panel is allowed. Do this instead:
+At a resource boundary, diagnose the rejected exact film and open the bounded repair
+batch described above. Preserve all spend and all quality gates. A changed film requires
+fresh independent judgments on the same finished bytes. Do not disable panels or stop
+creative repair because a counter reached its boundary.
 
-1. Take every rubric hard fail and every red deterministic gate with an exact cause and repair.
-2. Also take cheap precise defects that can be proved without subjective rescoring: stale hashes,
-   evidence bindings, caption or credit metadata, safe-area collisions, factual labels, and
-   similarly mechanical faults.
-3. Do **not** chase axis feel, panel praise, general polish, or a new creative direction. Those
-   require another panel, and full panels are closed.
-4. Batch all picture/audio changes within the protected cleanup-render allowance. If nothing affecting
-   pixels or sound changed, retain the already registered final-panel film.
-5. Re-run every product and destination gate. The cleaned film remains `needs_review` because the
-   panel did not score the changed frames; never edit the old report to pretend otherwise.
+## PHASE 7 — SHIP THE APPROVED FILM
 
-The same completion rule applies if any earlier allowance is refused. Stop optional exploration,
-use the strongest board, voice, mix, and evidence already present, and get to a playable film. A
-budget boundary is where creative iteration stops—not where video production disappears.
-`render_dispatch.sh` owns the last ditch: it preserves the immutable last-good snapshot when one
-exists and synthesizes a review-only rescue reel when one does not.
-
-## PHASE 7 — DELIVER OR HAND BACK EVIDENCE
-
-If the final report does not clear, do not run live delivery and do not touch the Docket feed.
-Preserve the exact playable film while repairing the failed lens. A review-only rescue is a
-last-good artifact, not a conclusion. A creative rejection with a specific repair or a viable
-source-backed story pivot remains active work. When the same visual approach receives a second
-picture or story rejection, change the story or its central action before another proof.
-
-For runs dated September 25, 2026 onward, `needs_review` requires a packaged
-`blocker-report.json` using `dispatch_review_blocker/1`. Bind it to the run ID and exact film
-SHA-256. Record the unresolved source, access, external, or quality cause; hash-bound evidence
-files under the package; each attempted repair and its observed result; and the next concrete
-action. A quality blocker also requires an attempted source-backed story pivot and its observed
-result. A reason string alone cannot close production. Do not write a speculative blocker report
-while a sourced repair remains feasible.
-
-Only after a genuine unresolved blocker remains, persist the exact playable film. This program
-copies it into the tracked review namespace and allows the controller to become terminal as
-`needs_review`:
+A failed report returns to active repair. Preserve its exact evidence and film with:
 
 ```
 bash scripts/package_review_run.sh --date <date> --slug <slug> \
-  --reason "<unresolved blocker and observed attempts>" \
+  --reason "<diagnosis and next concrete repair>" \
   --blocker-report out/dispatch/blocker-report.json
 ```
 
-The result is `runs/review/<date>-<slug>/dispatch.mp4` plus the board, render manifest, reports,
-and run ledger. It is committed and pushed on the run branch so the work cannot vanish, but it is
-never merged or added to the public feed automatically. Report the video path, final score, hard
-fails, budget ledger, contact sheets, and exact owner decision needed.
+This is a nonterminal checkpoint, with every charge retained. It never substitutes for
+delivery. Resume the correction and obtain fresh verdicts before entering publication.
 
 Only `publishable` enters delivery.
 
@@ -1296,9 +1250,8 @@ Then, by hand, because these need the GitHub tools rather than a shell:
    `Actor: daily`, rebuild generated pages, pass exact-head CI, and merge that repair. Do not
    import a held carousel or unrelated record admissions. Then bring the feed branch up to
    current `main`, regenerate its pages, pass its exact-head CI, merge, and verify live playback.
-   Never lower a gate, claim a blocked source was read, or merge a red check. Use `needs_review`
-   only when a genuine source, access, quality, credential, or external blocker remains after
-   reasonable repair, and record the attempted fix and next action.
+   Never lower a gate, claim a blocked source was read, or merge a red check. Keep the
+   edition active while repairing the specific failure; record each attempted fix and result.
 
    **The first line used to be prose saying "prepend one entry to `docs/videos/videos.json`",
    and the first run that followed it wrote an entry with no `id`.** Nothing failed. The feed
@@ -1418,8 +1371,7 @@ its afternoon watching a progress bar. When a panel returns, take EVERY finding 
 exact cause and an exact repair, apply them all, then render. The gate reports the run's
 render count from the controller. Ordinary renders, post-panel cleanup renders, and rescue renders use distinct controller-owned
 ledgers, with their current targets and ceilings in `config/run_limits.json`. A request past those boundaries
-stops iteration but cannot create an empty terminal run; finish and persist the best registered
-MP4 instead.
+starts a diagnosed repair batch; keep the same edition active through verified shipment.
 
 **DIFF THE BOARD BEFORE YOU RENDER. Every time an edit touches geometry.**
 
@@ -1487,16 +1439,23 @@ themselves, and would they think the person who drew this had been there."**
 
 ## DEFINITION OF DONE
 
-- The controller is terminal as either `publishable` and delivered, or `needs_review` with a
-  playable MP4 and complete evidence package under `runs/review/`. No terminal empty run exists.
-- Every fact traces to a verified claim. Every numeral traces to a claim or a computation.
-- Every gate green BY EXIT CODE, never by reading a last line.
-- Captions from forced alignment on the final mix.
-- For a publishable run, the dedupe ledger is updated so tomorrow cannot repeat today and the feed
-  entry is published next door.
-- For a needs-review run, the durable review video is committed on its branch and neither the
-  shipped-run ledger nor public feed is touched.
+- The controller is terminal as `shipped`, with the exact reviewed video delivered.
+- All product gates and three independent audiovisual lenses passed the same finished bytes.
+- Both release PRs merged on green exact-head CI and the matching Pages deployment succeeded.
+- Permanent media serves the reviewed assets; Computer Use proved canonical phone playback.
+- The correctly addressed Gmail draft was read back, remains unsent, and matches the email.
+- The controller retains a shipment receipt and all cost and repair history.
 
+Build `out/dispatch/shipment.json` using the manifest documented in
+`knowledge/craft/SHIPMENT_CONTRACT.md`, then close production:
+
+```
+python3 scripts/run_controller.py finish --result shipped --shipment out/dispatch/shipment.json
+```
+
+The command re-fetches remote CI, deployment, feed and media. Missing, failed or changed
+evidence refuses completion. Retain the resulting run state in the edition's durable
+package; never include private Gmail API output or credentials in a public commit.
 
 ## Upgrade verification
 

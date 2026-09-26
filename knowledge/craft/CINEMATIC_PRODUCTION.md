@@ -33,7 +33,7 @@ Do not reuse its lens script as a daily story.
    building the rest of the film.
 
 Use the existing controller reservations for hero preflights. Stay within the existing resource
-ceilings; no new shell or experiment resets a daily run's state.
+batch boundaries through the production repair controller; no new shell or experiment resets a daily run's state.
 
 ## Keep the daily pace
 
@@ -125,7 +125,7 @@ out/dispatch/cinema/<role>-review.json. Each judge reads its provider response, 
 model error against the film, and records audiovisual_role and audiovisual_receipt_sha256 in
 its report. Every lens must approve the exact MP4 and report timestamped visual and audio
 observations. Metadata and transcripts alone no longer clear audio review. These are model
-observations, never human listening. Missing provider access leaves the film needs_review.
+observations, never human listening. Missing provider access leaves the edition active while access is repaired.
 
 The review calls use their own controller resource derived from existing preview and scorer
 allowances. All attempts, including failures, count. Existing limits are unchanged.
