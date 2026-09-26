@@ -247,38 +247,35 @@ const FoldedFlashing:React.FC=()=>{
   const section=new THREE.Shape();
   const profile=[[-.82,-.065],[-1.55,-.065],[-1.55,-.50],[-1.68,-.64],[-1.655,-.665],[-1.515,-.515],[-1.515,-.10],[-.82,-.10]];
   profile.forEach(([z,y],i)=>i?section.lineTo(z,y):section.moveTo(z,y));section.closePath();
-  return new THREE.ExtrudeGeometry(section,{depth:2.3,bevelEnabled:true,bevelThickness:.005,bevelSize:.007,bevelSegments:2,steps:1});
+  return new THREE.ExtrudeGeometry(section,{depth:5.8,bevelEnabled:true,bevelThickness:.005,bevelSize:.007,bevelSegments:2,steps:1});
  },[]);
- return <mesh position={[-1.15,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
+ return <mesh position={[-2.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
 };
 const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
  const lift=.80*(1-a), forward=.38*(1-a), headY=mix(.25,-.04,c);
- const toolY=headY+d*.29+.08*Math.sin(b*Math.PI)+.20*Math.sin(d*Math.PI), turn=-c*Math.PI*6;
- const toolX=mix(mix(.86,.10,b),.86,d), toolZ=mix(mix(.30,1.15,b),.30,d);
- const reach=Math.min(1,e*4), roll=Math.max(0,(e-.25)/.75), rollZ=.94+roll*.48;
+ const toolY=headY+d*.90+.08*Math.sin(b*Math.PI)+.20*Math.sin(d*Math.PI), turn=-c*Math.PI*6;
+ const toolX=mix(mix(1.25,.10,b),2.70,d), toolZ=mix(mix(.35,1.15,b),.40,d);
+ const reach=Math.min(1,e*4), roll=Math.max(0,(e-.25)/.75), rollZ=.60+roll*.82;
  const left:V3=[mix(mix(-.86,-.78,b),-.70,reach),mix(lift+mix(-.02,.04,b),.33,reach),mix(forward+mix(1.15,.40,b),rollZ,reach)];
  const gripAngle=-c*Math.PI*.30;
  const wrist:V3=[toolX+.23*Math.cos(gripAngle)+.04*Math.sin(gripAngle),toolY+.57,toolZ-.23*Math.sin(gripAngle)+.04*Math.cos(gripAngle)];
- const leftWrist:V3=[left[0]+.295,left[1]+.012,left[2]];
+ const leftWrist:V3=[left[0]-.55,left[1]+.012,left[2]];
 
  return <>
- <Box p={[0,-1.05,.18]} s={[2.3,1.9,2.64]} c="#98735e" round={.008}/>
- {Array.from({length:10},(_,row)=>Array.from({length:5},(_,col)=><Box key={row+'-'+col}
-   p={[-1.035+col*.46+(row%2)*.06,-.24-row*.17,1.507]} s={[.42,.142,.016]} round={.005}
+ <Box p={[0,-2.05,-1.25]} s={[5.8,3.9,5.50]} c="#98735e" round={.008}/>
+ {Array.from({length:22},(_,row)=>Array.from({length:13},(_,col)=><Box key={row+'-'+col}
+   p={[-2.78+col*.46+(row%2)*.06,-.24-row*.17,1.507]} s={[.42,.142,.016]} round={.005}
    c={['#a27b62','#b18d73','#977059'][(row+col)%3]}/>))}
- {Array.from({length:10},(_,row)=>Array.from({length:6},(_,col)=><Box key={'side'+row+'-'+col}
-   p={[1.157,-.24-row*.17,-.94+col*.44]} s={[.016,.142,.40]} round={.005}
-   c={['#97735e','#ac8468','#a27a62'][(row+col)%3]}/>))}
  <Box p={[0,-1.27,1.555]} s={[1.04,.83,.095]} c={cream} round={.015}/>
  <Box p={[0,-1.27,1.61]} s={[.91,.70,.02]} c="#557c86" metal={.3}/>
  <Box p={[0,-1.27,1.633]} s={[.04,.70,.03]} c={cream}/>
  <Box p={[0,-1.34,1.633]} s={[.91,.035,.03]} c={cream}/>
  <Box p={[-.23,-1.12,1.645]} s={[.14,.26,.008]} c="#a6bfb9"/>
  <Box p={[0,-1.70,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
- <Box p={[0,-.185,.18]} s={[2.3,.17,2.64]} c="#786d57"/>
- <Box p={[0,-.112,.18]} s={[2.3,.024,2.64]} c="#354d45"/>
- <Box p={[0,-.030,-.08]} s={[2.26,.05,2.04]} c="#586a59" round={.014}/>
- {[-.68,0,.68].map(x=><Box key={x} p={[x,-.002,-.08]} s={[.018,.006,2.01]} c="#425649"/>)}
+ <Box p={[0,-.185,.18]} s={[5.8,.17,5.50]} c="#786d57"/>
+ <Box p={[0,-.112,.18]} s={[5.8,.024,5.50]} c="#354d45"/>
+ <Box p={[0,-.030,-1.5]} s={[5.8,.05,4.88]} c="#45594c" round={.014}/>
+ {[-2.4,-1.6,-.8,0,.8,1.6,2.4].map(x=><Box key={x} p={[x,-.002,-1.5]} s={[.018,.006,4.8]} c="#354a3d"/>)}
  <group position={[0,lift,forward]}>
   <FoldedFlashing/>
   {[-.72,.72].map(x=><group key={x}>
@@ -307,34 +304,17 @@ const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,
 
   </group>
  </group>
- {/* One kneeling illustrated worker owns both hands throughout the action. */}
- <group position={[.15,.52,.08]} rotation={[.10,0,0]}>
-  <Box p={[0,0,0]} s={[.70,.76,.40]} c="#477080" round={.13}/>
-  <Box p={[0,-.28,.215]} s={[.72,.13,.055]} c="#335767" round={.018}/>
-  <Box p={[-.18,.08,.218]} s={[.20,.18,.025]} c="#568394" round={.022}/>
-  <Rod from={[0,.29,0]} to={[0,.46,0]} radius={.11} c="#b58769"/>
-  <Ball p={[0,.65,.025]} s={[.24,.28,.23]} c="#b58769"/>
-  <Ball p={[0,.79,-.045]} s={[.245,.15,.22]} c="#43453e"/>
-  <Ball p={[0,.65,.244]} s={[.049,.067,.035]} c="#ba8c6d"/>
-  {[-.082,.082].map(x=><Ball key={x} p={[x,.708,.230]} s={[.013,.012,.007]} c="#33413d"/>)}
-  <Box p={[0,.552,.233]} s={[.079,.008,.004]} c="#885f4d"/>
- </group>
- <Rod from={[-.08,.25,-.04]} to={[-.31,.10,-.36]} radius={.15} c="#354e60"/>
- <Rod from={[.40,.25,-.04]} to={[.55,.10,-.40]} radius={.15} c="#354e60"/>
- <Box p={[-.34,.03,-.52]} s={[.29,.16,.40]} c="#30443f" round={.06}/>
- <Box p={[.58,.03,-.55]} s={[.29,.16,.40]} c="#30443f" round={.06}/>
- <Rod from={[-.20,.79,.18]} to={[-.56,.70,.65]} radius={.105} c="#477080"/>
- <Ball p={[-.56,.70,.65]} s={[.115,.11,.11]} c="#b58769"/>
- <Rod from={[-.56,.70,.65]} to={leftWrist} radius={.085} c="#b58769"/>
- <Rod from={[.50,.79,.18]} to={[.92,.64,.48]} radius={.105} c="#477080"/>
- <Ball p={[.92,.64,.48]} s={[.115,.11,.11]} c="#b58769"/>
- <Rod from={[.92,.64,.48]} to={wrist} radius={.085} c="#b58769"/>
- <Hand p={left} r={[0,Math.PI/2,0]} scale={.82}/>
- {roll>0&&<Box p={[0,-.0325,.94+roll*.24]} s={[2.10,.055,Math.max(.002,roll*.48)]} c="#536b5b" round={.004}/>}
- <group position={[0,.14,rollZ]} rotation={[0,0,Math.PI/2]}>
+ {/* The close shot crops connected forearms at the physical frame edges. */}
+ <Rod from={[-5,left[1]+.12,left[2]-.05]} to={leftWrist} radius={.115} c="#477080"/>
+ <Rod from={leftWrist} to={[left[0]-.22,left[1]+.015,left[2]]} radius={.087} c="#b58769"/>
+ <Rod from={[5,toolY+.76,toolZ-.20]} to={[wrist[0]+.30,wrist[1]+.03,wrist[2]]} radius={.13} c="#477080"/>
+ <Rod from={[wrist[0]+.30,wrist[1]+.03,wrist[2]]} to={wrist} radius={.095} c="#b58769"/>
+ <Hand p={left} r={[0,-Math.PI/2,0]} scale={.82}/>
+ {roll>0&&<Box p={[-.25,-.0325,.60+roll*.41]} s={[2.10,.055,Math.max(.002,roll*.82)]} c="#b0b9a0" round={.004}/>}
+ <group position={[-.25,.14,rollZ]} rotation={[0,0,Math.PI/2]}>
   <group rotation={[0,roll*3.3,0]}>
-   <mesh castShadow><cylinderGeometry args={[.145,.145,2.10,40]}/><meshStandardMaterial color="#536b5b" roughness={.79}/></mesh>
-   <Box p={[.147,0,0]} s={[.009,2.08,.014]} c="#8fac91"/>
+   <mesh castShadow><cylinderGeometry args={[.145,.145,2.10,40]}/><meshStandardMaterial color="#b0b9a0" roughness={.79}/></mesh>
+   <Box p={[.147,0,0]} s={[.009,2.08,.014]} c="#405745"/>
   </group>
   {[-1.055,1.055].map(y=><mesh key={y} position={[0,y,0]}><cylinderGeometry args={[.105,.105,.012,32]}/><meshStandardMaterial color="#8d927a" roughness={.84}/></mesh>)}
  </group>
@@ -421,7 +401,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[2.4,3.2,8.8],target:[0,-.55,.85],fov:50}:
+ id==='s6'?{position:[1.6,3.3,6.3],target:[0,-.40,1.0],fov:40}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
