@@ -121,6 +121,7 @@ export const ELEMENTS: Record<string, React.FC<any>> = {
   roofBackdrop: Roof.RoofBackdrop,
   roofSubstrate: Roof.RoofSubstrate,
   roofDriver: Roof.RoofDriver,
+  evidenceLoupe: Roof.EvidenceLoupe,
   faxDocument: Faxwork.FaxDocument,
   faxChart: Faxwork.FaxChart,
   faxDesk: Faxwork.FaxDesk,

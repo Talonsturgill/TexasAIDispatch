@@ -26,3 +26,9 @@ export const RoofDriver: React.FC=()=><g>
  {[0,1,2,3].map(i=><path key={i} d={`M25 ${-209+i*15}Q-35 ${-217+i*15} -15 ${-192+i*15}`} fill="none" stroke="#bd9071" strokeWidth="11" strokeLinecap="round"/>)}
  <rect x="94" y="-211" width="130" height="57" rx="8" fill="#477080"/>
 </g>;
+
+export const EvidenceLoupe: React.FC=()=><g>
+ <circle cx="0" cy="-100" r="115" fill="#dce5d4" stroke="#304c4a" strokeWidth="18"/>
+ <path d="M-90 -80H70V-10L85 8L67 24L45 0V-58H-90Z" fill="#b8c4ae" stroke="#3e5449" strokeWidth="7"/>
+ <path d="M83 -17L200 100" stroke="#304c4a" strokeWidth="30" strokeLinecap="round"/>
+</g>;

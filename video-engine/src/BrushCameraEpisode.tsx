@@ -136,6 +136,15 @@ const Hand:React.FC<{p:V3;r?:V3;scale?:number}>=({p,r=[0,0,0],scale=1})=><group 
  <Box p={[0,.015,.37]} s={[.25,.16,.43]} c="#b28265" round={.055}/>
  <Box p={[0,.025,.70]} s={[.33,.22,.34]} c="#477080" round={.04}/>
 </group>;
+// A printed explanatory diagram, explicitly not a photograph or the resident's actual document.
+const roofDiagramSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480"><rect width="600" height="480" fill="#e8dfc6"/><path d="M35 48H550V303H35Z" fill="#456258"/><path d="M45 95H540M45 150H540M45 205H540M145 48V300M350 48V300" fill="none" stroke="#718579" stroke-width="4"/><path d="M35 300H550V414H35Z" fill="#967458"/><path d="M35 320H550M35 353H550M35 386H550M135 320V353M380 320V353M245 353V386M470 353V386" fill="none" stroke="#bc9c76" stroke-width="4"/><path d="M35 265H552V347L569 364L555 379L525 356V291H35Z" fill="#c8d0ba" stroke="#293e39" stroke-width="5"/><path d="M42 273H538V350L559 370" fill="none" stroke="#f7f3d5" stroke-width="5"/><path d="M45 249H525" stroke="#243c36" stroke-width="8"/><path d="M390 240H580V393H390Z" fill="none" stroke="#ca8759" stroke-width="5" stroke-dasharray="15 8"/></svg>';
+const RoofDiagram:React.FC<{loupe?:boolean;focus?:[number,number]}>=({loupe=false,focus=[.5,.5]})=>{
+ const source=useLoader(THREE.TextureLoader,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(roofDiagramSvg));
+ const texture=useMemo(()=>{const t=source.clone();t.colorSpace=THREE.SRGBColorSpace;if(loupe)t.repeat.set(.43,.43);t.needsUpdate=true;return t;},[source,loupe]);
+ if(loupe)texture.offset.set(focus[0]-.215,focus[1]-.215);
+ const overPrint=!loupe||(focus[0]>=0&&focus[0]<=1&&focus[1]>=0&&focus[1]<=1);
+ return <mesh rotation={[-Math.PI/2,0,0]}>{loupe?<circleGeometry args={[.34,64]}/>:<planeGeometry args={[.98,.78]}/>}<meshBasicMaterial map={texture} transparent={!overPrint} opacity={overPrint?1:0}/></mesh>;
+};
 const Paper:React.FC<{p:V3;r?:V3;roof?:boolean;house?:boolean;scale?:number}>=({p,r=[0,0,0],roof=false,house=false,scale=1})=><group position={p} rotation={r} scale={scale}>
  <Box p={[0,0,0]} s={[1.19,.018,1.54]} c={cream} round={.009}/>
  <Box p={[-.29,.014,-.53]} s={[.45,.004,.075]} c={ink}/>
@@ -146,9 +155,7 @@ const Paper:React.FC<{p:V3;r?:V3;roof?:boolean;house?:boolean;scale?:number}>=({
   {[-.27,.27].map(x=><Box key={x} p={[x,.039,.02]} s={[.17,.012,.19]} c="#456d77"/>)}
   <Box p={[0,.039,.07]} s={[.14,.012,.28]} c="#4b5f55"/>
  </>:roof?<>
-  <Box p={[0,.015,-.03]} s={[.98,.005,.78]} c="#66685a"/>
-  {Array.from({length:5},(_,i)=><Box key={i} p={[0,.021,-.31+i*.14]} s={[.97,.003,.01]} c="#879183"/>)}
-  <Box p={[0,.025,.19]} s={[.95,.014,.085]} c="#c8d0bf" metal={.6}/>
+  <group position={[0,.024,-.03]}><RoofDiagram/></group>
  </>:Array.from({length:6},(_,i)=><Box key={i} p={[-.08,.014,-.29+i*.11]} s={[i===5?.62:.84,.003,.017]} c="#7a8880"/>)}
  <Box p={[-.26,.013,.57]} s={[.46,.003,.035]} c={copper}/>
 </group>;
@@ -248,7 +255,7 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  {Array.from({length:13},(_,i)=><Rod key={i} from={[sweep-.28+i*.046,-.47,.90]} to={[sweep-.31+i*.049,-.55,.97]} radius={.012} c="#d6bb80"/>)}
  </>;
 };
-const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=false})=>{
+const Evidence:React.FC<{a:number;b:number;closing?:boolean;settled?:boolean}>=({a,b,closing=false,settled=false})=>{
  const move=closing?1:a*.35+b*.65;
  return <>
  <Table home/>
@@ -258,44 +265,37 @@ const Evidence:React.FC<{a:number;b:number;closing?:boolean}>=({a,b,closing=fals
  </group>
  <group position={[mix(1.61,.57,move),.045,-.02]} rotation={[0,.08,0]}>
   <Paper p={[0,0,0]} roof scale={.85}/>
-  <Hand p={[.48,.09,.31]} r={[0,1.18,0]} scale={.72}/>
+  {!settled&&<Hand p={[.48,.09,.31]} r={[0,1.18,0]} scale={.72}/>}
  </group>
 
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
  </>;
 };
-const Attachment:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- const headY=mix(.62,-.06,b), toolY=headY+mix(.55,0,a)+c*.72;
- const gap=.15*(1-b);
+const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
+ // The table and both documents stay where scene eight left them.
+ const loupeX=mix(1.50,.74,b)-c*.15+d*.97, loupeZ=mix(.60,.16,b)+d*.23;
+ const dx=loupeX-.57,dz=loupeZ+.02;
+ const paperX=(Math.cos(.08)*dx-Math.sin(.08)*dz)/.85;
+ const paperZ=(Math.sin(.08)*dx+Math.cos(.08)*dz)/.85;
+ const focus:[number,number]=[.5+paperX/.98,.5-(paperZ+.03)/.78];
  return <>
- <Box p={[0,-.54,-.25]} s={[5,.605,3.4]} c="#94765d" round={.035}/>
- {Array.from({length:6},(_,i)=><Box key={i} p={[-2.1+i*.84,-.258,-.25]} s={[.02,.008,3.2]} c="#b79772"/>)}
- <Box p={[0,-.2025,-.25]} s={[5.06,.07,3.44]} c="#425c53" round={.02}/>
- <Box p={[0,-.21,1.49]} s={[5.08,.38,.12]} c="#aa8c6b"/>
- <group position={[0,gap,0]}>
-  <Box p={[0,-.13,.96]} s={[3.9,.075,1.1]} c="#bfcabc" metal={.65} round={.009}/>
-  <Box p={[0,-.30,1.50]} s={[3.9,.34,.055]} c="#aab9ab" metal={.6}/>
-  <Box p={[0,-.477,1.56]} s={[3.9,.032,.15]} c="#d0d8c7" metal={.65}/>
+ <Evidence a={1} b={1} settled/>
+ <group position={[.57,.057,-.02]} rotation={[0,.08,0]}>
+  <mesh position={[mix(.72,0,a),.008,0]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[1.02,1.05]}/><meshPhysicalMaterial color="#d3e0d4" transparent opacity={.10} roughness={.12} depthWrite={false}/></mesh>
+  <group position={[mix(.72,0,a),.02,0]}>
+   <Box p={[.26,0,.17]} s={[.37,.008,.012]} c={copper}/>
+   <Box p={[.435,0,.04]} s={[.012,.008,.27]} c={copper}/>
+   <Box p={[.26,0,-.095]} s={[.37,.008,.012]} c={copper}/>
+   <Box p={[.075,0,.04]} s={[.012,.008,.27]} c={copper}/>
+  </group>
+  <Hand p={[mix(1.10,.40,a),.035,.25]} r={[0,1.20,0]} scale={.52}/>
  </group>
- {[-1.50,1.50].map(x=><mesh key={x} position={[x,-.088+gap,.60]}><cylinderGeometry args={[.055,.055,.008,20]}/><meshStandardMaterial color="#5c6e64" metalness={.7} roughness={.25}/></mesh>)}
- <group position={[0,headY,.99]} rotation={[0,-b*Math.PI*8,0]}>
-  <mesh position={[0,-.28,0]}><cylinderGeometry args={[.057,.032,.56,16]}/><meshStandardMaterial color="#79897c" metalness={.8} roughness={.25}/></mesh>
-  {Array.from({length:9},(_,i)=><mesh key={i} position={[0,-.075-i*.052,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[.059,.013,6,16]}/><meshStandardMaterial color="#a3b2a2" metalness={.8} roughness={.2}/></mesh>)}
-  <mesh><cylinderGeometry args={[.14,.14,.065,24]}/><meshStandardMaterial color="#c7d1bf" metalness={.8} roughness={.22}/></mesh>
-  <Box p={[0,.037,0]} s={[.20,.007,.033]} c="#334a42"/><Box p={[0,.038,0]} s={[.033,.007,.20]} c="#334a42"/>
- </group>
- <group position={[d*2.3,toolY+d*.25,.99]}>
-  <group rotation={[0,-b*Math.PI*8,0]}><Box p={[0,.14,0]} s={[.044,.23,.044]} c="#9eada1" metal={.8}/></group>
-  <mesh position={[0,.31,0]}><cylinderGeometry args={[.12,.08,.18,20]}/><meshStandardMaterial color="#33473f" metalness={.4} roughness={.35}/></mesh>
-  <mesh position={[0,.62,0]}><cylinderGeometry args={[.15,.15,.52,24]}/><meshStandardMaterial color="#d18e48" roughness={.46}/></mesh>
-  {[.39,.43,.47].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[.153,.008,6,24]}/><meshStandardMaterial color="#44564a" roughness={.65}/></mesh>)}
-  <mesh position={[0,.94,0]}><cylinderGeometry args={[.17,.15,.15,24]}/><meshStandardMaterial color="#263f3d" roughness={.6}/></mesh>
-  {[.51,.63,.75,.87].map(y=><mesh key={y} position={[0,y,0]} rotation={[Math.PI/2,0,-.25]}><torusGeometry args={[.18,.044,8,20,Math.PI*1.45]}/><meshStandardMaterial color="#b58769" roughness={.7}/></mesh>)}
-  <Box p={[.19,.70,.045]} s={[.20,.48,.24]} c="#ad7f62" round={.07}/>
-  <Rod from={[.24,.86,.14]} to={[-.02,.72,.20]} radius={.064} c="#bd9071"/>
-  <Ball p={[-.02,.72,.20]} s={[.068,.055,.062]} c="#bd9071"/>
-  <Rod from={[.25,.72,.04]} to={[.80,.74,.05]} radius={.13} c="#b58769"/>
-  <Rod from={[.66,.74,.05]} to={[2.10,.79,.09]} radius={.19} c="#477080"/>
+ <group position={[loupeX,.24+c*.025,loupeZ]}>
+  <mesh rotation={[-Math.PI/2,0,0]} castShadow><torusGeometry args={[.365,.028,12,64]}/><meshStandardMaterial color="#384e4a" metalness={.8} roughness={.25}/></mesh>
+  <group position={[0,.002,0]}><RoofDiagram loupe focus={focus}/></group>
+  <mesh position={[0,.008,0]} rotation={[-Math.PI/2,0,0]}><circleGeometry args={[.34,64]}/><meshPhysicalMaterial color="#e1f0e6" transparent opacity={.055} roughness={.04} depthWrite={false}/></mesh>
+  <Rod from={[-.28,0,.27]} to={[-.68,0,.64]} radius={.047} c="#304c4a"/>
+  <Hand p={[-.63,.05,.67]} r={[0,-.78,0]} scale={.55}/>
  </group>
  </>;
 };
@@ -309,7 +309,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[2.3,4.5,7.4],target:[0,-.85,.70],fov:43}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
- id==='s9'?{position:[2.3,4.1,7.4],target:[0,.15,.45],fov:44}:
+ id==='s9'?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
@@ -321,7 +321,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s6'&&<Flashing a={a} b={b}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b}/>}
- {id==='s9'&&<Attachment a={a} b={b} c={c} d={d}/>}
+ {id==='s9'&&<EvidenceComparison a={a} b={b} c={c} d={d}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
@@ -341,7 +341,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {['s2','s3'].includes(scene.id)&&<div style={{position:'absolute',left:94,right:130,top:510,height:650,border:'3px solid #d8e0c280',borderRadius:18,boxShadow:scene.id==='s2'&&p(1)>.4?'inset 0 0 0 8px #e1e1cb':'none'}}>
  <div style={{position:'absolute',left:20,top:20,fontFamily:FONT.mono,fontSize:23,color:cream}}>{scene.id==='s2'?'SIDE CAMERA / ILLUSTRATION':'COMPUTER VISION / ILLUSTRATION'}</div></div>}
  {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
- {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:32,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>GENERIC ATTACHMENT</div>}
+ {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:34,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATIVE COMPARISON</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}
  <Sequence from={Math.round(runtime_s*fps)} durationInFrames={Math.round(credits_s*fps)}><CreditsCard text={credits}/></Sequence>

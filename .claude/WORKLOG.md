@@ -1,3 +1,7 @@
+## September 26 B13 evidence-comparison pivot
+
+Two native fastening passages failed story relevance. The ending now stays with the illustrative roof document and notice: a hand registers a tracing, a held loupe enlarges the printed flashing contour, follows it, and clears the comparison. The diagram is explicitly explanatory, never the actual Morrison document or a known city decision. The hero includes the short setup and comparison in scenes eight and nine. Phone projection and fingertip contact were repaired before rendering; source and critic checks bind current inputs. Narration is retained, paper contact replaces the motor, and acoustic alignment is reverified. All native audiovisual, final panel and shipment gates remain.
+
 ## September 26 B12 closing action and narration repair
 
 B11 native hero recognized screw contact and seating but rejected long holds before withdrawal. B12 removes the repeated city-process sentence from the original take at measured silent boundaries, preserving the performance and the explicit unknown outcome. Fresh ASR and acoustic alignment bind all 11 cues to the edited mix. The generic attachment scene now runs 4.02 seconds with continuous contact, seating, withdrawal and clearance, in a 46-second film including credits. Tool grip, thumb contact and edge definition are improved. Source scope is reused transparently from validator8; the illustration does not establish Morrison construction. Native hero, current full-film audiovisual panel and release verification remain required.
