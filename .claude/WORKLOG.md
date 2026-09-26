@@ -63,3 +63,7 @@ No media PR, Docket feed edit, deployment, canonical live link, Gmail draft, ema
 ## Owner correction — September 26, active repair
 
 The earlier terminal packaging was invalid. The same controller is reopened; the native film SHA-256 remains 9510905683415a41f73b0766dc9988f9736d182ecaefd0633c0a192547ef78bd and all usage is unchanged. PR #71 repairs production closure and evidence-bound autonomous repair. Merge current main into this clean owned branch after the tooling fix clears exact-head CI. The compact defect ledger is runs/review/2026-09-26-dallas-brush-camera/repair-plan.md. No film approval, publication, or draft success has been added.
+
+## September 26 B16 closing repair
+
+Removed the repeated document-placement scene and nine spoken words using a measured silent PCM cut. The 41.96-second edit closes with one brief illustrative optical comparison and explicitly preserves the unreported outcome. Shared hand geometry now uses rounded palm, finger and wrist surfaces. Independent code critic37 passed source scope, contact and caption framing; current phone, native hero and final audiovisual reviews remain pending. No shipment is claimed.

@@ -130,11 +130,19 @@ const Capture:React.FC<{a:number;b:number;scan?:boolean}>=({a,b,scan=false})=><>
  </>}
 </>;
 const Hand:React.FC<{p:V3;r?:V3;scale?:number}>=({p,r=[0,0,0],scale=1})=><group position={p} rotation={r} scale={scale}>
- <Box p={[0,0,0]} s={[.31,.12,.37]} c="#b28265" round={.048}/>
- {[0,1,2,3].map(i=><Box key={i} p={[-.112+i*.074,-.003,-.24+(i===0?.035:0)]} s={[.064,.105,.22]} c="#bc8b6b" round={.025}/>)}
- <Box p={[.19,-.01,-.04]} s={[.15,.12,.11]} c="#b28265" r={[0,.45,0]} round={.035}/>
- <Box p={[0,.015,.37]} s={[.25,.16,.43]} c="#b28265" round={.055}/>
- <Box p={[0,.025,.70]} s={[.33,.22,.34]} c="#477080" round={.04}/>
+ <Ball p={[0,0,-.005]} s={[.165,.060,.190]} c="#b28265"/>
+ {[0,1,2,3].map(i=>{const x=-.112+i*.074,z=i===0?.025:0;return <group key={i}>
+  <Ball p={[x,-.003,-.202+z]} s={[.035,.051,.075]} c="#bc8b6b"/>
+  <Ball p={[x,-.005,-.292+z]} s={[.031,.047,.058]} c="#bc8b6b"/>
+  <Ball p={[x,.039,-.178+z]} s={[.034,.017,.025]} c="#c19374"/>
+  <Ball p={[x,.041,-.308+z]} s={[.021,.005,.021]} c="#d3aa8b"/>
+ </group>;})}
+ <group position={[.158,-.005,-.05]} rotation={[0,.52,0]}>
+  <Ball p={[0,0,0]} s={[.07,.053,.045]} c="#b28265"/>
+  <Ball p={[.047,0,-.019]} s={[.042,.047,.037]} c="#bc8b6b"/>
+ </group>
+ <Ball p={[0,.015,.36]} s={[.125,.08,.235]} c="#b28265"/>
+ <Box p={[0,.025,.70]} s={[.33,.22,.34]} c="#477080" round={.095}/>
 </group>;
 // A printed explanatory diagram, explicitly not a photograph or the resident's actual document.
 const roofDiagramSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480"><rect width="600" height="480" fill="#e8dfc6"/><path d="M35 48H550V303H35Z" fill="#456258"/><path d="M45 95H540M45 150H540M45 205H540M145 48V300M350 48V300" fill="none" stroke="#718579" stroke-width="4"/><path d="M35 300H550V414H35Z" fill="#967458"/><path d="M35 320H550M35 353H550M35 386H550M135 320V353M380 320V353M245 353V386M470 353V386" fill="none" stroke="#bc9c76" stroke-width="4"/><path d="M35 350H455V408L480 437L450 467L405 424V416H35Z" fill="#e2e8d8" stroke="#173d36" stroke-width="9"/><path d="M45 361H442V417L466 440" fill="none" stroke="#f7f3d5" stroke-width="5"/><path d="M45 338H435" stroke="#243c36" stroke-width="8"/><path d="M340 320H505V473H340Z" fill="none" stroke="#ca8759" stroke-width="8" stroke-dasharray="15 8"/></svg>';
