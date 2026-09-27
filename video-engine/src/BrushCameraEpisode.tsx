@@ -12,7 +12,7 @@ import {CreditsCard, SubtitleTrack, type DispatchProps, type Scene} from './Disp
 
 const cream='#eee4cb', ink='#17323d', copper='#df956a', green='#396a5f';
 // Exact verified c11 wording, editorially quoted rather than a source-document highlight.
-const COURTESY_REQUEST_QUOTE=['Please correct the violations','promptly to avoid further','enforcement action.'];
+const COURTESY_REQUEST_QUOTE=['…correct the violations','promptly to avoid further','enforcement action.'];
 const Box:React.FC<{p:V3;s:V3;c:string;r?:V3;round?:number;metal?:number}>=({p,s,c,r=[0,0,0],round=0,metal=0})=>{
  const geometry=useMemo(()=>round?new RoundedBoxGeometry(...s,2,round):new THREE.BoxGeometry(...s),[...s,round]);
  return <mesh geometry={geometry} position={p} rotation={r} castShadow receiveShadow><meshStandardMaterial color={c} roughness={metal?.36:.76} metalness={metal}/></mesh>;
@@ -773,7 +773,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
 
  <div style={{position:'absolute',inset:0,background:stock?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
  {(!stock||editorialExcerpt)&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
- <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>{editorialExcerpt?'SOURCE EXCERPTS / NBC 5 INVESTIGATES':'DALLAS / ILLUSTRATED RECONSTRUCTION'}</div>
+ <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>{editorialExcerpt?'SOURCE EXCERPTS / NBC DFW':'DALLAS / ILLUSTRATED RECONSTRUCTION'}</div>
  <div style={{position:'absolute',left:70,right:editorialExcerpt?180:118,top:222,fontFamily:FONT.display,fontSize:editorialExcerpt?62:65,fontWeight:editorialExcerpt?400:undefined,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
  {stock&&!editorialExcerpt&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
  {stock&&!editorialExcerpt&&localTime<1.2&&<div style={{position:'absolute',left:70,top:278,fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:cream,textShadow:'0 2px 5px #17323d'}}>{scene.id==='s5'?'COURTESY REQUEST':'NOTICE → REPORTED YARD WORK'}</div>}
