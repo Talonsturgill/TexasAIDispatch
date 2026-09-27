@@ -331,7 +331,8 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  </>;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- const boardPos:V3=[-.12,.38+.20*a+.035*Math.sin(a*Math.PI),mix(.85,.60,a)];
+ const clearWindow=.34*Math.min(1,b/.30);
+ const boardPos:V3=[-.12,.38+.20*a+.035*Math.sin(a*Math.PI)-clearWindow,mix(.85,.60,a)];
  const boardTilt=mix(.80,1.15,a);
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x,boardPos[1]+y*Math.cos(boardTilt)-z*Math.sin(boardTilt),boardPos[2]+y*Math.sin(boardTilt)+z*Math.cos(boardTilt)];
  const photoPos=world(.355,.028,-.10),restNotice=world(-.40,.035,.08);
@@ -339,11 +340,14 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const noticePos:V3=[mix(restNotice[0],-.02,present)+.30*pull,mix(restNotice[1],.48,present)+.055*Math.sin(present*Math.PI)-.035*pull,mix(restNotice[2],1.0,present)+.08*pull];
  const noticeTilt=mix(boardTilt,1.10,present)+.06*pull;
  const photoMarker=world(.355-1.095*.27,.045,-.10-.202*.27+.14*Math.min(1,b/.30));
- const windowPoint:V3=[-.817,.533+.17*b,-1.045];
+ const windowPoint:V3=[-.817,.885,-1.045];
  const compare=Math.max(0,(b-.30)/.70);
- const finger:V3=photoMarker.map((v,i)=>mix(v,windowPoint[i],compare)) as V3;
+ // Lift toward the viewer, clear the board top, then reach back to the upper window.
+ const control1:V3=[photoMarker[0]-.10,.85,.95],control2:V3=[-.76,1.16,-.25];
+ const finger:V3=photoMarker.map((v,i)=>(1-compare)**3*v+3*(1-compare)**2*compare*control1[i]+3*(1-compare)*compare**2*control2[i]+compare**3*windowPoint[i]) as V3;
  const edge:V3=[noticePos[0]-.226,noticePos[1]+.012,noticePos[2]+.027];
- const pointing:V3=finger.map((v,i)=>mix(v,edge[i],pickup)) as V3;
+ const returnHigh:V3=[-.76,1.16,-.25],returnFront:V3=[edge[0],.85,.95];
+ const pointing:V3=finger.map((v,i)=>(1-pickup)**3*v+3*(1-pickup)**2*pickup*returnHigh[i]+3*(1-pickup)*pickup**2*returnFront[i]+pickup**3*edge[i]) as V3;
  const officerContact:V3=[pointing[0]-.30*release,pointing[1]-.15*release,pointing[2]+.10*release];
  const ownerEdge:V3=[noticePos[0]+.226,noticePos[1]+.012,noticePos[2]+.027];
  const ownerContact:V3=[mix(1.50,ownerEdge[0],receive),mix(.12,ownerEdge[1],receive)+.10*Math.sin(receive*Math.PI),mix(1.22,ownerEdge[2],receive)];
@@ -356,9 +360,9 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  </group>
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38}/></group>
- <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-1.8,-.8,1.3]} skin="#ad7e63" shirt="#627b70" closed={1}/>
- <EncounterHand contact={officerContact} approach={[.35,-.9,.28]} cuff={[-.25,-1.0,1.9]} skin="#ad7e63" shirt="#627b70" closed={pickup*(1-release)}/>
- <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[2.0,-.35,1.6]} skin="#b78666" shirt="#83684f" closed={receive}/>
+ <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,-3.0,2.0]} skin="#ad7e63" shirt="#627b70" closed={1}/>
+ <EncounterHand contact={officerContact} approach={[.35,-.9,1.10]} cuff={[-.25,-4.0,2.0]} skin="#ad7e63" shirt="#627b70" closed={pickup*(1-release)}/>
+ <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[4.0,-2.0,2.0]} skin="#b78666" shirt="#83684f" closed={receive}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
