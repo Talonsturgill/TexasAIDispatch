@@ -315,7 +315,6 @@ const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={
   {a:[-.36,.056,.30],b:[.27,.657,.065],r:.075},
   {a:[-.30,.0364,.35],b:[.0,.651,.065],r:.065},
   {a:[-.40,.055,-.38],b:[-.12,.055,.26],r:.055},
-  {a:[-.28,.043,.32],b:[-.14,.043,-.43],r:.043},
  ].map((branch,i)=>{
   const a=branch.a as V3,b=branch.b as V3;
   const join=a.map((v,j)=>mix(v,b[j],.57)) as V3;
