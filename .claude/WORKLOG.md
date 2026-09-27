@@ -213,3 +213,11 @@ Renderer commitsddf0362/68234ae/dacda52 implement conserved paper/contact, truth
 ## September 26 B63 case-evidence repair
 
 B62 exact phone review repeated a detached cuff and quote occlusion. Retired the complete synthetic s5 performance instead of extending that failed mechanism. Actual NBC notice/property/interview excerpts now occupy the final13.38requested seconds; native source boundaries, hashes and explicit editorial quotation assessment are retained. Source22 and code132 passed; exact phone133 passed SHA0a8e29ec8f37551e049685931c168f4b7163d41c50dad957d6d4f250e5691bc8. Native hero/final audiovisual review and release are separate pending gates. All earlier spend and rejected evidence remains retained.
+
+## 2026-09-27 — September26 B64 closing evidence repair
+
+B63 full film073b7011 failed final picture/story review: unreadable original notice, inaccurate highlighted-request description, incidental broadcast numerals and muted ending. Source23 corrected the earlier highlighting interpretation from native evidence; the marked lines concerned alleged violations.
+
+B64 replaces that inset with a large attributed nine-word request and crops native case images for phone readability. The unchanged72-word approved narrator prefix leads into the original16-word resident recording at natural speed. Voice7 verified exact PCM identity, clean boundary handles and exclusion of the reporter sign-off. Picture returns to the same property for the final20frames while the source voice finishes; this editorial L-cut and unknown case outcome are explicit.
+
+Source23 and code134 pass current inputs; exact phone135 reports a readable request, connected filmed action, separate caption/outcome bands and clean property return. Full native audiovisual gates remain required. Prior failed films, reviews and every resource charge remain retained. Production stays active through release, live phone proof and the verified unsent draft.
