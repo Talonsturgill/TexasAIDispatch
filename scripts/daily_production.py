@@ -45,6 +45,41 @@ def required(board):
     return board.get("daily_production") is True or in_window(board.get("date"))
 
 
+def candidate_problems(selected):
+    """Reject unsupported pictures while selection is still cheaper than narration."""
+    errors = []
+    film = selected.get("filmability") or {}
+    rows = film.get("action_support") or []
+    if [r.get("image") for r in rows] != ["opening", "mechanism", "consequence"]:
+        return ["candidate needs opening, mechanism and consequence action_support in order"]
+    catalog = {a["id"]: a for a in read(CATALOG)["actions"]}
+    sources = {s.get("url") for s in selected.get("sources", [])}
+    assets = {a.get("url"): a for a in film.get("asset_leads", [])}
+    for row in rows:
+        if row.get("source_url") not in sources:
+            errors.append("candidate picture needs a fetched source from selected.sources")
+        for key in ("pictured_action", "scope_fit"):
+            if len(str(row.get(key, "")).strip()) < 25:
+                errors.append("candidate picture needs a concrete " + key)
+        if row.get("medium") == "demonstrated-action":
+            if row.get("action_id") not in catalog:
+                errors.append("candidate central action is outside the demonstrated library")
+        elif row.get("medium") == "source-footage":
+            asset = assets.get(row.get("asset_url"), {})
+            for key in ("inspection", "rights_basis"):
+                if len(str(asset.get(key, "")).strip()) < 25:
+                    errors.append("candidate footage needs actual " + key + " evidence")
+            from urllib.parse import urlparse
+            url = urlparse(str(row.get("asset_url", "")))
+            if url.scheme not in ("https", "http") or not url.netloc:
+                errors.append("candidate footage needs a retrievable source asset")
+        else:
+            errors.append("candidate picture has no supported production medium")
+    if rows[0].get("medium") != "demonstrated-action":
+        errors.append("candidate opening must support the dimensional opening policy")
+    return sorted(set(errors))
+
+
 def story_digest(board):
     # Measured timing and subtitles do not change the causal story. The final phone
     # and audiovisual gates still bind those exact bytes separately.
@@ -217,6 +252,12 @@ def pre_voice_problems(board_path, claims_path, script=None):
     report_path = Path(board_path).with_name("storyboard_critic.json")
     report = read(report_path) if report_path.exists() else {}
     errors = structure_problems(board, read(claims_path)) + action_problems(board) + review_problems(board, report)
+    selection_path = Path(board_path).with_name("story_selection.json")
+    if not selection_path.is_file():
+        errors.append("current candidate selection and early picture fit are missing")
+    else:
+        import story_selection_check
+        errors += story_selection_check.problems(read(selection_path), edition=board.get("date"))
     if (report.get("story_review") or {}).get("claims_sha256") != digest(claims_path):
         errors.append("source evidence changed since the independent story review")
     if script is not None:
@@ -239,6 +280,9 @@ def packet(board_path, claims_path, role, state_path=None):
         "brief": ".claude/agents/" + ("scorer" if role in ("picture", "story", "sound") else role) + ".md",
         "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text.",
     }
+    selection = Path(board_path).with_name("story_selection.json")
+    if selection.is_file():
+        data["selection"] = {"path": str(selection.resolve()), "sha256": digest(selection)}
     if role in ("picture", "story", "sound"):
         root = Path(board_path).parent
         for key, name in (("film", "film.mp4"), ("av_receipt", f"cinema/{role}-review.json"),

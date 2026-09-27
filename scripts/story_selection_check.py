@@ -34,7 +34,7 @@ def http_url(value: object) -> bool:
     return p.scheme in {"http", "https"} and bool(p.netloc)
 
 
-def problems(data: dict) -> list[str]:
+def problems(data: dict, edition=None) -> list[str]:
     out: list[str] = []
     if data.get("schema") != "dispatch_story_selection/1":
         out.append("schema must be dispatch_story_selection/1")
@@ -96,6 +96,10 @@ def problems(data: dict) -> list[str]:
                 out.append(f"selected.sources #{i} has no valid URL")
             elif not str(source.get("retrieved") or "").strip():
                 out.append(f"selected.sources #{i} has no retrieval date")
+
+    import daily_production
+    if daily_production.in_window(edition or data.get("edition_date")):
+        out += daily_production.candidate_problems(selected)
 
     rejected = data.get("rejected")
     if not isinstance(rejected, list) or len(rejected) < 1:
@@ -161,6 +165,7 @@ def self_test() -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--selection")
+    ap.add_argument("--date", help="Edition date; controls early picture-fit enforcement")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     if args.self_test:
@@ -173,7 +178,7 @@ def main() -> int:
     except (OSError, json.JSONDecodeError) as exc:
         print(f"story_selection_check: cannot read selection: {exc}", file=sys.stderr)
         return 2
-    found = problems(data)
+    found = problems(data, edition=args.date)
     if found:
         print("story_selection_check: REFUSED", file=sys.stderr)
         for problem in found:

@@ -34,3 +34,17 @@ honest. Do not invent footage, infer a licence from search thumbnails, or mistak
 reconstruction for observed reality. Find the strongest primary-source limitation as carefully
 as the strongest hook. The director will turn these findings into a new film, not a relabelled
 version of the reference episode.
+
+
+## Screen pictures before recommending a candidate
+
+Read config/production_actions.json and its scope limits. Add filmability.action_support
+with exactly three ordered rows: image opening, mechanism, consequence. Each row names
+medium (demonstrated-action or source-footage), pictured_action, scope_fit and source_url
+from selected.sources. A demonstrated row names action_id from the catalog. The opening
+must use a supported dimensional action. A footage row names asset_url matching an asset_lead
+with url, inspection of the actual visible action, and rights_basis with evidence.
+Do not force an unrelated story into a familiar prop. Return an unsupported candidate as a
+rejected alternative; developing a new physical mechanism belongs outside the daily run.
+The director copies this evidence into story_selection.json before voice or preview spending.
+These fields record inspectable evidence; their presence does not prove artistic quality.

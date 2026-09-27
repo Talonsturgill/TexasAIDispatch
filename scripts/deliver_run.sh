@@ -146,7 +146,7 @@ fi
 mkdir -p "$DEST"
 cp "$OUT/film.mp4"        "$DEST/dispatch.mp4"
 cp "$OUT/poster.png"      "$DEST/poster.png"
-for f in storyboard.json claims.json captions.json words.json mix.json sfx_events.json \
+for f in storyboard.json story_selection.json claims.json captions.json words.json mix.json sfx_events.json \
          vo_direction.json vo_script.txt story.md research_notes.md scale_notes.md credits.txt \
          acoustic-asr.json acoustic-asr-meta.json alignment_aliases.json \
          script_audit.json validation.json \

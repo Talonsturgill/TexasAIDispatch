@@ -112,14 +112,15 @@ REQUEST = re.compile(r"remotion\s+(?:render|still)\s+"
 def rendered() -> dict[tuple[str, str], str]:
     """Composition ids some prompt or workflow renders, mapped to the command that does."""
     out: dict[tuple[str, str], str] = {}
-    files = list((REPO / "prompts").glob("*.md"))
+    import wiring_check
+    files = wiring_check.prompt_paths(REPO)
     wf = REPO / ".github" / "workflows"
     if wf.exists():
         files += list(wf.glob("*.yml"))
     for f in files:
         for line in f.read_text(encoding="utf-8").splitlines():
             for m in REQUEST.finditer(line):
-                out.setdefault((m.group("entry") or "", m.group("id")), f"{f.relative_to(REPO)}: {line.strip()}")
+                out.setdefault((m.group("entry") or "", m.group("id")), f"{f.resolve().relative_to(REPO.resolve())}: {line.strip()}")
     return out
 
 

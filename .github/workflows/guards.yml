@@ -198,6 +198,8 @@ jobs:
           python3 scripts/production_lifecycle_test.py
           python3 scripts/quality_recovery_test.py
           python3 scripts/daily_production_test.py
+          python3 scripts/cinema_cache_test.py
+          python3 scripts/routine_loading_test.py
           python3 scripts/daily_production.py --catalog-check
           python3 scripts/critic_gate.py --self-test
           python3 scripts/audiovisual_review_test.py
@@ -471,6 +473,7 @@ jobs:
           # one of them, because an optimistic estimator makes every fit check below it
           # worthless while still reporting green.
           cd video-engine
+          node tests/render_batch.mjs
           node tests/caption_board_fit.mjs --self-test
           node tests/caption_board_fit.mjs --board ../examples/board.json
           node tests/type_fit.mjs --self-test

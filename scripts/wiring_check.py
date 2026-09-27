@@ -49,6 +49,7 @@ STANDALONE = {
     "production_lifecycle.py": "Library called by run_controller checkpoint/begin-repair/authorize-repair/pending and run_discipline; production_lifecycle_test exercises those paths.",
     "shipment_check.py": "Library called by run_controller finish --result shipped; production_lifecycle_test tests remote and media failures through that closure path.",
     "quality_contract.py": "Library called by critic_gate on production boards and phone reviews, and audiovisual_review on exact-film provider requests; quality_recovery_test exercises missing and stale evidence.",
+    "cinema_cache.py": "Dependency library called by cinema_proof and production_quality; cinema_cache_test mutates actual dependency keys and reservation behavior.",
     "master_audio.py": "Library called by mix.py; production_quality_test exercises real mastering and encoded audio.",
     "wiring_check.py": "this file, run by CI and by hand",
     # A DIAGNOSTIC, not a run step. It measures what render concurrency this container is
@@ -63,9 +64,26 @@ STANDALONE = {
 }
 
 
+def prompt_paths(repo=None) -> list[Path]:
+    """Follow only reachable active phase instructions; historical copies cannot wire a gate."""
+    repo = repo or REPO
+    root = (repo / "prompts").resolve()
+    pending = list(root.glob("*.md"))
+    found = set()
+    while pending:
+        path = pending.pop().resolve()
+        if path in found:
+            continue
+        if not path.is_relative_to(root) or not path.is_file():
+            raise ValueError("missing or out-of-scope routine phase: " + str(path))
+        found.add(path)
+        for relative in re.findall(r"prompts/[A-Za-z0-9_./-]+\.md", path.read_text(encoding="utf-8")):
+            pending.append(repo / relative)
+    return sorted(found)
+
+
 def prompt_text() -> str:
-    return "\n".join(p.read_text(encoding="utf-8")
-                     for p in sorted((REPO / "prompts").glob("*.md")))
+    return "\n".join(p.read_text(encoding="utf-8") for p in prompt_paths())
 
 
 def workflow_text() -> str:
