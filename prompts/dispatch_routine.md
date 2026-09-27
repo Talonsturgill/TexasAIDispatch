@@ -1179,6 +1179,14 @@ alone do not establish a new mechanism. Correct the underlying body or scene mod
 choose a source-backed action that the renderer can perform convincingly. Record the changed
 physical invariant and verify it before spending another native review.
 
+Keep the repair owner actively assigned until its current defect is resolved. A worker's
+completion event ends that worker turn; a later note does not necessarily restart it.
+When a fresh critic defect arrives after the renderer worker has completed, explicitly
+resume or reassign the repair task, confirm it is running, and then wait for the saved
+current verdict. Do not leave a passive message queued to a completed worker while a
+controller waiter expects new output. A timed-out waiter spends no render and requires
+owner reassignment, not a duplicate render or a closure report.
+
 At a resource boundary, diagnose the rejected exact film and open the bounded repair
 batch described above. Preserve all spend and all quality gates. A changed film requires
 fresh independent judgments on the same finished bytes. Do not disable panels or stop
