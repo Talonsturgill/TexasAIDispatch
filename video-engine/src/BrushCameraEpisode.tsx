@@ -739,42 +739,42 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s2'&&<NoticeQueue a={a} b={b}/>}
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
- {id==='s5'&&<Notice a={a} b={b} handoff={c}/>}
+
 
  {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
  {id==='s9'&&<SiteInspection a={a} b={(b*.60+progress(4)*1.20)/1.80} c={c} d={d}/>}
  </CinematicStage>;
 };
-export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
+export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,native_media=[],__cinemaProofWithoutStage=false})=>{
  const frame=useCurrentFrame(),{fps}=useVideoConfig(),time=frame/fps,windows=actionWindows(scenes);
  const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
- const p=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
- const cleanupScene=scenes.find(s=>s.id==='s7'),noticeScene=scenes.find(s=>s.id==='s5');
- const cleanupStart=cleanupScene?.start_s??23;
- // The actual courtesy notice crosses the editorial cut, never belonging to the stock adult.
- const bridgeIn=actionProgress(requireAction(windows,'s5-notice-handoff'),time);
- const bridgeOut=Math.max(0,Math.min(1,(time-cleanupStart)/.60));
- const noticeLink=(scene.id==='s5'?bridgeIn:scene.id==='s7'?1:0);
+ const stock=scene.camera_strategy==='sourceFootage';
+ const media=scene.source_footage;
+ if(time<runtime_s&&['s5','s7'].includes(scene.id)&&!stock)throw new Error(scene.id+' requires licensed source footage; generated human performance is retired');
+ if(stock){
+  const binding=native_media.find(item=>item.file===media?.file);
+  if(!media||!binding||binding.sha256!==media.sha256||!/^[a-f0-9]{64}$/.test(media.sha256)||
+    !/^evidence\/[A-Za-z0-9._/-]+\.(mp4|mov|webm)$/.test(media.file)||media.file.includes('..')||
+    media.camera_motion!=='static-native/no-digital-motion'||media.playback_rate!==1||media.muted!==true||
+    !Number.isFinite(media.trim_start_s)||!Number.isFinite(media.trim_end_s)||media.trim_start_s<0||
+    media.trim_end_s-media.trim_start_s<scene.duration_s-.05){
+   throw new Error(scene.id+' lacks a valid native source-footage binding');
+  }
+ }
+ const localTime=time-scene.start_s;
  return <div style={{position:'absolute',inset:0,background:ink,color:cream}}>
  {time<runtime_s&&<>
- {!__cinemaProofWithoutStage&&(scene.id==='s7'?
+ {!__cinemaProofWithoutStage&&(stock?
  <Sequence from={Math.ceil(scene.start_s*fps)} durationInFrames={Math.ceil((scene.start_s+scene.duration_s)*fps)-Math.ceil(scene.start_s*fps)}>
-  <OffthreadVideo src={staticFile('evidence/yard-cleanup-8544165.mp4')} trimBefore={0} trimAfter={Math.ceil(scene.duration_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%',filter:'saturate(.78) contrast(.96) sepia(.09)'}}/>
+  <OffthreadVideo src={staticFile(media!.file)} trimBefore={Math.round(media!.trim_start_s*fps)} trimAfter={Math.ceil(media!.trim_end_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%',filter:'saturate(.78) contrast(.96) sepia(.09)'}}/>
  </Sequence>:<PhysicalStory scene={scene} time={time} windows={windows}/>)}
- {!__cinemaProofWithoutStage&&scene.id==='s7'&&bridgeOut<1&&noticeScene&&<div style={{position:'absolute',inset:0,pointerEvents:'none'}}>
-  <CinematicStage position={[1.6,1.25,5.4]} target={[0,.20,-.2]} fov={39} exposure={1.15}>
-   <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
-   <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
-   <Notice a={1} b={1} handoff={1+bridgeOut} isolated/>
-  </CinematicStage>
- </div>}
 
- <div style={{position:'absolute',inset:0,background:scene.id==='s7'?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
- {scene.id!=='s7'&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
+ <div style={{position:'absolute',inset:0,background:stock?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
+ {!stock&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
- {scene.id==='s7'&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
- {noticeLink>0&&<div style={{position:'absolute',left:70,top:326,padding:'8px 14px',fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:ink,background:cream,opacity:noticeLink}}>NOTICE → REPORTED YARD WORK</div>}
+ {stock&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
+ {stock&&localTime<1.2&&<div style={{position:'absolute',left:70,top:278,fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:cream,textShadow:'0 2px 5px #17323d'}}>{scene.id==='s5'?'COURTESY REQUEST':'NOTICE → REPORTED YARD WORK'}</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
  {scene.id==='s7'&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}

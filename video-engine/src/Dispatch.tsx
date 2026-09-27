@@ -66,6 +66,14 @@ export interface Scene {
   region: RegionName;
   county: string;
   camera_strategy: keyof typeof CameraMoves | 'sourceFootage';
+  /** Licensed native footage, validated against the board's native_media binding. */
+  source_footage?: {
+    file: string; sha256: string;
+    camera_motion: 'static-native/no-digital-motion';
+    trim_start_s: number; trim_end_s: number;
+    playback_rate: 1; muted: true;
+    source_url: string; creator: string; license_url: string;
+  };
   camera_secondary?: keyof typeof CameraMoves;
   camera_entry?: {x?: number; y?: number; z?: number; until_progress: number};
   /**
@@ -149,6 +157,7 @@ export interface Cue {
 }
 
 export type DispatchProps = {
+  native_media?: {file: string; sha256: string; basis?: string}[];
   cinema?: {
     version: string;
     hero_scene_id: string;
