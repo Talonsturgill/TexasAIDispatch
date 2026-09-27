@@ -78,6 +78,8 @@ moves it, where it lands, and what changes afterward. Reject disconnected hands,
 unmotivated disappearance, or an idle figure held through the opening. If the medium cannot
 perform the action credibly, redesign the shot before granting a code-plan pass.
 
+Follow the complete visible shoulder, upper arm, elbow, forearm and hand through the action. Clear contact-point rays do not prove that the limb avoids the prop: an opaque clipboard can hide an intersecting upper arm and leave a detached-looking forearm. Check the full occupied volumes and then the actual phone pixels. Actor orientation must support the action: an inspector examining a house must visibly attend to the house or its image, rather than face the audience while pointing behind the body. Grounded weight shifts need planted feet and articulated hips or knees; rotating an entire rigid figure is not a performed stance change.
+
 **Review the occupied picture space.** Check the principal subject at the beginning, contact,
 and result of each event against the actual shared caption band and title overlays. Inspect
 phone frames at all three moments, not only a representative contact-sheet frame. A moving
