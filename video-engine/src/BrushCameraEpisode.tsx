@@ -500,11 +500,11 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const ownerYaw=-1.48-.10*receive,ownerLean=.025+.075*receive;
  const shoulder=(p:V3,yaw:number,lean:number,x:number):V3=>new THREE.Vector3(x,.48,0).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
  const holdRoot=shoulder(officerTorso,officerYaw,officerLean,-.28);
- const holdShoulder:V3=[holdRoot[0],holdRoot[1],holdRoot[2]-.28];
+ const holdShoulder:V3=[holdRoot[0],holdRoot[1],holdRoot[2]+.24];
  const workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28),receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28);
- const heldContact=world(-.50,.025,.455),holdApproach:V3=[-.35,-.80,.30],receiverApproach:V3=[1.05,-.18,.20];
+ const heldContact=world(.25,.025,-.455),holdApproach:V3=[-.15,.35,.45],receiverApproach:V3=[1.05,-.18,.20];
  const wrist=(contact:V3,approach:V3)=>contact.map((v,i)=>v+approach[i]*.31) as V3;
- const holdElbow:V3=[-1.08,0,1.13];
+ const holdElbow:V3=[-.50,.72+.18*a-clearWindow,1.25];
  const workElbow:V3=[mix(-.64,-1.22,reach)+.05*present,mix(.30,.72,reach)+.30*Math.sin(reach*Math.PI),mix(1.32,-.02,reach)];
  const receiveElbow:V3=[.98+.03*receive,.24+.12*receive,1.20+.04*receive];
  const restingShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,.28);
