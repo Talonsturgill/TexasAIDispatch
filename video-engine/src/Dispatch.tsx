@@ -526,11 +526,11 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
 };
 
 export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4,
-  cinematic_template, documentary_copy, __cinemaProofWithoutStage}) => {
+  cinematic_template, documentary_copy, native_media, __cinemaProofWithoutStage}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
   if (cinematic_template === 'brush-camera-v1') {
-    return <BrushCameraEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}
+    return <BrushCameraEpisode native_media={native_media} runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}
       __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
   }
   if (cinematic_template === "screwworm-forecast-v1") return <ScrewwormForecastEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} />;

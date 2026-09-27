@@ -197,3 +197,8 @@ Dynamic loudness normalization undershot its measured target. The shared master 
 ## B61 retire generated notice performance
 
 Native B60 rejected the isolated hand and unsupported notice. B61 removes all active synthetic notice performance and its page continuation from the stock scenes. Both s5 and s7 now require a sourceFootage scene binding; the renderer reads that file and trim, verifies matching native_media SHA declarations, and rejects non-natural, audible, moving-camera or invalid-path bindings. The independent storyboard gate still verifies actual asset bytes and provenance. Both scenes display the same constant feed-safe identity disclaimer; brief unboxed headings distinguish courtesy request from reported yard work. First four dimensional scenes, narration, timing and mixed audio remain unchanged. TypeScript and type-fit checks pass. The licensed reading asset and final board binding are parent-owned and still required before code127, source audit and actual phone/native approval. No render or paid call was performed by this editor.
+
+
+## B61 production prop routing repair
+
+Phone108 failed at frame649 because the root Dispatch component omitted native_media while the generalized stock renderer correctly required it. The owning Dispatch component now forwards that prop; strict per-asset validation remains active. Retained failure log and exact before/after source bind one charged infrastructure replacement. TypeScript passes. The failed render receives no picture verdict; current phone and native evidence remain required.
