@@ -68,6 +68,7 @@ import hashlib
 import math
 import re
 import sys
+import subprocess
 from pathlib import Path
 
 import shot_coherence
@@ -82,7 +83,8 @@ REGIONS = {"high_plains", "rolling_plains", "cross_timbers", "blackland", "post_
 
 MOVES = {"dollyThrough", "orbitReveal", "craneDown", "truckAcross", "riseWith"}
 
-def source_footage_problems(board: dict, scene: dict, public: Path | None = None) -> list[str]:
+def source_footage_problems(board: dict, scene: dict, public: Path | None = None,
+                            evidence_root: Path | None = None) -> list[str]:
     """Verify the concrete native source route; never license a static generated plate."""
     public = public or REPO / "video-engine" / "public"
     media = scene.get("source_footage")
@@ -92,8 +94,12 @@ def source_footage_problems(board: dict, scene: dict, public: Path | None = None
     errors = []
     if scene.get("generated_media"):
         errors.append(prefix + "cannot be a generated plate")
-    if media.get("camera_motion") != "static-native/no-digital-motion":
-        errors.append(prefix + "must declare static-native/no-digital-motion")
+    editorial = media.get("editorial_excerpt") is True
+    if "editorial_excerpt" in media and media["editorial_excerpt"] is not True:
+        errors.append(prefix + "unknown editorial source category")
+    expected_motion = "source-native/no-digital-motion" if editorial else "static-native/no-digital-motion"
+    if media.get("camera_motion") != expected_motion:
+        errors.append(prefix + "must declare " + expected_motion)
     if media.get("playback_rate") != 1 or media.get("muted") is not True:
         errors.append(prefix + "requires natural playback and an explicit muted source track")
     relative = str(media.get("file") or "")
@@ -113,15 +119,89 @@ def source_footage_problems(board: dict, scene: dict, public: Path | None = None
             errors.append(prefix + "asset SHA256 does not match its binding")
     except OSError:
         errors.append(prefix + "asset is missing or unreadable")
-    if not all(str(media.get(k) or "").strip() for k in ("source_url", "creator", "license_url")):
-        errors.append(prefix + "requires source, creator and license provenance")
+    provenance_keys = ("source_url", "creator") if editorial else ("source_url", "creator", "license_url")
+    if not all(str(media.get(k) or "").strip() for k in provenance_keys):
+        errors.append(prefix + "requires source, creator and license provenance" if not editorial
+                      else prefix + "requires source and creator provenance")
+    if editorial:
+        errors.extend(editorial_source_problems(media, bound, evidence_root or REPO, prefix))
     try:
         start, end = float(media["trim_start_s"]), float(media["trim_end_s"])
-        if not (math.isfinite(start) and math.isfinite(end) and 0 <= start < end
-                and end - start >= float(scene.get("duration_s") or 0)):
+        duration = float(scene.get("duration_s") or 0)
+        covers = end - start >= duration
+        if editorial and math.isfinite(start) and math.isfinite(end):
+            # Match Root.tsx (30fps) and BrushCameraEpisode Sequence/trim quantization.
+            scene_start = float(scene.get("start_s") or 0)
+            covers = (math.ceil(end * 30) - round(start * 30) >=
+                      math.ceil((scene_start + duration) * 30) - math.ceil(scene_start * 30))
+        if not (math.isfinite(start) and math.isfinite(end) and 0 <= start < end and covers):
             errors.append(prefix + "trim does not cover the scene at natural speed")
     except (KeyError, TypeError, ValueError):
         errors.append(prefix + "requires finite source trim bounds")
+    return errors
+
+
+def editorial_source_problems(media: dict, bound: dict | None, root: Path,
+                              prefix: str) -> list[str]:
+    """Require retained editorial evidence without treating quotation as a license."""
+    errors = []
+    def retained(relative, *, source=False):
+        path = Path(str(relative or ""))
+        allowed = ("out/", "video-engine/public/evidence/") if source else ("out/",)
+        if (not str(relative or "").startswith(allowed) or path.is_absolute()
+                or ".." in path.parts):
+            raise ValueError("evidence must be a retained repository-relative path")
+        resolved = (root / path).resolve()
+        if not resolved.is_relative_to(root.resolve()):
+            raise ValueError("evidence resolves outside the repository")
+        return resolved
+
+    try:
+        manifest_path = retained(media.get("provenance_manifest"))
+        raw = manifest_path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != media.get("provenance_sha256"):
+            errors.append(prefix + "editorial provenance SHA256 does not match retained evidence")
+        manifest = json.loads(raw)
+        if not isinstance(manifest, dict):
+            raise ValueError("editorial provenance must be an object")
+        for key in ("source_url", "creator"):
+            if manifest.get(key) != media.get(key):
+                errors.append(prefix + "editorial " + key + " does not match provenance")
+        if manifest.get("prepared_sha256") != media.get("sha256"):
+            errors.append(prefix + "editorial prepared asset SHA256 does not match provenance")
+        if (manifest.get("rights_basis") != "editorial quotation"
+                or not bound or not str(bound.get("rights_basis", "")).startswith("editorial quotation")):
+            errors.append(prefix + "requires explicit editorial quotation rights basis")
+        assessment = manifest.get("rights_assessment")
+        if not isinstance(assessment, dict):
+            assessment = {}
+        if any(len(str(assessment.get(k) or "").strip()) < 15
+               for k in ("purpose", "nature", "amount", "market", "limit")):
+            errors.append(prefix + "requires a complete four-factor editorial rights assessment")
+        if assessment.get("reference") != "https://www.copyright.gov/fair-use/":
+            errors.append(prefix + "requires the official fair-use assessment reference")
+        if not re.search(r"not (?:a granted |a |an? asserted )?license|no license permission",
+                         str(assessment.get("limit", "")) + " " + str(manifest.get("reuse_basis", "")), re.I):
+            errors.append(prefix + "editorial quotation must explicitly disclaim a granted license")
+        if len(str(manifest.get("source_limits") or "").strip()) < 30:
+            errors.append(prefix + "requires explicit editorial source limits")
+        section = retained(manifest.get("native_section_file"), source=True)
+        if hashlib.sha256(section.read_bytes()).hexdigest() != manifest.get("native_section_sha256"):
+            errors.append(prefix + "editorial native source SHA256 does not match retained evidence")
+        probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0",
+                                "-show_entries", "stream=width,height", "-of", "json", str(section)],
+                               capture_output=True, text=True, timeout=20, check=True)
+        streams = json.loads(probe.stdout).get("streams", [])
+        if not streams:
+            raise ValueError("retained editorial source has no video stream")
+        for dimension in ("width", "height"):
+            actual = streams[0].get(dimension)
+            declared = manifest.get("source_native_" + dimension)
+            if (type(declared) is not int or declared <= 0 or declared != actual
+                    or media.get("native_" + dimension) != actual):
+                errors.append(prefix + "editorial native " + dimension + " does not match actual source")
+    except (OSError, ValueError, TypeError, subprocess.SubprocessError) as exc:
+        errors.append(prefix + "editorial evidence unavailable or invalid: " + str(exc))
     return errors
 
 
@@ -904,6 +984,77 @@ def self_test() -> int:
         generated = deepcopy(sample); generated["generated_media"] = {"file": "plate.png"}
         ok("source footage rejects a static generated plate",
            any("generated plate" in x for x in source_footage_problems(binding, generated, public)))
+        unlicensed = deepcopy(sample); unlicensed["source_footage"].pop("license_url")
+        ok("ordinary stock still requires its license",
+           any("license provenance" in x for x in source_footage_problems(binding, unlicensed, public)))
+        # The ffprobe response is isolated here; production probes retained source bytes.
+        from unittest.mock import patch
+        from types import SimpleNamespace
+        (public / "out").mkdir()
+        native_section = public / "out" / "native.mp4"
+        native_section.write_bytes(b"retained-native-source")
+        manifest_path = public / "out" / "editorial.json"
+        manifest = {"source_url": "https://example.com/source", "creator": "Fixture",
+                    "prepared_sha256": digest, "rights_basis": "editorial quotation",
+                    "native_section_file": "out/native.mp4",
+                    "native_section_sha256": hashlib.sha256(native_section.read_bytes()).hexdigest(),
+                    "source_native_width": 1920, "source_native_height": 1080,
+                    "source_limits": "This source does not show the reported cleanup or its outcome.",
+                    "reuse_basis": "Editorial quotation. No license permission is asserted.",
+                    "rights_assessment": {"reference": "https://www.copyright.gov/fair-use/",
+                        "purpose": "Analysis of the specific report and its evidence.",
+                        "nature": "Already published factual news reporting.",
+                        "amount": "A short excerpt restricted to the analyzed evidence.",
+                        "market": "The excerpt does not replace the complete source report.",
+                        "limit": "An editorial assessment, not a granted license or certainty."}}
+        editorial = deepcopy(unlicensed)
+        editorial["source_footage"].update({"editorial_excerpt": True,
+            "camera_motion": "source-native/no-digital-motion", "provenance_manifest": "out/editorial.json",
+            "native_width": 1920, "native_height": 1080})
+        editorial_binding = deepcopy(binding)
+        editorial_binding["native_media"][0]["rights_basis"] = "editorial quotation"
+        def bind_manifest(value, target=editorial):
+            manifest_path.write_text(json.dumps(value))
+            target["source_footage"]["provenance_sha256"] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+        def editorial_errors(target=editorial, native_binding=editorial_binding):
+            return source_footage_problems(native_binding, target, public, public)
+        with patch("subprocess.run", return_value=SimpleNamespace(
+                stdout=json.dumps({"streams": [{"width": 1920, "height": 1080}]}))):
+            bind_manifest(manifest)
+            ok("editorial footage accepts exact retained provenance", not editorial_errors())
+            quantized = deepcopy(editorial); quantized.update(start_s=25.92, duration_s=9.08)
+            quantized["source_footage"]["trim_end_s"] = 272 / 30
+            ok("editorial trim covers the actual composition frames", not editorial_errors(quantized))
+            quantized["source_footage"]["trim_end_s"] = 271 / 30
+            ok("editorial trim rejects a missing composition frame", bool(editorial_errors(quantized)))
+            manifest_path.write_text(json.dumps({**manifest, "source_limits": "Changed retained evidence without board rebind."}))
+            ok("editorial footage rejects changed provenance bytes", any("provenance SHA256" in x for x in editorial_errors()))
+            bind_manifest(manifest)
+            native_section.write_bytes(b"counterfeit-source")
+            ok("editorial footage rejects changed native source bytes", any("native source SHA256" in x for x in editorial_errors()))
+            native_section.write_bytes(b"retained-native-source")
+            for field, value in [("source_url", "https://example.com/other"),
+                                 ("prepared_sha256", "0" * 64), ("source_native_width", 123),
+                                 ("source_limits", ""), ("rights_basis", "licensed stock"),
+                                 ("native_section_file", "../outside.mp4")]:
+                bind_manifest({**manifest, field: value})
+                ok("editorial footage rejects invalid " + field, bool(editorial_errors()))
+            for field in ("purpose", "nature", "amount", "market", "reference", "limit"):
+                changed = deepcopy(manifest); changed["rights_assessment"].pop(field)
+                bind_manifest(changed)
+                ok("editorial footage requires rights assessment " + field, bool(editorial_errors()))
+            changed = deepcopy(manifest)
+            changed["rights_assessment"]["limit"] = "Editorial assessment with uncertain future interpretation."
+            changed["reuse_basis"] = "Editorial quotation for analysis."
+            bind_manifest(changed)
+            ok("editorial footage requires explicit non-license statement", bool(editorial_errors()))
+            bind_manifest(manifest)
+            unknown = deepcopy(editorial); unknown["source_footage"]["editorial_excerpt"] = "true"
+            ok("editorial footage rejects unknown category", bool(editorial_errors(unknown)))
+            wrong_dimensions = deepcopy(editorial); wrong_dimensions["source_footage"]["native_width"] = 1080
+            ok("editorial footage rejects false board dimensions", bool(editorial_errors(wrong_dimensions)))
+            manifest_path.unlink()
+            ok("editorial footage rejects missing provenance", bool(editorial_errors()))
         static_scene = board(); static_scene["scenes"][2]["camera_strategy"] = "static"
         ok("ordinary static generated scenes still fail",
            any("not a composed move" in x for x in check(static_scene)))
