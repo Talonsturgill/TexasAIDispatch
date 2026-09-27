@@ -1700,7 +1700,20 @@ def roof_fastener_turn(seed=103):
     return normalize(fade(out,8),.68)
 
 
+def cleanup_bag_rustle(seed=107):
+    """Designed plastic-bag folds during visible litter deposit; not location audio."""
+    dur = .72
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((.01, .10, .24, .37, .50)):
+        length = .18
+        fold = one_pole_lp(high_pass(white(length, seed+i), 850), 6500)
+        fold *= np.hanning(len(fold))
+        place_into(out, normalize(fold) * (.18 + .025 * (i % 3)), at)
+    return normalize(fade(out, 12), .38)
+
+
 SOUNDS = {
+    "cleanup_bag_rustle": (cleanup_bag_rustle, "oneshot", "designed plastic rustle synchronized to visible litter entering the held cleanup bag", ["cleanup", "bag", "litter"]),
     "roof_fastener_turn": (roof_fastener_turn, "oneshot", "the visible illustrative fastener rotating, advancing and seating against its pad", ["roof", "hand", "tool"]),
     "brush_truck_roll": (brush_truck_roll, "oneshot", "the visible illustrated brush truck rolling past the curbside house", ["brush", "truck", "street"]),
     "brush_camera_shutter": (brush_camera_shutter, "oneshot", "the visible brush-truck side camera taking a still image", ["camera", "shutter", "capture"]),
