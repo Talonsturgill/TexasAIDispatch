@@ -368,7 +368,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[.1,5.2,5.3],target:[0,-.18,-.05],fov:38}:
+ id==='s6'?{position:[.28,5.2,5.3],target:[.18,-.18,-.05],fov:38}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
  id==='s9'?{position:[2,2.3,5.3],target:[.02,.65,-.25],fov:38}:
  id==='s8'?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
