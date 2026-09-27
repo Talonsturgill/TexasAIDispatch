@@ -28,6 +28,8 @@ only works with narration, it is a podcast with pictures and it fails here.
 
 **Input is not processing proof.** If narration describes scanning, analyzing, selecting or another transformation, a captured input image alone does not prove that action. The current phone film must show the transformation and a completed visible consequence in the same objects. Captions may explain scope; they cannot supply a missing action. A retained still can be valid evidence, but an unchanged inset is not an analysis beat. Compare the native rejection interval with the new phone pixels before approving the same mechanism again.
 
+**Judge the dominant picture, not peripheral motion.** A small moving sliver behind a large static inset does not repair the inset's pacing. Inspect the actual native hero at phone size and native crop scale: recognizable silhouettes at 270 pixels can conceal unfinished surfaces, faceted props and missing contact shadows. Compare all unresolved native defects together before the next render; do not approve a label, outline or tiny prop change as a complete repair. If the same dominant layout has failed twice, require a changed composition or action mechanism before another native attempt.
+
 **Sentence-to-pixel proof.** Ignore `on_screen`, `what_moves` and `hero` on the first pass. For
 each VO line, inspect `visual_proof.must_show`, resolve every `item_id` into `planes[].items`, and
 ask whether those actual components and props make the sentence literal. A generic pickup under a
