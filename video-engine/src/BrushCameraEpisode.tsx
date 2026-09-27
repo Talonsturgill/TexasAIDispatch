@@ -247,7 +247,19 @@ const CapturedPrint:React.FC<{marked?:number}>=({marked=1})=>{
  </>;
 };
 // One grounded pile is shared by the street and the held camera-view illustration.
+const SelectionStroke:React.FC<{from:V3;to:V3;radius:number}>=({from,to,radius})=>{
+ const delta=new THREE.Vector3(...to).sub(new THREE.Vector3(...from));
+ const q=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),delta.clone().normalize());
+ return <mesh position={from.map((v,i)=>(v+to[i])/2) as V3} quaternion={q}>
+  <cylinderGeometry args={[radius,radius,delta.length(),16]}/>
+  <meshBasicMaterial color='#d99139' transparent opacity={.52} depthWrite={false}/>
+ </mesh>;
+};
 const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={[0,-.43,-.58]}>
+ {analysis>0&&[[-.94,.03],[-.76,-.40],[-.24,-.50],[.13,-.38],[.63,-.30],[.86,0],[.74,.35],[.15,.47],[-.73,.40]].map((p,i,points)=>{
+  const end=points[(i+1)%points.length],q=Math.max(0,Math.min(1,analysis*points.length-i));
+  return q>0?<OpticalEdge key={'region'+i} from={[p[0],.025,p[1]]} to={[mix(p[0],end[0],q),.025,mix(p[1],end[1],q)]} radius={.018}/>:null;
+ })}
  <group position={[.39,.18,.02]} rotation={[0,.22,0]}>
   <Box p={[0,0,0]} s={[.53,.34,.48]} c='#aa8153' round={.015}/>
   <Box p={[0,.176,0]} s={[.50,.016,.45]} c='#70583c'/>
@@ -274,38 +286,41 @@ const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={
    <Rod from={a} to={b} radius={branch.r} c={i%2?'#786246':'#8b704b'}/>
    <Rod from={join} to={[join[0]-.24,join[1]+.23,join[2]-.18]} radius={branch.r*.53} c='#786246'/>
    <Ball p={b} s={[branch.r,branch.r,branch.r]} c='#d0b381'/>
-   {analysis>0&&<OpticalEdge from={a} to={a.map((v,j)=>mix(v,b[j],Math.max(0,Math.min(1,analysis*1.5-i*.16)))) as V3} radius={branch.r+.012}/>}
+   {analysis>0&&<SelectionStroke from={a} to={a.map((v,j)=>mix(v,b[j],Math.max(0,Math.min(1,analysis*1.5-i*.16)))) as V3} radius={branch.r+.007}/>}
    {[-1,1].map((side,j)=><group key={side} position={[join[0]-.24+side*.08,join[1]+.25,join[2]-.18+j*.09]} rotation={[.3,side*.6,.4]}>
     <Ball p={[0,0,0]} s={[.11,.018,.045]} c={i%2?'#758252':'#8a915b'}/>
    </group>)}
   </group>;
  })}
  </group>;
-const DebrisGround:React.FC=()=> <>
- <Box p={[0,-.58,.5]} s={[15,.16,9]} c='#596567'/>
- <Box p={[0,-.46,-.75]} s={[15,.08,1.28]} c='#aaa692'/>
+const DebrisGround:React.FC<{selection?:number}>=({selection=0})=>{
+ const selected=(color:string)=>new THREE.Color(color).lerp(new THREE.Color('#273b3e'),selection*.65).getStyle();
+ return <>
+ <Box p={[0,-.58,.5]} s={[15,.16,9]} c={selected('#596567')}/>
+ <Box p={[0,-.46,-.75]} s={[15,.08,1.28]} c={selected('#aaa692')}/>
  <Box p={[0,-.43,.02]} s={[15,.14,.16]} c='#c0b69c' round={.012}/>
  <Box p={[0,-.49,.16]} s={[15,.025,.23]} c='#818978'/>
- <Box p={[0,-.47,-2.1]} s={[15,.10,1.42]} c='#697650'/>
+ <Box p={[0,-.47,-2.1]} s={[15,.10,1.42]} c={selected('#697650')}/>
  {[-2.6,2.0].map(x=><Box key={x} p={[x,-.405,-.72]} s={[.018,.005,1.20]} c='#858776'/>)}
 </>;
+};
 const DebrisCapture:React.FC<{elapsed:number;captureAt:number}>=({elapsed,captureAt})=> <>
  <DebrisGround/><DebrisPile/>
  <Truck x={.39-.35*elapsed} closed={Math.exp(-(((elapsed-captureAt)/.07)**2))} travel={.35*elapsed/1.197} cameraPitch={-.3355} detailSide/>
 </>;
-const CapturedDebrisInset:React.FC<{progress:number;analysis:number}>=({progress,analysis})=>{
- const scan=Math.min(1,analysis*2),mask=Math.max(0,analysis*2-1);
+const CapturedDebrisInset:React.FC<{progress:number;scan:number;selection:number}>=({progress,scan,selection})=>{
  if(progress<=0)return null;
- return <div style={{position:'absolute',left:70,top:712,width:848,height:504,overflow:'hidden',border:'5px solid #eee4cb',boxSizing:'border-box',opacity:Math.min(1,progress*4),background:'#596567'}}>
+ return <div style={{position:'absolute',left:70,top:712,width:848,height:504,overflow:'hidden',border:'5px solid #eee4cb',boxSizing:'border-box',opacity:progress,background:'#596567'}}>
   <div style={{position:'absolute',left:0,top:-506,width:1080,height:1920,transform:'scale(.776)',transformOrigin:'0 0'}}>
    <CinematicStage position={[.02325,.4035,1.0074]} target={[.02325,-.15,-.58]} fov={90} exposure={1.15}>
     <directionalLight position={[3,8,2]} intensity={1.4} color='#fff1c9'/>
     <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
-    <DebrisGround/><DebrisPile analysis={mask}/>
+    <DebrisGround selection={selection}/><DebrisPile analysis={selection}/>
    </CinematicStage>
   </div>
-  {analysis>0&&scan<1&&<div style={{position:'absolute',left:mix(0,828,scan),top:54,width:14,height:450,background:'#c4e2b4',boxShadow:'0 0 22px #dcf5be',opacity:.65}}/>}
+  {scan>0&&scan<1&&<div style={{position:'absolute',left:mix(0,828,scan),top:54,width:14,height:450,background:'#c4e2b4',boxShadow:'0 0 22px #dcf5be',opacity:.65}}/>}
   <div style={{position:'absolute',left:0,top:0,padding:'10px 16px',fontFamily:FONT.mono,fontSize:28,lineHeight:1.2,color:cream,background:'#17323de8'}}>IMAGE ANALYSIS / ILLUSTRATION</div>
+  {selection>=1&&<div style={{position:'absolute',left:24,bottom:12,padding:'7px 18px',fontFamily:FONT.mono,fontWeight:700,fontSize:48,lineHeight:1,color:'#f1c276',background:'#102b31',border:'3px solid #f1c276'}}>DEBRIS</div>}
  </div>;
 };
 const NoticeQueue:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
@@ -844,7 +859,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
   <div style={{position:'absolute',left:70,top:1240,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>CASE OUTCOME UNREPORTED</div>
  </>}
  {scene.id==='s7'&&!editorialExcerpt&&<div style={{position:'absolute',left:70,top:1180,fontFamily:FONT.mono,fontSize:24,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
- {!__cinemaProofWithoutStage&&scene.id==='s3'&&<CapturedDebrisInset progress={actionProgress(requireAction(windows,'s3-image-retained'),time)} analysis={actionProgress(requireAction(windows,'s3-visible-condition'),time)}/>}
+ {!__cinemaProofWithoutStage&&scene.id==='s3'&&<CapturedDebrisInset progress={actionProgress(requireAction(windows,'s3-image-retained'),time)} scan={actionProgress(requireAction(windows,'s3-image-scanned'),time)} selection={actionProgress(requireAction(windows,'s3-visible-condition'),time)}/>}
 
  {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
