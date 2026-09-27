@@ -234,14 +234,14 @@ const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
 };
 // Both views are authored explanatory drawings, never the resident's actual records.
 const RoofComparison:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
- const leftX=mix(-2.8,-.91,a),rightX=mix(2.9,.91,b);
+ const leftX=mix(-2.8,-.66,a),rightX=mix(2.9,.66,b);
  return <>
  <Table/>
- <group position={[leftX,.027,-.10]} rotation={[0,.04,0]}>
+ <group position={[leftX,.027,-.10]} rotation={[0,.04,0]} scale={.74}>
   <Paper p={[0,0,0]} roof scale={1.38}/>
   <Hand p={[-.67-b*1.7,.087,.39]} r={[0,-Math.PI/2,0]} scale={.85}/>
  </group>
- <group position={[rightX,.036,-.08]} rotation={[0,-.035,0]}>
+ <group position={[rightX,.036,-.08]} rotation={[0,-.035,0]} scale={.74}>
   <Box p={[0,0,0]} s={[1.63,.023,2.08]} c={cream} round={.016}/>
   <Box p={[-.37,.02,-.77]} s={[.53,.008,.09]} c={ink}/>
   {/* Enlarged bent sheet and masonry repeat the same profile in RoofDiagram. */}
@@ -254,8 +254,8 @@ const RoofComparison:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
   <Box p={[.41,.064,.15]} s={[.022,.006,.51]} c={ink}/>
   <Box p={[.49,.064,.405]} s={[.022,.006,.27]} r={[0,-.65,0]} c={ink}/>
   <Box p={[-.38,.021,.82]} s={[.50,.006,.035]} c={copper}/>
-  <Hand p={[mix(.77,.05,c),.10,mix(.34,-.04,c)]} r={[0,Math.PI/2,0]} scale={.85}/>
-  <Rod from={[mix(.77,.05,c)+.62,.12,mix(.34,-.04,c)]} to={[4,.12,.10]} radius={.105} c="#477080"/>
+  <Hand p={[.89,.10,mix(-.10,.46,c)]} r={[0,Math.PI/2,0]} scale={.85}/>
+  <Rod from={[1.51,.12,mix(-.10,.46,c)]} to={[4,.12,.10]} radius={.105} c="#477080"/>
  </group>
  </>;
 };
@@ -314,28 +314,30 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  </>;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- const officer:V3=[-.50,0,.69],owner:V3=[mix(.82,.45,c),0,mix(-.48,.68,c)];
- const photoPos:V3=[.50,mix(.53,.74,a),.21],photoTilt=mix(.20,.50,a);
- const noticePos:V3=[mix(-.15,.08,d),.80,.51];
- const officerHand:V3=[noticePos[0]-.20,noticePos[1]+.018,noticePos[2]+.035];
- const ownerHand:V3=[mix(owner[0]-.17,.28,d),mix(.51,.82,d),mix(owner[2]+.12,.54,d)];
+ const officer:V3=[-.50,0,.69],owner:V3=[mix(.82,.80,c),0,mix(-.48,.30,c)];
+ const photoPos:V3=[mix(.50,-.18,c),mix(mix(.53,.74,a),.42,c),mix(.21,.95,c)],photoTilt=mix(mix(.20,.50,a),1.20,c);
+ const noticePos:V3=[mix(-.74,.19,d),mix(.30,.84,d),mix(.91,1.20,d)];
+ const officerHand:V3=[noticePos[0]-.29,noticePos[1]+.024,noticePos[2]+.038];
+ const ownerHand:V3=[mix(owner[0]-.17,noticePos[0]+.29,d),mix(.51,noticePos[1]+.024,d),mix(owner[2]+.12,noticePos[2]+.038,d)];
  return <>
  <Box p={[0,-.59,0]} s={[9,.13,8]} c="#75795f"/>
  <Box p={[0,-.515,.75]} s={[3.1,.025,3.0]} c="#b3af99"/>
  <House scale={.86} p={[0,0,-1.75]}/>
  <Body p={officer} yaw={2.95} look={mix(-.65,0,b)-d*.55} shirt="#627b70"/>
- <Body p={owner} yaw={-.38} step={c} travel={[-.37,0,1.16]} shirt="#83684f" skin="#b78666"/>
+ <Body p={owner} yaw={-.38} step={c} travel={[-.02,0,.78]} shirt="#83684f" skin="#b78666"/>
  {/* The officer retains the conserved photograph against the clipboard throughout inspection. */}
  <group position={photoPos} rotation={[photoTilt,0,0]} scale={.23}>
   <Box p={[0,-.025,0]} s={[3.28,.045,2.37]} c="#765c43" round={.045}/>
   <CapturedPrint/>
   <Box p={[0,.060,-1.03]} s={[.63,.06,.19]} c="#a6b4a7" round={.015} metal={.55}/>
  </group>
- <Limb shoulder={[-.265,.93,.65]} elbow={[-.10,.67,.38]} hand={[photoPos[0]-.34,photoPos[1]-.015,photoPos[2]+.08]} skin="#ad7e63" sleeve="#627b70"/>
- <Limb shoulder={[-.735,.93,.73]} elbow={[-.79,.58,.52]} hand={officerHand} skin="#ad7e63" sleeve="#627b70"/>
- <group position={noticePos} rotation={[.90,0,-.03]}><Paper p={[0,0,0]} scale={.43}/></group>
- <Limb shoulder={[owner[0]-.23,.93,owner[2]]} elbow={[owner[0]-.30,.63,owner[2]+.13]} hand={ownerHand} skin="#b78666" sleeve="#83684f"/>
+ <Limb shoulder={[-.265,.93,.65]} elbow={[mix(-.10,-.36,c),mix(.67,.47,c),mix(.38,.84,c)]} hand={[photoPos[0]-.34,photoPos[1]-.015,photoPos[2]+.08]} skin="#ad7e63" sleeve="#627b70"/>
+ <Limb shoulder={[-.735,.93,.73]} elbow={[mix(-.89,-.45,d),mix(.54,.69,d),mix(.79,1.03,d)]} hand={officerHand} skin="#ad7e63" sleeve="#627b70"/>
+ <group position={noticePos} rotation={[1.15,0,0]}><Paper p={[0,0,0]} scale={.43}/></group>
+ <Limb shoulder={[owner[0]-.23,.93,owner[2]]} elbow={[mix(owner[0]-.30,.59,d),mix(.63,.73,d),mix(owner[2]+.13,1.04,d)]} hand={ownerHand} skin="#b78666" sleeve="#83684f"/>
  <Limb shoulder={[owner[0]+.22,.93,owner[2]]} elbow={[owner[0]+.27,.58,owner[2]+.04]} hand={[owner[0]+.23,.33,owner[2]+.12]} skin="#b78666" sleeve="#83684f"/>
+ {/* Receiving fingertips meet the visible right edge only when the owner reaches the sheet. */}
+ {d>.70&&[0,1,2].map(i=><Rod key={i} from={[ownerHand[0]-.01,ownerHand[1]+i*.013,ownerHand[2]]} to={[noticePos[0]+.248,noticePos[1]+.018+i*.013,noticePos[2]+.027]} radius={.011} c="#b78666"/>)}
  {/* Only the preserved candidate window receives the inspection cue. No citation appears. */}
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;

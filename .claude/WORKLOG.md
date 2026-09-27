@@ -121,3 +121,7 @@ B34 independent code73 and exactphone74 now pass on ffbd80e3. Frame153 contains 
 ## B35 whole-film structural correction
 
 B34 native40-second2261a008 passes preship, encoded audio and sound review. Independent picture6.59 and story6.968 reject the unrelated fastening digression and repeated unresolved closing; aggregate6.973 remains active repair. B35 removes screw installation, uses a brief attributed roof comparison and articulated cleanup, then returns the opening house image to a generic officer inspection before owner notice. FOX attribution limits this requirement to citation, and the resident outcome stays unreported. Fresh continuous narration, source16, code75, changed phone, native inspection hero and all three final lenses remain required. No release or draft is claimed.
+
+## B36 phone occlusion repair
+
+B35 continuous100-word Charon take39.4s passes transcript1.000 and pitchspread6.68. Measured40s story plus5s credits has ten caption cues that fit the shared lower band. Source16 passes with fresh FOX citation-rule evidence and transparent reuse of inaccessible NBC browser evidence. Phone71937eca passes mechanical motion but independent critic76 rejects two actual occlusions: cropped roof bends and papers/bodies masking the inspection and receiving edge. B36 preserves voice, alignment and accepted cleanup; it fits both roof bends and sequences comparison, photo lowering, owner approach and foreground notice contact. All failedbytes and exact critique retained. Code77 and changed phone78 precede native AV.
