@@ -199,6 +199,8 @@ another review. After two rejections of the same creative defect, redesign the m
 staging before a third attempt. A succession of small translations, fades, new labels or
 camera drift is not a structural correction.
 
+Keep delegated repair work active. A message to a completed agent may not restart it. Use the available follow-up operation and verify that its status becomes running. Advance from the saved current-hash verdict, never from a chat claim that a report is being saved. Use the gate's own renderer and concept digest functions rather than substituting a single-file hash. Keep one render owner, and stop an obsolete waiter before changing its production inputs.
+
 Reuse unchanged source research, validated claims, narration takes and forced alignment.
 Rerun only the checks whose inputs changed, then run the complete release verification once
 the exact final film is ready. Keep the three independent final audiovisual judges and all
