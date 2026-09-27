@@ -1498,3 +1498,5 @@ For a production-tooling change, run these same narrow checks through the enviro
 bash scripts/run_with_env.sh python scripts/production_quality_test.py
 bash scripts/run_with_env.sh bash -c 'cd video-engine && node tests/cinema-proof.mjs'
 ```
+
+When natural human performance is the repeated failure, evaluate licensed source footage before another synthetic body-rig pass. Keep the required dimensional opening and coverage, bind the exact imported bytes and reuse rights, identify stock illustration clearly at phone size, and preserve identity, location, weather and case-outcome limits. Source footage must pass the same current-film attention, caption, sound and independent final review requirements. Declare its actual camera behavior; do not label stationary footage as a generated camera move.
