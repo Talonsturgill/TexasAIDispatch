@@ -465,7 +465,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const smooth=(value:number)=>{const t=Math.max(0,Math.min(1,value));return t*t*t*(10-15*t+6*t*t);};
  const clearWindow=.34*smooth(b/.30);
  const boardScale=.82;
- const boardPos:V3=[0,.38+.20*a+.035*Math.sin(a*Math.PI)-clearWindow,mix(.65,.60,a)];
+ const boardPos:V3=[0,.38+.20*a+.035*Math.sin(a*Math.PI)-clearWindow,mix(.97,.92,a)];
  const boardTilt=mix(.80,1.15,a);
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x*boardScale,boardPos[1]+(y*Math.cos(boardTilt)-z*Math.sin(boardTilt))*boardScale,boardPos[2]+(y*Math.sin(boardTilt)+z*Math.cos(boardTilt))*boardScale];
  const photoPos=world(.355,.028,-.10),restNotice=world(-.40,.035,.08);
@@ -499,12 +499,14 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const officerYaw=2.72+.30*reach-.50*present,officerLean=.025+.085*reach;
  const ownerYaw=-1.48-.10*receive,ownerLean=.025+.075*receive;
  const shoulder=(p:V3,yaw:number,lean:number,x:number):V3=>new THREE.Vector3(x,.48,0).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
- const holdShoulder=shoulder(officerTorso,officerYaw,officerLean,-.28),workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28),receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28);
- const heldContact=world(-.79,.025,.18),holdApproach:V3=[-1.05,-.12,.20],receiverApproach:V3=[1.05,-.18,.20];
+ const holdRoot=shoulder(officerTorso,officerYaw,officerLean,-.28);
+ const holdShoulder:V3=[holdRoot[0],holdRoot[1],holdRoot[2]-.28];
+ const workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28),receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28);
+ const heldContact=world(-.50,.025,.455),holdApproach:V3=[-.35,-.80,.30],receiverApproach:V3=[1.05,-.18,.20];
  const wrist=(contact:V3,approach:V3)=>contact.map((v,i)=>v+approach[i]*.31) as V3;
- const holdElbow:V3=[-.86,.03+.08*a,1.28-.08*a];
+ const holdElbow:V3=[-1.08,0,1.13];
  const workElbow:V3=[mix(-.64,-1.22,reach)+.05*present,mix(.30,.72,reach)+.30*Math.sin(reach*Math.PI),mix(1.32,-.02,reach)];
- const receiveElbow:V3=[.98+.03*receive,.02+.12*receive,1.20+.04*receive];
+ const receiveElbow:V3=[.98+.03*receive,.24+.12*receive,1.20+.04*receive];
  const restingShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,.28);
  const restingContact:V3=[ownerTorso[0]+.12,ownerTorso[1]-.40,ownerTorso[2]+.31];
  const restingApproach:V3=[.08,.85,.04];
@@ -560,9 +562,9 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const localTime=time-scene.start_s;
  const encounterCamera:{position:V3;target:V3;fov:number}=localTime<1.70?
-  {position:[-1.8,1.5,4.2],target:[0,.24,.20],fov:50}:localTime<3.20?
-  {position:[.9,1.6,4.8],target:[-.15,.23,-.25],fov:50}:
-  {position:[1.6,1.4,4.7],target:[0,.20,.45],fov:50};
+  {position:[-2.7,1.4,1.85],target:[-.25,.28,.74],fov:46}:localTime<3.20?
+  {position:[.9,1.6,3.7],target:[-.55,.26,-.25],fov:42}:
+  {position:[3.5,1.4,1.8],target:[0,.32,.80],fov:36};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
