@@ -141,3 +141,8 @@ The B38 phone cut hid the physical-window contact behind its clipboard and showe
 ## B41 performed grip and audible paper
 
 B40 nativehero a541e60c AV38 accepts comprehension and pacing but rejects unfinished hand/arm geometry and missing paper sound. The old index stayed pointed while the sheet was supposedly held. B41 adds tapered fabric sleeves, shaped palms, jointed fingers, nails and opposing thumb pads; pickup closes the pinch before paper movement, and receiver contact precedes giver opening. Independent code87 passes geometry and source-preserving motion. The old paper cue was attenuated by its .14gain plus the mixer eleven-decibel voice duck. New two-pulse designed rustles at pickup and transfer measure8.68 and5.88dB below the voice after actual ducking, before mastering. Mix remains45seconds at−16.75LUFS with the same continuous narration; no stretch or new voice call. Actual phone88 and native AV remain required.
+
+
+## September 26 B42 and B43 motion repair
+
+B42 side grips passed independent exact phone review on 6ff8f01a. Native hero f3a63360 was understood and its paper sound was heard, but AV39 rejected a fixed pointing-hand orientation at 1.8 to 3.2 seconds and abrupt paper acceleration. These remain active repair defects. B43 commit 2c8563f adds actual wrist and forearm articulation and quintic subphase easing while preserving contact targets, sleeve continuity, narration, sources and clocks. All attempts remain charged. Current code, exact phone and native audiovisual evidence are required before the full film and final panel. No shipment is claimed.
