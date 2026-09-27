@@ -534,7 +534,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const wrist=(contact:V3,approach:V3):V3=>new THREE.Vector3(...contact).addScaledVector(new THREE.Vector3(...approach).normalize(),.31).toArray() as V3;
  const holdElbow=encounterElbow(holdShoulder,wrist(heldContact,holdApproach),[-.3,-1,-.3]);
  const workElbow=encounterElbow(workShoulder,wrist(officerContact,workingApproach),[-.85,-1,.30]);
- const receiveElbow=encounterElbow(receiveShoulder,wrist(ownerContact,receiverApproach),[0,-.1,1]);
+ const receiveElbow=encounterElbow(receiveShoulder,wrist(ownerContact,receiverApproach),[.6,-1,1]);
  const restingElbow=encounterElbow(restingShoulder,wrist(restingContact,restingApproach),[.30,-1,.10]);
  const windowPoint:V3=[-.75,.95,-.301];
  const photoLook=Math.atan2(photoPos[0]-officerTorso[0],photoPos[2]-officerTorso[2]);
