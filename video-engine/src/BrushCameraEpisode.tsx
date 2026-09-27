@@ -610,7 +610,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const localTime=time-scene.start_s;
- const encounterCamera:{position:V3;target:V3;fov:number}={position:[2.8,1.65,4.1],target:[-.15,.25,.65],fov:39};
+ const encounterCamera:{position:V3;target:V3;fov:number}={position:[4.5,1.7,2.8],target:[-.15,.25,.65],fov:39};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
