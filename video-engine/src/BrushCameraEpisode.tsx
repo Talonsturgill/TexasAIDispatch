@@ -256,7 +256,7 @@ const SelectionStroke:React.FC<{from:V3;to:V3;radius:number}>=({from,to,radius})
  </mesh>;
 };
 const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={[0,-.43,-.58]}>
- {analysis>0&&[[-.94,.03],[-.76,-.40],[-.24,-.50],[.13,-.38],[.63,-.30],[.86,0],[.74,.35],[.15,.47],[-.73,.40]].map((p,i,points)=>{
+ {analysis>0&&[[-.90,.03],[-.76,-.40],[-.24,-.50],[.13,-.38],[.63,-.30],[.86,0],[.74,.35],[.15,.47],[-.73,.40]].map((p,i,points)=>{
   const end=points[(i+1)%points.length],q=Math.max(0,Math.min(1,analysis*points.length-i));
   return q>0?<OpticalEdge key={'region'+i} from={[p[0],.025,p[1]]} to={[mix(p[0],end[0],q),.025,mix(p[1],end[1],q)]} radius={.018}/>:null;
  })}
@@ -320,7 +320,7 @@ const CapturedDebrisInset:React.FC<{progress:number;scan:number;selection:number
   </div>
   {scan>0&&scan<1&&<div style={{position:'absolute',left:mix(0,828,scan),top:54,width:14,height:450,background:'#c4e2b4',boxShadow:'0 0 22px #dcf5be',opacity:.65}}/>}
   <div style={{position:'absolute',left:0,top:0,padding:'10px 16px',fontFamily:FONT.mono,fontSize:28,lineHeight:1.2,color:cream,background:'#17323de8'}}>IMAGE ANALYSIS / ILLUSTRATION</div>
-  {selection>=1&&<div style={{position:'absolute',left:24,bottom:12,padding:'7px 18px',fontFamily:FONT.mono,fontWeight:700,fontSize:48,lineHeight:1,color:'#f1c276',background:'#102b31',border:'3px solid #f1c276'}}>DEBRIS</div>}
+  {selection>=1&&<div style={{position:'absolute',left:24,top:70,padding:'7px 18px',fontFamily:FONT.mono,fontWeight:700,fontSize:48,lineHeight:1,color:'#f1c276',background:'#102b31',border:'3px solid #f1c276'}}>DEBRIS</div>}
  </div>;
 };
 const NoticeQueue:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
