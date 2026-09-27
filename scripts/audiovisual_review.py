@@ -76,9 +76,19 @@ def remove_upload(name, key):
 
 def cached_review(film, role, state, out):
     """Reuse the exact provider result, including rejection, before any paid call."""
-    identity = hashlib.sha256((digest(film) + role + digest(Path(__file__))).encode()).hexdigest()
-    cache = state.parent / "cinema" / "review-cache" / identity
+    # A tool or prompt edit must never buy another verdict on identical bytes/lens.
+    film_hash = digest(film)
+    identity = hashlib.sha256((film_hash + role).encode()).hexdigest()
+    cache_root = state.parent / "cinema" / "review-cache"
+    cache = cache_root / identity
     receipt_path = cache / "receipt.json"
+    if not receipt_path.is_file():
+        # Retain pre-migration results keyed with the tool digest, including rejection.
+        for previous in sorted(cache_root.glob("*/receipt.json")):
+            prior = json.loads(previous.read_text())
+            if prior.get("film_sha256") == film_hash and prior.get("role") == role:
+                cache, receipt_path = previous.parent, previous
+                break
     if receipt_path.is_file():
         receipt = json.loads(receipt_path.read_text())
         response = cache / receipt["response"]["file"]
@@ -150,6 +160,13 @@ gesture fails to support the visible story action.
 """ + scope + """
 Inspect the whole clip including the ending. Report flaws honestly; passing technical checks
 does not establish viewer appeal. Never claim human listening or audience testing.
+Ground each rejection in an observed event at a specific time. Separate what the narrator
+actually says from your inference; do not substitute a stronger claim or a different document
+type. Distinguish the film's narrative answer from the eventual outcome of a reported case.
+An explicitly unknown case outcome is an honest source limit, not a requirement to invent a
+resolution. Still reject an ending that fails to answer its opening question, conceals a source
+limit, confuses the consequence or ends before its visible action completes. Do not grant a
+pass for factual caution alone. Keep all visual, pacing, continuity and sound standards.
 Return JSON only with pass (boolean), audio_access (boolean),
 visual_observations and audio_observations (each at least two objects with at_s numeric seconds
 and observation describing specific perceived events), pacing, comprehension, weakest_interval,

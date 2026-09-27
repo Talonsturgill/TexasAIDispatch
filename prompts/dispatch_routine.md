@@ -1193,7 +1193,12 @@ Carry native performance findings across uses of the same character or hand syst
 when the scene id, prop or story role changes. A repeated disconnected-limb or weightless-paper
 rejection requires a medium decision before selecting another hero: use licensed real
 performance, a different supported nonhuman mechanism, or a fully demonstrated replacement.
-Do not move an uncorrected failed action outside the hero passage. If a performed action is
+Do not move an uncorrected failed action outside the hero passage. Before the next preview,
+enumerate every active scene that calls the rejected actor or hand rig and check those call
+sites against the consolidated repair. A changed close does not retire a defective rig that
+still performs in the review desk or notice stack. The independent critic must verify the
+active scene inventory. Make the newly repaired hardest action the next native hero; a familiar
+opening cannot stand in for proof of a changed human performance. If a performed action is
 retired completely, select the hardest remaining authored mechanism and retain whole-film
 review of every replacement. Run all cheap duration, source-binding and caption checks before
 requesting a technical review binding or reserving a new preview.
