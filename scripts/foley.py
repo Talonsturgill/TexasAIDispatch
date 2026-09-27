@@ -1260,6 +1260,12 @@ def observation_trace(seed=46):
     return normalize(fade(out, 30), 0.60)
 
 
+def concrete_shoe_contact(seed=47):
+    """One visible shoe planting on concrete, isolated for exact action timing."""
+    phrase = concrete_footsteps(seed)
+    return fade(phrase[int(.16 * SR):int(.44 * SR)].copy(), 8)
+
+
 def concrete_footsteps(seed=47):
     """One ordinary traveler crossing the concrete pedestrian bridge.
 
@@ -1642,7 +1648,77 @@ def ranch_gate(seed=97):
     return normalize(fade(out, 10), .4)
 
 
+def brush_truck_roll(seed=98):
+    """The illustrated Dallas brush truck rolls past a curbside home."""
+    dur = 1.8
+    t = t_axis(dur)
+    engine = sine(68, dur) * .45 + sine(136, dur) * .12
+    tire = one_pole_lp(white(dur, seed), 450) * .22
+    envelope = np.sin(np.pi * t / dur) ** 2
+    return normalize(fade((engine + tire) * envelope, 25), .50)
+
+
+def brush_camera_shutter(seed=99):
+    """A dry double shutter click when the illustrated side camera takes a still."""
+    dur = .38
+    out = np.zeros(int(dur * SR))
+    click = high_pass(white(.09, seed), 1100) * expdecay(.09, .013)
+    place_into(out, normalize(click) * .32, .02)
+    place_into(out, normalize(click) * .21, .20)
+    return normalize(fade(out, 5), .42)
+
+
+def paper_photo_slide(seed=100):
+    """The visible printed camera photo or notice slides across a surface."""
+    dur = 1.1
+    surface = one_pole_lp(high_pass(white(dur, seed), 520), 4200)
+    envelope = np.hanning(int(dur * SR))
+    return normalize(fade(surface * envelope, 25), .32)
+
+
+def yard_broom_sweep(seed=101):
+    """Bristles of the visible broom pass over bare yard ground once."""
+    dur = 1.25
+    texture = one_pole_lp(high_pass(white(dur, seed), 340), 3600)
+    envelope = np.hanning(int(dur * SR))
+    return normalize(fade(texture * envelope, 25), .35)
+
+
+def roof_fastener_turn(seed=103):
+    """Designed threaded friction and contact, never a field recording."""
+    dur=1.10
+    out=np.zeros(int(dur*SR))
+    for i,at in enumerate((.02,.28,.54,.80)):
+        friction=one_pole_lp(high_pass(white(.24,seed+i),310),3200)
+        friction*=np.sin(np.pi*t_axis(.24)/.24)**2
+        place_into(out,normalize(friction)*.43,at)
+        for j in range(4):
+            tick=biquad_bp(white(.025,seed+20+i*4+j),1800,1.4)*expdecay(.025,.009)
+            place_into(out,normalize(tick)*.18,at+.045*j)
+    seat=biquad_bp(white(.075,seed+9),880,1.5)*expdecay(.075,.028)
+    place_into(out,normalize(fade(seat,3))*.48,1.00)
+    return normalize(fade(out,8),.68)
+
+
+def cleanup_bag_rustle(seed=107):
+    """Designed plastic-bag folds during visible litter deposit; not location audio."""
+    dur = .72
+    out = np.zeros(int(dur * SR))
+    for i, at in enumerate((.01, .10, .24, .37, .50)):
+        length = .18
+        fold = one_pole_lp(high_pass(white(length, seed+i), 850), 6500)
+        fold *= np.hanning(len(fold))
+        place_into(out, normalize(fold) * (.18 + .025 * (i % 3)), at)
+    return normalize(fade(out, 12), .38)
+
+
 SOUNDS = {
+    "cleanup_bag_rustle": (cleanup_bag_rustle, "oneshot", "designed plastic rustle synchronized to visible litter entering the held cleanup bag", ["cleanup", "bag", "litter"]),
+    "roof_fastener_turn": (roof_fastener_turn, "oneshot", "the visible illustrative fastener rotating, advancing and seating against its pad", ["roof", "hand", "tool"]),
+    "brush_truck_roll": (brush_truck_roll, "oneshot", "the visible illustrated brush truck rolling past the curbside house", ["brush", "truck", "street"]),
+    "brush_camera_shutter": (brush_camera_shutter, "oneshot", "the visible brush-truck side camera taking a still image", ["camera", "shutter", "capture"]),
+    "paper_photo_slide": (paper_photo_slide, "oneshot", "the visible printed camera photo or notice sliding across a desk or into a hand", ["photo", "paper", "notice"]),
+    "yard_broom_sweep": (yard_broom_sweep, "oneshot", "the visible broom sweeping across bare yard ground", ["yard", "broom", "sweep"]),
     "screwworm_wings": (screwworm_wings, "oneshot", "the visible illustrated sterile or wild fly moving its wings", ["fly", "insect", "wings"]),
     "forecast_clue": (forecast_clue, "oneshot", "graphic sonification of the visible ecological forecast landscape or clues", ["forecast", "landscape", "model", "habitat"]),
     "ranch_gate": (ranch_gate, "oneshot", "the visible ranch livestock transport gate closing", ["ranch", "livestock", "gate", "transport"]),
@@ -1697,6 +1773,7 @@ SOUNDS = {
     "test_press": (test_press, "oneshot", "a visible materials test press loading a coupon", ["materials", "test", "measurement", "laboratory"]),
     "pencil_scratch": (pencil_scratch, "oneshot", "a visible hand writing a hypothesis or interpretation", ["human", "judgment", "paper", "analysis"]),
     "observation_trace": (observation_trace, "oneshot", "sonification of a visible sensor observation graphic becoming an estimate", ["sensor", "estimate", "analysis", "illustration"]),
+    "concrete_shoe_contact": (concrete_shoe_contact, "oneshot", "one visible shoe planting on concrete", ["shoe", "walk", "concrete", "contact"]),
     "concrete_footsteps": (concrete_footsteps, "oneshot", "one visible traveler walking on the concrete pedestrian bridge", ["traveler", "walk", "concrete", "bridge"]),
     "camera_reacquire": (camera_reacquire, "oneshot", "the visible camera array and capture frame reacquiring a moving face", ["camera", "capture", "face", "motion"]),
     "suitability_gate": (suitability_gate, "oneshot", "a visible facial image entering the suitability gate before biometric matching", ["facial_image", "suitability", "biometric", "matching"]),

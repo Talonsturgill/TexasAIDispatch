@@ -10,6 +10,7 @@ an open-ended storyboard loop.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import io
 import json
@@ -71,6 +72,48 @@ def probe(film: Path) -> tuple[int, int, float]:
     return int(stream["width"]), int(stream["height"]), float(raw["format"]["duration"])
 
 
+def review_text_only(before: dict, after: dict) -> bool:
+    """Only two non-rendered attention descriptions may differ; everything else is exact."""
+    left, right = copy.deepcopy(before), copy.deepcopy(after)
+    for board in (left, right):
+        for beat in board.get("attention_beats", []):
+            for key in ("visible_change", "viewer_reward"):
+                if not isinstance(beat.get(key), str):
+                    return False
+                beat[key] = "<review text>"
+    return before != after and left == right
+
+
+def rebind_review_text(board: Path, baseline: Path, film: Path, report: Path) -> None:
+    """Retain original render evidence when only unused review descriptions change."""
+    saved = json.loads(report.read_text())
+    problems = report_problems(saved, baseline, film)
+    problems += critic_gate.check(baseline, board.parent / "storyboard_critic.json")
+    before_text = baseline.read_text()
+    before, after = json.loads(before_text), json.loads(board.read_text())
+    if not review_text_only(before, after):
+        problems.append("review-text rebind changed render inputs or changed nothing")
+    # Fail closed if this metadata ever becomes an engine input.
+    for source in (ENGINE / "src").rglob("*"):
+        if source.suffix in {".ts", ".tsx", ".js", ".jsx"} and any(
+                key in source.read_text() for key in
+                ("attention_beats", "visible_change", "viewer_reward")):
+            problems.append("engine consumes review text; a fresh render is required")
+            break
+    if problems:
+        raise ValueError("; ".join(problems))
+    updated = {**saved, "board_sha256": sha256(board),
+               "review_text_rebind": {"baseline_text": before_text,
+                                     "baseline_report": saved}}
+    errors = report_problems(updated, board, film)
+    if errors:
+        raise ValueError("; ".join(errors))
+    report.write_text(json.dumps(updated, indent=2) + "\n")
+    import documentary_review
+    documentary_review.build(board, film, report.parent / "attention-review.json")
+    print("preflight: review text synchronized; original board, renderer and film proof retained")
+
+
 def report_problems(saved: dict, board: Path, film: Path) -> list[str]:
     errs = []
     if saved.get("pass") is not True:
@@ -80,6 +123,19 @@ def report_problems(saved: dict, board: Path, film: Path) -> list[str]:
     data = json.loads(board.read_text(encoding="utf-8"))
     if data.get("cinematic_template") and saved.get("renderer_sha256") != critic_gate.renderer_digest(data):
         errs.append("the preflight report belongs to different renderer code or generated image bytes")
+    if saved.get("review_text_rebind"):
+        chain = saved["review_text_rebind"]
+        try:
+            text = chain["baseline_text"]
+            prior = chain["baseline_report"]
+            if (not review_text_only(json.loads(text), data)
+                    or hashlib.sha256(text.encode()).hexdigest() != prior.get("board_sha256")
+                    or prior.get("pass") is not True
+                    or prior.get("film_sha256") != saved.get("film_sha256")
+                    or prior.get("renderer_sha256") != saved.get("renderer_sha256")):
+                errs.append("review-text rebind lost its original render evidence")
+        except (KeyError, TypeError, ValueError):
+            errs.append("review-text rebind evidence is malformed")
     if not film.is_file():
         errs.append("the preflight film is missing")
     elif saved.get("film_sha256") != sha256(film):
@@ -215,7 +271,7 @@ def contact_sheet(board: dict, film: Path, out: Path) -> None:
     sheet.save(out)
 
 
-def render(board: Path, film: Path, state: Path) -> None:
+def render(board: Path, film: Path, state: Path, claims: Path | None = None) -> None:
     sys.path.insert(0, str(REPO / "scripts"))
     from run_controller import reserve
 
@@ -223,14 +279,29 @@ def render(board: Path, film: Path, state: Path) -> None:
                             "--board", str(board)])
     if check.returncode:
         raise RuntimeError("storyboard gate is red; no animatic was spent")
+    # Run these cheap product checks before charging a preview or any later native work.
+    from engine_lint import check_files, LIB
+    from super_evidence_check import check as check_supers
+    errors = check_files(LIB)
+    claims_path = claims or board.parent / "claims.json"
+    if not claims_path.is_file():
+        raise RuntimeError("source claims are required before preview reservation")
+    errors += check_supers(json.loads(board.read_text()), json.loads(claims_path.read_text()))[0]
+    if errors:
+        raise RuntimeError("pre-render product checks failed; no animatic was spent: " + "; ".join(errors))
     media = subprocess.run([sys.executable, str(REPO / "scripts" / "generated_media.py"),
                             "--board", str(board), "--verify"])
     if media.returncode:
         raise RuntimeError("a requested generated plate is missing or stale; no animatic was spent")
-    caption_fit = subprocess.run(["node", str(ENGINE / "tests" / "caption_board_fit.mjs"),
-                                  "--board", str(board)], cwd=ENGINE)
+    board_data = json.loads(board.read_text(encoding="utf-8"))
+    caption_args = ["node", str(ENGINE / "tests" / "caption_board_fit.mjs"),
+                    "--board", str(board)]
+    if not board_data.get("captions") and not any(
+            board_data.get(key) for key in ("caption_method", "retimed_to", "retime_evidence")):
+        caption_args.append("--early-muted-animatic")
+    caption_fit = subprocess.run(caption_args, cwd=ENGINE)
     if caption_fit.returncode:
-        raise RuntimeError("an exact board caption overflows the phone band; no animatic was spent")
+        raise RuntimeError("exact board captions or credits overflow the readable phone area; no animatic was spent")
     accepted, message = reserve(state, {"preflight_renders": 1}, "quarter-scale animatic")
     print(message, file=sys.stdout if accepted else sys.stderr)
     if not accepted:
@@ -248,6 +319,44 @@ def self_test() -> int:
         nonlocal failures
         print(f"  {'ok  ' if condition else 'FAIL'}  {label}{'' if condition else '  ' + detail}")
         failures += 0 if condition else 1
+
+    baseline = {"scenes": [{"start_s": 0, "duration_s": 4}],
+                "attention_beats": [{"event_id": "a", "visible_change": "old",
+                                      "viewer_reward": "old", "at_s": 1}]}
+    revised = copy.deepcopy(baseline)
+    revised["attention_beats"][0]["visible_change"] = "accurate review description"
+    ok("non-rendered review text can reuse exact preview evidence",
+       review_text_only(baseline, revised))
+    for field, value in (("event_id", "b"), ("at_s", 2)):
+        changed = copy.deepcopy(revised)
+        changed["attention_beats"][0][field] = value
+        ok("review rebind refuses changed " + field, not review_text_only(baseline, changed))
+    changed = copy.deepcopy(revised)
+    changed["scenes"][0]["duration_s"] = 5
+    ok("review rebind refuses changed scene timing", not review_text_only(baseline, changed))
+    ok("review rebind refuses unchanged inputs", not review_text_only(baseline, baseline))
+    missing = copy.deepcopy(revised)
+    del missing["attention_beats"][0]["viewer_reward"]
+    ok("review rebind refuses missing review fields", not review_text_only(baseline, missing))
+
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as early:
+        p = Path(early)
+        board_file = p / "board.json"
+        board_file.write_text('{"scenes":[]}')
+        (p / "claims.json").write_text('{"claims":[]}')
+        for defects, label in ((["invalid color"], "engine"), ([], "printed evidence")):
+            with patch("subprocess.run") as command, patch("engine_lint.check_files", return_value=defects), \
+                    patch("super_evidence_check.check", return_value=(["unquoted number"], [])), \
+                    patch("run_controller.reserve") as charge:
+                command.return_value.returncode = 0
+                refused = False
+                try:
+                    render(board_file, p / "film.mp4", p / "state.json")
+                except RuntimeError as exc:
+                    refused = "no animatic was spent" in str(exc)
+                ok(label + " failure stops before any preview reservation",
+                   refused and not charge.called)
 
     if not Path(FFMPEG).is_file() or not Path(FFPROBE).is_file():
         print("preflight_animatic: ffmpeg and ffprobe are required", file=sys.stderr)
@@ -321,10 +430,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--board", default=str(DEFAULT_BOARD))
     ap.add_argument("--film", default=str(DEFAULT_FILM))
+    ap.add_argument("--claims", type=Path, help="source claims; defaults to claims.json beside board")
     ap.add_argument("--sheet", default=str(DEFAULT_SHEET))
     ap.add_argument("--report", default=str(DEFAULT_REPORT))
     ap.add_argument("--state", default=str(DEFAULT_STATE))
     ap.add_argument("--inspect-only", action="store_true")
+    ap.add_argument("--rebind-review-text", type=Path, help="retained original board; allow only non-rendered attention descriptions to change")
     ap.add_argument("--verify-report",
                     help="verify a passing report is bound to --board; do not render")
     ap.add_argument("--self-test", action="store_true")
@@ -337,6 +448,11 @@ def main() -> int:
         direction_errors = documentary_check.check(board)
         if direction_errors:
             raise ValueError("; ".join(direction_errors))
+        if args.rebind_review_text:
+            if not args.inspect_only:
+                raise ValueError("review-text rebind requires --inspect-only")
+            rebind_review_text(board_path, args.rebind_review_text, film, Path(args.report))
+            return 0
         critique_errors = critic_gate.check(
             board_path, board_path.parent / "storyboard_critic.json")
         if critique_errors:
@@ -356,7 +472,7 @@ def main() -> int:
             if stale:
                 raise ValueError("inspect-only cannot rebind an older cinematic film: " + "; ".join(stale))
         if not args.inspect_only:
-            render(board_path.resolve(), film.resolve(), Path(args.state))
+            render(board_path.resolve(), film.resolve(), Path(args.state), args.claims)
         report, problems = inspect_animatic(board, film)
         contact_sheet(board, film, Path(args.sheet))
         report.update({"pass": not problems, "problems": problems,

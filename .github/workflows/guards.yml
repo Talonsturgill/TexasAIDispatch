@@ -369,13 +369,13 @@ jobs:
             --state "$verify_dir/run_state.json" init \
             --run-id ci-example --mode dry-run
           python3 scripts/preflight_animatic.py \
-            --board examples/board.json \
+            --board examples/board.json --claims examples/documentary-claims.json \
             --film "$verify_dir/preflight.mp4" \
             --sheet "$verify_dir/preflight-contact-sheet.png" \
             --report "$verify_dir/preflight.json" \
             --state "$verify_dir/run_state.json"
           python3 scripts/preflight_animatic.py \
-            --board examples/board.json \
+            --board examples/board.json --claims examples/documentary-claims.json \
             --film "$verify_dir/preflight.mp4" \
             --verify-report "$verify_dir/preflight.json"
 

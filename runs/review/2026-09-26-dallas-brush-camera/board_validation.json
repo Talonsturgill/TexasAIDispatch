@@ -1,0 +1,101 @@
+{
+  "date": "2026-09-26",
+  "validator_identity": "/root/validate_dallas",
+  "checked_at_utc": "2026-09-26T14:02:45Z",
+  "board_sha256": "83ebdbd084ac09b41aa44c93c1943e8223cbe36d0a887d82771eab816b2b5c3d",
+  "renderer_sha256": "8c2f90d157e094bc6d1cc4d50ff829e99f2a09e4e5ff09e08767f039eb8165df",
+  "claims_sha256": "f0127a1b3e557497cc4ef8212101db8f0f417a7a4e6fdeed65f76375f62ebf20",
+  "validation_sha256": "b35b4c89cf59423676123b8533d805b29d5a684686e9f5123c3aba0fdf97f21a",
+  "verdict": "REJECT_NEEDS_BOARD_SOURCE_REPAIR",
+  "scope": "Independent read-only review of the current nine-scene board and BrushCameraEpisode renderer against the verified claim set. No rendered film, synthesized narration, or audio was reviewed here.",
+  "checks": {
+    "script_evidence_check": "PASS",
+    "super_evidence_check": "PASS",
+    "audience_copy_banned_word_hits_board_and_renderer": 0,
+    "claim_quote_correction_needed": false,
+    "source_limit": "The September 8 city memo and Morrison's roof documentation were not directly inspected; no cited report shows how her roof dispute ended."
+  },
+  "scene_reviews": [
+    {
+      "scene_id": "s1",
+      "verdict": "PASS_SOURCE_WITH_FILM_CHECK",
+      "vo": "c2 supports a brush-truck side camera photographing a house as the truck passes.",
+      "super": "The camera catches a house is supported as an illustrated curbside capture.",
+      "visual": "The renderer now contains a moving truck, fixed side camera, house, shutter cue, and emerging image. Verify their contact and legibility in the encoded hero."
+    },
+    {
+      "scene_id": "s2",
+      "verdict": "PASS_SOURCE_WITH_FILM_CHECK",
+      "vo": "c2 supports still curb-line images from the moving truck.",
+      "super": "A side-facing view stays within c2.",
+      "visual": "The board and renderer move the whole truck while the camera remains attached. The old rotating-lens action is removed from this scene."
+    },
+    {
+      "scene_id": "s3",
+      "verdict": "PASS_SOURCE_WITH_FILM_CHECK",
+      "vo": "c3 supports computer-vision analysis of visible conditions; the unsupported staff portal was removed.",
+      "super": "A photo becomes a flag describes a potential detection, not a proven violation.",
+      "visual": "The photo gains a colored flag in the renderer. Keep that marker visibly provisional and avoid showing it as a citation."
+    },
+    {
+      "scene_id": "s4",
+      "verdict": "PASS_WITH_ATTRIBUTION",
+      "vo": "The city says a person participates in every action and the system is not automated ticketing; c4 directly supports the attributed policy.",
+      "super": "A person checks the image is supported as the city's described general process.",
+      "visual": "The renderer shows a generic desk, flagged image, and person. The persistent ILLUSTRATED RECONSTRUCTION label helps distinguish depiction from observed footage. Do not claim this is an independently observed review of Morrison's exact photo."
+    },
+    {
+      "scene_id": "s5",
+      "verdict": "PASS_WITH_SCOPE",
+      "vo": "The modal can ask is supported by the correction request in Morrison's notice, c11; c6 supports the broader courtesy-notice program.",
+      "super": "Then it reaches a home is supported by the report that her notice arrived in an Oak Cliff mailbox.",
+      "visual": "The mailbox-to-hand action is a sourced illustration. It must remain a courtesy notice, with no fine, citation, or automatic ticket shown."
+    },
+    {
+      "scene_id": "s6",
+      "verdict": "PASS_SOURCE_WITH_FILM_CHECK",
+      "vo": "c8 and c9 support Morrison's disputed roof flag and NBC's report of documentation describing old permanent flashing.",
+      "super": "The roof flag is disputed is accurate.",
+      "visual": "The renderer now keeps the flashing geometry at constant width and reveals it with light, while the image moves beside it. Verify in the film that the strip reads as attached and long-standing."
+    },
+    {
+      "scene_id": "s7",
+      "verdict": "REPAIR_BOARD",
+      "vo": "c10 supports Morrison's account that the notice frightened her and she cleaned her yard in 100-degree heat despite a medical condition. The narration attributes the account to her.",
+      "super": "A notice changes a day is a fair statement of her reported experience.",
+      "visual": "The board still says her hand gathers scattered debris into a pile. NBC does not establish that the alleged litter was real; Morrison said she did not know what the city considered litter. The revised renderer instead shows a broom-like yard tool without loose litter, which is a safer illustration, but the board and attention descriptions are stale.",
+      "fix": "Replace the board's scattered-debris action with the current neutral yard-work action. Do not identify any object as a code violation or validate the litter allegation. Keep the reconstruction label."
+    },
+    {
+      "scene_id": "s8",
+      "verdict": "REPAIR_BOARD_VISUAL_LABEL",
+      "vo": "c9 supports that Morrison supplied documentation describing permanent flashing; the line does not assert that she sent it to the city.",
+      "super": "She has documentation is supported.",
+      "visual": "The scene says the papers are on a home table, but s8-setting still labels its faxDesk item city review desk. The renderer reuses the same desk and camera as city scenes, though it adds a home-like wall and window. This can imply an undocumented submission to the city.",
+      "fix": "Change the board setting to a home table and distinguish the rendered space from the city review desk. Keep the second paper with the resident."
+    },
+    {
+      "scene_id": "s9",
+      "verdict": "REPAIR_VISUAL_SCOPE",
+      "vo": "The city's human-loop statement and the limited reported outcome are accurate when kept as separate claims. No cited report confirms a resolution of Morrison's roof dispute.",
+      "super": "Outcome unreported accurately signals the source limit.",
+      "visual": "The board still says a general staff-review image sits beside an unresolved notice and a hand reaches it. The revised renderer instead shows two papers and a person at a distinct home table. The board now describes an undocumented later city review that the code no longer shows.",
+      "fix": "Rewrite s9 on_screen, what_moves, visual sentence, visual proof, visual events, and attention descriptions as a home-table unresolved-outcome image. Do not imply a later city recheck of her specific case."
+    }
+  ],
+  "global_findings": [
+    {
+      "verdict": "REPAIR",
+      "location": "cinema.visible_action",
+      "finding": "It still says the truck turns its side camera on a house. Current s2 and the renderer correctly use a side-mounted camera carried past the house by truck motion.",
+      "fix": "Replace this stale summary with fixed side camera, moving truck, and still capture."
+    },
+    {
+      "verdict": "REPAIR_SCOPE",
+      "location": "cinematic_contract.throughline, documentary.payoff, all attention_beats.continuity_from",
+      "finding": "These fields treat one image as physically tracked through staff review and the resident notice. The city describes general workflow and NBC reports Morrison's notice, but the exact handling of her photo was not observed or documented in the retrieved sources.",
+      "fix": "Mark the continuous image as an illustrated reconstruction of the city-described workflow, then distinguish Morrison's reported notice and unresolved roof dispute at the handoff to s5. Update every attention description after the scene change."
+    }
+  ],
+  "release_note": "This is a source-to-board and source-to-code verdict, not a picture or audio verdict. A repaired board and renderer need fresh hashes, deterministic gates, phone animatic inspection, native hero audiovisual review, and final film review."
+}

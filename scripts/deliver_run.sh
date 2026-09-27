@@ -154,8 +154,27 @@ for f in storyboard.json claims.json captions.json words.json mix.json sfx_event
   [ -f "$OUT/$f" ] && cp "$OUT/$f" "$DEST/$f"
 done
 if [ -d "$OUT/cinema" ]; then
-  mkdir -p "$DEST/cinema"
-  cp -R "$OUT/cinema/." "$DEST/cinema/"
+  # Publish only the current proof graph. Historical stills and the paid-review cache
+  # stay in the local run record; they must not masquerade as current film evidence.
+  python3 - "$OUT/cinema" "$DEST/cinema" <<'PY_CINEMA'
+import json, shutil, sys
+from pathlib import Path
+source, destination = map(Path, sys.argv[1:])
+proof = json.loads((source / "proof.json").read_text())
+names = {"proof.json", proof["hero"]["file"]}
+for samples in proof["samples"].values():
+    for sample in samples:
+        names.update(item["file"] for item in sample.values())
+for role in ("hero", "picture", "story", "sound"):
+    name = role + "-review.json"
+    receipt = json.loads((source / name).read_text())
+    names.update((name, receipt["response"]["file"]))
+destination.mkdir(parents=True, exist_ok=True)
+for name in sorted(names):
+    if Path(name).name != name:
+        raise ValueError("cinematic proof references must name local files")
+    shutil.copy2(source / name, destination / name)
+PY_CINEMA
 fi
 cp "$REPORT" "$DEST/report_card.json"
 cp "$STATE" "$DEST/run_state.json"

@@ -45,7 +45,11 @@ def renderer_digest(board: dict) -> str | None:
         raise ValueError(f"cannot find renderer source import for {component}")
     files = [router, REPO / "video-engine" / "src" / (imported.group(1) + ".tsx"),
              REPO / "video-engine" / "src" / "lib" / "cinema" / "CinematicStage.tsx",
+             REPO / "video-engine" / "src" / "lib" / "cinema" / "Studio.tsx",
+             REPO / "video-engine" / "src" / "lib" / "cinema" / "projection.ts",
              REPO / "video-engine" / "src" / "lib" / "direction.ts"]
+    from render_manifest import native_media_paths
+    files.extend(native_media_paths(board))
     h = hashlib.sha256()
     for file in files:
         h.update(str(file.relative_to(REPO)).encode())
@@ -73,11 +77,13 @@ def concept_digest(board: dict) -> str:
                 "retimed_to", "retime_evidence"):
         plan.pop(key, None)
     for scene in plan.get("scenes") or []:
-        for key in ("start_s", "duration_s", "caption"):
+        for key in ("start_s", "duration_s", "duration_authored", "caption"):
             scene.pop(key, None)
         for event in scene.get("visual_events") or []:
             event.pop("at_s", None)
             event.pop("duration_s", None)
+            event.pop("at_s_authored", None)
+            event.pop("duration_s_authored", None)
     raw = json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(raw).hexdigest()
 
@@ -160,7 +166,10 @@ def self_test() -> int:
     changed=copy.deepcopy(board);changed["scenes"][0]["vo"]="Another story"
     checks.append(("creative revision invalidates the pass",bool(problems(changed,report))))
     timed=copy.deepcopy(board);timed["scenes"][0]["start_s"]=1.2
+    timed["scenes"][0]["duration_authored"]=4
     timed["scenes"][0]["visual_events"][0]["at_s"]=.22
+    timed["scenes"][0]["visual_events"][0]["at_s_authored"]=.1
+    timed["scenes"][0]["visual_events"][0]["duration_s_authored"]=.7
     timed["captions"]=[{"text":"A source-backed action"}]
     checks.append(("measured retime and captions retain it",not problems(timed,report)))
     phone={**report,"review_scope":"exact-muted-phone-preflight",
@@ -181,6 +190,15 @@ def self_test() -> int:
     checks.append(("critic binds the routed cinematic scene code",not problems(cinematic,bound)))
     stale={**bound,"renderer_sha256":"0"*64}
     checks.append(("stale cinematic scene code cannot unlock preflight",bool(problems(cinematic,stale))))
+    from unittest.mock import patch
+    original_read = Path.read_bytes
+    for dependency in ("Studio.tsx", "projection.ts"):
+        target = REPO / "video-engine" / "src" / "lib" / "cinema" / dependency
+        def changed_bytes(path, target=target):
+            return original_read(path) + (b"\n// changed projection" if path == target else b"")
+        with patch.object(Path, "read_bytes", changed_bytes):
+            checks.append((f"changed {dependency} invalidates cinematic approval",
+                           bool(problems(cinematic, bound))))
     sample=REPO / "video-engine" / "public" / "generated" / "denton-civic-chamber.png"
     if sample.is_file():
         visual=copy.deepcopy(cinematic)

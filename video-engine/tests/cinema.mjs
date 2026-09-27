@@ -29,3 +29,19 @@ console.log('cinema: deterministic seeking, action progression, all frame states
 
 // The existing CI entry also exercises the actual shared WebGL stage.
 await import('./cinema-proof.mjs');
+
+// A warm camera must frame the same subject as a cold render after every scene cut.
+{
+ const compiled = await build({entryPoints:['src/lib/cinema/projection.ts'], bundle:true, write:false, format:'esm', platform:'node'});
+ const {setFrameProjection} = await import('data:text/javascript;base64,'+Buffer.from(compiled.outputFiles[0].text).toString('base64'));
+ const THREE = await import('three');
+ const warm = new THREE.PerspectiveCamera(36, 1080/1920, .05, 100);
+ const control = new THREE.Vector3(.7,.4,-3);
+ for (const fov of [38,42,39,43,38,42,45,36]) {
+   setFrameProjection(warm,fov);
+   const cold = new THREE.PerspectiveCamera(fov,1080/1920,.05,100);
+   assert.deepEqual(warm.projectionMatrix.elements,cold.projectionMatrix.elements);
+   assert.ok(control.clone().project(warm).distanceTo(control.clone().project(cold)) < 1e-12);
+ }
+ console.log('cinema: warm scene transitions match cold native camera projection');
+}

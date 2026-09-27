@@ -199,6 +199,8 @@ another review. After two rejections of the same creative defect, redesign the m
 staging before a third attempt. A succession of small translations, fades, new labels or
 camera drift is not a structural correction.
 
+Keep delegated repair work active. A message to a completed agent may not restart it. Use the available follow-up operation and verify that its status becomes running. Advance from the saved current-hash verdict, never from a chat claim that a report is being saved. Use the gate's own renderer and concept digest functions rather than substituting a single-file hash. Keep one render owner, and stop an obsolete waiter before changing its production inputs.
+
 Reuse unchanged source research, validated claims, narration takes and forced alignment.
 Rerun only the checks whose inputs changed, then run the complete release verification once
 the exact final film is ready. Keep the three independent final audiovisual judges and all
@@ -1168,6 +1170,50 @@ all precise fixes into one full render. Re-run every product and destination gat
 the next panel. If the three-round plateau rule fires, make the structural reboard it names rather
 than buying another prop pass.
 
+Before another body-performance repair, inspect the exact native frames and identify the
+physical cause. A visible grip can pass phone readability while an overlong arm or miniature
+building still fails the finished passage. Check human-to-building scale, shared ground,
+shoulder-to-elbow-to-wrist lengths, reach limits and continuity across the entire action.
+When the same performance defect recurs, camera changes, contact offsets and extra easing
+alone do not establish a new mechanism. Correct the underlying body or scene model, or
+choose a source-backed action that the renderer can perform convincingly. Record the changed
+physical invariant and verify it before spending another native review.
+
+Count rejected visual mechanisms by the action the viewer sees, across every repair batch.
+Changing a batch name, camera, joint solver, sleeve, grip or easing curve does not reset that
+count. After two native audiovisual rejections of the same staged human interaction, stop
+rebuilding that interaction. The research and storyboard roles must select a different
+source-backed action or angle before another native attempt. Prefer a directly demonstrable
+contact and consequence already supported by the evidence. Remove unnecessary hypothetical
+encounters and reuse only narration whose claims still fit the new ending. Record the abandoned
+mechanism and the replacement in the compact defect ledger; keep all earlier costs charged.
+A code or muted-phone pass cannot override repeated native audiovisual evidence.
+
+Before the next attempt, consolidate every unresolved native finding into one correction. The phone critic must inspect the dominant subject throughout each rejected interval and native-detail crops of its surfaces. Peripheral movement behind an inert focal overlay is insufficient. After two failures of the same composition, replace that composition or action mechanism; do not spend consecutive attempts on labels, outlines or minor prop details. Preserve the exact rejected bytes and compare the replacement against the complete defect list before reserving its native render.
+
+
+Carry native performance findings across uses of the same character or hand system, even
+when the scene id, prop or story role changes. A repeated disconnected-limb or weightless-paper
+rejection requires a medium decision before selecting another hero: use licensed real
+performance, a different supported nonhuman mechanism, or a fully demonstrated replacement.
+Do not move an uncorrected failed action outside the hero passage. Before the next preview,
+enumerate every active scene that calls the rejected actor or hand rig and check those call
+sites against the consolidated repair. A changed close does not retire a defective rig that
+still performs in the review desk or notice stack. The independent critic must verify the
+active scene inventory. Make the newly repaired hardest action the next native hero; a familiar
+opening cannot stand in for proof of a changed human performance. If a performed action is
+retired completely, select the hardest remaining authored mechanism and retain whole-film
+review of every replacement. Run all cheap duration, source-binding and caption checks before
+requesting a technical review binding or reserving a new preview.
+
+Keep the repair owner actively assigned until its current defect is resolved. A worker's
+completion event ends that worker turn; a later note does not necessarily restart it.
+When a fresh critic defect arrives after the renderer worker has completed, explicitly
+resume or reassign the repair task, confirm it is running, and then wait for the saved
+current verdict. Do not leave a passive message queued to a completed worker while a
+controller waiter expects new output. A timed-out waiter spends no render and requires
+owner reassignment, not a duplicate render or a closure report.
+
 At a resource boundary, diagnose the rejected exact film and open the bounded repair
 batch described above. Preserve all spend and all quality gates. A changed film requires
 fresh independent judgments on the same finished bytes. Do not disable panels or stop
@@ -1457,6 +1503,17 @@ The command re-fetches remote CI, deployment, feed and media. Missing, failed or
 evidence refuses completion. Retain the resulting run state in the edition's durable
 package; never include private Gmail API output or credentials in a public commit.
 
+The delivery program snapshots run state before shipment, so that first public snapshot is
+not final closure. After the shipped transition succeeds, archive the full state with a
+sanitized public shipment summary in runs/<date>/run_state.json on a clean branch from main.
+Preserve terminal, phase, release status, film hashes, usage, limits and event history.
+Keep a truthy shipment summary derived from the accepted receipt: public release PR and
+merge references, deployment identity, verification time and permanent media hashes/URLs.
+Exclude Gmail identifiers, recipient routing, private readback and local evidence paths.
+Keep the authoritative private receipt unchanged. Merge this metadata-only archive on
+exact-head green CI; never rerun delivery or media production to archive closure. Without
+this final snapshot, pending-edition discovery can incorrectly resurrect a shipped film.
+
 ## Upgrade verification
 
 The existing CI commands run_discipline.py and tests/cinema.mjs execute the cinematic contract
@@ -1470,6 +1527,16 @@ bash scripts/run_with_env.sh python scripts/production_quality_test.py
 bash scripts/run_with_env.sh bash -c 'cd video-engine && node tests/cinema-proof.mjs'
 ```
 
+When natural human performance is the repeated failure, evaluate licensed source footage before another synthetic body-rig pass. Keep the required dimensional opening and coverage, bind the exact imported bytes and reuse rights, identify stock illustration clearly at phone size, and preserve identity, location, weather and case-outcome limits. Source footage must pass the same current-film attention, caption, sound and independent final review requirements. Declare its actual camera behavior; do not label stationary footage as a generated camera move.
+
+
+Once a finished-film panel is reserved, collect all three current audiovisual lenses
+even if an earlier lens rejects. Each lens still runs once on those exact bytes.
+Preserve all defects together before planning the next correction; a rejection never
+turns into approval because another lens passes. Rebuild and hash-bind the final
+contact sheet, attention player and feed composites before assigning the panel.
+Exclude stale artifacts rather than allowing an older picture to stand in for the
+current film.
 
 ## Quality recovery contract — September27
 

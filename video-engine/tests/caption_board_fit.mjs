@@ -15,7 +15,7 @@ try {
   await build({entryPoints: [path.join(here, 'type_fit_probe.tsx')],
     bundle: true, platform: 'node', format: 'cjs', jsx: 'automatic',
     outfile, logLevel: 'error'});
-  const {captionLayout, widthOf, CAPTION_TEXT_WIDTH} = createRequire(import.meta.url)(outfile);
+  const {captionLayout, creditLayout, widthOf, CAPTION_TEXT_WIDTH, SAFE_RIGHT, SAFE_BOTTOM} = createRequire(import.meta.url)(outfile);
   const width = CAPTION_TEXT_WIDTH;
   const check = (cue) => {
     if (typeof cue.text !== "string" || !cue.text.trim()) throw new Error("caption text is missing");
@@ -26,20 +26,31 @@ try {
       throw new Error(`caption ${cue.id} would exceed the lower two-line band`);
     }
   };
+  const checkCredits = (text) => creditLayout(text, SAFE_RIGHT - 78, 850, SAFE_BOTTOM - 28);
   if (process.argv.includes('--self-test')) {
     check({id: 'known-fit', text: 'The proposed local gate stayed open.'});
     let rejected = false;
     try { check({id: 'dense', text: 'A very long narration cue '.repeat(18).trim()}); }
     catch { rejected = true; }
     if (!rejected) throw new Error('an overfull cue was accepted');
+    checkCredits('SOURCES\nCity of Dallas\nNBC DFW'.replaceAll('\\n', '\n'));
+    rejected = false;
+    try { checkCredits('Source attribution '.repeat(250)); } catch { rejected = true; }
+    if (!rejected) throw new Error('overflowing credits were accepted');
     console.log('caption_board_fit: a real cue fits and an overfull cue fails before render');
   } else {
     const arg = process.argv.indexOf('--board');
     if (arg < 0 || !process.argv[arg + 1]) throw new Error('usage: caption_board_fit.mjs --board FILE');
     const board = JSON.parse(await readFile(process.argv[arg + 1], 'utf8'));
     const cues = board.captions || [];
-    if (String(board.date || "") >= "2026-09-25" && !cues.length) throw new Error("current board has no narration captions to inspect");
+    const earlyMuted = process.argv.includes('--early-muted-animatic');
+    if (String(board.date || "") >= "2026-09-25" && !cues.length) {
+      if (!earlyMuted || board.caption_method || board.retimed_to || board.retime_evidence)
+        throw new Error("current timed board has no measured narration captions to inspect");
+      console.log('caption_board_fit: early muted picture animatic has no cues; final timed board must be checked');
+    }
     for (const cue of cues) check(cue);
+    if (board.credits) checkCredits(board.credits);
     console.log(`caption_board_fit: ${cues.length} exact board cues fit the lower two-line band`);
   }
 } finally {

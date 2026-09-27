@@ -63,5 +63,23 @@ ffmpeg -y -ss 1.9 -i "$FILM" -frames:v 1 "$OUT/poster.png" -loglevel error </dev
 ffmpeg -y -ss "$(python3 -c "print(max(0,$DUR-0.6))")" -i "$FILM" -frames:v 1 \
   "$OUT/credits_frame.png" -loglevel error </dev/null
 
+# Rebuild the conventional panel contact sheet on every current-film extraction.
+# Leaving an older edition's sheet beside a fresh master misleads independent review.
+python3 - "$BOARD" "$FILM" "$OUT" <<'PYCODE'
+import hashlib, json, sys
+from pathlib import Path
+sys.path.insert(0, "scripts")
+from preflight_animatic import contact_sheet
+board, film, out = map(Path, sys.argv[1:])
+contact_sheet(json.loads(board.read_text()), film, out / "final-contact-sheet.png")
+sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+files = sorted(out.glob("scene_s*.png")) + [out / n for n in
+    ("poster.png", "credits_frame.png", "final-contact-sheet.png")]
+(out / "frame-index.json").write_text(json.dumps({
+    "film_sha256": sha(film), "board_sha256": sha(board),
+    "files": [{"file": p.name, "sha256": sha(p)} for p in files]
+}, indent=2) + "\n")
+PYCODE
+
 ls -1 "$OUT"/scene_s*.png "$OUT"/poster.png "$OUT"/credits_frame.png
 echo "frames extracted from $FILM (duration ${DUR}s)"

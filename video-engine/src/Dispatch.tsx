@@ -30,6 +30,7 @@ import {ProofGateEpisode} from './ProofGateEpisode';
 import {FreshwaterDocumentaryEpisode} from './FreshwaterDocumentaryEpisode';
 import {MagnetCandidateEpisode} from './MagnetCandidateEpisode';
 import {FreightInvitationEpisode} from './FreightInvitationEpisode';
+import {BrushCameraEpisode} from './BrushCameraEpisode';
 
 // =============================================================================
 // THE DISPATCH — the composition the routine actually renders.
@@ -64,7 +65,16 @@ export interface Scene {
   duration_s: number;
   region: RegionName;
   county: string;
-  camera_strategy: keyof typeof CameraMoves;
+  camera_strategy: keyof typeof CameraMoves | 'sourceFootage';
+  /** Native footage, validated against the board's native_media binding; rights are reviewed separately. */
+  source_footage?: {
+    file: string; sha256: string;
+    camera_motion: 'static-native/no-digital-motion' | 'source-native/no-digital-motion';
+    editorial_excerpt?: boolean;
+    trim_start_s: number; trim_end_s: number;
+    playback_rate: 1; muted: true;
+    source_url: string; creator: string; license_url?: string;
+  };
   camera_secondary?: keyof typeof CameraMoves;
   camera_entry?: {x?: number; y?: number; z?: number; until_progress: number};
   /**
@@ -148,6 +158,7 @@ export interface Cue {
 }
 
 export type DispatchProps = {
+  native_media?: {file: string; sha256: string; basis?: string}[];
   cinema?: {
     version: string;
     hero_scene_id: string;
@@ -183,7 +194,7 @@ export type DispatchProps = {
   cinematic_template?: "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
-    'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1';
+    'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'brush-camera-v1';
   /** the composition fingerprint, carried so the render can be traced to a board */
   fingerprint?: Record<string, string>;
   // Remotion types a Composition's props as Record<string, unknown>, so the shape has
@@ -392,7 +403,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
   // silently give a static camera, which storyboard_check already refuses at
   // Gate 0 and which this refuses again at render time, because the two checks
   // guard different moments and the cheap one is not always the one that runs.
-  const move = CameraMoves[scene.camera_strategy];
+  const move = scene.camera_strategy==='sourceFootage'?undefined:CameraMoves[scene.camera_strategy];
   if (!move) {
     throw new Error(
       `scene ${scene.id}: camera_strategy "${scene.camera_strategy}" is not a composed move. ` +
@@ -516,9 +527,13 @@ export const CreditsCard: React.FC<{text: string}> = ({text}) => {
 };
 
 export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4,
-  cinematic_template, documentary_copy}) => {
+  cinematic_template, documentary_copy, native_media, __cinemaProofWithoutStage}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
+  if (cinematic_template === 'brush-camera-v1') {
+    return <BrushCameraEpisode native_media={native_media} runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}
+      __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
+  }
   if (cinematic_template === "screwworm-forecast-v1") return <ScrewwormForecastEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} />;
   if (cinematic_template === 'contact-sensing-v1') {
     return <ContactSensingEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}/>;

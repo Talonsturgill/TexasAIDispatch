@@ -2,6 +2,7 @@ import React,{useEffect,useLayoutEffect,useMemo} from 'react';
 import {useThree} from '@react-three/fiber';
 import * as THREE from 'three';
 import type {V3} from './motion';
+import {setFrameProjection} from './projection';
 
 /** Authored light cards. No remote HDRI, canvas texture, randomness or wall clock. */
 function studioMap() {
@@ -24,7 +25,7 @@ function studioMap() {
   texture.needsUpdate=true;
   return texture;
 }
-export const Studio:React.FC<{position:V3;target:V3}> = ({position,target})=>{
+export const Studio:React.FC<{position:V3;target:V3;fov?:number}> = ({position,target,fov=39})=>{
   const {camera,scene,gl}=useThree();
   const environment=useMemo(()=>{
     const map=studioMap(),pmrem=new THREE.PMREMGenerator(gl);
@@ -33,9 +34,14 @@ export const Studio:React.FC<{position:V3;target:V3}> = ({position,target})=>{
   },[gl]);
   useLayoutEffect(()=>{
     camera.position.set(...position); camera.lookAt(...target);
+    // Sequential rendering reuses this camera across scene cuts. Recompute optics
+    // from the current board frame just as a cold still render does.
+    if (camera instanceof THREE.PerspectiveCamera) {
+      setFrameProjection(camera,fov);
+    }
     camera.updateMatrixWorld();
     scene.environment=environment.texture;
-  },[camera,scene,environment,position,target]);
+  },[camera,scene,environment,position,target,fov]);
   useEffect(()=>()=>{environment.dispose();},[environment]);
   return <>
     <ambientLight intensity={.22}/>

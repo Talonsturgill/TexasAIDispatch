@@ -72,6 +72,10 @@ def bad_hex(text: str) -> list[tuple[int, str]]:
         body = m.group(1)
         if body == "":
             continue                      # `.replace('#', '')`
+        # CSS background accepts RGBA hex; Three.js color inputs remain RGB-only.
+        css_background = re.search(r"\b(?:background|backgroundColor)\s*:\s*$", text[:m.start()])
+        if css_background and re.fullmatch(r"[0-9a-fA-F]{4}|[0-9a-fA-F]{8}", body):
+            continue
         if not HEX_OK.fullmatch(body):
             out.append((text[:m.start()].count("\n") + 1, m.group(0)))
     return out
@@ -214,8 +218,15 @@ def self_test() -> int:
        "Math.random" not in strip_comments("/* uses Math.random nowhere */"))
     ok("the legitimate bare hash in .replace('#','') is not flagged",
        bad_hex("hex.replace('#', '')") == [])
-    ok("an 8-digit hex is refused, since SVG fill does not take one",
+    ok("an unclassified alpha hex stays refused for non-CSS color inputs",
        bad_hex("fill: '#ffe8c4ff'") != [])
+
+    ok("CSS alpha backgrounds pass without changing their rendered color",
+       bad_hex("background:'#17323de8', backgroundColor:'#abcd'") == [])
+    ok("corrupt alpha backgrounds still fail",
+       bool(bad_hex("background:'#17323dge'")))
+    ok("Three material color still rejects RGBA hex",
+       bool(bad_hex("color:'#17323de8'")))
 
     with tempfile.TemporaryDirectory() as td:
         root = Path(td) / "src"
