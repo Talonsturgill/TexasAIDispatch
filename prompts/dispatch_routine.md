@@ -1500,3 +1500,12 @@ bash scripts/run_with_env.sh bash -c 'cd video-engine && node tests/cinema-proof
 ```
 
 When natural human performance is the repeated failure, evaluate licensed source footage before another synthetic body-rig pass. Keep the required dimensional opening and coverage, bind the exact imported bytes and reuse rights, identify stock illustration clearly at phone size, and preserve identity, location, weather and case-outcome limits. Source footage must pass the same current-film attention, caption, sound and independent final review requirements. Declare its actual camera behavior; do not label stationary footage as a generated camera move.
+
+
+Once a finished-film panel is reserved, collect all three current audiovisual lenses
+even if an earlier lens rejects. Each lens still runs once on those exact bytes.
+Preserve all defects together before planning the next correction; a rejection never
+turns into approval because another lens passes. Rebuild and hash-bind the final
+contact sheet, attention player and feed composites before assigning the panel.
+Exclude stale artifacts rather than allowing an older picture to stand in for the
+current film.
