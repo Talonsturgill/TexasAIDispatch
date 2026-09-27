@@ -232,23 +232,52 @@ const CapturedPrint:React.FC<{marked?:number}>=({marked=1})=>{
  </React.Fragment>)}
  </>;
 };
+// Exact UV selection from the conserved facade, never a fabricated window image.
+const WindowSelection:React.FC<{progress:number}>=({progress})=>{
+ const texture=useLoader(THREE.TextureLoader,staticFile('evidence/dallas-captured-facade.png'));
+ texture.colorSpace=THREE.SRGBColorSpace;
+ const geometry=useMemo(()=>{
+  const g=new THREE.PlaneGeometry(.61,.79),uv=g.getAttribute('uv');
+  const u0=(-1.39+1.4)/2.8,u1=(-.78+1.4)/2.8;
+  const v0=.5-.193/1.89,v1=.5+.597/1.89;
+  for(let i=0;i<uv.count;i++){uv.setXY(i,mix(u0,u1,uv.getX(i)),mix(v0,v1,uv.getY(i)));}
+  return g;
+ },[]);
+ const position:V3=[mix(-1.085,.20,progress),mix(.029,.55,progress),mix(-.202,.10,progress)];
+ const rotation:V3=[mix(-Math.PI/2,-.8,progress),0,0],scale=mix(1,2.0,progress);
+ const matrix=new THREE.Matrix4().compose(new THREE.Vector3(...position),new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation)),new THREE.Vector3(scale,scale,scale));
+ const corners:V3[]=[[-.305,-.395,0],[.305,-.395,0],[.305,.395,0],[-.305,.395,0]];
+ return <>
+ {corners.map((p,i)=>{
+  const origin:V3=[-1.085+p[0],.036,-.202-p[1]];
+  const destination=new THREE.Vector3(...p).applyMatrix4(matrix).toArray() as V3;
+  return <Rod key={i} from={origin} to={destination} radius={.009} c='#d8b483'/>;
+ })}
+ <group position={position} rotation={rotation} scale={scale}>
+  <Box p={[0,0,-.015]} s={[.65,.83,.020]} c={cream} round={.006}/>
+  <mesh geometry={geometry}><meshBasicMaterial map={texture} side={THREE.DoubleSide}/></mesh>
+ </group>
+ </>;
+};
 const ReviewArrival:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
  <Table/>
  <group position={[mix(2.75,0,a),.008,-.20]}>
-  <CapturedPrint marked={c}/>
-  {b>0&&b<1&&<Box p={[mix(-1.39,1.39,b),.045,0]} s={[.035,.012,1.89]} c="#b3e4ce"/>}
+  <CapturedPrint marked={c>0?1:0}/>
+  {b>0&&b<1&&<Box p={[mix(-1.39,1.39,b),.045,0]} s={[.06,.016,1.89]} c='#b3e4ce'/>}
+  {c>0&&<WindowSelection progress={c}/>}
  </group>
- <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
+ <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c='#334f57' round={.04}/>
 </>;
-const NoticeQueue:React.FC<{a:number;b:number}>=({a,b})=><>
+const NoticeQueue:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
  <Table rightExtension={1.3}/>
  {[0,1,2,3,4,5].map(i=><Paper key={i} p={[i%2*.035,.012+i*.020,-.20]} scale={1.35}/>)}
  <group position={[0,mix(.64,.14,a),-.20]}>
-  {[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}
-  <group position={[0,0,b*.26]}>
-   <Paper p={[0,.075,0]} scale={1.35}/>
-  </group>
+  {[0,1,2,3].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}
  </group>
+ {b>0&&<group position={[.035,mix(3.5,.241,b),-.20]}>
+  {[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}
+  <Paper p={[0,.075,c*.26]} scale={1.35}/>
+ </group>}
 </>;
 const Notice:React.FC<{a:number;b:number;handoff?:number;isolated?:boolean}>=({a,b,handoff=0,isolated=false})=>{
  const pull=a*.65+b*.35;
@@ -724,7 +753,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
  <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
  {id==='s1'&&<Street a={a} b={b} c={c} d={d} drive={Math.min(1,(time-scene.start_s)/scene.duration_s)}/>}
- {id==='s2'&&<NoticeQueue a={a} b={b}/>}
+ {id==='s2'&&<NoticeQueue a={a} b={b} c={c}/>}
  {id==='s3'&&<ReviewArrival a={a} b={b} c={c}/>}
 
 
