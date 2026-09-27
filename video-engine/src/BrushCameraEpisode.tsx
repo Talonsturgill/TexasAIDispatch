@@ -360,9 +360,9 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  </group>
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38}/></group>
- <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,-3.0,2.0]} skin="#ad7e63" shirt="#627b70" closed={1}/>
- <EncounterHand contact={officerContact} approach={[.35,-.9,1.10]} cuff={[-.25,-4.0,2.0]} skin="#ad7e63" shirt="#627b70" closed={pickup*(1-release)}/>
- <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[4.0,-2.0,2.0]} skin="#b78666" shirt="#83684f" closed={receive}/>
+ <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,0,4.0]} skin="#ad7e63" shirt="#627b70" closed={1}/>
+ <EncounterHand contact={officerContact} approach={[.35,-.9,1.10]} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={pickup*(1-release)}/>
+ <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={receive}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
