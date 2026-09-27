@@ -414,9 +414,10 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  <Ball p={thumbEnd} s={[.022,.023,.019]} c={skin}/>{nail(thumbEnd,thumbMid,.022)}
  </>;
 };
-const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number}>=({p,yaw,lean,shirt,skin,headTurn})=><group position={p} rotation={[lean,yaw,0]}>
- {/* The coat and waist continue below the close frame; shoulders support both arm roots. */}
- <Box p={[0,-1.45,0]} s={[.58,4.10,.38]} c={shirt} round={.12}/>
+const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number}>=({p,yaw,lean,shirt,skin,headTurn})=><>
+ <group position={p} rotation={[lean,yaw,0]}>
+ {/* A fitted shirt ends at the belt; the planted lower body supports the upper-body lean. */}
+ <Box p={[0,-.005,0]} s={[.58,1.21,.38]} c={shirt} round={.10}/>
  <Box p={[0,.46,0]} s={[.66,.25,.37]} c={shirt} round={.10}/>
  <Box p={[.025,-.13,.201]} s={[.024,1.05,.010]} c="#425b57"/>
  <Box p={[-.13,.23,.206]} s={[.16,.16,.016]} c={shirt} round={.009}/>
@@ -428,7 +429,23 @@ const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:str
   <Ball p={[0,-.002,.158]} s={[.032,.042,.042]} c={skin}/>
   {[-1,1].map(sign=><group key={sign}><Ball p={[sign*.163,-.01,0]} s={[.021,.043,.026]} c={skin}/><Ball p={[sign*.058,.044,.15]} s={[.014,.008,.006]} c="#3a3c34"/></group>)}
  </group>
-</group>;
+ </group>
+ <group position={p} rotation={[0,yaw,0]}>
+  <Box p={[0,-.60,0]} s={[.55,.095,.37]} c="#353e3d" round={.025}/>
+  <Box p={[.015,-.598,.194]} s={[.10,.054,.020]} c="#9b9e8c" metal={.30}/>
+  <Box p={[0,-.765,0]} s={[.55,.28,.37]} c="#404c50" round={.06}/>
+  {[-1,1].map(sign=>{
+   const hip:V3=[sign*.145,-.84,0],knee:V3=[sign*.17,-1.38,.028],ankle:V3=[sign*.185,-1.90-p[1],.035];
+   return <group key={sign}>
+    <HandBone from={hip} to={knee} r0={.142} r1={.108} color="#404c50"/>
+    <Ball p={knee} s={[.109,.116,.106]} c="#404c50"/>
+    <HandBone from={knee} to={ankle} r0={.108} r1={.078} color="#3b484d"/>
+    <Box p={[ankle[0],-1.970-p[1],.115]} s={[.225,.13,.405]} c="#303734" round={.045}/>
+    <Box p={[ankle[0],-2.027-p[1],.115]} s={[.232,.018,.409]} c="#242e2d" round={.008}/>
+   </group>;
+  })}
+ </group>
+</>;
 const encounterElbow=(shoulder:V3,wrist:V3,bend:number):V3=>{
  const root=new THREE.Vector3(...shoulder),end=new THREE.Vector3(...wrist),axis=end.clone().sub(root),distance=axis.length();
  axis.normalize();
@@ -486,8 +503,13 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
 
 
  return <>
- <Box p={[0,-4.0,0]} s={[9,.13,8]} c="#75795f"/>
- <Box p={[0,-.59,-3.25]} s={[9,.16,5.90]} c="#75795f"/>
+ <Box p={[0,-2.1,0]} s={[12,.13,12]} c="#75795f"/>
+ {/* A continuous masonry foundation supports the raised house platform down to the lawn. */}
+ <Box p={[0,-1.271,-1.75]} s={[3.58,1.528,2.67]} c="#a18d74"/>
+ {Array.from({length:8},(_,row)=><group key={row}>
+  <Box p={[0,-1.95+row*.19,-.407]} s={[3.57,.014,.012]} c="#867760"/>
+  {Array.from({length:8},(_,col)=><Box key={col} p={[-1.65+col*.45+(row%2)*.15,-1.865+row*.19,-.407]} s={[.013,.172,.012]} c="#867760"/>)}
+ </group>)}
  <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={-.4+.35*compare+.4*pickup} shirt="#627b70" skin="#ad7e63"/>
  <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.35-.25*receive} shirt="#83684f" skin="#b78666"/>
  <spotLight position={[2.6,4.3,3.7]} intensity={1.3} angle={.64} penumbra={.65} castShadow shadow-mapSize={[1024,1024]} shadow-bias={-.00015} shadow-normalBias={.018}/>
