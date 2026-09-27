@@ -173,3 +173,10 @@ B55 removes the encounter and final FOX sentence. It retains the continuous85-wo
 ## B57 licensed cleanup medium change
 
 B55 and B56 native audiovisual reviews rejected synthetic sweeping despite phone-plan approval. B57 replaces that performed action with licensed native-portrait cleanup footage by Mikhail Nilov from Pexels, with explicit non-case illustration labels. The first27.46seconds retain dimensional capture, image review and notice mechanics. The sourceFootage route validates actual media bytes and provenance while retaining quick timing, meaningful-action and final audiovisual gates; unsupported renderers reject the route. The current85word narration remains unchanged. Designed bag-fold sounds replace broom sounds; measured mix is−16.95LUFS. Current phone, dimensional hero and three-lens final film approval still precede shipment.
+
+
+## B59 conserved document bridge and safe stock identity
+
+Exact B58 final 82fe5d9c failed picture/story review on the abrupt cleanup transition; independent judges also found the stock disclaimer beyond SAFE_RIGHT918 and weak roof-contour clarity. B59 preserves opening, narration, forty-second runtime, mix, original stock bytes and natural playback. The actual right comparison sheet now slides left across the editorial cut; only that same sheet continues briefly over immediate stock action, never as a document attributed to the recorded adult. Its cut-time bounds are x−131 to405, then it exits by roughly0.17seconds, leaving the central/right hand-and-bag lane open. The source disclaimer box ends at900; measured shipped-font line extents end775. The folded-edge illustration uses a true detail crop plus broader existing contours, with no new construction or case-outcome assertion. Mild grading links the footage palette. Storyboard, script evidence, safe area, type-fit and TypeScript checks pass. Independent current-code and actual-film review remain required.
+
+Root additionally committed automatic current-hash contact-sheet regeneration and collection of all three final audiovisual lenses even after the first rejection. These improve evidence completeness without changing quality thresholds.

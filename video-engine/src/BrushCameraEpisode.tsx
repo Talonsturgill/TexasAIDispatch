@@ -187,7 +187,7 @@ const Hand:React.FC<{p:V3;r?:V3;scale?:number}>=({p,r=[0,0,0],scale=1})=><group 
  <Box p={[0,.025,.70]} s={[.33,.22,.34]} c="#477080" round={.095}/>
 </group>;
 // A printed explanatory diagram, explicitly not a photograph or the resident's actual document.
-const roofDiagramSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480"><rect width="600" height="480" fill="#e8dfc6"/><path d="M35 48H550V303H35Z" fill="#456258"/><path d="M45 95H540M45 150H540M45 205H540M145 48V300M350 48V300" fill="none" stroke="#718579" stroke-width="4"/><path d="M35 300H550V414H35Z" fill="#967458"/><path d="M35 320H550M35 353H550M35 386H550M135 320V353M380 320V353M245 353V386M470 353V386" fill="none" stroke="#bc9c76" stroke-width="4"/><path d="M35 350H455V408L480 437L450 467L405 424V416H35Z" fill="#e2e8d8" stroke="#173d36" stroke-width="9"/><path d="M45 361H442V417L466 440" fill="none" stroke="#f7f3d5" stroke-width="5"/><path d="M45 338H435" stroke="#243c36" stroke-width="8"/><path d="M340 320H505V473H340Z" fill="none" stroke="#ca8759" stroke-width="8" stroke-dasharray="15 8"/></svg>';
+const roofDiagramSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="300 250 250 230"><rect width="600" height="480" fill="#e8dfc6"/><path d="M35 48H550V303H35Z" fill="#456258"/><path d="M45 95H540M45 150H540M45 205H540M145 48V300M350 48V300" fill="none" stroke="#718579" stroke-width="4"/><path d="M35 300H550V414H35Z" fill="#967458"/><path d="M35 320H550M35 353H550M35 386H550M135 320V353M380 320V353M245 353V386M470 353V386" fill="none" stroke="#bc9c76" stroke-width="4"/><path d="M35 350H455V408L480 437L450 467L405 424V416H35Z" fill="#e2e8d8" stroke="#173d36" stroke-width="9"/><path d="M45 361H442V417L466 440" fill="none" stroke="#f7f3d5" stroke-width="5"/><path d="M45 338H435" stroke="#243c36" stroke-width="8"/><path d="M340 320H505V473H340Z" fill="none" stroke="#ca8759" stroke-width="8" stroke-dasharray="15 8"/></svg>';
 const RoofDiagram:React.FC<{loupe?:boolean;focus?:[number,number]}>=({loupe=false,focus=[.5,.5]})=>{
  const source=useLoader(THREE.TextureLoader,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(roofDiagramSvg));
  const texture=useMemo(()=>{const t=source.clone();t.colorSpace=THREE.SRGBColorSpace;if(loupe)t.repeat.set(.43,.43);t.needsUpdate=true;return t;},[source,loupe]);
@@ -275,29 +275,29 @@ const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
  </>;
 };
 // Both views are authored explanatory drawings, never the resident's actual records.
-const RoofComparison:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
- const leftX=mix(-2.8,-.66,a),rightX=mix(2.9,.66,b);
+const RoofComparison:React.FC<{a:number;b:number;c:number;handoff?:number;isolated?:boolean}>=({a,b,c,handoff=0,isolated=false})=>{
+ const leftX=mix(-2.8,-.66,a),rightX=handoff<=1?mix(mix(2.9,.66,b),-.85,handoff):mix(-.85,-3.8,handoff-1);
  return <>
- <Table/>
+ {!isolated&&<><Table/>
  <group position={[leftX,.027,-.10]} rotation={[0,.04,0]} scale={.74}>
   <Paper p={[0,0,0]} roof scale={1.38}/>
   <Hand p={[-.67-b*1.7,.087,.39]} r={[0,-Math.PI/2,0]} scale={.85}/>
- </group>
+ </group></>}
  <group position={[rightX,.036,-.08]} rotation={[0,-.035,0]} scale={.74}>
   <Box p={[0,0,0]} s={[1.63,.023,2.08]} c={cream} round={.016}/>
   <Box p={[-.37,.02,-.77]} s={[.53,.008,.09]} c={ink}/>
   {/* Enlarged bent sheet and masonry repeat the same profile in RoofDiagram. */}
   <Box p={[-.07,.025,.12]} s={[1.25,.012,.79]} c="#a78262"/>
   {[-.12,.10,.32].map(z=><Box key={z} p={[-.07,.034,z]} s={[1.24,.005,.018]} c="#c2a383"/>)}
-  <Box p={[-.18,.05,-.05]} s={[1.16,.015,.12]} c="#dce5d5"/>
-  <Box p={[.35,.051,.13]} s={[.12,.017,.46]} c="#dce5d5"/>
-  <Box p={[.43,.051,.40]} s={[.13,.017,.28]} r={[0,-.65,0]} c="#dce5d5"/>
-  <Box p={[-.18,.063,-.115]} s={[1.17,.006,.021]} c={ink}/>
-  <Box p={[.41,.064,.15]} s={[.022,.006,.51]} c={ink}/>
-  <Box p={[.49,.064,.405]} s={[.022,.006,.27]} r={[0,-.65,0]} c={ink}/>
+  <Box p={[-.18,.05,-.05]} s={[1.16,.015,.19]} c="#f3edce"/>
+  <Box p={[.35,.051,.13]} s={[.19,.017,.46]} c="#f3edce"/>
+  <Box p={[.43,.051,.40]} s={[.19,.017,.28]} r={[0,-.65,0]} c="#f3edce"/>
+  <Box p={[-.18,.063,-.115]} s={[1.17,.006,.045]} c={ink}/>
+  <Box p={[.41,.064,.15]} s={[.045,.006,.51]} c={ink}/>
+  <Box p={[.49,.064,.405]} s={[.045,.006,.27]} r={[0,-.65,0]} c={ink}/>
   <Box p={[-.38,.021,.82]} s={[.50,.006,.035]} c={copper}/>
-  <Hand p={[.89,.10,mix(-.10,.46,c)]} r={[0,Math.PI/2,0]} scale={.85}/>
-  <Rod from={[1.51,.12,mix(-.10,.46,c)]} to={[4,.12,.10]} radius={.105} c="#477080"/>
+  {!isolated&&<><Hand p={[.89+handoff*6,.10,mix(-.10,.46,c)]} r={[0,Math.PI/2,0]} scale={.85}/>
+  <Rod from={[1.51+handoff*6,.12,mix(-.10,.46,c)]} to={[8,.12,.10]} radius={.105} c="#477080"/></>}
  </group>
  </>;
 };
@@ -736,7 +736,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
- {id==='s6'&&<RoofComparison a={a} b={b} c={c}/>}
+ {id==='s6'&&<RoofComparison a={a} b={b} c={c} handoff={Math.max(0,Math.min(1,(localTime-(scene.duration_s-.42))/.42))}/>}
  {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
  {id==='s9'&&<SiteInspection a={a} b={(b*.60+progress(4)*1.20)/1.80} c={c} d={d}/>}
  </CinematicStage>;
@@ -745,17 +745,32 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  const frame=useCurrentFrame(),{fps}=useVideoConfig(),time=frame/fps,windows=actionWindows(scenes);
  const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
  const p=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
+ const cleanupScene=scenes.find(s=>s.id==='s7'),roofScene=scenes.find(s=>s.id==='s6');
+ const cleanupStart=cleanupScene?.start_s??27.46;
+ // The actual right comparison sheet crosses the editorial cut, never belonging to the stock adult.
+ const bridgeIn=Math.max(0,Math.min(1,(time-(cleanupStart-.42))/.42));
+ const bridgeOut=Math.max(0,Math.min(1,(time-cleanupStart)/.42));
+ const noticeLink=(scene.id==='s6'?bridgeIn:scene.id==='s7'?1:0);
  return <div style={{position:'absolute',inset:0,background:ink,color:cream}}>
  {time<runtime_s&&<>
  {!__cinemaProofWithoutStage&&(scene.id==='s7'?
  <Sequence from={Math.ceil(scene.start_s*fps)} durationInFrames={Math.ceil((scene.start_s+scene.duration_s)*fps)-Math.ceil(scene.start_s*fps)}>
-  <OffthreadVideo src={staticFile('evidence/yard-cleanup-8544165.mp4')} trimBefore={0} trimAfter={Math.ceil(scene.duration_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%'}}/>
+  <OffthreadVideo src={staticFile('evidence/yard-cleanup-8544165.mp4')} trimBefore={0} trimAfter={Math.ceil(scene.duration_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%',filter:'saturate(.78) contrast(.96) sepia(.09)'}}/>
  </Sequence>:<PhysicalStory scene={scene} time={time} windows={windows}/>)}
+ {!__cinemaProofWithoutStage&&scene.id==='s7'&&bridgeOut<1&&roofScene&&<div style={{position:'absolute',inset:0,pointerEvents:'none'}}>
+  <CinematicStage position={[.28,5.2,5.3]} target={[.18,-.18,-.05]} fov={38} exposure={1.15}>
+   <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
+   <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
+   <RoofComparison a={1} b={1} c={1} handoff={1+bridgeOut} isolated/>
+  </CinematicStage>
+ </div>}
+
  <div style={{position:'absolute',inset:0,background:scene.id==='s7'?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
  {scene.id!=='s7'&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
- {scene.id==='s7'&&<div style={{position:'absolute',right:64,top:52,padding:'10px 14px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.3,letterSpacing:.4,color:cream,background:'rgba(9,32,39,.80)'}}>ILLUSTRATIVE STOCK FOOTAGE<br/>NOT THE REPORTED PERSON<br/>OR PROPERTY</div>}
+ {scene.id==='s7'&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
+ {noticeLink>0&&<div style={{position:'absolute',left:70,top:326,padding:'8px 14px',fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:ink,background:cream,opacity:noticeLink}}>NOTICE → REPORTED YARD WORK</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
  {['s6','s7','s8'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
