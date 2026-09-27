@@ -95,17 +95,55 @@ const Truck:React.FC<{x:number;closed:number;travel:number}>=({x,closed,travel})
  <Box p={[1.3,.17,.79]} s={[.64,.12,.02]} c="#a8b593"/>
  <Box p={[1.65,-.10,.79]} s={[.08,.09,.025]} c="#cf7650"/>
 </group>;
-const Street:React.FC<{a:number;b:number;drive:number}>=({a,b,drive})=><>
+// Explanatory optical geometry: no emitted beam or physical paper is claimed.
+const OpticalEdge:React.FC<{from:V3;to:V3;radius?:number}>=({from,to,radius=.025})=>{
+ const v=new THREE.Vector3(...to).sub(new THREE.Vector3(...from));
+ const q=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),v.clone().normalize());
+ return <mesh position={from.map((x,i)=>(x+to[i])/2) as V3} quaternion={q}>
+  <cylinderGeometry args={[radius,radius,v.length(),12]}/><meshBasicMaterial color="#ffd58a"/>
+ </mesh>;
+};
+const OpticalPhoto:React.FC<{reveal:number}>=({reveal})=>{
+ const texture=useLoader(THREE.TextureLoader,staticFile('evidence/dallas-captured-facade.png'));
+ texture.colorSpace=THREE.SRGBColorSpace;
+ const geometry=useMemo(()=>{
+  const g=new THREE.PlaneGeometry(2.5*Math.max(.001,reveal),1.69);
+  const uv=g.getAttribute('uv');
+  for(let i=0;i<uv.count;i++)uv.setX(i,uv.getX(i)*reveal);
+  return g;
+ },[reveal]);
+ return <mesh position={[-1.25*(1-reveal),0,.015]} geometry={geometry}>
+  <meshBasicMaterial map={texture} side={THREE.DoubleSide}/>
+ </mesh>;
+};
+const Street:React.FC<{a:number;b:number;c:number;d:number;drive:number}>=({a,b,c,d,drive})=>{
+ const truckX=mix(.72,-1.65,drive);
+ const lens:V3=[truckX+.342,.701,1.294];
+ const position:V3=[mix(0,1.1,c),mix(.65,1.55,c)+.35*Math.sin(Math.PI*c),mix(-.53,2.2,c)];
+ const rotation:V3=[-.38*d,.52*d,0];
+ const scale=mix(1,1.05,c);
+ const matrix=new THREE.Matrix4().compose(new THREE.Vector3(...position),
+  new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation)),new THREE.Vector3(scale,scale,scale));
+ const corners:V3[]=[[-1.25,-.845,0],[1.25,-.845,0],[1.25,.845,0],[-1.25,.845,0]].map(p=>{
+  const v=new THREE.Vector3(...p).applyMatrix4(matrix);return [v.x,v.y,v.z] as V3;
+ });
+ return <>
  <Box p={[0,-.65,0]} s={[15,.15,12]} c="#5d685d"/>
  <Box p={[0,-.51,1.47]} s={[15,.08,2.7]} c="#515f61"/>
  <Box p={[0,-.42,.03]} s={[15,.18,.14]} c="#b6b5a3"/>
  <Box p={[0,-.47,.21]} s={[15,.04,.25]} c="#858d81"/>
  <House scale={.76} p={[0,0,-1.20]}/>
- {a>.03&&<group position={[0,.46,-.57]} scale={Math.min(1,a*2)}>
- {[-1,1].map(sign=><React.Fragment key={sign}><Box p={[sign*1.13,0,0]} s={[.022,1.12,.01]} c="#dceac6"/><Box p={[0,sign*.56,0]} s={[2.28,.022,.01]} c="#dceac6"/></React.Fragment>)}
- </group>}
- <Truck x={mix(.72,-1.65,drive)} closed={Math.sin(a*Math.PI)**12} travel={drive*2}/>
-</>;
+ {a>0&&corners.map((corner,i)=>{
+  const tip=lens.map((v,j)=>mix(v,corner[j],a)) as V3;
+  return <React.Fragment key={i}>
+   <OpticalEdge from={lens} to={tip} radius={.024}/>
+   {a>.55&&<OpticalEdge from={corner} to={corners[(i+1)%4]} radius={.033}/>}
+  </React.Fragment>;
+ })}
+ {b>0&&<group position={position} rotation={rotation} scale={scale}><OpticalPhoto reveal={b}/></group>}
+ <Truck x={truckX} closed={Math.sin(a*Math.PI)**12} travel={drive*2}/>
+ </>;
+};
 const PhotoSurface:React.FC=()=>{
  const texture=useLoader(THREE.TextureLoader,staticFile('evidence/dallas-captured-facade.png'));
  texture.colorSpace=THREE.SRGBColorSpace;
@@ -693,7 +731,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
  <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
- {id==='s1'&&<Street a={a} b={b} drive={Math.min(1,(time-scene.start_s)/scene.duration_s)}/>}
+ {id==='s1'&&<Street a={a} b={b} c={c} d={d} drive={Math.min(1,(time-scene.start_s)/scene.duration_s)}/>}
  {id==='s2'&&<NoticeQueue a={a} b={b}/>}
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
