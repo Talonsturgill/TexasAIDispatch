@@ -31,7 +31,7 @@ const Gable:React.FC=()=>{
 const Ring:React.FC<{p:V3;radius:number;tube:number;c:string}>=({p,radius,tube,c})=><mesh position={p} castShadow><torusGeometry args={[radius,tube,10,40]}/><meshStandardMaterial color={c} metalness={.6} roughness={.29}/></mesh>;
 
 // A finished residential model, with continuous roof/wall joints and attached flashing.
-const House:React.FC<{scale?:number;p?:V3;flat?:boolean}>=({scale=1,p=[0,0,-1.15],flat=false})=><group position={p} scale={scale}>
+const House:React.FC<{scale?:number;p?:V3;flat?:boolean;site?:boolean}>=({scale=1,p=[0,0,-1.15],flat=false,site=false})=><group position={p} scale={scale}>
  <Box p={[0,.62,0]} s={[3.3,1.9,1.48]} c="#a17962" round={.025}/>
  {Array.from({length:12},(_,row)=>Array.from({length:8},(_,col)=><Box key={`${row}-${col}`} p={[-1.49+col*.39+(row%2)*.12,-.24+row*.145,.748]} s={[.35,.118,.019]} c={['#a17a64','#96715f','#b1886d','#a78068'][(row*7+col*3)%4]}/>))}
  {[-.95,.95].map(x=><group key={x} position={[x,.62,.79]}>
@@ -44,8 +44,10 @@ const House:React.FC<{scale?:number;p?:V3;flat?:boolean}>=({scale=1,p=[0,0,-1.15
  <Box p={[0,1.01,.84]} s={[.49,.05,.09]} c={cream}/>
  <Box p={[0,.50,.85]} s={[.4,.39,.015]} c="#43584f"/>
  <Ball p={[.20,.28,.86]} s={[.033,.033,.026]} c="#ccb678"/>
+ {!site&&<>
  <Box p={[0,-.37,1.02]} s={[.91,.13,.65]} c="#a4a498"/>
  <Box p={[0,-.47,1.40]} s={[1.12,.08,.38]} c="#b9b3a2"/>
+ </>}
  {flat?<group position={[0,1.64,0]}><Box p={[0,0,0]} s={[3.46,.14,1.72]} c="#737b6a"/><Box p={[0,.13,.86]} s={[3.48,.23,.12]} c="#a99b80"/><Box p={[0,.27,.86]} s={[3.58,.045,.19]} c="#d0d5c5" metal={.7}/><Box p={[0,.15,.945]} s={[3.56,.24,.024]} c="#aebead" metal={.65}/></group>:<group position={[0,1.70,0]}>
   {[-1,1].map(side=><group key={side} position={[side*.88,0,0]} rotation={[0,0,-side*.30]}>
    <Box p={[0,0,0]} s={[1.87,.10,1.85]} c="#4a4d45"/>
@@ -58,9 +60,11 @@ const House:React.FC<{scale?:number;p?:V3;flat?:boolean}>=({scale=1,p=[0,0,-1.15
  <Box p={[0,1.405,.93]} s={[3.62,.12,.13]} c="#b1b5a9" metal={.55}/>
  <Box p={[1.64,.48,.95]} s={[.07,1.84,.07]} c="#a6aca1" metal={.35}/>
  <Box p={[-.69,1.50,.94]} s={[.73,.07,.12]} c="#dde1cd" metal={.68}/>
+ {!site&&<>
  <Box p={[0,-.52,0]} s={[4.15,.14,3.1]} c="#6c7658" round={.05}/>
  {[-1.45,1.40].map((x,i)=><group key={x}><Ball p={[x,-.16,.85]} s={[.36,.28,.30]} c={i?'#4d6851':'#57744c'}/><Ball p={[x+.21,-.20,.80]} s={[.21,.23,.25]} c="#687f54"/></group>)}
  <Box p={[0,-.43,1.37]} s={[.93,.04,.95]} c="#b4b2a0"/>
+ </>}
 </group>;
 const Lens:React.FC<{closed:number}>=({closed})=><group>
  <Box p={[0,0,-.19]} s={[.59,.48,.45]} c="#283b3b" round={.06} metal={.25}/>
@@ -313,7 +317,7 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  })}
  </>;
 };
-// Anatomy follows the existing contact clock; sleeve caps remain beyond the picture.
+// Normalized hands connect through fixed-length upper arms, elbow joints and forearms.
 const HandBone:React.FC<{from:V3;to:V3;r0:number;r1:number;color:string}>=({from,to,r0,r1,color})=>{
  const delta=new THREE.Vector3(...to).sub(new THREE.Vector3(...from));
  const rotation=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),delta.clone().normalize());
@@ -325,26 +329,10 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  const u=new THREE.Vector3(...approach).normalize(),n=new THREE.Vector3(...normal).normalize();
  const side=new THREE.Vector3().crossVectors(n,u).normalize().multiplyScalar(handedness);
  const depth=new THREE.Vector3().crossVectors(u,side).normalize();
- const local=(distance:number,width=0,out=0):V3=>new THREE.Vector3(...contact).addScaledVector(new THREE.Vector3(...approach),distance).addScaledVector(side,width).addScaledVector(n,out).toArray() as V3;
+ const local=(distance:number,width=0,out=0):V3=>new THREE.Vector3(...contact).addScaledVector(u,distance).addScaledVector(side,width).addScaledVector(n,out).toArray() as V3;
  const palm=local(.175),wrist=local(.31);
  const blend=(p:V3,q:V3,t:number)=>p.map((v,i)=>mix(v,q[i],t)) as V3;
- const sleeve=useMemo(()=>{
-  const end=new THREE.Vector3(...cuff),begin=new THREE.Vector3(...wrist);
-  const mid=elbow?new THREE.Vector3(...elbow):begin.clone().lerp(end,.43).addScaledVector(side,.08+.18*flex).addScaledVector(n,.055*flex);
-  const curve=new THREE.CatmullRomCurve3([begin,mid,end]);
-  const frames=curve.computeFrenetFrames(36,false),positions:number[]=[],indices:number[]=[];
-  for(let j=0;j<=36;j++){
-   const t=j/36,center=curve.getPoint(t);
-   const fold=.008*Math.exp(-(((t-.055)/.025)**2))-.006*Math.exp(-(((t-.105)/.027)**2))+.006*Math.exp(-(((t-.165)/.035)**2));
-   const radius=.078+.065*Math.sin(Math.min(1,t*1.7)*Math.PI/2)+fold;
-   for(let i=0;i<=24;i++){
-    const angle=i/24*Math.PI*2,p=center.clone().addScaledVector(frames.normals[j],Math.cos(angle)*radius).addScaledVector(frames.binormals[j],Math.sin(angle)*radius*.78);
-    positions.push(p.x,p.y,p.z);
-    if(j<36&&i<24){const k=j*25+i;indices.push(k,k+1,k+25,k+1,k+26,k+25);}
-   }
-  }
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);g.computeVertexNormals();return g;
- },[...wrist,...cuff,...side.toArray(),...normal,flex,...(elbow??[0,0,0])]);
+ const joint=elbow??encounterElbow(cuff,wrist,[0,-1,.3]);
  const palmGeometry=useMemo(()=>{
   // A tapered metacarpal volume widens at the knuckles and narrows into the wrist.
   const rings=[{d:.105,w:.073,h:.031},{d:.15,w:.086,h:.043},{d:.205,w:.077,h:.047},{d:.255,w:.056,h:.034},{d:.31,w:.048,h:.029}];
@@ -385,7 +373,9 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  const thumbEnd=blend(local(.095,-.071,.014),thumbOpposed,closed);
  const thumbMid=blend(local(.12,-.095,.028),local(.065,-.043,.070),closed);
  return <>
- <mesh geometry={sleeve} castShadow receiveShadow><meshStandardMaterial color={shirt} roughness={.93}/></mesh>
+ <HandBone from={cuff} to={joint} r0={.108} r1={.090} color={shirt}/>
+ <Ball p={joint} s={[.093,.093,.093]} c={shirt}/>
+ <HandBone from={joint} to={wrist} r0={.088} r1={.061} color={shirt}/>
  <HandBone from={local(.32)} to={local(.287)} r0={.080} r1={.069} color={sleeveEdge}/>
  <mesh geometry={palmGeometry} castShadow receiveShadow><meshStandardMaterial color={skin} roughness={.69}/></mesh>
  <Ball p={local(.19,-.05,.007)} s={[.042,.059,.036]} c={skin}/>
@@ -414,7 +404,7 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  <Ball p={thumbEnd} s={[.022,.023,.019]} c={skin}/>{nail(thumbEnd,thumbMid,.022)}
  </>;
 };
-const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number;stance:V3;stanceYaw:number}>=({p,yaw,lean,shirt,skin,headTurn,stance,stanceYaw})=>{
+const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number;headPitch?:number;stance:V3;stanceYaw:number}>=({p,yaw,lean,shirt,skin,headTurn,headPitch=0,stance,stanceYaw})=>{
  const hipPoint=(x:number,y:number,z:number):V3=>new THREE.Vector3(x,y,z).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
  const footPoint=(x:number,y:number,z:number):V3=>new THREE.Vector3(x,0,z).applyAxisAngle(new THREE.Vector3(0,1,0),stanceYaw).add(new THREE.Vector3(stance[0],y,stance[2])).toArray() as V3;
  return <>
@@ -426,7 +416,7 @@ const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:str
  <Box p={[-.13,.23,.206]} s={[.16,.16,.016]} c={shirt} round={.009}/>
  <Rod from={[0,.55,0]} to={[0,.76,0]} radius={.085} c={skin}/>
  {[-1,1].map(sign=><Box key={sign} p={[sign*.10,.565,.10]} s={[.15,.055,.17]} r={[0,0,sign*.30]} c="#b8bcb0" round={.012}/>)}
- <group position={[0,.90,0]} rotation={[0,headTurn,0]}>
+ <group position={[0,.90,0]} rotation={[headPitch,headTurn,0]}>
   <Ball p={[0,0,0]} s={[.163,.22,.157]} c={skin}/>
   <Ball p={[0,.14,-.033]} s={[.168,.10,.143]} c="#45453c"/>
   <Ball p={[0,-.002,.158]} s={[.032,.042,.042]} c={skin}/>
@@ -442,7 +432,8 @@ const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:str
   const hip=hipPoint(sign*.145,-.84,0),ankle=footPoint(sign*.20,-1.90,.035);
   const axis=new THREE.Vector3(...ankle).sub(new THREE.Vector3(...hip)),distance=axis.length();axis.normalize();
   const bend=new THREE.Vector3(Math.sin(stanceYaw),.05,Math.cos(stanceYaw)).addScaledVector(axis,-new THREE.Vector3(Math.sin(stanceYaw),.05,Math.cos(stanceYaw)).dot(axis)).normalize();
-  const knee=new THREE.Vector3(...hip).addScaledVector(axis,distance*.51).addScaledVector(bend,Math.sqrt(Math.max(.008,.59*.59-(distance*.51)**2))).toArray() as V3;
+  const along=(.55*.55-.53*.53+distance*distance)/(2*distance);
+  const knee=new THREE.Vector3(...hip).addScaledVector(axis,along).addScaledVector(bend,Math.sqrt(Math.max(0,.55*.55-along*along))).toArray() as V3;
   return <group key={sign}>
    <HandBone from={hip} to={knee} r0={.142} r1={.108} color="#404c50"/>
    <Ball p={knee} s={[.109,.116,.106]} c="#404c50"/>
@@ -453,79 +444,64 @@ const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:str
  })}
  </>;
 };
-const encounterElbow=(shoulder:V3,wrist:V3,bend:number):V3=>{
- const root=new THREE.Vector3(...shoulder),end=new THREE.Vector3(...wrist),axis=end.clone().sub(root),distance=axis.length();
+// All encounter arms use these anatomical lengths; unreachable choreography fails explicitly.
+const encounterElbow=(shoulder:V3,wrist:V3,pole:V3):V3=>{
+ const root=new THREE.Vector3(...shoulder),axis=new THREE.Vector3(...wrist).sub(root),distance=axis.length();
+ const upper=.62,lower=.58;
+ if(distance>upper+lower-.005||distance<Math.abs(upper-lower)+.005)throw new Error('Encounter wrist exceeds fixed arm reach');
  axis.normalize();
- const upper=.72,lower=.74,along=(upper*upper-lower*lower+distance*distance)/(2*Math.max(.001,distance));
- const height=Math.sqrt(Math.max(.025,upper*upper-along*along));
- const bendAxis=new THREE.Vector3(.10,-1,.45+bend).addScaledVector(axis,-new THREE.Vector3(.10,-1,.45+bend).dot(axis)).normalize();
- return root.addScaledVector(axis,along).addScaledVector(bendAxis,height).toArray() as V3;
+ const along=(upper*upper-lower*lower+distance*distance)/(2*distance);
+ const height=Math.sqrt(Math.max(0,upper*upper-along*along));
+ const bend=new THREE.Vector3(...pole).addScaledVector(axis,-new THREE.Vector3(...pole).dot(axis)).normalize();
+ return root.addScaledVector(axis,along).addScaledVector(bend,height).toArray() as V3;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  const smooth=(value:number)=>{const t=Math.max(0,Math.min(1,value));return t*t*t*(10-15*t+6*t*t);};
- const clearWindow=.34*smooth(b/.30);
- const boardScale=.82;
- const boardPos:V3=[0,.38+.20*a+.035*Math.sin(a*Math.PI)-clearWindow,mix(.97,.92,a)];
- const boardTilt=mix(.80,1.15,a);
+ const unit=(v:V3):V3=>new THREE.Vector3(...v).normalize().toArray() as V3;
+ const blend=(p:V3,q:V3,t:number):V3=>p.map((v,i)=>mix(v,q[i],t)) as V3;
+ const pickup=smooth(c/.35),present=smooth((c-.35)/.65),receive=smooth(d/.45),pull=smooth((d-.45)/.55),release=smooth((d-.68)/.32);
+ const examine=smooth((b-.12)/.82)*(1-pickup),anticipate=smooth((b-.04)/.86)*(1-pickup);
+ const boardScale=.55,boardTilt=.75+.25*a-.22*smooth(b);
+ const boardPos:V3=[-.21,.20+.24*a-.18*smooth(b),1.10-.035*smooth(b)];
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x*boardScale,boardPos[1]+(y*Math.cos(boardTilt)-z*Math.sin(boardTilt))*boardScale,boardPos[2]+(y*Math.sin(boardTilt)+z*Math.cos(boardTilt))*boardScale];
  const photoPos=world(.355,.028,-.10),restNotice=world(-.40,.035,.08);
- const pickup=smooth(c/.32),present=smooth((c-.32)/.68),receive=smooth(d/.45),pull=smooth((d-.45)/.55),release=smooth((d-.62)/.38);
- const noticePos:V3=[mix(restNotice[0],-.02,present)+.30*pull,mix(restNotice[1],.48,present)+.055*Math.sin(present*Math.PI)-.035*pull,mix(restNotice[2],1.0,present)+.08*pull];
- const noticeTilt=mix(boardTilt,1.10,present)+.06*pull;
- const photoMarker=world(.355-1.095*.27,.045,-.10-.202*.27+.14*smooth(b/.30));
- const windowPoint:V3=[-.817,.885,-1.045];
- const compare=smooth((b-.15)/.65),withdraw=smooth((b-.80)/.20);
- // Lift toward the viewer, clear the board top, then reach back to the upper window.
- const control1:V3=[photoMarker[0]-.10,1.15,1.10],control2:V3=[-.76,1.40,-.25];
- const touch:V3=photoMarker.map((v,i)=>(1-compare)**3*v+3*(1-compare)**2*compare*control1[i]+3*(1-compare)*compare**2*control2[i]+compare**3*windowPoint[i]) as V3;
- const finger:V3=[touch[0]+.05*withdraw,touch[1]-.22*withdraw,touch[2]+.26*withdraw];
+ const noticePos=blend(restNotice,[-.02,.35,1.22],present);
+ noticePos[0]+=.18*pull;noticePos[1]+=.025*Math.sin(present*Math.PI)-.015*pull;noticePos[2]+=.02*pull;
+ const noticeTilt=mix(boardTilt,1.08,present)+.035*pull;
+ const noticeNormal:V3=[0,Math.cos(noticeTilt),Math.sin(noticeTilt)];
  const edge:V3=[noticePos[0]-.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
- const returnHigh:V3=[finger[0]-.04,finger[1]-.08,finger[2]+.35],returnFront:V3=[edge[0],.70,1.10];
- const pointing:V3=finger.map((v,i)=>(1-pickup)**3*v+3*(1-pickup)**2*pickup*returnHigh[i]+3*(1-pickup)*pickup**2*returnFront[i]+pickup**3*edge[i]) as V3;
- const officerContact:V3=[pointing[0]-.30*release,pointing[1]-.15*release,pointing[2]+.10*release];
  const ownerEdge:V3=[noticePos[0]+.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
- const ownerContact:V3=[mix(.80,ownerEdge[0],receive),mix(.12,ownerEdge[1],receive)+.10*Math.sin(receive*Math.PI),mix(.55,ownerEdge[2],receive)];
- // Wrist extension follows the reach; a separate forearm bend carries the elbow response.
- const reachBend=Math.sin(compare*Math.PI)*(1-pickup);
- const inspectionApproach:V3=[mix(.35,-.22,compare)-.10*reachBend,mix(.10,-.42,compare)+.08*reachBend,mix(1.10,1.28,compare)];
- const gripTurn=pickup*(1-.25*release);
- const workingApproach:V3=inspectionApproach.map((v,i)=>mix(v,[-1.05,-.18,.20][i],gripTurn)) as V3;
- const windowOrientation=compare*(1-pickup)*(1-.30*withdraw);
- const workingNormal=new THREE.Vector3(0,Math.cos(noticeTilt)*(1-windowOrientation),mix(Math.sin(noticeTilt),1,windowOrientation)).normalize().toArray() as V3;
- const forearmFlex=.65*reachBend+.45*Math.sin(pickup*Math.PI)+.16*Math.sin(present*Math.PI);
- const reach=compare*(1-pickup)*(1-.25*withdraw);
- const officerTorso:V3=[-.90+.065*reach+.055*present,-.025-.055*reach,.78-.15*reach+.055*present];
- const ownerTorso:V3=[.90-.09*receive+.035*pull,-.025-.045*receive,.78+.06*receive];
- const officerYaw=2.72+.30*reach-.50*present,officerLean=.025+.085*reach;
- const ownerYaw=-1.48-.10*receive,ownerLean=.025+.075*receive;
+ const workRest:V3=[-.20,-.40,1.25],ownerRest:V3=[.72,-.32,1.24];
+ const officerContact=blend(workRest,edge,pickup);
+ officerContact[0]-=.10*release;officerContact[1]-=.15*release;officerContact[2]+=.025*release;
+ const ownerContact=blend(ownerRest,ownerEdge,receive);
+ const workingApproach=unit(blend([0,.98,-.12],[-1,-.18,.20],pickup*(1-.30*release)));
+ const receiverApproach=unit(blend([.12,.98,.02],[1,-.18,.20],receive));
+ const officerTorso:V3=[-.75+.035*examine-.025*present,-.006-.014*examine,.75-.035*examine+.015*present];
+ const ownerTorso:V3=[.65-.035*receive+.015*pull,-.006-.012*receive,1+.015*receive];
+ const officerYaw=1.25+examine-.08*present,officerLean=.01+.028*examine;
+ const ownerYaw=-1.65-.08*receive,ownerLean=.012+.025*receive;
  const shoulder=(p:V3,yaw:number,lean:number,x:number):V3=>new THREE.Vector3(x,.48,0).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
- const holdRoot=shoulder(officerTorso,officerYaw,officerLean,-.28);
- const holdShoulder:V3=[holdRoot[0],holdRoot[1],holdRoot[2]+.24];
- const workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28),receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28);
- const heldContact=world(.25,.025,-.455),holdApproach:V3=[-.15,.35,.45],receiverApproach:V3=[1.05,-.18,.20];
- const wrist=(contact:V3,approach:V3)=>contact.map((v,i)=>v+approach[i]*.31) as V3;
- const holdElbow:V3=[-.50,.72+.18*a-clearWindow,1.25];
- const workElbow:V3=[mix(-.64,-1.22,reach)+.05*present,mix(.30,.72,reach)+.30*Math.sin(reach*Math.PI),mix(1.32,-.02,reach)];
- const receiveElbow:V3=[.98+.03*receive,.24+.12*receive,1.20+.04*receive];
- const restingShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,.28);
- const restingContact:V3=[ownerTorso[0]+.12,ownerTorso[1]-.40,ownerTorso[2]+.31];
- const restingApproach:V3=[.08,.85,.04];
- const restingElbow:V3=[restingShoulder[0]+.10,ownerTorso[1]-.02,restingShoulder[2]+.10];
-
-
-
+ const holdShoulder=shoulder(officerTorso,officerYaw,officerLean,-.28),workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28);
+ const receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28),restingShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,.28);
+ const heldContact=world(-.50,.025,.455),holdApproach=unit([-.45,-.75,.30]);
+ const restingContact:V3=[.67,-.75,1.17],restingApproach=unit([.05,.98,.18]);
+ const wrist=(contact:V3,approach:V3):V3=>new THREE.Vector3(...contact).addScaledVector(new THREE.Vector3(...approach).normalize(),.31).toArray() as V3;
+ const holdElbow=encounterElbow(holdShoulder,wrist(heldContact,holdApproach),[-.3,-1,-.3]);
+ const workElbow=encounterElbow(workShoulder,wrist(officerContact,workingApproach),[-.85,-1,.30]);
+ const receiveElbow=encounterElbow(receiveShoulder,wrist(ownerContact,receiverApproach),[0,-.1,1]);
+ const restingElbow=encounterElbow(restingShoulder,wrist(restingContact,restingApproach),[.30,-1,.10]);
+ const windowPoint:V3=[-.75,.95,-.301];
+ const photoLook=Math.atan2(photoPos[0]-officerTorso[0],photoPos[2]-officerTorso[2]);
+ const windowLook=Math.atan2(windowPoint[0]-officerTorso[0],windowPoint[2]-officerTorso[2]);
+ const continuousWindowLook=windowLook<0?windowLook+Math.PI*2:windowLook;
+ const officerHeadTurn=mix(photoLook,continuousWindowLook,anticipate)-officerYaw;
  return <>
- <Box p={[0,-2.1,0]} s={[12,.13,12]} c="#75795f"/>
- {/* A continuous masonry foundation supports the raised house platform down to the lawn. */}
- <Box p={[0,-1.271,-1.75]} s={[3.58,1.528,2.67]} c="#a18d74"/>
- {Array.from({length:8},(_,row)=><group key={row}>
-  <Box p={[0,-1.95+row*.19,-.407]} s={[3.57,.014,.012]} c="#867760"/>
-  {Array.from({length:8},(_,col)=><Box key={col} p={[-1.65+col*.45+(row%2)*.15,-1.865+row*.19,-.407]} s={[.013,.172,.012]} c="#867760"/>)}
- </group>)}
- <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={-.75+.95*reach-.05*present} stance={[-.90,0,.78]} stanceYaw={2.75} shirt="#627b70" skin="#ad7e63"/>
- <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.10-.10*receive} stance={[.90,0,.78]} stanceYaw={-1.48} shirt="#83684f" skin="#b78666"/>
+ <Box p={[0,-2.1,0]} s={[18,.13,16]} c="#75795f"/>
+ <House site scale={2.6} p={[1.72,-1.177,-2.55]}/>
+ <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={officerHeadTurn} headPitch={mix(.38,.04,anticipate)} stance={[-.75,0,.75]} stanceYaw={1.25} shirt="#627b70" skin="#ad7e63"/>
+ <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.08} headPitch={.24} stance={[.65,0,1]} stanceYaw={-1.65} shirt="#83684f" skin="#b78666"/>
  <spotLight position={[2.6,4.3,3.7]} intensity={1.3} angle={.64} penumbra={.65} castShadow shadow-mapSize={[1024,1024]} shadow-bias={-.00015} shadow-normalBias={.018}/>
- <House scale={.86} p={[0,0,-1.75]}/>
  <group position={boardPos} rotation={[boardTilt,0,0]} scale={boardScale}>
   <Box p={[0,-.014,0]} s={[1.61,.045,.92]} c="#765c43" round={.035}/>
   <Box p={[-.40,.028,-.20]} s={[.23,.045,.10]} c="#a6b4a7" metal={.55} round={.012}/>
@@ -533,10 +509,9 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27*boardScale}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38*boardScale}/></group>
  <EncounterHand contact={heldContact} approach={holdApproach} cuff={holdShoulder} elbow={holdElbow} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
- <EncounterHand contact={officerContact} approach={workingApproach} flex={forearmFlex} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)*(1-.85*withdraw)} normal={workingNormal}/>
+ <EncounterHand contact={officerContact} approach={workingApproach} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.65)/.35)*(1-release)} normal={noticeNormal}/>
  <EncounterHand contact={restingContact} approach={restingApproach} cuff={restingShoulder} elbow={restingElbow} skin="#b78666" shirt="#83684f" normal={[0,0,1]} handedness={-1}/>
- <EncounterHand contact={ownerContact} approach={receiverApproach} cuff={receiveShoulder} elbow={receiveElbow} skin="#b78666" shirt="#83684f" closed={smooth((receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
- {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
+ <EncounterHand contact={ownerContact} approach={receiverApproach} cuff={receiveShoulder} elbow={receiveElbow} skin="#b78666" shirt="#83684f" closed={smooth((receive-.65)/.35)} normal={noticeNormal} handedness={-1}/>
  </>;
 };
 const Evidence:React.FC<{a:number;b:number;c?:number;closing?:boolean;settled?:boolean}>=({a,b,c=0,closing=false,settled=false})=>{
@@ -561,10 +536,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const localTime=time-scene.start_s;
- const encounterCamera:{position:V3;target:V3;fov:number}=localTime<1.70?
-  {position:[-2.7,1.4,1.85],target:[-.25,.28,.74],fov:46}:localTime<3.20?
-  {position:[.9,1.6,3.7],target:[-.55,.26,-.25],fov:42}:
-  {position:[3.5,1.4,1.8],target:[0,.32,.80],fov:36};
+ const encounterCamera:{position:V3;target:V3;fov:number}={position:[2.8,1.65,4.1],target:[-.15,.25,.65],fov:39};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
