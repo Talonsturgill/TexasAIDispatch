@@ -1170,6 +1170,15 @@ all precise fixes into one full render. Re-run every product and destination gat
 the next panel. If the three-round plateau rule fires, make the structural reboard it names rather
 than buying another prop pass.
 
+Before another body-performance repair, inspect the exact native frames and identify the
+physical cause. A visible grip can pass phone readability while an overlong arm or miniature
+building still fails the finished passage. Check human-to-building scale, shared ground,
+shoulder-to-elbow-to-wrist lengths, reach limits and continuity across the entire action.
+When the same performance defect recurs, camera changes, contact offsets and extra easing
+alone do not establish a new mechanism. Correct the underlying body or scene model, or
+choose a source-backed action that the renderer can perform convincingly. Record the changed
+physical invariant and verify it before spending another native review.
+
 At a resource boundary, diagnose the rejected exact film and open the bounded repair
 batch described above. Preserve all spend and all quality gates. A changed film requires
 fresh independent judgments on the same finished bytes. Do not disable panels or stop
