@@ -313,21 +313,104 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  })}
  </>;
 };
-// Close interaction hands keep every wrist connected to a forearm leaving the picture.
-const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:string;closed?:number}>=({contact,approach,cuff,skin,shirt,closed=0})=>{
- const point=(distance:number,side=0):V3=>[contact[0]+approach[0]*distance+side,contact[1]+approach[1]*distance,contact[2]+approach[2]*distance];
- const palm=point(.17),wrist=point(.31),knuckle=point(.09);
+// Anatomy follows the existing contact clock; sleeve caps remain beyond the picture.
+const HandBone:React.FC<{from:V3;to:V3;r0:number;r1:number;color:string}>=({from,to,r0,r1,color})=>{
+ const delta=new THREE.Vector3(...to).sub(new THREE.Vector3(...from));
+ const rotation=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),delta.clone().normalize());
+ return <mesh position={from.map((v,i)=>(v+to[i])/2) as V3} quaternion={rotation} castShadow>
+  <cylinderGeometry args={[r1,r0,delta.length(),20,1]}/><meshStandardMaterial color={color} roughness={.68}/>
+ </mesh>;
+};
+const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:string;closed?:number;pointing?:number;normal?:V3;handedness?:number}>=({contact,approach,cuff,skin,shirt,closed=0,pointing=0,normal=[0,0,1],handedness=1})=>{
+ const u=new THREE.Vector3(...approach).normalize(),n=new THREE.Vector3(...normal).normalize();
+ const side=new THREE.Vector3().crossVectors(n,u).normalize().multiplyScalar(handedness);
+ const depth=new THREE.Vector3().crossVectors(u,side).normalize();
+ const local=(distance:number,width=0,out=0):V3=>new THREE.Vector3(...contact).addScaledVector(new THREE.Vector3(...approach),distance).addScaledVector(side,width).addScaledVector(n,out).toArray() as V3;
+ const palm=local(.175),wrist=local(.31);
+ const blend=(p:V3,q:V3,t:number)=>p.map((v,i)=>mix(v,q[i],t)) as V3;
+ const sleeve=useMemo(()=>{
+  const end=new THREE.Vector3(...cuff),begin=new THREE.Vector3(...wrist);
+  const mid=begin.clone().lerp(end,.43).addScaledVector(side,.08);
+  const curve=new THREE.CatmullRomCurve3([begin,mid,end]);
+  const frames=curve.computeFrenetFrames(36,false),positions:number[]=[],indices:number[]=[];
+  for(let j=0;j<=36;j++){
+   const t=j/36,center=curve.getPoint(t);
+   const fold=.008*Math.exp(-(((t-.055)/.025)**2))-.006*Math.exp(-(((t-.105)/.027)**2))+.006*Math.exp(-(((t-.165)/.035)**2));
+   const radius=.078+.065*Math.sin(Math.min(1,t*1.7)*Math.PI/2)+fold;
+   for(let i=0;i<=24;i++){
+    const angle=i/24*Math.PI*2,p=center.clone().addScaledVector(frames.normals[j],Math.cos(angle)*radius).addScaledVector(frames.binormals[j],Math.sin(angle)*radius*.78);
+    positions.push(p.x,p.y,p.z);
+    if(j<36&&i<24){const k=j*25+i;indices.push(k,k+1,k+25,k+1,k+26,k+25);}
+   }
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);g.computeVertexNormals();return g;
+ },[...wrist,...cuff,...side.toArray()]);
+ const palmGeometry=useMemo(()=>{
+  // A tapered metacarpal volume widens at the knuckles and narrows into the wrist.
+  const rings=[{d:.105,w:.073,h:.031},{d:.15,w:.086,h:.043},{d:.205,w:.077,h:.047},{d:.255,w:.056,h:.034},{d:.31,w:.048,h:.029}];
+  const positions:number[]=[],indices:number[]=[];
+  rings.forEach((ring,j)=>{
+   const center=new THREE.Vector3(...local(ring.d));
+   for(let i=0;i<=28;i++){
+    const angle=i/28*Math.PI*2,asymmetry=1+.09*Math.sin(angle);
+    const p=center.clone().addScaledVector(side,Math.cos(angle)*ring.w*asymmetry).addScaledVector(depth,Math.sin(angle)*ring.h);
+    positions.push(p.x,p.y,p.z);
+    if(j<rings.length-1&&i<28){const k=j*29+i;indices.push(k,k+1,k+29,k+1,k+30,k+29);}
+   }
+  });
+  const firstCenter=positions.length/3;positions.push(...local(rings[0].d),...local(rings[rings.length-1].d));
+  for(let i=0;i<28;i++){indices.push(firstCenter,i+1,i);const k=(rings.length-1)*29+i;indices.push(firstCenter+1,k,k+1);}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);g.computeVertexNormals();return g;
+ },[...contact,...approach,...normal,handedness]);
+ const sleeveEdge=new THREE.Color(shirt).multiplyScalar(.82).getStyle();
+ const nailColor=new THREE.Color(skin).lerp(new THREE.Color('#dcc1ac'),.40).getStyle();
+ const nail=(tip:V3,previous:V3,radius:number)=>{
+  const direction=new THREE.Vector3(...tip).sub(new THREE.Vector3(...previous)).normalize();
+  const z=depth.clone().addScaledVector(direction,-depth.dot(direction)).normalize();
+  const x=new THREE.Vector3().crossVectors(direction,z).normalize();
+  const orientation=new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(x,direction,z));
+  const pos=new THREE.Vector3(...tip).lerp(new THREE.Vector3(...previous),.23).addScaledVector(z,radius*.84);
+  return <mesh position={pos} quaternion={orientation} scale={[radius*.66,radius*.89,.003]}><sphereGeometry args={[1,16,10]}/><meshStandardMaterial color={nailColor} roughness={.48}/></mesh>;
+ };
+ const indexBase=local(.112,-.047);
+ const indexPip=blend(local(.058,-.035),local(.035,-.039,.095),closed);
+ const indexDip=blend(local(.024,-.013),local(.002,-.020,.065),closed);
+ const relaxedTip=local(.10,-.045,.027);
+ const indexTip=blend(relaxedTip,contact,Math.max(pointing,closed));
+ const index1=blend(local(.12,-.044,.060),indexPip,Math.max(pointing,closed));
+ const index2=blend(local(.095,-.045,.058),indexDip,Math.max(pointing,closed));
+ const thumbBase=local(.217,-.075),thumbKnuckle=local(.135,-.091,-.018);
+ const thumbOpposed=new THREE.Vector3(...contact).addScaledVector(n,-.052).toArray() as V3;
+ const thumbEnd=blend(local(.095,-.071,.014),thumbOpposed,closed);
+ const thumbMid=blend(local(.12,-.095,.028),local(.035,-.064,-.032),closed);
  return <>
- <Rod from={cuff} to={wrist} radius={.083} c={shirt}/>
- <Rod from={wrist} to={palm} radius={.062} c={skin}/>
- <Ball p={palm} s={[.087,.103,.05]} c={skin}/>
- <Rod from={knuckle} to={contact} radius={.018} c={skin}/>
- <Ball p={contact} s={[.019,.021,.017]} c={skin}/>
- {[0,1,2].map(i=><group key={i}>
-  <Rod from={point(.16,.032+i*.026)} to={point(.085+closed*.027,.032+i*.026)} radius={.017} c={skin}/>
-  <Rod from={point(.085+closed*.027,.032+i*.026)} to={point(.062+closed*.061,.026+i*.024)} radius={.015} c={skin}/>
- </group>)}
- <Rod from={point(.21,-.052)} to={point(.11,-.036)} radius={.026} c={skin}/>
+ <mesh geometry={sleeve} castShadow receiveShadow><meshStandardMaterial color={shirt} roughness={.93}/></mesh>
+ <HandBone from={local(.32)} to={local(.287)} r0={.080} r1={.069} color={sleeveEdge}/>
+ <mesh geometry={palmGeometry} castShadow><meshStandardMaterial color={skin} roughness={.69}/></mesh>
+ <Ball p={local(.19,-.05,.007)} s={[.042,.059,.036]} c={skin}/>
+ <HandBone from={indexBase} to={index1} r0={.024} r1={.020} color={skin}/>
+ <HandBone from={index1} to={index2} r0={.020} r1={.017} color={skin}/>
+ <HandBone from={index2} to={indexTip} r0={.017} r1={.0145} color={skin}/>
+ {[indexBase,index1,index2].map((p,i)=><Ball key={i} p={p} s={[.022-i*.002,.023-i*.002,.021-i*.002]} c={skin}/>)}
+ <Ball p={indexTip} s={[.016,.020,.024]} c={skin}/>{nail(indexTip,index2,.018)}
+ {[0,1,2].map(i=>{
+  const width=-.010+i*.041,length=[1,.92,.76][i],curl=.46+.49*closed;
+  const base=local(.113,width),pip=local(.113-.062*length,width,.062*curl);
+  const dip=local(.112-.058*length+.037*curl,width,.099*curl);
+  const tip=local(.10+.028*curl,width,.040*curl);
+  return <group key={i}>
+   <HandBone from={base} to={pip} r0={.023-i*.002} r1={.019-i*.002} color={skin}/>
+   <HandBone from={pip} to={dip} r0={.019-i*.002} r1={.016-i*.0015} color={skin}/>
+   <HandBone from={dip} to={tip} r0={.016-i*.0015} r1={.014-i*.001} color={skin}/>
+   {[base,pip,dip].map((p,j)=><Ball key={j} p={p} s={[.021-i*.002,.021-i*.002,.020-i*.002]} c={skin}/>)}
+   <Ball p={tip} s={[.015-i*.001,.018-i*.001,.016-i*.001]} c={skin}/>{nail(tip,dip,.017-i*.0015)}
+  </group>;
+ })}
+ <HandBone from={thumbBase} to={thumbKnuckle} r0={.034} r1={.027} color={skin}/>
+ <HandBone from={thumbKnuckle} to={thumbMid} r0={.027} r1={.022} color={skin}/>
+ <HandBone from={thumbMid} to={thumbEnd} r0={.022} r1={.018} color={skin}/>
+ <Ball p={thumbKnuckle} s={[.028,.029,.027]} c={skin}/><Ball p={thumbMid} s={[.023,.024,.022]} c={skin}/>
+ <Ball p={thumbEnd} s={[.022,.023,.019]} c={skin}/>{nail(thumbEnd,thumbMid,.022)}
  </>;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
@@ -360,9 +443,9 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  </group>
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38}/></group>
- <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,0,4.0]} skin="#ad7e63" shirt="#627b70" closed={1}/>
- <EncounterHand contact={officerContact} approach={[.35,-.9,1.10]} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={pickup*(1-release)}/>
- <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={receive}/>
+ <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,0,4.0]} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
+ <EncounterHand contact={officerContact} approach={[.35,-.9,1.10]} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={Math.max(0,(pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]}/>
+ <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={Math.max(0,(receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
