@@ -291,7 +291,7 @@ def render(board: Path, film: Path, state: Path) -> None:
         caption_args.append("--early-muted-animatic")
     caption_fit = subprocess.run(caption_args, cwd=ENGINE)
     if caption_fit.returncode:
-        raise RuntimeError("an exact board caption overflows the phone band; no animatic was spent")
+        raise RuntimeError("exact board captions or credits overflow the readable phone area; no animatic was spent")
     accepted, message = reserve(state, {"preflight_renders": 1}, "quarter-scale animatic")
     print(message, file=sys.stdout if accepted else sys.stderr)
     if not accepted:
