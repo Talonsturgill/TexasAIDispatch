@@ -209,10 +209,10 @@ const Paper:React.FC<{p:V3;r?:V3;roof?:boolean;house?:boolean;scale?:number}>=({
  </>:Array.from({length:6},(_,i)=><Box key={i} p={[-.08,.014,-.29+i*.11]} s={[i===5?.62:.84,.003,.017]} c="#7a8880"/>)}
  <Box p={[-.26,.013,.57]} s={[.46,.003,.035]} c={copper}/>
 </group>;
-const Table:React.FC<{home?:boolean}>=({home=false})=><>
- <Box p={[0,-.11,0]} s={[5,.19,4]} c={home?'#857357':'#586c6a'} round={.055}/>
- {Array.from({length:6},(_,i)=><Box key={i} p={[-2.25+i*.85,-.011,0]} s={[.016,.003,3.90]} c={home?'#665c47':'#607772'}/>)}
- {home?<><Box p={[-1.98,.82,-2.0]} s={[1.90,2.1,.12]} c="#c8bda1"/><Box p={[2.51,.82,-2.0]} s={[.95,2.1,.12]} c="#c8bda1"/><Box p={[.54,-.01,-2.0]} s={[3.4,.38,.12]} c="#c8bda1"/><Box p={[.54,1.82,-2.0]} s={[3.4,.26,.12]} c="#c8bda1"/><House flat scale={.73} p={[.45,.12,-3.3]}/></>:<Box p={[0,.82,-2.0]} s={[6,2.1,.12]} c="#8caaa4"/>}
+const Table:React.FC<{home?:boolean;rightExtension?:number}>=({home=false,rightExtension=0})=><>
+ <Box p={[rightExtension/2,-.11,0]} s={[5+rightExtension,.19,4]} c={home?'#857357':'#586c6a'} round={.055}/>
+ {Array.from({length:6+Math.floor(rightExtension/.65)},(_,i)=><Box key={i} p={[-2.25+i*.85,-.011,0]} s={[.016,.003,3.90]} c={home?'#665c47':'#607772'}/>)}
+ {home?<><Box p={[-1.98,.82,-2.0]} s={[1.90,2.1,.12]} c="#c8bda1"/><Box p={[2.51,.82,-2.0]} s={[.95,2.1,.12]} c="#c8bda1"/><Box p={[.54,-.01,-2.0]} s={[3.4,.38,.12]} c="#c8bda1"/><Box p={[.54,1.82,-2.0]} s={[3.4,.26,.12]} c="#c8bda1"/><House flat scale={.73} p={[.45,.12,-3.3]}/></>:<Box p={[rightExtension/2,.82,-2.0]} s={[6+rightExtension,2.1,.12]} c="#8caaa4"/>}
  {home&&<group position={[.74,1.02,-1.88]}>
   {[-.86,.86].map(x=><Box key={x} p={[x,0,0]} s={[.075,1.32,.08]} c={cream}/>)}
   <Box p={[0,-.24,.055]} s={[1.53,.055,.015]} c="#c1c5b3" metal={.4}/>
@@ -250,7 +250,7 @@ const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
  </>;
 };
 const NoticeQueue:React.FC<{a:number;b:number}>=({a,b})=><>
- <Table/>
+ <Table rightExtension={1.3}/>
  {[0,1,2,3,4,5].map(i=><Paper key={i} p={[i%2*.035,.012+i*.020,-.20]} scale={1.35}/>)}
  <group position={[mix(-1.8,0,a),mix(.64,.14,a),-.20]}>
   {[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}
@@ -273,13 +273,13 @@ const CourtesyRequest:React.FC<{place:number;press:number;withdraw:number}>=({pl
  const across=Math.min(1,place/.62),down=Math.max(0,(place-.62)/.38);
  const tilt=mix(.10,0,down),y=mix(.28+.075*Math.cos(.10),.00265,down);
  return <>
-  <Table/>
+  <Table rightExtension={1.3}/>
   {[0,1,2,3,4,5].map(i=><Paper key={i} p={[i%2*.035,.012+i*.020,-.20]} scale={1.35}/>)}
   <group position={[0,.14,-.20]}>{[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}</group>
   <group position={[mix(0,1.65,across),y,.65+.075*Math.sin(.10)*(1-down)]} rotation={[tilt,0,0]}>
    <Box p={[0,0,0]} s={[1.6065,.0243,2.079]} c={cream} round={.01215}/>
    <group scale={1.35}><CourtesyRequestPrint/></group>
-   <Hand p={[.65-.10*press+withdraw*.56,.045+.020*place-.01125*press+withdraw*.0021+.06*Math.sin(Math.PI*withdraw),.10+.45*press+withdraw*.15]} r={[0,Math.PI/2,0]} scale={.8}/>
+   <Hand p={[.65-.10*press+withdraw*.56,.045+.020*place-.01125*press-withdraw*.0034+.06*Math.sin(Math.PI*withdraw),.10+.45*press+withdraw*.15]} r={[0,Math.PI/2,0]} scale={.8}/>
   </group>
  </>;
 };
