@@ -527,6 +527,10 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const officerFootYaws=[0,1].map(i=>mix(c>0?2.30:3.62,c>0?1.25:2.30,smooth((c>0?c:a)*2-i))) as [number,number];
 
  const inspectionEnvelope=smooth(b/.26)*(1-smooth((b-.78)/.22));
+ const ownerOffset:V3=[.65*(1-c),0,-.65*(1-c)];
+ const ownerCarry=(p:V3):V3=>p.map((v,i)=>v+ownerOffset[i]) as V3;
+ const ownerFeet=steppingFeet([1.30,0,.35],[.65,0,1],c,-.785,-1.65);
+ const ownerFootYaws=[0,1].map(i=>mix(-.785,-1.65,smooth(c*2-i))) as [number,number];
  const boardScale=.55,boardTilt=.75+.25*a-.10*b-.05*c-.20*inspectionEnvelope;
  const boardPos=carried([-.21-.10*inspectionEnvelope,.20+.22*a+.10*b-.16*c-.30*inspectionEnvelope,1.10-.035*b]);
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x*boardScale,boardPos[1]+(y*Math.cos(boardTilt)-z*Math.sin(boardTilt))*boardScale,boardPos[2]+(y*Math.sin(boardTilt)+z*Math.cos(boardTilt))*boardScale];
@@ -537,7 +541,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const noticeNormal:V3=[0,Math.cos(noticeTilt),Math.sin(noticeTilt)];
  const edge:V3=[noticePos[0]-.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
  const ownerEdge:V3=[noticePos[0]+.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
- const workRest=carried([-.20,-.40,1.25]),ownerRest:V3=[.72,-.32,1.24];
+ const workRest=carried([-.20,-.40,1.25]),ownerRest=ownerCarry([.72,-.32,1.24]);
  const reach=smooth(b/(1/3)),check=smooth((b-1/3)/(.72-1/3)),withdraw=smooth((b-.72)/.28);
  const inspectionContact:V3=[-1.40,.83-.38*check,-.313];
  const reachCorner:V3=[-.98,.04,.90];
@@ -551,14 +555,14 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const workingApproach=unit(blend(workBase,[-1,-.18,.20],pickup*(1-.30*release)));
  const receiverApproach=unit(blend([.12,.98,.02],[1,-.18,.20],receive));
  const officerTorso=carried([-.75+.035*examine-.025*present,-.020-.050*examine-strideDip,.75-.035*examine+.015*present]);
- const ownerTorso:V3=[.65-.035*receive+.015*pull,-.006-.012*receive,1+.015*receive];
- const officerYaw=2.70-1.05*a+.85*examine-.30*present,officerLean=.025+.035*Math.sin(Math.PI*a)+.04*examine;
+ const ownerTorso=ownerCarry([.65-.035*receive+.015*pull,-.025-.012*receive-.12*Math.sin(Math.PI*c)**2,1+.015*receive]);
+ const officerYaw=2.70-1.05*a+2.10*examine-.30*present,officerLean=.025+.035*Math.sin(Math.PI*a)+.04*examine;
  const ownerYaw=-1.65-.08*receive,ownerLean=.012+.025*receive;
  const shoulder=(p:V3,yaw:number,lean:number,x:number):V3=>new THREE.Vector3(x,.48,0).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
  const holdShoulder=shoulder(officerTorso,officerYaw,officerLean,-.28),workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28);
  const receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28),restingShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,.28);
  const heldContact=world(-.50,.025,.455),holdApproach=unit([-.45,-.75,.30]);
- const restingContact:V3=[.67,-.75,1.17],restingApproach=unit([.05,.98,.18]);
+ const restingContact=ownerCarry([.67,-.75,1.17]),restingApproach=unit([.05,.98,.18]);
  const wrist=(contact:V3,approach:V3):V3=>new THREE.Vector3(...contact).addScaledVector(new THREE.Vector3(...approach).normalize(),.31).toArray() as V3;
  const holdElbow=encounterElbow(holdShoulder,wrist(heldContact,holdApproach),[-.3,-1,-.3]);
  const workElbow=encounterElbow(workShoulder,wrist(officerContact,workingApproach),[-.85,-1,.30]);
@@ -574,7 +578,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <Box p={[0,-2.1,0]} s={[18,.13,16]} c="#75795f"/>
  <House site scale={2.6} p={[1.72,-1.177,-2.55]}/>
  <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={officerHeadTurn} headPitch={mix(mix(.06,.32,a),.04,anticipate)} feet={officerFeet} footYaws={officerFootYaws} stance={[-.75,0,.75]} stanceYaw={1.25} shirt="#627b70" skin="#ad7e63"/>
- <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.08} headPitch={.24} stance={[.65,0,1]} stanceYaw={-1.65} shirt="#83684f" skin="#b78666"/>
+ <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.08} headPitch={.24} feet={ownerFeet} footYaws={ownerFootYaws} stance={[.65,0,1]} stanceYaw={-1.65} shirt="#83684f" skin="#b78666"/>
  <spotLight position={[2.6,4.3,3.7]} intensity={1.3} angle={.64} penumbra={.65} castShadow shadow-mapSize={[1024,1024]} shadow-bias={-.00015} shadow-normalBias={.018}/>
  <group position={boardPos} rotation={[boardTilt,0,0]} scale={boardScale}>
   <Box p={[0,-.014,0]} s={[1.61,.045,.92]} c="#765c43" round={.035}/>
@@ -610,7 +614,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const localTime=time-scene.start_s;
- const encounterCamera:{position:V3;target:V3;fov:number}={position:[4.5,1.7,2.8],target:[-.15,.25,.65],fov:39};
+ const encounterCamera:{position:V3;target:V3;fov:number}={position:[-5,1.9,4.2],target:[-.3,.3,.55],fov:50};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
