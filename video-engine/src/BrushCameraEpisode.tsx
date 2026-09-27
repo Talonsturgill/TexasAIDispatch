@@ -649,6 +649,7 @@ const Evidence:React.FC<{a:number;b:number;c?:number;closing?:boolean;settled?:b
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
+ const cleanupProgress=(actionId:string)=>actionProgress(requireAction(windows,actionId),time);
  const localTime=time-scene.start_s;
  const encounterCamera:{position:V3;target:V3;fov:number}={position:[-5,1.9,4.2],target:[-.3,.3,.55],fov:50};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
@@ -657,9 +658,8 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[.28,5.2,5.3],target:[.18,-.18,-.05],fov:38}:
- id==='s7'?{position:[0,1.85,3.3],target:[0,-.44,1.02],fov:40}:
+ (id==='s7'||id==='s8')?{position:[0,1.85,3.3],target:[0,-.44,1.02],fov:40}:
  id==='s9'?encounterCamera:
- id==='s8'?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
@@ -670,8 +670,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
  {id==='s6'&&<RoofComparison a={a} b={b} c={c}/>}
- {id==='s7'&&<Cleanup a={a} b={b} c={c} d={d}/>}
- {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
+ {(id==='s7'||id==='s8')&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s8-pile-gathered')}/>}
  {id==='s9'&&<SiteInspection a={a} b={(b*.60+progress(4)*1.20)/1.80} c={c} d={d}/>}
  </CinematicStage>;
 };
