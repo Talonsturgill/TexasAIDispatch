@@ -26,6 +26,10 @@ that something will become interesting later is not a hook.
 **Picture-led.** Follow the action with the narration and labels covered. If the story
 only works with narration, it is a podcast with pictures and it fails here.
 
+**Input is not processing proof.** If narration describes scanning, analyzing, selecting or another transformation, a captured input image alone does not prove that action. The current phone film must show the transformation and a completed visible consequence in the same objects. Captions may explain scope; they cannot supply a missing action. A retained still can be valid evidence, but an unchanged inset is not an analysis beat. Compare the native rejection interval with the new phone pixels before approving the same mechanism again.
+
+**Judge the dominant picture, not peripheral motion.** A small moving sliver behind a large static inset does not repair the inset's pacing. Inspect the actual native hero at phone size and native crop scale: recognizable silhouettes at 270 pixels can conceal unfinished surfaces, faceted props and missing contact shadows. Compare all unresolved native defects together before the next render; do not approve a label, outline or tiny prop change as a complete repair. If the same dominant layout has failed twice, require a changed composition or action mechanism before another native attempt.
+
 **Sentence-to-pixel proof.** Ignore `on_screen`, `what_moves` and `hero` on the first pass. For
 each VO line, inspect `visual_proof.must_show`, resolve every `item_id` into `planes[].items`, and
 ask whether those actual components and props make the sentence literal. A generic pickup under a
@@ -78,6 +82,15 @@ moves it, where it lands, and what changes afterward. Reject disconnected hands,
 unmotivated disappearance, or an idle figure held through the opening. If the medium cannot
 perform the action credibly, redesign the shot before granting a code-plan pass.
 
+Follow the complete visible shoulder, upper arm, elbow, forearm and hand through the action. Clear contact-point rays do not prove that the limb avoids the prop: an opaque clipboard can hide an intersecting upper arm and leave a detached-looking forearm. Check the full occupied volumes and then the actual phone pixels. Actor orientation must support the action: an inspector examining a house must visibly attend to the house or its image, rather than face the audience while pointing behind the body. Grounded weight shifts need planted feet and articulated hips or knees; rotating an entire rigid figure is not a performed stance change.
+
+Check physical scale before contact detail: compare the person's height with the door, window,
+tools and carried object, and verify a shared ground. Sample upper-arm and forearm lengths
+through the complete performance. Arbitrary curved tubes, stretched reach and silent target
+clamping can preserve contact while breaking believable motion. A supported prop or clear
+silhouette alone cannot clear those defects. Inspect actual native surface and motion quality
+after the phone pass; keep those two review scopes explicit.
+
 **Review the occupied picture space.** Check the principal subject at the beginning, contact,
 and result of each event against the actual shared caption band and title overlays. Inspect
 phone frames at all three moments, not only a representative contact-sheet frame. A moving
@@ -93,3 +106,8 @@ props, floating transfers, rigid cleanup gestures, and an ending that repeats se
 Do not infer a resolved human outcome when the sources leave it unknown. Judge the
 source-backed limit as an image with a visible consequence. A code-plan pass cannot
 populate these observations; only the current rendered phone film can.
+
+
+## Shared quality standard
+
+Read knowledge/craft/QUALITY_CONTRACT.md and config/quality_contract.json. Use these same observable criteria across planning, exact phone review and final judgment. Record actual defects with their times and effect on the viewer. A weakest interval or optional preference alone does not override the rubric; all mandatory quality and audiovisual gates remain.
