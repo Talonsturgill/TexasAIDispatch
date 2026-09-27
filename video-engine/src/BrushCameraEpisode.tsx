@@ -237,28 +237,88 @@ const ReviewArrival:React.FC<{a:number;b:number}>=({a,b})=><>
  <group position={[mix(2.75,0,a),.008,-.20]}>
   <CapturedPrint marked={Math.max(0,(b-.50)*2)}/>
   {b>0&&b<.55&&<Box p={[mix(-1.39,1.39,Math.min(1,b*2)),.045,0]} s={[.035,.012,1.89]} c="#b3e4ce"/>}
-  <Hand p={[-1.25-b*2.5,.079,.12+b*.20]} r={[0,-Math.PI/2,0]} scale={.78}/>
  </group>
  <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
 </>;
+// A complete seated figure receives and examines the conserved image.
 const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
+ const skin='#ad7e63',shirt='#627b70',photoScale=.46;
+ const photoPosition:V3=[0,.028+b*.62,-.03-b*.035],photoTilt=b*.40-c*.28;
+ const photoMatrix=new THREE.Matrix4().compose(new THREE.Vector3(...photoPosition),
+  new THREE.Quaternion().setFromEuler(new THREE.Euler(photoTilt,0,0)),new THREE.Vector3(photoScale,photoScale,photoScale));
+ const photoPoint=(p:V3):V3=>new THREE.Vector3(...p).applyMatrix4(photoMatrix).toArray() as V3;
+ const wrists=[-1,1].map(side=>{
+  const grip=photoPoint([side*1.67,.01,.20]);
+  return [mix(side*.78,grip[0],a),mix(.10,grip[1]+.018,a),mix(-.30,grip[2],a)] as V3;
+ });
+ const elbow=(shoulder:V3,wrist:V3,side:number):V3=>{
+  const start=new THREE.Vector3(...shoulder),delta=new THREE.Vector3(...wrist).sub(start);
+  const distance=delta.length(),axis=delta.clone().normalize(),upper=.64,forearm=.60;
+  const along=(upper*upper-forearm*forearm+distance*distance)/(2*distance);
+  const height=Math.sqrt(Math.max(0,upper*upper-along*along));
+  const preference=new THREE.Vector3(side,-.6,0);
+  const bend=preference.clone().addScaledVector(axis,-preference.dot(axis)).normalize();
+  return start.addScaledVector(axis,along).addScaledVector(bend,height).toArray() as V3;
+ };
+ const shoulders:V3[]=[[-.36,.76,-.85],[.36,.76,-.85]];
  return <>
- <Table/>
- <group position={[0,.008+c*.30,-.20]} rotation={[c*.18,0,0]}>
-  <CapturedPrint/>
-  <Hand p={[mix(-2.30,-1.57,a),.079,mix(-.37,.06,b)]} r={[0,-Math.PI/2,0]} scale={.78}/>
+ <Box p={[0,-1.61,0]} s={[8,.12,7]} c='#687568'/>
+ <Box p={[0,-.075,.13]} s={[2.48,.13,1.58]} c='#586c6a' round={.04}/>
+ <Box p={[0,.005,-.03]} s={[1.15,.030,.73]} c='#71847b' round={.01}/>
+ {[-1,1].map(side=><React.Fragment key={'desk'+side}>
+  <Box p={[side*1.10,-.84,.74]} s={[.085,1.48,.085]} c='#334f57' round={.02}/>
+  <Box p={[side*1.10,-.84,-.54]} s={[.085,1.48,.085]} c='#334f57' round={.02}/>
+ </React.Fragment>)}
+ <Box p={[0,-.65,-.92]} s={[.95,.12,.86]} c='#344c50' round={.07}/>
+ <Box p={[0,.01,-1.27]} s={[.95,1.25,.13]} c='#344c50' round={.07}/>
+ {[-1,1].map(side=><React.Fragment key={'chair'+side}>
+  <Rod from={[side*.36,-.67,-1.17]} to={[side*.42,-1.54,-1.27]} radius={.044} c='#293e42'/>
+  <Rod from={[side*.36,-.67,-.62]} to={[side*.43,-1.54,-.51]} radius={.044} c='#293e42'/>
+  <Rod from={[side*.22,-.53,-.91]} to={[side*.24,-.64,-.22]} radius={.14} c='#3e4c52'/>
+  <Ball p={[side*.24,-.64,-.22]} s={[.14,.14,.14]} c='#3e4c52'/>
+  <Rod from={[side*.24,-.64,-.22]} to={[side*.27,-1.40,-.13]} radius={.105} c='#3e4c52'/>
+  <Box p={[side*.27,-1.48,.015]} s={[.26,.15,.45]} c='#303835' round={.05}/>
+ </React.Fragment>)}
+ <Box p={[0,-.46,-.88]} s={[.67,.30,.44]} c='#3e4c52' round={.12}/>
+ <Box p={[0,.22,-.89]} s={[.74,1.13,.40]} c={shirt} round={.13}/>
+ <Box p={[-.18,.47,-.679]} s={[.18,.19,.016]} c='#587265' round={.012}/>
+ <Rod from={[0,.77,-.89]} to={[0,.96,-.88]} radius={.10} c={skin}/>
+ <group position={[0,1.15,-.86]} rotation={[.28+.14*a+.15*c,0,0]}>
+  <Ball p={[0,0,0]} s={[.22,.29,.215]} c={skin}/>
+  <Ball p={[0,.19,-.045]} s={[.222,.125,.20]} c='#403f36'/>
+  <Ball p={[0,-.025,.215]} s={[.038,.061,.046]} c={skin}/>
+  {[-1,1].map(side=><React.Fragment key={'face'+side}>
+   <Ball p={[side*.22,-.005,0]} s={[.029,.057,.035]} c={skin}/>
+   <Ball p={[side*.078,.045,.199]} s={[.026,.018,.015]} c='#303c38'/>
+   <Box p={[side*.078,.083,.196]} s={[.075,.012,.015]} c='#524b3d' round={.004}/>
+  </React.Fragment>)}
+  <Box p={[0,-.108,.194]} s={[.10,.011,.012]} c='#765945' round={.004}/>
  </group>
- <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
+ {[-1,1].map((side,i)=>{
+  const wrist=wrists[i],bend=elbow(shoulders[i],wrist,side);
+  return <group key={'arm'+side}>
+   <Ball p={shoulders[i]} s={[.15,.15,.15]} c={shirt}/>
+   <Rod from={shoulders[i]} to={bend} radius={.12} c={shirt}/>
+   <Ball p={bend} s={[.122,.122,.122]} c={shirt}/>
+   <HandBone from={bend} to={wrist} r0={.087} r1={.052} color={shirt}/>
+   <Ball p={wrist} s={[.092,.058,.10]} c={skin}/>
+   <group position={wrist} rotation={[photoTilt,0,0]}>
+    <Ball p={[-side*.054,.028,-.015]} s={[.057,.034,.082]} c={skin}/>
+    <Ball p={[-side*.075,.027,-.034]} s={[.060,.023,.033]} c='#bc8b6b'/>
+    {[0,1,2].map(j=><Ball key={j} p={[-side*.058,-.020,-.047+j*.044]} s={[.062,.022,.019]} c={skin}/>)}
+   </group>
+  </group>;
+ })}
+ <group position={photoPosition} rotation={[photoTilt,0,0]} scale={photoScale}><CapturedPrint/></group>
  </>;
 };
 const NoticeQueue:React.FC<{a:number;b:number}>=({a,b})=><>
  <Table rightExtension={1.3}/>
  {[0,1,2,3,4,5].map(i=><Paper key={i} p={[i%2*.035,.012+i*.020,-.20]} scale={1.35}/>)}
- <group position={[mix(-1.8,0,a),mix(.64,.14,a),-.20]}>
+ <group position={[0,mix(.64,.14,a),-.20]}>
   {[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}
-  <group position={[0,b*.14,b*.85]} rotation={[b*.10,0,0]}>
+  <group position={[0,0,b*.26]}>
    <Paper p={[0,.075,0]} scale={1.35}/>
-   <Hand p={[.65,.12,.10]} r={[0,Math.PI/2,0]} scale={.8}/>
   </group>
  </group>
 </>;
@@ -728,7 +788,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
- id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
+ id==='s4'?{position:[-3.5,3.1,6.4],target:[.06,.13,-.45],fov:37}:
 
  id==='s7'?(localTime<4.66?{position:[0,mix(2.09,1.85,coverage),3.3],target:[0,-.44,1.02],fov:40}:{position:[mix(.45,.42,closingCoverage),mix(1.22,1.16,closingCoverage),mix(3.30,3.22,closingCoverage)],target:[-.06,-.46,1.15],fov:45}):
  id==='s9'?encounterCamera:
@@ -785,7 +845,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
   </div>
  </div>}
  {scene.id==='s7'&&editorialExcerpt&&<>
-  <div style={{position:'absolute',left:70,top:330,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>SARRAH MORRISON / NBC INTERVIEW</div>
+  <div style={{position:'absolute',left:70,top:330,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>{localTime<6.7?'SARRAH MORRISON / NBC INTERVIEW':'HER CONCERN OVER COSTS'}</div>
   <div style={{position:'absolute',left:70,top:1240,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>CASE OUTCOME UNREPORTED</div>
  </>}
  {scene.id==='s7'&&!editorialExcerpt&&<div style={{position:'absolute',left:70,top:1180,fontFamily:FONT.mono,fontSize:24,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
