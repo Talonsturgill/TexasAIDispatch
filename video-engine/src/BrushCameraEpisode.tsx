@@ -416,7 +416,7 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
 };
 const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number}>=({p,yaw,lean,shirt,skin,headTurn})=><group position={p} rotation={[lean,yaw,0]}>
  {/* The coat and waist continue below the close frame; shoulders support both arm roots. */}
- <Box p={[0,-.46,0]} s={[.58,2.12,.38]} c={shirt} round={.12}/>
+ <Box p={[0,-1.45,0]} s={[.58,4.10,.38]} c={shirt} round={.12}/>
  <Box p={[0,.46,0]} s={[.66,.25,.37]} c={shirt} round={.10}/>
  <Box p={[.025,-.13,.201]} s={[.024,1.05,.010]} c="#425b57"/>
  <Box p={[-.13,.23,.206]} s={[.16,.16,.016]} c={shirt} round={.009}/>
@@ -478,10 +478,16 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const holdElbow=encounterElbow(holdShoulder,wrist(heldContact,holdApproach),.05+.12*a);
  const workElbow=encounterElbow(workShoulder,wrist(officerContact,workingApproach),.25*compare-.12*pickup);
  const receiveElbow=encounterElbow(receiveShoulder,wrist(ownerContact,receiverApproach),.15*receive);
+ const restingShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,.28);
+ const restingContact:V3=[ownerTorso[0]+.34,ownerTorso[1]-.37,ownerTorso[2]+.10];
+ const restingApproach:V3=[.08,.85,.04];
+ const restingElbow:V3=[restingShoulder[0]+.08,ownerTorso[1]+.02,restingShoulder[2]+.02];
+
 
 
  return <>
- <Box p={[0,-2.1,0]} s={[9,.13,8]} c="#75795f"/>
+ <Box p={[0,-4.0,0]} s={[9,.13,8]} c="#75795f"/>
+ <Box p={[0,-.59,-3.25]} s={[9,.16,5.90]} c="#75795f"/>
  <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={-.4+.35*compare+.4*pickup} shirt="#627b70" skin="#ad7e63"/>
  <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.35-.25*receive} shirt="#83684f" skin="#b78666"/>
  <spotLight position={[2.6,4.3,3.7]} intensity={1.3} angle={.64} penumbra={.65} castShadow shadow-mapSize={[1024,1024]} shadow-bias={-.00015} shadow-normalBias={.018}/>
@@ -494,6 +500,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38}/></group>
  <EncounterHand contact={heldContact} approach={holdApproach} cuff={holdShoulder} elbow={holdElbow} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
  <EncounterHand contact={officerContact} approach={workingApproach} flex={forearmFlex} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={workingNormal}/>
+ <EncounterHand contact={restingContact} approach={restingApproach} cuff={restingShoulder} elbow={restingElbow} skin="#b78666" shirt="#83684f" normal={[0,0,1]} handedness={-1}/>
  <EncounterHand contact={ownerContact} approach={receiverApproach} cuff={receiveShoulder} elbow={receiveElbow} skin="#b78666" shirt="#83684f" closed={smooth((receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
