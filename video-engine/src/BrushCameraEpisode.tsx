@@ -232,104 +232,112 @@ const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
  <Ball p={[1.25,.15,-.87]} s={[.06,.06,.04]} c="#c8b877"/>
  </>;
 };
-const WaterPath:React.FC<{progress:number;section?:boolean}>=({progress,section=false})=>{
- const points:V3[]=section?
-  [[0,.15,-.65],[0,.15,.28],[0,.16,.62],[0,.12,.96],[0,-.03,1.08],[0,-.42,1.10],[0,-.67,1.24]]:
-  [[0,.045,.70],[0,.045,1.14],[0,.045,1.40],[0,.01,1.56],[0,-.21,1.61],[0,-.58,1.68]];
- const curve=useMemo(()=>new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p))),[section]);
- const geometry=useMemo(()=>new THREE.TubeGeometry(curve,60,.035,8,false),[curve]);
- geometry.setDrawRange(0,Math.floor(Math.min(1,progress)*60)*48);
- return <>{[-.75,0,.75].map(x=><mesh key={x} position={[x,0,0]} geometry={geometry}><meshStandardMaterial color="#4fcde1" roughness={.18} metalness={.15}/></mesh>)}</>;
-};
-const FoldedFlashing:React.FC=()=>{
- const geometry=useMemo(()=>{
-  // A continuous extruded sheet wraps the fixed roof edge; profile matches the closing diagram.
-  const section=new THREE.Shape();
-  const profile=[[-.82,-.065],[-1.55,-.065],[-1.55,-.50],[-1.68,-.64],[-1.655,-.665],[-1.515,-.515],[-1.515,-.10],[-.82,-.10]];
-  profile.forEach(([z,y],i)=>i?section.lineTo(z,y):section.moveTo(z,y));section.closePath();
-  return new THREE.ExtrudeGeometry(section,{depth:5.8,bevelEnabled:true,bevelThickness:.005,bevelSize:.007,bevelSegments:2,steps:1});
- },[]);
- return <mesh position={[-2.9,0,0]} rotation={[0,Math.PI/2,0]} geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#d7ded1" metalness={.6} roughness={.28} side={THREE.DoubleSide}/></mesh>;
-};
-const Flashing:React.FC<{a:number;b:number;c:number;d:number;e:number}>=({a,b,c,d,e})=>{
- const open=a*(1-.5*d), cutWidth=1.30*open, left=.10-cutWidth/2, right=.10+cutWidth/2;
- const capWidth=cutWidth, capLeft=left, capRight=right;
- const compression=Math.max(0,(e-.275/.355)/(.08/.355));
- const depth=1.26, padH=mix(.12,.04,compression), headY=.95-.30*b-.30*c-.355*e;
- const turn=-(b*2+c*2+e*2)*Math.PI*2;
- const thread=useMemo(()=>{
-  const points=Array.from({length:321},(_,i)=>{const q=i/320,angle=q*Math.PI*16;return new THREE.Vector3(Math.cos(angle)*.065,-.045-q*.83,Math.sin(angle)*.065);});
-  return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points),320,.012,8,false);
- },[]);
- const metalBand=(x:number,width:number)=><group position={[x,0,0]} scale={[width/5.8,1,1]}><FoldedFlashing/></group>;
+// Both views are authored explanatory drawings, never the resident's actual records.
+const RoofComparison:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
+ const leftX=mix(-2.8,-.91,a),rightX=mix(2.9,.91,b);
  return <>
- {/* A section plane reveals one attached architectural assembly; no prop floats. */}
- <Box p={[0,-2.05,-1.445]} s={[5.8,3.9,5.11]} c="#9f7c62"/>
- <Box p={[(-2.9+left)/2,-2.05,1.30]} s={[left+2.9,3.9,.40]} c="#98735e"/>
- <Box p={[(right+2.9)/2,-2.05,1.30]} s={[2.9-right,3.9,.40]} c="#98735e"/>
- {cutWidth>0&&<Box p={[(left+right)/2,(-4-depth)/2,1.30]} s={[cutWidth,4-depth,.40]} c="#98735e"/>}
- {Array.from({length:22},(_,row)=>Array.from({length:13},(_,col)=>{
-  const x=-2.78+col*.46+(row%2)*.06,y=-.24-row*.17;
-  const bx0=x-.21,bx1=x+.21,by0=y-.071,by1=y+.071;
-  const color=['#a27b62','#b18d73','#977059'][(row+col)%3];
-  const piece=(key:string,x0:number,x1:number,y0:number,y1:number)=>x1-x0>.0001&&y1-y0>.0001?<Box key={key} p={[(x0+x1)/2,(y0+y1)/2,1.507]} s={[x1-x0,y1-y0,.016]} round={Math.min(.005,(x1-x0)/4,(y1-y0)/4)} c={color}/>:null;
-  return <group key={row+'-'+col}>
-   {piece('left',bx0,Math.min(bx1,left),by0,by1)}
-   {piece('right',Math.max(bx0,right),bx1,by0,by1)}
-   {piece('below',Math.max(bx0,left),Math.min(bx1,right),by0,Math.min(by1,-depth))}
-  </group>;
- }))}
- <Box p={[0,-1.52,1.555]} s={[1.04,.73,.095]} c={cream} round={.015}/>
- <Box p={[0,-1.52,1.61]} s={[.91,.60,.02]} c="#557c86" metal={.3}/>
- <Box p={[0,-1.52,1.633]} s={[.04,.60,.03]} c={cream}/>
- <Box p={[0,-1.56,1.633]} s={[.91,.035,.03]} c={cream}/>
- <Box p={[0,-1.90,1.65]} s={[1.16,.07,.21]} c="#c7b291" round={.012}/>
- <Box p={[0,-.295,-1.445]} s={[5.8,.38,5.11]} c="#b99060"/>
- {[-.15,-.22,-.30,-.38,-.45].map(y=><Box key={y} p={[0,y,1.112]} s={[5.8,.009,.008]} c="#8d6b47"/>)}
- <Box p={[(-2.9+left)/2,-.295,1.30]} s={[left+2.9,.38,.40]} c="#b99060"/>
- <Box p={[(right+2.9)/2,-.295,1.30]} s={[2.9-right,.38,.40]} c="#b99060"/>
- <Box p={[0,-.030,-1.5]} s={[5.8,.05,4.88]} c="#45594c" round={.014}/>
- {[-2.4,-1.6,-.8,0,.8,1.6,2.4].map(x=><Box key={x} p={[x,-.002,-1.5]} s={[.018,.006,4.8]} c="#354a3d"/>)}
- {metalBand((-2.9+capLeft)/2,capLeft+2.9)}
- {metalBand((capRight+2.9)/2,2.9-capRight)}
- {capWidth>0&&<Box p={[.10,-.0825,.97]} s={[capWidth,.035,.30]} c="#d7ded1" metal={.75}/>}
- {/* The cross section exposes the shaft and helical thread at the front cut face. */}
- <mesh position={[.10,-.065+padH/2,1.15]} castShadow><cylinderGeometry args={[.185,.185,padH,48]}/><meshStandardMaterial color="#33483d" roughness={.83}/></mesh>
- <group position={[.10,headY,1.15]} rotation={[0,turn,0]}>
-  <mesh position={[0,-.47,0]} castShadow><cylinderGeometry args={[.043,.043,.90,32]}/><meshStandardMaterial color="#bcc8bd" metalness={.88} roughness={.22}/></mesh>
-  <mesh geometry={thread} castShadow><meshStandardMaterial color="#dbe2d7" metalness={.85} roughness={.24}/></mesh>
-  <mesh castShadow><cylinderGeometry args={[.145,.145,.04,48]}/><meshStandardMaterial color="#d7dfd3" metalness={.87} roughness={.21}/></mesh>
-  <Box p={[0,.023,0]} s={[.22,.004,.035]} c="#334a42"/>
-  <Box p={[0,.024,0]} s={[.035,.004,.22]} c="#334a42"/>
+ <Table/>
+ <group position={[leftX,.027,-.10]} rotation={[0,.04,0]}>
+  <Paper p={[0,0,0]} roof scale={1.38}/>
+  <Hand p={[-.67-b*1.7,.087,.39]} r={[0,-Math.PI/2,0]} scale={.85}/>
  </group>
- {[-1.4,1.4].map(x=><group key={x}><Ball p={[x,-.048,1.15]} s={[.105,.024,.105]} c="#9eafa1"/><Box p={[x,-.020,1.15]} s={[.14,.004,.016]} c="#35483e"/></group>)}
+ <group position={[rightX,.036,-.08]} rotation={[0,-.035,0]}>
+  <Box p={[0,0,0]} s={[1.63,.023,2.08]} c={cream} round={.016}/>
+  <Box p={[-.37,.02,-.77]} s={[.53,.008,.09]} c={ink}/>
+  {/* Enlarged bent sheet and masonry repeat the same profile in RoofDiagram. */}
+  <Box p={[-.07,.025,.12]} s={[1.25,.012,.79]} c="#a78262"/>
+  {[-.12,.10,.32].map(z=><Box key={z} p={[-.07,.034,z]} s={[1.24,.005,.018]} c="#c2a383"/>)}
+  <Box p={[-.18,.05,-.05]} s={[1.16,.015,.12]} c="#dce5d5"/>
+  <Box p={[.35,.051,.13]} s={[.12,.017,.46]} c="#dce5d5"/>
+  <Box p={[.43,.051,.40]} s={[.13,.017,.28]} r={[0,-.65,0]} c="#dce5d5"/>
+  <Box p={[-.18,.063,-.115]} s={[1.17,.006,.021]} c={ink}/>
+  <Box p={[.41,.064,.15]} s={[.022,.006,.51]} c={ink}/>
+  <Box p={[.49,.064,.405]} s={[.022,.006,.27]} r={[0,-.65,0]} c={ink}/>
+  <Box p={[-.38,.021,.82]} s={[.50,.006,.035]} c={copper}/>
+  <Hand p={[mix(.77,.05,c),.10,mix(.34,-.04,c)]} r={[0,Math.PI/2,0]} scale={.85}/>
+  <Rod from={[mix(.77,.05,c)+.62,.12,mix(.34,-.04,c)]} to={[4,.12,.10]} radius={.105} c="#477080"/>
+ </group>
  </>;
 };
+const Limb:React.FC<{shoulder:V3;elbow:V3;hand:V3;skin:string;sleeve?:string}>=({shoulder,elbow,hand,skin,sleeve})=><>
+ <Rod from={shoulder} to={elbow} radius={.075} c={sleeve??skin}/>
+ <Ball p={elbow} s={[.077,.077,.077]} c={skin}/>
+ <Rod from={elbow} to={hand} radius={.058} c={skin}/>
+ <Ball p={hand} s={[.075,.051,.071]} c={skin}/>
+</>;
+const Body:React.FC<{p:V3;yaw?:number;bend?:number;step?:number;travel?:V3;look?:number;shirt?:string;skin?:string}>=({p,yaw=0,bend=0,step=0,travel=[0,0,0],look=0,shirt="#5a6d77",skin="#ad7e63"})=>{
+ const stride=Math.sin(step*Math.PI);
+ const localTravel:V3=[Math.cos(yaw)*travel[0]-Math.sin(yaw)*travel[2],travel[1],Math.sin(yaw)*travel[0]+Math.cos(yaw)*travel[2]];
+ const ankle=(side:number):V3=>{
+  const swing=Math.max(0,Math.min(1,step*2-(side>0?1:0))), q=swing*swing*(3-2*swing);
+  return [side*.16+(q-step)*localTravel[0],-.405+Math.sin(swing*Math.PI)*.09,.055+(q-step)*localTravel[2]];
+ };
+ const ankleL=ankle(-1),ankleR=ankle(1);
+ return <group position={p} rotation={[0,yaw,0]}>
+ {[[-1,ankleL],[1,ankleR]].map(([side,ankle])=>{
+  const sign=side as number,foot=ankle as V3,knee:V3=[sign*.145,-.035-bend*.07,.10+Math.abs(stride)*.08+bend*.15];
+  return <group key={sign}><Rod from={[sign*.14,.35-bend*.10,0]} to={knee} radius={.09} c="#3e4c52"/><Rod from={knee} to={foot} radius={.073} c="#3e4c52"/><Box p={[foot[0],foot[1]-.052,foot[2]+.065]} s={[.19,.12,.34]} c="#303835" round={.035}/></group>;
+ })}
+ <group position={[0,.69-bend*.10,bend*.11]} rotation={[bend*.12,0,0]}>
+  <Box p={[0,0,0]} s={[.48,.68,.28]} c={shirt} round={.07}/>
+  <Box p={[0,-.31,0]} s={[.46,.065,.30]} c="#353d39" round={.016}/>
+  <Box p={[.02,-.31,.163]} s={[.075,.044,.02]} c="#a1a99e" metal={.35}/>
+  <Rod from={[0,.30,0]} to={[0,.42,0]} radius={.075} c={skin}/>
+  <group position={[0,.42,0]} rotation={[0,look,0]}><group position={[0,-.42,0]}><Ball p={[0,.59,.006]} s={[.157,.218,.153]} c={skin}/>
+  <Ball p={[0,.72,-.035]} s={[.159,.105,.14]} c="#403f36"/>
+  <Ball p={[0,.59,.161]} s={[.032,.042,.044]} c={skin}/>
+  {[-1,1].map(side=><group key={side}><Ball p={[side*.156,.59,.006]} s={[.022,.043,.027]} c={skin}/><Ball p={[side*.058,.64,.147]} s={[.017,.012,.008]} c="#333b36"/><Box p={[side*.08,.323,.118]} s={[.13,.024,.09]} r={[0,0,side*.28]} c="#afbbb4"/></group>)}
+  </group></group><Box p={[.11,.13,.154]} s={[.115,.13,.009]} c={shirt}/>
+  <Box p={[.11,.20,.163]} s={[.13,.018,.007]} c="#b5c0b5"/>
+ </group>
+ </group>;
+};
 const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
- const sweep=mix(.60,-.60,b), foot:V3=[sweep,-.51,.87], top:V3=[sweep+.30,.88,.52];
+ const sweep=mix(.60,-.64,b), foot:V3=[sweep,-.46,.77],top:V3=[sweep+.23,.90,.43];
  const grip=(t:number)=>foot.map((v,i)=>mix(v,top[i],t)) as V3;
- const h1=grip(.83),h2=grip(.58);
+ const h1=grip(.83),h2=grip(.58),lean=.65*a+.18*Math.sin(b*Math.PI);
  return <>
  <Box p={[0,-.59,0]} s={[7,.13,6]} c="#9d9b76"/>
- <House flat scale={.65} p={[0,.0,-2.6]}/>
- <group position={[-.12,0,0]}>
-  <Box p={[-.28,-.41,.1]} s={[.34,.16,.59]} c="#3c4d48" round={.07}/><Box p={[.31,-.41,.04]} s={[.34,.16,.59]} c="#3c4d48" round={.07}/>
-  <Rod from={[-.26,-.32,.02]} to={[-.21,.32,-.06]} radius={.13} c="#3c5362"/><Rod from={[.30,-.32,.0]} to={[.18,.32,-.06]} radius={.13} c="#3c5362"/>
-  <group position={[0,.53,.07+a*.13]} rotation={[a*.15,0,-.06]}>
-   <Box p={[0,0,0]} s={[.66,.76,.39]} c="#397285" round={.14}/>
-   <Rod from={[0,.26,0]} to={[0,.47,0]} radius={.12} c="#ad7b60"/>
-   <Ball p={[0,.64,.01]} s={[.24,.29,.235]} c="#b58769"/>
-   <Ball p={[0,.77,-.06]} s={[.25,.18,.21]} c="#4b4940"/>
-   <Ball p={[.20,.70,-.17]} s={[.12,.14,.12]} c="#4b4940"/>
-   <Ball p={[0,.64,.233]} s={[.06,.066,.041]} c="#b58769"/>
-  </group>
+ <House flat scale={.65} p={[0,0,-2.6]}/>
+ <Body p={[-.10,0,0]} bend={lean} shirt="#476d79"/>
+ <Limb shoulder={[-.34,.91-lean*.10,.07+lean*.14]} elbow={[-.49+.20*b,.55,.32]} hand={h2} skin="#ad7e63" sleeve="#476d79"/>
+ <Limb shoulder={[.14,.91-lean*.10,.07+lean*.14]} elbow={[.40-.22*b,.62,.25]} hand={h1} skin="#ad7e63" sleeve="#476d79"/>
+ <Rod from={foot} to={top} radius={.025} c="#bda06f"/>
+ <Box p={[sweep,-.46,.77]} s={[.60,.10,.19]} c="#8b6f49" round={.014}/>
+ {Array.from({length:17},(_,i)=><Rod key={i} from={[sweep-.27+i*.034,-.47,.78]} to={[sweep-.29+i*.036,-.526,.85]} radius={.008} c="#ba9e64"/>)}
+ {/* Leaves stay on the ground and gather at the leading edge of the traveling bristles. */}
+ {Array.from({length:19},(_,i)=>{
+  const original=.40-(i%7)*.15, z=.63+Math.floor(i/7)*.12;
+  const x=Math.min(original,sweep-.30-(i%5)*.045);
+  return <Box key={i} p={[x,-.516,z]} s={[.045+(i%3)*.014,.013,.028]} r={[0,i*1.7,.08]} c={["#655b3b","#826843","#76663d"][i%3]} round={.006}/>;
+ })}
+ </>;
+};
+const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
+ const officer:V3=[-.50,0,.69],owner:V3=[mix(.82,.45,c),0,mix(-.48,.68,c)];
+ const photoPos:V3=[.50,mix(.53,.74,a),.21],photoTilt=mix(.20,.50,a);
+ const noticePos:V3=[mix(-.15,.08,d),.80,.51];
+ const officerHand:V3=[noticePos[0]-.20,noticePos[1]+.018,noticePos[2]+.035];
+ const ownerHand:V3=[mix(owner[0]-.17,.28,d),mix(.51,.82,d),mix(owner[2]+.12,.54,d)];
+ return <>
+ <Box p={[0,-.59,0]} s={[9,.13,8]} c="#75795f"/>
+ <Box p={[0,-.515,.75]} s={[3.1,.025,3.0]} c="#b3af99"/>
+ <House scale={.86} p={[0,0,-1.75]}/>
+ <Body p={officer} yaw={2.95} look={mix(-.65,0,b)-d*.55} shirt="#627b70"/>
+ <Body p={owner} yaw={-.38} step={c} travel={[-.37,0,1.16]} shirt="#83684f" skin="#b78666"/>
+ {/* The officer retains the conserved photograph against the clipboard throughout inspection. */}
+ <group position={photoPos} rotation={[photoTilt,0,0]} scale={.23}>
+  <Box p={[0,-.025,0]} s={[3.28,.045,2.37]} c="#765c43" round={.045}/>
+  <CapturedPrint/>
+  <Box p={[0,.060,-1.03]} s={[.63,.06,.19]} c="#a6b4a7" round={.015} metal={.55}/>
  </group>
- <Rod from={[-.40,.69,.20]} to={[-.52,.32,.53]} radius={.09} c="#b58769"/><Rod from={[-.52,.32,.53]} to={h2} radius={.074} c="#b58769"/>
- <Rod from={[.18,.71,.20]} to={[.47,.50,.35]} radius={.09} c="#b58769"/><Rod from={[.47,.50,.35]} to={h1} radius={.074} c="#b58769"/>
- <Rod from={foot} to={top} radius={.027} c="#c2a06d"/>
- {[h1,h2].map((p,i)=><Ball key={i} p={p} s={[.10,.075,.075]} c="#ba8a6b"/>)}
- <Box p={[sweep,-.46,.87]} s={[.62,.11,.22]} c="#a7834f" round={.018}/>
- {Array.from({length:13},(_,i)=><Rod key={i} from={[sweep-.28+i*.046,-.47,.90]} to={[sweep-.31+i*.049,-.55,.97]} radius={.012} c="#d6bb80"/>)}
+ <Limb shoulder={[-.265,.93,.65]} elbow={[-.10,.67,.38]} hand={[photoPos[0]-.34,photoPos[1]-.015,photoPos[2]+.08]} skin="#ad7e63" sleeve="#627b70"/>
+ <Limb shoulder={[-.735,.93,.73]} elbow={[-.79,.58,.52]} hand={officerHand} skin="#ad7e63" sleeve="#627b70"/>
+ <group position={noticePos} rotation={[.90,0,-.03]}><Paper p={[0,0,0]} scale={.43}/></group>
+ <Limb shoulder={[owner[0]-.23,.93,owner[2]]} elbow={[owner[0]-.30,.63,owner[2]+.13]} hand={ownerHand} skin="#b78666" sleeve="#83684f"/>
+ <Limb shoulder={[owner[0]+.22,.93,owner[2]]} elbow={[owner[0]+.27,.58,owner[2]+.04]} hand={[owner[0]+.23,.33,owner[2]+.12]} skin="#b78666" sleeve="#83684f"/>
+ {/* Only the preserved candidate window receives the inspection cue. No citation appears. */}
+ {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
 const Evidence:React.FC<{a:number;b:number;c?:number;closing?:boolean;settled?:boolean}>=({a,b,c=0,closing=false,settled=false})=>{
@@ -350,45 +358,18 @@ const Evidence:React.FC<{a:number;b:number;c?:number;closing?:boolean;settled?:b
  <Box p={[-1.74,.11,-.76]} s={[.07,.07,.71]} c="#c09e62" round={.018}/>
  </>;
 };
-const EvidenceComparison:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- // The table and both documents stay where scene eight left them.
- const loupeX=mix(1.50,.74,b)-c*.08+d*.97, loupeZ=mix(.60,.16,b)-.10*Math.sin(b*Math.PI)+d*.23;
- const dx=loupeX-.57,dz=loupeZ+.02;
- const paperX=(Math.cos(.08)*dx-Math.sin(.08)*dz)/.85;
- const paperZ=(Math.sin(.08)*dx+Math.cos(.08)*dz)/.85;
- const focus:[number,number]=[.5+paperX/.98,.5-(paperZ+.03)/.78];
- return <>
- <Evidence a={1} b={1} settled/>
- <group position={[.57,.010,-.02]} rotation={[0,.08,0]}>
-  <mesh position={[mix(.72,0,a),.008,0]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[1.02,1.05]}/><meshPhysicalMaterial color="#d3e0d4" transparent opacity={.10} roughness={.12} depthWrite={false}/></mesh>
-  <group position={[mix(.72,0,a),.02,0]}>
-   <Box p={[.26,0,.36]} s={[.52,.008,.035]} c={copper}/>
-   <Box p={[.505,0,.22]} s={[.035,.008,.30]} c={copper}/>
-   <Box p={[.26,0,.08]} s={[.52,.008,.035]} c={copper}/>
-   <Box p={[.015,0,.22]} s={[.035,.008,.30]} c={copper}/>
-  </group>
-  <Hand p={[mix(1.10,.40,a),.035,.25]} r={[0,1.20,0]} scale={.52}/>
- </group>
- <group position={[loupeX,.193+.07*Math.sin(b*Math.PI)+.035*Math.sin(c*Math.PI)+d*.20,loupeZ]}>
-  <mesh rotation={[-Math.PI/2,0,0]} castShadow><torusGeometry args={[.365,.028,12,64]}/><meshStandardMaterial color="#384e4a" metalness={.8} roughness={.25}/></mesh>
-  <group position={[0,.002,0]}><RoofDiagram loupe focus={focus}/></group>
-  <mesh position={[0,.008,0]} rotation={[-Math.PI/2,0,0]}><circleGeometry args={[.34,64]}/><meshPhysicalMaterial color="#e1f0e6" transparent opacity={.055} roughness={.04} depthWrite={false}/></mesh>
-  <Rod from={[-.28,0,.27]} to={[-.68,0,.64]} radius={.047} c="#304c4a"/>
-  <Hand p={[-.63,.05,.67]} r={[0,-.78,0]} scale={.55}/>
- </group>
- </>;
-};
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
- const a=progress(0),b=progress(1),c=progress(2),d=progress(3),e=progress(4),id=scene.id;
+ const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[1.6,3.3,6.3],target:[.1,-.25,1.0],fov:38}:
+ id==='s6'?{position:[.1,5.2,5.3],target:[0,-.18,-.05],fov:38}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
- ['s8','s9'].includes(id)?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
+ id==='s9'?{position:[2,2.3,5.3],target:[.02,.65,-.25],fov:38}:
+ id==='s8'?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
  <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
@@ -398,10 +379,10 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
- {id==='s6'&&<Flashing a={a} b={b} c={c} d={d} e={e}/>}
+ {id==='s6'&&<RoofComparison a={a} b={b} c={c}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
- {id==='s9'&&<EvidenceComparison a={a} b={b} c={c} d={d}/>}
+ {id==='s9'&&<SiteInspection a={a} b={b} c={c} d={d}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
@@ -416,10 +397,10 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div>
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC 5</div>}
- {['s6','s7','s8','s9'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
+ {['s6','s7','s8'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC 5</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
- {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE CUTAWAY</div>}
- {scene.id==='s9'&&<div style={{position:'absolute',left:58,top:426,fontFamily:FONT.mono,fontSize:34,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>ILLUSTRATIVE COMPARISON</div>}
+ {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ROOF COMPARISON</div>}
+ {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX 4</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}
  <Sequence from={Math.round(runtime_s*fps)} durationInFrames={Math.round(credits_s*fps)}><CreditsCard text={credits}/></Sequence>
