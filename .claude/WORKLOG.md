@@ -129,3 +129,7 @@ B35 continuous100-word Charon take39.4s passes transcript1.000 and pitchspread6.
 ## B37 performed inspection
 
 B36 exactphone03823648 passes both occlusion fixes; nativehero77514c09 at1080x1920 confirms readable image/window and finalgrips. Its audiovisual reviewer understands the citation requirement and hears narration/contact but rejects frozenfirst3.4s and suddennoticeappearance. B37 replaces small pose changes with a grounded officer approach, articulated site comparison, owner approach and a continuously visible notice path. The approved100-word take and measuredclock are retained; designed footsteps match both approaches. Code79, changedphone80 and newnativeAV precede finalrender.
+
+## B38 inspection mechanism change
+
+B37 phone dc013019 passed, but native hero5e177bf1 audiovisual review rejected rigid limbs and the inactive comparison pose at1.0–3.2seconds. The prior full-body mechanism had failed twice. B38 replaces it with a close hands-and-object sequence: the held photo and clipped notice rise together; a finger compares the photo with the real window; the same notice is lifted from its clip and transferred to the owner before the officer releases. The source-approved100-word voice and measured45-second timing remain unchanged. Obsolete footsteps were removed; the11-event mix measures−16.75LUFS. Exact failure response and baseline inputs are preserved, and the controller authorized one changed-input batch. Current phone/native/full approvals remain pending.
