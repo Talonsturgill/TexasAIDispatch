@@ -260,6 +260,29 @@ const NoticeQueue:React.FC<{a:number;b:number}>=({a,b})=><>
   </group>
  </group>
 </>;
+// Source c11 wording is printed on a supported illustrative prop, not an actual notice.
+const courtesyRequestSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="780" viewBox="0 0 600 780"><rect width="600" height="780" fill="#eee4cb"/><rect x="52" y="52" width="226" height="38" fill="#17323d"/><text x="52" y="148" font-family="sans-serif" font-size="25" fill="#17323d">COURTESY REQUEST</text><g font-family="sans-serif" font-size="49" font-weight="600" fill="#17323d"><text x="52" y="254">Please correct</text><text x="52" y="322">the violations</text><text x="52" y="390">promptly to avoid</text><text x="52" y="458">further</text><text x="52" y="526">enforcement action.</text></g><rect x="52" y="648" width="226" height="18" fill="#df956a"/><text x="52" y="722" font-family="sans-serif" font-size="21" fill="#17323d">QUOTED WORDING / NBC DFW</text></svg>';
+const CourtesyRequestPrint:React.FC=()=>{
+ const source=useLoader(THREE.TextureLoader,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(courtesyRequestSvg));
+ const texture=useMemo(()=>{const t=source.clone();t.colorSpace=THREE.SRGBColorSpace;t.needsUpdate=true;return t;},[source]);
+ return <mesh position={[0,.0095,0]} rotation={[-Math.PI/2,0,0]}><planeGeometry args={[1.19,1.54]}/><meshBasicMaterial map={texture}/></mesh>;
+};
+const CourtesyRequest:React.FC<{place:number;press:number;withdraw:number}>=({place,press,withdraw})=>{
+ // Continue the s2 extracted-sheet transform. The grip travels with the sheet
+ // until its underside rests on the tabletop, clear of the retained stack.
+ const across=Math.min(1,place/.62),down=Math.max(0,(place-.62)/.38);
+ const tilt=mix(.10,0,down),y=mix(.28+.075*Math.cos(.10),.00265,down);
+ return <>
+  <Table/>
+  {[0,1,2,3,4,5].map(i=><Paper key={i} p={[i%2*.035,.012+i*.020,-.20]} scale={1.35}/>)}
+  <group position={[0,.14,-.20]}>{[0,1,2].map(i=><Paper key={i} p={[i*.012,i*.025,0]} scale={1.35}/>)}</group>
+  <group position={[mix(0,1.65,across),y,.65+.075*Math.sin(.10)*(1-down)]} rotation={[tilt,0,0]}>
+   <Box p={[0,0,0]} s={[1.6065,.0243,2.079]} c={cream} round={.01215}/>
+   <group scale={1.35}><CourtesyRequestPrint/></group>
+   <Hand p={[.65-.10*press+withdraw*2.5,.045+.020*place-.01125*press+withdraw*.22,.10+.45*press+withdraw*.15]} r={[0,Math.PI/2,0]} scale={.8}/>
+  </group>
+ </>;
+};
 const Notice:React.FC<{a:number;b:number;handoff?:number;isolated?:boolean}>=({a,b,handoff=0,isolated=false})=>{
  const pull=a*.65+b*.35;
  const exitX=handoff<=1?mix(0,-.65,handoff):mix(-.65,-3.65,handoff-1);
@@ -727,7 +750,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
- id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
+ id==='s5'?{position:[.15+1.65*Math.min(1,a/.62),4.8,5.9],target:[-.10+1.65*Math.min(1,a/.62),-.25,.25],fov:34}:
 
  id==='s7'?(localTime<4.66?{position:[0,mix(2.09,1.85,coverage),3.3],target:[0,-.44,1.02],fov:40}:{position:[mix(.45,.42,closingCoverage),mix(1.22,1.16,closingCoverage),mix(3.30,3.22,closingCoverage)],target:[-.06,-.46,1.15],fov:45}):
  id==='s9'?encounterCamera:
@@ -739,6 +762,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s2'&&<NoticeQueue a={a} b={b}/>}
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
+ {id==='s5'&&<CourtesyRequest place={a} press={b} withdraw={c}/>}
 
 
  {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
@@ -750,7 +774,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
  const stock=scene.camera_strategy==='sourceFootage';
  const media=scene.source_footage;
- if(time<runtime_s&&['s5','s7'].includes(scene.id)&&!stock)throw new Error(scene.id+' requires licensed source footage; generated human performance is retired');
+ if(time<runtime_s&&scene.id==='s7'&&!stock)throw new Error(scene.id+' requires licensed source footage; generated human performance is retired');
  if(stock){
   const binding=native_media.find(item=>item.file===media?.file);
   if(!media||!binding||binding.sha256!==media.sha256||!/^[a-f0-9]{64}$/.test(media.sha256)||
@@ -775,6 +799,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
  {stock&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
  {stock&&localTime<1.2&&<div style={{position:'absolute',left:70,top:278,fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:cream,textShadow:'0 2px 5px #17323d'}}>{scene.id==='s5'?'COURTESY REQUEST':'NOTICE → REPORTED YARD WORK'}</div>}
+ {scene.id==='s5'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE / QUOTED REQUEST</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
  {scene.id==='s7'&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
