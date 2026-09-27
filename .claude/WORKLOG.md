@@ -125,3 +125,7 @@ B34 native40-second2261a008 passes preship, encoded audio and sound review. Inde
 ## B36 phone occlusion repair
 
 B35 continuous100-word Charon take39.4s passes transcript1.000 and pitchspread6.68. Measured40s story plus5s credits has ten caption cues that fit the shared lower band. Source16 passes with fresh FOX citation-rule evidence and transparent reuse of inaccessible NBC browser evidence. Phone71937eca passes mechanical motion but independent critic76 rejects two actual occlusions: cropped roof bends and papers/bodies masking the inspection and receiving edge. B36 preserves voice, alignment and accepted cleanup; it fits both roof bends and sequences comparison, photo lowering, owner approach and foreground notice contact. All failedbytes and exact critique retained. Code77 and changed phone78 precede native AV.
+
+## B37 performed inspection
+
+B36 exactphone03823648 passes both occlusion fixes; nativehero77514c09 at1080x1920 confirms readable image/window and finalgrips. Its audiovisual reviewer understands the citation requirement and hears narration/contact but rejects frozenfirst3.4s and suddennoticeappearance. B37 replaces small pose changes with a grounded officer approach, articulated site comparison, owner approach and a continuously visible notice path. The approved100-word take and measuredclock are retained; designed footsteps match both approaches. Code79, changedphone80 and newnativeAV precede finalrender.

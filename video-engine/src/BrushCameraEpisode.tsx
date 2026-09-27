@@ -265,7 +265,7 @@ const Limb:React.FC<{shoulder:V3;elbow:V3;hand:V3;skin:string;sleeve?:string}>=(
  <Rod from={elbow} to={hand} radius={.058} c={skin}/>
  <Ball p={hand} s={[.075,.051,.071]} c={skin}/>
 </>;
-const Body:React.FC<{p:V3;yaw?:number;bend?:number;step?:number;travel?:V3;look?:number;shirt?:string;skin?:string}>=({p,yaw=0,bend=0,step=0,travel=[0,0,0],look=0,shirt="#5a6d77",skin="#ad7e63"})=>{
+const Body:React.FC<{p:V3;yaw?:number;bend?:number;step?:number;travel?:V3;look?:number;torsoTurn?:number;shirt?:string;skin?:string}>=({p,yaw=0,bend=0,step=0,travel=[0,0,0],look=0,torsoTurn=0,shirt="#5a6d77",skin="#ad7e63"})=>{
  const stride=Math.sin(step*Math.PI);
  const localTravel:V3=[Math.cos(yaw)*travel[0]-Math.sin(yaw)*travel[2],travel[1],Math.sin(yaw)*travel[0]+Math.cos(yaw)*travel[2]];
  const ankle=(side:number):V3=>{
@@ -278,7 +278,7 @@ const Body:React.FC<{p:V3;yaw?:number;bend?:number;step?:number;travel?:V3;look?
   const sign=side as number,foot=ankle as V3,knee:V3=[sign*.145,-.035-bend*.07,.10+Math.abs(stride)*.08+bend*.15];
   return <group key={sign}><Rod from={[sign*.14,.35-bend*.10,0]} to={knee} radius={.09} c="#3e4c52"/><Rod from={knee} to={foot} radius={.073} c="#3e4c52"/><Box p={[foot[0],foot[1]-.052,foot[2]+.065]} s={[.19,.12,.34]} c="#303835" round={.035}/></group>;
  })}
- <group position={[0,.69-bend*.10,bend*.11]} rotation={[bend*.12,0,0]}>
+ <group position={[0,.69-bend*.10,bend*.11]} rotation={[bend*.12,torsoTurn,0]}>
   <Box p={[0,0,0]} s={[.48,.68,.28]} c={shirt} round={.07}/>
   <Box p={[0,-.31,0]} s={[.46,.065,.30]} c="#353d39" round={.016}/>
   <Box p={[.02,-.31,.163]} s={[.075,.044,.02]} c="#a1a99e" metal={.35}/>
@@ -314,31 +314,43 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  </>;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- const officer:V3=[-.50,0,.69],owner:V3=[mix(.82,.80,c),0,mix(-.48,.30,c)];
- const photoPos:V3=[mix(.50,-.18,c),mix(mix(.53,.74,a),.42,c),mix(.21,.95,c)],photoTilt=mix(mix(.20,.50,a),1.20,c);
- const noticePos:V3=[mix(-.74,.19,d),mix(.30,.84,d),mix(.91,1.20,d)];
+ const officer:V3=[mix(-.68,-.50,a),0,mix(1.16,.69,a)];
+ const owner:V3=[mix(.82,.80,c),0,mix(-.48,.30,c)];
+ const torsoTurn=-.55*b+.85*c;
+ const shoulder=(side:number):V3=>{
+  const angle=2.95+torsoTurn;
+  return [officer[0]+side*.24*Math.cos(angle),.93,officer[2]-side*.24*Math.sin(angle)];
+ };
+ // The walking body carries the print, then the waist and connected arm turn it toward the window.
+ const photoPos:V3=[mix(mix(.25,.50,a)-.10*b,-.18,c),mix(mix(.65,.74,a)+.20*b,.42,c),mix(mix(.53,.21,a)-.24*b,.95,c)];
+ const photoTilt=mix(mix(.20,.50,a)+.16*b,1.20,c);
+ // A face-up sheet is visible below the inspection window from the first frame.
+ // One continuous arc raises that same sheet into the foreground receiving grip.
+ const noticePos:V3=[mix(mix(.15,.25,a),.19,d),mix(mix(.79,.75,a),.84,d)+.13*Math.sin(d*Math.PI),mix(mix(1.37,1.30,a),1.20,d)];
+ const noticeTilt=mix(-.10,1.15,d);
  const officerHand:V3=[noticePos[0]-.29,noticePos[1]+.024,noticePos[2]+.038];
+ const photoHand:V3=[photoPos[0]-.34,photoPos[1]-.015,photoPos[2]+.08];
  const ownerHand:V3=[mix(owner[0]-.17,noticePos[0]+.29,d),mix(.51,noticePos[1]+.024,d),mix(owner[2]+.12,noticePos[2]+.038,d)];
+ const photoShoulder=shoulder(-1),noticeShoulder=shoulder(1);
+ const elbow=(from:V3,to:V3,outward:number):V3=>[(from[0]+to[0])/2+outward,(from[1]+to[1])/2-.17,(from[2]+to[2])/2+.10];
  return <>
  <Box p={[0,-.59,0]} s={[9,.13,8]} c="#75795f"/>
  <Box p={[0,-.515,.75]} s={[3.1,.025,3.0]} c="#b3af99"/>
  <House scale={.86} p={[0,0,-1.75]}/>
- <Body p={officer} yaw={2.95} look={mix(-.65,0,b)-d*.55} shirt="#627b70"/>
+ <Body p={officer} yaw={2.95} step={a} travel={[.18,0,-.47]} torsoTurn={torsoTurn} look={mix(-.65,0,b)-d*.55} shirt="#627b70"/>
  <Body p={owner} yaw={-.38} step={c} travel={[-.02,0,.78]} shirt="#83684f" skin="#b78666"/>
- {/* The officer retains the conserved photograph against the clipboard throughout inspection. */}
  <group position={photoPos} rotation={[photoTilt,0,0]} scale={.23}>
   <Box p={[0,-.025,0]} s={[3.28,.045,2.37]} c="#765c43" round={.045}/>
   <CapturedPrint/>
   <Box p={[0,.060,-1.03]} s={[.63,.06,.19]} c="#a6b4a7" round={.015} metal={.55}/>
  </group>
- <Limb shoulder={[-.265,.93,.65]} elbow={[mix(-.10,-.36,c),mix(.67,.47,c),mix(.38,.84,c)]} hand={[photoPos[0]-.34,photoPos[1]-.015,photoPos[2]+.08]} skin="#ad7e63" sleeve="#627b70"/>
- <Limb shoulder={[-.735,.93,.73]} elbow={[mix(-.89,-.45,d),mix(.54,.69,d),mix(.79,1.03,d)]} hand={officerHand} skin="#ad7e63" sleeve="#627b70"/>
- <group position={noticePos} rotation={[1.15,0,0]}><Paper p={[0,0,0]} scale={.43}/></group>
+ <Limb shoulder={photoShoulder} elbow={elbow(photoShoulder,photoHand,-.10)} hand={photoHand} skin="#ad7e63" sleeve="#627b70"/>
+ <Limb shoulder={noticeShoulder} elbow={elbow(noticeShoulder,officerHand,-.13)} hand={officerHand} skin="#ad7e63" sleeve="#627b70"/>
+ <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.43}/></group>
  <Limb shoulder={[owner[0]-.23,.93,owner[2]]} elbow={[mix(owner[0]-.30,.59,d),mix(.63,.73,d),mix(owner[2]+.13,1.04,d)]} hand={ownerHand} skin="#b78666" sleeve="#83684f"/>
  <Limb shoulder={[owner[0]+.22,.93,owner[2]]} elbow={[owner[0]+.27,.58,owner[2]+.04]} hand={[owner[0]+.23,.33,owner[2]+.12]} skin="#b78666" sleeve="#83684f"/>
- {/* Receiving fingertips meet the visible right edge only when the owner reaches the sheet. */}
- {d>.70&&[0,1,2].map(i=><Rod key={i} from={[ownerHand[0]-.01,ownerHand[1]+i*.013,ownerHand[2]]} to={[noticePos[0]+.248,noticePos[1]+.018+i*.013,noticePos[2]+.027]} radius={.011} c="#b78666"/>)}
- {/* Only the preserved candidate window receives the inspection cue. No citation appears. */}
+ {/* Fingers travel with the receiving hand throughout; contact occurs at the sheet edge. */}
+ {[0,1,2].map(i=><Rod key={i} from={[ownerHand[0]-.01,ownerHand[1]+i*.013,ownerHand[2]]} to={[mix(ownerHand[0]-.05,noticePos[0]+.248,d),ownerHand[1]-.006+i*.013,ownerHand[2]-.011]} radius={.011} c="#b78666"/>)}
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
