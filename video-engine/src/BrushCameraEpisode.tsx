@@ -373,16 +373,17 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
   return <mesh position={pos} quaternion={orientation} scale={[radius*.66,radius*.89,.003]}><sphereGeometry args={[1,16,10]}/><meshStandardMaterial color={nailColor} roughness={.48}/></mesh>;
  };
  const indexBase=local(.112,-.047);
- const indexPip=blend(local(.058,-.035),local(.035,-.039,.095),closed);
- const indexDip=blend(local(.024,-.013),local(.002,-.020,.065),closed);
+ const indexPip=blend(local(.058,-.035),local(.062,-.039,-.090),closed);
+ const indexDip=blend(local(.024,-.013),local(.025,-.020,-.070),closed);
  const relaxedTip=local(.10,-.045,.027);
- const indexTip=blend(relaxedTip,contact,Math.max(pointing,closed));
+ const behindEdge=new THREE.Vector3(...contact).addScaledVector(n,-.052).toArray() as V3;
+ const indexTip=blend(blend(relaxedTip,contact,pointing),behindEdge,closed);
  const index1=blend(local(.12,-.044,.060),indexPip,Math.max(pointing,closed));
  const index2=blend(local(.095,-.045,.058),indexDip,Math.max(pointing,closed));
- const thumbBase=local(.217,-.075),thumbKnuckle=local(.135,-.091,-.018);
- const thumbOpposed=new THREE.Vector3(...contact).addScaledVector(n,-.052).toArray() as V3;
+ const thumbBase=local(.217,-.065),thumbKnuckle=local(.135,-.078,.025);
+ const thumbOpposed=contact;
  const thumbEnd=blend(local(.095,-.071,.014),thumbOpposed,closed);
- const thumbMid=blend(local(.12,-.095,.028),local(.035,-.064,-.032),closed);
+ const thumbMid=blend(local(.12,-.095,.028),local(.065,-.043,.070),closed);
  return <>
  <mesh geometry={sleeve} castShadow receiveShadow><meshStandardMaterial color={shirt} roughness={.93}/></mesh>
  <HandBone from={local(.32)} to={local(.287)} r0={.080} r1={.069} color={sleeveEdge}/>
@@ -394,10 +395,10 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  {[indexBase,index1,index2].map((p,i)=><Ball key={i} p={p} s={[.022-i*.002,.023-i*.002,.021-i*.002]} c={skin}/>)}
  <Ball p={indexTip} s={[.016,.020,.024]} c={skin}/>{nail(indexTip,index2,.018)}
  {[0,1,2].map(i=>{
-  const width=-.010+i*.041,length=[1,.92,.76][i],curl=.46+.49*closed;
-  const base=local(.113,width),pip=local(.113-.062*length,width,.062*curl);
-  const dip=local(.112-.058*length+.037*curl,width,.099*curl);
-  const tip=local(.10+.028*curl,width,.040*curl);
+  const width=-.004+i*.035,length=[1,.92,.76][i],curl=.65+.35*closed;
+  const base=local(.118,width),pip=local(.118-.050*length,width,-.055*curl);
+  const dip=local(.138+.012*curl,width,-.085*curl);
+  const tip=local(.180+.018*curl,width,-.018*curl);
   return <group key={i}>
    <HandBone from={base} to={pip} r0={.023-i*.002} r1={.019-i*.002} color={skin}/>
    <HandBone from={pip} to={dip} r0={.019-i*.002} r1={.016-i*.0015} color={skin}/>
@@ -444,8 +445,8 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38}/></group>
  <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,0,4.0]} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
- <EncounterHand contact={officerContact} approach={[.35,-.9,1.10]} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={Math.max(0,(pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]}/>
- <EncounterHand contact={ownerContact} approach={[.8,-.4,.25]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={Math.max(0,(receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
+ <EncounterHand contact={officerContact} approach={[mix(.35,-1.05,pickup*(1-.25*release)),mix(-.9,-.18,pickup*(1-.25*release)),mix(1.10,.20,pickup*(1-.25*release))]} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={Math.max(0,(pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]}/>
+ <EncounterHand contact={ownerContact} approach={[1.05,-.18,.20]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={Math.max(0,(receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
