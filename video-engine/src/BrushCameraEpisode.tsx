@@ -321,7 +321,7 @@ const HandBone:React.FC<{from:V3;to:V3;r0:number;r1:number;color:string}>=({from
   <cylinderGeometry args={[r1,r0,delta.length(),20,1]}/><meshStandardMaterial color={color} roughness={.68}/>
  </mesh>;
 };
-const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:string;closed?:number;pointing?:number;normal?:V3;handedness?:number}>=({contact,approach,cuff,skin,shirt,closed=0,pointing=0,normal=[0,0,1],handedness=1})=>{
+const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:string;closed?:number;pointing?:number;normal?:V3;handedness?:number;flex?:number}>=({contact,approach,cuff,skin,shirt,closed=0,pointing=0,normal=[0,0,1],handedness=1,flex=0})=>{
  const u=new THREE.Vector3(...approach).normalize(),n=new THREE.Vector3(...normal).normalize();
  const side=new THREE.Vector3().crossVectors(n,u).normalize().multiplyScalar(handedness);
  const depth=new THREE.Vector3().crossVectors(u,side).normalize();
@@ -330,7 +330,7 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  const blend=(p:V3,q:V3,t:number)=>p.map((v,i)=>mix(v,q[i],t)) as V3;
  const sleeve=useMemo(()=>{
   const end=new THREE.Vector3(...cuff),begin=new THREE.Vector3(...wrist);
-  const mid=begin.clone().lerp(end,.43).addScaledVector(side,.08);
+  const mid=begin.clone().lerp(end,.43).addScaledVector(side,.08+.18*flex).addScaledVector(n,.055*flex);
   const curve=new THREE.CatmullRomCurve3([begin,mid,end]);
   const frames=curve.computeFrenetFrames(36,false),positions:number[]=[],indices:number[]=[];
   for(let j=0;j<=36;j++){
@@ -344,7 +344,7 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
    }
   }
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);g.computeVertexNormals();return g;
- },[...wrist,...cuff,...side.toArray()]);
+ },[...wrist,...cuff,...side.toArray(),...normal,flex]);
  const palmGeometry=useMemo(()=>{
   // A tapered metacarpal volume widens at the knuckles and narrows into the wrist.
   const rings=[{d:.105,w:.073,h:.031},{d:.15,w:.086,h:.043},{d:.205,w:.077,h:.047},{d:.255,w:.056,h:.034},{d:.31,w:.048,h:.029}];
@@ -415,17 +415,18 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  </>;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- const clearWindow=.34*Math.min(1,b/.30);
+ const smooth=(value:number)=>{const t=Math.max(0,Math.min(1,value));return t*t*t*(10-15*t+6*t*t);};
+ const clearWindow=.34*smooth(b/.30);
  const boardPos:V3=[-.12,.38+.20*a+.035*Math.sin(a*Math.PI)-clearWindow,mix(.85,.60,a)];
  const boardTilt=mix(.80,1.15,a);
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x,boardPos[1]+y*Math.cos(boardTilt)-z*Math.sin(boardTilt),boardPos[2]+y*Math.sin(boardTilt)+z*Math.cos(boardTilt)];
  const photoPos=world(.355,.028,-.10),restNotice=world(-.40,.035,.08);
- const pickup=Math.min(1,c/.32),present=Math.max(0,(c-.32)/.68),receive=Math.min(1,d/.45),pull=Math.max(0,(d-.45)/.55),release=Math.max(0,(d-.62)/.38);
+ const pickup=smooth(c/.32),present=smooth((c-.32)/.68),receive=smooth(d/.45),pull=smooth((d-.45)/.55),release=smooth((d-.62)/.38);
  const noticePos:V3=[mix(restNotice[0],-.02,present)+.30*pull,mix(restNotice[1],.48,present)+.055*Math.sin(present*Math.PI)-.035*pull,mix(restNotice[2],1.0,present)+.08*pull];
  const noticeTilt=mix(boardTilt,1.10,present)+.06*pull;
- const photoMarker=world(.355-1.095*.27,.045,-.10-.202*.27+.14*Math.min(1,b/.30));
+ const photoMarker=world(.355-1.095*.27,.045,-.10-.202*.27+.14*smooth(b/.30));
  const windowPoint:V3=[-.817,.885,-1.045];
- const compare=Math.max(0,(b-.30)/.70);
+ const compare=smooth((b-.30)/.70);
  // Lift toward the viewer, clear the board top, then reach back to the upper window.
  const control1:V3=[photoMarker[0]-.10,.85,.95],control2:V3=[-.76,1.16,-.25];
  const finger:V3=photoMarker.map((v,i)=>(1-compare)**3*v+3*(1-compare)**2*compare*control1[i]+3*(1-compare)*compare**2*control2[i]+compare**3*windowPoint[i]) as V3;
@@ -435,6 +436,15 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const officerContact:V3=[pointing[0]-.30*release,pointing[1]-.15*release,pointing[2]+.10*release];
  const ownerEdge:V3=[noticePos[0]+.226,noticePos[1]+.012,noticePos[2]+.027];
  const ownerContact:V3=[mix(1.50,ownerEdge[0],receive),mix(.12,ownerEdge[1],receive)+.10*Math.sin(receive*Math.PI),mix(1.22,ownerEdge[2],receive)];
+ // Wrist extension follows the reach; a separate forearm bend carries the elbow response.
+ const reachBend=Math.sin(compare*Math.PI)*(1-pickup);
+ const inspectionApproach:V3=[mix(.35,-.22,compare)-.10*reachBend,mix(-.90,-.42,compare)+.08*reachBend,mix(1.10,1.28,compare)];
+ const gripTurn=pickup*(1-.25*release);
+ const workingApproach:V3=inspectionApproach.map((v,i)=>mix(v,[-1.05,-.18,.20][i],gripTurn)) as V3;
+ const windowOrientation=compare*(1-pickup);
+ const workingNormal=new THREE.Vector3(0,Math.cos(noticeTilt)*(1-windowOrientation),mix(Math.sin(noticeTilt),1,windowOrientation)).normalize().toArray() as V3;
+ const forearmFlex=.65*reachBend+.45*Math.sin(pickup*Math.PI)+.16*Math.sin(present*Math.PI);
+
  return <>
  <Box p={[0,-.59,0]} s={[9,.13,8]} c="#75795f"/>
  <House scale={.86} p={[0,0,-1.75]}/>
@@ -445,8 +455,8 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38}/></group>
  <EncounterHand contact={world(-.74,.025,.25)} approach={[-.5,-.85,.3]} cuff={[-3.5,0,4.0]} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
- <EncounterHand contact={officerContact} approach={[mix(.35,-1.05,pickup*(1-.25*release)),mix(-.9,-.18,pickup*(1-.25*release)),mix(1.10,.20,pickup*(1-.25*release))]} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={Math.max(0,(pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]}/>
- <EncounterHand contact={ownerContact} approach={[1.05,-.18,.20]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={Math.max(0,(receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
+ <EncounterHand contact={officerContact} approach={workingApproach} flex={forearmFlex} cuff={[-.10,-.20,5.3]} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={workingNormal}/>
+ <EncounterHand contact={ownerContact} approach={[1.05,-.18,.20]} cuff={[4.0,0,4.0]} skin="#b78666" shirt="#83684f" closed={smooth((receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
  </>;
 };
