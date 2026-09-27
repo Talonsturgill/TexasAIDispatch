@@ -48,6 +48,10 @@ def begin_repair(path, plan_path):
     if state.get("active_repair"):
         return False, "finish the existing repair batch before starting another"
     plan = load_json(plan_path)
+    from repair_guard import plan_problems, envelope_problems
+    errors = plan_problems(state, plan) + envelope_problems(state, {"reboards": 1, "storyboard_critics": 2})
+    if errors:
+        return False, "; ".join(errors)
     for field in ("root_cause", "repair", "expected_visible_result", "mechanism_change"):
         if len(str(plan.get(field, "")).strip()) < 30:
             return False, f"repair plan needs concrete {field}, including all current defects"
@@ -85,7 +89,9 @@ def begin_repair(path, plan_path):
     state.pop("release_status", None)
     event(state, "repair_started", failure_sha256=failure_hash,
           plan_sha256=digest(plan_path), baselines=baselines, grants=grants,
-          authorization="owner standing autonomous repair instruction 2026-09-26")
+          authorization="diagnosed repair within recorded run envelope" if state.get("repair_policy") else "legacy autonomous repair instruction 2026-09-26",
+          mechanism_id=plan.get("mechanism_id"), failure_family=plan.get("failure_family", "unclassified"),
+          director_identity=plan.get("director_identity"))
     save(path, state)
     return True, "one structural repair batch opened; reserve its reboard before editing"
 
@@ -117,6 +123,10 @@ def authorize_repair(path, plan_path):
     if ("panel_rounds" in requested or "scorer_calls" in requested) and (
             requested.get("panel_rounds") != 1 or requested.get("scorer_calls") != 3):
         return False, "a repair panel still requires all three independent scorers"
+    from repair_guard import envelope_problems
+    errors = envelope_problems(state, requested)
+    if errors:
+        return False, "; ".join(errors)
     grants = {}
     for name, count in requested.items():
         before = state["escalation_ceiling"][name]

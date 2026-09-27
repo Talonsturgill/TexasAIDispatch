@@ -241,3 +241,13 @@ Never "cannot", always "can't". Never open a sentence with "And" or "But".
 No first person in published copy.
 Every fact carries a claim id and traces to a fetched source.
 Honest scores, honest emails. If it is not in the claims file, it does not exist.
+
+
+## Quality recovery precedence — September27
+
+Follow knowledge/craft/QUALITY_CONTRACT.md. New production has a frozen cumulative resource
+envelope; adopt it for resumed ledgers with scripts/repair_guard.py --state out/dispatch/run_state.json --adopt.
+The envelope takes precedence over earlier standing batch-extension wording. It cannot be
+renewed by the producer. Stable mechanism/failure-family recurrence requires independent
+source-backed pivots. Provider tokens are not complete Codex account accounting. Preserve all
+quality gates and history; never describe a failed film or a checkpoint as shipment.

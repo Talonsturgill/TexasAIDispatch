@@ -13,6 +13,7 @@ from pathlib import Path
 import requests
 from production_quality import policy, digest, av_problems
 from run_controller import reserve, record_telemetry
+from quality_contract import prompt as quality_prompt
 
 LENSES = {
     "hero": "Finished hero passage. Reject placeholder geometry, unclear transformations, idle travel, bad crops or weak sound. The action must deserve attention before extending the film.",
@@ -176,7 +177,7 @@ of the actual observed weakness in that span.
 It must be at least 20 characters long. Do not return only a pair of timestamps.
 Use plain prose without the whole words prohibited by the project's writing rule
 (matter, matters, mattered, mattering).
-Review lens: """ + LENSES[role]
+For each defect, identify its time, observed subject and effect on comprehension or finish.\nA weakest interval must still be reported for a passing film; do not invent a defect to fill it.\nReview lens: """ + LENSES[role] + "\nShared quality contract:\n" + quality_prompt()
 
 
 def review(film, role, state, out):

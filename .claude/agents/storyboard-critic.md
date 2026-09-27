@@ -106,3 +106,8 @@ props, floating transfers, rigid cleanup gestures, and an ending that repeats se
 Do not infer a resolved human outcome when the sources leave it unknown. Judge the
 source-backed limit as an image with a visible consequence. A code-plan pass cannot
 populate these observations; only the current rendered phone film can.
+
+
+## Shared quality standard
+
+Read knowledge/craft/QUALITY_CONTRACT.md and config/quality_contract.json. Use these same observable criteria across planning, exact phone review and final judgment. Record actual defects with their times and effect on the viewer. A weakest interval or optional preference alone does not override the rubric; all mandatory quality and audiovisual gates remain.

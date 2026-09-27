@@ -162,6 +162,10 @@ def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
         "usage": {name: 0 for name in owned},
         "events": [],
     }
+    if mode == "production" and run_id[:10] >= "2026-09-27":
+        from repair_guard import VERSION, freeze
+        state["repair_policy"] = VERSION
+        freeze(state)
     event(state, "initialised", mode=mode)
     save(path, state)
     return True, f"run controller: initialised {run_id} in {mode} mode at {path}"
@@ -260,6 +264,13 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             "run controller: panel_rounds and scorer_calls are one controller-owned atomic "
             "reservation; use the panel command with exactly three judges"
         )
+
+    from repair_guard import envelope_problems
+    envelope_errors = envelope_problems(state, amounts)
+    if envelope_errors:
+        event(state, "resource_envelope_refused", attempted=amounts, errors=envelope_errors)
+        save(path, state)
+        return False, "; ".join(envelope_errors) + "; preserve the film and resolve the recorded production plan"
 
     preview_identity = preflight_identity(path, note) if "preflight_renders" in amounts else None
     if (preview_identity and state.get("preflight_retry") != preview_identity
