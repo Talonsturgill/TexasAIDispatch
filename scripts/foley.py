@@ -1260,6 +1260,12 @@ def observation_trace(seed=46):
     return normalize(fade(out, 30), 0.60)
 
 
+def concrete_shoe_contact(seed=47):
+    """One visible shoe planting on concrete, isolated for exact action timing."""
+    phrase = concrete_footsteps(seed)
+    return fade(phrase[int(.16 * SR):int(.44 * SR)].copy(), 8)
+
+
 def concrete_footsteps(seed=47):
     """One ordinary traveler crossing the concrete pedestrian bridge.
 
@@ -1754,6 +1760,7 @@ SOUNDS = {
     "test_press": (test_press, "oneshot", "a visible materials test press loading a coupon", ["materials", "test", "measurement", "laboratory"]),
     "pencil_scratch": (pencil_scratch, "oneshot", "a visible hand writing a hypothesis or interpretation", ["human", "judgment", "paper", "analysis"]),
     "observation_trace": (observation_trace, "oneshot", "sonification of a visible sensor observation graphic becoming an estimate", ["sensor", "estimate", "analysis", "illustration"]),
+    "concrete_shoe_contact": (concrete_shoe_contact, "oneshot", "one visible shoe planting on concrete", ["shoe", "walk", "concrete", "contact"]),
     "concrete_footsteps": (concrete_footsteps, "oneshot", "one visible traveler walking on the concrete pedestrian bridge", ["traveler", "walk", "concrete", "bridge"]),
     "camera_reacquire": (camera_reacquire, "oneshot", "the visible camera array and capture frame reacquiring a moving face", ["camera", "capture", "face", "motion"]),
     "suitability_gate": (suitability_gate, "oneshot", "a visible facial image entering the suitability gate before biometric matching", ["facial_image", "suitability", "biometric", "matching"]),
