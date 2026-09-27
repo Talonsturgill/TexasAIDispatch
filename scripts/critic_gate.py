@@ -85,7 +85,8 @@ def concept_digest(board: dict) -> str:
 def problems(board: dict, report: dict) -> list[str]:
     if str(board.get("date") or "") < "2026-09-25":
         return []
-    errors = []
+    from quality_contract import plan_problems
+    errors = plan_problems(board)
     if report.get("verdict") != "pass":
         errors.append("the independent storyboard critic has not passed this concept")
     if report.get("concept_sha256") != concept_digest(board):
@@ -110,6 +111,8 @@ def film_review_problems(board: dict, report: dict, preflight: dict,
     if str(board.get("date") or "") < "2026-09-25":
         return []
     errors = problems(board, report)
+    from quality_contract import phone_problems
+    errors += phone_problems(board, report)
     if report.get("review_scope") != "exact-muted-phone-preflight":
         errors.append("the independent critic has not reviewed the exact phone animatic")
     if report.get("reviewed_preflight_sha256") != film_sha256:

@@ -1469,3 +1469,23 @@ For a production-tooling change, run these same narrow checks through the enviro
 bash scripts/run_with_env.sh python scripts/production_quality_test.py
 bash scripts/run_with_env.sh bash -c 'cd video-engine && node tests/cinema-proof.mjs'
 ```
+
+
+## Quality recovery contract — September27
+
+Read knowledge/craft/QUALITY_CONTRACT.md and config/quality_contract.json before choosing the
+treatment. Plan source-backed, performable pictures before final narration. Bind quality_plan
+to the shared criteria, inspect the actual dominant subject and prove the difficult native
+passage with sound. Reuse unchanged research, assets, voice and alignment.
+
+At wake adopt the existing ledger's nonrenewable allowance:
+python scripts/repair_guard.py --state out/dispatch/run_state.json --adopt
+This adds no resources and erases no history. The new cumulative envelope takes precedence
+over older prose permitting repeated batch extensions. Its provider telemetry does not include
+Codex account usage; inspect host usage separately.
+
+Use stable mechanism_id, failure_family and director_identity in repair plans. After two
+failures in the same visible mechanism or family, an independent hash-bound pivot review is
+required. A batch name, changed label or different file hash cannot reset that count.
+Keep the same quality gates. Only verified shipment completes production; only a demonstrated
+shipment authorizes restoration of a paused schedule.
