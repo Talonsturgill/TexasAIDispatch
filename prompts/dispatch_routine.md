@@ -1189,6 +1189,15 @@ encounters and reuse only narration whose claims still fit the new ending. Recor
 mechanism and the replacement in the compact defect ledger; keep all earlier costs charged.
 A code or muted-phone pass cannot override repeated native audiovisual evidence.
 
+Carry native performance findings across uses of the same character or hand system, even
+when the scene id, prop or story role changes. A repeated disconnected-limb or weightless-paper
+rejection requires a medium decision before selecting another hero: use licensed real
+performance, a different supported nonhuman mechanism, or a fully demonstrated replacement.
+Do not move an uncorrected failed action outside the hero passage. If a performed action is
+retired completely, select the hardest remaining authored mechanism and retain whole-film
+review of every replacement. Run all cheap duration, source-binding and caption checks before
+requesting a technical review binding or reserving a new preview.
+
 Keep the repair owner actively assigned until its current defect is resolved. A worker's
 completion event ends that worker turn; a later note does not necessarily restart it.
 When a fresh critic defect arrives after the renderer worker has completed, explicitly
