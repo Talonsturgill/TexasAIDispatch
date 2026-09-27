@@ -279,7 +279,7 @@ const CourtesyRequest:React.FC<{place:number;press:number;withdraw:number}>=({pl
   <group position={[mix(0,1.65,across),y,.65+.075*Math.sin(.10)*(1-down)]} rotation={[tilt,0,0]}>
    <Box p={[0,0,0]} s={[1.6065,.0243,2.079]} c={cream} round={.01215}/>
    <group scale={1.35}><CourtesyRequestPrint/></group>
-   <Hand p={[.65-.10*press+withdraw*2.5,.045+.020*place-.01125*press+withdraw*.22,.10+.45*press+withdraw*.15]} r={[0,Math.PI/2,0]} scale={.8}/>
+   <Hand p={[.65-.10*press+withdraw*.56,.045+.020*place-.01125*press+withdraw*.0021+.06*Math.sin(Math.PI*withdraw),.10+.45*press+withdraw*.15]} r={[0,Math.PI/2,0]} scale={.8}/>
   </group>
  </>;
 };
@@ -750,7 +750,9 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
- id==='s5'?{position:[.15+1.65*Math.min(1,a/.62),4.8,5.9],target:[-.10+1.65*Math.min(1,a/.62),-.25,.25],fov:34}:
+ // Derived from paper and full hand bounds across 303 action states.
+ // Screen union x81 to889, y611 to1087 retains caption and feed clearance.
+ id==='s5'?{position:[.866602913+1.65*Math.min(1,a/.62),4.509425929,6.128008554],target:[.616602913+1.65*Math.min(1,a/.62),-.540574071,.478008554],fov:53}:
 
  id==='s7'?(localTime<4.66?{position:[0,mix(2.09,1.85,coverage),3.3],target:[0,-.44,1.02],fov:40}:{position:[mix(.45,.42,closingCoverage),mix(1.22,1.16,closingCoverage),mix(3.30,3.22,closingCoverage)],target:[-.06,-.46,1.15],fov:45}):
  id==='s9'?encounterCamera:
