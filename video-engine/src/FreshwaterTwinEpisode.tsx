@@ -7,6 +7,7 @@ import {CreditsCard,SubtitleTrack} from "./Dispatch";
 import type {DispatchProps,Scene} from "./Dispatch";
 const Shot:React.FC<{scene:Scene}>=({scene})=>{
  const frame=useCurrentFrame();const {fps}=useVideoConfig();const progress=Math.min(1,frame/(scene.duration_s*fps));
+ if(scene.camera_strategy==='sourceFootage')throw new Error('sourceFootage requires the native media renderer');
  const camera=CameraMoves[scene.camera_strategy](progress);
  return <><Stage3D camera={{...camera,z:(camera.z??0)+70}} background="#f1ead8">
  {scene.planes.map((plane,pi)=><Plane z={plane.z} key={pi}><svg width={1080} height={1920} viewBox="0 0 1080 1920">{plane.items.map((item,ii)=><Element key={item.id??ii} item={{...item,props:{...item.props,progress}}} frame={frame} at={{scene:scene.id,plane:pi,item:ii}}/>)}</svg></Plane>)}

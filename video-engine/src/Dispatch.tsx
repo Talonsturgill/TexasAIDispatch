@@ -65,7 +65,7 @@ export interface Scene {
   duration_s: number;
   region: RegionName;
   county: string;
-  camera_strategy: keyof typeof CameraMoves;
+  camera_strategy: keyof typeof CameraMoves | 'sourceFootage';
   camera_secondary?: keyof typeof CameraMoves;
   camera_entry?: {x?: number; y?: number; z?: number; until_progress: number};
   /**
@@ -393,7 +393,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
   // silently give a static camera, which storyboard_check already refuses at
   // Gate 0 and which this refuses again at render time, because the two checks
   // guard different moments and the cheap one is not always the one that runs.
-  const move = CameraMoves[scene.camera_strategy];
+  const move = scene.camera_strategy==='sourceFootage'?undefined:CameraMoves[scene.camera_strategy];
   if (!move) {
     throw new Error(
       `scene ${scene.id}: camera_strategy "${scene.camera_strategy}" is not a composed move. ` +

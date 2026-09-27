@@ -64,6 +64,8 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import json
+import hashlib
+import math
 import re
 import sys
 from pathlib import Path
@@ -79,6 +81,49 @@ REGIONS = {"high_plains", "rolling_plains", "cross_timbers", "blackland", "post_
            "piney_woods", "gulf", "south_texas", "hill_country", "trans_pecos"}
 
 MOVES = {"dollyThrough", "orbitReveal", "craneDown", "truckAcross", "riseWith"}
+
+def source_footage_problems(board: dict, scene: dict, public: Path | None = None) -> list[str]:
+    """Verify the concrete native source route; never license a static generated plate."""
+    public = public or REPO / "video-engine" / "public"
+    media = scene.get("source_footage")
+    prefix = f"scene {scene.get('id')}: sourceFootage "
+    if not isinstance(media, dict):
+        return [prefix + "requires a source_footage binding"]
+    errors = []
+    if scene.get("generated_media"):
+        errors.append(prefix + "cannot be a generated plate")
+    if media.get("camera_motion") != "static-native/no-digital-motion":
+        errors.append(prefix + "must declare static-native/no-digital-motion")
+    if media.get("playback_rate") != 1 or media.get("muted") is not True:
+        errors.append(prefix + "requires natural playback and an explicit muted source track")
+    relative = str(media.get("file") or "")
+    path = Path(relative)
+    sha = str(media.get("sha256") or "")
+    if (path.is_absolute() or ".." in path.parts or not relative.startswith("evidence/")
+            or path.suffix.lower() not in {".mp4", ".mov", ".webm"}):
+        return errors + [prefix + "must bind a video inside public/evidence"]
+    bound = next((m for m in board.get("native_media", [])
+                  if m.get("file") == relative and m.get("sha256") == sha), None)
+    if not bound or len(str(bound.get("basis") or "")) < 30:
+        errors.append(prefix + "requires matching native_media SHA and provenance")
+    if not re.fullmatch(r"[0-9a-f]{64}", sha):
+        errors.append(prefix + "requires a SHA256 digest")
+    try:
+        if hashlib.sha256((public / path).read_bytes()).hexdigest() != sha:
+            errors.append(prefix + "asset SHA256 does not match its binding")
+    except OSError:
+        errors.append(prefix + "asset is missing or unreadable")
+    if not all(str(media.get(k) or "").strip() for k in ("source_url", "creator", "license_url")):
+        errors.append(prefix + "requires source, creator and license provenance")
+    try:
+        start, end = float(media["trim_start_s"]), float(media["trim_end_s"])
+        if not (math.isfinite(start) and math.isfinite(end) and 0 <= start < end
+                and end - start >= float(scene.get("duration_s") or 0)):
+            errors.append(prefix + "trim does not cover the scene at natural speed")
+    except (KeyError, TypeError, ValueError):
+        errors.append(prefix + "requires finite source trim bounds")
+    return errors
+
 
 CURRENCIES = {"motion", "emotion", "revelation"}
 
@@ -626,7 +671,10 @@ def check(board: dict) -> list[str]:
     for i, s in enumerate(scenes, 1):
         sid = s.get("id") or f"#{i}"
         move = s.get("camera_strategy", "")
-        if move not in MOVES:
+        footage_errors = source_footage_problems(board, s) if move == "sourceFootage" else []
+        source_verified = move == "sourceFootage" and not footage_errors
+        p += footage_errors
+        if move not in MOVES and not source_verified:
             p.append(f"scene {sid}: camera_strategy {move!r} is not a composed move. "
                      f"Pick one of {', '.join(sorted(MOVES))}. A scene with a static camera "
                      f"wastes the engine.")
@@ -655,10 +703,11 @@ def check(board: dict) -> list[str]:
                          f"toward the depth budget and draws nothing, so it hides a shortfall "
                          f"rather than causing one. Delete it, or put back whatever an edit "
                          f"took out of it.")
-        if not 4 <= len(planes) <= 6:
+        if not source_verified and not 4 <= len(planes) <= 6:
             p.append(f"scene {sid}: {len(planes)} planes. Four to six, or there is no depth "
                      f"for the camera to move through.")
-        p += staging_problems(sid, s, planes, names, required, siting)
+        if not source_verified:
+            p += staging_problems(sid, s, planes, names, required, siting)
         if s.get("beat") not in CURRENCIES:
             p.append(f"scene {sid}: beat {s.get('beat')!r} is not one of "
                      f"{', '.join(sorted(CURRENCIES))}. Every five seconds pays in one of them.")
@@ -666,7 +715,7 @@ def check(board: dict) -> list[str]:
         if dur <= 0:
             p.append(f"scene {sid}: no duration")
         elif dur > MAX_SCENE_S + 0.001:
-            moves = s.get("camera_strategy") in MOVES
+            moves = s.get("camera_strategy") in MOVES or source_verified
             beats = [float(e.get("at_s") or 0) for e in (s.get("visual_events") or [])]
             pays_late = any(t >= dur * LATE_BEAT_FRACTION for t in beats)
             if dur > HARD_MAX_SCENE_S + 0.001:
@@ -826,6 +875,40 @@ def self_test() -> int:
         return b
 
     ok("a good board passes", not check(board()), str(check(board())))
+
+    # The exception proves bytes and provenance, and leaves all other board checks active.
+    import tempfile
+    from copy import deepcopy
+    with tempfile.TemporaryDirectory() as directory:
+        public = Path(directory)
+        (public / "evidence").mkdir()
+        clip = public / "evidence" / "licensed.mp4"
+        clip.write_bytes(b"source-binding-test-fixture")
+        digest = hashlib.sha256(clip.read_bytes()).hexdigest()
+        native = {"file": "evidence/licensed.mp4", "sha256": digest,
+                  "basis": "Licensed source fixture used only to exercise byte binding."}
+        sample = {"id": "stock", "duration_s": 7.54, "camera_strategy": "sourceFootage",
+                  "source_footage": {**native, "camera_motion": "static-native/no-digital-motion",
+                    "playback_rate": 1, "muted": True, "trim_start_s": 0, "trim_end_s": 7.54,
+                    "source_url": "https://example.com/source", "creator": "Fixture",
+                    "license_url": "https://example.com/license"}}
+        binding = {"native_media": [native]}
+        ok("source footage accepts matching bytes and provenance",
+           not source_footage_problems(binding, sample, public))
+        ok("source footage rejects absent native binding",
+           bool(source_footage_problems({}, sample, public)))
+        clip.write_bytes(b"changed-source-fixture")
+        ok("source footage rejects changed asset bytes",
+           any("does not match" in x for x in source_footage_problems(binding, sample, public)))
+        clip.write_bytes(b"source-binding-test-fixture")
+        generated = deepcopy(sample); generated["generated_media"] = {"file": "plate.png"}
+        ok("source footage rejects a static generated plate",
+           any("generated plate" in x for x in source_footage_problems(binding, generated, public)))
+        static_scene = board(); static_scene["scenes"][2]["camera_strategy"] = "static"
+        ok("ordinary static generated scenes still fail",
+           any("not a composed move" in x for x in check(static_scene)))
+
+
 
     no_limit = board()
     no_limit["scenes"][5]["story_role"] = "mechanism"

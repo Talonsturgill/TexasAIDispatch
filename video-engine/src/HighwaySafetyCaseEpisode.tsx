@@ -95,6 +95,7 @@ const Dossier:React.FC<{scene:Scene;f:number;p:number}>=({scene,f,p})=>{
 
 const Shot:React.FC<{scene:Scene}>=({scene})=>{
  const f=useCurrentFrame(), {fps}=useVideoConfig(), p=clamp(f/(scene.duration_s*fps));
+ if(scene.camera_strategy==='sourceFootage')throw new Error('sourceFootage requires the native media renderer');
  const n=Number(scene.id.slice(1)); const cam=CameraMoves[scene.camera_strategy](p);
  const d=item(scene,'safety-case').props||{}; const person=item(scene,'engineer');
  const move=ease((p-.08)/.48), late=ease((p-.56)/.22);

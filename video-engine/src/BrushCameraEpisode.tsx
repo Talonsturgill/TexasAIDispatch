@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-import {Img, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {useLoader} from '@react-three/fiber';
 import {CinematicStage} from './lib/cinema/CinematicStage';
 import {actionProgress, actionWindows, requireAction} from './lib/direction';
@@ -709,13 +709,17 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  const p=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  return <div style={{position:'absolute',inset:0,background:ink,color:cream}}>
  {time<runtime_s&&<>
- {!__cinemaProofWithoutStage&&<PhysicalStory scene={scene} time={time} windows={windows}/>}
- <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
- <div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
+ {!__cinemaProofWithoutStage&&(scene.id==='s7'?
+ <Sequence from={Math.ceil(scene.start_s*fps)} durationInFrames={Math.ceil((scene.start_s+scene.duration_s)*fps)-Math.ceil(scene.start_s*fps)}>
+  <OffthreadVideo src={staticFile('evidence/yard-cleanup-8544165.mp4')} trimBefore={0} trimAfter={Math.ceil(scene.duration_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%'}}/>
+ </Sequence>:<PhysicalStory scene={scene} time={time} windows={windows}/>)}
+ <div style={{position:'absolute',inset:0,background:scene.id==='s7'?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
+ {scene.id!=='s7'&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
- <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div>
+ <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
+ {scene.id==='s7'&&<div style={{position:'absolute',right:64,top:52,padding:'10px 14px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.3,letterSpacing:.4,color:cream,background:'rgba(9,32,39,.80)'}}>ILLUSTRATIVE STOCK FOOTAGE<br/>NOT THE REPORTED PERSON<br/>OR PROPERTY</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
- {['s6','s7','s8'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
+ {['s6','s7','s8'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
  {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ROOF COMPARISON</div>}
  {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX</div>}
