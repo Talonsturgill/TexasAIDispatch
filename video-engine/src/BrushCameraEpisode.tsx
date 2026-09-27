@@ -260,18 +260,22 @@ const NoticeQueue:React.FC<{a:number;b:number}>=({a,b})=><>
   </group>
  </group>
 </>;
-const Notice:React.FC<{a:number;b:number}>=({a,b})=>{
- const pull=a*.65+b*.35;return <>
+const Notice:React.FC<{a:number;b:number;handoff?:number;isolated?:boolean}>=({a,b,handoff=0,isolated=false})=>{
+ const pull=a*.65+b*.35;
+ const exitX=handoff<=1?mix(0,-.65,handoff):mix(-.65,-3.65,handoff-1);
+ return <>
+ {!isolated&&<>
  <Box p={[0,.18,-1.12]} s={[4,3.7,.2]} c="#a58269"/>
  {Array.from({length:16},(_,r)=><Box key={r} p={[0,-1.45+r*.21,-1.008]} s={[4,.013,.01]} c="#bc9d82"/>)}
  <Box p={[.84,.21,-.96]} s={[1.22,2.81,.11]} c="#4b655b" round={.03}/>
  <Box p={[-.77,.38,-.84]} s={[1.06,.68,.36]} c="#2c4348" round={.045} metal={.18}/>
  <Box p={[-.77,.63,-.635]} s={[.84,.075,.035]} c="#132e36"/>
- <group position={[mix(-.77,-.15,pull),mix(.57,.19,pull),mix(-.54,.48,pull)]} rotation={[mix(1.40,.7,pull),0,.08]}>
+ </>}
+ <group position={[mix(-.77,-.15,pull)+exitX,mix(.57,.19,pull),mix(-.54,.48,pull)]} rotation={[mix(1.40,.7,pull),0,.08]}>
   <Paper p={[0,0,0]} scale={.57}/>
-  <Hand p={[.26,.07,.09]} r={[0,1.25,0]} scale={.65}/>
+  {!isolated&&<Hand p={[.26+handoff*3,.07,.09]} r={[0,1.25,0]} scale={.65}/>}
  </group>
- <Ball p={[1.25,.15,-.87]} s={[.06,.06,.04]} c="#c8b877"/>
+ {!isolated&&<Ball p={[1.25,.15,-.87]} s={[.06,.06,.04]} c="#c8b877"/>}
  </>;
 };
 // Both views are authored explanatory drawings, never the resident's actual records.
@@ -724,7 +728,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
- id==='s6'?{position:[.28,5.2,5.3],target:[.18,-.18,-.05],fov:38}:
+
  id==='s7'?(localTime<4.66?{position:[0,mix(2.09,1.85,coverage),3.3],target:[0,-.44,1.02],fov:40}:{position:[mix(.45,.42,closingCoverage),mix(1.22,1.16,closingCoverage),mix(3.30,3.22,closingCoverage)],target:[-.06,-.46,1.15],fov:45}):
  id==='s9'?encounterCamera:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
@@ -735,8 +739,8 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s2'&&<NoticeQueue a={a} b={b}/>}
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
- {id==='s5'&&<Notice a={a} b={b}/>}
- {id==='s6'&&<RoofComparison a={a} b={b} c={c} handoff={Math.max(0,Math.min(1,(localTime-(scene.duration_s-.42))/.42))}/>}
+ {id==='s5'&&<Notice a={a} b={b} handoff={c}/>}
+
  {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
  {id==='s9'&&<SiteInspection a={a} b={(b*.60+progress(4)*1.20)/1.80} c={c} d={d}/>}
  </CinematicStage>;
@@ -745,23 +749,23 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  const frame=useCurrentFrame(),{fps}=useVideoConfig(),time=frame/fps,windows=actionWindows(scenes);
  const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
  const p=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
- const cleanupScene=scenes.find(s=>s.id==='s7'),roofScene=scenes.find(s=>s.id==='s6');
- const cleanupStart=cleanupScene?.start_s??27.46;
- // The actual right comparison sheet crosses the editorial cut, never belonging to the stock adult.
- const bridgeIn=Math.max(0,Math.min(1,(time-(cleanupStart-.42))/.42));
- const bridgeOut=Math.max(0,Math.min(1,(time-cleanupStart)/.42));
- const noticeLink=(scene.id==='s6'?bridgeIn:scene.id==='s7'?1:0);
+ const cleanupScene=scenes.find(s=>s.id==='s7'),noticeScene=scenes.find(s=>s.id==='s5');
+ const cleanupStart=cleanupScene?.start_s??23;
+ // The actual courtesy notice crosses the editorial cut, never belonging to the stock adult.
+ const bridgeIn=actionProgress(requireAction(windows,'s5-notice-handoff'),time);
+ const bridgeOut=Math.max(0,Math.min(1,(time-cleanupStart)/.60));
+ const noticeLink=(scene.id==='s5'?bridgeIn:scene.id==='s7'?1:0);
  return <div style={{position:'absolute',inset:0,background:ink,color:cream}}>
  {time<runtime_s&&<>
  {!__cinemaProofWithoutStage&&(scene.id==='s7'?
  <Sequence from={Math.ceil(scene.start_s*fps)} durationInFrames={Math.ceil((scene.start_s+scene.duration_s)*fps)-Math.ceil(scene.start_s*fps)}>
   <OffthreadVideo src={staticFile('evidence/yard-cleanup-8544165.mp4')} trimBefore={0} trimAfter={Math.ceil(scene.duration_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%',filter:'saturate(.78) contrast(.96) sepia(.09)'}}/>
  </Sequence>:<PhysicalStory scene={scene} time={time} windows={windows}/>)}
- {!__cinemaProofWithoutStage&&scene.id==='s7'&&bridgeOut<1&&roofScene&&<div style={{position:'absolute',inset:0,pointerEvents:'none'}}>
-  <CinematicStage position={[.28,5.2,5.3]} target={[.18,-.18,-.05]} fov={38} exposure={1.15}>
+ {!__cinemaProofWithoutStage&&scene.id==='s7'&&bridgeOut<1&&noticeScene&&<div style={{position:'absolute',inset:0,pointerEvents:'none'}}>
+  <CinematicStage position={[1.6,1.25,5.4]} target={[0,.20,-.2]} fov={39} exposure={1.15}>
    <directionalLight position={[3,8,2]} intensity={1.4} color="#fff1c9"/>
    <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
-   <RoofComparison a={1} b={1} c={1} handoff={1+bridgeOut} isolated/>
+   <Notice a={1} b={1} handoff={1+bridgeOut} isolated/>
   </CinematicStage>
  </div>}
 
@@ -772,9 +776,9 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {scene.id==='s7'&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
  {noticeLink>0&&<div style={{position:'absolute',left:70,top:326,padding:'8px 14px',fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:ink,background:cream,opacity:noticeLink}}>NOTICE → REPORTED YARD WORK</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
- {['s6','s7','s8'].includes(scene.id)&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
+ {scene.id==='s7'&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
- {scene.id==='s6'&&<div style={{position:'absolute',left:70,top:426,fontFamily:FONT.mono,fontSize:28,color:cream}}>ILLUSTRATIVE ROOF COMPARISON</div>}
+
  {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
  </>}
