@@ -61,6 +61,7 @@ STAGEABLE = [
 # Everything else, with the reason. A module is excluded because of WHAT IT IS,
 # never because listing it would make this checker go red.
 NOT_STAGEABLE = {
+    "DispatchOverlays": "SubtitleTrack and CreditsCard are mounted directly by Dispatch and the daily episode; they are screen overlays, not board-placeable scene objects. Native renderer parity covers their output.",
     "editorial": "shared caption and credit text layout, mounted by film chrome rather than staged from a board.",
     "direction": "film-global board action clocks and interpolation. No drawing geometry.",
     "lighting": "light, ramps and surface treatments. Applied to a drawing, not placed as one.",
