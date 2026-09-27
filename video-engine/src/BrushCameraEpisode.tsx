@@ -774,12 +774,13 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
  const stock=scene.camera_strategy==='sourceFootage';
  const media=scene.source_footage;
- if(time<runtime_s&&scene.id==='s7'&&!stock)throw new Error(scene.id+' requires licensed source footage; generated human performance is retired');
+ const editorialExcerpt=stock&&media?.editorial_excerpt===true;
+ if(time<runtime_s&&scene.id==='s7'&&!stock)throw new Error(scene.id+' requires native source footage; generated human performance is retired');
  if(stock){
   const binding=native_media.find(item=>item.file===media?.file);
   if(!media||!binding||binding.sha256!==media.sha256||!/^[a-f0-9]{64}$/.test(media.sha256)||
     !/^evidence\/[A-Za-z0-9._/-]+\.(mp4|mov|webm)$/.test(media.file)||media.file.includes('..')||
-    media.camera_motion!=='static-native/no-digital-motion'||media.playback_rate!==1||media.muted!==true||
+    !['static-native/no-digital-motion','source-native/no-digital-motion'].includes(media.camera_motion)||media.playback_rate!==1||media.muted!==true||
     !Number.isFinite(media.trim_start_s)||!Number.isFinite(media.trim_end_s)||media.trim_start_s<0||
     media.trim_end_s-media.trim_start_s<scene.duration_s-.05){
    throw new Error(scene.id+' lacks a valid native source-footage binding');
@@ -790,18 +791,18 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  {time<runtime_s&&<>
  {!__cinemaProofWithoutStage&&(stock?
  <Sequence from={Math.ceil(scene.start_s*fps)} durationInFrames={Math.ceil((scene.start_s+scene.duration_s)*fps)-Math.ceil(scene.start_s*fps)}>
-  <OffthreadVideo src={staticFile(media!.file)} trimBefore={Math.round(media!.trim_start_s*fps)} trimAfter={Math.ceil(media!.trim_end_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%',filter:'saturate(.78) contrast(.96) sepia(.09)'}}/>
+  <OffthreadVideo src={staticFile(media!.file)} trimBefore={Math.round(media!.trim_start_s*fps)} trimAfter={Math.ceil(media!.trim_end_s*fps)} playbackRate={1} muted style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%',filter:editorialExcerpt?'none':'saturate(.78) contrast(.96) sepia(.09)'}}/>
  </Sequence>:<PhysicalStory scene={scene} time={time} windows={windows}/>)}
 
  <div style={{position:'absolute',inset:0,background:stock?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
- {!stock&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
- <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>DALLAS / ILLUSTRATED RECONSTRUCTION</div>
+ {(!stock||editorialExcerpt)&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
+ <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>{editorialExcerpt?'SOURCE EXCERPTS / NBC 5 INVESTIGATES':'DALLAS / ILLUSTRATED RECONSTRUCTION'}</div>
  <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
- {stock&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
- {stock&&localTime<1.2&&<div style={{position:'absolute',left:70,top:278,fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:cream,textShadow:'0 2px 5px #17323d'}}>{scene.id==='s5'?'COURTESY REQUEST':'NOTICE → REPORTED YARD WORK'}</div>}
+ {stock&&!editorialExcerpt&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
+ {stock&&!editorialExcerpt&&localTime<1.2&&<div style={{position:'absolute',left:70,top:278,fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:cream,textShadow:'0 2px 5px #17323d'}}>{scene.id==='s5'?'COURTESY REQUEST':'NOTICE → REPORTED YARD WORK'}</div>}
  {scene.id==='s5'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE / QUOTED REQUEST</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
- {scene.id==='s7'&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
+ {scene.id==='s7'&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>{editorialExcerpt?'HER NOTICE · HER YARD · HER ACCOUNT':'SEPARATE REPORTED CASE / NBC DFW'}</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
 
  {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX</div>}
