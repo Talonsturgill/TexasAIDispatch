@@ -241,9 +241,14 @@ const ReviewArrival:React.FC<{a:number;b:number}>=({a,b})=><>
  <Box p={[1.94,.09,-.56]} s={[.18,.17,.88]} c="#334f57" round={.04}/>
 </>;
 // A complete seated figure receives and examines the conserved image.
-const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
+const ReviewDesk:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  const skin='#ad7e63',shirt='#627b70',photoScale=.46;
- const photoPosition:V3=[0,.028+b*.62,-.03-b*.035],photoTilt=b*.40-c*.28;
+ // The examination changes physical reading distance, with a fixed camera.
+ const photoPosition:V3=[-.10*d,.028+b*.62+.12*d,-.03-b*.035+.06*d],photoTilt=b*.40-d*.30;
+ const torsoPivot:V3=[0,-.345,-.89-.08*c],torsoRotation:V3=[.24*c,0,.12*c];
+ const torsoMatrix=new THREE.Matrix4().compose(new THREE.Vector3(...torsoPivot),
+  new THREE.Quaternion().setFromEuler(new THREE.Euler(...torsoRotation)),new THREE.Vector3(1,1,1));
+ const torsoPoint=(p:V3):V3=>new THREE.Vector3(p[0],p[1]+.345,p[2]+.89).applyMatrix4(torsoMatrix).toArray() as V3;
  const photoMatrix=new THREE.Matrix4().compose(new THREE.Vector3(...photoPosition),
   new THREE.Quaternion().setFromEuler(new THREE.Euler(photoTilt,0,0)),new THREE.Vector3(photoScale,photoScale,photoScale));
  const photoPoint=(p:V3):V3=>new THREE.Vector3(...p).applyMatrix4(photoMatrix).toArray() as V3;
@@ -260,7 +265,7 @@ const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
   const bend=preference.clone().addScaledVector(axis,-preference.dot(axis)).normalize();
   return start.addScaledVector(axis,along).addScaledVector(bend,height).toArray() as V3;
  };
- const shoulders:V3[]=[[-.36,.76,-.85],[.36,.76,-.85]];
+ const shoulders:V3[]=[torsoPoint([-.36,.76,-.85]),torsoPoint([.36,.76,-.85])];
  return <>
  <Box p={[0,-1.61,0]} s={[8,.12,7]} c='#687568'/>
  <Box p={[0,-.075,.13]} s={[2.48,.13,1.58]} c='#586c6a' round={.04}/>
@@ -280,10 +285,11 @@ const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
   <Box p={[side*.27,-1.48,.015]} s={[.26,.15,.45]} c='#303835' round={.05}/>
  </React.Fragment>)}
  <Box p={[0,-.46,-.88]} s={[.67,.30,.44]} c='#3e4c52' round={.12}/>
+ <group position={torsoPivot} rotation={torsoRotation}><group position={[0,.345,.89]}>
  <Box p={[0,.22,-.89]} s={[.74,1.13,.40]} c={shirt} round={.13}/>
  <Box p={[-.18,.47,-.679]} s={[.18,.19,.016]} c='#587265' round={.012}/>
  <Rod from={[0,.77,-.89]} to={[0,.96,-.88]} radius={.10} c={skin}/>
- <group position={[0,1.15,-.86]} rotation={[.28+.14*a+.15*c,0,0]}>
+ <group position={[0,1.15,-.86]} rotation={[.28+.14*a+.15*c,-.18*c,0]}>
   <Ball p={[0,0,0]} s={[.22,.29,.215]} c={skin}/>
   <Ball p={[0,.19,-.045]} s={[.222,.125,.20]} c='#403f36'/>
   <Ball p={[0,-.025,.215]} s={[.038,.061,.046]} c={skin}/>
@@ -294,6 +300,7 @@ const ReviewDesk:React.FC<{a:number;b:number;c:number}>=({a,b,c})=>{
   </React.Fragment>)}
   <Box p={[0,-.108,.194]} s={[.10,.011,.012]} c='#765945' round={.004}/>
  </group>
+ </group></group>
  {[-1,1].map((side,i)=>{
   const wrist=wrists[i],bend=elbow(shoulders[i],wrist,side);
   return <group key={'arm'+side}>
@@ -799,7 +806,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s1'&&<Street a={a} b={b} c={c} d={d} drive={Math.min(1,(time-scene.start_s)/scene.duration_s)}/>}
  {id==='s2'&&<NoticeQueue a={a} b={b}/>}
  {id==='s3'&&<ReviewArrival a={a} b={b}/>}
- {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
+ {id==='s4'&&<ReviewDesk a={a} b={b} c={c} d={d}/>}
 
 
  {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
