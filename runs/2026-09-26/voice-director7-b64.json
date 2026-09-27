@@ -1,0 +1,119 @@
+{
+  "schema": "dispatch_voice_audit/1",
+  "reviewer_identity": "voice-director7-b64-independent-pcm-audit",
+  "created_at": "2026-09-27T08:03:49.796199+00:00",
+  "scope": "Bounded pre-render PCM voice assembly audit; not a final audiovisual verdict",
+  "pass": true,
+  "status": "pass_bounded_pcm_audit",
+  "voice_sha256": "9555170e901a7766262b6755fcc7a4ce6dbb5819ec0ead11b445182434b078cb",
+  "source_narration_sha256": "91915e060e2fd35e19d5b2d41e51132a36d5ff26e4e5addd00172b07b222160d",
+  "selected_original_audio_sha256": "26f52885c8469c52047b4a361d19254fed0174ce62b8cca77e06b97520574b52",
+  "checks": {
+    "approved_prefix_pcm_identity": true,
+    "prefix_end_s": 28.25,
+    "quote_insert_pcm_identity": true,
+    "quote_relative_start_s": 29.82,
+    "inter_segment_zero_fill": true,
+    "prefix_sample_rate": 48000,
+    "assembled_sample_rate": 48000,
+    "assembly_duration_s": 32.5,
+    "quote_samples": 128000,
+    "quote_duration_s": 2.6666666666666665,
+    "declared_quote_duration_s": 2.6666666666666665,
+    "assembly_peak_sample": 27736,
+    "quote_peak_sample": 9066,
+    "full_scale_samples": 0,
+    "time_stretch_observed": false,
+    "prefix_cut_sample": 0,
+    "quote_final_sample_normalized": 0,
+    "quote_tail_20ms_rms": 0,
+    "quote_content_samples": 125280,
+    "quote_content_duration_s": 2.61,
+    "quote_padding_samples": 2720,
+    "quote_padding_all_zero": true,
+    "quote_last_nonzero_sample": 125278,
+    "quote_first_sample": 0,
+    "quote_content_end_sample": 0,
+    "declared_edge_fade_s": 0.005,
+    "source_decode_interior_pcm_identity": true,
+    "source_decode_interior_max_difference": 0,
+    "source_decode_comparison": "Independent input-seek FFmpeg native AAC decode to 48kHz mono; samples 240 through 125039 exactly match the selected quote. Only declared five-millisecond edge ramps and zero padding differ."
+  },
+  "findings": [],
+  "acoustic_basis": {
+    "native_pcm_sample_rate": 16000,
+    "independent_full_av_decode_sample_rate": 48000,
+    "quote_last_activity_decay_native_s": [
+      30.25,
+      30.29
+    ],
+    "quiet_handle_native_s": [
+      30.31,
+      30.6
+    ],
+    "quiet_rms_dbfs_range": [
+      -48.9,
+      -41.13
+    ],
+    "next_onset_native_s": 30.61,
+    "next_onset_rms_dbfs_at_30_63": -25.07,
+    "quote_start_native_s": 27.97,
+    "resident_initial_activity_native_s": 28.06,
+    "recommended_end_native_s": 30.58,
+    "recommended_content_samples": 125280,
+    "recommended_total_samples_with_padding": 128000,
+    "actual_end_native_s": 30.58,
+    "next_speaker_onset_excluded": true,
+    "notes": "The repaired content ends in the quiet handle before the new onset near 30.61s. Edge ramps reach zero; the discarded tail and following reporter onset are absent."
+  },
+  "transcript_basis": "Native acoustic ASR contains the complete resident sentence followed by the reporter sign-off. The ASR token offsets and DTW centers differ and are not treated as phoneme endpoints. Waveform energy plus sequence context supports a quiet end before the next onset; no personal listening or audible completeness claim is made.",
+  "audio_basis": "PCM comparisons, wave measurements, FFmpeg native decoding and existing native ASR only. No provider call, synthesis or personal listening. Original resident recording is inserted once; source-picture playback is expected to remain muted. Final audiovisual review must assess natural delivery, intelligibility and synchronization.",
+  "one_sentence_fix": "No further PCM repair is required; complete final audiovisual review of the original recording and picture synchronization.",
+  "prior_boundary_repair": {
+    "voice_sha256": "a42accd7ae985e931c0ccada50ab86eb676f0fba28e5b892d3c5a484d25e77a2",
+    "selected_original_audio_sha256": "988e20748d7465c9207a890091f910efbd3794c977a9d72b73d0d7742b8c8564",
+    "findings": [
+      {
+        "severity": "repair",
+        "at_native_s": 30.636667,
+        "observation": "The selected recording ends after a new waveform onset near 30.61s, then the assembly jumps from -0.114258 full scale directly to zero. Native audio has a preceding quiet interval near 30.31\u201330.60s. The next reporter token has DTW center 30.86s; that center cannot certify silence before it.",
+        "repair": "Select native 27.97\u201330.58s at unchanged playback rate, apply a five to ten millisecond fade only inside the quiet boundary handles, then zero-pad to 128000 samples for the existing eighty-frame interval. Record the fades and padding in provenance. No timeline expansion is needed."
+      }
+    ],
+    "status": "resolved"
+  },
+  "alignment_evidence": {
+    "captions_sha256": "272e62dae4a0f642079627851369ff17759f776f2cc94a83f5349a0289a0bc0a",
+    "words_sha256": "3e4d8ad231f91948a4c2733a692b88b517604825b035b40352e742b351aa0947",
+    "voice_stem_sha256": "fa738aeb906c65ac8eecdf669662278e57409b78122c5c32933e7906a63ba956",
+    "mix_sha256": "e7085390769c9b05a4447ca5d156da7be15074012eec6f0afc60a5f2c7282baa",
+    "asr_sha256": "e85f97bbb6f0b98a6552b3afbc3ddaa7ce8ea8a00a268ffa1410cb38c8dcbf7d",
+    "script_sha256": "465b6233906cfb12ec5f1bd4ead728eb42614302ef62d03753cca699c9d8ce0a",
+    "cue_count": 8,
+    "measured_cue_boundaries": 16,
+    "matched_words": 88,
+    "modeled_interior_words": 72,
+    "quote_cue_film_start_s": 32.32,
+    "quote_cue_film_end_s": 34.94,
+    "quote_text": "It's going to be the people who are going to be hurt the most by it.",
+    "note": "All displayed cue boundaries are measured speech-run edges. Interior word timing remains modeled; this is not phoneme forced alignment."
+  },
+  "mix_evidence": {
+    "duration_s": 40,
+    "lufs_achieved": -16.09,
+    "time_stretch": 1.0,
+    "voice_stem_samples": 1920000,
+    "scope": "Current WAV mix only; encoded final-film audio remains a later verification.",
+    "master_sha256": "e7085390769c9b05a4447ca5d156da7be15074012eec6f0afc60a5f2c7282baa"
+  },
+  "technical_rebind": {
+    "at": "2026-09-27T08:03:49.789978+00:00",
+    "prior_mix_sha256": "d4a1ecf80be9acda2f4d36fc4907426afe9a89d0b13d56be7a380b9e1f533b84",
+    "current_mix_sha256": "e7085390769c9b05a4447ca5d156da7be15074012eec6f0afc60a5f2c7282baa",
+    "board_sha256": "ee6562c1153855ecb5de9cb95430639be1cb03b52891483a3d308dc7341f332e",
+    "sfx_events_sha256": "4c5b6dbedf7ce0e490a9dc9464b1232fde5c167fdd91ee0109b0cf776223985e",
+    "source_scene_s7_start_s": 25.62,
+    "quote_start_film_s": 32.32,
+    "reason": "Current mix includes a quiet designed paper rustle for the held-paper gesture at 26.27s. Original narrator and resident PCM and all eight caption cues are unchanged. This rebind verifies artifact identity and retains the earlier PCM proof; it is not a repeated audible-media review."
+  }
+}
