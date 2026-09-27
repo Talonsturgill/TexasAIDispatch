@@ -333,6 +333,26 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  const palm=local(.175),wrist=local(.31);
  const blend=(p:V3,q:V3,t:number)=>p.map((v,i)=>mix(v,q[i],t)) as V3;
  const joint=elbow??encounterElbow(cuff,wrist,[0,-1,.3]);
+ const sleeveGeometry=useMemo(()=>{
+  const shoulder=new THREE.Vector3(...cuff),bend=new THREE.Vector3(...joint),end=new THREE.Vector3(...wrist);
+  const into=bend.clone().sub(shoulder).normalize(),out=end.clone().sub(bend).normalize();
+  const before=bend.clone().addScaledVector(into,-.105),after=bend.clone().addScaledVector(out,.105);
+  const points:THREE.Vector3[]=[],radii:number[]=[];
+  for(let i=0;i<=14;i++){points.push(shoulder.clone().lerp(before,i/14));radii.push(mix(.118,.108,i/14));}
+  for(let i=1;i<=12;i++){const t=i/12;points.push(before.clone().multiplyScalar((1-t)**2).addScaledVector(bend,2*t*(1-t)).addScaledVector(after,t*t));radii.push(.108);}
+  for(let i=1;i<=14;i++){points.push(after.clone().lerp(end,i/14));radii.push(mix(.108,.069,i/14));}
+  const vertices:number[]=[],indices:number[]=[],sides=28;
+  points.forEach((point,j)=>{
+   const tangent=points[Math.min(j+1,points.length-1)].clone().sub(points[Math.max(0,j-1)]).normalize();
+   const x=new THREE.Vector3(0,0,1).addScaledVector(tangent,-tangent.z).normalize(),y=new THREE.Vector3().crossVectors(tangent,x).normalize();
+   for(let i=0;i<=sides;i++){const a=i/sides*Math.PI*2,p=point.clone().addScaledVector(x,Math.cos(a)*radii[j]).addScaledVector(y,Math.sin(a)*radii[j]);vertices.push(p.x,p.y,p.z);
+    if(j<points.length-1&&i<sides){const k=j*(sides+1)+i;indices.push(k,k+1,k+sides+1,k+1,k+sides+2,k+sides+1);}
+   }
+  });
+  const cap=vertices.length/3;vertices.push(...shoulder.toArray(),...end.toArray());
+  for(let i=0;i<sides;i++){indices.push(cap,i+1,i);const k=(points.length-1)*(sides+1)+i;indices.push(cap+1,k,k+1);}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();return g;
+ },[...cuff,...joint,...wrist]);
  const palmGeometry=useMemo(()=>{
   // A tapered metacarpal volume widens at the knuckles and narrows into the wrist.
   const rings=[{d:.105,w:.073,h:.031},{d:.15,w:.086,h:.043},{d:.205,w:.077,h:.047},{d:.255,w:.056,h:.034},{d:.31,w:.048,h:.029}];
@@ -373,9 +393,9 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  const thumbEnd=blend(local(.095,-.071,.014),thumbOpposed,closed);
  const thumbMid=blend(local(.12,-.095,.028),local(.065,-.043,.070),closed);
  return <>
- <HandBone from={cuff} to={joint} r0={.108} r1={.090} color={shirt}/>
- <Ball p={joint} s={[.093,.093,.093]} c={shirt}/>
- <HandBone from={joint} to={wrist} r0={.088} r1={.061} color={shirt}/>
+ <Ball p={cuff} s={[.126,.126,.126]} c={shirt}/>
+ <mesh geometry={sleeveGeometry} castShadow receiveShadow><meshStandardMaterial color={shirt} roughness={.82}/></mesh>
+ <Ball p={wrist} s={[.070,.070,.070]} c={skin}/>
  <HandBone from={local(.32)} to={local(.287)} r0={.080} r1={.069} color={sleeveEdge}/>
  <mesh geometry={palmGeometry} castShadow receiveShadow><meshStandardMaterial color={skin} roughness={.69}/></mesh>
  <Ball p={local(.19,-.05,.007)} s={[.042,.059,.036]} c={skin}/>
@@ -506,8 +526,9 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const officerFeet=c>0?steppingFeet([-.75,0,.75],[-.59,0,.85],c,2.30,1.25):steppingFeet([-.51,0,1.21],[-.75,0,.75],a,3.62,2.30);
  const officerFootYaws=[0,1].map(i=>mix(c>0?2.30:3.62,c>0?1.25:2.30,smooth((c>0?c:a)*2-i))) as [number,number];
 
- const boardScale=.55,boardTilt=.75+.25*a-.10*b-.05*c;
- const boardPos=carried([-.21,.20+.22*a+.10*b-.16*c,1.10-.035*b]);
+ const inspectionEnvelope=smooth(b/.26)*(1-smooth((b-.78)/.22));
+ const boardScale=.55,boardTilt=.75+.25*a-.10*b-.05*c-.20*inspectionEnvelope;
+ const boardPos=carried([-.21-.10*inspectionEnvelope,.20+.22*a+.10*b-.16*c-.30*inspectionEnvelope,1.10-.035*b]);
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x*boardScale,boardPos[1]+(y*Math.cos(boardTilt)-z*Math.sin(boardTilt))*boardScale,boardPos[2]+(y*Math.sin(boardTilt)+z*Math.cos(boardTilt))*boardScale];
  const photoPos=world(.355,.028,-.10),restNotice=world(-.40,.035,.08);
  const noticePos=blend(restNotice,carried([-.02,.35,1.22]),present);
@@ -517,10 +538,17 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const edge:V3=[noticePos[0]-.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
  const ownerEdge:V3=[noticePos[0]+.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
  const workRest=carried([-.20,-.40,1.25]),ownerRest:V3=[.72,-.32,1.24];
- const officerContact=blend(workRest,edge,pickup);
+ const reach=smooth(b/(1/3)),check=smooth((b-1/3)/(.72-1/3)),withdraw=smooth((b-.72)/.28);
+ const inspectionContact:V3=[-1.40,.83-.38*check,-.313];
+ const reachCorner:V3=[-.98,.04,.90];
+ const outPath=reach<.45?blend(workRest,reachCorner,smooth(reach/.45)):blend(reachCorner,inspectionContact,smooth((reach-.45)/.55));
+ const backPath=withdraw<.55?blend(inspectionContact,reachCorner,smooth(withdraw/.55)):blend(reachCorner,workRest,smooth((withdraw-.55)/.45));
+ const inspectContact=b<.72?outPath:backPath;
+ const officerContact=blend(inspectContact,edge,pickup);
  officerContact[0]-=.10*release;officerContact[1]-=.15*release;officerContact[2]+=.025*release;
  const ownerContact=blend(ownerRest,ownerEdge,receive);
- const workingApproach=unit(blend([0,.98,-.12],[-1,-.18,.20],pickup*(1-.30*release)));
+ const workBase=blend([0,.98,-.12],[.12,-.50,1],smooth(b/.28)*(1-smooth((b-.78)/.22)));
+ const workingApproach=unit(blend(workBase,[-1,-.18,.20],pickup*(1-.30*release)));
  const receiverApproach=unit(blend([.12,.98,.02],[1,-.18,.20],receive));
  const officerTorso=carried([-.75+.035*examine-.025*present,-.020-.050*examine-strideDip,.75-.035*examine+.015*present]);
  const ownerTorso:V3=[.65-.035*receive+.015*pull,-.006-.012*receive,1+.015*receive];
@@ -555,7 +583,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27*boardScale}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38*boardScale}/></group>
  <EncounterHand contact={heldContact} approach={holdApproach} cuff={holdShoulder} elbow={holdElbow} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
- <EncounterHand contact={officerContact} approach={workingApproach} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.65)/.35)*(1-release)} normal={noticeNormal}/>
+ <EncounterHand contact={officerContact} approach={workingApproach} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.65)/.35)*(1-release)} pointing={smooth(b/.22)*(1-smooth((b-.82)/.18))*(1-pickup)} normal={noticeNormal}/>
  <EncounterHand contact={restingContact} approach={restingApproach} cuff={restingShoulder} elbow={restingElbow} skin="#b78666" shirt="#83684f" normal={[0,0,1]} handedness={-1}/>
  <EncounterHand contact={ownerContact} approach={receiverApproach} cuff={receiveShoulder} elbow={receiveElbow} skin="#b78666" shirt="#83684f" closed={smooth((receive-.65)/.35)} normal={noticeNormal} handedness={-1}/>
  </>;
@@ -604,7 +632,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s6'&&<RoofComparison a={a} b={b} c={c}/>}
  {id==='s7'&&<Cleanup a={a} b={b}/>}
  {id==='s8'&&<Evidence a={a} b={b} c={c}/>}
- {id==='s9'&&<SiteInspection a={a} b={b} c={c} d={d}/>}
+ {id==='s9'&&<SiteInspection a={a} b={(b*.60+progress(4)*1.20)/1.80} c={c} d={d}/>}
  </CinematicStage>;
 };
 export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,captions=[],credits='',credits_s=5,__cinemaProofWithoutStage=false})=>{
