@@ -289,9 +289,9 @@ const DebrisGround:React.FC=()=> <>
  <Box p={[0,-.47,-2.1]} s={[15,.10,1.42]} c='#697650'/>
  {[-2.6,2.0].map(x=><Box key={x} p={[x,-.405,-.72]} s={[.018,.005,1.20]} c='#858776'/>)}
 </>;
-const DebrisCapture:React.FC<{travel:number;capture:number}>=({travel,capture})=> <>
+const DebrisCapture:React.FC<{elapsed:number;captureAt:number}>=({elapsed,captureAt})=> <>
  <DebrisGround/><DebrisPile/>
- <Truck x={mix(2.55,-2.55,travel)} closed={Math.sin(Math.PI*Math.min(1,Math.max(0,(capture-.75)/.25)))**10} travel={travel*2} cameraPitch={-.3355} detailSide/>
+ <Truck x={.39-.35*elapsed} closed={Math.exp(-(((elapsed-captureAt)/.07)**2))} travel={.35*elapsed/1.197} cameraPitch={-.3355} detailSide/>
 </>;
 const CapturedDebrisInset:React.FC<{progress:number;analysis:number}>=({progress,analysis})=>{
  const scan=Math.min(1,analysis*2),mask=Math.max(0,analysis*2-1);
@@ -784,7 +784,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  const encounterCamera:{position:V3;target:V3;fov:number}={position:[-5,1.9,4.2],target:[-.3,.3,.55],fov:50};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
- id==='s3'?{position:[-3.5,3.2,-6],target:[0,-.2,-.4],fov:45}:
+ id==='s3'?{position:[-3.5,3.2,-6],target:[-.25,-.50,-.4],fov:45}:
 
  id==='s7'?(localTime<4.66?{position:[0,mix(2.09,1.85,coverage),3.3],target:[0,-.44,1.02],fov:40}:{position:[mix(.45,.42,closingCoverage),mix(1.22,1.16,closingCoverage),mix(3.30,3.22,closingCoverage)],target:[-.06,-.46,1.15],fov:45}):
  id==='s9'?encounterCamera:
@@ -794,7 +794,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
  {id==='s1'&&<Street a={a} b={b} c={c} d={d} drive={Math.min(1,(time-scene.start_s)/scene.duration_s)}/>}
  {id==='s2'&&<NoticeQueue a={a} b={b} c={c}/>}
- {id==='s3'&&<DebrisCapture travel={Math.min(1,a*.30+b*.30+c*.40)} capture={b}/>}
+ {id==='s3'&&<DebrisCapture elapsed={Math.min(scene.duration_s,localTime)} captureAt={requireAction(windows,'s3-debris-captured').start-scene.start_s+.875*(requireAction(windows,'s3-debris-captured').end-requireAction(windows,'s3-debris-captured').start)}/>}
 
 
  {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
