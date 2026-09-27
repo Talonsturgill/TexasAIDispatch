@@ -474,12 +474,13 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const noticeTilt=mix(boardTilt,1.10,present)+.06*pull;
  const photoMarker=world(.355-1.095*.27,.045,-.10-.202*.27+.14*smooth(b/.30));
  const windowPoint:V3=[-.817,.885,-1.045];
- const compare=smooth((b-.30)/.70);
+ const compare=smooth((b-.15)/.65),withdraw=smooth((b-.80)/.20);
  // Lift toward the viewer, clear the board top, then reach back to the upper window.
  const control1:V3=[photoMarker[0]-.10,1.15,1.10],control2:V3=[-.76,1.40,-.25];
- const finger:V3=photoMarker.map((v,i)=>(1-compare)**3*v+3*(1-compare)**2*compare*control1[i]+3*(1-compare)*compare**2*control2[i]+compare**3*windowPoint[i]) as V3;
+ const touch:V3=photoMarker.map((v,i)=>(1-compare)**3*v+3*(1-compare)**2*compare*control1[i]+3*(1-compare)*compare**2*control2[i]+compare**3*windowPoint[i]) as V3;
+ const finger:V3=[touch[0]+.05*withdraw,touch[1]-.22*withdraw,touch[2]+.26*withdraw];
  const edge:V3=[noticePos[0]-.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
- const returnHigh:V3=[-.76,1.40,-.25],returnFront:V3=[edge[0],1.15,1.10];
+ const returnHigh:V3=[finger[0]-.04,finger[1]-.08,finger[2]+.35],returnFront:V3=[edge[0],.70,1.10];
  const pointing:V3=finger.map((v,i)=>(1-pickup)**3*v+3*(1-pickup)**2*pickup*returnHigh[i]+3*(1-pickup)*pickup**2*returnFront[i]+pickup**3*edge[i]) as V3;
  const officerContact:V3=[pointing[0]-.30*release,pointing[1]-.15*release,pointing[2]+.10*release];
  const ownerEdge:V3=[noticePos[0]+.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
@@ -489,17 +490,17 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const inspectionApproach:V3=[mix(.35,-.22,compare)-.10*reachBend,mix(.10,-.42,compare)+.08*reachBend,mix(1.10,1.28,compare)];
  const gripTurn=pickup*(1-.25*release);
  const workingApproach:V3=inspectionApproach.map((v,i)=>mix(v,[-1.05,-.18,.20][i],gripTurn)) as V3;
- const windowOrientation=compare*(1-pickup);
+ const windowOrientation=compare*(1-pickup)*(1-.30*withdraw);
  const workingNormal=new THREE.Vector3(0,Math.cos(noticeTilt)*(1-windowOrientation),mix(Math.sin(noticeTilt),1,windowOrientation)).normalize().toArray() as V3;
  const forearmFlex=.65*reachBend+.45*Math.sin(pickup*Math.PI)+.16*Math.sin(present*Math.PI);
- const reach=compare*(1-pickup);
+ const reach=compare*(1-pickup)*(1-.25*withdraw);
  const officerTorso:V3=[-.90+.065*reach+.055*present,-.025-.055*reach,.78-.15*reach+.055*present];
  const ownerTorso:V3=[.90-.09*receive+.035*pull,-.025-.045*receive,.78+.06*receive];
  const officerYaw=2.72+.30*reach-.50*present,officerLean=.025+.085*reach;
  const ownerYaw=-1.48-.10*receive,ownerLean=.025+.075*receive;
  const shoulder=(p:V3,yaw:number,lean:number,x:number):V3=>new THREE.Vector3(x,.48,0).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
  const holdShoulder=shoulder(officerTorso,officerYaw,officerLean,-.28),workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28),receiveShoulder=shoulder(ownerTorso,ownerYaw,ownerLean,-.28);
- const heldContact=world(-.74,.025,.25),holdApproach:V3=[-.5,-.85,.3],receiverApproach:V3=[1.05,-.18,.20];
+ const heldContact=world(-.79,.025,.18),holdApproach:V3=[-1.05,-.12,.20],receiverApproach:V3=[1.05,-.18,.20];
  const wrist=(contact:V3,approach:V3)=>contact.map((v,i)=>v+approach[i]*.31) as V3;
  const holdElbow:V3=[-.86,.03+.08*a,1.28-.08*a];
  const workElbow:V3=[mix(-.64,-1.22,reach)+.05*present,mix(.30,.72,reach)+.30*Math.sin(reach*Math.PI),mix(1.32,-.02,reach)];
@@ -530,7 +531,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <group position={photoPos} rotation={[boardTilt,0,0]} scale={.27*boardScale}><CapturedPrint/></group>
  <group position={noticePos} rotation={[noticeTilt,0,0]}><Paper p={[0,0,0]} scale={.38*boardScale}/></group>
  <EncounterHand contact={heldContact} approach={holdApproach} cuff={holdShoulder} elbow={holdElbow} skin="#ad7e63" shirt="#627b70" closed={1} normal={[0,Math.cos(boardTilt),Math.sin(boardTilt)]}/>
- <EncounterHand contact={officerContact} approach={workingApproach} flex={forearmFlex} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)} normal={workingNormal}/>
+ <EncounterHand contact={officerContact} approach={workingApproach} flex={forearmFlex} cuff={workShoulder} elbow={workElbow} skin="#ad7e63" shirt="#627b70" closed={smooth((pickup-.60)/.40)*(1-release)} pointing={(1-pickup)*(1-release)*(1-.85*withdraw)} normal={workingNormal}/>
  <EncounterHand contact={restingContact} approach={restingApproach} cuff={restingShoulder} elbow={restingElbow} skin="#b78666" shirt="#83684f" normal={[0,0,1]} handedness={-1}/>
  <EncounterHand contact={ownerContact} approach={receiverApproach} cuff={receiveShoulder} elbow={receiveElbow} skin="#b78666" shirt="#83684f" closed={smooth((receive-.65)/.35)} normal={[0,Math.cos(noticeTilt),Math.sin(noticeTilt)]} handedness={-1}/>
  {b>0&&[-1,1].map(sign=><React.Fragment key={sign}><Box p={[-.817+sign*.32,.54,-1.061]} s={[.025,.77*b,.014]} c={copper}/><Box p={[-.817,.54+sign*.385,-1.061]} s={[.64*b,.025,.014]} c={copper}/></React.Fragment>)}
@@ -557,6 +558,11 @@ const Evidence:React.FC<{a:number;b:number;c?:number;closing?:boolean;settled?:b
 const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof actionWindows>}>=({scene,time,windows})=>{
  const progress=(i:number)=>scene.visual_events?.[i]?.id?actionProgress(requireAction(windows,scene.visual_events[i].id),time):0;
  const a=progress(0),b=progress(1),c=progress(2),d=progress(3),id=scene.id;
+ const localTime=time-scene.start_s;
+ const encounterCamera:{position:V3;target:V3;fov:number}=localTime<1.70?
+  {position:[-1.8,1.5,4.2],target:[0,.24,.20],fov:50}:localTime<3.20?
+  {position:[.9,1.6,4.8],target:[-.15,.23,-.25],fov:50}:
+  {position:[1.6,1.4,4.7],target:[0,.20,.45],fov:50};
  const camera:{position:V3;target:V3;fov:number}=id==='s1'?{position:[7,6,10],target:[-.15,-.35,.15],fov:36}:
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
@@ -564,7 +570,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s5'?{position:[1.6,1.25,5.4],target:[0,.20,-.2],fov:39}:
  id==='s6'?{position:[.28,5.2,5.3],target:[.18,-.18,-.05],fov:38}:
  id==='s7'?{position:[2.7,2.9,7.4],target:[0,-.35,.1],fov:38}:
- id==='s9'?{position:[.25,1.7,6.25],target:[-.05,0,-.60],fov:42}:
+ id==='s9'?encounterCamera:
  id==='s8'?{position:[.5,5.4,5.8],target:[.10,0,.08],fov:40}:
  {position:[1.2,3.8,5.3],target:[0,-.28,-.16],fov:42};
  return <CinematicStage {...camera} exposure={1.15}>
