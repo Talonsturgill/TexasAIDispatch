@@ -1179,6 +1179,16 @@ alone do not establish a new mechanism. Correct the underlying body or scene mod
 choose a source-backed action that the renderer can perform convincingly. Record the changed
 physical invariant and verify it before spending another native review.
 
+Count rejected visual mechanisms by the action the viewer sees, across every repair batch.
+Changing a batch name, camera, joint solver, sleeve, grip or easing curve does not reset that
+count. After two native audiovisual rejections of the same staged human interaction, stop
+rebuilding that interaction. The research and storyboard roles must select a different
+source-backed action or angle before another native attempt. Prefer a directly demonstrable
+contact and consequence already supported by the evidence. Remove unnecessary hypothetical
+encounters and reuse only narration whose claims still fit the new ending. Record the abandoned
+mechanism and the replacement in the compact defect ledger; keep all earlier costs charged.
+A code or muted-phone pass cannot override repeated native audiovisual evidence.
+
 Keep the repair owner actively assigned until its current defect is resolved. A worker's
 completion event ends that worker turn; a later note does not necessarily restart it.
 When a fresh critic defect arrives after the renderer worker has completed, explicitly

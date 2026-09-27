@@ -163,3 +163,9 @@ B47 changes the coverage and action structure: supported photo inspection, one c
 ## September 26 B50 physical scene correction
 
 B49 native hero685a616a rejected rigid limbs and miniature-house spatial relationships after exact phone104 accepted contact readability. Root decoded frames confirm that local hand/camera repairs left the underlying scale and curved sleeve construction unresolved. B50 replaces the physical scene and arm model under the existing source, pacing, voice and final-review gates. The master now requires body/building scale and joint-length diagnosis before another repeated performance repair. No release approval exists yet.
+
+## September 26 B55 source-backed consequence pivot
+
+B54 native hero0fa290d4 again failed performed inspection quality. Successive camera, limb and grip changes had incorrectly been treated as new visual mechanisms while preserving the same hypothetical encounter. The master now counts the viewer-visible action across batch names and requires a different sourced action after two native rejections of that interaction.
+
+B55 removes the encounter and final FOX sentence. It retains the continuous85-word narration prefix and closes on the reported yard work: two grounded broom passes, a lifted reset retaining the same debris, then consolidation into a pile. The resident's unknown outcome remains explicit. Seven-scene story and flow gates pass; measured captions fit. Current code115 passes and phone96 is awaiting independent116; native and final evidence remain required. Nothing has been published from this revision.
