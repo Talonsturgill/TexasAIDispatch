@@ -180,6 +180,18 @@ def build_prompt(script: str, plan: dict,
                 "rests on and every figure and name in it must sit in one of their fetched "
                 "quotes:\n" + (proof.stdout or proof.stderr).strip())
 
+    if board_for_evidence and board_for_evidence.exists():
+        from daily_production import required
+        board = json.loads(board_for_evidence.read_text())
+        if required(board):
+            if not claims_for_evidence or not claims_for_evidence.is_file():
+                refusals.append("current verified claims are missing from the story review")
+            if not board_for_evidence.with_name("storyboard_critic.json").is_file():
+                refusals.append("independent story review is missing")
+            narrated = " ".join(str(scene.get("vo", "")) for scene in board.get("scenes", []))
+            if " ".join(narrated.split()) != " ".join(script.split()):
+                refusals.append("spoken script differs from the story that the critic approved")
+
     # THE DIRECTION CARRIES A SECOND COPY OF THE SCRIPT, AND ON 2026-08-28 THE READER
     # PICKED THE STALE ONE.
     #
@@ -782,7 +794,7 @@ def main() -> int:
     ap.add_argument("--script", help="the locked VO script")
     ap.add_argument("--direction", help="vo_direction.json from the vo-director agent")
     ap.add_argument("--out", default="out/dispatch/takes")
-    ap.add_argument("--takes", type=int, default=2)
+    ap.add_argument("--takes", type=int, default=1)
     ap.add_argument("--run-state", default="out/dispatch/run_state.json",
                     help="shared run ledger; synthesis and transcription both debit it")
     ap.add_argument("--voice", default=None, help="overrides config/voices.yaml")
@@ -852,6 +864,12 @@ def main() -> int:
             print(f"vo_synth: no voice: {exc}. Set one in {cfg} or pass --voice.", file=sys.stderr)
             return 2
 
+    from daily_production import in_window
+    if state.get("mode") == "production" and in_window(state.get("run_id")):
+        evidence_root = Path(a.script).parent
+        if not all((evidence_root / name).is_file() for name in ("storyboard.json", "claims.json", "storyboard_critic.json")):
+            print("vo_synth: current story, claims and independent critic are required before synthesis", file=sys.stderr)
+            return 1
     return run(script, plan, Path(a.out), a.takes, voice, key, state_path,
                evidence_dir=Path(a.script).parent)
 

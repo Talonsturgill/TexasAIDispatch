@@ -32,3 +32,11 @@ carries the names a stranger gets wrong. Mexia, Boerne, Bexar, Manchaca, Refugio
 one wrong in the first ten seconds costs the whole film its authority with the audience it is for.
 
 Write `out/dispatch/vo_direction.json`.
+
+
+## Approved daily story
+
+For editions covered by config/daily_production.json, take the spoken wording from the approved
+storyboard. Preserve its causal links and source limit. Request any substantive shortening as
+one complete story correction before synthesis; do not silently splice a different line into
+the direction file. Plan one continuous take by default, then use the existing audible check.

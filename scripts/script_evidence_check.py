@@ -318,6 +318,8 @@ def main() -> int:
         return 2
     try:
         problems = check(load(Path(a.board)), load(Path(a.claims)))
+        from daily_production import pre_voice_problems
+        problems += pre_voice_problems(Path(a.board), Path(a.claims))
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"script_evidence_check: could not run: {exc}", file=sys.stderr)
         return 2

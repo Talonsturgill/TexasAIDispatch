@@ -197,6 +197,8 @@ jobs:
           python3 scripts/run_controller.py --self-test
           python3 scripts/production_lifecycle_test.py
           python3 scripts/quality_recovery_test.py
+          python3 scripts/daily_production_test.py
+          python3 scripts/daily_production.py --catalog-check
           python3 scripts/critic_gate.py --self-test
           python3 scripts/audiovisual_review_test.py
           python3 scripts/production_quality_test.py
@@ -345,6 +347,7 @@ jobs:
           npm ci --no-audit --no-fund
           npx tsc --noEmit
           node tests/cinema.mjs
+          node tests/proven_actions.mjs
 
       - name: The dimensional and illustrated subjects really render
         timeout-minutes: 5

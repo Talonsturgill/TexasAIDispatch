@@ -287,6 +287,8 @@ def render(board: Path, film: Path, state: Path, claims: Path | None = None) -> 
     if not claims_path.is_file():
         raise RuntimeError("source claims are required before preview reservation")
     errors += check_supers(json.loads(board.read_text()), json.loads(claims_path.read_text()))[0]
+    from daily_production import pre_voice_problems
+    errors += pre_voice_problems(board, claims_path)
     if errors:
         raise RuntimeError("pre-render product checks failed; no animatic was spent: " + "; ".join(errors))
     media = subprocess.run([sys.executable, str(REPO / "scripts" / "generated_media.py"),

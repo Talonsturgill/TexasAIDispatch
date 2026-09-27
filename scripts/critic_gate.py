@@ -20,7 +20,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 
 
-def renderer_digest(board: dict) -> str | None:
+def renderer_files(board: dict) -> list[Path]:
     """Bind the critic to the actual cinematic scene code, not board prose alone.
 
     September 25's false-green board review survived large edits to its bespoke
@@ -29,7 +29,7 @@ def renderer_digest(board: dict) -> str | None:
     """
     template = str(board.get("cinematic_template") or "")
     if not template:
-        return None
+        return []
     router = REPO / "video-engine" / "src" / "Dispatch.tsx"
     source = router.read_text()
     branch = re.search(
@@ -48,6 +48,30 @@ def renderer_digest(board: dict) -> str | None:
              REPO / "video-engine" / "src" / "lib" / "cinema" / "Studio.tsx",
              REPO / "video-engine" / "src" / "lib" / "cinema" / "projection.ts",
              REPO / "video-engine" / "src" / "lib" / "direction.ts"]
+    # Reusable action code is a render input too. Do not traverse the central
+    # router again, which would include unrelated historical episode branches.
+    visited = set(files)
+    queue = [files[1]]
+    while queue:
+        owner = queue.pop()
+        for relative in re.findall(r"from\s*['\"](\.[^'\"]+)['\"]", owner.read_text()):
+            base = owner.parent / relative
+            dependency = next((candidate.resolve() for candidate in
+                               (base.with_suffix(".tsx"), base.with_suffix(".ts"), base / "index.tsx")
+                               if candidate.is_file()), None)
+            if dependency and dependency not in visited:
+                if not dependency.is_relative_to(REPO.resolve()):
+                    raise ValueError("renderer import leaves the repository")
+                visited.add(dependency)
+                files.append(dependency)
+                queue.append(dependency)
+    return sorted(files)
+
+
+def renderer_digest(board: dict) -> str | None:
+    files = renderer_files(board)
+    if not files:
+        return None
     from render_manifest import native_media_paths
     files.extend(native_media_paths(board))
     h = hashlib.sha256()
@@ -93,6 +117,8 @@ def problems(board: dict, report: dict) -> list[str]:
         return []
     from quality_contract import plan_problems
     errors = plan_problems(board)
+    from daily_production import review_problems, action_problems
+    errors += review_problems(board, report) + action_problems(board)
     if report.get("verdict") != "pass":
         errors.append("the independent storyboard critic has not passed this concept")
     if report.get("concept_sha256") != concept_digest(board):
