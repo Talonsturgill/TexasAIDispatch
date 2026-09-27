@@ -77,7 +77,7 @@ const Lens:React.FC<{closed:number}>=({closed})=><group>
  <Box p={[0,.22-closed*.18,.10]} s={[.34,closed*.37+.002,.018]} c="#192e34"/>
  {[-.23,.23].map(x=>[-.17,.17].map(y=><Ball key={`${x}-${y}`} p={[x,y,.045]} s={[.02,.02,.009]} c="#bbbba6"/>))}
 </group>;
-const Truck:React.FC<{x:number;closed:number;travel:number;cameraPitch?:number}>=({x,closed,travel,cameraPitch=0})=><group position={[x,-.04,1.6]} scale={.57}>
+const Truck:React.FC<{x:number;closed:number;travel:number;cameraPitch?:number;detailSide?:boolean}>=({x,closed,travel,cameraPitch=0,detailSide=false})=><group position={[x,-.04,1.6]} scale={.57}>
  <Box p={[.3,.40,0]} s={[3.35,1.5,1.45]} c={green} round={.085} metal={.2}/>
  {Array.from({length:7},(_,i)=><Box key={i} p={[-1.08+i*.47,.40,.752]} s={[.045,1.24,.035]} c="#658675" metal={.2}/>)}
  <Box p={[.22,1.17,0]} s={[3.3,.07,1.51]} c="#97a392" metal={.4}/>
@@ -93,7 +93,21 @@ const Truck:React.FC<{x:number;closed:number;travel:number;cameraPitch?:number}>
   <Ring p={[0,0,z>0?.12:-.12]} radius={.26} tube={.045} c="#73867e"/>
   <Ball p={[0,0,z>0?.13:-.13]} s={[.13,.13,.035]} c="#bbbdad"/>
   {[0,1,2,3,4,5].map(i=><Ball key={i} p={[.18*Math.cos(i*Math.PI/3),.18*Math.sin(i*Math.PI/3),z>0?.14:-.14]} s={[.027,.027,.012]} c="#c0c4b4"/>)}</group>))}
- <group position={[.6,1.30,-.42]} rotation={[cameraPitch,Math.PI,0]} scale={1.4}><Box p={[0,-.13,-.28]} s={[.13,.28,.12]} c="#9cae9b" metal={.6}/><Lens closed={closed}/></group>
+ {detailSide&&<>
+  {Array.from({length:7},(_,i)=><Box key={'rib'+i} p={[-1.08+i*.47,.40,-.752]} s={[.055,1.24,.045]} c='#7d9483' round={.015} metal={.32}/>)}
+  <Box p={[.22,1.17,-.775]} s={[3.3,.09,.08]} c='#adb5a1' round={.02} metal={.55}/>
+  <Box p={[.3,-.30,-.776]} s={[3.30,.09,.055]} c='#9dac98' metal={.35}/>
+  <Box p={[-1.98,.58,-.69]} s={[.84,.47,.036]} c='#467783' round={.04} metal={.25}/>
+  <Box p={[-1.52,.08,-.708]} s={[.025,.84,.022]} c='#778a7f'/>
+  <Box p={[-1.68,.13,-.728]} s={[.20,.045,.035]} c='#9eada2' round={.009} metal={.65}/>
+  <Box p={[-1.95,-.51,-.78]} s={[1.08,.08,.25]} c='#8c9b91' round={.025} metal={.55}/>
+  <Rod from={[-2.38,.72,-.70]} to={[-2.42,.64,-.93]} radius={.025} c='#60746d'/>
+  <Box p={[-2.43,.66,-.98]} s={[.15,.23,.06]} c='#273f43' round={.025} metal={.25}/>
+  <Box p={[1.52,-.10,-.794]} s={[.35,.10,.030]} c='#d5bd81'/>
+  <Box p={[.6,.79,-.80]} s={[.20,.26,.16]} c='#92a394' round={.025} metal={.6}/>
+  <Rod from={[.6,.80,-.78]} to={[.6,.80,-.99]} radius={.035} c='#a0b0a0'/>
+ </>}
+ <group position={detailSide?[.6,.80,-.96]:[.6,1.30,-.42]} rotation={[cameraPitch,Math.PI,0]} scale={detailSide?1.1:1.4}><Box p={[0,-.13,-.28]} s={[.13,.28,.12]} c="#9cae9b" metal={.6}/><Lens closed={closed}/></group>
  <Box p={[1.3,.17,.79]} s={[.64,.12,.02]} c="#a8b593"/>
  <Box p={[1.65,-.10,.79]} s={[.08,.09,.025]} c="#cf7650"/>
 </group>;
@@ -233,13 +247,20 @@ const CapturedPrint:React.FC<{marked?:number}>=({marked=1})=>{
  </>;
 };
 // One grounded pile is shared by the street and the held camera-view illustration.
-const DebrisPile:React.FC=()=> <group position={[0,-.43,-.58]}>
+const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={[0,-.43,-.58]}>
  <group position={[.39,.18,.02]} rotation={[0,.22,0]}>
   <Box p={[0,0,0]} s={[.53,.34,.48]} c='#aa8153' round={.015}/>
   <Box p={[0,.176,0]} s={[.50,.016,.45]} c='#70583c'/>
   <Box p={[-.30,.25,0]} s={[.26,.018,.46]} c='#b58b5a' r={[0,0,-.52]}/>
   <Box p={[.28,.23,0]} s={[.24,.018,.46]} c='#b58b5a' r={[0,0,.45]}/>
   <Box p={[0,.10,.245]} s={[.038,.24,.007]} c='#d0ad73'/>
+  {analysis>0&&[[-.265,-.17,-.24],[.265,-.17,-.24],[.265,-.17,.24],[-.265,-.17,.24]].map((p,i)=>{
+   const a=p as V3,b:[number,number,number]=[p[0],.17,p[2]],q=Math.min(1,analysis*2);
+   return <React.Fragment key={'box-analysis'+i}>
+    <OpticalEdge from={a} to={a.map((v,j)=>mix(v,b[j],q)) as V3} radius={.019}/>
+    <OpticalEdge from={b} to={[mix(b[0],i===0||i===3?.265:-.265,q),.17,b[2]]} radius={.019}/>
+   </React.Fragment>;
+  })}
  </group>
  {[
   {a:[-.72,.04,.31],b:[.53,.23,-.26],r:.065},
@@ -253,6 +274,7 @@ const DebrisPile:React.FC=()=> <group position={[0,-.43,-.58]}>
    <Rod from={a} to={b} radius={branch.r} c={i%2?'#786246':'#8b704b'}/>
    <Rod from={join} to={[join[0]-.24,join[1]+.23,join[2]-.18]} radius={branch.r*.53} c='#786246'/>
    <Ball p={b} s={[branch.r,branch.r,branch.r]} c='#d0b381'/>
+   {analysis>0&&<OpticalEdge from={a} to={a.map((v,j)=>mix(v,b[j],Math.max(0,Math.min(1,analysis*1.5-i*.16)))) as V3} radius={branch.r+.012}/>}
    {[-1,1].map((side,j)=><group key={side} position={[join[0]-.24+side*.08,join[1]+.25,join[2]-.18+j*.09]} rotation={[.3,side*.6,.4]}>
     <Ball p={[0,0,0]} s={[.11,.018,.045]} c={i%2?'#758252':'#8a915b'}/>
    </group>)}
@@ -269,19 +291,21 @@ const DebrisGround:React.FC=()=> <>
 </>;
 const DebrisCapture:React.FC<{travel:number;capture:number}>=({travel,capture})=> <>
  <DebrisGround/><DebrisPile/>
- <Truck x={mix(2.55,-2.55,travel)} closed={Math.sin(Math.PI*Math.min(1,Math.max(0,(capture-.75)/.25)))**10} travel={travel*2} cameraPitch={-.426}/>
+ <Truck x={mix(2.55,-2.55,travel)} closed={Math.sin(Math.PI*Math.min(1,Math.max(0,(capture-.75)/.25)))**10} travel={travel*2} cameraPitch={-.3355} detailSide/>
 </>;
-const CapturedDebrisInset:React.FC<{progress:number}>=({progress})=>{
+const CapturedDebrisInset:React.FC<{progress:number;analysis:number}>=({progress,analysis})=>{
+ const scan=Math.min(1,analysis*2),mask=Math.max(0,analysis*2-1);
  if(progress<=0)return null;
  return <div style={{position:'absolute',left:70,top:712,width:848,height:504,overflow:'hidden',border:'5px solid #eee4cb',boxSizing:'border-box',opacity:Math.min(1,progress*4),background:'#596567'}}>
   <div style={{position:'absolute',left:0,top:-506,width:1080,height:1920,transform:'scale(.776)',transformOrigin:'0 0'}}>
-   <CinematicStage position={[.02325,.701,1.294]} target={[.02325,-.15,-.58]} fov={80} exposure={1.15}>
+   <CinematicStage position={[.02325,.4035,1.0074]} target={[.02325,-.15,-.58]} fov={90} exposure={1.15}>
     <directionalLight position={[3,8,2]} intensity={1.4} color='#fff1c9'/>
     <hemisphereLight intensity={.75} args={['#d4e5e0','#7a7961',.75]}/>
-    <DebrisGround/><DebrisPile/>
+    <DebrisGround/><DebrisPile analysis={mask}/>
    </CinematicStage>
   </div>
-  <div style={{position:'absolute',left:0,top:0,padding:'10px 16px',fontFamily:FONT.mono,fontSize:28,lineHeight:1.2,color:cream,background:'#17323de8'}}>CAPTURED STILL / ILLUSTRATION</div>
+  {analysis>0&&scan<1&&<div style={{position:'absolute',left:mix(0,828,scan),top:54,width:14,height:450,background:'#c4e2b4',boxShadow:'0 0 22px #dcf5be',opacity:.65}}/>}
+  <div style={{position:'absolute',left:0,top:0,padding:'10px 16px',fontFamily:FONT.mono,fontSize:28,lineHeight:1.2,color:cream,background:'#17323de8'}}>IMAGE ANALYSIS / ILLUSTRATION</div>
  </div>;
 };
 const NoticeQueue:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
@@ -820,7 +844,7 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
   <div style={{position:'absolute',left:70,top:1240,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>CASE OUTCOME UNREPORTED</div>
  </>}
  {scene.id==='s7'&&!editorialExcerpt&&<div style={{position:'absolute',left:70,top:1180,fontFamily:FONT.mono,fontSize:24,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
- {!__cinemaProofWithoutStage&&scene.id==='s3'&&<CapturedDebrisInset progress={actionProgress(requireAction(windows,'s3-image-retained'),time)}/>}
+ {!__cinemaProofWithoutStage&&scene.id==='s3'&&<CapturedDebrisInset progress={actionProgress(requireAction(windows,'s3-image-retained'),time)} analysis={actionProgress(requireAction(windows,'s3-visible-condition'),time)}/>}
 
  {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX</div>}
  <GradeLayer f={frame} vignette={.09} grain={.009} bloom={.01}/><SubtitleTrack cues={captions} fps={fps}/>
