@@ -1495,6 +1495,17 @@ The command re-fetches remote CI, deployment, feed and media. Missing, failed or
 evidence refuses completion. Retain the resulting run state in the edition's durable
 package; never include private Gmail API output or credentials in a public commit.
 
+The delivery program snapshots run state before shipment, so that first public snapshot is
+not final closure. After the shipped transition succeeds, archive the full state with a
+sanitized public shipment summary in runs/<date>/run_state.json on a clean branch from main.
+Preserve terminal, phase, release status, film hashes, usage, limits and event history.
+Keep a truthy shipment summary derived from the accepted receipt: public release PR and
+merge references, deployment identity, verification time and permanent media hashes/URLs.
+Exclude Gmail identifiers, recipient routing, private readback and local evidence paths.
+Keep the authoritative private receipt unchanged. Merge this metadata-only archive on
+exact-head green CI; never rerun delivery or media production to archive closure. Without
+this final snapshot, pending-edition discovery can incorrectly resurrect a shipped film.
+
 ## Upgrade verification
 
 The existing CI commands run_discipline.py and tests/cinema.mjs execute the cinematic contract
