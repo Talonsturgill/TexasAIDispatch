@@ -104,10 +104,10 @@ const Truck:React.FC<{x:number;closed:number;travel:number;cameraPitch?:number;d
   <Rod from={[-2.38,.72,-.70]} to={[-2.42,.64,-.93]} radius={.025} c='#60746d'/>
   <Box p={[-2.43,.66,-.98]} s={[.15,.23,.06]} c='#273f43' round={.025} metal={.25}/>
   <Box p={[1.52,-.10,-.794]} s={[.35,.10,.030]} c='#d5bd81'/>
-  <Box p={[.6,.79,-.80]} s={[.20,.26,.16]} c='#92a394' round={.025} metal={.6}/>
-  <Rod from={[.6,.80,-.78]} to={[.6,.80,-.99]} radius={.035} c='#a0b0a0'/>
+  <Box p={[.6,1.11,-.80]} s={[.20,.26,.16]} c='#92a394' round={.025} metal={.6}/>
+  <Rod from={[.6,1.16027584,-.78]} to={[.6,1.16027584,-.99]} radius={.035} c='#a0b0a0'/>
  </>}
- <group position={detailSide?[.6,.80,-.96]:[.6,1.30,-.42]} rotation={[cameraPitch,Math.PI,0]} scale={detailSide?1.1:1.4}><Box p={[0,-.13,-.28]} s={[.13,.28,.12]} c="#9cae9b" metal={.6}/><Lens closed={closed}/></group>
+ <group position={detailSide?[.6,1.16027584,-.96614853]:[.6,1.30,-.42]} rotation={[cameraPitch,Math.PI,0]} scale={detailSide?1.1:1.4}><Box p={[0,-.13,-.28]} s={[.13,.28,.12]} c="#9cae9b" metal={.6}/><Lens closed={closed}/></group>
  <Box p={[1.3,.17,.79]} s={[.64,.12,.02]} c="#a8b593"/>
  <Box p={[1.65,-.10,.79]} s={[.08,.09,.025]} c="#cf7650"/>
 </group>;
@@ -286,41 +286,44 @@ const SelectionStroke:React.FC<{from:V3;to:V3;radius:number}>=({from,to,radius})
   <meshBasicMaterial color='#d99139' transparent opacity={.52} depthWrite={false}/>
  </mesh>;
 };
-const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={[0,-.43,-.58]}>
- {analysis>0&&[[-.90,.03],[-.76,-.40],[-.24,-.50],[.13,-.38],[.63,-.30],[.86,0],[.74,.35],[.15,.47],[-.73,.40]].map((p,i,points)=>{
+const DebrisPile:React.FC<{analysis?:number}>=({analysis=0})=> <group position={[0,-.42,-.58]}>
+ {analysis>0&&[[-.46,.12],[-.44,-.43],[-.12,-.54],[.24,-.54],[.46,-.36],[.46,0],[.40,.33],[.02,.37],[-.40,.37]].map((p,i,points)=>{
   const end=points[(i+1)%points.length],q=Math.max(0,Math.min(1,analysis*points.length-i));
   return q>0?<OpticalEdge key={'region'+i} from={[p[0],.025,p[1]]} to={[mix(p[0],end[0],q),.025,mix(p[1],end[1],q)]} radius={.018}/>:null;
  })}
- <group position={[.39,.18,.02]} rotation={[0,.22,0]}>
-  <SurfaceBox p={[0,0,0]} s={[.53,.34,.48]} c='#a47749' kind='cardboard'/>
-  <SurfaceBox p={[0,.176,0]} s={[.50,.016,.45]} c='#5d412b' kind='cardboard'/>
-  <SurfaceBox p={[-.30,.25,0]} s={[.26,.018,.46]} c='#b18a5b' r={[0,0,-.52]} kind='cardboard'/>
-  <SurfaceBox p={[.28,.23,0]} s={[.24,.018,.46]} c='#b18a5b' r={[0,0,.45]} kind='cardboard'/>
-  <Box p={[0,.10,.245]} s={[.038,.24,.007]} c='#d0ad73'/>
-  {Array.from({length:20},(_,i)=><Box key={'corrugation'+i} p={[-.255+i*.026,-.156,.245]} s={[.009,.020,.003]} c='#684d30'/>)}
-  <Box p={[.24,0,.246]} s={[.009,.31,.003]} c='#694a2e'/>
-  <Box p={[0,-.09,.246]} s={[.51,.004,.003]} c='#8a653f' r={[0,0,.06]}/>
-  {analysis>0&&[[-.265,-.17,-.24],[.265,-.17,-.24],[.265,-.17,.24],[-.265,-.17,.24]].map((p,i)=>{
-   const a=p as V3,b:[number,number,number]=[p[0],.17,p[2]],q=Math.min(1,analysis*2);
+ <group position={[.19,.31,-.20]} rotation={[0,0,0]}>
+  <SurfaceBox p={[0,-.30,0]} s={[.46,.02,.48]} c='#8a623d' kind='cardboard'/>
+  {[-1,1].map(side=><React.Fragment key={side}>
+   <SurfaceBox p={[side*.222,0,0]} s={[.016,.62,.48]} c='#a47749' kind='cardboard'/>
+   <SurfaceBox p={[0,0,side*.232]} s={[.46,.62,.016]} c='#a47749' kind='cardboard'/>
+  </React.Fragment>)}
+  <SurfaceBox p={[-.29,.36,0]} s={[.16,.016,.46]} c='#b18a5b' r={[0,0,-.52]} kind='cardboard'/>
+  <SurfaceBox p={[.29,.34,0]} s={[.16,.016,.46]} c='#b18a5b' r={[0,0,.45]} kind='cardboard'/>
+  <Box p={[0,.0,.245]} s={[.038,.58,.007]} c='#c49d65'/>
+  {Array.from({length:20},(_,i)=><Box key={'corrugation'+i} p={[-.217+i*.023,.312,.24]} s={[.008,.009,.006]} c='#684d30'/>)}
+  <Box p={[.21,0,.246]} s={[.009,.59,.003]} c='#694a2e'/>
+  <Box p={[0,-.09,.246]} s={[.44,.004,.003]} c='#8a653f' r={[0,0,.06]}/>
+  {analysis>0&&[[-.23,-.31,-.24],[.23,-.31,-.24],[.23,-.31,.24],[-.23,-.31,.24]].map((p,i)=>{
+   const a=p as V3,b:[number,number,number]=[p[0],.31,p[2]],q=Math.min(1,analysis*2);
    return <React.Fragment key={'box-analysis'+i}>
     <OpticalEdge from={a} to={a.map((v,j)=>mix(v,b[j],q)) as V3} radius={.019}/>
-    <OpticalEdge from={b} to={[mix(b[0],i===0||i===3?.265:-.265,q),.17,b[2]]} radius={.019}/>
+    <OpticalEdge from={b} to={[mix(b[0],i===0||i===3?.23:-.23,q),.31,b[2]]} radius={.019}/>
    </React.Fragment>;
   })}
  </group>
  {[
-  {a:[-.72,.04,.31],b:[.53,.23,-.26],r:.065},
-  {a:[-.58,.04,-.33],b:[.18,.43,.24],r:.055},
-  {a:[-.84,.025,-.03],b:[.03,.19,.36],r:.045},
-  {a:[-.21,.11,-.42],b:[.67,.20,.26],r:.043},
+  {a:[-.36,.056,.30],b:[.27,.657,.065],r:.075},
+  {a:[-.30,.0364,.35],b:[.0,.651,.065],r:.065},
+  {a:[-.40,.055,-.38],b:[-.12,.055,.26],r:.055},
+  {a:[-.28,.043,.32],b:[-.14,.043,-.43],r:.043},
  ].map((branch,i)=>{
   const a=branch.a as V3,b=branch.b as V3;
   const join=a.map((v,j)=>mix(v,b[j],.57)) as V3;
   return <group key={i}>
    <BarkBranch from={a} to={b} radius={branch.r} c={i%2?'#594633':'#6b4e31'}/>
-   <BarkBranch from={join} to={[join[0]-.24,join[1]+.23,join[2]-.18]} radius={branch.r*.53} c='#655035'/>
+   <BarkBranch from={join} to={[join[0]-.10,join[1]+.14,join[2]-.08]} radius={branch.r*.53} c='#655035'/>
    {analysis>0&&<SelectionStroke from={a} to={a.map((v,j)=>mix(v,b[j],Math.max(0,Math.min(1,analysis*1.5-i*.16)))) as V3} radius={branch.r+.007}/>}
-   {[-1,1].map((side,j)=><group key={side} position={[join[0]-.24+side*.08,join[1]+.25,join[2]-.18+j*.09]} rotation={[.3,side*.6,.4]}>
+   {[-1,1].map((side,j)=><group key={side} position={[join[0]-.10+side*.055,join[1]+.16,join[2]-.08+j*.06]} rotation={[.3,side*.6,.4]}>
     <FoldedLeaf c={i%2?'#4e633c':'#778051'}/>
    </group>)}
   </group>;
@@ -339,18 +342,18 @@ const DebrisGround:React.FC<{selection?:number}>=({selection=0})=>{
 };
 const DebrisCapture:React.FC<{elapsed:number;captureAt:number}>=({elapsed,captureAt})=> <>
  <DebrisGround/><DebrisPile/>
- <Truck x={.39-.35*elapsed} closed={Math.exp(-(((elapsed-captureAt)/.07)**2))} travel={.35*elapsed/1.197} cameraPitch={-.429} detailSide/>
+ <Truck x={.39-.35*elapsed} closed={Math.exp(-(((elapsed-captureAt)/.07)**2))} travel={.35*elapsed/1.197} cameraPitch={-.47143755} detailSide/>
 </>;
 // A cut to the mounted camera's frozen pose fills the picture; no competing inset.
 const CapturedDebrisAnalysis:React.FC<{scan:number;selection:number}>=({scan,selection})=><>
- <CinematicStage position={[.02325,.4035,1.0074]} target={[.02325,-.32,-.58]} fov={104} exposure={.98}>
+ <CinematicStage position={[.02325,.60,1.0074]} target={[.02325,-.25,-.66]} fov={84} exposure={.98}>
   <directionalLight position={[-3,6,4]} intensity={2.2} color='#ffe3b5'/>
   <hemisphereLight args={['#b7d1da','#544b39',.38]}/>
   <DebrisGround selection={selection}/><DebrisPile analysis={selection}/>
  </CinematicStage>
  {scan>0&&scan<1&&<div style={{position:'absolute',left:mix(20,1040,scan),top:470,width:12,height:730,background:'#d4e6ba',boxShadow:'0 0 22px #dcf5be',opacity:.65}}/>}
  <div style={{position:'absolute',left:70,top:380,padding:'10px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.2,color:cream,background:'#17323de8'}}>CAPTURED IMAGE / ILLUSTRATION</div>
- {selection>=1&&<div style={{position:'absolute',left:70,top:470,padding:'9px 20px',fontFamily:FONT.mono,fontWeight:700,fontSize:58,lineHeight:1,color:'#f1c276',background:'#102b31',border:'3px solid #f1c276'}}>DEBRIS</div>}
+ {selection>=1&&<div style={{position:'absolute',left:70,top:545,padding:'9px 20px',fontFamily:FONT.mono,fontWeight:700,fontSize:58,lineHeight:1,color:'#f1c276',background:'#102b31',border:'3px solid #f1c276'}}>DEBRIS</div>}
 </>;
 const NoticeQueue:React.FC<{a:number;b:number;c:number}>=({a,b,c})=><>
  <Table rightExtension={1.3}/>
