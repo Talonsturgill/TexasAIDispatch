@@ -314,7 +314,7 @@ const Cleanup:React.FC<{a:number;b:number}>=({a,b})=>{
  </>;
 };
 const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
- const officer:V3=[mix(-.68,-.50,a),0,mix(1.16,.69,a)];
+ const officer:V3=[mix(.32,-.50,a),0,mix(1.16,.69,a)];
  const owner:V3=[mix(.82,.80,c),0,mix(-.48,.30,c)];
  const torsoTurn=-.55*b+.85*c;
  const shoulder=(side:number):V3=>{
@@ -337,7 +337,7 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  <Box p={[0,-.59,0]} s={[9,.13,8]} c="#75795f"/>
  <Box p={[0,-.515,.75]} s={[3.1,.025,3.0]} c="#b3af99"/>
  <House scale={.86} p={[0,0,-1.75]}/>
- <Body p={officer} yaw={2.95} step={a} travel={[.18,0,-.47]} torsoTurn={torsoTurn} look={mix(-.65,0,b)-d*.55} shirt="#627b70"/>
+ <Body p={officer} yaw={2.95} step={a} travel={[-.82,0,-.47]} torsoTurn={torsoTurn} look={mix(-.65,0,b)-d*.55} shirt="#627b70"/>
  <Body p={owner} yaw={-.38} step={c} travel={[-.02,0,.78]} shirt="#83684f" skin="#b78666"/>
  <group position={photoPos} rotation={[photoTilt,0,0]} scale={.23}>
   <Box p={[0,-.025,0]} s={[3.28,.045,2.37]} c="#765c43" round={.045}/>
