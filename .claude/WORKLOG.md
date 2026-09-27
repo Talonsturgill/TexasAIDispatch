@@ -146,3 +146,10 @@ B40 nativehero a541e60c AV38 accepts comprehension and pacing but rejects unfini
 ## September 26 B42 and B43 motion repair
 
 B42 side grips passed independent exact phone review on 6ff8f01a. Native hero f3a63360 was understood and its paper sound was heard, but AV39 rejected a fixed pointing-hand orientation at 1.8 to 3.2 seconds and abrupt paper acceleration. These remain active repair defects. B43 commit 2c8563f adds actual wrist and forearm articulation and quintic subphase easing while preserving contact targets, sleeve continuity, narration, sources and clocks. All attempts remain charged. Current code, exact phone and native audiovisual evidence are required before the full film and final panel. No shipment is claimed.
+
+
+## September 26 connected encounter repair
+
+B43 phone dd6a3f6e passed motion readability; native hero f0c13b96 AV40 still rejected disembodied limb performance. B44 changes the mechanism to connected cropped officer and owner bodies with articulated elbows and coordinated torso response. Code review caught visible coat ends and unsupported house ground before rendering; 998596e corrects both and adds the owner's resting far arm. The remaining NBC source label is corrected. The same 100-word voice and 45-second clock remain; tactile paper mix measures -16.66 LUFS and its existing cue alignment verifies. Current exact phone, native audiovisual, final panel and shipment evidence remain required.
+
+Routine instructions now require an explicit follow-up to restart completed repair agents, actual saved current-hash verdicts, and the gate's own digest functions. These fix observed coordination delays without changing quality gates.
