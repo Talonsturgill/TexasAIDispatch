@@ -1,6 +1,6 @@
 import React, {useCallback,useContext,useLayoutEffect,useRef} from 'react';
 import {useThree} from '@react-three/fiber';
-import {CinemaProofContext} from './ProofContext';
+import {CinemaProofContext} from './StageContext';
 import {useCurrentFrame,useDelayRender,useRemotionEnvironment,useVideoConfig} from 'remotion';
 import {ThreeCanvas} from '@remotion/three';
 import * as THREE from 'three';

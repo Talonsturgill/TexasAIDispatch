@@ -30,6 +30,10 @@ def renderer_files(board: dict) -> list[Path]:
     template = str(board.get("cinematic_template") or "")
     if not template:
         return []
+    if template == "daily-actions-v1":
+        from cinema_cache import closure
+        return closure() + [REPO / "video-engine/scripts/render-batch.mjs",
+                            REPO / "video-engine/package-lock.json"]
     router = REPO / "video-engine" / "src" / "Dispatch.tsx"
     source = router.read_text()
     branch = re.search(
@@ -51,7 +55,7 @@ def renderer_files(board: dict) -> list[Path]:
     # Reusable action code is a render input too. Do not traverse the central
     # router again, which would include unrelated historical episode branches.
     visited = set(files)
-    queue = [files[1]]
+    queue = files[1:]
     while queue:
         owner = queue.pop()
         for relative in re.findall(r"from\s*['\"](\.[^'\"]+)['\"]", owner.read_text()):

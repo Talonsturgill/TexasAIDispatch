@@ -309,9 +309,9 @@ def render(board: Path, film: Path, state: Path, claims: Path | None = None) -> 
     if not accepted:
         raise RuntimeError("preflight budget refused the render")
     film.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(["npx", "remotion", "render", "Dispatch", str(film),
-                    f"--props={board}", "--scale=0.25", "--crf=32", "--muted",
-                    "--concurrency=100%", "--log=warn"], cwd=ENGINE, check=True)
+    subprocess.run(["node", str(ENGINE / "scripts/render-batch.mjs"),
+                    "--board", str(board.resolve()), "--output", str(film.resolve()),
+                    "--preview", "true"], cwd=ENGINE, check=True)
 
 
 def self_test() -> int:

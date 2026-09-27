@@ -115,6 +115,8 @@ def preview_problems(board_path, root, mix=None, film=None):
     try:
         root = Path(root)
         proof = read(root / "proof.json")
+        from cinema_cache import binding_problems
+        errors += binding_problems(board_path, proof, mix)
         for key, expected in (("board_sha256", digest(board_path)), ("engine_sha256", engine_sha256()),
                               ("generated_media_sha256", generated_media_sha256(board_path)),
                               ("policy_sha256", digest(POLICY))):

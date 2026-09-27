@@ -43,7 +43,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 ENGINE = REPO / "video-engine" / "src"
 SAFEAREA = ENGINE / "lib" / "safearea.ts"
-DISPATCH = ENGINE / "Dispatch.tsx"
+DISPATCH = ENGINE / "lib" / "DispatchOverlays.tsx"
 
 # The chrome the film draws in screen space, and what it must be solved against. `super` and
 # the kicker sit at the TOP of the frame, which no feed furniture claims, so they are checked
@@ -78,7 +78,7 @@ def check(src: str, C: dict[str, float]) -> list[str]:
     fails: list[str] = []
     block = subtitle_block(src)
     if not block:
-        return ["Dispatch.tsx has no SubtitleTrack component. Either it was renamed, in which "
+        return ["DispatchOverlays.tsx has no SubtitleTrack component. Either it was renamed, in which "
                 "case rename it here too, or the bottom band is drawn somewhere this check "
                 "cannot see, which is worse."]
 

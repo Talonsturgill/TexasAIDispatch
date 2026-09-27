@@ -7,7 +7,11 @@ September 26's shipped film is retained unchanged.
 
 ## Select a story that the available pictures can tell
 
-Before writing narration, select one current, verified action with a specific affected person
+Before writing narration, record the candidate picture-fit evidence in story_selection.json
+as specified in prompts/phases/01-research.md. Both the selection command and the pre-voice/
+preview entrypoints enforce it for current editions.
+
+Select one current, verified action with a specific affected person
 or group, an observable change and an honest source limit. Inspect the actual source assets.
 Keep one director responsible for the whole causal sequence. A local improvement must also
 improve that sequence; do not assemble independent scene rewrites into a fragmented film.
@@ -78,9 +82,9 @@ Do not spend another verdict on identical bytes for the same lens.
 ## Compact role handoffs
 
 Use a fresh isolated role task with the generated packet, current brief and referenced files.
-Do not copy the director's conversation or old failed boards into every worker. Research still
-uses the three required independent assignments; send each only its angle, source scope and
-output contract. Validation, the two critic scopes and final judges retain their independence.
+Do not copy the director's conversation or old failed boards into every worker. Research uses independent assignments for the distinct angles needed, up to the configured
+normal target in config/run_limits.json. That target is not a minimum. Send each only its
+angle, source scope and output contract. Validation, the two critic scopes and final judges retain their independence.
 The packet carries paths and hashes, the short story, current usage and defect-ledger reference.
 Each final lens gets the same current film and its own actual provider receipt.
 No transcript, packet or historical receipt substitutes for viewing and listening.

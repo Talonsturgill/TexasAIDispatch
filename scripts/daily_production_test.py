@@ -11,6 +11,22 @@ import daily_production as d
 import critic_gate
 
 
+def selection_fixture():
+    sentence="The fixture shows a specific sourced action and its observable consequence."
+    selected={k:sentence for k in ("title","beat","county","texas_link","why_today","consequence",
+        "application_change","counter_image","earned_take")}
+    selected.update(record_status="candidate-for-record",
+        movement={"actor":"City staff","action":"sent notices","object":"property notices","event_type":"published","date":"2026-09-28"},
+        agency={"next_step":sentence,"who_can_act":"Affected property owners","open":"unknown"},
+        sources=[{"url":"https://example.org/source","source_type":"primary","retrieved":"2026-09-28"}],
+        filmability={"action_support":[{"image":image,"medium":"demonstrated-action",
+            "action_id":"document-accumulation-v1","source_url":"https://example.org/source",
+            "pictured_action":sentence,"scope_fit":"Illustrative papers accumulate; the fixture claims no literal count."}
+            for image in ("opening","mechanism","consequence")],"asset_leads":[]})
+    return {"schema":"dispatch_story_selection/1","edition_date":"2026-09-28","selected":selected,
+        "rejected":[{"title":"Unsupported alternative","reason":"The available pictures cannot show the central action."}]}
+
+
 def fixture():
     ids = ["action", "change", "human", "answer"]
     board = {"date": "2026-09-28", "title": "Test fixture", "cinematic_template": "daily-actions-v1",
@@ -49,6 +65,7 @@ class DailyTest(unittest.TestCase):
         self.bp, self.cp = self.root/"storyboard.json", self.root/"claims.json"
         self.cp.write_text(json.dumps(self.claims))
         self.report = fixture_review(self.board, self.cp)
+        (self.root/"story_selection.json").write_text(json.dumps(selection_fixture()))
         self.save()
 
     def save(self):
@@ -184,6 +201,30 @@ class DailyTest(unittest.TestCase):
         self.assertTrue(d.structure_problems(self.board,self.claims))
         self.board["scenes"][1]["production_disclosure"]=cut["disclosure"]
         self.assertEqual([],d.structure_problems(self.board,self.claims))
+
+
+    def test_candidate_fit_stops_unsupported_mechanisms_before_voice(self):
+        import story_selection_check as selection
+        candidate=selection_fixture()
+        self.assertEqual([],selection.problems(candidate))
+        candidate["selected"]["filmability"]["action_support"][0]["action_id"]="unproven-human-rig"
+        self.assertTrue(selection.problems(candidate))
+        (self.root/"story_selection.json").write_text(json.dumps(candidate))
+        self.assertTrue(d.pre_voice_problems(self.bp,self.cp))
+        (self.root/"story_selection.json").unlink()
+        self.assertIn("candidate selection", " ".join(d.pre_voice_problems(self.bp,self.cp)))
+
+    def test_candidate_footage_needs_actual_asset_inspection_and_rights(self):
+        candidate=selection_fixture()["selected"]
+        row=candidate["filmability"]["action_support"][-1]
+        row.update(medium="source-footage",asset_url="https://example.org/clip")
+        self.assertTrue(d.candidate_problems(candidate))
+        candidate["filmability"]["asset_leads"]=[{"url":row["asset_url"],
+            "inspection":"Actual fixture description of visible action and its limits.",
+            "rights_basis":"Explicit synthetic permission evidence for this test fixture only."}]
+        self.assertEqual([],d.candidate_problems(candidate))
+        candidate["filmability"]["action_support"][0]["source_url"]="https://example.org/not-fetched"
+        self.assertTrue(d.candidate_problems(candidate))
 
     def test_shipped_history_is_exempt(self):
         self.assertEqual([],d.pre_voice_problems(d.REPO/"runs/2026-09-26/storyboard.json",

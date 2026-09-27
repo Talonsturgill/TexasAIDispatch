@@ -4,13 +4,15 @@ import {CinematicStage} from './lib/cinema/CinematicStage';
 import {StreetCapture, DocumentAccumulation, CurbCapture, ConditionSelection} from './lib/production/ProvenActions';
 import {actionProgress, actionWindows, requireAction} from './lib/direction';
 import {FONT} from './lib/type';
-import {CreditsCard, SubtitleTrack, type DispatchProps} from './Dispatch';
+import {CreditsCard, SubtitleTrack} from './lib/DispatchOverlays';
+import type {DispatchProps} from './Dispatch';
 
 /** Small approved action vocabulary. Current story, timing and evidence still come from the board. */
 export const DailyActionsEpisode: React.FC<DispatchProps> = ({
   runtime_s, scenes, captions=[], credits='', credits_s=5, native_media=[],
   __cinemaProofWithoutStage=false,
 }) => {
+  runtime_s=scenes.reduce((end,s)=>Math.max(end,s.start_s+s.duration_s),0);
   const frame=useCurrentFrame(), {fps}=useVideoConfig(), time=frame/fps;
   const scene=scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1];
   const windows=actionWindows(scenes), local=time-scene.start_s;

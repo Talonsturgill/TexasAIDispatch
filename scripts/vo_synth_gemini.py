@@ -35,7 +35,7 @@ convention rather than by test drift apart on the day nobody is looking.
 
     vo_synth_gemini.py --script out/dispatch/vo_script.txt \\
                        --direction out/dispatch/vo_direction.json \\
-                       --out out/dispatch/takes --takes 2 \\
+                       --out out/dispatch/takes --takes 1 \\
                        --run-state out/dispatch/run_state.json
     vo_synth_gemini.py --self-test
 

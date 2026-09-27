@@ -160,8 +160,9 @@ film must meet the loudness and true-peak policy; a written shortfall no longer 
 **Gemini TTS**, owner's decision. `gemini-3.1-flash-tts-preview` primary,
 `gemini-2.5-pro-preview-tts` as the failover on repeated 500s. Each take synthesises the whole
 passage for natural sentence-to-sentence flow and spends a second call on verbatim soundcheck.
-The run-wide controller permits four external audio-model calls total across every retry and
-batch, so the normal path is two takes and a fifth call is mechanically refused.
+Use one continuous take by default, followed by its soundcheck. Read normal call targets and
+remaining cumulative allowances from config/run_limits.json and the controller. Reserve every
+retry; do not synthesize an unused second option.
 
 **Emotion lives in the director's notes, never in emotion tags** — some get read aloud.
 
@@ -214,13 +215,10 @@ history and Alaska's would poison them.
   different and much smaller show.
 - `knowledge/craft/` — how the show is made: stage3d authoring, visual flow, hook craft, VO
   direction, the showstopper standard.
-  **`GATE_LESSONS.md` is required reading before you add a gate, trust one, or conclude that a
-  green suite means a correct product.** It is the record of faults that shipped here with every
-  check passing, and each entry names what to check instead. A green suite has already been wrong
-  about whether a gate was connected to anything at all, about the colour of a shape, about the
-  size of an animal standing beside a person, about a delimiter that appeared twice, and about an
-  assertion that could not fail on any input. The way to find out whether a gate works is not to
-  read it. It is to break the product on purpose and watch.
+  Search GATE_LESSONS.md for the affected gate before changing or relying on that gate for a
+  new type of evidence. Read the relevant entries, then test the actual failure and valid
+  inputs. Historical examples are available on demand; daily wake does not require loading
+  the entire archive. A green check proves only the property it actually measures.
 - `config/` — brand, voices, the rubric that holds the bar, sources.
 - `scripts/` — the gates and the build steps. Run them by EXIT CODE, never by last line.
 - `video-engine/` — the Remotion project. `src/lib/` is the reusable cast and juice.

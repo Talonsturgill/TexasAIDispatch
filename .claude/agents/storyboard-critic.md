@@ -129,3 +129,9 @@ Check every cut for implied identity, location and cause. Distinct source exampl
 honest visible disclosure. The final answer must address the opening question without promising
 an unreported outcome. Reused components still need fresh source bindings and exact-film review.
 Return one consolidated correction that preserves the whole story, rather than isolated rewrites.
+
+
+For editions under the daily production policy, read the packet's bound story_selection.json.
+Check the three candidate pictures against their source evidence, catalog limits and inspected
+asset leads. Reject a familiar prop that cannot perform this story's actual action. The current
+board must earn its causal sequence and consequence with the available pictures.
