@@ -22865,6 +22865,12 @@
       "report_sha256": "768b447c278c96b676bd596e68430e70f8c65a1ce1b24e6d8897549178479ee8",
       "result": "publishable",
       "score": 7.663
+    },
+    {
+      "at": "2026-09-27T13:53:57.000907Z",
+      "kind": "finished",
+      "result": "shipped",
+      "shipment_sha256": "8e312762b7083ae216178c975efb217fbe86766d28914df78506b379caf70a2e"
     }
   ],
   "final_report": {
@@ -22890,7 +22896,7 @@
     "voice_directors": 7
   },
   "mode": "production",
-  "phase": "publishing",
+  "phase": "shipped",
   "release_status": "publishable",
   "reopened_from": [
     {
@@ -22929,9 +22935,101 @@
   "review_required": true,
   "run_id": "2026-09-26",
   "schema": "dispatch_run_state/1",
+  "shipment": {
+    "deployment": {
+      "conclusion": "success",
+      "head_sha": "221f8abaa29813190732dd768c9b8e5d7725c409",
+      "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36323177223",
+      "id": 36323177223,
+      "name": "pages",
+      "status": "completed"
+    },
+    "dispatch": {
+      "checks": [
+        {
+          "conclusion": "success",
+          "head_sha": "651cca58f71323a8728836e40dd861f9a95f2542",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/36319584415/job/108620705891",
+          "name": "guards"
+        }
+      ],
+      "head_sha": "651cca58f71323a8728836e40dd861f9a95f2542",
+      "merge_sha": "bb7a2a4da7b66f292df12f6e825a77fe9622ab70",
+      "url": "https://github.com/Talonsturgill/TexasAIDispatch/pull/73"
+    },
+    "evidence_sha256": {
+      "delivery_routing": "57a9c9c8fa6243d515bcfb914ddc541ee48b513c966e19e22eab195c470522d7",
+      "email": "4ec4ef9543ed93bbbe7b96ea493d902e77f0efa4ad3156244975e077e3d88ca3",
+      "gmail_readback": "d596024514c4322937c3e5e75925a24c6137cfefb4c95b9cd81be447c7dc8ffa",
+      "mobile": "3533cbb6be728ec89b2c3fecf88d0d2397acd017d13d91e92db3ca90c8ed7083",
+      "phone_playback": "7b7ed04671ad48290f1028fee9eac55a0cfe6a65e25990472691fce6e0650ab6"
+    },
+    "feed": {
+      "checks": [
+        {
+          "conclusion": "skipped",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108626571243",
+          "name": "release"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108626557476",
+          "name": "guards"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108622610580",
+          "name": "browser-render"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108622610478",
+          "name": "browser-layout"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108622610471",
+          "name": "build"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108622610469",
+          "name": "browser-read"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108622610451",
+          "name": "gates"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/36320259359/job/108622610365",
+          "name": "freshness"
+        }
+      ],
+      "head_sha": "cb38f2fdd51d11922f45d605d507a165833da5d6",
+      "merge_sha": "221f8abaa29813190732dd768c9b8e5d7725c409",
+      "url": "https://github.com/Talonsturgill/TexasAIDocket/pull/377"
+    },
+    "film_sha256": "cafb07e2659a5329b0be17857ef8ee1c0a25341b7dbb764c845494ed1c89c9a6",
+    "live_url": "https://texasaidocket.com/videos/#2026-09-26-a-notice-changes-a-day",
+    "manifest_sha256": "8e312762b7083ae216178c975efb217fbe86766d28914df78506b379caf70a2e",
+    "master_url": "https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-09-26/dispatch.mp4",
+    "mobile_url": "https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-09-26/dispatch-720.mp4",
+    "private_evidence_retained_locally": true,
+    "verified_at": "2026-09-27T13:53:57.000611Z"
+  },
   "terminal_reason": null,
-  "terminal_state": null,
-  "updated_at": "2026-09-27T12:34:17.765598Z",
+  "terminal_state": "shipped",
+  "updated_at": "2026-09-27T13:53:57.000918Z",
   "usage": {
     "audiovisual_reviews": 79,
     "cleanup_renders": 0,
