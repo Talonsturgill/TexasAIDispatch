@@ -1,0 +1,90 @@
+{
+  "schema": "demonstrated-actions/1",
+  "provenance": {
+    "film": {
+      "path": "runs/2026-09-26/dispatch.mp4",
+      "sha256": "cafb07e2659a5329b0be17857ef8ee1c0a25341b7dbb764c845494ed1c89c9a6"
+    },
+    "state": {
+      "path": "runs/2026-09-26/run_state.json",
+      "sha256": "9f1f15ee1181b0f798dead532c963059bc3a7233075329c6a9f0731db386e039"
+    },
+    "board": {
+      "path": "runs/2026-09-26/storyboard.json",
+      "sha256": "ab585e0f2f39457ed11304bb8d2403eb8b294c336d73636304e501aa137e533d"
+    },
+    "reviews": {
+      "picture": {
+        "path": "runs/2026-09-26/cinema/picture-review.json",
+        "sha256": "8cf0cc8a68f3a834a5da08839f82bbe7ecc9457e1ec61bf682250aa184751bf1"
+      },
+      "story": {
+        "path": "runs/2026-09-26/cinema/story-review.json",
+        "sha256": "5ea0ae4894641ec57fbaefa61da33d1a5a8dac13bffe276d4d8ce0cbaa722e78"
+      },
+      "sound": {
+        "path": "runs/2026-09-26/cinema/sound-review.json",
+        "sha256": "e3e8f2f242586334e75b401c98c593f608f990369e51847d9bfadc2ec26b8b9f"
+      }
+    },
+    "source_renderer": {
+      "path": "video-engine/src/BrushCameraEpisode.tsx",
+      "sha256": "24e67880e0d7c46f3078d7398c135a992e7ef0520553fc11630ec7c90558e2e8"
+    }
+  },
+  "actions": [
+    {
+      "id": "street-capture-v1",
+      "exports": [
+        "StreetCapture"
+      ],
+      "source_scene": "s1",
+      "interval_s": [
+        0,
+        7.02
+      ],
+      "min_events": 4,
+      "limits": "An explicitly illustrated stationary side camera captures a residential facade and conserves its image. No human rig, private AI interface or claimed enforcement outcome. Re-stage only after current phone and native hero review.",
+      "module": {
+        "path": "video-engine/src/lib/production/ProvenActions.tsx",
+        "sha256": "e2c920e5e26f282163716f091493f7e54d9fb42cbccfdd98c12b0e6a7685142b"
+      }
+    },
+    {
+      "id": "curb-selection-v1",
+      "exports": [
+        "CurbCapture",
+        "ConditionSelection"
+      ],
+      "source_scene": "s3",
+      "interval_s": [
+        7.02,
+        11.16
+      ],
+      "min_events": 3,
+      "limits": "An explicitly illustrated curbside branch pile and box are captured and selected. The DEBRIS label is explanatory. Requires fresh source evidence for this action; never portray a named person's property or actual city software.",
+      "module": {
+        "path": "video-engine/src/lib/production/ProvenActions.tsx",
+        "sha256": "e2c920e5e26f282163716f091493f7e54d9fb42cbccfdd98c12b0e6a7685142b"
+      }
+    },
+    {
+      "id": "document-accumulation-v1",
+      "exports": [
+        "DocumentAccumulation"
+      ],
+      "source_scene": "s2",
+      "interval_s": [
+        15.16,
+        21.62
+      ],
+      "min_events": 3,
+      "limits": "Supported paper bundles land and one sheet slides. Illustrative accumulation only, not a literal count or a physical delivery claim. No synthetic hands, people or unattended official decision.",
+      "module": {
+        "path": "video-engine/src/lib/production/ProvenActions.tsx",
+        "sha256": "e2c920e5e26f282163716f091493f7e54d9fb42cbccfdd98c12b0e6a7685142b"
+      }
+    }
+  ],
+  "note": "Exact retained action declarations are copied into the shared library and checked against the approved renderer. This proves provenance, not quality in a new composition. Fresh narration, boards, native hero and final audiovisual review remain mandatory."
+}

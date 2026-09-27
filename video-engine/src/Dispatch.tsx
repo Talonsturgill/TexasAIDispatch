@@ -1,3 +1,4 @@
+import {DailyActionsEpisode} from './DailyActionsEpisode';
 import {ScrewwormForecastEpisode} from "./ScrewwormForecastEpisode";
 import {ContactSensingEpisode} from './ContactSensingEpisode';
 import {CoadaptHandoffEpisode} from './CoadaptHandoffEpisode';
@@ -60,6 +61,8 @@ import {BrushCameraEpisode} from './BrushCameraEpisode';
 // =============================================================================
 
 export interface Scene {
+  production_action?: string;
+  production_disclosure?: string;
   id: string;
   start_s: number;
   duration_s: number;
@@ -191,7 +194,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
+  cinematic_template?: 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
     'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'brush-camera-v1';
@@ -530,6 +533,9 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   cinematic_template, documentary_copy, native_media, __cinemaProofWithoutStage}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
+  if (cinematic_template === 'daily-actions-v1') {
+    return <DailyActionsEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} native_media={native_media} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
+  }
   if (cinematic_template === 'brush-camera-v1') {
     return <BrushCameraEpisode native_media={native_media} runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s}
       __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;

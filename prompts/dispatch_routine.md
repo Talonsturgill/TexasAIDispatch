@@ -29,6 +29,24 @@ bash scripts/run_with_env.sh python scripts/audiovisual_review.py --role sound -
 scripts/master_audio.py is the explicit mastering library invoked by mix.py before it writes
 the final report. It preserves sample count and publishes compression and loudness measurements.
 
+# Daily production reuse and continuity
+
+For editions covered by config/daily_production.json, read knowledge/craft/DAILY_PRODUCTION.md
+before story selection. Use the demonstrated action catalog, source-bound story contract and
+compact role packets. The existing critic supplies the story approval; do not add another
+reviewer role. Recheck the whole causal sequence after a structural change. Use one narration
+take by default. Numeric normal-cycle targets come from config/run_limits.json; all quality
+gates and frozen cumulative ceilings remain. Keep one director and one consolidated defect list.
+Run the five-edition scoreboard at wake, after panels and at closure, including the current state.
+
+```sh
+bash scripts/run_with_env.sh python scripts/daily_production.py --catalog-check
+bash scripts/run_with_env.sh python scripts/daily_production.py --board out/dispatch/storyboard.json --digest
+bash scripts/run_with_env.sh python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet storyboard-critic --out out/dispatch/critic-packet.json
+bash scripts/run_with_env.sh python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
+bash scripts/run_with_env.sh python scripts/daily_production.py --scoreboard --state out/dispatch/run_state.json --out out/dispatch/daily-production-scoreboard.json
+```
+
 # TEXAS AI DISPATCH — MASTER ROUTINE (DAILY)
 
 ## ROLE
@@ -108,9 +126,10 @@ storyboard roles. Keep the same controller ledger and preserve its last playable
 - **REVELATION.** The viewer learns the next piece AS A PICTURE. A number made physical, a
   comparison that recontextualises scale, a hidden mechanism drawn open, a turn they did not see.
 
-The test at every stage: **would a stranger stop scrolling on this frame?** If you are unsure, the
-answer is no and the frame gets redone. "Fine" is a fail. The bar is the best frame this channel
-has shipped, plus one.
+At every stage, inspect whether a stranger can recognize the action and understand its result.
+Use the fixed observable criteria in config/quality_contract.json and the existing rubric.
+Identify a specific failed criterion before requiring repair. Historical strong frames calibrate
+craft; they do not create a rising score requirement or demand an extra polish round.
 
 ### THE VISUAL SENTENCE — what the Alaska reference made undeniable
 
@@ -598,11 +617,11 @@ and the animatic again:
 python3 scripts/run_controller.py consume --resource reboards --note "preflight structural fix"
 ```
 
-The shared contract permits four corrective reboards and six cheap preflights total: the initial
-board, up to four structural corrections, and the final timing pass. Those allowances make five
-useful panels possible; they are not permission for a separate preflight loop. Voice and music do
-not begin until an early animatic passes, and full-resolution rendering does not begin until the
-final timed-board animatic passes.
+Read normal targets and cumulative ceilings from config/run_limits.json. The normal cycle
+covers the initial phone animatic, final measured-caption phone pass and short native hero.
+Extra revisions require one consolidated diagnosis through the controller; do not create a
+separate preview loop. Voice and music begin after the early animatic passes. Full-resolution
+delivery rendering begins after the final timed-board animatic and native hero pass.
 
 ## PHASE 5 — BUILD
 
@@ -689,7 +708,7 @@ twice. Change a line and the notes go stale, and the reader may speak either one
 ```
 python3 scripts/run_controller.py consume --resource voice_directors --note "final VO plan"
 python3 scripts/vo_synth_gemini.py --script out/dispatch/vo_script.txt \
-       --direction out/dispatch/vo_direction.json --out out/dispatch/takes --takes 2 \
+       --direction out/dispatch/vo_direction.json --out out/dispatch/takes --takes 1 \
        --run-state out/dispatch/run_state.json
 python3 scripts/vo_soundcheck.py --takes out/dispatch/takes/takes.json \
        --script out/dispatch/vo_script.txt --cut <runtime>

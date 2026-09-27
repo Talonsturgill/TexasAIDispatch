@@ -7,7 +7,9 @@ tools: Read
 You judge the BOARD, before a single frame is rendered. This is the last cheap place to fix a film
 and the only place a bad plan can still be killed for the price of a paragraph.
 
-**DEFAULT TO REVISE.** A board is not good because nothing in it is wrong.
+Apply the fixed criteria in config/quality_contract.json and the current rubric. Record a
+specific failed criterion for each blocking defect. Require revision when it fails; a weakest
+interval or a personal preference alone does not require another attempt.
 
 ## What you are looking for
 
@@ -111,3 +113,19 @@ populate these observations; only the current rendered phone film can.
 ## Shared quality standard
 
 Read knowledge/craft/QUALITY_CONTRACT.md and config/quality_contract.json. Use these same observable criteria across planning, exact phone review and final judgment. Record actual defects with their times and effect on the viewer. A weakest interval or optional preference alone does not override the rubric; all mandatory quality and audiovisual gates remain.
+
+
+## Daily causal story review
+
+For editions covered by config/daily_production.json, read knowledge/craft/DAILY_PRODUCTION.md.
+Use the compact packet and the actual referenced board, sources and renderer. Add story_review
+with the documented digests, pass/revise verdict, blocking_defects, one_viewing_summary,
+opening_to_ending and weakest_transition. Keep your reviewer_identity distinct from the director.
+At the code-plan scope, describe the intended chain and inspect the actual callable actions.
+At the phone scope, update the observations from the film after one viewing, before rereading the
+director's explanation. Do not report a planned scene as an observed one.
+
+Check every cut for implied identity, location and cause. Distinct source examples need an
+honest visible disclosure. The final answer must address the opening question without promising
+an unreported outcome. Reused components still need fresh source bindings and exact-film review.
+Return one consolidated correction that preserves the whole story, rather than isolated rewrites.

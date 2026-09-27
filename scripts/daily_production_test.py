@@ -1,0 +1,193 @@
+"""Offline mutation tests. Fixture verdicts are test data, never film approval."""
+import contextlib
+import io
+import copy
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+import daily_production as d
+import critic_gate
+
+
+def fixture():
+    ids = ["action", "change", "human", "answer"]
+    board = {"date": "2026-09-28", "title": "Test fixture", "cinematic_template": "daily-actions-v1",
+             "cinema": {"dimensional_scene_ids": []}, "scenes": [
+                 {"id": i, "vo": "The city sends notices.", "vo_claims": ["c1"], "super": "",
+                  "start_s": n*5, "duration_s": 5} for n, i in enumerate(ids)]}
+    contract = {key: "Specific sourced detail for this test fixture only." for key in d.policy()["story_fields"]}
+    contract.update(director_identity="test-director", scenes=[
+        {"scene_id": i, "role": role, "claim_ids": ["c1"],
+         "advances": "A specific pictured change advances this fixture's causal sequence."}
+        for i, role in zip(ids, ["action", "mechanism", "consequence", "answer"])],
+        transitions=[{"from": a, "to": b, "kind": "causal-consequence",
+                      "because": "The preceding action creates the next observed state.",
+                      "visible_bridge": "The same physical document continues into the next picture."}
+                     for a, b in zip(ids, ids[1:])])
+    board["story_contract"] = contract
+    claims = {"claims": [{"id": "c1", "verdict": "VERIFIED", "quote": "The city sends notices."}]}
+    return board, claims
+
+
+def fixture_review(board, claims):
+    return {"reviewer_identity": "test-critic", "story_review": {
+        "story_sha256": d.story_digest(board), "policy_sha256": d.digest(d.POLICY),
+        "claims_sha256": d.digest(claims), "verdict": "pass", "blocking_defects": [],
+        "one_viewing_summary": "Fixture-only description of the action and its human consequence.",
+        "opening_to_ending": "Fixture-only description of how the ending answers the opening.",
+        "weakest_transition": "Fixture-only inspection of the weakest cut between two scenes."}}
+
+
+class DailyTest(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.board, self.claims = fixture()
+        self.bp, self.cp = self.root/"storyboard.json", self.root/"claims.json"
+        self.cp.write_text(json.dumps(self.claims))
+        self.report = fixture_review(self.board, self.cp)
+        self.save()
+
+    def save(self):
+        self.bp.write_text(json.dumps(self.board))
+        (self.root/"storyboard_critic.json").write_text(json.dumps(self.report))
+
+    def test_story_mutations_invalidate_full_sequence_review(self):
+        self.assertEqual([], d.pre_voice_problems(self.bp, self.cp))
+        for label, mutate in [
+            ("narration", lambda b: b["scenes"][0].update(vo="The city stops sending notices.")),
+            ("scene order", lambda b: b["scenes"].reverse()),
+            ("removed scene", lambda b: b["scenes"].pop(1)),
+            ("source limit", lambda b: b["story_contract"].update(source_limit="The outcome is now known.")),
+            ("picture", lambda b: b["scenes"][0].update(production_action="unsupported-human-rig")),
+        ]:
+            changed = copy.deepcopy(self.board); mutate(changed)
+            self.assertTrue(d.review_problems(changed, self.report), label)
+
+    def test_measured_caption_and_timing_work_reuses_story_review(self):
+        changed = copy.deepcopy(self.board)
+        changed["captions"] = [{"text": "Measured words", "start": 0, "end": 2}]
+        changed["scenes"][0].update(start_s=.25, duration_s=6, caption="A derived caption")
+        self.assertEqual(d.story_digest(self.board), d.story_digest(changed))
+        self.assertEqual([], d.review_problems(changed, self.report))
+
+    def test_missing_causal_links_sources_and_independence_fail(self):
+        for mutate in [
+            lambda b: b["story_contract"].pop("actor"),
+            lambda b: b["story_contract"]["transitions"].pop(),
+            lambda b: b["story_contract"]["scenes"][0].update(claim_ids=["unknown"]),
+            lambda b: b["story_contract"]["scenes"][-1].update(role="mechanism"),
+        ]:
+            b=copy.deepcopy(self.board);mutate(b)
+            self.assertTrue(d.structure_problems(b,self.claims))
+        self.report["reviewer_identity"]="test-director"
+        self.assertTrue(d.review_problems(self.board,self.report))
+
+    def test_changed_quote_or_spoken_text_fails_before_voice(self):
+        self.claims["claims"][0]["quote"]="The city halted all notices."
+        self.cp.write_text(json.dumps(self.claims))
+        self.assertIn("source evidence changed", " ".join(d.pre_voice_problems(self.bp,self.cp)))
+        self.assertIn("spoken script differs", " ".join(d.pre_voice_problems(self.bp,self.cp,"Another script.")))
+
+    def test_preview_refuses_before_reservation(self):
+        import preflight_animatic as p
+        self.board.pop("story_contract");self.save()
+        with patch.object(p.subprocess,"run") as cmd, patch("engine_lint.check_files",return_value=[]), \
+             patch("super_evidence_check.check",return_value=([],None)), patch("run_controller.reserve") as reserve, patch.object(d,"catalog_problems",return_value=[]):
+            cmd.return_value.returncode=0
+            with self.assertRaisesRegex(RuntimeError,"no animatic was spent"):
+                p.render(self.bp,self.root/"preview.mp4",self.root/"state.json",self.cp)
+            reserve.assert_not_called()
+            self.assertEqual(1,cmd.call_count)  # only the cheap board check
+
+    def test_synthesis_entry_refuses_without_provider_spend(self):
+        import vo_synth_gemini as v
+        self.board.pop("story_contract");self.save()
+        with patch.object(v,"synth_one") as synth, contextlib.redirect_stderr(io.StringIO()):
+            result=v.run("The city sends notices.",{},self.root/"takes",1,"Kore","test-placeholder",
+                         evidence_dir=self.root)
+            self.assertEqual(1,result)
+            synth.assert_not_called()
+        self.assertFalse((self.root/"takes/takes.json").exists())
+
+    def test_missing_claims_cannot_skip_the_synthesis_gate(self):
+        import vo_synth_gemini as v
+        self.cp.unlink()
+        with patch.object(v,"synth_one") as synth, contextlib.redirect_stderr(io.StringIO()):
+            result=v.run(" ".join(s["vo"] for s in self.board["scenes"]),{},self.root/"takes",
+                         1,"Kore","test-placeholder",evidence_dir=self.root)
+            self.assertEqual(1,result)
+            synth.assert_not_called()
+
+    def test_catalog_rejects_stale_module_and_unknown_action(self):
+        self.assertEqual([],d.catalog_problems())
+        catalog=d.read(d.CATALOG)
+        catalog["actions"][0]["module"]["sha256"]="0"*64
+        self.assertTrue(d.catalog_problems(catalog))
+        self.board["cinema"]["dimensional_scene_ids"]=["action"]
+        self.board["scenes"][0]["production_action"]="unknown"
+        self.assertTrue(d.action_problems(self.board))
+
+    def test_shared_module_is_in_current_renderer_digest(self):
+        files=critic_gate.renderer_files(self.board)
+        self.assertIn(d.REPO/"video-engine/src/lib/production/ProvenActions.tsx",files)
+        baseline=critic_gate.renderer_digest(self.board)
+        original=Path.read_bytes
+        def changed(path):
+            raw=original(path)
+            return raw+b"\n// changed contact" if path.name=="ProvenActions.tsx" else raw
+        with patch.object(Path,"read_bytes",changed):
+            self.assertNotEqual(baseline,critic_gate.renderer_digest(self.board))
+
+    def test_packet_is_compact_and_does_not_copy_history(self):
+        state=self.root/"run_state.json"
+        state.write_text(json.dumps({"usage":{"full_renders":1},"phase":"boarding","events":["x"*100000]}))
+        packet=d.packet(self.bp,self.cp,"storyboard-critic",state)
+        encoded=json.dumps(packet)
+        self.assertLess(len(encoded),d.policy()["handoff_max_chars"])
+        self.assertNotIn("events",encoded)
+        with self.assertRaises(ValueError):
+            d.packet(self.bp,self.cp,"picture")
+
+    def test_scoreboard_keeps_failed_editions_and_honest_unknown_account_usage(self):
+        run=self.root/"2026-09-28";run.mkdir()
+        (run/"run_state.json").write_text(json.dumps({"run_id":"2026-09-28","phase":"active_repair",
+            "usage":{"full_renders":2,"panel_rounds":2,"reported_tokens":1234}}))
+        row=d.scoreboard(self.root)["editions"][0]
+        self.assertFalse(row["shipped"])
+        self.assertIn("full_renders",row["over_targets"])
+        self.assertIsNone(row["account_tokens"])
+
+    def test_measurement_window_includes_active_state_and_stops_after_five_shipments(self):
+        for day in range(28, 31):
+            run=self.root/f"2026-09-{day}";run.mkdir()
+            (run/"run_state.json").write_text(json.dumps({"run_id":run.name,"terminal_state":"shipped"}))
+        for day in range(1, 5):
+            run=self.root/f"2026-10-{day:02}";run.mkdir()
+            (run/"run_state.json").write_text(json.dumps({"run_id":run.name,"terminal_state":"shipped"}))
+        rows=d.scoreboard(self.root)
+        self.assertEqual(5,rows["shipped_count"])
+        self.assertEqual("2026-10-02",rows["editions"][-1]["run_id"])
+        active=self.root/"active.json"
+        active.write_text(json.dumps({"run_id":"2026-09-29","updated_at":"later","phase":"active_repair"}))
+        rows=d.scoreboard(self.root,active)
+        self.assertEqual(6,len(rows["editions"]))
+        self.assertFalse(rows["editions"][1]["shipped"])
+        self.assertFalse(d.required({"date":"test-fixture"}))
+
+    def test_source_example_disclosure_reaches_the_actual_scene(self):
+        cut=self.board["story_contract"]["transitions"][0]
+        cut.update(kind="source-example",disclosure="A separate published example")
+        self.assertTrue(d.structure_problems(self.board,self.claims))
+        self.board["scenes"][1]["production_disclosure"]=cut["disclosure"]
+        self.assertEqual([],d.structure_problems(self.board,self.claims))
+
+    def test_shipped_history_is_exempt(self):
+        self.assertEqual([],d.pre_voice_problems(d.REPO/"runs/2026-09-26/storyboard.json",
+                                                d.REPO/"runs/2026-09-26/claims.json"))
+
+if __name__ == "__main__":
+    unittest.main()
