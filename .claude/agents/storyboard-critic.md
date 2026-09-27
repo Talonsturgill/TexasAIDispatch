@@ -80,6 +80,13 @@ perform the action credibly, redesign the shot before granting a code-plan pass.
 
 Follow the complete visible shoulder, upper arm, elbow, forearm and hand through the action. Clear contact-point rays do not prove that the limb avoids the prop: an opaque clipboard can hide an intersecting upper arm and leave a detached-looking forearm. Check the full occupied volumes and then the actual phone pixels. Actor orientation must support the action: an inspector examining a house must visibly attend to the house or its image, rather than face the audience while pointing behind the body. Grounded weight shifts need planted feet and articulated hips or knees; rotating an entire rigid figure is not a performed stance change.
 
+Check physical scale before contact detail: compare the person's height with the door, window,
+tools and carried object, and verify a shared ground. Sample upper-arm and forearm lengths
+through the complete performance. Arbitrary curved tubes, stretched reach and silent target
+clamping can preserve contact while breaking believable motion. A supported prop or clear
+silhouette alone cannot clear those defects. Inspect actual native surface and motion quality
+after the phone pass; keep those two review scopes explicit.
+
 **Review the occupied picture space.** Check the principal subject at the beginning, contact,
 and result of each event against the actual shared caption band and title overlays. Inspect
 phone frames at all three moments, not only a representative contact-sheet frame. A moving
