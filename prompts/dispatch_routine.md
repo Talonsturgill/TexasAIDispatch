@@ -1189,6 +1189,9 @@ encounters and reuse only narration whose claims still fit the new ending. Recor
 mechanism and the replacement in the compact defect ledger; keep all earlier costs charged.
 A code or muted-phone pass cannot override repeated native audiovisual evidence.
 
+Before the next attempt, consolidate every unresolved native finding into one correction. The phone critic must inspect the dominant subject throughout each rejected interval and native-detail crops of its surfaces. Peripheral movement behind an inert focal overlay is insufficient. After two failures of the same composition, replace that composition or action mechanism; do not spend consecutive attempts on labels, outlines or minor prop details. Preserve the exact rejected bytes and compare the replacement against the complete defect list before reserving its native render.
+
+
 Carry native performance findings across uses of the same character or hand system, even
 when the scene id, prop or story role changes. A repeated disconnected-limb or weightless-paper
 rejection requires a medium decision before selecting another hero: use licensed real
