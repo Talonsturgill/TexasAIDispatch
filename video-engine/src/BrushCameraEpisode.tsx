@@ -404,42 +404,76 @@ const EncounterHand:React.FC<{contact:V3;approach:V3;cuff:V3;skin:string;shirt:s
  <Ball p={thumbEnd} s={[.022,.023,.019]} c={skin}/>{nail(thumbEnd,thumbMid,.022)}
  </>;
 };
-const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number;headPitch?:number;stance:V3;stanceYaw:number}>=({p,yaw,lean,shirt,skin,headTurn,headPitch=0,stance,stanceYaw})=>{
- const hipPoint=(x:number,y:number,z:number):V3=>new THREE.Vector3(x,y,z).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
- const footPoint=(x:number,y:number,z:number):V3=>new THREE.Vector3(x,0,z).applyAxisAngle(new THREE.Vector3(0,1,0),stanceYaw).add(new THREE.Vector3(stance[0],y,stance[2])).toArray() as V3;
+const encounterLoft=(rings:{y:number;w:number;d:number;z?:number;turn?:number}[])=>{
+ const positions:number[]=[],indices:number[]=[],segments=40;
+ rings.forEach((ring,j)=>{
+  for(let i=0;i<=segments;i++){
+   const angle=i/segments*Math.PI*2;
+   const x=Math.cos(angle)*ring.w,z=Math.sin(angle)*ring.d+(ring.z??0),turn=ring.turn??0;
+   positions.push(x*Math.cos(turn)+z*Math.sin(turn),ring.y,-x*Math.sin(turn)+z*Math.cos(turn));
+   if(j<rings.length-1&&i<segments){const k=j*(segments+1)+i;indices.push(k,k+segments+1,k+1,k+1,k+segments+1,k+segments+2);}
+  }
+ });
+ const bottom=positions.length/3;positions.push(0,rings[0].y,rings[0].z??0,0,rings[rings.length-1].y,rings[rings.length-1].z??0);
+ for(let i=0;i<segments;i++){indices.push(bottom,i,i+1);const k=(rings.length-1)*(segments+1)+i;indices.push(bottom+1,k+1,k);}
+ const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setIndex(indices);geometry.computeVertexNormals();return geometry;
+};
+const EncounterTorso:React.FC<{p:V3;yaw:number;lean:number;shirt:string;skin:string;headTurn:number;headPitch?:number;stance:V3;stanceYaw:number;feet?:[V3,V3];footYaws?:[number,number]}>=({p,yaw,lean,shirt,skin,headTurn,headPitch=0,stance,stanceYaw,feet,footYaws})=>{
+ const pelvisYaw=(footYaws?(footYaws[0]+footYaws[1])/2:stanceYaw)*.65+yaw*.35;
+ const hipPoint=(x:number,y:number,z:number):V3=>new THREE.Vector3(x,y,z).applyEuler(new THREE.Euler(lean*.25,pelvisYaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
+ const footPoint=(side:number,y:number,z:number):V3=>{
+  if(feet){const anchor=feet[side<0?0:1];return new THREE.Vector3(0,0,z-.035).applyAxisAngle(new THREE.Vector3(0,1,0),footYaws?.[side<0?0:1]??stanceYaw).add(new THREE.Vector3(anchor[0],y+anchor[1],anchor[2])).toArray() as V3;}
+  return new THREE.Vector3(side*.20,0,z).applyAxisAngle(new THREE.Vector3(0,1,0),stanceYaw).add(new THREE.Vector3(stance[0],y,stance[2])).toArray() as V3;
+ };
+ const shirtShape=useMemo(()=>encounterLoft([{y:-.60,w:.247,d:.166},{y:-.45,w:.239,d:.16},{y:-.20,w:.256,d:.17},{y:.12,w:.29,d:.185},{y:.37,w:.323,d:.176},{y:.48,w:.306,d:.157},{y:.59,w:.11,d:.103}].map(r=>({...r,turn:(pelvisYaw-yaw)*(1-(r.y+.60)/1.19)}))),[pelvisYaw,yaw]);
+ const faceShape=useMemo(()=>encounterLoft([{y:-.205,w:.064,d:.067,z:.025},{y:-.165,w:.108,d:.101,z:.017},{y:-.085,w:.143,d:.127,z:.009},{y:.025,w:.163,d:.146},{y:.115,w:.153,d:.135},{y:.20,w:.115,d:.093},{y:.226,w:.028,d:.024}]),[]);
  return <>
  <group position={p} rotation={[lean,yaw,0]}>
  {/* A fitted shirt ends at the belt; the planted lower body supports the upper-body lean. */}
- <Box p={[0,-.005,0]} s={[.58,1.21,.38]} c={shirt} round={.10}/>
- <Box p={[0,.46,0]} s={[.66,.25,.37]} c={shirt} round={.10}/>
- <Box p={[.025,-.13,.201]} s={[.024,1.05,.010]} c="#425b57"/>
- <Box p={[-.13,.23,.206]} s={[.16,.16,.016]} c={shirt} round={.009}/>
+ <mesh geometry={shirtShape} castShadow receiveShadow><meshStandardMaterial color={shirt} roughness={.86}/></mesh>
+ {[-.45,-.20,.05,.30].map((y,i)=><group key={y}>
+  <Rod from={[.012,y-.10,[.164,.169,.179,.180][i]]} to={[.012,y+.10,[.168,.178,.187,.171][i]]} radius={.007} c="#425b57"/>
+  <Ball p={[.012,y,[.169,.177,.189,.180][i]]} s={[.012,.012,.004]} c="#a2ada1"/>
+ </group>)}
+ <Box p={[-.13,.22,.181]} s={[.14,.14,.012]} c={shirt} round={.014}/>
  <Rod from={[0,.55,0]} to={[0,.76,0]} radius={.085} c={skin}/>
  {[-1,1].map(sign=><Box key={sign} p={[sign*.10,.565,.10]} s={[.15,.055,.17]} r={[0,0,sign*.30]} c="#b8bcb0" round={.012}/>)}
  <group position={[0,.90,0]} rotation={[headPitch,headTurn,0]}>
-  <Ball p={[0,0,0]} s={[.163,.22,.157]} c={skin}/>
+  <mesh geometry={faceShape} castShadow receiveShadow><meshStandardMaterial color={skin} roughness={.69}/></mesh>
   <Ball p={[0,.14,-.033]} s={[.168,.10,.143]} c="#45453c"/>
-  <Ball p={[0,-.002,.158]} s={[.032,.042,.042]} c={skin}/>
-  {[-1,1].map(sign=><group key={sign}><Ball p={[sign*.163,-.01,0]} s={[.021,.043,.026]} c={skin}/><Ball p={[sign*.058,.044,.15]} s={[.014,.008,.006]} c="#3a3c34"/></group>)}
+  <Ball p={[0,.018,.141]} s={[.020,.053,.025]} c={skin}/><Ball p={[0,-.008,.170]} s={[.028,.025,.028]} c={skin}/>
+  <Rod from={[-.033,-.116,.129]} to={[.033,-.116,.129]} radius={.004} c="#875c4e"/>
+  {[-1,1].map(sign=><group key={sign}>
+   <Ball p={[sign*.157,-.015,0]} s={[.023,.044,.025]} c={skin}/>
+   <Ball p={[sign*.090,-.041,.108]} s={[.040,.047,.035]} c={skin}/>
+   <Ball p={[sign*.060,.043,.146]} s={[.028,.014,.010]} c="#d5d0b9"/>
+   <Ball p={[sign*.060+Math.sin(headTurn)*.004,.043,.156]} s={[.010,.010,.005]} c="#5b6450"/>
+   <Ball p={[sign*.060+Math.sin(headTurn)*.004,.043,.161]} s={[.0045,.007,.003]} c="#293932"/>
+   <Rod from={[sign*.035,.054,.153]} to={[sign*.084,.054,.145]} radius={.0045} c="#8b6655"/>
+   <Rod from={[sign*.034,.081,.143]} to={[sign*.088,.086,.126]} radius={.007} c="#45453c"/>
+  </group>)}
  </group>
  </group>
- <group position={hipPoint(0,-.60,0)} rotation={[lean*.35,yaw,0]}>
+ <group position={hipPoint(0,-.60,0)} rotation={[lean*.25,pelvisYaw,0]}>
   <Box p={[0,0,0]} s={[.55,.095,.37]} c="#353e3d" round={.025}/>
   <Box p={[.015,.002,.194]} s={[.10,.054,.020]} c="#9b9e8c" metal={.30}/>
   <Box p={[0,-.165,0]} s={[.55,.28,.37]} c="#404c50" round={.06}/>
  </group>
  {[-1,1].map(sign=>{
-  const hip=hipPoint(sign*.145,-.84,0),ankle=footPoint(sign*.20,-1.90,.035);
-  const axis=new THREE.Vector3(...ankle).sub(new THREE.Vector3(...hip)),distance=axis.length();axis.normalize();
-  const bend=new THREE.Vector3(Math.sin(stanceYaw),.05,Math.cos(stanceYaw)).addScaledVector(axis,-new THREE.Vector3(Math.sin(stanceYaw),.05,Math.cos(stanceYaw)).dot(axis)).normalize();
+  const hip=hipPoint(sign*.145,-.84,0),ankle=footPoint(sign,-1.90,.035);
+  const axis=new THREE.Vector3(...ankle).sub(new THREE.Vector3(...hip)),distance=axis.length();
+  if(distance>1.0795)throw new Error('Encounter planted ankle exceeds fixed leg reach');
+  axis.normalize();
+  const footYaw=footYaws?.[sign<0?0:1]??stanceYaw;
+  const bend=new THREE.Vector3(Math.sin(footYaw),.05,Math.cos(footYaw)).addScaledVector(axis,-new THREE.Vector3(Math.sin(footYaw),.05,Math.cos(footYaw)).dot(axis)).normalize();
   const along=(.55*.55-.53*.53+distance*distance)/(2*distance);
   const knee=new THREE.Vector3(...hip).addScaledVector(axis,along).addScaledVector(bend,Math.sqrt(Math.max(0,.55*.55-along*along))).toArray() as V3;
   return <group key={sign}>
    <HandBone from={hip} to={knee} r0={.142} r1={.108} color="#404c50"/>
    <Ball p={knee} s={[.109,.116,.106]} c="#404c50"/>
    <HandBone from={knee} to={ankle} r0={.108} r1={.078} color="#3b484d"/>
-   <Box p={footPoint(sign*.20,-1.970,.115)} r={[0,stanceYaw,0]} s={[.225,.13,.405]} c="#303734" round={.045}/>
-   <Box p={footPoint(sign*.20,-2.027,.115)} r={[0,stanceYaw,0]} s={[.232,.018,.409]} c="#242e2d" round={.008}/>
+   <Box p={footPoint(sign,-1.970,.115)} r={[0,footYaw,0]} s={[.225,.13,.405]} c="#303734" round={.045}/>
+   <Box p={footPoint(sign,-2.027,.115)} r={[0,footYaw,0]} s={[.232,.018,.409]} c="#242e2d" round={.008}/>
   </group>;
  })}
  </>;
@@ -461,25 +495,36 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const blend=(p:V3,q:V3,t:number):V3=>p.map((v,i)=>mix(v,q[i],t)) as V3;
  const pickup=smooth(c/.35),present=smooth((c-.35)/.65),receive=smooth(d/.45),pull=smooth((d-.45)/.55),release=smooth((d-.68)/.32);
  const examine=smooth((b-.12)/.82)*(1-pickup),anticipate=smooth((b-.04)/.86)*(1-pickup);
- const boardScale=.55,boardTilt=.75+.25*a-.22*smooth(b);
- const boardPos:V3=[-.21,.20+.24*a-.18*smooth(b),1.10-.035*smooth(b)];
+ const officerOffset:V3=[.24*(1-a)+.06*b+.10*c,0,.46*(1-a)-.12*b+.22*c];
+ const strideDip=.040*Math.sin(Math.PI*a)**2+.022*Math.sin(Math.PI*c)**2;
+ const carried=(p:V3):V3=>p.map((v,i)=>v+officerOffset[i]) as V3;
+ const plantedFoot=(center:V3,sign:number,angle:number):V3=>new THREE.Vector3(sign*.20,0,.035).applyAxisAngle(new THREE.Vector3(0,1,0),angle).add(new THREE.Vector3(...center)).toArray() as V3;
+ const steppingFeet=(from:V3,to:V3,progress:number,fromYaw:number,toYaw:number):[V3,V3]=>[-1,1].map((sign,i)=>{
+  const phase=Math.max(0,Math.min(1,progress*2-i)),travel=smooth(phase),start=plantedFoot(from,sign,fromYaw),end=plantedFoot(to,sign,toYaw);
+  const foot=blend(start,end,travel);foot[1]=.12*Math.sin(Math.PI*phase)**2;return foot;
+ }) as [V3,V3];
+ const officerFeet=c>0?steppingFeet([-.75,0,.75],[-.59,0,.85],c,2.30,1.25):steppingFeet([-.51,0,1.21],[-.75,0,.75],a,3.62,2.30);
+ const officerFootYaws=[0,1].map(i=>mix(c>0?2.30:3.62,c>0?1.25:2.30,smooth((c>0?c:a)*2-i))) as [number,number];
+
+ const boardScale=.55,boardTilt=.75+.25*a-.10*b-.05*c;
+ const boardPos=carried([-.21,.20+.22*a+.10*b-.16*c,1.10-.035*b]);
  const world=(x:number,y:number,z:number):V3=>[boardPos[0]+x*boardScale,boardPos[1]+(y*Math.cos(boardTilt)-z*Math.sin(boardTilt))*boardScale,boardPos[2]+(y*Math.sin(boardTilt)+z*Math.cos(boardTilt))*boardScale];
  const photoPos=world(.355,.028,-.10),restNotice=world(-.40,.035,.08);
- const noticePos=blend(restNotice,[-.02,.35,1.22],present);
+ const noticePos=blend(restNotice,carried([-.02,.35,1.22]),present);
  noticePos[0]+=.18*pull;noticePos[1]+=.025*Math.sin(present*Math.PI)-.015*pull;noticePos[2]+=.02*pull;
  const noticeTilt=mix(boardTilt,1.08,present)+.035*pull;
  const noticeNormal:V3=[0,Math.cos(noticeTilt),Math.sin(noticeTilt)];
  const edge:V3=[noticePos[0]-.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
  const ownerEdge:V3=[noticePos[0]+.226*boardScale,noticePos[1]+.012,noticePos[2]+.027];
- const workRest:V3=[-.20,-.40,1.25],ownerRest:V3=[.72,-.32,1.24];
+ const workRest=carried([-.20,-.40,1.25]),ownerRest:V3=[.72,-.32,1.24];
  const officerContact=blend(workRest,edge,pickup);
  officerContact[0]-=.10*release;officerContact[1]-=.15*release;officerContact[2]+=.025*release;
  const ownerContact=blend(ownerRest,ownerEdge,receive);
  const workingApproach=unit(blend([0,.98,-.12],[-1,-.18,.20],pickup*(1-.30*release)));
  const receiverApproach=unit(blend([.12,.98,.02],[1,-.18,.20],receive));
- const officerTorso:V3=[-.75+.035*examine-.025*present,-.006-.014*examine,.75-.035*examine+.015*present];
+ const officerTorso=carried([-.75+.035*examine-.025*present,-.020-.050*examine-strideDip,.75-.035*examine+.015*present]);
  const ownerTorso:V3=[.65-.035*receive+.015*pull,-.006-.012*receive,1+.015*receive];
- const officerYaw=1.25+examine-.08*present,officerLean=.01+.028*examine;
+ const officerYaw=2.70-1.05*a+.85*examine-.30*present,officerLean=.025+.035*Math.sin(Math.PI*a)+.04*examine;
  const ownerYaw=-1.65-.08*receive,ownerLean=.012+.025*receive;
  const shoulder=(p:V3,yaw:number,lean:number,x:number):V3=>new THREE.Vector3(x,.48,0).applyEuler(new THREE.Euler(lean,yaw,0)).add(new THREE.Vector3(...p)).toArray() as V3;
  const holdShoulder=shoulder(officerTorso,officerYaw,officerLean,-.28),workShoulder=shoulder(officerTorso,officerYaw,officerLean,.28);
@@ -495,11 +540,12 @@ const SiteInspection:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})
  const photoLook=Math.atan2(photoPos[0]-officerTorso[0],photoPos[2]-officerTorso[2]);
  const windowLook=Math.atan2(windowPoint[0]-officerTorso[0],windowPoint[2]-officerTorso[2]);
  const continuousWindowLook=windowLook<0?windowLook+Math.PI*2:windowLook;
- const officerHeadTurn=mix(photoLook,continuousWindowLook,anticipate)-officerYaw;
+ const arrivalLook=mix(continuousWindowLook,photoLook,smooth(a));
+ const officerHeadTurn=mix(arrivalLook,continuousWindowLook,anticipate)-officerYaw;
  return <>
  <Box p={[0,-2.1,0]} s={[18,.13,16]} c="#75795f"/>
  <House site scale={2.6} p={[1.72,-1.177,-2.55]}/>
- <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={officerHeadTurn} headPitch={mix(.38,.04,anticipate)} stance={[-.75,0,.75]} stanceYaw={1.25} shirt="#627b70" skin="#ad7e63"/>
+ <EncounterTorso p={officerTorso} yaw={officerYaw} lean={officerLean} headTurn={officerHeadTurn} headPitch={mix(mix(.06,.32,a),.04,anticipate)} feet={officerFeet} footYaws={officerFootYaws} stance={[-.75,0,.75]} stanceYaw={1.25} shirt="#627b70" skin="#ad7e63"/>
  <EncounterTorso p={ownerTorso} yaw={ownerYaw} lean={ownerLean} headTurn={-.08} headPitch={.24} stance={[.65,0,1]} stanceYaw={-1.65} shirt="#83684f" skin="#b78666"/>
  <spotLight position={[2.6,4.3,3.7]} intensity={1.3} angle={.64} penumbra={.65} castShadow shadow-mapSize={[1024,1024]} shadow-bias={-.00015} shadow-normalBias={.018}/>
  <group position={boardPos} rotation={[boardTilt,0,0]} scale={boardScale}>
