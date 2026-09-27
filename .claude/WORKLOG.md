@@ -185,3 +185,10 @@ Root additionally committed automatic current-hash contact-sheet regeneration an
 ## B60 notice-to-work story pivot
 
 Native B59 again rejected the explanatory roof comparison and rushed exit. B60 retires that entire rendered scene and its events. The first five scenes retain capture, human review, courtesy requests and mailbox withdrawal. The same actual illustrative notice now begins its editorial exit using the board-directed handoff event and continues briefly over immediate licensed cleanup; the source disclaimer stays inside x430–900 and never attributes the notice to the recorded adult. The unchanged native stock asset plays at natural speed. Hero proof ends at dimensional s5. Board narration matches the new76-word script naming Sarrah Morrison directly; fresh continuous narration and measured caption timing are required. The provisional six-scene runtime30.54 is below the existing35-second floor and is reported to the root for source-backed narration/timing repair, not waived. TypeScript and source-evidence checks pass; final retimed board and exact-film gates remain required.
+
+
+## B60 measured audio and final clock
+
+The new76-word continuous Charon read is retained without stretching. Its source-backed proper-name ASR spelling is recorded; eight caption boundaries are measured and verified. After moving the intact take to2.5seconds, the six-scene35-second story clears storyboard, quick timing and flow gates; the opening capture still resolves by1.28seconds. Licensed cleanup plays naturally for9.08seconds and ends as the adult carries the same bag onward, with no claimed disposal or case outcome.
+
+Dynamic loudness normalization undershot its measured target. The shared master now records up to three source-based corrections, then applies measured residual gain through an explicit oversampled peak limiter with compensated latency. Exact sample count, rate, channels and final loudness/peak gates remain enforced. Production quality tests passed; actual revised mix measures−16.27LUFS. Native encoded-film measurement and audiovisual reviews remain required.
