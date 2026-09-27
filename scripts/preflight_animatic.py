@@ -271,7 +271,7 @@ def contact_sheet(board: dict, film: Path, out: Path) -> None:
     sheet.save(out)
 
 
-def render(board: Path, film: Path, state: Path) -> None:
+def render(board: Path, film: Path, state: Path, claims: Path | None = None) -> None:
     sys.path.insert(0, str(REPO / "scripts"))
     from run_controller import reserve
 
@@ -279,6 +279,16 @@ def render(board: Path, film: Path, state: Path) -> None:
                             "--board", str(board)])
     if check.returncode:
         raise RuntimeError("storyboard gate is red; no animatic was spent")
+    # Run these cheap product checks before charging a preview or any later native work.
+    from engine_lint import check_files, LIB
+    from super_evidence_check import check as check_supers
+    errors = check_files(LIB)
+    claims_path = claims or board.parent / "claims.json"
+    if not claims_path.is_file():
+        raise RuntimeError("source claims are required before preview reservation")
+    errors += check_supers(json.loads(board.read_text()), json.loads(claims_path.read_text()))[0]
+    if errors:
+        raise RuntimeError("pre-render product checks failed; no animatic was spent: " + "; ".join(errors))
     media = subprocess.run([sys.executable, str(REPO / "scripts" / "generated_media.py"),
                             "--board", str(board), "--verify"])
     if media.returncode:
@@ -328,6 +338,25 @@ def self_test() -> int:
     missing = copy.deepcopy(revised)
     del missing["attention_beats"][0]["viewer_reward"]
     ok("review rebind refuses missing review fields", not review_text_only(baseline, missing))
+
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as early:
+        p = Path(early)
+        board_file = p / "board.json"
+        board_file.write_text('{"scenes":[]}')
+        (p / "claims.json").write_text('{"claims":[]}')
+        for defects, label in ((["invalid color"], "engine"), ([], "printed evidence")):
+            with patch("subprocess.run") as command, patch("engine_lint.check_files", return_value=defects), \
+                    patch("super_evidence_check.check", return_value=(["unquoted number"], [])), \
+                    patch("run_controller.reserve") as charge:
+                command.return_value.returncode = 0
+                refused = False
+                try:
+                    render(board_file, p / "film.mp4", p / "state.json")
+                except RuntimeError as exc:
+                    refused = "no animatic was spent" in str(exc)
+                ok(label + " failure stops before any preview reservation",
+                   refused and not charge.called)
 
     if not Path(FFMPEG).is_file() or not Path(FFPROBE).is_file():
         print("preflight_animatic: ffmpeg and ffprobe are required", file=sys.stderr)
@@ -401,6 +430,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--board", default=str(DEFAULT_BOARD))
     ap.add_argument("--film", default=str(DEFAULT_FILM))
+    ap.add_argument("--claims", type=Path, help="source claims; defaults to claims.json beside board")
     ap.add_argument("--sheet", default=str(DEFAULT_SHEET))
     ap.add_argument("--report", default=str(DEFAULT_REPORT))
     ap.add_argument("--state", default=str(DEFAULT_STATE))
@@ -442,7 +472,7 @@ def main() -> int:
             if stale:
                 raise ValueError("inspect-only cannot rebind an older cinematic film: " + "; ".join(stale))
         if not args.inspect_only:
-            render(board_path.resolve(), film.resolve(), Path(args.state))
+            render(board_path.resolve(), film.resolve(), Path(args.state), args.claims)
         report, problems = inspect_animatic(board, film)
         contact_sheet(board, film, Path(args.sheet))
         report.update({"pass": not problems, "problems": problems,

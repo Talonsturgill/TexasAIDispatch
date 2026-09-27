@@ -215,10 +215,10 @@ def printed_figures(board: dict):
         for pl in sc.get("planes", []):
             for it in pl.get("items", []):
                 props = it.get("props") or {}
-                # These keys are event-clock wiring read by the renderer, never painted text.
+                # These keys bind event clocks or source evidence, never painted text.
                 # Scene IDs such as s7-segment-lights carry an incidental digit.
                 for key, value in props.items():
-                    if key in {"primary_event", "secondary_event", "tertiary_event"}:
+                    if key in {"primary_event", "secondary_event", "tertiary_event", "claim_id"}:
                         continue
                     for cell in prop_strings(value):
                         for v in figures(cell):
@@ -228,6 +228,14 @@ def printed_figures(board: dict):
 def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
     """RULE 6. A figure in rendered item props appears in some claim's FETCHED text."""
     fails: list[str] = []
+    by_id = {c["id"]: c for c in claims.get("claims", [])}
+    for scene in board.get("scenes", []):
+        for plane in scene.get("planes", []):
+            for item in plane.get("items", []):
+                cid = (item.get("props") or {}).get("claim_id")
+                if cid is not None and (not isinstance(cid, str) or
+                        by_id.get(cid, {}).get("verdict") != "VERIFIED"):
+                    fails.append(str(scene.get("id")) + ": item claim_id must bind a verified source claim")
     evidence = " ".join(evidence_text(c) for c in claims.get("claims", []))
     have = figures(evidence)
     seen: set[tuple[str, float]] = set()
@@ -384,6 +392,19 @@ def self_test() -> int:
     def rd(*rows):
         return {"scenes": [{"id": "s11", "planes": [{"z": 90, "items": [
             {"kind": "readout", "x": 0, "y": 0, "props": {"title": "t", "rows": list(rows)}}]}]}]}
+
+    bound = {"scenes": [{"id": "s3", "planes": [{"items": [
+        {"kind": "photoWall", "props": {"claim_id": "c3", "result_label": "DEBRIS"}}
+    ]}]}]}
+    bindings = {"claims": [{"id": "c3", "verdict": "VERIFIED", "quote": "Visible debris"}]}
+    ok("internal claim ID is evidence wiring rather than a displayed numeral",
+       not check_printed_figures_are_quoted(bound, bindings))
+    bound["scenes"][0]["planes"][0]["items"][0]["props"]["result_label"] = "3 violations"
+    ok("visible numeral beside source binding still fails without a fetched quote",
+       bool(check_printed_figures_are_quoted(bound, bindings)))
+    bound["scenes"][0]["planes"][0]["items"][0]["props"] = {"claim_id": "c999"}
+    ok("missing source binding fails rather than becoming an exclusion escape",
+       bool(check_printed_figures_are_quoted(bound, bindings)))
 
     TABLED = {"claims": [dict(CLAIMS["claims"][0]),
                          {"id": "c6", "verdict": "VERIFIED",

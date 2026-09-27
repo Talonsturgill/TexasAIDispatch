@@ -1,3 +1,7 @@
+## September27 resumed quality recovery and B74 production
+
+System fix PR72 merged90f9a7e after exact-head CI36318096237. Production merged current main63d6ae0. Shared criteria and fixed existing resource envelope adopted without resetting usage. Boardab585e0f adds planning metadata only; source33 and code155 bind it transparently. B74 phonea2370571 passed critic156 with six timed observations and no blocking defects. Native herobf7ce3cb passed the exact-byte audiovisual provider, with audible narration and processing cue. Root inspected native result and phone sequence. Full12 is now rendering, with unchanged narration, caption timing and picture inputs. Final three lenses and judges, exact-head release CI, deployment, canonical phone playback and unsent draft remain required. Schedule remains paused until shipment.
+
 ## September 26 B15 visible document placement
 
 B14 native comparison explained the dispute and had audible narration, but its early paper travel was cropped and the motion appeared mechanical. The revised placement uses the same readable table framing as the optical comparison: immediate curved carry, quick descent to actual table contact, and a hand exit before the cut. Loupe approach and withdrawal follow shallow arcs. Three short placement events retain the existing quick pacing limits. Original narration is retained; paper contact timing and acoustic captions were rebuilt and verified. Current phone and native audiovisual gates remain mandatory before final rendering.
