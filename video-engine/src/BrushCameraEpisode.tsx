@@ -296,14 +296,31 @@ const Body:React.FC<{p:V3;yaw?:number;bend?:number;step?:number;travel?:V3;look?
  </group>
  </group>;
 };
-const Cleanup:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
+const cleanupLeafEdge=(seed:number,length:number,width:number)=>[[1,0],[.78,.25],[.73,.60],[.49,.45],[.33,.90],[.10,.57],[-.18,1],[-.38,.55],[-.64,.72],[-.67,.28],[-.94,.06],[-.69,-.23],[-.60,-.69],[-.35,-.48],[-.14,-.93],[.12,-.53],[.36,-.84],[.50,-.40],[.75,-.54],[.80,-.20]].map(([x,z],i)=>[x*length,z*width*(1+.08*Math.sin(seed+i))]);
+const CleanupLeaf:React.FC<{seed:number;length:number;width:number}>=({seed,length,width})=>{
+ const geometry=useMemo(()=>{
+  const edge=cleanupLeafEdge(seed,length,width);
+  const shape=new THREE.Shape();edge.forEach(([x,z],i)=>{if(i===0)shape.moveTo(x,z);else shape.lineTo(x,z);});shape.closePath();
+  const g=new THREE.ShapeGeometry(shape),p=g.getAttribute('position');
+  for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getY(i);p.setXYZ(i,x,.003+.012*(Math.abs(z)/width)**1.6+.004*(x/length)**2,z);}
+  g.computeVertexNormals();return g;
+ },[seed,length,width]);
+ return <>
+  <mesh geometry={geometry} castShadow receiveShadow><meshStandardMaterial color={["#80613a","#a9753e","#897445","#a58a4b"][seed%4]} side={THREE.DoubleSide} roughness={.95}/></mesh>
+  <Rod from={[-length*1.23,.004,0]} to={[length*.88,.009,0]} radius={.0015} c="#ba9e66"/>
+  {[-.45,-.05,.36].map((x,i)=>[-1,1].map(side=><Rod key={x+":"+side} from={[x*length,.006,0]} to={[(x+.17)*length,.012,side*width*[.51,.71,.54][i]]} radius={.0008} c="#c2a56b"/>))}
+ </>;
+};
+const Cleanup:React.FC<{a:number;b:number;c:number;d:number;e:number;finish:number}>=({a,b,c,d,e,finish})=>{
  const smooth=(v:number)=>{const t=Math.max(0,Math.min(1,v));return t*t*(3-2*t);};
- const turn=smooth(d/.30),gather=smooth((d-.30)/.70);
+ const turn=smooth(d),gather=e;
  const firstZ=mix(.19,.70,a),secondZ=mix(.19,1.05,c);
  const passZ=c>0?secondZ:b>0?mix(.70,.19,b):firstZ;
  const resetLift=.22*Math.sin(Math.PI*b)**2;
  const turnLift=.19*Math.sin(Math.PI*turn)**2;
- const brush:V3=[mix(0,-.50,turn)+.64*gather,-.402+resetLift+turnLift,mix(passZ,1.10,turn)];
+ const withdrawal=smooth(finish);
+ const revealLift=.14*withdrawal;
+ const brush:V3=[mix(0,-.50,turn)+.64*gather-.15*withdrawal,-.402+resetLift+turnLift+revealLift,mix(passZ,1.10,turn)];
  const yaw=Math.PI/2*turn;
  const groundTop=-.525;
  const pulse=Math.sin(Math.PI*a)*.028+Math.sin(Math.PI*c)*.038+Math.sin(Math.PI*gather)*.022;
@@ -311,6 +328,10 @@ const Cleanup:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  const handleTop:V3=[brush[0]*.22,2.05,-.56+.06*Math.sin(Math.PI*c)];
  return <>
  <Box p={[0,-.59,.7]} s={[6,.13,6]} c="#a7a08a"/>
+ <Box p={[-.66,-.523,.8]} s={[.016,.003,5]} c="#7b7a68"/>
+ <Box p={[0,-.523,.48]} s={[6,.003,.012]} c="#878570"/>
+ <Box p={[-1.59,-.56,.75]} s={[1.85,.085,5]} c="#70794d"/>
+ {Array.from({length:36},(_,i)=><Rod key={"grass"+i} from={[-.69-(i%3)*.055,-.519,-1.1+i*.11]} to={[-.71-(i%3)*.052,-.477-(i%4)*.006,-1.08+i*.11]} radius={.0025} c={i%2?"#87915b":"#5f7148"}/>)}
  {/* Feet stay planted; hips and knees absorb the two pushes above the close crop. */}
  {[-1,1].map(sign=>{
   const ankle:V3=[sign*.42,-.398,-.18],knee:V3=[sign*.37,.02-pulse,-.20+.05*Math.sin(Math.PI*c)];
@@ -327,28 +348,34 @@ const Cleanup:React.FC<{a:number;b:number;c:number;d:number}>=({a,b,c,d})=>{
  <group position={brush} rotation={[0,yaw,0]}>
   <Box p={[0,0,0]} s={[.70,.078,.145]} c="#886d43" round={.015}/>
   <Box p={[0,.045,0]} s={[.095,.035,.11]} c="#a89165" round={.009}/>
-  {Array.from({length:29},(_,i)=>[-1,1].map(row=>{
-   const flex=(b>0&&b<1)||(d>0&&turn<1)?0:.030;
-   return <Rod key={i+":"+row} from={[-.326+i*.023,-.036,row*.030]} to={[-.332+i*.0235,groundTop-brush[1]+resetLift+turnLift+.002,.058+flex+row*.012]} radius={.0054} c={i%3?"#b89a61":"#806940"}/>;
+  {Array.from({length:57},(_,i)=>[-1,0,1].map(row=>{
+   const lifted=Math.max(0,Math.min(1,(resetLift+turnLift+revealLift)/.055));
+   const flex=mix(.030,.005,lifted);
+   const x=-.330+i*.0118;
+   const root=new THREE.Vector3(x,-.036,row*.033);
+   const tip=new THREE.Vector3(x+.003*Math.sin(i),groundTop-brush[1]+resetLift+turnLift+revealLift+.002,.058+flex+row*.012);
+   const bend=root.clone().lerp(tip,.58);bend.z-=mix(.023,.004,lifted);
+   const curve=new THREE.QuadraticBezierCurve3(root,bend,tip);
+   return <mesh key={i+":"+row} castShadow receiveShadow><tubeGeometry args={[curve,5,.0025,5,false]}/><meshStandardMaterial color={i%4?"#ac8d56":"#78613b"} roughness={.88}/></mesh>;
   }))}
  </group>
  {/* Each leaf is constrained by the contacting bristle front, then retained during reset. */}
  {Array.from({length:27},(_,i)=>{
   const originalX=-.285+(i%7)*.092+(Math.floor(i/7)%2)*.009;
   const originalZ=.34+Math.floor(i/7)*.205+(i%3)*.018;
-  const leafAngle=i*1.71,leafX=.036+(i%3)*.006,leafZ=.017+(i%2)*.004;
-  const extentZ=Math.hypot(leafX*Math.sin(leafAngle),leafZ*Math.cos(leafAngle));
-  const extentX=Math.hypot(leafX*Math.cos(leafAngle),leafZ*Math.sin(leafAngle));
-  const firstFront=firstZ+.100+extentZ*.94;
-  const secondFront=secondZ+.100+extentZ*.94;
+  const leafAngle=i*1.71,leafX=.043+(i%3)*.007,leafZ=.024+(i%2)*.004;
+  const outline=[...cleanupLeafEdge(i,leafX,leafZ),[-leafX*1.23,0]];
+  const extentZ=-Math.min(...outline.map(([x,z])=>-x*Math.sin(leafAngle)+z*Math.cos(leafAngle)));
+  const extentX=-Math.min(...outline.map(([x,z])=>x*Math.cos(leafAngle)+z*Math.sin(leafAngle)));
+  const firstFront=firstZ+.100+extentZ-.002;
+  const secondFront=secondZ+.100+extentZ-.002;
   const z=Math.max(originalZ,firstFront,c>0?secondFront:-10);
-  const sideFront=-.50+.64*gather+.100+extentX*.94;
+  const sideFront=-.50+.64*gather+.100+extentX-.002;
   const x=gather>0?Math.max(originalX,sideFront):originalX;
   const packed=gather>0&&sideFront>originalX;
-  const y=groundTop+.010+(packed?(i%4)*.004:0);
-  return <group key={i} position={[x,y,z]} rotation={[0,leafAngle,.08*Math.sin(i)]}>
-   <mesh scale={[leafX,.009,leafZ]} castShadow receiveShadow><sphereGeometry args={[1,12,6]}/><meshStandardMaterial color={["#79653d","#aa7d45","#897747"][i%3]} roughness={.94}/></mesh>
-   <Rod from={[-.025,.008,0]} to={[.028,.008,0]} radius={.0018} c="#b39c66"/>
+  const y=groundTop-.003+(packed?(i%4)*.004:0);
+  return <group key={i} position={[x,y,z]} rotation={[0,leafAngle,0]}>
+   <CleanupLeaf seed={i} length={leafX} width={leafZ}/>
   </group>;
  })}
  </>;
@@ -672,7 +699,7 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  {id==='s4'&&<ReviewDesk a={a} b={b} c={c}/>}
  {id==='s5'&&<Notice a={a} b={b}/>}
  {id==='s6'&&<RoofComparison a={a} b={b} c={c}/>}
- {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-pile-gathered')}/>}
+ {id==='s7'&&<Cleanup a={cleanupProgress('s7-first-sweep')} b={cleanupProgress('s7-broom-reset')} c={cleanupProgress('s7-second-sweep')} d={cleanupProgress('s7-broom-reposition')} e={cleanupProgress('s7-pile-gathered')} finish={Math.max(0,Math.min(1,(time-requireAction(windows,'s7-pile-gathered').end)/.28))}/>}
  {id==='s9'&&<SiteInspection a={a} b={(b*.60+progress(4)*1.20)/1.80} c={c} d={d}/>}
  </CinematicStage>;
 };
