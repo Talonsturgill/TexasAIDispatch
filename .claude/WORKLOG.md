@@ -202,3 +202,10 @@ Native B60 rejected the isolated hand and unsupported notice. B61 removes all ac
 ## B61 production prop routing repair
 
 Phone108 failed at frame649 because the root Dispatch component omitted native_media while the generalized stock renderer correctly required it. The owning Dispatch component now forwards that prop; strict per-asset validation remains active. Retained failure log and exact before/after source bind one charged infrastructure replacement. TypeScript passes. The failed render receives no picture verdict; current phone and native evidence remain required.
+
+
+## September26 B62 structural case repair
+
+Panel6 rejected exact final99553f46 for unrelated office-reader and woodland-volunteer identities. All three current lenses were collected; encoded audio passed. The revised ending removes both stock performers, carries the same supported notice into a source-quoted request, then uses9.08requested seconds (272encoded frames) of attributed NBC case evidence: notice property image, property footage and Morrison interview. The footage does not depict cleanup or prove temperature; outcome remains unreported. Exact selected source bytes and explicit editorial quotation rationale are retained; no granted license is asserted and full research footage is excluded from publication. Source21 independently verified the current report and limits.
+
+Renderer commitsddf0362/68234ae/dacda52 implement conserved paper/contact, truthful source labels and complete phone-safe hand/paper framing. Strict source-category validation10cb388/cf55020 preserves stock-license requirements and binds editorial source URL, native dimensions, selected bytes, four-factor assessment and source limits. B62 retains the76-word voice and measured8caption cues; current mix40seconds at−16.3LUFS. The changed notice passage is the native hero. Current phone/native/fullfilm verdicts and shipment remain pending. Previous costs and rejected files are preserved.
