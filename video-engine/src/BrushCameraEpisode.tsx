@@ -11,6 +11,8 @@ import {FONT} from './lib/type';
 import {CreditsCard, SubtitleTrack, type DispatchProps, type Scene} from './Dispatch';
 
 const cream='#eee4cb', ink='#17323d', copper='#df956a', green='#396a5f';
+// Exact verified c11 wording, editorially quoted rather than a source-document highlight.
+const COURTESY_REQUEST_QUOTE=['Please correct the violations','promptly to avoid further','enforcement action.'];
 const Box:React.FC<{p:V3;s:V3;c:string;r?:V3;round?:number;metal?:number}>=({p,s,c,r=[0,0,0],round=0,metal=0})=>{
  const geometry=useMemo(()=>round?new RoundedBoxGeometry(...s,2,round):new THREE.BoxGeometry(...s),[...s,round]);
  return <mesh geometry={geometry} position={p} rotation={r} castShadow receiveShadow><meshStandardMaterial color={c} roughness={metal?.36:.76} metalness={metal}/></mesh>;
@@ -727,8 +729,6 @@ const PhysicalStory:React.FC<{scene:Scene;time:number;windows:ReturnType<typeof 
  id==='s2'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:38}:
  id==='s3'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
  id==='s4'?{position:[.15,4.8,5.9],target:[-.10,-.25,-.20],fov:42}:
- // Derived from paper and full hand bounds across 303 action states.
- // Screen union x81 to889, y611 to1087 retains caption and feed clearance.
 
  id==='s7'?(localTime<4.66?{position:[0,mix(2.09,1.85,coverage),3.3],target:[0,-.44,1.02],fov:40}:{position:[mix(.45,.42,closingCoverage),mix(1.22,1.16,closingCoverage),mix(3.30,3.22,closingCoverage)],target:[-.06,-.46,1.15],fov:45}):
  id==='s9'?encounterCamera:
@@ -774,11 +774,21 @@ export const BrushCameraEpisode:React.FC<DispatchProps>=({runtime_s,scenes,capti
  <div style={{position:'absolute',inset:0,background:stock?'linear-gradient(180deg,transparent 0%,transparent 60%,#17323d66 100%)':'linear-gradient(180deg,#17323de8 0%,#17323d33 23%,transparent 38%,transparent 65%,#17323d66 100%)',pointerEvents:'none'}}/>
  {(!stock||editorialExcerpt)&&<><div style={{position:'absolute',left:70,top:93,fontFamily:FONT.mono,fontSize:25,letterSpacing:3,color:cream}}>TEXAS AI DISPATCH</div>
  <div style={{position:'absolute',left:70,top:140,fontFamily:FONT.mono,fontSize:18,letterSpacing:1.8,color:'#c0d5c4'}}>{editorialExcerpt?'SOURCE EXCERPTS / NBC 5 INVESTIGATES':'DALLAS / ILLUSTRATED RECONSTRUCTION'}</div>
- <div style={{position:'absolute',left:70,right:118,top:222,fontFamily:FONT.display,fontSize:65,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
+ <div style={{position:'absolute',left:70,right:editorialExcerpt?180:118,top:222,fontFamily:FONT.display,fontSize:editorialExcerpt?62:65,fontWeight:editorialExcerpt?400:undefined,lineHeight:1.03,textShadow:'0 3px 15px #17323d'}}>{scene.super}</div></>}
  {stock&&!editorialExcerpt&&<div style={{position:'absolute',left:430,width:470,boxSizing:'border-box',top:52,padding:'12px 16px',fontFamily:FONT.mono,fontSize:30,lineHeight:1.18,letterSpacing:.3,color:cream,background:'rgba(9,32,39,.92)'}}>ILLUSTRATIVE STOCK<br/>FOOTAGE<br/>NOT THE REPORTED<br/>PERSON OR PROPERTY</div>}
  {stock&&!editorialExcerpt&&localTime<1.2&&<div style={{position:'absolute',left:70,top:278,fontFamily:FONT.mono,fontSize:28,letterSpacing:.5,color:cream,textShadow:'0 2px 5px #17323d'}}>{scene.id==='s5'?'COURTESY REQUEST':'NOTICE → REPORTED YARD WORK'}</div>}
  {scene.id==='s2'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATIVE NOTICE VOLUME / NBC DFW</div>}
- {scene.id==='s7'&&<div style={{position:'absolute',left:70,top:scene.id==='s7'?1180:386,fontFamily:FONT.mono,fontSize:scene.id==='s7'?24:19,letterSpacing:1.2,color:'#eac39f'}}>{editorialExcerpt?'HER NOTICE · HER YARD · HER ACCOUNT':'SEPARATE REPORTED CASE / NBC DFW'}</div>}
+ {scene.id==='s5'&&editorialExcerpt&&<div style={{position:'absolute',left:54,top:960,width:864,boxSizing:'border-box',padding:24,background:'rgba(9,32,39,.97)',color:cream}}>
+  <div style={{fontFamily:FONT.mono,fontSize:40,lineHeight:1.15,whiteSpace:'nowrap'}}>QUOTED REQUEST / NBC DFW</div>
+  <div style={{marginTop:12,fontFamily:FONT.body,fontSize:58,fontWeight:600,lineHeight:1.15}}>
+   {COURTESY_REQUEST_QUOTE.map(line=><div key={line} style={{whiteSpace:'nowrap'}}>{line}</div>)}
+  </div>
+ </div>}
+ {scene.id==='s7'&&editorialExcerpt&&<>
+  <div style={{position:'absolute',left:70,top:330,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>SARRAH MORRISON / NBC INTERVIEW</div>
+  <div style={{position:'absolute',left:70,top:1240,width:830,fontFamily:FONT.mono,fontSize:40,lineHeight:1.2,whiteSpace:'nowrap',color:cream}}>CASE OUTCOME UNREPORTED</div>
+ </>}
+ {scene.id==='s7'&&!editorialExcerpt&&<div style={{position:'absolute',left:70,top:1180,fontFamily:FONT.mono,fontSize:24,letterSpacing:1.2,color:'#eac39f'}}>SEPARATE REPORTED CASE / NBC DFW</div>}
  {scene.id==='s3'&&<div style={{position:'absolute',left:70,top:410,fontFamily:FONT.mono,fontSize:25,color:cream}}>ILLUSTRATED IMAGE HANDOFF</div>}
 
  {scene.id==='s9'&&<div style={{position:'absolute',left:70,top:386,fontFamily:FONT.mono,fontSize:24,letterSpacing:.7,color:'#e2e8d7',background:'rgba(9,32,39,.90)',padding:'8px 12px'}}>REPORTED CITY REQUIREMENT / FOX</div>}
