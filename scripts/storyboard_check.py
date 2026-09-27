@@ -145,9 +145,9 @@ def editorial_source_problems(media: dict, bound: dict | None, root: Path,
                               prefix: str) -> list[str]:
     """Require retained editorial evidence without treating quotation as a license."""
     errors = []
-    def retained(relative, *, source=False):
+    def retained(relative):
         path = Path(str(relative or ""))
-        allowed = ("out/", "video-engine/public/evidence/") if source else ("out/",)
+        allowed = ("out/", "video-engine/public/evidence/")
         if (not str(relative or "").startswith(allowed) or path.is_absolute()
                 or ".." in path.parts):
             raise ValueError("evidence must be a retained repository-relative path")
@@ -185,7 +185,7 @@ def editorial_source_problems(media: dict, bound: dict | None, root: Path,
             errors.append(prefix + "editorial quotation must explicitly disclaim a granted license")
         if len(str(manifest.get("source_limits") or "").strip()) < 30:
             errors.append(prefix + "requires explicit editorial source limits")
-        section = retained(manifest.get("native_section_file"), source=True)
+        section = retained(manifest.get("native_section_file"))
         if hashlib.sha256(section.read_bytes()).hexdigest() != manifest.get("native_section_sha256"):
             errors.append(prefix + "editorial native source SHA256 does not match retained evidence")
         probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0",
@@ -1022,6 +1022,15 @@ def self_test() -> int:
                 stdout=json.dumps({"streams": [{"width": 1920, "height": 1080}]}))):
             bind_manifest(manifest)
             ok("editorial footage accepts exact retained provenance", not editorial_errors())
+            published_manifest = public / "video-engine/public/evidence/editorial.json"
+            published_manifest.parent.mkdir(parents=True)
+            published_manifest.write_bytes(manifest_path.read_bytes())
+            durable = deepcopy(editorial)
+            durable["source_footage"]["provenance_manifest"] = "video-engine/public/evidence/editorial.json"
+            ok("editorial provenance can be retained in the public evidence package", not editorial_errors(durable))
+            escaped = deepcopy(editorial)
+            escaped["source_footage"]["provenance_manifest"] = "video-engine/public/evidence/../../../../outside.json"
+            ok("editorial provenance rejects path traversal", bool(editorial_errors(escaped)))
             quantized = deepcopy(editorial); quantized.update(start_s=25.92, duration_s=9.08)
             quantized["source_footage"]["trim_end_s"] = 272 / 30
             ok("editorial trim covers the actual composition frames", not editorial_errors(quantized))
