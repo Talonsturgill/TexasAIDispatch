@@ -177,6 +177,10 @@ def pending(repo):
 def allowance_problems(state):
     """Reconstruct allowances from recorded actions; a hand-raised cap fails."""
     from run_controller import ceilings
+    from repair_guard import owner_grant_problems
+    errors = owner_grant_problems(state)
+    if errors:
+        return errors
     caps = ceilings()
     for e in state.get("events", []):
         if e.get("kind") == "repair_started":
@@ -197,6 +201,11 @@ def allowance_problems(state):
                         or not caps[name] <= grant["to"] <= caps[name] + BATCH[name]):
                     return ["repair authorization exceeds its batch"]
                 caps[name] = grant["to"]
+        elif e.get("kind") == "owner_review_grant":
+            name = e["resource"]
+            if e["previous_ceiling"] != caps[name]:
+                return ["owner review grant lacks a matching allowance chain"]
+            caps[name] = e["new_ceiling"]
         elif e.get("kind") in {"owner_preflight_extension", "owner_agent_extension"}:
             name = e["resource"]
             if not e.get("repair_revision") or e["previous_ceiling"] != caps[name]:

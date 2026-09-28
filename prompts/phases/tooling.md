@@ -69,3 +69,28 @@ For a precise rendering diagnostic, reserve first and render only the required f
 ```
 
 Do not use a diagnostic still instead of final-film extraction or exact audiovisual review.
+
+## Explicit owner review allocation
+
+A producer cannot renew the frozen envelope. If the owner explicitly approves one or two
+additional storyboard-critic calls for a named active edition, the controller can record one
+separate owner grant. This is never an automatic repair step and never follows from silence,
+a broad request to continue, or an older approval. The operator must retain the actual owner
+instruction and its message reference, the exact edition/resource/count and the rejected
+independent review evidence. Preparing the tooling or an unsigned request grants nothing.
+
+Keep the original frozen allocation and every charged attempt. The additive grant is limited
+to storyboard critics, is allowed once per edition and is revalidated when reserving work.
+Repeated approval identifiers, changed evidence, another resource and an oversized count fail.
+No film verdict, render allowance, source gate, score threshold or shipment condition changes.
+The ordinary routine still stops at an exhausted allocation with exact evidence and a next step.
+
+The retained authorization JSON contains approval_id, run_id, resource set to
+storyboard_critics, additional_calls, the exact owner_text and source_message_reference,
+resource_envelope_sha256, failure_evidence and failure_evidence_sha256. Its confirmation
+must match the explicit CLI confirmation. Compute the envelope hash with
+repair_guard.envelope_digest on the existing original envelope; never edit that envelope.
+Only after the named approval arrives, invoke grant-owner-review with --authorization,
+--failure-evidence, --additional-calls and --confirm. The required confirmation is
+"OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS". Re-read the ledger after success and
+reserve each actual review normally. The command records allowance, not spent work or approval.
