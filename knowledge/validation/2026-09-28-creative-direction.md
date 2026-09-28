@@ -18,14 +18,16 @@ renderer batch, engine/font and TypeScript checks were also run.
 
 ## Native engineering reference
 
-A separate dry-run ledger reserved two native batches. The first exposed insufficient
-diagram subject occupancy; one consolidated correction resolved it. Both attempts remain
-charged. No provider or TTS call was made. This reference is explicitly unpublishable and
+A separate dry-run ledger reserved two full native batches and one additional native still.
+The first batch exposed insufficient diagram subject occupancy; one consolidated correction
+resolved it. The final still verifies that source-example disclosure takes precedence over a
+generic media label. All three attempts remain charged. No provider or TTS call was made. This reference is explicitly unpublishable and
 contains archival/calibration fixtures, not a new edition.
 
 - Native output: 1080 x 1920, 30 fps, 15 seconds, PNG capture, H.264 CRF 16.
 - Final reference SHA256: 86a8af1e0cba9cc92b51697a8d9fe3ee8c5e0be9376c1b3648d9a75cfb9e8260.
-- Each batch: one bundle, one browser, one native video and sixteen native ablation stills.
+- Each full batch: one bundle, one browser, one native video and sixteen native ablation stills.
+  The final disclosure batch contains one native still and one browser/bundle setup.
 - Final result: all four media paths passed subject coverage, visible development and
   comparison against the actual encoded MP4.
 - Computer Use verified sequential playback in a 270 x 480 player, native decoded dimensions,
