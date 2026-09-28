@@ -1,0 +1,94 @@
+{
+  "validated_at": "2026-09-28T11:59:23.656464+00:00",
+  "validator_role": "same independent source validator; no extra reservation",
+  "verdict": "PASS_SOURCE_VALIDATION",
+  "scope": "Current script, authored supers, source-evidence text and claim bindings only. No visuals, renderer behavior, synthesis, timing or release approval.",
+  "board": "out/dispatch/storyboard.json",
+  "board_sha256": "7a14d939b652901d67ae1e89ae9792074d5d798069a890aeb7d2be8d624465fb",
+  "script": "out/dispatch/script.txt",
+  "script_sha256": "2dd25647581a4838efaefecbf08dd0705a2c94fac7f30495b727778505016991",
+  "claims_sha256": "c9c81e74abbfea5789b641ed265a655e54dede530e4e38602725027439072a00",
+  "script_unchanged_from_previous_validation": true,
+  "script_matches_board_vo": true,
+  "scene_checks": [
+    {
+      "scene": "s1",
+      "narration": "Can an oilfield engineer pull up the lease behind a well?",
+      "super": "Where is the lease?",
+      "source_evidence": null,
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    },
+    {
+      "scene": "s2",
+      "narration": "Battalion says it has signed up for Collide.",
+      "super": "Battalion signed up",
+      "source_evidence": {
+        "quote": "under an executed subscription agreement",
+        "attribution": "Battalion Oil announcement / September 8th, 2026"
+      },
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    },
+    {
+      "scene": "s3",
+      "narration": "The plan starts with scattered well files and contracts. Connect them in one searchable model.",
+      "super": "Connect the records",
+      "source_evidence": null,
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    },
+    {
+      "scene": "s4",
+      "narration": "Then an engineer could see the lease obligations shaping a drilling decision.",
+      "super": "Retrieve the linked lease",
+      "source_evidence": null,
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    },
+    {
+      "scene": "s5",
+      "narration": "The company warns integration and staff adoption could fail.",
+      "super": "The company warns",
+      "source_evidence": {
+        "quote": "there is no assurance",
+        "attribution": "Battalion Oil announcement / September 8th, 2026",
+        "detail": "No assurance of performance, integration or staff adoption"
+      },
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    },
+    {
+      "scene": "s6",
+      "narration": "Battalion sees a fit at Monument Draw in Ward County.",
+      "super": "A proposed fit",
+      "source_evidence": {
+        "quote": "Ward County, Texas",
+        "attribution": "Battalion Oil announcement"
+      },
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    },
+    {
+      "scene": "s7",
+      "narration": "The proposed change is a joined record. A better drilling decision still has to be proved.",
+      "super": "A joined record",
+      "source_evidence": null,
+      "claim_bindings_valid": true,
+      "source_verdict": "PASS"
+    }
+  ],
+  "corrections_verified": [
+    "s6 quote is now an exact retained-source substring.",
+    "s5 attribution names company and announcement date.",
+    "s5 detail is separately identified editorial paraphrase of BAT-10 and preserves absence of assurance."
+  ],
+  "required_corrections": [],
+  "retained_limits": [
+    "Company-reported prospective workflow; independent deal corroboration unestablished.",
+    "Geometric action and generic reader must remain visibly identified as illustration.",
+    "Concluding better-decision sentence is a bounded editorial inference about this announcement, not a quotation or exhaustive evidence claim.",
+    "Final rendered disclosure readability and separation of detail from attribution require visual inspection."
+  ],
+  "prior_rejected_report_preserved": "out/dispatch/final-script-board-source-validation-2026-09-28.json"
+}

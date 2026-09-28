@@ -100,7 +100,7 @@ def build(board, mix, state):
         proof = {**expected,"hero":entry(hero),"samples":{
             sid:[{kind:entry(path) for kind,path in pair.items()} for pair in pairs]
             for sid,pairs in sample_paths.items()},
-            "reuse":{"version":cache.SCHEMA,"hero_picture_key":hero_picture_key,"hero_audio_key":hero_audio_key,
+            "reuse":{"version":cache.SCHEMA,"render_environment":cache.picture_recipe(board,frames)["environment"],"hero_picture_key":hero_picture_key,"hero_audio_key":hero_audio_key,
                      "sample_keys":sample_keys,"rendered_jobs":len(jobs),"hero_reused":hero_cached is not None}}
         errors = stage_sample_problems(data,staging,proof["samples"])
         errors += cache.binding_problems(board,proof,mix)

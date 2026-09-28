@@ -1,0 +1,1624 @@
+{
+  "created_at": "2026-09-28T11:25:25.122454Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/deliverables/93d0b56710894325-006c06de3458bb86-844ff9f42214f84c/storyboard.json",
+    "board_sha256": "006c06de3458bb860d0126fb5a00e97a14ddcb26dd809392b5b352b0741beebd",
+    "film": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/deliverables/93d0b56710894325-006c06de3458bb86-844ff9f42214f84c/dispatch.mp4",
+    "film_sha256": "93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/deliverables/93d0b56710894325-006c06de3458bb86-844ff9f42214f84c/render-manifest.json",
+    "manifest_sha256": "844ff9f42214f84c88df5c229379805e235dc1438f278b8390ccc7a48799a345",
+    "registered_at": "2026-09-28T16:35:10.591650Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 10,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-09-28T12:06:07.112724Z",
+      "ceiling": 6,
+      "from": 3,
+      "note": "Independent exact muted phone diagnosis of first preview failure",
+      "resource": "storyboard_critics",
+      "to": 4
+    },
+    {
+      "at": "2026-09-28T12:21:55.987862Z",
+      "ceiling": 6,
+      "from": 4,
+      "note": "Independent code and full sequence review of source-backed paper dossier pivot",
+      "resource": "storyboard_critics",
+      "to": 5
+    },
+    {
+      "at": "2026-09-28T14:13:47.063704Z",
+      "ceiling": 8,
+      "from": 5,
+      "note": "Independent repaired paper corner and whole-sequence code review",
+      "resource": "storyboard_critics",
+      "to": 6
+    },
+    {
+      "at": "2026-09-28T14:23:27.387425Z",
+      "ceiling": 8,
+      "from": 6,
+      "note": "Independent exact muted phone review of repaired paper dossier film",
+      "resource": "storyboard_critics",
+      "to": 7
+    },
+    {
+      "at": "2026-09-28T14:50:22.234023Z",
+      "ceiling": 12,
+      "from": 2,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 3
+    },
+    {
+      "at": "2026-09-28T14:50:42.588333Z",
+      "ceiling": 12,
+      "from": 3,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 4
+    },
+    {
+      "at": "2026-09-28T14:51:45.334796Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "independent diagnosis and source-backed voice pivot after two rejected continuous takes",
+      "resource": "voice_directors",
+      "to": 2
+    },
+    {
+      "at": "2026-09-28T14:54:42.227852Z",
+      "ceiling": 12,
+      "from": 4,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 5
+    },
+    {
+      "at": "2026-09-28T14:55:01.095802Z",
+      "ceiling": 12,
+      "from": 5,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 6
+    },
+    {
+      "at": "2026-09-28T15:03:50.208604Z",
+      "ceiling": 8,
+      "from": 7,
+      "note": "independent exact timed phone review with aligned captions and final mix",
+      "resource": "storyboard_critics",
+      "to": 8
+    },
+    {
+      "at": "2026-09-28T15:10:39.188485Z",
+      "ceiling": 16,
+      "from": 3,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 4
+    },
+    {
+      "at": "2026-09-28T16:05:58.853776Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "Independent source-backed replacement review after native hero retrieval rejection",
+      "resource": "validator_agents",
+      "to": 2
+    },
+    {
+      "at": "2026-09-28T16:17:20.885630Z",
+      "ceiling": 10,
+      "from": 4,
+      "note": "Conserved whole-sheet lease extraction with ending continuity",
+      "resource": "reboards",
+      "to": 5
+    },
+    {
+      "at": "2026-09-28T16:22:22.702186Z",
+      "ceiling": 10,
+      "from": 8,
+      "note": "Current conserved extraction code and complete causal sequence",
+      "resource": "storyboard_critics",
+      "to": 9
+    },
+    {
+      "at": "2026-09-28T16:26:55.560096Z",
+      "ceiling": 16,
+      "from": 4,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 5
+    },
+    {
+      "at": "2026-09-28T16:27:43.499770Z",
+      "ceiling": 10,
+      "from": 9,
+      "note": "Current extraction timed phone and muted causal continuity",
+      "resource": "storyboard_critics",
+      "to": 10
+    },
+    {
+      "at": "2026-09-28T16:33:36.603811Z",
+      "ceiling": 16,
+      "from": 5,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 6
+    },
+    {
+      "at": "2026-09-28T16:36:19.291345Z",
+      "ceiling": 43,
+      "from": 4,
+      "note": "exact MP4 audiovisual review sound",
+      "resource": "audiovisual_reviews",
+      "to": 5
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-28T11:25:25.124434Z",
+      "envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 6,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "resource_envelope_frozen",
+      "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
+    },
+    {
+      "at": "2026-09-28T11:25:25.124439Z",
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-09-28T11:25:58.979170Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-09-28T11:25:59.010563Z",
+      "kind": "reserved",
+      "note": "Independent Houston clinical documentation and results workflow research",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-28T11:25:59.041813Z",
+      "kind": "reserved",
+      "note": "Independent current Texas document-workflow alternatives and action scope research",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-28T11:28:30.011890Z",
+      "kind": "reserved",
+      "note": "Independent inspected source footage for Memorial Hermann test-result explanation workflow",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-28T11:32:00.434483Z",
+      "kind": "reserved",
+      "note": "Independent pre-board source/action feasibility assessment before production spending",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T11:34:44.311658Z",
+      "kind": "phase",
+      "name": "research_asset_gap"
+    },
+    {
+      "at": "2026-09-28T11:37:11.273777Z",
+      "kind": "phase",
+      "name": "research_asset_gap"
+    },
+    {
+      "at": "2026-09-28T11:41:05.851552Z",
+      "kind": "reserved",
+      "note": "Independent Battalion Collide source claims and later sentence validation; retained research reused",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-09-28T11:55:11.667079Z",
+      "kind": "reserved",
+      "note": "First board consolidation adds explicitly licensed generic reader and corrects source-bound subject metadata before independent review",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-28T11:56:29.111001Z",
+      "kind": "phase",
+      "name": "picture_code_review"
+    },
+    {
+      "at": "2026-09-28T11:58:14.218698Z",
+      "kind": "reserved",
+      "note": "Independent current source-bound records action code and causal board review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T12:01:23.127225Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/ConnectedRecords.tsx",
+          "before_sha256": "711ffe17dd3641161af3f9f19714cb6810d96dce8a190b0e793e4e4d0d1505d5",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/storyboard.json",
+          "before_sha256": "7a14d939b652901d67ae1e89ae9792074d5d798069a890aeb7d2be8d624465fb",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/story_selection.json",
+          "before_sha256": "b7a811bf311f12656fbcbdf9e1483d9ca0770aa618a987541ef8d1be861e2e94",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "codex-director-2026-09-28",
+      "failure_family": "document-handling",
+      "failure_sha256": "d663e2f7f0f86f7c47b9e3243677ceac1bd6761ed8ecbcd3c86885b04cf45442",
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 6,
+          "to": 6
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "connected-records-keyed-index",
+      "plan_sha256": "a818be2f503c37cd6ef9edf8eda4a7d39c50b63218ae16e45fbc611b2a48781c"
+    },
+    {
+      "at": "2026-09-28T12:01:23.157213Z",
+      "kind": "reserved",
+      "note": "Consolidated first code rejection repair of opening timing and socket seating",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-28T12:01:42.741312Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "85b632dcddda48ba8c76a36796697215143f38d6c7c75faa04a80a78d738f441",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/ConnectedRecords.tsx",
+            "before_sha256": "711ffe17dd3641161af3f9f19714cb6810d96dce8a190b0e793e4e4d0d1505d5",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+          },
+          {
+            "after_sha256": "1a1a55fab07fc15f18696e6a85d58a67511202bd85874ac84c5b8e1b96450524",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/storyboard.json",
+            "before_sha256": "7a14d939b652901d67ae1e89ae9792074d5d798069a890aeb7d2be8d624465fb",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "3cd1c875e8dcdd20d92eab7e2d17b844889c1d902be3fe6854abfe1b21c19d23",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/story_selection.json",
+            "before_sha256": "b7a811bf311f12656fbcbdf9e1483d9ca0770aa618a987541ef8d1be861e2e94",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "codex-director-2026-09-28",
+        "expected_visible_result": "The key reaches the empty receiving socket within the first payoff window, touches the visible surface, tests the blocked connection and retreats without acquiring a lease.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-01-baseline/code-critic-rejected.json",
+        "failure_evidence_sha256": "d663e2f7f0f86f7c47b9e3243677ceac1bd6761ed8ecbcd3c86885b04cf45442",
+        "failure_family": "document-handling",
+        "mechanism_change": "Retain the source-backed keyed-record illustration and correct the event-to-position binding plus its destination surface height; no source or success claim changes.",
+        "mechanism_id": "connected-records-keyed-index",
+        "repair": "Drive empty-socket lateral arrival and lowering from the first event. Seat the key peg bottom on the actual empty socket top and preserve the blocked-contact beat and later retreat.",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "The first query event lowered over the original well socket; lateral travel was incorrectly deferred to the second event, and its destination reused the higher well-socket seating height."
+      },
+      "repair_plan_sha256": "c4ae9758f923e4105c8fc4c60298376c51dfc00937f281fc10c65c70fc106937",
+      "repair_revision": "3e78d81527dd4b61554052c00529d5f9d34dfb8ec91caa7fcaed6c58709904c9",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-09-28T12:01:42.845099Z",
+      "kind": "reserved",
+      "note": "Independent repaired opening code and full causal sequence review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T12:05:14.427196Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "cc3cd793cc0aa1802db0f667b12d5b32d886a250659dfdea3d95ee721c8fd707",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T12:06:07.112991Z",
+      "ceiling": 6,
+      "kind": "budget_escalated",
+      "note": "Independent exact muted phone diagnosis of first preview failure",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-09-28T12:06:07.112996Z",
+      "kind": "reserved",
+      "note": "Independent exact muted phone diagnosis of first preview failure",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T12:07:44.858733Z",
+      "kind": "phase",
+      "name": "phone_diagnosis"
+    },
+    {
+      "at": "2026-09-28T12:12:58.290320Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/ConnectedRecords.tsx",
+          "before_sha256": "85b632dcddda48ba8c76a36796697215143f38d6c7c75faa04a80a78d738f441",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/ConnectedRecordsEpisode.tsx",
+          "before_sha256": "f53bec3f22e9eacd4de6af6dbe3cbb720a565023114feb3a0bb8a0741e7d301e",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/ConnectedRecordsEpisode.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/Dispatch.tsx",
+          "before_sha256": "6d024a2d90f2f3e10c4d6127777c554f377c5f9c912b5d3044a88b9c5bc9e6f8",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/Dispatch.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/storyboard.json",
+          "before_sha256": "318cabfc5588d90ef28f861acfaaeea510f2f6eba3cf6e7caa6fac93ea4fad86",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/story_selection.json",
+          "before_sha256": "3cd1c875e8dcdd20d92eab7e2d17b844889c1d902be3fe6854abfe1b21c19d23",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "codex-director-2026-09-28",
+      "failure_family": "document-handling",
+      "failure_sha256": "5c1ab6713ae10d747b554c915b5cf668b107ed20ea6ec4b08aaa6410a5b19b8a",
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 6,
+          "to": 6
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "conserved-paper-dossier",
+      "plan_sha256": "6447188f175d8100e8bc5a2347eca54e223103904ab5cffe0d199b9ab84ea9e3"
+    },
+    {
+      "at": "2026-09-28T12:12:58.320057Z",
+      "kind": "reserved",
+      "note": "Independent source-backed pivot from keyed machine to conserved paper dossier",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-28T12:21:03.826631Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "1394282b132004a441093225ba5c589ac9509f11dc9ae5b4c51b57c187014a97",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/ConnectedRecords.tsx",
+            "before_sha256": "85b632dcddda48ba8c76a36796697215143f38d6c7c75faa04a80a78d738f441",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+          },
+          {
+            "after_sha256": "2d227125b49a18679f30370276bc894d710817938e24d7388577769ef33e8d46",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/ConnectedRecordsEpisode.tsx",
+            "before_sha256": "f53bec3f22e9eacd4de6af6dbe3cbb720a565023114feb3a0bb8a0741e7d301e",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/ConnectedRecordsEpisode.tsx"
+          },
+          {
+            "after_sha256": "71aede2290d04790a9f2b4cf5c8e9ee42ccd66d1ea1ee0ac01a941efe62400f0",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/Dispatch.tsx",
+            "before_sha256": "6d024a2d90f2f3e10c4d6127777c554f377c5f9c912b5d3044a88b9c5bc9e6f8",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/Dispatch.tsx"
+          },
+          {
+            "after_sha256": "94dbdc93de59aa3ab22b653ea55d24bba641b1df738753d58ff898d9a8577e44",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/storyboard.json",
+            "before_sha256": "318cabfc5588d90ef28f861acfaaeea510f2f6eba3cf6e7caa6fac93ea4fad86",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "987d023e16e0ac15b5bba08bc080dad25f32f1ae0501515d3443bca5cb8b8fc4",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-02-baseline/story_selection.json",
+            "before_sha256": "3cd1c875e8dcdd20d92eab7e2d17b844889c1d902be3fe6854abfe1b21c19d23",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "codex-director-2026-09-28",
+        "expected_visible_result": "At phone size the same identified well and lease sheets move from separate locations to one dossier and appear together when it opens. A separate company-caveat area visibly limits the result without inventing a private review status or drilling success.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/phone-critic-01.json",
+        "failure_evidence_sha256": "5c1ab6713ae10d747b554c915b5cf668b107ed20ea6ec4b08aaa6410a5b19b8a",
+        "failure_family": "document-handling",
+        "mechanism_change": "Replace machine-key retrieval with direct paper linkage and dossier opening; this is the independent source-backed pivot, not another chip size or timing adjustment.",
+        "mechanism_id": "conserved-paper-dossier",
+        "pivot_review": {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/pivot-review-01.json",
+          "sha256": "3a66161b27bc3bfa7df0d73b928486444e36d5be6db18f21d25207c732aecf0e"
+        },
+        "repair": "Retire the chip, socket and gold bar. Use conserved well and lease sheets in a dimensional dossier, with large page insertion, opening and unfolding. Make empty versus paired pages readable in picture and finish on the shared record beside the explicit published uncertainty.",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "The keyed machine required labels to explain its query and link causality. Its small opening action and repeated closing retrieval did not produce a silent source-bound consequence; actual phone rejection is preserved."
+      },
+      "repair_plan_sha256": "8c1617b4308967545a61b2005bfafdbad51770ee3de3a302b369a1a16a1e831c",
+      "repair_revision": "0966c86be3b96b03d091d916181eb41ec9635f8753185b9883fbb75d3df5d896",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-09-28T12:21:55.987972Z",
+      "ceiling": 6,
+      "kind": "budget_escalated",
+      "note": "Independent code and full sequence review of source-backed paper dossier pivot",
+      "now": 5,
+      "resource": "storyboard_critics",
+      "was": 4
+    },
+    {
+      "at": "2026-09-28T12:21:55.987978Z",
+      "kind": "reserved",
+      "note": "Independent code and full sequence review of source-backed paper dossier pivot",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "additional_calls": 2,
+      "approval_id": "september28-two-critic-calls-owner-approved",
+      "at": "2026-09-28T14:01:23.966031Z",
+      "attestation": "Operator retained explicit owner instruction; no automatic renewal",
+      "authorization_json": "{\n  \"approval_id\": \"september28-two-critic-calls-owner-approved\",\n  \"run_id\": \"2026-09-28\",\n  \"resource\": \"storyboard_critics\",\n  \"additional_calls\": 2,\n  \"confirmation\": \"OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS\",\n  \"owner_text\": \"approved\",\n  \"request_context\": \"Approval to increase September 28 critic-call allowance from 6 to 8. Five used; three reviews remain: repaired code, muted phone playback, final timed phone playback. All prior usage and quality gates stay intact.\",\n  \"source_message_reference\": \"Current thread 01a0e6db-5194-71e2-b6d2-805ce5146980, user reply approved immediately following the explicit six-to-eight approval request\",\n  \"resource_envelope_sha256\": \"e6fe7b1795a9015d9949a5623506c762d9313aa9fac37f8c839de168f855698c\",\n  \"failure_evidence\": \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/dossier-code-critic.json\",\n  \"failure_evidence_sha256\": \"2353fbf6218aa0f7b3a97ea53ea303cd05f50f9ca493b0a453b3bc96254adcc0\"\n}\n",
+      "authorization_sha256": "8c70f324441dd261e143dca933200d38efec5b769f2e9ea273d79f35d70d347d",
+      "failure_evidence_json": "{\n  \"verdict\": \"revise\",\n  \"review_scope\": \"code-plan-only\",\n  \"reviewer_identity\": \"independent-dossier-code-critic-2026-09-28\",\n  \"reviewed_at\": \"2026-09-28T12:24:40.569970+00:00\",\n  \"concept_sha256\": \"c1f389697a87e5a1a76fb16addb920b605e7d9d271a5884bcaaa005afc0570be\",\n  \"renderer_sha256\": \"ac810642e9349ca889eea31359e279f2128ebc17ab9ed087373b5f152a3a8e31\",\n  \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n  \"blocking_defects\": [\n    {\n      \"scene\": \"s4/s7\",\n      \"criterion\": \"contact_and_consequence / surface_finish\",\n      \"start_s\": 23.2,\n      \"end_s\": 37.3,\n      \"problem\": \"Sheet retains three complete rectangular paper slabs and adds a separate rectangular corner patch centered at local z .82. The patch rotates about its own middle, not a joined paper edge. At corner=1 its negative-z half reaches approximately local y -.094 while the intact upper page remains at y .022. It therefore passes through the uncut sheet and sleeve rather than lifting a conserved corner. At corner=0 the residual -.23 rotation also leaves it nonflat. The s4 lift and s7 settling events are assigned to this intersecting extra patch, so the claimed finished paper contact is not implemented.\",\n      \"fix\": \"Use one conserved paper corner with an actual cutout and a hinge along its attached edge, keeping the complete moving surface above its support throughout the fold. Alternatively remove the corner performance and bind those intervals to an honest large dossier action; update the board and event subjects together. Preserve the well/lease identities and closing caveat.\"\n    }\n  ],\n  \"notes\": [\n    {\n      \"scene\": \"s3\",\n      \"problem\": \"Event 1 says the well file seats fully, but both the left leaf and well translate by the same folderZ while their relative pose remains constant. The actual action is repositioning an already seated dossier.\",\n      \"fix\": \"Describe and bind the actual dossier repositioning, or implement relative paper insertion. This timing-description mismatch does not independently reject the broader joining story.\"\n    },\n    {\n      \"scene\": \"s4\",\n      \"problem\": \"Event 1 says opening reveals the well, but the right leaf only reaches 1.18 radians and stays on the positive-x side; the left well was never covered. The callable action unfolds the lease toward the already visible well.\",\n      \"fix\": \"Use that precise unfolding description in the event and story contract; do not claim an occluded well is revealed.\"\n    },\n    {\n      \"scene\": \"s5\",\n      \"problem\": \"The board describes faint connected records behind the evidence, while the renderer mounts no dimensional stage in the limit phase.\",\n      \"fix\": \"Align the board description with the existing source-excerpt composition. Adding a background is not required.\"\n    }\n  ],\n  \"strongest_frame\": \"Planned 14.1 to 16s. The same amber lease seats beside the cyan well in the shared sleeve structure; the actual objects perform record pairing without private software invention.\",\n  \"weakest_frame\": \"Planned 23.2 to 24.3s. The small extra corner patch intersects the intact paper while being used as a claimed paper performance.\",\n  \"weakest_start_s\": 23.2,\n  \"weakest_end_s\": 24.3,\n  \"review_limits\": \"Read the current board, selection, fetched corporate evidence, claims, actual renderer and action module. Retained phone rejection and pivot report supplied diagnosis only. No current film, phone pixels, native surface render or audio was inspected. No renderer or provider spend occurred.\",\n  \"story_review\": {\n    \"story_sha256\": \"050a5ea6860b6ffd08ef4ad5b40aa4bdf202a5ae6308cd9d668682a601df4d0b\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"c9c81e74abbfea5789b641ed265a655e54dede530e4e38602725027439072a00\",\n    \"verdict\": \"revise\",\n    \"blocking_defects\": [\n      {\n        \"scene\": \"s4/s7\",\n        \"criterion\": \"contact_and_consequence / surface_finish\",\n        \"start_s\": 23.2,\n        \"end_s\": 37.3,\n        \"problem\": \"Sheet retains three complete rectangular paper slabs and adds a separate rectangular corner patch centered at local z .82. The patch rotates about its own middle, not a joined paper edge. At corner=1 its negative-z half reaches approximately local y -.094 while the intact upper page remains at y .022. It therefore passes through the uncut sheet and sleeve rather than lifting a conserved corner. At corner=0 the residual -.23 rotation also leaves it nonflat. The s4 lift and s7 settling events are assigned to this intersecting extra patch, so the claimed finished paper contact is not implemented.\",\n        \"fix\": \"Use one conserved paper corner with an actual cutout and a hinge along its attached edge, keeping the complete moving surface above its support throughout the fold. Alternatively remove the corner performance and bind those intervals to an honest large dossier action; update the board and event subjects together. Preserve the well/lease identities and closing caveat.\"\n      }\n    ],\n    \"one_viewing_summary\": \"Code-plan reading only. Separate well and lease papers are brought into one dossier, unfolded into a shared spread, then qualified by the corporate caveat. Agreement and Ward County evidence identify the announced plan; the unrelated reader is disclosed. This is an intended chain, not a viewing report.\",\n    \"opening_to_ending\": \"The final paired records answer the proposed access question at the appropriate illustrative scope. Decision gains remain explicitly unproved and the final caveat reaches full opacity at 38.5s, leaving a planned 1.5s combined hold. Physical corner handling remains defective before testing that result.\",\n    \"weakest_transition\": \"s6 to s7 leaves the unrelated illustrative reader and returns to the paper model. The explicit staff disclaimer avoids false identity, but the cut adds no observed user outcome. Judge its comprehension in the current phone film after the geometry repair.\"\n  },\n  \"action_reviews\": [\n    {\n      \"action_id\": \"paper-dossier-v1\",\n      \"module_sha256\": \"1394282b132004a441093225ba5c589ac9509f11dc9ae5b4c51b57c187014a97\",\n      \"source_claims_sha256\": \"eaffb97fe8fb1ff620e3c5673eabc51e696ac89994260223cbb01c752dc781d9\",\n      \"verdict\": \"revise\",\n      \"blocking_defects\": [\n        {\n          \"scene\": \"s4/s7\",\n          \"criterion\": \"contact_and_consequence / surface_finish\",\n          \"start_s\": 23.2,\n          \"end_s\": 37.3,\n          \"problem\": \"Sheet retains three complete rectangular paper slabs and adds a separate rectangular corner patch centered at local z .82. The patch rotates about its own middle, not a joined paper edge. At corner=1 its negative-z half reaches approximately local y -.094 while the intact upper page remains at y .022. It therefore passes through the uncut sheet and sleeve rather than lifting a conserved corner. At corner=0 the residual -.23 rotation also leaves it nonflat. The s4 lift and s7 settling events are assigned to this intersecting extra patch, so the claimed finished paper contact is not implemented.\",\n          \"fix\": \"Use one conserved paper corner with an actual cutout and a hinge along its attached edge, keeping the complete moving surface above its support throughout the fold. Alternatively remove the corner performance and bind those intervals to an honest large dossier action; update the board and event subjects together. Preserve the well/lease identities and closing caveat.\"\n        }\n      ],\n      \"code_observations\": {\n        \"source_fidelity\": \"Blank ruled well and lease papers illustrate BAT-04, BAT-05 and BAT-06 planned record unification. The fetched release supports this metaphor but supplies no actual clause, employee action or realized drilling gain.\",\n        \"visible_action\": \"ConnectedRecordsEpisode directly calls ConnectedRecords through CinematicStage. Board event progress drives well insertion, lease seating and right-leaf rotation. The centered extra corner patch crosses the intact full sheet, so that particular performed action fails contact geometry.\",\n        \"consequence\": \"The same color-coded paper pair remains in the spread and closing company caveat. No duplicate lease is created by retrieval; there is no fabricated query response or decision approval. The corner patch is additional overlapping geometry, not a conserved folded portion of the page.\",\n        \"disclosure\": \"Every native phase renders the exact planned-workflow illustration disclosure at top 145. The source-reader scene separately renders its staff disclaimer and company proposal attribution. Labels are projected with the same paper pose and camera, although final phone readability and occlusion remain untested.\",\n        \"limits\": \"Only code and source scope reviewed. The right-leaf fold and separated-to-paired progression replace the retired keyed-index mechanism. Current phone composition, label size, pocket contact, caption clearance, native finish and all sound still require their actual review scopes.\"\n      }\n    }\n  ],\n  \"consolidated_correction\": \"Repair the one intersecting corner action and align the three inaccurate event descriptions in the same bounded pass. Keep the complete source-bound dossier story, conserved papers, reader disclaimer and closing caveat. Rebind changed hashes, then obtain current independent code and phone proof under retained usage; do not treat this report as approval.\"\n}\n",
+      "failure_evidence_sha256": "2353fbf6218aa0f7b3a97ea53ea303cd05f50f9ca493b0a453b3bc96254adcc0",
+      "kind": "owner_review_grant",
+      "new_ceiling": 8,
+      "previous_ceiling": 6,
+      "resource": "storyboard_critics",
+      "run_id": "2026-09-28",
+      "usage_unchanged": 5
+    },
+    {
+      "at": "2026-09-28T14:11:14.768006Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-03-baseline/ConnectedRecords.tsx",
+          "before_sha256": "1394282b132004a441093225ba5c589ac9509f11dc9ae5b4c51b57c187014a97",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-03-baseline/storyboard.json",
+          "before_sha256": "97cc033f114048a160b41fd011be21df5310a622a14784d0b2b2a47a56522129",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-03-baseline/story_selection.json",
+          "before_sha256": "987d023e16e0ac15b5bba08bc080dad25f32f1ae0501515d3443bca5cb8b8fc4",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "codex-director-2026-09-28",
+      "failure_family": "document-handling",
+      "failure_sha256": "2353fbf6218aa0f7b3a97ea53ea303cd05f50f9ca493b0a453b3bc96254adcc0",
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 8,
+          "to": 8
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "conserved-paper-dossier",
+      "plan_sha256": "527991d5ec85e999b1fb61e0b2842633a2615888d7b2a04736b8892413a02e32"
+    },
+    {
+      "at": "2026-09-28T14:11:14.800738Z",
+      "kind": "reserved",
+      "note": "Consolidated dossier corner contact and actual scene description correction",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:13:46.935790Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "b3445754ad74ab9b1f91a1d57004808db15d26205fe115c8fb69a6ce6f07b2f3",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-03-baseline/ConnectedRecords.tsx",
+            "before_sha256": "1394282b132004a441093225ba5c589ac9509f11dc9ae5b4c51b57c187014a97",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+          },
+          {
+            "after_sha256": "b543d0ecde46e1a626c78193dc43b30c1cf4ff889b23a9686c3804fdf4f22113",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-03-baseline/storyboard.json",
+            "before_sha256": "97cc033f114048a160b41fd011be21df5310a622a14784d0b2b2a47a56522129",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "7aed0cd2aff369811213f04188eef35839bc6f2dc9900478729c7f12403e982d",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-03-baseline/story_selection.json",
+            "before_sha256": "987d023e16e0ac15b5bba08bc080dad25f32f1ae0501515d3443bca5cb8b8fc4",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "codex-director-2026-09-28",
+        "expected_visible_result": "The same lease corner lifts from an actual joined edge and settles flat without crossing paper or sleeve. The conserved pair and source-attributed caveat remain continuous across the whole sequence.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/dossier-code-critic.json",
+        "failure_evidence_sha256": "2353fbf6218aa0f7b3a97ea53ea303cd05f50f9ca493b0a453b3bc96254adcc0",
+        "failure_family": "document-handling",
+        "mechanism_change": "Continue the independently approved source-backed paper-dossier replacement of the keyed index. Correct its first implementation rejection without returning to the retired query chip or claiming a new source result.",
+        "mechanism_id": "conserved-paper-dossier",
+        "pivot_review": {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/pivot-review-01.json",
+          "sha256": "3a66161b27bc3bfa7df0d73b928486444e36d5be6db18f21d25207c732aecf0e"
+        },
+        "repair": "Conserve the top sheet by clipping one rear corner out of its static outline and hinging that same triangular area along its attached diagonal above the lower sheets, away from the front sleeve. Move the existing category band below that corner and keep projected typography aligned. Align s3 dossier repositioning, s4 lease unfolding and s5 source-only descriptions in this one correction.",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "The upper paper remained an intact rectangular slab while an extra corner patch rotated through its center, intersecting the sheet and front sleeve. Three descriptions also diverged from actual geometry."
+      },
+      "repair_plan_sha256": "a7c38f72101a5ab4dbe2351e104e7361716134d3b7f22c5ac6a710a346f8b792",
+      "repair_revision": "c81069f47636afc886386fb9d1f0fd237ca6143d2de34aaa9497fa283e4719ab",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-09-28T14:13:47.063872Z",
+      "ceiling": 8,
+      "kind": "budget_escalated",
+      "note": "Independent repaired paper corner and whole-sequence code review",
+      "now": 6,
+      "resource": "storyboard_critics",
+      "was": 5
+    },
+    {
+      "at": "2026-09-28T14:13:47.063877Z",
+      "kind": "reserved",
+      "note": "Independent repaired paper corner and whole-sequence code review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:22:21.706520Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "1391003833ef79d2662a53af870920cb124394c1a827dafb7f97763e6dc06c2a",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:23:27.387810Z",
+      "ceiling": 8,
+      "kind": "budget_escalated",
+      "note": "Independent exact muted phone review of repaired paper dossier film",
+      "now": 7,
+      "resource": "storyboard_critics",
+      "was": 6
+    },
+    {
+      "at": "2026-09-28T14:23:27.387815Z",
+      "kind": "reserved",
+      "note": "Independent exact muted phone review of repaired paper dossier film",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:33:05.901466Z",
+      "kind": "reserved",
+      "note": "final continuous read after exact muted phone pass",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:35:03.033451Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:35:21.497988Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1528
+      }
+    },
+    {
+      "at": "2026-09-28T14:35:21.501904Z",
+      "elapsed_ms": 18461,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1528,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-28T14:35:21.540864Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:35:29.049934Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1768
+      }
+    },
+    {
+      "at": "2026-09-28T14:35:29.054040Z",
+      "elapsed_ms": 7507,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1768,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-28T14:50:03.375888Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-04-baseline/vo_direction.json",
+          "before_sha256": "d1f18043229e22443459d6113cb28e80adff17f431bb8887176e703e7daf0878",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "codex-director-2026-09-28",
+      "failure_family": "human-performance",
+      "failure_sha256": "314c199ef4518605cbd961cc7fded1e3747ddf9926cb44078ef8880f65dd6f9e",
+      "frozen_inputs": {
+        "files": {
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/claims.json": "c9c81e74abbfea5789b641ed265a655e54dede530e4e38602725027439072a00",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/sources/battalion-globenewswire-2026-09-28.html": "358428b44be6bd92bcbd63c185806fa8beef38edc9c6b9b5bed37ad158322f6d",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/sources/battalion-globenewswire-2026-09-28.txt": "d45b49b6f1c60ff6d517fc579dcfc4d5ec72d47c1f5a91e1f4a83a7d473cdcce",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/sources/sec-submissions-2026-09-28.json": "460fec7ad408418e12b80570351607b40cc4241cf7c9e798bdb88359356daf8d",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json": "0cb73938fe36eeb9095125e3eec9ffd15bc692335da8cfc9a1244a3d2c8f1ea4",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/vo_script.txt": "2dd25647581a4838efaefecbf08dd0705a2c94fac7f30495b727778505016991"
+        },
+        "renderer_sha256": "d184994dfe2176a49c1b3b48fd98c50c2c3098244547f5babc7d2cbe240648bc"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "continuous-narration",
+      "plan_identity": "509ef656d4a5f951dc40d8415987144cd8c85cc6e58e8469a1887f0c86167385",
+      "plan_sha256": "1125bc94f0c6fe1cc417df26facbdd73645384960d47ca37b118f25c38dd1b39",
+      "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-09-28T14:50:14.745500Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "4a8056a53ca5f442caa95d21c49eb815d32d57e71337b1990b5990e768f1d2af",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-04-baseline/vo_direction.json",
+            "before_sha256": "d1f18043229e22443459d6113cb28e80adff17f431bb8887176e703e7daf0878",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "codex-director-2026-09-28",
+        "expected_visible_result": "The eventual captions and narration use the same approved has signed up wording; current muted visual approval remains in scope.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/take1-soundcheck-rejected.log",
+        "failure_evidence_sha256": "314c199ef4518605cbd961cc7fded1e3747ddf9926cb44078ef8880f65dd6f9e",
+        "failure_family": "human-performance",
+        "mechanism_change": "Change performance direction to articulate the exact auxiliary in the retained source-backed sentence; no source claim, script, timing or picture rewrite.",
+        "mechanism_id": "continuous-narration",
+        "repair": "Keep every approved spoken word and picture unchanged. Add explicit verbatim auxiliary and product pronunciation direction, then generate one replacement continuous take with its own audible transcription check.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "The first generated read substitutes is for the locked word has. Provider transcript and independent unprompted local Whisper both identify the same auxiliary at about five seconds. Provider spellings also differ for oilfield and Collide; the actual auxiliary difference is sufficient to reject the take."
+      },
+      "repair_plan_sha256": "45670f8e2e9c76a4f21d96ebfa62c0b7f8dfe24176ce85855124ad9a467b4d78",
+      "repair_revision": "658570d2e92d6b45d921d735857c20c3743face8acd83530eba23e9f0485444d",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-09-28T14:50:22.234163Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 3,
+      "resource": "tts_calls",
+      "was": 2
+    },
+    {
+      "at": "2026-09-28T14:50:22.234171Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:50:42.548929Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1633
+      }
+    },
+    {
+      "at": "2026-09-28T14:50:42.552538Z",
+      "elapsed_ms": 20313,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1633,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-28T14:50:42.588346Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 4,
+      "resource": "tts_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-09-28T14:50:42.588354Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:50:50.790282Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1970
+      }
+    },
+    {
+      "at": "2026-09-28T14:50:50.794097Z",
+      "elapsed_ms": 8199,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1970,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-28T14:51:45.335017Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "independent diagnosis and source-backed voice pivot after two rejected continuous takes",
+      "now": 2,
+      "resource": "voice_directors",
+      "was": 1
+    },
+    {
+      "at": "2026-09-28T14:51:45.335022Z",
+      "kind": "reserved",
+      "note": "independent diagnosis and source-backed voice pivot after two rejected continuous takes",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:54:15.518000Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-05-baseline/vo_direction.json",
+          "before_sha256": "4a8056a53ca5f442caa95d21c49eb815d32d57e71337b1990b5990e768f1d2af",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "codex-director-2026-09-28",
+      "failure_family": "human-performance",
+      "failure_sha256": "431a1970e09be3829521097b0e987c72a06aeeef8dc33fc52effb775cf4d4343",
+      "frozen_inputs": {
+        "files": {
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/claims.json": "c9c81e74abbfea5789b641ed265a655e54dede530e4e38602725027439072a00",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/sources/battalion-globenewswire-2026-09-28.html": "358428b44be6bd92bcbd63c185806fa8beef38edc9c6b9b5bed37ad158322f6d",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/sources/battalion-globenewswire-2026-09-28.txt": "d45b49b6f1c60ff6d517fc579dcfc4d5ec72d47c1f5a91e1f4a83a7d473cdcce",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/sources/sec-submissions-2026-09-28.json": "460fec7ad408418e12b80570351607b40cc4241cf7c9e798bdb88359356daf8d",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json": "0cb73938fe36eeb9095125e3eec9ffd15bc692335da8cfc9a1244a3d2c8f1ea4",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/vo_script.txt": "2dd25647581a4838efaefecbf08dd0705a2c94fac7f30495b727778505016991"
+        },
+        "renderer_sha256": "d184994dfe2176a49c1b3b48fd98c50c2c3098244547f5babc7d2cbe240648bc"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "kore-full-vowel-attribution",
+      "plan_identity": "529efc708a6880d39922e5639c9a92a855624ef6d26dab24118de624bec466e7",
+      "plan_sha256": "e341ced66b8e0513d458a4ce81057c7c17b3cab5685c2a8b2962ffc46c5132d6",
+      "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-09-28T14:54:41.697516Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "2b855a4c7119df6baef7e362f61fb348f31dc87cc51cc6ae9d5e9e4e667092d0",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-05-baseline/vo_direction.json",
+            "before_sha256": "4a8056a53ca5f442caa95d21c49eb815d32d57e71337b1990b5990e768f1d2af",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/vo_direction.json"
+          }
+        ],
+        "chosen_voice": "Kore",
+        "director_identity": "codex-director-2026-09-28",
+        "expected_visible_result": "The approved caption wording and audible has signed up clause agree; story and pictures remain unchanged.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/take2-soundcheck-rejected.log",
+        "failure_evidence_sha256": "431a1970e09be3829521097b0e987c72a06aeeef8dc33fc52effb775cf4d4343",
+        "failure_family": "human-performance",
+        "mechanism_change": "The proposed audible change is a switch from Charon to Kore plus a full vowel and initial h on has, with separate uncontracted articulation inside the continuous sentence. This changes the requested voice and delivery mechanism; no new audio has been generated or approved.",
+        "mechanism_id": "kore-full-vowel-attribution",
+        "pivot_review": {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/narration-pivot-review.json",
+          "sha256": "a87bf6f47963bae889be153e4165ffe455d8b2dfa5057b757d9eb9c33c034c94"
+        },
+        "repair": "Apply the independent Kore voice and full-vowel, initial-h articulation direction to the unchanged approved continuous passage. Invoke the recorded --voice Kore override for one replacement take and audible transcription.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "Two Charon takes substitute is for the approved has. Both local unprompted recognizer runs corroborate the provider transcripts. An exact-word reminder did not resolve the repeated auxiliary failure."
+      },
+      "repair_plan_sha256": "98b4533924aca05a237bfd6e69c57e106780604a4472df356d7b26f3052fcb63",
+      "repair_revision": "200d6d39a05698b3e22b719a71ad2a39ef1dacab8172ffd6fba7cd4990927e0e",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-09-28T14:54:42.227982Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 5,
+      "resource": "tts_calls",
+      "was": 4
+    },
+    {
+      "at": "2026-09-28T14:54:42.227990Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:55:01.055951Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1432
+      }
+    },
+    {
+      "at": "2026-09-28T14:55:01.060551Z",
+      "elapsed_ms": 18826,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1432,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-28T14:55:01.095814Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 6,
+      "resource": "tts_calls",
+      "was": 5
+    },
+    {
+      "at": "2026-09-28T14:55:01.095822Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-09-28T14:55:14.870185Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2907
+      }
+    },
+    {
+      "at": "2026-09-28T14:55:14.876382Z",
+      "elapsed_ms": 13771,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2907,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-09-28T15:00:56.183916Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "8a9907ff8c70682981372a1a6eea58f82a03cd2d83075016d0214a8c06bfd163",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T15:03:50.208714Z",
+      "ceiling": 8,
+      "kind": "budget_escalated",
+      "note": "independent exact timed phone review with aligned captions and final mix",
+      "now": 8,
+      "resource": "storyboard_critics",
+      "was": 7
+    },
+    {
+      "at": "2026-09-28T15:03:50.208719Z",
+      "kind": "reserved",
+      "note": "independent exact timed phone review with aligned captions and final mix",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T15:10:39.188829Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 4,
+      "resource": "preflight_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-09-28T15:10:39.188836Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "79c87095f7b325d392c068d84432a78f416e6073112c4425d2c5eebb33464b5a",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T15:11:22.556929Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-28T15:11:31.935365Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 06e89510-5770-447b-a748-5e8fd8f58899 hero exact film 0da365d703814466893aac41c2b9e5b9a915e9aea293b977f05a993d67a6d4e3",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 5479
+      }
+    },
+    {
+      "at": "2026-09-28T15:11:31.942437Z",
+      "elapsed_ms": 9373,
+      "kind": "telemetry",
+      "note": "06e89510-5770-447b-a748-5e8fd8f58899 hero exact film 0da365d703814466893aac41c2b9e5b9a915e9aea293b977f05a993d67a6d4e3",
+      "reported_tokens": 5479,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-28T16:05:58.853887Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "Independent source-backed replacement review after native hero retrieval rejection",
+      "now": 2,
+      "resource": "validator_agents",
+      "was": 1
+    },
+    {
+      "at": "2026-09-28T16:05:58.853893Z",
+      "kind": "reserved",
+      "note": "Independent source-backed replacement review after native hero retrieval rejection",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "additional_calls": 2,
+      "approval_id": "owner-sep28-second-two-critics-20260928",
+      "at": "2026-09-28T16:17:20.740971Z",
+      "attestation": "Operator retained explicit owner instruction; no automatic renewal",
+      "authorization_json": "{\n  \"approval_id\": \"owner-sep28-second-two-critics-20260928\",\n  \"run_id\": \"2026-09-28\",\n  \"resource\": \"storyboard_critics\",\n  \"additional_calls\": 2,\n  \"confirmation\": \"OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS\",\n  \"owner_text\": \"approved, i want this automation o work, not to ask me for approvals everytime, but also not tu run aimlessly and burn tokens in a neverending editing cycle that never ships\",\n  \"source_message_reference\": \"current-thread user reply after explicit eight-to-ten review request and second one-time grant request, September 28th\",\n  \"resource_envelope_sha256\": \"e6fe7b1795a9015d9949a5623506c762d9313aa9fac37f8c839de168f855698c\",\n  \"previous_grant_sha256\": \"9e6c5875257cd3c503568e5195824bc9ac6c86e6e01b7cd63fd9a5f5d638ab5b\",\n  \"failure_evidence\": \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/hero-01-rejected/hero-review.json\",\n  \"failure_evidence_sha256\": \"ef65d64c48ab071870fbfb053f442ca17dd54e19890db4316dfc1829df79f76b\",\n  \"failure_film\": \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/hero-01-rejected/hero.mp4\",\n  \"failure_film_sha256\": \"0da365d703814466893aac41c2b9e5b9a915e9aea293b977f05a993d67a6d4e3\",\n  \"failure_response_json\": \"{\\n  \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\",\\n  \\\"usageMetadata\\\": {\\n    \\\"promptTokenCount\\\": 4610,\\n    \\\"candidatesTokenCount\\\": 367,\\n    \\\"totalTokenCount\\\": 5479,\\n    \\\"promptTokensDetails\\\": [\\n      {\\n        \\\"modality\\\": \\\"VIDEO\\\",\\n        \\\"tokenCount\\\": 3763\\n      },\\n      {\\n        \\\"modality\\\": \\\"TEXT\\\",\\n        \\\"tokenCount\\\": 847\\n      }\\n    ],\\n    \\\"thoughtsTokenCount\\\": 502,\\n    \\\"serviceTier\\\": \\\"standard\\\"\\n  },\\n  \\\"candidates\\\": [\\n    {\\n      \\\"content\\\": {\\n        \\\"role\\\": \\\"model\\\",\\n        \\\"parts\\\": [\\n          {\\n            \\\"text\\\": \\\"{\\\\n  \\\\\\\"pass\\\\\\\": false,\\\\n  \\\\\\\"audio_access\\\\\\\": true,\\\\n  \\\\\\\"visual\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\"_observations\\\\\\\":\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" [\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 2.2,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"A document marked LEASE slides upward into the right pocket of an open folder opposite WELL FILE.\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 5.2,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"The folder tilts upward into an angled perspective while holding both\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" documents inside.\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 7.5,\\\\n      \\\\\\\"observation\\\\\\\":\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" \\\\\\\"The folder remains frozen in perspective while subtitles discuss engineer retrieval.\\\\\\\"\\\\n    }\\\\n  ],\\\\n  \\\\\\\"audio_observations\\\\\\\":\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" [\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 0.8,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"Spoken line: 'The plan starts with scattered well files and contracts.'\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 3.9,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"Spoken line: 'Connect them in one searchable model.'\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\":\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" 7.2,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"Spoken line: 'Then an engineer could see the lease obligations shaping a drilling decision\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\".'\\\\\\\"\\\\n    }\\\\n  ],\\\\n  \\\\\\\"pacing\\\\\\\": \\\\\\\"Initial document motion completes briskly, followed by an excessive static hold\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" across the second half.\\\\\\\",\\\\n  \\\\\\\"comprehension\\\\\\\": \\\\\\\"The basic concept of grouping files is clear, but the retrieval\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" phase lacks visual representation.\\\\\\\",\\\\n  \\\\\\\"weakest_interval\\\\\\\": \\\\\\\"05.500-10.400: The\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" visual freezes entirely on a tilted folder graphic through the final spoken sentence.\\\\\\\",\\\\n  \\\\\\\"dimensional_action\\\\\\\": \\\\\\\"Documents insert\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" into folder pockets before the asset rotates into an angled display pose.\\\\\\\",\\\\n  \\\\\\\"defects\\\\\\\":\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\" [\\\\n    {\\\\n      \\\\\\\"time\\\\\\\": \\\\\\\"05.500\\\\\\\",\\\\n      \\\\\\\"observed_subject\\\\\\\": \\\\\\\"Tilted folder graphic\\\\\\\",\\\\n      \\\\\\\"effect\\\\\\\": \\\\\\\"Prolonged freeze leaves narration regarding drilling decisions and retrieval without visual action.\\\\\\\"\\\\n    }\\\\n  ]\\\\n}\\\"\\n          },\\n          {\\n            \\\"text\\\": \\\"\\\",\\n            \\\"thoughtSignature\\\": \\\"EosTCogTAWkUfRPxHcRpeEdE/P8H7iz9ik8EfQz9JmMUOUHIsjEJenOQmv4pduwtegy81ph4+1dEMibAPNcpv2VXh7x0TDvemUsm6ldz/uu2Xm11w1/UC+CKtt0zd38/vFP7Tyggs0pInpKLEaPpGDFq0bBEN6QZ4ilcGPVbeSme8x8CjkdiS7BZxUgbfELqAE+HAja416NjWj5I8RPEF0OZ70INDZi9Ypp2Wf7uj6+v4/0c/ppnK1puLQuUB3UkrMIhUl5jZkaGQXTkKHg1m5Wo1gmKbhA+IIkKM1lLnEIs4tPDQRAj5WsxwMxJ+zjQ2vlAx9aJctm87M9Fdu+X45uPEeSodFaG4IWOuc9UYeD72SGnRrRnPauqjeeIfKe3bQhnGC5VyyqIkVijMsr4Oo9mbr5Za1UXCcoFzD0vfo36mwWxP57Zcr0J37roItgrfUxWjiyPBr2DsVUjcw6+rJ80cva82ZnSO9c1cNACN4YctrbY7WPfDmeDSFYfo6sBQemvIrR/LjJ/QkLhhZDborl4FnHYhDchF9yAaWtT67zz/yvUGKCMr3Sgku7J6xqmML+zl+65WivnCUMDrdOGerDrswKkasWZNGeyAciB30KRMEV+b8XvKSSX1O4ByLIuh9DsolhtUEVXKFXtNCp556ZDFfLbgyW8nnt6eileWTeUhdFTUp/EkZr5eOtm2e5473hj6RkclcbOV7jHzKRQ3WXjvDdlOwA3toMny13CmL6OGT/H9yN4et2+ueqDemPk4uLtGDhedbyZ+UbdFHFvKVtuxkIzyciZGkH+2mTr7LTp85tJmfRiwqff8k4qPOfErcJQEM7VHj93oUtwwRa5qYroFkXdRid8YMXcEH2qnm0v61SaTuV3r0CPrfe9/y70i4SARhFPKtLXo/ilwiB+PwKkhNAEPv3R0hw5SNWmYoLUBBXAgEmzS8U+pAzwG32LwiqeLQ3bJWjpl22yjIUtGgJebaeQnzQhdgdQnBfhGuySoky/yZXS8XYscZCd3R0HkOGzSM0YdQzn801zY/AVShELT2Ri4+wxiPiKnz7VbnYwzAq1td+nw5KB7p1KwPot4zqYGITTBWDpi1oQWu5ACmqCUK1UPsT8H1z0gJbEM1nX/U/7bWToxG7/DQ6ajHGIMdF9xJAmT/34h2uIEeq1E9qnwHZE+n5ujtAHIkLf4NdzbhmGVhrLv8mA7OQr6j5VXqb2vVkdESrCB7Y97J5sNijIm45JLGrdU+03n1pso26Mm/3+JKWN5+uaWvW0tVfuiES/7dUhYYC4+3vaEI8WntKT0utS9Y9kKAbJmCX+nM0PWqeh8n5tPAhDg+S5w3q4CP+cZDMD6jHJXJLbACWli/kg/KXbtnfOefoXX9YgS413qSYlKRrkG6JybI1sMQjThuowf0gm23afd6EqgGqUNIg4MUGfrjDNNLTFZUNjJfpgM3FDGpwC/OA+HtwVUM0VCaFUPenPymWzIl30it06m09KhjaIyxQFthSnI7THBVzZYo8uciso9ezKaziZr/04YnoOOXzAcHwFOPuiRR6k3ePOJ7hanWZ/V1buKBpBtG/j0aPF0ZJAGGKZ2oh1q7tS6oT/7ziUUd9zaueUFpa7oG1QKOdKIjMpqLA2IBSqaFFV9IpfyPNTNKV+WHlHJUzEMZIngzBc38HcbjQKoGPLIDwfzg3JlaE1LvSw8TYbyP8CV3r8Q3haa8ECOk3YbkJ0IEZ+vqmB3FYvjBTUjZCiesE0LpaDLuFFjmbmr/rQsxNiohqwutU1is2KZXkCIkPdcLQ6pizGQ0Q31JPf2rg0Zc7RSpM6dykNwjI0EzAHFEia4aZmUBAA0ctMxknN4UC0nDI1yhWlJ7tH0fy6KZI7DQNlGMYxxo/szT+jXBltbuqh+4oEH6VLzl+wUy9GoECpEgHYu3ggnhFrb142+FwYRIpWsEWX1Lk48X0cgYNybqFqvMf+G4nhL4u3Yf9UsvnnOoFElf8Wk+q/5YcPNaseCMVQFz35kDc3vrhEVZI3+nhJ2mCPSyTsAsKv+pwfvyF2OrdObnfDXKyloQjQ0VPWSEGvUYq9bdf4KScM93LrCqGQfE/zPJbWpe5WUli28BUxDUDv2nOqYhPsWcIdCpSP/mW5pDfVzevRncRAaYLwHbTmvMvuobuEhD695+CwxMicGmL/zPg/KYpbLa6L2boE62vnlo1ht40IE9x8Xm8Di/aYY1lMfYxka9vHXveXQKk+uIZ2Djy6Kg0bl1UVLy39XqNErch6TWLWON4ycF5i8AWmRxxrsza0p4gq6plKNP+DUYAolaR6vFKRNXxyXy1OzJVvqV9Ip3pBssUlul6nK0W/NMrmB6sPj5slwwl8YfGstmLuZVoaW5V7bLg787McvraiNHtqGc9OV1ergIQtyee+zx5+yimUM2AC8BNZUNDae64DEctG3FacQFSMATQEKIZfErE+xi813qanYAQNdl5tokStLf648p3hcvZveQFdWVB3E28t05xUsxemH8JR6JT/eY6lbYWe9pSD3sSTcsI3oH+azByxIVXBQTL+QOcIJFPIKvt5Y1yNha8lnE9aNQ0otzSxrAbI3SJ/aoOIL4DaWAyw2/CxzDp6yXMW1kZ2/Ph5eR6KnuP1zd10PFK+qQOxYEDfHWusn2QNHVTL0m3lHA5zsKpL/VeSYFQyPx3nX3z8PwUo4HyTuP900bxrrrFqpf5k1AcjAJ+YcCIO4W0aPhCauI3E/Nc1q1c8VDDIX/RhrQixG7CDXBHcQiSUJQ+2KGzi6Xn+levC63GvOEaLXDZn8P+3QKf5mU9xv0+lq1T8xP2nQZ7x/3O21ZkA5GoZFMmghUJzUBIRSLF+2aa5ocYkFrygUxUTEqCLw8/StYHxPLGczQJYHqeLqmh7A6cnvf27ZUUcbD0cqQk1AzhDSm/9ZF1BtUrvVn+KijBVq7GzqhW0ZL9+i7V3Fomrb8F+7iyHniMLC1KEy3jbyVuevs6EEBvd1gqz7gFP/j3M5WgpkghJ/ONgOSfYMMp9MnM5qjDUT9hNLm8ZHU+LP2G691j4IiWAlRj5OwyUy708igg6Kh6/aki62DTHKJXrjgtNVqWulSufFWSJikFUcC/rWUC2peRVFOSrSW27kyx2berf5yau5Xf0qEyHkg1pgoanLdKg5b5LITQIUuMWZn/ks/lrqvqlwp1UWJpgn1ZmWjWE2dOEPyVH5jrpimVM3B/v2N7cuprHGX4mw1OuhypAzu/uDvQe3JZGjH+D8g==\\\"\\n          }\\n        ]\\n      },\\n      \\\"finishReason\\\": \\\"STOP\\\"\\n    }\\n  ],\\n  \\\"provider_chunks\\\": [\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\"{\\\\n  \\\\\\\"pass\\\\\\\": false,\\\\n  \\\\\\\"audio_access\\\\\\\": true,\\\\n  \\\\\\\"visual\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 21,\\n        \\\"totalTokenCount\\\": 1370,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\"_observations\\\\\\\":\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 49,\\n        \\\"totalTokenCount\\\": 1398,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" [\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 2.2,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"A document marked LEASE slides upward into the right pocket of an open folder opposite WELL FILE.\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 5.2,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"The folder tilts upward into an angled perspective while holding both\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 73,\\n        \\\"totalTokenCount\\\": 1422,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" documents inside.\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 7.5,\\\\n      \\\\\\\"observation\\\\\\\":\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 99,\\n        \\\"totalTokenCount\\\": 1448,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" \\\\\\\"The folder remains frozen in perspective while subtitles discuss engineer retrieval.\\\\\\\"\\\\n    }\\\\n  ],\\\\n  \\\\\\\"audio_observations\\\\\\\":\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 158,\\n        \\\"totalTokenCount\\\": 1507,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" [\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 0.8,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"Spoken line: 'The plan starts with scattered well files and contracts.'\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\": 3.9,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"Spoken line: 'Connect them in one searchable model.'\\\\\\\"\\\\n    },\\\\n    {\\\\n      \\\\\\\"at_s\\\\\\\":\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 182,\\n        \\\"totalTokenCount\\\": 1531,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" 7.2,\\\\n      \\\\\\\"observation\\\\\\\": \\\\\\\"Spoken line: 'Then an engineer could see the lease obligations shaping a drilling decision\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 210,\\n        \\\"totalTokenCount\\\": 1559,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\".'\\\\\\\"\\\\n    }\\\\n  ],\\\\n  \\\\\\\"pacing\\\\\\\": \\\\\\\"Initial document motion completes briskly, followed by an excessive static hold\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 237,\\n        \\\"totalTokenCount\\\": 1586,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" across the second half.\\\\\\\",\\\\n  \\\\\\\"comprehension\\\\\\\": \\\\\\\"The basic concept of grouping files is clear, but the retrieval\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 261,\\n        \\\"totalTokenCount\\\": 1610,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" phase lacks visual representation.\\\\\\\",\\\\n  \\\\\\\"weakest_interval\\\\\\\": \\\\\\\"05.500-10.400: The\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 290,\\n        \\\"totalTokenCount\\\": 1639,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" visual freezes entirely on a tilted folder graphic through the final spoken sentence.\\\\\\\",\\\\n  \\\\\\\"dimensional_action\\\\\\\": \\\\\\\"Documents insert\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 314,\\n        \\\"totalTokenCount\\\": 1663,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" into folder pockets before the asset rotates into an angled display pose.\\\\\\\",\\\\n  \\\\\\\"defects\\\\\\\":\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 341,\\n        \\\"totalTokenCount\\\": 1690,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\" [\\\\n    {\\\\n      \\\\\\\"time\\\\\\\": \\\\\\\"05.500\\\\\\\",\\\\n      \\\\\\\"observed_subject\\\\\\\": \\\\\\\"Tilted folder graphic\\\\\\\",\\\\n      \\\\\\\"effect\\\\\\\": \\\\\\\"Prolonged freeze leaves narration regarding drilling decisions and retrieval without visual action.\\\\\\\"\\\\n    }\\\\n  ]\\\\n}\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 847,\\n        \\\"candidatesTokenCount\\\": 367,\\n        \\\"totalTokenCount\\\": 1716,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    },\\n    {\\n      \\\"candidates\\\": [\\n        {\\n          \\\"content\\\": {\\n            \\\"parts\\\": [\\n              {\\n                \\\"text\\\": \\\"\\\",\\n                \\\"thoughtSignature\\\": \\\"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\\\"\\n              }\\n            ],\\n            \\\"role\\\": \\\"model\\\"\\n          },\\n          \\\"finishReason\\\": \\\"STOP\\\",\\n          \\\"index\\\": 0\\n        }\\n      ],\\n      \\\"usageMetadata\\\": {\\n        \\\"promptTokenCount\\\": 4610,\\n        \\\"candidatesTokenCount\\\": 367,\\n        \\\"totalTokenCount\\\": 5479,\\n        \\\"promptTokensDetails\\\": [\\n          {\\n            \\\"modality\\\": \\\"VIDEO\\\",\\n            \\\"tokenCount\\\": 3763\\n          },\\n          {\\n            \\\"modality\\\": \\\"TEXT\\\",\\n            \\\"tokenCount\\\": 847\\n          }\\n        ],\\n        \\\"thoughtsTokenCount\\\": 502,\\n        \\\"serviceTier\\\": \\\"standard\\\"\\n      },\\n      \\\"modelVersion\\\": \\\"gemini-3.8-flash\\\",\\n      \\\"responseId\\\": \\\"m4O6au-dF-2hz7IPtYvswAE\\\"\\n    }\\n  ]\\n}\\n\"\n}\n",
+      "authorization_sha256": "c6ceedf4cfd087fe4a436de377e85d0144e4cdfad80b553dec1fe19ec93d45fe",
+      "failure_evidence_json": "{\n  \"schema\": \"dispatch_audiovisual_review/1\",\n  \"request_id\": \"06e89510-5770-447b-a748-5e8fd8f58899\",\n  \"film_sha256\": \"0da365d703814466893aac41c2b9e5b9a915e9aea293b977f05a993d67a6d4e3\",\n  \"role\": \"hero\",\n  \"model\": \"gemini-3.8-flash\",\n  \"basis\": \"Independent audiovisual model observation, not human listening\",\n  \"prompt_sha256\": \"e395aa08fa0132c4ec088ac92bff4e9516c01c483ce799f4ef276c16e37254b7\",\n  \"review_scope\": \"passage\",\n  \"response\": {\n    \"file\": \"hero-review-response.json\",\n    \"sha256\": \"d5411285b2bbdecaceee0f301f1aa7a280e2c816bcb4d43b15c0569fff9792c3\"\n  }\n}\n",
+      "failure_evidence_sha256": "ef65d64c48ab071870fbfb053f442ca17dd54e19890db4316dfc1829df79f76b",
+      "kind": "owner_review_grant",
+      "new_ceiling": 10,
+      "previous_ceiling": 8,
+      "resource": "storyboard_critics",
+      "run_id": "2026-09-28",
+      "usage_unchanged": 8
+    },
+    {
+      "at": "2026-09-28T16:17:20.851946Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/ConnectedRecords.tsx",
+          "before_sha256": "bcd1659b8853d10a60ae11812d6c8cb91f55fb242c40db4803792f67be6a6baf",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/ConnectedRecordsEpisode.tsx",
+          "before_sha256": "2d227125b49a18679f30370276bc894d710817938e24d7388577769ef33e8d46",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/ConnectedRecordsEpisode.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/storyboard.json",
+          "before_sha256": "39013ec62c97ceb41d70ec43f65e95bb8de0f2b937315f0a4b6323dc59d3316e",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/story_selection.json",
+          "before_sha256": "15568b2dfc947b9b3d75ed6fa2b215543272a406f7210ee17ac3a21595f7096a",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "codex-director-2026-09-28",
+      "failure_family": "document-handling",
+      "failure_sha256": "d5411285b2bbdecaceee0f301f1aa7a280e2c816bcb4d43b15c0569fff9792c3",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "conserved-lease-extraction",
+      "plan_identity": null,
+      "plan_sha256": "023464aaed8a5cc90825a4787fd5e13ed8bbb28e0ee4cb1988440bcc900e7fc0",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-09-28T16:17:20.885750Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "Conserved whole-sheet lease extraction with ending continuity",
+      "now": 5,
+      "resource": "reboards",
+      "was": 4
+    },
+    {
+      "at": "2026-09-28T16:17:20.885756Z",
+      "kind": "reserved",
+      "note": "Conserved whole-sheet lease extraction with ending continuity",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:18:38.233009Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "allocation_requested": {
+          "additional_owner_grant_exception": true,
+          "effective_ceiling_after": 10,
+          "effective_ceiling_before": 8,
+          "storyboard_critics": 2
+        },
+        "changed_inputs": [
+          {
+            "after_sha256": "c3cd8eee04732f7f8cac3c8ab44ca943945ad4765be5932de2c80de728c95b2d",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/ConnectedRecords.tsx",
+            "before_sha256": "bcd1659b8853d10a60ae11812d6c8cb91f55fb242c40db4803792f67be6a6baf",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/lib/production/ConnectedRecords.tsx"
+          },
+          {
+            "after_sha256": "3c86eaed91598d2cf4091bc7b210fffb3bd889fac54e0fdec1c6ab3d2fc3fe7d",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/ConnectedRecordsEpisode.tsx",
+            "before_sha256": "2d227125b49a18679f30370276bc894d710817938e24d7388577769ef33e8d46",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/video-engine/src/ConnectedRecordsEpisode.tsx"
+          },
+          {
+            "after_sha256": "0af5282159f0f1bf13afda2f02c079066241c4c779de1161054c821a7f90d8b1",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/storyboard.json",
+            "before_sha256": "39013ec62c97ceb41d70ec43f65e95bb8de0f2b937315f0a4b6323dc59d3316e",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "e2af143aa640bdce1315ba3039ec448a03bd6fa6825ad4801246bb032e11bbd8",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/repair-06-baseline/story_selection.json",
+            "before_sha256": "15568b2dfc947b9b3d75ed6fa2b215543272a406f7210ee17ac3a21595f7096a",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "codex-director-2026-09-28",
+        "expected_visible_result": "A muted viewer can follow the same lease from the shared record to an accessible sheet beside its well file, while the company proposal disclosure and unproved gains caveat remain visible.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/hero-01-rejected/hero-review-response.json",
+        "failure_evidence_sha256": "d5411285b2bbdecaceee0f301f1aa7a280e2c816bcb4d43b15c0569fff9792c3",
+        "failure_family": "document-handling",
+        "mechanism_change": "Replace folder opening and tiny corner lift as the retrieval mechanism with conserved whole-sheet extraction from the shared sleeve; this changes the action and consequence, not just easing or camera placement.",
+        "mechanism_id": "conserved-lease-extraction",
+        "pivot_review": {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-09-28/out/dispatch/pivot-review-02.json",
+          "sha256": "9f3de2f467b1ca4e99ec4c0a7356b30de4a5a08d59c03abce120c7fff4a39603"
+        },
+        "preserve": [
+          "approved script",
+          "accepted Kore take",
+          "source claims",
+          "measured cue timings",
+          "original resource envelope",
+          "all rejected bytes and verdicts"
+        ],
+        "repair": "Subject to independent source-backed pivot review, replace passive unfolding with extraction of the same labeled lease from its joined sleeve while the well file remains visible. Show departure, continuous travel and a separated accessible sheet without inventing private clauses or an actual Battalion interface. Carry the exact object state into the ending and inspect the entire sequence. The closing keeps the extracted lease visible and draws the conserved well file out of its facing sleeve, making both records accessible; it never resets or repeats lease extraction. The company caveat stays separate.",
+        "required_review_tasks": [
+          "independent source-backed pivot followed by current module code inspection before render",
+          "independent current timed phone playback with muted causality and caption continuity inspection"
+        ],
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3
+        },
+        "root_cause": "The native hero reviewer cannot read retrieval in the folder unfolding. Extracted frames show the folder does change angle at six through eight seconds, so the reported entire freeze is not literally reproduced. The current movement still leaves the lease in its sleeve and relies on the header to communicate retrieval.",
+        "status": "owner approved exact second two-call grant; apply merged tooling then begin before edits"
+      },
+      "repair_plan_sha256": "56d8dd41e6359c03ed9ad68d35ac9d3afadf56a6f3aec943a55bd346efe29384",
+      "repair_revision": "0f5639f87ba2b83f16c5a27667d4d7335717651c75b5a4275227a6d038ba11d7",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-09-28T16:22:22.702312Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "Current conserved extraction code and complete causal sequence",
+      "now": 9,
+      "resource": "storyboard_critics",
+      "was": 8
+    },
+    {
+      "at": "2026-09-28T16:22:22.702318Z",
+      "kind": "reserved",
+      "note": "Current conserved extraction code and complete causal sequence",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:26:55.560288Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 5,
+      "resource": "preflight_renders",
+      "was": 4
+    },
+    {
+      "at": "2026-09-28T16:26:55.560294Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "8a12478478c504e8f074bee1a37cba247c93cf7101ba32c9e8d48796eab9df94",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:27:43.499883Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "Current extraction timed phone and muted causal continuity",
+      "now": 10,
+      "resource": "storyboard_critics",
+      "was": 9
+    },
+    {
+      "at": "2026-09-28T16:27:43.499888Z",
+      "kind": "reserved",
+      "note": "Current extraction timed phone and muted causal continuity",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:33:36.604056Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 6,
+      "resource": "preflight_renders",
+      "was": 5
+    },
+    {
+      "at": "2026-09-28T16:33:36.604063Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "446a41577996f69d5476565b07595180903b130be6d266f7697ef82ae78da4cc",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:33:56.326507Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:34:08.419176Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: da2cd438-8dec-4ff5-8543-60d72055a03d hero exact film 67d58e98fed64fe33a8bc780c10d3a610faec7c2762bcc6f6b260b89ab9251d1",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 5732
+      }
+    },
+    {
+      "at": "2026-09-28T16:34:08.423856Z",
+      "elapsed_ms": 12087,
+      "kind": "telemetry",
+      "note": "da2cd438-8dec-4ff5-8543-60d72055a03d hero exact film 67d58e98fed64fe33a8bc780c10d3a610faec7c2762bcc6f6b260b89ab9251d1",
+      "reported_tokens": 5732,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-28T16:34:20.226984Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:35:10.591659Z",
+      "film_sha256": "93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "844ff9f42214f84c88df5c229379805e235dc1438f278b8390ccc7a48799a345",
+      "review_only": false
+    },
+    {
+      "at": "2026-09-28T16:35:45.482903Z",
+      "kind": "reserved",
+      "note": "current finished extraction cut",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-09-28T16:35:52.806021Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:36:05.539056Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 1e2f7e6c-6ba6-4a1b-a5fc-1520ce19abc6 picture exact film 93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 16083
+      }
+    },
+    {
+      "at": "2026-09-28T16:36:05.547369Z",
+      "elapsed_ms": 12724,
+      "kind": "telemetry",
+      "note": "1e2f7e6c-6ba6-4a1b-a5fc-1520ce19abc6 picture exact film 93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "reported_tokens": 16083,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-28T16:36:05.719256Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:36:19.110252Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 6a798cea-f221-4add-9784-73777fbbc175 story exact film 93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 16340
+      }
+    },
+    {
+      "at": "2026-09-28T16:36:19.116876Z",
+      "elapsed_ms": 13383,
+      "kind": "telemetry",
+      "note": "6a798cea-f221-4add-9784-73777fbbc175 story exact film 93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "reported_tokens": 16340,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-28T16:36:19.291454Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review sound",
+      "now": 5,
+      "resource": "audiovisual_reviews",
+      "was": 4
+    },
+    {
+      "at": "2026-09-28T16:36:19.291460Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-09-28T16:36:29.953534Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 3136d994-5e7e-499c-af43-5804b332cd26 sound exact film 93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 16045
+      }
+    },
+    {
+      "at": "2026-09-28T16:36:29.961209Z",
+      "elapsed_ms": 10653,
+      "kind": "telemetry",
+      "note": "3136d994-5e7e-499c-af43-5804b332cd26 sound exact film 93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+      "reported_tokens": 16045,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-09-28T16:41:34.819667Z",
+      "kind": "release_authorized",
+      "report_sha256": "4c476b08377a0834b0e5172b285d45a3ce06d625c07a5970397c5b81d1a8bc89",
+      "result": "publishable",
+      "score": 7.299
+    }
+  ],
+  "final_report": {
+    "film_sha256": "93d0b567108943257360dad3b8427f859ee20cd2def3a7a19ba8f935117f3a8d",
+    "path": "out/dispatch/report_card.json",
+    "score": 7.299,
+    "sha256": "4c476b08377a0834b0e5172b285d45a3ce06d625c07a5970397c5b81d1a8bc89"
+  },
+  "limits": {
+    "audiovisual_reviews": 5,
+    "cleanup_renders": 1,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 6,
+    "reboards": 5,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 3,
+    "storyboard_critics": 10,
+    "tts_calls": 6,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "mode": "production",
+  "phase": "publishing",
+  "release_status": "publishable",
+  "repair_policy": "quality-recovery/1",
+  "resource_envelope": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 6,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-09-28",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": null,
+  "updated_at": "2026-09-28T16:41:34.819676Z",
+  "usage": {
+    "audiovisual_reviews": 5,
+    "cleanup_renders": 0,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 6,
+    "reboards": 5,
+    "reported_tokens": 70917,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 3,
+    "storyboard_critics": 10,
+    "tts_calls": 6,
+    "validator_agents": 2,
+    "voice_directors": 2
+  }
+}
