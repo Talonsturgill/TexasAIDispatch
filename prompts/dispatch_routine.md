@@ -109,6 +109,9 @@ Use run_controller.py phase --name <phase> at each transition. Read numeric targ
 from config/run_limits.json and the live ledger. Reserve every agent, paid call and render
 before it starts. Targets diagnose extra work; they are neither approval nor a closure rule.
 Cumulative allowances cannot be repeatedly renewed. Keep all failed attempts charged.
+Follow DAILY_PRODUCTION.md's reserved path to shipment. Before structural repair run the
+production-budget precheck. Avoid repeated approval requests and unchanged-blocker spending.
+A budget boundary leaves an unfinished edition, never a substitute completion state.
 
 ## Timing and evidence reuse
 

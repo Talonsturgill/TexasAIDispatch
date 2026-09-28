@@ -269,6 +269,131 @@ class RecoveryTest(unittest.TestCase):
         self.assertEqual(c.read_state(self.path), before)
 
 
+    def second_owner_fixture(self, av=False):
+        _, failure, approval, data = self.owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        state = c.read_state(self.path)
+        data.update(approval_id="owner-message-456", source_message_reference="conversation/456",
+                    owner_text="I explicitly approve a second grant of exactly two critics for this edition.",
+                    previous_grant_sha256=g.envelope_digest(state["events"][-1]))
+        if av:
+            film = self.path.parent / "hero.mp4"
+            film.write_bytes(b"retained exact hero bytes")
+            raw = {"responseId": "provider-id", "candidates": [{"content": {"parts": [
+                {"text": json.dumps({"pass": False, "audio_access": True,
+                                    "defects": ["The visible action remains unclear."]})}]}}]}
+            response = self.path.parent / "hero-response.json"
+            response.write_text(json.dumps(raw))
+            receipt = {"schema": "dispatch_audiovisual_review/1", "role": "hero",
+                       "review_scope": "passage", "model": "independent-model", "request_id": "request",
+                       "film_sha256": c.digest(film),
+                       "response": {"file": response.name, "sha256": c.digest(response)}}
+            failure.write_text(json.dumps(receipt))
+            data.update(failure_film=str(film), failure_film_sha256=c.digest(film),
+                        failure_response_json=response.read_text(), failure_evidence_sha256=c.digest(failure))
+        approval.write_text(json.dumps(data))
+        return state, failure, approval, data
+
+    def test_second_explicit_grant_is_bounded_and_chained(self):
+        before, failure, approval, data = self.second_owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        after = c.read_state(self.path)
+        self.assertEqual(after["resource_envelope"], before["resource_envelope"])
+        self.assertEqual(after["usage"], before["usage"])
+        self.assertEqual(after["events"][:-1], before["events"])
+        self.assertEqual(after["escalation_ceiling"]["storyboard_critics"], 10)
+        self.assertFalse(life.allowance_problems(after))
+        self.assertTrue(c.reserve(self.path, {"storyboard_critics": 5})[0])
+        self.assertFalse(c.reserve(self.path, {"storyboard_critics": 1})[0])
+        for changes in ({}, {"approval_id": "third", "source_message_reference": "third",
+                              "owner_text": "Another explicit grant", "previous_grant_sha256": g.envelope_digest(after["events"][-1])}):
+            approval.write_text(json.dumps({**data, **changes}))
+            self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+
+    def test_second_grant_rejects_replays_missing_chain_and_tampering(self):
+        before, failure, approval, data = self.second_owner_fixture()
+        first = json.loads(before["events"][-1]["authorization_json"])
+        variants = [{key: first[key]} for key in ("approval_id", "source_message_reference", "owner_text")]
+        variants += [{"previous_grant_sha256": None}, {"previous_grant_sha256": "stale"}]
+        for changes in variants:
+            approval.write_text(json.dumps({**data, **changes}))
+            self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+            self.assertEqual(c.read_state(self.path), before)
+        approval.write_text(json.dumps(data))
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        after = c.read_state(self.path)
+        after["events"][-2]["usage_unchanged"] += 1
+        self.assertTrue(g.owner_grant_problems(after))
+
+    def test_second_grant_accepts_bound_av_rejection_and_archive(self):
+        before, failure, approval, data = self.second_owner_fixture(av=True)
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        state = c.read_state(self.path)
+        Path(data["failure_film"]).unlink()
+        (self.path.parent / "hero-response.json").unlink()
+        failure.unlink(); approval.unlink()
+        self.assertFalse(g.owner_grant_problems(state))
+        self.assertFalse(life.allowance_problems(state))
+        tampered = copy.deepcopy(state)
+        auth = json.loads(tampered["events"][-1]["authorization_json"])
+        auth["failure_response_json"] += " "
+        tampered["events"][-1]["authorization_json"] = json.dumps(auth)
+        import hashlib
+        tampered["events"][-1]["authorization_sha256"] = hashlib.sha256(json.dumps(auth).encode()).hexdigest()
+        self.assertTrue(g.owner_grant_problems(tampered))
+
+    def test_av_grant_rejects_changed_film_response_and_nonrejection(self):
+        before, failure, approval, data = self.second_owner_fixture(av=True)
+        for path in (Path(data["failure_film"]), self.path.parent / "hero-response.json"):
+            original = path.read_bytes()
+            path.write_bytes(original + b"changed")
+            self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+            self.assertEqual(c.read_state(self.path), before)
+            path.write_bytes(original)
+        receipt = json.loads(failure.read_text())
+        import hashlib
+        for review in ({"pass": True, "audio_access": True, "defects": ["defect"]},
+                       {"pass": False, "audio_access": False, "defects": ["defect"]},
+                       {"pass": False, "audio_access": True, "defects": []}):
+            raw = json.loads(data["failure_response_json"])
+            raw["candidates"][0]["content"]["parts"][0]["text"] = json.dumps(review)
+            text = json.dumps(raw)
+            variant = {**data, "failure_response_json": text}
+            bad = {**receipt, "response": {**receipt["response"], "sha256": hashlib.sha256(text.encode()).hexdigest()}}
+            self.assertTrue(g.av_rejection_problems(variant, bad))
+
+    def test_budget_precheck_is_read_only_and_reports_exact_deficits(self):
+        state, failure, approval, _ = self.second_owner_fixture()
+        state["usage"].update(storyboard_critics=8, preflight_renders=state["resource_envelope"]["preflight_renders"]-1,
+                              audiovisual_reviews=state["resource_envelope"]["audiovisual_reviews"]-2)
+        before = copy.deepcopy(state)
+        result = g.production_budget_precheck(state)
+        self.assertEqual(result["deficits"], {"storyboard_critics": 2, "preflight_renders": 1, "audiovisual_reviews": 2})
+        self.assertEqual(state, before)
+        self.assertFalse(result["feasible"])
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        result = g.production_budget_precheck(c.read_state(self.path))
+        self.assertTrue(result["feasible"])
+        legacy = copy.deepcopy(state); legacy.pop("resource_envelope")
+        legacy_before = copy.deepcopy(legacy)
+        self.assertTrue(g.production_budget_precheck(legacy)["errors"])
+        self.assertEqual(legacy, legacy_before)
+
+    def test_budget_cli_never_changes_ledger_on_pass_failure_or_tampering(self):
+        import subprocess
+        import sys
+        state = c.read_state(self.path)
+        for variant, code in ((state, 0),
+                ({**state, "usage": {**state["usage"], "reboards": state["resource_envelope"]["reboards"]}}, 1),
+                ({**state, "resource_envelope": {**state["resource_envelope"], "full_renders": 999}}, 1)):
+            c.save(self.path, variant)
+            before = self.path.read_bytes()
+            result = subprocess.run([sys.executable, str(Path(c.__file__)), "--state", str(self.path),
+                                     "production-budget"], text=True, capture_output=True)
+            self.assertEqual(result.returncode, code, result.stderr)
+            self.assertEqual(self.path.read_bytes(), before)
+            self.assertEqual(json.loads(result.stdout)["feasible"], code == 0)
+
     def narration_fixture(self):
         _, rejection, approval, _ = self.owner_fixture()
         self.assertTrue(c.grant_owner_review(self.path, approval, rejection, 2, g.OWNER_CONFIRMATION)[0])

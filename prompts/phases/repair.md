@@ -4,6 +4,12 @@ Read the current checkpoint and compact defect ledger first. Preserve the last p
 exact hashes and all reviews. Rejection starts active repair. A checkpoint or needs_review
 package is never successful completion. Missing external access remains honestly incomplete.
 
+Run the controller's production-budget precheck before a structural repair. Reserve a credible
+path through the remaining phone, hero, final audiovisual and scoring gates before spending on
+a correction. Follow DAILY_PRODUCTION.md for autonomous work and unchanged-blocker wakes.
+Do not make repeated owner-extension questions part of the routine. A failed budget precheck
+leaves the edition unfinished; it never changes the definition of done.
+
 Consolidate all current faults into one cause-and-correction plan before another attempt.
 Record root_cause, repair, mechanism_change, expected_visible_result, failure_evidence and
 failure_evidence_sha256. Retain baseline files; changed_inputs names path, before_path,
