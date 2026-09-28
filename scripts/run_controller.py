@@ -987,6 +987,9 @@ def extend_preflight_ceiling(path: Path, new_ceiling: int, reason: str,
                              owner_authorized: bool, repair_plan: Path | None = None) -> tuple[bool, str]:
     """Record an owner-directed bounded increment without resetting run usage."""
     state = read_state(path)
+    from repair_guard import enabled
+    if enabled(state):
+        return False, "run controller: legacy extensions cannot enlarge a frozen resource envelope"
     name = "preflight_renders"
     old = int(state["escalation_ceiling"][name])
     if not owner_authorized or not reason.strip():
@@ -1013,6 +1016,9 @@ def extend_agent_ceiling(path: Path, name: str, reason: str,
     This is a recorded reservation allowance, never a review verdict or quality bypass.
     """
     state = read_state(path)
+    from repair_guard import enabled
+    if enabled(state):
+        return False, "run controller: frozen review allowance requires explicit grant-owner-review authorization"
     allowed = {"storyboard_critics", "validator_agents", "voice_directors",
                "research_agents", "audiovisual_reviews", "rescue_renders", "reboards"}
     if name not in allowed or not owner_authorized or not reason.strip():
@@ -1028,6 +1034,57 @@ def extend_agent_ceiling(path: Path, name: str, reason: str,
           new_ceiling=old + 1, usage_unchanged=state["usage"][name], reason=reason.strip(), **proof)
     save(path, state)
     return True, f"run controller: owner-authorized {name} ceiling {old} -> {old + 1}"
+
+
+def grant_owner_review(path: Path, authorization_path: Path | None,
+                       failure_evidence: Path, additional_calls: int,
+                       confirmation: str) -> tuple[bool, str]:
+    """Explicit operator attestation only. Production repair never invokes this command."""
+    from repair_guard import (enabled, envelope_problems, authorization_problems,
+                              OWNER_CONFIRMATION, OWNER_RESOURCE)
+    from production_lifecycle import allowance_problems
+    state = read_state(path)
+    if (confirmation != OWNER_CONFIRMATION or authorization_path is None
+            or type(additional_calls) is not int or not 1 <= additional_calls <= 2):
+        return False, "run controller: explicit owner confirmation, retained authorization and one or two calls are required"
+    if not enabled(state) or state.get("mode") != "production" or state.get("terminal_state") is not None:
+        return False, "run controller: owner review grant requires active frozen-envelope production"
+    if any(e.get("kind") == "owner_review_grant" for e in state["events"]):
+        return False, "run controller: this run already used its single owner review grant; approval replay and renewal are refused"
+    errors = envelope_problems(state, {}) + allowance_problems(state)
+    if errors:
+        return False, "; ".join(errors)
+    try:
+        artifact_bytes = authorization_path.read_bytes()
+        authorization = json.loads(artifact_bytes)
+        artifact_text = artifact_bytes.decode("utf-8")
+        failure_bytes = failure_evidence.read_bytes()
+        failure_text = failure_bytes.decode("utf-8")
+        errors = authorization_problems(state, authorization, failure_text)
+        if errors:
+            return False, "; ".join(errors)
+        if (authorization["additional_calls"] != additional_calls
+                or Path(authorization.get("failure_evidence", "")).resolve() != failure_evidence.resolve()):
+            return False, "run controller: requested calls or failure file differ from the explicit owner authorization"
+    except (OSError, ValueError, TypeError):
+        return False, "run controller: retained owner authorization is missing or unreadable"
+    old = state["resource_envelope"][OWNER_RESOURCE]
+    if state["escalation_ceiling"][OWNER_RESOURCE] != old:
+        return False, "run controller: current critic ceiling differs from the original envelope"
+    artifact_sha = hashlib.sha256(artifact_bytes).hexdigest()
+    # Exact retained texts travel with a checkpoint or archive. No local path is needed
+    # to independently reconstruct this allowance on another machine.
+    state["escalation_ceiling"][OWNER_RESOURCE] = old + additional_calls
+    event(state, "owner_review_grant", run_id=state["run_id"], resource=OWNER_RESOURCE,
+          approval_id=authorization["approval_id"], additional_calls=additional_calls,
+          previous_ceiling=old, new_ceiling=old + additional_calls,
+          usage_unchanged=state["usage"][OWNER_RESOURCE],
+          authorization_json=artifact_text, authorization_sha256=artifact_sha,
+          failure_evidence_json=failure_text,
+          failure_evidence_sha256=authorization["failure_evidence_sha256"],
+          attestation="Operator retained explicit owner instruction; no automatic renewal")
+    save(path, state)
+    return True, f"run controller: explicit owner grant adds exactly {additional_calls} storyboard critic calls; original envelope, usage and quality gates remain intact"
 
 
 def owner_override(path: Path, report: Path, reason: str, confirmation: str
@@ -1683,7 +1740,7 @@ def self_test() -> int:
                                     "after_sha256": digest(repair_source)}]}
         plan_path.write_text(json.dumps(plan))
         extension = root / "extension.json"
-        initialise(extension, "owner-extension", "production")
+        initialise(extension, "2026-09-26-owner-extension", "production")
         st = read_state(extension)
         original_ceiling = st["escalation_ceiling"]["preflight_renders"]
         st["usage"]["preflight_renders"] = original_ceiling
@@ -1884,6 +1941,12 @@ def main() -> int:
     p.add_argument("--reason", required=True)
     p.add_argument("--confirm", required=True)
 
+    p = sub.add_parser("grant-owner-review")
+    p.add_argument("--authorization", type=Path, required=True)
+    p.add_argument("--failure-evidence", type=Path, required=True)
+    p.add_argument("--additional-calls", type=int, required=True)
+    p.add_argument("--confirm", required=True)
+
     p = sub.add_parser("checkpoint")
     p.add_argument("--reason", required=True)
     p.add_argument("--review-package", type=Path, required=True)
@@ -1968,6 +2031,9 @@ def main() -> int:
         elif a.command == "owner-override":
             accepted, message = owner_override(
                 state_path, Path(a.report), a.reason, a.confirm)
+        elif a.command == "grant-owner-review":
+            accepted, message = grant_owner_review(
+                state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)
         else:
             print(json.dumps(read_state(state_path), indent=2, sort_keys=True))
             return 0

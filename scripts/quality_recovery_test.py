@@ -112,5 +112,124 @@ class RecoveryTest(unittest.TestCase):
         self.assertFalse(g.envelope_problems(state,{"audiovisual_reviews":4}))
         self.assertTrue(g.envelope_problems(state,{"audiovisual_reviews":5}))
 
+    def owner_fixture(self, calls=2):
+        state = c.read_state(self.path)
+        state["usage"]["storyboard_critics"] = 5
+        c.event(state, "reserved", resources={"storyboard_critics": 5}, note="retained earlier calls")
+        c.save(self.path, state)
+        failure = Path(self.tmp.name) / "rejection.json"
+        failure.write_text(json.dumps({"verdict": "revise", "reviewer_identity": "independent-critic",
+                                       "blocking_defects": ["The physical capture lacks source support."]}))
+        approval = Path(self.tmp.name) / "approval.json"
+        data = {"approval_id": "owner-message-123", "run_id": state["run_id"],
+                "resource": "storyboard_critics", "additional_calls": calls,
+                "confirmation": g.OWNER_CONFIRMATION,
+                "owner_text": f"I approve exactly {calls} additional storyboard critic calls for this edition.",
+                "source_message_reference": "retained-conversation/owner-message-123",
+                "resource_envelope_sha256": g.envelope_digest(state["resource_envelope"]),
+                "failure_evidence": str(failure), "failure_evidence_sha256": c.digest(failure)}
+        approval.write_text(json.dumps(data))
+        return state, failure, approval, data
+
+    def test_owner_grant_requires_exact_explicit_authorization(self):
+        before, failure, approval, data = self.owner_fixture()
+        for changes in ({"run_id": "wrong-run"}, {"resource": "full_renders"},
+                        {"additional_calls": True}, {"additional_calls": 0}, {"additional_calls": -1}, {"additional_calls": 3},
+                        {"additional_calls": 1}, {"confirmation": "yes"}, {"owner_text": ""},
+                        {"source_message_reference": ""}, {"approval_id": ""},
+                        {"failure_evidence_sha256": "stale"}, {"failure_evidence": "/wrong/file"},
+                        {"resource_envelope_sha256": "stale"}):
+            with self.subTest(changes=changes):
+                approval.write_text(json.dumps({**data, **changes}))
+                self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+                self.assertEqual(c.read_state(self.path), before)
+        approval.write_text(json.dumps(data))
+        for artifact, calls, confirmation in ((None, 2, g.OWNER_CONFIRMATION),
+                (approval.with_name("missing.json"), 2, g.OWNER_CONFIRMATION),
+                (approval, 2, ""), (approval, True, g.OWNER_CONFIRMATION),
+                (approval, 3, g.OWNER_CONFIRMATION)):
+            self.assertFalse(c.grant_owner_review(self.path, artifact, failure, calls, confirmation)[0])
+            self.assertEqual(c.read_state(self.path), before)
+
+    def test_owner_grant_preserves_history_and_reserves_only_exact_increment(self):
+        before, failure, approval, _ = self.owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        granted = c.read_state(self.path)
+        self.assertEqual(granted["usage"], before["usage"])
+        self.assertEqual(granted["resource_envelope"], before["resource_envelope"])
+        self.assertEqual(granted["events"][:-1], before["events"])
+        self.assertEqual(granted["escalation_ceiling"]["storyboard_critics"], 8)
+        self.assertEqual(granted["limits"], before["limits"])
+        self.assertFalse(life.allowance_problems(granted))
+        self.assertTrue(c.reserve(self.path, {"storyboard_critics": 3})[0])
+        self.assertEqual(c.read_state(self.path)["usage"]["storyboard_critics"], 8)
+        self.assertFalse(c.reserve(self.path, {"storyboard_critics": 1})[0])
+        self.assertFalse(life.allowance_problems(c.read_state(self.path)))
+
+    def test_owner_grant_never_replays_or_renews(self):
+        _, failure, approval, data = self.owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        before = c.read_state(self.path)
+        for changes in ({}, {"approval_id": "different-message"}):
+            approval.write_text(json.dumps({**data, **changes}))
+            self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+            self.assertEqual(c.read_state(self.path), before)
+        duplicate = copy.deepcopy(before)
+        duplicate["events"].append(copy.deepcopy(duplicate["events"][-1]))
+        self.assertTrue(g.envelope_problems(duplicate, {"storyboard_critics": 1}))
+        self.assertTrue(life.allowance_problems(duplicate))
+
+    def test_one_call_owner_grant_does_not_round_up_to_two(self):
+        _, failure, approval, _ = self.owner_fixture(calls=1)
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 1, g.OWNER_CONFIRMATION)[0])
+        self.assertEqual(c.read_state(self.path)["escalation_ceiling"]["storyboard_critics"], 7)
+        self.assertTrue(c.reserve(self.path, {"storyboard_critics": 2})[0])
+        self.assertFalse(c.reserve(self.path, {"storyboard_critics": 1})[0])
+
+    def test_owner_grant_rechecks_retained_evidence_at_reservation(self):
+        _, failure, approval, _ = self.owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        before = c.read_state(self.path)
+        for key, value in (("authorization_json", "{}"), ("failure_evidence_json", "{}"),
+                           ("additional_calls", 3), ("approval_id", "forged"),
+                           ("new_ceiling", 9), ("failure_evidence_sha256", "stale")):
+            with self.subTest(key=key):
+                state = copy.deepcopy(before)
+                state["events"][-1][key] = value
+                c.save(self.path, state)
+                self.assertFalse(c.reserve(self.path, {"storyboard_critics": 1})[0])
+                self.assertEqual(c.read_state(self.path)["usage"], before["usage"])
+                self.assertTrue(life.allowance_problems(state))
+        state = copy.deepcopy(before)
+        state["events"][-1].pop("authorization_json")
+        self.assertTrue(g.envelope_problems(state, {"storyboard_critics": 1}))
+        # Even changing both copies of the original envelope breaks the owner's binding.
+        state = copy.deepcopy(before)
+        state["resource_envelope"]["storyboard_critics"] += 1
+        state["events"][0]["envelope"]["storyboard_critics"] += 1
+        self.assertTrue(g.envelope_problems(state, {"storyboard_critics": 1}))
+
+    def test_owner_evidence_is_self_contained_after_archive_relocation(self):
+        _, failure, approval, _ = self.owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        relocated = Path(self.tmp.name) / "archive" / "state.json"
+        c.save(relocated, c.read_state(self.path))
+        self.path.unlink(); failure.unlink(); approval.unlink()
+        self.assertFalse(life.allowance_problems(c.read_state(relocated)))
+        self.assertTrue(c.reserve(relocated, {"storyboard_critics": 3})[0])
+
+    def test_owner_grant_rejects_nonfailure_and_legacy_extension(self):
+        before, failure, approval, data = self.owner_fixture()
+        for report in ({"verdict": "pass", "reviewer_identity": "critic", "blocking_defects": ["defect"]},
+                       {"verdict": "revise", "reviewer_identity": "", "blocking_defects": ["defect"]},
+                       {"verdict": "revise", "reviewer_identity": "critic", "blocking_defects": []}):
+            failure.write_text(json.dumps(report))
+            approval.write_text(json.dumps({**data, "failure_evidence_sha256": c.digest(failure)}))
+            self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+            self.assertEqual(c.read_state(self.path), before)
+        self.assertFalse(c.extend_agent_ceiling(self.path, "storyboard_critics", "owner directed", True)[0])
+        self.assertFalse(c.extend_preflight_ceiling(self.path, 99, "owner directed", True)[0])
+        self.assertEqual(c.read_state(self.path), before)
+
 if __name__ == "__main__":
     unittest.main()
