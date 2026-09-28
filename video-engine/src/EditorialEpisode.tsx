@@ -45,7 +45,7 @@ export const EditorialEpisode: React.FC<DispatchProps> = (props) => {
       </div>}
       <div style={{position:'absolute',left:0,right:0,top:0,height:260,background:'linear-gradient(180deg, rgba(7,17,22,0.85), rgba(7,17,22,0))'}}/>
       <div style={{position:'absolute',left:62,right:190,top:83,fontFamily:FONT.mono,fontSize:23}}>TEXAS AI DISPATCH</div>
-      <div style={{position:'absolute',left:62,right:190,top:132,fontFamily:FONT.mono,fontSize:19}}>{p.disclosure}</div>
+      <div style={{position:'absolute',left:62,right:190,top:132,fontFamily:FONT.mono,fontSize:19}}>{scene.production_disclosure ?? p.disclosure}</div>
       <SubtitleTrack cues={captions} fps={fps}/>
     </>}
     {time>=end&&<Sequence from={Math.round(end*fps)} durationInFrames={Math.round(credits_s*fps)}><CreditsCard text={credits}/></Sequence>}
