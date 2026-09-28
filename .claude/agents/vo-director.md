@@ -40,3 +40,12 @@ For editions covered by config/daily_production.json, take the spoken wording fr
 storyboard. Preserve its causal links and source limit. Request any substantive shortening as
 one complete story correction before synthesis; do not silently splice a different line into
 the direction file. Plan one continuous take by default, then use the existing audible check.
+
+## Current performance and sound arc
+
+From the effective date of config/creative_production.json read CREATIVE_DIRECTION.md and the
+selected opening evidence. Bind sound_direction_sha256 to creative_direction.sound. Give every
+line a concrete intent, relative energy and one exact spoken emphasis phrase. Design the turn
+from curiosity through discovery to consequence; keep a conversational continuous read. Do
+not place numeric pause instructions into the TTS prompt. Background contrast is executed by
+the mixer on the board event clock, while the final sound lens judges the actual voice.

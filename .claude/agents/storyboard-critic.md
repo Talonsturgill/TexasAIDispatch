@@ -72,9 +72,15 @@ Return `{verdict: 'pass'|'revise', notes: [{scene, problem, fix}], strongest_fra
 `weakest_frame` is required. Every board has one and naming it is more useful than praise.
 
 
-For editions covered by config/cinematic_production.json, reject a missing cinema plan,
-a wholly SVG treatment, decorative dimensional content, or a hero action that cannot be
-understood at phone size. Check the dimensional opening and runtime share against the policy.
+Apply the dated policy: config/cinematic_production.json through September 28 and
+config/creative_production.json afterward. Reject a missing cinema plan, decorative pictures
+or a hero passage that cannot be understood at phone size. The new policy has no 3D quota.
+Read CREATIVE_DIRECTION.md, resolve source picture ids into actual native assets, and inspect
+source fidelity, relevant detail, whole-sequence continuity and the answered opening question.
+For the initial code assignment review both opening boards in one reserved task. For the
+initial phone assignment compare the two actual preview openings and review the chosen whole
+sequence, returning the bound selection and ordinary exact-phone verdict. Do not add a third
+option, another judge, or an extra paid review for a preference.
 Require a real customer or human action where the story claims one. Review the finished hero
 proof before the full cut. A camera move, texture change or tiny hand gesture is not sufficient.
 

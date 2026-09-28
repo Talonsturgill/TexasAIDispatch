@@ -46,10 +46,14 @@ def required(board):
     return board.get("daily_production") is True or in_window(board.get("date"))
 
 
-def candidate_problems(selected):
+def candidate_problems(selected, edition=None):
     """Reject unsupported pictures while selection is still cheaper than narration."""
     import action_admission as admission
+    import creative_production as creative
+    current = creative.required({"date": edition})
     errors = admission.proposal_problems(selected, selected=selected)
+    if current:
+        errors += creative.candidate_problems(selected)
     try:
         proposed = {p['id']: p for p in admission.proposals(selected)}
     except (ValueError, KeyError, TypeError):
@@ -74,7 +78,7 @@ def candidate_problems(selected):
             proposal = proposed.get(row.get('action_id'), {})
             if not proposal or row.get('source_url') not in proposal.get('source_urls', []) or row.get('disclosure') != proposal.get('disclosure'):
                 errors.append('candidate picture needs its bound source-backed action and Illustration disclosure')
-        elif row.get("medium") == "source-footage":
+        elif row.get("medium") == "source-footage" or (current and row.get("medium") in ("source-still", "source-excerpt")):
             asset = assets.get(row.get("asset_url"), {})
             for key in ("inspection", "rights_basis"):
                 if len(str(asset.get(key, "")).strip()) < 25:
@@ -83,13 +87,20 @@ def candidate_problems(selected):
             url = urlparse(str(row.get("asset_url", "")))
             if url.scheme not in ("https", "http") or not url.netloc:
                 errors.append("candidate footage needs a retrievable source asset")
+        elif current and row.get("medium") == "diagram":
+            if not concrete_diagram(row):
+                errors.append("candidate diagram needs a sourced relationship and explicit illustration disclosure")
         else:
             errors.append("candidate picture has no supported production medium")
     if proposed and not set(proposed) <= {r.get('action_id') for r in rows if r.get('medium') == 'source-backed-action'}:
         errors.append('candidate must use its proposed action')
-    if rows[0].get("medium") not in ("demonstrated-action", "source-backed-action"):
+    if not current and rows[0].get("medium") not in ("demonstrated-action", "source-backed-action"):
         errors.append("candidate opening must support the dimensional opening policy")
     return sorted(set(errors))
+
+
+def concrete_diagram(row):
+    return len(str(row.get("relationship") or "").strip()) >= 25 and row.get("disclosure") == "Illustration"
 
 
 def visual_problems(board, runs=None):
@@ -178,6 +189,10 @@ def story_digest(board):
         data["visual_policy_sha256"] = digest(VISUAL_POLICY)
     if board.get('action_proposals'):
         data['action_proposals'] = board['action_proposals']
+    if "creative_direction" in board:
+        import creative_production as creative
+        data["creative_direction"] = board["creative_direction"]
+        data["creative_policy_sha256"] = digest(creative.POLICY)
     return hashlib.sha256(json.dumps(data, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
@@ -343,6 +358,9 @@ def pre_voice_problems(board_path, claims_path, script=None):
     report_path = Path(board_path).with_name("storyboard_critic.json")
     report = read(report_path) if report_path.exists() else {}
     errors = structure_problems(board, read(claims_path)) + action_problems(board) + review_problems(board, report)
+    import creative_production as creative
+    errors += creative.plan_problems(board)
+    errors += creative.opening_problems(board_path)
     selection_path = Path(board_path).with_name("story_selection.json")
     if not selection_path.is_file():
         errors.append("current candidate selection and early picture fit are missing")
@@ -382,6 +400,13 @@ def packet(board_path, claims_path, role, state_path=None):
     selection = Path(board_path).with_name("story_selection.json")
     if selection.is_file():
         data["selection"] = {"path": str(selection.resolve()), "sha256": digest(selection)}
+    import creative_production as creative
+    if creative.required(board):
+        data["creative_contract"] = "knowledge/craft/CREATIVE_DIRECTION.md"
+        for name in ("comparison.json", "selection.json"):
+            path = Path(board_path).parent / "openings" / name
+            if path.is_file():
+                data["opening_" + name.split(".")[0]] = {"path": str(path.resolve()), "sha256": digest(path)}
     if role in ("picture", "story", "sound"):
         root = Path(board_path).parent
         for key, name in (("film", "film.mp4"), ("av_receipt", f"cinema/{role}-review.json"),

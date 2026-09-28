@@ -214,6 +214,8 @@ def indexed_items(scene: dict) -> tuple[dict[str, dict], list[str]]:
 def scene_visual_tokens(scene: dict) -> set[str]:
     """All tokens carried by actual staged elements. Useful to the sound/flow gate."""
     media = scene.get("generated_media")
+    if scene.get("picture"):
+        return tokens(str(scene["picture"].get("subject") or "") + " " + " ".join(str(n.get("label") or "") for n in scene["picture"].get("nodes", [])))
     replaced = ({str(item_id) for item_id in (media.get("replaces_item_ids") or [])}
                 if isinstance(media, dict) else set())
     staged = [item for plane in (scene.get("planes") or []) if isinstance(plane, dict)
@@ -350,7 +352,12 @@ def check_scene(scene: dict) -> list[str]:
 
 
 def check(board: dict) -> list[str]:
-    return [problem for scene in (board.get("scenes") or []) for problem in check_scene(scene)]
+    import creative_production as creative
+    errors = creative.plan_problems(board)
+    for scene in board.get("scenes") or []:
+        if not creative.picture_scene(board, scene):
+            errors += check_scene(scene)
+    return errors
 
 
 def self_test() -> int:

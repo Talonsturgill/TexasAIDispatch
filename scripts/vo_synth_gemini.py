@@ -134,6 +134,8 @@ def split_direction(plan: dict) -> str:
     lines = []
     if plan.get("overall"):
         lines.append(str(plan["overall"]).strip())
+    if plan.get("performance_arc"):
+        lines.append("Performance arc: " + str(plan["performance_arc"]).strip())
     for i, ln in enumerate(plan.get("lines", []), 1):
         bits = [f"Line {i}"]
         for k in ("intent", "emphasis", "energy"):
@@ -183,6 +185,11 @@ def build_prompt(script: str, plan: dict,
     if board_for_evidence and board_for_evidence.exists():
         from daily_production import required
         board = json.loads(board_for_evidence.read_text())
+        import creative_production as creative
+        refusals += creative.voice_problems(board, plan)
+        refusals += creative.opening_problems(board_for_evidence)
+        if creative.required(board):
+            plan = {**plan, "performance_arc": board["creative_direction"]["sound"]["voice_arc"]}
         if required(board):
             if not claims_for_evidence or not claims_for_evidence.is_file():
                 refusals.append("current verified claims are missing from the story review")

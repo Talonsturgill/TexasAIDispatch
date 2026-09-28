@@ -23,7 +23,7 @@ const BorderShot: React.FC<{scene: Scene; index: number; total: number}> = ({sce
   const {fps} = useVideoConfig();
   const dur = Math.max(1, Math.round(scene.duration_s * fps));
   const p = clamp(frame / Math.max(1, dur - 1));
- if(scene.camera_strategy==='sourceFootage')throw new Error('sourceFootage requires the native media renderer');
+ if(scene.camera_strategy==='sourceFootage'||scene.camera_strategy==='sourcePicture')throw new Error('sourceFootage requires the native media renderer');
   const primary = CameraMoves[scene.camera_strategy](p);
   const secondary = scene.camera_secondary ? CameraMoves[scene.camera_secondary](p) : {};
   const camera = composeCams(

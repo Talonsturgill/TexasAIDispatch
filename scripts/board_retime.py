@@ -281,6 +281,16 @@ def retime_sfx(scenes: list[dict], events: list[dict]) -> tuple[list[dict], list
         at += authored[s.get("id")]
 
     for ev in events:
+        if ev.get("event_id"):
+            match = next(((s, e) for s in scenes for e in s.get("visual_events", []) if e.get("id") == ev["event_id"]), None)
+            if not match:
+                errs.append("sound event has no current picture anchor: " + str(ev["event_id"]))
+                continue
+            scene, event = match
+            ev["at_s"] = round(float(scene["start_s"]) + float(event["at_s"]), 3)
+            if ev.get("dur_s"):
+                ev["dur_s"] = round(min(float(ev["dur_s"]), float(scene["duration_s"]) - float(event["at_s"])), 3)
+            continue
         sid = str(ev.get("id") or "").split("-")[0]
         s = by_id.get(sid)
         if not s:

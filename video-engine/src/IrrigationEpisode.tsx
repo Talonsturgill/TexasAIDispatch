@@ -14,7 +14,7 @@ const Shot: React.FC<{scene: Scene}> = ({scene}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const p = clamp(frame / Math.max(1, scene.duration_s * fps - 1));
- if(scene.camera_strategy==='sourceFootage')throw new Error('sourceFootage requires the native media renderer');
+ if(scene.camera_strategy==='sourceFootage'||scene.camera_strategy==='sourcePicture')throw new Error('sourceFootage requires the native media renderer');
   const move = CameraMoves[scene.camera_strategy](p);
   const second = scene.camera_secondary ? CameraMoves[scene.camera_secondary](p) : {};
   const entry = scene.camera_entry;

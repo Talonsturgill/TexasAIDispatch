@@ -13,8 +13,8 @@ Do not substitute a panel, camera drift or idle prop motion for the central mech
 
 Use daily-actions-v1 and supported production_action ids when they fit the evidence. A custom route may call demonstrated components or the one current source-backed proposal under DAILY_PRODUCTION.md. Keep exact code/source bindings, independent action review and its proposed action in the native hero. No proposal substitutes for current rendered proof. Human
 performance needs actual supported footage or a separately demonstrated mechanism.
-Keep quality_plan, three source-backed images, attention_beats, the cinema plan and required
-dimensional coverage. The hero is the hardest current action, not a comfortable old opening.
+Keep quality_plan, three source-backed images, attention_beats and the dated cinema plan.
+Read CREATIVE_DIRECTION.md: current editions choose media by source fit and prove every scene. The hero is the hardest current action, not a comfortable old opening.
 
 ## Board fields and local checks
 
@@ -44,7 +44,7 @@ python scripts/shot_coherence.py --board out/dispatch/storyboard.json
 python scripts/staging_check.py --board out/dispatch/storyboard.json
 python scripts/board_scale_check.py --board out/dispatch/storyboard.json
 python scripts/floor_check.py --board out/dispatch/storyboard.json
-python scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
+python scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --planning-only
 python scripts/super_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
 node video-engine/tests/caption_board_fit.mjs --board out/dispatch/storyboard.json
 python scripts/daily_production.py --board out/dispatch/storyboard.json --digest
@@ -60,10 +60,29 @@ The critic must be independent of the director. A revise verdict is active repai
 
 ```sh
 python scripts/critic_gate.py --board out/dispatch/storyboard.json --report out/dispatch/storyboard_critic.json
-python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
-python scripts/preflight_animatic.py --board out/dispatch/storyboard.json
 ```
 
+For editions under config/creative_production.json, prepare opening-a.json and opening-b.json
+with the same body and assets under CREATIVE_DIRECTION.md. The one existing code assignment
+returns opening-a-critic.json and opening-b-critic.json. Keep storyboard.json as the current
+provisional board for the same controller, then run the bounded first preview batch:
+
+```sh
+python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json
+```
+
+The existing phone critic compares both openings and reviews the chosen whole cut in one
+reserved assignment. Save its openings/selection.json. Copy the chosen openings/a.json or b.json
+to storyboard.json and its matching MP4 to preflight.mp4; copy its code critique to
+storyboard_critic.json, then inspect the already rendered bytes:
+
+```sh
+python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only
+```
+
+Record the ordinary exact-phone review on that film. Run daily_production.py with --board and
+--claims after selection; it requires the bound comparison before narration. Subsequent timed
+previews use the normal preflight command. Earlier editions use the ordinary initial preview.
 The preview command reserves before rendering and runs cheap board/source/caption checks first.
 Inspect actual motion at phone size, plus the contact sheet with explanatory text hidden.
 Require recognizable contact, action, consequence, dominant-subject movement and readable framing.

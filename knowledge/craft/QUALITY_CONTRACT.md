@@ -9,12 +9,14 @@ source, caption and audio requirements remain unchanged.
 
 Before narration or a preview, record quality_plan.contract_sha256 and one scenes entry for
 every board scene: scene_id, medium, subject, action, consequence, source_basis and medium_evidence.
-Use medium dimensional, source-footage, source-excerpt or diagram. Name the actual available
+Use medium dimensional, source-footage, source-excerpt or diagram; source-still is also available
+from the effective date in config/creative_production.json. Name the actual available
 footage or demonstrated action. A proposed rig is not demonstrated capability. Choose another
 supported action or explicitly prove the difficult passage before extending it.
 
 Use licensed or appropriately sourced actual footage for natural human performance when a
-synthetic rig cannot perform it. Keep the dimensional opening and required coverage meaningful.
+synthetic rig cannot perform it. Apply the dated medium policy in CREATIVE_DIRECTION.md.
+A source-backed image and its observed consequence receive the same finish and comprehension review.
 Research, source assets, narration and alignment are reused when unchanged.
 
 ## Exact-picture approval

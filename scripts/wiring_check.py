@@ -46,6 +46,8 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "creative_production_test.py": "The existing CI daily_production_test entry point loads this test suite; it also runs directly for focused creative-production repairs.",
+    "creative_production.py": "Dated library invoked by selection, storyboard, voice, cinema proof, mix and publication; creative_production_test mutates those production contracts.",
     "action_admission.py": "Library called by daily_production candidate, board and pre-voice admission; action_admission_test exercises source, module, actual renderer and stale review rejection.",
     "production_lifecycle.py": "Library called by run_controller checkpoint/begin-repair/authorize-repair/pending and run_discipline; production_lifecycle_test exercises those paths.",
     "shipment_check.py": "Library called by run_controller finish --result shipped; production_lifecycle_test tests remote and media failures through that closure path.",

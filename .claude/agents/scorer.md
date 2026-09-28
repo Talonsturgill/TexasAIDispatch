@@ -110,3 +110,9 @@ whether each cut preserves or explicitly changes subject, location and causal re
 A different source example must not imply the same person or event. Report the weakest cut
 with the existing timed comprehension and continuity observations. Apply the same fixed rubric;
 a preference for another treatment alone does not create a blocking defect.
+
+For editions under config/creative_production.json, read CREATIVE_DIRECTION.md. No visual medium
+has a quota or automatic score advantage. Judge the actual sourced picture, deliberate cuts,
+vocal contrast, truthful ambience, action sync and completed answer. The legacy provider field
+dimensional_action covers the principal picture in any medium. Keep the same rubric and exact
+film/audio evidence; a different style preference alone is not a blocking defect.

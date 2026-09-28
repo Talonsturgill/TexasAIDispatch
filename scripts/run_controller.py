@@ -177,14 +177,21 @@ def preflight_identity(path: Path, note: str) -> str | None:
     if not board.is_file():
         return None  # Research before the board exists.
     files = [board]
-    files += [p for p in path.parent.iterdir()
-              if p.is_file() and p.name in {"mix.wav", "captions.json", "words.json", "generated_media.json"}]
+    if note == "two opening comparison batch":
+        files = [path.parent / "opening-a.json", path.parent / "opening-b.json",
+                 REPO / "scripts/opening_compare.py", REPO / "video-engine/scripts/render-batch.mjs",
+                 REPO / "video-engine/package-lock.json"]
+    else:
+        files += [p for p in path.parent.iterdir()
+                  if p.is_file() and p.name in {"mix.wav", "captions.json", "words.json", "generated_media.json"}]
     for directory in (REPO / "video-engine/src", REPO / "video-engine/public"):
         if directory.exists():
             files += [p for p in directory.rglob("*") if p.is_file()]
     content = [(str(p), digest(p)) for p in sorted(files)]
     # Production callers use these fixed operations. Free-form wording is not identity.
     operation = "hero" if note in {"hero", "finished cinematic hero and stage ablation batch"} else "animatic"
+    if note == "two opening comparison batch":
+        operation = "opening-comparison"
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
 
 

@@ -2,7 +2,9 @@
 
 Effective for editions dated September 28, 2026 onward; config/daily_production.json owns
 the date and measurement window. This changes preparation and reuse. The rubric, independent
-reviews, source evidence, cinematic coverage, native output, audio and shipment gates still apply.
+reviews, source evidence, the dated cinematic policy, native output, audio and shipment gates still apply.
+From September 29 also read CREATIVE_DIRECTION.md for tangible stakes, medium choice, two cheap
+opening alternatives and executed sound/edit direction.
 September 26's shipped film is retained unchanged.
 
 ## Select a story that the available pictures can tell

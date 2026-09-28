@@ -47,7 +47,7 @@ Mix through runtime_s + credits_s with the registry mix_gap_db; no universal gai
 Mastering preserves sample count and records loudness/compression/peak evidence.
 
 ```sh
-python scripts/mix.py --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json --bed out/dispatch/music_bed.wav --bed-track <track-id> --bed-manifest out/dispatch/music_bed.json --bed-gap-db <registry-gap> --vo-at <measured-hook-space> --out out/dispatch/mix.wav --cut <story-plus-credit-runtime>
+python scripts/mix.py --board out/dispatch/storyboard.json --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json --bed out/dispatch/music_bed.wav --bed-track <track-id> --bed-manifest out/dispatch/music_bed.json --bed-gap-db <registry-gap> --vo-at <measured-hook-space> --out out/dispatch/mix.wav --cut <story-plus-credit-runtime>
 python scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt --voice out/dispatch/mix_vo.wav --out out/dispatch
 python scripts/board_captions.py --board out/dispatch/storyboard.json --captions out/dispatch/captions.json
 python scripts/board_retime.py --board out/dispatch/storyboard.json --words out/dispatch/words.json --sfx out/dispatch/sfx_events.json
@@ -88,3 +88,9 @@ It validates and reserves before rendering, uses native PNG capture and CRF 16, 
 -shortest, creates the exact render manifest, extracts frames and registers the actual film.
 Inspect encoded dimensions, sharpness, captions and measured audio. A quarter-scale animatic
 or rescue upscale is never delivery quality. Infrastructure failures go to active repair.
+
+From the effective date in config/creative_production.json, execute CREATIVE_DIRECTION.md.
+The voice director binds the current sound arc and selected opening; the mixer consumes
+creative_direction.sound cues on the actual board clock. Supply matching sfx id/event_id
+records and --board on every mix. Retime those records with board_retime.py, then remix.
+The release gate refuses a stale sound/timing digest. Keep one narration take by default.

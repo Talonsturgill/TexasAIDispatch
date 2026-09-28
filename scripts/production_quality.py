@@ -17,8 +17,12 @@ from vo_soundcheck import TARGET_LUFS
 REPO = Path(__file__).resolve().parents[1]
 POLICY = REPO / "config/cinematic_production.json"
 
-def policy():
-    return json.loads(POLICY.read_text())
+def policy_path(board=None):
+    import creative_production as creative
+    return creative.POLICY if board and creative.required(board) else POLICY
+
+def policy(board=None):
+    return json.loads(policy_path(board).read_text())
 
 def required(board):
     return bool(board.get("cinema")) or str(board.get("date") or "") >= policy()["effective_date"]
@@ -36,6 +40,9 @@ def image(path):
         return np.asarray(im.convert("RGB").resize((270, 480)), dtype=float)
 
 def plan_problems(board):
+    import creative_production as creative
+    if creative.required(board):
+        return creative.plan_problems(board)
     if not required(board):
         return []
     plan = board.get("cinema") or {}
@@ -74,18 +81,18 @@ def asset(root, item):
     return p
 
 def stage_sample_problems(board, root, samples, film=None):
-    """Measure actual rendered 3D pixels before spending an audiovisual review."""
+    """Measure the principal picture, independent of its chosen medium."""
+    from cinema_cache import sample_frames
+    import creative_production as creative
     errors = []
-    ids = board["cinema"]["dimensional_scene_ids"]
+    ids = list(sample_frames(board))
     if sorted(samples) != sorted(ids):
-        return ["cinematic proof must cover every declared dimensional scene"]
+        return ["cinematic proof must cover every required picture scene"]
     scenes = {s["id"]: s for s in board["scenes"]}
     for sid in ids:
         scene = scenes[sid]
         pair = samples[sid]
-        ev = scene["visual_events"][0]
-        times = [float(scene["start_s"]) + float(ev["at_s"]),
-                 float(scene["start_s"]) + float(ev["at_s"]) + float(ev["duration_s"])]
+        times = [f / 30 for f in sample_frames(board)[sid]]
         effects = []
         for idx, at in enumerate(times):
             normal = image(asset(root, pair[idx]["normal"]))
@@ -93,15 +100,16 @@ def stage_sample_problems(board, root, samples, film=None):
             effect = normal - removed
             effects.append(effect)
             area = float((np.max(np.abs(effect), axis=2) > 12).mean())
-            if area < policy()["min_stage_pixel_share"]:
-                errors.append(sid + " has too little visible CinematicStage content")
+            if area < policy(board)["min_stage_pixel_share"]:
+                errors.append(sid + " has too little visible principal picture content")
             if film is not None:
                 current = frame(film, round(at * 30) / 30, 270, 480).astype(float)
-                if float(np.abs(current - normal).mean()) > policy()["max_final_frame_mae"]:
+                if float(np.abs(current - normal).mean()) > policy(board)["max_final_frame_mae"]:
                     errors.append(sid + " final pixels differ from the approved preview")
         moving = float((np.max(np.abs(effects[1] - effects[0]), axis=2) > 12).mean())
-        if moving < policy()["min_stage_action_pixel_share"]:
-            errors.append(sid + " dimensional subject does not visibly develop during its action")
+        deliberate_hold = creative.required(board) and scene.get("intentional_hold")
+        if not deliberate_hold and moving < policy(board)["min_stage_action_pixel_share"]:
+            errors.append(sid + " principal picture does not visibly develop during its action")
     return errors
 
 
@@ -119,7 +127,7 @@ def preview_problems(board_path, root, mix=None, film=None):
         errors += binding_problems(board_path, proof, mix)
         for key, expected in (("board_sha256", digest(board_path)), ("engine_sha256", engine_sha256()),
                               ("generated_media_sha256", generated_media_sha256(board_path)),
-                              ("policy_sha256", digest(POLICY))):
+                              ("policy_sha256", digest(policy_path(board)))):
             if proof.get(key) != expected:
                 errors.append("cinematic preview has stale " + key)
         if mix is not None and proof.get("mix_sha256") != digest(mix):
@@ -227,6 +235,13 @@ def publication_problems(board_path, film, judges=None):
     if not required(board):
         return []
     errors = preview_problems(board_path, film.parent / "cinema", film=film)
+    import creative_production as creative
+    errors += creative.opening_problems(board_path)
+    if creative.required(board):
+        try:
+            errors += creative.mix_problems(board, read(Path(board_path).with_name("mix.json")))
+        except (OSError, ValueError) as exc:
+            errors.append("directed mix evidence unavailable: " + str(exc))
     errors += audio_problems(film)
     if judges is not None:
         if not isinstance(judges, list) or len(judges) != 3:
