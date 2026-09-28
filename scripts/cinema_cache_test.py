@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 import cinema_cache as c
 import cinema_proof as p
+import cinema_provenance as provenance
 
 class CacheTest(unittest.TestCase):
     def setUp(self):
@@ -106,6 +107,29 @@ class CacheTest(unittest.TestCase):
             proof["reuse"]["version"]="unknown"
             self.assertIn("unknown cinematic reuse contract",c.binding_problems(self.bp,proof,self.mix))
             self.assertTrue(c.binding_problems(self.bp,{}))
+    def test_archive_verification_uses_producer_environment_without_reusing_foreign_cache(self):
+        frames=c.hero_frames(self.board)
+        environment=c.picture_recipe(self.bp,frames)["environment"]
+        record={"version":c.SCHEMA,"render_environment":environment,
+                "hero_picture_key":c.picture_key(self.bp,frames),
+                "hero_audio_key":c.audio_segment(self.mix,frames),
+                "sample_keys":{sid:[{kind:c.sample_key(self.bp,frame,kind=="without_stage")
+                    for kind in ("normal","without_stage")} for frame in times]
+                    for sid,times in c.sample_frames(self.board).items()}}
+        proof={"reuse":record}
+        with patch.object(c.platform,"platform",return_value="foreign-ci-host"):
+            self.assertNotEqual(record["hero_picture_key"],c.picture_key(self.bp,frames))
+            self.assertEqual([],provenance.binding_problems(self.bp,proof,self.mix))
+            self.board["captions"][0]["text"]="Changed opening";self.save()
+            self.assertIn("hero render dependencies changed",provenance.binding_problems(self.bp,proof,self.mix))
+            self.board["captions"][0]["text"]="Opening words";self.save()
+            self.audio(first=7)
+            self.assertIn("hero audible samples changed",provenance.binding_problems(self.bp,proof,self.mix))
+        record["render_environment"]=["another-host",environment[1],environment[2]]
+        self.assertTrue(provenance.binding_problems(self.bp,proof,self.mix))
+        record["render_environment"]=["invalid"]
+        self.assertEqual(["invalid recorded render environment"],provenance.binding_problems(self.bp,proof,self.mix))
+
     def test_phone_rejection_stops_even_cached_production(self):
         (self.root/"preflight.mp4").write_bytes(b"test")
         (self.root/"preflight.json").write_text("{}")
