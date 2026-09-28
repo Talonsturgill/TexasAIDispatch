@@ -46,3 +46,5 @@ Select the three key images and the earned take from those sources. An illustrat
 must not impersonate observed footage, actual private software, a named person's property or
 an unreported outcome. Licensed or justified source excerpts retain their provenance and
 limitations. Fitting a schema does not establish that a picture tells the story.
+
+Apply DAILY_PRODUCTION.md's story-specific visual policy during this same research pass. Inspect the actual place, people, equipment, workflow and documents before generic alternatives. Keep bounded visual_research searches/candidate decisions for the board; no repeated stock hunt. Compare candidates with the latest shipped edition and reject repeat b-roll, including derivatives.

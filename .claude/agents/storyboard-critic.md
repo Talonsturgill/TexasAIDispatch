@@ -147,3 +147,5 @@ whether its visible certainty exceeds the sources. A code pass authorizes a phon
 At phone review, judge current pixels normally. Keep the proposed mechanism in the native hero
 and reject it if contact, transformation or consequence is absent. Historical approval, an
 implemented export, a passing regression or filled fields cannot replace these observations.
+
+For editions under config/story_visuals.json, inspect visual_research and every native_media asset against current claims and the most recent shipped film. Reject repeated footage/stills even when cropped or re-encoded, generic mood inserts, undeclared renderer media and implied false identity. Check the actual site/person/equipment/document relevance and reuse rights, not just filled fields. A useful sourced still is acceptable; absence of external media is acceptable when the bounded search found none and the explanatory sequence works. Include these findings in the existing consolidated verdict.

@@ -28,6 +28,8 @@ another active routine. Do not load the full historical archive into every daily
 
 ## Nonnegotiable production contract
 
+- Follow the story-specific visual policy in DAILY_PRODUCTION.md and config/story_visuals.json. Never reuse the previous shipped edition's b-roll. Search once within its limits for the actual site, people, equipment, workflow or documents; use relevant stills or omit an unhelpful insert when footage is unavailable.
+
 - The current source must support a visible action, affected people, an observable consequence,
   three memorable pictures and an honest limit. The ending answers the opening question.
   The starter action catalog is not exhaustive. Use the bounded source-backed admission in

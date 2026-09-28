@@ -28,6 +28,55 @@ staging, source bindings and ending. Never recycle a film or inherit its approva
 performance uses appropriately sourced footage when the available synthetic action cannot
 perform it. Label illustrative footage and separate source examples honestly. If the story needs an action outside the starter library, first seek inspected source footage or another filmable angle. When neither supplies a complete treatment, use the bounded source-backed admission below. Open-ended rig experiments stay outside daily production; an episode-specific explanatory mechanism has to clear current independent proof within the same cumulative envelope.
 
+## Story-specific footage and imagery
+
+For editions covered by config/story_visuals.json, use the pictures most directly connected
+to the reported action. Start with the actual physical site, people, equipment, workflow or
+source document. Ask what the reader can understand from each image that narration alone
+cannot show. A relevant still of the actual site is better than unrelated moving stock.
+Generic reading, typing, walking or industrial mood footage does not earn a scene merely by
+matching a noun. Do not force a human stock insert to satisfy the human-consequence requirement.
+
+Never repeat b-roll or photographic imagery from the most recent shipped edition, even when
+there is a gap between publication dates. Renaming, cropping, recoloring, taking a still from
+that clip or re-encoding it does not create a new asset. Preserve its original source URL and
+source hash when preparing derivatives. This rule covers every photographic/video insertion,
+including custom renderer assets. Shared typography, branding and procedural components can
+still be reused; dated footage and its approvals cannot. Keep shipped history unchanged.
+
+During the existing research assignment, conduct one bounded visual search pass using the
+limits in config/story_visuals.json. Inspect official site/operator media, source-linked video
+and relevant public imagery. Use an available authorized download or capture a useful public
+video segment through supported tools only when reuse rights and source identity are established.
+Viewing access is not a reuse license. Do not bypass restrictions or buy assets automatically.
+Record creator, source, rights basis, capture/retrieval date, source age, exact excerpt and any
+crop. Never describe archive footage as live or current merely because it was fetched today.
+Do not turn asset sourcing into a new open-ended research or render cycle.
+
+Stop searching when a directly useful asset is found or the bounded pass ends. If video is
+unavailable, use relevant authenticated still imagery, a document, or a source-bound explanatory
+action. If none helps, omit the insert and continue with the filmable treatment. If the central
+story itself cannot be shown honestly, choose another candidate before narration. No new owner
+approval or extra paid review is needed for these routine choices within existing allowances.
+
+Put visual_research on the board with searches (actual query and finding), candidates (url,
+use/reject decision and reason), and decision (why the chosen pictures serve this story, or
+why no useful external asset was used). Empty candidates are honest when the search found none.
+Every used native_media row also records subject, story_role (actual-site, actual-person,
+actual-equipment, source-document, actual-workflow or context), relevance, inspection,
+rights_basis, scene_ids and claim_ids. Context must explain a specific relationship and its
+limits; it is not permission for generic mood footage. Keep existing source_url, sha256 and
+basis fields. List all inserted imagery, including custom renderer inputs, in native_media.
+
+The daily-production gate runs before voice/preview and release. It rejects missing provenance,
+missing search decisions and prior-edition asset identities. Source URLs and hashes catch exact
+reuse and declared derivatives; they cannot recognize every visually similar re-upload. The
+existing independent code/phone critic must inspect actual asset content, compare with the
+previous edition and reject undeclared or disguised reuse. It must also reject false site,
+person or workflow identity and pictures with no story-specific informational value. Keep this
+assessment inside the existing review, not an extra scoring round. Bind the choice to the whole
+story review and inspect the finished phone composition for legibility and engagement.
+
 ## Admit a source-backed new action without a shipped-film prerequisite
 
 The starter catalog is a reuse aid, not an exhaustive list of permissible subjects. Keep its

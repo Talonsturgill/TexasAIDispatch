@@ -230,5 +230,77 @@ class DailyTest(unittest.TestCase):
         self.assertEqual([],d.pre_voice_problems(d.REPO/"runs/2026-09-26/storyboard.json",
                                                 d.REPO/"runs/2026-09-26/claims.json"))
 
+
+class StoryVisualTest(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.runs = Path(self.temp.name)
+        prior = self.runs / "2026-09-26"
+        prior.mkdir()
+        (prior / "dispatch.mp4").write_bytes(b"fixture")
+        (prior / "storyboard.json").write_text(json.dumps({"native_media": [
+            {"file": "evidence/old.mp4", "sha256": "a"*64,
+             "source_url": "https://example.org/clip/7013390/"}]}))
+        self.board = {"date": "2026-09-29", "scenes": [{"id": "site", "vo_claims": ["c1"]}],
+            "visual_research": {"searches": [{"query": "actual facility official media",
+                "finding": "The official operator page shows the named physical site."}],
+                "candidates": [], "decision": "No reusable footage adds information; use the source-bound explanatory action."}}
+
+    def media(self):
+        self.board["native_media"] = [{"file": "evidence/site.png", "sha256": "b"*64,
+            "source_url": "https://example.org/current-site", "story_role": "actual-site",
+            "subject": "The reported operator's named physical facility.",
+            "relevance": "The image identifies the specific facility discussed in claim c1.",
+            "inspection": "The source caption and pictured sign identify the same physical site.",
+            "rights_basis": "Fixture operator permission explicitly permits publication of this photo.",
+            "scene_ids": ["site"], "claim_ids": ["c1"]}]
+        self.board["visual_research"]["candidates"] = [{"url": "https://example.org/current-site",
+            "decision": "use", "reason": "It shows the actual physical site named by the source."}]
+        return self.board["native_media"][0]
+
+    def test_no_useful_asset_can_move_on(self):
+        self.assertEqual([], d.visual_problems(self.board, self.runs))
+        self.board.pop("visual_research")
+        self.assertTrue(d.visual_problems(self.board, self.runs))
+
+    def test_actual_site_still_passes_and_generic_unbound_media_fails(self):
+        item = self.media()
+        self.assertEqual([], d.visual_problems(self.board, self.runs))
+        item["story_role"] = "mood"
+        self.assertTrue(d.visual_problems(self.board, self.runs))
+        item["story_role"] = "actual-site"; item["claim_ids"] = ["invented"]
+        self.assertTrue(d.visual_problems(self.board, self.runs))
+
+    def test_reuse_rejected_across_gap_and_crop_or_rename(self):
+        item = self.media(); item["sha256"] = "a"*64
+        self.assertIn("previous shipped", " ".join(d.visual_problems(self.board, self.runs)))
+        item["sha256"] = "b"*64
+        item["source_url"] = "https://example.org/clip/7013390?utm_source=new#crop"
+        self.assertIn("previous shipped", " ".join(d.visual_problems(self.board, self.runs)))
+        item["source_url"] = "https://example.org/current-site"; item["original_sha256"] = "a"*64
+        self.assertIn("previous shipped", " ".join(d.visual_problems(self.board, self.runs)))
+
+    def test_search_bounds_and_review_binding(self):
+        before = d.story_digest(self.board)
+        self.board["visual_research"]["decision"] += " Changed decision."
+        self.assertNotEqual(before, d.story_digest(self.board))
+        self.board["visual_research"]["searches"] *= 7
+        self.assertTrue(d.visual_problems(self.board, self.runs))
+
+    def test_current_repeated_reading_clip_fails_next_edition_gate(self):
+        board = d.read(d.REPO / "runs/2026-09-28/storyboard.json")
+        board["date"] = "2026-09-29"
+        board["visual_research"] = self.board["visual_research"]
+        self.assertIn("previous shipped", " ".join(d.structure_problems(board)))
+
+    def test_missing_previous_inventory_fails_closed(self):
+        (self.runs / "2026-09-26/storyboard.json").unlink()
+        self.assertIn("inventory unavailable", " ".join(d.visual_problems(self.board, self.runs)))
+
+    def test_historical_boards_remain_unchanged(self):
+        self.board["date"] = "2026-09-28"; self.board.pop("visual_research")
+        self.assertEqual([], d.visual_problems(self.board, self.runs))
+
 if __name__ == "__main__":
     unittest.main()
