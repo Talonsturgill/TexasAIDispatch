@@ -50,6 +50,7 @@ STANDALONE = {
     "production_lifecycle.py": "Library called by run_controller checkpoint/begin-repair/authorize-repair/pending and run_discipline; production_lifecycle_test exercises those paths.",
     "shipment_check.py": "Library called by run_controller finish --result shipped; production_lifecycle_test tests remote and media failures through that closure path.",
     "quality_contract.py": "Library called by critic_gate on production boards and phone reviews, and audiovisual_review on exact-film provider requests; quality_recovery_test exercises missing and stale evidence.",
+    "cinema_provenance.py": "Library called by production_quality on current production and archived proof; cinema_cache_test verifies cross-host acceptance and changed content, audio and provenance rejection.",
     "cinema_cache.py": "Dependency library called by cinema_proof and production_quality; cinema_cache_test mutates actual dependency keys and reservation behavior.",
     "master_audio.py": "Library called by mix.py; production_quality_test exercises real mastering and encoded audio.",
     "wiring_check.py": "this file, run by CI and by hand",
