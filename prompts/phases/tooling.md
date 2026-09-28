@@ -73,17 +73,22 @@ Do not use a diagnostic still instead of final-film extraction or exact audiovis
 ## Explicit owner review allocation
 
 A producer cannot renew the frozen envelope. If the owner explicitly approves one or two
-additional storyboard-critic calls for a named active edition, the controller can record one
+additional storyboard-critic calls for a named active edition, the controller can record a
 separate owner grant. This is never an automatic repair step and never follows from silence,
 a broad request to continue, or an older approval. The operator must retain the actual owner
 instruction and its message reference, the exact edition/resource/count and the rejected
 independent review evidence. Preparing the tooling or an unsigned request grants nothing.
 
 Keep the original frozen allocation and every charged attempt. The additive grant is limited
-to storyboard critics, is allowed once per edition and is revalidated when reserving work.
+to storyboard critics, allows at most two separately authorized grants per edition and is
+revalidated when reserving work. Each grant permits at most two calls. The second requires a
+different retained owner instruction, approval id and message reference, plus
+previous_grant_sha256 from repair_guard.envelope_digest of the exact preceding grant event.
+A third grant is refused. These are explicit owner exceptions, never an automatic repair path.
 Repeated approval identifiers, changed evidence, another resource and an oversized count fail.
 No film verdict, render allowance, source gate, score threshold or shipment condition changes.
-The ordinary routine still stops at an exhausted allocation with exact evidence and a next step.
+The ordinary routine does not repeatedly ask for budget extensions. It retains an unfinished
+edition with exact evidence and a next step when the remaining shipment path is infeasible.
 
 The retained authorization JSON contains approval_id, run_id, resource set to
 storyboard_critics, additional_calls, the exact owner_text and source_message_reference,
@@ -94,3 +99,15 @@ Only after the named approval arrives, invoke grant-owner-review with --authoriz
 --failure-evidence, --additional-calls and --confirm. The required confirmation is
 "OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS". Re-read the ledger after success and
 reserve each actual review normally. The command records allowance, not spent work or approval.
+
+For a rejected native hero, the failure evidence may be its original audiovisual receipt.
+Also retain failure_film and its failure_film_sha256, and failure_response_json containing the
+exact raw provider response text referenced by the receipt. The command verifies the actual
+film and response bytes and requires the provider's explicit rejection with observed defects.
+A parsing error, inaccessible audio or an edited verdict is not qualifying rejection evidence.
+
+Before spending on a structural repair, run python scripts/run_controller.py production-budget.
+This checks one reboard, code/phone review, phone/native proof, final render, all four provider
+lenses and the atomic panel against remaining resources. It changes no state or allowance and
+is feasibility evidence only, not a reservation or quality verdict. Extra narration or source
+work must also fit before use.

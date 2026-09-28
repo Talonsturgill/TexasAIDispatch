@@ -1049,8 +1049,9 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
         return False, "run controller: explicit owner confirmation, retained authorization and one or two calls are required"
     if not enabled(state) or state.get("mode") != "production" or state.get("terminal_state") is not None:
         return False, "run controller: owner review grant requires active frozen-envelope production"
-    if any(e.get("kind") == "owner_review_grant" for e in state["events"]):
-        return False, "run controller: this run already used its single owner review grant; approval replay and renewal are refused"
+    grants = [e for e in state["events"] if e.get("kind") == "owner_review_grant"]
+    if len(grants) >= 2:
+        return False, "run controller: this run already used its two explicit owner review grants"
     errors = envelope_problems(state, {}) + allowance_problems(state)
     if errors:
         return False, "; ".join(errors)
@@ -1068,7 +1069,16 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
             return False, "run controller: requested calls or failure file differ from the explicit owner authorization"
     except (OSError, ValueError, TypeError):
         return False, "run controller: retained owner authorization is missing or unreadable"
-    old = state["resource_envelope"][OWNER_RESOURCE]
+    if json.loads(failure_text).get("schema") == "dispatch_audiovisual_review/1":
+        try:
+            receipt = json.loads(failure_text)
+            response = failure_evidence.parent / receipt["response"]["file"]
+            if (response.read_bytes() != authorization["failure_response_json"].encode("utf-8")
+                    or digest(Path(authorization["failure_film"])) != authorization["failure_film_sha256"]):
+                return False, "run controller: audiovisual response or film differs from authorization"
+        except (OSError, KeyError, TypeError):
+            return False, "run controller: bound audiovisual response or film is missing"
+    old = state["resource_envelope"][OWNER_RESOURCE] + sum(g["additional_calls"] for g in grants)
     if state["escalation_ceiling"][OWNER_RESOURCE] != old:
         return False, "run controller: current critic ceiling differs from the original envelope"
     artifact_sha = hashlib.sha256(artifact_bytes).hexdigest()
@@ -1083,6 +1093,10 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
           failure_evidence_json=failure_text,
           failure_evidence_sha256=authorization["failure_evidence_sha256"],
           attestation="Operator retained explicit owner instruction; no automatic renewal")
+    from repair_guard import owner_grant_problems
+    errors = owner_grant_problems(state)
+    if errors:
+        return False, "; ".join(errors)
     save(path, state)
     return True, f"run controller: explicit owner grant adds exactly {additional_calls} storyboard critic calls; original envelope, usage and quality gates remain intact"
 
@@ -1956,6 +1970,7 @@ def main() -> int:
         p.add_argument("--plan", type=Path, required=True)
     sub.add_parser("pending")
     sub.add_parser("status")
+    sub.add_parser("production-budget")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -2031,6 +2046,11 @@ def main() -> int:
         elif a.command == "owner-override":
             accepted, message = owner_override(
                 state_path, Path(a.report), a.reason, a.confirm)
+        elif a.command == "production-budget":
+            from repair_guard import production_budget_precheck
+            result = production_budget_precheck(read_state(state_path))
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 0 if result["feasible"] else 1
         elif a.command == "grant-owner-review":
             accepted, message = grant_owner_review(
                 state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)

@@ -32,6 +32,8 @@ def authorization_problems(state, authorization, evidence_text):
         if hashlib.sha256(evidence_text.encode("utf-8")).hexdigest() != authorization.get("failure_evidence_sha256"):
             return ["owner authorization failure evidence changed"]
         failure = json.loads(evidence_text)
+        if isinstance(failure, dict) and failure.get("schema") == "dispatch_audiovisual_review/1":
+            return av_rejection_problems(authorization, failure)
         if (not isinstance(failure, dict) or failure.get("verdict") != "revise"
                 or not isinstance(failure.get("reviewer_identity"), str)
                 or not failure["reviewer_identity"].strip()
@@ -42,41 +44,100 @@ def authorization_problems(state, authorization, evidence_text):
         return ["owner authorization failure evidence is missing or unreadable"]
     return []
 
+def av_rejection_problems(authorization, receipt):
+    """Require an actual provider rejection, not a parser failure."""
+    try:
+        text = authorization["failure_response_json"]
+        raw = json.loads(text)
+        review = json.loads("".join(p.get("text", "") for p in
+            raw["candidates"][0]["content"]["parts"] if not p.get("thought")))
+        film_hash = authorization["failure_film_sha256"]
+        if (not isinstance(film_hash, str) or len(film_hash) != 64
+                or any(c not in "0123456789abcdef" for c in film_hash)
+                or receipt.get("film_sha256") != film_hash
+                or receipt.get("role") != "hero" or receipt.get("review_scope") != "passage"
+                or not receipt.get("request_id") or not receipt.get("model") or not raw.get("responseId")
+                or hashlib.sha256(text.encode("utf-8")).hexdigest() != receipt["response"]["sha256"]
+                or review.get("pass") is not False or review.get("audio_access") is not True
+                or not isinstance(review.get("defects"), list) or not review["defects"]):
+            return ["owner authorization requires exact bound hero audiovisual rejection"]
+    except (KeyError, ValueError, TypeError, IndexError, AttributeError):
+        return ["owner authorization audiovisual rejection evidence is invalid"]
+    return []
+
+
 def owner_grant_problems(state):
-    """Independently re-read retained authorization and rejection on every reservation."""
+    """Revalidate at most two explicit grants; accept historical single grants."""
     grants = [e for e in state.get("events", []) if e.get("kind") == "owner_review_grant"]
     if not grants:
         return []
-    if not enabled(state) or len(grants) != 1:
-        return ["only one explicit owner review grant is allowed per frozen run"]
+    if not enabled(state) or len(grants) > 2:
+        return ["at most two explicit owner review grants are allowed per frozen run"]
     frozen = [e.get("envelope") for e in state.get("events", [])
               if e.get("kind") == "resource_envelope_frozen"]
     if len(frozen) != 1 or frozen[0] != state.get("resource_envelope"):
         return ["owner review grant original envelope differs from its freeze event"]
-    grant = grants[0]
+    ceiling = state["resource_envelope"][OWNER_RESOURCE]
+    seen = {key: set() for key in ("approval_id", "source_message_reference", "owner_text")}
     try:
-        artifact = grant["authorization_json"]
-        if not isinstance(artifact, str) or hashlib.sha256(artifact.encode("utf-8")).hexdigest() != grant["authorization_sha256"]:
-            return ["retained owner authorization changed"]
-        authorization = json.loads(artifact)
-        evidence_text = grant["failure_evidence_json"]
-        if not isinstance(evidence_text, str):
-            return ["retained owner rejection evidence must contain exact JSON text"]
-        errors = authorization_problems(state, authorization, evidence_text)
-        if errors:
-            return errors
-        for key in ("approval_id", "run_id", "resource", "additional_calls", "failure_evidence_sha256"):
-            if grant.get(key) != authorization.get(key):
-                return ["owner review grant differs from its retained authorization"]
-        if (type(grant.get("additional_calls")) is not int
-                or type(grant.get("previous_ceiling")) is not int
-                or type(grant.get("new_ceiling")) is not int
-                or grant["previous_ceiling"] != state["resource_envelope"][OWNER_RESOURCE]
-                or grant["new_ceiling"] != grant["previous_ceiling"] + grant["additional_calls"]):
-            return ["owner review grant exceeds its exact authorized increment"]
+        for index, grant in enumerate(grants):
+            artifact = grant["authorization_json"]
+            if not isinstance(artifact, str) or hashlib.sha256(artifact.encode("utf-8")).hexdigest() != grant["authorization_sha256"]:
+                return ["retained owner authorization changed"]
+            authorization = json.loads(artifact)
+            evidence_text = grant["failure_evidence_json"]
+            if not isinstance(evidence_text, str):
+                return ["retained owner rejection evidence must contain exact JSON text"]
+            errors = authorization_problems(state, authorization, evidence_text)
+            if errors:
+                return errors
+            for key in seen:
+                value = authorization[key].strip()
+                if value in seen[key]:
+                    return ["owner review grant replays an earlier owner instruction"]
+                seen[key].add(value)
+            if index and authorization.get("previous_grant_sha256") != envelope_digest(grants[index - 1]):
+                return ["second owner review grant requires the exact prior grant digest"]
+            for key in ("approval_id", "run_id", "resource", "additional_calls", "failure_evidence_sha256"):
+                if grant.get(key) != authorization.get(key):
+                    return ["owner review grant differs from its retained authorization"]
+            if (type(grant.get("additional_calls")) is not int
+                    or type(grant.get("previous_ceiling")) is not int
+                    or type(grant.get("new_ceiling")) is not int
+                    or grant["previous_ceiling"] != ceiling
+                    or grant["new_ceiling"] != ceiling + grant["additional_calls"]):
+                return ["owner review grant exceeds its exact authorized increment"]
+            ceiling = grant["new_ceiling"]
     except (KeyError, OSError, ValueError, TypeError):
         return ["retained owner review authorization is missing or invalid"]
     return []
+
+
+def production_budget_precheck(state):
+    """Read-only minimum review/render cost for a complete visual repair."""
+    required = {"reboards": 1, "storyboard_critics": 2, "preflight_renders": 2, "full_renders": 1,
+                "audiovisual_reviews": 4, "panel_rounds": 1, "scorer_calls": 3}
+    snapshot = copy.deepcopy(state)
+    if not enabled(snapshot) or "resource_envelope" not in snapshot:
+        errors = ["production budget precheck requires an existing frozen envelope"]
+    else:
+        errors = envelope_problems(snapshot, {})
+        from production_lifecycle import allowance_problems
+        errors += allowance_problems(snapshot)
+    if errors:
+        return {"feasible": False, "errors": errors, "resources": {}, "deficits": {}}
+    effective = dict(snapshot["resource_envelope"])
+    for grant in snapshot["events"]:
+        if grant.get("kind") == "owner_review_grant":
+            effective[OWNER_RESOURCE] += grant["additional_calls"]
+    rows = {name: {"required": count, "ceiling": effective.get(name, 0),
+                   "used": snapshot["usage"].get(name, 0),
+                   "remaining": effective.get(name, 0) - snapshot["usage"].get(name, 0)}
+            for name, count in required.items()}
+    deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
+                if row["remaining"] < row["required"]}
+    return {"feasible": not deficits, "errors": [], "resources": rows, "deficits": deficits,
+            "scope": "Minimum review/render cost only; no allowance or shipment approval"}
 
 def enabled(state):
     return state.get("repair_policy") == VERSION

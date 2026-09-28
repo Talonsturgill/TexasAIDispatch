@@ -113,6 +113,36 @@ cumulative envelope. After two rejections of one mechanism, use the required ind
 A weakest interval is always reported; only an actual failed criterion requires repair.
 Do not spend another verdict on identical bytes for the same lens.
 
+## Autonomous work with a reserved path to shipment
+
+Owner instruction on September 28th is to ship without repeated permission requests or an
+open-ended editing cycle. Only a shipped video is done. Existing quality and source gates
+remain fixed. The configured cumulative envelope is a ceiling, not a spending target.
+
+Before selecting a treatment, map the required independent reviews and render attempts to the
+remaining ledger. Include source/action code admission if proposing a new module. Keep enough
+allowance for the current timed phone, native hero, final render, all three audiovisual lenses
+and atomic panel. Use the normal independent board critic for picture-fit/code/story assessment;
+do not add a separate generic critique task when that scope is already covered. Research can
+use fewer than the normal target when one strong source-backed treatment is available.
+
+Before every structural repair, run the controller's production-budget precheck. Do not spend
+a preview or synthesize a voice while the required path to final review no longer fits.
+Consolidate all blocking defects into one correction with an observable before/after result.
+Keep approved narration and measured timing when the claims and spoken sequence are unchanged.
+A return to code after a failed picture is not permission for another exploratory treatment.
+Apply the independent source-backed pivot rule, and inspect the hardest changed action before
+extending its treatment. Optional preferences and a reported weak interval do not trigger work.
+
+Do not request repeated owner budget extensions as a routine recovery step. If the finite
+envelope cannot support the next required review, retain the exact failed bytes, accounting,
+diagnosis and executable next action. The edition remains unfinished, not successful or
+cancelled. On a later wake, compare the blocking evidence and prerequisites first; unchanged
+conditions authorize no new paid calls, duplicate research, renders or generic polling.
+Resume useful authorized work when a concrete source, capability or access change supplies a
+credible route forward. Never create a new edition to hide the unfinished one. Once the fixed
+gates pass, proceed directly through merge, deployment, phone verification and the unsent draft.
+
 ## Compact role handoffs
 
 Use a fresh isolated role task with the generated packet, current brief and referenced files.
