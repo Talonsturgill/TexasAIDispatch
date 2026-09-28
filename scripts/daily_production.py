@@ -118,9 +118,9 @@ def visual_problems(board, runs=None):
         errors.append("visual research needs its final story-specific choice or no-useful-asset explanation")
     runs = REPO / "runs" if runs is None else Path(runs)
     try:
-        prior = sorted(p for p in runs.glob("????-??-??/storyboard.json")
-                       if p.parent.name < str(board["date"]) and (p.parent / "dispatch.mp4").is_file())
-        previous = read(prior[-1]) if prior else {}
+        prior = sorted(p for p in runs.glob("????-??-??/dispatch.mp4")
+                       if p.parent.name < str(board["date"]))
+        previous = read(prior[-1].with_name("storyboard.json")) if prior else {}
     except (OSError, ValueError, KeyError) as exc:
         return errors + ["previous edition visual inventory unavailable: " + str(exc)]
 

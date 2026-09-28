@@ -294,6 +294,10 @@ class StoryVisualTest(unittest.TestCase):
         board["visual_research"] = self.board["visual_research"]
         self.assertIn("previous shipped", " ".join(d.structure_problems(board)))
 
+    def test_missing_previous_inventory_fails_closed(self):
+        (self.runs / "2026-09-26/storyboard.json").unlink()
+        self.assertIn("inventory unavailable", " ".join(d.visual_problems(self.board, self.runs)))
+
     def test_historical_boards_remain_unchanged(self):
         self.board["date"] = "2026-09-28"; self.board.pop("visual_research")
         self.assertEqual([], d.visual_problems(self.board, self.runs))
