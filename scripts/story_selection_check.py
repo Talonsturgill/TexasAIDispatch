@@ -99,7 +99,7 @@ def problems(data: dict, edition=None) -> list[str]:
 
     import daily_production
     if daily_production.in_window(edition or data.get("edition_date")):
-        out += daily_production.candidate_problems(selected)
+        out += daily_production.candidate_problems(selected, edition=edition)
 
     rejected = data.get("rejected")
     if not isinstance(rejected, list) or len(rejected) < 1:

@@ -9,7 +9,7 @@ A passing technical gate is necessary and does not establish visual appeal.
 ## Choose the medium from the action
 
 Use SVG for precise diagrams, maps, source extracts and expressive illustration within the hybrid film.
-Use Three.js for the required dimensional opening and story coverage, choosing actions whose comprehension improves with depth, surface response, moving
+Choose Three.js when comprehension improves with depth, surface response, moving
 light or a camera that travels around a mechanism. Use a hybrid when a dimensional action needs
 a small editorial annotation. A topic is not a reason to repeat yesterday's scene.
 
@@ -95,10 +95,11 @@ deliberately retains the existing Remotion pin and does not depend on WebGPU-onl
 
 ## Mandatory adoption for new editions
 
-From September 25th, 2026, use `config/cinematic_production.json`. The dimensional opening,
-finished hero preview and minimum dimensional runtime share are release requirements.
-SVG remains available for diagrams and overlays inside the hybrid film. A wholly SVG daily
-episode no longer qualifies. Historical films retain their original contract.
+For September 25 through 28, 2026, `config/cinematic_production.json` requires the dimensional
+opening and minimum dimensional runtime share. From September 29, use
+`config/creative_production.json` and `knowledge/craft/CREATIVE_DIRECTION.md`: choose the medium
+from the story, with native picture proof for every scene and a finished hero passage. There is
+no dimensional quota. Historical films and their original policy hashes remain unchanged.
 
 Add `cinema` to the board with `version` from the policy, `hero_scene_id`,
 `dimensional_scene_ids`, and concrete `visible_action`, `human_consequence` and `source_limit`.
@@ -114,7 +115,7 @@ bash scripts/run_with_env.sh python scripts/production_quality.py --board out/di
 ```
 
 Inspect the full-quality hero at phone size before extending its treatment across the episode.
-The renderer checks this evidence before a normal full render. The proof removes the shared stage
+The renderer checks this evidence before a normal full render. The proof removes the principal picture (the shared stage for 3D)
 and compares real pixels, checks visible action, binds board, engine, policy and mix hashes, and
 compares approved sample frames against the final MP4. Rebuild proof after any changed input.
 Never create or edit a passing proof manually. The provider response is retained verbatim.

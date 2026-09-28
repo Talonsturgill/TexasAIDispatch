@@ -54,6 +54,8 @@ def plan_problems(board):
         for field in ("subject", "action", "consequence", "source_basis", "medium_evidence"):
             if len(str(row.get(field, "")).strip()) < 20:
                 errors.append(str(scene.get("id")) + " lacks a filmable treatment: " + field)
-        if row.get("medium") not in ("dimensional", "source-footage", "source-excerpt", "diagram"):
+        import creative_production as creative
+        media = creative.policy()["media"] if creative.required(board) else ("dimensional", "source-footage", "source-excerpt", "diagram")
+        if row.get("medium") not in media:
             errors.append(str(scene.get("id")) + " lacks an explicit production medium")
     return errors

@@ -8,7 +8,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from production_quality import REPO, POLICY, digest, engine_sha256, read, plan_problems, stage_sample_problems
+from production_quality import REPO, policy_path, digest, engine_sha256, read, plan_problems, stage_sample_problems
 from render_manifest import generated_media_sha256
 from run_controller import reserve
 import critic_gate
@@ -20,7 +20,7 @@ def run(argv, cwd=None):
 
 
 def current_bindings(board, mix):
-    return {"board_sha256":digest(board),"engine_sha256":engine_sha256(),"policy_sha256":digest(POLICY),
+    return {"board_sha256":digest(board),"engine_sha256":engine_sha256(),"policy_sha256":digest(policy_path(read(board))),
             "mix_sha256":digest(mix),"generated_media_sha256":generated_media_sha256(board)}
 
 

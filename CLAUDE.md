@@ -134,7 +134,7 @@ Corollaries that are hard rules:
 
 **Remotion + React + TypeScript is the production engine.** Use SVG for exact diagrams and
 editorial overlays. The owner authorized a dimensional and hybrid lane on September 23rd, 2026.
-New editions must meet `config/cinematic_production.json`. Three.js through `@remotion/three` must draw original geometry, optical surfaces, physically
+Use `config/creative_production.json` from September 29, 2026; earlier editions retain `config/cinematic_production.json`. Read `knowledge/craft/CREATIVE_DIRECTION.md`. Choose the medium from the sourced action and inspected pictures; there is no 3D opening or runtime quota under the new policy. Three.js through `@remotion/three`, when chosen, must draw original geometry, optical surfaces, physically
 motivated lighting and camera moves. `lib/cinema/CinematicStage.tsx` supplies the shared studio
 and `lib/cinema/motion.ts` supplies stateless motion. Read
 `knowledge/craft/CINEMATIC_PRODUCTION.md` before every run.

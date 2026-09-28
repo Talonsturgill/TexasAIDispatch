@@ -212,6 +212,9 @@ def printed_figures(board: dict):
         for v in figures(cell):
             yield "documentary_copy", cell, v
     for sc in board.get("scenes", []):
+        for node in (sc.get("picture") or {}).get("nodes", []):
+            for value in figures(str(node.get("label") or "")):
+                yield sc.get("id", "?"), node["label"], value
         for pl in sc.get("planes", []):
             for it in pl.get("items", []):
                 props = it.get("props") or {}
@@ -229,6 +232,15 @@ def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
     """RULE 6. A figure in rendered item props appears in some claim's FETCHED text."""
     fails: list[str] = []
     by_id = {c["id"]: c for c in claims.get("claims", [])}
+
+    for scene in board.get("scenes", []):
+        for node in (scene.get("picture") or {}).get("nodes", []):
+            claim = by_id.get(node.get("claim_id"), {})
+            quoted = evidence_text(claim)
+            label = str(node.get("label") or "")
+            if (claim.get("verdict") != "VERIFIED" or figures(label) - figures(quoted)
+                    or any(n.lower() not in quoted.lower() for n in proper_nouns(label))):
+                fails.append(str(scene.get("id")) + ": diagram label is not supported by its fetched claim")
     for scene in board.get("scenes", []):
         for plane in scene.get("planes", []):
             for item in plane.get("items", []):

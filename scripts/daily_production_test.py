@@ -302,5 +302,11 @@ class StoryVisualTest(unittest.TestCase):
         self.board["date"] = "2026-09-28"; self.board.pop("visual_research")
         self.assertEqual([], d.visual_problems(self.board, self.runs))
 
+def load_tests(loader, tests, pattern):
+    from creative_production_test import CreativeTest
+    tests.addTests(loader.loadTestsFromTestCase(CreativeTest))
+    return tests
+
+
 if __name__ == "__main__":
     unittest.main()

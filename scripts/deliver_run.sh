@@ -178,6 +178,27 @@ PY_CINEMA
 fi
 cp "$REPORT" "$DEST/report_card.json"
 cp "$STATE" "$DEST/run_state.json"
+if [ -d "$OUT/openings" ]; then
+  python3 - "$OUT" "$DEST" <<'PY_OPENINGS'
+import sys, shutil
+from pathlib import Path
+sys.path.insert(0, 'scripts')
+from creative_production import opening_problems, read
+source, destination = map(Path, sys.argv[1:])
+errors = opening_problems(source / 'storyboard.json')
+if errors:
+    raise ValueError('; '.join(errors))
+receipt = read(source / 'openings/comparison.json')
+names = {'comparison.json', 'selection.json'}
+for option in receipt['options']:
+    names.update(option[key]['file'] for key in ('board', 'film'))
+(destination / 'openings').mkdir(exist_ok=True)
+for name in names:
+    if Path(name).name != name:
+        raise ValueError('opening evidence must name local files')
+    shutil.copy2(source / 'openings' / name, destination / 'openings' / name)
+PY_OPENINGS
+fi
 # Generate portable review links against the delivered filename and copied board. The review
 # still binds the same film bytes, and does not inherit an out/ path from the working player.
 python3 scripts/documentary_review.py --board "$DEST/storyboard.json" \

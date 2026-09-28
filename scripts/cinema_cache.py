@@ -146,13 +146,18 @@ def audio_segment(mix, frames, out=None):
 
 
 def sample_frames(board):
+    import creative_production as creative
+    current = creative.required(board)
     result = {}
     for scene in board["scenes"]:
-        if scene["id"] not in board["cinema"]["dimensional_scene_ids"]:
+        if not current and scene["id"] not in board["cinema"]["dimensional_scene_ids"]:
             continue
         event = scene["visual_events"][0]
         start = float(scene["start_s"]) + float(event["at_s"])
-        result[scene["id"]] = [round(start*FPS), round((start+float(event["duration_s"]))*FPS)]
+        first, last = round(start*FPS), round((start+float(event["duration_s"]))*FPS)
+        if current:
+            last = min(last, round((float(scene["start_s"])+float(scene["duration_s"]))*FPS)-1)
+        result[scene["id"]] = [first, last]
     return result
 
 

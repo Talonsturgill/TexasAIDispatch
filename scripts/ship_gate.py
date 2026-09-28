@@ -275,6 +275,8 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
     if board.get("reference_only"):
         fails.append("reference_only: an engineering rehearsal cannot be published as a daily episode")
     scenes = sorted(board.get("scenes") or [], key=lambda s: float(s.get("start_s") or 0))
+    import creative_production as creative
+    fails += creative.plan_problems(board) + creative.mix_problems(board, audio)
 
     # ---- 0. this gate is reading fields that exist
     #
@@ -289,6 +291,8 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
     if board.get("documentary_copy"):
         surfaces.append(("documentary source copy", json.dumps(board["documentary_copy"])))
     for s in scenes:
+        if s.get("picture"):
+            surfaces.append((f"scene {s.get('id')} picture", " ".join(n.get("label", "") for n in s["picture"].get("nodes", []))))
         for k in SCENE_COPY:
             if s.get(k):
                 surfaces.append((f"scene {s.get('id')} {k}", str(s[k])))

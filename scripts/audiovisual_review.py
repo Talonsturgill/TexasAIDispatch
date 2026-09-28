@@ -161,7 +161,14 @@ gesture fails to support the visible story action.
 """ + scope + """
 Inspect the whole clip including the ending. Report flaws honestly; passing technical checks
 does not establish viewer appeal. Never claim human listening or audience testing.
-Ground each rejection in an observed event at a specific time. Separate what the narrator
+Ground each rejection in an observed event at a specific time. Separate observed picture and
+sound defects from a preference for a particular medium. Footage, authenticated stills,
+source excerpts, diagrams and 3D receive the same picture and comprehension standard. The legacy
+dimensional_action field describes the principal picture in any medium. Judge whether the voice
+has a conversational performance arc, the edit carries a clear thought across each cut, and
+the sound uses motivated action and deliberate background contrast without masking speech.
+Do not require a 3D opening or a 3D runtime share under the policy effective September 29.
+Separate what the narrator
 actually says from your inference; do not substitute a stronger claim or a different document
 type. Distinguish the film's narrative answer from the eventual outcome of a reported case.
 An explicitly unknown case outcome is an honest source limit, not a requirement to invent a

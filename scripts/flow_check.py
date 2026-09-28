@@ -133,6 +133,7 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
     for a, b in zip(scenes, scenes[1:]):
         if (a.get("camera_strategy") == b.get("camera_strategy")
                 and a.get("hero") == b.get("hero")
+                and a.get("picture") == b.get("picture")
                 and a.get("region") == b.get("region")):
             p.append(f"the cut from {a.get('id')} to {b.get('id')} changes nothing: same move, "
                      f"same hero, same region. On screen that join does not exist, so the two "
@@ -142,9 +143,15 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
     for s in scenes:
         s0 = float(s.get("start_s") or 0)
         s1 = s0 + float(s.get("duration_s") or 0)
+        import creative_production as creative
+        current = creative.required(board)
+        directed = creative.sound_timeline(board) if current else []
+        quiet = [e for e in directed if e["role"] == "quiet" and overlaps(s0, s1, e["at_s"], e["at_s"] + e["duration_s"])]
         mine = [e for e in sfx
                 if overlaps(s0, s1, float(e.get("at_s") or 0),
                             float(e.get("at_s") or 0) + float(e.get("dur_s") or 0.1))]
+        if not mine and quiet:
+            continue
         if not mine:
             p.append(f"scene {s.get('id')} has no sound event. A music bed covers everything and "
                      f"therefore marks nothing. The picture needs one sound that belongs to a "

@@ -37,6 +37,9 @@ def timeline(board: dict) -> tuple[list[dict], list[str]]:
         sid = scene.get("id")
         items = {i.get("id") for p in scene.get("planes", []) if isinstance(p, dict)
                  for i in p.get("items", []) if isinstance(i, dict) and i.get("id")}
+        import creative_production as creative
+        if creative.picture_scene(board, scene) and (scene.get("picture") or {}).get("id"):
+            items.add(scene["picture"]["id"])
         events = scene.get("visual_events") or []
         if not isinstance(events, list):
             errors.append(f"{sid}: visual_events must be a list")

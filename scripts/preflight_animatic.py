@@ -194,6 +194,9 @@ def inspect_animatic(board: dict, film: Path) -> tuple[dict, list[str]]:
                         start + max(e["at_s"] + e.get("duration_s", .6) for e in events) + .12)
         score = motion_score(film, left, right)
         required = scene.get("beat") in {"motion", "revelation"}
+        import creative_production as creative
+        if i > 0 and creative.required(board) and scene.get("intentional_hold") and not creative.plan_problems(board):
+            required = False
         row = {"id": scene.get("id", f"s{i + 1}"), "beat": scene.get("beat"),
                "left_s": round(left, 3), "right_s": round(right, 3),
                "pixel_motion": round(score, 5), "motion_required": required}

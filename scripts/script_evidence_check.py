@@ -308,6 +308,7 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--board")
     ap.add_argument("--claims")
+    ap.add_argument("--planning-only", action="store_true", help="check source claims before independent approval and opening previews")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -319,7 +320,8 @@ def main() -> int:
     try:
         problems = check(load(Path(a.board)), load(Path(a.claims)))
         from daily_production import pre_voice_problems
-        problems += pre_voice_problems(Path(a.board), Path(a.claims))
+        if not a.planning_only:
+            problems += pre_voice_problems(Path(a.board), Path(a.claims))
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"script_evidence_check: could not run: {exc}", file=sys.stderr)
         return 2

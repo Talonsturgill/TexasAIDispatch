@@ -42,7 +42,11 @@ Read config/production_actions.json and its scope limits. Add filmability.action
 with exactly three ordered rows: image opening, mechanism, consequence. Each row names
 medium (demonstrated-action, source-footage or a director-bound source-backed-action proposal), pictured_action, scope_fit and source_url
 from selected.sources. A demonstrated row names action_id from the catalog. The opening
-must use a supported dimensional action. A footage row names asset_url matching an asset_lead
+uses the dated medium policy: from September 29 choose the strongest authenticated medium.
+Read CREATIVE_DIRECTION.md and return visual_stakes with the named affected group, physical
+subject, visible change, consequence, question, answer, asset fit and fetched source URLs.
+Source-still and source-excerpt rows use the footage asset evidence; diagram rows bind a sourced
+relationship and Illustration disclosure. A footage row names asset_url matching an asset_lead
 with url, inspection of the actual visible action, and rights_basis with evidence.
 Do not force an unrelated story into a familiar prop. Return an unsupported candidate with its precise missing action. The director may use the bounded source-backed-action path in DAILY_PRODUCTION.md to implement one explanatory mechanism for independent code, phone and native proof. Research cannot approve that implementation or invent source evidence.
 The director copies this evidence into story_selection.json before voice or preview spending.

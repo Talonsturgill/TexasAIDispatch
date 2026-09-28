@@ -67,3 +67,8 @@ python scripts/run_controller.py finish --result publishable --report out/dispat
 ```
 
 Publishable leaves production active in publishing. It is not terminal shipment.
+
+For editions under config/creative_production.json, include the selected two-opening evidence
+and the executed sound direction in the existing review packets. Each lens judges the story's
+chosen medium without a 3D quota. Check the complete edit after structural changes; diagnose all
+observed defects together. Passing fixed criteria ends creative editing and starts shipment.

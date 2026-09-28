@@ -434,6 +434,8 @@ def signature(scene: dict) -> tuple:
     same shot however differently their prose reads. This is the whole reason the
     divergence check is not a set of camera_strategy strings.
     """
+    if scene.get("picture"):
+        return ("source-picture", json.dumps(scene["picture"], sort_keys=True))
     return (scene.get("camera_strategy", ""),
             plane_signature(scene.get("planes", []) or []),
             scene.get("hero", ""))
@@ -752,7 +754,14 @@ def check(board: dict) -> list[str]:
         sid = s.get("id") or f"#{i}"
         move = s.get("camera_strategy", "")
         footage_errors = source_footage_problems(board, s) if move == "sourceFootage" else []
-        source_verified = move == "sourceFootage" and not footage_errors
+        import creative_production as creative
+        picture = creative.picture_scene(board, s)
+        if picture and (s.get("picture") or {}).get("medium") == "source-footage":
+            media = s["picture"]
+            legacy = {**s, "source_footage": {**media, "playback_rate": 1, "muted": True,
+                       "camera_motion": "source-native/no-digital-motion" if media.get("editorial_excerpt") else "static-native/no-digital-motion"}}
+            footage_errors += source_footage_problems(board, legacy)
+        source_verified = (move == "sourceFootage" and not footage_errors) or (picture and not footage_errors)
         p += footage_errors
         if move not in MOVES and not source_verified:
             p.append(f"scene {sid}: camera_strategy {move!r} is not a composed move. "
@@ -851,7 +860,7 @@ def check(board: dict) -> list[str]:
                  f"reads as varied because the captions differ; on screen it is one shot "
                  f"repeated.")
     moves = [s.get("camera_strategy") for s in ordered]
-    if len(set(moves)) == 1 and len(moves) > 2:
+    if len(set(moves)) == 1 and len(moves) > 2 and not all(creative.picture_scene(board, s) for s in ordered):
         p.append(f"every scene uses {moves[0]}. One move for a whole film is a house style "
                  f"nobody chose.")
 
@@ -866,7 +875,7 @@ def check(board: dict) -> list[str]:
                  "shows them something they did not already have.")
 
     # ---- a face somewhere. "If a stretch has no face on screen, ask why."
-    if not any(s.get("cast") for s in ordered):
+    if not any(s.get("cast") for s in ordered) and not creative.required(board):
         p.append("no scene has cast. Emotion is what makes information land as story, and a "
                  "film with no face in it has nowhere to put any.")
     return p

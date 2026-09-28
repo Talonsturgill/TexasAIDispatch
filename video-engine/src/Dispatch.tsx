@@ -2,6 +2,7 @@ import {SubtitleTrack, CreditsCard} from './lib/DispatchOverlays';
 export {SubtitleTrack, CreditsCard} from './lib/DispatchOverlays';
 import {ConnectedRecordsEpisode} from './ConnectedRecordsEpisode';
 import {DailyActionsEpisode} from './DailyActionsEpisode';
+import {EditorialEpisode} from './EditorialEpisode';
 import {ScrewwormForecastEpisode} from "./ScrewwormForecastEpisode";
 import {ContactSensingEpisode} from './ContactSensingEpisode';
 import {CoadaptHandoffEpisode} from './CoadaptHandoffEpisode';
@@ -64,6 +65,13 @@ import {BrushCameraEpisode} from './BrushCameraEpisode';
 // =============================================================================
 
 export interface Scene {
+  picture?: {
+    id: string; medium: 'source-footage' | 'source-still' | 'source-excerpt' | 'diagram';
+    event_id: string; disclosure: string; file?: string; sha256?: string; trim_start_s?: number; trim_end_s?: number;
+    crop?: {x: number; y: number};
+    focus?: {x: number; y: number; width: number; height: number};
+    nodes?: {label: string; claim_id: string}[];
+  };
   record_phase?: 'separated' | 'agreement' | 'connect' | 'retrieve' | 'place' | 'limit' | 'answer';
   source_evidence?: {quote:string; attribution:string; detail?:string};
   production_action?: string;
@@ -73,7 +81,7 @@ export interface Scene {
   duration_s: number;
   region: RegionName;
   county: string;
-  camera_strategy: keyof typeof CameraMoves | 'sourceFootage';
+  camera_strategy: keyof typeof CameraMoves | 'sourceFootage' | 'sourcePicture';
   /** Native footage, validated against the board's native_media binding; rights are reviewed separately. */
   source_footage?: {
     file: string; sha256: string;
@@ -199,7 +207,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
+  cinematic_template?: 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
     'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'brush-camera-v1';
@@ -383,7 +391,7 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
   // silently give a static camera, which storyboard_check already refuses at
   // Gate 0 and which this refuses again at render time, because the two checks
   // guard different moments and the cheap one is not always the one that runs.
-  const move = scene.camera_strategy==='sourceFootage'?undefined:CameraMoves[scene.camera_strategy];
+  const move = (scene.camera_strategy==='sourceFootage'||scene.camera_strategy==='sourcePicture')?undefined:CameraMoves[scene.camera_strategy];
   if (!move) {
     throw new Error(
       `scene ${scene.id}: camera_strategy "${scene.camera_strategy}" is not a composed move. ` +
@@ -476,6 +484,9 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   cinematic_template, documentary_copy, native_media, __cinemaProofWithoutStage}) => {
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
+  if (cinematic_template === 'editorial-v1') {
+    return <EditorialEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} native_media={native_media} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
+  }
   if (cinematic_template === 'paper-dossier-v1') {
     return <ConnectedRecordsEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} native_media={native_media} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
   }

@@ -11,6 +11,7 @@ At wake read CLAUDE.md, the current worklog and controller checkpoint, plus:
 - knowledge/craft/QUALITY_CONTRACT.md and config/quality_contract.json
 - knowledge/craft/DOCUMENTARY_ATTENTION.md and config/documentary.json
 - knowledge/craft/CINEMATIC_PRODUCTION.md and config/cinematic_production.json
+- knowledge/craft/CREATIVE_DIRECTION.md and config/creative_production.json (apply its effective date)
 
 Read each phase file in full when entering that phase. These files are part of this routine:
 1. prompts/phases/01-research.md
@@ -36,8 +37,10 @@ another active routine. Do not load the full historical archive into every daily
   DAILY_PRODUCTION.md when a fresh mechanism is needed, then obtain current rendered proof.
 - Use the fixed quality contract and the rubric read directly from config/dispatch_rubric.yaml.
   Never restate its threshold. A passing film moves to release; do not add optional polish.
-- Use CinematicStage for the opening and required runtime coverage. Preserve the documentary
-  pacing limits. Camera drift, changing text and incidental movement do not earn an action beat.
+- Apply the dated medium policy. From September 29 choose footage, stills, source excerpts,
+  diagrams or 3D for their actual story value, compare exactly two cheap openings, and direct
+  performance, sound and cuts together under CREATIVE_DIRECTION.md. Preserve documentary
+  pacing and every current proof gate. Decorative movement does not earn an action beat.
 - Prove contact, action, consequence and framing in the actual phone animatic. Then approve the
   shortest coherent native hero with sound before rendering the full film. Use native
   1080x1920 PNG capture and H.264 CRF 16 for the hero and final film.

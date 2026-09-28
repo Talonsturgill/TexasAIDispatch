@@ -137,9 +137,66 @@ def place(bus: np.ndarray, clip: np.ndarray, at_s: float, rate: int, gain: float
     bus[i:j] += clip[: j - i] * gain
 
 
+def background_direction(length: int, rate: int, cues: list[dict]) -> np.ndarray:
+    """Short ramps change the background perspective without cutting the voice."""
+    envelope = np.ones(length)
+    ramp = max(1, round(.06 * rate))
+    for cue in cues:
+        if cue["role"] != "quiet":
+            continue
+        first = max(0, round(cue["at_s"] * rate))
+        last = min(length, round((cue["at_s"] + cue["duration_s"]) * rate))
+        if last <= first:
+            raise ValueError("directed quiet window is outside the mix")
+        count = last - first
+        edge = min(ramp, count // 2)
+        local = np.full(count, float(cue["gain"]))
+        if edge:
+            slope = np.arange(edge) / edge
+            local[:edge] = 1 + (cue["gain"] - 1) * slope
+            local[-edge:] = cue["gain"] + (1 - cue["gain"]) * slope
+        envelope[first:last] = np.minimum(envelope[first:last], local)
+    return envelope
+
+
+def direct_events(board: dict, events: list[dict], rate: int) -> tuple[list[dict], list[dict]]:
+    import creative_production as creative
+    errors = creative.plan_problems(board)
+    if errors:
+        raise ValueError("; ".join(errors))
+    cues = creative.sound_timeline(board)
+    needed = {c["id"] for c in cues if c["role"] != "quiet"}
+    if len({e.get("id") for e in events}) != len(events) or {e.get("id") for e in events} != needed:
+        raise ValueError("sound events must match the directed non-quiet cues exactly")
+    indexed = {e["id"]: e for e in events}
+    prepared = []
+    for cue in cues:
+        if cue["role"] == "quiet":
+            continue
+        event = dict(indexed[cue["id"]])
+        if event.get("event_id") != cue["event_id"]:
+            raise ValueError("sound file event must bind its directed picture event")
+        clip = np.asarray(event.get("_samples", []), dtype=float)
+        count = round(cue["duration_s"] * rate)
+        if count <= 0 or len(clip) < count or not np.isfinite(clip).all():
+            raise ValueError("directed sound must contain enough finite samples at original speed")
+        gain = event.get("gain", 1.0)
+        if not creative.finite(gain) or not 0 <= gain <= 1:
+            raise ValueError("directed sound gain must be finite and between zero and one")
+        clip = clip[:count].copy()
+        edge = min(round(.012 * rate), count // 2)
+        if edge:
+            clip[:edge] *= np.arange(edge) / edge
+            clip[-edge:] *= np.arange(edge, 0, -1) / edge
+        event.update(at_s=cue["at_s"], dur_s=cue["duration_s"], _samples=clip)
+        prepared.append(event)
+    return prepared, cues
+
+
 def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
         bed: np.ndarray | None = None, target_lufs: float = TARGET_LUFS,
-        bed_gap_db: float | None = None, bed_track_id: str | None = None
+        bed_gap_db: float | None = None, bed_track_id: str | None = None,
+        sound_cues: list[dict] | None = None
         ) -> tuple[np.ndarray, dict, list[str]]:
     problems: list[str] = []
     notes: list[str] = []
@@ -197,11 +254,11 @@ def mix(vo: np.ndarray, rate: int, sfx: list[dict], cut_s: float,
         if clip is None:
             continue
         place(under, np.asarray(clip, dtype=float), float(e.get("at_s") or 0), rate,
-              float(e.get("gain") or 1.0))
+              float(e.get("gain", 1.0)))
     if bed is not None:
         reps = int(np.ceil(n / max(1, len(bed))))
         under += np.tile(bed, reps)[:n] * bed_gain
-    master += under * env[:n]
+    master += under * env[:n] * background_direction(n, rate, sound_cues or [])
 
     peak = float(np.max(np.abs(master))) if len(master) else 0.0
     if peak > 1.0:
@@ -475,6 +532,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--vo")
     ap.add_argument("--sfx")
+    ap.add_argument("--board", type=Path, help="current board supplies event-bound sound direction")
     ap.add_argument("--bed")
     ap.add_argument("--bed-track",
                     help="registry id of --bed; required with a bed and written into mix.json")
@@ -505,6 +563,8 @@ def main() -> int:
         print("mix: --bed-gap-db has no meaning without --bed", file=sys.stderr)
         return 2
     preparation: dict = {}
+    board = None
+    sound_cues = []
     try:
         vo, rate = read_wav(Path(a.vo))
         raw = json.loads(Path(a.sfx).read_text(encoding="utf-8")) if a.sfx else []
@@ -517,6 +577,11 @@ def main() -> int:
                           f"at the voice's rate; this mixer does not resample.", file=sys.stderr)
                     return 1
                 e["_samples"] = clip
+        import creative_production as creative
+        board_path = a.board or Path(a.out).with_name("storyboard.json")
+        board = json.loads(board_path.read_text()) if board_path.is_file() else None
+        if board and creative.required(board):
+            events, sound_cues = direct_events(board, events, rate)
         # THE BED IS HELD TO THE SAME RATE AS EVERYTHING ELSE.
         #
         # This was `read_wav(Path(a.bed))[0]`, which threw the rate away twelve lines under
@@ -563,7 +628,8 @@ def main() -> int:
         vo = np.concatenate([np.zeros(int(round(a.vo_at * rate))), vo])
 
     out, report, problems = mix(vo, rate, events, a.cut, bed,
-                                bed_gap_db=a.bed_gap_db, bed_track_id=a.bed_track)
+                                bed_gap_db=a.bed_gap_db, bed_track_id=a.bed_track,
+                                sound_cues=sound_cues)
     if problems:
         print("mix: refused\n", file=sys.stderr)
         for x in problems:
@@ -579,6 +645,10 @@ def main() -> int:
     report["mix_notes"] = ["Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."]
     report["master_file"] = str(a.out)
     report["master_sha256"] = file_sha256(Path(a.out))
+    if board and creative.required(board):
+        report["sound_direction_sha256"] = creative.mix_binding(board)
+        report["sound_cues"] = sound_cues
+        report["sound_assets"] = [{"id": e["id"], "sha256": file_sha256(Path(e["wav"]))} for e in events]
     if a.bed:
         report.update({
             "bed_file": str(a.bed),
