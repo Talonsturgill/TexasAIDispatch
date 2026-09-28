@@ -138,12 +138,15 @@ def plan_problems(state, plan):
             return ["pivot review evidence changed"]
         review = json.loads(p.read_text())
         known = {e["failure_sha256"] for e in previous}
+        retired = review.get("retired_mechanism_id")
+        failed_mechanisms = {e.get("mechanism_id") for e in previous}
         if (review.get("verdict") != "pass"
                 or not review.get("reviewer_identity")
                 or review["reviewer_identity"] == plan["director_identity"]
-                or not review.get("retired_mechanism_id")
-                or not review.get("replacement_mechanism_id")
-                or review["replacement_mechanism_id"] == mechanism
+                or not retired
+                or retired not in failed_mechanisms
+                or retired == mechanism
+                or review.get("replacement_mechanism_id") != mechanism
                 or not known.issubset(set(review.get("reviewed_failure_sha256", [])))
                 or len(str(review.get("visible_difference", "")).strip()) < 40
                 or len(str(review.get("source_basis", "")).strip()) < 30):

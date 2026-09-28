@@ -45,12 +45,12 @@ class RecoveryTest(unittest.TestCase):
         self.assertIn("nonrenewable",message)
         self.assertEqual(c.read_state(self.path)["escalation_ceiling"],before)
 
-    def test_renaming_same_failure_family_does_not_reset_it(self):
+    def pivot_fixture(self):
         state = c.read_state(self.path)
         for i in range(2):
             c.event(state, "repair_started", mechanism_id="old-name-" + str(i),
                     failure_family="capture-and-analysis", failure_sha256=str(i))
-        plan = {"mechanism_id": "new-name", "failure_family": "capture-and-analysis",
+        plan = {"mechanism_id": "new-physical-action", "failure_family": "capture-and-analysis",
                 "director_identity": "director"}
         self.assertTrue(g.plan_problems(state, plan))
         review = Path(self.tmp.name) / "pivot.json"
@@ -61,9 +61,45 @@ class RecoveryTest(unittest.TestCase):
                     "source_basis":"The retained primary source describes this specific captured condition."}
         review.write_text(json.dumps(evidence))
         plan["pivot_review"] = {"path":str(review), "sha256":c.digest(review)}
+        return state, plan, review, evidence
+
+    def test_renaming_same_failure_family_does_not_reset_it(self):
+        state, plan, review, evidence = self.pivot_fixture()
+        # The actual planned mechanism must be the independently approved replacement.
         self.assertFalse(g.plan_problems(state, plan))
-        evidence["reviewer_identity"] = "director"
-        review.write_text(json.dumps(evidence));plan["pivot_review"]["sha256"]=c.digest(review)
+
+    def test_pivot_rejects_unapproved_plan_mechanism(self):
+        state, plan, _, _ = self.pivot_fixture()
+        plan["mechanism_id"] = "arbitrary-unreviewed-action"
+        self.assertTrue(g.plan_problems(state, plan))
+
+    def test_pivot_rejects_retired_replacement_and_unknown_history(self):
+        state, plan, review, evidence = self.pivot_fixture()
+        # Include the planned mechanism in history so equality is independently tested.
+        c.event(state, "repair_started", mechanism_id=plan["mechanism_id"],
+                failure_family=plan["failure_family"], failure_sha256="2")
+        evidence["reviewed_failure_sha256"].append("2")
+        for retired in (plan["mechanism_id"], "never-failed-mechanism"):
+            with self.subTest(retired=retired):
+                evidence["retired_mechanism_id"] = retired
+                review.write_text(json.dumps(evidence))
+                plan["pivot_review"]["sha256"] = c.digest(review)
+                self.assertTrue(g.plan_problems(state, plan))
+
+    def test_pivot_retains_independence_failure_coverage_and_source_requirements(self):
+        state, plan, review, evidence = self.pivot_fixture()
+        for changes in ({"reviewer_identity": "director"}, {"reviewer_identity": ""},
+                        {"verdict": "revise"}, {"reviewed_failure_sha256": ["0"]},
+                        {"visible_difference": ""}, {"source_basis": ""}):
+            with self.subTest(changes=changes):
+                review.write_text(json.dumps({**evidence, **changes}))
+                plan["pivot_review"]["sha256"] = c.digest(review)
+                self.assertTrue(g.plan_problems(state, plan))
+
+    def test_pivot_rejects_stale_evidence_hash(self):
+        state, plan, review, evidence = self.pivot_fixture()
+        evidence["visible_difference"] += " The source-supported action is unchanged."
+        review.write_text(json.dumps(evidence))
         self.assertTrue(g.plan_problems(state, plan))
 
     def test_phone_pass_cannot_hide_dominant_subject_failure(self):
