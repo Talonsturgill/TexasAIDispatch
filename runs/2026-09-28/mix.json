@@ -1,0 +1,97 @@
+{
+  "duration_s": 40.0,
+  "cut_s": 40.0,
+  "peak_dbfs_premaster": -1.65,
+  "lufs_premaster": -16.95,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.01,
+  "lufs_shortfall_db": 0.010000000000001563,
+  "crest_factor_db": 15.3,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 0.95,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 7
+    },
+    {
+      "id": "sincerely",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -16.44,
+      "gain_db": -19.48
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "sincerely",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -16.44,
+  "bed_gain_db": -19.48,
+  "sfx_events": 7,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -16.05,
+      "true_peak_dbtp": -0.69
+    },
+    "after": {
+      "integrated_lufs": -16.01,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.649999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-22.24:measured_TP=-6.34:measured_LRA=14.30:measured_thresh=-33.93:offset=1.17",
+    "measurement": {
+      "input_i": "-22.24",
+      "input_tp": "-6.34",
+      "input_lra": "14.30",
+      "input_thresh": "-33.93",
+      "output_i": "-15.76",
+      "output_tp": "-2.00",
+      "output_lra": "9.00",
+      "output_thresh": "-26.39",
+      "normalization_type": "dynamic",
+      "target_offset": "0.11"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.35,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-22.24:measured_TP=-6.34:measured_LRA=14.30:measured_thresh=-33.93:offset=1.15"
+      },
+      {
+        "requested_lufs": -15.649999999999999,
+        "measured": {
+          "integrated_lufs": -16.01,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.649999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-22.24:measured_TP=-6.34:measured_LRA=14.30:measured_thresh=-33.93:offset=1.17"
+      }
+    ],
+    "correction": null,
+    "samples": 1920000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "4b27cbda790be9b17f68369b1daf95629a1be21f8922c145f9b93ff25877a67c",
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "560718a2f29d12f63aecf3245f871bb7bd8710cf0b2265e7f35e8a35c42589a0",
+  "bed_source_sha256": "1da4a58ebbae4f2bbdf297e441574788cc85cb59600b03b2dcc93f6a699927cc",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "0669043fa9546847f1224fcb6a36b405e814bb0e824b42bf431e43328eacba96",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 1920000
+}
