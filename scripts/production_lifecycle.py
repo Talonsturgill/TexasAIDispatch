@@ -16,6 +16,43 @@ BATCH = {"preflight_renders": 2, "full_renders": 1, "audiovisual_reviews": 4,
          "panel_rounds": 1, "scorer_calls": 3, "tts_calls": 2,
          "validator_agents": 1, "research_agents": 1, "voice_directors": 1,
          "reported_tokens": 100000}
+NARRATION_SCOPE = "narration-performance"
+SCOPES = {"standard", NARRATION_SCOPE}
+NARRATION_BATCH = {"tts_calls": 2}
+
+
+def plan_identity(plan):
+    """Only the completed after hashes may change after the plan is bound."""
+    bound = {**plan, "changed_inputs": [
+        {k: v for k, v in item.items() if k != "after_sha256"}
+        for item in plan.get("changed_inputs", [])]}
+    return hashlib.sha256(json.dumps(bound, sort_keys=True).encode()).hexdigest()
+
+
+def narration_inputs(path):
+    """Freeze story evidence and the actual renderer during a direction-only edit."""
+    from critic_gate import renderer_digest
+    root = path.parent
+    files = [root / name for name in ("vo_script.txt", "storyboard.json", "claims.json")]
+    files += sorted(p for p in (root / "sources").rglob("*") if p.is_file())
+    renderer = renderer_digest(load_json(root / "storyboard.json"))
+    if not renderer:
+        raise ValueError("narration-performance requires a bound cinematic renderer")
+    return {"files": {str(p.resolve()): digest(p) for p in files}, "renderer_sha256": renderer}
+
+
+def narration_plan_problems(path, plan):
+    changed = plan.get("changed_inputs", [])
+    if (not isinstance(changed, list) or len(changed) != 1
+            or not isinstance(changed[0], dict) or not isinstance(changed[0].get("path"), str)
+            or Path(changed[0]["path"]).resolve()
+            != (path.parent / "vo_direction.json").resolve()):
+        return ["narration-performance may change only this run's vo_direction.json"]
+    requested = plan.get("resources")
+    if (not isinstance(requested, dict) or set(requested) != {"tts_calls"}
+            or type(requested["tts_calls"]) is not int or not 0 < requested["tts_calls"] <= 2):
+        return ["narration-performance permits only one or two TTS calls"]
+    return []
 
 
 def active(state):
@@ -49,7 +86,19 @@ def begin_repair(path, plan_path):
         return False, "finish the existing repair batch before starting another"
     plan = load_json(plan_path)
     from repair_guard import plan_problems, envelope_problems
-    errors = plan_problems(state, plan) + envelope_problems(state, {"reboards": 1, "storyboard_critics": 2})
+    scope = plan.get("repair_scope", "standard")
+    if not isinstance(scope, str) or scope not in SCOPES:
+        return False, "unknown repair_scope"
+    opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
+    errors = plan_problems(state, plan) + envelope_problems(state, opening)
+    if scope == NARRATION_SCOPE:
+        errors += narration_plan_problems(path, plan)
+        if not errors:
+            errors += envelope_problems(state, plan["resources"])
+        try:
+            frozen_inputs = narration_inputs(path)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            errors.append(f"narration-performance needs current story inputs: {exc}")
     if errors:
         return False, "; ".join(errors)
     for field in ("root_cause", "repair", "expected_visible_result", "mechanism_change"):
@@ -77,22 +126,28 @@ def begin_repair(path, plan_path):
     # One board correction and two independent critic calls (plan, then actual phone cut).
     # They are allowances, not calls: the existing consume command charges before each use.
     grants = {}
-    for name, count in {"reboards": 1, "storyboard_critics": 2}.items():
+    for name, count in opening.items():
         old = state["escalation_ceiling"][name]
         state["escalation_ceiling"][name] = max(state["escalation_ceiling"][name],
                                                state["usage"][name] + count)
         grants[name] = {"from": old, "to": state["escalation_ceiling"][name]}
     state["active_repair"] = {"failure_sha256": failure_hash, "baselines": baselines,
                              "plan": str(plan_path.resolve()), "plan_sha256": digest(plan_path),
-                             "reboards_before": state["usage"]["reboards"]}
+                             "reboards_before": state["usage"]["reboards"], "repair_scope": scope}
+    if scope == NARRATION_SCOPE:
+        state["active_repair"].update(frozen_inputs=frozen_inputs, plan_identity=plan_identity(plan))
     state["phase"] = "active_repair"
     state.pop("release_status", None)
     event(state, "repair_started", failure_sha256=failure_hash,
-          plan_sha256=digest(plan_path), baselines=baselines, grants=grants,
+          plan_sha256=digest(plan_path), baselines=baselines, grants=grants, repair_scope=scope,
+          frozen_inputs=state["active_repair"].get("frozen_inputs"),
+          plan_identity=state["active_repair"].get("plan_identity"),
           authorization="diagnosed repair within recorded run envelope" if state.get("repair_policy") else "legacy autonomous repair instruction 2026-09-26",
           mechanism_id=plan.get("mechanism_id"), failure_family=plan.get("failure_family", "unclassified"),
           director_identity=plan.get("director_identity"))
     save(path, state)
+    if scope == NARRATION_SCOPE:
+        return True, "narration-performance repair opened; change only direction before authorization"
     return True, "one structural repair batch opened; reserve its reboard before editing"
 
 
@@ -101,12 +156,28 @@ def authorize_repair(path, plan_path):
     current = state.get("active_repair")
     if not active(state) or not current:
         return False, "begin-repair must bind failure evidence and baseline before editing"
-    if state["usage"]["reboards"] <= current["reboards_before"]:
+    scope = current.get("repair_scope", "standard")
+    if not isinstance(scope, str) or scope not in SCOPES:
+        return False, "unknown repair_scope"
+    if scope != NARRATION_SCOPE and state["usage"]["reboards"] <= current["reboards_before"]:
         return False, "reserve the corrective reboard before changing production inputs"
     proof, error = repair_plan_evidence(state, "repair_batch", plan_path)
     if error:
         return False, error
     plan = proof["repair_plan"]
+    if plan.get("repair_scope", "standard") != scope:
+        return False, "repair_scope changed after begin-repair"
+    if scope == NARRATION_SCOPE:
+        errors = narration_plan_problems(path, plan)
+        if plan_identity(plan) != current.get("plan_identity"):
+            errors.append("narration-performance plan changed after begin-repair")
+        try:
+            if narration_inputs(path) != current.get("frozen_inputs"):
+                errors.append("narration-performance changed frozen story or renderer inputs")
+        except (OSError, ValueError, KeyError, TypeError):
+            errors.append("narration-performance lost frozen story or renderer inputs")
+        if errors:
+            return False, "; ".join(errors)
     if plan["failure_evidence_sha256"] != current["failure_sha256"]:
         return False, "repair plan replaced the failed attempt"
     actual = sorted((str(Path(x["path"]).resolve()), x["before_sha256"])
@@ -117,7 +188,8 @@ def authorize_repair(path, plan_path):
     requested = plan.get("resources")
     if not isinstance(requested, dict) or not requested:
         return False, "list the resources needed for this correction"
-    if any(name not in BATCH or type(n) is not int or not 0 < n <= BATCH[name]
+    batch = NARRATION_BATCH if scope == NARRATION_SCOPE else BATCH
+    if any(name not in batch or type(n) is not int or not 0 < n <= batch[name]
            for name, n in requested.items()):
         return False, "repair request exceeds a bounded batch allowance"
     if ("panel_rounds" in requested or "scorer_calls" in requested) and (
@@ -134,7 +206,7 @@ def authorize_repair(path, plan_path):
         state["escalation_ceiling"][name] = after
         grants[name] = {"from": before, "to": after}
     state.pop("active_repair")
-    event(state, "repair_authorized", resource="repair_batch", grants=grants, **proof)
+    event(state, "repair_authorized", resource="repair_batch", grants=grants, repair_scope=scope, **proof)
     save(path, state)
     return True, "changed-input repair batch authorized; reserve each attempt before spending"
 
@@ -183,7 +255,14 @@ def allowance_problems(state):
         return errors
     caps = ceilings()
     for e in state.get("events", []):
+        if e.get("kind") in {"repair_started", "repair_authorized"}:
+            scope = e.get("repair_scope", "standard")
+            if not isinstance(scope, str) or scope not in SCOPES:
+                return ["unknown repair_scope in allowance history"]
         if e.get("kind") == "repair_started":
+            if scope == NARRATION_SCOPE and (e.get("grants") or not e.get("frozen_inputs")
+                                            or not e.get("plan_identity")):
+                return ["narration-performance start must bind inputs without visual grants"]
             if not e.get("failure_sha256") or not e.get("plan_sha256") or not e.get("baselines"):
                 return ["repair batch lacks bound failure or baseline evidence"]
             for name, grant in e.get("grants", {}).items():
@@ -196,9 +275,10 @@ def allowance_problems(state):
         elif e.get("kind") == "repair_authorized":
             if not e.get("repair_revision") or not e.get("repair_plan_sha256"):
                 return ["repair authorization lacks changed-input evidence"]
+            batch = NARRATION_BATCH if scope == NARRATION_SCOPE else BATCH
             for name, grant in e.get("grants", {}).items():
-                if (name not in BATCH or grant["from"] != caps[name]
-                        or not caps[name] <= grant["to"] <= caps[name] + BATCH[name]):
+                if (name not in batch or grant["from"] != caps[name]
+                        or not caps[name] <= grant["to"] <= caps[name] + batch[name]):
                     return ["repair authorization exceeds its batch"]
                 caps[name] = grant["to"]
         elif e.get("kind") == "owner_review_grant":

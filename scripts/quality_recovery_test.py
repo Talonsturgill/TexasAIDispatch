@@ -3,6 +3,7 @@ import copy
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 import quality_contract as q
 import repair_guard as g
@@ -266,6 +267,158 @@ class RecoveryTest(unittest.TestCase):
         self.assertFalse(c.extend_agent_ceiling(self.path, "storyboard_critics", "owner directed", True)[0])
         self.assertFalse(c.extend_preflight_ceiling(self.path, 99, "owner directed", True)[0])
         self.assertEqual(c.read_state(self.path), before)
+
+
+    def narration_fixture(self):
+        _, rejection, approval, _ = self.owner_fixture()
+        self.assertTrue(c.grant_owner_review(self.path, approval, rejection, 2, g.OWNER_CONFIRMATION)[0])
+        self.assertTrue(c.reserve(self.path, {"storyboard_critics": 2, "tts_calls": 2})[0])
+        root = self.path.parent
+        for name, content in (("vo_script.txt", "The unchanged source-backed narration."),
+                              ("storyboard.json", '{"scenes": [], "cinematic_template": "daily-actions-v1"}'),
+                              ("claims.json", '{"claims": []}'),
+                              ("vo_direction.json", '{"pace": "too slow"}')):
+            (root / name).write_text(content)
+        (root / "sources").mkdir()
+        (root / "sources" / "primary.txt").write_text("Retained fetched primary evidence")
+        direction = root / "vo_direction.json"
+        baseline = root / "direction.before.json"
+        baseline.write_bytes(direction.read_bytes())
+        failed_take = root / "failed.wav"
+        failed_take.write_bytes(b"retained rejected take")
+        failure = root / "soundcheck.txt"
+        failure.write_text("The audible full passage failed its verbatim soundcheck.")
+        plan = root / "narration-repair.json"
+        data = {"repair_scope": "narration-performance", "mechanism_id": "continuous-spoken-take",
+                "failure_family": "human-performance", "director_identity": "voice-director",
+                "root_cause": "The take delayed the opening line with exaggerated pauses.",
+                "repair": "Direct a continuous full passage with natural connected speech.",
+                "mechanism_change": "The spoken delivery removes exaggerated performance pauses.",
+                "expected_visible_result": "The same supported narration fits the existing story sequence.",
+                "failure_evidence": str(failure), "failure_evidence_sha256": c.digest(failure),
+                "changed_inputs": [{"path": str(direction), "before_path": str(baseline),
+                                    "before_sha256": c.digest(baseline)}],
+                "resources": {"tts_calls": 2}}
+        plan.write_text(json.dumps(data))
+        return plan, data
+
+    def finish_narration_edit(self, plan, data):
+        source = Path(data["changed_inputs"][0]["path"])
+        source.write_text('{"pace": "connected natural speech"}')
+        data["changed_inputs"][0]["after_sha256"] = c.digest(source)
+        plan.write_text(json.dumps(data))
+
+    def test_narration_scope_preserves_granted_ledger_and_final_phone_capacity(self):
+        plan, data = self.narration_fixture()
+        before = c.read_state(self.path)
+        self.assertEqual(before["usage"]["storyboard_critics"], 7)
+        self.assertEqual(before["escalation_ceiling"]["storyboard_critics"], 8)
+        failed_take = (self.path.parent / "failed.wav").read_bytes()
+        # The same retained inputs still require two visual calls in standard scope.
+        data.pop("repair_scope")
+        plan.write_text(json.dumps(data))
+        self.assertIn("nonrenewable", life.begin_repair(self.path, plan)[1])
+        data["repair_scope"] = "narration-performance"
+        plan.write_text(json.dumps(data))
+        with patch("critic_gate.renderer_digest", return_value=None):
+            self.assertFalse(life.begin_repair(self.path, plan)[0])
+        self.assertTrue(life.begin_repair(self.path, plan)[0])
+        self.assertFalse(life.authorize_repair(self.path, plan)[0])  # unchanged direction
+        self.finish_narration_edit(plan, data)
+        ok, message = life.authorize_repair(self.path, plan)
+        self.assertTrue(ok, message)
+        after = c.read_state(self.path)
+        for key in ("usage", "resource_envelope", "escalation_ceiling", "limits"):
+            self.assertEqual(after[key], before[key])
+        self.assertEqual(after["events"][:len(before["events"])], before["events"])
+        self.assertFalse(life.allowance_problems(after))
+        self.assertEqual((self.path.parent / "failed.wav").read_bytes(), failed_take)
+        self.assertFalse(life.authorize_repair(self.path, plan)[0])
+        self.assertFalse(life.begin_repair(self.path, plan)[0])
+        self.assertTrue(c.reserve(self.path, {"tts_calls": 2})[0])
+        self.assertTrue(c.reserve(self.path, {"storyboard_critics": 1})[0])
+        self.assertFalse(c.reserve(self.path, {"storyboard_critics": 1})[0])
+
+    def test_narration_scope_rejects_other_inputs_and_resources(self):
+        plan, data = self.narration_fixture()
+        before = c.read_state(self.path)
+        variants = [{**data, "repair_scope": "unknown"},
+                    {**data, "changed_inputs": data["changed_inputs"] * 2}]
+        for name in ("vo_script.txt", "storyboard.json", "claims.json", "other/vo_direction.json"):
+            row = {**data["changed_inputs"][0], "path": str(self.path.parent / name)}
+            variants.append({**data, "changed_inputs": [row]})
+        for count in (0, -1, 3, True, 1.5):
+            variants.append({**data, "resources": {"tts_calls": count}})
+        for resource in ("full_renders", "preflight_renders", "storyboard_critics", "audiovisual_reviews",
+                         "panel_rounds", "scorer_calls", "voice_directors", "reported_tokens"):
+            variants.append({**data, "resources": {"tts_calls": 2, resource: 1}})
+        for variant in variants:
+            with self.subTest(variant=variant):
+                plan.write_text(json.dumps(variant))
+                self.assertFalse(life.begin_repair(self.path, plan)[0])
+                self.assertEqual(c.read_state(self.path), before)
+
+    def test_narration_authorization_rejects_frozen_input_changes(self):
+        plan, data = self.narration_fixture()
+        with patch("critic_gate.renderer_digest", return_value="renderer-before"):
+            self.assertTrue(life.begin_repair(self.path, plan)[0])
+            self.finish_narration_edit(plan, data)
+            before = c.read_state(self.path)
+            for name in ("vo_script.txt", "storyboard.json", "claims.json", "sources/primary.txt",
+                         "direction.before.json", "soundcheck.txt"):
+                with self.subTest(name=name):
+                    p = self.path.parent / name
+                    retained = p.read_bytes()
+                    p.write_text("tampered baseline or production input")
+                    self.assertFalse(life.authorize_repair(self.path, plan)[0])
+                    self.assertEqual(c.read_state(self.path), before)
+                    p.write_bytes(retained)
+            extra = self.path.parent / "sources" / "new.txt"
+            extra.write_text("Unreviewed source")
+            self.assertFalse(life.authorize_repair(self.path, plan)[0])
+            extra.unlink()
+            with patch("critic_gate.renderer_digest", return_value="renderer-changed"):
+                self.assertFalse(life.authorize_repair(self.path, plan)[0])
+            self.assertTrue(life.authorize_repair(self.path, plan)[0])
+
+    def test_narration_authorization_rejects_plan_rewrite(self):
+        plan, data = self.narration_fixture()
+        self.assertTrue(life.begin_repair(self.path, plan)[0])
+        self.finish_narration_edit(plan, data)
+        before = c.read_state(self.path)
+        duplicate = self.path.parent / "replacement.before.json"
+        duplicate.write_bytes(Path(data["changed_inputs"][0]["before_path"]).read_bytes())
+        for changes in ({"repair_scope": "standard"}, {"repair_scope": "unknown"},
+                        {"mechanism_id": "unapproved-new-mechanism"},
+                        {"resources": {"tts_calls": 2, "full_renders": 1}},
+                        {"resources": {"tts_calls": 1}},
+                        {"changed_inputs": [{**data["changed_inputs"][0], "before_path": str(duplicate)}]}):
+            with self.subTest(changes=changes):
+                plan.write_text(json.dumps({**data, **changes}))
+                self.assertFalse(life.authorize_repair(self.path, plan)[0])
+                self.assertEqual(c.read_state(self.path), before)
+        plan.write_text(json.dumps(data))
+        self.assertTrue(life.authorize_repair(self.path, plan)[0])
+        after = c.read_state(self.path)
+        for event_index, grant in ((-2, {"reboards": {"from": 10, "to": 10}}),
+                                   (-1, {"full_renders": {"from": 14, "to": 14}})):
+            forged = copy.deepcopy(after)
+            forged["events"][event_index]["grants"] = grant
+            self.assertTrue(life.allowance_problems(forged))
+
+    def test_narration_scope_cannot_renew_tts_envelope(self):
+        plan, data = self.narration_fixture()
+        state = c.read_state(self.path)
+        state["usage"]["tts_calls"] = state["resource_envelope"]["tts_calls"] - 1
+        c.save(self.path, state)
+        self.assertIn("nonrenewable", life.begin_repair(self.path, plan)[1])
+        data["resources"] = {"tts_calls": 1}
+        plan.write_text(json.dumps(data))
+        self.assertTrue(life.begin_repair(self.path, plan)[0])
+        self.finish_narration_edit(plan, data)
+        # Work charged after begin is still deducted at authorization.
+        self.assertTrue(c.reserve(self.path, {"tts_calls": 1})[0])
+        self.assertIn("nonrenewable", life.authorize_repair(self.path, plan)[1])
 
 if __name__ == "__main__":
     unittest.main()
