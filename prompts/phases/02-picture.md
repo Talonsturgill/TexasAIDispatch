@@ -73,3 +73,5 @@ Reserve the exact-phone critic separately and obtain its actual current-film ver
 Record review_scope exact-muted-phone-preflight, reviewed_preflight_sha256 and current bindings
 in storyboard_critic.json. A code-plan pass does not approve the phone film or native hero.
 Before voice, resolve every structural or source defect through prompts/phases/repair.md.
+
+Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Prefer the actual site or source document over a generic human insert.

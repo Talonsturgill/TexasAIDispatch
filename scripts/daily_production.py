@@ -15,6 +15,7 @@ from datetime import date, datetime
 REPO = Path(__file__).resolve().parents[1]
 POLICY = REPO / "config/daily_production.json"
 CATALOG = REPO / "config/production_actions.json"
+VISUAL_POLICY = REPO / "config/story_visuals.json"
 
 
 def read(path):
@@ -91,6 +92,72 @@ def candidate_problems(selected):
     return sorted(set(errors))
 
 
+def visual_problems(board, runs=None):
+    """Check provenance and prior-edition identity; editorial relevance still needs a critic."""
+    from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+    cfg = read(VISUAL_POLICY)
+    if str(board.get("date") or "") < cfg["effective_date"]:
+        return []
+    errors = []
+    plan = board.get("visual_research") or {}
+    searches = plan.get("searches")
+    if not isinstance(searches, list) or not 1 <= len(searches) <= cfg["max_searches"]:
+        errors.append("visual research needs a bounded search record")
+    else:
+        for row in searches:
+            if not isinstance(row, dict) or any(len(str(row.get(k) or "").strip()) < 12 for k in ("query", "finding")):
+                errors.append("visual search needs the actual query and finding")
+    candidates = plan.get("candidates")
+    if not isinstance(candidates, list) or len(candidates) > cfg["max_candidates"]:
+        errors.append("visual research needs a bounded candidate list, including rejected leads")
+    else:
+        for row in candidates:
+            if not isinstance(row, dict) or not row.get("url") or row.get("decision") not in ("use", "reject") or len(str(row.get("reason") or "")) < 20:
+                errors.append("visual candidate needs URL, decision and concrete reason")
+    if len(str(plan.get("decision") or "")) < 30:
+        errors.append("visual research needs its final story-specific choice or no-useful-asset explanation")
+    runs = REPO / "runs" if runs is None else Path(runs)
+    try:
+        prior = sorted(p for p in runs.glob("????-??-??/storyboard.json")
+                       if p.parent.name < str(board["date"]) and (p.parent / "dispatch.mp4").is_file())
+        previous = read(prior[-1]) if prior else {}
+    except (OSError, ValueError, KeyError) as exc:
+        return errors + ["previous edition visual inventory unavailable: " + str(exc)]
+
+    def identity(item):
+        result = set()
+        for key in ("sha256", "original_sha256", "source_sha256"):
+            if item.get(key):
+                result.add("hash:" + str(item[key]).lower())
+        for key in ("source_url", "original_url"):
+            if item.get(key):
+                u = urlsplit(str(item[key]))
+                query = urlencode(sorted((k, v) for k, v in parse_qsl(u.query) if not k.lower().startswith("utm_")))
+                result.add("url:" + urlunsplit((u.scheme.lower(), u.netloc.lower(), u.path.rstrip("/"), query, "")))
+        return result
+
+    old = set().union(*(identity(a) for a in previous.get("native_media", [])))
+    scenes = {s.get("id") for s in board.get("scenes", [])}
+    claims = {c for s in board.get("scenes", []) for c in (s.get("vo_claims") or [])}
+    for item in board.get("native_media") or []:
+        if identity(item) & old:
+            errors.append("previous shipped edition footage/imagery is forbidden, including crops and re-encodes: " + str(item.get("file")))
+        if not item.get("source_url") or not item.get("sha256"):
+            errors.append("story visual needs source URL and prepared asset hash")
+        for key in ("subject", "relevance", "inspection", "rights_basis"):
+            if len(str(item.get(key) or "").strip()) < 20:
+                errors.append("story visual needs concrete " + key)
+        if item.get("story_role") not in ("actual-site", "actual-person", "actual-equipment", "source-document", "actual-workflow", "context"):
+            errors.append("story visual needs a specific factual role; generic mood footage is not a role")
+        for key, allowed in (("scene_ids", scenes), ("claim_ids", claims)):
+            refs = item.get(key)
+            if not isinstance(refs, list) or not refs or not set(refs) <= allowed:
+                errors.append("story visual needs current " + key)
+        if not any(isinstance(c, dict) and c.get("url") == item.get("source_url") and c.get("decision") == "use" for c in (candidates if isinstance(candidates, list) else [])):
+            errors.append("used story visual is absent from the inspected candidate decision")
+    return sorted(set(errors))
+
+
 def story_digest(board):
     # Measured timing and subtitles do not change the causal story. The final phone
     # and audiovisual gates still bind those exact bytes separately.
@@ -106,6 +173,9 @@ def story_digest(board):
     data = {"contract": board.get("story_contract"), "scenes": scenes,
             "title": board.get("title"), "native_media": board.get("native_media"),
             "cinematic_template": board.get("cinematic_template")}
+    if "visual_research" in board:
+        data["visual_research"] = board["visual_research"]
+        data["visual_policy_sha256"] = digest(VISUAL_POLICY)
     if board.get('action_proposals'):
         data['action_proposals'] = board['action_proposals']
     return hashlib.sha256(json.dumps(data, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
@@ -153,7 +223,7 @@ def catalog_problems(catalog=None):
 def structure_problems(board, claims=None):
     if not required(board):
         return []
-    errors = []
+    errors = visual_problems(board)
     contract = board.get("story_contract") or {}
     for key in policy()["story_fields"]:
         value = contract.get(key)
