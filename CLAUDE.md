@@ -66,6 +66,12 @@ before_path and before_sha256. Retain the actual baseline files. Reserve the reb
 change the named production inputs, fill their after_sha256 values, and run
 `run_controller.py authorize-repair --plan out/dispatch/repair-plan.json`.
 The plan's resources map requests only the calls needed for this correction.
+For a direction-only correction after a failed audible take, set `repair_scope` to
+`narration-performance` and request only `tts_calls` with at most two calls. Begin before
+editing `vo_direction.json`; retain the failed take and baseline. Only the plan's
+`after_sha256` may then change. This scope binds script, board, claims, fetched sources
+and renderer, needs no reboard, and grants no visual reviews. Script or visual edits
+use the standard scope. Fresh soundcheck and exact-film phone gates still apply.
 The controller limits each batch, checks changed bytes, refuses repeated use of a
 failed attempt, and preserves all earlier charges. Three scorers remain one atomic
 panel. After two rejections of the same mechanism, change the mechanism or select
