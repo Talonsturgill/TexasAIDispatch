@@ -22,8 +22,7 @@ cannot explain its action. Respect the dedupe window and beat caps.
 Before narration, screen the opening, mechanism and consequence against the action catalog's
 actual scope. Researcher filmability.action_support records a demonstrated action_id or an
 inspected source asset, its factual source, scope_fit and rights evidence. The opening must
-support the dimensional policy. Unsupported synthetic human performance is a reason to select
-a filmable sourced angle now. Develop new library actions separately from the daily run.
+support the dimensional policy. Unsupported synthetic human performance is a reason to select a filmable sourced angle now. If the starter catalog and inspected footage do not supply the central action, use the bounded source-backed proposal in DAILY_PRODUCTION.md. Record the actual source, module, disclosure and visible consequence before candidate admission; a concept alone is not approval.
 
 Write out/dispatch/story_selection.json using schema dispatch_story_selection/1 and edition_date.
 Include selected title, beat, county, texas_link, record_status/id/URL, movement actor/action/object/

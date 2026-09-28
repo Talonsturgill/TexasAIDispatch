@@ -47,7 +47,12 @@ def required(board):
 
 def candidate_problems(selected):
     """Reject unsupported pictures while selection is still cheaper than narration."""
-    errors = []
+    import action_admission as admission
+    errors = admission.proposal_problems(selected, selected=selected)
+    try:
+        proposed = {p['id']: p for p in admission.proposals(selected)}
+    except (ValueError, KeyError, TypeError):
+        proposed = {}
     film = selected.get("filmability") or {}
     rows = film.get("action_support") or []
     if [r.get("image") for r in rows] != ["opening", "mechanism", "consequence"]:
@@ -64,6 +69,10 @@ def candidate_problems(selected):
         if row.get("medium") == "demonstrated-action":
             if row.get("action_id") not in catalog:
                 errors.append("candidate central action is outside the demonstrated library")
+        elif row.get("medium") == "source-backed-action":
+            proposal = proposed.get(row.get('action_id'), {})
+            if not proposal or row.get('source_url') not in proposal.get('source_urls', []) or row.get('disclosure') != proposal.get('disclosure'):
+                errors.append('candidate picture needs its bound source-backed action and Illustration disclosure')
         elif row.get("medium") == "source-footage":
             asset = assets.get(row.get("asset_url"), {})
             for key in ("inspection", "rights_basis"):
@@ -75,7 +84,9 @@ def candidate_problems(selected):
                 errors.append("candidate footage needs a retrievable source asset")
         else:
             errors.append("candidate picture has no supported production medium")
-    if rows[0].get("medium") != "demonstrated-action":
+    if proposed and not set(proposed) <= {r.get('action_id') for r in rows if r.get('medium') == 'source-backed-action'}:
+        errors.append('candidate must use its proposed action')
+    if rows[0].get("medium") not in ("demonstrated-action", "source-backed-action"):
         errors.append("candidate opening must support the dimensional opening policy")
     return sorted(set(errors))
 
@@ -95,6 +106,8 @@ def story_digest(board):
     data = {"contract": board.get("story_contract"), "scenes": scenes,
             "title": board.get("title"), "native_media": board.get("native_media"),
             "cinematic_template": board.get("cinematic_template")}
+    if board.get('action_proposals'):
+        data['action_proposals'] = board['action_proposals']
     return hashlib.sha256(json.dumps(data, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
@@ -191,13 +204,20 @@ def structure_problems(board, claims=None):
 def action_problems(board):
     if not required(board):
         return []
-    errors = catalog_problems()
+    import action_admission as admission
+    errors = catalog_problems() + admission.board_problems(board)
+    try:
+        proposed = {p['id'] for p in admission.proposals(board)}
+    except (ValueError, KeyError, TypeError):
+        proposed = set()
     catalog = {a["id"]: a for a in read(CATALOG)["actions"]}
     dimensional = set((board.get("cinema") or {}).get("dimensional_scene_ids", []))
     for scene in board.get("scenes", []):
         if scene.get("id") not in dimensional:
             continue
         action = catalog.get(scene.get("production_action"))
+        if scene.get('production_action') in proposed:
+            continue
         if not action:
             errors.append(str(scene.get("id")) + " requires a demonstrated action; choose another supported treatment before voice")
         elif len(scene.get("visual_events") or []) < action["min_events"]:
@@ -227,7 +247,8 @@ def action_problems(board):
 def review_problems(board, report):
     if not required(board):
         return []
-    errors = structure_problems(board)
+    import action_admission
+    errors = structure_problems(board) + action_admission.review_problems(board, report)
     review = report.get("story_review") or {}
     if review.get("story_sha256") != story_digest(board):
         errors.append("story changed since continuity approval; review the whole sequence before spending")
@@ -258,6 +279,14 @@ def pre_voice_problems(board_path, claims_path, script=None):
     else:
         import story_selection_check
         errors += story_selection_check.problems(read(selection_path), edition=board.get("date"))
+        selected = read(selection_path).get('selected') or {}
+        import action_admission
+        errors += action_admission.proposal_problems(board, selected, read(claims_path))
+        if board.get('action_proposals', []) != selected.get('action_proposals', []):
+            errors.append('board action proposals differ from the selected source-backed mechanism')
+    if board.get('action_proposals'):
+        import critic_gate
+        errors += critic_gate.problems(board, report)
     if (report.get("story_review") or {}).get("claims_sha256") != digest(claims_path):
         errors.append("source evidence changed since the independent story review")
     if script is not None:
@@ -371,6 +400,10 @@ def main():
             p.error("--board is required")
         elif a.digest:
             data = {"story_sha256": story_digest(read(a.board)), "policy_sha256": digest(POLICY)}
+            import action_admission
+            data['action_reviews'] = [{'action_id': p['id'], 'module_sha256': digest(action_admission.module_path(p)),
+                                      'source_claims_sha256': action_admission.source_claims_digest(p)}
+                                     for p in action_admission.proposals(read(a.board))]
         elif not a.claims:
             p.error("--claims is required")
         elif a.packet:

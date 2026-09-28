@@ -26,9 +26,44 @@ unrelated workflows, real software, named people, literal counts or observed del
 Reuse demonstrated geometry, timing mechanics, lighting and contact. Author the current story,
 staging, source bindings and ending. Never recycle a film or inherit its approval. Natural human
 performance uses appropriately sourced footage when the available synthetic action cannot
-perform it. Label illustrative footage and separate source examples honestly. If the story
-needs an unsupported central action, select another sourced angle before voice or rendering.
-Develop and review new library mechanisms separately; novelty alone does not justify daily R&D.
+perform it. Label illustrative footage and separate source examples honestly. If the story needs an action outside the starter library, first seek inspected source footage or another filmable angle. When neither supplies a complete treatment, use the bounded source-backed admission below. Open-ended rig experiments stay outside daily production; an episode-specific explanatory mechanism has to clear current independent proof within the same cumulative envelope.
+
+## Admit a source-backed new action without a shipped-film prerequisite
+
+The starter catalog is a reuse aid, not an exhaustive list of permissible subjects. Keep its
+historical provenance checks. A current episode may additionally propose one new mechanism,
+subject to config/daily_production.json, without pretending it was approved in an earlier film.
+Do not repeatedly search for unavailable stock footage when an honest explanatory action can
+be built from the fetched evidence. A proposal is permission to review, never picture approval.
+
+Put the same action_proposals list in selected within story_selection.json and in the board.
+Each proposal has id, module with repository-relative path and current sha256, exports,
+source_urls, claim_ids, visible_action, consequence, limits, source_basis and disclosure.
+The module must live under video-engine/src and be actually called by the registered custom
+renderer. Use the shared CinematicStage. Disclosure starts with Illustration, fits the current
+schema, and is visibly rendered on every proposed-action scene. Label plans, source examples
+and reconstructions honestly; do not invent private software, actual patient data, named people,
+observed deliveries or outcomes. Exact quotations and numbers retain existing claim gates.
+
+In the candidate screen use medium source-backed-action and the proposal id as action_id.
+Sources must be among the fetched selected sources. Before voice or preview the claim ids must
+be VERIFIED, with matching source URLs. Implementation and proposal bytes must match the
+selection. Get action/source digests from the gate, never hand-author an approval hash.
+
+The independent board critic inspects the actual code and evidence and records one action_reviews
+row with action_id, module_sha256, source_claims_sha256, verdict, blocking_defects and concrete
+code_observations with source_fidelity, visible_action, consequence, disclosure and limits.
+Each observation describes the inspected code concretely. Each proposed-action scene declares
+at least three visual_events and belongs to dimensional_scene_ids. It must reject a box or label that does not perform the narrated change.
+Existing independent identity, full-claims, story, concept and renderer bindings still apply.
+Changed code, sources or story invalidate the affected approval.
+
+The opening can use this provisional action. The native hero must exercise it. Before narration,
+obtain actual current muted-phone approval; then prove the final timed phone and native hero
+with sound before the full film. No old receipt approves new bytes. All three final audiovisual
+lenses, scoring, native output, cumulative resources and verified shipment remain unchanged.
+If the proposed mechanism fails, consolidate the repair and follow recurrence/pivot rules.
+The development path cannot reset spend or turn an unsupported action into a catalog entry.
 
 ## Lock the causal story in the existing board
 
@@ -44,8 +79,7 @@ Allowed kinds are same-subject, causal-consequence and source-example. A differe
 example also needs disclosure, copied exactly into the destination scene's production_disclosure.
 The daily renderer displays it. A custom renderer must display that field too.
 
-Every dimensional scene declares production_action from the catalog. The standard route executes
-those ids; a custom route must call the actual exported components. Source footage keeps its
+Every dimensional scene declares production_action from the catalog or the current source-backed proposal. The standard route executes catalog ids; a custom route must call the actual bound exported components. Source footage keeps its
 existing native-media hash, permission, trimming and evidence contracts. Keep quality_plan and
 the source-backed three-image plan; this compact story contract supplies the missing causal links.
 

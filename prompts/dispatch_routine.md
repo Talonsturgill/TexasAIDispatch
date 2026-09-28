@@ -30,6 +30,8 @@ another active routine. Do not load the full historical archive into every daily
 
 - The current source must support a visible action, affected people, an observable consequence,
   three memorable pictures and an honest limit. The ending answers the opening question.
+  The starter action catalog is not exhaustive. Use the bounded source-backed admission in
+  DAILY_PRODUCTION.md when a fresh mechanism is needed, then obtain current rendered proof.
 - Use the fixed quality contract and the rubric read directly from config/dispatch_rubric.yaml.
   Never restate its threshold. A passing film moves to release; do not add optional polish.
 - Use CinematicStage for the opening and required runtime coverage. Preserve the documentary

@@ -135,3 +135,15 @@ For editions under the daily production policy, read the packet's bound story_se
 Check the three candidate pictures against their source evidence, catalog limits and inspected
 asset leads. Reject a familiar prop that cannot perform this story's actual action. The current
 board must earn its causal sequence and consequence with the available pictures.
+
+## Provisional source-backed action review
+
+An action outside the small reuse catalog is not automatically a rejection. Apply the bounded
+admission contract in DAILY_PRODUCTION.md and inspect the current callable module, source
+claims and visible disclosure. Return action_reviews for each proposal with action_id,
+module_sha256, source_claims_sha256, verdict, blocking_defects and concrete code_observations.
+Use gate-generated digests. Judge whether the intended action is actually implemented and
+whether its visible certainty exceeds the sources. A code pass authorizes a phone test only.
+At phone review, judge current pixels normally. Keep the proposed mechanism in the native hero
+and reject it if contact, transformation or consequence is absent. Historical approval, an
+implemented export, a passing regression or filled fields cannot replace these observations.
