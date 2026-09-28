@@ -40,11 +40,10 @@ version of the reference episode.
 
 Read config/production_actions.json and its scope limits. Add filmability.action_support
 with exactly three ordered rows: image opening, mechanism, consequence. Each row names
-medium (demonstrated-action or source-footage), pictured_action, scope_fit and source_url
+medium (demonstrated-action, source-footage or a director-bound source-backed-action proposal), pictured_action, scope_fit and source_url
 from selected.sources. A demonstrated row names action_id from the catalog. The opening
 must use a supported dimensional action. A footage row names asset_url matching an asset_lead
 with url, inspection of the actual visible action, and rights_basis with evidence.
-Do not force an unrelated story into a familiar prop. Return an unsupported candidate as a
-rejected alternative; developing a new physical mechanism belongs outside the daily run.
+Do not force an unrelated story into a familiar prop. Return an unsupported candidate with its precise missing action. The director may use the bounded source-backed-action path in DAILY_PRODUCTION.md to implement one explanatory mechanism for independent code, phone and native proof. Research cannot approve that implementation or invent source evidence.
 The director copies this evidence into story_selection.json before voice or preview spending.
 These fields record inspectable evidence; their presence does not prove artistic quality.

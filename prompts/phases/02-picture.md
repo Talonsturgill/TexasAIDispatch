@@ -11,8 +11,7 @@ the opening pays off early and the final image answers it. Stage anticipation, c
 accumulation, consequence and a short comprehension hold on deterministic event windows.
 Do not substitute a panel, camera drift or idle prop motion for the central mechanism.
 
-Use daily-actions-v1 and supported production_action ids when they fit the evidence.
-A custom route must call the demonstrated components and preserve their limits. Human
+Use daily-actions-v1 and supported production_action ids when they fit the evidence. A custom route may call demonstrated components or the one current source-backed proposal under DAILY_PRODUCTION.md. Keep exact code/source bindings, independent action review and its proposed action in the native hero. No proposal substitutes for current rendered proof. Human
 performance needs actual supported footage or a separately demonstrated mechanism.
 Keep quality_plan, three source-backed images, attention_beats, the cinema plan and required
 dimensional coverage. The hero is the hardest current action, not a comfortable old opening.
