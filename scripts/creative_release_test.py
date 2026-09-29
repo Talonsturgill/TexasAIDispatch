@@ -1,6 +1,7 @@
 """Negative and integration tests for bounded creative release, without paid media."""
 import copy
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -159,6 +160,17 @@ class CreativeReleaseTests(unittest.TestCase):
         c.package_assessments(self.root, dest)
         self.assertEqual(c.digest(dest / "critic.json"), c.digest(self.root / "critic.json"))
         self.assertEqual(c.digest(dest / "preflight.mp4"), c.digest(self.root / "preflight.mp4"))
+
+    def test_release_record_relative_root_preserves_exact_evidence(self):
+        report = {"score": 6.0, "ship": False, "hard_fails": []}
+        expected = c.release_record(self.root, self.board, report)
+        relative = Path(os.path.relpath(self.root, Path.cwd()))
+        self.assertEqual(c.release_record(relative, self.board, report), expected)
+        self.assertEqual(expected["assessments"][0]["report_sha256"],
+                         c.digest(self.root / "critic.json"))
+        (self.root / "critic.json").write_text("{}")
+        with self.assertRaisesRegex(ValueError, "missing, changed"):
+            c.release_record(relative, self.board, report)
 
     def test_low_panel_without_ship_field_records_bounded_release(self):
         from run_controller import threshold
