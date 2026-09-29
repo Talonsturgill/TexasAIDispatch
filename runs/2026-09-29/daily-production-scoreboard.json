@@ -1,0 +1,88 @@
+{
+  "policy": "daily-production-v1",
+  "target_editions": 5,
+  "editions": [
+    {
+      "run_id": "2026-09-28",
+      "state": "shipped",
+      "shipped": true,
+      "score": 7.299,
+      "usage": {
+        "audiovisual_reviews": 5,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "panel_rounds": 1,
+        "preflight_renders": 6,
+        "reboards": 5,
+        "reported_tokens": 70917,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 3,
+        "storyboard_critics": 10,
+        "tts_calls": 6,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "first_panel_pass": true,
+      "over_targets": {
+        "preflight_renders": {
+          "used": 6,
+          "target": 3
+        },
+        "audiovisual_reviews": {
+          "used": 5,
+          "target": 4
+        },
+        "tts_calls": {
+          "used": 6,
+          "target": 2
+        },
+        "storyboard_critics": {
+          "used": 10,
+          "target": 3
+        }
+      },
+      "elapsed_seconds": 23354.088286,
+      "account_tokens": null,
+      "accounting_note": "reported_tokens covers provider telemetry only; Codex conversation and agent totals are unavailable here"
+    },
+    {
+      "run_id": "2026-09-29",
+      "state": "shipped",
+      "shipped": true,
+      "score": 6.597,
+      "usage": {
+        "audiovisual_reviews": 4,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "panel_rounds": 1,
+        "preflight_renders": 6,
+        "reboards": 3,
+        "reported_tokens": 60055,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 3,
+        "storyboard_critics": 7,
+        "tts_calls": 2,
+        "validator_agents": 1,
+        "voice_directors": 1
+      },
+      "first_panel_pass": false,
+      "over_targets": {
+        "preflight_renders": {
+          "used": 6,
+          "target": 3
+        },
+        "storyboard_critics": {
+          "used": 7,
+          "target": 3
+        }
+      },
+      "elapsed_seconds": 17988.707022,
+      "account_tokens": null,
+      "accounting_note": "reported_tokens covers provider telemetry only; Codex conversation and agent totals are unavailable here"
+    }
+  ],
+  "shipped_count": 2,
+  "evidence_status": "observations only; production reliability is not established by tooling tests"
+}
