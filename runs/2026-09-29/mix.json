@@ -1,0 +1,130 @@
+{
+  "duration_s": 40.0,
+  "cut_s": 40.0,
+  "peak_dbfs_premaster": -1.71,
+  "lufs_premaster": -18.5,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.2,
+  "lufs_shortfall_db": 0.1999999999999993,
+  "crest_factor_db": 16.8,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.71,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 2
+    },
+    {
+      "id": "immersed",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -27.69,
+      "gain_db": -9.78
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "immersed",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -27.69,
+  "bed_gain_db": -9.78,
+  "sfx_events": 2,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -16.84,
+      "true_peak_dbtp": 0.0
+    },
+    "after": {
+      "integrated_lufs": -16.2,
+      "true_peak_dbtp": -2.0
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.15:measured_TP=-5.74:measured_LRA=13.80:measured_thresh=-34.01:offset=0.50",
+    "measurement": {
+      "input_i": "-23.15",
+      "input_tp": "-5.74",
+      "input_lra": "13.80",
+      "input_thresh": "-34.01",
+      "output_i": "-16.06",
+      "output_tp": "-2.00",
+      "output_lra": "2.40",
+      "output_thresh": "-26.50",
+      "normalization_type": "dynamic",
+      "target_offset": "0.06"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.2,
+          "true_peak_dbtp": -2.0
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.15:measured_TP=-5.74:measured_LRA=13.80:measured_thresh=-34.01:offset=0.50"
+      }
+    ],
+    "correction": null,
+    "samples": 1920000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "2d92b6c2d22dbcdbb5ab8ccd99b5c0f7eeb1fdbe831263068305b5d26d1ce507",
+  "sound_direction_sha256": "7aa6fad26e62f68049d404979247d3a1418ed9d32dd84c118d6081d259675c63",
+  "sound_cues": [
+    {
+      "id": "s1-sound",
+      "event_id": "s1-detail",
+      "role": "sonification",
+      "duration_s": 0.4,
+      "intent": "A soft designed pulse draws attention to the research recording without imitating fetal audio.",
+      "provenance": "Designed editorial sound, not a recording from a participant or the app.",
+      "at_s": 0.279
+    },
+    {
+      "id": "s3-sound",
+      "event_id": "s3-detail",
+      "role": "sonification",
+      "duration_s": 0.40000000000000036,
+      "intent": "A restrained relay tone accompanies the explicitly illustrated upload relationship.",
+      "provenance": "Designed editorial sound, not a recording from a participant or the app.",
+      "at_s": 8.302999999999999
+    },
+    {
+      "id": "s6-sound",
+      "event_id": "s6-detail",
+      "role": "quiet",
+      "duration_s": 1.5090000000000003,
+      "intent": "Background sound drops when the failure screen interrupts the expected analysis.",
+      "provenance": "Designed editorial sound, not a recording from a participant or the app.",
+      "gain": 0,
+      "at_s": 18.220999999999997
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "s1-sound",
+      "sha256": "b67d7b85fa9babf477b1344465a0fe1c2c2a12a65df2c86e5bcd863b116b86b4"
+    },
+    {
+      "id": "s3-sound",
+      "sha256": "72c679540398e472f2b7dcd5732dd935f87947227e65c8a02849935bef77d01e"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "2abe0c70f807e230b8f830a70fa6afd6ebc477baa7b13b8eb4ac8d6b106985eb",
+  "bed_source_sha256": "870fa4f642816b2207cf74e48c36cbbbd147df99be24f08f29aa26ac0597a44b",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "39eebc22b7b1896d98dab707963846a27727cf202e32d7e8d1c28c836de1bf78",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 1920000
+}

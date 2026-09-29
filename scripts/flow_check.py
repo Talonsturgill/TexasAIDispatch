@@ -35,6 +35,12 @@ agent, which runs after this on the montage. Objective first, taste second, alwa
 in that order, because a critic arguing about a fault a script could have named is a
 critic not spending its attention on the thing only it can judge.
 
+The dated creative-production policy uses its directed sound event clock, including
+intentional quiet, instead of a sound on every scene. Authenticated editorial pictures
+use the existing inspected-source and rendered-element contracts instead of metadata
+word overlap. These bindings do not judge the pictured meaning or prove audible WAV
+execution; the mixer and exact-film reviewers retain those checks.
+
     flow_check.py --board out/dispatch/storyboard.json --sfx out/dispatch/sfx_events.json
     flow_check.py --self-test
 
@@ -79,7 +85,35 @@ def overlaps(a0: float, a1: float, b0: float, b1: float) -> bool:
     return a0 < b1 and b0 < a1
 
 
-def check(board: dict, sfx: list[dict]) -> list[str]:
+def directed_sound_problems(board: dict, sfx: list[dict]) -> list[str]:
+    """Check the authored event clock; the mixer verifies and executes WAV samples."""
+    import creative_production as creative
+    try:
+        cues = creative.sound_timeline(board)
+    except (KeyError, TypeError, ValueError) as exc:
+        return ["directed sound timeline is incomplete: " + str(exc)]
+    needed = {cue["id"]: cue for cue in cues if cue["role"] != "quiet"}
+    if len({e.get("id") for e in sfx}) != len(sfx) or {e.get("id") for e in sfx} != set(needed):
+        return ["sound events must match the directed non-quiet cues exactly"]
+    errors = []
+    for event in sfx:
+        cue = needed[event["id"]]
+        prefix = "sound " + event["id"] + ": "
+        if event.get("event_id") != cue["event_id"]:
+            errors.append(prefix + "file event must bind its directed picture event")
+        for key, expected in (("at_s", cue["at_s"]), ("dur_s", cue["duration_s"])):
+            if not creative.finite(event.get(key)) or abs(event[key] - expected) > .001:
+                errors.append(prefix + key + " differs from the current directed event clock")
+        if not creative.finite(event.get("gain")) or not 0 <= event["gain"] <= 1:
+            errors.append(prefix + "gain must be finite and between zero and one")
+        if not isinstance(event.get("wav"), str) or not event["wav"].strip():
+            errors.append(prefix + "needs its source WAV")
+        if not creative.concrete(event.get("source") or event.get("provenance"), 20):
+            errors.append(prefix + "needs explicit recorded or designed source provenance")
+    return errors
+
+
+def check(board: dict, sfx: list[dict], *, public: Path | None = None) -> list[str]:
     p: list[str] = []
     scenes = sorted(board.get("scenes") or [], key=lambda s: float(s.get("start_s") or 0))
     if not scenes:
@@ -87,6 +121,18 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
     # Gate 0 should already have run this. Re-running it here makes flow_check honest when called
     # directly and prevents its own later word-overlap heuristic from becoming a weaker answer.
     p += shot_coherence.check(board)
+    import creative_production as creative
+    current = (creative.required(board)
+               and (board.get("cinema") or {}).get("version") == creative.policy()["version"])
+    if current:
+        from daily_production import visual_problems
+        from render_manifest import native_media_paths, PUBLIC
+        p += directed_sound_problems(board, sfx)
+        p += visual_problems(board)
+        try:
+            native_media_paths(board, public if public is not None else PUBLIC)
+        except (OSError, ValueError) as exc:
+            p.append("source picture evidence failed: " + str(exc))
     runtime = float(board.get("runtime_s") or 0)
 
     # ---- A REST, measured ACROSS boundaries rather than inside scenes.
@@ -143,14 +189,12 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
     for s in scenes:
         s0 = float(s.get("start_s") or 0)
         s1 = s0 + float(s.get("duration_s") or 0)
-        import creative_production as creative
-        current = creative.required(board)
-        directed = creative.sound_timeline(board) if current else []
-        quiet = [e for e in directed if e["role"] == "quiet" and overlaps(s0, s1, e["at_s"], e["at_s"] + e["duration_s"])]
         mine = [e for e in sfx
                 if overlaps(s0, s1, float(e.get("at_s") or 0),
                             float(e.get("at_s") or 0) + float(e.get("dur_s") or 0.1))]
-        if not mine and quiet:
+        if current:
+            if len(mine) > 6:
+                p.append(f"scene {s.get('id')} stacks {len(mine)} sound events into {s1-s0:.1f}s. A wall of sound marks nothing at all.")
             continue
         if not mine:
             p.append(f"scene {s.get('id')} has no sound event. A music bed covers everything and "
@@ -172,9 +216,22 @@ def check(board: dict, sfx: list[dict]) -> list[str]:
 
     # ---- SAY IT, SHOW IT.
     uncovered = []
+    media = {m.get("file"): m for m in board.get("native_media", [])}
     for s in scenes:
         vo = str(s.get("vo") or "").strip()
         if not vo:
+            continue
+        if current and creative.picture_scene(board, s):
+            # The current picture contract binds the rendered element, reveal event and
+            # diagram claims in shot_coherence above. A source image additionally binds
+            # its actual bytes, inspected provenance and the claims of this scene.
+            # Metadata word overlap cannot establish what an authenticated image shows.
+            picture = s.get("picture") or {}
+            if picture.get("medium") in {"source-footage", "source-still", "source-excerpt"}:
+                asset = media.get(picture.get("file"), {})
+                claims = set(s.get("vo_claims") or [])
+                if s.get("id") not in (asset.get("scene_ids") or []) or not claims.intersection(asset.get("claim_ids") or []):
+                    p.append(f"scene {s.get('id')}: source picture lacks this scene's inspected claim binding")
             continue
         subject = words(vo)
         shown = shot_coherence.scene_visual_tokens(s)
@@ -320,6 +377,65 @@ def self_test() -> int:
 
     ok("an empty cut is refused", bool(check({"runtime_s": 0, "scenes": []}, [])))
 
+    # The current policy uses sparse directed sound and authenticated pictures,
+    # while all legacy cases above retain their original behavior.
+    import copy
+    import tempfile
+    import creative_production as creative
+    from creative_production_test import fixture
+    with tempfile.TemporaryDirectory() as tmp:
+        public = Path(tmp)
+        (public / "evidence").mkdir()
+        asset_file = public / "evidence/prototype.png"
+        from PIL import Image
+        Image.new("RGB", (16, 16), "navy").save(asset_file)
+        current = fixture()
+        scene = current["scenes"][0]
+        scene["vo"] = "The app is designed to return those movement patterns."
+        scene["picture"].update(medium="source-excerpt", subject="Actual prototype Trends output from the inspected study protocol.",
+                                file="evidence/prototype.png", sha256=creative.digest(asset_file),
+                                source_stage={"x": 60, "y": 300, "width": 830, "height": 940},
+                                focus={"x": 10, "y": 20, "width": 50, "height": 40})
+        scene["picture"].pop("nodes")
+        current["quality_plan"]["scenes"][0]["medium"] = "source-excerpt"
+        url = "https://example.org/inspected-study-protocol"
+        note = "Fixture-only inspected source quotation for this exact research workflow."
+        current["native_media"] = [{"file": "evidence/prototype.png", "sha256": creative.digest(asset_file),
+                                   "source_url": url, "basis": note, "subject": note, "relevance": note,
+                                   "inspection": note, "rights_basis": note, "story_role": "source-document",
+                                   "scene_ids": ["s1"], "claim_ids": ["c1"]}]
+        current["visual_research"] = {"searches": [{"query": "Fixture primary protocol asset search", "finding": note}],
+                                      "candidates": [{"url": url, "decision": "use", "reason": note}], "decision": note}
+        directed_sfx = [{"id": "s1-contact", "event_id": "s1-reveal", "at_s": .1, "dur_s": .3,
+                         "gain": .1, "wav": "fixture.wav", "provenance": note}]
+        ok("current sparse sound and source image pass without lexical subject overlap",
+           not check(current, directed_sfx, public=public), str(check(current, directed_sfx, public=public)))
+
+        def mutation(label, change):
+            b, sounds = copy.deepcopy(current), copy.deepcopy(directed_sfx)
+            change(b, sounds)
+            ok(label, bool(check(b, sounds, public=public)))
+
+        mutation("a missing directed sound is refused", lambda b, s: s.clear())
+        mutation("a sound tied to the wrong picture event is refused", lambda b, s: s[0].update(event_id="s2-reveal"))
+        mutation("a stale sound clock is refused", lambda b, s: s[0].update(at_s=1.2))
+        mutation("a stale sound duration is refused", lambda b, s: s[0].update(dur_s=.8))
+        mutation("an extra undirected sound is refused", lambda b, s: s.append({**s[0], "id": "extra"}))
+        mutation("missing sound provenance is refused", lambda b, s: s[0].pop("provenance"))
+        mutation("missing source WAV is refused", lambda b, s: s[0].pop("wav"))
+        mutation("a nonfinite sound gain is refused", lambda b, s: s[0].update(gain=float("nan")))
+        mutation("missing deliberate quiet contrast is refused", lambda b, s: b["creative_direction"]["sound"]["cues"].pop())
+        mutation("a quiet cue on an unknown event is refused", lambda b, s: b["creative_direction"]["sound"]["cues"][-1].update(event_id="missing"))
+        mutation("a source outside the inspected decisions is refused", lambda b, s: b["native_media"][0].update(source_url="https://example.org/uninspected"))
+        mutation("a source picture with changed hash is refused", lambda b, s: b["native_media"][0].update(sha256="wrong"))
+        mutation("a source picture assigned to the wrong scene is refused", lambda b, s: b["native_media"][0].update(scene_ids=["s2"]))
+        mutation("source claims unrelated to the spoken scene are refused", lambda b, s: b["scenes"][0].update(vo_claims=["unrelated-claim"]))
+        mutation("a picture on an unknown reveal event is refused", lambda b, s: b["scenes"][0]["picture"].update(event_id="missing"))
+        mutation("the current path requires its exact policy version", lambda b, s: b["cinema"].update(version="unknown"))
+        asset_file.write_bytes(b"changed actual asset bytes")
+        ok("modified source file bytes are refused even with matching metadata hashes",
+           any("bytes changed" in e for e in check(current, directed_sfx, public=public)))
+
     if failures:
         print(f"\nflow_check self-test: {failures} FAILED", file=sys.stderr)
         return 1
@@ -332,6 +448,7 @@ def main() -> int:
     ap.add_argument("--board", help="out/dispatch/storyboard.json")
     ap.add_argument("--sfx", help="out/dispatch/sfx_events.json")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--public", type=Path, help="explicit renderer public asset directory for an external board")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -345,7 +462,7 @@ def main() -> int:
     except (OSError, json.JSONDecodeError) as exc:
         print(f"flow_check: cannot read inputs: {exc}", file=sys.stderr)
         return 2
-    problems = check(board, sfx)
+    problems = check(board, sfx, public=a.public)
     if problems:
         print(f"flow: {len(problems)} problem(s)\n", file=sys.stderr)
         for x in problems:

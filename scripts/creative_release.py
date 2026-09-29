@@ -236,7 +236,7 @@ def package_assessments(source, destination):
 
 def release_record(root, board, report):
     """Disclose every retained artistic deferral, even if the later panel passes."""
-    root = Path(root)
+    root = Path(root).resolve()
     if not eligible(board, root):
         return None
     evidence = []

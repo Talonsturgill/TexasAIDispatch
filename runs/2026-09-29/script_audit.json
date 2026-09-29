@@ -1,0 +1,207 @@
+{
+  "schema": "dispatch_script_audit/1",
+  "edition_date": "2026-09-29",
+  "audited_at": "2026-09-29T11:41:44.549319+00:00",
+  "auditor": "independent-validator",
+  "status": "PASS",
+  "scope": "Semantic evidence audit of exact current narration and both opening alternatives; source-image interpretation and provenance. Not a story critic, phone-playback or provider verdict.",
+  "bindings": {
+    "out/dispatch/storyboard.json": "6dae9aa75e79da6f095af12930d428acad186b03ea7390878d7b356166e07200",
+    "out/dispatch/opening-a.json": "6dae9aa75e79da6f095af12930d428acad186b03ea7390878d7b356166e07200",
+    "out/dispatch/opening-b.json": "e09d6f3c101830a920179e129e9e3025d2aa8b8e4992b606b10c56313d8524b3",
+    "out/dispatch/vo_script.txt": "e4c6f3e2949b1c3b752aa5f8b678c4364f4aaa1e7ead79eedea55aeeaa27f6af",
+    "out/dispatch/claims.json": "73a57c331b53d247327abe52bc8b5994fb8973762491b133ca0ce5864c539db5",
+    "out/dispatch/source-extraction.json": "3ff66215a2b3df5cc68da625857400a2ad8972de84831f5b5f0af17a09322a78",
+    "video-engine/public/evidence/wombwatch-recording.png": "40c1ab77c4de9630ce89c4bfd139392aae519b8d7aaf80a763a4aaadac3e9943",
+    "video-engine/public/evidence/wombwatch-trends.png": "cfb943a3a12b64a14dcc10df14ecb2b290f87f6adce0c868a24fb6dc374c72ca",
+    "video-engine/public/evidence/wombwatch-failure.png": "caca5c44005ecdd690f720ce00b5e1cf9f89c372be18b6767713a8a57f955bce",
+    "video-engine/public/evidence/wombwatch-noise.png": "23c621b4b1a4fa80f21195214260f57ececf40de440c855dd4c797d7644840b9",
+    "video-engine/public/evidence/wombwatch-anxiety.png": "55c7785cdfcd27cce7669840a4f65cee31bb8f5fc1d712641ef14e8a88052025",
+    "video-engine/public/evidence/wombwatch-instructions.png": "c6f0101874fb1eb4f9fc8831ef5dcf897d48b209e06f96fe8e61c7b575ff3ee3",
+    "video-engine/public/evidence/wombwatch-experimental.png": "36f8eff72faed27910f8cc2ebad74c48e1a0c72128c8940f762ceba6281a33be"
+  },
+  "sentences": [
+    {
+      "scene_id": "s1",
+      "sentence_index": 1,
+      "sentence": "A phone recording isn't a diagnosis.",
+      "claim_ids": [
+        "c3",
+        "c5"
+      ],
+      "verdict": "PASS",
+      "reason": "Protocol explicitly states experimental and non-diagnostic results; narration is contextual to this study."
+    },
+    {
+      "scene_id": "s2",
+      "sentence_index": 1,
+      "sentence": "Womb Watch is recruiting in Austin, Houston and Galveston.",
+      "claim_ids": [
+        "c1",
+        "c2",
+        "c10"
+      ],
+      "verdict": "PASS",
+      "reason": "All three Texas sites are registry-listed as recruiting at retrieval."
+    },
+    {
+      "scene_id": "s3",
+      "sentence_index": 1,
+      "sentence": "The study uploads phone recordings to a Texas computing center.",
+      "claim_ids": [
+        "c3",
+        "c4",
+        "c12"
+      ],
+      "verdict": "PASS",
+      "reason": "Registry describes uploading audio to Texas Advanced Computing Center; protocol confirms internally hosted model."
+    },
+    {
+      "scene_id": "s4",
+      "sentence_index": 1,
+      "sentence": "Artificial intelligence estimates movement, breathing and hiccups.",
+      "claim_ids": [
+        "c4",
+        "c12"
+      ],
+      "verdict": "PASS",
+      "reason": "AI is employed to assess gross body movements, fetal breathing and hiccups. Estimate appropriately avoids proven reliability."
+    },
+    {
+      "scene_id": "s5",
+      "sentence_index": 1,
+      "sentence": "The app is designed to return those movement patterns.",
+      "claim_ids": [
+        "c4",
+        "c14"
+      ],
+      "verdict": "PASS",
+      "reason": "Protocol documents intended Trends interface; not actual trial results."
+    },
+    {
+      "scene_id": "s6",
+      "sentence_index": 1,
+      "sentence": "Noise can spoil the recording.",
+      "claim_ids": [
+        "c6",
+        "c13"
+      ],
+      "verdict": "PASS",
+      "reason": "Sources explicitly identify noise disrupting recording and a Recording Failed screen."
+    },
+    {
+      "scene_id": "s7",
+      "sentence_index": 1,
+      "sentence": "That can mean recording again.",
+      "claim_ids": [
+        "c6",
+        "c13"
+      ],
+      "verdict": "PASS",
+      "reason": "Sources offer deletion and re-recording; can preserves optionality."
+    },
+    {
+      "scene_id": "s8",
+      "sentence_index": 1,
+      "sentence": "Researchers are testing daily use and tracking participants' anxiety.",
+      "claim_ids": [
+        "c1",
+        "c3",
+        "c7",
+        "c16"
+      ],
+      "verdict": "PASS",
+      "reason": "Daily-use procedure, real-world feasibility outcome and anxiety surveys support both clauses."
+    },
+    {
+      "scene_id": "s9",
+      "sentence_index": 1,
+      "sentence": "The app's own instructions say it isn't intended to determine decreased fetal movements.",
+      "claim_ids": [
+        "c5",
+        "c17"
+      ],
+      "verdict": "PASS",
+      "reason": "Exact independently inspected instruction warning explicitly disclaims determining decreased fetal movements."
+    },
+    {
+      "scene_id": "s10",
+      "sentence_index": 1,
+      "sentence": "The results are experimental.",
+      "claim_ids": [
+        "c5",
+        "c14"
+      ],
+      "verdict": "PASS",
+      "reason": "Protocol explicitly states experimental and non-diagnostic results; neither sentence claims clinical utility."
+    },
+    {
+      "scene_id": "s10",
+      "sentence_index": 2,
+      "sentence": "An analyzed recording still isn't a diagnosis.",
+      "claim_ids": [
+        "c5",
+        "c14"
+      ],
+      "verdict": "PASS",
+      "reason": "Protocol explicitly states experimental and non-diagnostic results; neither sentence claims clinical utility."
+    }
+  ],
+  "opening_alternatives": {
+    "count": 2,
+    "narration_identical": true,
+    "result": "Both source-backed opening images are valid protocol examples with persistent disclosure; no claimed observed outcome."
+  },
+  "mechanical_checks": [
+    {
+      "board": "storyboard.json",
+      "command": "python3 scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --planning-only",
+      "exit_code": 0
+    },
+    {
+      "board": "opening-a.json",
+      "command": "python3 scripts/script_evidence_check.py --board out/dispatch/opening-a.json --claims out/dispatch/claims.json --planning-only",
+      "exit_code": 0
+    },
+    {
+      "board": "opening-b.json",
+      "command": "python3 scripts/script_evidence_check.py --board out/dispatch/opening-b.json --claims out/dispatch/claims.json --planning-only",
+      "exit_code": 0
+    }
+  ],
+  "script_matches_scene_vo": true,
+  "visual_findings": [
+    "Independent protocol hash matches source hash in board.",
+    "Instructions, Recording, Failure and Trends public images match decoded embedded PDF images pixel for pixel.",
+    "Instruction warning independently transcribed and verified as c17; no warning attributed to Trends screenshot.",
+    "Trends values are visibly retained source examples; narration and disclosure do not interpret their numbers as results.",
+    "Noise notice and experimental/anxiety excerpts preserve source wording and its meaning.",
+    "No authentic fetal audio, live participant performance, clinical reassurance or benefit is established by these source images."
+  ],
+  "limitations": [
+    "Rendered legibility, persistent disclosure visibility and phone pacing require the independent visual/phone review.",
+    "Full pre-voice gate also requires separate critic and opening-preview evidence; planning-only checks prove evidence bindings only.",
+    "Existing rejected claims and source discrepancies remain in claims.json; this audit does not erase them."
+  ],
+  "prior_audit": "out/dispatch/script_audit.tentative-rejected.json",
+  "blocking_defects": [],
+  "source_attribution_followthrough": {
+    "checked_at": "2026-09-29T11:52:50.012687+00:00",
+    "claim_id": "c18",
+    "verdict": "PASS",
+    "visible_attribution": "UT Austin protocol / July 31st, 2026",
+    "evidence": "Retained independently fetched PDF title page explicitly reads Document Date: 31JULY2026; principal investigators are affiliated with UT Austin.",
+    "bindings": {
+      "claims_sha256": "958a63a84e9fb457f932627889a12e5d3fbe1fa09c745466c04b09b01f226fae",
+      "script_sha256": "e4c6f3e2949b1c3b752aa5f8b678c4364f4aaa1e7ead79eedea55aeeaa27f6af",
+      "protocol_sha256": "4d5c037a04c160ce0f0bc83b996220f1a95b0d5b6a62521b0bce80fdf8460ed8",
+      "board_sha256": {
+        "out/dispatch/storyboard.json": "89e6c282c9507cff0d8b2fbf3d75e5620679445e31cbdd4f388584cd752c3772",
+        "out/dispatch/opening-a.json": "89e6c282c9507cff0d8b2fbf3d75e5620679445e31cbdd4f388584cd752c3772",
+        "out/dispatch/opening-b.json": "a505e17a1634e5a446e3cb5c72e50071603f79b26005de0a9f7ecb7913487da1"
+      }
+    },
+    "narration_unchanged": true,
+    "scope": "Date/source attribution evidence and unchanged narration only. Earlier full-board bindings remain retained; diagram geometry, Instructions framing and opening focus changes require separate critic review."
+  }
+}

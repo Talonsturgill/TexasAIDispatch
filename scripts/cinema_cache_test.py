@@ -1,5 +1,6 @@
 """Offline dependency mutations; synthetic fixture bytes never approve a film."""
 import copy
+from contextlib import ExitStack
 import json
 import tempfile
 import unittest
@@ -138,5 +139,95 @@ class CacheTest(unittest.TestCase):
              patch.object(p,"reserve") as reserve:
             with self.assertRaisesRegex(ValueError,"phone visual review"):p.build(self.bp,self.mix,self.root/"state")
             reserve.assert_not_called()
+
+    def proof_fixture(self, stage_errors):
+        """Stub rendering only; exercise real retention keys and file verification."""
+        for name in ("preflight.json", "storyboard_critic.json"):
+            (self.root/name).write_text("{}")
+        (self.root/"preflight.mp4").write_bytes(b"synthetic phone fixture")
+        def command(argv, cwd=None):
+            if argv[0] == "node":
+                spec = json.loads(Path(argv[-1]).read_text())
+                for job in spec["jobs"]:
+                    Path(job["output"]).write_bytes(b"synthetic " + job["kind"].encode())
+                Path(spec["report"]).write_text('{"synthetic_test_batch":true}\n')
+            else:
+                Path(argv[-1]).write_bytes(b"synthetic mux")
+        stack = ExitStack()
+        self.addCleanup(stack.close)
+        for target, name in ((p, "plan_problems"), (p.critic_gate, "film_review_problems")):
+            stack.enter_context(patch.object(target, name, return_value=[]))
+        stage = stack.enter_context(patch.object(p, "stage_sample_problems", return_value=stage_errors))
+        def inspect(*args, **kwargs):
+            kwargs["observations"].append({"synthetic_test_measurement": True})
+            return stage.return_value
+        stage.side_effect = inspect
+        command_mock = stack.enter_context(patch.object(p, "run", side_effect=command))
+        reserve = stack.enter_context(patch.object(p, "reserve", return_value=(True, "reserved")))
+        return stage, command_mock, reserve
+
+    def test_failed_stage_retains_exact_evidence_and_reuses_without_approval(self):
+        errors = ["a stage sample failed its occupancy check"]
+        samples = patch.object(c, "sample_frames", return_value={"a": [3, 6, 9]})
+        samples.start()
+        self.addCleanup(samples.stop)
+        stage, commands, reserve = self.proof_fixture(errors)
+        root = self.root/"cinema"
+        root.mkdir()
+        # Previously published evidence and its actual rejection must survive failure.
+        for name in ("proof.json", "hero.mp4", "hero-review.json"):
+            (root/name).write_bytes(b"earlier evidence")
+        for attempt in range(2):
+            with self.assertRaisesRegex(ValueError, "exact failed evidence retained"):
+                p.build(self.bp, self.mix, self.root/"state.json")
+            archives = sorted((root/"failed-proofs").iterdir())
+            self.assertEqual(attempt+1, len(archives))
+            self.assertEqual(1, reserve.call_count)
+            self.assertEqual(2, commands.call_count)  # One batch and one mux, total.
+            for name in ("proof.json", "hero.mp4", "hero-review.json"):
+                self.assertEqual(b"earlier evidence", (root/name).read_bytes())
+        originals = {a: (a/"proof.json").read_bytes() for a in archives}
+        for archive in archives:
+            proof = json.loads((archive/"proof.json").read_text())
+            self.assertIs(proof["pass"], False)
+            self.assertEqual(errors, proof["problems"])
+            self.assertEqual([{"synthetic_test_measurement": True}], proof["principal_picture_measurements"])
+            self.assertEqual(3, len(proof["samples"]["a"]))
+            self.assertEqual(self.bp.read_bytes(), (archive/"props.json").read_bytes())
+            self.assertEqual([], c.binding_problems(self.bp, proof, self.mix))
+            for name, sha in proof["retained_files"].items():
+                self.assertEqual(sha, c.file_sha256(archive/name))
+            self.assertEqual(proof["hero"]["sha256"], c.file_sha256(archive/proof["hero"]["file"]))
+            for pairs in proof["samples"].values():
+                for pair in pairs:
+                    for entry in pair.values():
+                        self.assertEqual(entry["sha256"], c.file_sha256(archive/entry["file"]))
+        rendered = next(a for a in archives if (a/"batch-report.json").exists())
+        self.assertTrue((rendered/"batch.json").exists())
+        self.assertTrue((rendered/"hero-silent.mp4").exists())
+        stage.return_value = []
+        p.build(self.bp, self.mix, self.root/"state.json")
+        self.assertEqual(1, reserve.call_count)
+        self.assertEqual(2, commands.call_count)
+        self.assertEqual(3, stage.call_count)  # Cached bytes still undergo the check.
+        for archive, original in originals.items():
+            self.assertEqual(original, (archive/"proof.json").read_bytes())
+
+    def test_failed_dependencies_archive_but_never_enter_reusable_cache(self):
+        self.proof_fixture([])
+        expected = p.current_bindings(self.bp, self.mix)
+        for kind in ("reuse", "current_inputs"):
+            with self.subTest(kind=kind), ExitStack() as stack:
+                if kind == "reuse":
+                    stack.enter_context(patch.object(c, "binding_problems", return_value=["hero render dependencies changed"]))
+                else:
+                    stack.enter_context(patch.object(p, "current_bindings", side_effect=[expected, {**expected, "board_sha256":"changed"}]))
+                with self.assertRaisesRegex(ValueError, "exact failed evidence retained"):
+                    p.build(self.bp, self.mix, self.root/"state.json")
+                root = self.root/"cinema"
+                self.assertFalse((root/"render-cache").exists())
+                self.assertFalse((root/"proof.json").exists())
+                self.assertFalse((root/"hero.mp4").exists())
+        self.assertEqual(2, len(list((root/"failed-proofs").iterdir())))
 
 if __name__=="__main__":unittest.main()

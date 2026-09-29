@@ -131,31 +131,35 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
     An explicit, sourced homophone exception may reconcile a proper-name spelling.
     No fuzzy matching, dropped words, guessed timestamps or numeral substitutions.
     """
-    alias_map: dict[str, list[tuple[int | None, str]]] = {}
+    alias_map: dict[str, list[tuple[int | None, list[str]]]] = {}
     for row in aliases:
         a, b = canonical(row.get("heard", "")), canonical(row.get("script", ""))
         occurrence = row.get("occurrence")
-        if (len(a) != 1 or len(b) != 1 or any(t.isdigit() for t in a + b)
+        name_split = (row.get("kind") == "proper-name-tokenization"
+                      and len(b) == 2 and occurrence is not None
+                      and all(w[:1].isupper() for w in row.get("script", "").split()))
+        if (len(a) != 1 or (len(b) != 1 and not name_split)
+                or set(a + b) == {"an", "and"} or any(t.isdigit() for t in a + b)
                 or not row.get("reason") or not row.get("source")
                 or (occurrence is not None and
                     (not isinstance(occurrence, int) or occurrence < 1))):
-            raise ValueError("alignment aliases must be sourced single-word nonnumeric spellings")
+            raise ValueError("alignment aliases require sourced nonnumeric spelling or explicit proper-name tokenization")
         rules = alias_map.setdefault(a[0], [])
         if any(existing == occurrence for existing, _ in rules):
             raise ValueError("alignment aliases cannot repeat the same heard-word occurrence")
-        rules.append((occurrence, b[0]))
+        rules.append((occurrence, b))
     expected = [(part, i) for i, word in enumerate(tokens) for part in canonical(word)]
     actual = []
     heard_counts: dict[str, int] = {}
     for w in heard:
         for part in canonical(w["text"]):
             heard_counts[part] = heard_counts.get(part, 0) + 1
-            replacement = part
+            replacement = [part]
             for occurrence, target in alias_map.get(part, []):
                 if occurrence is None or occurrence == heard_counts[part]:
                     replacement = target
                     break
-            actual.append((replacement, float(w["center"])))
+            actual.extend((p, float(w["center"])) for p in replacement)
     if [p for p, _ in expected] != [p for p, _ in actual]:
         import difflib
         diff = list(difflib.ndiff([p for p, _ in expected], [p for p, _ in actual]))
@@ -1013,6 +1017,11 @@ def self_test() -> int:
        1 < len(speech_runs(hot, sr)) <= len(runs) + 2,
        str(len(speech_runs(hot, sr))))
 
+    import unittest
+    import alignment_reconciliation_test
+    checked = unittest.TextTestRunner().run(
+        unittest.defaultTestLoader.loadTestsFromModule(alignment_reconciliation_test))
+    failures += len(checked.failures) + len(checked.errors)
     if failures:
         print(f"\nvo_align self-test: {failures} FAILED", file=sys.stderr)
         return 1
@@ -1029,6 +1038,7 @@ def main() -> int:
         "to --wav. See the note in main() for why this is not a shortcut."))
     ap.add_argument("--out", default="out/dispatch")
     ap.add_argument("--aliases", help="sourced proper-name ASR spelling exceptions, never timing edits")
+    ap.add_argument("--reconciliation", help="bound independent soundcheck evidence for an/and ambiguity")
     ap.add_argument("--verify", action="store_true", help="recompute and verify existing acoustic evidence only")
     ap.add_argument("--cuts", help=(
         "the storyboard, so a cue never spans a picture cut. A caption that outlives its shot "
@@ -1101,9 +1111,20 @@ def main() -> int:
                 raise ValueError("stale or missing acoustic provenance binding")
         else:
             raw, meta = transcribe(voice_path, out)
-        res = align(x, rate, script, acoustic_words(raw), aliases)
+        heard = acoustic_words(raw)
+        reconciliation_path = (Path(a.reconciliation) if a.reconciliation
+                               else out / "alignment_reconciliation.json")
+        reconciliation = None
+        if reconciliation_path.exists():
+            from alignment_reconciliation import reconcile
+            heard, reconciliation = reconcile(reconciliation_path, voice_path,
+                                                Path(a.script), out / "acoustic-asr.json",
+                                                heard, aliases)
+        res = align(x, rate, script, heard, aliases)
         res["provenance"] = dict(meta, mix_sha256=digest(Path(a.wav)),
                                  script_sha256=digest(Path(a.script)), aliases=aliases)
+        if reconciliation is not None:
+            res["provenance"]["transcript_reconciliation"] = reconciliation
     except ValueError as exc:
         print(f"vo_align: {exc}", file=sys.stderr)
         return 1
