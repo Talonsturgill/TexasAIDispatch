@@ -118,12 +118,35 @@ def plan_problems(board):
                 if medium == "source-footage" and (not finite(picture.get("trim_end_s")) or not finite(picture.get("trim_start_s"))
                         or picture["trim_end_s"] - picture["trim_start_s"] < float(scene.get("duration_s") or 0)):
                     errors.append(sid + " footage trim must cover its complete scene at original speed")
+                stage = picture.get("source_stage") or {}
+                stage_valid = (all(finite(stage.get(k)) for k in ("x", "y", "width", "height"))
+                               and 60 <= stage["x"] < stage["x"] + stage["width"] <= 890
+                               and 280 <= stage["y"] < stage["y"] + stage["height"] <= 1240)
+                if not stage_valid:
+                    errors.append(sid + " source stage must exclude the editorial header, caption band and feed rail")
+                focus = picture.get("focus")
+                if stage_valid and focus and all(finite(focus.get(k)) for k in ("x", "y", "width", "height")):
+                    if not (stage["x"] <= focus["x"] * 10.8
+                            and (focus["x"] + focus["width"]) * 10.8 <= stage["x"] + stage["width"]
+                            and stage["y"] <= focus["y"] * 19.2
+                            and (focus["y"] + focus["height"]) * 19.2 <= stage["y"] + stage["height"]):
+                        errors.append(sid + " source focus must remain inside its bounded picture stage")
                 crop = picture.get("crop", {"x": 50, "y": 50})
                 if any(not finite(crop.get(k)) or not 0 <= crop[k] <= 100 for k in ("x", "y")):
                     errors.append(sid + " source crop must lie inside its image")
+            transform = picture.get("source_transform")
+            if transform is not None and (
+                    medium not in ("source-still", "source-excerpt")
+                    or any(not finite(transform.get(k)) for k in ("scale", "translate_x", "translate_y"))
+                    or not .5 <= transform.get("scale", 0) <= 1.5
+                    or abs(transform.get("translate_x", 0)) > 500
+                    or abs(transform.get("translate_y", 0)) > 500):
+                errors.append(sid + " source framing must be a finite bounded static image transform")
             if not concrete(picture.get("disclosure"), 5):
                 errors.append(sid + " picture requires a truthful source or illustration disclosure")
             if medium == "diagram":
+                if picture.get("relationship") not in ("parallel", "sequence"):
+                    errors.append(sid + " diagram must declare parallel or sequential source semantics")
                 nodes = picture.get("nodes") or []
                 if not 2 <= len(nodes) <= 4 or any(not n.get("label") or not n.get("claim_id") for n in nodes):
                     errors.append(sid + " diagram needs two to four source-bound nodes")

@@ -69,6 +69,10 @@ export interface Scene {
     id: string; medium: 'source-footage' | 'source-still' | 'source-excerpt' | 'diagram';
     event_id: string; disclosure: string; file?: string; sha256?: string; trim_start_s?: number; trim_end_s?: number;
     crop?: {x: number; y: number};
+    source_transform?: {scale: number; translate_x: number; translate_y: number};
+    source_stage?: {x: number; y: number; width: number; height: number};
+    attribution?: string;
+    relationship?: 'parallel' | 'sequence';
     focus?: {x: number; y: number; width: number; height: number};
     nodes?: {label: string; claim_id: string}[];
   };

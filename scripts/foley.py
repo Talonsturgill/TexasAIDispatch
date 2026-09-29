@@ -1712,7 +1712,23 @@ def cleanup_bag_rustle(seed=107):
     return normalize(fade(out, 12), .38)
 
 
+def protocol_focus(seed=96):
+    """Editorial sonification of a source-interface detail reveal, never fetal audio."""
+    dur = .4
+    envelope = np.sin(np.pi * t_axis(dur) / dur) ** 2
+    return normalize((sine(420, dur) + .16 * sine(840, dur)) * envelope, .65)
+
+
+def protocol_upload(seed=97):
+    """Editorial sonification of the illustrated recording-to-computing-center relay."""
+    dur = .4
+    envelope = np.sin(np.pi * t_axis(dur) / dur) ** 2
+    return normalize(sine(lambda t: 480 + 170 * t / dur, dur) * envelope, .65)
+
+
 SOUNDS = {
+    "protocol_focus": (protocol_focus, "oneshot", "editorial sonification of the visible protocol interface detail reveal, not participant or fetal audio", ["protocol", "source", "sonification"]),
+    "protocol_upload": (protocol_upload, "oneshot", "editorial sonification of the visible recording-to-computing-center diagram relay, not a recorded app sound", ["protocol", "upload", "sonification"]),
     "cleanup_bag_rustle": (cleanup_bag_rustle, "oneshot", "designed plastic rustle synchronized to visible litter entering the held cleanup bag", ["cleanup", "bag", "litter"]),
     "roof_fastener_turn": (roof_fastener_turn, "oneshot", "the visible illustrative fastener rotating, advancing and seating against its pad", ["roof", "hand", "tool"]),
     "brush_truck_roll": (brush_truck_roll, "oneshot", "the visible illustrated brush truck rolling past the curbside house", ["brush", "truck", "street"]),

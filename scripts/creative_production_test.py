@@ -29,7 +29,7 @@ def fixture():
         board["scenes"].append({"id": sid, "start_s": i*3, "duration_s": 3, "vo": "The record reaches the reader.",
             "vo_claims": ["c1"], "planes": [], "camera_strategy": "sourcePicture", "visual_events": [{"id": sid+"-reveal", "at_s": .1, "duration_s": 1.2}],
             "picture": {"id": sid+"-picture", "medium": "diagram", "subject": note, "event_id": sid+"-reveal",
-                        "disclosure": "Illustration", "nodes": [{"label": "record", "claim_id": "c1"}, {"label": "reader", "claim_id": "c1"}]},
+                        "disclosure": "Illustration", "relationship": "sequence", "nodes": [{"label": "record", "claim_id": "c1"}, {"label": "reader", "claim_id": "c1"}]},
             "visual_proof": {"mute_takeaway": note, "must_show": [{"concept": "record to reader", "item_ids": [sid+"-picture"]}]}})
         board["quality_plan"]["scenes"].append({"scene_id": sid, "medium": "diagram"})
     board["creative_direction"] = {"policy_sha256": c.digest(c.POLICY),
@@ -95,6 +95,48 @@ class CreativeTest(unittest.TestCase):
         self.assertTrue(any("exact inspected source" in e for e in c.plan_problems(self.board)))
         self.board["scenes"][0]["picture"]["medium"] = "diagram"
         self.assertTrue(any("differs from" in e for e in c.plan_problems(self.board)))
+
+    def test_diagram_relationship_requires_an_explicit_meaning(self):
+        picture = self.board["scenes"][0]["picture"]
+        for valid in ("parallel", "sequence"):
+            picture["relationship"] = valid
+            self.assertEqual(c.plan_problems(self.board), [])
+        for invalid in ("", "causal", None):
+            picture["relationship"] = invalid
+            self.assertTrue(any("source semantics" in e for e in c.plan_problems(self.board)))
+
+    def test_static_source_framing_rejects_nonfinite_and_excessive_offsets(self):
+        scene = self.board["scenes"][0]
+        picture = scene["picture"]
+        picture.update(medium="source-excerpt", file="evidence/example.png", sha256="a"*64,
+                       focus={"x": 10, "y": 40, "width": 60, "height": 10},
+                       source_stage={"x": 60, "y": 300, "width": 830, "height": 940})
+        self.board["native_media"] = [{"file": picture["file"], "sha256": picture["sha256"]}]
+        self.board["quality_plan"]["scenes"][0]["medium"] = "source-excerpt"
+        picture["source_transform"] = {"scale": 1, "translate_x": -55, "translate_y": -280}
+        self.assertEqual(c.plan_problems(self.board), [])
+        for key, value in (("scale", float("nan")), ("translate_y", -501), ("translate_x", True), ("scale", 3)):
+            old = picture["source_transform"][key]
+            picture["source_transform"][key] = value
+            self.assertTrue(any("finite bounded" in e for e in c.plan_problems(self.board)))
+            picture["source_transform"][key] = old
+
+    def test_source_stage_prevents_header_caption_and_feed_overprint(self):
+        scene = self.board["scenes"][0]
+        picture = scene["picture"]
+        picture.update(medium="source-excerpt", file="evidence/example.png", sha256="a"*64,
+                       focus={"x": 10, "y": 40, "width": 60, "height": 10},
+                       source_stage={"x": 60, "y": 300, "width": 830, "height": 940})
+        self.board["native_media"] = [{"file": picture["file"], "sha256": picture["sha256"]}]
+        self.board["quality_plan"]["scenes"][0]["medium"] = "source-excerpt"
+        self.assertEqual(c.plan_problems(self.board), [])
+        for key, value in (("y", 0), ("height", 1300), ("width", 1080), ("x", float("nan"))):
+            previous = picture["source_stage"][key]
+            picture["source_stage"][key] = value
+            self.assertTrue(any("exclude" in e for e in c.plan_problems(self.board)))
+            picture["source_stage"][key] = previous
+        picture["focus"]["y"] = 10
+        self.assertTrue(any("inside its bounded" in e for e in c.plan_problems(self.board)))
 
     def test_hero_passage_and_edit_sequence_must_be_complete(self):
         self.board["cinema"]["hero_passage_end_scene_id"] = "missing"
