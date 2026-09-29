@@ -718,7 +718,15 @@ def cinematic_report_problems(state: dict, report: Path) -> list[str]:
     film = report.parent / "film.mp4"
     if not film.is_file() or digest(film) != saved.get("film_sha256"):
         return ["cinematic report must accompany the exact registered final film"]
-    return publication_problems(board, film, load_json(report).get("judges", []))
+    # The immutable trio preserves the last rendered artifact. Publication evidence
+    # (opening receipts, mix and native proof) belongs to the report's package.
+    # Use that package's board only after proving it is the registered board.
+    package_board = report.parent / "storyboard.json"
+    if (not package_board.is_file()
+            or digest(package_board) != saved.get("board_sha256")
+            or digest(board) != saved.get("board_sha256")):
+        return ["cinematic report must accompany the exact registered storyboard"]
+    return publication_problems(package_board, film, load_json(report).get("judges", []))
 
 
 def finish(path: Path, result: str, reason: str = "", report: Path | None = None,

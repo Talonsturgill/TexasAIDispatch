@@ -91,6 +91,79 @@ class LifecycleTest(unittest.TestCase):
             report.write_text('{"score": 0, "ship": false}')
             self.assertFalse(c.check_delivery(self.state, report)[0])
 
+    def test_publication_evidence_uses_exact_report_package_board(self):
+        import production_quality as quality
+        package = self.root / "package"
+        snapshot = self.root / "immutable"
+        package.mkdir()
+        snapshot.mkdir()
+        board = package / "storyboard.json"
+        board.write_text(json.dumps({"date": "2026-09-29"}))
+        saved_board = snapshot / "storyboard.json"
+        saved_board.write_bytes(board.read_bytes())
+        film = package / "film.mp4"
+        film.write_bytes(b"exact registered film")
+        report = package / "report.json"
+        report.write_text(json.dumps({"judges": [{"role": "picture"}]}))
+        state = c.read_state(self.state)
+        state["run_id"] = "2026-09-29"
+        state["deliverable"] = {
+            "board": str(saved_board), "board_sha256": c.digest(saved_board),
+            "film_sha256": c.digest(film)}
+        original_state = copy.deepcopy(state)
+        (package / "openings").mkdir()
+        opening = package / "openings/comparison.json"
+        opening.write_text("{}")
+        mix = package / "mix.json"
+        mix.write_text("{}")
+
+        def check_dependencies(current_board, current_film, judges):
+            self.assertEqual(current_board, board)
+            self.assertEqual(current_film, film)
+            self.assertEqual(judges, [{"role": "picture"}])
+            return [str(current_board.parent / name) + " unavailable"
+                    for name in ("openings/comparison.json", "mix.json")
+                    if not (current_board.parent / name).is_file()]
+
+        with patch.object(quality, "required", return_value=True), patch.object(
+                quality, "publication_problems", side_effect=check_dependencies) as check:
+            self.assertEqual(c.cinematic_report_problems(state, report), [])
+            self.assertFalse((snapshot / "mix.json").exists())
+            for dependency in (opening, mix):
+                original = dependency.read_bytes()
+                dependency.unlink()
+                self.assertIn(str(dependency), " ".join(
+                    c.cinematic_report_problems(state, report)))
+                dependency.write_bytes(original)
+            original = board.read_bytes()
+            for replacement in (None, b'{"date":"2026-09-29","changed":true}'):
+                with self.subTest(replacement=replacement):
+                    if replacement is None:
+                        board.unlink()
+                    else:
+                        board.write_bytes(replacement)
+                    check.reset_mock()
+                    self.assertIn("exact registered storyboard", " ".join(
+                        c.cinematic_report_problems(state, report)))
+                    check.assert_not_called()
+                    board.write_bytes(original)
+            saved_board.write_text('{"date":"2026-09-29","changed":true}')
+            check.reset_mock()
+            self.assertIn("exact registered storyboard", " ".join(
+                c.cinematic_report_problems(state, report)))
+            check.assert_not_called()
+            saved_board.write_bytes(original)
+            film.write_bytes(b"substituted film")
+            self.assertIn("exact registered final film", " ".join(
+                c.cinematic_report_problems(state, report)))
+            self.assertEqual(state, original_state)
+        # Editions outside cinematic policy retain their existing contract.
+        board.unlink()
+        with patch.object(quality, "required", return_value=False), patch.object(
+                quality, "publication_problems") as check:
+            self.assertEqual(c.cinematic_report_problems(state, report), [])
+            check.assert_not_called()
+
     def test_checkpoint_keeps_ledger_active(self):
         package = self.root / "checkpoint"
         package.mkdir()
