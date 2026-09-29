@@ -738,7 +738,13 @@ def main() -> int:
         print(f"ship_gate: cannot read inputs: {exc}", file=sys.stderr)
         return 2
 
-    fails, notes = check(board, claims, script, captions, audio, report, county_map)
+    from creative_release import panel_allows
+    bounded_release = bool(a.report and panel_allows(Path(a.board), Path(a.report)))
+    # Only panel artistry is routed separately. All source/media checks still run.
+    fails, notes = check(board, claims, script, captions, audio,
+                         None if bounded_release else report, county_map)
+    if bounded_release:
+        notes.append("bounded creative release: original panel scores and rejection retained")
     import documentary_check
     import documentary_review
     fails.extend(documentary_check.check(board))

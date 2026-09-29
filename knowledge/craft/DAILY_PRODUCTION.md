@@ -158,8 +158,11 @@ The timed phone check proves measured captions and continuity. The native hero p
 finish and sound before the full render. Reuse valid evidence for unchanged inputs. These scopes
 cannot be collapsed into one fictional approval or an upscale.
 
-A target overrun triggers diagnosis and a single consolidated correction under the existing
-controller. It never lowers quality or ends production. Retain all charges and the frozen
+A target overrun triggers diagnosis under the existing controller. Before another creative
+correction apply knowledge/craft/BOUNDED_CREATIVE_RELEASE.md: at most three creative rounds,
+or earlier when another complete round would consume mandatory completion review headroom.
+Finish the retained best complete cut and ship without a creative approval question. Do not
+change any review, score, source/integrity standard or shipment requirement. Retain all charges and the frozen
 cumulative envelope. After two rejections of one mechanism, use the required independent pivot.
 A weakest interval is always reported; only an actual failed criterion requires repair.
 Do not spend another verdict on identical bytes for the same lens.
@@ -167,8 +170,10 @@ Do not spend another verdict on identical bytes for the same lens.
 ## Autonomous work with a reserved path to shipment
 
 Owner instruction on September 28th is to ship without repeated permission requests or an
-open-ended editing cycle. Only a shipped video is done. Existing quality and source gates
-remain fixed. The configured cumulative envelope is a ceiling, not a spending target.
+open-ended editing cycle. The September 29 owner instruction adds finite creative repair and
+autonomous release of the best completed cut. Only a shipped video is done. The rubric and
+source/integrity gates remain fixed; bounded artistic eligibility is separately recorded.
+The configured cumulative envelope is a ceiling, not a spending target.
 
 Before selecting a treatment, map the required independent reviews and render attempts to the
 remaining ledger. Include source/action code admission if proposing a new module. Keep enough
@@ -179,6 +184,8 @@ use fewer than the normal target when one strong source-backed treatment is avai
 
 Before every structural repair, run the controller's production-budget precheck. Do not spend
 a preview or synthesize a voice while the required path to final review no longer fits.
+If another creative correction would consume completion headroom, stop optional editing now
+and use the bounded route; reserve the final timed phone, native hero and exact-film checks.
 Consolidate all blocking defects into one correction with an observable before/after result.
 Keep approved narration and measured timing when the claims and spoken sequence are unchanged.
 A return to code after a failed picture is not permission for another exploratory treatment.
@@ -192,7 +199,8 @@ cancelled. On a later wake, compare the blocking evidence and prerequisites firs
 conditions authorize no new paid calls, duplicate research, renders or generic polling.
 Resume useful authorized work when a concrete source, capability or access change supplies a
 credible route forward. Never create a new edition to hide the unfinished one. Once the fixed
-gates pass, proceed directly through merge, deployment, phone verification and the unsent draft.
+integrity gates and either rubric or bounded artistic route are evidenced, proceed directly
+through merge, deployment, phone verification and the unsent draft.
 
 ## Compact role handoffs
 

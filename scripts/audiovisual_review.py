@@ -103,7 +103,7 @@ def cached_review(film, role, state, out):
         errors = av_problems(out, film, role)
         if errors:
             raise ValueError("same film and lens already reviewed; repair the film before another paid verdict: " + "; ".join(errors))
-        print("audiovisual_review: reused exact-byte " + role + " approval; no paid call")
+        print("audiovisual_review: reused exact-byte " + role + " evidence; original verdict retained; no paid call")
         return cache, True
     return cache, False
 
@@ -202,7 +202,8 @@ def review(film, role, state, out):
     out.parent.mkdir(parents=True, exist_ok=True)
     out.unlink(missing_ok=True)
     request_id = str(uuid.uuid4())
-    prompt = review_prompt(role)
+    from creative_release import assessment_prompt
+    prompt = review_prompt(role) + "\n" + assessment_prompt("av")
     part, upload, film_hash = media_part(film, key)
     payload = {"contents": [{"role": "user", "parts": [
         part,
@@ -247,7 +248,7 @@ def review(film, role, state, out):
     errors = av_problems(out, film, role)
     if errors:
         raise ValueError("; ".join(errors))
-    print("audiovisual_review: exact film approved by " + role + "; receipt " + str(out))
+    print("audiovisual_review: exact-film release evidence checked for " + role + "; original verdict retained; receipt " + str(out))
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)

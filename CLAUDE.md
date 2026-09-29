@@ -33,7 +33,8 @@ Runs SHIP AUTONOMOUSLY only from controller state `publishable`. When a run's ga
 human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
 **MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
 before the email. The email is the only human touchpoint and it gates the POST, not the merge.
-Rejected films remain active repair. Only approved release artifacts enter the public feed.
+Rejected films follow the finite creative-repair policy below. Only integrity-verified release
+artifacts enter the public feed; original artistic rejection is never rewritten as approval.
 
 This wins for development sessions too. An unmerged upgrade is worse than no upgrade: the next
 run checks out `main`, so it silently does not get the fix, while the ledger says the machine
@@ -46,18 +47,27 @@ Three things still stop and ask, in any session:
 
 ## PRODUCTION COMPLETION AND AUTONOMOUS REPAIR
 
-Production has one terminal state: `shipped`. A passing exact-film panel authorizes
-publication through `finish --result publishable`, which leaves production open in
+Production has one terminal state: `shipped`. A passing exact-film panel or the independently
+evidenced bounded creative route authorizes publication through `finish --result publishable`, which leaves production open in
 `publishing`. Completion requires merged exact-head green CI in both repositories,
 the matching Pages deployment, permanent media serving the reviewed bytes,
 canonical phone playback through Computer Use, and a correctly addressed,
 read-back Gmail draft carrying DRAFT and no SENT label.
 
-A rejection or exhausted allowance remains active repair. The owner has authorized
-autonomous correction; do not ask for another creative-repair approval. Preserve the
+A rejection before the finite creative limit remains active repair. The owner has authorized
+autonomous completion; stopping for creative approval is prohibited. Preserve the
 last playable native film and exact reviewer evidence, diagnose all current defects,
 then open one evidence-bound repair batch. Keep usage charged. Every paid call and
-render is still reserved before it starts. A batch never relaxes a quality gate.
+render is still reserved before it starts. A batch never changes a score or original verdict.
+
+For editions from September 29, 2026, use `config/creative_release.json` and
+`knowledge/craft/BOUNDED_CREATIVE_RELEASE.md`: at most three charged creative repair rounds.
+Stop earlier when another full correction would consume reserved mandatory completion review
+capacity. Finish the best available complete cut, obtain every required independent exact-film
+review, and ship autonomously. Only explicitly assessed artistic defects can use this route.
+Source truth, rights, legibility, comprehension, native picture presence, audio/caption integrity,
+provider provenance and exact delivery proof remain required. Record `bounded_creative_release`
+and all retained failures, even when a later panel score clears the unchanged rubric.
 
 Run `run_controller.py begin-repair --plan out/dispatch/repair-plan.json` before
 editing. The plan records root_cause, repair, mechanism_change, expected_visible_result,
@@ -88,9 +98,10 @@ Resume the returned active worktree and its ledger before starting another date.
 Preserve unrelated changes in place and use an isolated clean checkout for tooling
 repairs. Never delete a ledger or substitute a fresh budget.
 
-`owner-override` and preship bypass are unavailable to the autonomous production
-routine. Native rendering, hero approval, all three exact-byte audiovisual lenses,
-caption alignment, audio measurement and every release gate remain required.
+`owner-override` and blanket preship bypass remain unavailable. Native rendering, hero review,
+all three exact-byte audiovisual lenses, caption alignment, audio measurement and every
+integrity/delivery check remain required. The bounded route changes only artistic release
+eligibility; it never fabricates a reviewer pass or substitutes for completed shipment.
 
 ## The two laws of drawing Texas
 

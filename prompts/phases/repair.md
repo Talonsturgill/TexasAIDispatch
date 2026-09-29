@@ -1,7 +1,10 @@
 # Repair an active edition
 
 Read the current checkpoint and compact defect ledger first. Preserve the last playable film,
-exact hashes and all reviews. Rejection starts active repair. A checkpoint or needs_review
+exact hashes and all reviews. Read knowledge/craft/BOUNDED_CREATIVE_RELEASE.md first: a rejection
+starts another creative repair only before its finite boundary and with complete review
+headroom. At the boundary finish the retained best complete cut and ship without an approval
+question; preserve every rejection and require all integrity/delivery checks. A checkpoint or needs_review
 package is never successful completion. Missing external access remains honestly incomplete.
 
 Run the controller's production-budget precheck before a structural repair. Reserve a credible
@@ -26,7 +29,7 @@ python scripts/run_controller.py authorize-repair --plan out/dispatch/repair-pla
 Begin before editing; authorize after the declared bytes changed. Keep stable mechanism_id,
 failure_family and director_identity. The frozen cumulative envelope takes precedence over
 old instructions about renewable extensions. An existing bounded authorization is not endless
-permission. Never reset usage, purchase a reset, relax a gate or relabel a batch to hide spend.
+permission. Never reset usage, purchase a reset, falsify a verdict or relabel a batch to hide spend.
 
 After two rejections of the same mechanism or defect family, obtain the required independent,
 hash-bound pivot review. Replace the mechanism, staging or source-backed angle before another

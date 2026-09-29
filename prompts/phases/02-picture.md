@@ -71,6 +71,16 @@ provisional board for the same controller, then run the bounded first preview ba
 python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json
 ```
 
+Read both structural inspection reports linked from openings/comparison.json before reserving
+the phone critic. The normal route requires both to pass. The comparison command inspects cached
+outputs too, without another render, and retains both failures before returning nonzero. Use
+--retain-failed-inspection only to collect diagnostics for policy-authorized finishing; that flag
+does not approve either film or clear the normal review gate.
+After the inspection tooling upgrade, use --inspect-retained for the explicitly supported old
+capture version. It preserves the original producer, comparison and independent selection
+bindings and inspects the unchanged films without a new render. Any capture or source drift
+remains a refusal; never rewrite the reviewer selection to pretend a new capture occurred.
+
 The existing phone critic compares both openings and reviews the chosen whole cut in one
 reserved assignment. Save its openings/selection.json. Copy the chosen openings/a.json or b.json
 to storyboard.json and its matching MP4 to preflight.mp4; copy its code critique to
