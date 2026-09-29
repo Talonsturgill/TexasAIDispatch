@@ -228,4 +228,10 @@ def main():
     return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    result = main()
+    if not result:
+        import unittest
+        import creative_release_test
+        suite = unittest.defaultTestLoader.loadTestsFromModule(creative_release_test)
+        result = 0 if unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful() else 1
+    sys.exit(result)

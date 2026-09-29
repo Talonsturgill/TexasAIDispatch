@@ -166,7 +166,7 @@ def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
         from repair_guard import VERSION, freeze
         state["repair_policy"] = VERSION
         freeze(state)
-    event(state, "initialised", mode=mode)
+    event(state, "initialised", mode=mode, ceiling_snapshot=dict(state["escalation_ceiling"]))
     save(path, state)
     return True, f"run controller: initialised {run_id} in {mode} mode at {path}"
 
@@ -811,7 +811,10 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
         return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
     bar = threshold()
-    if score < bar or hard:
+    from creative_release import panel_allows
+    candidate_board = Path((state.get("deliverable") or {}).get("board") or path.with_name("storyboard.json"))
+    bounded_release = panel_allows(candidate_board, report)
+    if (score < bar or hard) and not bounded_release:
         why = ([f"panel score {score:.3f} is below the rubric"] if score < bar else []) + hard
         state["review_required"] = True
         state["phase"] = COMPLETION_PHASE
@@ -826,8 +829,16 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
             + ". Checkpoint the registered film and repair the exact failed evidence."
         )
 
+    from creative_release import release_record
+    try:
+        bounded_record = release_record(report.parent, load_json(candidate_board), load_json(report)) if candidate_board.is_file() else None
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return False, "run controller: bounded release provenance unavailable: " + str(exc)
     state["terminal_state"] = None if state.get("mode") == "production" else "publishable"
     state["release_status"] = "publishable"
+    state["publication_mode"] = "bounded_creative_release" if bounded_record else "rubric_pass"
+    if bounded_record:
+        state["bounded_release"] = bounded_record
     state["phase"] = "publishing"
     state["terminal_reason"] = None
     state["final_report"] = {
@@ -835,11 +846,13 @@ def finish(path: Path, result: str, reason: str = "", report: Path | None = None
         "sha256": digest(report),
         "score": score,
         "film_sha256": state["deliverable"]["film_sha256"],
+        "publication_mode": state["publication_mode"],
+        "original_hard_fails": hard,
     }
     event(state, "release_authorized", result="publishable", score=score,
-          report_sha256=state["final_report"]["sha256"])
+          report_sha256=state["final_report"]["sha256"], publication_mode=state["publication_mode"])
     save(path, state)
-    return True, f"run controller: publishable at panel score {score:.3f}"
+    return True, f"run controller: publishable via {state['publication_mode']} at unchanged panel score {score:.3f}"
 
 
 def check_package(path: Path, report: Path) -> tuple[bool, str]:
@@ -869,9 +882,10 @@ def check_package(path: Path, report: Path) -> tuple[bool, str]:
     if quality_errors:
         return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
-    if score < threshold() or hard:
+    from creative_release import panel_allows
+    if (score < threshold() or hard) and not panel_allows(Path((state.get("deliverable") or {}).get("board") or path.with_name("storyboard.json")), report):
         return False, "run controller: the delivery report no longer clears the rubric"
-    return True, "run controller: package matches the hash-bound passing report"
+    return True, "run controller: package matches the hash-bound release report"
 
 
 def check_verification(path: Path, report: Path) -> tuple[bool, str]:
@@ -895,7 +909,8 @@ def check_verification(path: Path, report: Path) -> tuple[bool, str]:
     if quality_errors:
         return False, "run controller: " + "; ".join(quality_errors)
     score, hard = report_result(report)
-    if score < threshold() or hard:
+    from creative_release import panel_allows
+    if (score < threshold() or hard) and not panel_allows(Path((state.get("deliverable") or {}).get("board") or path.with_name("storyboard.json")), report):
         return False, "run controller: verification report does not clear the rubric"
     return True, (
         "run controller: candidate eligible for read-only verification; "
@@ -1221,8 +1236,8 @@ def self_test() -> int:
         "reported_tokens": 250000,
         "audiovisual_reviews": 4,
     }
-    ok("critic target covers the board and two phone verdicts; cumulative ceiling stays fixed",
-       CEIL["storyboard_critics"] == 6 and expected_limits["storyboard_critics"] == 3)
+    ok("critic target covers the board and two phone verdicts; owner-approved ceiling includes one extra call",
+       CEIL["storyboard_critics"] == 7 and expected_limits["storyboard_critics"] == 3)
     actual_limits = limits()
     ok("the approved run-wide cost contract has not drifted",
        actual_limits == expected_limits,

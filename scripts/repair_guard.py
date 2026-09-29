@@ -114,9 +114,18 @@ def owner_grant_problems(state):
 
 
 def production_budget_precheck(state):
-    """Read-only minimum review/render cost for a complete visual repair."""
-    required = {"reboards": 1, "storyboard_critics": 2, "preflight_renders": 2, "full_renders": 1,
-                "audiovisual_reviews": 4, "panel_rounds": 1, "scorer_calls": 3}
+    """Read-only complete remaining review path, including the final timed phone."""
+    from creative_release import finishing_required
+    finishing = finishing_required(state)
+    required = {"reboards": 0 if finishing else 1,
+                "storyboard_critics": 1 if finishing else 3,
+                "preflight_renders": 2 if finishing else 3,
+                "full_renders": 1, "audiovisual_reviews": 4,
+                "panel_rounds": 1, "scorer_calls": 3}
+    # Charged synthesis can be a failed take. Always retain one take/soundcheck
+    # pair in the conservative plan; spending history never proves reusable audio.
+    required["tts_calls"] = 2
+    required["voice_directors"] = int(not state.get("usage", {}).get("voice_directors", 0))
     snapshot = copy.deepcopy(state)
     if not enabled(snapshot) or "resource_envelope" not in snapshot:
         errors = ["production budget precheck requires an existing frozen envelope"]
@@ -137,7 +146,8 @@ def production_budget_precheck(state):
     deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
                 if row["remaining"] < row["required"]}
     return {"feasible": not deficits, "errors": [], "resources": rows, "deficits": deficits,
-            "scope": "Minimum review/render cost only; no allowance or shipment approval"}
+            "path": "finish-current" if finishing else "complete-visual-repair",
+            "scope": "Conservative complete review/render path including one take/soundcheck pair. No allowance, voice reuse or shipment approval"}
 
 def enabled(state):
     return state.get("repair_policy") == VERSION
@@ -146,6 +156,12 @@ def freeze(state):
     """Existing charged history survives adoption; no allowance is added."""
     from run_controller import event
     if enabled(state) and "resource_envelope" not in state:
+        from production_lifecycle import allowance_problems
+        legacy = copy.deepcopy(state)
+        legacy.pop("repair_policy", None)
+        errors = allowance_problems(legacy)
+        if errors:
+            raise ValueError("cannot freeze invalid legacy allowances: " + "; ".join(errors))
         state["resource_envelope"] = copy.deepcopy(state["escalation_ceiling"])
         event(state, "resource_envelope_frozen", envelope=state["resource_envelope"],
               telemetry_scope="External provider tokens only; Codex/account consumption is separate")

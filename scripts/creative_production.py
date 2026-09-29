@@ -191,12 +191,15 @@ def opening_digest(board):
                         "media": board.get("native_media", [])})
 
 
-def opening_producer():
+def opening_producer(legacy_orchestrator_sha256=None):
     repo = POLICY.parents[1]
     files = [repo / "scripts/opening_compare.py", repo / "video-engine/scripts/render-batch.mjs",
              repo / "video-engine/package-lock.json"]
     files += sorted(p for p in (repo / "video-engine/public/fonts").glob("*") if p.is_file())
-    return fingerprint({str(p.relative_to(repo)): digest(p) for p in files})
+    hashes = {str(p.relative_to(repo)): digest(p) for p in files}
+    if legacy_orchestrator_sha256 is not None:
+        hashes["scripts/opening_compare.py"] = legacy_orchestrator_sha256
+    return fingerprint(hashes)
 
 
 def opening_problems(board_path):
@@ -212,9 +215,15 @@ def opening_problems(board_path):
         errors = []
         if receipt.get("policy_sha256") != digest(POLICY) or receipt.get("renderer_sha256") != renderer_digest(board):
             errors.append("opening comparison uses stale policy or renderer inputs")
-        if receipt.get("producer_sha256") != opening_producer():
+        from opening_compare import adoption_problems
+        adopted = bool(receipt.get("inspection_adoption")) and not adoption_problems(receipt, root)
+        if receipt.get("inspection_adoption") and not adopted:
+            errors.append("retained opening inspection adoption is invalid")
+        if receipt.get("producer_sha256") != opening_producer() and not adopted:
             errors.append("opening comparison uses stale capture tools or fonts")
         options = receipt["options"]
+        from opening_compare import inspection_problems
+        errors += inspection_problems(receipt, root, allow_bounded=True)
         ledger = read(board_path.with_name("run_state.json"))
         reservation = receipt["reservation"]
         event = ledger["events"][reservation["event_index"]]
@@ -234,7 +243,10 @@ def opening_problems(board_path):
                     errors.append("opening comparison evidence changed: " + key)
             if opening_digest(read(root / option["board"]["file"])) != option["concept_sha256"]:
                 errors.append("opening concept does not match its board")
-        if review.get("comparison_sha256") != digest(root / "comparison.json"):
+        comparison_hashes = {digest(root / "comparison.json")}
+        if adopted:
+            comparison_hashes.add(receipt["inspection_adoption"]["original_comparison"]["sha256"])
+        if review.get("comparison_sha256") not in comparison_hashes:
             errors.append("opening choice belongs to different comparison bytes")
         chosen = next((r for r in options if r["id"] == review.get("selected")), None)
         if not chosen or chosen["concept_sha256"] != opening_digest(board):
@@ -245,7 +257,8 @@ def opening_problems(board_path):
             errors.append("opening choice must identify the actual story director")
         if not concrete(review.get("reason")) or not concrete(review.get("rejected_reason")):
             errors.append("opening choice needs comparative observed reasons")
-        if review.get("blocking_defects") != []:
+        from creative_release import review_allows
+        if review.get("blocking_defects") != [] and not review_allows(board, review, board_path.parent, scope="phone"):
             errors.append("chosen opening has unresolved blocking defects")
         return errors
     except (OSError, ValueError, KeyError, TypeError, IndexError) as exc:

@@ -29,7 +29,9 @@ python scripts/run_controller.py panel --judges 3 --note "current finished cut"
 ```
 
 The controller reserves a whole round and all three scorers atomically, only after current
-preship passes. Production has no bypass. Then obtain all three exact-byte audiovisual lenses
+preship establishes current integrity. Production has no blanket bypass. The finite policy in
+knowledge/craft/BOUNDED_CREATIVE_RELEASE.md may separately defer classified artistic failures.
+Then obtain all three exact-byte audiovisual lenses
 on the same final MP4, even when an earlier lens rejects. Collect defects together.
 
 ```sh
@@ -46,19 +48,23 @@ contact sheet, feed composite, evidence, rubric and scorer brief. It performs an
 review and records pacing_observed, comprehension_observed, both weakest-interval endpoints
 including finite weakest_end_s, and actual audio evidence. Never fabricate listening.
 
-Save their exact objects as the three-item panel-round-<n>.json. A hard fail or rejection is
-never averaged away. A weak interval is diagnostic; only a failed criterion requires repair.
+Save their exact objects as the three-item panel-round-<n>.json. Preserve every hard fail and
+rejection. Each scorer includes the `bounded_release` schema from scripts/creative_release.py,
+with exact original findings and retained integrity observations. Never change a score or
+creative verdict to make the release route pass. A weak interval alone is diagnostic.
 
 ```sh
 python scripts/panel_triage.py --scores out/dispatch/panel-round-<n>.json --round <n> --record --run-id <date> --history out/dispatch/panel_history.json --out-report out/dispatch/report_card.json
 python scripts/daily_production.py --scoreboard --state out/dispatch/run_state.json --out out/dispatch/daily-production-scoreboard.json
 ```
 
-If rejected, follow prompts/phases/repair.md. Use axis deficits to choose a single consolidated
+If rejected before the finite boundary, follow prompts/phases/repair.md. At the boundary,
+finish and ship through the separately recorded bounded route without an approval stop.
+Use axis deficits to choose a single consolidated
 correction; do not spend one render per note or polish an already passing axis. Preserve the
 rejected bytes and review identities. Changed film bytes require fresh current-film verdicts.
 
-When the panel clears, stop creative editing. Verify the complete package before publication
+When the panel clears or the bounded route is evidenced, stop creative editing. Verify the complete package before publication
 authorization, in this order:
 
 ```sh

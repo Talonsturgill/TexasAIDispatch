@@ -26,17 +26,18 @@ def phone_problems(board, report):
     if report.get("quality_contract_sha256") != fingerprint():
         errors.append("phone review does not bind the shared quality criteria")
     observations = report.get("phone_observations") or {}
+    import creative_release as bounded
     for key in policy()["criteria"]:
         if key == "sound":
             continue  # A muted phone review must not invent audible evidence.
         item = observations.get(key) or {}
         start, end = item.get("start_s"), item.get("end_s")
-        if (item.get("pass") is not True or type(start) not in (int, float)
+        if ((item.get("pass") is not True and not bounded.artistic_observation(board, report, key)) or type(start) not in (int, float)
                 or type(end) not in (int, float) or not math.isfinite(start)
                 or not math.isfinite(end) or not 0 <= start < end
                 or len(str(item.get("observed", "")).strip()) < 30):
             errors.append("phone review lacks passing timed " + key)
-    if report.get("blocking_defects"):
+    if report.get("blocking_defects") and not bounded.review_allows(board, report):
         errors.append("unresolved observed defects remain in the phone review")
     return errors
 

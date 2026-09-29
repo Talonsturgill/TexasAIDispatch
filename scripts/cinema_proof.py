@@ -102,7 +102,10 @@ def build(board, mix, state):
             for sid,pairs in sample_paths.items()},
             "reuse":{"version":cache.SCHEMA,"render_environment":cache.picture_recipe(board,frames)["environment"],"hero_picture_key":hero_picture_key,"hero_audio_key":hero_audio_key,
                      "sample_keys":sample_keys,"rendered_jobs":len(jobs),"hero_reused":hero_cached is not None}}
-        errors = stage_sample_problems(data,staging,proof["samples"])
+        deferred = []
+        errors = stage_sample_problems(data,staging,proof["samples"],deferred=deferred)
+        if deferred:
+            proof["bounded_creative_findings"] = deferred
         errors += cache.binding_problems(board,proof,mix)
         if errors:
             raise ValueError("cinematic proof failed before audiovisual review: " + "; ".join(errors))
