@@ -1,0 +1,66 @@
+{
+  "schema": "dispatch-opening-comparison/1",
+  "policy_sha256": "2301a22c56c80f24719cd040b325ca93ff3b8747e7b5f075d35d5318424d2120",
+  "renderer_sha256": "aa084e69010a821460e4e59a7db2d2be63c15fce942098d088d608989353c00e",
+  "producer_sha256": "00444bc61b51476c6e6bf91156d01b324e5695679aa7e5d36da126697c0ba668",
+  "reservation": {
+    "identity": "2b15261fff7d048eab47aef8a82cc5181f7783fa676ff5069dfbcad0dd4323ed",
+    "run_id": "2026-09-29",
+    "event_index": 21
+  },
+  "options": [
+    {
+      "id": "a",
+      "concept_sha256": "9da687a754395c5c24700b2246357ade86883dbd00426ec0a7044f05930ff93d",
+      "board": {
+        "file": "a.json",
+        "sha256": "921d5a87aae4568df22888e99f7580c23b7060c45acdd844c8ef76d0d9244fff"
+      },
+      "film": {
+        "file": "a.mp4",
+        "sha256": "3e738abe874065423b81f98cac89337f269d5b6923d08788f10e479692e8a8c2"
+      },
+      "inspection": {
+        "file": "a-inspection-d2f76a8c9852b377.json",
+        "sha256": "f4aa126de0267630dc15c4c2b79f168c85b6f0822f0a28de8ef2e0a809186009"
+      }
+    },
+    {
+      "id": "b",
+      "concept_sha256": "a7872103b0ff300df9a272b4f9c57d4d08369ffd69d27520d294d1e67951aa4a",
+      "board": {
+        "file": "b.json",
+        "sha256": "e83a0c88ef11a36b7755d238689ea6733c7fe7d7be4f23b05b978a99b70cb2f7"
+      },
+      "film": {
+        "file": "b.mp4",
+        "sha256": "83ff430dab9eede82348110b71bc7ec2a2bd8865dac5a436ddc41d72c715c75b"
+      },
+      "inspection": {
+        "file": "b-inspection-461fcc5145d6e6b5.json",
+        "sha256": "173a56e61a6383da53771aaf26a584af51452094f5274164e95f64ed533f7d14"
+      }
+    }
+  ],
+  "inspection_adoption": {
+    "original_comparison": {
+      "file": "comparison-original-6783e15d2bb6c86d.json",
+      "sha256": "6783e15d2bb6c86dc692bf1a2beafae81651504c05f144b4dab6b7cd33bc9325"
+    },
+    "legacy_orchestrator_sha256": "a50859e01b487bb81ef814845c3d8b5aeb47f46106f698248732e184b76fb30d",
+    "inspector_sha256": "9e597d3ab1742447ac7f1651c7c9de95703f23e2c7422e45a9e27637125b774f"
+  },
+  "inspection_problems": [
+    "opening a: scene s1 declares revelation but changes only 0.0054 of pixel range. It is a held slide in the animatic.",
+    "opening a: scene s5 declares revelation but changes only 0.0034 of pixel range. It is a held slide in the animatic.",
+    "opening a: scene s6 declares revelation but changes only 0.0029 of pixel range. It is a held slide in the animatic.",
+    "opening a: scene s9 declares revelation but changes only 0.0056 of pixel range. It is a held slide in the animatic.",
+    "opening a: the first two seconds change only 0.0054 of pixel range. The declared hook did not become visible motion or revelation.",
+    "opening b: scene s1 declares revelation but changes only 0.0030 of pixel range. It is a held slide in the animatic.",
+    "opening b: scene s5 declares revelation but changes only 0.0034 of pixel range. It is a held slide in the animatic.",
+    "opening b: scene s6 declares revelation but changes only 0.0029 of pixel range. It is a held slide in the animatic.",
+    "opening b: scene s9 declares revelation but changes only 0.0056 of pixel range. It is a held slide in the animatic.",
+    "opening b: the first two seconds change only 0.0030 of pixel range. The declared hook did not become visible motion or revelation."
+  ],
+  "inspection_pass": false
+}

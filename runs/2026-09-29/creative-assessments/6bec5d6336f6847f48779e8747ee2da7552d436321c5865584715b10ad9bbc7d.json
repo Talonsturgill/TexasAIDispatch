@@ -1,0 +1,69 @@
+{
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "phone",
+  "report_file": "phone-critic-timed.json",
+  "report_sha256": "19590b061219d9db952dbf77e2f23e0107ac4f3e2486a858d0c345cc111a638f",
+  "report_payload_sha256": "6bec5d6336f6847f48779e8747ee2da7552d436321c5865584715b10ad9bbc7d",
+  "film_file": "preflight-timed-reviewed.mp4",
+  "film_sha256": "639e28e33165f6e23f4d25e7c793f288c54751d571fb657d9bdbc026e5648fa0",
+  "concept_sha256": "db7549474c0daf207ae6931ffe781dd7875744366f243108d540f780db9796f3",
+  "claims_sha256": "958a63a84e9fb457f932627889a12e5d3fbe1fa09c745466c04b09b01f226fae",
+  "reviewer_identity": "independent-code-critic-2026-09-29-root-code_critic",
+  "reviewed_at": "2026-09-29T13:40:45.046081+00:00",
+  "retained_checks": {
+    "source": {
+      "observed": "Current phone pictures and captions preserve the inspected source claims, exact experimental/NOT cautions, and persistent protocol-example or reflow disclosure. Static trend values are not presented as study results.",
+      "pass": true
+    },
+    "rights": {
+      "observed": "The unchanged source media retain the prior limited editorial-quotation assessment and dated UT Austin attribution. No new license is inferred. Actual ending visibly credits Immersed and CC BY 4.0; registry/audio provenance remains a separate delivery check.",
+      "pass": true
+    },
+    "legibility": {
+      "observed": "Actual 390 CSS-pixel review shows separate source/header/caption areas throughout. The longest caption at 27.2 seconds is compact but completely readable. Repeat instruction, handling-noise context, source NOT caution, final negation and credit attribution remain visible.",
+      "pass": true
+    },
+    "comprehension": {
+      "observed": "Actual sequence distinguishes parallel sites/categories from the sequential upload workflow, qualifies protocol examples, links failure to noise and repetition, and closes with the explicit experimental/non-diagnostic limit. The retained motion defect reduces visual development without changing the factual meaning.",
+      "pass": true
+    }
+  },
+  "defects": [
+    {
+      "finding": {
+        "id": "source-focus-does-not-reveal-content",
+        "criterion": "dominant_action; principal-picture visible development",
+        "scene": "s1/s5/s6/s9",
+        "start_s": 0.0,
+        "end_s": 3.26,
+        "additional_intervals": [
+          {
+            "start_s": 14.38,
+            "end_s": 19.73
+          },
+          {
+            "start_s": 25.13,
+            "end_s": 30.0
+          }
+        ],
+        "observed": "Comparing the actual 0.4 and 2 second frames, the full failed-recording picture is already exposed and only a small gold emphasis grows. The same fully exposed still mechanism remains at 16, 18 and 27.2 seconds. Caption appearance now adds frame motion, but the principal source picture still does not perform the declared revelation.",
+        "effect": "The focal evidence remains a held source image with small emphasis; the timed captions improve comprehension but do not repair the artistic motion deficiency.",
+        "fix": "Retain the exact artistic rejection under the finite creative policy. A future source-content exposure mechanism would need to reveal new detail within the bounded source stage; no further creative edit is requested for this capped edition."
+      },
+      "category": "motion"
+    },
+    {
+      "finding": {
+        "phone_observation": "dominant_action",
+        "observation": {
+          "start_s": 0,
+          "end_s": 3.26,
+          "observed": "Comparing the actual 0.4 and 2 second frames, the full failed-recording picture is already exposed and only a small gold emphasis grows. The same fully exposed still mechanism remains at 16, 18 and 27.2 seconds. Caption appearance now adds frame motion, but the principal source picture still does not perform the declared revelation.",
+          "pass": false
+        }
+      },
+      "category": "motion"
+    }
+  ],
+  "score_only": false
+}

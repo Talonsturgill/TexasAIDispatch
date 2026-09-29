@@ -1,0 +1,147 @@
+{
+  "verdict": "revise",
+  "review_scope": "exact-muted-phone-preflight",
+  "review_phase": "final-timed-phone",
+  "reviewer_identity": "independent-code-critic-2026-09-29-root-code_critic",
+  "director_identity": "root-01a0ec02-f9f2-72d0-ad22-27dfe4b609f8",
+  "reviewed_at": "2026-09-29T13:40:45.046081+00:00",
+  "concept_sha256": "db7549474c0daf207ae6931ffe781dd7875744366f243108d540f780db9796f3",
+  "renderer_sha256": "aa084e69010a821460e4e59a7db2d2be63c15fce942098d088d608989353c00e",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "creative_policy_sha256": "2301a22c56c80f24719cd040b325ca93ff3b8747e7b5f075d35d5318424d2120",
+  "board_sha256": "023c8aa71ec7e9026d39f951732b3fad2092ecba738c9d697633cb2daf47a067",
+  "selection_sha256": "d32226c6e3330439eb340646174ab3c185bf121380bfd274fd76079f17d2ce59",
+  "claims_sha256": "958a63a84e9fb457f932627889a12e5d3fbe1fa09c745466c04b09b01f226fae",
+  "source_extraction_sha256": "30609db9038b936d5ef232dc7e6076ad97429b77bf4358f2a4dba79497b835a1",
+  "reviewed_preflight_sha256": "639e28e33165f6e23f4d25e7c793f288c54751d571fb657d9bdbc026e5648fa0",
+  "captions_sha256": "513575d5e81a17c85bb348145d1b8b186ee48aa7cab06842e442f5be09a9e0de",
+  "structural_preflight_sha256": "d20fc70a645c66d1bea4cc68d5c77dcd18cbaef715c8f46dbc2f23d71e35c511",
+  "structural_preflight_pass": true,
+  "structural_interpretation": "Current structural pixel-motion inspection passes. Caption appearance contributes motion; it is not evidence that the principal static source picture reveals new content.",
+  "blocking_defects": [
+    {
+      "id": "source-focus-does-not-reveal-content",
+      "criterion": "dominant_action; principal-picture visible development",
+      "scene": "s1/s5/s6/s9",
+      "start_s": 0.0,
+      "end_s": 3.26,
+      "additional_intervals": [
+        {
+          "start_s": 14.38,
+          "end_s": 19.73
+        },
+        {
+          "start_s": 25.13,
+          "end_s": 30.0
+        }
+      ],
+      "observed": "Comparing the actual 0.4 and 2 second frames, the full failed-recording picture is already exposed and only a small gold emphasis grows. The same fully exposed still mechanism remains at 16, 18 and 27.2 seconds. Caption appearance now adds frame motion, but the principal source picture still does not perform the declared revelation.",
+      "effect": "The focal evidence remains a held source image with small emphasis; the timed captions improve comprehension but do not repair the artistic motion deficiency.",
+      "fix": "Retain the exact artistic rejection under the finite creative policy. A future source-content exposure mechanism would need to reveal new detail within the bounded source stage; no further creative edit is requested for this capped edition."
+    }
+  ],
+  "notes": [
+    {
+      "scene": "s1/s5/s6/s9",
+      "problem": "The focal evidence remains a held source image with small emphasis; the timed captions improve comprehension but do not repair the artistic motion deficiency.",
+      "fix": "Retain the exact artistic rejection under the finite creative policy. A future source-content exposure mechanism would need to reveal new detail within the bounded source stage; no further creative edit is requested for this capped edition."
+    }
+  ],
+  "strongest_frame": "At 33.2 seconds the complete experimental/non-diagnostic source excerpt and final diagnosis-limit caption reinforce the same sourced answer without overlap.",
+  "weakest_frame": "Opening 0.4 to 2 seconds: the entire failure example is visible before the minor gold emphasis, so the principal picture lacks the declared reveal.",
+  "weakest_start_s": 0.0,
+  "weakest_end_s": 3.26,
+  "phone_observations": {
+    "subject_recognition": {
+      "start_s": 0,
+      "end_s": 3.26,
+      "observed": "At 0.4 and 2 seconds the actual phone film shows Recording Failed, a large pink microphone and the complete Record Again instruction. At 2 seconds the diagnosis-limit caption sits below the source panel; the protocol-example and date header remains separate.",
+      "pass": true
+    },
+    "contact_and_consequence": {
+      "start_s": 17.33,
+      "end_s": 22.13,
+      "observed": "At 18 seconds the failed-recording screen remains recognizable above the noise caption. At 20.4 seconds the lower source panel shows the repeat instruction and the pink handling-noise cause; the repetition caption is separate beneath it. These are disclosed protocol examples, not a newly observed participant event.",
+      "pass": true
+    },
+    "dominant_action": {
+      "start_s": 0,
+      "end_s": 3.26,
+      "observed": "Comparing the actual 0.4 and 2 second frames, the full failed-recording picture is already exposed and only a small gold emphasis grows. The same fully exposed still mechanism remains at 16, 18 and 27.2 seconds. Caption appearance now adds frame motion, but the principal source picture still does not perform the declared revelation.",
+      "pass": false
+    },
+    "surface_finish": {
+      "start_s": 0,
+      "end_s": 35,
+      "observed": "All ten actual phone scenes were inspected through playback and native scrubber seeks. Header, source stage and caption band are disjoint. At 27.2 seconds the longest caption is smaller than the short cues but its complete two-line sentence is readable; the source NOT caution remains above it. At 31.2 and 33.2 seconds the large reflowed source includes the complete non-diagnostic negation.",
+      "pass": true
+    },
+    "continuity": {
+      "start_s": 3.26,
+      "end_s": 30,
+      "observed": "At 6 seconds Austin, Houston and Galveston are parallel peers without arrows. The 7-second playback begins the phone-recording node and the 9.6-second frame completes the recording-to-TACC-to-feedback arrows. At 13.2 seconds movement, breathing and hiccups are parallel categories. At 16 seconds the static trend example retains Not study results, followed by the same app's failure and handling-noise panels, then the anxiety excerpt at 24 seconds and clinical caution at 27.2 seconds.",
+      "pass": true
+    },
+    "closing_payoff": {
+      "start_s": 25.13,
+      "end_s": 40,
+      "observed": "At 27.2 seconds the app instruction says it is NOT intended to determine decreased fetal movements, with the complete caption below. At 31.2 and 33.2 seconds the source says results are experimental and are not diagnostic; the final caption repeats the diagnosis limit. Playback from 33.2 seconds reaches the completed 40-second credit card with texasaidocket.com, source/protocol disclosure and Immersed CC BY 4.0 music credit. No source warning is hidden by the captions.",
+      "pass": true
+    }
+  },
+  "story_review": {
+    "story_sha256": "020468bcf373102746651fefdfb2179db6a181058b7fd433494fab7766e62bc9",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "958a63a84e9fb457f932627889a12e5d3fbe1fa09c745466c04b09b01f226fae",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "id": "source-focus-does-not-reveal-content",
+        "criterion": "dominant_action; principal-picture visible development",
+        "scene": "s1/s5/s6/s9",
+        "start_s": 0.0,
+        "end_s": 3.26,
+        "additional_intervals": [
+          {
+            "start_s": 14.38,
+            "end_s": 19.73
+          },
+          {
+            "start_s": 25.13,
+            "end_s": 30.0
+          }
+        ],
+        "observed": "Comparing the actual 0.4 and 2 second frames, the full failed-recording picture is already exposed and only a small gold emphasis grows. The same fully exposed still mechanism remains at 16, 18 and 27.2 seconds. Caption appearance now adds frame motion, but the principal source picture still does not perform the declared revelation.",
+        "effect": "The focal evidence remains a held source image with small emphasis; the timed captions improve comprehension but do not repair the artistic motion deficiency.",
+        "fix": "Retain the exact artistic rejection under the finite creative policy. A future source-content exposure mechanism would need to reveal new detail within the bounded source stage; no further creative edit is requested for this capped edition."
+      }
+    ],
+    "one_viewing_summary": "The failed recording opens the limits of a Texas phone-audio study. Parallel study sites lead to an illustrated recording, analysis and feedback workflow, followed by intended categories and a qualified prototype chart. Noise and repetition introduce participant burden; anxiety assessment and the explicit experimental, non-diagnostic caution supply the ending. The causal meaning is understandable in the actual muted captioned film.",
+    "opening_to_ending": "The opening says a phone recording is not a diagnosis; the final complete source quotation and caption explain why analyzed results remain experimental. The film does not claim participant outcomes or diagnostic capability.",
+    "weakest_transition": "The minor highlight on an already fully exposed source picture adds little within-shot development. This persists despite coherent cuts and now-readable timed captions; it remains an artistic motion rejection."
+  },
+  "source_media_review": {
+    "verdict": "pass",
+    "inspected_assets": [
+      "evidence/wombwatch-recording.png",
+      "evidence/wombwatch-trends.png",
+      "evidence/wombwatch-failure.png",
+      "evidence/wombwatch-noise.png",
+      "evidence/wombwatch-anxiety.png",
+      "evidence/wombwatch-instructions.png",
+      "evidence/wombwatch-experimental.png"
+    ],
+    "relevance": "Recording, failure, trend and instructions source screenshots remain unchanged. The new noise asset adds the real repeat instruction and complete cause. The new anxiety and experimental-limit assets copy original source glyphs in the unchanged word order; all quotation words and punctuation match the inspected protocol context.",
+    "glyph_verification": "For both reflowed assets, verified source-file and output hashes against source-extraction.json; concatenated crop words equal exact_text and output_lines; every output word rectangle equals its original page crop pixel-for-pixel, with no rescaling or character substitution. The source failure crop also equals its recorded rectangle exactly.",
+    "rights": "The existing limited editorial-quotation basis remains, with dated UT Austin attribution backed by VERIFIED c18. s8 and s10 visibly declare Reflowed protocol excerpt; app screenshots retain Protocol example / Not study results. No open license or current participant result is asserted.",
+    "prior_edition": "The revised source assets are further excerpts from the same Womb Watch protocol, unrelated to September28 lease/dossier/corporate evidence or illustrative-reader footage. No reused or disguised prior-edition media was introduced.",
+    "phone_finding": "The exact timed film keeps protocol-example and reflow disclosures visible. Captions add no unsourced result claim, hide no decisive source text, and the completed credit card retains source/date qualification. Earlier source-pixel and limited editorial-quotation review remains applicable because the retained source-extraction digest is unchanged; this assignment did not claim a new rights license."
+  },
+  "action_reviews": [],
+  "prior_review": {
+    "file": "phone-critic-current.json",
+    "sha256": "b637439c10ab22063c96ba42b736953864ef10f1811af671938dfb680c6d3138",
+    "verdict": "revise"
+  },
+  "review_limits": "Actual native Google Chrome CUA playback on the page's 390 CSS-pixel video surface, ordinary browser zoom; no emulated viewport claim. An old tab stalled; explicit fresh-tab navigation recovered playback. Observed playback from start to 29.9 seconds through returned frames, then targeted native keyboard scrubber checks at 0.4, 2, 6, 9.6, 13.2, 16, 18, 20.4, 24, 27.2, 31.2 and 33.2 seconds, followed by playback to the 40-second credit end. This is tool-returned frame and timed-seek coverage, not uninterrupted per-frame perception. The MP4 is silent; no listening, voice, mix quality or audiovisual synchrony verdict is asserted. Measured-caption provenance is separately checked by vo_align. Native-resolution and final audible proof remain separate required reviews. No provider call, render, new reservation, or creative production edit was made."
+}

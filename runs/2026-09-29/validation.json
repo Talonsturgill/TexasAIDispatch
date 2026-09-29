@@ -1,0 +1,106 @@
+{
+  "schema": "dispatch_validation/1",
+  "edition_date": "2026-09-29",
+  "retrieved": "2026-09-29T11:34:01.074156+00:00",
+  "verdict": "VERIFIED_WITH_EXCLUSIONS",
+  "claims_file": "out/dispatch/claims.json",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11",
+    "c12",
+    "c13",
+    "c14",
+    "c15",
+    "c16",
+    "c17",
+    "c18"
+  ],
+  "rejected": [
+    "Proven reliable monitoring, diagnosis, stillbirth prevention, or replacement for clinical care. Reason: No current results posted; protocol says experimental/non-diagnostic and no anticipated direct benefit. Prevention is an eventual goal.",
+    "Current at-home recordings are individually validated against simultaneous ultrasound. Reason: Simultaneous ultrasound describes earlier STUDY00001552 only; current study uses routine ultrasound records for amniotic fluid.",
+    "A single consistent current enrollment total. Reason: July 31 protocol says 75 total, 25 per site; September 14 registry says estimated 60 total, 20 per site. Omit film total; retain discrepancy.",
+    "A single undisputed prior pilot sample size. Reason: Protocol says 200, registry 205. No reconciliation. Exclude prior sample size and efficacy statistics from film.",
+    "A consistent specific extra phone sensor inventory. Reason: Protocol names gyroscope and accelerometer; registry names gyroscope and ambient light sensor. Omit inventory.",
+    "The study launched September 14. Reason: That is registry update posting. Actual study start is August 6, 2026.",
+    "Only fetal sounds are recorded or the example trace proves fetal health. Reason: All audible sounds are recorded. Prototype screen values are examples, not results or diagnosis.",
+    "Womb Watch is a fetal heartbeat monitor. Reason: Sources describe movement, breathing movements and hiccups, not substitution for fetal heart-rate monitoring."
+  ],
+  "limitations": [
+    "Both documents are investigator/sponsor-provided primary evidence, not independent efficacy corroboration.",
+    "Registry hasResults=false; current clinical benefit and real-world reliability are unestablished.",
+    "Protocol screen examples document proposed interface, not patient outcomes."
+  ],
+  "sentence_audit": "PASS for exact bindings recorded in script_audit.json",
+  "script_audit_sha256": "f1e2661dea3d1ed50dd1dc17b740cc7724b4052fb2b89ceed27935752f269113",
+  "final_audited_at": "2026-09-29T11:41:44.549319+00:00",
+  "source_attribution_followthrough": {
+    "claims_sha256": "958a63a84e9fb457f932627889a12e5d3fbe1fa09c745466c04b09b01f226fae",
+    "script_sha256": "e4c6f3e2949b1c3b752aa5f8b678c4364f4aaa1e7ead79eedea55aeeaa27f6af",
+    "protocol_sha256": "4d5c037a04c160ce0f0bc83b996220f1a95b0d5b6a62521b0bce80fdf8460ed8",
+    "board_sha256": {
+      "out/dispatch/storyboard.json": "89e6c282c9507cff0d8b2fbf3d75e5620679445e31cbdd4f388584cd752c3772",
+      "out/dispatch/opening-a.json": "89e6c282c9507cff0d8b2fbf3d75e5620679445e31cbdd4f388584cd752c3772",
+      "out/dispatch/opening-b.json": "a505e17a1634e5a446e3cb5c72e50071603f79b26005de0a9f7ecb7913487da1"
+    }
+  },
+  "source_attribution_verified_at": "2026-09-29T11:52:50.012687+00:00",
+  "date": "2026-09-29",
+  "result": "PASS_WITH_DROPS",
+  "source": "Independent validator; ClinicalTrials.gov NCT07626112 registry API and investigator protocol Prot_002.pdf, retrieved 2026-09-29; retained fetches under out/dispatch/sources/validator.",
+  "rejected_details": [
+    {
+      "claim": "Proven reliable monitoring, diagnosis, stillbirth prevention, or replacement for clinical care.",
+      "reason": "No current results posted; protocol says experimental/non-diagnostic and no anticipated direct benefit. Prevention is an eventual goal."
+    },
+    {
+      "claim": "Current at-home recordings are individually validated against simultaneous ultrasound.",
+      "reason": "Simultaneous ultrasound describes earlier STUDY00001552 only; current study uses routine ultrasound records for amniotic fluid."
+    },
+    {
+      "claim": "A single consistent current enrollment total.",
+      "reason": "July 31 protocol says 75 total, 25 per site; September 14 registry says estimated 60 total, 20 per site. Omit film total; retain discrepancy."
+    },
+    {
+      "claim": "A single undisputed prior pilot sample size.",
+      "reason": "Protocol says 200, registry 205. No reconciliation. Exclude prior sample size and efficacy statistics from film."
+    },
+    {
+      "claim": "A consistent specific extra phone sensor inventory.",
+      "reason": "Protocol names gyroscope and accelerometer; registry names gyroscope and ambient light sensor. Omit inventory."
+    },
+    {
+      "claim": "The study launched September 14.",
+      "reason": "That is registry update posting. Actual study start is August 6, 2026."
+    },
+    {
+      "claim": "Only fetal sounds are recorded or the example trace proves fetal health.",
+      "reason": "All audible sounds are recorded. Prototype screen values are examples, not results or diagnosis."
+    },
+    {
+      "claim": "Womb Watch is a fetal heartbeat monitor.",
+      "reason": "Sources describe movement, breathing movements and hiccups, not substitution for fetal heart-rate monitoring."
+    }
+  ],
+  "required_edits_applied": [
+    "Final narration excludes unestablished clinical reliability, benefit, diagnosis, heartbeat monitoring and current simultaneous-ultrasound validation.",
+    "Conflicting current enrollment, earlier pilot counts and extra sensor inventory are omitted from narration; discrepancies remain recorded.",
+    "Prototype screens are described as designed behavior and protocol examples, not study outcomes. Final narration explicitly states the experimental and non-diagnostic limitations."
+  ],
+  "schema_normalization": {
+    "at": "2026-09-29T13:17:33.396077+00:00",
+    "original_path": "out/dispatch/validation-original.json",
+    "original_sha256": "7a9a65d3d9eb99185772e36cfc8747765c2009c74f686b19fafbba74a64fe7e1",
+    "claims_unchanged": true,
+    "narration_unchanged": true,
+    "scope": "Report schema normalization using retained source verification; no new research, claims, narration or rendered-film review."
+  }
+}
