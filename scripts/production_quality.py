@@ -80,7 +80,7 @@ def asset(root, item):
         raise ValueError("cinematic evidence file missing, changed or outside its package")
     return p
 
-def stage_sample_problems(board, root, samples, film=None):
+def stage_sample_problems(board, root, samples, film=None, deferred=None):
     """Measure the principal picture, independent of its chosen medium."""
     from cinema_cache import sample_frames
     import creative_production as creative
@@ -108,8 +108,16 @@ def stage_sample_problems(board, root, samples, film=None):
                     errors.append(sid + " final pixels differ from the approved preview")
         moving = float((np.max(np.abs(effects[1] - effects[0]), axis=2) > 12).mean())
         deliberate_hold = creative.required(board) and scene.get("intentional_hold")
+        import creative_release as bounded
+        state_root = Path(root).parent.parent if Path(root).parent.name == "cinema" else Path(root).parent
         if not deliberate_hold and moving < policy(board)["min_stage_action_pixel_share"]:
-            errors.append(sid + " principal picture does not visibly develop during its action")
+            finding = sid + " principal picture does not visibly develop during its action"
+            if deferred is not None and bounded.eligible(board, state_root):
+                deferred.append({"scene_id": sid, "category": "motion", "finding": finding,
+                                 "observed_pixel_share": moving,
+                                 "required_pixel_share": policy(board)["min_stage_action_pixel_share"]})
+            else:
+                errors.append(finding)
     return errors
 
 
@@ -140,7 +148,10 @@ def preview_problems(board_path, root, mix=None, film=None):
         if (w, h) != (1080, 1920) or abs(dur - passage_duration) > .12:
             errors.append("hero preview must contain the full declared passage at delivery resolution")
         errors += av_problems(root / "hero-review.json", clip, "hero")
-        errors += stage_sample_problems(board, root, proof["samples"], film=film)
+        deferred = []
+        errors += stage_sample_problems(board, root, proof["samples"], film=film, deferred=deferred)
+        if deferred != proof.get("bounded_creative_findings", []):
+            errors.append("native proof must retain every measured deferred artistic finding")
     except (OSError, ValueError, KeyError, TypeError, IndexError, subprocess.SubprocessError) as exc:
         errors.append("cinematic preview unavailable: " + str(exc))
     return errors
@@ -180,7 +191,12 @@ def av_problems(path, film, role):
         errors = []
         if review.get("audio_access") is not True:
             errors.append(role + " reviewer lacked audible-media access")
-        if review.get("pass") is not True:
+        import creative_release as bounded
+        dispatch_root = root.parent if root.name == "cinema" else root
+        board_file = dispatch_root / "storyboard.json"
+        bounded_eligible = (board_file.is_file() and bounded.review_allows(
+            read(board_file), review, dispatch_root, "av", embedded=True))
+        if review.get("pass") is not True and not bounded_eligible:
             errors.append(role + " audiovisual reviewer rejected the film; inspect its recorded defects")
         duration = probe(film)[2]
         for key in ("visual_observations", "audio_observations"):

@@ -339,7 +339,8 @@ def review_problems(board, report):
         errors.append("story changed since continuity approval; review the whole sequence before spending")
     if review.get("policy_sha256") != digest(POLICY):
         errors.append("story review does not bind the current daily contract")
-    if review.get("verdict") != "pass" or review.get("blocking_defects") != []:
+    import creative_release as bounded
+    if (review.get("verdict") != "pass" or review.get("blocking_defects") != []) and not bounded.review_allows(board, report):
         errors.append("story or continuity defects remain unresolved")
     director = (board.get("story_contract") or {}).get("director_identity")
     identity = report.get("reviewer_identity")

@@ -14,6 +14,7 @@ import production_quality as quality
 import cinema_cache
 import opening_compare
 import run_controller
+import preflight_animatic
 from mix import background_direction, direct_events, mix
 
 
@@ -238,11 +239,248 @@ class CreativeTest(unittest.TestCase):
                      "preflight_identity": "fixture-batch", "note": "two opening comparison batch"}]})
         receipt = self.write("openings/comparison.json", {"options": options, "policy_sha256": c.digest(c.POLICY), "renderer_sha256": "fixture-renderer", "producer_sha256": c.opening_producer(),
                              "reservation": {"identity": "fixture-batch", "run_id": "2026-09-29", "event_index": 0}})
+        with patch("preflight_animatic.inspect_animatic", return_value=({"schema": "dispatch_preflight/1"}, [])), \
+             patch("critic_gate.renderer_digest", return_value="fixture-renderer"):
+            opening_compare.inspect_options(receipt.parent, c.read(receipt))
         choice = {"comparison_sha256": c.digest(receipt), "selected": "a", "director_identity": "fixture-director", "reviewer_identity": "fixture-critic",
                   "reason": "Fixture-only observed difference in the first pictured relationship.",
                   "rejected_reason": "Fixture-only weaker opening misses the visible relationship.", "blocking_defects": []}
         self.write("openings/selection.json", choice)
         return choice
+
+    def test_opening_inspections_measure_static_and_moving_exact_films(self):
+        output = self.root / "openings"
+        output.mkdir()
+        options = []
+        for key, source in (("a", "color=c=navy:s=270x480:r=10"),
+                            ("b", "testsrc2=s=270x480:r=10")):
+            board = {"runtime_s": 2, "scenes": [{"id": "s1", "start_s": 0,
+                     "duration_s": 2, "beat": "motion"}]}
+            bp = self.write(f"openings/{key}.json", board)
+            film = output / f"{key}.mp4"
+            subprocess.run([preflight_animatic.FFMPEG, "-v", "error", "-f", "lavfi", "-i", source,
+                            "-t", "2", "-c:v", "libx264", "-pix_fmt", "yuv420p", str(film)], check=True)
+            options.append({"id": key, "board": {"file": bp.name, "sha256": c.digest(bp)},
+                            "film": {"file": film.name, "sha256": c.digest(film)}})
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"):
+            receipt = opening_compare.inspect_options(output, {"options": options})
+            reports = [c.read(output / o["inspection"]["file"]) for o in options]
+            self.assertFalse(reports[0]["pass"])
+            self.assertTrue(reports[1]["pass"])
+            self.assertIn("held slide", " ".join(reports[0]["problems"]))
+            self.assertFalse(receipt["inspection_pass"])
+            self.assertTrue(all(e.startswith("opening a:") for e in receipt["inspection_problems"]))
+            self.assertEqual(reports[1]["film_sha256"], options[1]["film"]["sha256"])
+
+    def test_both_inspection_failures_survive_first_inspector_exception(self):
+        self.comparison_fixture()
+        output = self.root / "openings"
+        receipt = c.read(output / "comparison.json")
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("preflight_animatic.inspect_animatic", side_effect=[RuntimeError("broken decode"),
+                   ({"schema": "dispatch_preflight/1"}, ["static second opening"])]) as inspect:
+            result = opening_compare.inspect_options(output, receipt)
+        self.assertEqual(inspect.call_count, 2)
+        self.assertEqual(len(result["inspection_problems"]), 2)
+        self.assertIn("broken decode", result["inspection_problems"][0])
+        self.assertIn("static second", result["inspection_problems"][1])
+        self.assertTrue(all((output / o["inspection"]["file"]).exists() for o in result["options"]))
+
+    def test_opening_gate_rejects_missing_tampered_or_stale_inspection(self):
+        self.comparison_fixture()
+        output = self.root / "openings"
+        receipt = c.read(output / "comparison.json")
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"):
+            self.assertEqual(opening_compare.inspection_problems(receipt, output), [])
+            old = copy.deepcopy(receipt)
+            del old["options"][1]["inspection"]
+            self.assertTrue(opening_compare.inspection_problems(old, output))
+            report_path = output / receipt["options"][0]["inspection"]["file"]
+            report = c.read(report_path)
+            report["inspector_sha256"] = "stale inspector"
+            report_path.write_text(json.dumps(report))
+            self.assertTrue(opening_compare.inspection_problems(receipt, output))
+            receipt["options"][0]["inspection"]["sha256"] = c.digest(report_path)
+            self.assertTrue(any("stale inspector_sha256" in e for e in opening_compare.inspection_problems(receipt, output)))
+
+    def test_diagnostic_cli_does_not_approve_failed_inspections(self):
+        with patch("opening_compare.build", return_value={"inspection_pass": False}), \
+             patch("opening_compare.inspection_problems", return_value=["opening a: held slide"]), \
+             patch("builtins.print"):
+            with patch("sys.argv", ["opening_compare.py"]):
+                self.assertEqual(opening_compare.main(), 1)
+            with patch("sys.argv", ["opening_compare.py", "--retain-failed-inspection"]):
+                self.assertEqual(opening_compare.main(), 0)
+
+    def test_bounded_motion_route_preserves_failure_and_exact_binding_checks(self):
+        self.comparison_fixture()
+        output = self.root / "openings"
+        receipt = c.read(output / "comparison.json")
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("preflight_animatic.inspect_animatic", return_value=({"schema": "dispatch_preflight/1"}, ["fixture motion failure"])):
+            receipt = opening_compare.inspect_options(output, receipt)
+        before = (output / "comparison.json").read_bytes()
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("creative_release.structural_allows", return_value=True):
+            self.assertTrue(opening_compare.inspection_problems(receipt, output))
+            self.assertEqual(opening_compare.inspection_problems(receipt, output, allow_bounded=True), [])
+            self.assertEqual((output / "comparison.json").read_bytes(), before)
+            report_path = output / receipt["options"][0]["inspection"]["file"]
+            report = c.read(report_path)
+            self.assertFalse(report["pass"])
+            report["film_sha256"] = "wrong film"
+            report_path.write_text(json.dumps(report))
+            receipt["options"][0]["inspection"]["sha256"] = c.digest(report_path)
+            self.assertTrue(opening_compare.inspection_problems(receipt, output, allow_bounded=True))
+            report["film_sha256"] = receipt["options"][0]["film"]["sha256"]
+            report["inspection_error"] = "decoder failed"
+            report_path.write_text(json.dumps(report))
+            receipt["options"][0]["inspection"]["sha256"] = c.digest(report_path)
+            self.assertTrue(opening_compare.inspection_problems(receipt, output, allow_bounded=True))
+
+    def legacy_comparison_fixture(self):
+        choice = self.comparison_fixture()
+        output = self.root / "openings"
+        receipt = c.read(output / "comparison.json")
+        receipt["producer_sha256"] = c.opening_producer(opening_compare.LEGACY_ORCHESTRATOR_SHA256)
+        for option in receipt["options"]:
+            option.pop("inspection")
+        for key in ("inspection_pass", "inspection_problems"):
+            receipt.pop(key)
+        path = self.write("openings/comparison.json", receipt)
+        choice["comparison_sha256"] = c.digest(path)
+        self.write("openings/selection.json", choice)
+        return receipt
+
+    def test_legacy_inspection_preserves_capture_and_independent_selection(self):
+        original = self.legacy_comparison_fixture()
+        output = self.root / "openings"
+        original_bytes = (output / "comparison.json").read_bytes()
+        choice_bytes = (output / "selection.json").read_bytes()
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("preflight_animatic.inspect_animatic", return_value=({"schema": "dispatch_preflight/1"}, [])), \
+             patch("run_controller.reserve") as reserve, patch("opening_compare.subprocess.run") as execute:
+            self.assertTrue(c.opening_problems(self.root / "storyboard.json"))
+            receipt = opening_compare.inspect_retained(self.root, self.root / "run_state.json")
+            self.assertEqual(receipt["producer_sha256"], original["producer_sha256"])
+            self.assertEqual(opening_compare.capture_record(receipt), original)
+            archive = output / receipt["inspection_adoption"]["original_comparison"]["file"]
+            self.assertEqual(archive.read_bytes(), original_bytes)
+            self.assertEqual((output / "selection.json").read_bytes(), choice_bytes)
+            self.assertEqual(c.opening_problems(self.root / "storyboard.json"), [])
+            reserve.assert_not_called()
+            execute.assert_not_called()
+            receipt["reservation"]["identity"] = "invented replacement"
+            self.assertTrue(opening_compare.adoption_problems(receipt, output))
+
+    def test_legacy_adoption_refuses_unknown_capture_or_changed_renderer_before_writes(self):
+        original = self.legacy_comparison_fixture()
+        output = self.root / "openings"
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("preflight_animatic.inspect_animatic") as inspect:
+            unknown = copy.deepcopy(original)
+            unknown["producer_sha256"] = "unrecognized capture"
+            path = self.write("openings/comparison.json", unknown)
+            before = path.read_bytes()
+            files_before = set(output.iterdir())
+            with self.assertRaises(ValueError):
+                opening_compare.inspect_retained(self.root, self.root / "run_state.json")
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual(set(output.iterdir()), files_before)
+            inspect.assert_not_called()
+        path = self.write("openings/comparison.json", original)
+        before = path.read_bytes()
+        with patch("critic_gate.renderer_digest", return_value="changed renderer or asset"):
+            with self.assertRaises(ValueError):
+                opening_compare.inspect_retained(self.root, self.root / "run_state.json")
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_packaged_legacy_inspections_validate_without_source_package(self):
+        import shutil
+        self.legacy_comparison_fixture()
+        output = self.root / "openings"
+        destination = self.root / "delivered"
+        destination.mkdir()
+        for name in ("storyboard.json", "run_state.json"):
+            shutil.copy2(self.root / name, destination / name)
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("preflight_animatic.inspect_animatic", return_value=({"schema": "dispatch_preflight/1"}, [])):
+            receipt = opening_compare.inspect_retained(self.root, self.root / "run_state.json")
+            expected = {"comparison.json", "selection.json",
+                        receipt["inspection_adoption"]["original_comparison"]["file"]}
+            for option in receipt["options"]:
+                expected.update(option[key]["file"] for key in ("board", "film", "inspection"))
+            copied = opening_compare.package_openings(self.root, destination)
+            self.assertEqual(set(copied), expected)
+            for name in expected:
+                self.assertEqual((output / name).read_bytes(), (destination / "openings" / name).read_bytes())
+            output.rename(self.root / "source-openings-unavailable")
+            self.assertEqual(c.opening_problems(destination / "storyboard.json"), [])
+            report = destination / "openings" / receipt["options"][1]["inspection"]["file"]
+            report.unlink()
+            self.assertTrue(c.opening_problems(destination / "storyboard.json"))
+
+    def test_opening_packaging_refuses_missing_evidence_and_overwrites(self):
+        import shutil
+        self.comparison_fixture()
+        destination = self.root / "delivered"
+        destination.mkdir()
+        for name in ("storyboard.json", "run_state.json"):
+            shutil.copy2(self.root / name, destination / name)
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"):
+            opening_compare.package_openings(self.root, destination)
+            changed = destination / "openings" / "a.mp4"
+            changed.write_bytes(b"retained unrelated bytes")
+            with self.assertRaisesRegex(ValueError, "overwrite different"):
+                opening_compare.package_openings(self.root, destination)
+            self.assertEqual(changed.read_bytes(), b"retained unrelated bytes")
+            receipt = c.read(self.root / "openings/comparison.json")
+            (self.root / "openings" / receipt["options"][0]["inspection"]["file"]).unlink()
+            with self.assertRaises(ValueError):
+                opening_compare.package_openings(self.root, self.root / "missing-evidence-output")
+            self.assertFalse((self.root / "missing-evidence-output").exists())
+
+    def test_cached_comparison_gets_both_inspections_without_another_render(self):
+        self.comparison_fixture()
+        output = self.root / "openings"
+        receipt = c.read(output / "comparison.json")
+        for option in receipt["options"]:
+            del option["inspection"]
+            self.write(f"opening-{option['id']}.json", c.read(output / option["board"]["file"]))
+        self.write("openings/comparison.json", receipt)
+        cp = self.write("claims.json", {"claims": []})
+        self.write("story_selection.json", {})
+        for key in ("a", "b"):
+            self.write(f"opening-{key}-critic.json", {"story_review": {"claims_sha256": c.digest(cp)}})
+        with patch("storyboard_check.check", return_value=[]), patch("daily_production.structure_problems", return_value=[]), \
+             patch("documentary_check.check", return_value=[]), patch("super_evidence_check.check", return_value=([], [])), \
+             patch("script_evidence_check.check", return_value=[]), patch("story_selection_check.problems", return_value=[]), \
+             patch("engine_lint.check_files", return_value=[]), patch("critic_gate.problems", return_value=[]), \
+             patch("critic_gate.renderer_digest", return_value="fixture-renderer"), \
+             patch("run_controller.preflight_identity", return_value="fixture-batch"), \
+             patch("run_controller.read_state", return_value=c.read(self.root / "run_state.json")), \
+             patch("run_controller.reserve") as reserve, patch("opening_compare.subprocess.run") as execute, \
+             patch("preflight_animatic.inspect_animatic", return_value=({"schema": "dispatch_preflight/1"}, ["held slide"])) as inspect:
+            result = opening_compare.build(self.root, self.root / "run_state.json")
+            self.assertEqual(inspect.call_count, 2)
+            self.assertFalse(result["inspection_pass"])
+            reserve.assert_not_called()
+            self.assertFalse(any("render-batch.mjs" in str(call) for call in execute.call_args_list))
+            for field in ("identity", "renderer_sha256", "producer_sha256"):
+                stale = copy.deepcopy(result)
+                if field == "identity":
+                    stale["reservation"][field] = "previous batch"
+                else:
+                    stale[field] = "previous dependency"
+                retained = self.write("openings/comparison.json", stale)
+                before = retained.read_bytes()
+                files_before = set(output.iterdir())
+                inspect.reset_mock()
+                with self.assertRaises(ValueError):
+                    opening_compare.build(self.root, self.root / "run_state.json")
+                self.assertEqual(retained.read_bytes(), before)
+                self.assertEqual(set(output.iterdir()), files_before)
+                inspect.assert_not_called()
 
     def test_opening_choice_is_exact_byte_bound_and_independent(self):
         choice = self.comparison_fixture()

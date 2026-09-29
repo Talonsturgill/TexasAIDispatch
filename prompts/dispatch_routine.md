@@ -115,7 +115,10 @@ from config/run_limits.json and the live ledger. Reserve every agent, paid call 
 before it starts. Targets diagnose extra work; they are neither approval nor a closure rule.
 Cumulative allowances cannot be repeatedly renewed. Keep all failed attempts charged.
 Follow DAILY_PRODUCTION.md's reserved path to shipment. Before structural repair run the
-production-budget precheck. Avoid repeated approval requests and unchanged-blocker spending.
+production-budget precheck. From September 29th, config/creative_release.json governs finite
+creative editing. After its round cap or protected-completion boundary, finish the best reviewed
+cut through the evidence-bound creative release route, without an approval request. Preserve
+actual artistic scores/rejections and every source, rights, technical and shipment check.
 A budget boundary leaves an unfinished edition, never a substitute completion state.
 
 ## Timing and evidence reuse

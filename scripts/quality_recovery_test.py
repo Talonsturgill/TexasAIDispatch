@@ -15,7 +15,10 @@ class RecoveryTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.path = Path(self.tmp.name) / "state.json"
-        c.initialise(self.path, "2026-09-27", "production")
+        # Retained September 27 fixtures keep their historical frozen allocation.
+        # The new default must not silently enlarge already-started editions.
+        with patch.object(c, "ceilings", return_value={**c.ceilings(), "storyboard_critics": 6}):
+            c.initialise(self.path, "2026-09-27", "production")
 
     def test_repair_cannot_renew_total_allocation(self):
         state = c.read_state(self.path)
@@ -141,13 +144,26 @@ class RecoveryTest(unittest.TestCase):
         state=c.read_state(self.path);state.pop("repair_policy");state.pop("resource_envelope")
         state["events"]=[e for e in state["events"] if e["kind"]!="resource_envelope_frozen"]
         state["usage"]["audiovisual_reviews"]=75
+        prior = state["escalation_ceiling"]["audiovisual_reviews"]
         state["escalation_ceiling"]["audiovisual_reviews"]=79
+        c.event(state, "owner_agent_extension", resource="audiovisual_reviews",
+                previous_ceiling=prior, new_ceiling=79, repair_revision="retained-legacy-owner-extension")
         before=copy.deepcopy(state["usage"])
         state["repair_policy"]=g.VERSION;g.freeze(state)
         self.assertEqual(before,state["usage"])
         self.assertEqual(state["resource_envelope"]["audiovisual_reviews"],79)
         self.assertFalse(g.envelope_problems(state,{"audiovisual_reviews":4}))
         self.assertTrue(g.envelope_problems(state,{"audiovisual_reviews":5}))
+
+    def test_legacy_adoption_refuses_unrecorded_ceiling_change(self):
+        state = c.read_state(self.path)
+        state.pop("resource_envelope")
+        state["events"] = [e for e in state["events"] if e["kind"] != "resource_envelope_frozen"]
+        state["escalation_ceiling"]["storyboard_critics"] += 100
+        before = copy.deepcopy(state)
+        with self.assertRaisesRegex(ValueError, "invalid legacy allowances"):
+            g.freeze(state)
+        self.assertEqual(state, before)
 
     def owner_fixture(self, calls=2):
         state = c.read_state(self.path)
@@ -364,11 +380,11 @@ class RecoveryTest(unittest.TestCase):
 
     def test_budget_precheck_is_read_only_and_reports_exact_deficits(self):
         state, failure, approval, _ = self.second_owner_fixture()
-        state["usage"].update(storyboard_critics=8, preflight_renders=state["resource_envelope"]["preflight_renders"]-1,
+        state["usage"].update(storyboard_critics=state["escalation_ceiling"]["storyboard_critics"], preflight_renders=state["resource_envelope"]["preflight_renders"]-1,
                               audiovisual_reviews=state["resource_envelope"]["audiovisual_reviews"]-2)
         before = copy.deepcopy(state)
         result = g.production_budget_precheck(state)
-        self.assertEqual(result["deficits"], {"storyboard_critics": 2, "preflight_renders": 1, "audiovisual_reviews": 2})
+        self.assertEqual(result["deficits"], {"storyboard_critics": 3, "preflight_renders": 2, "audiovisual_reviews": 2})
         self.assertEqual(state, before)
         self.assertFalse(result["feasible"])
         self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
@@ -378,6 +394,44 @@ class RecoveryTest(unittest.TestCase):
         legacy_before = copy.deepcopy(legacy)
         self.assertTrue(g.production_budget_precheck(legacy)["errors"])
         self.assertEqual(legacy, legacy_before)
+
+    def test_prevoice_repair_keeps_final_timed_phone_and_native_hero_in_budget(self):
+        state = c.read_state(self.path)
+        before = copy.deepcopy(state)
+        result = g.production_budget_precheck(state)
+        self.assertEqual(result["resources"]["storyboard_critics"]["required"], 3)
+        self.assertEqual(result["resources"]["preflight_renders"]["required"], 3)
+        self.assertEqual(result["resources"]["tts_calls"]["required"], 2)
+        self.assertEqual(result["resources"]["voice_directors"]["required"], 1)
+        # Two slots cover plan and silent picture, but leave the timed cut unreviewed.
+        state["usage"]["storyboard_critics"] = state["resource_envelope"]["storyboard_critics"] - 2
+        self.assertEqual(g.production_budget_precheck(state)["deficits"]["storyboard_critics"], 1)
+        self.assertEqual(before["usage"]["storyboard_critics"], 0)
+        state["usage"]["tts_calls"] = 1
+        self.assertEqual(g.production_budget_precheck(state)["resources"]["tts_calls"]["required"], 2)
+
+    def test_creative_cap_budget_finishes_current_cut_without_new_creative_round(self):
+        state = c.read_state(self.path)
+        state["run_id"] = "2026-09-29"
+        state["usage"]["reboards"] = 3
+        state["usage"]["storyboard_critics"] = state["resource_envelope"]["storyboard_critics"] - 1
+        result = g.production_budget_precheck(state)
+        self.assertTrue(result["feasible"])
+        self.assertEqual(result["path"], "finish-current")
+        self.assertEqual(result["resources"]["reboards"]["required"], 0)
+        self.assertEqual(result["resources"]["storyboard_critics"]["required"], 1)
+        self.assertEqual(result["resources"]["preflight_renders"]["required"], 2)
+        self.assertEqual(result["resources"]["audiovisual_reviews"]["required"], 4)
+        self.assertEqual(result["resources"]["scorer_calls"]["required"], 3)
+
+    def test_completion_headroom_routes_to_finishing_before_creative_cap(self):
+        state = c.read_state(self.path)
+        state["run_id"] = "2026-09-29"
+        state["usage"].update(reboards=1, storyboard_critics=4)
+        result = g.production_budget_precheck(state)
+        self.assertEqual(result["path"], "finish-current")
+        self.assertEqual(result["resources"]["storyboard_critics"]["required"], 1)
+        self.assertTrue(result["feasible"])
 
     def test_budget_cli_never_changes_ledger_on_pass_failure_or_tampering(self):
         import subprocess

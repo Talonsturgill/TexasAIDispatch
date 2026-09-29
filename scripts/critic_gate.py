@@ -123,7 +123,8 @@ def problems(board: dict, report: dict) -> list[str]:
     errors = plan_problems(board)
     from daily_production import review_problems, action_problems
     errors += review_problems(board, report) + action_problems(board)
-    if report.get("verdict") != "pass":
+    import creative_release as bounded
+    if report.get("verdict") != "pass" and not bounded.review_allows(board, report):
         errors.append("the independent storyboard critic has not passed this concept")
     if report.get("concept_sha256") != concept_digest(board):
         errors.append("the independent critique belongs to a different creative plan")
@@ -153,7 +154,8 @@ def film_review_problems(board: dict, report: dict, preflight: dict,
         errors.append("the independent critic has not reviewed the exact phone animatic")
     if report.get("reviewed_preflight_sha256") != film_sha256:
         errors.append("the independent phone review belongs to different film bytes")
-    if preflight.get("pass") is not True:
+    import creative_release as bounded
+    if preflight.get("pass") is not True and not bounded.structural_allows(board, preflight):
         errors.append("the phone animatic has no passing structural report")
     if preflight.get("board_sha256") != board_sha256:
         errors.append("the structural phone report belongs to a different board")
@@ -165,7 +167,7 @@ def film_review_problems(board: dict, report: dict, preflight: dict,
         for field in ("subject_recognition", "contact_and_consequence", "surface_finish", "closing_payoff"):
             observation = (report.get("phone_observations") or {}).get(field, {})
             start, end = observation.get("start_s"), observation.get("end_s")
-            if (observation.get("pass") is not True or type(start) not in (int, float)
+            if ((observation.get("pass") is not True and not bounded.artistic_observation(board, report, field)) or type(start) not in (int, float)
                     or type(end) not in (int, float) or not math.isfinite(start)
                     or not math.isfinite(end) or not 0 <= start < end
                     or len(str(observation.get("observed") or "").strip()) < 30):

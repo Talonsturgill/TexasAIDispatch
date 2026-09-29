@@ -253,8 +253,34 @@ def allowance_problems(state):
     errors = owner_grant_problems(state)
     if errors:
         return errors
+    events = state.get("events", [])
     caps = ceilings()
-    for e in state.get("events", []):
+    recorded_base = [e["ceiling_snapshot"] for e in events
+                     if e.get("kind") == "initialised" and "ceiling_snapshot" in e]
+    if recorded_base:
+        if (len(recorded_base) != 1 or not isinstance(recorded_base[0], dict)
+                or set(recorded_base[0]) != set(caps)
+                or any(type(v) is not int or v < 0 for v in recorded_base[0].values())):
+            return ["initial allocation snapshot is invalid"]
+        caps = dict(recorded_base[0])
+    elif events and str(state.get("run_id", ""))[:10] < "2026-09-29":
+        # Pre-snapshot history used the old critic default. Empty history is
+        # fresh initialization and is checked against current configuration.
+        caps["storyboard_critics"] = 6
+    if state.get("repair_policy"):
+        frozen = [(i, e.get("envelope")) for i, e in enumerate(events)
+                  if e.get("kind") == "resource_envelope_frozen"]
+        if (len(frozen) != 1 or frozen[0][1] != state.get("resource_envelope")
+                or not isinstance(frozen[0][1], dict)
+                or set(frozen[0][1]) != set(caps)
+                or any(type(v) is not int or v < 0 for v in frozen[0][1].values())):
+            return ["recorded frozen resource envelope is missing or changed"]
+        # New-run defaults must not rewrite old allocations. Legacy adoption
+        # snapshots all prior grants; replay only events after that snapshot.
+        index, envelope = frozen[0]
+        caps = dict(envelope)
+        events = events[index + 1:]
+    for e in events:
         if e.get("kind") in {"repair_started", "repair_authorized"}:
             scope = e.get("repair_scope", "standard")
             if not isinstance(scope, str) or scope not in SCOPES:

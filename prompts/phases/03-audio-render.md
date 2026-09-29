@@ -1,8 +1,19 @@
 # Narration, sound and finished picture
 
 Read knowledge/craft/VO_DIRECTION.md and knowledge/texas/SOUND.md. Voice begins after the
-silent phone picture passes. Use one whole-passage take by default; numeric call targets
+silent phone picture passes or the bounded creative policy establishes release eligibility
+with the original artistic rejection retained. Follow knowledge/craft/BOUNDED_CREATIVE_RELEASE.md;
+all source, rights, readable-picture and comprehension evidence remains mandatory. Use one whole-passage take by default; numeric call targets
 and remaining allowances come from the controller. Every take includes its audible soundcheck.
+
+At the finite creative boundary, have the same independent critic complete the separately
+bound assessment template from the retained exact phone evidence, then verify it before voice:
+
+```sh
+python scripts/creative_release.py --board out/dispatch/storyboard.json --report out/dispatch/phone-critic-current.json --scope phone
+```
+
+This command preserves the original rejection and refuses missing integrity observations.
 
 ```sh
 python scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json

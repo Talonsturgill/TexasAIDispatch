@@ -64,9 +64,23 @@ bindings. It can reject both before a render is spent. Do not add another review
 
 Run scripts/opening_compare.py once. It reserves one preflight batch, renders exactly two
 quarter-scale full animatics with one browser/bundle, and saves openings/comparison.json.
-These are inexpensive opening options with the same body, so the chosen full preview is already
-available for continuity review. Identical inputs reuse retained evidence; failed attempts stay
-charged. A changed batch requires the existing consolidated repair path, never an automatic reset.
+Both completed films receive exact-board, film, renderer and inspector-bound structural reports
+before phone review. The comparison retains both reports and all failures, even if the first
+inspection fails. Cached comparisons inspect the retained bytes without another render. The
+normal command exits nonzero on inspection failure. Its --retain-failed-inspection flag retains
+diagnostics for policy-authorized finishing only; it does not change a failed report or approve
+phone review. These inexpensive options share the same body, so the chosen full preview is
+already available for continuity review. Failed attempts stay charged. A changed batch requires
+the existing consolidated repair path, never an automatic reset.
+
+For a retained capture from the reviewed pre-inspection orchestration version, use
+opening_compare.py --inspect-retained. This performs no render or reservation. It verifies the
+known original orchestration hash, every unchanged capture dependency, both original films and
+boards, the renderer and source assets, and the original charged reservation. It archives the
+original comparison and keeps its producer hash, then binds new inspection reports separately.
+The existing independent selection may keep its original comparison hash only while the exact
+original capture record is unchanged. Unknown capture versions or changed dependencies refuse
+adoption. Failed measurements remain failed under this path too.
 
 The existing exact-phone critic watches both openings, then the chosen whole sequence. It writes
 openings/selection.json with comparison_sha256, selected (a or b), director_identity,

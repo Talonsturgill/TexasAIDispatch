@@ -34,6 +34,17 @@ SHAs, repository paths, or any other number in the film.
 
 Return `{score, ship, axes: {...}, hard_fails: [], weakest_axis, one_sentence_fix}`.
 
+For September 29, 2026 onward, also read `knowledge/craft/BOUNDED_CREATIVE_RELEASE.md` and
+`scripts/creative_release.py` assessment schema. Return a top-level `bounded_release` object
+with schema `dispatch_creative_assessment/1`, scope `panel`, retained_checks for source, rights,
+legibility, comprehension, technical_audio and captions (each pass boolean and concrete
+observed evidence), and defects [{finding: exact original finding, category: classification}].
+Cover every hard fail and attention blocker once. Only motion, surface_finish, pacing,
+ending_artistry and style are artistic; unknown/factual/technical defects stay blocking.
+Use score_only:true with defects:[] only when there are no separately rejected attention
+criteria. Keep actual scores, ship flags and hard fails unchanged. A bounded release is a
+separate owner-directed policy outcome, never a revised reviewer pass.
+
 `one_sentence_fix` is what the run acts on. Make it executable: a fix somebody can apply and
 re-render, not a direction to feel differently about the piece.
 

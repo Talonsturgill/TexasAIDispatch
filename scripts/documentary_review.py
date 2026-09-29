@@ -27,7 +27,7 @@ def pacing_review_required(board: dict) -> bool:
     return str(board.get("date") or "") >= direction.policy()["pacing_review_effective_date"]
 
 def panel_problems(scores: list, film_hash: str, runtime: float, *,
-                   require_pacing: bool = False) -> list[str]:
+                   require_pacing: bool = False, board=None, root=None) -> list[str]:
     if not isinstance(scores,list) or len(scores)!=3:return ["three independent attention reviews required"]
     errors=[]
     for i,judge in enumerate(scores):
@@ -35,7 +35,9 @@ def panel_problems(scores: list, film_hash: str, runtime: float, *,
         if not isinstance(review,dict):
             errors.append(f"judge {i+1} has no attention_review");continue
         if review.get("film_sha256")!=film_hash:errors.append(f"judge {i+1} reviewed different film bytes")
-        if review.get("pass") is not True:errors.append(f"judge {i+1} did not accept the attention/continuity")
+        from creative_release import review_allows
+        eligible = board is not None and review_allows(board, judge, root, "panel", embedded=True)
+        if review.get("pass") is not True and not eligible:errors.append(f"judge {i+1} did not accept the attention/continuity")
         fields=("hook_observed","continuity_observed","remembered_image","weakest_interval","audio_basis")
         if require_pacing:
             fields+=("pacing_observed","comprehension_observed")
@@ -73,7 +75,7 @@ def publication_problems(board_path:Path, film:Path, judges:list) -> list[str]:
         errors=direction.check(board)
         errors+=report_problems(json.loads(out.read_text()),board_path,film,out)
         errors+=panel_problems(judges,digest(film),float(board["runtime_s"]),
-                               require_pacing=pacing_review_required(board))
+                               require_pacing=pacing_review_required(board), board=board, root=film.parent)
         from production_quality import publication_problems as quality_problems
         errors += quality_problems(board_path, film, judges)
         return errors
@@ -256,7 +258,7 @@ def main()->int:
         elif a.panel:
             errors=report_problems(json.loads(out.read_text()),board_path,film,out)
             errors+=panel_problems(json.loads(Path(a.panel).read_text()),digest(film),float(board["runtime_s"]),
-                                   require_pacing=pacing_review_required(board))
+                                   require_pacing=pacing_review_required(board), board=board, root=film.parent)
         else:
             build(board_path,film,out);errors=[]
         if a.verify or a.panel:
