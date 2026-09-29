@@ -148,11 +148,17 @@ cp "$OUT/film.mp4"        "$DEST/dispatch.mp4"
 cp "$OUT/poster.png"      "$DEST/poster.png"
 for f in storyboard.json story_selection.json claims.json captions.json words.json mix.json sfx_events.json \
          vo_direction.json vo_script.txt story.md research_notes.md scale_notes.md credits.txt \
-         acoustic-asr.json acoustic-asr-meta.json alignment_aliases.json \
+         acoustic-asr.json acoustic-asr-meta.json alignment_aliases.json alignment_reconciliation.json \
          script_audit.json validation.json \
          render-manifest.json feed-composite.json feed-composite.png; do
   [ -f "$OUT/$f" ] && cp "$OUT/$f" "$DEST/$f"
 done
+python3 - "$OUT" "$DEST" <<'PY_ALIGNMENT'
+import sys
+sys.path.insert(0, 'scripts')
+from alignment_reconciliation import package
+package(sys.argv[1], sys.argv[2])
+PY_ALIGNMENT
 if [ -d "$OUT/cinema" ]; then
   # Publish only the current proof graph. Historical stills and the paid-review cache
   # stay in the local run record; they must not masquerade as current film evidence.
@@ -205,8 +211,8 @@ git -C "$REPO" status --short -- "$DEST" ledger/dispatch_history.json | sed -n '
 printf -v COMMIT_MESSAGE '%s\n\n%s\n\n%s\n%s' \
   "Ship the $DATE Dispatch" \
   "$TOPIC" \
-  "Panel cleared the bar in config/dispatch_rubric.yaml. Artifacts and the variety" \
-  "ledger entry land together, so the next run's dedupe sees this one."
+  "Release evidence verified under the current policy; original scores and verdicts retained." \
+  "Artifacts and the variety ledger entry land together for the next run."
 if ! git -C "$REPO" commit -m "$COMMIT_MESSAGE"; then
   echo "commit failed"
   exit 1
