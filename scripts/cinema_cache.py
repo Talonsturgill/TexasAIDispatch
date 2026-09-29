@@ -152,12 +152,29 @@ def sample_frames(board):
     for scene in board["scenes"]:
         if not current and scene["id"] not in board["cinema"]["dimensional_scene_ids"]:
             continue
-        event = scene["visual_events"][0]
+        if current:
+            event_id = (scene.get("picture") or {}).get("event_id")
+            matches = [e for e in scene.get("visual_events", []) if e.get("id") == event_id]
+            if not event_id or len(matches) != 1:
+                raise ValueError(scene["id"] + " has no unique principal-picture event")
+            event = matches[0]
+            at, duration = float(event["at_s"]), float(event["duration_s"])
+            scene_duration = float(scene["duration_s"])
+            if (not all(math.isfinite(v) for v in (at, duration, scene_duration))
+                    or at < 0 or duration <= 0 or at + duration > scene_duration + 1e-6):
+                raise ValueError(scene["id"] + " principal-picture event leaves its scene")
+        else:
+            event = scene["visual_events"][0]
         start = float(scene["start_s"]) + float(event["at_s"])
         first, last = round(start*FPS), round((start+float(event["duration_s"]))*FPS)
         if current:
             last = min(last, round((float(scene["start_s"])+float(scene["duration_s"]))*FPS)-1)
-        result[scene["id"]] = [first, last]
+            middle = round((start + float(event["duration_s"]) / 2) * FPS)
+            if not first < middle < last:
+                raise ValueError(scene["id"] + " principal-picture event needs distinct native samples")
+            result[scene["id"]] = [first, middle, last]
+        else:
+            result[scene["id"]] = [first, last]
     return result
 
 

@@ -73,7 +73,7 @@ class CreativeTest(unittest.TestCase):
         samples = {}
         for sid in ("s1", "s2"):
             pairs = []
-            for i in range(2):
+            for i in range(3):
                 normal = Image.new("RGB", (1080, 1920), "black")
                 ImageDraw.Draw(normal).rectangle((50+i*250, 400, 450+i*250, 1400), fill="orange")
                 normal.save(self.root/f"{sid}-{i}.png")
@@ -82,13 +82,65 @@ class CreativeTest(unittest.TestCase):
                               (("normal", f"{sid}-{i}.png"), ("without_stage", f"{sid}-{i}-removed.png"))})
             samples[sid] = pairs
         self.assertEqual(quality.stage_sample_problems(self.board, self.root, samples), [])
-        samples["s2"][1] = samples["s2"][0]
+        samples["s2"][2] = samples["s2"][0]
         self.assertTrue(any("visibly develop" in e for e in quality.stage_sample_problems(self.board, self.root, samples)))
 
     def test_hold_never_licenses_static_opening_or_long_still(self):
         scene = self.board["scenes"][0]
         scene["intentional_hold"] = "Read the source detail before the next consequence."
         self.assertTrue(any("intentional hold" in e for e in c.plan_problems(self.board)))
+
+    def test_native_samples_follow_designated_picture_event_not_entry(self):
+        scene = self.board["scenes"][0]
+        scene["visual_events"].insert(0, {"id": "entry", "at_s": 0, "duration_s": .25})
+        self.assertEqual(cinema_cache.sample_frames(self.board)["s1"], [3, 21, 39])
+        scene["picture"]["event_id"] = "missing"
+        with self.assertRaisesRegex(ValueError, "principal-picture event"):
+            cinema_cache.sample_frames(self.board)
+        scene["picture"]["event_id"] = "s1-reveal"
+        scene["visual_events"].append(copy.deepcopy(scene["visual_events"][1]))
+        with self.assertRaisesRegex(ValueError, "unique"):
+            cinema_cache.sample_frames(self.board)
+
+    def test_legacy_native_samples_keep_first_event_pair(self):
+        board = copy.deepcopy(self.board)
+        board["date"] = "2026-09-28"
+        board["cinema"]["dimensional_scene_ids"] = ["s1"]
+        board["scenes"][0]["visual_events"].insert(0, {"id": "entry", "at_s": 0, "duration_s": .25})
+        self.assertEqual(cinema_cache.sample_frames(board), {"s1": [0, 8]})
+
+    def test_native_reveal_keeps_baseline_and_requires_midpoint_and_result(self):
+        board = copy.deepcopy(self.board); board["scenes"] = board["scenes"][:1]
+        blank = np.zeros((100, 100, 3), dtype=float)
+        full = blank.copy(); full[10:70, 10:70] = 100
+        tiny = blank.copy(); tiny[10:15, 10:15] = 100
+        pictures = [blank, full, full]
+        samples = {"s1": [{k: {"index": i, "kind": k} for k in ("normal", "without_stage")}
+                          for i in range(3)]}
+        def pixels(item):
+            return pictures[item["index"]] if item["kind"] == "normal" else blank
+        with patch.object(quality, "asset", side_effect=lambda root, item: item), \
+             patch.object(quality, "image", side_effect=pixels), \
+             patch.object(quality, "frame", return_value=full):
+            observations=[]
+            self.assertEqual(quality.stage_sample_problems(board, self.root, samples,
+                                                           observations=observations), [])
+            self.assertEqual([v["phase"] for v in observations], ["onset", "midpoint", "completion"])
+            self.assertEqual(observations[0]["visible_pixel_share"], 0)
+            self.assertFalse(observations[0]["occupancy_required"])
+            self.assertTrue(all(v["occupancy_required"] for v in observations[1:]))
+            # Even the exempt onset must match the actual film, not an invented baseline.
+            self.assertTrue(any("final pixels" in e for e in quality.stage_sample_problems(
+                board, self.root, samples, film=Path("fixture"))))
+            for index, bad in ((1, blank), (2, blank), (1, tiny), (2, tiny)):
+                pictures[index]=bad
+                with self.subTest(index=index, tiny=bad is tiny):
+                    self.assertTrue(any("too little visible" in e for e in
+                        quality.stage_sample_problems(board, self.root, samples)))
+                pictures[index]=full
+            samples["s1"].pop()
+            self.assertTrue(any("complete principal-picture" in e for e in
+                quality.stage_sample_problems(board, self.root, samples)))
 
     def test_missing_source_asset_and_false_medium_fail(self):
         self.board["quality_plan"]["scenes"][0]["medium"] = "source-still"

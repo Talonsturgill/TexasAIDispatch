@@ -200,14 +200,14 @@ class CreativeReleaseTests(unittest.TestCase):
     def test_native_motion_deferral_keeps_presence_and_exact_pixels(self):
         import production_quality as q
         import numpy as np
-        board = dict(self.board, scenes=[{"id": "s1"}])
-        samples = {"s1": [{k: {"kind": k} for k in ("normal", "without_stage")} for _ in range(2)]}
+        board = dict(self.board, scenes=[{"id": "s1", "picture": {"event_id": "detail"}}])
+        samples = {"s1": [{k: {"kind": k} for k in ("normal", "without_stage")} for _ in range(3)]}
         cinema = self.root / "cinema"; cinema.mkdir()
         settings = {"min_stage_pixel_share": .1, "min_stage_action_pixel_share": .01, "max_final_frame_mae": 5}
         strength = [30]
         def pixels(kind):
             return np.full((10, 10, 3), strength[0] if kind == "normal" else 0, dtype=float)
-        with patch("cinema_cache.sample_frames", return_value={"s1": [0, 3]}), patch.object(q, "policy", return_value=settings), \
+        with patch("cinema_cache.sample_frames", return_value={"s1": [0, 2, 3]}), patch.object(q, "policy", return_value=settings), \
              patch.object(q, "asset", side_effect=lambda root, item: item["kind"]), patch.object(q, "image", side_effect=pixels), \
              patch.object(q, "frame", return_value=np.zeros((10, 10, 3))):
             deferred = []

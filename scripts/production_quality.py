@@ -80,19 +80,24 @@ def asset(root, item):
         raise ValueError("cinematic evidence file missing, changed or outside its package")
     return p
 
-def stage_sample_problems(board, root, samples, film=None, deferred=None):
+def stage_sample_problems(board, root, samples, film=None, deferred=None, observations=None):
     """Measure the principal picture, independent of its chosen medium."""
     from cinema_cache import sample_frames
     import creative_production as creative
     errors = []
-    ids = list(sample_frames(board))
+    schedule = sample_frames(board)
+    ids = list(schedule)
     if sorted(samples) != sorted(ids):
         return ["cinematic proof must cover every required picture scene"]
     scenes = {s["id"]: s for s in board["scenes"]}
     for sid in ids:
         scene = scenes[sid]
         pair = samples[sid]
-        times = [f / 30 for f in sample_frames(board)[sid]]
+        times = [f / 30 for f in schedule[sid]]
+        current_policy = creative.required(board)
+        if len(pair) != len(times) or (current_policy and len(times) != 3):
+            errors.append(sid + " lacks the complete principal-picture sample schedule")
+            continue
         effects = []
         for idx, at in enumerate(times):
             normal = image(asset(root, pair[idx]["normal"]))
@@ -100,13 +105,21 @@ def stage_sample_problems(board, root, samples, film=None, deferred=None):
             effect = normal - removed
             effects.append(effect)
             area = float((np.max(np.abs(effect), axis=2) > 12).mean())
-            if area < policy(board)["min_stage_pixel_share"]:
+            # The event's onset is a measured baseline: a reveal can begin empty.
+            # Mid-action and completion must each independently meet the same floor.
+            occupancy_required = not current_policy or idx > 0
+            if current_policy and observations is not None:
+                observations.append({"scene_id": sid, "event_id": scene["picture"]["event_id"],
+                    "phase": ("onset", "midpoint", "completion")[idx], "at_s": at,
+                    "visible_pixel_share": area, "occupancy_required": occupancy_required,
+                    "required_pixel_share": policy(board)["min_stage_pixel_share"]})
+            if occupancy_required and area < policy(board)["min_stage_pixel_share"]:
                 errors.append(sid + " has too little visible principal picture content")
             if film is not None:
                 current = frame(film, round(at * 30) / 30, 270, 480).astype(float)
                 if float(np.abs(current - normal).mean()) > policy(board)["max_final_frame_mae"]:
                     errors.append(sid + " final pixels differ from the approved preview")
-        moving = float((np.max(np.abs(effects[1] - effects[0]), axis=2) > 12).mean())
+        moving = float((np.max(np.abs(effects[-1] - effects[0]), axis=2) > 12).mean())
         deliberate_hold = creative.required(board) and scene.get("intentional_hold")
         import creative_release as bounded
         state_root = Path(root).parent.parent if Path(root).parent.name == "cinema" else Path(root).parent
@@ -148,10 +161,13 @@ def preview_problems(board_path, root, mix=None, film=None):
         if (w, h) != (1080, 1920) or abs(dur - passage_duration) > .12:
             errors.append("hero preview must contain the full declared passage at delivery resolution")
         errors += av_problems(root / "hero-review.json", clip, "hero")
-        deferred = []
-        errors += stage_sample_problems(board, root, proof["samples"], film=film, deferred=deferred)
+        deferred, observations = [], []
+        errors += stage_sample_problems(board, root, proof["samples"], film=film,
+                                       deferred=deferred, observations=observations)
         if deferred != proof.get("bounded_creative_findings", []):
             errors.append("native proof must retain every measured deferred artistic finding")
+        if observations != proof.get("principal_picture_measurements", []):
+            errors.append("native proof must retain every principal-picture occupancy measurement")
     except (OSError, ValueError, KeyError, TypeError, IndexError, subprocess.SubprocessError) as exc:
         errors.append("cinematic preview unavailable: " + str(exc))
     return errors

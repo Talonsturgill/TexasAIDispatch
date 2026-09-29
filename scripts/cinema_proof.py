@@ -24,6 +24,19 @@ def current_bindings(board, mix):
             "mix_sha256":digest(mix),"generated_media_sha256":generated_media_sha256(board)}
 
 
+def archive_failure(root, staging, proof, errors):
+    """Retain rejected bytes separately; this never publishes a current proof."""
+    failures = root / "failed-proofs"
+    failures.mkdir(parents=True, exist_ok=True)
+    archive = Path(tempfile.mkdtemp(prefix="proof-", dir=failures))
+    shutil.copytree(staging, archive, dirs_exist_ok=True)
+    record = {**proof, "pass": False, "problems": list(errors),
+              "retained_files": {p.relative_to(archive).as_posix(): digest(p)
+                                 for p in sorted(archive.rglob("*")) if p.is_file()}}
+    (archive / "proof.json").write_text(json.dumps(record, indent=2) + "\n")
+    return archive
+
+
 def build(board, mix, state):
     board, mix = Path(board).resolve(), Path(mix).resolve()
     data = read(board)
@@ -102,23 +115,34 @@ def build(board, mix, state):
             for sid,pairs in sample_paths.items()},
             "reuse":{"version":cache.SCHEMA,"render_environment":cache.picture_recipe(board,frames)["environment"],"hero_picture_key":hero_picture_key,"hero_audio_key":hero_audio_key,
                      "sample_keys":sample_keys,"rendered_jobs":len(jobs),"hero_reused":hero_cached is not None}}
-        deferred = []
-        errors = stage_sample_problems(data,staging,proof["samples"],deferred=deferred)
+        deferred, observations = [], []
+        errors = stage_sample_problems(data,staging,proof["samples"],deferred=deferred,
+                                       observations=observations)
+        proof["principal_picture_measurements"] = observations
         if deferred:
             proof["bounded_creative_findings"] = deferred
-        errors += cache.binding_problems(board,proof,mix)
-        if errors:
-            raise ValueError("cinematic proof failed before audiovisual review: " + "; ".join(errors))
+        binding_errors = cache.binding_problems(board,proof,mix)
         if current_bindings(board,mix) != expected:
-            raise ValueError("production inputs changed during hero rendering; preview approval invalid")
-        if hero_cached is None:
-            cache.retain(retained,hero_picture_key,silent)
-            cache.retain(retained,hero_key,hero)
+            binding_errors.append("production inputs changed during hero rendering; preview approval invalid")
+        # Cache proves completed bytes and their dependencies, never artistic acceptance.
+        # A failed stage measurement must not discard an unrelated completed hero.
+        if not binding_errors:
+            if hero_cached is None:
+                cache.retain(retained,hero_picture_key,silent)
+                cache.retain(retained,hero_key,hero)
+            for sid,pairs in sample_paths.items():
+                for index,pair in enumerate(pairs):
+                    for kind,path in pair.items():
+                        if samples_cached[sid][index][kind] is None:
+                            cache.retain(retained,sample_keys[sid][index][kind],path)
+        errors += binding_errors
+        if errors:
+            archive = archive_failure(root,staging,proof,errors)
+            raise ValueError("cinematic proof failed before audiovisual review: " + "; ".join(errors)
+                             + f"; exact failed evidence retained at {archive}")
         for sid,pairs in sample_paths.items():
             for index,pair in enumerate(pairs):
                 for kind,path in pair.items():
-                    if samples_cached[sid][index][kind] is None:
-                        cache.retain(retained,sample_keys[sid][index][kind],path)
                     shutil.copyfile(path,root/path.name)
         old_hero = root / "hero.mp4"
         if old_hero.exists() and digest(old_hero) != digest(hero):
