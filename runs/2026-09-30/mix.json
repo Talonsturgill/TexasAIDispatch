@@ -1,0 +1,125 @@
+{
+  "duration_s": 49.0,
+  "cut_s": 49.0,
+  "peak_dbfs_premaster": -4.46,
+  "lufs_premaster": -23.83,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.08,
+  "lufs_shortfall_db": 0.0799999999999983,
+  "crest_factor_db": 19.37,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 4.46,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 1
+    },
+    {
+      "id": "echoes_of_time_v2",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 20.0,
+      "source_lufs": -19.38,
+      "gain_db": -24.4
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "echoes_of_time_v2",
+  "bed_gap_below_voice_db": 20.0,
+  "bed_source_lufs": -19.38,
+  "bed_gain_db": -24.4,
+  "sfx_events": 1,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -19.42,
+      "true_peak_dbtp": -0.0
+    },
+    "after": {
+      "integrated_lufs": -16.08,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.690000000000001:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.12:measured_TP=-5.58:measured_LRA=15.20:measured_thresh=-35.76:offset=0.71",
+    "measurement": {
+      "input_i": "-24.12",
+      "input_tp": "-5.58",
+      "input_lra": "15.20",
+      "input_thresh": "-35.76",
+      "output_i": "-15.93",
+      "output_tp": "-2.00",
+      "output_lra": "5.10",
+      "output_thresh": "-27.17",
+      "normalization_type": "dynamic",
+      "target_offset": "0.24"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.31,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.12:measured_TP=-5.58:measured_LRA=15.20:measured_thresh=-35.76:offset=0.63"
+      },
+      {
+        "requested_lufs": -15.690000000000001,
+        "measured": {
+          "integrated_lufs": -16.08,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.690000000000001:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.12:measured_TP=-5.58:measured_LRA=15.20:measured_thresh=-35.76:offset=0.71"
+      }
+    ],
+    "correction": null,
+    "samples": 2352000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "d317299fca264201f672c8f53f3980bb7c63841f2a6e066ab6e812341e044617",
+  "sound_direction_sha256": "aac55248487957f06401435c6823b84d56dce0bc8e4c700c50a5843f59495e64",
+  "sound_cues": [
+    {
+      "id": "camera-image",
+      "event_id": "s2-event-2",
+      "role": "sonification",
+      "duration_s": 0.5,
+      "intent": "A quiet designed cue follows the illustrative camera image reveal.",
+      "provenance": "Original synthesized sonification from the repository foley library.",
+      "at_s": 8.011
+    },
+    {
+      "id": "report-quiet",
+      "event_id": "s4-event-3",
+      "role": "quiet",
+      "duration_s": 1.6000000000000014,
+      "gain": 0.2,
+      "intent": "The background recedes as installation and detection categories separate.",
+      "provenance": "Authored background-bus attenuation on the source-bound reporting comparison.",
+      "at_s": 23.656
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "camera-image",
+      "sha256": "3f7e59bc9ae91d987db8232d0736f67a52c3236ee67f5be47cd6003901f62fc1"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "98fa8b9971714d98673386b2842ac7d40ad924fda8baa7b22e66150671c682c9",
+  "bed_source_sha256": "36ab41619325e19d6b7ab56d572161c2ba40bfcacf409a2558e3986b0ee0c62a",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "36d7714bb40e252d3cb1ba5069577d0ab03d4908203595dbcb43cd9b4e803aa8",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2352000
+}
