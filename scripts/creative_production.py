@@ -33,6 +33,25 @@ def required(board):
     return str(board.get("date") or "") >= policy()["effective_date"]
 
 
+def treatment_required(board):
+    return str(board.get("date") or "") >= policy()["treatment_effective_date"]
+
+
+def treatment_problems(board):
+    if not treatment_required(board):
+        return []
+    errors = []
+    scenes = board.get("scenes", [])
+    if (scenes and board.get("cinematic_template") == "editorial-v1"
+            and all((s.get("picture") or {}).get("medium") in
+                    {"source-still", "source-excerpt", "diagram"} for s in scenes)):
+        errors.append("whole-film static source pictures and fading boxes need a different visual treatment before spending")
+    edits = (board.get("creative_direction") or {}).get("edits", [])
+    if len(edits) >= 3 and len({str(e.get("leave_on", "")).strip() for e in edits}) == 1:
+        errors.append("repeated cut instructions do not direct the individual picture changes")
+    return errors
+
+
 def concrete(value, length=25):
     return isinstance(value, str) and len(value.strip()) >= length
 
@@ -62,7 +81,7 @@ def plan_problems(board):
     if not required(board):
         return []
     plan = board.get("creative_direction") or {}
-    errors = []
+    errors = treatment_problems(board)
     if plan.get("policy_sha256") != digest(POLICY):
         errors.append("creative direction must bind the current dated policy")
     for key in ("viewer_question", "visible_answer", "emotional_turn", "medium_choice"):
@@ -204,13 +223,15 @@ def plan_problems(board):
 
 def opening_digest(board):
     """Retiming and measured captions do not invent a new opening concept."""
-    scene = copy.deepcopy(board["scenes"][0])
-    for key in ("start_s", "duration_s", "duration_authored", "caption"):
-        scene.pop(key, None)
-    for ev in scene.get("visual_events", []):
-        for key in ("at_s", "duration_s", "at_s_authored", "duration_s_authored"):
-            ev.pop(key, None)
-    return fingerprint({"scene": scene, "template": board.get("cinematic_template"),
+    scenes = copy.deepcopy(board["scenes"] if treatment_required(board) else board["scenes"][:1])
+    for scene in scenes:
+        for key in ("start_s", "duration_s", "duration_authored", "caption"):
+            scene.pop(key, None)
+        for ev in scene.get("visual_events", []):
+            for key in ("at_s", "duration_s", "at_s_authored", "duration_s_authored"):
+                ev.pop(key, None)
+    content = {"scenes": scenes} if treatment_required(board) else {"scene": scenes[0]}
+    return fingerprint({**content, "template": board.get("cinematic_template"),
                         "media": board.get("native_media", [])})
 
 
@@ -236,7 +257,7 @@ def opening_problems(board_path):
         review = read(root / "selection.json")
         from critic_gate import renderer_digest
         errors = []
-        if receipt.get("policy_sha256") != digest(POLICY) or receipt.get("renderer_sha256") != renderer_digest(board):
+        if receipt.get("policy_sha256") != digest(POLICY) or (not treatment_required(board) and receipt.get("renderer_sha256") != renderer_digest(board)):
             errors.append("opening comparison uses stale policy or renderer inputs")
         from opening_compare import adoption_problems
         adopted = bool(receipt.get("inspection_adoption")) and not adoption_problems(receipt, root)
@@ -264,7 +285,10 @@ def opening_problems(board_path):
                 p = (root / ref["file"]).resolve()
                 if not p.is_relative_to(root.resolve()) or digest(p) != ref["sha256"]:
                     errors.append("opening comparison evidence changed: " + key)
-            if opening_digest(read(root / option["board"]["file"])) != option["concept_sha256"]:
+            option_board = read(root / option["board"]["file"])
+            if treatment_required(board) and option.get("renderer_sha256") != renderer_digest(option_board):
+                errors.append("opening treatment uses stale renderer inputs")
+            if opening_digest(option_board) != option["concept_sha256"]:
                 errors.append("opening concept does not match its board")
         comparison_hashes = {digest(root / "comparison.json")}
         if adopted:
@@ -272,6 +296,8 @@ def opening_problems(board_path):
         if review.get("comparison_sha256") not in comparison_hashes:
             errors.append("opening choice belongs to different comparison bytes")
         chosen = next((r for r in options if r["id"] == review.get("selected")), None)
+        if chosen and treatment_required(board) and chosen.get("renderer_sha256") != renderer_digest(board):
+            errors.append("selected treatment renderer differs from the current film")
         if not chosen or chosen["concept_sha256"] != opening_digest(board):
             errors.append("current opening is not the selected concept")
         if not review.get("reviewer_identity") or review.get("reviewer_identity") == review.get("director_identity") or not review.get("director_identity"):

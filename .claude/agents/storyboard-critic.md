@@ -155,3 +155,11 @@ and reject it if contact, transformation or consequence is absent. Historical ap
 implemented export, a passing regression or filled fields cannot replace these observations.
 
 For editions under config/story_visuals.json, inspect visual_research and every native_media asset against current claims and the most recent shipped film. Reject repeated footage/stills even when cropped or re-encoded, generic mood inserts, undeclared renderer media and implied false identity. Check the actual site/person/equipment/document relevance and reuse rights, not just filled fields. A useful sourced still is acceptable; absence of external media is acceptable when the bounded search found none and the explanatory sequence works. Include these findings in the existing consolidated verdict.
+
+## September 30 treatment correction
+Use a compact evidence packet. Start with the sourced physical task, obstacle and consequence,
+then choose useful pictures. September 29's static source-screen treatment is a rejected
+reference. Source relevance and accurate labels cannot stand in for visual action or craft.
+Use original illustration and proven components when stronger than available photographs.
+The existing critic compares two complete visual approaches in the same reserved batch and
+consolidates all visible defects; no additional reviewer or research pass is introduced.

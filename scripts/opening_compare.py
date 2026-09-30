@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Render exactly two cheap opening alternatives in one reserved shared batch.
 
-Both cuts share the same body. The existing phone critic chooses between the actual
+Current cuts share facts, narration and timing, while visual treatments may differ.
+The existing phone critic chooses between the actual
 preview bytes, then the chosen film becomes the first phone preflight without a rerender.
 """
 from __future__ import annotations
@@ -20,6 +21,11 @@ LEGACY_ORCHESTRATOR_SHA256 = "a50859e01b487bb81ef814845c3d8b5aeb47f46106f6982487
 
 
 def body(board):
+    if creative.treatment_required(board):
+        return {**{k: board.get(k) for k in ("date", "title", "beat", "runtime_s", "credits_s", "native_media")},
+                "question": (board.get("creative_direction") or {}).get("viewer_question"),
+                "scenes": [{k: s.get(k) for k in ("id", "start_s", "duration_s", "vo", "vo_claims")}
+                           for s in board["scenes"]]}
     value = copy.deepcopy(board)
     opening = value["scenes"][0]["id"]
     value["scenes"] = value["scenes"][1:]
@@ -259,7 +265,7 @@ def build(root, state):
     if ledger["run_id"] != boards[0].get("date") or creative.read(root / "storyboard.json") not in boards:
         raise ValueError("opening alternatives must belong to the current owned edition and provisional board")
     if not all(creative.required(b) for b in boards) or body(boards[0]) != body(boards[1]):
-        raise ValueError("two openings must share the current dated story, assets and complete body")
+        raise ValueError("two alternatives must share dated facts, narration, timing and assets; legacy editions also share the visual body")
     if boards[0]["scenes"][0]["duration_s"] != boards[1]["scenes"][0]["duration_s"]:
         raise ValueError("opening alternatives must keep the same planned cut boundary")
     if creative.opening_digest(boards[0]) == creative.opening_digest(boards[1]):
@@ -283,9 +289,10 @@ def build(root, state):
         if not board.get("captions") and not any(board.get(k) for k in ("caption_method", "retimed_to", "retime_evidence")):
             command.append("--early-muted-animatic")
         subprocess.run(command, cwd=REPO / "video-engine", check=True)
-    expected_renderer = renderer_digest(boards[0])
+    expected_renderers = [renderer_digest(board) for board in boards]
+    expected_renderer = expected_renderers[0]
     expected_producer = creative.opening_producer()
-    if expected_renderer != renderer_digest(boards[1]):
+    if not creative.treatment_required(boards[0]) and len(set(expected_renderers)) != 1:
         raise ValueError("opening options must use the same inspected renderer and asset set")
     output = root / "openings"
     identity = preflight_identity(state, "two opening comparison batch")
@@ -296,7 +303,9 @@ def build(root, state):
             if (old.get("policy_sha256") != creative.digest(creative.POLICY) or old.get("renderer_sha256") != expected_renderer
                     or old.get("producer_sha256") != expected_producer):
                 raise ValueError("retained opening approval dependencies changed; preserve it before repair")
-            for item in old["options"]:
+            for index, item in enumerate(old["options"]):
+                if creative.treatment_required(boards[0]) and item.get("renderer_sha256") != expected_renderers[index]:
+                    raise ValueError("retained treatment renderer changed; preserve it before repair")
                 for key in ("board", "film"):
                     if creative.digest(output / item[key]["file"]) != item[key]["sha256"]:
                         raise ValueError("retained opening evidence changed; repair from the failed evidence")
@@ -315,13 +324,14 @@ def build(root, state):
         film = output / f"{key}.mp4"
         jobs.append({"kind": "video", "props": str(path), "output": str(film), "preview": True})
         options.append({"id": key, "concept_sha256": creative.opening_digest(board),
+                        "renderer_sha256": renderer_digest(board),
                         "board": {"file": path.name, "sha256": creative.digest(path)},
                         "film": {"file": film.name}})
     spec = output / "batch.json"
     spec.write_text(json.dumps({"jobs": jobs, "report": str(output / "batch-report.json")}, indent=2)+"\n")
     subprocess.run(["node", str(REPO / "video-engine/scripts/render-batch.mjs"), str(spec)],
                    cwd=REPO / "video-engine", check=True)
-    if renderer_digest(boards[0]) != expected_renderer or preflight_identity(state, "two opening comparison batch") != identity:
+    if [renderer_digest(board) for board in boards] != expected_renderers or preflight_identity(state, "two opening comparison batch") != identity:
         raise ValueError("opening inputs changed during rendering; retain the charged attempt")
     if creative.opening_producer() != expected_producer:
         raise ValueError("opening capture tools changed during rendering; retain the charged attempt")

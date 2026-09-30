@@ -17,7 +17,8 @@ BATCH = {"preflight_renders": 2, "full_renders": 1, "audiovisual_reviews": 4,
          "validator_agents": 1, "research_agents": 1, "voice_directors": 1,
          "reported_tokens": 100000}
 NARRATION_SCOPE = "narration-performance"
-SCOPES = {"standard", NARRATION_SCOPE}
+TECHNICAL_SCOPE = "technical-integrity"
+SCOPES = {"standard", NARRATION_SCOPE, TECHNICAL_SCOPE}
 NARRATION_BATCH = {"tts_calls": 2}
 
 
@@ -91,6 +92,9 @@ def begin_repair(path, plan_path):
         return False, "unknown repair_scope"
     opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
     errors = plan_problems(state, plan) + envelope_problems(state, opening)
+    if scope == TECHNICAL_SCOPE:
+        from creative_release import technical_repair_problems
+        errors += technical_repair_problems(state, plan)
     if scope == NARRATION_SCOPE:
         errors += narration_plan_problems(path, plan)
         if not errors:
@@ -167,6 +171,11 @@ def authorize_repair(path, plan_path):
     plan = proof["repair_plan"]
     if plan.get("repair_scope", "standard") != scope:
         return False, "repair_scope changed after begin-repair"
+    if scope == TECHNICAL_SCOPE:
+        from creative_release import technical_repair_problems
+        errors = technical_repair_problems(state, plan)
+        if errors:
+            return False, "; ".join(errors)
     if scope == NARRATION_SCOPE:
         errors = narration_plan_problems(path, plan)
         if plan_identity(plan) != current.get("plan_identity"):

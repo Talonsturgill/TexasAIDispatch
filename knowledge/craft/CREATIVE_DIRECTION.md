@@ -5,6 +5,27 @@ Earlier editions retain their original contracts. This policy replaces the dimen
 and runtime quota. All source, quality, independent review, native output, audio, caption,
 budget and shipment requirements remain. It adds no score threshold or review role.
 
+## Treatment recovery from September 30, 2026
+
+September 29 is a rejected creative reference. Its source screenshots, repeated fading boxes
+and growing underlines never became an engaging film. Use the source to discover a physical
+task, obstacle and consequence. Preserve that action in the script and pictures. Authentic
+imagery earns a shot when it reveals something; a relevant document is not automatically
+the film's subject. Original source-grounded illustration and demonstrated action remain
+first-class choices. Reuse proven components, never prior-edition photographic assets.
+
+Start with one credible demonstrated treatment and one genuinely different visual treatment.
+Compare their action, composition and viewer payoff in the existing batch. If both fail,
+use one consolidated mechanism-changing simplification before narration; do not keep tuning
+the same weak presentation. Preserve the strongest accepted complete preview as the fallback.
+No extra research pass, reviewer role, third speculative concept or bespoke rig is authorized.
+
+The existing critic must judge the whole film against the prior successful visual standard.
+Named cities, correct labels and readable source text do not establish strong picture or place.
+A code pass for geometry and provenance does not establish an engaging treatment. Inspect
+the opening, middle and ending as actual action before refining layout. Give each cut its own
+visible reason; repeated prose cannot direct ten different shots.
+
 ## Choose the story from its tangible stakes
 
 Before narration, selected.visual_stakes records affected_person, physical_subject,
@@ -54,10 +75,12 @@ The hero remains a finished native passage with sound, even when it uses no 3D.
 
 ## Compare two openings once
 
-Prepare opening-a.json and opening-b.json beside storyboard.json. Only the first scene, its
-quality_plan row and creative_direction.edits row may differ; keep the same duration, body,
-assets, question and source limits. Make genuinely different visual approaches, not different
-labels over the same picture. Keep both inside the existing source and medium contracts.
+Prepare opening-a.json and opening-b.json beside storyboard.json. From September 30, both may
+change the complete visual treatment, including the middle and ending. Keep the same dated
+facts, narration, scene ids and timing, shared inspected asset set and viewer question. Their
+full visual concepts are hash-bound, including body scenes; retiming does not change identity.
+For September 29 captures only, the original first-scene-only comparison remains reproducible.
+Make genuinely different visual approaches. Keep both inside the source and medium contracts.
 The existing independent code critic reviews both in one reserved assignment and returns
 opening-a-critic.json and opening-b-critic.json using the ordinary exact concept/renderer/story
 bindings. It can reject both before a render is spent. Do not add another reviewer identity.
@@ -69,7 +92,7 @@ before phone review. The comparison retains both reports and all failures, even 
 inspection fails. Cached comparisons inspect the retained bytes without another render. The
 normal command exits nonzero on inspection failure. Its --retain-failed-inspection flag retains
 diagnostics for policy-authorized finishing only; it does not change a failed report or approve
-phone review. These inexpensive options share the same body, so the chosen full preview is
+phone review. These inexpensive options share the same narrative, so the chosen full preview is
 already available for continuity review. Failed attempts stay charged. A changed batch requires
 the existing consolidated repair path, never an automatic reset.
 

@@ -63,7 +63,8 @@ python scripts/critic_gate.py --board out/dispatch/storyboard.json --report out/
 ```
 
 For editions under config/creative_production.json, prepare opening-a.json and opening-b.json
-with the same body and assets under CREATIVE_DIRECTION.md. The one existing code assignment
+with the same narrative and assets under CREATIVE_DIRECTION.md. From September 30 their
+complete visual treatments may differ; do not freeze a weak body before comparison. The one existing code assignment
 returns opening-a-critic.json and opening-b-critic.json. Keep storyboard.json as the current
 provisional board for the same controller, then run the bounded first preview batch:
 
@@ -103,4 +104,6 @@ Record review_scope exact-muted-phone-preflight, reviewed_preflight_sha256 and c
 in storyboard_critic.json. A code-plan pass does not approve the phone film or native hero.
 Before voice, resolve every structural or source defect through prompts/phases/repair.md.
 
-Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Prefer the actual site or source document over a generic human insert.
+Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Use actual sites and source documents when they improve the shot. Preserve a tangible action
+and consequence through the film; choose source-grounded original illustration when it tells
+the story better. Relevant imagery alone never approves a treatment.

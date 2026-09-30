@@ -61,7 +61,9 @@ then open one evidence-bound repair batch. Keep usage charged. Every paid call a
 render is still reserved before it starts. A batch never changes a score or original verdict.
 
 For editions from September 29, 2026, use `config/creative_release.json` and
-`knowledge/craft/BOUNDED_CREATIVE_RELEASE.md`: at most three charged creative repair rounds.
+`knowledge/craft/BOUNDED_CREATIVE_RELEASE.md`: at most three creative repair rounds. From September 30, independently classified
+technical-integrity corrections remain charged but do not count as creative rounds.
+The dated minimum picture-action checks cannot be deferred; choose a credible treatment early.
 Stop earlier when another full correction would consume reserved mandatory completion review
 capacity. Finish the best available complete cut, obtain every required independent exact-film
 review, and ship autonomously. Only explicitly assessed artistic defects can use this route.
