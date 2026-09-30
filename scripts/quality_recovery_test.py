@@ -401,7 +401,7 @@ class RecoveryTest(unittest.TestCase):
                               audiovisual_reviews=state["resource_envelope"]["audiovisual_reviews"]-2)
         before = copy.deepcopy(state)
         result = g.production_budget_precheck(state)
-        self.assertEqual(result["deficits"], {"storyboard_critics": 3, "preflight_renders": 2, "audiovisual_reviews": 2})
+        self.assertEqual(result["deficits"], {"storyboard_critics": 3, "preflight_renders": 2, "audiovisual_reviews": 9})
         self.assertEqual(state, before)
         self.assertFalse(result["feasible"])
         self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
@@ -438,7 +438,7 @@ class RecoveryTest(unittest.TestCase):
         self.assertEqual(result["resources"]["reboards"]["required"], 0)
         self.assertEqual(result["resources"]["storyboard_critics"]["required"], 1)
         self.assertEqual(result["resources"]["preflight_renders"]["required"], 2)
-        self.assertEqual(result["resources"]["audiovisual_reviews"]["required"], 4)
+        self.assertEqual(result["resources"]["audiovisual_reviews"]["required"], 8)
         self.assertEqual(result["resources"]["scorer_calls"]["required"], 3)
 
     def test_completion_headroom_routes_to_finishing_before_creative_cap(self):

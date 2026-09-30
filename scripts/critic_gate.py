@@ -121,6 +121,8 @@ def problems(board: dict, report: dict) -> list[str]:
         return []
     from quality_contract import plan_problems
     errors = plan_problems(board)
+    from independent_review import evidence_problems
+    errors += evidence_problems(report)
     from daily_production import review_problems, action_problems
     errors += review_problems(board, report) + action_problems(board)
     import creative_release as bounded

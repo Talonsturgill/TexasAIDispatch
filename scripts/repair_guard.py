@@ -113,14 +113,16 @@ def owner_grant_problems(state):
     return []
 
 
-def production_budget_precheck(state):
+def production_budget_precheck(state, review_route="host", phone_complete=False):
     """Read-only complete remaining review path, including the final timed phone."""
     from creative_release import finishing_required
     finishing = finishing_required(state)
+    if review_route not in ("host", "provider"):
+        raise ValueError("unknown independent review route")
     required = {"reboards": 0 if finishing else 1,
-                "storyboard_critics": 1 if finishing else 3,
+                "storyboard_critics": (int(not phone_complete) if finishing else 3) if review_route == "host" else 0,
                 "preflight_renders": 2 if finishing else 3,
-                "full_renders": 1, "audiovisual_reviews": 4,
+                "full_renders": 1, "audiovisual_reviews": (7 if phone_complete else 8) if finishing else 11,
                 "panel_rounds": 1, "scorer_calls": 3}
     # Charged synthesis can be a failed take. Always retain one take/soundcheck
     # pair in the conservative plan; spending history never proves reusable audio.
@@ -146,8 +148,10 @@ def production_budget_precheck(state):
     deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
                 if row["remaining"] < row["required"]}
     return {"feasible": not deficits, "errors": [], "resources": rows, "deficits": deficits,
+            "review_route": review_route,
+            "current_phone_reused": bool(phone_complete and finishing),
             "path": "finish-current" if finishing else "complete-visual-repair",
-            "scope": "Conservative complete review/render path including one take/soundcheck pair. No allowance, voice reuse or shipment approval"}
+            "scope": "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval"}
 
 def enabled(state):
     return state.get("repair_policy") == VERSION

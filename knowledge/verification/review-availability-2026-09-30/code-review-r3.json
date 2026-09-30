@@ -1,0 +1,57 @@
+{
+  "schema": "dispatch_tooling_code_review/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T15:41:28.612629+00:00",
+  "verdict": "pass",
+  "scope": "Third targeted isolated review-availability tooling verification; all earlier reports preserved",
+  "findings": [],
+  "verified_corrections": [
+    "Original provider raw response binds exact request context, input/prompt hashes, current film/code/claims/actions and reviewer identity; simultaneous projected-report/proof rebindings rejected.",
+    "Source snapshots, actual native media, creative policies, previous released inventory, and scorer native/attention/feed artifacts are supplied; phone includes both complete hash-bound comparison films/boards/inspections.",
+    "Exact paid ledger reservation and assigned input scope required; recursive critic report discovery preserves completed opening and phone passes/rejections before any recovery spend.",
+    "Per-input cache lock blocks duplicates; shared provider ledger lock serializes role reservation/telemetry. Failed provider attempts stay charged and unchanged attempts/verdicts cannot be repurchased."
+  ],
+  "targeted_reproductions": {
+    "opening_code_pass": "current host code verdict already exists; no replacement verdict",
+    "opening_code_revise": "current host code verdict already exists; no replacement verdict",
+    "phone_complete_comparison": "Both exact films and both board/inspection bytes included",
+    "phone_changed_comparison": "current complete treatment evidence missing or changed",
+    "atomic_current_panel": "Absent/stale panel rejected; exact three-scorer panel after render accepted"
+  },
+  "tests": [
+    {
+      "command": "python scripts/independent_review_test.py",
+      "result": "13 PASS"
+    },
+    {
+      "command": "python scripts/quality_recovery_test.py",
+      "result": "33 PASS"
+    },
+    {
+      "command": "python scripts/audiovisual_review_test.py",
+      "result": "5 PASS"
+    },
+    {
+      "command": "python scripts/documentary_review.py --self-test",
+      "result": "PASS"
+    }
+  ],
+  "inspected_sha256": {
+    "scripts/independent_review.py": "034ca5aef632cedc5b77fb6311e7134b29331e7897140fa3c42f2aeee3ec0a09",
+    "scripts/independent_review_test.py": "538a1fd67af9780f65f07a3e563c054ac5d4fa0290ab9b75dd6552ce79124b01",
+    "scripts/critic_gate.py": "db9dedf0d2f87aa99ecca90e8e268036a1219acf6fd7aa5ac11d73c95e7ecc58",
+    "scripts/documentary_review.py": "4a53dec1faad9594efdbaba5ff065f9bf9e4f2d3e7d4cce8b598d9a24fd7c920",
+    "scripts/panel_triage.py": "58866f305f6d8c03a2e0e399c2b2202b6057b8f340584bc1d966162231824db4",
+    "scripts/repair_guard.py": "260858ecdf79bb33c464637a59a2f916925ceecfbd1770d67259f0182d9cf528",
+    "scripts/run_controller.py": "82ca6bf82be8e81243a8787065dcc1d464cc7bc4dd6d1e87cfb25498ca9d7cc9",
+    "prompts/phases/review-availability.md": "79e418f4827b4f0fbcfed05637bbfb589508fa6991a7691ef1d9d89e3b479a00"
+  },
+  "diff_sha256": "5165396081d51acd237420730838d74e589da1fba37752b0d2963eb01b504619",
+  "preserved_properties": [
+    "Configured audiovisual model and saved automation configuration are unchanged.",
+    "Atomic current three-scorer panel and three separate audiovisual lenses remain mandatory.",
+    "Frozen envelope and earlier charges/rejections remain retained; no refund, grant or score/rubric relaxation.",
+    "Ordinary exact current source/media/feed/native gates and shipped-only completion remain required."
+  ],
+  "limitations": "Code and mocked/local fixture verification only; no real provider request, production ledger write, render or film acceptance."
+}

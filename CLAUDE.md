@@ -96,6 +96,10 @@ controller without resetting usage. Missing external access leaves work incomple
 record the real evidence and next executable step without claiming delivery.
 
 Run `python3 scripts/run_controller.py pending` at wake before creating an edition.
+Host reviewer capacity is a transport failure. Follow prompts/phases/review-availability.md
+to complete the same independent role through the configured provider, charging each request
+within the original frozen envelope. Protect that recovery path in production-budget before
+creative work. Preserve actual rejected verdicts and never replace them through this route.
 Resume the returned active worktree and its ledger before starting another date.
 Preserve unrelated changes in place and use an isolated clean checkout for tooling
 repairs. Never delete a ledger or substitute a fresh budget.

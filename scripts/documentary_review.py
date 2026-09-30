@@ -30,6 +30,12 @@ def panel_problems(scores: list, film_hash: str, runtime: float, *,
                    require_pacing: bool = False, board=None, root=None) -> list[str]:
     if not isinstance(scores,list) or len(scores)!=3:return ["three independent attention reviews required"]
     errors=[]
+    from independent_review import evidence_problems
+    errors += [error for judge in scores if isinstance(judge, dict) for error in evidence_problems(judge)]
+    provider_ids = [judge.get('reviewer_identity') for judge in scores
+                    if isinstance(judge, dict) and 'provider_evidence' in judge]
+    if len(provider_ids) != len(set(provider_ids)):
+        errors.append('provider scorer identities must be distinct')
     for i,judge in enumerate(scores):
         review=judge.get("attention_review") if isinstance(judge,dict) else None
         if not isinstance(review,dict):
