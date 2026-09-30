@@ -1,0 +1,90 @@
+{
+  "schema": "dispatch_tooling_code_review/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T15:19:57.311992+00:00",
+  "verdict": "revise",
+  "scope": "Isolated review-availability tooling diff; no production assets/ledger or provider calls",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": 1,
+      "file": "scripts/independent_review.py",
+      "lines": [
+        77,
+        98
+      ],
+      "defect": "Provider provenance accepts rebinding an unchanged verdict to different reviewed bytes.",
+      "evidence": "Mocked original request passed; changing provider_evidence.bindings.film_sha256 and reviewed_preflight_sha256 together returned []. The raw response and response hash stayed unchanged. prompt_sha256/input_sha256 are only checked for nonempty values; no retained request/event/cache record is checked by downstream gates.",
+      "required_fix": "Verify a retained immutable transport request/response receipt against its ledger event and current input identities; reject edited bindings and timestamps even when projected report fields match. Add negative simultaneous-rebinding coverage for film, renderer, claims and action module."
+    },
+    {
+      "id": "R2",
+      "priority": 1,
+      "file": "scripts/independent_review.py",
+      "lines": [
+        104,
+        145
+      ],
+      "defect": "Recovery reviewer cannot inspect all required current evidence.",
+      "evidence": "packet sends selected JSON and renderer text plus MP4/feed, but excludes CREATIVE_DIRECTION.md, referenced source evidence and native asset pixels, comparison/selection artifacts, prior shipped-media reuse evidence and current attention player/contact sheet. The remote provider has no filesystem tools to open the supplied local paths. storyboard-critic.md explicitly requires actual referenced sources/native assets and both complete treatments; daily_production.packet also binds creative direction/comparison/selection and attention player.",
+      "required_fix": "Build a bounded self-contained role packet from the ordinary mandatory inputs; attach required current source/native images, comparison evidence and attention artifacts, preserve exact hashes, and fail closed on missing required inputs. Add real packet coverage tests instead of exclusively mocking packet."
+    },
+    {
+      "id": "R3",
+      "priority": 1,
+      "file": "scripts/independent_review.py",
+      "lines": [
+        34,
+        40,
+        198,
+        230
+      ],
+      "defect": "Recovery is not bound to an actual reserved uncompleted independent role.",
+      "evidence": "failure_problems accepts any nonempty actor/time and supported error. run checks no host assignment reservation or completion state for code/phone. Existing test fixture makes a phone request with zero storyboard_critics usage; this review reproduced that accepted request. Nothing rejects an already-completed host verdict or binds the error file to the exact assigned worker/event/current review scope.",
+      "required_fix": "Require exact retained charged assignment identity/event and observed transport failure for an uncompleted role; refuse a replacement of completed rejection/pass and unknown actors/scopes. Retain separate provider request charges without critic refunds."
+    },
+    {
+      "id": "R4",
+      "priority": 2,
+      "file": "scripts/independent_review.py",
+      "lines": [
+        202,
+        233
+      ],
+      "defect": "Duplicate request guard has a check-then-write race.",
+      "evidence": "report/attempt existence are checked before reserve and cache.mkdir(exist_ok=True)/attempt.write_text. Two simultaneous invocations can both observe absent attempt, both contact the provider and overwrite response/report files. Atomic os.replace in controller.save does not lock read-modify-write reservation or claim this request identity.",
+      "required_fix": "Atomically claim a per-input transport attempt before spending/contacting the provider; serialize ledger reservation and preserve each original result. Add simultaneous-call regression proving one provider request and one retained charge."
+    }
+  ],
+  "tests": [
+    {
+      "command": "python scripts/independent_review_test.py",
+      "result": "7 PASS"
+    },
+    {
+      "command": "python scripts/quality_recovery_test.py",
+      "result": "33 PASS"
+    }
+  ],
+  "reproductions": {
+    "simultaneous_report_and_proof_film_rebinding_errors": [],
+    "unreserved_phone_call_storyboard_critic_usage": 0
+  },
+  "inspected_sha256": {
+    "scripts/independent_review.py": "cbb9f763013a4694fa1215aa9b1918b160e55eb1040afbf4f3dc6dc31627c26b",
+    "scripts/independent_review_test.py": "521f0568576bf1eb579f9aac4d8cd2f546e8a170b4eec0541384ff9bd55cb50c",
+    "scripts/critic_gate.py": "db9dedf0d2f87aa99ecca90e8e268036a1219acf6fd7aa5ac11d73c95e7ecc58",
+    "scripts/documentary_review.py": "4a53dec1faad9594efdbaba5ff065f9bf9e4f2d3e7d4cce8b598d9a24fd7c920",
+    "scripts/panel_triage.py": "58866f305f6d8c03a2e0e399c2b2202b6057b8f340584bc1d966162231824db4",
+    "scripts/repair_guard.py": "856db05424565b57ec4b518ff140f8e83e23371021c32ba74c054d560b033a6d",
+    "scripts/run_controller.py": "c3d51557c0b9dce3a340267dcc3324e997fac698be878ceb9b7666e8557a3a25",
+    "prompts/phases/review-availability.md": "e7a5df1295a001903ecd2c8af5fbafab3dc8522c08320a44f5936e89e34dc00c"
+  },
+  "diff_sha256": "f72432138a352edeea03665a4d60d505ee0604a139370d66f0df97f0b640a0c5",
+  "preserved_properties": [
+    "Configured audiovisual model remains policy av_model; no model/automation configuration mutation was found.",
+    "Provider calls reserve audiovisual_reviews and retain failed attempts; completed provider rejection cache remains unchanged in sequential tests.",
+    "Three separate scorer objects, audiovisual receipts, source/release gates and shipped-only routine completion remain required."
+  ],
+  "limitations": "No real provider calls, renders, production changes or concurrent execution reproduction; concurrency finding follows the exact unsynchronized control flow."
+}

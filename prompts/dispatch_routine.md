@@ -69,8 +69,10 @@ current cinematic production and controller code. Never reset another branch or 
 
 The agent briefs in .claude/agents are role contracts. Read the relevant brief before each
 isolated assignment. Use compact role packets, not the director's full conversation. Keep one
-director, one render owner and one consolidated defect list. If isolated workers are genuinely
-unavailable, record that access limitation; do not represent a self-review as independent.
+director, one render owner and one consolidated defect list. A host model's capacity error is
+a transport failure, not a creative verdict or a terminal shipment blocker. On actual worker
+unavailability read prompts/phases/review-availability.md and complete the same independent
+role through its charged recovery route. Never represent director self-review as independent.
 
 ## Wake and resume
 

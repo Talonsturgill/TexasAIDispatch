@@ -2000,7 +2000,8 @@ def main() -> int:
         p.add_argument("--plan", type=Path, required=True)
     sub.add_parser("pending")
     sub.add_parser("status")
-    sub.add_parser("production-budget")
+    p = sub.add_parser("production-budget")
+    p.add_argument("--review-route", choices=("host", "provider"), default="host")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -2078,7 +2079,22 @@ def main() -> int:
                 state_path, Path(a.report), a.reason, a.confirm)
         elif a.command == "production-budget":
             from repair_guard import production_budget_precheck
-            result = production_budget_precheck(read_state(state_path))
+            # A charged critic is not evidence of completed review. Reuse only
+            # an actual independent current film verdict accepted by its gate.
+            root = state_path.parent
+            phone_complete = False
+            paths = [root / name for name in ("storyboard.json", "storyboard_critic.json",
+                                             "preflight.json", "preflight.mp4", "claims.json")]
+            if all(p.is_file() for p in paths):
+                try:
+                    from critic_gate import film_review_problems
+                    board, report, structural = (load_json(p) for p in paths[:3])
+                    phone_complete = (not film_review_problems(board, report, structural,
+                        digest(paths[0]), digest(paths[3])) and
+                        (report.get("story_review") or {}).get("claims_sha256") == digest(paths[4]))
+                except (ValueError, KeyError, TypeError, OSError):
+                    pass  # Missing or stale evidence retains the conservative path.
+            result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete)
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["feasible"] else 1
         elif a.command == "grant-owner-review":

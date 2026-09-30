@@ -47,6 +47,8 @@ Each gets the current film, its own provider receipt/raw response, current atten
 contact sheet, feed composite, evidence, rubric and scorer brief. It performs an independent
 review and records pacing_observed, comprehension_observed, both weakest-interval endpoints
 including finite weakest_end_s, and actual audio evidence. Never fabricate listening.
+If an assigned worker cannot start, use prompts/phases/review-availability.md for that same
+uncompleted role. Keep completed judges and real rejections; do not purchase replacement verdicts.
 
 Save their exact objects as the three-item panel-round-<n>.json. Preserve every hard fail and
 rejection. Each scorer includes the `bounded_release` schema from scripts/creative_release.py,

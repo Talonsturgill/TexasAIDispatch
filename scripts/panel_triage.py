@@ -399,14 +399,15 @@ def main() -> int:
         print(f"panel_triage: {exc}", file=sys.stderr)
         return 2
     t = with_history(triage(judges, bar, weights), history)
-    attention_errors = []
+    from independent_review import evidence_problems
+    attention_errors = [error for report in raw_reports for error in evidence_problems(report)]
     board_path = Path(a.board)
     if board_path.exists():
         import documentary_review
         film = Path(a.film) if a.film else board_path.parent / "film.mp4"
-        attention_errors = documentary_review.publication_problems(board_path, film, raw_reports)
+        attention_errors += documentary_review.publication_problems(board_path, film, raw_reports)
     elif a.out_report:
-        attention_errors = ["the report cannot certify an absent storyboard"]
+        attention_errors += ["the report cannot certify an absent storyboard"]
     if attention_errors:
         print("Attention review blocks delivery: " + "; ".join(attention_errors))
     else:
