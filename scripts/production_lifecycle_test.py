@@ -2,6 +2,8 @@
 import base64
 import copy
 import json
+import hashlib
+from datetime import datetime, timedelta
 import tempfile
 import unittest
 from pathlib import Path
@@ -72,6 +74,92 @@ class LifecycleTest(unittest.TestCase):
         self.assertTrue(life.authorize_repair(self.state, plan_path)[0])
         self.assertEqual(c.read_state(self.state)["usage"]["reboards"], 1)
         self.assertEqual(life.allowance_problems(c.read_state(self.state)), [])
+
+    def test_existing_paid_technical_scopes_preserve_envelope_and_cannot_be_reallocated(self):
+        import repair_guard
+        state = c.read_state(self.state);state['run_id'] = '2026-09-30'
+        state['repair_policy'] = repair_guard.VERSION
+        state['escalation_ceiling']['storyboard_critics'] = 7
+        repair_guard.freeze(state);c.save(self.state, state)
+        for _ in range(6):
+            self.assertTrue(c.reserve(self.state, {'storyboard_critics': 1}, 'fixture-only paid scope')[0])
+        state = c.read_state(self.state)
+        indexes = [i for i,e in enumerate(state['events']) if e.get('resources') == {'storyboard_critics': 1}][-2:]
+        plan_path = self.plan();plan = c.load_json(plan_path)
+        plan.update(repair_scope='technical-integrity', director_identity='fixture-director',
+                    mechanism_id='fixture-caption', failure_family='unclassified')
+        finding = 'Fixture-only lexical detector rejected identical spoken parts.'
+        refs = []
+        for role,index in zip(('code','final-phone'), indexes):
+            event = state['events'][index]
+            stamp = datetime.fromisoformat(event['at'].replace('Z','+00:00')) + timedelta(seconds=1)
+            identity = 'fixture-' + role
+            report = self.write('review.json' if role=='code' else 'phone.json', {
+                'verdict': 'revise', 'reviewer_identity': identity, 'reviewed_at': stamp.isoformat(), 'blocking_defects': [finding],
+                'technical_repair': {'findings': [{'finding': finding, 'category': 'captions'}]}})
+            refs.append({'role':role, 'event_index':index, 'event_sha256':hashlib.sha256(json.dumps(event,sort_keys=True).encode()).hexdigest(),
+                         'completion_only':True, 'reviewer_identity':identity, 'report_file':str(report), 'report_sha256':c.digest(report)})
+        plan['failure_evidence_sha256'] = refs[0]['report_sha256']
+        plan['existing_critic_reservations'] = refs
+        self.assertEqual(life.existing_critic_problems(state,plan), [])
+        for field,value in [('event_index',-1),('event_index',True),('event_index',9999),('event_sha256','stale'),
+                            ('report_sha256','stale'),('reviewer_identity','fixture-director'),('completion_only',False)]:
+            bad=copy.deepcopy(plan);bad['existing_critic_reservations'][0][field]=value
+            self.assertTrue(life.existing_critic_problems(state,bad))
+        for scope in ('standard','narration-performance'):
+            self.assertTrue(life.existing_critic_problems(state,{**plan,'repair_scope':scope}))
+        bad=copy.deepcopy(plan);bad['existing_critic_reservations'][1]=copy.deepcopy(refs[0]);bad['existing_critic_reservations'][1]['role']='final-phone'
+        self.assertTrue(life.existing_critic_problems(state,bad))
+        report_path=Path(refs[1]['report_file']);saved=report_path.read_bytes();report_path.unlink()
+        self.assertTrue(life.existing_critic_problems(state,plan));report_path.write_bytes(saved)
+        original=copy.deepcopy(state['escalation_ceiling'])
+        without=copy.deepcopy(plan);without.pop('existing_critic_reservations');plan_path.write_text(json.dumps(without))
+        self.assertFalse(life.begin_repair(self.state,plan_path)[0])
+        plan_path.write_text(json.dumps(plan));self.assertTrue(life.begin_repair(self.state,plan_path)[0])
+        current=c.read_state(self.state)
+        self.assertEqual(current['usage']['storyboard_critics'],6)
+        self.assertEqual(current['escalation_ceiling'],original)
+        self.assertEqual(current['active_repair']['existing_critic_reservations'],refs)
+        self.assertEqual(current['events'][-1]['existing_critic_reservations'],refs)
+        self.assertTrue(c.reserve(self.state,{'reboards':1})[0])
+        source=Path(plan['changed_inputs'][0]['path']);source.write_text('fixture-only corrected detector')
+        plan['changed_inputs'][0]['after_sha256']=c.digest(source)
+        changed=copy.deepcopy(plan);changed['existing_critic_reservations'][0]['event_sha256']='stale'
+        plan_path.write_text(json.dumps(changed));self.assertFalse(life.authorize_repair(self.state,plan_path)[0])
+        plan_path.write_text(json.dumps(plan));self.assertTrue(life.authorize_repair(self.state,plan_path)[0])
+        self.assertTrue(life.existing_critic_problems(c.read_state(self.state),plan))
+        continuation = copy.deepcopy(plan)
+        continuation['failed_film_sha256'] = 'changed-film'
+        for row in continuation['existing_critic_reservations']:
+            prior = json.loads(Path(row['report_file']).read_text())
+            prior.update(reviewed_at=(datetime.now().astimezone()+timedelta(seconds=1)).isoformat(),
+                         film_sha256='changed-film', blocking_defects=['New technical layout defect'])
+            report = self.write('next-'+row['role']+'.json', prior)
+            row.update(report_file=str(report), report_sha256=c.digest(report),
+                       continuation_of_failure_sha256=plan['failure_evidence_sha256'])
+        continuation.update(failure_evidence=continuation['existing_critic_reservations'][0]['report_file'],
+                            failure_evidence_sha256=continuation['existing_critic_reservations'][0]['report_sha256'])
+        finished = c.read_state(self.state)
+        self.assertEqual(life.existing_critic_problems(finished, continuation), [])
+        code_row = continuation['existing_critic_reservations'][0]
+        code_path = Path(code_row['report_file']); fresh = code_path.read_bytes()
+        old_time = json.loads(Path(refs[0]['report_file']).read_text())['reviewed_at']
+        for stamp in [old_time, (datetime.fromisoformat(old_time)-timedelta(seconds=1)).isoformat()]:
+            stale = json.loads(fresh); stale['reviewed_at'] = stamp
+            code_path.write_text(json.dumps(stale)); code_row['report_sha256'] = c.digest(code_path)
+            continuation['failure_evidence_sha256'] = code_row['report_sha256']
+            self.assertTrue(life.existing_critic_problems(finished, continuation))
+        code_path.write_bytes(fresh); code_row['report_sha256'] = c.digest(code_path)
+        continuation['failure_evidence_sha256'] = code_row['report_sha256']
+        self.assertEqual(finished['usage']['storyboard_critics'], 6)
+        self.assertEqual(finished['escalation_ceiling'], original)
+        for field, value in [('failed_film_sha256', 'stale-film'), ('repair_scope', 'standard')]:
+            self.assertTrue(life.existing_critic_problems(finished, {**continuation, field:value}))
+        phone = Path(continuation['existing_critic_reservations'][1]['report_file'])
+        closed = json.loads(phone.read_text()); closed['verdict'] = 'pass'; phone.write_text(json.dumps(closed))
+        continuation['existing_critic_reservations'][1]['report_sha256'] = c.digest(phone)
+        self.assertTrue(life.existing_critic_problems(finished, continuation))
+        self.assertFalse(c.reserve(self.state,{'storyboard_critics':2})[0])
 
     def test_september26_stop_is_rejected(self):
         state = c.read_state(self.state)

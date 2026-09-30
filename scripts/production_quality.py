@@ -109,10 +109,16 @@ def stage_sample_problems(board, root, samples, film=None, deferred=None, observ
             # Mid-action and completion must each independently meet the same floor.
             occupancy_required = not current_policy or idx > 0
             if current_policy and observations is not None:
-                observations.append({"scene_id": sid, "event_id": scene["picture"]["event_id"],
+                from cinema_cache import principal_event
+                event = principal_event(board, scene)
+                measurement = {"scene_id": sid, "event_id": event["id"],
                     "phase": ("onset", "midpoint", "completion")[idx], "at_s": at,
                     "visible_pixel_share": area, "occupancy_required": occupancy_required,
-                    "required_pixel_share": policy(board)["min_stage_pixel_share"]})
+                    "required_pixel_share": policy(board)["min_stage_pixel_share"]}
+                if event.get("admitted_action_id"):
+                    measurement.update({"admitted_action_id": event["admitted_action_id"],
+                                        "source_event_ids": event["source_event_ids"]})
+                observations.append(measurement)
             if occupancy_required and area < policy(board)["min_stage_pixel_share"]:
                 errors.append(sid + " has too little visible principal picture content")
             if film is not None:
@@ -125,7 +131,8 @@ def stage_sample_problems(board, root, samples, film=None, deferred=None, observ
         state_root = Path(root).parent.parent if Path(root).parent.name == "cinema" else Path(root).parent
         if not deliberate_hold and moving < policy(board)["min_stage_action_pixel_share"]:
             finding = sid + " principal picture does not visibly develop during its action"
-            if deferred is not None and bounded.eligible(board, state_root):
+            if (deferred is not None and bounded.eligible(board, state_root)
+                    and not creative.treatment_required(board)):
                 deferred.append({"scene_id": sid, "category": "motion", "finding": finding,
                                  "observed_pixel_share": moving,
                                  "required_pixel_share": policy(board)["min_stage_action_pixel_share"]})

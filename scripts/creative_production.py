@@ -246,6 +246,41 @@ def opening_producer(legacy_orchestrator_sha256=None):
     return fingerprint(hashes)
 
 
+def finishing_inspection_problems(board, receipt, review, root, ledger):
+    """Retain a rejected alternate at the cap; the chosen film must pass normally."""
+    from opening_compare import inspection_problems, evidence_path
+    from creative_release import finishing_required, MOTION_ERRORS
+    errors = inspection_problems(receipt, root, allow_bounded=True)
+    if not errors or not treatment_required(board) or not finishing_required(ledger):
+        return errors
+    try:
+        chosen = next(x for x in receipt['options'] if x['id'] == review['selected'])
+        rejected = next(x for x in receipt['options'] if x['id'] != review['selected'])
+        selected_report = read(evidence_path(root, chosen['inspection']))
+        rejected_report = read(evidence_path(root, rejected['inspection']))
+        retained = review.get('rejected_inspection') or {}
+        if (review.get('comparison_sha256') != digest(Path(root) / 'comparison.json')
+                or not review.get('reviewer_identity') or not review.get('director_identity')
+                or review['reviewer_identity'] == review['director_identity']
+                or review.get('blocking_defects') != []
+                or chosen['concept_sha256'] != opening_digest(board)
+                or selected_report.get('pass') is not True
+                or selected_report.get('problems') != [] or selected_report.get('inspection_error')
+                or retained.get('option_id') != rejected['id']
+                or retained.get('report_sha256') != rejected['inspection']['sha256']
+                or retained.get('problems') != rejected_report.get('problems')
+                or rejected_report.get('inspection_error')):
+            return errors
+        failures = rejected_report.get('problems')
+        if not failures or not all(isinstance(x, str) and any(r.fullmatch(x) for r in MOTION_ERRORS) for x in failures):
+            return errors
+        # Integrity, missing evidence and all selected-film failures stay blocking.
+        retained_errors = {'opening ' + rejected['id'] + ': ' + x for x in failures}
+        return [x for x in errors if x not in retained_errors]
+    except (KeyError, StopIteration, OSError, ValueError, TypeError):
+        return errors
+
+
 def opening_problems(board_path):
     board_path = Path(board_path)
     board = read(board_path)
@@ -267,8 +302,8 @@ def opening_problems(board_path):
             errors.append("opening comparison uses stale capture tools or fonts")
         options = receipt["options"]
         from opening_compare import inspection_problems
-        errors += inspection_problems(receipt, root, allow_bounded=True)
         ledger = read(board_path.with_name("run_state.json"))
+        errors += finishing_inspection_problems(board, receipt, review, root, ledger)
         reservation = receipt["reservation"]
         event = ledger["events"][reservation["event_index"]]
         if (reservation["run_id"] != ledger["run_id"] or reservation["run_id"] != board.get("date")

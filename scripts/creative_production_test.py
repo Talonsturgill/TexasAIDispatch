@@ -389,6 +389,54 @@ class CreativeTest(unittest.TestCase):
             receipt["options"][0]["inspection"]["sha256"] = c.digest(report_path)
             self.assertTrue(any("stale inspector_sha256" in e for e in opening_compare.inspection_problems(receipt, output)))
 
+    def test_finishing_selection_retains_rejected_alternate_but_never_selected_failure(self):
+        self.comparison_fixture()
+        output = self.root / 'openings'
+        receipt = c.read(output / 'comparison.json')
+        motion = 'the first two seconds change only 0.0050 of pixel range. The declared hook did not become visible motion or revelation.'
+        with patch('critic_gate.renderer_digest', return_value='fixture-renderer'), \
+             patch('preflight_animatic.inspect_animatic', side_effect=[({'schema': 'dispatch_preflight/1'}, [motion]), ({'schema': 'dispatch_preflight/1'}, [])]):
+            receipt = opening_compare.inspect_options(output, receipt)
+        rejected, selected = receipt['options']
+        board = c.read(output / selected['board']['file'])
+        board['date'] = '2026-09-30'
+        # The fixture concept is rebound because this is a dated treatment test.
+        selected['concept_sha256'] = c.opening_digest(board)
+        choice = {'selected': 'b', 'comparison_sha256': c.digest(output / 'comparison.json'),
+                  'reviewer_identity': 'fixture-critic', 'director_identity': 'fixture-director', 'blocking_defects': [],
+                  'rejected_inspection': {'option_id': 'a', 'report_sha256': rejected['inspection']['sha256'], 'problems': [motion]}}
+        ledger = {'mode': 'production', 'run_id': '2026-09-30', 'usage': {'reboards': 3}, 'events': []}
+        before = (output / rejected['inspection']['file']).read_bytes()
+        with patch('critic_gate.renderer_digest', return_value='fixture-renderer'):
+            self.assertEqual(c.finishing_inspection_problems(board, receipt, choice, output, ledger), [])
+            self.assertEqual((output / rejected['inspection']['file']).read_bytes(), before)
+            for bad in ({**choice, 'selected': 'a'}, {**choice, 'comparison_sha256': 'stale'},
+                        {**choice, 'reviewer_identity': 'fixture-director'}, {**choice, 'rejected_inspection': {}},
+                        {**choice, 'blocking_defects': ['missing principal action']}):
+                self.assertTrue(c.finishing_inspection_problems(board, receipt, bad, output, ledger))
+            self.assertTrue(c.finishing_inspection_problems(board, receipt, choice, output, {**ledger, 'usage': {'reboards': 0}}))
+            drift = copy.deepcopy(board);drift['scenes'][0]['vo'] = 'Changed source claim'
+            self.assertTrue(c.finishing_inspection_problems(drift, receipt, choice, output, ledger))
+            for key, value in [('film_sha256', 'stale'), ('inspector_sha256', 'stale'), ('inspection_error', 'decoder failed'),
+                               ('problems', ['wrong dimensions']), ('problems', [motion, 'wrong duration']),
+                               ('problems', [motion, 'source evidence missing'])]:
+                path = output / rejected['inspection']['file'];report = json.loads(before);report[key] = value
+                path.write_text(json.dumps(report));rejected['inspection']['sha256'] = c.digest(path)
+                bad = copy.deepcopy(choice);bad['rejected_inspection']['report_sha256'] = rejected['inspection']['sha256']
+                bad['rejected_inspection']['problems'] = report['problems']
+                self.assertTrue(c.finishing_inspection_problems(board, receipt, bad, output, ledger))
+                path.write_bytes(before);rejected['inspection']['sha256'] = c.digest(path)
+            selected_path = output / selected['inspection']['file'];saved = selected_path.read_bytes()
+            report = json.loads(saved);report.update({'pass': False, 'problems': [motion]})
+            selected_path.write_text(json.dumps(report));selected['inspection']['sha256'] = c.digest(selected_path)
+            self.assertTrue(c.finishing_inspection_problems(board, receipt, choice, output, ledger))
+            selected_path.write_bytes(saved);selected['inspection']['sha256'] = c.digest(selected_path)
+            missing = output / rejected['inspection']['file'];missing.unlink()
+            self.assertTrue(c.finishing_inspection_problems(board, receipt, choice, output, ledger))
+            missing.write_bytes(before)
+            missing.write_bytes(before + b' ')
+            self.assertTrue(c.finishing_inspection_problems(board, receipt, choice, output, ledger))
+
     def test_diagnostic_cli_does_not_approve_failed_inspections(self):
         with patch("opening_compare.build", return_value={"inspection_pass": False}), \
              patch("opening_compare.inspection_problems", return_value=["opening a: held slide"]), \
