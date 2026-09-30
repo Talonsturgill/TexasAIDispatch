@@ -155,7 +155,7 @@ class CreativeTest(unittest.TestCase):
             return pictures[item["index"]] if item["kind"] == "normal" else blank
         with patch.object(quality, "asset", side_effect=lambda root, item: item), \
              patch.object(quality, "image", side_effect=pixels), \
-             patch.object(quality, "frame", return_value=full):
+             patch.object(quality, "scheduled_frame", return_value=full):
             observations=[]
             self.assertEqual(quality.stage_sample_problems(board, self.root, samples,
                                                            observations=observations), [])
