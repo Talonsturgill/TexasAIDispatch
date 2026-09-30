@@ -30,15 +30,73 @@ def merged_pr(url, repository):
     if not pr.get("merged"):
         raise ValueError(f"PR has not merged: {url}")
     head = pr["head"]["sha"]
+    rows = green_checks(repository, head)
+    return {"url": url, "head_sha": head, "merge_sha": pr["merge_commit_sha"],
+            "checks": rows}
+
+
+def green_checks(repository, head, *, aggregate=False):
     checks = gh(f"repos/{repository}/commits/{head}/check-runs?per_page=100")
     rows = checks.get("check_runs", [])
-    if (not rows or checks.get("total_count", 0) > len(rows)
+    if (not rows or checks.get("total_count", 0) != len(rows)
             or not any(c.get("conclusion") == "success" for c in rows)
             or any(c.get("status") != "completed" or c.get("conclusion") not in
                    {"success", "skipped", "neutral"} for c in rows)):
         raise ValueError(f"exact PR head CI is not green: {head}")
-    return {"url": url, "head_sha": head, "merge_sha": pr["merge_commit_sha"],
-            "checks": rows}
+    if aggregate and not any(c.get("name") == "guards" and
+                             c.get("conclusion") == "success" for c in rows):
+        raise ValueError(f"deployment head has no successful aggregate guards: {head}")
+    return rows
+
+
+def committed_feed(head):
+    raw = gh(f"repos/Talonsturgill/TexasAIDocket/contents/docs/videos/videos.json?ref={head}")
+    if raw.get("encoding") != "base64" or raw.get("type") != "file":
+        raise ValueError("committed feed content is missing or truncated")
+    body = base64.b64decode(raw.get("content", ""))
+    blob = hashlib.sha1(f"blob {len(body)}\0".encode() + body).hexdigest()
+    if raw.get("size") != len(body) or raw.get("sha") != blob:
+        raise ValueError("committed feed bytes do not match their Git blob")
+    return body, {"commit_sha": head, "blob_sha": blob,
+                  "sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}
+
+
+def deployment_binding(deploy, run_id, feed_pr):
+    repo = "Talonsturgill/TexasAIDocket"
+    head, merged = deploy.get("head_sha"), feed_pr["merge_sha"]
+    if (deploy.get("status") != "completed" or deploy.get("conclusion") != "success"
+            or "pages" not in (deploy.get("name", "") + deploy.get("path", "")).lower()):
+        raise ValueError("Pages deployment workflow is not successful")
+    jobs = gh(f"repos/{repo}/actions/runs/{run_id}/jobs?per_page=100")
+    rows = jobs.get("jobs", [])
+    if (not rows or jobs.get("total_count", 0) != len(rows)
+            or any(j.get("status") != "completed" or j.get("conclusion") not in
+                   {"success", "skipped", "neutral"} for j in rows) or
+            not any(j.get("name") == "deploy" and j.get("status") == "completed"
+                    and j.get("conclusion") == "success" for j in rows)):
+        raise ValueError("Pages deploy job did not succeed or job evidence is truncated")
+    ancestry = {"status": "identical", "merge_sha": merged, "deployment_sha": head}
+    if head != merged:
+        if not all(re.fullmatch(r"[0-9a-f]{40}", str(x)) for x in (head, merged)):
+            raise ValueError("deployment commit is not the feed merge or a verifiable descendant")
+        compare = gh(f"repos/{repo}/compare/{merged}...{head}")
+        commits = compare.get("commits", [])
+        if (compare.get("status") != "ahead" or compare.get("behind_by") != 0
+                or compare.get("base_commit", {}).get("sha") != merged
+                or compare.get("merge_base_commit", {}).get("sha") != merged
+                or not commits or compare.get("total_commits") != len(commits)
+                or commits[-1].get("sha") != head):
+            raise ValueError("Pages commit ancestry is unrelated, stale or truncated")
+        ancestry = {"status": "ahead", "merge_sha": merged, "deployment_sha": head,
+                    "merge_base_sha": merged, "commits": [c["sha"] for c in commits]}
+    checks = green_checks(repo, head, aggregate=True)
+    original, original_proof = committed_feed(feed_pr["head_sha"])
+    deployed, deployed_proof = committed_feed(head)
+    if original != deployed:
+        raise ValueError("deployment commit changed the reviewed feed bytes")
+    return json.loads(original), {"ancestry": ancestry, "checks": checks,
+                                  "jobs": rows, "reviewed_feed": original_proof,
+                                  "deployed_feed": deployed_proof}
 
 
 def bound_file(item):
@@ -147,10 +205,7 @@ def verify_shipment(state, manifest):
         if not run_id.isdigit():
             raise ValueError("deployment_run_id must be the GitHub Pages run ID")
         deploy = gh(f"repos/Talonsturgill/TexasAIDocket/actions/runs/{run_id}")
-        if (deploy.get("status") != "completed" or deploy.get("conclusion") != "success"
-                or deploy.get("head_sha") != feed_pr["merge_sha"]
-                or "pages" not in (deploy.get("name", "") + deploy.get("path", "")).lower()):
-            raise ValueError("Pages deployment is not green on the merged feed commit")
+        committed, deploy_proof = deployment_binding(deploy, run_id, feed_pr)
         site = site_url()
         status, body, _ = fetch(site + "/videos/videos.json")
         if status != 200:
@@ -159,6 +214,9 @@ def verify_shipment(state, manifest):
         errors, entry = entry_problems(feed, date, site)
         if errors:
             return {}, errors
+        committed_errors, committed_entry = entry_problems(committed, date, site)
+        if committed_errors or entry != committed_entry or feed.get("media_base") != committed.get("media_base"):
+            raise ValueError("live edition differs from the exact committed feed entry")
         errors = media_problems(entry, feed, site)
         if errors:
             return {}, errors
@@ -193,6 +251,7 @@ def verify_shipment(state, manifest):
         return {"verified_at": now(), "film_sha256": film_hash,
                 "manifest_path": str(manifest.resolve()), "manifest_sha256": digest(manifest),
                 "dispatch": release, "feed": feed_pr, "deployment": deploy,
+                "deployment_binding": deploy_proof,
                 "live_url": data["live_url"], "master_url": master_url,
                 "mobile_url": mobile_url,
                 "gmail_draft_id": load_json(gmail).get("draft_id") or load_json(gmail)["id"],
