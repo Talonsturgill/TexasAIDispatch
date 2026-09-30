@@ -55,6 +55,40 @@ class CreativeTest(unittest.TestCase):
         path.write_text(json.dumps(data, indent=2)+"\n")
         return path
 
+
+    def test_rejected_september29_treatment_fails_before_spend_for_new_editions(self):
+        board = c.read(Path(__file__).resolve().parents[1] / "runs/2026-09-29/storyboard.json")
+        self.assertEqual(c.treatment_problems(board), [])
+        board["date"] = "2026-09-30"
+        errors = c.treatment_problems(board)
+        self.assertEqual(len(errors), 2)
+        self.assertTrue(any("whole-film static" in e for e in c.plan_problems(board)))
+
+    def test_visual_body_can_change_but_facts_and_clock_cannot(self):
+        a = copy.deepcopy(self.board)
+        a["date"] = "2026-09-30"
+        b = copy.deepcopy(a)
+        b["scenes"][1]["picture"]["subject"] = "A physically transferred original record reaches the reader."
+        self.assertEqual(opening_compare.body(a), opening_compare.body(b))
+        self.assertNotEqual(c.opening_digest(a), c.opening_digest(b))
+        for key, value in (("vo", "A different claim."), ("vo_claims", ["other"]), ("duration_s", 7)):
+            changed = copy.deepcopy(b)
+            changed["scenes"][1][key] = value
+            self.assertNotEqual(opening_compare.body(a), opening_compare.body(changed))
+        b["date"] = a["date"] = "2026-09-29"
+        self.assertNotEqual(opening_compare.body(a), opening_compare.body(b))
+        self.assertEqual(c.opening_digest(a), c.opening_digest(b))
+
+    def test_new_full_treatment_digest_survives_retiming(self):
+        a = copy.deepcopy(self.board)
+        a["date"] = "2026-09-30"
+        b = copy.deepcopy(a)
+        for scene in b["scenes"]:
+            scene["start_s"] += 1
+            scene["duration_s"] += .5
+            scene["visual_events"][0]["at_s"] += .2
+        self.assertEqual(c.opening_digest(a), c.opening_digest(b))
+
     def test_effective_date_preserves_old_policy(self):
         old = {"date": "2026-09-28"}
         self.assertFalse(c.required(old))
@@ -533,6 +567,30 @@ class CreativeTest(unittest.TestCase):
                 self.assertEqual(retained.read_bytes(), before)
                 self.assertEqual(set(output.iterdir()), files_before)
                 inspect.assert_not_called()
+
+    def test_current_treatments_bind_each_renderer_and_selected_film(self):
+        self.board["date"] = "2026-09-30"
+        choice = self.comparison_fixture()
+        receipt = c.read(self.root/"openings/comparison.json")
+        receipt["reservation"]["run_id"] = self.board["date"]
+        ledger = c.read(self.root/"run_state.json")
+        ledger["run_id"] = self.board["date"]
+        self.write("run_state.json", ledger)
+        for option in receipt["options"]:
+            option["renderer_sha256"] = "renderer-" + option["id"]
+        self.write("openings/comparison.json", receipt)
+        choice["comparison_sha256"] = c.digest(self.root/"openings/comparison.json")
+        self.write("openings/selection.json", choice)
+        def renderer(board):
+            label = board["scenes"][0]["picture"]["nodes"][0]["label"]
+            return "renderer-b" if label == "document" else "renderer-a"
+        with patch("critic_gate.renderer_digest", side_effect=renderer), \
+             patch("opening_compare.inspection_problems", return_value=[]):
+            self.assertEqual(c.opening_problems(self.root/"storyboard.json"), [])
+            receipt["options"][1]["renderer_sha256"] = "stale"
+            self.write("openings/comparison.json", receipt)
+            errors = c.opening_problems(self.root/"storyboard.json")
+            self.assertTrue(any("stale renderer" in error for error in errors))
 
     def test_opening_choice_is_exact_byte_bound_and_independent(self):
         choice = self.comparison_fixture()

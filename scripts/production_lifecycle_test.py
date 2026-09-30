@@ -43,6 +43,36 @@ class LifecycleTest(unittest.TestCase):
             "resources": {"preflight_renders": 2, "full_renders": 1,
                           "audiovisual_reviews": 4, "panel_rounds": 1, "scorer_calls": 3}})
 
+
+    def test_technical_scope_is_predeclared_charged_and_cannot_be_relabelled(self):
+        import creative_release
+        state = c.read_state(self.state)
+        state["run_id"] = "2026-09-30"
+        c.save(self.state, state)
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        plan.update(repair_scope="technical-integrity", director_identity="director")
+        finding = {"id": "layout", "observed": "Attribution overlaps source text."}
+        failure = self.write("review.json", {"reviewer_identity": "critic",
+            "blocking_defects": [finding],
+            "technical_repair": {"findings": [{"finding": finding, "category": "layout"}]}})
+        plan["failure_evidence_sha256"] = c.digest(failure)
+        plan_path.write_text(json.dumps(plan))
+        self.assertTrue(life.begin_repair(self.state, plan_path)[0])
+        self.assertTrue(c.reserve(self.state, {"reboards": 1})[0])
+        self.assertEqual(creative_release.creative_rounds(c.read_state(self.state)), 0)
+        source = Path(plan["changed_inputs"][0]["path"])
+        source.write_text("attribution and source occupy separate regions")
+        plan["changed_inputs"][0]["after_sha256"] = c.digest(source)
+        plan["repair_scope"] = "standard"
+        plan_path.write_text(json.dumps(plan))
+        self.assertFalse(life.authorize_repair(self.state, plan_path)[0])
+        plan["repair_scope"] = "technical-integrity"
+        plan_path.write_text(json.dumps(plan))
+        self.assertTrue(life.authorize_repair(self.state, plan_path)[0])
+        self.assertEqual(c.read_state(self.state)["usage"]["reboards"], 1)
+        self.assertEqual(life.allowance_problems(c.read_state(self.state)), [])
+
     def test_september26_stop_is_rejected(self):
         state = c.read_state(self.state)
         state["usage"]["reboards"] = state["escalation_ceiling"]["reboards"]

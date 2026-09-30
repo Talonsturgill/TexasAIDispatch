@@ -51,3 +51,11 @@ with url, inspection of the actual visible action, and rights_basis with evidenc
 Do not force an unrelated story into a familiar prop. Return an unsupported candidate with its precise missing action. The director may use the bounded source-backed-action path in DAILY_PRODUCTION.md to implement one explanatory mechanism for independent code, phone and native proof. Research cannot approve that implementation or invent source evidence.
 The director copies this evidence into story_selection.json before voice or preview spending.
 These fields record inspectable evidence; their presence does not prove artistic quality.
+
+## September 30 treatment correction
+Use a compact evidence packet. Start with the sourced physical task, obstacle and consequence,
+then choose useful pictures. September 29's static source-screen treatment is a rejected
+reference. Source relevance and accurate labels cannot stand in for visual action or craft.
+Use original illustration and proven components when stronger than available photographs.
+The existing critic compares two complete visual approaches in the same reserved batch and
+consolidates all visible defects; no additional reviewer or research pass is introduced.

@@ -48,6 +48,60 @@ class CreativeReleaseTests(unittest.TestCase):
     def allowed(self):
         return c.review_allows(self.board, self.report, self.root)
 
+
+    def test_technical_charges_do_not_exhaust_creative_rounds(self):
+        state = {"mode": "production", "run_id": "2026-09-30", "usage": {"reboards": 3},
+                 "events": []}
+        for _ in range(3):
+            state["events"] += [{"kind": "repair_started", "repair_scope": "technical-integrity"},
+                               {"kind": "reserved", "resources": {"reboards": 1}},
+                               {"kind": "repair_authorized"}]
+        self.assertEqual(c.creative_rounds(state), 0)
+        self.assertFalse(c.cap_reached(state))
+        self.assertEqual(state["usage"]["reboards"], 3)
+        state["usage"]["reboards"] += 3
+        state["events"].append({"kind": "reserved", "resources": {"reboards": 3}})
+        self.assertTrue(c.cap_reached(state))
+        state["run_id"] = "2026-09-29"
+        self.assertEqual(c.creative_rounds(state), 6)
+
+    def test_technical_batch_excludes_only_one_charge(self):
+        state = {"run_id": "2026-09-30", "usage": {"reboards": 3}, "events": [
+            {"kind": "repair_started", "repair_scope": "technical-integrity"},
+            {"kind": "reserved", "resources": {"reboards": 2}},
+            {"kind": "reserved", "resources": {"reboards": 1}}]}
+        self.assertEqual(c.creative_rounds(state), 2)
+
+    def test_technical_classification_covers_every_independent_finding(self):
+        finding = {"id": "overprint", "observed": "Source title overlaps the attribution."}
+        report = {"reviewer_identity": "critic", "blocking_defects": [finding],
+                  "technical_repair": {"findings": [{"finding": finding, "category": "layout"}]}}
+        self.write("technical.json", report)
+        path = self.root / "technical.json"
+        plan = {"director_identity": "director", "failure_evidence": str(path),
+                "failure_evidence_sha256": c.digest(path)}
+        state = {"run_id": "2026-09-30"}
+        self.assertEqual(c.technical_repair_problems(state, plan), [])
+        for key, value in (("reviewer_identity", "director"),
+                           ("technical_repair", {"findings": []}),
+                           ("technical_repair", {"findings": [{"finding": finding, "category": "motion"}]})):
+            bad = copy.deepcopy(report)
+            bad[key] = value
+            path.write_text(json.dumps(bad))
+            plan["failure_evidence_sha256"] = c.digest(path)
+            self.assertTrue(c.technical_repair_problems(state, plan))
+        path.write_text(json.dumps(report))
+        self.assertTrue(c.technical_repair_problems(state, plan))
+
+    def test_new_editions_cannot_defer_missing_picture_action(self):
+        board = dict(self.board, date="2026-09-30")
+        with patch.object(c, "eligible", return_value=True), patch.object(c, "review_allows", return_value=True):
+            self.assertFalse(c.artistic_observation(board, self.report, "dominant_action", self.root))
+            self.assertTrue(c.artistic_observation(board, self.report, "surface_finish", self.root))
+            self.assertFalse(c.structural_allows(board, {"problems": [
+                "scene s1 declares motion but changes only 0.003 of pixel range. It is a held slide in the animatic."
+            ]}, self.root))
+
     def test_cap_is_dated_production_and_charged(self):
         self.assertTrue(c.cap_reached(self.state))
         for key, value in [("mode", "dry-run"), ("run_id", "2026-09-28"), ("usage", {"reboards": 2}), ("usage", {"reboards": True})]:

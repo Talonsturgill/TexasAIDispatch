@@ -137,3 +137,9 @@ both approvals and rejections; another request for the same bytes and lens is no
 Use synchronous command handles or exact job identifiers. Never leave duplicate gates running,
 poll a command-line pattern that matches its own waiter, or hide commit output. Diagnose a
 specific failure before repeating a render. After all gates pass, stop editing and ship.
+
+For editions from September 30, use the treatment recovery in CREATIVE_DIRECTION.md.
+Establish a credible action-led treatment before narration, compare two genuinely different
+visual approaches in the existing batch, and distinguish independently classified technical
+repairs from creative rounds. Keep current budgets and all shipment proof. Do not use the
+finite release rule to defer a held-slide structural failure or failed dominant action.

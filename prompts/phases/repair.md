@@ -59,3 +59,10 @@ The first command permits a charged retry without erasing spend. The second save
 checkpoint with production still active. Neither grants creative approval or shipment.
 A genuine access or remaining-resource blocker must retain exact evidence and the next action;
 never invent a verdict or report quality failure as successful delivery.
+
+From September 30, distinguish technical-integrity corrections using the independent
+classification in BOUNDED_CREATIVE_RELEASE.md before begin-repair. Keep all charges.
+A framing or caption fix is not a new creative treatment. Inspect the entire failed sequence
+once, consolidate the correction, and reuse exact unchanged evidence. Prioritize a proven
+source-grounded treatment before another speculative repair. The finite release route cannot
+waive the new dated minimum picture-action requirements.

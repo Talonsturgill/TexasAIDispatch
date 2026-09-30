@@ -32,9 +32,55 @@ def policy():
     return read(POLICY)
 
 
-def cap_reached(state):
-    """Charged reboards are the existing immutable repair-round counter."""
+def technical_repair_problems(state, plan):
+    from creative_production import treatment_required
+    if not treatment_required({"date": str(state.get("run_id", ""))[:10]}):
+        return ["technical repair accounting starts with the new treatment policy"]
+    try:
+        path = Path(plan["failure_evidence"])
+        if digest(path) != plan["failure_evidence_sha256"]:
+            raise ValueError("changed failure")
+        report = read(path)
+        rows = report["technical_repair"]["findings"]
+        original = {payload_digest(x) for x in findings(report)}
+        reviewer = report.get("reviewer_identity")
+        allowed = {"source", "rights", "legibility", "layout", "technical_audio", "captions", "runtime"}
+        if (not reviewer or reviewer == plan.get("director_identity") or not original
+                or len(rows) != len(original)
+                or {payload_digest(x["finding"]) for x in rows} != original
+                or any(x["category"] not in allowed for x in rows)):
+            raise ValueError("unclassified or artistic findings")
+    except (OSError, ValueError, KeyError, TypeError):
+        return ["technical repair needs independent classification of every exact failure; artistry stays creative"]
+    return []
+
+
+def creative_rounds(state):
     count = (state.get("usage") or {}).get("reboards", 0)
+    if type(count) is not int:
+        return count
+    from creative_production import treatment_required
+    if not treatment_required({"date": str(state.get("run_id", ""))[:10]}):
+        return count
+    # Exclude at most one charged reboard per predeclared technical batch.
+    # Unpaired charges remain creative. Never rewrite cumulative usage.
+    technical, pending = 0, False
+    for event in state.get("events", []):
+        if event.get("kind") == "repair_started":
+            pending = event.get("repair_scope") == "technical-integrity"
+        elif event.get("kind") == "reserved" and event.get("resources", {}).get("reboards", 0):
+            charged = event["resources"]["reboards"]
+            if pending and type(charged) is int and charged > 0:
+                technical += 1
+            pending = False
+        elif event.get("kind") == "repair_authorized":
+            pending = False
+    return max(0, count - technical)
+
+
+def cap_reached(state):
+    # Creative rounds are separate from charged technical corrections.
+    count = creative_rounds(state)
     date = str(state.get("run_id", ""))[:10]
     return (state.get("mode") == "production"
             and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", date))
@@ -65,7 +111,9 @@ def finishing_required(state):
 def eligible(board, root=None, state=None):
     try:
         state = state if state is not None else read(Path(root or REPO / "out/dispatch") / "run_state.json")
-        return finishing_required(state) and str(board.get("date", "")) == str(state.get("run_id", ""))[:10]
+        from creative_production import treatment_problems
+        return (not treatment_problems(board) and finishing_required(state)
+                and str(board.get("date", "")) == str(state.get("run_id", ""))[:10])
     except (OSError, ValueError, TypeError):
         return False
 
@@ -136,6 +184,10 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
     root = Path(root or REPO / "out/dispatch")
     if not eligible(board, root):
         return False
+    from creative_production import treatment_required
+    if (treatment_required(board) and scope == "phone"
+            and (report.get("phone_observations") or {}).get("dominant_action", {}).get("pass") is False):
+        return False
     try:
         if embedded:
             assessment = report.get("bounded_release") or {}
@@ -170,6 +222,9 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
 
 def artistic_observation(board, report, criterion, root=None):
     # Recognition, causal truth and continuity remain non-deferrable.
+    from creative_production import treatment_required
+    if treatment_required(board) and criterion == "dominant_action":
+        return False
     return criterion in {"dominant_action", "surface_finish", "closing_payoff"} and review_allows(board, report, root)
 
 
@@ -181,6 +236,9 @@ MOTION_ERRORS = (
 
 def structural_allows(board, report, root=None):
     """Only the measured motion floor; wrong dimensions/duration/bytes still fail."""
+    from creative_production import treatment_required
+    if treatment_required(board):
+        return False
     problems = report.get("problems")
     if not eligible(board, root) or not isinstance(problems, list) or not problems:
         return False
@@ -267,7 +325,7 @@ def release_record(root, board, report):
     if not (evidence or native or rejected_av or panel_deferred):
         return None
     return {"schema": "dispatch_bounded_release/1", "publication_mode": "bounded_creative_release",
-            "policy_sha256": digest(POLICY), "repair_rounds": read(root / "run_state.json")["usage"]["reboards"],
+            "policy_sha256": digest(POLICY), "repair_rounds": creative_rounds(read(root / "run_state.json")),
             "assessments": evidence, "native_findings": native, "rejected_audiovisual_reviews": rejected_av,
             "original_panel_score": score, "original_panel_ship": report.get("ship"),
             "original_panel_hard_fails": report.get("hard_fails", []),
