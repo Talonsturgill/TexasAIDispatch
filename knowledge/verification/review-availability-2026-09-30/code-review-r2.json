@@ -1,0 +1,69 @@
+{
+  "schema": "dispatch_tooling_code_review/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T15:35:27.619545+00:00",
+  "verdict": "revise",
+  "scope": "Second isolated review-availability tooling review; original rejection preserved",
+  "findings": [
+    {
+      "id": "R2-1",
+      "priority": 1,
+      "file": "scripts/independent_review.py",
+      "symbol": "run_claimed completed-host-verdict scan",
+      "defect": "Ordinary completed opening code verdicts can be replaced by provider recovery.",
+      "reproduction": "Saved opening-a-critic.json with exact current concept/renderer hashes and verdict revise, then invoked role code for opening-a.json. The script reserved audiovisual_reviews1 and reached a mocked provider boundary instead of rejecting. No real provider request occurred.",
+      "required_fix": "Discover the assigned role report including ordinary opening-a/b-critic.json and retain an exact assignment-to-report binding; refuse any completed exact-scope host pass or rejection. Add both opening verdict negatives."
+    },
+    {
+      "id": "R2-2",
+      "priority": 2,
+      "file": "scripts/independent_review.py",
+      "symbol": "packet previous inventory selection",
+      "defect": "Current evidence packet can substitute unfinished inventory for the most recent shipped edition.",
+      "reproduction": "Real packet fixture had September28 storyboard plus dispatch.mp4 and a newer September29 unfinished storyboard without dispatch.mp4. Packet selected ['runs/2026-09-29/storyboard.json']. daily_production.visual_problems uses runs/????-??-??/dispatch.mp4 as the previous released inventory selector.",
+      "required_fix": "Use the same verified previous shipped/released inventory as the ordinary visual gate and bind that board/native media. Add a newer unfinished-run negative so it cannot hide the actual previous released assets."
+    }
+  ],
+  "resolved_prior_findings": [
+    "R1 simultaneous binding/report rewrite now rejected by provider raw request-context echo, exact input and prompt hashes.",
+    "R4 per-input flock prevents duplicate transport; shared transport ledger lock serializes provider role reservations and telemetry.",
+    "R2 source snapshots/current native media/creative direction/scorer attention feed and scene samples are supplied and hashed; prior shipped selection defect remains.",
+    "R3 ledger event/index/hash and scope are checked; ordinary opening completed verdict discovery defect remains."
+  ],
+  "tests": [
+    {
+      "command": "python scripts/independent_review_test.py",
+      "result": "12 PASS"
+    },
+    {
+      "command": "python scripts/quality_recovery_test.py",
+      "result": "33 PASS"
+    },
+    {
+      "command": "python scripts/audiovisual_review_test.py",
+      "result": "5 PASS"
+    },
+    {
+      "command": "python scripts/documentary_review.py --self-test",
+      "result": "PASS"
+    }
+  ],
+  "inspected_sha256": {
+    "scripts/independent_review.py": "bc8df3bfdebc810c5821739eaa7ff8e2b26ae11a83980eb0a00b1f275707eb3f",
+    "scripts/independent_review_test.py": "adbeafbfd227f686c485907803506c4cb1ac9cd09daf1fbcae54d191a92753df",
+    "scripts/critic_gate.py": "db9dedf0d2f87aa99ecca90e8e268036a1219acf6fd7aa5ac11d73c95e7ecc58",
+    "scripts/documentary_review.py": "4a53dec1faad9594efdbaba5ff065f9bf9e4f2d3e7d4cce8b598d9a24fd7c920",
+    "scripts/panel_triage.py": "58866f305f6d8c03a2e0e399c2b2202b6057b8f340584bc1d966162231824db4",
+    "scripts/repair_guard.py": "260858ecdf79bb33c464637a59a2f916925ceecfbd1770d67259f0182d9cf528",
+    "scripts/run_controller.py": "82ca6bf82be8e81243a8787065dcc1d464cc7bc4dd6d1e87cfb25498ca9d7cc9",
+    "prompts/phases/review-availability.md": "79e418f4827b4f0fbcfed05637bbfb589508fa6991a7691ef1d9d89e3b479a00"
+  },
+  "diff_sha256": "5165396081d51acd237420730838d74e589da1fba37752b0d2963eb01b504619",
+  "preserved_properties": [
+    "Failure is separate from pass/revise; provider failed attempts remain charged and unchanged cache cannot repurchase a verdict.",
+    "Configured audiovisual model and existing automation settings are preserved.",
+    "Current panel transport requires an atomic three-scorer reservation after the latest full/cleanup/rescue render and current preship check.",
+    "All final audiovisual lenses and scorers, native/feed/current source gates and shipped-only completion remain required."
+  ],
+  "limitations": "Tests and reproductions used temporary fixtures/mocks only. No real provider calls, production ledger changes or renders."
+}

@@ -74,7 +74,8 @@ out/dispatch/storyboard.json, fold cues and confirm the retime is stable. Use au
 timing; never manually change derived at_s. Split overlong pictured beats instead of holding.
 
 Repeat the cheap board, source and caption checks. Then render the final timed phone preview
-and obtain its current independent exact-film critique. Inspect the longest caption in the
+and obtain its current independent exact-film critique. If the assigned host worker cannot
+start, follow prompts/phases/review-availability.md immediately. Inspect the longest caption in the
 phone picture. If it hides the action, shorten groups at measured boundaries and rerender.
 
 ```sh

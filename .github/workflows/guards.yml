@@ -57,6 +57,9 @@ jobs:
           # missing: a skipped test and a passing test are the same colour.
           pip install --quiet pyyaml numpy requests pillow
 
+      - name: Independent review survives host capacity without changing verdicts
+        run: python3 scripts/independent_review_test.py
+
       - name: Engine lint self-test (the defects tsc is structurally blind to)
         run: |
           # Two corrupted colour literals shipped into this repo in one session, both valid
