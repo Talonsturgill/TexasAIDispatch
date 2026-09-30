@@ -39,7 +39,9 @@ jobs:
           node-version: "22"
 
       - name: Install media tooling
-        timeout-minutes: 12
+        # A cold runner's 87-package install completed in 12m04s in run36747846211.
+        # Leave measured setup headroom while still bounding an unavailable installer.
+        timeout-minutes: 18
         run: |
           # Hosted-runner images do not promise ffmpeg. The preflight, feed, voice,
           # music and freshness gates must fail closed when it is absent, so CI owns
