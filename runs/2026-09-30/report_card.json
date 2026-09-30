@@ -1,0 +1,247 @@
+{
+  "schema": "dispatch_report_card/1",
+  "round": 1,
+  "score": 6.291,
+  "weighted_score": 6.291,
+  "ship": false,
+  "axes": {
+    "place": 4.933,
+    "picture": 5.933,
+    "hook": 6.2,
+    "craft": 6.267,
+    "voice": 7.0,
+    "story": 7.2
+  },
+  "hard_fails": [],
+  "judges": [
+    {
+      "reviewer_identity": "/root/score_picture",
+      "review_scope": "independent final exact-film picture scorer",
+      "film_sha256": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+      "audiovisual_role": "picture",
+      "audiovisual_receipt_sha256": "89b16e2d94bff996eecbe5dda09cd1adcadf9734ec25912a57c6e3b61b9520b4",
+      "audiovisual_review_pass": false,
+      "audiovisual_rejections_retained": [
+        "At 22.0s to 28.0s, static abstract panels substitute for a clear graphic mechanism illustrating the reporting discrepancy.",
+        "From 34.0s to 43.0s, repetitive static layouts stall pictorial momentum before the final source slate."
+      ],
+      "axes": {
+        "hook": 5.8,
+        "story": 7.4,
+        "picture": 5.8,
+        "place": 5.3,
+        "craft": 6.0,
+        "voice": 6.8
+      },
+      "score": 6.218,
+      "ship": false,
+      "hard_fails": [],
+      "defects": [
+        "From 34.26s to 44.0s, the camera, empty record and separator repeat an already established comparison across the last two scenes, stalling the answer before credits."
+      ],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Condense 34.26s to 44.0s into one camera-versus-absent-count comparison, show the sourced record category once at readable scale, and hold the missing-count answer before credits.",
+      "attention_review": {
+        "film_sha256": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+        "pass": false,
+        "hook_observed": "At 0.00s a small abstract camera is already on screen; the plume rises by 1.94s and the possible-smoke image appears by 3.88s. The first silent frame needs the heading to identify the action.",
+        "continuity_observed": "The camera and possible-smoke image remain recognizable from s1 through s3; at 18.70s the same camera becomes the installation-count symbol, while the separate outcome panel stays empty.",
+        "pacing_observed": "The plume and signal develop from 0.00s to 5.54s; the possible image travels and seats from 8.01s to 16.87s; the report categories separate from 18.70s to 28.09s. From 34.26s to 44.0s, another camera deposit and separator repeat the previous comparison without adding an outcome; the credit tail follows at about 44s.",
+        "comprehension_observed": "One viewing with narration explains that the partial-year filing counts installed cameras under a requested detection metric but gives no detection total. The diagram alone makes the empty category legible, yet its last two repetitions add little; the provider's phrase that hardware counts replaced detection metrics is broader than the film's claim about this report.",
+        "remembered_image": "A small installed-camera glyph sits left of a blank outcome record, making the difference between equipment and a reported detection count visible.",
+        "weakest_interval": "34.26s to 44.0s: the camera and empty record split a second time after that distinction has landed; condense to one sourced comparison and a short answer hold.",
+        "weakest_at_s": 34.26,
+        "weakest_end_s": 44.0,
+        "audio_basis": "The Chrome player exposed video frames but no audio output to this reviewer. The bound picture AV model receipt reports audible narration and balanced music; mix.json reports -16.08 LUFS, -1.99 dBTP and time_stretch 1.0. These are provider and measurement evidence, not personal listening."
+      },
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Fetched SPS filing quote c4 prints 33 cameras installed under its camera-detection heading; c7 limits the absence claim to that report. The film states that limit rather than zero detections."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "The final uses original schematic geometry; visual research rejected the unlicensed camera photos. The final credit identifies the registered music track and CC BY attribution."
+          },
+          "legibility": {
+            "pass": true,
+            "observed": "At feed size the two category labels and bottom captions remain readable, and the blank record is visually distinct from the installed-camera glyph."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "Narration and paired graphic distinguish installed hardware from a missing fire-detection total in this partial-year report; no actual incident or response is claimed."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "Bound audiovisual provider reports intelligible speech and balanced music; exact-film mix measurement gives -16.08 LUFS and -1.99 dBTP with no time stretch. I could not personally listen."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "Final captions are anchored to measured speech boundaries with acoustic word matching, and the bound audiovisual provider reports the lower band tracking narration."
+          }
+        },
+        "defects": [
+          {
+            "finding": "From 34.26s to 44.0s, the camera, empty record and separator repeat an already established comparison across the last two scenes, stalling the answer before credits.",
+            "category": "pacing"
+          }
+        ]
+      }
+    },
+    {
+      "reviewer_identity": "/root/score_story",
+      "role": "story",
+      "film_sha256": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+      "score": 6.388,
+      "ship": false,
+      "axes": {
+        "hook": 6.5,
+        "story": 6.8,
+        "picture": 6.2,
+        "place": 5.3,
+        "craft": 6.6,
+        "voice": 6.8
+      },
+      "hard_fails": [],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Condense scenes s7 and s8 into one completed separation of the installed-camera symbol from the blank detection record, remove the repeated closing narration, and re-render the measured captions and final film.",
+      "audiovisual_role": "story",
+      "audiovisual_receipt_sha256": "b4c171d4bab41e66a9d237d1fd9dc61285eda5ab12b8ab5928b37a001de943ad",
+      "audiovisual_basis": "The bound story provider receipt reports audible access; I inspected its raw response and exact-film pictures, but did not personally hear the audio.",
+      "audiovisual_rejection_retained": {
+        "pass": false,
+        "defects": [
+          "Between 35.0s and 43.0s, the visual remains static on the split counter with repetitive dialogue.",
+          "The ending source attribution screen appears at 44.0s and cuts at 48.8s, failing the five-second hold rule."
+        ],
+        "assessment": "The first finding captures a real repeated visual premise, though the separator does move. The second finding is not corroborated: the story ends at 44.0s and the 49.0s file gives the credit roughly five seconds; the rubric's five-second prohibition concerns inert story slides, while a readable credit tail is required. I did not treat that statement as a hard fail."
+      },
+      "attention_review": {
+        "film_sha256": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+        "pass": false,
+        "hook_observed": "At 0-2s, a large schematic smoke plume rises beside a fixed camera; the signal begins crossing toward the camera at 1.94s, establishing a visible question before the narration explains it.",
+        "continuity_observed": "The camera and same possible-smoke image carry through s1 to s3; at 18.70s the illustration changes explicitly to the installed-camera versus detection-count categories rather than implying a verified fire response.",
+        "pacing_observed": "The image advances at 8.01s, enlarges at 10.48s, and seats on a review tray around 14.73s; installation and requested detection categories separate from 18.70-28.09s. From 34.26-44.00s a camera token, blank record and separator repeat the already established distinction with small movements and three similar layouts, delaying the answer without a new consequence. The five-second credits follow at 44s.",
+        "comprehension_observed": "One viewing communicates that Southwestern Public Service reports installed cameras but no detection total in this partial-year report, and that missing data does not prove zero detections. The schematic carries the distinction, though repeated labels and layouts in the last third make the consequence feel editorial rather than lived by crews or residents.",
+        "remembered_image": "The smoke image seated on a review tray beside a separate marker around 15-18s, because it distinguishes a possible warning from a verified response.",
+        "weakest_interval": "34.26-44.00s: the empty detection record and separator are staged again after the same count contrast was already legible by 28.09s; compress these two closing scenes into one decisive separation and give the saved time to the human warning consequence.",
+        "weakest_at_s": 34.26,
+        "weakest_end_s": 44.0,
+        "audio_basis": "No direct listening through this reviewer interface. The bound story audiovisual provider reports audio access and a repetitive closing read; the separate sound provider reports a clean, balanced voice, while mix.json records 49.0s, -16.08 LUFS and time_stretch 1.0. Captions and the locked script supplied the words and timing.",
+        "defects": [
+          "34.26-44.00s repeats the installed-camera versus blank-detection separation across two closing scenes without a new consequence, weakening the final payoff."
+        ]
+      },
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Fetched verified claim quotes distinguish AI-camera intent, the regulator's detection metric and Actual: 33 cameras installed; the script limits the absence to this report and does not claim zero detections."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "The film identifies its schematic visuals as original illustration and shows music attribution and licence in the credit; no external footage or still is depicted."
+          },
+          "legibility": {
+            "pass": true,
+            "observed": "Phone and feed frames keep the large camera, blank record, count labels and lower caption band readable; the credit is held at the end."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "The installed hardware count and absent detection total remain distinct throughout; the review marker does not claim an actual dispatch."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "The independent sound provider reports clean narration without masking, and the mix records -16.08 LUFS with time_stretch 1.0; this reviewer did not listen directly."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "The caption record has measured boundaries for all cues and acoustic matching for 96 words; the sound provider reports synchronized lower captions."
+          }
+        },
+        "defects": [
+          {
+            "finding": "34.26-44.00s repeats the installed-camera versus blank-detection separation across two closing scenes without a new consequence, weakening the final payoff.",
+            "category": "pacing"
+          }
+        ]
+      }
+    },
+    {
+      "reviewer_identity": "/root/score_sound",
+      "audiovisual_role": "sound",
+      "audiovisual_receipt_sha256": "c942dfc6fe81ba790ef3226199cfaef7c3cd1b711d8233f2366998dd37b64c54",
+      "score": 6.266,
+      "ship": false,
+      "axes": {
+        "hook": 6.3,
+        "story": 7.4,
+        "picture": 5.8,
+        "place": 4.2,
+        "craft": 6.2,
+        "voice": 7.4
+      },
+      "hard_fails": [],
+      "defects": [
+        "From 34.26 to 42.47 seconds, the installed-camera symbol and empty detection record repeat the earlier 18.70 to 28.09 comparison; the closing separation adds little beyond the already understood reporting gap."
+      ],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Compress scenes 7 and 8 into one completed camera-versus-empty-record separation, retime narration and captions to that shorter action, and hold the final distinction long enough to read.",
+      "attention_review": {
+        "film_sha256": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+        "pass": false,
+        "hook_observed": "At 0 to 3.88 seconds, a smoke plume rises beside the fixed camera and a possible-image frame forms; the first frame is a sparse schematic, so the opening depends on the subsequent change.",
+        "continuity_observed": "The same plume, camera and possible-image frame carry from scene 1 into scene 2 at 5.54 seconds and then into the review tray at 12.60 to 16.87 seconds.",
+        "pacing_observed": "The image forms by 3.88 seconds, reaches review by 16.87 seconds, and the installed-versus-unreported split appears by 21.18 to 28.09 seconds; 34.26 to 42.47 seconds replays that split with modest new information.",
+        "comprehension_observed": "After one viewing, the reported installation count and missing detection total are clear, as is the distinction between a possible image and a proved response; the last two comparison scenes prolong the answer.",
+        "remembered_image": "A small camera on one tray facing a blank detection record on another makes the report's category mismatch visible.",
+        "weakest_interval": "34.26 to 42.47 seconds repeats the camera-versus-blank-record comparison already established earlier; consolidate the separation into one closing movement and retain a short readable result.",
+        "weakest_at_s": 34.26,
+        "weakest_end_s": 42.47,
+        "audio_basis": "No personal direct listening through this interface. Independent sound audiovisual receipt for this exact MP4 reports audible narration, low ambient music, clear balance, no clicks or clipping, and aligned captions; I checked its raw response against timed frames and the contact sheet."
+      },
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "The on-screen 33-camera count appears in the verified fetched quote; the film describes the detection total as unreported and does not assert zero."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "The film visibly discloses original source-grounded illustration and displays source and licensed-music credits in its end card."
+          },
+          "legibility": {
+            "pass": true,
+            "observed": "At feed size, the large count and missing-total labels remain distinguishable, and the bottom caption band is readable without covering the camera or record."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "The camera and blank record remain separate objects; one viewing communicates installation evidence, the missing detection total, and an unproved response."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "The exact-film independent sound AV receipt reports crisp narration over ambient music without clipping or clicks; this is model audible-media evidence, not my own listening."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "The exact-film independent sound AV receipt reports synchronized lower captions, which the timed player and feed frames show below the principal action."
+          }
+        },
+        "defects": [
+          {
+            "finding": "From 34.26 to 42.47 seconds, the installed-camera symbol and empty detection record repeat the earlier 18.70 to 28.09 comparison; the closing separation adds little beyond the already understood reporting gap.",
+            "category": "pacing"
+          }
+        ],
+        "score_only": false
+      }
+    }
+  ]
+}

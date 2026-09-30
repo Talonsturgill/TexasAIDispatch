@@ -78,7 +78,17 @@ def canonical(text: str) -> list[str]:
     # both to the same lexical parts while retaining every original DTW position.
     # This is deliberately a spelling map, never fuzzy matching or dropped words.
     text = re.sub(r"\boilfield\b", "oil field", text, flags=re.IGNORECASE)
-    return [str(_UNITS.get(t, _TENS.get(t, t))) for t in figure_tokens(text)]
+    # These possessive and plural spellings encode the same spoken phonemes.
+    # Keep the original script word and acoustic center outside this comparison.
+    text = re.sub(r"\b([a-z]*[bcdfghjklmnpqrstvwxyz])y['\u2019]s\b", r"\1ies", text, flags=re.IGNORECASE)
+    parts = []
+    for token in figure_tokens(text):
+        if re.fullmatch(r"[2-9][1-9]", token):
+            value = int(token)
+            parts.extend([str(value // 10 * 10), str(value % 10)])
+        else:
+            parts.append(str(_UNITS.get(token, _TENS.get(token, token))))
+    return parts
 
 
 def acoustic_words(raw: dict) -> list[dict]:
@@ -603,8 +613,11 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
         # So a boundary is taken when DECLINING it would break the hard ceiling, with a
         # floor under it so a boundary landing just after a cue opens does not shear off
         # a two word card. Still only measured boundaries. Still nothing invented.
+        next_words = [x for x in words if w["end"] < x["end"] <= (nxt_end or w["end"])]
+        projected_chars = len(" ".join(x["word"] for x in cur + next_words))
         last_exit = (len(text) >= 28 or held >= 1.2) and (
-            nxt_end is None or (nxt_end - cur[0]["start"]) > HARD_CUE_S * OVERSHOOT)
+            nxt_end is None or (nxt_end - cur[0]["start"]) > HARD_CUE_S * OVERSHOOT
+            or projected_chars > HARD_CUE_CHARS)
 
         if ends_sentence \
                 or runaway \
@@ -616,7 +629,8 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
         # The tail is short enough to join its neighbour rather than flash on its own, and
         # joining costs nothing because the boundary between them was measured either way.
         if out and len(" ".join(x["word"] for x in cur)) < MAX_CUE_CHARS * 0.28 \
-                and (cur[-1]["end"] - out[-1][0]["start"]) < MAX_CUE_S * 1.5:
+                and (cur[-1]["end"] - out[-1][0]["start"]) < MAX_CUE_S * 1.5 \
+                and len(" ".join(x["word"] for x in out[-1] + cur)) <= HARD_CUE_CHARS:
             out[-1].extend(cur)
         else:
             out.append(cur)
@@ -746,6 +760,26 @@ def self_test() -> int:
         ok("sourced name reconciliation still refuses " + wrong, refused)
     ok("ordinal notation preserves the value", canonical("ninth") == canonical("9th"))
     ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
+    number_groups, number_evidence = acoustic_groups(
+        ["thirty-three"], [(0.2, 2.0)], [{"text": "33", "center": .9}], [])
+    ok("two-digit spelling preserves the value and actual center",
+       number_groups == [["thirty-three"]] and number_evidence[0]["dtw_center_s"] == .9)
+    possessive_groups, possessive_evidence = acoustic_groups(
+        ["utility's"], [(0.2, 2.0)], [{"text": "Utilities", "center": .9}], [])
+    ok("homophonic possessive spelling preserves the script and actual center",
+       possessive_groups == [["utility's"]] and possessive_evidence[0]["dtw_center_s"] == .9)
+    ok("curly possessive has the same spoken parts", canonical("utility\u2019s") == canonical("Utilities"))
+    ok("vowel-y possessive is not changed to ies", canonical("boy's") != canonical("boies"))
+    for script_word, wrong_forms in [("thirty-three", ["30", "34", "3 3", "3 30", "33 33", "thirty", "thirty and three"]),
+                                     ("utility's", ["utility", "units", "utilities utilities", "a utilities"])]:
+        for wrong in wrong_forms:
+            try:
+                acoustic_groups([script_word], [(0.2, 2.0)],
+                                [{"text": w, "center": .5 + i*.2} for i, w in enumerate(wrong.split())], [])
+                refused = False
+            except ValueError:
+                refused = True
+            ok("lexical normalization refuses " + wrong, refused)
     try:
         acoustic_words({"transcription": [{"text": "word", "tokens": [{"text": "word", "t_dtw": -1}]}]})
         refused = False

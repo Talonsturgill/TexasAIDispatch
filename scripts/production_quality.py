@@ -2,6 +2,7 @@
 """Fail closed on missing cinematic pixels, finished previews and audiovisual evidence."""
 from __future__ import annotations
 import argparse
+import io
 import json
 import math
 import os
@@ -29,6 +30,19 @@ def required(board):
 
 def read(path):
     return json.loads(Path(path).read_text())
+
+def scheduled_frame(film, index, width=270, height=480):
+    """Compare the declared integer frame, without rounding a seek across a cut."""
+    if not isinstance(index, int) or isinstance(index, bool) or index < 0:
+        raise ValueError("native sample requires a nonnegative integer frame")
+    raw = subprocess.run([FFMPEG, "-v", "error", "-i", str(film),
+        "-vf", f"select=eq(n\\,{index}),scale={width}:{height}", "-frames:v", "1",
+        "-f", "image2pipe", "-vcodec", "png", "-"],
+        check=True, capture_output=True).stdout
+    with Image.open(io.BytesIO(raw)) as im:
+        if im.size != (width, height):
+            raise ValueError("native sample has unexpected dimensions")
+        return np.asarray(im.convert("RGB"), dtype=np.uint8)
 
 def finite(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
@@ -109,14 +123,20 @@ def stage_sample_problems(board, root, samples, film=None, deferred=None, observ
             # Mid-action and completion must each independently meet the same floor.
             occupancy_required = not current_policy or idx > 0
             if current_policy and observations is not None:
-                observations.append({"scene_id": sid, "event_id": scene["picture"]["event_id"],
+                from cinema_cache import principal_event
+                event = principal_event(board, scene)
+                measurement = {"scene_id": sid, "event_id": event["id"],
                     "phase": ("onset", "midpoint", "completion")[idx], "at_s": at,
                     "visible_pixel_share": area, "occupancy_required": occupancy_required,
-                    "required_pixel_share": policy(board)["min_stage_pixel_share"]})
+                    "required_pixel_share": policy(board)["min_stage_pixel_share"]}
+                if event.get("admitted_action_id"):
+                    measurement.update({"admitted_action_id": event["admitted_action_id"],
+                                        "source_event_ids": event["source_event_ids"]})
+                observations.append(measurement)
             if occupancy_required and area < policy(board)["min_stage_pixel_share"]:
                 errors.append(sid + " has too little visible principal picture content")
             if film is not None:
-                current = frame(film, round(at * 30) / 30, 270, 480).astype(float)
+                current = scheduled_frame(film, schedule[sid][idx], 270, 480).astype(float)
                 if float(np.abs(current - normal).mean()) > policy(board)["max_final_frame_mae"]:
                     errors.append(sid + " final pixels differ from the approved preview")
         moving = float((np.max(np.abs(effects[-1] - effects[0]), axis=2) > 12).mean())
@@ -125,7 +145,8 @@ def stage_sample_problems(board, root, samples, film=None, deferred=None, observ
         state_root = Path(root).parent.parent if Path(root).parent.name == "cinema" else Path(root).parent
         if not deliberate_hold and moving < policy(board)["min_stage_action_pixel_share"]:
             finding = sid + " principal picture does not visibly develop during its action"
-            if deferred is not None and bounded.eligible(board, state_root):
+            if (deferred is not None and bounded.eligible(board, state_root)
+                    and not creative.treatment_required(board)):
                 deferred.append({"scene_id": sid, "category": "motion", "finding": finding,
                                  "observed_pixel_share": moving,
                                  "required_pixel_share": policy(board)["min_stage_action_pixel_share"]})

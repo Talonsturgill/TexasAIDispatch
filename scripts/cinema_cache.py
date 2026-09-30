@@ -145,6 +145,45 @@ def audio_segment(mix, frames, out=None):
     return key
 
 
+def principal_event(board, scene):
+    """Use an explicit picture event or the complete admitted physical action.
+
+    Custom source-backed modules perform a conserved action across their three
+    declared visual events. They are admitted through quality_plan and the actual
+    callable module, rather than the daily renderer's scene.picture schema.
+    """
+    event_id = (scene.get("picture") or {}).get("event_id")
+    events = scene.get("visual_events", [])
+    if event_id:
+        matches = [event for event in events if event.get("id") == event_id]
+        if len(matches) != 1:
+            raise ValueError(scene["id"] + " has no unique principal-picture event")
+        return matches[0]
+    action_id = scene.get("production_action")
+    proposals = board.get("action_proposals", [])
+    if (not action_id or len([p for p in proposals if p.get("id") == action_id]) != 1
+            or board.get("cinematic_template") in (None, "daily-actions-v1")
+            or len(events) < 3):
+        raise ValueError(scene["id"] + " has no unique principal-picture event")
+    from action_admission import board_problems
+    errors = board_problems(board)
+    if errors:
+        raise ValueError("unadmitted custom principal action: " + "; ".join(errors))
+    ids = [event.get("id") for event in events]
+    if any(not isinstance(i, str) or not i for i in ids) or len(set(ids)) != len(ids):
+        raise ValueError(scene["id"] + " action span needs distinct source event ids")
+    for event in events:
+        at, duration = event.get("at_s"), event.get("duration_s")
+        if (type(at) not in (int, float) or type(duration) not in (int, float)
+                or not math.isfinite(at) or not math.isfinite(duration)
+                or at < 0 or duration <= 0 or at + duration > float(scene["duration_s"]) + 1e-6):
+            raise ValueError(scene["id"] + " admitted action event leaves its scene")
+    start = min(event["at_s"] for event in events)
+    end = max(event["at_s"] + event["duration_s"] for event in events)
+    return {"id": action_id, "at_s": start, "duration_s": end - start,
+            "source_event_ids": ids, "admitted_action_id": action_id}
+
+
 def sample_frames(board):
     import creative_production as creative
     current = creative.required(board)
@@ -153,11 +192,7 @@ def sample_frames(board):
         if not current and scene["id"] not in board["cinema"]["dimensional_scene_ids"]:
             continue
         if current:
-            event_id = (scene.get("picture") or {}).get("event_id")
-            matches = [e for e in scene.get("visual_events", []) if e.get("id") == event_id]
-            if not event_id or len(matches) != 1:
-                raise ValueError(scene["id"] + " has no unique principal-picture event")
-            event = matches[0]
+            event = principal_event(board, scene)
             at, duration = float(event["at_s"]), float(event["duration_s"])
             scene_duration = float(scene["duration_s"])
             if (not all(math.isfinite(v) for v in (at, duration, scene_duration))

@@ -11,6 +11,23 @@ import run_controller as c
 import production_lifecycle as life
 
 class RecoveryTest(unittest.TestCase):
+    def test_distinct_technical_faults_do_not_create_a_creative_pivot(self):
+        state = c.read_state(self.path)
+        for mechanism in ['runtime', 'lexical']:
+            c.event(state, 'repair_started', mechanism_id=mechanism,
+                    failure_family='unclassified', repair_scope='technical-integrity')
+        plan = {'mechanism_id':'caption-occupancy', 'failure_family':'unclassified',
+                'repair_scope':'technical-integrity', 'director_identity':'director'}
+        self.assertEqual(g.plan_problems(state, plan), [])
+        for event in state['events']:
+            if event.get('kind') == 'repair_started': event['mechanism_id'] = 'caption-occupancy'
+        self.assertTrue(g.plan_problems(state, plan))
+        plan['repair_scope'] = 'standard'
+        self.assertEqual(g.plan_problems(state, plan), [])
+        for event in state['events']:
+            if event.get('kind') == 'repair_started': event['repair_scope'] = 'standard'
+        self.assertTrue(g.plan_problems(state, plan))
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)

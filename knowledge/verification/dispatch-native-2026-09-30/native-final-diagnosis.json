@@ -1,0 +1,52 @@
+{
+  "schema": "dispatch_native_final_diagnosis/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T16:12:53.502710+00:00",
+  "verdict": "technical-repair-required",
+  "blocking_defect": "s6 final pixels differ from the approved preview",
+  "classification": "Deterministic exact-frame extraction error in proof comparison, not a changed product or creative failure.",
+  "finding": {
+    "id": "native-final-frame-seek",
+    "category": "runtime",
+    "cause": "stage_sample_problems converts scheduled integer frame872 to872/30 seconds; preflight_animatic.frame formats that seek to four decimals (29.0667), above the exact frame872 presentation time29.0666666667. FFmpeg then returns frame873 at29.1s. Scene6 begins29.08s, so the mistaken next-frame decode crosses the scene cut.",
+    "measured_evidence": [
+      {
+        "method": "current frame(film,872/30,270,480)",
+        "mae_against_approved_s6_onset": 40.569197530864194
+      },
+      {
+        "method": "FFmpeg select=eq(n,872),scale=270:480",
+        "mae_against_approved_s6_onset": 1.904156378600823
+      },
+      {
+        "method": "FFmpeg select=eq(n,873),scale=270:480",
+        "mae_against_approved_s6_onset": 40.569197530864194
+      }
+    ],
+    "unchanged_threshold": 5.0,
+    "conclusion": "The exact requested index passes under the existing comparison threshold; the current rounded seek matches the adjacent frame exactly. Preserve the original failed comparator result as technical evidence."
+  },
+  "bindings_consistent": {
+    "board_sha256": true,
+    "engine_sha256": true,
+    "generated_media_sha256": true
+  },
+  "recommended_minimal_fix": {
+    "scope": "Exact integer-frame extraction for native final proof comparison only. Preserve film, board, renderer, narration, captions, native proof/sample bytes and existing thresholds.",
+    "implementation": "Use the scheduled integer frame index directly in an exact frame helper (FFmpeg select=eq(n,index), scaled PNG decode), rather than converting to rounded input-seek time. Wire stage_sample_problems to that helper; retain generic time-based extraction behavior for unrelated callers. Reject invalid/noninteger/negative or unavailable frame indices.",
+    "verification": "Add a decoded encoded-video regression at a30fps scene boundary where index/30 rounds upward and current seek returns the next scene. Assert exact index selection returns intended pixels. Keep wrong/missing-frame, genuinely changed final pixel, occupancy/motion and evidence hash rejection tests. Rerun the actual24sample native comparison read-only using unchanged film/proof.",
+    "prohibited_shortcuts": "No nearest-frame search, threshold increase, selected-sample skip, manual pass, frame schedule rewrite, renderer change or rerender is needed to correct this measured extraction fault."
+  },
+  "production_sha256": {
+    "scripts/preflight_animatic.py": "9af51468c89b757af8a40693805ebe2a11c75c825902e6d02fa3b6692f33f386",
+    "scripts/production_quality.py": "192f5c6be0dff7c65a49347681541e5e51bcb3aacd849026fe60d9e118cee646",
+    "scripts/cinema_cache.py": "51d189219d7efbba7700dc0cb0d3343d1bdc2dfa6ec1bf191c2175bb3558d44a",
+    "video-engine/src/SmokeCameraEpisode.tsx": "95d4e1150da535e4a2c67c612a9bc187e163f33495ce58f729a3f82b54e66dd5",
+    "out/dispatch/storyboard.json": "e629865a680c938a0b39a25e8709cce7fb35b94b8aa0cf84b077abd02180c503",
+    "out/dispatch/cinema/proof.json": "5836da752338a4fc962bd74c8b6ff3c9f622d6fa8e6620d284e1e1e01cfec359",
+    "out/dispatch/cinema/s6-0-normal.png": "cb6cde3ac19b9c0cb30ccf030a92f3fb6793b78074e0dbe75b4c1d4c229a8289",
+    "out/dispatch/film.mp4": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+    "out/dispatch/render-manifest.json": "e0321eaf97b3df3b699e33a2a086ffb1004e2134bd508fb5ccd69d65017b2937"
+  },
+  "limitations": "Read-only exact decoding of the failing sample and adjacent frame. Parent independently measures all24samples. No edit, ledger reservation, render, provider call or shipment certification."
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "dispatch_native_sampler_code_review/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T16:05:41.047016+00:00",
+  "verdict": "pass",
+  "findings": [],
+  "scope": "Independent strict technical sampler patch verification only; no native film approval",
+  "diagnosis_sha256": "bfbeab054b2add4cc0163df106d9c45e968d608451dcfe99726769c9e6a42b66",
+  "inspected_sha256": {
+    "scripts/cinema_cache.py": "51d189219d7efbba7700dc0cb0d3343d1bdc2dfa6ec1bf191c2175bb3558d44a",
+    "scripts/production_quality.py": "86fdea8df67dac67a522f2e55b301224905013733bf255c23d3d68bcea35b814",
+    "scripts/cinema_cache_test.py": "f322fc31950e23e82d5478345db3f77f43483a503f9b77f5a7fadb9eaee97b91",
+    "scripts/production_quality_test.py": "3427a6a1217614b1eb9b5a22900b9c01b861d868bd28164a735687da48c67d9b",
+    "scripts/action_admission.py": "96ded049cae22bcc18847d3878503d5c312ab5536a83c438578fb5e815af91cf",
+    "scripts/creative_production.py": "69f5f771772a4cbe879eb2231bc55cef84154216aa532b49ae24468999a0b812",
+    "scripts/cinema_proof.py": "099f655e2f58b8fa47a9a261dc1bf105ce87452ac7a7a796b2489134b60a0704"
+  },
+  "patch_sha256": "7067919a41d79bdf508d86874f6d95b6d8cc60f5d5b7f2c09d362d9a2dd865f1",
+  "preserved_production_bytes": {
+    "video-engine/src/SmokeCameraAction.tsx": "7613006a5560e71d88ed529971ca979635a921fa0656a31e8f913b7598be0e01",
+    "video-engine/src/SmokeCameraEpisode.tsx": "95d4e1150da535e4a2c67c612a9bc187e163f33495ce58f729a3f82b54e66dd5",
+    "out/dispatch/storyboard.json": "e629865a680c938a0b39a25e8709cce7fb35b94b8aa0cf84b077abd02180c503",
+    "out/dispatch/storyboard_critic.json": "5f3150a77f05496d1103fec1099861608743aa54949ed2eddce30837ce022095",
+    "out/dispatch/claims.json": "59fa0e1a492a101f7c57c7de5235b10f33f56a286372247e5ecbc8b35a042d00"
+  },
+  "verification": {
+    "tests": [
+      {
+        "command": "python scripts/cinema_cache_test.py",
+        "result": "15 PASS; renderer calls mocked/temp fixtures"
+      },
+      {
+        "command": "python scripts/production_quality_test.py",
+        "result": "21 PASS; synthetic evidence"
+      }
+    ],
+    "actual_current_schedule": {
+      "s1": [
+        0,
+        75,
+        150
+      ],
+      "s2": [
+        166,
+        254,
+        343
+      ],
+      "s3": [
+        378,
+        457,
+        535
+      ],
+      "s4": [
+        561,
+        647,
+        734
+      ],
+      "s5": [
+        773,
+        821,
+        869
+      ],
+      "s6": [
+        872,
+        939,
+        1006
+      ],
+      "s7": [
+        1028,
+        1088,
+        1148
+      ],
+      "s8": [
+        1167,
+        1233,
+        1299
+      ]
+    },
+    "actual_action_admission_problems": [],
+    "actual_creative_plan_problems": []
+  },
+  "observations": [
+    "Explicit scene.picture event selection stays unchanged. Missing picture fallback requires registered custom renderer, unique matching production_action/action_proposal, at least3 declared events and actual action_admission.board_problems pass.",
+    "Full action uses earliest declared onset through latest completion; validates all event identifiers/timings and three distinct frame samples. Actual8scene board yields all24 required frames without metadata edits.",
+    "Producer/verifier share principal_event resolution and record admitted_action_id plus every source_event_id alongside the unchanged onset/midpoint/completion measurement schema. Exact stored measurement comparison remains mandatory.",
+    "Midpoint/completion occupancy thresholds, onset baseline, full-action motion floor, normal-minus-without-stage isolation and exact final-pixel comparison remain unchanged. Current September30 motion failures cannot be artistically deferred.",
+    "Missing/stale admission, malformed/duplicate/out-of-scene events and daily-actions missing-picture paths reject in regression tests; ordinary picture event remains selected.",
+    "Board, source claims, admitted action module, episode renderer and exact phone report hashes are unchanged from the diagnosis. Native hero pixel/provider approval remains a separate required gate."
+  ],
+  "limitations": "No real provider/model call, render or production ledger reservation. Local tests and read-only actual-board sampling do not certify native surfaces or shipment."
+}

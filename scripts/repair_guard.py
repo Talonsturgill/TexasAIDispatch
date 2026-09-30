@@ -206,9 +206,12 @@ def plan_problems(state, plan):
                "source-framing", "continuity", "unclassified"}
     if family not in allowed:
         return ["failure_family must use the shared rejection taxonomy"]
+    technical = plan.get("repair_scope") == "technical-integrity"
     previous = [e for e in state["events"] if e.get("kind") == "repair_started"
-                and (e.get("mechanism_id") == mechanism
-                     or e.get("failure_family", "unclassified") == family)]
+                and ((e.get("mechanism_id") == mechanism) if technical else
+                     (e.get("repair_scope") != "technical-integrity"
+                      and (e.get("mechanism_id") == mechanism
+                           or e.get("failure_family", "unclassified") == family)))]
     if len(previous) < 2:
         return []
     from run_controller import digest

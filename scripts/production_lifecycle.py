@@ -7,6 +7,7 @@ from pathlib import Path
 import hashlib
 import json
 import subprocess
+from datetime import datetime
 
 from run_controller import (read_state, save, load_json, digest, event,
                             review_package_problems, repair_plan_evidence)
@@ -60,6 +61,78 @@ def active(state):
     return state.get("mode") == "production" and state.get("terminal_state") is None
 
 
+def existing_critic_problems(state, plan, *, allow_active=False):
+    """Complete two documented paid scopes; never refund or create review calls."""
+    refs = plan.get("existing_critic_reservations")
+    if refs is None:
+        return []
+    try:
+        if plan.get("repair_scope") != TECHNICAL_SCOPE or not isinstance(refs, list) or len(refs) != 2:
+            raise ValueError("scope or count")
+        if {r["role"] for r in refs} != {"code", "final-phone"}:
+            raise ValueError("roles")
+        indexes, identities = set(), set()
+        for row in refs:
+            index = row["event_index"]
+            if type(index) is not int or not 0 <= index < len(state["events"]):
+                raise ValueError("index")
+            event_row = state["events"][index]
+            encoded = json.dumps(event_row, sort_keys=True).encode()
+            if (row.get("completion_only") is not True or index in indexes
+                    or event_row.get("kind") != "reserved"
+                    or event_row.get("resources") != {"storyboard_critics": 1}
+                    or hashlib.sha256(encoded).hexdigest() != row["event_sha256"]):
+                raise ValueError("reservation")
+            report_path = Path(row["report_file"])
+            if digest(report_path) != row["report_sha256"]:
+                raise ValueError("report")
+            report = load_json(report_path)
+            if not isinstance(report, dict) or not isinstance(report.get("reviewed_at"), str):
+                raise ValueError("report shape")
+            identity = report.get("reviewer_identity")
+            reviewed = datetime.fromisoformat(report["reviewed_at"].replace("Z", "+00:00"))
+            reserved = datetime.fromisoformat(event_row["at"].replace("Z", "+00:00"))
+            if (not isinstance(identity, str) or not identity.strip() or identity != row["reviewer_identity"] or identity in identities
+                    or identity == plan["director_identity"] or not reviewed.tzinfo or not reserved.tzinfo
+                    or reviewed < reserved):
+                raise ValueError("identity or chronology")
+            if row["role"] == "code" and (report_path.resolve() != Path(plan["failure_evidence"]).resolve()
+                    or row["report_sha256"] != plan["failure_evidence_sha256"]):
+                raise ValueError("classification reviewer")
+            indexes.add(index); identities.add(identity)
+        for recorded in state["events"]:
+            used = recorded.get("existing_critic_reservations", [])
+            if not indexes.intersection(r.get("event_index") for r in used):
+                continue
+            current = state.get("active_repair") or {}
+            if (allow_active and current.get("existing_critic_reservations") == refs
+                    and recorded.get("failure_sha256") == current.get("failure_sha256")):
+                continue
+            # An unfinished exact-film review may expose another technical defect.
+            # Continue those same paid roles only against new rejected evidence.
+            old_rows = {r["role"]: r for r in used}
+            for row in refs:
+                prior = old_rows[row["role"]]
+                report = load_json(Path(row["report_file"]))
+                previous = load_json(Path(prior["report_file"]))
+                if (row.get("continuation_of_failure_sha256") != recorded.get("failure_sha256")
+                        or row["event_index"] != prior["event_index"]
+                        or row["reviewer_identity"] != prior["reviewer_identity"]
+                        or row["report_sha256"] == prior["report_sha256"]
+                        or digest(Path(prior["report_file"])) != prior["report_sha256"]
+                        or report.get("verdict") != "revise" or previous.get("verdict") != "revise"
+                        or not (report.get("film_sha256") or report.get("reviewed_preflight_sha256"))
+                        or (report.get("film_sha256") or report.get("reviewed_preflight_sha256")) != plan.get("failed_film_sha256")
+                        or datetime.fromisoformat(report["reviewed_at"].replace("Z", "+00:00"))
+                           <= datetime.fromisoformat(recorded["at"].replace("Z", "+00:00"))
+                        or datetime.fromisoformat(report["reviewed_at"].replace("Z", "+00:00"))
+                           <= datetime.fromisoformat(previous["reviewed_at"].replace("Z", "+00:00"))):
+                    raise ValueError("paid scope is closed or lacks fresh rejected film evidence")
+    except (KeyError, OSError, ValueError, TypeError):
+        return ["existing critics require two exact independent paid technical completion scopes"]
+    return []
+
+
 def checkpoint(path, package, reason, blocker=None):
     state = read_state(path)
     if not active(state) or len(reason.strip()) < 20:
@@ -90,8 +163,11 @@ def begin_repair(path, plan_path):
     scope = plan.get("repair_scope", "standard")
     if not isinstance(scope, str) or scope not in SCOPES:
         return False, "unknown repair_scope"
+    reuse_errors = existing_critic_problems(state, plan)
     opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
-    errors = plan_problems(state, plan) + envelope_problems(state, opening)
+    if plan.get("existing_critic_reservations") and not reuse_errors:
+        opening = {"reboards": 1}
+    errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening)
     if scope == TECHNICAL_SCOPE:
         from creative_release import technical_repair_problems
         errors += technical_repair_problems(state, plan)
@@ -138,6 +214,8 @@ def begin_repair(path, plan_path):
     state["active_repair"] = {"failure_sha256": failure_hash, "baselines": baselines,
                              "plan": str(plan_path.resolve()), "plan_sha256": digest(plan_path),
                              "reboards_before": state["usage"]["reboards"], "repair_scope": scope}
+    if plan.get("existing_critic_reservations"):
+        state["active_repair"]["existing_critic_reservations"] = plan["existing_critic_reservations"]
     if scope == NARRATION_SCOPE:
         state["active_repair"].update(frozen_inputs=frozen_inputs, plan_identity=plan_identity(plan))
     state["phase"] = "active_repair"
@@ -149,6 +227,8 @@ def begin_repair(path, plan_path):
           authorization="diagnosed repair within recorded run envelope" if state.get("repair_policy") else "legacy autonomous repair instruction 2026-09-26",
           mechanism_id=plan.get("mechanism_id"), failure_family=plan.get("failure_family", "unclassified"),
           director_identity=plan.get("director_identity"))
+    if plan.get("existing_critic_reservations"):
+        state["events"][-1]["existing_critic_reservations"] = plan["existing_critic_reservations"]
     save(path, state)
     if scope == NARRATION_SCOPE:
         return True, "narration-performance repair opened; change only direction before authorization"
@@ -174,6 +254,9 @@ def authorize_repair(path, plan_path):
     if scope == TECHNICAL_SCOPE:
         from creative_release import technical_repair_problems
         errors = technical_repair_problems(state, plan)
+        errors += existing_critic_problems(state, plan, allow_active=True)
+        if plan.get("existing_critic_reservations") != current.get("existing_critic_reservations"):
+            errors.append("existing critic scopes changed after begin-repair")
         if errors:
             return False, "; ".join(errors)
     if scope == NARRATION_SCOPE:

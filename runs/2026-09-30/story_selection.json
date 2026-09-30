@@ -1,0 +1,129 @@
+{
+  "schema": "dispatch_story_selection/1",
+  "edition_date": "2026-09-30",
+  "selected": {
+    "title": "The camera count is not the fire count",
+    "beat": "weather-and-emergency",
+    "county": "Moore",
+    "texas_link": "The Xcel program serves the Texas Panhandle, while Moore County is a named county in the SPS resiliency report. No camera position is assigned to Moore County.",
+    "record_status": "in-record",
+    "record_id": "tx-2026-0192",
+    "record_url": "https://texasaidocket.com/docket/tx-2026-0192/",
+    "movement": {
+      "actor": "Southwestern Public Service Company",
+      "action": "filed its first annual resiliency report",
+      "object": "AI camera fire-detection evaluation metrics",
+      "event_type": "filed",
+      "date": "2026-05-01"
+    },
+    "why_today": "The Docket admitted the report comparison on September 28th after September reporting renewed scrutiny of Panhandle wildfire mitigation. The May filing is identified as older evidence.",
+    "consequence": "Residents and fire crews need usable warning, while installation counts alone do not establish the number of camera detections.",
+    "application_change": "AI cameras are intended to recognize smoke and pass possible fires to a command center for response.",
+    "counter_image": "The annual report covers a partial year and counts installed cameras in place of the requested detection count. That absence does not establish zero detections.",
+    "earned_take": "An installed camera is one step toward warning. This report does not supply the outcome count required to evaluate its detections.",
+    "agency": {
+      "next_step": "Readers can inspect the public report and ask the commission or utility about the detection metric.",
+      "who_can_act": "Utility reporting personnel and the Public Utility Commission can address the requested metric.",
+      "open": "unknown"
+    },
+    "sources": [
+      {
+        "url": "https://interchange.puc.texas.gov/Documents/57941_7_1637275.PDF",
+        "source_type": "primary",
+        "retrieved": "2026-09-30"
+      },
+      {
+        "url": "https://interchange.puc.texas.gov/Documents/57463_108_1518793.PDF",
+        "source_type": "primary",
+        "retrieved": "2026-09-30"
+      },
+      {
+        "url": "https://newsroom.xcelenergy.com/news/xcel-energy-using-ai-technology-to-detect-wildfires-in-texas-panhandle-MCJQJAEYRTBZEFBBTON334QSURGQ",
+        "source_type": "primary",
+        "retrieved": "2026-09-30"
+      }
+    ],
+    "action_proposals": [
+      {
+        "id": "panhandle-smoke-report-v1",
+        "module": {
+          "path": "video-engine/src/SmokeCameraAction.tsx",
+          "sha256": "7613006a5560e71d88ed529971ca979635a921fa0656a31e8f913b7598be0e01"
+        },
+        "exports": [
+          "SmokeCameraAction"
+        ],
+        "source_urls": [
+          "https://interchange.puc.texas.gov/Documents/57941_7_1637275.PDF",
+          "https://interchange.puc.texas.gov/Documents/57463_108_1518793.PDF",
+          "https://newsroom.xcelenergy.com/news/xcel-energy-using-ai-technology-to-detect-wildfires-in-texas-panhandle-MCJQJAEYRTBZEFBBTON334QSURGQ"
+        ],
+        "claim_ids": [
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c7",
+          "c8",
+          "c9"
+        ],
+        "visible_action": "An illustrated smoke column rises into a camera view. Its image is carried to a review surface, then physical installation symbols are separated from an explicitly unreported detection total.",
+        "consequence": "The intended camera workflow gives analysts a possible fire image, but installed equipment and documented detections remain distinct evidence categories.",
+        "limits": "Original explanatory geometry only. No actual fire, camera site, proprietary software, human response or measured successful detection is reconstructed. Camera imagery is not a confirmed fire and an empty report field is not zero detections.",
+        "source_basis": "SPS describes smoke detection, fire identification and command-center notification. Xcel supplies Panhandle geography and human verification. PUCT requires detection counts; SPS supplies installed cameras for a partial reporting year. Every illustrated relationship is bound to these fetched claims.",
+        "disclosure": "Illustration. Schematic symbols and intended workflow"
+      }
+    ],
+    "visual_stakes": {
+      "affected_person": "Panhandle residents and fire crews who need an actionable warning of a possible wildfire.",
+      "physical_subject": "A horizon-scanning camera, a smoke plume and the reported installation category.",
+      "visible_change": "The smoke rises into view, a captured image moves to review, then the installation marker separates from the missing detection total.",
+      "consequence": "Residents and fire crews need usable warning, while installation counts alone do not establish the number of camera detections.",
+      "opening_question": "Does installing a smoke camera establish how many fires it detected?",
+      "answer": "The report counts installed cameras but does not give the fire-detection total.",
+      "asset_fit": "Original source-grounded explanatory geometry fits the intended workflow. Available press imagery lacks established reuse rights and supplies no actual Texas response.",
+      "source_urls": [
+        "https://interchange.puc.texas.gov/Documents/57941_7_1637275.PDF",
+        "https://newsroom.xcelenergy.com/news/xcel-energy-using-ai-technology-to-detect-wildfires-in-texas-panhandle-MCJQJAEYRTBZEFBBTON334QSURGQ"
+      ]
+    },
+    "filmability": {
+      "asset_leads": [],
+      "action_support": [
+        {
+          "image": "opening",
+          "medium": "source-backed-action",
+          "action_id": "panhandle-smoke-report-v1",
+          "pictured_action": "An illustrated smoke column rises into a camera view. Its image is carried to a review surface, then physical installation symbols are separated from an explicitly unreported detection total.",
+          "scope_fit": "Original explanatory geometry only. No actual fire, camera site, proprietary software, human response or measured successful detection is reconstructed. Camera imagery is not a confirmed fire and an empty report field is not zero detections.",
+          "source_url": "https://interchange.puc.texas.gov/Documents/57941_7_1637275.PDF",
+          "disclosure": "Illustration. Schematic symbols and intended workflow"
+        },
+        {
+          "image": "mechanism",
+          "medium": "source-backed-action",
+          "action_id": "panhandle-smoke-report-v1",
+          "pictured_action": "An illustrated smoke column rises into a camera view. Its image is carried to a review surface, then physical installation symbols are separated from an explicitly unreported detection total.",
+          "scope_fit": "Original explanatory geometry only. No actual fire, camera site, proprietary software, human response or measured successful detection is reconstructed. Camera imagery is not a confirmed fire and an empty report field is not zero detections.",
+          "source_url": "https://interchange.puc.texas.gov/Documents/57941_7_1637275.PDF",
+          "disclosure": "Illustration. Schematic symbols and intended workflow"
+        },
+        {
+          "image": "consequence",
+          "medium": "source-backed-action",
+          "action_id": "panhandle-smoke-report-v1",
+          "pictured_action": "An illustrated smoke column rises into a camera view. Its image is carried to a review surface, then physical installation symbols are separated from an explicitly unreported detection total.",
+          "scope_fit": "Original explanatory geometry only. No actual fire, camera site, proprietary software, human response or measured successful detection is reconstructed. Camera imagery is not a confirmed fire and an empty report field is not zero detections.",
+          "source_url": "https://interchange.puc.texas.gov/Documents/57941_7_1637275.PDF",
+          "disclosure": "Illustration. Schematic symbols and intended workflow"
+        }
+      ]
+    }
+  },
+  "rejected": [
+    {
+      "title": "Skyways offshore delivery partnership",
+      "reason": "The near-term operation is in the North Sea and does not establish a current Texas physical delivery."
+    }
+  ]
+}

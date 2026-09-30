@@ -1,0 +1,226 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-09-30",
+  "source": "independent validator agent; direct primary refetch and complete PDFKit extraction",
+  "result": "PASS_WITH_DROPS",
+  "retrieved": "2026-09-30T11:53:36.973781+00:00",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9"
+  ],
+  "rejected": [
+    "Thirty-three fires detected: The exact actual value is 33 cameras installed, not detections.",
+    "Thirty-three is the current full-territory camera total: The May2026 report covers partial2025 data; current broader deployment totals are a different time and scope.",
+    "The cameras detected no fires or have no efficacy: An absent detection count does not establish zero detections or performance failure.",
+    "The May report measures 2026 performance: Effectiveness section covers July10 through December31,2025.",
+    "The detection result is still missing everywhere: Only the absence of a count in this specific report has been verified."
+  ],
+  "required_edits_applied": [
+    "Claims33 value scoped to installed cameras in partial2025 reporting period.",
+    "Missing detection result limited to this report; no inference of zero detections or efficacy.",
+    "Workflow attributed to SPS; geography and human verification attributed to Xcel corporate release.",
+    "Current narration explicitly says part of last year and missing from this report; sentence-level semantic audit completed.",
+    "Director repaired company binding and crews phrasing; revised s5 and s6 sentences re-audited against actual script and storyboard bytes."
+  ],
+  "required_narration_edits": [],
+  "sentence_audit": {
+    "result": "PASS",
+    "audited_at": "2026-09-30T12:01:58.561419+00:00",
+    "script_sha256": "80238412a20d735a4f5305256d88c7137d7e4fa99d69a343bb692c594b0738cd",
+    "storyboard_sha256": "5e9ac10e053488b759d7559d3b8e51e0f7276097a91e8cc00602b0ec979284c0",
+    "claims_sha256": "59fa0e1a492a101f7c57c7de5235b10f33f56a286372247e5ecbc8b35a042d00",
+    "sentences": [
+      {
+        "scene_id": "s1",
+        "sentence": "Smoke is the signal.",
+        "verified_claim_ids": [
+          "c2"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c8"
+        ],
+        "verdict": "PASS_FRAMING",
+        "reason": "Smoke is the source-described detection input."
+      },
+      {
+        "scene_id": "s1",
+        "sentence": "A camera is only the start.",
+        "verified_claim_ids": [
+          "c2",
+          "c9"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c8"
+        ],
+        "verdict": "PASS_FRAMING",
+        "reason": "General framing: intended workflow continues through review and notification."
+      },
+      {
+        "scene_id": "s2",
+        "sentence": "In the Texas Panhandle, Southwestern Public Service says its AI cameras are meant to identify fires.",
+        "verified_claim_ids": [
+          "c1",
+          "c2",
+          "c8"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c8",
+          "c1"
+        ],
+        "verdict": "PASS",
+        "reason": "Company name uses c1; intended detection uses c2; Panhandle geography uses c8."
+      },
+      {
+        "scene_id": "s3",
+        "sentence": "Then notify a command center.",
+        "verified_claim_ids": [
+          "c2"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c3",
+          "c8"
+        ],
+        "verdict": "PASS",
+        "reason": "Continuation of preceding attributed intended capability, not observed efficacy."
+      },
+      {
+        "scene_id": "s3",
+        "sentence": "The commission asked for a count of fire detections.",
+        "verified_claim_ids": [
+          "c3"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c3",
+          "c8"
+        ],
+        "verdict": "PASS",
+        "reason": "Approved metric Finding49(j), with Finding51 inclusion obligation."
+      },
+      {
+        "scene_id": "s4",
+        "sentence": "The utility's May report, covering part of last year, instead lists thirty-three cameras installed.",
+        "verified_claim_ids": [
+          "c4",
+          "c5",
+          "c6"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c4",
+          "c5",
+          "c6",
+          "c8"
+        ],
+        "verdict": "PASS",
+        "reason": "May2026 signature, partial2025 period, installed33 units; last year resolves to2025 for dated2026 edition."
+      },
+      {
+        "scene_id": "s5",
+        "sentence": "Installed cameras are a different measurement.",
+        "verified_claim_ids": [
+          "c4",
+          "c7"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c4",
+          "c7",
+          "c8"
+        ],
+        "verdict": "PASS_ANALYSIS",
+        "reason": "Camera units and fire detections are explicitly different units in the source row."
+      },
+      {
+        "scene_id": "s6",
+        "sentence": "A camera can watch the horizon while crews need a usable warning.",
+        "verified_claim_ids": [
+          "c2",
+          "c9"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c8",
+          "c9",
+          "c4"
+        ],
+        "verdict": "PASS_FRAMING",
+        "reason": "General framing of smoke-monitoring capability and fire-department warning workflow, without specific site or measured efficacy assertion."
+      },
+      {
+        "scene_id": "s7",
+        "sentence": "A reader can ask for the fire-detection count missing from this report.",
+        "verified_claim_ids": [
+          "c7"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c7",
+          "c8",
+          "c4"
+        ],
+        "verdict": "PASS",
+        "reason": "General reader action tied to c7: the requested fire-detection count is absent from this report. No broader absence or performance inference."
+      },
+      {
+        "scene_id": "s8",
+        "sentence": "The hardware is counted.",
+        "verified_claim_ids": [
+          "c4"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c4",
+          "c7",
+          "c8"
+        ],
+        "verdict": "PASS",
+        "reason": "33 installed camera units supplied."
+      },
+      {
+        "scene_id": "s8",
+        "sentence": "The detection count is missing from this report.",
+        "verified_claim_ids": [
+          "c7"
+        ],
+        "current_vo_claims": [
+          "c2",
+          "c4",
+          "c7",
+          "c8"
+        ],
+        "verdict": "PASS",
+        "reason": "Explicit this-report limitation; no inference of zero detections or failed efficacy."
+      }
+    ],
+    "rejected_wording": [],
+    "remaining_binding_edits": [],
+    "scope_checks": {
+      "last_year_is_2025": true,
+      "partial_reporting_period_explicit": true,
+      "omission_limited_to_this_report": true,
+      "zero_detection_or_failure_inference": false
+    }
+  },
+  "source_files": [
+    {
+      "path": "out/dispatch/sources/validator/sps-annual.pdf",
+      "sha256": "a0a381652dda1400bd6eaf3e4b28deb4bb4479fa97e9022513dd93f919ba826e"
+    },
+    {
+      "path": "out/dispatch/sources/validator/puct-order.pdf",
+      "sha256": "9088fc692c9ad28ad46702d60ba9b3dc6559dea391ada109e166cd1fd532a750"
+    }
+  ]
+}

@@ -12,6 +12,28 @@ import cinema_proof as p
 import cinema_provenance as provenance
 
 class CacheTest(unittest.TestCase):
+    def test_native_comparison_keeps_exact_frame_at_fractional_cut(self):
+        import subprocess
+        import production_quality as q
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for index, color in enumerate(["red", "green", "blue", "yellow"]):
+                Image.new("RGB", (32, 32), color).save(root / f"frame-{index}.png")
+            film = root / "cut.mp4"
+            subprocess.run([q.FFMPEG, "-v", "error", "-framerate", "30", "-i",
+                str(root / "frame-%d.png"), "-c:v", "libx264", "-crf", "16",
+                "-pix_fmt", "yuv420p", str(film)], check=True)
+            exact = q.scheduled_frame(film, 2, 32, 32)
+            following = q.scheduled_frame(film, 3, 32, 32)
+            self.assertGreater(float(exact[:, :, 2].mean()), 200)
+            self.assertLess(float(exact[:, :, 0].mean()), 20)
+            self.assertGreater(float(following[:, :, 0].mean()), 200)
+            self.assertGreater(float(following[:, :, 1].mean()), 200)
+            for invalid in [-1, True, 2.0]:
+                with self.assertRaises(ValueError):
+                    q.scheduled_frame(film, invalid)
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
@@ -229,5 +251,70 @@ class CacheTest(unittest.TestCase):
                 self.assertFalse((root/"proof.json").exists())
                 self.assertFalse((root/"hero.mp4").exists())
         self.assertEqual(2, len(list((root/"failed-proofs").iterdir())))
+
+class CustomActionSamplingTest(unittest.TestCase):
+    def board(self):
+        return {"date": "2026-09-30", "cinematic_template": "source-action-v1",
+                "action_proposals": [{"id": "source-action"}],
+                "cinema": {"dimensional_scene_ids": ["s1"]},
+                "scenes": [{"id": "s1", "start_s": 0, "duration_s": 4,
+                            "production_action": "source-action", "visual_events": [
+                    {"id": "capture", "at_s": 0, "duration_s": .8},
+                    {"id": "handoff", "at_s": 1.2, "duration_s": .8},
+                    {"id": "seat", "at_s": 2.4, "duration_s": .8}]}]}
+
+    def test_admitted_custom_action_samples_whole_conserved_sequence(self):
+        board = self.board()
+        with patch("action_admission.board_problems", return_value=[]) as admission:
+            self.assertEqual(c.sample_frames(board), {"s1": [0, 48, 96]})
+            event = c.principal_event(board, board["scenes"][0])
+            self.assertEqual(event["source_event_ids"], ["capture", "handoff", "seat"])
+            admission.assert_called_with(board)
+
+    def test_missing_or_unadmitted_action_cannot_supply_native_picture(self):
+        board = self.board()
+        with patch("action_admission.board_problems", return_value=["actual source module binding is stale"]):
+            with self.assertRaisesRegex(ValueError, "unadmitted"):
+                c.sample_frames(board)
+        board["action_proposals"] = []
+        with self.assertRaisesRegex(ValueError, "no unique"):
+            c.sample_frames(board)
+
+    def test_invalid_source_event_or_duplicate_identity_fails(self):
+        for update in ({"at_s": -1}, {"at_s": float("nan")}, {"duration_s": 0},
+                       {"duration_s": True}, {"duration_s": 9}, {"id": "capture"}):
+            board = self.board()
+            board["scenes"][0]["visual_events"][2].update(update)
+            with patch("action_admission.board_problems", return_value=[]):
+                with self.assertRaises(ValueError):
+                    c.sample_frames(board)
+
+    def test_daily_picture_event_scope_remains_explicit(self):
+        board = self.board()
+        board["cinematic_template"] = "daily-actions-v1"
+        with self.assertRaisesRegex(ValueError, "no unique"):
+            c.sample_frames(board)
+        board["scenes"][0]["picture"] = {"event_id": "handoff"}
+        self.assertEqual(c.sample_frames(board), {"s1": [36, 48, 60]})
+
+    def test_current_native_action_floor_cannot_be_deferred_at_cap(self):
+        import numpy as np
+        import production_quality as q
+        board = self.board()
+        board["scenes"][0]["picture"] = {"event_id": "handoff"}
+        samples = {"s1": [{"normal": {"file": "normal"},
+                            "without_stage": {"file": "removed"}}] * 3}
+        with patch.object(q, "asset", side_effect=lambda root, item: Path(item["file"])), \
+                patch.object(q, "image", side_effect=lambda path: np.full((480, 270, 3),
+                                  70 if path.name == "normal" else 0, dtype=float)), \
+                patch("creative_release.eligible", return_value=True):
+            deferred = []
+            errors = q.stage_sample_problems(board, Path("synthetic"), samples, deferred=deferred)
+            self.assertTrue(any("does not visibly develop" in e for e in errors))
+            self.assertEqual(deferred, [])
+            board["date"] = "2026-09-29"
+            self.assertFalse(q.stage_sample_problems(board, Path("synthetic"), samples, deferred=deferred))
+            self.assertEqual(len(deferred), 1)
+
 
 if __name__=="__main__":unittest.main()
