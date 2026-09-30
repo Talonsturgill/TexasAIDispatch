@@ -15,7 +15,9 @@ The shipment manifest contains:
 
 - `run_id` and `film_sha256` from the current controller.
 - `dispatch_pr` and `feed_pr`: the merged release PR URLs in their owning repositories.
-- `deployment_run_id`: the successful GitHub Pages workflow run for the feed merge commit.
+- `deployment_run_id`: the successful GitHub Pages workflow run for the feed merge
+  or a verified descendant that retains the exact reviewed feed bytes. Its actual
+  `deploy` job must succeed; a green workflow with a skipped deploy is insufficient.
 - `live_url`: the canonical `https://texasaidocket.com/videos/#<entry-id>` URL.
 - `expected_recipient`: the established delivery recipient from the routine's account routing.
 - `delivery_routing`: a bound JSON file containing that `recipient` and this `run_id`.
@@ -64,6 +66,14 @@ of its shipment receipt with the edition. Keep private raw readbacks locally.
 The controller's `pending` command searches actual Git worktrees for unfinished
 production. A checkpoint, resource boundary, or failed review never closes an
 edition. Resume it before creating another date.
+
+An unrelated collector can advance main while feed checks run. For a descendant
+deployment, the controller verifies GitHub ancestry back to the original feed
+merge, complete green checks with a successful aggregate `guards` check on the
+actual deployment head, and byte-identical committed feed blobs at the original
+feed PR head and deployment head. The live edition and media base must equal that
+committed feed. Missing, truncated, unrelated or changed evidence fails closed.
+The receipt retains both the original feed merge and actual deployed commit.
 
 ## September 26 regression
 

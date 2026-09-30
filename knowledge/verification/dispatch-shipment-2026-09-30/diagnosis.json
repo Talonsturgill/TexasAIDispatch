@@ -1,0 +1,40 @@
+{
+  "schema": "dispatch_shipment_integrity_diagnosis/1",
+  "recorded_at": "2026-09-30T18:50:51.475713+00:00",
+  "finding": "Exact feed-merge equality rejects a legitimate collector descendant; Pages workflow success can also conceal a skipped deploy job.",
+  "feed_pr": 386,
+  "feed_head": "06b1d6a52901637db118ea86a5f44de1bcce6eb5",
+  "feed_merge": "271d7521387a988f54ca833634f2aa7aca1c615b",
+  "feed_merge_guards": {
+    "run_id": 36757318725,
+    "conclusion": "success",
+    "jobs_success": 8
+  },
+  "descendant": "e623353f4e3a750b7746204f70833c6bb3ce2f00",
+  "descendant_change": "datacenters: registry reading",
+  "unchanged_feed_blob": true,
+  "stale_pages": {
+    "run_id": 36760684332,
+    "workflow_conclusion": "success",
+    "deploy_job_conclusion": "skipped",
+    "acceptable_shipment_proof": false
+  },
+  "required_repair": [
+    "Retain exact merged PR head green checks.",
+    "Require actual Pages deploy job success.",
+    "Require deployed head identical to or descended from original feed merge, with merge base bound to that merge.",
+    "Require nonempty exact deployed-head completed green checks and successful aggregate guards.",
+    "Verify remote committed feed blob SHA and size at original feed PR head and deployment head; require identical bytes.",
+    "Require canonical current-edition entry equals the committed entry.",
+    "Retain reviewed master and mobile hashes, canonical phone playback advancement, Gmail draft body and routing.",
+    "Retain original feed merge and actual deployed descendant separately in receipt."
+  ],
+  "negative_cases": [
+    "Stale workflow success with skipped deployment",
+    "Unrelated or behind deployment head",
+    "Missing, incomplete or failing exact-head checks",
+    "Changed committed feed bytes or live entry",
+    "Truncated remote evidence",
+    "Different reviewed media bytes"
+  ]
+}

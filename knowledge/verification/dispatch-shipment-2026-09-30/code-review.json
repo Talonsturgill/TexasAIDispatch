@@ -1,0 +1,43 @@
+{
+  "schema": "dispatch_shipment_integrity_code_review/1",
+  "reviewed_at": "2026-09-30T18:57:42.987049+00:00",
+  "verdict": "PASS",
+  "review_type": "independent read-only patch and regression review",
+  "files": {
+    "scripts/shipment_check.py": "76528bc0a1d6326d5b29d0af0c3c10722c21204cb48f59084222801047d09044",
+    "scripts/production_lifecycle_test.py": "33590050ef818ba0da22b8c254651cb965f85e40edd306d7630a8a8a74d95550",
+    "knowledge/craft/SHIPMENT_CONTRACT.md": "a26a1c606e07feb06d020fbee0d6c2ba3064ae67d9970f8298a5b21c2e92702a"
+  },
+  "test": {
+    "command": "python scripts/production_lifecycle_test.py",
+    "tests": 11,
+    "exit_code": 0,
+    "result": "OK"
+  },
+  "findings": [],
+  "verified": [
+    "Actual successful deploy job is required for both exact-merge and descendant routes.",
+    "Descendant ancestry binds base and merge base to original feed merge, rejects truncated commit evidence, and binds final commit to deployment head.",
+    "Exact deployment-head CI is nonempty and complete, allows existing benign skips, and requires successful aggregate guards.",
+    "Git blob SHA and size authenticate remote committed feed bytes at original PR head and actual deployment head; exact byte equality is required.",
+    "Live current-edition entry and media base equal committed values.",
+    "Original reviewed master, inspected mobile rendition, canonical phone advancement, Gmail body and routing checks remain intact.",
+    "Receipt retains original PR head and merge separately from actual deployment descendant."
+  ],
+  "negative_regression_coverage": [
+    "stale green workflow with skipped deploy",
+    "diverged ancestry",
+    "wrong merge base",
+    "truncated commits/jobs/checks",
+    "missing aggregate guards",
+    "failing or active CI",
+    "changed committed feed",
+    "missing content encoding",
+    "incorrect Git blob SHA",
+    "changed live entry or media base",
+    "changed master bytes"
+  ],
+  "limitations": [
+    "This review does not claim live release closure; legitimate actual Pages deployment remains pending."
+  ]
+}

@@ -404,11 +404,23 @@ class ShipmentTest(unittest.TestCase):
             if "/pulls/" in endpoint:
                 return {"merged": True, "head": {"sha": "head"}, "merge_commit_sha": "merge"}
             if "/check-runs" in endpoint:
-                return {"total_count": 1, "check_runs": [{"status": "completed", "conclusion": bad.get("ci", "success")}]}
+                return {"total_count": 1, "check_runs": [{"name": "guards", "status": "completed", "conclusion": bad.get("ci", "success")}]}
+            if "/jobs?" in endpoint:
+                return {"total_count": 1, "jobs": [{"name": "deploy", "status": "completed", "conclusion": bad.get("deploy_job", "success")}]}
+            if "/contents/" in endpoint:
+                data = json.dumps(feed).encode()
+                return {"type": "file", "encoding": "base64", "size": len(data),
+                        "sha": __import__("hashlib").sha1(f"blob {len(data)}\0".encode() + data).hexdigest(),
+                        "content": base64.b64encode(data).decode()}
             return {"status": "completed", "conclusion": "success", "name": "pages build and deployment",
                     "head_sha": bad.get("deploy", "merge")}
         def fetch(url, **kwargs):
-            data = json.dumps(feed).encode() if url.endswith("videos.json") else (
+            live_feed = copy.deepcopy(feed)
+            if bad.get("live_entry"):
+                live_feed["videos"][0]["title"] = "Unreviewed title"
+            if bad.get("live_base"):
+                live_feed["media_base"] = "https://unreviewed.example"
+            data = json.dumps(live_feed).encode() if url.endswith("videos.json") else (
                 bad.get("master", master) if url.endswith("master.mp4") else mobile.read_bytes())
             return 200, data, {}
         with patch.object(ship, "gh", side_effect=github), patch.object(ship, "fetch", side_effect=fetch), patch.object(ship, "media_problems", return_value=[]):
@@ -418,7 +430,9 @@ class ShipmentTest(unittest.TestCase):
                 self.assertTrue(c.finish(self.state, "shipped", shipment=manifest)[0])
                 self.assertEqual(c.read_state(self.state)["terminal_state"], "shipped")
                 self.assertFalse(c.reopen(self.state, "cannot alter a shipped edition")[0])
-            for name, value in (("ci", "failure"), ("deploy", "stale"), ("master", b"stale film")):
+            for name, value in (("ci", "failure"), ("deploy", "stale"),
+                                ("deploy_job", "skipped"), ("live_entry", True),
+                                ("live_base", True), ("master", b"stale film")):
                 bad[name] = value
                 self.assertTrue(ship.verify_shipment(state, manifest)[1], name)
                 bad.clear()
@@ -430,6 +444,48 @@ class ShipmentTest(unittest.TestCase):
             self.assertTrue(ship.verify_shipment(state, manifest)[1])
         phone["samples"][-1]["currentTime"] = 2
         self.assertTrue(ship.playback_problems(phone, live, mobile_url, film_hash))
+
+    def test_descendant_deployment_preserves_exact_feed_and_green_checks(self):
+        import hashlib
+        original, merged, deployed = "a" * 40, "b" * 40, "c" * 40
+        feed = {"videos": [{"date": "2026-09-26", "id": "2026-09-26-test"}]}
+        body = json.dumps(feed).encode()
+        bad = {}
+        def github(endpoint):
+            if "/jobs?" in endpoint:
+                return {"total_count": bad.get("jobs_count", 1), "jobs": [
+                    {"name": "deploy", "status": "completed", "conclusion": bad.get("deploy_job", "success")}]}
+            if "/compare/" in endpoint:
+                return {"status": bad.get("ancestry", "ahead"), "behind_by": 0,
+                        "base_commit": {"sha": merged},
+                        "merge_base_commit": {"sha": bad.get("merge_base", merged)},
+                        "total_commits": bad.get("commits_count", 1), "commits": [{"sha": deployed}]}
+            if "/check-runs" in endpoint:
+                return {"total_count": bad.get("checks_count", 1), "check_runs": [
+                    {"name": bad.get("aggregate", "guards"), "status": bad.get("status", "completed"),
+                     "conclusion": bad.get("ci", "success")}]}
+            if "/contents/" in endpoint:
+                data = body + (b" " if bad.get("feed_changed") and endpoint.endswith(deployed) else b"")
+                return {"type": "file", "encoding": bad.get("encoding", "base64"),
+                        "size": len(data), "content": base64.b64encode(data).decode(),
+                        "sha": bad.get("blob", hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest())}
+            self.fail(endpoint)
+        deployment = {"status": "completed", "conclusion": "success", "name": "pages", "head_sha": deployed}
+        pr = {"head_sha": original, "merge_sha": merged}
+        with patch.object(ship, "gh", side_effect=github):
+            actual, proof = ship.deployment_binding(deployment, "42", pr)
+            self.assertEqual(actual, feed)
+            self.assertEqual(proof["ancestry"]["deployment_sha"], deployed)
+            self.assertEqual(proof["reviewed_feed"]["sha256"], proof["deployed_feed"]["sha256"])
+            for key, value in (("deploy_job", "skipped"), ("jobs_count", 2), ("ancestry", "diverged"),
+                               ("merge_base", "d" * 40), ("commits_count", 2), ("checks_count", 2),
+                               ("aggregate", "build"), ("ci", "failure"), ("status", "in_progress"),
+                               ("feed_changed", True), ("encoding", "none"), ("blob", "d" * 40)):
+                with self.subTest(key=key):
+                    bad[key] = value
+                    with self.assertRaises(ValueError):
+                        ship.deployment_binding(deployment, "42", pr)
+                    bad.clear()
 
 
 if __name__ == "__main__":
