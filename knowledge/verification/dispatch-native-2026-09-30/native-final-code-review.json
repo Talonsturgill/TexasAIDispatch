@@ -1,0 +1,198 @@
+{
+  "schema": "dispatch_native_final_code_review/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T16:15:46.649602+00:00",
+  "verdict": "pass",
+  "findings": [],
+  "scope": "Exact scheduled-frame comparison technical verification; no release verdict",
+  "diagnosis_sha256": "ef13548aca37a387217580f40ae63e695f2df8f7f865537b93061a0fbff5e733",
+  "exact_measurements_sha256": "22b4b5b4992bac1f0882ffc18edff7fa4194be4b70774aa85414b5243d383eea",
+  "inspected_sha256": {
+    "scripts/production_quality.py": "192f5c6be0dff7c65a49347681541e5e51bcb3aacd849026fe60d9e118cee646",
+    "scripts/cinema_cache_test.py": "86bcd66d75a3ec3aaaaacbfc9afaf405e5e69c11a1523a2093d099c17be1bed0",
+    "scripts/creative_release_test.py": "991fc29ca4dfc726d17897aa0d18b9a9e9eb89c80230aedb3473882354649a80",
+    "scripts/production_quality_test.py": "3427a6a1217614b1eb9b5a22900b9c01b861d868bd28164a735687da48c67d9b",
+    "scripts/preflight_animatic.py": "9af51468c89b757af8a40693805ebe2a11c75c825902e6d02fa3b6692f33f386"
+  },
+  "patch_sha256": "6cd1d58446f72ab91c6a3bcf4afe9035b5090e3064bfe666f959b05524b53bb8",
+  "preserved_production_bytes": {
+    "video-engine/src/SmokeCameraEpisode.tsx": "95d4e1150da535e4a2c67c612a9bc187e163f33495ce58f729a3f82b54e66dd5",
+    "out/dispatch/storyboard.json": "e629865a680c938a0b39a25e8709cce7fb35b94b8aa0cf84b077abd02180c503",
+    "out/dispatch/cinema/proof.json": "5836da752338a4fc962bd74c8b6ff3c9f622d6fa8e6620d284e1e1e01cfec359",
+    "out/dispatch/cinema/s6-0-normal.png": "cb6cde3ac19b9c0cb30ccf030a92f3fb6793b78074e0dbe75b4c1d4c229a8289",
+    "out/dispatch/film.mp4": "7409846a2d80245537c6bb189dd41fcb0c4ee3d65dd49f3b8e3d34679d5e923a",
+    "out/dispatch/render-manifest.json": "e0321eaf97b3df3b699e33a2a086ffb1004e2134bd508fb5ccd69d65017b2937"
+  },
+  "tests": [
+    {
+      "command": "python scripts/cinema_cache_test.py",
+      "result": "16 PASS; includes real encoded4color exact-frame regression and invalid-index negatives"
+    },
+    {
+      "command": "python scripts/production_quality_test.py",
+      "result": "21 PASS after fixture mock target updated frame to scheduled_frame; changed-pixel/occupancy assertions retained"
+    }
+  ],
+  "actual_film_verification": {
+    "samples": 24,
+    "mae_min": 1.7562988683127572,
+    "mae_max": 1.9450102880658435,
+    "threshold": 5.0,
+    "errors": [],
+    "deferred": [],
+    "observations_match_proof": true,
+    "measurements": [
+      {
+        "scene_id": "s1",
+        "sample_index": 0,
+        "frame": 0,
+        "mae": 1.7735416666666666
+      },
+      {
+        "scene_id": "s1",
+        "sample_index": 1,
+        "frame": 75,
+        "mae": 1.7974614197530865
+      },
+      {
+        "scene_id": "s1",
+        "sample_index": 2,
+        "frame": 150,
+        "mae": 1.7566075102880658
+      },
+      {
+        "scene_id": "s2",
+        "sample_index": 0,
+        "frame": 166,
+        "mae": 1.7562988683127572
+      },
+      {
+        "scene_id": "s2",
+        "sample_index": 1,
+        "frame": 254,
+        "mae": 1.8003677983539095
+      },
+      {
+        "scene_id": "s2",
+        "sample_index": 2,
+        "frame": 343,
+        "mae": 1.8012397119341563
+      },
+      {
+        "scene_id": "s3",
+        "sample_index": 0,
+        "frame": 378,
+        "mae": 1.851033950617284
+      },
+      {
+        "scene_id": "s3",
+        "sample_index": 1,
+        "frame": 457,
+        "mae": 1.856656378600823
+      },
+      {
+        "scene_id": "s3",
+        "sample_index": 2,
+        "frame": 535,
+        "mae": 1.9142052469135802
+      },
+      {
+        "scene_id": "s4",
+        "sample_index": 0,
+        "frame": 561,
+        "mae": 1.855625
+      },
+      {
+        "scene_id": "s4",
+        "sample_index": 1,
+        "frame": 647,
+        "mae": 1.9089994855967078
+      },
+      {
+        "scene_id": "s4",
+        "sample_index": 2,
+        "frame": 734,
+        "mae": 1.9286342592592594
+      },
+      {
+        "scene_id": "s5",
+        "sample_index": 0,
+        "frame": 773,
+        "mae": 1.8891820987654322
+      },
+      {
+        "scene_id": "s5",
+        "sample_index": 1,
+        "frame": 821,
+        "mae": 1.9208847736625514
+      },
+      {
+        "scene_id": "s5",
+        "sample_index": 2,
+        "frame": 869,
+        "mae": 1.9045421810699588
+      },
+      {
+        "scene_id": "s6",
+        "sample_index": 0,
+        "frame": 872,
+        "mae": 1.904156378600823
+      },
+      {
+        "scene_id": "s6",
+        "sample_index": 1,
+        "frame": 939,
+        "mae": 1.9182407407407407
+      },
+      {
+        "scene_id": "s6",
+        "sample_index": 2,
+        "frame": 1006,
+        "mae": 1.8790123456790124
+      },
+      {
+        "scene_id": "s7",
+        "sample_index": 0,
+        "frame": 1028,
+        "mae": 1.819485596707819
+      },
+      {
+        "scene_id": "s7",
+        "sample_index": 1,
+        "frame": 1088,
+        "mae": 1.8347685185185185
+      },
+      {
+        "scene_id": "s7",
+        "sample_index": 2,
+        "frame": 1148,
+        "mae": 1.9304269547325104
+      },
+      {
+        "scene_id": "s8",
+        "sample_index": 0,
+        "frame": 1167,
+        "mae": 1.9097479423868313
+      },
+      {
+        "scene_id": "s8",
+        "sample_index": 1,
+        "frame": 1233,
+        "mae": 1.9450102880658435
+      },
+      {
+        "scene_id": "s8",
+        "sample_index": 2,
+        "frame": 1299,
+        "mae": 1.9053112139917696
+      }
+    ]
+  },
+  "observations": [
+    "scheduled_frame accepts only nonnegative integer index and decodes FFmpeg select=eq(n,index), preserving expected dimensions and RGB array contract. The proof comparator calls the existing schedule index directly.",
+    "The generic time-seek decoder stays unchanged for unrelated callers. No nearest-frame search, schedule rewrite or weakened threshold was added.",
+    "All24actual native/final comparisons pass unchanged threshold5.0; maximum MAE1.9450102881. Original failing s6 index872 now MAE1.9041563786. Occupancy/motion checks produce no errors or deferred findings; exact retained measurements match.",
+    "Actual film, board, native proof/sample, manifest and renderer hashes match the prior diagnosis. Regression mock update changes only the called decoder target and preserves its rejection assertions."
+  ],
+  "limitations": "Read-only actual film decoding plus local tests. No production ledger reservation, edit, provider/model call, render or shipment certification."
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "dispatch_native_sampler_diagnosis/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-09-30T15:52:23.176337+00:00",
+  "verdict": "technical-repair-required",
+  "blocking_defect": "s1 has no unique principal-picture event",
+  "classification": "Technical proof-sampler schema incompatibility with an already source-admitted custom dimensional mechanism. No creative revision is justified by this exception.",
+  "finding": {
+    "id": "native-sampler-schema",
+    "category": "runtime",
+    "observed": "cinema_cache.sample_frames unconditionally resolves scene.picture.event_id for current editions, but the admitted smoke-camera-v1 custom dimensional mechanism has no scene.picture. production_quality.stage_sample_problems likewise directly indexes scene.picture for observation event_id and assumes exactly one three-frame event.",
+    "actual_contract": "creative_production.scene_medium resolves dimensional from quality_plan. action_admission binds the current source claim set/module/imported renderer/disclosure and requires at least3 actual events. SmokeCameraEpisode evaluates all3 visual_event IDs into p(0),p(1),p(2), passes those clocks to SmokeCameraAction and removes that whole action under __cinemaProofWithoutStage.",
+    "current_phone_evidence": "Exact independent current muted phone report passes all visual criteria and source/action admission, explicitly limits surface proof to270x480 and leaves native hero detail separate."
+  },
+  "existing_contract_checks": {
+    "creative_plan_problems": [],
+    "action_board_problems": [],
+    "source_claim_proposal_problems": []
+  },
+  "recommended_minimal_change": {
+    "scope": "Only sampling schedule and observation-schema support in cinema_cache/production_quality plus focused tests; preserve board, renderer, narration, captions, source records and current film bytes.",
+    "admission": "Keep ordinary explicit picture.event_id path unchanged. Permit missing picture only for custom registered dimensional scenes with exactly one matching current source-admitted action_proposal/production_action and valid module/source/renderer gates; otherwise fail closed.",
+    "schedule": "Resolve full physical mechanism from its declared events: validate all unique IDs, finite nonnegative starts, positive durations, and end<=scene duration; use earliest event onset, temporal midpoint of earliest onset through latest completion, and latest completion clipped to the final scene frame. Require three distinct frames. Do not silently choose first event or last event alone.",
+    "observations": "Use one shared resolver in producer and verifier to record principal action ID plus complete event ID list and onset/midpoint/completion labels; avoid indexing absent picture. Require exact complete schedule and recomputed observation binding.",
+    "unchanged_quality": "Maintain existing principal-picture occupancy floor at midpoint and completion, onset baseline rule, full-mechanism onset-to-completion motion floor, normal-minus-without-stage isolation, exact final-film comparison and independent native hero assessment. No action/floor waiver or fabricated native pass.",
+    "negative_tests": [
+      "Missing/unknown production_action, module mismatch, unsupported medium or absent proposal still reject.",
+      "Duplicate event IDs, nonfinite/negative/out-of-scene timings and indistinct frames reject.",
+      "Explicit picture event remains exactly selected even when other events exist.",
+      "Real8scene board yields full-mechanism samples; labels/source/module/narration/film unchanged.",
+      "Consumer occupancy/motion/final-pixel rejection and exact sample/observation tamper checks stay active."
+    ]
+  },
+  "production_sha256": {
+    "scripts/cinema_cache.py": "bbd1accb2225754aaa730f2c325d98c10e643bf0220994840a69476e7ccb3269",
+    "scripts/production_quality.py": "f5072aa8c5d9dfa31452f460bcc890f39a31f5a13287e81f9933c44ceee90e6f",
+    "scripts/creative_production.py": "69f5f771772a4cbe879eb2231bc55cef84154216aa532b49ae24468999a0b812",
+    "scripts/action_admission.py": "96ded049cae22bcc18847d3878503d5c312ab5536a83c438578fb5e815af91cf",
+    "scripts/cinema_proof.py": "099f655e2f58b8fa47a9a261dc1bf105ce87452ac7a7a796b2489134b60a0704",
+    "video-engine/src/SmokeCameraAction.tsx": "7613006a5560e71d88ed529971ca979635a921fa0656a31e8f913b7598be0e01",
+    "video-engine/src/SmokeCameraEpisode.tsx": "95d4e1150da535e4a2c67c612a9bc187e163f33495ce58f729a3f82b54e66dd5",
+    "out/dispatch/storyboard.json": "e629865a680c938a0b39a25e8709cce7fb35b94b8aa0cf84b077abd02180c503",
+    "out/dispatch/storyboard_critic.json": "5f3150a77f05496d1103fec1099861608743aa54949ed2eddce30837ce022095",
+    "out/dispatch/claims.json": "59fa0e1a492a101f7c57c7de5235b10f33f56a286372247e5ecbc8b35a042d00"
+  },
+  "limits": "Read-only diagnosis. No renderer/provider/model calls, paid render, production ledger charge, native pixel certification or production edit."
+}
