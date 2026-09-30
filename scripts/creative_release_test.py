@@ -275,7 +275,7 @@ class CreativeReleaseTests(unittest.TestCase):
             return np.full((10, 10, 3), strength[0] if kind == "normal" else 0, dtype=float)
         with patch("cinema_cache.sample_frames", return_value={"s1": [0, 2, 3]}), patch.object(q, "policy", return_value=settings), \
              patch.object(q, "asset", side_effect=lambda root, item: item["kind"]), patch.object(q, "image", side_effect=pixels), \
-             patch.object(q, "frame", return_value=np.zeros((10, 10, 3))):
+             patch.object(q, "scheduled_frame", return_value=np.zeros((10, 10, 3))):
             deferred = []
             self.assertFalse(q.stage_sample_problems(board, cinema, samples, deferred=deferred))
             self.assertEqual(len(deferred), 1)

@@ -12,6 +12,28 @@ import cinema_proof as p
 import cinema_provenance as provenance
 
 class CacheTest(unittest.TestCase):
+    def test_native_comparison_keeps_exact_frame_at_fractional_cut(self):
+        import subprocess
+        import production_quality as q
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for index, color in enumerate(["red", "green", "blue", "yellow"]):
+                Image.new("RGB", (32, 32), color).save(root / f"frame-{index}.png")
+            film = root / "cut.mp4"
+            subprocess.run([q.FFMPEG, "-v", "error", "-framerate", "30", "-i",
+                str(root / "frame-%d.png"), "-c:v", "libx264", "-crf", "16",
+                "-pix_fmt", "yuv420p", str(film)], check=True)
+            exact = q.scheduled_frame(film, 2, 32, 32)
+            following = q.scheduled_frame(film, 3, 32, 32)
+            self.assertGreater(float(exact[:, :, 2].mean()), 200)
+            self.assertLess(float(exact[:, :, 0].mean()), 20)
+            self.assertGreater(float(following[:, :, 0].mean()), 200)
+            self.assertGreater(float(following[:, :, 1].mean()), 200)
+            for invalid in [-1, True, 2.0]:
+                with self.assertRaises(ValueError):
+                    q.scheduled_frame(film, invalid)
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
