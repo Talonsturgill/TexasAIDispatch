@@ -39,12 +39,15 @@ jobs:
           node-version: "22"
 
       - name: Install media tooling
+        timeout-minutes: 12
         run: |
           # Hosted-runner images do not promise ffmpeg. The preflight, feed, voice,
           # music and freshness gates must fail closed when it is absent, so CI owns
           # the dependency explicitly instead of weakening those gates.
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends ffmpeg
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
+            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install --yes --no-install-recommends ffmpeg
+          fi
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
 
