@@ -7,6 +7,22 @@ from unittest.mock import patch
 import audiovisual_review as av
 
 class ReviewReuse(unittest.TestCase):
+    def test_current_source_context_is_bound_and_does_not_supply_prior_verdicts(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); (root / "cinema").mkdir()
+            (root / "storyboard.json").write_text('{"date":"2026-10-01"}')
+            (root / "vo_script.txt").write_text("The target check can trigger retraction.")
+            (root / "claims.json").write_text(json.dumps({"claims": [
+                {"id": "c5", "verdict": "VERIFIED", "quote": "Delivery would cease.", "url": "https://example.test/source"},
+                {"id": "bad", "verdict": "REJECTED", "quote": "Unsupported words"}]}))
+            (root / "report_card.json").write_text('{"ship":true,"score":10}')
+            context = av.source_context(root / "cinema/hero.mp4")
+            self.assertIn("not proof of what was spoken", context)
+            self.assertIn(av.digest(root / "vo_script.txt"), context)
+            self.assertIn("Delivery would cease.", context)
+            self.assertNotIn("Unsupported words", context)
+            self.assertNotIn('"ship": true', context)
+
     def test_hero_scope_does_not_require_complete_film_credits(self):
         hero = av.review_prompt("hero")
         self.assertIn("short finished passage", hero)

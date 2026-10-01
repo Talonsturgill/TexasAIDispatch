@@ -485,6 +485,7 @@ jobs:
           # worthless while still reporting green.
           cd video-engine
           node tests/render_batch.mjs
+          node tests/credit_tail.mjs
           node tests/caption_board_fit.mjs --self-test
           node tests/caption_board_fit.mjs --board ../examples/board.json
           node tests/type_fit.mjs --self-test

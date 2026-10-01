@@ -187,6 +187,25 @@ Use plain prose without the whole words prohibited by the project's writing rule
 For each defect, identify its time, observed subject and effect on comprehension or finish.\nA weakest interval must still be reported for a passing film; do not invent a defect to fill it.\nReview lens: """ + LENSES[role] + "\nShared quality contract:\n" + quality_prompt()
 
 
+def source_context(film):
+    """Supply current authored words and fetched evidence, never a prior verdict."""
+    root = film.parent.parent if film.parent.name == "cinema" else film.parent
+    files = {name: root / name for name in ("storyboard.json", "claims.json", "vo_script.txt")}
+    if not all(p.is_file() for p in files.values()):
+        return ""
+    claims = json.loads(files["claims.json"].read_text())
+    rows = claims.get("claims", []) if isinstance(claims, dict) else claims
+    context = {"bindings": {name: digest(p) for name, p in files.items()},
+               "authored_transcript": files["vo_script.txt"].read_text(),
+               "fetched_source_excerpts": [{k: row.get(k) for k in ("id", "quote", "url", "scope_note")}
+                   for row in rows if row.get("verdict") == "VERIFIED"]}
+    return ("\nEvidence for independent cross-checking follows. The authored transcript is not proof of "
+            "what was spoken: compare it with audible words. Do not guess a spoken mechanical noun from "
+            "the picture. Compare causal statements with the fetched excerpts and preceding film context. "
+            "These inputs do not supply a pass, score or artistic verdict. Report actual discrepancies.\n"
+            + json.dumps(context, ensure_ascii=False))
+
+
 def review(film, role, state, out):
     cache, reused = cached_review(film, role, state, out)
     if reused:
@@ -203,7 +222,7 @@ def review(film, role, state, out):
     out.unlink(missing_ok=True)
     request_id = str(uuid.uuid4())
     from creative_release import assessment_prompt
-    prompt = review_prompt(role) + "\n" + assessment_prompt("av")
+    prompt = review_prompt(role) + "\n" + assessment_prompt("av") + source_context(film)
     part, upload, film_hash = media_part(film, key)
     payload = {"contents": [{"role": "user", "parts": [
         part,
