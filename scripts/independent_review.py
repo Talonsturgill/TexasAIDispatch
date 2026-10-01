@@ -317,6 +317,7 @@ def prompt(role, text):
                             'Code intent never proves observed pixels. Do not infer audible quality in this visual role. ')
     else:
         instruction += ('Return the complete scorer object including score, ship, axes, hard_fails, weakest_axis, '
+                        'and a top-level defects list covering every bounded_release.defects.finding verbatim, '
                         'one_sentence_fix and attention_review under the scorer brief. Observe the actual attached '
                         'film and compare your own observations with the separate provider receipt. '
                         'State independent model audiovisual observation in audio_basis, never human listening. '

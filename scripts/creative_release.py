@@ -133,6 +133,35 @@ def findings(report):
         if observation.get("pass") is not True:
             item = {"phone_observation": criterion, "observation": observation}
             found[payload_digest(item)] = item
+    if found or 'bounded_release' not in report:
+        return list(found.values())
+    # Some independent providers place their sole explicit finding collection
+    # inside the classification. Recognize their original values, never infer
+    # findings from review prose or add them to an ordinary finding collection.
+    assessment = report['bounded_release']
+    if not isinstance(assessment, dict):
+        raise ValueError('provider finding collection must be an assessment object')
+    rows = assessment.get('defects')
+    if rows == [] and assessment.get('score_only') is True:
+        return []  # Existing score-only rules still decide whether this is valid.
+    from independent_review import evidence_problems
+    proof = report.get('provider_evidence') or {}
+    if (assessment.get('schema') != 'dispatch_creative_assessment/1'
+            or assessment.get('scope') != 'panel'
+            or not isinstance(proof, dict)
+            or proof.get('role') not in ('picture', 'story', 'sound')
+            or evidence_problems(report)):
+        raise ValueError('sole embedded findings require verified independent panel provider evidence')
+    if not isinstance(rows, list) or not rows:
+        raise ValueError('sole embedded finding collection must be nonempty')
+    for row in rows:
+        if (not isinstance(row, dict) or not isinstance(row.get('finding'), (str, dict))
+                or not row['finding'] or (isinstance(row['finding'], str) and not row['finding'].strip())):
+            raise ValueError('malformed sole embedded finding')
+        key = payload_digest(row['finding'])
+        if key in found:
+            raise ValueError('duplicate sole embedded finding')
+        found[key] = row['finding']
     return list(found.values())
 
 

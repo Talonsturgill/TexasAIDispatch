@@ -339,5 +339,95 @@ class ExactEffectNormalizationTests(unittest.TestCase):
             self.assertTrue(c.assessment_problems(changed, self.report, "av"))
 
 
+class SoleProviderFindingsTests(unittest.TestCase):
+    def setUp(self):
+        import independent_review as r
+        self.r = r
+        self.value = {'score': 6.9, 'ship': False, 'hard_fails': [],
+                      'attention_review': {'pass': False},
+                      'bounded_release': {'schema': 'dispatch_creative_assessment/1', 'scope': 'panel',
+                          'retained_checks': {key: {'pass': True, 'observed': 'Specific independent retained integrity observation.'}
+                                              for key in c.policy()['retained_checks']['panel']},
+                          'defects': [{'finding': 'Static approval placards weaken physical storytelling.', 'category': 'style'},
+                                     {'finding': 'The closing composition feels abrupt.', 'category': 'ending_artistry'}]}}
+
+    def report(self, value=None, role='picture'):
+        r = self.r
+        reservation = {'kind': 'reserved', 'resources': {'scorer_calls': 1}}
+        failure = {'schema': 'dispatch_review_transport_failure/1', 'role': role,
+                   'actor': 'independent-fixture', 'observed_at': 'now', 'error': 'server_overloaded',
+                   'reservation': reservation, 'reservation_sha256': r.fingerprint(reservation),
+                   'reservation_event_index': 0}
+        proof = {'schema': 'dispatch_independent_provider/1', 'role': role,
+                 'model': r.policy()['av_model'], 'request_id': 'fixture-request', 'reviewed_at': 'now',
+                 'bindings': {'film_sha256': 'film', 'av_receipt_sha256': 'receipt'},
+                 'prompt': 'independent fixed rubric', 'input': {'exact': 'fixture evidence'}, 'host_failure': failure}
+        proof['prompt_sha256'] = __import__('hashlib').sha256(proof['prompt'].encode()).hexdigest()
+        proof['input_sha256'] = r.fingerprint(proof['input'])
+        value = copy.deepcopy(self.value if value is None else value)
+        value['review_context_sha256'] = r.fingerprint(r.review_context(proof))
+        raw = {'responseId': 'fixture-response', 'candidates': [{'finishReason': 'STOP',
+                'content': {'parts': [{'text': json.dumps(value)}]}}]}
+        proof.update(response=raw, response_sha256=r.fingerprint(raw))
+        result = r.project(raw, proof['bindings'], role, proof['model'], proof['reviewed_at'])
+        result['provider_evidence'] = proof
+        return result
+
+    def test_verified_only_collection_preserves_original_rejection_and_values(self):
+        report = self.report()
+        before = copy.deepcopy(report)
+        self.assertEqual(self.r.evidence_problems(report), [])
+        self.assertEqual(c.findings(report), [row['finding'] for row in self.value['bounded_release']['defects']])
+        self.assertFalse(c.assessment_problems(report['bounded_release'], report, 'panel'))
+        self.assertEqual(report, before)
+        self.assertEqual(report['score'], 6.9)
+        self.assertFalse(report['ship']); self.assertFalse(report['attention_review']['pass'])
+        sound = copy.deepcopy(self.value); sound.update(score=7.2, ship=True)
+        sound['attention_review']['pass'] = True
+        sound['bounded_release']['defects'].pop(0)
+        self.assertEqual(c.findings(self.report(sound, 'sound')), [sound['bounded_release']['defects'][0]['finding']])
+
+    def test_unverified_host_raw_projection_scope_and_role_reject(self):
+        changed = self.report(); changed.pop('provider_evidence')
+        candidates = [changed]
+        changed = self.report(); changed['provider_evidence']['response']['responseId'] = 'edited'; candidates.append(changed)
+        changed = self.report(); changed['score'] = 9; candidates.append(changed)
+        changed = copy.deepcopy(self.value); changed['bounded_release']['scope'] = 'av'; candidates.append(self.report(changed))
+        changed = copy.deepcopy(self.value); changed['bounded_release']['schema'] = 'unknown'; candidates.append(self.report(changed))
+        changed = self.report(); changed['provider_evidence']['role'] = 'phone'; candidates.append(changed)
+        for report in candidates:
+            with self.assertRaises(ValueError): c.findings(report)
+
+    def test_standard_findings_take_precedence_and_never_union(self):
+        for key in ('hard_fails', 'defects', 'blocking_defects'):
+            value = copy.deepcopy(self.value); value[key] = ['source gap']
+            report = self.report(value)
+            self.assertEqual(c.findings(report), ['source gap'])
+            self.assertTrue(c.assessment_problems(report['bounded_release'], report, 'panel'))
+        value = copy.deepcopy(self.value); value['phone_observations'] = {'dominant_action': {'pass': False, 'observed': 'Action not visible.'}}
+        report = self.report(value)
+        self.assertEqual(len(c.findings(report)), 1)
+        self.assertIn('phone_observation', c.findings(report)[0])
+        self.assertTrue(c.assessment_problems(report['bounded_release'], report, 'panel'))
+
+    def test_empty_malformed_duplicate_and_retained_failure_reject(self):
+        for rows in ([], {}, [None], [{'finding': '   '}], [{'finding': 12}],
+                     [self.value['bounded_release']['defects'][0]] * 2):
+            value = copy.deepcopy(self.value); value['bounded_release']['defects'] = rows
+            with self.assertRaises(ValueError): c.findings(self.report(value))
+        for key in self.value['bounded_release']['retained_checks']:
+            value = copy.deepcopy(self.value); value['bounded_release']['retained_checks'][key]['pass'] = False
+            report = self.report(value)
+            self.assertTrue(c.assessment_problems(report['bounded_release'], report, 'panel'))
+        value = copy.deepcopy(self.value); value['bounded_release']['defects'][0]['category'] = 'runtime'
+        report = self.report(value)
+        self.assertTrue(c.assessment_problems(report['bounded_release'], report, 'panel'))
+
+    def test_future_scorer_prompt_requests_complete_top_level_collection(self):
+        self.assertIn('top-level defects list covering every bounded_release.defects.finding verbatim',
+                      self.r.prompt('picture', {}))
+        self.assertNotIn('top-level defects list', self.r.prompt('code', {}))
+
+
 if __name__ == "__main__":
     unittest.main()
