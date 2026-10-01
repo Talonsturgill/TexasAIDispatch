@@ -285,5 +285,59 @@ class CreativeReleaseTests(unittest.TestCase):
             self.assertTrue(q.stage_sample_problems(board, cinema, samples, deferred=[]))
 
 
+class ExactEffectNormalizationTests(unittest.TestCase):
+    def setUp(self):
+        self.report = {"pass": False, "audio_access": True, "defects": [
+            {"time": "00:20.0", "subject": "Approval gate illustration",
+             "effect": "Generic block shapes and labels replace visible physical context, diminishing visual craft."},
+            {"time": "00:40.6", "subject": "Credit sign-off card",
+             "effect": "The closing attribution display holds for under five full seconds before cutting off."}]}
+        self.assessment = {"schema": "dispatch_creative_assessment/1", "scope": "av",
+            "retained_checks": {key: {"pass": True, "observed": "Exact original reviewer observation preserves this integrity check."}
+                                for key in c.policy()["retained_checks"]["av"]},
+            "defects": [{"finding": item["effect"], "category": category}
+                        for item, category in zip(self.report["defects"], ["style", "ending_artistry"])]}
+
+    def test_real_response_shape_resolves_losslessly_without_mutation(self):
+        original_report, original_assessment = copy.deepcopy(self.report), copy.deepcopy(self.assessment)
+        derived = c.normalize_assessment_findings(self.assessment, self.report)
+        self.assertFalse(c.assessment_problems(self.assessment, self.report, "av"))
+        self.assertEqual(self.report, original_report)
+        self.assertEqual(self.assessment, original_assessment)
+        self.assertFalse(self.report["pass"])
+        self.assertEqual(derived["finding_normalization"]["report_payload_sha256"], c.payload_digest(self.report))
+        for index, row in enumerate(derived["defects"]):
+            self.assertEqual(row["finding"], self.report["defects"][index])
+            self.assertEqual(row["original_finding"], self.assessment["defects"][index]["finding"])
+            self.assertEqual(row["category"], self.assessment["defects"][index]["category"])
+
+    def test_ambiguous_effect_and_nonexact_strings_fail(self):
+        ambiguous = copy.deepcopy(self.report)
+        ambiguous["defects"].append({**ambiguous["defects"][0], "time": "00:21.0"})
+        self.assertTrue(c.assessment_problems(self.assessment, ambiguous, "av"))
+        for text in ["unknown finding", " " + self.report["defects"][0]["effect"],
+                     self.report["defects"][0]["effect"].lower()]:
+            changed = copy.deepcopy(self.assessment); changed["defects"][0]["finding"] = text
+            self.assertTrue(c.assessment_problems(changed, self.report, "av"))
+
+    def test_duplicate_missing_extra_and_changed_objects_fail(self):
+        candidates = []
+        duplicate = copy.deepcopy(self.assessment); duplicate["defects"].append(copy.deepcopy(duplicate["defects"][0])); candidates.append(duplicate)
+        missing = copy.deepcopy(self.assessment); missing["defects"].pop(); candidates.append(missing)
+        extra = copy.deepcopy(self.assessment); extra["defects"].append({"finding": "extra", "category": "style"}); candidates.append(extra)
+        changed = copy.deepcopy(self.assessment); changed["defects"][0]["finding"] = {**self.report["defects"][0], "time": "00:22.0"}; candidates.append(changed)
+        mixed_duplicate = copy.deepcopy(self.assessment); mixed_duplicate["defects"][1]["finding"] = copy.deepcopy(self.report["defects"][0]); candidates.append(mixed_duplicate)
+        for value in candidates:
+            self.assertTrue(c.assessment_problems(value, self.report, "av"))
+
+    def test_normalization_never_waives_retained_checks_or_categories(self):
+        for key in self.assessment["retained_checks"]:
+            changed = copy.deepcopy(self.assessment); changed["retained_checks"][key]["pass"] = False
+            self.assertTrue(c.assessment_problems(changed, self.report, "av"))
+        for category in ["runtime", "captions", "source", "unclassified"]:
+            changed = copy.deepcopy(self.assessment); changed["defects"][1]["category"] = category
+            self.assertTrue(c.assessment_problems(changed, self.report, "av"))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -26,7 +26,8 @@ REPO = Path(__file__).resolve().parents[1]
 ROLES = ('code', 'phone', 'picture', 'story', 'sound')
 ERRORS = ('Selected model is at capacity. Please try a different model.',
           'server_overloaded', 'rate_limit_exceeded', 'usage_limit_exceeded',
-          'context_length_exceeded', 'session_budget_exceeded')
+          'context_length_exceeded', 'session_budget_exceeded', 'agent thread limit reached')
+THREAD_LIMIT_ERROR = 'collab tool failed: agent thread limit reached'
 
 
 def fingerprint(value):
@@ -39,6 +40,11 @@ def failure_problems(failure, role):
             or not failure.get('actor') or not failure.get('observed_at')
             or failure.get('verdict') is not None):
         return ['retain the actual host transport failure, actor, time and assigned role']
+    if ((failure.get('error') == 'agent thread limit reached'
+         and failure.get('raw_error') != THREAD_LIMIT_ERROR)
+            or (failure.get('raw_error') == THREAD_LIMIT_ERROR
+                and failure.get('error') != 'agent thread limit reached')):
+        return ['retain the exact original agent thread limit transport error']
     reservation = failure.get('reservation') or {}
     resource = 'storyboard_critics' if role in ('code', 'phone') else 'scorer_calls'
     if (reservation.get('kind') != 'reserved' or not reservation.get('resources', {}).get(resource)

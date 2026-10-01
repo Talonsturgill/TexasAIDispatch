@@ -76,6 +76,17 @@ class AvailabilityTest(unittest.TestCase):
         for change in ({'error': 'revise'}, {'verdict': 'revise'}, {'role': 'sound'}, {'actor': ''}):
             self.assertTrue(r.failure_problems({**self.failure, **change}, 'phone'))
 
+    def test_actual_thread_limit_requires_exact_retained_transport_error(self):
+        failure = {**self.failure, 'error': 'agent thread limit reached',
+                   'raw_error': 'collab tool failed: agent thread limit reached'}
+        self.assertFalse(r.failure_problems(failure, 'phone'))
+        for change in ({'raw_error': ''}, {'raw_error': 'agent thread limit reached'},
+                       {'raw_error': 'other tool failed: agent thread limit reached'},
+                       {'raw_error': 'collab tool failed: agent thread limit reached later'},
+                       {'error': 'server_overloaded'},
+                       {'error': 'collab tool failed: agent thread limit reached'}):
+            self.assertTrue(r.failure_problems({**failure, **change}, 'phone'))
+
     def test_frozen_critic_exhaustion_routes_without_refund(self):
         self.assertTrue(c.reserve(self.state, {'storyboard_critics': 6}, 'retained attempts')[0])
         before = copy.deepcopy(c.read_state(self.state)['resource_envelope'])

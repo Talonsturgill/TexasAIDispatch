@@ -6,6 +6,7 @@ Unknown defects and incomplete evidence stay blocking. Run the normal delivery p
 """
 from __future__ import annotations
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -135,6 +136,33 @@ def findings(report):
     return list(found.values())
 
 
+def normalize_assessment_findings(assessment, report):
+    """Resolve unique exact effect strings in a derived copy; retain every raw finding."""
+    derived = copy.deepcopy(assessment)
+    originals = findings(report)
+    exact = {payload_digest(item) for item in originals}
+    mappings = []
+    for index, row in enumerate(derived["defects"]):
+        value = row["finding"]
+        if not isinstance(value, str) or payload_digest(value) in exact:
+            continue
+        matches = [item for item in originals
+                   if isinstance(item, dict) and item.get("effect") == value]
+        if len(matches) != 1:
+            raise ValueError("effect finding must match exactly one original defect")
+        if "original_finding" in row and row["original_finding"] != value:
+            raise ValueError("original finding provenance disagrees")
+        row["original_finding"] = value
+        row["finding"] = copy.deepcopy(matches[0])
+        mappings.append({"row_index": index, "original_finding": value,
+                         "resolved_finding_sha256": payload_digest(matches[0])})
+    if mappings:
+        derived["finding_normalization"] = {
+            "schema": "dispatch_exact_effect_normalization/1",
+            "report_payload_sha256": payload_digest(report), "mappings": mappings}
+    return derived
+
+
 def assessment_problems(assessment, report, scope):
     errors = []
     if assessment.get("schema") != "dispatch_creative_assessment/1" or assessment.get("scope") != scope:
@@ -148,6 +176,8 @@ def assessment_problems(assessment, report, scope):
     if not isinstance(rows, list):
         return errors + ["artistic assessment must enumerate every original finding"]
     try:
+        assessment = normalize_assessment_findings(assessment, report)
+        rows = assessment["defects"]
         original = {payload_digest(x) for x in findings(report)}
         assessed = [payload_digest(x["finding"]) for x in rows]
         if set(assessed) != original or len(set(assessed)) != len(assessed):
