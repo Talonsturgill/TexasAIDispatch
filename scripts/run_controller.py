@@ -2002,6 +2002,7 @@ def main() -> int:
     sub.add_parser("status")
     p = sub.add_parser("production-budget")
     p.add_argument("--review-route", choices=("host", "provider"), default="host")
+    p.add_argument("--repair-plan", type=Path)
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -2087,14 +2088,39 @@ def main() -> int:
                                              "preflight.json", "preflight.mp4", "claims.json")]
             if all(p.is_file() for p in paths):
                 try:
-                    from critic_gate import film_review_problems
+                    from review_context import phone_problems
                     board, report, structural = (load_json(p) for p in paths[:3])
-                    phone_complete = (not film_review_problems(board, report, structural,
-                        digest(paths[0]), digest(paths[3])) and
+                    phone_complete = (not phone_problems(paths[0]) and
                         (report.get("story_review") or {}).get("claims_sha256") == digest(paths[4]))
                 except (ValueError, KeyError, TypeError, OSError):
                     pass  # Missing or stale evidence retains the conservative path.
-            result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete)
+            hero_rejected, context_ready = False, False
+            hero_receipt = root / "cinema/hero-review.json"
+            if hero_receipt.is_file():
+                try:
+                    from production_quality import av_problems
+                    hero_rejected = bool(av_problems(hero_receipt, root / "cinema/hero.mp4", "hero"))
+                except (ValueError, KeyError, TypeError, OSError):
+                    hero_rejected = True
+            if a.repair_plan:
+                try:
+                    import review_context
+                    plan = load_json(a.repair_plan)
+                    context_ready = (plan.get("repair_scope") == review_context.SCOPE and
+                                     not review_context.plan_problems(state_path, plan))
+                    if context_ready:
+                        review_context.frozen_inputs(state_path, plan)
+                except (ValueError, KeyError, TypeError, OSError):
+                    context_ready = False
+            else:
+                try:
+                    from review_context import phone_baseline
+                    phone_baseline(root / "storyboard.json")
+                    context_ready = True
+                except (ValueError, KeyError, TypeError, OSError):
+                    pass
+            result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete,
+                                               hero_rejected, context_ready)
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["feasible"] else 1
         elif a.command == "grant-owner-review":
