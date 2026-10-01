@@ -1,5 +1,6 @@
 """Capacity recovery cannot relax evidence, refund work or buy another verdict."""
 import copy
+import hashlib
 import json
 import tempfile
 import unittest
@@ -226,7 +227,8 @@ class AvailabilityTest(unittest.TestCase):
         board = root/'storyboard.json'
         board.write_text(json.dumps({'date': '2026-09-30', 'scenes': [], 'story_contract': {'scenes': []}}))
         claims = root/'claims.json'
-        claims.write_text(json.dumps({'claims': [{'id': 'c1', 'source_snapshot': 'out/dispatch/sources/source.txt'}]}))
+        claims.write_text(json.dumps({'claims': [{'id': 'c1', 'quote': 'installed camera count is separate from detections',
+                                                'source_snapshot': 'out/dispatch/sources/source.txt'}]}))
         shipped = fixture/'runs/2026-09-28'
         shipped.mkdir(parents=True)
         (shipped/'dispatch.mp4').write_bytes(b'released fixture inventory')
@@ -235,16 +237,80 @@ class AvailabilityTest(unittest.TestCase):
         unfinished.mkdir()
         (unfinished/'storyboard.json').write_text(json.dumps({'date': '2026-09-29', 'native_media': []}))
         with patch.object(r, 'REPO', fixture):
-            text, _ = r.packet(board, claims, 'code', None)
-            self.assertIn(source.read_text(), text['files'].values())
+            text, bindings = r.packet(board, claims, 'code', None)
+            context = text['files']['out/dispatch/sources/source.txt']
+            self.assertEqual(context['windows'][0]['text'], source.read_text())
+            self.assertEqual(bindings['source_snapshots_sha256']['out/dispatch/sources/source.txt'], r.digest(source))
             self.assertIn('knowledge/craft/CREATIVE_DIRECTION.md', text['files'])
             self.assertIn('runs/2026-09-28/storyboard.json', text['files'])
+            self.assertEqual(text['files']['runs/2026-09-28/storyboard.json'],
+                             (shipped/'storyboard.json').read_text())
             self.assertNotIn('runs/2026-09-29/storyboard.json', text['files'])
+            old_hash = r.fingerprint(text)
+            source.write_text(source.read_text() + ' New retained source context.')
+            changed_text, changed_bindings = r.packet(board, claims, 'code', None)
+            self.assertNotEqual(old_hash, r.fingerprint(changed_text))
+            self.assertNotEqual(bindings, changed_bindings)
+            source.write_text('Unquoted retained context. ' * 25_000 + source.read_text())
+            compact, _ = r.packet(board, claims, 'code', None)
+            self.assertLess(len(json.dumps(compact)), 500_000)
+            self.assertLess(len(json.dumps(compact['files']['out/dispatch/sources/source.txt'])), 10_000)
+            oversized = root/'story_selection.json'
+            oversized.write_text(json.dumps({'unaltered_non_source': 'x' * 500_000}))
+            with self.assertRaisesRegex(ValueError, 'bounded text size'):
+                r.packet(board, claims, 'code', None)
+            oversized.unlink()
             with self.assertRaisesRegex(ValueError, 'both current complete treatment artifacts'):
                 r.packet(board, claims, 'phone', None)
             source.unlink()
             with self.assertRaisesRegex(ValueError, 'snapshot missing'):
                 r.packet(board, claims, 'code', None)
+
+
+class SourceWindowTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.path = Path(self.tmp.name) / 'source.txt'
+
+    def test_merged_windows_keep_all_quotes_occurrences_and_exact_slices(self):
+        raw = b'Before\r\nA pod descends.  It can retract.\r\nA\n pod\t descends. After'
+        self.path.write_bytes(raw)
+        rows = [{'id': 'c1', 'quote': 'A pod descends.'}, {'id': 'c2', 'quote': 'It can retract.'}]
+        context = r.source_windows(self.path, rows, context_chars=12)
+        self.assertEqual(len(context['windows']), 1)
+        window = context['windows'][0]
+        source = raw.decode('utf-8')
+        self.assertEqual(window['text'], source[window['raw_start']:window['raw_end']])
+        self.assertEqual(window['claim_ids'], ['c1', 'c2'])
+        quotes = window['quotes']
+        self.assertEqual(len(quotes), 3)
+        for item in quotes:
+            self.assertEqual(item['text'], source[item['raw_start']:item['raw_end']])
+            self.assertIn(item['text'], window['text'])
+        repeated = [item for item in quotes if item['claim_id'] == 'c1']
+        self.assertEqual([item['occurrence_index'] for item in repeated], [0, 1])
+        self.assertEqual([item['occurrence_count'] for item in repeated], [2, 2])
+        self.assertEqual(context['full_source_sha256'], hashlib.sha256(raw).hexdigest())
+        self.assertEqual(self.path.read_bytes(), raw)
+
+    def test_missing_nonexact_or_unquoted_verified_claims_fail(self):
+        self.path.write_text('The pod can retract.')
+        for row in [{'id': 'c1', 'quote': 'The pod cannot retract.'},
+                    {'id': 'c1', 'quote': 'the pod can retract.'},
+                    {'id': 'c1', 'verdict': 'VERIFIED'}, {'id': 'c1', 'quote': '   '}]:
+            with self.assertRaises(ValueError):
+                r.source_windows(self.path, [row])
+
+    def test_unsliced_byte_change_remains_bound(self):
+        self.path.write_text('prefix' * 1000 + 'Exact quote.' + 'suffix' * 1000)
+        rows = [{'id': 'c1', 'quote': 'Exact quote.'}]
+        before = r.source_windows(self.path, rows, context_chars=20)
+        self.path.write_text('PREFIX' + self.path.read_text()[6:])
+        after = r.source_windows(self.path, rows, context_chars=20)
+        self.assertEqual(before['windows'], after['windows'])
+        self.assertNotEqual(before['full_source_sha256'], after['full_source_sha256'])
+        self.assertNotEqual(r.fingerprint(before), r.fingerprint(after))
 
 
 if __name__ == '__main__':

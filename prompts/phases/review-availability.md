@@ -10,7 +10,7 @@ schema dispatch_review_transport_failure/1. Use role code, phone, picture, story
 actor, observed_at and error. The supported exact capacity message is "Selected model is at
 capacity. Please try a different model." Supported machine error codes are server_overloaded,
 rate_limit_exceeded, usage_limit_exceeded, context_length_exceeded and session_budget_exceeded.
-The file records an observed tool result, never a guessed outage. No verdict means no verdict.
+The exact host result `collab tool failed: agent thread limit reached` also qualifies. Record that full result in `raw_error` and use `agent thread limit reached` for `error`; never substitute an overload code. The file records an observed tool result, never a guessed outage. No verdict means no verdict.
 Include reservation_event_index, the exact reserved event as reservation, its canonical JSON
 reservation_sha256 from independent_review.fingerprint, and assignment with role, actor,
 board_sha256 and film_sha256 (null at code scope). Copy the actual allocation and compact

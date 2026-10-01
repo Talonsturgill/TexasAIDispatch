@@ -12,6 +12,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 import sys
 import time
 import uuid
@@ -141,6 +142,43 @@ def evidence_problems(report):
     return []
 
 
+def source_windows(path, rows, context_chars=2048):
+    """Retain every whitespace-equivalent quote occurrence and its raw context."""
+    raw = path.read_bytes()
+    source = raw.decode('utf-8')
+    spans = []
+    for row in rows:
+        quote = row.get('quote')
+        if not isinstance(quote, str) or not quote.strip() or not row.get('id'):
+            raise ValueError('source window needs an exact quote and claim id')
+        pattern = re.compile(r'\s+'.join(re.escape(token) for token in quote.split()))
+        matches = list(pattern.finditer(source))
+        if not matches:
+            raise ValueError('source quote missing: ' + str(row['id']))
+        for index, match in enumerate(matches):
+            spans.append((max(0, match.start() - context_chars),
+                          min(len(source), match.end() + context_chars),
+                          {'claim_id': row['id'], 'occurrence_index': index,
+                           'occurrence_count': len(matches),
+                           'raw_start': match.start(), 'raw_end': match.end(),
+                           'text': source[match.start():match.end()]}))
+    windows = []
+    for start, end, claim in sorted(spans, key=lambda item: (item[0], item[1])):
+        if windows and start <= windows[-1]['raw_end']:
+            windows[-1]['raw_end'] = max(end, windows[-1]['raw_end'])
+            windows[-1]['quotes'].append(claim)
+        else:
+            windows.append({'raw_start': start, 'raw_end': end, 'quotes': [claim]})
+    for window in windows:
+        window['text'] = source[window['raw_start']:window['raw_end']]
+        window['claim_ids'] = sorted({quote['claim_id'] for quote in window['quotes']})
+    return {'schema': 'dispatch_verbatim_source_windows/1', 'original_file': str(path.resolve()),
+            'full_source_sha256': hashlib.sha256(raw).hexdigest(),
+            'offset_unit': 'unicode code points in UTF-8 decoded original bytes',
+            'full_source_characters': len(source), 'context_characters': context_chars,
+            'windows': windows}
+
+
 def packet(board_path, claims_path, role, film):
     from critic_gate import concept_digest, renderer_digest, renderer_files
     from daily_production import story_digest, POLICY
@@ -169,6 +207,7 @@ def packet(board_path, claims_path, role, film):
             files.append(root / name)
     # A remote worker cannot open a local pathname. Supply the actual fetched
     # source snapshots, not just the producer's claim text or VERIFIED labels.
+    source_rows = {}
     for row in claims.get('claims', []):
         snapshot = row.get('source_snapshot')
         if not isinstance(snapshot, str):
@@ -177,6 +216,7 @@ def packet(board_path, claims_path, role, film):
         if not source.is_relative_to(root.resolve()) or not source.is_file():
             raise ValueError('claim source snapshot missing or outside the current package')
         files.append(source)
+        source_rows.setdefault(source, []).append(row)
     from render_manifest import native_media_paths
     media = native_media_paths(board)
     previous = sorted(p.with_name('storyboard.json') for p in (REPO / 'runs').glob('????-??-??/dispatch.mp4')
@@ -215,11 +255,15 @@ def packet(board_path, claims_path, role, film):
                 if not image.is_relative_to((root / 'cinema').resolve()) or digest(image) != item['sha256']:
                     raise ValueError('native scene sample is missing or changed')
                 media.append(image)
+    source_context = {p: source_windows(p, rows) for p, rows in source_rows.items()}
     text = {'board': board, 'claims': claims,
-            'files': {str(p.relative_to(REPO)) if p.is_relative_to(REPO) else p.name: p.read_text() for p in files}}
+            'files': {str(p.relative_to(REPO.resolve())) if p in source_context else
+                      str(p.relative_to(REPO)) if p.is_relative_to(REPO) else p.name:
+                      source_context[p] if p in source_context else p.read_text()
+                      for p in files}}
+    bindings['source_snapshots_sha256'] = {
+        str(p.relative_to(REPO.resolve())): value['full_source_sha256'] for p, value in source_context.items()}
     text['media'] = [{'path': str(p.resolve()), 'sha256': digest(p)} for p in sorted(set(media))]
-    if len(json.dumps(text)) > 500_000:
-        raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
     if film:
         bindings['film_sha256'] = digest(film)
     if role not in ('code', 'phone'):
@@ -236,6 +280,8 @@ def packet(board_path, claims_path, role, film):
         bindings['av_receipt_sha256'] = digest(receipt_path)
         text['audiovisual_receipt'] = receipt
         text['audiovisual_response'] = json.loads(response_path.read_text())
+    if len(json.dumps(text)) > 500_000:
+        raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
     return text, bindings
 
 
