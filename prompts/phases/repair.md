@@ -66,3 +66,31 @@ A framing or caption fix is not a new creative treatment. Inspect the entire fai
 once, consolidate the correction, and reuse exact unchanged evidence. Prioritize a proven
 source-grounded treatment before another speculative repair. The finite release route cannot
 waive the new dated minimum picture-action requirements.
+
+## Expand a context-dependent native passage
+
+Choose the hero window with its causal antecedent before the first native render. A closing
+caption referring to an earlier target check needs that check inside the reviewed passage.
+If the full timed phone film passes but a native excerpt omits this context, preserve the
+rejected hero, native proof, receipt, raw response and cache in an immutable repair directory.
+The same paid independent phone reviewer must diagnose every exact original finding. Use
+schema `dispatch-hero-context-diagnosis/1`, binding board, phone report/film, rejected hero,
+receipt and raw response hashes. Include exact old/proposed hero field pairs, source_basis,
+context_explanation, original_defect_assessments and the exact-template renderer_audit.
+Assessment categories are excerpt-context or retained-artistry; neither approves the film.
+
+Set repair_scope to review-context. changed_inputs names only storyboard.json and its retained
+baseline. diagnosis, failed_hero, failure_response and failed_proof are path/sha256 references;
+failure_evidence and its SHA bind the rejected receipt. The admitted pod-delivery-v1 source
+audit must establish that neither hero field is rendered. The requested window must retain
+the rejected passage and strictly expand to at most four contiguous story scenes.
+
+Run production-budget --repair-plan before begin-repair, reserve exactly one reboard, change
+only the two hero fields and authorize-repair with the completed after hash. Source, script,
+scenes, captions, mix, public assets, renderer and full phone film stay frozen. The original
+phone verdict may be reused only while those exact dependencies remain unchanged. Resources
+must include charged native rendering and fresh hero audiovisual review; there are no new
+critics, allowance resets or score changes. Technical accounting excludes this one charged
+reboard from creative rounds. A rejected hero cannot claim a feasible finish-current route.
+The expanded native bytes require a fresh independent hero verdict. Same-byte/lens cache
+rejections stay binding, and all final audiovisual lenses, scorers and shipment gates remain.

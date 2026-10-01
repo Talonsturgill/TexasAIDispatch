@@ -67,7 +67,7 @@ def creative_rounds(state):
     technical, pending = 0, False
     for event in state.get("events", []):
         if event.get("kind") == "repair_started":
-            pending = event.get("repair_scope") == "technical-integrity"
+            pending = event.get("repair_scope") in {"technical-integrity", "review-context"}
         elif event.get("kind") == "reserved" and event.get("resources", {}).get("reboards", 0):
             charged = event["resources"]["reboards"]
             if pending and type(charged) is int and charged > 0:

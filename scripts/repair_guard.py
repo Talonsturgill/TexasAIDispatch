@@ -113,10 +113,12 @@ def owner_grant_problems(state):
     return []
 
 
-def production_budget_precheck(state, review_route="host", phone_complete=False):
+def production_budget_precheck(state, review_route="host", phone_complete=False,
+                               hero_rejected=False, context_ready=False):
     """Read-only complete remaining review path, including the final timed phone."""
     from creative_release import finishing_required
     finishing = finishing_required(state)
+    context_ready = bool(context_ready and phone_complete)
     if review_route not in ("host", "provider"):
         raise ValueError("unknown independent review route")
     required = {"reboards": 0 if finishing else 1,
@@ -128,6 +130,11 @@ def production_budget_precheck(state, review_route="host", phone_complete=False)
     # pair in the conservative plan; spending history never proves reusable audio.
     required["tts_calls"] = 2
     required["voice_directors"] = int(not state.get("usage", {}).get("voice_directors", 0))
+    if hero_rejected and context_ready and phone_complete:
+        # Same film and mix, new native excerpt. Protect a hero and one retry,
+        # three final lenses and three separate provider scorer recoveries.
+        required.update(reboards=1, storyboard_critics=0, preflight_renders=2,
+                        full_renders=1, audiovisual_reviews=8, tts_calls=0, voice_directors=0)
     snapshot = copy.deepcopy(state)
     if not enabled(snapshot) or "resource_envelope" not in snapshot:
         errors = ["production budget precheck requires an existing frozen envelope"]
@@ -147,11 +154,14 @@ def production_budget_precheck(state, review_route="host", phone_complete=False)
             for name, count in required.items()}
     deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
                 if row["remaining"] < row["required"]}
-    return {"feasible": not deficits, "errors": [], "resources": rows, "deficits": deficits,
+    blockers = ["rejected native hero requires an evidence-bound repair; finish-current is unavailable"] if hero_rejected and not context_ready else []
+    return {"feasible": not deficits and not blockers, "errors": blockers, "resources": rows, "deficits": deficits,
             "review_route": review_route,
-            "current_phone_reused": bool(phone_complete and finishing),
-            "path": "finish-current" if finishing else "complete-visual-repair",
-            "scope": "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval"}
+            "current_phone_reused": bool(phone_complete and (finishing or context_ready)),
+            "path": "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
+            "scope": ("Conservative metadata-only context repair with exact frozen voice/mix reuse, fresh hero plus one retry, three final lenses and three separate provider scorer recoveries. No extra TTS, allowance or shipment approval"
+                      if hero_rejected and context_ready else
+                      "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval")}
 
 def enabled(state):
     return state.get("repair_policy") == VERSION
@@ -199,6 +209,10 @@ def plan_problems(state, plan):
         return ["repair requires a stable visible mechanism_id across revisions"]
     if len(str(plan.get("director_identity", "")).strip()) == 0:
         return ["repair requires director identity"]
+    if plan.get("repair_scope") == "review-context":
+        # This scope has its own exact independent diagnosis and expansion proof.
+        # It cannot replace a mechanism or hide another failed artistic treatment.
+        return []
     # Group by independent rejection evidence as well as the producer's name.
     # A renamed mechanism cannot reset an unclassified sequence.
     family = str(plan.get("failure_family", "unclassified"))

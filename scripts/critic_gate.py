@@ -183,7 +183,17 @@ def check(board_path: Path, report_path: Path) -> list[str]:
         return []
     if not report_path.is_file():
         return ["independent storyboard critique is missing before preflight"]
-    return problems(board, json.loads(report_path.read_text()))
+    report = json.loads(report_path.read_text())
+    try:
+        from review_context import required_baseline
+        baseline = required_baseline(board_path)
+        if baseline is not None:
+            if report_path.resolve() != board_path.with_name("storyboard_critic.json").resolve():
+                return ["review-context permits only the frozen current phone report"]
+            return problems(json.loads(baseline.read_text()), report)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["review-context frozen critique invalid: " + str(exc)]
+    return problems(board, report)
 
 
 def self_test() -> int:

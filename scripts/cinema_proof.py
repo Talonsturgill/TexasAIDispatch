@@ -46,8 +46,8 @@ def build(board, mix, state):
         raise ValueError("; ".join(errors) or "a current cinema plan is required")
     if str(data.get("date") or "") >= "2026-09-25":
         phone = board.parent / "preflight.mp4"
-        errors = critic_gate.film_review_problems(data,read(board.with_name("storyboard_critic.json")),
-                   read(phone.with_suffix(".json")),expected["board_sha256"],digest(phone))
+        from review_context import phone_problems
+        errors = phone_problems(board)
         if errors:
             raise ValueError("phone visual review is not current: " + "; ".join(errors))
     root = board.parent / "cinema"

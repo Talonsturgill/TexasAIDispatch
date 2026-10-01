@@ -19,7 +19,8 @@ BATCH = {"preflight_renders": 2, "full_renders": 1, "audiovisual_reviews": 4,
          "reported_tokens": 100000}
 NARRATION_SCOPE = "narration-performance"
 TECHNICAL_SCOPE = "technical-integrity"
-SCOPES = {"standard", NARRATION_SCOPE, TECHNICAL_SCOPE}
+from review_context import SCOPE as CONTEXT_SCOPE, BATCH as CONTEXT_BATCH
+SCOPES = {"standard", NARRATION_SCOPE, TECHNICAL_SCOPE, CONTEXT_SCOPE}
 NARRATION_BATCH = {"tts_calls": 2}
 
 
@@ -165,9 +166,19 @@ def begin_repair(path, plan_path):
         return False, "unknown repair_scope"
     reuse_errors = existing_critic_problems(state, plan)
     opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
+    if scope == CONTEXT_SCOPE:
+        opening = {"reboards": 1}
     if plan.get("existing_critic_reservations") and not reuse_errors:
         opening = {"reboards": 1}
     errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening)
+    if scope == CONTEXT_SCOPE:
+        import review_context
+        errors += review_context.plan_problems(path, plan)
+        errors += envelope_problems(state, plan.get("resources", {}))
+        try:
+            frozen_inputs = review_context.frozen_inputs(path, plan)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            errors.append("review-context cannot freeze inputs: " + str(exc))
     if scope == TECHNICAL_SCOPE:
         from creative_release import technical_repair_problems
         errors += technical_repair_problems(state, plan)
@@ -216,7 +227,7 @@ def begin_repair(path, plan_path):
                              "reboards_before": state["usage"]["reboards"], "repair_scope": scope}
     if plan.get("existing_critic_reservations"):
         state["active_repair"]["existing_critic_reservations"] = plan["existing_critic_reservations"]
-    if scope == NARRATION_SCOPE:
+    if scope in {NARRATION_SCOPE, CONTEXT_SCOPE}:
         state["active_repair"].update(frozen_inputs=frozen_inputs, plan_identity=plan_identity(plan))
     state["phase"] = "active_repair"
     state.pop("release_status", None)
@@ -232,6 +243,8 @@ def begin_repair(path, plan_path):
     save(path, state)
     if scope == NARRATION_SCOPE:
         return True, "narration-performance repair opened; change only direction before authorization"
+    if scope == CONTEXT_SCOPE:
+        return True, "review-context repair opened; reserve one reboard before expanding the hero window"
     return True, "one structural repair batch opened; reserve its reboard before editing"
 
 
@@ -251,6 +264,25 @@ def authorize_repair(path, plan_path):
     plan = proof["repair_plan"]
     if plan.get("repair_scope", "standard") != scope:
         return False, "repair_scope changed after begin-repair"
+    frozen_proof = {}
+    if scope == CONTEXT_SCOPE:
+        import review_context
+        errors = review_context.plan_problems(path, plan)
+        if state["usage"]["reboards"] != current["reboards_before"] + 1:
+            errors.append("review-context requires exactly one charged corrective reboard")
+        if plan_identity(plan) != current.get("plan_identity"):
+            errors.append("review-context plan changed after begin-repair")
+        if not review_context.unchanged(path, current.get("frozen_inputs", {})):
+            errors.append("review-context changed frozen story, picture, film, source, mix or renderer inputs")
+        try:
+            baseline = load_json(Path(current["baselines"][0]["before_path"]))
+            diagnosis = load_json(review_context.bound(plan["diagnosis"]))
+            errors += review_context.expansion_problems(baseline, load_json(path.parent / "storyboard.json"), review_context.diagnosed_window(diagnosis["proposed_excerpt"], baseline))
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            errors.append("review-context lost baseline: " + str(exc))
+        if errors:
+            return False, "; ".join(errors)
+        frozen_proof = {"frozen_inputs": current["frozen_inputs"], "plan_identity": current["plan_identity"]}
     if scope == TECHNICAL_SCOPE:
         from creative_release import technical_repair_problems
         errors = technical_repair_problems(state, plan)
@@ -280,7 +312,7 @@ def authorize_repair(path, plan_path):
     requested = plan.get("resources")
     if not isinstance(requested, dict) or not requested:
         return False, "list the resources needed for this correction"
-    batch = NARRATION_BATCH if scope == NARRATION_SCOPE else BATCH
+    batch = NARRATION_BATCH if scope == NARRATION_SCOPE else CONTEXT_BATCH if scope == CONTEXT_SCOPE else BATCH
     if any(name not in batch or type(n) is not int or not 0 < n <= batch[name]
            for name, n in requested.items()):
         return False, "repair request exceeds a bounded batch allowance"
@@ -298,7 +330,7 @@ def authorize_repair(path, plan_path):
         state["escalation_ceiling"][name] = after
         grants[name] = {"from": before, "to": after}
     state.pop("active_repair")
-    event(state, "repair_authorized", resource="repair_batch", grants=grants, repair_scope=scope, **proof)
+    event(state, "repair_authorized", resource="repair_batch", grants=grants, repair_scope=scope, **frozen_proof, **proof)
     save(path, state)
     return True, "changed-input repair batch authorized; reserve each attempt before spending"
 
@@ -378,6 +410,9 @@ def allowance_problems(state):
             if not isinstance(scope, str) or scope not in SCOPES:
                 return ["unknown repair_scope in allowance history"]
         if e.get("kind") == "repair_started":
+            if scope == CONTEXT_SCOPE and (set(e.get("grants", {})) != {"reboards"}
+                                          or not e.get("frozen_inputs") or not e.get("plan_identity")):
+                return ["review-context start requires one reboard and frozen evidence, without critics"]
             if scope == NARRATION_SCOPE and (e.get("grants") or not e.get("frozen_inputs")
                                             or not e.get("plan_identity")):
                 return ["narration-performance start must bind inputs without visual grants"]
@@ -393,7 +428,9 @@ def allowance_problems(state):
         elif e.get("kind") == "repair_authorized":
             if not e.get("repair_revision") or not e.get("repair_plan_sha256"):
                 return ["repair authorization lacks changed-input evidence"]
-            batch = NARRATION_BATCH if scope == NARRATION_SCOPE else BATCH
+            batch = NARRATION_BATCH if scope == NARRATION_SCOPE else CONTEXT_BATCH if scope == CONTEXT_SCOPE else BATCH
+            if scope == CONTEXT_SCOPE and (not e.get("frozen_inputs") or not e.get("plan_identity")):
+                return ["review-context authorization lost frozen evidence"]
             for name, grant in e.get("grants", {}).items():
                 if (name not in batch or grant["from"] != caps[name]
                         or not caps[name] <= grant["to"] <= caps[name] + batch[name]):

@@ -89,6 +89,12 @@ failed attempt, and preserves all earlier charges. Three scorers remain one atom
 panel. After two rejections of the same mechanism, change the mechanism or select
 a source-backed filmable angle before another attempt.
 
+For an independently diagnosed excerpt-context rejection, `review-context` may expand
+only `cinema.hero_scene_id` and `hero_passage_end_scene_id`. Follow the exact evidence
+and frozen dependency procedure in prompts/phases/repair.md. It charges one reboard,
+native rendering and fresh hero review within the existing envelope, without new critics
+or a creative round. It does not change the film or approve any rejected evidence.
+
 A checkpoint is crash recovery, never completion. `package_review_run.sh` saves the
 film and evidence with the controller still active. Resume that edition until it ships.
 The legacy needs_review outcome is refused in production. Reopen a legacy stopped

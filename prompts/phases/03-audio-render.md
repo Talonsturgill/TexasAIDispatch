@@ -78,6 +78,11 @@ and obtain its current independent exact-film critique. If the assigned host wor
 start, follow prompts/phases/review-availability.md immediately. Inspect the longest caption in the
 phone picture. If it hides the action, shorten groups at measured boundaries and rerender.
 
+Before native proof, choose a hero passage that includes the causal antecedent of its narration
+and captions. An ending that refers to a prior target check must include that check in the
+review window. Preserve a rejected excerpt; use the strict review-context procedure in
+prompts/phases/repair.md only when the full timed film and authored inputs remain exact.
+
 ```sh
 python scripts/preflight_animatic.py --board out/dispatch/storyboard.json
 python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json

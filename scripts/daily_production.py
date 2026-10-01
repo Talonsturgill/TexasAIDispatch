@@ -358,7 +358,16 @@ def pre_voice_problems(board_path, claims_path, script=None):
         return []
     report_path = Path(board_path).with_name("storyboard_critic.json")
     report = read(report_path) if report_path.exists() else {}
-    errors = structure_problems(board, read(claims_path)) + action_problems(board) + review_problems(board, report)
+    reviewed_board = board
+    context_errors = []
+    try:
+        from review_context import required_baseline
+        baseline = required_baseline(board_path)
+        if baseline is not None:
+            reviewed_board = read(baseline)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        context_errors.append("review-context frozen story evidence invalid: " + str(exc))
+    errors = context_errors + structure_problems(board, read(claims_path)) + action_problems(board) + review_problems(reviewed_board, report)
     import creative_production as creative
     errors += creative.plan_problems(board)
     errors += creative.opening_problems(board_path)
@@ -375,7 +384,7 @@ def pre_voice_problems(board_path, claims_path, script=None):
             errors.append('board action proposals differ from the selected source-backed mechanism')
     if board.get('action_proposals'):
         import critic_gate
-        errors += critic_gate.problems(board, report)
+        errors += critic_gate.problems(reviewed_board, report)
     if (report.get("story_review") or {}).get("claims_sha256") != digest(claims_path):
         errors.append("source evidence changed since the independent story review")
     if script is not None:

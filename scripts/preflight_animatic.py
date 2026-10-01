@@ -115,6 +115,15 @@ def rebind_review_text(board: Path, baseline: Path, film: Path, report: Path) ->
 
 
 def report_problems(saved: dict, board: Path, film: Path) -> list[str]:
+    try:
+        from review_context import required_baseline
+        baseline = required_baseline(board)
+        if baseline is not None:
+            if saved != json.loads(board.with_name("preflight.json").read_text()):
+                return ["review-context permits only the frozen structural phone report"]
+            return report_problems(saved, baseline, film)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["review-context frozen structural evidence invalid: " + str(exc)]
     errs = []
     import creative_release as bounded
     if saved.get("pass") is not True and not bounded.structural_allows(json.loads(board.read_text()), saved, board.parent):
