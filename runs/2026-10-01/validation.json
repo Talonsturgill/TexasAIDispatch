@@ -1,0 +1,324 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-10-01",
+  "source": "independent validator agent; direct full primary re-fetch, full PDF extraction, sentence-level audit",
+  "result": "PASS_WITH_DROPS",
+  "retrieved": "2026-10-01T11:28:16.123006+00:00",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11"
+  ],
+  "rejected": [
+    "This five-metro draft expands deliveries around Dallas: The FAA names Amarillo, Austin, El Paso, Houston and San Antonio; Dallas is not included in this draft.",
+    "The draft identifies AI cameras or computer vision as the delivery-site evaluation mechanism: Full independently fetched 194-page PDF contains no artificial intelligence or computer vision description. It describes automatic evaluation and an image sent to an operator; camera/model specificity is not established by this draft.",
+    "An unclear image automatically goes to an operator: The exact condition is inability to automatically identify the target and evaluate its suitability; the draft does not specify an image-clarity trigger.",
+    "The five-metro expansion is approved or successfully operating: Current FAA page seeks approval and comments on a draft environmental assessment. Proposed operations are not demonstrated rollout results.",
+    "Every attempted delivery succeeds without human oversight: The draft explicitly provides operator escalation and retraction when evaluation criteria fail. No measured success rate has been verified.",
+    "A failed delivery sends the package back to the merchant: The evidence establishes retraction into the aircraft, not the subsequent destination of that payload."
+  ],
+  "required_edits_applied": [
+    "Dallas replaced with Austin; five-metro geography corrected.",
+    "Camera-specific narration removed because draft does not specify hardware/recognition implementation.",
+    "Operator escalation condition corrected to inability to identify and evaluate target.",
+    "Closing return phrasing restricted to pod retraction upward.",
+    "Opening and mechanism narration explicitly name the pod; unchanged factual scope independently re-audited. Board-draft vo_claims audited sentence by sentence.",
+    "Replaced generalized workflow limitation with exact draft status and unapproved expansion sentence; audited current storyboard.json instead of earlier board draft."
+  ],
+  "required_narration_edits": [],
+  "sentence_audit": {
+    "result": "PASS",
+    "audited_at": "2026-10-01T12:46:38.491094+00:00",
+    "script_sha256": "f17dca4dbba7267cb92852fcac44b4c2b12f019ed46e6e16a15efe4427b898db",
+    "claims_sha256": "951d974d05974f5e0ddb64f14134f183548c6d695e16c78308ebe080ea83d2f0",
+    "sentences": [
+      {
+        "scene_id": "s1",
+        "sentence": "The pod can come back up.",
+        "verified_claim_ids": [
+          "c5"
+        ],
+        "current_vo_claims": [
+          "c5"
+        ],
+        "verdict": "PASS",
+        "reason": "Retraction into aircraft established; no merchant-return claim."
+      },
+      {
+        "scene_id": "s2",
+        "sentence": "Zipline's delivery pod lowers on a tether.",
+        "verified_claim_ids": [
+          "c1"
+        ],
+        "current_vo_claims": [
+          "c1"
+        ],
+        "verdict": "PASS",
+        "reason": "Winch line accurately paraphrased as tether."
+      },
+      {
+        "scene_id": "s3",
+        "sentence": "The pod evaluates the drop area and can move sideways.",
+        "verified_claim_ids": [
+          "c2"
+        ],
+        "current_vo_claims": [
+          "c2"
+        ],
+        "verdict": "PASS",
+        "reason": "Automatic evaluation and lateral positioning both explicit."
+      },
+      {
+        "scene_id": "s4",
+        "sentence": "If it can't identify and evaluate the target, an image goes to an operator.",
+        "verified_claim_ids": [
+          "c4"
+        ],
+        "current_vo_claims": [
+          "c4"
+        ],
+        "verdict": "PASS",
+        "reason": "Exact inability-to-identify/evaluate condition retained; operator escalation explicit."
+      },
+      {
+        "scene_id": "s5",
+        "sentence": "If the spot is unsuitable, the pod retracts.",
+        "verified_claim_ids": [
+          "c5"
+        ],
+        "current_vo_claims": [
+          "c5",
+          "c6"
+        ],
+        "verdict": "PASS",
+        "reason": "Failure of criteria stops delivery and retracts pod."
+      },
+      {
+        "scene_id": "s6",
+        "sentence": "This is a draft.",
+        "verified_claim_ids": [
+          "c9"
+        ],
+        "current_vo_claims": [
+          "c9",
+          "c10"
+        ],
+        "verdict": "PASS",
+        "reason": "Exact document status is draft environmental assessment."
+      },
+      {
+        "scene_id": "s6",
+        "sentence": "The proposed expansion still needs FAA approval.",
+        "verified_claim_ids": [
+          "c10"
+        ],
+        "current_vo_claims": [
+          "c9",
+          "c10"
+        ],
+        "verdict": "PASS",
+        "reason": "Primary draft states that expansion cannot be implemented without requested OpSpecs approval; current FAA review page seeks approval."
+      },
+      {
+        "scene_id": "s7",
+        "sentence": "An FAA draft proposes expanded deliveries around Austin and other Texas cities.",
+        "verified_claim_ids": [
+          "c7",
+          "c10"
+        ],
+        "current_vo_claims": [
+          "c7",
+          "c8",
+          "c10"
+        ],
+        "verdict": "PASS",
+        "reason": "Austin belongs to five proposed metros; draft status explicit."
+      },
+      {
+        "scene_id": "s7",
+        "sentence": "Comments are open through October eleventh.",
+        "verified_claim_ids": [
+          "c8"
+        ],
+        "current_vo_claims": [
+          "c7",
+          "c8",
+          "c10"
+        ],
+        "verdict": "PASS",
+        "reason": "Deadline October 11, 2026 independently fetched from current FAA page."
+      },
+      {
+        "scene_id": "s8",
+        "sentence": "A package descending is only half the story.",
+        "verified_claim_ids": [
+          "c1",
+          "c2"
+        ],
+        "current_vo_claims": [
+          "c1",
+          "c2",
+          "c5"
+        ],
+        "verdict": "PASS",
+        "reason": "Editorial framing grounded in descent and evaluation during descent."
+      },
+      {
+        "scene_id": "s8",
+        "sentence": "The check can pull the pod back up.",
+        "verified_claim_ids": [
+          "c5"
+        ],
+        "current_vo_claims": [
+          "c1",
+          "c2",
+          "c5"
+        ],
+        "verdict": "PASS",
+        "reason": "Retraction is explicitly upward into the aircraft; no destination beyond aircraft implied."
+      }
+    ],
+    "rejected_wording": [],
+    "remaining_binding_edits": [],
+    "scope_checks": {
+      "expansion_remains_draft": true,
+      "dallas_excluded": true,
+      "no_observed_success_claim": true,
+      "operator_escalation_preserved": true,
+      "prose_rule_scan_pass": true
+    },
+    "storyboard_sha256": "267f748ff4fa083788ba9841bcf43c104b10fc26d7fbe12f338d95f2d74edef0"
+  },
+  "source_files": [
+    {
+      "path": "out/dispatch/sources/validator/faa-review.html",
+      "sha256": "c5ef83129520eff57bb6391e7545cb4edf16946f7aeaacadffe05279422f7c97"
+    },
+    {
+      "path": "out/dispatch/sources/validator/zipline-onboard-job.txt",
+      "sha256": "7a10e0dffc4ddab8461d050843514e9fbaa629c3c67f2b7863031f53a5555947"
+    },
+    {
+      "path": "out/dispatch/sources/validator/zipline-texas-draft.txt",
+      "sha256": "2812ce587f60aca2cc963128923c9b6696b118b64283250775db4559f5eeb812"
+    },
+    {
+      "path": "out/dispatch/sources/validator/zipline-texas-draft.pdf",
+      "sha256": "77afc19e404c172fdfbb671d4b9cad24ceb7d19f580ef3cd81593f15cad3cc76"
+    },
+    {
+      "path": "out/dispatch/sources/validator/zipline-onboard-job.json",
+      "sha256": "8f5323a908bb21590f31e34bfa7917f4c5fb24dc507fde1c409faa8d07f66635"
+    },
+    {
+      "path": "out/dispatch/sources/validator/faa-review.txt",
+      "sha256": "148f2f4eb09b4f384368fcf48fafbd2b23060227b00f24d51d68a6d907fb4c6c"
+    }
+  ],
+  "source_use_limits": [
+    "FAA-hosted EA contains applicant-prepared operational descriptions; retain proposed/draft framing.",
+    "Corporate recruiting description supports Droid camera/ML work only; it does not prove that exact architecture in the proposed Texas deployment.",
+    "FAA hosting does not alone prove copyright/public-domain rights for applicant supplied diagrams, corporate images or footage. Verify asset-specific reuse basis separately.",
+    "No observed five-metro delivery, measured success rate or approved expansion is established by these sources."
+  ],
+  "story_selection_audit": {
+    "audited_at": "2026-10-01T12:13:30.384493+00:00",
+    "sha256": "139017dcc32d437d5c004463396ded21485fac04941f22f2a29b9c4a07a45716",
+    "action_support_claim_ids": {
+      "opening": [
+        "c1",
+        "c5"
+      ],
+      "mechanism": [
+        "c2",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "consequence": [
+        "c3",
+        "c5"
+      ]
+    },
+    "result": "PASS",
+    "scope_note": "Corrected action bindings connect descent/retraction, evaluation/operator escalation and clear-delivery/unsuitable-site consequences to matching verified claims. Illustrative unresolved approval gate represents draft status rather than actual official interface."
+  },
+  "picture_repair_factual_audit": {
+    "audited_at": "2026-10-01T12:13:30.384493+00:00",
+    "repair": "03-winch-action",
+    "authorized_plan_sha256": "54d17a2c4ff13cc6a146ee0ad84e6adbe1f7cf48e42831a8d31773f29ba7622e",
+    "storyboard_sha256": "35b0c7f7c9f2ff0092a98f10de06e5af2cbecdccf3b774907c45bb238f4b41f7",
+    "module_path": "video-engine/src/PodDeliveryAction.tsx",
+    "module_sha256": "e79bc55cafd7fcfe577e0281af3feb6964d9e50e8f999c5d571b765f9c3ca607",
+    "source_claim_ids": [
+      "c1",
+      "c5"
+    ],
+    "verdict": "PASS_ILLUSTRATIVE_SCOPE",
+    "scope_note": "Original illustrative winding reel pays out and takes in tether to explain sourced descent and retraction. No actual proprietary reel design, site, observed successful delivery or safety-performance result is established.",
+    "disclosure": "Illustration. Proposed pod workflow",
+    "prior_receipt_path": "out/dispatch/repairs/03-winch-action/validation-before-factual-rebind-601bbf3a2074.json",
+    "prior_receipt_sha256": "601bbf3a207407aa35fbce38c432aa91f449727bcd6f4fe958f2863ea2b9b16c"
+  },
+  "technical_binding_repair_audit": {
+    "repair": "04-super-claim-binding",
+    "audited_at": "2026-10-01T12:15:32.111751+00:00",
+    "result": "PASS",
+    "super_claim": "c5",
+    "source_basis": "If site fails evaluation criteria, pod retracts into aircraft. c5 exactly supports rising/retraction super.",
+    "board_hashes": {
+      "storyboard.json": "12a64f2f2dd25ce1d0e08e9e9f3c3cd75598ca4d2ec73f389606bbd523b596c4",
+      "opening-a.json": "12a64f2f2dd25ce1d0e08e9e9f3c3cd75598ca4d2ec73f389606bbd523b596c4",
+      "opening-b.json": "35b0c7f7c9f2ff0092a98f10de06e5af2cbecdccf3b774907c45bb238f4b41f7"
+    },
+    "prior_receipt_path": "out/dispatch/repairs/04-super-claim-binding/validation-before-refresh-d79f87ec3dbc.json",
+    "prior_receipt_sha256": "d79f87ec3dbca4f98d15a838984ce5169614edf58ebb329bdfbb3a79a4a9fdba",
+    "narration_unchanged": true
+  },
+  "selected_board_binding": {
+    "selected": "B",
+    "audited_at": "2026-10-01T12:25:03.759187+00:00",
+    "storyboard_sha256": "35b0c7f7c9f2ff0092a98f10de06e5af2cbecdccf3b774907c45bb238f4b41f7",
+    "result": "PASS",
+    "prior_receipt_path": "out/dispatch/repairs/04-super-claim-binding/validation-before-selected-b-09e86342a161.json",
+    "prior_receipt_sha256": "09e86342a1619bfdb86ff3ebcfae55701268fb9e507402e533da4ce10abc90d4",
+    "scope_note": "Exact previously audited B bytes selected as current storyboard; narration and source bindings unchanged."
+  },
+  "voice_line_format_binding": {
+    "result": "PASS",
+    "audited_at": "2026-10-01T12:29:22.064948+00:00",
+    "script_sha256": "f17dca4dbba7267cb92852fcac44b4c2b12f019ed46e6e16a15efe4427b898db",
+    "previous_script_sha256": "d4109f602427b2df7ac2c53da59cd3524297c9bc147c9d12d446fb4be8b05ec9",
+    "line_count": 8,
+    "spoken_words_unchanged": true,
+    "scene_vo_lines_exact": true,
+    "prior_receipt_path": "out/dispatch/repairs/05-voice-line-format/validation-before-format-refresh-1357e4c0fd8a.json",
+    "prior_receipt_sha256": "1357e4c0fd8acf078e46180650172515f2f17d354e7696ff35489f48b041d3b0"
+  },
+  "caption_source_audit": {
+    "result": "PASS",
+    "audited_at": "2026-10-01T12:46:38.491094+00:00",
+    "storyboard_sha256": "267f748ff4fa083788ba9841bcf43c104b10fc26d7fbe12f338d95f2d74edef0",
+    "captions_sha256": "69dddd360ad12a8c6388480d787932e1f22ed9934444832bfcf4efee1dd42248",
+    "script_sha256": "f17dca4dbba7267cb92852fcac44b4c2b12f019ed46e6e16a15efe4427b898db",
+    "cue_count": 11,
+    "exact_approved_spoken_sequence": true,
+    "source_bindings_unchanged": true,
+    "timing_metadata": {
+      "method": "silence_anchored",
+      "words_anchored": 28,
+      "words_modelled": 62
+    },
+    "timing_scope": "Metadata retained as reported by alignment artifacts. This supplemental factual check verifies words and source fidelity; it does not independently certify acoustic timestamps.",
+    "prior_receipt_path": "out/dispatch/validation-history/before-measured-cuts-973f6376df90.json",
+    "prior_receipt_sha256": "973f6376df908016b13727a9b820b1832d6ae246ad6fc651d4dca256edbb6243"
+  }
+}
