@@ -66,7 +66,7 @@ PRIMARY_OK=0
 if [ "$RESERVED" -eq 1 ] && [ -f "$PREFLIGHT" ] && [ -f "$PREFLIGHT_FILM" ] \
    && python3 scripts/production_quality.py --board "$BOARD" --mix "$MIX" --preview \
    && python3 scripts/generated_media.py --board "$BOARD" --verify \
-   && python3 scripts/preflight_animatic.py --board "$BOARD" --film "$PREFLIGHT_FILM" \
+   && python3 scripts/review_context.py --board "$BOARD" --film "$PREFLIGHT_FILM" \
       --verify-report "$PREFLIGHT"; then
   touch "$STARTED"
   BOARD_ABS="$(realpath "$BOARD")"

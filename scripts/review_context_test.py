@@ -221,7 +221,34 @@ class ContextTest(unittest.TestCase):
         self.assertTrue(life.authorize_repair(self.state, self.plan_path)[0])
         self.assertIsNone(r.required_baseline(self.before))
         with patch("critic_gate.renderer_digest", return_value="renderer"):
-            self.assertFalse(preflight_animatic.report_problems(r.read(self.root / "preflight.json"), self.board_path, self.root / "preflight.mp4"))
+            self.assertFalse(r.preflight_problems(r.read(self.root / "preflight.json"), self.board_path, self.root / "preflight.mp4"))
+            self.assertTrue(preflight_animatic.report_problems(r.read(self.root / "preflight.json"), self.board_path, self.root / "preflight.mp4"))
+
+    def test_original_inspector_bytes_and_opening_bindings_are_preserved(self):
+        import preflight_animatic
+        expected = "9af51468c89b757af8a40693805ebe2a11c75c825902e6d02fa3b6692f33f386"
+        self.assertEqual(c.digest(Path(preflight_animatic.__file__)), expected)
+        # Old receipts still name this exact inspector; the wrapper adds no inspection.
+        frozen_receipt = {"inspector_sha256": expected}
+        self.assertEqual(frozen_receipt["inspector_sha256"], c.digest(Path(preflight_animatic.__file__)))
+
+    def test_wrapper_requires_exact_frozen_artifacts_and_denies_unsafe_context(self):
+        self.begin(); self.expand()
+        self.assertTrue(life.authorize_repair(self.state, self.plan_path)[0])
+        saved = r.read(self.root / "preflight.json")
+        duplicate = self.root / "duplicate.mp4"; duplicate.write_bytes((self.root / "preflight.mp4").read_bytes())
+        self.assertTrue(r.preflight_problems(saved, self.board_path, duplicate))
+        self.assertTrue(r.preflight_problems({**saved, "extra": "rewritten"}, self.board_path, self.root / "preflight.mp4"))
+        (self.root / "mix.wav").write_bytes(b"unauthorized mix")
+        with patch("preflight_animatic.report_problems", return_value=[]) as original:
+            self.assertTrue(r.preflight_problems(saved, self.board_path, self.root / "preflight.mp4"))
+            original.assert_not_called()
+
+    def test_wrapper_normal_verification_keeps_original_direction_and_critic_gates(self):
+        with patch("documentary_check.check", return_value=["bad direction"]), patch("critic_gate.check", return_value=[]), patch.object(r, "preflight_problems", return_value=[]):
+            self.assertEqual(r.main(["--board", str(self.board_path), "--film", str(self.root / "preflight.mp4"), "--verify-report", str(self.root / "preflight.json")]), 1)
+        with patch("documentary_check.check", return_value=[]), patch("critic_gate.check", return_value=["bad critic"]), patch.object(r, "preflight_problems", return_value=[]):
+            self.assertEqual(r.main(["--board", str(self.board_path), "--film", str(self.root / "preflight.mp4"), "--verify-report", str(self.root / "preflight.json")]), 1)
 
 
 if __name__ == "__main__":

@@ -257,3 +257,53 @@ def required_baseline(board_path):
                 return phone_baseline(board_path)
             return None
     return None
+
+
+def preflight_problems(saved, board_path, film):
+    """Context wrapper around the unchanged inspector, with exact retained artifacts."""
+    from preflight_animatic import report_problems
+    board_path, film = Path(board_path), Path(film)
+    try:
+        baseline = required_baseline(board_path)
+        if baseline is not None:
+            if (film.resolve() != board_path.with_name("preflight.mp4").resolve()
+                    or saved != read(board_path.with_name("preflight.json"))):
+                return ["review-context permits only the frozen structural phone artifacts"]
+            return report_problems(saved, baseline, film)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["review-context frozen structural evidence invalid: " + str(exc)]
+    return report_problems(saved, board_path, film)
+
+
+def main(argv=None):
+    """Verify only; rendering and inspection remain in the original inspector."""
+    import argparse
+    import sys
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--board", type=Path, required=True)
+    parser.add_argument("--film", type=Path, required=True)
+    parser.add_argument("--verify-report", type=Path, required=True)
+    args = parser.parse_args(argv)
+    try:
+        import documentary_check
+        import critic_gate
+        errors = documentary_check.check(read(args.board))
+        errors += critic_gate.check(args.board, args.board.with_name("storyboard_critic.json"))
+        baseline = required_baseline(args.board)
+        if baseline is not None and args.verify_report.resolve() != args.board.with_name("preflight.json").resolve():
+            errors.append("review-context permits only the frozen structural phone report path")
+        saved = read(args.verify_report)
+        errors += preflight_problems(saved, args.board, args.film)
+        if errors:
+            for error in errors:
+                print("review_context: " + error, file=sys.stderr)
+            return 1
+        print("review_context: exact animatic verified; original structural verdict=" + str(saved.get("pass")))
+        return 0
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print("review_context: refused: " + str(exc), file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

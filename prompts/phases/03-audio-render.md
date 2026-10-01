@@ -85,6 +85,7 @@ prompts/phases/repair.md only when the full timed film and authored inputs remai
 
 ```sh
 python scripts/preflight_animatic.py --board out/dispatch/storyboard.json
+python scripts/review_context.py --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --verify-report out/dispatch/preflight.json
 python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json
 python scripts/audiovisual_review.py --role hero --film out/dispatch/cinema/hero.mp4 --out out/dispatch/cinema/hero-review.json
 python scripts/production_quality.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --preview
