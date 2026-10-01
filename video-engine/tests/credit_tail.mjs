@@ -16,7 +16,14 @@ try{
  let renders=0,closed=0,bundles=0;
  const api={bundle:async()=>{bundles++;return 'bundle';},openBrowser:async()=>({close:async()=>{closed++;}}),
  selectComposition:async()=>composition,renderStill:async()=>{throw Error('No extra still jobs');},renderMedia:async options=>{
-  renders++;assert.equal(options.composition.durationInFrames,1365);assert.deepEqual(options.inputProps,board);
+  renders++;assert.equal(options.composition.durationInFrames,1365);
+  assert.deepEqual({...options.inputProps,credits_s:board.credits_s},board);
+  assert.equal(options.inputProps.credits_s,151/30);
+  const from=Math.round(board.runtime_s*30),first=Math.ceil(board.runtime_s*30);
+  const sequenceEnd=from+Math.round(options.inputProps.credits_s*30);
+  assert.equal(sequenceEnd-first,150);
+  assert.equal(sequenceEnd,options.composition.durationInFrames);
+  assert.equal(options.composition.props.credits_s,151/30);
   assert.equal(options.imageFormat,'png');assert.equal(options.crf,16);assert.equal(options.scale,1);
  }};
  await renderCompleteCredits(props,path.join(root,'silent.mp4'),api);

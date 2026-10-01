@@ -21,7 +21,16 @@ export async function renderCompleteCredits(boardPath,output,api){
   const board=JSON.parse(fs.readFileSync(boardPath,'utf8'));
   const base=api??{bundle,openBrowser,renderMedia,renderStill,selectComposition};
   return renderBatch({jobs:[{kind:'video',props:boardPath,output,preview:false}]},{...base,
-    selectComposition:async options=>withCompleteCredits(await base.selectComposition(options),board)});
+    selectComposition:async options=>withCompleteCredits(await base.selectComposition(options),board),
+    renderMedia:async options=>{
+      const fps=options.composition.fps;
+      const end=Math.max(Number(board.runtime_s),...(board.scenes??[]).map(s=>Number(s.start_s)+Number(s.duration_s)));
+      const gap=Math.ceil(end*fps)-Math.round(end*fps);
+      // Extending only the file leaves the original Sequence expired, producing
+      // an empty last frame. Extend its derived duration by the same boundary gap.
+      const inputProps={...options.inputProps,credits_s:(Math.ceil(Number(board.credits_s??0)*fps)+gap)/fps};
+      return base.renderMedia({...options,inputProps,composition:{...options.composition,props:{...options.composition.props,...inputProps}}});
+    }});
 }
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
