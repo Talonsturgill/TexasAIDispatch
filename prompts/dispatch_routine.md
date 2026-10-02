@@ -20,6 +20,15 @@ Read each phase file in full when entering that phase. These files are part of t
 4. prompts/phases/04-review.md
 5. prompts/phases/05-release.md
 
+For newly planned editions from October 3, 2026, phases 1 to 4 apply
+knowledge/craft/visual-storytelling/viewer-plan.md. Read that method and the selector in full
+when choosing the story, then the selected approach dossier when boarding. For a news report
+also read knowledge/craft/visual-storytelling/news-reporting.md. Choose the format and evidence
+order from the inspected source and assets. Record the focus, likely false inference and each
+picture-to-word connection in the existing fields. Current role packets bind the relevant
+guides; independent-provider recovery includes their actual text. These guides teach decisions
+under the existing rubric and add no role, paid attempt, approval field or resource grant.
+
 For a repair, also read prompts/phases/repair.md. Load prompts/phases/tooling.md only for
 a relevant implementation defect. Load the specific Texas region, application, culture or
 craft reference needed for the current decision. Search GATE_LESSONS.md for the affected gate

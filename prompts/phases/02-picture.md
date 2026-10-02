@@ -16,6 +16,38 @@ performance needs actual supported footage or a separately demonstrated mechanis
 Keep quality_plan, three source-backed images, attention_beats and the dated cinema plan.
 Read CREATIVE_DIRECTION.md: current editions choose media by source fit and prove every scene. The hero is the hardest current action, not a comfortable old opening.
 
+## Match pictures to the spoken story
+
+Read knowledge/craft/visual-storytelling/README.md and the selected approach dossier in full.
+Use its sentence-to-shot worksheet in existing creative-direction notes and the compact packet.
+Select the primary approach by the sourced action and usable assets; daily rotation is optional
+only among equally suitable approaches. Preserve the existing two-treatment comparison.
+
+For newly planned editions from October 3, read knowledge/craft/visual-storytelling/viewer-plan.md
+and, for a news report, knowledge/craft/visual-storytelling/news-reporting.md. Choose a format
+and sequence before writing the shot list. In medium_choice
+name the approach and explain its asset fit and plausible alternative. Use the existing focus,
+emotional-turn and edit fields to state the expected takeaway, likely false inference, new
+information at each beat and the carried subject across footage/code handoffs. A cinematic
+scene follows a task and turn; an explainer reveals successive states; a report chooses the
+ordering its evidence supports. Do not force all three through a studio-intro template.
+
+The current packet binds the method and relevant guides. Have each assigned worker read those
+guides in full and make its own scope-appropriate judgment. Budget the complete host/provider
+review path before selecting the treatment or spending on a structural repair. Preserve the
+approved words and alignment during repair; a new rationale alone cannot justify replacing or
+rebuying a retained same-byte verdict.
+
+Before narration, have the existing critic identify the principal subjects, action and result
+from the rendered phone sequence before reading the board's explanation. Then compare each
+spoken clause with its actual pictured subject and relationship. Do not approve abstract slabs
+as a photo/depth comparison or flying blank sheets as a readable repair decision simply because
+their item ids are bound and their pixels move.
+
+Record missing recognition, absent principal action and misleading picture-to-word relationships
+as concrete comprehension/source defects under the fixed contract. Consolidate them with all
+current defects in the existing correction. This adds no reviewer, budget or render call.
+
 ## Board fields and local checks
 
 out/dispatch/storyboard.json is the actual props file. Scenes tile the story runtime without

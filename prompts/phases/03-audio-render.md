@@ -17,12 +17,18 @@ This command preserves the original rejection and refuses missing integrity obse
 
 ```sh
 python scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
+python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet vo-director --out out/dispatch/vo-director-packet.json
 python scripts/run_controller.py consume --resource voice_directors --note "final continuous read"
 ```
 
-Spawn `vo-director` with the current approved script and compact packet. Save per-line intent,
+Spawn `vo-director` with the current approved script and vo-director-packet.json. Save per-line intent,
 emphasis and energy in vo_direction.json. Its text must exactly match vo_script.txt.
 Direction stays outside spoken wording. Run the prose scan before synthesis.
+
+For newly planned editions from October 3, its bound guides connect the performance to the
+chosen format and beat jobs. Direct emphasis to the visible discovery, explanation or source
+limit. Flag picture/word mismatches in the consolidated correction before spending; preserve
+approved narration and alignment when repairing pictures. Keep the same one-pass voice plan.
 
 ```sh
 python scripts/vo_synth_gemini.py --script out/dispatch/vo_script.txt --direction out/dispatch/vo_direction.json --out out/dispatch/takes --takes 1 --run-state out/dispatch/run_state.json

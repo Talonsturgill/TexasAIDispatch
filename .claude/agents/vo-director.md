@@ -49,3 +49,14 @@ line a concrete intent, relative energy and one exact spoken emphasis phrase. De
 from curiosity through discovery to consequence; keep a conversational continuous read. Do
 not place numeric pause instructions into the TTS prompt. Background contrast is executed by
 the mixer on the board event clock, while the final sound lens judges the actual voice.
+
+## Perform the story's information sequence
+
+For newly planned editions from October 3, read the packet's bound viewer method and approach
+guides. Use the director's focus, edit and sound notes to identify each approved line's job:
+orient, reveal, explain, qualify or resolve. Explain the chosen emphasis and energy change
+through that job and the corresponding visible event. A report, an educational explanation and
+a cinematic scene need different performances; none needs perpetual urgency. Preserve immediate
+source limits and do not use a triumphant delivery to imply an unreported success. Flag a
+picture/word mismatch for the director's consolidated correction rather than silently rewriting
+the script. Keep the same continuous take, measured alignment and existing audible review.

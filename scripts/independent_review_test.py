@@ -114,6 +114,17 @@ class AvailabilityTest(unittest.TestCase):
         self.assertEqual(calls, 0)
         self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
 
+    def test_changed_teaching_context_cannot_buy_another_same_film_verdict(self):
+        self.call()
+        with patch.dict(r.os.environ, {'GEMINI_API_KEY': 'test-key'}), \
+                patch.object(r, 'packet', return_value=({'current': 'changed craft guide'}, self.bindings)), \
+                patch.object(r, 'reserve', side_effect=AssertionError('spent budget')), \
+                patch.object(r.requests, 'post', side_effect=AssertionError('provider called')):
+            with self.assertRaisesRegex(ValueError, 'no verdict retry'):
+                r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
+                      'phone', self.failure_path, self.state, self.root/'phone.json')
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
+
     def test_failed_provider_attempt_remains_charged_and_cannot_poll(self):
         with self.assertRaisesRegex(ValueError, 'HTTP 503'):
             self.call(response=Mock(status_code=503))
@@ -246,6 +257,30 @@ class AvailabilityTest(unittest.TestCase):
             self.assertEqual(text['files']['runs/2026-09-28/storyboard.json'],
                              (shipped/'storyboard.json').read_text())
             self.assertNotIn('runs/2026-09-29/storyboard.json', text['files'])
+            self.assertNotIn('craft_readings_sha256', bindings)
+            # New workers must actually receive the guide bytes. Local references
+            # alone cannot teach a provider role or bind its current context.
+            import shutil
+            shutil.copytree(actual_repo/'knowledge/craft/visual-storytelling',
+                            fixture/'knowledge/craft/visual-storytelling')
+            current = json.loads(board.read_text())
+            current.update(date='2026-10-03', creative_direction={
+                'medium_choice': 'News report; Explanatory animation. Follow the same sourced example.'})
+            board.write_text(json.dumps(current))
+            taught, taught_bindings = r.packet(board, claims, 'code', None)
+            method = 'knowledge/craft/visual-storytelling/viewer-plan.md'
+            guide = fixture/method
+            self.assertEqual(taught['files'][method], guide.read_text())
+            self.assertEqual(taught_bindings['craft_readings_sha256'][method], r.digest(guide))
+            self.assertIn('knowledge/craft/visual-storytelling/explanatory-animation.md', taught['files'])
+            self.assertNotIn('knowledge/craft/visual-storytelling/cinematic-scene.md', taught['files'])
+            original_story = taught_bindings['story_sha256']
+            guide.write_text(guide.read_text() + '\nFixture-only changed teaching context.\n')
+            retaught, retaught_bindings = r.packet(board, claims, 'code', None)
+            self.assertNotEqual(r.fingerprint(taught), r.fingerprint(retaught))
+            self.assertNotEqual(taught_bindings['craft_readings_sha256'], retaught_bindings['craft_readings_sha256'])
+            self.assertEqual(original_story, retaught_bindings['story_sha256'])
+            text, bindings = retaught, retaught_bindings
             old_hash = r.fingerprint(text)
             source.write_text(source.read_text() + ' New retained source context.')
             changed_text, changed_bindings = r.packet(board, claims, 'code', None)

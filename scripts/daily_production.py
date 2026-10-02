@@ -413,6 +413,11 @@ def packet(board_path, claims_path, role, state_path=None):
     import creative_production as creative
     if creative.required(board):
         data["creative_contract"] = "knowledge/craft/CREATIVE_DIRECTION.md"
+        if role != "validator":
+            readings = craft_reading_paths(board)
+            if readings:
+                data["craft_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)} for p in readings]
+                data["instructions"] += " Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria."
         for name in ("comparison.json", "selection.json"):
             path = Path(board_path).parent / "openings" / name
             if path.is_file():
@@ -436,6 +441,24 @@ def packet(board_path, claims_path, role, state_path=None):
     if len(encoded) > policy()["handoff_max_chars"]:
         raise ValueError("handoff exceeds the compact packet limit; shorten the story contract, retain source paths")
     return data
+
+
+def craft_reading_paths(board, repo=None):
+    """Route current teaching text without altering historical review inputs or schemas."""
+    edition = str(board.get("date") or "")
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", edition) or edition < "2026-10-03":
+        return []
+    root = Path(REPO if repo is None else repo) / "knowledge/craft/visual-storytelling"
+    guides = {"observed documentary": "observed-documentary.md",
+              "explanatory animation": "explanatory-animation.md",
+              "evidence-led imagery": "evidence-led-imagery.md",
+              "cinematic scene": "cinematic-scene.md"}
+    choice = str((board.get("creative_direction") or {}).get("medium_choice") or "").casefold()
+    named = [file for name, file in guides.items() if name in choice or file[:-3] in choice]
+    # A remote reviewer cannot follow an absent local guide. Unnamed legacy-style
+    # plans get the small complete approach set; explicit choices stay compact.
+    names = ["viewer-plan.md", "README.md", "news-reporting.md"] + (named or list(guides.values()))
+    return [root / name for name in names]
 
 
 def scoreboard(runs=REPO / "runs", state_path=None):
