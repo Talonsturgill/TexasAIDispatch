@@ -1,6 +1,6 @@
 # Make the editorial choice before the picture
 
-Apply this method to newly planned editions from October 3, 2026. It guides decisions under the current contracts and does not certify quality. It adds no board schema, scorer, research pass or paid attempt.
+Apply this method to newly planned editions from October 3rd, 2026. It guides decisions under the current contracts and does not certify quality. It adds no board schema, scorer, research pass or paid attempt.
 
 ## Decide and record
 
@@ -23,10 +23,10 @@ These are short decision reasons a colleague can inspect, not a request for a pr
 - **Code critic:** Determine whether the proposed implementation can perform the action and carry the explanation. A planned gesture is not a watched result.
 - **Phone critic and scorers:** First describe what is recognizable and what changes in the actual film. Then compare with the approved account. Locate the weakest identity or information handoff and classify the observed defect under the existing criteria. Keep their separate assigned lenses and actual verdicts.
 
-For remote independent recovery, the supplied packet contains the actual method, selector, reporting dossier and named approach text. If a director has not named an approach, all four approach guides are supplied rather than pretending an unread local path was available. The new teaching bundle is added only for editions from October 3. A text packet never establishes audiovisual access.
+For remote independent recovery, the supplied packet contains the actual method, selector, reporting dossier and named approach text. If a director has not named an approach, all four approach guides are supplied rather than pretending an unread local path was available. The new teaching bundle is added only for editions from October 3rd. A text packet never establishes audiovisual access.
 
 ## Why the handoff needs thought
 
 An original film-comprehension study associated event boundaries with meaningful changes in characters, objects, place, goals and causes. Our application is to preserve those relationships across a cut and make a change understandable. This is an editorial inference, not a scientifically established short-video pacing interval or retention guarantee. [Zacks and colleagues, The Brain's Cutting-Room Floor](https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2010.00168/full).
 
-The director can consult the [observed news examples](broadcast-cadence-study.md) when a reporting choice needs a model. Workers use the supplied method, relevant guide and current artifacts without repeatedly reloading the research corpus. Retain real rejections; a well-written plan cannot clear absent action, false implication or failed comprehension.
+The director can consult the [observed news examples](broadcast-cadence-study.md) when a reporting choice needs a model. Workers use the supplied method, relevant guide and current artifacts without repeatedly reloading the research corpus. Retain real rejections; a well-written plan can't clear absent action, false implication or failed comprehension.

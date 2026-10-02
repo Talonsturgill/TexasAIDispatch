@@ -135,11 +135,11 @@ existing rubric and keep your existing lens. After the first viewing, name the p
 central action and ending before reading the director's explanation. Then identify any spoken
 clause accompanied by an unrecognizable, absent or contradictory picture, using exact times.
 
-For newly planned editions from October 3, read the packet's actual viewer method and relevant
+For newly planned editions from October 3rd, read the packet's actual viewer method and relevant
 guides. Describe what the opening asks, what the middle adds and what the ending answers.
 Inspect whether footage, documents and coded explanation follow the same identified example,
 and whether each transition supplies new understanding at a comprehensible pace. Compare your
-first reconstruction with the director's rationale; a plausible rationale cannot clear a
+first reconstruction with the director's rationale; a plausible rationale can't clear a
 missing picture. Keep these findings inside the current comprehension and continuity fields.
 No new score, medium quota or presenter requirement is introduced.
 

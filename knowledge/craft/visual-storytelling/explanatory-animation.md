@@ -6,7 +6,7 @@ Read the [shared visual-storytelling direction](README.md) first.
 
 It makes a hidden process or comparison understandable: two inputs contributing different information, a record moving through a decision, or a physical condition producing a visible measurement. Original diagrams and illustration are often the clearest first choice.
 
-Choose this approach when the source establishes the relationship but useful observational footage is missing or cannot reveal it. The explanation must preserve the source's uncertainty and distinguish a conceptual example from an actual system output.
+Choose this approach when the source establishes the relationship but useful observational footage is missing or can't reveal it. The explanation must preserve the source's uncertainty and distinguish a conceptual example from an actual system output.
 
 ## Research findings and limits
 
@@ -32,7 +32,7 @@ Choose 2D, 2.5D or 3D based on the relationship. A flat comparison often explain
 
 Make the principal forms identifiable before their transformation. Maintain consistent labels, positions and shape cues. Use color as support, with readable shape or text distinctions as well. Introduce a new concept only after the current relationship is clear.
 
-Plan the reveal around the relevant spoken clause, then use measured narration timing for the final event windows. Quiet or restrained sound can mark a visible comparison; a synthetic beep cannot imply actual hardware recording. Preserve the existing sound and caption contracts.
+Plan the reveal around the relevant spoken clause, then use measured narration timing for the final event windows. Quiet or restrained sound can mark a visible comparison; a synthetic beep can't imply actual hardware recording. Preserve the existing sound and caption contracts.
 
 A changed state can be information made visible. It need not be a moving human or a mechanical handoff. The current minimum picture-action contract still applies: a full-film static diagram with decorative fades is a rejected treatment.
 
@@ -52,4 +52,4 @@ This pattern is conceptual guidance, not a verified reconstruction of Texas Stat
 
 Have the existing critic first name the pictured objects and explain the relationship without the director's legend. Then compare exact spoken clauses to rendered moments. If the critic needs the board to identify the principal input or result, consolidate that as a comprehension defect before narration.
 
-Use proven components and the existing shared preview comparison. Test the hardest current transformation in the native hero. Preserve the strongest accepted complete treatment as the completion fallback. Additional labels, texture or camera movement cannot repair a missing explanation.
+Use proven components and the existing shared preview comparison. Test the hardest current transformation in the native hero. Preserve the strongest accepted complete treatment as the completion fallback. Additional labels, texture or camera movement can't repair a missing explanation.

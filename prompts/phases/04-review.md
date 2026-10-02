@@ -86,7 +86,7 @@ observed defects together. Passing fixed criteria ends creative editing and star
 Include the selected visual-storytelling dossier and sentence-to-shot notes in the existing
 compact review packet. Scorers use knowledge/craft/visual-storytelling/README.md to compare the
 actual pictured subjects, relationships and consequences with the spoken clauses at exact times.
-For newly planned editions from October 3, the packet binds the viewer method, reporting dossier
+For newly planned editions from October 3rd, the packet binds the viewer method, reporting dossier
 and named approach guides; the independent-provider transport supplies their actual text.
 Each scorer first reconstructs the account from the film, then compares the source-backed
 explanation and rationale. Inspect the information added at each cut and the same-subject

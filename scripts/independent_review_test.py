@@ -259,7 +259,7 @@ class AvailabilityTest(unittest.TestCase):
             self.assertNotIn('runs/2026-09-29/storyboard.json', text['files'])
             self.assertNotIn('craft_readings_sha256', bindings)
             # New workers must actually receive the guide bytes. Local references
-            # alone cannot teach a provider role or bind its current context.
+            # alone can't teach a provider role or bind its current context.
             import shutil
             shutil.copytree(actual_repo/'knowledge/craft/visual-storytelling',
                             fixture/'knowledge/craft/visual-storytelling')

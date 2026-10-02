@@ -455,7 +455,7 @@ def craft_reading_paths(board, repo=None):
               "cinematic scene": "cinematic-scene.md"}
     choice = str((board.get("creative_direction") or {}).get("medium_choice") or "").casefold()
     named = [file for name, file in guides.items() if name in choice or file[:-3] in choice]
-    # A remote reviewer cannot follow an absent local guide. Unnamed legacy-style
+    # A remote reviewer can't follow an absent local guide. Unnamed legacy-style
     # plans get the small complete approach set; explicit choices stay compact.
     names = ["viewer-plan.md", "README.md", "news-reporting.md"] + (named or list(guides.values()))
     return [root / name for name in names]

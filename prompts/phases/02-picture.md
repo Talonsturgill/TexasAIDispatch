@@ -23,7 +23,7 @@ Use its sentence-to-shot worksheet in existing creative-direction notes and the 
 Select the primary approach by the sourced action and usable assets; daily rotation is optional
 only among equally suitable approaches. Preserve the existing two-treatment comparison.
 
-For newly planned editions from October 3, read knowledge/craft/visual-storytelling/viewer-plan.md
+For newly planned editions from October 3rd, read knowledge/craft/visual-storytelling/viewer-plan.md
 and, for a news report, knowledge/craft/visual-storytelling/news-reporting.md. Choose a format
 and sequence before writing the shot list. In medium_choice
 name the approach and explain its asset fit and plausible alternative. Use the existing focus,
@@ -35,7 +35,7 @@ ordering its evidence supports. Do not force all three through a studio-intro te
 The current packet binds the method and relevant guides. Have each assigned worker read those
 guides in full and make its own scope-appropriate judgment. Budget the complete host/provider
 review path before selecting the treatment or spending on a structural repair. Preserve the
-approved words and alignment during repair; a new rationale alone cannot justify replacing or
+approved words and alignment during repair; a new rationale alone can't justify replacing or
 rebuying a retained same-byte verdict.
 
 Before narration, have the existing critic identify the principal subjects, action and result

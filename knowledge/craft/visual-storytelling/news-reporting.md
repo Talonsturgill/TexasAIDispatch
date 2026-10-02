@@ -1,6 +1,6 @@
 # Direct a coherent news report
 
-The [cadence study](broadcast-cadence-study.md) records the evidence behind this dossier. The structures below are Dispatch production choices, not a universal network script. Apply them to newly planned editions from October 3, 2026; preserve shipped editions and their real reviews.
+The [cadence study](broadcast-cadence-study.md) records the evidence behind this dossier. The structures below are Dispatch production choices, not a universal network script. Apply them to newly planned editions from October 3rd, 2026; preserve shipped editions and their real reviews.
 
 A report has an editorial spine: a specific situation, a question, evidence that changes the answer, an explanation, an honest consequence and a close. Decide which of those jobs the next shot performs. A source-related image that supplies no new understanding is a weak insert, even if its colors and motion look expensive.
 
@@ -9,10 +9,10 @@ A report has an editorial spine: a specific situation, a question, evidence that
 | Reporting structure | Choose it when | Sequence of reporting jobs | Ending test |
 | --- | --- | --- | --- |
 | Human-led report | The evidence identifies a real person's task, obstacle or changed options | Show the task or consequence → establish the dated change → broaden with evidence → explain the cause and limits → return to the same person or task | Has the viewer learned what changes for that person, without an invented reaction or outcome? |
-| Mechanism-led report | The central news is a process, measurement or decision that viewers cannot readily see | Show a recognizable input and question → orient the source and setting → reveal the transformation → show the result → connect it to a human decision and its limits | Can the viewer explain the input, transformation and result, and distinguish an illustration from observed operation? |
+| Mechanism-led report | The central news is a process, measurement or decision that viewers can't readily see | Show a recognizable input and question → orient the source and setting → reveal the transformation → show the result → connect it to a human decision and its limits | Can the viewer explain the input, transformation and result, and distinguish an illustration from observed operation? |
 | Evidence-led report | A filing, policy, measurement or public record changes the reported answer | Establish the dated decision or disputed claim → expose the decisive source detail → explain its effect with a concrete relationship → show affected options or activity → state the unresolved point and next decision | Does the ending answer what the record establishes, who can act next and what it does not establish? |
 
-Choose one structure. Compress or reorder it when the evidence and viewer's question justify that choice. Establish the essential source limitation when the affected claim appears; a later caveat cannot undo a misleading picture. Keep the current early-picture payoff and event timing requirements. These sequences introduce no extra scenes, prescribed shot seconds or runtime quota.
+Choose one structure. Compress or reorder it when the evidence and viewer's question justify that choice. Establish the essential source limitation when the affected claim appears; a later caveat can't undo a misleading picture. Keep the current early-picture payoff and event timing requirements. These sequences introduce no extra scenes, prescribed shot seconds or runtime quota.
 
 The CBS transcript in the study provides a specific-to-broad-to-specific example. The CNN transcript shows a different package organization, and the MSNBC example is a question-led interview. They are different forms with different access to people and evidence. A short Dispatch should not imitate a lengthy panel simply because it resembles national television.
 
@@ -26,7 +26,7 @@ The CBS transcript in the study provides a specific-to-broad-to-specific example
 
 **Evidence:** Show the exact place, equipment, task, relevant photograph or decisive source words. Identify what the evidence establishes. A quotation is evidence of what its speaker said; it is not proof that their conclusion is true. Show a contrary finding or uncertainty when the story requires it. Use the existing source and rights lanes for every asset.
 
-**Explanation:** Introduce coded visuals when they reveal a relationship that the authentic image cannot show. Keep the same physical subject or explicitly identify the new example. The diagram should answer the question created by the preceding shot. Return to the source image or human decision after the explanation when that return completes the thought.
+**Explanation:** Introduce coded visuals when they reveal a relationship that the authentic image can't show. Keep the same physical subject or explicitly identify the new example. The diagram should answer the question created by the preceding shot. Return to the source image or human decision after the explanation when that return completes the thought.
 
 **Consequence and close:** Show how the action changes a state, choice, risk or next step. Answer the opening question through the completed visible action. Distinguish a demonstrated consequence, an expected effect and an unknown eventual outcome. Do not repeat the introduction merely to make the film seem circular. A return earns its place when the viewer now understands the original subject differently.
 
@@ -44,7 +44,7 @@ Give each beat one new idea the viewer needs for the next beat. Complete its dec
 
 Voice should orient, reveal, explain, qualify or resolve. Tell the VO director which job a line performs and where the visual answer lands. Keep the approved continuous script and measured alignment. Use contrast in intent and emphasis rather than perpetual urgency. Do not turn a hypothesis into certainty through a triumphant delivery or sound cue.
 
-Natural sound, verified interview audio and motivated effects can connect thoughts when their provenance and actual event timing support that use. A sound bridge can carry the same action over a cut. Sound cannot imply recorded access to a site we did not visit. Preserve intelligibility and all existing audio checks.
+Natural sound, verified interview audio and motivated effects can connect thoughts when their provenance and actual event timing support that use. A sound bridge can carry the same action over a cut. Sound can't imply recorded access to a site we did not visit. Preserve intelligibility and all existing audio checks.
 
 Retain complete captions. Keep extra labels short and attached to the object they identify. Do not present a second paragraph, a busy diagram and a new location at the same time as a dense spoken sentence. Seeing, hearing and reading should reinforce the same unfolding account.
 

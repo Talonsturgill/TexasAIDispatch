@@ -20,7 +20,7 @@ Read each phase file in full when entering that phase. These files are part of t
 4. prompts/phases/04-review.md
 5. prompts/phases/05-release.md
 
-For newly planned editions from October 3, 2026, phases 1 to 4 apply
+For newly planned editions from October 3rd, 2026, phases 1 to 4 apply
 knowledge/craft/visual-storytelling/viewer-plan.md. Read that method and the selector in full
 when choosing the story, then the selected approach dossier when boarding. For a news report
 also read knowledge/craft/visual-storytelling/news-reporting.md. Choose the format and evidence

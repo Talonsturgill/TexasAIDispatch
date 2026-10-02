@@ -167,7 +167,7 @@ consolidates all visible defects; no additional reviewer or research pass is int
 ## Recognizable pictures and spoken meaning
 
 Read knowledge/craft/visual-storytelling/README.md and the director's selected approach dossier.
-For newly planned editions from October 3, read the bound viewer-plan and reporting guides.
+For newly planned editions from October 3rd, read the bound viewer-plan and reporting guides.
 Challenge the actual choice: why this format, why this evidence in this position, what new
 understanding arrives at the cut, and which subject connects authentic imagery to explanation?
 Name the likely false inference and whether the actual treatment prevents it. Do not reward a
@@ -181,6 +181,6 @@ phone_observations and story_review notes with exact intervals and current-film 
 Topical props and technically bound item ids do not prove recognition. A slab is not automatically
 a photograph; a rail is not automatically a depth map; moving blank sheets do not establish a
 maintenance choice. Judge what the viewer can understand from the pixels and the combined film.
-Essential dates and attribution may rely on text, but captions cannot supply a missing principal
+Essential dates and attribution may rely on text, but captions can't supply a missing principal
 action. Classify actual missing comprehension or false visual claims under the current contract,
 rather than as an optional medium preference. Return one consolidated correction.

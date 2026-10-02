@@ -10,7 +10,7 @@ Choose it when the source supports an actual goal, obstacle, consequential actio
 
 ## Research findings and limits
 
-Pixar's camera and lighting leads describe reviewing work in story context, shaping a common visual language and choosing camera/lighting contrast to express different character situations in Incredibles 2. Their account makes cinematography a coordinated storytelling decision, not an independent display of rendering quality. It concerns a feature animation; Dispatch cannot borrow its production scale or fictional freedoms. [Pixar cinematography account](https://renderman.pixar.com/stories/incredible-cinematography).
+Pixar's camera and lighting leads describe reviewing work in story context, shaping a common visual language and choosing camera/lighting contrast to express different character situations in Incredibles 2. Their account makes cinematography a coordinated storytelling decision, not an independent display of rendering quality. It concerns a feature animation; Dispatch can't borrow its production scale or fictional freedoms. [Pixar cinematography account](https://renderman.pixar.com/stories/incredible-cinematography).
 
 StudioBinder's blocking lesson explains how placement, movement, shapes and space guide attention and emotional interpretation. It is practitioner instruction, not empirical proof that a camera move creates engagement. [Film blocking lesson](https://www.studiobinder.com/filmmaking-techniques-film-blocking/).
 
@@ -32,7 +32,7 @@ For a pavement explanation, the obstacle is that a dark surface mark can be ambi
 
 Establish where the subject is and where the viewer should look. Use a close shot for the decisive detail and a wider shot when the relationship or physical consequence requires it. Maintain orientation across the cut so the viewer does not spend the reveal rebuilding the scene.
 
-Move the camera to reveal previously hidden information, follow a relevant action or shift attention after a decision. Hold it when movement would obscure the result. An orbit around a prop cannot substitute for a turn in the story.
+Move the camera to reveal previously hidden information, follow a relevant action or shift attention after a decision. Hold it when movement would obscure the result. An orbit around a prop can't substitute for a turn in the story.
 
 Use lighting to separate the principal subject and make the action readable. A shadow or highlight should reveal a source-supported surface or spatial relationship. Do not use darkness to conceal crude geometry, failed contact or an unreadable subject. Preserve native finish and phone comprehension.
 

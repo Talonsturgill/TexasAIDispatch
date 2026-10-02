@@ -52,7 +52,7 @@ the mixer on the board event clock, while the final sound lens judges the actual
 
 ## Perform the story's information sequence
 
-For newly planned editions from October 3, read the packet's bound viewer method and approach
+For newly planned editions from October 3rd, read the packet's bound viewer method and approach
 guides. Use the director's focus, edit and sound notes to identify each approved line's job:
 orient, reveal, explain, qualify or resolve. Explain the chosen emphasis and energy change
 through that job and the corresponding visible event. A report, an educational explanation and

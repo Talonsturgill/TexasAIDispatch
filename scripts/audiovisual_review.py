@@ -166,10 +166,10 @@ consulting the authored transcript and source context. Then compare each audible
 what its picture actually reveals. At each cut ask what new understanding arrives and whether
 the same person, site, sample or document remains identifiable. A footage-to-diagram handoff
 must carry that identity or disclose a different example. Topical imagery, generic typing and
-unrecognizable moving props cannot explain a missing mechanism. Judge the opening question,
+unrecognizable moving props can't explain a missing mechanism. Judge the opening question,
 middle development and ending answer as one account; no presenter or medium quota is required.
 Keep these observations in the existing comprehension, pacing and defect fields. A director's
-plan cannot substitute for an observed action, truthful picture or understandable handoff.
+plan can't substitute for an observed action, truthful picture or understandable handoff.
 Ground each rejection in an observed event at a specific time. Separate observed picture and
 sound defects from a preference for a particular medium. Footage, authenticated stills,
 source excerpts, diagrams and 3D receive the same picture and comprehension standard. The legacy

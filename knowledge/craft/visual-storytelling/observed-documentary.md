@@ -4,7 +4,7 @@ Read the [shared visual-storytelling direction](README.md) first.
 
 ## What this approach does
 
-It lets the viewer witness the reported work: a technician checking a sample, a machine handling an object, an inspector reaching a decision or a worker responding to a real result. Actual identity and behavior provide specificity that generic illustrative footage cannot supply.
+It lets the viewer witness the reported work: a technician checking a sample, a machine handling an object, an inspector reaching a decision or a worker responding to a real result. Actual identity and behavior provide specificity that generic illustrative footage can't supply.
 
 Choose this approach when the actual action is available in usable footage with established reuse rights. A building exterior or spokesperson interview alone does not make an action sequence.
 
@@ -38,7 +38,7 @@ Plan phone framing from the source image. A wide industrial shot may show the co
 
 ## Example and counterexample
 
-For a pavement-inspection story, useful authenticated footage could show the research vehicle or actual capture equipment, the collected pavement view, and a corresponding analysis result. Each connection needs evidence. Footage of an unrelated road van cannot establish Texas State's workflow. A university headshot can identify a researcher; it cannot demonstrate pavement analysis.
+For a pavement-inspection story, useful authenticated footage could show the research vehicle or actual capture equipment, the collected pavement view, and a corresponding analysis result. Each connection needs evidence. Footage of an unrelated road van can't establish Texas State's workflow. A university headshot can identify a researcher; it can't demonstrate pavement analysis.
 
 If usable workflow footage is absent, move to explanatory animation or a relevant still. Keep the search bounded. Do not repeat a stock hunt, manufacture a field shoot or label a generated vehicle as the actual equipment.
 

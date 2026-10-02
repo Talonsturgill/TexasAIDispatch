@@ -5,14 +5,14 @@ Earlier editions retain their original contracts. This policy replaces the dimen
 and runtime quota. All source, quality, independent review, native output, audio, caption,
 budget and shipment requirements remain. It adds no score threshold or review role.
 
-## Visual storytelling correction from October 2, 2026
+## Visual storytelling correction from October 2nd, 2026
 
 Read [the visual-storytelling selector](visual-storytelling/README.md) and the selected approach
 dossier in full before boarding. Choose observed documentary, explanatory animation,
 evidence-led imagery or a cinematic scene from the source-backed action and available assets.
 Variety is a tie-breaker between suitable approaches, not a weekday quota.
 
-For newly planned editions from October 3, also read the [viewer planning method](visual-storytelling/viewer-plan.md).
+For newly planned editions from October 3rd, also read the [viewer planning method](visual-storytelling/viewer-plan.md).
 Choose News report, Educational explainer or Cinematic scene as a format, then name the primary
 approach in medium_choice. Record why it fits the inspected assets, the plausible alternative,
 likely false inference and information sequence in the existing creative-direction, scene and
@@ -27,12 +27,12 @@ to the next shot. Do not add a new board schema, scoring weight, reviewer or ren
 
 The existing phone critic identifies the pictured input, action and result from the actual preview
 before reading the director's explanation. Then it compares those observations with the spoken
-clauses. A moving source-related prop is insufficient if a viewer cannot recognize what it
+clauses. A moving source-related prop is insufficient if a viewer can't recognize what it
 represents. Missing or contradictory explanation stays a comprehension/source defect under the
-current contract; decorative motion cannot turn it into a deferrable style issue.
+current contract; decorative motion can't turn it into a deferrable style issue.
 
 Retain the same two-treatment batch, frozen budget, native hero, independent reviews and
-bounded-release route. The [October 2 pavement diagnosis](visual-storytelling/october-2-pavement-case.md)
+bounded-release route. The [October 2nd pavement diagnosis](visual-storytelling/october-2-pavement-case.md)
 is a sampled-frame case study, not a replacement verdict or permission to alter the shipped film.
 
 ## Treatment recovery from September 30, 2026

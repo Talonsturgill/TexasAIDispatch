@@ -1,6 +1,6 @@
-# October 2 pavement film: diagnosis and proposed sequence
+# October 2nd pavement film: diagnosis and proposed sequence
 
-Assessment date: October 2, 2026. Film: Below the dark mark.
+Assessment date: October 2nd, 2026. Film: Below the dark mark.
 
 This diagnosis responds to the owner's report that the visuals distracted from the story. It preserves the shipped edition and its actual independent findings. It proposes future direction; it is not a replacement film, a new independent verdict or retrospective approval.
 
@@ -41,7 +41,7 @@ This is an unrendered direction proposal. It earns no passing verdict. Any techn
 | Depth helps distinguish damage from a stain | Reveal the flat surface versus physical gap in a disclosed explanatory comparison | Explain the principle; do not claim a verified classification result |
 | The system generates repair reports | Show a recognizable illustrative report connected to the pictured assessment | No fabricated Texas State interface or actual output |
 | Crews need the distinction before choosing repairs | Show the connection from assessment to a maintenance choice | A potential use, not evidence of a deployment or completed repair |
-| Research phase reported August 24 | Brief primary-source identity/date view or faithful attributed transcription | Preserve the reported date |
+| Research phase reported August 24th | Brief primary-source identity/date view or faithful attributed transcription | Preserve the reported date |
 | Hairline detection and severity scoring are planned improvements | Show the hard-to-see thin detail and clearly mark the improvement as planned | No depiction of those improvements as achieved |
 | A better map is not a repaired road | Return to the recognizable unchanged damage | Keep the physical outcome unresolved |
 

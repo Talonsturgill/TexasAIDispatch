@@ -25,7 +25,7 @@ Spawn `vo-director` with the current approved script and vo-director-packet.json
 emphasis and energy in vo_direction.json. Its text must exactly match vo_script.txt.
 Direction stays outside spoken wording. Run the prose scan before synthesis.
 
-For newly planned editions from October 3, its bound guides connect the performance to the
+For newly planned editions from October 3rd, its bound guides connect the performance to the
 chosen format and beat jobs. Direct emphasis to the visible discovery, explanation or source
 limit. Flag picture/word mismatches in the consolidated correction before spending; preserve
 approved narration and alignment when repairing pictures. Keep the same one-pass voice plan.
