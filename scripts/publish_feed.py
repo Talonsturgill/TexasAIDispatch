@@ -126,7 +126,7 @@ def entry(date: str, board: dict, caption: str, county: str,
         raise SystemExit("the storyboard has no title, so there is nothing to publish under")
     e = {
         "id": f"{date}-{slug(title)}",
-        "date": date,
+        "date": date[:10],
         "title": title,
         "caption": caption.strip(),
         "video": f"/runs/{date}/dispatch.mp4",
@@ -173,11 +173,10 @@ def renditions(run: Path) -> tuple[bool, bool]:
 def publish(feed: dict, new: dict) -> dict:
     """Newest first, and a re-publish REPLACES rather than duplicates.
 
-    The same date being published twice is a re-run, not two films, and two cards with one id
-    is a deep link that lands on whichever the browser reached first.
+    Match the artifact path or exact id. Separate same-day editions retain separate cards.
     """
     vids = [v for v in (feed.get("videos") or []) if v and v.get("id") != new["id"]
-            and v.get("date") != new["date"]]
+            and v.get("video") != new["video"]]
     feed["videos"] = [new] + vids
     feed.setdefault("media_base",
                     "https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main")
@@ -251,6 +250,16 @@ def self_test() -> int:
        and len(feed["videos"]) == 2)
     ok("media_base is set when the feed had none", "media_base" in feed)
 
+    first = entry("2026-08-18", board, good, "Williamson", True, True)
+    frozen = json.dumps(first, sort_keys=True)
+    second = entry("2026-08-18-second", {**board, "title": "A separate film"}, good, "Williamson", True, True)
+    editions = publish({"videos": [first]}, second)
+    ok("separate same-day editions preserve the first card and media paths",
+       len(editions["videos"]) == 2 and json.dumps(editions["videos"][1], sort_keys=True) == frozen
+       and second["date"] == first["date"] and second["video"] != first["video"])
+    editions = publish(editions, dict(second))
+    ok("republishing a separate edition remains idempotent", len(editions["videos"]) == 2)
+
     print(f"publish_feed: {fails} failure(s)")
     return 1 if fails else 0
 
@@ -270,7 +279,15 @@ def main() -> int:
             print(f"publish_feed: missing --{v}", file=sys.stderr)
             return 2
 
+    import re
+    from datetime import date as calendar_date
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?", a.date):
+        raise SystemExit("Invalid edition identity")
+    calendar_date.fromisoformat(a.date[:10])
     run = REPO / "runs" / a.date
+    state = json.loads((run / "run_state.json").read_text())
+    if state.get("run_id") != a.date:
+        raise SystemExit("Feed identity must match the delivered controller run")
     for f in ("dispatch.mp4", "poster.png", "storyboard.json"):
         if not (run / f).exists():
             print(f"publish_feed: runs/{a.date}/{f} does not exist. Deliver the run first.",

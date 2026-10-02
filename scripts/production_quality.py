@@ -336,10 +336,10 @@ def changed_runs(base, repo=REPO):
         try:
             board = directory / "storyboard.json"
             data = read(board)
-            if data.get("date") != day:
-                errors.append(day + " board date differs from its delivery directory")
+            if data.get("run_id", data.get("date")) != day or data.get("date") != day[:10]:
+                errors.append(day + " board edition identity differs from its delivery directory")
                 continue
-            if day < policy()["effective_date"]:
+            if data["date"] < policy()["effective_date"]:
                 errors.append(day + " is a historical edition; new or rewritten published artifacts are refused")
                 continue
             if required(data):

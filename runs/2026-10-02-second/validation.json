@@ -1,0 +1,37 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-10-02",
+  "edition_id": "2026-10-02-second",
+  "source": "/root/validator; independent Rice web fetch and NSF API fetch",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c01",
+    "c02",
+    "c03",
+    "c04",
+    "c05",
+    "c06",
+    "c07",
+    "c08"
+  ],
+  "rejected": [
+    "The original c08 closing 'The laboratory is still planned' asserted unverified October operating status. July project language supports source-attributed planned development only.",
+    "An actual Rice gas valve and mandatory interlock were not documented. A generic valve may illustrate gas flow but cannot establish apparatus identity or safety control behavior.",
+    "Digital-twin output cannot independently certify safety or authorize physical execution. Rice says approved projects and researcher consultation on uncertainty.",
+    "Achieved faster electronics, low-power computing or completed diamond-film synthesis are not established by the project's initial targets.",
+    "NSF award-search HTML fetch yielded 'No Award Specified'; it is not used as evidence. The independently retrieved NSF API supplies the exact READINESS record.",
+    "The researcher research.json reported funding and startup dates as verified without an independent validator snapshot. Those assertions are admitted only after the validator's fresh NSF API fetch; no October announcement is claimed."
+  ],
+  "required_edits_applied": [
+    "The exact VO and all current boards replace unverified current-status 'still planned' with source attribution: Rice describes a planned laboratory.",
+    "All boards disclose Illustration. Planned research; action proposal identifies original generic equipment, no operating laboratory or actual safety interlock.",
+    "Eight claim quotes are continuous verbatim source spans; c01 is explicitly illustrative_interpretation and c03 is contextual planned capability.",
+    "Funding is independently matched to exact READINESS NSF award 2607553 and date 07/21/2026. No October announcement or fabricated scientific measurements are claimed."
+  ],
+  "source_snapshots": [
+    "out/dispatch/sources/validator-rice-readiness-web.txt",
+    "out/dispatch/sources/validator-nsf-readiness.json"
+  ],
+  "validated_at_utc": "2026-10-02T20:57:27.152617+00:00",
+  "scope_limit": "Factual source and initial-board/VO review only. No render, listening, film-comprehension verdict or current operating-status observation. script_audit.json awaits stabilized renderer/boards."
+}

@@ -1,0 +1,2184 @@
+{
+  "date": "2026-10-02",
+  "edition_id": "2026-10-02-second",
+  "title": "Before the valve opens",
+  "topic": "Rice plans digital rehearsal for materials research",
+  "beat": "science-machines",
+  "entities": [
+    "Rice University",
+    "READINESS",
+    "NSF"
+  ],
+  "runtime_s": 40,
+  "credits_s": 5,
+  "credits": "TEXAS AI DOCKET\nSOURCES\nRice University\nNational Science Foundation\nILLUSTRATION AND SOUND\nOriginal model and designed sonification\nMUSIC\n\"Immersed\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "derived_from": "scratch",
+  "divergence_note": "A follows an oblique side-by-side apparatus through valve, condition, supported trial, feedback and target macro cuts. B starts from a vertically paired comparison, then cuts frontally into the virtual chamber and uses a downward supported trial view before restoring the complete planned comparison. Neither repeats a permanent exploded wireframe or looping gas dots.",
+  "cinematic_template": "readiness-twin-v1",
+  "native_media": [],
+  "daily_production": true,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.92,
+      "end": 4.88,
+      "text": "Before a gas valve opens, a virtual experiment could run.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 5.44,
+      "end": 9.44,
+      "text": "Rice plans an AI powered materials laboratory in Houston.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 10.08,
+      "end": 15.6,
+      "text": "Its digital twin would model temperature, pressure, gas flow and chemical composition.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 16.3,
+      "end": 20.5,
+      "text": "Researchers could simulate a trial before using physical equipment.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 21.28,
+      "end": 24.52,
+      "text": "Results would teach the AI what to recommend next.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 25.36,
+      "end": 27.68,
+      "text": "When uncertain, it would consult a researcher.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 28.56,
+      "end": 31.26,
+      "text": "The targets include diamond thin films.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 32.04,
+      "end": 34.34,
+      "text": "NSF backed the project in July.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 35.0,
+      "end": 37.12,
+      "text": "Rice describes a planned laboratory.",
+      "source": "measured_boundary"
+    }
+  ],
+  "action_proposals": [
+    {
+      "id": "readiness-finite-rehearsal-v2",
+      "module": {
+        "path": "video-engine/src/ReadinessAction.tsx",
+        "sha256": "b71b0875701eee1f63c938df5a08377425312e14fe29b54ca14d4ff51890c7d7"
+      },
+      "exports": [
+        "ReadinessAction"
+      ],
+      "source_urls": [
+        "https://news.rice.edu/news/2026/accelerating-discovery-rice-receives-nearly-20m-nsf-award-ai-powered-materials-laboratory"
+      ],
+      "claim_ids": [
+        "c01",
+        "c03",
+        "c04",
+        "c05",
+        "c06",
+        "c07"
+      ],
+      "visible_action": "A solid translucent model of the conserved generic chamber receives a broad finite input front. Full-surface heat, large qualitative pressure controls and a second model mixture change distinctly before a supported virtual sample trial. Hypothetical feedback arrives and holds before the next proposed setting; an enlarged uncertainty question reaches pending researcher review.",
+      "consequence": "Researchers could inspect modeled inputs and a proposed trial before physical use. Future result feedback could inform recommendations and uncertainty could return to researcher judgment; no physical operation or scientific success is depicted.",
+      "limits": "Original generic apparatus and qualitative planned-research illustration, not an actual Rice machine, interface, numerical model output, synthesis process, grown film, measured material property, actual approval or mandatory hardware interlock. The researcher review destination is an abstract editorial node.",
+      "source_basis": "Rice states that a digital twin will simulate experiments before physical equipment, learn from results and consult researchers when uncertain.",
+      "disclosure": "Illustration. Planned research"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "treatment": "b",
+      "readiness_phase": 0,
+      "start_s": 0.0,
+      "duration_s": 5.16,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s1-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s1-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Virtual experiment"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s1-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s1-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "hook",
+      "vo": "Before a gas valve opens, a virtual experiment could run.",
+      "vo_claims": [
+        "c01"
+      ],
+      "super": "Virtual before physical",
+      "super_claim": "c01",
+      "caption": "",
+      "readiness_labels": [],
+      "on_screen": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber.",
+      "what_moves": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber. The broad finite virtual input reaches the chamber and remains received instead of looping. The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber. The broad finite virtual input reaches the chamber and remains received instead of looping. The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Before the valve opens"
+      },
+      "visual_family": "finite-inlet",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s1-event-1",
+          "at_s": 0.0,
+          "duration_s": 0.929,
+          "item_ids": [
+            "s1-physical",
+            "s1-twin",
+            "s1-sample"
+          ],
+          "what": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s1-event-2",
+          "at_s": 1.703,
+          "duration_s": 0.929,
+          "item_ids": [
+            "s1-physical",
+            "s1-twin",
+            "s1-sample"
+          ],
+          "what": "The broad finite virtual input reaches the chamber and remains received instead of looping.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s1-event-3",
+          "at_s": 3.406,
+          "duration_s": 0.929,
+          "item_ids": [
+            "s1-physical",
+            "s1-twin",
+            "s1-sample"
+          ],
+          "what": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+        "must_show": [
+          {
+            "concept": "Virtual experiment",
+            "item_ids": [
+              "s1-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber. The broad finite virtual input reaches the chamber and remains received instead of looping. The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+          "item_ids": [
+            "s1-physical",
+            "s1-twin",
+            "s1-sample",
+            "s1-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Before the valve opens",
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 0.9,
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s2",
+      "treatment": "b",
+      "readiness_phase": 1,
+      "start_s": 5.16,
+      "duration_s": 4.64,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "truckAcross",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s2-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s2-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Planned Rice materials laboratory"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s2-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s2-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "movement",
+      "vo": "Rice plans an AI powered materials laboratory in Houston.",
+      "vo_claims": [
+        "c02"
+      ],
+      "super": "Rice plans a laboratory",
+      "super_claim": "c02",
+      "caption": "",
+      "readiness_labels": [],
+      "on_screen": "The view reveals the complete matching physical apparatus and solid translucent virtual model.",
+      "what_moves": "The view reveals the complete matching physical apparatus and solid translucent virtual model. The virtual model housing separates slightly around the conserved supported sample to make their relationship inspectable. The model envelope settles as a proposed research illustration, not an operating laboratory.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The view reveals the complete matching physical apparatus and solid translucent virtual model. The virtual model housing separates slightly around the conserved supported sample to make their relationship inspectable. The model envelope settles as a proposed research illustration, not an operating laboratory.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Rice plans a laboratory"
+      },
+      "visual_family": "matching-model",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s2-event-1",
+          "at_s": 0.0,
+          "duration_s": 0.835,
+          "item_ids": [
+            "s2-physical",
+            "s2-twin",
+            "s2-sample"
+          ],
+          "what": "The view reveals the complete matching physical apparatus and solid translucent virtual model.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s2-event-2",
+          "at_s": 1.531,
+          "duration_s": 0.835,
+          "item_ids": [
+            "s2-physical",
+            "s2-twin",
+            "s2-sample"
+          ],
+          "what": "The virtual model housing separates slightly around the conserved supported sample to make their relationship inspectable.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s2-event-3",
+          "at_s": 3.062,
+          "duration_s": 0.835,
+          "item_ids": [
+            "s2-physical",
+            "s2-twin",
+            "s2-sample"
+          ],
+          "what": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+        "must_show": [
+          {
+            "concept": "Planned Rice materials laboratory",
+            "item_ids": [
+              "s2-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The view reveals the complete matching physical apparatus and solid translucent virtual model. The virtual model housing separates slightly around the conserved supported sample to make their relationship inspectable. The model envelope settles as a proposed research illustration, not an operating laboratory.",
+          "item_ids": [
+            "s2-physical",
+            "s2-twin",
+            "s2-sample",
+            "s2-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Rice plans a laboratory",
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s3",
+      "treatment": "b",
+      "readiness_phase": 2,
+      "start_s": 9.8,
+      "duration_s": 6.22,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "orbitReveal",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s3-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s3-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Digital twin temperature pressure gas flow composition"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s3-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s3-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "vo": "Its digital twin would model temperature, pressure, gas flow and chemical composition.",
+      "vo_claims": [
+        "c03"
+      ],
+      "super": "Temperature and pressure",
+      "super_claim": "c03",
+      "caption": "",
+      "readiness_labels": [
+        "Temperature",
+        "Pressure",
+        "Gas flow and composition"
+      ],
+      "on_screen": "The virtual heating coil changes across its full visible surface around the same sample.",
+      "what_moves": "The virtual heating coil changes across its full visible surface around the same sample. The large qualitative pressure dial turns as the received virtual input remains held in the chamber. A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The virtual heating coil changes across its full visible surface around the same sample. The large qualitative pressure dial turns as the received virtual input remains held in the chamber. A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Rehearse the conditions"
+      },
+      "visual_family": "qualitative-conditions",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s3-event-1",
+          "at_s": 0.0,
+          "duration_s": 1.12,
+          "item_ids": [
+            "s3-physical",
+            "s3-twin",
+            "s3-sample"
+          ],
+          "what": "The virtual heating coil changes across its full visible surface around the same sample.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s3-event-2",
+          "at_s": 2.053,
+          "duration_s": 1.12,
+          "item_ids": [
+            "s3-physical",
+            "s3-twin",
+            "s3-sample"
+          ],
+          "what": "The large qualitative pressure dial turns as the received virtual input remains held in the chamber.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s3-event-3",
+          "at_s": 4.105,
+          "duration_s": 1.12,
+          "item_ids": [
+            "s3-physical",
+            "s3-twin",
+            "s3-sample"
+          ],
+          "what": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+        "must_show": [
+          {
+            "concept": "Digital twin temperature pressure gas flow composition",
+            "item_ids": [
+              "s3-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The virtual heating coil changes across its full visible surface around the same sample. The large qualitative pressure dial turns as the received virtual input remains held in the chamber. A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+          "item_ids": [
+            "s3-physical",
+            "s3-twin",
+            "s3-sample",
+            "s3-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Rehearse the conditions",
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s4",
+      "treatment": "b",
+      "readiness_phase": 3,
+      "start_s": 16.02,
+      "duration_s": 4.98,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "riseWith",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s4-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s4-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Researchers simulate a trial"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s4-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s4-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "mechanism",
+      "vo": "Researchers could simulate a trial before using physical equipment.",
+      "vo_claims": [
+        "c04"
+      ],
+      "super": "Virtual experiment",
+      "super_claim": "c04",
+      "caption": "",
+      "readiness_labels": [
+        "Simulated trial"
+      ],
+      "on_screen": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform.",
+      "what_moves": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform. The supported sample and platform move together and seat visibly within the virtual trial. The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform. The supported sample and platform move together and seat visibly within the virtual trial. The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Try the virtual trial"
+      },
+      "visual_family": "supported-trial",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s4-event-1",
+          "at_s": 0.0,
+          "duration_s": 0.896,
+          "item_ids": [
+            "s4-physical",
+            "s4-twin",
+            "s4-sample"
+          ],
+          "what": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s4-event-2",
+          "at_s": 1.643,
+          "duration_s": 0.896,
+          "item_ids": [
+            "s4-physical",
+            "s4-twin",
+            "s4-sample"
+          ],
+          "what": "The supported sample and platform move together and seat visibly within the virtual trial.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s4-event-3",
+          "at_s": 3.287,
+          "duration_s": 0.896,
+          "item_ids": [
+            "s4-physical",
+            "s4-twin",
+            "s4-sample"
+          ],
+          "what": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+        "must_show": [
+          {
+            "concept": "Researchers simulate a trial",
+            "item_ids": [
+              "s4-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform. The supported sample and platform move together and seat visibly within the virtual trial. The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+          "item_ids": [
+            "s4-physical",
+            "s4-twin",
+            "s4-sample",
+            "s4-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Try the virtual trial",
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s5",
+      "treatment": "b",
+      "readiness_phase": 4,
+      "start_s": 21.0,
+      "duration_s": 4.08,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "truckAcross",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s5-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s5-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Results teach AI recommendations"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s5-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s5-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "consequence",
+      "vo": "Results would teach the AI what to recommend next.",
+      "vo_claims": [
+        "c05"
+      ],
+      "super": "AI learns from results",
+      "super_claim": "c05",
+      "caption": "",
+      "readiness_labels": [
+        "Hypothetical result feedback"
+      ],
+      "on_screen": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model.",
+      "what_moves": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model. All tokens finish arrival and remain collected at the model before its settings change. Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model. All tokens finish arrival and remain collected at the model before its settings change. Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Learn from the results"
+      },
+      "visual_family": "held-feedback",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s5-event-1",
+          "at_s": 0.0,
+          "duration_s": 0.734,
+          "item_ids": [
+            "s5-physical",
+            "s5-twin",
+            "s5-sample"
+          ],
+          "what": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s5-event-2",
+          "at_s": 1.346,
+          "duration_s": 0.734,
+          "item_ids": [
+            "s5-physical",
+            "s5-twin",
+            "s5-sample"
+          ],
+          "what": "All tokens finish arrival and remain collected at the model before its settings change.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s5-event-3",
+          "at_s": 2.693,
+          "duration_s": 0.734,
+          "item_ids": [
+            "s5-physical",
+            "s5-twin",
+            "s5-sample"
+          ],
+          "what": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+        "must_show": [
+          {
+            "concept": "Results teach AI recommendations",
+            "item_ids": [
+              "s5-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model. All tokens finish arrival and remain collected at the model before its settings change. Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+          "item_ids": [
+            "s5-physical",
+            "s5-twin",
+            "s5-sample",
+            "s5-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Learn from the results",
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s6",
+      "treatment": "b",
+      "readiness_phase": 5,
+      "start_s": 25.08,
+      "duration_s": 3.2,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "riseWith",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s6-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s6-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Consult a researcher"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s6-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s6-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Researcher review. Question pending. Abstract editorial destination."
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "limit",
+      "vo": "When uncertain, it would consult a researcher.",
+      "vo_claims": [
+        "c06"
+      ],
+      "super": "Researcher consultation",
+      "super_claim": "c06",
+      "caption": "",
+      "readiness_labels": [
+        "Consultation when uncertain"
+      ],
+      "on_screen": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node.",
+      "what_moves": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node. The question remains received as the review destination visibly emphasizes Question pending. The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node. The question remains received as the review destination visibly emphasizes Question pending. The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Ask a researcher"
+      },
+      "visual_family": "pending-review",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s6-event-1",
+          "at_s": 0.0,
+          "duration_s": 0.576,
+          "item_ids": [
+            "s6-twin",
+            "s6-researcher"
+          ],
+          "what": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s6-event-2",
+          "at_s": 1.056,
+          "duration_s": 0.576,
+          "item_ids": [
+            "s6-twin",
+            "s6-researcher"
+          ],
+          "what": "The question remains received as the review destination visibly emphasizes Question pending.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s6-event-3",
+          "at_s": 2.112,
+          "duration_s": 0.576,
+          "item_ids": [
+            "s6-twin",
+            "s6-researcher"
+          ],
+          "what": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+        "must_show": [
+          {
+            "concept": "Consult a researcher",
+            "item_ids": [
+              "s6-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node. The question remains received as the review destination visibly emphasizes Question pending. The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+          "item_ids": [
+            "s6-physical",
+            "s6-twin",
+            "s6-sample",
+            "s6-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Ask a researcher",
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s7",
+      "treatment": "b",
+      "readiness_phase": 6,
+      "start_s": 28.28,
+      "duration_s": 3.48,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "orbitReveal",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s7-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s7-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Targets diamond thin films"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s7-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s7-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "agency",
+      "vo": "The targets include diamond thin films.",
+      "vo_claims": [
+        "c07"
+      ],
+      "super": "Diamond thin films",
+      "super_claim": "c07",
+      "caption": "",
+      "readiness_labels": [
+        "Target illustration"
+      ],
+      "on_screen": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates.",
+      "what_moves": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates. The enlarged target layer exposes its small illustrative thickness above the same support. The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates. The enlarged target layer exposes its small illustrative thickness above the same support. The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "Diamond thin films"
+      },
+      "visual_family": "target-layer",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s7-event-1",
+          "at_s": 0.0,
+          "duration_s": 0.626,
+          "item_ids": [
+            "s7-physical",
+            "s7-twin",
+            "s7-sample"
+          ],
+          "what": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s7-event-2",
+          "at_s": 1.148,
+          "duration_s": 0.626,
+          "item_ids": [
+            "s7-physical",
+            "s7-twin",
+            "s7-sample"
+          ],
+          "what": "The enlarged target layer exposes its small illustrative thickness above the same support.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.9
+        },
+        {
+          "id": "s7-event-3",
+          "at_s": 2.297,
+          "duration_s": 0.626,
+          "item_ids": [
+            "s7-physical",
+            "s7-twin",
+            "s7-sample"
+          ],
+          "what": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.9
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+        "must_show": [
+          {
+            "concept": "Targets diamond thin films",
+            "item_ids": [
+              "s7-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates. The enlarged target layer exposes its small illustrative thickness above the same support. The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+          "item_ids": [
+            "s7-physical",
+            "s7-twin",
+            "s7-sample",
+            "s7-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "Diamond thin films",
+      "duration_authored": 5.0
+    },
+    {
+      "id": "s8",
+      "treatment": "b",
+      "readiness_phase": 7,
+      "start_s": 31.76,
+      "duration_s": 8.24,
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "riseWith",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "physical chamber",
+          "items": [
+            {
+              "id": "s8-physical",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "physical chamber"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "virtual twin",
+          "items": [
+            {
+              "id": "s8-twin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "NSF project planned laboratory"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "sample",
+          "items": [
+            {
+              "id": "s8-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "sample"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "researcher",
+          "items": [
+            {
+              "id": "s8-researcher",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "researcher"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "close",
+      "vo": "NSF backed the project in July. Rice describes a planned laboratory.",
+      "vo_claims": [
+        "c08"
+      ],
+      "super": "Planned laboratory",
+      "super_claim": "c08",
+      "caption": "",
+      "readiness_labels": [
+        "Rice announcement. July 23rd"
+      ],
+      "on_screen": "The full physical and virtual comparison returns with the finite model input already received.",
+      "what_moves": "The full physical and virtual comparison returns with the finite model input already received. The virtual housing settles into its proposed arrangement while the physical chamber and valve remain closed. The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+      "visual_sentence": {
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The full physical and virtual comparison returns with the finite model input already received. The virtual housing settles into its proposed arrangement while the physical chamber and valve remain closed. The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+        "emotion": "A proposed experiment becomes inspectable while physical implementation remains unreported.",
+        "annotation": "A laboratory in the plan"
+      },
+      "visual_family": "planned-comparison",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s8-event-1",
+          "at_s": 0.0,
+          "duration_s": 1.154,
+          "item_ids": [
+            "s8-physical",
+            "s8-twin",
+            "s8-sample"
+          ],
+          "what": "The full physical and virtual comparison returns with the finite model input already received.",
+          "at_s_authored": 0.0,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "s8-event-2",
+          "at_s": 2.719,
+          "duration_s": 1.154,
+          "item_ids": [
+            "s8-physical",
+            "s8-twin",
+            "s8-sample"
+          ],
+          "what": "The virtual housing settles into its proposed arrangement while the physical chamber and valve remain closed.",
+          "at_s_authored": 1.65,
+          "duration_s_authored": 0.7
+        },
+        {
+          "id": "s8-event-3",
+          "at_s": 5.438,
+          "duration_s": 1.154,
+          "item_ids": [
+            "s8-physical",
+            "s8-twin",
+            "s8-sample"
+          ],
+          "what": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+          "at_s_authored": 3.3,
+          "duration_s_authored": 0.7
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+        "must_show": [
+          {
+            "concept": "NSF project planned laboratory",
+            "item_ids": [
+              "s8-twin"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The full physical and virtual comparison returns with the finite model input already received. The virtual housing settles into its proposed arrangement while the physical chamber and valve remain closed. The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+          "item_ids": [
+            "s8-physical",
+            "s8-twin",
+            "s8-sample",
+            "s8-researcher"
+          ]
+        }
+      },
+      "production_action": "readiness-finite-rehearsal-v2",
+      "production_disclosure": "Illustration. Planned research",
+      "hero": "A laboratory in the plan",
+      "duration_authored": 5.0
+    }
+  ],
+  "fingerprint": {
+    "pov": "cross-section-cutaway",
+    "motion_vector": "vertical-descent",
+    "hero_treatment": "machine-as-subject",
+    "layout": "stacked-layers",
+    "register": "naturalistic-scene",
+    "camera_strategy": "craneDown",
+    "light_story": "night-practical",
+    "palette": "deep teal, copper and luminous mint",
+    "metaphor": "a finite virtual rehearsal before physical use"
+  },
+  "fauna_scope": {
+    "status": "none",
+    "reason": "No animal participates in the source-backed research explanation."
+  },
+  "quality_plan": {
+    "contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber. The broad finite virtual input reaches the chamber and remains received instead of looping. The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+        "consequence": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+        "source_basis": "Rice fetched primary article and claim c01",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s2",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The view reveals the complete matching physical apparatus and solid translucent virtual model. The virtual model housing separates slightly around the conserved supported sample to make their relationship inspectable. The model envelope settles as a proposed research illustration, not an operating laboratory.",
+        "consequence": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+        "source_basis": "Rice fetched primary article and claim c02",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s3",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The virtual heating coil changes across its full visible surface around the same sample. The large qualitative pressure dial turns as the received virtual input remains held in the chamber. A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+        "consequence": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+        "source_basis": "Rice fetched primary article and claim c03",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s4",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform. The supported sample and platform move together and seat visibly within the virtual trial. The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+        "consequence": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+        "source_basis": "Rice fetched primary article and claim c04",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s5",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model. All tokens finish arrival and remain collected at the model before its settings change. Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+        "consequence": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+        "source_basis": "Rice fetched primary article and claim c05",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s6",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node. The question remains received as the review destination visibly emphasizes Question pending. The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+        "consequence": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+        "source_basis": "Rice fetched primary article and claim c06",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s7",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates. The enlarged target layer exposes its small illustrative thickness above the same support. The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+        "consequence": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+        "source_basis": "Rice fetched primary article and claim c07",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      },
+      {
+        "scene_id": "s8",
+        "medium": "dimensional",
+        "subject": "The same generic valve, inlet cylinder, chamber and supported sample with a solid translucent virtual counterpart",
+        "action": "The full physical and virtual comparison returns with the finite model input already received. The virtual housing settles into its proposed arrangement while the physical chamber and valve remain closed. The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+        "consequence": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+        "source_basis": "Rice fetched primary article and claim c08",
+        "medium_evidence": "Source-backed finite action using existing apparatus, valve, coil, dial, platform, wafer and native stage primitives. Current phone and native hero evidence required for the changed treatment."
+      }
+    ]
+  },
+  "attention_beats": [
+    {
+      "event_id": "s1-event-1",
+      "item_ids": [
+        "s1-physical",
+        "s1-twin",
+        "s1-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber.",
+      "viewer_reward": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s1-event-2",
+      "item_ids": [
+        "s1-physical",
+        "s1-twin",
+        "s1-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The broad finite virtual input reaches the chamber and remains received instead of looping.",
+      "viewer_reward": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s1-event-3",
+      "item_ids": [
+        "s1-physical",
+        "s1-twin",
+        "s1-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+      "viewer_reward": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s2-event-1",
+      "item_ids": [
+        "s2-physical",
+        "s2-twin",
+        "s2-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The view reveals the complete matching physical apparatus and solid translucent virtual model.",
+      "viewer_reward": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s2-event-2",
+      "item_ids": [
+        "s2-physical",
+        "s2-twin",
+        "s2-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The virtual model housing separates slightly around the conserved supported sample to make their relationship inspectable.",
+      "viewer_reward": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s2-event-3",
+      "item_ids": [
+        "s2-physical",
+        "s2-twin",
+        "s2-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+      "viewer_reward": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s3-event-1",
+      "item_ids": [
+        "s3-physical",
+        "s3-twin",
+        "s3-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The virtual heating coil changes across its full visible surface around the same sample.",
+      "viewer_reward": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s3-event-2",
+      "item_ids": [
+        "s3-physical",
+        "s3-twin",
+        "s3-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The large qualitative pressure dial turns as the received virtual input remains held in the chamber.",
+      "viewer_reward": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s3-event-3",
+      "item_ids": [
+        "s3-physical",
+        "s3-twin",
+        "s3-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+      "viewer_reward": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s4-event-1",
+      "item_ids": [
+        "s4-physical",
+        "s4-twin",
+        "s4-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform.",
+      "viewer_reward": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s4-event-2",
+      "item_ids": [
+        "s4-physical",
+        "s4-twin",
+        "s4-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The supported sample and platform move together and seat visibly within the virtual trial.",
+      "viewer_reward": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s4-event-3",
+      "item_ids": [
+        "s4-physical",
+        "s4-twin",
+        "s4-sample"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+      "viewer_reward": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s5-event-1",
+      "item_ids": [
+        "s5-physical",
+        "s5-twin",
+        "s5-sample"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model.",
+      "viewer_reward": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s5-event-2",
+      "item_ids": [
+        "s5-physical",
+        "s5-twin",
+        "s5-sample"
+      ],
+      "change_type": "consequence",
+      "visible_change": "All tokens finish arrival and remain collected at the model before its settings change.",
+      "viewer_reward": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s5-event-3",
+      "item_ids": [
+        "s5-physical",
+        "s5-twin",
+        "s5-sample"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+      "viewer_reward": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s6-event-1",
+      "item_ids": [
+        "s6-twin",
+        "s6-researcher"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node.",
+      "viewer_reward": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s6-event-2",
+      "item_ids": [
+        "s6-twin",
+        "s6-researcher"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The question remains received as the review destination visibly emphasizes Question pending.",
+      "viewer_reward": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s6-event-3",
+      "item_ids": [
+        "s6-twin",
+        "s6-researcher"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+      "viewer_reward": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s7-event-1",
+      "item_ids": [
+        "s7-physical",
+        "s7-twin",
+        "s7-sample"
+      ],
+      "change_type": "comparison",
+      "visible_change": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates.",
+      "viewer_reward": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s7-event-2",
+      "item_ids": [
+        "s7-physical",
+        "s7-twin",
+        "s7-sample"
+      ],
+      "change_type": "comparison",
+      "visible_change": "The enlarged target layer exposes its small illustrative thickness above the same support.",
+      "viewer_reward": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s7-event-3",
+      "item_ids": [
+        "s7-physical",
+        "s7-twin",
+        "s7-sample"
+      ],
+      "change_type": "comparison",
+      "visible_change": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+      "viewer_reward": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s8-event-1",
+      "item_ids": [
+        "s8-physical",
+        "s8-twin",
+        "s8-sample"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The full physical and virtual comparison returns with the finite model input already received.",
+      "viewer_reward": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s8-event-2",
+      "item_ids": [
+        "s8-physical",
+        "s8-twin",
+        "s8-sample"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The virtual housing settles into its proposed arrangement while the physical chamber and valve remain closed.",
+      "viewer_reward": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    },
+    {
+      "event_id": "s8-event-3",
+      "item_ids": [
+        "s8-physical",
+        "s8-twin",
+        "s8-sample"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+      "viewer_reward": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+      "continuity_from": "The same chamber, cylinder, valve and supported sample remain identifiable across motivated cuts. Finite model states arrive and hold.",
+      "sound_action": "Designed sonification only. Quiet on the unresolved researcher consultation."
+    }
+  ],
+  "documentary": {
+    "schema": "dispatch_documentary/1",
+    "viewer_question": "What could researchers inspect before using physical laboratory equipment?",
+    "payoff": "A broad finite virtual input arrives while the physical valve stays closed.",
+    "source_limit": "Original generic equipment and qualitative virtual trial. Rice describes a planned platform. No operating laboratory, measured scientific output, exact machine, specific synthesis process or actual safety interlock is shown.",
+    "hero_image": "Full-surface virtual heat, a large qualitative pressure dial and a second model mixture develop around the same supported sample.",
+    "closing_answer": "A digital twin could rehearse an experiment and consult a researcher before the proposed physical trial.",
+    "hook_payoff_event": "s1-event-1"
+  },
+  "cinema": {
+    "version": "creative-production-v1",
+    "hero_scene_id": "s1",
+    "hero_passage_end_scene_id": "s4",
+    "dimensional_scene_ids": [
+      "s1",
+      "s2",
+      "s3",
+      "s4",
+      "s5",
+      "s6",
+      "s7",
+      "s8"
+    ],
+    "visible_action": "A solid translucent model of the conserved generic chamber receives a broad finite input front. Full-surface heat, large qualitative pressure controls and a second model mixture change distinctly before a supported virtual sample trial. Hypothetical feedback arrives and holds before the next proposed setting; an enlarged uncertainty question reaches pending researcher review.",
+    "human_consequence": "Researchers could inspect a proposed experiment before physical use and retain judgment when the AI is uncertain.",
+    "source_limit": "Original generic equipment and qualitative virtual trial. Rice describes a planned platform. No operating laboratory, measured scientific output, exact machine, specific synthesis process or actual safety interlock is shown."
+  },
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "The same generic experimental chamber, cylinder, valve and sample with its matching wireframe twin",
+      "opening_state": "The closed physical reference contrasts with a finite virtual inlet rehearsal.",
+      "closing_state": "The inspected virtual proposal remains planned beside unchanged closed physical equipment.",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ]
+    },
+    "turn_scene": "s6",
+    "button": "A digital twin could rehearse an experiment and consult a researcher before the proposed physical trial."
+  },
+  "story_contract": {
+    "director_identity": "/root",
+    "opening_question": "What could researchers inspect before using physical laboratory equipment?",
+    "actor": "Rice researchers planning READINESS",
+    "action": "Build a digital twin for simulation before physical experimentation.",
+    "change": "Researchers could inspect model conditions and proposed trials before using physical equipment.",
+    "affected_people": "Materials researchers seeking access to advanced laboratory equipment",
+    "consequence": "The planned model would learn from experiments and ask researchers when uncertain.",
+    "source_limit": "Original generic equipment and qualitative virtual trial. Rice describes a planned platform. No operating laboratory, measured scientific output, exact machine, specific synthesis process or actual safety interlock is shown.",
+    "closing_answer": "A digital twin could rehearse an experiment and consult a researcher before the proposed physical trial.",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "role": "action",
+        "claim_ids": [
+          "c01",
+          "c03",
+          "c04",
+          "c05",
+          "c06",
+          "c07"
+        ],
+        "advances": "The received virtual state settles around the same supported sample while the physical equipment stays closed."
+      },
+      {
+        "scene_id": "s2",
+        "role": "evidence",
+        "claim_ids": [
+          "c02",
+          "c01",
+          "c03",
+          "c04",
+          "c05",
+          "c06",
+          "c07"
+        ],
+        "advances": "The model envelope settles as a proposed research illustration, not an operating laboratory."
+      },
+      {
+        "scene_id": "s3",
+        "role": "mechanism",
+        "claim_ids": [
+          "c03",
+          "c01",
+          "c04",
+          "c05",
+          "c06",
+          "c07"
+        ],
+        "advances": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings."
+      },
+      {
+        "scene_id": "s4",
+        "role": "mechanism",
+        "claim_ids": [
+          "c04",
+          "c01",
+          "c03",
+          "c05",
+          "c06",
+          "c07"
+        ],
+        "advances": "The supported trial arrangement holds while the adjacent physical chamber remains closed."
+      },
+      {
+        "scene_id": "s5",
+        "role": "consequence",
+        "claim_ids": [
+          "c05",
+          "c01",
+          "c03",
+          "c04",
+          "c06",
+          "c07"
+        ],
+        "advances": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test."
+      },
+      {
+        "scene_id": "s6",
+        "role": "consequence",
+        "claim_ids": [
+          "c06",
+          "c01",
+          "c03",
+          "c04",
+          "c05",
+          "c07"
+        ],
+        "advances": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied."
+      },
+      {
+        "scene_id": "s7",
+        "role": "limit",
+        "claim_ids": [
+          "c07",
+          "c01",
+          "c03",
+          "c04",
+          "c05",
+          "c06"
+        ],
+        "advances": "The layer returns partway toward its support as a target illustration, not a grown film or performance result."
+      },
+      {
+        "scene_id": "s8",
+        "role": "answer",
+        "claim_ids": [
+          "c08",
+          "c01",
+          "c03",
+          "c04",
+          "c05",
+          "c06",
+          "c07"
+        ],
+        "advances": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status."
+      }
+    ],
+    "transitions": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "kind": "same-subject",
+        "because": "The revealed twin now needs attribution.",
+        "visible_bridge": "The received virtual state settles around the same supported sample while the physical equipment stays closed. The view reveals the complete matching physical apparatus and solid translucent virtual model."
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "kind": "same-subject",
+        "because": "The identified model now exposes its adjustable conditions.",
+        "visible_bridge": "The model envelope settles as a proposed research illustration, not an operating laboratory. The virtual heating coil changes across its full visible surface around the same sample."
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "kind": "same-subject",
+        "because": "Those conditions become a hypothetical trial.",
+        "visible_bridge": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings. The same virtual chamber lid lifts to expose the conserved sample and its supporting platform."
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "kind": "same-subject",
+        "because": "The trial connects to learning from future results.",
+        "visible_bridge": "The supported trial arrangement holds while the adjacent physical chamber remains closed. Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model."
+      },
+      {
+        "from": "s5",
+        "to": "s6",
+        "kind": "same-subject",
+        "because": "Learning has an uncertainty boundary requiring researcher judgment.",
+        "visible_bridge": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test. The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node."
+      },
+      {
+        "from": "s6",
+        "to": "s7",
+        "kind": "same-subject",
+        "because": "The consultation returns to the supported material target.",
+        "visible_bridge": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied. A macro view exposes the existing wafer support and enlarged thin layer as the layer separates."
+      },
+      {
+        "from": "s7",
+        "to": "s8",
+        "kind": "same-subject",
+        "because": "The target closes on the planned platform and unopened physical valve.",
+        "visible_bridge": "The layer returns partway toward its support as a target illustration, not a grown film or performance result. The full physical and virtual comparison returns with the finite model input already received."
+      }
+    ]
+  },
+  "creative_direction": {
+    "policy_sha256": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+    "viewer_question": "What could researchers inspect before using physical laboratory equipment?",
+    "visible_answer": "A digital twin could rehearse an experiment and consult a researcher before the proposed physical trial.",
+    "emotional_turn": "A virtual rehearsal offers an inspectable choice; uncertainty directs the question back to a researcher. Prevent the false inference that an operating lab or successful scientific outcome has been shown.",
+    "medium_choice": "Educational explainer / Explanatory animation. Owner requested early viewer-plan.md. B uses distinct frontal and cutaway views to expose finite input arrival, separate qualitative conditions, supported trial, received feedback and pending researcher review. A is the complete oblique cinematic alternative. Original disclosed geometry retains the same example.",
+    "edits": [
+      {
+        "scene_id": "s1",
+        "enter_on": "Before a gas valve opens, a virtual experiment could run. Pictured by The virtual handwheel turns beside the closed physical reference and a finite cyan inlet front starts toward the conserved chamber.",
+        "leave_on": "The received virtual state settles around the same supported sample while the physical equipment stays closed.",
+        "cut_after_event_id": "s1-event-3",
+        "next_connection": "The view reveals the complete matching physical apparatus and solid translucent virtual model."
+      },
+      {
+        "scene_id": "s2",
+        "enter_on": "Rice plans an AI powered materials laboratory in Houston. Pictured by The view reveals the complete matching physical apparatus and solid translucent virtual model.",
+        "leave_on": "The model envelope settles as a proposed research illustration, not an operating laboratory.",
+        "cut_after_event_id": "s2-event-3",
+        "next_connection": "The virtual heating coil changes across its full visible surface around the same sample."
+      },
+      {
+        "scene_id": "s3",
+        "enter_on": "Its digital twin would model temperature, pressure, gas flow and chemical composition. Pictured by The virtual heating coil changes across its full visible surface around the same sample.",
+        "leave_on": "A second broad colored model input enters the same chamber volume to illustrate composition without numerical settings.",
+        "cut_after_event_id": "s3-event-3",
+        "next_connection": "The same virtual chamber lid lifts to expose the conserved sample and its supporting platform."
+      },
+      {
+        "scene_id": "s4",
+        "enter_on": "Researchers could simulate a trial before using physical equipment. Pictured by The same virtual chamber lid lifts to expose the conserved sample and its supporting platform.",
+        "leave_on": "The supported trial arrangement holds while the adjacent physical chamber remains closed.",
+        "cut_after_event_id": "s4-event-3",
+        "next_connection": "Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model."
+      },
+      {
+        "scene_id": "s5",
+        "enter_on": "Results would teach the AI what to recommend next. Pictured by Enlarged hypothetical result tokens travel once from the illustrative sample toward the virtual model.",
+        "leave_on": "Only after held receipt, the large model temperature and pressure dials turn to a new proposed test.",
+        "cut_after_event_id": "s5-event-3",
+        "next_connection": "The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node."
+      },
+      {
+        "scene_id": "s6",
+        "enter_on": "When uncertain, it would consult a researcher. Pictured by The enlarged model question follows a finite connector and contacts the labeled abstract researcher review node.",
+        "leave_on": "The pending question holds as the virtual valve settles, with no researcher approval or physical interlock implied.",
+        "cut_after_event_id": "s6-event-3",
+        "next_connection": "A macro view exposes the existing wafer support and enlarged thin layer as the layer separates."
+      },
+      {
+        "scene_id": "s7",
+        "enter_on": "The targets include diamond thin films. Pictured by A macro view exposes the existing wafer support and enlarged thin layer as the layer separates.",
+        "leave_on": "The layer returns partway toward its support as a target illustration, not a grown film or performance result.",
+        "cut_after_event_id": "s7-event-3",
+        "next_connection": "The full physical and virtual comparison returns with the finite model input already received."
+      },
+      {
+        "scene_id": "s8",
+        "enter_on": "NSF backed the project in July. Rice describes a planned laboratory. Pictured by The full physical and virtual comparison returns with the finite model input already received.",
+        "leave_on": "The unchanged physical equipment and inspectable virtual proposal resolve the opening with planned status.",
+        "cut_after_event_id": "s8-event-3",
+        "next_connection": "A digital twin could rehearse an experiment and consult a researcher before the proposed physical trial. Original generic equipment and qualitative virtual trial. Rice describes a planned platform. No operating laboratory, measured scientific output, exact machine, specific synthesis process or actual safety interlock is shown."
+      }
+    ],
+    "sound": {
+      "perspective": "Original designed sonification of a conceptual model, no recorded Rice equipment.",
+      "music_arc": "Curiosity supports successive virtual reveals, then recedes for researcher consultation.",
+      "voice_arc": "Curious opening, precise conditions, calm consultation and planned-status ending.",
+      "cues": [
+        {
+          "id": "virtual-valve-hiss",
+          "event_id": "s1-event-2",
+          "role": "sonification",
+          "duration_s": 0.7,
+          "intent": "A soft designed hiss follows the virtual valve and qualitative gas rehearsal.",
+          "provenance": "Original designed sonification, not recorded equipment or an actual Rice trial."
+        },
+        {
+          "id": "virtual-heat-rise",
+          "event_id": "s3-event-1",
+          "role": "sonification",
+          "duration_s": 0.8,
+          "intent": "A gentle designed tonal rise follows the illustrative virtual heating condition.",
+          "provenance": "Original designed sonification of a model condition, no measured temperature sound."
+        },
+        {
+          "id": "result-arrival-confirmation",
+          "event_id": "s5-event-2",
+          "role": "sonification",
+          "duration_s": 0.5,
+          "intent": "A restrained designed confirmation marks completed hypothetical information arrival, not scientific success.",
+          "provenance": "Original designed sonification of the editorial return, no recorded laboratory result."
+        },
+        {
+          "id": "consultation-quiet",
+          "event_id": "s6-event-3",
+          "role": "quiet",
+          "duration_s": 1.4,
+          "gain": 0.2,
+          "intent": "Reduce the background as the unresolved model question reaches a researcher.",
+          "provenance": "Authored event-bound gain contrast, no implied site recording."
+        }
+      ]
+    }
+  },
+  "visual_research": {
+    "searches": [
+      {
+        "query": "https://news.rice.edu/news/2026/accelerating-discovery-rice-receives-nearly-20m-nsf-award-ai-powered-materials-laboratory",
+        "method": "bounded primary-page asset inspection",
+        "finding": "Article includes stock AI illustration, researcher portrait and abstract system graphic; no operating READINESS footage established."
+      }
+    ],
+    "candidates": [
+      {
+        "url": "https://news.rice.edu/sites/g/files/bxs2656/files/inline-images/NSF%20READINESS%20GFX%20full%20screen%201920x980.jpg",
+        "decision": "reject",
+        "use": false,
+        "reason": "Abstract relationships supply neither task action nor established reuse licence.",
+        "inspection": "Downloaded 1920x980 graphic independently inspected by researcher and director. Triangle linking robotic system, digital twin and materials synthesis; research reference only."
+      }
+    ],
+    "decision": "Use original disclosed generic chamber and twin illustration; no external photographic image or footage is inserted."
+  },
+  "run_id": "2026-10-02-second",
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 8,
+    "on_measured_word_starts": 8,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}

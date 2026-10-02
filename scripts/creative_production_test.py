@@ -640,6 +640,32 @@ class CreativeTest(unittest.TestCase):
             errors = c.opening_problems(self.root/"storyboard.json")
             self.assertTrue(any("stale renderer" in error for error in errors))
 
+    def test_same_day_reservation_binds_run_identity_and_calendar(self):
+        self.board["date"] = "2026-10-02"
+        self.board["run_id"] = "2026-10-02-second"
+        choice = self.comparison_fixture()
+        receipt = c.read(self.root/"openings/comparison.json")
+        receipt["reservation"]["run_id"] = self.board["run_id"]
+        for option in receipt["options"]:
+            option["renderer_sha256"] = "fixture-renderer"
+        self.write("openings/comparison.json", receipt)
+        ledger = c.read(self.root/"run_state.json")
+        ledger["run_id"] = self.board["run_id"]
+        self.write("run_state.json", ledger)
+        choice["comparison_sha256"] = c.digest(self.root/"openings/comparison.json")
+        self.write("openings/selection.json", choice)
+        with patch("critic_gate.renderer_digest", return_value="fixture-renderer"), patch("opening_compare.inspection_problems", return_value=[]):
+            self.assertEqual(c.opening_problems(self.root/"storyboard.json"), [])
+            for key, value in (("run_id", "2026-10-02-third"), ("date", "2026-10-01")):
+                changed = copy.deepcopy(self.board)
+                changed[key] = value
+                self.write("storyboard.json", changed)
+                self.assertTrue(c.opening_problems(self.root/"storyboard.json"))
+            self.write("storyboard.json", self.board)
+            receipt["reservation"]["run_id"] = "2026-10-02"
+            self.write("openings/comparison.json", receipt)
+            self.assertTrue(c.opening_problems(self.root/"storyboard.json"))
+
     def test_opening_choice_is_exact_byte_bound_and_independent(self):
         choice = self.comparison_fixture()
         with patch("critic_gate.renderer_digest", return_value="fixture-renderer"):

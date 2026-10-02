@@ -169,6 +169,28 @@ class ContextTest(unittest.TestCase):
                     self.assertIn("exact frozen voice/mix reuse", result["scope"])
                     self.assertEqual(state, before)
 
+    def test_structural_hero_budget_keeps_full_review_path_and_frozen_ledger(self):
+        state = c.read_state(self.state)
+        before = copy.deepcopy(state)
+        result = budget.production_budget_precheck(state, hero_rejected=True, structural_ready=True)
+        self.assertTrue(result["feasible"])
+        self.assertEqual(result["path"], "structural-hero-repair")
+        self.assertEqual(result["resources"]["storyboard_critics"]["required"], 3)
+        self.assertEqual(result["resources"]["audiovisual_reviews"]["required"], 11)
+        self.assertEqual(state, before)
+        state["usage"]["storyboard_critics"] = state["resource_envelope"]["storyboard_critics"] - 2
+        self.assertFalse(budget.production_budget_precheck(state, hero_rejected=True, structural_ready=True)["feasible"])
+        state["usage"].update(reboards=3, storyboard_critics=0)
+        result = budget.production_budget_precheck(state, hero_rejected=True, structural_ready=True)
+        self.assertFalse(result["feasible"])
+        self.assertEqual(result["path"], "hero-repair-required")
+
+    def test_structural_budget_plan_rejects_missing_or_changed_evidence(self):
+        receipt = self.root / "missing-hero-review.json"
+        self.assertFalse(budget.structural_hero_plan_ready(self.state, {}, receipt))
+        plan = {"repair_scope": "standard", "failure_evidence": str(receipt), "failure_evidence_sha256": "changed"}
+        self.assertFalse(budget.structural_hero_plan_ready(self.state, plan, receipt))
+
     def test_same_byte_hero_rejection_remains_cached_without_paid_call(self):
         cache = self.root / "cinema/review-cache/old-tool-key"; cache.mkdir(parents=True)
         (cache / self.raw.name).write_bytes(self.raw.read_bytes())

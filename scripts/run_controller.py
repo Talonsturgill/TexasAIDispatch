@@ -2094,7 +2094,7 @@ def main() -> int:
                         (report.get("story_review") or {}).get("claims_sha256") == digest(paths[4]))
                 except (ValueError, KeyError, TypeError, OSError):
                     pass  # Missing or stale evidence retains the conservative path.
-            hero_rejected, context_ready = False, False
+            hero_rejected, context_ready, structural_ready = False, False, False
             hero_receipt = root / "cinema/hero-review.json"
             if hero_receipt.is_file():
                 try:
@@ -2106,6 +2106,8 @@ def main() -> int:
                 try:
                     import review_context
                     plan = load_json(a.repair_plan)
+                    from repair_guard import structural_hero_plan_ready
+                    structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
                     context_ready = (plan.get("repair_scope") == review_context.SCOPE and
                                      not review_context.plan_problems(state_path, plan))
                     if context_ready:
@@ -2120,7 +2122,7 @@ def main() -> int:
                 except (ValueError, KeyError, TypeError, OSError):
                     pass
             result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete,
-                                               hero_rejected, context_ready)
+                                               hero_rejected, context_ready, structural_ready)
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["feasible"] else 1
         elif a.command == "grant-owner-review":

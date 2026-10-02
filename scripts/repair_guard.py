@@ -114,10 +114,11 @@ def owner_grant_problems(state):
 
 
 def production_budget_precheck(state, review_route="host", phone_complete=False,
-                               hero_rejected=False, context_ready=False):
+                               hero_rejected=False, context_ready=False, structural_ready=False):
     """Read-only complete remaining review path, including the final timed phone."""
     from creative_release import finishing_required
     finishing = finishing_required(state)
+    structural_ready = bool(structural_ready and not finishing)
     context_ready = bool(context_ready and phone_complete)
     if review_route not in ("host", "provider"):
         raise ValueError("unknown independent review route")
@@ -154,14 +155,49 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
             for name, count in required.items()}
     deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
                 if row["remaining"] < row["required"]}
-    blockers = ["rejected native hero requires an evidence-bound repair; finish-current is unavailable"] if hero_rejected and not context_ready else []
+    blockers = ["rejected native hero requires an evidence-bound repair; finish-current is unavailable"] if hero_rejected and not context_ready and not structural_ready else []
     return {"feasible": not deficits and not blockers, "errors": blockers, "resources": rows, "deficits": deficits,
             "review_route": review_route,
             "current_phone_reused": bool(phone_complete and (finishing or context_ready)),
-            "path": "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
+            "path": "structural-hero-repair" if hero_rejected and structural_ready else "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
             "scope": ("Conservative metadata-only context repair with exact frozen voice/mix reuse, fresh hero plus one retry, three final lenses and three separate provider scorer recoveries. No extra TTS, allowance or shipment approval"
                       if hero_rejected and context_ready else
                       "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval")}
+
+def structural_hero_plan_ready(state_path, plan, receipt_path):
+    """A conservative budget path, never repair or film approval."""
+    from run_controller import digest, load_json, read_state
+    try:
+        state = read_state(state_path)
+        from creative_release import finishing_required
+        if finishing_required(state):
+            return False
+        if (plan.get("repair_scope", "standard") != "standard"
+                or plan.get("failure_evidence_sha256") != digest(receipt_path)
+                or Path(plan["failure_evidence"]).resolve() != receipt_path.resolve()
+                or plan_problems(state, plan)):
+            return False
+        receipt = load_json(receipt_path)
+        raw_path = receipt_path.parent / receipt["response"]["file"]
+        raw = load_json(raw_path)
+        verdict = json.loads("".join(x.get("text", "") for x in raw["candidates"][0]["content"]["parts"] if not x.get("thought")))
+        film = receipt_path.parent / "hero.mp4"
+        if (receipt.get("role") != "hero" or receipt.get("film_sha256") != digest(film)
+                or receipt["response"]["sha256"] != digest(raw_path)
+                or verdict.get("pass") is not False or not verdict.get("defects")):
+            return False
+        for key in ("root_cause", "repair", "mechanism_change", "expected_visible_result"):
+            if len(str(plan.get(key, "")).strip()) < 30:
+                return False
+        inputs = plan.get("changed_inputs", [])
+        if not inputs:
+            return False
+        for row in inputs:
+            if digest(Path(row["path"])) != row["before_sha256"] or digest(Path(row["before_path"])) != row["before_sha256"]:
+                return False
+        return True
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError):
+        return False
 
 def enabled(state):
     return state.get("repair_policy") == VERSION

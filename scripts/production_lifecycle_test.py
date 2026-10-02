@@ -23,6 +23,31 @@ class LifecycleTest(unittest.TestCase):
         self.state = self.root / "run_state.json"
         c.initialise(self.state, "2026-09-26", "production")
 
+    def test_same_day_edition_delivery_rejects_old_or_shipped_namespace(self):
+        import subprocess
+        script = Path(c.__file__).with_name("deliver_run.sh").read_text()
+        code = script.split("<<'PY_EDITION'\n", 1)[1].split("\nPY_EDITION", 1)[0]
+        destination = self.root / "runs" / "2026-10-02-second"
+        destination.mkdir(parents=True)
+        incoming = self.root / "film.mp4"
+        incoming.write_bytes(b"reviewed second film")
+        current = self.write("second.json", {"run_id": "2026-10-02-second"})
+        def invoke(identity="2026-10-02-second"):
+            return subprocess.run(["python3", "-c", code, str(current), identity,
+                                   str(destination), str(incoming)], capture_output=True)
+        self.assertEqual(invoke().returncode, 0)
+        self.assertNotEqual(invoke("2026-10-02").returncode, 0)
+        archived = destination / "run_state.json"
+        archived.write_text(json.dumps({"run_id": "2026-10-02-second", "terminal_state": None}))
+        (destination / "dispatch.mp4").write_bytes(incoming.read_bytes())
+        self.assertEqual(invoke().returncode, 0)  # Interrupted same-byte delivery can resume.
+        archived.write_text(json.dumps({"run_id": "2026-10-02-second", "terminal_state": "shipped"}))
+        self.assertNotEqual(invoke().returncode, 0)
+        archived.write_text(json.dumps({"run_id": "2026-10-02-second", "terminal_state": None}))
+        (destination / "dispatch.mp4").write_bytes(b"different earlier film")
+        self.assertNotEqual(invoke().returncode, 0)
+        self.assertEqual((destination / "dispatch.mp4").read_bytes(), b"different earlier film")
+
     def write(self, name, data):
         p = self.root / name
         p.write_text(json.dumps(data))
@@ -397,7 +422,7 @@ class ShipmentTest(unittest.TestCase):
         state = c.read_state(self.state)
         state["deliverable"] = {"film_sha256": film_hash}
         feed = {"media_base": "https://media.example", "videos": [{
-            "date": "2026-09-26", "id": "2026-09-26-test", "video": "/master.mp4",
+            "date": "2026-09-26", "id": "2026-09-26-test", "video": "/runs/2026-09-26/dispatch.mp4",
             "video_mobile": "/phone.mp4", "poster": "/poster.png", "poster_thumb": "/thumb.jpg"}]}
         bad = {}
         def github(endpoint):
@@ -421,7 +446,7 @@ class ShipmentTest(unittest.TestCase):
             if bad.get("live_base"):
                 live_feed["media_base"] = "https://unreviewed.example"
             data = json.dumps(live_feed).encode() if url.endswith("videos.json") else (
-                bad.get("master", master) if url.endswith("master.mp4") else mobile.read_bytes())
+                bad.get("master", master) if url.endswith("/runs/2026-09-26/dispatch.mp4") else mobile.read_bytes())
             return 200, data, {}
         with patch.object(ship, "gh", side_effect=github), patch.object(ship, "fetch", side_effect=fetch), patch.object(ship, "media_problems", return_value=[]):
             self.assertFalse(ship.verify_shipment(state, manifest)[1])

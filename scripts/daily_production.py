@@ -129,8 +129,12 @@ def visual_problems(board, runs=None):
         errors.append("visual research needs its final story-specific choice or no-useful-asset explanation")
     runs = REPO / "runs" if runs is None else Path(runs)
     try:
-        prior = sorted(p for p in runs.glob("????-??-??/dispatch.mp4")
-                       if p.parent.name < str(board["date"]))
+        current_identity = str(board.get("run_id") or board["date"])
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?", current_identity) or current_identity[:10] != str(board["date"]):
+            return errors + ["visual inventory run identity does not match the board date"]
+        prior = sorted(p for p in runs.glob("*/dispatch.mp4")
+                       if re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?", p.parent.name)
+                       and p.parent.name < current_identity)
         previous = read(prior[-1].with_name("storyboard.json")) if prior else {}
     except (OSError, ValueError, KeyError) as exc:
         return errors + ["previous edition visual inventory unavailable: " + str(exc)]
@@ -438,6 +442,14 @@ def packet(board_path, claims_path, role, state_path=None):
         if ledger.exists():
             data["defects"] = {"path": str(ledger.resolve()), "sha256": digest(ledger)}
     encoded = json.dumps(data, indent=2)
+    if len(encoded) > policy()["handoff_max_chars"] and isinstance(data["story"], dict):
+        # Detailed scene/transition prose remains in the exact hash-bound board.
+        # The handoff summarizes the contract rather than duplicating its full body.
+        data["story"] = {k: data["story"][k] for k in ["director_identity", *policy()["story_fields"]]
+                         if k in data["story"]}
+        data["story_detail"] = {"reference": "board", "field": "story_contract"}
+        data["instructions"] += " Read the complete story_contract, including scenes and transitions, in the bound board."
+        encoded = json.dumps(data, indent=2)
     if len(encoded) > policy()["handoff_max_chars"]:
         raise ValueError("handoff exceeds the compact packet limit; shorten the story contract, retain source paths")
     return data
@@ -446,7 +458,9 @@ def packet(board_path, claims_path, role, state_path=None):
 def craft_reading_paths(board, repo=None):
     """Route current teaching text without altering historical review inputs or schemas."""
     edition = str(board.get("date") or "")
-    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", edition) or edition < "2026-10-03":
+    choice = str((board.get("creative_direction") or {}).get("medium_choice") or "").casefold()
+    early_opt_in = edition == "2026-10-02" and "viewer-plan.md" in choice
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", edition) or (edition < "2026-10-03" and not early_opt_in):
         return []
     root = Path(REPO if repo is None else repo) / "knowledge/craft/visual-storytelling"
     guides = {"observed documentary": "observed-documentary.md",
@@ -477,8 +491,8 @@ def scoreboard(runs=REPO / "runs", state_path=None):
             candidates[run_id] = (path, state)
     shipped = 0
     for run_id, (path, state) in sorted(candidates.items()):
-        if shipped >= policy()["measurement_editions"]:
-            break
+        if shipped >= policy()["measurement_editions"] and state.get("terminal_state") == "shipped":
+            continue
         shipped += state.get("terminal_state") == "shipped"
         # Include unfinished editions so a costly nonshipment cannot disappear.
         usage = state.get("usage", {})

@@ -306,7 +306,7 @@ def opening_problems(board_path):
         errors += finishing_inspection_problems(board, receipt, review, root, ledger)
         reservation = receipt["reservation"]
         event = ledger["events"][reservation["event_index"]]
-        if (reservation["run_id"] != ledger["run_id"] or reservation["run_id"] != board.get("date")
+        if (reservation["run_id"] != ledger["run_id"] or reservation["run_id"] != board.get("run_id", board.get("date")) or board.get("date") != reservation["run_id"][:10]
                 or event.get("kind") != "reserved" or event.get("resources") != {"preflight_renders": 1}
                 or event.get("preflight_identity") != reservation["identity"]
                 or event.get("note") != "two opening comparison batch"):

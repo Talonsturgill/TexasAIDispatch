@@ -1,0 +1,1169 @@
+{
+  "created_at": "2026-10-02T20:43:30.811259Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/deliverables/3360434e68cd8a83-e02a17af35d6a936-269afdaa49e741cf/storyboard.json",
+    "board_sha256": "e02a17af35d6a936bf9676a2d2065f119175cf7f955aaf4735ab4b8118cb79d8",
+    "film": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/deliverables/3360434e68cd8a83-e02a17af35d6a936-269afdaa49e741cf/dispatch.mp4",
+    "film_sha256": "3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/deliverables/3360434e68cd8a83-e02a17af35d6a936-269afdaa49e741cf/render-manifest.json",
+    "manifest_sha256": "269afdaa49e741cfbb7de1a2e0cf4fd5c98c685b932d186c203fd56cdc78d478",
+    "registered_at": "2026-10-02T22:23:34.574040Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 7,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-10-02T21:29:24.549514Z",
+      "ceiling": 12,
+      "from": 2,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 3
+    },
+    {
+      "at": "2026-10-02T21:29:44.342374Z",
+      "ceiling": 12,
+      "from": 3,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 4
+    },
+    {
+      "at": "2026-10-02T21:33:12.712719Z",
+      "ceiling": 7,
+      "from": 3,
+      "note": "Final timed phone critic, including independent diagnosis of measured-clock technical failures",
+      "resource": "storyboard_critics",
+      "to": 4
+    },
+    {
+      "at": "2026-10-02T22:03:59.690895Z",
+      "ceiling": 7,
+      "from": 4,
+      "note": "Independent code review of finite rehearsal pivot complete A/B treatments",
+      "resource": "storyboard_critics",
+      "to": 5
+    },
+    {
+      "at": "2026-10-02T22:11:45.785939Z",
+      "ceiling": 16,
+      "from": 3,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 4
+    },
+    {
+      "at": "2026-10-02T22:13:20.821967Z",
+      "ceiling": 7,
+      "from": 5,
+      "note": "critic6 actual current pivot two-treatment phone comparison after both structural inspections passed",
+      "resource": "storyboard_critics",
+      "to": 6
+    },
+    {
+      "at": "2026-10-02T22:20:12.301264Z",
+      "ceiling": 16,
+      "from": 4,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 5
+    },
+    {
+      "at": "2026-10-02T22:27:26.964010Z",
+      "ceiling": 43,
+      "from": 4,
+      "note": "exact MP4 audiovisual review sound",
+      "resource": "audiovisual_reviews",
+      "to": 5
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-02T20:43:30.828803Z",
+      "envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "resource_envelope_frozen",
+      "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
+    },
+    {
+      "at": "2026-10-02T20:43:30.828812Z",
+      "ceiling_snapshot": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-10-02T20:43:47.553363Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-10-02T20:43:47.585934Z",
+      "kind": "reserved",
+      "note": "Fresh action-led Texas application, second October 2 edition",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-02T20:50:36.246419Z",
+      "kind": "reserved",
+      "note": "Independent Rice claims and spoken script verification",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-02T20:57:45.633747Z",
+      "kind": "phase",
+      "name": "picture"
+    },
+    {
+      "at": "2026-10-02T20:59:50.487015Z",
+      "kind": "reserved",
+      "note": "Initial independent code review of both complete treatments and same-day integrity paths",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:09:04.031345Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/storyboard.json",
+          "before_sha256": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/opening-a.json",
+          "before_sha256": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/opening-b.json",
+          "before_sha256": "459211c5f26bdf494970de384bc2d3f574a42bc1a74f37b2def77eac0c566e81",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/story_selection.json",
+          "before_sha256": "f2c0a34bbcc6c2e0de05ffd233814fb6a9fb59f5744f5b44a362726df6744eb7",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/story_selection.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/readiness-action-proposal.json",
+          "before_sha256": "c57cf3e2f1e0fff6bca212a6530c2fbdd2c0c820dd394e4a05e4b4e6c00d314d",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/readiness-action-proposal.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/ReadinessAction.tsx",
+          "before_sha256": "ecbaba00494202d9755b424e96acab6ca336a1a2fbec54f616dde7faee0a9fab",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessAction.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/ReadinessEpisode.tsx",
+          "before_sha256": "86f074b3f780d79de80b960a8a74dcc745cf0bcb1405eaa048420a3d9c78f897",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessEpisode.tsx"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "52163303748a69a6938695895051a192feae31cc71e88443e89513ec998a8f90",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "readiness-twin-action-v1",
+      "plan_identity": null,
+      "plan_sha256": "29d8581cc3ff36676c9e8476e0e6d52049537e47f84824347cc5a14edf1800a2",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-02T21:09:04.074924Z",
+      "kind": "reserved",
+      "note": "Consolidated source admission, result arrival and recognizable consultation correction",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:09:34.884252Z",
+      "kind": "reserved",
+      "note": "Independent consolidated repair code review of both complete treatments",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:13:17.452495Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "1056b16869735651dffb5006ec474652c3b6fe4fbe424c1cd4dec3db250603f2",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/storyboard.json",
+            "before_sha256": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "1056b16869735651dffb5006ec474652c3b6fe4fbe424c1cd4dec3db250603f2",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/opening-a.json",
+            "before_sha256": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "7478bf2aec1a076261d7bd7d97109deb3159325614b63a8bc58a0b2f9230ae50",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/opening-b.json",
+            "before_sha256": "459211c5f26bdf494970de384bc2d3f574a42bc1a74f37b2def77eac0c566e81",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "f31513158580af976de64b8f97b08538c1629d0fda4409f187672a75f98534e7",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/story_selection.json",
+            "before_sha256": "f2c0a34bbcc6c2e0de05ffd233814fb6a9fb59f5744f5b44a362726df6744eb7",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/story_selection.json"
+          },
+          {
+            "after_sha256": "58e21a080401e90af06d5e332ffa58a33286a839d36a1fe3a390d5d8799dfd50",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/readiness-action-proposal.json",
+            "before_sha256": "c57cf3e2f1e0fff6bca212a6530c2fbdd2c0c820dd394e4a05e4b4e6c00d314d",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/readiness-action-proposal.json"
+          },
+          {
+            "after_sha256": "a0142edf46e3df94f51f0b0f65c311c0e24a521dc74b62ca5846b7ac17a861f2",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/ReadinessAction.tsx",
+            "before_sha256": "ecbaba00494202d9755b424e96acab6ca336a1a2fbec54f616dde7faee0a9fab",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessAction.tsx"
+          },
+          {
+            "after_sha256": "40d801845935086e6e8d03924b7bf91feff5145230e3b04ab03641d0809262f9",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/ReadinessEpisode.tsx",
+            "before_sha256": "86f074b3f780d79de80b960a8a74dcc745cf0bcb1405eaa048420a3d9c78f897",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessEpisode.tsx"
+          }
+        ],
+        "completion_resources": {
+          "audiovisual_reviews": 11,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 3,
+          "reboards": 1,
+          "scorer_calls": 3,
+          "storyboard_critics": 3,
+          "tts_calls": 2,
+          "voice_directors": 1
+        },
+        "director_identity": "/root",
+        "expected_visible_result": "A result visibly arrives before a proposed setting changes, and uncertainty visibly reaches the researcher-review destination while physical trial remains pending; native sampling admits exact source-bound action.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/initial-code/initial-code-review-consolidated.json",
+        "failure_evidence_sha256": "52163303748a69a6938695895051a192feae31cc71e88443e89513ec998a8f90",
+        "failure_family": "continuity",
+        "mechanism_change": "Replace modulo-loop result transport with event-bound arrival and held accumulation. Replace unlabelled rotated-box destination with recognizable review destination and exact connector contact, avoiding synthetic human performance.",
+        "mechanism_id": "readiness-twin-action-v1",
+        "repair": "Bind all required source claims per scene, implement one-way result arrival with a held destination and subsequent changed settings, and clearly label a source-limited researcher review destination reached by its connector.",
+        "repair_scope": "standard",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "Custom scene admission omitted source claim bindings; result particles loop without arriving and abstract review target has no recognizable semantic destination."
+      },
+      "repair_plan_sha256": "20e94d849895b93af35cf52fa7d380ed878d804d2880ff5bda616526f0ea9c8f",
+      "repair_revision": "7946f10fd4aad30b3db031fa6edfcea38e04646958a3abee4b69803f2197e70e",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-02T21:14:54.898904Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "aa8bf88a8e911fb05f2ce926ddba2944e8a3c1a56edb60d5d65237408e2c3912",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:16:37.307960Z",
+      "kind": "reserved",
+      "note": "Existing independent phone critic compares both complete current treatments",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:22:16.086638Z",
+      "kind": "phase",
+      "name": "audio"
+    },
+    {
+      "at": "2026-10-02T21:22:16.120072Z",
+      "kind": "reserved",
+      "note": "One continuous source-bound curious-to-consultation read",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:24:52.977382Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:25:14.162692Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2156
+      }
+    },
+    {
+      "at": "2026-10-02T21:25:14.167164Z",
+      "elapsed_ms": 21182,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2156,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-02T21:25:14.224226Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:25:20.173108Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1644
+      }
+    },
+    {
+      "at": "2026-10-02T21:25:20.176457Z",
+      "elapsed_ms": 5947,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1644,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-02T21:27:47.814574Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/voice-wording/vo_direction.json",
+          "before_sha256": "b9121b2580709374e69423b60c3c6056da862a8e1f8ada1cd368aac4d390fcb0",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "source-framing",
+      "failure_sha256": "12c1b3f8eb49a1ad881c29424e73d9ebe62e90549107321319b0b8f64f8302b4",
+      "frozen_inputs": {
+        "files": {
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/claims.json": "789218c56cf67a253a589abae33a2d3ea206ab10022396f1671d2d01abbbd738",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/manifest.json": "5d3971a26b7a08852e6046582336659e101e3b5e29a1869e72dea6c81480b8fc",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/nsf-arm-award.json": "628fbfce2dcc9c62dbe2f5b47bcec4f8f6a984481080003332d6017b1158a35e",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/nsf-platform-announcement.html": "184231154fce18f3952d10153ee9a5f313c97d3706d8827c01d0bc0e6f5d56f7",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/nsf-platform-announcement.txt": "dcb5630cc3d470b74c96e113764147f27384ec4ba70382e0f65140ca255c7f52",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/nsf-rice-rejected-award.json": "a1e7ff08b3bf152d3071123b0c2bbc7c6de39bda63505328551ac68bfa2331c1",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/rice-readiness-graphic.jpg": "7c02dbc6f671ace7b701272471bf6b99d441e242c0ef283bb6fbcf5495752204",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/rice-readiness-webfetch.txt": "c80fde7e283d05dc839070156475d2cc501565af972c3d9f3f6156805c62cad9",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/tamu-alloy-announcement.html": "a23a910901041292058d800f71d15443d4013667dcae05ba8869e0ced5009ada",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/tamu-alloy-announcement.txt": "abdd2684d2d86fa29c73b1226447a6fb1d01e5f04886aed92c3c3b39084e09c6",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/tamu-arm-concept.jpg": "f25ebbc356552b3f3e8478af51249dde08fe5239b0056f5fb2bd9fbad72f2eb6",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/tamu-digital-twin-webfetch.txt": "a9ef56256e15adf0547fb4b90a186dfe3ebb1d9566b6065c17366820c4cea919",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/validator-nsf-readiness.json": "a1e7ff08b3bf152d3071123b0c2bbc7c6de39bda63505328551ac68bfa2331c1",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/validator-rice-readiness-web.txt": "7fc95f77eb557ec6c30c693827a31af09d376c0d6bf232963ecc7670fba156d8",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sources/validator-rice-readiness.html": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json": "b3b86a8a39ee137e239e60b07e49f183a6acfc9d26a376a3b10dc74500ffbbfc",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/vo_script.txt": "a56530bae087c456e0ac4b66c87d52ea8d4c6fa9effeb275a73d75157bea7dda"
+        },
+        "renderer_sha256": "e0639ca845da177e38680178abf749b1c3f8f0021aaf0c84af8a9a069cbe84f0"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "readiness-continuous-read",
+      "plan_identity": "42e09cfd10b5479525eba2501cdb2025b5b055cc89082f97a7fd4998de9a5698",
+      "plan_sha256": "bfa37a398afd5e6dc5f9aa8671931b7e6f71380f1f2b35ed648d0ea4920c02fc",
+      "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-02T21:29:23.947082Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "cf72a0c6375ae8f8042a1339e4eb48602102651b88ed55a83271de1e9536683d",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/voice-wording/vo_direction.json",
+            "before_sha256": "b9121b2580709374e69423b60c3c6056da862a8e1f8ada1cd368aac4d390fcb0",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "A new continuous take reconciles with every approved word and can produce measured captions without adapting the script to a model error.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/voice-wording/alignment.log",
+        "failure_evidence_sha256": "12c1b3f8eb49a1ad881c29424e73d9ebe62e90549107321319b0b8f64f8302b4",
+        "failure_family": "source-framing",
+        "mechanism_change": "Remove paraphrasable explanatory nouns from read directions while retaining exact source-backed words, visual concept, renderer, claims and selected B phone film.",
+        "mechanism_id": "readiness-continuous-read",
+        "repair": "Tighten the synthesis performance direction to exact script-only delivery and emphasize the complete chemical composition phrase without supplying alternate explanatory language.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "The continuous take omitted chemical and added around the same sample, independently confirmed by waveform ASR against locked script; broad soundcheck acceptance does not clear exact wording."
+      },
+      "repair_plan_sha256": "b1fecb533eab1fd37615a6817cde3093a3db694bc2176efc8698db7bd78c1459",
+      "repair_revision": "671b4fd6a05a51532692fce2fa7838cabed4b58feed92bbf7c9b056a8b1cc7d2",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-02T21:29:24.549650Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 3,
+      "resource": "tts_calls",
+      "was": 2
+    },
+    {
+      "at": "2026-10-02T21:29:24.549656Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:29:44.290314Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1900
+      }
+    },
+    {
+      "at": "2026-10-02T21:29:44.292319Z",
+      "elapsed_ms": 19739,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1900,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-02T21:29:44.342384Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 4,
+      "resource": "tts_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-10-02T21:29:44.342391Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:29:57.389675Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 3417
+      }
+    },
+    {
+      "at": "2026-10-02T21:29:57.393710Z",
+      "elapsed_ms": 13039,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 3417,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-02T21:33:12.713122Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "Final timed phone critic, including independent diagnosis of measured-clock technical failures",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-10-02T21:33:12.713127Z",
+      "kind": "reserved",
+      "note": "Final timed phone critic, including independent diagnosis of measured-clock technical failures",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:36:23.033172Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/timed-runtime/storyboard.json",
+          "before_sha256": "66f7a2b69374c0adebdd1db8449a7e47ba0874ed2f5ecefbde5b0866908e41b9",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "06364d996d026c040df9832ab7c9deffa396a2aa95d4405022d9f80ce19c9f61",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "readiness-twin-action-v1",
+      "plan_identity": null,
+      "plan_sha256": "663526b87cd526984cb3be0153b32ff12d022654a35ed8dd2d440de626e1fe09",
+      "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-02T21:36:23.068025Z",
+      "kind": "reserved",
+      "note": "Independent runtime-only correction to ending authored action durations",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:38:00.091433Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "6ad827e44b9d42dc2bdd77dc15224f41ff85915612e8efe589b253f6f9eb164a",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/timed-runtime/storyboard.json",
+            "before_sha256": "66f7a2b69374c0adebdd1db8449a7e47ba0874ed2f5ecefbde5b0866908e41b9",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "All three ending actions satisfy directed duration bounds while the same closed physical chamber and virtual comparison remain recognizable throughout the unchanged timed closing interval.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/timed-runtime/timed-runtime-critic.json",
+        "failure_evidence_sha256": "06364d996d026c040df9832ab7c9deffa396a2aa95d4405022d9f80ce19c9f61",
+        "failure_family": "continuity",
+        "mechanism_change": "Correct authored duration input so program derives1.154s ending actions on the accepted voice clock; preserve picture mechanism, event starts, words, captions, renderer, sources and mix.",
+        "mechanism_id": "readiness-twin-action-v1",
+        "repair": "Change only ending action duration_s_authored to0.70s for its three events and run standard retimer against unchanged waveform word evidence.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "Measured line retiming extended ending scene to8.24s and scaled all three0.9s authored actions to1.483s, exceeding1.2s directed maximum; independent critic classifies exact three failures runtime."
+      },
+      "repair_plan_sha256": "53c94bf7b7e52f4f405b68e78d116dfdcc9d9bd13be5d5a1884452d5ec3151fd",
+      "repair_revision": "23bc7474663a39c0139173f5296546390d01e2f861aa6b823ecc0b16ae42aa48",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-02T21:38:01.879782Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "561c9e96747ac18f44659a12795700d3d7ac7cd351d058391250fce0d6e62b3b",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:46:55.728160Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "3391ce3ea6105aef7a9ce9989b474a870df73ad8696895bcc30767cc211278fa",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:47:56.893711Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T21:48:18.633150Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 209b77df-94fe-4644-b5aa-255f55761094 hero exact film 0bd92b6b4d0f5fb87e250d11dfd1de2aa8f86cb831b206441dfd76557678aef8",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 13447
+      }
+    },
+    {
+      "at": "2026-10-02T21:48:18.638075Z",
+      "elapsed_ms": 21720,
+      "kind": "telemetry",
+      "note": "209b77df-94fe-4644-b5aa-255f55761094 hero exact film 0bd92b6b4d0f5fb87e250d11dfd1de2aa8f86cb831b206441dfd76557678aef8",
+      "reported_tokens": 13447,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T21:57:20.300384Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/video-engine/src/ReadinessAction.tsx",
+          "before_sha256": "a0142edf46e3df94f51f0b0f65c311c0e24a521dc74b62ca5846b7ac17a861f2",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessAction.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/video-engine/src/ReadinessEpisode.tsx",
+          "before_sha256": "40d801845935086e6e8d03924b7bf91feff5145230e3b04ab03641d0809262f9",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessEpisode.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/out/dispatch/storyboard.json",
+          "before_sha256": "6ad827e44b9d42dc2bdd77dc15224f41ff85915612e8efe589b253f6f9eb164a",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/out/dispatch/story_selection.json",
+          "before_sha256": "f31513158580af976de64b8f97b08538c1629d0fda4409f187672a75f98534e7",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/story_selection.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/out/dispatch/readiness-action-proposal.json",
+          "before_sha256": "58e21a080401e90af06d5e332ffa58a33286a839d36a1fe3a390d5d8799dfd50",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/readiness-action-proposal.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/opening-a.json",
+          "before_sha256": "1056b16869735651dffb5006ec474652c3b6fe4fbe424c1cd4dec3db250603f2",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/opening-b.json",
+          "before_sha256": "7478bf2aec1a076261d7bd7d97109deb3159325614b63a8bc58a0b2f9230ae50",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-b.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "ad7e2be224e64bbbe57dc7ea9725b38d890165435408a8266cecdaf3daf8a89f",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "readiness-finite-rehearsal-v2",
+      "plan_identity": null,
+      "plan_sha256": "01196b3332e91a2d832fbaa64d05ff4b25c93756f117ea52ec9ffab95215877c",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-02T21:57:20.335017Z",
+      "kind": "reserved",
+      "note": "Native hero finite source-backed rehearsal pivot",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:03:59.656957Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "b71b0875701eee1f63c938df5a08377425312e14fe29b54ca14d4ff51890c7d7",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/video-engine/src/ReadinessAction.tsx",
+            "before_sha256": "a0142edf46e3df94f51f0b0f65c311c0e24a521dc74b62ca5846b7ac17a861f2",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessAction.tsx"
+          },
+          {
+            "after_sha256": "245f3e08d67a76455847f39b24fba4f5e2aaa5c8f8b83137f4efcaa3ad649382",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/video-engine/src/ReadinessEpisode.tsx",
+            "before_sha256": "40d801845935086e6e8d03924b7bf91feff5145230e3b04ab03641d0809262f9",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/video-engine/src/ReadinessEpisode.tsx"
+          },
+          {
+            "after_sha256": "e02a17af35d6a936bf9676a2d2065f119175cf7f955aaf4735ab4b8118cb79d8",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/out/dispatch/storyboard.json",
+            "before_sha256": "6ad827e44b9d42dc2bdd77dc15224f41ff85915612e8efe589b253f6f9eb164a",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "fe57f1687a5f55a6c68caef73a9b4af9e7ad0ab440de7ebada977f49b1aed4a9",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/out/dispatch/story_selection.json",
+            "before_sha256": "f31513158580af976de64b8f97b08538c1629d0fda4409f187672a75f98534e7",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/story_selection.json"
+          },
+          {
+            "after_sha256": "fe1800d3fbb1fa6f7afe0fdcc24a128bc425bd70d3cabd58566526f363db918f",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/out/dispatch/readiness-action-proposal.json",
+            "before_sha256": "58e21a080401e90af06d5e332ffa58a33286a839d36a1fe3a390d5d8799dfd50",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/readiness-action-proposal.json"
+          },
+          {
+            "after_sha256": "dbca473a7524193cd935d63dc553921c6d70638903e5e50324bb282909eebd87",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/opening-a.json",
+            "before_sha256": "1056b16869735651dffb5006ec474652c3b6fe4fbe424c1cd4dec3db250603f2",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "e02a17af35d6a936bf9676a2d2065f119175cf7f955aaf4735ab4b8118cb79d8",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/opening-b.json",
+            "before_sha256": "7478bf2aec1a076261d7bd7d97109deb3159325614b63a8bc58a0b2f9230ae50",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/opening-b.json"
+          }
+        ],
+        "completion_resources": {
+          "audiovisual_reviews": 11,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 3,
+          "scorer_calls": 3,
+          "storyboard_critics": 3,
+          "tts_calls": 2
+        },
+        "director_identity": "/root",
+        "expected_visible_result": "The same generic chamber receives a finite virtual input, distinct modeled conditions change around the supported sample, feedback arrives before the next proposed setting and uncertainty reaches the pending review node. Physical equipment remains closed and planned.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/repairs/native-hero-pivot/cinema/hero-review.json",
+        "failure_evidence_sha256": "ad7e2be224e64bbbe57dc7ea9725b38d890165435408a8266cecdaf3daf8a89f",
+        "failure_family": "continuity",
+        "mechanism_change": "Replace permanent exploded wireframe diagram and looping dots with a solid translucent virtual model, finite input arrival, large qualitative conditions and motivated subject cuts, using proven existing meshes.",
+        "mechanism_id": "readiness-finite-rehearsal-v2",
+        "pivot_review": {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/hero-pivot-diagnosis.json",
+          "sha256": "8586016302416aba93a57e49a9600c4b88ebd831ef939cd9322dd6db6713466e"
+        },
+        "preserved_dependencies": {
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/claims.json": "789218c56cf67a253a589abae33a2d3ea206ab10022396f1671d2d01abbbd738",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/mix.json": "baf596debf77d785852db611b1a58f637ca668a0d1b844a8cd83b01efb768f91",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/mix.wav": "b905c10dcdd48cb5024e708fe83c6dfd842e972467d13029f678ac1d953353e5",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/mix_vo.wav": "88a006d116ebcc8284c13798f409654990fae33ef75cf8c5eb73ebe2ca7a484a",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/openings/comparison.json": "38c0f766ed15ea14f9eecad6067fad487992980948275354944c3275e138e29a",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/openings/selection.json": "3caf595ec4b6aa5bbf38e46e41e6f8192a49eb0033e0a082a24bfdfd1abad246",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/sfx_events.json": "720551a6e9f9997d3416eb9faec856241018efef886a9d6a6158894d155510c0",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/vo_direction.json": "cf72a0c6375ae8f8042a1339e4eb48602102651b88ed55a83271de1e9536683d",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/vo_script.txt": "a56530bae087c456e0ac4b66c87d52ea8d4c6fa9effeb275a73d75157bea7dda",
+          "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-02-second/out/dispatch/words.json": "8ed363486dd5db37be92c1b63447277ee28b2fbd9ed6692b088a8fe60a2e4840"
+        },
+        "repair": "One consolidated source-backed finite rehearsal pivot with distinct valve, conditions, supported trial, feedback, consultation, target and planned comparison views. Refresh two complete treatment previews in one shared reserved batch.",
+        "repair_scope": "standard",
+        "resources": {
+          "audiovisual_reviews": 1,
+          "preflight_renders": 2
+        },
+        "root_cause": "Native independent audiovisual review rejects the fixed exploded apparatus hierarchy and repetitive modulo dots as inadequate tangible process development across the hero."
+      },
+      "repair_plan_sha256": "e9f0288a69c04fbaa3a6f58011655cbb98a1e02d3d769b81954785debee04fd9",
+      "repair_revision": "799e68183f5d0fc1d451344cb436f7e729173417a12ea309d2404689e0155533",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-02T22:03:59.691019Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "Independent code review of finite rehearsal pivot complete A/B treatments",
+      "now": 5,
+      "resource": "storyboard_critics",
+      "was": 4
+    },
+    {
+      "at": "2026-10-02T22:03:59.691025Z",
+      "kind": "reserved",
+      "note": "Independent code review of finite rehearsal pivot complete A/B treatments",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:11:45.786448Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 4,
+      "resource": "preflight_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-10-02T22:11:45.786455Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "acf0618b4e7ad248efba468fcf095d7d1b8a9bb1913d538a2985e88342e9981b",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:13:20.822237Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "critic6 actual current pivot two-treatment phone comparison after both structural inspections passed",
+      "now": 6,
+      "resource": "storyboard_critics",
+      "was": 5
+    },
+    {
+      "at": "2026-10-02T22:13:20.822242Z",
+      "kind": "reserved",
+      "note": "critic6 actual current pivot two-treatment phone comparison after both structural inspections passed",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:20:12.301643Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 5,
+      "resource": "preflight_renders",
+      "was": 4
+    },
+    {
+      "at": "2026-10-02T22:20:12.301651Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "9f272355260180a8ca811874374e01c4cfafca341fbac159ec6ca92f37997579",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:21:43.874272Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:21:56.845203Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 21703d68-ab2e-4fe6-a8c8-405367d9efe5 hero exact film 5ad408d3113e56d956e7cf6b4764f402b7773e23e350b2700fec6417d7c65130",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 12790
+      }
+    },
+    {
+      "at": "2026-10-02T22:21:56.847962Z",
+      "elapsed_ms": 12961,
+      "kind": "telemetry",
+      "note": "21703d68-ab2e-4fe6-a8c8-405367d9efe5 hero exact film 5ad408d3113e56d956e7cf6b4764f402b7773e23e350b2700fec6417d7c65130",
+      "reported_tokens": 12790,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T22:22:11.615216Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:23:34.574051Z",
+      "film_sha256": "3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "269afdaa49e741cfbb7de1a2e0cf4fd5c98c685b932d186c203fd56cdc78d478",
+      "review_only": false
+    },
+    {
+      "at": "2026-10-02T22:24:41.781181Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:24:50.697485Z",
+      "kind": "reserved",
+      "note": "current finished cut 2026-10-02-second after accepted preship",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-10-02T22:25:35.746548Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: c1a344d3-ce4a-42e7-ae4a-fbf7c06a2c05 picture exact film 3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 21194
+      }
+    },
+    {
+      "at": "2026-10-02T22:25:35.758259Z",
+      "elapsed_ms": 53951,
+      "kind": "telemetry",
+      "note": "c1a344d3-ce4a-42e7-ae4a-fbf7c06a2c05 picture exact film 3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "reported_tokens": 21194,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T22:26:09.823876Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:26:37.884634Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 8a75edd5-20fb-42b9-8932-7a92887b1aa8 story exact film 3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 20779
+      }
+    },
+    {
+      "at": "2026-10-02T22:26:37.892338Z",
+      "elapsed_ms": 28047,
+      "kind": "telemetry",
+      "note": "8a75edd5-20fb-42b9-8932-7a92887b1aa8 story exact film 3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "reported_tokens": 20779,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T22:27:26.964174Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review sound",
+      "now": 5,
+      "resource": "audiovisual_reviews",
+      "was": 4
+    },
+    {
+      "at": "2026-10-02T22:27:26.964180Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T22:27:57.959993Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: a3fe1dcd-be4d-41e2-abce-75f4c9df1d27 sound exact film 3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 21076
+      }
+    },
+    {
+      "at": "2026-10-02T22:27:57.962452Z",
+      "elapsed_ms": 30982,
+      "kind": "telemetry",
+      "note": "a3fe1dcd-be4d-41e2-abce-75f4c9df1d27 sound exact film 3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "reported_tokens": 21076,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T22:39:14.023855Z",
+      "kind": "release_authorized",
+      "publication_mode": "rubric_pass",
+      "report_sha256": "78fe903ff1d35e5952b334f36ca0e993d1f0e042df228180c39cf77ee5908148",
+      "result": "publishable",
+      "score": 7.015
+    }
+  ],
+  "final_report": {
+    "film_sha256": "3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+    "original_hard_fails": [],
+    "path": "out/dispatch/report_card.json",
+    "publication_mode": "rubric_pass",
+    "score": 7.015,
+    "sha256": "78fe903ff1d35e5952b334f36ca0e993d1f0e042df228180c39cf77ee5908148"
+  },
+  "limits": {
+    "audiovisual_reviews": 5,
+    "cleanup_renders": 1,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 5,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 3,
+    "storyboard_critics": 6,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "publishing",
+  "publication_mode": "rubric_pass",
+  "release_status": "publishable",
+  "repair_policy": "quality-recovery/1",
+  "resource_envelope": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 7,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-10-02-second",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": null,
+  "updated_at": "2026-10-02T22:39:14.023868Z",
+  "usage": {
+    "audiovisual_reviews": 5,
+    "cleanup_renders": 0,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 5,
+    "reboards": 3,
+    "reported_tokens": 98403,
+    "rescue_renders": 0,
+    "research_agents": 1,
+    "scorer_calls": 3,
+    "storyboard_critics": 6,
+    "tts_calls": 4,
+    "validator_agents": 1,
+    "voice_directors": 1
+  }
+}

@@ -211,6 +211,23 @@ def main():
         git("-c", "user.name=Talon Sturgill", "-c", "user.email=Talon.sturgill@gmail.com",
             "commit", "-qm", "Synthetic unproven edition")
         assert q.changed_runs("HEAD^", repository), "CI must reject a manually committed unproven film"
+        suffixed = repository / "runs" / "2026-10-02-second"
+        suffixed.mkdir()
+        same_day_board = {"date": "2026-10-02", "run_id": "2026-10-02-second"}
+        write(suffixed / "storyboard.json", same_day_board)
+        write(suffixed / "report_card.json", {"judges": []})
+        git("add", "runs")
+        git("-c", "user.name=Talon Sturgill", "-c", "user.email=Talon.sturgill@gmail.com",
+            "commit", "-qm", "Synthetic separate same-day edition")
+        with patch.object(q, "required", return_value=True), patch.object(q, "publication_problems", return_value=[]) as proof:
+            assert q.changed_runs("HEAD^", repository) == []
+            assert proof.call_args.args[0] == suffixed / "storyboard.json"
+            assert proof.call_args.args[1] == suffixed / "dispatch.mp4"
+            write(suffixed / "storyboard.json", {**same_day_board, "run_id": "2026-10-02"})
+            assert any("edition identity" in e for e in q.changed_runs("HEAD^", repository))
+            write(suffixed / "storyboard.json", {**same_day_board, "date": "2026-10-03"})
+            assert any("edition identity" in e for e in q.changed_runs("HEAD^", repository))
+        print("PASS same-day CI retains exact-run publication proof and refuses cross-edition identity")
         print("PASS Git-diff CI path rejects a manually committed unproven edition")
         print("PASS already published editions retain their original review contract")
     owner_package = q.REPO / "runs" / "2026-09-25"

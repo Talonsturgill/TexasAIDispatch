@@ -52,14 +52,35 @@ if [ "$VERIFY_ONLY" -eq 0 ]; then
   for v in DATE TOPIC SLUG BEAT ENTITIES; do
     [ -n "${!v}" ] || { echo "missing --${v,,}" >&2; exit 2; }
   done
-  [[ "$DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] \
-    || { echo "--date must be YYYY-MM-DD" >&2; exit 2; }
+  [[ "$DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}(-[a-z0-9]+(-[a-z0-9]+)*)?$ ]] \
+    || { echo "--date must be YYYY-MM-DD with an optional edition suffix" >&2; exit 2; }
   [[ "$SLUG" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] \
     || { echo "--slug must be a lower-case hyphenated slug" >&2; exit 2; }
 fi
 
 OUT="$REPO/out/dispatch"
 DEST="$REPO/runs/$DATE"
+CALENDAR_DATE="${DATE:0:10}"
+if [ "$VERIFY_ONLY" -eq 0 ]; then
+  python3 - "$STATE" "$DATE" "$DEST" "$REPO/out/dispatch/film.mp4" <<'PY_EDITION'
+import hashlib, json, sys
+from pathlib import Path
+from datetime import date
+state = json.load(open(sys.argv[1]))
+identity = sys.argv[2]
+date.fromisoformat(identity[:10])
+if state.get("run_id") != identity:
+    raise SystemExit("Delivery identity must match the reserved controller run")
+destination = Path(sys.argv[3])
+existing = destination / "dispatch.mp4"
+if existing.exists():
+    archived = json.loads((destination / "run_state.json").read_text())
+    incoming = Path(sys.argv[4])
+    if (archived.get("run_id") != identity or archived.get("terminal_state") == "shipped"
+            or hashlib.sha256(existing.read_bytes()).digest() != hashlib.sha256(incoming.read_bytes()).digest()):
+        raise SystemExit("Refusing to overwrite a different or shipped film")
+PY_EDITION
+fi
 
 say() { printf '\n=== %s\n' "$1"; }
 GATE_LOG=$(mktemp)
@@ -133,7 +154,7 @@ fi
 
 # ---------------------------------------------------------------- 2. the ledger, BEFORE the merge
 say "variety ledger"
-python3 scripts/dedupe.py add --date "$DATE" --topic "$TOPIC" --slug "$SLUG" \
+python3 scripts/dedupe.py add --date "$CALENDAR_DATE" --topic "$TOPIC" --slug "$SLUG" \
     --beat "$BEAT" --entities "$ENTITIES" --fingerprint "$OUT/storyboard.json" || exit 1
 
 # ---------------------------------------------------------------- 3. artifacts

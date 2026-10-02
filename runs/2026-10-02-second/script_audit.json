@@ -1,0 +1,121 @@
+{
+  "schema": "dispatch_script_audit/1",
+  "date": "2026-10-02",
+  "edition_id": "2026-10-02-second",
+  "reviewer_identity": "/root/validator",
+  "reservation": "validator_agents",
+  "checked_at_utc": "2026-10-02T21:06:05.240284+00:00",
+  "verdict": "PASS_WITH_SOURCE_DROPS",
+  "board_sha256": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+  "claims_sha256": "789218c56cf67a253a589abae33a2d3ea206ab10022396f1671d2d01abbbd738",
+  "vo_script_sha256": "a56530bae087c456e0ac4b66c87d52ea8d4c6fa9effeb275a73d75157bea7dda",
+  "renderer_sha256": "ecbaba00494202d9755b424e96acab6ca336a1a2fbec54f616dde7faee0a9fab",
+  "artifact_sha256": {
+    "out/dispatch/storyboard.json": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+    "out/dispatch/opening-a.json": "1ec2bf0c454a94b8bd36453f2128ce85c7f1337fed904cd31f266eed9f5201ab",
+    "out/dispatch/opening-b.json": "459211c5f26bdf494970de384bc2d3f574a42bc1a74f37b2def77eac0c566e81",
+    "out/dispatch/vo_script.txt": "a56530bae087c456e0ac4b66c87d52ea8d4c6fa9effeb275a73d75157bea7dda",
+    "out/dispatch/claims.json": "789218c56cf67a253a589abae33a2d3ea206ab10022396f1671d2d01abbbd738",
+    "video-engine/src/ReadinessAction.tsx": "ecbaba00494202d9755b424e96acab6ca336a1a2fbec54f616dde7faee0a9fab",
+    "video-engine/src/ReadinessEpisode.tsx": "86f074b3f780d79de80b960a8a74dcc745cf0bcb1405eaa048420a3d9c78f897",
+    "video-engine/src/Dispatch.tsx": "a21e05aae4eb24aa5a2e3ea78461c5bcc230e07c1f041bf60cfe84995eda654d",
+    "out/dispatch/readiness-action-proposal.json": "c57cf3e2f1e0fff6bca212a6530c2fbdd2c0c820dd394e4a05e4b4e6c00d314d"
+  },
+  "word_count": 73,
+  "line_count": 8,
+  "scene_claims": {
+    "s1": [
+      "c01"
+    ],
+    "s2": [
+      "c02"
+    ],
+    "s3": [
+      "c03"
+    ],
+    "s4": [
+      "c04"
+    ],
+    "s5": [
+      "c05"
+    ],
+    "s6": [
+      "c06"
+    ],
+    "s7": [
+      "c07"
+    ],
+    "s8": [
+      "c08"
+    ]
+  },
+  "source_snapshots": [
+    "out/dispatch/sources/validator-rice-readiness-web.txt",
+    "out/dispatch/sources/validator-nsf-readiness.json"
+  ],
+  "scope": "Independent fresh source fetch, exact script and full initial A/B board review, renderer source review. Eight continuous verbatim source quote spans checked against the independent Rice article snapshot. No film was viewed, no audio heard and no voice/render expense incurred.",
+  "source_limit": "Generic valve and chamber illustrate gas-flow equipment only; no actual Rice apparatus, installed interlock, measured settings, independently approved safety or achieved thin-film result. July sources describe development; no October operating-status observation.",
+  "prior_rejections_retained": [
+    "The original c08 closing 'The laboratory is still planned' asserted unverified October operating status. July project language supports source-attributed planned development only.",
+    "An actual Rice gas valve and mandatory interlock were not documented. A generic valve may illustrate gas flow but cannot establish apparatus identity or safety control behavior.",
+    "Digital-twin output cannot independently certify safety or authorize physical execution. Rice says approved projects and researcher consultation on uncertainty.",
+    "Achieved faster electronics, low-power computing or completed diamond-film synthesis are not established by the project's initial targets.",
+    "NSF award-search HTML fetch yielded 'No Award Specified'; it is not used as evidence. The independently retrieved NSF API supplies the exact READINESS record.",
+    "The researcher research.json reported funding and startup dates as verified without an independent validator snapshot. Those assertions are admitted only after the validator's fresh NSF API fetch; no October announcement is claimed."
+  ],
+  "required_edits_applied": [
+    "The exact VO and all current boards replace unverified current-status 'still planned' with source attribution: Rice describes a planned laboratory.",
+    "All boards disclose Illustration. Planned research; action proposal identifies original generic equipment, no operating laboratory or actual safety interlock.",
+    "Eight claim quotes are continuous verbatim source spans; c01 is explicitly illustrative_interpretation and c03 is contextual planned capability.",
+    "Funding is independently matched to exact READINESS NSF award 2607553 and date 07/21/2026. No October announcement or fabricated scientific measurements are claimed.",
+    "c01 drops final first; c07 uses The targets. These retain source meaning and avoid grammar false positives."
+  ],
+  "checks": [
+    {
+      "check": "script_evidence_check.py",
+      "board": "storyboard",
+      "exit_code": 0,
+      "output": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+    },
+    {
+      "check": "validation_check.py",
+      "board": "storyboard",
+      "exit_code": 0,
+      "output": "validation_check: OK — 1 validator report(s) match their board and claims\n"
+    },
+    {
+      "check": "script_evidence_check.py",
+      "board": "opening-a",
+      "exit_code": 0,
+      "output": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+    },
+    {
+      "check": "validation_check.py",
+      "board": "opening-a",
+      "exit_code": 0,
+      "output": "validation_check: OK — 1 validator report(s) match their board and claims\n"
+    },
+    {
+      "check": "script_evidence_check.py",
+      "board": "opening-b",
+      "exit_code": 0,
+      "output": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+    },
+    {
+      "check": "validation_check.py",
+      "board": "opening-b",
+      "exit_code": 0,
+      "output": "validation_check: OK — 1 validator report(s) match their board and claims\n"
+    },
+    {
+      "check": "script_evidence_check.py",
+      "mode": "full_pre_voice",
+      "exit_code": 1,
+      "output": "\nscript_evidence_check: 19 problem(s). THIS IS THE CHEAP PLACE: nothing has been synthesised yet.\n\n  - board action proposals differ from the selected source-backed mechanism\n  - candidate picture needs its bound source-backed action and Illustration disclosure\n  - current two-opening evidence unavailable: [Errno 2] No such file or directory: 'out/dispatch/openings/comparison.json'\n  - independent critic must review each proposed action exactly once\n  - independent story review lacks one_viewing_summary\n  - independent story review lacks opening_to_ending\n  - independent story review lacks weakest_transition\n  - proposed action scene omits its source claim bindings\n  - rejected needs at least one real alternative so 'why this one' is inspectable\n  - source evidence changed since the independent story review\n  - story approval requires the independent critic, distinct from the director\n  - story changed since continuity approval; review the whole sequence before spending\n  - story or continuity defects remain unresolved\n  - story review does not bind the current daily contract\n  - the critique does not name the weakest frame\n  - the critique lacks reviewer identity or review time\n  - the independent critique belongs to a different creative plan\n  - the independent critique belongs to different cinematic scene code\n  - the independent storyboard critic has not passed this concept\n"
+    }
+  ],
+  "copy_scan_zero_matches": true,
+  "direct_listening_performed": false,
+  "actual_film_viewed": false,
+  "production_gate_status": "Pending independent reviews and previews; factual planning checks pass, full pre-voice checker status is recorded below and is not a release verdict."
+}

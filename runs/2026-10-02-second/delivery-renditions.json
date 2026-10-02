@@ -1,0 +1,44 @@
+{
+  "schema": "dispatch_delivery_renditions/1",
+  "run_id": "2026-10-02-second",
+  "observed_at": "2026-10-02T22:45:58.517829+00:00",
+  "producer": "scripts/publish_feed.py renditions",
+  "operation": "Mechanical scale/transcode of unchanged approved master, with faststart and reduced bitrate; no scene rerender or paid provider call",
+  "assets": {
+    "dispatch.mp4": {
+      "sha256": "3360434e68cd8a83e423c05b287811ab734e40db4adbe8727a223b5429f5e74d",
+      "bytes": 4034445
+    },
+    "dispatch-720.mp4": {
+      "sha256": "65fde63351c0ace188bf5374228c0cab9c905311684d0ef1d86e65736f14d60c",
+      "bytes": 1636333,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 720,
+            "height": 1280
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "45.000000"
+        }
+      }
+    },
+    "poster.png": {
+      "sha256": "b8a57b741150c5a79786a8e52cbf9b10f6c286c97d4bdfbf8c7f90f7eb60c327",
+      "bytes": 739990
+    },
+    "poster-540.jpg": {
+      "sha256": "832ccb20b8fd9c1c59ffdbd50f74d4176d215303e0799505efb0050628903243",
+      "bytes": 62967
+    }
+  },
+  "full_phone_decode_exit": 0,
+  "phone_review": "Canonical phone playback remains mandatory after publication"
+}
