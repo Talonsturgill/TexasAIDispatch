@@ -82,7 +82,7 @@ def legacy_capture_problems(receipt, output):
         for option in options:
             board = creative.read(evidence_path(output, option["board"]))
             evidence_path(output, option["film"])
-            if board.get("date") != ledger["run_id"] or creative.opening_digest(board) != option["concept_sha256"]:
+            if (board.get("run_id", board.get("date")) != ledger["run_id"] or board.get("date") != ledger["run_id"][:10]) or creative.opening_digest(board) != option["concept_sha256"]:
                 errors.append("legacy capture board or edition changed")
             if renderer_digest(board) != receipt.get("renderer_sha256"):
                 errors.append("legacy capture renderer or source assets changed")
@@ -262,7 +262,7 @@ def build(root, state):
     from documentary_check import check as documentary
     boards = [creative.read(root / f"opening-{key}.json") for key in ("a", "b")]
     ledger = read_state(state)
-    if ledger["run_id"] != boards[0].get("date") or creative.read(root / "storyboard.json") not in boards:
+    if not all(b.get("run_id", b.get("date")) == ledger["run_id"] and b.get("date") == ledger["run_id"][:10] for b in boards) or creative.read(root / "storyboard.json") not in boards:
         raise ValueError("opening alternatives must belong to the current owned edition and provisional board")
     if not all(creative.required(b) for b in boards) or body(boards[0]) != body(boards[1]):
         raise ValueError("two alternatives must share dated facts, narration, timing and assets; legacy editions also share the visual body")

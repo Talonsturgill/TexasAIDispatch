@@ -119,7 +119,9 @@ def entry_problems(feed: dict, date: str, site: str) -> tuple[list[str], dict | 
     videos = feed.get("videos") if isinstance(feed, dict) else None
     if not isinstance(videos, list):
         return ["the published feed has no `videos` list"], None
-    hit = next((v for v in videos if str(v.get("date")) == date), None)
+    hit = next((v for v in videos if str(v.get("date")) == date[:10]
+                and str(v.get("video", "")).endswith(
+                    f"/runs/{date}/dispatch.mp4")), None)
     if hit is None:
         have = ", ".join(sorted(str(v.get("date")) for v in videos)) or "nothing"
         return ([f"THE FILM IS NOT IN THE PUBLISHED FEED. Looked for {date}, the live "
@@ -203,7 +205,7 @@ def self_test() -> int:
        "github.io" not in site, site)
 
     feed = {"media_base": "https://example.invalid",
-            "videos": [{"date": "2026-08-28", "video": "/a.mp4", "poster": "/b.png",
+            "videos": [{"date": "2026-08-28", "video": "/runs/2026-08-28/dispatch.mp4", "poster": "/b.png",
                         "video_mobile": "/c.mp4", "poster_thumb": "/d.jpg"}]}
 
     # THE CHECK MUST GO RED WHEN THE FILM IS ABSENT, which is the whole point. A feed
@@ -246,6 +248,16 @@ def self_test() -> int:
            any("video_mobile" in p for p in probs), str(probs))
     finally:
         globals()["head_len"] = real_head
+
+    first = {"date": "2026-08-28", "video": "/runs/2026-08-28/dispatch.mp4"}
+    second = {"date": "2026-08-28", "video": "/runs/2026-08-28-second/dispatch.mp4"}
+    probs, hit = entry_problems({"videos": [first]}, "2026-08-28-second", site)
+    ok("first same-day film cannot satisfy the second edition check", bool(probs) and hit is None)
+    probs, hit = entry_problems({"videos": [first, second]}, "2026-08-28-second", site)
+    ok("second edition selects its exact media namespace", not probs and hit == second)
+
+    probs, hit = entry_problems({"videos": [second, first]}, "2026-08-28", site)
+    ok("original edition selects its exact namespace with second listed first", not probs and hit == first)
 
     print(f"live_check: {fails} failure(s)")
     return 1 if fails else 0

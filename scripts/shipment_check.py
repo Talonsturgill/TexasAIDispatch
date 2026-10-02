@@ -196,7 +196,7 @@ def verify_shipment(state, manifest):
     try:
         data = load_json(manifest)
         film_hash = state["deliverable"]["film_sha256"]
-        date = state["run_id"][:10]
+        date = state["run_id"]
         if data.get("run_id") != state["run_id"] or data.get("film_sha256") != film_hash:
             raise ValueError("shipment manifest belongs to another run or film")
         release = merged_pr(data["dispatch_pr"], "Talonsturgill/TexasAIDispatch")

@@ -188,6 +188,27 @@ class DailyTest(unittest.TestCase):
         self.board["creative_direction"]["medium_choice"]="An unnamed illustrative treatment."
         self.assertEqual(7,len(d.craft_reading_paths(self.board)))
 
+    def test_oversized_story_details_use_the_exact_bound_board_without_dropping_review(self):
+        self.board["story_contract"]["scenes"] = [{"observation": "source-backed sequence " * 700}]
+        self.board["story_contract"]["transitions"] = [{"observation": "same subject " * 700}]
+        self.save()
+        packet = d.packet(self.bp,self.cp,"storyboard-critic")
+        self.assertLess(len(json.dumps(packet, indent=2)), d.policy()["handoff_max_chars"])
+        self.assertEqual({"reference":"board", "field":"story_contract"}, packet["story_detail"])
+        self.assertEqual(d.digest(self.bp), packet["board"]["sha256"])
+        self.assertEqual(d.story_digest(self.board), packet["story_sha256"])
+        self.assertEqual(self.board["story_contract"]["opening_question"], packet["story"]["opening_question"])
+        self.assertIn("including scenes and transitions", packet["instructions"])
+        self.assertNotIn("scenes", packet["story"])
+
+    def test_explicit_second_run_guide_opt_in_preserves_first_edition(self):
+        self.board["date"]="2026-10-02"
+        self.board.setdefault("creative_direction",{})["medium_choice"]="Educational explainer / Explanatory animation"
+        self.assertEqual([],d.craft_reading_paths(self.board))
+        self.board["creative_direction"]["medium_choice"] += "; owner requested viewer-plan.md early"
+        names={p.name for p in d.craft_reading_paths(self.board)}
+        self.assertEqual({"viewer-plan.md","README.md","news-reporting.md","explanatory-animation.md"},names)
+
     def test_scoreboard_keeps_failed_editions_and_honest_unknown_account_usage(self):
         run=self.root/"2026-09-28";run.mkdir()
         (run/"run_state.json").write_text(json.dumps({"run_id":"2026-09-28","phase":"active_repair",
@@ -207,6 +228,12 @@ class DailyTest(unittest.TestCase):
         rows=d.scoreboard(self.root)
         self.assertEqual(5,rows["shipped_count"])
         self.assertEqual("2026-10-02",rows["editions"][-1]["run_id"])
+        second=self.root/"second.json"
+        second.write_text(json.dumps({"run_id":"2026-10-02-second","phase":"research"}))
+        extra=d.scoreboard(self.root,second)
+        self.assertEqual(5,extra["shipped_count"])
+        self.assertEqual("2026-10-02-second",extra["editions"][-1]["run_id"])
+        self.assertFalse(extra["editions"][-1]["shipped"])
         active=self.root/"active.json"
         active.write_text(json.dumps({"run_id":"2026-09-29","updated_at":"later","phase":"active_repair"}))
         rows=d.scoreboard(self.root,active)
@@ -299,6 +326,19 @@ class StoryVisualTest(unittest.TestCase):
         self.assertIn("previous shipped", " ".join(d.visual_problems(self.board, self.runs)))
         item["source_url"] = "https://example.org/current-site"; item["original_sha256"] = "a"*64
         self.assertIn("previous shipped", " ".join(d.visual_problems(self.board, self.runs)))
+
+    def test_second_same_day_edition_checks_the_first_shipped_assets(self):
+        first=self.runs/"2026-09-29"
+        first.mkdir()
+        (first/"dispatch.mp4").write_bytes(b"first shipped film")
+        (first/"storyboard.json").write_text(json.dumps({"native_media":[{"sha256":"c"*64}]}))
+        self.board["run_id"]="2026-09-29-second"
+        item=self.media();item["sha256"]="c"*64
+        self.assertIn("previous shipped", " ".join(d.visual_problems(self.board,self.runs)))
+        item["sha256"]="b"*64
+        self.assertEqual([], d.visual_problems(self.board,self.runs))
+        self.board["run_id"]="2026-09-28-second"
+        self.assertTrue(d.visual_problems(self.board,self.runs))
 
     def test_search_bounds_and_review_binding(self):
         before = d.story_digest(self.board)
