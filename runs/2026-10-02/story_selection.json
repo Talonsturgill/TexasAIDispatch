@@ -1,0 +1,138 @@
+{
+  "schema": "dispatch_story_selection/1",
+  "edition_date": "2026-10-02",
+  "selected": {
+    "title": "Below the dark mark",
+    "beat": "the-road",
+    "county": "Hays",
+    "texas_link": "Texas State University in San Marcos is developing paired pavement imagery for Texas road maintenance.",
+    "record_status": "in-record",
+    "record_id": "tx-2026-0131",
+    "record_url": "https://texasaidocket.com/item/tx-2026-0131/",
+    "movement": {
+      "actor": "Texas State University researchers",
+      "action": "published the second research phase",
+      "object": "paired surface and depth pavement assessment",
+      "event_type": "published",
+      "date": "2026-08-24"
+    },
+    "why_today": "Freshly fetched ongoing phase-two application; last Docket verification September29. No new October2 event or statewide adoption proof. Present as an application explainer if editorial freshness permits.",
+    "consequence": "Road maintenance engineers receive an assessment report rather than evidence that a road has already been repaired.",
+    "application_change": "Pairing surface images with depth information helps distinguish stains from road damage for maintenance assessment.",
+    "counter_image": "The dark stain remains flat while the illustrated crack has depth, and neither road sample is repaired.",
+    "earned_take": "Finding damage and fixing pavement are different steps, with no measured repair outcome claimed.",
+    "sources": [
+      {
+        "url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+        "retrieved": "2026-10-02",
+        "source_type": "primary",
+        "file": "out/dispatch/research/txst-pavement.html",
+        "sha256": "52c1b76087e935d3bca1da9f2e9c9d8f32de2ccddeb1ac23499fccb001475816"
+      }
+    ],
+    "agency": {
+      "next_step": "Improve hairline crack detection, automatic severity scoring and adaptation to different surfaces and climates.",
+      "who_can_act": "Texas State researchers and transportation engineers develop and evaluate the assessment; no public comment deadline is attached.",
+      "open": "no"
+    },
+    "filmability": {
+      "viewer_question": "Can a dark line on a road tell you which road needs repair?",
+      "opening_action": "Illustrated pavement patch contains a flat dark stain beside a genuine recessed crack; a cross section reveals their difference.",
+      "mechanism": "One sourced surface-to-depth relationship: similar dark 2D marks separate when depth becomes visible.",
+      "human_consequence": "Pavement engineers receive prioritized repair reports; earlier repairs and savings are stated aims, not measured outcomes.",
+      "source_limit": "Phase two, closer to statewide use; no adoption date or proven savings. Illustration must not imitate actual AI software or imply perfect classification.",
+      "three_key_images": [
+        "Road surface: stain and crack",
+        "Cross section: flat stain and recess",
+        "Repair-report paper entering maintenance queue; no invented repair already completed"
+      ],
+      "asset_leads": [
+        {
+          "url": "https://docs.gato.txst.edu/205552/w/2000/Bij9BoeBTazk/charlotte-harrison-dnaTMCm2-nw-unsplash.jpg",
+          "source_url": "https://news.txst.edu/research-and-innovation/2022/pavement-condition-data-collection-grant.html",
+          "inspection": "Actual pixels inspected: cracks across yellow painted stripes on asphalt. Static closeup; no scanner, model, workers or location proof.",
+          "rights_basis": "Filename credits Charlotte Harrison/Unsplash; no license or original Unsplash page authenticated. Not cleared.",
+          "asset_fit": "Rejected: generic older image cannot establish phase-two action. Original illustration is stronger.",
+          "file": "out/dispatch/research/pavement-source-candidate.jpg",
+          "sha256": "6dd68ced2427ec1db6581f2fc8523fb18dc1bf8fa998f068858829c5bfcb596f"
+        }
+      ],
+      "action_support": [
+        {
+          "image": "opening",
+          "medium": "source-backed-action",
+          "pictured_action": "Cross section opens below dark pavement marks to expose crack depth while stain remains flat",
+          "scope_fit": "One simple explanatory mechanism; director-bound independent code/phone/native proof required; Illustration disclosure",
+          "source_url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+          "action_id": "pavement-depth-action-v1",
+          "disclosure": "Illustration. Pavement research"
+        },
+        {
+          "image": "mechanism",
+          "medium": "source-backed-action",
+          "pictured_action": "2D surface and 3D depth become paired, revealing which dark feature is recessed",
+          "scope_fit": "Same single mechanism; no bespoke human rig or authentic interface claim",
+          "source_url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+          "action_id": "pavement-depth-action-v1",
+          "disclosure": "Illustration. Pavement research"
+        },
+        {
+          "image": "consequence",
+          "medium": "source-backed-action",
+          "pictured_action": "A repair-report sheet receives the sourced damage distinction and joins a maintenance queue",
+          "scope_fit": "Explanatory report relationship, not claimed actual city decision or completed repair; director must bind and prove",
+          "source_url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+          "action_id": "pavement-depth-action-v1",
+          "disclosure": "Illustration. Pavement research"
+        }
+      ]
+    },
+    "visual_stakes": {
+      "affected_person": "Texas pavement maintenance engineers and road users",
+      "physical_subject": "cracked pavement versus flat staining",
+      "visible_change": "Surface view opens into a depth cross section",
+      "consequence": "Better assessment supports maintenance scheduling; claimed prevention and savings are prospective",
+      "opening_question": "Which dark line needs a repair?",
+      "answer": "Paired surface and depth imagery helps separate damage from stains; deployment remains in development",
+      "asset_fit": "Original disclosed illustration; inspected generic source photograph rejected",
+      "source_urls": [
+        "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html"
+      ]
+    },
+    "action_proposals": [
+      {
+        "id": "pavement-depth-action-v1",
+        "module": {
+          "path": "video-engine/src/PavementDepthAction.tsx",
+          "sha256": "4aee73be848bb6ceed8715dc2632c6ca5c99a334c436966d123442f713120882"
+        },
+        "exports": [
+          "PavementDepthAction"
+        ],
+        "source_urls": [
+          "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html"
+        ],
+        "claim_ids": [
+          "c02",
+          "c03",
+          "c04",
+          "c08"
+        ],
+        "visible_action": "An illustrative scan traverses two pavement samples. Conserved flat and notched profiles rise from the stain and crack; associated source-grounded report sheets move into a maintenance tray.",
+        "consequence": "The surface and depth distinction enters an illustrative report without changing or repairing the pavement sample.",
+        "limits": "Enlarged original explanatory geometry, not a measured sample, actual road, software interface, exact model classification or completed repair. Report sheets symbolize the published report relationship.",
+        "source_basis": "Texas State describes paired surface images and depth maps distinguishing damage from stains and producing prioritized repair reports. Improvement of hairline detection and severity scoring is planned.",
+        "disclosure": "Illustration. Pavement research"
+      }
+    ]
+  },
+  "rejected": [
+    {
+      "record_id": "tx-2026-0101",
+      "title": "Houston Methodist radiology heat map prioritization",
+      "date": "2026-06-29",
+      "source_url": "https://www.houstonmethodist.org/leading-medicine-blog/articles/2026/jun/houston-methodist-launches-systemwide-ai-platform-to-transform-imaging-emergency-response-care/",
+      "reason": "Older movement and image-screen workflow; requires medical scan/heat-map representation that could falsely imply diagnosis. Full web page read today; direct local fetch returned403. No inspected authenticated current workflow asset."
+    }
+  ]
+}

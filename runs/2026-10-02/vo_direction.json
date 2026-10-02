@@ -1,0 +1,90 @@
+{
+  "schema": "dispatch-vo-direction/1",
+  "date": "2026-10-02",
+  "director_identity": "/root/research",
+  "board_sha256": "7391e13865575fcac28fbf4984f7c59ab1e931419fac5a842308e82dc0d13bff",
+  "story_sha256": "f63df7cdc27ad53330a66624325e41b482d9de1e729649b29cafb647ce4ea0da",
+  "script_sha256": "b58d795c5acef9a286a2cb2245adb77fc39017c0d9efdab15e7a290a411b88cb",
+  "sound_direction_sha256": "01ecd42ad308a2a7b9a1fdd53af6ca971227de04d699a893d70b823567da07f0",
+  "opening_selection_sha256": "98762a7187611bcfe35299d030ce49e326546ca98fbf3e3104c0df368a6da6c9",
+  "selected_opening": "a",
+  "overall": "Read the exact spoken text as one continuous conversational passage to one listener. Use a slightly dry, informed voice: a curious opening, a useful depth discovery, then calm attribution and a lower unresolved repair consequence. Speak only the fenced script. Keep natural full-stop breaths and clean connections; let the measured read establish timing.",
+  "performance_arc": "Curious opening, precise depth distinction, calm attribution and unresolved maintenance consequence.",
+  "default_takes": 1,
+  "sound_execution": "Designed scan and paper contact follow the board events. The mixer lowers the background on unrepaired-quiet; continue the final sentence naturally and fully audibly. The picture supplies its ending hold.",
+  "lines": [
+    {
+      "scene_id": "s1",
+      "text": "A dark mark is not always a crack.",
+      "intent": "Invite the listener to inspect a familiar dark mark before accepting the obvious answer.",
+      "emphasis": "not always a crack",
+      "energy": "Open with a small curious lift; settle the last word without a teaser cadence.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Keep not always connected; this is a distinction, not a claim of failure."
+    },
+    {
+      "scene_id": "s2",
+      "text": "Texas State researchers pair a pavement photo with a depth map.",
+      "intent": "Name the researchers and reveal the paired inputs as a concrete working method.",
+      "emphasis": "with a depth map",
+      "energy": "Ease slightly below the hook; steady, precise and conversational through the complete sentence.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Do not separate Texas State from researchers or insert a gap before depth map."
+    },
+    {
+      "scene_id": "s3",
+      "text": "The picture shows the surface. Depth helps separate damage from a stain.",
+      "intent": "Move from the surface picture to the useful depth distinction as the visible discovery.",
+      "emphasis": "Depth helps separate damage",
+      "energy": "Lift modestly above the preceding explanation on Depth, then land stain level and clear.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Keep the second sentence connected; depth helps rather than guaranteeing classification."
+    },
+    {
+      "scene_id": "s4",
+      "text": "Texas State says the system generates prioritized repair reports.",
+      "intent": "Attribute the report claim plainly while the illustrated sheet reaches its tray.",
+      "emphasis": "Texas State says",
+      "energy": "Drop below the discovery line for calm attribution; finish reports without a promotional lift.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "The university supplies this claim; do not perform it as proven operational savings."
+    },
+    {
+      "scene_id": "s5",
+      "text": "Road crews need that distinction before choosing what to fix.",
+      "intent": "Connect that assessment to the crew decision while leaving the road visibly unrepaired.",
+      "emphasis": "before choosing what to fix",
+      "energy": "Recover a little above the attribution line; practical and direct, with a lower ending.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Keep before choosing intact to preserve assessment before repair."
+    },
+    {
+      "scene_id": "s6",
+      "text": "Texas State reported its second research phase on August twenty-fourth.",
+      "intent": "Date the research phase so the audience can locate the announcement accurately.",
+      "emphasis": "August twenty-fourth",
+      "energy": "Settle below the crew line; understated source context, no breaking-news urgency.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Say twenty-fourth cleanly; no implication that the announcement happened today."
+    },
+    {
+      "scene_id": "s7",
+      "text": "The team plans to improve hairline crack detection and automatic severity scoring.",
+      "intent": "Identify the improvements as plans, preserving the unfinished research status.",
+      "emphasis": "plans to improve",
+      "energy": "Rise modestly above the date line for forward motion, with even clarity through severity scoring.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Longest sentence: articulate hairline crack detection without hurry; retain plans."
+    },
+    {
+      "scene_id": "s8",
+      "text": "A better damage map is not a repaired road.",
+      "intent": "Resolve the opening while the same crack remains unfilled, separating assessment from repair.",
+      "emphasis": "not a repaired road",
+      "energy": "Drop to the lowest conversational energy in the passage; fully audible, lower and certain at the end.",
+      "pause_after": "Natural sentence boundary; maintain the continuous passage.",
+      "risk": "Do not whisper or add a triumphant flourish; retain the uncompleted repair consequence."
+    }
+  ],
+  "assembled_prompt": "You are performing a narration for a short documentary film. Read ONLY the text inside the fenced block at the end of this message, exactly as written, and speak none of these instructions.\n\nDelivery: a person who knows the subject, telling you something they think you should know, at the pace somebody actually talks. Slightly dry. The authority comes from the facts being right, so the delivery does not work for it. Not a news anchor, not a documentary hush, not an explainer's bright upward lilt.\n\nPacing: read it as one continuous passage. A normal breath at a full stop is right. Never pause inside a sentence, and never hold a silence between sentences. The film is cut to this recording afterwards and the edit puts in every pause it needs, so silence left here becomes a hole in the finished picture.\n\nPer-line direction:\nRead the exact spoken text as one continuous conversational passage to one listener. Use a slightly dry, informed voice: a curious opening, a useful depth discovery, then calm attribution and a lower unresolved repair consequence. Speak only the fenced script. Keep natural full-stop breaths and clean connections; let the measured read establish timing.\nPerformance arc: Curious opening, precise depth distinction, calm attribution and unresolved maintenance consequence.\nLine 1; intent: Invite the listener to inspect a familiar dark mark before accepting the obvious answer.; emphasis: not always a crack; energy: Open with a small curious lift; settle the last word without a teaser cadence.\nLine 2; intent: Name the researchers and reveal the paired inputs as a concrete working method.; emphasis: with a depth map; energy: Ease slightly below the hook; steady, precise and conversational through the complete sentence.\nLine 3; intent: Move from the surface picture to the useful depth distinction as the visible discovery.; emphasis: Depth helps separate damage; energy: Lift modestly above the preceding explanation on Depth, then land stain level and clear.\nLine 4; intent: Attribute the report claim plainly while the illustrated sheet reaches its tray.; emphasis: Texas State says; energy: Drop below the discovery line for calm attribution; finish reports without a promotional lift.\nLine 5; intent: Connect that assessment to the crew decision while leaving the road visibly unrepaired.; emphasis: before choosing what to fix; energy: Recover a little above the attribution line; practical and direct, with a lower ending.\nLine 6; intent: Date the research phase so the audience can locate the announcement accurately.; emphasis: August twenty-fourth; energy: Settle below the crew line; understated source context, no breaking-news urgency.\nLine 7; intent: Identify the improvements as plans, preserving the unfinished research status.; emphasis: plans to improve; energy: Rise modestly above the date line for forward motion, with even clarity through severity scoring.\nLine 8; intent: Resolve the opening while the same crack remains unfilled, separating assessment from repair.; emphasis: not a repaired road; energy: Drop to the lowest conversational energy in the passage; fully audible, lower and certain at the end.\n\n-----BEGIN SPOKEN TEXT-----\nA dark mark is not always a crack.\nTexas State researchers pair a pavement photo with a depth map.\nThe picture shows the surface. Depth helps separate damage from a stain.\nTexas State says the system generates prioritized repair reports.\nRoad crews need that distinction before choosing what to fix.\nTexas State reported its second research phase on August twenty-fourth.\nThe team plans to improve hairline crack detection and automatic severity scoring.\nA better damage map is not a repaired road.\n-----END SPOKEN TEXT-----\n"
+}

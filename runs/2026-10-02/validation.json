@@ -1,0 +1,199 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-10-02",
+  "edition": "Texas AI Dispatch",
+  "retrieved": "2026-10-02",
+  "source": "independent_validator",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c01",
+    "c02",
+    "c03",
+    "c04",
+    "c05",
+    "c06",
+    "c07",
+    "c08",
+    "c09",
+    "c10"
+  ],
+  "rejected": [
+    "Hairline cracks and automatic severity scoring are still next steps. Overstates absence of hairline detection. University says improve detection; March report already describes PMIS distress-score tools. Use improving hairline crack detection and the university's future-plan framing.",
+    "The system turns those observations into prioritized repair reports. Unattributed wording could imply independently established operational output. Retain exact university attribution.",
+    "Measured safer roads, smoother commutes, or maintenance savings. University promotional benefits have no measured outcome evidence in fetched article. Excluded from narration.",
+    "Current October announcement or statewide operational deployment. Article is dated August 24, 2026 and describes research in a second phase, closer to deployment."
+  ],
+  "required_edits_applied": [
+    "Line 4 now attributes prioritized repair reports to Texas State.",
+    "Line 7 now states improving hairline crack detection, preserving the source's future-plan wording.",
+    "Measured savings, safety outcomes, current-announcement framing and operational deployment are excluded.",
+    "Added exact first-paragraph university identity context c10 to lines 2, 4 and 6; line 7 now explicitly attributes improvement plans to the team."
+  ],
+  "narration": "A dark mark is not always a crack.\nTexas State researchers pair a pavement photo with a depth map.\nThe picture shows the surface. Depth helps separate damage from a stain.\nTexas State says the system generates prioritized repair reports.\nRoad crews need that distinction before choosing what to fix.\nTexas State reported its second research phase on August twenty-fourth.\nThe team plans to improve hairline crack detection and automatic severity scoring.\nA better damage map is not a repaired road.",
+  "line_claim_bindings": [
+    {
+      "line": 1,
+      "text": "A dark mark is not always a crack.",
+      "claim_ids": [
+        "c01"
+      ],
+      "classification": "source_grounded_interpretation"
+    },
+    {
+      "line": 2,
+      "text": "Texas State researchers pair a pavement photo with a depth map.",
+      "claim_ids": [
+        "c02",
+        "c10"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "line": 3,
+      "text": "The picture shows the surface. Depth helps separate damage from a stain.",
+      "claim_ids": [
+        "c03"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "line": 4,
+      "text": "Texas State says the system generates prioritized repair reports.",
+      "claim_ids": [
+        "c04",
+        "c10"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "line": 5,
+      "text": "Road crews need that distinction before choosing what to fix.",
+      "claim_ids": [
+        "c05"
+      ],
+      "classification": "source_grounded_interpretation"
+    },
+    {
+      "line": 6,
+      "text": "Texas State reported its second research phase on August twenty-fourth.",
+      "claim_ids": [
+        "c06",
+        "c07",
+        "c10"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "line": 7,
+      "text": "The team plans to improve hairline crack detection and automatic severity scoring.",
+      "claim_ids": [
+        "c08"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "line": 8,
+      "text": "A better damage map is not a repaired road.",
+      "claim_ids": [
+        "c09"
+      ],
+      "classification": "source_grounded_interpretation"
+    }
+  ],
+  "sentence_claim_bindings": [
+    {
+      "sentence": 1,
+      "text": "A dark mark is not always a crack.",
+      "claim_ids": [
+        "c01"
+      ],
+      "classification": "source_grounded_interpretation"
+    },
+    {
+      "sentence": 2,
+      "text": "Texas State researchers pair a pavement photo with a depth map.",
+      "claim_ids": [
+        "c02",
+        "c10"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "sentence": 3,
+      "text": "The picture shows the surface.",
+      "claim_ids": [
+        "c03"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "sentence": 4,
+      "text": "Depth helps separate damage from a stain.",
+      "claim_ids": [
+        "c03"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "sentence": 5,
+      "text": "Texas State says the system generates prioritized repair reports.",
+      "claim_ids": [
+        "c04",
+        "c10"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "sentence": 6,
+      "text": "Road crews need that distinction before choosing what to fix.",
+      "claim_ids": [
+        "c05"
+      ],
+      "classification": "source_grounded_interpretation"
+    },
+    {
+      "sentence": 7,
+      "text": "Texas State reported its second research phase on August twenty-fourth.",
+      "claim_ids": [
+        "c06",
+        "c07",
+        "c10"
+      ],
+      "classification": "source_reported_fact"
+    },
+    {
+      "sentence": 8,
+      "text": "The team plans to improve hairline crack detection and automatic severity scoring.",
+      "claim_ids": [
+        "c08"
+      ],
+      "classification": "source_reported_future_plan"
+    },
+    {
+      "sentence": 9,
+      "text": "A better damage map is not a repaired road.",
+      "claim_ids": [
+        "c09"
+      ],
+      "classification": "source_grounded_interpretation"
+    }
+  ],
+  "source_access": {
+    "txst": "Direct independent raw HTML and extracted text fetched successfully.",
+    "rosap": "Direct urllib and curl requests returned HTTP 403. Independently fetched readable web response saved; corroboration only, no narration claim depends on inaccessible raw ROSAP."
+  },
+  "evidence_gaps": [
+    "No demonstrated deployment scale.",
+    "No measured repairs, cost savings, safety outcomes, or commute improvement.",
+    "Source benefits are forecasts; interpretation is labeled in bindings."
+  ],
+  "validation_followup": {
+    "gate": "script_evidence_check --planning-only",
+    "failure_exit_code": 1,
+    "failure_output_exact": "\nscript_evidence_check: 6 problem(s). THIS IS THE CHEAP PLACE: nothing has been synthesised yet.\n\n  - scene s2: the narration names 'State', which appears in no quote of c02. A result cannot be moved to a different company, machine or place by a sentence.\n  - scene s2: the narration names 'Texas', which appears in no quote of c02. A result cannot be moved to a different company, machine or place by a sentence.\n  - scene s4: the narration names 'State', which appears in no quote of c04. A result cannot be moved to a different company, machine or place by a sentence.\n  - scene s4: the narration names 'Texas', which appears in no quote of c04. A result cannot be moved to a different company, machine or place by a sentence.\n  - scene s6: the narration names 'Texas', which appears in no quote of c06, c07. A result cannot be moved to a different company, machine or place by a sentence.\n  - scene s7: the narration names 'Improving', which appears in no quote of c08. A result cannot be moved to a different company, machine or place by a sentence.\n",
+    "correction": "Exact independently fetched Texas State University identity quote added as c10 and bound to s2, s4, s6. s7 now says The team plans to improve hairline crack detection and automatic severity scoring; same exact future-plan quote supports it. Source evidence and prior VERIFIED verdicts preserved.",
+    "failure_snapshot": "out/dispatch/sources/validator-source-identity-gate-before.txt",
+    "corrected_exit_code": 0,
+    "corrected_output_exact": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+  }
+}

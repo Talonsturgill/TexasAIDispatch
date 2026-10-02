@@ -1,0 +1,138 @@
+{
+  "duration_s": 42.0,
+  "cut_s": 42.0,
+  "peak_dbfs_premaster": -1.78,
+  "lufs_premaster": -20.37,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.25,
+  "lufs_shortfall_db": 0.25,
+  "crest_factor_db": 18.59,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.78,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 2
+    },
+    {
+      "id": "sincerely",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -16.44,
+      "gain_db": -22.91
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "sincerely",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -16.44,
+  "bed_gain_db": -22.91,
+  "sfx_events": 2,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -18.62,
+      "true_peak_dbtp": 0.0
+    },
+    "after": {
+      "integrated_lufs": -16.25,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.379999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.30:measured_TP=-6.21:measured_LRA=14.20:measured_thresh=-35.80:offset=1.07",
+    "measurement": {
+      "input_i": "-24.30",
+      "input_tp": "-6.21",
+      "input_lra": "14.20",
+      "input_thresh": "-35.80",
+      "output_i": "-15.98",
+      "output_tp": "-2.00",
+      "output_lra": "8.10",
+      "output_thresh": "-26.66",
+      "normalization_type": "dynamic",
+      "target_offset": "0.60"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.62,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.30:measured_TP=-6.21:measured_LRA=14.20:measured_thresh=-35.80:offset=0.87"
+      },
+      {
+        "requested_lufs": -15.379999999999999,
+        "measured": {
+          "integrated_lufs": -16.25,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.379999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.30:measured_TP=-6.21:measured_LRA=14.20:measured_thresh=-35.80:offset=1.07"
+      }
+    ],
+    "correction": null,
+    "samples": 2016000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "d831d05d9665f7f72c76018e190fb64d57e055d5fc38ba4be732ddcd1b3d151c",
+  "sound_direction_sha256": "1a0c53c5b2f42f382fbcca7e0950dbc787dd758a1eb6d181ac7cf72c51ed7d00",
+  "sound_cues": [
+    {
+      "id": "pavement-scan",
+      "event_id": "s2-event-1",
+      "role": "sonification",
+      "duration_s": 0.9000000000000004,
+      "intent": "Designed scan sound follows the illustrative pavement traversal.",
+      "provenance": "Existing deterministic designed foley, not location audio.",
+      "at_s": 4.52
+    },
+    {
+      "id": "report-contact",
+      "event_id": "s4-event-2",
+      "role": "contact",
+      "duration_s": 0.6500000000000004,
+      "intent": "Designed paper contact follows the report landing in its tray.",
+      "provenance": "Existing synthesized paper foley, not captured site sound.",
+      "at_s": 15.999
+    },
+    {
+      "id": "unrepaired-quiet",
+      "event_id": "s8-event-2",
+      "role": "quiet",
+      "duration_s": 1.3999999999999986,
+      "gain": 0.2,
+      "intent": "Background recedes as the same crack remains unfilled.",
+      "provenance": "Authored gain contrast at the current illustrated ending event.",
+      "at_s": 33.878
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "pavement-scan",
+      "sha256": "9653ab512bbf510b7f7bc8ac43ee3126fac27a8e01f31edf68ff6eac9aabfcb0"
+    },
+    {
+      "id": "report-contact",
+      "sha256": "d67c2f47deb70c1580f517af0ab93ecc1800bdeec371d95e37f2fad7fe7bc244"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "560718a2f29d12f63aecf3245f871bb7bd8710cf0b2265e7f35e8a35c42589a0",
+  "bed_source_sha256": "1da4a58ebbae4f2bbdf297e441574788cc85cb59600b03b2dcc93f6a699927cc",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "204358f6a54eccb3b6401dd37a381d8e08d0310d0628b3971f308ea527ee3fcc",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2016000
+}
