@@ -59,3 +59,16 @@ reference. Source relevance and accurate labels cannot stand in for visual actio
 Use original illustration and proven components when stronger than available photographs.
 The existing critic compares two complete visual approaches in the same reserved batch and
 consolidates all visible defects; no additional reviewer or research pass is introduced.
+
+## Select pictures that can explain the story
+
+Read knowledge/craft/visual-storytelling/README.md. For newly planned editions from October 3rd,
+also read knowledge/craft/visual-storytelling/viewer-plan.md and the relevant approach dossier.
+In the existing filmability fields,
+recommend the angle and format that the evidence can actually show. Explain the strongest useful
+image, how it leads to the next piece of information, the likely false inference and the source
+limit that prevents it. Identify the spoken concept for which no truthful picture is available.
+For a reporting angle read knowledge/craft/visual-storytelling/news-reporting.md and recommend human-led, mechanism-led or
+evidence-led ordering with a source-backed reason. Do not manufacture a person's feelings.
+Do not collect generic mood footage or promise a human performance the available method can't
+execute. Keep the existing bounded search and roles; no additional research pass is introduced.

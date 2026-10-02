@@ -169,6 +169,25 @@ class DailyTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             d.packet(self.bp,self.cp,"picture")
 
+    def test_current_craft_readings_are_bound_compact_and_keep_historical_packets(self):
+        self.assertNotIn("craft_readings", d.packet(self.bp,self.cp,"storyboard-critic"))
+        self.assertEqual([], d.craft_reading_paths({"date":"test-fixture"}))
+        self.board.update(date="2026-10-03", creative_direction={
+            "medium_choice":"News report; Explanatory animation. The same source sample carries the explanation."})
+        self.save()
+        packet=d.packet(self.bp,self.cp,"storyboard-critic")
+        paths=[Path(row["path"]) for row in packet["craft_readings"]]
+        self.assertIn(d.REPO/"knowledge/craft/visual-storytelling/viewer-plan.md", paths)
+        self.assertIn(d.REPO/"knowledge/craft/visual-storytelling/explanatory-animation.md", paths)
+        self.assertNotIn(d.REPO/"knowledge/craft/visual-storytelling/cinematic-scene.md", paths)
+        for row in packet["craft_readings"]:
+            self.assertEqual(d.digest(row["path"]), row["sha256"])
+        self.assertEqual(d.story_digest(self.board), packet["story_sha256"])
+        self.assertLess(len(json.dumps(packet)), d.policy()["handoff_max_chars"])
+        self.assertNotIn("craft_readings", d.packet(self.bp,self.cp,"validator"))
+        self.board["creative_direction"]["medium_choice"]="An unnamed illustrative treatment."
+        self.assertEqual(7,len(d.craft_reading_paths(self.board)))
+
     def test_scoreboard_keeps_failed_editions_and_honest_unknown_account_usage(self):
         run=self.root/"2026-09-28";run.mkdir()
         (run/"run_state.json").write_text(json.dumps({"run_id":"2026-09-28","phase":"active_repair",

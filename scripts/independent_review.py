@@ -181,7 +181,7 @@ def source_windows(path, rows, context_chars=2048):
 
 def packet(board_path, claims_path, role, film):
     from critic_gate import concept_digest, renderer_digest, renderer_files
-    from daily_production import story_digest, POLICY
+    from daily_production import story_digest, POLICY, craft_reading_paths
     from quality_contract import fingerprint as quality_fingerprint
     from action_admission import source_claims_digest
     board = json.loads(board_path.read_text())
@@ -198,6 +198,11 @@ def packet(board_path, claims_path, role, film):
              REPO / 'knowledge/craft/CREATIVE_DIRECTION.md', REPO / 'config/creative_production.json',
              REPO / 'config/story_visuals.json',
              REPO / '.claude/agents' / ('storyboard-critic.md' if role in ('code', 'phone') else 'scorer.md')]
+    # Provider workers receive actual teaching text, not inaccessible local links.
+    readings = craft_reading_paths(board, REPO)
+    files += readings
+    if readings:
+        bindings['craft_readings_sha256'] = {str(p.relative_to(REPO)): digest(p) for p in readings}
     # Code approval still examines callable source; the film cannot certify it.
     files += renderer_files(board) if role in ('code', 'phone') else []
     root = board_path.parent
@@ -303,6 +308,16 @@ def prompt(role, text):
                    'Do not assume approval or reward completed mechanical checks. '
                    'Return JSON only under your supplied role brief and fixed rubric. '
                    'Preserve every actual rejection. Never claim human listening. ')
+    instruction += ('Use the supplied viewer planning method when present. At visual or final review scope, '
+                    'first reconstruct the recognizable subjects, actual change and answered question from the '
+                    'film before consulting the director rationale. Then compare the approved account, source '
+                    'limits and each footage-to-explanation handoff. Identify what new understanding each cut '
+                    'supplies and whether it preserves the same example. Record concrete discrepancies in '
+                    'the existing comprehension, continuity and defect fields. At code scope, judge the '
+                    'planned implementation without claiming observed pixels. A selected format, completed '
+                    'worksheet or clever rationale never supplies a pass. Do not require a presenter, footage '
+                    'quota or particular medium merely as a preference. Compare audible words only when '
+                    'actual audio is available; text never proves listening. ')
     if role in ('code', 'phone'):
         instruction += ('Return verdict pass or revise, notes, strongest_frame, weakest_frame, blocking_defects, '
                         'story_review with verdict, blocking_defects, one_viewing_summary, opening_to_ending, '

@@ -80,3 +80,19 @@ For editions under config/creative_production.json, include the selected two-ope
 and the executed sound direction in the existing review packets. Each lens judges the story's
 chosen medium without a 3D quota. Check the complete edit after structural changes; diagnose all
 observed defects together. Passing fixed criteria ends creative editing and starts shipment.
+
+## Review picture-to-word alignment
+
+Include the selected visual-storytelling dossier and sentence-to-shot notes in the existing
+compact review packet. Scorers use knowledge/craft/visual-storytelling/README.md to compare the
+actual pictured subjects, relationships and consequences with the spoken clauses at exact times.
+For newly planned editions from October 3rd, the packet binds the viewer method, reporting dossier
+and named approach guides; the independent-provider transport supplies their actual text.
+Each scorer first reconstructs the account from the film, then compares the source-backed
+explanation and rationale. Inspect the information added at each cut and the same-subject
+handoff between physical images and coded explanation. Use the current observation fields;
+the reasoning method never establishes a score or replaces an independent verdict.
+Retain the current three lenses, separate scorers, fixed rubric and exact-film evidence.
+A technically moving but unrecognizable explanation does not pass comprehension because its
+captions repeat the claim. Preserve source/comprehension failures as blocking under the current
+contract and artistic findings under their actual categories. No new panel is introduced.

@@ -4,6 +4,13 @@ Read knowledge/texas/APPLICATIONS.md, the researcher brief and config/production
 Start with current Docket movements, then fetch primary evidence for the application and its
 human consequence. Read full pages before citing them. A headline or search snippet is a lead.
 
+For newly planned editions from October 3rd, read the visual-storytelling selector and
+knowledge/craft/visual-storytelling/viewer-plan.md. Screen the reporting angle through the actual picture access before choosing
+the story. A candidate earns its place through a recognizable task, transformation or changed
+choice. Ask the existing researchers for the strongest useful image, the missing picture and
+the strongest source limitation in their existing filmability rationale. Keep the same bounded
+research pass and compact role assignments; no additional outlet-study pass is required daily.
+
 ```sh
 python scripts/dedupe.py list --days 30
 python scripts/run_controller.py consume --resource research_agents --note "<distinct beat>"

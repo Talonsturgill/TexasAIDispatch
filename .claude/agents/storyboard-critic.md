@@ -163,3 +163,24 @@ reference. Source relevance and accurate labels cannot stand in for visual actio
 Use original illustration and proven components when stronger than available photographs.
 The existing critic compares two complete visual approaches in the same reserved batch and
 consolidates all visible defects; no additional reviewer or research pass is introduced.
+
+## Recognizable pictures and spoken meaning
+
+Read knowledge/craft/visual-storytelling/README.md and the director's selected approach dossier.
+For newly planned editions from October 3rd, read the bound viewer-plan and reporting guides.
+Challenge the actual choice: why this format, why this evidence in this position, what new
+understanding arrives at the cut, and which subject connects authentic imagery to explanation?
+Name the likely false inference and whether the actual treatment prevents it. Do not reward a
+studio-looking introduction or replace the director's supported choice with a preferred medium.
+At code scope, inspect the sentence-to-shot plan as a plan; do not claim observed recognition.
+At phone scope, view the actual sequence before reading the director's explanation and name
+the principal input, action and result in plain words. Then compare each narrated clause with
+the pictured subject and relationship at that moment. Keep the observations in the existing
+phone_observations and story_review notes with exact intervals and current-film bindings.
+
+Topical props and technically bound item ids do not prove recognition. A slab is not automatically
+a photograph; a rail is not automatically a depth map; moving blank sheets do not establish a
+maintenance choice. Judge what the viewer can understand from the pixels and the combined film.
+Essential dates and attribution may rely on text, but captions can't supply a missing principal
+action. Classify actual missing comprehension or false visual claims under the current contract,
+rather than as an optional medium preference. Return one consolidated correction.

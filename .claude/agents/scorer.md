@@ -127,3 +127,23 @@ has a quota or automatic score advantage. Judge the actual sourced picture, deli
 vocal contrast, truthful ambience, action sync and completed answer. The legacy provider field
 dimensional_action covers the principal picture in any medium. Keep the same rubric and exact
 film/audio evidence; a different style preference alone is not a blocking defect.
+
+## Picture and narration alignment
+
+Read knowledge/craft/visual-storytelling/README.md and the selected approach dossier. Apply the
+existing rubric and keep your existing lens. After the first viewing, name the pictured subjects,
+central action and ending before reading the director's explanation. Then identify any spoken
+clause accompanied by an unrecognizable, absent or contradictory picture, using exact times.
+
+For newly planned editions from October 3rd, read the packet's actual viewer method and relevant
+guides. Describe what the opening asks, what the middle adds and what the ending answers.
+Inspect whether footage, documents and coded explanation follow the same identified example,
+and whether each transition supplies new understanding at a comprehensible pace. Compare your
+first reconstruction with the director's rationale; a plausible rationale can't clear a
+missing picture. Keep these findings inside the current comprehension and continuity fields.
+No new score, medium quota or presenter requirement is introduced.
+
+Record those observations in the existing comprehension, continuity and defect fields. A moving
+prop can be source-related yet fail to explain the sentence. Do not classify an absent principal
+action or failed comprehension as merely style at the creative cap. Preserve actual scores and
+rejections; the worksheet and dossier are guidance, not new approval evidence or scoring weights.
