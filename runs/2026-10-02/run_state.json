@@ -1,0 +1,742 @@
+{
+  "bounded_release": {
+    "assessments": [],
+    "native_findings": [],
+    "notice": "Released after the finite creative repair cap; original artistic rejections remain visible. Integrity and shipment checks remain required.",
+    "original_panel_hard_fails": [],
+    "original_panel_score": 7.169,
+    "original_panel_ship": true,
+    "policy_sha256": "12efd5f7b886446ea4876b511ae4cd7159622248061ffdf7a5583a6104307fd4",
+    "publication_mode": "bounded_creative_release",
+    "rejected_audiovisual_reviews": [
+      {
+        "defects": [
+          {
+            "effect": "The final credit card holds for roughly 4.8 seconds, falling short of the required five-second minimum duration.",
+            "subject": "Attribution title card",
+            "time": "00:37.0"
+          }
+        ],
+        "receipt_file": "cinema/picture-review.json",
+        "receipt_sha256": "8efd098be9fb244d7fde1c99ee627380ef3af1fc4351c93f48ed069f5c84fa62"
+      }
+    ],
+    "repair_rounds": 2,
+    "schema": "dispatch_bounded_release/1"
+  },
+  "created_at": "2026-10-02T12:13:49.156273Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/deliverables/05af78a2556a9d5e-19e0f280018ebc7a-16121791ea7d6bfa/storyboard.json",
+    "board_sha256": "19e0f280018ebc7ae78e896fb901f053979a359f39758e6c1043e3a28620bbb6",
+    "film": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/deliverables/05af78a2556a9d5e-19e0f280018ebc7a-16121791ea7d6bfa/dispatch.mp4",
+    "film_sha256": "05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/deliverables/05af78a2556a9d5e-19e0f280018ebc7a-16121791ea7d6bfa/render-manifest.json",
+    "manifest_sha256": "16121791ea7d6bfab06dd7bc4783f6638d39469cd260030fabd195c4af796b5f",
+    "registered_at": "2026-10-02T12:59:20.145283Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 7,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-10-02T12:36:50.159857Z",
+      "ceiling": 7,
+      "from": 3,
+      "note": "Exact muted phone comparison of both complete current treatments and current selection",
+      "resource": "storyboard_critics",
+      "to": 4
+    },
+    {
+      "at": "2026-10-02T12:53:10.285607Z",
+      "ceiling": 7,
+      "from": 4,
+      "note": "final measured timed-phone review",
+      "resource": "storyboard_critics",
+      "to": 5
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-02T12:13:49.161065Z",
+      "envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "resource_envelope_frozen",
+      "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
+    },
+    {
+      "at": "2026-10-02T12:13:49.161082Z",
+      "ceiling_snapshot": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-10-02T12:13:58.202633Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-10-02T12:13:58.285503Z",
+      "kind": "reserved",
+      "note": "Current Texas application movement and one bounded visual asset search",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:16:25.364510Z",
+      "kind": "reserved",
+      "note": "Independent pavement source re-fetch and sentence-by-sentence validation",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:21:40.712479Z",
+      "kind": "phase",
+      "name": "picture"
+    },
+    {
+      "at": "2026-10-02T12:24:06.962271Z",
+      "kind": "reserved",
+      "note": "Independent code, source action and whole-story comparison of two current treatments",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:27:28.957065Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/storyboard.json",
+          "before_sha256": "331cdcc848b0945d4d63441522bec1e5ee656d5314cbdb83bdda0ce8ceeaada0",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/opening-a.json",
+          "before_sha256": "331cdcc848b0945d4d63441522bec1e5ee656d5314cbdb83bdda0ce8ceeaada0",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/opening-b.json",
+          "before_sha256": "2ac238e09808d5b7d1e62fbbe6533d21947221c1dc305abf1f53a4487d4cc05d",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/story_selection.json",
+          "before_sha256": "dd40e677ffa9e1f290c692799bdcde04aa077b432e38dc35f27a1a03ee3780ed",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/story_selection.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/PavementDepthAction.tsx",
+          "before_sha256": "b40d722cfa15c673eb5bce5e16f041571aa349089d103141a99aa0cc24507310",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/video-engine/src/PavementDepthAction.tsx"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "d60fa5e6ae6ae7df56edfa593f08c5e0b1b0b26e5bdb9a692285125b047f3766",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "pavement-surface-depth-v1",
+      "plan_identity": null,
+      "plan_sha256": "374936e4c919b38717aae764a9e332d10c452176eee4c470b23147c276265821",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-02T12:27:28.987862Z",
+      "kind": "reserved",
+      "note": "One consolidated creative correction for profile action, report continuity and complete treatment divergence",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:29:54.276763Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "33b48cd0861c5551fa159d86e00ac9e54adb09169b85ad9981cfa3c8337833c5",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/storyboard.json",
+            "before_sha256": "331cdcc848b0945d4d63441522bec1e5ee656d5314cbdb83bdda0ce8ceeaada0",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "33b48cd0861c5551fa159d86e00ac9e54adb09169b85ad9981cfa3c8337833c5",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/opening-a.json",
+            "before_sha256": "331cdcc848b0945d4d63441522bec1e5ee656d5314cbdb83bdda0ce8ceeaada0",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "1949503a2fe292ed66e02140315ec778c22a4c6b76e0ef71a7f99e9d9bae6ca7",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/opening-b.json",
+            "before_sha256": "2ac238e09808d5b7d1e62fbbe6533d21947221c1dc305abf1f53a4487d4cc05d",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "5806379049319dba333ce32a5f7fe3a2414134ba1288e8b2e5c55634af9a4269",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/story_selection.json",
+            "before_sha256": "dd40e677ffa9e1f290c692799bdcde04aa077b432e38dc35f27a1a03ee3780ed",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/story_selection.json"
+          },
+          {
+            "after_sha256": "fccb025fb295db43b5e35e58b06ba36a6de35412059558781a1894365275601d",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/PavementDepthAction.tsx",
+            "before_sha256": "b40d722cfa15c673eb5bce5e16f041571aa349089d103141a99aa0cc24507310",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/video-engine/src/PavementDepthAction.tsx"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "A flat stain and recessed crack reveal themselves on event clocks; the same reports land and remain fixed through date and source-limit shots; complete treatments have genuinely different spatial staging.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/01-code-treatment/opening-a-critic.json",
+        "failure_evidence_sha256": "d60fa5e6ae6ae7df56edfa593f08c5e0b1b0b26e5bdb9a692285125b047f3766",
+        "failure_family": "continuity",
+        "mechanism_change": "Keep one source-backed surface-depth relationship while replacing per-scene reset with conserved poses and changing B into a continuous road-strip staging.",
+        "mechanism_id": "pavement-surface-depth-v1",
+        "repair": "Use conserved profile and report poses for every boundary; perform the depth rise on current events; contrast separated specimens with a continuous road-strip workflow, while correcting source/visual metadata.",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "The action state was scene-local, so depth and report states did not conserve action across cuts, and two treatments differed only by camera.",
+        "schema": "dispatch_repair_plan/1"
+      },
+      "repair_plan_sha256": "eccd5176c5f10521903fca37f611bad02a05947885dbca52ed52f6d26d2464bb",
+      "repair_revision": "6653e35755ccc97cfcad44424b84f31481e5e94dc978e9978fe1c71d95bba797",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-02T12:29:54.404480Z",
+      "kind": "reserved",
+      "note": "Corrected conserved depth action and two complete treatments independent code review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:33:04.029178Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/storyboard.json",
+          "before_sha256": "33b48cd0861c5551fa159d86e00ac9e54adb09169b85ad9981cfa3c8337833c5",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/opening-a.json",
+          "before_sha256": "33b48cd0861c5551fa159d86e00ac9e54adb09169b85ad9981cfa3c8337833c5",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/opening-b.json",
+          "before_sha256": "1949503a2fe292ed66e02140315ec778c22a4c6b76e0ef71a7f99e9d9bae6ca7",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/story_selection.json",
+          "before_sha256": "5806379049319dba333ce32a5f7fe3a2414134ba1288e8b2e5c55634af9a4269",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/story_selection.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/PavementDepthAction.tsx",
+          "before_sha256": "fccb025fb295db43b5e35e58b06ba36a6de35412059558781a1894365275601d",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/video-engine/src/PavementDepthAction.tsx"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "df742937b1500c0a16052e635ba6c69b601c12f5e2b405f90cf878efc342f261",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "pavement-surface-depth-v1",
+      "plan_identity": null,
+      "plan_sha256": "2dad49205f85722b60965c3b24897273d7d2931be39cd2ae41ee6900d2a5efe2",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-02T12:33:04.059984Z",
+      "kind": "reserved",
+      "note": "Creative correction2 aligns three principal action beats and conserves scanner endpoints",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:33:48.052264Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "dd05c13c784a23f20df5a8218665d19ba68fd2620751dbf47ed9dabeb2dec0f9",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/storyboard.json",
+            "before_sha256": "33b48cd0861c5551fa159d86e00ac9e54adb09169b85ad9981cfa3c8337833c5",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "dd05c13c784a23f20df5a8218665d19ba68fd2620751dbf47ed9dabeb2dec0f9",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/opening-a.json",
+            "before_sha256": "33b48cd0861c5551fa159d86e00ac9e54adb09169b85ad9981cfa3c8337833c5",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "2a559053498c96806dbd29a9113578886c192e638e0056506b70c0c2986cde99",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/opening-b.json",
+            "before_sha256": "1949503a2fe292ed66e02140315ec778c22a4c6b76e0ef71a7f99e9d9bae6ca7",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "106ffa704bfe50c1076552f5cfad394a0503bc65450a90a2079c2d3a4f7c4466",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/story_selection.json",
+            "before_sha256": "5806379049319dba333ce32a5f7fe3a2414134ba1288e8b2e5c55634af9a4269",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/story_selection.json"
+          },
+          {
+            "after_sha256": "4aee73be848bb6ceed8715dc2632c6ca5c99a334c436966d123442f713120882",
+            "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/PavementDepthAction.tsx",
+            "before_sha256": "fccb025fb295db43b5e35e58b06ba36a6de35412059558781a1894365275601d",
+            "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/video-engine/src/PavementDepthAction.tsx"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "Every declared scan and depth change occurs in its own event window. Report identities and both complete treatments remain intact, with no invented smaller-depth claim.",
+        "failure_evidence": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-main-reader-2026-10-02/out/dispatch/repairs/02-event-clock/opening-a-critic.json",
+        "failure_evidence_sha256": "df742937b1500c0a16052e635ba6c69b601c12f5e2b405f90cf878efc342f261",
+        "failure_family": "continuity",
+        "mechanism_change": "The same verified surface-depth mechanism keeps its accepted source/staging; principal action now follows each named event rather than a completed earlier variable.",
+        "mechanism_id": "pavement-surface-depth-v1",
+        "repair": "Drive the initial scan on b, lower/rejoin profiles on the actual s2b event and scan on s5b; retain the source slip; describe existing profile motion accurately and preserve scanner endpoints.",
+        "resources": {
+          "preflight_renders": 1
+        },
+        "root_cause": "Three directed scan/profile beats read a progress variable already completed in an earlier event. The current code and board disagree despite conserved report identity.",
+        "schema": "dispatch_repair_plan/1"
+      },
+      "repair_plan_sha256": "9b48a61e6691f89c72c2ddbd0e5ac585833f3e8da8ab95711c32bbb094e20e98",
+      "repair_revision": "80829083a6dc1b426d45d5b0dac20ad40b0aab63de87a12959ba15b90cf3edac",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-02T12:33:48.172061Z",
+      "kind": "reserved",
+      "note": "Independent corrected event-bound action review before first shared capture",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:35:38.243349Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "2c5c4870c7e5e5ae17ea8cd222634b7a2acf407126bbec0c5b6b3cea140df3b7",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:36:50.159963Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "Exact muted phone comparison of both complete current treatments and current selection",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-10-02T12:36:50.159968Z",
+      "kind": "reserved",
+      "note": "Exact muted phone comparison of both complete current treatments and current selection",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:46:58.990953Z",
+      "kind": "reserved",
+      "note": "final continuous read",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:48:38.219793Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:48:57.772753Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1857
+      }
+    },
+    {
+      "at": "2026-10-02T12:48:57.776058Z",
+      "elapsed_ms": 19550,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1857,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-02T12:48:57.821323Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:49:03.709404Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1440
+      }
+    },
+    {
+      "at": "2026-10-02T12:49:03.712103Z",
+      "elapsed_ms": 5886,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1440,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-02T12:52:24.776879Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "160d8204a9ad3be1ff3a7afb67fafcc39440d5a69f3e0985e9ef3e4171bc2b75",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:53:10.285923Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "final measured timed-phone review",
+      "now": 5,
+      "resource": "storyboard_critics",
+      "was": 4
+    },
+    {
+      "at": "2026-10-02T12:53:10.285929Z",
+      "kind": "reserved",
+      "note": "final measured timed-phone review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:56:48.933539Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "e4d865a64f5a40aaaf8c3db9cfe25ff7dcaeb06d9095397f669b76510e8a318e",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:57:38.328401Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:57:49.328976Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: dbabf5b9-5d8e-4c76-a064-7190b6d46351 hero exact film df5d57f2ecc0d010794fab72188ca005038ee1fc3599007f3764544c5adbc2c0",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 9274
+      }
+    },
+    {
+      "at": "2026-10-02T12:57:49.336021Z",
+      "elapsed_ms": 10993,
+      "kind": "telemetry",
+      "note": "dbabf5b9-5d8e-4c76-a064-7190b6d46351 hero exact film df5d57f2ecc0d010794fab72188ca005038ee1fc3599007f3764544c5adbc2c0",
+      "reported_tokens": 9274,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T12:58:18.156220Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-02T12:59:20.145298Z",
+      "film_sha256": "05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "16121791ea7d6bfab06dd7bc4783f6638d39469cd260030fabd195c4af796b5f",
+      "review_only": false
+    },
+    {
+      "at": "2026-10-02T13:00:57.337866Z",
+      "kind": "reserved",
+      "note": "current finished cut",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-10-02T13:01:14.437312Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T13:01:38.459649Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 05e7b4c0-8274-4f45-9f45-f554cf85f2cf picture exact film 05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 19474
+      }
+    },
+    {
+      "at": "2026-10-02T13:01:38.465431Z",
+      "elapsed_ms": 24008,
+      "kind": "telemetry",
+      "note": "05e7b4c0-8274-4f45-9f45-f554cf85f2cf picture exact film 05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "reported_tokens": 19474,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T13:01:38.733032Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T13:01:55.298280Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: a3b7f7b3-bd44-4df6-a47a-8c909a561ba1 story exact film 05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 19015
+      }
+    },
+    {
+      "at": "2026-10-02T13:01:55.302283Z",
+      "elapsed_ms": 16553,
+      "kind": "telemetry",
+      "note": "a3b7f7b3-bd44-4df6-a47a-8c909a561ba1 story exact film 05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "reported_tokens": 19015,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T13:01:55.590809Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-02T13:02:30.319426Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: aa9520a8-2550-42eb-b4ed-0dcf5d434953 sound exact film 05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 19070
+      }
+    },
+    {
+      "at": "2026-10-02T13:02:30.325865Z",
+      "elapsed_ms": 34714,
+      "kind": "telemetry",
+      "note": "aa9520a8-2550-42eb-b4ed-0dcf5d434953 sound exact film 05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+      "reported_tokens": 19070,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-02T13:14:36.928218Z",
+      "kind": "release_authorized",
+      "publication_mode": "bounded_creative_release",
+      "report_sha256": "50dfb38b60351db77b19c8465ab25c047bf513be68616a8cdfcd80961861bcee",
+      "result": "publishable",
+      "score": 7.169
+    }
+  ],
+  "final_report": {
+    "film_sha256": "05af78a2556a9d5e7ccd8f3306ea18b85c7b5f20eb3eb686a1e45b073c21aa5c",
+    "original_hard_fails": [],
+    "path": "out/dispatch/report_card.json",
+    "publication_mode": "bounded_creative_release",
+    "score": 7.169,
+    "sha256": "50dfb38b60351db77b19c8465ab25c047bf513be68616a8cdfcd80961861bcee"
+  },
+  "limits": {
+    "audiovisual_reviews": 4,
+    "cleanup_renders": 1,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 3,
+    "reboards": 4,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 3,
+    "storyboard_critics": 5,
+    "tts_calls": 2,
+    "validator_agents": 1,
+    "voice_directors": 1
+  },
+  "mode": "production",
+  "phase": "publishing",
+  "publication_mode": "bounded_creative_release",
+  "release_status": "publishable",
+  "repair_policy": "quality-recovery/1",
+  "resource_envelope": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 7,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-10-02",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": null,
+  "updated_at": "2026-10-02T13:14:36.928232Z",
+  "usage": {
+    "audiovisual_reviews": 4,
+    "cleanup_renders": 0,
+    "full_renders": 1,
+    "panel_rounds": 1,
+    "preflight_renders": 3,
+    "reboards": 2,
+    "reported_tokens": 70130,
+    "rescue_renders": 0,
+    "research_agents": 1,
+    "scorer_calls": 3,
+    "storyboard_critics": 5,
+    "tts_calls": 2,
+    "validator_agents": 1,
+    "voice_directors": 1
+  }
+}

@@ -1,0 +1,2205 @@
+{
+  "fingerprint": {
+    "pov": "oblique comparative specimen study",
+    "motion_vector": "scan traversal and vertical depth reveal",
+    "hero_treatment": "Separated laboratory pavement specimens and rising depth profiles",
+    "layout": "side-by-side specimens into a foreground report tray",
+    "register": "source-grounded explanatory illustration",
+    "camera_strategy": "riseWith",
+    "light_story": "clear San Marcos research-study daylight",
+    "palette": "cool asphalt, pale aggregate, warm measured-profile contrast",
+    "metaphor": "the dark mark has a second dimension"
+  },
+  "fauna_scope": {
+    "status": "none",
+    "reason": "No animal contributes to this pavement assessment research explanation."
+  },
+  "date": "2026-10-02",
+  "title": "Below the dark mark",
+  "topic": "Texas State pairs pavement surface and depth for damage assessment",
+  "beat": "the-road",
+  "entities": [
+    "Texas State University",
+    "TxDOT",
+    "pavement inspection"
+  ],
+  "runtime_s": 37,
+  "credits_s": 5,
+  "credits": "TEXAS AI DOCKET\nSOURCES\nTexas State University research announcement\nILLUSTRATION\nOriginal source-grounded pavement samples\nMUSIC\n\"Sincerely\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "derived_from": "scratch",
+  "divergence_note": "Two complete original treatments compare an oblique pavement-sample study and a frontal cutaway comparison. Actual stain and notch geometry conserves the distinction through report and unchanged-road ending.",
+  "cinematic_template": "pavement-depth-v1",
+  "native_media": [],
+  "daily_production": true,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 1.44,
+      "end": 3.94,
+      "text": "A dark mark is not always a crack.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c2",
+      "start": 4.8,
+      "end": 8.52,
+      "text": "Texas State researchers pair a pavement photo with a depth map.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c3",
+      "start": 9.32,
+      "end": 10.66,
+      "text": "The picture shows the surface.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c4",
+      "start": 11.3,
+      "end": 13.92,
+      "text": "Depth helps separate damage from a stain.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c5",
+      "start": 14.84,
+      "end": 18.46,
+      "text": "Texas State says the system generates prioritized repair reports.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c6",
+      "start": 19.2,
+      "end": 22.42,
+      "text": "Road crews need that distinction before choosing what to fix.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c7",
+      "start": 23.34,
+      "end": 26.62,
+      "text": "Texas State reported its second research phase on August twenty-fourth.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c8",
+      "start": 27.54,
+      "end": 31.66,
+      "text": "The team plans to improve hairline crack detection and automatic severity scoring.",
+      "source": "measured_boundary"
+    },
+    {
+      "id": "c9",
+      "start": 32.62,
+      "end": 35.5,
+      "text": "A better damage map is not a repaired road.",
+      "source": "measured_boundary"
+    }
+  ],
+  "action_proposals": [
+    {
+      "id": "pavement-depth-action-v1",
+      "module": {
+        "path": "video-engine/src/PavementDepthAction.tsx",
+        "sha256": "4aee73be848bb6ceed8715dc2632c6ca5c99a334c436966d123442f713120882"
+      },
+      "exports": [
+        "PavementDepthAction"
+      ],
+      "source_urls": [
+        "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html"
+      ],
+      "claim_ids": [
+        "c02",
+        "c03",
+        "c04",
+        "c08"
+      ],
+      "visible_action": "An illustrative scan traverses two pavement samples. Conserved flat and notched profiles rise from the stain and crack; associated source-grounded report sheets move into a maintenance tray.",
+      "consequence": "The surface and depth distinction enters an illustrative report without changing or repairing the pavement sample.",
+      "limits": "Enlarged original explanatory geometry, not a measured sample, actual road, software interface, exact model classification or completed repair. Report sheets symbolize the published report relationship.",
+      "source_basis": "Texas State describes paired surface images and depth maps distinguishing damage from stains and producing prioritized repair reports. Improvement of hairline detection and severity scoring is planned.",
+      "disclosure": "Illustration. Pavement research"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "treatment": "a",
+      "start_s": 0.0,
+      "duration_s": 4.52,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "riseWith",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "crack",
+          "items": [
+            {
+              "id": "s1-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "crack"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s1-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s1-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s1-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "hook",
+      "vo": "A dark mark is not always a crack.",
+      "vo_claims": [
+        "c01"
+      ],
+      "super": "Damage or stain",
+      "super_claim": "c01",
+      "caption": "",
+      "on_screen": "A flat and notched depth profile rise from the same dark pavement marks.",
+      "what_moves": "A flat and notched depth profile rise from the same dark pavement marks. The scan bar passes over the conserved stain and crack. The flat stain and recessed crack remain distinct in their exposed profiles.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "A flat and notched depth profile rise from the same dark pavement marks. The scan bar passes over the conserved stain and crack. The flat stain and recessed crack remain distinct in their exposed profiles.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Damage or stain"
+      },
+      "visual_family": "profile-reveal",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s1-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.814,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s1-sample",
+            "s1-depth",
+            "s1-report"
+          ],
+          "what": "A flat and notched depth profile rise from the same dark pavement marks."
+        },
+        {
+          "id": "s1-event-2",
+          "at_s": 1.492,
+          "at_s_authored": 1.65,
+          "duration_s": 0.814,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s1-sample",
+            "s1-depth",
+            "s1-report"
+          ],
+          "what": "The scan bar passes over the conserved stain and crack."
+        },
+        {
+          "id": "s1-event-3",
+          "at_s": 2.983,
+          "at_s_authored": 3.3,
+          "duration_s": 0.814,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s1-sample",
+            "s1-depth",
+            "s1-report"
+          ],
+          "what": "The flat stain and recessed crack remain distinct in their exposed profiles."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "crack",
+            "item_ids": [
+              "s1-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "A flat and notched depth profile rise from the same dark pavement marks. The scan bar passes over the conserved stain and crack. The flat stain and recessed crack remain distinct in their exposed profiles.",
+          "item_ids": [
+            "s1-sample",
+            "s1-depth",
+            "s1-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 0,
+      "hero": "flat-versus-notch opening",
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 0.9
+    },
+    {
+      "id": "s2",
+      "treatment": "a",
+      "start_s": 4.52,
+      "duration_s": 4.52,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "truckAcross",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "pavement photo",
+          "items": [
+            {
+              "id": "s2-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "pavement photo"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s2-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s2-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s2-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "movement",
+      "vo": "Texas State researchers pair a pavement photo with a depth map.",
+      "vo_claims": [
+        "c02",
+        "c10"
+      ],
+      "super": "Surface and depth",
+      "super_claim": "c02",
+      "caption": "",
+      "on_screen": "The scan crosses the same pavement samples.",
+      "what_moves": "The scan crosses the same pavement samples. The conserved depth profiles lower into their paired pavement surfaces. The scan returns across the paired surfaces while the profiles remain joined to them.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "The scan crosses the same pavement samples. The conserved depth profiles lower into their paired pavement surfaces. The scan returns across the paired surfaces while the profiles remain joined to them.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Surface and depth"
+      },
+      "visual_family": "surface-scan",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s2-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.814,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s2-sample",
+            "s2-depth",
+            "s2-report"
+          ],
+          "what": "The scan crosses the same pavement samples."
+        },
+        {
+          "id": "s2-event-2",
+          "at_s": 1.492,
+          "at_s_authored": 1.65,
+          "duration_s": 0.814,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s2-sample",
+            "s2-depth",
+            "s2-report"
+          ],
+          "what": "The conserved depth profiles lower into their paired pavement surfaces."
+        },
+        {
+          "id": "s2-event-3",
+          "at_s": 2.983,
+          "at_s_authored": 3.3,
+          "duration_s": 0.814,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s2-sample",
+            "s2-depth",
+            "s2-report"
+          ],
+          "what": "The scan returns across the paired surfaces while the profiles remain joined to them."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "pavement photo",
+            "item_ids": [
+              "s2-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The scan crosses the same pavement samples. The conserved depth profiles lower into their paired pavement surfaces. The scan returns across the paired surfaces while the profiles remain joined to them.",
+          "item_ids": [
+            "s2-sample",
+            "s2-depth",
+            "s2-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 1,
+      "hero": "paired surface scan"
+    },
+    {
+      "id": "s3",
+      "treatment": "a",
+      "start_s": 9.04,
+      "duration_s": 5.52,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "orbitReveal",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "surface depth stain",
+          "items": [
+            {
+              "id": "s3-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "surface depth stain"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s3-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s3-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s3-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "vo": "The picture shows the surface. Depth helps separate damage from a stain.",
+      "vo_claims": [
+        "c03"
+      ],
+      "super": "Depth reveals damage",
+      "super_claim": "c03",
+      "caption": "",
+      "on_screen": "The conserved flat stain profile rises from its surface.",
+      "what_moves": "The conserved flat stain profile rises from its surface. The conserved crack profile rises to reveal its recessed center. The two conserved profiles complete the surface versus damage comparison.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "The conserved flat stain profile rises from its surface. The conserved crack profile rises to reveal its recessed center. The two conserved profiles complete the surface versus damage comparison.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Depth reveals damage"
+      },
+      "visual_family": "depth-comparison",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s3-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.994,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s3-sample",
+            "s3-depth",
+            "s3-report"
+          ],
+          "what": "The conserved flat stain profile rises from its surface."
+        },
+        {
+          "id": "s3-event-2",
+          "at_s": 1.822,
+          "at_s_authored": 1.65,
+          "duration_s": 0.994,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s3-sample",
+            "s3-depth",
+            "s3-report"
+          ],
+          "what": "The conserved crack profile rises to reveal its recessed center."
+        },
+        {
+          "id": "s3-event-3",
+          "at_s": 3.643,
+          "at_s_authored": 3.3,
+          "duration_s": 0.994,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s3-sample",
+            "s3-depth",
+            "s3-report"
+          ],
+          "what": "The two conserved profiles complete the surface versus damage comparison."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "surface depth stain",
+            "item_ids": [
+              "s3-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The conserved flat stain profile rises from its surface. The conserved crack profile rises to reveal its recessed center. The two conserved profiles complete the surface versus damage comparison.",
+          "item_ids": [
+            "s3-sample",
+            "s3-depth",
+            "s3-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 2,
+      "hero": "recessed profile close view"
+    },
+    {
+      "id": "s4",
+      "treatment": "a",
+      "start_s": 14.56,
+      "duration_s": 4.36,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "repair reports",
+          "items": [
+            {
+              "id": "s4-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s4-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s4-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s4-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "consequence",
+      "vo": "Texas State says the system generates prioritized repair reports.",
+      "vo_claims": [
+        "c04",
+        "c10"
+      ],
+      "super": "Repair reports",
+      "super_claim": "c04",
+      "caption": "",
+      "on_screen": "The same crack sample creates an illustrative damage report that moves toward its tray.",
+      "what_moves": "The same crack sample creates an illustrative damage report that moves toward its tray. The crack report lands while the conserved stain report moves to the same supported tray. The distinct stain report lands beside the retained damage report without repairing either pavement sample.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "The same crack sample creates an illustrative damage report that moves toward its tray. The crack report lands while the conserved stain report moves to the same supported tray. The distinct stain report lands beside the retained damage report without repairing either pavement sample.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Repair reports"
+      },
+      "visual_family": "report-transfer",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s4-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.785,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s4-sample",
+            "s4-depth",
+            "s4-report"
+          ],
+          "what": "The same crack sample creates an illustrative damage report that moves toward its tray."
+        },
+        {
+          "id": "s4-event-2",
+          "at_s": 1.439,
+          "at_s_authored": 1.65,
+          "duration_s": 0.785,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s4-sample",
+            "s4-depth",
+            "s4-report"
+          ],
+          "what": "The crack report lands while the conserved stain report moves to the same supported tray."
+        },
+        {
+          "id": "s4-event-3",
+          "at_s": 2.878,
+          "at_s_authored": 3.3,
+          "duration_s": 0.785,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s4-sample",
+            "s4-depth",
+            "s4-report"
+          ],
+          "what": "The distinct stain report lands beside the retained damage report without repairing either pavement sample."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "repair reports",
+            "item_ids": [
+              "s4-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The same crack sample creates an illustrative damage report that moves toward its tray. The crack report lands while the conserved stain report moves to the same supported tray. The distinct stain report lands beside the retained damage report without repairing either pavement sample.",
+          "item_ids": [
+            "s4-sample",
+            "s4-depth",
+            "s4-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 3,
+      "hero": "sample-to-report transfer"
+    },
+    {
+      "id": "s5",
+      "treatment": "a",
+      "start_s": 18.92,
+      "duration_s": 4.14,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "craneDown",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "road repair",
+          "items": [
+            {
+              "id": "s5-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "road repair"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s5-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s5-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s5-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "emotion",
+      "story_role": "limit",
+      "vo": "Road crews need that distinction before choosing what to fix.",
+      "vo_claims": [
+        "c05"
+      ],
+      "super": "Maintenance",
+      "super_claim": "c05",
+      "caption": "",
+      "on_screen": "The conserved crack report slides forward within its tray.",
+      "what_moves": "The conserved crack report slides forward within its tray. The scan crosses both unchanged pavement samples while the separate stain report remains beside the crack report. An illustrative priority marker seats beside the conserved damage report without issuing a work order.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "The conserved crack report slides forward within its tray. The scan crosses both unchanged pavement samples while the separate stain report remains beside the crack report. An illustrative priority marker seats beside the conserved damage report without issuing a work order.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Maintenance"
+      },
+      "visual_family": "priority-tray",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s5-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.745,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s5-sample",
+            "s5-depth",
+            "s5-report"
+          ],
+          "what": "The conserved crack report slides forward within its tray."
+        },
+        {
+          "id": "s5-event-2",
+          "at_s": 1.366,
+          "at_s_authored": 1.65,
+          "duration_s": 0.745,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s5-sample",
+            "s5-depth",
+            "s5-report"
+          ],
+          "what": "The scan crosses both unchanged pavement samples while the separate stain report remains beside the crack report."
+        },
+        {
+          "id": "s5-event-3",
+          "at_s": 2.732,
+          "at_s_authored": 3.3,
+          "duration_s": 0.745,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s5-sample",
+            "s5-depth",
+            "s5-report"
+          ],
+          "what": "An illustrative priority marker seats beside the conserved damage report without issuing a work order."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "road repair",
+            "item_ids": [
+              "s5-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The conserved crack report slides forward within its tray. The scan crosses both unchanged pavement samples while the separate stain report remains beside the crack report. An illustrative priority marker seats beside the conserved damage report without issuing a work order.",
+          "item_ids": [
+            "s5-sample",
+            "s5-depth",
+            "s5-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 4,
+      "hero": "priority report tray"
+    },
+    {
+      "id": "s6",
+      "treatment": "a",
+      "start_s": 23.06,
+      "duration_s": 4.2,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "truckAcross",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "second research phase August 24th",
+          "items": [
+            {
+              "id": "s6-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "second research phase August 24th",
+                "value_text": "Second phase August 24th"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s6-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s6-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s6-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "revelation",
+      "story_role": "scale",
+      "vo": "Texas State reported its second research phase on August twenty-fourth.",
+      "vo_claims": [
+        "c06",
+        "c07",
+        "c10"
+      ],
+      "super": "August 24th",
+      "super_claim": "c07",
+      "caption": "",
+      "on_screen": "A separate source-record slip approaches beside the unchanged pavement reports.",
+      "what_moves": "A separate source-record slip approaches beside the unchanged pavement reports. The source-record slip settles while the retained damage and stain reports stay fixed. The scan returns across the unchanged pavement while the source date and conserved reports remain visible.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "A separate source-record slip approaches beside the unchanged pavement reports. The source-record slip settles while the retained damage and stain reports stay fixed. The scan returns across the unchanged pavement while the source date and conserved reports remain visible.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Second phase"
+      },
+      "visual_family": "phase-record",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s6-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.756,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s6-sample",
+            "s6-depth",
+            "s6-report"
+          ],
+          "what": "A separate source-record slip approaches beside the unchanged pavement reports."
+        },
+        {
+          "id": "s6-event-2",
+          "at_s": 1.386,
+          "at_s_authored": 1.65,
+          "duration_s": 0.756,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s6-sample",
+            "s6-depth",
+            "s6-report"
+          ],
+          "what": "The source-record slip settles while the retained damage and stain reports stay fixed."
+        },
+        {
+          "id": "s6-event-3",
+          "at_s": 2.772,
+          "at_s_authored": 3.3,
+          "duration_s": 0.756,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s6-sample",
+            "s6-depth",
+            "s6-report"
+          ],
+          "what": "The scan returns across the unchanged pavement while the source date and conserved reports remain visible."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "second research phase August 24th",
+            "item_ids": [
+              "s6-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "A separate source-record slip approaches beside the unchanged pavement reports. The source-record slip settles while the retained damage and stain reports stay fixed. The scan returns across the unchanged pavement while the source date and conserved reports remain visible.",
+          "item_ids": [
+            "s6-sample",
+            "s6-depth",
+            "s6-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 5,
+      "hero": "dated phase report"
+    },
+    {
+      "id": "s7",
+      "treatment": "a",
+      "start_s": 27.26,
+      "duration_s": 5.08,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "orbitReveal",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "hairline crack severity",
+          "items": [
+            {
+              "id": "s7-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "hairline crack severity"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s7-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s7-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s7-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "motion",
+      "story_role": "agency",
+      "vo": "The team plans to improve hairline crack detection and automatic severity scoring.",
+      "vo_claims": [
+        "c08"
+      ],
+      "super": "Next steps",
+      "super_claim": "c08",
+      "caption": "",
+      "on_screen": "The scan traverses the same unfilled crack.",
+      "what_moves": "The scan traverses the same unfilled crack. The original flat and recessed profiles lower toward their corresponding stain and crack. The source-grounded depth profiles lift while the narration identifies planned improvement.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "The scan traverses the same unfilled crack. The original flat and recessed profiles lower toward their corresponding stain and crack. The source-grounded depth profiles lift while the narration identifies planned improvement.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "Next steps"
+      },
+      "visual_family": "fine-scan",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s7-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.914,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s7-sample",
+            "s7-depth",
+            "s7-report"
+          ],
+          "what": "The scan traverses the same unfilled crack."
+        },
+        {
+          "id": "s7-event-2",
+          "at_s": 1.676,
+          "at_s_authored": 1.65,
+          "duration_s": 0.914,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s7-sample",
+            "s7-depth",
+            "s7-report"
+          ],
+          "what": "The original flat and recessed profiles lower toward their corresponding stain and crack."
+        },
+        {
+          "id": "s7-event-3",
+          "at_s": 3.353,
+          "at_s_authored": 3.3,
+          "duration_s": 0.914,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s7-sample",
+            "s7-depth",
+            "s7-report"
+          ],
+          "what": "The source-grounded depth profiles lift while the narration identifies planned improvement."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "hairline crack severity",
+            "item_ids": [
+              "s7-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The scan traverses the same unfilled crack. The original flat and recessed profiles lower toward their corresponding stain and crack. The source-grounded depth profiles lift while the narration identifies planned improvement.",
+          "item_ids": [
+            "s7-sample",
+            "s7-depth",
+            "s7-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 6,
+      "hero": "unresolved finer detection"
+    },
+    {
+      "id": "s8",
+      "treatment": "a",
+      "start_s": 32.34,
+      "duration_s": 4.66,
+      "duration_authored": 5,
+      "county": "Hays",
+      "region": "hill_country",
+      "interior": true,
+      "camera_strategy": "riseWith",
+      "cast": [],
+      "planes": [
+        {
+          "z": 850,
+          "label": "damage road",
+          "items": [
+            {
+              "id": "s8-sample",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "damage road"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "Depth",
+          "items": [
+            {
+              "id": "s8-depth",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Depth"
+              }
+            }
+          ]
+        },
+        {
+          "z": 550,
+          "label": "Repair reports",
+          "items": [
+            {
+              "id": "s8-report",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Repair reports"
+              }
+            }
+          ]
+        },
+        {
+          "z": 400,
+          "label": "Stains",
+          "items": [
+            {
+              "id": "s8-stain",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 980,
+              "scale": 1,
+              "props": {
+                "label": "Stains"
+              }
+            }
+          ]
+        }
+      ],
+      "beat": "emotion",
+      "story_role": "close",
+      "vo": "A better damage map is not a repaired road.",
+      "vo_claims": [
+        "c09"
+      ],
+      "super": "The road is still damaged",
+      "super_claim": "c09",
+      "caption": "",
+      "on_screen": "The scan returns across the same pavement samples.",
+      "what_moves": "The scan returns across the same pavement samples. Both original profiles lower toward the unchanged stain and crack. The unchanged road and damage profile remain visible as the answer.",
+      "visual_sentence": {
+        "subject": "Conserved illustrative pavement stain and recessed crack",
+        "action": "The scan returns across the same pavement samples. Both original profiles lower toward the unchanged stain and crack. The unchanged road and damage profile remain visible as the answer.",
+        "emotion": "An ambiguous mark becomes a visible distinction and an unfinished maintenance task.",
+        "annotation": "The road is still damaged"
+      },
+      "visual_family": "road-answer",
+      "payload_mode": "picture",
+      "visual_events": [
+        {
+          "id": "s8-event-1",
+          "at_s": 0.0,
+          "at_s_authored": 0,
+          "duration_s": 0.839,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s8-sample",
+            "s8-depth",
+            "s8-report"
+          ],
+          "what": "The scan returns across the same pavement samples."
+        },
+        {
+          "id": "s8-event-2",
+          "at_s": 1.538,
+          "at_s_authored": 1.65,
+          "duration_s": 0.839,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s8-sample",
+            "s8-depth",
+            "s8-report"
+          ],
+          "what": "Both original profiles lower toward the unchanged stain and crack."
+        },
+        {
+          "id": "s8-event-3",
+          "at_s": 3.076,
+          "at_s_authored": 3.3,
+          "duration_s": 0.839,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s8-sample",
+            "s8-depth",
+            "s8-report"
+          ],
+          "what": "The unchanged road and damage profile remain visible as the answer."
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A surface stain stays flat while a crack has depth; reporting the difference does not repair it.",
+        "must_show": [
+          {
+            "concept": "damage road",
+            "item_ids": [
+              "s8-sample"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The scan returns across the same pavement samples. Both original profiles lower toward the unchanged stain and crack. The unchanged road and damage profile remain visible as the answer.",
+          "item_ids": [
+            "s8-sample",
+            "s8-depth",
+            "s8-report"
+          ]
+        }
+      },
+      "production_action": "pavement-depth-action-v1",
+      "production_disclosure": "Illustration. Pavement research",
+      "pavement_phase": 7,
+      "hero": "unfilled crack ending"
+    }
+  ],
+  "attention_beats": [
+    {
+      "event_id": "s1-event-1",
+      "item_ids": [
+        "s1-sample",
+        "s1-depth",
+        "s1-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "A flat and notched depth profile rise from the same dark pavement marks.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s1-event-2",
+      "item_ids": [
+        "s1-sample",
+        "s1-depth",
+        "s1-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The scan bar passes over the conserved stain and crack.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s1-event-3",
+      "item_ids": [
+        "s1-sample",
+        "s1-depth",
+        "s1-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The flat stain and recessed crack remain distinct in their exposed profiles.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s2-event-1",
+      "item_ids": [
+        "s2-sample",
+        "s2-depth",
+        "s2-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The scan crosses the same pavement samples.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s2-event-2",
+      "item_ids": [
+        "s2-sample",
+        "s2-depth",
+        "s2-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The conserved depth profiles lower into their paired pavement surfaces.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s2-event-3",
+      "item_ids": [
+        "s2-sample",
+        "s2-depth",
+        "s2-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The scan returns across the paired surfaces while the profiles remain joined to them.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s3-event-1",
+      "item_ids": [
+        "s3-sample",
+        "s3-depth",
+        "s3-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The conserved flat stain profile rises from its surface.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s3-event-2",
+      "item_ids": [
+        "s3-sample",
+        "s3-depth",
+        "s3-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The conserved crack profile rises to reveal its recessed center.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s3-event-3",
+      "item_ids": [
+        "s3-sample",
+        "s3-depth",
+        "s3-report"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The two conserved profiles complete the surface versus damage comparison.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s4-event-1",
+      "item_ids": [
+        "s4-sample",
+        "s4-depth",
+        "s4-report"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The same crack sample creates an illustrative damage report that moves toward its tray.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s4-event-2",
+      "item_ids": [
+        "s4-sample",
+        "s4-depth",
+        "s4-report"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The crack report lands while the conserved stain report moves to the same supported tray.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s4-event-3",
+      "item_ids": [
+        "s4-sample",
+        "s4-depth",
+        "s4-report"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The distinct stain report lands beside the retained damage report without repairing either pavement sample.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s5-event-1",
+      "item_ids": [
+        "s5-sample",
+        "s5-depth",
+        "s5-report"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The conserved crack report slides forward within its tray.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s5-event-2",
+      "item_ids": [
+        "s5-sample",
+        "s5-depth",
+        "s5-report"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The scan crosses both unchanged pavement samples while the separate stain report remains beside the crack report.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s5-event-3",
+      "item_ids": [
+        "s5-sample",
+        "s5-depth",
+        "s5-report"
+      ],
+      "change_type": "consequence",
+      "visible_change": "An illustrative priority marker seats beside the conserved damage report without issuing a work order.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s6-event-1",
+      "item_ids": [
+        "s6-sample",
+        "s6-depth",
+        "s6-report"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A separate source-record slip approaches beside the unchanged pavement reports.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s6-event-2",
+      "item_ids": [
+        "s6-sample",
+        "s6-depth",
+        "s6-report"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The source-record slip settles while the retained damage and stain reports stay fixed.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s6-event-3",
+      "item_ids": [
+        "s6-sample",
+        "s6-depth",
+        "s6-report"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The scan returns across the unchanged pavement while the source date and conserved reports remain visible.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s7-event-1",
+      "item_ids": [
+        "s7-sample",
+        "s7-depth",
+        "s7-report"
+      ],
+      "change_type": "comparison",
+      "visible_change": "The scan traverses the same unfilled crack.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s7-event-2",
+      "item_ids": [
+        "s7-sample",
+        "s7-depth",
+        "s7-report"
+      ],
+      "change_type": "comparison",
+      "visible_change": "The original flat and recessed profiles lower toward their corresponding stain and crack.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s7-event-3",
+      "item_ids": [
+        "s7-sample",
+        "s7-depth",
+        "s7-report"
+      ],
+      "change_type": "comparison",
+      "visible_change": "The source-grounded depth profiles lift while the narration identifies planned improvement.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s8-event-1",
+      "item_ids": [
+        "s8-sample",
+        "s8-depth",
+        "s8-report"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The scan returns across the same pavement samples.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s8-event-2",
+      "item_ids": [
+        "s8-sample",
+        "s8-depth",
+        "s8-report"
+      ],
+      "change_type": "resolution",
+      "visible_change": "Both original profiles lower toward the unchanged stain and crack.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    },
+    {
+      "event_id": "s8-event-3",
+      "item_ids": [
+        "s8-sample",
+        "s8-depth",
+        "s8-report"
+      ],
+      "change_type": "resolution",
+      "visible_change": "The unchanged road and damage profile remain visible as the answer.",
+      "viewer_reward": "The same pavement distinction carries from surface observation into an assessment report while the road stays unrepaired.",
+      "continuity_from": "The same stain, recessed crack and report representation remain identifiable across the current comparison.",
+      "sound_action": "Designed scanner sonification follows the physical scan; a quiet contrast separates report from repair."
+    }
+  ],
+  "quality_plan": {
+    "contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "A flat and notched depth profile rise from the same dark pavement marks. The scan bar passes over the conserved stain and crack. The flat stain and recessed crack remain distinct in their exposed profiles.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c01",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s2",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "The scan crosses the same pavement samples. The conserved depth profiles lower into their paired pavement surfaces. The scan returns across the paired surfaces while the profiles remain joined to them.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c02",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s3",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "The conserved flat stain profile rises from its surface. The conserved crack profile rises to reveal its recessed center. The two conserved profiles complete the surface versus damage comparison.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c03",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s4",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "The same crack sample creates an illustrative damage report that moves toward its tray. The crack report lands while the conserved stain report moves to the same supported tray. The distinct stain report lands beside the retained damage report without repairing either pavement sample.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c04",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s5",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "The conserved crack report slides forward within its tray. The scan crosses both unchanged pavement samples while the separate stain report remains beside the crack report. An illustrative priority marker seats beside the conserved damage report without issuing a work order.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c05",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s6",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "A separate source-record slip approaches beside the unchanged pavement reports. The source-record slip settles while the retained damage and stain reports stay fixed. The scan returns across the unchanged pavement while the source date and conserved reports remain visible.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c06, c07",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s7",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "The scan traverses the same unfilled crack. The original flat and recessed profiles lower toward their corresponding stain and crack. The source-grounded depth profiles lift while the narration identifies planned improvement.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c08",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      },
+      {
+        "scene_id": "s8",
+        "medium": "dimensional",
+        "subject": "Original enlarged pavement stain and crack samples",
+        "action": "The scan returns across the same pavement samples. Both original profiles lower toward the unchanged stain and crack. The unchanged road and damage profile remain visible as the answer.",
+        "consequence": "The report records a source-backed distinction while the road remains unrepaired.",
+        "source_basis": "Fresh Texas State primary evidence, verified claims c09",
+        "medium_evidence": "Original source-grounded geometry in a shared native stage, with no actual road, private interface or measured sample claimed."
+      }
+    ]
+  },
+  "documentary": {
+    "schema": "dispatch_documentary/1",
+    "viewer_question": "Which dark pavement mark has damage beneath it?",
+    "payoff": "One conserved profile stays flat while the other reveals crack depth.",
+    "source_limit": "Texas State announced phase two on August 24th. Hairline detection and automatic severity scoring remain improvement plans; no statewide adoption or measured repairs are claimed.",
+    "hero_image": "A scan crosses the same dark marks as flat and recessed depth profiles rise.",
+    "closing_answer": "Depth helps separate damage from a stain, but identifying it does not repair the road.",
+    "hook_payoff_event": "s1-event-1"
+  },
+  "cinema": {
+    "version": "creative-production-v1",
+    "hero_scene_id": "s1",
+    "hero_passage_end_scene_id": "s3",
+    "dimensional_scene_ids": [
+      "s1",
+      "s2",
+      "s3",
+      "s4",
+      "s5",
+      "s6",
+      "s7",
+      "s8"
+    ],
+    "visible_action": "The scan traverses source-grounded pavement samples and reveals flat stain versus crack depth.",
+    "human_consequence": "Maintenance engineers receive assessment information before choosing repairs.",
+    "source_limit": "Texas State announced phase two on August 24th. Hairline detection and automatic severity scoring remain improvement plans; no statewide adoption or measured repairs are claimed."
+  },
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "The same illustrative pavement stain, crack and associated report",
+      "opening_state": "The mark opens into a visible flat-versus-depth comparison.",
+      "closing_state": "The same crack remains unfilled beside its damage profile.",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ]
+    },
+    "turn_scene": "s4",
+    "button": "Depth helps separate damage from a stain, but identifying it does not repair the road."
+  },
+  "story_contract": {
+    "director_identity": "/root",
+    "opening_question": "Which dark pavement mark has damage beneath it?",
+    "actor": "Texas State pavement researchers",
+    "action": "Pair surface imagery with depth maps for pavement assessment.",
+    "change": "Damage can be distinguished from stains in the published research description.",
+    "affected_people": "Texas road maintenance engineers and road users",
+    "consequence": "Assessment becomes a prioritized repair report; no completed repair is claimed.",
+    "source_limit": "Texas State announced phase two on August 24th. Hairline detection and automatic severity scoring remain improvement plans; no statewide adoption or measured repairs are claimed.",
+    "closing_answer": "Depth helps separate damage from a stain, but identifying it does not repair the road.",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "role": "action",
+        "claim_ids": [
+          "c01",
+          "c02",
+          "c03",
+          "c04",
+          "c08"
+        ],
+        "advances": "The flat stain and recessed crack remain distinct in their exposed profiles."
+      },
+      {
+        "scene_id": "s2",
+        "role": "mechanism",
+        "claim_ids": [
+          "c02",
+          "c03",
+          "c04",
+          "c08",
+          "c10"
+        ],
+        "advances": "The scan returns across the paired surfaces while the profiles remain joined to them."
+      },
+      {
+        "scene_id": "s3",
+        "role": "mechanism",
+        "claim_ids": [
+          "c03",
+          "c02",
+          "c04",
+          "c08"
+        ],
+        "advances": "The two conserved profiles complete the surface versus damage comparison."
+      },
+      {
+        "scene_id": "s4",
+        "role": "consequence",
+        "claim_ids": [
+          "c04",
+          "c02",
+          "c03",
+          "c08",
+          "c10"
+        ],
+        "advances": "The distinct stain report lands beside the retained damage report without repairing either pavement sample."
+      },
+      {
+        "scene_id": "s5",
+        "role": "consequence",
+        "claim_ids": [
+          "c05",
+          "c02",
+          "c03",
+          "c04",
+          "c08"
+        ],
+        "advances": "An illustrative priority marker seats beside the conserved damage report without issuing a work order."
+      },
+      {
+        "scene_id": "s6",
+        "role": "evidence",
+        "claim_ids": [
+          "c06",
+          "c07",
+          "c02",
+          "c03",
+          "c04",
+          "c08",
+          "c10"
+        ],
+        "advances": "The scan returns across the unchanged pavement while the source date and conserved reports remain visible."
+      },
+      {
+        "scene_id": "s7",
+        "role": "limit",
+        "claim_ids": [
+          "c08",
+          "c02",
+          "c03",
+          "c04"
+        ],
+        "advances": "The source-grounded depth profiles lift while the narration identifies planned improvement."
+      },
+      {
+        "scene_id": "s8",
+        "role": "answer",
+        "claim_ids": [
+          "c09",
+          "c02",
+          "c03",
+          "c04",
+          "c08"
+        ],
+        "advances": "The unchanged road and damage profile remain visible as the answer."
+      }
+    ],
+    "transitions": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "The flat stain and recessed crack remain distinct in their exposed profiles. The scan crosses the same pavement samples."
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "The scan returns across the paired surfaces while the profiles remain joined to them. The conserved flat stain profile rises from its surface."
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "The two conserved profiles complete the surface versus damage comparison. The same crack sample creates an illustrative damage report that moves toward its tray."
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "The distinct stain report lands beside the retained damage report without repairing either pavement sample. The conserved crack report slides forward within its tray."
+      },
+      {
+        "from": "s5",
+        "to": "s6",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "An illustrative priority marker seats beside the conserved damage report without issuing a work order. A separate source-record slip approaches beside the unchanged pavement reports."
+      },
+      {
+        "from": "s6",
+        "to": "s7",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "The scan returns across the unchanged pavement while the source date and conserved reports remain visible. The scan traverses the same unfilled crack."
+      },
+      {
+        "from": "s7",
+        "to": "s8",
+        "kind": "same-subject",
+        "because": "The conserved samples carry the surface-depth distinction into the associated report and unchanged-road limit.",
+        "visible_bridge": "The source-grounded depth profiles lift while the narration identifies planned improvement. The scan returns across the same pavement samples."
+      }
+    ]
+  },
+  "creative_direction": {
+    "policy_sha256": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+    "viewer_question": "Which dark pavement mark has damage beneath it?",
+    "visible_answer": "Depth helps separate damage from a stain, but identifying it does not repair the road.",
+    "emotional_turn": "A dark mark acquires depth, then the report reveals that assessment and repair remain separate.",
+    "medium_choice": "Two original geometry treatments compare the source-backed surface-depth mechanism without using unlicensed generic pavement photography.",
+    "edits": [
+      {
+        "scene_id": "s1",
+        "enter_on": "A flat and notched depth profile rise from the same dark pavement marks.",
+        "leave_on": "The flat stain and recessed crack remain distinct in their exposed profiles.",
+        "cut_after_event_id": "s1-event-3",
+        "next_connection": "The scan crosses the same pavement samples."
+      },
+      {
+        "scene_id": "s2",
+        "enter_on": "The scan crosses the same pavement samples.",
+        "leave_on": "The scan returns across the paired surfaces while the profiles remain joined to them.",
+        "cut_after_event_id": "s2-event-3",
+        "next_connection": "The flat stain profile rises without a notch."
+      },
+      {
+        "scene_id": "s3",
+        "enter_on": "The conserved flat stain profile rises from its surface.",
+        "leave_on": "The two conserved profiles complete the surface versus damage comparison.",
+        "cut_after_event_id": "s3-event-3",
+        "next_connection": "A damage report sheet leaves the illustrated pavement sample."
+      },
+      {
+        "scene_id": "s4",
+        "enter_on": "The same crack sample creates an illustrative damage report that moves toward its tray.",
+        "leave_on": "The distinct stain report lands beside the retained damage report without repairing either pavement sample.",
+        "cut_after_event_id": "s4-event-3",
+        "next_connection": "The illustrated damage sheet moves toward the front of the maintenance tray."
+      },
+      {
+        "scene_id": "s5",
+        "enter_on": "The conserved crack report slides forward within its tray.",
+        "leave_on": "An illustrative priority marker seats beside the conserved damage report without issuing a work order.",
+        "cut_after_event_id": "s5-event-3",
+        "next_connection": "The research report sheet approaches its separate supported tray."
+      },
+      {
+        "scene_id": "s6",
+        "enter_on": "A separate source-record slip approaches beside the unchanged pavement reports.",
+        "leave_on": "The scan returns across the unchanged pavement while the source date and conserved reports remain visible.",
+        "cut_after_event_id": "s6-event-3",
+        "next_connection": "The scan traverses the same unfilled crack."
+      },
+      {
+        "scene_id": "s7",
+        "enter_on": "The scan traverses the same unfilled crack.",
+        "leave_on": "The source-grounded depth profiles lift while the narration identifies planned improvement.",
+        "cut_after_event_id": "s7-event-3",
+        "next_connection": "The scan returns across the same pavement samples."
+      },
+      {
+        "scene_id": "s8",
+        "enter_on": "The scan returns across the same pavement samples.",
+        "leave_on": "The unchanged road and damage profile remain visible as the answer.",
+        "cut_after_event_id": "s8-event-3",
+        "next_connection": "Depth helps separate damage from a stain, but identifying it does not repair the road. Texas State announced phase two on August 24th. Hairline detection and automatic severity scoring remain improvement plans; no statewide adoption or measured repairs are claimed."
+      }
+    ],
+    "sound": {
+      "perspective": "Close designed scanner and paper sonification, never recorded TXST equipment.",
+      "music_arc": "Restrained curiosity yields to quiet when a report stops short of repair.",
+      "voice_arc": "Curious opening, precise depth distinction, calm attribution and unresolved maintenance consequence.",
+      "cues": [
+        {
+          "id": "pavement-scan",
+          "event_id": "s2-event-1",
+          "role": "sonification",
+          "duration_s": 0.9,
+          "intent": "Designed scan sound follows the illustrative pavement traversal.",
+          "provenance": "Existing deterministic designed foley, not location audio."
+        },
+        {
+          "id": "report-contact",
+          "event_id": "s4-event-2",
+          "role": "contact",
+          "duration_s": 0.65,
+          "intent": "Designed paper contact follows the report landing in its tray.",
+          "provenance": "Existing synthesized paper foley, not captured site sound."
+        },
+        {
+          "id": "unrepaired-quiet",
+          "event_id": "s8-event-2",
+          "role": "quiet",
+          "duration_s": 1.4,
+          "gain": 0.2,
+          "intent": "Background recedes as the same crack remains unfilled.",
+          "provenance": "Authored gain contrast at the current illustrated ending event."
+        }
+      ]
+    }
+  },
+  "visual_research": {
+    "searches": [
+      {
+        "query": "site.txst.edu pavement 2D 3D scanner van Wang Tesic images",
+        "finding": "Returned TXST lab page describing Ford E-350 survey vehicle and crack-detection images, 2022 TXST grant article with crack photograph, and current faculty profiles. Lab fetch failed; 2022 photograph inspected and rejected as generic older imagery.",
+        "candidate_urls": [
+          "https://docs.gato.txst.edu/205552/w/2000/Bij9BoeBTazk/charlotte-harrison-dnaTMCm2-nw-unsplash.jpg",
+          "https://tilab.wp.txstate.edu/research/"
+        ]
+      },
+      {
+        "query": "site.txdot.gov \"Artificial Intelligence for Pavement Condition\"",
+        "finding": "Returned TxDOT work-program/research statement documents and ROSA P 2026 report record. Full ROSA P metadata page verified paired-image data and dedicated TxDOT assessment software; no authenticated action footage or licensed report figures found.",
+        "candidate_urls": [
+          "https://rosap.ntl.bts.gov/view/dot/90511",
+          "https://plans.dot.state.tx.us/pub/txdot/rti/FY2023/PS_23-073.pdf"
+        ]
+      }
+    ],
+    "candidates": [
+      {
+        "url": "https://docs.gato.txst.edu/804197/w/2000/xFXi2xtV9RRN/AdobeStock_727416866.jpg",
+        "source_url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+        "use": false,
+        "reject": true,
+        "reason": "Current official source hero image URL extracted from fetched HTML og:image and background-image; filename identifies AdobeStock. Actual pixels not inspected in this research pass. Rights not established; university display does not grant reuse.",
+        "inspection": "HTML asset identity only; no asset retrieval or pixel inspection",
+        "decision": "reject"
+      },
+      {
+        "url": "https://docs.gato.txst.edu/205549/w/2000/pWfIKTTPMO9V/Feng%20Wang.jpg",
+        "source_url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+        "use": false,
+        "reject": true,
+        "reason": "Current primary page labels it Feng Wang headshot. Portrait cannot show pavement assessment action; rights not established.",
+        "inspection": "HTML src/alt inspected; pixels not inspected",
+        "decision": "reject"
+      },
+      {
+        "url": "https://docs.gato.txst.edu/804198/w/2000/0lor-Wqsu2ML/jelena%20tesic.jpg",
+        "source_url": "https://news.txst.edu/research-and-innovation/2026/txst-team-develops-accurate-road-condition-evaluation.html",
+        "use": false,
+        "reject": true,
+        "reason": "Current primary page labels it Jelena Tešić headshot. Portrait cannot show depth mechanism; rights not established.",
+        "inspection": "HTML src/alt inspected; pixels not inspected",
+        "decision": "reject"
+      },
+      {
+        "url": "https://docs.gato.txst.edu/205552/w/2000/Bij9BoeBTazk/charlotte-harrison-dnaTMCm2-nw-unsplash.jpg",
+        "source_url": "https://news.txst.edu/research-and-innovation/2022/pavement-condition-data-collection-grant.html",
+        "use": false,
+        "reject": true,
+        "reason": "Actual pixels inspected: static asphalt cracks across yellow stripes. Generic older photograph lacks Texas location, scanner or current model action. Filename attribution is insufficient license authentication.",
+        "inspection": "Actual local image viewed at full returned resolution",
+        "decision": "reject"
+      },
+      {
+        "url": "https://tilab.wp.txstate.edu/research/",
+        "use": false,
+        "reject": true,
+        "reason": "Search result describes survey vehicle and automated crack images; full fetch failed. No authenticated pixel inspection or reuse rights.",
+        "inspection": "Search result only; requests failed",
+        "decision": "reject"
+      },
+      {
+        "url": "https://rosap.ntl.bts.gov/view/dot/90511",
+        "use": false,
+        "reject": true,
+        "reason": "Full primary report metadata page fetched and read; useful model mechanism evidence. No report figure or footage pixels inspected; no reuse license established.",
+        "inspection": "Full metadata page inspected; PDF figures not inspected",
+        "decision": "reject"
+      }
+    ],
+    "search_count": 2,
+    "candidate_count": 6,
+    "max_searches": 6,
+    "max_candidates": 8,
+    "recommended_medium": "Original disclosed illustration of one source-backed surface/depth relationship",
+    "uncertainty": "Search outputs were returned together; findings grouped by obvious domain/topic match rather than claimed engine-specific query attribution. Current hero/headshot URLs were extracted from already-fetched official HTML after initial packet; no new retrieval or search.",
+    "decision": "The bounded search found no useful authenticated footage with reuse rights. Original disclosed surface-depth samples show the mechanism; no photographic asset is inserted."
+  },
+  "caption_method": "silence_anchored",
+  "retimed_to": "vo_line_starts",
+  "retime_evidence": {
+    "cuts_placed": 8,
+    "on_measured_word_starts": 8,
+    "on_modelled_word_starts": 0,
+    "_why": "A cut is placed at the start of the line its scene carries. That word's time is measured when the reader paused before it and modelled by syllable weight when they did not, so this counts both rather than claiming all are measured."
+  }
+}

@@ -1,3 +1,4 @@
+import {PavementDepthEpisode} from './PavementDepthEpisode';
 import {PodDeliveryEpisode} from './PodDeliveryEpisode';
 import {SmokeCameraEpisode} from './SmokeCameraEpisode';
 import {SubtitleTrack, CreditsCard} from './lib/DispatchOverlays';
@@ -213,7 +214,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'pod-delivery-v1' | 'smoke-camera-v1' | 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
+  cinematic_template?: 'pavement-depth-v1' | 'pod-delivery-v1' | 'smoke-camera-v1' | 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
     'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'brush-camera-v1';
@@ -497,6 +498,7 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
     return <ConnectedRecordsEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} native_media={native_media} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
   }
   if (cinematic_template === 'smoke-camera-v1') {return <SmokeCameraEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
+  if (cinematic_template === 'pavement-depth-v1') {return <PavementDepthEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'pod-delivery-v1') {return <PodDeliveryEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'daily-actions-v1') {
     return <DailyActionsEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} native_media={native_media} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;
