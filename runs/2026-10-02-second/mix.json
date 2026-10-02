@@ -1,0 +1,143 @@
+{
+  "duration_s": 45.0,
+  "cut_s": 45.0,
+  "peak_dbfs_premaster": -1.78,
+  "lufs_premaster": -21.48,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.23,
+  "lufs_shortfall_db": 0.23000000000000043,
+  "crest_factor_db": 19.7,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.78,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 3
+    },
+    {
+      "id": "immersed",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -27.69,
+      "gain_db": -12.77
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "immersed",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -27.69,
+  "bed_gain_db": -12.77,
+  "sfx_events": 3,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -19.74,
+      "true_peak_dbtp": 0.0
+    },
+    "after": {
+      "integrated_lufs": -16.23,
+      "true_peak_dbtp": -2.0
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.23:measured_TP=-6.72:measured_LRA=19.80:measured_thresh=-36.15:offset=0.61",
+    "measurement": {
+      "input_i": "-24.23",
+      "input_tp": "-6.72",
+      "input_lra": "19.80",
+      "input_thresh": "-36.15",
+      "output_i": "-16.15",
+      "output_tp": "-2.00",
+      "output_lra": "14.10",
+      "output_thresh": "-27.66",
+      "normalization_type": "dynamic",
+      "target_offset": "0.15"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.23,
+          "true_peak_dbtp": -2.0
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.23:measured_TP=-6.72:measured_LRA=19.80:measured_thresh=-36.15:offset=0.61"
+      }
+    ],
+    "correction": null,
+    "samples": 2160000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "b905c10dcdd48cb5024e708fe83c6dfd842e972467d13029f678ac1d953353e5",
+  "sound_direction_sha256": "cf2440abb91b924651ce6b16962fc70572acfd9ce9d7eec42cc5aaee6ba39827",
+  "sound_cues": [
+    {
+      "id": "virtual-valve-hiss",
+      "event_id": "s1-event-2",
+      "role": "sonification",
+      "duration_s": 0.7,
+      "intent": "A soft designed hiss follows the virtual valve and qualitative gas rehearsal.",
+      "provenance": "Original designed sonification, not recorded equipment or an actual Rice trial.",
+      "at_s": 1.703
+    },
+    {
+      "id": "virtual-heat-rise",
+      "event_id": "s3-event-1",
+      "role": "sonification",
+      "duration_s": 0.8000000000000007,
+      "intent": "A gentle designed tonal rise follows the illustrative virtual heating condition.",
+      "provenance": "Original designed sonification of a model condition, no measured temperature sound.",
+      "at_s": 9.8
+    },
+    {
+      "id": "result-arrival-confirmation",
+      "event_id": "s5-event-2",
+      "role": "sonification",
+      "duration_s": 0.5,
+      "intent": "A restrained designed confirmation marks completed hypothetical information arrival, not scientific success.",
+      "provenance": "Original designed sonification of the editorial return, no recorded laboratory result.",
+      "at_s": 22.346
+    },
+    {
+      "id": "consultation-quiet",
+      "event_id": "s6-event-3",
+      "role": "quiet",
+      "duration_s": 1.0879999999999974,
+      "gain": 0.2,
+      "intent": "Reduce the background as the unresolved model question reaches a researcher.",
+      "provenance": "Authored event-bound gain contrast, no implied site recording.",
+      "at_s": 27.192
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "virtual-valve-hiss",
+      "sha256": "9653ab512bbf510b7f7bc8ac43ee3126fac27a8e01f31edf68ff6eac9aabfcb0"
+    },
+    {
+      "id": "virtual-heat-rise",
+      "sha256": "6ebf745bbc45231d1ee48444d0ea86ab43c333f4c7827c347fdc18c2358369be"
+    },
+    {
+      "id": "result-arrival-confirmation",
+      "sha256": "f62ec901f3d6a265411b4ef94f2e16a144f5c6767565c9dfdd990f3dccd07a3b"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "2abe0c70f807e230b8f830a70fa6afd6ebc477baa7b13b8eb4ac8d6b106985eb",
+  "bed_source_sha256": "870fa4f642816b2207cf74e48c36cbbbd147df99be24f08f29aa26ac0597a44b",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "0e7eb3588eda3a97e35750f894e4b363ac27603067eda8949585a4ba9eba589d",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2160000
+}
