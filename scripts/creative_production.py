@@ -8,6 +8,7 @@ import copy
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 
 POLICY = Path(__file__).resolve().parents[1] / "config/creative_production.json"
@@ -281,6 +282,107 @@ def finishing_inspection_problems(board, receipt, review, root, ledger):
         return errors
 
 
+def caption_renderer_continuation(board_path, receipt, selection, ledger):
+    """Keep historical treatment bytes after an independently reviewed overlay repair.
+
+    This validates only a renderer dependency chain. Current selected-film phone,
+    native and audiovisual gates still require their own fresh evidence.
+    """
+    root = Path(board_path).parent / "openings"
+    sidecar = root / "technical-continuation.json"
+    if not sidecar.exists():
+        return None
+    try:
+        value = read(sidecar)
+        board = read(board_path)
+        if (value.get("schema") != "dispatch-caption-renderer-continuation/1"
+                or value["comparison_sha256"] != digest(root / "comparison.json")
+                or value["selection_sha256"] != digest(root / "selection.json")
+                or board.get("native_media") or any(s.get("generated_media") for s in board["scenes"])):
+            return None
+        def bound(name):
+            ref = value[name]
+            path = (root / ref["file"]).resolve()
+            if not path.is_relative_to(root.resolve()) or digest(path) != ref["sha256"]:
+                raise ValueError("continuation evidence changed")
+            return path
+        before = bound("before_source")
+        failure_path = bound("failure")
+        code_path = bound("code_review")
+        failure, code = read(failure_path), read(code_path)
+        event = ledger["events"][value["repair_event_index"]]
+        plan = event["repair_plan"]
+        from autonomous_completion import mandatory_reason
+        if (event.get("kind") != "repair_authorized" or event.get("repair_scope") != "technical-integrity"
+                or value["repair_plan_sha256"] != event["repair_plan_sha256"]
+                or mandatory_reason(ledger, plan, failure_path.read_text()) != "retained-integrity"
+                or any(x["category"] not in {"captions", "layout", "legibility"}
+                       for x in failure["technical_repair"]["findings"])
+                or len(plan["changed_inputs"]) != 1):
+            return None
+        item = plan["changed_inputs"][0]
+        prior = ledger["events"][:value["repair_event_index"]]
+        starts = [i for i, row in enumerate(prior) if row.get("kind") == "repair_started"
+                  and row.get("repair_scope") == "technical-integrity"
+                  and row.get("failure_sha256") == digest(failure_path)]
+        if len(starts) != 1 or not any(row.get("kind") == "reserved"
+                and row.get("resources") == {"reboards": 1} for row in prior[starts[0]+1:]):
+            return None
+        from critic_gate import renderer_files, renderer_digest, concept_digest
+        from render_manifest import REPO
+        source = REPO / item["path"]
+        if (not source.resolve().is_relative_to((REPO / "video-engine/src").resolve())
+                or before.suffix != ".tsx" or source.suffix != ".tsx"
+                or digest(before) != item["before_sha256"] or digest(source) != item["after_sha256"]):
+            return None
+        old, new = before.read_text(), source.read_text()
+        old_lines, new_lines = old.splitlines(), new.splitlines()
+        if len(old_lines) != len(new_lines):
+            return None
+        changes = 0
+        for a, b in zip(old_lines, new_lines):
+            if a == b:
+                continue
+            if ("phase===" not in a or "zIndex:4" not in a
+                    or re.sub(r"\btop:\d+(?:\.\d+)?", "top:<layout>", a)
+                    != re.sub(r"\btop:\d+(?:\.\d+)?", "top:<layout>", b)):
+                return None
+            aa, bb = re.findall(r"\btop:(\d+(?:\.\d+)?)", a), re.findall(r"\btop:(\d+(?:\.\d+)?)", b)
+            if len(aa) != 1 or len(bb) != 1 or not 0 <= float(bb[0]) < float(aa[0]) <= 1421:
+                return None
+            changes += 1
+        if not 0 < changes <= 3:
+            return None
+        current = renderer_digest(board)
+        if (code.get("verdict") != "pass" or code.get("blocking_defects") != []
+                or not code.get("reviewer_identity") or code["reviewer_identity"] == plan["director_identity"]
+                or code.get("renderer_sha256") != current or code.get("concept_sha256") != concept_digest(board)
+                or value["current_renderer_sha256"] != current):
+            return None
+        for option in receipt["options"]:
+            option_board = read(root / option["board"]["file"])
+            files = renderer_files(option_board)
+            if source.resolve() not in {p.resolve() for p in files}:
+                return None
+            h = hashlib.sha256()
+            for p in files:
+                h.update(str(p.relative_to(REPO)).encode()); h.update(b"\0")
+                h.update(before.read_bytes() if p.resolve() == source.resolve() else p.read_bytes()); h.update(b"\0")
+            if h.hexdigest() != option["renderer_sha256"]:
+                return None
+            from opening_compare import inspection_producer
+            fresh = read(bound("inspection_" + option["id"]))
+            if (fresh.get("pass") is not True or fresh.get("problems") != [] or fresh.get("inspection_error")
+                    or fresh.get("board_sha256") != option["board"]["sha256"]
+                    or fresh.get("film_sha256") != option["film"]["sha256"]
+                    or fresh.get("renderer_sha256") != option["renderer_sha256"]
+                    or fresh.get("inspector_sha256") != inspection_producer()):
+                return None
+        return current
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError):
+        return None
+
+
 def opening_problems(board_path):
     board_path = Path(board_path)
     board = read(board_path)
@@ -303,7 +405,15 @@ def opening_problems(board_path):
         options = receipt["options"]
         from opening_compare import inspection_problems
         ledger = read(board_path.with_name("run_state.json"))
-        errors += finishing_inspection_problems(board, receipt, review, root, ledger)
+        continuation = caption_renderer_continuation(board_path, receipt, review, ledger)
+        if (root / "technical-continuation.json").exists() and not continuation:
+            errors.append("historical treatment technical continuation is invalid")
+        inspected_errors = finishing_inspection_problems(board, receipt, review, root, ledger)
+        if continuation:
+            inspected_errors = [e for e in inspected_errors if e not in {
+                "opening a: structural inspection has stale inspector_sha256",
+                "opening b: structural inspection has stale inspector_sha256"}]
+        errors += inspected_errors
         reservation = receipt["reservation"]
         event = ledger["events"][reservation["event_index"]]
         if (reservation["run_id"] != ledger["run_id"] or reservation["run_id"] != board.get("run_id", board.get("date")) or board.get("date") != reservation["run_id"][:10]
@@ -321,7 +431,7 @@ def opening_problems(board_path):
                 if not p.is_relative_to(root.resolve()) or digest(p) != ref["sha256"]:
                     errors.append("opening comparison evidence changed: " + key)
             option_board = read(root / option["board"]["file"])
-            if treatment_required(board) and option.get("renderer_sha256") != renderer_digest(option_board):
+            if treatment_required(board) and option.get("renderer_sha256") != renderer_digest(option_board) and not continuation:
                 errors.append("opening treatment uses stale renderer inputs")
             if opening_digest(option_board) != option["concept_sha256"]:
                 errors.append("opening concept does not match its board")
@@ -331,7 +441,7 @@ def opening_problems(board_path):
         if review.get("comparison_sha256") not in comparison_hashes:
             errors.append("opening choice belongs to different comparison bytes")
         chosen = next((r for r in options if r["id"] == review.get("selected")), None)
-        if chosen and treatment_required(board) and chosen.get("renderer_sha256") != renderer_digest(board):
+        if chosen and treatment_required(board) and chosen.get("renderer_sha256") != renderer_digest(board) and not continuation:
             errors.append("selected treatment renderer differs from the current film")
         if not chosen or chosen["concept_sha256"] != opening_digest(board):
             errors.append("current opening is not the selected concept")

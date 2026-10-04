@@ -28,6 +28,19 @@ class RecoveryTest(unittest.TestCase):
             if event.get('kind') == 'repair_started': event['repair_scope'] = 'standard'
         self.assertTrue(g.plan_problems(state, plan))
 
+    def test_technical_recurrence_does_not_count_standard_pivot(self):
+        state = c.read_state(self.path)
+        for scope in ["standard", "technical-integrity"]:
+            c.event(state, "repair_started", mechanism_id="external-carriage",
+                    failure_family="capture-and-analysis", repair_scope=scope)
+        plan = {"mechanism_id": "external-carriage",
+                "failure_family": "capture-and-analysis",
+                "repair_scope": "technical-integrity", "director_identity": "director"}
+        self.assertEqual(g.plan_problems(state, plan), [])
+        c.event(state, "repair_started", mechanism_id="external-carriage",
+                failure_family="capture-and-analysis", repair_scope="technical-integrity")
+        self.assertTrue(g.plan_problems(state, plan))
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
@@ -449,6 +462,62 @@ class RecoveryTest(unittest.TestCase):
         self.assertEqual(result["path"], "finish-current")
         self.assertEqual(result["resources"]["storyboard_critics"]["required"], 1)
         self.assertTrue(result["feasible"])
+
+    def test_observed_provider_token_overage_keeps_mandatory_completion_open(self):
+        state = c.read_state(self.path)
+        original = copy.deepcopy(state["resource_envelope"])
+        state["usage"]["reported_tokens"] = original["reported_tokens"]
+        c.save(self.path, state)
+        accepted, message = c.record_telemetry(self.path, "audiovisual_reviews", 1, 1)
+        self.assertTrue(accepted)
+        current = c.read_state(self.path)
+        self.assertEqual(current["usage"]["reported_tokens"], original["reported_tokens"] + 1)
+        self.assertEqual(current["resource_envelope"], original)
+        self.assertIsNone(current["terminal_state"])
+        self.assertTrue(any(e["kind"] == "observed_token_overage" for e in current["events"]))
+        self.assertEqual(life.allowance_problems(current), [])
+        self.assertTrue(c.reserve(self.path, {"audiovisual_reviews": 1}, "mandatory lens")[0])
+
+    def test_minimum_action_failure_cannot_use_cap_finish_current_budget(self):
+        import hashlib
+        state = c.read_state(self.path)
+        state["run_id"] = "2026-10-03"
+        state["usage"].update(reboards=1,
+            storyboard_critics=state["resource_envelope"]["storyboard_critics"] - 1)
+        film = "a" * 64
+        report = {"verdict": "revise", "reviewer_identity": "critic",
+                  "film_sha256": film, "blocking_defects": [
+                      {"criterion": "dominant_action", "category": "motion"}]}
+        failure = self.path.parent / "minimum-action-failure.json"
+        raw = json.dumps(report).encode()
+        failure.write_bytes(raw)
+        plan = {"failure_evidence": str(failure),
+                "failure_evidence_sha256": hashlib.sha256(raw).hexdigest(),
+                "failed_film_sha256": film, "director_identity": "director"}
+        self.assertTrue(g.minimum_action_plan_failure(state, plan))
+        before = copy.deepcopy(state)
+        result = g.production_budget_precheck(state, minimum_action_failed=True)
+        self.assertFalse(result["feasible"])
+        self.assertEqual(result["path"], "minimum-action-repair-required")
+        self.assertEqual(result["deficits"]["storyboard_critics"], 2)
+        self.assertEqual(state, before)
+        # An ordinary artistic rejection leaves the existing bounded path intact.
+        report["blocking_defects"] = [{"criterion": "surface_finish", "category": "surface_finish"}]
+        raw = json.dumps(report).encode()
+        failure.write_bytes(raw)
+        plan["failure_evidence_sha256"] = hashlib.sha256(raw).hexdigest()
+        self.assertFalse(g.minimum_action_plan_failure(state, plan))
+        self.assertTrue(g.production_budget_precheck(state)["feasible"])
+        report["blocking_defects"] = [{"criterion": "dominant_action"}]
+        raw = json.dumps(report).encode()
+        failure.write_bytes(raw)
+        self.assertFalse(g.minimum_action_plan_failure(state, plan))  # stale digest
+        plan["failure_evidence_sha256"] = hashlib.sha256(raw).hexdigest()
+        plan["failed_film_sha256"] = "b" * 64
+        self.assertFalse(g.minimum_action_plan_failure(state, plan))
+        plan["failed_film_sha256"] = film
+        plan["director_identity"] = "critic"
+        self.assertFalse(g.minimum_action_plan_failure(state, plan))
 
     def test_budget_cli_never_changes_ledger_on_pass_failure_or_tampering(self):
         import subprocess

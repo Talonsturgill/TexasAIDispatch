@@ -43,6 +43,90 @@ def fixture():
 
 
 class CreativeTest(unittest.TestCase):
+    def test_caption_continuation_retains_history_and_rejects_other_changes(self):
+        root = self.root / 'openings'; root.mkdir()
+        repo = self.root / 'repo'; source = repo / 'video-engine/src/CaptionEpisode.tsx'
+        source.parent.mkdir(parents=True)
+        old = '{phase===4&&<div style={{top:1260,zIndex:4}}>Limit</div>}\n'
+        new = old.replace('top:1260', 'top:1200')
+        source.write_text(new); (root/'before.tsx').write_text(old)
+        dependency = source.parent/'Action.tsx'; dependency.write_text('physical action unchanged')
+        files = sorted([source, dependency])
+        import hashlib
+        def renderer(original=False):
+            h = hashlib.sha256()
+            for p in files:
+                h.update(str(p.relative_to(repo)).encode()); h.update(b'\0')
+                h.update(old.encode() if original and p == source else p.read_bytes()); h.update(b'\0')
+            return h.hexdigest()
+        self.write('storyboard.json', self.board)
+        for key in ['a', 'b']:
+            self.write('openings/'+key+'.json', self.board)
+        receipt = {'options':[{'id':key,'renderer_sha256':renderer(True),
+                    'board':{'file':key+'.json','sha256':c.digest(root/(key+'.json'))},
+                    'film':{'sha256':'film-'+key}} for key in ['a','b']]}
+        self.write('openings/comparison.json', receipt); self.write('openings/selection.json', {'selected':'a'})
+        failure = {'technical_repair':{'findings':[{'category':'captions'}]}}
+        self.write('openings/failure.json', failure)
+        code = {'verdict':'pass','blocking_defects':[], 'reviewer_identity':'independent',
+                'renderer_sha256':renderer(), 'concept_sha256':'concept'}
+        self.write('openings/code.json', code)
+        plan = {'director_identity':'director','changed_inputs':[{'path':str(source.relative_to(repo)),
+                'before_sha256':c.digest(root/'before.tsx'),'after_sha256':c.digest(source)}]}
+        ledger = {'events':[{'kind':'repair_started','repair_scope':'technical-integrity',
+                  'failure_sha256':c.digest(root/'failure.json')},
+                 {'kind':'reserved','resources':{'reboards':1}},
+                 {'kind':'repair_authorized','repair_scope':'technical-integrity',
+                 'repair_plan_sha256':'plan','repair_plan':plan}]}
+        ref = lambda name:{'file':name,'sha256':c.digest(root/name)}
+        sidecar = {'schema':'dispatch-caption-renderer-continuation/1',
+            'comparison_sha256':c.digest(root/'comparison.json'), 'selection_sha256':c.digest(root/'selection.json'),
+            'repair_event_index':2,'repair_plan_sha256':'plan','current_renderer_sha256':renderer(),
+            'before_source':ref('before.tsx'),'failure':ref('failure.json'),'code_review':ref('code.json')}
+        for option in receipt['options']:
+            name = 'inspection-'+option['id']+'.json'
+            self.write('openings/'+name, {'pass':True,'problems':[],
+                'board_sha256':option['board']['sha256'],'film_sha256':option['film']['sha256'],
+                'renderer_sha256':renderer(True),'inspector_sha256':'inspector'})
+            sidecar['inspection_'+option['id']]=ref(name)
+        self.write('openings/technical-continuation.json', sidecar)
+        def check():
+            return c.caption_renderer_continuation(self.root/'storyboard.json', receipt, {}, ledger)
+        with patch('render_manifest.REPO',repo), patch('critic_gate.renderer_files',return_value=files), \
+             patch('critic_gate.renderer_digest',side_effect=lambda _:renderer()), \
+             patch('critic_gate.concept_digest',return_value='concept'), \
+             patch('opening_compare.inspection_producer',return_value='inspector'), \
+             patch('autonomous_completion.mandatory_reason',return_value='retained-integrity') as classification:
+            self.assertEqual(check(), renderer())
+            dependency.write_text('changed principal action'); self.assertIsNone(check())
+            dependency.write_text('physical action unchanged')
+            source.write_text(new.replace('Limit','Changed source')); self.assertIsNone(check()); source.write_text(new)
+            source.write_text(new.replace('top:1200','top:1300')); self.assertIsNone(check()); source.write_text(new)
+            ledger['events'][2]['kind']='reserved'; self.assertIsNone(check()); ledger['events'][2]['kind']='repair_authorized'
+            ledger['events'][1]['resources']={'reboards':0}; self.assertIsNone(check()); ledger['events'][1]['resources']={'reboards':1}
+            ledger['events'][0]['failure_sha256']='wrong'; self.assertIsNone(check())
+            ledger['events'][0]['failure_sha256']=c.digest(root/'failure.json')
+            classification.return_value=None; self.assertIsNone(check()); classification.return_value='retained-integrity'
+            code['reviewer_identity']='director'; self.write('openings/code.json',code)
+            sidecar['code_review']=ref('code.json'); self.write('openings/technical-continuation.json',sidecar)
+            self.assertIsNone(check())
+            code['reviewer_identity']='independent'; self.write('openings/code.json',code)
+            sidecar['code_review']=ref('code.json'); self.write('openings/technical-continuation.json',sidecar)
+            self.assertEqual(check(),renderer())
+            original_inspection=(root/'inspection-a.json').read_text()
+            broken=json.loads(original_inspection); broken['pass']=False
+            self.write('openings/inspection-a.json',broken)
+            sidecar['inspection_a']=ref('inspection-a.json'); self.write('openings/technical-continuation.json',sidecar)
+            self.assertIsNone(check())
+            (root/'inspection-a.json').write_text(original_inspection)
+            sidecar['inspection_a']=ref('inspection-a.json'); self.write('openings/technical-continuation.json',sidecar)
+            import shutil
+            portable = self.root/'delivered'; portable.mkdir()
+            shutil.copytree(root, portable/'openings')
+            shutil.copy2(self.root/'storyboard.json', portable/'storyboard.json')
+            self.assertEqual(c.caption_renderer_continuation(portable/'storyboard.json', receipt, {}, ledger), renderer())
+            (root/'selection.json').write_text('{"selected":"b"}'); self.assertIsNone(check())
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

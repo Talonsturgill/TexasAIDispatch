@@ -84,6 +84,8 @@ and obtain its current independent exact-film critique. If the assigned host wor
 start, follow prompts/phases/review-availability.md immediately. Inspect the longest caption in the
 phone picture. If it hides the action, shorten groups at measured boundaries and rerender.
 
+Before native capture, run scripts/native_headroom.py on the current board. It computes a complete native frame working set plus output reserve. Use that required_free_gib with the workspace housekeeping --require-headroom --min-free-gib option. Preserve active and unrelated work; native PNG capture, resolution and CRF16 stay fixed.
+
 Before native proof, choose a hero passage that includes the causal antecedent of its narration
 and captions. An ending that refers to a prior target check must include that check in the
 review window. Preserve a rejected excerpt; use the strict review-context procedure in

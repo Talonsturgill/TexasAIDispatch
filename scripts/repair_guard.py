@@ -113,11 +113,45 @@ def owner_grant_problems(state):
     return []
 
 
+def minimum_action_plan_failure(state, plan):
+    """Read exact independent failed-action evidence; this never admits a repair."""
+    from creative_production import treatment_required
+    from creative_release import findings, MOTION_ERRORS
+    if not treatment_required({"date": str(state.get("run_id", ""))[:10]}):
+        return False
+    try:
+        raw = Path(plan["failure_evidence"]).read_bytes()
+        report = json.loads(raw)
+        if (hashlib.sha256(raw).hexdigest() != plan["failure_evidence_sha256"]
+                or report.get("verdict") != "revise"
+                or not report.get("reviewer_identity")
+                or report["reviewer_identity"] == plan.get("director_identity")
+                or not report.get("film_sha256")
+                or report["film_sha256"] != plan.get("failed_film_sha256")):
+            return False
+        if (report.get("phone_observations") or {}).get("dominant_action", {}).get("pass") is False:
+            return True
+        for finding in findings(report):
+            if isinstance(finding, dict):
+                if finding.get("criterion") == "dominant_action":
+                    return True
+                problem = finding.get("problem", "")
+            else:
+                problem = finding
+            if isinstance(problem, str) and any(pattern.search(problem) for pattern in MOTION_ERRORS):
+                return True
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    return False
+
+
 def production_budget_precheck(state, review_route="host", phone_complete=False,
-                               hero_rejected=False, context_ready=False, structural_ready=False):
+                               hero_rejected=False, context_ready=False, structural_ready=False,
+                               minimum_action_failed=False, mandatory_repair=False):
     """Read-only complete remaining review path, including the final timed phone."""
     from creative_release import finishing_required
-    finishing = finishing_required(state)
+    action_blocked = bool(finishing_required(state) and minimum_action_failed and not mandatory_repair)
+    finishing = finishing_required(state) and not minimum_action_failed and not mandatory_repair
     structural_ready = bool(structural_ready and not finishing)
     context_ready = bool(context_ready and phone_complete)
     if review_route not in ("host", "provider"):
@@ -145,10 +179,8 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
         errors += allowance_problems(snapshot)
     if errors:
         return {"feasible": False, "errors": errors, "resources": {}, "deficits": {}}
-    effective = dict(snapshot["resource_envelope"])
-    for grant in snapshot["events"]:
-        if grant.get("kind") == "owner_review_grant":
-            effective[OWNER_RESOURCE] += grant["additional_calls"]
+    from autonomous_completion import effective_envelope
+    effective = effective_envelope(snapshot)
     rows = {name: {"required": count, "ceiling": effective.get(name, 0),
                    "used": snapshot["usage"].get(name, 0),
                    "remaining": effective.get(name, 0) - snapshot["usage"].get(name, 0)}
@@ -156,10 +188,12 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
                 if row["remaining"] < row["required"]}
     blockers = ["rejected native hero requires an evidence-bound repair; finish-current is unavailable"] if hero_rejected and not context_ready and not structural_ready else []
+    if action_blocked:
+        blockers.append("minimum picture action failed; finish-current is unavailable and complete correction capacity is required")
     return {"feasible": not deficits and not blockers, "errors": blockers, "resources": rows, "deficits": deficits,
             "review_route": review_route,
             "current_phone_reused": bool(phone_complete and (finishing or context_ready)),
-            "path": "structural-hero-repair" if hero_rejected and structural_ready else "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
+            "path": "minimum-action-repair-required" if action_blocked else "structural-hero-repair" if hero_rejected and structural_ready else "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
             "scope": ("Conservative metadata-only context repair with exact frozen voice/mix reuse, fresh hero plus one retry, three final lenses and three separate provider scorer recoveries. No extra TTS, allowance or shipment approval"
                       if hero_rejected and context_ready else
                       "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval")}
@@ -227,10 +261,10 @@ def envelope_problems(state, amounts):
     grant_errors = owner_grant_problems(state)
     if grant_errors:
         return grant_errors
-    effective = dict(state["resource_envelope"])
-    for grant in state["events"]:
-        if grant.get("kind") == "owner_review_grant":
-            effective[OWNER_RESOURCE] += grant["additional_calls"]
+    from autonomous_completion import replay
+    effective, completion_errors = replay(state)
+    if completion_errors:
+        return completion_errors
     errors = []
     for name, count in amounts.items():
         if state["usage"].get(name, 0) + count > effective.get(name, 0):
@@ -258,7 +292,8 @@ def plan_problems(state, plan):
         return ["failure_family must use the shared rejection taxonomy"]
     technical = plan.get("repair_scope") == "technical-integrity"
     previous = [e for e in state["events"] if e.get("kind") == "repair_started"
-                and ((e.get("mechanism_id") == mechanism) if technical else
+                and ((e.get("repair_scope") == "technical-integrity"
+                      and e.get("mechanism_id") == mechanism) if technical else
                      (e.get("repair_scope") != "technical-integrity"
                       and (e.get("mechanism_id") == mechanism
                            or e.get("failure_family", "unclassified") == family)))]

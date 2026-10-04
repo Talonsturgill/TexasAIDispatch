@@ -198,6 +198,12 @@ def packet(board_path, claims_path, role, film):
              REPO / 'knowledge/craft/CREATIVE_DIRECTION.md', REPO / 'config/creative_production.json',
              REPO / 'config/story_visuals.json',
              REPO / '.claude/agents' / ('storyboard-critic.md' if role in ('code', 'phone') else 'scorer.md')]
+    completion = [REPO / 'knowledge/craft/AUTONOMOUS_COMPLETION.md',
+                  REPO / 'config/autonomous_completion.json']
+    if str(board.get('date', '')) >= '2026-10-03' and all(p.is_file() for p in completion):
+        files += completion
+        bindings['completion_readings_sha256'] = {str(p.relative_to(REPO)): digest(p)
+                                                 for p in completion}
     # Provider workers receive actual teaching text, not inaccessible local links.
     readings = craft_reading_paths(board, REPO)
     files += readings

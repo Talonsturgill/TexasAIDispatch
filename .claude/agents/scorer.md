@@ -147,3 +147,5 @@ Record those observations in the existing comprehension, continuity and defect f
 prop can be source-related yet fail to explain the sentence. Do not classify an absent principal
 action or failed comprehension as merely style at the creative cap. Preserve actual scores and
 rejections; the worksheet and dossier are guidance, not new approval evidence or scoring weights.
+
+From October 3rd, 2026, read any completion_readings bound in your current packet. Capacity recovery preserves every actual verdict, fixed rubric and source or technical gate. Reconstruct the film before director rationale. A grant is never film approval.

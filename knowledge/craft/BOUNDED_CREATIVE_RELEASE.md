@@ -1,5 +1,7 @@
 # Finite creative repair and autonomous shipment
 
+Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
+
 Effective September 29, 2026. The owner requires a shipped video and prohibits stopping for
 creative approval. The default limit is three creative repair rounds. Before September 30, each charged
 `reboards` unit counts; later editions use the independently classified accounting below. Also stop optional creative
