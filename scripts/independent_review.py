@@ -29,6 +29,7 @@ ERRORS = ('Selected model is at capacity. Please try a different model.',
           'server_overloaded', 'rate_limit_exceeded', 'usage_limit_exceeded',
           'context_length_exceeded', 'session_budget_exceeded', 'agent thread limit reached')
 THREAD_LIMIT_ERROR = 'collab tool failed: agent thread limit reached'
+THREAD_LIMIT_ERRORS = (THREAD_LIMIT_ERROR, 'collab spawn failed: agent thread limit reached')
 
 
 def fingerprint(value):
@@ -42,8 +43,8 @@ def failure_problems(failure, role):
             or failure.get('verdict') is not None):
         return ['retain the actual host transport failure, actor, time and assigned role']
     if ((failure.get('error') == 'agent thread limit reached'
-         and failure.get('raw_error') != THREAD_LIMIT_ERROR)
-            or (failure.get('raw_error') == THREAD_LIMIT_ERROR
+         and failure.get('raw_error') not in THREAD_LIMIT_ERRORS)
+            or (failure.get('raw_error') in THREAD_LIMIT_ERRORS
                 and failure.get('error') != 'agent thread limit reached')):
         return ['retain the exact original agent thread limit transport error']
     reservation = failure.get('reservation') or {}
@@ -151,7 +152,11 @@ def source_windows(path, rows, context_chars=2048):
         quote = row.get('quote')
         if not isinstance(quote, str) or not quote.strip() or not row.get('id'):
             raise ValueError('source window needs an exact quote and claim id')
-        pattern = re.compile(r'\s+'.join(re.escape(token) for token in quote.split()))
+        # Web-reader snapshots retain link labels as label + destination marker.
+        # Permit only that exact annotation between otherwise unchanged words;
+        # retain the annotated raw span and offsets for independent inspection.
+        separator = r'(?:\s+|†[^†\s]+\s+)'
+        pattern = re.compile(separator.join(re.escape(token) for token in quote.split()))
         matches = list(pattern.finditer(source))
         if not matches:
             raise ValueError('source quote missing: ' + str(row['id']))
@@ -177,6 +182,26 @@ def source_windows(path, rows, context_chars=2048):
             'offset_unit': 'unicode code points in UTF-8 decoded original bytes',
             'full_source_characters': len(source), 'context_characters': context_chars,
             'windows': windows}
+
+
+def source_segments(row):
+    """Use explicitly declared composite quotations without altering claim evidence."""
+    segments = row.get('quote_sources')
+    if not segments:
+        return [row]
+    if not isinstance(segments, list) or not segments:
+        raise ValueError('composite source quotations must be a nonempty list')
+    excerpts = []
+    result = []
+    for segment in segments:
+        quote = segment.get('quote', segment.get('excerpt'))
+        if not isinstance(quote, str) or not quote.strip() or not segment.get('url') or not segment.get('source_snapshot'):
+            raise ValueError('composite quotation needs its exact excerpt, URL and snapshot')
+        excerpts.append(quote)
+        result.append({**row, **segment, 'quote': quote})
+    if row.get('quote') not in ('\n'.join(excerpts), '\\n'.join(excerpts)):
+        raise ValueError('composite quotations do not reconstruct the unchanged claim quote')
+    return result
 
 
 def packet(board_path, claims_path, role, film):
@@ -219,7 +244,7 @@ def packet(board_path, claims_path, role, film):
     # A remote worker cannot open a local pathname. Supply the actual fetched
     # source snapshots, not just the producer's claim text or VERIFIED labels.
     source_rows = {}
-    for row in claims.get('claims', []):
+    for row in [segment for claim_row in claims.get('claims', []) for segment in source_segments(claim_row)]:
         snapshot = row.get('source_snapshot')
         if not isinstance(snapshot, str):
             raise ValueError('independent packet needs fetched source snapshots for every claim')

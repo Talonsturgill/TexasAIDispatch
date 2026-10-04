@@ -102,7 +102,12 @@ def artifact_problems(manifest: dict, film: Path, board: Path) -> list[str]:
     out = []
     if manifest.get("schema") != SCHEMA:
         return [f"manifest is not {SCHEMA}"]
-    expected = {"film_sha256": file_sha256(film), "board_sha256": file_sha256(board)}
+    try:
+        from metadata_continuation import baseline
+        bound_board = baseline(board) or board
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["render metadata continuation invalid: " + str(exc)]
+    expected = {"film_sha256": file_sha256(film), "board_sha256": file_sha256(bound_board)}
     for field in ("film_sha256", "board_sha256"):
         if manifest.get(field) != expected[field]:
             out.append(f"{field} differs from the exact artifact or source now presented")

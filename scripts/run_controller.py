@@ -552,6 +552,11 @@ def snapshot_deliverable(state_path: Path, film: Path, board: Path, manifest: Pa
         (film, saved_film), (board, saved_board), (manifest, saved_manifest)
     ):
         copy_exact(source, target)
+    if board.with_name("metadata-continuation.json").exists():
+        # Preserve the complete portable provenance closure with the immutable trio.
+        copy_exact(state_path, root / "run_state.json")
+        from metadata_continuation import package
+        package(board.parent, root)
     return saved_film.resolve(), saved_board.resolve(), saved_manifest.resolve()
 
 
@@ -625,6 +630,11 @@ def materialize_deliverable(path: Path, directory: Path) -> tuple[bool, str]:
             (saved["manifest"], "render-manifest.json"),
         ):
             copy_exact(Path(source), directory / name, refuse_different=True)
+        saved_root = Path(saved["board"]).parent
+        if (saved_root / "metadata-continuation.json").exists():
+            copy_exact(saved_root / "run_state.json", directory / "run_state.json", refuse_different=True)
+            from metadata_continuation import package
+            package(saved_root, directory)
     except (OSError, ValueError) as exc:
         return False, f"run controller: cannot materialize deliverable: {exc}"
     return True, f"run controller: exact playable deliverable copied to {directory}"

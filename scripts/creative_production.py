@@ -295,6 +295,10 @@ def caption_renderer_continuation(board_path, receipt, selection, ledger):
     try:
         value = read(sidecar)
         board = read(board_path)
+        from metadata_continuation import baseline as metadata_baseline
+        metadata_board = metadata_baseline(board_path)
+        if metadata_board is not None:
+            board = read(metadata_board)
         if (value.get("schema") != "dispatch-caption-renderer-continuation/1"
                 or value["comparison_sha256"] != digest(root / "comparison.json")
                 or value["selection_sha256"] != digest(root / "selection.json")
@@ -372,6 +376,9 @@ def caption_renderer_continuation(board_path, receipt, selection, ledger):
                 return None
             from opening_compare import inspection_producer
             fresh = read(bound("inspection_" + option["id"]))
+            if fresh.get("inspector_sha256") != inspection_producer() and metadata_board is not None:
+                from metadata_continuation import structural_inspection
+                fresh = structural_inspection(board_path, option["id"]) or fresh
             if (fresh.get("pass") is not True or fresh.get("problems") != [] or fresh.get("inspection_error")
                     or fresh.get("board_sha256") != option["board"]["sha256"]
                     or fresh.get("film_sha256") != option["film"]["sha256"]
@@ -386,6 +393,13 @@ def caption_renderer_continuation(board_path, receipt, selection, ledger):
 def opening_problems(board_path):
     board_path = Path(board_path)
     board = read(board_path)
+    try:
+        from metadata_continuation import baseline as metadata_baseline
+        metadata_board = metadata_baseline(board_path)
+        if metadata_board is not None:
+            board = read(metadata_board)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["opening geographic metadata continuation invalid: " + str(exc)]
     if not required(board):
         return []
     try:

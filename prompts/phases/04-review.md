@@ -24,6 +24,7 @@ python scripts/safe_area_check.py
 python scripts/feed_composite_check.py --film out/dispatch/film.mp4 --board out/dispatch/storyboard.json --manifest out/dispatch/render-manifest.json --out out/dispatch/feed-composite.png --report out/dispatch/feed-composite.json
 python scripts/freshness_check.py --film out/dispatch/film.mp4 --started out/dispatch/render_started --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json
 python scripts/run_discipline.py --state out/dispatch/run_state.json
+python scripts/metadata_continuation.py --board out/dispatch/storyboard.json
 python scripts/preship_check.py --board out/dispatch/storyboard.json
 python scripts/run_controller.py panel --judges 3 --note "current finished cut"
 ```

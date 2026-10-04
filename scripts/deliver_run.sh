@@ -204,7 +204,7 @@ for name in sorted(names):
 PY_CINEMA
 fi
 cp "$REPORT" "$DEST/report_card.json"
-cp "$STATE" "$DEST/run_state.json"
+python3 scripts/public_state.py --state "$STATE" --out "$DEST/run_state.json"
 python3 - "$OUT" "$DEST" <<'PY_CREATIVE_RELEASE'
 import sys
 sys.path.insert(0, 'scripts')
@@ -212,6 +212,13 @@ from creative_release import package_assessments
 package_assessments(sys.argv[1], sys.argv[2])
 PY_CREATIVE_RELEASE
 if [ -d "$OUT/openings" ]; then
+  # Resolve portable metadata evidence before opening gates inspect the copied board.
+  python3 - "$OUT" "$DEST" <<'PY_METADATA'
+import sys
+sys.path.insert(0, 'scripts')
+from metadata_continuation import package
+package(sys.argv[1], sys.argv[2])
+PY_METADATA
   python3 - "$OUT" "$DEST" <<'PY_OPENINGS'
 import sys
 sys.path.insert(0, 'scripts')

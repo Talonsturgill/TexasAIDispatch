@@ -11,6 +11,11 @@ import cinema_cache as cache
 
 def binding_problems(board_path, proof, mix=None):
     board_path = Path(board_path)
+    try:
+        from metadata_continuation import baseline
+        board_path = baseline(board_path) or board_path
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return ["cinematic metadata continuation invalid: " + str(exc)]
     record = proof.get("reuse")
     if not record or "render_environment" not in record:
         # Historical proofs retain their original contract. New proofs record provenance.
