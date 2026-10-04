@@ -1,0 +1,469 @@
+{
+  "schema": "dispatch-geographic-metadata-continuation/1",
+  "current_board_sha256": "cefac07f6598af82d5ae1c229a313365a6a398d0ad8c7700b128627ee0b61e74",
+  "baseline": {
+    "file": "repairs/geography12/before-storyboard.json",
+    "sha256": "f916fae651fe71e9ed59ad9f109b5c2c7c8aa6b3c6dcc8644759ddbd56b78631"
+  },
+  "county_map": {
+    "file": "repairs/geography12/county_regions.json",
+    "sha256": "f96de1100d2fc13e9413563de5be6c8afac7497ec10f68121ba1db7fa6dbe6fa"
+  },
+  "diagnosis": {
+    "file": "repairs/geography12/diagnosis.json",
+    "sha256": "d79e6573c337fa4c4df6a2d4dfd4a57157155723db57c7be2bab666fa860a556"
+  },
+  "audit": {
+    "file": "repairs/geography12/metadata-audit.json",
+    "sha256": "9a76b721d60e610a9b395a91958cde3f16ce139b292cac85e1c42fc110309622"
+  },
+  "repair_event_index": 84,
+  "repair_event": {
+    "at": "2026-10-04T04:07:54.355309Z",
+    "grants": {
+      "audiovisual_reviews": {
+        "from": 43,
+        "to": 43
+      },
+      "panel_rounds": {
+        "from": 9,
+        "to": 9
+      },
+      "scorer_calls": {
+        "from": 27,
+        "to": 27
+      }
+    },
+    "kind": "repair_authorized",
+    "repair_plan": {
+      "changed_inputs": [
+        {
+          "after_sha256": "cefac07f6598af82d5ae1c229a313365a6a398d0ad8c7700b128627ee0b61e74",
+          "before_path": "out/dispatch/repairs/geography12/before-storyboard.json",
+          "before_sha256": "f916fae651fe71e9ed59ad9f109b5c2c7c8aa6b3c6dcc8644759ddbd56b78631",
+          "path": "out/dispatch/storyboard.json"
+        }
+      ],
+      "director_identity": "/root",
+      "expected_visible_result": "The correct geographic production metadata accompanies the unchanged reviewed carton action film.",
+      "failure_evidence": "out/dispatch/repairs/geography12/diagnosis.json",
+      "failure_evidence_sha256": "d79e6573c337fa4c4df6a2d4dfd4a57157155723db57c7be2bab666fa860a556",
+      "failure_family": "source-framing",
+      "mechanism_change": "Replace the faulty geographic metadata with the county map value; enforce exact metadata-only continuity without restamping any original review.",
+      "mechanism_id": "carton-geographic-metadata-v1",
+      "repair": "Correct only eight scene region values to blackland and bind safe render reuse to the independent unused metadata audit, authoritative map and unchanged image audio and source dependencies.",
+      "repair_scope": "technical-integrity",
+      "resources": {
+        "audiovisual_reviews": 3,
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      },
+      "root_cause": "The original board generator assigned an unsupported hill_country region to all Travis County scenes, contradicting the authoritative county region map."
+    },
+    "repair_plan_sha256": "ef7d252dc69bc52ca9383a10a0332e6c86ed19dc8273ad6d2476d342f578e543",
+    "repair_revision": "cd107f1486f2add693e126216faf7f06b40e721a0d0ed9ad7cfd06ba1a78ffc7",
+    "repair_scope": "technical-integrity",
+    "resource": "repair_batch"
+  },
+  "bindings": {
+    "before_board_sha256": "f916fae651fe71e9ed59ad9f109b5c2c7c8aa6b3c6dcc8644759ddbd56b78631",
+    "after_board_sha256": "cefac07f6598af82d5ae1c229a313365a6a398d0ad8c7700b128627ee0b61e74",
+    "before_concept_sha256": "7ae01184691cf54dbfb3eac84b764fc79ebb7ccc783c3fbadef4979d3b6719d9",
+    "after_concept_sha256": "21b584bc06d8aafa87ddba281bee0492bf66e7022e79adfd6b19a4af0c94138b",
+    "before_story_sha256": "573fb5cb9a151547087a89c9211067d99ac7b20412b47bcdffdb756052dfaff0",
+    "after_story_sha256": "ca391bd79ca0790be7ce20be62bcebdd3b647d10a9415c65c6188531c2771348",
+    "renderer_sha256": "a4d8b74d21ba8884c6fd856487918d6cecd0a55777672aeb3b852e8cdc1d497b",
+    "engine_sha256": "c598240b06271f6ff9f6e05c068cc45904a417a79c5f0fa515e4c1426e4069a7",
+    "generated_media_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "diagnosis_sha256": "d79e6573c337fa4c4df6a2d4dfd4a57157155723db57c7be2bab666fa860a556",
+    "evidence_manifest_sha256": "87648c34714c8a21f92ce94eb5fdf1e93a0e92cb283b5d2334dc589373b8f050"
+  },
+  "evidence": [
+    {
+      "file": "acoustic-asr-meta.json",
+      "sha256": "a5bcdb7c60a4e67a2c62baaa19bb9d17be108fe9cf0f155aa7b33441bd168d24"
+    },
+    {
+      "file": "acoustic-asr.json",
+      "sha256": "af43a721253c4dc809f469af277b2ce5c49659bc3c20c16dfd30bee571feb8c6"
+    },
+    {
+      "file": "captions.json",
+      "sha256": "8d8910648c2f5f57324c705fa27a0d6737280b14dbb4f0e7cc8087d5644b839f"
+    },
+    {
+      "file": "cinema/hero-review-response.json",
+      "sha256": "f3dc5675c1e04f3017636262e795cc7803c8bced32d6de9a326287ff54c93c21"
+    },
+    {
+      "file": "cinema/hero-review.json",
+      "sha256": "1fb690b3396a763c6e7b8288dd6e02837408ba4525c1a5b15f465f87aa00088a"
+    },
+    {
+      "file": "cinema/hero.mp4",
+      "sha256": "68c3f9879c24206890c1530721019498435472a21d9433f2db352bb9fc63dc93"
+    },
+    {
+      "file": "cinema/proof.json",
+      "sha256": "63466edfefb20bc49306fb05d3152fc77d00488b928a640f9b0acc7c1fb8fefb"
+    },
+    {
+      "file": "cinema/s1-0-normal.png",
+      "sha256": "6c4b4a0f684bd39ad81ecf4b587eb8594c21895922144a77f2d6ab1ca396bcac"
+    },
+    {
+      "file": "cinema/s1-0-without_stage.png",
+      "sha256": "9d906e9067da275e8fb1ea4e6856c21ffbef0c18c470f241bff33a7b39590fab"
+    },
+    {
+      "file": "cinema/s1-1-normal.png",
+      "sha256": "1e4f79ee49436d2ff6b503e67bab5f5859da08a9563dafc42f8b29805df29e35"
+    },
+    {
+      "file": "cinema/s1-1-without_stage.png",
+      "sha256": "e653342901c715e50082dd6ada684fd510bc3c37d082d3a307beabfa12b90c35"
+    },
+    {
+      "file": "cinema/s1-2-normal.png",
+      "sha256": "1e4f79ee49436d2ff6b503e67bab5f5859da08a9563dafc42f8b29805df29e35"
+    },
+    {
+      "file": "cinema/s1-2-without_stage.png",
+      "sha256": "e653342901c715e50082dd6ada684fd510bc3c37d082d3a307beabfa12b90c35"
+    },
+    {
+      "file": "cinema/s2-0-normal.png",
+      "sha256": "d2adc2a95e1e2f0ca694069c636ea74358a71c2940ab62901b050eb30b318194"
+    },
+    {
+      "file": "cinema/s2-0-without_stage.png",
+      "sha256": "451ac24326fe44a9c25fc2014416fa483fb6febd9a1d3dcf2beaec95edec4fb9"
+    },
+    {
+      "file": "cinema/s2-1-normal.png",
+      "sha256": "84cfa12c8b6332136a348841d582f5d96fa5b4c756d8f5df585a5447123c7788"
+    },
+    {
+      "file": "cinema/s2-1-without_stage.png",
+      "sha256": "35d06dc591943026b9035e2538e2c362eb336e2b581127601eba3d91379a7829"
+    },
+    {
+      "file": "cinema/s2-2-normal.png",
+      "sha256": "f3499cf6c26c345861a1343c743ae08783cf0ed922887639c9f497c1aae5d9b9"
+    },
+    {
+      "file": "cinema/s2-2-without_stage.png",
+      "sha256": "35d06dc591943026b9035e2538e2c362eb336e2b581127601eba3d91379a7829"
+    },
+    {
+      "file": "cinema/s3-0-normal.png",
+      "sha256": "443a9be5eb2053f4c499530d81fbff47d8fac577c50c2492949173e6ebd51969"
+    },
+    {
+      "file": "cinema/s3-0-without_stage.png",
+      "sha256": "a71ffce4fd588a9efadff91851ee09328d549cf17f6370aecda93b00b81eb5e0"
+    },
+    {
+      "file": "cinema/s3-1-normal.png",
+      "sha256": "c1c85fd21b00aae90dd2e129b8db8466bcd5621e11dba62e868bc2d7b6783c3b"
+    },
+    {
+      "file": "cinema/s3-1-without_stage.png",
+      "sha256": "7f04f355c6ef8ec872f32ea1887bb575aaa7184f61ff41315a2e0832e2216106"
+    },
+    {
+      "file": "cinema/s3-2-normal.png",
+      "sha256": "a2414f7bcf66dac466a267d18ccde28d0a46f1720e5381c87b033b3557f8664b"
+    },
+    {
+      "file": "cinema/s3-2-without_stage.png",
+      "sha256": "7f04f355c6ef8ec872f32ea1887bb575aaa7184f61ff41315a2e0832e2216106"
+    },
+    {
+      "file": "cinema/s4-0-normal.png",
+      "sha256": "620a6acb1a0eae960584bd6a6e04cbae9acfca2acb2954fae018dfa51db372f1"
+    },
+    {
+      "file": "cinema/s4-0-without_stage.png",
+      "sha256": "a71ffce4fd588a9efadff91851ee09328d549cf17f6370aecda93b00b81eb5e0"
+    },
+    {
+      "file": "cinema/s4-1-normal.png",
+      "sha256": "fad76b5b457330dd5f23852d043308dc8a8c200f283881637b49c5841d37d6e5"
+    },
+    {
+      "file": "cinema/s4-1-without_stage.png",
+      "sha256": "ecb6d2a9c7347666211685fc1489ae3a5fc2e1c38dcda0bc481b734679f8f6ec"
+    },
+    {
+      "file": "cinema/s4-2-normal.png",
+      "sha256": "627a2d57b0198de66f269e0389a285ad966ad91f3c9e4b203ae42ec12a52b0e9"
+    },
+    {
+      "file": "cinema/s4-2-without_stage.png",
+      "sha256": "ecb6d2a9c7347666211685fc1489ae3a5fc2e1c38dcda0bc481b734679f8f6ec"
+    },
+    {
+      "file": "cinema/s5-0-normal.png",
+      "sha256": "87c79d4ad018ee38367940b441a6c980dd22dad071de447c0cfb1dbfbb962b72"
+    },
+    {
+      "file": "cinema/s5-0-without_stage.png",
+      "sha256": "15c9eea4e364725ccaaf821f1d5c540b50cb122c3517dfad528671c0a8b4346a"
+    },
+    {
+      "file": "cinema/s5-1-normal.png",
+      "sha256": "3c035c09355b01cec72dd4b50ef663138709c73ca94e4985696b0fdaf3a25b8f"
+    },
+    {
+      "file": "cinema/s5-1-without_stage.png",
+      "sha256": "c9e7cc3c297b938dbfa566615f10f80acd89fa9578b4152e17dbd0e7034e0a4a"
+    },
+    {
+      "file": "cinema/s5-2-normal.png",
+      "sha256": "745413e2ce48fdf2eb47f1511647af05891869976f9c8af7295974d35f7e05c9"
+    },
+    {
+      "file": "cinema/s5-2-without_stage.png",
+      "sha256": "c9e7cc3c297b938dbfa566615f10f80acd89fa9578b4152e17dbd0e7034e0a4a"
+    },
+    {
+      "file": "cinema/s6-0-normal.png",
+      "sha256": "4c51df1befca689f97f1b31580d1cab31e4d060d57bd9c8594847771cbbb62d3"
+    },
+    {
+      "file": "cinema/s6-0-without_stage.png",
+      "sha256": "25cd5fa8dccd38c3d44920048b80c1b7273666fd9cf1a4b0949fb74584893a9d"
+    },
+    {
+      "file": "cinema/s6-1-normal.png",
+      "sha256": "d46828cb9ffc3f818238d6924725434db2ee00c67e5348f0f5d8a0959d36e58b"
+    },
+    {
+      "file": "cinema/s6-1-without_stage.png",
+      "sha256": "60da69e9b8bc9b851f3525bacaeb71605845e1e54d20df72e17dcc6017f799cd"
+    },
+    {
+      "file": "cinema/s6-2-normal.png",
+      "sha256": "a8763b43d4f5dfccc9d96ce4882d0417273c6b54df56122b0def299fb8392cad"
+    },
+    {
+      "file": "cinema/s6-2-without_stage.png",
+      "sha256": "60da69e9b8bc9b851f3525bacaeb71605845e1e54d20df72e17dcc6017f799cd"
+    },
+    {
+      "file": "cinema/s7-0-normal.png",
+      "sha256": "ce3b79467b535a636b7e5b4efbfbb502bd1745ecf4a03054b73541353f603c56"
+    },
+    {
+      "file": "cinema/s7-0-without_stage.png",
+      "sha256": "54fb95e827c9793298c8b9e754474ff2697031f937ea90615092dfb6822d0f38"
+    },
+    {
+      "file": "cinema/s7-1-normal.png",
+      "sha256": "e464b845a6ec29de815f4fddf1041834983cd3b6fcc7507d29c060a910c02c9f"
+    },
+    {
+      "file": "cinema/s7-1-without_stage.png",
+      "sha256": "a71aa3328d0cb9f5dfb659790aba52d1e85286150b2d5669729990ff04a74df7"
+    },
+    {
+      "file": "cinema/s7-2-normal.png",
+      "sha256": "e464b845a6ec29de815f4fddf1041834983cd3b6fcc7507d29c060a910c02c9f"
+    },
+    {
+      "file": "cinema/s7-2-without_stage.png",
+      "sha256": "a71aa3328d0cb9f5dfb659790aba52d1e85286150b2d5669729990ff04a74df7"
+    },
+    {
+      "file": "cinema/s8-0-normal.png",
+      "sha256": "0dbaa948bf988da1439d477fc2a88fa2bca75763cd6476dd3e3fd0c8e2aacb10"
+    },
+    {
+      "file": "cinema/s8-0-without_stage.png",
+      "sha256": "54fb95e827c9793298c8b9e754474ff2697031f937ea90615092dfb6822d0f38"
+    },
+    {
+      "file": "cinema/s8-1-normal.png",
+      "sha256": "51a411a0060b172f3ab689861300b4d4952f3ad25122daf4ea9fb1672085fc9c"
+    },
+    {
+      "file": "cinema/s8-1-without_stage.png",
+      "sha256": "f46fe6d581425143f1be05c2f12482b505f5299be1705398eaa5905b15aec51c"
+    },
+    {
+      "file": "cinema/s8-2-normal.png",
+      "sha256": "08af4884e95e2085879f8a749e8356883bed891c4d22b06c8971d4c3dfed26c8"
+    },
+    {
+      "file": "cinema/s8-2-without_stage.png",
+      "sha256": "f46fe6d581425143f1be05c2f12482b505f5299be1705398eaa5905b15aec51c"
+    },
+    {
+      "file": "claims.json",
+      "sha256": "ad78102521be4aa2d6a3733ad6691118fb796a8d305ce27904f67f768a16e0d7"
+    },
+    {
+      "file": "film.mp4",
+      "sha256": "8de8bd99228d17abeeda3e1c5cc8c4f244fcb097d3322db8e9489a533d71eebc"
+    },
+    {
+      "file": "mix.json",
+      "sha256": "65697ebeffcaf804a5490dfa48a2b8eb727549997ab40f888968fb17aeb0d014"
+    },
+    {
+      "file": "mix.wav",
+      "sha256": "fc170ebd152e62227fe76328d8dc4273ace088ca7ca3a608d42d1c733470a9b4"
+    },
+    {
+      "file": "openings/a-inspection-7d016f4fc0c47341.json",
+      "sha256": "81a0388ade40fed74e338255c00bdc4fcf0fdfad13cc285b1fedd6f2eaef9fda"
+    },
+    {
+      "file": "openings/a.json",
+      "sha256": "c50e429f3e47d13bd67c66fc8547583dbee8c98a57711e2ba4fc7b57290fc79f"
+    },
+    {
+      "file": "openings/a.mp4",
+      "sha256": "7f548cfb98bc07cc7860e932131703c013fd5066ecc1de08065e9e544c60e32f"
+    },
+    {
+      "file": "openings/b-inspection-5e1310e7a8bf71e2.json",
+      "sha256": "9e9886fd6be37c03bfb1efd98acc674f2f7aae80c2c03fe36136a4cce7c451a8"
+    },
+    {
+      "file": "openings/b.json",
+      "sha256": "907693f3fc1af1dd3243a424cd99c07e18a8ed181b261cf152a2d59595ceace0"
+    },
+    {
+      "file": "openings/b.mp4",
+      "sha256": "901372ea963603a4a9235c277cc6464b4b521a0921937b0c5ad1a8e38111607f"
+    },
+    {
+      "file": "openings/batch-report.json",
+      "sha256": "e12a145a77f73893676c883a31a67dbee2d7c64d8681ff735cce7bdc74fbed12"
+    },
+    {
+      "file": "openings/batch.json",
+      "sha256": "c84f9e01caaba6c27607dd4bc8d6cd90a364ca09175d060f2fc0b90ff2fef566"
+    },
+    {
+      "file": "openings/caption10-a-inspection.json",
+      "sha256": "3b3a9098a81a3a6e7ed7b1dc0a44924c55425eaafa8896e253f833d5c55fdb10"
+    },
+    {
+      "file": "openings/caption10-b-inspection.json",
+      "sha256": "85f48ab01a2f8f2301da96c3eee53c25310c91512c6ef53a9d55b13491e5283a"
+    },
+    {
+      "file": "openings/caption10-before-CartonUnloadEpisode.tsx",
+      "sha256": "0f791d804478289e5b120066d7a75966a4deac8b46bd2cab6ede1f1708005d41"
+    },
+    {
+      "file": "openings/caption10-code-review.json",
+      "sha256": "3a08f4dd8b92c94de61d58a3bc1ca42df54d319ab3c19cad5d5a47516e2f2ae2"
+    },
+    {
+      "file": "openings/caption10-phone-critic.json",
+      "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
+    },
+    {
+      "file": "openings/comparison-before-inspection-eaf3afe089e5d9f7.json",
+      "sha256": "eaf3afe089e5d9f72d110a7693b49062988ffac859ec44ed9021a6af882fdbce"
+    },
+    {
+      "file": "openings/comparison.json",
+      "sha256": "04ffb1b1115985029029ce39eb39fe1b5fc93d8d68c186f6bfdadacb8a7e4b52"
+    },
+    {
+      "file": "openings/selection.json",
+      "sha256": "97b2d24d2a3ff57e44a05b08a306256f4800383c11cacc7859a1dc552f483d9c"
+    },
+    {
+      "file": "openings/technical-continuation.json",
+      "sha256": "0c01c61cc9b9133564b0a45d629711653cb7670f7181264e4d09efeb02f4bc11"
+    },
+    {
+      "file": "preflight.json",
+      "sha256": "b2018345f5930904d94e9aa1b210459b8bd537c1b38a2d45ec9b5da11a5ff3a4"
+    },
+    {
+      "file": "preflight.mp4",
+      "sha256": "b0f92995126d8922fbe76557ffa494b02c8caaa228d8b49a5577ff591b3c768d"
+    },
+    {
+      "file": "render-manifest.json",
+      "sha256": "c2cf192a5878fe7709bfbcb78f8c334ffe69c186de6694c1c9acecf595de90c8"
+    },
+    {
+      "file": "script_audit.json",
+      "sha256": "7cd0d8749dbad317caeee6eda42859911782fce5b72f39fc7d6497f00570078e"
+    },
+    {
+      "file": "sfx_events.json",
+      "sha256": "d50b65cbab633b3eca818555737e295459e771e1058b455e9c6afc36c93b3df5"
+    },
+    {
+      "file": "sources/contoro-company-validator.json",
+      "sha256": "713045b6783541b9daee38977ca344d62cfb031a28f4eda00f7b9a827a124528"
+    },
+    {
+      "file": "sources/contoro-home-validator.json",
+      "sha256": "5001ed4485d4f2c01eac67ae9d89497b256ebe827ee33a2f1a14652a2e094873"
+    },
+    {
+      "file": "sources/contoro-technology-validator.json",
+      "sha256": "54598a02f80d5416353931bc2f005afb548b4d5ed59bbcb9db8eab1b0b5b0761"
+    },
+    {
+      "file": "sources/ut-industrial-validator.json",
+      "sha256": "2507c309975c452bf41dd5f572655ea210f5f5f8e48c3a7a91522672cb19104a"
+    },
+    {
+      "file": "story_selection.json",
+      "sha256": "3aa967686e4d70aefa6cb7d749c64e65bf3dbb514bacb57513772935154d4365"
+    },
+    {
+      "file": "storyboard_critic.json",
+      "sha256": "a6f20f38f843ea1c8bada389af472c88fb3395c83e021c5fea232f675b3d4d3b"
+    },
+    {
+      "file": "takes/prompt.txt",
+      "sha256": "da7d3ffcbe893ae2f773ce26f2a36d8332fc01eb6fad9c1cf5eb98369fc047ad"
+    },
+    {
+      "file": "takes/take1.wav",
+      "sha256": "658b7cb8e2b16416c19192a305144b1836346e04f9058d40fb02d82cc980be20"
+    },
+    {
+      "file": "takes/takes.json",
+      "sha256": "b7cc16ac4293ed64462ad5446d8d20abe1b90d50740d50d294a99ca2d874643f"
+    },
+    {
+      "file": "validation.json",
+      "sha256": "1f591485e57e6f4d2cfd71e81a38275d3b920a552d8ead5e2a60de6899fb4d16"
+    },
+    {
+      "file": "vo_direction.json",
+      "sha256": "ee2743ffb527a6eb60940d77c4b42ee8e2d51e038aebeae71221846dbbd5e3ae"
+    },
+    {
+      "file": "vo_script.txt",
+      "sha256": "94a13fb107388aa0c9a8c20b0168c75af7da02cbb5c0f92394631ae6977eecf4"
+    },
+    {
+      "file": "words.json",
+      "sha256": "f79afe31645b9eed72efd6a84791d4615bfe2bdaa8879a33a6d563daa0a6ab4d"
+    }
+  ],
+  "structural_inspections": {
+    "a": {
+      "file": "repairs/geography12/a-current-inspection.json",
+      "sha256": "0c23d6e56cae0b28d53897496fbdca4ec1939c2d70c338ddf4e1a7d46566f55d"
+    },
+    "b": {
+      "file": "repairs/geography12/b-current-inspection.json",
+      "sha256": "f155647172d395569453f0c6d43af2852eb6100d0f2311752db5ced836ac9ee9"
+    }
+  }
+}
