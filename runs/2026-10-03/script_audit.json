@@ -1,0 +1,150 @@
+{
+  "schema": "dispatch_script_audit/1",
+  "date": "2026-10-03",
+  "edition_id": "2026-10-03",
+  "reviewer_identity": "/root/validator",
+  "reservation": "validator_agents",
+  "checked_at_utc": "2026-10-04T02:42:23.848777+00:00",
+  "verdict": "PASS_WITH_SOURCE_DROPS",
+  "board_sha256": "c50e429f3e47d13bd67c66fc8547583dbee8c98a57711e2ba4fc7b57290fc79f",
+  "claims_sha256": "ad78102521be4aa2d6a3733ad6691118fb796a8d305ce27904f67f768a16e0d7",
+  "vo_script_sha256": "94a13fb107388aa0c9a8c20b0168c75af7da02cbb5c0f92394631ae6977eecf4",
+  "artifact_sha256": {
+    "out/dispatch/storyboard.json": "c50e429f3e47d13bd67c66fc8547583dbee8c98a57711e2ba4fc7b57290fc79f",
+    "out/dispatch/opening-a.json": "c50e429f3e47d13bd67c66fc8547583dbee8c98a57711e2ba4fc7b57290fc79f",
+    "out/dispatch/opening-b.json": "907693f3fc1af1dd3243a424cd99c07e18a8ed181b261cf152a2d59595ceace0",
+    "out/dispatch/claims.json": "ad78102521be4aa2d6a3733ad6691118fb796a8d305ce27904f67f768a16e0d7",
+    "out/dispatch/vo_script.txt": "94a13fb107388aa0c9a8c20b0168c75af7da02cbb5c0f92394631ae6977eecf4",
+    "out/dispatch/story_selection.json": "3aa967686e4d70aefa6cb7d749c64e65bf3dbb514bacb57513772935154d4365"
+  },
+  "word_count": 65,
+  "line_count": 8,
+  "scene_claims": {
+    "s1": [
+      "c01"
+    ],
+    "s2": [
+      "c02"
+    ],
+    "s3": [
+      "c03"
+    ],
+    "s4": [
+      "c04"
+    ],
+    "s5": [
+      "c05"
+    ],
+    "s6": [
+      "c06"
+    ],
+    "s7": [
+      "c07"
+    ],
+    "s8": [
+      "c08"
+    ]
+  },
+  "source_snapshots": [
+    "out/dispatch/sources/contoro-company-validator.json",
+    "out/dispatch/sources/contoro-home-validator.json",
+    "out/dispatch/sources/contoro-technology-validator.json",
+    "out/dispatch/sources/ut-industrial-validator.json"
+  ],
+  "scope": "Frozen close07 selected board/A/B and selection source-scoped refresh against existing independently fetched primary snapshot bytes. Exact narration and claims unchanged. Qualitative extents represent company-described virtual geometry and box/wall localization, with no measured sensor outputs. No new source fetch, renderer creative verdict or film inspection.",
+  "source_limit": "Original generic illustration of company-described workflow. No exact Contoro machine, customer incident, measured sensor output, exact AI path, reliability, labor savings or full-trailer completion. Remote assistance is an editorial boundary, not an actual interface or observed intervention.",
+  "prior_rejections_retained": [
+    "Dropped proposed 'That extra contact helps pull uneven cartons free': fetched text establishes strong hold and front access but does not establish this uneven-carton extraction result.",
+    "Dropped proposed 'The AI plans a path to the conveyor': text establishes collision-free path planning and a conveyor but does not explicitly bind the generated path to that destination.",
+    "Dropped proposed 'The box keeps moving': this implies achieved uninterrupted operation or a recorded incident not proven by these sources.",
+    "Rejected national industrial independence as an achieved company outcome: UT profile framing does not quantify or prove that outcome for Contoro.",
+    "Rejected actual customer dashboard, customer sensor data, intervention rate, success rate, and independence percentage: no such evidence was verified."
+  ],
+  "required_edits_applied": [
+    "Saved corrected narration in vo_script.validated.txt, replacing unsupported uneven-box, destination-specific, and uninterrupted-operation assertions.",
+    "Attributed mechanism description to Contoro; remote control remains conditional on AI failures.",
+    "Limited story to gripper geometry, sensed box/container geometry, AI path planning and remote backup; dropped achieved independence framing."
+  ],
+  "actual_board_findings": [
+    "Both treatments use the exact accepted eight-line narration and current verified claims.",
+    "Every scene carries Illustration. Company described workflow; generic transfer choreography is not presented as an observed Contoro customer operation.",
+    "Sensor geometry and planned trajectory are conceptual; assistance boundary is not a real interface or an observed remote intervention.",
+    "Front contact plus another accessible face is consistent with company description; side-face illustration does not imply side is always required.",
+    "Repair01 action bindings now explicitly name source-backed claim IDs. Generic conveyor transfer remains illustrative; no observed successful takeover is asserted.",
+    "Code02 external carriage is a generic illustration of supported handling. Source proves front plus another accessible-face grasp, sensed geometry, AI paths and conditional remote control; it does not prove exact machine architecture or transfer choreography. All current mappings use carton-external-carriage-v2 and retain illustration disclosure.",
+    "Binding04 module metadata update leaves the narration, source-scoped mechanism and illustration limits unchanged; current factual gates pass.",
+    "Framing05 finite camera-to-carton and sensor-to-wall relations illustrate company-described sensing only; qualitative corner traces disclose no measurements, customer sensor output or proven classification. Narration, supers and generic illustration limits remain valid.",
+    "Wall06 exposed wall endpoint preserves qualitative sensor-to-container-wall meaning. It establishes no measured coordinate or actual customer sensor return.",
+    "Close07 carton-close-action-v3 qualitative front/side extents and finite sensing relations remain generic, unmeasured illustrative geometry. Existing exact Contoro technology snapshot describes cameras/sensors collecting wall locations, box positions, stacking and sizes, and creating a virtual environment. No actual customer measurement or proprietary screen is claimed."
+  ],
+  "checks": [
+    {
+      "check": "script_evidence_check.py",
+      "mode": "source_planning",
+      "board": "storyboard",
+      "exit_code": 0,
+      "output": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+    },
+    {
+      "check": "super_evidence_check.py",
+      "mode": "source_evidence",
+      "board": "storyboard",
+      "exit_code": 0,
+      "output": "\nsuper_evidence_check: every super is evidenced for the shot it sits on.\n"
+    },
+    {
+      "check": "validation_check.py",
+      "mode": "source_evidence",
+      "board": "storyboard",
+      "exit_code": 0,
+      "output": "validation_check: OK \u2014 1 validator report(s) match their board and claims\n"
+    },
+    {
+      "check": "script_evidence_check.py",
+      "mode": "source_planning",
+      "board": "opening-a",
+      "exit_code": 0,
+      "output": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+    },
+    {
+      "check": "super_evidence_check.py",
+      "mode": "source_evidence",
+      "board": "opening-a",
+      "exit_code": 0,
+      "output": "\nsuper_evidence_check: every super is evidenced for the shot it sits on.\n"
+    },
+    {
+      "check": "validation_check.py",
+      "mode": "source_evidence",
+      "board": "opening-a",
+      "exit_code": 0,
+      "output": "validation_check: OK \u2014 1 validator report(s) match their board and claims\n"
+    },
+    {
+      "check": "script_evidence_check.py",
+      "mode": "source_planning",
+      "board": "opening-b",
+      "exit_code": 0,
+      "output": "script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.\n"
+    },
+    {
+      "check": "super_evidence_check.py",
+      "mode": "source_evidence",
+      "board": "opening-b",
+      "exit_code": 0,
+      "output": "\nsuper_evidence_check: every super is evidenced for the shot it sits on.\n"
+    },
+    {
+      "check": "validation_check.py",
+      "mode": "source_evidence",
+      "board": "opening-b",
+      "exit_code": 0,
+      "output": "validation_check: OK \u2014 1 validator report(s) match their board and claims\n"
+    }
+  ],
+  "copy_scan_zero_matches": true,
+  "direct_listening_performed": false,
+  "actual_film_viewed": false,
+  "production_gate_status": "Nine current source-scoped planning, super evidence and validator checks pass; separate independent creative and full pre-voice clearance required.",
+  "prior_audit_path": "out/dispatch/repairs/close07/script_audit.prior.json"
+}

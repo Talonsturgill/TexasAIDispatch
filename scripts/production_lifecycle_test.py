@@ -118,7 +118,7 @@ class LifecycleTest(unittest.TestCase):
         for role,index in zip(('code','final-phone'), indexes):
             event = state['events'][index]
             stamp = datetime.fromisoformat(event['at'].replace('Z','+00:00')) + timedelta(seconds=1)
-            identity = 'fixture-' + role
+            identity = 'fixture-critic'  # One independent critic completes both distinct paid roles.
             report = self.write('review.json' if role=='code' else 'phone.json', {
                 'verdict': 'revise', 'reviewer_identity': identity, 'reviewed_at': stamp.isoformat(), 'blocking_defects': [finding],
                 'technical_repair': {'findings': [{'finding': finding, 'category': 'captions'}]}})
@@ -166,6 +166,21 @@ class LifecycleTest(unittest.TestCase):
                             failure_evidence_sha256=continuation['existing_critic_reservations'][0]['report_sha256'])
         finished = c.read_state(self.state)
         self.assertEqual(life.existing_critic_problems(finished, continuation), [])
+        code_only = copy.deepcopy(continuation)
+        code_only['existing_critic_reservations'][1] = copy.deepcopy(refs[1])
+        self.assertEqual(life.existing_critic_problems(finished, code_only), [])
+        unchanged = copy.deepcopy(code_only)
+        unchanged['existing_critic_reservations'][0] = copy.deepcopy(refs[0])
+        unchanged.update(failure_evidence=refs[0]['report_file'],
+                         failure_evidence_sha256=refs[0]['report_sha256'])
+        self.assertTrue(life.existing_critic_problems(finished, unchanged))
+        old_phone = Path(refs[1]['report_file'])
+        saved_phone = old_phone.read_bytes()
+        closed_phone = json.loads(saved_phone)
+        closed_phone['verdict'] = 'pass'
+        old_phone.write_text(json.dumps(closed_phone))
+        self.assertTrue(life.existing_critic_problems(finished, code_only))
+        old_phone.write_bytes(saved_phone)
         code_row = continuation['existing_critic_reservations'][0]
         code_path = Path(code_row['report_file']); fresh = code_path.read_bytes()
         old_time = json.loads(Path(refs[0]['report_file']).read_text())['reviewed_at']

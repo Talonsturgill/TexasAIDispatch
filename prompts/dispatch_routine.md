@@ -1,5 +1,7 @@
 # Texas AI Dispatch: daily master routine
 
+From October 3rd, 2026, read knowledge/craft/AUTONOMOUS_COMPLETION.md and config/autonomous_completion.json before budgeting. Internal resource ceilings and host capacity errors require autonomous recovery through the controller and configured independent provider. Keep working until accepted shipment; preserve original envelope, cumulative charges, actual failures and every retained quality and delivery gate.
+
 This is the operational authority behind prompts/ROUTINE_PROMPT.txt. Ship one current,
 source-grounded miniature documentary. A production run completes only as shipped.
 A render, checkpoint, passing panel or PR alone does not complete the run.

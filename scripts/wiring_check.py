@@ -53,6 +53,7 @@ STANDALONE = {
     "creative_production.py": "Dated library invoked by selection, storyboard, voice, cinema proof, mix and publication; creative_production_test mutates those production contracts.",
     "action_admission.py": "Library called by daily_production candidate, board and pre-voice admission; action_admission_test exercises source, module, actual renderer and stale review rejection.",
     "production_lifecycle.py": "Library called by run_controller checkpoint/begin-repair/authorize-repair/pending and run_discipline; production_lifecycle_test exercises those paths.",
+    "autonomous_completion.py": "Library called by run_controller init and completion-capacity, repair_guard envelope replay and production_lifecycle allowance validation; autonomous_completion_test exercises exact mandatory grants, retained evidence and tampering rejection.",
     "shipment_check.py": "Library called by run_controller finish --result shipped; production_lifecycle_test tests remote and media failures through that closure path.",
     "quality_contract.py": "Library called by critic_gate on production boards and phone reviews, and audiovisual_review on exact-film provider requests; quality_recovery_test exercises missing and stale evidence.",
     "cinema_provenance.py": "Library called by production_quality on current production and archived proof; cinema_cache_test verifies cross-host acceptance and changed content, audio and provenance rejection.",

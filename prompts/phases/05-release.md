@@ -85,6 +85,14 @@ and a truthy sanitized public shipment summary. Keep public PR/merge/deployment/
 evidence; exclude private Gmail identifiers, routing and local receipt paths. Merge this
 metadata-only archive on exact-head green CI. Do not rerun media production or delivery.
 
+Export the private ledger as an explicitly derived public account before archiving. Keep the
+original ledger unchanged. Preserve every charge, increment and verdict; publish private owner
+message digests and a neutral operator attestation instead of message bytes or chat references.
+
+```sh
+python scripts/public_state.py --state out/dispatch/run_state.json --out runs/<date>/run_state.json
+```
+
 Report the video, canonical link, scores, actual usage, CI/deployment results and verified
 unsent draft. Provider token telemetry excludes Codex account use; never label it total spend.
 Update automation memory with closure and UTC time. Keep next-five-edition measurement honest:

@@ -1,0 +1,248 @@
+{
+  "schema": "dispatch-independent-technical-diagnosis/1",
+  "reviewer_identity": "/root/critic",
+  "reviewed_at": "2026-10-04T04:00:01.036997+00:00",
+  "review_scope": "geography12-source-metadata-and-dependency-reuse",
+  "verdict": "revise",
+  "failure_category": "source",
+  "notes": [],
+  "blocking_defects": [
+    "scene s1: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s2: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s3: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s4: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s5: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s6: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s7: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+    "scene s8: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)"
+  ],
+  "strongest_frame": "Retained phone11 conserved-carton release evidence remains unchanged; this scope does not add film observations.",
+  "weakest_frame": "All eight scene county/region records contradict the authoritative map; no rendered region label is asserted.",
+  "technical_repair": {
+    "original_findings_sha256": [
+      "0d3b1de8de6fe67e9862ea9231f8b695e8ad0cdcc6789ada1421d72511ccf560",
+      "457fa3377eba3fbee82734eb642796e346d228c0b5f854fcebbe82f575f62c7f",
+      "271a9802b518ea6886a29ef8586b030efc417bec32c2d3b010b8c84cac07bb19",
+      "05c3aef83960465bd3a87a4ca093bd3246478f9a355ec3d2c3d18ddb8fef240e",
+      "782ae66b1ae19c5cb206839e5c105301b82eefc4e6e8f88ef7f5de5e8aec834a",
+      "940b674dac28e5fec60d9de6d4fa070ae17fee0df06259ef21cd4a12295f10c4",
+      "65b3c16d177a6ee5345cb8b7fa294dba30593b68871deefd69a7e993d72ddd62",
+      "d2de3097c69fa7c778cb29f58fbf26f24122a6947cdaa3400e08f43091999a10"
+    ],
+    "findings": [
+      {
+        "finding": "scene s1: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s2: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s3: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s4: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s5: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s6: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s7: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      },
+      {
+        "finding": "scene s8: Travis County is blackland, and the board says hill_country. A Texan forgives a stylized drawing and does not forgive being told they live somewhere they don't. (the Balcones line runs through it; western Travis is hill_country)",
+        "category": "source"
+      }
+    ],
+    "all_technical": true
+  },
+  "diagnosis": "Every scene declares Travis/hill_country, while the checked-in county map explicitly assigns Travis to blackland with a western-Travis straddle note. The story names Austin and gives no source locating this illustrative workflow in western Travis. Preserve county, sources and story; correct region to the authoritative blackland value. This is a source metadata failure under the existing region-correctness rule, not an artistic failure or waiver.",
+  "source_basis": {
+    "county_map_entry": {
+      "region": "blackland",
+      "seat": "Austin",
+      "note": "the Balcones line runs through it; western Travis is hill_country"
+    },
+    "claim": "c02 Austin startup Contoro; stored company footer gives2601 McHale Ct Ste160 Austin78758",
+    "source_urls": [
+      "https://contoro.com/",
+      "https://news.utexas.edu/2026/08/25/strengthening-u-s-industrial-independence/"
+    ]
+  },
+  "render_dependency_assessment": {
+    "rendered_inputs_change": false,
+    "reason": "Dispatch.tsx line496 returns CartonUnloadEpisode before generic scene rendering. Generic Biome region read at line423 belongs to the bypassed SceneDrawing path. CartonUnloadEpisode reads timing, carton_phase, treatment, three visual-event actions, production_disclosure, super, captions and credits. It supplies phase/option/a/b/c only to CartonUnloadAction. Neither module nor actionWindows/actionProgress nor shared DispatchOverlays consumes region or county. Episode background, stage colours and Action surfaces are literals. Root dispatchMetadata reads scene ends/runtime/credits, not region. No displayed region name exists in this episode or its current text/captions.",
+    "renderer_sha256_before": "a4d8b74d21ba8884c6fd856487918d6cecd0a55777672aeb3b852e8cdc1d497b",
+    "renderer_sha256_after_proposed": "a4d8b74d21ba8884c6fd856487918d6cecd0a55777672aeb3b852e8cdc1d497b",
+    "engine_sha256": "c598240b06271f6ff9f6e05c068cc45904a417a79c5f0fa515e4c1426e4069a7",
+    "film_sha256": "8de8bd99228d17abeeda3e1c5cc8c4f244fcb097d3322db8e9489a533d71eebc",
+    "preflight_sha256": "b0f92995126d8922fbe76557ffa494b02c8caaa228d8b49a5577ff591b3c768d",
+    "board_sha256_before": "f916fae651fe71e9ed59ad9f109b5c2c7c8aa6b3c6dcc8644759ddbd56b78631",
+    "concept_sha256_before": "7ae01184691cf54dbfb3eac84b764fc79ebb7ccc783c3fbadef4979d3b6719d9",
+    "concept_sha256_after_proposed": "21b584bc06d8aafa87ddba281bee0492bf66e7022e79adfd6b19a4af0c94138b",
+    "story_sha256_before": "573fb5cb9a151547087a89c9211067d99ac7b20412b47bcdffdb756052dfaff0",
+    "story_sha256_after_proposed": "ca391bd79ca0790be7ce20be62bcebdd3b647d10a9415c65c6188531c2771348"
+  },
+  "minimal_correction": {
+    "allowed_changes": [
+      "Only scenes s1–s8 region hill_country→blackland in the current selected timed board; preserve every other JSON value."
+    ],
+    "forbidden_changes": [
+      "No map override, missing county, new location assertion, source rewrite, narration/caption/timing/action/style/media/engine/audio change.",
+      "Do not silently replace original rendered-board, phone, hero, inspection or comparison hashes."
+    ],
+    "reuse_conditions": [
+      "Retain before-board, before-manifest, before-phone and exact ship failure bytes with hashes and charged authorized technical-repair events.",
+      "After edit, independently verify exact deep diff limited to the eight region fields and map equality for each county; all pixel- and audio-consuming board fields and all actual renderer/engine/media/mix/font dependencies must remain identical.",
+      "A strict hash-bound metadata-continuation sidecar must connect original board/film/preflight/hero/evidence hashes to corrected board/concept/story digests, exact source-classified failure, authorized correction and independent review. Existing gates currently reject stale board/concept/story bindings; this diagnosis alone does not bypass them.",
+      "Recompute source and structural checks without paid rerender; retain original inspection/review bytes and explicit old/new board provenance. Source audits currently bind close07 untimed A; preserve them and validate corrected current board against unchanged claims rather than pretending their original hashes are current.",
+      "Reject continuation on any changed county, region beyond these fields, template, action module, rendered text, timing, captions, camera, physical mechanism, source claim, generated/native media, engine, mix or film bytes. Tests must cover those negatives plus missing/changed repair event/evidence/independent identity and missing original-board closure.",
+      "Native hero and phone audiovisual observations can retain exact film-byte provenance because pixels/audio are unchanged; metadata admission must be independently validated. This scope does not watch the full native film or infer new audio access.",
+      "If exact projection/dependency equivalence cannot be proven by the narrow validator, retain revise and use the ordinary rerender/review path rather than broad hash suppression."
+    ]
+  },
+  "approval_limit": "Independent source classification and correction/reuse diagnosis only. Current board remains rejected. No changed-board pass, new native/phone/audio verdict, edit, render or resource reservation is performed.",
+  "evidence": [
+    {
+      "path": "out/dispatch/repairs/geography12/ship-gate-failure.txt",
+      "sha256": "99920ab6af6fd865a7f6d3ac8b20c8d9c41413d4ac1118ea5baead7a7951d26e"
+    },
+    {
+      "path": "out/dispatch/repairs/geography12/before-storyboard.json",
+      "sha256": "f916fae651fe71e9ed59ad9f109b5c2c7c8aa6b3c6dcc8644759ddbd56b78631"
+    },
+    {
+      "path": "out/dispatch/repairs/geography12/before-render-manifest.json",
+      "sha256": "c2cf192a5878fe7709bfbcb78f8c334ffe69c186de6694c1c9acecf595de90c8"
+    },
+    {
+      "path": "out/dispatch/repairs/geography12/before-phone-review.json",
+      "sha256": "a6f20f38f843ea1c8bada389af472c88fb3395c83e021c5fea232f675b3d4d3b"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "f916fae651fe71e9ed59ad9f109b5c2c7c8aa6b3c6dcc8644759ddbd56b78631"
+    },
+    {
+      "path": "out/dispatch/film.mp4",
+      "sha256": "8de8bd99228d17abeeda3e1c5cc8c4f244fcb097d3322db8e9489a533d71eebc"
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "sha256": "b0f92995126d8922fbe76557ffa494b02c8caaa228d8b49a5577ff591b3c768d"
+    },
+    {
+      "path": "out/dispatch/preflight.json",
+      "sha256": "b2018345f5930904d94e9aa1b210459b8bd537c1b38a2d45ec9b5da11a5ff3a4"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "ad78102521be4aa2d6a3733ad6691118fb796a8d305ce27904f67f768a16e0d7"
+    },
+    {
+      "path": "out/dispatch/cinema/proof.json",
+      "sha256": "63466edfefb20bc49306fb05d3152fc77d00488b928a640f9b0acc7c1fb8fefb"
+    },
+    {
+      "path": "out/dispatch/cinema/hero-review.json",
+      "sha256": "1fb690b3396a763c6e7b8288dd6e02837408ba4525c1a5b15f465f87aa00088a"
+    },
+    {
+      "path": "out/dispatch/cinema/hero-review-response.json",
+      "sha256": "f3dc5675c1e04f3017636262e795cc7803c8bced32d6de9a326287ff54c93c21"
+    },
+    {
+      "path": "out/dispatch/script_audit.json",
+      "sha256": "7cd0d8749dbad317caeee6eda42859911782fce5b72f39fc7d6497f00570078e"
+    },
+    {
+      "path": "out/dispatch/validation.json",
+      "sha256": "1f591485e57e6f4d2cfd71e81a38275d3b920a552d8ead5e2a60de6899fb4d16"
+    },
+    {
+      "path": "config/county_regions.json",
+      "sha256": "f96de1100d2fc13e9413563de5be6c8afac7497ec10f68121ba1db7fa6dbe6fa"
+    },
+    {
+      "path": "scripts/ship_gate.py",
+      "sha256": "3addf13f4d8f6d25982748f4d92de133932ae8bd1de28ec03cc7e2f044e39ec2"
+    },
+    {
+      "path": "scripts/render_manifest.py",
+      "sha256": "2dc7019cfdcdd46f59625d65c60bf2300cbb938c6f5d22f8ab833fd1140a6a7e"
+    },
+    {
+      "path": "scripts/critic_gate.py",
+      "sha256": "613cf041c5b9a0c64f22428a98c4e55090733ddbbcb9695c7a5e6e9471a0a7b8"
+    },
+    {
+      "path": "scripts/daily_production.py",
+      "sha256": "5fcc0640f891adc519400c5afd6c9d06cabffb303fafefe8ccbec154a16a35d0"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/CartonUnloadAction.tsx",
+      "sha256": "2875192a31bf5cff91cd1b15d35079c3a1a3d7e88552a1a896762f7cdca06934"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/CartonUnloadEpisode.tsx",
+      "sha256": "ffb96769a429b9d83a079869bbfd3894ab147190af4d8d06bf198857d447a69d"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/Dispatch.tsx",
+      "sha256": "0aee913a3a240f0444add8a644e62a56afff2def884892869eaddc4f4a5ee447"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/branding/DocketMark.tsx",
+      "sha256": "1711186b55d89308069607d749a38a9c8740b6c6dbca433430b5f4cfc8188019"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/DispatchOverlays.tsx",
+      "sha256": "189877109715512901e28778ab5f5231461c422aa1b277b7e1ed408497dae780"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/cinema/CinematicStage.tsx",
+      "sha256": "fb8c8d1d78ccbeecfa34e4f45f1d32dcf8354071d6121d2b911115d4e01832a1"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/cinema/StageContext.ts",
+      "sha256": "7038e56cbed9fa0397c5caf67e0ae4b78af44721e0421f6e759199ae5b2ceacd"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/cinema/Studio.tsx",
+      "sha256": "f12f62ed44fef0a4fecbe8b90798e02e6f3c7f7a93b9b325a2a454cd44fd0b1d"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/cinema/motion.ts",
+      "sha256": "9b4db98e63d4f4306145b7fd40516a42d238a79a96c2dab2ff9e23a74e387a57"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/cinema/projection.ts",
+      "sha256": "720f755d4ead7db10620a8eaf4ceb2b7d078a26861bc18fc8fe685c188b0353d"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/direction.ts",
+      "sha256": "27f009feed01f8975d36d12aadc4af2b8919069240c0c44235449ac199fb68b1"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/editorial.ts",
+      "sha256": "6e09b26ef05f7fe45284af4a9b59dc5be0a8abac9d36b810acf1dcaea085a7d7"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/safearea.ts",
+      "sha256": "7d08b8df5ee44d61d4edb822fa6e86974827139283daf36be0712fde8ec12620"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-2026-10-03/video-engine/src/lib/type.ts",
+      "sha256": "43d7449e181fd5f467f3bcac4a8f9464281235c052a464819e40223dd9758918"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Repair an active edition
 
+Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
+
 Read the current checkpoint and compact defect ledger first. Preserve the last playable film,
 exact hashes and all reviews. Read knowledge/craft/BOUNDED_CREATIVE_RELEASE.md first: a rejection
 starts another creative repair only before its finite boundary and with complete review

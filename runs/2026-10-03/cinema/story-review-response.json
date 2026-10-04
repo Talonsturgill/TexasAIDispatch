@@ -1,0 +1,886 @@
+{
+  "responseId": "19TBap7LI8zoz7IPw4SyyAk",
+  "usageMetadata": {
+    "promptTokenCount": 16816,
+    "candidatesTokenCount": 620,
+    "totalTokenCount": 18044,
+    "cachedContentTokenCount": 13965,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 2616
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 14200
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 2172
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 11793
+      }
+    ],
+    "thoughtsTokenCount": 608,
+    "serviceTier": "standard"
+  },
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "{\n  \"pass\": true,\n  \"audio_access\": true"
+          },
+          {
+            "text": ",\n  \"visual_observations\":"
+          },
+          {
+            "text": " [\n    {\n      \"at_s\": 1.2,\n      \"observation\": \"A 3D schematic demonstrates stacked boxes in a trailer with a mechanical suction pad contacting the front carton face.\"\n    },\n    {\n      \"at_s\": 8.6,\n      \"observation\": \"Dual grasping pads clamp the"
+          },
+          {
+            "text": " box on front and lateral sides simultaneously before lifting.\"\n    },\n    {\n      \"at_s\": 1"
+          },
+          {
+            "text": "7.6,\n      \"observation\": \"Cyan wireframe bounding volumes and ray lines indicate camera and sensor detection of"
+          },
+          {
+            "text": " container boundaries.\"\n    },\n    {\n      \"at_s\": 27.2,\n      "
+          },
+          {
+            "text": "\"observation\": \"The articulated robotic arm transfers the gripped carton smoothly onto the rolling conveyor track.\"\n    },\n    {\n      \"at_"
+          },
+          {
+            "text": "s\": 35.5,\n      \"observation\": \"The final title card displays sources, audio licensing, and publishing credits for"
+          },
+          {
+            "text": " five seconds.\"\n    }\n  ],\n  \"audio_observations\":"
+          },
+          {
+            "text": " [\n    {\n      \"at_s\": 1.0,\n      \"observation\": \"Narration begins clearly explaining how packed trailers obscure the top surfaces of cartons.\"\n    },\n    {\n      \"at_s\": 22.0,\n      \"observation\": \"Voiceover states that remote human operators can intervene whenever automated AI routines fail.\"\n    },\n    {"
+          },
+          {
+            "text": "\n      \"at_s\": 33.0,\n      \"observation\": \"Background musical accompaniment continues at a balanced"
+          },
+          {
+            "text": " level as narration finishes.\"\n    }\n  ],\n  \"pacing\": \"Deliberate and clear timing allows"
+          },
+          {
+            "text": " each mechanical concept to be viewed and absorbed alongside spoken audio.\",\n  \"comprehension\": \"The animated model directly illustrates"
+          },
+          {
+            "text": " the dual-surface gripper mechanism and human-in-the-loop workflow.\",\n  \"weakest_interval\":"
+          },
+          {
+            "text": " \"04.5s to 07.5s pans slowly across the base of the arm with limited mechanical"
+          },
+          {
+            "text": " activity.\",\n  \"dimensional_action\": \"Stylized 3D rendering tracks the articulated robotic unloader gripping and transferring"
+          },
+          {
+            "text": " boxes from stack to conveyor.\",\n  \"defects\": [],\n  \"bounded_release\": {\n    \"schema"
+          },
+          {
+            "text": "\": \"dispatch_creative_assessment/1\",\n    \"scope\": \"av\",\n    \"retained_checks\": {\n      \""
+          },
+          {
+            "text": "legibility\": {\n        \"pass\": true,\n        \"observed\": \"Text labels and final credit slide display sharp contrast and stay"
+          },
+          {
+            "text": " fully legible.\"\n      },\n      \"comprehension\": {\n        \"pass\": true,\n        \"observed\":"
+          },
+          {
+            "text": " \"Visual steps match narration directly regarding gripper placement and sensor detection.\"\n      },\n      \"technical_audio\": {\n        \"pass"
+          },
+          {
+            "text": "\": true,\n        \"observed\": \"Voiceover is crisp, free of distortion, and mixed cleanly above background music"
+          },
+          {
+            "text": ".\"\n      },\n      \"captions\": {\n        \"pass\": true,\n        \"observed\": \""
+          },
+          {
+            "text": "Onscreen lower-third subtitles precisely reflect spoken narration timing.\"\n      }\n    },\n    \"defects\": [],\n    \"score_only\": true\n  }\n}"
+          },
+          {
+            "text": "",
+            "thoughtSignature": "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"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ],
+  "provider_chunks": [
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "{\n  \"pass\": true,\n  \"audio_access\": true"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 16,
+        "totalTokenCount": 3240,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n  \"visual_observations\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 46,
+        "totalTokenCount": 3270,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " [\n    {\n      \"at_s\": 1.2,\n      \"observation\": \"A 3D schematic demonstrates stacked boxes in a trailer with a mechanical suction pad contacting the front carton face.\"\n    },\n    {\n      \"at_s\": 8.6,\n      \"observation\": \"Dual grasping pads clamp the"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 70,
+        "totalTokenCount": 3294,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " box on front and lateral sides simultaneously before lifting.\"\n    },\n    {\n      \"at_s\": 1"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 95,
+        "totalTokenCount": 3319,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "7.6,\n      \"observation\": \"Cyan wireframe bounding volumes and ray lines indicate camera and sensor detection of"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 119,
+        "totalTokenCount": 3343,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " container boundaries.\"\n    },\n    {\n      \"at_s\": 27.2,\n      "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 143,
+        "totalTokenCount": 3367,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"observation\": \"The articulated robotic arm transfers the gripped carton smoothly onto the rolling conveyor track.\"\n    },\n    {\n      \"at_"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 173,
+        "totalTokenCount": 3397,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "s\": 35.5,\n      \"observation\": \"The final title card displays sources, audio licensing, and publishing credits for"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 201,
+        "totalTokenCount": 3425,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " five seconds.\"\n    }\n  ],\n  \"audio_observations\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 225,
+        "totalTokenCount": 3449,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " [\n    {\n      \"at_s\": 1.0,\n      \"observation\": \"Narration begins clearly explaining how packed trailers obscure the top surfaces of cartons.\"\n    },\n    {\n      \"at_s\": 22.0,\n      \"observation\": \"Voiceover states that remote human operators can intervene whenever automated AI routines fail.\"\n    },\n    {"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 250,
+        "totalTokenCount": 3474,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n      \"at_s\": 33.0,\n      \"observation\": \"Background musical accompaniment continues at a balanced"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 276,
+        "totalTokenCount": 3500,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " level as narration finishes.\"\n    }\n  ],\n  \"pacing\": \"Deliberate and clear timing allows"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 301,
+        "totalTokenCount": 3525,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " each mechanical concept to be viewed and absorbed alongside spoken audio.\",\n  \"comprehension\": \"The animated model directly illustrates"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 325,
+        "totalTokenCount": 3549,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " the dual-surface gripper mechanism and human-in-the-loop workflow.\",\n  \"weakest_interval\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 349,
+        "totalTokenCount": 3573,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " \"04.5s to 07.5s pans slowly across the base of the arm with limited mechanical"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 373,
+        "totalTokenCount": 3597,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " activity.\",\n  \"dimensional_action\": \"Stylized 3D rendering tracks the articulated robotic unloader gripping and transferring"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 398,
+        "totalTokenCount": 3622,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " boxes from stack to conveyor.\",\n  \"defects\": [],\n  \"bounded_release\": {\n    \"schema"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 423,
+        "totalTokenCount": 3647,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": \"dispatch_creative_assessment/1\",\n    \"scope\": \"av\",\n    \"retained_checks\": {\n      \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 453,
+        "totalTokenCount": 3677,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "legibility\": {\n        \"pass\": true,\n        \"observed\": \"Text labels and final credit slide display sharp contrast and stay"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 481,
+        "totalTokenCount": 3705,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " fully legible.\"\n      },\n      \"comprehension\": {\n        \"pass\": true,\n        \"observed\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 506,
+        "totalTokenCount": 3730,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " \"Visual steps match narration directly regarding gripper placement and sensor detection.\"\n      },\n      \"technical_audio\": {\n        \"pass"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 534,
+        "totalTokenCount": 3758,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": true,\n        \"observed\": \"Voiceover is crisp, free of distortion, and mixed cleanly above background music"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 558,
+        "totalTokenCount": 3782,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".\"\n      },\n      \"captions\": {\n        \"pass\": true,\n        \"observed\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 582,
+        "totalTokenCount": 3806,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Onscreen lower-third subtitles precisely reflect spoken narration timing.\"\n      }\n    },\n    \"defects\": [],\n    \"score_only\": true\n  }\n}"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 2616,
+        "candidatesTokenCount": 620,
+        "totalTokenCount": 3844,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "",
+                "thoughtSignature": "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"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 16816,
+        "candidatesTokenCount": 620,
+        "totalTokenCount": 18044,
+        "cachedContentTokenCount": 13965,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2616
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 14200
+          }
+        ],
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2172
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 11793
+          }
+        ],
+        "thoughtsTokenCount": 608,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "19TBap7LI8zoz7IPw4SyyAk"
+    }
+  ]
+}

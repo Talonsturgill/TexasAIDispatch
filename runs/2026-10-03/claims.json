@@ -1,0 +1,170 @@
+{
+  "schema": "dispatch_claims/1",
+  "date": "2026-10-03",
+  "edition": "Texas AI Dispatch",
+  "retrieved": "2026-10-03",
+  "claims": [
+    {
+      "id": "c01",
+      "text": "A packed trailer can hide the top of a carton.",
+      "statement": "A packed trailer can hide the top of a carton.",
+      "quote": "In shipping containers, the top surface of packages is often inaccessible, making front grasping essential. Traditional vacuum-based grippers, which rely on top access, struggle with front grasping, especially for long and heavy boxes. Contoro\u2019s gripper can securely and reliably grasp the most diverse and heaviest boxes in the warehouse by grabbing two sides simultaneously\u2014typically the front face and another accessible surface (bottom, top, or side).",
+      "url": "https://contoro.com/technology/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-technology-validator.json",
+      "claim_type": "interpretation",
+      "scope_note": "Illustrative hook about top access; no claim about a recorded trailer or blockage."
+    },
+    {
+      "id": "c02",
+      "text": "Austin startup Contoro builds robots to unload boxes.",
+      "statement": "Austin startup Contoro builds robots to unload boxes.",
+      "quote": "Contoro Robotics is building robots to tackle the most physically demanding task in the supply chain industry: unloading non-palletized boxes in trucks and shipping containers.\n2601 McHale Ct Ste 160, Austin, TX, 78758",
+      "url": "https://news.utexas.edu/2026/08/25/strengthening-u-s-industrial-independence/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_university_news",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/ut-industrial-validator.json",
+      "claim_type": "reported_fact",
+      "scope_note": "UT establishes company and task. Austin location corroborated by company footer in supporting source; no independence outcome is claimed.",
+      "supporting_sources": [
+        {
+          "quote": "2601 McHale Ct Ste 160, Austin, TX, 78758",
+          "url": "https://contoro.com/",
+          "source_snapshot": "out/dispatch/sources/contoro-home-validator.json"
+        }
+      ],
+      "quote_sources": [
+        {
+          "excerpt": "Contoro Robotics is building robots to tackle the most physically demanding task in the supply chain industry: unloading non-palletized boxes in trucks and shipping containers.",
+          "url": "https://news.utexas.edu/2026/08/25/strengthening-u-s-industrial-independence/",
+          "source_snapshot": "out/dispatch/sources/ut-industrial-validator.json"
+        },
+        {
+          "quote": "2601 McHale Ct Ste 160, Austin, TX, 78758",
+          "url": "https://contoro.com/",
+          "source_snapshot": "out/dispatch/sources/contoro-home-validator.json"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "text": "Contoro says its gripper holds two sides at once.",
+      "statement": "Contoro says its gripper holds two sides at once.",
+      "quote": "In shipping containers, the top surface of packages is often inaccessible, making front grasping essential. Traditional vacuum-based grippers, which rely on top access, struggle with front grasping, especially for long and heavy boxes. Contoro\u2019s gripper can securely and reliably grasp the most diverse and heaviest boxes in the warehouse by grabbing two sides simultaneously\u2014typically the front face and another accessible surface (bottom, top, or side).",
+      "url": "https://contoro.com/technology/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-technology-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Company mechanism description; no independently measured reliability."
+    },
+    {
+      "id": "c04",
+      "text": "The front face and another accessible surface.",
+      "statement": "The front face and another accessible surface.",
+      "quote": "In shipping containers, the top surface of packages is often inaccessible, making front grasping essential. Traditional vacuum-based grippers, which rely on top access, struggle with front grasping, especially for long and heavy boxes. Contoro\u2019s gripper can securely and reliably grasp the most diverse and heaviest boxes in the warehouse by grabbing two sides simultaneously\u2014typically the front face and another accessible surface (bottom, top, or side).",
+      "url": "https://contoro.com/technology/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-technology-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Typically the front plus bottom, top, or side; never imply fixed opposite-side grasp."
+    },
+    {
+      "id": "c05",
+      "text": "Cameras and sensors locate boxes and container walls.",
+      "statement": "Cameras and sensors locate boxes and container walls.",
+      "quote": "Our robots leverage advanced cameras and sensors to collect vital information about containers, including wall locations, box positions, stacking, and sizes. This data creates a virtual environment for AdaptAI, which generates hundreds of optimized, collision-free paths based on box size, location, condition, and weight.",
+      "url": "https://contoro.com/technology/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-technology-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Sensor inputs described by company; illustration is not customer sensor output."
+    },
+    {
+      "id": "c06",
+      "text": "Its AI plans paths around the boxes.",
+      "statement": "Its AI plans paths around the boxes.",
+      "quote": "Our robots leverage advanced cameras and sensors to collect vital information about containers, including wall locations, box positions, stacking, and sizes. This data creates a virtual environment for AdaptAI, which generates hundreds of optimized, collision-free paths based on box size, location, condition, and weight.",
+      "url": "https://contoro.com/technology/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-technology-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Path planning described by company; no quantified improvement or exact customer trajectory."
+    },
+    {
+      "id": "c07",
+      "text": "When AI fails, remote operators can take control.",
+      "statement": "When AI fails, remote operators can take control.",
+      "quote": "Our advanced, patented human-robot interface allows our operators to remotely control robots located at customer\u2019s sites for tasks where AI fails (edge cases).",
+      "url": "https://contoro.com/about-us/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-company-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Remote control is available for AI edge cases; no incident, frequency, duration, or achieved uninterrupted operation."
+    },
+    {
+      "id": "c08",
+      "text": "The company combines robot autonomy with human backup.",
+      "statement": "The company combines robot autonomy with human backup.",
+      "quote": "Our innovative human-in-the-loop (HITL) platform seamlessly combines AI and human intelligence, enhancing robot capabilities.",
+      "url": "https://contoro.com/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-home-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Combining autonomous functions and human backup does not establish a rate of independence."
+    },
+    {
+      "id": "c09",
+      "text": "Contoro describes a built-in conveyor belt.",
+      "statement": "Contoro describes a built-in conveyor belt.",
+      "quote": "With built-in connectivity and conveyor belt, robot autonomously navigates in and out of the container with push of a single button",
+      "url": "https://contoro.com/",
+      "retrieved": "2026-10-03",
+      "source_type": "primary_company_technology",
+      "verdict": "VERIFIED",
+      "source_snapshot": "out/dispatch/sources/contoro-home-validator.json",
+      "claim_type": "company_claim",
+      "scope_note": "Supports conveyor presence. Exact box-release choreography and customer result are not text-verified; use reference depiction only with honest illustration labeling."
+    }
+  ],
+  "rejected": [
+    {
+      "claim": "Dropped proposed 'That extra contact helps pull uneven cartons free'",
+      "reason": "Dropped proposed 'That extra contact helps pull uneven cartons free': fetched text establishes strong hold and front access but does not establish this uneven-carton extraction result."
+    },
+    {
+      "claim": "Dropped proposed 'The AI plans a path to the conveyor'",
+      "reason": "Dropped proposed 'The AI plans a path to the conveyor': text establishes collision-free path planning and a conveyor but does not explicitly bind the generated path to that destination."
+    },
+    {
+      "claim": "Dropped proposed 'The box keeps moving'",
+      "reason": "Dropped proposed 'The box keeps moving': this implies achieved uninterrupted operation or a recorded incident not proven by these sources."
+    },
+    {
+      "claim": "Rejected national industrial independence as an achieved company outcome",
+      "reason": "Rejected national industrial independence as an achieved company outcome: UT profile framing does not quantify or prove that outcome for Contoro."
+    },
+    {
+      "claim": "Rejected actual customer dashboard, customer sensor data, intervention rate, success rate, and independence percentage",
+      "reason": "Rejected actual customer dashboard, customer sensor data, intervention rate, success rate, and independence percentage: no such evidence was verified."
+    }
+  ],
+  "source_limits": [
+    "Company pages establish what Contoro describes; UT independently identifies the company and unloading task but does not independently test the technical performance.",
+    "Generic original illustration must be visibly identified as illustration; it cannot stand in for actual customer footage, a recorded fault, or an actual control interface."
+  ]
+}

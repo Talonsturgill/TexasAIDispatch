@@ -184,3 +184,5 @@ maintenance choice. Judge what the viewer can understand from the pixels and the
 Essential dates and attribution may rely on text, but captions can't supply a missing principal
 action. Classify actual missing comprehension or false visual claims under the current contract,
 rather than as an optional medium preference. Return one consolidated correction.
+
+From October 3rd, 2026, read any completion_readings bound in your current packet. Capacity recovery preserves every actual verdict, fixed rubric and source or technical gate. Reconstruct the film before director rationale. A grant is never film approval.

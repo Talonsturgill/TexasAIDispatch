@@ -14,6 +14,31 @@ import documentary_review as d
 
 
 class AvailabilityTest(unittest.TestCase):
+    def test_composite_quotes_keep_both_authentic_sources_and_fail_closed(self):
+        row = {'id': 'c02', 'quote': 'Robot unloading.\\nAustin address.',
+               'quote_sources': [{'excerpt': 'Robot unloading.', 'url': 'https://u.example',
+                                  'source_snapshot': 'university.txt'},
+                                 {'quote': 'Austin address.', 'url': 'https://c.example',
+                                  'source_snapshot': 'company.txt'}]}
+        parts = r.source_segments(row)
+        self.assertEqual([p['source_snapshot'] for p in parts], ['university.txt', 'company.txt'])
+        self.assertEqual([p['quote'] for p in parts], ['Robot unloading.', 'Austin address.'])
+        self.assertEqual([p['id'] for p in parts], ['c02', 'c02'])
+        self.assertEqual(r.source_segments({**row, 'quote': 'Robot unloading.\nAustin address.'}), parts)
+        for change in ({'quote': 'Changed claim.'}, {'quote_sources': [{'quote': 'Robot unloading.'}]}):
+            with self.assertRaises(ValueError):
+                r.source_segments({**row, **change})
+
+    def test_reader_link_annotation_preserves_raw_context_without_word_substitution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'source.txt'
+            path.write_text('L55: cite15†Contoro Robotics†contoro.com is building robots.')
+            result = r.source_windows(path, [{'id': 'c02', 'quote': 'Contoro Robotics is building robots.'}])
+            self.assertIn('†contoro.com', result['windows'][0]['quotes'][0]['text'])
+            self.assertEqual(result['full_source_sha256'], r.digest(path))
+            with self.assertRaises(ValueError):
+                r.source_windows(path, [{'id': 'c02', 'quote': 'Contoro Robotics is selling robots.'}])
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
@@ -81,6 +106,8 @@ class AvailabilityTest(unittest.TestCase):
         failure = {**self.failure, 'error': 'agent thread limit reached',
                    'raw_error': 'collab tool failed: agent thread limit reached'}
         self.assertFalse(r.failure_problems(failure, 'phone'))
+        spawn_failure = {**failure, 'raw_error': 'collab spawn failed: agent thread limit reached'}
+        self.assertEqual(r.failure_problems(spawn_failure, 'phone'), [])
         for change in ({'raw_error': ''}, {'raw_error': 'agent thread limit reached'},
                        {'raw_error': 'other tool failed: agent thread limit reached'},
                        {'raw_error': 'collab tool failed: agent thread limit reached later'},

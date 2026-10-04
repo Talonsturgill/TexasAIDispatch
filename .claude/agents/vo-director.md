@@ -60,3 +60,5 @@ a cinematic scene need different performances; none needs perpetual urgency. Pre
 source limits and do not use a triumphant delivery to imply an unreported success. Flag a
 picture/word mismatch for the director's consolidated correction rather than silently rewriting
 the script. Keep the same continuous take, measured alignment and existing audible review.
+
+From October 3rd, 2026, read any completion_readings bound in your current packet. Capacity recovery preserves every actual verdict, fixed rubric and source or technical gate. Reconstruct the film before director rationale. A grant is never film approval.

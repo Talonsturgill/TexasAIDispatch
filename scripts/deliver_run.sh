@@ -204,7 +204,7 @@ for name in sorted(names):
 PY_CINEMA
 fi
 cp "$REPORT" "$DEST/report_card.json"
-cp "$STATE" "$DEST/run_state.json"
+python3 scripts/public_state.py --state "$STATE" --out "$DEST/run_state.json"
 python3 - "$OUT" "$DEST" <<'PY_CREATIVE_RELEASE'
 import sys
 sys.path.insert(0, 'scripts')
@@ -212,10 +212,32 @@ from creative_release import package_assessments
 package_assessments(sys.argv[1], sys.argv[2])
 PY_CREATIVE_RELEASE
 if [ -d "$OUT/openings" ]; then
+  # Resolve portable metadata evidence before opening gates inspect the copied board.
+  python3 - "$OUT" "$DEST" <<'PY_METADATA'
+import sys
+sys.path.insert(0, 'scripts')
+from metadata_continuation import package
+package(sys.argv[1], sys.argv[2])
+PY_METADATA
   python3 - "$OUT" "$DEST" <<'PY_OPENINGS'
 import sys
 sys.path.insert(0, 'scripts')
 from opening_compare import package_openings
+from pathlib import Path
+import json, shutil, hashlib
+source, destination = (Path(p) / 'openings' for p in sys.argv[1:])
+sidecar = source / 'technical-continuation.json'
+if sidecar.exists():
+    continuation = json.loads(sidecar.read_text())
+    destination.mkdir(parents=True, exist_ok=True)
+    for key in ('before_source', 'failure', 'code_review', 'inspection_a', 'inspection_b'):
+        ref = continuation[key]
+        path = (source / ref['file']).resolve()
+        if (not path.is_relative_to(source.resolve()) or Path(ref['file']).name != ref['file']
+                or hashlib.sha256(path.read_bytes()).hexdigest() != ref['sha256']):
+            raise ValueError('technical continuation evidence changed or is not portable')
+        shutil.copy2(path, destination / ref['file'])
+    shutil.copy2(sidecar, destination / sidecar.name)
 package_openings(sys.argv[1], sys.argv[2])
 PY_OPENINGS
 fi

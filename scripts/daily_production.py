@@ -411,6 +411,12 @@ def packet(board_path, claims_path, role, state_path=None):
         "brief": ".claude/agents/" + ("scorer" if role in ("picture", "story", "sound") else role) + ".md",
         "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text.",
     }
+    completion = [REPO / "knowledge/craft/AUTONOMOUS_COMPLETION.md",
+                  REPO / "config/autonomous_completion.json"]
+    if str(board.get("date", "")) >= "2026-10-03" and all(p.is_file() for p in completion):
+        data["completion_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)}
+                                      for p in completion]
+        data["instructions"] += " Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film."
     selection = Path(board_path).with_name("story_selection.json")
     if selection.is_file():
         data["selection"] = {"path": str(selection.resolve()), "sha256": digest(selection)}

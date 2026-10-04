@@ -249,6 +249,20 @@ def required_baseline(board_path):
     if not state_path.is_file():
         return None
     state = read_state(state_path)
+    from metadata_continuation import MECHANISM, baseline as metadata_baseline
+    for event in reversed(state.get("events", [])):
+        if event.get("kind") in {"repair_started", "repair_authorized"}:
+            plan = event.get("repair_plan") or {}
+            if plan.get("mechanism_id") == MECHANISM or (event.get("mechanism_id") == MECHANISM):
+                if state.get("active_repair"):
+                    raise ValueError("metadata repair must be authorized before production continues")
+                result = metadata_baseline(board_path)
+                if result is None:
+                    raise ValueError("authorized metadata repair lacks its verified continuation")
+                return result
+            break
+    if Path(board_path).with_name("metadata-continuation.json").exists():
+        return metadata_baseline(board_path)
     for event in reversed(state.get("events", [])):
         if event.get("kind") in {"repair_started", "repair_authorized"}:
             if event.get("repair_scope") == SCOPE:

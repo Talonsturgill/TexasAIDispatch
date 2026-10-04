@@ -121,6 +121,18 @@ def check(film: Path, inputs: list[Path], started: Path | None = None,
             # render time. Everything else, and every non-engine input, fails as before.
             if src.suffix in {".ts", ".tsx", ".css"} and engine_is_bit_identical(manifest):
                 continue
+            if src.name == "storyboard.json":
+                try:
+                    from metadata_continuation import baseline, digest
+                    old = baseline(src)
+                    if old is not None:
+                        from metadata_continuation import read
+                        evidence = read(src.with_name("metadata-continuation.json"))["evidence"]
+                        native = next(r for r in evidence if r["file"] == "film.mp4")
+                        if digest(film) == native["sha256"]:
+                            continue
+                except (OSError, ValueError, KeyError, TypeError, StopIteration):
+                    pass
             errs.append(
                 f"{src.name} was modified {sm - fm:.0f}s AFTER {film.name} was written. The "
                 f"film is not a render of the board it is about to ship with. Re-render, "

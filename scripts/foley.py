@@ -1726,7 +1726,31 @@ def protocol_upload(seed=97):
     return normalize(sine(lambda t: 480 + 170 * t / dur, dur) * envelope, .65)
 
 
+def carton_dual_seal(seed=108):
+    """Designed soft suction seal for two illustrated plates; not equipment audio."""
+    dur = .5
+    t = t_axis(dur)
+    air = one_pole_lp(high_pass(white(dur, seed), 450), 2400)
+    seal = np.sin(np.pi * np.clip(t / .32, 0, 1)) ** 2
+    rubber = (sine(165, dur) + .18 * sine(330, dur)) * expdecay(dur, .055)
+    return normalize(fade(.65 * air * seal + .10 * rubber, 12), .28)
+
+
+def carton_roller_place(seed=109):
+    """Designed cardboard settling onto supported rollers; not equipment audio."""
+    dur = .5
+    t = t_axis(dur)
+    cardboard = one_pole_lp(high_pass(white(dur, seed), 140), 1100)
+    contact = np.sin(np.pi * np.clip(t / .20, 0, 1)) ** 2
+    roller = (sine(210, dur) + .15 * sine(460, dur)) * expdecay(dur, .085)
+    texture = one_pole_lp(high_pass(white(dur, seed + 1), 350), 1800)
+    settle = np.sin(np.pi * t / dur) ** 2 * expdecay(dur, .15)
+    return normalize(fade(.60 * cardboard * contact + .12 * roller + .25 * texture * settle, 12), .30)
+
+
 SOUNDS = {
+    "carton_dual_seal": (carton_dual_seal, "oneshot", "designed suction seal synchronized to simultaneous illustrated front and side plate contact, not recorded Contoro equipment", ["carton", "grip", "suction", "illustration"]),
+    "carton_roller_place": (carton_roller_place, "oneshot", "designed soft cardboard contact synchronized to the illustrated supported carton settling on rollers, not recorded Contoro equipment", ["carton", "roller", "placement", "illustration"]),
     "protocol_focus": (protocol_focus, "oneshot", "editorial sonification of the visible protocol interface detail reveal, not participant or fetal audio", ["protocol", "source", "sonification"]),
     "protocol_upload": (protocol_upload, "oneshot", "editorial sonification of the visible recording-to-computing-center diagram relay, not a recorded app sound", ["protocol", "upload", "sonification"]),
     "cleanup_bag_rustle": (cleanup_bag_rustle, "oneshot", "designed plastic rustle synchronized to visible litter entering the held cleanup bag", ["cleanup", "bag", "litter"]),

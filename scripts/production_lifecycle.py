@@ -72,7 +72,7 @@ def existing_critic_problems(state, plan, *, allow_active=False):
             raise ValueError("scope or count")
         if {r["role"] for r in refs} != {"code", "final-phone"}:
             raise ValueError("roles")
-        indexes, identities = set(), set()
+        indexes = set()
         for row in refs:
             index = row["event_index"]
             if type(index) is not int or not 0 <= index < len(state["events"]):
@@ -93,14 +93,14 @@ def existing_critic_problems(state, plan, *, allow_active=False):
             identity = report.get("reviewer_identity")
             reviewed = datetime.fromisoformat(report["reviewed_at"].replace("Z", "+00:00"))
             reserved = datetime.fromisoformat(event_row["at"].replace("Z", "+00:00"))
-            if (not isinstance(identity, str) or not identity.strip() or identity != row["reviewer_identity"] or identity in identities
+            if (not isinstance(identity, str) or not identity.strip() or identity != row["reviewer_identity"]
                     or identity == plan["director_identity"] or not reviewed.tzinfo or not reserved.tzinfo
                     or reviewed < reserved):
                 raise ValueError("identity or chronology")
             if row["role"] == "code" and (report_path.resolve() != Path(plan["failure_evidence"]).resolve()
                     or row["report_sha256"] != plan["failure_evidence_sha256"]):
                 raise ValueError("classification reviewer")
-            indexes.add(index); identities.add(identity)
+            indexes.add(index)
         for recorded in state["events"]:
             used = recorded.get("existing_critic_reservations", [])
             if not indexes.intersection(r.get("event_index") for r in used):
@@ -112,10 +112,17 @@ def existing_critic_problems(state, plan, *, allow_active=False):
             # An unfinished exact-film review may expose another technical defect.
             # Continue those same paid roles only against new rejected evidence.
             old_rows = {r["role"]: r for r in used}
-            for row in refs:
+            fresh_code_checked = False
+            for row in sorted(refs, key=lambda item: item["role"] != "code"):
                 prior = old_rows[row["role"]]
                 report = load_json(Path(row["report_file"]))
                 previous = load_json(Path(prior["report_file"]))
+                # A code rejection can precede the next rendered phone attempt.
+                # Keep its unfinished phone scope exact; it approves no film.
+                if (row["role"] == "final-phone" and fresh_code_checked
+                        and row == prior and previous.get("verdict") == "revise"
+                        and digest(Path(prior["report_file"])) == prior["report_sha256"]):
+                    continue
                 if (row.get("continuation_of_failure_sha256") != recorded.get("failure_sha256")
                         or row["event_index"] != prior["event_index"]
                         or row["reviewer_identity"] != prior["reviewer_identity"]
@@ -129,6 +136,8 @@ def existing_critic_problems(state, plan, *, allow_active=False):
                         or datetime.fromisoformat(report["reviewed_at"].replace("Z", "+00:00"))
                            <= datetime.fromisoformat(previous["reviewed_at"].replace("Z", "+00:00"))):
                     raise ValueError("paid scope is closed or lacks fresh rejected film evidence")
+                if row["role"] == "code":
+                    fresh_code_checked = True
     except (KeyError, OSError, ValueError, TypeError):
         return ["existing critics require two exact independent paid technical completion scopes"]
     return []
@@ -374,7 +383,8 @@ def allowance_problems(state):
     """Reconstruct allowances from recorded actions; a hand-raised cap fails."""
     from run_controller import ceilings
     from repair_guard import owner_grant_problems
-    errors = owner_grant_problems(state)
+    from autonomous_completion import replay
+    errors = owner_grant_problems(state) + replay(state)[1]
     if errors:
         return errors
     events = state.get("events", [])
@@ -436,6 +446,10 @@ def allowance_problems(state):
                         or not caps[name] <= grant["to"] <= caps[name] + batch[name]):
                     return ["repair authorization exceeds its batch"]
                 caps[name] = grant["to"]
+        elif e.get("kind") == "mandatory_completion_grant":
+            if e.get("previous_ceiling") != caps:
+                return ["mandatory completion grant lacks a matching allowance chain"]
+            caps = dict(e["new_ceiling"])
         elif e.get("kind") == "owner_review_grant":
             name = e["resource"]
             if e["previous_ceiling"] != caps[name]:

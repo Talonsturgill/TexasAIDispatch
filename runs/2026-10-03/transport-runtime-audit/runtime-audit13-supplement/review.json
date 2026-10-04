@@ -1,0 +1,21 @@
+{
+  "verdict": "pass",
+  "blocking_defects": [],
+  "observations": [
+    "scripts/independent_review.py (THREAD_LIMIT_ERRORS, failure_problems): Exact thread-limit strings 'collab tool failed: agent thread limit reached' and 'collab spawn failed: agent thread limit reached' are validated against failure['raw_error'] while requiring failure['error'] == 'agent thread limit reached', fully verified in AvailabilityTest.test_actual_thread_limit_requires_exact_retained_transport_error.",
+    "scripts/independent_review.py (source_segments): Supports composite quotations via quote_sources with exact excerpt/URL/snapshot checks, validating that the concatenated excerpts match the parent quote via newline or escaped newline separators.",
+    "scripts/independent_review.py (source_windows): Accurately matches web-reader citation destination markers (separator pattern r'(?:\\s+|\u2020[^\u2020\ue201\\s]+\ue201\\s+)') preserving original raw text spans, code-point offsets, and full_source_sha256 provenance.",
+    "scripts/independent_review.py (run_claimed, packet): Enforces unchanged-paid-attempt refusal via existing attempt.json check, serializes ledger reservations across processes with claim locks, and binds craft/completion guide paths and hashes into request contexts.",
+    "scripts/public_state.py (main, export): Rejects invocation when --state and --out resolve to the same path, derives sanitized owner authorizations with operator attestations and sha256 references, preserves the grant audit chain and frozen envelope/usage invariants, and validates via owner_grant_problems both before and after export.",
+    "scripts/deliver_run.sh (step 3): Invokes public_state.py with --state '$STATE' --out '$DEST/run_state.json', ensuring the working private run state is not overwritten and public runs/<date>/run_state.json receives the derived public export.",
+    "prompts/phases/05-release.md: Updates release documentation to instruct exporting the private ledger as a derived public account using public_state.py without altering raw message bytes or chat references."
+  ],
+  "review_context_sha256": "aaa11876df3d0aa36a8fd0ceec2b7b66e722374103c8a42830615c1d37032fd8",
+  "reviewer_identity": "gemini:gemini-3.8-flash:5NjBauOtF6bpz7IPjIfvIQ",
+  "transport_evidence": {
+    "request_context_sha256": "aaa11876df3d0aa36a8fd0ceec2b7b66e722374103c8a42830615c1d37032fd8",
+    "attempt_sha256": "d49e4f4720eb0a939c1871e1c32b8a56bb71c860c82b0c6db533e50ea53970a9",
+    "response_sha256": "1c6fe12c9fb80c31df7048c9d81e7ba7a7772daf13c756a30fbc77258c94c604",
+    "host_failure_sha256": "7114da75577eac8e72d48232aaf5344127122a1e512d4709d6cdf7ecc8922a8e"
+  }
+}
