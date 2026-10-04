@@ -7,9 +7,9 @@ Owner requests autonomous end-to-end shipment, preserving exact reviews and cumu
 | Wake | DONE | isolated a40e84b; env/TypeScript and host budget path pass; wake scoreboard |
 | Research | DONE | one bounded pass, nine verified claims, exact eight lines; actual drops retained |
 | Picture | DONE | exactly two complete treatments compared, selected A; all original rejects retained; code10 pass |
-| Audio/render | ACTIVE | one approved take, measured alignment and motivated mix; caption repair current timed phone11 before native |
-| Reviews | PENDING | three actual AV lenses and separate scorers |
-| Shipment | PENDING | exact CI, merges, deploy, permanent bytes, CUA phone, unsent draft readback |
+| Audio/render | DONE | one approved take, measured alignment and motivated mix; caption repair current timed phone11 before native |
+| Reviews | DONE | three actual AV lenses and separate scorers |
+| Shipment | ACTIVE | exact CI, merges, deploy, permanent bytes, CUA phone, unsent draft readback |
 
 Consolidated defect ledger is out/dispatch/defects.md. No creative approval stop; no email or social sends; no changes to prior shipped editions, schedule, primary model or frozen envelope.
 
@@ -44,3 +44,5 @@ Mandatory caption10 repair charged reboard8 as technical, creative rounds remain
 Native 1080x1920 PNG and CRF16 production completed. Independent source taxonomy diagnosis and audit bind the exact eight Travis region metadata corrections to unchanged rendered inputs through a strict charged continuation. Original film, voice, alignment, failed caption review, two treatments and every provider response remain retained.
 
 Final panel scored 7.194 on its first round. Picture 6.85 rejected artistic release without hard failures; story 7.30 and sound 7.42 accepted. All three final audiovisual lenses passed with audio access. Normal aggregate release authorized, and creative editing ended. Actual host thread-limit failures for the two missing scorer roles routed to separately charged configured provider calls. Source packet handling now retains both explicit composite quotation sources and raw web-reader link annotations. Twenty transport tests passed. Native metadata continuation tests passed all nine cases. Public export retains exact usage, frozen increments and all verdicts while representing private owner text by digests and an explicit derived operator attestation. Independent configured-provider runtime audits passed, including the corrected CLI wiring. Delivery verification passed all gates. Shipment remains unfinished pending public release, canonical playback and unsent draft readback.
+
+Release continuation on October 4th, 2026. Dispatch PR 104, source repair PR 399 and feed PR 400 are merged with exact-head green CI. Docket main 37194012176 and Pages 37195278061 succeeded on feed merge 2206e0a0398ea7a822adeb2b47e67b35e638a315. Four permanent media hashes matched. Actual canonical phone playback at 390x844 advanced with sound on the published phone rendition. Existing draft update and current readback, accepted controller shipment and durable public closure remain required. Film bytes, narration, every verdict, grants and cumulative usage remain unchanged. Consolidated corrections remain in out/dispatch/defects.md.
