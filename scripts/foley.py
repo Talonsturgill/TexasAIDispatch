@@ -1564,6 +1564,16 @@ def freshwater_fault(seed=74):
     return normalize(fade(rotor, 25), 0.55)
 
 
+def subsurface_water(seed=100):
+    """Soft illustrated water input below crop roots, without surface spray."""
+    dur = 1.0
+    t = t_axis(dur)
+    flow = one_pole_lp(high_pass(white(dur, seed), 160), 1900)
+    flow *= np.sin(np.pi * np.clip(t / dur, 0, 1)) ** 1.5
+    pulse = sine(125, dur) * np.exp(-t * 5) * 0.08
+    return normalize(fade(flow * 0.28 + pulse, 30), 0.45)
+
+
 def freshwater_trace(seed=75):
     """Quiet graphic sonification of the drawn model path, not utility telemetry."""
     dur = 0.8
@@ -1749,6 +1759,7 @@ def carton_roller_place(seed=109):
 
 
 SOUNDS = {
+    "subsurface_water": (subsurface_water, "oneshot", "soft synthetic water input in the visible buried irrigation illustration", ["water", "irrigation", "illustration"]),
     "carton_dual_seal": (carton_dual_seal, "oneshot", "designed suction seal synchronized to simultaneous illustrated front and side plate contact, not recorded Contoro equipment", ["carton", "grip", "suction", "illustration"]),
     "carton_roller_place": (carton_roller_place, "oneshot", "designed soft cardboard contact synchronized to the illustrated supported carton settling on rollers, not recorded Contoro equipment", ["carton", "roller", "placement", "illustration"]),
     "protocol_focus": (protocol_focus, "oneshot", "editorial sonification of the visible protocol interface detail reveal, not participant or fetal audio", ["protocol", "source", "sonification"]),
