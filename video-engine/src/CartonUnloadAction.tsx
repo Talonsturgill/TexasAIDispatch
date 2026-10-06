@@ -2,7 +2,12 @@ import React from "react";
 import {Euler} from "three";
 import {CinematicStage} from "./lib/cinema/CinematicStage";
 import {mix,type V3} from "./lib/cinema/motion";
-const Box:React.FC<{p:V3;identified?:boolean;width?:number}>=({p,identified=false,width=.95})=><group position={p}>
+import {useArtDirection, type ShotPose} from './lib/artDirection';
+import {CartonHero, VacuumCup} from './lib/production/CartonHero';
+const Box:React.FC<{p:V3;identified?:boolean;width?:number}>=({p,identified=false,width=.95})=>{
+ const art=useArtDirection();
+ if(art)return <CartonHero position={p} identified={identified} width={width}/>;
+ return <group position={p}>
  <mesh castShadow receiveShadow><boxGeometry args={[width,.9,.92]}/><meshStandardMaterial color={identified?"#c48b49":"#927044"} roughness={.92}/></mesh>
  {/* Packing tape and seam conserve the one carton through every cut. */}
  <mesh position={[0,.453,0]}><boxGeometry args={[.12,.006,.92]}/><meshStandardMaterial color="#e1c598" roughness={.7}/></mesh>
@@ -12,16 +17,21 @@ const Box:React.FC<{p:V3;identified?:boolean;width?:number}>=({p,identified=fals
  {/* Narrow seams and pressed edge marks make corrugated packaging legible. */}
  {[-width/2+.035,width/2-.035].map(x=><mesh key={x} position={[x,0,.468]}><boxGeometry args={[.012,.86,.006]}/><meshStandardMaterial color="#73512d"/></mesh>)}
 </group>;
+};
 const Beam:React.FC<{from:V3;to:V3;color?:string;radius?:number}>=({from,to,color="#7fd9cf",radius=.012})=>{
  const dx=to[0]-from[0],dy=to[1]-from[1],dz=to[2]-from[2],length=Math.sqrt(dx*dx+dy*dy+dz*dz);
  // Explicit world endpoints, deterministic orientation with no incremental simulation.
  const yaw=Math.atan2(dx,dz),pitch=Math.acos(dy/Math.max(length,.001));
  return <mesh position={from.map((v,i)=>(v+to[i])/2) as V3} rotation={[0,yaw,0]}><group rotation={[pitch,0,0]}><mesh><cylinderGeometry args={[radius,radius,length,12]}/><meshStandardMaterial color={color} emissive={color} emissiveIntensity={.18}/></mesh></group></mesh>;
 };
-const Plate:React.FC<{side?:boolean;engage:number}>=({side=false,engage})=><group position={side?[.475+.18*(1-engage),0,0]:[0,0,.46+.23*(1-engage)]} rotation={side?[0,Math.PI/2,0]:[0,0,0]}>
- <mesh position={[0,0,.1]}><boxGeometry args={[.55,.58,.09]}/><meshStandardMaterial color="#263438" metalness={.65} roughness={.35}/></mesh>
- {[-.17,.17].flatMap(x=>[-.18,.18].map(y=><group key={`${x}-${y}`} position={[x,y,.033]}><mesh rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.09,.065,.065,24]}/><meshStandardMaterial color="#d1ae59" roughness={.75}/></mesh><mesh position={[0,0,-.014]} rotation={[0,0,0]}><torusGeometry args={[.069,.018,10,24]}/><meshStandardMaterial color="#3b3730"/></mesh></group>))}
-</group>;
+const Plate:React.FC<{side?:boolean;engage:number}>=({side=false,engage})=>{
+ const art=useArtDirection();
+ return <group position={side?[.475+.18*(1-engage),0,0]:[0,0,.46+.23*(1-engage)]} rotation={side?[0,Math.PI/2,0]:[0,0,0]}>
+ <mesh position={[0,0,.1]}><boxGeometry args={[.55,.58,.09]}/><meshStandardMaterial color={art?.palette.foreground??"#263438"} metalness={.65} roughness={.35}/></mesh>
+ {[-.17,.17].flatMap(x=>[-.18,.18].map(y=>art?<VacuumCup key={`${x}-${y}`} x={x} y={y}/>:<group key={`${x}-${y}`} position={[x,y,.033]}><mesh rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.09,.065,.065,24]}/><meshStandardMaterial color="#d1ae59" roughness={.75}/></mesh><mesh position={[0,0,-.014]} rotation={[0,0,0]}><torusGeometry args={[.069,.018,10,24]}/><meshStandardMaterial color="#3b3730"/></mesh></group>))}
+ {art&&[-.24,.24].flatMap(x=>[-.25,.25].map(y=><mesh key={`bolt-${x}-${y}`} position={[x,y,.148]} rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.016,.016,.008,6]}/><meshStandardMaterial color="#bac1be" metalness={.8} roughness={.28}/></mesh>))}
+ </group>;
+};
 export const cartonView=(phase:number,option:"a"|"b",a=0,b=0,c=0):{position:V3;target:V3;fov:number}=>{
  // Close-action staging follows the existing event clock. Detail cuts never replace the physical gesture.
  if(phase===1){
@@ -41,7 +51,8 @@ export const cartonView=(phase:number,option:"a"|"b",a=0,b=0,c=0):{position:V3;t
  // Purposeful opening reveal and a transfer follow, bounded by board events.
  return {position:[position[0]+(phase===0?-.3*a:0),position[1],position[2]],target:[target[0],target[1],target[2]+(phase===5?.25*b:0)],fov};
 };
-export const CartonUnloadAction:React.FC<{phase:number;option:"a"|"b";a:number;b:number;c:number}>=({phase,option,a,b,c})=>{
+export const CartonUnloadAction:React.FC<{phase:number;option:"a"|"b";a:number;b:number;c:number;shot?:ShotPose}>=({phase,option,a,b,c,shot})=>{
+ const art=useArtDirection();
  let z=.7,y=.45;
  if(phase===2)z+=.06*b+.06*c;
  if(phase===3){z=.82+.6*a+.28*b;y=.45+.3*c;}
@@ -50,7 +61,7 @@ export const CartonUnloadAction:React.FC<{phase:number;option:"a"|"b";a:number;b
  if(phase===6){z=3.25;y=.83;}
  if(phase===7){z=3.25+.32*c;y=.83-.08*a;}
  const engage=phase<2?0:phase===2?a:phase===7?1-b:1;
- const p:V3=[.75,y,z],view=cartonView(phase,option,a,b,c);
+ const p:V3=[.75,y,z],view=shot??cartonView(phase,option,a,b,c);
  const sensor:V3=[2.6,1.9,z+.8];
  // Lens faces local negative Z. YXZ applies pitch before yaw, matching this target vector.
  const sensorTarget:V3=[p[0],p[1],p[2]+.46];
@@ -66,10 +77,10 @@ export const CartonUnloadAction:React.FC<{phase:number;option:"a"|"b";a:number;b
  const frontZ=z+.9;
  // All load-bearing segments stay on the outside of carton solids, including their radii.
  return <CinematicStage {...view}>
- <mesh position={[0,-.09,1.9]} receiveShadow><boxGeometry args={[6,.18,6.2]}/><meshStandardMaterial color="#6f7778" roughness={.8}/></mesh>
- <mesh position={[0,1.4,-.13]}><boxGeometry args={[4.1,2.8,.14]}/><meshStandardMaterial color="#929c9c" metalness={.35} roughness={.65}/></mesh>
- {Array.from({length:22},(_,i)=><mesh key={i} position={[-2+i*.19,1.4,-.035]}><boxGeometry args={[.047,2.8,.045]}/><meshStandardMaterial color="#6e7b7e" roughness={.6}/></mesh>)}
- <mesh position={[-2.03,1.4,1.7]}><boxGeometry args={[.08,2.8,3.6]}/><meshStandardMaterial color="#879493" metalness={.3}/></mesh>
+ <mesh position={[0,-.09,1.9]} receiveShadow><boxGeometry args={[6,.18,6.2]}/><meshStandardMaterial color={art?.palette.midground??"#6f7778"} roughness={.8}/></mesh>
+ <mesh position={[0,1.4,-.13]}><boxGeometry args={[4.1,2.8,.14]}/><meshStandardMaterial color={art?.palette.background??"#929c9c"} metalness={.35} roughness={.65}/></mesh>
+ {Array.from({length:22},(_,i)=><mesh key={i} position={[-2+i*.19,1.4,-.035]}><boxGeometry args={[.047,2.8,.045]}/><meshStandardMaterial color={art?.palette.midground??"#6e7b7e"} roughness={.6}/></mesh>)}
+ <mesh position={[-2.03,1.4,1.7]}><boxGeometry args={[.08,2.8,3.6]}/><meshStandardMaterial color={art?.palette.background??"#879493"} metalness={.3}/></mesh>
  {/* Every remaining carton rests on the floor or an unchanged lower carton. */}
  {[-1.25,-.25].map(x=><Box key={x} p={[x,.45,.7]}/>)}
  {/* Broad upper cartons cover the entire target top; their centers stay over the unchanged left support. */}

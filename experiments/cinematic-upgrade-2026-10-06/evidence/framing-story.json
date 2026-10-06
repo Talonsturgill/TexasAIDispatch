@@ -1,0 +1,112 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "H3zFauhR3pWa2Q-u66OpAQ",
+  "starting_lens": "story",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "68d170f784596bfc3b8e6c04465b5a09ea920466a0d20b9d22c89cc5c97decab",
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "First delivers significantly clearer phone-size recognition, explicit mechanical contact, and legible functional anatomy. Its gripper arm shows articulated joints, suction cups, and distinct gripping planes making clear contact with the front face and side surface of the carton, fulfilling the narrative of grasping 'two sides at once' and placing it onto the roller conveyor. In contrast, Second uses opaque solid black rectangular blocks and generic cylinders that obscure the carton faces, while its shot at 04.200-08.000 pans away awkwardly to an undifferentiated gray pole and wall instead of maintaining clear focus on the unloading action.",
+    "audio_observed": "Clean, unhurried corporate/documentary voiceover delivery with balanced ambient synth bed, matched audio levels across both clips, and precise sync to captions.",
+    "source_limits": "Based entirely on company technology claims and descriptions; no independent field performance metrics, verified error rates, or third-party measured cycle times are depicted or claimed.",
+    "first": {
+      "hook": 8.0,
+      "story": 7.8,
+      "picture": 8.2,
+      "place": 7.2,
+      "craft": 8.1,
+      "voice": 7.8,
+      "one_viewing_summary": "Crisp 2.5D schematic clearly demonstrating Contoro's dual-surface carton gripper in action.",
+      "observed_strengths": [
+        "Suction cup arrays and articulated brackets clearly explain how two faces (front and side) are gripped simultaneously.",
+        "Clear visual staging on the roller conveyor with readable carton graphics and barcodes.",
+        "Motion curves between reaching, grasping, pulling, and setting down feel purposeful and mechanically readable."
+      ],
+      "defects": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.6,
+          "category": "contact_and_consequence",
+          "observed": "The final placement onto the roller ramp holds static without the carton translating along the rollers.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "hook": 6.8,
+      "story": 6.5,
+      "picture": 6.0,
+      "place": 6.8,
+      "craft": 6.1,
+      "voice": 7.8,
+      "one_viewing_summary": "3D modeled warehouse sequence impaired by unarticulated blocky end-effectors and an unmotivated camera pan.",
+      "observed_strengths": [
+        "Volumetric 3D spatial layout inside the container space.",
+        "Clean rendering of carton textures and warehouse backdrop."
+      ],
+      "defects": [
+        {
+          "start_s": 6.2,
+          "end_s": 8.0,
+          "category": "dominant_action",
+          "observed": "The camera swings to an empty vertical pillar and blank wall, leaving the primary robot interaction mostly out of frame.",
+          "criterion": "dominant_action",
+          "blocking": true
+        },
+        {
+          "start_s": 8.2,
+          "end_s": 11.4,
+          "category": "surface_finish",
+          "observed": "The gripper end-effectors are plain, monolithic dark slabs without visible suction cups, pads, or mechanical articulation.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    }
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 818,
+    "totalTokenCount": 18258,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "charge_index": 19,
+  "transport_normalizations": [
+    {
+      "field": "start_s",
+      "original_numeric_token": "06.2",
+      "parsed_numeric_value": "6.2"
+    },
+    {
+      "field": "end_s",
+      "original_numeric_token": "08.0",
+      "parsed_numeric_value": "8.0"
+    },
+    {
+      "field": "start_s",
+      "original_numeric_token": "08.2",
+      "parsed_numeric_value": "8.2"
+    }
+  ],
+  "source_receipt_sha256": "a91bf3ed887eff39f758b20a10f8d27dab2a424b425b76cd3554186eb7d946e6",
+  "response": {
+    "file": "framing-story-response.json",
+    "sha256": "c53033a506a91c704f45945f4268c59edab3fadac4432f988474ad5a6a734c0a"
+  },
+  "film_hashes_in_order": [
+    "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a",
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e"
+  ]
+}

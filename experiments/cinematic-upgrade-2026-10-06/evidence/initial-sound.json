@@ -1,0 +1,101 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "zHrFarLuD6Xsz7IP55es4AM",
+  "starting_lens": "sound",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "bd7121b7613160e21e45d686881be3a1b5b416b5ff53e984ba74ef94fac089f4",
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "FIRST demonstrates superior phone-size subject recognition, screen economy, and spatial staging. By utilizing dynamic camera setups\u2014beginning with a tight shot on the constrained carton stack, panning to contextualize the Contoro robot arm and container wall, and pulling in close to show the dual-surface gripper mechanism actively extracting the box\u2014FIRST clearly communicates the mechanical concept. In contrast, SECOND places a small 2D orthographic diagram in the center of the vertical frame, leaving more than half the screen as dead beige space, which renders the gripper detail difficult to parse at mobile viewing dimensions.",
+    "audio_observed": "Both cuts use identical voiceover narration and audio mix. Voice delivery is clear, natural, and accurately force-aligned with onscreen captions across all four caption cards.",
+    "source_limits": "Visualizations accurately represent Contoro's disclosed technology claims regarding dual-surface gripping (front face plus accessible side) without claiming third-party verified efficiency rates or autonomous field performance outcomes, correctly labeling the visualization as company-described workflow illustration.",
+    "first": {
+      "scores": {
+        "hook": 7.6,
+        "story": 7.5,
+        "picture": 7.8,
+        "place": 7.4,
+        "craft": 7.6,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A fully rendered 3D demonstration inside a shipping container trailer showcasing Contoro's dual-plate robotic gripper grasping and extracting an obstructed carton onto conveyor rollers.",
+      "observed_strengths": [
+        "Excellent phone-scale readability with camera setups tailored to clarify the specific mechanical interaction.",
+        "Clear depiction of physical contact and consequence: suction pads seat firmly against the front and side surfaces before pulling the box forward.",
+        "Finished 3D lighting, material differentiation (corrugated container wall, tape, cardboard fiber, metallic rollers), and believable spatial depth."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "craft",
+          "observed": "The initial static framing of the carton stack holds for nearly four seconds before the robot arm and environmental context are revealed.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 5.2,
+        "story": 6.2,
+        "picture": 5.4,
+        "place": 5.0,
+        "craft": 5.2,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A distant flat orthographic vector illustration of the unloading mechanism floating in an empty beige composition.",
+      "observed_strengths": [
+        "Faithfully animates the full sequence of approach, two-sided grasp, and extraction onto rollers in continuous time.",
+        "Clean, unembellished mechanical schematic showing suction pad positions."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 14.8,
+          "category": "subject_recognition",
+          "observed": "The focal mechanism is scaled down to a narrow central strip, leaving the top and bottom portions of the vertical 9:16 frame entirely empty; at native phone resolution, mechanical suction cups and contact pads are indistinct.",
+          "criterion": "subject_recognition",
+          "blocking": true
+        },
+        {
+          "start_s": 0.0,
+          "end_s": 14.8,
+          "category": "place",
+          "observed": "Lacks environmental grounding, staging the equipment against an abstract void rather than conveying the interior of a transport trailer or Austin warehouse facility.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    }
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 895,
+    "totalTokenCount": 19893,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 1558,
+    "serviceTier": "standard"
+  },
+  "charge_index": 11,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "c8d9c2162fd06cb03b8d494cbd208bf03fb8792f494933e1b3355a3d50cbd923",
+  "response": {
+    "file": "initial-sound-response.json",
+    "sha256": "e3cccb1799bd579ca5b90ba412601ed5fb79fc7cf23a66ec0c8ee37644ea58db"
+  },
+  "film_hashes_in_order": [
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+    "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1"
+  ]
+}

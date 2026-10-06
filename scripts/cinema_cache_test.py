@@ -79,6 +79,18 @@ class CacheTest(unittest.TestCase):
             self.board["scenes"][1]["super"]="Changed";self.save()
             self.assertNotEqual(old,c.picture_key(self.bp,[0,29]))
         self.assertNotIn(c.ENGINE/"Dispatch.tsx",c.closure())
+    def test_art_light_palette_camera_and_motion_invalidate_cached_hero(self):
+        self.board['art_direction'] = {'palette': {'hero': '#bc854d'},
+            'lighting': {'exposure': 1}, 'shots': {'a': {'target': [0, 0, 0]}}}
+        self.save(); baseline = c.picture_key(self.bp, [0, 29])
+        for branch, key, value in [('palette', 'hero', '#987654'), ('lighting', 'exposure', 1.2),
+                                   ('shots', 'a', {'target': [1, 0, 0]})]:
+            original = copy.deepcopy(self.board['art_direction'])
+            self.board['art_direction'][branch][key] = value
+            self.save(); self.assertNotEqual(baseline, c.picture_key(self.bp, [0, 29]))
+            self.board['art_direction'] = original
+        self.board['scenes'][0]['visual_events'][0]['motion'] = {'curve': 'contact'}
+        self.save(); self.assertNotEqual(baseline, c.picture_key(self.bp, [0, 29]))
     def test_unknown_routes_gaps_and_credits_use_full_binding(self):
         self.board["cinematic_template"]="unknown"
         self.assertEqual("full-inputs",c.project(self.board,[0,29])[1])

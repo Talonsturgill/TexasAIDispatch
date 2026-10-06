@@ -130,6 +130,13 @@ film/audio evidence; a different style preference alone is not a blocking defect
 
 ## Picture and narration alignment
 
+For current art-profile packets, read ART_DIRECTION.md and cinematic_reference_bank.json.
+Check the actual silhouette, surface finish, contact, light hierarchy, motion rhythm and
+signature event at native and phone sizes before reading the director's explanation. Use
+the existing criteria and observation fields. Reference scores are from different rubrics;
+do not compare them numerically or treat them as this film's evidence. Preserve all original
+findings, the three separate lenses and the existing bounded completion route.
+
 Read knowledge/craft/visual-storytelling/README.md and the selected approach dossier. Apply the
 existing rubric and keep your existing lens. After the first viewing, name the pictured subjects,
 central action and ending before reading the director's explanation. Then identify any spoken

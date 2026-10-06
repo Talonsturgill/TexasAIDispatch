@@ -363,7 +363,11 @@ class StoryVisualTest(unittest.TestCase):
 
 def load_tests(loader, tests, pattern):
     from creative_production_test import CreativeTest
+    from art_direction_test import ArtDirectionTest
+    from cinematic_learning_test import CinematicLearningTest
     tests.addTests(loader.loadTestsFromTestCase(CreativeTest))
+    tests.addTests(loader.loadTestsFromTestCase(ArtDirectionTest))
+    tests.addTests(loader.loadTestsFromTestCase(CinematicLearningTest))
     return tests
 
 

@@ -98,5 +98,22 @@ unsent draft. Provider token telemetry excludes Codex account use; never label i
 Update automation memory with closure and UTC time. Keep next-five-edition measurement honest:
 unfinished editions count, and actual savings and reliability require production evidence.
 
+After accepted shipment and its durable archive, refresh the cinematic measurements and
+recurring-defect packet. This reads the actual retained failures and unfinished costs:
+
+```sh
+python scripts/cinematic_learning.py --state out/dispatch/run_state.json --out out/dispatch/cinematic-learning.json --defects-out out/dispatch/recurring-defects.json
+```
+
+Retain these reports as runs/<date>/cinematic-learning.json and runs/<date>/recurring-defects.json
+in the same metadata-only durable closure. The helper emits logical archive references and
+hashes; never add private Gmail ids or local receipt paths. The next picture phase inherits
+the newest durable engineering decision even in a clean checkout.
+The existing builder considers at most one shared advance per seven days, bounded by
+config/cinematic_learning.json and ART_DIRECTION.md, inside the existing comparison. Record
+`--decision advance|skip --decision-note <actual reason> --proof <retained evidence>` when
+that decision occurs. No new daily reviewer, paid attempt or grant is introduced. Report
+observed results; five future editions cannot be inferred from an engineering rehearsal.
+
 A retrospective may produce up to three bounded verified upgrades. Cross-lane changes need the
 owning workflow. Do not extend the shipped film with optional polish or defer required repairs.

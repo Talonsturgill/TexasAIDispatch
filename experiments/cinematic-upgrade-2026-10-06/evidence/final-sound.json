@@ -1,0 +1,102 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "zn7FaoOCMMnrz7IP4s2TwAE",
+  "starting_lens": "sound",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "bd7121b7613160e21e45d686881be3a1b5b416b5ff53e984ba74ef94fac089f4",
+  "original_result": {
+    "winner": "second",
+    "comparison_reason": "Second executes Contoro's dual-surface grasping mechanism with far superior mechanical clarity, graphic readability, and surface finish at phone scale. In Second, the articulated arm linkage, individual suction cups, pivot joints, and camera sensor rig are distinctly rendered, clearly illustrating how the front face and side surface are acquired simultaneously. In contrast, First relies on rudimentary 3D primitives: the robot mast at 04.2-08.0s is a bare rectangular post in an unlit void, and the gripper end-effectors are plain monolithic black slabs on plain pipes without visible suction hardware or grip mechanics, degrading phone-size subject recognition and mechanical comprehension.",
+    "audio_observed": "Both cuts use identical clean voiceover narration ('A packed trailer can hide the top of a carton...'), perfectly aligned subtitle cards, and a subtle mechanical backing bed with clean vocal presence and zero distortion.",
+    "source_limits": "Both presentations properly respect the scope note of Contoro's claims (c01-c04): demonstrating the two-sided front-and-side grasping mechanism within an illustrative shipping container workflow without making unsubstantiated claims regarding commercial throughput or fully autonomous production reliability.",
+    "first": {
+      "scores": {
+        "hook": 6.8,
+        "story": 7.2,
+        "picture": 6.4,
+        "place": 6.5,
+        "craft": 6.2,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A 3D computer-generated staging showing a carton stack inside a trailer, cutting to an austere robotic pillar before two dark blocks clamp the front and side of a box.",
+      "observed_strengths": [
+        "Follows the verified narrative claims accurately regarding trailer occlusion and dual-surface carton acquisition.",
+        "Conveys dimensional depth inside the trailer and roller conveyor orientation.",
+        "Clear, force-aligned typography and clean voiceover pacing."
+      ],
+      "defects": [
+        {
+          "start_s": 4.2,
+          "end_s": 8.0,
+          "category": "surface_finish",
+          "observed": "The robot tower in shot 2 is rendered as an untextured, bare polygonal post and block head standing in an empty teal void, lacking realistic joints, cabling, or industrial finish.",
+          "criterion": "surface_finish",
+          "blocking": false
+        },
+        {
+          "start_s": 8.2,
+          "end_s": 14.8,
+          "category": "subject_recognition",
+          "observed": "The end-effectors gripping the box are plain solid black slabs with no visible suction cups, seals, or actuating components, failing to clearly convey the suction mechanism described in the source.",
+          "criterion": "subject_recognition",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 7.4,
+        "story": 7.5,
+        "picture": 7.8,
+        "place": 7.0,
+        "craft": 7.7,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A crisp, engineered 2.5D technical illustration clearly displaying articulated scissor arms, suction cups, and sensor optics unloading a box onto a roller conveyor.",
+      "observed_strengths": [
+        "Suction cups, articulated linkages, and structural joints are sharply outlined and instantly recognizable at small mobile screen dimensions.",
+        "The secondary side-arm engagement at 08.2-11.4s visibly articulates to grip the side face while the front face remains secured, perfectly matching claim c04.",
+        "High level of surface detail, including barcode labeling, cardboard seam taping, and roller bed structure, establishing an authentic logistics environment."
+      ],
+      "defects": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.8,
+          "category": "contact_and_consequence",
+          "observed": "As the box is pulled backwards onto the roller bed, the rollers do not exhibit rotational animation beneath the moving box, leaving the conveyor bed static.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    }
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 995,
+    "totalTokenCount": 19951,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 1516,
+    "serviceTier": "standard"
+  },
+  "charge_index": 34,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "6bc3cae9218c5021e56b57d3ceafb91c0a4d0c5cc2863b67dfd69ca5a94dfb2b",
+  "response": {
+    "file": "final-sound-response.json",
+    "sha256": "c7db70efe8bf2d74bdecea57034c132f196dd67ebca74e274865481337c76806"
+  },
+  "film_hashes_in_order": [
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+    "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f"
+  ]
+}

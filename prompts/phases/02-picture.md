@@ -20,6 +20,18 @@ Read CREATIVE_DIRECTION.md: current editions choose media by source fit and prov
 
 ## Match pictures to the spoken story
 
+For newly planned editions from October 7th, or an explicit art-profile opt-in, read
+knowledge/craft/ART_DIRECTION.md, config/art_direction.json and the frozen
+knowledge/craft/cinematic_reference_bank.json. The director specifies the profile before
+coding. Apply its four lenses inside the existing two-treatment limit. Have the existing
+builder read prompts/roles/scene-builder.md and execute the palette, finished hero, light,
+framing and event timing. The daily-production check validates these inputs before spend.
+Refresh cinematic-learning.json and recurring-defects.json with scripts/cinematic_learning.py;
+the helper inherits the newest durable engineering decision from runs. If the
+weekly packet is due, consider one reusable correction in this same assignment and prove it
+within the already reserved comparison. Fund the entire remaining shipment path first; skip
+optional engineering when it would delay an accepted cut. Record the decision and exact proof.
+
 Read knowledge/craft/visual-storytelling/README.md and the selected approach dossier in full.
 Use its sentence-to-shot worksheet in existing creative-direction notes and the compact packet.
 Select the primary approach by the sourced action and usable assets; daily rotation is optional

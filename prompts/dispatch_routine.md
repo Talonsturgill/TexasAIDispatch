@@ -14,6 +14,7 @@ At wake read CLAUDE.md, the current worklog and controller checkpoint, plus:
 - knowledge/craft/DOCUMENTARY_ATTENTION.md and config/documentary.json
 - knowledge/craft/CINEMATIC_PRODUCTION.md and config/cinematic_production.json
 - knowledge/craft/CREATIVE_DIRECTION.md and config/creative_production.json (apply its effective date)
+- knowledge/craft/ART_DIRECTION.md and config/art_direction.json for newly planned editions from October 7th or an explicit profile opt-in
 
 Read each phase file in full when entering that phase. These files are part of this routine:
 1. prompts/phases/01-research.md
@@ -39,6 +40,12 @@ knowledge/history/dispatch_routine_before_runtime_efficiency.md; they are eviden
 another active routine. Do not load the full historical archive into every daily task or worker.
 
 ## Nonnegotiable production contract
+
+- Execute the current art profile in the actual scene. Director chooses the look and two
+  treatments; the existing builder reads prompts/roles/scene-builder.md and implements them;
+  the existing independent critic watches before reading the rationale. Keep three final
+  scorers and the saved primary model. Calibrate with cinematic_reference_bank.json without
+  reusing its footage. Phase 5 records five-edition outcomes and the next bounded weekly fix.
 
 - Follow the story-specific visual policy in DAILY_PRODUCTION.md and config/story_visuals.json. Never reuse the previous shipped edition's b-roll. Search once within its limits for the actual site, people, equipment, workflow or documents; use relevant stills or omit an unhelpful insert when footage is unavailable.
 

@@ -1,5 +1,17 @@
 # Conditional implementation and recovery reference
 
+An explicitly owner-requested cinematic engineering spike uses a separate cumulative lab
+ledger. It is not a production edition, approval, host recovery or reusable daily b-roll.
+Charge each actual attempt first; preserve failure films, responses and original limits.
+An extra lab allowance needs an explicit owner instruction recorded as a separate increment.
+The paired native master still requires the headroom planner, guarded workspace housekeeping,
+native PNG/CRF16 and honest picture/sound observations. Normal production uses its controller.
+
+```sh
+python scripts/cinematic_lab.py --ledger <lab>/ledger.json charged --resource native_renders --count 2 --note "reserved engineering pair" --input <lab>/a.json --input <lab>/b.json
+python scripts/cinematic_lab_review.py --root <lab>/comparison --ledger <lab>/ledger.json --a <lab>/a-native.mp4 --b <lab>/b-native.mp4 --sources <lab>/source-excerpts.json
+```
+
 Read this only for a relevant implementation question. Search the corresponding GATE_LESSONS.md
 entries. A checker repair needs an adversarial regression proving the original defect is caught
 and valid input still works. Fix the owner, not a generated output or a downstream symptom.

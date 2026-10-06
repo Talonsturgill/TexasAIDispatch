@@ -1,0 +1,174 @@
+{
+  "schema": "dispatch-cinematic-upgrade-report/1",
+  "scope": "Owner-requested engineering comparison; no daily shipment or production panel approval is claimed.",
+  "date": "2026-10-06",
+  "baseline_revision": "506b4af9522d1576c8eb5d002448754e0a4588d4",
+  "alaska_reference_revision": "b35ab28072d7b1bd28d218b38bb23f748b9ff44c",
+  "selected": "b",
+  "preferences": [
+    {
+      "lens": "picture",
+      "response_id": "lX7FauqjCYql6dkPhdXL4AQ",
+      "preference": "a",
+      "weighted_scores": {
+        "a": 7.352000000000001,
+        "b": 6.5520000000000005
+      },
+      "blocking_defects_b": []
+    },
+    {
+      "lens": "story",
+      "response_id": "tH7FateJGNOCz7IPpIXN4QU",
+      "preference": "b",
+      "weighted_scores": {
+        "a": 6.056000000000001,
+        "b": 7.378
+      },
+      "blocking_defects_b": []
+    },
+    {
+      "lens": "sound",
+      "response_id": "zn7FaoOCMMnrz7IP4s2TwAE",
+      "preference": "b",
+      "weighted_scores": {
+        "a": 6.814000000000002,
+        "b": 7.542
+      },
+      "blocking_defects_b": []
+    }
+  ],
+  "mean_weighted_scores": {
+    "a": 6.740666666666667,
+    "b": 7.157333333333334
+  },
+  "rubric_sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+  "native_media": [
+    {
+      "option": "a",
+      "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+      "bytes": 1892046,
+      "decoded_audio_sha256": "7b22b0aa42df43b436ed7c71a1e2b3c30c9532498e79443ff84778dc16f64325",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920,
+          "avg_frame_rate": "30/1",
+          "duration": "14.766667",
+          "nb_frames": "443",
+          "sample_rate": null
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "width": null,
+          "height": null,
+          "avg_frame_rate": "0/0",
+          "duration": "14.800000",
+          "nb_frames": "695",
+          "sample_rate": "48000"
+        }
+      ]
+    },
+    {
+      "option": "b",
+      "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+      "bytes": 2271407,
+      "decoded_audio_sha256": "7b22b0aa42df43b436ed7c71a1e2b3c30c9532498e79443ff84778dc16f64325",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920,
+          "avg_frame_rate": "30/1",
+          "duration": "14.766667",
+          "nb_frames": "443",
+          "sample_rate": null
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "width": null,
+          "height": null,
+          "avg_frame_rate": "0/0",
+          "duration": "14.800000",
+          "nb_frames": "695",
+          "sample_rate": "48000"
+        }
+      ]
+    }
+  ],
+  "caption_note": "Identical four measured cues; no synthesis or retiming.",
+  "native_recipe": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "capture": "PNG",
+    "crf": 16,
+    "planned_frames": 444,
+    "actual_video_frames": 443
+  },
+  "phone_playback": {
+    "viewport": [
+      390,
+      844
+    ],
+    "rendition": [
+      720,
+      1280
+    ],
+    "css_width": 330,
+    "initial_current_time": 0.290898,
+    "completed_current_time": 14.8,
+    "ready_state": 4,
+    "muted": false,
+    "ended": true,
+    "error": null,
+    "basis": "Actual Computer Use DOM observations and displayed phone frames; no human listening claim."
+  },
+  "usage": {
+    "native_renders": 4,
+    "native_stills": 5,
+    "phone_renders": 6,
+    "av_reviews": 9
+  },
+  "reported_provider_tokens": 177140,
+  "account_tokens": null,
+  "resources_note": "R&D render/provider jobs are charged in the retained cumulative lab ledger; offline CI/regression fixtures are separate verification work. No daily controller or frozen envelope was reset.",
+  "capacity_increments": [
+    {
+      "resource": "av_reviews",
+      "count": 3,
+      "at": "2026-10-06T23:01:55.784494+00:00",
+      "failure_evidence": [
+        {
+          "sha256": "0d3ac5a4990a70472486ce9910c238743f44e7d637eda917804efbf0366a5cb0",
+          "file": "corrected-comparison/comparison-picture.json"
+        }
+      ]
+    }
+  ],
+  "next_five_editions": {
+    "effective_date": "2026-10-07",
+    "measured_shipped_editions": 0,
+    "status": "Instrumentation active; future production outcomes are unmeasured."
+  },
+  "automation_preserved": {
+    "schedule": true,
+    "primary_model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "email": "unsent-only",
+    "social_posting": false
+  },
+  "global_camera_native_compatibility": {
+    "directed_view_identical_pixels": true,
+    "native_still_frames": [
+      270,
+      273,
+      280
+    ],
+    "capture_report_sha256": "456802e1842fcdf55aaa276806598c5a60e124b26b1998052edbb793e06f29a2"
+  }
+}

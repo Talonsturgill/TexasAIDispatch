@@ -3,10 +3,12 @@ import {useThree} from '@react-three/fiber';
 import * as THREE from 'three';
 import type {V3} from './motion';
 import {setFrameProjection} from './projection';
+import type {ArtDirection} from '../artDirection';
 
 /** Authored light cards. No remote HDRI, canvas texture, randomness or wall clock. */
-function studioMap() {
+function studioMap(lighting?: ArtDirection['lighting']) {
   const w=256,h=128,data=new Float32Array(w*h*4);
+  const colors=lighting?[lighting.key,lighting.rim,lighting.fill].map(l=>new THREE.Color(l.color)):null;
   for(let y=0;y<h;y++) for(let x=0;x<w;x++) {
     const u=x/w,v=y/h;
     const card=(cx:number,cy:number,sx:number,sy:number,power:number)=>
@@ -18,6 +20,11 @@ function studioMap() {
     data[i]=.035+key+rim*.3+warm;
     data[i+1]=.045+key*.95+rim*.85+warm*.44;
     data[i+2]=.055+key*.86+rim+warm*.16;
+    if(colors) {
+      data[i]=.035+key*colors[0].r+rim*colors[1].r*.65+warm*colors[2].r*.5;
+      data[i+1]=.045+key*colors[0].g+rim*colors[1].g*.65+warm*colors[2].g*.5;
+      data[i+2]=.055+key*colors[0].b+rim*colors[1].b*.65+warm*colors[2].b*.5;
+    }
     data[i+3]=1;
   }
   const texture=new THREE.DataTexture(data,w,h,THREE.RGBAFormat,THREE.FloatType);
@@ -25,13 +32,13 @@ function studioMap() {
   texture.needsUpdate=true;
   return texture;
 }
-export const Studio:React.FC<{position:V3;target:V3;fov?:number}> = ({position,target,fov=39})=>{
+export const Studio:React.FC<{position:V3;target:V3;fov?:number;lighting?:ArtDirection['lighting']}> = ({position,target,fov=39,lighting})=>{
   const {camera,scene,gl}=useThree();
   const environment=useMemo(()=>{
-    const map=studioMap(),pmrem=new THREE.PMREMGenerator(gl);
+    const map=studioMap(lighting),pmrem=new THREE.PMREMGenerator(gl);
     const result=pmrem.fromEquirectangular(map); map.dispose(); pmrem.dispose();
     return result;
-  },[gl]);
+  },[gl,lighting]);
   useLayoutEffect(()=>{
     camera.position.set(...position); camera.lookAt(...target);
     // Sequential rendering reuses this camera across scene cuts. Recompute optics
@@ -43,6 +50,13 @@ export const Studio:React.FC<{position:V3;target:V3;fov?:number}> = ({position,t
     scene.environment=environment.texture;
   },[camera,scene,environment,position,target,fov]);
   useEffect(()=>()=>{environment.dispose();},[environment]);
+  if(lighting) return <>
+    <ambientLight intensity={lighting.ambient}/>
+    <spotLight position={lighting.key.position} intensity={lighting.key.intensity} color={lighting.key.color}
+      angle={.65} penumbra={.65} castShadow shadow-mapSize={[2048,2048]} shadow-bias={-.0002}/>
+    <directionalLight position={lighting.fill.position} intensity={lighting.fill.intensity} color={lighting.fill.color}/>
+    <pointLight position={lighting.rim.position} intensity={lighting.rim.intensity} color={lighting.rim.color}/>
+  </>;
   return <>
     <ambientLight intensity={.22}/>
     <spotLight position={[2,6,6]} intensity={100} angle={.55} penumbra={.6}

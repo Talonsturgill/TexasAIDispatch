@@ -6,6 +6,7 @@ import {ThreeCanvas} from '@remotion/three';
 import * as THREE from 'three';
 import {Studio} from './Studio';
 import type {V3} from './motion';
+import {useArtDirection,useDirectedCamera} from '../artDirection';
 
 /** Flush committed scene and camera changes before the frame is captured.
  * The demand loop can otherwise expose a cleared buffer at a scene transition.
@@ -30,6 +31,9 @@ export const CinematicStage:React.FC<{
   position:V3; target:V3; children:React.ReactNode; fov?:number; exposure?:number;
 }>=({position,target,children,fov=39,exposure=1.1})=>{
  const {width,height}=useVideoConfig();
+ const art=useArtDirection();
+ const directed=useDirectedCamera();
+ position=directed?.position??position;target=directed?.target??target;fov=directed?.fov??fov;
  const frame=useCurrentFrame();
  const {isRendering}=useRemotionEnvironment();
  const {delayRender,continueRender}=useDelayRender();
@@ -62,8 +66,8 @@ export const CinematicStage:React.FC<{
  return <ThreeCanvas width={width} height={height} dpr={1} shadows
    camera={{fov,near:.05,far:100}}
    gl={{antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance',
-     toneMapping:THREE.ACESFilmicToneMapping,toneMappingExposure:exposure}}>
-   <Studio position={position} target={target} fov={fov}/>
+     toneMapping:THREE.ACESFilmicToneMapping,toneMappingExposure:art?.lighting.exposure??exposure}}>
+   <Studio position={position} target={target} fov={fov} lighting={art?.lighting}/>
    {children}
    <CaptureFrame onCaptured={onCaptured}/>
  </ThreeCanvas>;

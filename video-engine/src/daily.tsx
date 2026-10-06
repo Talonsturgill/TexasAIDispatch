@@ -3,6 +3,7 @@ import {registerRoot, Composition} from 'remotion';
 import type {DispatchProps} from './Dispatch';
 import {DailyActionsEpisode} from './DailyActionsEpisode';
 import {withFonts} from './lib/fonts';
+import {ArtDirectionProvider} from './lib/artDirection';
 
 // Kept exactly equal to the legacy composition metadata by the renderer regression test.
 export const dispatchMetadata = ({props}: {props: Record<string, unknown>}) => {
@@ -22,7 +23,8 @@ export const dispatchMetadata = ({props}: {props: Record<string, unknown>}) => {
   return {durationInFrames: Math.round(seconds * 30)};
 };
 const defaults:DispatchProps={runtime_s:1,scenes:[],captions:[],credits:''};
-const DailyRoot:React.FC=()=> <Composition id="Dispatch" component={withFonts(DailyActionsEpisode)}
+const DirectedDaily:React.FC<DispatchProps>=props=><ArtDirectionProvider profile={props.art_direction} scenes={props.scenes}><DailyActionsEpisode {...props}/></ArtDirectionProvider>;
+const DailyRoot:React.FC=()=> <Composition id="Dispatch" component={withFonts(DirectedDaily)}
   fps={30} width={1080} height={1920} durationInFrames={30}
   defaultProps={defaults} calculateMetadata={dispatchMetadata}/>;
 registerRoot(DailyRoot);

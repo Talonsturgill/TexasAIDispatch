@@ -1,4 +1,5 @@
 import {CropWaterEpisode} from './CropWaterEpisode';
+import type {ArtDirection, EventMotion} from './lib/artDirection';
 import {CartonUnloadEpisode} from "./CartonUnloadEpisode";
 import {ReadinessEpisode} from './ReadinessEpisode';
 import {PavementDepthEpisode} from './PavementDepthEpisode';
@@ -136,7 +137,7 @@ export interface Scene {
    *  differently the captions read. */
   planes: {z: number; label?: string; items: Placed[]}[];
   /** screen-space, never in the world: see the note on chrome below */
-  visual_events?: {id?: string; at_s: number; duration_s?: number; item_ids?: string[]}[];
+  visual_events?: {id?: string; at_s: number; duration_s?: number; item_ids?: string[]; motion?: EventMotion}[];
   super?: string;
   /** THE EDITORIAL LINE, and it is NOT a subtitle. It carries the fact the super is too
    *  short to hold. It used to render in a dark band across the bottom of the frame in
@@ -184,6 +185,7 @@ export interface Cue {
 }
 
 export type DispatchProps = {
+  art_direction?: ArtDirection;
   native_media?: {file: string; sha256: string; basis?: string}[];
   cinema?: {
     version: string;
@@ -217,7 +219,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'crop-water-v1' | 'carton-unload-v1' | 'readiness-twin-v1' | 'pavement-depth-v1' | 'pod-delivery-v1' | 'smoke-camera-v1' | 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
+  cinematic_template?: 'carton-unload-illustrated-v1' | 'crop-water-v1' | 'carton-unload-v1' | 'readiness-twin-v1' | 'pavement-depth-v1' | 'pod-delivery-v1' | 'smoke-camera-v1' | 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
     'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'brush-camera-v1';
@@ -495,6 +497,7 @@ export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, cr
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
   if (cinematic_template === 'crop-water-v1') {return <CropWaterEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
+  if (cinematic_template === 'carton-unload-illustrated-v1') {return <CartonUnloadEpisode cinematic_template={cinematic_template} runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'carton-unload-v1') {return <CartonUnloadEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'readiness-twin-v1') {return <ReadinessEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'editorial-v1') {

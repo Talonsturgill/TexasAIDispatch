@@ -1,0 +1,101 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "tH7FateJGNOCz7IPpIXN4QU",
+  "starting_lens": "story",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "68d170f784596bfc3b8e6c04465b5a09ea920466a0d20b9d22c89cc5c97decab",
+  "original_result": {
+    "winner": "first",
+    "first": {
+      "scores": {
+        "hook": 7.4,
+        "story": 7.3,
+        "picture": 7.6,
+        "place": 7.0,
+        "craft": 7.5,
+        "voice": 7.4
+      },
+      "one_viewing_summary": "A clean 2.5D technical illustration clearly diagramming Contoro's dual-surface gripper engaging the front and side of an obscured box in a trailer stack.",
+      "observed_strengths": [
+        "Immediate mobile readability: articulated arms and multi-cup suction pads clearly depict the physical grasping mechanism referenced in the source text.",
+        "Clear visual hierarchy between the box stack, roller conveyor, camera sensor mast, and gripper linkage.",
+        "Composed camera angles maintain uninterrupted focus on the contact zones and carton displacement."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.8,
+          "category": "craft",
+          "observed": "The initial shot remains largely static on the front pad contact before the wider gantry reveal occurs.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 5.8,
+        "story": 6.4,
+        "picture": 5.5,
+        "place": 6.2,
+        "craft": 5.2,
+        "voice": 7.4
+      },
+      "one_viewing_summary": "A 3D mesh rendering of the robot arm using primitive block geometry and unmotivated camera staging that wanders away from the primary unloading action.",
+      "observed_strengths": [
+        "Presents spatial depth and perspective inside the trailer container.",
+        "Demonstrates physical motion of pulling the carton toward the roller bed."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 14.6,
+          "category": "surface_finish",
+          "observed": "The gripper end-effectors are modeled as undifferentiated solid black rectangular slabs, obscuring the functional suction mechanism described in the source.",
+          "criterion": "surface_finish",
+          "blocking": false
+        },
+        {
+          "start_s": 6.6,
+          "end_s": 8.1,
+          "category": "craft",
+          "observed": "The camera whip-pans and crops into an empty vertical support column and bare floor, losing sight of the carton stack and focal unloading action.",
+          "criterion": "dominant_action",
+          "blocking": true
+        }
+      ]
+    },
+    "comparison_reason": "First delivers significantly higher phone-size clarity and technical legibility. Its articulated suction arrays and composed orthographic angles explicitly communicate how Contoro grasps both the front and accessible side of a packed carton. Second relies on crude low-poly primitives with generic black blocks for grippers, compounded by an awkward mid-scene camera move that pans into an empty pillar.",
+    "audio_observed": "Both cuts feature identical crisp, natural voiceover narration without distortion or clipping, synchronized perfectly with force-aligned subtitle captions and subtle mechanical ambient bed audio.",
+    "source_limits": "Contoro's proprietary technology is illustrated based on company claims regarding front-and-side dual grasp and container sensing; customer-site operational autonomy rates and internal AI edge-case benchmarks remain unverified claims."
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 815,
+    "totalTokenCount": 19624,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      }
+    ],
+    "thoughtsTokenCount": 1369,
+    "serviceTier": "standard"
+  },
+  "charge_index": 32,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "3d630dd048c8d37f58b495c914b0935b531f61e3843d5b729570d4ff9a774803",
+  "response": {
+    "file": "final-story-response.json",
+    "sha256": "90844a24488b7cc829caf815bc6ad91184ba7a9a75021325b9ccd9f938ef0c89"
+  },
+  "film_hashes_in_order": [
+    "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e"
+  ]
+}

@@ -79,10 +79,12 @@ def scene_medium(board, scene):
 
 
 def plan_problems(board):
+    import art_direction
+    art_errors = art_direction.problems(board)
     if not required(board):
-        return []
+        return art_errors
     plan = board.get("creative_direction") or {}
-    errors = treatment_problems(board)
+    errors = art_errors + treatment_problems(board)
     if plan.get("policy_sha256") != digest(POLICY):
         errors.append("creative direction must bind the current dated policy")
     for key in ("viewer_question", "visible_answer", "emotional_turn", "medium_choice"):

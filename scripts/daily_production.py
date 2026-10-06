@@ -428,6 +428,10 @@ def packet(board_path, claims_path, role, state_path=None):
             if readings:
                 data["craft_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)} for p in readings]
                 data["instructions"] += " Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria."
+            if board.get('art_direction'):
+                data['art_direction'] = {'reference': 'board', 'field': 'art_direction',
+                                         'version': board['art_direction'].get('version'),
+                                         'hero_asset': (board['art_direction'].get('hero') or {}).get('asset')}
         for name in ("comparison.json", "selection.json"):
             path = Path(board_path).parent / "openings" / name
             if path.is_file():
@@ -463,11 +467,17 @@ def packet(board_path, claims_path, role, state_path=None):
 
 def craft_reading_paths(board, repo=None):
     """Route current teaching text without altering historical review inputs or schemas."""
+    import art_direction
+    repo_root = Path(REPO if repo is None else repo)
+    art_paths = ([repo_root / 'knowledge/craft/ART_DIRECTION.md',
+                  repo_root / 'config/art_direction.json',
+                  repo_root / 'knowledge/craft/cinematic_reference_bank.json',
+                  repo_root / 'prompts/roles/scene-builder.md'] if art_direction.required(board) else [])
     edition = str(board.get("date") or "")
     choice = str((board.get("creative_direction") or {}).get("medium_choice") or "").casefold()
     early_opt_in = edition == "2026-10-02" and "viewer-plan.md" in choice
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", edition) or (edition < "2026-10-03" and not early_opt_in):
-        return []
+        return art_paths
     root = Path(REPO if repo is None else repo) / "knowledge/craft/visual-storytelling"
     guides = {"observed documentary": "observed-documentary.md",
               "explanatory animation": "explanatory-animation.md",
@@ -478,7 +488,8 @@ def craft_reading_paths(board, repo=None):
     # A remote reviewer can't follow an absent local guide. Unnamed legacy-style
     # plans get the small complete approach set; explicit choices stay compact.
     names = ["viewer-plan.md", "README.md", "news-reporting.md"] + (named or list(guides.values()))
-    return [root / name for name in names]
+    paths = [root / name for name in names]
+    return paths + art_paths
 
 
 def scoreboard(runs=REPO / "runs", state_path=None):
