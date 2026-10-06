@@ -1,0 +1,869 @@
+{
+  "schema": "dispatch-cinematic-lab/1",
+  "created_at": "2026-10-06T22:37:00.678708+00:00",
+  "scope": "Owner-requested engineering; no production verdict or shipment authority",
+  "original_limits": {
+    "native_renders": 4,
+    "native_stills": 12,
+    "phone_renders": 8,
+    "av_reviews": 6
+  },
+  "limits": {
+    "native_renders": 4,
+    "native_stills": 12,
+    "phone_renders": 8,
+    "av_reviews": 9
+  },
+  "usage": {
+    "native_renders": 4,
+    "native_stills": 5,
+    "phone_renders": 6,
+    "av_reviews": 9
+  },
+  "events": [
+    {
+      "index": 0,
+      "at": "2026-10-06T22:37:00.679585+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 2,
+      "note": "First paired silent phone study, same conserved words and event windows",
+      "inputs": [
+        {
+          "sha256": "d8c81c526495d89fd7df50c9bee07dbda3523c827b3072f8842305fe91c50f9c",
+          "file": "experiments/cinematic-upgrade-2026-10-06/a.json"
+        },
+        {
+          "sha256": "4726a5b7d1e4afdb816f7128281399ff0670965a49caa6eef0673d8c8fcb2eae",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 1,
+      "at": "2026-10-06T22:41:40.701270+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Retained first dimensional diagnostic: surface improvements left the contact partly occluded. Build the planned authored 2.5D alternative, retaining the same words and events.",
+      "inputs": [
+        {
+          "sha256": "4726a5b7d1e4afdb816f7128281399ff0670965a49caa6eef0673d8c8fcb2eae",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b-dimensional-diagnostic.json"
+        },
+        {
+          "sha256": "f93d287f9899ecb890370039b4bc3c74470a07757146b66baabc1ddfebbc7a39",
+          "file": "b-dimensional-diagnostic.mp4"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 2,
+      "at": "2026-10-06T22:41:40.702095+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 1,
+      "note": "Authored 2.5D candidate phone animatic",
+      "inputs": [
+        {
+          "sha256": "44337a9499330a3d8abdfba961912007c65891b343518d87e4a59e6afbb959d2",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 3,
+      "at": "2026-10-06T22:44:43.363192+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "First illustrated preview revealed an uncovered top caused by stack drawing order. Retain the failed film; correct occlusion and withdrawal clearance together.",
+      "inputs": [
+        {
+          "sha256": "532e3e05a053c108e73badfed7a9d32fa2d6bf405f24dfd959cf08449079f476",
+          "file": "b-illustrated-coverage-failure.mp4"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 4,
+      "at": "2026-10-06T22:44:43.364618+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 1,
+      "note": "Correct packed-stack occlusion and coherent withdrawal before native extension",
+      "inputs": [
+        {
+          "sha256": "44337a9499330a3d8abdfba961912007c65891b343518d87e4a59e6afbb959d2",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 5,
+      "at": "2026-10-06T22:46:12.069485+00:00",
+      "kind": "charged",
+      "resource": "native_renders",
+      "count": 2,
+      "note": "Paired native PNG/CRF16 cuts; native planner requires 9 GiB and guarded housekeeping passed",
+      "inputs": [
+        {
+          "sha256": "d8c81c526495d89fd7df50c9bee07dbda3523c827b3072f8842305fe91c50f9c",
+          "file": "experiments/cinematic-upgrade-2026-10-06/a.json"
+        },
+        {
+          "sha256": "44337a9499330a3d8abdfba961912007c65891b343518d87e4a59e6afbb959d2",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        },
+        {
+          "sha256": "4cfaca9a5634f3417dabbeb4b61011e2199966a765018284ab6c4007708b5ec3",
+          "file": "headroom.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 6,
+      "at": "2026-10-06T22:47:50.058738+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Both native cuts rendered with native PNG capture and CRF16. Same retained measured mix muxed without stretching; published-style phone renditions derived from these native masters.",
+      "inputs": [
+        {
+          "sha256": "4aef34161b5f520bcde343b5744a46d80b238bc2dd9c32a1d0b93fe58b45cfda",
+          "file": "native-render.json"
+        },
+        {
+          "sha256": "fc170ebd152e62227fe76328d8dc4273ace088ca7ca3a608d42d1c733470a9b4",
+          "file": "mix.wav"
+        },
+        {
+          "sha256": "8d8910648c2f5f57324c705fa27a0d6737280b14dbb4f0e7cc8087d5644b839f",
+          "file": "captions.json"
+        },
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1",
+          "file": "b-native.mp4"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 7,
+      "at": "2026-10-06T22:47:50.326046+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison picture",
+      "inputs": [
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 8,
+      "at": "2026-10-06T22:48:19.944979+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt picture",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 29618,
+        "http_status": 200,
+        "reported_tokens": 19750
+      }
+    },
+    {
+      "index": 9,
+      "at": "2026-10-06T22:48:19.953062+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison story",
+      "inputs": [
+        {
+          "sha256": "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 10,
+      "at": "2026-10-06T22:48:40.958257+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt story",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 21003,
+        "http_status": 200,
+        "reported_tokens": 19406
+      }
+    },
+    {
+      "index": 11,
+      "at": "2026-10-06T22:48:40.966141+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison sound",
+      "inputs": [
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 12,
+      "at": "2026-10-06T22:49:04.696289+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt sound",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 23728,
+        "http_status": 200,
+        "reported_tokens": 19893
+      }
+    },
+    {
+      "index": 13,
+      "at": "2026-10-06T22:50:12.026538+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Retain three original comparison responses: story preferred B; picture/sound preferred A and flagged small subject and vacant framing. One consolidated correction enlarges contact views, follows the actual load and adds source-consistent trailer floor depth.",
+      "inputs": [
+        {
+          "sha256": "a122ee372213235a2d8d7c2f346fe28220635313b2f52e8b7e615a33096b2001",
+          "file": "comparison-picture.json"
+        },
+        {
+          "sha256": "4d175c51e6ba3c5a0341fbca48ec065dd90515c9332655c71a4722026c73acbd",
+          "file": "comparison-story.json"
+        },
+        {
+          "sha256": "c8d9c2162fd06cb03b8d494cbd208bf03fb8792f494933e1b3355a3d50cbd923",
+          "file": "comparison-sound.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 14,
+      "at": "2026-10-06T22:50:12.027394+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 1,
+      "note": "Consolidated independent-review correction, complete remaining native and three-review path funded by original lab envelope",
+      "inputs": [
+        {
+          "sha256": "50fc514c6a347997ee98e1020735d61cbce8b4cf73fd6efc171839e71683af3a",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 15,
+      "at": "2026-10-06T22:52:28.821876+00:00",
+      "kind": "charged",
+      "resource": "native_renders",
+      "count": 1,
+      "note": "Corrected framed 2.5D native cut; fresh 9 GiB planner and guarded housekeeping passed",
+      "inputs": [
+        {
+          "sha256": "50fc514c6a347997ee98e1020735d61cbce8b4cf73fd6efc171839e71683af3a",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        },
+        {
+          "sha256": "9ef37d6bbdc43c5c20d6c6dadade6e944746180542b869ea9297de3c289d4be6",
+          "file": "correction-headroom.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 16,
+      "at": "2026-10-06T22:53:48.965570+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Consolidated framing correction rendered native and muxed with identical retained mix; preserve original reviews and compare three fresh responses on the changed film",
+      "inputs": [
+        {
+          "sha256": "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "fe3dbfb9dee864e9b3d5b929c9d318431822559198dda82ce794f4790923a658",
+          "file": "corrected-native-render.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 17,
+      "at": "2026-10-06T22:53:49.165246+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison picture",
+      "inputs": [
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 18,
+      "at": "2026-10-06T22:54:20.569664+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt picture",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 31403,
+        "http_status": 200,
+        "reported_tokens": 20162
+      }
+    },
+    {
+      "index": 19,
+      "at": "2026-10-06T22:54:20.578372+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison story",
+      "inputs": [
+        {
+          "sha256": "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 20,
+      "at": "2026-10-06T22:54:32.374318+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt story",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 11794,
+        "http_status": 200,
+        "reported_tokens": 18258
+      }
+    },
+    {
+      "index": 21,
+      "at": "2026-10-06T22:59:06.612417+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Parsed retained original provider timestamps; no new provider call or changed verdict",
+      "inputs": [
+        {
+          "sha256": "c53033a506a91c704f45945f4268c59edab3fadac4432f988474ad5a6a734c0a",
+          "file": "corrected-comparison/comparison-story-response.json"
+        },
+        {
+          "sha256": "a91bf3ed887eff39f758b20a10f8d27dab2a424b425b76cd3554186eb7d946e6",
+          "file": "corrected-comparison/comparison-story.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 22,
+      "at": "2026-10-06T22:59:06.616121+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison sound",
+      "inputs": [
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 23,
+      "at": "2026-10-06T22:59:36.719102+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt sound",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 30101,
+        "http_status": 200,
+        "reported_tokens": 20135
+      }
+    },
+    {
+      "index": 24,
+      "at": "2026-10-06T23:01:55.783600+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Second comparison has two B preferences and one A preference; retain the picture reviewer blocking absent-action finding in shot 2. Repair the actual omitted authored sensor turn using the retained source-backed 3D passage, plus mechanical depth cues in the same correction.",
+      "inputs": [
+        {
+          "sha256": "0d3ac5a4990a70472486ce9910c238743f44e7d637eda917804efbf0366a5cb0",
+          "file": "corrected-comparison/comparison-picture.json"
+        },
+        {
+          "sha256": "a91bf3ed887eff39f758b20a10f8d27dab2a424b425b76cd3554186eb7d946e6",
+          "file": "corrected-comparison/comparison-story.json"
+        },
+        {
+          "sha256": "23492a24732101272c621dc50f94751de7fa255d81c009b45723eb9be73c2e21",
+          "file": "corrected-comparison/comparison-sound.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 25,
+      "at": "2026-10-06T23:01:55.784494+00:00",
+      "kind": "capacity_increment",
+      "resource": "av_reviews",
+      "count": 3,
+      "note": "Operator attestation: owner authorized three additional comparisons after an observed missing-action failure; original limits, cumulative charges and failures retained.",
+      "inputs": [
+        {
+          "sha256": "0d3ac5a4990a70472486ce9910c238743f44e7d637eda917804efbf0366a5cb0",
+          "file": "corrected-comparison/comparison-picture.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 26,
+      "at": "2026-10-06T23:01:55.785822+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 1,
+      "note": "One consolidated mandatory action correction: execute authored sensor turn and finish mechanical contacts",
+      "inputs": [
+        {
+          "sha256": "50fc514c6a347997ee98e1020735d61cbce8b4cf73fd6efc171839e71683af3a",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 27,
+      "at": "2026-10-06T23:03:45.190541+00:00",
+      "kind": "charged",
+      "resource": "native_renders",
+      "count": 1,
+      "note": "Final native candidate after consolidated missing-action repair; retained failure source and 9 GiB headroom checked",
+      "inputs": [
+        {
+          "sha256": "50fc514c6a347997ee98e1020735d61cbce8b4cf73fd6efc171839e71683af3a",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        },
+        {
+          "sha256": "89d0d60d842d0475cafac5988c5848993b3c097fcb77e57b92f34ce2ab52d7c8",
+          "file": "final-headroom.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 28,
+      "at": "2026-10-06T23:03:45.192026+00:00",
+      "kind": "charged",
+      "resource": "native_stills",
+      "count": 2,
+      "note": "Verify opt-in 3D light and finished hero surfaces at native scale; diagnostic, no film approval",
+      "inputs": [
+        {
+          "sha256": "4726a5b7d1e4afdb816f7128281399ff0670965a49caa6eef0673d8c8fcb2eae",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b-dimensional-diagnostic.json"
+        },
+        {
+          "sha256": "89d0d60d842d0475cafac5988c5848993b3c097fcb77e57b92f34ce2ab52d7c8",
+          "file": "studio-headroom.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 29,
+      "at": "2026-10-06T23:04:50.188580+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Native final candidate includes actual sensor articulation, finite load-following camera, preserved source words and same mix. Stop optional creative polish; collect three distinct final observations.",
+      "inputs": [
+        {
+          "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "17b00ca6be8f43f2b8cc2f6c61f620beea062e48cd3fc534d9404123e68da200",
+          "file": "final-native-render.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 30,
+      "at": "2026-10-06T23:04:50.362893+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison picture",
+      "inputs": [
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 31,
+      "at": "2026-10-06T23:05:21.886699+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt picture",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 31522,
+        "http_status": 200,
+        "reported_tokens": 19961
+      }
+    },
+    {
+      "index": 32,
+      "at": "2026-10-06T23:05:21.894781+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison story",
+      "inputs": [
+        {
+          "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "943150732af6befbf3054a42222542144c265049e1519ab6db9b9fddb4f03205",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 33,
+      "at": "2026-10-06T23:05:48.315372+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt story",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 26419,
+        "http_status": 200,
+        "reported_tokens": 19624
+      }
+    },
+    {
+      "index": 34,
+      "at": "2026-10-06T23:05:48.324754+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison sound",
+      "inputs": [
+        {
+          "sha256": "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+          "file": "a-native.mp4"
+        },
+        {
+          "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+          "file": "b-native.mp4"
+        },
+        {
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+          "file": "config/dispatch_rubric.yaml"
+        },
+        {
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "file": "config/quality_contract.json"
+        },
+        {
+          "sha256": "14d8acccc76c93de86795db86285d644987f4c6a9cd09194feb33a0c037f235f",
+          "file": "knowledge/craft/ART_DIRECTION.md"
+        },
+        {
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+          "file": "knowledge/craft/cinematic_reference_bank.json"
+        },
+        {
+          "sha256": "f488e1040d85981717c9b30080b818cfdf95974fffba12a8be6c8495182a0c39",
+          "file": "source-excerpts.json"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 35,
+      "at": "2026-10-06T23:06:13.922891+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt sound",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 25596,
+        "http_status": 200,
+        "reported_tokens": 19951
+      }
+    },
+    {
+      "index": 36,
+      "at": "2026-10-06T23:15:20.213548+00:00",
+      "kind": "charged",
+      "resource": "native_stills",
+      "count": 3,
+      "note": "Native compatibility proof after global camera wiring: identical final illustrated cut and identical legacy/directed views; no new creative treatment or provider attempt",
+      "inputs": [
+        {
+          "sha256": "50fc514c6a347997ee98e1020735d61cbce8b4cf73fd6efc171839e71683af3a",
+          "file": "experiments/cinematic-upgrade-2026-10-06/b.json"
+        },
+        {
+          "sha256": "d8c81c526495d89fd7df50c9bee07dbda3523c827b3072f8842305fe91c50f9c",
+          "file": "experiments/cinematic-upgrade-2026-10-06/a.json"
+        },
+        {
+          "sha256": "c72f0b5694e7cb9539067c351bdb322b45427253666900a45c573eef2cb9b934",
+          "file": "wiring-headroom.json"
+        }
+      ],
+      "telemetry": {}
+    }
+  ],
+  "updated_at": "2026-10-06T23:15:20.213705+00:00",
+  "derived_from_private_ledger_sha256": "7d7699329e797b85a5b4d3f8727f5fbc61390f7618d3a7acc778fabaae098f65"
+}

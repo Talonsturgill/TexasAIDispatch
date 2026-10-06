@@ -301,6 +301,27 @@ class AvailabilityTest(unittest.TestCase):
             self.assertEqual(taught_bindings['craft_readings_sha256'][method], r.digest(guide))
             self.assertIn('knowledge/craft/visual-storytelling/explanatory-animation.md', taught['files'])
             self.assertNotIn('knowledge/craft/visual-storytelling/cinematic-scene.md', taught['files'])
+            # Actual provider recovery must carry the new teaching text and bind it,
+            # without requiring a host failure for this offline transport regression.
+            for name in ['knowledge/craft/ART_DIRECTION.md', 'config/art_direction.json',
+                         'knowledge/craft/cinematic_reference_bank.json', 'prompts/roles/scene-builder.md']:
+                target = fixture/name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes((actual_repo/name).read_bytes())
+            current = json.loads(board.read_text())
+            current['art_direction'] = {'version': 'directed-world-v1'}  # transport-only fixture, never approval
+            board.write_text(json.dumps(current))
+            directed, directed_bindings = r.packet(board, claims, 'code', None)
+            method_art = 'knowledge/craft/ART_DIRECTION.md'
+            self.assertEqual((fixture/method_art).read_text(), directed['files'][method_art])
+            self.assertEqual(r.digest(fixture/method_art), directed_bindings['craft_readings_sha256'][method_art])
+            self.assertIn('config/art_direction.json', directed['files'])
+            self.assertIn('knowledge/craft/cinematic_reference_bank.json', directed['files'])
+            old_directed = r.fingerprint(directed)
+            (fixture/method_art).write_text((fixture/method_art).read_text() + '\nFixture-only changed craft instruction.\n')
+            changed_art, _ = r.packet(board, claims, 'code', None)
+            self.assertNotEqual(old_directed, r.fingerprint(changed_art))
+            current.pop('art_direction'); board.write_text(json.dumps(current))
             original_story = taught_bindings['story_sha256']
             guide.write_text(guide.read_text() + '\nFixture-only changed teaching context.\n')
             retaught, retaught_bindings = r.packet(board, claims, 'code', None)

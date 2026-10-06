@@ -1,0 +1,109 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "PX3FaqagBbbpz7IPkK3K6A4",
+  "starting_lens": "sound",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "bd7121b7613160e21e45d686881be3a1b5b416b5ff53e984ba74ef94fac089f4",
+  "original_result": {
+    "winner": "second",
+    "first": {
+      "scores": {
+        "hook": 6.8,
+        "story": 6.7,
+        "picture": 6.4,
+        "place": 6.9,
+        "craft": 6.5,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "Candidate 1 uses a 3D staging approach with solid rectangular pads to demonstrate carton unloading, but cuts to a disconnected sensor mast midway through and renders the gripper as opaque slabs without legible suction elements.",
+      "observed_strengths": [
+        "Consistent 3D spatial staging with roller conveyor and stacked cartons.",
+        "Clean lighting and shadow definition on the cardboard surfaces."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "surface_finish",
+          "observed": "The gripper contact pads are rendered as featureless black slabs on pipes with no visible suction cups or vacuum interfaces, failing to convey the actual gripping mechanism described in the source.",
+          "criterion": "surface_finish",
+          "blocking": false
+        },
+        {
+          "start_s": 4.2,
+          "end_s": 8.0,
+          "category": "dominant_action",
+          "observed": "The edit cuts away from the carton interaction to a static low-poly turquoise pillar with a swivel lens, stalling the box-unloading transformation during key narration.",
+          "criterion": "dominant_action",
+          "blocking": false
+        },
+        {
+          "start_s": 12.0,
+          "end_s": 14.8,
+          "category": "contact_and_consequence",
+          "observed": "The extracted carton hovers in space above the roller conveyor without settling into clear contact support before the cut concludes.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 7.6,
+        "story": 7.5,
+        "picture": 7.6,
+        "place": 7.2,
+        "craft": 7.7,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "Candidate 2 employs an authored technical illustration treatment featuring detailed four-cup vacuum arrays on articulated linkages, clearly revealing the two-surface grasp and retraction onto the roller ramp.",
+      "observed_strengths": [
+        "Explicitly illustrates circular vacuum cups mounted on truss frames, clarifying the suction mechanism referenced in the technology source.",
+        "The wider shot at 04.20s-08.00s retains full contextual visibility of the unloading apparatus and the conveyor deck.",
+        "Articulated mechanical joints and linkages convincingly fold as the carton is retracted toward the conveyor ramp."
+      ],
+      "defects": [
+        {
+          "start_s": 12.0,
+          "end_s": 14.8,
+          "category": "surface_finish",
+          "observed": "As the box retracts, the right linkage struts partially crowd the dark vertical stanchion, causing a momentary overlap in silhouette.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    },
+    "comparison_reason": "Candidate 2 is distinctly superior in mechanical comprehension and surface finish. While Candidate 1 uses solid black blocks that obscure how the robot actually grips surfaces without top access, Candidate 2 authoritatively renders the distinct suction cup rings on articulated frames, accurately portraying Contoro's dual-surface vacuum approach. Candidate 2 also maintains mechanical and spatial continuity across all cuts, whereas Candidate 1 cuts away to an unmotivated standalone sensor mast.",
+    "audio_observed": "Both candidates share the exact same clean, natural narration read and synchronized sound bed without masking or timing distortions.",
+    "source_limits": "The source document verifies that Contoro utilizes simultaneous multi-surface gripping (front plus another accessible face) to overcome hidden carton tops, which Candidate 2 directly and accurately depicts."
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 953,
+    "totalTokenCount": 20135,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 1742,
+    "serviceTier": "standard"
+  },
+  "charge_index": 22,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "23492a24732101272c621dc50f94751de7fa255d81c009b45723eb9be73c2e21",
+  "response": {
+    "file": "framing-sound-response.json",
+    "sha256": "3750d52a648ce00889c95b4e304ed6561a3954ba9236fdca33c2adfce3b81811"
+  },
+  "film_hashes_in_order": [
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+    "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a"
+  ]
+}

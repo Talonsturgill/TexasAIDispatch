@@ -1,5 +1,11 @@
 # Current-film review and release authorization
 
+Current art-profile packets bind ART_DIRECTION.md, its policy and the frozen reference bank.
+Each existing reviewer first reconstructs the film, then checks the executed silhouette,
+hierarchy, contact, finish, rhythm and signature shot against those references. Judge the
+actual current bytes under the unchanged rubric; preserve failures and stop optional polish
+at the existing boundary. Keep the three separate scorers and actual audiovisual responses.
+
 Run the cheap mechanical checks before buying a panel. The full render creates the exact-film
 attention player, contact sheet and bindings. Labels must match the current board and film.
 Inspect the actual MP4 at phone size, every action and transition, the contact sheet and feed

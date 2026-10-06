@@ -118,6 +118,13 @@ populate these observations; only the current rendered phone film can.
 
 ## Shared quality standard
 
+For current art-profile packets, read ART_DIRECTION.md and the frozen cinematic reference
+bank in full. Inspect the pictured object, action and result before the director's rationale.
+Then check whether the current renderer executes its hero finish, palette, lighting, framing,
+motion and signature event. Compare exactly two complete treatments in the existing assignment.
+Record actual timed recognition/contact/comprehension defects under the unchanged criteria;
+a reference's different style or old score is not current approval or a new blocking rule.
+
 Read knowledge/craft/QUALITY_CONTRACT.md and config/quality_contract.json. Use these same observable criteria across planning, exact phone review and final judgment. Record actual defects with their times and effect on the viewer. A weakest interval or optional preference alone does not override the rubric; all mandatory quality and audiovisual gates remain.
 
 

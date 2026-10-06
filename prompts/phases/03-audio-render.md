@@ -120,3 +120,8 @@ The voice director binds the current sound arc and selected opening; the mixer c
 creative_direction.sound cues on the actual board clock. Supply matching sfx id/event_id
 records and --board on every mix. Retime those records with board_retime.py, then remix.
 The release gate refuses a stale sound/timing digest. Keep one narration take by default.
+For current art-profile boards, read knowledge/craft/ART_DIRECTION.md. Inspect the executed
+anticipation, contact and settle windows before timing foley; a changed curve can shift the
+visible contact inside an unchanged event. Keep the original measured voice and captions.
+Prove focal sharpness, finished surfaces and grounded contact at native scale, plus the entire
+action above the phone caption band. A profile or texture alone never approves the hero.

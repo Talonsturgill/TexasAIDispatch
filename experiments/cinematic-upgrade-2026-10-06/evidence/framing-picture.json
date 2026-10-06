@@ -1,0 +1,101 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "AHzFaq_aKrTqz7IP2_-fgAM",
+  "starting_lens": "picture",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "a7708f079491a82d077e1fb91f82734b09adc6f204701865e820890ae56d1b74",
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "FIRST provides significantly stronger physical staging, depth, and mechanical clarity. In FIRST, the 3D spatial treatment clearly establishes the confined interior of a shipping trailer, the sensor mast articulating to survey the container, and a grounded dual-surface gripper pulling the carton cleanly toward the roller bed. In contrast, SECOND relies on flat 2D vector linkages and suction pads that lack convincing depth and tactile contact, and its second shot (04.2s\u201308.0s) holds a nearly static wide frame without meaningful robot transformation.",
+    "first": {
+      "scores": {
+        "hook": 7.2,
+        "story": 7.5,
+        "picture": 7.4,
+        "place": 7.1,
+        "craft": 7.3,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A volumetric 3D animation inside a trailer showing Contoro's dual-surface gripper engaging a carton and pulling it onto an unload conveyor.",
+      "observed_strengths": [
+        "Clear spatial definition of the shipping container interior and dense carton stack.",
+        "Sensor mast movement between 04.2s and 08.0s actively illustrates robot perception during the company introduction.",
+        "Firm, grounded visual contact on both the front face and adjacent surface as the carton is retracted toward the roller conveyor."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.8,
+          "category": "dominant_action",
+          "observed": "The initial shot holds the gripper pad in static placement against the front face with minimal initial tension before the cut.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 6.4,
+        "story": 6.6,
+        "picture": 6.3,
+        "place": 6.4,
+        "craft": 6.2,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A flat 2D diagrammatic illustration of an arm linkage gripping a box from two sides over a conveyor roller.",
+      "observed_strengths": [
+        "Suction cup ring graphics clearly indicate the dual gripping points on the front and side.",
+        "Consistent color palette and clean graphic outlines."
+      ],
+      "defects": [
+        {
+          "start_s": 4.2,
+          "end_s": 8.0,
+          "category": "picture",
+          "observed": "Shot 2 holds a static wide composition with no mechanical articulation or robotic transformation while narrating Contoro building unloading robots.",
+          "criterion": "dominant_action",
+          "blocking": true
+        },
+        {
+          "start_s": 8.2,
+          "end_s": 14.6,
+          "category": "surface_finish",
+          "observed": "The linkage arms and suction cup rings appear as flat vector cutouts without mechanical thickness, realistic joints, or volumetric contact shading.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    },
+    "audio_observed": "Both cuts use identical voiceover narration and background mix, with accurate caption alignment matching spoken timing across all four lines.",
+    "source_limits": "Based on Contoro technology claims and UT Austin reporting regarding dual-surface box grasping (front face plus adjacent side) in non-palletized shipping containers; visual execution is an explanatory illustration of the company's described workflow."
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 841,
+    "totalTokenCount": 20162,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 1881,
+    "serviceTier": "standard"
+  },
+  "charge_index": 17,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "0d3ac5a4990a70472486ce9910c238743f44e7d637eda917804efbf0366a5cb0",
+  "response": {
+    "file": "framing-picture-response.json",
+    "sha256": "0c76c5a4aecf7a30733fcaf4b0b506efe8cd02436d4a9c7095f5855d6c891185"
+  },
+  "film_hashes_in_order": [
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+    "af7709fb266089896924089eae581019c9db253531c5dd8d194254386cc7d67a"
+  ]
+}

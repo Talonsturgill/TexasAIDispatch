@@ -1,0 +1,101 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "mXrFauKNGunBqtsPlq6WgQE",
+  "starting_lens": "picture",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "a7708f079491a82d077e1fb91f82734b09adc6f204701865e820890ae56d1b74",
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "First delivers a fully realized vertical cinematic presentation tailored to mobile viewing. It stages the trailer interior, robot arm, sensor mast, and dual-surface gripper mechanism with dynamic perspective, proper scale, and convincing material depth. In contrast, Second isolates a flat isometric graphic in the middle of the frame, leaving over half of the 9:16 screen as vacant negative space and rendering the mechanical contact points small and difficult to parse at phone scale.",
+    "audio_observed": "Both cuts share clean, identical voiceover narration, accurate audio sync, and aligned caption timing with no audible distortion or time-stretching.",
+    "source_limits": "Contoro's proprietary mechanism and container unloading workflow are verified from primary technology descriptions; neither cut overclaims customer deployment metrics or unverified automation reliability rates.",
+    "first": {
+      "scores": {
+        "hook": 7.8,
+        "story": 7.4,
+        "picture": 7.6,
+        "place": 7.1,
+        "craft": 7.5,
+        "voice": 7.4
+      },
+      "one_viewing_summary": "A close, dimensional 3D animation inside a container trailer showing the two-sided gripper engaging a box and pulling it onto the roller conveyor.",
+      "observed_strengths": [
+        "Excellent vertical frame utilization with readable mechanisms and clear depth cues.",
+        "Motivated shot progression: establishes tight carton clearance, introduces the robot base/sensor mast, and clearly details two-surface suction contact and extraction.",
+        "Finished textures, bevels, and industrial lighting suit the warehouse robotics context."
+      ],
+      "defects": [
+        {
+          "start_s": 6.8,
+          "end_s": 8.0,
+          "category": "craft",
+          "observed": "The transition to the sensor mast shot features a relatively stark gray background wall before cutting back to the carton stack.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 5.8,
+        "story": 6.8,
+        "picture": 5.9,
+        "place": 6.2,
+        "craft": 5.7,
+        "voice": 7.4
+      },
+      "one_viewing_summary": "A single wide isometric vector diagram of the unloading arm centered with large empty borders on top and bottom.",
+      "observed_strengths": [
+        "Clear mechanical linkage articulation showing simultaneous front and side suction gripping.",
+        "Clean vector line work and legible typography."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 14.8,
+          "category": "picture",
+          "observed": "The entire assembly is framed as a small isometric island in the center third of the vertical frame, leaving massive empty margins above and below.",
+          "criterion": "subject_recognition",
+          "blocking": true
+        },
+        {
+          "start_s": 0.0,
+          "end_s": 14.8,
+          "category": "craft",
+          "observed": "Static wide camera hold throughout all 14.8 seconds without coverage cutaways or punch-ins to emphasize the critical two-sided contact mechanism.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    }
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 804,
+    "totalTokenCount": 19750,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      }
+    ],
+    "thoughtsTokenCount": 1506,
+    "serviceTier": "standard"
+  },
+  "charge_index": 7,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "a122ee372213235a2d8d7c2f346fe28220635313b2f52e8b7e615a33096b2001",
+  "response": {
+    "file": "initial-picture-response.json",
+    "sha256": "84da92f8af5b8bc7ef03da38f937a56af2325e0eff1ce0e0ab9306ae2398cddd"
+  },
+  "film_hashes_in_order": [
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+    "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1"
+  ]
+}

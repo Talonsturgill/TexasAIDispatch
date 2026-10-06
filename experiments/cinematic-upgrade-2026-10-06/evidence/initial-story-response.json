@@ -1,0 +1,1260 @@
+{
+  "responseId": "tnrFao7XAevtz7IPtvXBuQ4",
+  "usageMetadata": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 922,
+    "totalTokenCount": 19406,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 1044,
+    "serviceTier": "standard"
+  },
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "{\n  \"winner\": \"first\",\n  \"comparison_reason\":"
+          },
+          {
+            "text": " \"FIRST provides significantly better subject recognition, spatial staging, and causal clarity for the mechanical explanation. Its isometric layout clearly depicts why"
+          },
+          {
+            "text": " a packed container hides the top surface of lower cartons, showing the articulated dual-plane gripper engaging both the front and side faces to pull the carton"
+          },
+          {
+            "text": " cleanly onto the conveyor bed. SECOND attempts a 3D staging but suffers from cramped framing, disorienting camera cuts ("
+          },
+          {
+            "text": "particularly the sudden cut to the mast sensor between 06.80s and 08.00s), and generic"
+          },
+          {
+            "text": " blocky geometry that makes the multi-surface gripping mechanism difficult to decipher at vertical phone scale.\",\n  \"first\": {\n    \"scores"
+          },
+          {
+            "text": "\": {\n      \"hook\": 7.4,\n      \"story\": 7.5,\n      \"picture\":"
+          },
+          {
+            "text": " 7.8,\n      \"place\": 7.0,\n      \"craft\": 7.6"
+          },
+          {
+            "text": ",\n      \"voice\": 7.3\n    },\n    \"one_viewing_summary\": \""
+          },
+          {
+            "text": "A clean, readable isometric technical illustration clearly detailing how Contoro's dual-plane gripper pulls a carton from under a stack onto"
+          },
+          {
+            "text": " an unloading conveyor.\",\n    \"observed_strengths\": [\n      \"Immediate readability of the carton stack and conveyor relationship"
+          },
+          {
+            "text": " at vertical mobile scale.\",\n      \"Clear articulation of the dual-plane gripper mechanism with distinct suction pads engaging the front and side surfaces.\","
+          },
+          {
+            "text": "\n      \"Smooth, motivated mechanical animation showing the complete cycle: approach, two-point contact, carton withdrawal from stack, and placement"
+          },
+          {
+            "text": " on roller conveyor.\"\n    ],\n    \"defects\": [\n      {\n        \"start_s\":"
+          },
+          {
+            "text": " 0.0,\n        \"end_s\": 4.0,\n        \"category\": \"dominant"
+          },
+          {
+            "text": "_action\",\n        \"observed\": \"Static staging in the first four seconds before the robotic arm articulates into motion.\","
+          },
+          {
+            "text": "\n        \"criterion\": \"dominant_action\",\n        \"blocking\": false\n      }\n    ]\n  "
+          },
+          {
+            "text": "},\n  \"second\": {\n    \"scores\": {\n      \"hook\": 6.2,\n      \"story\":"
+          },
+          {
+            "text": " 6.4,\n      \"picture\": 6.0,\n      \"place\": 6.3"
+          },
+          {
+            "text": ",\n      \"craft\": 5.9,\n      \"voice\": 7.3\n    },\n    \"one_viewing_summary\": \"A 3D simulation with awkward close-up perspectives and abrupt cuts that obscure"
+          },
+          {
+            "text": " the full mechanical unloading process.\",\n    \"observed_strengths\": [\n      \"Attempts full three-dimensional perspective and volumetric"
+          },
+          {
+            "text": " depth.\",\n      \"Accurately timed captions aligned with narration.\"\n    ],\n    \"defects\": [\n      "
+          },
+          {
+            "text": "{\n        \"start_s\": 0.0,\n        \"end_s\": 4.0"
+          },
+          {
+            "text": ",\n        \"category\": \"subject_recognition\",\n        \"observed\": \"Extreme close-up on a generic"
+          },
+          {
+            "text": " box corner and single suction pad obscures the overall context of a packed trailer stack.\",\n        \"criterion\": \"subject_recognition\",\n        "
+          },
+          {
+            "text": "\"blocking\": false\n      },\n      {\n        \"start_s\": 6.8,\n        "
+          },
+          {
+            "text": "\"end_s\": 8.0,\n        \"category\": \"continuity\",\n        \"observed\": \""
+          },
+          {
+            "text": "Jarring cut away from the box stack to an unmotivated high-angle view of a vertical robotic post, breaking mechanical"
+          },
+          {
+            "text": " continuity.\",\n        \"criterion\": \"continuity\",\n        \"blocking\": true\n      },\n      {\n        \""
+          },
+          {
+            "text": "start_s\": 8.2,\n        \"end_s\": 14.6,\n        \"category\":"
+          },
+          {
+            "text": " \"contact_and_consequence\",\n        \"observed\": \"Cramped framing and simplified block pads fail to show the full trajectory"
+          },
+          {
+            "text": " and clearance of the carton being extracted onto the conveyor.\",\n        \"criterion\": \"contact_and_consequence\",\n        "
+          },
+          {
+            "text": "\"blocking\": false\n      }\n    ]\n  },\n  \"audio_observed\": \"Identical voice"
+          },
+          {
+            "text": "over and background audio mix in both clips, properly mixed with clear narration and aligned captions.\",\n  \"source_limits\": \""
+          },
+          {
+            "text": "Based on Contoro's technical disclosures describing front plus secondary surface grasping for container unloading; neither video implies third-party measured"
+          },
+          {
+            "text": " cycle throughput or full autonomous success rates.\"\n}"
+          },
+          {
+            "text": "",
+            "thoughtSignature": "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"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ],
+  "provider_chunks": [
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "{\n  \"winner\": \"first\",\n  \"comparison_reason\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 16,
+        "totalTokenCount": 7992,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " \"FIRST provides significantly better subject recognition, spatial staging, and causal clarity for the mechanical explanation. Its isometric layout clearly depicts why"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 41,
+        "totalTokenCount": 8017,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " a packed container hides the top surface of lower cartons, showing the articulated dual-plane gripper engaging both the front and side faces to pull the carton"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 70,
+        "totalTokenCount": 8046,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " cleanly onto the conveyor bed. SECOND attempts a 3D staging but suffers from cramped framing, disorienting camera cuts ("
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 95,
+        "totalTokenCount": 8071,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "particularly the sudden cut to the mast sensor between 06.80s and 08.00s), and generic"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 122,
+        "totalTokenCount": 8098,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " blocky geometry that makes the multi-surface gripping mechanism difficult to decipher at vertical phone scale.\",\n  \"first\": {\n    \"scores"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 151,
+        "totalTokenCount": 8127,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": {\n      \"hook\": 7.4,\n      \"story\": 7.5,\n      \"picture\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 178,
+        "totalTokenCount": 8154,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 7.8,\n      \"place\": 7.0,\n      \"craft\": 7.6"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 202,
+        "totalTokenCount": 8178,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n      \"voice\": 7.3\n    },\n    \"one_viewing_summary\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 226,
+        "totalTokenCount": 8202,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "A clean, readable isometric technical illustration clearly detailing how Contoro's dual-plane gripper pulls a carton from under a stack onto"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 252,
+        "totalTokenCount": 8228,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " an unloading conveyor.\",\n    \"observed_strengths\": [\n      \"Immediate readability of the carton stack and conveyor relationship"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 277,
+        "totalTokenCount": 8253,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " at vertical mobile scale.\",\n      \"Clear articulation of the dual-plane gripper mechanism with distinct suction pads engaging the front and side surfaces.\","
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 305,
+        "totalTokenCount": 8281,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n      \"Smooth, motivated mechanical animation showing the complete cycle: approach, two-point contact, carton withdrawal from stack, and placement"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 332,
+        "totalTokenCount": 8308,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " on roller conveyor.\"\n    ],\n    \"defects\": [\n      {\n        \"start_s\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 356,
+        "totalTokenCount": 8332,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 0.0,\n        \"end_s\": 4.0,\n        \"category\": \"dominant"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 380,
+        "totalTokenCount": 8356,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "_action\",\n        \"observed\": \"Static staging in the first four seconds before the robotic arm articulates into motion.\","
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 405,
+        "totalTokenCount": 8381,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"criterion\": \"dominant_action\",\n        \"blocking\": false\n      }\n    ]\n  "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 429,
+        "totalTokenCount": 8405,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "},\n  \"second\": {\n    \"scores\": {\n      \"hook\": 6.2,\n      \"story\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 457,
+        "totalTokenCount": 8433,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 6.4,\n      \"picture\": 6.0,\n      \"place\": 6.3"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 481,
+        "totalTokenCount": 8457,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n      \"craft\": 5.9,\n      \"voice\": 7.3\n    },\n    \"one_viewing_summary\": \"A 3D simulation with awkward close-up perspectives and abrupt cuts that obscure"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 531,
+        "totalTokenCount": 8507,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " the full mechanical unloading process.\",\n    \"observed_strengths\": [\n      \"Attempts full three-dimensional perspective and volumetric"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 557,
+        "totalTokenCount": 8533,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " depth.\",\n      \"Accurately timed captions aligned with narration.\"\n    ],\n    \"defects\": [\n      "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 583,
+        "totalTokenCount": 8559,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "{\n        \"start_s\": 0.0,\n        \"end_s\": 4.0"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 607,
+        "totalTokenCount": 8583,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n        \"category\": \"subject_recognition\",\n        \"observed\": \"Extreme close-up on a generic"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 631,
+        "totalTokenCount": 8607,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " box corner and single suction pad obscures the overall context of a packed trailer stack.\",\n        \"criterion\": \"subject_recognition\",\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 659,
+        "totalTokenCount": 8635,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"blocking\": false\n      },\n      {\n        \"start_s\": 6.8,\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 683,
+        "totalTokenCount": 8659,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"end_s\": 8.0,\n        \"category\": \"continuity\",\n        \"observed\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 707,
+        "totalTokenCount": 8683,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Jarring cut away from the box stack to an unmotivated high-angle view of a vertical robotic post, breaking mechanical"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 731,
+        "totalTokenCount": 8707,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " continuity.\",\n        \"criterion\": \"continuity\",\n        \"blocking\": true\n      },\n      {\n        \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 756,
+        "totalTokenCount": 8732,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "start_s\": 8.2,\n        \"end_s\": 14.6,\n        \"category\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 783,
+        "totalTokenCount": 8759,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " \"contact_and_consequence\",\n        \"observed\": \"Cramped framing and simplified block pads fail to show the full trajectory"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 811,
+        "totalTokenCount": 8787,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " and clearance of the carton being extracted onto the conveyor.\",\n        \"criterion\": \"contact_and_consequence\",\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 837,
+        "totalTokenCount": 8813,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"blocking\": false\n      }\n    ]\n  },\n  \"audio_observed\": \"Identical voice"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 861,
+        "totalTokenCount": 8837,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "over and background audio mix in both clips, properly mixed with clear narration and aligned captions.\",\n  \"source_limits\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 887,
+        "totalTokenCount": 8863,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Based on Contoro's technical disclosures describing front plus secondary surface grasping for container unloading; neither video implies third-party measured"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 912,
+        "totalTokenCount": 8888,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " cycle throughput or full autonomous success rates.\"\n}"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 6932,
+        "candidatesTokenCount": 922,
+        "totalTokenCount": 8898,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "",
+                "thoughtSignature": "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"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 17440,
+        "candidatesTokenCount": 922,
+        "totalTokenCount": 19406,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 6932
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 10508
+          }
+        ],
+        "thoughtsTokenCount": 1044,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "tnrFao7XAevtz7IPtvXBuQ4"
+    }
+  ]
+}

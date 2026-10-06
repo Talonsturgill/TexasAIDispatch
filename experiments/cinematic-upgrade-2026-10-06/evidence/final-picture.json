@@ -1,0 +1,101 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "lX7FauqjCYql6dkPhdXL4AQ",
+  "starting_lens": "picture",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "a7708f079491a82d077e1fb91f82734b09adc6f204701865e820890ae56d1b74",
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "First delivers significantly clearer spatial comprehension, physical depth, and mechanical contact at mobile feed dimensions. In First, the 3D volumetric staging inside the container clearly establishes why the top surface of the carton is blocked by the stack above it, followed by a legible multi-angle grip where both the front and side gripper plates seat firmly and extract the carton toward the roller conveyor. In Second, the flat vector/isometric styling creates confusing spatial tangencies: the arm linkages float awkwardly across parallel planes without motivated depth or occlusion cues, and the contact mechanics look like flat graphic stickers rather than load-bearing grippers.",
+    "first": {
+      "scores": {
+        "hook": 7.3,
+        "story": 7.4,
+        "picture": 7.6,
+        "place": 7.0,
+        "craft": 7.4,
+        "voice": 7.3
+      },
+      "one_viewing_summary": "A clean 3D mechanical breakdown showing a packed trailer stack, the robot arm base and sensor mast, and the dual-surface gripper pulling a carton onto the conveyor.",
+      "observed_strengths": [
+        "Volumetric lighting and shadows make the physical constraint (occluded carton top) and the dual-face grip immediately readable at phone size.",
+        "Clear mechanical continuity between the robot mast, articulated arm, gripper pads, and the conveyor rollers.",
+        "Finished surfaces with plausible box textures, tape, and metallic roller reflections."
+      ],
+      "defects": [
+        {
+          "start_s": 4.2,
+          "end_s": 8.0,
+          "category": "dominant_action",
+          "observed": "The shot pans back to the robotic mast and sensor turret while the gripper sits static against the boxes, temporarily pausing the extraction sequence.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 6.4,
+        "story": 6.8,
+        "picture": 6.2,
+        "place": 6.6,
+        "craft": 6.1,
+        "voice": 7.3
+      },
+      "one_viewing_summary": "A flat isometric vector illustration of the Contoro robot arm and gripper unloading a carton over a roller conveyor.",
+      "observed_strengths": [
+        "Consistent graphic palette and clear label typography in header and lower thirds.",
+        "Shows the complete system layout including conveyor, mast, and sensor head in a single continuous plane."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "surface_finish",
+          "observed": "The suction cup rings and robotic linkage joints appear as flat unshaded outlines that flatten depth perspective against the carton surface.",
+          "criterion": "surface_finish",
+          "blocking": false
+        },
+        {
+          "start_s": 11.6,
+          "end_s": 14.6,
+          "category": "contact_and_consequence",
+          "observed": "The side clamping arm and front suction bracket lack occlusion and shadow depth, making the pulled carton appear to float disconnectedly above the conveyor rollers.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    },
+    "audio_observed": "Both cuts share clean, clear voiceover narration properly aligned with the force-aligned on-screen captions, without background interference or distortion.",
+    "source_limits": "The source materials verify Contoro's dual-surface gripper mechanics and HITL platform; neither candidate invents unverified customer performance metrics or false field operational outcomes."
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 869,
+    "totalTokenCount": 19961,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      }
+    ],
+    "thoughtsTokenCount": 1652,
+    "serviceTier": "standard"
+  },
+  "charge_index": 30,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "31830549dd9d120e2ecab416f3ef37cdad34632d9215c0fe0faf5a835ff219a5",
+  "response": {
+    "file": "final-picture-response.json",
+    "sha256": "30c52c0fb7ace9d7c2b17b7118eaa2f5347837fbf8a80f17e4a647d3a647280f"
+  },
+  "film_hashes_in_order": [
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e",
+    "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f"
+  ]
+}

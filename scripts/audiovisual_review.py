@@ -208,6 +208,14 @@ def source_context(film):
                "authored_transcript": files["vo_script.txt"].read_text(),
                "fetched_source_excerpts": [{k: row.get(k) for k in ("id", "quote", "url", "scope_note")}
                    for row in rows if row.get("verdict") == "VERIFIED"]}
+    import art_direction
+    board = json.loads(files['storyboard.json'].read_text())
+    if art_direction.required(board):
+        from daily_production import craft_reading_paths
+        readings = craft_reading_paths(board)
+        context['art_direction'] = board.get('art_direction')
+        context['craft_guides'] = {str(p.relative_to(art_direction.REPO)): p.read_text() for p in readings}
+        context['craft_guides_sha256'] = {str(p.relative_to(art_direction.REPO)): digest(p) for p in readings}
     return ("\nEvidence for independent cross-checking follows. The authored transcript is not proof of "
             "what was spoken: compare it with audible words. Do not guess a spoken mechanical noun from "
             "the picture. Compare causal statements with the fetched excerpts and preceding film context. "

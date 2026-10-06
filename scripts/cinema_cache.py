@@ -81,6 +81,10 @@ def project(board, frames):
     data = {"cinematic_template": board["cinematic_template"], "scenes": scenes, "captions": cues,
             "__cinemaProofWithoutStage": board.get("__cinemaProofWithoutStage", False),
             "native_media": [m for m in board.get("native_media", []) if m.get("file") in used]}
+    # Light, palette and event-bound camera choices are actual render inputs.
+    # Bind the full profile conservatively, including future custom consumers.
+    if 'art_direction' in board:
+        data['art_direction'] = board['art_direction']
     return data, "isolated-daily-scenes"
 
 

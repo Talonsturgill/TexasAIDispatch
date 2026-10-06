@@ -64,6 +64,7 @@ NOT_STAGEABLE = {
     "DispatchOverlays": "SubtitleTrack and CreditsCard are mounted directly by Dispatch and the daily episode; they are screen overlays, not board-placeable scene objects. Native renderer parity covers their output.",
     "editorial": "shared caption and credit text layout, mounted by film chrome rather than staged from a board.",
     "direction": "film-global board action clocks and interpolation. No drawing geometry.",
+    "artDirection": "film-global palette, light and event-bound camera context, mounted directly by both renderer entry points. It supplies scene choices and draws no placeable geometry.",
     "lighting": "light, ramps and surface treatments. Applied to a drawing, not placed as one.",
     "materials": "pattern defs emitted once per document by MaterialDefs.",
     "motion": "timing functions and the idle rig. No geometry of its own.",

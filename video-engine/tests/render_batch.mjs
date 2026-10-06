@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {renderBatch,entryFor} from '../scripts/render-batch.mjs';
+await import('./direction.mjs');
 const root=fs.mkdtempSync(path.join(os.tmpdir(),'dispatch-batch-'));
 try{
   const props=path.join(root,'board.json'), off=path.join(root,'off.json');

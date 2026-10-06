@@ -46,6 +46,9 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "art_direction.py": "Library called by creative_production before voice/preview and by daily_production compact reading transport; art_direction_test mutates executable scene, source and timing bindings.",
+    "art_direction_test.py": "Loaded by existing CI daily_production_test; tests dated legacy compatibility, real renderer consumers, invalid profiles and cumulative lab capacity.",
+    "cinematic_learning_test.py": "Loaded by existing CI daily_production_test; tests five-edition accounting, unfinished costs, exact failure retention and distinct-edition weekly cadence.",
     "alignment_reconciliation.py": "Evidence library imported by vo_align for current acoustic validation and by deliver_run for exact supporting-byte packaging; it is not a standalone command.",
     "alignment_reconciliation_test.py": "Loaded and executed by vo_align --self-test in the existing CI voice-alignment entry point; tests evidence substitution, PCM edits, placement and portable packaging.",
     "creative_release_test.py": "Loaded by the existing CI production_quality_test entry point; directly exercises bounded routing, retained integrity, tampering and exact rejected evidence packaging.",

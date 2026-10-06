@@ -50,6 +50,7 @@ def renderer_files(board: dict) -> list[Path]:
     files = [router, REPO / "video-engine" / "src" / (imported.group(1) + ".tsx"),
              REPO / "video-engine" / "src" / "lib" / "cinema" / "CinematicStage.tsx",
              REPO / "video-engine" / "src" / "lib" / "cinema" / "Studio.tsx",
+             REPO / "video-engine" / "src" / "lib" / "cinema" / "ProofContext.tsx",
              REPO / "video-engine" / "src" / "lib" / "cinema" / "projection.ts",
              REPO / "video-engine" / "src" / "lib" / "direction.ts"]
     # Reusable action code is a render input too. Do not traverse the central

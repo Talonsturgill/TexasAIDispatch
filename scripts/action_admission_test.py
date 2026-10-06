@@ -17,7 +17,7 @@ class AdmissionTest(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name).resolve()
         self.src = self.root / 'video-engine/src'
-        for name in ('lib/cinema/CinematicStage.tsx', 'lib/cinema/Studio.tsx',
+        for name in ('lib/cinema/CinematicStage.tsx', 'lib/cinema/Studio.tsx', 'lib/cinema/ProofContext.tsx',
                      'lib/cinema/projection.ts', 'lib/direction.ts'):
             p = self.src / name
             p.parent.mkdir(parents=True, exist_ok=True)
@@ -118,6 +118,12 @@ if (cinematic_template === 'fixture-action-v1') {return <Episode />;}''')
         self.assertNotEqual(d.story_digest(changed), d.story_digest(self.board))
         before = critic_gate.renderer_digest(self.board)
         self.module.write_text(self.module.read_text() + '\n// changed')
+        self.assertNotEqual(before, critic_gate.renderer_digest(self.board))
+
+    def test_global_context_edit_invalidates_independent_renderer_binding(self):
+        before = critic_gate.renderer_digest(self.board)
+        context = self.src / 'lib/cinema/ProofContext.tsx'
+        context.write_text('export const Fixture = ({children}) => <div>{children}</div>;')
         self.assertNotEqual(before, critic_gate.renderer_digest(self.board))
 
     def test_selection_mismatch_rejected_before_voice(self):

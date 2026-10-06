@@ -1,0 +1,109 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "model": "gemini-3.8-flash",
+  "response_id": "tnrFao7XAevtz7IPtvXBuQ4",
+  "starting_lens": "story",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "prompt_sha256": "68d170f784596bfc3b8e6c04465b5a09ea920466a0d20b9d22c89cc5c97decab",
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "FIRST provides significantly better subject recognition, spatial staging, and causal clarity for the mechanical explanation. Its isometric layout clearly depicts why a packed container hides the top surface of lower cartons, showing the articulated dual-plane gripper engaging both the front and side faces to pull the carton cleanly onto the conveyor bed. SECOND attempts a 3D staging but suffers from cramped framing, disorienting camera cuts (particularly the sudden cut to the mast sensor between 06.80s and 08.00s), and generic blocky geometry that makes the multi-surface gripping mechanism difficult to decipher at vertical phone scale.",
+    "first": {
+      "scores": {
+        "hook": 7.4,
+        "story": 7.5,
+        "picture": 7.8,
+        "place": 7.0,
+        "craft": 7.6,
+        "voice": 7.3
+      },
+      "one_viewing_summary": "A clean, readable isometric technical illustration clearly detailing how Contoro's dual-plane gripper pulls a carton from under a stack onto an unloading conveyor.",
+      "observed_strengths": [
+        "Immediate readability of the carton stack and conveyor relationship at vertical mobile scale.",
+        "Clear articulation of the dual-plane gripper mechanism with distinct suction pads engaging the front and side surfaces.",
+        "Smooth, motivated mechanical animation showing the complete cycle: approach, two-point contact, carton withdrawal from stack, and placement on roller conveyor."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "dominant_action",
+          "observed": "Static staging in the first four seconds before the robotic arm articulates into motion.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 6.2,
+        "story": 6.4,
+        "picture": 6.0,
+        "place": 6.3,
+        "craft": 5.9,
+        "voice": 7.3
+      },
+      "one_viewing_summary": "A 3D simulation with awkward close-up perspectives and abrupt cuts that obscure the full mechanical unloading process.",
+      "observed_strengths": [
+        "Attempts full three-dimensional perspective and volumetric depth.",
+        "Accurately timed captions aligned with narration."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "subject_recognition",
+          "observed": "Extreme close-up on a generic box corner and single suction pad obscures the overall context of a packed trailer stack.",
+          "criterion": "subject_recognition",
+          "blocking": false
+        },
+        {
+          "start_s": 6.8,
+          "end_s": 8.0,
+          "category": "continuity",
+          "observed": "Jarring cut away from the box stack to an unmotivated high-angle view of a vertical robotic post, breaking mechanical continuity.",
+          "criterion": "continuity",
+          "blocking": true
+        },
+        {
+          "start_s": 8.2,
+          "end_s": 14.6,
+          "category": "contact_and_consequence",
+          "observed": "Cramped framing and simplified block pads fail to show the full trajectory and clearance of the carton being extracted onto the conveyor.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    },
+    "audio_observed": "Identical voiceover and background audio mix in both clips, properly mixed with clear narration and aligned captions.",
+    "source_limits": "Based on Contoro's technical disclosures describing front plus secondary surface grasping for container unloading; neither video implies third-party measured cycle throughput or full autonomous success rates."
+  },
+  "usage": {
+    "promptTokenCount": 17440,
+    "candidatesTokenCount": 922,
+    "totalTokenCount": 19406,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6932
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 1044,
+    "serviceTier": "standard"
+  },
+  "charge_index": 9,
+  "transport_normalizations": [],
+  "source_receipt_sha256": "4d175c51e6ba3c5a0341fbca48ec065dd90515c9332655c71a4722026c73acbd",
+  "response": {
+    "file": "initial-story-response.json",
+    "sha256": "f87b6052b9639a7f64070ef3f7538451f317de73342e8b55654cc3f9446aad58"
+  },
+  "film_hashes_in_order": [
+    "7df009b131b276365495a606b1b3cf7b7ce1b4dc1ad8e76169ef3e62436f9fb1",
+    "601cd34affcc5e6df6a1af0c4c95c23e8db41ec5c2a43f62e65398ed705d708e"
+  ]
+}

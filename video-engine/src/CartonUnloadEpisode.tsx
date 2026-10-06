@@ -5,16 +5,20 @@ import {actionProgress,actionWindows,requireAction} from "./lib/direction";
 import {CreditsCard,SubtitleTrack} from "./lib/DispatchOverlays";
 import {FONT} from "./lib/type";
 import type {DispatchProps,Scene} from "./Dispatch";
+import {directedShot,useArtDirection} from './lib/artDirection';
+import {CartonIllustratedAction} from './lib/production/CartonIllustratedAction';
 // The qualitative relation reaches an exposed wall patch. Its disclosure describes illustrative geometry, never measured sensor output.
 type CartonScene=Scene&{carton_phase?:number;treatment?:"a"|"b"};
-export const CartonUnloadEpisode:React.FC<DispatchProps>=({scenes,captions=[],credits="",credits_s=5,__cinemaProofWithoutStage=false})=>{
+export const CartonUnloadEpisode:React.FC<DispatchProps>=({scenes,captions=[],credits="",credits_s=5,cinematic_template,__cinemaProofWithoutStage=false})=>{
  const {fps}=useVideoConfig(),time=useCurrentFrame()/fps,end=Math.max(...scenes.map(s=>s.start_s+s.duration_s));
+ const art=useArtDirection();
  const scene=(scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1]) as CartonScene;
  const phase=scene.carton_phase??scenes.indexOf(scene),windows=actionWindows(scenes);
  const p=(n:number)=>actionProgress(requireAction(windows,scene.visual_events![n].id??""),time);
- return <div style={{position:"absolute",inset:0,background:"#20383e",color:"#f4ead5"}}>{time<end?<>
- {!__cinemaProofWithoutStage&&<CartonUnloadAction phase={phase} option={scene.treatment??"a"} a={p(0)} b={p(1)} c={p(2)}/>}
- <div style={{position:"absolute",inset:"0 0 auto",height:330,background:"linear-gradient(#20383e,#20383eee,transparent)"}}/>
+ const background=art?.palette.background??'#20383e',ink=art?.palette.ink??'#f4ead5';
+ return <div style={{position:"absolute",inset:0,background,color:ink}}>{time<end?<>
+ {!__cinemaProofWithoutStage&&(cinematic_template==='carton-unload-illustrated-v1'?<CartonIllustratedAction phase={phase} a={p(0)} b={p(1)} c={p(2)} sceneId={scene.id}/>:<CartonUnloadAction phase={phase} option={scene.treatment??"a"} a={p(0)} b={p(1)} c={p(2)} shot={directedShot(art,scene.id,windows,time)}/>)}
+ <div style={{position:"absolute",inset:"0 0 auto",height:330,background:`linear-gradient(${background},${background}ee,transparent)`}}/>
  <div style={{position:"absolute",left:62,right:190,top:72,fontFamily:FONT.mono,fontSize:24}}>TEXAS AI DISPATCH</div>
  <div style={{position:"absolute",left:62,right:190,top:116,fontFamily:FONT.mono,fontSize:23}}>{scene.production_disclosure}</div>
  <div style={{position:"absolute",left:62,right:190,top:185,fontFamily:FONT.display,fontSize:48,lineHeight:1.1}}>{scene.super}</div>

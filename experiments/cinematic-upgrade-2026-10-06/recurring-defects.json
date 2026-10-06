@@ -1,0 +1,140 @@
+{
+  "schema": "dispatch-cinematic-recurring-defects/1",
+  "as_of": "2026-10-06",
+  "since": "2026-09-22",
+  "due": false,
+  "last_engineering_decision": {
+    "date": "2026-10-06",
+    "decision": "advance",
+    "note": "Executable art direction, finished assets and motion were proved through retained A/B native footage, independent comparisons, cache/transport mutations and phone playback.",
+    "proof": {
+      "path": "experiments/cinematic-upgrade-2026-10-06/report.json",
+      "sha256": "624e9715db09f38a1003897b14ef1a02f3ccbebc91a0d2d8130c136192b2d664"
+    }
+  },
+  "max_shared_advances": 1,
+  "findings": [
+    {
+      "category": "framing",
+      "distinct_editions": 2,
+      "evidence": [
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "id": "source-focus-does-not-reveal-content",
+            "criterion": "dominant_action; visible development; structural phone motion and opening hook",
+            "scene": "s1/s5/s6/s9",
+            "start_s": 0.0,
+            "end_s": 3.5,
+            "additional_intervals": [
+              {
+                "start_s": 14.0,
+                "end_s": 21.0
+              },
+              {
+                "start_s": 28.0,
+                "end_s": 31.5
+              }
+            ],
+            "observed": "Actual B start versus1.6s and the inspected16,18,30s source frames show a fully exposed static source image with a small growing gold tint/underline. The relevant words and consequences are already visible before emphasis. Exact current preflight independently reports s1 .00301, s5 .00344, s6 .00294 and s9 .00563 against motion_floor .006, plus opening hook .00297. All five checks fail. The framing repair made sources readable but did not make these declared revelations expose new information.",
+            "effect": "The opening and repeated source beats remain held pictures with minor emphasis. Legible evidence and a source-backed concept do not satisfy the retained requirement for visible development of the principal picture.",
+            "fix": "Replace static fully exposed source pictures plus a growing focus tint with a genuine editorial exposure of additional source content inside the existing disjoint bounded stage. Keep source pixels fixed and authentic: begin with a recognizable partial source detail, then open an explicit editorial viewport to expose the decisive source heading, repeat instruction, prototype context or clinical caution on the event clock. The source example/reflow/date labels remain visible throughout; the viewport must not imitate live app response, model detection or a changing prototype result. End with the complete detail readable before the cut. Retain B as the consequence-first direction. Verify both completed opening films structurally before booking further phone criticism; retain all exact failed reports."
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/phone-critic-current.json",
+            "sha256": "b637439c10ab22063c96ba42b736953864ef10f1811af671938dfb680c6d3138"
+          }
+        },
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "scene": "s1/s5/s6/s9",
+            "problem": "Actual B start versus1.6s and the inspected16,18,30s source frames show a fully exposed static source image with a small growing gold tint/underline. The relevant words and consequences are already visible before emphasis. Exact current preflight independently reports s1 .00301, s5 .00344, s6 .00294 and s9 .00563 against motion_floor .006, plus opening hook .00297. All five checks fail. The framing repair made sources readable but did not make these declared revelations expose new information.",
+            "fix": "Replace static fully exposed source pictures plus a growing focus tint with a genuine editorial exposure of additional source content inside the existing disjoint bounded stage. Keep source pixels fixed and authentic: begin with a recognizable partial source detail, then open an explicit editorial viewport to expose the decisive source heading, repeat instruction, prototype context or clinical caution on the event clock. The source example/reflow/date labels remain visible throughout; the viewport must not imitate live app response, model detection or a changing prototype result. End with the complete detail readable before the cut. Retain B as the consequence-first direction. Verify both completed opening films structurally before booking further phone criticism; retain all exact failed reports."
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/phone-critic-current.json",
+            "sha256": "b637439c10ab22063c96ba42b736953864ef10f1811af671938dfb680c6d3138"
+          }
+        },
+        {
+          "run_id": "2026-10-03",
+          "original_finding": {
+            "criterion": "caption_legibility",
+            "category": "captions",
+            "scene": "s7",
+            "start_s": 22.08,
+            "end_s": 25.0,
+            "problem": "Opaque assistance panel covers the first caption line, including the condition When AI fails, in the actual retimed film.",
+            "observed": "Continuous22.83 seconds and exact paused23.50 seconds show the Remote assistance/editorial-boundary panel painted over most of the first caption line. Only its initial W and the second line operators can take control remain readable. The source condition is hidden from muted viewers.",
+            "fix": "Place the complete assistance panel above the current two-line caption band with a clear gap, preserving readable source limitation and the original narration. Check the largest actual caption bounds in s5/s6/s7, rather than only caption fit within its own box."
+          },
+          "evidence": {
+            "path": "runs/2026-10-03/openings/caption10-phone-critic.json",
+            "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
+          }
+        },
+        {
+          "run_id": "2026-10-03",
+          "original_finding": {
+            "finding": {
+              "criterion": "caption_legibility",
+              "category": "captions",
+              "scene": "s7",
+              "start_s": 22.08,
+              "end_s": 25.0,
+              "problem": "Opaque assistance panel covers the first caption line, including the condition When AI fails, in the actual retimed film.",
+              "observed": "Continuous22.83 seconds and exact paused23.50 seconds show the Remote assistance/editorial-boundary panel painted over most of the first caption line. Only its initial W and the second line operators can take control remain readable. The source condition is hidden from muted viewers.",
+              "fix": "Place the complete assistance panel above the current two-line caption band with a clear gap, preserving readable source limitation and the original narration. Check the largest actual caption bounds in s5/s6/s7, rather than only caption fit within its own box."
+            },
+            "category": "captions"
+          },
+          "evidence": {
+            "path": "runs/2026-10-03/openings/caption10-phone-critic.json",
+            "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
+          }
+        }
+      ]
+    },
+    {
+      "category": "motion",
+      "distinct_editions": 2,
+      "evidence": [
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "From 34.0s to 43.0s, repetitive static layouts stall pictorial momentum before the final source slate.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/cinema/picture-review-response.json",
+            "sha256": "1ddf27c8a37cfa178501de19b6b28c03da24a49b4f680077e10dcdce04570f41"
+          }
+        },
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "Between 35.0s and 43.0s, the visual remains static on the split counter with repetitive dialogue.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/cinema/story-review-response.json",
+            "sha256": "c92b8d2aef8b2ad31d7c9c9fdd7e018f8e4237fff2d396b082f9b7309ffa0e9a"
+          }
+        },
+        {
+          "run_id": "2026-10-01",
+          "original_finding": {
+            "finding": "05.00-09.40: The graphic display remains static across two narration lines, stalling physical story progression.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-10-01/cinema/hero-review-response.json",
+            "sha256": "7cf511369b7f96b4c0266792365e346f134c063990982fcf0499bb58bdb333af"
+          }
+        }
+      ]
+    }
+  ],
+  "instruction": "Existing builder: reproduce exact failed evidence, consider one reusable correction, test it and prove it in the already reserved two-treatment comparison. Preserve all findings and cumulative resources. Record advance or skip; optional engineering never delays shipment."
+}
