@@ -54,10 +54,14 @@ def report(runs, state_path=None):
         except (KeyError, ValueError, TypeError):
             pass
         usage = state.get('usage', {})
+        publication_mode = state.get('publication_mode')
+        deferral = (publication_mode == 'bounded_creative_release' if publication_mode else
+                    card.get('creative_deferral', card.get('bounded_release')))
         rows.append({'run_id': identity, 'shipped': shipped, 'state': state.get('terminal_state') or state.get('phase'),
                      'score': card.get('weighted_score', card.get('score')), 'usage': usage,
-                     'first_panel_pass': card.get('ship') is True and usage.get('panel_rounds') == 1,
-                     'corrections': usage.get('reboards', 0), 'artistic_deferral': card.get('creative_deferral', card.get('bounded_release')),
+                     'first_panel_pass': card.get('ship') is True and usage.get('panel_rounds') == 1 and deferral is not True,
+                     'corrections': usage.get('reboards', 0), 'artistic_deferral': deferral,
+                     'publication_mode': publication_mode,
                      'art_profile_version': (board.get('art_direction') or {}).get('version'),
                      'elapsed_seconds': elapsed, 'account_tokens': None,
                      'state_evidence': stamp(path, 'runs/' + identity + '/run_state.json')})
@@ -69,7 +73,9 @@ def report(runs, state_path=None):
 def findings(value):
     if isinstance(value, dict):
         for key, child in value.items():
-            if key in ('blocking_defects', 'defects', 'findings', 'notes') and isinstance(child, list):
+            # General score notes can praise a surface or contact. Only the
+            # provider's explicit defect/finding fields enter failure recurrence.
+            if key in ('blocking_defects', 'defects', 'findings') and isinstance(child, list):
                 for item in child:
                     if isinstance(item, dict) or isinstance(item, str):
                         yield item

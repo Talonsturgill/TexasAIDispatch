@@ -8,6 +8,37 @@ import cinematic_learning as c
 
 
 class CinematicLearningTest(unittest.TestCase):
+    def test_repeated_positive_score_notes_are_not_recurring_failures(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for day in (4, 5):
+                run = root / ('2026-10-' + str(day).zfill(2)); run.mkdir()
+                (run / 'panel-round-1.json').write_text(json.dumps({
+                    'notes': ['Excellent surface finish and believable contact.'],
+                    'defects': []}))
+            result = c.recurring(root, date(2026, 10, 6))
+            self.assertFalse(result['due'])
+            self.assertEqual([], result['findings'])
+
+    def test_controller_release_mode_retains_deferral_despite_passing_card(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for day, mode in ((7, 'bounded_creative_release'), (8, 'rubric_pass')):
+                run = root / ('2026-10-' + str(day).zfill(2)); run.mkdir()
+                (run / 'run_state.json').write_text(json.dumps({
+                    'run_id': run.name, 'terminal_state': 'shipped',
+                    'publication_mode': mode, 'usage': {'panel_rounds': 1}}))
+                # Real retained editions can carry a passing latest card while the
+                # controller preserves their original bounded creative release.
+                (run / 'report_card.json').write_text(json.dumps({'ship': True, 'weighted_score': 7.061}))
+            rows = c.report(root)['editions']
+            self.assertTrue(rows[0]['artistic_deferral'])
+            self.assertFalse(rows[0]['first_panel_pass'])
+            self.assertEqual('bounded_creative_release', rows[0]['publication_mode'])
+            self.assertFalse(rows[1]['artistic_deferral'])
+            self.assertTrue(rows[1]['first_panel_pass'])
+            self.assertEqual(7.061, rows[0]['score'])
+
     def test_next_five_and_later_unfinished_usage(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
