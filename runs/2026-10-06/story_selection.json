@@ -1,0 +1,166 @@
+{
+  "schema": "dispatch_story_selection/1",
+  "edition_date": "2026-10-06",
+  "selected": {
+    "title": "Before the robot moves",
+    "county": "Travis",
+    "texas_link": "UT Austin is awardee and Austin is performance city.",
+    "record_id": "tx-2026-0081",
+    "record_status": "in-record",
+    "record_url": "https://texasaidocket.com/item/tx-2026-0081/",
+    "movement": {
+      "actor": "U.S. National Science Foundation",
+      "action": "funded a project whose period began",
+      "object": "UT Austin robot safety research using deep generative modeling",
+      "event_type": "effective",
+      "date": "2026-10-01"
+    },
+    "why_today": "The funded project period began five days before this edition; current NSF record retains that start date.",
+    "consequence": "A proposed reusable learned safety filter will be evaluated in physical robot experiments, including pick-and-place near fragile objects.",
+    "application_change": "The proposed filter learns from safe demonstrations rather than requiring every safety constraint to be hand-authored.",
+    "counter_image": "A degraded camera or locked motor joint is a planned recovery case, not a successful recovery already demonstrated.",
+    "earned_take": "A plausible safer move is not safety evidence; the project must compare measured failures with its claimed bounds.",
+    "agency": {
+      "next_step": "Physical experiments, user studies and benchmark comparisons in the funded project.",
+      "who_can_act": "David Fridovich-Keil and collaborators; researchers can eventually inspect the planned open-source output.",
+      "open": "unknown"
+    },
+    "sources": [
+      {
+        "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+        "title": "NSF Award 2535276: Collaborative Research: Robot Safety with Deep Generative Modeling",
+        "retrieved": "2026-10-07T00:45:15.558678+00:00",
+        "type": "primary_official",
+        "snapshot": "out/dispatch/sources/nsf2535276.json",
+        "sha256": "222c32c3ed6ec34956948f884eb33c29fd7725076de8064ec110d596f517367b",
+        "full_source_read": true,
+        "source_type": "primary",
+        "file": "out/dispatch/sources/nsf2535276.json"
+      }
+    ],
+    "filmability": {
+      "viewer_question": "Can a robot change a risky move before it carries a fragile object?",
+      "opening_action": "Illustrated robot gripper carries a small block toward a glass; the proposed path would pass too close.",
+      "mechanism": "Safe demonstrations supply the learned reference; a proposed action is pulled toward that reference before execution.",
+      "human_consequence": "Workers near assembly or assistive robots may gain a reusable safety layer if tests support the proposed method.",
+      "source_limit": "This is a funded project starting October 1st, not a measured operational safety result. An illustrative route is a conceptual example, not the actual model output.",
+      "three_key_images": [
+        "Same robot, carried block and glass establish a recognizable pick-and-place task.",
+        "A clearly illustrated candidate route moves toward a safe demonstrated route before the gripper executes it.",
+        "The same unchanged glass and completed placement reveal the intended test; the close states that failure rates still need comparison."
+      ],
+      "asset_leads": [
+        {
+          "url": "https://clearoboticslab.github.io/images/robots/bigarm.jpg",
+          "source_url": "https://clearoboticslab.github.io/robots/",
+          "relevant_image": "Lab lists two seven-degree-of-freedom robot arms and links a robot photo.",
+          "what_it_proves": "The lab reports its equipment inventory; this does not establish use for award 2535276.",
+          "inspection": "Asset URL found on fully fetched lab equipment page; pixels were not inspected and asset is not admitted.",
+          "rights_basis": "No explicit reuse license located in this bounded pass.",
+          "decision": "reject",
+          "native_illustration_more_honest": true
+        }
+      ],
+      "action_support": [
+        {
+          "image": "opening",
+          "medium": "source-backed-action",
+          "action_id": "robot-safety-proposal-v1",
+          "pictured_action": "Illustrative gripper picks a block and a candidate path approaches a glass.",
+          "scope_fit": "The abstract explicitly names pick-and-place near fragile objects; avoid brand-specific equipment or pretending to observe a test.",
+          "source_url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+          "disclosure": "Illustration. Proposed research"
+        },
+        {
+          "image": "mechanism",
+          "medium": "source-backed-action",
+          "action_id": "robot-safety-proposal-v1",
+          "pictured_action": "The candidate path shifts toward safe demonstration paths before the gripper travels.",
+          "scope_fit": "Show a conceptual learned-action projection, not a deterministic collision sensor, shield bubble or actual algorithm output.",
+          "source_url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+          "disclosure": "Illustration. Proposed research"
+        },
+        {
+          "image": "consequence",
+          "medium": "source-backed-action",
+          "action_id": "robot-safety-proposal-v1",
+          "pictured_action": "Gripper follows illustrative revised motion while glass stays untouched; close on the unproven test.",
+          "scope_fit": "Intended behavior only; no accident prevented, measured success rate or workplace deployment is established.",
+          "source_url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+          "disclosure": "Illustration. Proposed research"
+        }
+      ],
+      "recommended_format": "News report",
+      "recommended_approach": "Explanatory animation",
+      "reporting_order": "Mechanism-led",
+      "strongest_useful_image": "The gripper, block and glass stay identical while the proposed route changes before execution.",
+      "next_information": "Show demonstrations as the source of the changed action, then return to the same pick-and-place task.",
+      "likely_false_inference": "Viewer may think the animation depicts a deployed system that has prevented an accident.",
+      "preventive_limit": "Display Illustration \u2014 proposed research throughout and state the project has just begun; tests will compare failure rates.",
+      "missing_picture": "No observed current test, empirical failure rate or actual learned filter output is available. Those cannot be pictured as verified results.",
+      "implementation_status": "Research proposal only. Director must bind a real module and obtain independent current code, muted phone and native proof."
+    },
+    "visual_stakes": {
+      "affected_person": "People working alongside assembly and assistive robots",
+      "physical_subject": "Robot gripper carrying a block near a fragile glass",
+      "visible_change": "A proposed action changes before execution",
+      "consequence": "The intended test is completing a placement without disturbing the glass; safety performance remains unmeasured in this source.",
+      "opening_question": "Can a robot change a risky move before it carries a fragile object?",
+      "answer": "The proposed learned filter can change the action toward demonstrated behavior; the new research must test whether it is safer.",
+      "asset_fit": "Original disclosed illustration can show the source-named pick-and-place relationship without requiring synthetic human performance.",
+      "source_urls": [
+        "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity"
+      ]
+    },
+    "action_proposals": [
+      {
+        "id": "robot-safety-proposal-v1",
+        "module": {
+          "path": "video-engine/src/RobotSafetyAction.tsx",
+          "sha256": "2cbfbf78d540b0d9ffba72d7dd010574ca847fa98b89f460f8ee38eb26a05d54"
+        },
+        "exports": [
+          "RobotSafetyAction"
+        ],
+        "source_urls": [
+          "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity"
+        ],
+        "claim_ids": [
+          "c1",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c9"
+        ],
+        "visible_action": "An illustrated gripper carries a block beside fragile glass. A proposed path bends toward demonstrated routes before the corrected move executes.",
+        "consequence": "A proposed reusable learned safety filter will be evaluated in physical robot experiments, including pick-and-place near fragile objects.",
+        "limits": "Illustration of proposed research. No actual robot, learned model output, measured failure rate or proven accident prevention is depicted.",
+        "source_basis": "The NSF abstract explicitly names pick-and-place near fragile objects and a diffusion model projecting actions toward safe expert demonstrations.",
+        "disclosure": "Illustration. Proposed research"
+      }
+    ],
+    "beat": "science-machines"
+  },
+  "rejected": [
+    {
+      "title": "AI-MARRVEL and BRSK1 follow-up experiments",
+      "record_id": "tx-2026-0195",
+      "date": "2026-09-28",
+      "url": "https://www.texaschildrens.org/content/news-release/together-human-genetics-ai-and-animal-studies-provide-diagnosis-for-rare",
+      "reason": "Current and sourced, but the decisive experiment is comparing impaired and partly restored fly movement. No inspected licensed footage of these tests was available; inventing movement magnitudes or a gene-function visual would add unsupported biological detail. Robot motion projection is a more direct source-named explanatory relationship.",
+      "source_limit": "Release reports a likely diagnosis; no routine clinical use or treatment outcome is established.",
+      "full_source_read": true,
+      "snapshot": "out/dispatch/sources/texas-childrens-brsk1.html"
+    },
+    {
+      "title": "Predict-WTE wrong-tooth warning pilot",
+      "record_id": "tx-2026-0201",
+      "url": "https://www.utsystem.edu/sites/ut-real-health-ai/workgroups/pilot-program-phase-i",
+      "reason": "Page is undated and supplies no observed extraction-warning workflow, validation or operating results. A tooth-mismatch check would be an invented algorithm detail.",
+      "full_source_read": true,
+      "snapshot": "out/dispatch/sources/ut-real-pilots.html"
+    }
+  ]
+}

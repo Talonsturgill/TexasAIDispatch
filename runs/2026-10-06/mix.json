@@ -1,0 +1,138 @@
+{
+  "duration_s": 40.0,
+  "cut_s": 40.0,
+  "peak_dbfs_premaster": -3.79,
+  "lufs_premaster": -22.75,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.06,
+  "lufs_shortfall_db": 0.05999999999999872,
+  "crest_factor_db": 18.96,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 3.79,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 2
+    },
+    {
+      "id": "immersed",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -27.69,
+      "gain_db": -13.95
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "immersed",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -27.69,
+  "bed_gain_db": -13.95,
+  "sfx_events": 2,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -19.0,
+      "true_peak_dbtp": 0.02
+    },
+    "after": {
+      "integrated_lufs": -16.06,
+      "true_peak_dbtp": -1.97
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.66:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.01:measured_TP=-5.03:measured_LRA=16.80:measured_thresh=-35.88:offset=0.79",
+    "measurement": {
+      "input_i": "-24.01",
+      "input_tp": "-5.03",
+      "input_lra": "16.80",
+      "input_thresh": "-35.88",
+      "output_i": "-15.87",
+      "output_tp": "-2.00",
+      "output_lra": "11.70",
+      "output_thresh": "-26.98",
+      "normalization_type": "dynamic",
+      "target_offset": "0.21"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.34,
+          "true_peak_dbtp": -1.98
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.01:measured_TP=-5.03:measured_LRA=16.80:measured_thresh=-35.88:offset=0.72"
+      },
+      {
+        "requested_lufs": -15.66,
+        "measured": {
+          "integrated_lufs": -16.06,
+          "true_peak_dbtp": -1.97
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.66:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.01:measured_TP=-5.03:measured_LRA=16.80:measured_thresh=-35.88:offset=0.79"
+      }
+    ],
+    "correction": null,
+    "samples": 1920000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "ed8bcc5eedc14a832dcad6a0f68102f4a5bc1f4fe355c9edd5966980f3330c52",
+  "sound_direction_sha256": "059a781be17be14a620b188ff98de5255ecb3df04911c4a1abe8749e72e66b90",
+  "sound_cues": [
+    {
+      "id": "grip-motion",
+      "event_id": "s1-event-1",
+      "role": "sonification",
+      "duration_s": 0.6,
+      "intent": "A disclosed modeled gripper begins movement.",
+      "provenance": "Original designed motor effect.",
+      "at_s": 0.0
+    },
+    {
+      "id": "filter-turn",
+      "event_id": "s3-event-2",
+      "role": "sonification",
+      "duration_s": 0.6999999999999993,
+      "intent": "A disclosed action changes course toward demonstrations.",
+      "provenance": "Original designed correction effect.",
+      "at_s": 12.428
+    },
+    {
+      "id": "testing-quiet",
+      "event_id": "s6-event-3",
+      "role": "quiet",
+      "duration_s": 1.0,
+      "gain": 0.2,
+      "intent": "Lower the background as the unreported trial result remains unresolved.",
+      "provenance": "Authored event-clock background contrast.",
+      "at_s": 32.049
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "grip-motion",
+      "sha256": "4578aab3d69eb7c2fcb947b084e32e55a25932fdc88beb6597b97f0b2100755c"
+    },
+    {
+      "id": "filter-turn",
+      "sha256": "4578aab3d69eb7c2fcb947b084e32e55a25932fdc88beb6597b97f0b2100755c"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "2abe0c70f807e230b8f830a70fa6afd6ebc477baa7b13b8eb4ac8d6b106985eb",
+  "bed_source_sha256": "870fa4f642816b2207cf74e48c36cbbbd147df99be24f08f29aa26ac0597a44b",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "05e46dd88085b95877e6b79b04f82c94f5bb3e8c419607a16891c6f1a07b1531",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 1920000
+}
