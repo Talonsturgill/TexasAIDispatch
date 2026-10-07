@@ -1,0 +1,114 @@
+{
+  "schema": "dispatch_sound_source_window_diagnosis/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T09:41:59.525084+00:00",
+  "verdict": "revise",
+  "scope": "retained-integrity",
+  "blocking_defects": [
+    {
+      "id": "independent-source-window-declared-excerpt-refusal",
+      "description": "The configured independent sound fallback refuses before its provider call because source_windows demands one contiguous whole quote even when c6 explicitly declares quote_is_excerpt true and its scope identifies two verbatim excerpts. Both unchanged source fragments exist, with an intervening source sentence, so current whole-quote matching raises source quote missing: c6.",
+      "actual_refusal": "source quote missing: c6",
+      "proposed_repair": "Repair only scripts/independent_review.py source_windows to recognize explicitly declared sentence-newline excerpts after strict whole-quote lookup fails. Preserve full original quote, source snapshot, all media and claims; prove every exact fragment and retain raw offsets, contexts and intervening text."
+    }
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": {
+          "id": "independent-source-window-declared-excerpt-refusal",
+          "description": "The configured independent sound fallback refuses before its provider call because source_windows demands one contiguous whole quote even when c6 explicitly declares quote_is_excerpt true and its scope identifies two verbatim excerpts. Both unchanged source fragments exist, with an intervening source sentence, so current whole-quote matching raises source quote missing: c6.",
+          "actual_refusal": "source quote missing: c6",
+          "proposed_repair": "Repair only scripts/independent_review.py source_windows to recognize explicitly declared sentence-newline excerpts after strict whole-quote lookup fails. Preserve full original quote, source snapshot, all media and claims; prove every exact fragment and retain raw offsets, contexts and intervening text."
+        },
+        "category": "source"
+      }
+    ]
+  },
+  "actual_read_only_reproduction": {
+    "call": "independent_review.source_windows(current_source_snapshot, [actual_c6])",
+    "raised": "source quote missing: c6",
+    "provider_call_performed": false
+  },
+  "claim_id": "c6",
+  "original_quote": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.\nWhile not yet confirmed as a fault, the condition was flagged for inspection.",
+  "quote_is_excerpt": true,
+  "scope_note": "Two verbatim excerpts. No confirmed second failure or repair.",
+  "verified_exact_fragments": [
+    {
+      "excerpt_index": 0,
+      "excerpt_count": 2,
+      "original_excerpt": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.",
+      "occurrences": [
+        {
+          "raw_start": 1802,
+          "raw_end": 1885,
+          "matched_raw_text": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n."
+        }
+      ]
+    },
+    {
+      "excerpt_index": 1,
+      "excerpt_count": 2,
+      "original_excerpt": "While not yet confirmed as a fault, the condition was flagged for inspection.",
+      "occurrences": [
+        {
+          "raw_start": 1987,
+          "raw_end": 2064,
+          "matched_raw_text": "While not yet confirmed as a fault, the condition was flagged for inspection."
+        }
+      ]
+    }
+  ],
+  "intervening_raw_text": "\nThe pattern was observed from multiple viewing angles and coincided with belt noise reported onsite.\n",
+  "minimal_proposal": {
+    "edit_scope": [
+      "scripts/independent_review.py"
+    ],
+    "entry_condition": "Attempt the existing strict full-quote matcher first. Only an actual no-match plus literal quote_is_excerpt is True can enter excerpt handling.",
+    "split_rule": "(?<=\\.)\\n(?=[A-Z])",
+    "required_proof": "At least two substantive nonempty sentence fragments, each exact whitespace-equivalent contiguous text in the original snapshot, with source order and nonoverlap. Preserve original_quote in each evidence row, excerpt_index/count, occurrence_index/count, raw_start/end, raw matched text, merged raw contexts, intervening text and complete original snapshot SHA.",
+    "refuse_cases": [
+      "Undeclared excerpt",
+      "No explicit sentence-newline boundary",
+      "Any absent or changed fragment",
+      "Empty or nonsubstantive fragment",
+      "Out-of-order or overlapping selected fragments",
+      "Ordinary unmatched contiguous quote"
+    ],
+    "prohibited_changes": "No ellipsis wildcard, generic fuzzy match, token rewriting, dropped source limits, claims mutation, source mutation, media change, scoring change or new provider call during repair. Existing explicit multi-source source_segments path retains its strict behavior.",
+    "required_cheap_verification": "Positive actual c6 preserves both excerpts and the intervening belt-noise sentence. Negative missing/changed fragment, undeclared excerpt and no-boundary cases refuse. Existing contiguous and explicit multi-source quote behavior remains strict. No paid retry until controller authorization and current input context rebuild."
+  },
+  "evidence_bindings": [
+    {
+      "path": "out/dispatch/sound-transport-failure.json",
+      "sha256": "6637e1c0699cf46dbcd1ffa47629f1ff24882e8286e635db9c366996432a6f53"
+    },
+    {
+      "path": "out/dispatch/scorer-sound-packet.json",
+      "sha256": "51b34eec8bf9e02f3dce15d6d5e0eef4f1a0737a074e17c6df9f0d0b7cd6e9fd"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "50cda5cea0e2144171867dac6ee3b68b418a294d1c8017ac860b97ebb3092c5a"
+    },
+    {
+      "path": "out/dispatch/sources/facilityops-pilot.validator.txt",
+      "sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0"
+    },
+    {
+      "path": "scripts/independent_review.py",
+      "sha256": "a9a5901b8df0ef66a30a0e8f5b5c780b441156a61225242e2cf7d9c49a0814bd"
+    },
+    {
+      "path": "out/dispatch/scorer-picture.json",
+      "sha256": "6fc52e3d7439622cb62ca14476dd6329305a80917c292ca4f28d7235671102a7"
+    },
+    {
+      "path": "out/dispatch/film.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    }
+  ],
+  "picture_verdict_preserved": true,
+  "authorization": "Diagnosis and implementation proposal only. No production edits or repair authorization performed."
+}

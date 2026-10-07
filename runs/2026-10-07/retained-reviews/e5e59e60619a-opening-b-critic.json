@@ -1,0 +1,241 @@
+{
+  "verdict": "revise",
+  "review_scope": "code-plan",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T07:17:32.558701+00:00",
+  "concept_sha256": "f7f377c09b6ac19f4f7124f6ea2684e1634346dd81b9d9ff1913ca3d88b256d2",
+  "renderer_sha256": "0949818071332c8bd6b362921b03dba7cd4c2bf34e12c63245e1aef90c06a995",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "notes": [
+    {
+      "scene": "s1-s6, especially s3",
+      "problem": "Perspective calculation from executed art shots at native 1080 by 1920 gives first-unit bounding corners x -61 to500 and second-unit corners x590 to1137 throughout the sequence. The comparison equipment extends beyond both frame edges; the second-unit right side also lies beyond SAFE_RIGHT 918. The high angle retains the tool but does not fit the complete comparison in the usable phone picture. This is code geometry, not observed phone pixels.",
+      "fix": "Stage both equipment identities, handheld aim and checked display inside the current caption/feed-safe picture at setup, check and result. Retain deliberate subject scale and test the computed bounds before rendering."
+    },
+    {
+      "scene": "s1-s6",
+      "problem": "Inspected mesh support is discontinuous. Sensor wheel bottoms are y .04 while the floor top is y -.08, leaving a .12 world-unit gap. The inspection flag pole bottom is y 2.0 while the unit roof top is 1.925 and no mounting bracket connects them.",
+      "fix": "Ground all four wheel contact surfaces on the actual floor and attach the flag pole to the unit with visible support."
+    },
+    {
+      "scene": "s1-s4",
+      "problem": "The opaque warm patch is at z .545 with front z .552, ahead of fin-bar fronts at z .5375. It therefore covers the fins instead of occupying their gaps as the code comment and finished-hero plan claim. Fan assemblies remain in front, but the principal warm grille loses its authored rib finish.",
+      "fix": "Place the schematic heat behind the fin bars or divide it into actual fin gaps while preserving the fan and rib silhouette."
+    },
+    {
+      "scene": "s5-s6",
+      "problem": "The second heat value ends phase four at .4 after the diminishing spike, then starts phase five at 1 and drops to .6. No authored new-spike event explains that cut reset. A changing second-unit condition is inserted during the answer instead of preserving the reported open inspection state.",
+      "fix": "Conserve the second-unit heat state across the answer cut, and let the open flag carry the unconfirmed next step."
+    },
+    {
+      "scene": "s5-s6 and credits",
+      "problem": "The rendered s5 annotation uses a colon. The s6 annotation and authored source credit print September 23 without the required ordinal. CLAUDE.md requires ordinal dates and prohibits colons in published copy.",
+      "fix": "Use two short sentences or an acceptable separator and September 23rd in newly authored annotations and credits. Preserve fetched source text."
+    }
+  ],
+  "blocking_defects": [
+    {
+      "criterion": "subject_recognition",
+      "scene": "s1-s6, especially s3",
+      "start_s": 0,
+      "end_s": 38.5,
+      "problem": "Perspective calculation from executed art shots at native 1080 by 1920 gives first-unit bounding corners x -61 to500 and second-unit corners x590 to1137 throughout the sequence. The comparison equipment extends beyond both frame edges; the second-unit right side also lies beyond SAFE_RIGHT 918. The high angle retains the tool but does not fit the complete comparison in the usable phone picture. This is code geometry, not observed phone pixels.",
+      "fix": "Stage both equipment identities, handheld aim and checked display inside the current caption/feed-safe picture at setup, check and result. Retain deliberate subject scale and test the computed bounds before rendering."
+    },
+    {
+      "criterion": "contact_and_consequence",
+      "scene": "s1-s6",
+      "start_s": 0,
+      "end_s": 38.5,
+      "problem": "Inspected mesh support is discontinuous. Sensor wheel bottoms are y .04 while the floor top is y -.08, leaving a .12 world-unit gap. The inspection flag pole bottom is y 2.0 while the unit roof top is 1.925 and no mounting bracket connects them.",
+      "fix": "Ground all four wheel contact surfaces on the actual floor and attach the flag pole to the unit with visible support."
+    },
+    {
+      "criterion": "surface_finish",
+      "scene": "s1-s4",
+      "start_s": 0,
+      "end_s": 22.1,
+      "problem": "The opaque warm patch is at z .545 with front z .552, ahead of fin-bar fronts at z .5375. It therefore covers the fins instead of occupying their gaps as the code comment and finished-hero plan claim. Fan assemblies remain in front, but the principal warm grille loses its authored rib finish.",
+      "fix": "Place the schematic heat behind the fin bars or divide it into actual fin gaps while preserving the fan and rib silhouette."
+    },
+    {
+      "criterion": "continuity",
+      "scene": "s5-s6",
+      "start_s": 29.6,
+      "end_s": 31.1,
+      "problem": "The second heat value ends phase four at .4 after the diminishing spike, then starts phase five at 1 and drops to .6. No authored new-spike event explains that cut reset. A changing second-unit condition is inserted during the answer instead of preserving the reported open inspection state.",
+      "fix": "Conserve the second-unit heat state across the answer cut, and let the open flag carry the unconfirmed next step."
+    },
+    {
+      "criterion": "published-copy",
+      "scene": "s5-s6 and credits",
+      "start_s": 22.1,
+      "end_s": 43.5,
+      "problem": "The rendered s5 annotation uses a colon. The s6 annotation and authored source credit print September 23 without the required ordinal. CLAUDE.md requires ordinal dates and prohibits colons in published copy.",
+      "fix": "Use two short sentences or an acceptable separator and September 23rd in newly authored annotations and credits. Preserve fetched source text."
+    }
+  ],
+  "strongest_frame": "Planned s3 same-unit handheld comparison separates inspection from a checked measurement; no current frame has been viewed.",
+  "weakest_frame": "Planned s3 checked-display framing in A; planned second-unit comparison boundary in B. Both retain unsupported sensor/flag geometry and a second-state reset at s6.",
+  "story_review": {
+    "story_sha256": "2899fc7c5d5bdb7f209ab123c8f632dfe36cd2245a6b5414f01bdc5ac3e6d14d",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "criterion": "subject_recognition",
+        "scene": "s1-s6, especially s3",
+        "start_s": 0,
+        "end_s": 38.5,
+        "problem": "Perspective calculation from executed art shots at native 1080 by 1920 gives first-unit bounding corners x -61 to500 and second-unit corners x590 to1137 throughout the sequence. The comparison equipment extends beyond both frame edges; the second-unit right side also lies beyond SAFE_RIGHT 918. The high angle retains the tool but does not fit the complete comparison in the usable phone picture. This is code geometry, not observed phone pixels.",
+        "fix": "Stage both equipment identities, handheld aim and checked display inside the current caption/feed-safe picture at setup, check and result. Retain deliberate subject scale and test the computed bounds before rendering."
+      },
+      {
+        "criterion": "contact_and_consequence",
+        "scene": "s1-s6",
+        "start_s": 0,
+        "end_s": 38.5,
+        "problem": "Inspected mesh support is discontinuous. Sensor wheel bottoms are y .04 while the floor top is y -.08, leaving a .12 world-unit gap. The inspection flag pole bottom is y 2.0 while the unit roof top is 1.925 and no mounting bracket connects them.",
+        "fix": "Ground all four wheel contact surfaces on the actual floor and attach the flag pole to the unit with visible support."
+      },
+      {
+        "criterion": "surface_finish",
+        "scene": "s1-s4",
+        "start_s": 0,
+        "end_s": 22.1,
+        "problem": "The opaque warm patch is at z .545 with front z .552, ahead of fin-bar fronts at z .5375. It therefore covers the fins instead of occupying their gaps as the code comment and finished-hero plan claim. Fan assemblies remain in front, but the principal warm grille loses its authored rib finish.",
+        "fix": "Place the schematic heat behind the fin bars or divide it into actual fin gaps while preserving the fan and rib silhouette."
+      },
+      {
+        "criterion": "continuity",
+        "scene": "s5-s6",
+        "start_s": 29.6,
+        "end_s": 31.1,
+        "problem": "The second heat value ends phase four at .4 after the diminishing spike, then starts phase five at 1 and drops to .6. No authored new-spike event explains that cut reset. A changing second-unit condition is inserted during the answer instead of preserving the reported open inspection state.",
+        "fix": "Conserve the second-unit heat state across the answer cut, and let the open flag carry the unconfirmed next step."
+      },
+      {
+        "criterion": "published-copy",
+        "scene": "s5-s6 and credits",
+        "start_s": 22.1,
+        "end_s": 43.5,
+        "problem": "The rendered s5 annotation uses a colon. The s6 annotation and authored source credit print September 23 without the required ordinal. CLAUDE.md requires ordinal dates and prohibits colons in published copy.",
+        "fix": "Use two short sentences or an acceptable separator and September 23rd in newly authored annotations and credits. Preserve fetched source text."
+      }
+    ],
+    "one_viewing_summary": "Code-plan reconstruction only, with no viewing claim. One illustrated cooling unit is warmer, a robot comparison is separately checked, the vendor reports repair, and the other unit remains flagged without a confirmed fault.",
+    "opening_to_ending": "The intended opening asks how a flag becomes repair. Comparison, a separate handheld measurement and a reported repaired first-unit state answer it. The open second flag supplies the honest limit. Code currently clips key comparison/tool geometry and inserts an unexplained closing heat reset.",
+    "weakest_transition": "The s5 to s6 transition resets second heat from .4 to1 despite a conserved same-subject open inspection state. Keep that identity and outcome stable while the next-check flag remains visible."
+  },
+  "action_reviews": [
+    {
+      "action_id": "cooling-inspection-proposal-v1",
+      "module_sha256": "abf7425fa7d01ea9adb201c2c6f442d4c1e410b8b0847aecb67e57de56af2c57",
+      "source_claims_sha256": "38f7d65178ad271a290b6485c5f6861c8e0da260737b2bdfc45222f061e22bf6",
+      "verdict": "revise",
+      "blocking_defects": [
+        {
+          "criterion": "subject_recognition",
+          "scene": "s1-s6, especially s3",
+          "start_s": 0,
+          "end_s": 38.5,
+          "problem": "Perspective calculation from executed art shots at native 1080 by 1920 gives first-unit bounding corners x -61 to500 and second-unit corners x590 to1137 throughout the sequence. The comparison equipment extends beyond both frame edges; the second-unit right side also lies beyond SAFE_RIGHT 918. The high angle retains the tool but does not fit the complete comparison in the usable phone picture. This is code geometry, not observed phone pixels.",
+          "fix": "Stage both equipment identities, handheld aim and checked display inside the current caption/feed-safe picture at setup, check and result. Retain deliberate subject scale and test the computed bounds before rendering."
+        },
+        {
+          "criterion": "contact_and_consequence",
+          "scene": "s1-s6",
+          "start_s": 0,
+          "end_s": 38.5,
+          "problem": "Inspected mesh support is discontinuous. Sensor wheel bottoms are y .04 while the floor top is y -.08, leaving a .12 world-unit gap. The inspection flag pole bottom is y 2.0 while the unit roof top is 1.925 and no mounting bracket connects them.",
+          "fix": "Ground all four wheel contact surfaces on the actual floor and attach the flag pole to the unit with visible support."
+        },
+        {
+          "criterion": "surface_finish",
+          "scene": "s1-s4",
+          "start_s": 0,
+          "end_s": 22.1,
+          "problem": "The opaque warm patch is at z .545 with front z .552, ahead of fin-bar fronts at z .5375. It therefore covers the fins instead of occupying their gaps as the code comment and finished-hero plan claim. Fan assemblies remain in front, but the principal warm grille loses its authored rib finish.",
+          "fix": "Place the schematic heat behind the fin bars or divide it into actual fin gaps while preserving the fan and rib silhouette."
+        },
+        {
+          "criterion": "continuity",
+          "scene": "s5-s6",
+          "start_s": 29.6,
+          "end_s": 31.1,
+          "problem": "The second heat value ends phase four at .4 after the diminishing spike, then starts phase five at 1 and drops to .6. No authored new-spike event explains that cut reset. A changing second-unit condition is inserted during the answer instead of preserving the reported open inspection state.",
+          "fix": "Conserve the second-unit heat state across the answer cut, and let the open flag carry the unconfirmed next step."
+        },
+        {
+          "criterion": "published-copy",
+          "scene": "s5-s6 and credits",
+          "start_s": 22.1,
+          "end_s": 43.5,
+          "problem": "The rendered s5 annotation uses a colon. The s6 annotation and authored source credit print September 23 without the required ordinal. CLAUDE.md requires ordinal dates and prohibits colons in published copy.",
+          "fix": "Use two short sentences or an acceptable separator and September 23rd in newly authored annotations and credits. Preserve fetched source text."
+        }
+      ],
+      "code_observations": {
+        "source_fidelity": "Read both complete fetched vendor snapshots and all eight claims. They support the reported warmer first unit, handheld confirmation, repair outcome and an unconfirmed second flag. They establish no actual layout, robot model, repair method or independent operator confirmation. Current geometry is explicitly generic.",
+        "visible_action": "The router calls CoolingInspectionEpisode, which calls CoolingInspectionAction for all six phases with three actionProgress values. Heat width grows in phase zero, observation spheres enlarge in phase one, the supported thermometer rotates and its display fills in phase two, the first heat width shrinks in phase three, and the second heat width rises then falls in phase four. These are callable implementations, not watched performances. Current framing and support prevent code admission.",
+        "consequence": "The first-unit heat state returns to zero after the reported repair without drawing any robot or worker repair technique. The second flag persists through the close, but its heat state jumps at the answer cut. The flagged second condition must remain unconfirmed; it cannot be portrayed as a second repaired fault.",
+        "disclosure": "CoolingInspectionEpisode renders scene.production_disclosure as a JSX text child on every action scene. Each board supplies Illustration. Vendor-reported pilot, plus schematic/staged-tool annotations. No external native media is inserted, so no rejected vendor image or previous film footage is disguised as current observation.",
+        "limits": "No synthetic person performs a maintenance action. A supported pistol-shaped tool depicts a schematic independent measurement, and the repair is only a reported changed state. Essential dates and vendor attribution can use text. Source evidence does not authorize exact readings, actual interface, facility adjacency, repair technique, equipment identity or outage prevention. No listening, rendered recognition, native finish or phone approval is claimed."
+      }
+    }
+  ],
+  "code_observations": {
+    "source_fidelity": "Read both complete fetched vendor snapshots and all eight claims. They support the reported warmer first unit, handheld confirmation, repair outcome and an unconfirmed second flag. They establish no actual layout, robot model, repair method or independent operator confirmation. Current geometry is explicitly generic.",
+    "visible_action": "The router calls CoolingInspectionEpisode, which calls CoolingInspectionAction for all six phases with three actionProgress values. Heat width grows in phase zero, observation spheres enlarge in phase one, the supported thermometer rotates and its display fills in phase two, the first heat width shrinks in phase three, and the second heat width rises then falls in phase four. These are callable implementations, not watched performances. Current framing and support prevent code admission.",
+    "consequence": "The first-unit heat state returns to zero after the reported repair without drawing any robot or worker repair technique. The second flag persists through the close, but its heat state jumps at the answer cut. The flagged second condition must remain unconfirmed; it cannot be portrayed as a second repaired fault.",
+    "disclosure": "CoolingInspectionEpisode renders scene.production_disclosure as a JSX text child on every action scene. Each board supplies Illustration. Vendor-reported pilot, plus schematic/staged-tool annotations. No external native media is inserted, so no rejected vendor image or previous film footage is disguised as current observation.",
+    "limits": "No synthetic person performs a maintenance action. A supported pistol-shaped tool depicts a schematic independent measurement, and the repair is only a reported changed state. Essential dates and vendor attribution can use text. Source evidence does not authorize exact readings, actual interface, facility adjacency, repair technique, equipment identity or outage prevention. No listening, rendered recognition, native finish or phone approval is claimed."
+  },
+  "source_claims": [
+    {
+      "id": "c1",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Relative temperature only, no physical adjacency established."
+    },
+    {
+      "id": "c2",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Vendor self-report. No independent CRSC confirmation."
+    },
+    {
+      "id": "c3",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Detection does not establish automatic repair."
+    },
+    {
+      "id": "c4",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Confirmation within stated tolerance, not exact identity. Narration omits number."
+    },
+    {
+      "id": "c5",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Repair actor unspecified. No robot repair or independent maintenance record."
+    },
+    {
+      "id": "c6",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Two verbatim excerpts. No confirmed second failure or repair."
+    },
+    {
+      "id": "c7",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "July 28 to August 21 findings. Status at September update, not fresh October event."
+    },
+    {
+      "id": "c8",
+      "url": "https://facilityops.ai/why-facilityops/",
+      "scope": "General product description, not pilot hardware or accuracy validation."
+    }
+  ],
+  "treatment_comparison": "A executes oblique staging with a tighter hero camera; B executes a high held inspection angle. Both retain exactly the same six-phase geometry and action clock. The different viewpoints are executable but neither currently preserves the whole comparison inside the frame. No style preference grants or blocks approval.",
+  "art_execution": "Current ArtDirectionProvider carries each board profile. CinematicStage consumes directed position/target/fov, exposure and the shared Studio light recipe. Unit and floor use hero/accent/background/midground colors, while authored hardware adds rings, hubs, fasteners, feet and piping. Episode events execute declared contact/travel curves via actionProgress. The opaque heat layer currently conceals the fin bars. Remaining finish must be inspected on native rendered evidence.",
+  "consolidated_correction": "In the same two treatments, reframe the conserved units and separate checker inside the actual usable picture, ground the sensor and flag, preserve fin detail during heat change, conserve the second-unit closing state and correct published copy. Recheck all changed source/code bindings before authorizing the one reserved phone comparison.",
+  "authorization": "No render or voice authorization. A later passing code verdict authorizes the phone test only; exact phone and native review remain required."
+}

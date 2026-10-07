@@ -1,0 +1,255 @@
+{
+  "verdict": "revise",
+  "review_scope": "exact-muted-phone-pivot-diagnosis",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T07:55:42.312187+00:00",
+  "film_sha256": "0e655eb35244d82f4e0f0ef7e0382975065519ebec061628a955e84c49c1397b",
+  "reviewed_preflight_sha256": "0e655eb35244d82f4e0f0ef7e0382975065519ebec061628a955e84c49c1397b",
+  "concept_sha256": "c8981e2e2089d667a1e74007c78ed9e00da07fdf5df7254f7dbbb49821255668",
+  "renderer_sha256": "ce456d7a9525bf74f5c1fe1d553af194d626819e7a35b2067543641c80dc99e5",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "board_sha256": "3c3ed4055ec22e9311c1cdbbba6dedf891972ed34e866d652a519157295e33fa",
+  "comparison_sha256": "9cf6188457be29ad9c78cd86715fe9c68a056dc117487a83a421a40bd8191c4f",
+  "film": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/openings/b.mp4",
+    "sha256": "0e655eb35244d82f4e0f0ef7e0382975065519ebec061628a955e84c49c1397b"
+  },
+  "inspection": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/openings/b-inspection-a5611e2145680d39.json",
+    "sha256": "1dd6a2eedd691fc08a2d4f6f8362a3bb5ee0563183fa652bb15b1f45f32ce13b",
+    "pass": false,
+    "exact_problems": [
+      "scene s1 declares motion but changes only 0.0056 of pixel range. It is a held slide in the animatic.",
+      "the first two seconds change only 0.0041 of pixel range. The declared hook did not become visible motion or revelation."
+    ],
+    "hook_pixel_motion": 0.00413,
+    "motion_floor": 0.006,
+    "scenes": [
+      {
+        "id": "s1",
+        "beat": "motion",
+        "left_s": 0.0,
+        "right_s": 4.12,
+        "pixel_motion": 0.00557,
+        "motion_required": true
+      },
+      {
+        "id": "s2",
+        "beat": "revelation",
+        "left_s": 4.5,
+        "right_s": 10.92,
+        "pixel_motion": 0.00917,
+        "motion_required": true
+      },
+      {
+        "id": "s3",
+        "beat": "revelation",
+        "left_s": 11.3,
+        "right_s": 14.92,
+        "pixel_motion": 0.01553,
+        "motion_required": true
+      },
+      {
+        "id": "s4",
+        "beat": "emotion",
+        "left_s": 15.3,
+        "right_s": 21.72,
+        "pixel_motion": 0.01363,
+        "motion_required": false
+      },
+      {
+        "id": "s5",
+        "beat": "revelation",
+        "left_s": 22.1,
+        "right_s": 29.92,
+        "pixel_motion": 0.00911,
+        "motion_required": true
+      },
+      {
+        "id": "s6",
+        "beat": "emotion",
+        "left_s": 30.3,
+        "right_s": 38.12,
+        "pixel_motion": 0.01281,
+        "motion_required": false
+      }
+    ]
+  },
+  "blocking_defects": [
+    {
+      "criterion": "dominant_action",
+      "classification": "minimum-action",
+      "scene": "s1",
+      "start_s": 0,
+      "end_s": 4.5,
+      "problem": "The actual warm reveal is visible and distinguishes the left unit from the right, but its principal changing thermal face occupies too little pixel range under fixed fan rings and fins. Exact inspection measures s1 at 0.00557 and first two seconds at 0.00413, both below the mandatory 0.006 floor. This is an opening-only failed minimum-action gate, not absence of all visible motion.",
+      "effect": "The normal route remains rejected by the dated opening action gate although the comparison is understandable and later action passages pass their measured floor.",
+      "fix": "Retain the source-disclosed two-unit comparison and v2 body. Increase the opening principal thermal face transformation or its occupied readable area so first two seconds and complete opening exceed the unchanged floor. Complete a clear warm comparison by two seconds using equipment state itself, preserving recognizable fan hardware and schematic disclosure. Do not substitute camera/background movement, numeric readings, robot repair or optional surface polish."
+    }
+  ],
+  "phone_observations": {
+    "subject_recognition": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 38.5,
+      "observed": "The taller fan housings read as cooling equipment, with teal faces, visible rings and fins. Coral differentiates the first unit. The large separate pistol-shaped checker is recognizable at its matching-result endpoint."
+    },
+    "contact_and_consequence": {
+      "pass": true,
+      "start_s": 11.3,
+      "end_s": 15.3,
+      "observed": "At14.8 the separate checker has a large coral display matching the conserved coral first-unit face. Cart support is visible. The confirmation relationship is readable without an invented measurement number."
+    },
+    "dominant_action": {
+      "pass": false,
+      "start_s": 0,
+      "end_s": 4.5,
+      "observed": "At1.0 in both films the left face has a visible coral region while the right stays teal. A additionally verified at0 with both teal and at2 with coral left. Fixed black fan assemblies interrupt much of the transforming surface. The exact opening measurement remains below0.006. This false result is scoped only to s1 and the first-two-second hook."
+    },
+    "body_action": {
+      "pass": true,
+      "start_s": 4.5,
+      "end_s": 30.3,
+      "observed": "Comparison and inspection lead to a large matching separate checker result, first-unit restoration, then a second transient coral state and open amber flag. Exact s2,s3,s5 measurements exceed0.006. At23.3 in both the right is coral and first teal; later the right returns teal with its flag present."
+    },
+    "surface_finish": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 38.5,
+      "observed": "Phone pixels retain identifiable fan rings, fins, feet, piping and cart forms. Teal/coral separation is stronger than the retained rejected film. No native crop or finish approval is claimed."
+    },
+    "continuity": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 38.5,
+      "observed": "The same left/right housings persist across cuts. Illustration/vendor labels are visible. No synthetic worker repair, actual-site identity or second confirmed repair is shown."
+    },
+    "closing_payoff": {
+      "pass": true,
+      "start_s": 30.3,
+      "end_s": 38.5,
+      "observed": "Both faces are teal, the second amber flag persists, and the separate checker has an empty/dark display. This reads as an open next check without claiming a second confirmed fault or completed repair."
+    }
+  },
+  "story_review": {
+    "story_sha256": "1f6d0f4826ee8a9448229be2bc5e7198f671b1b070eeff03e6402c08630370d0",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "criterion": "dominant_action",
+        "classification": "minimum-action",
+        "scene": "s1",
+        "start_s": 0,
+        "end_s": 4.5,
+        "problem": "The actual warm reveal is visible and distinguishes the left unit from the right, but its principal changing thermal face occupies too little pixel range under fixed fan rings and fins. Exact inspection measures s1 at 0.00557 and first two seconds at 0.00413, both below the mandatory 0.006 floor. This is an opening-only failed minimum-action gate, not absence of all visible motion.",
+        "effect": "The normal route remains rejected by the dated opening action gate although the comparison is understandable and later action passages pass their measured floor.",
+        "fix": "Retain the source-disclosed two-unit comparison and v2 body. Increase the opening principal thermal face transformation or its occupied readable area so first two seconds and complete opening exceed the unchanged floor. Complete a clear warm comparison by two seconds using equipment state itself, preserving recognizable fan hardware and schematic disclosure. Do not substitute camera/background movement, numeric readings, robot repair or optional surface polish."
+      }
+    ],
+    "one_viewing_summary": "Two recognizable cooling units begin alike. The first becomes coral, inspection precedes a large separate checker with a matching coral result, the first returns teal, and the second transient coral state leaves an open amber flag. The final empty checker keeps that next check unresolved.",
+    "opening_to_ending": "The current body completes comparison, separate confirmation and reported restored state, then distinguishes an unconfirmed second condition. Only the opening minimum-motion gate remains rejected. Earlier tiny-checker and unreadable body failures are resolved in these actual films.",
+    "weakest_transition": "Initial thermal growth is clear in kind but too limited in measured principal-picture change to meet the required hook floor."
+  },
+  "action_reviews": [
+    {
+      "action_id": "cooling-thermal-comparison-check-v2",
+      "module_sha256": "b94a1154ccf4423910a307ee2e9c7b30d879de98b50b08dd649ef5ef2b82a969",
+      "source_claims_sha256": "38f7d65178ad271a290b6485c5f6861c8e0da260737b2bdfc45222f061e22bf6",
+      "verdict": "revise",
+      "blocking_defects": [
+        {
+          "criterion": "dominant_action",
+          "classification": "minimum-action",
+          "scene": "s1",
+          "start_s": 0,
+          "end_s": 4.5,
+          "problem": "The actual warm reveal is visible and distinguishes the left unit from the right, but its principal changing thermal face occupies too little pixel range under fixed fan rings and fins. Exact inspection measures s1 at 0.00557 and first two seconds at 0.00413, both below the mandatory 0.006 floor. This is an opening-only failed minimum-action gate, not absence of all visible motion.",
+          "effect": "The normal route remains rejected by the dated opening action gate although the comparison is understandable and later action passages pass their measured floor.",
+          "fix": "Retain the source-disclosed two-unit comparison and v2 body. Increase the opening principal thermal face transformation or its occupied readable area so first two seconds and complete opening exceed the unchanged floor. Complete a clear warm comparison by two seconds using equipment state itself, preserving recognizable fan hardware and schematic disclosure. Do not substitute camera/background movement, numeric readings, robot repair or optional surface polish."
+        }
+      ],
+      "code_observations": {
+        "source_fidelity": "The unchanged full vendor snapshots and claimsc1,c3,c4,c5,c6,c8 support the same warmer-unit comparison, repeated inspection, separate handheld confirmation, reported first-unit repair and unconfirmed second condition. New broad thermal surfaces are expressly schematic and do not invent measured values, equipment identity, an actual thermal image, repair method, raw logs or private UI.",
+        "visible_action": "Current CoolingInspectionEpisode calls the new CoolingInspectionAction for all six phases. First heat grows vertically through .75*a+.15*b+.1*c across a1.18-world-wide fin surface, with basic unlit toneMapped-false color. The mobile aperture yaw/tilt follows inspection events without old floating spheres. The separate enlarged checker positions on a grounded cart, then its .36-world-wide display fills vertically through .5*b+.5*c. Both conserved units retain their recognizable hardware; all action clocks are deterministic event progress.",
+        "consequence": "First heat recedes from1 to0 over three reported-repair events, exposing teal. The second heat follows a*(1-b), rising then returning to0; its attached face flag turns into view on the third event and stays present through the answer. The ending keeps both thermal states at0 with the second flag open, so no new fault or second repair is asserted. A pending tool has an empty result in the close rather than inventing a completed second check.",
+        "disclosure": "Episode routes Illustration. Vendor-reported pilot as an actual JSX child for every action scene, with schematic-comparison and staged-tool annotations. The renderer inserts no external native media or previous film assets. September23rd date wording and colon-free published annotations remain corrected.",
+        "limits": "Code admission only. The original actual phone rejections remain unchanged and this report claims no new rendered recognition, minimum-action measurement, native finish, listening, aligned captions, scoring or shipment. Current phone must prove broad thermal change, separate matching checker result and unresolved flag at actual scale. Generic source-bound comparison does not establish actual hardware or observed repair."
+      }
+    }
+  ],
+  "source_claims": [
+    {
+      "id": "c1",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Relative temperature only, no physical adjacency established."
+    },
+    {
+      "id": "c2",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Vendor self-report. No independent CRSC confirmation."
+    },
+    {
+      "id": "c3",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Detection does not establish automatic repair."
+    },
+    {
+      "id": "c4",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Confirmation within stated tolerance, not exact identity. Narration omits number."
+    },
+    {
+      "id": "c5",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Repair actor unspecified. No robot repair or independent maintenance record."
+    },
+    {
+      "id": "c6",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Two verbatim excerpts. No confirmed second failure or repair."
+    },
+    {
+      "id": "c7",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "July 28 to August 21 findings. Status at September update, not fresh October event."
+    },
+    {
+      "id": "c8",
+      "url": "https://facilityops.ai/why-facilityops/",
+      "scope": "General product description, not pilot hardware or accuracy validation."
+    }
+  ],
+  "viewing_evidence": {
+    "browser": "Chrome via Cua",
+    "page": "http://127.0.0.1:8890/out/dispatch/review.html",
+    "display_width": 270,
+    "muted": true,
+    "playback_rate": 1,
+    "duration_s": 43.5,
+    "normal_playback_reached_credits": true,
+    "actual_playback_states": "Both reached43.5 credits readyState4/noerror. Range-enabled exact seeks verified1.0,14.8,23.3 in both; A additionally0 and2.0. Body and closing states were observed during normal playback.",
+    "native_viewed": false,
+    "audio_listened": false
+  },
+  "classification": "Mandatory opening minimum-action repair only. Current body is a credible retained cut. No optional art expansion, floor waiver, ordinary selection, native approval, audio/caption approval or score is issued.",
+  "minimum_action_repair": {
+    "mechanism_id": "cooling-thermal-comparison-check-v2",
+    "retained_body_scenes": [
+      "s2",
+      "s3",
+      "s4",
+      "s5",
+      "s6"
+    ],
+    "retained_script_words": 82,
+    "scope": "s1 principal thermal equipment comparison and first two-second transformation",
+    "source_basis": "Vendor evidence supports relative warmth and a separate confirmation, not actual values, hardware identity or repair method. A larger qualitative warm comparison on the same explicitly schematic equipment is source-safe. Preserve restored first-unit and transient unconfirmed second-state relationships.",
+    "existing_independent_pivot": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/source-backed-pivot-review.json",
+      "sha256": "9715fbb872052a27d44b1dab337f673c9bbfb7c76155b1dc35e586afd9b50d64"
+    },
+    "required_followup": "Retain these exact rejected films/reports. Review corrected code and fresh two-treatment phone measurements/playback, then complete timed phone, native s2-s3, audiovisual, scoring and delivery gates."
+  }
+}

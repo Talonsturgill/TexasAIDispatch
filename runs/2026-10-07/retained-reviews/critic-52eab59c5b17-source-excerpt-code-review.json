@@ -1,0 +1,241 @@
+{
+  "schema": "dispatch_source_excerpt_code_review/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T09:44:55.148308+00:00",
+  "verdict": "pass",
+  "scope": "retained-integrity",
+  "blocking_defects": [],
+  "reviewed_code": [
+    {
+      "path": "scripts/independent_review.py",
+      "sha256": "7342189a4708cd86e19dbc2bdb32a8d92520780cc4d360c21dff4ec83c833781",
+      "retained_before": "out/dispatch/repairs/11-source-excerpt-transport/before/independent_review.py",
+      "retained_before_sha256": "a9a5901b8df0ef66a30a0e8f5b5c780b441156a61225242e2cf7d9c49a0814bd"
+    },
+    {
+      "path": "scripts/independent_review_test.py",
+      "sha256": "48d8eff30e43219c7c14f2e88ae7262c38ac5d9bdb6785d249147b77a0066647",
+      "retained_before": "out/dispatch/repairs/11-source-excerpt-transport/before/independent_review_test.py",
+      "retained_before_sha256": "c7a1ad80d886cf46370a2f0183d97d6d693c4bcc2a9cff667a68723d534c4bce"
+    }
+  ],
+  "observations": "The change is confined to same-source quote-window extraction and its regression test. Strict full-match remains first; only literal True and a failed whole-quote match admit explicit sentence-newline splitting. Each at-least-three-word fragment still needs an exact whitespace-equivalent contiguous occurrence. Greedy source-order selection establishes a nonoverlapping valid chain; all raw occurrences and the complete intervening excerpt-group span are retained for independent examination. Existing explicit multi-source segmentation is unchanged. No generic fuzzy match, ellipsis, token rewrite or source-limit removal is added.",
+  "independent_checks": {
+    "actual_c6_exact_fragments_raw_offsets_full_source_and_intervening_context": true,
+    "missing_fragment_refuses": true,
+    "changed_fragment_refuses": true,
+    "undeclared_refuses": true,
+    "string_flag_refuses": true,
+    "no_boundary_refuses": true,
+    "out_of_order_refuses": true,
+    "nonsubstantive_refuses": true,
+    "overlapping_repeat_refuses": true,
+    "ordinary_contiguous_exact_retains_baseline_behavior": true,
+    "full_match_first": true,
+    "genuine_explicit_composite_segments_unchanged_and_exact": true,
+    "audience_visible_dependencies_and_renderer_unchanged": true,
+    "complete_actual_sound_packet_read_only_build": true
+  },
+  "suite": "Actual python scripts/independent_review_test.py passed all 21 tests; supplemental independent adverse cases and baseline comparisons passed.",
+  "actual_c6_evidence": {
+    "schema": "dispatch_verbatim_source_windows/1",
+    "original_file": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/sources/facilityops-pilot.validator.txt",
+    "full_source_sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+    "offset_unit": "unicode code points in UTF-8 decoded original bytes",
+    "full_source_characters": 6284,
+    "context_characters": 2,
+    "windows": [
+      {
+        "raw_start": 1800,
+        "raw_end": 1887,
+        "quotes": [
+          {
+            "claim_id": "c6",
+            "occurrence_index": 0,
+            "occurrence_count": 1,
+            "raw_start": 1802,
+            "raw_end": 1885,
+            "text": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.",
+            "original_quote": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.\nWhile not yet confirmed as a fault, the condition was flagged for inspection.",
+            "original_excerpt": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.",
+            "excerpt_index": 0,
+            "excerpt_count": 2
+          }
+        ],
+        "text": "d\nThe second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.\nT",
+        "claim_ids": [
+          "c6"
+        ]
+      },
+      {
+        "raw_start": 1985,
+        "raw_end": 2066,
+        "quotes": [
+          {
+            "claim_id": "c6",
+            "occurrence_index": 0,
+            "occurrence_count": 1,
+            "raw_start": 1987,
+            "raw_end": 2064,
+            "text": "While not yet confirmed as a fault, the condition was flagged for inspection.",
+            "original_quote": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.\nWhile not yet confirmed as a fault, the condition was flagged for inspection.",
+            "original_excerpt": "While not yet confirmed as a fault, the condition was flagged for inspection.",
+            "excerpt_index": 1,
+            "excerpt_count": 2
+          }
+        ],
+        "text": ".\nWhile not yet confirmed as a fault, the condition was flagged for inspection.\nW",
+        "claim_ids": [
+          "c6"
+        ]
+      }
+    ],
+    "excerpt_groups": [
+      {
+        "claim_id": "c6",
+        "original_quote": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.\nWhile not yet confirmed as a fault, the condition was flagged for inspection.",
+        "raw_start": 1802,
+        "raw_end": 2064,
+        "text": "The second cooling unit exhibited intermittent temperature spikes of up to\n15.5\u00b0F\n.\nThe pattern was observed from multiple viewing angles and coincided with belt noise reported onsite.\nWhile not yet confirmed as a fault, the condition was flagged for inspection.",
+        "excerpt_count": 2
+      }
+    ]
+  },
+  "unchanged_dependencies": [
+    {
+      "path": "out/dispatch/sound-transport-failure.json",
+      "sha256": "6637e1c0699cf46dbcd1ffa47629f1ff24882e8286e635db9c366996432a6f53"
+    },
+    {
+      "path": "out/dispatch/scorer-sound-packet.json",
+      "sha256": "51b34eec8bf9e02f3dce15d6d5e0eef4f1a0737a074e17c6df9f0d0b7cd6e9fd"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "50cda5cea0e2144171867dac6ee3b68b418a294d1c8017ac860b97ebb3092c5a"
+    },
+    {
+      "path": "out/dispatch/sources/facilityops-pilot.validator.txt",
+      "sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0"
+    },
+    {
+      "path": "out/dispatch/scorer-picture.json",
+      "sha256": "6fc52e3d7439622cb62ca14476dd6329305a80917c292ca4f28d7235671102a7"
+    },
+    {
+      "path": "out/dispatch/film.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    },
+    {
+      "path": "out/dispatch/ship-prepanel-refusal.log",
+      "sha256": "cd8b1d99ec6bc8e3c3f297b01206d3d14a8d8e4d7b469f57107c889461c912ea"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "sha256": "66a7c98299f35b1278ff00bf0115fc6d813b3619979da99c9bd741a9e389aa95"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "615227064edf18987188b97c67173e411fb2cbe041e567bf31b8cc735ce26ae6"
+    },
+    {
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "763051b4d554373afe24b17167109d92ff037278325800b011cb1d5fa44f11e9"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "7e7d833761e8740622daf14f31c8bc5a4daf7ce124d3755bb96c56816988e14d"
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "sha256": "2c6014c2e7fc37687336dbe0cbbbabf7f1b0905a1ff5f9b8fd4bc336debf7179"
+    },
+    {
+      "path": "out/dispatch/silent.mp4",
+      "sha256": "02148c095b4ff08fde29b1b89005682278eb7acbea72256333a55487c7f0e80c"
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "sha256": "eebc9fc4173cbc99a6c3e2490361a2cf9c8d7266d56c1dff04121bb225bdbc9a"
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "sha256": "5b7a9fc5dd4988e75922fb7650eecb1006ad7e43f15a868a721c35f496e38746"
+    },
+    {
+      "path": "out/dispatch/cinema/hero.mp4",
+      "sha256": "4f273bac605b053856b45bdae30d8afbbdae581a86f17e82f7f2039135fa3add"
+    },
+    {
+      "path": "out/dispatch/openings/a.mp4",
+      "sha256": "02271cebc92e99abdb70d7a809df0190dbe6a3e2371aaaada5aa3852f36fb187"
+    },
+    {
+      "path": "out/dispatch/openings/b.mp4",
+      "sha256": "505abfebf00e36a56458db6899825db41d7af65252c70e75c76f87d4393ec0fe"
+    },
+    {
+      "path": "out/dispatch/openings/selection.json",
+      "sha256": "edf971df3384282784007a69dad0c707b0cef52d53149cd60d000f086d9bec84"
+    },
+    {
+      "path": "scripts/ship_gate.py",
+      "sha256": "3addf13f4d8f6d25982748f4d92de133932ae8bd1de28ec03cc7e2f044e39ec2"
+    },
+    {
+      "path": "out/dispatch/captions.json",
+      "sha256": "54f7669ef80d818d4fda7f702dd65fe6fd0298ad39f6ddc149f0529205e34433"
+    },
+    {
+      "path": "out/dispatch/mix.json",
+      "sha256": "b5b88d8d08497bbd17a439b4d00dc71e3666af2b9dbe57cca06fbb764a11988c"
+    },
+    {
+      "path": "video-engine/src/CoolingInspectionAction.tsx",
+      "sha256": "1905338bb021cfdd41f1a65664c8d7d271121fab8c5f29b0a8cc25e18bfd3b82"
+    },
+    {
+      "path": "out/dispatch/scorer-story.json",
+      "sha256": "4f8c013dfbf831727903192d8bf78aaaf2818170d2d9241a408593d99a3b32f8"
+    }
+  ],
+  "renderer_sha256": "17038d1b92da4ef5a90ea79f06b42dbce8c47682b0c354d93dec06683b0112de",
+  "packet_bindings": {
+    "concept_sha256": "974879ddcac2b18846fb245a720d4cb9599854ebb3a563fa7b0927905d55e507",
+    "renderer_sha256": "17038d1b92da4ef5a90ea79f06b42dbce8c47682b0c354d93dec06683b0112de",
+    "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "story_sha256": "9b99f7ad549d85fc52928411e38a060e7f244d0fb50a9a4cc93b7c60fa6e73d9",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "50cda5cea0e2144171867dac6ee3b68b418a294d1c8017ac860b97ebb3092c5a",
+    "board_sha256": "615227064edf18987188b97c67173e411fb2cbe041e567bf31b8cc735ce26ae6",
+    "actions": {
+      "cooling-checkpoint-comparison-v3": {
+        "module_sha256": "1905338bb021cfdd41f1a65664c8d7d271121fab8c5f29b0a8cc25e18bfd3b82",
+        "source_claims_sha256": "5b4cb96b9f7dbd0e0b09b57f68c60a13a7473d411d3624b6621e6d9c8676a6fb"
+      }
+    },
+    "completion_readings_sha256": {
+      "knowledge/craft/AUTONOMOUS_COMPLETION.md": "7c69726dd03a7701d6936f75b3d1b800681f04a2d12f3b42e76422741613a4ef",
+      "config/autonomous_completion.json": "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
+    },
+    "craft_readings_sha256": {
+      "knowledge/craft/visual-storytelling/viewer-plan.md": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06",
+      "knowledge/craft/visual-storytelling/README.md": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da",
+      "knowledge/craft/visual-storytelling/news-reporting.md": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d",
+      "knowledge/craft/visual-storytelling/explanatory-animation.md": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d",
+      "knowledge/craft/ART_DIRECTION.md": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5",
+      "config/art_direction.json": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673",
+      "knowledge/craft/cinematic_reference_bank.json": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+      "prompts/roles/scene-builder.md": "43af91ba1db72f9c58623ff26f8bc192497361bff8d8a3fa69c442eb1f8124ba"
+    },
+    "source_snapshots_sha256": {
+      "out/dispatch/sources/facilityops-pilot.validator.txt": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+      "out/dispatch/sources/facilityops-mechanism.validator.txt": "852c9797556ae393bacfca10993a16ee5656c761da9cb80250db184597003877"
+    },
+    "film_sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a",
+    "feed_sha256": "64201170ea9f08e77b21ee7d3b75376fa71a1f89d01d1a9c835bb38c879ad6c1",
+    "av_receipt_sha256": "7f1927a5214477b5bcf889b3afc37c19762729a3b3d52279467ce32a31c5c535"
+  },
+  "provider_call_performed": false,
+  "authorization": "Code-only independent PASS. Root must authorize the declared repair before configured sound-provider execution. This report creates no new audiovisual or film verdict and preserves immutable picture/story scores."
+}
