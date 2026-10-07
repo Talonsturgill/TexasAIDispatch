@@ -14,6 +14,30 @@ import documentary_review as d
 
 
 class AvailabilityTest(unittest.TestCase):
+    def test_declared_same_source_excerpts_preserve_intervening_text(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'source.txt'
+            raw = 'The unit showed spikes.\nAn intervening limitation.\nThe condition remains unconfirmed.'
+            path.write_text(raw)
+            row = {'id': 'c6', 'quote': 'The unit showed spikes.\nThe condition remains unconfirmed.',
+                   'quote_is_excerpt': True}
+            result = r.source_windows(path, [row], context_chars=2)
+            self.assertEqual(result['excerpt_groups'][0]['text'], raw)
+            self.assertEqual(result['excerpt_groups'][0]['original_quote'], row['quote'])
+            quotes = [q for w in result['windows'] for q in w['quotes']]
+            self.assertEqual([q['excerpt_index'] for q in quotes], [0, 1])
+            for q in quotes:
+                self.assertEqual(q['text'], raw[q['raw_start']:q['raw_end']])
+            self.assertEqual(result['full_source_sha256'], r.digest(path))
+            self.assertEqual(path.read_text(), raw)
+            for change in ({'quote_is_excerpt': False}, {'quote_is_excerpt': 'true'},
+                           {'quote': row['quote'].replace('unconfirmed', 'confirmed')},
+                           {'quote': row['quote'].replace('\n', ' ')},
+                           {'quote': 'The condition remains unconfirmed.\nThe unit showed spikes.'},
+                           {'quote': 'Spikes.\nThe condition remains unconfirmed.'}):
+                with self.assertRaises(ValueError):
+                    r.source_windows(path, [{**row, **change}])
+
     def test_composite_quotes_keep_both_authentic_sources_and_fail_closed(self):
         row = {'id': 'c02', 'quote': 'Robot unloading.\\nAustin address.',
                'quote_sources': [{'excerpt': 'Robot unloading.', 'url': 'https://u.example',
