@@ -1,0 +1,107 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "identity": "60fa0db1-a468-46dc-98ce-1b540159becd",
+  "model": "gemini-3.8-flash",
+  "response_id": "rY_FavKnKJDRz7IPpNyguQM",
+  "starting_lens": "sound",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "order": [
+    {
+      "path": "media/b-native.mp4",
+      "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f"
+    },
+    {
+      "path": "media/c-native.mp4",
+      "sha256": "e59d1f71fd21fceab72a247b15384c71b723a3d7e3f92dbc5728615b0f35bde1"
+    }
+  ],
+  "prompt_sha256": "f426f05a7cf4c37268b5db8bdae6282bd3d2a5c5ea0b673363dc386f7af7445b",
+  "response": {
+    "path": "evidence/motion-comparison-sound-response.json",
+    "sha256": "3b7faef92ecd2ddd516b1bcbc90108515617e4224213040e8a5069792df3d5a0"
+  },
+  "original_result": {
+    "winner": "second",
+    "first": {
+      "scores": {
+        "hook": 7.2,
+        "story": 5.4,
+        "picture": 5.2,
+        "place": 7.0,
+        "craft": 4.8,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "In the final shot, the robotic arm lifts the carton off the conveyor and drags it backward into midair against the mast, inverting the unloading sequence.",
+      "observed_strengths": [
+        "Clean graphic palette clearly establishes the trailer carton stack and multi-surface gripper mechanism.",
+        "Synchronized captions and clear voice track."
+      ],
+      "defects": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.78,
+          "category": "contact_and_consequence",
+          "observed": "At 11.6s, the box starts positioned at the lower conveyor, but between 11.8s and 14.4s the gripper retracts backward and upward, pulling the carton off the rollers to hover unsupported in midair against the mast rather than unloading it down the conveyor line.",
+          "criterion": "contact_and_consequence",
+          "blocking": true
+        },
+        {
+          "start_s": 11.6,
+          "end_s": 14.78,
+          "category": "dominant_action",
+          "observed": "The final movement inverts the functional unloading motion; rather than advancing the box onto the conveyor, the robot arm lifts it backward toward the frame.",
+          "criterion": "dominant_action",
+          "blocking": true
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 7.2,
+        "story": 7.8,
+        "picture": 7.7,
+        "place": 7.0,
+        "craft": 7.6,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "The robot successfully grips the box on front and side surfaces and smoothly transfers it down the roller conveyor bed to a resting payoff.",
+      "observed_strengths": [
+        "Accurate unloading choreography: the carton is extracted from the trailer stack and smoothly slides forward down the roller conveyor bed.",
+        "Clear contact fidelity and physical support maintained by the conveyor rollers through 14.78s.",
+        "Directly illustrates the company's dual-surface gripper mechanism described in the cited claim."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "surface_finish",
+          "observed": "The background cartons use relatively flat vector tones with minimal surface texture compared to the foreground arm hardware.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    },
+    "comparison_reason": "Second is the clear winner. In shot 4 (11.6s-14.78s), First suffers a severe motion-path inversion where the box starts on the conveyor and is pulled backward and upward into the air against the mast. Second correctly animates the unloading sequence, guiding the carton forward down the roller bed and settling into a stable, grounded resting hold that fulfills contact_and_consequence and dominant_action.",
+    "audio_observed": "Both clips share an identical, clean voiceover narration ('A packed trailer can hide the top of a carton... Contoro says its gripper holds two sides at once. The front face and another accessible surface.') with accurate caption alignment.",
+    "source_limits": "Based on primary company technology and news claims; demonstrates Contoro's dual-surface gripping concept in shipping containers without claiming measured independent throughput or autonomous reliability metrics."
+  },
+  "transport_normalizations": [],
+  "charge_index": 45,
+  "usage": {
+    "promptTokenCount": 17867,
+    "candidatesTokenCount": 889,
+    "totalTokenCount": 22726,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 7359
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 3970,
+    "serviceTier": "standard"
+  }
+}

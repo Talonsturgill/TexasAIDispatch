@@ -55,6 +55,22 @@ movement; `smoothstep` is available for a justified gentle transition. `anticipa
 contact, a foot planted on ground, or a source-implied machine limit. Check music and foley
 against the executed contact, not the old curve. No incidental sway substitutes for action.
 
+Judge motion at the delivered 30 fps. A regular frame clock does not excuse abrupt starts,
+fast screen-space travel or repeated stop-and-go strokes. Directed `travel` and `contact`
+curves start and finish with zero velocity and acceleration. Give a heavy load enough of
+the existing scene window to accelerate and brake. Holds consume that window; do not squeeze
+the entire stroke into the remaining few frames. Inspect velocity at event joins as well
+as the start and end. Keep a clear contact view and a stable camera when tracking amplifies
+the load's movement. Do not conceal stepping with blur, frame interpolation or faster audio.
+An event-bound moving camera uses `travel` or `contact`; the input check refuses constant-speed
+starts and landing overshoot on a camera. Hold it when the object needs a different curve.
+
+When two named events describe successive stages of one uninterrupted movement, author
+adjacent windows with no interior anticipation or settle, then explicitly use
+`joinedActionWindow`. The helper rejects gaps, scene boundaries and erased rests. The
+illustrated carton route consumes `continuous_withdrawal_event_ids` only in its withdrawal
+scene. Retiming a movement keeps the source relation, scene runtime and measured captions.
+
 ## Existing independent critic and three scorers
 
 Watch the actual muted sequence first. Name the object, action, changed state and answered
@@ -63,6 +79,12 @@ silhouette, contact, surface finish, hierarchy, framing, rhythm and hold at phon
 native crop scale. Inspect the beginning, contact and end of every action. Keep narration
 and labels covered on the first pass. A good explanation in the profile cannot clear an
 occluded grip, generic slab, unrecognizable subject or absent transformation.
+
+Watch uninterrupted playback at normal speed. Check for velocity jumps, stop-and-go camera
+tracking, repeated frames during movement and excessively large per-frame displacement.
+Separate deliberate shot cuts and completed holds from a continuous stroke that stutters.
+Record the exact interval and affected object or camera. Smooth motion is a visible property,
+not a consequence of a passing score or a high frame rate.
 
 Read `knowledge/craft/cinematic_reference_bank.json`. Its frozen passages teach specific
 decisions; their old scores use different rubrics and are not comparable ratings. They are

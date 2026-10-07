@@ -107,6 +107,10 @@ def problems(board, repo=REPO):
                 errors.append(sid + ' shot needs a finite distinct camera/target and bounded lens')
         if 'to' in shot and events.get(shot.get('event_id'), (None,))[0] != sid:
             errors.append(sid + ' camera move must follow an actual event in that scene')
+        elif 'to' in shot:
+            camera_motion = events[shot['event_id']][1].get('motion')
+            if not isinstance(camera_motion, dict) or camera_motion.get('curve') not in ('travel', 'contact'):
+                errors.append(sid + ' moving camera needs continuous travel or contact acceleration; hold it for a constant-speed or bouncing object')
     flat = art.get('flat_shots', {})
     if not isinstance(flat, dict):
         flat = {}
@@ -128,4 +132,28 @@ def problems(board, repo=REPO):
                 errors.append(sid + ' event has invalid ' + key)
         if motion['curve'] == 'landing' and not prose(motion.get('free_prop_reason')):
             errors.append(sid + ' landing overshoot requires a free-prop reason; never overshoot a constrained contact')
+    for index, scene in enumerate(scenes.values()):
+        ids = scene.get('continuous_withdrawal_event_ids')
+        if ids is None:
+            continue
+        sid = scene['id']
+        if board.get('cinematic_template') != 'carton-unload-illustrated-v1' or scene.get('carton_phase', index) != 3:
+            errors.append(sid + ' continuous withdrawal needs the illustrated withdrawal route')
+        if not isinstance(ids, list) or len(ids) < 2 or any(not isinstance(i, str) for i in ids) or len(set(ids)) != len(ids) or any(events.get(i, (None,))[0] != sid for i in ids):
+            errors.append(sid + ' continuous withdrawal needs distinct current event ids')
+            continue
+        rows = [events[i][1] for i in ids]
+        first_motion = rows[0].get('motion')
+        curve = first_motion.get('curve') if isinstance(first_motion, dict) else None
+        if curve not in ('travel', 'contact'):
+            errors.append(sid + ' continuous withdrawal needs a constrained continuous curve')
+        for i, row in enumerate(rows):
+            motion = row.get('motion')
+            motion = motion if isinstance(motion, dict) else {}
+            if motion.get('curve') != curve or (i > 0 and motion.get('anticipation', 0) != 0) or (i < len(rows)-1 and motion.get('settle', 0) != 0):
+                errors.append(sid + ' continuous withdrawal cannot erase an interior hold or change curve')
+            if i > 0:
+                previous = rows[i-1]
+                if not all(finite(v) for v in (row.get('at_s'), previous.get('at_s'), previous.get('duration_s'))) or abs(row['at_s']-previous['at_s']-previous['duration_s']) > .001:
+                    errors.append(sid + ' continuous withdrawal requires adjacent event windows')
     return sorted(set(errors))

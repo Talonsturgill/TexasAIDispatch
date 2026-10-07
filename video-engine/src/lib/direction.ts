@@ -39,8 +39,11 @@ export function actionProgress(window: ActionWindow, storyTime: number): number 
   if (p===0 || p===1) return p;
   const q=Math.max(0,Math.min(1,(p-anticipation)/(1-anticipation-settle)));
   if (curve==='linear') return q;
-  if (curve==='contact') return 1-Math.pow(1-q,3);
-  if (curve==='travel') return q<.5 ? 4*q*q*q : 1-Math.pow(-2*q+2,3)/2;
+  // Both constrained curves enter and leave a hold with zero velocity and
+  // acceleration. The old contact ease jumped straight to maximum speed;
+  // the two-piece travel curve changed acceleration abruptly at its midpoint.
+  if (curve==='contact') return q*q*q*(20+q*(-45+q*(36-10*q)));
+  if (curve==='travel') return q*q*q*(10+q*(-15+6*q));
   if (curve==='landing') {
     // A small overshoot is opt-in for free props, never for a constrained contact.
     const base=1-Math.pow(1-q,3);
@@ -51,4 +54,25 @@ export function actionProgress(window: ActionWindow, storyTime: number): number 
 }
 export function directedValue(window: ActionWindow, storyTime: number, from: number, to: number) {
   return from+(to-from)*actionProgress(window,storyTime);
+}
+
+/** Explicitly join adjacent stages of one stroke without restarting its speed.
+ * Interior authored rests must never disappear into a continuous movement. */
+export function joinedActionWindow(windows: Record<string,ActionWindow>, ids: string[]): ActionWindow {
+  if(ids.length<2 || new Set(ids).size!==ids.length)throw new Error('Joined action needs distinct consecutive events');
+  const rows=ids.map(id=>requireAction(windows,id)),first=rows[0],last=rows[rows.length-1];
+  const curve=first.motion?.curve;
+  if(curve!=='travel' && curve!=='contact')throw new Error('Joined action needs a constrained continuous curve');
+  for(let i=0;i<rows.length;i++){
+    const row=rows[i];
+    if(row.scene!==first.scene || row.motion?.curve!==curve ||
+       (i>0 && (Math.abs(row.start-rows[i-1].end)>.001 || (row.motion.anticipation??0)!==0)) ||
+       (i<rows.length-1 && (row.motion.settle??0)!==0)) {
+      throw new Error('Joined action cannot cross a scene, gap, curve change or interior hold');
+    }
+  }
+  const duration=last.end-first.start;
+  return {start:first.start,end:last.end,scene:first.scene,itemIds:[...new Set(rows.flatMap(r=>r.itemIds))],
+    motion:{curve,anticipation:(first.motion?.anticipation??0)*(first.end-first.start)/duration,
+      settle:(last.motion?.settle??0)*(last.end-last.start)/duration}};
 }

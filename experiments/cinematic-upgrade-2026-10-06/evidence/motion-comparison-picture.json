@@ -1,0 +1,98 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "identity": "c9549f3d-148c-4c9f-9d1d-8b609636d06b",
+  "model": "gemini-3.8-flash",
+  "response_id": "YI_FatbNGMi-qtsP1o2_-QM",
+  "starting_lens": "picture",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "order": [
+    {
+      "path": "media/b-native.mp4",
+      "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f"
+    },
+    {
+      "path": "media/c-native.mp4",
+      "sha256": "e59d1f71fd21fceab72a247b15384c71b723a3d7e3f92dbc5728615b0f35bde1"
+    }
+  ],
+  "prompt_sha256": "7ae6bcaa3ed32bf3cea632c58baeedf4e0e50963b1cad0dd27c026783cf69c7a",
+  "response": {
+    "path": "evidence/motion-comparison-picture-response.json",
+    "sha256": "5fd29ea40d27ff83686a463c59514c1e35cd5a35d23a72d06dd324fb3e60097c"
+  },
+  "original_result": {
+    "winner": "second",
+    "comparison_reason": "In the final shot (11.6s\u201314.8s), First retracts the robot arm backward and leaves the carton hovering in mid-air against the vertical mast with no physical support and no destination onto the conveyor. Second correctly guides and lowers the carton onto the roller conveyor bed, establishing proper contact, physical support, and a completed unloading payoff.",
+    "first": {
+      "scores": {
+        "hook": 7.2,
+        "story": 6.2,
+        "picture": 6.0,
+        "place": 7.0,
+        "craft": 5.8,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "Illustrated depiction of Contoro's dual-surface carton gripper that fails in its final motion by pulling the carton away from the conveyor into unsupported space.",
+      "observed_strengths": [
+        "Clear graphic silhouette of the dual-plate gripper mechanism holding two faces of the carton.",
+        "Clean flat art direction and faithful county/company attribution."
+      ],
+      "defects": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.8,
+          "category": "contact_and_consequence",
+          "observed": "The robot arm pulls the grasped carton backward away from the conveyor rollers, leaving the heavy box hovering unsupported in mid-air beside the mast rather than depositing it onto the conveyor.",
+          "criterion": "contact_and_consequence",
+          "blocking": true
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 7.2,
+        "story": 7.4,
+        "picture": 7.5,
+        "place": 7.0,
+        "craft": 7.4,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "Cohesive and mechanically sound sequence showing Contoro's dual-plate gripper extracting a carton from a stack and placing it directly onto the roller conveyor.",
+      "observed_strengths": [
+        "The final movement completes the unloading cycle by placing the carton cleanly onto the conveyor roller bed with physical support.",
+        "Clear mechanical cause and consequence between suction grip, withdrawal stroke, and conveyor landing."
+      ],
+      "defects": [
+        {
+          "start_s": 4.0,
+          "end_s": 8.0,
+          "category": "dominant_action",
+          "observed": "The establishing wide shot holds on a stationary view of the unloader rig with no carton interaction during the Austin context sentence.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "audio_observed": "Clear, natural narration read with precise force-aligned burnt-in captions. No audible distortion or time-stretching.",
+    "source_limits": "Contoro's primary claims describe the dual-side grasping capability and built-in conveyor integration, but specific commercial transfer speed and customer unloading rates remain company claims."
+  },
+  "transport_normalizations": [],
+  "charge_index": 41,
+  "usage": {
+    "promptTokenCount": 17867,
+    "candidatesTokenCount": 714,
+    "totalTokenCount": 22187,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 7359
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      }
+    ],
+    "thoughtsTokenCount": 3606,
+    "serviceTier": "standard"
+  }
+}

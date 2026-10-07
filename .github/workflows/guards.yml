@@ -367,6 +367,7 @@ jobs:
           npx tsc --noEmit
           node tests/cinema.mjs
           node tests/proven_actions.mjs
+          node tests/direction.mjs
 
       - name: The dimensional and illustrated subjects really render
         timeout-minutes: 5

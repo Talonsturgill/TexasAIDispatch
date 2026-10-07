@@ -40,6 +40,9 @@ class ArtDirectionTest(unittest.TestCase):
                 'event_id': 's1-event-1', 'to': {'position': [3, 2, 5], 'target': [1, 0, 0], 'fov': 40}}
         board['art_direction']['shots']['s1'] = shot
         self.assertEqual([], a.problems(board))
+        board['scenes'][0]['visual_events'][0]['motion']['curve'] = 'linear'
+        self.assertIn('moving camera needs continuous', ' '.join(a.problems(board)))
+        board['scenes'][0]['visual_events'][0]['motion']['curve'] = 'contact'
         shot['event_id'] = 's2-event-1'; self.assertTrue(a.problems(board))
         shot['event_id'] = 's1-event-1'; shot['to']['fov'] = 0; self.assertTrue(a.problems(board))
         board = copy.deepcopy(self.board); board['art_direction']['flat_shots']['s1']['scale'] = 4
@@ -63,6 +66,20 @@ class ArtDirectionTest(unittest.TestCase):
             self.assertTrue(any(name.casefold() in p.name.casefold() for p in files), name)
         plain = copy.deepcopy(self.board); plain.pop('art_direction')
         self.assertNotEqual(critic_gate.concept_digest(plain), critic_gate.concept_digest(self.board))
+
+    def test_continuous_stroke_cannot_erase_authored_rests_or_cross_scenes(self):
+        board = json.loads((a.REPO / 'experiments/cinematic-upgrade-2026-10-06/c.json').read_text())
+        self.assertEqual([], a.problems(board))
+        mutations = [lambda s: s['visual_events'][1].update(at_s=1.4),
+                     lambda s: s['visual_events'][0]['motion'].update(settle=.1),
+                     lambda s: s['visual_events'][1]['motion'].update(anticipation=.1),
+                     lambda s: s['visual_events'][1]['motion'].update(curve='contact'),
+                     lambda s: s.update(continuous_withdrawal_event_ids=['s4-event-1', 's3-event-2']),
+                     lambda s: s.update(continuous_withdrawal_event_ids=['s4-event-1', 's4-event-1']),
+                     lambda s: s.update(carton_phase=2)]
+        for mutate in mutations:
+            bad = copy.deepcopy(board); mutate(bad['scenes'][3])
+            self.assertTrue(a.problems(bad))
 
     def test_lab_failures_and_capacity_never_reset_original_usage(self):
         with tempfile.TemporaryDirectory() as temp:

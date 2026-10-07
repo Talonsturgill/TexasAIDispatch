@@ -6,6 +6,15 @@ nonblocking contact-depth criticism. All three reported no blocking defect in fi
 These are R&D observations on a short mechanism passage, not a production panel or shipment.
 
 [Previous 3D treatment](media/a-native.mp4) · [Authored illustrated treatment](media/b-native.mp4)
+
+The owner's subsequent movement feedback is retained in [motion-report.json](motion-report.json).
+[The corrected native passage](media/c-native.mp4) and [phone rendition](media/c-phone.mp4)
+use [c.json](c.json), with the same words, audio and measured captions. Shared constrained
+curves now accelerate and brake continuously. The loaded withdrawal is one explicitly joined
+stroke in a held wide shot. At a 330-pixel display width, its largest horizontal step falls
+from 20.5 to 2.7 pixels per frame. All three new independent comparisons preferred this
+correction; their raw responses and actual findings remain in `evidence/motion-*`. The older
+scores, films and failures remain unchanged. This is engineering evidence, never daily approval.
 · [Actual scores, media hashes and accounting](report.json)
 
 Both native masters are 1080 × 1920 at 30 fps, rendered with PNG capture and CRF16. The
