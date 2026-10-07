@@ -1,0 +1,161 @@
+{
+  "verdict": "revise",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T01:39:11.459902+00:00",
+  "review_scope": "technical-integrity-phone-layout-classification",
+  "comparison_sha256": "e162821c7560221e4d3320a0e47dcb914faeb76fb6bb2225c6b7fb2d7ab54168",
+  "film_reviews": [
+    {
+      "option_id": "a",
+      "film_sha256": "fdea083d0e8fc335942587f8a0c49144b849a51e07d851077b8878a2f3f8437e",
+      "report_sha256": "1567f0b3dac2830450ec2a47d6fc2dfde09dbe35c2da009fdcd167211889d5d5"
+    },
+    {
+      "option_id": "b",
+      "film_sha256": "d05fcf2e8afeb2bbecd65dd49c4ee7b7ac777877a433b36e0cb2f17f2517e449",
+      "report_sha256": "c89b2918b440e51dd3aeeca2e3d5903a5a3ff508e5b05116e1b32526adb74c16"
+    }
+  ],
+  "blocking_defects": [
+    {
+      "option_id": "a",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "problem": "Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.",
+      "observed_times_s": [
+        1.5,
+        4.6,
+        11.9,
+        21.82
+      ]
+    },
+    {
+      "phone_observation": "subject_recognition",
+      "observation": {
+        "pass": false,
+        "start_s": 0,
+        "end_s": 12,
+        "observed": "Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not."
+      }
+    },
+    {
+      "phone_observation": "dominant_action",
+      "observation": {
+        "pass": false,
+        "start_s": 0,
+        "end_s": 22.5,
+        "observed": "The ghost example and proposed route change are visible, followed by solid cargo travel. However the held cube is outside the frame during the poised correction and clipped at the delivery edge, preventing inspection of the complete before-and-after action."
+      }
+    },
+    {
+      "phone_observation": "continuity",
+      "observation": {
+        "pass": false,
+        "start_s": 10,
+        "end_s": 24,
+        "observed": "Once inside the frame, the solid carried cube continues past the glass into descent without a visible reset. The camera nevertheless hides its stationary starting position and clips its arriving position before the descent cut."
+      }
+    },
+    {
+      "option_id": "b",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "problem": "Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.",
+      "observed_times_s": [
+        1.5,
+        4.6,
+        11.9,
+        22.24
+      ]
+    }
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": {
+          "option_id": "a",
+          "scene_ids": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "problem": "Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.",
+          "observed_times_s": [
+            1.5,
+            4.6,
+            11.9,
+            21.82
+          ]
+        },
+        "category": "layout"
+      },
+      {
+        "finding": {
+          "phone_observation": "subject_recognition",
+          "observation": {
+            "pass": false,
+            "start_s": 0,
+            "end_s": 12,
+            "observed": "Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not."
+          }
+        },
+        "category": "layout"
+      },
+      {
+        "finding": {
+          "phone_observation": "dominant_action",
+          "observation": {
+            "pass": false,
+            "start_s": 0,
+            "end_s": 22.5,
+            "observed": "The ghost example and proposed route change are visible, followed by solid cargo travel. However the held cube is outside the frame during the poised correction and clipped at the delivery edge, preventing inspection of the complete before-and-after action."
+          }
+        },
+        "category": "layout"
+      },
+      {
+        "finding": {
+          "phone_observation": "continuity",
+          "observation": {
+            "pass": false,
+            "start_s": 10,
+            "end_s": 24,
+            "observed": "Once inside the frame, the solid carried cube continues past the glass into descent without a visible reset. The camera nevertheless hides its stationary starting position and clips its arriving position before the descent cut."
+          }
+        },
+        "category": "layout"
+      },
+      {
+        "finding": {
+          "option_id": "b",
+          "scene_ids": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "problem": "Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.",
+          "observed_times_s": [
+            1.5,
+            4.6,
+            11.9,
+            22.24
+          ]
+        },
+        "category": "layout"
+      }
+    ],
+    "basis": "Independently observed clipping of essential cargo and gripping pads at phone size, including exact paused seeks. Source, module mechanics and support-before-release remain intact. This is mandatory visible-action legibility, not an artistic pacing preference.",
+    "permitted_change": "Camera position, target and/or field of view only, consolidated across the affected s1\u2013s4 shots in both existing treatments so carried cargo, gripping pads, glass and relevant route endpoints remain visible. Preserve source, narration, six-shot timing, phase sequence, geometry, contact and release.",
+    "excluded_change": "No new creative treatment, scene, narration, action, timing, source or style change is classified by this review."
+  }
+}

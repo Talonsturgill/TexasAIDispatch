@@ -1,0 +1,47 @@
+{
+  "verdict": "revise",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T01:06:07.147243+00:00",
+  "review_scope": "technical-integrity-classification",
+  "concept_sha256": "438ddd9fc0ee657494c0fcd2f05582cbab4e204e3341cf922d36bf59a8b7d76b",
+  "renderer_sha256": "ac824ea6e806b60f315f9156156d54eb6b3e63892ad3190e1e9b05cc1029a0f7",
+  "board_sha256": "fb32a51e7de3d7969ed03283ead62cdc0d2ae2dd34bd2fa85a4640591ed0c984",
+  "failure_log": {
+    "path": "out/dispatch/repairs/03-retimed-action/failure.log",
+    "sha256": "c8faff4bb41ce25ce335081ecd6bb6a438a3b69e2b71e09b73dcda37b42c94ec"
+  },
+  "documentary_policy_sha256": "c71c3880d30c2711027aa068fa7a77beb5eddffe3c0ed30e8140832c0663ac78",
+  "blocking_defects": [
+    "s2-event-3: action duration outside directed range",
+    "s4-event-3: action duration outside directed range"
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": "s2-event-3: action duration outside directed range",
+        "category": "runtime"
+      },
+      {
+        "finding": "s4-event-3: action duration outside directed range",
+        "category": "runtime"
+      }
+    ],
+    "basis": "The baseline board is byte-unchanged before edits. Measured narration rescaled authored contact event windows from 1.1s to 1.383s and 1.343s; each mechanically exceeds the unchanged 1.2s maximum in documentary policy. This is fixed-range event-runtime compliance, not an independently observed motion/pacing/style defect or optional polishing request.",
+    "permitted_change": "Only shorten duration_s_authored for s2-event-3 and s4-event-3 so existing retime yields max_transition_s minus 0.05. Preserve event starts, item bindings, motion curves, narrated words, source scope, geometry, contact order and endpoint states. Then rerun ordinary retime and current gates.",
+    "excluded_change": "No new motion design, scene cut, camera, narration, source, treatment, endpoint or aesthetic adjustment is included. Any such change needs its own accurate scope; this report supplies no film approval."
+  },
+  "observed_values": {
+    "s2-event-3": {
+      "authored_s": 1.1,
+      "measured_s": 1.383,
+      "scene_measured_s": 5.5
+    },
+    "s4-event-3": {
+      "authored_s": 1.1,
+      "measured_s": 1.343,
+      "scene_measured_s": 5.34
+    },
+    "maximum_s": 1.2,
+    "target_s": 1.15
+  }
+}

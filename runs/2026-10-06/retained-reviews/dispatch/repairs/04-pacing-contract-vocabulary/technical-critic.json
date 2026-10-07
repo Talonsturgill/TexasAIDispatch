@@ -1,0 +1,65 @@
+{
+  "verdict": "revise",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T01:32:48.838123+00:00",
+  "review_scope": "technical-integrity-runtime-contract-classification",
+  "board": {
+    "path": "out/dispatch/repairs/04-pacing-contract-vocabulary/storyboard.json",
+    "sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06"
+  },
+  "concept_sha256": "2adb11d173df12af6d8b75a708bdb177a1d5fcd8605559df9dee83dd47aa118a",
+  "renderer_sha256": "ae44be32a4015cb2f206bc9c66d32b0b69016ed4bd53933f5a52d99025d231ab",
+  "blocking_defects": [
+    {
+      "scene_id": "s2",
+      "problem": "each scene must explain how its picture advances the causal story",
+      "actual_role": "movement"
+    },
+    {
+      "scene_id": "s5",
+      "problem": "each scene must explain how its picture advances the causal story",
+      "actual_role": "agency"
+    },
+    {
+      "scene_id": "s6",
+      "problem": "each scene must explain how its picture advances the causal story",
+      "actual_role": "close"
+    },
+    "story needs a human consequence and a closing answer"
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": {
+          "scene_id": "s2",
+          "problem": "each scene must explain how its picture advances the causal story",
+          "actual_role": "movement"
+        },
+        "category": "runtime"
+      },
+      {
+        "finding": {
+          "scene_id": "s5",
+          "problem": "each scene must explain how its picture advances the causal story",
+          "actual_role": "agency"
+        },
+        "category": "runtime"
+      },
+      {
+        "finding": {
+          "scene_id": "s6",
+          "problem": "each scene must explain how its picture advances the causal story",
+          "actual_role": "close"
+        },
+        "category": "runtime"
+      },
+      {
+        "finding": "story needs a human consequence and a closing answer",
+        "category": "runtime"
+      }
+    ],
+    "basis": "This is runtime input-contract compliance: the required story_contract validator rejects unsupported enum values in three otherwise implemented causal rows and consequently cannot recognize the closing answer. The actual gripper action, source fidelity, endpoint continuity and planned story remain intact. Runtime here identifies schema admission to production, not action timing or an artistic story defect.",
+    "permitted_change": "Only replace unsupported role values in story_contract.scenes with the existing allowed values mechanism for s2, evidence or consequence for s5, and answer for s6. Apply identically in both comparison boards and current storyboard. Preserve all scenes, narrated words, advances, actions, source bindings, timing, geometry, media and film bytes.",
+    "excluded_change": "No pacing, motion, camera, narrative, caption, source or style correction is classified or authorized by this report. This preserves the gate rejection and supplies no film approval."
+  }
+}

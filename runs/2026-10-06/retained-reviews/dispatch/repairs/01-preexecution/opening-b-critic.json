@@ -1,0 +1,132 @@
+{
+  "verdict": "revise",
+  "review_scope": "code-plan",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T00:49:20.562152+00:00",
+  "concept_sha256": "989f0c71c73eacf5619453dad82c846add971efbddaf8e2075dbfccb7c2c51b1",
+  "renderer_sha256": "f0d5f0cc3b029934650ced09670fb521d6d80796649a79ef06acc16b5d6c756d",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "notes": [
+    {
+      "scene": "s4\u2013s5",
+      "criterion": "dominant_action / source_fidelity",
+      "start_s": 13.125,
+      "end_s": 21.875,
+      "problem": "At phase3 the solid cube and gripper execute route(unsafe) before phase4 changes the proposed trace. This contradicts the spoken pre-execution filter relationship: the physical action has already advanced along the candidate route.",
+      "fix": "Keep solid cargo and robot poised while a visibly identified candidate route develops and is projected toward the demonstrated corridor; execute the solid robot only after that change completes. Preserve the same poised state across s4\u2013s5."
+    },
+    {
+      "scene": "s7\u2192s8",
+      "criterion": "continuity / contact_and_consequence",
+      "start_s": 30.625,
+      "end_s": 31.525,
+      "problem": "Phase6 ends the solid cube at GOAL [1.25,.61,.55], but phase7 starts it at [.76,.61,.78]. The same-subject cut claims continuous completion yet jumps the held object backward without a disclosed reset.",
+      "fix": "Begin phase7 from the actual phase6 endpoint and lower the cube vertically to tabletop support, then open the jaws and retract. Preserve the gripper and cargo identity through that cut."
+    },
+    {
+      "scene": "s1\u2013s8",
+      "criterion": "source binding integrity",
+      "problem": "critic_gate.problems finds proposed action scene omits its source claim bindings in every scene: each story_contract.scenes claim_ids row carries only local claims, while action_admission requires the complete proposal claim_ids set in each proposed-action scene.",
+      "fix": "Bind the proposal source claim set on each scene that calls the proposed mechanism while preserving local narrated claim ids and exact evidence."
+    }
+  ],
+  "blocking_defects": [
+    {
+      "scene": "s4\u2013s5",
+      "criterion": "dominant_action / source_fidelity",
+      "start_s": 13.125,
+      "end_s": 21.875,
+      "problem": "At phase3 the solid cube and gripper execute route(unsafe) before phase4 changes the proposed trace. This contradicts the spoken pre-execution filter relationship: the physical action has already advanced along the candidate route.",
+      "fix": "Keep solid cargo and robot poised while a visibly identified candidate route develops and is projected toward the demonstrated corridor; execute the solid robot only after that change completes. Preserve the same poised state across s4\u2013s5."
+    },
+    {
+      "scene": "s7\u2192s8",
+      "criterion": "continuity / contact_and_consequence",
+      "start_s": 30.625,
+      "end_s": 31.525,
+      "problem": "Phase6 ends the solid cube at GOAL [1.25,.61,.55], but phase7 starts it at [.76,.61,.78]. The same-subject cut claims continuous completion yet jumps the held object backward without a disclosed reset.",
+      "fix": "Begin phase7 from the actual phase6 endpoint and lower the cube vertically to tabletop support, then open the jaws and retract. Preserve the gripper and cargo identity through that cut."
+    },
+    {
+      "scene": "s1\u2013s8",
+      "criterion": "source binding integrity",
+      "problem": "critic_gate.problems finds proposed action scene omits its source claim bindings in every scene: each story_contract.scenes claim_ids row carries only local claims, while action_admission requires the complete proposal claim_ids set in each proposed-action scene.",
+      "fix": "Bind the proposal source claim set on each scene that calls the proposed mechanism while preserving local narrated claim ids and exact evidence."
+    }
+  ],
+  "strongest_frame": "Planned s5 event1 visibly morphs candidate trace toward a mint demonstrated corridor, while p1/p2 later advance the held cube; this is an actual callable path transformation, not a metadata plane.",
+  "weakest_frame": "Planned s4 physically advances the solid robot while the words say before execution; correction occurs only afterward.",
+  "treatment_comparison": "Both complete treatments preserve the words, eight phases and source limits. A uses oblique contact framing; B uses higher spatial framing and wider/offset demonstrated traces. Shared ArtDirectionProvider and CinematicStage execute scene camera and light profiles. Both share the same blocking mechanism and ending discontinuities.",
+  "story_review": {
+    "story_sha256": "eb6ce359c6cfff651f915c14c23f921f65506d8afce8838915773224e1b7e779",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "3377bf1ef9f2fab4df0f9c4960b1be62490256a77ad0f8425f0bbb26f70b952f",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "scene": "s4\u2013s5",
+        "criterion": "dominant_action / source_fidelity",
+        "start_s": 13.125,
+        "end_s": 21.875,
+        "problem": "At phase3 the solid cube and gripper execute route(unsafe) before phase4 changes the proposed trace. This contradicts the spoken pre-execution filter relationship: the physical action has already advanced along the candidate route.",
+        "fix": "Keep solid cargo and robot poised while a visibly identified candidate route develops and is projected toward the demonstrated corridor; execute the solid robot only after that change completes. Preserve the same poised state across s4\u2013s5."
+      },
+      {
+        "scene": "s7\u2192s8",
+        "criterion": "continuity / contact_and_consequence",
+        "start_s": 30.625,
+        "end_s": 31.525,
+        "problem": "Phase6 ends the solid cube at GOAL [1.25,.61,.55], but phase7 starts it at [.76,.61,.78]. The same-subject cut claims continuous completion yet jumps the held object backward without a disclosed reset.",
+        "fix": "Begin phase7 from the actual phase6 endpoint and lower the cube vertically to tabletop support, then open the jaws and retract. Preserve the gripper and cargo identity through that cut."
+      },
+      {
+        "scene": "s1\u2013s8",
+        "criterion": "source binding integrity",
+        "problem": "critic_gate.problems finds proposed action scene omits its source claim bindings in every scene: each story_contract.scenes claim_ids row carries only local claims, while action_admission requires the complete proposal claim_ids set in each proposed-action scene.",
+        "fix": "Bind the proposal source claim set on each scene that calls the proposed mechanism while preserving local narrated claim ids and exact evidence."
+      }
+    ],
+    "one_viewing_summary": "Code-plan only: a generic articulated gripper carries an amber cube near fragile glass; ghost demonstrations trace examples; a candidate route bends toward those paths; slower comparative motion and proposed trial paths lead to a supported release. No film was viewed.",
+    "opening_to_ending": "The planned opening asks about caution from examples and the closing words retain research uncertainty. The code implements candidate-path morphing and supported jaw release, but candidate execution precedes correction and the final placement starts from a mismatched position.",
+    "weakest_transition": "The s7-to-s8 transition silently moves the solid cube backward from GOAL to [.76,.61,.78], breaking the same-object completion claimed by the contract."
+  },
+  "action_reviews": [
+    {
+      "action_id": "robot-safety-proposal-v1",
+      "module_sha256": "c0b78a223d8b88287f8d88cbc3c625e68e0a9cc5102a7d07b193ef775c83c996",
+      "source_claims_sha256": "d354c5d80ef674bca0b995a7579f4c6e5e6e2a2930d88568959c917f78c3d274",
+      "verdict": "revise",
+      "blocking_defects": [
+        {
+          "scene": "s4\u2013s5",
+          "criterion": "dominant_action / source_fidelity",
+          "start_s": 13.125,
+          "end_s": 21.875,
+          "problem": "At phase3 the solid cube and gripper execute route(unsafe) before phase4 changes the proposed trace. This contradicts the spoken pre-execution filter relationship: the physical action has already advanced along the candidate route.",
+          "fix": "Keep solid cargo and robot poised while a visibly identified candidate route develops and is projected toward the demonstrated corridor; execute the solid robot only after that change completes. Preserve the same poised state across s4\u2013s5."
+        },
+        {
+          "scene": "s7\u2192s8",
+          "criterion": "continuity / contact_and_consequence",
+          "start_s": 30.625,
+          "end_s": 31.525,
+          "problem": "Phase6 ends the solid cube at GOAL [1.25,.61,.55], but phase7 starts it at [.76,.61,.78]. The same-subject cut claims continuous completion yet jumps the held object backward without a disclosed reset.",
+          "fix": "Begin phase7 from the actual phase6 endpoint and lower the cube vertically to tabletop support, then open the jaws and retract. Preserve the gripper and cargo identity through that cut."
+        },
+        {
+          "scene": "s1\u2013s8",
+          "criterion": "source binding integrity",
+          "problem": "critic_gate.problems finds proposed action scene omits its source claim bindings in every scene: each story_contract.scenes claim_ids row carries only local claims, while action_admission requires the complete proposal claim_ids set in each proposed-action scene.",
+          "fix": "Bind the proposal source claim set on each scene that calls the proposed mechanism while preserving local narrated claim ids and exact evidence."
+        }
+      ],
+      "code_observations": {
+        "source_fidelity": "The fetched NSF abstract supports expert-demonstration learning, projection toward the demonstrated distribution and proposed glass/robot tests. Phase3 currently moves solid cargo before the phase4 correction, conflicting with the exact pre-execution relationship; no forcefield is drawn.",
+        "visible_action": "RobotSafetyEpisode calls RobotSafetyAction through the explicit robot-safety-v1 route. Deterministic event progress drives inverse-kinematic links, jaw contact, cargo travel and trace morphing. Generic applicationRecord entries are metadata, not the actual implementation.",
+        "consequence": "Phase7 lowers the cube to y=.215, opens jaws on p1 and retracts the empty tip on p2. That callable supported release is distinct from accident-prevention proof, but its initial cargo coordinates do not conserve the previous endpoint.",
+        "disclosure": "Every action scene renders scene.production_disclosure as a visible JSX child near the top; it states Illustration. Proposed research. Scene supers distinguish safe examples, intended filtering, feedback and physical experiments. No imported photo/video is used.",
+        "limits": "Narration remains conditional and closes with research-plan uncertainty. No measured failure rate, actual trained output, proven accident prevention, recorded lab identity or narrated c8 date is implemented. Phone recognition, finish and audio are unreviewed pending real pixels."
+      }
+    }
+  ]
+}
