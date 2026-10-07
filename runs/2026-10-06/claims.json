@@ -1,0 +1,125 @@
+{
+  "schema": "dispatch_claims/1",
+  "date": "2026-10-06",
+  "retrieved": "2026-10-07T01:00:00.838820+00:00",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The planned robot tests include pick-and-place near fragile objects.",
+      "quote": "First, the research team formalizes the connection between diffusion-based denoising and safety filtering, establishing probabilistic safety guarantees grounded in stochastic process theory and learned safety critics; in tabletop manipulation tasks such as pick-and-place near fragile objects, empirical failure rates are compared against these bounds using only camera observations, without access to ground-truth state.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "Generic carried block and glass staging illustrates the source-described task; no actual experiment, near miss or observed robot is claimed.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c2",
+      "text": "The University of Texas at Austin is the awardee and a participating research institution.",
+      "quote": "Educational activities include integration of project themes into graduate and undergraduate robotics courses at Cornell University and the University of Texas at Austin, and undergraduate research mentorship through summer programs.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "The API awardeeName also reads University of Texas at Austin. UT Austin is a shortened institutional attribution; not exclusive project ownership.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c3",
+      "text": "The project proposes training a denoising diffusion model on safe expert demonstrations.",
+      "quote": "This project takes a more direct approach: training a denoising diffusion model on safe expert demonstrations aggregated across tasks and using it as a safety filter that projects arbitrary robot actions back toward the demonstrated distribution.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "Proposed training approach, not a model shown to generalize safely.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c4",
+      "text": "The proposed safety filter would correct robot actions before execution.",
+      "quote": "By aggregating these demonstrations across a wide variety of tasks and operating conditions, it is possible to infer what generally safe actions look like and build a reusable safety filter — a module that composes with any robot controller to correct unsafe actions before they are executed, in settings from assembly lines to assistive devices. The filter can also be conditioned on verbal feedback from a human coworker, allowing the robot to adjust to individual preferences.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "The source states intended filtering behavior; prevention of accidents has not been established by this record.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c5",
+      "text": "The proposed safety filter projects robot actions toward the demonstrated distribution.",
+      "quote": "This project takes a more direct approach: training a denoising diffusion model on safe expert demonstrations aggregated across tasks and using it as a safety filter that projects arbitrary robot actions back toward the demonstrated distribution.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "Pull toward examples is a plain-language description of projection toward the distribution; not copying a particular demonstrated path or guaranteeing safety.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c6",
+      "text": "The project proposes incorporating spoken feedback, including a command to slow down near glass.",
+      "quote": "Second, the project develops methods for incorporating human feedback into the safety filter, including natural language commands such as \"slow down near the glass.”",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "Natural-language conditioning is proposed; do not imply completed speech recognition, present deployment or proven hazard avoidance.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c7",
+      "text": "The team plans physical robot experiments and user studies to evaluate the components.",
+      "quote": "The research team evaluates all three components through physical robot experiments and user studies spanning manipulation and navigation tasks, with quantitative comparisons to classical and learned safety filters.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "Award abstract scope is planned research; no completed study, measured failure rate or achieved performance is reported here.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c8",
+      "text": "The NSF record gives project startDate 10/01/2026 and award date 08/13/2026.",
+      "quote": "\"startDate\":\"10/01/2026\"",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.json",
+      "scope_note": "Start date is a record field, not evidence of an achieved public launch. Full independent JSON contains exact startDate separately.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c9",
+      "text": "The award abstract describes a research framework and evaluation plan, not a demonstrated safety result.",
+      "quote": "For a robot to work safely alongside people, engineers today must manually define every dangerous situation the robot might encounter and write rules to avoid each one. This is fundamentally limited: no engineer can anticipate every hazard, the resulting rules break when\r\nconditions change, and different people have different expectations for how cautiously a robot should behave. This project starts from a different premise: the definition of safe behavior is already contained, implicitly, in the expert demonstrations that are now routinely collected for robot learning. By aggregating these demonstrations across a wide variety of tasks and operating conditions, it is possible to infer what generally safe actions look like and build a reusable safety filter — a module that composes with any robot controller to correct unsafe actions before they are executed, in settings from assembly lines to assistive devices. The filter can also be conditioned on verbal feedback from a human coworker, allowing the robot to adjust to individual preferences. The project produces open-source software and benchmark tasks for the broader research community. Educational activities include integration of project themes into graduate and undergraduate robotics courses at Cornell University and the University of Texas at Austin, and undergraduate research mentorship through summer programs. K-12 outreach activities for the project include curriculum development with local school districts, and partnerships with local science centers and robotics teams in Ithaca and Austin.\r\n\r\nThis project develops a new framework for robot safety that replaces hand-crafted safety constraints with learned, implicit representations of safe behavior. Existing safety methods in robotics require explicit mathematical descriptions of which states are safe, but these descriptions are difficult to specify, computationally expensive to enforce, and brittle in novel situations. Even recent learned approaches that relax the need for hand-designed constraints still require training multiple tightly coupled models and collecting demonstrations of unsafe behavior. This project takes a more direct approach: training a denoising diffusion model on safe expert demonstrations aggregated across tasks and using it as a safety filter that projects arbitrary robot actions back toward the demonstrated distribution. First, the research team formalizes the connection between diffusion-based denoising and safety filtering, establishing probabilistic safety guarantees grounded in stochastic process theory and learned safety critics; in tabletop manipulation tasks such as pick-and-place near fragile objects, empirical failure rates are compared against these bounds using only camera observations, without access to ground-truth state. Second, the project develops methods for incorporating human feedback into the safety filter, including natural language commands such as \"slow down near the glass.” Third, the project introduces techniques for detecting situations outside the training distribution and triggering a recovery policy before failure occurs, such as when a camera degrades or a motor joint locks. The research team evaluates all three components through physical robot experiments and user studies spanning manipulation and navigation tasks, with quantitative comparisons to classical and learned safety filters.\r\n\r\nThis award reflects NSF's statutory mission and has been deemed worthy of support through evaluation using the Foundation's intellectual merit and broader impacts review criteria.",
+      "url": "https://api.nsf.gov/services/v1/awards/2535276.json?printFields=id,title,awardeeName,date,startDate,expDate,abstractText,piFirstName,piLastName,awardeeCity",
+      "retrieved": "2026-10-07T01:00:00.838820+00:00",
+      "source_type": "National Science Foundation primary award API; University of Texas at Austin research plan",
+      "source_snapshot": "out/dispatch/sources/nsf2535276.validator.full-fields.abstract.txt",
+      "scope_note": "This describes the contents of this record only; it does not establish that no related safety research has proven results elsewhere.",
+      "verdict": "VERIFIED"
+    }
+  ],
+  "rejected": [
+    {
+      "claim": "The filter is proven to prevent accidents or protect people.",
+      "reason": "The award abstract describes proposed modeling and future evaluation; it reports no demonstrated protection or measured test results."
+    },
+    {
+      "claim": "The award began October 1st.",
+      "reason": "The API date and amendment date are 08/13/2026; 10/01/2026 is startDate for the project. An achieved launch or completed work is not established."
+    },
+    {
+      "claim": "This film shows an actual robot experiment or a measured near miss.",
+      "reason": "The source describes planned pick-and-place near fragile objects. The block and glass sequence is generic illustration."
+    },
+    {
+      "claim": "The NSF award page independently corroborates the API abstract.",
+      "reason": "Every fetched award HTML route returned No Award Specified / Not Available; HTTP200 alone did not provide award evidence. Attempts retained in source receipts."
+    }
+  ],
+  "source_receipt": "out/dispatch/sources/nsf2535276.validator.full-fields.receipt.json"
+}

@@ -1,0 +1,2112 @@
+{
+  "created_at": "2026-10-07T00:41:40.245475Z",
+  "deliverable": {
+    "board": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/deliverables/340210e4a3a65546-1214cf8a3f67357a-b9c749422ae49d6d/storyboard.json",
+    "board_sha256": "1214cf8a3f67357a2c900fa9a705b1ffe1333e16a5409927625201e0234f5501",
+    "film": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/deliverables/340210e4a3a65546-1214cf8a3f67357a-b9c749422ae49d6d/dispatch.mp4",
+    "film_sha256": "340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+    "manifest": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/deliverables/340210e4a3a65546-1214cf8a3f67357a-b9c749422ae49d6d/render-manifest.json",
+    "manifest_sha256": "b9c749422ae49d6d7f6dd1cddf58cbe380e48deb8b1f39f366cb0b23ee5a94e6",
+    "registered_at": "2026-10-07T02:04:30.289274Z",
+    "review_only": false,
+    "review_reason": null
+  },
+  "escalation_ceiling": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 9,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "escalations": [
+    {
+      "at": "2026-10-07T01:06:37.799799Z",
+      "ceiling": 7,
+      "from": 3,
+      "note": "final measured-clock phone review",
+      "resource": "storyboard_critics",
+      "to": 4
+    },
+    {
+      "at": "2026-10-07T01:27:25.582954Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "Independent source check of shortened five-beat read",
+      "resource": "validator_agents",
+      "to": 2
+    },
+    {
+      "at": "2026-10-07T01:30:10.589488Z",
+      "ceiling": 7,
+      "from": 4,
+      "note": "Consolidated source-preserving pacing repair A/B code review",
+      "resource": "storyboard_critics",
+      "to": 5
+    },
+    {
+      "at": "2026-10-07T01:33:14.562018Z",
+      "ceiling": 10,
+      "from": 4,
+      "note": "Mandatory story-contract runtime schema correction",
+      "resource": "reboards",
+      "to": 5
+    },
+    {
+      "at": "2026-10-07T01:33:49.928955Z",
+      "ceiling": 16,
+      "from": 3,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 4
+    },
+    {
+      "at": "2026-10-07T01:35:00.737025Z",
+      "ceiling": 8,
+      "from": 5,
+      "note": "Independent silent full treatment pacing and phone comparison",
+      "resource": "storyboard_critics",
+      "to": 6
+    },
+    {
+      "at": "2026-10-07T01:41:45.919661Z",
+      "ceiling": 9,
+      "from": 6,
+      "note": "Independent source-backed depth-staging pivot for mandatory phone legibility",
+      "resource": "storyboard_critics",
+      "to": 7
+    },
+    {
+      "at": "2026-10-07T01:43:11.576837Z",
+      "ceiling": 10,
+      "from": 5,
+      "note": "Mandatory source-backed foreground-to-background cargo staging",
+      "resource": "reboards",
+      "to": 6
+    },
+    {
+      "at": "2026-10-07T01:46:07.979858Z",
+      "ceiling": 16,
+      "from": 4,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 5
+    },
+    {
+      "at": "2026-10-07T01:47:02.228058Z",
+      "ceiling": 9,
+      "from": 7,
+      "note": "Fresh exact-film silent phone proof of mandatory depth layout",
+      "resource": "storyboard_critics",
+      "to": 8
+    },
+    {
+      "at": "2026-10-07T01:53:49.370068Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "final continuous read of corrected six-shot film",
+      "resource": "voice_directors",
+      "to": 2
+    },
+    {
+      "at": "2026-10-07T01:54:49.460942Z",
+      "ceiling": 12,
+      "from": 2,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 3
+    },
+    {
+      "at": "2026-10-07T01:55:06.328014Z",
+      "ceiling": 12,
+      "from": 3,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 4
+    },
+    {
+      "at": "2026-10-07T01:56:21.507065Z",
+      "ceiling": 12,
+      "from": 4,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 5
+    },
+    {
+      "at": "2026-10-07T01:56:38.948590Z",
+      "ceiling": 12,
+      "from": 5,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 6
+    },
+    {
+      "at": "2026-10-07T01:58:03.376816Z",
+      "ceiling": 16,
+      "from": 5,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 6
+    },
+    {
+      "at": "2026-10-07T01:58:39.928466Z",
+      "ceiling": 9,
+      "from": 8,
+      "note": "Independent final measured-clock six-shot phone film review",
+      "resource": "storyboard_critics",
+      "to": 9
+    },
+    {
+      "at": "2026-10-07T02:02:05.054390Z",
+      "ceiling": 16,
+      "from": 6,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 7
+    },
+    {
+      "at": "2026-10-07T02:02:40.106519Z",
+      "ceiling": 43,
+      "from": 4,
+      "note": "exact MP4 audiovisual review hero",
+      "resource": "audiovisual_reviews",
+      "to": 5
+    },
+    {
+      "at": "2026-10-07T02:03:34.517956Z",
+      "ceiling": 14,
+      "from": 1,
+      "note": "full-resolution Dispatch render",
+      "resource": "full_renders",
+      "to": 2
+    },
+    {
+      "at": "2026-10-07T02:04:56.760130Z",
+      "ceiling": 9,
+      "from": 1,
+      "note": "corrected continuous-action current finished cut",
+      "resource": "panel_rounds",
+      "to": 2
+    },
+    {
+      "at": "2026-10-07T02:04:56.760264Z",
+      "ceiling": 27,
+      "from": 3,
+      "note": "corrected continuous-action current finished cut",
+      "resource": "scorer_calls",
+      "to": 6
+    },
+    {
+      "at": "2026-10-07T02:04:56.865027Z",
+      "ceiling": 43,
+      "from": 5,
+      "note": "exact MP4 audiovisual review picture",
+      "resource": "audiovisual_reviews",
+      "to": 6
+    },
+    {
+      "at": "2026-10-07T02:05:22.798322Z",
+      "ceiling": 43,
+      "from": 6,
+      "note": "exact MP4 audiovisual review story",
+      "resource": "audiovisual_reviews",
+      "to": 7
+    },
+    {
+      "at": "2026-10-07T02:05:44.595721Z",
+      "ceiling": 43,
+      "from": 7,
+      "note": "exact MP4 audiovisual review sound",
+      "resource": "audiovisual_reviews",
+      "to": 8
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-07T00:41:40.251632Z",
+      "envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "resource_envelope_frozen",
+      "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
+    },
+    {
+      "at": "2026-10-07T00:41:40.251846Z",
+      "authorization_source_label": "Direct owner instruction on October 3rd, 2026",
+      "explicit_existing_run": false,
+      "grants_no_resources": true,
+      "kind": "autonomous_completion_adopted",
+      "owner_source_text_sha256": "c25e529485164d51ffb8ac6030dfa789c320dc0b3da6fb4c4e5d7263423738e1",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/1\",\n  \"version\": \"2026-10-03\",\n  \"effective_date\": \"2026-10-03\",\n  \"eligible_resources\": [\n    \"reboards\",\n    \"storyboard_critics\",\n    \"preflight_renders\",\n    \"full_renders\",\n    \"audiovisual_reviews\",\n    \"panel_rounds\",\n    \"scorer_calls\",\n    \"tts_calls\",\n    \"voice_directors\"\n  ],\n  \"mandatory_scopes\": [\n    \"finish-current\",\n    \"retained-integrity\",\n    \"minimum-action\"\n  ],\n  \"excluded_work\": [\n    \"optional creative polish\",\n    \"new research\",\n    \"extra treatment\",\n    \"director review of own film\"\n  ],\n  \"invariants\": [\n    \"Original frozen resource envelope remains immutable.\",\n    \"Usage and original failed reviews remain charged and retained.\",\n    \"Grant only exact conservative production-budget deficits for an admitted mandatory plan.\",\n    \"Every actual call and render reserves before spending.\",\n    \"All factual, rights, phone, native, audiovisual, scorer and shipment gates remain required.\",\n    \"Future initialization retains this standing policy; existing runs opt in only through explicit completion-capacity command.\"\n  ],\n  \"authorization_statement\": \"The owner authorizes autonomous mandatory completion through real shipment. Internal resource ceilings cannot end a production run; exact mandatory deficits may receive audited standing grants. Optional creative polish, new research and extra treatments remain outside this authorization.\",\n  \"authorization_source_label\": \"Direct owner instruction on October 3rd, 2026\",\n  \"owner_source_text_sha256\": \"c25e529485164d51ffb8ac6030dfa789c320dc0b3da6fb4c4e5d7263423738e1\"\n}\n",
+      "policy_sha256": "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
+    },
+    {
+      "at": "2026-10-07T00:41:40.251851Z",
+      "ceiling_snapshot": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "kind": "initialised",
+      "mode": "production"
+    },
+    {
+      "at": "2026-10-07T00:41:44.767711Z",
+      "kind": "phase",
+      "name": "research"
+    },
+    {
+      "at": "2026-10-07T00:41:44.818383Z",
+      "kind": "reserved",
+      "note": "Current Texas application and filmable primary evidence",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:43:42.029323Z",
+      "kind": "reserved",
+      "note": "Independently refetch robot-safety grant and exact planned narration",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:44:21.296662Z",
+      "kind": "reserved",
+      "note": "Initial source-backed robot safety two-treatment board",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:47:45.766855Z",
+      "kind": "reserved",
+      "note": "Independent code and two-treatment causal-source inspection",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:50:26.192744Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/01-preexecution/RobotSafetyAction.tsx",
+          "before_sha256": "c0b78a223d8b88287f8d88cbc3c625e68e0a9cc5102a7d07b193ef775c83c996",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/video-engine/src/RobotSafetyAction.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/01-preexecution/storyboard.json",
+          "before_sha256": "8f3d7d11770671778cdf02f0826c04ac841e9bcf6711f7d455cda4ce6d0ac5e3",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/01-preexecution/opening-a.json",
+          "before_sha256": "8f3d7d11770671778cdf02f0826c04ac841e9bcf6711f7d455cda4ce6d0ac5e3",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/01-preexecution/opening-b.json",
+          "before_sha256": "13afad320aea0ea3476ff9a27bc12ef58e572f4fb0dc4b0b5c5bd43511d2bb83",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/01-preexecution/story_selection.json",
+          "before_sha256": "53225ec89b9ac999fcd69d4d4b78e266902b58c5f01cb8c16003114191cf3e60",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "71aece6c6d6db7e1719d39d22ccf0530a9b36b030d7fcfe80bfb89e810d5aab0",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "robot-demonstration-projection",
+      "plan_identity": null,
+      "plan_sha256": "3e856aff5f314378db514a8472811d88dd8ff4911eb418fe3a4b2d5ad9aa317c",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-07T00:50:26.225976Z",
+      "kind": "reserved",
+      "note": "Consolidated pre-execution and endpoint/source-binding integrity repair",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:51:19.356040Z",
+      "kind": "reserved",
+      "note": "Independent current correction review for both source-bound treatments",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:51:39.832597Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        },
+        "voice_directors": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "0517667ba7ca14d826dad3e6aac34f8156c221fb709442d4d174a572fe5a42d7",
+            "before_path": "out/dispatch/repairs/01-preexecution/RobotSafetyAction.tsx",
+            "before_sha256": "c0b78a223d8b88287f8d88cbc3c625e68e0a9cc5102a7d07b193ef775c83c996",
+            "path": "video-engine/src/RobotSafetyAction.tsx"
+          },
+          {
+            "after_sha256": "fb5f7b5be970e2a8fdcd96cb85fd9eb89c0b4c316582dadc05eb4d7b761a4f51",
+            "before_path": "out/dispatch/repairs/01-preexecution/storyboard.json",
+            "before_sha256": "8f3d7d11770671778cdf02f0826c04ac841e9bcf6711f7d455cda4ce6d0ac5e3",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "fb5f7b5be970e2a8fdcd96cb85fd9eb89c0b4c316582dadc05eb4d7b761a4f51",
+            "before_path": "out/dispatch/repairs/01-preexecution/opening-a.json",
+            "before_sha256": "8f3d7d11770671778cdf02f0826c04ac841e9bcf6711f7d455cda4ce6d0ac5e3",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "f87a30bd6576c3382a6c1d368763cf94e7aadd5fb60c6264c4a0634e92beeb41",
+            "before_path": "out/dispatch/repairs/01-preexecution/opening-b.json",
+            "before_sha256": "13afad320aea0ea3476ff9a27bc12ef58e572f4fb0dc4b0b5c5bd43511d2bb83",
+            "path": "out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "5e4f03889f1c6b8d786bb38a70649179f7aa506a0eae54dcd952038fe1ce78ff",
+            "before_path": "out/dispatch/repairs/01-preexecution/story_selection.json",
+            "before_sha256": "53225ec89b9ac999fcd69d4d4b78e266902b58c5f01cb8c16003114191cf3e60",
+            "path": "out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "The candidate route bends first while the solid cube holds; then the gripper moves. Final cube descends vertically from the prior endpoint without a jump.",
+        "failure_evidence": "out/dispatch/repairs/01-preexecution/opening-a-critic.json",
+        "failure_evidence_sha256": "71aece6c6d6db7e1719d39d22ccf0530a9b36b030d7fcfe80bfb89e810d5aab0",
+        "failure_family": "continuity",
+        "mechanism_change": "Separate hypothetical path from executed robot motion and preserve endpoint identity.",
+        "mechanism_id": "robot-demonstration-projection",
+        "repair": "Keep solid robot poised while the candidate path changes; execute only after correction. Begin final placement at the actual previous endpoint and bind every proposed-action source claim.",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3,
+          "tts_calls": 2,
+          "voice_directors": 1
+        },
+        "root_cause": "Solid cargo executes the candidate route before its correction and closing placement resets its position. Proposal claim bindings are incomplete."
+      },
+      "repair_plan_sha256": "55eac83783d3f9fc54b89bb0311ab28b47d8f3069cfb79b1ec68499641683a62",
+      "repair_revision": "83f75e240f330e6a042d2977bc22e988eac2330f5aca233d066e11a6cd0a6cdc",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-07T00:52:50.299484Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "df3a9ad8f35757089cdd933e23eee5f4b85afaf314979289bbb2ec280f959a1e",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:54:01.168305Z",
+      "kind": "reserved",
+      "note": "Independent actual muted two-treatment phone comparison and selected complete story",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T00:57:06.039733Z",
+      "kind": "phase",
+      "name": "picture"
+    },
+    {
+      "at": "2026-10-07T01:00:04.559703Z",
+      "kind": "phase",
+      "name": "audio"
+    },
+    {
+      "at": "2026-10-07T01:00:51.199305Z",
+      "kind": "reserved",
+      "note": "final continuous read",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:02:15.564419Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:02:36.482502Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1710
+      }
+    },
+    {
+      "at": "2026-10-07T01:02:36.483601Z",
+      "elapsed_ms": 20916,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1710,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-07T01:02:36.511405Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:02:44.787560Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1683
+      }
+    },
+    {
+      "at": "2026-10-07T01:02:44.788283Z",
+      "elapsed_ms": 8275,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1683,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-07T01:06:24.488129Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/03-retimed-action/storyboard.json",
+          "before_sha256": "fb32a51e7de3d7969ed03283ead62cdc0d2ae2dd34bd2fa85a4640591ed0c984",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/storyboard.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "7a4052b2f12bc732aa9cca955506214ae855d8eacf5bf9c2dc68d78fa8ed2712",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "robot-demonstration-projection",
+      "plan_identity": null,
+      "plan_sha256": "626272f308c4956a56d6509344dcd62286798d4426b08f5531c8edb8eaac9991",
+      "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-07T01:06:24.521682Z",
+      "kind": "reserved",
+      "note": "measured-clock action duration correction",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:06:24.660104Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "eca73888f25f1525047ffdcbb57ccc1ab446c0aa9f5a5a40e581cc4e2ab99c83",
+            "before_path": "out/dispatch/repairs/03-retimed-action/storyboard.json",
+            "before_sha256": "fb32a51e7de3d7969ed03283ead62cdc0d2ae2dd34bd2fa85a4640591ed0c984",
+            "path": "out/dispatch/storyboard.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "Both actions finish crisply within their measured narration scenes without changing contact or endpoints.",
+        "failure_evidence": "out/dispatch/repairs/03-retimed-action/technical-runtime-critic.json",
+        "failure_evidence_sha256": "7a4052b2f12bc732aa9cca955506214ae855d8eacf5bf9c2dc68d78fa8ed2712",
+        "failure_family": "continuity",
+        "mechanism_change": "Timing-only correction preserving the demonstrated-route mechanism and source-backed action.",
+        "mechanism_id": "robot-demonstration-projection",
+        "repair": "Shorten the two authored closing action durations to keep measured-clock windows inside the existing ceiling.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 1,
+          "scorer_calls": 3
+        },
+        "root_cause": "Acoustic scene extension scaled two closing action windows past the directed duration ceiling."
+      },
+      "repair_plan_sha256": "f6b16fe6611aac2464bc2c27239f73833a3e613dbd3918b336600e2cafbf1c29",
+      "repair_revision": "92a32c039b4890d839e3c39c6b0acdc05f49e6cd721efa9cf568ff08ea2697ef",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-07T01:06:31.111343Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "11f9695ca6b908035dc348c2489f4b94809e595092a7cbca0dedce921671c47e",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:06:37.800054Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "final measured-clock phone review",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-10-07T01:06:37.800060Z",
+      "kind": "reserved",
+      "note": "final measured-clock phone review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:12:40.793334Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "f5a076fda9a352e0552e2d05686c317a4779d1b1cc32d13ac6fd7c13d752b952",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:13:21.383640Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:13:36.775590Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: cdd26877-b9f0-4a33-bd0d-76882b47a021 hero exact film 913f38772fd7f675634fd0dd84b8d334cf0218479c34ed7d78886f8269f0bfc3",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 21788
+      }
+    },
+    {
+      "at": "2026-10-07T01:13:36.778395Z",
+      "elapsed_ms": 15382,
+      "kind": "telemetry",
+      "note": "cdd26877-b9f0-4a33-bd0d-76882b47a021 hero exact film 913f38772fd7f675634fd0dd84b8d334cf0218479c34ed7d78886f8269f0bfc3",
+      "reported_tokens": 21788,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T01:14:08.402001Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:15:03.119239Z",
+      "film_sha256": "4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "b62e6be35492bab28ab32bb7c496af912123f862ea535915263fcd4477d91d6f",
+      "review_only": false
+    },
+    {
+      "at": "2026-10-07T01:16:08.253648Z",
+      "kind": "reserved",
+      "note": "current finished cut",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-10-07T01:16:38.030408Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:17:04.938181Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: cf9f56ba-96f9-42d3-bb88-4af6c46d09d8 picture exact film 4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 32683
+      }
+    },
+    {
+      "at": "2026-10-07T01:17:04.943115Z",
+      "elapsed_ms": 26895,
+      "kind": "telemetry",
+      "note": "cf9f56ba-96f9-42d3-bb88-4af6c46d09d8 picture exact film 4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "reported_tokens": 32683,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T01:17:05.188323Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:17:29.736105Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 7ba863b5-641c-4d59-9337-c73d2ca405a6 story exact film 4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 32689
+      }
+    },
+    {
+      "at": "2026-10-07T01:17:29.740100Z",
+      "elapsed_ms": 24533,
+      "kind": "telemetry",
+      "note": "7ba863b5-641c-4d59-9337-c73d2ca405a6 story exact film 4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "reported_tokens": 32689,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T01:17:29.980202Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:17:50.606102Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 962bf670-702a-47cb-a383-109639f3c370 sound exact film 4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 31871
+      }
+    },
+    {
+      "at": "2026-10-07T01:17:50.607243Z",
+      "elapsed_ms": 20613,
+      "kind": "telemetry",
+      "note": "962bf670-702a-47cb-a383-109639f3c370 sound exact film 4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "reported_tokens": 31871,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T01:26:27.899699Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch-first-cut/declared-inputs/video-engine/src/RobotSafetyAction.tsx",
+          "before_sha256": "0517667ba7ca14d826dad3e6aac34f8156c221fb709442d4d174a572fe5a42d7",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/video-engine/src/RobotSafetyAction.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch-first-cut/declared-inputs/video-engine/src/RobotSafetyEpisode.tsx",
+          "before_sha256": "095c5ba4712ff34e5a3de6e95c412b17428d288d5c98d3151b9f9df8c1736037",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/video-engine/src/RobotSafetyEpisode.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch-first-cut/declared-inputs/out/dispatch/storyboard.json",
+          "before_sha256": "eca73888f25f1525047ffdcbb57ccc1ab446c0aa9f5a5a40e581cc4e2ab99c83",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch-first-cut/declared-inputs/out/dispatch/opening-a.json",
+          "before_sha256": "fb5f7b5be970e2a8fdcd96cb85fd9eb89c0b4c316582dadc05eb4d7b761a4f51",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch-first-cut/declared-inputs/out/dispatch/opening-b.json",
+          "before_sha256": "f87a30bd6576c3382a6c1d368763cf94e7aadd5fb60c6264c4a0634e92beeb41",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch-first-cut/declared-inputs/out/dispatch/story_selection.json",
+          "before_sha256": "5e4f03889f1c6b8d786bb38a70649179f7aa506a0eae54dcd952038fe1ce78ff",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "32f98369f46af8a1539d56aa141e9b7aa3a305635192984c8d071c22047467f1",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "robot-demonstration-projection",
+      "plan_identity": null,
+      "plan_sha256": "8a13cc68b1346e1f3953e512811182401c5df9187920bccb138ae44c1ff0e7c0",
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-07T01:26:27.934887Z",
+      "kind": "reserved",
+      "note": "Five-beat correction of rejected pacing",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:27:25.583061Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "Independent source check of shortened five-beat read",
+      "now": 2,
+      "resource": "validator_agents",
+      "was": 1
+    },
+    {
+      "at": "2026-10-07T01:27:25.583066Z",
+      "kind": "reserved",
+      "note": "Independent source check of shortened five-beat read",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:30:10.526917Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        },
+        "voice_directors": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "ff3d8b612baea7a0304012fb7ee46fa4814c76404261ad1ed8a9064e8d097712",
+            "before_path": "out/dispatch-first-cut/declared-inputs/video-engine/src/RobotSafetyAction.tsx",
+            "before_sha256": "0517667ba7ca14d826dad3e6aac34f8156c221fb709442d4d174a572fe5a42d7",
+            "path": "video-engine/src/RobotSafetyAction.tsx"
+          },
+          {
+            "after_sha256": "1d47a7f6cd738ab946199f0b8705cb509750d30361d7d0c0c184c66cc883daaf",
+            "before_path": "out/dispatch-first-cut/declared-inputs/video-engine/src/RobotSafetyEpisode.tsx",
+            "before_sha256": "095c5ba4712ff34e5a3de6e95c412b17428d288d5c98d3151b9f9df8c1736037",
+            "path": "video-engine/src/RobotSafetyEpisode.tsx"
+          },
+          {
+            "after_sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06",
+            "before_path": "out/dispatch-first-cut/declared-inputs/out/dispatch/storyboard.json",
+            "before_sha256": "eca73888f25f1525047ffdcbb57ccc1ab446c0aa9f5a5a40e581cc4e2ab99c83",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06",
+            "before_path": "out/dispatch-first-cut/declared-inputs/out/dispatch/opening-a.json",
+            "before_sha256": "fb5f7b5be970e2a8fdcd96cb85fd9eb89c0b4c316582dadc05eb4d7b761a4f51",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "0ba233c3fcb22de57f5b4cca15c819ee54bdec8ae7c741776cc42f2d5fc7d5b1",
+            "before_path": "out/dispatch-first-cut/declared-inputs/out/dispatch/opening-b.json",
+            "before_sha256": "f87a30bd6576c3382a6c1d368763cf94e7aadd5fb60c6264c4a0634e92beeb41",
+            "path": "out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "5bcf592de39b4a9f312c843ed85eb5e03956c410bc71350e8d4a0bd95cedb626",
+            "before_path": "out/dispatch-first-cut/declared-inputs/out/dispatch/story_selection.json",
+            "before_sha256": "5e4f03889f1c6b8d786bb38a70649179f7aa506a0eae54dcd952038fe1ce78ff",
+            "path": "out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "Each shot advances the explanation; a close correction visibly happens before the carried cube moves, followed by a brief feedback comparison and an empty-gripper ending.",
+        "failure_evidence": "out/dispatch/scorer-picture.json",
+        "failure_evidence_sha256": "32f98369f46af8a1539d56aa141e9b7aa3a305635192984c8d071c22047467f1",
+        "failure_family": "continuity",
+        "mechanism_change": "Replace repeated traversals with a single causal sequence and a supported final placement.",
+        "mechanism_id": "robot-demonstration-projection",
+        "repair": "Condense repeated eight-scene explanation to five editorial beats across six physical shots, retaining the minimum format. Split lowering from supported release; frame correction closely and remove the trial loop.",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3,
+          "tts_calls": 2,
+          "voice_directors": 1
+        },
+        "root_cause": "Repeated bench-scale demonstrations and a late trial loop prolong the same explanation without a new consequence."
+      },
+      "repair_plan_sha256": "bf37d4bc380b3b4a9390d126a9d36f9a8d934e9647507625339c9d9aa875ecb1",
+      "repair_revision": "2e22458f139097d3e63a740139b2593f13db30f0897edd30e5484d46b7786f15",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-07T01:30:10.589601Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "Consolidated source-preserving pacing repair A/B code review",
+      "now": 5,
+      "resource": "storyboard_critics",
+      "was": 4
+    },
+    {
+      "at": "2026-10-07T01:30:10.589609Z",
+      "kind": "reserved",
+      "note": "Consolidated source-preserving pacing repair A/B code review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:33:14.213309Z",
+      "failure_evidence_json": "{\n  \"verdict\": \"revise\",\n  \"reviewer_identity\": \"/root/code_critic\",\n  \"reviewed_at\": \"2026-10-07T01:32:48.838123+00:00\",\n  \"review_scope\": \"technical-integrity-runtime-contract-classification\",\n  \"board\": {\n    \"path\": \"out/dispatch/repairs/04-pacing-contract-vocabulary/storyboard.json\",\n    \"sha256\": \"528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06\"\n  },\n  \"concept_sha256\": \"2adb11d173df12af6d8b75a708bdb177a1d5fcd8605559df9dee83dd47aa118a\",\n  \"renderer_sha256\": \"ae44be32a4015cb2f206bc9c66d32b0b69016ed4bd53933f5a52d99025d231ab\",\n  \"blocking_defects\": [\n    {\n      \"scene_id\": \"s2\",\n      \"problem\": \"each scene must explain how its picture advances the causal story\",\n      \"actual_role\": \"movement\"\n    },\n    {\n      \"scene_id\": \"s5\",\n      \"problem\": \"each scene must explain how its picture advances the causal story\",\n      \"actual_role\": \"agency\"\n    },\n    {\n      \"scene_id\": \"s6\",\n      \"problem\": \"each scene must explain how its picture advances the causal story\",\n      \"actual_role\": \"close\"\n    },\n    \"story needs a human consequence and a closing answer\"\n  ],\n  \"technical_repair\": {\n    \"findings\": [\n      {\n        \"finding\": {\n          \"scene_id\": \"s2\",\n          \"problem\": \"each scene must explain how its picture advances the causal story\",\n          \"actual_role\": \"movement\"\n        },\n        \"category\": \"runtime\"\n      },\n      {\n        \"finding\": {\n          \"scene_id\": \"s5\",\n          \"problem\": \"each scene must explain how its picture advances the causal story\",\n          \"actual_role\": \"agency\"\n        },\n        \"category\": \"runtime\"\n      },\n      {\n        \"finding\": {\n          \"scene_id\": \"s6\",\n          \"problem\": \"each scene must explain how its picture advances the causal story\",\n          \"actual_role\": \"close\"\n        },\n        \"category\": \"runtime\"\n      },\n      {\n        \"finding\": \"story needs a human consequence and a closing answer\",\n        \"category\": \"runtime\"\n      }\n    ],\n    \"basis\": \"This is runtime input-contract compliance: the required story_contract validator rejects unsupported enum values in three otherwise implemented causal rows and consequently cannot recognize the closing answer. The actual gripper action, source fidelity, endpoint continuity and planned story remain intact. Runtime here identifies schema admission to production, not action timing or an artistic story defect.\",\n    \"permitted_change\": \"Only replace unsupported role values in story_contract.scenes with the existing allowed values mechanism for s2, evidence or consequence for s5, and answer for s6. Apply identically in both comparison boards and current storyboard. Preserve all scenes, narrated words, advances, actions, source bindings, timing, geometry, media and film bytes.\",\n    \"excluded_change\": \"No pacing, motion, camera, narrative, caption, source or style correction is classified or authorized by this report. This preserves the gate rejection and supplies no film approval.\"\n  }\n}\n",
+      "failure_evidence_sha256": "3c29b493bcfaedf0e01c7e183802c7966e9c6ce844c0f9fa2e0eef750abc4950",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 8,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 8,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "f686fcd0d384871bd49807fb98b16f57c1be1f41e70456982873b768f34aaaa9",
+      "plan_json": "{\n  \"root_cause\": \"Editorial scene-role vocabulary was copied into the distinct runtime story-contract schema.\",\n  \"repair\": \"Use supported story-contract role enums while preserving the rendered scene editorial roles and all film inputs.\",\n  \"mechanism_change\": \"Runtime contract vocabulary only; the physical robot action and source-backed sequence stay identical.\",\n  \"expected_visible_result\": \"No pixel change. Current runtime input contract admits the six-shot sequence for independent review.\",\n  \"failure_evidence\": \"out/dispatch/repairs/04-pacing-contract-vocabulary/technical-critic.json\",\n  \"failure_evidence_sha256\": \"3c29b493bcfaedf0e01c7e183802c7966e9c6ce844c0f9fa2e0eef750abc4950\",\n  \"changed_inputs\": [\n    {\n      \"path\": \"out/dispatch/storyboard.json\",\n      \"before_path\": \"out/dispatch/repairs/04-pacing-contract-vocabulary/storyboard.json\",\n      \"before_sha256\": \"528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06\"\n    },\n    {\n      \"path\": \"out/dispatch/opening-a.json\",\n      \"before_path\": \"out/dispatch/repairs/04-pacing-contract-vocabulary/opening-a.json\",\n      \"before_sha256\": \"528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06\"\n    },\n    {\n      \"path\": \"out/dispatch/opening-b.json\",\n      \"before_path\": \"out/dispatch/repairs/04-pacing-contract-vocabulary/opening-b.json\",\n      \"before_sha256\": \"0ba233c3fcb22de57f5b4cca15c819ee54bdec8ae7c741776cc42f2d5fc7d5b1\"\n    }\n  ],\n  \"resources\": {\n    \"preflight_renders\": 2,\n    \"full_renders\": 1,\n    \"audiovisual_reviews\": 4,\n    \"panel_rounds\": 1,\n    \"scorer_calls\": 3,\n    \"tts_calls\": 2,\n    \"voice_directors\": 1\n  },\n  \"mechanism_id\": \"robot-demonstration-projection\",\n  \"failure_family\": \"continuity\",\n  \"director_identity\": \"/root\",\n  \"repair_scope\": \"technical-integrity\"\n}\n",
+      "plan_sha256": "06d1e1ef80156410920192a5ab618eb117aefb5c725d9727c1857f40189b0212",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/1\",\n  \"version\": \"2026-10-03\",\n  \"effective_date\": \"2026-10-03\",\n  \"eligible_resources\": [\n    \"reboards\",\n    \"storyboard_critics\",\n    \"preflight_renders\",\n    \"full_renders\",\n    \"audiovisual_reviews\",\n    \"panel_rounds\",\n    \"scorer_calls\",\n    \"tts_calls\",\n    \"voice_directors\"\n  ],\n  \"mandatory_scopes\": [\n    \"finish-current\",\n    \"retained-integrity\",\n    \"minimum-action\"\n  ],\n  \"excluded_work\": [\n    \"optional creative polish\",\n    \"new research\",\n    \"extra treatment\",\n    \"director review of own film\"\n  ],\n  \"invariants\": [\n    \"Original frozen resource envelope remains immutable.\",\n    \"Usage and original failed reviews remain charged and retained.\",\n    \"Grant only exact conservative production-budget deficits for an admitted mandatory plan.\",\n    \"Every actual call and render reserves before spending.\",\n    \"All factual, rights, phone, native, audiovisual, scorer and shipment gates remain required.\",\n    \"Future initialization retains this standing policy; existing runs opt in only through explicit completion-capacity command.\"\n  ],\n  \"authorization_statement\": \"The owner authorizes autonomous mandatory completion through real shipment. Internal resource ceilings cannot end a production run; exact mandatory deficits may receive audited standing grants. Optional creative polish, new research and extra treatments remain outside this authorization.\",\n  \"authorization_source_label\": \"Direct owner instruction on October 3rd, 2026\",\n  \"owner_source_text_sha256\": \"c25e529485164d51ffb8ac6030dfa789c320dc0b3da6fb4c4e5d7263423738e1\"\n}\n",
+      "policy_sha256": "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"complete-visual-repair\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":39,\"required\":11,\"used\":4},\"full_renders\":{\"ceiling\":14,\"remaining\":13,\"required\":1,\"used\":1},\"panel_rounds\":{\"ceiling\":9,\"remaining\":8,\"required\":1,\"used\":1},\"preflight_renders\":{\"ceiling\":16,\"remaining\":13,\"required\":3,\"used\":3},\"reboards\":{\"ceiling\":10,\"remaining\":6,\"required\":1,\"used\":4},\"scorer_calls\":{\"ceiling\":27,\"remaining\":24,\"required\":3,\"used\":3},\"storyboard_critics\":{\"ceiling\":7,\"remaining\":2,\"required\":3,\"used\":5},\"tts_calls\":{\"ceiling\":12,\"remaining\":10,\"required\":2,\"used\":2},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "d18132a9ebb0108997defb3f608d63413f20d9378eba562bb4d6eecfb21efe0d",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "retained-integrity",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-06",
+      "usage_unchanged": {
+        "audiovisual_reviews": 4,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "panel_rounds": 1,
+        "preflight_renders": 3,
+        "reboards": 4,
+        "reported_tokens": 122424,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 3,
+        "storyboard_critics": 5,
+        "tts_calls": 2,
+        "validator_agents": 2,
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:33:14.528944Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/04-pacing-contract-vocabulary/storyboard.json",
+          "before_sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/04-pacing-contract-vocabulary/opening-a.json",
+          "before_sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/04-pacing-contract-vocabulary/opening-b.json",
+          "before_sha256": "0ba233c3fcb22de57f5b4cca15c819ee54bdec8ae7c741776cc42f2d5fc7d5b1",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-b.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "3c29b493bcfaedf0e01c7e183802c7966e9c6ce844c0f9fa2e0eef750abc4950",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 8,
+          "to": 8
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "robot-demonstration-projection",
+      "plan_identity": null,
+      "plan_sha256": "06d1e1ef80156410920192a5ab618eb117aefb5c725d9727c1857f40189b0212",
+      "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-07T01:33:14.562127Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "Mandatory story-contract runtime schema correction",
+      "now": 5,
+      "resource": "reboards",
+      "was": 4
+    },
+    {
+      "at": "2026-10-07T01:33:14.562133Z",
+      "kind": "reserved",
+      "note": "Mandatory story-contract runtime schema correction",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:33:14.614102Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        },
+        "voice_directors": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160",
+            "before_path": "out/dispatch/repairs/04-pacing-contract-vocabulary/storyboard.json",
+            "before_sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160",
+            "before_path": "out/dispatch/repairs/04-pacing-contract-vocabulary/opening-a.json",
+            "before_sha256": "528c5d5bc16869302f6b79b7cdf1e04a0b1523ff8c7accb9d60c6d7ded848f06",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "319ff4b3e5852e32dbcc30bad85bb64b98a225f9882e3b9e5358d1fc41fba2a4",
+            "before_path": "out/dispatch/repairs/04-pacing-contract-vocabulary/opening-b.json",
+            "before_sha256": "0ba233c3fcb22de57f5b4cca15c819ee54bdec8ae7c741776cc42f2d5fc7d5b1",
+            "path": "out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "No pixel change. Current runtime input contract admits the six-shot sequence for independent review.",
+        "failure_evidence": "out/dispatch/repairs/04-pacing-contract-vocabulary/technical-critic.json",
+        "failure_evidence_sha256": "3c29b493bcfaedf0e01c7e183802c7966e9c6ce844c0f9fa2e0eef750abc4950",
+        "failure_family": "continuity",
+        "mechanism_change": "Runtime contract vocabulary only; the physical robot action and source-backed sequence stay identical.",
+        "mechanism_id": "robot-demonstration-projection",
+        "repair": "Use supported story-contract role enums while preserving the rendered scene editorial roles and all film inputs.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3,
+          "tts_calls": 2,
+          "voice_directors": 1
+        },
+        "root_cause": "Editorial scene-role vocabulary was copied into the distinct runtime story-contract schema."
+      },
+      "repair_plan_sha256": "024dbd56cecd6fcfd11cd0d323b12ca05bf860b4625a5fe16afea3cf85d500ac",
+      "repair_revision": "42a13e4c564527f865ff04874a729298f462f5b0db22d39bf61bb30e1df7b90d",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-07T01:33:49.929178Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 4,
+      "resource": "preflight_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-10-07T01:33:49.929188Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "08c05659d60f0f38286409e5f6d4c1a5d17a8e7e1a5a0c4def57b80ef651e3c7",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:35:00.737201Z",
+      "ceiling": 8,
+      "kind": "budget_escalated",
+      "note": "Independent silent full treatment pacing and phone comparison",
+      "now": 6,
+      "resource": "storyboard_critics",
+      "was": 5
+    },
+    {
+      "at": "2026-10-07T01:35:00.737208Z",
+      "kind": "reserved",
+      "note": "Independent silent full treatment pacing and phone comparison",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:40:12.052169Z",
+      "failure_evidence_json": "{\n  \"verdict\": \"revise\",\n  \"reviewer_identity\": \"/root/code_critic\",\n  \"reviewed_at\": \"2026-10-07T01:39:11.459902+00:00\",\n  \"review_scope\": \"technical-integrity-phone-layout-classification\",\n  \"comparison_sha256\": \"e162821c7560221e4d3320a0e47dcb914faeb76fb6bb2225c6b7fb2d7ab54168\",\n  \"film_reviews\": [\n    {\n      \"option_id\": \"a\",\n      \"film_sha256\": \"fdea083d0e8fc335942587f8a0c49144b849a51e07d851077b8878a2f3f8437e\",\n      \"report_sha256\": \"1567f0b3dac2830450ec2a47d6fc2dfde09dbe35c2da009fdcd167211889d5d5\"\n    },\n    {\n      \"option_id\": \"b\",\n      \"film_sha256\": \"d05fcf2e8afeb2bbecd65dd49c4ee7b7ac777877a433b36e0cb2f17f2517e449\",\n      \"report_sha256\": \"c89b2918b440e51dd3aeeca2e3d5903a5a3ff508e5b05116e1b32526adb74c16\"\n    }\n  ],\n  \"blocking_defects\": [\n    {\n      \"option_id\": \"a\",\n      \"scene_ids\": [\n        \"s1\",\n        \"s2\",\n        \"s3\",\n        \"s4\"\n      ],\n      \"problem\": \"Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.\",\n      \"observed_times_s\": [\n        1.5,\n        4.6,\n        11.9,\n        21.82\n      ]\n    },\n    {\n      \"phone_observation\": \"subject_recognition\",\n      \"observation\": {\n        \"pass\": false,\n        \"start_s\": 0,\n        \"end_s\": 12,\n        \"observed\": \"Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not.\"\n      }\n    },\n    {\n      \"phone_observation\": \"dominant_action\",\n      \"observation\": {\n        \"pass\": false,\n        \"start_s\": 0,\n        \"end_s\": 22.5,\n        \"observed\": \"The ghost example and proposed route change are visible, followed by solid cargo travel. However the held cube is outside the frame during the poised correction and clipped at the delivery edge, preventing inspection of the complete before-and-after action.\"\n      }\n    },\n    {\n      \"phone_observation\": \"continuity\",\n      \"observation\": {\n        \"pass\": false,\n        \"start_s\": 10,\n        \"end_s\": 24,\n        \"observed\": \"Once inside the frame, the solid carried cube continues past the glass into descent without a visible reset. The camera nevertheless hides its stationary starting position and clips its arriving position before the descent cut.\"\n      }\n    },\n    {\n      \"option_id\": \"b\",\n      \"scene_ids\": [\n        \"s1\",\n        \"s2\",\n        \"s3\",\n        \"s4\"\n      ],\n      \"problem\": \"Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.\",\n      \"observed_times_s\": [\n        1.5,\n        4.6,\n        11.9,\n        22.24\n      ]\n    }\n  ],\n  \"technical_repair\": {\n    \"findings\": [\n      {\n        \"finding\": {\n          \"option_id\": \"a\",\n          \"scene_ids\": [\n            \"s1\",\n            \"s2\",\n            \"s3\",\n            \"s4\"\n          ],\n          \"problem\": \"Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.\",\n          \"observed_times_s\": [\n            1.5,\n            4.6,\n            11.9,\n            21.82\n          ]\n        },\n        \"category\": \"layout\"\n      },\n      {\n        \"finding\": {\n          \"phone_observation\": \"subject_recognition\",\n          \"observation\": {\n            \"pass\": false,\n            \"start_s\": 0,\n            \"end_s\": 12,\n            \"observed\": \"Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not.\"\n          }\n        },\n        \"category\": \"layout\"\n      },\n      {\n        \"finding\": {\n          \"phone_observation\": \"dominant_action\",\n          \"observation\": {\n            \"pass\": false,\n            \"start_s\": 0,\n            \"end_s\": 22.5,\n            \"observed\": \"The ghost example and proposed route change are visible, followed by solid cargo travel. However the held cube is outside the frame during the poised correction and clipped at the delivery edge, preventing inspection of the complete before-and-after action.\"\n          }\n        },\n        \"category\": \"layout\"\n      },\n      {\n        \"finding\": {\n          \"phone_observation\": \"continuity\",\n          \"observation\": {\n            \"pass\": false,\n            \"start_s\": 10,\n            \"end_s\": 24,\n            \"observed\": \"Once inside the frame, the solid carried cube continues past the glass into descent without a visible reset. The camera nevertheless hides its stationary starting position and clips its arriving position before the descent cut.\"\n          }\n        },\n        \"category\": \"layout\"\n      },\n      {\n        \"finding\": {\n          \"option_id\": \"b\",\n          \"scene_ids\": [\n            \"s1\",\n            \"s2\",\n            \"s3\",\n            \"s4\"\n          ],\n          \"problem\": \"Solid cargo and gripping pads are clipped by the phone frame during approach and poised correction; the delivery endpoint is also clipped at the right edge before the lowering cut. The viewer cannot inspect the held cube remaining still while the route changes.\",\n          \"observed_times_s\": [\n            1.5,\n            4.6,\n            11.9,\n            22.24\n          ]\n        },\n        \"category\": \"layout\"\n      }\n    ],\n    \"basis\": \"Independently observed clipping of essential cargo and gripping pads at phone size, including exact paused seeks. Source, module mechanics and support-before-release remain intact. This is mandatory visible-action legibility, not an artistic pacing preference.\",\n    \"permitted_change\": \"Camera position, target and/or field of view only, consolidated across the affected s1\\u2013s4 shots in both existing treatments so carried cargo, gripping pads, glass and relevant route endpoints remain visible. Preserve source, narration, six-shot timing, phase sequence, geometry, contact and release.\",\n    \"excluded_change\": \"No new creative treatment, scene, narration, action, timing, source or style change is classified by this review.\"\n  }\n}\n",
+      "failure_evidence_sha256": "27c2a2dbc9d07544eb9c78fe2952b6555835acd3a6ffec4b632955bd010a736a",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "f686fcd0d384871bd49807fb98b16f57c1be1f41e70456982873b768f34aaaa9",
+      "plan_json": "{\n  \"root_cause\": \"Closer held cameras crop essential cargo and gripping pads before execution and at the feedback endpoint.\",\n  \"repair\": \"Refit the four affected held cameras in both existing treatments to contain the complete cargo, gripping pads, glass and relevant path endpoints.\",\n  \"mechanism_change\": \"Camera framing only. Preserve the five-beat physical sequence, narrated research plan and supported final release.\",\n  \"expected_visible_result\": \"The viewer can see the cube stationary during correction, its continuous carried motion and arrival before lowering.\",\n  \"failure_evidence\": \"out/dispatch/repairs/05-phone-framing/openings/technical-critic.json\",\n  \"failure_evidence_sha256\": \"27c2a2dbc9d07544eb9c78fe2952b6555835acd3a6ffec4b632955bd010a736a\",\n  \"changed_inputs\": [\n    {\n      \"path\": \"out/dispatch/storyboard.json\",\n      \"before_path\": \"out/dispatch/repairs/05-phone-framing/storyboard.json\",\n      \"before_sha256\": \"43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160\"\n    },\n    {\n      \"path\": \"out/dispatch/opening-a.json\",\n      \"before_path\": \"out/dispatch/repairs/05-phone-framing/opening-a.json\",\n      \"before_sha256\": \"43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160\"\n    },\n    {\n      \"path\": \"out/dispatch/opening-b.json\",\n      \"before_path\": \"out/dispatch/repairs/05-phone-framing/opening-b.json\",\n      \"before_sha256\": \"319ff4b3e5852e32dbcc30bad85bb64b98a225f9882e3b9e5358d1fc41fba2a4\"\n    }\n  ],\n  \"resources\": {\n    \"preflight_renders\": 2,\n    \"full_renders\": 1,\n    \"audiovisual_reviews\": 4,\n    \"panel_rounds\": 1,\n    \"scorer_calls\": 3,\n    \"tts_calls\": 2,\n    \"voice_directors\": 1\n  },\n  \"mechanism_id\": \"robot-demonstration-projection\",\n  \"failure_family\": \"continuity\",\n  \"director_identity\": \"/root\",\n  \"repair_scope\": \"technical-integrity\"\n}\n",
+      "plan_sha256": "27ed16e5b1335b24e1147a71f6b44234d2ae75964aa1a869453ba2f95811f422",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/1\",\n  \"version\": \"2026-10-03\",\n  \"effective_date\": \"2026-10-03\",\n  \"eligible_resources\": [\n    \"reboards\",\n    \"storyboard_critics\",\n    \"preflight_renders\",\n    \"full_renders\",\n    \"audiovisual_reviews\",\n    \"panel_rounds\",\n    \"scorer_calls\",\n    \"tts_calls\",\n    \"voice_directors\"\n  ],\n  \"mandatory_scopes\": [\n    \"finish-current\",\n    \"retained-integrity\",\n    \"minimum-action\"\n  ],\n  \"excluded_work\": [\n    \"optional creative polish\",\n    \"new research\",\n    \"extra treatment\",\n    \"director review of own film\"\n  ],\n  \"invariants\": [\n    \"Original frozen resource envelope remains immutable.\",\n    \"Usage and original failed reviews remain charged and retained.\",\n    \"Grant only exact conservative production-budget deficits for an admitted mandatory plan.\",\n    \"Every actual call and render reserves before spending.\",\n    \"All factual, rights, phone, native, audiovisual, scorer and shipment gates remain required.\",\n    \"Future initialization retains this standing policy; existing runs opt in only through explicit completion-capacity command.\"\n  ],\n  \"authorization_statement\": \"The owner authorizes autonomous mandatory completion through real shipment. Internal resource ceilings cannot end a production run; exact mandatory deficits may receive audited standing grants. Optional creative polish, new research and extra treatments remain outside this authorization.\",\n  \"authorization_source_label\": \"Direct owner instruction on October 3rd, 2026\",\n  \"owner_source_text_sha256\": \"c25e529485164d51ffb8ac6030dfa789c320dc0b3da6fb4c4e5d7263423738e1\"\n}\n",
+      "policy_sha256": "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"complete-visual-repair\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":39,\"required\":11,\"used\":4},\"full_renders\":{\"ceiling\":14,\"remaining\":13,\"required\":1,\"used\":1},\"panel_rounds\":{\"ceiling\":9,\"remaining\":8,\"required\":1,\"used\":1},\"preflight_renders\":{\"ceiling\":16,\"remaining\":12,\"required\":3,\"used\":4},\"reboards\":{\"ceiling\":10,\"remaining\":5,\"required\":1,\"used\":5},\"scorer_calls\":{\"ceiling\":27,\"remaining\":24,\"required\":3,\"used\":3},\"storyboard_critics\":{\"ceiling\":8,\"remaining\":2,\"required\":3,\"used\":6},\"tts_calls\":{\"ceiling\":12,\"remaining\":10,\"required\":2,\"used\":2},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "b5767a10653550ae12c222039b3f9155d8375e680d7d403eed5da913cd418b06",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 8,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 8,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "retained-integrity",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-06",
+      "usage_unchanged": {
+        "audiovisual_reviews": 4,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "panel_rounds": 1,
+        "preflight_renders": 4,
+        "reboards": 5,
+        "reported_tokens": 122424,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 3,
+        "storyboard_critics": 6,
+        "tts_calls": 2,
+        "validator_agents": 2,
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:41:45.920089Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "Independent source-backed depth-staging pivot for mandatory phone legibility",
+      "now": 7,
+      "resource": "storyboard_critics",
+      "was": 6
+    },
+    {
+      "at": "2026-10-07T01:41:45.920098Z",
+      "kind": "reserved",
+      "note": "Independent source-backed depth-staging pivot for mandatory phone legibility",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:43:11.502936Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/05-phone-framing/storyboard.json",
+          "before_sha256": "43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/05-phone-framing/opening-a.json",
+          "before_sha256": "43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/05-phone-framing/opening-b.json",
+          "before_sha256": "319ff4b3e5852e32dbcc30bad85bb64b98a225f9882e3b9e5358d1fc41fba2a4",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/05-phone-framing/RobotSafetyAction.tsx",
+          "before_sha256": "ff3d8b612baea7a0304012fb7ee46fa4814c76404261ad1ed8a9064e8d097712",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/video-engine/src/RobotSafetyAction.tsx"
+        },
+        {
+          "before_path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/repairs/05-phone-framing/story_selection.json",
+          "before_sha256": "5bcf592de39b4a9f312c843ed85eb5e03956c410bc71350e8d4a0bd95cedb626",
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-daily-2026-10-07/out/dispatch/story_selection.json"
+        }
+      ],
+      "director_identity": "/root",
+      "failure_family": "continuity",
+      "failure_sha256": "27c2a2dbc9d07544eb9c78fe2952b6555835acd3a6ffec4b632955bd010a736a",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "robot-depth-cargo-projection",
+      "plan_identity": null,
+      "plan_sha256": "2a1e88d9215e8a17d31efe396cea51a9f7aa323ac667ba5204647b5159506b79",
+      "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-07T01:43:11.576973Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "Mandatory source-backed foreground-to-background cargo staging",
+      "now": 6,
+      "resource": "reboards",
+      "was": 5
+    },
+    {
+      "at": "2026-10-07T01:43:11.576981Z",
+      "kind": "reserved",
+      "note": "Mandatory source-backed foreground-to-background cargo staging",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:44:16.463517Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        },
+        "voice_directors": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "43c0cb1d679af3e31b1595dc0f84c5723791bffc5f54d6213520fd9734707c76",
+            "before_path": "out/dispatch/repairs/05-phone-framing/storyboard.json",
+            "before_sha256": "43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "43c0cb1d679af3e31b1595dc0f84c5723791bffc5f54d6213520fd9734707c76",
+            "before_path": "out/dispatch/repairs/05-phone-framing/opening-a.json",
+            "before_sha256": "43c8dc24d0b4ecc36a26d440178f23bd55b794dd585bacc45419ee74f9f51160",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "c0a1069da9b2c8301f92f0e25468eb4d7106665584b5dbe4fdcf84ee610b795e",
+            "before_path": "out/dispatch/repairs/05-phone-framing/opening-b.json",
+            "before_sha256": "319ff4b3e5852e32dbcc30bad85bb64b98a225f9882e3b9e5358d1fc41fba2a4",
+            "path": "out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "2cbfbf78d540b0d9ffba72d7dd010574ca847fa98b89f460f8ee38eb26a05d54",
+            "before_path": "out/dispatch/repairs/05-phone-framing/RobotSafetyAction.tsx",
+            "before_sha256": "ff3d8b612baea7a0304012fb7ee46fa4814c76404261ad1ed8a9064e8d097712",
+            "path": "video-engine/src/RobotSafetyAction.tsx"
+          },
+          {
+            "after_sha256": "4e9b4d7a112ea02f00d3ec072fa8bd05e92f440863ec1d23216801d3cd8c85b9",
+            "before_path": "out/dispatch/repairs/05-phone-framing/story_selection.json",
+            "before_sha256": "5bcf592de39b4a9f312c843ed85eb5e03956c410bc71350e8d4a0bd95cedb626",
+            "path": "out/dispatch/story_selection.json"
+          }
+        ],
+        "director_identity": "/root",
+        "expected_visible_result": "The carried cube stays in the portrait frame as it approaches, waits for correction, passes the glass and reaches support; depth motion replaces the rejected horizontal crossing.",
+        "failure_evidence": "out/dispatch/repairs/05-phone-framing/openings/technical-critic.json",
+        "failure_evidence_sha256": "27c2a2dbc9d07544eb9c78fe2952b6555835acd3a6ffec4b632955bd010a736a",
+        "failure_family": "continuity",
+        "mechanism_change": "Retire horizontal cargo staging and orient the physical carry along depth. Preserve the exact local poses, source, narration, contact and supported release.",
+        "mechanism_id": "robot-depth-cargo-projection",
+        "pivot_review": {
+          "path": "out/dispatch/repairs/05-phone-framing/pivot-review.json",
+          "sha256": "fd0c7514557b5f9e72fc099c4a3b3209853647d5e6d3a0d9e97fca60ddbd29ae"
+        },
+        "repair": "Replace horizontal portrait crossing with actual foreground-to-background staging by rigidly rotating the complete tabletop task; refit held views around the transformed cargo and jaws.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3,
+          "tts_calls": 2,
+          "voice_directors": 1
+        },
+        "root_cause": "Closer held cameras crop essential cargo and gripping pads before execution and at the feedback endpoint."
+      },
+      "repair_plan_sha256": "fabf4b87bfc16f791e65d1486243551176be37f9973ddc902bc4bc7f3d189aad",
+      "repair_revision": "66027462c1dd8a72377e900e77a8f05422aa507dc06ec87cfd1883e56da8b07c",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-07T01:46:07.980068Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 5,
+      "resource": "preflight_renders",
+      "was": 4
+    },
+    {
+      "at": "2026-10-07T01:46:07.980077Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "0479e0cc7d31df77cfa5d6c73c433a1c740171b7e09d4af9564eabe1ca1550fd",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:47:02.228605Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "Fresh exact-film silent phone proof of mandatory depth layout",
+      "now": 8,
+      "resource": "storyboard_critics",
+      "was": 7
+    },
+    {
+      "at": "2026-10-07T01:47:02.228612Z",
+      "kind": "reserved",
+      "note": "Fresh exact-film silent phone proof of mandatory depth layout",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:53:49.370375Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "final continuous read of corrected six-shot film",
+      "now": 2,
+      "resource": "voice_directors",
+      "was": 1
+    },
+    {
+      "at": "2026-10-07T01:53:49.370381Z",
+      "kind": "reserved",
+      "note": "final continuous read of corrected six-shot film",
+      "preflight_identity": null,
+      "resources": {
+        "voice_directors": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:54:49.461394Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 3,
+      "resource": "tts_calls",
+      "was": 2
+    },
+    {
+      "at": "2026-10-07T01:54:49.461402Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:55:06.292120Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1450
+      }
+    },
+    {
+      "at": "2026-10-07T01:55:06.295246Z",
+      "elapsed_ms": 16825,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1450,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-07T01:55:06.328024Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 4,
+      "resource": "tts_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-10-07T01:55:06.328031Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:55:10.821679Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1047
+      }
+    },
+    {
+      "at": "2026-10-07T01:55:10.827178Z",
+      "elapsed_ms": 4488,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 1047,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-07T01:56:21.507210Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 5,
+      "resource": "tts_calls",
+      "was": 4
+    },
+    {
+      "at": "2026-10-07T01:56:21.507218Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:56:38.921741Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 1487
+      }
+    },
+    {
+      "at": "2026-10-07T01:56:38.924021Z",
+      "elapsed_ms": 17411,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 1487,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-07T01:56:38.948602Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 6,
+      "resource": "tts_calls",
+      "was": 5
+    },
+    {
+      "at": "2026-10-07T01:56:38.948609Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:56:53.255783Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 3545
+      }
+    },
+    {
+      "at": "2026-10-07T01:56:53.261825Z",
+      "elapsed_ms": 14300,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 3545,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-07T01:58:03.377169Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 6,
+      "resource": "preflight_renders",
+      "was": 5
+    },
+    {
+      "at": "2026-10-07T01:58:03.377179Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "b0fe99304af4805d2034fd9792ad870c002d7c97846b4d9b4e14c63801c122df",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T01:58:39.928581Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "Independent final measured-clock six-shot phone film review",
+      "now": 9,
+      "resource": "storyboard_critics",
+      "was": 8
+    },
+    {
+      "at": "2026-10-07T01:58:39.928588Z",
+      "kind": "reserved",
+      "note": "Independent final measured-clock six-shot phone film review",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:02:05.054560Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 7,
+      "resource": "preflight_renders",
+      "was": 6
+    },
+    {
+      "at": "2026-10-07T02:02:05.054570Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "b814d6d5cc0850abca4a6be3cdb1743c34ccbf2dd97b1526d94644499cfe9a27",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:02:40.106819Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review hero",
+      "now": 5,
+      "resource": "audiovisual_reviews",
+      "was": 4
+    },
+    {
+      "at": "2026-10-07T02:02:40.106825Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:02:58.573444Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 416d8fce-09f7-4c4c-b52e-5303094d6e5c hero exact film 020ab51cb8a308be204bdc6b8bb8ed233d05a5d1525c870d84a88426b054f14a",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 21220
+      }
+    },
+    {
+      "at": "2026-10-07T02:02:58.579049Z",
+      "elapsed_ms": 18451,
+      "kind": "telemetry",
+      "note": "416d8fce-09f7-4c4c-b52e-5303094d6e5c hero exact film 020ab51cb8a308be204bdc6b8bb8ed233d05a5d1525c870d84a88426b054f14a",
+      "reported_tokens": 21220,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T02:03:34.518107Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "full-resolution Dispatch render",
+      "now": 2,
+      "resource": "full_renders",
+      "was": 1
+    },
+    {
+      "at": "2026-10-07T02:03:34.518114Z",
+      "film_sha256": "4831809c569c79ddd7c96eeb3a5e216f0880b718af03eebf66deb7cfddc55687",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-10-07T02:03:34.518117Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:04:30.289288Z",
+      "film_sha256": "340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "kind": "deliverable_registered",
+      "manifest_sha256": "b9c749422ae49d6d7f6dd1cddf58cbe380e48deb8b1f39f366cb0b23ee5a94e6",
+      "review_only": false
+    },
+    {
+      "at": "2026-10-07T02:04:56.760259Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "corrected continuous-action current finished cut",
+      "now": 2,
+      "resource": "panel_rounds",
+      "was": 1
+    },
+    {
+      "at": "2026-10-07T02:04:56.760265Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "corrected continuous-action current finished cut",
+      "now": 6,
+      "resource": "scorer_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-10-07T02:04:56.760271Z",
+      "kind": "reserved",
+      "note": "corrected continuous-action current finished cut",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
+    },
+    {
+      "at": "2026-10-07T02:04:56.865155Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review picture",
+      "now": 6,
+      "resource": "audiovisual_reviews",
+      "was": 5
+    },
+    {
+      "at": "2026-10-07T02:04:56.865162Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:05:22.490282Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 996a91d4-7fd2-4851-a197-16e8bcb8084b picture exact film 340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 31927
+      }
+    },
+    {
+      "at": "2026-10-07T02:05:22.495087Z",
+      "elapsed_ms": 25610,
+      "kind": "telemetry",
+      "note": "996a91d4-7fd2-4851-a197-16e8bcb8084b picture exact film 340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "reported_tokens": 31927,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T02:05:22.798659Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review story",
+      "now": 7,
+      "resource": "audiovisual_reviews",
+      "was": 6
+    },
+    {
+      "at": "2026-10-07T02:05:22.798673Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:05:44.417762Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 08cc4fc2-96b8-400e-b5c1-0737466d5a8e story exact film 340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 31821
+      }
+    },
+    {
+      "at": "2026-10-07T02:05:44.424328Z",
+      "elapsed_ms": 21596,
+      "kind": "telemetry",
+      "note": "08cc4fc2-96b8-400e-b5c1-0737466d5a8e story exact film 340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "reported_tokens": 31821,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T02:05:44.595848Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review sound",
+      "now": 8,
+      "resource": "audiovisual_reviews",
+      "was": 7
+    },
+    {
+      "at": "2026-10-07T02:05:44.595855Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "at": "2026-10-07T02:06:10.560383Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 7064a516-6dd4-4c08-856d-1b3eb6eacf99 sound exact film 340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 31338
+      }
+    },
+    {
+      "at": "2026-10-07T02:06:10.566110Z",
+      "elapsed_ms": 25949,
+      "kind": "telemetry",
+      "note": "7064a516-6dd4-4c08-856d-1b3eb6eacf99 sound exact film 340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+      "reported_tokens": 31338,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-07T02:11:35.117201Z",
+      "kind": "release_authorized",
+      "publication_mode": "rubric_pass",
+      "report_sha256": "dcc7a8e16347be632db7b953eeb7d587bad7bee7d7a0ba8a33542cc690ada0ee",
+      "result": "publishable",
+      "score": 7.096
+    }
+  ],
+  "final_report": {
+    "film_sha256": "340210e4a3a65546352987afe2e452de00307ed4a8221dc6bec13dca3288113a",
+    "original_hard_fails": [],
+    "path": "out/dispatch/report_card.json",
+    "publication_mode": "rubric_pass",
+    "score": 7.096,
+    "sha256": "dcc7a8e16347be632db7b953eeb7d587bad7bee7d7a0ba8a33542cc690ada0ee"
+  },
+  "limits": {
+    "audiovisual_reviews": 8,
+    "cleanup_renders": 1,
+    "full_renders": 2,
+    "panel_rounds": 2,
+    "preflight_renders": 7,
+    "reboards": 6,
+    "reported_tokens": 250000,
+    "rescue_renders": 1,
+    "research_agents": 3,
+    "scorer_calls": 6,
+    "storyboard_critics": 9,
+    "tts_calls": 6,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "mode": "production",
+  "phase": "publishing",
+  "publication_mode": "rubric_pass",
+  "release_status": "publishable",
+  "repair_policy": "quality-recovery/1",
+  "resource_envelope": {
+    "audiovisual_reviews": 43,
+    "cleanup_renders": 3,
+    "full_renders": 14,
+    "panel_rounds": 9,
+    "preflight_renders": 16,
+    "reboards": 10,
+    "reported_tokens": 900000,
+    "rescue_renders": 2,
+    "research_agents": 4,
+    "scorer_calls": 27,
+    "storyboard_critics": 7,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "review_reasons": [],
+  "review_required": false,
+  "run_id": "2026-10-06",
+  "schema": "dispatch_run_state/1",
+  "terminal_reason": null,
+  "terminal_state": null,
+  "updated_at": "2026-10-07T02:11:35.117214Z",
+  "usage": {
+    "audiovisual_reviews": 8,
+    "cleanup_renders": 0,
+    "full_renders": 2,
+    "panel_rounds": 2,
+    "preflight_renders": 7,
+    "reboards": 6,
+    "reported_tokens": 246259,
+    "rescue_renders": 0,
+    "research_agents": 1,
+    "scorer_calls": 6,
+    "storyboard_critics": 9,
+    "tts_calls": 6,
+    "validator_agents": 2,
+    "voice_directors": 2
+  },
+  "public_export": {
+    "schema": "dispatch_public_ledger/1",
+    "original_private_state_sha256": "941efb340b11c7b8aa2b1db2c6cd9acde2a1a31a1ad67700dd602ca57d5f1ecb",
+    "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
+    "owner_message_redactions": []
+  }
+}
