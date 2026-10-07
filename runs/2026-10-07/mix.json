@@ -1,0 +1,138 @@
+{
+  "duration_s": 42.86,
+  "cut_s": 42.86,
+  "peak_dbfs_premaster": -3.43,
+  "lufs_premaster": -20.67,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.07,
+  "lufs_shortfall_db": 0.07000000000000028,
+  "crest_factor_db": 17.25,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 3.43,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 2
+    },
+    {
+      "id": "deep_haze",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -19.38,
+      "gain_db": -20.25
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "deep_haze",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -19.38,
+  "bed_gain_db": -20.25,
+  "sfx_events": 2,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -17.29,
+      "true_peak_dbtp": -0.0
+    },
+    "after": {
+      "integrated_lufs": -16.07,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.59:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.45:measured_TP=-5.39:measured_LRA=12.50:measured_thresh=-34.68:offset=1.02",
+    "measurement": {
+      "input_i": "-23.45",
+      "input_tp": "-5.39",
+      "input_lra": "12.50",
+      "input_thresh": "-34.68",
+      "output_i": "-15.78",
+      "output_tp": "-2.00",
+      "output_lra": "5.70",
+      "output_thresh": "-26.56",
+      "normalization_type": "dynamic",
+      "target_offset": "0.19"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.41,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.45:measured_TP=-5.39:measured_LRA=12.50:measured_thresh=-34.68:offset=0.98"
+      },
+      {
+        "requested_lufs": -15.59,
+        "measured": {
+          "integrated_lufs": -16.07,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.59:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.45:measured_TP=-5.39:measured_LRA=12.50:measured_thresh=-34.68:offset=1.02"
+      }
+    ],
+    "correction": null,
+    "samples": 2057280,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "eebc9fc4173cbc99a6c3e2490361a2cf9c8d7266d56c1dff04121bb225bdbc9a",
+  "sound_direction_sha256": "915e4c7e7b24dbec76979654c4934f4f5f163df004f4a1e67e18ec69ff5ce8bc",
+  "sound_cues": [
+    {
+      "id": "sensor-motor",
+      "event_id": "s2-event-1",
+      "role": "sonification",
+      "duration_s": 0.5999999999999996,
+      "intent": "A short modeled sensor checkpoint adjustment.",
+      "provenance": "Original designed motor effect.",
+      "at_s": 4.5
+    },
+    {
+      "id": "handheld-check",
+      "event_id": "s3-event-2",
+      "role": "sonification",
+      "duration_s": 0.3000000000000007,
+      "intent": "A separate schematic handheld check.",
+      "provenance": "Original designed tool click.",
+      "at_s": 12.62
+    },
+    {
+      "id": "unconfirmed-quiet",
+      "event_id": "s5-event-3",
+      "role": "quiet",
+      "duration_s": 1.0,
+      "gain": 0.2,
+      "intent": "Lower the bed as an inspection flag remains unresolved.",
+      "provenance": "Authored event-clock background contrast.",
+      "at_s": 26.889
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "sensor-motor",
+      "sha256": "9dba5769ffa2eeb1538d2e175ee5a0fd822728d2b25e31b62772830703bc1909"
+    },
+    {
+      "id": "handheld-check",
+      "sha256": "e355556901de0b5c30c2c0b416c9fa06146341f2158c5a3c851f14220dcf83fe"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "a7272c316aad8ccda515a4650d29572eb4e9a699d548f8a3b5515a2389f8958d",
+  "bed_source_sha256": "3773f35d30769b56d83e5b86767e0a77cd721f2b35c564ebddde49d0bdac81dc",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "e763a5d305d0bf7f7e588f7ed6c3bfd7824b0a424054bd65f613374b7d285e1a",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2057280
+}

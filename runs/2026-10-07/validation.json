@@ -1,0 +1,166 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-10-07",
+  "source": "independent adversarial validator full-page vendor refetch",
+  "reviewer_identity": "independent-adversarial-validator",
+  "retrieved": "2026-10-07T07:07:44.724629+00:00",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+  ],
+  "rejected": [
+    "Cooling units physically neighboring. The source compares one unit with the other; adjacency is not established.",
+    "New October detection or repair action. Findings cover July 28 to August 21; update is September 23.",
+    "Independent CRSC confirmation. Both sources are vendor publications, without independent operator statement or maintenance record.",
+    "Measured downtime savings, avoided outage, general accuracy or cost savings. No controlled validation or measured savings supports these claims.",
+    "Second unit confirmed faulty or repaired. Source expressly flags condition for inspection without confirmed fault.",
+    "Robot repaired equipment or replaced thermal survey. Repair actor unspecified; product page explicitly says surveys are not replaced."
+  ],
+  "required_edits_applied": [
+    "Director corrected opening adjacency implication to One cooling unit ran warmer than the other.",
+    "Current narration attributes detection and repair to FacilityOps AI or vendor.",
+    "Current narration preserves unconfirmed second-unit condition and identifies September 23rd update."
+  ],
+  "source_limits": [
+    "Independent refetch verifies published vendor text, not underlying event truth. No independent corroboration obtained.",
+    "Findings July 28 to August 21, 2026. September 23 update describes ongoing pilot; no fresh October action verified.",
+    "Handheld confirmation within stated tolerance. No general accuracy or savings proven.",
+    "Animation must be conceptual illustration, not authenticated site footage, actual UI or numerical measurements.",
+    "Product page says robot cannot see inside closed switchgear and documents condition between surveys rather than replacing surveys.",
+    "Closing is editorial interpretation of confirmed/repair versus flagged/unconfirmed distinction, not new event or universal efficacy claim."
+  ],
+  "script_sha256": "66a7c98299f35b1278ff00bf0115fc6d813b3619979da99c9bd741a9e389aa95",
+  "sentence_claim_bindings": [
+    {
+      "sentence_index": 1,
+      "text": "One cooling unit ran warmer than the other.",
+      "claim_ids": [
+        "c1"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 2,
+      "text": "In a Houston pilot, FacilityOps AI says its inspection robot detected a failed condenser.",
+      "claim_ids": [
+        "c2",
+        "c3",
+        "c8"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 3,
+      "text": "A handheld check confirmed the measurement.",
+      "claim_ids": [
+        "c4"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 4,
+      "text": "The vendor reports that the condenser was repaired and the unit returned to normal operation.",
+      "claim_ids": [
+        "c5"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 5,
+      "text": "A second unit showed intermittent temperature spikes.",
+      "claim_ids": [
+        "c6"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 6,
+      "text": "That condition was flagged for inspection, not confirmed as a fault.",
+      "claim_ids": [
+        "c6"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 7,
+      "text": "The vendor's September 23rd update describes the pilot as ongoing.",
+      "claim_ids": [
+        "c7"
+      ],
+      "status": "VERIFIED_VENDOR_REPORT",
+      "note": "Published vendor report; surrounding attribution and source label required."
+    },
+    {
+      "sentence_index": 8,
+      "text": "A robot's flag starts a maintenance check.",
+      "claim_ids": [
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "status": "EDITORIAL_INTERPRETATION",
+      "note": "Earned inference from reported repair versus unconfirmed flag."
+    },
+    {
+      "sentence_index": 9,
+      "text": "It doesn't finish one.",
+      "claim_ids": [
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "status": "EDITORIAL_INTERPRETATION",
+      "note": "Earned inference from reported repair versus unconfirmed flag."
+    }
+  ],
+  "required_edits_pending": [],
+  "scope": "Source and narration approval only. Rendered picture, rights reuse, audio, captions, native and shipment require separate proof.",
+  "claims_sha256": "50cda5cea0e2144171867dac6ee3b68b418a294d1c8017ac860b97ebb3092c5a",
+  "supplemental_current_source_review": {
+    "reviewer_identity": "/root/code_critic",
+    "reviewed_at": "2026-10-07T09:30:50.024639+00:00",
+    "verdict": "pass",
+    "scope": "Independent supplemental review of source metadata only. No new fetch, film playback, render, listening or scoring. Prior exact visual observations remain unchanged.",
+    "claim_id": "c7",
+    "claims_sha256": "50cda5cea0e2144171867dac6ee3b68b418a294d1c8017ac860b97ebb3092c5a",
+    "source_snapshot_sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+    "independent_recomputation": {
+      "pattern": "Last updated September (\\d+), (\\d+)\\.",
+      "day": 23,
+      "year": 2026,
+      "english_ordinal": "23rd"
+    },
+    "semantic_diff": "Only c7.text exposes the September 23rd update day already in the retained literal source quote. All other semantic claim fields and source limits are unchanged.",
+    "source_limit": "Vendor publication verifies the reported September update date and ongoing pilot status, not the underlying event truth or a fresh October action.",
+    "original_validator_report": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/repairs/10-source-date-metadata/before/validation.json",
+      "sha256": "0bdfaa6b2657a798871995836c6b8a9fe01540859d4cfe92e1d8708c96ecb843"
+    },
+    "preserved_verified_claim_ids": [
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8"
+    ],
+    "preserved_rejections_and_limits": true
+  }
+}
