@@ -1,0 +1,141 @@
+{
+  "schema": "dispatch_source_metadata_continuation/1",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T09:30:50.024639+00:00",
+  "verdict": "pass",
+  "scope": "Independent supplemental review of source metadata only. No new fetch, film playback, render, listening or scoring. Prior exact visual observations remain unchanged.",
+  "claim_id": "c7",
+  "before_claims_sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b",
+  "claims_sha256": "50cda5cea0e2144171867dac6ee3b68b418a294d1c8017ac860b97ebb3092c5a",
+  "source_snapshot": "out/dispatch/sources/facilityops-pilot.validator.txt",
+  "source_snapshot_sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+  "source_quote": "Findings cover the period July 28 to August 21, 2026. The pilot at the CRSC Data Center, powered by Solutions IS, is ongoing. Last updated September 23, 2026.",
+  "independent_recomputation": {
+    "pattern": "Last updated September (\\d+), (\\d+)\\.",
+    "day": 23,
+    "year": 2026,
+    "english_ordinal": "23rd"
+  },
+  "semantic_diff": "Only c7.text exposes the September 23rd update day already in the retained literal source quote. All other semantic claim fields and source limits are unchanged.",
+  "source_limit": "Vendor publication verifies the reported September update date and ongoing pilot status, not the underlying event truth or a fresh October action.",
+  "blocking_defects": [],
+  "unchanged_dependencies": [
+    {
+      "path": "out/dispatch/ship-prepanel-refusal.log",
+      "sha256": "cd8b1d99ec6bc8e3c3f297b01206d3d14a8d8e4d7b469f57107c889461c912ea"
+    },
+    {
+      "path": "out/dispatch/sources/facilityops-pilot.validator.txt",
+      "sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "sha256": "66a7c98299f35b1278ff00bf0115fc6d813b3619979da99c9bd741a9e389aa95"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "615227064edf18987188b97c67173e411fb2cbe041e567bf31b8cc735ce26ae6"
+    },
+    {
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "763051b4d554373afe24b17167109d92ff037278325800b011cb1d5fa44f11e9"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "7e7d833761e8740622daf14f31c8bc5a4daf7ce124d3755bb96c56816988e14d"
+    },
+    {
+      "path": "out/dispatch/film.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "sha256": "2c6014c2e7fc37687336dbe0cbbbabf7f1b0905a1ff5f9b8fd4bc336debf7179"
+    },
+    {
+      "path": "out/dispatch/silent.mp4",
+      "sha256": "02148c095b4ff08fde29b1b89005682278eb7acbea72256333a55487c7f0e80c"
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "sha256": "eebc9fc4173cbc99a6c3e2490361a2cf9c8d7266d56c1dff04121bb225bdbc9a"
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "sha256": "5b7a9fc5dd4988e75922fb7650eecb1006ad7e43f15a868a721c35f496e38746"
+    },
+    {
+      "path": "out/dispatch/cinema/hero.mp4",
+      "sha256": "4f273bac605b053856b45bdae30d8afbbdae581a86f17e82f7f2039135fa3add"
+    },
+    {
+      "path": "out/dispatch/openings/a.mp4",
+      "sha256": "02271cebc92e99abdb70d7a809df0190dbe6a3e2371aaaada5aa3852f36fb187"
+    },
+    {
+      "path": "out/dispatch/openings/b.mp4",
+      "sha256": "505abfebf00e36a56458db6899825db41d7af65252c70e75c76f87d4393ec0fe"
+    },
+    {
+      "path": "out/dispatch/openings/selection.json",
+      "sha256": "edf971df3384282784007a69dad0c707b0cef52d53149cd60d000f086d9bec84"
+    },
+    {
+      "path": "scripts/ship_gate.py",
+      "sha256": "3addf13f4d8f6d25982748f4d92de133932ae8bd1de28ec03cc7e2f044e39ec2"
+    }
+  ],
+  "reviewed_reports": [
+    {
+      "report": "opening-a-critic.json",
+      "sha256": "5112804b55225959dff99955bb36b0c47b3c1db688a93205f0e9bafd5a3a423d",
+      "phone_observations_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "code_observations_sha256": "a351cbab798a1f28bfb0cc362f6f97ab80394df007b8a227a520c241d7b40828",
+      "original_verdict_preserved": "pass"
+    },
+    {
+      "report": "opening-b-critic.json",
+      "sha256": "89602856918620167a5156f404f9d571a890cf707f9682a501bf8ebe9ab04374",
+      "phone_observations_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "code_observations_sha256": "a351cbab798a1f28bfb0cc362f6f97ab80394df007b8a227a520c241d7b40828",
+      "original_verdict_preserved": "pass"
+    },
+    {
+      "report": "storyboard_critic.json",
+      "sha256": "daadecbb4c2d23e6d985670c51c6470a90c7345918d2ce771d9843b60e33dcf7",
+      "phone_observations_sha256": "b88a6d8559612209c0e3367b786d57c1b5a9c323029c663231913eb63de1d99d",
+      "code_observations_sha256": "a351cbab798a1f28bfb0cc362f6f97ab80394df007b8a227a520c241d7b40828",
+      "original_verdict_preserved": "pass"
+    },
+    {
+      "report": "phone-critic-current.json",
+      "sha256": "b56b86ffc95aedd66ae2804fb93f8fc90af26c91e69b3a207a530b959585d56b",
+      "phone_observations_sha256": "b88a6d8559612209c0e3367b786d57c1b5a9c323029c663231913eb63de1d99d",
+      "code_observations_sha256": "a351cbab798a1f28bfb0cc362f6f97ab80394df007b8a227a520c241d7b40828",
+      "original_verdict_preserved": "pass"
+    }
+  ],
+  "validation": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/validation.json",
+    "sha256": "587fd722b989ceabc1eead3750c039c459deabce0a9053b09ddd8829604d46ea"
+  },
+  "action_bindings": [
+    {
+      "action_id": "cooling-checkpoint-comparison-v3",
+      "source_claims_sha256": "5b4cb96b9f7dbd0e0b09b57f68c60a13a7473d411d3624b6621e6d9c8676a6fb",
+      "unchanged": true
+    }
+  ],
+  "checks": {
+    "critic_gate": [],
+    "critic_exact_phone": [],
+    "daily_pre_voice": [],
+    "preflight_verify": [],
+    "validation": [],
+    "opening_packaging": [],
+    "opening_inspection": [],
+    "script_source": [],
+    "opening_a_critic": [],
+    "opening_b_critic": []
+  }
+}

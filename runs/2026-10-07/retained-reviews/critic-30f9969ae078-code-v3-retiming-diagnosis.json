@@ -1,0 +1,197 @@
+{
+  "verdict": "revise",
+  "review_scope": "independent-code-retiming-integrity-classification",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T08:32:15.742657+00:00",
+  "concept_sha256": "d0e8a8c76c788d09b57a9c44393898550d90dcb968bf74d13e9bb9be519ef026",
+  "renderer_sha256": "898bbff3b42e47c291da3544f092ed3bba71821b851b32c9110d017509bc915b",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "blocking_defects": [
+    {
+      "criterion": "contact_and_consequence",
+      "classification": "mandatory-runtime-event-consumer",
+      "scene": "s2",
+      "start_s": 4.5,
+      "end_s": 11.3,
+      "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
+      "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
+      "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
+    }
+  ],
+  "notes": [],
+  "strongest_frame": "Current authored-clock whole robot traverses are supported by separately steered grounded caster assemblies with visible rolling spokes.",
+  "weakest_frame": "Measured narration retiming can desynchronize caster steering from the actual travel events because the consumer mixes raw local seconds and retimed event progress.",
+  "story_review": {
+    "story_sha256": "46ca5bde8b87d005c2c9f461c66a00c111ed86d6fa69a74e77579ff34d73b337",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "criterion": "contact_and_consequence",
+        "classification": "mandatory-runtime-event-consumer",
+        "scene": "s2",
+        "start_s": 4.5,
+        "end_s": 11.3,
+        "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
+        "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
+        "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
+      }
+    ],
+    "one_viewing_summary": "Code-plan reconstruction only. Whole robot performs two substantial comparison traverses and a diagonal return before unchanged separate handheld confirmation, restoration and unresolved second state.",
+    "opening_to_ending": "The current callable sequence carries the same unit identity from source-disclosed warm comparison through a separate matching checker to the reported restored state. The other unit has a transient comparison, then a conserved open flag. That answers the flag-to-maintenance question within the vendor evidence without synthetic repair or another diagnosed outcome.",
+    "weakest_transition": "The source-bound comparison/check relationship is preserved, but caster steering timing must remain aligned when the required measured narration changes event duration."
+  },
+  "action_reviews": [
+    {
+      "action_id": "cooling-checkpoint-comparison-v3",
+      "module_sha256": "e43bbddfd265baff3bebbed04d74fd85b743d4a87dd2d6335989d4dc55733647",
+      "source_claims_sha256": "5b4cb96b9f7dbd0e0b09b57f68c60a13a7473d411d3624b6621e6d9c8676a6fb",
+      "verdict": "revise",
+      "blocking_defects": [
+        {
+          "criterion": "contact_and_consequence",
+          "classification": "mandatory-runtime-event-consumer",
+          "scene": "s2",
+          "start_s": 4.5,
+          "end_s": 11.3,
+          "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
+          "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
+          "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
+        }
+      ],
+      "code_observations": {
+        "source_fidelity": "Generic independently steered casters describe original explanatory running gear, not vendor hardware. All scene objects, art shots, cinema and82words are unchanged. No actual route, readings, UI or repair technique is added.",
+        "visible_action": "Current6.8s event-clock caster planes and distance/radius rolling support both1.10world traverses and diagonal return. Independent analytic150position velocity check finds maximum no-slip residual 2.505744641690743e-16. Earlier fixed-wheel sideways-skating finding is repaired at this clock.",
+        "consequence": "Steering3.6..4.5 is after second travel ends3.404 and before return starts5.186. Reset6.254..6.35 starts exactly at return settle6.254. Episode supplies rawlocaltime, so those boundaries fail to track mandatory retiming.",
+        "disclosure": "Same illustration/vendor labels and qualitative source relationships retained. Caster forks/bearings visibly support wheel assemblies; no actual model specification is claimed.",
+        "limits": "No fresh movie or motion-floor pass, listening, native, caption, score or shipment approval. This report rejects only required retiming integrity."
+      }
+    }
+  ],
+  "code_observations": {
+    "source_fidelity": "Generic independently steered casters describe original explanatory running gear, not vendor hardware. All scene objects, art shots, cinema and82words are unchanged. No actual route, readings, UI or repair technique is added.",
+    "visible_action": "Current6.8s event-clock caster planes and distance/radius rolling support both1.10world traverses and diagonal return. Independent analytic150position velocity check finds maximum no-slip residual 2.505744641690743e-16. Earlier fixed-wheel sideways-skating finding is repaired at this clock.",
+    "consequence": "Steering3.6..4.5 is after second travel ends3.404 and before return starts5.186. Reset6.254..6.35 starts exactly at return settle6.254. Episode supplies rawlocaltime, so those boundaries fail to track mandatory retiming.",
+    "disclosure": "Same illustration/vendor labels and qualitative source relationships retained. Caster forks/bearings visibly support wheel assemblies; no actual model specification is claimed.",
+    "limits": "No fresh movie or motion-floor pass, listening, native, caption, score or shipment approval. This report rejects only required retiming integrity."
+  },
+  "source_claims": [
+    {
+      "id": "c1",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Relative temperature only, no physical adjacency established."
+    },
+    {
+      "id": "c2",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Vendor self-report. No independent CRSC confirmation."
+    },
+    {
+      "id": "c3",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Detection does not establish automatic repair."
+    },
+    {
+      "id": "c4",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Confirmation within stated tolerance, not exact identity. Narration omits number."
+    },
+    {
+      "id": "c5",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Repair actor unspecified. No robot repair or independent maintenance record."
+    },
+    {
+      "id": "c6",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Two verbatim excerpts. No confirmed second failure or repair."
+    },
+    {
+      "id": "c7",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "July 28 to August 21 findings. Status at September update, not fresh October event."
+    },
+    {
+      "id": "c8",
+      "url": "https://facilityops.ai/why-facilityops/",
+      "scope": "General product description, not pilot hardware or accuracy validation."
+    }
+  ],
+  "prior_report": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/repairs/05-running-gear/before/out/dispatch/opening-a-critic.json",
+    "sha256": "cb7fa8f7f7f9d1a088757a8c9e6176783d7afbcb2395188175bf60bf7f35cc1a"
+  },
+  "retained_phone_diagnosis": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/phone-current-diagnosis-a.json",
+    "sha256": "1543b89d64a4cdf034f8edbbfe9346501ae8b242114777fea107b018b240aeb5",
+    "verdict": "revise"
+  },
+  "independent_projection_checks": {
+    "method": "Independent look-at pinhole projection of150 path positions using current s2 travel polynomial/windows and a conservative robot occupied envelope x\u00b1.42,y-.08..1.28,z\u00b1.35. Current larger path fits both actual shots. Projection does not establish physical locomotion.",
+    "positions_checked": 150,
+    "bounds_lrtb": [
+      89.746,
+      749.564,
+      664.377,
+      1191.692
+    ],
+    "safe_picture_lrtb": [
+      62,
+      918,
+      280,
+      1230
+    ],
+    "pass": true,
+    "limits": "Current chassis fit only; steering/running-gear repair changes occupied geometry and requires a fresh check."
+  },
+  "contact_geometry": "Wheelbottom-.12+.17-.13=-.08 matches floor. Fork top.32 clears housing underside.33; bearing reaches.40 overlapping housing. Currentcaster swept worldhalfwidth under.46.",
+  "surface_geometry": "Broad heat front z.52 remains behind fin-bar fronts z.5375 and ahead of the unlit teal face z.51. Fan guard rings, hubs, fins, bolts and piping remain modeled. Unit x/y scaling creates a taller authored silhouette. Lower environment response and unlit schematic surfaces execute a concrete contrast change; its actual finish and comprehension remain unproved.",
+  "art_execution": "ProvenDispatch supplies ArtDirectionProvider; shared CinematicStage reads the current shot and Studio light recipe. A executes held closer oblique shots, B higher inspection shots, with purpose-specific scene poses. Each uses the same verified words and supported state chain. Contact/travel progress windows reserve anticipation/settle within existing durations. The frozen reference bank is calibration, not approval or extra polish.",
+  "hero_scope": {
+    "start_scene": "s2",
+    "end_scene": "s3",
+    "assessment": "Current scope includes source-attributed robot comparison and the referring handheld confirmation line, resolving the prior missing antecedent risk at plan scope."
+  },
+  "authorization": "REVISE required event-consumer timing. Correct steering clock binding before actual capture; no optional story/style change requested.",
+  "running_gear_review": {
+    "current_clock_mechanics_pass": true,
+    "independent_positions": 150,
+    "independent_max_no_slip_residual": 2.505744641690743e-16,
+    "wheel_sweep_radius": 0.1392838827718412,
+    "contact": "Wheelbottom-.12+.17-.13=-.08 matches floor. Fork top.32 clears housing underside.33; bearing reaches.40 overlapping housing. Currentcaster swept worldhalfwidth under.46.",
+    "retained_invariance": "Independent complete equality of all scene objects, art_direction/shots, cinema and spoken words against actual before05 A/B boards.",
+    "counterexample": "Illustrative duration scale1.2 moves authored return start5.15 to6.18 and settle6.254 to7.5048. Atlocal6.6 the chassis is in diagonal return while raw-clock steering is already reset to0. This is a computed retiming case, not actual synthesized narration or a viewed movie.",
+    "retained_failed_first_audit": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/builder-checks/repair-05-running-gear-audit-failed-first.json",
+      "sha256": "475a9441b8295ce87a865bf5f89829a4d5520ef7ee3f24034c73fdc59894b0be"
+    },
+    "current_audit": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/builder-checks/repair-05-running-gear-audit.json",
+      "sha256": "044e52316ca3b32115dad7e154f344c8131d37ff764621d650bdf1b6709db5c4"
+    }
+  },
+  "original_report": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/opening-a-critic.json",
+    "sha256": "a5d722063242fbe5bc58d31c76716cd676983dfdcefbc7be42a61fd54145cd64"
+  },
+  "technical_repair": {
+    "eligible": true,
+    "findings": [
+      {
+        "finding": {
+          "criterion": "contact_and_consequence",
+          "classification": "mandatory-runtime-event-consumer",
+          "scene": "s2",
+          "start_s": 4.5,
+          "end_s": 11.3,
+          "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
+          "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
+          "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
+        },
+        "category": "runtime",
+        "basis": "Actual renderer mixes raw scene seconds for caster steering with automatically retimed event progress for travel/rolling. This is a deterministic consumer timing/kinematic implementation failure in the required path, independent of taste or unviewed pixels."
+      }
+    ]
+  }
+}

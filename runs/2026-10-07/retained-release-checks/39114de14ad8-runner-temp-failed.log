@@ -1,0 +1,206 @@
+  ok      1.9s  Ownership self-test (prove the gate can go red)
+  ok      0.1s  Port audit self-test (prove every gate can go red)
+  ok      0.0s  Actor stamp shape self-test (prove it can go red)
+  ok      0.1s  No instruction file tells a session to write the actor stamp
+  ok      0.0s  Sensitive paths self-test (prove it can go red)
+  ok      0.3s  No instruction file tells a session to write under .claude/
+  ok      0.1s  Prompt audit self-test (prove it can go red)
+  ok      0.5s  fetch_doc self-test (prove it can go red)
+  ok      0.0s  crawl_boundary self-test (prove it can go red)
+  ok      0.2s  No-stall hook self-test (prove it can go red, and that it is registered)
+  ok      0.8s  Merge readiness self-test (prove a conflicted branch goes red)
+  ok      0.3s  Guard workflow shape self-test (prove it can go red)
+  ok      0.1s  Every guard job is behind the required check
+  ok      0.1s  Dependency lock self-test (prove floating installs go red)
+  ok      0.1s  Every dependency install uses the committed locks
+  ok      0.0s  Release wiring self-test (prove deployment cannot bypass full guards)
+  ok      0.1s  Every main writer reaches Pages through full guards
+  ok      0.0s  Lesson reference self-test (prove it can go red)
+  ok      0.4s  Every lesson citation names the lesson it points at
+  ok      2.3s  The local runner refuses to call an unfinished suite green
+  ok      0.0s  Facility dossier self-test (prove it can go red)
+  ok      0.0s  Every researched fact names a source that exists
+  ok      0.0s  Entity resolution self-test (the comma that hid the largest occupant)
+  ok      0.0s  Every entity resolves and every group states its reason
+  ok      0.0s  Decider resolution self-test (one body, however many ways the record spells it)
+  ok      0.0s  Every decider resolves and every collision is declared
+  ok      0.0s  Construction register parser self-test (it keeps no person)
+  ok      0.0s  Construction register self-test (a cost is never counted twice)
+  ok      0.0s  Every construction filing is well formed and names nobody
+  ok      0.0s  Registry change log self-test (an edit in place is not a new row)
+  ok      0.1s  Registry graph self-test (the layout is deterministic, not seeded)
+  ok      0.0s  Routine claims self-test (prove it can go red)
+  ok      0.0s  The routine describes the site it actually publishes
+  ok      0.0s  Places self-test (the canonical place record and its resolver)
+  ok      0.1s  Places record is reproducible from its source geodata
+  ok      0.1s  Reservoir positions self-test (the pins the water map is drawn from)
+  ok      0.1s  Reservoir positions agree with the archive they came from
+  ok      0.4s  Docket gates self-test (prove every gate can go red)
+  ok      0.1s  Re-verification self-test (the diff, and the stamp it withholds)
+  ok      0.2s  Every re-worded movement note states only figures something established
+  ok      0.0s  Docket staleness selector self-test
+  ok      0.8s  Docket gates against the committed record
+  ok      0.0s  Nothing rotten in the record
+  ok      0.0s  Grid watch collector self-test (hermetic, gates every collection)
+  ok      0.0s  Calendar arithmetic self-test (an item is not a date, and a gap is information)
+  ok      0.0s  Numeral lint self-test (the gate behind "no number is ever typed")
+  ok      0.0s  Water watch collector self-test (hermetic, gates every collection)
+  ok      0.1s  Weather collector self-test (a dry day is zero, a missing high is not)
+  ok      0.0s  Drought collector self-test (the severity columns are cumulative, and are checked)
+  ok      0.1s  Docket ingest self-test (an undated comment window is demoted, never published)
+  ok      0.6s  News headline selection self-test
+  ok      0.1s  News headline matches its recorded evidence
+  ok      0.0s  Front chip self-test (the rotation, and no day of the year left empty)
+  ok      0.2s  Grid watch page self-test (the numeral gate, and the bar that is never a dial)
+  ok      0.5s  Water watch page self-test (one hue per bar, El Paso excluded on purpose)
+  ok      0.3s  Grid watch page check self-test
+  ok      0.1s  The published grid watch page holds its promises
+  ok      2.3s  Media check self-test (it can go red)
+  ok      1.9s  Every image the site points at exists
+  ok      0.1s  Water watch page check self-test
+  ok      0.1s  The published water watch page holds its promises
+  ok      2.0s  Caption lint self-test (the house rules, and that they can go red)
+  ok      0.1s  Banned words self-test (owner, 2026-09-27, and that it can go red)
+  ok      0.1s  Claims gate self-test (every drift the sibling suffered, replayed)
+  ok      0.1s  Aggregate gate self-test (the arithmetic on top of the claims)
+  ok      0.2s  Dedupe pre-flight self-test (reads the whole entry, not the title)
+  ok      0.1s  Dossier gate self-test (the plan, before anything is drawn)
+  ok      6.6s  Layout gate self-test (the primary image law and the archetype rotation)
+  ok      0.1s  Copy sync self-test (the record still says what the deck says)
+  ok      0.1s  Instincts ledger self-test (confidence is earned, never claimed)
+  ok      0.1s  Gate status self-test (the record cannot contradict the artifacts)
+  ok      3.2s  Ship images self-test (measured, never asserted)
+  ok      1.8s  Measure shipped self-test (one writer for measurements.json)
+  ok      0.7s  The newest deck's measurements.json matches its shipped frames
+  ok      0.0s  Bespoke check self-test (a template scores 1.0, a real deck scores near zero)
+  ok      0.0s  The demo deck is genuinely bespoke
+  ok      0.1s  Deck chassis self-test (nine frames, one world)
+  ok      0.1s  The reference chassis deck is one deck
+  ok      0.0s  The reference chassis deck is genuinely bespoke
+  ok      0.0s  Deck coherence self-test (a spread is a set, a deck is a sequence)
+  ok      0.1s  Figure bearing self-test (the artwork carries the data)
+  ok      0.1s  Depth floor self-test (the frame stands in a place)
+  ok      0.4s  The print screen stays deleted (owner, 2026-09-23)
+  ok      0.0s  The figure bearing reference plans its cameras
+  ok      0.0s  The figure bearing reference stands on the bench
+  ok      0.0s  The figure bearing reference still draws its figures
+  FAIL    0.0s  The figure bearing reference rebuilds byte for byte from its figures  (exit 1)
+  ok      0.1s  The ratchet floor under the round cap is measurable
+  ok      0.0s  No surface states the superseded rotation rule
+  ok      0.1s  Gmail draft self-test (drafts only, and the address is a constant)
+  ok      0.0s  Email check self-test (the run's email is postable, not an essay)
+  ok      0.1s  Every shipped run carries a postable email
+  ok     61.4s  The gates run against every deck this project has published
+  ok      9.3s  The shipped-deck runner can go red, and every gate in it is reachable
+  ok      0.0s  Noun trace self-test (a named thing needs a source, and a label is not a name)
+  ok      0.6s  Panel self-test (three judges, a per-criterion median, hard fails unioned)
+  ok      0.1s  Texan self-test (where it happened, and what a reader can do next)
+  ok     13.3s  Plan versus render self-test (the frame matches the plan it was drawn from)
+  ok      0.0s  Absence self-test (a negative needs a document behind it)
+  ok      0.2s  Craft floor self-test (no frame ships that nobody drew)
+  ok      0.2s  Coherence self-test (the deck reads as one object, and the footer is the domain)
+  ok      0.7s  Completion self-test (a run cannot call itself done under the threshold)
+  ok      0.0s  Weekly machine pass due check self-test (weekly, early for a repeat offender, never twice a day)
+  ok      0.1s  Week digest self-test (the week's scores and recurring themes, counted)
+  ok      0.3s  Machine QA self-test (replayed against real captured renders)
+  ok      0.1s  Render self-test (a shader that fails to compile fails its slide)
+  ok      0.1s  House style self-test (our prose is checked, a quote never is)
+  ok      0.0s  CSS token self-test (a name nothing defines is not a colour)
+  ok      0.1s  The scan page and the scanner repo agree on the contract
+  ok      0.0s  The content security policy, and the checker that proves it can go redguards_local: 2 of 163 step(s) FAILED
+
+  ok      1.8s  The structured data is checked as the published copy it is
+  ok     11.0s  The published site keeps the house rules
+  ok      0.9s  Every var() in the built stylesheets resolves
+  ok      0.0s  Link and canonical self-test (both faults, replayed)
+  ok      2.3s  Every canonical resolves and every page is reachable
+  ok      0.3s  The record shape cannot move without saying so
+  ok      0.0s  The liveness checker can still go red
+  ok      0.3s  The record is findable, which no gate here was checking
+  ok    809.5s  The build reads the ledgers and nothing about the clone
+  ok      0.1s  Ask engine self-test (routes not cached answers, and it phones nobody)
+  ok      1.2s  The gold set is built, and it still has negatives in it
+  ok      1.7s  The answering record, and what an answer may contain
+  ok      0.2s  What a written answer is allowed to say
+  ok     92.0s  What the worker retrieves, measured against the record
+  ok      0.0s  The written lane's client, and every word it shows
+  ok      0.0s  The index can be told a page changed
+  ok      0.0s  Glyph outlines come out of the committed fonts
+  ok      0.1s  The site's drawn surfaces prove they can go red
+  FAIL    2.1s  The ask box's gold set still builds from the record  (exit 1)
+  ok      1.7s  A shared link has a card rather than a bare string
+  ok      0.1s  The tab icon is drawn, not defaulted
+  ok      0.0s  Web fonts are committed, licensed, and actually served
+  ok      0.3s  Theme self-test (every contrast ratio computed and gated, red stays reserved)
+  ok      0.4s  Map self-test (orientation, extent, determinism, and the scale bar tells the truth)
+  ok      1.0s  Attribution check can go red
+  ok      0.0s  Port manifest is current
+  ok     17.3s  Port audit
+  ok    506.3s  Site build self-test
+  ok      0.2s  The document index preserves its reviewed source contract
+  ok    254.9s  Freshness gate self-test (it bites, and a date change alone does not)
+  ok     85.9s  The published site is exactly what the ledgers produce
+  ok      2.5s  Browser for the read-time checks
+  ok    110.4s  The ask engine answers every question it catalogues
+  ok     52.2s  The written lane holds a conversation, and says what it sends
+  ok     22.1s  The watch page sends the token and nothing else
+  ok      3.6s  The document demo filters sources and keeps review local
+  ok     20.7s  A message reaches the desk without the address being on the page
+  ok      2.4s  The router is measured against a gold set built from the record
+  ok     21.5s  The record calendar, every month by every route
+  ok     31.4s  The facility dossiers, page and dialog
+  ok    191.4s  Every character the site draws exists in the face it is drawn with
+  ok      1.1s  The registry read by company
+  ok     76.3s  The browser is asked what the policy actually refuses
+  ok    152.6s  The page actually renders as night
+  ok      3.0s  The map moves like a map on a phone
+  ok      0.1s  The map helper is oriented correctly
+  ok    246.4s  The world meets its sky, measured in pixels
+  ok      0.0s  The illustration libraries load, and every catalogue object has a footprint
+  ok     14.2s  Every column of a data table fits what is in it
+  ok     68.4s  News headline refreshes and survives feed failures
+  ok    112.5s  The site fits the screen it is on
+  ok    408.4s  Every word is legible against the ground it lands on
+  ok      0.0s  Every guard job passed
+
+--- The figure bearing reference rebuilds byte for byte from its figures 
+Traceback (most recent call last):
+  File "/Users/t/Desktop/TexasAIDocket/.worktrees/docket-dispatch-2026-10-07/examples/figure-bearing/build.py", line 33, in <module>
+    OUT.mkdir(parents=True, exist_ok=True)
+  File "/Users/t/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 30] Read-only file system: '/fb'
+
+--- The ask box's gold set still builds from the record ---------
+  ok    a county case carries the word county, which is what disambiguates it
+  ok    a decider becomes a case
+  ok    nonsense that shares nothing with the record is kept
+  ok    ...and a phrase the record grew into is dropped rather than scored forever
+  ok    every case names either an item or a view, never neither
+  ok    queries are unique, so a busy county is not counted four times
+  ok    the real record produces a set worth running
+  ok    ...with negatives in it
+
+  built from the record: {"construction": 61, "county": 39, "decider": 109, "facility": 120, "facility_phrase": 144, "metro_water": 19, "nonsense": 5, "phrase": 176, "reservoir": 119, "title": 175, "topic_item": 8}, 975 cases
+
+ask_eval self-test: all passed
+Traceback (most recent call last):
+  File "/Users/t/Desktop/TexasAIDocket/.worktrees/docket-dispatch-2026-10-07/scripts/site/ask_eval.py", line 414, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/t/Desktop/TexasAIDocket/.worktrees/docket-dispatch-2026-10-07/scripts/site/ask_eval.py", line 406, in main
+    p.write_text(blob + "\n", encoding="utf-8")
+  File "/Users/t/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/pathlib.py", line 1078, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/t/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 30] Read-only file system: '/ask_gold.json'
+
+4 step(s) did NOT run here:
+  -  Install dependencies: sets up the runner, not a check
+  -  Ownership check: needs a CI context (a ${{ }} expression), so it can only run on a runner. Covered here by the pre-commit hook, which runs the same check on every commit, against the lane it resolves from the branch
+  -  No assistant attribution in the range's commits: needs a CI context (a ${{ }} expression), so it can only run on a runner
+  -  Start Pages for the guarded main: needs a CI context (a ${{ }} expression), so it can only run on a runner
+

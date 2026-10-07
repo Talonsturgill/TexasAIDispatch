@@ -1,0 +1,115 @@
+{
+  "schema": "dispatch_alignment_name_implementation_review/1",
+  "date": "2026-10-07",
+  "reviewer_identity": "independent-adversarial-validator",
+  "inspected_at": "2026-10-07T09:03:45.120712+00:00",
+  "verdict": "PASS",
+  "blocking_defects": [],
+  "code_sha256": "e54b4e53c281066f984e98f7a93f9c253d879a3d7a1a2e74607b42cbdfd332e9",
+  "aliases_sha256": "821bc26e98cc9076c696758b8ee3e1b91349d651677b7d10163595c336887aa7",
+  "source_quote": "Since July 28, 2026, FacilityOps AI has been conducting an autonomous inspection pilot at the CRSC Data Center, powered by Solutions IS, in Houston, Texas.",
+  "source_snapshot_sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+  "exact_current_fixture": {
+    "result": "PASS",
+    "script_words": 82,
+    "raw_heard_words": 83,
+    "measured_speech_runs": 13,
+    "name_join_provenance": {
+      "kind": "proper-name-join",
+      "raw_asr_indices": [
+        12,
+        13
+      ],
+      "recognized_words": [
+        {
+          "text": "Facility",
+          "center": 6.88
+        },
+        {
+          "text": "Ops",
+          "center": 7.12
+        }
+      ],
+      "dtw_centers_s": [
+        6.88,
+        7.12
+      ],
+      "representative_center_s": 7.0,
+      "speech_run_bounds_s": [
+        6.32,
+        10.86
+      ],
+      "occurrence": 1,
+      "source": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "source_sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+      "source_quote_sha256": "cd74dc42cb24e63c8b21085703d4f5c883ca54fe6dfcf4a4d15a0901b3e6f969",
+      "source_quote": "Since July 28, 2026, FacilityOps AI has been conducting an autonomous inspection pilot at the CRSC Data Center, powered by Solutions IS, in Houston, Texas.",
+      "reason": "Exact literal brand in independently fetched vendor source. Adjacent raw acoustic words concatenate exactly to single source-backed capitalized brand, both in same measured run."
+    },
+    "all_script_words_preserved": true
+  },
+  "negative_current_fixtures": [
+    {
+      "case": "Unchanged no-alias fault remains refused",
+      "result": "PASS_REFUSED",
+      "observed_error": "ASR does not reconcile with the locked script: - facilityops ?         ---\n + facility + ops"
+    },
+    {
+      "case": "Current name center moved into actual silence",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join must occupy one measured speech run without crossing silence"
+    },
+    {
+      "case": "Current name crosses actual measured runs",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join must occupy one measured speech run without crossing silence"
+    },
+    {
+      "case": "Current name touches run boundary",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join must occupy one measured speech run without crossing silence"
+    },
+    {
+      "case": "Current name semantic substitution",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join occurrence has no matching raw acoustic pair"
+    },
+    {
+      "case": "Current name inserted heard word",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join occurrence has no matching raw acoustic pair"
+    },
+    {
+      "case": "Current alias invalid occurrence 2",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join occurrence has no matching raw acoustic pair"
+    },
+    {
+      "case": "Current alias invalid occurrence True",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name joins require two exact nonnumeric parts and an occurrence-bound CamelCase script name"
+    },
+    {
+      "case": "Current alias invalid source_quote_sha256 0000000000000000000000000000000000000000000000000000000000000000",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name join requires a byte-bound source quote with the exact official name"
+    },
+    {
+      "case": "Current alias invalid heard Facility 23",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name joins require two exact nonnumeric parts and an occurrence-bound CamelCase script name"
+    },
+    {
+      "case": "Current alias invalid script facilityops",
+      "result": "PASS_REFUSED",
+      "observed_error": "proper-name joins require two exact nonnumeric parts and an occurrence-bound CamelCase script name"
+    }
+  ],
+  "self_test": {
+    "command": "python scripts/vo_align.py --self-test",
+    "exit_code": 0,
+    "result": "All existing and proper-name-join fixtures passed"
+  },
+  "preservation": "Raw ASR, voice, take, script, claims and source hashes unchanged from independent diagnosis.",
+  "limits": "Portable source digest is independently checked here against the fetched snapshot. Runtime checks quote integrity and source digest shape without refetching underlying source; this report supplies exact snapshot binding. Does not approve listening quality, caption layout, final rendered media or shipment."
+}

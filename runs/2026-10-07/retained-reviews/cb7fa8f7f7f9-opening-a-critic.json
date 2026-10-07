@@ -1,0 +1,166 @@
+{
+  "verdict": "revise",
+  "review_scope": "code-plan-mandatory-checkpoint-pivot",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T08:24:34.887918+00:00",
+  "concept_sha256": "8f6f36e3dd7cfb00bd6b7fef24a7d4e42092293fc234e061a7dfd1149ab8acf7",
+  "renderer_sha256": "5a9f385f1b4dbf5281663572434c1d1f562882e7c9dfab87c5d128ca2b2c7c70",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "blocking_defects": [
+    {
+      "criterion": "contact_and_consequence",
+      "classification": "mandatory-physical-integrity",
+      "scene": "s2",
+      "start_s": 4.5,
+      "end_s": 11.3,
+      "problem": "The Sensor wheels are ordinary cylinders with axes along worldx, produced by rotationz=pi/2. Both substantial1.10-world comparison traverses move the fixed-heading chassis along worldx, parallel to those axles, while the modeled wheels roll alongworldz. There is no chassis steering, wheel steering, rolling-angle code or omni/mecanum running gear. The diagonalx/z return also retains that fixed heading. This depicts sideways skating rather than mechanically supported checkpoint travel. Ground contact alone does not resolve the mismatch.",
+      "effect": "The replacement principal action cannot perform its planned inspection account through credible physical locomotion. Actual travel magnitude or a passing projection cannot approve that depicted mechanism.",
+      "fix": "Make the depicted generic running gear and chassis heading support the actual comparison traverses and return. Align wheel rolling directions with the path, show appropriate steering/turning or use explicitly modeled generic omnidirectional running gear with credible wheel motion. Preserve floor contact, target stop/aim, same settled s3 position, source disclosure,82words and successful other scenes. Recheck whole occupied geometry after the mandatory mechanical correction; do not claim an actual vendor robot model."
+    }
+  ],
+  "notes": [],
+  "strongest_frame": "Planned whole sensor traversal/stop targets remain source-bound beside conserved warm/cool units and the separate checker result.",
+  "weakest_frame": "The planned substantial traverse uses ordinary fixed-heading wheels sideways; this mandatory mechanical fault must be repaired before actual phone admission.",
+  "story_review": {
+    "story_sha256": "7c8f84539c7f30734d1ef552b787d080b6da9df95fe524e62f65ae6275ca964e",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "criterion": "contact_and_consequence",
+        "classification": "mandatory-physical-integrity",
+        "scene": "s2",
+        "start_s": 4.5,
+        "end_s": 11.3,
+        "problem": "The Sensor wheels are ordinary cylinders with axes along worldx, produced by rotationz=pi/2. Both substantial1.10-world comparison traverses move the fixed-heading chassis along worldx, parallel to those axles, while the modeled wheels roll alongworldz. There is no chassis steering, wheel steering, rolling-angle code or omni/mecanum running gear. The diagonalx/z return also retains that fixed heading. This depicts sideways skating rather than mechanically supported checkpoint travel. Ground contact alone does not resolve the mismatch.",
+        "effect": "The replacement principal action cannot perform its planned inspection account through credible physical locomotion. Actual travel magnitude or a passing projection cannot approve that depicted mechanism.",
+        "fix": "Make the depicted generic running gear and chassis heading support the actual comparison traverses and return. Align wheel rolling directions with the path, show appropriate steering/turning or use explicitly modeled generic omnidirectional running gear with credible wheel motion. Preserve floor contact, target stop/aim, same settled s3 position, source disclosure,82words and successful other scenes. Recheck whole occupied geometry after the mandatory mechanical correction; do not claim an actual vendor robot model."
+      }
+    ],
+    "one_viewing_summary": "Code-plan reconstruction only. Whole robot performs two substantial comparison traverses and a diagonal return before unchanged separate handheld confirmation, restoration and unresolved second state.",
+    "opening_to_ending": "The current callable sequence carries the same unit identity from source-disclosed warm comparison through a separate matching checker to the reported restored state. The other unit has a transient comparison, then a conserved open flag. That answers the flag-to-maintenance question within the vendor evidence without synthetic repair or another diagnosed outcome.",
+    "weakest_transition": "The intended robot comparison travel lacks mechanically appropriate running gear/heading. Its return position and prior source relationships remain conserved."
+  },
+  "action_reviews": [
+    {
+      "action_id": "cooling-checkpoint-comparison-v3",
+      "module_sha256": "7d94f9837b7c40d1ba609fa40996031bd1cfbf2d6f3466aa7df00518df1e6ff7",
+      "source_claims_sha256": "5b4cb96b9f7dbd0e0b09b57f68c60a13a7473d411d3624b6621e6d9c8676a6fb",
+      "verdict": "revise",
+      "blocking_defects": [
+        {
+          "criterion": "contact_and_consequence",
+          "classification": "mandatory-physical-integrity",
+          "scene": "s2",
+          "start_s": 4.5,
+          "end_s": 11.3,
+          "problem": "The Sensor wheels are ordinary cylinders with axes along worldx, produced by rotationz=pi/2. Both substantial1.10-world comparison traverses move the fixed-heading chassis along worldx, parallel to those axles, while the modeled wheels roll alongworldz. There is no chassis steering, wheel steering, rolling-angle code or omni/mecanum running gear. The diagonalx/z return also retains that fixed heading. This depicts sideways skating rather than mechanically supported checkpoint travel. Ground contact alone does not resolve the mismatch.",
+          "effect": "The replacement principal action cannot perform its planned inspection account through credible physical locomotion. Actual travel magnitude or a passing projection cannot approve that depicted mechanism.",
+          "fix": "Make the depicted generic running gear and chassis heading support the actual comparison traverses and return. Align wheel rolling directions with the path, show appropriate steering/turning or use explicitly modeled generic omnidirectional running gear with credible wheel motion. Preserve floor contact, target stop/aim, same settled s3 position, source disclosure,82words and successful other scenes. Recheck whole occupied geometry after the mandatory mechanical correction; do not claim an actual vendor robot model."
+        }
+      ],
+      "code_observations": {
+        "source_fidelity": "Unchanged vendor evidence supports relative warmth, repeated inspection checkpoints and separate handheld confirmation, not actual route/hardware/readings/UI or robot repair. Generic finite checkpoint staging is within that disclosed explanatory scope.",
+        "visible_action": "Current callable phase1 usesx=.55-1.10*a+1.10*b-.61*c,z=2.10-.65*c. Travel windows0..1.2,2.3..3.5,5.15..6.35 enter and leave holds with zero velocity/acceleration. Target stops are warm(-.55,2.1),cool(.55,2.1),return(-.06,1.45). Entire chassis moves, but the wheels have fixed worldx axles and no heading/steering/rolling implementation for these paths.",
+        "consequence": "Warm aim(.03,.18) and cool aim(-.03,.15) plausibly face their qualitative equipment targets. Return equals nextphase sensor position, but locomotion is mechanically unsupported until the finding is repaired. Successful opening and s3-s6 state relationships remain unchanged.",
+        "disclosure": "Episode is byte-identical to before04. Generic illustration/vendor and schematic labels remain routed. Same82words and hero s2-s3 are preserved. No explicit actual route, software output or measured reading is introduced.",
+        "limits": "No current movie, pixels, listening, native finish, caption alignment, scoring or shipment approval. Current rejection is code physical integrity; previous exact phone failures remain retained."
+      }
+    }
+  ],
+  "code_observations": {
+    "source_fidelity": "Unchanged vendor evidence supports relative warmth, repeated inspection checkpoints and separate handheld confirmation, not actual route/hardware/readings/UI or robot repair. Generic finite checkpoint staging is within that disclosed explanatory scope.",
+    "visible_action": "Current callable phase1 usesx=.55-1.10*a+1.10*b-.61*c,z=2.10-.65*c. Travel windows0..1.2,2.3..3.5,5.15..6.35 enter and leave holds with zero velocity/acceleration. Target stops are warm(-.55,2.1),cool(.55,2.1),return(-.06,1.45). Entire chassis moves, but the wheels have fixed worldx axles and no heading/steering/rolling implementation for these paths.",
+    "consequence": "Warm aim(.03,.18) and cool aim(-.03,.15) plausibly face their qualitative equipment targets. Return equals nextphase sensor position, but locomotion is mechanically unsupported until the finding is repaired. Successful opening and s3-s6 state relationships remain unchanged.",
+    "disclosure": "Episode is byte-identical to before04. Generic illustration/vendor and schematic labels remain routed. Same82words and hero s2-s3 are preserved. No explicit actual route, software output or measured reading is introduced.",
+    "limits": "No current movie, pixels, listening, native finish, caption alignment, scoring or shipment approval. Current rejection is code physical integrity; previous exact phone failures remain retained."
+  },
+  "source_claims": [
+    {
+      "id": "c1",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Relative temperature only, no physical adjacency established."
+    },
+    {
+      "id": "c2",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Vendor self-report. No independent CRSC confirmation."
+    },
+    {
+      "id": "c3",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Detection does not establish automatic repair."
+    },
+    {
+      "id": "c4",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Confirmation within stated tolerance, not exact identity. Narration omits number."
+    },
+    {
+      "id": "c5",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Repair actor unspecified. No robot repair or independent maintenance record."
+    },
+    {
+      "id": "c6",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "Two verbatim excerpts. No confirmed second failure or repair."
+    },
+    {
+      "id": "c7",
+      "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+      "scope": "July 28 to August 21 findings. Status at September update, not fresh October event."
+    },
+    {
+      "id": "c8",
+      "url": "https://facilityops.ai/why-facilityops/",
+      "scope": "General product description, not pilot hardware or accuracy validation."
+    }
+  ],
+  "prior_report": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/repairs/04-inspection-action/before/out/dispatch/opening-a-critic.json",
+    "sha256": "63ca816d0937aea89fb1dd2a189009879c475f58f080939d24888c00c7f07f8a"
+  },
+  "retained_phone_diagnosis": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/phone-current-diagnosis-a.json",
+    "sha256": "1543b89d64a4cdf034f8edbbfe9346501ae8b242114777fea107b018b240aeb5",
+    "verdict": "revise"
+  },
+  "independent_projection_checks": {
+    "method": "Independent look-at pinhole projection of150 path positions using current s2 travel polynomial/windows and a conservative robot occupied envelope x\u00b1.42,y-.08..1.28,z\u00b1.35. Current larger path fits both actual shots. Projection does not establish physical locomotion.",
+    "positions_checked": 150,
+    "bounds_lrtb": [
+      89.746,
+      749.564,
+      664.377,
+      1191.692
+    ],
+    "safe_picture_lrtb": [
+      62,
+      918,
+      280,
+      1230
+    ],
+    "pass": true,
+    "limits": "Current chassis fit only; steering/running-gear repair changes occupied geometry and requires a fresh check."
+  },
+  "contact_geometry": "Floor top-.08 equals wheelbottom-.12+.17-.13=-.08. Minimum robotrearz1.10 minus equipmentfrontz.74 leaves.36 clearance. Ground contact passes, but travel parallel to ordinary wheel axles is a mandatory physical fault.",
+  "surface_geometry": "Broad heat front z.52 remains behind fin-bar fronts z.5375 and ahead of the unlit teal face z.51. Fan guard rings, hubs, fins, bolts and piping remain modeled. Unit x/y scaling creates a taller authored silhouette. Lower environment response and unlit schematic surfaces execute a concrete contrast change; its actual finish and comprehension remain unproved.",
+  "art_execution": "ProvenDispatch supplies ArtDirectionProvider; shared CinematicStage reads the current shot and Studio light recipe. A executes held closer oblique shots, B higher inspection shots, with purpose-specific scene poses. Each uses the same verified words and supported state chain. Contact/travel progress windows reserve anticipation/settle within existing durations. The frozen reference bank is calibration, not approval or extra polish.",
+  "hero_scope": {
+    "start_scene": "s2",
+    "end_scene": "s3",
+    "assessment": "Current scope includes source-attributed robot comparison and the referring handheld confirmation line, resolving the prior missing antecedent risk at plan scope."
+  },
+  "authorization": "REVISE. Repair the single consolidated mandatory wheel/heading/path mismatch, then repeat exact code admission before actual phone capture. Geometry and source checks do not override this finding.",
+  "mandatory_checkpoint_review": {
+    "retained_inputs": "Independent comparison confirms complete s1/s3-s6 scene objects equal except the shared action identifier, their art shots equal, all spoken words equal, hero object equal. Episode bytes unchanged.",
+    "retained_actual_failed_audit": "repair-04-grounded-pose-audit-failed-first.json remains rejected with49 failed pose rows andmaxbottom1236.408. Corrected current framing audit alone does not approve mechanics or actual motion.",
+    "pivot_binding": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/source-backed-checkpoint-pivot.json",
+      "sha256": "3f5422d5e9e1bfd718ebfb6873d72d071f499929fc74553a1ff6cabca6f2a962"
+    },
+    "classification": "Mandatory physical locomotion correction in the same source-backed v3 scope; no optional polish or new narration/source action."
+  }
+}

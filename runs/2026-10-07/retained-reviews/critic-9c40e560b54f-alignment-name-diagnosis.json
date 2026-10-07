@@ -1,0 +1,168 @@
+{
+  "schema": "dispatch_alignment_name_diagnosis/1",
+  "date": "2026-10-07",
+  "reviewer_identity": "independent-adversarial-validator",
+  "inspected_at": "2026-10-07T08:53:38.196254+00:00",
+  "verdict": "revise",
+  "blocking_defects": [
+    {
+      "id": "alignment-source-compound-tokenization",
+      "description": "Current pinned Whisper DTW transcript splits source-backed FacilityOps into adjacent Facility and Ops; strict acoustic_groups refuses the sole orthographic mismatch, so measured captions cannot yet be produced.",
+      "failure_evidence": "ASR does not reconcile with the locked script: - facilityops ?         ---\n + facility + ops",
+      "affected_inputs": [
+        "out/dispatch/acoustic-asr.json",
+        "out/dispatch/vo_script.txt",
+        "scripts/vo_align.py"
+      ],
+      "repair": "Add explicit source-backed occurrence-limited two-heard-token to one capitalized-script-name reconciliation only where canonical concatenation equals the exact sourced proper name and both original DTW centers lie strictly within the same measured speech run. Preserve original transcript and both centers in explicit join provenance. No guessed times, fuzzy drops, numeric substitutions or word edits."
+    }
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": {
+          "id": "alignment-source-compound-tokenization",
+          "description": "Current pinned Whisper DTW transcript splits source-backed FacilityOps into adjacent Facility and Ops; strict acoustic_groups refuses the sole orthographic mismatch, so measured captions cannot yet be produced.",
+          "failure_evidence": "ASR does not reconcile with the locked script: - facilityops ?         ---\n + facility + ops",
+          "affected_inputs": [
+            "out/dispatch/acoustic-asr.json",
+            "out/dispatch/vo_script.txt",
+            "scripts/vo_align.py"
+          ],
+          "repair": "Add explicit source-backed occurrence-limited two-heard-token to one capitalized-script-name reconciliation only where canonical concatenation equals the exact sourced proper name and both original DTW centers lie strictly within the same measured speech run. Preserve original transcript and both centers in explicit join provenance. No guessed times, fuzzy drops, numeric substitutions or word edits."
+        },
+        "category": "captions"
+      }
+    ]
+  },
+  "evidence_bindings": [
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "sha256": "66a7c98299f35b1278ff00bf0115fc6d813b3619979da99c9bd741a9e389aa95"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b"
+    },
+    {
+      "path": "out/dispatch/sources/facilityops-pilot.validator.txt",
+      "sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0"
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "sha256": "e44d5f9c2aef4eed45b2f0b72c5781c632ce49d3cd68ac5bd2c3f276c0981a4b"
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "sha256": "c53376fb2401358d6ac037d31d5ec77f07d480d9216e61130c8198df05ad7773"
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "sha256": "591dce2f66bfed4a3f3a6866425e215cf7aac78203d0a2d7b8e86434493e9de5"
+    },
+    {
+      "path": "out/dispatch/takes/take1.wav",
+      "sha256": "81a3669a040ee9514d52f2f256c5944ed8a04fede752b1fb5cb037986b01aff5"
+    },
+    {
+      "path": "out/dispatch/takes/takes.json",
+      "sha256": "0e15d32cbf1506e984c0bfb4de3552845e4b7ce7d2171dd2bd28f326a7c2401c"
+    },
+    {
+      "path": "scripts/vo_align.py",
+      "sha256": "3e9a79236538e3304e73337b18611ae78c11899d462bd2368a8a6670baa1a703"
+    }
+  ],
+  "source_claim_id": "c2",
+  "source_quote": "Since July 28, 2026, FacilityOps AI has been conducting an autonomous inspection pilot at the CRSC Data Center, powered by Solutions IS, in Houston, Texas.",
+  "source_type": "primary_vendor_self_report FacilityOps AI",
+  "raw_asr_indices": [
+    12,
+    13
+  ],
+  "raw_asr_words": [
+    {
+      "text": "Facility",
+      "center": 6.88
+    },
+    {
+      "text": "Ops",
+      "center": 7.12
+    }
+  ],
+  "measured_run_index": 2,
+  "measured_run_bounds_s": [
+    6.32,
+    10.86
+  ],
+  "speech_runs": [
+    [
+      1.32,
+      4.16
+    ],
+    [
+      4.78,
+      6.16
+    ],
+    [
+      6.32,
+      10.86
+    ],
+    [
+      11.7,
+      14.08
+    ],
+    [
+      14.9,
+      17.4
+    ],
+    [
+      17.66,
+      19.62
+    ],
+    [
+      20.6,
+      23.32
+    ],
+    [
+      23.86,
+      25.88
+    ],
+    [
+      26.24,
+      27.72
+    ],
+    [
+      28.64,
+      30.58
+    ],
+    [
+      30.76,
+      32.5
+    ],
+    [
+      33.16,
+      35.42
+    ],
+    [
+      35.86,
+      36.88
+    ]
+  ],
+  "sample_rate": 48000,
+  "exact_name_join": {
+    "heard": "Facility Ops",
+    "script": "FacilityOps",
+    "occurrence": 1,
+    "kind": "proper-name-tokenization",
+    "source": "https://facilityops.ai/crsc-data-center-pilot-results/",
+    "reason": "Exact literal brand in independently fetched vendor source. Adjacent raw acoustic words concatenate exactly to single source-backed capitalized brand, both in same measured run."
+  },
+  "lexical_result_after_proposed_join": "Exact canonical script sequence, without other substitutions or deletions.",
+  "take_evidence": {
+    "duration_s": 36.24,
+    "transcript": "One cooling unit ran warmer than the other. In a Houston pilot, Facility Ops AI says its inspection robot detected a failed condenser. A handheld check confirmed the measurement. The vendor reports that the condenser was repaired and the unit returned to normal operation. A second unit showed intermittent temperature spikes. That condition was flagged for inspection, not confirmed as a fault. The vendor's September 23rd update describes the pilot as ongoing. A robot's flag starts a maintenance check. It doesn't finish one.",
+    "note": "Provider soundcheck transcript independently inspected in retained takes.json; raw provider soundcheck receipt not found during bounded file inventory, so no new provider verdict asserted."
+  },
+  "scope": "Independent source/ASR/caption runtime diagnosis only. No audio listening, rendered-picture, soundcheck or shipment approval; no code or alias edits made."
+}

@@ -1,0 +1,133 @@
+{
+  "verdict": "revise",
+  "review_scope": "independent-consolidated-timed-runtime-diagnosis",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T09:13:02.703275+00:00",
+  "concept_sha256": "974879ddcac2b18846fb245a720d4cb9599854ebb3a563fa7b0927905d55e507",
+  "renderer_sha256": "17038d1b92da4ef5a90ea79f06b42dbce8c47682b0c354d93dec06683b0112de",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "board": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/storyboard.json",
+    "sha256": "988baa755a3363e9cc9b10a1cba31f7046f2b8e3cfa8380341d4ef159a95144c"
+  },
+  "blocking_defects": [
+    {
+      "criterion": "runtime",
+      "classification": "mandatory-scene-ceiling",
+      "scene": "s6",
+      "start_s": 28.36,
+      "end_s": 38.5,
+      "problem": "The current measured closing scene runs10.14seconds, exceeding the unchanged9.5second absolute storyboard ceiling. Timed preflight correctly refuses before capture. A consolidated actual cheap sweep identifies no other current timing, board, scale, source, caption-fold, flow, daily-action or creative-plan failure.",
+      "effect": "Current narration-aligned board cannot enter required final phone capture. Earlier documentary duration/cadence repairs do not satisfy this separate ceiling.",
+      "fix": "Trim only0.64seconds from the idle ending hold: s6duration9.5, storyruntime37.86, preserve5secondcredits for total42.86. Keep existing actual three closing-event windows and regenerate their authored clock values against the9.5second scene duration so repeated retime preserves them. Preserve all82words and actual voice placement. Rebuild the mix/media duration and receipts for42.86, then verify actual final timed phone and required audiovisual gates. No split is required once the actual scene falls within the fixed ceiling."
+    }
+  ],
+  "technical_repair": {
+    "eligible": true,
+    "findings": [
+      {
+        "finding": {
+          "criterion": "runtime",
+          "classification": "mandatory-scene-ceiling",
+          "scene": "s6",
+          "start_s": 28.36,
+          "end_s": 38.5,
+          "problem": "The current measured closing scene runs10.14seconds, exceeding the unchanged9.5second absolute storyboard ceiling. Timed preflight correctly refuses before capture. A consolidated actual cheap sweep identifies no other current timing, board, scale, source, caption-fold, flow, daily-action or creative-plan failure.",
+          "effect": "Current narration-aligned board cannot enter required final phone capture. Earlier documentary duration/cadence repairs do not satisfy this separate ceiling.",
+          "fix": "Trim only0.64seconds from the idle ending hold: s6duration9.5, storyruntime37.86, preserve5secondcredits for total42.86. Keep existing actual three closing-event windows and regenerate their authored clock values against the9.5second scene duration so repeated retime preserves them. Preserve all82words and actual voice placement. Rebuild the mix/media duration and receipts for42.86, then verify actual final timed phone and required audiovisual gates. No split is required once the actual scene falls within the fixed ceiling."
+        },
+        "category": "runtime",
+        "basis": "The exact actual scene duration violates the mandatory runtime ceiling. Removing an idle post-action hold preserves all spoken content, picture actions, source relations and geometry while restoring the fixed structural contract; no rubric change or optional art expansion is authorized."
+      }
+    ]
+  },
+  "consolidated_actual_evidence": {
+    "current_checks": {
+      "storyboard": [
+        "scene s6: 10.1s is past the 9.5s ceiling, which nothing earns its way past. Split it."
+      ],
+      "documentary": [],
+      "watchability": [],
+      "shot_coherence": [],
+      "daily_structure": [],
+      "daily_action": [],
+      "creative_plan": [],
+      "flow": [],
+      "caption_fold": [],
+      "sound_mix_binding": []
+    },
+    "all_11_cheap_checks_plus_flow": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/timed-current-cheap-gates.json",
+      "sha256": "332ecbc2b314b99faca9bd6d3f227a4fe688c6a283307a199481cfa3818d2d79"
+    },
+    "refusal": {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/timed-preflight-refusal.log",
+      "sha256": "87b11d3f6a4ea7620210918c47b60e63d6065e6198d9ea4c7ea412a29e4ff2b4"
+    },
+    "captions_sha256": "54f7669ef80d818d4fda7f702dd65fe6fd0298ad39f6ddc149f0529205e34433",
+    "sound_mix_direction_sha256": "915e4c7e7b24dbec76979654c4934f4f5f163df004f4a1e67e18ec69ff5ce8bc",
+    "capture_spent": false
+  },
+  "source_backed_minimal_repair": {
+    "mechanism_id": "cooling-checkpoint-comparison-v3",
+    "choice": "trim_idle_ending_hold",
+    "story_runtime_s": 37.86,
+    "credits_s": 5,
+    "total_s": 42.86,
+    "closing_start_s": 28.36,
+    "closing_duration_s": 9.5,
+    "events": [
+      {
+        "id": "s6-event-1",
+        "at_s": 0.0,
+        "duration_s": 1.2,
+        "at_s_authored": 0.0,
+        "duration_s_authored": 1.0357894736842104
+      },
+      {
+        "id": "s6-event-2",
+        "at_s": 3.65,
+        "duration_s": 1.2,
+        "at_s_authored": 3.1505263157894734,
+        "duration_s_authored": 1.0357894736842104
+      },
+      {
+        "id": "s6-event-3",
+        "at_s": 7.5,
+        "duration_s": 1.2,
+        "at_s_authored": 6.473684210526315,
+        "duration_s_authored": 1.0357894736842104
+      }
+    ],
+    "source_basis": "Same vendor ongoing-status sentence, maintenance-check distinction and unconfirmed second flag. No words, source claims, fault outcome or repair act changes. The attached open flag settles35.86..37.06; creditstart37.86 leaves0.80seconds after its actual action. This changes only unused final hold, not the successful mechanism.",
+    "paragraph_and_audio_integrity": {
+      "last_aligned_word_end_s": 36.88,
+      "take1_ffprobe_duration_s": 36.24,
+      "retained_voice_offset_s": 1.05,
+      "untruncated_take_end_s": 37.29,
+      "proposed_credit_boundary_s": 37.86,
+      "voice_file_to_credit_clearance_s": 0.57,
+      "last_word_to_credit_clearance_s": 0.98,
+      "flag_action_to_credit_hold_s": 0.8,
+      "time_stretch": 1,
+      "audio_listened": false
+    },
+    "in_memory_complete_checks": {
+      "storyboard": [],
+      "documentary": [],
+      "watchability": [],
+      "shot_coherence": [],
+      "daily_structure": [],
+      "daily_action": [],
+      "creative_plan": [],
+      "flow": [],
+      "caption_fold": [],
+      "sound_mix_binding": []
+    },
+    "input_files_edited": false,
+    "required_receipts": "Existing sound_mix_binding passes current/proposed clock because all actual cue times stay unchanged. Last flag cue is quiet and has no WAV. Nevertheless rebuild actual mix/media for42.86 and regenerate cut/duration/master receipts; do not claim the existing43.5second receipt proves the new media length. Preserve earlier motor/check cue times and actual take bytes.",
+    "alternative_split": "A split would require conserving phase5 global progress, remapping scene/item/event/craft/sound dependencies and new consumer admission. It is unnecessary after the independently validated idle-hold trim restores the exact ceiling and complete cheap gates."
+  },
+  "native_capacity": "This trim is justified by the fixed scene ceiling, independent of storage. Run native_headroom against the actual final42.86second board and honor its unchanged-quality computed requirement. No estimate, resolution or reserve waiver.",
+  "authorization": "Exact independent runtime diagnosis and minimal trim admission only. No code/board edits or new movie, audio-listening, native, scoring or shipment pass."
+}

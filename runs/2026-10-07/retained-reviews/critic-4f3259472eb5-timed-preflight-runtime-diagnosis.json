@@ -1,0 +1,195 @@
+{
+  "verdict": "revise",
+  "review_scope": "independent-timed-preflight-runtime-diagnosis",
+  "reviewer_identity": "/root/code_critic",
+  "reviewed_at": "2026-10-07T09:06:49.635498+00:00",
+  "concept_sha256": "974879ddcac2b18846fb245a720d4cb9599854ebb3a563fa7b0927905d55e507",
+  "renderer_sha256": "17038d1b92da4ef5a90ea79f06b42dbce8c47682b0c354d93dec06683b0112de",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "story_sha256": "9b99f7ad549d85fc52928411e38a060e7f244d0fb50a9a4cc93b7c60fa6e73d9",
+  "board": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/storyboard.json",
+    "sha256": "ccb5dd829fea36f330cdc0908088d4f6bb372ab2c96fb328651168d74c10f2d5"
+  },
+  "claims_sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b",
+  "words": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/words.json",
+    "sha256": "3fc0d0763a399ac5e43ab775e19824fea98a99f22414cc2c9e3469b76212745e",
+    "last_word_end_s": 36.88
+  },
+  "failure_evidence": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-production-2026-10-07/out/dispatch/timed-preflight-refusal.log",
+    "sha256": "87b11d3f6a4ea7620210918c47b60e63d6065e6198d9ea4c7ea412a29e4ff2b4",
+    "actual_documentary_errors": [
+      "viewer reward gap 4.64s exceeds 4.0s; revise the actual actions",
+      "s2-event-1: action duration outside directed range",
+      "s2-event-2: action duration outside directed range",
+      "s2-event-3: action duration outside directed range",
+      "s6-event-1: action duration outside directed range",
+      "s6-event-2: action duration outside directed range",
+      "s6-event-3: action duration outside directed range"
+    ],
+    "capture_performed": false
+  },
+  "blocking_defects": [
+    {
+      "criterion": "runtime",
+      "classification": "mandatory-directed-event-duration",
+      "scene": "s2,s6",
+      "problem": "Required board_retime scaled s2 event durations1.2 to1.221 and s6 event durations1.0 to1.237. All six exceed the unchanged documentary directed maximum1.2 seconds. Actual timed preflight refused before rendering.",
+      "effect": "The current narration-aligned board cannot enter its required phone capture despite successful earlier silent films.",
+      "fix": "Preserve the actual narration-aligned scene starts/durations, geometry, source claims and words. Reduce each of these six actual event durations to1.2 seconds and update authored durations by the actual scene retime ratio so a subsequent retime derives the same valid windows."
+    },
+    {
+      "criterion": "runtime",
+      "classification": "mandatory-event-cadence",
+      "scene": "s6",
+      "start_s": 32.01,
+      "end_s": 36.645,
+      "problem": "The actual s6 second-event start32.01 and third-event start36.645 leave4.635 seconds between declared viewer rewards, exceeding the unchanged4.0second gate. This is the exact measured preflight timing failure, not a judgment from an unseen timed movie.",
+      "effect": "The last open-flag action cannot remain on its current event clock under the required cadence contract.",
+      "fix": "Move only the current source-supported final open-flag settle to s6 local7.5 seconds, absolute35.86, where the final sentence begins. Keep the unresolved flag and empty checker outcome, with a1.2second action ending37.06. Update its authored at_s by the actual retime ratio; preserve total43.5seconds and existing audio/script."
+    }
+  ],
+  "technical_repair": {
+    "eligible": true,
+    "findings": [
+      {
+        "finding": {
+          "criterion": "runtime",
+          "classification": "mandatory-directed-event-duration",
+          "scene": "s2,s6",
+          "problem": "Required board_retime scaled s2 event durations1.2 to1.221 and s6 event durations1.0 to1.237. All six exceed the unchanged documentary directed maximum1.2 seconds. Actual timed preflight refused before rendering.",
+          "effect": "The current narration-aligned board cannot enter its required phone capture despite successful earlier silent films.",
+          "fix": "Preserve the actual narration-aligned scene starts/durations, geometry, source claims and words. Reduce each of these six actual event durations to1.2 seconds and update authored durations by the actual scene retime ratio so a subsequent retime derives the same valid windows."
+        },
+        "category": "runtime",
+        "basis": "Required automatic event retiming produced concrete event durations/spacing outside the fixed preflight runtime contract. This correction adjusts only the bound event clocks, preserves the successful source-supported mechanism and narration, and restores admission without changing any gate or adding optional artistic scope."
+      },
+      {
+        "finding": {
+          "criterion": "runtime",
+          "classification": "mandatory-event-cadence",
+          "scene": "s6",
+          "start_s": 32.01,
+          "end_s": 36.645,
+          "problem": "The actual s6 second-event start32.01 and third-event start36.645 leave4.635 seconds between declared viewer rewards, exceeding the unchanged4.0second gate. This is the exact measured preflight timing failure, not a judgment from an unseen timed movie.",
+          "effect": "The last open-flag action cannot remain on its current event clock under the required cadence contract.",
+          "fix": "Move only the current source-supported final open-flag settle to s6 local7.5 seconds, absolute35.86, where the final sentence begins. Keep the unresolved flag and empty checker outcome, with a1.2second action ending37.06. Update its authored at_s by the actual retime ratio; preserve total43.5seconds and existing audio/script."
+        },
+        "category": "runtime",
+        "basis": "Required automatic event retiming produced concrete event durations/spacing outside the fixed preflight runtime contract. This correction adjusts only the bound event clocks, preserves the successful source-supported mechanism and narration, and restores admission without changing any gate or adding optional artistic scope."
+      }
+    ]
+  },
+  "source_backed_minimal_repair": {
+    "mechanism_id": "cooling-checkpoint-comparison-v3",
+    "changes": [
+      {
+        "event_id": "s2-event-1",
+        "before": {
+          "duration_s": 1.221,
+          "duration_s_authored": 1.2,
+          "at_s": 0.0,
+          "at_s_authored": 0
+        },
+        "proposed_after": {
+          "duration_s": 1.2,
+          "duration_s_authored": 1.1791907514450868,
+          "at_s": 0.0,
+          "at_s_authored": 0
+        }
+      },
+      {
+        "event_id": "s2-event-2",
+        "before": {
+          "duration_s": 1.221,
+          "duration_s_authored": 1.2,
+          "at_s": 2.341,
+          "at_s_authored": 2.3
+        },
+        "proposed_after": {
+          "duration_s": 1.2,
+          "duration_s_authored": 1.1791907514450868,
+          "at_s": 2.341,
+          "at_s_authored": 2.3
+        }
+      },
+      {
+        "event_id": "s2-event-3",
+        "before": {
+          "duration_s": 1.221,
+          "duration_s_authored": 1.2,
+          "at_s": 5.241,
+          "at_s_authored": 5.15
+        },
+        "proposed_after": {
+          "duration_s": 1.2,
+          "duration_s_authored": 1.1791907514450868,
+          "at_s": 5.241,
+          "at_s_authored": 5.15
+        }
+      },
+      {
+        "event_id": "s6-event-1",
+        "before": {
+          "duration_s": 1.237,
+          "duration_s_authored": 1.0,
+          "at_s": 0.0,
+          "at_s_authored": 0
+        },
+        "proposed_after": {
+          "duration_s": 1.2,
+          "duration_s_authored": 0.9704142011834317,
+          "at_s": 0.0,
+          "at_s_authored": 0
+        }
+      },
+      {
+        "event_id": "s6-event-2",
+        "before": {
+          "duration_s": 1.237,
+          "duration_s_authored": 1.0,
+          "at_s": 3.65,
+          "at_s_authored": 2.9519999999999995
+        },
+        "proposed_after": {
+          "duration_s": 1.2,
+          "duration_s_authored": 0.9704142011834317,
+          "at_s": 3.65,
+          "at_s_authored": 2.9519999999999995
+        }
+      },
+      {
+        "event_id": "s6-event-3",
+        "before": {
+          "duration_s": 1.237,
+          "duration_s_authored": 1.0,
+          "at_s": 8.285,
+          "at_s_authored": 6.699999999999999
+        },
+        "proposed_after": {
+          "duration_s": 1.2,
+          "duration_s_authored": 0.9704142011834317,
+          "at_s": 7.5,
+          "at_s_authored": 6.065088757396449
+        }
+      }
+    ],
+    "source_basis": "Unchanged vendor sources support qualitative cooling comparison, separate check, reported restored first unit and an unconfirmed second flag. The last event only settles the attached open flag; placing it with the final maintenance-check sentence adds no fault, repair, temperature number, route or human performance. Earlier successful mechanism and source limits remain intact.",
+    "in_memory_gate_validation": {
+      "documentary_check_errors": [],
+      "mutated_workspace_inputs": false
+    },
+    "preserve": [
+      "82 spoken words and all existing audio",
+      "current scene starts/durations and total43.5seconds",
+      "same source and rights limits",
+      "equipment/robot/checker geometry and event-bound caster consumer",
+      "first reported restoration and unconfirmed second state",
+      "native PNG capture and CRF16"
+    ]
+  },
+  "native_headroom_assessment": "Do not lower the native render requirement on this evidence. Narration ends36.88 and current story ends38.5, leaving1.62seconds for the ending hold before separately required5second credits. The actual long cadence interval occurs while the closing narration continues. Scheduling the existing final flag event fixes the documented gap without shortening runtime. Recompute storage only if a separately justified final board duration actually changes.",
+  "authorization": "Exact gate diagnosis and proposed event-clock repair only. No input edits, timed movie approval, audio listening, native proof or scoring claimed."
+}

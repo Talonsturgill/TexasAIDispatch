@@ -1,0 +1,131 @@
+{
+  "schema": "dispatch_source_metadata_diagnosis/1",
+  "date": "2026-10-07",
+  "reviewer_identity": "independent-adversarial-validator",
+  "inspected_at": "2026-10-07T09:25:54.461668+00:00",
+  "verdict": "revise",
+  "blocking_defects": [
+    {
+      "id": "source-metadata-date-not-exposed",
+      "description": "Actual ship_gate pre-panel refusal rejects script numeral 23 because c7 text metadata omits its already verified September update day. The unchanged literal fetched c7 quote contains that date, and script_evidence_check passes.",
+      "actual_refusal": "ship gate: 1 HARD FAIL(S). This run does not merge.\n\n  - the script: the numeral 23 traces to no verified claim. Every numeral this project publishes is produced by code from data and can be recomputed. A figure nobody computed is a figure nobody can check.",
+      "proposed_repair": "Change only c7.text to the source-derived explicit update date. Keep quote, source, claim IDs, narration, captions, renderer, boards, films and original reviews unchanged; obtain fresh hash-bound source validation for the metadata change."
+    }
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": {
+          "id": "source-metadata-date-not-exposed",
+          "description": "Actual ship_gate pre-panel refusal rejects script numeral 23 because c7 text metadata omits its already verified September update day. The unchanged literal fetched c7 quote contains that date, and script_evidence_check passes.",
+          "actual_refusal": "ship gate: 1 HARD FAIL(S). This run does not merge.\n\n  - the script: the numeral 23 traces to no verified claim. Every numeral this project publishes is produced by code from data and can be recomputed. A figure nobody computed is a figure nobody can check.",
+          "proposed_repair": "Change only c7.text to the source-derived explicit update date. Keep quote, source, claim IDs, narration, captions, renderer, boards, films and original reviews unchanged; obtain fresh hash-bound source validation for the metadata change."
+        },
+        "category": "source"
+      }
+    ]
+  },
+  "evidence_bindings": [
+    {
+      "path": "out/dispatch/ship-prepanel-refusal.log",
+      "sha256": "cd8b1d99ec6bc8e3c3f297b01206d3d14a8d8e4d7b469f57107c889461c912ea"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "732bec1930a267ba6237a644f77fbf39dbe0ccfa1a3e5724c8021b2eaebda02b"
+    },
+    {
+      "path": "out/dispatch/sources/facilityops-pilot.validator.txt",
+      "sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "sha256": "66a7c98299f35b1278ff00bf0115fc6d813b3619979da99c9bd741a9e389aa95"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "615227064edf18987188b97c67173e411fb2cbe041e567bf31b8cc735ce26ae6"
+    },
+    {
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "763051b4d554373afe24b17167109d92ff037278325800b011cb1d5fa44f11e9"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "7e7d833761e8740622daf14f31c8bc5a4daf7ce124d3755bb96c56816988e14d"
+    },
+    {
+      "path": "out/dispatch/validation.json",
+      "sha256": "0bdfaa6b2657a798871995836c6b8a9fe01540859d4cfe92e1d8708c96ecb843"
+    },
+    {
+      "path": "out/dispatch/film.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "sha256": "2c6014c2e7fc37687336dbe0cbbbabf7f1b0905a1ff5f9b8fd4bc336debf7179"
+    },
+    {
+      "path": "out/dispatch/silent.mp4",
+      "sha256": "02148c095b4ff08fde29b1b89005682278eb7acbea72256333a55487c7f0e80c"
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "sha256": "eebc9fc4173cbc99a6c3e2490361a2cf9c8d7266d56c1dff04121bb225bdbc9a"
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "sha256": "5b7a9fc5dd4988e75922fb7650eecb1006ad7e43f15a868a721c35f496e38746"
+    },
+    {
+      "path": "out/dispatch/cinema/hero.mp4",
+      "sha256": "4f273bac605b053856b45bdae30d8afbbdae581a86f17e82f7f2039135fa3add"
+    },
+    {
+      "path": "out/dispatch/openings/a.mp4",
+      "sha256": "02271cebc92e99abdb70d7a809df0190dbe6a3e2371aaaada5aa3852f36fb187"
+    },
+    {
+      "path": "out/dispatch/openings/b.mp4",
+      "sha256": "505abfebf00e36a56458db6899825db41d7af65252c70e75c76f87d4393ec0fe"
+    },
+    {
+      "path": "out/dispatch/openings/selection.json",
+      "sha256": "edf971df3384282784007a69dad0c707b0cef52d53149cd60d000f086d9bec84"
+    },
+    {
+      "path": "scripts/ship_gate.py",
+      "sha256": "3addf13f4d8f6d25982748f4d92de133932ae8bd1de28ec03cc7e2f044e39ec2"
+    }
+  ],
+  "claim_id": "c7",
+  "source_quote": "Findings cover the period July 28 to August 21, 2026. The pilot at the CRSC Data Center, powered by Solutions IS, is ongoing. Last updated September 23, 2026.",
+  "source_snapshot_sha256": "3c6312b1bd24946373e0b29019e9da7c50ca8af6ee936b42df7df75198c4afb0",
+  "source_type": "primary_vendor_self_report FacilityOps AI",
+  "metadata_before": "Case study specifies findings period and September update describing ongoing pilot.",
+  "metadata_proposed": "Case study specifies findings period and September 23rd update describing ongoing pilot.",
+  "recomputation": {
+    "pattern": "Last updated September (\\d+), (\\d+)\\.",
+    "literal_day": "23",
+    "literal_year": "2026",
+    "authorised_before": [],
+    "authorised_proposed": [
+      "23"
+    ],
+    "only_new_authorised_numeral": "23",
+    "script_missing_before": [
+      "23"
+    ],
+    "script_missing_after": [],
+    "actual_board_script_evidence_check": "PASS"
+  },
+  "dependency_effects": [
+    "Claims file hash changes; current date-bound validation must be freshly checked against unchanged IDs, quotes, source and narration.",
+    "daily_production.pre_voice_problems and opening_compare check critic story_review.claims_sha256. Existing independent reports retain original hashes; source metadata correspondence requires fresh independent current evidence rather than editing original reports.",
+    "Source-aware hero/phone/panel packets may bind claims or upstream report hashes. Inspect current exact dependency checks and use their supported metadata/cache route; prior reports remain valid only for original bindings.",
+    "Native film, phone film, silent film, hero and both complete treatment bytes can remain identical. Metadata adds no new facts or audience-visible content and supplies no rendered approval.",
+    "Existing c7 quote already carries literal update day and source limitation; strict quote-based numeral gates remain unchanged. No authorised_numerals list or gate waiver is proposed."
+  ],
+  "scope": "Pre-correction independent source metadata diagnosis only. No claims, code, alias, source, narration, audio, board, film or prior review mutations performed."
+}
