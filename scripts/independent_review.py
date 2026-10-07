@@ -148,6 +148,7 @@ def source_windows(path, rows, context_chars=2048):
     raw = path.read_bytes()
     source = raw.decode('utf-8')
     spans = []
+    excerpt_groups = []
     for row in rows:
         quote = row.get('quote')
         if not isinstance(quote, str) or not quote.strip() or not row.get('id'):
@@ -158,15 +159,39 @@ def source_windows(path, rows, context_chars=2048):
         separator = r'(?:\s+|†[^†\s]+\s+)'
         pattern = re.compile(separator.join(re.escape(token) for token in quote.split()))
         matches = list(pattern.finditer(source))
-        if not matches:
+        fragments = [(quote, matches)]
+        if not matches and row.get('quote_is_excerpt') is True:
+            # Only an explicitly declared sentence/newline boundary separates
+            # excerpts. Every fragment still uses the strict verbatim matcher.
+            excerpts = re.split(r'(?<=\.)\n(?=[A-Z])', quote)
+            if len(excerpts) < 2 or any(len(x.split()) < 3 for x in excerpts):
+                raise ValueError('source quote missing: ' + str(row['id']))
+            fragments = [(x, list(re.compile(separator.join(re.escape(t) for t in x.split())).finditer(source)))
+                         for x in excerpts]
+            end = 0
+            for _, occurrences in fragments:
+                ordered = next((m for m in occurrences if m.start() >= end), None)
+                if ordered is None:
+                    raise ValueError('source quote missing or out of order: ' + str(row['id']))
+                end = ordered.end()
+            first = min(m.start() for _, items in fragments for m in items)
+            last = max(m.end() for _, items in fragments for m in items)
+            excerpt_groups.append({'claim_id': row['id'], 'original_quote': quote,
+                                   'raw_start': first, 'raw_end': last,
+                                   'text': source[first:last], 'excerpt_count': len(fragments)})
+        elif not matches:
             raise ValueError('source quote missing: ' + str(row['id']))
-        for index, match in enumerate(matches):
-            spans.append((max(0, match.start() - context_chars),
-                          min(len(source), match.end() + context_chars),
-                          {'claim_id': row['id'], 'occurrence_index': index,
-                           'occurrence_count': len(matches),
-                           'raw_start': match.start(), 'raw_end': match.end(),
-                           'text': source[match.start():match.end()]}))
+        for excerpt_index, (fragment, occurrences) in enumerate(fragments):
+            for index, match in enumerate(occurrences):
+                item = {'claim_id': row['id'], 'occurrence_index': index,
+                        'occurrence_count': len(occurrences),
+                        'raw_start': match.start(), 'raw_end': match.end(),
+                        'text': source[match.start():match.end()]}
+                if len(fragments) > 1:
+                    item.update(original_quote=quote, original_excerpt=fragment,
+                                excerpt_index=excerpt_index, excerpt_count=len(fragments))
+                spans.append((max(0, match.start() - context_chars),
+                              min(len(source), match.end() + context_chars), item))
     windows = []
     for start, end, claim in sorted(spans, key=lambda item: (item[0], item[1])):
         if windows and start <= windows[-1]['raw_end']:
@@ -181,7 +206,7 @@ def source_windows(path, rows, context_chars=2048):
             'full_source_sha256': hashlib.sha256(raw).hexdigest(),
             'offset_unit': 'unicode code points in UTF-8 decoded original bytes',
             'full_source_characters': len(source), 'context_characters': context_chars,
-            'windows': windows}
+            'windows': windows, 'excerpt_groups': excerpt_groups}
 
 
 def source_segments(row):

@@ -1,0 +1,182 @@
+{
+  "schema": "dispatch_story_selection/1",
+  "edition_date": "2026-10-07",
+  "selected": {
+    "title": "The warmer unit",
+    "county": "Harris",
+    "movement": {
+      "actor": "FacilityOps AI / RoboSkill Inc.",
+      "action": "published ongoing Houston autonomous inspection pilot findings",
+      "object": "CRSC Data Center cooling inspections",
+      "event_type": "published",
+      "date": "2026-09-23"
+    },
+    "why_today": "A September 23 vendor report documents an ongoing Texas pilot with a completed inspection, check and repair chain. This is a current published finding, not an October 7 deployment announcement.",
+    "application_change": "Repeated robotic condition capture produces a comparison that maintenance staff can check, instead of depending only on occasional readings.",
+    "counter_image": "A flag remains unresolved when no second fault has been confirmed.",
+    "source_limit": "Only vendor account fetched; no independent CRSC confirmation or raw pilot logs. No exact algorithm, facility layout, robot model or hidden condenser internals established. Do not imply a robot repaired anything or prevented an outage. Reported findings are July-August, updated September23.",
+    "visual_stakes": {
+      "affected_person": "Houston facility maintenance staff",
+      "physical_subject": "two cooling units and a repeated temperature observation",
+      "visible_change": "illustrated measurement identifies warmer unit, handheld check returns corresponding reading, maintenance outcome appears as reported repair",
+      "consequence": "staff receive evidence to verify a cooling fault; vendor reports repair",
+      "opening_question": "How does a repeated inspection become a maintenance decision?",
+      "answer": "Vendor reports detection, handheld verification and condenser repair; another flagged condition is unconfirmed.",
+      "asset_fit": "Original explanatory illustration can truthfully show comparison and check. No authenticated actual pilot footage found.",
+      "source_urls": [
+        "https://facilityops.ai/crsc-data-center-pilot-results/",
+        "https://facilityops.ai/why-facilityops/"
+      ]
+    },
+    "filmability": {
+      "viewer_question": "How does a robot inspection become a checked cooling repair?",
+      "opening_action": "Source-backed illustration of repeat checkpoint inspection of recognizable cooling equipment",
+      "mechanism": "Same unit compared over repeated observations, warmer reading revealed, handheld verification checks it",
+      "human_consequence": "Maintenance action is reported; other flagged issue remains unresolved",
+      "source_limit": "All findings attributed to vendor; illustration is not CRSC layout or actual software.",
+      "three_key_images": [
+        "recognizable cooling-unit pair with one warmer observation",
+        "handheld measurement matched to the same illustrative unit",
+        "reported repair outcome beside unresolved inspection flag"
+      ],
+      "action_support": [
+        {
+          "order": 1,
+          "medium": "source-backed-action",
+          "pictured_action": "Illustrated inspection returns to an equipment checkpoint and collects its temperature observation",
+          "scope_fit": "Catalog has no truthful cooling inspection action. Requires director-bound source-backed proposal and code/phone/native proof; no synthetic worker performance.",
+          "source_url": "https://facilityops.ai/why-facilityops/",
+          "action_id": "cooling-checkpoint-comparison-v3",
+          "disclosure": "Illustration. Vendor-reported pilot",
+          "image": "opening"
+        },
+        {
+          "order": 2,
+          "medium": "source-backed-action",
+          "pictured_action": "Illustrative warmer observation is checked against a handheld measurement",
+          "scope_fit": "Do not invent actual interface, thresholds or algorithms; support comparison/check only.",
+          "source_url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+          "action_id": "cooling-checkpoint-comparison-v3",
+          "disclosure": "Illustration. Vendor-reported pilot",
+          "image": "mechanism"
+        },
+        {
+          "order": 3,
+          "medium": "source-backed-action",
+          "pictured_action": "Reported repaired-unit outcome resolves first finding while second inspection flag remains open",
+          "scope_fit": "Do not animate a robot repair or claim prevention of outage; maintain vendor attribution and uncertainty.",
+          "source_url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+          "action_id": "cooling-checkpoint-comparison-v3",
+          "disclosure": "Illustration. Vendor-reported pilot",
+          "image": "consequence"
+        }
+      ],
+      "format": "News report",
+      "approach": "Explanatory animation",
+      "ordering": "mechanism-led",
+      "strongest_useful_image": "Same identifiable cooling unit across inspect, verify and maintenance-result stages",
+      "likely_false_inference": "Robot diagnoses and fixes equipment unaided; prevent with explicit handheld verification and human maintenance attribution.",
+      "missing_picture": "No truthful actual footage of CRSC robot, condenser repair, specific model execution or operator reaction was obtained.",
+      "asset_leads": [
+        {
+          "url": "https://facilityops.ai/wp-content/uploads/2026/06/Autonomous_Inspection_Platform_%E2%80%94_Hero_Teaser_with_captions.mp4",
+          "source_url": "https://facilityops.ai/",
+          "description": "Generic home-page June teaser; not an authenticated July-August CRSC inspection recording",
+          "actual_visible_action": "Not inspected as actual footage; unusable as evidence",
+          "rights_basis": "No licence found. Do not reuse without actual inspection and rights evidence.",
+          "native_illustration_more_honest": true
+        },
+        {
+          "url": "https://facilityops.ai/wp-content/uploads/2026/09/ChatGPT-Image-Sep-4-2026-06_16_56-PM.png",
+          "source_url": "https://facilityops.ai/",
+          "description": "Generated filename asset on vendor home page; not authenticated pilot photography",
+          "actual_visible_action": "Not inspected; no observation proof",
+          "rights_basis": "No open licence found; excluded",
+          "native_illustration_more_honest": true
+        }
+      ]
+    },
+    "record_status": "outside-record",
+    "record_id": null,
+    "texas_link": "Vendor report locates pilot at CRSC in Houston, Harris County.",
+    "consequence": "The vendor reports a handheld check and repair of the warmer unit; a second flag still requires inspection.",
+    "earned_take": "A flag starts a maintenance check; it does not complete one.",
+    "agency": {
+      "next_step": "The other unit was flagged for inspection; report does not establish its fault or repair.",
+      "who_can_act": "Facility maintenance personnel verify and act on flagged conditions.",
+      "open": "unknown"
+    },
+    "beat": "what-texas-makes",
+    "sources": [
+      {
+        "url": "https://facilityops.ai/crsc-data-center-pilot-results/",
+        "title": "FacilityOps AI pilot findings",
+        "type": "primary_vendor",
+        "source_type": "primary",
+        "retrieved": "2026-10-07T07:05:57.163492+00:00",
+        "snapshot": "out/dispatch/research/facilityops-pilot.html",
+        "file": "out/dispatch/research/facilityops-pilot.html",
+        "sha256": "ae992ee15fe4a4c93e5213b060a05077607bd79d7043257a008fb67aace13e60",
+        "full_source_read": true
+      },
+      {
+        "url": "https://facilityops.ai/why-facilityops/",
+        "title": "FacilityOps AI inspection mechanism",
+        "type": "primary_vendor",
+        "source_type": "primary",
+        "retrieved": "2026-10-07T07:05:57.163492+00:00",
+        "snapshot": "out/dispatch/research/facilityops-mechanism.html",
+        "file": "out/dispatch/research/facilityops-mechanism.html",
+        "sha256": "b47c60ee1a0fbdd4dc53e53ed479aa42e667c4a9aae1f8c2c98a061d9192f8a3",
+        "full_source_read": true
+      }
+    ],
+    "action_proposals": [
+      {
+        "id": "cooling-checkpoint-comparison-v3",
+        "module": {
+          "path": "video-engine/src/CoolingInspectionAction.tsx",
+          "sha256": "1905338bb021cfdd41f1a65664c8d7d271121fab8c5f29b0a8cc25e18bfd3b82"
+        },
+        "exports": [
+          "CoolingInspectionAction"
+        ],
+        "source_urls": [
+          "https://facilityops.ai/crsc-data-center-pilot-results/",
+          "https://facilityops.ai/why-facilityops/"
+        ],
+        "claim_ids": [
+          "c1",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c8"
+        ],
+        "visible_action": "The entire recognizable grounded mobile inspection robot makes a finite traverse to a warm-unit checkpoint, brakes, moves to the cooler comparison checkpoint, then returns to the conserved position before the separate handheld check.",
+        "consequence": "The vendor reports a handheld check and repair of the warmer unit; a second flag still requires inspection.",
+        "limits": "Vendor self-report only. Generic illustration, schematic heat comparison, no measured readings, actual layout, robot model, interface, diagnosis accuracy or repair technique. The other condition remains unconfirmed. Checkpoint coordinates, path and robot speed are generic explanatory staging, never the actual site route.",
+        "source_basis": "Published vendor pilot findings report warmer unit, condenser failure, handheld verification, repair and unconfirmed second-unit spikes. Platform page describes repeat checkpoints.",
+        "disclosure": "Illustration. Vendor-reported pilot"
+      }
+    ]
+  },
+  "rejected": [
+    {
+      "title": "UTA September28 flood warning update",
+      "url": "https://www.uta.edu/news/news-releases/2026/09/28/uta-flood-warning-project-charts-state-wide-path",
+      "reason": "Cannot authenticate AI application from fetched announcement; pictured task would be mostly speculative.",
+      "source_limit": "Full release explains radar and hydrologic/hydraulic modeling but does not state AI in this update. Photos show a meeting, not actual warning or field deployment.",
+      "snapshot": "out/dispatch/research/uta-flood.html",
+      "full_source_read": true
+    },
+    {
+      "title": "Dallas quarantined-product X-ray reinspection",
+      "url": "https://mcbridepr.com/news/2026/METTLER-TOLEDO-Expands-Foreign-Material-Re-Inspection-Services-with-New-Dallas-Facility.html",
+      "reason": "Concrete physical task and timely date, but cannot claim deployed AI application from fetched evidence.",
+      "source_limit": "Release states scheduled opening and photon-counting X-rays. It does not establish actual opening or AI mechanism.",
+      "snapshot": "out/dispatch/research/mettlertoledo-dallas.html",
+      "full_source_read": true
+    }
+  ]
+}

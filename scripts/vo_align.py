@@ -142,9 +142,33 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
     No fuzzy matching, dropped words, guessed timestamps or numeral substitutions.
     """
     alias_map: dict[str, list[tuple[int | None, list[str]]]] = {}
+    joins: dict[tuple[str, str], list[dict]] = {}
     for row in aliases:
         a, b = canonical(row.get("heard", "")), canonical(row.get("script", ""))
         occurrence = row.get("occurrence")
+        if row.get("kind") == "proper-name-join":
+            name = row.get("script", "")
+            raw_parts = row.get("heard", "").split()
+            if (len(raw_parts) != 2 or len(a) != 2 or len(b) != 1
+                    or not all(re.fullmatch(r"[A-Za-z]+", p) for p in raw_parts)
+                    or any(p.isdigit() for p in a + b) or set(a) == {"an", "and"}
+                    or not re.fullmatch(r"[A-Z][a-z]+(?:[A-Z][a-z]+)+", name)
+                    or "".join(a) != b[0] or name not in tokens
+                    or type(occurrence) is not int or occurrence < 1
+                    or not row.get("reason") or not row.get("source")):
+                raise ValueError("proper-name joins require two exact nonnumeric parts and an occurrence-bound CamelCase script name")
+            quote = row.get("source_quote", "")
+            bound = (isinstance(quote, str) and bool(quote)
+                     and hashlib.sha256(quote.encode()).hexdigest() == row.get("source_quote_sha256")
+                     and bool(re.fullmatch(r"[0-9a-f]{64}", row.get("source_sha256", ""))))
+            if (not bound
+                    or not re.search(r"\b" + re.escape(name) + r"\b", quote)):
+                raise ValueError("proper-name join requires a byte-bound source quote with the exact official name")
+            rules = joins.setdefault(tuple(a), [])
+            if any(r["occurrence"] == occurrence for r in rules):
+                raise ValueError("proper-name joins cannot repeat an occurrence")
+            rules.append(row)
+            continue
         name_split = (row.get("kind") == "proper-name-tokenization"
                       and len(b) == 2 and occurrence is not None
                       and all(w[:1].isupper() for w in row.get("script", "").split()))
@@ -160,8 +184,43 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
         rules.append((occurrence, b))
     expected = [(part, i) for i, word in enumerate(tokens) for part in canonical(word)]
     actual = []
+    join_evidence: dict[int, dict] = {}
+    join_counts: dict[tuple[str, str], int] = {}
+    used_joins: set[tuple[tuple[str, str], int]] = set()
     heard_counts: dict[str, int] = {}
-    for w in heard:
+    index = 0
+    while index < len(heard):
+        w = heard[index]
+        pair = (canonical(w.get("text", "")) +
+                canonical(heard[index + 1].get("text", ""))) if index + 1 < len(heard) else []
+        if len(pair) == 2 and tuple(pair) in joins:
+            key = tuple(pair)
+            join_counts[key] = join_counts.get(key, 0) + 1
+            rule = next((r for r in joins[key] if r["occurrence"] == join_counts[key]), None)
+            if rule:
+                originals = [dict(heard[index]), dict(heard[index + 1])]
+                if any(len(v.get("text", "").split()) != 1 or len(canonical(v.get("text", ""))) != 1
+                       or not isinstance(v.get("center"), (int, float))
+                       or not np.isfinite(v["center"]) for v in originals):
+                    raise ValueError("proper-name join lacks two raw acoustic words and centers")
+                centers = [float(v["center"]) for v in originals]
+                containing = [n for n, (lo, hi) in enumerate(runs)
+                              if all(lo < t < hi for t in centers)]
+                if len(containing) != 1 or centers[0] > centers[1]:
+                    raise ValueError("proper-name join must occupy one measured speech run without crossing silence")
+                center = float(np.median(centers))
+                join_evidence[len(actual)] = {"kind": "proper-name-join", "raw_asr_indices": [index, index + 1],
+                    "recognized_words": originals, "dtw_centers_s": centers,
+                    "representative_center_s": center, "speech_run_bounds_s": list(runs[containing[0]]),
+                    "occurrence": rule["occurrence"], "source": rule["source"],
+                    "source_sha256": rule["source_sha256"], "source_quote_sha256": rule["source_quote_sha256"],
+                    "source_quote": rule["source_quote"], "reason": rule["reason"]}
+                actual.append((canonical(rule["script"])[0], center))
+                used_joins.add((key, rule["occurrence"]))
+                for part in pair:
+                    heard_counts[part] = heard_counts.get(part, 0) + 1
+                index += 2
+                continue
         for part in canonical(w["text"]):
             heard_counts[part] = heard_counts.get(part, 0) + 1
             replacement = [part]
@@ -170,6 +229,9 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
                     replacement = target
                     break
             actual.extend((p, float(w["center"])) for p in replacement)
+        index += 1
+    if any((key, r["occurrence"]) not in used_joins for key, rules in joins.items() for r in rules):
+        raise ValueError("proper-name join occurrence has no matching raw acoustic pair")
     if [p for p, _ in expected] != [p for p, _ in actual]:
         import difflib
         diff = list(difflib.ndiff([p for p, _ in expected], [p for p, _ in actual]))
@@ -190,6 +252,10 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
         previous = run
         groups[run].append(token)
         evidence.append({"word": token, "dtw_center_s": round(center, 3), "speech_run": run})
+        provenance = [join_evidence[j] for j, (_, owner) in enumerate(expected)
+                      if owner == i and j in join_evidence]
+        if provenance:
+            evidence[-1]["proper_name_joins"] = provenance
     if any(not group for group in groups):
         raise ValueError("a measured speech run has no reconciled acoustic words")
     return groups, evidence
@@ -722,6 +788,52 @@ def self_test() -> int:
                                  duplicate_heard, occurrence_alias)
     ok("a sourced alias can target one occurrence without corrupting a later true word",
        groups2 == [["then", "than"]], str(groups2))
+    import tempfile
+    with tempfile.TemporaryDirectory() as temporary:
+        source_file = Path(temporary) / "source.txt"
+        source_file.write_text("FacilityOps runs the pilot.")
+        join = {"kind": "proper-name-join", "heard": "Facility Ops", "script": "FacilityOps",
+                "occurrence": 1, "reason": "literal source-name fixture", "source": "fixture",
+                "source_sha256": digest(source_file), "source_quote_sha256": digest(source_file),
+                "source_quote": "FacilityOps runs the pilot."}
+        recognized = [{"text": "Facility", "center": .6}, {"text": "Ops", "center": 1.2}]
+        joined, provenance = acoustic_groups(["FacilityOps"], [(.2, 2.)], recognized, [join])
+        proof = provenance[0]["proper_name_joins"][0]
+        ok("a source-bound proper-name join retains both original words and centers",
+           joined == [["FacilityOps"]] and proof["recognized_words"] == recognized
+           and proof["dtw_centers_s"] == [.6, 1.2] and abs(proof["representative_center_s"]-.9) < 1e-12)
+        cases = [
+            ("cross-run name", [(.2, .8), (1., 2.)], recognized, [join]),
+            ("center in silence", [(.2, .8), (1.4, 2.)], recognized, [join]),
+            ("center on run boundary", [(.6, 2.)], recognized, [join]),
+            ("missing acoustic center", [(.2, 2.)], [{"text": "Facility"}, recognized[1]], [join]),
+            ("nonfinite acoustic center", [(.2, 2.)], [dict(recognized[0], center=float("nan")), recognized[1]], [join]),
+            ("numeral join", [(.2, 2.)], recognized, [dict(join, heard="Thirty One", script="ThirtyOne")]),
+            ("semantic substitution", [(.2, 2.)], recognized, [dict(join, script="FacilityOther")]),
+            ("ordinary word join", [(.2, 2.)], recognized, [dict(join, script="facilityops")]),
+            ("an/and substitution", [(.2, 2.)], recognized, [dict(join, heard="An And", script="AnAnd")]),
+            ("duplicate occurrence", [(.2, 2.)], recognized, [join, join]),
+            ("unobserved occurrence", [(.2, 2.)], recognized, [dict(join, occurrence=2)]),
+            ("boolean occurrence", [(.2, 2.)], recognized, [dict(join, occurrence=True)]),
+            ("unbound quote", [(.2, 2.)], recognized, [dict(join, source_quote_sha256="0"*64)]),
+            ("wrong official-name case", [(.2, 2.)], recognized, [dict(join, source_quote="facilityops runs the pilot.")]),
+            ("missing heard word", [(.2, 2.)], recognized[:1], [join]),
+            ("extra heard word", [(.2, 2.)], recognized + [{"text": "extra", "center": 1.4}], [join]),
+        ]
+        for label, measured_runs, raw_words, rules in cases:
+            try:
+                acoustic_groups(["FacilityOps"], measured_runs, raw_words, rules)
+                refused = False
+            except ValueError:
+                refused = True
+            ok("proper-name join refuses " + label, refused)
+        try:
+            acoustic_groups(["FacilityOps"], [(.2, 2.)], recognized,
+                            [dict(join, source_quote="FacilityOps changed the pilot.")])
+            refused = False
+        except ValueError:
+            refused = True
+        ok("proper-name join refuses mutated quoted source bytes", refused)
     for label, bad in [("wrong words", [{"text": "Wrong", "center": 1.0}] + heard[1:]),
                        ("a single early acoustic outlier", [dict(heard[0], center=-0.2)] + heard[1:]),
                        ("unexplained late timing", [dict(w, center=w["center"] + 10) for w in heard]),
