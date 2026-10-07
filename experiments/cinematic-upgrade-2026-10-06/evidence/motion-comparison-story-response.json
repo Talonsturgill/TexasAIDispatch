@@ -1,0 +1,1062 @@
+{
+  "responseId": "jI_FaqnQDM7_qtsPs-2roQE",
+  "usageMetadata": {
+    "promptTokenCount": 17867,
+    "candidatesTokenCount": 797,
+    "totalTokenCount": 20828,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 7359
+      }
+    ],
+    "thoughtsTokenCount": 2164,
+    "serviceTier": "standard"
+  },
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "{\n  \"winner\": \"first\",\n  \"comparison_reason\": \"First correctly anchors the robot"
+          },
+          {
+            "text": "'s vertical stanchion and mast on the right side during the final withdrawal shot (11.6s\u201314.6"
+          },
+          {
+            "text": "s), articulating the linkage arms to pull the carton toward the roller conveyor bed. In Second, the entire vertical mounting stanchion slides"
+          },
+          {
+            "text": " sideways across the floor plane in mid-air (translating leftward from x\u22480.85 to x\u22480.72"
+          },
+          {
+            "text": ") rather than articulating from a fixed base, violating physical support and mechanical credibility.\",\n  \"first\": {\n    "
+          },
+          {
+            "text": "\"scores\": {\n      \"hook\": 7.2,\n      \"story\": 7.4,\n      \"picture\": 7.3,\n      \"place\": 7.1,\n      \"craft\": 7.4"
+          },
+          {
+            "text": ",\n      \"voice\": 7.5\n    },\n    \"one_viewing_summary\": \""
+          },
+          {
+            "text": "A clean, illustrated technical walkthrough demonstrating Contoro's dual-surface carton gripper in Austin, maintaining consistent grounded kinematics across all four"
+          },
+          {
+            "text": " scenes.\",\n    \"observed_strengths\": [\n      \"The robot mounting stanchion remains firmly grounded in scene 4 ("
+          },
+          {
+            "text": "11.6s\u201314.6s), allowing the robotic linkage joints to visibly articulate and pull the carton onto"
+          },
+          {
+            "text": " the roller bed.\",\n      \"Dual-contact grasping (front face and accessible side) is clearly legible at phone scale with"
+          },
+          {
+            "text": " contrasting circular suction pads.\",\n      \"Smooth easing and clear mechanical cause-and-effect as the carton is extracted from the"
+          },
+          {
+            "text": " trailer stack.\"\n    ],\n    \"defects\": [\n      {\n        \"start_s\": 0.0"
+          },
+          {
+            "text": ",\n        \"end_s\": 4.0,\n        \"category\": \"dominant_action\",\n        \""
+          },
+          {
+            "text": "observed\": \"Opening shot holds a relatively static pose on the covered carton top without active extraction motion until scene 3.\",\n        \""
+          },
+          {
+            "text": "criterion\": \"dominant_action\",\n        \"blocking\": false\n      }\n    ]\n  },\n  \"second\": {"
+          },
+          {
+            "text": "\n    \"scores\": {\n      \"hook\": 7.2,\n      \"story\": 7."
+          },
+          {
+            "text": "2,\n      \"picture\": 6.8,\n      \"place\": 7.1,\n      \""
+          },
+          {
+            "text": "craft\": 6.3,\n      \"voice\": 7.5\n    },\n    \"one_"
+          },
+          {
+            "text": "viewing_summary\": \"A largely identical illustrated sequence that suffers from an unanchored root transform bug in the closing scene, causing the robot"
+          },
+          {
+            "text": "'s vertical support mast to drift sideways across the floor.\",\n    \"observed_strengths\": [\n      \"Clear"
+          },
+          {
+            "text": " graphic depiction of the dual-surface gripper mechanism and sensor mast.\",\n      \"Accurate typographic layout and synchronization with source claims.\"\n    "
+          },
+          {
+            "text": "],\n    \"defects\": [\n      {\n        \"start_s\": 11.6,"
+          },
+          {
+            "text": "\n        \"end_s\": 14.6,\n        \"category\": \"contact_and_con"
+          },
+          {
+            "text": "sequence\",\n        \"observed\": \"The robot's dark blue vertical support pillar slides horizontally across the screen without tracks"
+          },
+          {
+            "text": " or wheels, hovering ungrounded over the floor as the carton is drawn backward.\",\n        \"criterion\": \"contact_and_con"
+          },
+          {
+            "text": "sequence\",\n        \"blocking\": true\n      }\n    ]\n  },\n  \"audio_observed\": \"Clear"
+          },
+          {
+            "text": ", professional narration synchronized with precise on-screen caption timing and subtle industrial ambient mechanical foley.\",\n  \"source_limits\": \"Cont"
+          },
+          {
+            "text": "oro's primary materials describe grabbing two sides simultaneously (typically front and an accessible surface) and remote human-in-the-loop"
+          },
+          {
+            "text": " intervention, but do not provide public dimensional blueprints for the exact mechanical linkages depicted.\"\n}"
+          },
+          {
+            "text": "",
+            "thoughtSignature": "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"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ],
+  "provider_chunks": [
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "{\n  \"winner\": \"first\",\n  \"comparison_reason\": \"First correctly anchors the robot"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 22,
+        "totalTokenCount": 9545,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "'s vertical stanchion and mast on the right side during the final withdrawal shot (11.6s\u201314.6"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 50,
+        "totalTokenCount": 9573,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "s), articulating the linkage arms to pull the carton toward the roller conveyor bed. In Second, the entire vertical mounting stanchion slides"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 77,
+        "totalTokenCount": 9600,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " sideways across the floor plane in mid-air (translating leftward from x\u22480.85 to x\u22480.72"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 105,
+        "totalTokenCount": 9628,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ") rather than articulating from a fixed base, violating physical support and mechanical credibility.\",\n  \"first\": {\n    "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 129,
+        "totalTokenCount": 9652,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"scores\": {\n      \"hook\": 7.2,\n      \"story\": 7.4,\n      \"picture\": 7.3,\n      \"place\": 7.1,\n      \"craft\": 7.4"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 182,
+        "totalTokenCount": 9705,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n      \"voice\": 7.5\n    },\n    \"one_viewing_summary\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 206,
+        "totalTokenCount": 9729,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "A clean, illustrated technical walkthrough demonstrating Contoro's dual-surface carton gripper in Austin, maintaining consistent grounded kinematics across all four"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 232,
+        "totalTokenCount": 9755,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " scenes.\",\n    \"observed_strengths\": [\n      \"The robot mounting stanchion remains firmly grounded in scene 4 ("
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 260,
+        "totalTokenCount": 9783,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "11.6s\u201314.6s), allowing the robotic linkage joints to visibly articulate and pull the carton onto"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 285,
+        "totalTokenCount": 9808,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " the roller bed.\",\n      \"Dual-contact grasping (front face and accessible side) is clearly legible at phone scale with"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 310,
+        "totalTokenCount": 9833,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " contrasting circular suction pads.\",\n      \"Smooth easing and clear mechanical cause-and-effect as the carton is extracted from the"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 335,
+        "totalTokenCount": 9858,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " trailer stack.\"\n    ],\n    \"defects\": [\n      {\n        \"start_s\": 0.0"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 362,
+        "totalTokenCount": 9885,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n        \"end_s\": 4.0,\n        \"category\": \"dominant_action\",\n        \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 388,
+        "totalTokenCount": 9911,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "observed\": \"Opening shot holds a relatively static pose on the covered carton top without active extraction motion until scene 3.\",\n        \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 415,
+        "totalTokenCount": 9938,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "criterion\": \"dominant_action\",\n        \"blocking\": false\n      }\n    ]\n  },\n  \"second\": {"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 443,
+        "totalTokenCount": 9966,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n    \"scores\": {\n      \"hook\": 7.2,\n      \"story\": 7."
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 467,
+        "totalTokenCount": 9990,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "2,\n      \"picture\": 6.8,\n      \"place\": 7.1,\n      \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 492,
+        "totalTokenCount": 10015,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "craft\": 6.3,\n      \"voice\": 7.5\n    },\n    \"one_"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 516,
+        "totalTokenCount": 10039,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "viewing_summary\": \"A largely identical illustrated sequence that suffers from an unanchored root transform bug in the closing scene, causing the robot"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 545,
+        "totalTokenCount": 10068,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "'s vertical support mast to drift sideways across the floor.\",\n    \"observed_strengths\": [\n      \"Clear"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 570,
+        "totalTokenCount": 10093,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " graphic depiction of the dual-surface gripper mechanism and sensor mast.\",\n      \"Accurate typographic layout and synchronization with source claims.\"\n    "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 598,
+        "totalTokenCount": 10121,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "],\n    \"defects\": [\n      {\n        \"start_s\": 11.6,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 622,
+        "totalTokenCount": 10145,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"end_s\": 14.6,\n        \"category\": \"contact_and_con"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 646,
+        "totalTokenCount": 10169,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "sequence\",\n        \"observed\": \"The robot's dark blue vertical support pillar slides horizontally across the screen without tracks"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 670,
+        "totalTokenCount": 10193,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " or wheels, hovering ungrounded over the floor as the carton is drawn backward.\",\n        \"criterion\": \"contact_and_con"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 698,
+        "totalTokenCount": 10221,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "sequence\",\n        \"blocking\": true\n      }\n    ]\n  },\n  \"audio_observed\": \"Clear"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 724,
+        "totalTokenCount": 10247,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ", professional narration synchronized with precise on-screen caption timing and subtle industrial ambient mechanical foley.\",\n  \"source_limits\": \"Cont"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 752,
+        "totalTokenCount": 10275,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "oro's primary materials describe grabbing two sides simultaneously (typically front and an accessible surface) and remote human-in-the-loop"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 779,
+        "totalTokenCount": 10302,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " intervention, but do not provide public dimensional blueprints for the exact mechanical linkages depicted.\"\n}"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 7359,
+        "candidatesTokenCount": 797,
+        "totalTokenCount": 10320,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "",
+                "thoughtSignature": "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"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 17867,
+        "candidatesTokenCount": 797,
+        "totalTokenCount": 20828,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 10508
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 7359
+          }
+        ],
+        "thoughtsTokenCount": 2164,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "jI_FaqnQDM7_qtsPs-2roQE"
+    }
+  ]
+}

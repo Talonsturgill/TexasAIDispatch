@@ -1,0 +1,175 @@
+{
+  "schema": "dispatch-motion-correction-report/1",
+  "scope": "Owner-identified movement defect after the cinematic upgrade. Separate engineering evidence, never daily shipment approval.",
+  "owner_feedback": "The robot arms and camera look choppy.",
+  "baseline_native_sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+  "corrected_native_sha256": "e59d1f71fd21fceab72a247b15384c71b723a3d7e3f92dbc5728615b0f35bde1",
+  "comparisons": [
+    {
+      "lens": "picture",
+      "response_id": "YI_FatbNGMi-qtsP1o2_-QM",
+      "preferred": "after",
+      "scores": {
+        "before": 6.578000000000001,
+        "after": 7.3420000000000005
+      },
+      "actual_defects_before": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.8,
+          "category": "contact_and_consequence",
+          "observed": "The robot arm pulls the grasped carton backward away from the conveyor rollers, leaving the heavy box hovering unsupported in mid-air beside the mast rather than depositing it onto the conveyor.",
+          "criterion": "contact_and_consequence",
+          "blocking": true
+        }
+      ],
+      "actual_defects_after": [
+        {
+          "start_s": 4.0,
+          "end_s": 8.0,
+          "category": "dominant_action",
+          "observed": "The establishing wide shot holds on a stationary view of the unloader rig with no carton interaction during the Austin context sentence.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ],
+      "provider_reported_tokens": 22187
+    },
+    {
+      "lens": "sound",
+      "response_id": "rY_FavKnKJDRz7IPpNyguQM",
+      "preferred": "after",
+      "scores": {
+        "before": 6.118,
+        "after": 7.49
+      },
+      "actual_defects_before": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.78,
+          "category": "contact_and_consequence",
+          "observed": "At 11.6s, the box starts positioned at the lower conveyor, but between 11.8s and 14.4s the gripper retracts backward and upward, pulling the carton off the rollers to hover unsupported in midair against the mast rather than unloading it down the conveyor line.",
+          "criterion": "contact_and_consequence",
+          "blocking": true
+        },
+        {
+          "start_s": 11.6,
+          "end_s": 14.78,
+          "category": "dominant_action",
+          "observed": "The final movement inverts the functional unloading motion; rather than advancing the box onto the conveyor, the robot arm lifts it backward toward the frame.",
+          "criterion": "dominant_action",
+          "blocking": true
+        }
+      ],
+      "actual_defects_after": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "surface_finish",
+          "observed": "The background cartons use relatively flat vector tones with minimal surface texture compared to the foreground arm hardware.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ],
+      "provider_reported_tokens": 22726
+    },
+    {
+      "lens": "story",
+      "response_id": "jI_FaqnQDM7_qtsPs-2roQE",
+      "preferred": "after",
+      "scores": {
+        "before": 7.021999999999999,
+        "after": 7.316000000000001
+      },
+      "actual_defects_before": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.6,
+          "category": "contact_and_consequence",
+          "observed": "The robot's dark blue vertical support pillar slides horizontally across the screen without tracks or wheels, hovering ungrounded over the floor as the carton is drawn backward.",
+          "criterion": "contact_and_consequence",
+          "blocking": true
+        }
+      ],
+      "actual_defects_after": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "dominant_action",
+          "observed": "Opening shot holds a relatively static pose on the covered carton top without active extraction motion until scene 3.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ],
+      "provider_reported_tokens": 20828
+    }
+  ],
+  "preference_count_after": 3,
+  "same_rubric_mean_before": 6.572666666666667,
+  "same_rubric_mean_after": 7.382666666666668,
+  "provider_reported_tokens": 65741,
+  "changes": [
+    "Continuous velocity and acceleration for shared directed contact and travel curves.",
+    "Explicit adjacent-event joining preserves one withdrawal stroke without erasing rests.",
+    "Slower screen-space withdrawal and a held wide camera.",
+    "Visible final side-plate engagement retained across the approach/grip join.",
+    "Future builder and existing reviewer guidance, pre-render camera constraints and CI regressions."
+  ],
+  "metrics": {
+    "schema": "dispatch-authored-motion-measurement/1",
+    "baseline_revision": "f97e0d84a60411c891849ccb7f47200fa3c96da3",
+    "scope": "Actual executed renderer expressions, sampled at 30 fps. These measure authored illustration, not real robot trajectory or audience perception.",
+    "before": {
+      "scale": 1.55,
+      "maximum_load_horizontal_step_native_px": 67.15695354663485,
+      "maximum_load_horizontal_step_at_330px_display": 20.52018025036065,
+      "maximum_camera_step_native_px": 74.10969216110742,
+      "maximum_horizontal_step_change_native_px": 59.42244451209753
+    },
+    "after": {
+      "scale": 1.15,
+      "maximum_load_horizontal_step_native_px": 8.71051223285233,
+      "maximum_load_horizontal_step_at_330px_display": 2.661545404482657,
+      "maximum_camera_step_native_px": 0,
+      "maximum_horizontal_step_change_native_px": 0.4301984242754271
+    }
+  },
+  "media_proof": {
+    "schema": "dispatch-motion-media-proof/1",
+    "audio_identical": true,
+    "captions_identical": true,
+    "films": [
+      {
+        "file": "b-native.mp4",
+        "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f",
+        "width": 1080,
+        "height": 1920,
+        "fps": "30/1",
+        "frames": 443,
+        "max_timestamp_gap_s": 0.033334,
+        "decoded_audio_sha256": "7b22b0aa42df43b436ed7c71a1e2b3c30c9532498e79443ff84778dc16f64325"
+      },
+      {
+        "file": "c-native.mp4",
+        "sha256": "e59d1f71fd21fceab72a247b15384c71b723a3d7e3f92dbc5728615b0f35bde1",
+        "width": 1080,
+        "height": 1920,
+        "fps": "30/1",
+        "frames": 443,
+        "max_timestamp_gap_s": 0.033334,
+        "decoded_audio_sha256": "7b22b0aa42df43b436ed7c71a1e2b3c30c9532498e79443ff84778dc16f64325"
+      },
+      {
+        "file": "c-phone.mp4",
+        "sha256": "2c4374b87d28eb9aa9cfa87c06256276dd06428b98a04d9a55d693b10564ade3",
+        "width": 720,
+        "height": 1280,
+        "fps": "30/1",
+        "frames": 443,
+        "max_timestamp_gap_s": 0.033334,
+        "decoded_audio_sha256": "7b22b0aa42df43b436ed7c71a1e2b3c30c9532498e79443ff84778dc16f64325"
+      }
+    ]
+  },
+  "limits": "Three provider observations are model evidence, not human listening or audience testing. Deliberate cuts and completed holds remain. Older boards without directed motion retain their original curves. Source footage is not retimed."
+}

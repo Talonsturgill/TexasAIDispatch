@@ -1,23 +1,26 @@
 import React from "react";
 import {Sequence,useCurrentFrame,useVideoConfig} from "remotion";
 import {CartonUnloadAction} from "./CartonUnloadAction";
-import {actionProgress,actionWindows,requireAction} from "./lib/direction";
+import {actionProgress,actionWindows,joinedActionWindow,requireAction} from "./lib/direction";
 import {CreditsCard,SubtitleTrack} from "./lib/DispatchOverlays";
 import {FONT} from "./lib/type";
 import type {DispatchProps,Scene} from "./Dispatch";
 import {directedShot,useArtDirection} from './lib/artDirection';
 import {CartonIllustratedAction} from './lib/production/CartonIllustratedAction';
 // The qualitative relation reaches an exposed wall patch. Its disclosure describes illustrative geometry, never measured sensor output.
-type CartonScene=Scene&{carton_phase?:number;treatment?:"a"|"b"};
+type CartonScene=Scene&{carton_phase?:number;treatment?:"a"|"b";continuous_withdrawal_event_ids?:string[]};
 export const CartonUnloadEpisode:React.FC<DispatchProps>=({scenes,captions=[],credits="",credits_s=5,cinematic_template,__cinemaProofWithoutStage=false})=>{
  const {fps}=useVideoConfig(),time=useCurrentFrame()/fps,end=Math.max(...scenes.map(s=>s.start_s+s.duration_s));
  const art=useArtDirection();
  const scene=(scenes.find(s=>time>=s.start_s&&time<s.start_s+s.duration_s)??scenes[scenes.length-1]) as CartonScene;
  const phase=scene.carton_phase??scenes.indexOf(scene),windows=actionWindows(scenes);
  const p=(n:number)=>actionProgress(requireAction(windows,scene.visual_events![n].id??""),time);
+ const withdrawalProgress=scene.continuous_withdrawal_event_ids
+  ? actionProgress(joinedActionWindow(windows,scene.continuous_withdrawal_event_ids),time) : undefined;
+ if(withdrawalProgress!==undefined && (phase!==3 || cinematic_template!=='carton-unload-illustrated-v1'))throw new Error('Continuous carton withdrawal requires its illustrated withdrawal scene');
  const background=art?.palette.background??'#20383e',ink=art?.palette.ink??'#f4ead5';
  return <div style={{position:"absolute",inset:0,background,color:ink}}>{time<end?<>
- {!__cinemaProofWithoutStage&&(cinematic_template==='carton-unload-illustrated-v1'?<CartonIllustratedAction phase={phase} a={p(0)} b={p(1)} c={p(2)} sceneId={scene.id}/>:<CartonUnloadAction phase={phase} option={scene.treatment??"a"} a={p(0)} b={p(1)} c={p(2)} shot={directedShot(art,scene.id,windows,time)}/>)}
+ {!__cinemaProofWithoutStage&&(cinematic_template==='carton-unload-illustrated-v1'?<CartonIllustratedAction phase={phase} a={p(0)} b={p(1)} c={p(2)} sceneId={scene.id} withdrawalProgress={withdrawalProgress}/>:<CartonUnloadAction phase={phase} option={scene.treatment??"a"} a={p(0)} b={p(1)} c={p(2)} shot={directedShot(art,scene.id,windows,time)}/>)}
  <div style={{position:"absolute",inset:"0 0 auto",height:330,background:`linear-gradient(${background},${background}ee,transparent)`}}/>
  <div style={{position:"absolute",left:62,right:190,top:72,fontFamily:FONT.mono,fontSize:24}}>TEXAS AI DISPATCH</div>
  <div style={{position:"absolute",left:62,right:190,top:116,fontFamily:FONT.mono,fontSize:23}}>{scene.production_disclosure}</div>

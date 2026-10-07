@@ -10,6 +10,11 @@ light, framing and motion inputs. Name the actual renderer consumers in your han
 the simplest medium that performs the source-backed action. Do not borrow old film assets.
 Keep all contact and consequence readable above the caption band. Test random-access frames
 and measured retiming: no accumulating animation state, wall clock or voice stretching.
+Inspect full-speed movement at the delivered frame rate. Use continuous acceleration and
+braking for heavy loads and motivated cameras; keep one uninterrupted stroke continuous
+across its named events. Check the event joins, not just still frames. If travel looks like
+stepping, reduce screen-space speed within the existing runtime and hold the camera where
+the action remains readable. Blur does not repair a timing fault.
 
 Return the actual code, both bound boards, implemented profile choices, exact changed inputs,
 known source limits and one consolidated defect list. Code is not a film approval. Inspect the

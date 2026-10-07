@@ -1,18 +1,21 @@
 import React from 'react';
 import {useArtDirection} from '../artDirection';
 
+export function illustratedCartonPose(phase:number,a:number,b:number,c:number,withdrawalProgress?:number){
+ const withdrawal=phase===2?.08*(b+c):phase===3?.16+(withdrawalProgress===undefined?.65*a+.19*b:.84*withdrawalProgress):phase>3?1:0;
+ const lift=phase===3?c:phase>3?1:0;
+ const side=phase===0?.2*b+.2*c:phase===1?.4+.25*a+.2*b:phase===2?.85+.15*a:1;
+ return {dx:withdrawal*300,dy:withdrawal*140-lift*65,side,front:phase===0?a:1,
+  sensorTurn:phase===1?c:phase>1?1:0};
+}
+
 /** Authored 2.5D explanation, not footage or a measured Contoro trajectory. */
-export const CartonIllustratedAction:React.FC<{phase:number;a:number;b:number;c:number;sceneId:string}>=({phase,a,b,c,sceneId})=>{
+export const CartonIllustratedAction:React.FC<{phase:number;a:number;b:number;c:number;sceneId:string;withdrawalProgress?:number}>=({phase,a,b,c,sceneId,withdrawalProgress})=>{
  const art=useArtDirection();
  if(!art)throw new Error('Illustrated carton action requires its current art profile');
  if(phase<0||phase>3)throw new Error('Illustrated carton component supports covered-top, approach, two-face grip and withdrawal only');
  const p=art.palette,shot=art.flat_shots?.[sceneId]??{scale:1,x:0,y:0,follow_load:false};
- const withdrawal=phase===2?.08*(b+c):phase===3?.16+.65*a+.19*b:phase>3?1:0;
- const lift=phase===3?c:phase>3?1:0;
- const dx=withdrawal*300,dy=withdrawal*140-lift*65;
- const side=phase===0?.2*b+.2*c:phase===1?.4+.35*a+.25*b:1;
- const front=phase===0?a:1;
- const sensorTurn=phase===1?c:phase>1?1:0;
+ const {dx,dy,side,front,sensorTurn}=illustratedCartonPose(phase,a,b,c,withdrawalProgress);
  const carton=(x:number,y:number,w:number,h:number,d:number,hero=false)=> <g transform={`translate(${x} ${y})`}>
   <path d={`M0 0L${d} ${-d*.55}H${w+d}L${w} 0Z`} fill={hero?'url(#carton-top)':p.paper} stroke='#8e7454' strokeWidth='2'/>
   <path d={`M${w} 0L${w+d} ${-d*.55}V${h-d*.55}L${w} ${h}Z`} fill={hero?'url(#carton-side)':'#ae9b7b'} stroke='#8e7454' strokeWidth='2'/>

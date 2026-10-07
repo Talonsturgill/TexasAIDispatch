@@ -1,0 +1,99 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "identity": "a93bc50f-479c-440a-8229-939ff5ddf464",
+  "model": "gemini-3.8-flash",
+  "response_id": "jI_FaqnQDM7_qtsPs-2roQE",
+  "starting_lens": "story",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "order": [
+    {
+      "path": "media/c-native.mp4",
+      "sha256": "e59d1f71fd21fceab72a247b15384c71b723a3d7e3f92dbc5728615b0f35bde1"
+    },
+    {
+      "path": "media/b-native.mp4",
+      "sha256": "36cf4767077866877e0b72a7874e392435f2fd9e258a3bb8b98af210f267fd3f"
+    }
+  ],
+  "prompt_sha256": "10a02bb998d6883459d9b15cccfeddb4e615246215e35ec1506a422720921f2f",
+  "response": {
+    "path": "evidence/motion-comparison-story-response.json",
+    "sha256": "ee60bf450fa42708977eeca82912dfd560ca727470b93fd7331243fd7a1e0358"
+  },
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "First correctly anchors the robot's vertical stanchion and mast on the right side during the final withdrawal shot (11.6s\u201314.6s), articulating the linkage arms to pull the carton toward the roller conveyor bed. In Second, the entire vertical mounting stanchion slides sideways across the floor plane in mid-air (translating leftward from x\u22480.85 to x\u22480.72) rather than articulating from a fixed base, violating physical support and mechanical credibility.",
+    "first": {
+      "scores": {
+        "hook": 7.2,
+        "story": 7.4,
+        "picture": 7.3,
+        "place": 7.1,
+        "craft": 7.4,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "A clean, illustrated technical walkthrough demonstrating Contoro's dual-surface carton gripper in Austin, maintaining consistent grounded kinematics across all four scenes.",
+      "observed_strengths": [
+        "The robot mounting stanchion remains firmly grounded in scene 4 (11.6s\u201314.6s), allowing the robotic linkage joints to visibly articulate and pull the carton onto the roller bed.",
+        "Dual-contact grasping (front face and accessible side) is clearly legible at phone scale with contrasting circular suction pads.",
+        "Smooth easing and clear mechanical cause-and-effect as the carton is extracted from the trailer stack."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0,
+          "category": "dominant_action",
+          "observed": "Opening shot holds a relatively static pose on the covered carton top without active extraction motion until scene 3.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 7.2,
+        "story": 7.2,
+        "picture": 6.8,
+        "place": 7.1,
+        "craft": 6.3,
+        "voice": 7.5
+      },
+      "one_viewing_summary": "A largely identical illustrated sequence that suffers from an unanchored root transform bug in the closing scene, causing the robot's vertical support mast to drift sideways across the floor.",
+      "observed_strengths": [
+        "Clear graphic depiction of the dual-surface gripper mechanism and sensor mast.",
+        "Accurate typographic layout and synchronization with source claims."
+      ],
+      "defects": [
+        {
+          "start_s": 11.6,
+          "end_s": 14.6,
+          "category": "contact_and_consequence",
+          "observed": "The robot's dark blue vertical support pillar slides horizontally across the screen without tracks or wheels, hovering ungrounded over the floor as the carton is drawn backward.",
+          "criterion": "contact_and_consequence",
+          "blocking": true
+        }
+      ]
+    },
+    "audio_observed": "Clear, professional narration synchronized with precise on-screen caption timing and subtle industrial ambient mechanical foley.",
+    "source_limits": "Contoro's primary materials describe grabbing two sides simultaneously (typically front and an accessible surface) and remote human-in-the-loop intervention, but do not provide public dimensional blueprints for the exact mechanical linkages depicted."
+  },
+  "transport_normalizations": [],
+  "charge_index": 43,
+  "usage": {
+    "promptTokenCount": 17867,
+    "candidatesTokenCount": 797,
+    "totalTokenCount": 20828,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 10508
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 7359
+      }
+    ],
+    "thoughtsTokenCount": 2164,
+    "serviceTier": "standard"
+  }
+}
