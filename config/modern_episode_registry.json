@@ -20,6 +20,166 @@
       ],
       "subject": "generic cooling inspection",
       "note": "Original demonstration of the source-backed comparison, independent check, reported repair and unresolved second flag. A future story registers its own authored episode and view vocabulary."
+    },
+    "fly-gene-test-v2": {
+      "module": "video-engine/src/modern/FlyGeneFilm.tsx",
+      "assets": [
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "foot-contact",
+        "fly-question",
+        "candidate-clue",
+        "living-test",
+        "gene-removal",
+        "movement-difficulty",
+        "normal-condition",
+        "rescue-movement",
+        "variant-condition",
+        "partial-rescue",
+        "paired-result",
+        "diagnostic-clue",
+        "honest-answer",
+        "standard-analysis",
+        "gene-detail"
+      ],
+      "subject": "Drosophila qualitative gene rescue experiment",
+      "note": "Original disclosed fly gene comparison. No measured assay or clinical treatment.",
+      "narration_views": {
+        "foot-contact": {
+          "subject_ids": [
+            "test-fly"
+          ],
+          "action_ids": [
+            "living-test"
+          ]
+        },
+        "fly-question": {
+          "subject_ids": [
+            "test-fly",
+            "culture-vial"
+          ],
+          "action_ids": [
+            "living-test"
+          ]
+        },
+        "candidate-clue": {
+          "subject_ids": [
+            "gene-candidate"
+          ],
+          "action_ids": [
+            "discover-candidate",
+            "select-candidate"
+          ]
+        },
+        "gene-detail": {
+          "subject_ids": [
+            "gene-candidate"
+          ],
+          "action_ids": [
+            "discover-candidate"
+          ]
+        },
+        "standard-analysis": {
+          "subject_ids": [
+            "parent-record",
+            "child-record"
+          ],
+          "action_ids": [
+            "standard-analysis"
+          ]
+        },
+        "living-test": {
+          "subject_ids": [
+            "test-fly",
+            "culture-vial"
+          ],
+          "action_ids": [
+            "living-test"
+          ]
+        },
+        "gene-removal": {
+          "subject_ids": [
+            "disabled-fly"
+          ],
+          "action_ids": [
+            "restrict-movement"
+          ]
+        },
+        "movement-difficulty": {
+          "subject_ids": [
+            "disabled-fly"
+          ],
+          "action_ids": [
+            "restrict-movement"
+          ]
+        },
+        "normal-condition": {
+          "subject_ids": [
+            "normal-fly"
+          ],
+          "action_ids": [
+            "restore-normal"
+          ]
+        },
+        "rescue-movement": {
+          "subject_ids": [
+            "normal-fly"
+          ],
+          "action_ids": [
+            "restore-normal"
+          ]
+        },
+        "variant-condition": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly"
+          ],
+          "action_ids": [
+            "restore-partial"
+          ]
+        },
+        "partial-rescue": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly"
+          ],
+          "action_ids": [
+            "restore-partial"
+          ]
+        },
+        "paired-result": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly",
+            "qualified-gene"
+          ],
+          "action_ids": [
+            "restore-partial",
+            "support-diagnosis"
+          ]
+        },
+        "diagnostic-clue": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly",
+            "qualified-gene"
+          ],
+          "action_ids": [
+            "support-diagnosis"
+          ]
+        },
+        "honest-answer": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly",
+            "qualified-gene"
+          ],
+          "action_ids": [
+            "clinical-limit"
+          ]
+        }
+      }
     }
   }
 }

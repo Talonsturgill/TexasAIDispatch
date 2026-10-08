@@ -105,6 +105,8 @@ else
 fi
 run_gate run_discipline python3 scripts/run_discipline.py --state "$STATE"
 run_gate storyboard_check python3 scripts/storyboard_check.py --board "$OUT/storyboard.json"
+run_gate narration_picture python3 scripts/modern_film.py --board "$OUT/storyboard.json" \
+    --captions "$OUT/captions.json" --words "$OUT/words.json" --script "$OUT/vo_script.txt" --claims "$OUT/claims.json"
 run_gate watchability     python3 scripts/watchability_check.py --board "$OUT/storyboard.json"
 run_gate documentary_review python3 scripts/documentary_review.py --board "$OUT/storyboard.json" \
     --film "$OUT/film.mp4" --verify

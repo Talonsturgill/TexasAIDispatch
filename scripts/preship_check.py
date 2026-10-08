@@ -55,6 +55,9 @@ def gates(board: Path, claims: Path, script: Path, captions: Path,
           audio: Path, sfx: Path, state: Path) -> list[tuple[str, list[str]]]:
     s = str(REPO / "scripts")
     return [
+        ("narration_picture", [f"{s}/modern_film.py", "--board", str(board),
+                              "--captions",str(captions),"--words",str(captions.parent/"words.json"),
+                              "--script",str(script),"--claims",str(claims)]),
         ("storyboard_check", [f"{s}/storyboard_check.py", "--board", str(board)]),
         ("watchability_check", [f"{s}/watchability_check.py", "--board", str(board)]),
         ("documentary_review", [f"{s}/documentary_review.py", "--board", str(board),

@@ -503,6 +503,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--board")
     ap.add_argument("--words")
+    ap.add_argument("--captions", help="measured clause cues; defaults beside the board")
     ap.add_argument("--sfx", help="sfx_events.json, re-anchored to wherever its scenes went")
     ap.add_argument("--min-scene", type=float, default=MIN_SCENE_DEFAULT)
     ap.add_argument("--lead", type=float, default=LEAD_DEFAULT)
@@ -518,12 +519,29 @@ def main() -> int:
     board = json.load(open(a.board))
     wf = json.load(open(a.words))
     words = wf["words"] if isinstance(wf, dict) else wf
+    clause_captions = None
+    if board.get('narration_picture'):
+        from pathlib import Path
+        path=Path(a.captions) if a.captions else Path(a.board).parent/'captions.json'
+        if not path.is_file():
+            print('board_retime: narration-picture retiming requires actual measured captions',file=sys.stderr)
+            return 1
+        clause_captions=json.loads(path.read_text())
+        board['captions']=clause_captions['cues']
 
     board, errs = retime(board, words, a.min_scene, a.lead)
     if errs:
         for e in errs:
             print(f"  FAIL  {e}")
         return 1
+
+    if clause_captions is not None:
+        import modern_film
+        try:
+            modern_film.compile_narration(board,clause_captions,wf)
+        except (KeyError,ValueError,TypeError) as exc:
+            print('board_retime: measured clause compilation failed: '+str(exc),file=sys.stderr)
+            return 1
 
     moved = board.pop("_retime_moved", [])
 

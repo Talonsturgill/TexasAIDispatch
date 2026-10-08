@@ -14,6 +14,114 @@ import run_controller as controller
 import repair_guard
 
 
+class NarrationPictureTest(unittest.TestCase):
+    """Replay absent analysis, early cutaway and wrong-condition failures offline."""
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
+        (self.root/'config').mkdir()
+        views={'candidate':{'subject_ids':['gene'],'action_ids':['select']},
+               'analysis':{'subject_ids':['parent','child'],'action_ids':['compare']},
+               'qualified':{'subject_ids':['result'],'action_ids':['clinical-limit']},
+               'normal':{'subject_ids':['normal-fly'],'action_ids':['restore-normal']}}
+        (self.root/'config/modern_episode_registry.json').write_text(json.dumps({'episodes':{'fixture':{'narration_views':views}}}))
+        self.mock=patch.object(modern,'REPO',self.root);self.mock.start()
+        texts=['Select a gene candidate.','Compare parent and child records.','A likely diagnosis, not a treatment.']
+        self.captions={'cues':[{'id':f'c{i+1}','text':t,'start':a,'end':b,'source':'measured_boundary',
+            'start_measured':True,'end_measured':True} for i,(t,a,b) in enumerate(zip(texts,[.3,2.3,4.6],[1.8,4.2,6.6]))]}
+        self.words={'method':'offline-test-fixture','words':[{'word':w,'start':0,'end':.1} for t in texts for w in t.split()]}
+        self.board={'reference_only':True,'runtime_s':7,'scenes':[{'id':'s1','start_s':0,'duration_s':7,
+            'vo':' '.join(texts),'visual_events':[{'id':f'e{i+1}','narration_id':f'c{i+1}',
+            'clause_fraction_start':.1,'clause_fraction_end':.8} for i in range(3)]}],
+            'narration_picture':{'version':'narration-picture-v1','clauses':[]},
+            'film_direction':{'episode':'fixture','shots':[],'rewards':[]}}
+        for i,(view,subjects,action) in enumerate([('candidate',['gene'],'select'),('analysis',['parent','child'],'compare'),('qualified',['result'],'clinical-limit')]):
+            cid=f'c{i+1}';eid=f'e{i+1}'
+            self.board['narration_picture']['clauses'].append({'id':cid,'cue_ids':[cid],'text':texts[i],
+                'scene_id':'s1','subject_ids':subjects,'action_id':action,'claim_ids':['verified-fixture'],'event_ids':[eid]})
+            self.board['film_direction']['shots'].append({'id':cid+'-shot','scene_id':'s1','view':view,
+                'event_id':eid,'narration_ids':[cid],'start_s':0,'duration_s':1})
+            self.board['film_direction']['rewards'].append({'shot_id':cid+'-shot','event_id':eid,'event_fraction':.5})
+        modern.compile_narration(self.board,self.captions,self.words)
+
+    def tearDown(self):self.mock.stop();self.temp.cleanup()
+
+    def errors(self,board=None,captions=None,words=None):
+        return modern.narration_problems(board or self.board,captions or self.captions,words or self.words)
+
+    def test_complete_measured_contract_and_idempotent_compilation(self):
+        self.assertEqual([],self.errors());before=copy.deepcopy(self.board)
+        modern.compile_narration(self.board,self.captions,self.words);self.assertEqual(before,self.board)
+
+    def test_provisional_silent_plan_cannot_authorize_measured_delivery(self):
+        self.board['narration_picture']['timing_mode']='authored'
+        self.board['captions']=copy.deepcopy(self.captions['cues'])
+        for cue in self.board['captions']:cue['source']='authored_estimate'
+        self.assertEqual([],modern.narration_problems(self.board))
+        self.assertTrue(any('authored estimate' in e for e in self.errors()))
+
+    def test_absent_parent_child_analysis_cannot_be_replaced_by_candidate(self):
+        self.board['film_direction']['shots'][1]['view']='candidate'
+        self.assertTrue(any('incompatible subject' in e for e in self.errors()))
+
+    def test_cut_cannot_leave_candidate_before_its_spoken_clause_ends(self):
+        self.board['film_direction']['shots'][0]['duration_s']=1
+        self.assertTrue(any('does not cover' in e for e in self.errors()))
+
+    def test_qualifiers_and_original_word_positions_are_required(self):
+        self.board['narration_picture']['clauses'][-1]['text']='A diagnosis.'
+        self.assertTrue(self.errors())
+        self.board['narration_picture']['clauses'][-1]['text']=self.captions['cues'][-1]['text']
+        self.board['narration_picture']['clauses'][-1]['word_range']=[0,6]
+        self.assertTrue(any('positional' in e for e in self.errors()))
+
+    def test_duplicate_or_omitted_clauses_are_rejected(self):
+        self.board['narration_picture']['clauses'].append(copy.deepcopy(self.board['narration_picture']['clauses'][0]))
+        self.assertTrue(self.errors())
+        self.board['narration_picture']['clauses']=self.board['narration_picture']['clauses'][1:3]
+        self.assertTrue(self.errors())
+
+    def test_stale_caption_or_acoustic_evidence_fails(self):
+        self.words['words'][0]['end']=.5
+        self.assertTrue(any('stale acoustic' in e for e in self.errors()))
+        self.captions['cues'][0]['end']=1.9
+        self.assertTrue(any('clause clock' in e for e in self.errors()))
+
+    def test_modelled_boundaries_and_decorative_action_substitution_fail(self):
+        self.captions['cues'][0]['start_measured']=False
+        self.assertTrue(self.errors());self.captions['cues'][0]['start_measured']=True
+        self.board['narration_picture']['clauses'][0]['action_id']='camera-orbit'
+        self.assertTrue(any('incompatible' in e for e in self.errors()))
+
+    def test_current_registered_consumers_reject_the_two_observed_false_views(self):
+        # Read the actual production registry; keep this independent of private run files.
+        actual=json.loads((Path(__file__).resolve().parents[1]/'config/modern_episode_registry.json').read_text())
+        fixture=json.loads((self.root/'config/modern_episode_registry.json').read_text())
+        fixture['episodes']['fly-gene-test-v2']=actual['episodes']['fly-gene-test-v2']
+        (self.root/'config/modern_episode_registry.json').write_text(json.dumps(fixture))
+        self.board['film_direction']['episode']='fly-gene-test-v2'
+        row=self.board['narration_picture']['clauses'][0]
+        row.update(subject_ids=['gene-candidate'],action_id='select-candidate')
+        self.board['film_direction']['shots'][0]['view']='gene-detail'
+        self.assertTrue(any('incompatible subject or action' in e for e in self.errors()))
+        row.update(subject_ids=['test-fly','culture-vial'],action_id='living-test')
+        self.board['film_direction']['shots'][0]['view']='paired-result'
+        self.assertTrue(any('incompatible subject or action' in e for e in self.errors()))
+
+    def test_patient_variant_cannot_use_normal_condition(self):
+        row=self.board['narration_picture']['clauses'][0]
+        row.update(subject_ids=['variant-fly'],action_id='restore-partial')
+        self.board['film_direction']['shots'][0]['view']='normal'
+        self.assertTrue(any('incompatible' in e for e in self.errors()))
+
+    def test_new_measured_pause_moves_clause_handoff_without_scene_scaling(self):
+        first=copy.deepcopy(self.board['narration_picture']['clauses'][0])
+        self.captions['cues'][1].update(start=2.8,end=4.3)
+        modern.compile_narration(self.board,self.captions,self.words)
+        self.assertEqual(first,self.board['narration_picture']['clauses'][0])
+        self.assertEqual(2.3,self.board['film_direction']['shots'][1]['start_s'])
+        self.assertEqual([],self.errors())
+
+
 class ModernFilmTest(unittest.TestCase):
     def setUp(self):self.board=modern_film_proof.board('a')
 
@@ -145,6 +253,58 @@ class ModernFilmTest(unittest.TestCase):
         self.assertTrue(modern.review_problems(self.board,{'score':9.9}))
         self.assertTrue(modern.review_problems(self.board,self.report(),'b'*64))
         self.assertTrue(modern.assessment_problems(self.board,{'defects':[{'category':'surface_finish'}]}))
+
+    def narration_report(self):
+        board=copy.deepcopy(self.board)
+        board['narration_picture']={'version':'narration-picture-v1','clauses':[
+            {'id':'c1','start_s':.5,'end_s':1.4},
+            {'id':'c2','start_s':1.5,'end_s':2.4}]}
+        report=self.report()
+        report['narration_picture_observations']={'film_sha256':'a'*64,'clauses':[
+            dict(row,pass_value=True,observed='Offline observed-action transport fixture, never film approval.')
+            for row in board['narration_picture']['clauses']]}
+        for row in report['narration_picture_observations']['clauses']:
+            row['pass']=row.pop('pass_value')
+        return board,report
+
+    def test_malformed_narration_review_shape_fails_closed_without_crashing(self):
+        board,report=self.narration_report()
+        self.assertEqual([],modern.review_problems(board,report))
+        # Reproduce the actual provider shape: valid observation rows as a top-level list.
+        rows=copy.deepcopy(report['narration_picture_observations']['clauses'])
+        for value in [rows,[],None,'invalid',7,True]:
+            with self.subTest(observations_type=type(value).__name__):
+                changed=copy.deepcopy(report);changed['narration_picture_observations']=value
+                self.assertTrue(modern.review_problems(board,changed))
+        for value in [{},'invalid',7,None]:
+            with self.subTest(clauses_type=type(value).__name__):
+                changed=copy.deepcopy(report);changed['narration_picture_observations']['clauses']=value
+                self.assertTrue(modern.review_problems(board,changed))
+        for value in [None,[],['invalid'],'invalid',7,{'id':[]}]:
+            with self.subTest(row_type=type(value).__name__):
+                changed=copy.deepcopy(report);changed['narration_picture_observations']['clauses'][0]=value
+                self.assertTrue(modern.review_problems(board,changed))
+
+    def test_valid_narration_review_still_requires_exact_hash_order_and_verdict(self):
+        board,report=self.narration_report()
+        mutations=[
+            lambda o:o.update(film_sha256='b'*64),
+            lambda o:o['clauses'].reverse(),
+            lambda o:o['clauses'].pop(),
+            lambda o:o['clauses'][0].update({'pass':False}),
+            lambda o:o['clauses'][0].update(start_s=.6),
+            lambda o:o['clauses'][0].update(observed=''),
+        ]
+        for mutation in mutations:
+            changed=copy.deepcopy(report);mutation(changed['narration_picture_observations'])
+            self.assertTrue(modern.review_problems(board,changed))
+        self.assertEqual([],modern.review_problems(board,report))
+
+    def test_malformed_modern_review_rows_are_refused(self):
+        for value in [None,[],['invalid'],'invalid',7]:
+            with self.subTest(row_type=type(value).__name__):
+                report=self.report();report['modern_observations']['pace']=value
+                self.assertTrue(modern.review_problems(self.board,report))
 
     def test_future_completion_funds_art_and_preserves_original_policy(self):
         with tempfile.TemporaryDirectory() as temp:

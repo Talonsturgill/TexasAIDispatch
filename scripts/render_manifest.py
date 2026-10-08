@@ -39,27 +39,62 @@ def engine_sha256(root: Path = ENGINE) -> str:
 
 
 def native_media_paths(data: dict, public: Path = PUBLIC) -> list[Path]:
-    """Bind deterministic film-derived textures without claiming generated photography."""
+    """Bind evidence textures or exact current request-bound fresh story artwork."""
     paths = []
+    root = public.resolve()
+    plan = data.get("story_art") or {}
+    requests = plan.get("requests") or []
+    entries = plan.get("entries") or []
+    prefix = "generated/story-art/" + str(data.get("date") or "") + "/"
+
+    def checked_path(relative):
+        path = Path(relative)
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError("native texture path is absolute or traverses public")
+        asset = public / path
+        if not asset.resolve().is_relative_to(root) or not asset.is_file():
+            raise ValueError("native texture is missing or resolves outside public")
+        return asset
+
+    def fresh_entry(relative, request_id=None):
+        if (plan.get("version") != "fresh-story-art-v1"
+                or not relative.startswith(prefix) or Path(relative).suffix != ".png"):
+            raise ValueError("native texture must stay in public/evidence or exact current story art")
+        matched = [e for e in entries if e.get("file") == relative]
+        if len(matched) != 1:
+            raise ValueError("native story art asset is unlisted or duplicated")
+        entry = matched[0]
+        reqs = [r for r in requests if r.get("id") == entry.get("request_id")]
+        if (len(reqs) != 1 or reqs[0].get("file") != relative
+                or request_id is not None and request_id != entry.get("request_id")):
+            raise ValueError("native story art request identity or file mismatch")
+        return entry
+
     for item in data.get("native_media") or []:
         relative = str(item.get("file") or "")
-        path = Path(relative)
-        if path.is_absolute() or ".." in path.parts or not relative.startswith("evidence/"):
-            raise ValueError("native texture must stay in public/evidence")
-        asset = public / path
+        if relative.startswith("evidence/"):
+            entry = None
+        else:
+            if not item.get("request_id"):
+                raise ValueError("native story art inventory lacks its request identity")
+            entry = fresh_entry(relative, item["request_id"])
+            if entry.get("sha256") != item.get("sha256"):
+                raise ValueError("native story art inventory hash differs from its receipt")
+        asset = checked_path(relative)
         if file_sha256(asset) != item.get("sha256"):
             raise ValueError("native texture bytes changed: " + relative)
         if len(str(item.get("basis") or "")) < 30:
             raise ValueError("native texture lacks recorded provenance")
         paths.append(asset)
-    import story_art
-    for asset in story_art.paths(data, public):
-        if not asset.is_relative_to(public) or not asset.is_file():
-            raise ValueError('fresh story-art raster is missing or outside public')
-        entry = next(e for e in data['story_art']['entries'] if public / e['file'] == asset)
-        if file_sha256(asset) != entry['sha256']:
-            raise ValueError('fresh story-art bytes changed after generation')
-        paths.append(asset)
+    # Standalone story-art inventory retains its exact request, bytes and containment.
+    for row in entries:
+        relative = str(row.get("file") or "")
+        entry = fresh_entry(relative)
+        asset = checked_path(relative)
+        if file_sha256(asset) != entry.get("sha256"):
+            raise ValueError("fresh story-art bytes changed after generation")
+        if asset not in paths:
+            paths.append(asset)
     return paths
 
 
@@ -173,6 +208,69 @@ def self_test() -> int:
         except ValueError:
             rejected = True
         ok("changed native texture fails before rendering", rejected)
+    with tempfile.TemporaryDirectory() as td:
+        import copy
+        root = Path(td) / "public"
+        relative = "generated/story-art/2026-10-08/fly-hero.png"
+        asset = root / relative
+        asset.parent.mkdir(parents=True)
+        asset.write_bytes(b"fresh-original-raster")
+        sha = file_sha256(asset)
+        data = {"date": "2026-10-08", "story_art": {
+            "version": "fresh-story-art-v1",
+            "requests": [{"id": "fly-hero", "file": relative}],
+            "entries": [{"request_id": "fly-hero", "file": relative, "sha256": sha}]},
+            "native_media": [{"request_id": "fly-hero", "file": relative, "sha256": sha,
+                              "basis": "Fresh original conceptual artwork bound to its exact generation."}]}
+        ok("valid exact fresh art binds once", native_media_paths(data, root) == [asset])
+
+        def refuses(label, mutate):
+            changed = copy.deepcopy(data)
+            mutate(changed)
+            try:
+                native_media_paths(changed, root)
+                rejected = False
+            except (ValueError, OSError):
+                rejected = True
+            ok(label, rejected)
+
+        refuses("unlisted generated asset refused",
+                lambda d: d["native_media"][0].update(file="generated/story-art/2026-10-08/unlisted.png"))
+        refuses("request identity mismatch refused",
+                lambda d: d["native_media"][0].update(request_id="other-request"))
+        refuses("request file mismatch refused",
+                lambda d: d["story_art"]["requests"][0].update(file="generated/story-art/2026-10-08/other.png"))
+        refuses("stale inventory hash refused",
+                lambda d: d["native_media"][0].update(sha256="0"*64))
+        def traversal(d):
+            bad = "generated/story-art/2026-10-08/../fly-hero.png"
+            d["native_media"][0]["file"] = bad
+            d["story_art"]["requests"][0]["file"] = bad
+            d["story_art"]["entries"][0]["file"] = bad
+        refuses("matching-request path traversal refused", traversal)
+        def stale_receipt(d):
+            d["native_media"][0]["sha256"] = "0"*64
+            d["story_art"]["entries"][0]["sha256"] = "0"*64
+        refuses("stale receipt and matching inventory hash refused", stale_receipt)
+        refuses("earlier edition namespace refused",
+                lambda d: d.update(date="2026-10-09"))
+        outside = Path(td) / "outside.png"
+        outside.write_bytes(b"fresh-original-raster")
+        asset.unlink()
+        asset.symlink_to(outside)
+        refuses("fresh art symlink escape refused", lambda d: None)
+        # Evidence remains evidence-only, including resolved containment.
+        (root / "evidence").mkdir()
+        evidence = root / "evidence" / "capture.png"
+        evidence.symlink_to(outside)
+        escaped = {"native_media": [{"file": "evidence/capture.png", "sha256": sha,
+                    "basis": "Original evidence crop with a retained source and provenance."}]}
+        try:
+            native_media_paths(escaped, root)
+            rejected = False
+        except ValueError:
+            rejected = True
+        ok("evidence symlink escape refused", rejected)
     print(f"render_manifest: {failures} failure(s)")
     return 1 if failures else 0
 
