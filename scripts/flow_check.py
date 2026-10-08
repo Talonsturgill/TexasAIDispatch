@@ -38,7 +38,9 @@ critic not spending its attention on the thing only it can judge.
 The dated creative-production policy uses its directed sound event clock, including
 intentional quiet, instead of a sound on every scene. Authenticated editorial pictures
 use the existing inspected-source and rendered-element contracts instead of metadata
-word overlap. These bindings do not judge the pictured meaning or prove audible WAV
+word overlap. Admitted directed-film-v2 shots likewise use their current renderer,
+art, event and source-story bindings; invalid routes retain all refusal checks.
+These bindings do not judge the pictured meaning or prove audible WAV
 execution; the mixer and exact-film reviewers retain those checks.
 
     flow_check.py --board out/dispatch/storyboard.json --sfx out/dispatch/sfx_events.json
@@ -113,6 +115,29 @@ def directed_sound_problems(board: dict, sfx: list[dict]) -> list[str]:
     return errors
 
 
+def modern_source_binding_problems(board: dict) -> list[str]:
+    """Bind the modern route's story claims and optional diagram metadata.
+
+    Executed registered shots/events and fresh art are checked by modern_film;
+    rendered meaning still requires the independent exact-film review.
+    """
+    from daily_production import structure_problems
+    errors = structure_problems(board)
+    for scene in board.get("scenes") or []:
+        picture = scene.get("picture") or {}
+        if picture.get("medium") != "diagram":
+            continue
+        nodes = picture.get("nodes")
+        claims = set(scene.get("vo_claims") or [])
+        if (not isinstance(nodes, list) or not nodes
+                or any(not isinstance(node, dict) or not node.get("claim_id")
+                       or node["claim_id"] not in claims for node in nodes)):
+            errors.append(f"scene {scene.get('id')}: modern diagram nodes must bind the scene's spoken claims")
+        if picture.get("event_id") not in {e.get("id") for e in scene.get("visual_events") or []}:
+            errors.append(f"scene {scene.get('id')}: modern diagram must bind a current scene event")
+    return errors
+
+
 def check(board: dict, sfx: list[dict], *, public: Path | None = None) -> list[str]:
     p: list[str] = []
     scenes = sorted(board.get("scenes") or [], key=lambda s: float(s.get("start_s") or 0))
@@ -120,7 +145,17 @@ def check(board: dict, sfx: list[dict], *, public: Path | None = None) -> list[s
         return ["no scenes to flow"]
     # Gate 0 should already have run this. Re-running it here makes flow_check honest when called
     # directly and prevents its own later word-overlap heuristic from becoming a weaker answer.
-    p += shot_coherence.check(board)
+    coherence_errors = shot_coherence.check(board)
+    p += coherence_errors
+    import modern_film
+    modern_bound = False
+    if modern_film.required(board):
+        admission_errors = modern_film.problems(board)
+        source_errors = modern_source_binding_problems(board)
+        p += [error for error in admission_errors if error not in p]
+        p += source_errors
+        modern_bound = (board.get("cinematic_template") == "directed-film-v2"
+                        and not admission_errors and not coherence_errors and not source_errors)
     import creative_production as creative
     current = (creative.required(board)
                and (board.get("cinema") or {}).get("version") == creative.policy()["version"])
@@ -220,6 +255,10 @@ def check(board: dict, sfx: list[dict], *, public: Path | None = None) -> list[s
     for s in scenes:
         vo = str(s.get("vo") or "").strip()
         if not vo:
+            continue
+        if modern_bound:
+            # The admitted registered renderer executes source-bound shots and events.
+            # Legacy picture word pools are neither its subjects nor its rendered text.
             continue
         if current and creative.picture_scene(board, s):
             # The current picture contract binds the rendered element, reveal event and
@@ -435,6 +474,49 @@ def self_test() -> int:
         asset_file.write_bytes(b"changed actual asset bytes")
         ok("modified source file bytes are refused even with matching metadata hashes",
            any("bytes changed" in e for e in check(current, directed_sfx, public=public)))
+
+    # Reuse the actual portable engineering treatment and its retained fresh art,
+    # not fabricated assets or mocked modern admission.
+    import modern_film_proof
+    modern = modern_film_proof.board("a")
+    sounds = [{"id": cue["id"], "event_id": cue["event_id"],
+               "at_s": cue["at_s"], "dur_s": cue["duration_s"], "gain": .1,
+               "wav": "fixture.wav", "provenance": cue["provenance"]}
+              for cue in creative.sound_timeline(modern) if cue["role"] != "quiet"]
+    errors = check(modern, sounds)
+    ok("authenticated modern shots pass through their executed contract", not errors, str(errors))
+
+    def modern_mutation(label, change, expected):
+        data, audio = copy.deepcopy(modern), copy.deepcopy(sounds)
+        change(data, audio)
+        errors = check(data, audio)
+        ok(label, any(expected in error for error in errors), str(errors))
+
+    modern_mutation("unknown modern episode cannot gain lexical exemption",
+                    lambda b, s: b["film_direction"].update(episode="unregistered"), "registered authored episode")
+    modern_mutation("missing current art cannot gain modern exemption",
+                    lambda b, s: b["story_art"].update(entries=[]), "fresh storyboard images")
+    modern_mutation("modern shot must overlap its own current event",
+                    lambda b, s: b["film_direction"]["shots"][0].update(event_id="s6-event-3"),
+                    "actual overlapping performed event")
+    modern_mutation("modern story cannot omit spoken source claims",
+                    lambda b, s: b["story_contract"]["scenes"][1].update(claim_ids=[]),
+                    "story row omits claims")
+    modern_mutation("modern must-show binding cannot name an unstaged item",
+                    lambda b, s: b["scenes"][0]["visual_proof"]["must_show"][0].update(item_ids=["missing"]),
+                    "unstaged item")
+    modern_mutation("modern diagram cannot claim an unrelated source",
+                    lambda b, s: b["scenes"][0].update(picture={
+                        "medium": "diagram", "event_id": "s1-event-1",
+                        "nodes": [{"label": "unrelated", "claim_id": "unrelated"}]}),
+                    "modern diagram nodes")
+    modern_mutation("modern diagram cannot name a different scene's event",
+                    lambda b, s: b["scenes"][0].update(picture={
+                        "medium": "diagram", "event_id": "s6-event-3",
+                        "nodes": [{"label": "source", "claim_id": b["scenes"][0]["vo_claims"][0]}]}),
+                    "modern diagram must bind")
+    modern_mutation("modern exemption preserves directed sound drift refusal",
+                    lambda b, s: s[0].update(at_s=s[0]["at_s"]+.5), "current directed event clock")
 
     if failures:
         print(f"\nflow_check self-test: {failures} FAILED", file=sys.stderr)

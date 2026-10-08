@@ -191,6 +191,7 @@ export interface Cue {
 }
 
 export type DispatchProps = {
+  narration_picture?: import('./lib/direction').NarrationPicture;
   date?: string;
   film_direction?: FilmDirection;
   story_art?: StoryArt;

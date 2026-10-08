@@ -22,6 +22,155 @@ def finite(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
+def narration_required(board):
+    return bool(board.get('narration_picture')) or (required(board) and not board.get('reference_only')
+        and str(board.get('date', '')) >= policy().get('narration_picture_effective_date', '9999'))
+
+
+def narration_tokens(text):
+    return [re.sub(r'[^a-z0-9]', '', w.lower()) for w in text.split()
+            if re.sub(r'[^a-z0-9]', '', w.lower())]
+
+
+def narration_digest(value):
+    return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+def cue_digest(cues):
+    return narration_digest([{k:c.get(k) for k in ('id','start','end','text','source')} for c in cues])
+
+
+def narration_problems(board, captions=None, words=None, script=None, claims=None):
+    """Check coverage and executable bindings, without pretending metadata judges pixels."""
+    if not narration_required(board):
+        return []
+    errors = []
+    plan = board.get('narration_picture') or {}
+    clauses = plan.get('clauses') or []
+    if plan.get('version') != 'narration-picture-v1' or not clauses:
+        return ['every current film needs its complete narration-picture contract']
+    registry = json.loads((REPO/'config/modern_episode_registry.json').read_text())['episodes']
+    views = registry.get((board.get('film_direction') or {}).get('episode'), {}).get('narration_views', {})
+    shots = (board.get('film_direction') or {}).get('shots', [])
+    scenes = {s['id']: s for s in board.get('scenes', [])}
+    cues = {c['id']: c for c in (captions or {}).get('cues', board.get('captions', []))}
+    planning = captions is None and plan.get('timing_mode') == 'authored'
+    if captions is not None and plan.get('timing_mode') != 'measured_caption_boundaries':
+        errors.append('production narration-picture clock is still an authored estimate')
+    seen, covered, cursor = set(), [], 0
+    verified = {c['id'] for c in (claims or {}).get('claims', []) if c.get('verdict') == 'VERIFIED'}
+    for row in clauses:
+        cid = row.get('id')
+        if not cid or cid in seen:
+            errors.append('narration clauses must have unique ordered identities')
+        seen.add(cid)
+        ids = row.get('cue_ids') or []
+        group = [cues.get(k) for k in ids]
+        if not ids or any(c is None for c in group):
+            errors.append(str(cid)+': measured caption clause is missing'); continue
+        covered.extend(ids)
+        text = ' '.join(c['text'] for c in group)
+        if narration_tokens(row.get('text', '')) != narration_tokens(text):
+            errors.append(str(cid)+': clause text or qualifier drifted from the measured voice')
+        start, end = group[0]['start'], group[-1]['end']
+        if (not finite(row.get('start_s')) or not finite(row.get('end_s'))
+                or abs(row['start_s']-start)>.001 or abs(row['end_s']-end)>.001):
+            errors.append(str(cid)+': picture clock is not the current measured clause clock')
+        if not planning and any(c.get('source') != 'measured_boundary' for c in group):
+            errors.append(str(cid)+': clause boundaries must be measured, never proportional')
+        count = len(narration_tokens(text))
+        if row.get('word_range') != [cursor, cursor+count]:
+            errors.append(str(cid)+': positional spoken-word coverage is stale or incomplete')
+        cursor += count
+        scene = scenes.get(row.get('scene_id'))
+        if not scene or start < scene['start_s']-.001 or end > scene['start_s']+scene['duration_s']+.001:
+            errors.append(str(cid)+': clause leaves its source-bound scene')
+        if not row.get('subject_ids') or not row.get('action_id') or not row.get('claim_ids'):
+            errors.append(str(cid)+': concrete subject, action and source are required')
+        if claims is not None and not set(row.get('claim_ids', [])).issubset(verified):
+            errors.append(str(cid)+': narrated action lacks current verified source evidence')
+        relevant = sorted([s for s in shots if cid in s.get('narration_ids', [])], key=lambda s:s['start_s'])
+        at = start
+        for shot in relevant:
+            view = views.get(shot.get('view'), {})
+            if (shot.get('scene_id') != row.get('scene_id')
+                    or row.get('action_id') not in view.get('action_ids', [])
+                    or not set(row.get('subject_ids', [])).issubset(view.get('subject_ids', []))):
+                errors.append(str(cid)+': renderer view depicts an incompatible subject or action')
+            if shot['start_s'] <= at+.001:
+                at = max(at, shot['start_s']+shot['duration_s'])
+        if at < end-.001:
+            errors.append(str(cid)+': matching performed picture does not cover the spoken clause')
+        if not row.get('event_ids') or any(not any(e.get('id')==eid for e in (scene or {}).get('visual_events', []))
+                                          for eid in row.get('event_ids', [])):
+            errors.append(str(cid)+': executed source-bound event is missing')
+    if covered != list(cues):
+        errors.append('every measured spoken cue must be covered once in original order')
+    authored = ' '.join(row.get('text', '') for row in clauses)
+    if narration_tokens(authored) != narration_tokens(script if script is not None else ' '.join(s.get('vo','') for s in scenes.values())):
+        errors.append('narration-picture contract omits or duplicates spoken words or qualifiers')
+    if words is not None and narration_tokens(authored) != narration_tokens(' '.join(w['word'] for w in words['words'])):
+        errors.append('positional clause coverage differs from the acoustic word stream')
+    provenance=plan.get('timing_provenance') or {}
+    if captions is not None and provenance.get('cue_content_sha256') != cue_digest(captions['cues']):
+        errors.append('narration picture is bound to stale caption content')
+    if words is not None and 'method' in words and provenance.get('word_content_sha256') != narration_digest(words):
+        errors.append('narration picture is bound to stale acoustic word evidence')
+    if captions is not None and any(c.get('start_measured') is not True or c.get('end_measured') is not True
+                                    for c in captions['cues']):
+        errors.append('external caption provenance does not establish measured clause boundaries')
+    return errors
+
+
+def compile_narration(board, captions, words):
+    """Derive clauses, cuts and event windows from measured speech, never scene fractions."""
+    plan = board['narration_picture']; cues = {c['id']:c for c in captions['cues']}
+    cursor = 0
+    for row in plan['clauses']:
+        group = [cues[k] for k in row['cue_ids']]
+        if narration_tokens(row['text']) != narration_tokens(' '.join(c['text'] for c in group)):
+            raise ValueError('authored clause must equal complete measured cue text')
+        count = len(narration_tokens(row['text']))
+        row.update(start_s=group[0]['start'], end_s=group[-1]['end'], word_range=[cursor,cursor+count])
+        cursor += count
+    plan['timing_mode']='measured_caption_boundaries'
+    provenance=plan.setdefault('timing_provenance',{})
+    provenance['cue_content_sha256']=cue_digest(captions['cues'])
+    if 'method' in words: provenance['word_content_sha256']=narration_digest(words)
+    scenes = {s['id']:s for s in board['scenes']}
+    rows = {r['id']:r for r in plan['clauses']}
+    for sid,scene in scenes.items():
+        scene_rows = [r for r in plan['clauses'] if r['scene_id']==sid]
+        for n,row in enumerate(scene_rows):
+            lo = scene['start_s'] if n==0 else (scene_rows[n-1]['end_s']+row['start_s'])/2
+            hi = scene['start_s']+scene['duration_s'] if n+1==len(scene_rows) else (row['end_s']+scene_rows[n+1]['start_s'])/2
+            assigned = [s for s in board['film_direction']['shots'] if s.get('narration_ids')==[row['id']]]
+            if not assigned: raise ValueError('spoken clause has no authored executable shot')
+            # Only subdivisions within one identical spoken subject/action use a fraction.
+            # A clause handoff always comes from acoustic boundaries above.
+            for k,shot in enumerate(assigned):
+                a=lo+(hi-lo)*k/len(assigned);b=lo+(hi-lo)*(k+1)/len(assigned)
+                shot.update(start_s=round(a,4),duration_s=round(b-a,4),
+                    scene_fraction_start=(a-scene['start_s'])/scene['duration_s'],
+                    scene_fraction_end=(b-scene['start_s'])/scene['duration_s'])
+        for event in scene['visual_events']:
+            row=rows[event['narration_id']]
+            start=row['start_s']+float(event['clause_fraction_start'])*(row['end_s']-row['start_s'])
+            end=row['start_s']+float(event['clause_fraction_end'])*(row['end_s']-row['start_s'])
+            event.update(at_s=round(start-scene['start_s'],4),duration_s=round(end-start,4))
+    events={e['id']:(s,e) for s in board['scenes'] for e in s['visual_events']}
+    for reward in board['film_direction']['rewards']:
+        scene,event=events[reward['event_id']]
+        reward['at_s']=round(scene['start_s']+event['at_s']+event['duration_s']*reward['event_fraction'],4)
+        owner=next((s for s in board['film_direction']['shots'] if event['narration_id'] in s.get('narration_ids',[])
+                    and s['start_s']-.001<=reward['at_s']<s['start_s']+s['duration_s']+.001),None)
+        if owner is None: raise ValueError('performed clause reward leaves its actual picture')
+        reward['shot_id']=owner['id']
+    errors=narration_problems(board,captions,words)
+    if errors: raise ValueError('; '.join(errors))
+    return board
+
+
 def prose(value):
     return isinstance(value, str) and len(value.strip()) >= 20
 
@@ -62,6 +211,13 @@ def retime(board):
     """Derive shot and reward times from the actual retimed scenes and events."""
     if not required(board):
         return []
+    if board.get('narration_picture'):
+        try:
+            compile_narration(board, {'cues':board['captions']},
+                              {'words':[{'word':w} for s in board['scenes'] for w in s.get('vo','').split()]})
+            return problems(board)
+        except (KeyError, ValueError, TypeError) as exc:
+            return ['measured narration-picture retiming failed: '+str(exc)]
     try:
         scenes = {s['id']: s for s in board['scenes']}
         for shot in board['film_direction']['shots']:
@@ -85,7 +241,7 @@ def problems(board, repo=REPO):
     plan = board.get('film_direction')
     if not isinstance(plan, dict):
         return ['modern production requires film_direction; the old renderer is historical only']
-    errors = []
+    errors = narration_problems(board)
     import story_art
     errors += story_art.problems(board, repo)
     if plan.get('version') != cfg['version'] or board.get('cinematic_template') != cfg['template']:
@@ -197,11 +353,31 @@ def review_problems(board, report, film_sha=None):
         errors.append('modern observations describe different or unbound film bytes')
     runtime = float(board.get('runtime_s', 0))
     for key in policy()['review_criteria']:
-        item = rows.get(key) or {}
+        item = rows.get(key)
+        if not isinstance(item, dict):
+            errors.append('modern engagement or finish unproven: ' + key)
+            continue
         start, end = item.get('start_s'), item.get('end_s')
         if (item.get('pass') is not True or not finite(start) or not finite(end)
                 or not 0 <= start < end <= runtime + .1 or not prose(item.get('observed'))):
             errors.append('modern engagement or finish unproven: ' + key)
+    if narration_required(board):
+        observations=report.get('narration_picture_observations')
+        if not isinstance(observations, dict):
+            return errors + ['exact-film narration-picture observations must be an object']
+        expected_rows={c['id']:c for c in (board.get('narration_picture') or {}).get('clauses', [])}
+        actual=observations.get('clauses')
+        if not isinstance(actual, list):
+            return errors + ['exact-film narration-picture clauses must be a list']
+        if any(not isinstance(row, dict) or not isinstance(row.get('id'), str) for row in actual):
+            return errors + ['exact-film narration-picture clauses must contain identified object rows']
+        if observations.get('film_sha256') != expected or [c.get('id') for c in actual] != list(expected_rows):
+            errors.append('exact-film narration-picture review must cover every spoken clause')
+        for row in actual:
+            clause=expected_rows.get(row.get('id'), {})
+            if (row.get('pass') is not True or not prose(row.get('observed'))
+                    or row.get('start_s') != clause.get('start_s') or row.get('end_s') != clause.get('end_s')):
+                errors.append('narration-picture relationship unproven: '+str(row.get('id')))
     return errors
 
 
@@ -217,7 +393,15 @@ def review_instruction(board):
     if not required(board):
         return ''
     keys = ', '.join(policy()['review_criteria'])
-    return ('Watch the complete current film at normal speed before reading its rationale. '
+    clause_instruction=(' Also return narration_picture_observations with the actual film_sha256 and '
+        'clauses in authored order, each with id, pass, exact start_s/end_s from narration_picture '
+        'and observed. Inspect every spoken clause against the actual pictured subject and performed '
+        'action at those times. Captions, labels, declared event metadata and matching topic words '
+        'do not depict an absent action. Reject early cutaways, wrong condition identities, '
+        'missing causal steps or unpictured qualifications. State precisely what the picture does '
+        'while the words are heard; do not copy the director rationale. '
+        if narration_required(board) else '')
+    return (clause_instruction+'Watch the complete current film at normal speed before reading its rationale. '
             'Return modern_observations with film_sha256 and timed fields ' + keys +
             ', each with pass, start_s, end_s and concrete observed. First_frame tests a readable '
             'scroll-stop question or action; visual_progression requires successive new information, '
@@ -237,7 +421,18 @@ if __name__ == '__main__':
     import argparse
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--board', type=Path, required=True)
+    p.add_argument('--captions', type=Path)
+    p.add_argument('--words', type=Path)
+    p.add_argument('--script', type=Path)
+    p.add_argument('--claims', type=Path)
     args = p.parse_args()
-    errors = problems(json.loads(args.board.read_text()))
+    board=json.loads(args.board.read_text())
+    errors = problems(board)
+    if args.captions:
+        captions=json.loads(args.captions.read_text())
+        words=json.loads(args.words.read_text()) if args.words else None
+        script=args.script.read_text() if args.script else None
+        claims=json.loads(args.claims.read_text()) if args.claims else None
+        errors+=narration_problems(board,captions,words,script,claims)
     print('\n'.join(errors) if errors else 'Active directed film route, executed shot timeline and fresh artwork verified.')
     raise SystemExit(bool(errors))

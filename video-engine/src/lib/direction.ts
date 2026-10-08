@@ -6,6 +6,20 @@ export type DirectedScene = {
 };
 export type ActionWindow = {start: number; end: number; scene: string; itemIds: string[];
   motion?: NonNullable<DirectedScene['visual_events']>[number]['motion']};
+export type NarrationPicture = {version:'narration-picture-v1';timing_mode:string;
+  clauses:{id:string;text:string;scene_id:string;subject_ids:string[];action_id:string;
+    start_s:number;end_s:number;cue_ids:string[];word_range:[number,number];event_ids:string[];claim_ids:string[]}[]};
+/** One shared acoustic clock for picture, performance and their exact-film review. */
+export function requireNarration(board:{narration_picture?:NarrationPicture},id:string){
+ const plan=board.narration_picture;
+ if(!plan||plan.version!=='narration-picture-v1')throw new Error('Missing narration-picture contract');
+ const rows=plan.clauses.filter(c=>c.id===id);
+ if(rows.length!==1)throw new Error('Missing or duplicate narration clause '+id);
+ const row=rows[0];
+ if(!Number.isFinite(row.start_s)||!Number.isFinite(row.end_s)||row.start_s<0||row.end_s<=row.start_s
+    ||!row.subject_ids.length||!row.action_id)throw new Error('Invalid narration clause '+id);
+ return {start:row.start_s,end:row.end_s,subjectIds:row.subject_ids,actionId:row.action_id};
+}
 export function actionWindows(scenes: DirectedScene[]): Record<string, ActionWindow> {
   const windows: Record<string, ActionWindow> = Object.create(null);
   for (const scene of scenes) for (const event of scene.visual_events ?? []) {

@@ -452,6 +452,9 @@ def packet(board_path, claims_path, role, state_path=None):
         ledger = Path(state_path).with_name("current-defects.json")
         if ledger.exists():
             data["defects"] = {"path": str(ledger.resolve()), "sha256": digest(ledger)}
+    if board.get('narration_picture'):
+        data['narration_picture']={'reference':'board','field':'narration_picture'}
+        data['instructions'] += ' Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.'
     encoded = json.dumps(data, indent=2)
     if len(encoded) > policy()["handoff_max_chars"] and isinstance(data["story"], dict):
         # Detailed scene/transition prose remains in the exact hash-bound board.
