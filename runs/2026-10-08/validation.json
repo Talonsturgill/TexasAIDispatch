@@ -1,0 +1,209 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-10-08",
+  "source": "Independent adversarial validator full institutional-release refetch and NCBI article-abstract refetch",
+  "reviewer_identity": "/root/validator",
+  "retrieved": "2026-10-08T07:05:09.966745+00:00",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+  ],
+  "rejected": [
+    "Standard genetic analysis came up empty without specifying the tested parent and child. Initial proposed s2 could generalize failure across standard genetics; source identifies analyses of a parent and child. Revised s2 names this scope.",
+    "That comparison supports a likely diagnosis for families. Initial proposed s5 did not confine its inference to the studied families. Revised to these families; comparison contributes alongside human genetic evidence.",
+    "AI diagnosed the disorder independently. Release says promising candidate; paper combines genomic identification and experimental evidence. AI alone did not establish causality.",
+    "The fly rescue is a demonstrated human treatment or cure. Reference-gene and patient-variant rescue occurred in laboratory flies; no patient intervention or treatment outcome reported.",
+    "All patient variants were experimentally tested. Paper abstract specifies three missense alleles; the human series included other variant types.",
+    "Fresh October discovery, measured diagnostic accuracy, or earlier patient recovery. Publication and release are September 28. No current October clinical action, diagnostic accuracy metric or patient recovery documented.",
+    "Full paper independently reviewed. DOI redirected to inaccessible Elsevier page; validated primary abstract via NCBI EFetch instead."
+  ],
+  "required_edits_applied": [
+    "s2 confines standard-analysis failure to the parent and child.",
+    "s5 confines likely diagnosis to these study families.",
+    "s6 retains the explicit disorder-evidence versus treatment distinction."
+  ],
+  "required_edits_pending": [],
+  "source_limits": [
+    "Primary institutional release and primary research abstract agree, but neither is external replication.",
+    "The human genetic series and fly comparison jointly support likely diagnosis; no standalone AI diagnostic result established.",
+    "Normal gene rescue and partial patient-variant rescue concern laboratory fruit flies, never demonstrated human treatment.",
+    "Paper abstract accessed independently through NCBI EFetch; full paper unavailable after DOI redirect.",
+    "September 28 research release; publication does not establish a new October clinical event.",
+    "Visuals must be disclosed conceptual illustrations and avoid actual clinical UI, unreported patient recovery or laboratory footage claims."
+  ],
+  "script_sha256": "82a1c0b7e1d6a12f10c2ffe6724696399e1aae972d3dc136ac61bac978bc47ce",
+  "claims_sha256": "b1f2109431b0ce899016c2767673b8034e62b16b368aecb767de677181ded35f",
+  "script_hash_format": "UTF-8 exact six scene vo strings joined by LF, no final LF",
+  "sentence_claim_bindings": [
+    {
+      "sentence_index": 1,
+      "scene_id": "s1",
+      "text": "An AI clue still needed a living test.",
+      "claim_ids": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "status": "EDITORIAL_INTERPRETATION_WITH_VERIFIED_COMPONENTS",
+      "note": "Independent semantic review: exact line approved only with the stated source limits."
+    },
+    {
+      "sentence_index": 2,
+      "scene_id": "s2",
+      "text": "In Houston, Texas Children's and Baylor researchers found a promising gene change after standard analysis of a parent and child came up empty.",
+      "claim_ids": [
+        "c1",
+        "c2"
+      ],
+      "status": "VERIFIED",
+      "note": "Independent semantic review: exact line approved only with the stated source limits."
+    },
+    {
+      "sentence_index": 3,
+      "scene_id": "s3",
+      "text": "AI-MARRVEL pointed to BRSK1. Flies missing its equivalent gene had trouble moving.",
+      "claim_ids": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "status": "VERIFIED",
+      "note": "Independent semantic review: exact line approved only with the stated source limits."
+    },
+    {
+      "sentence_index": 4,
+      "scene_id": "s4",
+      "text": "A normal human gene largely restored movement. Patient variants restored only part of it.",
+      "claim_ids": [
+        "c4",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "status": "VERIFIED",
+      "note": "Independent semantic review: exact line approved only with the stated source limits."
+    },
+    {
+      "sentence_index": 5,
+      "scene_id": "s5",
+      "text": "That comparison supports a likely diagnosis for these families.",
+      "claim_ids": [
+        "c1",
+        "c4",
+        "c5",
+        "c7"
+      ],
+      "status": "EDITORIAL_INTERPRETATION_WITH_VERIFIED_COMPONENTS",
+      "note": "Independent semantic review: exact line approved only with the stated source limits."
+    },
+    {
+      "sentence_index": 6,
+      "scene_id": "s6",
+      "text": "The AI picked a candidate. The flies helped test it. This is evidence about a disorder, not a treatment.",
+      "claim_ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c6",
+        "c7"
+      ],
+      "status": "EDITORIAL_INTERPRETATION_WITH_VERIFIED_COMPONENTS",
+      "note": "Independent semantic review: exact line approved only with the stated source limits."
+    }
+  ],
+  "board_binding_status": "PASS: actual root storyboard and frozen A/B boards independently match the approved edition, exact narration, script hash and claim bindings; validation_check and planning-only script_evidence_check pass.",
+  "scope": "Source and exact narration approval only. No board, image, audio, renderer, rights, live-playback or release approval.",
+  "checks": {
+    "independent_refetch": true,
+    "verbatim_excerpts_in_retained_text": true,
+    "prohibited_whole_words_in_narration": false,
+    "script_evidence_check_in_memory_board": "PASS"
+  },
+  "actual_board_binding": {
+    "reviewed_at": "2026-10-08T07:14:48.687575+00:00",
+    "reviewer_identity": "/root/validator",
+    "reports": [
+      {
+        "path": "out/dispatch/storyboard.json",
+        "sha256": "e526ac49ef8b7c0baac46d865c4ed017f732abee39719d3a01b538f91ba430df",
+        "script_sha256": "82a1c0b7e1d6a12f10c2ffe6724696399e1aae972d3dc136ac61bac978bc47ce",
+        "edition_date": "2026-10-08",
+        "exact_narration_and_bindings_match": true,
+        "validation_check": "PASS",
+        "script_evidence_check_planning_only": "PASS",
+        "unbound_supers": []
+      },
+      {
+        "path": "out/dispatch/opening-a.json",
+        "sha256": "e526ac49ef8b7c0baac46d865c4ed017f732abee39719d3a01b538f91ba430df",
+        "script_sha256": "82a1c0b7e1d6a12f10c2ffe6724696399e1aae972d3dc136ac61bac978bc47ce",
+        "edition_date": "2026-10-08",
+        "exact_narration_and_bindings_match": true,
+        "validation_check": "PASS",
+        "script_evidence_check_planning_only": "PASS",
+        "unbound_supers": []
+      },
+      {
+        "path": "out/dispatch/opening-b.json",
+        "sha256": "5a707c2362f8b89a369c85c85793a6bb38bcd64e71c19607198aa1729be17965",
+        "script_sha256": "82a1c0b7e1d6a12f10c2ffe6724696399e1aae972d3dc136ac61bac978bc47ce",
+        "edition_date": "2026-10-08",
+        "exact_narration_and_bindings_match": true,
+        "validation_check": "PASS",
+        "script_evidence_check_planning_only": "PASS",
+        "unbound_supers": []
+      }
+    ]
+  },
+  "native_module_label_source_assessment": {
+    "reviewed_at": "2026-10-08T07:14:48.687687+00:00",
+    "path": "video-engine/src/modern/FlyGeneFilm.tsx",
+    "sha256": "2fead2e18bfd8fc3c3bf335b6de9eca8a6cc8ab4d1322715b2161246037606b4",
+    "labels_inspected": [
+      "A clue",
+      "A clue needs a living test",
+      "A clue tested in living flies",
+      "AI flags a candidate",
+      "Add the normal human gene",
+      "BRSK1",
+      "BRSK1 variants",
+      "Can a fly test the clue?",
+      "Diagnosis stays qualified",
+      "Evidence for a likely diagnosis",
+      "Fly gene",
+      "Illustration. Qualitative comparison",
+      "Illustration. Qualitative fly comparison",
+      "Likely diagnosis",
+      "Movement becomes difficult",
+      "Movement largely returns",
+      "Normal human gene",
+      "Not a clinical treatment",
+      "Only partial restoration",
+      "Patient variants",
+      "Patient variants differ",
+      "Qualitative illustration",
+      "Remove the fly gene",
+      "Same test. Different result.",
+      "Then researchers test it",
+      "sff"
+    ],
+    "result": "PASS_WITH_LIMITS",
+    "findings": [
+      "Candidate labels rest on c2; sff and movement-difficulty labels rest on c3/c6.",
+      "Normal human gene, largely returned movement and partial restoration labels rest on c4/c6/c7/c8.",
+      "Likely diagnosis and qualified diagnosis labels rest on c1/c5/c7. Human genetics is also necessary; comparison alone is not sufficient.",
+      "Remove the fly gene is accepted only as a disclosed conceptual null/disabled condition, not a literal reconstruction of editing protocol.",
+      "Same test. Different result. describes the reference-gene versus patient-variant model comparison, not identical quantitative outcomes across patients.",
+      "Not a clinical treatment and persistent illustration disclosures faithfully constrain the source interpretation."
+    ],
+    "new_unreported_claims_flagged": [],
+    "scope": "Static native renderer label text and source meaning reviewed. No rendered frame, native playback, picture quality, motion, clinical protocol or code approval asserted."
+  }
+}

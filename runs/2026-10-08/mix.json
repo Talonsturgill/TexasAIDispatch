@@ -1,0 +1,138 @@
+{
+  "duration_s": 41.467,
+  "cut_s": 41.46666666666667,
+  "peak_dbfs_premaster": -2.13,
+  "lufs_premaster": -20.78,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.19,
+  "lufs_shortfall_db": 0.19000000000000128,
+  "crest_factor_db": 18.65,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 2.13,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 2
+    },
+    {
+      "id": "sincerely",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -16.44,
+      "gain_db": -23.27
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "sincerely",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -16.44,
+  "bed_gain_db": -23.27,
+  "sfx_events": 2,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -18.68,
+      "true_peak_dbtp": 0.02
+    },
+    "after": {
+      "integrated_lufs": -16.19,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.59:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.07:measured_TP=-4.24:measured_LRA=16.00:measured_thresh=-35.51:offset=1.12",
+    "measurement": {
+      "input_i": "-24.07",
+      "input_tp": "-4.24",
+      "input_lra": "16.00",
+      "input_thresh": "-35.51",
+      "output_i": "-16.00",
+      "output_tp": "-2.00",
+      "output_lra": "3.90",
+      "output_thresh": "-26.79",
+      "normalization_type": "dynamic",
+      "target_offset": "0.41"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.41,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.07:measured_TP=-4.24:measured_LRA=16.00:measured_thresh=-35.51:offset=1.05"
+      },
+      {
+        "requested_lufs": -15.59,
+        "measured": {
+          "integrated_lufs": -16.19,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.59:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.07:measured_TP=-4.24:measured_LRA=16.00:measured_thresh=-35.51:offset=1.12"
+      }
+    ],
+    "correction": null,
+    "samples": 1990400,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "e1ca5ab1a4ac1c7d1c395eb6a72f497607c0cae0ef3b8776432d7c8963b3fda8",
+  "sound_direction_sha256": "6099ef0310eb686778675257fd12fb28b102a86450d95a89dc8a8a7d133b50e6",
+  "sound_cues": [
+    {
+      "id": "clue-select",
+      "event_id": "s2-event-1",
+      "role": "sonification",
+      "duration_s": 0.2999999999999998,
+      "intent": "Designed soft selection accent on the candidate clue reveal.",
+      "provenance": "Original designed sonification, never actual study recording.",
+      "at_s": 3.5850000000000004
+    },
+    {
+      "id": "condition-compare",
+      "event_id": "s4-event-3",
+      "role": "sonification",
+      "duration_s": 0.3999999999999986,
+      "intent": "Designed two-tone contrast as the gene condition comparison is revealed.",
+      "provenance": "Original designed comparison cue, never actual fly or apparatus recording.",
+      "at_s": 23.022000000000002
+    },
+    {
+      "id": "qualified-quiet",
+      "event_id": "s6-event-3",
+      "role": "quiet",
+      "duration_s": 0.7999999999999972,
+      "gain": 0.3,
+      "intent": "Reduce the music while the clinical treatment limit holds.",
+      "provenance": "Authored event-clock background contrast.",
+      "at_s": 33.324
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "clue-select",
+      "sha256": "0cafc075f09f64b613e0ebf9821a7a8e75aaf446eb10c98b188d791eb71d3046"
+    },
+    {
+      "id": "condition-compare",
+      "sha256": "fe0525c43daa737d33122f9182248792d4e629beade04bfbe7c6ec04b542cb95"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "560718a2f29d12f63aecf3245f871bb7bd8710cf0b2265e7f35e8a35c42589a0",
+  "bed_source_sha256": "1da4a58ebbae4f2bbdf297e441574788cc85cb59600b03b2dcc93f6a699927cc",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "f30ab7ba8fd4837277d00669f3dc86709eb0be078bb4277dd14583d1ed26fac7",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 1990400
+}
