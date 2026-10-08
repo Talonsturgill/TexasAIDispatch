@@ -411,8 +411,9 @@ def packet(board_path, claims_path, role, state_path=None):
         "brief": ".claude/agents/" + ("scorer" if role in ("picture", "story", "sound") else role) + ".md",
         "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text.",
     }
-    completion = [REPO / "knowledge/craft/AUTONOMOUS_COMPLETION.md",
-                  REPO / "config/autonomous_completion.json"]
+    from autonomous_completion import selected_policy
+    completion_state = read(state_path) if state_path and Path(state_path).is_file() else {'run_id':board.get('date','')}
+    completion = [REPO / "knowledge/craft/AUTONOMOUS_COMPLETION.md", selected_policy(completion_state)]
     if str(board.get("date", "")) >= "2026-10-03" and all(p.is_file() for p in completion):
         data["completion_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)}
                                       for p in completion]
@@ -468,8 +469,15 @@ def packet(board_path, claims_path, role, state_path=None):
 def craft_reading_paths(board, repo=None):
     """Route current teaching text without altering historical review inputs or schemas."""
     import art_direction
+    import modern_film
     repo_root = Path(REPO if repo is None else repo)
-    art_paths = ([repo_root / 'knowledge/craft/ART_DIRECTION.md',
+    modern_paths = ([repo_root / 'knowledge/craft/MODERN_FILM.md',
+                     repo_root / 'config/modern_film.json',
+                     repo_root / 'config/modern_episode_registry.json',
+                     repo_root / 'knowledge/craft/STORY_ART.md',
+                     repo_root / 'config/story_art.json',
+                     repo_root / 'config/autonomous_completion_v2.json'] if modern_film.required(board) else [])
+    art_paths = modern_paths + ([repo_root / 'knowledge/craft/ART_DIRECTION.md',
                   repo_root / 'config/art_direction.json',
                   repo_root / 'knowledge/craft/cinematic_reference_bank.json',
                   repo_root / 'prompts/roles/scene-builder.md'] if art_direction.required(board) else [])

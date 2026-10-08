@@ -1,0 +1,116 @@
+{
+  "version": "fresh-story-art-v1",
+  "requests": [
+    {
+      "id": "hero",
+      "role": "hero",
+      "file": "generated/story-art/2026-10-07/hero.png",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: finished transparent hero prop for an original modern animated Texas news film. Primary request: a single generic industrial condenser cooling cabinet, tall freestanding housing with two large circular fan grilles stacked vertically. Premium contemporary 3D editorial illustration with rounded machined edges, sculpted volume, sophisticated layered materials, a recognizable silhouette and exceptional surface finish. Full object including feet, three-quarter front view with its right side visible, isolated with real alpha on transparent background. Cabinet softly rounded brushed teal metal (#66ADA5) with ivory edge highlights, dark navy circular grille recesses, fine metallic cooling fins, convincing cylindrical depth in both fan openings, small brass fasteners, restrained warm copper pipe on the right side, tasteful minor surface wear. Motivated soft upper-left warm key light and cool fill, narrow rim highlights, soft subtle contact shadow. Rich tactile depth, no heavy black cartoon outlines, no flat vector rectangles, no retro clip art, no neon or sci-fi embellishments. Both fan rotors remain generic and neutral, no broken parts or failure diagnosis, no smoke. Generous empty transparent margin around full object so it can be animated and scaled in a vertical film. No text, numbers, letters, branding, face, person, watermarks, room, extra tools or extra objects. The result is a generic illustration, never asserted to depict the actual reported pilot's equipment.",
+      "purpose": "Finished generic cooling equipment and tools perform the reported inspection, check and repair sequence at phone size.",
+      "source_limit": "These are generic conceptual illustrations; no actual pilot layout, robot design, operator, measured temperature or repair mechanism is asserted."
+    },
+    {
+      "id": "support",
+      "role": "support",
+      "file": "generated/story-art/2026-10-07/support.png",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: an original transparent supporting-prop sprite atlas for a modern animated news film. Use the supplied condenser only as an ART STYLE REFERENCE, not an edit target, and do not include that cabinet. Match its premium softly rounded 3D illustration, teal enamel, brushed metal, ivory rubber, copper accents, upper-left warm key light, cool fill, tactile microtexture and rounded sculpted volumes. Create EXACTLY THREE isolated supporting props arranged in THREE EQUAL COLUMNS across one wide landscape image, each centered in its own column with ample transparent spacing and absolutely no overlap between columns. Left column: a generic inspection robot camera head, one large dark glass lens on a short rounded mast and small two-wheel base; useful realistic instrument silhouette, no face or branding. Middle column: a single ivory work-gloved human hand with a short dark sleeve entering from lower-left and already gripping a coral handheld infrared thermometer, instrument pointing toward upper-right, no text or numerical display. Right column: a single ivory work-gloved hand with short dark sleeve entering from lower-left and gripping a brushed-metal open-ended maintenance wrench pointed upward. All three complete objects stay entirely within their own column, individually isolated on genuine transparent alpha; no whole person, no arm beyond short cuff. Rich light/shade, contact within grip, natural finger anatomy, convincing material depth and carefully finished highlights, consistent perspective. No labels, text, numbers, logos, watermark, room, panels, separators, background or fourth object. Generic conceptual illustrations, not actual pilot hardware or named operators. Landscape 1536 by 1024 framing if possible.",
+      "purpose": "Finished generic cooling equipment and tools perform the reported inspection, check and repair sequence at phone size.",
+      "source_limit": "These are generic conceptual illustrations; no actual pilot layout, robot design, operator, measured temperature or repair mechanism is asserted."
+    }
+  ],
+  "entries": [
+    {
+      "request_id": "hero",
+      "file": "generated/story-art/2026-10-07/hero.png",
+      "sha256": "e1cd32cfbab76834577488aa04773c240a956a0b27cdbfe6cc3ffa0e766e5f1c",
+      "prompt_sha256": "51c0bf546784ec861b0455d651d698d9850cf8885fdd8962e8412f58f4076053",
+      "generation_id": "exec-44a7844e-c9a2-4f8d-8e9b-a4acfde39c98",
+      "generated_at": "2026-10-08T00:33:03.257751+00:00",
+      "tool": "built-in ImageGen",
+      "width": 1024,
+      "height": 1536,
+      "charge": {
+        "kind": "engineering",
+        "index": 0,
+        "event": {
+          "index": 0,
+          "at": "2026-10-08T00:32:32.118495+00:00",
+          "kind": "charged",
+          "resource": "art_assets",
+          "count": 1,
+          "note": "Owner-requested finished modern condenser hero using built-in ImageGen, before execution",
+          "inputs": [],
+          "telemetry": {}
+        },
+        "event_sha256": "27fba1df2b5844fc895f1b4e36e2a2cfc15113b74c72f3608cf4f1fd20988f69"
+      }
+    },
+    {
+      "request_id": "support",
+      "file": "generated/story-art/2026-10-07/support.png",
+      "sha256": "2e99b0f45f517b8c1f3143e1d2d0e1a88f4f86daa796c829b2913b3c8371188c",
+      "prompt_sha256": "5637294f78fd20ef146a8aa0dc4daee4792d4fc3817c8a4754b9cdec42397654",
+      "generation_id": "exec-85e496a5-8e83-4a68-9818-e5283871b4ea",
+      "generated_at": "2026-10-08T00:37:05.487286+00:00",
+      "tool": "built-in ImageGen",
+      "width": 1536,
+      "height": 1024,
+      "charge": {
+        "kind": "engineering",
+        "index": 1,
+        "event": {
+          "index": 1,
+          "at": "2026-10-08T00:36:23.110021+00:00",
+          "kind": "charged",
+          "resource": "art_assets",
+          "count": 1,
+          "note": "Owner-requested fresh supporting inspection and maintenance props using built-in ImageGen, before execution",
+          "inputs": [
+            {
+              "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/video-engine/public/modern/cooling-hero-v2.png",
+              "sha256": "e1cd32cfbab76834577488aa04773c240a956a0b27cdbfe6cc3ffa0e766e5f1c"
+            }
+          ],
+          "telemetry": {}
+        },
+        "event_sha256": "ea261d39cf84f2cbbb5daa51995a0cdc9729b243e6e952d6b04334eda16667ea"
+      },
+      "slices": {
+        "inspection": [
+          24,
+          131,
+          485,
+          767
+        ],
+        "handheld": [
+          536,
+          133,
+          496,
+          754
+        ],
+        "wrench": [
+          1016,
+          65,
+          493,
+          841
+        ]
+      }
+    }
+  ]
+}

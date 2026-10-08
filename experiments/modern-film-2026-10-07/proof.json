@@ -1,0 +1,193 @@
+{
+  "schema": "dispatch-modern-engineering-proof/1",
+  "edition": "2026-10-07",
+  "reference_only": true,
+  "shipment_authority": false,
+  "original_film_sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a",
+  "remake": {
+    "path": "remake.mp4",
+    "sha256": "8e87a7a55e7a2a2470cfc39d5d7d38f0274bf48a04195aa0f31c6600cfe0c355",
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "30/1",
+        "sample_rate": null,
+        "channels": null
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "width": null,
+        "height": null,
+        "r_frame_rate": "0/0",
+        "sample_rate": "48000",
+        "channels": 1
+      }
+    ],
+    "duration_s": 42.86,
+    "capture": "1080x1920 PNG / CRF16; original narration, mix and caption clock retained"
+  },
+  "shots": {
+    "count": 15,
+    "mean_s": 2.524,
+    "max_s": 3.34,
+    "framings": [
+      "close",
+      "detail",
+      "medium",
+      "wide"
+    ]
+  },
+  "comparisons": [
+    {
+      "lens": "picture",
+      "response_id": "OvHGavqDIaqHqtsPz73rwQg",
+      "model": "gemini-3.8-flash",
+      "new_scores": {
+        "hook": 7.9,
+        "story": 8.0,
+        "picture": 8.1,
+        "place": 7.3,
+        "craft": 7.9,
+        "voice": 7.8
+      },
+      "old_scores": {
+        "hook": 6.7,
+        "story": 7.1,
+        "picture": 6.5,
+        "place": 6.8,
+        "craft": 6.8,
+        "voice": 7.8
+      },
+      "preferred": "remake",
+      "remake_findings": [
+        {
+          "start_s": 10.0,
+          "end_s": 11.2,
+          "category": "craft",
+          "observed": "The orange flag pops out abruptly from the rear corner of the cooling unit with minimal settle or anticipation animation.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        },
+        {
+          "start_s": 32.8,
+          "end_s": 37.0,
+          "category": "dominant_action",
+          "observed": "While 'A PERSON HAS TO FINISH IT' is emphasized, the frame shows static checkmark clipboards rather than an active human technician interaction.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ],
+      "actual_response": {
+        "path": "comparison-v4/comparison-picture.json",
+        "sha256": "205111940b5f34a2cd9fbd7bdd30721ed63dbaaf061ac69a895b74db54c19fcd"
+      },
+      "total_reported_tokens": 42576
+    },
+    {
+      "lens": "sound",
+      "response_id": "m_HGao-6L5DRz7IPu_amiAo",
+      "model": "gemini-3.8-flash",
+      "new_scores": {
+        "hook": 8.5,
+        "story": 8.7,
+        "picture": 8.8,
+        "place": 7.8,
+        "craft": 8.6,
+        "voice": 8.0
+      },
+      "old_scores": {
+        "hook": 6.2,
+        "story": 6.8,
+        "picture": 5.8,
+        "place": 6.5,
+        "craft": 6.0,
+        "voice": 8.0
+      },
+      "preferred": "remake",
+      "remake_findings": [
+        {
+          "start_s": 23.4,
+          "end_s": 25.4,
+          "category": "contact_and_consequence",
+          "observed": "The inspection alert flag floats abruptly out from the base corner of the cooling unit rather than seating into a physical mounting bracket.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ],
+      "actual_response": {
+        "path": "comparison-v4/comparison-sound.json",
+        "sha256": "8231e34860efb6b18297d80e90d057a3041a114adf9e67d6192ae3bc3b894a37"
+      },
+      "total_reported_tokens": 42429
+    },
+    {
+      "lens": "story",
+      "response_id": "X_HGat3UOenqz7IPx9_4wAs",
+      "model": "gemini-3.8-flash",
+      "new_scores": {
+        "hook": 8.5,
+        "story": 8.8,
+        "picture": 8.9,
+        "place": 8.0,
+        "craft": 8.7,
+        "voice": 8.5
+      },
+      "old_scores": {
+        "hook": 5.2,
+        "story": 5.5,
+        "picture": 4.8,
+        "place": 5.0,
+        "craft": 4.9,
+        "voice": 8.5
+      },
+      "preferred": "remake",
+      "remake_findings": [
+        {
+          "start_s": 28.4,
+          "end_s": 31.8,
+          "category": "pacing",
+          "observed": "The text card showing the September 23rd vendor update stays static slightly longer than needed before transitioning into the closing takeaway.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ],
+      "actual_response": {
+        "path": "comparison-v4/comparison-story.json",
+        "sha256": "21829b633ea658295964861283f1123e148ec1a98853aaa9cb82aeb8d0f42106"
+      },
+      "total_reported_tokens": 42363
+    }
+  ],
+  "mean_picture_score": {
+    "original": 5.7,
+    "remake": 8.6
+  },
+  "actual_usage": {
+    "native_renders": 3,
+    "native_stills": 5,
+    "phone_renders": 8,
+    "av_reviews": 9,
+    "art_assets": 2
+  },
+  "original_limits": {
+    "native_renders": 4,
+    "native_stills": 12,
+    "phone_renders": 8,
+    "av_reviews": 6,
+    "art_assets": 2
+  },
+  "effective_limits": {
+    "native_renders": 4,
+    "native_stills": 12,
+    "phone_renders": 8,
+    "av_reviews": 9,
+    "art_assets": 2
+  },
+  "reported_av_tokens": 339062,
+  "imagegen_and_primary_agent_tokens": null,
+  "note": "Three separate independent AV responses. Real rejected capture and transport failure retained. Comparison scores do not replace production scores or shipment evidence."
+}

@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "modern_film_proof.py": "Owner-requested engineering-only two-treatment fixture using the immutable October 7th account; reference_only blocks shipment. Never a daily production factory.",
     "art_direction.py": "Library called by creative_production before voice/preview and by daily_production compact reading transport; art_direction_test mutates executable scene, source and timing bindings.",
     "art_direction_test.py": "Loaded by existing CI daily_production_test; tests dated legacy compatibility, real renderer consumers, invalid profiles and cumulative lab capacity.",
     "cinematic_learning_test.py": "Loaded by existing CI daily_production_test; tests five-edition accounting, unfinished costs, exact failure retention and distinct-edition weekly cadence.",

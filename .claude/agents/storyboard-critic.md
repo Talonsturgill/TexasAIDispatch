@@ -193,3 +193,12 @@ action. Classify actual missing comprehension or false visual claims under the c
 rather than as an optional medium preference. Return one consolidated correction.
 
 From October 3rd, 2026, read any completion_readings bound in your current packet. Capacity recovery preserves every actual verdict, fixed rubric and source or technical gate. Reconstruct the film before director rationale. A grant is never film approval.
+
+For current directed-film-v2 editions read the packet's complete MODERN_FILM.md and STORY_ART.md.
+At phone scope return modern_observations for first_frame, visual_progression, shot_variety,
+performed_turn, pace, closing_answer and finished_art. Each needs pass, start_s, end_s and a
+concrete observed finding from the current film. Repeated tableau, dull flat box props, tiny
+performed actions or decorative fresh art fail even when claims and mechanical gates pass.
+Record every failed modern observation in the existing blocking_defects too. These observations
+cannot be deferred at the creative boundary. Code scope inspects implementation without
+claiming pixels; the visual floor is proved only on the actual complete film.

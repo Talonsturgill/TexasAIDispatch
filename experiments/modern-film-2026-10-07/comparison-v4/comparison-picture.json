@@ -1,0 +1,123 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "identity": "ba71687a-4596-4358-8c0b-ec1b01caa678",
+  "model": "gemini-3.8-flash",
+  "response_id": "OvHGavqDIaqHqtsPz73rwQg",
+  "starting_lens": "picture",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "order": [
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+      "sha256": "8e87a7a55e7a2a2470cfc39d5d7d38f0274bf48a04195aa0f31c6600cfe0c355"
+    }
+  ],
+  "prompt_sha256": "c2ad837f3547b831cea6b95821cdfa65b0aa0c55f8d2d273a761cfef639bc13b",
+  "response": {
+    "path": "out/modern-study/comparison-v4/comparison-picture-response.json",
+    "sha256": "f5ca8dae15133c55a63437cf3e9580c790fd1428314a5dea98b2c9b484073b6d"
+  },
+  "original_result": {
+    "winner": "second",
+    "comparison_reason": "Second is the decisively stronger film across picture, craft, and visual storytelling. First relies on untextured schematic CAD primitives staged in a nearly static two-unit layout, where the 'handheld check' is confusingly depicted as a large wheeled monitor cart. Second delivers finished illustrative assets with strong phone-size recognition, diverse shot framing (including a clear close-up of a handheld infrared thermometer and a repair wrench), and dynamic visual storytelling that clearly separates the robot's inspection flag from human verification and maintenance.",
+    "audio_observed": "Both films share an identical voiceover track, sound effects mix, and background score ('Deep Haze' by Kevin MacLeod). Force-aligned caption timings match precisely across both cuts with zero audible drift or distortion.",
+    "source_limits": "Both presentations faithfully respect source limits from FacilityOps AI's self-reported pilot: the 7.2\u00b0F variance is illustrated without asserting physical adjacency, the second unit's spike is noted as an unconfirmed fault rather than a verified failure, the handheld check is reported as corroboration rather than absolute identity, and CRSC's lack of independent corroboration is acknowledged in disclosures.",
+    "first": {
+      "scores": {
+        "hook": 6.7,
+        "story": 7.1,
+        "picture": 6.5,
+        "place": 6.8,
+        "craft": 6.8,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "A clean but sterile schematic 3D demonstration that feels like a software mockup, repeating the same frontal camera setup while rolling primitive cart props into frame.",
+      "strengths": [
+        "Faithful adherence to factual source claims and verbatim excerpts.",
+        "Clear graphical color fill on the left cooling unit to illustrate relative heat."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 11.0,
+          "category": "surface_finish",
+          "observed": "Cooling units, fans, and robot cart are composed of flat-shaded, untextured geometric primitives resembling placeholder geometry rather than finished production assets.",
+          "criterion": "surface_finish",
+          "blocking": false
+        },
+        {
+          "start_s": 11.4,
+          "end_s": 14.4,
+          "category": "subject_recognition",
+          "observed": "The visual depicts a large wheeled terminal cart with a CRT/LCD screen to illustrate a 'handheld check', undermining phone-scale recognition of a handheld measurement tool.",
+          "criterion": "subject_recognition",
+          "blocking": true
+        },
+        {
+          "start_s": 28.4,
+          "end_s": 37.0,
+          "category": "dominant_action",
+          "observed": "The final scene essentially freezes on the previous arrangement with a small flag placed on the unit, lacking visual momentum or payoff for the concluding statement.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 7.9,
+        "story": 8.0,
+        "picture": 8.1,
+        "place": 7.3,
+        "craft": 7.9,
+        "voice": 7.8
+      },
+      "one_viewing_summary": "An engaging, well-crafted illustrated presentation that effectively communicates the mechanical setup, inspection action, and human maintenance boundary with varied framing and clear visual cues.",
+      "strengths": [
+        "Excellent subject recognition at phone scale with detailed industrial styling on the condenser units and inspection bot.",
+        "Effective framing changes, including a dedicated close-up of a gloved hand with an infrared thermometer for the handheld check.",
+        "Clear visual communication of the core editorial point: the robot flags anomalies, while human technician procedures (clipboards, tools) complete maintenance."
+      ],
+      "defects": [
+        {
+          "start_s": 10.0,
+          "end_s": 11.2,
+          "category": "craft",
+          "observed": "The orange flag pops out abruptly from the rear corner of the cooling unit with minimal settle or anticipation animation.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        },
+        {
+          "start_s": 32.8,
+          "end_s": 37.0,
+          "category": "dominant_action",
+          "observed": "While 'A PERSON HAS TO FINISH IT' is emphasized, the frame shows static checkmark clipboards rather than an active human technician interaction.",
+          "criterion": "dominant_action",
+          "blocking": false
+        }
+      ]
+    }
+  },
+  "transport_normalizations": [],
+  "charge_index": 24,
+  "usage": {
+    "promptTokenCount": 39457,
+    "candidatesTokenCount": 1104,
+    "totalTokenCount": 42576,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 9069
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 30388
+      }
+    ],
+    "thoughtsTokenCount": 2015,
+    "serviceTier": "standard"
+  }
+}

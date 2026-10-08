@@ -52,6 +52,14 @@ def native_media_paths(data: dict, public: Path = PUBLIC) -> list[Path]:
         if len(str(item.get("basis") or "")) < 30:
             raise ValueError("native texture lacks recorded provenance")
         paths.append(asset)
+    import story_art
+    for asset in story_art.paths(data, public):
+        if not asset.is_relative_to(public) or not asset.is_file():
+            raise ValueError('fresh story-art raster is missing or outside public')
+        entry = next(e for e in data['story_art']['entries'] if public / e['file'] == asset)
+        if file_sha256(asset) != entry['sha256']:
+            raise ValueError('fresh story-art bytes changed after generation')
+        paths.append(asset)
     return paths
 
 

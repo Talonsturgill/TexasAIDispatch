@@ -249,6 +249,7 @@ ls -la "$DEST" | tail -n +2
 
 # ---------------------------------------------------------------- 4. commit and push, out loud
 say "commit"
+python3 scripts/story_art.py --board "$DEST/storyboard.json" stage
 git -C "$REPO" add -- "$DEST" ledger/dispatch_history.json
 git -C "$REPO" status --short -- "$DEST" ledger/dispatch_history.json | sed -n '1,20p'
 printf -v COMMIT_MESSAGE '%s\n\n%s\n\n%s\n%s' \

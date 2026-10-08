@@ -96,3 +96,11 @@ critics, allowance resets or score changes. Technical accounting excludes this o
 reboard from creative rounds. A rejected hero cannot claim a feasible finish-current route.
 The expanded native bytes require a fresh independent hero verdict. Same-byte/lens cache
 rejections stay binding, and all final audiovisual lenses, scorers and shipment gates remain.
+
+Current directed-film-v2 editions retain the modern engagement and finished-art floor during
+mandatory repair. Do not restore legacy renderers, old images or slideshow rescue at a ceiling.
+Read autonomous_completion_v2 and include necessary ImageGen attempts in the complete remaining
+path. Reuse unchanged freshly generated assets within this edition. Each actual replacement
+generation is charged before execution, keeps its rejected predecessor, and records new bytes
+and original tool identity. Independent failed modern_observations admit modern-film-floor
+capacity; optional polish and a director's self-assessment do not.

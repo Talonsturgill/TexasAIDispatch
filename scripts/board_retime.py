@@ -254,6 +254,10 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
                 "when they did not, so this counts both rather than claiming all are measured.",
     }
     board["_retime_moved"] = moved
+    import modern_film
+    modern_errors = modern_film.retime(board)
+    if modern_errors:
+        return board, modern_errors
     return board, []
 
 

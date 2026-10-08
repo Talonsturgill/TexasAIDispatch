@@ -241,6 +241,9 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
     exact film, identities, timestamps, source bindings and observation coverage.
     """
     root = Path(root or REPO / "out/dispatch")
+    import modern_film
+    if modern_film.review_problems(board, report):
+        return False
     if not eligible(board, root):
         return False
     from creative_production import treatment_required
@@ -274,7 +277,8 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
             # Classification belongs to the reviewer of this exact evidence.
             if report.get("reviewer_identity") and identity != report["reviewer_identity"]:
                 return False
-        return not assessment_problems(assessment, report, scope)
+        return not (assessment_problems(assessment, report, scope)
+                    or modern_film.assessment_problems(board, assessment))
     except (OSError, ValueError, TypeError, KeyError):
         return False
 

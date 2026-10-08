@@ -62,3 +62,10 @@ picture/word mismatch for the director's consolidated correction rather than sil
 the script. Keep the same continuous take, measured alignment and existing audible review.
 
 From October 3rd, 2026, read any completion_readings bound in your current packet. Capacity recovery preserves every actual verdict, fixed rubric and source or technical gate. Reconstruct the film before director rationale. A grant is never film approval.
+
+For current modern-film editions, read MODERN_FILM.md and its executed shot/reward timeline.
+Begin with immediate curiosity and a moving explanation. Avoid a slow ceremonial cadence or
+an identical pause after every sentence. Plan connected phrases, crisp emphasis, purposeful
+energy changes and only earned breathing room at the source-backed turn and closing answer.
+Shorten sluggish writing before synthesis. Keep one continuous take, actual alignment and
+independent audible checks; never time-stretch or infer that fast words are automatically good.

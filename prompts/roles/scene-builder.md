@@ -25,3 +25,11 @@ When the weekly recurring-defect packet is due, consider at most one reusable ca
 this same assignment. Reproduce its retained failure, write a meaningful regression and prove
 the current rendered correction within the existing comparison. Record an advance or a skip
 with the evidence. Preserve the daily controller's original envelope and cumulative charges.
+
+From the effective modern-film date, read MODERN_FILM.md and STORY_ART.md. The hero and principal
+supporting props come from this edition's two newly generated ImageGen assets. Use actual
+board.story_art through reviewed consumers; never hard-code an earlier generated asset or
+restore a primitive-kit fallback. Animate performed tasks on the global event clock. A beautiful
+still slowly zoomed for an entire line is incomplete. Bind the registered episode and image
+bytes, cover every story frame with purposeful shots, and show source-backed reaction and
+consequence. Artwork finish and the modern engagement floor are mandatory at the creative cap.

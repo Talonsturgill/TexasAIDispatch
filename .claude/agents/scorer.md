@@ -156,3 +156,11 @@ action or failed comprehension as merely style at the creative cap. Preserve act
 rejections; the worksheet and dossier are guidance, not new approval evidence or scoring weights.
 
 From October 3rd, 2026, read any completion_readings bound in your current packet. Capacity recovery preserves every actual verdict, fixed rubric and source or technical gate. Reconstruct the film before director rationale. A grant is never film approval.
+
+For current directed-film-v2 films, load the bound complete MODERN_FILM.md and STORY_ART.md.
+Return timed exact-film modern_observations for first_frame, visual_progression, shot_variety,
+performed_turn, pace, closing_answer and finished_art, each with pass, start_s, end_s and
+observed. Watch at normal speed before reading the director rationale. New generated images
+must be relevant, visibly finished and used in performed tasks; a static illustrated slideshow
+still fails. Put each failed modern observation in defects and hard_fails under the fixed rubric.
+Preserve actual score and failure. Current engagement and art finish cannot use artistic deferral.

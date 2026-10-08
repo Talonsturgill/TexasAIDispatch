@@ -91,6 +91,16 @@ elif [ -z "$RESCUE_REASON" ]; then
 fi
 
 if [ "$PRIMARY_OK" -eq 0 ]; then
+  if python3 - "$BOARD" <<'PY'
+import json, sys
+sys.path.insert(0, 'scripts')
+from modern_film import required
+raise SystemExit(0 if required(json.load(open(sys.argv[1]))) else 1)
+PY
+  then
+    echo "render_dispatch: active directed film failed. Preserve this evidence and use mandatory completion recovery; a legacy rescue cannot render this edition." >&2
+    exit 1
+  fi
   REVIEW_ONLY=1
   touch "$STARTED"
   python3 scripts/rescue_video.py --board "$BOARD" --mix "$MIX" \

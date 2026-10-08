@@ -283,13 +283,18 @@ def owner_release_problems(board_path, film):
 
 
 def publication_problems(board_path, film, judges=None):
+    board = read(board_path)
+    if board.get('reference_only') is True:
+        return ['engineering reference footage cannot authorize production delivery']
     owner_errors = owner_release_problems(board_path, film)
     if owner_errors is not None:
         return owner_errors
-    board = read(board_path)
+    import modern_film, story_art
+    fresh_errors = (story_art.problems(board) + story_art.charge_problems(board, Path(board_path).parent)
+                    if modern_film.required(board) else [])
     if not required(board):
         return []
-    errors = preview_problems(board_path, film.parent / "cinema", film=film)
+    errors = fresh_errors + preview_problems(board_path, film.parent / "cinema", film=film)
     import creative_production as creative
     errors += creative.opening_problems(board_path)
     if creative.required(board):
@@ -304,6 +309,8 @@ def publication_problems(board_path, film, judges=None):
         seen = set()
         provider_ids = set()
         for judge in judges:
+            import modern_film
+            errors += modern_film.review_problems(board, judge, digest(film))
             role = judge.get("audiovisual_role")
             if role not in ("picture", "story", "sound") or role in seen:
                 errors.append("judges must each use their own picture, story or sound review")

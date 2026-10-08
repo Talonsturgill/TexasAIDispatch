@@ -153,3 +153,24 @@ Before voice, resolve every structural or source defect through prompts/phases/r
 Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Use actual sites and source documents when they improve the shot. Preserve a tangible action
 and consequence through the film; choose source-grounded original illustration when it tells
 the story better. Relevant imagery alone never approves a treatment.
+
+## Current modern route
+
+For editions covered by config/modern_film.json, load MODERN_FILM.md and STORY_ART.md in full.
+Generate the hero and supporting artwork with built-in ImageGen during this storyboard phase,
+before animation and voice. Use story_art.py to charge and record each actual call. Give each
+principal generated prop a relevant on-screen job and a finished silhouette, sculpted volume,
+coherent light and surface detail. Exactly two complete treatments share this edition's new
+assets; they differ in staging, shot ordering and emphasis. Implement the registered modern
+route and actual shot/reward timeline. Old templates, fixed old image paths and library boxes
+are unavailable as fallback. Validate with modern_film.problems and story_art.py verify, then
+inspect the actual full-speed phone sequence. Required engagement or artwork failures use
+mandatory completion recovery rather than artistic deferral.
+
+```sh
+python scripts/story_art.py --board out/dispatch/storyboard.json verify
+python scripts/modern_film.py --board out/dispatch/storyboard.json
+```
+
+These gates require actual generated pixels and their prior production charges; a plan-only
+record does not pass. Use the reserve and record commands in STORY_ART.md for the two tool calls.

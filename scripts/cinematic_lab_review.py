@@ -45,8 +45,15 @@ def review(root, a, b, sources, ledger=None):
     if not key:
         raise ValueError('audiovisual provider credential unavailable; no observation invented')
     guides = [REPO / 'config/dispatch_rubric.yaml', REPO / 'config/quality_contract.json',
-              REPO / 'knowledge/craft/ART_DIRECTION.md', REPO / 'knowledge/craft/cinematic_reference_bank.json']
-    context = '\n'.join(str(g.relative_to(REPO)) + '\n' + g.read_text() for g in guides)
+              REPO / 'knowledge/craft/ART_DIRECTION.md', REPO / 'knowledge/craft/cinematic_reference_bank.json',
+              REPO / 'knowledge/craft/MODERN_FILM.md', REPO / 'knowledge/craft/STORY_ART.md',
+              REPO / 'config/modern_film.json', REPO / 'config/story_art.json']
+    readings = [{'path':str(g.relative_to(REPO)), 'sha256':digest(g), 'text':g.read_text()} for g in guides]
+    readings_path = root / 'guide-readings.json'
+    if readings_path.exists() and json.loads(readings_path.read_text()) != readings:
+        raise ValueError('retained comparison guides changed; keep this attempt and use a new comparison directory')
+    readings_path.write_text(json.dumps(readings, indent=2) + '\n')
+    context = '\n'.join(g['path'] + '\n' + g['text'] for g in readings)
     source_text = Path(sources).read_text()
     for index, lens in enumerate(['picture', 'story', 'sound']):
         out = root / ('comparison-' + lens + '.json')
@@ -82,9 +89,9 @@ def review(root, a, b, sources, ledger=None):
             continue
         identity = str(uuid.uuid4())
         prompt = ('Independent engineering A/B study, NOT a production approval or final panel. '
-                  'Two 14.8-second passages use identical source-backed words, mix and captions. '
+                  'Two complete timed films use identical source-backed narration, mix and captions. '
                   'Watch both in supplied order before reading the rationale. Evaluate phone-size recognition and native surface/action finish. '
-                  'Your starting lens is ' + lens + '. Compare both under the attached existing criteria; the excerpt is not a complete news edition. '
+                  'Your starting lens is ' + lens + '. Compare both under the attached existing criteria; Judge the complete edit and visible prop finish; this is an isolated engineering comparison, not publication approval. '
                   'Return JSON with winner: first|second|tie, first and second objects containing scores (existing rubric axes), '
                   'one_viewing_summary, observed strengths, and defects [{start_s,end_s,category,observed,criterion,blocking}]. '
                   'Also return comparison_reason, audio_observed and source_limits. Use exact times and actual pixels/sound; '
@@ -92,7 +99,7 @@ def review(root, a, b, sources, ledger=None):
                   'The reference bank teaches decisions; its old films/scores are not these candidates.\n' + context + '\nFetched source excerpts:\n' + source_text)
         prompt_path.write_text(prompt)
         event = change(ledger, 'charged', 'av_reviews', 1,
-                       'Normal independent audiovisual R&D comparison ' + lens, films + guides + [Path(sources)])
+                       'Normal independent audiovisual R&D comparison ' + lens, films + [readings_path, Path(sources)])
         parts, uploads = [], []
         started = time.monotonic()
         status, raw = None, None
