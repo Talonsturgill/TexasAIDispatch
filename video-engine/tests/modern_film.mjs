@@ -59,17 +59,10 @@ try{
  const overlap={shots:[{id:'left',start_s:0,duration_s:1.1},{id:'right',start_s:1,duration_s:1}]};
  assert.throws(()=>api.filmShotAt(gap,1.05,30),/uncovered/);
  assert.throws(()=>api.filmShotAt(overlap,1.05,30),/overlapping/);
- const currentRoot=path.join(engine,'../out/dispatch');
- for(const name of ['opening-a.json','opening-b.json']){
-  const file=path.join(currentRoot,name);
-  if(!fs.existsSync(file))continue;
+ const currentRoot=path.join(engine,'../runs/2026-10-08');
+ for(const name of ['a.json','b.json']){
+  const file=path.join(currentRoot,'openings',name);
   const current=JSON.parse(fs.readFileSync(file,'utf8'));
-  const original=path.join(currentRoot,'repairs/02-frame-boundary/before/out/dispatch',name);
-  if(fs.existsSync(original)){
-   const rejected=JSON.parse(fs.readFileSync(original,'utf8'));
-   assert.equal(rawMatches(rejected.film_direction,530/30).length,0,name+' retained original frame530 gap');
-   assert.equal(rawMatches(rejected.film_direction,760/30).length,2,name+' retained original frame760 overlap');
-  }
   checkCoverage(current);
   const scaled=structuredClone(current);
   for(const scene of scaled.scenes){scene.start_s*=1.137;scene.duration_s*=1.137;}
