@@ -210,6 +210,8 @@ def source_context(film):
                    for row in rows if row.get("verdict") == "VERIFIED"]}
     import art_direction
     board = json.loads(files['storyboard.json'].read_text())
+    import modern_film
+    context['modern_film_review_instruction'] = modern_film.review_instruction(board)
     if art_direction.required(board):
         from daily_production import craft_reading_paths
         readings = craft_reading_paths(board)

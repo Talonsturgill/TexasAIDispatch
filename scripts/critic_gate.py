@@ -102,6 +102,12 @@ def renderer_digest(board: dict) -> str | None:
 
 def concept_digest(board: dict) -> str:
     plan = copy.deepcopy(board)
+    if isinstance(plan.get('film_direction'), dict):
+        for shot in plan['film_direction'].get('shots', []):
+            shot.pop('start_s', None)
+            shot.pop('duration_s', None)
+        for reward in plan['film_direction'].get('rewards', []):
+            reward.pop('at_s', None)
     for key in ("runtime_s", "credits_s", "credits", "captions", "caption_method",
                 "retimed_to", "retime_evidence"):
         plan.pop(key, None)
@@ -153,6 +159,8 @@ def film_review_problems(board: dict, report: dict, preflight: dict,
     errors = problems(board, report)
     from quality_contract import phone_problems
     errors += phone_problems(board, report)
+    import modern_film
+    errors += modern_film.review_problems(board, report, film_sha256)
     if report.get("review_scope") != "exact-muted-phone-preflight":
         errors.append("the independent critic has not reviewed the exact phone animatic")
     if report.get("reviewed_preflight_sha256") != film_sha256:

@@ -13,3 +13,13 @@ For an actual unavailable host, preserve the observed transport error and follow
 After normal or bounded creative release authorization, stop creative editing and finish exact-head CI, merges, deployment, permanent byte verification, canonical phone playback and unsent draft readback. Retain real rejected verdicts and scores. Neither a preview, checkpoint, resource boundary nor a local publishable package ends production. Never send email or post socially.
 
 This dated owner instruction overrides older text that made an internal exhausted envelope an approval stop. The original envelope remains an accounting baseline, and audited standing completion increments are its authorized exception.
+
+## Current modern-film editions
+
+From October 8th, initialization adopts config/autonomous_completion_v2.json. The earlier policy
+and its exact retained bytes stay valid for historical ledgers. The current complete remaining
+path includes necessary fresh ImageGen story art. An independent exact-film failed modern
+engagement or finish observation admits modern-film-floor recovery. Retain original resource
+allocation, failed cut, actual observations and cumulative charges. No capacity event approves
+artwork or restores a legacy renderer. Optional polish stops; the mandatory current floor is
+repaired through the existing source-backed completion path.

@@ -80,7 +80,8 @@ def scene_medium(board, scene):
 
 def plan_problems(board):
     import art_direction
-    art_errors = art_direction.problems(board)
+    import modern_film
+    art_errors = art_direction.problems(board) + modern_film.problems(board)
     if not required(board):
         return art_errors
     plan = board.get("creative_direction") or {}

@@ -108,6 +108,16 @@ def save(path: Path, state: dict) -> None:
             os.unlink(tmp_name)
 
 
+def resource_keys(state: dict) -> set[str]:
+    """Recognize the exact pre-art schema without expanding retained ledgers."""
+    expected=set(limits());present=set(state.get('limits') or {})
+    edition=str(state.get('run_id',''))[:10]
+    if (re.fullmatch(r'\d{4}-\d{2}-\d{2}',edition) and edition<'2026-10-08'
+            and present==expected-{'image_generations'}):
+        return present
+    return expected
+
+
 def read_state(path: Path) -> dict:
     state = load_json(path)
     if state.get("schema") != SCHEMA:
@@ -116,8 +126,8 @@ def read_state(path: Path) -> dict:
     # rather than refusing to resume, because refusing here would strand exactly the run
     # this feature exists to rescue.
     if not state.get("escalation_ceiling"):
-        state["escalation_ceiling"] = ceilings()
-    expected = set(limits())
+        state["escalation_ceiling"] = {k:v for k,v in ceilings().items() if k in resource_keys(state)}
+    expected = resource_keys(state)
     present = set(state.get("limits") or {})
     if expected != present:
         raise ValueError(
@@ -504,6 +514,17 @@ def deliverable_problems(state: dict, *, publication: bool = False) -> list[str]
         if not film.is_file() or not board.is_file() or not manifest_path.is_file():
             return ["the registered film, board, or render manifest is missing"]
         board_data = load_json(board)
+        if publication and board_data.get('reference_only') is True:
+            return ['engineering reference footage cannot authorize production delivery']
+        import modern_film
+        run_date = str(state.get('run_id', ''))[:10]
+        if (state.get('mode') == 'production' and re.fullmatch(r'\d{4}-\d{2}-\d{2}', run_date)
+                and run_date >= modern_film.policy()['effective_date']):
+            if board_data.get('date') != run_date:
+                return ['current production board date must match its edition']
+            modern_errors = modern_film.problems(board_data)
+            if modern_errors:
+                return ['active film route failed: ' + '; '.join(modern_errors)]
         media_errs = playability_problems(film, board_runtime(board_data))
         if media_errs:
             return media_errs
@@ -1256,6 +1277,7 @@ def self_test() -> int:
         "tts_calls": 2,
         "reported_tokens": 250000,
         "audiovisual_reviews": 4,
+        "image_generations": 2,
     }
     ok("critic target covers the board and two phone verdicts; owner-approved ceiling includes one extra call",
        CEIL["storyboard_critics"] == 7 and expected_limits["storyboard_critics"] == 3)

@@ -55,6 +55,11 @@ class CinematicLearningTest(unittest.TestCase):
             self.assertEqual(123, report['editions'][-1]['usage']['reported_tokens'])
             self.assertIsNone(report['editions'][-1]['account_tokens'])
             self.assertEqual(60, report['editions'][0]['elapsed_seconds'])
+            modern=report['modern_measurement_window']
+            self.assertEqual(5,modern['shipped_count'])
+            self.assertEqual('2026-10-08',modern['editions'][0]['run_id'])
+            self.assertEqual('2026-10-12',modern['editions'][4]['run_id'])
+            self.assertFalse(modern['editions'][-1]['shipped'])
 
     def test_recurrence_requires_distinct_editions_and_retains_exact_failure(self):
         with tempfile.TemporaryDirectory() as temp:

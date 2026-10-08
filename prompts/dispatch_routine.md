@@ -163,3 +163,30 @@ Establish a credible action-led treatment before narration, compare two genuinel
 visual approaches in the existing batch, and distinguish independently classified technical
 repairs from creative rounds. Keep current budgets and all shipment proof. Do not use the
 finite release rule to defer a held-slide structural failure or failed dominant action.
+
+## Mandatory modern film and fresh storyboard art
+
+Owner instructions from October 7th, effective for newly planned editions from October 8th,
+or explicit film_direction opt-in. In Phase 2 read knowledge/craft/MODERN_FILM.md,
+knowledge/craft/STORY_ART.md, config/modern_film.json, config/story_art.json and the active
+completion policy. Generate two new relevant ImageGen images during storyboarding: a
+finished hero plus matching supporting props or purposeful environment. Reserve each actual
+attempt with story_art.py before the built-in tool call, inspect and record original output,
+then use the new assets in the edition's two complete treatments. Preserve actual failed
+artwork and charges. Native overlays own exact wording and facts; generated art is disclosed.
+
+The existing builder authors a registered directed-film-v2 episode and executed shot timeline.
+Strong opening image, new visual information, useful framing variety, performed source-backed
+turn and answered closing picture are required. No legacy template, generic box stage,
+prior-edition generated hero or slideshow rescue can satisfy current production. Before voice,
+prove both complete phone treatments using the actual fresh assets. Review the actual pixels,
+not palette declarations or a polished director explanation.
+
+The existing critic and three separate scorers receive actual guide text and hashes and return
+exact-film timed modern_observations. These are mandatory observations under the unchanged
+rubric and original independent review path, not an extra panel. Current pacing, motion,
+surface finish and ending failures cannot use bounded artistic deferral. At a capacity boundary,
+fund the complete remaining path including necessary fresh art through autonomous completion_v2,
+preserving the original frozen envelope and every actual failed attempt. Optional engineering
+and extra polish stop; mandatory failures continue through the retained source-backed pivot.
+Preserve the saved primary model, schedule and all shipment gates.

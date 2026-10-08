@@ -165,6 +165,8 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     # pair in the conservative plan; spending history never proves reusable audio.
     required["tts_calls"] = 2
     required["voice_directors"] = int(not state.get("usage", {}).get("voice_directors", 0))
+    if str(state.get('run_id', ''))[:10] >= '2026-10-08':
+        required['image_generations'] = 0 if finishing or context_ready else 2
     if hero_rejected and context_ready and phone_complete:
         # Same film and mix, new native excerpt. Protect a hero and one retry,
         # three final lenses and three separate provider scorer recoveries.

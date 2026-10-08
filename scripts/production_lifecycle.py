@@ -24,6 +24,17 @@ SCOPES = {"standard", NARRATION_SCOPE, TECHNICAL_SCOPE, CONTEXT_SCOPE}
 NARRATION_BATCH = {"tts_calls": 2}
 
 
+def repair_batch(state, scope):
+    """Fund fresh mandatory artwork without changing retained historical batches."""
+    if scope == NARRATION_SCOPE:
+        return NARRATION_BATCH
+    if scope == CONTEXT_SCOPE:
+        return CONTEXT_BATCH
+    edition = str(state.get("run_id", ""))[:10]
+    modern = len(edition) == 10 and edition >= "2026-10-08"
+    return {**BATCH, **({"image_generations": 2} if modern else {})}
+
+
 def plan_identity(plan):
     """Only the completed after hashes may change after the plan is bound."""
     bound = {**plan, "changed_inputs": [
@@ -321,7 +332,7 @@ def authorize_repair(path, plan_path):
     requested = plan.get("resources")
     if not isinstance(requested, dict) or not requested:
         return False, "list the resources needed for this correction"
-    batch = NARRATION_BATCH if scope == NARRATION_SCOPE else CONTEXT_BATCH if scope == CONTEXT_SCOPE else BATCH
+    batch = repair_batch(state, scope)
     if any(name not in batch or type(n) is not int or not 0 < n <= batch[name]
            for name, n in requested.items()):
         return False, "repair request exceeds a bounded batch allowance"
@@ -381,14 +392,14 @@ def pending(repo):
 
 def allowance_problems(state):
     """Reconstruct allowances from recorded actions; a hand-raised cap fails."""
-    from run_controller import ceilings
+    from run_controller import ceilings,resource_keys
     from repair_guard import owner_grant_problems
     from autonomous_completion import replay
     errors = owner_grant_problems(state) + replay(state)[1]
     if errors:
         return errors
     events = state.get("events", [])
-    caps = ceilings()
+    caps = {k:v for k,v in ceilings().items() if k in resource_keys(state)}
     recorded_base = [e["ceiling_snapshot"] for e in events
                      if e.get("kind") == "initialised" and "ceiling_snapshot" in e]
     if recorded_base:
@@ -438,7 +449,7 @@ def allowance_problems(state):
         elif e.get("kind") == "repair_authorized":
             if not e.get("repair_revision") or not e.get("repair_plan_sha256"):
                 return ["repair authorization lacks changed-input evidence"]
-            batch = NARRATION_BATCH if scope == NARRATION_SCOPE else CONTEXT_BATCH if scope == CONTEXT_SCOPE else BATCH
+            batch = repair_batch(state, scope)
             if scope == CONTEXT_SCOPE and (not e.get("frozen_inputs") or not e.get("plan_identity")):
                 return ["review-context authorization lost frozen evidence"]
             for name, grant in e.get("grants", {}).items():

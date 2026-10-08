@@ -1,0 +1,115 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "identity": "515d2a87-bba4-45a4-946d-4cf9a619cde2",
+  "model": "gemini-3.8-flash",
+  "response_id": "Qu7GaqK2MYycz7IPpcrZ6Qk",
+  "starting_lens": "story",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "order": [
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+      "sha256": "6ad73b9bc833488ffa604366acd321f7955037fbd09f42f913f8e076bd4bcc89"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    }
+  ],
+  "prompt_sha256": "37aabdc94c22503b9d42972ceafcccaf6079c9da6f57f0faf370b2e0962093c6",
+  "response": {
+    "path": "out/modern-study/comparison-v3/comparison-story-response.json",
+    "sha256": "e053ac7b1191fdb8e9f836d6d655265b60b0e90fb0a1569ff35423a1b65ef3d7"
+  },
+  "original_result": {
+    "winner": "first",
+    "comparison_reason": "First decisively wins by adhering to the modern film and story art standards, employing polished, distinctive character/equipment art, purposeful camera cuts, framing shifts (close-ups of the robot, handheld IR tool, gloved repair wrench, and status clipboards), and dynamic visual storytelling. Second falls into the exact anti-pattern warned against in the guidelines: an unvarying, static wide-angle view of crude low-poly primitive boxes on a plain dark plane with zero framing variety, lack of tactile surface finish, and minimal physical causality.",
+    "first": {
+      "scores": {
+        "hook": 8.3,
+        "story": 8.5,
+        "picture": 8.6,
+        "place": 8.0,
+        "craft": 8.4,
+        "voice": 8.5
+      },
+      "one_viewing_summary": "An engaging, cohesive animated report featuring bespoke retro-industrial cooling units, an expressive inspection robot, and crisp prop cutouts illustrating detection, thermal verification, human wrench repair, and ongoing pilot limits.",
+      "observed_strengths": [
+        "Excellent shot variety and framing pacing (wide unit view, medium robot entrance, extreme close-up on lens/flag, first-person handheld IR scanner, and gloved mechanical wrench).",
+        "High visual fidelity with tactile textures, copper piping, fan motion, heat mirage linework, and grounded cast shadows.",
+        "Causal storytelling clearly differentiates between robot flagging and required human physical intervention, underscoring the editorial thesis."
+      ],
+      "defects": [
+        {
+          "start_s": 6.8,
+          "end_s": 7.4,
+          "category": "craft",
+          "observed": "A rapid transitional shape wipe abruptly obscures the frame during the cut to the robot close-up.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 4.2,
+        "story": 5.6,
+        "picture": 4.1,
+        "place": 4.5,
+        "craft": 4.3,
+        "voice": 8.5
+      },
+      "one_viewing_summary": "A locked-off 3D staging featuring primitive untextured geometric boxes and a blocky wheeled cart on a dark infinite plane with no cutaways or framing changes.",
+      "observed_strengths": [
+        "Schematic bar graph thermometers clearly indicate relative temperature differential between the two units.",
+        "Maintains factual caption alignment and narration bounds."
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 37.8,
+          "category": "picture",
+          "observed": "The entire film remains locked on a single wide frontal shot of two primitive box models without shifting to close, medium, or detail framings.",
+          "criterion": "dominant_action",
+          "blocking": true
+        },
+        {
+          "start_s": 0.0,
+          "end_s": 37.8,
+          "category": "craft",
+          "observed": "Surfaces consist of flat, untextured grey and teal polygonal slabs with rudimentary contact shadows and placeholder-grade modeling.",
+          "criterion": "surface_finish",
+          "blocking": true
+        },
+        {
+          "start_s": 14.6,
+          "end_s": 18.0,
+          "category": "story",
+          "observed": "Repair is shown only by an abstract color shift with no physical tool, human agent, or mechanical interaction.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    },
+    "audio_observed": "Both candidates share identical narration, clear vocal delivery, synchronized captions, and consistent ambient mixing.",
+    "source_limits": "Both versions correctly respect vendor self-report boundaries, noting that cooling unit adjacency is unverified, repair was completed by unspecified personnel rather than autonomous equipment, the second unit's spike remains an unconfirmed fault flagged for inspection, and findings reflect the September 23 update rather than a new incident."
+  },
+  "transport_normalizations": [],
+  "charge_index": 16,
+  "usage": {
+    "promptTokenCount": 39377,
+    "candidatesTokenCount": 972,
+    "totalTokenCount": 41955,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 8989
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 30388
+      }
+    ],
+    "thoughtsTokenCount": 1606,
+    "serviceTier": "standard"
+  }
+}

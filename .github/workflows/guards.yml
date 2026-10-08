@@ -438,6 +438,16 @@ jobs:
           python3 scripts/sheet_ruler_check.py --self-test
           python3 scripts/sheet_ruler_check.py
 
+      - name: Current films require modern directing and fresh charged artwork
+        run: |
+          python3 scripts/modern_film_test.py
+          python3 scripts/modern_film.py --board experiments/modern-film-2026-10-07/board-a.json
+          python3 scripts/story_art.py --board experiments/modern-film-2026-10-07/board-a.json verify
+          cd video-engine
+          node tests/modern_film.mjs
+          npx remotion still Dispatch "$RUNNER_TEMP/modern-cold-shot.png" --props=../experiments/modern-film-2026-10-07/board-a.json --frame=210 --scale=.25
+          python3 tests/modern_art_pixels.py "$RUNNER_TEMP/modern-cold-shot.png" ../experiments/modern-film-2026-10-07/failed-cold-shot.png
+
       - name: The hat rules are called by something
         run: |
           # headgearConflict() and seasonalHat() are two carefully written functions in

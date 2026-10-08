@@ -39,12 +39,9 @@ def report(runs, state_path=None):
             continue
         if identity not in states or state.get('updated_at', '') >= states[identity][1].get('updated_at', ''):
             states[identity] = (path, state)
-    rows, completed = [], 0
+    rows = []
     for identity, (path, state) in sorted(states.items()):
         shipped = state.get('terminal_state') == 'shipped'
-        if shipped and completed >= cfg['measurement_editions']:
-            continue
-        completed += shipped
         card = read(path.with_name('report_card.json')) if path.with_name('report_card.json').is_file() else {}
         board = read(path.with_name('storyboard.json')) if path.with_name('storyboard.json').is_file() else {}
         elapsed = None
@@ -63,10 +60,27 @@ def report(runs, state_path=None):
                      'corrections': usage.get('reboards', 0), 'artistic_deferral': deferral,
                      'publication_mode': publication_mode,
                      'art_profile_version': (board.get('art_direction') or {}).get('version'),
+                     'modern_film_version': (board.get('film_direction') or {}).get('version'),
+                     'fresh_generated_images': len((board.get('story_art') or {}).get('entries', [])),
+                     'image_generation_attempts': usage.get('image_generations'),
+                     'modern_floor_pass': (len(card.get('judges', [])) == 3 and all(all((j.get('modern_observations') or {}).get(k, {}).get('pass') is True
+                                                    for k in ('first_frame', 'visual_progression', 'shot_variety', 'performed_turn', 'pace', 'closing_answer', 'finished_art'))
+                                              for j in card.get('judges', [])) if card.get('judges') and board.get('film_direction') else None),
                      'elapsed_seconds': elapsed, 'account_tokens': None,
                      'state_evidence': stamp(path, 'runs/' + identity + '/run_state.json')})
+    def bounded(values,limit):
+        selected=[];completed=0
+        for row in values:
+            if row['shipped'] and completed>=limit:continue
+            selected.append(row);completed+=row['shipped']
+        return selected
+    measured=bounded(rows,cfg['measurement_editions'])
+    modern_rows=bounded([r for r in rows if r['run_id'][:10]>=cfg.get('modern_measurement_effective_date','9999-12-31')],cfg.get('modern_measurement_editions',5))
     return {'schema': 'dispatch-cinematic-learning/1', 'policy_sha256': stamp(POLICY)['sha256'],
-            'target_shipped_editions': cfg['measurement_editions'], 'shipped_count': completed, 'editions': rows,
+            'target_shipped_editions': cfg['measurement_editions'], 'shipped_count': sum(r['shipped'] for r in measured), 'editions': measured,
+            'modern_measurement_window': {'effective_date': cfg.get('modern_measurement_effective_date'),
+               'target_editions': cfg.get('modern_measurement_editions'),
+               'shipped_count': sum(r['shipped'] for r in modern_rows), 'editions': modern_rows},
             'status': 'Measured observations only. Future editions and unknown account token totals are not inferred.'}
 
 

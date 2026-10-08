@@ -1,0 +1,120 @@
+{
+  "schema": "dispatch-cinematic-lab-comparison/1",
+  "identity": "8a9b2a90-7356-4cf7-a221-6a6c454833e7",
+  "model": "gemini-3.8-flash",
+  "response_id": "m_HGao-6L5DRz7IPu_amiAo",
+  "starting_lens": "sound",
+  "basis": "Independent audiovisual model observation, not human listening or production approval",
+  "order": [
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+      "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+    },
+    {
+      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+      "sha256": "8e87a7a55e7a2a2470cfc39d5d7d38f0274bf48a04195aa0f31c6600cfe0c355"
+    }
+  ],
+  "prompt_sha256": "e19625baca23ef8e1ce65c72e68b680f70fe4aa1c81c0ba9bc005f41c7a2a067",
+  "response": {
+    "path": "out/modern-study/comparison-v4/comparison-sound-response.json",
+    "sha256": "a4bc523059e77b1841ff51ddf29a594a223b9cfd01a257562ba7f869f1814799"
+  },
+  "original_result": {
+    "winner": "second",
+    "comparison_reason": "Second decisively outperforms First by delivering a fully directed visual narrative with varied shot framings (close-up heat detail, technician handheld tool, repair wrench, robot close-up, and wide comparisons), rich illustrated asset finish, and high phone-screen legibility. First relies on a single locked-off, unvarying frontal perspective of two schematic chiller towers for nearly the entire runtime, violating the modern film direction requirements and failing to create visual momentum.",
+    "audio_observed": "Both cuts share the exact same clean, well-paced voiceover track, consistent sound mix, and tightly synchronized captions without audible clipping or time-stretching.",
+    "source_limits": "Both cuts respect the vendor self-report boundaries, clarifying that cooling unit adjacency was not established, the second unit's spike was an unconfirmed fault flagged for inspection, and the robot flagged the issue rather than performing repairs.",
+    "first": {
+      "scores": {
+        "hook": 6.2,
+        "story": 6.8,
+        "picture": 5.8,
+        "place": 6.5,
+        "craft": 6.0,
+        "voice": 8.0
+      },
+      "one_viewing_summary": "A sterile schematic presentation where two 3D-modeled cooling towers remain statically framed in the center while blocky props and color fills appear on top.",
+      "observed_strengths": [
+        "Faithful to source temperature differentials via salmon/teal color indicators",
+        "Accurate legal disclosures and source citations",
+        "Clean caption timing and crisp typography"
+      ],
+      "defects": [
+        {
+          "start_s": 0.0,
+          "end_s": 37.8,
+          "category": "picture",
+          "observed": "The visual staging maintains an identical locked-off wide/medium frontal framing of the two cooling units across the entire duration with no shot size variation or camera motivation.",
+          "criterion": "dominant_action",
+          "blocking": true
+        },
+        {
+          "start_s": 11.4,
+          "end_s": 14.6,
+          "category": "surface_finish",
+          "observed": "The handheld verification tool is represented by an oversized, blocky terminal cart that awkwardly occludes the units rather than depicting an identifiable handheld instrument.",
+          "criterion": "surface_finish",
+          "blocking": false
+        }
+      ]
+    },
+    "second": {
+      "scores": {
+        "hook": 8.5,
+        "story": 8.7,
+        "picture": 8.8,
+        "place": 7.8,
+        "craft": 8.6,
+        "voice": 8.0
+      },
+      "one_viewing_summary": "A dynamic, beautifully illustrated editorial short featuring distinct framings, expressive character props (robot, handheld thermal reader, wrench repair), and punchy visual storytelling.",
+      "observed_strengths": [
+        "Strong first-frame hook with warm vibrating exhaust and readable title badges",
+        "Excellent shot variety spanning close-ups, prop actions, and medium comparison shots",
+        "High-finish 2.5D story art with tactile textures, clear silhouettes, and motivated lighting",
+        "Literal visual depiction of narrative beats, including the human technician's role in finishing the inspection"
+      ],
+      "defects": [
+        {
+          "start_s": 23.4,
+          "end_s": 25.4,
+          "category": "contact_and_consequence",
+          "observed": "The inspection alert flag floats abruptly out from the base corner of the cooling unit rather than seating into a physical mounting bracket.",
+          "criterion": "contact_and_consequence",
+          "blocking": false
+        }
+      ]
+    }
+  },
+  "transport_normalizations": [],
+  "charge_index": 28,
+  "usage": {
+    "promptTokenCount": 39457,
+    "candidatesTokenCount": 881,
+    "totalTokenCount": 42429,
+    "cachedContentTokenCount": 28598,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 9069
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 30388
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 6573
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 22025
+      }
+    ],
+    "thoughtsTokenCount": 2091,
+    "serviceTier": "standard"
+  }
+}

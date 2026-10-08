@@ -1,0 +1,681 @@
+{
+  "schema": "dispatch-cinematic-lab/1",
+  "created_at": "2026-10-08T00:32:32.118195+00:00",
+  "scope": "Owner-requested engineering; no production verdict or shipment authority",
+  "original_limits": {
+    "native_renders": 4,
+    "native_stills": 12,
+    "phone_renders": 8,
+    "av_reviews": 6,
+    "art_assets": 2
+  },
+  "limits": {
+    "native_renders": 4,
+    "native_stills": 12,
+    "phone_renders": 8,
+    "av_reviews": 9,
+    "art_assets": 2
+  },
+  "usage": {
+    "native_renders": 3,
+    "native_stills": 5,
+    "phone_renders": 8,
+    "av_reviews": 9,
+    "art_assets": 2
+  },
+  "events": [
+    {
+      "index": 0,
+      "at": "2026-10-08T00:32:32.118495+00:00",
+      "kind": "charged",
+      "resource": "art_assets",
+      "count": 1,
+      "note": "Owner-requested finished modern condenser hero using built-in ImageGen, before execution",
+      "inputs": [],
+      "telemetry": {}
+    },
+    {
+      "index": 1,
+      "at": "2026-10-08T00:36:23.110021+00:00",
+      "kind": "charged",
+      "resource": "art_assets",
+      "count": 1,
+      "note": "Owner-requested fresh supporting inspection and maintenance props using built-in ImageGen, before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/video-engine/public/modern/cooling-hero-v2.png",
+          "sha256": "e1cd32cfbab76834577488aa04773c240a956a0b27cdbfe6cc3ffa0e766e5f1c"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 2,
+      "at": "2026-10-08T00:44:00.399826+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 2,
+      "note": "Two complete modern engineering treatments with original timed narration; before both preview renders",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "94349bf1fd7402a3dd474d53917b07f724e91273181e35f7700f05ed14d852d3"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-b.json",
+          "sha256": "2b8326ce82b4c67a34224012688036333fdcc8c0f6545c3757023865ff9abc44"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 3,
+      "at": "2026-10-08T00:56:02.708920+00:00",
+      "kind": "charged",
+      "resource": "native_renders",
+      "count": 1,
+      "note": "Complete native modern film A, 1080x1920 PNG capture CRF16, after guarded headroom recovery",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "44d0630d36e7e787330954b02e26d118e15b7d36f14c5d297957d27fdfd01e87"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 4,
+      "at": "2026-10-08T00:56:02.756557+00:00",
+      "kind": "charged",
+      "resource": "native_stills",
+      "count": 3,
+      "note": "Native opening, handheld contact and closing-answer proof before still execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "44d0630d36e7e787330954b02e26d118e15b7d36f14c5d297957d27fdfd01e87"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 5,
+      "at": "2026-10-08T01:02:29.836910+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 2,
+      "note": "Two complete final timed phone treatments after retained closing-title correction, before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "44d0630d36e7e787330954b02e26d118e15b7d36f14c5d297957d27fdfd01e87"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-b.json",
+          "sha256": "3ea5a6d970a346f4c453156ced92ec251e571b1364d5c0ab2fcc694e14130242"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 6,
+      "at": "2026-10-08T01:02:30.245782+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison picture",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "aecd6ffbc4392b7e221580d8d64a8d9ada13bb24ee7dce36461a2337da69975e"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/dispatch_rubric.yaml",
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/quality_contract.json",
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/ART_DIRECTION.md",
+          "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/cinematic_reference_bank.json",
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/MODERN_FILM.md",
+          "sha256": "a56d090656b2f26fa42b29de96de7d5017f418c46bfb71804050a48ece709c34"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/STORY_ART.md",
+          "sha256": "b428ab1be05001cc17b1a0f3464938b5c0294cde07cf49a821a2e9a5a038a64d"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/modern_film.json",
+          "sha256": "7ba42ee287911808543d1a4aefb8527d13ab74fd2eee6b558464a1721f35b4cb"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/story_art.json",
+          "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 7,
+      "at": "2026-10-08T01:03:04.724543+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt picture",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 34476,
+        "http_status": 200,
+        "reported_tokens": 42078
+      }
+    },
+    {
+      "index": 8,
+      "at": "2026-10-08T01:03:04.738999+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison story",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "aecd6ffbc4392b7e221580d8d64a8d9ada13bb24ee7dce36461a2337da69975e"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/dispatch_rubric.yaml",
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/quality_contract.json",
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/ART_DIRECTION.md",
+          "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/cinematic_reference_bank.json",
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/MODERN_FILM.md",
+          "sha256": "a56d090656b2f26fa42b29de96de7d5017f418c46bfb71804050a48ece709c34"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/STORY_ART.md",
+          "sha256": "b428ab1be05001cc17b1a0f3464938b5c0294cde07cf49a821a2e9a5a038a64d"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/modern_film.json",
+          "sha256": "7ba42ee287911808543d1a4aefb8527d13ab74fd2eee6b558464a1721f35b4cb"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/story_art.json",
+          "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 9,
+      "at": "2026-10-08T01:04:06.121030+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt story",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 61381,
+        "http_status": 200,
+        "reported_tokens": 41778
+      }
+    },
+    {
+      "index": 10,
+      "at": "2026-10-08T01:04:06.135952+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison sound",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "aecd6ffbc4392b7e221580d8d64a8d9ada13bb24ee7dce36461a2337da69975e"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/dispatch_rubric.yaml",
+          "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/quality_contract.json",
+          "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/ART_DIRECTION.md",
+          "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/cinematic_reference_bank.json",
+          "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/MODERN_FILM.md",
+          "sha256": "ee3923526ac95cbc7c38d22cc1bf6cdf015fd32b1cd8419fa8fe93db73c423a7"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/knowledge/craft/STORY_ART.md",
+          "sha256": "86fe767fd52419d95f9606cd6cf5a566949446cac0711b76a55a855939923fbb"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/modern_film.json",
+          "sha256": "7ba42ee287911808543d1a4aefb8527d13ab74fd2eee6b558464a1721f35b4cb"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/config/story_art.json",
+          "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 11,
+      "at": "2026-10-08T01:04:35.134997+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt sound",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 28996,
+        "http_status": 200,
+        "reported_tokens": 41564
+      }
+    },
+    {
+      "index": 12,
+      "at": "2026-10-08T01:08:24.786585+00:00",
+      "kind": "charged",
+      "resource": "native_renders",
+      "count": 1,
+      "note": "Source-bound wording repair, complete native PNG/CRF16 film before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "2c0bafe3e9e543a03271b3d344341026e190a1399d707f7920f6a5f8714948b7"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 13,
+      "at": "2026-10-08T01:08:24.789124+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 2,
+      "note": "Both complete final phone treatments after source-bound wording repair, before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "2c0bafe3e9e543a03271b3d344341026e190a1399d707f7920f6a5f8714948b7"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-b.json",
+          "sha256": "f793280450433dec6f2380b320aea838436dd46c2593401ed689bc1069332fa9"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 14,
+      "at": "2026-10-08T01:12:27.355657+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison picture",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "6ad73b9bc833488ffa604366acd321f7955037fbd09f42f913f8e076bd4bcc89"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v3/guide-readings.json",
+          "sha256": "f01020a6d04eb942e29ab819969d0d0357efbec121a8d1a2e1bca331a010cc64"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 15,
+      "at": "2026-10-08T01:13:33.283279+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt picture",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 65925,
+        "http_status": 200,
+        "reported_tokens": 44319
+      }
+    },
+    {
+      "index": 16,
+      "at": "2026-10-08T01:13:33.295162+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison story",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "6ad73b9bc833488ffa604366acd321f7955037fbd09f42f913f8e076bd4bcc89"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v3/guide-readings.json",
+          "sha256": "f01020a6d04eb942e29ab819969d0d0357efbec121a8d1a2e1bca331a010cc64"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 17,
+      "at": "2026-10-08T01:14:12.580563+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt story",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 39283,
+        "http_status": 200,
+        "reported_tokens": 41955
+      }
+    },
+    {
+      "index": 18,
+      "at": "2026-10-08T01:14:12.593433+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison sound",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "6ad73b9bc833488ffa604366acd321f7955037fbd09f42f913f8e076bd4bcc89"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v3/guide-readings.json",
+          "sha256": "f01020a6d04eb942e29ab819969d0d0357efbec121a8d1a2e1bca331a010cc64"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 19,
+      "at": "2026-10-08T01:15:17.573902+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt sound",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 64978,
+        "http_status": null,
+        "reported_tokens": 0
+      }
+    },
+    {
+      "index": 20,
+      "at": "2026-10-08T01:16:57.351507+00:00",
+      "kind": "capacity_increment",
+      "resource": "av_reviews",
+      "count": 3,
+      "note": "Owner-authorized mandatory rendering recovery: independent exact-film review and decoded frame 210 show unloaded SVG sprites at shot mount. Keep the original six-review envelope and add one complete three-response comparison after the capture fix.",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v3/comparison-picture.json",
+          "sha256": "9b2b6e3ca3ced496147e0018577591b71b480341db2376b8f29d26592a5e9a56"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/before-image-load-correction/native-a.mp4",
+          "sha256": "6ad73b9bc833488ffa604366acd321f7955037fbd09f42f913f8e076bd4bcc89"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/glitch-investigation/frame-03.png",
+          "sha256": "794abad400a27f47c65fdd8c3c5a5f1b0997fa1bea065471a5fecd88c8a94e2b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 21,
+      "at": "2026-10-08T01:19:05.560109+00:00",
+      "kind": "charged",
+      "resource": "native_stills",
+      "count": 2,
+      "note": "Cold frame 210 and frame zero prove raster loading at the reported failing shot and opening, before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "ad155220984760b09be33d51cbd7981272f05f7856e399362e2d10550b6f40b4"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 22,
+      "at": "2026-10-08T01:23:10.131724+00:00",
+      "kind": "charged",
+      "resource": "native_renders",
+      "count": 1,
+      "note": "Mandatory image-load capture correction, complete native PNG/CRF16 film before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "ad155220984760b09be33d51cbd7981272f05f7856e399362e2d10550b6f40b4"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 23,
+      "at": "2026-10-08T01:23:10.133017+00:00",
+      "kind": "charged",
+      "resource": "phone_renders",
+      "count": 2,
+      "note": "Both complete final phone treatments after cold-shot missing-raster correction, before execution",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-a.json",
+          "sha256": "ad155220984760b09be33d51cbd7981272f05f7856e399362e2d10550b6f40b4"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/experiments/modern-film-2026-10-07/board-b.json",
+          "sha256": "78dc7998da10745b47f139c2c15cf83aeddad8874a5c95dab37fb2b7af679e0b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 24,
+      "at": "2026-10-08T01:26:12.608605+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison picture",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "8e87a7a55e7a2a2470cfc39d5d7d38f0274bf48a04195aa0f31c6600cfe0c355"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v4/guide-readings.json",
+          "sha256": "faad70a786995799f64df729b2e25eafa22441a70d8f98cb5dca31e975af5546"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 25,
+      "at": "2026-10-08T01:26:50.787408+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt picture",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 38177,
+        "http_status": 200,
+        "reported_tokens": 42576
+      }
+    },
+    {
+      "index": 26,
+      "at": "2026-10-08T01:26:50.795542+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison story",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "8e87a7a55e7a2a2470cfc39d5d7d38f0274bf48a04195aa0f31c6600cfe0c355"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v4/guide-readings.json",
+          "sha256": "faad70a786995799f64df729b2e25eafa22441a70d8f98cb5dca31e975af5546"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 27,
+      "at": "2026-10-08T01:27:50.679930+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt story",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 59883,
+        "http_status": 200,
+        "reported_tokens": 42363
+      }
+    },
+    {
+      "index": 28,
+      "at": "2026-10-08T01:27:50.687957+00:00",
+      "kind": "charged",
+      "resource": "av_reviews",
+      "count": 1,
+      "note": "Normal independent audiovisual R&D comparison sound",
+      "inputs": [
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/runs/2026-10-07/dispatch.mp4",
+          "sha256": "bf8e9276eeaad2647ad11d6d82d4334222a353d18bda335e0a67eb72561f579a"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/native-a.mp4",
+          "sha256": "8e87a7a55e7a2a2470cfc39d5d7d38f0274bf48a04195aa0f31c6600cfe0c355"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-v4/guide-readings.json",
+          "sha256": "faad70a786995799f64df729b2e25eafa22441a70d8f98cb5dca31e975af5546"
+        },
+        {
+          "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-modern-film-2026-10-07/out/modern-study/comparison-sources.txt",
+          "sha256": "4d0db2f4f1757423365480ad02734b57f31a95d05e4164ecdae3613f799df46b"
+        }
+      ],
+      "telemetry": {}
+    },
+    {
+      "index": 29,
+      "at": "2026-10-08T01:28:32.581658+00:00",
+      "kind": "observed",
+      "resource": null,
+      "count": 1,
+      "note": "Actual provider attempt sound",
+      "inputs": [],
+      "telemetry": {
+        "elapsed_ms": 41893,
+        "http_status": 200,
+        "reported_tokens": 42429
+      }
+    }
+  ],
+  "updated_at": "2026-10-08T01:28:32.581678+00:00"
+}

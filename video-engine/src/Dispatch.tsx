@@ -1,4 +1,8 @@
 import {CoolingInspectionEpisode} from './CoolingInspectionEpisode';
+import {DirectedFilm} from './modern/DirectedFilm';
+import {assertFilmRoute} from './modern/DirectedFilm';
+import type {FilmDirection} from './modern/types';
+import type {StoryArt} from './modern/StoryArt';
 import {RobotSafetyEpisode} from './RobotSafetyEpisode';
 import {CropWaterEpisode} from './CropWaterEpisode';
 import type {ArtDirection, EventMotion} from './lib/artDirection';
@@ -187,6 +191,9 @@ export interface Cue {
 }
 
 export type DispatchProps = {
+  date?: string;
+  film_direction?: FilmDirection;
+  story_art?: StoryArt;
   art_direction?: ArtDirection;
   native_media?: {file: string; sha256: string; basis?: string}[];
   cinema?: {
@@ -221,7 +228,7 @@ export type DispatchProps = {
    *  to impersonate one. Alaska's strongest run is built this way: the board remains the timed,
    *  evidenced contract, while a named episode performs its visual argument. Unknown templates
    *  are refused below instead of silently falling back to a slideshow. */
-  cinematic_template?: 'cooling-inspection-v1' | 'robot-safety-v1' | 'carton-unload-illustrated-v1' | 'crop-water-v1' | 'carton-unload-v1' | 'readiness-twin-v1' | 'pavement-depth-v1' | 'pod-delivery-v1' | 'smoke-camera-v1' | 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
+  cinematic_template?: 'directed-film-v2' | 'cooling-inspection-v1' | 'robot-safety-v1' | 'carton-unload-illustrated-v1' | 'crop-water-v1' | 'carton-unload-v1' | 'readiness-twin-v1' | 'pavement-depth-v1' | 'pod-delivery-v1' | 'smoke-camera-v1' | 'editorial-v1' | 'paper-dossier-v1' | 'daily-actions-v1' | "screwworm-forecast-v1" | 'road-evidence-v2' | 'pavement-inspection-v1' | 'alloy-loop-v1' |
     'irrigation-judgment-v1' | 'border-capture-v1' | 'brownsville-moratorium-v1' |
     'hospital-exit-v1' | 'empty-seat-flight-v1' | 'local-flood-node-v1' |
     'proof-gate-v1' | 'magnet-candidate-v1' | 'highway-safety-case-v1' | 'freshwater-twin-v1' | 'freshwater-documentary-v2' | 'mineral-proving-ground-v1' | 'fax-chart-v1' | 'coadapt-handoff-v1' | 'contact-sensing-v1' | 'freight-invitation-v1' | 'brush-camera-v1';
@@ -494,10 +501,12 @@ export const DispatchScene: React.FC<{scene: Scene; fps: number}> = ({scene, fps
  * Only the mark/masthead settles into place. Attribution is visible for the whole card. */
 
 
-export const Dispatch: React.FC<DispatchProps> = ({scenes, captions, credits, credits_s = 4,
-  cinematic_template, documentary_copy, native_media, __cinemaProofWithoutStage}) => {
+export const Dispatch: React.FC<DispatchProps> = (board) => {
+  const {scenes,captions,credits,credits_s=4,cinematic_template,documentary_copy,native_media,__cinemaProofWithoutStage}=board;
+  assertFilmRoute(board);
   const {fps} = useVideoConfig();
   const end = scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
+  if(cinematic_template==='directed-film-v2'){return <DirectedFilm {...board}/>;}
   if (cinematic_template === 'cooling-inspection-v1') {return <CoolingInspectionEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'robot-safety-v1') {return <RobotSafetyEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}
   if (cinematic_template === 'crop-water-v1') {return <CropWaterEpisode runtime_s={end} scenes={scenes} captions={captions} credits={credits} credits_s={credits_s} __cinemaProofWithoutStage={__cinemaProofWithoutStage}/>;}

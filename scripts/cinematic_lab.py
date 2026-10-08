@@ -11,7 +11,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-LIMITS = {'native_renders': 4, 'native_stills': 12, 'phone_renders': 8, 'av_reviews': 6}
+LIMITS = {'native_renders': 4, 'native_stills': 12, 'phone_renders': 8, 'av_reviews': 6, 'art_assets': 2}
 
 
 def now():
