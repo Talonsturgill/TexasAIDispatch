@@ -52,12 +52,14 @@ from __future__ import annotations
 
 import argparse
 import base64
+import fcntl
 import hashlib
 import io
 import itertools
 import json
 import math
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -80,7 +82,6 @@ PLATE_W, PLATE_H = 1242, 2208           # the film's 1080x1920 with 15 percent o
 FILM_W, FILM_H = 1080, 1920
 SS = 2                                  # the backing store's supersampling, box filtered down here
 ZMAX = 30000.0                          # plate.js's depth encoding, metres
-WEBP_QUALITY = 90
 CARD_PAD = 6                            # px of clear margin kept around a card's crop
 
 # REASSEMBLY TOLERANCE, in 8-bit levels over the film frame. Each layer is graded alone, so a pixel
@@ -371,20 +372,28 @@ class Plate:
 SIGNS = {"dolly": (1.0,), "truck": (1.0, -1.0), "rise": (1.0,)}
 
 
-def limits(plate: Plate) -> tuple[dict, dict]:
+def limits(plate: Plate) -> tuple[dict, dict, dict]:
     """The largest dolly, truck and rise, each alone and in each direction its profiles use, that
-    pass cover, slide and scale. Returns the limits and what the limit measured."""
-    found, measured = {}, {}
+    pass cover, slide and scale. Returns the limits, what each limit measured, and what the next step
+    measured when it failed (None when every step passed). verify() holds a limit to both, so a limit
+    raised by hand contradicts the bake that measured it (Codex on PR 117)."""
+    found, measured, beyond = {}, {}, {}
     for axis, steps in STEPS.items():
-        best, at = 0.0, None
+        best, at, over_it = 0.0, None, None
         for step in steps:
-            signs = SIGNS[axis]
-            results = [plate.passes({axis: sgn * step}) for sgn in signs]
+            results = [plate.passes({axis: sgn * step}) for sgn in SIGNS[axis]]
             if not all(ok for ok, _ in results):
+                over_it = dict(next(g for ok, g in results if not ok), step=step)
                 break
             best, at = step, max((g for _, g in results), key=lambda g: (g["cover"], g["slide_px"]))
-        found[axis + "_m"], measured[axis + "_m"] = best, at
-    return found, measured
+        found[axis + "_m"], measured[axis + "_m"], beyond[axis + "_m"] = best, at, over_it
+    return found, measured, beyond
+
+
+def within(g) -> bool:
+    """A measurement inside all three bounds."""
+    return (isinstance(g, dict) and all(isinstance(g.get(k), (int, float)) for k in ("cover", "slide_px", "scale"))
+            and g["cover"] <= SEAM_SHARE_MAX and g["slide_px"] <= SLIDE_MAX_PX and g["scale"] <= MAX_LAYER_SCALE)
 
 
 def profile_ends(lim: dict, share: float = MOVE_SHARE, profiles: dict = PROFILES):
@@ -504,10 +513,21 @@ def scene_spec(scene: Path) -> dict:
 
 
 def save_webp(rgba01: np.ndarray, path: Path, opaque: bool = False) -> Path:
+    """A layer as the stage loads it: 8 bits a channel, LOSSLESS. Measured on the Gulf plate, read back
+    and reassembled (October 9th, 2026): lossy WebP at quality 90, as the plates first shipped, came to a
+    mean of 2.53 levels from the picture against a bound of 1.5, and quality 100 still to 2.29, because
+    lossy WebP stores colour at half resolution at any quality. Lossless came to 1.20, which is the 8-bit
+    rounding alone, for about 7.6 times the bytes. A layer that ships is a layer that was measured."""
     arr = np.clip(np.round(rgba01 * 255.0), 0, 255).astype(np.uint8)
     im = Image.fromarray(arr, "RGBA")
-    (im.convert("RGB") if opaque else im).save(path, "WEBP", quality=WEBP_QUALITY, method=6)
+    (im.convert("RGB") if opaque else im).save(path, "WEBP", lossless=True, quality=100, method=6)
     return path
+
+
+def load_rgba(path: Path) -> np.ndarray:
+    """A saved layer read back the way the stage shows it: straight RGBA in [0, 1]."""
+    with Image.open(path) as im:
+        return np.asarray(im.convert("RGBA"), dtype=np.float32) / 255.0
 
 
 def bake_one(scene: Path, docket: Path) -> dict:
@@ -531,30 +551,44 @@ def bake_one(scene: Path, docket: Path) -> dict:
     res = r["result"]
     if not res or res.get("ok") is False:
         raise RuntimeError(f"{spec['id']}: the engine reported a failed render: {res}")
-    cam = camera_of(res["camera"])
+    # Every number is rounded to what the manifest records BEFORE anything is measured, so the stage
+    # moves the layers by exactly the numbers that were checked and CI can measure them again.
+    cam = {k: (round(v, 6) if isinstance(v, float) else [round(x, 6) for x in v]) for k, v in camera_of(res["camera"]).items()}
     pitch = math.asin(max(-1.0, min(1.0, cam["forward"][1])))
-    horizon_y = cam["cy"] + cam["fpx"] * math.tan(pitch)
-    sky, ground = kept["sky"], kept["ground"]
+    horizon_y = round(cam["cy"] + cam["fpx"] * math.tan(pitch), 2)
     cards = []
     for c in res["cards"]:                                  # far first, as the page drew them
         got = kept.get(c["name"])
         if got is None:
             continue                                        # a card whose things are all out of frame
         crop, box = got
-        cards.append({"name": c["name"], "layer": crop, "box": box,
-                      "alpha": np.clip(np.round(crop[..., 3] * 255.0), 0, 255).astype(np.uint8),
-                      "depth": float(c["depth"]), "min": float(c["min"]), "max": float(c["max"]), "things": c["things"],
+        cards.append({"name": c["name"], "layer": crop, "box": box, "depth": round(float(c["depth"]), 3),
+                      "min": round(float(c["min"]), 3), "max": round(float(c["max"]), 3), "things": c["things"],
                       "tall": c.get("tall")})
+    # THE LAYERS THAT SHIP ARE THE LAYERS MEASURED (Codex on PR 117). Each is encoded as the WebP the
+    # stage loads and read back, and only the decoded layers are reassembled and moved, so anything the
+    # encoder changes counts against the plate. They are published only once they pass.
+    stage = WORK / spec["id"] / "layers"
+    shutil.rmtree(stage, ignore_errors=True)
+    stage.mkdir(parents=True)
+    files = {"sky": save_webp(kept["sky"], stage / "sky.webp", opaque=True),
+             "ground": save_webp(kept["ground"], stage / "ground.webp")}
+    for k, c in enumerate(cards):
+        c["file"] = save_webp(c["layer"], stage / f"card{k:02d}.webp")
+        c["layer"] = load_rgba(c["file"])
+        c["alpha"] = np.clip(np.round(c["layer"][..., 3] * 255.0), 0, 255).astype(np.uint8)
+    sky, ground = load_rgba(files["sky"]), load_rgba(files["ground"])
     check = reassembly_of(compose_cards(over([sky, ground]), [(c["layer"], c["box"]) for c in cards]), kept["flat"])
-    plate = Plate(cam, horizon_y, ground[..., 3], cards, kept["z1"])
-    lim, at = limits(plate)
+    plate = Plate(cam, horizon_y, np.clip(np.round(ground[..., 3] * 255.0), 0, 255).astype(np.uint8), cards, kept["z1"])
+    lim, at, beyond = limits(plate)
     if not all(lim[k] > 0 for k in ("dolly_m", "truck_m", "rise_m")):
         raise ValueError(f"{spec['id']}: the plate can't take the smallest move: {lim} {at}")
-    worst_profile = {"cover": 0.0, "slide_px": 0.0, "scale": 1.0}
+    worst_profile, measured = {"cover": 0.0, "slide_px": 0.0, "scale": 1.0}, []
     for name, move in profile_ends(lim):
         ok, got = plate.passes(move)
         if not ok:
             raise ValueError(f"{spec['id']}: profile {name} fails at its end {move}: {got}")
+        measured.append({"profile": name, "move": {k: round(v, 6) for k, v in move.items()}, **got})
         worst_profile = {k: max(worst_profile[k], got[k]) for k in got}
     z1 = kept["z1"]
     whole = kept["full"]
@@ -564,13 +598,15 @@ def bake_one(scene: Path, docket: Path) -> dict:
         for old in out_dir.glob("*.webp"):
             old.unlink()
     out_dir.mkdir(parents=True, exist_ok=True)
-    entry = lambda f: {"file": f.relative_to(PUBLIC).as_posix(), "sha256": sha256(f), "bytes": f.stat().st_size}
+    for f in stage.glob("*.webp"):
+        f.replace(out_dir / f.name)
+    entry = lambda name: (lambda f: {"file": f.relative_to(PUBLIC).as_posix(), "sha256": sha256(f),
+                                     "bytes": f.stat().st_size})(out_dir / name)
     card_rows = []
     for k, c in enumerate(cards):
         x, y, w, h = c["box"]
-        f = save_webp(c["layer"], out_dir / f"card{k:02d}.webp")
-        row = dict(entry(f), x=x, y=y, w=w, h=h, depth_m=round(c["depth"], 3),
-                   min_m=round(c["min"], 3), max_m=round(c["max"], 3), things=len(c["things"]))
+        row = dict(entry(f"card{k:02d}.webp"), x=x, y=y, w=w, h=h, depth_m=c["depth"],
+                   min_m=c["min"], max_m=c["max"], things=len(c["things"]))
         if c.get("tall"):           # the part of a surface above the eye; its things are seam points on the horizon
             row["tall"] = c["tall"]
         card_rows.append(row)
@@ -581,16 +617,17 @@ def bake_one(scene: Path, docket: Path) -> dict:
         "id": spec["id"], "region": spec["region"], "counties": spec["counties"], "also": spec["also"],
         "scene": scene.relative_to(REPO).as_posix(), "scene_sha256": sha256(scene),
         "modules": {name: sha256(PLACE_JS / name) for name in place_imports(scene.read_text(encoding="utf-8"))},
-        "camera": {k: (round(v, 6) if isinstance(v, float) else [round(x, 6) for x in v]) for k, v in cam.items()},
-        "horizon_y": round(horizon_y, 2),
-        "sky": entry(save_webp(sky, out_dir / "sky.webp", opaque=True)),
-        "ground": entry(save_webp(ground, out_dir / "ground.webp")),
+        "camera": cam,
+        "horizon_y": horizon_y,
+        "sky": entry("sky.webp"),
+        "ground": entry("ground.webp"),
         "cards": card_rows,
         "sky_rgb": mean_rgb(whole, (rows < horizon_y - 40) & (z1 >= 0.6 * ZMAX)),
         "ground_rgb": mean_rgb(whole, rows > horizon_y + 160),
         "limits": lim,
-        "checks": {"reassembly_mean": check["mean"], "reassembly_p999": check["p999"], "at_limits": at,
-                   "profiles_worst": worst_profile, "surfaces": res.get("surfaces"), "things": res.get("things"),
+        "checks": {"reassembly_of": "encoded", "reassembly_mean": check["mean"], "reassembly_p999": check["p999"],
+                   "at_limits": at, "beyond_limits": beyond, "profiles": measured, "profiles_worst": worst_profile,
+                   "surfaces": res.get("surfaces"), "things": res.get("things"),
                    "render_ms": r["ms"], "page_errors": len(r["errors"])},
         "_errors": r["errors"],
     }
@@ -604,7 +641,15 @@ def load_manifest(path: Path = MANIFEST) -> dict:
 
 def write_manifest(plates: dict, engine: dict | None, path: Path = MANIFEST) -> None:
     """Merge freshly baked plates, all drawn by `engine`, into the manifest. Every plate already
-    there keeps the engine it names; None writes no new plate and only brings old records forward."""
+    there keeps the engine it names; None writes no new plate and only brings old records forward.
+    Two bakes may run at once, so the read, merge and write hold a lock and the file is replaced whole."""
+    WORK.mkdir(parents=True, exist_ok=True)
+    with open(WORK / "manifest.lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        _write_manifest(plates, engine, path)
+
+
+def _write_manifest(plates: dict, engine: dict | None, path: Path) -> None:
     old = load_manifest(path) if path.exists() else {}
     merged = dict(old.get("plates", {})) if old.get("schema") == SCHEMA else {}
     engines = dict(old.get("engines") or {})
@@ -644,7 +689,64 @@ def write_manifest(plates: dict, engine: dict | None, path: Path = MANIFEST) -> 
         "film": {"w": FILM_W, "h": FILM_H}, "plate": {"w": PLATE_W, "h": PLATE_H},
         "plates": {k: merged[k] for k in sorted(merged)},
     }
-    path.write_text(json.dumps(doc, indent=1, ensure_ascii=True) + "\n", encoding="utf-8")
+    part = path.with_name(path.name + ".part")
+    part.write_text(json.dumps(doc, indent=1, ensure_ascii=True) + "\n", encoding="utf-8")
+    part.replace(path)
+
+
+def bound_limits(p: dict, moves: dict) -> list[str]:
+    """A plate's limits held to the measurements that set them (Codex on PR 117). Each limit is a step the
+    bake tried, measured inside the bounds there and outside them one step further, unless it is the last
+    step. The moves PlaceStage makes from the limits are exactly the profile ends the bake measured, and
+    each of those measured inside the bounds. A limit raised by hand contradicts the bake on every count."""
+    bad, lim, ck = [], p.get("limits") or {}, p.get("checks") or {}
+    at, beyond = ck.get("at_limits") or {}, ck.get("beyond_limits") or {}
+    for axis, steps in STEPS.items():
+        key = axis + "_m"
+        if lim.get(key) not in steps:
+            bad.append(f"{key} {lim.get(key)} is not a step the bake measures; only a bake writes a limit")
+            continue
+        i = steps.index(lim[key])
+        nxt = steps[i + 1] if i + 1 < len(steps) else None
+        b = beyond.get(key)
+        if nxt is None and b is not None:
+            bad.append(f"{key} is the last step and still records a failure beyond it")
+        elif nxt is not None and not (isinstance(b, dict) and b.get("step") == nxt and not within(b)):
+            bad.append(f"{key} {lim[key]} is not bound to a failure measured at the next step, {nxt}")
+        if not within(at.get(key)):
+            bad.append(f"{key} {lim[key]} has no measurement inside the bounds at the limit")
+    if bad or not moves:
+        return bad
+    want = [(name, {k: round(v, 6) for k, v in move.items()})
+            for name, move in profile_ends(lim, moves.get("share", MOVE_SHARE), moves.get("profiles", PROFILES))]
+    got = ck.get("profiles") or []
+    if want != [(r.get("profile"), r.get("move")) for r in got]:
+        bad.append("the moves its limits give are not the moves the bake measured; re-bake it")
+    elif not all(within(r) for r in got):
+        bad.append("a camera profile measured outside the bounds on the bake")
+    elif ck.get("profiles_worst") != {k: max(r[k] for r in got) for k in ("cover", "slide_px", "scale")}:
+        bad.append(f"its profiles_worst {ck.get('profiles_worst')} is not the worst of the profiles it measured")
+    return bad
+
+
+def remeasure(p: dict, repo: Path = REPO) -> list[str]:
+    """Two of the bake's three checks, measured again from the committed layers at every profile end: the
+    ground covering the frame, from the encoded alphas, and each card's magnification. The bake measured
+    the same decoded layers with the same rounded numbers, so each must come out exactly as recorded.
+    Slide needs each thing's base and the depth pass, which are not committed, and stays bound above."""
+    public = repo / "video-engine" / "public"
+    alpha = lambda f: np.asarray(Image.open(public / f).convert("RGBA"), dtype=np.uint8)[..., 3]
+    cards = [{"alpha": alpha(c["file"]), "box": (c["x"], c["y"], c["w"], c["h"]), "depth": c["depth_m"]}
+             for c in p.get("cards") or []]
+    plate = Plate(p["camera"], p["horizon_y"], alpha(p["ground"]["file"]), cards)
+    bad = []
+    for r in (p.get("checks") or {}).get("profiles") or []:
+        move = r["move"]
+        cover, scale = round(float(plate.cover(move)), 6), round(float(plate.scale(move)), 4)
+        if cover != r["cover"] or scale != r["scale"]:
+            bad.append(f"{r['profile']} at {move} measures cover {cover} and scale {scale} from the committed layers, "
+                       f"and the bake recorded {r['cover']} and {r['scale']}")
+    return bad
 
 
 def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
@@ -656,6 +758,10 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
         errors.append("the manifest's policy differs from place_bake.py's; re-run the bake to write it")
     if doc.get("moves") != {"share": MOVE_SHARE, "profiles": PROFILES}:
         errors.append("the manifest's moves differ from place_bake.py's; re-bake so the bake checked what the film does")
+    # PlaceStage sizes and offsets every layer from these two (Codex on PR 117)
+    if doc.get("film") != {"w": FILM_W, "h": FILM_H} or doc.get("plate") != {"w": PLATE_W, "h": PLATE_H}:
+        errors.append(f"the manifest's film {doc.get('film')} and plate {doc.get('plate')} are not the bake's "
+                      f"{FILM_W}x{FILM_H} and {PLATE_W}x{PLATE_H}")
     plates = doc.get("plates") or {}
     if not plates:
         return errors + ["manifest holds no plates"]
@@ -697,9 +803,10 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
                     if p.get("region") not in county_regions.allowed(entry):
                         errors.append(f"plate {pid}: {name} County is not in {p.get('region')}, so its {key} can't list it")
                 if key == "counties":
-                    k = (p.get("region"), county.lower())
+                    # by the shipping gate's rule, as plateFor() reads it: "De Witt" is DeWitt (Codex on PR 117)
+                    k = (p.get("region"), county_regions.normalise(county))
                     if k in owned:
-                        errors.append(f"{county} County has two plates of its own in {p.get('region')}: {owned[k]} and {pid}")
+                        errors.append(f"county {county!r} has two plates of its own in {p.get('region')}: {owned[k]} and {pid}")
                     owned[k] = pid
     for pid, p in plates.items():
         where = f"plate {pid}"
@@ -745,10 +852,11 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
         if not (isinstance(ck.get("reassembly_mean"), (int, float)) and ck["reassembly_mean"] <= REASSEMBLY_MEAN_MAX
                 and isinstance(ck.get("reassembly_p999"), (int, float)) and ck["reassembly_p999"] <= REASSEMBLY_P999_MAX):
             errors.append(f"{where}: the layers did not reassemble into the picture: {ck.get('reassembly_mean')}")
-        worst = ck.get("profiles_worst") or {}
-        if not (worst.get("cover", 1) <= SEAM_SHARE_MAX and worst.get("slide_px", 99) <= SLIDE_MAX_PX
-                and worst.get("scale", 9) <= MAX_LAYER_SCALE):
-            errors.append(f"{where}: a camera profile failed on the bake: {worst}")
+        if ck.get("reassembly_of") != "encoded":
+            errors.append(f"{where}: its reassembly was measured before the layers were encoded; re-bake it")
+        errors += [f"{where}: {e}" for e in bound_limits(p, doc.get("moves") or {})]
+        if check_files and not any(e.startswith(where + ":") for e in errors):
+            errors += [f"{where}: {e}" for e in remeasure(p, repo)]
         if ck.get("page_errors"):
             errors.append(f"{where}: the engine logged {ck['page_errors']} errors on the bake")
         hy = p.get("horizon_y")
@@ -839,7 +947,11 @@ def self_test() -> int:
                                         "things": [], "tall": ["mesa"]}], z1)
         ok_s, got_s = tall.passes({"rise": 0.9})
         check(ok_s == should, f"a ridge card at 900 m over ground at {z} m: {got_s}")
-    lim, _ = limits(good)
+    lim, _, past = limits(good)
+    for axis in STEPS:
+        b, nxt = past[axis + "_m"], STEPS[axis][STEPS[axis].index(lim[axis + "_m"]) + 1:]
+        check((b is None and not nxt) or (b and b["step"] == nxt[0] and not within(b)),
+              f"the {axis} limit {lim[axis + '_m']} is not bound to the failure one step past it: {b}")
     check(0 < lim["truck_m"] < 0.75 and lim["rise_m"] > 0 and lim["dolly_m"] > 0, f"limits wrong: {lim}")
     check(all(min(rng) >= 0 or min(SIGNS[k]) < 0 for prof in PROFILES.values() for k, rng in prof.items()),
           "a profile moves an axis in a direction its limit was never measured in")
@@ -860,7 +972,12 @@ def self_test() -> int:
     import county_regions
     drew = {"docket_commit": "a" * 40, "files": {"assets/js/txthree.js": "b" * 64}, "kit": {}}
     good_doc = {"schema": SCHEMA, "engines": {engine_key(drew): drew}, "policy": POLICY,
-                "moves": {"share": MOVE_SHARE, "profiles": PROFILES}, "plates": {}}
+                "moves": {"share": MOVE_SHARE, "profiles": PROFILES}, "film": {"w": FILM_W, "h": FILM_H},
+                "plate": {"w": PLATE_W, "h": PLATE_H}, "plates": {}}
+    synthetic_limits = {"dolly_m": 1.0, "truck_m": 0.3, "rise_m": 0.3}
+    measured_ends = [{"profile": n, "move": {k: round(v, 6) for k, v in m.items()}, "cover": 0.0, "slide_px": 1.0,
+                      "scale": 1.1} for n, m in profile_ends(synthetic_limits)]
+    next_step = lambda a: STEPS[a][STEPS[a].index(synthetic_limits[a + "_m"]) + 1]
     for i, region in enumerate(sorted(set(county_regions.GOULD_TO_ENGINE.values()))):
         good_doc["plates"][f"p{i}"] = {
             "region": region, "scene": "x.html", "scene_sha256": "0" * 64, "horizon_y": 1000.0,
@@ -868,8 +985,12 @@ def self_test() -> int:
             "camera": {"fpx": 2480.0, "position": [0.0, 6.5, 0.0]},
             "sky": {"file": "a.webp"}, "ground": {"file": "b.webp"},
             "cards": [{"file": "c.webp", "x": 0, "y": 0, "w": 10, "h": 10, "depth_m": dm} for dm in (900.0, 120.0, 25.0)],
-            "limits": {"dolly_m": 1.0, "truck_m": 0.3, "rise_m": 0.3},
-            "checks": {"reassembly_mean": 0.5, "reassembly_p999": 20.0, "page_errors": 0,
+            "limits": dict(synthetic_limits),
+            "checks": {"reassembly_of": "encoded", "reassembly_mean": 0.5, "reassembly_p999": 20.0, "page_errors": 0,
+                       "at_limits": {a + "_m": {"cover": 0.0, "slide_px": 1.5, "scale": 1.0} for a in STEPS},
+                       "beyond_limits": {a + "_m": {"step": next_step(a), "cover": 0.0, "slide_px": 2.5, "scale": 1.0}
+                                         for a in STEPS},
+                       "profiles": json.loads(json.dumps(measured_ends)),
                        "profiles_worst": {"cover": 0.0, "slide_px": 1.0, "scale": 1.1}}}
     for k, (region, counties, also) in enumerate([("gulf", ["Harris"], []), ("gulf", [], ["Harris", "Galveston"])]):
         good_doc["plates"][f"c{k}"] = dict(json.loads(json.dumps(good_doc["plates"]["p0"])), region=region,
@@ -888,6 +1009,17 @@ def self_test() -> int:
         (lambda m: m["plates"]["c0"].update(counties=[]), "a region with two plates of its own"),
         (lambda m: m["plates"].__setitem__("c2", dict(m["plates"]["c0"])), "a county with two plates of its own"),
         (lambda m: m["plates"]["p7"].update(engine="c" * 64), "a plate naming an engine nobody recorded"),
+        (lambda m: m["film"].update(w=1000), "a film narrower than the bake's"),
+        (lambda m: m["plate"].update(h=2000), "a plate shorter than the bake's"),
+        (lambda m: m["plates"].__setitem__("c3", dict(m["plates"]["c0"], counties=["HARRIS COUNTY"])),
+         "a county with two plates of its own, spelled two ways"),
+        (lambda m: m["plates"]["p0"]["limits"].update(truck_m=0.5), "a limit raised to the step that failed"),
+        (lambda m: m["plates"]["p1"]["limits"].update(rise_m=0.35), "a limit that is no step the bake measures"),
+        (lambda m: m["plates"]["p2"]["checks"]["beyond_limits"].update(dolly_m=None), "a limit with nothing measured past it"),
+        (lambda m: m["plates"]["p3"]["checks"]["profiles"][1]["move"].update(dolly=5.0), "a profile end the bake did not measure"),
+        (lambda m: m["plates"]["p4"]["checks"]["profiles"][2].update(slide_px=2.6), "a profile end measured outside the bounds"),
+        (lambda m: m["plates"]["p5"]["checks"]["profiles_worst"].update(slide_px=0.5), "a worst case better than the profiles"),
+        (lambda m: m["plates"]["p6"]["checks"].pop("reassembly_of"), "a reassembly measured before encoding"),
         (lambda m: m["plates"]["p8"].pop("engine"), "a plate naming no engine"),
         (lambda m: next(iter(m["engines"].values())).update(docket_commit="d" * 40), "an engine record edited by hand"),
         (lambda m: m["engines"].__setitem__(engine_key(dict(drew, kit={"x.js": "e" * 64})), dict(drew, kit={"x.js": "e" * 64})),

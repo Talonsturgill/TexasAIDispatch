@@ -44,6 +44,9 @@ try{
  assert.equal(api.plateFor({region:'gulf',county:'Matagorda'}).id,'gulf-wide','Matagorda did not get the region');
  assert.equal(api.plateFor({region:'gulf',county:'Harris',place_plate:'gulf-shipchannel'}).id,'gulf-shipchannel');
  assert.throws(()=>api.plateFor({region:'gulf',county:'Cameron',place_plate:'gulf-shipchannel'}),/not for Cameron/);
+ // a county with a city plate may choose its region's own plate, which belongs to no one place
+ assert.equal(api.plateFor({region:'gulf',county:'Harris',place_plate:'gulf-wide'}).id,'gulf-wide');
+ assert.throws(()=>api.plateFor({region:'gulf',county:'Harris',place_plate:'blackland-wide'}),/not a gulf plate/);
  for(const p of Object.values(manifest.plates))if(!p.counties?.length&&!p.also?.length)
   assert.equal(api.plateFor({region:p.region,county:'Nowhere'}).id,p.id,'a region did not fall back to its own plate');
  for(const [name,prof] of Object.entries(manifest.moves.profiles)){

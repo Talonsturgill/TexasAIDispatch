@@ -1652,3 +1652,19 @@ one engine record over plates it never drew, so each plate now names its own. It
 four copies of the county-name rule. The gate ignored spaces and the locator didn't, so a board the
 gate passed as "De Witt" stopped the render. The locator, the stage and place_check now share the
 gate's rule, and a test feeds every county, spelled five ways, through the gate and the locator both.
+
+## The bake measured one set of layers and shipped another
+
+Same day, found by Codex's third pass on PR 117. The bake measured whether the layers reassemble into
+the picture on the float arrays it held in memory. It then wrote each layer as a lossy WebP at quality
+90 and recorded that file's hash. CI checked the hash, which proved the bytes were the ones the bake
+wrote and never that they were the ones it measured. Read back and reassembled, the Gulf plate came to
+a mean of 2.53 levels from the picture, against a bound of 1.5 and a recorded 0.95. Quality 100 still
+came to 2.29, because lossy WebP keeps colour at half resolution at any quality.
+
+**What to check instead.** Measure the artifact that ships, read back from the bytes that ship. The
+bake now encodes every layer, reads it back and measures only the decoded layers, and the layers are
+lossless WebP. Lossless puts the Gulf plate at 1.20, which is the 8-bit rounding alone, for about 7.6
+times the bytes. The same pass held each camera limit to the measurements that set it: the last step
+that passed, the next step's failure and every profile end the stage moves to. CI measures cover and
+magnification again from the committed layers and requires the bake's numbers exactly.

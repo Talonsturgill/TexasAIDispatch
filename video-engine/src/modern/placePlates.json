@@ -119,19 +119,19 @@
    "horizon_y": 1160.64,
    "sky": {
     "file": "place/blackland-austin/sky.webp",
-    "sha256": "dc9f9a1317f934a84a7c3e5ae90e95934fdac9ed1016dd200b9ef3ac19ff856f",
-    "bytes": 12208
+    "sha256": "9da09842e1ffb1d28a2081ca1043a4b7e1c20e7622eb8a33bddcc62624d0c378",
+    "bytes": 726300
    },
    "ground": {
     "file": "place/blackland-austin/ground.webp",
-    "sha256": "7cef373c0e661d2256a916f2c855027f13e5bc9cd2a5753620b8542a184062e5",
-    "bytes": 258536
+    "sha256": "a908e6590e088777fcd310695914672776e03a70a85806a7997d925f9b171ff1",
+    "bytes": 1225622
    },
    "cards": [
     {
      "file": "place/blackland-austin/card00.webp",
-     "sha256": "79ca8fcbbf42b49bbd91964e7b9479cea84c1ab4b5556c2d8b4323e36bde22e9",
-     "bytes": 86870,
+     "sha256": "84a548a0daac05fcbd6299a1404d41df0f424f532dc40cde7d822990a35290f9",
+     "bytes": 239422,
      "x": 0,
      "y": 642,
      "w": 1242,
@@ -146,8 +146,8 @@
     },
     {
      "file": "place/blackland-austin/card01.webp",
-     "sha256": "506bd358719807977ad6ae956944ed9f211620e57f380b53e4fb21fd647844d5",
-     "bytes": 41474,
+     "sha256": "fa6f5a592d7b292135e277d0a4b666b03184cbc24112cfb42e55abb7576c335a",
+     "bytes": 109200,
      "x": 0,
      "y": 1080,
      "w": 1242,
@@ -174,8 +174,9 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.07,
-    "reassembly_p999": 4.0,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.417,
+    "reassembly_p999": 4.31,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -193,6 +194,140 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.166,
+      "scale": 1.015,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001746,
+      "slide_px": 2.026,
+      "scale": 1.0,
+      "step": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.027,
+      "scale": 1.0,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.864,
+      "scale": 1.0059
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.214,
+      "scale": 1.0021
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.214,
+      "scale": 1.0021
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.214,
@@ -200,7 +335,7 @@
     },
     "surfaces": 13,
     "things": 49,
-    "render_ms": 191782,
+    "render_ms": 249913,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -246,19 +381,19 @@
    "horizon_y": 1184.75,
    "sky": {
     "file": "place/blackland-dallas/sky.webp",
-    "sha256": "84ba1518a8743ebd32e193d748b46f1dde949df6ae1620cb779242fc1cc4b9c4",
-    "bytes": 12842
+    "sha256": "bb9a5f1004117fb4c93f90538c23e01838ece1a630ceec8b72aed44e7c2df463",
+    "bytes": 758346
    },
    "ground": {
     "file": "place/blackland-dallas/ground.webp",
-    "sha256": "d1ae950d9067617f88752c721a13ab8b1e7c8bf057f90cf601b6b9c06afec17c",
-    "bytes": 261074
+    "sha256": "c891492628c95f4c40af24997351416d52469a4556f2571612e45052e9aba153",
+    "bytes": 1247212
    },
    "cards": [
     {
      "file": "place/blackland-dallas/card00.webp",
-     "sha256": "88579a38caf7b168e880c0322aa9467b458c812d9189525229fc0e5532f6f4f9",
-     "bytes": 45772,
+     "sha256": "2e9dd7478b6f1d37fcadff3c59261ab192a4f65186dfa6678cd7e883ed217cbd",
+     "bytes": 173032,
      "x": 0,
      "y": 866,
      "w": 1242,
@@ -273,8 +408,8 @@
     },
     {
      "file": "place/blackland-dallas/card01.webp",
-     "sha256": "03ad53baf44f736111849e9cfac901baa3b4466ff1f3bb5a2a05b8d858092985",
-     "bytes": 642,
+     "sha256": "4cd0574e37f0b7cb3977296bfe6d342f0ea9641c872d26a70bce6a1f83ee5097",
+     "bytes": 2468,
      "x": 1047,
      "y": 1167,
      "w": 195,
@@ -289,8 +424,8 @@
     },
     {
      "file": "place/blackland-dallas/card02.webp",
-     "sha256": "0bec3cba2df3bf89d95b085988921462d9d75e8fa3a26def026afe78db799731",
-     "bytes": 756,
+     "sha256": "bb55a0a4b1a25167daba920516f8819809740c4091e113ab99d58262fbeaeaf2",
+     "bytes": 2976,
      "x": 748,
      "y": 1167,
      "w": 249,
@@ -305,8 +440,8 @@
     },
     {
      "file": "place/blackland-dallas/card03.webp",
-     "sha256": "5627b49291886632d9b98dca7813c264bc022acd4fc76fd35500f33ffe8d4ac3",
-     "bytes": 736,
+     "sha256": "9e951337525dda31d11a85fa11e71d9dedabe748a234be385249b6508316f29c",
+     "bytes": 2930,
      "x": 447,
      "y": 1167,
      "w": 249,
@@ -321,8 +456,8 @@
     },
     {
      "file": "place/blackland-dallas/card04.webp",
-     "sha256": "a0abd422f849efcbcb0436d6fa233597b2006fe2c517a7a454dfe4ed047cc9c1",
-     "bytes": 772,
+     "sha256": "687185c9a2c8aa732eb30515aea86475d214b03fa3b8909741eb23a488e9ff26",
+     "bytes": 2898,
      "x": 145,
      "y": 1167,
      "w": 250,
@@ -337,8 +472,8 @@
     },
     {
      "file": "place/blackland-dallas/card05.webp",
-     "sha256": "a517e4d2a8b4c9cc05728a6405fb92876249b19671f33826fa5e1f132d99a7e7",
-     "bytes": 452,
+     "sha256": "e219af0f86c9d959d03002e1b3b66615fe9c46b77b543cef69c28ba40bed9e4e",
+     "bytes": 1220,
      "x": 0,
      "y": 1167,
      "w": 94,
@@ -353,8 +488,8 @@
     },
     {
      "file": "place/blackland-dallas/card06.webp",
-     "sha256": "295cc9877ddcd705377d0f5aef07df84b54e840d9d7804e1d328dfd5e3384410",
-     "bytes": 4726,
+     "sha256": "29bc6704e9fff214393ff203eb92212568087fe80ce3887c8c273167667fed48",
+     "bytes": 12402,
      "x": 939,
      "y": 1111,
      "w": 237,
@@ -366,8 +501,8 @@
     },
     {
      "file": "place/blackland-dallas/card07.webp",
-     "sha256": "c1c94baede738da313806b67aabba7e752288474c7123055ef5c9d985ecff32e",
-     "bytes": 8664,
+     "sha256": "4a2e85c27a19a807fbd5397da42b30ad72e81219015141db5eabd5bf14d7da7a",
+     "bytes": 23622,
      "x": 95,
      "y": 1100,
      "w": 408,
@@ -394,8 +529,9 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.073,
-    "reassembly_p999": 3.04,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.446,
+    "reassembly_p999": 3.5,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -413,6 +549,140 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.454,
+      "scale": 1.0133,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001316,
+      "slide_px": 1.147,
+      "scale": 1.0,
+      "step": 0.5
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.295,
+      "scale": 1.0001,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.979,
+      "scale": 1.0053
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.033,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.033,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.755,
+      "scale": 1.0018
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.755,
+      "scale": 1.0018
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.033,
@@ -420,7 +690,7 @@
     },
     "surfaces": 25,
     "things": 7,
-    "render_ms": 313989,
+    "render_ms": 508510,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -467,19 +737,19 @@
    "horizon_y": 1161.8,
    "sky": {
     "file": "place/blackland-san-antonio/sky.webp",
-    "sha256": "e4a8adfc2f5b67ec05907bfb71a4274d3ec038257037540300ececaee9ddfdae",
-    "bytes": 12864
+    "sha256": "e5e5603d8710692c522f3aafcdcfd70eac0e849e3767ac2484bdd6673942c4d0",
+    "bytes": 709140
    },
    "ground": {
     "file": "place/blackland-san-antonio/ground.webp",
-    "sha256": "1fd4e9a79427bb3a3aa90f1654b52ce9609216b77340fa727e00f09ff5f42a98",
-    "bytes": 168688
+    "sha256": "a31255e11cf026c5852008eb202c22dd947ed6d1b5ef0aed5b3be0dedfc1688b",
+    "bytes": 850364
    },
    "cards": [
     {
      "file": "place/blackland-san-antonio/card00.webp",
-     "sha256": "1675fa825534f3bcb927ebfb0c1594a2f919303c4b87de791a93a7a4e10d2246",
-     "bytes": 23274,
+     "sha256": "6f5acc610d3f7ac24af3e60f7463e4c61eb148a11a2393fc8cdaa9e2e432d53f",
+     "bytes": 75174,
      "x": 0,
      "y": 965,
      "w": 1242,
@@ -494,8 +764,8 @@
     },
     {
      "file": "place/blackland-san-antonio/card01.webp",
-     "sha256": "07b96cc7486d2deb93c1fa5c56163c61b7df7ed4ac27eda39451a33b0bd2c3b1",
-     "bytes": 5750,
+     "sha256": "7fc79463bc329227ff083c4d26fed01b5a359e8664aff4f3ad30d4d1b9dee1fc",
+     "bytes": 13660,
      "x": 0,
      "y": 1088,
      "w": 849,
@@ -507,8 +777,8 @@
     },
     {
      "file": "place/blackland-san-antonio/card02.webp",
-     "sha256": "0c634cff17c9b72c3c1b2dbad20b0201355b94cf6027077428fb0e51d5d32519",
-     "bytes": 8306,
+     "sha256": "5b7fbff6f788997ae1195f199ab2477d1f26553255c88b0759c4081bab56e92c",
+     "bytes": 20734,
      "x": 367,
      "y": 1092,
      "w": 707,
@@ -520,8 +790,8 @@
     },
     {
      "file": "place/blackland-san-antonio/card03.webp",
-     "sha256": "2be6231f56a6f3c1d6cf4e8ce1ae52551a6f9e24b7287840e4d47ed152dc7f6b",
-     "bytes": 5168,
+     "sha256": "66710d712b0cfad9a0dbea48f911aae6c077e54f9f6c7c06f78a90300fad903b",
+     "bytes": 13450,
      "x": 193,
      "y": 1108,
      "w": 141,
@@ -533,8 +803,8 @@
     },
     {
      "file": "place/blackland-san-antonio/card04.webp",
-     "sha256": "f64fd36287d8f071622a8c9f70a26612773c66b24dc485f2bef5c2156707905e",
-     "bytes": 16390,
+     "sha256": "2eca73f7ac62d5d713d74fdf7650b5cafbe2fe04cb86aea2cfe760d65c0c170e",
+     "bytes": 51478,
      "x": 835,
      "y": 970,
      "w": 254,
@@ -546,8 +816,8 @@
     },
     {
      "file": "place/blackland-san-antonio/card05.webp",
-     "sha256": "18deeecdb5580d892470b3b1b86c78aa5ea0b42f9b63883a710d7d4e2f89e4fa",
-     "bytes": 42310,
+     "sha256": "8b99b714f6ed4e866b66f2c0e141ce0b685f5791067d9e3c3fd74bdc76b5416a",
+     "bytes": 146642,
      "x": 0,
      "y": 871,
      "w": 430,
@@ -574,8 +844,9 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.058,
-    "reassembly_p999": 3.0,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.371,
+    "reassembly_p999": 3.25,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -584,7 +855,7 @@
      },
      "truck_m": {
       "cover": 0.0,
-      "slide_px": 0.666,
+      "slide_px": 0.665,
       "scale": 1.0
      },
      "rise_m": {
@@ -593,6 +864,140 @@
       "scale": 1.0001
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.107,
+      "scale": 1.0551,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001728,
+      "slide_px": 1.109,
+      "scale": 1.0,
+      "step": 0.5
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.221,
+      "scale": 1.0002,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.788,
+      "scale": 1.0213
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.999,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.999,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.205,
+      "scale": 1.0074
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.666,
+      "scale": 1.0074
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 0.999,
@@ -600,7 +1005,7 @@
     },
     "surfaces": 30,
     "things": 13,
-    "render_ms": 189372,
+    "render_ms": 303573,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -644,19 +1049,19 @@
    "horizon_y": 1117.3,
    "sky": {
     "file": "place/blackland-wide/sky.webp",
-    "sha256": "6e5c1e833685358fbaaedce0ec6922db11f0c121d3820ae61ea0bf3517911709",
-    "bytes": 12212
+    "sha256": "f54bae515c16e1895fdc8c35ecd3ba10a72588d5fdf1d59443002ef5017f29a4",
+    "bytes": 751544
    },
    "ground": {
     "file": "place/blackland-wide/ground.webp",
-    "sha256": "6d7ff71f8b1fce464671c4d65ebd8a4d1a8527bd17618815e784da14470e1a29",
-    "bytes": 282178
+    "sha256": "c42069c067a602f05fcec9af89084c30b895c54cefc69dde5aebccd3c4b05fac",
+    "bytes": 1385240
    },
    "cards": [
     {
      "file": "place/blackland-wide/card00.webp",
-     "sha256": "14248d5c4413662c6e741198f0e1f3b132dc9151a12d14700657d473e8fe9f26",
-     "bytes": 1942,
+     "sha256": "e354193b151312595bd9233a1aa33ba711bef5d42cc0d5d8861fdcf99250a658",
+     "bytes": 4394,
      "x": 131,
      "y": 1067,
      "w": 884,
@@ -668,8 +1073,8 @@
     },
     {
      "file": "place/blackland-wide/card01.webp",
-     "sha256": "3a1a12e8d8315eb28d34152ebfbf730668253b417b62d8489548f9be7ed399d5",
-     "bytes": 20710,
+     "sha256": "bbe1b794dd5c72c28aeed1624111ebfb190d3da5c8caac3cf5dd5b054a9f38c9",
+     "bytes": 60650,
      "x": 408,
      "y": 918,
      "w": 834,
@@ -696,8 +1101,9 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.191,
-    "reassembly_p999": 4.0,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.551,
+    "reassembly_p999": 4.5,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -711,10 +1117,144 @@
      },
      "rise_m": {
       "cover": 0.0,
-      "slide_px": 1.814,
+      "slide_px": 1.815,
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.743,
+      "scale": 1.0272,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001623,
+      "slide_px": 0.484,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.419,
+      "scale": 1.0,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 1.09,
+      "scale": 1.0107
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.089,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.089,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.235,
+      "scale": 1.0037
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.526,
+      "scale": 1.0037
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.09,
@@ -722,7 +1262,7 @@
     },
     "surfaces": 33,
     "things": 16,
-    "render_ms": 112187,
+    "render_ms": 186641,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -766,19 +1306,19 @@
    "horizon_y": 1114.88,
    "sky": {
     "file": "place/cross-timbers-wide/sky.webp",
-    "sha256": "ae86a64bb2b71395ddbfcc9fefe3bd7c2650d80cb92732ff280cf162d4b7a355",
-    "bytes": 14390
+    "sha256": "ef8f9a75d90196102d40935af57f6376b11c545ea774ef663201c79dbe01ff2c",
+    "bytes": 753944
    },
    "ground": {
     "file": "place/cross-timbers-wide/ground.webp",
-    "sha256": "4f200c91acd88d243575549dc0fde4b3e83cb4bb27bf49f066596c873aa595d1",
-    "bytes": 228882
+    "sha256": "907e7cc539a8f9c4beefc487c0e43d815c48b96770d8f10e4db0e15dd6e6aad9",
+    "bytes": 1188712
    },
    "cards": [
     {
      "file": "place/cross-timbers-wide/card00.webp",
-     "sha256": "baf275de736387f7c10c1d1d5e6130a8f8bcc875a2856777e3f402e5fd0dfe02",
-     "bytes": 3638,
+     "sha256": "88829e8d65e9ea92d0c5250e7168c6515f52714308354502fffdd9c3829a29a6",
+     "bytes": 10646,
      "x": 0,
      "y": 1057,
      "w": 1242,
@@ -793,8 +1333,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card01.webp",
-     "sha256": "292fa4659095f59f5d87e087f53c9a14fde75f72ab3df487511a9c79b0563eb4",
-     "bytes": 3912,
+     "sha256": "2f99014576b14b45858b641451b6c5f2e0807ad50f91b775687b47f9303eefab",
+     "bytes": 7576,
      "x": 524,
      "y": 1081,
      "w": 718,
@@ -806,8 +1346,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card02.webp",
-     "sha256": "ef41b22a816b3f4acd3f5accd5804035010ff7f256a61f7778b6ad7e0bca8142",
-     "bytes": 12766,
+     "sha256": "eb157a1fa0bfc6fff7c45cb29b421d3dcc6c10bd6d357bd59e323f91bec0cd12",
+     "bytes": 30784,
      "x": 646,
      "y": 1070,
      "w": 596,
@@ -819,8 +1359,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card03.webp",
-     "sha256": "cbb3813904d2917f80262251a1c5f456d35d29e14a4d9379057e5eeded3d6e7e",
-     "bytes": 17114,
+     "sha256": "01127fc80c631b2a37010af2dcd313eb518ff1f879d326de863fec2c811916f1",
+     "bytes": 42966,
      "x": 0,
      "y": 1056,
      "w": 606,
@@ -832,8 +1372,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card04.webp",
-     "sha256": "42453fcf55bc84a895f370593a10d06f8287b265832571e5198a6975b7209585",
-     "bytes": 33838,
+     "sha256": "a4349e7dceb27bf410e4b056e4ccd5ad3555c08bf347523ee7764ea1ce10a17b",
+     "bytes": 92360,
      "x": 351,
      "y": 1021,
      "w": 891,
@@ -845,8 +1385,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card05.webp",
-     "sha256": "f9fc883d26abf14cd01a0cee8464a27dda5f4164cbc8ff77de3c0efee41ba58d",
-     "bytes": 13422,
+     "sha256": "18ad1e993fa767f0760ace1595311e4a9ff318d59ac38717ba4ba33b0f74c9db",
+     "bytes": 34942,
      "x": 296,
      "y": 1023,
      "w": 481,
@@ -858,8 +1398,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card06.webp",
-     "sha256": "1ee10873126dc278d1f27d0d5641cf3928d7d497adeb671e7250ed47db0976ec",
-     "bytes": 48204,
+     "sha256": "72367e37553ead9aeeb533ce6b277ad637dbb42cb3952981cad92a13bd69401f",
+     "bytes": 135004,
      "x": 0,
      "y": 983,
      "w": 959,
@@ -871,8 +1411,8 @@
     },
     {
      "file": "place/cross-timbers-wide/card07.webp",
-     "sha256": "6783617ec386859fc0461d244c9e6a6de5f7d305a2f6d26268e12c5863c63588",
-     "bytes": 19974,
+     "sha256": "c2ee64f9c8a7c395fbc904f66cd9e4562d4af889a9034cb5a509a6cdb0ab1626",
+     "bytes": 25798,
      "x": 0,
      "y": 1162,
      "w": 1242,
@@ -899,8 +1439,9 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.053,
-    "reassembly_p999": 8.17,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.416,
+    "reassembly_p999": 8.2,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -918,6 +1459,140 @@
       "scale": 1.0001
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.188,
+      "scale": 1.15,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.003455,
+      "slide_px": 0.73,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.434,
+      "scale": 1.0001,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.871,
+      "scale": 1.0551
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.095,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.095,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.549,
+      "scale": 1.0186
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.43,
+      "scale": 1.0186
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.095,
@@ -925,7 +1600,7 @@
     },
     "surfaces": 5,
     "things": 263,
-    "render_ms": 254145,
+    "render_ms": 400710,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -972,19 +1647,19 @@
    "horizon_y": 1177.13,
    "sky": {
     "file": "place/gulf-houston/sky.webp",
-    "sha256": "f9ebf87beb18762d1af27892fe6f504c8efeb71b8372e4eb12bb16b93fc63ca4",
-    "bytes": 14770
+    "sha256": "563bdfb30f7fe8da5430dcc804e475112b96dc3780d8994902dab98490a9348a",
+    "bytes": 760762
    },
    "ground": {
     "file": "place/gulf-houston/ground.webp",
-    "sha256": "67dc9e6a649160a4cb46f3f0f86fbacfe8f67dff2272246ade132bf74736d866",
-    "bytes": 80886
+    "sha256": "36042cbf151968ffa9ac363f38e7999810d86bd01df0791989fe59a3f9916956",
+    "bytes": 429392
    },
    "cards": [
     {
      "file": "place/gulf-houston/card00.webp",
-     "sha256": "25af558d900f009cf16d07f2b4e2090aa2ad952d0e372d0188f1d62a8028bfd8",
-     "bytes": 59862,
+     "sha256": "4b5684fb8d107f63761aa43639dc709680cd522007a5e462d82f8040ac81bc60",
+     "bytes": 242356,
      "x": 0,
      "y": 786,
      "w": 1242,
@@ -999,8 +1674,8 @@
     },
     {
      "file": "place/gulf-houston/card01.webp",
-     "sha256": "88a64c9cfcfa434c9b8ceee781dd5994facdea9eff3bd421b419751d15498d10",
-     "bytes": 2642,
+     "sha256": "5baefe7e33b313766ab097d1a825f215b992fd10c1f9be553bfe2130daf2ecf2",
+     "bytes": 5384,
      "x": 712,
      "y": 1147,
      "w": 100,
@@ -1012,8 +1687,8 @@
     },
     {
      "file": "place/gulf-houston/card02.webp",
-     "sha256": "1d5b8c6bdce66d20d14253161370b23f74a7c808ce21f6b72a0310a914d66407",
-     "bytes": 4754,
+     "sha256": "b854eeb9b383419ebe00f977bda6634680daa00c0f1e3911ab06393de43e1113",
+     "bytes": 10262,
      "x": 164,
      "y": 1145,
      "w": 936,
@@ -1025,8 +1700,8 @@
     },
     {
      "file": "place/gulf-houston/card03.webp",
-     "sha256": "22b8a09e87f500272967fbda9950787d3260a788c0d418fbdb0380b04b658b98",
-     "bytes": 4348,
+     "sha256": "e664df03f37cc272a733addc55a5d0232a6313dadb4e697182eab74cd72ecd13",
+     "bytes": 9280,
      "x": 776,
      "y": 1119,
      "w": 103,
@@ -1038,8 +1713,8 @@
     },
     {
      "file": "place/gulf-houston/card04.webp",
-     "sha256": "c0a5a2122e355813bfdc07e7b94b94f5b00f69163bddff588dfb09ba380e363e",
-     "bytes": 11304,
+     "sha256": "a7a7e816103c762f4f2591833e7e62fd42fb49f0896acb8c47c0f4abc556d425",
+     "bytes": 29358,
      "x": 36,
      "y": 1112,
      "w": 1039,
@@ -1051,8 +1726,8 @@
     },
     {
      "file": "place/gulf-houston/card05.webp",
-     "sha256": "416bca73d0e1e74343da21dec59a69b62c1f1ea8e18ec99d689c1af77607a3f0",
-     "bytes": 2042,
+     "sha256": "4fe765ce82d4dd43b7eec68ccd7e4c24ee3b450d4da3597d6231c9528f666dc3",
+     "bytes": 4666,
      "x": 1190,
      "y": 1138,
      "w": 52,
@@ -1064,8 +1739,8 @@
     },
     {
      "file": "place/gulf-houston/card06.webp",
-     "sha256": "2548936d7f52880f0e41e5502add4c45b98e604b464df299276f3c2fc98353d6",
-     "bytes": 9816,
+     "sha256": "094c51ce9ba0315aadbeeb22ff10dd179bdd3c13260af0f57e2e0fda2c35d08e",
+     "bytes": 28332,
      "x": 0,
      "y": 1047,
      "w": 138,
@@ -1077,8 +1752,8 @@
     },
     {
      "file": "place/gulf-houston/card07.webp",
-     "sha256": "3b7339c5254326badf1013d2c962e97baba984e8cdf456aa97b075d45b38c642",
-     "bytes": 15912,
+     "sha256": "37a9dccd4cb1b24c32fd8a3bbe01963b73fd92defeb2bd6471aa125c5b2570bf",
+     "bytes": 44980,
      "x": 992,
      "y": 1108,
      "w": 250,
@@ -1090,8 +1765,8 @@
     },
     {
      "file": "place/gulf-houston/card08.webp",
-     "sha256": "a4c30e700341d05753ea02b5d0c9e1588dc41463ba2d3359107f175a8708ea06",
-     "bytes": 18216,
+     "sha256": "0ef4f05f041a204a0fa0dea6bf96a62cc6034b378769081dca26c516f800a982",
+     "bytes": 55748,
      "x": 0,
      "y": 1013,
      "w": 195,
@@ -1118,7 +1793,8 @@
     "rise_m": 1.5
    },
    "checks": {
-    "reassembly_mean": 0.285,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.548,
     "reassembly_p999": 8.0,
     "at_limits": {
      "dolly_m": {
@@ -1137,6 +1813,130 @@
       "scale": 1.0003
      }
     },
+    "beyond_limits": {
+     "dolly_m": null,
+     "truck_m": {
+      "cover": 0.006145,
+      "slide_px": 0.929,
+      "scale": 1.0,
+      "step": 0.75
+     },
+     "rise_m": null
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 3.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.709,
+      "scale": 1.0283
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 1.115,
+      "scale": 1.0002
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 1.115,
+      "scale": 1.0002
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.581,
+      "scale": 1.0097
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.581,
+      "scale": 1.0097
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.115,
@@ -1144,7 +1944,7 @@
     },
     "surfaces": 32,
     "things": 14,
-    "render_ms": 235922,
+    "render_ms": 403427,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -1196,19 +1996,19 @@
    "horizon_y": 1058.23,
    "sky": {
     "file": "place/gulf-shipchannel/sky.webp",
-    "sha256": "db30fa84512f8c4fa88d1a627805bc4210045af5702ea743ded8cad9ebe0a9ed",
-    "bytes": 15260
+    "sha256": "e12a5efeafc47c8ace0651f7c6c80dc0142a3c489cb2ce55a4989c52420f72f4",
+    "bytes": 719482
    },
    "ground": {
     "file": "place/gulf-shipchannel/ground.webp",
-    "sha256": "997b260d148801d731271c4ecb215ea911d45a21983523ffdc4602e052bc9a01",
-    "bytes": 136186
+    "sha256": "f3178c4b43fe984f32025e72f5d2eb8334e8135a86a38229375e90c18edbd7b0",
+    "bytes": 707904
    },
    "cards": [
     {
      "file": "place/gulf-shipchannel/card00.webp",
-     "sha256": "2a1f17c413180b761b88b833533f6c984d6bfb150c55d21bcc8201f6c00a77c5",
-     "bytes": 11064,
+     "sha256": "4f7222b9b79977d8f7a07fe5d615a00f52ec3e7ede09a62ede9f99be2fae6a8a",
+     "bytes": 42476,
      "x": 0,
      "y": 841,
      "w": 1242,
@@ -1220,8 +2020,8 @@
     },
     {
      "file": "place/gulf-shipchannel/card01.webp",
-     "sha256": "833a10dac12122577ed42ba5131fe72252dddfbc5fa1e4b924b25b15bbdbd0c6",
-     "bytes": 57640,
+     "sha256": "161a5079b3edb675be729a9308a7f00065de544ebb6f3a4afd7842854b45f78c",
+     "bytes": 186344,
      "x": 0,
      "y": 903,
      "w": 364,
@@ -1248,8 +2048,9 @@
     "rise_m": 1.5
    },
    "checks": {
-    "reassembly_mean": 0.748,
-    "reassembly_p999": 8.0,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.998,
+    "reassembly_p999": 8.5,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -1267,14 +2068,138 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": null,
+     "truck_m": {
+      "cover": 0.004931,
+      "slide_px": 0.726,
+      "scale": 1.0,
+      "step": 0.75
+     },
+     "rise_m": null
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 3.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.383,
+      "scale": 1.1319
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 0.872,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 0.872,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.425,
+      "scale": 1.0425
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.158,
+      "scale": 1.0425
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
-     "slide_px": 0.871,
+     "slide_px": 0.872,
      "scale": 1.1319
     },
     "surfaces": 39,
     "things": 25,
-    "render_ms": 140044,
+    "render_ms": 211767,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -1319,19 +2244,19 @@
    "horizon_y": 1058.23,
    "sky": {
     "file": "place/gulf-wide/sky.webp",
-    "sha256": "db30fa84512f8c4fa88d1a627805bc4210045af5702ea743ded8cad9ebe0a9ed",
-    "bytes": 15260
+    "sha256": "e12a5efeafc47c8ace0651f7c6c80dc0142a3c489cb2ce55a4989c52420f72f4",
+    "bytes": 719482
    },
    "ground": {
     "file": "place/gulf-wide/ground.webp",
-    "sha256": "a2288c4c0f7d31deb736fb9f9da5c73a000e9a85b3736b9a557926261ac0efb6",
-    "bytes": 132774
+    "sha256": "9c339193530ce4a256a1e2122cd939e630a960270139019f8d6b002fa27b070b",
+    "bytes": 699610
    },
    "cards": [
     {
      "file": "place/gulf-wide/card00.webp",
-     "sha256": "747fefa1662fe753c34173024a88cacc81e7f784d88352e9ede83424f1c71fe6",
-     "bytes": 7438,
+     "sha256": "2a47a6dbc819c9c63e88ff48bd3bf50ed749d50ad4b443dc39126ebf5a5c5a95",
+     "bytes": 9796,
      "x": 0,
      "y": 1034,
      "w": 1242,
@@ -1343,8 +2268,8 @@
     },
     {
      "file": "place/gulf-wide/card01.webp",
-     "sha256": "833a10dac12122577ed42ba5131fe72252dddfbc5fa1e4b924b25b15bbdbd0c6",
-     "bytes": 57640,
+     "sha256": "161a5079b3edb675be729a9308a7f00065de544ebb6f3a4afd7842854b45f78c",
+     "bytes": 186344,
      "x": 0,
      "y": 903,
      "w": 364,
@@ -1371,8 +2296,9 @@
     "rise_m": 1.0
    },
    "checks": {
-    "reassembly_mean": 0.951,
-    "reassembly_p999": 9.5,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 1.198,
+    "reassembly_p999": 10.0,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -1390,6 +2316,135 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": null,
+     "truck_m": {
+      "cover": 0.004931,
+      "slide_px": 1.242,
+      "scale": 1.0,
+      "step": 0.75
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.484,
+      "scale": 1.0,
+      "step": 1.5
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 3.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.889,
+      "scale": 1.1319
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.994,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.994,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.671,
+      "scale": 1.0425
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.602,
+      "scale": 1.0425
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 0.994,
@@ -1397,7 +2452,7 @@
     },
     "surfaces": 39,
     "things": 49,
-    "render_ms": 127294,
+    "render_ms": 175276,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -1441,19 +2496,19 @@
    "horizon_y": 1139.26,
    "sky": {
     "file": "place/high-plains-wide/sky.webp",
-    "sha256": "841b8a3d8135928b34b5a9cdd93260dd7e630c3d599e082b7cc1f393b17b43a1",
-    "bytes": 13838
+    "sha256": "a3d46092bb99554cc8794c54f89535ccc57df77c25d133fe22f632fa3bec2860",
+    "bytes": 667104
    },
    "ground": {
     "file": "place/high-plains-wide/ground.webp",
-    "sha256": "972d168de21255b80098c798baaf75e8949b1c373cfb9c73bb3509f069eb40ca",
-    "bytes": 256098
+    "sha256": "b502d5c871351334eba6bbe2632825e307432e9433ec78e374e6657f42fa3bab",
+    "bytes": 1273942
    },
    "cards": [
     {
      "file": "place/high-plains-wide/card00.webp",
-     "sha256": "8b544947b4181dfbf0d355b215d54cc45c1d2c588937a6e60a607ddf224fdd61",
-     "bytes": 7476,
+     "sha256": "8542cc2fdf2f204cb66d9309e7f535f8d667cb1e9cfbe4692b918608c24126e4",
+     "bytes": 13404,
      "x": 190,
      "y": 1066,
      "w": 1052,
@@ -1480,7 +2535,8 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.118,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.468,
     "reassembly_p999": 4.0,
     "at_limits": {
      "dolly_m": {
@@ -1490,7 +2546,7 @@
      },
      "truck_m": {
       "cover": 0.0,
-      "slide_px": 0.209,
+      "slide_px": 0.208,
       "scale": 1.0
      },
      "rise_m": {
@@ -1499,6 +2555,140 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.702,
+      "scale": 1.0011,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.000666,
+      "slide_px": 0.417,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.085,
+      "scale": 1.0,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 1.076,
+      "scale": 1.0005
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.938,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.938,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.501,
+      "scale": 1.0002
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.251,
+      "scale": 1.0002
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.076,
@@ -1506,7 +2696,7 @@
     },
     "surfaces": 76,
     "things": 22,
-    "render_ms": 160070,
+    "render_ms": 223474,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -1550,19 +2740,19 @@
    "horizon_y": 1155.17,
    "sky": {
     "file": "place/hill-country-wide/sky.webp",
-    "sha256": "d154da478c9368fc1d85aee43e635d4f45df72f5b7d609e34ffa80a4686e520f",
-    "bytes": 14228
+    "sha256": "1c330eb94eee013fa1c3b54aa88cf66f76dbafb41aa2ddffa9f6ae9c6386bdfb",
+    "bytes": 776468
    },
    "ground": {
     "file": "place/hill-country-wide/ground.webp",
-    "sha256": "0d754b6c1ad5c735150efc5d3e8167c6324fc39f09f7f8ed149189ba076431cd",
-    "bytes": 228864
+    "sha256": "e9144df6aa95b7ec2024e6ab818cd64cfa31864206562812733cc1907e999e2d",
+    "bytes": 1199030
    },
    "cards": [
     {
      "file": "place/hill-country-wide/card00.webp",
-     "sha256": "d8f03fb2419ba22e0f6099c1ac6ef064bcc79348dc640610674d9ff2e7293777",
-     "bytes": 60498,
+     "sha256": "773143fc89f18cfb3209410c1418ac710ed24d12afcf7279c809456f1c0c403c",
+     "bytes": 287420,
      "x": 0,
      "y": 918,
      "w": 1242,
@@ -1577,8 +2767,8 @@
     },
     {
      "file": "place/hill-country-wide/card01.webp",
-     "sha256": "df87a640781fdeb018676a90f34918ee2857bc8fc8e2a77fa0eb688296696fb9",
-     "bytes": 17866,
+     "sha256": "f7ee6bfdfdf8adffef6218756152dd51f8a3b2cd6ea2261d0864bd002e173c97",
+     "bytes": 54446,
      "x": 761,
      "y": 1000,
      "w": 314,
@@ -1590,8 +2780,8 @@
     },
     {
      "file": "place/hill-country-wide/card02.webp",
-     "sha256": "38a2e731ee8c075ca864e585fdd8cb32419d2ac0c87fd871ea643d5187ff7205",
-     "bytes": 12132,
+     "sha256": "eac3f6f5a1b5fe6c827666dfae913307b450289d8a7a8b267e91509f8e59a259",
+     "bytes": 38196,
      "x": 119,
      "y": 1019,
      "w": 218,
@@ -1603,8 +2793,8 @@
     },
     {
      "file": "place/hill-country-wide/card03.webp",
-     "sha256": "d7ad25a692f818bc37a16b1357718e24b1017f42a668200087405943fbe4b64d",
-     "bytes": 14678,
+     "sha256": "1537fbb3c3615f62c3316eb374ac247538f15fa629e8627878dcf63fde729c75",
+     "bytes": 47986,
      "x": 614,
      "y": 1003,
      "w": 216,
@@ -1616,8 +2806,8 @@
     },
     {
      "file": "place/hill-country-wide/card04.webp",
-     "sha256": "3514a1dc655fd1dd09b3a7279f3aa8d37684782b8823056de267770baed45420",
-     "bytes": 85044,
+     "sha256": "b0c15543d5f416e3a919f6842c0a2271740d2996e7c697ec5766198f3351d5cb",
+     "bytes": 270884,
      "x": 0,
      "y": 785,
      "w": 550,
@@ -1629,8 +2819,8 @@
     },
     {
      "file": "place/hill-country-wide/card05.webp",
-     "sha256": "7d27522f525ed00ad05de3894556595335b3c4eb057d482ce36029ef4aeea00d",
-     "bytes": 42472,
+     "sha256": "1233f2159c2bb8f31581222358163c6ba3c7d869db0c09fa6c9ebe024af7813c",
+     "bytes": 165456,
      "x": 904,
      "y": 846,
      "w": 338,
@@ -1642,8 +2832,8 @@
     },
     {
      "file": "place/hill-country-wide/card06.webp",
-     "sha256": "60a8078592e01f4257b6d5303281c4b3d060ecfdce63b17df95aae37c8a35a18",
-     "bytes": 13814,
+     "sha256": "0aee5d7646fdbfedf521a0c52abad0b03eb6738411d745c475fc196c14dfc14f",
+     "bytes": 21620,
      "x": 0,
      "y": 1159,
      "w": 789,
@@ -1670,8 +2860,9 @@
     "rise_m": 0.2
    },
    "checks": {
-    "reassembly_mean": 0.026,
-    "reassembly_p999": 6.56,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.391,
+    "reassembly_p999": 6.63,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -1689,6 +2880,140 @@
       "scale": 1.0002
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.118,
+      "scale": 1.0527,
+      "step": 1.0
+     },
+     "truck_m": {
+      "cover": 0.001043,
+      "slide_px": 1.856,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.785,
+      "scale": 1.0003,
+      "step": 0.3
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.633,
+      "scale": 1.0152
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.114,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.114,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.105,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.779,
+      "scale": 1.0053
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.105,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.779,
+      "scale": 1.0053
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.114,
@@ -1696,7 +3021,7 @@
     },
     "surfaces": 22,
     "things": 10,
-    "render_ms": 322251,
+    "render_ms": 467595,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -1740,19 +3065,19 @@
    "horizon_y": 1141.9,
    "sky": {
     "file": "place/piney-woods-wide/sky.webp",
-    "sha256": "fb7140112c94b0bb028e2f2b59a9ffcb1db056bc1618353c30ed1daabceae967",
-    "bytes": 12432
+    "sha256": "aab6fef433861b069ecd583cb64d119cbd4718593f3d342060d5aad80e1a65b8",
+    "bytes": 788122
    },
    "ground": {
     "file": "place/piney-woods-wide/ground.webp",
-    "sha256": "9f9ff4283dfd87925f5ce0cd26068e4639e43f7afaf0074f0e5fd456673e0390",
-    "bytes": 68600
+    "sha256": "a1b23bbe20d19a0cf68d89c7eae1411744466d07345ab56fbea99f874af39b7d",
+    "bytes": 490624
    },
    "cards": [
     {
      "file": "place/piney-woods-wide/card00.webp",
-     "sha256": "821bec5f2965a65f5842eb970cc61e3c30ea53f35a6fc0fdc2f88c364c7221fd",
-     "bytes": 35630,
+     "sha256": "b06c72da0ff50e18cc878121dada25bdba8f422e774f26d303ddbd9e9d0430f1",
+     "bytes": 83072,
      "x": 0,
      "y": 1012,
      "w": 1242,
@@ -1764,8 +3089,8 @@
     },
     {
      "file": "place/piney-woods-wide/card01.webp",
-     "sha256": "3864ee2944c4918992659d3718dceb4a9cf4cb069de4de7a0387fb21c8b491cb",
-     "bytes": 2764,
+     "sha256": "deab9bcf7b7ba4a3f4ffbbea2109933fb1c560174d1d91f732f195bce6d574a4",
+     "bytes": 6670,
      "x": 499,
      "y": 1009,
      "w": 244,
@@ -1777,8 +3102,8 @@
     },
     {
      "file": "place/piney-woods-wide/card02.webp",
-     "sha256": "07d2edb3640716d90eab2c52dc44a2c573b81b0cc9d29a751a82a3886c89b251",
-     "bytes": 8474,
+     "sha256": "83f6e1d79e5b59024ef277fc95d5e33d33ebbc75bbf9d1f2879695205e7bcb98",
+     "bytes": 26162,
      "x": 498,
      "y": 996,
      "w": 285,
@@ -1790,8 +3115,8 @@
     },
     {
      "file": "place/piney-woods-wide/card03.webp",
-     "sha256": "6cf97d2a9dedeb093fd0ff9711bf23973d4f156f2d8c4fb08ff3e826cfa8ddd1",
-     "bytes": 9994,
+     "sha256": "21ed0dfd9d22fdcc785681a3be8995520909ef40a0f35ffd260566f2674a761e",
+     "bytes": 30676,
      "x": 502,
      "y": 980,
      "w": 328,
@@ -1803,8 +3128,8 @@
     },
     {
      "file": "place/piney-woods-wide/card04.webp",
-     "sha256": "4d2058ff54e609b4a60e973aeab10753dd982e65538edca6b9666b496cc4ad61",
-     "bytes": 10468,
+     "sha256": "2ee9da30b0fb52190f49fe6e70e539e59bacd3403368ab568f7c25ccd86611de",
+     "bytes": 32352,
      "x": 514,
      "y": 951,
      "w": 367,
@@ -1816,8 +3141,8 @@
     },
     {
      "file": "place/piney-woods-wide/card05.webp",
-     "sha256": "46b284630d0f4ccbfa519c6c83c4d0e41dd0a02c5c41b12d72edc55196778654",
-     "bytes": 11060,
+     "sha256": "596e9d55f0d92adce56b89378f58240eedda41a80bff5724e85998da01608041",
+     "bytes": 33178,
      "x": 506,
      "y": 941,
      "w": 379,
@@ -1829,8 +3154,8 @@
     },
     {
      "file": "place/piney-woods-wide/card06.webp",
-     "sha256": "f8daca047f919b37869775d701e84b60d32aa793634c03a9f56199958593177c",
-     "bytes": 14994,
+     "sha256": "9781a1fcc130d207d32f53468f7c6780ba585c3da716ff78f20e72b4a73112c4",
+     "bytes": 44212,
      "x": 492,
      "y": 907,
      "w": 454,
@@ -1842,8 +3167,8 @@
     },
     {
      "file": "place/piney-woods-wide/card07.webp",
-     "sha256": "1023e3839b0cd4dbae41e4cbceee3f78362392e215eae4dd2d9e4b5684e7229c",
-     "bytes": 16010,
+     "sha256": "410db9053c83ceebdcd43049701768d0af73be37654d68859c3638f81160c98c",
+     "bytes": 45026,
      "x": 506,
      "y": 889,
      "w": 500,
@@ -1855,8 +3180,8 @@
     },
     {
      "file": "place/piney-woods-wide/card08.webp",
-     "sha256": "e175e8ad1403ed45c98e58d0d59dd28e24d0a8761ca2fc61b8fe7ddc655d4117",
-     "bytes": 18390,
+     "sha256": "96691d549331104b2a005de7288e546afe2c6ea79bfe47183378903f09d2e100",
+     "bytes": 51030,
      "x": 462,
      "y": 855,
      "w": 554,
@@ -1868,8 +3193,8 @@
     },
     {
      "file": "place/piney-woods-wide/card09.webp",
-     "sha256": "c98c16b5bd0459fed8799ec8fca48a62565e825d8756ba4f901dd1ef50a0b4bb",
-     "bytes": 20474,
+     "sha256": "4aeba19fc60cdf6cc8ac61c3517a021adc04da9bb8d324db58be7f9c057bd4d1",
+     "bytes": 56148,
      "x": 461,
      "y": 829,
      "w": 644,
@@ -1881,8 +3206,8 @@
     },
     {
      "file": "place/piney-woods-wide/card10.webp",
-     "sha256": "e70cddc1a0f0a2d204cd9bda713bc506d901289c2376cbf44f6f55ed5517c446",
-     "bytes": 20694,
+     "sha256": "326a8508423c72aa6fd5d2cc6a3b2abec53c726ff4da23ebca46871c228841a8",
+     "bytes": 57292,
      "x": 464,
      "y": 787,
      "w": 644,
@@ -1894,8 +3219,8 @@
     },
     {
      "file": "place/piney-woods-wide/card11.webp",
-     "sha256": "3b52e45353f16a49a1c8f29279bfe0c1c999c70773e705d88a92e37bb48b4625",
-     "bytes": 23076,
+     "sha256": "e05ed312d135f5b6b0e492e514afb4b424821b60ac081ceb85c7d2e2091eef3f",
+     "bytes": 63134,
      "x": 367,
      "y": 731,
      "w": 761,
@@ -1907,8 +3232,8 @@
     },
     {
      "file": "place/piney-woods-wide/card12.webp",
-     "sha256": "1dfd169823a9935dbd51fda6dc2236ec76d696bfec0fe92e7b3950b75a49755b",
-     "bytes": 26956,
+     "sha256": "dd8d1263dac21857290ff8c6d319806f5514733f33d07ad84afe832999e0b2bf",
+     "bytes": 72290,
      "x": 348,
      "y": 681,
      "w": 894,
@@ -1920,8 +3245,8 @@
     },
     {
      "file": "place/piney-woods-wide/card13.webp",
-     "sha256": "6cdbba9408c8016364b6d550810641d617c9eaae229ac29a806878fbff80ad8f",
-     "bytes": 29638,
+     "sha256": "4b106a47fcee9397fde0ecc850efb8382281c9e620320462c10f876d84200cd3",
+     "bytes": 79514,
      "x": 324,
      "y": 647,
      "w": 918,
@@ -1933,8 +3258,8 @@
     },
     {
      "file": "place/piney-woods-wide/card14.webp",
-     "sha256": "c8cc01f8d0cf128538c2d36ec0ad05fc564402f8843f86b12fc926144a8ddbce",
-     "bytes": 27954,
+     "sha256": "f00666fefaee3e65e80a1200c7dad4205ff17aaa543c777ba78b9f707cba38b9",
+     "bytes": 73176,
      "x": 187,
      "y": 585,
      "w": 1055,
@@ -1946,8 +3271,8 @@
     },
     {
      "file": "place/piney-woods-wide/card15.webp",
-     "sha256": "a1f68fa7d8cf3a122769114470388b9683ebb77c4b8c22a3adf9daed48be881b",
-     "bytes": 29614,
+     "sha256": "4cb369ac14fd1acbd2cdcdac46d02527067383933660ad5c195a2bdd9863e8aa",
+     "bytes": 79598,
      "x": 114,
      "y": 532,
      "w": 1128,
@@ -1959,8 +3284,8 @@
     },
     {
      "file": "place/piney-woods-wide/card16.webp",
-     "sha256": "bc55e62d8629b322043ee14bbb62b81ff8ec42662fa2da357266d01f0d98ae27",
-     "bytes": 31904,
+     "sha256": "e2fd8ef164eb199da102cfdb3ad55e7e375c07053839358c4cd58effa90e2d74",
+     "bytes": 81050,
      "x": 77,
      "y": 432,
      "w": 1165,
@@ -1972,8 +3297,8 @@
     },
     {
      "file": "place/piney-woods-wide/card17.webp",
-     "sha256": "0dc2f04148ab5bf69a5cf9c17e3fff387b934e61801790be0d0a8c290a572fc8",
-     "bytes": 30928,
+     "sha256": "78fe7585bfe10851317d116562700e402edd7a2feeee24b0e9134a2a54539928",
+     "bytes": 78842,
      "x": 0,
      "y": 342,
      "w": 1202,
@@ -1985,8 +3310,8 @@
     },
     {
      "file": "place/piney-woods-wide/card18.webp",
-     "sha256": "c67a40a739884f8821979bed19b25ffe7104d35425b85bc3e4ec7aedd65318f3",
-     "bytes": 24084,
+     "sha256": "02e3c8b43367254eeb900ef6d4935d07899ec9f80880800bd9db12a9fd60a67a",
+     "bytes": 56454,
      "x": 0,
      "y": 261,
      "w": 1242,
@@ -1998,8 +3323,8 @@
     },
     {
      "file": "place/piney-woods-wide/card19.webp",
-     "sha256": "c4e59b8919175ac474947a9ed68911dfc802638a28c5019d8a5ad1f47825b55f",
-     "bytes": 24546,
+     "sha256": "9b19374a2f284af84b675f0e225c1f79a6eebcec828f03b7ac418c216d2e42c7",
+     "bytes": 59652,
      "x": 95,
      "y": 129,
      "w": 1147,
@@ -2011,8 +3336,8 @@
     },
     {
      "file": "place/piney-woods-wide/card20.webp",
-     "sha256": "f318e6dcebaa02237ed3d62626324b44bb218555b4c1c7883dfe96c0045e1cf1",
-     "bytes": 29262,
+     "sha256": "b513340cccf644fac155dde72255c4c5840c83827d166e1383a97f8204822a19",
+     "bytes": 67438,
      "x": 11,
      "y": 0,
      "w": 1231,
@@ -2024,8 +3349,8 @@
     },
     {
      "file": "place/piney-woods-wide/card21.webp",
-     "sha256": "562cba7f30f78bc0a4531e28fe980f59b4d75b28bc3f99b0f86663f14de378ae",
-     "bytes": 19256,
+     "sha256": "510d250e6cdf59415cba5c34d7b1efaa1fc15a634e2c00b5538b96eaab6c2aba",
+     "bytes": 42888,
      "x": 232,
      "y": 0,
      "w": 1010,
@@ -2037,8 +3362,8 @@
     },
     {
      "file": "place/piney-woods-wide/card22.webp",
-     "sha256": "f8ed27b73420418f8d6b0e08c3839e73f01f938d4b72cd9c687b4634b429a50f",
-     "bytes": 8318,
+     "sha256": "9c97057f8a95725f5bd66682f5e104359f25c0a7e32b54697e9a11d3f095544f",
+     "bytes": 12294,
      "x": 0,
      "y": 0,
      "w": 1242,
@@ -2050,8 +3375,8 @@
     },
     {
      "file": "place/piney-woods-wide/card23.webp",
-     "sha256": "6048beb30c30407136fdebcb72043787faa715e5e7e9ab3c6c2f53648701e56c",
-     "bytes": 3278,
+     "sha256": "47d827750240cc12cdffb100d78878097d6939526cf4aa0826e74e2590d98d39",
+     "bytes": 7202,
      "x": 986,
      "y": 0,
      "w": 256,
@@ -2063,8 +3388,8 @@
     },
     {
      "file": "place/piney-woods-wide/card24.webp",
-     "sha256": "0b7e4a09ece2754b890d84b861bf64a2aa84e7c630523a63551e42aa1b86bd3d",
-     "bytes": 412,
+     "sha256": "6669e780842592a333fd271e2c76b16b48fddcd7002dd65c7ff21a7886137736",
+     "bytes": 714,
      "x": 1162,
      "y": 69,
      "w": 80,
@@ -2091,12 +3416,13 @@
     "rise_m": 0.75
    },
    "checks": {
-    "reassembly_mean": 0.045,
-    "reassembly_p999": 4.8,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.24,
+    "reassembly_p999": 4.89,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
-      "slide_px": 1.477,
+      "slide_px": 1.478,
       "scale": 1.1877
      },
      "truck_m": {
@@ -2106,10 +3432,144 @@
      },
      "rise_m": {
       "cover": 0.0,
-      "slide_px": 1.597,
+      "slide_px": 1.598,
       "scale": 1.0007
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.046,
+      "scale": 1.267,
+      "step": 4.0
+     },
+     "truck_m": {
+      "cover": 0.00208,
+      "slide_px": 0.426,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.13,
+      "scale": 1.0009,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 1.8
+      },
+      "cover": 0.0,
+      "slide_px": 0.848,
+      "scale": 1.1048
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.958,
+      "scale": 1.0004
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.958,
+      "scale": 1.0004
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.211,
+      "scale": 1.0343
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.414,
+      "scale": 1.0343
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 0.958,
@@ -2117,7 +3577,7 @@
     },
     "surfaces": 4,
     "things": 361,
-    "render_ms": 362630,
+    "render_ms": 657242,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -2161,19 +3621,19 @@
    "horizon_y": 1112.96,
    "sky": {
     "file": "place/post-oak-wide/sky.webp",
-    "sha256": "857a4350b7c7faa560c13ed3593411cdab53ac8562bc7321a98f2b3bfc14a4c5",
-    "bytes": 12798
+    "sha256": "c7e2ceef8641cdaf86c820f59f227da45ffd77a737567fe9f45fca64a52396d6",
+    "bytes": 742044
    },
    "ground": {
     "file": "place/post-oak-wide/ground.webp",
-    "sha256": "857549c125d940f1bbd4c3b596f0eb32b01135b4b2b6166648172dbfd1b897b6",
-    "bytes": 239182
+    "sha256": "671245ded02be96166dd3bca9bd22e45c47e195b50386bd539d1f66d10a5d8bc",
+    "bytes": 1166832
    },
    "cards": [
     {
      "file": "place/post-oak-wide/card00.webp",
-     "sha256": "fec7a1cce2a1f9e85b7cd7b38abf332afa05e4cae063331b2183a0ef02130c23",
-     "bytes": 2456,
+     "sha256": "fc8b439734a046e2037b6b649114fcc559bf7e74b9cc328ad8092a20db22d3fe",
+     "bytes": 6990,
      "x": 0,
      "y": 1077,
      "w": 1242,
@@ -2188,8 +3648,8 @@
     },
     {
      "file": "place/post-oak-wide/card01.webp",
-     "sha256": "f706e18151b431df801d8b6103dad7d590081dd36a844b7d2fd2d7a1453a859c",
-     "bytes": 1246,
+     "sha256": "dc91e58ec46c4584f2fb189ee495cb247907659d5d2a8d28083b984c4a362111",
+     "bytes": 2480,
      "x": 171,
      "y": 1073,
      "w": 88,
@@ -2201,8 +3661,8 @@
     },
     {
      "file": "place/post-oak-wide/card02.webp",
-     "sha256": "8ecc55347e7ab60d7b71fbd9c7fc235f1dbb96e75095507460d7773559eb3b25",
-     "bytes": 818,
+     "sha256": "94443464bb96fbff32fa3665e38e75133f91356308a34ef8f346043cded9019f",
+     "bytes": 1790,
      "x": 748,
      "y": 1083,
      "w": 62,
@@ -2214,8 +3674,8 @@
     },
     {
      "file": "place/post-oak-wide/card03.webp",
-     "sha256": "ea6e8870cfb0c140507c52f117fd3184c199bfcfbdf173f7bb612ea2b8e1d3b1",
-     "bytes": 1860,
+     "sha256": "30270664184e408b14fd48e2891840b204ad3115f77411e7bc6743aba7de90d6",
+     "bytes": 3678,
      "x": 980,
      "y": 1066,
      "w": 71,
@@ -2227,8 +3687,8 @@
     },
     {
      "file": "place/post-oak-wide/card04.webp",
-     "sha256": "8a1f53473b162f551900bf03dcd715670f3358ce4905b6f87dcb95b3aee7a3fd",
-     "bytes": 2214,
+     "sha256": "b6370394f7a90bb3f12cf65b7454149e3d0f70091aa60f3c1f825e05e35f9ae7",
+     "bytes": 4832,
      "x": 381,
      "y": 1069,
      "w": 96,
@@ -2240,8 +3700,8 @@
     },
     {
      "file": "place/post-oak-wide/card05.webp",
-     "sha256": "8f5bb01802cdd97340c67ee983ab7d9de0422b05429ada1d573e243ff08f8092",
-     "bytes": 5118,
+     "sha256": "5dab123cb9e4d4095768454da7e3139974f03b674b3752020a26325da7771944",
+     "bytes": 12966,
      "x": 676,
      "y": 1034,
      "w": 137,
@@ -2253,8 +3713,8 @@
     },
     {
      "file": "place/post-oak-wide/card06.webp",
-     "sha256": "3458523057406b74aa1a7921f4c0c4ee2632b5edfedc2f74b3fd0edaa61e5b77",
-     "bytes": 10564,
+     "sha256": "c2d5d12b6d13f3f2e20104b78bdd308dc5f58cbcba41af00dafd66d875688ae2",
+     "bytes": 26150,
      "x": 0,
      "y": 965,
      "w": 138,
@@ -2266,8 +3726,8 @@
     },
     {
      "file": "place/post-oak-wide/card07.webp",
-     "sha256": "148303908b51cf6bd0f58d0f3be73768a4006cc98fb4556baf257c81ec964697",
-     "bytes": 21238,
+     "sha256": "0d8e96df1b1b999485e88c8dc915ccf39f582ea4b078897878d532695b7de8fa",
+     "bytes": 61238,
      "x": 982,
      "y": 916,
      "w": 260,
@@ -2279,8 +3739,8 @@
     },
     {
      "file": "place/post-oak-wide/card08.webp",
-     "sha256": "48c884f1ef1026bdc92938386bf8d14d00f098c5eeecb15cf0ce029e167b375a",
-     "bytes": 31568,
+     "sha256": "9872f68eb2f4d3c7c63f4208b46346689e29fd2c3cfa95dcdb2edcbc909ce4ac",
+     "bytes": 93042,
      "x": 0,
      "y": 878,
      "w": 306,
@@ -2307,8 +3767,9 @@
     "rise_m": 0.5
    },
    "checks": {
-    "reassembly_mean": 0.086,
-    "reassembly_p999": 4.0,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.451,
+    "reassembly_p999": 4.25,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -2326,6 +3787,140 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.491,
+      "scale": 1.069,
+      "step": 4.0
+     },
+     "truck_m": {
+      "cover": 0.008514,
+      "slide_px": 0.867,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.166,
+      "scale": 1.0,
+      "step": 0.75
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 1.8
+      },
+      "cover": 0.0,
+      "slide_px": 1.038,
+      "scale": 1.0299
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.867,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.867,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.445,
+      "scale": 1.0103
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.669,
+      "scale": 1.0103
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.038,
@@ -2333,7 +3928,7 @@
     },
     "surfaces": 33,
     "things": 18,
-    "render_ms": 262620,
+    "render_ms": 456349,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -2377,19 +3972,19 @@
    "horizon_y": 1115.45,
    "sky": {
     "file": "place/rolling-plains-wide/sky.webp",
-    "sha256": "70b756a2b2de969784ef960912ce2100750cf168ba7530be59adca1b8f3fbf18",
-    "bytes": 12342
+    "sha256": "234623495a2515397b50dc266718b9bb32aa2dd8673525c0cc5628b4c45ab8b7",
+    "bytes": 720118
    },
    "ground": {
     "file": "place/rolling-plains-wide/ground.webp",
-    "sha256": "d88baf2f30496a2eee521ad409087f905e429dad257db2ed7a2f387d126d13c5",
-    "bytes": 217418
+    "sha256": "8bf5e8948977ba533b9cb912ce232d5bb274f94b1f1db45dd2441264c17db4f9",
+    "bytes": 1194800
    },
    "cards": [
     {
      "file": "place/rolling-plains-wide/card00.webp",
-     "sha256": "86cd30e89e520f9c44c8142609af4fd97981aa929530912222e55b05e0ea37de",
-     "bytes": 340,
+     "sha256": "5faffa694fb58afe21a3c3d48e3f4b6efeda39d935dbbd05dbb6f69e48a8a7ac",
+     "bytes": 236,
      "x": 347,
      "y": 1051,
      "w": 475,
@@ -2401,8 +3996,8 @@
     },
     {
      "file": "place/rolling-plains-wide/card01.webp",
-     "sha256": "dc02d1383c824782efcfa9cafa5bb2c864010f23c00a13407657bdee7aec8d21",
-     "bytes": 3442,
+     "sha256": "3c7761c2591b8d21e507670383f93ff91521d6fb865d3519ff71559933774f0b",
+     "bytes": 11248,
      "x": 0,
      "y": 1035,
      "w": 1242,
@@ -2417,8 +4012,8 @@
     },
     {
      "file": "place/rolling-plains-wide/card02.webp",
-     "sha256": "0e750b3be95c71db226a296523957a552809285eba162da0cb3e42f30bbbf2c7",
-     "bytes": 4004,
+     "sha256": "7a58d0b503941e881bcf0054203d6bcbb2485b322b788edc31b4c86023b2c4d8",
+     "bytes": 16030,
      "x": 0,
      "y": 1050,
      "w": 558,
@@ -2433,8 +4028,8 @@
     },
     {
      "file": "place/rolling-plains-wide/card03.webp",
-     "sha256": "421c0df0ec877c7a2178ae941a0d7f5c63979ea05f10a1e25570c943e1b6dbf8",
-     "bytes": 2286,
+     "sha256": "3bdb24794c0ab89b967a7c48da1ed736a8316760a0832dc46546ebbd44016b1b",
+     "bytes": 4324,
      "x": 42,
      "y": 1049,
      "w": 81,
@@ -2446,8 +4041,8 @@
     },
     {
      "file": "place/rolling-plains-wide/card04.webp",
-     "sha256": "d2692a9b4424b30b855f7b41d40b6b7061dc499e89016fbab2f77dcb4a3680f8",
-     "bytes": 400,
+     "sha256": "1e26b2801cc4199202245e9dea616c467087ca3c7e4affad684e5fdb7dbf8d20",
+     "bytes": 392,
      "x": 1223,
      "y": 1094,
      "w": 19,
@@ -2459,8 +4054,8 @@
     },
     {
      "file": "place/rolling-plains-wide/card05.webp",
-     "sha256": "d541356418a55c5664d949c4edc4e94e8684249618612852b90c2a7ac9c37d4f",
-     "bytes": 22182,
+     "sha256": "b844bd1ea003553307c124a584dda12f9fbe57b1bf6437e3db217513d463a18d",
+     "bytes": 48242,
      "x": 748,
      "y": 985,
      "w": 494,
@@ -2472,8 +4067,8 @@
     },
     {
      "file": "place/rolling-plains-wide/card06.webp",
-     "sha256": "84b1f5fb291a523652d104d656cd86c45338c09ae97471fca124229f90acba8b",
-     "bytes": 12014,
+     "sha256": "3befae14b06ca7e6112243c29b8f4e05ac5b3cae055a64819a054afd61c59ac6",
+     "bytes": 31610,
      "x": 0,
      "y": 1043,
      "w": 210,
@@ -2500,8 +4095,9 @@
     "rise_m": 0.3
    },
    "checks": {
-    "reassembly_mean": 0.012,
-    "reassembly_p999": 1.19,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.372,
+    "reassembly_p999": 1.28,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -2519,6 +4115,140 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.089,
+      "scale": 1.0334,
+      "step": 2.0
+     },
+     "truck_m": {
+      "cover": 0.005565,
+      "slide_px": 1.318,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.197,
+      "scale": 1.0,
+      "step": 0.5
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 0.914,
+      "scale": 1.0148
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.791,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.791,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.315,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.845,
+      "scale": 1.0051
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.315,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.492,
+      "scale": 1.0051
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 0.914,
@@ -2526,7 +4256,7 @@
     },
     "surfaces": 34,
     "things": 18,
-    "render_ms": 230518,
+    "render_ms": 383538,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -2570,19 +4300,19 @@
    "horizon_y": 1115.13,
    "sky": {
     "file": "place/south-texas-wide/sky.webp",
-    "sha256": "8b8ce9d759f9edadedadb7fbf8ef3b2174a1435e49367e4711d50fce698d2b0c",
-    "bytes": 14316
+    "sha256": "fccb0010622317a12f134936786a282f9e068fbbdd12481c302eb206848acecf",
+    "bytes": 853400
    },
    "ground": {
     "file": "place/south-texas-wide/ground.webp",
-    "sha256": "47693e87c01a5660a32f3b6cb11de6508b29fc2577d4bec73d70851186f84ed5",
-    "bytes": 164110
+    "sha256": "a1e2418aa4869cab8c63dba22f6b610e5efa441919a26b9f05f12f3e25abdd0e",
+    "bytes": 1082162
    },
    "cards": [
     {
      "file": "place/south-texas-wide/card00.webp",
-     "sha256": "a9d36c55bfe091ea82f9dfefa3a265e6a6b0c791881d73cee25e6d832edc9682",
-     "bytes": 3762,
+     "sha256": "bab5f9cb070178c67eacc0c1498ed15528d052aff8408d6884fed691e1ca9e42",
+     "bytes": 6810,
      "x": 291,
      "y": 1092,
      "w": 875,
@@ -2594,8 +4324,8 @@
     },
     {
      "file": "place/south-texas-wide/card01.webp",
-     "sha256": "33c3a079526df61c0bd1d1471988d10f9aaaa1023c1f300b9b7aeb018f386028",
-     "bytes": 6220,
+     "sha256": "080cebeacf49ceb1bc1779cc46fcdc47c68c07891013f9c29caa2ca9fff407cc",
+     "bytes": 11764,
      "x": 10,
      "y": 1076,
      "w": 1232,
@@ -2607,8 +4337,8 @@
     },
     {
      "file": "place/south-texas-wide/card02.webp",
-     "sha256": "882aebb4248b3b1175c162405c172f7d7bb9a2c550caba46d671c8f9dcda0b42",
-     "bytes": 4472,
+     "sha256": "9b02eb28249bdc295b2a40e1026308e7d08315bd605e11af79b12644314edec1",
+     "bytes": 8290,
      "x": 191,
      "y": 1087,
      "w": 964,
@@ -2620,8 +4350,8 @@
     },
     {
      "file": "place/south-texas-wide/card03.webp",
-     "sha256": "0e378ea7f843f8ec59f471b61e51375dea5ea94529e627fd2b0e28ffe3d11b23",
-     "bytes": 3960,
+     "sha256": "3bb3d3e4b20b8f8f6ec14cef23d16d728c701fef88ec1479d8c75d505994661c",
+     "bytes": 7900,
      "x": 353,
      "y": 1084,
      "w": 655,
@@ -2633,8 +4363,8 @@
     },
     {
      "file": "place/south-texas-wide/card04.webp",
-     "sha256": "e339892070551fc5b44f759b3b653444af34a5bfa31c403554b929e09da55b85",
-     "bytes": 3456,
+     "sha256": "ddeb9198c6e207a01d5e1e2e6eb1b359de0554483386ad372851b20fa7140b84",
+     "bytes": 6646,
      "x": 0,
      "y": 1082,
      "w": 1198,
@@ -2646,8 +4376,8 @@
     },
     {
      "file": "place/south-texas-wide/card05.webp",
-     "sha256": "5445aefe5057c61d8b31296aad903b1047ca73903ca97bc051ec78bccc297404",
-     "bytes": 4482,
+     "sha256": "fc9a049c1ee16a50ec9d501658f4229ad4fb88364527e573b5fd840470161eb2",
+     "bytes": 8868,
      "x": 71,
      "y": 1077,
      "w": 1171,
@@ -2659,8 +4389,8 @@
     },
     {
      "file": "place/south-texas-wide/card06.webp",
-     "sha256": "bf87153a612bc376dd090655adb4284aa955cd954f9219a3c7c9b817272ba348",
-     "bytes": 4312,
+     "sha256": "802fbeae994c5c039c60430548f8c70c618ba287b6156d0fc6c82bf7c5fb0884",
+     "bytes": 8934,
      "x": 190,
      "y": 1076,
      "w": 745,
@@ -2672,8 +4402,8 @@
     },
     {
      "file": "place/south-texas-wide/card07.webp",
-     "sha256": "b08e54a825b38b779ca68cac36de3d4c828ac7b0f39c9dda3bc0fea29c505d44",
-     "bytes": 5442,
+     "sha256": "ce18e6d41e3519fd101849a868dfb932050b3c38da579d617d8c47b22a582e4b",
+     "bytes": 11566,
      "x": 307,
      "y": 1062,
      "w": 877,
@@ -2685,8 +4415,8 @@
     },
     {
      "file": "place/south-texas-wide/card08.webp",
-     "sha256": "79b21b7fabbd086a3acba248e9541ba7836c23e94c61a70379d6012dbe92ca4f",
-     "bytes": 6932,
+     "sha256": "e8369b4c21c84e664dc2a5bae996ef716dc3a2697736c2f12255e16691eb9155",
+     "bytes": 14608,
      "x": 61,
      "y": 1065,
      "w": 877,
@@ -2698,8 +4428,8 @@
     },
     {
      "file": "place/south-texas-wide/card09.webp",
-     "sha256": "4251abf9235e99f22ec71d4a1a443872eb4198c928315fb0e4fd6141322569b0",
-     "bytes": 6242,
+     "sha256": "1c52a5457e85eb3c1ad9be84b8ee80446a0ea7bcdef31caa7c9991c12f5c4d11",
+     "bytes": 13856,
      "x": 167,
      "y": 1064,
      "w": 934,
@@ -2711,8 +4441,8 @@
     },
     {
      "file": "place/south-texas-wide/card10.webp",
-     "sha256": "78db1836e97e2d9523bbab3858f667a57cf4f55b723e38f3f0aec30c4129f0b8",
-     "bytes": 1498,
+     "sha256": "67425e4846766fbadd6fddb0819788e0dfb86889d97ba65f07c9fccdf8a3b68f",
+     "bytes": 3098,
      "x": 748,
      "y": 1078,
      "w": 494,
@@ -2724,8 +4454,8 @@
     },
     {
      "file": "place/south-texas-wide/card11.webp",
-     "sha256": "933237b9316ceda1a3348beeec6744a042d251d25c7fe96fd8202881923a73ae",
-     "bytes": 8512,
+     "sha256": "859c1c9d6966b6a2ee7df79afcfdce27eb8967b9dc0ff4ba3924735af75c3a88",
+     "bytes": 18462,
      "x": 73,
      "y": 1064,
      "w": 1127,
@@ -2737,8 +4467,8 @@
     },
     {
      "file": "place/south-texas-wide/card12.webp",
-     "sha256": "5092c2e95a04c0e3c70b9aa7a0cc20ba63412a654d4cfb12a376c89c92d29dc2",
-     "bytes": 2458,
+     "sha256": "19b8c2bd047923392d11cc37c2732a78b70548da70c2e928fc3ac2750524c3bf",
+     "bytes": 4772,
      "x": 240,
      "y": 1044,
      "w": 803,
@@ -2750,8 +4480,8 @@
     },
     {
      "file": "place/south-texas-wide/card13.webp",
-     "sha256": "c9431a743444a0409c9028361eb5c4e88f2805587c3ad4994a51fa9bf15b3d21",
-     "bytes": 6632,
+     "sha256": "6935655f1db5b706c37f6ca8bb1c49896980ea837dc233a8c2deb2851d59fde1",
+     "bytes": 16648,
      "x": 0,
      "y": 1056,
      "w": 286,
@@ -2763,8 +4493,8 @@
     },
     {
      "file": "place/south-texas-wide/card14.webp",
-     "sha256": "c037dd85190eeeef397621477695f2658d552ef5a8f17d52d4dbf3a85feb3a96",
-     "bytes": 3768,
+     "sha256": "53d05862d9ffc3329a1c9f21d811ddeb50c2940d9495b4c8ddc94382daec959f",
+     "bytes": 8392,
      "x": 355,
      "y": 1045,
      "w": 593,
@@ -2776,8 +4506,8 @@
     },
     {
      "file": "place/south-texas-wide/card15.webp",
-     "sha256": "29c5114f25ba966060191cc79f36b0b6fe875411c61657a43cdad81334d68a53",
-     "bytes": 1654,
+     "sha256": "9137db602d86159b977fcf177641ba59fc329ba62a798eed162b5f3a62ec7189",
+     "bytes": 4276,
      "x": 1106,
      "y": 1055,
      "w": 54,
@@ -2789,8 +4519,8 @@
     },
     {
      "file": "place/south-texas-wide/card16.webp",
-     "sha256": "9fddbb78793db3e7684b6f35130d11ea0d6b31a2be5f5fd6de0225ffcfda99d7",
-     "bytes": 2792,
+     "sha256": "3b06b34114cec86513a05ad71de4ef67a6d8794060f820247bba424605e7c575",
+     "bytes": 7476,
      "x": 107,
      "y": 1031,
      "w": 115,
@@ -2802,8 +4532,8 @@
     },
     {
      "file": "place/south-texas-wide/card17.webp",
-     "sha256": "7676ec40786e6b89ace948966a48b8988def4a59ec1d4b5244d18286498a8450",
-     "bytes": 3298,
+     "sha256": "7968b0cd5832175952c53a6a209e1ba81d03a7d19bc3acaa9850b2e0db2cab47",
+     "bytes": 9630,
      "x": 57,
      "y": 984,
      "w": 85,
@@ -2830,8 +4560,9 @@
     "rise_m": 0.1
    },
    "checks": {
-    "reassembly_mean": 0.056,
-    "reassembly_p999": 3.0,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.411,
+    "reassembly_p999": 3.28,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -2840,7 +4571,7 @@
      },
      "truck_m": {
       "cover": 0.0,
-      "slide_px": 1.796,
+      "slide_px": 1.797,
       "scale": 1.0
      },
      "rise_m": {
@@ -2849,6 +4580,140 @@
       "scale": 1.0
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.096,
+      "scale": 1.0182,
+      "step": 0.5
+     },
+     "truck_m": {
+      "cover": 0.00095,
+      "slide_px": 3.593,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 3.594,
+      "scale": 1.0,
+      "step": 0.2
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.15
+      },
+      "cover": 0.0,
+      "slide_px": 0.615,
+      "scale": 1.0054
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0525,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.876,
+      "scale": 1.0019
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0525,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.29,
+      "scale": 1.0019
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.29,
@@ -2856,7 +4721,7 @@
     },
     "surfaces": 19,
     "things": 135,
-    "render_ms": 439958,
+    "render_ms": 670848,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
@@ -2900,19 +4765,19 @@
    "horizon_y": 1149.07,
    "sky": {
     "file": "place/trans-pecos-wide/sky.webp",
-    "sha256": "b17f8dca3d107edf89f9039dfa3f728505c932b000f75cdbeae5ad9be9813977",
-    "bytes": 16270
+    "sha256": "c7f2f4aa1c3880f9eca53d0e5b6e173d11602f260e4ef54a609d9af710bbec46",
+    "bytes": 795716
    },
    "ground": {
     "file": "place/trans-pecos-wide/ground.webp",
-    "sha256": "7eec04a979e53967adb4b45bb7e6e51d25c9797ebe247e0527a901084f047ca6",
-    "bytes": 151996
+    "sha256": "a9e3c58deccda76f17db339b46a8e8d725e3d1f4bee553d6211f2cbdb1a9c571",
+    "bytes": 1070946
    },
    "cards": [
     {
      "file": "place/trans-pecos-wide/card00.webp",
-     "sha256": "bfc3d6f967c4546f144234cce37195cfdbbce55d6ba819962eff260968ba2b6c",
-     "bytes": 6890,
+     "sha256": "31ac37b889cbff8d32817b042268cc93b5e57d96c7bb25b51f544d3a78fc84b2",
+     "bytes": 89922,
      "x": 0,
      "y": 779,
      "w": 1242,
@@ -2924,8 +4789,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card01.webp",
-     "sha256": "9c140aa98b244a2ead2262498f24b2f3220bd05bedbe18e8611b3850a1bca5dc",
-     "bytes": 7340,
+     "sha256": "783c8d0c65012380d7b39c9e47a48378009235883764f33aee00a8fe09b53304",
+     "bytes": 32244,
      "x": 0,
      "y": 1042,
      "w": 391,
@@ -2940,8 +4805,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card02.webp",
-     "sha256": "e3c16c795d4331e3013f2d1a686f9c5b918318a18437af8a4353862969d1f44d",
-     "bytes": 522,
+     "sha256": "6aacf3ab2763ea42d5810a125107d6d47124abb801b1e66786b5a9703450cc43",
+     "bytes": 704,
      "x": 254,
      "y": 1147,
      "w": 387,
@@ -2953,8 +4818,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card03.webp",
-     "sha256": "0be2adf13a63aefbafc799019945f3cddbdc2a7773a535ef4ed435474883e78d",
-     "bytes": 962,
+     "sha256": "6ab9c5b1cf998196a3ff585488beeee30f9b2b94376f0db26e5aa46905cc0deb",
+     "bytes": 1336,
      "x": 160,
      "y": 1147,
      "w": 1075,
@@ -2966,8 +4831,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card04.webp",
-     "sha256": "7e20866b08aff4f5e65d19348eb2761039cd4ca0f291f5a6b05e33bf29711ea3",
-     "bytes": 1284,
+     "sha256": "cfd78f8608107d7723d24b51b222b77ae8e5994101d6e771c05a8551207f719c",
+     "bytes": 1906,
      "x": 264,
      "y": 1128,
      "w": 908,
@@ -2979,8 +4844,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card05.webp",
-     "sha256": "06bc24d72d68fff7c3e49f8b15f1d2228443f6c210e7e511dd23ad27ccce7e9d",
-     "bytes": 684,
+     "sha256": "5155deb9bb7b4bca00cdb6bfa5b9fd9a9263695bda0f4cdcb6aca8743a29aa5f",
+     "bytes": 1052,
      "x": 140,
      "y": 1148,
      "w": 536,
@@ -2992,8 +4857,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card06.webp",
-     "sha256": "a9e9ec1b0fca31915691c9e65cbddc41a2b735cfcaf5c435eea6be246a061303",
-     "bytes": 844,
+     "sha256": "524aaf2e54775e2338989f54bfd8feaa9488d4056326e703f73ceb9630102e33",
+     "bytes": 1540,
      "x": 0,
      "y": 1149,
      "w": 944,
@@ -3005,8 +4870,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card07.webp",
-     "sha256": "2e1db27536aaecc35b0c2ce8eb2af13643065ad95cb27ea814d1f33326bd55ed",
-     "bytes": 502,
+     "sha256": "5966dc6086ddc9caa5352f1370555d7d5a3b4798cd8ba69537010a8ba8c5797d",
+     "bytes": 952,
      "x": 817,
      "y": 1152,
      "w": 44,
@@ -3018,8 +4883,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card08.webp",
-     "sha256": "4b5f4b815516f15a2d72ba7aad2af047424b33aff3aa5f4e1b25d8055d6f6b32",
-     "bytes": 852,
+     "sha256": "6c0618299737c8378020c76d19d2edb2047ca66101a323f8c01b310aaf920831",
+     "bytes": 1630,
      "x": 108,
      "y": 1153,
      "w": 641,
@@ -3031,8 +4896,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card09.webp",
-     "sha256": "724b6de24fc3c9252857f865d674d3f6af7a07d45ad349a42138b8b327c988ea",
-     "bytes": 652,
+     "sha256": "ba1be1bb5378cf5e166c85820a648b1ed0e87bcf5ae3ad122f40835598da9398",
+     "bytes": 1312,
      "x": 561,
      "y": 1154,
      "w": 47,
@@ -3044,8 +4909,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card10.webp",
-     "sha256": "a833740f3b59b4a9ca9ee70f0e9ec18dd55f6f0e5f28763bc6d26bc5bf8609c5",
-     "bytes": 1940,
+     "sha256": "93e1d90267f9b857ac4ac320a1e0959b5937b4f9309b734f25ee716aed3c70ea",
+     "bytes": 4050,
      "x": 1137,
      "y": 1107,
      "w": 105,
@@ -3057,8 +4922,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card11.webp",
-     "sha256": "99bf7be7013d9f994788540e5d4f1f9ee2d8da8324e3698bc851a755f83bf388",
-     "bytes": 926,
+     "sha256": "f615c1504ff0ce8197d1724ddfbdbe1b12908c38644ae7fb09b5ad98a6d29111",
+     "bytes": 1368,
      "x": 0,
      "y": 1095,
      "w": 26,
@@ -3070,8 +4935,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card12.webp",
-     "sha256": "a62cda8c30cab774e08234061f25e8ad2edf75d2fcc4141186d9057e6702d2c8",
-     "bytes": 4234,
+     "sha256": "1871d8a3e1231fb527bffe05508b2adf6bf795a5b9f56ffcb10ceca296c848d5",
+     "bytes": 7296,
      "x": 5,
      "y": 1090,
      "w": 1055,
@@ -3083,8 +4948,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card13.webp",
-     "sha256": "f98a2f6fc992bf01e7a6c9bf9286c2313b15eef3569a3f83764f66b29d3fca8c",
-     "bytes": 11456,
+     "sha256": "55f3463e25e8f58418ce8daa9045e6a0133331065c62bab3757f2679a9923f7b",
+     "bytes": 20344,
      "x": 858,
      "y": 997,
      "w": 319,
@@ -3096,8 +4961,8 @@
     },
     {
      "file": "place/trans-pecos-wide/card14.webp",
-     "sha256": "03d5f5c89af411221e7e84b8600128e2dc36f0cf3b0de67637d3c35b39c34892",
-     "bytes": 13556,
+     "sha256": "f279549708a2b745d583b202e1bddba43346fc245c9e9fdfd349f277e552b17a",
+     "bytes": 27758,
      "x": 57,
      "y": 911,
      "w": 207,
@@ -3124,8 +4989,9 @@
     "rise_m": 0.2
    },
    "checks": {
-    "reassembly_mean": 0.011,
-    "reassembly_p999": 1.16,
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.38,
+    "reassembly_p999": 1.25,
     "at_limits": {
      "dolly_m": {
       "cover": 0.0,
@@ -3143,6 +5009,140 @@
       "scale": 1.0001
      }
     },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.276,
+      "scale": 1.0495,
+      "step": 1.5
+     },
+     "truck_m": {
+      "cover": 0.007149,
+      "slide_px": 2.587,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.589,
+      "scale": 1.0002,
+      "step": 0.3
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.885,
+      "scale": 1.0192
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.036,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.036,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.21,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.344,
+      "scale": 1.0066
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.21,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.742,
+      "scale": 1.0066
+     }
+    ],
     "profiles_worst": {
      "cover": 0.0,
      "slide_px": 1.344,
@@ -3150,7 +5150,7 @@
     },
     "surfaces": 180,
     "things": 52,
-    "render_ms": 282256,
+    "render_ms": 420111,
     "page_errors": 0
    },
    "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"

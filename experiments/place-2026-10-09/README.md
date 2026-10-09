@@ -26,32 +26,33 @@ the bake and is in `video-engine/src/modern/placePlates.json`.
 
 | plate | region | counties | reassembly | cards (things) | limits push / truck / rise (m) | worst slide (px) | KB |
 |---|---|---|---|---|---|---|---|
-| blackland-wide | blackland | the region | 0.191 / 4.00 | 2 (16) | 4 / 0.1 / 0.75 | 1.09 | 309 |
-| blackland-austin | blackland | Travis | 0.070 / 4.00 | 2 (49) | 4 / 0.75 / 0.75 | 1.21 | 389 |
-| blackland-dallas | blackland | Dallas | 0.073 / 3.04 | 8 (7) | 4 / 0.3 / 0.75 | 1.03 | 328 |
-| blackland-san-antonio | blackland | Bexar | 0.058 / 3.00 | 6 (13) | 4 / 0.3 / 0.75 | 1.00 | 276 |
-| cross-timbers-wide | cross_timbers | the region | 0.053 / 8.17 | 8 (263) | 4 / 0.2 / 0.75 | 1.09 | 386 |
-| gulf-wide | gulf | the region | 0.951 / 9.50 | 2 (49) | 6 / 0.5 / 1 | 0.99 | 208 |
-| gulf-houston | gulf | Harris | 0.285 / 8.00 | 9 (14) | 6 / 0.5 / 1.5 | 1.11 | 219 |
-| gulf-shipchannel | gulf | by place_plate: Harris, Galveston, Jefferson, Brazoria, Chambers, Nueces | 0.748 / 8.00 | 2 (25) | 6 / 0.5 / 1.5 | 0.87 | 214 |
-| high-plains-wide | high_plains | the region | 0.118 / 4.00 | 1 (22) | 4 / 0.1 / 0.75 | 1.08 | 270 |
-| hill-country-wide | hill_country | the region | 0.026 / 6.56 | 7 (10) | 0.5 / 0.1 / 0.2 | 1.11 | 478 |
-| piney-woods-wide | piney_woods | the region | 0.045 / 4.80 | 25 (361) | 3 / 0.1 / 0.75 | 0.96 | 546 |
-| post-oak-wide | post_oak | the region | 0.086 / 4.00 | 9 (18) | 3 / 0.2 / 0.5 | 1.04 | 321 |
-| rolling-plains-wide | rolling_plains | the region | 0.012 / 1.19 | 7 (18) | 1.5 / 0.2 / 0.3 | 0.91 | 267 |
-| south-texas-wide | south_texas | the region | 0.056 / 3.00 | 18 (135) | 0.25 / 0.1 / 0.1 | 1.29 | 252 |
-| trans-pecos-wide | trans_pecos | the region | 0.011 / 1.16 | 15 (52) | 1 / 0.2 / 0.2 | 1.34 | 215 |
+| blackland-wide | blackland | the region | 0.551 / 4.50 | 2 (16) | 4 / 0.1 / 0.75 | 1.09 | 2150 |
+| blackland-austin | blackland | Travis | 0.417 / 4.31 | 2 (49) | 4 / 0.75 / 0.75 | 1.21 | 2246 |
+| blackland-dallas | blackland | Dallas | 0.446 / 3.50 | 8 (7) | 4 / 0.3 / 0.75 | 1.03 | 2174 |
+| blackland-san-antonio | blackland | Bexar | 0.371 / 3.25 | 6 (13) | 4 / 0.3 / 0.75 | 1.00 | 1836 |
+| cross-timbers-wide | cross_timbers | the region | 0.416 / 8.20 | 8 (263) | 4 / 0.2 / 0.75 | 1.09 | 2268 |
+| gulf-wide | gulf | the region | 1.198 / 10.00 | 2 (49) | 6 / 0.5 / 1 | 0.99 | 1577 |
+| gulf-houston | gulf | Harris | 0.548 / 8.00 | 9 (14) | 6 / 0.5 / 1.5 | 1.11 | 1582 |
+| gulf-shipchannel | gulf | by place_plate: Harris, Galveston, Jefferson, Brazoria, Chambers, Nueces | 0.998 / 8.50 | 2 (25) | 6 / 0.5 / 1.5 | 0.87 | 1617 |
+| high-plains-wide | high_plains | the region | 0.468 / 4.00 | 1 (22) | 4 / 0.1 / 0.75 | 1.08 | 1908 |
+| hill-country-wide | hill_country | the region | 0.391 / 6.63 | 7 (10) | 0.5 / 0.1 / 0.2 | 1.11 | 2794 |
+| piney-woods-wide | piney_woods | the region | 0.240 / 4.89 | 25 (361) | 3 / 0.1 / 0.75 | 0.96 | 2459 |
+| post-oak-wide | post_oak | the region | 0.451 / 4.25 | 9 (18) | 3 / 0.2 / 0.5 | 1.04 | 2072 |
+| rolling-plains-wide | rolling_plains | the region | 0.372 / 1.28 | 7 (18) | 1.5 / 0.2 / 0.3 | 0.91 | 1979 |
+| south-texas-wide | south_texas | the region | 0.411 / 3.28 | 18 (135) | 0.25 / 0.1 / 0.1 | 1.29 | 2058 |
+| trans-pecos-wide | trans_pecos | the region | 0.380 / 1.25 | 15 (52) | 1 / 0.2 / 0.2 | 1.34 | 2011 |
 
-Reassembly is the difference, in 8-bit levels over the film frame, between the layers laid over one
-another at rest and the picture the engine rendered whole (mean / 99.9th percentile; the limits are
-1.5 and 48). Limits are the largest push, truck and rise in metres that kept the ground covering the
-frame, slid no base on its ground by more than 2 pixels and magnified no card past 1.25. Slide is the
-worst slide at the ends of every camera profile the stage uses, which move at 0.6 of the limits: of a
-base on its ground, or of a pixel of a skyline or ridge from where its own distance puts it.
+Reassembly is the difference, in 8-bit levels over the film frame, between the layers as they ship,
+lossless WebP read back and laid over one another at rest, and the picture the engine rendered whole
+(mean / 99.9th percentile; the limits are 1.5 and 48). The layers total 31 MB. Limits are the
+largest push, truck and rise in metres that kept the ground covering the frame, slid no base on its
+ground by more than 2 pixels and magnified no card past 1.25. Slide is the worst slide at the ends
+of every camera profile the stage uses, which move at 0.6 of the limits: of a base on its ground, or
+of a pixel of a skyline or ridge from where its own distance puts it.
 
 `plates.webp` is every plate's full picture, as the bake rendered it whole.
 
-## Three faults every number passed
+## Four faults every number passed
 
 **The first design cut each world into bands and tore the ground.** It cut each world into three
 bands by distance. The Blackland plate's near band moved as if 7 m away and the next as if 213 m away,
@@ -71,7 +72,15 @@ as ground, so the city plates drew them into the ground layer, up to 513 pixels 
 the transform that is exact on the ground moved them as if they lay on it. A rise at the share the
 stage uses moved them 38 to 64 pixels. The ground is now drawn only up to the eye's height, and what
 of a surface rises above it is a card at its own distance, every pixel of which the bake measures
-against the depth pass. GATE_LESSONS.md has all three accounts.
+against the depth pass.
+
+**The layers that shipped were not the layers measured.** The bake measured reassembly on the arrays
+it held in memory and then wrote each layer as a lossy WebP at quality 90. Read back, the Gulf plate
+came to a mean of 2.53 levels from the picture against the bound of 1.5, where the bake had recorded
+0.95, and quality 100 still to 2.29. Every layer is now lossless and measured as it ships, which puts
+the Gulf plate at 1.20, the 8-bit rounding alone. Codex found this on review, along with limits that
+nothing tied to their measurements, and each limit is now held to the step that failed past it.
+GATE_LESSONS.md has all four accounts.
 
 ## The two films on the stage
 

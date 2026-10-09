@@ -149,9 +149,13 @@ A run never bakes a plate. A plate is added or changed by editing its scene page
 `place_bake.py --docket <a TexasAIDocket checkout>`, and the layers and manifest are committed
 together. CI fails a scene or a place module edited without a re-bake. Each plate names the engine
 record it was drawn with, the Docket commit and the bytes of every engine file, so a plate rebaked
-alone with a newer Docket leaves every other plate's record as it was. Open each baked plate's
-`out/place-bake/<plate>/full.png` at film size before committing it: the bake measures whether the
-layers move as one world, never whether the water reads as water.
+alone with a newer Docket leaves every other plate's record as it was. The bake measures the layers
+as the stage loads them, encoded as lossless WebP and read back, and holds each limit to its
+measurements: the last step that passed, the next step's failure and every profile end the stage
+moves to. CI measures cover and magnification again from the committed layers at every profile end
+and requires the bake's numbers exactly. Open each baked plate's `out/place-bake/<plate>/full.png`
+at film size before committing it: the bake measures whether the layers move as one world, never
+whether the water reads as water.
 
 ## Narration and picture use one clock
 

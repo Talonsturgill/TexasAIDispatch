@@ -58,9 +58,12 @@ export function placeActive(board:PlaceBoard):boolean{
 }
 /** WHICH PLATE. A region's own plate carries nothing that belongs to one place, since a Texan is not
  * told they live somewhere they don't: no city skyline, no refinery. A county with its own plate, as
- * Harris has Houston across Buffalo Bayou, stands in that one. A board may name a plate as
- * `place_plate` only for a county the plate lists, which is how a story at a ship channel plant gets
- * the refineries and a story at the Medical Center doesn't. place_check.py resolves the same way. */
+ * Harris has Houston across Buffalo Bayou, stands in that one. A board may name a plate that lists
+ * counties as `place_plate` only for a county it lists, which is how a story at a ship channel plant
+ * gets the refineries and a story at the Medical Center doesn't. It may also name its region's own
+ * plate, which lists none: a Harris County story out on the prairie stands in the Gulf Prairies rather
+ * than in front of downtown, and the region's own plate can't put a county anywhere it isn't. A plate
+ * of another region is refused. place_check.py resolves the same way. */
 export type PlaceScene={region:string;county?:string;place_plate?:string};
 export function plateFor(scene:PlaceScene):Plate{
  const inRegion=Object.values(M.plates).filter(p=>p.region===scene.region).sort((a,b)=>a.id.localeCompare(b.id));

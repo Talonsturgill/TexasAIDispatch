@@ -85,8 +85,9 @@ def county_name(c) -> str:
 
 
 def plate_for(scene: dict, manifest: dict) -> tuple[str | None, str | None]:
-    """PlaceStage.plateFor, the same rule: a named place_plate if the plate lists the county, else the
-    county's own plate, else the region's. Returns the plate id, or None and the reason."""
+    """PlaceStage.plateFor, the same rule: a named place_plate if the plate lists the county or is the
+    region's own, else the county's own plate, else the region's. Returns the plate id, or None and the
+    reason."""
     plates = manifest["plates"]
     region, county = scene.get("region"), county_name(scene.get("county"))
     in_region = sorted((p for p in plates.values() if p["region"] == region), key=lambda p: p["id"])
@@ -252,6 +253,11 @@ def self_test() -> int:
     ok(plate_for({"region": "gulf", "county": "Cameron", "place_plate": "gulf-shipchannel"}, man)[0] is None,
        "Cameron County was given the ship channel")
     ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "nope"}, man)[0] is None, "an unknown plate passed")
+    # the region's own plate belongs to no one place, so a county with a city plate may choose it
+    ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "gulf-wide"}, man)[0] == "gulf-wide",
+       "a Harris County story could not choose the Gulf Prairies' own plate")
+    ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "blackland-wide"}, man)[0] is None,
+       "a plate of another region passed")
     frame = np.zeros((100, 100, 3), dtype=np.uint8)
     frame[:30, :] = [255, 0, 255]
     ok(abs(probe_share(frame) - 0.3) < 1e-9, "probe share miscounted")
