@@ -128,7 +128,9 @@ pale slab, and no scatter grows on it.
   sees a window, behind a light frame. The episode draws its own floor and props in front of it.
 - **Indoors, close and detail**, there is no window, only its light: the region is a soft wash
   behind the subject, because a lens that close is focused on the subject and a window pane behind
-  a fly makes the fly as tall as the pane.
+  a fly makes the fly as tall as the pane. Any view the episode lists in `wash_views` takes the same
+  wash at every framing. List a labelled comparison there, things set out on their own ground lines
+  with a label over each, since a window's rails and skyline cross exactly that type and those lines.
 - **Overhead**, and any view the episode lists in `wall_views` (a diagram or a document, which is
   not in a room), keep plain wall. No more than 40 percent of a film's shots may be wall views.
 

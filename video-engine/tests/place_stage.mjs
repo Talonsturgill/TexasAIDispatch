@@ -87,8 +87,10 @@ try{
  const flyBoard={...on,film_direction:{...on.film_direction,episode:'fly-gene-test-v2'}};
  const diagram=draw(flyBoard,{...scene,interior:true},{...shot,framing:'close',view:'gene-detail'});
  assert.ok(diagram.includes('data-place-mode="wall"')&&!diagram.includes('data-place-window'),'a declared wall view drew a window');
- assert.ok(draw(flyBoard,{...scene,interior:true},{...shot,framing:'close',view:'foot-contact'}).includes('data-place-window'),
+ assert.ok(draw(flyBoard,{...scene,interior:true},{...shot,framing:'wide',view:'fly-question'}).includes('data-place-window'),
   'an undeclared view lost its window');
+ const washed=draw(flyBoard,{...scene,interior:true},{...shot,framing:'split',view:'paired-result'});
+ assert.ok(washed.includes('data-place-wash')&&!washed.includes('data-place-window'),'a declared wash view drew a window');
  const probe=draw({...on,__placeProbe:true},{...scene,interior:true},{...shot,framing:'wide'});
  assert.ok(probe.includes('data-place-probe')&&probe.includes('#ff00ff')&&!probe.includes('data-place-layer'),'the probe still drew the plate');
 

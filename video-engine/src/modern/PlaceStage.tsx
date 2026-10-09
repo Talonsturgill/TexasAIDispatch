@@ -137,11 +137,12 @@ type Framing=FilmShot['framing'];
 const ZOOM:Record<Framing,number>={wide:1,split:1.04,medium:1.08,close:1.18,detail:1.3,overhead:1};
 const DEFOCUS:Record<Framing,number>={wide:0,split:0,medium:0,close:1.5,detail:3,overhead:0};
 /* THE WINDOW starts below the title band, which both episodes set from y 250 to 370, so no mullion
- * ever crosses a title. Nearer framings see more of it and less sharply, as a lens focused on the
- * subject would. */
+ * ever crosses a title. A wide shot's title box sits lower, to y 419 in the October 7th film, and two
+ * blind graders found the window's top rail running through it, so a wide window starts at 440.
+ * Nearer framings see more of it and less sharply, as a lens focused on the subject would. */
 type Window={x:number;y:number;w:number;h:number;blur:number};
 const WINDOW:Record<Framing,Window>={
- wide:{x:96,y:420,w:888,h:560,blur:1.5},split:{x:40,y:410,w:1000,h:640,blur:3},
+ wide:{x:96,y:440,w:888,h:540,blur:1.5},split:{x:40,y:410,w:1000,h:640,blur:3},
  medium:{x:40,y:410,w:1000,h:640,blur:3},close:{x:-40,y:400,w:1160,h:720,blur:6},
  detail:{x:-80,y:400,w:1240,h:760,blur:9},overhead:{x:0,y:0,w:0,h:0,blur:0}};
 const HORIZON_IN_WINDOW=.55;   // eye height in a window from sill to head
@@ -153,18 +154,28 @@ const WINDOW_GRADE='brightness(1.16) contrast(.64) saturate(.88)',WINDOW_HAZE=.3
 /* A CLOSE OR DETAIL SHOT HAS NO WINDOW, only its light. A blind grade on October 9th found a fly
  * standing as tall as a window pane and a mullion running through a glass vial: a lens that close is
  * focused on the subject, and the room behind it is out of focus colour. So nearer framings lay the
- * region as a soft wash, with no frame to cross anything. */
-const BOKEH_BLUR:Partial<Record<Framing,number>>={close:18,detail:26},BOKEH_HAZE=.34,BOKEH_ZOOM=1.2;
+ * region as a soft wash, with no frame to cross anything. The second grade found the first wash (blur
+ * 18 and 26, a third of paper over it) reading as any foggy city while it cost the thinnest marks their
+ * contrast: a floor line, heat squiggles, a coral label. Half paper over a lighter blur keeps the
+ * skyline nameable and gives those marks their ground back. */
+const BOKEH_BLUR:Partial<Record<Framing,number>>={close:12,detail:18},BOKEH_HAZE=.55,BOKEH_ZOOM=1.2;
 
 /** A VIEW ON THE WALL. A diagram or a document is not in a room, and a skyline behind thin lines and
  * small labels only makes them harder to read: the October 8th film's candidate diagrams were. An
  * episode lists such views as `wall_views` in config/modern_episode_registry.json and the stage draws
  * plain wall behind them. place_check.py caps the share of a film's shots that may do so. */
-type Registry={episodes:Record<string,{wall_views?:string[]}>};
-export function wallView(board:{film_direction?:{episode?:string}},view:string):boolean{
+type Registry={episodes:Record<string,{wall_views?:string[];wash_views?:string[]}>};
+const listed=(key:'wall_views'|'wash_views')=>(board:{film_direction?:{episode?:string}},view:string):boolean=>{
  const ep=board.film_direction?.episode;
- return !!ep&&((registry as unknown as Registry).episodes[ep]?.wall_views??[]).includes(view);
-}
+ return !!ep&&((registry as unknown as Registry).episodes[ep]?.[key]??[]).includes(view);
+};
+export const wallView=listed('wall_views');
+/** A VIEW IN THE WASH. A labelled comparison set out across the frame, two flies on their own ground
+ * lines with a label over each, puts its type and its thin lines exactly where a window's rails and
+ * skyline cross them. The second blind grade found the October 8th film's paired results doing so.
+ * An episode lists such views as `wash_views` and the stage lays the region behind them as the soft
+ * wash a close shot gets, at any framing: the place is in the light, and nothing crosses a label. */
+export const washView=listed('wash_views');
 export type PlaceInfo={plate:Plate;mode:'exterior'|'interior'|'overhead'|'wall';framing:Framing;move:PlaceMove;zoom:number;
  window?:Window};
 const PlaceContext=createContext<PlaceInfo|undefined>(undefined);
@@ -208,10 +219,11 @@ export const PlaceStage:React.FC<{board:DispatchProps;scene:Scene;shot:FilmShot;
   world=<div style={{position:'absolute',inset:0,filter:DEFOCUS[framing]?`blur(${DEFOCUS[framing]}px)`:undefined}}>
    <Layers plate={plate} frame={frame} probe={probe}/>
   </div>;
- }else if(mode==='interior'&&BOKEH_BLUR[framing]){
+ }else if(mode==='interior'&&(BOKEH_BLUR[framing]||washView(b,shot.view))){
+  const blur=BOKEH_BLUR[framing]??BOKEH_BLUR.close;
   const paper=wall?.paper??rgb(plate.sky_rgb),F=mul(translate(-OX,-OY),scaleAbout(BOKEH_ZOOM,cam.cx,cam.cy));
   world=<div data-place-wash style={{position:'absolute',inset:0}}>
-   <div style={{position:'absolute',inset:0,filter:probe?undefined:`blur(${BOKEH_BLUR[framing]}px) ${WINDOW_GRADE}`}}>
+   <div style={{position:'absolute',inset:0,filter:probe?undefined:`blur(${blur}px) ${WINDOW_GRADE}`}}>
     <Layers plate={plate} frame={()=>F} probe={probe}/>
    </div>
    {!probe&&<div style={{position:'absolute',inset:0,background:paper,opacity:BOKEH_HAZE}}/>}

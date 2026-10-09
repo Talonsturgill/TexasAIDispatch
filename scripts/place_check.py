@@ -136,8 +136,10 @@ def probed_shots(board: dict, walls: set[str] = frozenset()) -> list[dict]:
 def wall_problems(board: dict, registry: dict, shots: list[dict]) -> list[str]:
     ep = (board.get("film_direction") or {}).get("episode")
     entry = registry.get("episodes", {}).get(ep) or {}
-    walls = set(entry.get("wall_views") or [])
+    walls, washes = set(entry.get("wall_views") or []), set(entry.get("wash_views") or [])
     out = [f"wall view {v!r} is not one of episode {ep}'s views" for v in sorted(walls - set(entry.get("views") or []))]
+    out += [f"wash view {v!r} is not one of episode {ep}'s views" for v in sorted(washes - set(entry.get("views") or []))]
+    out += [f"view {v!r} is listed as both a wall view and a wash view; it is one or the other" for v in sorted(walls & washes)]
     held = [s for s in shots if not s["exempt"]]
     on_wall = [s for s in held if s["wall"]]
     if held and len(on_wall) / len(held) > WALL_SHARE_MAX:
@@ -269,6 +271,9 @@ def self_test() -> int:
     ok(wall_problems(heavy, reg, probed_shots(heavy, wall_views(heavy, reg))), "three wall views in five passed")
     stray = {"episodes": {"e": {"views": ["v1"], "wall_views": ["nope"]}}}
     ok(wall_problems(film, stray, fs), "a wall view the episode doesn't have passed")
+    ok(wall_problems(film, {"episodes": {"e": {"views": ["v1", "v2"], "wash_views": ["nope"]}}}, fs), "a stray wash view passed")
+    ok(wall_problems(film, {"episodes": {"e": {"views": ["v1", "v2"], "wall_views": ["v2"], "wash_views": ["v2"]}}}, fs),
+       "a view both on the wall and in the wash passed")
     ok(shots[0]["frame"] == 36, f"probe frame wrong: {shots[0]['frame']}")
     ok(not judge(shots, {"a": 0.2}), "a shot showing its region failed")
     ok(judge(shots, {"a": 0.01}), "a covered shot passed")

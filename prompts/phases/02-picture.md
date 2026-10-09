@@ -175,7 +175,7 @@ python scripts/modern_film.py --board out/dispatch/storyboard.json
 From the place stage's effective date, the scene's region stands behind the episode (MODERN_FILM.md,
 "The region stands behind every current film"). Author the episode with its background open. Draw
 the floor, the props and the room's own things, never a full-frame rect. List diagram and document
-views as `wall_views` in the episode's registry entry. Outdoors, wrap a subject standing on the
+views as `wall_views` in the episode's registry entry, and labelled comparisons as `wash_views`. Outdoors, wrap a subject standing on the
 ground in PlaceSubject with its base row. A story at a plant on the upper coast sets
 `place_plate: "gulf-shipchannel"` on its scenes; every other story takes its county's plate. Then
 measure that the region shows.
