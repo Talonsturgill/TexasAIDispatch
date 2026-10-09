@@ -69,6 +69,11 @@ jobs:
       - name: Isolated role routing preserves evidence and honest usage
         run: python3 scripts/agent_runtime_test.py
 
+      - name: Claude director and leaf model and effort bindings
+        run: |
+          python3 scripts/claude_contract_check.py --self-test
+          python3 scripts/claude_contract_check.py
+
       - name: Independent review survives host capacity without changing verdicts
         run: python3 scripts/independent_review_test.py
 

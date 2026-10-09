@@ -7,6 +7,12 @@ Remotion engine, the Texas art library it draws with, and the routine that ships
 
 ## Current worker routing
 
+For Claude routines, the owner's October 9th migration is governed by
+prompts/claude_routine.md and config/claude_runtime.json. The director is Sonnet and fresh original
+authored scenes replace the unavailable built-in ImageGen service only in the explicit new Claude
+lane. Read that entry point before applying the Codex routing below. All historical evidence,
+frozen charges and mandatory quality and shipment gates remain in force.
+
 Read AGENTS.md. Newly planned editions from October 10th, 2026 use
 knowledge/craft/AGENT_RUNTIME.md and config/agent_runtime.json for explicit isolated worker
 models and effort. Keep the saved director model and schedule. Historical production evidence
