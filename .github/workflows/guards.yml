@@ -493,17 +493,17 @@ jobs:
             [ -f "$scope" ] || continue
             python3 scripts/review_scope.py --out "$(dirname "$scope")" --verify
           done
-          python3 scripts/modern_film.py --board experiments/modern-film-2026-10-07/board-a.json
-          python3 scripts/story_art.py --board experiments/modern-film-2026-10-07/board-a.json verify
+          python3 scripts/modern_film.py --board experiments/modern-film-2026-10-07/board-ci-2026-10-09.json
+          python3 scripts/story_art.py --board experiments/modern-film-2026-10-07/board-ci-2026-10-09.json verify
           cd video-engine
           node tests/modern_film.mjs
           node tests/place_stage.mjs
-          npx remotion still Dispatch "$RUNNER_TEMP/modern-cold-shot.png" --props=../experiments/modern-film-2026-10-07/board-a.json --frame=210 --scale=.25
+          npx remotion still Dispatch "$RUNNER_TEMP/modern-cold-shot.png" --props=../experiments/modern-film-2026-10-07/board-ci-2026-10-09.json --frame=210 --scale=.25
           python3 tests/modern_art_pixels.py "$RUNNER_TEMP/modern-cold-shot.png" ../experiments/modern-film-2026-10-07/failed-cold-shot.png
           # The region has to SHOW. Every shot of the October 7th film is rendered on the stage with
           # its plate as solid magenta, and a shot the episode paints over fails by name.
           cd ..
-          python3 scripts/place_check.py --board experiments/modern-film-2026-10-07/board-a.json --opt-in --render --report "$RUNNER_TEMP/place_check.json"
+          python3 scripts/place_check.py --board experiments/modern-film-2026-10-07/board-ci-2026-10-09.json --opt-in --render --report "$RUNNER_TEMP/place_check.json"
 
       - name: The hat rules are called by something
         run: |

@@ -1,0 +1,20 @@
+{
+  "schema": "dispatch-ci-fixture-binding/1",
+  "baseline_file": "board-a.json",
+  "baseline_sha256": "510480480671b3643c2d44bb5544ee8e45ac190ab25b09e7ad4fa466e5628960",
+  "current_fixture_file": "board-ci-2026-10-09.json",
+  "current_fixture_sha256": "b1b5552d0bfd797813f423f9062897f5418910a0ea82d8cc6fb383a66c77249d",
+  "changed_bindings": [
+    {
+      "path": "video-engine/src/modern/registry.tsx",
+      "before_sha256": "3b38c00e53f85ac00fedd603ce162897109b67f639c2f392f5ab45bf8f7601a4",
+      "current_sha256": "c3eadc268ee1acf13f4361226dfcbd2d90dd8f9d0f4d851ea05ee99f47329b32"
+    },
+    {
+      "path": "config/modern_episode_registry.json",
+      "before_sha256": "566e3320f4a258614cd45a56f6f06833891ce3ec677f57dca617c43e98f45284",
+      "current_sha256": "2e7d9a591bd6982e081d5365b6e8c118f60ca16496fdca433af170213c8498a5"
+    }
+  ],
+  "scope": "Only registry input digests refreshed for a current CI rendering fixture. Original experiment and all shipped evidence unchanged. Existing episode definitions, scene content, artwork and every other input retained."
+}
