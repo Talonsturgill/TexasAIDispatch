@@ -37,7 +37,6 @@ window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) =>
   [[-10, -16], [12, -30]].forEach(([x, z], i) => { const p = K.make('pasture', { width: 30, depth: 26, height: 0.75, season: 'summer', seed: 60 + i }); p.position.set(x, 0, z); TXT.add(R, p); });
   TXT.scatter(R, { kind: 'grass', count: 3000, area: [-80, -180, 80, 30], seed: 32, scale: [0.6, 1.0], colors: [0x9a9466, 0x86844f, 0xa8a272] });
   for (let i = 0; i < 5; i++) { const f = K.make('barbed_wire_fence', { length: 20, seed: 70 + i }); f.position.set(-40 + i * 20, 0, -6); TXT.add(R, f); }
-  const city = K.make('city_skyline', { city: 'dallas', lowrise: true }); city.position.set(2600, 0, -15000); TXT.add(R, city);
 }});
 </script>
 </body>

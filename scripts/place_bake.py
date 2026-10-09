@@ -407,14 +407,19 @@ def docket_commit(docket: Path) -> str:
 
 
 def scene_spec(scene: Path) -> dict:
-    """The id and region out of a scene page's spec."""
+    """The id, region and county scope out of a scene page's spec. `counties` makes the plate those
+    counties' own; `also` lets a board choose it for those counties by name, and never by default."""
     text = scene.read_text(encoding="utf-8")
     spec = text[text.index("const spec"):] if "const spec" in text else text
     region = re.search(r"region:\s*'([a-z_]+)'", spec)
     pid = re.search(r"id:\s*'([a-z0-9-]+)'", spec)
     if not region or not pid:
         raise ValueError(f"{scene.name}: the spec has no id or region")
-    return {"id": pid.group(1), "region": region.group(1)}
+    lists = {}
+    for key in ("counties", "also"):
+        m = re.search(key + r":\s*\[([^\]]*)\]", spec.split("world:")[0])
+        lists[key] = re.findall(r"'([^']+)'", m.group(1)) if m else []
+    return {"id": pid.group(1), "region": region.group(1), **lists}
 
 
 def save_webp(rgba01: np.ndarray, path: Path, opaque: bool = False) -> Path:
@@ -476,7 +481,7 @@ def bake_one(scene: Path, docket: Path) -> dict:
     poster.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(np.clip(np.round(whole[..., :3] * 255), 0, 255).astype(np.uint8), "RGB").save(poster)
     return {
-        "id": spec["id"], "region": spec["region"],
+        "id": spec["id"], "region": spec["region"], "counties": spec["counties"], "also": spec["also"],
         "scene": scene.relative_to(REPO).as_posix(), "scene_sha256": sha256(scene),
         "camera": {k: (round(v, 6) if isinstance(v, float) else [round(x, 6) for x in v]) for k, v in cam.items()},
         "horizon_y": round(horizon_y, 2),
@@ -542,9 +547,31 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
     sys.path.insert(0, str(repo / "scripts"))
     import county_regions
     regions = set(county_regions.GOULD_TO_ENGINE.values())
-    have = {p.get("region") for p in plates.values()}
-    for missing in sorted(regions - have):
-        errors.append(f"region {missing} has no plate, so a story there would stand nowhere")
+    defaults = {}
+    for pid, p in plates.items():
+        if not p.get("counties") and not p.get("also"):
+            defaults.setdefault(p.get("region"), []).append(pid)
+    for region in sorted(regions):
+        if len(defaults.get(region, [])) != 1:
+            errors.append(f"region {region} needs exactly one plate of its own with no county scope, has "
+                          f"{defaults.get(region, [])}: a story in any of its counties stands in it")
+    table = json.loads((repo / "config" / "county_regions.json").read_text(encoding="utf-8")) if check_files else None
+    owned: dict[tuple[str, str], str] = {}
+    for pid, p in plates.items():
+        for key in ("counties", "also"):
+            for county in p.get(key) or []:
+                if table is not None:
+                    name, entry = county_regions.find(table, county)
+                    if entry is None:
+                        errors.append(f"plate {pid}: {county!r} is not a Texas county")
+                        continue
+                    if p.get("region") not in county_regions.allowed(entry):
+                        errors.append(f"plate {pid}: {name} County is not in {p.get('region')}, so its {key} can't list it")
+                if key == "counties":
+                    k = (p.get("region"), county.lower())
+                    if k in owned:
+                        errors.append(f"{county} County has two plates of its own in {p.get('region')}: {owned[k]} and {pid}")
+                    owned[k] = pid
     for pid, p in plates.items():
         where = f"plate {pid}"
         if p.get("region") not in regions:
@@ -694,6 +721,9 @@ def self_test() -> int:
             "limits": {"dolly_m": 1.0, "truck_m": 0.3, "rise_m": 0.3},
             "checks": {"reassembly_mean": 0.5, "reassembly_p999": 20.0, "page_errors": 0,
                        "profiles_worst": {"cover": 0.0, "slide_px": 1.0, "scale": 1.1}}}
+    for k, (region, counties, also) in enumerate([("gulf", ["Harris"], []), ("gulf", [], ["Harris", "Galveston"])]):
+        good_doc["plates"][f"c{k}"] = dict(json.loads(json.dumps(good_doc["plates"]["p0"])), region=region,
+                                           counties=counties, also=also)
     check(verify(good_doc, check_files=False) == [], f"a good manifest failed: {verify(good_doc, check_files=False)}")
     for mutate, why in [
         (lambda m: m["plates"].pop("p0"), "a region with no plate"),
@@ -705,6 +735,8 @@ def self_test() -> int:
         (lambda m: m["moves"].update(share=0.9), "moves the bake did not check"),
         (lambda m: m["policy"].update(effective_date="2026-01-01"), "a policy the bake did not write"),
         (lambda m: m["plates"]["p6"]["cards"][0].update(x=1240), "a card off the plate"),
+        (lambda m: m["plates"]["c0"].update(counties=[]), "a region with two plates of its own"),
+        (lambda m: m["plates"].__setitem__("c2", dict(m["plates"]["c0"])), "a county with two plates of its own"),
     ]:
         bad_doc = json.loads(json.dumps(good_doc))
         mutate(bad_doc)

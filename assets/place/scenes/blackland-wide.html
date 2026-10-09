@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- blackland-wide: the Blackland Prairie, as REGIONS.md describes it. Open, humid, softer than the plains; summer light gone milky by afternoon. Black cracking clay, almost all farmed now; pecans along the creek; the I-35 corridor; Austin's skyline and the Capitol on the horizon. -->
+<!-- blackland-wide: the Blackland Prairie, as REGIONS.md describes it. Open, humid, softer than the plains; summer light gone milky by afternoon. Black cracking clay, almost all farmed now; pecans along the creek; the I-35 corridor; a farm town's water tower and gin on the horizon. No city: Dallas, Austin and San Antonio are their counties' own plates. -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -36,8 +36,8 @@ window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) =>
     const h = K.make('highway', { length: 80, lanes: 3, gantry: false, seed: i }); h.rotation.y = Math.PI / 2; h.position.set(i * 80, 0, -620); TXT.add(R, h);
   }
   [[-120, -612, 0], [260, -628, Math.PI]].forEach(([x, z, ry], i) => { const s = K.make('semi_truck', { seed: 4 + i, color: [0xb8b8b4, 0x7a2a22][i] }); s.rotation.y = Math.PI / 2 + ry; s.position.set(x, 0.2, z); TXT.add(R, s); });
-  const city = K.make('city_skyline', { city: 'austin', lowrise: true }); city.position.set(380, 0, -5200); TXT.add(R, city);
-  const cap = K.make('capitol'); cap.position.set(-160, 0, -4300); TXT.add(R, cap);
+  const tower = K.make('water_tower', { name: '', star: false, seed: 3 }); tower.position.set(420, 0, -2600); TXT.add(R, tower);
+  const gin = K.make('grain_elevator', { seed: 6 }); gin.position.set(-520, 0, -3100); TXT.add(R, gin);
 }});
 </script>
 </body>

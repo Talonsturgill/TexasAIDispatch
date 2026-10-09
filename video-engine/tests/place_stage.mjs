@@ -39,7 +39,13 @@ try{
   plate.cards.forEach((c,i)=>close(api.cardMatrix(plate.camera,c.depth_m,r.move),r.cards[i],`${r.plate} ${r.profile} card ${i}`));
  }
  // and a profile's move at its ends is the share of the limit the bake checked
- const plate=api.plateFor('gulf');
+ const plate=api.plateFor({region:'gulf'});
+ assert.equal(api.plateFor({region:'gulf',county:'Harris County'}).id,'gulf-houston','Harris did not stand in Houston');
+ assert.equal(api.plateFor({region:'gulf',county:'Matagorda'}).id,'gulf-wide','Matagorda did not get the region');
+ assert.equal(api.plateFor({region:'gulf',county:'Harris',place_plate:'gulf-shipchannel'}).id,'gulf-shipchannel');
+ assert.throws(()=>api.plateFor({region:'gulf',county:'Cameron',place_plate:'gulf-shipchannel'}),/not for Cameron/);
+ for(const p of Object.values(manifest.plates))if(!p.counties?.length&&!p.also?.length)
+  assert.equal(api.plateFor({region:p.region,county:'Nowhere'}).id,p.id,'a region did not fall back to its own plate');
  for(const [name,prof] of Object.entries(manifest.moves.profiles)){
   for(const [u,end] of [[0,0],[1,1]]){
    const m=api.placeMove(plate,name,u);
@@ -60,7 +66,7 @@ try{
  assert.equal(api.placeActive({date:'2026-10-08'}),false,'an October 8th film was put on the stage');
  assert.equal(api.placeActive({date:manifest.policy.effective_date}),true);
  assert.equal(api.placeActive({date:'2026-10-08',place:{version:manifest.policy.version}}),true,'the opt-in was ignored');
- assert.throws(()=>api.plateFor('nowhere'),/No place plate/);
+ assert.throws(()=>api.plateFor({region:'nowhere'}),/No place plate/);
  const board=JSON.parse(fs.readFileSync(path.join(repo,'experiments/modern-film-2026-10-07/board-a.json'),'utf8'));
  const scene={...board.scenes[0],region:'gulf'};
  const shot={...board.film_direction.shots[0]};
@@ -74,6 +80,8 @@ try{
  assert.ok(inside.indexOf('data-place-plate')<inside.indexOf('id="episode"'),'the stage drew over the episode');
  const outside=draw(on,{...scene,interior:false,camera_strategy:'truckAcross'},{...shot,framing:'wide'});
  assert.ok(outside.includes('data-place-mode="exterior"')&&outside.includes('matrix3d('),'an exterior was not moved by its matrices');
+ const wash=draw(on,{...scene,interior:true},{...shot,framing:'detail'});
+ assert.ok(wash.includes('data-place-wash')&&!wash.includes('data-place-window'),'a detail shot drew a window frame');
  const down=draw(on,{...scene,interior:true},{...shot,framing:'overhead'});
  assert.ok(down.includes('data-place-mode="overhead"')&&!down.includes('data-place-layer'),'an overhead shot drew a horizon');
  const flyBoard={...on,film_direction:{...on.film_direction,episode:'fly-gene-test-v2'}};

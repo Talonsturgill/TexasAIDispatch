@@ -107,15 +107,27 @@ standing on it. The bake measured that the layers reassemble into the picture an
 camera profile keeps the ground covering the frame and every base on its ground. The manifest
 records those measurements, the Docket commit and every layer's sha256.
 
+- **The plate is the county's when it has one, and the region's when it doesn't.** A region's own
+  plate carries nothing that belongs to one place, no skyline and no refinery, because a Texan is
+  not told they live somewhere they don't. Harris County stands in Houston across Buffalo Bayou,
+  Dallas County over the Trinity floodplain, Travis County across Lady Bird Lake and Bexar County
+  over the river south of downtown. A story at a plant on the upper coast names
+  `place_plate: "gulf-shipchannel"` on its scenes for the refineries, which a board may do only for
+  a county that plate lists. The fly gene film's labs are in the Medical Center, and a blind grade
+  of its frames on October 9th marked the refinery view as the wrong place within the right county.
 - **Outdoors** the plate fills the frame and the camera moves through it on the scene's
   `camera_strategy`, within a share of the plate's measured limits. The ground moves by the exact
   perspective transform, so it never tears. Wrap a subject that stands on the ground in
   `<PlaceSubject baseY={...}>` with the frame row its base touches, and it rides with its ground.
   Keep type and overlays outside it.
-- **Indoors** the region is outside a window in the back wall. It starts below the title band,
-  it is held still and it is bright and soft, the way a camera exposed for the room sees a
-  window. The episode draws its own floor and props in front of it, as before.
-- **Overhead** there is no horizon to show, and the stage lays the floor or the ground's tone.
+- **Indoors, wide and medium**, the region is outside a window in the back wall. It starts below
+  the title band, it is held still and it is bright and soft, the way a camera exposed for the room
+  sees a window, behind a light frame. The episode draws its own floor and props in front of it.
+- **Indoors, close and detail**, there is no window, only its light: the region is a soft wash
+  behind the subject, because a lens that close is focused on the subject and a window pane behind
+  a fly makes the fly as tall as the pane.
+- **Overhead**, and any view the episode lists in `wall_views` (a diagram or a document, which is
+  not in a room), keep plain wall. No more than 40 percent of a film's shots may be wall views.
 
 **An episode never paints a full-frame background.** That one rect hides the whole region, and
 the film looks exactly as it did when place was the weakest axis. Paint the floor, the props and

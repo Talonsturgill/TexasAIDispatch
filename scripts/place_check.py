@@ -35,6 +35,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -76,10 +77,41 @@ def active(board: dict, policy: dict) -> bool:
     return len(date) >= 10 and date[:4].isdigit() and date >= policy["effective_date"]
 
 
+def county_name(c) -> str:
+    return re.sub(r"\s+county$", "", str(c or "").strip(), flags=re.I).lower()
+
+
+def plate_for(scene: dict, manifest: dict) -> tuple[str | None, str | None]:
+    """PlaceStage.plateFor, the same rule: a named place_plate if the plate lists the county, else the
+    county's own plate, else the region's. Returns the plate id, or None and the reason."""
+    plates = manifest["plates"]
+    region, county = scene.get("region"), county_name(scene.get("county"))
+    in_region = sorted((p for p in plates.values() if p["region"] == region), key=lambda p: p["id"])
+    if not in_region:
+        return None, f"no place plate for region {region!r}; bake one with scripts/place_bake.py"
+    named = scene.get("place_plate")
+    if named:
+        p = plates.get(named)
+        if not p or p["region"] != region:
+            return None, f"place_plate {named!r} is not a {region} plate"
+        scope = [county_name(c) for c in (p.get("counties") or []) + (p.get("also") or [])]
+        if scope and county not in scope:
+            return None, f"place_plate {named!r} is not for {scene.get('county')} County"
+        return named, None
+    own = next((p for p in in_region if county in [county_name(c) for c in p.get("counties") or []]), None)
+    base = next((p for p in in_region if not p.get("counties") and not p.get("also")), None)
+    if not (own or base):
+        return None, f"region {region} has no plate of its own"
+    return (own or base)["id"], None
+
+
 def static_problems(board: dict, manifest: dict) -> list[str]:
-    regions = {p["region"] for p in manifest["plates"].values()}
-    return [f"scene {s.get('id')}: no place plate for region {s.get('region')!r}; bake one with scripts/place_bake.py"
-            for s in board.get("scenes", []) if s.get("region") not in regions]
+    out = []
+    for s in board.get("scenes", []):
+        pid, why = plate_for(s, manifest)
+        if pid is None:
+            out.append(f"scene {s.get('id')}: {why}")
+    return out
 
 
 def wall_views(board: dict, registry: dict) -> set[str]:
@@ -199,9 +231,18 @@ def self_test() -> int:
     ok(active({"date": "2026-10-10"}, policy), "a film dated on the effective date was left off the stage")
     ok(active({"date": "2026-10-08", "place": {"version": "place-plates-v2"}}, policy), "an opt-in was ignored")
     ok(not active({"date": "draft"}, policy), "an undated board was put on the stage")
-    man = {"plates": {"g": {"region": "gulf"}}}
+    man = {"plates": {"gulf-wide": {"id": "gulf-wide", "region": "gulf"},
+                      "gulf-houston": {"id": "gulf-houston", "region": "gulf", "counties": ["Harris"]},
+                      "gulf-shipchannel": {"id": "gulf-shipchannel", "region": "gulf", "also": ["Harris", "Galveston"]}}}
     ok(not static_problems({"scenes": [{"id": "s1", "region": "gulf"}]}, man), "a baked region failed")
     ok(static_problems({"scenes": [{"id": "s1", "region": "trans_pecos"}]}, man), "an unbaked region passed")
+    ok(plate_for({"region": "gulf", "county": "Harris County"}, man)[0] == "gulf-houston", "Harris did not get its own plate")
+    ok(plate_for({"region": "gulf", "county": "Matagorda"}, man)[0] == "gulf-wide", "Matagorda did not get the region's")
+    ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "gulf-shipchannel"}, man)[0] == "gulf-shipchannel",
+       "a ship channel story in Harris could not name the refineries")
+    ok(plate_for({"region": "gulf", "county": "Cameron", "place_plate": "gulf-shipchannel"}, man)[0] is None,
+       "Cameron County was given the ship channel")
+    ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "nope"}, man)[0] is None, "an unknown plate passed")
     frame = np.zeros((100, 100, 3), dtype=np.uint8)
     frame[:30, :] = [255, 0, 255]
     ok(abs(probe_share(frame) - 0.3) < 1e-9, "probe share miscounted")

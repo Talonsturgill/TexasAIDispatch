@@ -1,10 +1,11 @@
 <!doctype html>
-<!-- gulf-wide: the Gulf Prairies and Marshes from a bayou bank on the upper coast,
+<!-- gulf-shipchannel: the Gulf Prairies and Marshes from a bayou bank on the Houston Ship Channel,
      as REGIONS.md describes them. Humid, high glare, a sky gone white toward the horizon, and salt
      haze softening everything past the middle distance. Flat, wet, dark ground; still water carrying
-     the white sky; cordgrass on both banks; a live oak leaned hard by the onshore wind; a levee line of
-     poles and oaks on the far side. Palms are planted, not native, so there are none. Nothing here
-     belongs to one county: the refineries are gulf-shipchannel, and Houston is gulf-houston. -->
+     the white sky; cordgrass on both banks; a live oak leaned hard by the onshore wind; the refinery
+     on the far side, its columns, spheres, tank farm and flare. Palms are planted, not native, so
+     there are none. The refineries make this the industrial coast, so it is no county's default: a
+     board picks it with place_plate for a story at a plant on the upper coast. -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -20,7 +21,8 @@ import { initKit } from '@@ASSETS@@/js/txkit.js';
 import { bake } from '@@PLACE@@/plate.js';
 
 const spec = {
-  id: 'gulf-wide', region: 'gulf', seed: 41,
+  id: 'gulf-shipchannel', region: 'gulf', seed: 41,
+  also: ['Harris', 'Galveston', 'Jefferson', 'Brazoria', 'Chambers', 'Nueces'],
   world: { base: 'highNoon', overrides: {
     zenith: 0x7f9dbd, horizon: 0xe4e8e6, haze: 0xe9ece8, ground: 0x4c534b,
     fogDensity: 0.0008, clouds: 0.42, sunDisc: 16, glow: 1.2, horizonGlow: 0.5, exposure: 0.92 } },
@@ -82,11 +84,11 @@ window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) =>
     const pole = K.make('utility_pole', { seed: 20 + i, height: 12 });
     pole.position.set(i * 70, 0, -760); TXT.add(R, pole);
   }
-  /* a coastal treeline far behind the levee, live oak and hackberry in the haze */
-  for (let i = 0; i < 26; i++) {
-    const oak = K.make('live_oak', { height: 9 + (i % 4) * 1.5, spread: 12 + (i % 5) * 2, seed: 140 + i });
-    oak.rotation.z = 0.12; oak.position.set(-900 + i * 72 + (i % 3) * 17, 0, -1250 - (i % 4) * 40); TXT.add(R, oak);
-  }
+  /* the refinery across the channel, and a second block behind it in the haze */
+  const ref = P.shapes.refinery({ seed: 4, width: 420, depth: 300, tanks: 18, columns: 16, fat: 1.8 });
+  ref.position.set(90, 0, -980); TXT.add(R, ref);
+  const ref2 = P.shapes.refinery({ seed: 9, width: 520, depth: 360, tanks: 12, columns: 9, flare: false });
+  ref2.position.set(-480, 0, -1700); TXT.add(R, ref2);
 }});
 </script>
 </body>

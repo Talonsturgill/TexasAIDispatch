@@ -216,6 +216,11 @@ its light, its ground, its vegetation and its built forms, and `scripts/place_ba
 once into the layers `modern/PlaceStage.tsx` moves. A plate is this file made visible, so a
 correction here is a correction to that page and a re-bake, never a tint applied in the film.
 
+A region's own plate shows only what is true across the region. What belongs to one place, a
+city's skyline or a refinery row, lives on a county's plate (`counties` in its spec), so a Dallas
+County story stands under Dallas and a Collin County story under the open Blackland, never under
+Austin. A plate a board may choose but no county gets by default lists its counties as `also`.
+
 ## Sources
 
 - [TPWD, Gould Ecoregions of Texas](https://tpwd.texas.gov/gis/maps/images/gould-ecoregions-of-texas/view)

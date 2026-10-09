@@ -52,6 +52,8 @@ export const CountyLocator:React.FC<{county:string;time_s:number;ink:string;pape
   <rect x={CARD.x+5} y={CARD.y+7} width={CARD.w} height={CARD.h} rx={12} fill={ink} opacity={.16}/>
   <rect x={CARD.x} y={CARD.y} width={CARD.w} height={CARD.h} rx={12} fill={paper} stroke={ink} strokeWidth={3}/>
   <g transform={`translate(${ox} ${oy}) scale(${k})`}>
+   {/* the whole state, faint, from the first frame, so a still caught mid-draw is a map being marked */}
+   <path d={MAP.outline} fill="none" stroke={ink} strokeWidth={2.2/k} strokeLinejoin="round" opacity={.16}/>
    <path d={c.d} fill={accent} opacity={fill}/>
    {MAP.islands&&<path d={MAP.islands} fill="none" stroke={ink} strokeWidth={1.4/k} opacity={border}/>}
    <path d={MAP.outline} fill="none" stroke={ink} strokeWidth={2.6/k} strokeLinejoin="round"

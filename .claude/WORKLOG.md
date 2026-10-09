@@ -30,8 +30,10 @@ October 8th run's archive) merge first, so its closing step never meets the new 
 | 4 | Gate `scripts/place_check.py --render` (magenta probe per shot), preship row, CI on board-a `--opt-in`; parity test `video-engine/tests/place_stage.mjs` | DONE locally; PLACE_MIN_SHARE comment needs the measured minimum |
 | 5 | County locator `modern/CountyLocator.tsx` + `scripts/county_map.py` (LCC, fresh-build check); timing 2.5/1.0/0.7 s; no words | DONE locally |
 | 6 | Real stills: `scripts/place_photos.py` (LoC Lyda Hill Texas Collection, advisory on record, `--fetch` writes provenance); 01-research.md and DAILY_PRODUCTION.md | DONE locally |
-| 7 | Proof: render Oct 7 and Oct 8 films as shipped and on the stage, blind-grade the place question | TODO after bake |
-| 8 | Finalize manifest (policy), re-hash board-a/board-b renderer_inputs, full local CI (`out/tools/ci_local.py`), commit, PR ready, CI green, merge | TODO |
+| 7 | Proof round 1: renders + blind grade. Place 2.0 to 3.6, legibility 7.6 to 6.0, preferred 5 to 3. Grader: refinery view wrong for a Medical Center story; window behind macro subjects; dark mullions cross thin lines; locator half-drawn in stills | DONE |
+| 7b | Fixes: county-scoped plates (gulf-houston Harris, blackland-dallas, -austin Travis, -san-antonio Bexar; gulf-shipchannel by place_plate only), region plates stripped of skylines and refineries; close/detail interiors are a soft wash; light window frame; ghost locator outline; wall_views; plate selection in stage and gate | code DONE; bake-2 of 8 plates queued after bake-1 (trans-pecos) |
+| 8 | Proof round 2: re-render both films, fresh blind grade, README + compare.webp | TODO after bake-2 |
+| 9 | Finalize manifest (policy), rehash fixtures (`out/tools/rehash.py`), place_stage.mjs, local CI (`out/tools/ci_local.py`), commit plates, merge origin/main, push, ready PR, CI green, merge, delete this file | TODO |
 
 ## Files
 

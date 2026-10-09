@@ -1581,3 +1581,20 @@ every unit test said the region was there.
 region replaced by solid magenta and counts the magenta left in the finished frame. A shot under
 its minimum fails by name. It measures what reaches a viewer rather than what the code intends,
 which is the only version of this check that a future episode can't satisfy by accident.
+
+## The right region, the wrong place
+
+Same day. The first plates were one per Gould region, and two of them carried a city: the Blackland
+plate had Austin's skyline and the Gulf plate had the Houston Ship Channel's refineries. Every gate
+passed, because every gate asked whether a scene's region was allowed for its county, and it was.
+A blind grade of the October 8th film on the stage said what none of them could. The researchers
+were at Texas Children's and Baylor, which a Houstonian places in the Medical Center, not beside a
+flare stack. The Blackland plate would have put Austin behind every Dallas story the same way.
+
+**A region is a fact about land. A skyline is a fact about a county.** The plate carried the second
+kind under the first kind's name, and the check measured only the first.
+
+**What to check instead.** A region's own plate now carries nothing that belongs to one place, a
+county's own plate carries its city, and a board names an industrial plate only for a county the
+plate lists. `place_bake.py` refuses a county listed on a plate whose region the county is not in,
+and `place_check.py` and the stage resolve a scene's plate by the same rule.

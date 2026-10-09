@@ -35,8 +35,8 @@ type V3=[number,number,number];
 export type PlaceCamera={position:V3;right:V3;up:V3;forward:V3;fov:number;fpx:number;cx:number;cy:number};
 type Layer={file:string;sha256:string;bytes:number};
 type Card=Layer&{x:number;y:number;w:number;h:number;depth_m:number};
-export type Plate={id:string;region:string;camera:PlaceCamera;horizon_y:number;sky:Layer;ground:Layer;cards:Card[];
- sky_rgb:number[];ground_rgb:number[];limits:{dolly_m:number;truck_m:number;rise_m:number}};
+export type Plate={id:string;region:string;counties?:string[];also?:string[];camera:PlaceCamera;horizon_y:number;
+ sky:Layer;ground:Layer;cards:Card[];sky_rgb:number[];ground_rgb:number[];limits:{dolly_m:number;truck_m:number;rise_m:number}};
 export type PlaceMove={dolly:number;truck:number;rise:number};
 type Profile=Partial<Record<'dolly'|'truck'|'rise',[number,number]>>;
 type Manifest={policy:{version:string;effective_date:string};moves:{share:number;profiles:Record<string,Profile>};
@@ -56,10 +56,28 @@ export function placeActive(board:PlaceBoard):boolean{
  const date=board.date??'';
  return /^\d{4}-\d{2}-\d{2}/.test(date)&&date>=PLACE_EFFECTIVE_DATE;
 }
-export function plateFor(region:string):Plate{
- const found=Object.values(M.plates).filter(p=>p.region===region).sort((a,b)=>a.id.localeCompare(b.id));
- if(!found.length)throw new Error('No place plate for region '+region+'; bake one with scripts/place_bake.py');
- return found[0];
+/** WHICH PLATE. A region's own plate carries nothing that belongs to one place, since a Texan is not
+ * told they live somewhere they don't: no city skyline, no refinery. A county with its own plate, as
+ * Harris has Houston across Buffalo Bayou, stands in that one. A board may name a plate as
+ * `place_plate` only for a county the plate lists, which is how a story at a ship channel plant gets
+ * the refineries and a story at the Medical Center doesn't. place_check.py resolves the same way. */
+export type PlaceScene={region:string;county?:string;place_plate?:string};
+const countyName=(c?:string)=>(c??'').trim().replace(/\s+county$/i,'').toLowerCase();
+export function plateFor(scene:PlaceScene):Plate{
+ const inRegion=Object.values(M.plates).filter(p=>p.region===scene.region).sort((a,b)=>a.id.localeCompare(b.id));
+ if(!inRegion.length)throw new Error('No place plate for region '+scene.region+'; bake one with scripts/place_bake.py');
+ const county=countyName(scene.county);
+ if(scene.place_plate){
+  const p=M.plates[scene.place_plate];
+  if(!p||p.region!==scene.region)throw new Error('Place plate '+scene.place_plate+' is not a '+scene.region+' plate');
+  const scope=[...(p.counties??[]),...(p.also??[])].map(countyName);
+  if(scope.length&&!scope.includes(county))throw new Error('Place plate '+p.id+' is not for '+scene.county+' County');
+  return p;
+ }
+ const own=inRegion.find(p=>(p.counties??[]).map(countyName).includes(county));
+ const base=inRegion.find(p=>!p.counties?.length&&!p.also?.length);
+ if(!own&&!base)throw new Error('Region '+scene.region+' has no plate of its own');
+ return (own??base)!;
 }
 
 // ---- the camera, place_bake.py's arithmetic ------------------------------------------------------
@@ -132,6 +150,11 @@ const HORIZON_IN_WINDOW=.55;   // eye height in a window from sill to head
  * set plain red and teal text from y 400 to 1245, and over the marsh at full contrast the red read
  * poorly. The skyline still reads as a skyline. */
 const WINDOW_GRADE='brightness(1.16) contrast(.64) saturate(.88)',WINDOW_HAZE=.3;
+/* A CLOSE OR DETAIL SHOT HAS NO WINDOW, only its light. A blind grade on October 9th found a fly
+ * standing as tall as a window pane and a mullion running through a glass vial: a lens that close is
+ * focused on the subject, and the room behind it is out of focus colour. So nearer framings lay the
+ * region as a soft wash, with no frame to cross anything. */
+const BOKEH_BLUR:Partial<Record<Framing,number>>={close:18,detail:26},BOKEH_HAZE=.34,BOKEH_ZOOM=1.2;
 
 /** A VIEW ON THE WALL. A diagram or a document is not in a room, and a skyline behind thin lines and
  * small labels only makes them harder to read: the October 8th film's candidate diagrams were. An
@@ -168,7 +191,7 @@ export const PlaceStage:React.FC<{board:DispatchProps;scene:Scene;shot:FilmShot;
  const art=useArtDirection();
  const b=board as DispatchProps&PlaceBoard;
  if(!placeActive(b))return <>{children}</>;
- const plate=plateFor(scene.region);
+ const plate=plateFor(scene as Scene&PlaceScene);
  const framing=shot.framing;
  const mode=framing==='overhead'?'overhead':wallView(b,shot.view)?'wall':scene.interior?'interior':'exterior';
  const probe=b.__placeProbe===true;
@@ -184,6 +207,14 @@ export const PlaceStage:React.FC<{board:DispatchProps;scene:Scene;shot:FilmShot;
   const frame=(d:number|'ground'|'sky')=>mul(toFrame,mul(Z,d==='sky'?translate(0,0):d==='ground'?groundHomography(cam,move):cardMatrix(cam,d,move)));
   world=<div style={{position:'absolute',inset:0,filter:DEFOCUS[framing]?`blur(${DEFOCUS[framing]}px)`:undefined}}>
    <Layers plate={plate} frame={frame} probe={probe}/>
+  </div>;
+ }else if(mode==='interior'&&BOKEH_BLUR[framing]){
+  const paper=wall?.paper??rgb(plate.sky_rgb),F=mul(translate(-OX,-OY),scaleAbout(BOKEH_ZOOM,cam.cx,cam.cy));
+  world=<div data-place-wash style={{position:'absolute',inset:0}}>
+   <div style={{position:'absolute',inset:0,filter:probe?undefined:`blur(${BOKEH_BLUR[framing]}px) ${WINDOW_GRADE}`}}>
+    <Layers plate={plate} frame={()=>F} probe={probe}/>
+   </div>
+   {!probe&&<div style={{position:'absolute',inset:0,background:paper,opacity:BOKEH_HAZE}}/>}
   </div>;
  }else if(mode==='interior'){
   const W=WINDOW[framing],pad=2*W.blur+4;
@@ -218,9 +249,10 @@ export const PlaceStage:React.FC<{board:DispatchProps;scene:Scene;shot:FilmShot;
      d={`M0 0H${FW}V${FH}H0Z M${W.x} ${W.y}V${W.y+W.h}H${W.x+W.w}V${W.y}Z`}/>)}
     {!probe&&<rect x={W.x} y={W.y} width={W.w} height={W.h} fill={paper} opacity={WINDOW_HAZE}/>}
     {!probe&&<rect x={W.x} y={W.y} width={W.w} height={W.h} fill="url(#place-glass)"/>}
-    <g stroke={ink} strokeOpacity={.88} fill="none">
-     <rect x={W.x} y={W.y} width={W.w} height={W.h} strokeWidth={14}/>
-     {mx.map((x,i)=><path key={i} d={`M${W.x+x} ${W.y}V${W.y+W.h}`} strokeWidth={8}/>)}
+    {/* a light frame: a dark one crossed every thin line and glass edge in front of it */}
+    <g stroke={ink} fill="none">
+     <rect x={W.x} y={W.y} width={W.w} height={W.h} strokeWidth={12} strokeOpacity={.42}/>
+     {mx.map((x,i)=><path key={i} d={`M${W.x+x} ${W.y}V${W.y+W.h}`} strokeWidth={6} strokeOpacity={.3}/>)}
     </g>
     <rect x={W.x-26} y={W.y+W.h+6} width={W.w+52} height={20} rx={3} fill={paper} stroke={ink} strokeOpacity={.5} strokeWidth={3}/>
    </svg>
