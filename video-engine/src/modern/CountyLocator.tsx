@@ -24,9 +24,14 @@ const DRAW=Easing.bezier(.645,.045,.355,1);
 type CountyMap={width:number;height:number;outline:string;islands:string;counties:Record<string,{fips:string;d:string;label:[number,number]}>};
 const MAP=map as unknown as CountyMap;
 
+/** A county as the shipping gate compares it (county_regions.normalise): no trailing County in any case,
+ * no spaces, dots or apostrophes, lower case. So a county the gate accepts is always on this map. Case
+ * alone was not enough: the gate read "De Witt" as DeWitt, and this threw mid-render (Codex, PR 117). */
+export const countyName=(c?:string)=>(c??'').trim().replace(/\s+county$/i,'').toLowerCase().replace(/[ .']/g,'');
+
 export function countyKey(county:string):string{
- const want=county.trim().replace(/\s+county$/i,'').toLowerCase();
- const key=Object.keys(MAP.counties).find(k=>k.toLowerCase()===want);
+ const want=countyName(county);
+ const key=Object.keys(MAP.counties).find(k=>countyName(k)===want);
  if(!key)throw new Error('County '+county+' is not on the Texas county map');
  return key;
 }

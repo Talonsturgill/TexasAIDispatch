@@ -1648,4 +1648,7 @@ verifier could only ask whether the table agreed with itself, and a careful hand
 file, refuses it unless its sha256 is the one the table records, rebuilds all 254 counties from it
 in about five seconds and fails every county whose shares, region, FIPS or unclassified share
 differ, by name (`county_regions.py --check`). The same review found the incremental bake writing
-one engine record over plates it never drew, so each plate now names its own.
+one engine record over plates it never drew, so each plate now names its own. Its second pass found
+four copies of the county-name rule. The gate ignored spaces and the locator didn't, so a board the
+gate passed as "De Witt" stopped the render. The locator, the stage and place_check now share the
+gate's rule, and a test feeds every county, spelled five ways, through the gate and the locator both.

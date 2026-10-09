@@ -98,6 +98,15 @@ try{
  assert.equal(api.countyKey('Harris County'),'Harris');
  assert.equal(api.countyKey(' harris '),'Harris');
  assert.throws(()=>api.countyKey('Tayler'),/not on the Texas county map/);
+ // every county the shipping gate accepts, spelled every way it accepts it, is on the map under the
+ // name the gate reads it as (Codex on PR 117: the gate read "De Witt" as DeWitt and the locator threw)
+ const keys=Object.keys(JSON.parse(fs.readFileSync(path.join(engine,'src/modern/texasCounties.json'),'utf8')).counties);
+ const spellings=keys.flatMap(k=>[k,k.toUpperCase()+' COUNTY',k.toLowerCase()+' county',k.replace(/ /g,''),k.replace(/([a-z])([A-Z])/g,'$1 $2')]);
+ const gate=JSON.parse(execFileSync('python3',['-c',"import json,sys; sys.path.insert(0,'scripts'); import county_regions as c; "+
+  "t=json.load(open('config/county_regions.json')); print(json.dumps([c.find(t,s)[0] for s in json.load(sys.stdin)]))"],
+  {cwd:repo,input:JSON.stringify(spellings),encoding:'utf8'}));
+ spellings.forEach((s,i)=>{assert.ok(gate[i],`the gate refused ${s}`);assert.equal(api.countyKey(s),gate[i],`the gate reads ${s} as ${gate[i]}`);});
+ assert.equal(api.countyKey('De Witt'),'DeWitt');
  const loc=(t)=>renderToStaticMarkup(React.createElement(api.CountyLocator,{county:'Harris',time_s:t,ink:'#000',paper:'#fff',accent:'#c00'}));
  assert.equal(loc(api.LOCATOR_START_S-.01),'','the locator showed before its start');
  assert.equal(loc(api.LOCATOR_END_S),'','the locator stayed past its end');

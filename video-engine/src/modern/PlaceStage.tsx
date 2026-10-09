@@ -2,7 +2,7 @@ import React,{createContext,useContext} from 'react';
 import {Img,staticFile} from 'remotion';
 import type {DispatchProps,Scene} from '../Dispatch';
 import {useArtDirection} from '../lib/artDirection';
-import {CountyLocator} from './CountyLocator';
+import {CountyLocator,countyName} from './CountyLocator';
 import manifest from './placePlates.json';
 import registry from '../../../config/modern_episode_registry.json';
 import type {FilmShot} from './types';
@@ -62,7 +62,6 @@ export function placeActive(board:PlaceBoard):boolean{
  * `place_plate` only for a county the plate lists, which is how a story at a ship channel plant gets
  * the refineries and a story at the Medical Center doesn't. place_check.py resolves the same way. */
 export type PlaceScene={region:string;county?:string;place_plate?:string};
-const countyName=(c?:string)=>(c??'').trim().replace(/\s+county$/i,'').toLowerCase();
 export function plateFor(scene:PlaceScene):Plate{
  const inRegion=Object.values(M.plates).filter(p=>p.region===scene.region).sort((a,b)=>a.id.localeCompare(b.id));
  if(!inRegion.length)throw new Error('No place plate for region '+scene.region+'; bake one with scripts/place_bake.py');

@@ -35,7 +35,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import re
 import subprocess
 import sys
 import tempfile
@@ -43,6 +42,9 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import county_regions  # noqa: E402  (the shipping gate's county rule; same folder)
 
 REPO = Path(__file__).resolve().parents[1]
 ENGINE = REPO / "video-engine"
@@ -78,7 +80,8 @@ def active(board: dict, policy: dict) -> bool:
 
 
 def county_name(c) -> str:
-    return re.sub(r"\s+county$", "", str(c or "").strip(), flags=re.I).lower()
+    """PlaceStage's countyName, which is the shipping gate's rule: county_regions.normalise."""
+    return county_regions.normalise(c or "")
 
 
 def plate_for(scene: dict, manifest: dict) -> tuple[str | None, str | None]:
@@ -242,6 +245,8 @@ def self_test() -> int:
     ok(static_problems({"scenes": [{"id": "s1", "region": "trans_pecos"}]}, man), "an unbaked region passed")
     ok(plate_for({"region": "gulf", "county": "Harris County"}, man)[0] == "gulf-houston", "Harris did not get its own plate")
     ok(plate_for({"region": "gulf", "county": "Matagorda"}, man)[0] == "gulf-wide", "Matagorda did not get the region's")
+    ok(county_name("De Witt") == county_name("DeWitt County") == county_regions.normalise("DEWITT"),
+       "a county the shipping gate accepts was read another way here")
     ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "gulf-shipchannel"}, man)[0] == "gulf-shipchannel",
        "a ship channel story in Harris could not name the refineries")
     ok(plate_for({"region": "gulf", "county": "Cameron", "place_plate": "gulf-shipchannel"}, man)[0] is None,
