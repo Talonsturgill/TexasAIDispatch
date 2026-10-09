@@ -154,6 +154,11 @@ Corollaries that are hard rules:
   balanced. A windmill fan is a full disc but the tail vane swings.
 - **Maintained but worn.** A rust drip, a dent, a leaning post, a missing letter. Not new, not
   ruined.
+- **The county's region is drawn behind every current film** (October 9th, 2026). From the date in
+  `video-engine/src/modern/placePlates.json`, `modern/PlaceStage.tsx` draws each scene's region from
+  a plate baked once per region, outdoors as the whole frame and indoors through a window. An
+  episode never paints a full-frame background over it, and `scripts/place_check.py --render`
+  measures that the region shows in every shot. MODERN_FILM.md has the account.
 
 ## The engine
 

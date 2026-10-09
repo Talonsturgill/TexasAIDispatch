@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- post-oak-wide: the Post Oak Savannah, as REGIONS.md describes it. Warm, humid, filtered light, the gentlest in the state. Sandy loam, tan. Scattered oaks over grass, genuinely savannah shaped: individual trees with space between them. Ranchettes and a small town's water tower. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'post-oak-wide', region: 'post_oak', seed: 51,
+  world: { base: 'goldenHour', overrides: { el: [28, 34], zenith: 0x5c88ba, horizon: 0xd8dac9, haze: 0xe3d5b6, ground: 0x9c8a62,
+    fogDensity: 0.0006, clouds: 0.3, exposure: 1.0, glow: 1.0, horizonGlow: 0.5 } },
+  sun: { az: 225, el: 30 },
+  camera: { from: [0, 2.2, 40], look: [0, 5, -700], fov: 50 },
+  shadow: { reach: 300, size: 130 },
+  layers: [{ name: 'far', from: 420 }, { name: 'mid', from: 55 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'grass', size: 12000, tile: 6, seed: 51, color: 0x938f62 });
+  TXT.add(R, P.shapes.rolling({ seed: 9, near: -320, relief: 16, scale: 300, color: 0x878659 }));
+  [[-14, -22], [20, -46], [-34, -90], [52, -120], [-80, -160], [12, -190], [110, -240], [-140, -280], [-30, -330], [180, -360], [80, -440], [-220, -480], [40, -560], [-120, -640]].forEach(([x, z], i) => {
+    const t = K.make(i % 4 ? 'live_oak' : 'cedar_elm', { height: 8 + (i % 4), spread: 11 + (i % 5), seed: 90 + i });
+    t.position.set(x, 0, z); TXT.add(R, t); TXT.contact(R, t, { opacity: 0.4 });
+  });
+  [[-12, -12], [14, -22]].forEach(([x, z], i) => { const p = K.make('pasture', { width: 28, depth: 24, height: 0.7, season: 'summer', seed: 100 + i }); p.position.set(x, 0, z); TXT.add(R, p); });
+  TXT.scatter(R, { kind: 'grass', count: 3200, area: [-90, -200, 90, 30], seed: 52, scale: [0.6, 1.0], colors: [0xa69a66, 0x938b56, 0xb4a872] });
+  const barn = K.make('barn', { seed: 6 }); barn.position.set(140, 0, -330); TXT.add(R, barn);
+  [[160, -350], [168, -345]].forEach(([x, z], i) => { const h = K.make('hay_bale', { count: 3, seed: i }); h.position.set(x, 0, z); TXT.add(R, h); });
+  const wt = K.make('water_tower', { name: '', star: true }); wt.position.set(-420, 0, -2600); TXT.add(R, wt);
+}});
+</script>
+</body>
+</html>

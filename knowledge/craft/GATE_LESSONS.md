@@ -1543,3 +1543,128 @@ board's own sha256, so editing the board after the gates ran invalidates it.
 the other, the cheap one runs first and the ordering belongs in the machine rather than in a
 paragraph. Any expensive step that can be invalidated by a cheap one afterwards is a step in the
 wrong place.
+
+## The seam check measured holes, and the layers tore without one
+
+October 9th, 2026, building the region plates for the place stage. The first cut sliced each
+region's world into three bands by distance and moved each band at the rate its own distance
+gave. Its check rendered a camera move and searched the frame for sky showing through the
+ground, which is what a hole between two bands looks like. It found none on any plate and the
+Blackland plate passed. The plate was still wrong. Its near band moved as if it were 7 m away and
+the next as if it were 213 m away, so a sideways move of a few centimetres slid the crop rows
+along the seam by tens of pixels. Ground is one surface from the camera to the horizon. A cut
+across it is a tear whenever the two sides move differently, and a tear that keeps both sides
+covered shows no sky.
+
+**The check was right and the question was too small.** It measured the one failure the author
+had pictured. The failure the design actually produced left every pixel covered.
+
+**What to check instead.** The plates were rebuilt so the defect can't occur, and then measured
+for what is left. The ground is one layer moved by the exact perspective transform a camera
+move gives a flat ground, so it can't tear. Things standing on it are cards at their own
+distances, and their remaining error, a base sliding on its ground, is computed for every thing
+in frame and held under two pixels (`scripts/place_bake.py`, SLIDE). The cover check stayed,
+since an edge of the ground pulled into frame is still a hole.
+
+**The general lesson.** Before trusting a check, name every way the design can fail and ask
+which of them the check can see. A check derived from the first failure imagined certifies the
+rest by silence.
+
+## The region was drawn and nothing said whether anyone could see it
+
+Same day. The place stage draws a scene's region behind its episode. An episode is authored new
+for each story, and both on the route at the time painted a full-frame background of their own,
+which would have covered the region completely while every board field, every manifest check and
+every unit test said the region was there.
+
+**What to check instead.** A render. `scripts/place_check.py --render` draws every shot with the
+region replaced by solid magenta and counts the magenta left in the finished frame. A shot under
+its minimum fails by name. It measures what reaches a viewer rather than what the code intends,
+which is the only version of this check that a future episode can't satisfy by accident.
+
+## The right region, the wrong place
+
+Same day. The first plates were one per Gould region, and two of them carried a city: the Blackland
+plate had Austin's skyline and the Gulf plate had the Houston Ship Channel's refineries. Every gate
+passed, because every gate asked whether a scene's region was allowed for its county, and it was.
+A blind grade of the October 8th film on the stage said what none of them could. The researchers
+were at Texas Children's and Baylor, which a Houstonian places in the Medical Center, not beside a
+flare stack. The Blackland plate would have put Austin behind every Dallas story the same way.
+
+**A region is a fact about land. A skyline is a fact about a county.** The plate carried the second
+kind under the first kind's name, and the check measured only the first.
+
+**What to check instead.** A region's own plate now carries nothing that belongs to one place, a
+county's own plate carries its city, and a board names an industrial plate only for a county the
+plate lists. `place_bake.py` refuses a county listed on a plate whose region the county is not in,
+and `place_check.py` and the stage resolve a scene's plate by the same rule.
+
+## Every number passed and the lake was a slab of concrete
+
+Same day, the city plates. The Austin plate passed every check the bake makes: its layers
+reassembled into the picture within a tenth of a level, every camera profile kept the ground
+covering the frame, and no base slid half a pixel. Lady Bird Lake was still a flat pale grey band
+between the bank and the towers that read as a plaza. Seen from a standing eye height under a hazy
+sky, water mirrors that sky almost whole, and the kit's water and a plain glossy sheet both drew
+exactly that. The San Antonio plate passed too, with bunchgrass growing all the way down the middle
+of its river, because TXT.scatter avoids rectangles and a river is not one.
+
+**The bake measures whether the layers move as one world. It can't say what the world looks like.**
+Nothing in a reassembly figure or a slide figure knows that water should hold the far bank upside
+down or that grass stops at the bank.
+
+**What to check instead.** Both faults were fixed where they arise rather than plate by plate:
+`assets/place/water.js` draws still water as a mirror of the world in its own plane, and takes every
+tuft standing on the water out of a scatter. Every plate is also looked at, at film size, before its
+bake is accepted. The full picture each bake writes to `out/place-bake/<plate>/full.png` is the thing
+to open. A green bake is the start of that look, never the end of it.
+
+## The ground layer carried the skyline, and a rise stretched it
+
+Same day. The ground layer moves by the exact transform a camera move gives the plane y = 0, and the
+bake classed as ground anything the kit marks as ground. The kit marks its far skylines and mesas
+that way, and the terrain model is ground by kind. So the Austin, Dallas and San Antonio skylines and
+the Hill Country's ridges were drawn into the ground layer, up to 513 pixels above the horizon, and
+the transform that is exact on the plane moved them as if they lay on it. Measured on the manifest
+then in force, a rise at the share the stage uses moved that content 38 to 64 pixels, stretching the
+towers upward while every bake check passed. The checks measured holes, bases and scale, and a
+skyline has no base in its card and makes no hole.
+
+**What to check instead.** The ground is now drawn only up to the eye's height, which is the
+horizon for any camera, and the part of a surface that rises above it is a card at the median
+distance of that part. The bake measures every pixel of such a card against the distance the depth
+pass found there, and points along its seam with the ground on the horizon, so a rise or a truck
+that would tear or stretch it shrinks the plate's limits instead of shipping.
+
+## The county table checked against itself
+
+Same day, found by Codex on PR 117. The county table's verifier held every structural rule: 254
+counties, shares that sum to one, the region the largest share, a Texas FIPS code, and the county
+file's digest. Moving Harris County to the Trans-Pecos, shares and region together, broke none of
+them, so the ship gate would have enforced a geography nobody measured while CI stayed green. The
+verifier could only ask whether the table agreed with itself, and a careful hand edit always does.
+
+**What to check instead.** A computed table is checked by computing it again. CI now fetches TPWD's
+file, refuses it unless its sha256 is the one the table records, rebuilds all 254 counties from it
+in about five seconds and fails every county whose shares, region, FIPS or unclassified share
+differ, by name (`county_regions.py --check`). The same review found the incremental bake writing
+one engine record over plates it never drew, so each plate now names its own. Its second pass found
+four copies of the county-name rule. The gate ignored spaces and the locator didn't, so a board the
+gate passed as "De Witt" stopped the render. The locator, the stage and place_check now share the
+gate's rule, and a test feeds every county, spelled five ways, through the gate and the locator both.
+
+## The bake measured one set of layers and shipped another
+
+Same day, found by Codex's third pass on PR 117. The bake measured whether the layers reassemble into
+the picture on the float arrays it held in memory. It then wrote each layer as a lossy WebP at quality
+90 and recorded that file's hash. CI checked the hash, which proved the bytes were the ones the bake
+wrote and never that they were the ones it measured. Read back and reassembled, the Gulf plate came to
+a mean of 2.53 levels from the picture, against a bound of 1.5 and a recorded 0.95. Quality 100 still
+came to 2.29, because lossy WebP keeps colour at half resolution at any quality.
+
+**What to check instead.** Measure the artifact that ships, read back from the bytes that ship. The
+bake now encodes every layer, reads it back and measures only the decoded layers, and the layers are
+lossless WebP. Lossless puts the Gulf plate at 1.20, which is the 8-bit rounding alone, for about 7.6
+times the bytes. The same pass held each camera limit to the measurements that set it: the last step
+that passed, the next step's failure and every profile end the stage moves to. CI measures cover and
+magnification again from the committed layers and requires the bake's numbers exactly.

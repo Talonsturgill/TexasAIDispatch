@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- blackland-austin: Austin from a rise on the south bank of Lady Bird Lake, Travis County's own plate. The Blackland's milky light at the edge of the Hill Country; the lake a few hundred metres across; cedar elms, live oaks and pecans along both shores; the slender glass towers of downtown rising behind the north shore and the Capitol's dome at the end of the avenue. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+import { sheet, mirrorWater } from '@@PLACE@@/water.js';
+const spec = {
+  id: 'blackland-austin', region: 'blackland', seed: 71, counties: ['Travis'],
+  world: { base: 'highNoon', overrides: { el: [42, 50], zenith: 0x86a7c6, horizon: 0xe2e2da, haze: 0xe4e3d6, ground: 0x3c3934,
+    fogDensity: 0.00034, clouds: 0.3, sunDisc: 18, glow: 1.0, exposure: 0.96 } },
+  sun: { az: 200, el: 46 },
+  camera: { from: [0, 9, 60], look: [-20, 40, -1600], fov: 40 },
+  shadow: { reach: 300, size: 140 },
+  layers: [{ name: 'far', from: 420 }, { name: 'mid', from: 60 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'grass', size: 9000, tile: 6, seed: 71, color: 0x67743f });
+  // the south bank, turned to face the city, with its own water hidden: the lake is water.js's mirror, about
+  // as wide as Lady Bird Lake below downtown
+  const shore = K.make('reservoir_shore', { width: 1800, water: 300, land: 50, bluff: 1.5, drawdown: 0.3, ramp: false, seed: 4 });
+  shore.rotation.y = Math.PI; shore.position.set(0, 0, -30);
+  shore.traverse((o) => { if (o.isMesh && o.material && o.material.transparent && 'clearcoat' in o.material) o.visible = false; });
+  TXT.add(R, shore);
+  R.scene.add(P.surface(mirrorWater(THREE, R, sheet(THREE, -950, -340, 950, -20, 0.33).geo, { color: 0x34402f, level: 0.33 })));
+  let seed = 600;
+  [[-24, 4, 'cedar_elm'], [-40, -8, 'live_oak'], [28, 10, 'live_oak'], [46, 0, 'cedar_elm']].forEach(([x, z, kind], i) => {
+    const t = K.make(kind, { height: 8 + (i % 3) * 2, spread: 10 + (i % 3) * 2, seed: seed++ }); t.position.set(x, 0, z);
+    TXT.add(R, t); TXT.contact(R, t, { opacity: 0.4 });
+  });
+  for (let i = 0; i < 44; i++) {              // the north shore's trees along the hike and bike trail
+    const kind = ['live_oak', 'cedar_elm', 'pecan', 'live_oak'][i % 4];
+    const t = K.make(kind, { height: kind === 'pecan' ? 15 + (i % 3) * 2 : 9 + (i % 4), spread: 11 + (i % 3) * 2, seed: seed++ });
+    t.position.set(-330 + i * 15 + (i % 3) * 4, 0, -342 - (i % 2) * 10); TXT.add(R, t);
+  }
+  TXT.scatter(R, { kind: 'grass', count: 1500, area: [-60, 18, 60, 48], seed: 72, scale: [0.5, 0.9],
+                   colors: [0x7d8a4e, 0x8e9256, 0x6b7a44] });
+  const city = K.make('city_skyline', { city: 'austin', lowrise: true }); city.position.set(-30, 0, -1150); TXT.add(R, city);
+  const cap = K.make('capitol'); cap.position.set(-20, 0, -2500); TXT.add(R, cap);
+}});
+</script>
+</body>
+</html>

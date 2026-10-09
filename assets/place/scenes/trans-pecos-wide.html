@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- trans-pecos-wide: the Trans-Pecos, as REGIONS.md describes it. The cleanest air in Texas, so distant mountains stay saturated instead of hazing out; long sunsets and alpenglow on rock. Rock, gravel and sparse desert pavement. Creosote, lechuguilla, ocotillo, sotol and yucca, each with space around it and reading as a silhouette. Almost nothing built. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'trans-pecos-wide', region: 'trans_pecos', seed: 91,
+  world: { base: 'goldenHour', overrides: { el: [9, 13], zenith: 0x2c5a9a, horizon: 0xc7a88c, haze: 0xd8a47e, ground: 0x9a7a5c,
+    fogDensity: 0.00006, clouds: 0.14, exposure: 0.9 },
+    rig: { key: { color: 0xffcfa0, i: 2.6 } } },
+  sun: { az: 18, el: 10 },
+  camera: { from: [0, 2.2, 36], look: [0, 60, -3000], fov: 50 },
+  shadow: { reach: 260, size: 110 },
+  layers: [{ name: 'far', from: 600 }, { name: 'mid', from: 45 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'caliche', size: 30000, tile: 6, seed: 91, color: 0xb0947a });
+  TXT.add(R, P.shapes.range({ seed: 3, width: 16000, height: 1300, depth: -9000, color: 0x7c5446 }));
+  TXT.add(R, P.shapes.range({ seed: 8, width: 22000, height: 1700, depth: -14000, color: 0x6a5060 }));
+  TXT.add(R, P.shapes.range({ seed: 12, width: 30000, height: 1500, depth: -20000, color: 0x58526e }));
+  const butte = K.make('mesa', { kind: 'butte', width: 340, height: 150, rock: 'red' }); butte.position.set(-900, 0, -3600); TXT.add(R, butte);
+  let seed = 400;
+  const plant = (o, x, z) => { o.position.set(x, 0, z); TXT.add(R, o); TXT.contact(R, o, { opacity: 0.35 }); };
+  [[-6, 4], [10, -14], [-22, -40], [34, -80], [-60, -150]].forEach(([x, z]) => plant(P.shapes.ocotillo({ seed: seed++, h: 5.2 }), x, z));
+  [[6, -14], [-20, -40], [30, -70], [-50, -120], [70, -160], [-10, -220]].forEach(([x, z]) => plant(P.shapes.rosette({ seed: seed++, r: 0.9, blades: 52, color: 0x7d8656, trunk: 1.1, stalk: 2.2 }), x, z));
+  [[-14, -22], [22, -48], [-40, -90], [56, -140]].forEach(([x, z]) => plant(P.shapes.rosette({ seed: seed++, r: 1.0, blades: 70, color: 0x8b9068, stalk: 3.0 }), x, z));
+  for (let i = 0; i < 26; i++) plant(P.shapes.rosette({ seed: seed++, r: 0.35, blades: 24, color: 0x7f8c5c }), ((i * 37) % 120) - 60, 10 - ((i * 23) % 200));
+  for (let i = 0; i < 34; i++) plant(P.shapes.creosote({ seed: seed++ }), ((i * 59) % 180) - 90, -4 - ((i * 31) % 300));
+  TXT.scatter(R, { kind: 'rock', count: 900, area: [-80, -260, 80, 30], seed: 92, scale: [0.06, 0.25], colors: [0x8a6e58, 0x9c8068, 0x705a4c] });
+}});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- piney-woods-wide: the Piney Woods, as REGIONS.md describes them. Closed canopy; the only region where the light comes down in columns. Needle litter, a red-orange clay road cut, standing water in the bottoms. Loblolly and shortleaf pine, tall and straight: verticals dominate. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'piney-woods-wide', region: 'piney_woods', seed: 61,
+  world: { base: 'highNoon', overrides: { el: [58, 66], zenith: 0x7898ba, horizon: 0xd6ddd8, haze: 0xd9e0d8, ground: 0x5a4632,
+    fogDensity: 0.0022, clouds: 0.3, exposure: 0.92 },
+    rig: { key: { i: 2.6 }, ambient: { color: 0x6f7f6a, i: 0.25 } } },
+  sun: { az: 200, el: 62 },
+  camera: { from: [0.5, 1.8, 30], look: [-2, 9, -400], fov: 52 },
+  shadow: { reach: 260, size: 90 },
+  layers: [{ name: 'far', from: 220 }, { name: 'mid', from: 35 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'dirt', size: 9000, tile: 5, seed: 61, color: 0x5c4532 });
+  const clay = new THREE.MeshStandardMaterial({ color: 0x7a4a34, roughness: 0.95 });
+  const road = new THREE.Mesh(new THREE.PlaneGeometry(5.5, 900, 1, 60), clay);   // the red clay road, slightly bending
+  const pos = road.geometry.attributes.position;
+  for (let i = 0; i < pos.count; i++) { const v = pos.getY(i); pos.setX(i, pos.getX(i) + Math.sin((420 + v) / 160) * 14); }   // world z = -420 - v
+  road.rotation.x = -Math.PI / 2; road.position.set(0, 0.03, -420); R.scene.add(P.surface(road));
+  let seed = 200;
+  for (let z = 20; z > -520; z -= 9) {     // walls of tall straight pine both sides of the road
+    for (const side of [-1, 1]) {
+      for (let k = 0; k < 3; k++) {
+        const x = side * (6 + k * 8 + ((seed * 13) % 7)) + Math.sin((-z) / 160) * 14;
+        const t = P.shapes.pine({ seed: seed++, h: 24 + (seed % 9) });
+        t.position.set(x, 0, z - k * 3); TXT.add(R, t);
+      }
+    }
+  }
+  TXT.add(R, P.shapes.pineStand({ seed: 7, n: 900, area: [-700, -1600, 700, -520], h: [24, 34] }));
+  const pond = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshStandardMaterial({ color: 0x3b4840, roughness: 0.06 }));
+  pond.rotation.x = -Math.PI / 2; pond.scale.set(9, 4, 1); pond.position.set(-15, 0.04, -40); R.scene.add(P.surface(pond));
+  TXT.scatter(R, { kind: 'scrub', count: 1800, area: [-60, -300, 60, 30], avoid: [[-5, -900, 5, 40]], seed: 62, scale: [0.6, 1.2], colors: [0x4a5a38, 0x5c6a40] });
+}});
+</script>
+</body>
+</html>

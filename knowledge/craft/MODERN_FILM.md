@@ -93,6 +93,70 @@ the retained independent source-backed pivot when needed. Neither artistic ceili
 capacity authorize a legacy episode, slideshow rescue or unaudited provider substitution.
 
 
+## The region stands behind every current film
+
+Owner instruction, October 9th, 2026, on the plan's fifth step. Place was the show's weakest axis
+(6.36 on the mean of the last ten report cards) and every current film stood in a flat gradient,
+so a Harris County story and a Reeves County story looked like the same nowhere.
+
+From the date in `video-engine/src/modern/placePlates.json` (`policy.effective_date`), DirectedFilm
+draws each scene's region behind its episode through `modern/PlaceStage.tsx`. Each of the ten
+regions has a plate, rendered once in the Docket's carousel engine from a scene page under
+`assets/place/scenes/` by `scripts/place_bake.py`, as a sky, one ground and cards for the things
+standing on it. The bake measured that the layers reassemble into the picture and that every
+camera profile keeps the ground covering the frame and every base on its ground. The manifest
+records those measurements, the Docket commit, every layer's sha256 and the hash of each module a
+scene imports from `assets/place/`. Water is drawn by `assets/place/water.js` as a mirror of the
+world in its own plane, because a lake seen from eye height under a hazy sky otherwise reads as a
+pale slab, and no scatter grows on it.
+
+- **The plate is the county's when it has one, and the region's when it doesn't.** A region's own
+  plate carries nothing that belongs to one place, no skyline and no refinery, because a Texan is
+  not told they live somewhere they don't. Harris County stands in Houston across Buffalo Bayou,
+  Dallas County over the Trinity floodplain, Travis County across Lady Bird Lake and Bexar County
+  over the river south of downtown. A story at a plant on the upper coast names
+  `place_plate: "gulf-shipchannel"` on its scenes for the refineries, which a board may do only for
+  a county that plate lists. The fly gene film's labs are in the Medical Center, and a blind grade
+  of its frames on October 9th marked the refinery view as the wrong place within the right county.
+- **Outdoors** the plate fills the frame and the camera moves through it on the scene's
+  `camera_strategy`, within a share of the plate's measured limits. The ground moves by the exact
+  perspective transform, so it never tears. Wrap a subject that stands on the ground in
+  `<PlaceSubject baseY={...}>` with the frame row its base touches, and it rides with its ground.
+  Keep type and overlays outside it.
+- **Indoors, wide and medium**, the region is outside a window in the back wall. It starts below
+  the title band, it is held still and it is bright and soft, the way a camera exposed for the room
+  sees a window, behind a light frame. The episode draws its own floor and props in front of it.
+- **Indoors, close and detail**, there is no window, only its light: the region is a soft wash
+  behind the subject, because a lens that close is focused on the subject and a window pane behind
+  a fly makes the fly as tall as the pane. Any view the episode lists in `wash_views` takes the same
+  wash at every framing. List a labelled comparison there, things set out on their own ground lines
+  with a label over each, since a window's rails and skyline cross exactly that type and those lines.
+- **Overhead**, and any view the episode lists in `wall_views` (a diagram or a document, which is
+  not in a room), keep plain wall. No more than 40 percent of a film's shots may be wall views.
+
+**An episode never paints a full-frame background.** That one rect hides the whole region, and
+the film looks exactly as it did when place was the weakest axis. Paint the floor, the props and
+anything the story needs in the room. `scripts/place_check.py --render` renders every shot with the
+plate as solid magenta and fails a shot that shows less than its minimum share of region, by
+name. Unboxed type over the window stays dark or gets its own panel, as type over any picture does.
+
+The stage also draws a county locator from two seconds in. A small card draws the state's outline,
+fills the first scene's county and rings it, on the vetted map-explainer timing (border 2.5
+seconds, fill 1.0, label 0.7). It carries no words, because no claim stands behind a board's
+county and the narration names the place. Its map is computed by `scripts/county_map.py`.
+
+A run never bakes a plate. A plate is added or changed by editing its scene page and running
+`place_bake.py --docket <a TexasAIDocket checkout>`, and the layers and manifest are committed
+together. CI fails a scene or a place module edited without a re-bake. Each plate names the engine
+record it was drawn with, the Docket commit and the bytes of every engine file, so a plate rebaked
+alone with a newer Docket leaves every other plate's record as it was. The bake measures the layers
+as the stage loads them, encoded as lossless WebP and read back, and holds each limit to its
+measurements: the last step that passed, the next step's failure and every profile end the stage
+moves to. CI measures cover and magnification again from the committed layers at every profile end
+and requires the bake's numbers exactly. Open each baked plate's `out/place-bake/<plate>/full.png`
+at film size before committing it: the bake measures whether the layers move as one world, never
+whether the water reads as water.
+
 ## Narration and picture use one clock
 
 For new production from October 8th, every spoken clause has a narration-picture-v1 binding in board.narration_picture. Write exact clause text, concrete subject_ids, executable action_id, source claim_ids, scene_id, cue_ids and event_ids before voice production. Cover all words and qualifiers once in their original order. The registered episode declares which views actually implement those subjects and actions. A topic match, caption or label cannot replace a pictured causal step.

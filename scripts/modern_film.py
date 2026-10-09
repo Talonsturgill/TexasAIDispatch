@@ -178,9 +178,13 @@ def prose(value):
 def renderer_inputs(episode, repo=REPO):
     root = Path(repo).resolve()
     entry = json.loads((root / 'config/modern_episode_registry.json').read_text())['episodes'][episode]
+    # The place stage draws every current film's region, so its code, its plates' manifest (which
+    # holds every layer's sha256) and its county map are renderer bytes like the episode's own.
     files = [entry['module'], *entry['assets'], 'video-engine/src/modern/DirectedFilm.tsx',
              'video-engine/src/modern/registry.tsx', 'video-engine/src/modern/types.ts',
-             'video-engine/src/modern/StoryArt.tsx',
+             'video-engine/src/modern/StoryArt.tsx', 'video-engine/src/modern/PlaceStage.tsx',
+             'video-engine/src/modern/CountyLocator.tsx', 'video-engine/src/modern/placePlates.json',
+             'video-engine/src/modern/texasCounties.json',
              'config/modern_episode_registry.json', 'config/modern_film.json']
     rows = []
     for file in files:

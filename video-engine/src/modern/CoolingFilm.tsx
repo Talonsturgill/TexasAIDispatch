@@ -4,6 +4,7 @@ import {useArtDirection} from '../lib/artDirection';
 import {actionWindows,actionProgress,requireAction} from '../lib/direction';
 import {Condenser,InspectionEye,Handheld,Wrench} from './CoolingAssets';
 import type {CoolingColors} from './CoolingAssets';
+import {usePlace} from './PlaceStage';
 import type {FilmRenderProps} from './types';
 
 const clamp=(n:number)=>Math.max(0,Math.min(1,n));
@@ -41,7 +42,7 @@ const WorkCard:React.FC<{x:number;y:number;p:number;checked?:boolean;c:CoolingCo
 /** Authored shot grammar on one global event clock. Fans never encode a diagnosis.
  * Colour illustrates only the vendor's qualitative warm/cool comparison. */
 export const CoolingFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,shot_s,variant})=>{
- const art=useArtDirection();
+ const art=useArtDirection(),place=usePlace();
  if(!art)throw new Error('Modern film requires its executed art-direction profile');
  const c=art.palette as CoolingColors;
  const windows=actionWindows(board.scenes);
@@ -139,12 +140,12 @@ export const CoolingFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,sho
    <radialGradient id="modern-light"><stop stopColor={c.paper} stopOpacity={.7}/><stop offset="1" stopColor={c.paper} stopOpacity={0}/></radialGradient>
    <linearGradient id="modern-floor" x2="0" y2="1"><stop stopColor={c.midground}/><stop offset="1" stopColor={c.foreground}/></linearGradient>
   </defs>
-  <rect width={1080} height={1920} fill="url(#modern-wall)"/>
+  {!place&&<rect width={1080} height={1920} fill="url(#modern-wall)"/>}
   <path d="M0 1200L1080 1130L1080 1920L0 1920Z" fill="url(#modern-floor)"/>
   <path d="M0 1200L1080 1130" stroke={c.ink} strokeWidth={8} opacity={.22}/>
-  <path d="M0 0L170 0L45 1100L0 1100Z" fill={c.ink} opacity={.06}/>
+  {!place&&<path d="M0 0L170 0L45 1100L0 1100Z" fill={c.ink} opacity={.06}/>}
   {[0,1,2,3].map(i=><path key={i} d={`M0 ${1370+i*140}L1080 ${1300+i*140}`} stroke={c.paper} strokeWidth={3} opacity={.15}/>)}
-  <ellipse cx={keyX<0?270:790} cy={660} rx={720} ry={930} fill="url(#modern-light)"/>
+  {!place&&<ellipse cx={keyX<0?270:790} cy={660} rx={720} ry={930} fill="url(#modern-light)"/>}
   <g data-view={shot.view} data-framing={shot.framing}
    transform={shot.framing==='wide'?'translate(94 124) scale(.82)':shot.framing==='detail'?'translate(-43 -54) scale(1.08)':undefined}>{picture}</g>
   <path d="M0 1515L1080 1460L1080 1920L0 1920Z" fill={c.ink} opacity={.06}/>

@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- high-plains-wide: the High Plains, the Panhandle, as REGIONS.md describes it. The sky is the subject and the land a line under it; high unfiltered sun; dust hazing the low sky brown. Caliche and red-brown loam, a section road dead straight to a point on the horizon, cotton, a grain elevator as the tallest thing for thirty miles, turbines in ranks. Nothing lush. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'high-plains-wide', region: 'high_plains', seed: 11,
+  world: { base: 'highNoon', overrides: { zenith: 0x5e8ec4, horizon: 0xd8d4c6, haze: 0xd6c8ac, ground: 0xa48c66,
+    fogDensity: 0.00028, clouds: 0.3, sunDisc: 20, glow: 0.9, horizonGlow: 0.3, exposure: 0.95 } },
+  sun: { az: 205, el: 58 },
+  camera: { from: [3, 2.0, 40], look: [0, 16, -900], fov: 50 },
+  shadow: { reach: 320, size: 110 },
+  layers: [{ name: 'far', from: 500 }, { name: 'mid', from: 60 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'dirt', size: 14000, tile: 6, seed: 11, color: 0xa88d63 });
+  for (let i = 0; i < 70; i++) {          // the section road, dead straight to the horizon
+    const rd = K.make('caliche_road', { length: 60, width: 5.2, curve: 0, centerGrass: false, seed: i, ground: 0xa88d63 });
+    rd.position.set(0, 0, 30 - i * 60); TXT.add(R, rd);
+  }
+  [[-24, -20], [24, -20], [-24, -64], [24, -64]].forEach(([x, z], i) => {
+    const cr = K.make('crop_rows', { crop: 'cotton', growth: 0.85, width: 30, length: 42, seed: 3 + i, soil: 0x8f5f40, budget: 220000 });
+    cr.position.set(x, 0, z); TXT.add(R, cr);
+  });
+  TXT.scatter(R, { kind: 'grass', count: 2600, area: [-7, -240, 7, 40], avoid: [[-3.2, -2000, 3.2, 60]], seed: 12, scale: [0.6, 1.0], colors: [0xb8a676, 0xa89a6a, 0x9c925e] });
+  const el = K.make('grain_elevator', { bins: 6, rows: 2, height: 40 }); el.position.set(-240, 0, -2600); TXT.add(R, el);
+  [[230, -900], [250, -912], [270, -900]].forEach(([x, z], i) => { const b = K.make('grain_bin', { seed: i }); b.position.set(x, 0, z); TXT.add(R, b); });
+  const barn = K.make('barn', { seed: 2, w: 14, l: 22 }); barn.position.set(300, 0, -930); TXT.add(R, barn);
+  for (let i = 0; i < 6; i++) { const t = K.make('cedar_elm', { height: 9, spread: 8, seed: 30 + i }); t.position.set(200 + i * 14, 0, -960); TXT.add(R, t); }
+  for (let i = 0; i < 11; i++) {          // turbines in ranks on the far horizon
+    const t = K.make('wind_turbine', { rotor: i * 17, yaw: 0.25 }); t.position.set(-900 + i * 240, 0, -5200 - (i % 2) * 420); TXT.add(R, t);
+  }
+}});
+</script>
+</body>
+</html>

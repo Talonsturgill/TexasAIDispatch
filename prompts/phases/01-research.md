@@ -55,3 +55,12 @@ an unreported outcome. Licensed or justified source excerpts retain their proven
 limitations. Fitting a schema does not establish that a picture tells the story.
 
 Apply DAILY_PRODUCTION.md's story-specific visual policy during this same research pass. Inspect the actual place, people, equipment, workflow and documents before generic alternatives. Keep bounded visual_research searches/candidate decisions for the board; no repeated stock hunt. Compare candidates with the latest shipped edition and reject repeat b-roll, including derivatives.
+
+Make one of those searches the Library of Congress's Lyda Hill Texas Collection, whose photographs of Texas places carry the advisory "No known restrictions on publication" in their own records. Search with the story's actual site or town, and fetch a chosen photograph so its provenance is written beside it.
+
+```sh
+python scripts/place_photos.py --place "<actual site or town>" --out out/dispatch/place_photos.json
+python scripts/place_photos.py --fetch <item url> --dest out/dispatch/media/<name>.jpg
+```
+
+A photograph of the actual site is story_role actual-site. A photograph of the place around it is context only with its specific relationship stated, never as mood. Copy the sidecar's source_url, creator, date, rights_basis, credit_line and sha256 into the native_media row.

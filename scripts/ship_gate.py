@@ -34,9 +34,14 @@ THE HARD FAILS, and what each is actually for.
   a shorter script.
 
   A REGION THAT DOES NOT MATCH THE COUNTY. The first law of drawing Texas. Checked
-  against config/county_regions.json, which is DATA so a correction is a data change.
-  An unknown county is RECORDED, not refused: refusing one would stop a run over a
-  gap in a lookup table, which is a checker deciding it matters more than the film.
+  against config/county_regions.json, which is COMPUTED from TPWD's Gould polygons by
+  scripts/county_regions.py, so a correction is a rebuild from a newer source file.
+  A scene may stand in any region holding at least the table's allow_share of its
+  county, because a straddle is real: western Travis IS the Hill Country, and the old
+  one-region table failed the board that drew it correctly. An unknown county used to
+  be RECORDED, because 174 of 254 were missing and refusing a gap in a lookup table
+  would have stopped a film. The table is complete now, so a name it can't find is a
+  misspelling or not a Texas county, and it fails with the nearest real names.
 
   A RETIRED MOTIF. Checked on the FINAL copy, not only on the board, because a motif
   can arrive after Gate 0 in a line of narration nobody re-read.
@@ -69,10 +74,14 @@ Exit 0 clear to ship, 1 a hard fail, 2 the gate could not run.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import county_regions  # noqa: E402  (the computed table's reader; same folder)
 
 REPO = Path(__file__).resolve().parents[1]
 RUBRIC = REPO / "config" / "dispatch_rubric.yaml"
@@ -371,17 +380,22 @@ def check(board: dict, claims: dict, script: str, captions: dict, audio: dict,
             fails.append(f"scene {s.get('id')} declares no county, so its region was chosen "
                          f"for how it looks")
             continue
-        entry = known.get(county)
+        name, entry = county_regions.find(county_map, county)
         if entry is None:
-            notes.append(f"county {county!r} is not in config/county_regions.json. Recorded as "
-                         f"{region!r} for next time. An unknown county is not a reason to stop "
-                         f"a run, but a SECOND run disagreeing with this one is.")
+            near = difflib.get_close_matches(county, list(known), n=3, cutoff=0.6)
+            fails.append(f"scene {s.get('id')}: {county!r} is not a Texas county in "
+                         f"config/county_regions.json, which holds all 254"
+                         + (f". Nearest: {', '.join(near)}" if near else ""))
             continue
-        if entry.get("region") != region:
+        ok_regions = county_regions.allowed(entry)
+        if region not in ok_regions:
+            shares = entry.get("shares") or {}
+            spread = ", ".join(f"{r} {v:.0%}" for r, v in shares.items() if v >= 0.005)
             fails.append(
-                f"scene {s.get('id')}: {county} County is {entry.get('region')}, and the board "
+                f"scene {s.get('id')}: {name} County is {' or '.join(ok_regions)}, and the board "
                 f"says {region}. A Texan forgives a stylized drawing and does not forgive being "
                 f"told they live somewhere they don't."
+                + (f" (measured: {spread})" if spread else "")
                 + (f" ({entry['note']})" if entry.get("note") else ""))
 
     # ---- 5. retired motifs, on the FINAL copy
@@ -580,10 +594,22 @@ def self_test() -> int:
        any("somewhere they don't" in x for x in check(wrong, claims, script, caps, audio,
                                                       None, cmap)[0]))
 
-    unknown = {"runtime_s": 40.0, "scenes": [scene(i, county="Loving") for i in range(1, 9)]}
+    straddle = {"runtime_s": 40.0, "scenes": [scene(i, county="Travis", region="blackland")
+                                              for i in range(1, 9)]}
+    straddle["scenes"][3]["region"] = "hill_country"
+    f, _ = check(straddle, claims, script, caps, audio, None, cmap)
+    ok("western Travis may be the Hill Country, because the polygons say part of it is",
+       not any("Travis County" in x for x in f), str(f[:1]))
+    straddle["scenes"][3]["region"] = "trans_pecos"
+    f, _ = check(straddle, claims, script, caps, audio, None, cmap)
+    ok("...but Travis is never the Trans-Pecos", any("Travis County is" in x for x in f))
+    spelled = {"runtime_s": 40.0, "scenes": [scene(i, county="Taylor County") for i in range(1, 9)]}
+    f, _ = check(spelled, claims, script, caps, audio, None, cmap)
+    ok("'Taylor County' is Taylor", not any("not a Texas county" in x for x in f), str(f[:1]))
+    unknown = {"runtime_s": 40.0, "scenes": [scene(i, county="Tayler") for i in range(1, 9)]}
     f, n = check(unknown, claims, script, caps, audio, None, cmap)
-    ok("an UNKNOWN county is recorded, not refused", not f and any("Recorded as" in x for x in n),
-       f"{f} / {n[:1]}")
+    ok("a county the complete table can't find is refused, with the nearest real name",
+       any("not a Texas county" in x and "Taylor" in x for x in f), f"{f[:1]} / {n[:1]}")
 
     nocounty = {"runtime_s": 40.0, "scenes": [scene(i, county="") for i in range(1, 9)]}
     f, _ = check(nocounty, claims, script, caps, audio, None, cmap)

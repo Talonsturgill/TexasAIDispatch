@@ -172,6 +172,18 @@ python scripts/story_art.py --board out/dispatch/storyboard.json verify
 python scripts/modern_film.py --board out/dispatch/storyboard.json
 ```
 
+From the place stage's effective date, the scene's region stands behind the episode (MODERN_FILM.md,
+"The region stands behind every current film"). Author the episode with its background open. Draw
+the floor, the props and the room's own things, never a full-frame rect. List diagram and document
+views as `wall_views` in the episode's registry entry, and labelled comparisons as `wash_views`. Outdoors, wrap a subject standing on the
+ground in PlaceSubject with its base row. A story at a plant on the upper coast sets
+`place_plate: "gulf-shipchannel"` on its scenes; every other story takes its county's plate. Then
+measure that the region shows.
+
+```sh
+python scripts/place_check.py --board out/dispatch/storyboard.json --render
+```
+
 These gates require actual generated pixels and their prior production charges; a plan-only
 record does not pass. Use the reserve and record commands in STORY_ART.md for the two tool calls.
 

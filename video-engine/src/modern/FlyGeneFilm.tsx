@@ -3,6 +3,7 @@ import {FONT} from '../lib/type';
 import {useArtDirection} from '../lib/artDirection';
 import {requireNarration} from '../lib/direction';
 import {ArtSprite} from './StoryArt';
+import {usePlace} from './PlaceStage';
 import type {FilmRenderProps} from './types';
 const smooth=(v:number)=>{const p=Math.min(1,Math.max(0,v));return p*p*(3-2*p);};
 /** Integrate the event-authored speed rather than multiplying current speed by time.
@@ -78,7 +79,7 @@ export function comparisonSpeed(normal:boolean,t:number):number{
 }
 const Text:React.FC<{x?:number;y:number;text:string;color:string;size?:number}>=({x=78,y,text,color,size=49})=><text x={x} y={y} fill={color} fontFamily={FONT.body} fontWeight={750} fontSize={size}>{text}</text>;
 export const FlyGeneFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,variant})=>{
- const art=useArtDirection();if(!art)throw new Error('Fly gene film requires executed art direction');
+ const art=useArtDirection(),place=usePlace();if(!art)throw new Error('Fly gene film requires executed art direction');
  const c=art.palette,state=narrationState(board,time_s);
  const clauseId=clauseForView(board,shot.view,time_s),clause=requireNarration(board,clauseId);
  const a=smooth((time_s-clause.start)/(clause.end-clause.start));
@@ -201,7 +202,7 @@ export const FlyGeneFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,var
  const cameraScale=scene.camera_strategy==='dollyThrough'?1+.014*a:1;
  return <svg width="1080" height="1920" viewBox="0 0 1080 1920" style={{position:'absolute',inset:0}}>
  <defs><linearGradient id="fly-world" x2=".8" y2="1"><stop stopColor={c.paper}/><stop offset="1" stopColor={c.background}/></linearGradient></defs>
- <rect width={1080} height={1920} fill="url(#fly-world)"/><path d="M0 1430H1080V1920H0Z" fill={c.foreground} opacity={.06}/>
+ {!place&&<rect width={1080} height={1920} fill="url(#fly-world)"/>}<path d="M0 1430H1080V1920H0Z" fill={c.foreground} opacity={.06}/>
  <g data-view={shot.view} data-clause={clauseId} data-action={clause.actionId} data-framing={shot.framing} transform={`translate(${(f?.x??0)+cameraX} ${f?.y??0}) scale(${(f?.scale??1)*cameraScale})`}>{picture}</g>
  <Text y={1475} text={scene.production_disclosure??'Illustration. Qualitative comparison'} color={c.ink} size={31}/>
  </svg>;
