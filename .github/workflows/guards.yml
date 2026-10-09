@@ -493,6 +493,27 @@ jobs:
             [ -f "$scope" ] || continue
             python3 scripts/review_scope.py --out "$(dirname "$scope")" --verify
           done
+          # A dated current CI fixture preserves the frozen original experiment.
+          python3 - <<'PY_FIXTURE'
+          import copy, hashlib, json, sys
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          from modern_film import renderer_inputs
+          root = Path('experiments/modern-film-2026-10-07')
+          receipt = json.loads((root/'ci-fixture-2026-10-09.json').read_text())
+          baseline = root/receipt['baseline_file']
+          current = root/receipt['current_fixture_file']
+          assert hashlib.sha256(baseline.read_bytes()).hexdigest() == receipt['baseline_sha256']
+          assert hashlib.sha256(current.read_bytes()).hexdigest() == receipt['current_fixture_sha256']
+          before = json.loads(baseline.read_text())
+          expected = copy.deepcopy(before)
+          expected['film_direction']['renderer_inputs'] = renderer_inputs(before['film_direction']['episode'])
+          assert json.loads(current.read_text()) == expected
+          changed = [{'path':a['path'], 'before_sha256':a['sha256'], 'current_sha256':b['sha256']} for a,b in zip(before['film_direction']['renderer_inputs'], expected['film_direction']['renderer_inputs']) if a != b]
+          assert changed == receipt['changed_bindings']
+          assert [r['path'] for r in changed] == ['video-engine/src/modern/registry.tsx', 'config/modern_episode_registry.json']
+          print('Only two current registry digests differ; original experiment bytes retained.')
+          PY_FIXTURE
           python3 scripts/modern_film.py --board experiments/modern-film-2026-10-07/board-ci-2026-10-09.json
           python3 scripts/story_art.py --board experiments/modern-film-2026-10-07/board-ci-2026-10-09.json verify
           cd video-engine
