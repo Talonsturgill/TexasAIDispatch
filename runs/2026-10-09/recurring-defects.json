@@ -1,0 +1,586 @@
+{
+  "schema": "dispatch-cinematic-recurring-defects/1",
+  "as_of": "2026-10-09",
+  "since": "2026-09-25",
+  "due": false,
+  "last_engineering_decision": {
+    "date": "2026-10-08",
+    "decision": "advance",
+    "note": "One shared narration-picture advance proved within the reserved two-treatment comparison: measured clauses drive rendered subjects, actions, cut handoffs and retained consequences. All eleven clauses independently inspected in both complete treatments; no future-edition savings inferred.",
+    "proof": {
+      "path": "runs/2026-10-08/openings/selection.json",
+      "sha256": "5fbc4284cf329896f1ee2eb936b630eb2d19a03c04dbd39dc2bcba10d80f9fb3"
+    }
+  },
+  "max_shared_advances": 1,
+  "findings": [
+    {
+      "category": "contact",
+      "distinct_editions": 3,
+      "evidence": [
+        {
+          "run_id": "2026-10-06",
+          "original_finding": {
+            "scene": "s7\u2192s8",
+            "criterion": "continuity / contact_and_consequence",
+            "start_s": 30.625,
+            "end_s": 31.525,
+            "problem": "Phase6 ends the solid cube at GOAL [1.25,.61,.55], but phase7 starts it at [.76,.61,.78]. The same-subject cut claims continuous completion yet jumps the held object backward without a disclosed reset.",
+            "fix": "Begin phase7 from the actual phase6 endpoint and lower the cube vertically to tabletop support, then open the jaws and retract. Preserve the gripper and cargo identity through that cut."
+          },
+          "evidence": {
+            "path": "runs/2026-10-06/retained-reviews/dispatch/repairs/01-preexecution/opening-a-critic.json",
+            "sha256": "71aece6c6d6db7e1719d39d22ccf0530a9b36b030d7fcfe80bfb89e810d5aab0"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "contact_and_consequence",
+            "classification": "mandatory-runtime-event-consumer",
+            "scene": "s2",
+            "start_s": 4.5,
+            "end_s": 11.3,
+            "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
+            "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
+            "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/37af658dcba0-opening-b-critic.json",
+            "sha256": "37af658dcba06527e13899e4ae458a980f56ffe415eeec2d57acdc9a447f389c"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "contact_and_consequence",
+            "classification": "mandatory-physical-integrity",
+            "scene": "s2",
+            "start_s": 4.5,
+            "end_s": 11.3,
+            "problem": "The Sensor wheels are ordinary cylinders with axes along worldx, produced by rotationz=pi/2. Both substantial1.10-world comparison traverses move the fixed-heading chassis along worldx, parallel to those axles, while the modeled wheels roll alongworldz. There is no chassis steering, wheel steering, rolling-angle code or omni/mecanum running gear. The diagonalx/z return also retains that fixed heading. This depicts sideways skating rather than mechanically supported checkpoint travel. Ground contact alone does not resolve the mismatch.",
+            "effect": "The replacement principal action cannot perform its planned inspection account through credible physical locomotion. Actual travel magnitude or a passing projection cannot approve that depicted mechanism.",
+            "fix": "Make the depicted generic running gear and chassis heading support the actual comparison traverses and return. Align wheel rolling directions with the path, show appropriate steering/turning or use explicitly modeled generic omnidirectional running gear with credible wheel motion. Preserve floor contact, target stop/aim, same settled s3 position, source disclosure,82words and successful other scenes. Recheck whole occupied geometry after the mandatory mechanical correction; do not claim an actual vendor robot model."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/5ff4fafd3408-opening-b-critic.json",
+            "sha256": "5ff4fafd34081ad388fd1950418e27e717b9b2a7fb0659a1e074e01d422d0ee1"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "contact_and_consequence",
+            "scene": "s1-s6",
+            "start_s": 0,
+            "end_s": 38.5,
+            "problem": "Inspected mesh support is discontinuous. Sensor wheel bottoms are y .04 while the floor top is y -.08, leaving a .12 world-unit gap. The inspection flag pole bottom is y 2.0 while the unit roof top is 1.925 and no mounting bracket connects them.",
+            "fix": "Ground all four wheel contact surfaces on the actual floor and attach the flag pole to the unit with visible support."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/c3468a30a1fe-opening-a-critic.json",
+            "sha256": "c3468a30a1fecebf45811a90b929702bcb0e27e11c1b1b06ea2101bc736cffdb"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "finding": {
+              "criterion": "contact_and_consequence",
+              "classification": "mandatory-physical-integrity",
+              "scene": "s2",
+              "start_s": 4.5,
+              "end_s": 11.3,
+              "problem": "The Sensor wheels are ordinary cylinders with axes along worldx, produced by rotationz=pi/2. Both substantial1.10-world comparison traverses move the fixed-heading chassis along worldx, parallel to those axles, while the modeled wheels roll alongworldz. There is no chassis steering, wheel steering, rolling-angle code or omni/mecanum running gear. The diagonalx/z return also retains that fixed heading. This depicts sideways skating rather than mechanically supported checkpoint travel. Ground contact alone does not resolve the mismatch.",
+              "effect": "The replacement principal action cannot perform its planned inspection account through credible physical locomotion. Actual travel magnitude or a passing projection cannot approve that depicted mechanism.",
+              "fix": "Make the depicted generic running gear and chassis heading support the actual comparison traverses and return. Align wheel rolling directions with the path, show appropriate steering/turning or use explicitly modeled generic omnidirectional running gear with credible wheel motion. Preserve floor contact, target stop/aim, same settled s3 position, source disclosure,82words and successful other scenes. Recheck whole occupied geometry after the mandatory mechanical correction; do not claim an actual vendor robot model."
+            },
+            "category": "runtime",
+            "basis": "This finding is a deterministic rendered runtime transform/kinematic mismatch: actual wheel axes and fixed chassis orientation do not support the callable x/diagonal displacement. It is established from component geometry and transforms, independent of palette, taste, source narration or unseen pixels. Repairing wheel orientation/steering/rolling to match the path restores mandatory physical locomotion in the existing admitted story and mechanism. Geometry projection must be rechecked after changed running gear."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-231780fb2211-code-v3-physical-diagnosis.json",
+            "sha256": "231780fb221104da104b4bb2b0722bb722126e272462617be33b1db6cddcf4c7"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "finding": {
+              "criterion": "contact_and_consequence",
+              "classification": "mandatory-runtime-event-consumer",
+              "scene": "s2",
+              "start_s": 4.5,
+              "end_s": 11.3,
+              "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
+              "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
+              "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
+            },
+            "category": "runtime",
+            "basis": "Actual renderer mixes raw scene seconds for caster steering with automatically retimed event progress for travel/rolling. This is a deterministic consumer timing/kinematic implementation failure in the required path, independent of taste or unviewed pixels."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-30f9969ae078-code-v3-retiming-diagnosis.json",
+            "sha256": "30f9969ae078758e6ee45afc6092d5c629188ea9ee5fd540fdab779b1eddace7"
+          }
+        },
+        {
+          "run_id": "2026-10-09",
+          "original_finding": "At 00:00-12.80, the driver cab is presented as an unintegrated, square-cropped floating cutout hovering above the vehicle rather than being naturally situated within the truck cab or in a dedicated split-screen window.",
+          "evidence": {
+            "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
+            "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
+          }
+        },
+        {
+          "run_id": "2026-10-09",
+          "original_finding": {
+            "finding": "At 00:00-12.80, the driver cab is presented as an unintegrated, square-cropped floating cutout hovering above the vehicle rather than being naturally situated within the truck cab or in a dedicated split-screen window.",
+            "category": "surface_finish"
+          },
+          "evidence": {
+            "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
+            "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
+          }
+        }
+      ]
+    },
+    {
+      "category": "finish",
+      "distinct_editions": 3,
+      "evidence": [
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "time": "00:04.000",
+            "subject": "Schematic camera model",
+            "issue": "Minimalist graphic shapes appear rudimentary and feel like unfinished vector animatics rather than complete cinematic illustration."
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/cinema/hero-review-response.json",
+            "sha256": "bc32f6d7709e619a9e24bbdd343e1f8eaf2effe0de807fc29ba1068f4bd6a4a1"
+          }
+        },
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": {
+              "time": "00:04.000",
+              "subject": "Schematic camera model",
+              "issue": "Minimalist graphic shapes appear rudimentary and feel like unfinished vector animatics rather than complete cinematic illustration."
+            },
+            "category": "surface_finish"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/cinema/hero-review-response.json",
+            "sha256": "bc32f6d7709e619a9e24bbdd343e1f8eaf2effe0de807fc29ba1068f4bd6a4a1"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "dominant_action",
+            "classification": "minimum-action",
+            "scene": "s1",
+            "start_s": 0,
+            "end_s": 4.5,
+            "problem": "The actual warm reveal is visible and distinguishes the left unit from the right, but its principal changing thermal face occupies too little pixel range under fixed fan rings and fins. Exact inspection measures s1 at 0.00545 and first two seconds at 0.00408, both below the mandatory 0.006 floor. This is an opening-only failed minimum-action gate, not absence of all visible motion.",
+            "effect": "The normal route remains rejected by the dated opening action gate although the comparison is understandable and later action passages pass their measured floor.",
+            "fix": "Retain the source-disclosed two-unit comparison and v2 body. Increase the opening principal thermal face transformation or its occupied readable area so first two seconds and complete opening exceed the unchanged floor. Complete a clear warm comparison by two seconds using equipment state itself, preserving recognizable fan hardware and schematic disclosure. Do not substitute camera/background movement, numeric readings, robot repair or optional surface polish."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-08a2df376dd9-phone-pivot-diagnosis-a.json",
+            "sha256": "08a2df376dd96d305f27b24025fd0b5a068ee304c45bbe396d5c967a9eb8b8ee"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "dominant_action",
+            "classification": "minimum-action",
+            "scene": "s1",
+            "start_s": 0,
+            "end_s": 4.5,
+            "problem": "The actual warm reveal is visible and distinguishes the left unit from the right, but its principal changing thermal face occupies too little pixel range under fixed fan rings and fins. Exact inspection measures s1 at 0.00557 and first two seconds at 0.00413, both below the mandatory 0.006 floor. This is an opening-only failed minimum-action gate, not absence of all visible motion.",
+            "effect": "The normal route remains rejected by the dated opening action gate although the comparison is understandable and later action passages pass their measured floor.",
+            "fix": "Retain the source-disclosed two-unit comparison and v2 body. Increase the opening principal thermal face transformation or its occupied readable area so first two seconds and complete opening exceed the unchanged floor. Complete a clear warm comparison by two seconds using equipment state itself, preserving recognizable fan hardware and schematic disclosure. Do not substitute camera/background movement, numeric readings, robot repair or optional surface polish."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-92279fb0b8f0-phone-pivot-diagnosis-b.json",
+            "sha256": "92279fb0b8f0d85882c61f06bd91d991330ef5a37e67973960355ad01e1c53c5"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "dominant_action",
+            "classification": "minimum-action",
+            "scene": "s1",
+            "start_s": 0,
+            "end_s": 4.5,
+            "problem": "The principal picture is a pale two-fan equipment pair in a held room view. A thin warm edge/patch is visible at the first housing but it does not become a readable temperature difference or principal transformation at phone size. The warmer-unit title supplies the intended comparison.",
+            "effect": "The opening picture does not answer which unit is warmer through a visible payoff.",
+            "fix": "Replace the tiny recessed color-field change with a large source-disclosed thermal comparison on the conserved equipment surface, with visible start, reveal and readable result."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-b3ff2336072a-phone-diagnosis-a.json",
+            "sha256": "b3ff2336072a022b4e9a5d82851bd74492fa7f38a8419a4c9b21bf283c104f5f"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "dominant_action",
+            "classification": "minimum-action",
+            "scene": "s4-s5",
+            "start_s": 15.3,
+            "end_s": 30.3,
+            "problem": "The reported repair returns to almost the same pale equipment pair. The second-unit passage adds a small roof flag, but no readable rise-and-fall thermal state is carried by the dominant housing. At29.6 the second unit remains visually equivalent apart from the flag.",
+            "effect": "A repair outcome and an unconfirmed temperature excursion are conveyed primarily by changing headings, rather than differentiated completed equipment states.",
+            "fix": "Make the first reported changed state and the second transient state visually explicit on the conserved unit surfaces, then retain a clearly open inspection flag without showing another confirmed fault."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-b3ff2336072a-phone-diagnosis-a.json",
+            "sha256": "b3ff2336072a022b4e9a5d82851bd74492fa7f38a8419a4c9b21bf283c104f5f"
+          }
+        },
+        {
+          "run_id": "2026-10-09",
+          "original_finding": {
+            "finding": "At 05.80-12.80, the flat profile semi-truck and the three-quarter perspective warehouse exhibit conflicting perspective projections, breaking spatial integration.",
+            "category": "surface_finish"
+          },
+          "evidence": {
+            "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
+            "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
+          }
+        }
+      ]
+    },
+    {
+      "category": "framing",
+      "distinct_editions": 3,
+      "evidence": [
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "id": "source-focus-does-not-reveal-content",
+            "criterion": "dominant_action; visible development; structural phone motion and opening hook",
+            "scene": "s1/s5/s6/s9",
+            "start_s": 0.0,
+            "end_s": 3.5,
+            "additional_intervals": [
+              {
+                "start_s": 14.0,
+                "end_s": 21.0
+              },
+              {
+                "start_s": 28.0,
+                "end_s": 31.5
+              }
+            ],
+            "observed": "Actual B start versus1.6s and the inspected16,18,30s source frames show a fully exposed static source image with a small growing gold tint/underline. The relevant words and consequences are already visible before emphasis. Exact current preflight independently reports s1 .00301, s5 .00344, s6 .00294 and s9 .00563 against motion_floor .006, plus opening hook .00297. All five checks fail. The framing repair made sources readable but did not make these declared revelations expose new information.",
+            "effect": "The opening and repeated source beats remain held pictures with minor emphasis. Legible evidence and a source-backed concept do not satisfy the retained requirement for visible development of the principal picture.",
+            "fix": "Replace static fully exposed source pictures plus a growing focus tint with a genuine editorial exposure of additional source content inside the existing disjoint bounded stage. Keep source pixels fixed and authentic: begin with a recognizable partial source detail, then open an explicit editorial viewport to expose the decisive source heading, repeat instruction, prototype context or clinical caution on the event clock. The source example/reflow/date labels remain visible throughout; the viewport must not imitate live app response, model detection or a changing prototype result. End with the complete detail readable before the cut. Retain B as the consequence-first direction. Verify both completed opening films structurally before booking further phone criticism; retain all exact failed reports."
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/phone-critic-current.json",
+            "sha256": "b637439c10ab22063c96ba42b736953864ef10f1811af671938dfb680c6d3138"
+          }
+        },
+        {
+          "run_id": "2026-10-03",
+          "original_finding": {
+            "criterion": "caption_legibility",
+            "category": "captions",
+            "scene": "s7",
+            "start_s": 22.08,
+            "end_s": 25.0,
+            "problem": "Opaque assistance panel covers the first caption line, including the condition When AI fails, in the actual retimed film.",
+            "observed": "Continuous22.83 seconds and exact paused23.50 seconds show the Remote assistance/editorial-boundary panel painted over most of the first caption line. Only its initial W and the second line operators can take control remain readable. The source condition is hidden from muted viewers.",
+            "fix": "Place the complete assistance panel above the current two-line caption band with a clear gap, preserving readable source limitation and the original narration. Check the largest actual caption bounds in s5/s6/s7, rather than only caption fit within its own box."
+          },
+          "evidence": {
+            "path": "runs/2026-10-03/openings/caption10-phone-critic.json",
+            "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
+          }
+        },
+        {
+          "run_id": "2026-10-03",
+          "original_finding": {
+            "finding": {
+              "criterion": "caption_legibility",
+              "category": "captions",
+              "scene": "s7",
+              "start_s": 22.08,
+              "end_s": 25.0,
+              "problem": "Opaque assistance panel covers the first caption line, including the condition When AI fails, in the actual retimed film.",
+              "observed": "Continuous22.83 seconds and exact paused23.50 seconds show the Remote assistance/editorial-boundary panel painted over most of the first caption line. Only its initial W and the second line operators can take control remain readable. The source condition is hidden from muted viewers.",
+              "fix": "Place the complete assistance panel above the current two-line caption band with a clear gap, preserving readable source limitation and the original narration. Check the largest actual caption bounds in s5/s6/s7, rather than only caption fit within its own box."
+            },
+            "category": "captions"
+          },
+          "evidence": {
+            "path": "runs/2026-10-03/openings/caption10-phone-critic.json",
+            "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
+          }
+        },
+        {
+          "run_id": "2026-10-06",
+          "original_finding": {
+            "finding": {
+              "phone_observation": "subject_recognition",
+              "observation": {
+                "pass": false,
+                "start_s": 0,
+                "end_s": 12,
+                "observed": "Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not."
+              }
+            },
+            "category": "layout"
+          },
+          "evidence": {
+            "path": "runs/2026-10-06/retained-reviews/dispatch/repairs/05-phone-framing/openings/a-phone-critic.json",
+            "sha256": "1567f0b3dac2830450ec2a47d6fc2dfde09dbe35c2da009fdcd167211889d5d5"
+          }
+        },
+        {
+          "run_id": "2026-10-06",
+          "original_finding": {
+            "phone_observation": "subject_recognition",
+            "observation": {
+              "pass": false,
+              "start_s": 0,
+              "end_s": 12,
+              "observed": "Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not."
+            }
+          },
+          "evidence": {
+            "path": "runs/2026-10-06/retained-reviews/dispatch/repairs/05-phone-framing/openings/technical-critic.json",
+            "sha256": "27c2a2dbc9d07544eb9c78fe2952b6555835acd3a6ffec4b632955bd010a736a"
+          }
+        }
+      ]
+    },
+    {
+      "category": "motion",
+      "distinct_editions": 4,
+      "evidence": [
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "From 34.0s to 43.0s, repetitive static layouts stall pictorial momentum before the final source slate.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/cinema/picture-review-response.json",
+            "sha256": "1ddf27c8a37cfa178501de19b6b28c03da24a49b4f680077e10dcdce04570f41"
+          }
+        },
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "Between 35.0s and 43.0s, the visual remains static on the split counter with repetitive dialogue.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/cinema/story-review-response.json",
+            "sha256": "c92b8d2aef8b2ad31d7c9c9fdd7e018f8e4237fff2d396b082f9b7309ffa0e9a"
+          }
+        },
+        {
+          "run_id": "2026-10-01",
+          "original_finding": {
+            "finding": "05.00-09.40: The graphic display remains static across two narration lines, stalling physical story progression.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-10-01/cinema/hero-review-response.json",
+            "sha256": "7cf511369b7f96b4c0266792365e346f134c063990982fcf0499bb58bdb333af"
+          }
+        },
+        {
+          "run_id": "2026-10-06",
+          "original_finding": {
+            "finding": "27.72\u201332.44s repeats a same-size ghost/solid traversal after 23.50\u201327.72s already established the comparison; the planned-testing caption adds reporting but the repeated wide action supplies too little new pictured understanding.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-10-06/panel-round-1.json",
+            "sha256": "2d7693e46f1c0ca56afa54052823523fd5e25ec14f7ef914b84ca31fb9eecc70"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "runtime",
+            "classification": "mandatory-scene-ceiling",
+            "scene": "s6",
+            "start_s": 28.36,
+            "end_s": 38.5,
+            "problem": "The current measured closing scene runs10.14seconds, exceeding the unchanged9.5second absolute storyboard ceiling. Timed preflight correctly refuses before capture. A consolidated actual cheap sweep identifies no other current timing, board, scale, source, caption-fold, flow, daily-action or creative-plan failure.",
+            "effect": "Current narration-aligned board cannot enter required final phone capture. Earlier documentary duration/cadence repairs do not satisfy this separate ceiling.",
+            "fix": "Trim only0.64seconds from the idle ending hold: s6duration9.5, storyruntime37.86, preserve5secondcredits for total42.86. Keep existing actual three closing-event windows and regenerate their authored clock values against the9.5second scene duration so repeated retime preserves them. Preserve all82words and actual voice placement. Rebuild the mix/media duration and receipts for42.86, then verify actual final timed phone and required audiovisual gates. No split is required once the actual scene falls within the fixed ceiling."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-443dbb7ea34a-timed-scene-ceiling-diagnosis.json",
+            "sha256": "443dbb7ea34a47e29b3ea581bb2f80408933d39b3d59c53a0534a081c332bfdd"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "finding": {
+              "criterion": "runtime",
+              "classification": "mandatory-scene-ceiling",
+              "scene": "s6",
+              "start_s": 28.36,
+              "end_s": 38.5,
+              "problem": "The current measured closing scene runs10.14seconds, exceeding the unchanged9.5second absolute storyboard ceiling. Timed preflight correctly refuses before capture. A consolidated actual cheap sweep identifies no other current timing, board, scale, source, caption-fold, flow, daily-action or creative-plan failure.",
+              "effect": "Current narration-aligned board cannot enter required final phone capture. Earlier documentary duration/cadence repairs do not satisfy this separate ceiling.",
+              "fix": "Trim only0.64seconds from the idle ending hold: s6duration9.5, storyruntime37.86, preserve5secondcredits for total42.86. Keep existing actual three closing-event windows and regenerate their authored clock values against the9.5second scene duration so repeated retime preserves them. Preserve all82words and actual voice placement. Rebuild the mix/media duration and receipts for42.86, then verify actual final timed phone and required audiovisual gates. No split is required once the actual scene falls within the fixed ceiling."
+            },
+            "category": "runtime",
+            "basis": "The exact actual scene duration violates the mandatory runtime ceiling. Removing an idle post-action hold preserves all spoken content, picture actions, source relations and geometry while restoring the fixed structural contract; no rubric change or optional art expansion is authorized."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-443dbb7ea34a-timed-scene-ceiling-diagnosis.json",
+            "sha256": "443dbb7ea34a47e29b3ea581bb2f80408933d39b3d59c53a0534a081c332bfdd"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "runtime",
+            "classification": "mandatory-event-cadence",
+            "scene": "s6",
+            "start_s": 32.01,
+            "end_s": 36.645,
+            "problem": "The actual s6 second-event start32.01 and third-event start36.645 leave4.635 seconds between declared viewer rewards, exceeding the unchanged4.0second gate. This is the exact measured preflight timing failure, not a judgment from an unseen timed movie.",
+            "effect": "The last open-flag action cannot remain on its current event clock under the required cadence contract.",
+            "fix": "Move only the current source-supported final open-flag settle to s6 local7.5 seconds, absolute35.86, where the final sentence begins. Keep the unresolved flag and empty checker outcome, with a1.2second action ending37.06. Update its authored at_s by the actual retime ratio; preserve total43.5seconds and existing audio/script."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-4f3259472eb5-timed-preflight-runtime-diagnosis.json",
+            "sha256": "4f3259472eb5ed8c960da3575fcb69cf9aeae24e300c1d4a5edc4fbb03648c99"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "finding": {
+              "criterion": "runtime",
+              "classification": "mandatory-directed-event-duration",
+              "scene": "s2,s6",
+              "problem": "Required board_retime scaled s2 event durations1.2 to1.221 and s6 event durations1.0 to1.237. All six exceed the unchanged documentary directed maximum1.2 seconds. Actual timed preflight refused before rendering.",
+              "effect": "The current narration-aligned board cannot enter its required phone capture despite successful earlier silent films.",
+              "fix": "Preserve the actual narration-aligned scene starts/durations, geometry, source claims and words. Reduce each of these six actual event durations to1.2 seconds and update authored durations by the actual scene retime ratio so a subsequent retime derives the same valid windows."
+            },
+            "category": "runtime",
+            "basis": "Required automatic event retiming produced concrete event durations/spacing outside the fixed preflight runtime contract. This correction adjusts only the bound event clocks, preserves the successful source-supported mechanism and narration, and restores admission without changing any gate or adding optional artistic scope."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-4f3259472eb5-timed-preflight-runtime-diagnosis.json",
+            "sha256": "4f3259472eb5ed8c960da3575fcb69cf9aeae24e300c1d4a5edc4fbb03648c99"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "finding": {
+              "criterion": "runtime",
+              "classification": "mandatory-event-cadence",
+              "scene": "s6",
+              "start_s": 32.01,
+              "end_s": 36.645,
+              "problem": "The actual s6 second-event start32.01 and third-event start36.645 leave4.635 seconds between declared viewer rewards, exceeding the unchanged4.0second gate. This is the exact measured preflight timing failure, not a judgment from an unseen timed movie.",
+              "effect": "The last open-flag action cannot remain on its current event clock under the required cadence contract.",
+              "fix": "Move only the current source-supported final open-flag settle to s6 local7.5 seconds, absolute35.86, where the final sentence begins. Keep the unresolved flag and empty checker outcome, with a1.2second action ending37.06. Update its authored at_s by the actual retime ratio; preserve total43.5seconds and existing audio/script."
+            },
+            "category": "runtime",
+            "basis": "Required automatic event retiming produced concrete event durations/spacing outside the fixed preflight runtime contract. This correction adjusts only the bound event clocks, preserves the successful source-supported mechanism and narration, and restores admission without changing any gate or adding optional artistic scope."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-4f3259472eb5-timed-preflight-runtime-diagnosis.json",
+            "sha256": "4f3259472eb5ed8c960da3575fcb69cf9aeae24e300c1d4a5edc4fbb03648c99"
+          }
+        }
+      ]
+    },
+    {
+      "category": "recognition",
+      "distinct_editions": 2,
+      "evidence": [
+        {
+          "run_id": "2026-09-29",
+          "original_finding": "At 03.200, simple generic outline boxes substitute for concrete visual depiction of study sites.",
+          "evidence": {
+            "path": "runs/2026-09-29/cinema/picture-review-response.json",
+            "sha256": "c358edc0d96dd94fa4a5deb282e3f877df8e86d34e91f0c4e760240e78c5b83f"
+          }
+        },
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "finding": "At 03.200, simple generic outline boxes substitute for concrete visual depiction of study sites.",
+            "category": "motion"
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/cinema/picture-review-response.json",
+            "sha256": "c358edc0d96dd94fa4a5deb282e3f877df8e86d34e91f0c4e760240e78c5b83f"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "surface_finish",
+            "scene": "s1-s4",
+            "start_s": 0,
+            "end_s": 22.1,
+            "problem": "The opaque warm patch is at z .545 with front z .552, ahead of fin-bar fronts at z .5375. It therefore covers the fins instead of occupying their gaps as the code comment and finished-hero plan claim. Fan assemblies remain in front, but the principal warm grille loses its authored rib finish.",
+            "fix": "Place the schematic heat behind the fin bars or divide it into actual fin gaps while preserving the fan and rib silhouette."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/c3468a30a1fe-opening-a-critic.json",
+            "sha256": "c3468a30a1fecebf45811a90b929702bcb0e27e11c1b1b06ea2101bc736cffdb"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "dominant_action",
+            "classification": "minimum-action",
+            "scene": "s2",
+            "start_s": 4.5,
+            "end_s": 11.3,
+            "problem": "At actual4.5 and10.9 phone endpoints, the principal warm-left/teal-right equipment picture remains unchanged. A small foreground mobile sensor shifts slightly right and its aperture changes aim, but that limited motion does not constitute a substantial checkpoint-comparison revelation. Exact current s2 measurement is0.00429, below the unchanged0.006 floor. The current opening now passes; this rejection is confined to the robot inspection passage.",
+            "effect": "The robot observation antecedent is named and recognizable, but its picture action remains too small to pass the required revelation gate. A code/body invariance audit cannot override this actual film result.",
+            "fix": "Retire the small chassis nudge and limited head aim as the inspection mechanism. Use a source-disclosed generic finite checkpoint traverse and clearly targeted stop/aim comparison with readable travel, target relation and settled result. Preserve the current warm equipment relation, separate handheld confirmation, first restoration and unconfirmed second flag. Prove occupied action, support and fit in current code and new actual phone capture; do not invent actual site route, numbers, private UI or robot repair."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-1543b89d64a4-phone-current-diagnosis-a.json",
+            "sha256": "1543b89d64a4cdf034f8edbbfe9346501ae8b242114777fea107b018b240aeb5"
+          }
+        },
+        {
+          "run_id": "2026-10-07",
+          "original_finding": {
+            "criterion": "dominant_action",
+            "classification": "minimum-action",
+            "scene": "s2",
+            "start_s": 4.5,
+            "end_s": 11.3,
+            "problem": "At actual4.5 and10.9 phone endpoints, the principal warm-left/teal-right equipment picture remains unchanged. A small foreground mobile sensor shifts slightly right and its aperture changes aim, but that limited motion does not constitute a substantial checkpoint-comparison revelation. Exact current s2 measurement is0.00418, below the unchanged0.006 floor. The current opening now passes; this rejection is confined to the robot inspection passage.",
+            "effect": "The robot observation antecedent is named and recognizable, but its picture action remains too small to pass the required revelation gate. A code/body invariance audit cannot override this actual film result.",
+            "fix": "Retire the small chassis nudge and limited head aim as the inspection mechanism. Use a source-disclosed generic finite checkpoint traverse and clearly targeted stop/aim comparison with readable travel, target relation and settled result. Preserve the current warm equipment relation, separate handheld confirmation, first restoration and unconfirmed second flag. Prove occupied action, support and fit in current code and new actual phone capture; do not invent actual site route, numbers, private UI or robot repair."
+          },
+          "evidence": {
+            "path": "runs/2026-10-07/retained-reviews/critic-df989cfde1bc-phone-current-diagnosis-b.json",
+            "sha256": "df989cfde1bc8298336396dab0cbccf3478e444242f7b3b26e860899624a0069"
+          }
+        }
+      ]
+    }
+  ],
+  "instruction": "Existing builder: reproduce exact failed evidence, consider one reusable correction, test it and prove it in the already reserved two-treatment comparison. Preserve all findings and cumulative resources. Record advance or skip; optional engineering never delays shipment."
+}

@@ -3514,6 +3514,12 @@
       "report_sha256": "d1d9ed037bd6323f86b3c7c25090eda2453249f94ea08324d4e4be29957868cb",
       "result": "publishable",
       "score": 7.305
+    },
+    {
+      "at": "2026-10-09T14:10:32.171918Z",
+      "kind": "finished",
+      "result": "shipped",
+      "shipment_sha256": "88ff24f06ca997977a9b3e610d43961f5693067b587d8829d1a9ad4b84e93b33"
     }
   ],
   "final_report": {
@@ -3542,7 +3548,7 @@
     "voice_directors": 2
   },
   "mode": "production",
-  "phase": "publishing",
+  "phase": "shipped",
   "publication_mode": "rubric_pass",
   "release_status": "publishable",
   "repair_policy": "quality-recovery/1",
@@ -3567,9 +3573,214 @@
   "review_required": false,
   "run_id": "2026-10-09",
   "schema": "dispatch_run_state/1",
+  "shipment": {
+    "verified_at": "2026-10-09T14:10:32.171028Z",
+    "film_sha256": "643bb423a902c14ac87ec76bc9e32f14b4cb25cd56e7d6acd53179ede89477cc",
+    "live_url": "https://texasaidocket.com/videos/#2026-10-09-freight-moves-the-observer-stays",
+    "master_url": "https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-10-09/dispatch.mp4",
+    "mobile_url": "https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-10-09/dispatch-720.mp4",
+    "schema": "dispatch_public_shipment/1",
+    "dispatch": {
+      "url": "https://github.com/Talonsturgill/TexasAIDispatch/pull/119",
+      "head_sha": "244da24dced5e6ff29b41176c83fb40902f942d2",
+      "merge_sha": "9ac2ac1a9d7cb3d774256225cd4530cf3fff6155",
+      "checks": [
+        {
+          "id": 113792324681,
+          "name": "guards",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/37922110989/job/113792324681"
+        }
+      ]
+    },
+    "feed": {
+      "url": "https://github.com/Talonsturgill/TexasAIDocket/pull/414",
+      "head_sha": "7e3e8f5e229e6751114f51e9cbb62db59ab36907",
+      "merge_sha": "14ceaa099c6aa31f6c63d7a828c8df7812383a2a",
+      "checks": [
+        {
+          "id": 113840752426,
+          "name": "release",
+          "status": "completed",
+          "conclusion": "skipped",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113840752426"
+        },
+        {
+          "id": 113840715582,
+          "name": "guards",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113840715582"
+        },
+        {
+          "id": 113828396980,
+          "name": "browser-render",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113828396980"
+        },
+        {
+          "id": 113828396774,
+          "name": "browser-layout",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113828396774"
+        },
+        {
+          "id": 113828396750,
+          "name": "gates",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113828396750"
+        },
+        {
+          "id": 113828396733,
+          "name": "browser-read",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113828396733"
+        },
+        {
+          "id": 113828396712,
+          "name": "freshness",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113828396712"
+        },
+        {
+          "id": 113828396535,
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37933098943/job/113828396535"
+        }
+      ]
+    },
+    "deployment": {
+      "id": 37940196750,
+      "name": "pages",
+      "head_sha": "14ceaa099c6aa31f6c63d7a828c8df7812383a2a",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37940196750"
+    },
+    "deployment_binding": {
+      "ancestry": {
+        "deployment_sha": "14ceaa099c6aa31f6c63d7a828c8df7812383a2a",
+        "merge_sha": "14ceaa099c6aa31f6c63d7a828c8df7812383a2a",
+        "status": "identical"
+      },
+      "reviewed_feed": {
+        "blob_sha": "5d044e1013aa2a6cd3f0cf3a7306bfdd9e322876",
+        "bytes": 24080,
+        "commit_sha": "7e3e8f5e229e6751114f51e9cbb62db59ab36907",
+        "sha256": "14b99de892f38081f40d3202475646bfcfeeea0a65b6785c617d45bf34528b3f"
+      },
+      "deployed_feed": {
+        "blob_sha": "5d044e1013aa2a6cd3f0cf3a7306bfdd9e322876",
+        "bytes": 24080,
+        "commit_sha": "14ceaa099c6aa31f6c63d7a828c8df7812383a2a",
+        "sha256": "14b99de892f38081f40d3202475646bfcfeeea0a65b6785c617d45bf34528b3f"
+      },
+      "checks": [
+        {
+          "id": 113857448114,
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37940196750/job/113857448114"
+        },
+        {
+          "id": 113852325198,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37940196750/job/113852325198"
+        },
+        {
+          "id": 113852277068,
+          "name": "release",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113852277068"
+        },
+        {
+          "id": 113852236544,
+          "name": "guards",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113852236544"
+        },
+        {
+          "id": 113841274535,
+          "name": "gates",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113841274535"
+        },
+        {
+          "id": 113841274510,
+          "name": "freshness",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113841274510"
+        },
+        {
+          "id": 113841274445,
+          "name": "browser-read",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113841274445"
+        },
+        {
+          "id": 113841274430,
+          "name": "browser-render",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113841274430"
+        },
+        {
+          "id": 113841274394,
+          "name": "browser-layout",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113841274394"
+        },
+        {
+          "id": 113841274218,
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "details_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37936947716/job/113841274218"
+        }
+      ],
+      "jobs": [
+        {
+          "id": 113852325198,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37940196750/job/113852325198"
+        },
+        {
+          "id": 113857448114,
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/Talonsturgill/TexasAIDocket/actions/runs/37940196750/job/113857448114"
+        }
+      ]
+    },
+    "phone_playback_verified": true,
+    "unsent_draft_verified": true,
+    "email_sha256": "d5ccef4fdf6aaaeadbda5fc906437b7eddc358958c1a6fc9db3ecbae4440764d",
+    "mobile_sha256": "1406fb503e0833da6f56127620a6fb7ebfa0128df617786816fb5bb787825efa",
+    "poster_sha256": "c2a8a75f3f2c844204e1098e0a3d3c18387f69a58387813e68f2c3964343efb8"
+  },
   "terminal_reason": null,
-  "terminal_state": null,
-  "updated_at": "2026-10-09T10:55:19.172591Z",
+  "terminal_state": "shipped",
+  "updated_at": "2026-10-09T14:10:32.171929Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -3589,8 +3800,13 @@
   },
   "public_export": {
     "schema": "dispatch_public_ledger/1",
-    "original_private_state_sha256": "564fdf78f9da93283548c804a7555573c64c25cdde26f1c1be4cb4084b31b327",
+    "original_private_state_sha256": "814ffa1ef4322cb8015b2ee85a12bcc2ce51a66e176a4ba9e78c3e5c4fc62119",
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "owner_message_redactions": []
+    "owner_message_redactions": [],
+    "shipment_projection": {
+      "schema": "dispatch_public_shipment_projection/1",
+      "original_private_shipment_sha256": "787e6dc6b11144c045dd734e89ebdb64d9aac09fb959b5a555a76072048276f2",
+      "description": "Verified public release, deployment and media evidence. Private Gmail identifiers, routing and local receipt paths excluded."
+    }
   }
 }
