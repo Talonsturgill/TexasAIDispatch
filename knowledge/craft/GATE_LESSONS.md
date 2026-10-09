@@ -1668,3 +1668,15 @@ lossless WebP. Lossless puts the Gulf plate at 1.20, which is the 8-bit rounding
 times the bytes. The same pass held each camera limit to the measurements that set it: the last step
 that passed, the next step's failure and every profile end the stage moves to. CI measures cover and
 magnification again from the committed layers and requires the bake's numbers exactly.
+
+## A busy server read as a dead licence
+
+October 9th, 2026. `music.py --check-links` fails a run when a track's source page is refused,
+because for a CC BY track that page is the licence. It sets aside an unreachable host as network
+rather than licence. It counted every HTTP error except 403 and 405 as a refusal. GitHub answered 503
+for texas_signal_bed's source page to the CI runner on three runs that morning, main's among them,
+while the same request from elsewhere got 200 throughout. A licence that was fine turned main red.
+
+**What to check instead.** A 503 or a 429 says the server can't answer now and nothing about the page.
+The check asks twice more and then sets the page aside as unreachable, and a 404 is still a dead
+licence. Its self-test replays all three answers.

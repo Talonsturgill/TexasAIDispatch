@@ -585,6 +585,42 @@ def self_test() -> int:
     # the real registry on disk must be valid whatever is in it
     ok("the committed registry is valid", check(load()) == [])
 
+    # A busy server is not a dead licence, and a missing page still is (October 9th, 2026)
+    import contextlib
+    import io
+    import time
+    import urllib.error
+    import urllib.request
+
+    def answering(codes):
+        replies = iter(codes)
+
+        def urlopen(req, timeout=0):
+            code = next(replies)
+            if code >= 400:
+                raise urllib.error.HTTPError(req.full_url, code, "answer", {}, None)
+            return contextlib.nullcontext(type("Reply", (), {"status": code})())
+        return urlopen
+
+    real_open, real_sleep = urllib.request.urlopen, time.sleep
+    try:
+        time.sleep = lambda s: None
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            urllib.request.urlopen = answering([503, 503, 503])
+            busy = check_links([good])
+            urllib.request.urlopen = answering([503, 200])
+            recovered = check_links([good])
+            urllib.request.urlopen = answering([429, 429, 429])
+            limited = check_links([good])
+            urllib.request.urlopen = answering([404])
+            gone = check_links([good])
+    finally:
+        urllib.request.urlopen, time.sleep = real_open, real_sleep
+    ok("a page answered 503 three times is set aside, not failed as a dead licence", busy == 0)
+    ok("a 503 asked again and answered 200 resolves", recovered == 0)
+    ok("a 429 three times is set aside too", limited == 0)
+    ok("a 404 is still a dead licence", gone == 1)
+
     print(f"\nmusic self-test: {'all passed' if not fails else f'{fails} FAILED'}")
     return 1 if fails else 0
 
@@ -602,9 +638,28 @@ def check_links(tracks: list[dict]) -> int:
     A 404 IS A HARD FAIL AND AN UNREACHABLE HOST IS NOT. The distinction matters: a licence
     gate that goes red because a runner has no network teaches everyone to ignore it, which
     is how a gate stops working. A refusal from the server is evidence; silence is not.
+
+    A BUSY SERVER IS NOT A REFUSAL EITHER. On October 9th, 2026 GitHub answered 503 for
+    texas_signal_bed's source page to the CI runner on three runs, main among them, while the
+    same request from elsewhere got 200 throughout. A 503 or a 429 says the server can't answer
+    now and nothing about the page, so it is asked twice more and then set aside as unreachable.
     """
+    import time
     import urllib.error
     import urllib.request
+
+    def head(url: str) -> int:
+        req = urllib.request.Request(url, method="HEAD", headers={
+            "User-Agent": "TexasAIDispatch/1.0 (music registry link check)"})
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(req, timeout=25) as r:
+                    return r.status
+            except urllib.error.HTTPError as exc:
+                if attempt == 2 or not (exc.code == 429 or exc.code >= 500):
+                    raise
+            time.sleep(3 * (attempt + 1))
+        raise AssertionError("unreachable")
 
     dead, unreachable = [], []
     for t in tracks:
@@ -613,15 +668,16 @@ def check_links(tracks: list[dict]) -> int:
         if not url:
             dead.append(f"{tid}: no source_url at all")
             continue
-        req = urllib.request.Request(url, method="HEAD", headers={
-            "User-Agent": "TexasAIDispatch/1.0 (music registry link check)"})
         try:
-            with urllib.request.urlopen(req, timeout=25) as r:
-                code = r.status
+            code = head(url)
             print(f"  {code}  {tid}")
         except urllib.error.HTTPError as exc:
             if exc.code in (403, 405):          # some hosts refuse HEAD, not the resource
                 print(f"  {exc.code}  {tid} (host refuses HEAD, not treated as dead)")
+                continue
+            if exc.code == 429 or exc.code >= 500:
+                unreachable.append(f"{tid}: {url} answered {exc.code} three times, a server "
+                                   f"busy or failing rather than a page refused")
                 continue
             dead.append(f"{tid}: {url} returns {exc.code}. For a CC BY track that page IS "
                         f"the licence, so a credit pointing at it would name nothing.")
