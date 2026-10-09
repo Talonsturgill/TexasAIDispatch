@@ -105,7 +105,10 @@ regions has a plate, rendered once in the Docket's carousel engine from a scene 
 `assets/place/scenes/` by `scripts/place_bake.py`, as a sky, one ground and cards for the things
 standing on it. The bake measured that the layers reassemble into the picture and that every
 camera profile keeps the ground covering the frame and every base on its ground. The manifest
-records those measurements, the Docket commit and every layer's sha256.
+records those measurements, the Docket commit, every layer's sha256 and the hash of each module a
+scene imports from `assets/place/`. Water is drawn by `assets/place/water.js` as a mirror of the
+world in its own plane, because a lake seen from eye height under a hazy sky otherwise reads as a
+pale slab, and no scatter grows on it.
 
 - **The plate is the county's when it has one, and the region's when it doesn't.** A region's own
   plate carries nothing that belongs to one place, no skyline and no refinery, because a Texan is
@@ -142,7 +145,9 @@ county and the narration names the place. Its map is computed by `scripts/county
 
 A run never bakes a plate. A plate is added or changed by editing its scene page and running
 `place_bake.py --docket <a TexasAIDocket checkout>`, and the layers and manifest are committed
-together. CI fails a scene edited without a re-bake.
+together. CI fails a scene or a place module edited without a re-bake. Open each baked plate's
+`out/place-bake/<plate>/full.png` at film size before committing it: the bake measures whether the
+layers move as one world, never whether the water reads as water.
 
 ## Narration and picture use one clock
 

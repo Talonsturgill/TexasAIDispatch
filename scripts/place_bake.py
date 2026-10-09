@@ -30,7 +30,9 @@ bake and recorded in the manifest:
      looks like, which is the limit a near ground puts on a move.
   3. SLIDE. A card moves as one distance and each thing on it stands at its own, so its base slides
      on the ground by the difference. The bake computes that slide for every thing whose base is in
-     the frame, and holds it under SLIDE_MAX_PX.
+     the frame, and holds it under SLIDE_MAX_PX. The part of a surface that rises above the eye (a
+     skyline, a ridge) is a card too, seamed to the ground along the horizon, and its seam points
+     are measured the same way.
 
 The largest dolly, truck and rise that pass all three are the plate's LIMITS. PlaceStage moves a
 plate only by the profiles in the manifest's `moves`, scaled to a share of those limits, and the
@@ -145,9 +147,9 @@ def downsample(rgba: np.ndarray, k: int = SS) -> np.ndarray:
     h, w = rgba.shape[:2]
     if h % k or w % k:
         raise ValueError("downsample: the picture is not a whole multiple of the filter")
-    x = rgba.astype(np.float64) / 255.0
+    x = rgba.astype(np.float32) / 255.0
     a = x[..., 3:4]
-    pm = np.concatenate([x[..., :3] * a, a], axis=-1).reshape(h // k, k, w // k, k, 4).mean(axis=(1, 3))
+    pm = np.concatenate([x[..., :3] * a, a], axis=-1).reshape(h // k, k, w // k, k, 4).mean(axis=(1, 3), dtype=np.float64)
     alpha = pm[..., 3:4]
     rgb = np.divide(pm[..., :3], alpha, out=np.zeros_like(pm[..., :3]), where=alpha > 1e-9)
     return np.concatenate([np.clip(rgb, 0, 1), alpha], axis=-1)
@@ -164,6 +166,19 @@ def over(layers: list[np.ndarray]) -> np.ndarray:
     return np.concatenate([rgb, alpha], axis=-1)
 
 
+def compose_cards(base: np.ndarray, cards: list[tuple[np.ndarray, tuple[int, int, int, int]]]) -> np.ndarray:
+    """A composite (straight RGBA) with each card, far first, laid over it from its own crop."""
+    out = base.copy()
+    for crop, (x, y, w, h) in cards:
+        region = out[y:y + h, x:x + w]
+        a = crop[..., 3:4]
+        rgb = crop[..., :3] * a + region[..., :3] * region[..., 3:4] * (1 - a)
+        alpha = a + region[..., 3:4] * (1 - a)
+        region[..., :3] = np.divide(rgb, alpha, out=np.zeros_like(rgb), where=alpha > 1e-9)
+        region[..., 3:4] = alpha
+    return out
+
+
 def film_crop(img: np.ndarray) -> np.ndarray:
     y0, x0 = (img.shape[0] - FILM_H) // 2, (img.shape[1] - FILM_W) // 2
     return img[y0:y0 + FILM_H, x0:x0 + FILM_W]
@@ -171,8 +186,11 @@ def film_crop(img: np.ndarray) -> np.ndarray:
 
 def reassembly(layers: list[np.ndarray], whole: np.ndarray) -> dict:
     """How far the layers at rest are from the whole picture, in 8-bit levels over the film frame."""
-    built = film_crop(over(layers))[..., :3]
-    diff = np.abs(built - film_crop(whole)[..., :3]).max(axis=-1) * 255.0
+    return reassembly_of(over(layers), whole)
+
+
+def reassembly_of(built: np.ndarray, whole: np.ndarray) -> dict:
+    diff = np.abs(film_crop(built)[..., :3] - film_crop(whole)[..., :3]).max(axis=-1) * 255.0
     return {"mean": round(float(diff.mean()), 3), "p999": round(float(np.percentile(diff, 99.9)), 2)}
 
 
@@ -238,6 +256,14 @@ def card_matrix(cam: dict, depth: float, move: dict) -> np.ndarray:
     return np.array([[s, 0, (1 - s) * cam["cx"] + tx], [0, s, (1 - s) * cam["cy"] + ty], [0, 0, 1.0]])
 
 
+def parallax(cam: dict, depth, move: dict, xs: np.ndarray, ys: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Where pixels at `depth` (one distance, or one per pixel) go under a move: card_matrix, vectorised."""
+    m = camera_move(cam, move)
+    d = np.maximum(np.asarray(depth, dtype=np.float64) - m[2], 1e-3)
+    s = np.asarray(depth, dtype=np.float64) / d
+    return (s * xs + (1 - s) * cam["cx"] - cam["fpx"] * m[0] / d, s * ys + (1 - s) * cam["cy"] - cam["fpx"] * m[1] / d)
+
+
 def apply(H: np.ndarray, p) -> np.ndarray:
     v = H @ np.array([p[0], p[1], 1.0])
     return v[:2] / v[2]
@@ -247,7 +273,8 @@ def warp(alpha: np.ndarray, H: np.ndarray, size=(PLATE_W, PLATE_H)) -> np.ndarra
     """An alpha map moved by the forward matrix H (input pixel to output pixel), bilinear."""
     Hi = np.linalg.inv(H)
     Hi = Hi / Hi[2, 2]
-    im = Image.fromarray(np.clip(alpha * 255.0, 0, 255).astype(np.uint8), "L")
+    a8 = alpha if alpha.dtype == np.uint8 else np.clip(alpha * 255.0, 0, 255).astype(np.uint8)
+    im = Image.fromarray(a8, "L")
     out = im.transform(size, Image.Transform.PERSPECTIVE, tuple(Hi.flatten()[:8]),
                        resample=Image.Resampling.BILINEAR, fillcolor=0)
     return np.asarray(out, dtype=np.float64) / 255.0
@@ -273,17 +300,39 @@ class Plate:
     """Everything the three checks need: the camera, the ground's alpha, each card's alpha at full
     plate size and its distance, and every thing's base pixel and distance."""
 
-    def __init__(self, cam: dict, horizon_y: float, ground: np.ndarray, cards: list[dict]):
+    def __init__(self, cam: dict, horizon_y: float, ground: np.ndarray, cards: list[dict], z1: np.ndarray | None = None):
         self.cam, self.horizon_y, self.ground, self.cards = cam, horizon_y, ground, cards
-        self.rest = sky_on_ground([ground] + [c["alpha"] for c in cards], horizon_y)
+        self.rest = self.cover_at_rest()
+        # A surface's part above the eye is one card over a range of distances: every third pixel of it
+        # in the film, at the distance the depth pass measured there, so slide can hold each to its own.
+        self.surface_px = []
+        x0, y0 = (PLATE_W - FILM_W) / 2, (PLATE_H - FILM_H) / 2
+        for c in cards if z1 is not None else []:
+            if not c.get("tall"):
+                continue
+            ys, xs = np.nonzero(c["alpha"][::3, ::3] > 128)
+            xs, ys = xs * 3 + c["box"][0], ys * 3 + c["box"][1]
+            zs = z1[ys, xs].astype(np.float64)
+            keep = ((zs >= 0.9 * c["min"]) & (zs <= 1.1 * c["max"]) & (xs >= x0) & (xs <= x0 + FILM_W)
+                    & (ys >= y0) & (ys <= y0 + FILM_H))
+            self.surface_px.append((c, xs[keep].astype(np.float64), ys[keep].astype(np.float64), zs[keep]))
+
+    def cover_at_rest(self) -> float:
+        return sky_on_ground([warp(self.ground, np.eye(3))] + [
+            warp(c["alpha"], np.array([[1, 0, c.get("box", (0, 0))[0]], [0, 1, c.get("box", (0, 0))[1]], [0, 0, 1.0]]))
+            for c in self.cards], self.horizon_y)
 
     def cover(self, move: dict) -> float:
         H = ground_homography(self.cam, move)
-        moved = [warp(self.ground, H)] + [warp(c["alpha"], card_matrix(self.cam, c["depth"], move)) for c in self.cards]
+        moved = [warp(self.ground, H)]
+        for c in self.cards:                 # a card's crop, moved by its matrix after its own offset
+            x, y = c.get("box", (0, 0, 0, 0))[:2]
+            moved.append(warp(c["alpha"], card_matrix(self.cam, c["depth"], move) @ np.array([[1, 0, x], [0, 1, y], [0, 0, 1.0]])))
         return max(0.0, sky_on_ground(moved, self.horizon_y) - self.rest)
 
     def slide(self, move: dict) -> float:
-        """The largest distance, in pixels, any in-frame base moves away from the ground under it."""
+        """The largest distance, in pixels, any in-frame base moves away from the ground under it, and
+        any pixel of a surface's part above the eye moves away from where its own distance puts it."""
         H = ground_homography(self.cam, move)
         worst = 0.0
         for c in self.cards:
@@ -291,6 +340,11 @@ class Plate:
             for t in c["things"]:
                 if in_film(t["base"]):
                     worst = max(worst, float(np.linalg.norm(apply(H, t["base"]) - apply(A, t["base"]))))
+        for c, xs, ys, zs in self.surface_px:
+            if len(xs):
+                gx, gy = parallax(self.cam, c["depth"], move, xs, ys)
+                tx, ty = parallax(self.cam, zs, move, xs, ys)
+                worst = max(worst, float(np.hypot(gx - tx, gy - ty).max()))
         return worst
 
     def scale(self, move: dict) -> float:
@@ -341,6 +395,11 @@ def mean_rgb(img: np.ndarray, mask: np.ndarray) -> list[int]:
 
 # ---- the render --------------------------------------------------------------------------------
 
+def place_imports(html: str) -> list[str]:
+    """The modules a scene page imports from assets/place: plate.js always, water.js where there is water."""
+    return sorted(set(re.findall(r"@@PLACE@@/([\w.-]+\.js)", html)))
+
+
 def resolve(scene: Path, docket_assets: Path) -> Path:
     WORK.mkdir(parents=True, exist_ok=True)
     html = scene.read_text(encoding="utf-8")
@@ -368,8 +427,10 @@ def quiet(text: str) -> bool:
     return "KIT_STATS" in text or "A verdict, not a defect" in text
 
 
-def render(page_path: Path, hash_: str, timeout_ms: int = 1800000) -> dict:
-    """Load one scene page with a pass hash and read back every canvas it exported."""
+def render(page_path: Path, hash_: str, timeout_ms: int = 1800000, on_pass=None) -> dict:
+    """Load one scene page with a pass hash and read back every canvas it exported. With on_pass,
+    each pass is handed over as it is read and not kept, so a plate of fifty cards never holds fifty
+    full pictures at once."""
     from playwright.sync_api import sync_playwright
     errors: list[str] = []
     t0 = time.time()
@@ -390,7 +451,12 @@ def render(page_path: Path, hash_: str, timeout_ms: int = 1800000) -> dict:
         if hash_ == "#layers":
             for name in result["passes"]:
                 url = page.evaluate("n => window.plateExport(n)", name)
-                images[name] = np.asarray(Image.open(io.BytesIO(base64.b64decode(url.split(",", 1)[1]))).convert("RGBA"))
+                rgba = np.asarray(Image.open(io.BytesIO(base64.b64decode(url.split(",", 1)[1]))).convert("RGBA"))
+                del url
+                if on_pass:
+                    on_pass(name, rgba)
+                else:
+                    images[name] = rgba
         else:
             buf = page.locator("#plate").screenshot()
             images["plate"] = np.asarray(Image.open(io.BytesIO(buf)).convert("RGBA"))
@@ -434,22 +500,38 @@ def bake_one(scene: Path, docket: Path) -> dict:
     if spec["id"] != scene.stem:
         raise ValueError(f"{scene.name}: spec id {spec['id']} differs from the file name")
     page = resolve(scene, (docket / "assets").resolve())
-    r = render(page, "#layers")
-    res, img = r["result"], r["images"]
+    kept: dict = {}
+
+    def on_pass(name: str, rgba: np.ndarray) -> None:
+        if name == "depth":
+            kept["z1"] = decode_depth(rgba)[::SS, ::SS].astype(np.float32)
+        elif name.startswith("card"):
+            layer = downsample(rgba).astype(np.float32)
+            box = crop_box(layer[..., 3])
+            kept[name] = None if box is None else (layer[box[1]:box[1] + box[3], box[0]:box[0] + box[2]].copy(), box)
+        else:
+            kept[name] = downsample(rgba).astype(np.float32)
+
+    r = render(page, "#layers", on_pass=on_pass)
+    res = r["result"]
     if not res or res.get("ok") is False:
         raise RuntimeError(f"{spec['id']}: the engine reported a failed render: {res}")
     cam = camera_of(res["camera"])
     pitch = math.asin(max(-1.0, min(1.0, cam["forward"][1])))
     horizon_y = cam["cy"] + cam["fpx"] * math.tan(pitch)
-    sky = downsample(img["sky"])
-    ground = downsample(img["ground"])
+    sky, ground = kept["sky"], kept["ground"]
     cards = []
     for c in res["cards"]:                                  # far first, as the page drew them
-        layer = downsample(img[c["name"]])
-        cards.append({"name": c["name"], "layer": layer, "alpha": layer[..., 3], "depth": float(c["depth"]),
-                      "min": float(c["min"]), "max": float(c["max"]), "things": c["things"]})
-    check = reassembly([sky, ground] + [c["layer"] for c in cards], downsample(img["flat"]))
-    plate = Plate(cam, horizon_y, ground[..., 3], cards)
+        got = kept.get(c["name"])
+        if got is None:
+            continue                                        # a card whose things are all out of frame
+        crop, box = got
+        cards.append({"name": c["name"], "layer": crop, "box": box,
+                      "alpha": np.clip(np.round(crop[..., 3] * 255.0), 0, 255).astype(np.uint8),
+                      "depth": float(c["depth"]), "min": float(c["min"]), "max": float(c["max"]), "things": c["things"],
+                      "tall": c.get("tall")})
+    check = reassembly_of(compose_cards(over([sky, ground]), [(c["layer"], c["box"]) for c in cards]), kept["flat"])
+    plate = Plate(cam, horizon_y, ground[..., 3], cards, kept["z1"])
     lim, at = limits(plate)
     if not all(lim[k] > 0 for k in ("dolly_m", "truck_m", "rise_m")):
         raise ValueError(f"{spec['id']}: the plate can't take the smallest move: {lim} {at}")
@@ -459,8 +541,8 @@ def bake_one(scene: Path, docket: Path) -> dict:
         if not ok:
             raise ValueError(f"{spec['id']}: profile {name} fails at its end {move}: {got}")
         worst_profile = {k: max(worst_profile[k], got[k]) for k in got}
-    z1 = decode_depth(img["depth"])[::SS, ::SS]
-    whole = downsample(img["full"])
+    z1 = kept["z1"]
+    whole = kept["full"]
     rows = np.arange(PLATE_H)[:, None] * np.ones((1, PLATE_W))
     out_dir = OUT_PUBLIC / spec["id"]
     if out_dir.exists():
@@ -470,19 +552,20 @@ def bake_one(scene: Path, docket: Path) -> dict:
     entry = lambda f: {"file": f.relative_to(PUBLIC).as_posix(), "sha256": sha256(f), "bytes": f.stat().st_size}
     card_rows = []
     for k, c in enumerate(cards):
-        box = crop_box(c["alpha"])
-        if box is None:
-            continue
-        x, y, w, h = box
-        f = save_webp(c["layer"][y:y + h, x:x + w], out_dir / f"card{k:02d}.webp")
-        card_rows.append(dict(entry(f), x=x, y=y, w=w, h=h, depth_m=round(c["depth"], 3),
-                              min_m=round(c["min"], 3), max_m=round(c["max"], 3), things=len(c["things"])))
+        x, y, w, h = c["box"]
+        f = save_webp(c["layer"], out_dir / f"card{k:02d}.webp")
+        row = dict(entry(f), x=x, y=y, w=w, h=h, depth_m=round(c["depth"], 3),
+                   min_m=round(c["min"], 3), max_m=round(c["max"], 3), things=len(c["things"]))
+        if c.get("tall"):           # the part of a surface above the eye; its things are seam points on the horizon
+            row["tall"] = c["tall"]
+        card_rows.append(row)
     poster = WORK / spec["id"] / "full.png"
     poster.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(np.clip(np.round(whole[..., :3] * 255), 0, 255).astype(np.uint8), "RGB").save(poster)
     return {
         "id": spec["id"], "region": spec["region"], "counties": spec["counties"], "also": spec["also"],
         "scene": scene.relative_to(REPO).as_posix(), "scene_sha256": sha256(scene),
+        "modules": {name: sha256(PLACE_JS / name) for name in place_imports(scene.read_text(encoding="utf-8"))},
         "camera": {k: (round(v, 6) if isinstance(v, float) else [round(x, 6) for x in v]) for k, v in cam.items()},
         "horizon_y": round(horizon_y, 2),
         "sky": entry(save_webp(sky, out_dir / "sky.webp", opaque=True)),
@@ -507,6 +590,12 @@ def load_manifest(path: Path = MANIFEST) -> dict:
 def write_manifest(plates: dict, docket: Path, path: Path = MANIFEST) -> None:
     old = load_manifest(path) if path.exists() else {}
     merged = dict(old.get("plates", {})) if old.get("schema") == SCHEMA else {}
+    # A plate baked before each plate recorded its own modules was baked with the one plate.js the
+    # manifest then named for every plate, and imported nothing else from assets/place.
+    shared = old.get("engine", {}).get("plate_js_sha256")
+    for pid, entry in merged.items():
+        if "modules" not in entry and shared:
+            merged[pid] = dict(entry, modules={"plate.js": shared})
     merged.update(plates)
     doc = {
         "schema": SCHEMA,
@@ -522,8 +611,7 @@ def write_manifest(plates: dict, docket: Path, path: Path = MANIFEST) -> None:
         "moves": {"share": MOVE_SHARE, "profiles": PROFILES},
         "engine": {"docket_commit": docket_commit(docket),
                    "files": {f: sha256(docket / f) for f in ENGINE_FILES if (docket / f).exists()},
-                   "kit": {p.name: sha256(p) for p in sorted((docket / "assets/js/kit").glob("*.js"))},
-                   "plate_js_sha256": sha256(PLACE_JS / "plate.js")},
+                   "kit": {p.name: sha256(p) for p in sorted((docket / "assets/js/kit").glob("*.js"))}},
         "film": {"w": FILM_W, "h": FILM_H}, "plate": {"w": PLATE_W, "h": PLATE_H},
         "plates": {k: merged[k] for k in sorted(merged)},
     }
@@ -542,8 +630,6 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
     plates = doc.get("plates") or {}
     if not plates:
         return errors + ["manifest holds no plates"]
-    if check_files and doc.get("engine", {}).get("plate_js_sha256") != sha256(repo / "assets/place/plate.js"):
-        errors.append("assets/place/plate.js changed since the plates were baked; re-bake every plate")
     sys.path.insert(0, str(repo / "scripts"))
     import county_regions
     regions = set(county_regions.GOULD_TO_ENGINE.values())
@@ -582,6 +668,14 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
                 errors.append(f"{where}: scene {p.get('scene')} is missing")
             elif sha256(scene) != p.get("scene_sha256"):
                 errors.append(f"{where}: {p.get('scene')} changed since it was baked; re-bake it")
+            else:
+                mods = p.get("modules") or {}
+                for name in place_imports(scene.read_text(encoding="utf-8")):
+                    f = repo / "assets" / "place" / name
+                    if name not in mods:
+                        errors.append(f"{where}: the bake recorded no hash for assets/place/{name}, which its scene imports")
+                    elif not f.is_file() or sha256(f) != mods[name]:
+                        errors.append(f"{where}: assets/place/{name} changed since it was baked; re-bake it")
         files = [p.get("sky") or {}, p.get("ground") or {}] + list(p.get("cards") or [])
         for L in files:
             f = repo / "video-engine" / "public" / L.get("file", "")
@@ -691,6 +785,17 @@ def self_test() -> int:
     check(not ok_r and got_r["cover"] > SEAM_SHARE_MAX, f"a camera lowered until the ground's edge shows passed: {got_r}")
     ok_t, got_t = good.passes({"truck": 0.75})
     check(not ok_t and got_t["cover"] > SEAM_SHARE_MAX, f"a truck that pulls the ground's side into frame passed: {got_t}")
+    # A RIDGE ABOVE THE EYE: one card at 900 m whose pixels the depth pass puts at 900 m slides nowhere,
+    # and the same card over ground the depth pass puts at 250 m is caught, though it has no base at all.
+    ridge = np.zeros((PLATE_H, PLATE_W), dtype=np.uint8)
+    ridge[int(hy) - 120:int(hy), 300:900] = 255
+    box = (0, 0, PLATE_W, PLATE_H)
+    for z, should in ((900.0, True), (250.0, False)):
+        z1 = np.full((PLATE_H, PLATE_W), z, dtype=np.float32)
+        tall = Plate(cam, hy, ground, [{"alpha": ridge, "box": box, "depth": 900.0, "min": min(z, 900.0), "max": max(z, 900.0),
+                                        "things": [], "tall": ["mesa"]}], z1)
+        ok_s, got_s = tall.passes({"rise": 0.9})
+        check(ok_s == should, f"a ridge card at 900 m over ground at {z} m: {got_s}")
     lim, _ = limits(good)
     check(0 < lim["truck_m"] < 0.75 and lim["rise_m"] > 0 and lim["dolly_m"] > 0, f"limits wrong: {lim}")
     check(all(min(rng) >= 0 or min(SIGNS[k]) < 0 for prof in PROFILES.values() for k, rng in prof.items()),

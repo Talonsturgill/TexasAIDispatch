@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- blackland-san-antonio: San Antonio from the river south of downtown, Bexar County's own plate. The Blackland's warm milky light where it meets the brush country; the river slow and green between grassy banks; mesquite and live oak; the low masonry downtown and its needle tower four kilometres off. -->
+<!-- blackland-san-antonio: San Antonio from the river south of downtown, Bexar County's own plate. The Blackland's warm milky light where it meets the brush country; the river slow and green between grassy banks, winding off from the bank the camera stands on; mesquite, live oak and pecan; the low masonry downtown and its needle tower four kilometres off. -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -13,6 +13,7 @@ import * as THREE from '@@ASSETS@@/js/three.module.min.js';
 import { init } from '@@ASSETS@@/js/txthree.js';
 import { initKit } from '@@ASSETS@@/js/txkit.js';
 import { bake } from '@@PLACE@@/plate.js';
+import { channel, dry, mirrorWater } from '@@PLACE@@/water.js';
 const spec = {
   id: 'blackland-san-antonio', region: 'blackland', seed: 81, counties: ['Bexar'],
   world: { base: 'highNoon', overrides: { el: [42, 50], zenith: 0x8aa6c0, horizon: 0xe6e1d4, haze: 0xe8e2d2, ground: 0x3e3a33,
@@ -24,23 +25,19 @@ const spec = {
 };
 window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
   TXT.ground(R, { surface: 'grass', size: 9000, tile: 6, seed: 81, color: 0x7a7a46 });
-  const water = new THREE.MeshStandardMaterial({ color: 0x46564a, roughness: 0.08, metalness: 0.0 });
-  const curve = new THREE.CatmullRomCurve3([[10, 70], [-8, 0], [14, -120], [-20, -300], [16, -520], [-30, -800], [0, -1200]].map(([x, z]) => new THREE.Vector3(x, 0, z)));
-  const left = [], right = [];
-  for (let i = 0; i <= 120; i++) {
-    const t = i / 120, p = curve.getPoint(t), d = curve.getTangent(t), w = 18;
-    left.push(new THREE.Vector2(p.x - d.z * w / 2, -(p.z + d.x * w / 2))); right.push(new THREE.Vector2(p.x + d.z * w / 2, -(p.z - d.x * w / 2)));
-  }
-  const geo = new THREE.ShapeGeometry(new THREE.Shape(left.concat(right.reverse())), 1); geo.rotateX(-Math.PI / 2);
-  const river = new THREE.Mesh(geo, water); river.position.y = 0.03; R.scene.add(P.surface(river));
+  // the camera stands on the left bank, and the river winds away from its right toward downtown
+  const river = channel(THREE, [[16, 90], [9, 30], [6, -20], [-8, -120], [12, -260], [-14, -450], [8, -700], [-10, -1050]], 16, { n: 120 });
+  R.scene.add(P.surface(mirrorWater(THREE, R, river.geo, { color: 0x2f3f33, level: 0.03 })));
   let seed = 700;
   [[-26, 14, 'mesquite'], [-40, -40, 'live_oak'], [30, -10, 'mesquite'], [44, -70, 'live_oak'], [-60, -140, 'mesquite'],
-   [70, -180, 'mesquite'], [-34, -260, 'live_oak'], [52, -330, 'live_oak'], [-90, -420, 'mesquite']].forEach(([x, z, kind], i) => {
-    const t = K.make(kind, { height: kind === 'mesquite' ? 6 + (i % 3) : 9 + (i % 3) * 1.5, spread: kind === 'mesquite' ? 8 : 12, seed: seed++ });
+   [70, -180, 'mesquite'], [-34, -260, 'live_oak'], [52, -330, 'live_oak'], [-90, -420, 'mesquite'],
+   [-14, -60, 'pecan'], [24, -150, 'pecan'], [-22, -330, 'live_oak'], [30, -420, 'pecan']].filter(([x, z]) => !river.inside(x, z)).forEach(([x, z, kind], i) => {
+    const t = K.make(kind, { height: kind === 'mesquite' ? 6 + (i % 3) : kind === 'pecan' ? 15 + (i % 3) * 2 : 9 + (i % 3) * 1.5,
+                             spread: kind === 'mesquite' ? 8 : kind === 'pecan' ? 13 : 12, seed: seed++ });
     t.position.set(x, 0, z); TXT.add(R, t); TXT.contact(R, t, { opacity: 0.4 });
   });
-  TXT.scatter(R, { kind: 'grass', count: 5000, area: [-80, -260, 80, 60], seed: 82, scale: [0.6, 1.0],
-                   colors: [0x9a9466, 0x86844f, 0xa8a272] });
+  dry(THREE, TXT.scatter(R, { kind: 'grass', count: 5000, area: [-80, -260, 80, 60], seed: 82, scale: [0.6, 1.0],
+                   colors: [0x9a9466, 0x86844f, 0xa8a272] }), [river.inside]);
   const city = K.make('city_skyline', { city: 'san_antonio', lowrise: true }); city.position.set(60, 0, -3600); TXT.add(R, city);
 }});
 </script>

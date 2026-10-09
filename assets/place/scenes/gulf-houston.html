@@ -13,6 +13,7 @@ import * as THREE from '@@ASSETS@@/js/three.module.min.js';
 import { init } from '@@ASSETS@@/js/txthree.js';
 import { initKit } from '@@ASSETS@@/js/txkit.js';
 import { bake } from '@@PLACE@@/plate.js';
+import { channel, dry, mirrorWater } from '@@PLACE@@/water.js';
 const spec = {
   id: 'gulf-houston', region: 'gulf', seed: 52, counties: ['Harris'],
   world: { base: 'highNoon', overrides: {
@@ -23,32 +24,20 @@ const spec = {
   shadow: { reach: 320, size: 150 },
   layers: [{ name: 'far', from: 420 }, { name: 'mid', from: 70 }, { name: 'near', from: 0 }],
 };
-function bayou(THREE, pts, width) {          // a ribbon of water along a wandering centreline
-  const curve = new THREE.CatmullRomCurve3(pts.map(([x, z]) => new THREE.Vector3(x, 0, z)));
-  const n = 140, left = [], right = [];
-  for (let i = 0; i <= n; i++) {
-    const t = i / n, p = curve.getPoint(t), d = curve.getTangent(t), w = width * (0.85 + 0.3 * Math.sin(t * 7.0));
-    left.push(new THREE.Vector2(p.x - d.z * w / 2, -(p.z + d.x * w / 2)));
-    right.push(new THREE.Vector2(p.x + d.z * w / 2, -(p.z - d.x * w / 2)));
-  }
-  const geo = new THREE.ShapeGeometry(new THREE.Shape(left.concat(right.reverse())), 1); geo.rotateX(-Math.PI / 2);
-  return geo;
-}
 window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
   TXT.ground(R, { surface: 'lawn', size: 9000, tile: 5, seed: 52, color: 0x55613f });
-  const water = new THREE.MeshStandardMaterial({ color: 0x3f4a3a, roughness: 0.08, metalness: 0.0 });
-  const b = new THREE.Mesh(bayou(THREE, [[18, 80], [-10, 20], [12, -60], [-30, -180], [10, -320], [-60, -520], [-20, -760], [-90, -1050]], 26), water);
-  b.position.y = 0.03; R.scene.add(P.surface(b));
+  const bayou = channel(THREE, [[18, 80], [-10, 20], [12, -60], [-30, -180], [10, -320], [-60, -520], [-20, -760], [-90, -1050]], 26, { vary: [0.85, 0.3, 7] });
+  R.scene.add(P.surface(mirrorWater(THREE, R, bayou.geo, { color: 0x36392b, level: 0.03 })));
   /* live oaks along both banks, leaning toward the water */
   let seed = 300;
   [[-26, 30], [-34, -10], [-30, -70], [-48, -150], [-24, -230], [-70, -330], [-40, -440], [-96, -560],
-   [36, 4], [42, -50], [30, -120], [58, -210], [40, -300], [24, -420], [70, -520], [20, -640]].forEach(([x, z], i) => {
+   [36, 4], [42, -50], [30, -120], [58, -210], [40, -300], [24, -420], [70, -520], [20, -640]].filter(([x, z]) => !bayou.inside(x, z)).forEach(([x, z], i) => {
     const oak = K.make('live_oak', { height: 9 + (i % 4) * 1.6, spread: 13 + (i % 5) * 2, seed: seed++ });
     oak.rotation.y = i * 0.7; oak.rotation.z = (x < 0 ? -1 : 1) * 0.08; oak.position.set(x, 0, z);
     TXT.add(R, oak); TXT.contact(R, oak, { opacity: 0.4 });
   });
-  TXT.scatter(R, { kind: 'grass', count: 6000, area: [-80, -260, 80, 60], seed: 53, scale: [0.5, 0.9],
-                   colors: [0x6b7a44, 0x7d8a4e, 0x8e9256] });
+  dry(THREE, TXT.scatter(R, { kind: 'grass', count: 6000, area: [-80, -260, 80, 60], seed: 53, scale: [0.5, 0.9],
+                   colors: [0x6b7a44, 0x7d8a4e, 0x8e9256] }), [bayou.inside]);
   /* downtown, two kilometres off, and the midrise ring around it */
   const city = K.make('city_skyline', { city: 'houston', lowrise: true }); city.position.set(-120, 0, -2300); TXT.add(R, city);
 }});

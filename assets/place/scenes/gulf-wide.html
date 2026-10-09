@@ -18,6 +18,7 @@ import * as THREE from '@@ASSETS@@/js/three.module.min.js';
 import { init } from '@@ASSETS@@/js/txthree.js';
 import { initKit } from '@@ASSETS@@/js/txkit.js';
 import { bake } from '@@PLACE@@/plate.js';
+import { channel, pond, sheet, dry, mirrorWater } from '@@PLACE@@/water.js';
 
 const spec = {
   id: 'gulf-wide', region: 'gulf', seed: 41,
@@ -30,47 +31,29 @@ const spec = {
   layers: [{ name: 'far', from: 420 }, { name: 'mid', from: 70 }, { name: 'near', from: 0 }],
 };
 
-/* A bayou as a meandering ribbon: a centreline that wanders across the marsh, offset each side. */
-function bayou(THREE, pts, width) {
-  const curve = new THREE.CatmullRomCurve3(pts.map(([x, z]) => new THREE.Vector3(x, 0, z)));
-  const n = 160, left = [], right = [];
-  for (let i = 0; i <= n; i++) {
-    const t = i / n, p = curve.getPoint(t), d = curve.getTangent(t), w = width * (0.75 + 0.5 * Math.sin(t * 9.0));
-    left.push(new THREE.Vector2(p.x - d.z * w / 2, -(p.z + d.x * w / 2)));
-    right.push(new THREE.Vector2(p.x + d.z * w / 2, -(p.z - d.x * w / 2)));
-  }
-  // shape y is -z so that rotating the face up (-90 degrees about x) lands it on the ground facing the sky
-  const shape = new THREE.Shape(left.concat(right.reverse()));
-  const geo = new THREE.ShapeGeometry(shape, 1); geo.rotateX(-Math.PI / 2);
-  return geo;
-}
-
 window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
   TXT.ground(R, { surface: 'grass', size: 9000, tile: 5, seed: 41, color: 0x4a5343 });
-  const water = new THREE.MeshStandardMaterial({ color: 0x34424a, roughness: 0.05, metalness: 0.0 });
-  /* the bayou winding out from under the camera toward the channel, and the channel itself */
-  const b = new THREE.Mesh(bayou(THREE, [[-30, 70], [25, 10], [-20, -70], [40, -160], [-10, -260], [70, -380], [30, -470]], 34), water);
-  b.position.y = 0.03; R.scene.add(P.surface(b));
-  const channel = new THREE.Mesh(new THREE.PlaneGeometry(5000, 230), water);
-  channel.rotation.x = -Math.PI / 2; channel.position.set(0, 0.03, -590); R.scene.add(P.surface(channel));
-  /* ponds in the marsh, the standing water REGIONS.md names */
-  [[-90, -60, 26, 12], [110, -120, 34, 14], [-140, -220, 40, 18], [150, -300, 50, 20], [-60, -360, 30, 12]].forEach(([x, z, w, d]) => {
-    const pond = new THREE.Mesh(new THREE.CircleGeometry(1, 48), water);
-    pond.rotation.x = -Math.PI / 2; pond.scale.set(w, d, 1); pond.position.set(x, 0.035, z); R.scene.add(P.surface(pond));
-  });
+  /* the bayou winding out from under the camera toward the channel, the channel itself, and ponds in the
+   * marsh, the standing water REGIONS.md names: one still water, mirroring the bank */
+  const wet = [channel(THREE, [[-30, 70], [25, 10], [-20, -70], [40, -160], [-10, -260], [70, -380], [30, -470]], 34, { n: 160, vary: [0.75, 0.5, 9] }),
+               sheet(THREE, -2500, -705, 2500, -475)]
+    .concat([[-90, -60, 26, 12], [110, -120, 34, 14], [-140, -220, 40, 18], [150, -300, 50, 20], [-60, -360, 30, 12]]
+      .map(([x, z, w, d]) => pond(THREE, x, z, w, d, 0.03)));
+  R.scene.add(P.surface(mirrorWater(THREE, R, wet.map((w) => w.geo), { color: 0x323a33, level: 0.03 })));
+  const onWater = wet.map((w) => w.inside);
   for (let i = -10; i <= 10; i++) {           // the channel's far bank faced in riprap
     const bank = K.make('riprap_bank', { length: 200, seed: 7 + i });
     bank.position.set(i * 200, 0, -706); TXT.add(R, bank);
   }
   /* cordgrass in clumps over the whole marsh, denser near, and the far bank's fringe */
-  TXT.scatter(R, { kind: 'grass', count: 9000, area: [-34, -40, 34, 40], seed: 43, scale: [0.9, 1.5],
-                   colors: [0x9d9768, 0xaea677, 0x7d8358, 0x8f8b5e] });
-  TXT.scatter(R, { kind: 'grass', count: 7000, area: [-90, -160, 90, -40], seed: 45, scale: [1.1, 1.7],
-                   colors: [0x9d9768, 0x8f8b5e, 0x7d8358] });
-  TXT.scatter(R, { kind: 'scrub', count: 9000, area: [-420, -700, 420, -160], seed: 46, scale: [1.2, 2.4],
-                   colors: [0x7d7d55, 0x6b704c, 0x8c8a5e] });
-  TXT.scatter(R, { kind: 'grass', count: 2500, area: [-700, -730, 700, -712], seed: 44, scale: [1.2, 1.8],
-                   colors: [0x8d8a5f, 0x7c8257, 0x9a9466] });
+  dry(THREE, TXT.scatter(R, { kind: 'grass', count: 9000, area: [-34, -40, 34, 40], seed: 43, scale: [0.9, 1.5],
+                   colors: [0x9d9768, 0xaea677, 0x7d8358, 0x8f8b5e] }), onWater);
+  dry(THREE, TXT.scatter(R, { kind: 'grass', count: 7000, area: [-90, -160, 90, -40], seed: 45, scale: [1.1, 1.7],
+                   colors: [0x9d9768, 0x8f8b5e, 0x7d8358] }), onWater);
+  dry(THREE, TXT.scatter(R, { kind: 'scrub', count: 9000, area: [-420, -700, 420, -160], seed: 46, scale: [1.2, 2.4],
+                   colors: [0x7d7d55, 0x6b704c, 0x8c8a5e] }), onWater);
+  dry(THREE, TXT.scatter(R, { kind: 'grass', count: 2500, area: [-700, -730, 700, -712], seed: 44, scale: [1.2, 1.8],
+                   colors: [0x8d8a5f, 0x7c8257, 0x9a9466] }), onWater);
   /* live oaks leaned hard by the onshore wind: one motte on the near bank, a row on the levee */
   [[-8.5, 16, 8.5, 14, 0.27, 3], [-48, 4, 6.0, 9, 0.24, 5], [120, -40, 7.0, 11, 0.22, 7],
    [-160, -720, 8.0, 12, 0.2, 11], [60, -725, 6.5, 10, 0.22, 8], [230, -722, 7.5, 12, 0.21, 13]].forEach(([x, z, h, s, lean, seed]) => {

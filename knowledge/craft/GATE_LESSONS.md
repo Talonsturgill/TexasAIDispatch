@@ -1598,3 +1598,40 @@ kind under the first kind's name, and the check measured only the first.
 county's own plate carries its city, and a board names an industrial plate only for a county the
 plate lists. `place_bake.py` refuses a county listed on a plate whose region the county is not in,
 and `place_check.py` and the stage resolve a scene's plate by the same rule.
+
+## Every number passed and the lake was a slab of concrete
+
+Same day, the city plates. The Austin plate passed every check the bake makes: its layers
+reassembled into the picture within a tenth of a level, every camera profile kept the ground
+covering the frame, and no base slid half a pixel. Lady Bird Lake was still a flat pale grey band
+between the bank and the towers that read as a plaza. Seen from a standing eye height under a hazy
+sky, water mirrors that sky almost whole, and the kit's water and a plain glossy sheet both drew
+exactly that. The San Antonio plate passed too, with bunchgrass growing all the way down the middle
+of its river, because TXT.scatter avoids rectangles and a river is not one.
+
+**The bake measures whether the layers move as one world. It can't say what the world looks like.**
+Nothing in a reassembly figure or a slide figure knows that water should hold the far bank upside
+down or that grass stops at the bank.
+
+**What to check instead.** Both faults were fixed where they arise rather than plate by plate:
+`assets/place/water.js` draws still water as a mirror of the world in its own plane, and takes every
+tuft standing on the water out of a scatter. Every plate is also looked at, at film size, before its
+bake is accepted. The full picture each bake writes to `out/place-bake/<plate>/full.png` is the thing
+to open. A green bake is the start of that look, never the end of it.
+
+## The ground layer carried the skyline, and a rise stretched it
+
+Same day. The ground layer moves by the exact transform a camera move gives the plane y = 0, and the
+bake classed as ground anything the kit marks as ground. The kit marks its far skylines and mesas
+that way, and the terrain model is ground by kind. So the Austin, Dallas and San Antonio skylines and
+the Hill Country's ridges were drawn into the ground layer, up to 513 pixels above the horizon, and
+the transform that is exact on the plane moved them as if they lay on it. Measured on the manifest
+then in force, a rise at the share the stage uses moved that content 38 to 64 pixels, stretching the
+towers upward while every bake check passed. The checks measured holes, bases and scale, and a
+skyline has no base in its card and makes no hole.
+
+**What to check instead.** The ground is now drawn only up to the eye's height, which is the
+horizon for any camera, and the part of a surface that rises above it is a card at the median
+distance of that part. The bake measures every pixel of such a card against the distance the depth
+pass found there, and points along its seam with the ground on the horizon, so a rise or a truck
+that would tear or stretch it shrinks the plate's limits instead of shipping.

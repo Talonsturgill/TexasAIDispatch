@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- hill-country-wide: the Edwards Plateau, the Hill Country, as REGIONS.md describes it. Clear, dry, high-contrast light, with limestone throwing light up into shadows so they are brighter and cooler than anywhere else. White to pale grey limestone exposed constantly. Ashe juniper and live oak, grey-green and blue-green, never yellow-green. A creek over its limestone bed, a ranch gate. -->
+<!-- hill-country-wide: the Edwards Plateau, the Hill Country, as REGIONS.md describes it. Clear, dry, high-contrast light, with limestone throwing light up into shadows so they are brighter and cooler than anywhere else. White to pale grey limestone exposed constantly, in the ledges of the stair-stepped hills and in cobbles through the grass. Ashe juniper and live oak, grey-green and blue-green, never yellow-green. A ranch gate. -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -18,19 +18,27 @@ const spec = {
   world: { base: 'highNoon', overrides: { el: [34, 42], zenith: 0x4f88c8, horizon: 0xd2dde8, haze: 0xd8e1e8, ground: 0x8f9670,
     fogDensity: 0.00035, clouds: 0.28, envIntensity: 0.95, exposure: 0.95 } },
   sun: { az: 215, el: 38 },
-  camera: { from: [0, 2.4, 34], look: [0, 18, -900], fov: 50 },
+  camera: { from: [0, 1.9, 30], look: [0, 22, -900], fov: 50 },
   shadow: { reach: 300, size: 140 },
   layers: [{ name: 'far', from: 450 }, { name: 'mid', from: 55 }, { name: 'near', from: 0 }],
 };
 window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
-  TXT.ground(R, { surface: 'grass', size: 9000, tile: 6, seed: 81, color: 0x8a9168 });
-  const hills = K.make('hill_country_terrain', { size: 2400, relief: 80, trees: 1, season: 'summer', ground: 0x8a9168, seed: 4, budget: 380000 });
-  hills.position.set(0, 0, -1200); TXT.add(R, hills);
-  [[-22, -30, 'live_oak', 9, 14], [26, -46, 'ashe_juniper', 6, 6], [-40, -80, 'ashe_juniper', 6, 7], [40, -96, 'live_oak', 8, 12], [-70, -140, 'ashe_juniper', 6, 6]].forEach(([x, z, k, h, s], i) => {
+  // sun-cured grass over thin soil, and the stair-stepped limestone hills rising within half a kilometre
+  TXT.ground(R, { surface: 'grass', size: 9000, tile: 6, seed: 81, color: 0x9a9470 });
+  const hills = K.make('hill_country_terrain', { size: 1600, relief: 70, trees: 1, season: 'summer', ground: 0x9a9470, seed: 4, budget: 380000 });
+  hills.position.set(0, 0, -800); TXT.add(R, hills);
+  // a live oak motte and the cedar, framing the view and running back toward the hills
+  [[-8, -12, 'live_oak', 8, 12], [6, 2, 'ashe_juniper', 5, 4], [3, -40, 'ashe_juniper', 6, 5], [-14, -55, 'ashe_juniper', 6, 6],
+   [15, -90, 'live_oak', 9, 14], [-6, -150, 'ashe_juniper', 6, 6], [20, -220, 'ashe_juniper', 7, 6], [-30, -260, 'live_oak', 9, 13],
+   [8, -320, 'ashe_juniper', 6, 6]].forEach(([x, z, k, h, s], i) => {
     const t = K.make(k, { height: h, spread: s, seed: 120 + i }); t.position.set(x, 0, z); TXT.add(R, t); TXT.contact(R, t, { opacity: 0.4 });
   });
-  const gate = K.make('ranch_gate', { seed: 2 }); gate.rotation.y = 0.2; gate.position.set(-16, 0, 8); TXT.add(R, gate);
-  TXT.scatter(R, { kind: 'grass', count: 2600, area: [-60, -180, 60, 30], seed: 83, scale: [0.6, 1.0], colors: [0x9a9b6a, 0x8a8e60, 0xa8a876] });
+  const gate = K.make('ranch_gate', { seed: 2 }); gate.rotation.y = 0.35; gate.position.set(-5, 0, 10); TXT.add(R, gate);
+  // limestone breaking through the grass in small cobbles, and the grass in clumps between
+  TXT.scatter(R, { kind: 'rock', count: 700, area: [-20, -60, 20, 28], seed: 84, scale: [0.03, 0.12],
+                   colors: [0xb9b3a4, 0xa9a394, 0xc6c0b1, 0x99938a] });
+  TXT.scatter(R, { kind: 'grass', count: 3200, area: [-40, -200, 40, 28], seed: 83, scale: [0.6, 1.1], clumping: 0.5,
+                   colors: [0xa8995f, 0x948f62, 0xb6a771, 0x86865e] });
 }});
 </script>
 </body>

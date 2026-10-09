@@ -48,6 +48,9 @@ export const SURFACE_LAYER = 7, CARD_LAYER = 8;
 // geometric mean of its nearest and farthest, so a base slides by at most a few per cent of its own
 // parallax. Beyond FAR_MERGE_M every thing moves as one: its parallax is under a pixel.
 export const CLUSTER_RATIO = 1.12, FAR_MERGE_M = 600;
+// The ground is drawn to this far above the eye and a tall surface's card from this far below it, so the
+// two overlap along the horizon instead of meeting at an antialiased edge the sky would show through.
+export const EYE_OVERLAP_M = 0.5;
 // The kit's flat models: roads, fields and water lie on the ground from near to far.
 const SURFACE_KITS = new Set(['caliche_road', 'highway', 'creek', 'reservoir_shore', 'crop_rows', 'pasture',
   'earthen_berm', 'fill_basin', 'riprap_bank', 'hill_country_terrain', 'plate.rolling']);
@@ -200,6 +203,26 @@ function renderLayers(THREE, R, spec, passes) {
     if (last && (it.depth <= last.min * CLUSTER_RATIO || last.min >= FAR_MERGE_M)) { last.items.push(it); last.max = it.depth; }
     else cards.push({ min: it.depth, max: it.depth, items: [it] });
   }
+  /* ABOVE THE EYE IS NOT GROUND. The ground layer moves by the transform a camera move gives the plane
+   * y = 0, which is exact on that plane and wrong for anything that rises above the eye. A skyline or a
+   * ridge drawn into it stretched 38 to 64 pixels on a rise, and no check saw it, because the bake
+   * measured bases and holes. So the ground is drawn only up to the eye's height, which is the horizon
+   * in any camera, and the part of a surface that rises above it is a card of its own at the distance
+   * of that part. Its seam with the ground runs along the horizon, where the ground layer does not move,
+   * so the bake measures the seam as it measures a base: points on the horizon across the film, carried
+   * by the card's move and the ground's. A scatter is left whole: a tuft is a surface by being small. */
+  cards.forEach((c) => {
+    c.depth = c.min >= FAR_MERGE_M && c.items.length > 1 ? c.items[Math.floor(c.items.length / 2)].depth : Math.sqrt(c.min * c.max);
+  });
+  const eye = cam.position.y, horizonY = pixelOf(cam.position.clone().add(new THREE.Vector3(f.x, 0, f.z).normalize().multiplyScalar(1e6)))[1];
+  const filmX = (PLATE_W - 1080) / 2;
+  ground.filter((i) => !i.obj.userData.txScatter && new THREE.Box3().setFromObject(i.obj).max.y > eye + EYE_OVERLAP_M).forEach((i) => {
+    const d = aboveEyeDepth(THREE, i.obj, eye, depthOf);
+    if (!d || !(d.lo > cam.near)) return;
+    cards.push({ min: d.lo, max: d.hi, depth: d.mid, items: [i], tall: true, seam: [filmX + 2, PLATE_W / 2, PLATE_W - filmX - 2]
+      .map((x) => ({ depth: d.mid, base: [x, horizonY + 1], kit: 'horizon-seam', height: 0 })) });
+  });
+  cards.sort((a, b) => a.depth - b.depth);
   renderer.shadowMap.autoUpdate = false;       // the map the snapshot drew, with every caster in it
   renderer.shadowMap.needsUpdate = false;
   renderer.setClearColor(0x000000, 0);
@@ -209,9 +232,11 @@ function renderLayers(THREE, R, spec, passes) {
   renderer.render(R.scene, cam);
   renderer.clippingPlanes = [];
   passes.sky = graded(renderer.domElement, spec.grade, 'sky');
-  // the ground, every thing hidden
+  // the ground up to the eye's height, every thing hidden
   cam.layers.set(SURFACE_LAYER);
+  renderer.clippingPlanes = [new THREE.Plane(new THREE.Vector3(0, -1, 0), eye + EYE_OVERLAP_M)];
   renderer.render(R.scene, cam);
+  renderer.clippingPlanes = [];
   passes.ground = graded(renderer.domElement, spec.grade, false);
   // the cards, far first, each over the ground drawn into depth alone
   const surfaceMats = new Set();
@@ -228,20 +253,48 @@ function renderLayers(THREE, R, spec, passes) {
     renderer.render(R.scene, cam);
     kept.forEach(([m, w]) => { m.colorWrite = w; });
     cam.layers.set(CARD_LAYER);
+    if (c.tall) renderer.clippingPlanes = [new THREE.Plane(new THREE.Vector3(0, 1, 0), -(eye - EYE_OVERLAP_M))];
     renderer.render(R.scene, cam);
+    renderer.clippingPlanes = [];
     renderer.autoClear = auto;
     c.items.forEach((i) => i.obj.traverse((m) => { if (m.isMesh) m.layers.disable(CARD_LAYER); }));
     const name = 'card' + String(k).padStart(2, '0');
     passes[name] = graded(renderer.domElement, spec.grade, false);
-    const depth = c.min >= FAR_MERGE_M && c.items.length > 1
-      ? c.items[Math.floor(c.items.length / 2)].depth : Math.sqrt(c.min * c.max);
-    out.push({ name, depth, min: c.min, max: c.max, things: c.items.map((i) => ({
-      depth: i.depth, base: pixelOf(i.base), kit: i.obj.userData.kit || i.obj.type, height: i.height })) });
+    const depth = c.depth;
+    out.push({ name, depth, min: c.min, max: c.max, tall: c.tall ? c.items.map((i) => i.obj.userData.kit || i.obj.type) : undefined,
+      things: c.tall ? c.seam : c.items.map((i) => ({
+        depth: i.depth, base: pixelOf(i.base), kit: i.obj.userData.kit || i.obj.type, height: i.height })) });
   });
   cam.layers.set(0);
   renderer.autoClear = auto;
   passes.flat = graded(passes.raw, spec.grade, false);   // the whole picture, graded as the layers are
   return { cards: out, surfaces: ground.length, things: things.length, w2: W2, h2: H2 };
+}
+
+/* How far away the part of a surface that rises above the eye stands: the median, 5th and 95th
+ * percentile distances along the camera's axis of the vertices above that height, read through every
+ * mesh's world matrix and every instance's own. The card moves as the median, and the bake measures
+ * what that costs every pixel of it against its own depth. */
+function aboveEyeDepth(THREE, obj, eye, depthOf) {
+  const ds = [], v = new THREE.Vector3(), im = new THREE.Matrix4(), w = new THREE.Matrix4();
+  obj.updateMatrixWorld(true);
+  obj.traverse((m) => {
+    const P = m.isMesh && m.geometry && m.geometry.attributes.position;
+    if (!P) return;
+    const step = Math.max(1, Math.floor(P.count / 4000));
+    const n = m.isInstancedMesh ? m.count : 1;
+    for (let k = 0; k < n; k++) {
+      w.copy(m.matrixWorld); if (m.isInstancedMesh) { m.getMatrixAt(k, im); w.multiply(im); }
+      for (let j = 0; j < P.count; j += step) {
+        v.fromBufferAttribute(P, j).applyMatrix4(w);
+        if (v.y > eye) ds.push(depthOf(v));
+      }
+    }
+  });
+  if (!ds.length) return null;
+  ds.sort((a, b) => a - b);
+  const at = (q) => ds[Math.min(ds.length - 1, Math.floor(ds.length * q))];
+  return { lo: at(0.05), mid: at(0.5), hi: at(0.95) };
 }
 
 // A surface by what it is: tagged so by the scene, laid by TXT.ground or TXT.scatter, or a flat kit model.
