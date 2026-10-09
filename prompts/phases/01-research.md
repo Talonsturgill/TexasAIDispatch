@@ -11,6 +11,18 @@ choice. Ask the existing researchers for the strongest useful image, the missing
 the strongest source limitation in their existing filmability rationale. Keep the same bounded
 research pass and compact role assignments; no additional outlet-study pass is required daily.
 
+For newly planned editions under agent_runtime.json, prefer one promising beat. Retain the
+actual researcher response as out/dispatch/research.json. Before reserving, prepare its source
+packet with the actual Docket ledger path and the current applications reference:
+
+```sh
+python scripts/agent_runtime.py --input-packet --role researcher --edition <date> --input <actual-docket-ledger> --input knowledge/texas/APPLICATIONS.md --out out/dispatch/researcher-packet.json
+python scripts/agent_runtime.py --plan --role researcher --packet out/dispatch/researcher-packet.json --task-name researcher --scope "Research one current source-backed Texas application and its filmable action, consequence and limit" --out out/dispatch/researcher-assignment.json
+```
+
+Execute the returned spawn_args only after the existing reservation. Expand research only
+when source or filmability screening requires another angle; never spawn the maximum by habit.
+
 ```sh
 python scripts/dedupe.py list --days 30
 python scripts/run_controller.py consume --resource research_agents --note "<distinct beat>"
@@ -40,8 +52,12 @@ Record at least one real rejected alternative and its concrete reason.
 ```sh
 python scripts/story_selection_check.py --selection out/dispatch/story_selection.json --date <date>
 python scripts/dedupe.py check --entities "<real entities>" --beat <beat>
+python scripts/agent_runtime.py --input-packet --role validator --edition <date> --input out/dispatch/research.json --input out/dispatch/story_selection.json --out out/dispatch/validator-packet.json
+python scripts/agent_runtime.py --plan --role validator --packet out/dispatch/validator-packet.json --task-name validator --scope "Independently re-fetch each source and verify every assertion, number, quote and limitation" --out out/dispatch/validator-assignment.json
 python scripts/run_controller.py consume --resource validator_agents --note "current claims and script evidence"
 ```
+
+For pre-effective editions use the original compact assignments; runtime planning never resets their ledgers. For current editions pass validator-assignment.json spawn_args. An empty rejected list is valid only after every claim was independently supported; never invent a rejection quota.
 
 Spawn `validator` to re-fetch cited URLs and verify every factual assertion, number and quote.
 Keep claims and the dated validation report. Partial evidence cannot become a verified claim.

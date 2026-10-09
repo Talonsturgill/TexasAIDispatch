@@ -48,7 +48,17 @@ python scripts/audiovisual_review.py --role sound --film out/dispatch/film.mp4 -
 python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet picture --out out/dispatch/picture-packet.json
 ```
 
-Generate corresponding story and sound packets. Spawn three `scorer` agents in one parallel batch,
+Generate corresponding story and sound packets. For current agent-runtime editions, prepare
+all three explicit isolated assignments, then execute them under the existing atomic panel:
+
+```sh
+python scripts/agent_runtime.py --plan --role picture --packet out/dispatch/picture-packet.json --task-name picture_score --scope "Independently watch the exact finished film through the picture lens and all required timed observations" --out out/dispatch/picture-assignment.json
+python scripts/agent_runtime.py --plan --role story --packet out/dispatch/story-packet.json --task-name story_score --scope "Independently watch the exact finished film through the source, narrative and comprehension lens" --out out/dispatch/story-assignment.json
+python scripts/agent_runtime.py --plan --role sound --packet out/dispatch/sound-packet.json --task-name sound_score --scope "Independently assess the exact finished film through the sound lens using actual audiovisual evidence" --out out/dispatch/sound-assignment.json
+```
+
+Keep all three identities separate and do not brief them with another scorer's judgment.
+Pre-effective ledgers keep their original compact assignment path. Spawn three `scorer` agents in one parallel batch,
 with distinct identities and starting lenses picture, story, and sound/credible Texas experience.
 Each gets the current film, its own provider receipt/raw response, current attention player,
 contact sheet, feed composite, evidence, rubric and scorer brief. It performs an independent

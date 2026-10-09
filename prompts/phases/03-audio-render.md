@@ -18,8 +18,11 @@ This command preserves the original rejection and refuses missing integrity obse
 ```sh
 python scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
 python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet vo-director --out out/dispatch/vo-director-packet.json
+python scripts/agent_runtime.py --plan --role vo-director --packet out/dispatch/vo-director-packet.json --task-name voice_director --scope "Direct one continuous locked passage with connected phrases, clear grouping and pronunciation, source limits and the performed closing answer" --out out/dispatch/voice-director-assignment.json
 python scripts/run_controller.py consume --resource voice_directors --note "final continuous read"
 ```
+
+For current agent-runtime editions execute voice-director-assignment.json spawn_args; pre-effective ledgers keep the prior path. Flag every ambiguous word grouping in the same approved passage before synthesis. The actual soundcheck and alignment remain mandatory.
 
 Spawn `vo-director` with the current approved script and vo-director-packet.json. Save per-line intent,
 emphasis and energy in vo_direction.json. Its text must exactly match vo_script.txt.

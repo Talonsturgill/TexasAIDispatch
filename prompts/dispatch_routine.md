@@ -74,6 +74,17 @@ another active routine. Do not load the full historical archive into every daily
   and the correctly addressed, read-back Gmail DRAFT with no SENT label. Never send email or
   post to social accounts. Never use an override or weaken a gate to close a run.
 
+## Explicit worker routing
+
+For newly planned editions from October 10th, 2026 read AGENTS.md,
+knowledge/craft/AGENT_RUNTIME.md and config/agent_runtime.json at wake. Generate the current
+role packet and scripts/agent_runtime.py --plan before its existing reservation. Use the
+returned explicit model, reasoning_effort and fork_turns none. Full-history forks inherit the
+director model and cannot execute this role map. This changes no number of roles or calls.
+Reuse the existing builder/critic for compact follow-ups, retain all actual failures, and
+collect linked defects in one correction. The saved director model and schedule stay intact.
+Phase 5 measures actual next-five-edition outcomes; cost and quality targets remain unproven.
+
 ## Environment and ownership
 
 Run every Dispatch command through bash scripts/run_with_env.sh. Each shell needs the wrapper.

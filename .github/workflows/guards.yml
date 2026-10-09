@@ -66,6 +66,9 @@ jobs:
           # missing: a skipped test and a passing test are the same colour.
           pip install --quiet pyyaml numpy requests pillow
 
+      - name: Isolated role routing preserves evidence and honest usage
+        run: python3 scripts/agent_runtime_test.py
+
       - name: Independent review survives host capacity without changing verdicts
         run: python3 scripts/independent_review_test.py
 

@@ -240,6 +240,24 @@ def source_segments(row):
     return result
 
 
+def provider_packet_policy(board):
+    cfg = json.loads((REPO / 'config/agent_runtime.json').read_text())
+    return cfg['provider_packets'] if str(board.get('date', '')) >= cfg['effective_date'] else None
+
+
+def prior_media_inventory(path):
+    """Retain prior picture identity and provenance without its unrelated full script."""
+    board = json.loads(path.read_text())
+    retained = {key: board[key] for key in ('date', 'title', 'topic', 'native_media',
+                                           'story_art', 'visual_research') if key in board}
+    retained['scenes'] = [{key: scene[key] for key in ('id', 'picture', 'generated_media')
+                          if key in scene} for scene in board.get('scenes', [])]
+    return {'schema': 'dispatch_prior_media_inventory/1',
+            'original_path': str(path.relative_to(REPO)), 'original_sha256': digest(path),
+            'purpose': 'Compare prior pictures and provenance for reused media; current film and sources remain complete.',
+            'retained': retained}
+
+
 def packet(board_path, claims_path, role, film):
     from critic_gate import concept_digest, renderer_digest, renderer_files
     from daily_production import story_digest, POLICY, craft_reading_paths
@@ -247,6 +265,7 @@ def packet(board_path, claims_path, role, film):
     from action_admission import source_claims_digest
     board = json.loads(board_path.read_text())
     claims = json.loads(claims_path.read_text())
+    packet_cfg = provider_packet_policy(board)
     bindings = {'concept_sha256': concept_digest(board), 'renderer_sha256': renderer_digest(board),
                 'quality_contract_sha256': quality_fingerprint(), 'story_sha256': story_digest(board),
                 'policy_sha256': digest(POLICY), 'claims_sha256': digest(claims_path),
@@ -293,10 +312,14 @@ def packet(board_path, claims_path, role, film):
     media = native_media_paths(board)
     previous = sorted(p.with_name('storyboard.json') for p in (REPO / 'runs').glob('????-??-??/dispatch.mp4')
                       if p.parent.name < str(board.get('date', '')))
+    prior_context = {}
     if previous:
         files.append(previous[-1])
         prior = json.loads(previous[-1].read_text())
         media += native_media_paths(prior)
+        if packet_cfg and packet_cfg['prior_media_inventory']:
+            prior_context[previous[-1]] = prior_media_inventory(previous[-1])
+            bindings['prior_board_sha256'] = digest(previous[-1])
     if role == 'phone' and str(board.get('date', '')) >= '2026-09-29':
         comparison_path = root / 'openings/comparison.json'
         if not comparison_path.is_file():
@@ -331,8 +354,12 @@ def packet(board_path, claims_path, role, film):
     text = {'board': board, 'claims': claims,
             'files': {str(p.relative_to(REPO.resolve())) if p in source_context else
                       str(p.relative_to(REPO)) if p.is_relative_to(REPO) else p.name:
-                      source_context[p] if p in source_context else p.read_text()
+                      source_context[p] if p in source_context else
+                      prior_context[p] if p in prior_context else p.read_text()
                       for p in files}}
+    if packet_cfg:
+        text['provider_packet_policy'] = packet_cfg
+        bindings['provider_packet_policy_sha256'] = digest(REPO / 'config/agent_runtime.json')
     bindings['source_snapshots_sha256'] = {
         str(p.relative_to(REPO.resolve())): value['full_source_sha256'] for p, value in source_context.items()}
     text['media'] = [{'path': str(p.resolve()), 'sha256': digest(p)} for p in sorted(set(media))]
@@ -358,6 +385,34 @@ def packet(board_path, claims_path, role, film):
     if len(json.dumps(text)) > 500_000:
         raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
     return text, bindings
+
+
+def append_picture_evidence(parts, text, film_hash, key, uploads):
+    """Verify every alias; attach exact duplicate bytes once only under the dated policy."""
+    deduplicate = text.get('provider_packet_policy', {}).get('deduplicate_exact_media', False)
+    seen = {film_hash} if film_hash else set()
+    for item in text.get('media', []):
+        path = Path(item['path'])
+        if digest(path) != item['sha256']:
+            raise ValueError('independent picture evidence changed')
+        if item['sha256'] == film_hash:
+            continue  # Primary clip was already attached, including a renamed identical copy.
+        if path.suffix.lower() not in ('.mp4', '.png', '.jpg', '.jpeg', '.webp'):
+            raise ValueError('independent source picture format is unsupported')
+        parts.append({'text': 'Evidence ' + item['path'] + ' SHA256 ' + item['sha256']})
+        if deduplicate and item['sha256'] in seen:
+            continue  # Alias remains named; its identical native bytes are already attached.
+        if path.suffix.lower() == '.mp4':
+            part, name, returned_hash = media_part(path, key)
+            if name:
+                uploads.append(name)
+            if returned_hash != item['sha256']:
+                raise ValueError('independent clip changed during transport')
+            parts.append(part)
+        elif path.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp'):
+            mime = 'image/jpeg' if path.suffix.lower() in ('.jpg', '.jpeg') else 'image/' + path.suffix[1:].lower()
+            parts.append({'inlineData': {'mimeType': mime, 'data': base64.b64encode(path.read_bytes()).decode()}})
+        seen.add(item['sha256'])
 
 
 def panel_transport_problems(ledger):
@@ -510,23 +565,7 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             if film_hash != bindings['film_sha256']:
                 raise ValueError('film changed before independent transport')
             parts.append(media)
-        for item in text.get('media', []):
-            path = Path(item['path'])
-            if digest(path) != item['sha256']:
-                raise ValueError('independent picture evidence changed')
-            if item['sha256'] == bindings.get('film_sha256'):
-                continue  # Primary clip was already attached, including a renamed identical copy.
-            parts.append({'text': 'Evidence ' + item['path'] + ' SHA256 ' + item['sha256']})
-            if path.suffix.lower() == '.mp4':
-                part, name, _ = media_part(path, key)
-                if name:
-                    source_uploads.append(name)
-                parts.append(part)
-            elif path.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp'):
-                mime = 'image/jpeg' if path.suffix.lower() in ('.jpg', '.jpeg') else 'image/' + path.suffix[1:].lower()
-                parts.append({'inlineData': {'mimeType': mime, 'data': base64.b64encode(path.read_bytes()).decode()}})
-            else:
-                raise ValueError('independent source picture format is unsupported')
+        append_picture_evidence(parts, text, bindings.get('film_sha256'), key, source_uploads)
         parts.append({'text': request_prompt})
         response = requests.post(
             f'https://generativelanguage.googleapis.com/v1beta/models/{model}:streamGenerateContent?alt=sse',
