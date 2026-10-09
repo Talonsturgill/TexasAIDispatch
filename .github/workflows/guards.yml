@@ -320,6 +320,16 @@ jobs:
           # gets switched off. The bar is READ from the rubric and never restated here.
           python3 scripts/ship_gate.py --self-test
 
+      - name: The county decides the region, measured rather than typed
+        run: |
+          # ship_gate's first law used to read 80 hand-typed counties, one region each, and
+          # passed any county it did not know. The table is now computed for all 254 from
+          # TPWD's Gould polygons, with each region's share of each county, and a straddle the
+          # polygons support is allowed. Verifying it here means a hand edit, a stale county
+          # file or a region the engine does not draw fails before a board is ever judged.
+          python3 scripts/county_regions.py --self-test
+          python3 scripts/county_regions.py
+
       - name: The shipping gate reads fields that exist, on the board that really ships
         run: |
           # THE SELF-TEST ABOVE WAS GREEN WHILE THREE SECTIONS OF THAT GATE READ NOTHING.
