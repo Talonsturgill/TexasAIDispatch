@@ -86,6 +86,15 @@ def response_object(raw):
     return value
 
 
+def audiovisual_context(raw):
+    """Keep all provider fields except opaque signatures in the transport view."""
+    result = copy.deepcopy(raw)
+    for candidate in result.get('candidates', []):
+        for part in candidate.get('content', {}).get('parts', []):
+            part.pop('thoughtSignature', None)
+    return result
+
+
 def project(raw, bindings, role, model, reviewed_at):
     """Stamp byte identities only. Never change a finding, score or pass flag."""
     result = copy.deepcopy(response_object(raw))
@@ -165,7 +174,7 @@ def source_windows(path, rows, context_chars=2048):
         if not matches and row.get('quote_is_excerpt') is True:
             # Only an explicitly declared sentence/newline boundary separates
             # excerpts. Every fragment still uses the strict verbatim matcher.
-            excerpts = re.split(r'(?<=\.)\n(?=[A-Z])', quote)
+            excerpts = re.split(r'(?<=\.)\n+(?=[A-Z])', quote)
             if len(excerpts) < 2 or any(len(x.split()) < 3 for x in excerpts):
                 raise ValueError('source quote missing: ' + str(row['id']))
             fragments = [(x, list(re.compile(separator.join(re.escape(t) for t in x.split())).finditer(source)))
@@ -342,7 +351,10 @@ def packet(board_path, claims_path, role, film):
             raise ValueError('scorer needs its current exact-film audiovisual receipt')
         bindings['av_receipt_sha256'] = digest(receipt_path)
         text['audiovisual_receipt'] = receipt
-        text['audiovisual_response'] = json.loads(response_path.read_text())
+        text['audiovisual_response'] = audiovisual_context(json.loads(response_path.read_text()))
+        text['audiovisual_response_projection'] = {
+            'original_sha256': digest(response_path), 'omitted_fields': ['thoughtSignature'],
+            'note': 'All provider text and findings retained; original raw bytes remain bound by the receipt.'}
     if len(json.dumps(text)) > 500_000:
         raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
     return text, bindings

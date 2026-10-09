@@ -1,0 +1,102 @@
+{
+  "schema": "dispatch_claims/1",
+  "date": "2026-10-09",
+  "retrieved": "2026-10-09T07:11:14.316990+00:00",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "On October 5, Volvo Autonomous Solutions and Waabi announced their first Warp customer operation in Texas.",
+      "quote": "Volvo Autonomous Solutions\n(V.A.S.) and Waabi today announced the start of autonomous operation for Warp in Texas, the first customer operation in the Volvo-Waabi partnership.\n\nOctober 5, 2026",
+      "quote_is_excerpt": true,
+      "url": "https://news.cision.com/ab-volvo/r/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-,c4404689",
+      "retrieved": "2026-10-09T07:10:07.907254+00:00",
+      "source_type": "primary_corporate_press_release AB Volvo via Cision",
+      "source_snapshot": "out/dispatch/sources/cision.validator.txt",
+      "source_snapshot_sha256": "59460b06ea8f0798fb8d2a9adeef36532f0b5a0b56e7599b897eaf9feaa8480c",
+      "scope_note": "Announcement date and corporate-reported start; not independently audited.",
+      "verdict": "VERIFIED",
+      "quote_fragments": [
+        "Volvo Autonomous Solutions\n(V.A.S.) and Waabi today announced the start of autonomous operation for Warp in Texas, the first customer operation in the Volvo-Waabi partnership.",
+        "October 5, 2026"
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Volvo VNL Autonomous powered by Waabi Driver transports customer freight directly to third-party facilities on the Dallas to Houston corridor.",
+      "quote": "The Volvo VNL Autonomous powered by the Waabi Driver is now transporting freight directly to third-party facilities along the Dallas\u2013Houston corridor. These operations will enable Warp, an open-source freight network that provides less-than-truckload (LTL) and full-truckload (FTL) freight services for carriers and shippers, to transport its customers\u2019 goods autonomously along the corridor.",
+      "quote_is_excerpt": true,
+      "url": "https://news.cision.com/ab-volvo/r/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-,c4404689",
+      "retrieved": "2026-10-09T07:10:07.907254+00:00",
+      "source_type": "primary_corporate_press_release AB Volvo via Cision",
+      "source_snapshot": "out/dispatch/sources/cision.validator.txt",
+      "source_snapshot_sha256": "59460b06ea8f0798fb8d2a9adeef36532f0b5a0b56e7599b897eaf9feaa8480c",
+      "scope_note": "Corporate account of customer freight operation, not a specific independently witnessed delivery. No cargo identities, truck count, loading procedure or gains verified.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c3",
+      "text": "Current autonomous hauls have an observer in the driver seat.",
+      "quote": "Currently autonomous hauls are run with an observer in the driver\u2019s seat.",
+      "quote_is_excerpt": true,
+      "url": "https://news.cision.com/ab-volvo/r/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-,c4404689",
+      "retrieved": "2026-10-09T07:10:07.907254+00:00",
+      "source_type": "primary_corporate_press_release AB Volvo via Cision",
+      "source_snapshot": "out/dispatch/sources/cision.validator.txt",
+      "source_snapshot_sha256": "59460b06ea8f0798fb8d2a9adeef36532f0b5a0b56e7599b897eaf9feaa8480c",
+      "scope_note": "Observer presence only. Duties, takeover frequency and measured safety performance are not stated.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c4",
+      "text": "Warp brings together multiple customers shipments and aligns routes, capacity and timing.",
+      "quote": "Warp brings together shipments from multiple customers and aligns routes, capacity, and timing, so advances on a single lane can benefit the broader network.",
+      "quote_is_excerpt": true,
+      "url": "https://news.cision.com/ab-volvo/r/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-,c4404689",
+      "retrieved": "2026-10-09T07:10:07.907254+00:00",
+      "source_type": "primary_corporate_press_release AB Volvo via Cision",
+      "source_snapshot": "out/dispatch/sources/cision.validator.txt",
+      "source_snapshot_sha256": "59460b06ea8f0798fb8d2a9adeef36532f0b5a0b56e7599b897eaf9feaa8480c",
+      "scope_note": "CEO describes network coordination; does not establish contents of any particular trailer.",
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "c5",
+      "text": "The companies plan to use lane experience to prepare additional routes; additional routes are not reported as operating.",
+      "quote": "With customer operations underway, V.A.S. and Waabi will use real-world experience from the Dallas\u2013Houston lane to prepare for additional routes and support the broader scaling of autonomous freight in the coming years.",
+      "quote_is_excerpt": true,
+      "url": "https://news.cision.com/ab-volvo/r/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-,c4404689",
+      "retrieved": "2026-10-09T07:10:07.907254+00:00",
+      "source_type": "primary_corporate_press_release AB Volvo via Cision",
+      "source_snapshot": "out/dispatch/sources/cision.validator.txt",
+      "source_snapshot_sha256": "59460b06ea8f0798fb8d2a9adeef36532f0b5a0b56e7599b897eaf9feaa8480c",
+      "scope_note": "Future plan, not completed route expansion.",
+      "verdict": "VERIFIED"
+    }
+  ],
+  "rejected": [
+    {
+      "claim": "This freight can leave the transfer-yard loop.",
+      "reason": "No prior transfer-yard loop documented. Direct facility movement does not establish a changed former loop."
+    },
+    {
+      "claim": "The trailer carries freight, not just a test load.",
+      "reason": "Customer operation is supported; comparison with a prior test load is not established."
+    },
+    {
+      "claim": "Safety observer or human safeguard",
+      "reason": "Release states observer; no duties or measured safeguard effect established."
+    },
+    {
+      "claim": "Reported reliability, safety or on-time improvement",
+      "reason": "Promotional prediction, not measured independently verified outcome."
+    },
+    {
+      "claim": "Particular trailer contains several customers cargo",
+      "reason": "Network consolidation quote establishes Warp model, not observed cargo contents."
+    },
+    {
+      "claim": "Cision independently corroborates Volvo",
+      "reason": "Cision republishes the same corporate release; it is not independent reporting."
+    }
+  ]
+}

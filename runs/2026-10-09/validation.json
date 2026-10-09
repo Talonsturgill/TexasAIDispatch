@@ -1,0 +1,144 @@
+{
+  "schema": "dispatch_validation/1",
+  "date": "2026-10-09",
+  "source": "Independent validator original Volvo full web refetch and full Cision raw HTML/text refetch",
+  "reviewer_identity": "/root/validator",
+  "retrieved": "2026-10-09T07:11:14.316990+00:00",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5"
+  ],
+  "rejected": [
+    "This freight can leave the transfer-yard loop. No prior transfer-yard loop documented. Direct facility movement does not establish a changed former loop.",
+    "The trailer carries freight, not just a test load. Customer operation is supported; comparison with a prior test load is not established.",
+    "Safety observer or human safeguard Release states observer; no duties or measured safeguard effect established.",
+    "Reported reliability, safety or on-time improvement Promotional prediction, not measured independently verified outcome.",
+    "Particular trailer contains several customers cargo Network consolidation quote establishes Warp model, not observed cargo contents.",
+    "Cision independently corroborates Volvo Cision republishes the same corporate release; it is not independent reporting."
+  ],
+  "required_edits_applied": [
+    "Approved candidate drops undocumented transfer-yard history and test-load comparison.",
+    "Approved candidate calls the onboard person an observer without inventing safety duties.",
+    "Approved candidate states route expansion as a plan."
+  ],
+  "required_edits_pending": [
+    "Bind actual final boards to the exact approved narration and claim ids before narration synthesis."
+  ],
+  "source_limits": [
+    "Announcement date and corporate-reported start; not independently audited.",
+    "Corporate account of customer freight operation, not a specific independently witnessed delivery. No cargo identities, truck count, loading procedure or gains verified.",
+    "Observer presence only. Duties, takeover frequency and measured safety performance are not stated.",
+    "CEO describes network coordination; does not establish contents of any particular trailer.",
+    "Future plan, not completed route expansion.",
+    "Same corporate release on original Volvo and Cision, no independent performance audit.",
+    "WT alternative refetched through full web page; grant and proposed AI evaluation confirmed, no performed AI outcome."
+  ],
+  "script_sha256": "6f65d090733b911f2dd9cf85a904c99edc9295ef17288a5a57854fae8df1db0e",
+  "claims_sha256": "d8e839dfcd9503a68e2b80e8c057215738c3697d509912dd30bf9f63749f0df4",
+  "script_hash_format": "UTF-8 exact six scene vo strings joined by LF, no final LF",
+  "sentence_claim_bindings": [
+    {
+      "sentence_index": 1,
+      "scene_id": "s1",
+      "text": "Customer freight moves. The observer stays aboard.",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ],
+      "status": "VERIFIED",
+      "note": "Approved source meaning. Customer operation is corporate-reported; observer duties unreported."
+    },
+    {
+      "sentence_index": 2,
+      "scene_id": "s2",
+      "text": "On October fifth, Volvo and Waabi announced customer operations with Warp in Texas.",
+      "claim_ids": [
+        "c1"
+      ],
+      "status": "VERIFIED",
+      "note": "Approved source meaning. Customer operation is corporate-reported; observer duties unreported."
+    },
+    {
+      "sentence_index": 3,
+      "scene_id": "s3",
+      "text": "Their autonomous truck carries customer freight along the Dallas to Houston corridor, directly to third-party facilities.",
+      "claim_ids": [
+        "c2"
+      ],
+      "status": "VERIFIED",
+      "note": "Approved source meaning. Customer operation is corporate-reported; observer duties unreported."
+    },
+    {
+      "sentence_index": 4,
+      "scene_id": "s4",
+      "text": "Warp brings together shipments from different customers and coordinates routes, capacity and timing.",
+      "claim_ids": [
+        "c4"
+      ],
+      "status": "VERIFIED",
+      "note": "Approved source meaning. Customer operation is corporate-reported; observer duties unreported."
+    },
+    {
+      "sentence_index": 5,
+      "scene_id": "s5",
+      "text": "An observer still sits in the driver seat. This service has someone aboard.",
+      "claim_ids": [
+        "c3"
+      ],
+      "status": "VERIFIED",
+      "note": "Approved source meaning. Customer operation is corporate-reported; observer duties unreported."
+    },
+    {
+      "sentence_index": 6,
+      "scene_id": "s6",
+      "text": "The companies plan to use these trips to prepare additional routes. Customer freight reaches facilities with an occupied cab.",
+      "claim_ids": [
+        "c2",
+        "c3",
+        "c5"
+      ],
+      "status": "VERIFIED",
+      "note": "Approved source meaning. Customer operation is corporate-reported; observer duties unreported."
+    }
+  ],
+  "board_binding_status": "PENDING actual board availability",
+  "scope": "Source and exact narration approval only. No film, audio, renderer, image-rights or shipment approval.",
+  "checks": {
+    "independent_refetch": true,
+    "verbatim_excerpts_in_retained_text": true,
+    "prohibited_whole_words_in_narration": false
+  },
+  "fetch_evidence": [
+    {
+      "url": "https://www.volvogroup.com/en/news-and-media/news/2026/oct/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-.html",
+      "status": 200,
+      "retrieved": "2026-10-09T07:10:07.407222+00:00",
+      "path": "out/dispatch/sources/volvo.validator.txt",
+      "sha256": "7a97b1c533e3dec029da5ef99b001e45c5dc3ef409f641f1e8cf594ca9b6ab6b",
+      "length": 1464,
+      "contains_observer": false
+    },
+    {
+      "url": "https://news.cision.com/ab-volvo/r/volvo-and-waabi-kick-off-customer-operations-in-texas--starting-with-warp-tm-,c4404689",
+      "status": 200,
+      "retrieved": "2026-10-09T07:10:07.907254+00:00",
+      "path": "out/dispatch/sources/cision.validator.txt",
+      "sha256": "59460b06ea8f0798fb8d2a9adeef36532f0b5a0b56e7599b897eaf9feaa8480c",
+      "length": 6208,
+      "contains_observer": true
+    },
+    {
+      "url": "https://news.tamus.edu/stories/wt-to-build-beef-cattle-research-facility-with-9-75-million-usda-grant/",
+      "status": 403,
+      "retrieved": "2026-10-09T07:10:08.156756+00:00",
+      "path": "out/dispatch/sources/wt.validator.txt",
+      "sha256": "dfd7d63c69c21b54a5b94224c2adf0bf7c28349f3f0088a838a3c8afe7e71b87",
+      "length": 33,
+      "contains_observer": false
+    }
+  ]
+}

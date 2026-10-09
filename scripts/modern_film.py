@@ -345,7 +345,7 @@ def problems(board, repo=REPO):
     return sorted(set(errors))
 
 
-def review_problems(board, report, film_sha=None):
+def review_problems(board, report, film_sha=None, *, _scope=True):
     if not required(board):
         return []
     rows = report.get('modern_observations')
@@ -364,7 +364,12 @@ def review_problems(board, report, film_sha=None):
         start, end = item.get('start_s'), item.get('end_s')
         if (item.get('pass') is not True or not finite(start) or not finite(end)
                 or not 0 <= start < end <= runtime + .1 or not prose(item.get('observed'))):
-            errors.append('modern engagement or finish unproven: ' + key)
+            admitted = False
+            if _scope and key == 'finished_art':
+                from review_scope import admits
+                admitted = admits(board, report, expected)
+            if not admitted:
+                errors.append('modern engagement or finish unproven: ' + key)
     if narration_required(board):
         observations=report.get('narration_picture_observations')
         if not isinstance(observations, dict):

@@ -1,0 +1,132 @@
+{
+  "verdict": "revise",
+  "reviewer_identity": "existing independent critic /root/critic critic17 final-review scope diagnosis",
+  "reviewed_at": "2026-10-09T10:40:37.221705+00:00",
+  "review_scope": "retained exact provider evidence and contract diagnosis only; no new scorer or listening verdict",
+  "film_sha256": "643bb423a902c14ac87ec76bc9e32f14b4cb25cd56e7d6acd53179ede89477cc",
+  "board_sha256": "907c13a7badc41d768485aebb06f114d76439507669ef92794f280ad363bbc65",
+  "claims_sha256": "d8e839dfcd9503a68e2b80e8c057215738c3697d509912dd30bf9f63749f0df4",
+  "blocking_defects": [
+    "modern engagement or finish unproven: finished_art"
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": "modern engagement or finish unproven: finished_art",
+        "category": "runtime",
+        "reason": "The actual provider returned a positive finished-art observation over0..41.9, the complete film including the five-second credits tail. Current gate admits story intervals only up to36.9+.1. Every other criterion/window passes; sealed provider evidence verifies. This is review interval scope metadata rejection, not a negative observed art finding."
+      }
+    ]
+  },
+  "original_provider_score": {
+    "path": "out/dispatch/scorer-sound-01.json",
+    "sha256": "441266a8c6e30312fb38deb9161eaa474d425b158fcb65e3b40093ddf5d7043f",
+    "raw_response_sha256": "55f421f1647faeae0a06b53fadac228f03cc26b9850326c11323f9c5fbce6533",
+    "request_id": "8794030d-3f4b-488a-bece-8f97c0c02d63",
+    "score": 7.48,
+    "ship": true,
+    "hard_fails": [],
+    "modern_finished_art": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 41.9,
+      "observed": "Fresh sculpted 2.5D raster sprites for both the articulated tractor-trailer and the facility dock are rendered with clean alpha edges, directional lighting, and solid ground plane alignment."
+    },
+    "evidence_problems": [],
+    "modern_review_problems": [
+      "modern engagement or finish unproven: finished_art"
+    ]
+  },
+  "actual_scope": {
+    "story_runtime_s": 36.9,
+    "complete_film_duration_s": 41.9,
+    "credits_start_s": 36.9,
+    "credits_end_s": 41.9,
+    "derivation": "Board story runtime36.9 plus retained required5-second credit sign-off; exact measured film/manifest/structural receipts retain original bytes. Story intersection of reported0..41.9 is mathematically0..36.9, not an independently supplied replacement timestamp.",
+    "original_positive_finding_scope": "The provider explicitly discusses this edition truck/facility sprites, alpha edges, directional light and ground alignment. These are story subjects. It reports no failed art criterion, false pass flag or missing observation. The extra credits interval does not establish a story-art failure."
+  },
+  "source_comprehension_assessment": {
+    "verdict": "no demonstrated film failure from this review prose alone",
+    "provider_overdescription": [
+      "terminal docking",
+      "safety observer",
+      "completed delivery at the facility"
+    ],
+    "finding": "Retained provider paraphrase extends beyond c3 observer-presence-only and c2 generic direct-to-facility freight illustration. Preserve that prose without using it as a source fact. Actual approved graphics use a positive stopping gap, no coupling/cargo transfer/unloading and an explicitly framed seated detail; original80-word script names observer only and no duty or safety result. Prior exact-phone review independently observed these limits; current host picture/story scores explicitly describe no unloading/takeover. Do not alter the source-backed film solely to match inaccurate scorer wording.",
+    "scope_limit": "This diagnosis did not personally listen to the full-film waveform; it uses sealed current source/script/code and separately retained actual phone/AV evidence. Any concrete contrary actual-film evidence would require source/comprehension repair, not metadata continuation."
+  },
+  "existing_versioned_paths": {
+    "independent_review_projection": "scripts/independent_review.py project stamps exact identities only and forbids editing findings, score or pass flags. evidence_problems requires exact equality to original provider object after those stamps. Therefore hand-editing end_s would invalidate evidence.",
+    "metadata_continuation": "scripts/metadata_continuation.py admits only independently audited eight Travis carton region field corrections. Freight scorer interval is outside that contract; do not reuse this lane.",
+    "review_context": "scripts/review_context.py admits strict native excerpt expansion for configured pod template and only hero window fields. Current full-film scorer timestamp is outside this lane.",
+    "current_admitted_continuation": false
+  },
+  "recommended_path": {
+    "classification": "mandatory technical review-scope integration repair; current gate remains blocking until a versioned explicit contract is implemented and verified",
+    "implementation": "Add a narrowly versioned exact-evidence review-scope continuation or validation adapter, separate from provider score object. It must bind original provider/report/request/input/film/board hashes and authenticate evidence through independent_review.evidence_problems unchanged. Derive the story intersection in a separate scope record while retaining original0..41.9 and all findings/score/pass flags unchanged. Admission must verify the exact full-film duration and unchanged required credits tail; original interval covers the entire story and extends only through that verified tail; original finished_art is true with concrete current hero/support observations. Keep all other modern and narration/source/rights gates strict. This is interpretation of an overinclusive scope, not a replacement scorer or fabricated provider timestamp.",
+    "required_negative_checks": [
+      "Reject original finished_art false or missing/conclusory finding",
+      "Reject intervals outside verified whole-film duration or not covering actual story",
+      "Reject changed/missing provider raw, input, prompt, host reservation or film bytes",
+      "Reject claims/board/renderer/art/audio changes under reuse",
+      "Reject negative artistry/source findings hidden as metadata",
+      "Reject padding an unfinished film or changing credits to fit an old observation",
+      "Keep current non-finish timing rules and all ten exact clause checks"
+    ],
+    "authorization": "Use the retained diagnosis through controller technical-integrity begin-repair/production-budget/authorize-repair before changing review integration. Implement a general narrow contract and tests, then independently audit derived scope and run actual evidence/panel gates. No existing helper currently grants passage and this diagnosis is not a grant.",
+    "paid_actions": "No new render/TTS/ImageGen/scorer on unchanged inputs. Preserve three separate original scorer responses and their actual charges. Do not patch original score JSON, relax rubric/floors, replace provider verdict or invent a film."
+  },
+  "reviewed_authorities": [
+    {
+      "path": "scripts/modern_film.py",
+      "sha256": "0861f87fb262abecdc9a689e6f257209ae204a42cdbce726cecda2e77de26a11"
+    },
+    {
+      "path": "scripts/independent_review.py",
+      "sha256": "66e7672f1e8e960482ce4172fc343f8ae8b3b8a0ae6cd960a3ddeeabb1893995"
+    },
+    {
+      "path": "scripts/metadata_continuation.py",
+      "sha256": "3d950229e7aebccd527355d5c0bd36b015bbdf3527a213f03b75724446c44119"
+    },
+    {
+      "path": "scripts/review_context.py",
+      "sha256": "d343c28b68562ed5f8641ef9e803d2f863cdc82d175897a10c995270dea86658"
+    },
+    {
+      "path": "scripts/creative_release.py",
+      "sha256": "1f8ab7a22c3d976f518f44a8ed8a5098c28325b85c0db0499403e98ecfd70f5a"
+    },
+    {
+      "path": "knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb"
+    },
+    {
+      "path": "knowledge/craft/QUALITY_CONTRACT.md",
+      "sha256": "6ca4365a34cdc5daf3788046903962e01e87698ed47a3ee817217b5d07bf2adb"
+    },
+    {
+      "path": "knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "45dd2b893fffb4549550dab614a74bba749e83637f9619d88f548e607845b8f0"
+    }
+  ],
+  "retained_evidence": [
+    {
+      "path": "out/dispatch/sound-transport-failure.json",
+      "sha256": "2355c107bbea84c8b5ca56b6f8d2ae6ac899b7a24634607ee65553b82d33986d"
+    },
+    {
+      "path": "out/dispatch/scorer-picture-01.json",
+      "sha256": "1461ed1bc0d6de822944d06dfde6dca6bd0dd029f89d4f7e33f6b0260bf86b09"
+    },
+    {
+      "path": "out/dispatch/scorer-story-01.json",
+      "sha256": "79a1366fba2674455308b507dd5a9db34c17fc00d31eb2f1b9a70e2befd56a68"
+    },
+    {
+      "path": "out/dispatch/cinema/sound-review.json",
+      "sha256": "5bda2d7685d30d88f8526fd7df4990a9842d0044ec96cda329a6af19e9914d2c"
+    }
+  ],
+  "preservation": "Original scorer/provider, all films/source/audio/art and all actual failed/current evidence remain untouched. No production edits, calls or captures in this diagnostic assignment."
+}
