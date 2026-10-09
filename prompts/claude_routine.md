@@ -48,6 +48,8 @@ The director is `claude-sonnet-5-5` at medium effort. Read the exact role map fr
 `config/claude_runtime.json`; do not use Codex `spawn_args` in Claude's Agent tool. Use the existing
 role roster, adding only the named `scene-builder` leaf definition for the existing builder task.
 Pin exact model ids and supported effort in versioned agent frontmatter and project settings.
+Spawn `scene-builder` for the existing reserved two-treatment builder assignment, using
+`.claude/agents/scene-builder.md` and `prompts/roles/scene-builder.md`. Reuse it for corrections.
 Do not globally force `CLAUDE_CODE_EFFORT_LEVEL` to medium, because that overrides the leaf's high
 effort. Detect and report any inherited override and resolve it before worker execution.
 
