@@ -320,6 +320,24 @@ jobs:
           # gets switched off. The bar is READ from the rubric and never restated here.
           python3 scripts/ship_gate.py --self-test
 
+      - name: Every region has a world, and the county has a map
+        run: |
+          # Place was the Dispatch's weakest axis and every current film stood in a flat gradient.
+          # Each region's world is baked once into layers by place_bake.py, which measured on the
+          # bake that the layers reassemble into the picture and that every camera profile the stage
+          # uses keeps the ground covering the frame and every base on its ground. This re-checks
+          # what a run relies on without a browser: a plate for all ten regions, every layer's bytes
+          # as baked, every scene unchanged since its bake, and the manifest's moves and policy the
+          # ones the bake checked. The locator's county map must be a fresh build of the committed
+          # county file, so nobody draws a border by hand.
+          python3 scripts/place_bake.py --self-test
+          python3 scripts/place_bake.py
+          python3 scripts/county_map.py --self-test
+          python3 scripts/county_map.py
+          python3 scripts/place_check.py --self-test
+          # the real-photo search keeps only records that carry their own publication advisory
+          python3 scripts/place_photos.py --self-test
+
       - name: The county decides the region, measured rather than typed
         run: |
           # ship_gate's first law used to read 80 hand-typed counties, one region each, and
@@ -455,8 +473,13 @@ jobs:
           python3 scripts/story_art.py --board experiments/modern-film-2026-10-07/board-a.json verify
           cd video-engine
           node tests/modern_film.mjs
+          node tests/place_stage.mjs
           npx remotion still Dispatch "$RUNNER_TEMP/modern-cold-shot.png" --props=../experiments/modern-film-2026-10-07/board-a.json --frame=210 --scale=.25
           python3 tests/modern_art_pixels.py "$RUNNER_TEMP/modern-cold-shot.png" ../experiments/modern-film-2026-10-07/failed-cold-shot.png
+          # The region has to SHOW. Every shot of the October 7th film is rendered on the stage with
+          # its plate as solid magenta, and a shot the episode paints over fails by name.
+          cd ..
+          python3 scripts/place_check.py --board experiments/modern-film-2026-10-07/board-a.json --opt-in --render --report "$RUNNER_TEMP/place_check.json"
 
       - name: The hat rules are called by something
         run: |

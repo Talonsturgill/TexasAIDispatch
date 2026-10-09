@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- blackland-wide: the Blackland Prairie, as REGIONS.md describes it. Open, humid, softer than the plains; summer light gone milky by afternoon. Black cracking clay, almost all farmed now; pecans along the creek; the I-35 corridor; Austin's skyline and the Capitol on the horizon. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'blackland-wide', region: 'blackland', seed: 41,
+  world: { base: 'highNoon', overrides: { el: [42, 50], zenith: 0x87a6c4, horizon: 0xe2e1d8, haze: 0xe5e2d4, ground: 0x3c3934,
+    fogDensity: 0.0007, clouds: 0.36, sunDisc: 18, glow: 1.0, exposure: 0.96 } },
+  sun: { az: 210, el: 46 },
+  camera: { from: [0, 1.9, 30], look: [0, 6, -700], fov: 50 },
+  shadow: { reach: 300, size: 120 },
+  layers: [{ name: 'far', from: 480 }, { name: 'mid', from: 60 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'dirt', size: 12000, tile: 6, seed: 41, color: 0x4a443c });
+  [[-17, 12], [17, 12], [-17, -32], [17, -32], [-17, -76], [17, -76]].forEach(([x, z], i) => {
+    const cr = K.make('crop_rows', { crop: 'cotton', growth: 0.35, width: 32, length: 44, seed: 5 + i, soil: 0x3a342d, budget: 160000 });
+    cr.position.set(x, 0, z); TXT.add(R, cr);
+  });
+  for (let i = 0; i < 12; i++) {            // pecans along the creek line
+    const t = K.make('pecan', { height: 16 + (i % 4) * 2, spread: 14, seed: 80 + i }); t.position.set(-260 + i * 46 + (i % 3) * 9, 0, -190 - (i % 2) * 14); TXT.add(R, t);
+  }
+  TXT.scatter(R, { kind: 'grass', count: 2600, area: [-300, -320, 300, -110], seed: 42, scale: [0.9, 1.4], colors: [0x8f9258, 0x7c8450, 0xa0a066] });
+  for (let i = -12; i <= 12; i++) {         // the interstate crossing the prairie
+    const h = K.make('highway', { length: 80, lanes: 3, gantry: false, seed: i }); h.rotation.y = Math.PI / 2; h.position.set(i * 80, 0, -620); TXT.add(R, h);
+  }
+  [[-120, -612, 0], [260, -628, Math.PI]].forEach(([x, z, ry], i) => { const s = K.make('semi_truck', { seed: 4 + i, color: [0xb8b8b4, 0x7a2a22][i] }); s.rotation.y = Math.PI / 2 + ry; s.position.set(x, 0.2, z); TXT.add(R, s); });
+  const city = K.make('city_skyline', { city: 'austin', lowrise: true }); city.position.set(380, 0, -5200); TXT.add(R, city);
+  const cap = K.make('capitol'); cap.position.set(-160, 0, -4300); TXT.add(R, cap);
+}});
+</script>
+</body>
+</html>

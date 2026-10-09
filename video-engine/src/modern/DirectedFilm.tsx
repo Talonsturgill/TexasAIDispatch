@@ -3,6 +3,7 @@ import {Sequence,useCurrentFrame,useVideoConfig} from 'remotion';
 import type {DispatchProps} from '../Dispatch';
 import {CreditsCard,SubtitleTrack} from '../lib/DispatchOverlays';
 import {modernEpisodes} from './registry';
+import {PlaceStage} from './PlaceStage';
 import {StoryArtProvider} from './StoryArt';
 import type {FilmDirection,FilmShot} from './types';
 
@@ -51,8 +52,9 @@ export const DirectedFilm:React.FC<DispatchProps>=(board)=>{
   const Episode=modernEpisodes[plan.episode];
   if(!scene||!Episode)throw new Error('Modern film scene or renderer is unavailable');
   return <div style={{position:'absolute',inset:0,overflow:'hidden'}}>
-    {!board.__cinemaProofWithoutStage&&<StoryArtProvider plan={board.story_art}><Episode board={board} scene={scene} shot={shot}
-      time_s={time} shot_s={time-shot.start_s} variant={plan.variant}/></StoryArtProvider>}
+    {!board.__cinemaProofWithoutStage&&<PlaceStage board={board} scene={scene} shot={shot} time_s={time}>
+      <StoryArtProvider plan={board.story_art}><Episode board={board} scene={scene} shot={shot}
+      time_s={time} shot_s={time-shot.start_s} variant={plan.variant}/></StoryArtProvider></PlaceStage>}
     <SubtitleTrack cues={board.captions??[]} fps={fps}/>
   </div>;
 };

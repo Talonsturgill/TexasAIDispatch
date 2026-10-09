@@ -1543,3 +1543,41 @@ board's own sha256, so editing the board after the gates ran invalidates it.
 the other, the cheap one runs first and the ordering belongs in the machine rather than in a
 paragraph. Any expensive step that can be invalidated by a cheap one afterwards is a step in the
 wrong place.
+
+## The seam check measured holes, and the layers tore without one
+
+October 9th, 2026, building the region plates for the place stage. The first cut sliced each
+region's world into three bands by distance and moved each band at the rate its own distance
+gave. Its check rendered a camera move and searched the frame for sky showing through the
+ground, which is what a hole between two bands looks like. It found none on any plate and the
+Blackland plate passed. The plate was still wrong. Its near band moved as if it were 7 m away and
+the next as if it were 213 m away, so a sideways move of a few centimetres slid the crop rows
+along the seam by tens of pixels. Ground is one surface from the camera to the horizon. A cut
+across it is a tear whenever the two sides move differently, and a tear that keeps both sides
+covered shows no sky.
+
+**The check was right and the question was too small.** It measured the one failure the author
+had pictured. The failure the design actually produced left every pixel covered.
+
+**What to check instead.** The plates were rebuilt so the defect can't occur, and then measured
+for what is left. The ground is one layer moved by the exact perspective transform a camera
+move gives a flat ground, so it can't tear. Things standing on it are cards at their own
+distances, and their remaining error, a base sliding on its ground, is computed for every thing
+in frame and held under two pixels (`scripts/place_bake.py`, SLIDE). The cover check stayed,
+since an edge of the ground pulled into frame is still a hole.
+
+**The general lesson.** Before trusting a check, name every way the design can fail and ask
+which of them the check can see. A check derived from the first failure imagined certifies the
+rest by silence.
+
+## The region was drawn and nothing said whether anyone could see it
+
+Same day. The place stage draws a scene's region behind its episode. An episode is authored new
+for each story, and both on the route at the time painted a full-frame background of their own,
+which would have covered the region completely while every board field, every manifest check and
+every unit test said the region was there.
+
+**What to check instead.** A render. `scripts/place_check.py --render` draws every shot with the
+region replaced by solid magenta and counts the magenta left in the finished frame. A shot under
+its minimum fails by name. It measures what reaches a viewer rather than what the code intends,
+which is the only version of this check that a future episode can't satisfy by accident.

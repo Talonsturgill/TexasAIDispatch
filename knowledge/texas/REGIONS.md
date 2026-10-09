@@ -210,6 +210,12 @@ over black clay, and the pretty desert palette does not get to visit.
 When a story genuinely spans regions, cut between them and let the light do the work. That
 contrast is free storytelling and it is true.
 
+**The current route draws these entries as baked plates (October 9th, 2026).** Each region has a
+scene page under `assets/place/scenes/` that builds the entry above in the Docket's carousel engine,
+its light, its ground, its vegetation and its built forms, and `scripts/place_bake.py` renders it
+once into the layers `modern/PlaceStage.tsx` moves. A plate is this file made visible, so a
+correction here is a correction to that page and a re-bake, never a tint applied in the film.
+
 ## Sources
 
 - [TPWD, Gould Ecoregions of Texas](https://tpwd.texas.gov/gis/maps/images/gould-ecoregions-of-texas/view)

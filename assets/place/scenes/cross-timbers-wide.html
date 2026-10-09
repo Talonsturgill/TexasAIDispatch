@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- cross-timbers-wide: the Cross Timbers and Prairies, as REGIONS.md describes them. The transition belt: broken oak woodland alternating with prairie, dappled where the timber is and open where it is not. Sandy over limestone, tan to grey. Post oak and blackjack oak in dense strips. Fort Worth's sprawl pushing west on the far horizon. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'cross-timbers-wide', region: 'cross_timbers', seed: 31,
+  world: { base: 'highNoon', overrides: { el: [36, 44], zenith: 0x6894c4, horizon: 0xd6dcd8, haze: 0xdfe2dc, ground: 0x8f8466,
+    fogDensity: 0.00055, clouds: 0.34, exposure: 0.96 } },
+  sun: { az: 215, el: 40 },
+  camera: { from: [0, 2.6, 40], look: [0, 6, -700], fov: 50 },
+  shadow: { reach: 300, size: 120 },
+  layers: [{ name: 'far', from: 450 }, { name: 'mid', from: 50 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'grass', size: 12000, tile: 6, seed: 31, color: 0x8e8a5e });
+  TXT.add(R, P.shapes.rolling({ seed: 7, near: -220, relief: 26, scale: 280, color: 0x7d7a52 }));
+  const strips = [[-60, -110, 22], [70, -170, 26], [-120, -300, 34], [150, -420, 40], [-60, -620, 46], [260, -820, 40], [-320, -1000, 50]];
+  let seed = 50;
+  strips.forEach(([cx, cz, n]) => {        // oak in dense strips across the prairie
+    for (let i = 0; i < n; i++) {
+      const kind = i % 3 ? 'live_oak' : 'cedar_elm';
+      const t = K.make(kind, { height: 7 + (i % 4), spread: 7 + (i % 5), seed: seed++ });
+      t.position.set(cx + (i - n / 2) * 7 + ((i * 37) % 11), 0, cz + ((i * 53) % 23) - 11); TXT.add(R, t);
+    }
+  });
+  [[-10, -16], [12, -30]].forEach(([x, z], i) => { const p = K.make('pasture', { width: 30, depth: 26, height: 0.75, season: 'summer', seed: 60 + i }); p.position.set(x, 0, z); TXT.add(R, p); });
+  TXT.scatter(R, { kind: 'grass', count: 3000, area: [-80, -180, 80, 30], seed: 32, scale: [0.6, 1.0], colors: [0x9a9466, 0x86844f, 0xa8a272] });
+  for (let i = 0; i < 5; i++) { const f = K.make('barbed_wire_fence', { length: 20, seed: 70 + i }); f.position.set(-40 + i * 20, 0, -6); TXT.add(R, f); }
+  const city = K.make('city_skyline', { city: 'dallas', lowrise: true }); city.position.set(2600, 0, -15000); TXT.add(R, city);
+}});
+</script>
+</body>
+</html>

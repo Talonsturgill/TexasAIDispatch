@@ -57,6 +57,15 @@ Record creator, source, rights basis, capture/retrieval date, source age, exact 
 crop. Never describe archive footage as live or current merely because it was fetched today.
 Do not turn asset sourcing into a new open-ended research or render cycle.
 
+One search goes where the rights are already on record (October 9th, 2026). Over the eight
+editions before that date nearly every candidate was rejected because no reuse licence could be
+established. The Library of Congress's Lyda Hill Texas Collection of Photographs in Carol M.
+Highsmith's America Project catalogues thousands of Texas places, each with the advisory "No known
+restrictions on publication", a credit line, a date and its town. `scripts/place_photos.py` searches
+it and keeps only records that say so themselves, and `--fetch` writes the provenance a native_media
+row needs beside the file. Its photographs are dated, often years old, so a frame never presents one
+as current, and the credit line goes in the credits.
+
 Stop searching when a directly useful asset is found or the bounded pass ends. If video is
 unavailable, use relevant authenticated still imagery, a document, or a source-bound explanatory
 action. If none helps, omit the insert and continue with the filmable treatment. If the central

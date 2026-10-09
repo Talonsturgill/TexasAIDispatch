@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- rolling-plains-wide: the Rolling Plains, as REGIONS.md describes them. The High Plains' hardness, but the land breaks up; red dirt takes the light warm so shadow sides go violet. Red beds. Mesquite low, crooked, wide and lacy, never a round tree. Pumpjacks, barbed wire on posts that lean, the caprock breaks behind. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1242px;height:2208px}</style>
+</head>
+<body>
+<canvas id="plate" width="2484" height="4416"></canvas>
+<script src="@@ASSETS@@/js/txpost.js"></script>
+<script type="module">
+import * as THREE from '@@ASSETS@@/js/three.module.min.js';
+import { init } from '@@ASSETS@@/js/txthree.js';
+import { initKit } from '@@ASSETS@@/js/txkit.js';
+import { bake } from '@@PLACE@@/plate.js';
+const spec = {
+  id: 'rolling-plains-wide', region: 'rolling_plains', seed: 21,
+  world: { base: 'highNoon', overrides: { el: [24, 30], zenith: 0x4f7db4, horizon: 0xd2c6b4, haze: 0xd9c0a2, ground: 0x7e5a48,
+    fogDensity: 0.00045, clouds: 0.22, exposure: 0.95 },
+    rig: { key: { color: 0xffe2bc, i: 3.4 }, fill: { color: 0x9a86b8, i: 0.45 } } },
+  sun: { az: 235, el: 27 },
+  camera: { from: [0, 2.4, 44], look: [10, 6, -700], fov: 50 },
+  shadow: { reach: 280, size: 120 },
+  layers: [{ name: 'far', from: 450 }, { name: 'mid', from: 55 }, { name: 'near', from: 0 }],
+};
+window.renderReady = bake({ THREE, init, initKit, spec, build: (R, K, TXT, P) => {
+  TXT.ground(R, { surface: 'dirt', size: 12000, tile: 6, seed: 21, color: 0x8e624c });
+  TXT.add(R, P.shapes.rolling({ seed: 4, near: -260, relief: 34, scale: 320, color: 0x86604e }));
+  const mesa = K.make('mesa', { kind: 'mesa', width: 900, height: 80, rock: 'red' }); mesa.position.set(-700, 0, -3600); TXT.add(R, mesa);
+  const butte = K.make('mesa', { kind: 'butte', width: 260, height: 70, rock: 'red' }); butte.position.set(800, 0, -4400); TXT.add(R, butte);
+  [[-14, -18, 7], [20, -40, 8], [-40, -90, 9], [48, -120, 6], [-90, -200, 9], [110, -260, 7], [-150, -360, 8], [40, -420, 9], [190, -520, 8]].forEach(([x, z, s], i) => {
+    const m = K.make('mesquite', { height: 4 + (i % 3), spread: s, seed: 40 + i }); m.position.set(x, 0, z); TXT.add(R, m); TXT.contact(R, m, { opacity: 0.4 });
+  });
+  [[12, -48, 0.3], [-46, -170, 2.1]].forEach(([x, z, ry], i) => { const pj = K.make('pump_jack', { crank: 30 + i * 70 }); pj.rotation.y = ry; pj.position.set(x, 0, z); TXT.add(R, pj); TXT.contact(R, pj); });
+  for (let i = 0; i < 6; i++) { const f = K.make('barbed_wire_fence', { length: 20, seed: i }); f.rotation.y = Math.PI / 2; f.position.set(-7.5, 0, 30 - i * 20); TXT.add(R, f); }
+  TXT.scatter(R, { kind: 'grass', count: 3200, area: [-60, -160, 60, 40], seed: 22, scale: [0.6, 1.1], colors: [0x9c8f5c, 0x8a8250, 0xa89a66] });
+  for (let i = 0; i < 7; i++) { const t = K.make('wind_turbine', { rotor: i * 23, yaw: 0.5 }); t.position.set(-600 + i * 300, 0, -6000); TXT.add(R, t); }
+}});
+</script>
+</body>
+</html>

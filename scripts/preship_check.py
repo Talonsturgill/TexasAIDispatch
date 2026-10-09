@@ -65,6 +65,9 @@ def gates(board: Path, claims: Path, script: Path, captions: Path,
         ("staging_check", [f"{s}/staging_check.py", "--board", str(board)]),
         ("flow_check", [f"{s}/flow_check.py", "--board", str(board), "--sfx", str(sfx)]),
         ("board_scale_check", [f"{s}/board_scale_check.py", "--board", str(board)]),
+        # a judge sees the region or doesn't, and can't see why: this renders each shot with the
+        # region as solid magenta and fails a shot the episode paints over
+        ("place_check", [f"{s}/place_check.py", "--board", str(board), "--render"]),
         ("floor_check", [f"{s}/floor_check.py", "--board", str(board)]),
         ("script_evidence_check", [f"{s}/script_evidence_check.py", "--board", str(board),
                                    "--claims", str(claims)]),
