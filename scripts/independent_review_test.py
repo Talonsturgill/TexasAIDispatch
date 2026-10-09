@@ -14,6 +14,21 @@ import documentary_review as d
 
 
 class AvailabilityTest(unittest.TestCase):
+    def test_av_context_omits_only_opaque_signatures_without_editing_raw(self):
+        raw = {'responseId': 'original', 'usageMetadata': {'totalTokenCount': 9},
+               'candidates': [{'finishReason': 'STOP', 'content': {'parts': [
+                   {'thought': True, 'text': 'Retained provider reasoning.', 'thoughtSignature': 'opaque'},
+                   {'text': '{"pass":false,"defects":["Exact original rejection"]}',
+                    'thoughtSignature': 'another opaque signature'}]}}]}
+        original = copy.deepcopy(raw)
+        context = r.audiovisual_context(raw)
+        self.assertEqual(raw, original)
+        self.assertEqual(r.response_object(context), r.response_object(raw))
+        self.assertEqual(context['usageMetadata'], raw['usageMetadata'])
+        for before, after in zip(raw['candidates'][0]['content']['parts'],
+                                 context['candidates'][0]['content']['parts']):
+            self.assertEqual(after, {k: v for k, v in before.items() if k != 'thoughtSignature'})
+
     def test_declared_same_source_excerpts_preserve_intervening_text(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'source.txt'
@@ -379,6 +394,23 @@ class SourceWindowTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.path = Path(self.tmp.name) / 'source.txt'
+
+    def test_blank_line_excerpts_keep_exact_source_and_fail_closed(self):
+        raw = 'Customer operations began.\nA separate qualification.\nOctober 5, 2026'
+        self.path.write_text(raw)
+        row = {'id': 'c1', 'quote': 'Customer operations began.\n\nOctober 5, 2026',
+               'quote_is_excerpt': True}
+        result = r.source_windows(self.path, [row], context_chars=2)
+        self.assertEqual(result['excerpt_groups'][0]['text'], raw)
+        self.assertEqual(result['excerpt_groups'][0]['original_quote'], row['quote'])
+        self.assertEqual(result['full_source_sha256'], r.digest(self.path))
+        self.assertEqual(self.path.read_text(), raw)
+        for change in ({'quote_is_excerpt': False}, {'quote_is_excerpt': 'true'},
+                       {'quote': row['quote'].replace('5,', '6,')},
+                       {'quote': row['quote'].replace('\n\n', ' ')},
+                       {'quote': 'October 5, 2026.\n\nCustomer operations began.'}):
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                r.source_windows(self.path, [{**row, **change}])
 
     def test_merged_windows_keep_all_quotes_occurrences_and_exact_slices(self):
         raw = b'Before\r\nA pod descends.  It can retract.\r\nA\n pod\t descends. After'

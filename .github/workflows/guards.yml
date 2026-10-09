@@ -487,6 +487,12 @@ jobs:
       - name: Current films require modern directing and fresh charged artwork
         run: |
           python3 scripts/modern_film_test.py
+          python3 scripts/review_scope_test.py
+          # Archived continuations carry original sealed reports, never edited intervals.
+          for scope in runs/*/finished-art-scope.json; do
+            [ -f "$scope" ] || continue
+            python3 scripts/review_scope.py --out "$(dirname "$scope")" --verify
+          done
           python3 scripts/modern_film.py --board experiments/modern-film-2026-10-07/board-a.json
           python3 scripts/story_art.py --board experiments/modern-film-2026-10-07/board-a.json verify
           cd video-engine

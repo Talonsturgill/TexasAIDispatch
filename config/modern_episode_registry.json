@@ -192,6 +192,204 @@
           ]
         }
       }
+    },
+    "freight-customer-v2": {
+      "module": "video-engine/src/modern/FreightFilm.tsx",
+      "assets": [
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "travel-wide",
+        "travel-detail",
+        "cab-travel",
+        "departure",
+        "departure-detail",
+        "grounded-corridor",
+        "grounded-approach",
+        "grounded-contact",
+        "orders-horizontal",
+        "orders-overhead",
+        "orders-assigned",
+        "occupied-cab",
+        "cab-and-trailer",
+        "future-routes",
+        "future-detail",
+        "retained-yard-wide",
+        "retained-yard-cab"
+      ],
+      "subject": "Generic sealed truck customer freight task with observer aboard",
+      "note": "Source-bound integrated front-elevation facility from measured original raster slice, continuous no-slip truck travel, useful tractor/contact framing and deliberately framed linked occupied-cab detail. Original two current ImageGen PNGs remain unchanged.",
+      "narration_views": {
+        "travel-wide": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "carry-freight"
+          ]
+        },
+        "travel-detail": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "carry-freight"
+          ]
+        },
+        "cab-travel": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "retain-observer"
+          ]
+        },
+        "departure": {
+          "subject_ids": [
+            "freight-truck",
+            "origin-terminal",
+            "observer"
+          ],
+          "action_ids": [
+            "start-service"
+          ]
+        },
+        "departure-detail": {
+          "subject_ids": [
+            "freight-truck",
+            "origin-terminal",
+            "observer"
+          ],
+          "action_ids": [
+            "start-service"
+          ]
+        },
+        "grounded-corridor": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "reach-facility"
+          ]
+        },
+        "grounded-approach": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "reach-facility"
+          ]
+        },
+        "grounded-contact": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "reach-facility"
+          ]
+        },
+        "orders-horizontal": {
+          "subject_ids": [
+            "shipment-orders",
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "coordinate-shipments"
+          ]
+        },
+        "orders-overhead": {
+          "subject_ids": [
+            "shipment-orders",
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "coordinate-shipments"
+          ]
+        },
+        "orders-assigned": {
+          "subject_ids": [
+            "shipment-orders",
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "coordinate-shipments"
+          ]
+        },
+        "occupied-cab": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "retain-observer"
+          ]
+        },
+        "cab-and-trailer": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "retain-observer"
+          ]
+        },
+        "future-routes": {
+          "subject_ids": [
+            "future-routes",
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "plan-routes"
+          ]
+        },
+        "future-detail": {
+          "subject_ids": [
+            "future-routes",
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "plan-routes"
+          ]
+        },
+        "retained-yard-wide": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "complete-service"
+          ]
+        },
+        "retained-yard-cab": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "complete-service"
+          ]
+        }
+      },
+      "mechanism_id": "freight-grounded-arrival-v2"
     }
   }
 }

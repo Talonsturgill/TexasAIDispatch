@@ -182,6 +182,12 @@ sys.path.insert(0, 'scripts')
 from alignment_reconciliation import package
 package(sys.argv[1], sys.argv[2])
 PY_ALIGNMENT
+python3 - "$OUT" "$DEST" <<'PY_REVIEW_SCOPE'
+import sys
+sys.path.insert(0, 'scripts')
+from review_scope import package
+package(sys.argv[1], sys.argv[2])
+PY_REVIEW_SCOPE
 if [ -d "$OUT/cinema" ]; then
   # Publish only the current proof graph. Historical stills and the paid-review cache
   # stay in the local run record; they must not masquerade as current film evidence.
