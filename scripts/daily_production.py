@@ -408,9 +408,21 @@ def packet(board_path, claims_path, role, state_path=None):
         "story": board.get("story_contract"),
         "quality_contract": "config/quality_contract.json",
         "rubric": "config/dispatch_rubric.yaml",
-        "brief": ".claude/agents/" + ("scorer" if role in ("picture", "story", "sound") else role) + ".md",
+        "brief": ("prompts/roles/scene-builder.md" if role == "scene-builder" else ".claude/agents/" + ("scorer" if role in ("picture", "story", "sound") else role) + ".md"),
         "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text.",
     }
+    import agent_runtime
+    route = agent_runtime.assignment(role, board["date"])
+    if route:
+        data["agent_assignment"] = route
+        data["agent_contracts"] = agent_runtime.contracts(role)
+        # The complete story is already hash-bound in the board. Do not repeat it
+        # in an isolated worker packet or truncate it to fit the handoff limit.
+        data["story"] = {"reference": "board", "field": "story_contract"}
+        data["instructions"] += " Read the complete story_contract in the bound board, including all scenes, transitions and source limits."
+        if role in ("scene-builder", "storyboard-critic"):
+            data["treatments"] = agent_runtime.treatment_bindings(board_path)
+            data["asset_inputs"] = agent_runtime.treatment_assets(data["treatments"])
     from autonomous_completion import selected_policy
     completion_state = read(state_path) if state_path and Path(state_path).is_file() else {'run_id':board.get('date','')}
     completion = [REPO / "knowledge/craft/AUTONOMOUS_COMPLETION.md", selected_policy(completion_state)]
@@ -555,7 +567,7 @@ def main():
     p.add_argument("--state", type=Path)
     p.add_argument("--catalog-check", action="store_true")
     p.add_argument("--digest", action="store_true")
-    p.add_argument("--packet", choices=["validator", "storyboard-critic", "vo-director", "picture", "story", "sound"])
+    p.add_argument("--packet", choices=["validator", "scene-builder", "storyboard-critic", "vo-director", "picture", "story", "sound"])
     p.add_argument("--scoreboard", action="store_true")
     p.add_argument("--out", type=Path)
     a = p.parse_args()

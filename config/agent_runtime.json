@@ -1,0 +1,85 @@
+{
+  "version": "agent-runtime-v1",
+  "effective_date": "2026-10-10",
+  "primary": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "policy": "preserve the saved primary model and schedule"
+  },
+  "fork_turns": "none",
+  "max_assignment_chars": 1800,
+  "measurement_editions": 5,
+  "baseline_editions": [
+    "2026-10-08",
+    "2026-10-09"
+  ],
+  "provider_packets": {
+    "prior_media_inventory": true,
+    "deduplicate_exact_media": true,
+    "policy": "Keep every current guide, source, receipt and unique native media byte. Project only the prior edition into a hash-bound media inventory; retain original historical packets."
+  },
+  "roles": {
+    "researcher": {
+      "model": "gpt-6-luna",
+      "reasoning_effort": "high",
+      "resource": "research_agents",
+      "brief": ".claude/agents/researcher.md"
+    },
+    "validator": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "resource": "validator_agents",
+      "brief": ".claude/agents/validator.md"
+    },
+    "scene-builder": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "resource": "reboards",
+      "brief": "prompts/roles/scene-builder.md"
+    },
+    "storyboard-critic": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "resource": "storyboard_critics",
+      "brief": ".claude/agents/storyboard-critic.md"
+    },
+    "vo-director": {
+      "model": "gpt-6-luna",
+      "reasoning_effort": "high",
+      "resource": "voice_directors",
+      "brief": ".claude/agents/vo-director.md"
+    },
+    "picture": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "resource": "scorer_calls",
+      "brief": ".claude/agents/scorer.md"
+    },
+    "story": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "resource": "scorer_calls",
+      "brief": ".claude/agents/scorer.md"
+    },
+    "sound": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium",
+      "resource": "scorer_calls",
+      "brief": ".claude/agents/scorer.md"
+    }
+  },
+  "accounting_note": "Local session token telemetry and provider telemetry are separate observations. Neither establishes the account bill. Unknown billing stays null.",
+  "quality_note": "Keep the fixed rubric, all independent exact-film observations and mandatory shipment gates. Measure rework, first-panel acceptance, scores and shipment; never claim a tenfold quality increase from a configuration change.",
+  "sources": [
+    {
+      "url": "https://learn.chatgpt.com/docs/agent-configuration/subagents",
+      "checked_at": "2026-10-09",
+      "use": "Narrow Luna workers, Sol for demanding work, explicit model and effort, isolated context."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/model-selection",
+      "checked_at": "2026-10-09",
+      "use": "Measure quality before accepting cost optimization."
+    }
+  ]
+}

@@ -289,7 +289,7 @@ class AvailabilityTest(unittest.TestCase):
     def test_real_packet_supplies_fetched_sources_and_creative_contract(self):
         actual_repo = r.REPO
         fixture = self.root/'fixture'
-        paths = ['config/dispatch_rubric.yaml', 'config/quality_contract.json',
+        paths = ['config/agent_runtime.json', 'config/dispatch_rubric.yaml', 'config/quality_contract.json',
                  'config/documentary.json', 'config/creative_production.json', 'config/story_visuals.json',
                  'knowledge/craft/BOUNDED_CREATIVE_RELEASE.md', 'knowledge/craft/CREATIVE_DIRECTION.md',
                  '.claude/agents/storyboard-critic.md']
@@ -377,6 +377,27 @@ class AvailabilityTest(unittest.TestCase):
             compact, _ = r.packet(board, claims, 'code', None)
             self.assertLess(len(json.dumps(compact)), 500_000)
             self.assertLess(len(json.dumps(compact['files']['out/dispatch/sources/source.txt'])), 10_000)
+            future = {**current, 'date': '2026-10-10'}
+            from daily_production import craft_reading_paths
+            for path in craft_reading_paths(future, actual_repo):
+                target = fixture/path.relative_to(actual_repo)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(path.read_bytes())
+            board.write_text(json.dumps(future))
+            with patch.object(r, 'provider_packet_policy', return_value=None):
+                legacy, _ = r.packet(board, claims, 'code', None)
+            projected, projected_bindings = r.packet(board, claims, 'code', None)
+            prior_key = 'runs/2026-09-28/storyboard.json'
+            self.assertEqual(projected['files'][prior_key]['original_sha256'], r.digest(shipped/'storyboard.json'))
+            self.assertEqual(projected_bindings['prior_board_sha256'], r.digest(shipped/'storyboard.json'))
+            self.assertEqual(projected_bindings['provider_packet_policy_sha256'], r.digest(fixture/'config/agent_runtime.json'))
+            for name in set(legacy['files']) - {prior_key}:
+                self.assertEqual(projected['files'][name], legacy['files'][name])
+            for key in ('board', 'claims', 'media'):
+                self.assertEqual(projected[key], legacy[key])
+            self.assertEqual(projected['files']['knowledge/craft/MODERN_FILM.md'], (actual_repo/'knowledge/craft/MODERN_FILM.md').read_text())
+            self.assertEqual(projected['files']['knowledge/craft/STORY_ART.md'], (actual_repo/'knowledge/craft/STORY_ART.md').read_text())
+            board.write_text(json.dumps(current))
             oversized = root/'story_selection.json'
             oversized.write_text(json.dumps({'unaltered_non_source': 'x' * 500_000}))
             with self.assertRaisesRegex(ValueError, 'bounded text size'):
@@ -387,6 +408,80 @@ class AvailabilityTest(unittest.TestCase):
             source.unlink()
             with self.assertRaisesRegex(ValueError, 'snapshot missing'):
                 r.packet(board, claims, 'code', None)
+
+
+class ProviderPacketTest(unittest.TestCase):
+    def test_prior_inventory_keeps_picture_provenance_and_full_byte_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root/'runs/2026-10-09/storyboard.json'
+            path.parent.mkdir(parents=True)
+            board = {'date': '2026-10-09', 'title': 'Prior film', 'topic': 'A prior source',
+                     'native_media': [{'file': 'evidence/source.mp4', 'rights_basis': 'Source permission'}],
+                     'story_art': {'entries': [{'request_id': 'original', 'sha256': 'original bytes'}]},
+                     'visual_research': {'inspected': 'Actual source picture'},
+                     'scenes': [{'id': 's1', 'picture': {'subject': 'Original picture'},
+                                 'generated_media': {'file': 'generated/clip.mp4'},
+                                 'vo': 'Unrelated prior narration.'}],
+                     'story_contract': {'rationale': 'Unrelated prior rationale.'}}
+            path.write_text(json.dumps(board))
+            with patch.object(r, 'REPO', root):
+                projected = r.prior_media_inventory(path)
+                self.assertEqual(projected['original_sha256'], r.digest(path))
+                self.assertEqual(projected['original_path'], 'runs/2026-10-09/storyboard.json')
+                for key in ('native_media', 'story_art', 'visual_research'):
+                    self.assertEqual(projected['retained'][key], board[key])
+                self.assertEqual(projected['retained']['scenes'][0]['picture'], board['scenes'][0]['picture'])
+                self.assertEqual(projected['retained']['scenes'][0]['generated_media'], board['scenes'][0]['generated_media'])
+                self.assertNotIn('vo', projected['retained']['scenes'][0])
+                self.assertNotIn('story_contract', projected['retained'])
+                before = copy.deepcopy(projected)
+                board['story_contract']['rationale'] = 'Changed unrelated historical byte.'
+                path.write_text(json.dumps(board))
+                changed = r.prior_media_inventory(path)
+                self.assertEqual(before['retained'], changed['retained'])
+                self.assertNotEqual(before['original_sha256'], changed['original_sha256'])
+
+    def test_policy_is_dated(self):
+        self.assertIsNone(r.provider_packet_policy({'date': '2026-10-09'}))
+        self.assertTrue(r.provider_packet_policy({'date': '2026-10-10'})['prior_media_inventory'])
+
+    def test_exact_duplicate_native_bytes_attach_once_and_changed_alias_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            paths = [root/name for name in ('first.png', 'alias.png', 'distinct.png')]
+            for path, raw in zip(paths, (b'native-original', b'native-original', b'native-distinct')):
+                path.write_bytes(raw)
+            rows = [{'path': str(path), 'sha256': r.digest(path)} for path in paths]
+            original = {'media': rows}
+            legacy = []
+            r.append_picture_evidence(legacy, original, None, 'unused', [])
+            self.assertEqual(len([x for x in legacy if 'inlineData' in x]), 3)
+            compact = {**original, 'provider_packet_policy': {'deduplicate_exact_media': True}}
+            parts = []
+            r.append_picture_evidence(parts, compact, None, 'unused', [])
+            images = [x['inlineData']['data'] for x in parts if 'inlineData' in x]
+            self.assertEqual(len(images), 2)
+            self.assertEqual([r.base64.b64decode(x) for x in images], [b'native-original', b'native-distinct'])
+            self.assertEqual(len([x for x in parts if 'text' in x]), 3)
+            self.assertEqual(original['media'], rows)
+            unsupported = root/'alias.exe'; unsupported.write_bytes(b'native-original')
+            with self.assertRaisesRegex(ValueError, 'format is unsupported'):
+                r.append_picture_evidence([], {**compact, 'media': rows + [{'path': str(unsupported), 'sha256': r.digest(unsupported)}]}, None, 'unused', [])
+            paths[1].write_bytes(b'changed-alias')
+            with self.assertRaisesRegex(ValueError, 'picture evidence changed'):
+                r.append_picture_evidence([], compact, None, 'unused', [])
+
+    def test_clip_hash_is_checked_after_provider_upload(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'clip.mp4'
+            path.write_bytes(b'original clip')
+            text = {'media': [{'path': str(path), 'sha256': r.digest(path)}]}
+            uploads = []
+            with patch.object(r, 'media_part', return_value=({}, 'temporary-upload', 'changed clip')):
+                with self.assertRaisesRegex(ValueError, 'clip changed during transport'):
+                    r.append_picture_evidence([], text, None, 'unused', uploads)
+            self.assertEqual(uploads, ['temporary-upload'])
 
 
 class SourceWindowTest(unittest.TestCase):

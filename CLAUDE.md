@@ -5,6 +5,13 @@ Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLE
 Source repo for the Texas AI Dispatch: a daily narrated 2.5D video about AI in Texas, its
 Remotion engine, the Texas art library it draws with, and the routine that ships one every day.
 
+## Current worker routing
+
+Read AGENTS.md. Newly planned editions from October 10th, 2026 use
+knowledge/craft/AGENT_RUNTIME.md and config/agent_runtime.json for explicit isolated worker
+models and effort. Keep the saved director model and schedule. Historical production evidence
+and unfinished frozen ledgers retain their original charges and mandatory recovery.
+
 ## Work in progress
 
 If `.claude/WORKLOG.md` exists, READ IT FIRST. It is the durable plan and progress ledger for a

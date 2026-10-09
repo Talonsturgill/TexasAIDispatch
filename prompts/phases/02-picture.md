@@ -62,6 +62,21 @@ Record missing recognition, absent principal action and misleading picture-to-wo
 as concrete comprehension/source defects under the fixed contract. Consolidate them with all
 current defects in the existing correction. This adds no reviewer, budget or render call.
 
+## Existing builder assignment
+
+For current agent-runtime editions, prepare the director's existing reserved builder task
+with the actual two treatments and current art assets. Use its explicit spawn_args after the
+existing reboard reservation; reuse that builder for later bounded corrections.
+
+```sh
+python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet scene-builder --out out/dispatch/builder-packet.json
+python scripts/agent_runtime.py --plan --role scene-builder --packet out/dispatch/builder-packet.json --task-name builder --scope "Implement both complete current treatments; verify every narrated subject, action, result and limit, event joins, regional stage and caption clearance" --out out/dispatch/builder-assignment.json
+```
+
+The handoff names all linked defects in one list. Run picture_precheck.py before consuming
+code or phone review/preview reservations; it invokes the existing cheap gates, retains each
+actual output and returns failure if any gate fails. No render, model call or approval occurs.
+
 ## Board fields and local checks
 
 out/dispatch/storyboard.json is the actual props file. Scenes tile the story runtime without
@@ -95,8 +110,12 @@ python scripts/super_evidence_check.py --board out/dispatch/storyboard.json --cl
 node video-engine/tests/caption_board_fit.mjs --board out/dispatch/storyboard.json
 python scripts/daily_production.py --board out/dispatch/storyboard.json --digest
 python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet storyboard-critic --out out/dispatch/critic-packet.json
+python scripts/picture_precheck.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --out out/dispatch/picture-precheck
+python scripts/agent_runtime.py --plan --role storyboard-critic --packet out/dispatch/critic-packet.json --task-name critic --scope "Independently identify every source, recognition, action, motion, framing, finish and ending defect in both complete treatments; return one consolidated verdict" --out out/dispatch/critic-assignment.json
 python scripts/run_controller.py consume --resource storyboard_critics --note "current board and causal sequence"
 ```
+
+For current agent-runtime editions, use critic-assignment.json spawn_args. Pre-effective ledgers keep their prior assignment path.
 
 Spawn `storyboard-critic` with its brief, compact packet and the actual source-backed board.
 It reviews composition, silent comprehension, continuity, source limits and retention.

@@ -14,6 +14,22 @@ to the task, add codex and codex-automation labels when available, wait for all 
 its exact head, then merge. Inspect a failing job, reproduce and repair the cause before retrying.
 Never merge red CI or overwrite newer published artifacts.
 
+## Observed agent efficiency
+
+For current agent-runtime editions, at recovery and accepted shipment collect the available
+local root and direct-child token counters privately. Use the exact session path and UTC
+checkpoint time. If a local session is unavailable, record unknown accounting rather than
+zero spend. This diagnostic never changes paid charges, scores or shipment eligibility.
+
+```sh
+python scripts/agent_runtime.py --audit-session <exact-local-root-session> --through <UTC-checkpoint-time> --out out/dispatch/agent-runtime-usage.private.json
+python scripts/agent_runtime.py --measure --out out/dispatch/agent-efficiency-measurements.json
+```
+
+Refresh the separate next-five-edition cost/quality observations after shipment. Preserve the
+existing modern-film measurement window and recurring-defect packet. Claim savings only from
+actual comparable evidence; keep subscription billing unknown without an account receipt.
+
 ## Docket feed lane
 
 Use a clean Docket checkout at current origin/main on claude/dispatch-<date>, or resume that exact
