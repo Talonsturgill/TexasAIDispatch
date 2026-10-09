@@ -205,6 +205,8 @@ def check(board_path: Path, render: bool, report: Path | None = REPORT, opt_in: 
     lines = static_problems(board, manifest) + wall_problems(board, registry, shots)
     shares: dict[str, float] = {}
     if render and not lines:
+        # out/ is ignored by git, so a fresh checkout has none until something makes it
+        (REPO / "out").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=REPO / "out") as td:
             shares = render_probes(board, shots, Path(td))
         lines += judge(shots, shares)

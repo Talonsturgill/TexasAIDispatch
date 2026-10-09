@@ -29,7 +29,8 @@ SOURCES (both recorded in the table with their digests)
            TPWD states it is not a surveyed product and makes no warranty of accuracy, which is
            why the gate tolerates a straddle rather than trusting a boundary to the mile.
            The raw polygons are NOT committed here. Their URL and sha256 are, so the table can
-           be rebuilt and checked byte for byte by anyone who downloads the same file.
+           be rebuilt and checked by anyone who downloads the same file, and CI does exactly that
+           on every change (--check).
   Counties: us-atlas counties-10m (ISC), derived from US Census Bureau cartographic boundary
            files, committed at assets/geo/tx-counties.topo.json.
 
@@ -43,10 +44,16 @@ Shares are rounded to SHARE_DP decimal places, half to even, which is Python's r
 county has outside every Gould polygon (coastline slivers where the two drawings disagree) are
 reported as `unclassified`, never assigned.
 
-    county_regions.py                       verify the committed table (CI)
+    county_regions.py                       verify the committed table is consistent (CI)
+    county_regions.py --check --gould Z     rebuild it from Z, fetched from TPWD when Z is absent,
+                                            and name every county the polygons disagree with (CI)
     county_regions.py --build --gould Z     recompute the table from GouldRegions.zip Z
     county_regions.py --lookup Travis       print one county's regions
     county_regions.py --self-test           prove the fill, the shares and the verifier
+
+A consistent table is not the same thing as a computed one. verify() can only hold the table to
+itself, so a hand edit that moves Harris County to the Trans-Pecos, shares and region together,
+passes it. Only rebuilding from the source catches that, which is why --check exists.
 
 Exit 0 clean, 1 a check failed, 2 the inputs could not be read.
 """
@@ -54,10 +61,14 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
 import io
 import json
+import re
 import struct
 import sys
+import time
+import urllib.request
 import zipfile
 from pathlib import Path
 
@@ -69,6 +80,7 @@ COUNTIES_TOPO = REPO / "assets" / "geo" / "tx-counties.topo.json"
 
 GOULD_URL = "https://tpwd.texas.gov/gis/data/baselayers/gouldecoregions-zip/at_download/file"
 GOULD_PAGE = "https://tpwd.texas.gov/gis/data/baselayers/gouldecoregions-zip/view"
+UA = "TexasAIDispatch county_regions (+https://texasaidocket.com)"
 
 # A region must hold at least this share of a county's classified area before a board may set a
 # scene there. Below it, a 1975 small-scale vegetation map and 1:10,000,000 county lines can't
@@ -274,7 +286,9 @@ def allowed(entry: dict) -> list[str]:
 
 
 def normalise(county: str) -> str:
-    c = " ".join(str(county).replace("County", " ").split())
+    """A county name as boards write it, with a trailing County in any case, in the comparable form.
+    PlaceStage.countyName and place_check.county_name strip the suffix by the same rule."""
+    c = re.sub(r"\s+county$", "", str(county).strip(), flags=re.IGNORECASE)
     return c.lower().replace(" ", "").replace(".", "").replace("'", "")
 
 
@@ -373,6 +387,53 @@ def verify(table: dict, check_files: bool = True) -> list[str]:
     return bad
 
 
+def differences(table: dict, rebuilt: dict) -> list[str]:
+    """Every computed value in the committed table that the rebuilt one disagrees with."""
+    bad = []
+    if (table.get("method") or {}) != rebuilt.get("method"):
+        bad.append(f"method {table.get('method')} is not the script's {rebuilt.get('method')}; rebuild the table")
+    old, new = table.get("counties") or {}, rebuilt.get("counties") or {}
+    for name in sorted(set(old) | set(new)):
+        a, b = old.get(name), new.get(name)
+        if a is None or b is None:
+            bad.append(f"{name}: " + ("missing from the table" if a is None else "not a county in the census file"))
+            continue
+        for key in ("region", "fips", "shares", "unclassified"):
+            if a.get(key) != b.get(key):
+                bad.append(f"{name}: {key} is {a.get(key)!r} and the polygons give {b.get(key)!r}")
+    return bad
+
+
+def check(table: dict, zip_path: Path) -> list[str]:
+    """Rebuild the table from TPWD's own file and compare. The file has to be the one the table
+    records, so a table pointed at another digest fails here rather than being rebuilt from it."""
+    want = ((table.get("source") or {}).get("regions") or {}).get("sha256")
+    got = hashlib.sha256(zip_path.read_bytes()).hexdigest()
+    if got != want:
+        return [f"{zip_path.name} hashes to {got[:12]} and the table records {str(want)[:12]}: either TPWD "
+                f"published a new file or the table's source was edited. Rebuild with --build and read the "
+                f"shares that move before committing."]
+    return differences(table, build(zip_path))
+
+
+def fetch_gould(dest: Path, tries: int = 4) -> None:
+    """Download TPWD's file to dest, waiting 2, 4 and 8 seconds between tries."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    for k in range(tries):
+        try:
+            req = urllib.request.Request(GOULD_URL, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                raw = r.read()
+            part = dest.with_name(dest.name + ".part")
+            part.write_bytes(raw)
+            part.replace(dest)
+            return
+        except (OSError, http.client.HTTPException) as e:   # a refused, dropped or short download
+            if k == tries - 1:
+                raise OSError(f"could not fetch {GOULD_URL} after {tries} tries: {e}") from e
+            time.sleep(2 ** (k + 1))
+
+
 def self_test() -> int:
     fails = 0
 
@@ -408,6 +469,8 @@ def self_test() -> int:
        allowed({"shares": {"a": 0.09, "b": 0.08, "c": 0.07}})[0] == "a")
     ok("county names match without 'County', case or spacing",
        normalise("De Witt County") == normalise("DeWitt") and normalise("la salle") == normalise("La Salle"))
+    ok("a trailing County is stripped in any case, as PlaceStage strips it",
+       normalise("HARRIS COUNTY") == normalise("harris county") == normalise("Harris"))
     # the verifier goes red
     good = {"method": {"allow_share": ALLOW_SHARE}, "source": {}, "counties": {
         f"C{i}": {"region": "gulf", "fips": f"48{i:03d}", "shares": {"gulf": 1.0}} for i in range(254)}}
@@ -429,6 +492,19 @@ def self_test() -> int:
            reeves is not None and "trans_pecos" in allowed(reeves) and "hill_country" not in allowed(reeves))
         _, harris = find(real, "Harris County")
         ok("Harris County is Gulf light over black clay", harris is not None and harris["region"] == "gulf")
+        ok("a board's HARRIS COUNTY or harris county is Harris", find(real, "HARRIS COUNTY")[0] == "Harris"
+           and find(real, "harris county")[0] == "Harris")
+        # Codex on PR 117: shares and region moved together pass verify(), so only a rebuild catches it
+        moved = json.loads(json.dumps(real))
+        moved["counties"]["Harris"].update(shares={"trans_pecos": 1.0}, region="trans_pecos")
+        ok("a coordinated hand edit is consistent, which is why verify() can't be the whole check",
+           verify(moved) == [])
+        caught = differences(moved, real)
+        ok("the rebuild names the county that was moved, and only it",
+           caught and all(b.startswith("Harris:") for b in caught))
+        ok("an unmoved table has no differences from its own rebuild", differences(real, real) == [])
+        ok("a file that is not the one the table records is refused before anything is rebuilt",
+           any("hashes to" in b for b in check(real, COUNTIES_TOPO)))
     print(f"county_regions self-test: {'PASS' if not fails else f'{fails} FAILED'}")
     return 1 if fails else 0
 
@@ -436,6 +512,8 @@ def self_test() -> int:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--build", action="store_true")
+    ap.add_argument("--check", action="store_true",
+                    help="rebuild from --gould (fetched from TPWD when absent) and compare with the table")
     ap.add_argument("--gould", type=Path, help="GouldRegions.zip, as downloaded from TPWD")
     ap.add_argument("--lookup", metavar="COUNTY")
     ap.add_argument("--self-test", action="store_true")
@@ -459,6 +537,25 @@ def main(argv=None) -> int:
     except (OSError, json.JSONDecodeError) as e:
         print(f"can't read {TABLE}: {e}")
         return 2
+    if a.check:
+        if not a.gould:
+            print("--check needs --gould, where TPWD's zip is or should be saved")
+            return 2
+        if not a.gould.exists():
+            try:
+                fetch_gould(a.gould)
+            except OSError as e:
+                print(f"county_regions: {e}")
+                return 2
+            print(f"fetched {a.gould.stat().st_size} bytes from {GOULD_URL}")
+        bad = verify(table) + check(table, a.gould)
+        for b in bad[:40]:
+            print("  FAIL  " + b)
+        if len(bad) > 40:
+            print(f"  ... and {len(bad) - 40} more")
+        print(f"county_regions --check: {'the table is the polygons' if not bad else f'{len(bad)} problem(s)'}, "
+              f"{len(table.get('counties') or {})} counties rebuilt from {a.gould.name}")
+        return 1 if bad else 0
     if a.lookup:
         name, e = find(table, a.lookup)
         if e is None:

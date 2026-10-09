@@ -34,4 +34,7 @@ THIS SOFTWARE.
 TPWD's Gould ecoregion polygons. `config/county_regions.json` is computed from them by
 `scripts/county_regions.py`, and the table records the download URL and the file's sha256 so
 the computation can be repeated byte for byte. TPWD publishes the layer for download with no
-access constraint but states no licence for redistribution, so the polygons stay with TPWD.
+access constraint but states no licence for redistribution, so the polygons stay with TPWD. CI
+fetches the file from TPWD, refuses it unless its sha256 is the one the table records, and
+rebuilds the table from it (`county_regions.py --check`). The runner's cache keeps that copy
+between runs and never enters the repository.

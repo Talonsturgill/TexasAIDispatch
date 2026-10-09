@@ -338,15 +338,33 @@ jobs:
           # the real-photo search keeps only records that carry their own publication advisory
           python3 scripts/place_photos.py --self-test
 
+      - name: Name the TPWD file the county table was computed from
+        id: gould
+        run: |
+          python3 -c "import json; print('sha256=' + json.load(open('config/county_regions.json'))['source']['regions']['sha256'])" >> "$GITHUB_OUTPUT"
+
+      - name: Restore that file if an earlier run fetched it
+        # TPWD's polygons are not committed here. The cache keeps CI from depending on TPWD's
+        # server after the first fetch, and the check below refuses any file whose digest is not
+        # the one the table records, so a cached file can't stand in for another.
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/gould
+          key: tpwd-gould-${{ steps.gould.outputs.sha256 }}
+
       - name: The county decides the region, measured rather than typed
         run: |
           # ship_gate's first law used to read 80 hand-typed counties, one region each, and
           # passed any county it did not know. The table is now computed for all 254 from
           # TPWD's Gould polygons, with each region's share of each county, and a straddle the
-          # polygons support is allowed. Verifying it here means a hand edit, a stale county
-          # file or a region the engine does not draw fails before a board is ever judged.
+          # polygons support is allowed. Verifying it here means a stale county file or a region
+          # the engine does not draw fails before a board is ever judged.
           python3 scripts/county_regions.py --self-test
           python3 scripts/county_regions.py
+          # A consistent table is not a computed one. Moving Harris County to the Trans-Pecos,
+          # shares and region together, passes the line above, so the table is rebuilt from
+          # TPWD's own file and every county the polygons disagree with fails by name.
+          python3 scripts/county_regions.py --check --gould "$RUNNER_TEMP/gould/GouldRegions.zip"
 
       - name: The shipping gate reads fields that exist, on the board that really ships
         run: |

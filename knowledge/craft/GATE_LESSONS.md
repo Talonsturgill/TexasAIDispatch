@@ -1635,3 +1635,17 @@ horizon for any camera, and the part of a surface that rises above it is a card 
 distance of that part. The bake measures every pixel of such a card against the distance the depth
 pass found there, and points along its seam with the ground on the horizon, so a rise or a truck
 that would tear or stretch it shrinks the plate's limits instead of shipping.
+
+## The county table checked against itself
+
+Same day, found by Codex on PR 117. The county table's verifier held every structural rule: 254
+counties, shares that sum to one, the region the largest share, a Texas FIPS code, and the county
+file's digest. Moving Harris County to the Trans-Pecos, shares and region together, broke none of
+them, so the ship gate would have enforced a geography nobody measured while CI stayed green. The
+verifier could only ask whether the table agreed with itself, and a careful hand edit always does.
+
+**What to check instead.** A computed table is checked by computing it again. CI now fetches TPWD's
+file, refuses it unless its sha256 is the one the table records, rebuilds all 254 counties from it
+in about five seconds and fails every county whose shares, region, FIPS or unclassified share
+differ, by name (`county_regions.py --check`). The same review found the incremental bake writing
+one engine record over plates it never drew, so each plate now names its own.

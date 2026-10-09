@@ -16,7 +16,9 @@ as a camera moving through Texas rather than across a postcard.
 It runs when a plate is added or changed, never during a daily run. A run reads only the committed
 layers and video-engine/src/modern/placePlates.json, which records for every plate the Docket commit
 and engine bytes, the scene's own sha256 and every layer's sha256, so a plate can always be traced
-and rebuilt, and a scene edited without a re-bake fails CI.
+and rebuilt, and a scene edited without a re-bake fails CI. Each plate names the engine that drew it
+(`engine`, a key into `engines`), so one plate rebaked with a newer Docket never lends that engine to
+the plates it did not touch.
 
 THE LAYERS ARE RENDERED, NOT CUT OUT OF A PICTURE (assets/place/plate.js says how and why the
 ground is one layer). What this script adds is the proof that they are right, measured on every
@@ -58,6 +60,7 @@ import math
 import re
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -131,6 +134,11 @@ def sha256_bytes(b: bytes) -> str:
 
 def sha256(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
+
+
+def engine_key(engine: dict) -> str:
+    """An engine record's own digest, which is the key every plate it drew names it by."""
+    return sha256_bytes(json.dumps(engine, sort_keys=True, separators=(",", ":")).encode("utf-8"))
 
 
 # ---- pictures --------------------------------------------------------------------------------------
@@ -472,6 +480,13 @@ def docket_commit(docket: Path) -> str:
         return "unknown"
 
 
+def engine_of(docket: Path) -> dict:
+    """What draws a plate: the Docket commit and the bytes of the engine files and the kit."""
+    return {"docket_commit": docket_commit(docket),
+            "files": {f: sha256(docket / f) for f in ENGINE_FILES if (docket / f).exists()},
+            "kit": {p.name: sha256(p) for p in sorted((docket / "assets/js/kit").glob("*.js"))}}
+
+
 def scene_spec(scene: Path) -> dict:
     """The id, region and county scope out of a scene page's spec. `counties` makes the plate those
     counties' own; `also` lets a board choose it for those counties by name, and never by default."""
@@ -587,16 +602,32 @@ def load_manifest(path: Path = MANIFEST) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def write_manifest(plates: dict, docket: Path, path: Path = MANIFEST) -> None:
+def write_manifest(plates: dict, engine: dict | None, path: Path = MANIFEST) -> None:
+    """Merge freshly baked plates, all drawn by `engine`, into the manifest. Every plate already
+    there keeps the engine it names; None writes no new plate and only brings old records forward."""
     old = load_manifest(path) if path.exists() else {}
     merged = dict(old.get("plates", {})) if old.get("schema") == SCHEMA else {}
+    engines = dict(old.get("engines") or {})
     # A plate baked before each plate recorded its own modules was baked with the one plate.js the
     # manifest then named for every plate, and imported nothing else from assets/place.
-    shared = old.get("engine", {}).get("plate_js_sha256")
+    legacy = old.get("engine") or {}
+    shared = legacy.get("plate_js_sha256")
+    # A plate baked before each plate named its engine was drawn by the one engine the manifest then
+    # recorded for all of them, which every bake rewrote. Codex on PR 117: an --only bake with a newer
+    # Docket rewrote it for plates it never drew, so each plate now names its own.
+    drew = {k: legacy[k] for k in ("docket_commit", "files", "kit") if k in legacy}
     for pid, entry in merged.items():
         if "modules" not in entry and shared:
-            merged[pid] = dict(entry, modules={"plate.js": shared})
-    merged.update(plates)
+            entry = merged[pid] = dict(entry, modules={"plate.js": shared})
+        if "engine" not in entry and len(drew) == 3:
+            engines[engine_key(drew)] = drew
+            merged[pid] = dict(entry, engine=engine_key(drew))
+    if plates:
+        if engine is None:
+            raise ValueError("a freshly baked plate needs the engine that drew it")
+        engines[engine_key(engine)] = engine
+        merged.update({pid: dict(p, engine=engine_key(engine)) for pid, p in plates.items()})
+    used = {entry.get("engine") for entry in merged.values()}
     doc = {
         "schema": SCHEMA,
         "_why": ("Each region's world, rendered once in the Docket's carousel engine as a sky, one ground and "
@@ -609,9 +640,7 @@ def write_manifest(plates: dict, docket: Path, path: Path = MANIFEST) -> None:
                  "PlaceStage has, in shares of those limits."),
         "policy": POLICY,
         "moves": {"share": MOVE_SHARE, "profiles": PROFILES},
-        "engine": {"docket_commit": docket_commit(docket),
-                   "files": {f: sha256(docket / f) for f in ENGINE_FILES if (docket / f).exists()},
-                   "kit": {p.name: sha256(p) for p in sorted((docket / "assets/js/kit").glob("*.js"))}},
+        "engines": {k: engines[k] for k in sorted(engines) if k in used},
         "film": {"w": FILM_W, "h": FILM_H}, "plate": {"w": PLATE_W, "h": PLATE_H},
         "plates": {k: merged[k] for k in sorted(merged)},
     }
@@ -630,6 +659,20 @@ def verify(doc: dict, repo: Path = REPO, check_files: bool = True) -> list[str]:
     plates = doc.get("plates") or {}
     if not plates:
         return errors + ["manifest holds no plates"]
+    engines = doc.get("engines") if isinstance(doc.get("engines"), dict) else {}
+    for key, eng in engines.items():
+        if not isinstance(eng, dict) or engine_key(eng) != key:
+            errors.append(f"engine {key[:12]} is not the record it was baked as; only the bake writes one")
+        elif not (re.fullmatch(r"[0-9a-f]{40}", str(eng.get("docket_commit"))) and eng.get("files")
+                  and isinstance(eng.get("kit"), dict)):
+            errors.append(f"engine {key[:12]} names no Docket commit or no engine files, so its plates "
+                          f"can't be rebuilt; bake from a TexasAIDocket checkout")
+    named = {p.get("engine") for p in plates.values()}
+    for pid, p in plates.items():
+        if p.get("engine") not in engines:
+            errors.append(f"plate {pid}: names no engine the manifest records, so nothing says what drew it")
+    for key in sorted(set(engines) - named):
+        errors.append(f"engine {key[:12]} drew no plate in the manifest")
     sys.path.insert(0, str(repo / "scripts"))
     import county_regions
     regions = set(county_regions.GOULD_TO_ENGINE.values())
@@ -815,11 +858,13 @@ def self_test() -> int:
     # the verifier goes red on a bad manifest
     sys.path.insert(0, str(REPO / "scripts"))
     import county_regions
-    good_doc = {"schema": SCHEMA, "engine": {}, "policy": POLICY, "moves": {"share": MOVE_SHARE, "profiles": PROFILES},
-                "plates": {}}
+    drew = {"docket_commit": "a" * 40, "files": {"assets/js/txthree.js": "b" * 64}, "kit": {}}
+    good_doc = {"schema": SCHEMA, "engines": {engine_key(drew): drew}, "policy": POLICY,
+                "moves": {"share": MOVE_SHARE, "profiles": PROFILES}, "plates": {}}
     for i, region in enumerate(sorted(set(county_regions.GOULD_TO_ENGINE.values()))):
         good_doc["plates"][f"p{i}"] = {
             "region": region, "scene": "x.html", "scene_sha256": "0" * 64, "horizon_y": 1000.0,
+            "engine": engine_key(drew),
             "camera": {"fpx": 2480.0, "position": [0.0, 6.5, 0.0]},
             "sky": {"file": "a.webp"}, "ground": {"file": "b.webp"},
             "cards": [{"file": "c.webp", "x": 0, "y": 0, "w": 10, "h": 10, "depth_m": dm} for dm in (900.0, 120.0, 25.0)],
@@ -842,10 +887,40 @@ def self_test() -> int:
         (lambda m: m["plates"]["p6"]["cards"][0].update(x=1240), "a card off the plate"),
         (lambda m: m["plates"]["c0"].update(counties=[]), "a region with two plates of its own"),
         (lambda m: m["plates"].__setitem__("c2", dict(m["plates"]["c0"])), "a county with two plates of its own"),
+        (lambda m: m["plates"]["p7"].update(engine="c" * 64), "a plate naming an engine nobody recorded"),
+        (lambda m: m["plates"]["p8"].pop("engine"), "a plate naming no engine"),
+        (lambda m: next(iter(m["engines"].values())).update(docket_commit="d" * 40), "an engine record edited by hand"),
+        (lambda m: m["engines"].__setitem__(engine_key(dict(drew, kit={"x.js": "e" * 64})), dict(drew, kit={"x.js": "e" * 64})),
+         "an engine that drew no plate"),
     ]:
         bad_doc = json.loads(json.dumps(good_doc))
         mutate(bad_doc)
         check(verify(bad_doc, check_files=False), f"the verifier passed {why}")
+    # an --only bake with a newer engine keeps every other plate on the engine that drew it
+    newer = dict(drew, docket_commit="f" * 40)
+    (REPO / "out").mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=REPO / "out") as td:
+        mf = Path(td) / "plates.json"
+        legacy = dict(good_doc, engine=dict(drew, plate_js_sha256="9" * 64))
+        legacy.pop("engines")
+        legacy["plates"] = {k: {f: v for f, v in p.items() if f not in ("engine", "modules")}
+                            for k, p in good_doc["plates"].items()}
+        mf.write_text(json.dumps(legacy), encoding="utf-8")
+        write_manifest({}, None, mf)
+        moved = load_manifest(mf)
+        check(set(moved["engines"]) == {engine_key(drew)}
+              and all(p.get("engine") == engine_key(drew) for p in moved["plates"].values()),
+              "a manifest from before per-plate engines did not bring its one engine to every plate")
+        check(all(p.get("modules") == {"plate.js": "9" * 64} for p in moved["plates"].values()),
+              "a manifest from before per-plate modules lost its plate.js record")
+        write_manifest({"p0": dict(good_doc["plates"]["p0"])}, newer, mf)
+        after = load_manifest(mf)
+        check(after["plates"]["p0"]["engine"] == engine_key(newer), "the rebaked plate does not name its new engine")
+        check(all(p["engine"] == engine_key(drew) for k, p in after["plates"].items() if k != "p0"),
+              "an --only bake gave its engine to plates it did not draw")
+        check(set(after["engines"]) == {engine_key(drew), engine_key(newer)}, "an engine record was lost or invented")
+        write_manifest({k: dict(p) for k, p in good_doc["plates"].items()}, newer, mf)
+        check(set(load_manifest(mf)["engines"]) == {engine_key(newer)}, "an engine that drew nothing was kept")
     if fails:
         print("place_bake self-test FAILED:")
         for f in fails:
@@ -909,9 +984,19 @@ def main(argv=None) -> int:
                 print("    " + e[:200])
         return 0
     failed = 0
+    if MANIFEST.exists():
+        mine, now = {s.stem for s in scenes}, engine_key(engine_of(a.docket))
+        others = sorted(pid for pid, p in load_manifest().get("plates", {}).items()
+                        if pid not in mine and p.get("engine") != now)
+        if others:
+            print(f"note: {len(others)} plates this bake leaves alone were drawn by another engine and keep "
+                  f"their own record: {', '.join(others)}", flush=True)
     for scene in scenes:
+        drew = engine_of(a.docket)
         try:
             p = bake_one(scene, a.docket)
+            if engine_of(a.docket) != drew:
+                raise RuntimeError("the Docket checkout changed during the bake, so nothing says which engine drew it")
         except Exception as exc:                     # one bad scene never costs the others their bake
             print(f"FAIL {scene.stem}: {exc}", flush=True)
             failed += 1
@@ -924,7 +1009,7 @@ def main(argv=None) -> int:
               f"{size} KB, errors {len(errs)}", flush=True)
         for e in errs[:5]:
             print("    " + e[:200])
-        write_manifest({p["id"]: p}, a.docket)       # each plate lands as it finishes
+        write_manifest({p["id"]: p}, drew)            # each plate lands as it finishes
     errors = verify(load_manifest()) if MANIFEST.exists() else ["no manifest written"]
     for e in errors:
         print("FAIL " + e)
