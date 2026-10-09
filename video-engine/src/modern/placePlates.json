@@ -1,0 +1,3142 @@
+{
+ "schema": "dispatch-place-plates/2",
+ "_why": "Each region's world, rendered once in the Docket's carousel engine as a sky, one ground and cards for the things standing on it, so PlaceStage can move a camera through Texas. Written by scripts/place_bake.py; every number in it was measured on the bake, never typed.",
+ "_how": "The ground moves by the exact homography a camera move gives the plane y = 0; a card moves as its depth_m, the geometric mean of its nearest and farthest thing. limits are the largest dolly, truck and rise that kept the ground covering the frame, slid no base over 2.0 px and magnified no card past 1.25. moves are the only camera PlaceStage has, in shares of those limits.",
+ "policy": {
+  "version": "place-plates-v2",
+  "effective_date": "2026-10-10"
+ },
+ "moves": {
+  "share": 0.6,
+  "profiles": {
+   "dollyThrough": {
+    "dolly": [
+     0.0,
+     1.0
+    ]
+   },
+   "truckAcross": {
+    "truck": [
+     -1.0,
+     1.0
+    ]
+   },
+   "riseWith": {
+    "rise": [
+     0.0,
+     1.0
+    ]
+   },
+   "craneDown": {
+    "rise": [
+     1.0,
+     0.0
+    ]
+   },
+   "orbitReveal": {
+    "truck": [
+     -1.0,
+     1.0
+    ],
+    "dolly": [
+     0.0,
+     0.35
+    ]
+   }
+  }
+ },
+ "engine": {
+  "docket_commit": "6326b02db66fbfca99cbc3ca2164ca1d045db2b4",
+  "files": {
+   "assets/js/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+   "assets/js/txthree.js": "731e164ca252500792cc508af0c16c0c06d4c7261e4a89064de2367bf875aac0",
+   "assets/js/txkit.js": "f1d05898dd31b3cea5a127fd114e438f6b55ac0c962241a5c79eedcf7866cd64",
+   "assets/js/txpost.js": "e46fc8aa813b870b7eaba8b152079b8b902081718369e612eac7fdd22cd816f0"
+  },
+  "kit": {
+   "civic.js": "4d4bc2f328dfb3fbac33ee7c738a22ae9146613bb6d2a1456997cfe7458024dd",
+   "homes.js": "1383ac63d05ef35a494cecffb1f284c5115095b020011a36669bc56b0be48b27",
+   "industry.js": "48d00c34e3c636990a2c8a2fb5207cc9fa75d5000cd3a7d34df07e6b5d49eb90",
+   "interior.js": "e3019561b85fc6b5934ece01320535805ff22c7f386cc89c9974fbc7cf076c1c",
+   "landscape.js": "9d378d9543eaa8957a242ba14486615e1ceb59d07bdec27242ace97f6a4b13a6",
+   "people.js": "8d3c5d396bed1565ea4d965caafaad57ec0a5a86e53fa8fd45f84957247f1217",
+   "power.js": "7eb5dd87b63fe3aa0532bf325b5972b81fed3e8f38e77c79abc4377777e75311",
+   "rural.js": "5c4e756377f994d1e73bb8bf636b9d4e51cf6106f74248317bf92de77f988d7c",
+   "trees.js": "96190c4d81c5fdf947fbb5d3462270349d842792403fba3e68942ed1ab9d7139",
+   "vehicles.js": "04fa64aa923e8feb5b92e4d4ecf99656a88166bc9b9fb68dbfcfff97fc353e9f"
+  }
+ },
+ "film": {
+  "w": 1080,
+  "h": 1920
+ },
+ "plate": {
+  "w": 1242,
+  "h": 2208
+ },
+ "plates": {
+  "blackland-austin": {
+   "id": "blackland-austin",
+   "region": "blackland",
+   "counties": [
+    "Travis"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-austin.html",
+   "scene_sha256": "837d48bad27cb827d37c746ae57672c011c653afd141a93836b46aa8e09e243a",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     9.0,
+     60.0
+    ],
+    "right": [
+     0.999927,
+     0.0,
+     -0.012047
+    ],
+    "up": [
+     0.000225,
+     0.999826,
+     0.018669
+    ],
+    "forward": [
+     -0.012045,
+     0.01867,
+     -0.999753
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1160.64,
+   "sky": {
+    "file": "place/blackland-austin/sky.webp",
+    "sha256": "dc9f9a1317f934a84a7c3e5ae90e95934fdac9ed1016dd200b9ef3ac19ff856f",
+    "bytes": 12208
+   },
+   "ground": {
+    "file": "place/blackland-austin/ground.webp",
+    "sha256": "7cef373c0e661d2256a916f2c855027f13e5bc9cd2a5753620b8542a184062e5",
+    "bytes": 258536
+   },
+   "cards": [
+    {
+     "file": "place/blackland-austin/card00.webp",
+     "sha256": "79ca8fcbbf42b49bbd91964e7b9479cea84c1ab4b5556c2d8b4323e36bde22e9",
+     "bytes": 86870,
+     "x": 0,
+     "y": 642,
+     "w": 1242,
+     "h": 527,
+     "depth_m": 1419.144,
+     "min_m": 855.166,
+     "max_m": 1664.07,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/blackland-austin/card01.webp",
+     "sha256": "506bd358719807977ad6ae956944ed9f211620e57f380b53e4fb21fd647844d5",
+     "bytes": 41474,
+     "x": 0,
+     "y": 1080,
+     "w": 1242,
+     "h": 153,
+     "depth_m": 406.702,
+     "min_m": 398.116,
+     "max_m": 415.474,
+     "things": 44
+    }
+   ],
+   "sky_rgb": [
+    214,
+    219,
+    222
+   ],
+   "ground_rgb": [
+    139,
+    147,
+    93
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.75,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.07,
+    "reassembly_p999": 4.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.442,
+      "scale": 1.0099
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 1.52,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.52,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.214,
+     "scale": 1.0059
+    },
+    "surfaces": 13,
+    "things": 49,
+    "render_ms": 191782,
+    "page_errors": 0
+   }
+  },
+  "blackland-dallas": {
+   "id": "blackland-dallas",
+   "region": "blackland",
+   "counties": [
+    "Dallas"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-dallas.html",
+   "scene_sha256": "36eadf8a1d716f0539d0f00ff14a270b480ba2bcc7dc9a7e417c33945f2e8e20",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     4.5,
+     60.0
+    ],
+    "right": [
+     0.999868,
+     -0.0,
+     0.016258
+    ],
+    "up": [
+     -0.000433,
+     0.999646,
+     0.02661
+    ],
+    "forward": [
+     0.016252,
+     0.026613,
+     -0.999514
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1184.75,
+   "sky": {
+    "file": "place/blackland-dallas/sky.webp",
+    "sha256": "84ba1518a8743ebd32e193d748b46f1dde949df6ae1620cb779242fc1cc4b9c4",
+    "bytes": 12842
+   },
+   "ground": {
+    "file": "place/blackland-dallas/ground.webp",
+    "sha256": "d1ae950d9067617f88752c721a13ab8b1e7c8bf057f90cf601b6b9c06afec17c",
+    "bytes": 261074
+   },
+   "cards": [
+    {
+     "file": "place/blackland-dallas/card00.webp",
+     "sha256": "88579a38caf7b168e880c0322aa9467b458c812d9189525229fc0e5532f6f4f9",
+     "bytes": 45772,
+     "x": 0,
+     "y": 866,
+     "w": 1242,
+     "h": 326,
+     "depth_m": 2658.96,
+     "min_m": 2325.048,
+     "max_m": 3151.467,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card01.webp",
+     "sha256": "03ad53baf44f736111849e9cfac901baa3b4466ff1f3bb5a2a05b8d858092985",
+     "bytes": 642,
+     "x": 1047,
+     "y": 1167,
+     "w": 195,
+     "h": 25,
+     "depth_m": 1212.952,
+     "min_m": 1199.858,
+     "max_m": 1226.836,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card02.webp",
+     "sha256": "0bec3cba2df3bf89d95b085988921462d9d75e8fa3a26def026afe78db799731",
+     "bytes": 756,
+     "x": 748,
+     "y": 1167,
+     "w": 249,
+     "h": 25,
+     "depth_m": 1211.314,
+     "min_m": 1197.76,
+     "max_m": 1224.993,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card03.webp",
+     "sha256": "5627b49291886632d9b98dca7813c264bc022acd4fc76fd35500f33ffe8d4ac3",
+     "bytes": 736,
+     "x": 447,
+     "y": 1167,
+     "w": 249,
+     "h": 25,
+     "depth_m": 1209.313,
+     "min_m": 1195.867,
+     "max_m": 1222.971,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card04.webp",
+     "sha256": "a0abd422f849efcbcb0436d6fa233597b2006fe2c517a7a454dfe4ed047cc9c1",
+     "bytes": 772,
+     "x": 145,
+     "y": 1167,
+     "w": 250,
+     "h": 25,
+     "depth_m": 1207.456,
+     "min_m": 1193.952,
+     "max_m": 1221.094,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card05.webp",
+     "sha256": "a517e4d2a8b4c9cc05728a6405fb92876249b19671f33826fa5e1f132d99a7e7",
+     "bytes": 452,
+     "x": 0,
+     "y": 1167,
+     "w": 94,
+     "h": 25,
+     "depth_m": 1205.237,
+     "min_m": 1192.007,
+     "max_m": 1219.073,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card06.webp",
+     "sha256": "295cc9877ddcd705377d0f5aef07df84b54e840d9d7804e1d328dfd5e3384410",
+     "bytes": 4726,
+     "x": 939,
+     "y": 1111,
+     "w": 237,
+     "h": 101,
+     "depth_m": 701.648,
+     "min_m": 661.017,
+     "max_m": 755.931,
+     "things": 3
+    },
+    {
+     "file": "place/blackland-dallas/card07.webp",
+     "sha256": "c1c94baede738da313806b67aabba7e752288474c7123055ef5c9d985ecff32e",
+     "bytes": 8664,
+     "x": 95,
+     "y": 1100,
+     "w": 408,
+     "h": 123,
+     "depth_m": 458.552,
+     "min_m": 438.687,
+     "max_m": 479.317,
+     "things": 2
+    }
+   ],
+   "sky_rgb": [
+    215,
+    218,
+    220
+   ],
+   "ground_rgb": [
+    154,
+    163,
+    96
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.3,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.073,
+    "reassembly_p999": 3.04,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.633,
+      "scale": 1.0088
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.688,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.722,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.033,
+     "scale": 1.0053
+    },
+    "surfaces": 25,
+    "things": 7,
+    "render_ms": 313989,
+    "page_errors": 0
+   }
+  },
+  "blackland-san-antonio": {
+   "id": "blackland-san-antonio",
+   "region": "blackland",
+   "counties": [
+    "Bexar"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-san-antonio.html",
+   "scene_sha256": "af40186769bd60d2f38d44d47057498b39a28b7526b5ece790c21b57339c5821",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     4.5,
+     50.0
+    ],
+    "right": [
+     0.999972,
+     0.0,
+     0.007547
+    ],
+    "up": [
+     -0.000144,
+     0.999818,
+     0.019052
+    ],
+    "forward": [
+     0.007546,
+     0.019053,
+     -0.99979
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1161.8,
+   "sky": {
+    "file": "place/blackland-san-antonio/sky.webp",
+    "sha256": "e4a8adfc2f5b67ec05907bfb71a4274d3ec038257037540300ececaee9ddfdae",
+    "bytes": 12864
+   },
+   "ground": {
+    "file": "place/blackland-san-antonio/ground.webp",
+    "sha256": "1fd4e9a79427bb3a3aa90f1654b52ce9609216b77340fa727e00f09ff5f42a98",
+    "bytes": 168688
+   },
+   "cards": [
+    {
+     "file": "place/blackland-san-antonio/card00.webp",
+     "sha256": "1675fa825534f3bcb927ebfb0c1594a2f919303c4b87de791a93a7a4e10d2246",
+     "bytes": 23274,
+     "x": 0,
+     "y": 965,
+     "w": 1242,
+     "h": 204,
+     "depth_m": 3596.476,
+     "min_m": 3263.535,
+     "max_m": 4003.924,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/blackland-san-antonio/card01.webp",
+     "sha256": "07b96cc7486d2deb93c1fa5c56163c61b7df7ed4ac27eda39451a33b0bd2c3b1",
+     "bytes": 5750,
+     "x": 0,
+     "y": 1088,
+     "w": 849,
+     "h": 110,
+     "depth_m": 469.586,
+     "min_m": 469.134,
+     "max_m": 470.039,
+     "things": 2
+    },
+    {
+     "file": "place/blackland-san-antonio/card02.webp",
+     "sha256": "0c634cff17c9b72c3c1b2dbad20b0201355b94cf6027077428fb0e51d5d32519",
+     "bytes": 8306,
+     "x": 367,
+     "y": 1092,
+     "w": 707,
+     "h": 113,
+     "depth_m": 379.944,
+     "min_m": 379.665,
+     "max_m": 380.223,
+     "things": 2
+    },
+    {
+     "file": "place/blackland-san-antonio/card03.webp",
+     "sha256": "2be6231f56a6f3c1d6cf4e8ce1ae52551a6f9e24b7287840e4d47ed152dc7f6b",
+     "bytes": 5168,
+     "x": 193,
+     "y": 1108,
+     "w": 141,
+     "h": 105,
+     "depth_m": 309.589,
+     "min_m": 309.589,
+     "max_m": 309.589,
+     "things": 1
+    },
+    {
+     "file": "place/blackland-san-antonio/card04.webp",
+     "sha256": "f64fd36287d8f071622a8c9f70a26612773c66b24dc485f2bef5c2156707905e",
+     "bytes": 16390,
+     "x": 835,
+     "y": 970,
+     "w": 254,
+     "h": 267,
+     "depth_m": 194.662,
+     "min_m": 189.419,
+     "max_m": 200.05,
+     "things": 2
+    },
+    {
+     "file": "place/blackland-san-antonio/card05.webp",
+     "sha256": "18deeecdb5580d892470b3b1b86c78aa5ea0b42f9b63883a710d7d4e2f89e4fa",
+     "bytes": 42310,
+     "x": 0,
+     "y": 871,
+     "w": 430,
+     "h": 423,
+     "depth_m": 114.882,
+     "min_m": 109.782,
+     "max_m": 120.218,
+     "things": 2
+    }
+   ],
+   "sky_rgb": [
+    216,
+    218,
+    219
+   ],
+   "ground_rgb": [
+    159,
+    159,
+    117
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.3,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.058,
+    "reassembly_p999": 3.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.353,
+      "scale": 1.0361
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.666,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.666,
+      "scale": 1.0001
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.999,
+     "scale": 1.0213
+    },
+    "surfaces": 30,
+    "things": 13,
+    "render_ms": 189372,
+    "page_errors": 0
+   }
+  },
+  "blackland-wide": {
+   "id": "blackland-wide",
+   "region": "blackland",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-wide.html",
+   "scene_sha256": "1758772dd7a59d89c626b76ba610124d6305f879d8e74e8a8dd100767079d219",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     1.9,
+     30.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999984,
+     0.005616
+    ],
+    "forward": [
+     -0.0,
+     0.005616,
+     -0.999984
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1117.3,
+   "sky": {
+    "file": "place/blackland-wide/sky.webp",
+    "sha256": "6e5c1e833685358fbaaedce0ec6922db11f0c121d3820ae61ea0bf3517911709",
+    "bytes": 12212
+   },
+   "ground": {
+    "file": "place/blackland-wide/ground.webp",
+    "sha256": "6d7ff71f8b1fce464671c4d65ebd8a4d1a8527bd17618815e784da14470e1a29",
+    "bytes": 282178
+   },
+   "cards": [
+    {
+     "file": "place/blackland-wide/card00.webp",
+     "sha256": "14248d5c4413662c6e741198f0e1f3b132dc9151a12d14700657d473e8fe9f26",
+     "bytes": 1942,
+     "x": 131,
+     "y": 1067,
+     "w": 884,
+     "h": 61,
+     "depth_m": 2629.948,
+     "min_m": 641.98,
+     "max_m": 3129.94,
+     "things": 4
+    },
+    {
+     "file": "place/blackland-wide/card01.webp",
+     "sha256": "3a1a12e8d8315eb28d34152ebfbf730668253b417b62d8489548f9be7ed399d5",
+     "bytes": 20710,
+     "x": 408,
+     "y": 918,
+     "w": 834,
+     "h": 227,
+     "depth_m": 226.877,
+     "min_m": 219.985,
+     "max_m": 233.985,
+     "things": 12
+    }
+   ],
+   "sky_rgb": [
+    214,
+    217,
+    219
+   ],
+   "ground_rgb": [
+    106,
+    98,
+    72
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.1,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.191,
+    "reassembly_p999": 4.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.822,
+      "scale": 1.0179
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.242,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.814,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.09,
+     "scale": 1.0107
+    },
+    "surfaces": 33,
+    "things": 16,
+    "render_ms": 112187,
+    "page_errors": 0
+   }
+  },
+  "cross-timbers-wide": {
+   "id": "cross-timbers-wide",
+   "region": "cross_timbers",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/cross-timbers-wide.html",
+   "scene_sha256": "4bdecff961f87f5ca7572ee8b71e40e6887c504f2a7f50b419b1b52f8ddb3bad",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.6,
+     40.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999989,
+     0.004595
+    ],
+    "forward": [
+     -0.0,
+     0.004595,
+     -0.999989
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1114.88,
+   "sky": {
+    "file": "place/cross-timbers-wide/sky.webp",
+    "sha256": "ae86a64bb2b71395ddbfcc9fefe3bd7c2650d80cb92732ff280cf162d4b7a355",
+    "bytes": 14390
+   },
+   "ground": {
+    "file": "place/cross-timbers-wide/ground.webp",
+    "sha256": "4f200c91acd88d243575549dc0fde4b3e83cb4bb27bf49f066596c873aa595d1",
+    "bytes": 228882
+   },
+   "cards": [
+    {
+     "file": "place/cross-timbers-wide/card00.webp",
+     "sha256": "baf275de736387f7c10c1d1d5e6130a8f8bcc875a2856777e3f402e5fd0dfe02",
+     "bytes": 3638,
+     "x": 0,
+     "y": 1057,
+     "w": 1242,
+     "h": 67,
+     "depth_m": 3913.683,
+     "min_m": 787.34,
+     "max_m": 6701.016,
+     "things": 3,
+     "tall": [
+      "plate.rolling"
+     ]
+    },
+    {
+     "file": "place/cross-timbers-wide/card01.webp",
+     "sha256": "292fa4659095f59f5d87e087f53c9a14fde75f72ab3df487511a9c79b0563eb4",
+     "bytes": 3912,
+     "x": 524,
+     "y": 1081,
+     "w": 718,
+     "h": 40,
+     "depth_m": 860.978,
+     "min_m": 648.98,
+     "max_m": 1050.976,
+     "things": 136
+    },
+    {
+     "file": "place/cross-timbers-wide/card02.webp",
+     "sha256": "ef41b22a816b3f4acd3f5accd5804035010ff7f256a61f7778b6ad7e0bca8142",
+     "bytes": 12766,
+     "x": 646,
+     "y": 1070,
+     "w": 596,
+     "h": 65,
+     "depth_m": 459.851,
+     "min_m": 448.983,
+     "max_m": 470.982,
+     "things": 40
+    },
+    {
+     "file": "place/cross-timbers-wide/card03.webp",
+     "sha256": "cbb3813904d2917f80262251a1c5f456d35d29e14a4d9379057e5eeded3d6e7e",
+     "bytes": 17114,
+     "x": 0,
+     "y": 1056,
+     "w": 606,
+     "h": 80,
+     "depth_m": 339.806,
+     "min_m": 328.984,
+     "max_m": 350.984,
+     "things": 34
+    },
+    {
+     "file": "place/cross-timbers-wide/card04.webp",
+     "sha256": "42453fcf55bc84a895f370593a10d06f8287b265832571e5198a6975b7209585",
+     "bytes": 33838,
+     "x": 351,
+     "y": 1021,
+     "w": 891,
+     "h": 132,
+     "depth_m": 209.697,
+     "min_m": 198.985,
+     "max_m": 220.985,
+     "things": 26
+    },
+    {
+     "file": "place/cross-timbers-wide/card05.webp",
+     "sha256": "f9fc883d26abf14cd01a0cee8464a27dda5f4164cbc8ff77de3c0efee41ba58d",
+     "bytes": 13422,
+     "x": 296,
+     "y": 1023,
+     "w": 481,
+     "h": 138,
+     "depth_m": 158.466,
+     "min_m": 155.986,
+     "max_m": 160.986,
+     "things": 6
+    },
+    {
+     "file": "place/cross-timbers-wide/card06.webp",
+     "sha256": "1ee10873126dc278d1f27d0d5641cf3928d7d497adeb671e7250ed47db0976ec",
+     "bytes": 48204,
+     "x": 0,
+     "y": 983,
+     "w": 959,
+     "h": 183,
+     "depth_m": 146.768,
+     "min_m": 138.986,
+     "max_m": 154.986,
+     "things": 16
+    },
+    {
+     "file": "place/cross-timbers-wide/card07.webp",
+     "sha256": "6783617ec386859fc0461d244c9e6a6de5f7d305a2f6d26268e12c5863c63588",
+     "bytes": 19974,
+     "x": 0,
+     "y": 1162,
+     "w": 1242,
+     "h": 94,
+     "depth_m": 45.987,
+     "min_m": 45.984,
+     "max_m": 45.99,
+     "things": 5
+    }
+   ],
+   "sky_rgb": [
+    200,
+    211,
+    219
+   ],
+   "ground_rgb": [
+    177,
+    171,
+    120
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.2,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.053,
+    "reassembly_p999": 8.17,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.455,
+      "scale": 1.0953
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.487,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.825,
+      "scale": 1.0001
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.095,
+     "scale": 1.0551
+    },
+    "surfaces": 5,
+    "things": 263,
+    "render_ms": 254145,
+    "page_errors": 0
+   }
+  },
+  "gulf-houston": {
+   "id": "gulf-houston",
+   "region": "gulf",
+   "counties": [
+    "Harris"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/gulf-houston.html",
+   "scene_sha256": "fb503d3183b088fd5a121ad1154c2359d24460843c48c8032607d873e88e5a17",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     5.5,
+     60.0
+    ],
+    "right": [
+     0.999843,
+     0.0,
+     -0.017696
+    ],
+    "up": [
+     0.000427,
+     0.999709,
+     0.0241
+    ],
+    "forward": [
+     -0.017691,
+     0.024104,
+     -0.999553
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1177.13,
+   "sky": {
+    "file": "place/gulf-houston/sky.webp",
+    "sha256": "f9ebf87beb18762d1af27892fe6f504c8efeb71b8372e4eb12bb16b93fc63ca4",
+    "bytes": 14770
+   },
+   "ground": {
+    "file": "place/gulf-houston/ground.webp",
+    "sha256": "67dc9e6a649160a4cb46f3f0f86fbacfe8f67dff2272246ade132bf74736d866",
+    "bytes": 80886
+   },
+   "cards": [
+    {
+     "file": "place/gulf-houston/card00.webp",
+     "sha256": "25af558d900f009cf16d07f2b4e2090aa2ad952d0e372d0188f1d62a8028bfd8",
+     "bytes": 59862,
+     "x": 0,
+     "y": 786,
+     "w": 1242,
+     "h": 398,
+     "depth_m": 2350.411,
+     "min_m": 1810.336,
+     "max_m": 2927.962,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/gulf-houston/card01.webp",
+     "sha256": "88a64c9cfcfa434c9b8ceee781dd5994facdea9eff3bd421b419751d15498d10",
+     "bytes": 2642,
+     "x": 712,
+     "y": 1147,
+     "w": 100,
+     "h": 61,
+     "depth_m": 699.005,
+     "min_m": 699.005,
+     "max_m": 699.005,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card02.webp",
+     "sha256": "1d5b8c6bdce66d20d14253161370b23f74a7c808ce21f6b72a0310a914d66407",
+     "bytes": 4754,
+     "x": 164,
+     "y": 1145,
+     "w": 936,
+     "h": 68,
+     "depth_m": 599.139,
+     "min_m": 577.961,
+     "max_m": 621.094,
+     "things": 2
+    },
+    {
+     "file": "place/gulf-houston/card03.webp",
+     "sha256": "22b8a09e87f500272967fbda9950787d3260a788c0d418fbdb0380b04b658b98",
+     "bytes": 4348,
+     "x": 776,
+     "y": 1119,
+     "w": 103,
+     "h": 100,
+     "depth_m": 478.525,
+     "min_m": 478.525,
+     "max_m": 478.525,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card04.webp",
+     "sha256": "c0a5a2122e355813bfdc07e7b94b94f5b00f69163bddff588dfb09ba380e363e",
+     "bytes": 11304,
+     "x": 36,
+     "y": 1112,
+     "w": 1039,
+     "h": 119,
+     "depth_m": 374.474,
+     "min_m": 358.581,
+     "max_m": 391.072,
+     "things": 2
+    },
+    {
+     "file": "place/gulf-houston/card05.webp",
+     "sha256": "416bca73d0e1e74343da21dec59a69b62c1f1ea8e18ec99d689c1af77607a3f0",
+     "bytes": 2042,
+     "x": 1190,
+     "y": 1138,
+     "w": 52,
+     "h": 87,
+     "depth_m": 268.706,
+     "min_m": 268.706,
+     "max_m": 268.706,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card06.webp",
+     "sha256": "2548936d7f52880f0e41e5502add4c45b98e604b464df299276f3c2fc98353d6",
+     "bytes": 9816,
+     "x": 0,
+     "y": 1047,
+     "w": 138,
+     "h": 216,
+     "depth_m": 211.218,
+     "min_m": 211.218,
+     "max_m": 211.218,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card07.webp",
+     "sha256": "3b7339c5254326badf1013d2c962e97baba984e8cdf456aa97b075d45b38c642",
+     "bytes": 15912,
+     "x": 992,
+     "y": 1108,
+     "w": 250,
+     "h": 170,
+     "depth_m": 179.525,
+     "min_m": 179.525,
+     "max_m": 179.525,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card08.webp",
+     "sha256": "a4c30e700341d05753ea02b5d0c9e1588dc41463ba2d3359107f175a8708ea06",
+     "bytes": 18216,
+     "x": 0,
+     "y": 1013,
+     "w": 195,
+     "h": 299,
+     "depth_m": 130.94,
+     "min_m": 130.94,
+     "max_m": 130.94,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    218,
+    221,
+    223
+   ],
+   "ground_rgb": [
+    134,
+    141,
+    137
+   ],
+   "limits": {
+    "dolly_m": 6.0,
+    "truck_m": 0.5,
+    "rise_m": 1.5
+   },
+   "checks": {
+    "reassembly_mean": 0.285,
+    "reassembly_p999": 8.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.183,
+      "scale": 1.048
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.619,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.859,
+      "scale": 1.0003
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.115,
+     "scale": 1.0283
+    },
+    "surfaces": 32,
+    "things": 14,
+    "render_ms": 235922,
+    "page_errors": 0
+   }
+  },
+  "gulf-shipchannel": {
+   "id": "gulf-shipchannel",
+   "region": "gulf",
+   "counties": [],
+   "also": [
+    "Harris",
+    "Galveston",
+    "Jefferson",
+    "Brazoria",
+    "Chambers",
+    "Nueces"
+   ],
+   "scene": "assets/place/scenes/gulf-shipchannel.html",
+   "scene_sha256": "8253a900a5abd936bee4554d2f3d0efa7629ce0a6e2fca5ce76f31c08f274f09",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     6.5,
+     48.0
+    ],
+    "right": [
+     0.998608,
+     0.0,
+     0.052743
+    ],
+    "up": [
+     0.000973,
+     0.99983,
+     -0.018431
+    ],
+    "forward": [
+     0.052734,
+     -0.018457,
+     -0.998438
+    ],
+    "fov": 48.0,
+    "fpx": 2479.624598,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1058.23,
+   "sky": {
+    "file": "place/gulf-shipchannel/sky.webp",
+    "sha256": "db30fa84512f8c4fa88d1a627805bc4210045af5702ea743ded8cad9ebe0a9ed",
+    "bytes": 15260
+   },
+   "ground": {
+    "file": "place/gulf-shipchannel/ground.webp",
+    "sha256": "997b260d148801d731271c4ecb215ea911d45a21983523ffdc4602e052bc9a01",
+    "bytes": 136186
+   },
+   "cards": [
+    {
+     "file": "place/gulf-shipchannel/card00.webp",
+     "sha256": "2a1f17c413180b761b88b833533f6c984d6bfb150c55d21bcc8201f6c00a77c5",
+     "bytes": 11064,
+     "x": 0,
+     "y": 841,
+     "w": 1242,
+     "h": 238,
+     "depth_m": 808.624,
+     "min_m": 757.963,
+     "max_m": 1858.556,
+     "things": 22
+    },
+    {
+     "file": "place/gulf-shipchannel/card01.webp",
+     "sha256": "833a10dac12122577ed42ba5131fe72252dddfbc5fa1e4b924b25b15bbdbd0c6",
+     "bytes": 57640,
+     "x": 0,
+     "y": 903,
+     "w": 364,
+     "h": 541,
+     "depth_m": 30.882,
+     "min_m": 30.882,
+     "max_m": 30.882,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    222,
+    225,
+    226
+   ],
+   "ground_rgb": [
+    109,
+    117,
+    113
+   ],
+   "limits": {
+    "dolly_m": 6.0,
+    "truck_m": 0.5,
+    "rise_m": 1.5
+   },
+   "checks": {
+    "reassembly_mean": 0.748,
+    "reassembly_p999": 8.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 0.642,
+      "scale": 1.2411
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.484,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.452,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.871,
+     "scale": 1.1319
+    },
+    "surfaces": 39,
+    "things": 25,
+    "render_ms": 140044,
+    "page_errors": 0
+   }
+  },
+  "gulf-wide": {
+   "id": "gulf-wide",
+   "region": "gulf",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/gulf-wide.html",
+   "scene_sha256": "dccd86b9bdb67dda981dd06eec5b62dda37b988a9a81d00a6ad16adcec12e853",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     6.5,
+     48.0
+    ],
+    "right": [
+     0.998608,
+     0.0,
+     0.052743
+    ],
+    "up": [
+     0.000973,
+     0.99983,
+     -0.018431
+    ],
+    "forward": [
+     0.052734,
+     -0.018457,
+     -0.998438
+    ],
+    "fov": 48.0,
+    "fpx": 2479.624598,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1058.23,
+   "sky": {
+    "file": "place/gulf-wide/sky.webp",
+    "sha256": "db30fa84512f8c4fa88d1a627805bc4210045af5702ea743ded8cad9ebe0a9ed",
+    "bytes": 15260
+   },
+   "ground": {
+    "file": "place/gulf-wide/ground.webp",
+    "sha256": "a2288c4c0f7d31deb736fb9f9da5c73a000e9a85b3736b9a557926261ac0efb6",
+    "bytes": 132774
+   },
+   "cards": [
+    {
+     "file": "place/gulf-wide/card00.webp",
+     "sha256": "747fefa1662fe753c34173024a88cacc81e7f784d88352e9ede83424f1c71fe6",
+     "bytes": 7438,
+     "x": 0,
+     "y": 1034,
+     "w": 1242,
+     "h": 45,
+     "depth_m": 1293.237,
+     "min_m": 757.963,
+     "max_m": 1457.531,
+     "things": 46
+    },
+    {
+     "file": "place/gulf-wide/card01.webp",
+     "sha256": "833a10dac12122577ed42ba5131fe72252dddfbc5fa1e4b924b25b15bbdbd0c6",
+     "bytes": 57640,
+     "x": 0,
+     "y": 903,
+     "w": 364,
+     "h": 541,
+     "depth_m": 30.882,
+     "min_m": 30.882,
+     "max_m": 30.882,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    223,
+    226,
+    227
+   ],
+   "ground_rgb": [
+    109,
+    117,
+    113
+   ],
+   "limits": {
+    "dolly_m": 6.0,
+    "truck_m": 0.5,
+    "rise_m": 1.0
+   },
+   "checks": {
+    "reassembly_mean": 0.951,
+    "reassembly_p999": 9.5,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.489,
+      "scale": 1.2411
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.828,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.656,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.994,
+     "scale": 1.1319
+    },
+    "surfaces": 39,
+    "things": 49,
+    "render_ms": 127294,
+    "page_errors": 0
+   }
+  },
+  "high-plains-wide": {
+   "id": "high-plains-wide",
+   "region": "high_plains",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/high-plains-wide.html",
+   "scene_sha256": "c1c52c8d0496ed43789739d5b459328511dabf6bf97b3051fcba6d13ef6b18bc",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     3.0,
+     2.0,
+     40.0
+    ],
+    "right": [
+     0.999995,
+     -0.0,
+     -0.003191
+    ],
+    "up": [
+     4.8e-05,
+     0.999889,
+     0.014892
+    ],
+    "forward": [
+     -0.003191,
+     0.014892,
+     -0.999884
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1139.26,
+   "sky": {
+    "file": "place/high-plains-wide/sky.webp",
+    "sha256": "841b8a3d8135928b34b5a9cdd93260dd7e630c3d599e082b7cc1f393b17b43a1",
+    "bytes": 13838
+   },
+   "ground": {
+    "file": "place/high-plains-wide/ground.webp",
+    "sha256": "972d168de21255b80098c798baaf75e8949b1c373cfb9c73bb3509f069eb40ca",
+    "bytes": 256098
+   },
+   "cards": [
+    {
+     "file": "place/high-plains-wide/card00.webp",
+     "sha256": "8b544947b4181dfbf0d355b215d54cc45c1d2c588937a6e60a607ddf224fdd61",
+     "bytes": 7476,
+     "x": 190,
+     "y": 1066,
+     "w": 1052,
+     "h": 85,
+     "depth_m": 5231.939,
+     "min_m": 939.009,
+     "max_m": 5659.491,
+     "things": 22
+    }
+   ],
+   "sky_rgb": [
+    200,
+    207,
+    217
+   ],
+   "ground_rgb": [
+    212,
+    197,
+    164
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.1,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.118,
+    "reassembly_p999": 4.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.797,
+      "scale": 1.0008
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.209,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.564,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.076,
+     "scale": 1.0005
+    },
+    "surfaces": 76,
+    "things": 22,
+    "render_ms": 160070,
+    "page_errors": 0
+   }
+  },
+  "hill-country-wide": {
+   "id": "hill-country-wide",
+   "region": "hill_country",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/hill-country-wide.html",
+   "scene_sha256": "7f5c403f28ba9994dd86751f062928913f79699db8a0b4cd527939c157ff7d63",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     1.9,
+     30.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999767,
+     0.021608
+    ],
+    "forward": [
+     -0.0,
+     0.021608,
+     -0.999767
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1155.17,
+   "sky": {
+    "file": "place/hill-country-wide/sky.webp",
+    "sha256": "d154da478c9368fc1d85aee43e635d4f45df72f5b7d609e34ffa80a4686e520f",
+    "bytes": 14228
+   },
+   "ground": {
+    "file": "place/hill-country-wide/ground.webp",
+    "sha256": "0d754b6c1ad5c735150efc5d3e8167c6324fc39f09f7f8ed149189ba076431cd",
+    "bytes": 228864
+   },
+   "cards": [
+    {
+     "file": "place/hill-country-wide/card00.webp",
+     "sha256": "d8f03fb2419ba22e0f6099c1ac6ef064bcc79348dc640610674d9ff2e7293777",
+     "bytes": 60498,
+     "x": 0,
+     "y": 918,
+     "w": 1242,
+     "h": 255,
+     "depth_m": 241.43,
+     "min_m": 147.577,
+     "max_m": 935.182,
+     "things": 3,
+     "tall": [
+      "hill_country_terrain"
+     ]
+    },
+    {
+     "file": "place/hill-country-wide/card01.webp",
+     "sha256": "df87a640781fdeb018676a90f34918ee2857bc8fc8e2a77fa0eb688296696fb9",
+     "bytes": 17866,
+     "x": 761,
+     "y": 1000,
+     "w": 314,
+     "h": 155,
+     "depth_m": 119.927,
+     "min_m": 119.927,
+     "max_m": 119.927,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card02.webp",
+     "sha256": "38a2e731ee8c075ca864e585fdd8cb32419d2ac0c87fd871ea643d5187ff7205",
+     "bytes": 12132,
+     "x": 119,
+     "y": 1019,
+     "w": 218,
+     "h": 183,
+     "depth_m": 84.937,
+     "min_m": 84.937,
+     "max_m": 84.937,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card03.webp",
+     "sha256": "d7ad25a692f818bc37a16b1357718e24b1017f42a668200087405943fbe4b64d",
+     "bytes": 14678,
+     "x": 614,
+     "y": 1003,
+     "w": 216,
+     "h": 222,
+     "depth_m": 69.94,
+     "min_m": 69.94,
+     "max_m": 69.94,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card04.webp",
+     "sha256": "3514a1dc655fd1dd09b3a7279f3aa8d37684782b8823056de267770baed45420",
+     "bytes": 85044,
+     "x": 0,
+     "y": 785,
+     "w": 550,
+     "h": 487,
+     "depth_m": 41.945,
+     "min_m": 41.945,
+     "max_m": 41.945,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card05.webp",
+     "sha256": "7d27522f525ed00ad05de3894556595335b3c4eb057d482ce36029ef4aeea00d",
+     "bytes": 42472,
+     "x": 904,
+     "y": 846,
+     "w": 338,
+     "h": 478,
+     "depth_m": 27.951,
+     "min_m": 27.951,
+     "max_m": 27.951,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card06.webp",
+     "sha256": "60a8078592e01f4257b6d5303281c4b3d060ecfdce63b17df95aae37c8a35a18",
+     "bytes": 13814,
+     "x": 0,
+     "y": 1159,
+     "w": 789,
+     "h": 221,
+     "depth_m": 19.97,
+     "min_m": 19.97,
+     "max_m": 19.97,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    183,
+    202,
+    222
+   ],
+   "ground_rgb": [
+    185,
+    180,
+    145
+   ],
+   "limits": {
+    "dolly_m": 0.5,
+    "truck_m": 0.1,
+    "rise_m": 0.2
+   },
+   "checks": {
+    "reassembly_mean": 0.026,
+    "reassembly_p999": 6.56,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.056,
+      "scale": 1.0257
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.928,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.857,
+      "scale": 1.0002
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.114,
+     "scale": 1.0152
+    },
+    "surfaces": 22,
+    "things": 10,
+    "render_ms": 322251,
+    "page_errors": 0
+   }
+  },
+  "piney-woods-wide": {
+   "id": "piney-woods-wide",
+   "region": "piney_woods",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/piney-woods-wide.html",
+   "scene_sha256": "0771ed0cc0c92e249bc3c3004c5e55493687cde40fc62146a559b1a3ec6137e0",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.5,
+     1.8,
+     30.0
+    ],
+    "right": [
+     0.999983,
+     -0.0,
+     -0.005814
+    ],
+    "up": [
+     9.7e-05,
+     0.99986,
+     0.016741
+    ],
+    "forward": [
+     -0.005813,
+     0.016742,
+     -0.999843
+    ],
+    "fov": 52.0,
+    "fpx": 2263.535441,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1141.9,
+   "sky": {
+    "file": "place/piney-woods-wide/sky.webp",
+    "sha256": "fb7140112c94b0bb028e2f2b59a9ffcb1db056bc1618353c30ed1daabceae967",
+    "bytes": 12432
+   },
+   "ground": {
+    "file": "place/piney-woods-wide/ground.webp",
+    "sha256": "9f9ff4283dfd87925f5ce0cd26068e4639e43f7afaf0074f0e5fd456673e0390",
+    "bytes": 68600
+   },
+   "cards": [
+    {
+     "file": "place/piney-woods-wide/card00.webp",
+     "sha256": "821bec5f2965a65f5842eb970cc61e3c30ea53f35a6fc0fdc2f88c364c7221fd",
+     "bytes": 35630,
+     "x": 0,
+     "y": 1012,
+     "w": 1242,
+     "h": 144,
+     "depth_m": 1089.502,
+     "min_m": 1089.502,
+     "max_m": 1089.502,
+     "things": 1
+    },
+    {
+     "file": "place/piney-woods-wide/card01.webp",
+     "sha256": "3864ee2944c4918992659d3718dceb4a9cf4cb069de4de7a0387fb21c8b491cb",
+     "bytes": 2764,
+     "x": 499,
+     "y": 1009,
+     "w": 244,
+     "h": 147,
+     "depth_m": 545.626,
+     "min_m": 544.095,
+     "max_m": 547.161,
+     "things": 4
+    },
+    {
+     "file": "place/piney-woods-wide/card02.webp",
+     "sha256": "07d2edb3640716d90eab2c52dc44a2c573b81b0cc9d29a751a82a3886c89b251",
+     "bytes": 8474,
+     "x": 498,
+     "y": 996,
+     "w": 285,
+     "h": 161,
+     "depth_m": 511.322,
+     "min_m": 483.572,
+     "max_m": 540.665,
+     "things": 40
+    },
+    {
+     "file": "place/piney-woods-wide/card03.webp",
+     "sha256": "6cf97d2a9dedeb093fd0ff9711bf23973d4f156f2d8c4fb08ff3e826cfa8ddd1",
+     "bytes": 9994,
+     "x": 502,
+     "y": 980,
+     "w": 328,
+     "h": 178,
+     "depth_m": 454.665,
+     "min_m": 430.002,
+     "max_m": 480.742,
+     "things": 36
+    },
+    {
+     "file": "place/piney-woods-wide/card04.webp",
+     "sha256": "4d2058ff54e609b4a60e973aeab10753dd982e65538edca6b9666b496cc4ad61",
+     "bytes": 10468,
+     "x": 514,
+     "y": 951,
+     "w": 367,
+     "h": 208,
+     "depth_m": 403.83,
+     "min_m": 381.602,
+     "max_m": 427.353,
+     "things": 32
+    },
+    {
+     "file": "place/piney-woods-wide/card05.webp",
+     "sha256": "46b284630d0f4ccbfa519c6c83c4d0e41dd0a02c5c41b12d72edc55196778654",
+     "bytes": 11060,
+     "x": 506,
+     "y": 941,
+     "w": 379,
+     "h": 219,
+     "depth_m": 359.283,
+     "min_m": 340.548,
+     "max_m": 379.048,
+     "things": 27
+    },
+    {
+     "file": "place/piney-woods-wide/card06.webp",
+     "sha256": "f8daca047f919b37869775d701e84b60d32aa793634c03a9f56199958593177c",
+     "bytes": 14994,
+     "x": 492,
+     "y": 907,
+     "w": 454,
+     "h": 255,
+     "depth_m": 321.334,
+     "min_m": 303.672,
+     "max_m": 340.023,
+     "things": 25
+    },
+    {
+     "file": "place/piney-woods-wide/card07.webp",
+     "sha256": "1023e3839b0cd4dbae41e4cbceee3f78362392e215eae4dd2d9e4b5684e7229c",
+     "bytes": 16010,
+     "x": 506,
+     "y": 889,
+     "w": 500,
+     "h": 274,
+     "depth_m": 285.406,
+     "min_m": 270.675,
+     "max_m": 300.937,
+     "things": 22
+    },
+    {
+     "file": "place/piney-woods-wide/card08.webp",
+     "sha256": "e175e8ad1403ed45c98e58d0d59dd28e24d0a8761ca2fc61b8fe7ddc655d4117",
+     "bytes": 18390,
+     "x": 462,
+     "y": 855,
+     "w": 554,
+     "h": 310,
+     "depth_m": 253.744,
+     "min_m": 240.097,
+     "max_m": 268.167,
+     "things": 20
+    },
+    {
+     "file": "place/piney-woods-wide/card09.webp",
+     "sha256": "c98c16b5bd0459fed8799ec8fca48a62565e825d8756ba4f901dd1ef50a0b4bb",
+     "bytes": 20474,
+     "x": 461,
+     "y": 829,
+     "w": 644,
+     "h": 338,
+     "depth_m": 225.501,
+     "min_m": 213.553,
+     "max_m": 238.118,
+     "things": 18
+    },
+    {
+     "file": "place/piney-woods-wide/card10.webp",
+     "sha256": "e70cddc1a0f0a2d204cd9bda713bc506d901289c2376cbf44f6f55ed5517c446",
+     "bytes": 20694,
+     "x": 464,
+     "y": 787,
+     "w": 644,
+     "h": 383,
+     "depth_m": 199.949,
+     "min_m": 189.551,
+     "max_m": 210.917,
+     "things": 16
+    },
+    {
+     "file": "place/piney-woods-wide/card11.webp",
+     "sha256": "3b52e45353f16a49a1c8f29279bfe0c1c999c70773e705d88a92e37bb48b4625",
+     "bytes": 23076,
+     "x": 367,
+     "y": 731,
+     "w": 761,
+     "h": 441,
+     "depth_m": 177.975,
+     "min_m": 169.104,
+     "max_m": 187.312,
+     "things": 13
+    },
+    {
+     "file": "place/piney-woods-wide/card12.webp",
+     "sha256": "1dfd169823a9935dbd51fda6dc2236ec76d696bfec0fe92e7b3950b75a49755b",
+     "bytes": 26956,
+     "x": 348,
+     "y": 681,
+     "w": 894,
+     "h": 494,
+     "depth_m": 159.063,
+     "min_m": 150.378,
+     "max_m": 168.249,
+     "things": 13
+    },
+    {
+     "file": "place/piney-woods-wide/card13.webp",
+     "sha256": "6cdbba9408c8016364b6d550810641d617c9eaae229ac29a806878fbff80ad8f",
+     "bytes": 29638,
+     "x": 324,
+     "y": 647,
+     "w": 918,
+     "h": 531,
+     "depth_m": 140.184,
+     "min_m": 132.837,
+     "max_m": 147.937,
+     "things": 12
+    },
+    {
+     "file": "place/piney-woods-wide/card14.webp",
+     "sha256": "c8cc01f8d0cf128538c2d36ec0ad05fc564402f8843f86b12fc926144a8ddbce",
+     "bytes": 27954,
+     "x": 187,
+     "y": 585,
+     "w": 1055,
+     "h": 598,
+     "depth_m": 123.938,
+     "min_m": 118.06,
+     "max_m": 130.109,
+     "things": 10
+    },
+    {
+     "file": "place/piney-woods-wide/card15.webp",
+     "sha256": "a1f68fa7d8cf3a122769114470388b9683ebb77c4b8c22a3adf9daed48be881b",
+     "bytes": 29614,
+     "x": 114,
+     "y": 532,
+     "w": 1128,
+     "h": 654,
+     "depth_m": 108.63,
+     "min_m": 102.789,
+     "max_m": 114.802,
+     "things": 10
+    },
+    {
+     "file": "place/piney-woods-wide/card16.webp",
+     "sha256": "bc55e62d8629b322043ee14bbb62b81ff8ec42662fa2da357266d01f0d98ae27",
+     "bytes": 31904,
+     "x": 77,
+     "y": 432,
+     "w": 1165,
+     "h": 761,
+     "depth_m": 95.021,
+     "min_m": 90.388,
+     "max_m": 99.891,
+     "things": 8
+    },
+    {
+     "file": "place/piney-woods-wide/card17.webp",
+     "sha256": "0dc2f04148ab5bf69a5cf9c17e3fff387b934e61801790be0d0a8c290a572fc8",
+     "bytes": 30928,
+     "x": 0,
+     "y": 342,
+     "w": 1202,
+     "h": 856,
+     "depth_m": 83.58,
+     "min_m": 79.291,
+     "max_m": 88.102,
+     "things": 7
+    },
+    {
+     "file": "place/piney-woods-wide/card18.webp",
+     "sha256": "c67a40a739884f8821979bed19b25ffe7104d35425b85bc3e4ec7aedd65318f3",
+     "bytes": 24084,
+     "x": 0,
+     "y": 261,
+     "w": 1242,
+     "h": 943,
+     "depth_m": 73.84,
+     "min_m": 69.815,
+     "max_m": 78.098,
+     "things": 7
+    },
+    {
+     "file": "place/piney-woods-wide/card19.webp",
+     "sha256": "c4e59b8919175ac474947a9ed68911dfc802638a28c5019d8a5ad1f47825b55f",
+     "bytes": 24546,
+     "x": 95,
+     "y": 129,
+     "w": 1147,
+     "h": 1083,
+     "depth_m": 63.818,
+     "min_m": 60.63,
+     "max_m": 67.173,
+     "things": 6
+    },
+    {
+     "file": "place/piney-woods-wide/card20.webp",
+     "sha256": "f318e6dcebaa02237ed3d62626324b44bb218555b4c1c7883dfe96c0045e1cf1",
+     "bytes": 29262,
+     "x": 11,
+     "y": 0,
+     "w": 1231,
+     "h": 1205,
+     "depth_m": 55.333,
+     "min_m": 52.456,
+     "max_m": 58.368,
+     "things": 6
+    },
+    {
+     "file": "place/piney-woods-wide/card21.webp",
+     "sha256": "562cba7f30f78bc0a4531e28fe980f59b4d75b28bc3f99b0f86663f14de378ae",
+     "bytes": 19256,
+     "x": 232,
+     "y": 0,
+     "w": 1010,
+     "h": 1238,
+     "depth_m": 47.395,
+     "min_m": 45.755,
+     "max_m": 49.094,
+     "things": 4
+    },
+    {
+     "file": "place/piney-woods-wide/card22.webp",
+     "sha256": "f8ed27b73420418f8d6b0e08c3839e73f01f938d4b72cd9c687b4634b429a50f",
+     "bytes": 8318,
+     "x": 0,
+     "y": 0,
+     "w": 1242,
+     "h": 1203,
+     "depth_m": 35.627,
+     "min_m": 34.086,
+     "max_m": 37.238,
+     "things": 4
+    },
+    {
+     "file": "place/piney-woods-wide/card23.webp",
+     "sha256": "6048beb30c30407136fdebcb72043787faa715e5e7e9ab3c6c2f53648701e56c",
+     "bytes": 3278,
+     "x": 986,
+     "y": 0,
+     "w": 256,
+     "h": 1203,
+     "depth_m": 29.622,
+     "min_m": 28.161,
+     "max_m": 31.159,
+     "things": 3
+    },
+    {
+     "file": "place/piney-woods-wide/card24.webp",
+     "sha256": "0b7e4a09ece2754b890d84b861bf64a2aa84e7c630523a63551e42aa1b86bd3d",
+     "bytes": 412,
+     "x": 1162,
+     "y": 69,
+     "w": 80,
+     "h": 30,
+     "depth_m": 18.978,
+     "min_m": 18.883,
+     "max_m": 19.074,
+     "things": 2
+    }
+   ],
+   "sky_rgb": [
+    192,
+    203,
+    211
+   ],
+   "ground_rgb": [
+    108,
+    67,
+    49
+   ],
+   "limits": {
+    "dolly_m": 3.0,
+    "truck_m": 0.1,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_mean": 0.045,
+    "reassembly_p999": 4.8,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.477,
+      "scale": 1.1877
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.213,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.597,
+      "scale": 1.0007
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.958,
+     "scale": 1.1048
+    },
+    "surfaces": 4,
+    "things": 361,
+    "render_ms": 362630,
+    "page_errors": 0
+   }
+  },
+  "post-oak-wide": {
+   "id": "post-oak-wide",
+   "region": "post_oak",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/post-oak-wide.html",
+   "scene_sha256": "c99288b0537bc7b70ea49883889520b1164d66eeea45e5df441a78ed4c4adeb8",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.2,
+     40.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999993,
+     0.003784
+    ],
+    "forward": [
+     -0.0,
+     0.003784,
+     -0.999993
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1112.96,
+   "sky": {
+    "file": "place/post-oak-wide/sky.webp",
+    "sha256": "857a4350b7c7faa560c13ed3593411cdab53ac8562bc7321a98f2b3bfc14a4c5",
+    "bytes": 12798
+   },
+   "ground": {
+    "file": "place/post-oak-wide/ground.webp",
+    "sha256": "857549c125d940f1bbd4c3b596f0eb32b01135b4b2b6166648172dbfd1b897b6",
+    "bytes": 239182
+   },
+   "cards": [
+    {
+     "file": "place/post-oak-wide/card00.webp",
+     "sha256": "fec7a1cce2a1f9e85b7cd7b38abf332afa05e4cae063331b2183a0ef02130c23",
+     "bytes": 2456,
+     "x": 0,
+     "y": 1077,
+     "w": 1242,
+     "h": 44,
+     "depth_m": 3811.307,
+     "min_m": 953.783,
+     "max_m": 6705.952,
+     "things": 3,
+     "tall": [
+      "plate.rolling"
+     ]
+    },
+    {
+     "file": "place/post-oak-wide/card01.webp",
+     "sha256": "f706e18151b431df801d8b6103dad7d590081dd36a844b7d2fd2d7a1453a859c",
+     "bytes": 1246,
+     "x": 171,
+     "y": 1073,
+     "w": 88,
+     "h": 41,
+     "depth_m": 2639.973,
+     "min_m": 679.986,
+     "max_m": 2639.973,
+     "things": 2
+    },
+    {
+     "file": "place/post-oak-wide/card02.webp",
+     "sha256": "8ecc55347e7ab60d7b71fbd9c7fc235f1dbb96e75095507460d7773559eb3b25",
+     "bytes": 818,
+     "x": 748,
+     "y": 1083,
+     "w": 62,
+     "h": 45,
+     "depth_m": 599.987,
+     "min_m": 599.987,
+     "max_m": 599.987,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card03.webp",
+     "sha256": "ea6e8870cfb0c140507c52f117fd3184c199bfcfbdf173f7bb612ea2b8e1d3b1",
+     "bytes": 1860,
+     "x": 980,
+     "y": 1066,
+     "w": 71,
+     "h": 64,
+     "depth_m": 499.587,
+     "min_m": 479.988,
+     "max_m": 519.987,
+     "things": 2
+    },
+    {
+     "file": "place/post-oak-wide/card04.webp",
+     "sha256": "8a1f53473b162f551900bf03dcd715670f3358ce4905b6f87dcb95b3aee7a3fd",
+     "bytes": 2214,
+     "x": 381,
+     "y": 1069,
+     "w": 96,
+     "h": 65,
+     "depth_m": 384.696,
+     "min_m": 369.989,
+     "max_m": 399.988,
+     "things": 5
+    },
+    {
+     "file": "place/post-oak-wide/card05.webp",
+     "sha256": "8f5bb01802cdd97340c67ee983ab7d9de0422b05429ada1d573e243ff08f8092",
+     "bytes": 5118,
+     "x": 676,
+     "y": 1034,
+     "w": 137,
+     "h": 109,
+     "depth_m": 229.989,
+     "min_m": 229.989,
+     "max_m": 229.989,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card06.webp",
+     "sha256": "3458523057406b74aa1a7921f4c0c4ee2632b5edfedc2f74b3fd0edaa61e5b77",
+     "bytes": 10564,
+     "x": 0,
+     "y": 965,
+     "w": 138,
+     "h": 195,
+     "depth_m": 129.99,
+     "min_m": 129.99,
+     "max_m": 129.99,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card07.webp",
+     "sha256": "148303908b51cf6bd0f58d0f3be73768a4006cc98fb4556baf257c81ec964697",
+     "bytes": 21238,
+     "x": 982,
+     "y": 916,
+     "w": 260,
+     "h": 264,
+     "depth_m": 85.99,
+     "min_m": 85.99,
+     "max_m": 85.99,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card08.webp",
+     "sha256": "48c884f1ef1026bdc92938386bf8d14d00f098c5eeecb15cf0ce029e167b375a",
+     "bytes": 31568,
+     "x": 0,
+     "y": 878,
+     "w": 306,
+     "h": 321,
+     "depth_m": 61.991,
+     "min_m": 61.991,
+     "max_m": 61.991,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    193,
+    202,
+    209
+   ],
+   "ground_rgb": [
+    166,
+    127,
+    66
+   ],
+   "limits": {
+    "dolly_m": 3.0,
+    "truck_m": 0.2,
+    "rise_m": 0.5
+   },
+   "checks": {
+    "reassembly_mean": 0.086,
+    "reassembly_p999": 4.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.804,
+      "scale": 1.0509
+     },
+     "truck_m": {
+      "cover": 0.000162,
+      "slide_px": 0.578,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.444,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.038,
+     "scale": 1.0299
+    },
+    "surfaces": 33,
+    "things": 18,
+    "render_ms": 262620,
+    "page_errors": 0
+   }
+  },
+  "rolling-plains-wide": {
+   "id": "rolling-plains-wide",
+   "region": "rolling_plains",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/rolling-plains-wide.html",
+   "scene_sha256": "6810d10fb74ec21e93420eebc6d01abfc03bf5f4d714b306fe3a5c201257f69b",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.4,
+     44.0
+    ],
+    "right": [
+     0.99991,
+     0.0,
+     0.01344
+    ],
+    "up": [
+     -6.5e-05,
+     0.999988,
+     0.004838
+    ],
+    "forward": [
+     0.013439,
+     0.004838,
+     -0.999898
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1115.45,
+   "sky": {
+    "file": "place/rolling-plains-wide/sky.webp",
+    "sha256": "70b756a2b2de969784ef960912ce2100750cf168ba7530be59adca1b8f3fbf18",
+    "bytes": 12342
+   },
+   "ground": {
+    "file": "place/rolling-plains-wide/ground.webp",
+    "sha256": "d88baf2f30496a2eee521ad409087f905e429dad257db2ed7a2f387d126d13c5",
+    "bytes": 217418
+   },
+   "cards": [
+    {
+     "file": "place/rolling-plains-wide/card00.webp",
+     "sha256": "86cd30e89e520f9c44c8142609af4fd97981aa929530912222e55b05e0ea37de",
+     "bytes": 340,
+     "x": 347,
+     "y": 1051,
+     "w": 475,
+     "h": 30,
+     "depth_m": 6044.733,
+     "min_m": 6033.587,
+     "max_m": 6057.477,
+     "things": 7
+    },
+    {
+     "file": "place/rolling-plains-wide/card01.webp",
+     "sha256": "dc02d1383c824782efcfa9cafa5bb2c864010f23c00a13407657bdee7aec8d21",
+     "bytes": 3442,
+     "x": 0,
+     "y": 1035,
+     "w": 1242,
+     "h": 90,
+     "depth_m": 3717.261,
+     "min_m": 727.249,
+     "max_m": 6747.972,
+     "things": 3,
+     "tall": [
+      "plate.rolling"
+     ]
+    },
+    {
+     "file": "place/rolling-plains-wide/card02.webp",
+     "sha256": "0e750b3be95c71db226a296523957a552809285eba162da0cb3e42f30bbbf2c7",
+     "bytes": 4004,
+     "x": 0,
+     "y": 1050,
+     "w": 558,
+     "h": 49,
+     "depth_m": 3603.283,
+     "min_m": 3108.643,
+     "max_m": 4158.206,
+     "things": 3,
+     "tall": [
+      "mesa"
+     ]
+    },
+    {
+     "file": "place/rolling-plains-wide/card03.webp",
+     "sha256": "421c0df0ec877c7a2178ae941a0d7f5c63979ea05f10a1e25570c943e1b6dbf8",
+     "bytes": 2286,
+     "x": 42,
+     "y": 1049,
+     "w": 81,
+     "h": 100,
+     "depth_m": 213.41,
+     "min_m": 213.41,
+     "max_m": 213.41,
+     "things": 1
+    },
+    {
+     "file": "place/rolling-plains-wide/card04.webp",
+     "sha256": "d2692a9b4424b30b855f7b41d40b6b7061dc499e89016fbab2f77dcb4a3680f8",
+     "bytes": 400,
+     "x": 1223,
+     "y": 1094,
+     "w": 19,
+     "h": 32,
+     "depth_m": 164.616,
+     "min_m": 164.616,
+     "max_m": 164.616,
+     "things": 1
+    },
+    {
+     "file": "place/rolling-plains-wide/card05.webp",
+     "sha256": "d541356418a55c5664d949c4edc4e94e8684249618612852b90c2a7ac9c37d4f",
+     "bytes": 22182,
+     "x": 748,
+     "y": 985,
+     "w": 494,
+     "h": 205,
+     "depth_m": 87.976,
+     "min_m": 84.247,
+     "max_m": 91.871,
+     "things": 2
+    },
+    {
+     "file": "place/rolling-plains-wide/card06.webp",
+     "sha256": "84b1f5fb291a523652d104d656cd86c45338c09ae97471fca124229f90acba8b",
+     "bytes": 12014,
+     "x": 0,
+     "y": 1043,
+     "w": 210,
+     "h": 171,
+     "depth_m": 61.793,
+     "min_m": 61.793,
+     "max_m": 61.793,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    185,
+    189,
+    202
+   ],
+   "ground_rgb": [
+    127,
+    76,
+    56
+   ],
+   "limits": {
+    "dolly_m": 1.5,
+    "truck_m": 0.2,
+    "rise_m": 0.3
+   },
+   "checks": {
+    "reassembly_mean": 0.012,
+    "reassembly_p999": 1.19,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.547,
+      "scale": 1.0249
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.878,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.318,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.914,
+     "scale": 1.0148
+    },
+    "surfaces": 34,
+    "things": 18,
+    "render_ms": 230518,
+    "page_errors": 0
+   }
+  },
+  "south-texas-wide": {
+   "id": "south-texas-wide",
+   "region": "south_texas",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/south-texas-wide.html",
+   "scene_sha256": "2106d1be2c31423d6d4b2ebc63c8068995f388cadc4d880db7a8398229dba1f2",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     1.0,
+     2.0,
+     38.0
+    ],
+    "right": [
+     0.999901,
+     -0.0,
+     0.014105
+    ],
+    "up": [
+     -6.6e-05,
+     0.999989,
+     0.004701
+    ],
+    "forward": [
+     0.014105,
+     0.004702,
+     -0.999889
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1115.13,
+   "sky": {
+    "file": "place/south-texas-wide/sky.webp",
+    "sha256": "8b8ce9d759f9edadedadb7fbf8ef3b2174a1435e49367e4711d50fce698d2b0c",
+    "bytes": 14316
+   },
+   "ground": {
+    "file": "place/south-texas-wide/ground.webp",
+    "sha256": "47693e87c01a5660a32f3b6cb11de6508b29fc2577d4bec73d70851186f84ed5",
+    "bytes": 164110
+   },
+   "cards": [
+    {
+     "file": "place/south-texas-wide/card00.webp",
+     "sha256": "a9d36c55bfe091ea82f9dfefa3a265e6a6b0c791881d73cee25e6d832edc9682",
+     "bytes": 3762,
+     "x": 291,
+     "y": 1092,
+     "w": 875,
+     "h": 41,
+     "depth_m": 443.59,
+     "min_m": 422.326,
+     "max_m": 465.926,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card01.webp",
+     "sha256": "33c3a079526df61c0bd1d1471988d10f9aaaa1023c1f300b9b7aeb018f386028",
+     "bytes": 6220,
+     "x": 10,
+     "y": 1076,
+     "w": 1232,
+     "h": 59,
+     "depth_m": 398.15,
+     "min_m": 376.947,
+     "max_m": 420.547,
+     "things": 9
+    },
+    {
+     "file": "place/south-texas-wide/card02.webp",
+     "sha256": "882aebb4248b3b1175c162405c172f7d7bb9a2c550caba46d671c8f9dcda0b42",
+     "bytes": 4472,
+     "x": 191,
+     "y": 1087,
+     "w": 964,
+     "h": 49,
+     "depth_m": 348.764,
+     "min_m": 333.346,
+     "max_m": 364.895,
+     "things": 6
+    },
+    {
+     "file": "place/south-texas-wide/card03.webp",
+     "sha256": "0e378ea7f843f8ec59f471b61e51375dea5ea94529e627fd2b0e28ffe3d11b23",
+     "bytes": 3960,
+     "x": 353,
+     "y": 1084,
+     "w": 655,
+     "h": 54,
+     "depth_m": 305.113,
+     "min_m": 289.746,
+     "max_m": 321.295,
+     "things": 8
+    },
+    {
+     "file": "place/south-texas-wide/card04.webp",
+     "sha256": "e339892070551fc5b44f759b3b653444af34a5bfa31c403554b929e09da55b85",
+     "bytes": 3456,
+     "x": 0,
+     "y": 1082,
+     "w": 1198,
+     "h": 58,
+     "depth_m": 262.446,
+     "min_m": 248.035,
+     "max_m": 277.694,
+     "things": 5
+    },
+    {
+     "file": "place/south-texas-wide/card05.webp",
+     "sha256": "5445aefe5057c61d8b31296aad903b1047ca73903ca97bc051ec78bccc297404",
+     "bytes": 4482,
+     "x": 71,
+     "y": 1077,
+     "w": 1171,
+     "h": 65,
+     "depth_m": 232.897,
+     "min_m": 220.263,
+     "max_m": 246.256,
+     "things": 9
+    },
+    {
+     "file": "place/south-texas-wide/card06.webp",
+     "sha256": "bf87153a612bc376dd090655adb4284aa955cd954f9219a3c7c9b817272ba348",
+     "bytes": 4312,
+     "x": 190,
+     "y": 1076,
+     "w": 745,
+     "h": 69,
+     "depth_m": 206.909,
+     "min_m": 196.046,
+     "max_m": 218.375,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card07.webp",
+     "sha256": "b08e54a825b38b779ca68cac36de3d4c828ac7b0f39c9dda3bc0fea29c505d44",
+     "bytes": 5442,
+     "x": 307,
+     "y": 1062,
+     "w": 877,
+     "h": 85,
+     "depth_m": 182.587,
+     "min_m": 174.159,
+     "max_m": 191.422,
+     "things": 10
+    },
+    {
+     "file": "place/south-texas-wide/card08.webp",
+     "sha256": "79b21b7fabbd086a3acba248e9541ba7836c23e94c61a70379d6012dbe92ca4f",
+     "bytes": 6932,
+     "x": 61,
+     "y": 1065,
+     "w": 877,
+     "h": 86,
+     "depth_m": 162.117,
+     "min_m": 154.14,
+     "max_m": 170.507,
+     "things": 9
+    },
+    {
+     "file": "place/south-texas-wide/card09.webp",
+     "sha256": "4251abf9235e99f22ec71d4a1a443872eb4198c928315fb0e4fd6141322569b0",
+     "bytes": 6242,
+     "x": 167,
+     "y": 1064,
+     "w": 934,
+     "h": 91,
+     "depth_m": 142.416,
+     "min_m": 135.299,
+     "max_m": 149.908,
+     "things": 11
+    },
+    {
+     "file": "place/south-texas-wide/card10.webp",
+     "sha256": "78db1836e97e2d9523bbab3858f667a57cf4f55b723e38f3f0aec30c4129f0b8",
+     "bytes": 1498,
+     "x": 748,
+     "y": 1078,
+     "w": 494,
+     "h": 75,
+     "depth_m": 125.638,
+     "min_m": 119.232,
+     "max_m": 132.389,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card11.webp",
+     "sha256": "933237b9316ceda1a3348beeec6744a042d251d25c7fe96fd8202881923a73ae",
+     "bytes": 8512,
+     "x": 73,
+     "y": 1064,
+     "w": 1127,
+     "h": 98,
+     "depth_m": 111.409,
+     "min_m": 105.775,
+     "max_m": 117.344,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card12.webp",
+     "sha256": "5092c2e95a04c0e3c70b9aa7a0cc20ba63412a654d4cfb12a376c89c92d29dc2",
+     "bytes": 2458,
+     "x": 240,
+     "y": 1044,
+     "w": 803,
+     "h": 116,
+     "depth_m": 98.379,
+     "min_m": 93.599,
+     "max_m": 103.403,
+     "things": 8
+    },
+    {
+     "file": "place/south-texas-wide/card13.webp",
+     "sha256": "c9431a743444a0409c9028361eb5c4e88f2805587c3ad4994a51fa9bf15b3d21",
+     "bytes": 6632,
+     "x": 0,
+     "y": 1056,
+     "w": 286,
+     "h": 120,
+     "depth_m": 85.344,
+     "min_m": 81.311,
+     "max_m": 89.578,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card14.webp",
+     "sha256": "c037dd85190eeeef397621477695f2658d552ef5a8f17d52d4dbf3a85feb3a96",
+     "bytes": 3768,
+     "x": 355,
+     "y": 1045,
+     "w": 593,
+     "h": 143,
+     "depth_m": 71.776,
+     "min_m": 68.117,
+     "max_m": 75.632,
+     "things": 6
+    },
+    {
+     "file": "place/south-texas-wide/card15.webp",
+     "sha256": "29c5114f25ba966060191cc79f36b0b6fe875411c61657a43cdad81334d68a53",
+     "bytes": 1654,
+     "x": 1106,
+     "y": 1055,
+     "w": 54,
+     "h": 122,
+     "depth_m": 61.797,
+     "min_m": 58.567,
+     "max_m": 65.205,
+     "things": 4
+    },
+    {
+     "file": "place/south-texas-wide/card16.webp",
+     "sha256": "9fddbb78793db3e7684b6f35130d11ea0d6b31a2be5f5fd6de0225ffcfda99d7",
+     "bytes": 2792,
+     "x": 107,
+     "y": 1031,
+     "w": 115,
+     "h": 183,
+     "depth_m": 39.739,
+     "min_m": 38.639,
+     "max_m": 40.871,
+     "things": 2
+    },
+    {
+     "file": "place/south-texas-wide/card17.webp",
+     "sha256": "7676ec40786e6b89ace948966a48b8988def4a59ec1d4b5244d18286498a8450",
+     "bytes": 3298,
+     "x": 57,
+     "y": 984,
+     "w": 85,
+     "h": 262,
+     "depth_m": 27.993,
+     "min_m": 27.993,
+     "max_m": 27.993,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    203,
+    208,
+    214
+   ],
+   "ground_rgb": [
+    235,
+    225,
+    203
+   ],
+   "limits": {
+    "dolly_m": 0.25,
+    "truck_m": 0.1,
+    "rise_m": 0.1
+   },
+   "checks": {
+    "reassembly_mean": 0.056,
+    "reassembly_p999": 3.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.031,
+      "scale": 1.009
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 1.796,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.797,
+      "scale": 1.0
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.29,
+     "scale": 1.0054
+    },
+    "surfaces": 19,
+    "things": 135,
+    "render_ms": 439958,
+    "page_errors": 0
+   }
+  },
+  "trans-pecos-wide": {
+   "id": "trans-pecos-wide",
+   "region": "trans_pecos",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/trans-pecos-wide.html",
+   "scene_sha256": "41cb13a26903b68da2fbcd94ff684918fd5f3065c2f7795206a137ed99bcc9fc",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.2,
+     36.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999819,
+     0.019035
+    ],
+    "forward": [
+     -0.0,
+     0.019035,
+     -0.999819
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1149.07,
+   "sky": {
+    "file": "place/trans-pecos-wide/sky.webp",
+    "sha256": "b17f8dca3d107edf89f9039dfa3f728505c932b000f75cdbeae5ad9be9813977",
+    "bytes": 16270
+   },
+   "ground": {
+    "file": "place/trans-pecos-wide/ground.webp",
+    "sha256": "7eec04a979e53967adb4b45bb7e6e51d25c9797ebe247e0527a901084f047ca6",
+    "bytes": 151996
+   },
+   "cards": [
+    {
+     "file": "place/trans-pecos-wide/card00.webp",
+     "sha256": "bfc3d6f967c4546f144234cce37195cfdbbce55d6ba819962eff260968ba2b6c",
+     "bytes": 6890,
+     "x": 0,
+     "y": 779,
+     "w": 1242,
+     "h": 377,
+     "depth_m": 13833.451,
+     "min_m": 8834.357,
+     "max_m": 19832.364,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card01.webp",
+     "sha256": "9c140aa98b244a2ead2262498f24b2f3220bd05bedbe18e8611b3850a1bca5dc",
+     "bytes": 7340,
+     "x": 0,
+     "y": 1042,
+     "w": 391,
+     "h": 114,
+     "depth_m": 3650.532,
+     "min_m": 3336.249,
+     "max_m": 3961.074,
+     "things": 3,
+     "tall": [
+      "mesa"
+     ]
+    },
+    {
+     "file": "place/trans-pecos-wide/card02.webp",
+     "sha256": "e3c16c795d4331e3013f2d1a686f9c5b918318a18437af8a4353862969d1f44d",
+     "bytes": 522,
+     "x": 254,
+     "y": 1147,
+     "w": 387,
+     "h": 24,
+     "depth_m": 333.874,
+     "min_m": 329.047,
+     "max_m": 338.773,
+     "things": 2
+    },
+    {
+     "file": "place/trans-pecos-wide/card03.webp",
+     "sha256": "0be2adf13a63aefbafc799019945f3cddbdc2a7773a535ef4ed435474883e78d",
+     "bytes": 962,
+     "x": 160,
+     "y": 1147,
+     "w": 1075,
+     "h": 24,
+     "depth_m": 302.98,
+     "min_m": 287.922,
+     "max_m": 318.825,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card04.webp",
+     "sha256": "7e20866b08aff4f5e65d19348eb2761039cd4ca0f291f5a6b05e33bf29711ea3",
+     "bytes": 1284,
+     "x": 264,
+     "y": 1128,
+     "w": 908,
+     "h": 48,
+     "depth_m": 266.113,
+     "min_m": 255.8,
+     "max_m": 276.842,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card05.webp",
+     "sha256": "06bc24d72d68fff7c3e49f8b15f1d2228443f6c210e7e511dd23ad27ccce7e9d",
+     "bytes": 684,
+     "x": 140,
+     "y": 1148,
+     "w": 536,
+     "h": 27,
+     "depth_m": 235.724,
+     "min_m": 226.013,
+     "max_m": 245.853,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card06.webp",
+     "sha256": "a9e9ec1b0fca31915691c9e65cbddc41a2b735cfcaf5c435eea6be246a061303",
+     "bytes": 844,
+     "x": 0,
+     "y": 1149,
+     "w": 944,
+     "h": 30,
+     "depth_m": 204.845,
+     "min_m": 195.103,
+     "max_m": 215.074,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card07.webp",
+     "sha256": "2e1db27536aaecc35b0c2ce8eb2af13643065ad95cb27ea814d1f33326bd55ed",
+     "bytes": 502,
+     "x": 817,
+     "y": 1152,
+     "w": 44,
+     "h": 32,
+     "depth_m": 179.8,
+     "min_m": 173.961,
+     "max_m": 185.836,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card08.webp",
+     "sha256": "4b5f4b815516f15a2d72ba7aad2af047424b33aff3aa5f4e1b25d8055d6f6b32",
+     "bytes": 852,
+     "x": 108,
+     "y": 1153,
+     "w": 641,
+     "h": 34,
+     "depth_m": 158.316,
+     "min_m": 152.812,
+     "max_m": 164.017,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card09.webp",
+     "sha256": "724b6de24fc3c9252857f865d674d3f6af7a07d45ad349a42138b8b327c988ea",
+     "bytes": 652,
+     "x": 561,
+     "y": 1154,
+     "w": 47,
+     "h": 37,
+     "depth_m": 137.252,
+     "min_m": 131.82,
+     "max_m": 142.907,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card10.webp",
+     "sha256": "a833740f3b59b4a9ca9ee70f0e9ec18dd55f6f0e5f28763bc6d26bc5bf8609c5",
+     "bytes": 1940,
+     "x": 1137,
+     "y": 1107,
+     "w": 105,
+     "h": 111,
+     "depth_m": 82.447,
+     "min_m": 80.945,
+     "max_m": 83.977,
+     "things": 2
+    },
+    {
+     "file": "place/trans-pecos-wide/card11.webp",
+     "sha256": "99bf7be7013d9f994788540e5d4f1f9ee2d8da8324e3698bc851a755f83bf388",
+     "bytes": 926,
+     "x": 0,
+     "y": 1095,
+     "w": 26,
+     "h": 129,
+     "depth_m": 73.03,
+     "min_m": 69.953,
+     "max_m": 76.243,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card12.webp",
+     "sha256": "a62cda8c30cab774e08234061f25e8ad2edf75d2fcc4141186d9057e6702d2c8",
+     "bytes": 4234,
+     "x": 5,
+     "y": 1090,
+     "w": 1055,
+     "h": 156,
+     "depth_m": 58.863,
+     "min_m": 57.839,
+     "max_m": 59.905,
+     "things": 2
+    },
+    {
+     "file": "place/trans-pecos-wide/card13.webp",
+     "sha256": "f98a2f6fc992bf01e7a6c9bf9286c2313b15eef3569a3f83764f66b29d3fca8c",
+     "bytes": 11456,
+     "x": 858,
+     "y": 997,
+     "w": 319,
+     "h": 263,
+     "depth_m": 49.98,
+     "min_m": 49.96,
+     "max_m": 50.0,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card14.webp",
+     "sha256": "03d5f5c89af411221e7e84b8600128e2dc36f0cf3b0de67637d3c35b39c34892",
+     "bytes": 13556,
+     "x": 57,
+     "y": 911,
+     "w": 207,
+     "h": 408,
+     "depth_m": 31.823,
+     "min_m": 31.823,
+     "max_m": 31.823,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    124,
+    124,
+    161
+   ],
+   "ground_rgb": [
+    79,
+    57,
+    56
+   ],
+   "limits": {
+    "dolly_m": 1.0,
+    "truck_m": 0.2,
+    "rise_m": 0.2
+   },
+   "checks": {
+    "reassembly_mean": 0.011,
+    "reassembly_p999": 1.16,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.494,
+      "scale": 1.0324
+     },
+     "truck_m": {
+      "cover": 2.5e-05,
+      "slide_px": 1.725,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.726,
+      "scale": 1.0001
+     }
+    },
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.344,
+     "scale": 1.0192
+    },
+    "surfaces": 180,
+    "things": 52,
+    "render_ms": 282256,
+    "page_errors": 0
+   }
+  }
+ }
+}
