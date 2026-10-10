@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 17,
+    "storyboard_critics": 18,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -3018,6 +3018,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-10T21:08:55.754864Z",
+      "failure_evidence_json": "{\n  \"treatment\": \"a\",\n  \"reviewer_identity\": \"storyboard-critic / claude-opus-5-5 high effort, isolated read-only code-scope reviewer of the timed board (critic-packet-r11), separate from the director claude-sonnet-5-5 and the scene-builder\",\n  \"reviewed_at\": \"unknown; no clock available to this worker, harness-visible date 2026-10-10\",\n  \"verdict\": \"pass\",\n  \"weakest_frame\": \"41.24-44.0 s, s8-event-2 into s8-shot-2. This is planned, not observed. Retiming moves s8-event-2 (the Sources glow on the closing answer) to 41.243-42.048 s, but the fractional cut to s8-shot-2 stays at 41.42 s. The first 0.177 s of the glow (about 5 frames at 30 fps, 22 percent of the event) therefore runs during s8-shot-1. That shot is the share-board close at camera f (816,398) s 2.2, where the world answer card at y 1020 projects to about y 2128, below the frame. ending() opens with sin(pi*sourcesHold) near 0.4 rather than 0, and the glow peaks about 0.23 s after the cut. In the reviewed opening-a clock the event started 38 ms after the cut. Carried forward unchanged from earlier reviews: the face-on answer card beside a flat, cropped chart, labels near 13 px on a 374 px phone stage, the care string crossing 'release', and a 1.22 s still hold (42.78-44.0 s).\",\n  \"strongest_frame\": \"2.87-5.30 s, s1-shot-2 (planned). One answer drops out under the tool mouth (3.137-3.937 s) and three citation cards tuck into its Sources slot (4.067-4.867 s), on 'The answer comes back with its sources' (3.10-4.96 s). The filled slot is held 0.43 s before the cut.\",\n  \"blocking_defects\": [],\n  \"notes\": [\n    {\"scene\": \"all\", \"problem\": \"Retime check, timed storyboard.json against opening-a.json. Only scene start_s and duration_s, event at_s and duration_s, shot start_s and duration_s, reward at_s, captions and narration_picture clause windows (timing_mode measured_caption_boundaries) changed. Events, item ids, views, framings, shot purposes, clause_fraction_start/end, scene_fraction_start/end, reward event_fraction, story_contract, creative_direction, art_direction and story_art entries read identically at every location compared. The renderer reads at_s through actionWindows (scene.start_s + event.at_s), and the clause windows through requireNarration and narration_picture.clauses. Each event's clause fractions reproduce from the measured clause windows: for example s1-event-1 is 0.4216-1.389 s inside n1a 0.28-2.64 s, which gives 0.06-0.47. Every event lies inside its scene (actionWindows bound), and every event lasts between 0.455 and 1.128 s, inside the 0.2-1.2 s documentary range.\", \"fix\": \"None required.\"},\n    {\"scene\": \"all\", \"problem\": \"Clause-to-view coverage on the measured clock. Every clause window lies wholly inside shots whose registered view implements its action_id. n1a is in flow-wide. n1b and n3b are in desk-close. n2a and n2b are in chart-boundary. n3a is in credential-gate. n4a is in citation-stack. n4b and n7a are in source-types. n5 is in share-grid. n6a and n6b are in unmeasured-card. n7b is in answer-close. n8 is in share-grid, then answer-close. Cuts between clauses sit at the silence midpoints: 2.87, 10.0, 14.86, 18.92, 29.35 and 36.74 s. Only 24.35, 31.315 and 41.42 s use fractions, each inside one clause and one action_id. In every gap between clauses, the renderer falls back to the shot's narration_ids, which select the same camera branch, so no cut picks a wrong view (for example name-source-types still holds at 18.92-19.24 s).\", \"fix\": \"None required.\"},\n    {\"scene\": \"all\", \"problem\": \"Modern and documentary limits on the measured clock. The first reward is at 0.905 s, and hook event s1-event-1 completes at 1.389 s, inside the 1.5 s window. The longest shot is s2-shot-1 at 4.70 s, under the 5.0 s limit. There are four framings (wide, medium, close, detail). The largest reward interval is 3.168 s (10.684 to 13.852 s, s2-event-3 to s3-event-1). That is above the 3.0 s target_gap but under the 4.0 s maximum. In the reviewed opening it was about 2.75 s. The interval from the last reward to the end is 1.51 s.\", \"fix\": \"None required. The phone critic should judge whether 10.996-13.356 s reads as live: the March tag settled, then the cut to the credential close with hovering hands and dots filling from about 12.45 s.\"},\n    {\"scene\": \"s8\", \"problem\": \"Retime-induced, non-blocking. s8-event-2 starts at 41.243 s, 0.177 s before the fractional cut at 41.42 s. The glow's onset falls in a shot that does not frame the answer card. The clause (n8, 39.12-42.78 s) is not broken, because the glow is a closing visual and the reward (41.645 s) stays inside s8-shot-2.\", \"fix\": \"Optional. If s8 reopens for another reason, move s8-event-2's clause_fraction_start from 0.58 to at least 0.63 (onset at or after 41.42 s), or move the s8 shot fraction from 0.5 to about 0.45. Either change alters the concept digest and needs a fresh code review, so it does not justify a correction on its own.\"},\n    {\"scene\": \"s3\", \"problem\": \"Retime-induced, non-blocking. The question-typing run is compressed. qStrikes now places 9 strikes between typeWin.start (15.065 s) and slideWin.start minus 0.04 (15.74 s). That is about 13 strikes per second, against about 7.7 per second (1.17 s) on the reviewed opening. The pre-press, contact and release window per strike is 0.37 s, so in A's 2.6x detail both hands have fingers in motion on nearly every frame. The card still fills and gains its plain-language pill before the 0.455 s slide (15.78-16.235 s), so 'and ask in plain language' still shows its action.\", \"fix\": \"None at code scope. The phone critic should judge whether the detail reads as typing or as finger flicker.\"},\n    {\"scene\": \"s7\", \"problem\": \"Retime-induced, non-blocking. The signature event s7-event-3 (Accuracy ring pulse) shrinks from 0.9625 s to 0.525 s (37.845-38.37 s), and the slot light s7-event-2 shrinks to 0.525 s (37.17-37.695 s). The lit slot and the dashed empty ring persist to the cut at 38.84 s, so the 'is right' result is retained through the clause end (38.52 s).\", \"fix\": \"None at code scope. The phone critic should confirm that the shorter pulse still reads as the signature beat at phone size.\"},\n    {\"scene\": \"s6\", \"problem\": \"s6-event-3 starts at 31.310 s, 5 ms before s6-shot-3 at 31.315 s. At 30 fps no frame falls between the two, so no frame shows the event in the medium shot.\", \"fix\": \"None required.\"},\n    {\"scene\": \"s1\", \"problem\": \"The tool's processing pulse now holds from 1.389 to 3.137 s (1.75 s, across the 2.87 s cut), against 0.72 s before. Three typing strikes fall after frame 0 (about 0.09, 0.20 and 0.31 s), and the card opens about two thirds typed. Both are unchanged from the r10 arithmetic, now confirmed on the timed board.\", \"fix\": \"None required. Phone check only.\"},\n    {\"scene\": \"s8\", \"problem\": \"Non-blocking items carried forward unchanged, since no art or renderer byte changed (renderer binding af828fd... unchanged): the face-on answer beside a flat relocated chart, 'penEvidence' under the caption plate in s8-shot-1, the care string across 'release', the s8 tag pin relocation, and the evaluating-tag shadow.\", \"fix\": \"Optional, only if s8 reopens.\"}\n  ],\n  \"story_review\": {\n    \"verdict\": \"pass\",\n    \"blocking_defects\": [],\n    \"one_viewing_summary\": \"This is the planned chain on the measured clock, not an observed film. A wide on a Gulf-window clinic wall opens on hands at the keyboard. A final key strike sends a two-thirds-typed question card off the wall chart into the wall-mounted OpenEvidence tool (0.42-1.39 s), and the tool pulses. In the desk close, one answer slides out under the tool mouth and three citation cards tuck into its Sources slot (3.14-4.87 s). The record boundary glows, and 'Announced September 22nd' and 'Live since March' tags pin to it. In a close, dots fill a masked credential and the record lock opens. A detail shows the question typed in word shapes with a plain-language pill, and then it slides to the chart edge. The citations fan out of the Sources slot, and the literature and guidelines cards lift. Faceless clinician figures light past Half and a decision-support tag pins to the bar. 'UTMB's own report' pins to the bar. Accuracy and Patient care tags clip onto the answer, and a close shows them reading 'Not in release'. A thread runs from the Sources slot to the literature card, the empty Accuracy slot lights and its ring pulses. The evaluating-use tag drops onto the bar, and the film closes on the answer beside the chart.\",\n    \"opening_to_ending\": \"The film opens on what comes back when a UTMB clinician asks inside the record, and the send completes by 1.39 s. It closes on the same answer card beside the same chart: Sources filled and glowing, Accuracy empty with one ring pulse, two 'Not in release' tags, and the evaluating tag on the usage bar. That answers the question: sources come back, and the release publishes no accuracy or patient-care measure. UTMB's stated next step is shown with no invented outcome, within c1 to c5 and c8.\",\n    \"weakest_transition\": \"s8-shot-1 to s8-shot-2 at 41.42 s. The share-board close cuts to the closing desk tableau, and the chart last seen on the wall rail lies flat on the desk with no performed move. On the measured clock, the Sources glow also begins 0.18 s before this cut, so the closing shot opens mid-glow. The clip, the teal tabs and the board-relative tag scale carry identity.\",\n    \"story_sha256\": \"8b2543a06b308a6b0d3240ce4fbb5c7f957008bb6ad558b83b2099cd0ab355e3\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e\"\n  },\n  \"action_reviews\": [],\n  \"per_defect\": {\n    \"BD1\": \"resolved\",\n    \"BD2\": \"resolved\",\n    \"BD3-residual-closing-image\": \"resolved\",\n    \"BD4\": \"resolved\",\n    \"BD5-n8-chart-absent\": \"resolved\",\n    \"timed-gate-hook-payoff-after-1.5s\": \"resolved\",\n    \"timed-gate-s2-event-2-duration-1.31s\": \"resolved\",\n    \"r10-authored-seconds-stale-in-opening-board\": \"resolved\",\n    \"critic6-N1-s8-tag-relocation-nonblocking\": \"unresolved\",\n    \"critic6-N2-care-string-crosses-release-nonblocking\": \"unresolved\",\n    \"critic6-N3-limit-tag-box-and-caption-clearance-nonblocking\": \"unresolved\",\n    \"critic6-N4-evaluating-tag-shadow-on-desk-nonblocking\": \"unresolved\",\n    \"critic6-N5-penEvidence-cut-in-shot-1-nonblocking\": \"unresolved\"\n  },\n  \"risks_for_the_phone_critic\": [\n    \"s8, 41.24-41.42 s: the Sources glow starts before the cut to the closing shot, and s8-shot-2 opens with the glow at about 40 percent. Check for a visible pop at the cut and whether the close still earns its 2.58 s.\",\n    \"s3 detail, 15.065-15.74 s: 9 typing strikes in 0.675 s (about 13 per second) at scale 2.6. Judge whether it reads as typing or as flicker at 30 fps.\",\n    \"s7, 37.17-38.37 s: slot light and ring pulse are now 0.525 s each. Confirm that the signature 'nothing lands' beat reads at phone size.\",\n    \"10.684-13.852 s: the largest reward interval is 3.17 s, above the 3.0 s target and under the 4.0 s maximum. Check that the credential close does not read as dead air before the lock opens.\",\n    \"s1, 1.39-3.14 s: a 1.75 s processing pulse across the 2.87 s cut. Check that it reads as the tool working, not a stall. The hook must still visibly complete by 1.5 s.\",\n    \"The caption band against the landing points: c9 is one long 84-character cue (22.10-26.56 s) over the share bar and decision tag; check that the tag landing at 24.87-25.89 s stays clear of it.\",\n    \"Still owed on the exact timed film: all seven modern_observations, four phone_observations, timed narration_picture_observations n1a to n8, place, native finish and the sound lens.\"\n  ],\n  \"stronger_treatment\": \"a. The retained exact-phone comparison (openings/selection.json, comparison 81b89695...) observed in pixels that A's opening frames both the send origin and the tool landing. B's opening crops the tool and shows a floating open hand with no card contact. That observation outweighs my code-level preference for B's continuous push. Retiming changes neither treatment's mechanism.\",\n  \"concept_sha256\": \"05b8c257b902ef2fed53adb6a9f9e4ed6305f7a20fa678853b2d5062f3d8079e\",\n  \"renderer_sha256\": \"af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2\",\n  \"scope\": \"Code scope only, on the timed board. No pixels or audio were seen, and this approves no picture, score or shipment. A pass authorizes only the timed phone test. Every timing above is my arithmetic from the timed board's scene start_s plus event at_s, cross-checked against its film_direction rewards. Hash limit: with Read only I could not recompute any SHA256. Every digest is echoed from critic-output-contract-r11.json and the packet. Consistency cross-checks: the board's story_art and native_media hashes for ChartHero and ClinicSupport match the packet's asset_inputs. The opening-a sha matches openings/comparison.json. The renderer binding matches comparison.json and the r10 review. The claims hash matches the story_art source_claims_sha256. Files: {REPO}/out/dispatch/storyboard.json, {REPO}/out/dispatch/opening-a.json, {REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx, {REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx, {REPO}/video-engine/src/lib/direction.ts.\"\n}\n",
+      "failure_evidence_sha256": "de23ad839fd4d2ed045a365ccbc7bdfb68466fbae0f0d5a0f72a4023cceb75aa",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 18,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 18,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"completion_reason\": \"finish-current\",\n \"repair_scope\": \"standard\",\n \"failure_evidence\": \"out/dispatch/storyboard_critic.json\",\n \"failure_evidence_sha256\": \"de23ad839fd4d2ed045a365ccbc7bdfb68466fbae0f0d5a0f72a4023cceb75aa\",\n \"changed_inputs\": [],\n \"resources\": {\n  \"storyboard_critics\": 1\n },\n \"repair\": \"No correction in this plan. Funds the final measured timed phone review, bound to the independent timed-board code-scope pass. Native, audiovisual, scoring and delivery stay required.\",\n \"note\": \"Finish-current plan for the final measured timed phone review (critic 17), bound to the fresh independent timed-board code-scope pass out/dispatch/storyboard_critic.json.\"\n}",
+      "plan_sha256": "04f76349ceb3c0be166f9ba84c45350b90620ade331dc67195d914e201149914",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":8,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":5,\"required\":2,\"used\":11},\"reboards\":{\"ceiling\":10,\"remaining\":1,\"required\":0,\"used\":9},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":17,\"remaining\":1,\"required\":2,\"used\":16},\"tts_calls\":{\"ceiling\":12,\"remaining\":4,\"required\":2,\"used\":8},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "3cf917320916f8446f7c28dc81e0838129b172fc32989e93659b87f7d44b4325",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 17,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 17,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-09-claude-pilot",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 11,
+        "reboards": 9,
+        "reported_tokens": 20306,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 0,
+        "storyboard_critics": 16,
+        "tts_calls": 8,
+        "validator_agents": 1,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -3041,7 +3145,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ad061a03f32de38ef8f21b08167f9952fc6c6a045808442a326efa4324fb41a1",
+    "original_private_state_sha256": "d5ba7535c36610f56d8bbd787b2f9db7b16d112dac0ac882222eb3b3ae5398d6",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3069,7 +3173,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T21:01:58.454375Z",
+  "updated_at": "2026-10-10T21:08:55.754908Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
