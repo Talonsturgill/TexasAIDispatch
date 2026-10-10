@@ -32,7 +32,7 @@ import {ClinicSupport,KEY,keyCenter,WALL_PINS,ARM_REST,TOOL} from './ClinicSuppo
  * the figures close, then the bar, its tag and the tool, and keep the tool either wholly above the
  * caption band or below it. The release's open tags get their own close at the moment their
  * "Not in release" line appears. The film ends on the answer card close on the desk, its Accuracy
- * slot still empty, with the share board and its evaluating tag on the wall behind it.
+ * slot still empty, beside the patient chart, with the share bar and its evaluating tag above it.
  *
  * Every state is a function of the film frame clock and the board's event windows; nothing
  * accumulates between frames. Disclosed illustration: no UTMB screen, vendor interface, answer
@@ -80,6 +80,13 @@ const WORLDS:Record<V,World>={
   sendCtrl:[440,885],sendEnd:[560,815],stopAt:[400,892],answerPath:[[560,740],[600,880],[610,975]],citeFan:[[420,915],[490,905],[560,898]]},
 };
 const BOARD_TAG_S=.74, CHART_TAG_S=.9;
+/** s8 only: each tag on its own pin so no tag body or string crosses another. The evaluating tag
+ * takes the end pin and hangs left on a long string; the decision and report tags move to the start
+ * pin and hang left off the bar's far end, outside both s8 frames. */
+const S8_TAGS:Record<V,World['boardTags']>={
+ a:{decision:{pin:'start',side:'left',drop:0},report:{pin:'start',side:'left',drop:150},evaluating:{pin:'end',side:'left',drop:60}},
+ b:{decision:{pin:'start',side:'left',drop:0},report:{pin:'start',side:'left',drop:150},evaluating:{pin:'end',side:'left',drop:60}},
+};
 
 // ---- hands: a strike schedule; a finger touches its key only inside its own strike ----
 type Strike={t:number;side:'L'|'R';finger:number};
@@ -203,7 +210,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const pinB=(f:number):Pt=>[B.p[0]+B.w*f,B.p[1]];
   const pinBoard=(k:keyof typeof WALL_PINS):Pt=>add(Wd.board,scale(WALL_PINS[k],Wd.boardS));
   const lockState=at('s3')?lockOpen:1;
-  const bt=Wd.boardTags;
+  const bt=at('s8')?S8_TAGS[v]:Wd.boardTags;
   const boundary=<At p={B.p}><ClinicSupport part="boundary" w={B.w} h={B.h} glow={at('s2')?glow:.25} lock={lockState} slot={B.slot} lockY={B.lockY}/></At>;
   const questionCard=q.show&&<At p={q.p} s={q.s} flat={Wd.qFlat}><ChartHero part="question" typed={q.typed} plain={q.plain}/></At>;
   // the answer and the citations are clipped below the tool mouth line and drawn before the tool,
@@ -298,15 +305,18 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  // with the answer's clip and header still at the right edge of the frame.
  const LIMIT_S=2.35;
  const limitsClose=()=><Cam f={answerFocus([-115,164])} s={LIMIT_S/(v==='a'?1.2:1.25)}>{answerRead()}</Cam>;
- // s8: the closing image, in screen units. The answer card close on the desk with its Sources
- // filled and its Accuracy slot empty; behind it the usage share board on the wall, its figures
- // lit past half and its three tags hanging from the same pins, the evaluating tag last. The tags
- // keep their size relative to the board, so nothing is resized between shots.
+ // s8: the closing image, in screen units. The usage share's bar runs along the top of the frame
+ // above the disclosure pill, cut at the board's bottom rail so no figure row is in frame; its
+ // evaluating tag hangs from the end pin at 1.93 (48 px type) on a string that clears the pill.
+ // The decision and report tags hang off the bar's far end, outside the frame. Below, the answer
+ // card holds on the desk with Sources filled, the Accuracy slot empty and its two open tags, and
+ // the patient chart sits beside it at the left: A lies it flat on the desk, B props it on its stand.
+ // The tags keep their size relative to the board, so nothing is resized between the two s8 shots.
  const ending=()=>{
-  const deskY=v==='a'?760:790, kb=.8, tagS=kb*BOARD_TAG_S/Wd.boardS, bt=Wd.boardTags;
-  const board:Pt=v==='a'?[70,300-660*kb]:[150,330-660*kb];
+  const deskY=v==='a'?480:560, kb=1.2, tagS=kb*BOARD_TAG_S/Wd.boardS, bt=S8_TAGS[v];
+  const board:Pt=[-140,-604*kb];
   const pin=(k:keyof typeof WALL_PINS):Pt=>add(board,scale(WALL_PINS[k],kb));
-  const ans:Pt=v==='a'?[495,800]:[495,815], aS=1.5;
+  const ans:Pt=[530,815], aS=1.5;
   return <g data-world={v==='a'?'a-answer-ending':'b-answer-ending'}>
    <rect x={-400} y={-400} width={1880} height={2720} fill={v==='a'?'#CFC7B4':'#C9C1AE'}/>
    <g opacity={.5}>{Array.from({length:14},(_,i)=><path key={i} d={`M-400 ${deskY+40+i*96}H1480`} stroke="#B3AB98" strokeWidth={3}/>)}</g>
@@ -317,6 +327,9 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <Hang pin={pin(bt.evaluating.pin)} tag="evaluating" in={evalTag} s={tagS} side={bt.evaluating.side} drop={bt.evaluating.drop}/>
    <rect x={-400} y={deskY} width={1880} height={14} fill="#7F7766" opacity={.6}/>
    <path d={`M-400 ${deskY+16}H1480`} stroke="#ffffff" strokeOpacity={.35} strokeWidth={2}/>
+   {v==='a'
+    ?<At p={[-70,520]} s={.95} flat={.6}><ChartHero part="chart"/></At>
+    :<><At p={[-66,496.8]} s={.8}><ClinicSupport part="stand"/></At><At p={[-50,500]} s={.8}><ChartHero part="chart" seed={5}/></At></>}
    <At p={ans} s={aS}><ChartHero part="answer" sources={1} limits={1} limitText={1} lift={.1}
     sourcesGlow={Math.sin(Math.PI*sourcesHold)} ring={finalPulse>0&&finalPulse<1?finalPulse:0}/></At>
   </g>;
@@ -352,7 +365,9 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'share-grid':
   // keep-evaluating: the evaluating tag drops onto the share at a readable size; the tool sits
   // below the caption band (A) or wholly above it (B)
-  if(act==='keep-evaluating')pic=v==='a'?<Cam f={[728,398]} s={2.2}>{world()}</Cam>:<Cam f={[690,685]} s={2.2}>{world()}</Cam>;
+  // s8: framed right of the start pin, so the end pin and its evaluating tag sit in frame and the
+  // start pin, with the decision and report tags hanging off the bar's far end, stays outside it
+  if(act==='keep-evaluating')pic=v==='a'?<Cam f={[816,398]} s={2.2}>{world()}</Cam>:<Cam f={[778,685]} s={2.2}>{world()}</Cam>;
   // close: the clinician figures light past half; medium: the bar, the decision tag and the tool it
   // names, with the tool wholly above the caption band
   else if(fr==='close')pic=v==='a'?<Cam f={[735,200]} s={2.3}>{world()}</Cam>:<Cam f={[697,300]} s={2.3}>{world()}</Cam>;
