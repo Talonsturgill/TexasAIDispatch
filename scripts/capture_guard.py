@@ -351,12 +351,12 @@ def decide(payload, project):
     return None
 
 
-def hook():
+def hook(project=None):
     try:
         payload = json.load(sys.stdin)
     except ValueError:
         return 0
-    project = os.environ.get('CLAUDE_PROJECT_DIR') or payload.get('cwd') or os.getcwd()
+    project = project or os.environ.get('CLAUDE_PROJECT_DIR') or payload.get('cwd') or os.getcwd()
     try:
         reason = decide(payload, project)
     except Exception as exc:  # a capture command fails closed, every other command is never blocked by a bug here
@@ -449,7 +449,9 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='action', required=True)
-    sub.add_parser('hook')
+    h = sub.add_parser('hook')
+    h.add_argument('--repo-root', action='store_true',
+                   help='use this handler checkout for the ledger, including from a multi-repository session root')
     p = sub.add_parser('authorize')
     p.add_argument('--state', default='out/dispatch/run_state.json')
     p.add_argument('--board', action='append', required=True, help='each exact board the capture may use')
@@ -458,7 +460,7 @@ def main(argv=None):
     p.add_argument('--root', default=str(REPO))
     args = parser.parse_args(argv)
     if args.action == 'hook':
-        return hook()
+        return hook(str(REPO) if args.repo_root else None)
     try:
         print(json.dumps(authorize(args.root, args.state, args.board, args.command, args.resource), indent=2))
     except (ValueError, OSError) as exc:
