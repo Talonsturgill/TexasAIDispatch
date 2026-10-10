@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T22:21:00.691997+00:00",
-  "note": "repair 11 authorized and committed; code critic 18 passed A and measured board, REVISE on B (NB1 contact_and_consequence, non-mandatory, creative cap reached); comparison blocked; owner policy decision needed",
+  "saved_at": "2026-10-10T22:57:25.549807+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "83046ec9173d651c40d14c06eb968e6f141a1393",
+  "source_pin": "6011fd49c9c6f1ac0b40fe85610e8e9942a52a3d",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "14d7a0c11967703ca46f65d684d3fde4415da2abc4b289ae4ad09326e5b36481"
   },
   "deleted_source": [],
-  "ledger_sha256": "4e5ea30192cc79f5351ae43841cd9928e247ab4080db0e9bf7d9be70109cb827",
-  "original_private_ledger_sha256": "3c0ef528d62a8e220129e38ed934620cf9f16fd27088383b28d0a4ee5281a6c4",
+  "ledger_sha256": "1f2df38e8e7798b4f80eec8658685097c5e8dc1cb982c112131f14253c83a89b",
+  "original_private_ledger_sha256": "8dcd794a7632b473d43f442a91e54a3b0d6427a4e55f4ad0df1833495ccaf942",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -403,6 +403,12 @@
       "size": 79
     },
     {
+      "path": "out/dispatch/budget-audit/completion-capacity-coverage.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/budget-audit/completion-capacity-r10-timed.log",
       "class": "scratch",
       "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
@@ -425,6 +431,12 @@
       "class": "scratch",
       "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
       "size": 79
+    },
+    {
+      "path": "out/dispatch/budget-audit/completion-capacity-r13-recheck.log",
+      "class": "scratch",
+      "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
+      "size": 89
     },
     {
       "path": "out/dispatch/budget-audit/critic_gate_live_recheck.json",
@@ -547,6 +559,12 @@
       "size": 1459
     },
     {
+      "path": "out/dispatch/budget-audit/production-budget-coverage-pre.log",
+      "class": "scratch",
+      "sha256": "73d37f5af74091aaf53532897b27de29acf46efee95c73011a218cc5e7567fab",
+      "size": 1502
+    },
+    {
       "path": "out/dispatch/budget-audit/production-budget-r10-after.log",
       "class": "scratch",
       "sha256": "df49763b974430d6eae863931f40299903c8eb74fac2dbb03ad1e10f5f862eac",
@@ -575,6 +593,12 @@
       "class": "scratch",
       "sha256": "dc1f88ecffe565bc4b9075744bec60530c66e9bed5f4172ada99838c44688f71",
       "size": 1490
+    },
+    {
+      "path": "out/dispatch/budget-audit/production-budget-r13-recheck.log",
+      "class": "scratch",
+      "sha256": "6079a709532fb6502285fe72cd2483ec8e40a65e5d4a9b9bb5df6f9dfeff7cc7",
+      "size": 1519
     },
     {
       "path": "out/dispatch/budget-audit/run_state.before-finish-grant.json",
@@ -862,6 +886,12 @@
       "path": "out/dispatch/critic-packet-r13.json",
       "class": "scratch",
       "sha256": "cad451471e97135fd7bf1764ec7287eda996eb09f1986279c6c8d4e86c4f8b93",
+      "size": 8766
+    },
+    {
+      "path": "out/dispatch/critic-packet-r14.json",
+      "class": "scratch",
+      "sha256": "5847738a43c793e38bfa0d7167c7b758c3ba0f59fb547383e62af53b6d4fc706",
       "size": 8766
     },
     {
@@ -4489,6 +4519,12 @@
       "size": 811
     },
     {
+      "path": "out/dispatch/retained-failures/critic-pre-r13-repair10-passes/critic18-original-handback.json",
+      "class": "scratch",
+      "sha256": "f9743aa0248379e2341c8692821ce94b901e18511d691b330239ef2edf64e02b",
+      "size": 6159
+    },
+    {
       "path": "out/dispatch/retained-failures/critic-pre-r13-repair10-passes/opening-a-critic.json",
       "class": "scratch",
       "sha256": "bbae8d0fd1da75837249e8dfa000410146b576e4738945c59adecf7b8bc7c25b",
@@ -5555,6 +5591,18 @@
       "class": "scratch",
       "sha256": "2e7813743ce4139caddd23cf88a1db3985a283a8b4460295b48ad1c0b5d7f448",
       "size": 30958
+    },
+    {
+      "path": "out/dispatch/review-coverage-plan-r13.json",
+      "class": "scratch",
+      "sha256": "2601d465258d9f8b9d0f1d87d4ea089986cfee132c179c1cda4c81cc39b3b163",
+      "size": 54311
+    },
+    {
+      "path": "out/dispatch/review-coverage-receipt-r13.json",
+      "class": "scratch",
+      "sha256": "0405894a734d5406e82b6512e4a3610fa8bfa5a9f50c4a647e881d94bb655d22",
+      "size": 3673
     },
     {
       "path": "out/dispatch/sfx_events.json",

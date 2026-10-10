@@ -1,0 +1,56 @@
+{
+ "_retention": "Original critic 18 (agent a3ac3ea64254f0e73, repair 11 code-scope) output as delivered, with the reviewer's own LIMITS stating incomplete coverage: MODERN_FILM first 160 lines only, opening-b film_direction only, measured storyboard s1 to s3/captions/narration_picture only, remaining craft guides/completion readings/scene-builder not read in full, stale repair-plan.json (repair 1) read instead of repair 11, baselines not all read. NOT accepted as a gate-ready approval. Opening_b blocking_defects were originally plain strings (kept below), later restated as object rows by the same reviewer for format only.",
+ "opening_a": {
+  "treatment": "a",
+  "verdict": "pass",
+  "concept_sha256": "864ca2fe189b96851ec48e3c33f2144d9ed93eb8a84e201e7a2649a1cbc3d706",
+  "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b",
+  "story_sha256": "f868f78f6f47eb3e81ffd67fd9db4fff8449c5cddb2ee7736f0b6ff2d45ebd98",
+  "weakest_frame": "24.25 to 29.0 s, s5-shot-2 into s6-shot-1. The Announced and Live tags stay pinned to the boundary in every world() frame after s2. In s5-shot-2 they hang at left mid-frame beside the tool while the decision-support tag pins above. In s6-shot-1 the report tag overlaps the decision tag's lower-right corner by about 26 px, and the Announced tag sits at lower left inside the caption band. Four tags compete during the share and report beats.",
+  "per_defect": "B1 to B9 all resolved (code scope)",
+  "risks_for_the_phone_critic": [
+   "Hook camera speed 0.58 to 1.77 s, about 365 world units pan with scale 2.45 to 1.88 to 2.3, peak near 1.1 frame widths per second; check card slip or blur.",
+   "Strike cadence: each finger cycle about 8 frames; sampled stills at 1 to 4 fps can look like one frozen pose; check frame by frame at 0 to 0.7 s, 10.7 to 11.9 s and 13.5 to 14.9 s.",
+   "In s1 lockState is 1 (open) outside s3: a large open padlock stands beside the question card in the first frame; judge unexplained prop and reversed state.",
+   "s3-shot-2: leftover credential card at left, Live tag running under the disclosure pill, fragments of the Announced tag at the top edge.",
+   "s3-shot-1: Live since March tag fragment in the top-right corner.",
+   "s2-shot-1: answer card at bottom from y about 1285 into the caption band; right hand motionless for the whole 6 s scene.",
+   "B6 residual: the answer-card image carries s6-shot-2 through s8-shot-2.",
+   "Hand and tool finish provable only at native and phone size.",
+   "Hands are removed after s3, so later world shots show an unattended keyboard."
+  ],
+  "stronger_treatment": "a"
+ },
+ "opening_b": {
+  "treatment": "b",
+  "verdict": "revise",
+  "concept_sha256": "7f6acf48b5bf1d31b999c8f8c82d1556a4d862d7c8623b383a290e88f896c6c1",
+  "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b",
+  "story_sha256": "3ddd6604c2dce573bdf0012637c10176224f7dc2517b6c9455308898787a1cee",
+  "blocking_defects_original_strings": [
+   "NB1 contact_and_consequence (performed-action credibility, stretched reach). In s1 at 0.62 to 1.79 s, the push and follow-through in ClinicAnswerFilm (rShift from pushWin, elbowR = ARM_REST.elbow - 0.65*rMove/kbS, shoulder fixed, Hand unrotated) lengthen the forearm by about 12 percent at release (1.01 s) and about 24 percent at the end of the glide (1.29 s). The hand is off the card in the air from 1.01 to 1.79 s. This is the same push-release mechanism that the phone selection already rejected as 'a wave, not a push'. Fix it by changing the mechanism: keep contact to the tool mouth, articulate wrist and elbow so limb lengths stay constant, or use A's key-strike send. Then re-frame the first frame so the tool is in it."
+  ],
+  "full_text": "The live out/dispatch/opening-b-critic.json holds the complete treatment b report (weakest frame, story review, risks); only its blocking_defects rows were later restated."
+ },
+ "storyboard": {
+  "treatment": "a (measured clock)",
+  "verdict": "pass",
+  "concept_sha256": "16e7792bdf88802500607dd96da82e75dfcf36b8d2fc9e362541cd6af162dc4e",
+  "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b",
+  "story_sha256": "f868f78f6f47eb3e81ffd67fd9db4fff8449c5cddb2ee7736f0b6ff2d45ebd98",
+  "weakest_frame": "24.35 to 29.35 s, measured s5-shot-2 into s6-shot-1: Announced and Live tags hang at left mid-frame beside the tool; report tag overlaps the decision tag's corner by about 26 px; Announced tag at lower left inside the caption band during 27.16 to 29.04 s.",
+  "risks_for_the_phone_critic": [
+   "Measured cadence faster than authored: credential dots about 0.107 s apart, question dashes about 0.098 s apart; check strikes versus flicker.",
+   "Measured hook shows two word strikes before the send strike at 0.37 s; four of six words typed before frame 0 by design.",
+   "Hook camera sweep 0.38 to 1.69 s with zoom dip.",
+   "Lock finishes opening at 14.35 s, cut at 14.86 s: 0.5 s hold.",
+   "Open padlock in first frame; date tags persist in s3, s5, s6; leftover credential card in s3-shot-2; answer card in caption band in s2-shot-1.",
+   "Hand and tool finish and s6 to s8 answer-image recurrence provable only on native and phone film."
+  ]
+ },
+ "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated read-only code-scope reviewer (critic-packet-r13, repair 11), separate from the director claude-sonnet-5-5 and the scene-builder",
+ "limits_verbatim": {
+  "in_part": "**In part:** opening-b.json (film_direction), storyboard.json (measured scenes s1 to s3, shots, captions and narration_picture), the repair-11 baseline ClinicAnswerFilm.tsx, MODERN_FILM.md (first 160 lines), DispatchOverlays.tsx and placePlates.json. out/dispatch/repair-plan.json was the stale repair-1 plan.",
+  "not_read_in_full": "Not read in full:** the remaining bound craft guides (viewer-plan, news-reporting, explanatory-animation, STORY_ART, AUTHORED_STORY_ART, ART_DIRECTION and its reference bank, the completion readings and scene-builder). I didn't read the other baseline files either; I couldn't list the baseline directory, so I located its files by naming convention."
+ }
+}
