@@ -1,4 +1,43 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__storyboard.json",
+        "before_sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-a.json",
+        "before_sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-b.json",
+        "before_sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+        "before_sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+        "before_sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+        "before_sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx"
+      }
+    ],
+    "failure_sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
+    "plan": "{REPO}/out/dispatch/repair-plan-11-performed-hands.json",
+    "plan_sha256": "fedfb38ea5e16ca490ff7ff8de9d3e92c7f3eca9f80b11bd69999a4d99cf627e",
+    "reboards_before": 9,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3331,6 +3370,61 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-10T21:28:25.037888Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__storyboard.json",
+          "before_sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-a.json",
+          "before_sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-b.json",
+          "before_sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+          "before_sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+          "before_sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+          "before_sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "human-performance",
+      "failure_sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 20,
+          "to": 20
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "performed-hands-and-readable-subject-occupancy",
+      "plan_identity": null,
+      "plan_sha256": "fedfb38ea5e16ca490ff7ff8de9d3e92c7f3eca9f80b11bd69999a4d99cf627e",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -3354,7 +3448,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "bb2f83f83782d275ffbf173f057dcf0da29d93cbd617f7d4cf0fd821fb419661",
+    "original_private_state_sha256": "4d987884e4a6f83934c536432fbbe76891fb23b239a1949f55a17723e7d2de37",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3382,7 +3476,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T21:28:11.891550Z",
+  "updated_at": "2026-10-10T21:28:25.037922Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
