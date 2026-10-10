@@ -1,0 +1,39 @@
+{
+ "mechanism_id": "script-punctuation-clause-joins",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "standard",
+ "root_cause": "With the valid actual alignment (retained) the authored event fractions inside clause n1a and n2a are too long: the hook event ends at 1.98 s against the 1.5 s payoff limit and s2-event-2 lasts 1.31 s against the 1.2 s directed limit.",
+ "repair": "In the board data only, shorten the authored clause fractions of s1-event-1 so it finishes by about 1.4 s and of s2-event-2 so it lasts about 1.1 s, in both treatment boards, then retime from the unchanged measured words. No renderer code, art, script, voice take, claim or measured caption changes.",
+ "mechanism_change": "The two events are re-fitted to the measured clause windows instead of the authored estimates. This completes the punctuation mechanism's consequence on the picture clock.",
+ "expected_visible_result": "documentary_check and watchability_check pass on the timed board, the hook payoff finishes by 1.5 s and every action lies in the 0.2 to 1.2 s range.",
+ "failure_evidence": "out/dispatch/retained-failures/timed-gates-after-actual-alignment/failure.json",
+ "failure_evidence_sha256": "741d69e38f715a034b04f744b409bc18e5bcb03a45ac45f4ed9ce13e424b4af1",
+ "pivot_review": {
+  "path": "out/dispatch/pivot-review.json",
+  "sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af"
+ },
+ "resources": {
+  "preflight_renders": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/retained-failures/repair-10-baseline/out__dispatch__storyboard.json",
+   "before_sha256": "b88fda9824f8690a8f1756ba5eef4d7e844a7e71eb624f9f7348ac0abbdb510e",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/opening-a.json",
+   "before_path": "out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-a.json",
+   "before_sha256": "86fb3a636ff1666395d0cd3f452ddcd3b6dd52fef38e9c006bcccc3174e6b425",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/opening-b.json",
+   "before_path": "out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-b.json",
+   "before_sha256": "5db5f493634a17e0383737b9233a52d790cb121fa3d4c8f2f4bbef3e9ae62d01",
+   "after_sha256": ""
+  }
+ ]
+}

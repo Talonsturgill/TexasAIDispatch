@@ -1,0 +1,41 @@
+{
+ "schema": "dispatch_timed_gate_failure/1",
+ "what": "After a stable actual alignment (compact 0.65 take, clause boundaries, 14 measured cues, retime stable, vo_align --verify ok, modern_film ok) two cheap timed-board gates fail.",
+ "failures": [
+  "documentary_check: the hook's visible payoff must finish by 1.5s (s1-event-1 ends at 1.98 s)",
+  "watchability_check and documentary_check: s2-event-2: action duration outside directed range (1.31 s, range 0.2 to 1.2)"
+ ],
+ "measured_context": {
+  "n1a_window_s": [
+   0.28,
+   2.64
+  ],
+  "s1-event-1": {
+   "at_s": 0.8,
+   "duration_s": 1.18,
+   "clause_fraction": [
+    0.22,
+    0.72
+   ]
+  },
+  "n2a_window_s": [
+   5.58,
+   9.94
+  ],
+  "s2-event-2": {
+   "at_s": 7.98,
+   "duration_s": 1.31,
+   "clause_fraction": [
+    0.55,
+    0.85
+   ]
+  }
+ },
+ "cause": "The authored events carry fractions of their clause window sized for the authored estimate. The measured read makes clause n1a 2.36 s and n2a 4.36 s long, so the same fractions give a longer hook event and a longer s2 contact event. Not a rendered picture defect.",
+ "pinned": {
+  "storyboard.timed.json": "b88fda9824f8690a8f1756ba5eef4d7e844a7e71eb624f9f7348ac0abbdb510e",
+  "captions.json": "351685b653f58e657613024a13b55388682242b1cac45ccbb34542d1ee6bea27",
+  "words.json": "08dd59f731464efdeb61cb8c1a633062a60b4ac28bd6f07ac8ea068b8553f2d9"
+ },
+ "earlier_retime_errors_retained": "modern opening delays its first visible change, shot without an overlapping performed event, unearned interval (first retime with vo-at 0.25 and 0.3 s compaction), plus the OpenEvidence open/evidence and that/what ASR reconciliation refusals, see out/dispatch/takes-compact-attempts/ and retained-failures/"
+}
