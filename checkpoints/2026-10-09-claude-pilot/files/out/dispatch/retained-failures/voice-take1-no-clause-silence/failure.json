@@ -1,0 +1,26 @@
+{
+ "schema": "dispatch_voice_take_retime_failure/1",
+ "what": "Take 1 passed vo_soundcheck (accuracy 0.991, 42.5 s, -19.5 LUFS) and the mix and alignment succeeded, but board_retime.py refused: 'measured narration-picture retiming failed: authored clause must equal complete measured cue text'.",
+ "cause": "The authored narration_picture clauses n3a|n3b ('Clinicians sign in with their usual credentials' | 'and ask in plain language.') and n4a|n4b ('The answers carry citations' | 'to medical literature and clinical guidelines.') split sentences mid-flow. The measured words show no silence at those two joins: credentials ends 14.48 s and 'and' starts 14.48 s; citations ends 17.55 s and 'to' starts 17.55 s. Every other clause boundary has measured silence of 0.34 s or more. Measured captions therefore carry one cue per sentence for those two sentences.",
+ "measured_gaps_s": {
+  "question.->The": 0.4,
+  "sources.->UTMB": 0.66,
+  "twenty-second,->and": 0.34,
+  "March.->Clinicians": 0.7,
+  "language.->The": 0.62,
+  "guidelines.->UTMB": 0.82,
+  "support.->That": 0.64,
+  "report.->The": 0.62,
+  "care.->A": 0.88,
+  "from.->It": 0.64,
+  "right.->UTMB": 0.92
+ },
+ "pinned": {
+  "take1.wav": "b3a002e367a01f9b95370c6362831e728691cc6d8e4e0f80e9621b375831f5da",
+  "takes.json": "5bc9c16e106acd3ed4564d6c1397a0db0c841fc738a000a3e50d9df79798612a",
+  "words.json": "99ac3c5a7245d4a5ae94395507f75777564ac39a1065f27187687550b502c3f7",
+  "vo_direction.json": "a376217d418125b81443dc9666da98a1e2b2bbed170855cf81165159fa22a0a7",
+  "vo_script.txt": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b"
+ },
+ "correction": "Direction-only (narration-performance): ask for a short natural breath after 'credentials' and after 'citations' so the two clause joins have measured silence. Script, board, claims, sources and renderer stay frozen."
+}

@@ -1,0 +1,23 @@
+{
+ "mechanism_id": "voice-clause-join-breaths",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "narration-performance",
+ "root_cause": "Take 1 read two authored clause joins without any silence, so measured caption cues merged whole sentences and board_retime can't map clauses n3a n3b and n4a n4b to measured cue text.",
+ "repair": "Add direction in vo_direction.json that asks for a short natural breath after credentials and after citations. Nothing else in the direction, the script, board, claims, sources or renderer changes.",
+ "mechanism_change": "The read gains two directed breaths at the clause joins instead of running those two sentences through as one phrase each.",
+ "expected_visible_result": "Measured silence of at least a third of a second at the n3a|n3b and n4a|n4b joins, so each clause has its own measured cue and retiming succeeds.",
+ "failure_evidence": "out/dispatch/retained-failures/voice-take1-no-clause-silence/failure.json",
+ "failure_evidence_sha256": "81de1e1b566d4e7bc1cd47e76591609261114e5d1d4af51b6f1ac48882f2bf05",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/vo_direction.json",
+   "before_path": "out/dispatch/retained-failures/voice-take1-no-clause-silence/vo_direction.json",
+   "before_sha256": "a376217d418125b81443dc9666da98a1e2b2bbed170855cf81165159fa22a0a7",
+   "after_sha256": ""
+  }
+ ]
+}
