@@ -49,6 +49,14 @@
       "note": "repair 4 reboard: s5 clinician figures, s6 legible limit, s8 card ending",
       "resource": "reboards",
       "to": 5
+    },
+    {
+      "at": "2026-10-10T04:37:44.144739Z",
+      "ceiling": 7,
+      "from": 5,
+      "note": "fifth bounded code review of both treatments after repair 4",
+      "resource": "storyboard_critics",
+      "to": 6
     }
   ],
   "events": [
@@ -784,6 +792,24 @@
       "repair_revision": "c514d2ab194094469299a9ffaf6b85e91e776deab5355145746fe6c6794ca832",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-10T04:37:44.144777Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "fifth bounded code review of both treatments after repair 4",
+      "now": 6,
+      "resource": "storyboard_critics",
+      "was": 5
+    },
+    {
+      "at": "2026-10-10T04:37:44.144789Z",
+      "kind": "reserved",
+      "note": "fifth bounded code review of both treatments after repair 4",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -798,7 +824,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 5,
+    "storyboard_critics": 6,
     "tts_calls": 2,
     "validator_agents": 1,
     "voice_directors": 1
@@ -807,7 +833,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "20d60744c6e0ccf9b50bfb34e8a0b03a946ec41218754946d033294e21964cb5",
+    "original_private_state_sha256": "77379297b3f4dd41c4e3eb37ab45eabc33b59ce89f0fd11dd8959ac0fb3198d4",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -835,7 +861,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T04:37:31.865737Z",
+  "updated_at": "2026-10-10T04:37:44.144791Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -848,7 +874,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 5,
+    "storyboard_critics": 6,
     "tts_calls": 0,
     "validator_agents": 1,
     "voice_directors": 0
