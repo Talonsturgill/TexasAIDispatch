@@ -1,0 +1,1 @@
+Authorization reused unused charged reservation b5f7e1a4 (made by opening_compare itself at 2026-10-10T20:44:02Z). The separate consume at 20:43:50 for the retry was already charged; a further consume was refused as identical inputs. No extra reservation was made for the sheets.
