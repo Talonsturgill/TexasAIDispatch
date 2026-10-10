@@ -10,13 +10,17 @@ import {useArtDirection} from '../../../lib/artDirection';
  * palms), a worn laminate desk, a three-quarter workstation monitor with a blank lit screen,
  * a keyboard with blank keys, anonymous scrub-sleeved hands with no face or identity, a masked
  * credential card, the teal sleeve that marks the boundary of the health record with its lock,
- * the docked tool box labelled OpenEvidence where questions go in and answers come out, and a
- * wall of blank clinician ID tokens that light one by one to picture UTMB's own more-than-half
- * report as a share.
+ * the docked tool box labelled OpenEvidence where questions go in and answers come out, a
+ * framed share board of anonymous clinician figures (head and shoulders in a white coat or
+ * scrubs with a clipped badge, never a face) that light one by one to picture UTMB's own
+ * more-than-half report as a share, and the clinic's back wall with its framed window and sill
+ * for the close reading shots.
  *
  * Disclosed illustration. No real screen, logo, face, patient information, vendor interface or
- * map of UTMB's campuses. The tool label is native type, not a mark. The lit tokens are a share
- * picture, never a count. Pure function of its props; the episode drives every prop from the
+ * map of UTMB's campuses. The tool label is native type, not a mark. The lit figures are a share
+ * picture, never a count: the release gives no clinician number. Every figure is the same
+ * line work with no facial feature; only the hair or cap outline, shoulders and workwear vary,
+ * and those variations are spread evenly across lit and unlit figures. Pure function of its props; the episode drives every prop from the
  * film frame clock.
  */
 
@@ -35,16 +39,19 @@ export type ClinicSupportProps =
  | {part:'rail'; w:number}
  | {part:'shelf'; w:number}
  | {part:'stand'}
- | {part:'wall'; lit:number; share?:number; label?:number};
+ | {part:'wall'; lit:number; share?:number; label?:number}
+ | {part:'backwall'; stage:ClinicStage; h:number; glazed?:boolean};
 
 /** Keyboard geometry, shared with the episode so fingertips land exactly on key centres. */
 export const KEY = {pitch:64, w:54, h:30, rowStep:38, x0:26, y0:18, rowShift:14, cols:8};
 export const keyCenter=(row:number,col:number):Pt=>[KEY.x0+col*KEY.pitch+row*KEY.rowShift+KEY.w/2, KEY.y0+row*KEY.rowStep+KEY.h/2];
 /** Right-hand fingertip offsets from the index tip (index, middle, ring, little), one key apart. */
 export const FINGER_TIPS:Pt[]=[[0,0],[64,-6],[128,0],[190,14]];
-/** Wall token layout and the pins the episode hangs tags from, in the wall's local units. */
-export const WALL_TILES = 20;
-export const WALL_LIT_SHARE_TILES = 11;
+/** Share board layout and the pins the episode hangs tags from, in the board's local units.
+ * Twelve clinician figures, seven lit: more than half, drawn as a share and never as a count. */
+export const WALL_TILES = 12;
+export const WALL_LIT_SHARE_TILES = 7;
+const WALL_COLS = 4, WALL_ROWS = 3, FIG_W = 172, FIG_H = 184, FIG_PITCH:Pt = [196,200];
 export const WALL_SIZE:Pt=[784,740];
 export const WALL_PINS={start:[40,677] as Pt,half:[382,677] as Pt,end:[700,677] as Pt};
 const BAR_Y=660;
@@ -52,7 +59,8 @@ const BAR_Y=660;
 export const BOUNDARY_PINS=[.18,.5,.82];
 /** Tool box geometry: the mouth where cards go in and come out. */
 export const TOOL={front:{w:272,h:176,mouthY:150},desk:{w:272,h:170,mouthY:150}};
-const LIGHT_ORDER = [6,13,2,17,9,0,15,11,4,19,7,14,1,10,18,3,12,5,16,8];
+/** Lighting order: the first seven lit figures are spread over all three rows. */
+const LIGHT_ORDER = [5,0,10,3,8,1,11,6,2,9,4,7];
 
 const clamp = (v:number) => Math.min(1, Math.max(0, v));
 const hash = (n:number) => {const s = Math.sin(n*91.3+47.1)*24634.6345; return s-Math.floor(s);};
@@ -357,26 +365,80 @@ const Stand:React.FC<{c:Pal}> = ({c}) => <g data-subject="chart-stand">
  <path d="M4 492H340" stroke="#ffffff" strokeOpacity={.7} strokeWidth={2}/>
 </g>;
 
-/** A wall of blank clinician ID tokens; the lit ones picture the reported share, never a count. */
+/**
+ * One anonymous clinician as a head-and-shoulders figure on a clipped ID card. No face is drawn:
+ * the head is one flat silhouette tone for every figure, so no fill carries identity. Hair or cap
+ * outline, shoulder width and workwear (white coat, coat over scrubs, scrubs) vary on fixed
+ * schedules spread evenly across the board. A lit card is bright paper with a teal badge; an
+ * unlit card is the same drawing in the board's dusk tones.
+ */
+const Figure:React.FC<{c:Pal;i:number;on:boolean}> = ({c,i,on}) => {
+ const tw=FIG_W, th=FIG_H, cx=tw/2+wob(43,i,4);
+ const hair=i%4, top=i%3, sw=[0,7,-6][(i>>1)%3];
+ const head=on?mix(c.ink,c.foreground,.35):mix(c.midground,c.ink,.6);
+ const coat=on?'#FBFAF4':mix(c.midground,c.ink,.38);
+ const coatEdge=on?mix(c.paper,c.ink,.42):mix(c.midground,c.ink,.58);
+ const scrub=on?(i%2?mix(SLEEVE,'#ffffff',.2):mix(c.hero,'#ffffff',.28)):mix(c.midground,c.ink,.42);
+ const cap=on?mix(c.hero,'#ffffff',.12):mix(c.midground,c.ink,.46);
+ const card=on?mix(mix(c.paper,'#ffffff',.2),c.hero,.16):mix(c.midground,c.ink,.18);
+ const hy=66, rx=27+wob(44,i,2), ry=31+wob(45,i,2);
+ const sh=70+sw, ny=104;
+ const body=`M${cx-sh} ${th-8}C${cx-sh} ${ny+30} ${cx-sh+16} ${ny+8} ${cx-22} ${ny+2}L${cx+22} ${ny+2}C${cx+sh-16} ${ny+8} ${cx+sh} ${ny+30} ${cx+sh} ${th-8}Z`;
+ return <g data-subject={'clinician-tokens clinician figure '+(on?'lit':'unlit')}>
+  {on&&<rect x={-12} y={-12} width={tw+24} height={th+24} rx={22} fill="#EAF7F0" opacity={.6} filter="url(#cs-soft)"/>}
+  <path d={blob(4,6,tw,th,16,150+i,2)} fill={c.ink} opacity={on?.16:.22} filter="url(#cs-soft)"/>
+  <path d={blob(0,0,tw,th,16,50+i,2)} fill={card} stroke={mix(c.midground,c.ink,.45)} strokeWidth={2}/>
+  <path d={`M10 6H${tw-14}`} stroke="#ffffff" strokeOpacity={on?.7:.18} strokeWidth={2.5} strokeLinecap="round"/>
+  <rect x={tw/2-15} y={7} width={30} height={9} rx={4.5} fill={mix(c.ink,c.midground,.4)}/>
+  {/* hair or cap behind the head: one silhouette, its outline varies */}
+  {hair===2&&<path d={`M${cx-rx-2} ${hy-8}Q${cx-rx-8} ${hy+38} ${cx-rx+4} ${hy+50}L${cx+rx-4} ${hy+50}Q${cx+rx+8} ${hy+38} ${cx+rx+2} ${hy-8}Z`} fill={head}/>}
+  {hair===1&&<circle cx={cx+5} cy={hy-ry-6} r={12} fill={head}/>}
+  <path d={`M${cx-11} ${hy+ry-8}H${cx+11}V${ny+8}H${cx-11}Z`} fill={head}/>
+  <ellipse cx={cx} cy={hy} rx={rx} ry={ry} fill={head}/>
+  {hair===0&&<path d={`M${cx-rx} ${hy-4}Q${cx-rx-2} ${hy-ry-3} ${cx+4} ${hy-ry-2}Q${cx+rx+3} ${hy-ry+2} ${cx+rx} ${hy-6}Z`} fill={head}/>}
+  {hair===3&&<g>
+   <path d={`M${cx-rx-1} ${hy-2}Q${cx-rx-3} ${hy-ry-6} ${cx} ${hy-ry-6}Q${cx+rx+3} ${hy-ry-6} ${cx+rx+1} ${hy-2}Q${cx} ${hy-12} ${cx-rx-1} ${hy-2}Z`} fill={cap} stroke={coatEdge} strokeWidth={1.5}/>
+   <path d={`M${cx+rx-2} ${hy-6}l12 10M${cx+rx-2} ${hy-6}l6 14`} stroke={cap} strokeWidth={4} strokeLinecap="round"/>
+  </g>}
+  {/* shoulders: white coat with lapels over scrubs, a coat alone, or scrubs alone */}
+  <path d={body} fill={top===2?scrub:coat} stroke={coatEdge} strokeWidth={2}/>
+  {top!==2&&<path d={`M${cx-21} ${ny+3}L${cx} ${ny+46}L${cx+21} ${ny+3}Z`} fill={top===0?scrub:mix(coat,c.ink,.08)}/>}
+  {top!==2&&<path d={`M${cx-21} ${ny+3}L${cx-5} ${ny+50}L${cx-30} ${th-8}M${cx+21} ${ny+3}L${cx+5} ${ny+50}L${cx+30} ${th-8}`} stroke={coatEdge} strokeWidth={2} fill="none"/>}
+  {top===2&&<path d={`M${cx-17} ${ny+3}L${cx} ${ny+26}L${cx+17} ${ny+3}`} stroke={mix(scrub,c.ink,.35)} strokeWidth={3} fill="none"/>}
+  {top===1&&<g stroke={on?mix(c.ink,c.foreground,.4):mix(c.midground,c.ink,.55)} strokeWidth={3.5} fill="none" strokeLinecap="round">
+   <path d={`M${cx-17} ${ny+4}Q${cx-30} ${ny+40} ${cx-12} ${ny+56}`}/><circle cx={cx-10} cy={ny+60} r={5}/>
+  </g>}
+  {/* the clipped ID badge on the chest */}
+  <g transform={`translate(${cx+26+wob(46,i,3)} ${ny+22}) rotate(${wob(47,i,4)})`}>
+   <path d="M11 -8V2" stroke={coatEdge} strokeWidth={2}/>
+   <path d={blob(0,0,22,30,4,160+i,.8)} fill={on?'#ffffff':mix(c.midground,c.ink,.36)} stroke={coatEdge} strokeWidth={1.5}/>
+   <rect x={0} y={0} width={22} height={8} rx={3} fill={on?c.hero:mix(c.midground,c.ink,.5)}/>
+   <path d="M5 16H17M5 22H13" stroke={on?mix(c.paper,c.ink,.4):mix(c.midground,c.ink,.5)} strokeWidth={2} strokeLinecap="round"/>
+  </g>
+ </g>;
+};
+
+/** A framed share board of anonymous clinician figures; the lit ones picture the reported share, never a count. */
 const Wall:React.FC<{c:Pal;lit:number;share:number;label:number}> = ({c,lit,share,label}) => {
- const cols=4, rows=5, tw=150, th=104;
  const count=Math.round(clamp(lit)*WALL_LIT_SHARE_TILES);
  const on=new Set(LIGHT_ORDER.slice(0,count));
  const barW=WALL_SIZE[0]-20;
- return <g data-subject="clinic-workstations clinician tokens">
-  <path d={blob(-24,-26,cols*196+30,rows*118+40,26,33,4)} fill={mix(c.background,c.midground,.22)} stroke={mix(c.midground,c.ink,.2)} strokeWidth={3}/>
+ const pw=WALL_COLS*FIG_PITCH[0]+30, ph=WALL_ROWS*FIG_PITCH[1]+30;
+ return <g data-subject="clinic-workstations clinician-tokens share-board">
+  {/* the board: a fabric panel in a worn wood frame with real depth and a contact shadow on the wall */}
+  <path d={blob(-30,-28,pw+32,ph+28,30,34,4)} fill={c.ink} opacity={.24} filter="url(#cs-soft)"/>
+  <path d={blob(-40,-42,pw+32,ph+28,30,35,4)} fill="#9C8A70" stroke="#4E4334" strokeWidth={3}/>
+  <path d={`M-26 -36H${pw-20}`} stroke="#D3C3A6" strokeWidth={4} strokeLinecap="round"/>
+  <path d={`M${pw-12} -24V${ph-28}`} stroke="#6E5D49" strokeWidth={4} strokeLinecap="round"/>
+  <path d={blob(-24,-26,pw,ph,22,33,4)} fill={mix(c.background,c.midground,.3)} stroke="#6E5D49" strokeWidth={2.5}/>
+  <path d={`M-22 -20H${pw-30}`} stroke={c.ink} strokeOpacity={.14} strokeWidth={8}/>
+  <path d={`M60 ${ph-60}q60 -6 110 2M${pw-200} ${ph-48}q40 4 80 -2`} stroke="#ffffff" strokeOpacity={.18} strokeWidth={3} fill="none"/>
+  {[[-32,-34],[pw-16,-34],[-32,ph-22],[pw-16,ph-22]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r={4} fill="#B8BFBE" stroke="#5E6767" strokeWidth={1.5}/>)}
   {Array.from({length:WALL_TILES},(_,i)=>{
-   const r=Math.floor(i/cols), k=i%cols;
-   const x=k*196+wob(40,i,9)+(r%2)*14, y=r*118+wob(41,i,7), lightOn=on.has(i);
-   return <g key={i} transform={`translate(${x} ${y}) rotate(${wob(42,i,2.4)} ${tw/2} ${th/2})`} data-tile={lightOn?'lit':'dark'}>
-    {lightOn&&<rect x={-10} y={-10} width={tw+20} height={th+20} rx={20} fill="#E9F7EF" opacity={.55} filter="url(#cs-soft)"/>}
-    <path d={blob(0,0,tw,th,14,50+i,2)} fill={lightOn?mix(c.paper,'#ffffff',.3):mix(c.midground,c.ink,.28)} stroke={mix(c.midground,c.ink,.45)} strokeWidth={2}/>
-    <rect x={tw/2-14} y={6} width={28} height={8} rx={4} fill={mix(c.ink,c.midground,.4)}/>
-    <rect x={0} y={20} width={tw} height={14} fill={lightOn?c.hero:mix(c.midground,c.ink,.45)}/>
-    <path d={blob(14,44,44,46,6,70+i,1)} fill={lightOn?mix(c.paper,c.midground,.25):mix(c.midground,c.ink,.4)}/>
-    <rect x={70} y={50} width={62} height={8} rx={4} fill={lightOn?mix(c.paper,c.ink,.3):mix(c.midground,c.ink,.5)}/>
-    <rect x={70} y={66} width={44} height={8} rx={4} fill={lightOn?mix(c.paper,c.ink,.22):mix(c.midground,c.ink,.5)}/>
-    {lightOn&&<circle cx={tw-16} cy={th-16} r={8} fill={c.hero}/>}
+   const r=Math.floor(i/WALL_COLS), k=i%WALL_COLS;
+   const x=k*FIG_PITCH[0]+wob(40,i,8)+(r%2)*12, y=r*FIG_PITCH[1]+wob(41,i,6), lightOn=on.has(i);
+   return <g key={i} transform={`translate(${x} ${y}) rotate(${wob(42,i,2)} ${FIG_W/2} ${FIG_H/2})`} data-tile={lightOn?'lit':'dark'}>
+    <Figure c={c} i={i} on={lightOn}/>
    </g>;
   })}
   <g transform={`translate(0 ${BAR_Y})`}>
@@ -391,6 +453,33 @@ const Wall:React.FC<{c:Pal;lit:number;share:number;label:number}> = ({c,lit,shar
    {/* pins on the bar for the tags that belong to the share */}
    {[WALL_PINS.start,WALL_PINS.half,WALL_PINS.end].map((q,i)=><circle key={i} cx={q[0]} cy={q[1]-BAR_Y} r={6} fill={c.ink}/>)}
   </g>
+ </g>;
+};
+
+/**
+ * The clinic's back wall behind the desk in the close reading shots: salt-weathered paint lit
+ * from the window side, and the same Gulf window as the room, with a frame, a recessed reveal,
+ * a sill with a front face and the sill's contact shadow on the wall. `glazed` false leaves the
+ * window out when the shot hangs the share board on this wall instead. It ends at `h`, where the
+ * episode draws the desk's back edge.
+ */
+const BackWall:React.FC<{c:Pal;stage:ClinicStage;h:number;glazed:boolean}> = ({c,stage,h,glazed}) => {
+ const win=stage==='front'?{x:80,y:-330,w:540,h:470}:{x:150,y:-300,w:580,h:470};
+ const sillY=win.y+win.h+19;
+ return <g data-subject="clinic back-wall">
+  <rect x={-400} y={-400} width={1880} height={h+400} fill="url(#cs-wall)"/>
+  <g filter="url(#cs-grain)"><rect x={-400} y={-400} width={1880} height={h+400} fill={c.background} opacity={.12}/></g>
+  <path d={`M-400 ${h-10}H1480`} stroke={mix(c.background,c.ink,.25)} strokeOpacity={.35} strokeWidth={10}/>
+  {glazed&&<g>
+   <GulfWindow c={c} x={win.x} y={win.y} w={win.w} h={win.h} deep={true}/>
+   {/* the reveal: the frame's depth shades the top and left inside edges */}
+   <path d={`M${win.x+7} ${win.y+7}H${win.x+win.w-7}L${win.x+win.w-20} ${win.y+20}H${win.x+20}V${win.y+win.h-20}L${win.x+7} ${win.y+win.h-7}Z`} fill={c.ink} opacity={.14}/>
+   {/* the sill's front face, its worn edge and its contact shadow on the wall */}
+   <rect x={win.x-28} y={sillY+8} width={win.w+66} height={16} rx={8} fill={c.ink} opacity={.28} filter="url(#cs-soft)"/>
+   <path d={`M${win.x-31} ${sillY-2}H${win.x+win.w+35}V${sillY+14}Q${win.x+win.w+35} ${sillY+18} ${win.x+win.w+30} ${sillY+18}H${win.x-26}Q${win.x-31} ${sillY+18} ${win.x-31} ${sillY+14}Z`}
+    fill={mix(c.paper,c.ink,.32)} stroke={mix(c.paper,c.ink,.5)} strokeWidth={1.5}/>
+   <path d={`M${win.x+60} ${sillY+8}q30 4 70 0M${win.x+win.w-120} ${sillY+9}q20 3 46 0`} stroke="#ffffff" strokeOpacity={.35} strokeWidth={2} fill="none"/>
+  </g>}
  </g>;
 };
 
@@ -411,6 +500,7 @@ export const ClinicSupport:React.FC<ClinicSupportProps> = (props) => {
  case 'shelf':body=<Shelf c={c} w={props.w}/>;break;
  case 'stand':body=<Stand c={c}/>;break;
  case 'wall':body=<Wall c={c} lit={props.lit} share={props.share??0} label={props.label??0}/>;break;
+ case 'backwall':body=<BackWall c={c} stage={props.stage} h={props.h} glazed={props.glazed??true}/>;break;
  }
  return <g data-art-group="clinic-support"><Defs c={c}/>{body}</g>;
 };

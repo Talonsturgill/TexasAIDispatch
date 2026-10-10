@@ -24,9 +24,15 @@ import {ClinicSupport,KEY,keyCenter,WALL_PINS,ARM_REST,TOOL} from './ClinicSuppo
  * rides it, then releases it at speed and slows while the card glides on into the tool.
  *
  * A: a higher camera on a clinic wall. The chart hangs on a rail behind the desk, the tool is
- *    wall-mounted at its right and the usage share hangs above it, framed frontally.
+ *    wall-mounted at its right and the usage share board hangs high above it, framed frontally.
  * B: a desk-level camera. The chart stands propped on the desk, the tool stands beside it, the
  *    usage share hangs lower over the tool and is framed from the desk, with its own cameras.
+ *
+ * The usage share is a framed board of anonymous clinician figures; the shots that read it frame
+ * the figures close, then the bar, its tag and the tool, and keep the tool either wholly above the
+ * caption band or below it. The release's open tags get their own close at the moment their
+ * "Not in release" line appears. The film ends on the answer card close on the desk, its Accuracy
+ * slot still empty, with the share board and its evaluating tag on the wall behind it.
  *
  * Every state is a function of the film frame clock and the board's event windows; nothing
  * accumulates between frames. Disclosed illustration: no UTMB screen, vendor interface, answer
@@ -63,7 +69,7 @@ type World={stage:'front'|'desk';chart:Pt;stand?:Pt;boundary:{p:Pt;w:number;h:nu
  keyboard:Pt;kbS:number;question:Pt;qS:number;qFlat:number;credential:Pt;credS:number;answer:Pt;aS:number;aFlat:number;workstation?:Pt;rail?:{p:Pt;w:number};
  sendCtrl:Pt;sendEnd:Pt;stopAt:Pt;answerPath:Pt[];citeFan:Pt[]};
 const WORLDS:Record<V,World>={
- a:{stage:'front',chart:[150,578],boundary:{p:[132,542],w:376,h:540,slot:.44,lockY:.55},tool:[530,700],board:[540,100],boardS:.46,
+ a:{stage:'front',chart:[150,578],boundary:{p:[132,542],w:376,h:540,slot:.44,lockY:.55},tool:[530,700],board:[540,40],boardS:.46,
   boardTags:{decision:{pin:'start',side:'right',drop:0},report:{pin:'end',side:'left',drop:90},evaluating:{pin:'start',side:'right',drop:180}},
   keyboard:[-140,1050],kbS:.8,question:[196,800],qS:.75,qFlat:0,credential:[60,982],credS:.72,answer:[600,1020],aS:.8,aFlat:.25,
   workstation:[-90,740],rail:{p:[110,556],w:420},
@@ -245,11 +251,8 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   <rect x={-400} y={-400} width={1880} height={2720} fill={v==='a'?'#CFC7B4':'#C9C1AE'}/>
   {v==='a'?<g opacity={.5}>{Array.from({length:22},(_,i)=><path key={i} d={`M-400 ${-100+i*96}H1480`} stroke="#B3AB98" strokeWidth={3}/>)}</g>
    :<g opacity={.5}>{Array.from({length:18},(_,i)=><path key={i} d={`M${540+(i-9)*40} 300L${540+(i-9)*260} 2300`} stroke="#B3AB98" strokeWidth={3}/>)}</g>}
-  <g filter="url(#cs-deep)" opacity={.85}>
-   <rect x={-400} y={-400} width={1880} height={v==='a'?640:700} fill={c.background}/>
-   <rect x={v==='a'?60:120} y={v==='a'?40:60} width={260} height={v==='a'?200:240} rx={16} fill="#6E5D49"/>
-   <rect x={v==='a'?360:620} y={v==='a'?120:150} width={210} height={170} rx={16} fill={c.hero}/>
-  </g>
+  {/* the back wall: the room's own Gulf window, framed, with its sill and contact shadow */}
+  <ClinicSupport part="backwall" stage={Wd.stage} h={v==='a'?240:300}/>
   <rect x={-400} y={v==='a'?240:300} width={1880} height={14} fill="#7F7766" opacity={.6}/>
   {children}
  </g>;
@@ -291,6 +294,33 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   </>);
  };
  const answerFocus=(local:Pt):Pt=>placed(v==='a'?[500,640]:[480,760],v==='a'?1.2:1.25,0,local);
+ // s6: the two open tags close enough to read "Not in release" on a phone (about 800 px wide each),
+ // with the answer's clip and header still at the right edge of the frame.
+ const LIMIT_S=2.35;
+ const limitsClose=()=><Cam f={answerFocus([-115,164])} s={LIMIT_S/(v==='a'?1.2:1.25)}>{answerRead()}</Cam>;
+ // s8: the closing image, in screen units. The answer card close on the desk with its Sources
+ // filled and its Accuracy slot empty; behind it the usage share board on the wall, its figures
+ // lit past half and its three tags hanging from the same pins, the evaluating tag last. The tags
+ // keep their size relative to the board, so nothing is resized between shots.
+ const ending=()=>{
+  const deskY=v==='a'?760:790, kb=.8, tagS=kb*BOARD_TAG_S/Wd.boardS, bt=Wd.boardTags;
+  const board:Pt=v==='a'?[70,300-660*kb]:[150,330-660*kb];
+  const pin=(k:keyof typeof WALL_PINS):Pt=>add(board,scale(WALL_PINS[k],kb));
+  const ans:Pt=v==='a'?[495,800]:[495,815], aS=1.5;
+  return <g data-world={v==='a'?'a-answer-ending':'b-answer-ending'}>
+   <rect x={-400} y={-400} width={1880} height={2720} fill={v==='a'?'#CFC7B4':'#C9C1AE'}/>
+   <g opacity={.5}>{Array.from({length:14},(_,i)=><path key={i} d={`M-400 ${deskY+40+i*96}H1480`} stroke="#B3AB98" strokeWidth={3}/>)}</g>
+   <ClinicSupport part="backwall" stage={Wd.stage} h={deskY} glazed={false}/>
+   <At p={board} s={kb}><ClinicSupport part="wall" lit={1} share={1} label={1}/></At>
+   <Hang pin={pin(bt.decision.pin)} tag="decision" in={1} s={tagS} side={bt.decision.side} drop={bt.decision.drop}/>
+   <Hang pin={pin(bt.report.pin)} tag="report" in={1} s={tagS} side={bt.report.side} drop={bt.report.drop}/>
+   <Hang pin={pin(bt.evaluating.pin)} tag="evaluating" in={evalTag} s={tagS} side={bt.evaluating.side} drop={bt.evaluating.drop}/>
+   <rect x={-400} y={deskY} width={1880} height={14} fill="#7F7766" opacity={.6}/>
+   <path d={`M-400 ${deskY+16}H1480`} stroke="#ffffff" strokeOpacity={.35} strokeWidth={2}/>
+   <At p={ans} s={aS}><ChartHero part="answer" sources={1} limits={1} limitText={1} lift={.1}
+    sourcesGlow={Math.sin(Math.PI*sourcesHold)} ring={finalPulse>0&&finalPulse<1?finalPulse:0}/></At>
+  </g>;
+ };
 
  // ---- an executed camera for every declared shot ----
  let pic:React.ReactNode;
@@ -313,22 +343,30 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'credential-gate':
   pic=<Cam f={v==='a'?[250,1040]:[200,960]} s={v==='a'?1.75:1.62}>{world()}</Cam>;break;
  case 'citation-stack':
-  pic=v==='a'?<Cam f={[480,760]} s={.8}>{citationRead(false)}</Cam>:<Cam f={[500,700]} s={.92}>{citationRead(false)}</Cam>;break;
+  pic=v==='a'?<Cam f={[480,760]} s={.8}>{citationRead(false)}</Cam>:<Cam f={[500,730]} s={.92}>{citationRead(false)}</Cam>;break;
  case 'source-types':
-  if(act==='name-source-types')pic=<Cam f={v==='a'?[545,560]:[600,560]} s={v==='a'?1.04:1.25}>{citationRead(true)}</Cam>;
+  // the answer card stays wholly above the caption band while the two named cards lift
+  if(act==='name-source-types')pic=<Cam f={v==='a'?[545,729]:[463,783]} s={v==='a'?1.04:1.12}>{citationRead(true)}</Cam>;
   else pic=<Cam f={[560,640]} s={.9}>{answerRead()}</Cam>;   // A s7: wider than s6, the literature card rises into view
   break;
  case 'share-grid':
-  if(act==='keep-evaluating')pic=v==='a'?<Cam f={[720,400]} s={1.62}>{world()}</Cam>:<Cam f={[640,560]} s={1.4}>{world()}</Cam>;
-  else if(v==='a')pic=fr==='wide'?<Cam f={[470,760]} s={1}>{world()}</Cam>:<Cam f={[720,340]} s={1.62}>{world()}</Cam>;
-  else pic=fr==='detail'?<Cam f={[690,450]} s={2.05}>{world()}</Cam>:<Cam f={[560,560]} s={1.25}>{world()}</Cam>;
+  // keep-evaluating: the evaluating tag drops onto the share at a readable size; the tool sits
+  // below the caption band (A) or wholly above it (B)
+  if(act==='keep-evaluating')pic=v==='a'?<Cam f={[728,398]} s={2.2}>{world()}</Cam>:<Cam f={[690,685]} s={2.2}>{world()}</Cam>;
+  // close: the clinician figures light past half; medium: the bar, the decision tag and the tool it
+  // names, with the tool wholly above the caption band
+  else if(fr==='close')pic=v==='a'?<Cam f={[735,200]} s={2.3}>{world()}</Cam>:<Cam f={[697,300]} s={2.3}>{world()}</Cam>;
+  else pic=v==='a'?<Cam f={[715,603]} s={1.75}>{world()}</Cam>:<Cam f={[690,622]} s={1.75}>{world()}</Cam>;
   break;
  case 'unmeasured-card':
-  if(act==='attribute-report')pic=v==='a'?<Cam f={[720,330]} s={1.62}>{world()}</Cam>:<Cam f={[700,520]} s={2.05}>{world()}</Cam>;
-  else pic=v==='a'?<Cam f={[485,810]} s={1.32}>{answerRead()}</Cam>:<Cam f={[272,900]} s={1.6}>{answerRead()}</Cam>;
+  if(act==='attribute-report')pic=v==='a'?<Cam f={[720,320]} s={2}>{world()}</Cam>:<Cam f={[680,664]} s={2.05}>{world()}</Cam>;
+  // A: medium while the tags clip on, then a close as their "Not in release" line appears.
+  // B: one close on the clip for both events.
+  else if(v==='a'&&fr==='medium')pic=<Cam f={[485,810]} s={1.32}>{answerRead()}</Cam>;
+  else pic=limitsClose();
   break;
  case 'answer-close':
-  if(act==='keep-evaluating')pic=v==='a'?<Cam f={[640,960]} s={1.45}>{world()}</Cam>:<Cam f={[620,990]} s={1.35}>{world()}</Cam>;
+  if(act==='keep-evaluating')pic=<Cam f={[540,760]} s={1}>{ending()}</Cam>;
   else if(fr==='detail'){const fc=answerFocus(ANSWER_ACCURACY);pic=<Cam f={[fc[0]-40,fc[1]-20]} s={2}>{answerRead()}</Cam>;}
   else pic=<Cam f={[550,700]} s={1.04}>{answerRead()}</Cam>;   // B s7: wider than s6, the literature card rises into view
   break;
