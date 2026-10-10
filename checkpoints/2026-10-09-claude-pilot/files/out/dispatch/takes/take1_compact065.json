@@ -1,0 +1,89 @@
+{
+  "schema": "dispatch_vo_silence_edit/1",
+  "source": "out/dispatch/takes/take1.wav",
+  "source_sha256": "66d6cfa219b0aa8f35e166f431f90d509d296ec709e811cc09e1d2dcb91075bb",
+  "output": "out/dispatch/takes/take1_compact065.wav",
+  "output_sha256": "4120575aa93810f498575ea076ed796603cc91f93ef167475166eeeb315a0100",
+  "threshold_dbfs": -38.0,
+  "min_silence_s": 0.48,
+  "max_retained_internal_silence_s": 0.65,
+  "retained_edge_silence_s": 0.12,
+  "time_stretch": 1.0,
+  "edit": "silence-only cuts from one continuous take",
+  "removed_intervals": [
+    {
+      "from_s": 5.265,
+      "to_s": 5.445,
+      "removed_s": 0.18,
+      "peak_dbfs": -67.39
+    },
+    {
+      "from_s": 12.105,
+      "to_s": 12.495,
+      "removed_s": 0.39,
+      "peak_dbfs": -36.14
+    },
+    {
+      "from_s": 17.165,
+      "to_s": 17.465,
+      "removed_s": 0.3,
+      "peak_dbfs": -68.03
+    },
+    {
+      "from_s": 19.785,
+      "to_s": 19.815,
+      "removed_s": 0.03,
+      "peak_dbfs": -70.31
+    },
+    {
+      "from_s": 22.675,
+      "to_s": 23.025,
+      "removed_s": 0.35,
+      "peak_dbfs": -67.39
+    },
+    {
+      "from_s": 28.105,
+      "to_s": 28.385,
+      "removed_s": 0.28,
+      "peak_dbfs": -69.48
+    },
+    {
+      "from_s": 30.875,
+      "to_s": 30.935,
+      "removed_s": 0.06,
+      "peak_dbfs": -72.25
+    },
+    {
+      "from_s": 34.835,
+      "to_s": 35.345,
+      "removed_s": 0.51,
+      "peak_dbfs": -66.79
+    },
+    {
+      "from_s": 38.805,
+      "to_s": 39.025,
+      "removed_s": 0.22,
+      "peak_dbfs": -71.22
+    },
+    {
+      "from_s": 41.125,
+      "to_s": 41.585,
+      "removed_s": 0.46,
+      "peak_dbfs": -66.79
+    },
+    {
+      "from_s": 45.65,
+      "to_s": 46.04,
+      "removed_s": 0.39,
+      "peak_dbfs": -65.2
+    }
+  ],
+  "removed_total_s": 3.17,
+  "measurements": {
+    "duration_s": 42.87,
+    "lufs": -19.79,
+    "pitch_variance_semitones": 6.516,
+    "speech_runs": 14,
+    "sample_rate": 48000
+  }
+}

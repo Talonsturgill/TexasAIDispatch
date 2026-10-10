@@ -1,0 +1,1559 @@
+{
+  "method": "silence_anchored",
+  "acoustic_matching": [
+    {
+      "word": "A",
+      "dtw_center_s": 0.38,
+      "speech_run": 0
+    },
+    {
+      "word": "UTMB",
+      "dtw_center_s": 0.85,
+      "speech_run": 0
+    },
+    {
+      "word": "clinician",
+      "dtw_center_s": 1.42,
+      "speech_run": 0
+    },
+    {
+      "word": "asks",
+      "dtw_center_s": 1.92,
+      "speech_run": 0
+    },
+    {
+      "word": "a",
+      "dtw_center_s": 2.16,
+      "speech_run": 0
+    },
+    {
+      "word": "question.",
+      "dtw_center_s": 2.54,
+      "speech_run": 0
+    },
+    {
+      "word": "The",
+      "dtw_center_s": 3.22,
+      "speech_run": 1
+    },
+    {
+      "word": "answer",
+      "dtw_center_s": 3.5,
+      "speech_run": 1
+    },
+    {
+      "word": "comes",
+      "dtw_center_s": 3.84,
+      "speech_run": 1
+    },
+    {
+      "word": "back",
+      "dtw_center_s": 4.16,
+      "speech_run": 1
+    },
+    {
+      "word": "with",
+      "dtw_center_s": 4.32,
+      "speech_run": 1
+    },
+    {
+      "word": "its",
+      "dtw_center_s": 4.48,
+      "speech_run": 1
+    },
+    {
+      "word": "sources.",
+      "dtw_center_s": 4.86,
+      "speech_run": 1
+    },
+    {
+      "word": "UTMB",
+      "dtw_center_s": 6.1,
+      "speech_run": 2
+    },
+    {
+      "word": "announced",
+      "dtw_center_s": 6.78,
+      "speech_run": 2
+    },
+    {
+      "word": "the",
+      "dtw_center_s": 7.02,
+      "speech_run": 2
+    },
+    {
+      "word": "OpenEvidence",
+      "dtw_center_s": 7.51,
+      "speech_run": 2,
+      "proper_name_joins": [
+        {
+          "kind": "proper-name-join",
+          "raw_asr_indices": [
+            16,
+            17
+          ],
+          "recognized_words": [
+            {
+              "text": "Open",
+              "center": 7.32
+            },
+            {
+              "text": "Evidence",
+              "center": 7.7
+            }
+          ],
+          "dtw_centers_s": [
+            7.32,
+            7.7
+          ],
+          "representative_center_s": 7.51,
+          "speech_run_bounds_s": [
+            5.58,
+            9.94
+          ],
+          "occurrence": 1,
+          "source": "out/dispatch/sources/utmb.validator.txt",
+          "source_sha256": "64eaaece91eb4cb6929e3b39b308fa6ac00280682330f6154e6dbebe666f66ba",
+          "source_quote_sha256": "2449dc69448994c3bce2b2bab1fef0b4c2dff79bc3570a48928fd5830a286e69",
+          "source_quote": "Today, more than half of UTMB clinicians actively use OpenEvidence for clinical decision support.",
+          "reason": "The retained UTMB release names the tool OpenEvidence. Actual ASR hears the same product name as two words, open evidence, inside one measured speech run. Spelling evidence only, no timing edit."
+        }
+      ]
+    },
+    {
+      "word": "AI",
+      "dtw_center_s": 8.14,
+      "speech_run": 2
+    },
+    {
+      "word": "tool",
+      "dtw_center_s": 8.44,
+      "speech_run": 2
+    },
+    {
+      "word": "on",
+      "dtw_center_s": 8.76,
+      "speech_run": 2
+    },
+    {
+      "word": "September",
+      "dtw_center_s": 9.06,
+      "speech_run": 2
+    },
+    {
+      "word": "twenty-second,",
+      "dtw_center_s": 9.62,
+      "speech_run": 2
+    },
+    {
+      "word": "and",
+      "dtw_center_s": 10.24,
+      "speech_run": 3
+    },
+    {
+      "word": "says",
+      "dtw_center_s": 10.4,
+      "speech_run": 3
+    },
+    {
+      "word": "it",
+      "dtw_center_s": 10.54,
+      "speech_run": 3
+    },
+    {
+      "word": "went",
+      "dtw_center_s": 10.7,
+      "speech_run": 3
+    },
+    {
+      "word": "live",
+      "dtw_center_s": 11.02,
+      "speech_run": 3
+    },
+    {
+      "word": "in",
+      "dtw_center_s": 11.22,
+      "speech_run": 3
+    },
+    {
+      "word": "March.",
+      "dtw_center_s": 11.52,
+      "speech_run": 3
+    },
+    {
+      "word": "Clinicians",
+      "dtw_center_s": 12.53,
+      "speech_run": 4
+    },
+    {
+      "word": "sign",
+      "dtw_center_s": 13.06,
+      "speech_run": 4
+    },
+    {
+      "word": "in",
+      "dtw_center_s": 13.26,
+      "speech_run": 4
+    },
+    {
+      "word": "with",
+      "dtw_center_s": 13.44,
+      "speech_run": 4
+    },
+    {
+      "word": "their",
+      "dtw_center_s": 13.6,
+      "speech_run": 4
+    },
+    {
+      "word": "usual",
+      "dtw_center_s": 14.06,
+      "speech_run": 4
+    },
+    {
+      "word": "credentials,",
+      "dtw_center_s": 14.56,
+      "speech_run": 4
+    },
+    {
+      "word": "and",
+      "dtw_center_s": 15.12,
+      "speech_run": 5
+    },
+    {
+      "word": "ask",
+      "dtw_center_s": 15.4,
+      "speech_run": 5
+    },
+    {
+      "word": "in",
+      "dtw_center_s": 15.58,
+      "speech_run": 5
+    },
+    {
+      "word": "plain",
+      "dtw_center_s": 15.8,
+      "speech_run": 5
+    },
+    {
+      "word": "language.",
+      "dtw_center_s": 16.2,
+      "speech_run": 5
+    },
+    {
+      "word": "The",
+      "dtw_center_s": 17.04,
+      "speech_run": 6
+    },
+    {
+      "word": "answers",
+      "dtw_center_s": 17.4,
+      "speech_run": 6
+    },
+    {
+      "word": "carry",
+      "dtw_center_s": 17.8,
+      "speech_run": 6
+    },
+    {
+      "word": "citations.",
+      "dtw_center_s": 18.46,
+      "speech_run": 6
+    },
+    {
+      "word": "To",
+      "dtw_center_s": 19.34,
+      "speech_run": 7
+    },
+    {
+      "word": "medical",
+      "dtw_center_s": 19.64,
+      "speech_run": 7
+    },
+    {
+      "word": "literature",
+      "dtw_center_s": 20.1,
+      "speech_run": 7
+    },
+    {
+      "word": "and",
+      "dtw_center_s": 20.48,
+      "speech_run": 7
+    },
+    {
+      "word": "clinical",
+      "dtw_center_s": 20.84,
+      "speech_run": 7
+    },
+    {
+      "word": "guidelines.",
+      "dtw_center_s": 21.34,
+      "speech_run": 7
+    },
+    {
+      "word": "UTMB",
+      "dtw_center_s": 22.56,
+      "speech_run": 8
+    },
+    {
+      "word": "says",
+      "dtw_center_s": 23.02,
+      "speech_run": 8
+    },
+    {
+      "word": "more",
+      "dtw_center_s": 23.26,
+      "speech_run": 8
+    },
+    {
+      "word": "than",
+      "dtw_center_s": 23.4,
+      "speech_run": 8
+    },
+    {
+      "word": "half",
+      "dtw_center_s": 23.72,
+      "speech_run": 8
+    },
+    {
+      "word": "of",
+      "dtw_center_s": 23.9,
+      "speech_run": 8
+    },
+    {
+      "word": "its",
+      "dtw_center_s": 24.02,
+      "speech_run": 8
+    },
+    {
+      "word": "clinicians",
+      "dtw_center_s": 24.46,
+      "speech_run": 8
+    },
+    {
+      "word": "now",
+      "dtw_center_s": 24.8,
+      "speech_run": 8
+    },
+    {
+      "word": "use",
+      "dtw_center_s": 25.12,
+      "speech_run": 8
+    },
+    {
+      "word": "it",
+      "dtw_center_s": 25.24,
+      "speech_run": 8
+    },
+    {
+      "word": "for",
+      "dtw_center_s": 25.44,
+      "speech_run": 8
+    },
+    {
+      "word": "clinical",
+      "dtw_center_s": 25.72,
+      "speech_run": 8
+    },
+    {
+      "word": "decision",
+      "dtw_center_s": 26.08,
+      "speech_run": 8
+    },
+    {
+      "word": "support.",
+      "dtw_center_s": 26.52,
+      "speech_run": 8
+    },
+    {
+      "word": "That",
+      "dtw_center_s": 27.36,
+      "speech_run": 9
+    },
+    {
+      "word": "is",
+      "dtw_center_s": 27.54,
+      "speech_run": 9
+    },
+    {
+      "word": "UTMB's",
+      "dtw_center_s": 28.12,
+      "speech_run": 9
+    },
+    {
+      "word": "own",
+      "dtw_center_s": 28.54,
+      "speech_run": 9
+    },
+    {
+      "word": "report.",
+      "dtw_center_s": 28.98,
+      "speech_run": 9
+    },
+    {
+      "word": "The",
+      "dtw_center_s": 29.78,
+      "speech_run": 10
+    },
+    {
+      "word": "release",
+      "dtw_center_s": 30.1,
+      "speech_run": 10
+    },
+    {
+      "word": "publishes",
+      "dtw_center_s": 30.58,
+      "speech_run": 10
+    },
+    {
+      "word": "no",
+      "dtw_center_s": 30.9,
+      "speech_run": 10
+    },
+    {
+      "word": "measure",
+      "dtw_center_s": 31.22,
+      "speech_run": 10
+    },
+    {
+      "word": "of",
+      "dtw_center_s": 31.4,
+      "speech_run": 10
+    },
+    {
+      "word": "accuracy",
+      "dtw_center_s": 31.88,
+      "speech_run": 10
+    },
+    {
+      "word": "or",
+      "dtw_center_s": 32.26,
+      "speech_run": 10
+    },
+    {
+      "word": "patient",
+      "dtw_center_s": 32.56,
+      "speech_run": 10
+    },
+    {
+      "word": "care.",
+      "dtw_center_s": 32.88,
+      "speech_run": 10
+    },
+    {
+      "word": "A",
+      "dtw_center_s": 33.66,
+      "speech_run": 11
+    },
+    {
+      "word": "citation",
+      "dtw_center_s": 34.0,
+      "speech_run": 11
+    },
+    {
+      "word": "shows",
+      "dtw_center_s": 34.5,
+      "speech_run": 11
+    },
+    {
+      "word": "where",
+      "dtw_center_s": 34.88,
+      "speech_run": 11
+    },
+    {
+      "word": "an",
+      "dtw_center_s": 35.1,
+      "speech_run": 11
+    },
+    {
+      "word": "answer",
+      "dtw_center_s": 35.42,
+      "speech_run": 11
+    },
+    {
+      "word": "says",
+      "dtw_center_s": 35.76,
+      "speech_run": 11
+    },
+    {
+      "word": "it",
+      "dtw_center_s": 35.94,
+      "speech_run": 11
+    },
+    {
+      "word": "came",
+      "dtw_center_s": 36.14,
+      "speech_run": 11
+    },
+    {
+      "word": "from.",
+      "dtw_center_s": 36.44,
+      "speech_run": 11
+    },
+    {
+      "word": "It",
+      "dtw_center_s": 37.12,
+      "speech_run": 12
+    },
+    {
+      "word": "doesn't",
+      "dtw_center_s": 37.36,
+      "speech_run": 12
+    },
+    {
+      "word": "show",
+      "dtw_center_s": 37.58,
+      "speech_run": 12
+    },
+    {
+      "word": "the",
+      "dtw_center_s": 37.74,
+      "speech_run": 12
+    },
+    {
+      "word": "answer",
+      "dtw_center_s": 38.0,
+      "speech_run": 12
+    },
+    {
+      "word": "is",
+      "dtw_center_s": 38.18,
+      "speech_run": 12
+    },
+    {
+      "word": "right.",
+      "dtw_center_s": 38.44,
+      "speech_run": 12
+    },
+    {
+      "word": "UTMB",
+      "dtw_center_s": 39.57,
+      "speech_run": 13
+    },
+    {
+      "word": "says",
+      "dtw_center_s": 40.0,
+      "speech_run": 13
+    },
+    {
+      "word": "it",
+      "dtw_center_s": 40.14,
+      "speech_run": 13
+    },
+    {
+      "word": "will",
+      "dtw_center_s": 40.28,
+      "speech_run": 13
+    },
+    {
+      "word": "keep",
+      "dtw_center_s": 40.5,
+      "speech_run": 13
+    },
+    {
+      "word": "evaluating",
+      "dtw_center_s": 41.08,
+      "speech_run": 13
+    },
+    {
+      "word": "use",
+      "dtw_center_s": 41.46,
+      "speech_run": 13
+    },
+    {
+      "word": "and",
+      "dtw_center_s": 41.74,
+      "speech_run": 13
+    },
+    {
+      "word": "clinician",
+      "dtw_center_s": 42.03,
+      "speech_run": 13
+    },
+    {
+      "word": "experience.",
+      "dtw_center_s": 42.66,
+      "speech_run": 13
+    }
+  ],
+  "speech_runs": [
+    [
+      0.28,
+      2.64
+    ],
+    [
+      3.1,
+      4.96
+    ],
+    [
+      5.58,
+      9.94
+    ],
+    [
+      10.06,
+      11.62
+    ],
+    [
+      12.24,
+      14.72
+    ],
+    [
+      15.0,
+      16.3
+    ],
+    [
+      16.92,
+      18.6
+    ],
+    [
+      19.24,
+      21.46
+    ],
+    [
+      22.1,
+      26.56
+    ],
+    [
+      27.16,
+      29.04
+    ],
+    [
+      29.66,
+      32.96
+    ],
+    [
+      33.56,
+      36.46
+    ],
+    [
+      37.02,
+      38.52
+    ],
+    [
+      39.12,
+      42.78
+    ]
+  ],
+  "boundaries_measured": 28,
+  "words_total": 108,
+  "words_anchored": 28,
+  "words_modelled": 80,
+  "sample_rate": 48000,
+  "duration_s": 49.0,
+  "note": "ASR DTW positions identify the words in each measured speech run. Caption edges use waveform silence; word boundaries inside each run remain syllable-modelled and explicitly unmeasured. This is not phoneme forced alignment.",
+  "words": [
+    {
+      "word": "A",
+      "start": 0.28,
+      "end": 0.542,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "UTMB",
+      "start": 0.542,
+      "end": 0.804,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "clinician",
+      "start": 0.804,
+      "end": 1.591,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "asks",
+      "start": 1.591,
+      "end": 1.853,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "a",
+      "start": 1.853,
+      "end": 2.116,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "question.",
+      "start": 2.116,
+      "end": 2.64,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "The",
+      "start": 3.1,
+      "end": 3.286,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "answer",
+      "start": 3.286,
+      "end": 3.658,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "comes",
+      "start": 3.658,
+      "end": 4.03,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "back",
+      "start": 4.03,
+      "end": 4.216,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "with",
+      "start": 4.216,
+      "end": 4.402,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "its",
+      "start": 4.402,
+      "end": 4.588,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "sources.",
+      "start": 4.588,
+      "end": 4.96,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "UTMB",
+      "start": 5.58,
+      "end": 5.798,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "announced",
+      "start": 5.798,
+      "end": 6.452,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "the",
+      "start": 6.452,
+      "end": 6.67,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "OpenEvidence",
+      "start": 6.67,
+      "end": 7.76,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "AI",
+      "start": 7.76,
+      "end": 7.978,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "tool",
+      "start": 7.978,
+      "end": 8.196,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "on",
+      "start": 8.196,
+      "end": 8.414,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "September",
+      "start": 8.414,
+      "end": 9.068,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "twenty-second,",
+      "start": 9.068,
+      "end": 9.94,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "and",
+      "start": 10.06,
+      "end": 10.283,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "says",
+      "start": 10.283,
+      "end": 10.506,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "it",
+      "start": 10.506,
+      "end": 10.729,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "went",
+      "start": 10.729,
+      "end": 10.951,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "live",
+      "start": 10.951,
+      "end": 11.174,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "in",
+      "start": 11.174,
+      "end": 11.397,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "March.",
+      "start": 11.397,
+      "end": 11.62,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "Clinicians",
+      "start": 12.24,
+      "end": 12.86,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "sign",
+      "start": 12.86,
+      "end": 13.067,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "in",
+      "start": 13.067,
+      "end": 13.273,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "with",
+      "start": 13.273,
+      "end": 13.48,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "their",
+      "start": 13.48,
+      "end": 13.687,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "usual",
+      "start": 13.687,
+      "end": 14.1,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "credentials,",
+      "start": 14.1,
+      "end": 14.72,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "and",
+      "start": 15.0,
+      "end": 15.217,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "ask",
+      "start": 15.217,
+      "end": 15.433,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "in",
+      "start": 15.433,
+      "end": 15.65,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "plain",
+      "start": 15.65,
+      "end": 15.867,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "language.",
+      "start": 15.867,
+      "end": 16.3,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "The",
+      "start": 16.92,
+      "end": 17.13,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "answers",
+      "start": 17.13,
+      "end": 17.55,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "carry",
+      "start": 17.55,
+      "end": 17.97,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "citations.",
+      "start": 17.97,
+      "end": 18.6,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "To",
+      "start": 19.24,
+      "end": 19.379,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "medical",
+      "start": 19.379,
+      "end": 19.795,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "literature",
+      "start": 19.795,
+      "end": 20.35,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "and",
+      "start": 20.35,
+      "end": 20.489,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "clinical",
+      "start": 20.489,
+      "end": 20.905,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "guidelines.",
+      "start": 20.905,
+      "end": 21.46,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "UTMB",
+      "start": 22.1,
+      "end": 22.303,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "says",
+      "start": 22.303,
+      "end": 22.505,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "more",
+      "start": 22.505,
+      "end": 22.708,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "than",
+      "start": 22.708,
+      "end": 22.911,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "half",
+      "start": 22.911,
+      "end": 23.114,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "of",
+      "start": 23.114,
+      "end": 23.316,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "its",
+      "start": 23.316,
+      "end": 23.519,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "clinicians",
+      "start": 23.519,
+      "end": 24.127,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "now",
+      "start": 24.127,
+      "end": 24.33,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "use",
+      "start": 24.33,
+      "end": 24.533,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "it",
+      "start": 24.533,
+      "end": 24.735,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "for",
+      "start": 24.735,
+      "end": 24.938,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "clinical",
+      "start": 24.938,
+      "end": 25.546,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "decision",
+      "start": 25.546,
+      "end": 26.155,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "support.",
+      "start": 26.155,
+      "end": 26.56,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "That",
+      "start": 27.16,
+      "end": 27.473,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "is",
+      "start": 27.473,
+      "end": 27.787,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "UTMB's",
+      "start": 27.787,
+      "end": 28.1,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "own",
+      "start": 28.1,
+      "end": 28.413,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "report.",
+      "start": 28.413,
+      "end": 29.04,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "The",
+      "start": 29.66,
+      "end": 29.843,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "release",
+      "start": 29.843,
+      "end": 30.21,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "publishes",
+      "start": 30.21,
+      "end": 30.76,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "no",
+      "start": 30.76,
+      "end": 30.943,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "measure",
+      "start": 30.943,
+      "end": 31.31,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "of",
+      "start": 31.31,
+      "end": 31.493,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "accuracy",
+      "start": 31.493,
+      "end": 32.227,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "or",
+      "start": 32.227,
+      "end": 32.41,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "patient",
+      "start": 32.41,
+      "end": 32.777,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "care.",
+      "start": 32.777,
+      "end": 32.96,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "A",
+      "start": 33.56,
+      "end": 33.783,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "citation",
+      "start": 33.783,
+      "end": 34.452,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "shows",
+      "start": 34.452,
+      "end": 34.675,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "where",
+      "start": 34.675,
+      "end": 34.898,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "an",
+      "start": 34.898,
+      "end": 35.122,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "answer",
+      "start": 35.122,
+      "end": 35.568,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "says",
+      "start": 35.568,
+      "end": 35.791,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "it",
+      "start": 35.791,
+      "end": 36.014,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "came",
+      "start": 36.014,
+      "end": 36.237,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "from.",
+      "start": 36.237,
+      "end": 36.46,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "It",
+      "start": 37.02,
+      "end": 37.208,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "doesn't",
+      "start": 37.208,
+      "end": 37.395,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "show",
+      "start": 37.395,
+      "end": 37.583,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "the",
+      "start": 37.583,
+      "end": 37.77,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "answer",
+      "start": 37.77,
+      "end": 38.145,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "is",
+      "start": 38.145,
+      "end": 38.333,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "right.",
+      "start": 38.333,
+      "end": 38.52,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    },
+    {
+      "word": "UTMB",
+      "start": 39.12,
+      "end": 39.335,
+      "anchored": true,
+      "anchored_start": true,
+      "anchored_end": false
+    },
+    {
+      "word": "says",
+      "start": 39.335,
+      "end": 39.551,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "it",
+      "start": 39.551,
+      "end": 39.766,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "will",
+      "start": 39.766,
+      "end": 39.981,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "keep",
+      "start": 39.981,
+      "end": 40.196,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "evaluating",
+      "start": 40.196,
+      "end": 41.058,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "use",
+      "start": 41.058,
+      "end": 41.273,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "and",
+      "start": 41.273,
+      "end": 41.488,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "clinician",
+      "start": 41.488,
+      "end": 42.134,
+      "anchored": false,
+      "anchored_start": false,
+      "anchored_end": false
+    },
+    {
+      "word": "experience.",
+      "start": 42.134,
+      "end": 42.78,
+      "anchored": true,
+      "anchored_start": false,
+      "anchored_end": true
+    }
+  ],
+  "provenance": {
+    "voice_sha256": "4e5e4c3140c9fc961fe3b205386a0fe6750fb457d5e999eb7f5bf94d9cf47d00",
+    "model_sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d",
+    "engine": "whisper.cpp",
+    "version": "1.9.2",
+    "dtw": "small.en",
+    "flash_attention": false,
+    "analysis_duration_s": 43.67,
+    "asr_sha256": "42f44481b6c4812ad1a78e3230b76de37ebedeef3d12b039afc313f1357f8435",
+    "command": [
+      "whisper-cli",
+      "-m",
+      "/root/.cache/texas-ai-dispatch/ggml-small.en.bin",
+      "-f",
+      "out/dispatch/align_try_0.65/alignment-16k.wav",
+      "-l",
+      "en",
+      "-ojf",
+      "-of",
+      "out/dispatch/align_try_0.65/acoustic-asr",
+      "-dtw",
+      "small.en",
+      "-nfa",
+      "-ml",
+      "1",
+      "-sow",
+      "-t",
+      "4",
+      "-np"
+    ],
+    "mix_sha256": "b6f6e86509b42e41e268eb0022584a3ac6d94bc6976a5f8667465b3793832e05",
+    "script_sha256": "0ce3a65e241bcf7ed0354be7739a487acd31b41b2f19c62bfffe23b6ee1e9586",
+    "aliases": [
+      {
+        "kind": "proper-name-join",
+        "heard": "open evidence",
+        "script": "OpenEvidence",
+        "occurrence": 1,
+        "reason": "The retained UTMB release names the tool OpenEvidence. Actual ASR hears the same product name as two words, open evidence, inside one measured speech run. Spelling evidence only, no timing edit.",
+        "source": "out/dispatch/sources/utmb.validator.txt",
+        "source_sha256": "64eaaece91eb4cb6929e3b39b308fa6ac00280682330f6154e6dbebe666f66ba",
+        "source_quote": "Today, more than half of UTMB clinicians actively use OpenEvidence for clinical decision support.",
+        "source_quote_sha256": "2449dc69448994c3bce2b2bab1fef0b4c2dff79bc3570a48928fd5830a286e69",
+        "source_claim_ids": [
+          "c5"
+        ]
+      }
+    ]
+  }
+}

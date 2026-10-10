@@ -1,0 +1,95 @@
+{
+  "schema": "dispatch_vo_silence_edit/1",
+  "source": "out/dispatch/takes/take1.wav",
+  "source_sha256": "66d6cfa219b0aa8f35e166f431f90d509d296ec709e811cc09e1d2dcb91075bb",
+  "output": "out/dispatch/takes/take1_compact.wav",
+  "output_sha256": "20a0dc1880e85d70bc6829f2d9637ba27675cdd467b160bb1ad95c6bc51326bb",
+  "threshold_dbfs": -38.0,
+  "min_silence_s": 0.48,
+  "max_retained_internal_silence_s": 0.3,
+  "retained_edge_silence_s": 0.12,
+  "time_stretch": 1.0,
+  "edit": "silence-only cuts from one continuous take",
+  "removed_intervals": [
+    {
+      "from_s": 2.74,
+      "to_s": 2.96,
+      "removed_s": 0.22,
+      "peak_dbfs": -54.6
+    },
+    {
+      "from_s": 5.09,
+      "to_s": 5.62,
+      "removed_s": 0.53,
+      "peak_dbfs": -66.79
+    },
+    {
+      "from_s": 11.93,
+      "to_s": 12.67,
+      "removed_s": 0.74,
+      "peak_dbfs": -36.14
+    },
+    {
+      "from_s": 16.99,
+      "to_s": 17.64,
+      "removed_s": 0.65,
+      "peak_dbfs": -62.7
+    },
+    {
+      "from_s": 19.61,
+      "to_s": 19.99,
+      "removed_s": 0.38,
+      "peak_dbfs": -66.23
+    },
+    {
+      "from_s": 22.5,
+      "to_s": 23.2,
+      "removed_s": 0.7,
+      "peak_dbfs": -67.39
+    },
+    {
+      "from_s": 27.93,
+      "to_s": 28.56,
+      "removed_s": 0.63,
+      "peak_dbfs": -69.48
+    },
+    {
+      "from_s": 30.7,
+      "to_s": 31.11,
+      "removed_s": 0.41,
+      "peak_dbfs": -66.23
+    },
+    {
+      "from_s": 34.66,
+      "to_s": 35.52,
+      "removed_s": 0.86,
+      "peak_dbfs": -66.79
+    },
+    {
+      "from_s": 38.63,
+      "to_s": 39.2,
+      "removed_s": 0.57,
+      "peak_dbfs": -44.55
+    },
+    {
+      "from_s": 40.95,
+      "to_s": 41.76,
+      "removed_s": 0.81,
+      "peak_dbfs": -66.23
+    },
+    {
+      "from_s": 45.65,
+      "to_s": 46.04,
+      "removed_s": 0.39,
+      "peak_dbfs": -65.2
+    }
+  ],
+  "removed_total_s": 6.89,
+  "measurements": {
+    "duration_s": 39.15,
+    "lufs": -19.76,
+    "pitch_variance_semitones": 6.592,
+    "speech_runs": 14,
+    "sample_rate": 48000
+  }
+}
