@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T15:39:06.049515+00:00",
+  "saved_at": "2026-10-10T15:50:44.326544+00:00",
   "note": "ledger write",
-  "phase": "active_repair",
+  "phase": "opening_compare",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
@@ -16,8 +16,8 @@
     "sha256": "62605579ceb56d783b95bd0385d507352124a3e750ebaef172852ce2137373c5"
   },
   "deleted_source": [],
-  "ledger_sha256": "f59c5493b6fd07f7586d105b78a13d7663349eabf4c799d08c5429edf461bd6c",
-  "original_private_ledger_sha256": "09a207cc0d0e500da2dd8fbdfb4082d9116083b51941475f410637b4d409a386",
+  "ledger_sha256": "f5b1fa7761b8fdb35cea1e533f0e1cb43ad974a1bd9158c1f2770cd21cd002f7",
+  "original_private_ledger_sha256": "a389ea5251314a43360815e49934ff494b7ea6c1751b3f3a62d97eb101bd0ceb",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -145,6 +145,12 @@
       "size": 5931
     },
     {
+      "path": "out/dispatch/builder-r5-handoff.md",
+      "class": "scratch",
+      "sha256": "ddbe168455a3aabac2efabb9a3c86b58b1034f1ad9be28565102279e0fe7753b",
+      "size": 4464
+    },
+    {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
       "sha256": "547ba7efa10fdcd2a27768d8ca1f26b03572b2823f00521cd198085d97663276",
@@ -193,10 +199,22 @@
       "size": 50147
     },
     {
+      "path": "out/dispatch/critic-6-code-scope.json",
+      "class": "scratch",
+      "sha256": "cc4c3957dae0b98b925c300d8e2021b86eb0e3a212cdd5b7ec97aca033c0a4df",
+      "size": 1562
+    },
+    {
       "path": "out/dispatch/critic-assignment-r4.json",
       "class": "scratch",
       "sha256": "79b204ee34db44e9b6f59ea0a24029549538f97be8ea23330b3eff73ade43c1c",
       "size": 1862
+    },
+    {
+      "path": "out/dispatch/critic-assignment-r5.json",
+      "class": "scratch",
+      "sha256": "c4b6fb1f347cb8b8ec8184e2b3c37afe5f1ee9021eebe12e3f11bc5f3a2367be",
+      "size": 1987
     },
     {
       "path": "out/dispatch/critic-assignment.json",
@@ -209,6 +227,12 @@
       "class": "scratch",
       "sha256": "6ebacf85ffba7a21db8a7b5c59611a0a3d39f7dd689aaf855123a2ae2610fb88",
       "size": 8643
+    },
+    {
+      "path": "out/dispatch/critic-packet-r5.json",
+      "class": "scratch",
+      "sha256": "6c67b1119f1a6d37bec24d8e76e76e46bba5410efd0fbf7c6ec7945f8ebab72b",
+      "size": 8571
     },
     {
       "path": "out/dispatch/critic-packet.json",
@@ -267,7 +291,7 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "644c4583445f39c3e80dd99c88ad12990f6e3723c1eff69c31e603dd17401da1",
+      "sha256": "f6f9cc92c157379ec67ed642812327b748642e62557ab09de54cd445809aaec8",
       "size": 308
     },
     {
