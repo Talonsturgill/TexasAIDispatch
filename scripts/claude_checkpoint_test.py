@@ -166,6 +166,20 @@ class RoundTrip(Base):
             ck.restore(fresh, RUN, dest=self.root / "nope")
 
 
+class Selection(unittest.TestCase):
+    def test_oldest_unfinished_is_chosen_by_identity_not_by_save_order(self):
+        rows = [  # discover() order: newest save first
+            {"run_id": "2026-10-11", "created_at": "2026-10-11T03:00:00+00:00", "finished": False},
+            {"run_id": "2026-10-09-claude-pilot", "created_at": "2026-10-10T01:00:00+00:00", "finished": False},
+            {"run_id": "2026-10-08", "created_at": "2026-10-08T07:00:00+00:00", "finished": True},
+            {"run_id": "2026-10-09", "created_at": "2026-10-09T07:00:00+00:00", "finished": False}]
+        self.assertEqual("2026-10-09", ck.oldest_unfinished(rows)["run_id"])
+        self.assertIsNone(ck.oldest_unfinished([rows[2]]))
+        same_day = [dict(rows[1], run_id="2026-10-09-b", created_at="2026-10-10T05:00:00+00:00"),
+                    dict(rows[1], run_id="2026-10-09-a", created_at="2026-10-10T02:00:00+00:00")]
+        self.assertEqual("2026-10-09-a", ck.oldest_unfinished(same_day)["run_id"])
+
+
 class Monotonic(Base):
     def setUp(self):
         super().setUp()

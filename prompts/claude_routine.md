@@ -63,7 +63,9 @@ in this lane and no fabricated image-generation charge.
 
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
 edition. A cloud container is reclaimed, so `pending` alone sees only worktrees that still exist.
-Also run `python scripts/claude_checkpoint.py discover`. Any unfinished edition it lists is restored
+Also run `python scripts/claude_checkpoint.py discover`. Select the OLDEST unfinished edition by its run identity and creation time
+(`claude_checkpoint.py discover --oldest-unfinished`, never the first row of the newest-save-first list)
+and resume its existing ledger. It is restored
 with `python scripts/claude_checkpoint.py restore --run-id <id> --dest <new empty directory>`. That
 creates an isolated checkout of the recorded source commit (the complete committed renderer, art and
 public closure), overlays the verified scratch outputs and uncommitted source, and rebuilds the same
@@ -71,6 +73,17 @@ ledger, frozen envelope, charges, failed reviews and paid outputs with its paths
 touches another checkout or an existing ledger, has no force option, and refuses a finished edition.
 Run `cloud_bootstrap.py --install` there for node_modules, then resume. Never initialise a second
 ledger for an edition that has a checkpoint.
+
+Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
+the cloud host's UTC date does not select an Eastern edition. A terminal shipped run is immutable.
+The first owner-authorized migration test uses a
+fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
+own branch, scratch, permanent media, feed identity, draft and archive. The board's calendar date
+is still today. Run this migration pilot only if no prior Claude pilot has accepted `shipped`
+status and a verified durable archive in `runs/`. Resume an unfinished pilot instead of creating
+another. After that one pilot is archived, every scheduled invocation uses normal daily production.
+Normal scheduled production uses today's date. If today's scheduled film is
+already shipped, verify that shipment and do not manufacture another ordinary edition.
 
 ## Durable checkpoints and effective effort
 

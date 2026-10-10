@@ -44,7 +44,13 @@ def problems(repo=REPO, environ=None):
         authority = (repo / 'prompts/claude_routine.md').read_text()
         for required in ('prompts/dispatch_routine.md', 'finish --result shipped',
                          'Never send email or post socially', 'native_headroom.py',
-                         'canonical phone playback', 'unsent Gmail draft'):
+                         'canonical phone playback', 'unsent Gmail draft',
+                         "Derive today's calendar date in the schedule timezone",
+                         "the cloud host's UTC date does not select an Eastern edition",
+                         'A terminal shipped run is immutable', '<today>-claude-pilot',
+                         'Resume an unfinished pilot instead of creating',
+                         'verify that shipment and do not manufacture another ordinary edition',
+                         'OLDEST unfinished edition'):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
         env = os.environ if environ is None else environ
@@ -131,6 +137,16 @@ class ContractTests(unittest.TestCase):
         data = json.loads(p.read_text()); data['effortLevel'] = 'max'
         p.write_text(json.dumps(data))
         self.assertTrue(problems(self.repo, {}))
+
+    def test_edition_selection_contract_cannot_disappear(self):
+        p = self.repo / 'prompts/claude_routine.md'
+        text = p.read_text()
+        self.assertEqual([], problems(self.repo, {}))
+        for phrase in ("verify that shipment and do not manufacture another ordinary edition",
+                       'Resume an unfinished pilot instead of creating', 'OLDEST unfinished edition'):
+            p.write_text(text.replace(phrase, 'x'))
+            self.assertTrue(any('lacks required authority' in e for e in problems(self.repo, {})), phrase)
+        p.write_text(text)
 
     def test_missing_leaf(self):
         (self.repo / '.claude/agents/scene-builder.md').unlink()

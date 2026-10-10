@@ -299,7 +299,7 @@ def build_bundle(repo, state_path, note, environ=None):
     ledger_obj = json.loads(ledger)
     manifest = {"schema": SCHEMA, "run_id": run_id, "saved_at": now(), "note": note, "phase": state.get("phase"),
                 "terminal_state": state.get("terminal_state"), "shipment_recorded": bool(state.get("shipment")),
-                "repo_root": str(repo), "source_pin": pin, "source_branch": branch or None,
+                "created_at": state.get("created_at"), "repo_root": str(repo), "source_pin": pin, "source_branch": branch or None,
                 "source_closure": {"root": "video-engine", "files": closure.count(b"\n"), "sha256": sha256(closure)},
                 "deleted_source": deleted, "ledger_sha256": sha256(ledger.encode()),
                 "original_private_ledger_sha256": ledger_obj["public_export"]["original_private_state_sha256"],
@@ -494,9 +494,17 @@ def discover(repo=REPO, remote="origin"):
         manifest = json.loads(show(repo, commit, f"{ROOT}/{run_id}/manifest.json"))
         done = manifest.get("terminal_state") == "shipped" and manifest.get("shipment_recorded")
         found.append({"run_id": run_id, "commit": commit, "saved_at": manifest["saved_at"], "phase": manifest["phase"],
+                      "created_at": manifest.get("created_at"),
                       "source_pin": manifest.get("source_pin"), "files": len(manifest["files"]),
                       "finished": bool(done), "usage": manifest.get("usage")})
     return sorted(found, key=lambda row: row["saved_at"], reverse=True)
+
+
+def oldest_unfinished(found):
+    """The edition to resume first: oldest by run identity, then ledger creation time. Never found[0],
+    which discover orders newest save first."""
+    open_rows = [row for row in found if not row["finished"]]
+    return min(open_rows, key=lambda row: (row["run_id"][:10], row.get("created_at") or "", row["run_id"]), default=None)
 
 
 def restore(repo=REPO, run_id=None, remote="origin", dest=None):
@@ -555,6 +563,7 @@ def main(argv=None):
     p.add_argument("--remote", default="origin")
     p = sub.add_parser("recover"); p.add_argument("--state", type=Path); p.add_argument("--remote", default="origin")
     p = sub.add_parser("discover"); p.add_argument("--remote", default="origin")
+    p.add_argument("--oldest-unfinished", action="store_true", help="print only the edition to resume first")
     p = sub.add_parser("restore"); p.add_argument("--run-id", required=True); p.add_argument("--remote", default="origin")
     p.add_argument("--dest", type=Path)
     p = sub.add_parser("guard", help="make state durable, run one paid command, make its outputs durable")
@@ -571,6 +580,8 @@ def main(argv=None):
             flag_path(state).unlink(missing_ok=True)
         elif args.action == "discover":
             result = discover(repo, args.remote)
+            if args.oldest_unfinished:
+                result = oldest_unfinished(result)
         elif args.action == "restore":
             result = restore(repo, args.run_id, args.remote, args.dest)
         else:
