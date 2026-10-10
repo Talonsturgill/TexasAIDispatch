@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T17:03:47.490059+00:00",
+  "saved_at": "2026-10-10T17:07:56.114204+00:00",
   "note": "ledger write",
   "phase": "opening_compare",
   "terminal_state": null,
@@ -16,15 +16,15 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "64d44e038953712563cc84d6130cc3eaf3f91cf3f0829e55e3bd6883de80b729",
-  "original_private_ledger_sha256": "b766fd875df3c157f6e8b1158d900dac2038a509710cbc5c0eac61fec2627027",
+  "ledger_sha256": "c817a652a5c5aec4a440ae849a40e98b2c5ae2d574fc251bdb8c1602b913d32c",
+  "original_private_ledger_sha256": "db033da29d92fc3566e3e3ae79a37c33e10fe545cf03b49fa59b1002c48b89f6",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 4,
+    "preflight_renders": 5,
     "reboards": 7,
     "reported_tokens": 0,
     "rescue_renders": 0,
@@ -123,14 +123,26 @@
     {
       "path": "out/dispatch/budget-audit/completion-capacity-attempt-2.txt",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/budget-audit/critic_gate_live_recheck.json",
+      "class": "scratch",
+      "sha256": "2f569b56073b3bc039f331c0030a8ea36afb397e85351bf5d96e1af62d430642",
+      "size": 22
     },
     {
       "path": "out/dispatch/budget-audit/precheck-code-plan.json",
       "class": "scratch",
       "sha256": "428f3319d691631d894b5d34033d9b63496c048149533b860e9ad0c5a5e5c37f",
       "size": 1499
+    },
+    {
+      "path": "out/dispatch/budget-audit/precheck-finish-current-after.json",
+      "class": "scratch",
+      "sha256": "80e72e68c5cda0d5d8b07dfcf4d2bdf654aed4a5b98115dae1958a32b6edeb1c",
+      "size": 1458
     },
     {
       "path": "out/dispatch/budget-audit/precheck-finish-current.json",
@@ -357,7 +369,7 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "f6f9cc92c157379ec67ed642812327b748642e62557ab09de54cd445809aaec8",
+      "sha256": "66c368779afcccda15f75ac707e6ffa3ece54316a7b10ee28809b68ebc1bff62",
       "size": 308
     },
     {
@@ -389,66 +401,6 @@
       "class": "scratch",
       "sha256": "2cefce550351268d3695869eec429ea5e6df66d98a81ad6b3589a04e0b58bc82",
       "size": 2500
-    },
-    {
-      "path": "out/dispatch/openings/a-inspection-df65fe15fff0eb39.json",
-      "class": "scratch",
-      "sha256": "95942c229c62670cb486cc942d2403608ffc200a3215ad3fb4eeb615e722dfd7",
-      "size": 1895
-    },
-    {
-      "path": "out/dispatch/openings/a.json",
-      "class": "scratch",
-      "sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
-      "size": 155437
-    },
-    {
-      "path": "out/dispatch/openings/a.mp4",
-      "class": "scratch",
-      "sha256": "1820248a13e503fcd5b84d30d2637172e1ea2e3c558693f6f5aa2c37d2a98d8a",
-      "size": 236849
-    },
-    {
-      "path": "out/dispatch/openings/b-inspection-ccca511b1040bc6c.json",
-      "class": "scratch",
-      "sha256": "9714e9939b2238020dfaab2def4a24f307edb7a376103b9edac2d173aaef4c0b",
-      "size": 1894
-    },
-    {
-      "path": "out/dispatch/openings/b.json",
-      "class": "scratch",
-      "sha256": "5289e74d0cd6b22669bb799989b0cf179414218eabeb981bad73c5b288820cef",
-      "size": 155566
-    },
-    {
-      "path": "out/dispatch/openings/b.mp4",
-      "class": "scratch",
-      "sha256": "f3251ed7d557c9ff8cfafb35db39eb1c726d450abc0b33f5c43df50a2de664ed",
-      "size": 270793
-    },
-    {
-      "path": "out/dispatch/openings/batch-report.json",
-      "class": "scratch",
-      "sha256": "73c07b57b915172fbb3ee67d92071a23ec822b2586d72e2f52cbbca6a49d9a1e",
-      "size": 131
-    },
-    {
-      "path": "out/dispatch/openings/batch.json",
-      "class": "scratch",
-      "sha256": "40a65fe7816939c8d4615275f0290d649e8a0b2f1d6cae2365c5cb20afd99a0d",
-      "size": 513
-    },
-    {
-      "path": "out/dispatch/openings/comparison-before-inspection-820dda8f06bab9aa.json",
-      "class": "scratch",
-      "sha256": "820dda8f06bab9aa35da7407e5d16f5015bdc882e0a317295970db4da98c3ad7",
-      "size": 1475
-    },
-    {
-      "path": "out/dispatch/openings/comparison.json",
-      "class": "scratch",
-      "sha256": "ee2fa12f5c1452c8ba8413b78acace1012a4d40eda71049ea8096b8d2b0c77cc",
-      "size": 1871
     },
     {
       "path": "out/dispatch/phone-packet.json",
@@ -2159,6 +2111,66 @@
       "class": "scratch",
       "sha256": "e617b13a6df5c2ad3a0a57dd61bebc8d2328f85b88875e15342457dd6443f2eb",
       "size": 309947
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/a-inspection-df65fe15fff0eb39.json",
+      "class": "scratch",
+      "sha256": "95942c229c62670cb486cc942d2403608ffc200a3215ad3fb4eeb615e722dfd7",
+      "size": 1895
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/a.json",
+      "class": "scratch",
+      "sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
+      "size": 155437
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/a.mp4",
+      "class": "scratch",
+      "sha256": "1820248a13e503fcd5b84d30d2637172e1ea2e3c558693f6f5aa2c37d2a98d8a",
+      "size": 236849
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/b-inspection-ccca511b1040bc6c.json",
+      "class": "scratch",
+      "sha256": "9714e9939b2238020dfaab2def4a24f307edb7a376103b9edac2d173aaef4c0b",
+      "size": 1894
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/b.json",
+      "class": "scratch",
+      "sha256": "5289e74d0cd6b22669bb799989b0cf179414218eabeb981bad73c5b288820cef",
+      "size": 155566
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/b.mp4",
+      "class": "scratch",
+      "sha256": "f3251ed7d557c9ff8cfafb35db39eb1c726d450abc0b33f5c43df50a2de664ed",
+      "size": 270793
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/batch-report.json",
+      "class": "scratch",
+      "sha256": "73c07b57b915172fbb3ee67d92071a23ec822b2586d72e2f52cbbca6a49d9a1e",
+      "size": 131
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/batch.json",
+      "class": "scratch",
+      "sha256": "40a65fe7816939c8d4615275f0290d649e8a0b2f1d6cae2365c5cb20afd99a0d",
+      "size": 513
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/comparison-before-inspection-820dda8f06bab9aa.json",
+      "class": "scratch",
+      "sha256": "820dda8f06bab9aa35da7407e5d16f5015bdc882e0a317295970db4da98c3ad7",
+      "size": 1475
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair5/comparison.json",
+      "class": "scratch",
+      "sha256": "ee2fa12f5c1452c8ba8413b78acace1012a4d40eda71049ea8096b8d2b0c77cc",
+      "size": 1871
     },
     {
       "path": "out/dispatch/retained-failures/phone-critic-1/a-contact.png",
