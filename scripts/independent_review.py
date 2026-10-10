@@ -310,13 +310,18 @@ def packet(board_path, claims_path, role, film):
         source_rows.setdefault(source, []).append(row)
     from render_manifest import native_media_paths
     media = native_media_paths(board)
+    # Authored boards bind source modules; they stay file bindings and are never picture media.
+    files.extend(m for m in media if m.suffix in ('.ts', '.tsx'))
+    media = [m for m in media if m.suffix not in ('.ts', '.tsx')]
     previous = sorted(p.with_name('storyboard.json') for p in (REPO / 'runs').glob('????-??-??/dispatch.mp4')
                       if p.parent.name < str(board.get('date', '')))
     prior_context = {}
     if previous:
         files.append(previous[-1])
         prior = json.loads(previous[-1].read_text())
-        media += native_media_paths(prior)
+        prior_paths = native_media_paths(prior)
+        files.extend(m for m in prior_paths if m.suffix in ('.ts', '.tsx'))
+        media += [m for m in prior_paths if m.suffix not in ('.ts', '.tsx')]
         if packet_cfg and packet_cfg['prior_media_inventory']:
             prior_context[previous[-1]] = prior_media_inventory(previous[-1])
             bindings['prior_board_sha256'] = digest(previous[-1])
