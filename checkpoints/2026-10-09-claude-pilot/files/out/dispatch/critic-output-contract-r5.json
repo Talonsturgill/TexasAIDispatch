@@ -1,0 +1,46 @@
+{
+ "schema": "dispatch_code_critic_output_contract/1",
+ "purpose": "Existing gates (scripts/critic_gate.py problems, scripts/daily_production.py review_problems, scripts/opening_compare.py) read these exact fields from the reviewer's JSON. Return ONE JSON object per treatment (opening-a-critic and opening-b-critic) that carries your independent judgment in these fields and echoes the bindings below. The bindings are computed by the existing repository code from the current boards because a Read-only reviewer can't hash. They bind your review to the current bytes and approve nothing. A fail verdict is returned as a real fail.",
+ "required_fields": {
+  "treatment": "a or b",
+  "reviewer_identity": "your identity string, distinct from the director claude-sonnet-5-5",
+  "reviewed_at": "UTC ISO time; if you have no clock write the harness-visible time from the packet or say unknown",
+  "verdict": "pass or revise, your own judgment",
+  "weakest_frame": "time range and what is weakest",
+  "story_review": {
+   "verdict": "pass or revise",
+   "blocking_defects": "[] only if none, else list",
+   "one_viewing_summary": ">=30 chars",
+   "opening_to_ending": ">=30 chars",
+   "weakest_transition": ">=30 chars",
+   "story_sha256": "echo binding",
+   "policy_sha256": "echo binding",
+   "claims_sha256": "echo binding"
+  },
+  "action_reviews": "[] unless the board declares action proposals",
+  "per_defect": "object mapping each earlier finding id to resolved or unresolved",
+  "risks_for_the_phone_critic": "list",
+  "stronger_treatment": "a or b with reason",
+  "concept_sha256": "echo binding",
+  "renderer_sha256": "echo binding"
+ },
+ "shape_example_from_prior_valid_review": "out/dispatch/retained-failures/critic-5-opening-reviews/opening-a-critic.json (shape only; do not copy its verdicts or text)",
+ "bindings": {
+  "a": {
+   "concept_sha256": "495b29f02b158f5c36ad9486d5072ce4e918dd5f882b9a3002292d06f965822f",
+   "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+   "story_sha256": "7c1459d11a90edb7b0b5d1c2408ad9ec4856f199794fe1c403be625ab373bfd5",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/opening-a.json"
+  },
+  "b": {
+   "concept_sha256": "ee46033c006011becf256bd23f532e9412141a3b7e91d41b384fed40edd668bd",
+   "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+   "story_sha256": "cbd41820e54d2766691181b260ed15a1729e59d8e02ae33d01896778e16e4cd0",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/opening-b.json"
+  }
+ }
+}
