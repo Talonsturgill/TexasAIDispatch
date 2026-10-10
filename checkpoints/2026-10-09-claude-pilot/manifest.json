@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T18:54:16.880775+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-10T18:55:50.074843+00:00",
+  "note": "music bed prepared (thinking_music), foley built, storyboard_critic.json bound, vo director dispatched",
   "phase": "voice",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -36,6 +36,12 @@
     "voice_directors": 1
   },
   "files": [
+    {
+      "path": "config/music/tracks.json",
+      "class": "source",
+      "sha256": "b2dc29f0234fbab3621f41f3bff9a14a4299bc9ffb575546a5cfa53f566f09e9",
+      "size": 20414
+    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -455,6 +461,30 @@
       "class": "scratch",
       "sha256": "d4d9739ec35669317eccc78e2708b75b17e456bbf8d7b0246b7b8b1be4334012",
       "size": 12634
+    },
+    {
+      "path": "out/dispatch/music_bed.json",
+      "class": "scratch",
+      "sha256": "3256c3d2cd34ded9af7e609ac4c19cdd9b3d4b8101a285671c9fd6c332b62bbf",
+      "size": 695
+    },
+    {
+      "path": "out/dispatch/music_bed.wav",
+      "class": "scratch",
+      "sha256": "18a2af1e753896f07e16ba206e15d395b520a89540edcee1d9286250c0eb2346",
+      "size": 18805734
+    },
+    {
+      "path": "out/dispatch/music_brief.json",
+      "class": "scratch",
+      "sha256": "b3a8ad4caf91fca0a1279e3d0fdcfd3e036273877b90caaada863684ac3d3e79",
+      "size": 498
+    },
+    {
+      "path": "out/dispatch/music_credit.txt",
+      "class": "scratch",
+      "sha256": "2b2bd8cc9d6535c079f8825d4d418d3884fabeabb1c4f5e4cd3d27f39b292eb3",
+      "size": 164
     },
     {
       "path": "out/dispatch/native-headroom.json",
@@ -2481,13 +2511,13 @@
     {
       "path": "out/dispatch/retained-failures/phone-critic-r5-supervision.md",
       "class": "scratch",
-      "sha256": "202c0a9262c65ffd3406944945bae7183e1f5710b984ac7ae7ded9f2bdbfe6c2",
-      "size": 419
+      "sha256": "f8ac92c1e9e0a2dea331dc4c3524abff75a02b5f1cfdd0203606810fe5af4df6",
+      "size": 615
     },
     {
       "path": "out/dispatch/retained-failures/phone-critic-r5-usage.json",
       "class": "scratch",
-      "sha256": "ac4a64f35090cd0f87d4f824238e4a857f4cfda59484de79e6fafbfe481ce9de",
+      "sha256": "25bf47d9a8c2af71feedf3e4bd0d39e5258f787da59286c1eb1eacdb4ff61b1f",
       "size": 842
     },
     {
@@ -2731,6 +2761,12 @@
       "size": 35988
     },
     {
+      "path": "out/dispatch/retained-failures/storyboard_critic.pre-repair5.json",
+      "class": "scratch",
+      "sha256": "92fd3fe71d857a0c4f57c5a6a69f438460ab513f8eb6f64d14cfe33f3d0ab439",
+      "size": 30702
+    },
+    {
       "path": "out/dispatch/retained-failures/unverified-v3-draft/autonomous_completion_v3.unverified.json",
       "class": "scratch",
       "sha256": "8a3f3426cba84ea3d82fda285714f0beb3f5bbd5617b6abcdbaa3703aafcf7e9",
@@ -2775,8 +2811,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "92fd3fe71d857a0c4f57c5a6a69f438460ab513f8eb6f64d14cfe33f3d0ab439",
-      "size": 30702
+      "sha256": "5f6e51743813cbe5d263c3a5a81286b695efe3516686b4a58fd90039fecc1d5a",
+      "size": 15089
     },
     {
       "path": "out/dispatch/storyboard_critic.raw.txt",
