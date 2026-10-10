@@ -1,0 +1,212 @@
+{
+ "schema": "dispatch_phone_critic_output_contract/1",
+ "purpose": "Final measured-clock timed phone review of the exact preflight animatic of the selected treatment A (storyboard.json with measured caption-boundary timing). Return ONE JSON object with the single key 'phone_report'. No selection. Fill every judgment from the pictures. Echo the bindings exactly (a Read-only reviewer can't hash). Pass or revise honestly with concrete defects.",
+ "bindings": {
+  "film_sha256": "e8e786dc58f767d601230c421738b22ea0c5ee026ffad89313540676d8a2d487",
+  "board_sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "runtime_s": 44.0,
+  "structural_report": "out/dispatch/preflight.json (pass true, problems [])"
+ },
+ "phone_report": {
+  "review_scope": "exact-muted-phone-preflight",
+  "reviewed_preflight_sha256": "the film_sha256 binding",
+  "film_sha256": "the film_sha256 binding",
+  "reviewer_identity": "same as selection",
+  "reviewed_at": "UTC ISO or unknown",
+  "verdict": "pass or revise",
+  "quality_contract_sha256": "echo binding",
+  "blocking_defects": "[] if none else list of {id, category, scene_id, time_s, defect}",
+  "phone_observations": {
+   "subject_recognition": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number > start_s",
+    "observed": ">=30 chars of what the pictures actually show"
+   },
+   "contact_and_consequence": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number > start_s",
+    "observed": ">=30 chars of what the pictures actually show"
+   },
+   "dominant_action": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number > start_s",
+    "observed": ">=30 chars of what the pictures actually show"
+   },
+   "surface_finish": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number > start_s",
+    "observed": ">=30 chars of what the pictures actually show"
+   },
+   "continuity": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number > start_s",
+    "observed": ">=30 chars of what the pictures actually show"
+   },
+   "closing_payoff": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number > start_s",
+    "observed": ">=30 chars of what the pictures actually show"
+   }
+  },
+  "modern_observations": {
+   "film_sha256": "film_sha256 binding",
+   "first_frame": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   },
+   "visual_progression": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   },
+   "shot_variety": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   },
+   "performed_turn": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   },
+   "pace": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   },
+   "closing_answer": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   },
+   "finished_art": {
+    "pass": "true or false",
+    "start_s": "number",
+    "end_s": "number <= runtime",
+    "observed": "prose from the pictures"
+   }
+  },
+  "narration_picture_observations": {
+   "film_sha256": "film_sha256 binding",
+   "clauses": [
+    {
+     "id": "n1a",
+     "start_s": 0.28,
+     "end_s": 2.64,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n1b",
+     "start_s": 3.1,
+     "end_s": 4.96,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n2a",
+     "start_s": 5.58,
+     "end_s": 9.94,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n2b",
+     "start_s": 10.06,
+     "end_s": 11.62,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n3a",
+     "start_s": 12.24,
+     "end_s": 14.72,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n3b",
+     "start_s": 15.0,
+     "end_s": 16.3,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n4a",
+     "start_s": 16.92,
+     "end_s": 18.6,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n4b",
+     "start_s": 19.24,
+     "end_s": 21.46,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n5",
+     "start_s": 22.1,
+     "end_s": 26.56,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n6a",
+     "start_s": 27.16,
+     "end_s": 29.04,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n6b",
+     "start_s": 29.66,
+     "end_s": 32.96,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n7a",
+     "start_s": 33.56,
+     "end_s": 36.46,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n7b",
+     "start_s": 37.02,
+     "end_s": 38.52,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    },
+    {
+     "id": "n8",
+     "start_s": 39.12,
+     "end_s": 42.78,
+     "pass_": "true or false",
+     "observed": "what the picture does while the words are heard"
+    }
+   ],
+   "note": "measured clause windows from the board; keep ids, order, start_s and end_s exactly; use the key 'pass' (not 'pass_') per clause"
+  },
+  "weakest_frame": "time range and why",
+  "limits": "what stills can't show, such as motion and sound"
+ },
+ "evidence": "out/dispatch/phone-review-timed/ holds sheet-0..3.png (11 one-second frames each at 270x480, covering 0-11, 11-22, 22-33, 33-44 s, left to right then top to bottom), native-41.png and native-42.9.png (full size stills), hook-strip.png (0 to 3 s at 4 fps, 12 frames) and close-strip.png (40.5 to 42.5 s at 6 fps, 12 frames). The film also has 5 s of credits after 44 s that are not in these frames. This is the board's measured clock, so n1a to n8 windows are measured. Motion between frames and sound are not visible, say so in limits. Focus risks: hook completes by 1.5 s, typing flicker in s3 detail 15.0-15.8 s, s7 pulse 37.2-38.4 s, s8 glow before cut at 41.2-41.5 s, c9 caption against tags 22-26.5 s."
+}
