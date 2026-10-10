@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T04:50:43.059351+00:00",
-  "note": "manual",
+  "saved_at": "2026-10-10T07:10:21.563537+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
-  "repo_root": "/home/user/TexasAIDispatch",
+  "repo_root": "/home/user/restore/pilot",
   "source_pin": "442dce21e226f626ce0437c21af18f4fb5b9879b",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "62605579ceb56d783b95bd0385d507352124a3e750ebaef172852ce2137373c5"
   },
   "deleted_source": [],
-  "ledger_sha256": "ad01da66694aa62408578cb423a48fea9f2bf31c7f0e3ed49b2efa5dbdf41ec0",
-  "original_private_ledger_sha256": "77379297b3f4dd41c4e3eb37ab45eabc33b59ce89f0fd11dd8959ac0fb3198d4",
+  "ledger_sha256": "0cb10ce27271508a69bdc3e1ae726cff2d366ce49315cfc57c97e43ebfcdc3d1",
+  "original_private_ledger_sha256": "fcb3b3c7d0758d2dddc13bddce02d854f1b78f52488270744b9e6c70751d8e9c",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -25,7 +25,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 4,
-    "reboards": 5,
+    "reboards": 6,
     "reported_tokens": 0,
     "rescue_renders": 0,
     "research_agents": 1,
@@ -165,8 +165,8 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "67d953415202aea35972c6306258b55a0cbc39cbc8abaa1a071f1ab81064e7fa",
-      "size": 72
+      "sha256": "8ef2c78c5c60804b40c6aa4439c42249aea9a351dd0316aa932dd4f5bc7724e8",
+      "size": 141
     },
     {
       "path": "out/dispatch/claude-phases.jsonl",
@@ -2029,16 +2029,7 @@
       "size": 651
     }
   ],
-  "excluded": [
-    {
-      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s3-shot-1-credential-gate.png",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s3-shot-1-credential-gate.png",
-      "reason": "private path component"
-    }
-  ],
+  "excluded": [],
   "regenerable": {
     "files": 0,
     "bytes": 0
