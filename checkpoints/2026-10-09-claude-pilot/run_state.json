@@ -201,6 +201,14 @@
       "note": "independent exact-phone critic: compare both silent openings rendered from the repair 9 bytes and review the chosen cut (same reviewer resumed)",
       "resource": "storyboard_critics",
       "to": 13
+    },
+    {
+      "at": "2026-10-10T19:46:03.610029Z",
+      "ceiling": 12,
+      "from": 6,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 7
     }
   ],
   "events": [
@@ -2345,6 +2353,24 @@
       "at": "2026-10-10T19:45:58.175480Z",
       "kind": "phase",
       "name": "synthesis_r9"
+    },
+    {
+      "at": "2026-10-10T19:46:03.610061Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 7,
+      "resource": "tts_calls",
+      "was": 6
+    },
+    {
+      "at": "2026-10-10T19:46:03.610071Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -2360,7 +2386,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 13,
-    "tts_calls": 6,
+    "tts_calls": 7,
     "validator_agents": 1,
     "voice_directors": 1
   },
@@ -2368,7 +2394,7 @@
   "phase": "synthesis_r9",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9bf6125158f03d081c2e8c37f403fb7b946d221e15232e3c4cb8a6f7de6df05b",
+    "original_private_state_sha256": "d2a1ab350bcbafe9044bf1c8ea7385ead78c259a71e854659817ce774e51e73c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2396,7 +2422,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T19:45:58.175506Z",
+  "updated_at": "2026-10-10T19:46:03.610073Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -2410,7 +2436,7 @@
     "research_agents": 1,
     "scorer_calls": 0,
     "storyboard_critics": 13,
-    "tts_calls": 6,
+    "tts_calls": 7,
     "validator_agents": 1,
     "voice_directors": 1
   }
