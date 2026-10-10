@@ -53,7 +53,10 @@ Run `run_controller.py pending` and resume the oldest unfinished production befo
 edition. A terminal shipped run is immutable. The first owner-authorized migration test uses a
 fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
 own branch, scratch, permanent media, feed identity, draft and archive. The board's calendar date
-is still today. Normal scheduled production uses today's date. If today's scheduled film is
+is still today. Run this migration pilot only if no prior Claude pilot has accepted `shipped`
+status and a verified durable archive in `runs/`. Resume an unfinished pilot instead of creating
+another. After that one pilot is archived, every scheduled invocation uses normal daily production.
+Normal scheduled production uses today's date. If today's scheduled film is
 already shipped, verify that shipment and do not manufacture another ordinary edition.
 
 ## Claude-native worker routing
@@ -149,7 +152,9 @@ Test negative authored inputs and a valid actual render through the existing nar
 Keep engineering telemetry separate from the new production ledger. Commit only intended public
 source and instructions; push, open a ready PR, obtain exact-head required CI and merge, then verify
 matching-main CI. The daily saved prompt remains a thin current-main pointer. Once implementation
-is merged, perform the pilot in this same actual Sonnet cloud run. Do not stop after the engineering
+is merged, perform the still-unfinished pilot in this same actual Sonnet cloud run; if its accepted
+shipment and durable archive already exist, proceed with normal daily production instead.
+Do not stop after the engineering
 PR, a preview, a passing panel or an uploaded file. Complete the original five-phase master through
 verified accepted shipment, the unsent draft and durable archive. Report the film, scores, actual
 usage, delivery state and any retained failed attempts concisely.
