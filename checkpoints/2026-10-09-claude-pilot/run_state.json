@@ -344,6 +344,14 @@
       "note": "final measured-clock timed phone review (critic 17)",
       "resource": "storyboard_critics",
       "to": 17
+    },
+    {
+      "at": "2026-10-10T21:29:02.064283Z",
+      "ceiling": 10,
+      "from": 9,
+      "note": "repair 11 consolidated correction: performed hands, readable subject occupancy, finished hands/tool art, lock, s2 reframing",
+      "resource": "reboards",
+      "to": 10
     }
   ],
   "events": [
@@ -3425,6 +3433,24 @@
       "plan_identity": null,
       "plan_sha256": "fedfb38ea5e16ca490ff7ff8de9d3e92c7f3eca9f80b11bd69999a4d99cf627e",
       "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-10T21:29:02.064502Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "repair 11 consolidated correction: performed hands, readable subject occupancy, finished hands/tool art, lock, s2 reframing",
+      "now": 10,
+      "resource": "reboards",
+      "was": 9
+    },
+    {
+      "at": "2026-10-10T21:29:02.064524Z",
+      "kind": "reserved",
+      "note": "repair 11 consolidated correction: performed hands, readable subject occupancy, finished hands/tool art, lock, s2 reframing",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -3434,7 +3460,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 14,
-    "reboards": 9,
+    "reboards": 10,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -3448,7 +3474,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4d987884e4a6f83934c536432fbbe76891fb23b239a1949f55a17723e7d2de37",
+    "original_private_state_sha256": "6ff4b70aa5bc5063052a189bfa200efc8c4694396a99a315d5c28be8d9a229e8",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3476,7 +3502,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T21:28:25.037922Z",
+  "updated_at": "2026-10-10T21:29:02.064528Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -3484,7 +3510,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 14,
-    "reboards": 9,
+    "reboards": 10,
     "reported_tokens": 20306,
     "rescue_renders": 0,
     "research_agents": 1,
