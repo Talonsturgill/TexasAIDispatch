@@ -64,29 +64,34 @@ in this lane and no fabricated image-generation charge.
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
 edition. A cloud container is reclaimed, so `pending` alone sees only worktrees that still exist.
 Also run `python scripts/claude_checkpoint.py discover`. Any unfinished edition it lists is restored
-with `python scripts/claude_checkpoint.py restore --run-id <id>` on a clean checkout, which rebuilds
-the same ledger, frozen envelope, charges, failed reviews, authored source and paid outputs after
-verifying every hash. Never initialise a second ledger for an edition that has a checkpoint. Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
-the cloud host's UTC date does not select an Eastern edition. A terminal shipped run is immutable.
-The first owner-authorized migration test uses a
-fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
-own branch, scratch, permanent media, feed identity, draft and archive. The board's calendar date
-is still today. Run this migration pilot only if no prior Claude pilot has accepted `shipped`
-status and a verified durable archive in `runs/`. Resume an unfinished pilot instead of creating
-another. After that one pilot is archived, every scheduled invocation uses normal daily production.
-Normal scheduled production uses today's date. If today's scheduled film is
-already shipped, verify that shipment and do not manufacture another ordinary edition.
+with `python scripts/claude_checkpoint.py restore --run-id <id> --dest <new empty directory>`. That
+creates an isolated checkout of the recorded source commit (the complete committed renderer, art and
+public closure), overlays the verified scratch outputs and uncommitted source, and rebuilds the same
+ledger, frozen envelope, charges, failed reviews and paid outputs with its paths moved. It never
+touches another checkout or an existing ledger, has no force option, and refuses a finished edition.
+Run `cloud_bootstrap.py --install` there for node_modules, then resume. Never initialise a second
+ledger for an edition that has a checkpoint.
 
 ## Durable checkpoints and effective effort
 
-`out/` is gitignored and dies with the container, so each `claude_runtime.py phase <name>` mirrors
-the resumable edition to `claude/checkpoint/<run-id>` through `scripts/claude_checkpoint.py save`.
-Also run that save after every paid call, reservation and verdict and before every native render.
-It exports the ledger through `public_state.py`, keeps authored source, claims, board, voice takes,
-alignment and review responses, and leaves out Gmail, delivery routing, receipts and credentials. It
-refuses to save when a credential value appears in any included file. A failed mirror is a warning,
-never a stop. After `finish --result shipped` and the metadata archive, save once more so the
-checkpoint reads finished. Restore never overwrites a different existing ledger.
+`out/` is gitignored and dies with the container. For an edition marked by
+`out/dispatch/claude-host.json`, every controller ledger write is mirrored to
+`claude/checkpoint/<run-id>` before the writer returns, so each reservation is durable before its
+paid call is dispatched. After each paid call returns and its output is on disk, the same mirror
+runs again through the next ledger write, and `python scripts/claude_checkpoint.py save --note <what>`
+covers outputs written without one. Prefer `claude_checkpoint.py guard --note <what> -- <paid command>`,
+which makes state durable, runs the command and makes its outputs durable, and exits 75 when it can't.
+A checkpoint that cannot be made after storage and transport recovery writes
+`out/dispatch/checkpoint-unbacked.json`, raises, and blocks every new reservation until
+`claude_checkpoint.py recover` succeeds. Never continue paid work on an unbacked ledger.
+
+The checkpoint keeps the sanitized ledger, authored source, claims, board, voice takes, alignment,
+review responses, failed images and every receipt. It skips only known rebuildable directories
+(frames, tmp, cache). It leaves out Gmail, routing and credential material by any path component or
+data structure, redacts shipped Gmail identifiers and local paths from the ledger, refuses to save when
+a credential value appears, and refuses any save that would lower usage, limits or increments, change the
+frozen envelope or alter the earlier event history. A file too large to retain fails the save visibly.
+After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
 
 At wake also record `python scripts/claude_contract_check.py --effective out/dispatch/effective-effort.json`.
 It reads the root session's host effort, any `CLAUDE_CODE_EFFORT_LEVEL` override, and each leaf's

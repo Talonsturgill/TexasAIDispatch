@@ -153,16 +153,13 @@ def phase(name, root, checkpoint=True):
     root = Path(root); root.mkdir(parents=True, exist_ok=True)
     with (root / 'claude-phases.jsonl').open('a') as stream:
         stream.write(json.dumps({'at': datetime.now(timezone.utc).isoformat(), 'phase': name}) + '\n')
-    # Every phase entry mirrors the resumable edition to its public-safe checkpoint branch. A failed
-    # mirror is reported and never blocks production; the owner needs the run, not the backup.
+    # Every phase entry makes the resumable edition durable. A checkpoint that cannot be made, after
+    # storage and transport recovery, stops here: paid work must never run on an unbacked ledger.
     state = root / 'run_state.json'
     if checkpoint and state.is_file() and os.environ.get('DISPATCH_CHECKPOINT') != '0':
-        try:
-            import claude_checkpoint
-            saved = claude_checkpoint.save(REPO, state, 'phase ' + name)
-            print('Checkpoint ' + saved['commit'][:10] + ' saved: ' + str(saved['files']) + ' files.')
-        except Exception as exc:
-            print('WARNING checkpoint not saved: ' + str(exc)[:300])
+        import claude_checkpoint
+        saved = claude_checkpoint.save_with_recovery(claude_checkpoint.repo_of(state), state, 'phase ' + name)
+        print('Checkpoint ' + saved['commit'][:10] + ' saved: ' + str(saved['files']) + ' files.')
 
 
 def usage_report(paths, since=None, phases=None):

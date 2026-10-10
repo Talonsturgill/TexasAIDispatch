@@ -106,6 +106,10 @@ def save(path: Path, state: dict) -> None:
     finally:
         if os.path.exists(tmp_name):
             os.unlink(tmp_name)
+    # A Claude cloud edition makes every ledger write durable before the caller proceeds, so a charge
+    # is on the checkpoint branch before its paid call is dispatched. No-op for every other run.
+    import claude_checkpoint
+    claude_checkpoint.mirror(path, "ledger write")
 
 
 def resource_keys(state: dict) -> set[str]:
@@ -267,6 +271,8 @@ def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tupl
 
 def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False
             ) -> tuple[bool, str]:
+    import claude_checkpoint
+    claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
     state = read_state(path)
     if state.get("terminal_state"):
         return False, (
