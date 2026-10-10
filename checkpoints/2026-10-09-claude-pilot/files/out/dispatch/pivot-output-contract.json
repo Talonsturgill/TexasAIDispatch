@@ -1,0 +1,41 @@
+{
+ "schema": "dispatch_pivot_review_output_contract/1",
+ "purpose": "The controller (repair_guard.plan_problems) accepts a repeated-mechanism pivot only from an independent reviewer's JSON with these exact fields. Fill the judgment yourself. A revise verdict is returned honestly if the replacement is not a real change of mechanism or is unsafe. Echo the bindings exactly (a Read-only reviewer can't hash).",
+ "required_fields": {
+  "reviewer_identity": "your identity, not the director claude-sonnet-5-5",
+  "reviewed_at": "UTC ISO or unknown",
+  "verdict": "pass or revise",
+  "retired_mechanism_id": "one of retired_candidates",
+  "replacement_mechanism_id": "echo binding",
+  "reviewed_failure_sha256": "echo the list in bindings.reviewed_failure_sha256 after you have read each failure file",
+  "visible_difference": ">=40 chars, what is audibly and measurably different about the replacement",
+  "source_basis": ">=30 chars, the retained evidence you relied on (file and measured value)",
+  "house_rule_check": "your finding on whether the two commas obey the house punctuation rules and change no spoken word or claim",
+  "other_changes_needed": "list, [] if none",
+  "limits": "what you could not check"
+ },
+ "bindings": {
+  "replacement_mechanism_id": "script-comma-clause-joins",
+  "retired_candidates": [
+   "voice-clause-join-breaths",
+   "voice-explicit-silent-stop"
+  ],
+  "reviewed_failure_sha256": [
+   "81de1e1b566d4e7bc1cd47e76591609261114e5d1d4af51b6f1ac48882f2bf05",
+   "c1ab4e4968c0f6d24140c6d5338fec572670376c2075a4b0a06db2c1eb14a3a5",
+   "1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6"
+  ],
+  "plan": "out/dispatch/repair-plan-8-script-commas.json"
+ },
+ "evidence_to_read": [
+  "out/dispatch/retained-failures/voice-take1-no-clause-silence/failure.json",
+  "out/dispatch/retained-failures/voice-take2-breath-direction/failure.json",
+  "out/dispatch/retained-failures/voice-take3-explicit-silence/failure.json",
+  "out/dispatch/retained-failures/voice-take1-no-clause-silence/words.json",
+  "out/dispatch/retained-failures/voice-take2-breath-direction/words.json",
+  "out/dispatch/vo_script.txt",
+  "out/dispatch/repair-plan-8-script-commas.json",
+  "scripts/modern_film.py (narration_problems and compile_narration)",
+  "knowledge/craft/VO_DIRECTION.md"
+ ]
+}
