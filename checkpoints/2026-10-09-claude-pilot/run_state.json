@@ -71,6 +71,20 @@
       },
       "kind": "initialised",
       "mode": "production"
+    },
+    {
+      "at": "2026-10-10T01:28:35.183452Z",
+      "kind": "reserved",
+      "note": "oilfield beat: one researcher, current Texas application",
+      "preflight_identity": null,
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-10T01:40:50.085369Z",
+      "kind": "phase",
+      "name": "research"
     }
   ],
   "limits": {
@@ -91,7 +105,13 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "wake",
+  "phase": "research",
+  "public_export": {
+    "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
+    "original_private_state_sha256": "2d4c40bd62b4e477d6e138521120c6eb80baac6cbdd723212f7e34c391d02d8c",
+    "owner_message_redactions": [],
+    "schema": "dispatch_public_ledger/1"
+  },
   "repair_policy": "quality-recovery/1",
   "resource_envelope": {
     "audiovisual_reviews": 43,
@@ -116,7 +136,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T01:22:35.436042Z",
+  "updated_at": "2026-10-10T01:40:50.085412Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -127,17 +147,11 @@
     "reboards": 0,
     "reported_tokens": 0,
     "rescue_renders": 0,
-    "research_agents": 0,
+    "research_agents": 1,
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
     "validator_agents": 0,
     "voice_directors": 0
-  },
-  "public_export": {
-    "schema": "dispatch_public_ledger/1",
-    "original_private_state_sha256": "052d6a0a2bf59db3c271a1d154a1fa4ad3e314f8e6afd828775592e70123efc9",
-    "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "owner_message_redactions": []
   }
 }

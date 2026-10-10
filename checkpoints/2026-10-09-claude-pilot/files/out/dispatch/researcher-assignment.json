@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "researcher",
+    "policy": {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "agent": "researcher",
+    "resource": "research_agents",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/researcher-packet.json",
+    "sha256": "0e982a4b28630faf96e12eadeaae589e6a7b4395ce5e37fb55abcde7422505eb"
+  },
+  "brief": {
+    "path": "/home/user/TexasAIDispatch/.claude/agents/researcher.md",
+    "sha256": "c618bf0ccc1b37412f4cb9f188a972543c555863db36990c9ecc10518510a49e"
+  },
+  "agent_args": {
+    "subagent_type": "researcher",
+    "description": "researcher",
+    "prompt": "Work in /home/user/TexasAIDispatch. Read the current compact packet /home/user/TexasAIDispatch/out/dispatch/researcher-packet.json (SHA256 0e982a4b28630faf96e12eadeaae589e6a7b4395ce5e37fb55abcde7422505eb) and every bound current guide in full. Verify the inputs before use. Scope: Research one current source-backed Texas application (oilfield, emergency, farm or clinic preferred) and its filmable action, consequence and limit. Return the strongest useful image, missing picture and strongest source limitation. Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

@@ -1,14 +1,22 @@
 {
-  "schema": "dispatch_claude_checkpoint/1",
+  "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T01:27:43.519775+00:00",
-  "note": "phase research",
-  "phase": "wake",
+  "saved_at": "2026-10-10T01:40:50.112300+00:00",
+  "note": "ledger write",
+  "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
-  "base_head": "09e2940703ee9e9192ef3c9d3b6c20632c8a5536",
-  "ledger_sha256": "2705f5da4c33b842c40b32117a394fa01c9fec9f0a30c00a5fada8aeff3d8555",
-  "original_private_ledger_sha256": "052d6a0a2bf59db3c271a1d154a1fa4ad3e314f8e6afd828775592e70123efc9",
+  "repo_root": "/home/user/TexasAIDispatch",
+  "source_pin": "57efd5e01ef95affa369744149ad2418416099e6",
+  "source_branch": "tsturg/fervent-edison-ywyo50",
+  "source_closure": {
+    "root": "video-engine",
+    "files": 345,
+    "sha256": "29bd9ad6d0d5c5b0dafdda17c2592e3525ed4f900785c039bd15edf7be9370cb"
+  },
+  "deleted_source": [],
+  "ledger_sha256": "e0f2a0cce776a9dde20082a03d233ee4c573a61f39612bc65160fd5bce7e2ab7",
+  "original_private_ledger_sha256": "2d4c40bd62b4e477d6e138521120c6eb80baac6cbdd723212f7e34c391d02d8c",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -19,7 +27,7 @@
     "reboards": 0,
     "reported_tokens": 0,
     "rescue_renders": 0,
-    "research_agents": 0,
+    "research_agents": 1,
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
@@ -34,12 +42,46 @@
       "size": 506
     },
     {
+      "path": "out/dispatch/claude-host.json",
+      "class": "scratch",
+      "sha256": "b3fb1e520aa5a64c88c6b972d800bb5f83784db4ca935e710c07d8119d5adc8d",
+      "size": 102
+    },
+    {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
       "sha256": "b9289075985cdc2409d2fff709eb7e731cc3a27723a36cdfc48410d887380292",
       "size": 64
+    },
+    {
+      "path": "out/dispatch/daily-production-scoreboard.json",
+      "class": "scratch",
+      "sha256": "0dc745e4cb32bf903de2f7e30496eb488c4b4dd43f5fdd59a86346610aad5b43",
+      "size": 6313
+    },
+    {
+      "path": "out/dispatch/research.json",
+      "class": "scratch",
+      "sha256": "2ee1fce7f35e993a1e1f33e995fe7a42c9790e6e3ec28089df8d4d349bac0694",
+      "size": 18533
+    },
+    {
+      "path": "out/dispatch/researcher-assignment.json",
+      "class": "scratch",
+      "sha256": "dd9be21327604e7f8a4ba1113b7b75eda08276aecd0fd97e56cb00a02fda3f9a",
+      "size": 1917
+    },
+    {
+      "path": "out/dispatch/researcher-packet.json",
+      "class": "scratch",
+      "sha256": "0e982a4b28630faf96e12eadeaae589e6a7b4395ce5e37fb55abcde7422505eb",
+      "size": 2321
     }
   ],
   "excluded": [],
-  "public_safe": "Gmail, routing, receipts and credentials are excluded. Ledger is the public export."
+  "regenerable": {
+    "files": 0,
+    "bytes": 0
+  },
+  "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

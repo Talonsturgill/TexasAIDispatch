@@ -1,0 +1,244 @@
+{
+  "schema": "dispatch_research_handoff/1",
+  "role": "researcher",
+  "agent": "researcher",
+  "model": "claude-haiku-5-5",
+  "effort": "high",
+  "packet_sha256": "0e982a4b28630faf96e12eadeaae589e6a7b4395ce5e37fb55abcde7422505eb",
+  "handoff_status": "complete for one beat; not a rendered film approval; research cannot approve any proposed action",
+  "beat": "clinic",
+  "title_candidate": "UTMB put an AI answer tool inside its patient record. Its release does not say whether the answers are accurate.",
+  "county": "Galveston",
+  "texas_link": "UTMB runs hospitals on four campuses and more than 100 clinics across Southeast Texas (UTMB release).",
+  "why_today": "UTMB announced on September 22nd that OpenEvidence sits inside its electronic health record and clinicians sign in with their UTMB credentials. The vendor Abridge then named UTMB among UT institutions that can access its note tool on October 8th, a vendor-only claim.",
+  "hash_note": "The researcher had no shell and did not recompute input hashes. Source bytes are unavailable from WebFetch, so each source is recorded by URL and retrieval date only. The validator re-fetches every source.",
+  "docket_movements": [
+    {
+      "record_status": "decided",
+      "record_id": "tx-2026-0208",
+      "event_type": "integration announced and use reported (live since March 2026)",
+      "date": "2026-09-22",
+      "actor": "University of Texas Medical Branch (UTMB), with OpenEvidence",
+      "action": "Embedded the OpenEvidence platform in UTMB's electronic health record. Clinicians sign in with standard UTMB enterprise credentials and ask clinical questions in natural language. Responses include citations.",
+      "object": "clinical decision support for UTMB clinicians across four hospital campuses and more than 100 clinics",
+      "county": "Galveston",
+      "next_step": "UTMB says it will keep evaluating utilization, clinician experience and how evidence is delivered at the point of care. No date or result is on the record.",
+      "who_can_act": "UTMB administration. The UT System Board of Regents meets in public. Texas Health and Safety Code Sec. 183.005, added by S.B. 1188, sets AI disclosure and record-review duties for practitioners."
+    },
+    {
+      "record_status": "decided",
+      "record_id": "tx-2026-0210",
+      "event_type": "vendor agreement announced (vendor release only)",
+      "date": "2026-10-08",
+      "actor": "Abridge, with UT REAL Health AI (vendor's release; the UT System page does not name Abridge)",
+      "action": "Enterprise agreement creating a systemwide framework for UT health institutions to access Abridge's clinician platform.",
+      "object": "clinician notes drafted from patient visits",
+      "county": "statewide",
+      "next_step": "None on record.",
+      "who_can_act": "UT System Board of Regents."
+    }
+  ],
+  "findings": [
+    {
+      "claim": "The UTMB integration went live in March 2026 and is designed to sit inside existing clinical workflows.",
+      "quote": "The integration, which went live at UTMB in March, was developed to give clinicians access to AI-enabled information resources within existing clinical workflows.",
+      "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official",
+      "confidence": "high for date and claim; the validator re-checks exact wording",
+      "why_it_matters": "Fixes the movement's date and makes the story a change inside a current workflow.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "Clinicians sign in with their standard UTMB enterprise credentials.",
+      "quote": "Clinicians access the platform using their standard UTMB enterprise credentials.",
+      "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official",
+      "confidence": "high",
+      "why_it_matters": "The first physical step a viewer can follow.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "Clinicians ask questions in natural language and get answers with citations.",
+      "quote": "Once authenticated, clinicians can ask clinical questions in natural language and receive responses that include citations to medical literature, clinical guidelines, and other  authoritative  sources.",
+      "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official",
+      "confidence": "high for the mechanism as UTMB describes it",
+      "why_it_matters": "Defines the mechanism. Citations show where an answer claims to come from, not that it is correct.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "UTMB reports more than half of its clinicians actively use the tool for clinical decision support.",
+      "quote": "Today, more than half of UTMB clinicians actively use OpenEvidence for clinical decision support.",
+      "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official (institutional self-report)",
+      "confidence": "high that UTMB said it; no denominator or method; no independent reporting found",
+      "why_it_matters": "The only human-scale consequence on record, and it is a usage share, not a patient outcome.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "UTMB runs hospitals on four campuses and more than 100 clinics across Southeast Texas.",
+      "quote": "With hospitals located on four campuses in addition to more than 100 clinics across Southeast Texas, the geographic reach of UTMB makes rapid access to current medical knowledge particularly valuable.",
+      "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official",
+      "confidence": "high",
+      "why_it_matters": "Physical scale and UTMB's stated reason. The release does not name the campuses.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "UTMB says it will keep evaluating use and clinician experience. No accuracy or care measure is published.",
+      "quote": "As adoption grows, UTMB will continue evaluating utilization, clinician experience, and opportunities to improve how evidence and clinical intelligence are delivered at the point of care.",
+      "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official",
+      "confidence": "high for the quote",
+      "why_it_matters": "The honest ending: the evaluation is still ahead.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "Texas law permits a practitioner to use AI for diagnostic purposes and requires disclosure to patients.",
+      "quote": "A health care practitioner may use artificial intelligence for diagnostic purposes ... must disclose the practitioner's use of that technology to the practitioner's patients.",
+      "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/SB01188F.htm",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official (enrolled S.B. 1188, Sec. 183.005)",
+      "confidence": "high for substance; the validator checks verbatim wording",
+      "why_it_matters": "The Texas legal frame. No source says whether a decision-support query is diagnostic use or whether UTMB gives patient notice.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "A provider must disclose AI use in a health care service to the recipient.",
+      "quote": "If an artificial intelligence system is used in relation to health care service or treatment, the provider of the service or treatment shall provide the disclosure under Subsection (b) to the recipient of the service or treatment or the recipient's personal representative not later than the date the service or treatment is first provided",
+      "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official (enrolled H.B. 149, Sec. 552.051)",
+      "confidence": "high for text; whether clinician-facing tools fall under it is unsettled",
+      "why_it_matters": "Applies since January 1st, 2026. No source says how UTMB handles it.",
+      "supports_movement": "tx-2026-0208"
+    },
+    {
+      "claim": "Abridge says an enterprise framework lets UT health institutions access its tool. Vendor claim only.",
+      "quote": "The agreement establishes a systemwide framework through which UT health institutions can access Abridge, while enabling local decision-making, innovation, real-world testing, and continued development of new clinical and operational use cases.",
+      "url": "https://www.abridge.com/press-release/ut-health-enterprise-wide",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_corporate (vendor press release)",
+      "confidence": "medium; vendor figures are its own",
+      "why_it_matters": "Places UTMB in a second AI movement, only on the vendor's word.",
+      "supports_movement": "tx-2026-0210"
+    },
+    {
+      "claim": "The UT System's REAL Health AI page names Qualified Health as its partner and does not mention Abridge.",
+      "quote": "Partnering with Qualified Health to enable secure, AI-driven clinical communications across all UT institutions.",
+      "url": "https://utsystem.edu/sites/ut-real-health-ai",
+      "retrieved": "2026-10-10",
+      "source_type": "primary_official (undated page)",
+      "confidence": "high for what the page said when fetched",
+      "why_it_matters": "The strongest check on the Abridge claim, and it does not corroborate it.",
+      "supports_movement": "tx-2026-0210"
+    }
+  ],
+  "rejected_alternatives": [
+    {
+      "candidate": "Battalion Oil Corporation's AI operations deal with Collide, Ward County (record tx-2026-0181)",
+      "concrete_reason": "Dated September 8th, outside the roughly three-week window. The only system is vendor software with company claims and no visible operation to film. The primary release returned HTTP 403 to the researcher."
+    },
+    {
+      "candidate": "West Texas A&M research feedlot, Randall County (record tx-2026-0207, October 7th)",
+      "concrete_reason": "The place is real but the release names no AI tool, vendor or result and the facility is still being built, so there is nothing about AI to film."
+    },
+    {
+      "candidate": "Energy Department test pit at a Navasota drilling site, SMU (record tx-2026-0148)",
+      "concrete_reason": "Outside the window and the page does not mention AI. It is mining automation."
+    }
+  ],
+  "filmability": {
+    "viewer_question": "When a Galveston clinician asks an AI a medical question inside the patient record, what comes back, and what has UTMB not measured?",
+    "opening_action": "An explanatory diagram labelled Illustration. A clinician's enterprise credential opens the edge of the chart, and a question leaves the record and returns with a stack of citation cards. No vendor interface, no face, no patient.",
+    "mechanism": "Input: sign-in with UTMB credentials, then a natural-language question. Transformation: the question is authenticated and answered with citations to literature, guidelines and other sources. Result: citations attached to the return. Limit: no accuracy or patient-care measure is published.",
+    "human_consequence": "UTMB states more than half of its clinicians use the tool for clinical decision support. No source shows any patient's care changed. The decision stays with the clinician and the outcome is unknown.",
+    "source_limit": "UTMB's own release is the only primary source for the integration, and the adoption share is a self-report with no denominator. It publishes no accuracy, outcome or independent evaluation. The Abridge movement is vendor-only and the UT System page names Qualified Health, not Abridge. Whether clinician-facing AI falls under Sec. 183.005 or H.B. 149 is not answered by any source.",
+    "three_key_images": [
+      "Credential at the record boundary (diagram, Illustration)",
+      "Question out, cited sources back (diagram, Illustration). The cards show source types only.",
+      "The unmeasured card (native text, sourced): accuracy and patient care are not published, with the release's will-continue-evaluating sentence."
+    ],
+    "visual_stakes": {
+      "affected_group": "UTMB clinicians who use the tool and the patients whose records it sits inside. No patient-level data is in any source.",
+      "physical_subject": "a clinician's question inside the chart and the cited answer that returns",
+      "visible_change": "a question leaves the record and returns with citations attached",
+      "consequence": "UTMB reports more than half its clinicians actively use the tool for clinical decision support. No outcome is published.",
+      "opening_question": "What comes back when a clinician asks a medical question inside the record?",
+      "answer": "Answers with citations, per UTMB. The release publishes no accuracy check.",
+      "asset_fit": "Diagram only. No footage, licensed image or authenticated view of the tool exists in the sources.",
+      "source_urls": [
+        "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+        "https://capitol.texas.gov/tlodocs/89R/billtext/html/SB01188F.htm",
+        "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm",
+        "https://utsystem.edu/sites/ut-real-health-ai",
+        "https://www.abridge.com/press-release/ut-health-enterprise-wide"
+      ]
+    },
+    "counter_image": "The release's lead photo of a clinician in scrubs at a workstation. It shows the setting, not the tool, and carries no licence. Not downloaded.",
+    "action_support": [
+      {
+        "row": "image opening",
+        "medium": "source-backed-action",
+        "pictured_action": "A credential crosses the edge of a chart boundary, and a question leaves and returns with citation cards attached (illustrative diagram)",
+        "scope_fit": "partial; no catalog action fits; must not depict UTMB's real interface, a vendor UI, answer content or a clinician",
+        "source_url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows"
+      },
+      {
+        "row": "mechanism",
+        "medium": "source-backed-action",
+        "pictured_action": "A natural-language question becomes a query that returns with source-type citation nodes attached",
+        "scope_fit": "partial",
+        "source_url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows"
+      },
+      {
+        "row": "consequence",
+        "medium": "source-backed-action",
+        "pictured_action": "The returned answer reaches a node labelled with the release's phrase clinical decision support, next to an open tag reading accuracy and patient care not published",
+        "scope_fit": "partial",
+        "source_url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows"
+      }
+    ],
+    "demonstrated_action_check": "None of the three catalog actions fits (residential facade, curbside pile, paper bundles). A bounded source-backed proposal is needed.",
+    "asset_leads": [
+      {
+        "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+        "relevant_image": "lead photo of a clinician at a workstation",
+        "proves": "a clinical workplace, not the tool",
+        "rights_basis": "none found",
+        "recommendation": "do not use; native illustration is more honest"
+      },
+      {
+        "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/SB01188F.htm",
+        "relevant_image": "enrolled bill text, Sec. 183.005",
+        "proves": "scope and disclosure duty",
+        "rights_basis": "official Legislature text; attribute",
+        "recommendation": "native text card"
+      },
+      {
+        "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm",
+        "relevant_image": "enrolled bill text, Sec. 552.051",
+        "proves": "patient-notice duty since January 1st, 2026",
+        "rights_basis": "official Legislature text; attribute",
+        "recommendation": "native text card"
+      }
+    ],
+    "place_check": "Galveston County is Gulf coastal. The county's region plate must match it.",
+    "recommended_ordering": "mechanism-led: credential and question, question to cited answer, citations, the usage share, then the unresolved limit.",
+    "likely_false_inference": "That citations mean the answer was checked.",
+    "unavailable_picture": "No truthful picture exists of an actual answer, a clinician deciding or any patient's care.",
+    "earned_take": "A question now goes into UTMB's chart and comes back with citations, and the release publishes no measure of whether those answers are right."
+  },
+  "strongest_source_limitation": "UTMB's own release is the only primary source for the integration. It reports a more-than-half share with no denominator and publishes no accuracy or care measure. The Abridge movement is vendor-only and the UT System page does not name Abridge.",
+  "creative_risks": [
+    "A clinician figure would be a synthetic performance. Keep the film human through the stated consequence.",
+    "A recognisable vendor interface would be private software. Do not draw it.",
+    "Naming the four UTMB campuses would be an unsourced placement."
+  ]
+}
