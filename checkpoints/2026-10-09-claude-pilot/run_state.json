@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 7,
+    "storyboard_critics": 10,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -862,6 +862,120 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-10T14:38:20.334263Z",
+      "authorization_source_label": "Standing owner shipment instruction from October 3rd, 2026 and Claude migration from October 9th, 2026",
+      "grants_no_resources": true,
+      "grants_no_review_approval": true,
+      "kind": "autonomous_completion_code_adopted",
+      "original_policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "policy_json": "{\n  \"schema\": \"dispatch_code_completion/1\",\n  \"version\": \"2026-10-10\",\n  \"effective_date\": \"2026-10-09\",\n  \"mandatory_scope\": \"mandatory-code-integrity\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"authorization_source_label\": \"Standing owner shipment instruction from October 3rd, 2026 and Claude migration from October 9th, 2026\",\n  \"authorization_statement\": \"Internal review ceilings trigger autonomous recovery. Fund the complete remaining code, silent phone, final timed phone, native hero, audiovisual, scoring and delivery path before a mandatory correction. Preserve the original frozen envelope, cumulative charges and exact failed evidence. Record every authorized capacity increment separately.\",\n  \"invariants\": [\n    \"Adopt this code-evidence amendment as a separate event; never replace the original adoption or its policy bytes.\",\n    \"Require an independent code-only rejection with a named mandatory defect and exact current board, renderer, claims and retained baseline hashes.\",\n    \"Fund only the conservative complete remaining path and record exact deficits; no grant approves code, artwork, film, scores or shipment.\",\n    \"Keep all source, rights, action, modern film, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Reject optional polish, duplicate research, extra treatments, stale evidence and director self-review.\",\n    \"Historical and shipped editions retain their original evidence and policy.\"\n  ]\n}\n",
+      "policy_sha256": "41bb937232fca862906e51b9a82360fbfb0eb62e1cf41ada222e1f5267c4b4f4"
+    },
+    {
+      "at": "2026-10-10T14:38:20.336474Z",
+      "failure_evidence_json": "{\n \"reviewer_identity\": \"storyboard-critic / claude-opus-5-5 high, isolated, read-only code-scope review\",\n \"verdict\": {\n  \"a\": \"revise\",\n  \"b\": \"revise\"\n },\n \"blocking\": [\n  {\n   \"id\": \"BD3-residual-closing-image\",\n   \"scene\": \"s8\",\n   \"time_s\": \"41.75-44.0\",\n   \"category\": \"ending_artistry\",\n   \"defect\": \"evaluating tag shrinks to about 90 px / 8 px type in the held close; share-board figure heads sit under the always-on disclosure pill (x 44-516, y 132-188) and top rows are cropped; decision, report and evaluating tags overlap about 20-30 px with crossing strings; limit tags only about 115 px\"\n  },\n  {\n   \"id\": \"BD5-n8-chart-absent\",\n   \"scene\": \"s8\",\n   \"time_s\": \"39.5-44.0\",\n   \"category\": \"comprehension\",\n   \"defect\": \"narration_picture n8 binds subject_ids [evaluation-tag, chart] and s8 must_show s8-chart / event-2 / closing_state say beside the chart, but no chart is drawn in either s8 shot\"\n  }\n ],\n \"resolved\": {\n  \"BD1\": \"resolved\",\n  \"BD2\": \"resolved at code scope\",\n  \"BD4\": \"resolved (Not in release close at effective 2.35 from 30.95 to 33.0)\"\n },\n \"correction\": [\n  \"limit change to ending() and s8 bindings\",\n  \"re-lay closing board so all rows sit clear of pill band y 132-188 x<=516\",\n  \"spread pins so tags do not overlap\",\n  \"evaluating tag no smaller than s8-shot-1 scale, type >=12 px at 270 width; consider answer scale 1.8-2.0\",\n  \"draw the chart edge beside the answer or remove chart from n8 subject_ids, s8 must_show, event-2 what and closing_state\",\n  \"rewrite stale 'blank clinician tokens' wording (non-blocking)\",\n  \"reword source_limit to 'not any real or identifiable clinician'\"\n ],\n \"stronger_treatment\": \"a\",\n \"limits\": \"code scope only, no pixels seen\"\n}",
+      "failure_evidence_sha256": "977a110789d03afb5e1c72c3edcd7773a7a71438090a4e50b77ba500cd3fc9dc",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 10,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 10,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n  \"mechanism_id\": \"s8-closing-board-layout-and-chart-binding\",\n  \"failure_family\": \"document-handling\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"root_cause\": \"The independent code-scope critic passed the s5, s6 and wall repairs but returned revise on both treatments for the s8 ending. The held close draws the narrated evaluating tag at about 90 px, the share-board figure heads sit under the disclosure pill, the three wall tags overlap, and the narration binding n8 names a chart that neither s8 shot draws.\",\n  \"repair\": \"Re-lay only the s8 closing composition in ClinicAnswerFilm ending() so the board clears the pill band, the pins do not overlap, and the evaluating tag keeps at least its s8-shot-1 scale; make the s8 picture and its bindings agree about the chart by drawing the chart edge beside the answer or removing chart from the s8 subject bindings. Nothing in s1 to s7, narration, claims or timing changes.\",\n  \"mechanism_change\": \"The s8 closing frame changes from a back-wall board with cascading tags to a laid-out answer close with a readable evaluating tag, with the narrated chart subject made consistent with the picture.\",\n  \"expected_visible_result\": \"The held final frame shows the answer card with the empty Accuracy slot, a readable evaluating tag, figures with visible heads and no overlapping tags, and every narrated s8 subject pictured or no longer bound.\",\n  \"failure_evidence\": \"out/dispatch/retained-failures/critic-5-code-scope/verdict-summary.json\",\n  \"failure_evidence_sha256\": \"977a110789d03afb5e1c72c3edcd7773a7a71438090a4e50b77ba500cd3fc9dc\",\n  \"resources\": {\n    \"preflight_renders\": 2\n  },\n  \"changed_inputs\": [\n    {\n      \"path\": \"out/dispatch/opening-a.json\",\n      \"before_path\": \"out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-a.json\",\n      \"before_sha256\": \"4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa\",\n      \"after_sha256\": \"\"\n    },\n    {\n      \"path\": \"out/dispatch/opening-b.json\",\n      \"before_path\": \"out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-b.json\",\n      \"before_sha256\": \"59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea\",\n      \"after_sha256\": \"\"\n    },\n    {\n      \"path\": \"out/dispatch/storyboard.json\",\n      \"before_path\": \"out/dispatch/retained-failures/repair-5-baseline/out__dispatch__storyboard.json\",\n      \"before_sha256\": \"4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa\",\n      \"after_sha256\": \"\"\n    },\n    {\n      \"path\": \"video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx\",\n      \"before_path\": \"out/dispatch/retained-failures/repair-5-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx\",\n      \"before_sha256\": \"9d8da3600252972f7dcbc77d6a2f685ef890eef70efd69500e81ee5a841b48ce\",\n      \"after_sha256\": \"\"\n    }\n  ],\n  \"completion_reason\": \"mandatory-code-integrity\",\n  \"code_evidence\": {\n    \"schema\": \"dispatch_code_capacity_evidence/1\",\n    \"review_scope\": \"independent-code-plan\",\n    \"input_bindings\": [\n      {\n        \"kind\": \"board\",\n        \"path\": \"out/dispatch/opening-a.json\",\n        \"sha256\": \"4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa\"\n      },\n      {\n        \"kind\": \"board\",\n        \"path\": \"out/dispatch/opening-b.json\",\n        \"sha256\": \"59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea\"\n      },\n      {\n        \"kind\": \"board\",\n        \"path\": \"out/dispatch/storyboard.json\",\n        \"sha256\": \"4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa\"\n      },\n      {\n        \"kind\": \"renderer\",\n        \"path\": \"video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx\",\n        \"sha256\": \"9d8da3600252972f7dcbc77d6a2f685ef890eef70efd69500e81ee5a841b48ce\"\n      },\n      {\n        \"kind\": \"claims\",\n        \"path\": \"{REPO}/out/dispatch/claims.json\",\n        \"sha256\": \"6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e\"\n      }\n    ]\n  }\n}\n",
+      "plan_sha256": "e0f26839af7bb24ce4c9bd5819d2cb319824ad7315852dd590ea5a16f9a79190",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":3},\"errors\":[],\"feasible\":false,\"path\":\"complete-visual-repair\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":11,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":2,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":12,\"required\":3,\"used\":4},\"reboards\":{\"ceiling\":10,\"remaining\":4,\"required\":1,\"used\":6},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":7,\"remaining\":0,\"required\":3,\"used\":7},\"tts_calls\":{\"ceiling\":12,\"remaining\":12,\"required\":2,\"used\":0},\"voice_directors\":{\"ceiling\":2,\"remaining\":2,\"required\":1,\"used\":0}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "d715aea49d4305c55294b6584a28132909e309a1045e4204c9489dffd81b35ec",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "mandatory-code-integrity",
+      "resource_increments": {
+        "storyboard_critics": 3
+      },
+      "run_id": "2026-10-09-claude-pilot",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 4,
+        "reboards": 6,
+        "reported_tokens": 0,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 0,
+        "storyboard_critics": 7,
+        "tts_calls": 0,
+        "validator_agents": 1,
+        "voice_directors": 0
+      }
     }
   ],
   "limits": {
@@ -885,7 +999,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "adc06a1fe7620990b459dbb44732440ef8b7797c1b2cdd2a4fdf3d65e177d1d2",
+    "original_private_state_sha256": "5ffb11087f0f171fb1b664e742fa4436f503e4eb2ceaf7e27577a8eae113aa0a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -913,7 +1027,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T14:35:18.577584Z",
+  "updated_at": "2026-10-10T14:38:20.336489Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
