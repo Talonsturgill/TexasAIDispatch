@@ -74,8 +74,9 @@ touches another checkout or an existing ledger, has no force option, and refuses
 Run `cloud_bootstrap.py --install` there for node_modules, then resume. Never initialise a second
 ledger for an edition that has a checkpoint.
 
-Before authorizing capture in a restored or nested worktree, establish a real registered clean
-Docket worktree at `<dispatch-checkout-parent>/TexasAIDocket`, starting at current origin/main.
+Before authorizing capture in a restored or nested worktree, establish a real clean Docket
+checkout at `<dispatch-checkout-parent>/TexasAIDocket`, starting at current origin/main. An owned
+isolated clone or a suitable registered worktree satisfies this requirement.
 The capture helper runs housekeeping against that sibling and their shared parent. A symlink to
 the primary Docket checkout fails the bounded-workspace check. Preserve the primary checkout and
 all unrelated or dirty work; use this owned sibling for the narrow Dispatch feed release. Retain
