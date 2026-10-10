@@ -48,6 +48,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
@@ -559,7 +560,71 @@ def align(x: np.ndarray, rate: int, script: str, heard: list[dict] | None = None
     }
 
 
-def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
+CLAUSE_PAUSE_S = 0.24
+
+
+def clause_contract(words, clauses):
+    """Bind complete ordered clause text to the unchanged acoustic word stream."""
+    from modern_film import narration_tokens, narration_digest
+    previous = 0
+    for word in words:
+        edges = (word.get("start"), word.get("end"))
+        if (any(type(t) not in (int, float) or not math.isfinite(t) for t in edges)
+                or edges[0] < previous-1e-9 or edges[1] <= edges[0]):
+            raise ValueError("clause segmentation needs finite ordered acoustic word edges")
+        previous = edges[1]
+    stream = narration_tokens(" ".join(w["word"] for w in words))
+    if len(stream) != len(words) or not clauses:
+        raise ValueError("clause segmentation needs nonempty positional spoken words")
+    cursor, seen, rows = 0, set(), []
+    for row in clauses:
+        identity = row.get("id")
+        tokens = narration_tokens(row.get("text", ""))
+        stop = cursor + len(tokens)
+        span = row.get("word_range")
+        if (not isinstance(identity, str) or not identity or identity in seen or not tokens or span != [cursor, stop]
+                or not isinstance(span, list) or any(type(n) is not int for n in span)
+                or stream[cursor:stop] != tokens):
+            raise ValueError("clause text, identity or positional coverage differs from measured words")
+        seen.add(identity)
+        rows.append({"id": identity, "text": row["text"], "word_range": span})
+        cursor = stop
+    if cursor != len(words):
+        raise ValueError("clause segmentation omits spoken words or qualifiers")
+    return {"version": "measured-clause-cues-v1", "contract_sha256": narration_digest(rows),
+            "word_content_sha256": narration_digest(words),
+            "min_pause_s": CLAUSE_PAUSE_S}, {r["word_range"][1]-1 for r in rows[:-1]}
+
+
+def split_at_clauses(groups, words, clauses):
+    """Select existing waveform edges; authored times never supply a boundary."""
+    _, boundaries = clause_contract(words, clauses)
+    if [w for g in groups for w in g] != words:
+        raise ValueError("caption grouping changed the acoustic word stream")
+    result, index = [], 0
+    for group in groups:
+        piece = []
+        for local, word in enumerate(group):
+            piece.append(word)
+            if index in boundaries:
+                after = words[index+1]
+                times = (word.get("end"), after.get("start"))
+                minimum = CLAUSE_PAUSE_S if local < len(group)-1 else 0
+                if (word.get("anchored_end") is not True or after.get("anchored_start") is not True
+                        or any(type(t) not in (int, float) or not math.isfinite(t) for t in times)
+                        or times[1]-times[0] <= 0 or times[1]-times[0] < minimum-1e-9):
+                    raise ValueError("declared clause boundary has no sufficient measured silence")
+                if local < len(group)-1:
+                    result.append(piece)
+                    piece = []
+            index += 1
+        if piece:
+            result.append(piece)
+    return result
+
+
+def cues(words: list[dict], cuts: list[float] | None = None,
+         clauses: list[dict] | None = None) -> list[dict]:
     """Cues that break ONLY on measured boundaries, and PREFER the ones that make sense.
 
     MEASURED IS NOT THE SAME AS READABLE, and this took the whole difference on the chin.
@@ -701,6 +766,8 @@ def cues(words: list[dict], cuts: list[float] | None = None) -> list[dict]:
         else:
             out.append(cur)
     out = split_at_cuts(out, cuts)
+    if clauses is not None:
+        out = split_at_clauses(out, words, clauses)
     # THE LABEL IS COMPUTED, NEVER ASSERTED. It was a constant string on every cue, so it said
     # "measured_boundary" whatever the edges actually were, and the one field downstream reads as
     # evidence of alignment was the one field nothing checked.
@@ -1186,6 +1253,8 @@ def main() -> int:
     ap.add_argument("--aliases", help="sourced proper-name ASR spelling exceptions, never timing edits")
     ap.add_argument("--reconciliation", help="bound independent soundcheck evidence for an/and ambiguity")
     ap.add_argument("--verify", action="store_true", help="recompute and verify existing acoustic evidence only")
+    ap.add_argument("--clause-boundaries", action="store_true",
+                    help="select measured pauses at complete narration clauses; requires --cuts board")
     ap.add_argument("--cuts", help=(
         "the storyboard, so a cue never spans a picture cut. A caption that outlives its shot "
         "puts one scene's sentence under the next scene's picture, and this film had six cues "
@@ -1278,19 +1347,42 @@ def main() -> int:
     # Scene starts, so no cue outlives the shot it belongs to. Read from the board rather than
     # passed as numbers, because the board is the only place the cuts actually are.
     cut_times: list[float] = []
+    clauses, clause_meta = None, None
+    saved_caps = json.loads((out / "captions.json").read_text()) if a.verify else None
+    clause_mode = a.clause_boundaries or bool((saved_caps or {}).get("narration_clause_segmentation"))
+    if clause_mode and not a.cuts:
+        print("vo_align: clause boundaries require the current --cuts storyboard", file=sys.stderr)
+        return 1
     if a.cuts:
         board = json.loads(Path(a.cuts).read_text())
         cut_times = sorted(float(s["start_s"]) for s in board.get("scenes", [])
                            if s.get("start_s"))
+        if clause_mode:
+            plan = board.get("narration_picture") or {}
+            if plan.get("version") != "narration-picture-v1":
+                print("vo_align: missing current narration-picture clause contract", file=sys.stderr)
+                return 1
+            clauses = plan.get("clauses")
+            # Provisional scene times cannot select a production acoustic boundary.
+            if plan.get("timing_mode") == "authored":
+                cut_times = []
 
+    try:
+        grouped = cues(res["words"], cut_times, clauses)
+        if clause_mode:
+            clause_meta, _ = clause_contract(res["words"], clauses)
+    except (ValueError, TypeError, KeyError) as exc:
+        print(f"vo_align: {exc}", file=sys.stderr)
+        return 1
     caps = {"method": res["method"], "words_file": str(out / "words.json"),
             "boundaries_measured": res["boundaries_measured"],
             "words_anchored": res["words_anchored"], "words_modelled": res["words_modelled"],
             "acoustic_words_matched": len(res["acoustic_matching"]),
-            "cues": cues(res["words"], cut_times)}
+            "cues": grouped}
+    if clause_meta is not None:
+        caps["narration_clause_segmentation"] = clause_meta
     if a.verify:
         saved_words = json.loads((out / "words.json").read_text())
-        saved_caps = json.loads((out / "captions.json").read_text())
         if Path(saved_caps.get("words_file", "")).resolve() == (out / "words.json").resolve():
             saved_caps["words_file"] = caps["words_file"]
         # JSON represents measured run tuples as lists; compare its canonical representation.

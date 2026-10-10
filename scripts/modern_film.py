@@ -125,6 +125,41 @@ def narration_problems(board, captions=None, words=None, script=None, claims=Non
 def compile_narration(board, captions, words):
     """Derive clauses, cuts and event windows from measured speech, never scene fractions."""
     plan = board['narration_picture']; cues = {c['id']:c for c in captions['cues']}
+    if captions.get('narration_clause_segmentation'):
+        from vo_align import clause_contract
+        expected, _ = clause_contract(words['words'], plan['clauses'])
+        if captions['narration_clause_segmentation'] != expected or len(cues) != len(captions['cues']):
+            raise ValueError('measured clause segmentation belongs to a different contract')
+        word_at = 0
+        for cue in captions['cues']:
+            stop = word_at + len(narration_tokens(cue['text']))
+            group = words['words'][word_at:stop]
+            if (not group or narration_tokens(cue['text']) != narration_tokens(' '.join(w['word'] for w in group))
+                    or group[0].get('anchored_start') is not True or group[-1].get('anchored_end') is not True
+                    or not finite(cue.get('start')) or not finite(cue.get('end'))
+                    or abs(cue['start']-group[0]['start'])>.001 or abs(cue['end']-group[-1]['end'])>.001):
+                raise ValueError('caption clause edges differ from measured acoustic words')
+            word_at = stop
+        if word_at != len(words['words']):
+            raise ValueError('caption clauses omit measured acoustic words')
+        # Provisional cue IDs describe planning. Bind fresh IDs by complete ordered text.
+        bindings, at = [], 0
+        for row in plan['clauses']:
+            group, spoken = [], []
+            target = narration_tokens(row['text'])
+            while len(spoken) < len(target) and at < len(captions['cues']):
+                cue = captions['cues'][at]
+                if (cue.get('source') != 'measured_boundary' or cue.get('start_measured') is not True
+                        or cue.get('end_measured') is not True):
+                    raise ValueError('clause grouping requires complete measured caption boundaries')
+                group.append(cue['id']); spoken.extend(narration_tokens(cue['text'])); at += 1
+            if spoken != target:
+                raise ValueError('authored clause must equal complete measured cue text')
+            bindings.append(group)
+        if at != len(captions['cues']):
+            raise ValueError('measured clause compilation omits spoken cues')
+        for row, group in zip(plan['clauses'], bindings):
+            row['cue_ids'] = group
     cursor = 0
     for row in plan['clauses']:
         group = [cues[k] for k in row['cue_ids']]
@@ -239,13 +274,14 @@ def capture_timing(board):
         reward.setdefault('event_fraction', (reward['at_s'] - scene['start_s'] - event['at_s']) / event['duration_s'])
 
 
-def retime(board):
+def retime(board, captions=None, words=None):
     """Derive shot and reward times from the actual retimed scenes and events."""
     if not required(board):
         return []
     if board.get('narration_picture'):
         try:
-            compile_narration(board, {'cues':board['captions']},
+            compile_narration(board, captions if captions is not None else {'cues':board['captions']},
+                              words if words is not None else
                               {'words':[{'word':w} for s in board['scenes'] for w in s.get('vo','').split()]})
             return problems(board)
         except (KeyError, ValueError, TypeError) as exc:
