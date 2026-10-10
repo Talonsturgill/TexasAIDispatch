@@ -409,34 +409,34 @@
         "unmeasured-card",
         "answer-close"
       ],
-      "subject": "A UTMB clinician's question entering one patient chart and the cited answer that returns, with the measures the release does not publish",
-      "note": "Fresh authored Claude-lane episode for 2026-10-09-claude-pilot. Hero ChartHero and support ClinicSupport are original React and SVG source groups shared by both treatments. A stages a wall chart with a left-to-right question and source flow; B stages the same actions at desk height. Disclosed illustration, no real interface, logo, face or patient detail.",
+      "subject": "A UTMB clinician's question going into the OpenEvidence tool at the edge of one patient chart and the one cited answer that returns, with the measures the release does not publish",
+      "note": "Fresh authored Claude-lane episode for 2026-10-09-claude-pilot, repair 1. Hero ChartHero (chart, one question, one answer with Sources and Accuracy slots, one citation set, pinned tags) and support ClinicSupport (room, desk, anonymous scrub-sleeved hands, keyboard, masked credential, boundary lock, OpenEvidence tool, usage share) are original React and SVG groups shared by both treatments. A stages a wall chart with a left-to-right flow from a higher camera; B stages the same actions at desk height. Disclosed illustration, no real interface, logo, face, identity or patient detail.",
       "narration_views": {
         "flow-wide": {
           "subject_ids": [
             "question-card",
-            "chart",
-            "citation-cards",
+            "hands",
+            "keyboard",
+            "openevidence-tool",
             "answer-card",
-            "workstation",
-            "record-boundary",
-            "unmeasured-tags",
-            "evaluation-tag"
+            "citation-cards",
+            "chart",
+            "record-boundary"
           ],
           "action_ids": [
             "send-question",
-            "return-answer",
-            "keep-evaluating"
+            "return-answer"
           ]
         },
         "desk-close": {
           "subject_ids": [
             "question-card",
-            "chart",
-            "citation-cards",
+            "hands",
+            "keyboard",
+            "openevidence-tool",
             "answer-card",
-            "workstation",
-            "badge-reader"
+            "citation-cards",
+            "chart"
           ],
           "action_ids": [
             "send-question",
@@ -447,6 +447,7 @@
         "chart-boundary": {
           "subject_ids": [
             "record-boundary",
+            "openevidence-tool",
             "chart",
             "date-tags"
           ],
@@ -457,8 +458,11 @@
         },
         "credential-gate": {
           "subject_ids": [
-            "badge-reader",
-            "workstation",
+            "credential-field",
+            "record-lock",
+            "hands",
+            "keyboard",
+            "record-boundary",
             "chart"
           ],
           "action_ids": [
@@ -469,8 +473,7 @@
           "subject_ids": [
             "citation-cards",
             "answer-card",
-            "source-types",
-            "chart"
+            "source-types"
           ],
           "action_ids": [
             "return-citations"
@@ -480,30 +483,35 @@
           "subject_ids": [
             "citation-cards",
             "source-types",
-            "answer-card"
+            "answer-card",
+            "accuracy-slot"
           ],
           "action_ids": [
             "name-source-types",
-            "trace-citation",
-            "withhold-verdict"
+            "trace-citation"
           ]
         },
         "share-grid": {
           "subject_ids": [
-            "clinic-workstations",
+            "clinician-tokens",
+            "decision-tag",
+            "report-tag",
+            "evaluation-tag",
             "chart",
-            "decision-tag"
+            "openevidence-tool"
           ],
           "action_ids": [
-            "show-usage"
+            "show-usage",
+            "keep-evaluating"
           ]
         },
         "unmeasured-card": {
           "subject_ids": [
-            "unmeasured-tags",
             "report-tag",
-            "clinic-workstations",
-            "chart"
+            "clinician-tokens",
+            "unmeasured-tags",
+            "answer-card",
+            "accuracy-slot"
           ],
           "action_ids": [
             "attribute-report",
@@ -513,11 +521,13 @@
         "answer-close": {
           "subject_ids": [
             "answer-card",
+            "accuracy-slot",
             "citation-cards",
             "source-types",
             "unmeasured-tags",
             "evaluation-tag",
-            "chart"
+            "chart",
+            "openevidence-tool"
           ],
           "action_ids": [
             "trace-citation",
