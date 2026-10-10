@@ -1,0 +1,45 @@
+{
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated, read-only phone review (contact-sheet stills of a.mp4 and b.mp4; not the director)",
+  "selected": "a",
+  "verdict": "revise",
+  "comparison_sha256": "ee2fa12f5c1452c8ba8413b78acace1012a4d40eda71049ea8096b8d2b0c77cc",
+  "blocking_defects": [
+    {
+      "id": "BD1-placeholder-wall-boxes",
+      "category": "surface_finish",
+      "scene_id": "s4,s6,s7",
+      "time_s": "18.4-20.8 and 33.1-35.5",
+      "defect": "flat untextured brown and teal rectangles on the back wall read as unfinished placeholder boxes"
+    },
+    {
+      "id": "BD2-clinicians-not-recognizable",
+      "category": "comprehension",
+      "scene_id": "s5",
+      "time_s": "21.5-27.0",
+      "defect": "clinicians pictured as document-like tiles; 'more than half' carried only by a bar label; likely false inference that records or answers lit"
+    },
+    {
+      "id": "BD3-ending-repeats-setup",
+      "category": "ending_artistry",
+      "scene_id": "s8",
+      "time_s": "39.5-44.0",
+      "defect": "close pulls back to the opening desk; keep evaluating exists only as a text tag; limit tags shrink to 80-90 px"
+    },
+    {
+      "id": "BD4-limit-result-only-in-wide",
+      "category": "legibility",
+      "scene_id": "s6",
+      "time_s": "29.4-33.1",
+      "defect": "Not in release lettering appears only in a wide shot at about 90 px and is unreadable at phone size"
+    }
+  ],
+  "fix_direction": [
+    "draw or remove the two wall rectangles",
+    "redraw s5 tokens as anonymous clinician figures (badge/coat silhouettes), more than half lit",
+    "shoot s6 Not in release tags close enough to read at phone size",
+    "end s8 on an answer-card close-up with Accuracy still empty, not the opening desk",
+    "lift caption band clear of the OpenEvidence box (s5-s8) and answer card (s4)"
+  ],
+  "limits": "judged from contact-sheet stills only; motion not seen",
+  "strongest_frame": "38.0 s s7 answer-card macro"
+}
