@@ -1,19 +1,19 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T16:00:16.634529+00:00",
-  "note": "code critic hand-back retained as delivered via supported channel; raw-transcript derivations quarantined; capture held",
+  "saved_at": "2026-10-10T16:23:50.535492+00:00",
+  "note": "hook natively active and denying; critic_gate contract errors on handback retained; no capture",
   "phase": "opening_compare",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "9f98b8b2e61b6f80740e79d604a5a20d4240dea9",
+  "source_pin": "ec4f2bd3f94ca918ce95139f65e63c6c491f3ae6",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
     "files": 348,
-    "sha256": "62605579ceb56d783b95bd0385d507352124a3e750ebaef172852ce2137373c5"
+    "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
   "ledger_sha256": "f5b1fa7761b8fdb35cea1e533f0e1cb43ad974a1bd9158c1f2770cd21cd002f7",
@@ -269,6 +269,12 @@
       "class": "scratch",
       "sha256": "71798e77d3a5921dfd8e5b0ba050c5d8fcc01cc83884e7033b440fd1083859d8",
       "size": 1203
+    },
+    {
+      "path": "out/dispatch/hook-active-proof-r5-native.json",
+      "class": "scratch",
+      "sha256": "4110241ca4434db462ff3a69e035ba2b9dc4e9bea717455ab4cce7deed7ef391",
+      "size": 927
     },
     {
       "path": "out/dispatch/hook-active-proof.json",
@@ -2023,6 +2029,12 @@
       "size": 18765
     },
     {
+      "path": "out/dispatch/retained-failures/critic-6-code-scope/critic_gate_contract_errors.json",
+      "class": "scratch",
+      "sha256": "d3cf6314a441e417810c26fc9aa4905363fefeba21f5c218eac69e8092886462",
+      "size": 1330
+    },
+    {
       "path": "out/dispatch/retained-failures/hook-readiness-failed-r5.json",
       "class": "scratch",
       "sha256": "f7838f1c3a6d05acdf1ec6e91fff446570802571b5cff952a6bd85cdcc970e2f",
@@ -2381,12 +2393,6 @@
       "class": "scratch",
       "sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
       "size": 651
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
-      "class": "source",
-      "sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
-      "size": 28326
     }
   ],
   "excluded": [],

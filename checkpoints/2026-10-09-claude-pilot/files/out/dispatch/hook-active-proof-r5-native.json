@@ -1,0 +1,8 @@
+{
+ "schema": "dispatch_hook_proof/2",
+ "registration": "python scripts/bootstrap_claude_hooks.py --workspace /home/user ran once via run_with_env.sh with internal cd. Output: ok true, active_checkout /home/user/restore/pilot, capture_authorized false, live_hook_observed false",
+ "probe": "cd /home/user/restore/pilot/video-engine && npx --no-install remotion still --help",
+ "result": "Natively denied by the PreToolUse:Bash hook before running. Message: Capture refused. the command is not run through bash scripts/run_with_env.sh; the capture authorization has expired; this exact command is not one the authorization lists; authorized boards and renderer inputs changed after authorization (opening-a.json, opening-b.json, ClinicAnswerFilm.tsx, ClinicSupport.tsx); authored art changed after authorization.",
+ "supersedes": "retained-failures/hook-readiness-failed-r5.json (kept)",
+ "capture_authorization_issued": false
+}
