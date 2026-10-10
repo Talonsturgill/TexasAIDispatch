@@ -1,0 +1,22 @@
+{
+ "mechanism_id": "b-push-arm-rig-continuity",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "standard",
+ "root_cause": "The coverage-complete critic 19 code review (same Opus High worker) passed treatment A and the measured board but returned revise on treatment B with two blocking motion defects. NB1: the B push stretches the right forearm 12 percent at release and 24 percent at the end of the glide while the hand floats off the card. NB2: three fingers snap between poses in a single frame at 0.43 s, 1.80 s and 14.77 s. Independently classified as non-deferrable modern motion floor failures.",
+ "repair": "Edit only the right-arm and finger rig in ClinicAnswerFilm.tsx: blend the finger lift into the reach with an eased lerp instead of the hard switch, and replace the elbow formula for the push with constant-length two-bone solving from the fixed shoulder using the rest forearm and upper-arm lengths, gated to treatment b push travel so treatment a pictures stay unchanged. Do not change boards, timing, narration or art files.",
+ "mechanism_change": "The B push changes from a translated hand with a stretching elbow formula and a hard finger pose switch to a limb-length-preserving arm solve with continuous finger blends.",
+ "expected_visible_result": "In B the forearm length stays constant through the push and glide, the fingers lift and settle continuously at 30 fps with no single-frame jump, and A and the measured selected board render identical pictures.",
+ "failure_evidence": "out/dispatch/opening-b-critic.json",
+ "failure_evidence_sha256": "51e65a10065ce7575cc548df9a4f8a6ffec5823070690648f1089f4b7614db70",
+ "resources": {
+  "preflight_renders": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-12-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+   "before_sha256": "48167b4ac9565e190852c08157e1b89af715cf2fc5cee17307df013aa19bc5d9"
+  }
+ ]
+}
