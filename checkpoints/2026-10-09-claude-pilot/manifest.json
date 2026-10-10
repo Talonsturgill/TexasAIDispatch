@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T16:42:28.173093+00:00",
-  "note": "budget audit outputs and refusal, current ledger, native hook proof, verbatim gate-ready handback and live A/B reviewer reports; paid steps held pending funding repair",
+  "saved_at": "2026-10-10T17:03:47.490059+00:00",
+  "note": "ledger write",
   "phase": "opening_compare",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "ec4f2bd3f94ca918ce95139f65e63c6c491f3ae6",
+  "source_pin": "bcda3eb299f8b3f903168b456f434052196b3b6d",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "f26df387ea708f38ea0c30b8ac31dd48013c9261b2e7ddc20c061fd3b87e229d",
-  "original_private_ledger_sha256": "d7304f205a8b1db6e3ff47e666242f5bd330ec035396576443e587ce70dc262f",
+  "ledger_sha256": "64d44e038953712563cc84d6130cc3eaf3f91cf3f0829e55e3bd6883de80b729",
+  "original_private_ledger_sha256": "b766fd875df3c157f6e8b1158d900dac2038a509710cbc5c0eac61fec2627027",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -121,16 +121,34 @@
       "size": 89
     },
     {
+      "path": "out/dispatch/budget-audit/completion-capacity-attempt-2.txt",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/budget-audit/precheck-code-plan.json",
       "class": "scratch",
       "sha256": "428f3319d691631d894b5d34033d9b63496c048149533b860e9ad0c5a5e5c37f",
       "size": 1499
     },
     {
+      "path": "out/dispatch/budget-audit/precheck-finish-current.json",
+      "class": "scratch",
+      "sha256": "ab7b29baa75c0ce877357447261f93a203ca0debd6649c1bd4a7ef76fe0162aa",
+      "size": 1490
+    },
+    {
       "path": "out/dispatch/budget-audit/precheck-plain.json",
       "class": "scratch",
       "sha256": "43b4316ff781c01160f722faee4f5208b76f4791f16422ad729318b2e9174b7d",
       "size": 1458
+    },
+    {
+      "path": "out/dispatch/budget-audit/run_state.before-finish-grant.json",
+      "class": "scratch",
+      "sha256": "7a00191d2b53518a98b8d9d8c6e4e576a434cd0648d1ce9a50ebb7bf13e7701e",
+      "size": 75495
     },
     {
       "path": "out/dispatch/builder-assignment-r4.json",
@@ -311,6 +329,12 @@
       "class": "scratch",
       "sha256": "71798e77d3a5921dfd8e5b0ba050c5d8fcc01cc83884e7033b440fd1083859d8",
       "size": 1203
+    },
+    {
+      "path": "out/dispatch/finish-current-plan.json",
+      "class": "scratch",
+      "sha256": "d4374d90ea0712af74a63d563de2c771b8b617af4d908a1dba3deb0e5a223c00",
+      "size": 780
     },
     {
       "path": "out/dispatch/hook-active-proof-r5-native.json",
