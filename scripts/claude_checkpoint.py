@@ -58,11 +58,11 @@ SOURCE_ROOTS = ("video-engine", "assets", "config")
 REGENERABLE_DIRS = {"tmp", "cache", ".cache", "frames", "node_modules", "__pycache__"}
 # One path component at a time. Private means Gmail, readbacks, delivery routing, env files, anything
 # marked private, the delivery shipment manifest, and any component with credential or secret as a whole
-# word (credentials-prod.json, credential_store.yaml, secret-key.txt, a credentials directory). A rendered
-# image or other media is evidence even when it merely names a view, like a credential-gate still.
+# word (credentials-prod.json, credential_store.yaml, secret-key.png, a credentials directory), for every file
+# type. A known synthetic failure render that merely names a view, like a credential-gate still, is kept by
+# `neutralize`, a byte-identical neutral-named copy with its original-name, hash, time and invocation provenance.
 PRIVATE_NAME = re.compile(r"(gmail|readback|routing|^\.env|(^|[._-])private([._-]|$)|shipment(?!-public))", re.I)
 CREDENTIAL_WORDS = {"credential", "credentials", "secret", "secrets"}
-MEDIA_SUFFIX = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".wav", ".mp3", ".m4a", ".flac"}
 PRIVATE_KEY = re.compile(r"(gmail|draft_?id|label_?ids|thread_?id|recipient|readback|routing|receipt_path)", re.I)
 EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)+")
 SECRET_TEXT = re.compile(
@@ -180,9 +180,7 @@ def ledger_text(state, root):
 def private_component(part, last):
     if PRIVATE_NAME.search(part):
         return True
-    if CREDENTIAL_WORDS & set(re.split(r"[._\-\s]+", part.lower())):
-        return not (last and Path(part).suffix.lower() in MEDIA_SUFFIX)
-    return False
+    return bool(CREDENTIAL_WORDS & set(re.split(r"[._\-\s]+", part.lower())))
 
 
 def private_path(rel):
@@ -515,6 +513,28 @@ def discover(repo=REPO, remote="origin"):
     return sorted(found, key=lambda row: row["saved_at"], reverse=True)
 
 
+def neutralize(repo, path, invocation, nature="synthetic scene render"):
+    """Retain a private-named but known synthetic failure render as a byte-identical neutral-named copy plus provenance."""
+    repo = Path(repo)
+    source = Path(path)
+    digest = sha256(source)
+    folder = repo / SCRATCH_ROOT / "retained-failures" / "neutral"
+    folder.mkdir(parents=True, exist_ok=True)
+    target = folder / ("still-%s%s" % (digest[:12], source.suffix.lower()))
+    shutil.copy2(source, target)
+    if sha256(target) != digest:
+        raise CheckpointError("neutral copy is not byte-identical")
+    mapping_path = folder / "mapping.json"
+    mapping = json.loads(mapping_path.read_text()) if mapping_path.is_file() else []
+    if not any(row["sha256"] == digest and row["original_name"] == source.name for row in mapping):
+        mapping.append({"original_name": source.name, "original_path": str(source), "neutral_copy": target.relative_to(repo).as_posix(),
+                        "sha256": digest, "bytes": source.stat().st_size,
+                        "source_mtime_utc": datetime.fromtimestamp(source.stat().st_mtime, timezone.utc).isoformat(),
+                        "invocation": invocation, "nature": nature, "copied_at": now()})
+        mapping_path.write_text(json.dumps(mapping, indent=2) + "\n")
+    return {"neutral_copy": str(target), "sha256": digest, "mapping": str(mapping_path)}
+
+
 def oldest_unfinished(found):
     """The edition to resume first: oldest by run identity, then ledger creation time. Never found[0],
     which discover orders newest save first."""
@@ -576,6 +596,9 @@ def main(argv=None):
     sub = parser.add_subparsers(dest="action", required=True)
     p = sub.add_parser("save"); p.add_argument("--note", default="manual"); p.add_argument("--state", type=Path)
     p.add_argument("--remote", default="origin")
+    p = sub.add_parser("neutralize", help="retain a private-named synthetic failure render as a neutral-named byte copy")
+    p.add_argument("--path", type=Path, required=True); p.add_argument("--invocation", required=True)
+    p.add_argument("--nature", default="synthetic scene render")
     p = sub.add_parser("recover"); p.add_argument("--state", type=Path); p.add_argument("--remote", default="origin")
     p = sub.add_parser("discover"); p.add_argument("--remote", default="origin")
     p.add_argument("--oldest-unfinished", action="store_true", help="print only the edition to resume first")
@@ -590,6 +613,8 @@ def main(argv=None):
         state = getattr(args, "state", None) or repo / SCRATCH_ROOT / "run_state.json"
         if args.action == "save":
             result = save(repo, state, args.note, args.remote)
+        elif args.action == "neutralize":
+            result = neutralize(repo, args.path, args.invocation, args.nature)
         elif args.action == "recover":
             result = save_with_recovery(repo, state, "recover", remote=args.remote)
             flag_path(state).unlink(missing_ok=True)
