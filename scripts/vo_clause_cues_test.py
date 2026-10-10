@@ -3,7 +3,10 @@ import copy
 from contextlib import redirect_stdout
 import io
 import json
+import math
 from pathlib import Path
+import re
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -44,6 +47,65 @@ class ClauseCueTest(unittest.TestCase):
         self.assertEqual([c["end"] for c in current], [14.04, 15.62])
         self.assertTrue(all(c["source"] == "measured_boundary" for c in current))
         self.assertEqual(self.words, before)
+
+    def test_actual_frame_880_failure_uses_the_renderer_function(self):
+        source = (Path(__file__).resolve().parents[1] /
+                  "video-engine/src/modern/DirectedFilm.tsx").read_text()
+        body = source[source.index("export function filmShotAt("):
+                      source.index("export const DirectedFilm:")]
+        body = re.sub(r"export function filmShotAt\([^\n]+\)\:FilmShot",
+                      "function filmShotAt(plan,time,fps=30)", body, count=1)
+        start, duration = modern_film.measured_shot_interval(26.88, 29.35)
+        next_start, next_duration = modern_film.measured_shot_interval(29.35, 31.66)
+        plans = [{"shots": [{"id": "before", "start_s": 26.88, "duration_s": 2.47},
+                             {"id": "after", "start_s": 29.35, "duration_s": 2.31}]},
+                 {"shots": [{"id": "before", "start_s": start, "duration_s": duration},
+                             {"id": "after", "start_s": next_start, "duration_s": next_duration}]}]
+        program = "const frameIntervals=new WeakMap();\n" + body + "\n" + """
+const plans=JSON.parse(process.argv[1]);
+let original;
+try {filmShotAt(plans[0],880/30); original='unexpected coverage';}
+catch(e) {original=e.message;}
+const owners=[880,881].map(f=>filmShotAt(plans[1],f/30).id);
+for(let f=Math.round(26.88*30);f<Math.round(31.66*30);f++) filmShotAt(plans[1],f/30);
+console.log(JSON.stringify({original,owners}));
+"""
+        result = subprocess.run(["node", "-e", program, json.dumps(plans)],
+                                text=True, capture_output=True, check=True)
+        observed = json.loads(result.stdout)
+        self.assertEqual(observed["original"], "Modern shot timeline has an uncovered frame")
+        self.assertEqual(observed["owners"], ["before", "after"])
+
+    def test_measured_intervals_preserve_cuts_and_reject_invalid_edges(self):
+        for start, end in [(0, .3), (.03, .1), (.1, .3), (26.88, 29.35),
+                           (29.35, 31.66), (39.7, 44.0)]:
+            a, duration = modern_film.measured_shot_interval(start, end)
+            self.assertEqual(a, round(start, 4))
+            self.assertEqual(a + duration, round(end, 4))
+        for start, end in [(True, 1), (0, math.nan), (-1, 1), (1, 1), (2, 1),
+                           (0, math.inf), (1, 1.00000001)]:
+            with self.subTest(start=start, end=end), self.assertRaises(ValueError):
+                modern_film.measured_shot_interval(start, end)
+
+    def test_common_cut_derivation_is_opted_in_and_historical_grouping_is_unchanged(self):
+        caps = self.captions()
+        board, _ = self.board()
+        with patch.object(modern_film, "measured_shot_interval",
+                          wraps=modern_film.measured_shot_interval) as derive:
+            self.compile(board, caps)
+            self.assertEqual(derive.call_count, 2)
+        shots = board["film_direction"]["shots"]
+        self.assertEqual(shots[0]["start_s"] + shots[0]["duration_s"], shots[1]["start_s"])
+        self.assertEqual(shots[-1]["start_s"] + shots[-1]["duration_s"], 16)
+        historical = copy.deepcopy(caps)
+        historical.pop("narration_clause_segmentation")
+        legacy, _ = self.board()
+        for row, cue in zip(legacy["narration_picture"]["clauses"], historical["cues"]):
+            row["cue_ids"] = [cue["id"]]
+        with patch.object(modern_film, "measured_shot_interval",
+                          side_effect=AssertionError("historical derivation changed")):
+            self.compile(legacy, historical)
+        self.assertEqual(legacy["film_direction"]["shots"][0]["duration_s"], 14.18)
 
     def test_authored_times_cannot_move_the_split(self):
         before = self.captions()
