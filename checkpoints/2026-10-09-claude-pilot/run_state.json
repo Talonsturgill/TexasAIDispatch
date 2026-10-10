@@ -1,4 +1,33 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-a.json",
+        "before_sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-b.json",
+        "before_sha256": "59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/out__dispatch__storyboard.json",
+        "before_sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+        "before_sha256": "9d8da3600252972f7dcbc77d6a2f685ef890eef70efd69500e81ee5a841b48ce",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
+      }
+    ],
+    "failure_sha256": "977a110789d03afb5e1c72c3edcd7773a7a71438090a4e50b77ba500cd3fc9dc",
+    "plan": "{REPO}/out/dispatch/repair-plan-5-code.json",
+    "plan_sha256": "e0f26839af7bb24ce4c9bd5819d2cb319824ad7315852dd590ea5a16f9a79190",
+    "reboards_before": 6,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -976,6 +1005,51 @@
         "validator_agents": 1,
         "voice_directors": 0
       }
+    },
+    {
+      "at": "2026-10-10T14:38:23.694682Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-a.json",
+          "before_sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-b.json",
+          "before_sha256": "59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/out__dispatch__storyboard.json",
+          "before_sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-5-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+          "before_sha256": "9d8da3600252972f7dcbc77d6a2f685ef890eef70efd69500e81ee5a841b48ce",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "document-handling",
+      "failure_sha256": "977a110789d03afb5e1c72c3edcd7773a7a71438090a4e50b77ba500cd3fc9dc",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "s8-closing-board-layout-and-chart-binding",
+      "plan_identity": null,
+      "plan_sha256": "e0f26839af7bb24ce4c9bd5819d2cb319824ad7315852dd590ea5a16f9a79190",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -999,7 +1073,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "5ffb11087f0f171fb1b664e742fa4436f503e4eb2ceaf7e27577a8eae113aa0a",
+    "original_private_state_sha256": "43ad779d85ee9897a0fd87833d2dab179fd2abfa46101b3f23b4404d90599062",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1027,7 +1101,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T14:38:20.336489Z",
+  "updated_at": "2026-10-10T14:38:23.694712Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
