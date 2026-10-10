@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "scene-builder",
+    "policy": {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "scene-builder",
+    "resource": "reboards",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/builder-packet.json",
+    "sha256": "b02bd578609789cf87404282e49a130b37d484665037a9e02516728e2be8b254"
+  },
+  "brief": {
+    "path": "/home/user/TexasAIDispatch/.claude/agents/scene-builder.md",
+    "sha256": "a3ef256dff318ef61a4206229f635a4ef61d36c8d9aa227d59048804550e13c8"
+  },
+  "agent_args": {
+    "subagent_type": "scene-builder",
+    "description": "scene_builder",
+    "prompt": "Work in /home/user/TexasAIDispatch. Read the current compact packet /home/user/TexasAIDispatch/out/dispatch/builder-packet.json (SHA256 b02bd578609789cf87404282e49a130b37d484665037a9e02516728e2be8b254) and every bound current guide in full. Verify the inputs before use. Scope: Author the fresh hero and support and implement both complete treatments on the current sources Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}
