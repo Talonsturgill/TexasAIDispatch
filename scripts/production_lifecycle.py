@@ -181,6 +181,18 @@ def begin_repair(path, plan_path):
         return False, "finish the existing repair batch before starting another"
     plan = load_json(plan_path)
     from repair_guard import plan_problems, envelope_problems
+    from modern_code_recovery import REASON as MODERN_CODE_REASON
+    if plan.get('completion_reason') == MODERN_CODE_REASON:
+        from autonomous_completion import mandatory_reason
+        from modern_code_recovery import file_problems
+        try:
+            if mandatory_reason(state, plan, Path(plan['failure_evidence']).read_text()) != MODERN_CODE_REASON:
+                return False, 'modern code repair requires its exact independent rejection'
+            errors = file_problems(plan)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            return False, 'modern code repair evidence is unavailable: ' + str(exc)
+        if errors:
+            return False, '; '.join(errors)
     scope = plan.get("repair_scope", "standard")
     if not isinstance(scope, str) or scope not in SCOPES:
         return False, "unknown repair_scope"
@@ -249,6 +261,8 @@ def begin_repair(path, plan_path):
         state["active_repair"]["existing_critic_reservations"] = plan["existing_critic_reservations"]
     if scope in {NARRATION_SCOPE, CONTEXT_SCOPE}:
         state["active_repair"].update(frozen_inputs=frozen_inputs, plan_identity=plan_identity(plan))
+    if plan.get('completion_reason') == MODERN_CODE_REASON:
+        state['active_repair']['modern_code_plan_identity'] = plan_identity(plan)
     state["phase"] = "active_repair"
     state.pop("release_status", None)
     event(state, "repair_started", failure_sha256=failure_hash,
@@ -282,6 +296,13 @@ def authorize_repair(path, plan_path):
     if error:
         return False, error
     plan = proof["repair_plan"]
+    from modern_code_recovery import REASON as MODERN_CODE_REASON, rebound_problems
+    if plan.get('completion_reason') == MODERN_CODE_REASON:
+        if plan_identity(plan) != current.get('modern_code_plan_identity'):
+            return False, 'modern code correction changed its bound plan beyond after hashes'
+        errors = rebound_problems(plan)
+        if errors:
+            return False, '; '.join(errors)
     if plan.get("repair_scope", "standard") != scope:
         return False, "repair_scope changed after begin-repair"
     frozen_proof = {}

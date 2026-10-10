@@ -227,6 +227,14 @@ Prepare its evidence-bound plan with `python scripts/review_coverage.py --state 
 through scripts/run_with_env.sh, then use the documented production-budget and completion-capacity
 commands before reserving the resumed review.
 
+A complete code critic can also prove a nondeferrable modern motion, surface finish, pacing or
+ending-artistry failure before any film exists. For an actual renderer-only rejection, retain
+the report and baseline and run `python scripts/modern_code_recovery.py --state out/dispatch/run_state.json --plan <original-proposal> --packet <current-complete-code-packet> --output <new-bound-plan>`
+through scripts/run_with_env.sh. Follow AUTONOMOUS_COMPLETION.md for the separate pinned modern
+code adoption, complete-path funding, recurrence pivot when required, precharged Opus correction,
+strict derived board rebinds and both fresh phone reviews. Do not invent a board story edit,
+relabel the reviewer or request an owner decision at this internal admission boundary.
+
 Use compact frame strips for director decisions and native crops when detail decides the result.
 Independent reviewers still receive the exact current film and every required unique media byte.
 Stop optional polish at the configured creative boundary; mandatory failures recover through the

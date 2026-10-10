@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from review_handback import REASON as HANDBACK_REASON
 from review_coverage import REASON as COVERAGE_REASON, ADOPTION as COVERAGE_ADOPTION
+from modern_code_recovery import REASON as MODERN_CODE_REASON, ADOPTION as MODERN_CODE_ADOPTION
 
 POLICY = Path(__file__).resolve().parents[1] / "config/autonomous_completion.json"
 POLICY_SHA256 = "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
@@ -140,6 +141,21 @@ def adopt_coverage_policy(state):
           grants_no_resources=True, grants_no_review_approval=True)
 
 
+def adopt_modern_code_policy(state):
+    from run_controller import event
+    import modern_code_recovery as modern
+    text = modern.POLICY.read_text()
+    if sha(text) != modern.POLICY_SHA256:
+        raise ValueError('modern code amendment is missing or changed')
+    rows = [e for e in state['events'] if e.get('kind') == MODERN_CODE_ADOPTION]
+    if rows:
+        if len(rows) != 1 or rows[0].get('policy_sha256') != sha(text):
+            raise ValueError('modern code amendment is duplicated or changed')
+        return
+    event(state, MODERN_CODE_ADOPTION, policy_json=text, policy_sha256=sha(text),
+          grants_no_resources=True, grants_no_review_approval=True)
+
+
 def code_bindings(plan):
     """Portable admission data. Disk checks happen before the grant, never at replay."""
     proof = plan.get("code_evidence") or {}
@@ -264,6 +280,12 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if plan.get('completion_reason') == MODERN_CODE_REASON:
+            from modern_code_recovery import eligible
+            if (sha(evidence_text) != plan.get('failure_evidence_sha256')
+                    or set(plan.get('resources', {})) - set(resource_requirements(state))):
+                return None
+            return MODERN_CODE_REASON if eligible(state, plan, report) else None
         if plan.get('completion_reason') == COVERAGE_REASON:
             from review_coverage import eligible
             if (sha(evidence_text) != plan.get('failure_evidence_sha256')
@@ -341,7 +363,7 @@ def replay(state):
     """Reconstruct only the effective envelope; the original allocation is immutable."""
     effective = copy.deepcopy(state.get("resource_envelope", {}))
     events = state.get("events", [])
-    adopted, code_adopted, coverage_adopted, seen = False, False, False, set()
+    adopted, code_adopted, coverage_adopted, modern_code_adopted, seen = False, False, False, False, set()
     try:
         for index, row in enumerate(events):
             kind = row.get("kind")
@@ -377,6 +399,15 @@ def replay(state):
                         or row.get('grants_no_review_approval') is not True):
                     return effective, ['review coverage amendment is invalid or duplicated']
                 coverage_adopted = True
+            elif kind == MODERN_CODE_ADOPTION:
+                import modern_code_recovery as modern
+                if (not code_adopted or modern_code_adopted
+                        or sha(row.get('policy_json', '')) != modern.POLICY_SHA256
+                        or row.get('policy_sha256') != modern.POLICY_SHA256
+                        or row.get('grants_no_resources') is not True
+                        or row.get('grants_no_review_approval') is not True):
+                    return effective, ['modern code amendment is invalid or duplicated']
+                modern_code_adopted = True
             elif kind == "owner_review_grant":
                 effective[row["resource"]] += row["additional_calls"]
             elif kind == EVENT:
@@ -399,7 +430,7 @@ def replay(state):
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
-                if plan.get('completion_reason') == COVERAGE_REASON:
+                if plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON}:
                     # A later shipped state cannot invalidate an earlier active admission.
                     admission['terminal_state'] = None
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
@@ -409,6 +440,8 @@ def replay(state):
                     raise ValueError("code capacity requires its separate standing amendment")
                 if reason == COVERAGE_REASON and not coverage_adopted:
                     raise ValueError('coverage capacity requires its separate standing amendment')
+                if reason == MODERN_CODE_REASON and not modern_code_adopted:
+                    raise ValueError('modern code capacity requires its separate standing amendment')
                 # One failed attempt owns one grant, even with renamed plan text.
                 identity = grant_identity(plan, row["failure_evidence_sha256"])
                 if identity in seen:
@@ -435,6 +468,8 @@ def replay(state):
                     required.update(reboards=0, storyboard_critics=3)
                     if 'image_generations' in required:
                         required['image_generations'] = 0
+                if reason == MODERN_CODE_REASON:
+                    required['storyboard_critics'] = 4
                 for name, maximum in expected_required.items():
                     item = rows[name]
                     if (type(item["required"]) is not int or item["required"] != required[name]
@@ -507,15 +542,24 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             errors = file_problems(plan)
             if errors:
                 return False, '; '.join(errors)
+        if reason == MODERN_CODE_REASON:
+            from modern_code_recovery import file_problems
+            errors = file_problems(plan)
+            if errors:
+                return False, '; '.join(errors)
         adopt(state, policy_path, explicit_existing_run=True)
         if reason == CODE_REASON:
             adopt_code_policy(state)
         if reason == COVERAGE_REASON:
             adopt_coverage_policy(state)
+        if reason == MODERN_CODE_REASON:
+            adopt_code_policy(state)
+            adopt_modern_code_policy(state)
         budget = production_budget_precheck(state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
-                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON},
-                    review_coverage=reason == COVERAGE_REASON)
+                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON},
+                    review_coverage=reason == COVERAGE_REASON,
+                    modern_code_repair=reason == MODERN_CODE_REASON)
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         increments = budget["deficits"]

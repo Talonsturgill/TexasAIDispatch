@@ -2142,6 +2142,7 @@ def main() -> int:
             minimum_action_failed = False
             mandatory_repair = False
             review_coverage = False
+            modern_code_repair = False
             hero_receipt = root / "cinema/hero-review.json"
             if hero_receipt.is_file():
                 try:
@@ -2155,14 +2156,15 @@ def main() -> int:
                     plan = load_json(a.repair_plan)
                     from repair_guard import structural_hero_plan_ready, minimum_action_plan_failure
                     minimum_action_failed = minimum_action_plan_failure(read_state(state_path), plan)
-                    from autonomous_completion import ADOPTION, COVERAGE_REASON, mandatory_reason, replay
+                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, mandatory_reason, replay
                     current = read_state(state_path)
                     if (any(e.get("kind") == ADOPTION for e in current["events"])
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity"}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON}
                         review_coverage = mandatory_reason(current, plan, evidence_text) == COVERAGE_REASON
+                        modern_code_repair = mandatory_reason(current, plan, evidence_text) == MODERN_CODE_REASON
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
                     context_ready = (plan.get("repair_scope") == review_context.SCOPE and
                                      not review_context.plan_problems(state_path, plan))
@@ -2179,7 +2181,7 @@ def main() -> int:
                     pass
             result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
-                                               mandatory_repair, review_coverage)
+                                               mandatory_repair, review_coverage, modern_code_repair)
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["feasible"] else 1
         elif a.command == "completion-capacity":
