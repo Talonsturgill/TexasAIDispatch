@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T01:52:17.972365+00:00",
+  "saved_at": "2026-10-10T02:18:20.953088+00:00",
   "note": "ledger write",
   "phase": "picture",
   "terminal_state": null,
@@ -16,15 +16,15 @@
     "sha256": "29bd9ad6d0d5c5b0dafdda17c2592e3525ed4f900785c039bd15edf7be9370cb"
   },
   "deleted_source": [],
-  "ledger_sha256": "38ff91082eee9b097fc1096366e19cec4598c441f17fd50c044f89ee9936cfaf",
-  "original_private_ledger_sha256": "dccaff3ac03652086d3998297d0fd84e5291c7f4f2346d9a133c06b74817d4b5",
+  "ledger_sha256": "ca78081d47890e552fddd13ade67ac4386729647979d8c1d15c08fc55e6d141d",
+  "original_private_ledger_sha256": "6f08c6677598c74ab8c888b8bb7ca46a562fd3eb240484f6c7fdd51451644a9b",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 0,
+    "preflight_renders": 1,
     "reboards": 1,
     "reported_tokens": 0,
     "rescue_renders": 0,
@@ -36,6 +36,12 @@
     "voice_directors": 0
   },
   "files": [
+    {
+      "path": "config/modern_episode_registry.json",
+      "class": "source",
+      "sha256": "c643de2f7eb7bd5d51d012c52619d401f72aa160289f56a544164bd370bdf8b1",
+      "size": 14582
+    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -73,10 +79,34 @@
       "size": 64
     },
     {
+      "path": "out/dispatch/complete_treatment_boards.py",
+      "class": "scratch",
+      "sha256": "9e653753d1f1ccf6ad2b67db90e900deb8f68de63990cf5b5d9f0e47ea2a3220",
+      "size": 40270
+    },
+    {
       "path": "out/dispatch/daily-production-scoreboard.json",
       "class": "scratch",
       "sha256": "0dc745e4cb32bf903de2f7e30496eb488c4b4dd43f5fdd59a86346610aad5b43",
       "size": 6313
+    },
+    {
+      "path": "out/dispatch/director-planned/opening-a.json",
+      "class": "scratch",
+      "sha256": "0df68563d2c7a6bf25bfbfcbb97dacd7cea031c0fa1f2e0e3782a82af6539606",
+      "size": 33786
+    },
+    {
+      "path": "out/dispatch/director-planned/opening-b.json",
+      "class": "scratch",
+      "sha256": "47ba94aba331883087e55b77d3776753a09c9d928be69d2e247d013bce0a4248",
+      "size": 33791
+    },
+    {
+      "path": "out/dispatch/director-planned/storyboard.json",
+      "class": "scratch",
+      "sha256": "0df68563d2c7a6bf25bfbfcbb97dacd7cea031c0fa1f2e0e3782a82af6539606",
+      "size": 33786
     },
     {
       "path": "out/dispatch/make_planned_boards.py",
@@ -87,14 +117,14 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "0df68563d2c7a6bf25bfbfcbb97dacd7cea031c0fa1f2e0e3782a82af6539606",
-      "size": 33786
+      "sha256": "778dd9d7cafc3ee527ae4f42fd09c046385ae393585cd36647d106de9672309e",
+      "size": 146305
     },
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "47ba94aba331883087e55b77d3776753a09c9d928be69d2e247d013bce0a4248",
-      "size": 33791
+      "sha256": "68cf1138391c1c77071d2287325feaf0842da370d1203ec11211a43a516d9984",
+      "size": 146264
     },
     {
       "path": "out/dispatch/research.json",
@@ -113,6 +143,114 @@
       "class": "scratch",
       "sha256": "0e982a4b28630faf96e12eadeaae589e6a7b4395ce5e37fb55abcde7422505eb",
       "size": 2321
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/a-f030.png",
+      "class": "scratch",
+      "sha256": "6eab132e57f2d01300583f683623e12383cf0ebb383c825d84a7ca6bd9c0b6dc",
+      "size": 903696
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/frames-a.txt",
+      "class": "scratch",
+      "sha256": "3efd32ead9cc6171f3176b3ced123becb7106e0f78d26d467d7a6cb2e19eb10b",
+      "size": 435
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/frames-b.txt",
+      "class": "scratch",
+      "sha256": "ad7b6a31fc0ab15f1fb061c7114ccef9f7ab324a3a75bff41ed715f3e8e674ac",
+      "size": 435
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/gates.sh",
+      "class": "scratch",
+      "sha256": "552e410e1a0bb26ff452dd8dadc1ff2f4077e80bf4ad248adc030f1041d4db65",
+      "size": 1270
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/inspect-a.json",
+      "class": "scratch",
+      "sha256": "dc2af884004cfd49a192308d39642316fc2af3bf41f32f1c8fe3b18a68db4207",
+      "size": 111351
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/inspect-b.json",
+      "class": "scratch",
+      "sha256": "3d033303816e9b8c03a91b7ae96adb407e404d3bd4ac5b0bd8aac16e91844d5a",
+      "size": 111310
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/record.json",
+      "class": "scratch",
+      "sha256": "c6b1f238d071ab756eb1c1f190c6a1d8c403607e4d311c70bcbf8f9bd98b4a75",
+      "size": 6005
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills.sh",
+      "class": "scratch",
+      "sha256": "32bdf745a2dd7d3c0b180e54ddd93422a72a64fd3c46b8b68c542e44799c2d3b",
+      "size": 405
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s1-shot-1-flow-wide.png",
+      "class": "scratch",
+      "sha256": "175f37a28e93a658a351af2a0a3f91d749a314c8a3e2fb56bdb76c7d4bc14ea1",
+      "size": 252879
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s1-shot-2-desk-close.png",
+      "class": "scratch",
+      "sha256": "2be6ae2f56fc67b99051633a3f6f1afc61e5061dd15ddb5c789051501bd775c4",
+      "size": 318600
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s2-shot-1-chart-boundary.png",
+      "class": "scratch",
+      "sha256": "02f68151d7d2f59e8319dff8f418045a9b82cdb005f738d98c5128dae6a52dff",
+      "size": 351483
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s2-shot-2-chart-boundary.png",
+      "class": "scratch",
+      "sha256": "f74123249f3140496f841b68ea593ee17386618d664c30dab521da7095daa7ce",
+      "size": 372216
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s3-shot-2-desk-close.png",
+      "class": "scratch",
+      "sha256": "c9c963a9838875a9c6a17bc5027ba56c49054ae099a32977a0fd5e85984aa1a7",
+      "size": 381919
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s4-shot-1-citation-stack.png",
+      "class": "scratch",
+      "sha256": "df453322ade5393866dc3e84ae592b640f335722a0883eaf3aecb70c01b3df10",
+      "size": 312030
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s4-shot-2-source-types.png",
+      "class": "scratch",
+      "sha256": "0c4547247d834f97e355cc19d0196ffa0bb9f5dcf27f5649bbe7a1f1e4d25936",
+      "size": 293839
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s5-shot-1-share-grid.png",
+      "class": "scratch",
+      "sha256": "20f36b7121c1a422b73e53e7acb894f80c3e12b58486dd53741fd8288331a3b7",
+      "size": 219682
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/tsc.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/unmasked.py",
+      "class": "scratch",
+      "sha256": "debb951c4cd63f60ad3b2bdf1b6a4e409e36b7ded7f43a727f79ddcecd04bf7b",
+      "size": 1123
     },
     {
       "path": "out/dispatch/sources/hb149.validator.txt",
@@ -147,8 +285,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "0df68563d2c7a6bf25bfbfcbb97dacd7cea031c0fa1f2e0e3782a82af6539606",
-      "size": 33786
+      "sha256": "778dd9d7cafc3ee527ae4f42fd09c046385ae393585cd36647d106de9672309e",
+      "size": 146305
     },
     {
       "path": "out/dispatch/validator-assignment.json",
@@ -167,9 +305,38 @@
       "class": "scratch",
       "sha256": "1ca4ee1308f6b91280d5a724256477500c5f8c781fa2372e1cb8a649d557d4dc",
       "size": 601
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+      "class": "source",
+      "sha256": "4fa27640d4a24fc6d382bfa54180c062b9d01b3d97fb488f1011edbc47790976",
+      "size": 20002
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+      "class": "source",
+      "sha256": "930c8432b75d26b084695246ebec595997f2d89bdb83a7bc39d071d4488c8854",
+      "size": 18360
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+      "class": "source",
+      "sha256": "9dcaaa8291444a77f178f851bec8294c35e1844f01da975366fc22d4a9831f7b",
+      "size": 23271
+    },
+    {
+      "path": "video-engine/src/modern/registry.tsx",
+      "class": "source",
+      "sha256": "dd7432783df2544a448b2f84d6c7065747c45b189523c62f08f6f56d6e75b02a",
+      "size": 802
     }
   ],
-  "excluded": [],
+  "excluded": [
+    {
+      "path": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s3-shot-1-credential-gate.png",
+      "reason": "private path component"
+    }
+  ],
   "regenerable": {
     "files": 0,
     "bytes": 0

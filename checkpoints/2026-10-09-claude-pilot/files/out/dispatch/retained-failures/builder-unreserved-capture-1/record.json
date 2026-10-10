@@ -1,0 +1,120 @@
+{
+  "schema": "dispatch_retained_failure/1",
+  "kind": "procedural-defect-unreserved-native-capture",
+  "recorded_at": "2026-10-10T02:18:13.223074+00:00",
+  "summary": "The existing scene-builder, during source completion, ran native Remotion captures outside bash scripts/run_with_env.sh, before any controller render reservation and before native_headroom.py, against scratch boards whose story_art.entries were placeholder values (sha256 'scratch', creation_id 'scratch-inspection-only'). These are procedural defects. They are not pre-authorized evidence and cannot enter any review, scoring or shipment.",
+  "capture_1": {
+    "observed_by": "builder transcript, 2026-10-10T02:15:44Z",
+    "command": "cd video-engine; npx --no-install remotion still Dispatch $SP/a-f030.png --props=$SP/inspect-a.json --frame=30 --log=error",
+    "scratch_boards": [
+      "inspect-a.json",
+      "inspect-b.json (placeholder authored entries)"
+    ],
+    "measured_wall_time_s": 20.238,
+    "measured_user_s": 16.841,
+    "measured_sys_s": 7.676,
+    "output": "Copying public dir 89 MB; Getting compositions; Rendered 1/1",
+    "output_file": "out/dispatch/retained-failures/builder-unreserved-capture-1/a-f030.png",
+    "frame": 30,
+    "scale": 1.0
+  },
+  "capture_2": {
+    "observed_by": "builder transcript, 2026-10-10T02:17:34Z onward",
+    "command": "stills.sh: remotion still $SP/bundle Dispatch ... --frame=N --scale=0.5 for each directed shot of both scratch boards",
+    "note": "Detected after the fact. The director messaged the builder to stop; the files preserved here are what existed when this record was made. A final addendum lists anything captured later."
+  },
+  "late_charge": "pending: charged to the controller by the director immediately after this record, within the unchanged frozen envelope",
+  "disposition": "Not used as evidence. Legitimate captures are rerun only after native_headroom.py and portable housekeeping --require-headroom, through run_with_env.sh, with a controller reservation and truthful authored receipts.",
+  "files": [
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/a-f030.png",
+      "sha256": "6eab132e57f2d01300583f683623e12383cf0ebb383c825d84a7ca6bd9c0b6dc",
+      "bytes": 903696
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/inspect-a.json",
+      "sha256": "dc2af884004cfd49a192308d39642316fc2af3bf41f32f1c8fe3b18a68db4207",
+      "bytes": 111351
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/inspect-b.json",
+      "sha256": "3d033303816e9b8c03a91b7ae96adb407e404d3bd4ac5b0bd8aac16e91844d5a",
+      "bytes": 111310
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/frames-a.txt",
+      "sha256": "3efd32ead9cc6171f3176b3ced123becb7106e0f78d26d467d7a6cb2e19eb10b",
+      "bytes": 435
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/frames-b.txt",
+      "sha256": "ad7b6a31fc0ab15f1fb061c7114ccef9f7ab324a3a75bff41ed715f3e8e674ac",
+      "bytes": 435
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills.sh",
+      "sha256": "32bdf745a2dd7d3c0b180e54ddd93422a72a64fd3c46b8b68c542e44799c2d3b",
+      "bytes": 405
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/gates.sh",
+      "sha256": "552e410e1a0bb26ff452dd8dadc1ff2f4077e80bf4ad248adc030f1041d4db65",
+      "bytes": 1270
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/unmasked.py",
+      "sha256": "debb951c4cd63f60ad3b2bdf1b6a4e409e36b7ded7f43a727f79ddcecd04bf7b",
+      "bytes": 1123
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/tsc.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s1-shot-1-flow-wide.png",
+      "sha256": "175f37a28e93a658a351af2a0a3f91d749a314c8a3e2fb56bdb76c7d4bc14ea1",
+      "bytes": 252879
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s1-shot-2-desk-close.png",
+      "sha256": "2be6ae2f56fc67b99051633a3f6f1afc61e5061dd15ddb5c789051501bd775c4",
+      "bytes": 318600
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s2-shot-1-chart-boundary.png",
+      "sha256": "02f68151d7d2f59e8319dff8f418045a9b82cdb005f738d98c5128dae6a52dff",
+      "bytes": 351483
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s2-shot-2-chart-boundary.png",
+      "sha256": "f74123249f3140496f841b68ea593ee17386618d664c30dab521da7095daa7ce",
+      "bytes": 372216
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s3-shot-1-credential-gate.png",
+      "sha256": "3184c5d28c7e83fbe57bde383e4f0613d792c4d8c4ea63ea820c9ab387c6b76c",
+      "bytes": 325062
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s3-shot-2-desk-close.png",
+      "sha256": "c9c963a9838875a9c6a17bc5027ba56c49054ae099a32977a0fd5e85984aa1a7",
+      "bytes": 381919
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s4-shot-1-citation-stack.png",
+      "sha256": "df453322ade5393866dc3e84ae592b640f335722a0883eaf3aecb70c01b3df10",
+      "bytes": 312030
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s4-shot-2-source-types.png",
+      "sha256": "0c4547247d834f97e355cc19d0196ffa0bb9f5dcf27f5649bbe7a1f1e4d25936",
+      "bytes": 293839
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s5-shot-1-share-grid.png",
+      "sha256": "20f36b7121c1a422b73e53e7acb894f80c3e12b58486dd53741fd8288331a3b7",
+      "bytes": 219682
+    }
+  ]
+}
