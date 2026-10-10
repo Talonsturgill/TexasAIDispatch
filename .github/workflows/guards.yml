@@ -78,6 +78,7 @@ jobs:
           python3 scripts/cloud_bootstrap_test.py
           python3 scripts/phone_playback_test.py
           python3 scripts/claude_checkpoint_test.py
+          python3 scripts/capture_guard_test.py
           python3 scripts/dispatch_housekeeping_test.py
 
       - name: Independent review survives host capacity without changing verdicts

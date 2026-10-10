@@ -264,6 +264,39 @@ class Privacy(Base):
         self.assertEqual("private data structure", reasons["out/dispatch/neutral-name.json"])
         self.assertEqual("private data structure", reasons["out/dispatch/nested/also.json"])
 
+    def test_credential_and_secret_names_stay_private_for_every_file_type(self):
+        (self.scratch / "retained-failures").mkdir()
+        for name in ("credentials.json", "credentials-prod.json", "credential_store.yaml", "secret-key.txt", "credentials.png",
+                     "secret-key.png", "a-s3-shot-1-credential-gate.png", "secret-handshake.jpg", ".env", ".env.local",
+                     "my.credentials", "secret-santa-notes.md"):
+            (self.scratch / "retained-failures" / name).write_bytes(b"x")
+        (self.scratch / "secrets").mkdir(); (self.scratch / "secrets/key.txt").write_text("x")
+        (self.scratch / "credential-gate").mkdir(); (self.scratch / "credential-gate/frame.png").write_bytes(b"png")
+        (self.scratch / "plain-evidence.png").write_bytes(b"png")
+        result = self.save()
+        kept = {n.split("/files/", 1)[1] for n in self.names(result) if "/files/" in n}
+        self.assertEqual({"out/dispatch/plain-evidence.png"}, kept)
+
+    def test_a_known_synthetic_failure_render_is_retained_as_a_neutral_copy_with_provenance(self):
+        (self.scratch / "stills").mkdir()
+        original = self.scratch / "stills/a-s3-shot-1-credential-gate.png"
+        original.write_bytes(os.urandom(2048))
+        info = ck.neutralize(self.repo, original, "remotion still bundle Dispatch a-s3-shot-1-credential-gate.png --scale=0.5",
+                             "synthetic authored-art scene render")
+        neutral = Path(info["neutral_copy"])
+        self.assertEqual(original.read_bytes(), neutral.read_bytes())
+        self.assertNotIn("credential", neutral.name)
+        result = self.save()
+        kept = {n.split("/files/", 1)[1] for n in self.names(result) if "/files/" in n}
+        self.assertIn(neutral.relative_to(self.repo).as_posix(), kept)
+        self.assertIn("out/dispatch/retained-failures/neutral/mapping.json", kept)
+        self.assertNotIn("out/dispatch/stills/a-s3-shot-1-credential-gate.png", kept)   # the private name stays out
+        mapping = json.loads((neutral.parent / "mapping.json").read_text())
+        self.assertEqual("a-s3-shot-1-credential-gate.png", mapping[0]["original_name"])
+        self.assertEqual(info["sha256"], mapping[0]["sha256"])
+        self.assertIn("remotion still", mapping[0]["invocation"])
+        self.assertTrue(mapping[0]["source_mtime_utc"])
+
     def test_shipped_ledger_is_sanitized(self):
         state = self.ledger()
         state.update(terminal_state="shipped", shipment={

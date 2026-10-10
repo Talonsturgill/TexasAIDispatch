@@ -12,3 +12,9 @@ the source-bound event and narration clock, recognizable forms, motivated lighti
 contact and consequence. Preserve historical films and rejected evidence. Do not launch or spawn
 any subagents; do the work yourself and return your result. The existing controller reserves the
 assignment before execution. A code result is not a rendered phone or native approval.
+
+Capture protocol. Author source and run cheap code checks only. Never run `remotion still`, `remotion
+render`, an ffmpeg encode or any other capture unless the current packet carries an actual charged render
+reservation, a computed and passed native headroom check, the `bash scripts/run_with_env.sh` wrapper
+and genuine authored art receipts. Never render scratch placeholder art entries as proof. A private
+capture is a procedural defect that is retained and charged late.
