@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 12,
+    "storyboard_critics": 13,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -1888,6 +1888,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-10T19:30:56.752135Z",
+      "failure_evidence_json": "{\n  \"reviewer_identity\": \"storyboard-critic / claude-opus-5-5 (high effort), isolated read-only pivot reviewer, not the director claude-sonnet-5-5\",\n  \"reviewed_at\": \"unknown\",\n  \"verdict\": \"pass\",\n  \"retired_mechanism_id\": \"voice-explicit-silent-stop\",\n  \"replacement_mechanism_id\": \"script-punctuation-clause-joins\",\n  \"reviewed_failure_sha256\": [\n    \"81de1e1b566d4e7bc1cd47e76591609261114e5d1d4af51b6f1ac48882f2bf05\",\n    \"c1ab4e4968c0f6d24140c6d5338fec572670376c2075a4b0a06db2c1eb14a3a5\",\n    \"1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6\"\n  ],\n  \"visible_difference\": \"This is a real change of mechanism. The pause now comes from boundary punctuation in the fenced spoken text, not from performance notes in the preamble. The n4a|n4b join becomes a sentence boundary, and full stops are the one boundary the reader was measured to honor every time: minimum 0.40 s in take 1 and 0.68 s in take 2, across 21 sentence joins. The full stop also agrees with the fixed preamble ('A normal breath at a full stop is right') rather than fighting it. The n3a|n3b join gets a comma, the only legal mark there. A comma was honored in 1 of 2 observed takes. The take-3 explicit-silence wording, which ran to 68.5 s, is removed by restoring the take-1 direction, so the new take tests punctuation alone. The plan's expected result now says honestly that line 3 is uncertain, and it names the next mechanism if line 3 fails: merge n3a and n3b, or change the preamble in tooling.\",\n  \"source_basis\": \"voice-take1-no-clause-silence/words.json: twenty-second,->and gap 0.34 s (speech runs [5.64,9.54] and [9.88,11.34]). credentials->and and citations->to are 0.0 s. Every full-stop gap is 0.40 s or more. voice-take2-breath-direction/words.json: twenty-second,->and is 0.0 s, and every full-stop gap is 0.68 s or more. voice-take3-explicit-silence/failure.json: 68.5 s against the 44 s cut. scripts/vo_soundcheck.py MAX_OVERAGE is 0.04, which caps a take at about 45.76 s. scripts/vo_synth_gemini.py: line 199 compares scenes vo with the script exactly, lines 219 to 228 compare the direction line text with the script exactly, and lines 257 to 260 hold the preamble. scripts/modern_film.py narration_tokens (line 30) lowercases and strips punctuation. out/dispatch/repair-plan-9-script-punctuation.json lists vo_direction.json in changed_inputs (before 3f70eff2...).\",\n  \"house_rule_check\": \"Both edits comply. Line 3, 'Clinicians sign in with their usual credentials, and ask in plain language.', has a single comma BEFORE the conjunction, not after it. It is not one of a pair of commas fencing a hedge. Line 4, 'The answers carry citations. To medical literature and clinical guidelines.', adds only a full stop and a capital T. Neither line adds a colon, a semicolon or a dash. No sentence opens with And or But, and there is no first person. The fragment is acceptable in captions under the house rules. No rule bans a fragment. Read with the cue before it ('The answers carry citations.'), it is unambiguous, and it is ordinary broadcast style. It is also better than the earlier comma, which split a noun from its complement. No spoken word changes, because the soundcheck's normalise() and narration_tokens both lowercase and drop punctuation, so 'To' is the same token as 'to'. Token count and word_range are unchanged (n4a 41 to 45, n4b 45 to 51). No claim id, clause id, vo_claims entry or claims.json byte changes. The capital 'To' and the full stop matter only where a check compares exact strings. In the code I read, the punctuation-sensitive comparisons are the three copies the director named: scenes[].vo against vo_script.txt, the vo_direction line 'text' against the script, and opening-a.json as a byte copy of storyboard.json. creative_direction.edits[].sentence_to_shot.clause for s3 and s4 is a verbatim copy too, so update it to match exactly, as planned. Three other places carry the old punctuation but are compared only as tokens, so leaving them breaks nothing: narration_picture.clauses n3a, n4a and n4b text, and the authored captions c5, c7 and c8 (provisional; board_retime replaces them with measured cues). For consistency I recommend 'The answers carry citations.' for n4a and 'To medical literature and clinical guidelines.' for n4b, but this is optional. story_contract.change paraphrases the line rather than copying it and needs no edit. creative_direction.sound is untouched, so vo_direction sound_direction_sha256 stays valid.\",\n  \"other_changes_needed\": [\n    \"The plan file as read does not record what the coordinator described. It has no repair_scope field, and resources requests only tts_calls 2, with no reboard. Make sure begin-repair runs in the standard scope and that the reboard is actually reserved through the controller before any edit. If the controller expects scope or reboards in the plan, add them to the file.\",\n    \"Write the s3 and s4 sentence_to_shot.clause strings byte-identical to the new scenes[].vo. Optionally, update narration_picture n3a, n4a and n4b and the authored captions c5, c7 and c8 to the same punctuation for consistency (token-identical, no gate requires it).\",\n    \"Make vo_direction.json the take-1 baseline bytes, changing only the L3 and L4 'text' fields. Its after_sha256 will therefore not equal a376217d...; record the actual value. The stale prose in verification.script.content_checked_against_board is harmless, but don't rely on it as verification.\",\n    \"Before synthesis, re-run script_evidence_check, plus the story-critic and opening-selection digest bindings the controller requires, because the storyboard and opening-a bytes change.\",\n    \"Duration margin is modest. One extra full-stop gap (about 0.4 to 0.8 s by the measured gaps) and a possible comma gap (about 0.3 s) on a 42.5 to 43.8 s read lands near 43.2 to 44.9 s. The soundcheck ceiling is about 45.76 s. The take still needs the fresh verbatim soundcheck, mix, measured alignment, board_retime and every exact-film gate.\"\n  ],\n  \"limits\": \"Read-only review. I computed no hashes and echo the bindings as supplied. I heard no audio and inferred silences only from the retained words.json speech runs. I read only the parts of storyboard.json covering scene s4, story_contract, creative_direction.edits, the authored captions and narration_picture clauses n1a to n5. I did not open creative_production.py, so I did not check whether its sentence_to_shot comparison is exact or token-based; the advice above assumes exact. I did not open script_evidence_check.py or run_controller/repair_guard scope handling, so the scope and reboard accounting is unverified. I did not see the take-1 vo_direction bytes. The comma's reliability at line 3 rests on two observations. This pass judges only the pivot plan and approves no film, score or shipment.\"\n}\n",
+      "failure_evidence_sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 13,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 13,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"completion_reason\": \"finish-current\",\n \"repair_scope\": \"standard\",\n \"failure_evidence\": \"out/dispatch/pivot-review.json\",\n \"failure_evidence_sha256\": \"c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af\",\n \"changed_inputs\": [],\n \"resources\": {\n  \"storyboard_critics\": 1\n },\n \"repair\": \"No correction in this plan. It funds the remaining review path (story re-review after the punctuation repair, the final measured timed phone review, native, audiovisual, scoring and delivery) after the independent pivot review passed.\",\n \"note\": \"Finish-current plan bound to the fresh independent pivot pass. Approves no pixels, score or shipment.\"\n}",
+      "plan_sha256": "117b7b839e682a7fc6b2e47fdbc8906e866ab7e097b0ba4b3df9846996b36cd2",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":8,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":10,\"required\":2,\"used\":6},\"reboards\":{\"ceiling\":10,\"remaining\":3,\"required\":0,\"used\":7},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":12,\"remaining\":1,\"required\":2,\"used\":11},\"tts_calls\":{\"ceiling\":12,\"remaining\":6,\"required\":2,\"used\":6},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "3453faf73d826c15aaacf847481482aaeb53d6384050b97fcfaaeacea50e3065",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 12,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 12,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-09-claude-pilot",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 6,
+        "reboards": 7,
+        "reported_tokens": 14851,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 0,
+        "storyboard_critics": 11,
+        "tts_calls": 6,
+        "validator_agents": 1,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -1911,7 +2015,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "fc8142c52324e05ec1cdd3d52a6832dd6f61993b22bc033f8a5d58543cebb3be",
+    "original_private_state_sha256": "54b0ec188df5868767223a55aa387c2c26f7fbaa40b3010a7fac29b29c11398d",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1939,7 +2043,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T19:25:08.796007Z",
+  "updated_at": "2026-10-10T19:30:56.752167Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,

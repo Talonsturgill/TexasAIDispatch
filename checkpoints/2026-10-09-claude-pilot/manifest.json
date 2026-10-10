@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T19:25:55.954535+00:00",
-  "note": "voice takes 1-3 retained; plan 8 (script commas) drafted; pivot review dispatched as critic 11; no script edit yet",
+  "saved_at": "2026-10-10T19:30:57.405619+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "bbbf732898b2d195c8f29770118e207af73f643eaa4271e7aa5000740690e4fc",
-  "original_private_ledger_sha256": "fc8142c52324e05ec1cdd3d52a6832dd6f61993b22bc033f8a5d58543cebb3be",
+  "ledger_sha256": "e2fd5b4eaf81879a24681007273da6a9f5a802dc537a8df13532f2d59e000d63",
+  "original_private_ledger_sha256": "54b0ec188df5868767223a55aa387c2c26f7fbaa40b3010a7fac29b29c11398d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -181,6 +181,12 @@
       "size": 109
     },
     {
+      "path": "out/dispatch/budget-audit/completion-capacity-attempt-6.txt",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/budget-audit/critic_gate_live_recheck.json",
       "class": "scratch",
       "sha256": "2f569b56073b3bc039f331c0030a8ea36afb397e85351bf5d96e1af62d430642",
@@ -229,6 +235,12 @@
       "size": 1491
     },
     {
+      "path": "out/dispatch/budget-audit/precheck-finish-current-3.json",
+      "class": "scratch",
+      "sha256": "26055d7a7135ba64bf0aa5224047deb422350ee5ee67a45785b74dd5534eafcd",
+      "size": 1490
+    },
+    {
       "path": "out/dispatch/budget-audit/precheck-finish-current-after.json",
       "class": "scratch",
       "sha256": "80e72e68c5cda0d5d8b07dfcf4d2bdf654aed4a5b98115dae1958a32b6edeb1c",
@@ -251,6 +263,12 @@
       "class": "scratch",
       "sha256": "f183d5fea0819ba7c34c6923440a36ebafa5093557cc2b92434855fe910baec9",
       "size": 1458
+    },
+    {
+      "path": "out/dispatch/budget-audit/precheck-script-punctuation.json",
+      "class": "scratch",
+      "sha256": "26055d7a7135ba64bf0aa5224047deb422350ee5ee67a45785b74dd5534eafcd",
+      "size": 1490
     },
     {
       "path": "out/dispatch/budget-audit/precheck-voice-repair-2.json",
@@ -491,6 +509,12 @@
       "class": "scratch",
       "sha256": "fbdc841facecc0d2b115ee18fbc24ec3ddd7241ab748de56df78116bbd52ff94",
       "size": 689
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-3.json",
+      "class": "scratch",
+      "sha256": "117b7b839e682a7fc6b2e47fdbc8906e866ab7e097b0ba4b3df9846996b36cd2",
+      "size": 720
     },
     {
       "path": "out/dispatch/finish-current-plan.json",
@@ -1549,6 +1573,12 @@
       "size": 8764
     },
     {
+      "path": "out/dispatch/pivot-review.json",
+      "class": "scratch",
+      "sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af",
+      "size": 6818
+    },
+    {
       "path": "out/dispatch/preflight.mp4",
       "class": "scratch",
       "sha256": "1294c489f9b42c49363a5bb397fa8fafd35ba2d9a0dbac95841178507774d6cb",
@@ -2095,6 +2125,12 @@
       "size": 2347
     },
     {
+      "path": "out/dispatch/repair-plan-9-script-punctuation.json",
+      "class": "scratch",
+      "sha256": "eabbcdf5b4220b692dd4c9d7a60f08d84866b112d2ef4dfbb9f08c5b7166aa26",
+      "size": 3249
+    },
+    {
       "path": "out/dispatch/repair-plan.json",
       "class": "scratch",
       "sha256": "14d51692e302812188f455f9edc14d37354a88412ec1ace4ad7d6a167d4922b0",
@@ -2629,6 +2665,12 @@
       "size": 842
     },
     {
+      "path": "out/dispatch/retained-failures/pivot-review-1/NOTE.md",
+      "class": "scratch",
+      "sha256": "6a7da2e0feb387f91770af94fc8b6651504f35d9cffe00bcb450a73879d08f29",
+      "size": 806
+    },
+    {
       "path": "out/dispatch/retained-failures/procedural-note-r4.json",
       "class": "scratch",
       "sha256": "9844cec8071d7040560ceafcbc81b8bb4c5cb317b9760b29284fac84577446fc",
@@ -2885,6 +2927,36 @@
       "class": "scratch",
       "sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
       "size": 651
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__opening-a.json",
+      "class": "scratch",
+      "sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+      "size": 157111
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__storyboard.json",
+      "class": "scratch",
+      "sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+      "size": 157111
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_direction.json",
+      "class": "scratch",
+      "sha256": "3f70eff2f6b30f85953eb5ca72b005114836f31b2b997b44c3be8623fa0888d1",
+      "size": 26054
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_script.txt",
+      "class": "scratch",
+      "sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
+      "size": 651
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-plan-8-script-commas.superseded.json",
+      "class": "scratch",
+      "sha256": "8d25ce44c89a59dc5e3fcd95354527e79618a9eb08e35fb608c2e51aaa26281a",
+      "size": 2347
     },
     {
       "path": "out/dispatch/retained-failures/storyboard_critic.pre-repair5.json",

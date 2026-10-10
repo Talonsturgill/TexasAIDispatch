@@ -1,0 +1,34 @@
+{
+ "mechanism_id": "script-comma-clause-joins",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "Three direction-only takes (retained) could not produce measured silence at the authored clause joins n3a|n3b (credentials | and ask) and n4a|n4b (citations | to medical literature), so board_retime refuses to map clauses to measured cues. Take 1 did produce a 0.34 s pause where the script has a comma (twenty-second, | and).",
+ "repair": "Add one comma at each of the two joins in the locked script and its board copy: line 3 reads Clinicians sign in with their usual credentials, and ask in plain language. and line 4 reads The answers carry citations, to medical literature and clinical guidelines. Punctuation only. No spoken word, claim id, clause id, clause text tokens, renderer action, art or timing value changes.",
+ "mechanism_change": "The pause moves from a requested performance, which the voice model ignored, to punctuation the voice model already honored in take 1.",
+ "expected_visible_result": "A new continuous take with measured silence of at least a third of a second after credentials and after citations, so n3a|n3b and n4a|n4b each have their own measured cue and the retime succeeds. The film pictures are unchanged.",
+ "failure_evidence": "out/dispatch/retained-failures/voice-take3-explicit-silence/failure.json",
+ "failure_evidence_sha256": "1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/vo_script.txt",
+   "before_path": "out/dispatch/retained-failures/repair-8-baseline/out__dispatch__vo_script.txt",
+   "before_sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/retained-failures/repair-8-baseline/out__dispatch__storyboard.json",
+   "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/opening-a.json",
+   "before_path": "out/dispatch/retained-failures/repair-8-baseline/out__dispatch__opening-a.json",
+   "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+   "after_sha256": ""
+  }
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "mechanism_id": "script-punctuation-clause-joins",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "Three direction-only takes (retained) could not produce measured silence at the authored clause joins n3a|n3b (credentials | and ask) and n4a|n4b (citations | to medical literature). Full stops were measured silent at every sentence join in takes 1 and 2 (0.40 s and 0.68 s minimum) and take 1 honored the written comma in twenty-second, and with 0.34 s.",
+ "repair": "Punctuation only, in the locked script and its board copy: line 3 reads Clinicians sign in with their usual credentials, and ask in plain language. and line 4 reads The answers carry citations. To medical literature and clinical guidelines. The direction file is restored to the take 1 baseline wording (the explicit-silence instruction that produced the 68.5 s take is removed) and only its line 3 and line 4 text fields change to match the script. No spoken word, claim id, clause id, clause token, renderer action, art or timing value changes.",
+ "mechanism_change": "The pause moves from performance notes the reader ignored twice and overcorrected once, to punctuation in the spoken text: a full stop where full stops were measured silent at every join, and a comma at the one join where only a comma can lawfully stand.",
+ "expected_visible_result": "A new continuous take with measured silence at the n4a|n4b join (full stop, high confidence) and probably at the n3a|n3b join (comma, honored in 1 of 2 observed takes). If the line 3 join is still silent, the next mechanism is merging clauses n3a and n3b with a builder change and critic review, or a tooling change to the reader preamble, not another direction wording.",
+ "failure_evidence": "out/dispatch/retained-failures/voice-take3-explicit-silence/failure.json",
+ "failure_evidence_sha256": "1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/vo_script.txt",
+   "before_path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_script.txt",
+   "before_sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__storyboard.json",
+   "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/opening-a.json",
+   "before_path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__opening-a.json",
+   "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/vo_direction.json",
+   "before_path": "out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_direction.json",
+   "before_sha256": "3f70eff2f6b30f85953eb5ca72b005114836f31b2b997b44c3be8623fa0888d1",
+   "after_sha256": ""
+  }
+ ],
+ "repair_scope": "standard",
+ "pivot_review": {
+  "path": "out/dispatch/pivot-review.json",
+  "sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af"
+ }
+}
