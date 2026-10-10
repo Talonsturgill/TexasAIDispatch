@@ -62,7 +62,9 @@ picture phase. Use its actual record, verify and stage commands. There is no Ima
 in this lane and no fabricated image-generation charge.
 
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
-edition. A terminal shipped run is immutable. The first owner-authorized migration test uses a
+edition. Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
+the cloud host's UTC date does not select an Eastern edition. A terminal shipped run is immutable.
+The first owner-authorized migration test uses a
 fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
 own branch, scratch, permanent media, feed identity, draft and archive. The board's calendar date
 is still today. Run this migration pilot only if no prior Claude pilot has accepted `shipped`
