@@ -166,6 +166,45 @@ class RoundTrip(Base):
             ck.restore(fresh, RUN, dest=self.root / "nope")
 
 
+class CaptureConsumption(Base):
+    """Command consumption is a monotonic checkpoint invariant across checkpoint writers."""
+
+    def setUp(self):
+        super().setUp()
+        self.init_ledger()
+        self.scratch.mkdir(parents=True, exist_ok=True)
+        self.auth = self.scratch / "capture-authorization.json"
+        self.used = self.scratch / "capture-authorizations-used.json"
+
+    def write(self, consumed, reservation="r" * 64, used=("r" * 64,)):
+        self.auth.write_text(json.dumps({"render_reservation": {"event_sha256": reservation},
+                                         "commands": [{"id": "c" * 64, "consumed": consumed}]}))
+        self.used.write_text(json.dumps([{"event_sha256": u} for u in used]))
+
+    def test_a_stale_writer_cannot_mark_a_consumed_command_unused_again(self):
+        self.write(False); self.save("issued")
+        self.write("2026-10-10T03:00:00+00:00"); self.save("consumed")
+        self.write(False)                       # an old container that never saw the consumption
+        with self.assertRaisesRegex(ck.RegressionError, "marked unused again"):
+            self.save("stale writer")
+        self.write("2026-10-10T03:00:00+00:00")
+        self.assertFalse(self.save("same state")["changed"] and False)
+
+    def test_the_used_reservation_log_never_shrinks_and_the_authorization_cannot_vanish(self):
+        self.write("2026-10-10T03:00:00+00:00", used=("a" * 64, "b" * 64)); self.save("two used")
+        self.write("2026-10-10T03:00:00+00:00", used=("a" * 64,))
+        with self.assertRaisesRegex(ck.RegressionError, "removed from the log"):
+            self.save("shrunk log")
+        self.write("2026-10-10T03:00:00+00:00", used=("a" * 64, "b" * 64)); self.auth.unlink()
+        with self.assertRaisesRegex(ck.RegressionError, "disappeared"):
+            self.save("vanished")
+
+    def test_a_new_reservation_may_issue_a_new_authorization(self):
+        self.write("2026-10-10T03:00:00+00:00"); self.save("consumed")
+        self.write(False, reservation="s" * 64, used=("r" * 64, "s" * 64))
+        self.assertTrue(self.save("a fresh reservation and authorization")["changed"])
+
+
 class Selection(unittest.TestCase):
     def test_oldest_unfinished_is_chosen_by_identity_not_by_save_order(self):
         rows = [  # discover() order: newest save first

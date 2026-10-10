@@ -234,6 +234,39 @@ class Shell(Fixture):
         self.assertIn('could not be parsed', self.hook(broken))
 
 
+class ParserGaps(Fixture):
+    """Codex review of the parser: forms the earlier classifier missed must fail closed, and cd is scoped."""
+
+    def test_prefixed_keyworded_and_wrapped_forms_are_still_captures(self):
+        for command in ('time -p npx remotion still Dispatch o.png', 'env -i npx remotion still Dispatch o.png',
+                        'if true; then npx remotion still Dispatch o.png; fi', 'nohup npx remotion render Dispatch out.mp4',
+                        'FOO=1 BAR=2 npx remotion still D o.png', 'eval "npx remotion still D o.png"',
+                        'while true; do npx remotion still D o.png; done', 'time -p python3 scripts/preflight_animatic.py --board b.json',
+                        'then npx remotion still D o.png', 'env -i ffmpeg -y -i a.png b.mp4'):
+            self.assertIsNotNone(self.hook(command), command)
+
+    def test_harmless_commands_that_only_name_the_scripts_still_pass(self):
+        for command in ('grep -n preflight_animatic scripts/run_controller.py', 'cd out && ls', 'echo "remotion still"',
+                        'sed -n 1,5p scripts/cinema_proof.py', 'time -p python3 scripts/engine_lint.py', 'ffprobe -i film.mp4'):
+            self.assertIsNone(self.hook(command), command)
+
+    def test_a_subshell_cd_does_not_leak_into_later_commands(self):
+        command = WRAP + "bash -lc '(cd out/dispatch && true); npx remotion still Dispatch o.png --props=storyboard.json'"
+        self.authorize([command])
+        self.assertIn('unreadable --props input', self.hook(command))   # resolved from the project root, where it does not exist
+        scoped = WRAP + "bash -lc '(cd out/dispatch && npx remotion still Dispatch o.png --props=storyboard.json)'"
+        self.ledger(self.reserved, dict(self.reserved, at='s2'))
+        self.authorize([scoped])
+        self.assertIsNone(self.hook(scoped))
+
+    def test_a_cd_the_guard_cannot_model_makes_relative_inputs_fail_closed(self):
+        for prefix in ('cd;', 'cd -;', 'cd $HOME;', 'pushd out/dispatch;', 'cd "$X";'):
+            self.ledger(self.reserved, dict(self.reserved, at='u' + str(abs(hash(prefix)))))
+            command = WRAP + "bash -lc '%s npx remotion still Dispatch o.png --props=storyboard.json'" % prefix
+            self.authorize([command])
+            self.assertIn('unreadable --props input', self.hook(command), prefix)
+
+
 class RemoteConsumption(Fixture):
     """Consumption must be on the remote checkpoint before the command runs, and survive container replacement."""
 

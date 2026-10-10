@@ -284,6 +284,38 @@ def monotonic_problems(old, new):
     return errors
 
 
+AUTHORIZATION_FILE = "out/dispatch/capture-authorization.json"
+USED_FILE = "out/dispatch/capture-authorizations-used.json"
+
+
+def authorization_problems(old_files, new_files):
+    """Capture consumption never goes backwards across writers. A stale container that still holds an
+    unconsumed authorization can't overwrite the remote record, and the used-reservation log never shrinks."""
+    errors = []
+    try:
+        old = json.loads(old_files[AUTHORIZATION_FILE]) if AUTHORIZATION_FILE in old_files else None
+        new = json.loads(new_files[AUTHORIZATION_FILE]) if AUTHORIZATION_FILE in new_files else None
+    except (ValueError, KeyError):
+        return ["a capture authorization could not be read for the monotonic check"]
+    if old is not None:
+        if new is None:
+            errors.append("the consumed capture authorization disappeared")
+        elif (old.get("render_reservation") or {}).get("event_sha256") == (new.get("render_reservation") or {}).get("event_sha256"):
+            now_consumed = {c["id"]: c.get("consumed") for c in new.get("commands", [])}
+            for entry in old.get("commands", []):
+                if entry.get("consumed") and not now_consumed.get(entry["id"]):
+                    errors.append("an authorized capture command that was consumed is marked unused again")
+    try:
+        old_used = json.loads(old_files[USED_FILE]) if USED_FILE in old_files else []
+        new_used = json.loads(new_files[USED_FILE]) if USED_FILE in new_files else []
+    except ValueError:
+        return errors + ["the used capture reservation log could not be read"]
+    missing = {u["event_sha256"] for u in old_used} - {u["event_sha256"] for u in new_used}
+    if missing:
+        errors.append("a used capture reservation was removed from the log")
+    return errors
+
+
 def build_bundle(repo, state_path, note, environ=None):
     environ = os.environ if environ is None else environ
     repo = Path(repo)
@@ -388,6 +420,9 @@ def save(repo=REPO, state_path=None, note="manual", remote="origin", environ=Non
     if parent:
         old_manifest = json.loads(show(repo, parent, f"{ROOT}/{run_id}/manifest.json"))
         errors = monotonic_problems(json.loads(show(repo, parent, f"{ROOT}/{run_id}/run_state.json")), ledger_obj)
+        old_files = {path: show(repo, parent, f"{ROOT}/{run_id}/files/{path}") for path in (AUTHORIZATION_FILE, USED_FILE)
+                     if path in {row["path"] for row in old_manifest.get("files", [])}}
+        errors += authorization_problems(old_files, {k: v for k, v in stored.items() if k in (AUTHORIZATION_FILE, USED_FILE)})
         if errors:
             raise RegressionError("checkpoint would weaken the durable record: " + "; ".join(errors[:6]))
     commit, changed = commit_tree(repo, run_id, manifest, ledger, stored, parent, manifest["source_pin"], old_manifest)

@@ -96,34 +96,58 @@ def tokenize(text):
     return list(lexer)
 
 
+UNKNOWN = None   # a working directory the guard can't model; relative capture inputs then fail closed
+
+
 def simple_commands(command, cwd, depth=0):
     """Every simple command the shell would run with the directory it runs in, recursing into the wrapper,
-    bash -c and bash -lc strings. Raises ValueError when the text cannot be read."""
+    bash -c and -lc strings and eval. Directory changes are scoped: a subshell restores on its close, and a
+    cd the guard can't model (no argument, a variable, a dash, pushd) makes later relative inputs unreadable.
+    Raises ValueError when the text can't be read."""
     if depth > 6:
         raise ValueError('shell nesting is too deep to inspect')
     tokens = tokenize(strip_text_payloads(command))
-    found, current, here = [], [], cwd
-    segments = []
+    found, current, here, stack = [], [], cwd, []
+
+    def flush():
+        nonlocal current, here
+        if current:
+            walk(current, here, found, depth)
+            if current[0] == 'cd':
+                target = current[1] if len(current) == 2 and not UNRESOLVED.search(current[1]) and current[1] not in ('-',) else None
+                here = str(resolve(target, here)) if target is not None and here is not None else UNKNOWN
+            elif current[0] in ('pushd', 'popd'):
+                here = UNKNOWN
+        current = []
+
     for token in tokens:
-        if token and set(token) <= set(';&|()<>'):
-            segments.append(current); current = []
+        if token and set(token) <= set(';&|<>()'):
+            # shlex joins runs like ");" and "&&" into one token, so read each character.
+            for char in token:
+                if char == '(':
+                    flush(); stack.append(here)
+                elif char == ')':
+                    flush(); here = stack.pop() if stack else here
+                else:
+                    flush()
         else:
             current.append(token)
-    segments.append(current)
-    for segment in segments:
-        walk(segment, here, found, depth)
-        if len(segment) >= 2 and segment[0] == 'cd':
-            here = str(resolve(segment[1], here))
+    flush()
     return found
 
 
 def walk(tokens, cwd, found, depth):
-    tokens = [t for t in tokens]
+    tokens = list(tokens)
     while tokens and (re.fullmatch(r'[A-Za-z_]\w*=.*', tokens[0]) or Path(tokens[0]).name in PREFIXES):
         tokens = tokens[1:]
     if not tokens:
         return
     name = Path(tokens[0]).name
+    if name == 'eval':
+        for inner in tokens[1:]:
+            for item in simple_commands(inner, cwd, depth + 1):
+                found.append(item)
+        return
     if name in SHELLS:
         rest = tokens[1:]
         for index, token in enumerate(rest):
@@ -141,20 +165,16 @@ def walk(tokens, cwd, found, depth):
 
 
 def segment_is_capture(tokens):
-    name = Path(tokens[0]).name
-    args = [t for t in tokens[1:] if not t.startswith('-')]
-    if name.startswith('python'):
-        return bool(args) and Path(args[0]).name in CAPTURE_SCRIPTS
-    if name in SHELLS:
-        return bool(args) and Path(args[0]).name in CAPTURE_SCRIPTS
-    if name in ('npx', 'pnpm', 'yarn', 'bunx', 'remotion', 'ffmpeg') or name == 'node':
-        flat = [Path(t).name for t in tokens[1:]]
-        if name == 'ffmpeg':
-            return '-i' in tokens[1:]
-        for index, word in enumerate(flat):
-            if word == 'remotion' and index + 1 < len(flat) and flat[index + 1] in ('still', 'render'):
-                return True
-        return name == 'remotion' and bool(flat) and flat[0] in ('still', 'render')
+    """Capture-looking words anywhere in a command, whatever prefix or keyword precedes them, so a form the
+    parser did not model (time -p, env -i, then, an unknown wrapper) still fails closed."""
+    names = [Path(t).name for t in tokens]
+    for index, word in enumerate(names):
+        if word == 'remotion' and index + 1 < len(names) and names[index + 1] in ('still', 'render'):
+            return True
+        if word == 'ffmpeg' and '-i' in tokens[index + 1:]:
+            return True
+        if word in CAPTURE_SCRIPTS and index > 0 and (names[index - 1].startswith('python') or names[index - 1] in SHELLS):
+            return True
     return False
 
 
@@ -186,7 +206,11 @@ def command_inputs(tokens):
 
 def resolve(value, cwd):
     path = Path(os.path.expanduser(value)) if value.startswith('~') else Path(value)
-    return path if path.is_absolute() else Path(cwd) / path
+    if path.is_absolute():
+        return path
+    if cwd is UNKNOWN:
+        raise OSError('the working directory is not known, so %r can not be resolved' % value)
+    return Path(cwd) / path
 
 
 def bound_hashes(board, root):
@@ -241,8 +265,8 @@ def capture_problems(command, auth, cwd, root, free_gib=None):
             if not value or UNRESOLVED.search(value):
                 errors.append('unresolved --%s input %r; capture inputs must be concrete files' % (flag, value))
                 continue
-            path = resolve(value, here)
             try:
+                path = resolve(value, here)
                 digest = sha(path)
                 data = json.loads(path.read_text())
             except (OSError, ValueError):
