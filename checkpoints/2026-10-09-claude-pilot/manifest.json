@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T03:12:11.651976+00:00",
-  "note": "repair 1 source, receipts re-recorded, repair authorized",
+  "saved_at": "2026-10-10T03:24:11.715522+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "71f8434fc9220dc4d888790fab0f256ef513985a593fbb3f741af7ba75458165"
   },
   "deleted_source": [],
-  "ledger_sha256": "ce3493a708fb491ee480d3012b490de04623e61216d6310d85552581c974529a",
-  "original_private_ledger_sha256": "2983183f757ea0fe17fe8befaad4e1be17f9cc800e5079d0fbf200f699901b3e",
+  "ledger_sha256": "05b9272512e53736031b14fe4dda51795014a26f4ee2b255e9694e9078a26a15",
+  "original_private_ledger_sha256": "905228b29006ce863e4c56eed55ac07f8c18fe80fe3bb8fd703b511b4d824328",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -359,6 +359,12 @@
       "class": "scratch",
       "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
       "size": 91
+    },
+    {
+      "path": "out/dispatch/repair-plan-2.json",
+      "class": "scratch",
+      "sha256": "63b3af1fc8bf3be377f910ef9c6c283eb12afcb0244571b163679daef8f1a77e",
+      "size": 5464
     },
     {
       "path": "out/dispatch/repair-plan.json",
@@ -703,6 +709,60 @@
       "size": 23271
     },
     {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/config__modern_episode_registry.json",
+      "class": "scratch",
+      "sha256": "2bbb58a571ccbee7d392b01bc7eaad99d2c00384858bfb792e211c6df221e808",
+      "size": 15138
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__opening-a.json",
+      "class": "scratch",
+      "sha256": "ecf5f8d4e8ce17b9ee0228815d08a38c5c1a12b8c23998287e53bb2aa6d6ce9d",
+      "size": 155017
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__opening-b.json",
+      "class": "scratch",
+      "sha256": "e686939bfb3993e98d47015254ade802705a858ddac2a8c40992a02481484443",
+      "size": 154987
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__storyboard.json",
+      "class": "scratch",
+      "sha256": "ecf5f8d4e8ce17b9ee0228815d08a38c5c1a12b8c23998287e53bb2aa6d6ce9d",
+      "size": 155017
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__vo_script.txt",
+      "class": "scratch",
+      "sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
+      "size": 651
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/storyboard_critic_2.raw.txt",
+      "class": "scratch",
+      "sha256": "a6c5f98dba1c928439cb809f5e04fd4569766eedcea8fa05d4292a834e5f1dd8",
+      "size": 23813
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+      "class": "scratch",
+      "sha256": "3156deac1cce163e8d0d3596bae7477598fa28c2142675e109a2c39897243898",
+      "size": 21978
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "class": "scratch",
+      "sha256": "0bdccad57f756fb346461c820a40b04af02f089ba2841f37267286eb27ecb159",
+      "size": 20362
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-2-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+      "class": "scratch",
+      "sha256": "f0a1927b451008f1487160eaf0dfba3065a1c48533f617c428ad7dddb1db831f",
+      "size": 27972
+    },
+    {
       "path": "out/dispatch/sources/hb149.validator.txt",
       "class": "scratch",
       "sha256": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
@@ -749,6 +809,12 @@
       "class": "scratch",
       "sha256": "ff5e1bd083e5b3bb3583b31b828f5c64c9fe3ad8bbc8bb393aa27b3813efb315",
       "size": 29356
+    },
+    {
+      "path": "out/dispatch/storyboard_critic_2.raw.txt",
+      "class": "scratch",
+      "sha256": "a6c5f98dba1c928439cb809f5e04fd4569766eedcea8fa05d4292a834e5f1dd8",
+      "size": 23813
     },
     {
       "path": "out/dispatch/validator-assignment.json",

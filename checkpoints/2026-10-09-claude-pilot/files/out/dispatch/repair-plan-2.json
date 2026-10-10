@@ -1,0 +1,56 @@
+{
+  "mechanism_id": "clinic-cited-answer-v1",
+  "failure_family": "continuity",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The same independent critic re-reviewed the corrected code and returned revise for both treatments. Most of D1 to D15 are resolved, but D4, D9, D11 and D13 remain open and the correction introduced new defects: in s4 the draw order hides the Clinical guidelines and Other sources labels so only one narrated source type reads, every forearm ends in a flat cut inside the frame (above the safe area in B), the keyboard and an idle hand cover the first letters of the limit tags in the closing hold, the answer strip, citation cards and literature card pop in at about 2.2 s, 3.27 s and 33.0 s, B's push stops at zero velocity and the card then glides alone, s4 and s6 to s7 are single framings of 5.5 s and 7.4 s because the declared cuts execute the same camera, B's opening payoff is a wide at about 22 px, and from 24.25 s the two treatments use identical cameras.",
+  "repair": "One consolidated correction. s4 in both treatments: draw the citation fan so every tab stays clear and bring a card to the front when it lifts, verifying that Clinical guidelines and Other sources read fully. Extend both forearms with upper arm and elbow so they leave the bottom of the frame in every shot, and rest or withdraw the hands when they are not acting. Closing hold: hang the limit tags clear of the keyboard and hands. Remove every pop by clipping the answer, the citations and the literature card to the tool mouth or giving them a performed slide or lift. Make B's push one continuous stroke with a pivoting forearm. Execute the declared framing changes, a distinct camera for the s4 naming shot and for s7-shot-1, so no framing runs past 5 seconds. Frame B's s1 return at medium or closer so Answer and Sources are 30 native px or more. Give the treatments genuinely different cameras and placements for s5, s6 and s8. Relabel declared events with no visible change as holds.",
+  "mechanism_change": "The cited-answer mechanism is kept but its layering and camera plan are rebuilt. The fan and the lifted card are ordered by z so no label is covered, every object enters or leaves through the tool mouth by clipping instead of appearing, the limbs become full arms that leave the frame, and each declared shot gets its own executed camera so the two treatments genuinely differ after 24 seconds.",
+  "expected_visible_result": "All three source types read fully in turn at phone size, no object appears from nothing, the arms enter from beyond the frame and rest when idle, and the closing frame shows the answer with its Sources slot filled and the Not in release tags and empty Accuracy slot fully readable beside the chart with no hand or keyboard over them, while A and B differ in staging for the whole film.",
+  "failure_evidence": "out/dispatch/retained-failures/repair-2-baseline/storyboard_critic_2.raw.txt",
+  "failure_evidence_sha256": "a6c5f98dba1c928439cb809f5e04fd4569766eedcea8fa05d4292a834e5f1dd8",
+  "resources": {
+    "preflight_renders": 2
+  },
+  "changed_inputs": [
+    {
+      "path": "out/dispatch/opening-a.json",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__opening-a.json",
+      "before_sha256": "ecf5f8d4e8ce17b9ee0228815d08a38c5c1a12b8c23998287e53bb2aa6d6ce9d"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__opening-b.json",
+      "before_sha256": "e686939bfb3993e98d47015254ade802705a858ddac2a8c40992a02481484443"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__storyboard.json",
+      "before_sha256": "ecf5f8d4e8ce17b9ee0228815d08a38c5c1a12b8c23998287e53bb2aa6d6ce9d"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/out__dispatch__vo_script.txt",
+      "before_sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+      "before_sha256": "3156deac1cce163e8d0d3596bae7477598fa28c2142675e109a2c39897243898"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+      "before_sha256": "f0a1927b451008f1487160eaf0dfba3065a1c48533f617c428ad7dddb1db831f"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "before_sha256": "0bdccad57f756fb346461c820a40b04af02f089ba2841f37267286eb27ecb159"
+    },
+    {
+      "path": "config/modern_episode_registry.json",
+      "before_path": "out/dispatch/retained-failures/repair-2-baseline/config__modern_episode_registry.json",
+      "before_sha256": "2bbb58a571ccbee7d392b01bc7eaad99d2c00384858bfb792e211c6df221e808"
+    }
+  ]
+}

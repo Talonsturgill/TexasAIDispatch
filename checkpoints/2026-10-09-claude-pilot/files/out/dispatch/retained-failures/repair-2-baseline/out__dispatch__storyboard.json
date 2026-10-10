@@ -1,0 +1,4208 @@
+{
+  "date": "2026-10-09",
+  "edition_id": "2026-10-09-claude-pilot",
+  "run_id": "2026-10-09-claude-pilot",
+  "title": "The answer arrives with its sources",
+  "topic": "UTMB puts OpenEvidence's cited AI answers inside its health record",
+  "beat": "clinic-and-bench",
+  "entities": [
+    "UTMB",
+    "OpenEvidence"
+  ],
+  "runtime_s": 44.0,
+  "credits_s": 5,
+  "credits": "TEXAS AI DOCKET\nSOURCES\nUTMB news release\nSeptember 22nd\nILLUSTRATION\nOriginal authored clinic diagrams\n",
+  "derived_from": "scratch",
+  "cinematic_template": "directed-film-v2",
+  "daily_production": true,
+  "fauna_scope": {
+    "status": "none",
+    "reason": "This clinic software story names no animal action, habitat or wildlife claim."
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 4.5,
+      "duration_authored": 4.5,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "motion",
+      "story_role": "hook",
+      "vo": "A UTMB clinician asks a question. The answer comes back with its sources.",
+      "vo_claims": [
+        "c1",
+        "c4"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "The typed question card leaves the open chart and goes into the OpenEvidence tool. One answer card slides back out of the OpenEvidence tool. Three citation cards follow the answer out and tuck into its Sources slot.",
+      "what_moves": "The typed question card leaves the open chart and goes into the OpenEvidence tool. One answer card slides back out of the OpenEvidence tool. Three citation cards follow the answer out and tuck into its Sources slot.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s1-event-1",
+          "at_s_authored": 0.624,
+          "duration_s_authored": 0.85,
+          "item_ids": [
+            "s1-tool",
+            "s1-sources",
+            "s1-card"
+          ],
+          "what": "The typed question card leaves the open chart and goes into the OpenEvidence tool.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n1a",
+          "at_s": 0.624,
+          "duration_s": 0.85,
+          "clause_fraction_start": 0.22,
+          "clause_fraction_end": 0.72
+        },
+        {
+          "id": "s1-event-2",
+          "at_s_authored": 2.193,
+          "duration_s_authored": 0.9245,
+          "item_ids": [
+            "s1-tool",
+            "s1-sources",
+            "s1-card"
+          ],
+          "what": "One answer card slides back out of the OpenEvidence tool.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n1b",
+          "at_s": 2.193,
+          "duration_s": 0.9245,
+          "clause_fraction_start": 0.02,
+          "clause_fraction_end": 0.45
+        },
+        {
+          "id": "s1-event-3",
+          "at_s_authored": 3.268,
+          "duration_s_authored": 0.9245,
+          "item_ids": [
+            "s1-tool",
+            "s1-sources",
+            "s1-card"
+          ],
+          "what": "Three citation cards follow the answer out and tuck into its Sources slot.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n1b",
+          "at_s": 3.268,
+          "duration_s": 0.9245,
+          "clause_fraction_start": 0.52,
+          "clause_fraction_end": 0.95
+        }
+      ],
+      "camera_strategy": "truckAcross",
+      "visual_family": "chart-flow",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "Anonymous hands, one question card, the OpenEvidence tool at the record edge, one answer and its citation cards",
+        "action": "Hands type and send the question card into the OpenEvidence tool, and one answer comes back out with three citation cards.",
+        "emotion": "Curiosity about what returns from a question asked inside the record.",
+        "annotation": "Illustration. Not UTMB screen"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "Gulf window and clinic wall",
+          "items": [
+            {
+              "id": "s1-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "gulf window clinic wall desk chart"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "OpenEvidence tool at the record edge",
+          "items": [
+            {
+              "id": "s1-tool",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "openevidence ai tool record edge question into tool answer citation cards return from tool"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "answer card and citation cards",
+          "items": [
+            {
+              "id": "s1-sources",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "answer citation cards return from tool sources slot"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "hands and question card",
+          "items": [
+            {
+              "id": "s1-card",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "hands typed question card into tool keyboard"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Hands send a typed question into the OpenEvidence tool and one answer returns with citation cards.",
+        "must_show": [
+          {
+            "concept": "hands typed question card into tool",
+            "item_ids": [
+              "s1-card",
+              "s1-tool"
+            ]
+          },
+          {
+            "concept": "answer citation cards return from tool",
+            "item_ids": [
+              "s1-sources",
+              "s1-tool"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The question card goes into the tool mouth and the answer comes back out with three citation cards.",
+          "item_ids": [
+            "s1-card",
+            "s1-sources",
+            "s1-tool"
+          ]
+        }
+      },
+      "hook_strategy": "visual_anomaly",
+      "hook_payoff_s": 1.2
+    },
+    {
+      "id": "s2",
+      "start_s": 4.5,
+      "duration_s": 6.0,
+      "duration_authored": 6.0,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "motion",
+      "story_role": "movement",
+      "vo": "UTMB announced the OpenEvidence AI tool on September twenty-second, and says it went live in March.",
+      "vo_claims": [
+        "c1",
+        "c2"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "The chart edge glows where the tool enters the record. A September 22nd announcement tag attaches to the chart. A March live tag settles on the same chart.",
+      "what_moves": "The chart edge glows where the tool enters the record. A September 22nd announcement tag attaches to the chart. A March live tag settles on the same chart.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s2-event-1",
+          "at_s_authored": 0.43,
+          "duration_s_authored": 0.9,
+          "item_ids": [
+            "s2-boundary",
+            "s2-tool",
+            "s2-tags"
+          ],
+          "what": "The chart edge glows where the tool enters the record.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n2a",
+          "at_s": 0.43,
+          "duration_s": 0.9,
+          "clause_fraction_start": 0.05,
+          "clause_fraction_end": 0.3
+        },
+        {
+          "id": "s2-event-2",
+          "at_s_authored": 2.23,
+          "duration_s_authored": 1.08,
+          "item_ids": [
+            "s2-boundary",
+            "s2-tool",
+            "s2-tags"
+          ],
+          "what": "A September 22nd announcement tag attaches to the chart.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n2a",
+          "at_s": 2.23,
+          "duration_s": 1.08,
+          "clause_fraction_start": 0.55,
+          "clause_fraction_end": 0.85
+        },
+        {
+          "id": "s2-event-3",
+          "at_s_authored": 4.36,
+          "duration_s_authored": 0.72,
+          "item_ids": [
+            "s2-boundary",
+            "s2-tool",
+            "s2-tags"
+          ],
+          "what": "A March live tag settles on the same chart.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n2b",
+          "at_s": 4.36,
+          "duration_s": 0.72,
+          "clause_fraction_start": 0.2,
+          "clause_fraction_end": 0.6
+        }
+      ],
+      "camera_strategy": "dollyThrough",
+      "visual_family": "record-boundary",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "The same chart inside the teal health record boundary, the OpenEvidence AI tool docked at its edge, and two pinned date tags",
+        "action": "The boundary and the docked OpenEvidence tool light together and two date tags pin to the boundary.",
+        "emotion": "The AI tool is placed at the edge of the record on dated terms.",
+        "annotation": "OpenEvidence AI tool. Announced September 22nd. Live since March"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "clinic wall and window",
+          "items": [
+            {
+              "id": "s2-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "clinic wall window desk"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "health record boundary and chart",
+          "items": [
+            {
+              "id": "s2-boundary",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "health record boundary chart record pins"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "docked OpenEvidence AI tool",
+          "items": [
+            {
+              "id": "s2-tool",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "openevidence ai tool health record boundary announced"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "pinned date tags",
+          "items": [
+            {
+              "id": "s2-tags",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "announced tag live tag dates september 22nd march pinned boundary"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The OpenEvidence AI tool lights at the health record boundary and dated tags pin beside it.",
+        "must_show": [
+          {
+            "concept": "openevidence ai tool health record boundary",
+            "item_ids": [
+              "s2-boundary",
+              "s2-tool"
+            ]
+          },
+          {
+            "concept": "announced tag live tag dates",
+            "item_ids": [
+              "s2-tags",
+              "s2-boundary"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The boundary and tool light, then the announced and live tags pin to the boundary.",
+          "item_ids": [
+            "s2-boundary",
+            "s2-tool",
+            "s2-tags"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s3",
+      "start_s": 10.5,
+      "duration_s": 5.5,
+      "duration_authored": 5.5,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "motion",
+      "story_role": "mechanism",
+      "vo": "Clinicians sign in with their usual credentials and ask in plain language.",
+      "vo_claims": [
+        "c3",
+        "c4"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Hands type a masked credential and the health record lock opens. The question card is typed in plain words. The card slides to the chart edge.",
+      "what_moves": "Hands type a masked credential and the health record lock opens. The question card is typed in plain words. The card slides to the chart edge.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s3-event-1",
+          "at_s_authored": 1.4425,
+          "duration_s_authored": 1.06,
+          "item_ids": [
+            "s3-lock",
+            "s3-credential",
+            "s3-card",
+            "s3-hands"
+          ],
+          "what": "Hands type a masked credential and the health record lock opens.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n3a",
+          "at_s": 1.4425,
+          "duration_s": 1.06,
+          "clause_fraction_start": 0.45,
+          "clause_fraction_end": 0.85
+        },
+        {
+          "id": "s3-event-2",
+          "at_s_authored": 3.21,
+          "duration_s_authored": 0.99,
+          "item_ids": [
+            "s3-lock",
+            "s3-credential",
+            "s3-card",
+            "s3-hands"
+          ],
+          "what": "The question card is typed in plain words.",
+          "motion": {
+            "curve": "linear",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n3b",
+          "at_s": 3.21,
+          "duration_s": 0.99,
+          "clause_fraction_start": 0.05,
+          "clause_fraction_end": 0.5
+        },
+        {
+          "id": "s3-event-3",
+          "at_s_authored": 4.42,
+          "duration_s_authored": 0.77,
+          "item_ids": [
+            "s3-lock",
+            "s3-credential",
+            "s3-card",
+            "s3-hands"
+          ],
+          "what": "The card slides to the chart edge.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n3b",
+          "at_s": 4.42,
+          "duration_s": 0.77,
+          "clause_fraction_start": 0.6,
+          "clause_fraction_end": 0.95
+        }
+      ],
+      "camera_strategy": "craneDown",
+      "visual_family": "credential-desk",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "Anonymous hands, a masked credential card, the health record lock and the question card",
+        "action": "Hands type a masked credential, the record lock opens, then the hands type the question in plain word shapes.",
+        "emotion": "Ordinary sign-in, then an ordinary question.",
+        "annotation": "Usual credentials. Plain language"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "clinic wall and window",
+          "items": [
+            {
+              "id": "s3-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "clinic wall window"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "health record lock",
+          "items": [
+            {
+              "id": "s3-lock",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "health record lock opens sign in usual credentials"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "masked credential card",
+          "items": [
+            {
+              "id": "s3-credential",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "usual credentials masked sign in hands lock"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "hands, keyboard and question card",
+          "items": [
+            {
+              "id": "s3-card",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "question card typed plain language hands keyboard"
+              }
+            }
+          ]
+        },
+        {
+          "z": 100,
+          "label": "anonymous hands",
+          "items": [
+            {
+              "id": "s3-hands",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "hands question card typed plain language keyboard"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Hands sign in with usual credentials, the lock opens and the question is typed in plain language.",
+        "must_show": [
+          {
+            "concept": "hands sign in usual credentials lock",
+            "item_ids": [
+              "s3-credential",
+              "s3-lock"
+            ]
+          },
+          {
+            "concept": "question card typed plain language hands",
+            "item_ids": [
+              "s3-card",
+              "s3-hands"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Dots fill the masked field, the lock opens, words fill the question card and one push slides it to the chart edge.",
+          "item_ids": [
+            "s3-credential",
+            "s3-lock",
+            "s3-card",
+            "s3-hands"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s4",
+      "start_s": 16.0,
+      "duration_s": 5.5,
+      "duration_authored": 5.5,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "vo": "The answers carry citations to medical literature and clinical guidelines.",
+      "vo_claims": [
+        "c4"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Citation cards fan out from the returning answer. One card labelled medical literature lifts. One card labelled clinical guidelines lifts.",
+      "what_moves": "Citation cards fan out from the returning answer. One card labelled medical literature lifts. One card labelled clinical guidelines lifts.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s4-event-1",
+          "at_s_authored": 0.4975,
+          "duration_s_authored": 0.99,
+          "item_ids": [
+            "s4-answer",
+            "s4-chart",
+            "s4-card"
+          ],
+          "what": "Citation cards fan out from the returning answer.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n4a",
+          "at_s": 0.4975,
+          "duration_s": 0.99,
+          "clause_fraction_start": 0.15,
+          "clause_fraction_end": 0.75
+        },
+        {
+          "id": "s4-event-2",
+          "at_s_authored": 2.375,
+          "duration_s_authored": 0.975,
+          "item_ids": [
+            "s4-answer",
+            "s4-chart",
+            "s4-card"
+          ],
+          "what": "One card labelled medical literature lifts.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n4b",
+          "at_s": 2.375,
+          "duration_s": 0.975,
+          "clause_fraction_start": 0.1,
+          "clause_fraction_end": 0.4
+        },
+        {
+          "id": "s4-event-3",
+          "at_s_authored": 3.8375,
+          "duration_s_authored": 0.975,
+          "item_ids": [
+            "s4-answer",
+            "s4-chart",
+            "s4-card"
+          ],
+          "what": "One card labelled clinical guidelines lifts.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n4b",
+          "at_s": 3.8375,
+          "duration_s": 0.975,
+          "clause_fraction_start": 0.55,
+          "clause_fraction_end": 0.85
+        }
+      ],
+      "camera_strategy": "riseWith",
+      "visual_family": "citation-cards",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "The one returned answer card and its three citation cards naming source types",
+        "action": "The citation cards fan out of the answer Sources slot and the literature and guidelines cards lift toward camera.",
+        "emotion": "The sources look solid and specific.",
+        "annotation": "Medical literature. Clinical guidelines"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "desk surface out of focus",
+          "items": [
+            {
+              "id": "s4-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "desk surface clinic"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "returned answer card",
+          "items": [
+            {
+              "id": "s4-answer",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "answer citation cards fan from answer sources slot"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "chart and tool out of focus",
+          "items": [
+            {
+              "id": "s4-chart",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "patient chart openevidence tool"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "citation cards lifting",
+          "items": [
+            {
+              "id": "s4-card",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "citation cards fan from answer medical literature clinical guidelines"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Citation cards fan out of the answer and name medical literature and clinical guidelines.",
+        "must_show": [
+          {
+            "concept": "citation cards fan from answer",
+            "item_ids": [
+              "s4-card",
+              "s4-answer"
+            ]
+          },
+          {
+            "concept": "medical literature clinical guidelines citation cards",
+            "item_ids": [
+              "s4-card"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Citation cards fan out of the Sources slot, then the literature and guidelines cards lift.",
+          "item_ids": [
+            "s4-card",
+            "s4-answer"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s5",
+      "start_s": 21.5,
+      "duration_s": 5.5,
+      "duration_authored": 5.5,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "consequence",
+      "vo": "UTMB says more than half of its clinicians now use it for clinical decision support.",
+      "vo_claims": [
+        "c5"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Blank clinician tokens begin to light on the usage share beside the chart. More than half of the clinician tokens light and the share passes halfway. The lit share holds beside a decision-support tag.",
+      "what_moves": "Blank clinician tokens begin to light on the usage share beside the chart. More than half of the clinician tokens light and the share passes halfway. The lit share holds beside a decision-support tag.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s5-event-1",
+          "at_s_authored": 0.351,
+          "duration_s_authored": 0.909,
+          "item_ids": [
+            "s5-wall",
+            "s5-chart",
+            "s5-tag"
+          ],
+          "what": "Blank clinician tokens begin to light on the usage share beside the chart.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n5",
+          "at_s": 0.351,
+          "duration_s": 0.909,
+          "clause_fraction_start": 0.02,
+          "clause_fraction_end": 0.2
+        },
+        {
+          "id": "s5-event-2",
+          "at_s_authored": 1.5125,
+          "duration_s_authored": 1.01,
+          "item_ids": [
+            "s5-wall",
+            "s5-chart",
+            "s5-tag"
+          ],
+          "what": "More than half of the clinician tokens light and the share passes halfway.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n5",
+          "at_s": 1.5125,
+          "duration_s": 1.01,
+          "clause_fraction_start": 0.25,
+          "clause_fraction_end": 0.45
+        },
+        {
+          "id": "s5-event-3",
+          "at_s_authored": 3.381,
+          "duration_s_authored": 1.1615,
+          "item_ids": [
+            "s5-wall",
+            "s5-chart",
+            "s5-tag"
+          ],
+          "what": "The lit share holds beside a decision-support tag.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n5",
+          "at_s": 3.381,
+          "duration_s": 1.1615,
+          "clause_fraction_start": 0.62,
+          "clause_fraction_end": 0.85
+        }
+      ],
+      "camera_strategy": "orbitReveal",
+      "visual_family": "usage-share",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "The usage share of blank clinician tokens on the wall above the tool, beside the same chart",
+        "action": "Clinician tokens light past the halfway tick and a decision-support tag pins to the share.",
+        "emotion": "The tool is already part of daily clinical work.",
+        "annotation": "More than half. Clinical decision support"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "clinic wall and window",
+          "items": [
+            {
+              "id": "s5-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "clinic wall window"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "usage share of clinician tokens",
+          "items": [
+            {
+              "id": "s5-wall",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "more than half clinicians lit share half tokens"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "chart and tool",
+          "items": [
+            {
+              "id": "s5-chart",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "patient chart openevidence tool"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "decision support tag",
+          "items": [
+            {
+              "id": "s5-tag",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "clinical decision support tag share pinned"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "More than half of the clinician tokens light while the same chart stands nearby.",
+        "must_show": [
+          {
+            "concept": "more than half clinicians lit share",
+            "item_ids": [
+              "s5-wall"
+            ]
+          },
+          {
+            "concept": "clinical decision support tag share",
+            "item_ids": [
+              "s5-tag",
+              "s5-wall"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Tokens light past the halfway tick and the decision support tag pins beside the lit share.",
+          "item_ids": [
+            "s5-wall",
+            "s5-tag"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s6",
+      "start_s": 27.0,
+      "duration_s": 6.0,
+      "duration_authored": 6.0,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "limit",
+      "vo": "That is UTMB's own report. The release publishes no measure of accuracy or patient care.",
+      "vo_claims": [
+        "c5",
+        "c8"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "An UTMB's own report tag labels the lit share. Accuracy and patient care tags clip onto the returned answer. Both tags read not in release while the Accuracy slot stays empty.",
+      "what_moves": "An UTMB's own report tag labels the lit share. Accuracy and patient care tags clip onto the returned answer. Both tags read not in release while the Accuracy slot stays empty.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s6-event-1",
+          "at_s_authored": 0.58,
+          "duration_s_authored": 0.99,
+          "item_ids": [
+            "s6-wall",
+            "s6-answer",
+            "s6-limits"
+          ],
+          "what": "An UTMB's own report tag labels the lit share.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n6a",
+          "at_s": 0.58,
+          "duration_s": 0.99,
+          "clause_fraction_start": 0.2,
+          "clause_fraction_end": 0.8
+        },
+        {
+          "id": "s6-event-2",
+          "at_s_authored": 2.47,
+          "duration_s_authored": 0.925,
+          "item_ids": [
+            "s6-wall",
+            "s6-answer",
+            "s6-limits"
+          ],
+          "what": "Accuracy and patient care tags clip onto the returned answer.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n6b",
+          "at_s": 2.47,
+          "duration_s": 0.925,
+          "clause_fraction_start": 0.1,
+          "clause_fraction_end": 0.35
+        },
+        {
+          "id": "s6-event-3",
+          "at_s_authored": 3.95,
+          "duration_s_authored": 0.925,
+          "item_ids": [
+            "s6-wall",
+            "s6-answer",
+            "s6-limits"
+          ],
+          "what": "Both tags read not in release while the Accuracy slot stays empty.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n6b",
+          "at_s": 3.95,
+          "duration_s": 0.925,
+          "clause_fraction_start": 0.5,
+          "clause_fraction_end": 0.75
+        }
+      ],
+      "camera_strategy": "dollyThrough",
+      "visual_family": "unmeasured-tags",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "UTMB's own report tag on the share, then two open tags clipped to the returned answer",
+        "action": "A report tag pins to the lit share, then accuracy and patient care tags clip onto the answer and read not in release.",
+        "emotion": "The adoption figure is a self-report and the outcomes are missing.",
+        "annotation": "Not in release"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "clinic wall and window",
+          "items": [
+            {
+              "id": "s6-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "clinic wall window"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "lit usage share",
+          "items": [
+            {
+              "id": "s6-wall",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "lit share UTMB own report tag release"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "returned answer card",
+          "items": [
+            {
+              "id": "s6-answer",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "answer accuracy slot empty sources slot measure"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "limit tags on the answer clip",
+          "items": [
+            {
+              "id": "s6-limits",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "accuracy patient care measure not in release tags release publishes"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The share is UTMB's own report and the answer's accuracy and patient care tags read not in release.",
+        "must_show": [
+          {
+            "concept": "UTMB own report tag",
+            "item_ids": [
+              "s6-wall"
+            ]
+          },
+          {
+            "concept": "accuracy patient care measure not in release tags",
+            "item_ids": [
+              "s6-limits",
+              "s6-answer"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The report tag pins to the share, then two tags clip onto the answer reading not in release.",
+          "item_ids": [
+            "s6-wall",
+            "s6-limits",
+            "s6-answer"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s7",
+      "start_s": 33.0,
+      "duration_s": 6.5,
+      "duration_authored": 6.5,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "emotion",
+      "story_role": "agency",
+      "vo": "A citation shows where an answer says it came from. It doesn't show the answer is right.",
+      "vo_claims": [
+        "c4",
+        "c8"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "A citation card points back to its source type. The answer card beside it stays unmarked. No check mark lands on the answer.",
+      "what_moves": "A citation card points back to its source type. The answer card beside it stays unmarked. No check mark lands on the answer.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s7-event-1",
+          "at_s_authored": 0.86,
+          "duration_s_authored": 0.915,
+          "item_ids": [
+            "s7-chart",
+            "s7-sources",
+            "s7-card"
+          ],
+          "what": "A citation card points back to its source type.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n7a",
+          "at_s": 0.86,
+          "duration_s": 0.915,
+          "clause_fraction_start": 0.2,
+          "clause_fraction_end": 0.5
+        },
+        {
+          "id": "s7-event-2",
+          "at_s_authored": 3.775,
+          "duration_s_authored": 0.9625,
+          "item_ids": [
+            "s7-chart",
+            "s7-sources",
+            "s7-card"
+          ],
+          "what": "The answer card beside it stays unmarked.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n7b",
+          "at_s": 3.775,
+          "duration_s": 0.9625,
+          "clause_fraction_start": 0.1,
+          "clause_fraction_end": 0.45
+        },
+        {
+          "id": "s7-event-3",
+          "at_s_authored": 5.0125,
+          "duration_s_authored": 0.9625,
+          "item_ids": [
+            "s7-chart",
+            "s7-sources",
+            "s7-card"
+          ],
+          "what": "No check mark lands on the answer.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n7b",
+          "at_s": 5.0125,
+          "duration_s": 0.9625,
+          "clause_fraction_start": 0.55,
+          "clause_fraction_end": 0.9
+        }
+      ],
+      "camera_strategy": "truckAcross",
+      "visual_family": "answer-citation",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "The answer card, its Sources slot, one citation card and its empty Accuracy slot",
+        "action": "A thread runs from the answer Sources slot to its citation tab while the Accuracy slot stays empty.",
+        "emotion": "A source line is not the same as a right answer.",
+        "annotation": "Sources. Accuracy"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "desk surface out of focus",
+          "items": [
+            {
+              "id": "s7-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "desk surface clinic"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "chart out of focus",
+          "items": [
+            {
+              "id": "s7-chart",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "patient chart"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "literature citation card",
+          "items": [
+            {
+              "id": "s7-sources",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "citation thread answer source literature card"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "answer card with slots",
+          "items": [
+            {
+              "id": "s7-card",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "answer accuracy slot stays empty right citation thread answer source sources slot"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A thread links the answer to its source, and the answer Accuracy slot stays empty.",
+        "must_show": [
+          {
+            "concept": "citation thread answer source",
+            "item_ids": [
+              "s7-card",
+              "s7-sources"
+            ]
+          },
+          {
+            "concept": "answer accuracy slot stays empty right",
+            "item_ids": [
+              "s7-card"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The thread reaches the citation tab, then the empty Accuracy ring pulses and stays unmarked.",
+          "item_ids": [
+            "s7-card",
+            "s7-sources"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s8",
+      "start_s": 39.5,
+      "duration_s": 4.5,
+      "duration_authored": 4.5,
+      "county": "Galveston",
+      "region": "gulf",
+      "interior": true,
+      "cast": [],
+      "beat": "emotion",
+      "story_role": "close",
+      "vo": "UTMB says it will keep evaluating use and clinician experience.",
+      "vo_claims": [
+        "c8"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "An evaluating use and experience tag pins to the usage share. The answer holds beside the chart with its sources in its Sources slot. The Accuracy slot stays empty while the picture holds.",
+      "what_moves": "An evaluating use and experience tag pins to the usage share. The answer holds beside the chart with its sources in its Sources slot. The Accuracy slot stays empty while the picture holds.",
+      "production_disclosure": "Illustration. Not UTMB's screen",
+      "visual_events": [
+        {
+          "id": "s8-event-1",
+          "at_s_authored": 0.38,
+          "duration_s_authored": 1.08,
+          "item_ids": [
+            "s8-wall",
+            "s8-chart",
+            "s8-tags",
+            "s8-answer"
+          ],
+          "what": "An evaluating use and experience tag pins to the usage share.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.08
+          },
+          "narration_id": "n8",
+          "at_s": 0.38,
+          "duration_s": 1.08,
+          "clause_fraction_start": 0.05,
+          "clause_fraction_end": 0.35
+        },
+        {
+          "id": "s8-event-2",
+          "at_s_authored": 2.288,
+          "duration_s_authored": 0.792,
+          "item_ids": [
+            "s8-wall",
+            "s8-chart",
+            "s8-tags",
+            "s8-answer"
+          ],
+          "what": "The answer holds beside the chart with its sources in its Sources slot.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n8",
+          "at_s": 2.288,
+          "duration_s": 0.792,
+          "clause_fraction_start": 0.58,
+          "clause_fraction_end": 0.8
+        },
+        {
+          "id": "s8-event-3",
+          "at_s_authored": 3.224,
+          "duration_s_authored": 0.576,
+          "item_ids": [
+            "s8-wall",
+            "s8-chart",
+            "s8-tags",
+            "s8-answer"
+          ],
+          "what": "The Accuracy slot stays empty while the picture holds.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n8",
+          "at_s": 3.224,
+          "duration_s": 0.576,
+          "clause_fraction_start": 0.84,
+          "clause_fraction_end": 1.0
+        }
+      ],
+      "camera_strategy": "riseWith",
+      "visual_family": "chart-flow",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "worn patient chart with question and citation cards",
+      "visual_sentence": {
+        "subject": "The usage share with its evaluation tag, and the answer held beside the chart with its sources and empty Accuracy slot",
+        "action": "An evaluating use and experience tag pins to the usage share, then the answer holds beside the chart with its empty Accuracy slot.",
+        "emotion": "Sources came back. Whether answers are right is not in the release.",
+        "annotation": "Evaluating use and experience"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "clinic wall and window",
+          "items": [
+            {
+              "id": "s8-room",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "clinic wall window"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "usage share and evaluation tag",
+          "items": [
+            {
+              "id": "s8-wall",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "keep evaluating use clinician experience tag usage share"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "patient chart and tool",
+          "items": [
+            {
+              "id": "s8-chart",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "patient chart answer sources chart"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "evaluation tag on the share",
+          "items": [
+            {
+              "id": "s8-tags",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "keep evaluating use clinician experience tag pinned share"
+              }
+            }
+          ]
+        },
+        {
+          "z": 100,
+          "label": "answer held with its slots",
+          "items": [
+            {
+              "id": "s8-answer",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "answer sources chart accuracy empty slot"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "UTMB keeps evaluating use and clinician experience while the answer Accuracy slot stays empty.",
+        "must_show": [
+          {
+            "concept": "keep evaluating use clinician experience tag",
+            "item_ids": [
+              "s8-tags",
+              "s8-wall"
+            ]
+          },
+          {
+            "concept": "answer sources chart accuracy empty",
+            "item_ids": [
+              "s8-answer",
+              "s8-chart"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The evaluation tag pins to the share, then the answer holds beside the chart with its sources and its empty Accuracy slot.",
+          "item_ids": [
+            "s8-tags",
+            "s8-answer",
+            "s8-chart"
+          ]
+        }
+      }
+    }
+  ],
+  "story_art": {
+    "version": "authored-story-art-v1",
+    "runtime": "claude-sonnet-v1",
+    "edition_id": "2026-10-09-claude-pilot",
+    "requests": [
+      {
+        "id": "chart-and-citations",
+        "role": "hero",
+        "file": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+        "export": "ChartHero",
+        "scene_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ],
+        "purpose": "Carry one patient chart, one question, one answer and one citation set through the film, so the answer's filled Sources slot and empty Accuracy slot show what a citation does and doesn't establish.",
+        "prompt": "Author an original finished React and SVG object in the current Remotion engine. A tall clinical chart board in worn warm paper and teal card stock with a metal clip, a ruled record page with blank fields and a lopsided tabbed edge, in soft Gulf Coast window light from the upper left with cool fill. One typed question card, one answer card with a Sources slot that fills and an Accuracy slot that stays empty, and one set of three citation cards whose tabs read medical literature, clinical guidelines and other sources. Two pinned tags on the answer's own clip read accuracy and patient care, not in release. Every tag hangs from a drawn pin and is sized to its text. Grounded contact shadows, hand-made edges, slight wear, nothing symmetric. A disclosed illustration with no real interface, logo, face, patient detail or answer content.",
+        "source_limit": "Disclosed illustration of the relationship UTMB describes. It does not show UTMB's screen, a vendor interface, any answer's content, a clinician or a patient, and it measures nothing.",
+        "action_uses": [
+          {
+            "scene_id": "s1",
+            "event_id": "s1-event-1",
+            "view": "flow-wide",
+            "action_id": "send-question",
+            "subject_ids": [
+              "question-card"
+            ]
+          },
+          {
+            "scene_id": "s1",
+            "event_id": "s1-event-1",
+            "view": "desk-close",
+            "action_id": "send-question",
+            "subject_ids": [
+              "question-card",
+              "hands"
+            ]
+          },
+          {
+            "scene_id": "s4",
+            "event_id": "s4-event-1",
+            "view": "citation-stack",
+            "action_id": "return-citations",
+            "subject_ids": [
+              "citation-cards"
+            ]
+          },
+          {
+            "scene_id": "s6",
+            "event_id": "s6-event-2",
+            "view": "unmeasured-card",
+            "action_id": "show-limit",
+            "subject_ids": [
+              "unmeasured-tags"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "clinic-support",
+        "role": "support",
+        "file": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+        "export": "ClinicSupport",
+        "scene_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ],
+        "purpose": "Give the chart a believable Southeast Texas clinic: hands that sign in and ask, the OpenEvidence tool at the edge of the record where the question goes and the answer comes from, and UTMB's own more-than-half usage share.",
+        "prompt": "Author an original finished React and SVG environment group in the current Remotion engine. A Gulf Coast clinic room with a hazy marsh window, a worn laminate desk, a three-quarter workstation monitor with a blank lit screen, a blank-keyed keyboard and anonymous scrub-sleeved hands with planted wrists whose fingertips press keys, a masked credential card, a teal health record boundary with a lock that opens, a docked tool box labelled OpenEvidence with a mouth where cards go in and come out, and a usage share of blank clinician ID tokens that light past a halfway tick. Window key light with cool fill, sea-salt wear, grounded shadows, nothing symmetric. No real screens, logos, faces, identities, patient information or vendor interface.",
+        "source_limit": "Disclosed illustration. The hands are anonymous, the tool label is native type rather than a product interface, and the lit tokens show UTMB's own more-than-half report as a share, not a count, a measurement or a map of UTMB's campuses.",
+        "action_uses": [
+          {
+            "scene_id": "s2",
+            "event_id": "s2-event-1",
+            "view": "chart-boundary",
+            "action_id": "enter-record",
+            "subject_ids": [
+              "record-boundary",
+              "openevidence-tool"
+            ]
+          },
+          {
+            "scene_id": "s3",
+            "event_id": "s3-event-1",
+            "view": "credential-gate",
+            "action_id": "sign-in",
+            "subject_ids": [
+              "credential-field",
+              "record-lock",
+              "hands"
+            ]
+          },
+          {
+            "scene_id": "s5",
+            "event_id": "s5-event-2",
+            "view": "share-grid",
+            "action_id": "show-usage",
+            "subject_ids": [
+              "clinician-tokens"
+            ]
+          }
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "request_id": "chart-and-citations",
+        "file": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+        "sha256": "3156deac1cce163e8d0d3596bae7477598fa28c2142675e109a2c39897243898",
+        "request_sha256": "a2d9bbdf065797af93de391cf94b78727a736c3e2122b31b7b8226fd538dd50e",
+        "creation_id": "authored-c5b69a61-d2bc-46c9-a18a-841402bb68b9",
+        "created_at": "2026-10-10T03:02:03.730257+00:00",
+        "tool": "original authored source",
+        "charge": {
+          "kind": "production",
+          "index": 13,
+          "event": {
+            "at": "2026-10-10T02:40:58.254671Z",
+            "kind": "reserved",
+            "note": "consolidated structural correction of both treatments after the storyboard critic revise verdict",
+            "preflight_identity": null,
+            "resources": {
+              "reboards": 1
+            }
+          },
+          "event_sha256": "248320c0bf62aa63b83bb41b277b16e2bf35ca95ef141eac202383da8a8f722f"
+        },
+        "source_claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+        "original_source": "artwork-originals/authored-c5b69a61-d2bc-46c9-a18a-841402bb68b9.tsx"
+      },
+      {
+        "request_id": "clinic-support",
+        "file": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+        "sha256": "f0a1927b451008f1487160eaf0dfba3065a1c48533f617c428ad7dddb1db831f",
+        "request_sha256": "7f4f697fc2f98ad19fac5565cdd15ca82655a807c3970819a54e0cfa79082a24",
+        "creation_id": "authored-7481a595-b7d3-41a8-972b-cecf5fe2b9c0",
+        "created_at": "2026-10-10T03:02:03.730968+00:00",
+        "tool": "original authored source",
+        "charge": {
+          "kind": "production",
+          "index": 13,
+          "event": {
+            "at": "2026-10-10T02:40:58.254671Z",
+            "kind": "reserved",
+            "note": "consolidated structural correction of both treatments after the storyboard critic revise verdict",
+            "preflight_identity": null,
+            "resources": {
+              "reboards": 1
+            }
+          },
+          "event_sha256": "248320c0bf62aa63b83bb41b277b16e2bf35ca95ef141eac202383da8a8f722f"
+        },
+        "source_claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+        "original_source": "artwork-originals/authored-7481a595-b7d3-41a8-972b-cecf5fe2b9c0.tsx"
+      }
+    ]
+  },
+  "film_direction": {
+    "version": "directed-film-v2",
+    "episode": "clinic-answer-v1",
+    "variant": "a",
+    "angle": "The question and its sources travel left to right across one chart, so the viewer watches the sources arrive.",
+    "opening_promise": "Watch one question enter a patient chart and see exactly what comes back with it.",
+    "performed_turn": "The returned answer carries its source cards, and the two tags that would show whether it is right stay open.",
+    "closing_answer": "A question goes in and an answer comes back with its sources. The release publishes no accuracy or patient-care measure, and UTMB says it will keep evaluating use and clinician experience.",
+    "shots": [
+      {
+        "id": "s1-shot-1",
+        "scene_id": "s1",
+        "start_s": 0.0,
+        "duration_s": 2.05,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "flow-wide",
+        "event_id": "s1-event-1",
+        "purpose": "Wide on the clinic wall: hands type at the near keyboard, the question fills on the chart page, a final key strike sends it left to right into the OpenEvidence tool.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n1a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.455556
+      },
+      {
+        "id": "s1-shot-2",
+        "scene_id": "s1",
+        "start_s": 2.05,
+        "duration_s": 2.45,
+        "framing": "close",
+        "transition": "cut",
+        "view": "desk-close",
+        "event_id": "s1-event-2",
+        "purpose": "Close on the tool and the desk: one answer drops out of the tool mouth and three citation cards follow and tuck into its Sources slot.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n1b"
+        ],
+        "scene_fraction_start": 0.455556,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s2-shot-1",
+        "scene_id": "s2",
+        "start_s": 4.5,
+        "duration_s": 3.925,
+        "framing": "medium",
+        "transition": "cut",
+        "view": "chart-boundary",
+        "event_id": "s2-event-1",
+        "purpose": "Medium: the health record boundary and the OpenEvidence tool light together and the September 22nd tag pins to the boundary.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n2a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.654167
+      },
+      {
+        "id": "s2-shot-2",
+        "scene_id": "s2",
+        "start_s": 8.425,
+        "duration_s": 2.075,
+        "framing": "close",
+        "transition": "cut",
+        "view": "chart-boundary",
+        "event_id": "s2-event-3",
+        "purpose": "Close on the pinned tags: the March live tag settles under the announcement on the same boundary.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n2b"
+        ],
+        "scene_fraction_start": 0.654167,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s3-shot-1",
+        "scene_id": "s3",
+        "start_s": 10.5,
+        "duration_s": 3.0,
+        "framing": "close",
+        "transition": "cut",
+        "view": "credential-gate",
+        "event_id": "s3-event-1",
+        "purpose": "Close: the hands type a masked credential and the lock on the health record boundary opens in the same shot.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n3a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.545455
+      },
+      {
+        "id": "s3-shot-2",
+        "scene_id": "s3",
+        "start_s": 13.5,
+        "duration_s": 2.5,
+        "framing": "detail",
+        "transition": "cut",
+        "view": "desk-close",
+        "event_id": "s3-event-2",
+        "purpose": "Detail: key strikes fill the question card on the chart page in word shapes with its plain-language pill, then it slides to the chart edge.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n3b"
+        ],
+        "scene_fraction_start": 0.545455,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s4-shot-1",
+        "scene_id": "s4",
+        "start_s": 16.0,
+        "duration_s": 1.975,
+        "framing": "close",
+        "transition": "cut",
+        "view": "citation-stack",
+        "event_id": "s4-event-1",
+        "purpose": "Close on the desk: the three citation cards fan left to right out of the answer card Sources slot.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n4a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.359091
+      },
+      {
+        "id": "s4-shot-2",
+        "scene_id": "s4",
+        "start_s": 17.975,
+        "duration_s": 3.525,
+        "framing": "medium",
+        "transition": "cut",
+        "view": "source-types",
+        "event_id": "s4-event-2",
+        "purpose": "Medium: the medical literature card lifts, then the clinical guidelines card lifts.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n4b"
+        ],
+        "scene_fraction_start": 0.359091,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s5-shot-1",
+        "scene_id": "s5",
+        "start_s": 21.5,
+        "duration_s": 2.75,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "share-grid",
+        "event_id": "s5-event-1",
+        "purpose": "The usage share on the wall above the tool lights its clinician tokens past halfway and a decision support tag pins to it.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n5"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.5
+      },
+      {
+        "id": "s5-shot-2",
+        "scene_id": "s5",
+        "start_s": 24.25,
+        "duration_s": 2.75,
+        "framing": "close",
+        "transition": "cut",
+        "view": "share-grid",
+        "event_id": "s5-event-3",
+        "purpose": "The usage share on the wall above the tool lights its clinician tokens past halfway and a decision support tag pins to it.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n5"
+        ],
+        "scene_fraction_start": 0.5,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s6-shot-1",
+        "scene_id": "s6",
+        "start_s": 27.0,
+        "duration_s": 2.0,
+        "framing": "close",
+        "transition": "cut",
+        "view": "unmeasured-card",
+        "event_id": "s6-event-1",
+        "purpose": "Close on the share bar: UTMB's own report tag pins to its halfway pin.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n6a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.333333
+      },
+      {
+        "id": "s6-shot-2",
+        "scene_id": "s6",
+        "start_s": 29.0,
+        "duration_s": 4.0,
+        "framing": "medium",
+        "transition": "cut",
+        "view": "unmeasured-card",
+        "event_id": "s6-event-2",
+        "purpose": "Medium on the answer: accuracy and patient care tags clip onto its own clip and read not in release beside the empty Accuracy slot.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n6b"
+        ],
+        "scene_fraction_start": 0.333333,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s7-shot-1",
+        "scene_id": "s7",
+        "start_s": 33.0,
+        "duration_s": 3.4,
+        "framing": "medium",
+        "transition": "cut",
+        "view": "source-types",
+        "event_id": "s7-event-1",
+        "purpose": "Medium on the answer: a thread runs from its Sources slot to the medical literature card tab.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n7a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.523077
+      },
+      {
+        "id": "s7-shot-2",
+        "scene_id": "s7",
+        "start_s": 36.4,
+        "duration_s": 3.1,
+        "framing": "detail",
+        "transition": "cut",
+        "view": "answer-close",
+        "event_id": "s7-event-2",
+        "purpose": "Detail on the empty Accuracy slot: its ring pulses and nothing lands in it.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n7b"
+        ],
+        "scene_fraction_start": 0.523077,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s8-shot-1",
+        "scene_id": "s8",
+        "start_s": 39.5,
+        "duration_s": 2.25,
+        "framing": "close",
+        "transition": "cut",
+        "view": "share-grid",
+        "event_id": "s8-event-1",
+        "purpose": "The evaluating use and experience tag pins to the usage share, then the answer holds beside the chart with its sources and its empty Accuracy slot.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n8"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.5
+      },
+      {
+        "id": "s8-shot-2",
+        "scene_id": "s8",
+        "start_s": 41.75,
+        "duration_s": 2.25,
+        "framing": "medium",
+        "transition": "cut",
+        "view": "answer-close",
+        "event_id": "s8-event-2",
+        "purpose": "The evaluating use and experience tag pins to the usage share, then the answer holds beside the chart with its sources and its empty Accuracy slot.",
+        "carry": "The same worn patient chart, the same OpenEvidence tool, one question card, one answer card and one set of three citation cards",
+        "narration_ids": [
+          "n8"
+        ],
+        "scene_fraction_start": 0.5,
+        "scene_fraction_end": 1.0
+      }
+    ],
+    "renderer_inputs": [
+      {
+        "path": "config/modern_episode_registry.json",
+        "sha256": "2bbb58a571ccbee7d392b01bc7eaad99d2c00384858bfb792e211c6df221e808"
+      },
+      {
+        "path": "config/modern_film.json",
+        "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+      },
+      {
+        "path": "video-engine/src/AlloyLoopEpisode.tsx",
+        "sha256": "9ff8081c34104adc205a8b53ba08ec6c5009acc12cb57e6e1684b51027f7cf4d"
+      },
+      {
+        "path": "video-engine/src/ApplicationSheets.tsx",
+        "sha256": "b8ff7d9f6b329ab5c86212c7bcfe4970f1551d8c97bf945df86b4724d1247286"
+      },
+      {
+        "path": "video-engine/src/BorderCaptureEpisode.tsx",
+        "sha256": "bca5ac7e67f1a9bf0669e0d918a091d3f6e76eccf93dbf53bb4fbbfffcbdf9a9"
+      },
+      {
+        "path": "video-engine/src/BrownsvilleMoratoriumEpisode.tsx",
+        "sha256": "66273bbb7205bc50e69c2879f405affee9db664e1bd92ed9e48457ff0da64cf2"
+      },
+      {
+        "path": "video-engine/src/BrushCameraEpisode.tsx",
+        "sha256": "24e67880e0d7c46f3078d7398c135a992e7ef0520553fc11630ec7c90558e2e8"
+      },
+      {
+        "path": "video-engine/src/CartonUnloadAction.tsx",
+        "sha256": "3b02f8c918190645098a2850f58218cb636547e270aa8c957fdbb50e19905e79"
+      },
+      {
+        "path": "video-engine/src/CartonUnloadEpisode.tsx",
+        "sha256": "5aaa2c62c3744581e6f05f6ae2176e6c6168c777520ae1d32ca392c50dd36449"
+      },
+      {
+        "path": "video-engine/src/CastSheet.tsx",
+        "sha256": "b3a79bd9e58383b020bfdc401dd5009e89113684ae7996cab0ca5c579f086f5b"
+      },
+      {
+        "path": "video-engine/src/CivicSheet.tsx",
+        "sha256": "19d721b8beeef73c75aebbcdd2db7531a62364469288be15742fe0ccee05dd04"
+      },
+      {
+        "path": "video-engine/src/CoadaptHandoffEpisode.tsx",
+        "sha256": "0a8e1785598ac875d9b25415334d32c37e16cbef5c8deaa4a4b62be18f9178f5"
+      },
+      {
+        "path": "video-engine/src/ConnectedRecordsEpisode.tsx",
+        "sha256": "09d3377bc7b44496605f347a2b26b77cbb605896b7ab340031219f378174cb70"
+      },
+      {
+        "path": "video-engine/src/ContactSensingEpisode.tsx",
+        "sha256": "4cbca96d38ddead411fcbb80277cc7bd0799e4e12fa1975b12e77cefb1926376"
+      },
+      {
+        "path": "video-engine/src/CoolingInspectionAction.tsx",
+        "sha256": "1905338bb021cfdd41f1a65664c8d7d271121fab8c5f29b0a8cc25e18bfd3b82"
+      },
+      {
+        "path": "video-engine/src/CoolingInspectionEpisode.tsx",
+        "sha256": "6e52f86a7c2e85b94f21bd5a2d05a800a6ceb8b07ffd0c63f9e6d646ab93e4bd"
+      },
+      {
+        "path": "video-engine/src/CropWaterAction.tsx",
+        "sha256": "6573c53c9b37042776e2d50aab7fca4ff2cabab9ac190c73428b778d92617b94"
+      },
+      {
+        "path": "video-engine/src/CropWaterEpisode.tsx",
+        "sha256": "7ed976a61a6cbc69c9b088d0938034ac5c79155b0e61b9828c5188758b6b796b"
+      },
+      {
+        "path": "video-engine/src/DailyActionsEpisode.tsx",
+        "sha256": "bb86b7fde6ebb436617088d9587a6c15a087f9a91ab0fe9b71eb8cbee1fe4479"
+      },
+      {
+        "path": "video-engine/src/Dispatch.tsx",
+        "sha256": "cc8950eadffd49f690a9e400f4c064a86716c47226874d29a2d04a24e944d5cc"
+      },
+      {
+        "path": "video-engine/src/EditorialEpisode.tsx",
+        "sha256": "717e49a2cf29b6e1ff1188e17efde53b4b28d2375504b0662bc2e41356e3a58a"
+      },
+      {
+        "path": "video-engine/src/EmptySeatFlightEpisode.tsx",
+        "sha256": "92886b24b85658f5ed9194f0147d896fe846de76c1d8543eb73e1fdefa6c6cce"
+      },
+      {
+        "path": "video-engine/src/FaunaSheet.tsx",
+        "sha256": "6679c3509a440c9ac4674907a185b7e4caeebf280a98e0a11a4e28298f3f2a45"
+      },
+      {
+        "path": "video-engine/src/FaxChartEpisode.tsx",
+        "sha256": "ae388da5fe61bbb768963597b9f7229227d1b6ab0c572732e22d3a5cc004b14e"
+      },
+      {
+        "path": "video-engine/src/FreightInvitationEpisode.tsx",
+        "sha256": "d916c305de7a3322cb4070f8e9292777ffb9671391ada901e1128ef0c80ef7ac"
+      },
+      {
+        "path": "video-engine/src/FreshwaterDocumentaryEpisode.tsx",
+        "sha256": "eeaa236754578e2a6bbd4408a8b657512c2c6ffb35700e1fe71b471920302307"
+      },
+      {
+        "path": "video-engine/src/FreshwaterTwinEpisode.tsx",
+        "sha256": "3bd7bd331b5741306cf87db5a0ef6fe507ae5f83833be757567b6d5b65dc611f"
+      },
+      {
+        "path": "video-engine/src/HighwaySafetyCaseEpisode.tsx",
+        "sha256": "3fb06e26b9d6b014fa555a535c6e8462027d578803e873b71d560e75f4cd0442"
+      },
+      {
+        "path": "video-engine/src/HospitalExitEpisode.tsx",
+        "sha256": "5576b87b16ee662c45cc6adcec521cb6dbabda0032732d42f2a0d90402437461"
+      },
+      {
+        "path": "video-engine/src/IrrigationEpisode.tsx",
+        "sha256": "3783cedd9e271b9529aeed77ed9746000c38ecf13f1728aaefa1048100e5308f"
+      },
+      {
+        "path": "video-engine/src/LocalFloodNodeEpisode.tsx",
+        "sha256": "b1648208c690f45e93bad93175d53933c8e295e5f908a9cc7db3f273e9918bbc"
+      },
+      {
+        "path": "video-engine/src/MagnetCandidateEpisode.tsx",
+        "sha256": "24e53a937fa8f61a5f9908e51145d79351a33e2d90bb5c0068f8ff901493f640"
+      },
+      {
+        "path": "video-engine/src/MineralProvingGroundEpisode.tsx",
+        "sha256": "fcdfaa0c6b4a91f2ea244147fabf7d90a2010e07d669e0cd9b255a4e0628c29b"
+      },
+      {
+        "path": "video-engine/src/NostalgiaSheets.tsx",
+        "sha256": "6054af9773c5733ae74bb83619ad305e54919f655449cbb8df6bbb1d8090ac91"
+      },
+      {
+        "path": "video-engine/src/PavementDepthAction.tsx",
+        "sha256": "4aee73be848bb6ceed8715dc2632c6ca5c99a334c436966d123442f713120882"
+      },
+      {
+        "path": "video-engine/src/PavementDepthEpisode.tsx",
+        "sha256": "3576884b392ba4b654ea093a04f8be1c7664d1ae2b964891bc72ce6cb1eff75b"
+      },
+      {
+        "path": "video-engine/src/PodDeliveryAction.tsx",
+        "sha256": "e79bc55cafd7fcfe577e0281af3feb6964d9e50e8f999c5d571b765f9c3ca607"
+      },
+      {
+        "path": "video-engine/src/PodDeliveryEpisode.tsx",
+        "sha256": "1483d7d5badd55db7f67e499e25338cf3e741690b4bceac583294c542048290b"
+      },
+      {
+        "path": "video-engine/src/ProofGateEpisode.tsx",
+        "sha256": "e73e9fcaec5ece626fcae73a5cec5995614b7b24cb93a1ea213fdd3a65c796dd"
+      },
+      {
+        "path": "video-engine/src/ProofScene.tsx",
+        "sha256": "ec61a65bd6a8767f0a0c6ebacdec9a789a8743096c2c65c391d44004d5a1f5c0"
+      },
+      {
+        "path": "video-engine/src/ReadinessAction.tsx",
+        "sha256": "b71b0875701eee1f63c938df5a08377425312e14fe29b54ca14d4ff51890c7d7"
+      },
+      {
+        "path": "video-engine/src/ReadinessEpisode.tsx",
+        "sha256": "245f3e08d67a76455847f39b24fba4f5e2aaa5c8f8b83137f4efcaa3ad649382"
+      },
+      {
+        "path": "video-engine/src/RegionSheet.tsx",
+        "sha256": "fbc66deef09ea3a00c1e332ddbe682b75e644c616517aabd399aa41aa4130385"
+      },
+      {
+        "path": "video-engine/src/RoadEvidenceEpisode.tsx",
+        "sha256": "0991e269bbea7f033939225dc7089c19743bbbb0fa6430efd189d181baaee3e7"
+      },
+      {
+        "path": "video-engine/src/RobotSafetyAction.tsx",
+        "sha256": "2cbfbf78d540b0d9ffba72d7dd010574ca847fa98b89f460f8ee38eb26a05d54"
+      },
+      {
+        "path": "video-engine/src/RobotSafetyEpisode.tsx",
+        "sha256": "1d47a7f6cd738ab946199f0b8705cb509750d30361d7d0c0c184c66cc883daaf"
+      },
+      {
+        "path": "video-engine/src/Root.tsx",
+        "sha256": "867fe92ec5ae82fd82ac681b6b4b3c6a6d515ec031b137c27c4c5afdc1b15234"
+      },
+      {
+        "path": "video-engine/src/ScrewwormForecastEpisode.tsx",
+        "sha256": "3c37c3a330fa1c08cc4565b173d798868d5e5df996b71e40f606212f1e33bff4"
+      },
+      {
+        "path": "video-engine/src/SensingSheet.tsx",
+        "sha256": "3286401b534f8db7aed6d855bb1033ae2c4a754d25b8e59b1d11aa9d84401f12"
+      },
+      {
+        "path": "video-engine/src/SmokeCameraAction.tsx",
+        "sha256": "7613006a5560e71d88ed529971ca979635a921fa0656a31e8f913b7598be0e01"
+      },
+      {
+        "path": "video-engine/src/SmokeCameraEpisode.tsx",
+        "sha256": "95d4e1150da535e4a2c67c612a9bc187e163f33495ce58f729a3f82b54e66dd5"
+      },
+      {
+        "path": "video-engine/src/VehicleSheet.tsx",
+        "sha256": "bf828eeb21b8fac9f39834dd0a453b98a0f1a234a7b7a40d842c68272b40e554"
+      },
+      {
+        "path": "video-engine/src/branding/DocketMark.tsx",
+        "sha256": "1711186b55d89308069607d749a38a9c8740b6c6dbca433430b5f4cfc8188019"
+      },
+      {
+        "path": "video-engine/src/documentary/TexasLocator.tsx",
+        "sha256": "14ccdd6c22bb5a59b75e21aa462f45533c82fc467fc8f5714b8d6cf165beb7b6"
+      },
+      {
+        "path": "video-engine/src/documentary/WaterMechanism.tsx",
+        "sha256": "6a5b9233199cbeae47131c72a76d9c4862b5c8468045f78a2ccc8330f7f5e0d2"
+      },
+      {
+        "path": "video-engine/src/index.ts",
+        "sha256": "5462d3268136731ce43bfd7c5072ea1ba48b51fec94fa30076f5044f4b39e4a2"
+      },
+      {
+        "path": "video-engine/src/lib/Character.tsx",
+        "sha256": "3dcd8c4b40dc3ececef6001f68b542aae4675d0086f27fb60874229dfa3e6215"
+      },
+      {
+        "path": "video-engine/src/lib/DispatchOverlays.tsx",
+        "sha256": "189877109715512901e28778ab5f5231461c422aa1b277b7e1ed408497dae780"
+      },
+      {
+        "path": "video-engine/src/lib/agriculture.tsx",
+        "sha256": "0bda02c7e0872380fc240b0fe8c2430e62abc234ad72d32f1c2c226143b900d0"
+      },
+      {
+        "path": "video-engine/src/lib/artDirection.tsx",
+        "sha256": "e3baef95838476732079875b9d922195be4b421ae9b2d8bcf08480f6b98ab5c6"
+      },
+      {
+        "path": "video-engine/src/lib/biomes.tsx",
+        "sha256": "3009ed06739bfd490373de6c26f44184416b62373ef376785d17bfe9b2501f84"
+      },
+      {
+        "path": "video-engine/src/lib/biometrics.tsx",
+        "sha256": "ebdbb2399457ba13e38d23c2ff5378c7c6d1b860854d0a257ac10be00ee4e0b2"
+      },
+      {
+        "path": "video-engine/src/lib/blacktexas.tsx",
+        "sha256": "3be1d8ad860302ba91c7fbfde24ceb12b81e3bf1f552db7c2396a8f816404c6b"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/CinematicStage.tsx",
+        "sha256": "af1001e96075fc4358426f01ef5dcf0d6d338df2a23493c4c253562ed680f9b2"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/ProofContext.tsx",
+        "sha256": "07079c7ba2ac11926032acc2ac7b55c2e23e74db86a70a605f88e74d0aea81f0"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/StageContext.ts",
+        "sha256": "7038e56cbed9fa0397c5caf67e0ae4b78af44721e0421f6e759199ae5b2ceacd"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/Studio.tsx",
+        "sha256": "5a8c857d842185d738b91c00992354e1d691bf3c00e2a7bd71faa329899fe5f8"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/motion.ts",
+        "sha256": "9b4db98e63d4f4306145b7fd40516a42d238a79a96c2dab2ff9e23a74e387a57"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/projection.ts",
+        "sha256": "720f755d4ead7db10620a8eaf4ceb2b7d078a26861bc18fc8fe685c188b0353d"
+      },
+      {
+        "path": "video-engine/src/lib/civics.tsx",
+        "sha256": "12f2e5d2b431630a91938d7e74c5fde5f7bd260a78adf192ce1ad61eef45c12a"
+      },
+      {
+        "path": "video-engine/src/lib/clinic.tsx",
+        "sha256": "9d83fe1de0c6ab59985113b173e736c63a83cffbeea589d5210c41a40c0aa4f8"
+      },
+      {
+        "path": "video-engine/src/lib/coadaptation.tsx",
+        "sha256": "0e481297654522515c550d5528ae1100d24b1039ca29efd40619f48605560b95"
+      },
+      {
+        "path": "video-engine/src/lib/compute.tsx",
+        "sha256": "f7833cf3bdd85353ccb12d978d0c72e3f5af4596f13995a48434a19749c293b8"
+      },
+      {
+        "path": "video-engine/src/lib/direction.ts",
+        "sha256": "d1fe795e2e9c3ce7446fd2194356b1ddf6c99e02f393012222d1e6e0ee3c0631"
+      },
+      {
+        "path": "video-engine/src/lib/drilling.tsx",
+        "sha256": "e68dfef262e9a00b5af94147c7c6758478d4cd289c429e2cf49553db6c599d3a"
+      },
+      {
+        "path": "video-engine/src/lib/editorial.ts",
+        "sha256": "6e09b26ef05f7fe45284af4a9b59dc5be0a8abac9d36b810acf1dcaea085a7d7"
+      },
+      {
+        "path": "video-engine/src/lib/evidence.tsx",
+        "sha256": "378dfe3656a231da6684bc903b6f61e661de8cc2dd2f7b70ff88342ae9e6774c"
+      },
+      {
+        "path": "video-engine/src/lib/fauna.tsx",
+        "sha256": "39bc08978ae0dfd9a77cc1876804feadb767de9ec2f2d930785a4f2339dcf106"
+      },
+      {
+        "path": "video-engine/src/lib/faxwork.tsx",
+        "sha256": "78105ded31b670208c0117c61103d4a166ef8d0790315a9f577c2111fa6f08f8"
+      },
+      {
+        "path": "video-engine/src/lib/flora.tsx",
+        "sha256": "9d6bee2b92b6892e845715a58fd48fc3ed70c08b94ac2e2d464e7c01bc486fd2"
+      },
+      {
+        "path": "video-engine/src/lib/fonts.tsx",
+        "sha256": "ebd87045267d4e8efbf1d43934c17022654aecfcc018dde62ddfc1985efce2ad"
+      },
+      {
+        "path": "video-engine/src/lib/football.tsx",
+        "sha256": "4e044f890d12269e7788da975480a7b76eb65e9fcb34b68932727c6ee01fa176"
+      },
+      {
+        "path": "video-engine/src/lib/freight.tsx",
+        "sha256": "35eb099be0ef8520ab370122cb405d1d859e7f3d6c8e1b0ed02d8dcacedff35b"
+      },
+      {
+        "path": "video-engine/src/lib/freightinvitation.tsx",
+        "sha256": "b7fff75e5d9bffda2a0823c9cc1e2bbfd581264119bbaa526604034d4edb41e5"
+      },
+      {
+        "path": "video-engine/src/lib/freshwater.tsx",
+        "sha256": "04a6b393f251c243bea36317569eb5513560b3ae461bcbf12c0bb3681aa54b92"
+      },
+      {
+        "path": "video-engine/src/lib/homeplace.tsx",
+        "sha256": "9ab583efcf02cc6f4b87e1f081b44c0833c796dd4521b6c173afbc8ec6a7c2cf"
+      },
+      {
+        "path": "video-engine/src/lib/hometown.tsx",
+        "sha256": "e10b76cd70935f7ea620d682ae14409c9e561657ba1ff547b3706eac41cd744f"
+      },
+      {
+        "path": "video-engine/src/lib/irrigation.tsx",
+        "sha256": "2eb21443af9b45f3cfb329d943993114dfceef7efc3f67ea4066a0a0ecb4e32f"
+      },
+      {
+        "path": "video-engine/src/lib/kit.tsx",
+        "sha256": "9319eda097205d634f4aeed57da32262dc300922af9d52ef0546f91e561f1416"
+      },
+      {
+        "path": "video-engine/src/lib/lighting.tsx",
+        "sha256": "cf61d20de5957c93a2261c70563f8be781b2e44880be03bf3f9b4f73653623d8"
+      },
+      {
+        "path": "video-engine/src/lib/magnets.tsx",
+        "sha256": "e0e77762f1bd53757e9de6339d8fd96e03b799a9fc35e39e8fa06c36e6118463"
+      },
+      {
+        "path": "video-engine/src/lib/materials.tsx",
+        "sha256": "747cc9bf557470038bc3614fdccc8143c42a026eda0eb9b79d63ca9aedefdf44"
+      },
+      {
+        "path": "video-engine/src/lib/motion.tsx",
+        "sha256": "57368060cb8c8cc6e851b899fad8dbfc49e99bef980c93f609d60d4411fa850e"
+      },
+      {
+        "path": "video-engine/src/lib/plantfloor.tsx",
+        "sha256": "1379e4c9c09996eadad2adb0ee823c54aacabad76d3b3120251adf0845b8731d"
+      },
+      {
+        "path": "video-engine/src/lib/production/CartonHero.tsx",
+        "sha256": "425c9dcc981be0ffd671f6881802ed446cd82452fd2571e7f9e48466df9ea820"
+      },
+      {
+        "path": "video-engine/src/lib/production/CartonIllustratedAction.tsx",
+        "sha256": "c7b1ae0fddfd051039990d6a7c8418e8de8c9427868be3e2232b9112782ffcfd"
+      },
+      {
+        "path": "video-engine/src/lib/production/ConnectedRecords.tsx",
+        "sha256": "339a6c19bf639a93a5e28f27feba97909918e8945c9a9fb7f33c81221448c137"
+      },
+      {
+        "path": "video-engine/src/lib/production/ProvenActions.tsx",
+        "sha256": "e2c920e5e26f282163716f091493f7e54d9fb42cbccfdd98c12b0e6a7685142b"
+      },
+      {
+        "path": "video-engine/src/lib/provingground.tsx",
+        "sha256": "de2840ce6905bdf8670f161c4620b8502df688fffc4d256b82be0bb33f4e9066"
+      },
+      {
+        "path": "video-engine/src/lib/registry.tsx",
+        "sha256": "cb21bde79e311d7ac6dec0f5e531b5299012fe6850fcf71444a67c5636572bb2"
+      },
+      {
+        "path": "video-engine/src/lib/roadside.tsx",
+        "sha256": "13d6ac2282730e7351a128be182c87e540cf873d8135f8babe37adb6dd550668"
+      },
+      {
+        "path": "video-engine/src/lib/roofsection.tsx",
+        "sha256": "fd2ce370b7ef1132f1d3a921d6e8792efdef2976eb811a8744f538941b8b24f0"
+      },
+      {
+        "path": "video-engine/src/lib/safearea.ts",
+        "sha256": "7d08b8df5ee44d61d4edb822fa6e86974827139283daf36be0712fde8ec12620"
+      },
+      {
+        "path": "video-engine/src/lib/scale.ts",
+        "sha256": "0920061f1653bdae94c1da49dfe7e96102eddfb9e2d9b14921fdd9d101579da0"
+      },
+      {
+        "path": "video-engine/src/lib/screwworm.tsx",
+        "sha256": "9204601e3dca58135accd7c5968d6d25b74fbd37a2d94876c6fa1faa9202120a"
+      },
+      {
+        "path": "video-engine/src/lib/sensing.tsx",
+        "sha256": "e860b920808fe6f6e1e7d8e5f19cb24693d49a01f36ddb28fa46957950e73ac8"
+      },
+      {
+        "path": "video-engine/src/lib/skies.tsx",
+        "sha256": "d54f4ea7dec12a5f3af439f0c815117d6479cf36c36af1cdca83d20a3da7d00b"
+      },
+      {
+        "path": "video-engine/src/lib/spectral.tsx",
+        "sha256": "af9fb792c14cb8d01c51d807b3ac241c7186991d2d38f246dc654beaf80bf504"
+      },
+      {
+        "path": "video-engine/src/lib/stage3d.tsx",
+        "sha256": "acc2401c5e329a01eb5bd97495ef354dc72a1120fc2362797a1691534cdeb76d"
+      },
+      {
+        "path": "video-engine/src/lib/tejano.tsx",
+        "sha256": "1858629e00a1c0b3cd4584be5b5af677576fb7fa111924c965187d6afbc98aea"
+      },
+      {
+        "path": "video-engine/src/lib/type.ts",
+        "sha256": "43d7449e181fd5f467f3bcac4a8f9464281235c052a464819e40223dd9758918"
+      },
+      {
+        "path": "video-engine/src/lib/uid.ts",
+        "sha256": "e276842db3d78318df0bc4ee50223a7bf662fb10a13b758f709d3f5c9c6845d7"
+      },
+      {
+        "path": "video-engine/src/lib/vehicles.tsx",
+        "sha256": "df3c9a39beb04a83cf138e852533dc2b387a966ed8230b52d0a73e60c3198882"
+      },
+      {
+        "path": "video-engine/src/lib/voice.tsx",
+        "sha256": "a1258ae84549ace9a592cb3afe7795f8d2610ef310217c5484bf38cd29617cc7"
+      },
+      {
+        "path": "video-engine/src/lib/water.tsx",
+        "sha256": "de0304ceb40c3947240101502b30db4e6be6838ff440a7b61735c955f7ed5278"
+      },
+      {
+        "path": "video-engine/src/modern/CoolingAssets.tsx",
+        "sha256": "d58b2dafa925f771e2f5d97bb90fe75f25dd1fe7baf5eaacf1d5f50c4c4cb101"
+      },
+      {
+        "path": "video-engine/src/modern/CoolingFilm.tsx",
+        "sha256": "9ba6621f4fcec4cf50fbe2c87fdf161fa24371f9036ab663e76a823b66a0f9a8"
+      },
+      {
+        "path": "video-engine/src/modern/CountyLocator.tsx",
+        "sha256": "64e66322741e50e6822614e827c1a15b7508aeb846bca8792c693339f0a3da72"
+      },
+      {
+        "path": "video-engine/src/modern/DirectedFilm.tsx",
+        "sha256": "7836b07cd7558d31cfa7d55d07900b832b613f70aa7d5c3220fcbdfb4a20a1ba"
+      },
+      {
+        "path": "video-engine/src/modern/FlyGeneFilm.tsx",
+        "sha256": "4d572bbc708b9ad98bcb9a563738ec64b56eb98b1d0bcbdd319ac6521ce8fa3c"
+      },
+      {
+        "path": "video-engine/src/modern/FreightFilm.tsx",
+        "sha256": "9b103e1278eeb3deba9782fbda35f9fa868afdd65354c044b258ea029ed0654a"
+      },
+      {
+        "path": "video-engine/src/modern/PlaceStage.tsx",
+        "sha256": "6839b760ee6dd681d87e1a65e334a5b185636a98c02c3ad4b1c4505982533948"
+      },
+      {
+        "path": "video-engine/src/modern/StoryArt.tsx",
+        "sha256": "bd368cce756d2a06e44a3602986bf00e6f2aadac71206683a2d8f4fd0fce2557"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+        "sha256": "3156deac1cce163e8d0d3596bae7477598fa28c2142675e109a2c39897243898"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+        "sha256": "0bdccad57f756fb346461c820a40b04af02f089ba2841f37267286eb27ecb159"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+        "sha256": "f0a1927b451008f1487160eaf0dfba3065a1c48533f617c428ad7dddb1db831f"
+      },
+      {
+        "path": "video-engine/src/modern/placePlates.json",
+        "sha256": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833"
+      },
+      {
+        "path": "video-engine/src/modern/registry.tsx",
+        "sha256": "dd7432783df2544a448b2f84d6c7065747c45b189523c62f08f6f56d6e75b02a"
+      },
+      {
+        "path": "video-engine/src/modern/texasCounties.json",
+        "sha256": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8"
+      },
+      {
+        "path": "video-engine/src/modern/types.ts",
+        "sha256": "549f090d1bbafed672161f37bb2948fa94ac8caa1308773e8be6ed4cbf7c4d47"
+      },
+      {
+        "path": "video-engine/package-lock.json",
+        "sha256": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
+      }
+    ],
+    "rewards": [
+      {
+        "shot_id": "s1-shot-1",
+        "event_id": "s1-event-1",
+        "at_s": 1.049,
+        "kind": "action",
+        "visible_change": "The typed question card leaves the open chart and goes into the OpenEvidence tool.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s1-shot-2",
+        "event_id": "s1-event-2",
+        "at_s": 2.6553,
+        "kind": "action",
+        "visible_change": "One answer card slides back out of the OpenEvidence tool.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s1-shot-2",
+        "event_id": "s1-event-3",
+        "at_s": 3.7302,
+        "kind": "consequence",
+        "visible_change": "Three citation cards follow the answer out and tuck into its Sources slot.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s2-shot-1",
+        "event_id": "s2-event-1",
+        "at_s": 5.38,
+        "kind": "reveal",
+        "visible_change": "The chart edge glows where the tool enters the record.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s2-shot-1",
+        "event_id": "s2-event-2",
+        "at_s": 7.27,
+        "kind": "evidence",
+        "visible_change": "A September 22nd announcement tag attaches to the chart.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s2-shot-2",
+        "event_id": "s2-event-3",
+        "at_s": 9.22,
+        "kind": "evidence",
+        "visible_change": "A March live tag settles on the same chart.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s3-shot-1",
+        "event_id": "s3-event-1",
+        "at_s": 12.4725,
+        "kind": "action",
+        "visible_change": "Hands type a masked credential and the health record lock opens.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s3-shot-2",
+        "event_id": "s3-event-2",
+        "at_s": 14.205,
+        "kind": "action",
+        "visible_change": "The question card is typed in plain words.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s3-shot-2",
+        "event_id": "s3-event-3",
+        "at_s": 15.305,
+        "kind": "consequence",
+        "visible_change": "The card slides to the chart edge.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s4-shot-1",
+        "event_id": "s4-event-1",
+        "at_s": 16.9925,
+        "kind": "reveal",
+        "visible_change": "Citation cards fan out from the returning answer.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s4-shot-2",
+        "event_id": "s4-event-2",
+        "at_s": 18.8625,
+        "kind": "evidence",
+        "visible_change": "One card labelled medical literature lifts.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s4-shot-2",
+        "event_id": "s4-event-3",
+        "at_s": 20.325,
+        "kind": "evidence",
+        "visible_change": "One card labelled clinical guidelines lifts.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s5-shot-1",
+        "event_id": "s5-event-1",
+        "at_s": 22.3055,
+        "kind": "reveal",
+        "visible_change": "Blank clinician tokens begin to light on the usage share beside the chart.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s5-shot-1",
+        "event_id": "s5-event-2",
+        "at_s": 23.5175,
+        "kind": "comparison",
+        "visible_change": "More than half of the clinician tokens light and the share passes halfway.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s5-shot-2",
+        "event_id": "s5-event-3",
+        "at_s": 25.4617,
+        "kind": "consequence",
+        "visible_change": "The lit share holds beside a decision-support tag.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s6-shot-1",
+        "event_id": "s6-event-1",
+        "at_s": 28.075,
+        "kind": "evidence",
+        "visible_change": "An UTMB's own report tag labels the lit share.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s6-shot-2",
+        "event_id": "s6-event-2",
+        "at_s": 29.9325,
+        "kind": "reveal",
+        "visible_change": "Accuracy and patient care tags clip onto the returned answer.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s6-shot-2",
+        "event_id": "s6-event-3",
+        "at_s": 31.4125,
+        "kind": "consequence",
+        "visible_change": "Both tags read not in release while the Accuracy slot stays empty.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s7-shot-1",
+        "event_id": "s7-event-1",
+        "at_s": 34.3175,
+        "kind": "evidence",
+        "visible_change": "A citation card points back to its source type.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s7-shot-2",
+        "event_id": "s7-event-2",
+        "at_s": 37.2563,
+        "kind": "comparison",
+        "visible_change": "The answer card beside it stays unmarked.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s7-shot-2",
+        "event_id": "s7-event-3",
+        "at_s": 38.4938,
+        "kind": "reaction",
+        "visible_change": "No check mark lands on the answer.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s8-shot-1",
+        "event_id": "s8-event-1",
+        "at_s": 40.42,
+        "kind": "consequence",
+        "visible_change": "An evaluating use and experience tag pins to the usage share.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s8-shot-2",
+        "event_id": "s8-event-2",
+        "at_s": 42.184,
+        "kind": "consequence",
+        "visible_change": "The answer holds beside the chart with its sources in its Sources slot.",
+        "event_fraction": 0.5
+      },
+      {
+        "shot_id": "s8-shot-2",
+        "event_id": "s8-event-3",
+        "at_s": 43.012,
+        "kind": "consequence",
+        "visible_change": "The Accuracy slot stays empty while the picture holds.",
+        "event_fraction": 0.5
+      }
+    ]
+  },
+  "story_contract": {
+    "opening_question": "What comes back when a UTMB clinician asks a medical question inside the record?",
+    "actor": "UTMB and OpenEvidence",
+    "action": "Put cited AI answers inside UTMB's electronic health record.",
+    "change": "Clinicians sign in with their usual credentials and get answers with citations.",
+    "affected_people": "UTMB clinicians, and the patients whose records the tool sits inside.",
+    "consequence": "UTMB says more than half of its clinicians use it for clinical decision support.",
+    "source_limit": "Disclosed explanatory illustration of what UTMB's release describes. It is not UTMB's screen, a vendor interface, any answer's content, a clinician or a patient. UTMB's own report. The release publishes no accuracy or patient-care measure.",
+    "closing_answer": "Sources come back with the answer, and UTMB hasn't published whether the answers are right.",
+    "director_identity": "claude-sonnet-5-5 director, this session",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "role": "action",
+        "claim_ids": [
+          "c1",
+          "c4"
+        ],
+        "advances": "The typed question card leaves the open chart and goes into the OpenEvidence tool. One answer card slides back out of the OpenEvidence tool. Three citation cards follow the answer out and tuck into its Sources slot."
+      },
+      {
+        "scene_id": "s2",
+        "role": "evidence",
+        "claim_ids": [
+          "c1",
+          "c2"
+        ],
+        "advances": "The chart edge glows where the tool enters the record. A September 22nd announcement tag attaches to the chart. A March live tag settles on the same chart."
+      },
+      {
+        "scene_id": "s3",
+        "role": "mechanism",
+        "claim_ids": [
+          "c3",
+          "c4"
+        ],
+        "advances": "Hands type a masked credential and the health record lock opens. The question card is typed in plain words. The card slides to the chart edge."
+      },
+      {
+        "scene_id": "s4",
+        "role": "mechanism",
+        "claim_ids": [
+          "c4"
+        ],
+        "advances": "Citation cards fan out from the returning answer. One card labelled medical literature lifts. One card labelled clinical guidelines lifts."
+      },
+      {
+        "scene_id": "s5",
+        "role": "consequence",
+        "claim_ids": [
+          "c5"
+        ],
+        "advances": "Blank clinician tokens begin to light on the usage share beside the chart. More than half of the clinician tokens light and the share passes halfway. The lit share holds beside a decision-support tag."
+      },
+      {
+        "scene_id": "s6",
+        "role": "limit",
+        "claim_ids": [
+          "c5",
+          "c8"
+        ],
+        "advances": "An UTMB's own report tag labels the lit share. Accuracy and patient care tags clip onto the returned answer. Both tags read not in release while the Accuracy slot stays empty."
+      },
+      {
+        "scene_id": "s7",
+        "role": "limit",
+        "claim_ids": [
+          "c4",
+          "c8"
+        ],
+        "advances": "A citation card points back to its source type. The answer card beside it stays unmarked. No check mark lands on the answer."
+      },
+      {
+        "scene_id": "s8",
+        "role": "answer",
+        "claim_ids": [
+          "c8"
+        ],
+        "advances": "An evaluating use and experience tag pins to the usage share. The answer holds beside the chart with its sources in its Sources slot. The Accuracy slot stays empty while the picture holds."
+      }
+    ],
+    "transitions": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "kind": "same-subject",
+        "because": "The same record and the OpenEvidence tool that answered are shown with when the tool was announced and went live.",
+        "visible_bridge": "The chart, the boundary and the docked OpenEvidence tool hold their places as the boundary lights."
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "kind": "same-subject",
+        "because": "After the dated facts, the same record is opened by an ordinary sign-in at its lock.",
+        "visible_bridge": "The same boundary, now with its lock, and the same hands at the keyboard."
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "kind": "same-subject",
+        "because": "The question the hands typed is answered by the same answer card, whose citations now fan out to be read.",
+        "visible_bridge": "The answer card with its filled Sources slot carries into a close reading surface."
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "kind": "same-subject",
+        "because": "The cited answers are used across the clinic, shown as lit clinician tokens on the usage share above the same tool.",
+        "visible_bridge": "The camera rises from the desk to the share above the same OpenEvidence tool and chart."
+      },
+      {
+        "from": "s5",
+        "to": "s6",
+        "kind": "same-subject",
+        "because": "The lit share is labelled as UTMB own report, then the missing measures attach to the returned answer.",
+        "visible_bridge": "The lit share stays in view as the report tag pins, then the same answer card returns."
+      },
+      {
+        "from": "s6",
+        "to": "s7",
+        "kind": "same-subject",
+        "because": "The answer with its open tags shows what its citation can and cannot establish.",
+        "visible_bridge": "The same answer card, its clip tags and its Sources slot stay in the close reading."
+      },
+      {
+        "from": "s7",
+        "to": "s8",
+        "kind": "same-subject",
+        "because": "The unmarked answer returns to the clinic where the evaluation tag pins to the usage share, away from accuracy.",
+        "visible_bridge": "The answer card with its empty Accuracy slot carries back beside the chart."
+      }
+    ]
+  },
+  "creative_direction": {
+    "viewer_question": "What comes back when a UTMB clinician asks a medical question inside the record?",
+    "visible_answer": "The answer returns with source cards, and the accuracy and patient-care tags stay open.",
+    "emotional_turn": "The sources look like proof, then the open tags show the release publishes no measure of whether the answers are right.",
+    "medium_choice": "News report / Explanatory animation, mechanism-led. No footage, licensed image or authenticated view of the tool exists, so original authored diagrams perform the described sequence; a static release excerpt would hide the question and its return.",
+    "policy_sha256": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+    "edits": [
+      {
+        "scene_id": "s1",
+        "enter_on": "The typed question card leaves the open chart and goes into the OpenEvidence tool.",
+        "leave_on": "Three citation cards follow the answer out and tuck into its Sources slot.",
+        "cut_after_event_id": "s1-event-3",
+        "next_connection": "The chart, the boundary and the docked OpenEvidence tool hold their places as the boundary lights.",
+        "sentence_to_shot": {
+          "clause": "A UTMB clinician asks a question. The answer comes back with its sources.",
+          "subject": "Anonymous hands, one question card, the OpenEvidence tool at the record edge, one answer and its citation cards",
+          "relationship": "Hands type and send the question card into the OpenEvidence tool, and one answer comes back out with three citation cards.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s2",
+        "enter_on": "The chart edge glows where the tool enters the record.",
+        "leave_on": "A March live tag settles on the same chart.",
+        "cut_after_event_id": "s2-event-3",
+        "next_connection": "The same boundary, now with its lock, and the same hands at the keyboard.",
+        "sentence_to_shot": {
+          "clause": "UTMB announced the OpenEvidence AI tool on September twenty-second, and says it went live in March.",
+          "subject": "The same chart inside the teal health record boundary, the OpenEvidence AI tool docked at its edge, and two pinned date tags",
+          "relationship": "The boundary and the docked OpenEvidence tool light together and two date tags pin to the boundary.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s3",
+        "enter_on": "Hands type a masked credential and the health record lock opens.",
+        "leave_on": "The card slides to the chart edge.",
+        "cut_after_event_id": "s3-event-3",
+        "next_connection": "The answer card with its filled Sources slot carries into a close reading surface.",
+        "sentence_to_shot": {
+          "clause": "Clinicians sign in with their usual credentials and ask in plain language.",
+          "subject": "Anonymous hands, a masked credential card, the health record lock and the question card",
+          "relationship": "Hands type a masked credential, the record lock opens, then the hands type the question in plain word shapes.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s4",
+        "enter_on": "Citation cards fan out from the returning answer.",
+        "leave_on": "One card labelled clinical guidelines lifts.",
+        "cut_after_event_id": "s4-event-3",
+        "next_connection": "The camera rises from the desk to the share above the same OpenEvidence tool and chart.",
+        "sentence_to_shot": {
+          "clause": "The answers carry citations to medical literature and clinical guidelines.",
+          "subject": "The one returned answer card and its three citation cards naming source types",
+          "relationship": "The citation cards fan out of the answer Sources slot and the literature and guidelines cards lift toward camera.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s5",
+        "enter_on": "Blank clinician tokens begin to light on the usage share beside the chart.",
+        "leave_on": "The lit share holds beside a decision-support tag.",
+        "cut_after_event_id": "s5-event-3",
+        "next_connection": "The lit share stays in view as the report tag pins, then the same answer card returns.",
+        "sentence_to_shot": {
+          "clause": "UTMB says more than half of its clinicians now use it for clinical decision support.",
+          "subject": "The usage share of blank clinician tokens on the wall above the tool, beside the same chart",
+          "relationship": "Clinician tokens light past the halfway tick and a decision-support tag pins to the share.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s6",
+        "enter_on": "An UTMB's own report tag labels the lit share.",
+        "leave_on": "Both tags read not in release while the Accuracy slot stays empty.",
+        "cut_after_event_id": "s6-event-3",
+        "next_connection": "The same answer card, its clip tags and its Sources slot stay in the close reading.",
+        "sentence_to_shot": {
+          "clause": "That is UTMB's own report. The release publishes no measure of accuracy or patient care.",
+          "subject": "UTMB's own report tag on the share, then two open tags clipped to the returned answer",
+          "relationship": "A report tag pins to the lit share, then accuracy and patient care tags clip onto the answer and read not in release.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s7",
+        "enter_on": "A citation card points back to its source type.",
+        "leave_on": "No check mark lands on the answer.",
+        "cut_after_event_id": "s7-event-3",
+        "next_connection": "The answer card with its empty Accuracy slot carries back beside the chart.",
+        "sentence_to_shot": {
+          "clause": "A citation shows where an answer says it came from. It doesn't show the answer is right.",
+          "subject": "The answer card, its Sources slot, one citation card and its empty Accuracy slot",
+          "relationship": "A thread runs from the answer Sources slot to its citation tab while the Accuracy slot stays empty.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      },
+      {
+        "scene_id": "s8",
+        "enter_on": "An evaluating use and experience tag pins to the usage share.",
+        "leave_on": "The Accuracy slot stays empty while the picture holds.",
+        "cut_after_event_id": "s8-event-3",
+        "next_connection": "The closing picture holds the chart, its returned sources and the open tags as the answer.",
+        "sentence_to_shot": {
+          "clause": "UTMB says it will keep evaluating use and clinician experience.",
+          "subject": "The usage share with its evaluation tag, and the answer held beside the chart with its sources and empty Accuracy slot",
+          "relationship": "An evaluating use and experience tag pins to the usage share, then the answer holds beside the chart with its empty Accuracy slot.",
+          "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+        }
+      }
+    ],
+    "sound": {
+      "perspective": "Designed illustration sound for paper, card and a desk reader. Never recorded clinic audio, never a vendor sound.",
+      "music_arc": "A light curious pulse carries the question out and back, steadies under the dated facts, drops away at the open tags and returns softly for the evaluation close.",
+      "voice_arc": "Brisk question and return, plain dated facts, an ordinary sign-in, specific source types, a measured share, then a slower plain limit and a level close.",
+      "cues": [
+        {
+          "id": "card-slide",
+          "event_id": "s1-event-1",
+          "role": "contact",
+          "duration_s": 0.5,
+          "intent": "A soft paper slide follows the question card into the OpenEvidence tool mouth.",
+          "provenance": "Original designed paper foley, no recorded clinic audio."
+        },
+        {
+          "id": "cards-tuck",
+          "event_id": "s1-event-3",
+          "role": "contact",
+          "duration_s": 0.4,
+          "intent": "A light card tap marks the citation cards tucking into the answer Sources slot.",
+          "provenance": "Original designed card foley."
+        },
+        {
+          "id": "lock-open",
+          "event_id": "s3-event-1",
+          "role": "contact",
+          "duration_s": 0.3,
+          "intent": "A soft designed latch click marks the health record lock opening after the masked credential.",
+          "provenance": "Original designed foley, not a recording of any real system."
+        },
+        {
+          "id": "limit-quiet",
+          "event_id": "s6-event-2",
+          "role": "quiet",
+          "duration_s": 1.2,
+          "gain": 0.3,
+          "intent": "Pull the music back while the accuracy and patient care tags clip onto the answer.",
+          "provenance": "Authored event-clock background contrast."
+        }
+      ]
+    }
+  },
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.25,
+      "end": 1.95,
+      "text": "A UTMB clinician asks a question.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c2",
+      "start": 2.15,
+      "end": 4.3,
+      "text": "The answer comes back with its sources.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c3",
+      "start": 4.75,
+      "end": 8.35,
+      "text": "UTMB announced the OpenEvidence AI tool on September twenty-second,",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c4",
+      "start": 8.5,
+      "end": 10.3,
+      "text": "and says it went live in March.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c5",
+      "start": 10.75,
+      "end": 13.4,
+      "text": "Clinicians sign in with their usual credentials",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c6",
+      "start": 13.6,
+      "end": 15.8,
+      "text": "and ask in plain language.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c7",
+      "start": 16.25,
+      "end": 17.9,
+      "text": "The answers carry citations",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c8",
+      "start": 18.05,
+      "end": 21.3,
+      "text": "to medical literature and clinical guidelines.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c9",
+      "start": 21.75,
+      "end": 24.25,
+      "text": "UTMB says more than half of its clinicians",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c10",
+      "start": 24.4,
+      "end": 26.8,
+      "text": "now use it for clinical decision support.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c11",
+      "start": 27.25,
+      "end": 28.9,
+      "text": "That is UTMB's own report.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c12",
+      "start": 29.1,
+      "end": 32.8,
+      "text": "The release publishes no measure of accuracy or patient care.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c13",
+      "start": 33.25,
+      "end": 36.3,
+      "text": "A citation shows where an answer says it came from.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c14",
+      "start": 36.5,
+      "end": 39.25,
+      "text": "It doesn't show the answer is right.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    },
+    {
+      "id": "c15",
+      "start": 39.7,
+      "end": 43.3,
+      "text": "UTMB says it will keep evaluating use and clinician experience.",
+      "source": "authored_estimate",
+      "start_measured": false,
+      "end_measured": false
+    }
+  ],
+  "narration_picture": {
+    "version": "narration-picture-v1",
+    "timing_mode": "authored",
+    "cue_plan": "Provisional authored cue estimate for the silent two-treatment comparison only. board_retime.py replaces it with measured_caption_boundaries after acoustic alignment; it approves nothing.",
+    "clauses": [
+      {
+        "id": "n1a",
+        "text": "A UTMB clinician asks a question.",
+        "cue_ids": [
+          "c1"
+        ],
+        "scene_id": "s1",
+        "subject_ids": [
+          "question-card",
+          "hands",
+          "openevidence-tool"
+        ],
+        "action_id": "send-question",
+        "claim_ids": [
+          "c1",
+          "c4"
+        ],
+        "event_ids": [
+          "s1-event-1"
+        ],
+        "start_s": 0.25,
+        "end_s": 1.95,
+        "word_range": [
+          0,
+          6
+        ]
+      },
+      {
+        "id": "n1b",
+        "text": "The answer comes back with its sources.",
+        "cue_ids": [
+          "c2"
+        ],
+        "scene_id": "s1",
+        "subject_ids": [
+          "answer-card",
+          "citation-cards",
+          "openevidence-tool"
+        ],
+        "action_id": "return-answer",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s1-event-2",
+          "s1-event-3"
+        ],
+        "start_s": 2.15,
+        "end_s": 4.3,
+        "word_range": [
+          6,
+          13
+        ]
+      },
+      {
+        "id": "n2a",
+        "text": "UTMB announced the OpenEvidence AI tool on September twenty-second,",
+        "cue_ids": [
+          "c3"
+        ],
+        "scene_id": "s2",
+        "subject_ids": [
+          "record-boundary",
+          "openevidence-tool",
+          "date-tags"
+        ],
+        "action_id": "enter-record",
+        "claim_ids": [
+          "c1"
+        ],
+        "event_ids": [
+          "s2-event-1",
+          "s2-event-2"
+        ],
+        "start_s": 4.75,
+        "end_s": 8.35,
+        "word_range": [
+          13,
+          22
+        ]
+      },
+      {
+        "id": "n2b",
+        "text": "and says it went live in March.",
+        "cue_ids": [
+          "c4"
+        ],
+        "scene_id": "s2",
+        "subject_ids": [
+          "chart",
+          "date-tags"
+        ],
+        "action_id": "mark-live",
+        "claim_ids": [
+          "c2"
+        ],
+        "event_ids": [
+          "s2-event-3"
+        ],
+        "start_s": 8.5,
+        "end_s": 10.3,
+        "word_range": [
+          22,
+          29
+        ]
+      },
+      {
+        "id": "n3a",
+        "text": "Clinicians sign in with their usual credentials",
+        "cue_ids": [
+          "c5"
+        ],
+        "scene_id": "s3",
+        "subject_ids": [
+          "credential-field",
+          "record-lock",
+          "hands"
+        ],
+        "action_id": "sign-in",
+        "claim_ids": [
+          "c3"
+        ],
+        "event_ids": [
+          "s3-event-1"
+        ],
+        "start_s": 10.75,
+        "end_s": 13.4,
+        "word_range": [
+          29,
+          36
+        ]
+      },
+      {
+        "id": "n3b",
+        "text": "and ask in plain language.",
+        "cue_ids": [
+          "c6"
+        ],
+        "scene_id": "s3",
+        "subject_ids": [
+          "question-card",
+          "hands",
+          "keyboard"
+        ],
+        "action_id": "type-question",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s3-event-2",
+          "s3-event-3"
+        ],
+        "start_s": 13.6,
+        "end_s": 15.8,
+        "word_range": [
+          36,
+          41
+        ]
+      },
+      {
+        "id": "n4a",
+        "text": "The answers carry citations",
+        "cue_ids": [
+          "c7"
+        ],
+        "scene_id": "s4",
+        "subject_ids": [
+          "citation-cards",
+          "answer-card"
+        ],
+        "action_id": "return-citations",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s4-event-1"
+        ],
+        "start_s": 16.25,
+        "end_s": 17.9,
+        "word_range": [
+          41,
+          45
+        ]
+      },
+      {
+        "id": "n4b",
+        "text": "to medical literature and clinical guidelines.",
+        "cue_ids": [
+          "c8"
+        ],
+        "scene_id": "s4",
+        "subject_ids": [
+          "citation-cards",
+          "source-types"
+        ],
+        "action_id": "name-source-types",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s4-event-2",
+          "s4-event-3"
+        ],
+        "start_s": 18.05,
+        "end_s": 21.3,
+        "word_range": [
+          45,
+          51
+        ]
+      },
+      {
+        "id": "n5",
+        "text": "UTMB says more than half of its clinicians now use it for clinical decision support.",
+        "cue_ids": [
+          "c9",
+          "c10"
+        ],
+        "scene_id": "s5",
+        "subject_ids": [
+          "clinician-tokens",
+          "decision-tag"
+        ],
+        "action_id": "show-usage",
+        "claim_ids": [
+          "c5"
+        ],
+        "event_ids": [
+          "s5-event-1",
+          "s5-event-2",
+          "s5-event-3"
+        ],
+        "start_s": 21.75,
+        "end_s": 26.8,
+        "word_range": [
+          51,
+          66
+        ]
+      },
+      {
+        "id": "n6a",
+        "text": "That is UTMB's own report.",
+        "cue_ids": [
+          "c11"
+        ],
+        "scene_id": "s6",
+        "subject_ids": [
+          "report-tag",
+          "clinician-tokens"
+        ],
+        "action_id": "attribute-report",
+        "claim_ids": [
+          "c5"
+        ],
+        "event_ids": [
+          "s6-event-1"
+        ],
+        "start_s": 27.25,
+        "end_s": 28.9,
+        "word_range": [
+          66,
+          71
+        ]
+      },
+      {
+        "id": "n6b",
+        "text": "The release publishes no measure of accuracy or patient care.",
+        "cue_ids": [
+          "c12"
+        ],
+        "scene_id": "s6",
+        "subject_ids": [
+          "unmeasured-tags",
+          "answer-card"
+        ],
+        "action_id": "show-limit",
+        "claim_ids": [
+          "c8"
+        ],
+        "event_ids": [
+          "s6-event-2",
+          "s6-event-3"
+        ],
+        "start_s": 29.1,
+        "end_s": 32.8,
+        "word_range": [
+          71,
+          81
+        ]
+      },
+      {
+        "id": "n7a",
+        "text": "A citation shows where an answer says it came from.",
+        "cue_ids": [
+          "c13"
+        ],
+        "scene_id": "s7",
+        "subject_ids": [
+          "citation-cards",
+          "answer-card",
+          "source-types"
+        ],
+        "action_id": "trace-citation",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s7-event-1"
+        ],
+        "start_s": 33.25,
+        "end_s": 36.3,
+        "word_range": [
+          81,
+          91
+        ]
+      },
+      {
+        "id": "n7b",
+        "text": "It doesn't show the answer is right.",
+        "cue_ids": [
+          "c14"
+        ],
+        "scene_id": "s7",
+        "subject_ids": [
+          "answer-card",
+          "accuracy-slot"
+        ],
+        "action_id": "withhold-verdict",
+        "claim_ids": [
+          "c8"
+        ],
+        "event_ids": [
+          "s7-event-2",
+          "s7-event-3"
+        ],
+        "start_s": 36.5,
+        "end_s": 39.25,
+        "word_range": [
+          91,
+          98
+        ]
+      },
+      {
+        "id": "n8",
+        "text": "UTMB says it will keep evaluating use and clinician experience.",
+        "cue_ids": [
+          "c15"
+        ],
+        "scene_id": "s8",
+        "subject_ids": [
+          "evaluation-tag",
+          "chart"
+        ],
+        "action_id": "keep-evaluating",
+        "claim_ids": [
+          "c8"
+        ],
+        "event_ids": [
+          "s8-event-1",
+          "s8-event-2",
+          "s8-event-3"
+        ],
+        "start_s": 39.7,
+        "end_s": 43.3,
+        "word_range": [
+          98,
+          108
+        ]
+      }
+    ]
+  },
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "One worn patient chart, its question card and the citation cards that return to it",
+      "opening_state": "A half-typed question card sits on the chart, about to leave it.",
+      "closing_state": "The answer holds beside the chart with its sources in its Sources slot, its Accuracy slot empty and its not-in-release tags, while the evaluation tag hangs on the usage share.",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ]
+    },
+    "turn_scene": "s6",
+    "button": "Sources come back with the answer, and its Accuracy slot stays empty because the release publishes no such measure."
+  },
+  "quality_plan": {
+    "contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "medium": "diagram",
+        "subject": "Anonymous hands, one question card, the OpenEvidence tool at the record edge, one answer and its citation cards",
+        "action": "Hands type and send the question card into the OpenEvidence tool, and one answer comes back out with three citation cards.",
+        "consequence": "Three citation cards follow the answer out and tuck into its Sources slot.",
+        "source_basis": "Claims c1, c4. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s2",
+        "medium": "diagram",
+        "subject": "The same chart inside the teal health record boundary, the OpenEvidence AI tool docked at its edge, and two pinned date tags",
+        "action": "The boundary and the docked OpenEvidence tool light together and two date tags pin to the boundary.",
+        "consequence": "A March live tag settles on the same chart.",
+        "source_basis": "Claims c1, c2. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s3",
+        "medium": "diagram",
+        "subject": "Anonymous hands, a masked credential card, the health record lock and the question card",
+        "action": "Hands type a masked credential, the record lock opens, then the hands type the question in plain word shapes.",
+        "consequence": "The card slides to the chart edge.",
+        "source_basis": "Claims c3, c4. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s4",
+        "medium": "diagram",
+        "subject": "The one returned answer card and its three citation cards naming source types",
+        "action": "The citation cards fan out of the answer Sources slot and the literature and guidelines cards lift toward camera.",
+        "consequence": "One card labelled clinical guidelines lifts.",
+        "source_basis": "Claims c4. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s5",
+        "medium": "diagram",
+        "subject": "The usage share of blank clinician tokens on the wall above the tool, beside the same chart",
+        "action": "Clinician tokens light past the halfway tick and a decision-support tag pins to the share.",
+        "consequence": "The lit share holds beside a decision-support tag.",
+        "source_basis": "Claims c5. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s6",
+        "medium": "diagram",
+        "subject": "UTMB's own report tag on the share, then two open tags clipped to the returned answer",
+        "action": "A report tag pins to the lit share, then accuracy and patient care tags clip onto the answer and read not in release.",
+        "consequence": "Both tags read not in release while the Accuracy slot stays empty.",
+        "source_basis": "Claims c5, c8. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s7",
+        "medium": "diagram",
+        "subject": "The answer card, its Sources slot, one citation card and its empty Accuracy slot",
+        "action": "A thread runs from the answer Sources slot to its citation tab while the Accuracy slot stays empty.",
+        "consequence": "No check mark lands on the answer.",
+        "source_basis": "Claims c4, c8. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s8",
+        "medium": "diagram",
+        "subject": "The usage share with its evaluation tag, and the answer held beside the chart with its sources and empty Accuracy slot",
+        "action": "An evaluating use and experience tag pins to the usage share, then the answer holds beside the chart with its empty Accuracy slot.",
+        "consequence": "The Accuracy slot stays empty while the picture holds.",
+        "source_basis": "Claims c8. Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+        "medium_evidence": "Registered clinic-answer-v1 with the fresh authored ChartHero and ClinicSupport groups performing board events on the film clock."
+      }
+    ]
+  },
+  "cinema": {
+    "version": "creative-production-v1",
+    "hero_scene_id": "s6",
+    "hero_passage_end_scene_id": "s7",
+    "dimensional_scene_ids": [],
+    "visible_action": "UTMB's own report tag pins to the lit share, two tags clip onto the returned answer reading not in release, then a thread links the answer's Sources slot to its citation while its Accuracy slot stays empty.",
+    "human_consequence": "UTMB clinicians get cited answers inside the record, and the release gives patients and clinicians no published accuracy or care measure.",
+    "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure."
+  },
+  "documentary": {
+    "schema": "dispatch_documentary/1",
+    "viewer_question": "What comes back when a UTMB clinician asks a medical question inside the record?",
+    "payoff": "The answer returns with citation cards, and the accuracy and patient care tags stay open.",
+    "source_limit": "Disclosed illustration of what UTMB's release describes. Not UTMB's screen, a vendor interface, an answer's content, a clinician or a patient. UTMB's own report, with no published accuracy or patient-care measure.",
+    "hero_image": "The returned answer with its filled Sources slot, its empty Accuracy slot and two clipped tags reading not in release.",
+    "closing_answer": "Sources come back with the answer, and UTMB hasn't published whether the answers are right.",
+    "hook_payoff_event": "s1-event-1"
+  },
+  "art_direction": {
+    "version": "directed-world-v1",
+    "palette": {
+      "background": "#E2E4DC",
+      "midground": "#93A39E",
+      "foreground": "#41585A",
+      "ink": "#1E2F33",
+      "paper": "#F3ECDC",
+      "hero": "#1F7672",
+      "accent": "#C46F3A"
+    },
+    "palette_reason": "Hazy Gulf Coast white wall and worn warm paper carry the clinic; teal card stock marks the chart and its returned sources; a copper accent is kept only for the open tags and the empty check ring.",
+    "shape_language": "A tall rounded hardboard chart with lopsided teal tabs against small soft-cornered cards and long thin tags; the workstation wall is a loose uneven grid of rounded tiles.",
+    "focal_hierarchy": "The chart first, the moving question or answer card second, the dated and open tags third, room and window last.",
+    "motion_language": "Cards travel on accelerating and braking paths from the chart edge and back, tags drop and settle without bounce, and the camera holds or makes one small move per shot tied to the moving card.",
+    "lighting": {
+      "motivation": "Soft hazy Gulf Coast window light from the upper left warms the paper; a cool fill from the right shades card edges; contact shadows ground every card on its shelf, desk or chart.",
+      "ambient": 0.85,
+      "exposure": 1,
+      "key": {
+        "position": [
+          -5,
+          6,
+          4
+        ],
+        "color": "#FFF4DD",
+        "intensity": 1.8
+      },
+      "fill": {
+        "position": [
+          5,
+          2,
+          3
+        ],
+        "color": "#C4D8D8",
+        "intensity": 0.9
+      },
+      "rim": {
+        "position": [
+          2,
+          5,
+          -4
+        ],
+        "color": "#FFF8EC",
+        "intensity": 0.7
+      }
+    },
+    "hero": {
+      "asset": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+      "silhouette": "A tall worn hardboard clipboard chart with a steel clip and uneven teal card-stock tabs standing proud on its right edge.",
+      "finish": "Grained warm paper, ruled blank fields, a dog-eared corner, a faint ring stain, chipped board edges, steel clip highlights and soft contact shadows.",
+      "subject_ids": [
+        "s4-answer",
+        "s4-chart",
+        "s5-chart",
+        "s6-answer",
+        "s7-chart",
+        "s8-answer",
+        "s8-chart"
+      ]
+    },
+    "signature_shot": {
+      "scene_id": "s7",
+      "event_id": "s7-event-3",
+      "reason": "The answer's check ring pulses and stays empty beside the citation that names its source."
+    },
+    "shots": {},
+    "flat_shots": {
+      "s1": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s2": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s3": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s4": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s5": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s6": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s7": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      },
+      "s8": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing card or tag."
+      }
+    }
+  },
+  "fingerprint": {
+    "pov": "wall-chart-flow",
+    "motion_vector": "left-to-right-question-and-sources",
+    "hero_treatment": "authored-worn-patient-chart-with-teal-tabs",
+    "layout": "chart-on-wall-rail-with-return-shelf",
+    "register": "disclosed-source-bound-illustration",
+    "camera_strategy": "held-with-card-led-moves",
+    "light_story": "gulf-window-key-cool-fill",
+    "palette": "Hazy white, warm paper, teal, copper",
+    "metaphor": "A question goes out of the chart and sources come back to it"
+  },
+  "divergence_note": "A stands back on a clinic wall from a higher camera: the chart hangs on a rail behind the desk, the OpenEvidence tool is wall-mounted at its right, a key strike sends the question left to right off the chart page into the tool and the answer drops onto the desk; its citations fan left to right. B sits at desk height: the chart stands propped beside the tool on the desk, the hands push the card once across the laminate into the tool mouth, the answer slides back toward the lens, close and detail framings lead and its citations rise toward camera. Both share the same narration, events, authored hero and support groups, one citation set and the same film clock.",
+  "hook_strategy": "action-first",
+  "hook_payoff_s": 1.2,
+  "attention_beats": [
+    {
+      "id": "s1-event-1-attention",
+      "event_id": "s1-event-1",
+      "item_ids": [
+        "s1-tool",
+        "s1-sources"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The typed question card leaves the open chart and goes into the OpenEvidence tool.",
+      "viewer_reward": "The typed question card leaves the open chart and goes into the OpenEvidence tool.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s1-event-2-attention",
+      "event_id": "s1-event-2",
+      "item_ids": [
+        "s1-tool",
+        "s1-sources"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "One answer card slides back out of the OpenEvidence tool.",
+      "viewer_reward": "One answer card slides back out of the OpenEvidence tool.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s1-event-3-attention",
+      "event_id": "s1-event-3",
+      "item_ids": [
+        "s1-tool",
+        "s1-sources"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Three citation cards follow the answer out and tuck into its Sources slot.",
+      "viewer_reward": "Three citation cards follow the answer out and tuck into its Sources slot.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s2-event-1-attention",
+      "event_id": "s2-event-1",
+      "item_ids": [
+        "s2-boundary",
+        "s2-tool"
+      ],
+      "change_type": "reveal",
+      "visible_change": "The chart edge glows where the tool enters the record.",
+      "viewer_reward": "The chart edge glows where the tool enters the record.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s2-event-2-attention",
+      "event_id": "s2-event-2",
+      "item_ids": [
+        "s2-boundary",
+        "s2-tool"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A September 22nd announcement tag attaches to the chart.",
+      "viewer_reward": "A September 22nd announcement tag attaches to the chart.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s2-event-3-attention",
+      "event_id": "s2-event-3",
+      "item_ids": [
+        "s2-boundary",
+        "s2-tool"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A March live tag settles on the same chart.",
+      "viewer_reward": "A March live tag settles on the same chart.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s3-event-1-attention",
+      "event_id": "s3-event-1",
+      "item_ids": [
+        "s3-lock",
+        "s3-credential"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Hands type a masked credential and the health record lock opens.",
+      "viewer_reward": "Hands type a masked credential and the health record lock opens.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s3-event-2-attention",
+      "event_id": "s3-event-2",
+      "item_ids": [
+        "s3-lock",
+        "s3-credential"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The question card is typed in plain words.",
+      "viewer_reward": "The question card is typed in plain words.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s3-event-3-attention",
+      "event_id": "s3-event-3",
+      "item_ids": [
+        "s3-lock",
+        "s3-credential"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The card slides to the chart edge.",
+      "viewer_reward": "The card slides to the chart edge.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s4-event-1-attention",
+      "event_id": "s4-event-1",
+      "item_ids": [
+        "s4-answer",
+        "s4-chart"
+      ],
+      "change_type": "reveal",
+      "visible_change": "Citation cards fan out from the returning answer.",
+      "viewer_reward": "Citation cards fan out from the returning answer.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s4-event-2-attention",
+      "event_id": "s4-event-2",
+      "item_ids": [
+        "s4-answer",
+        "s4-chart"
+      ],
+      "change_type": "evidence",
+      "visible_change": "One card labelled medical literature lifts.",
+      "viewer_reward": "One card labelled medical literature lifts.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s4-event-3-attention",
+      "event_id": "s4-event-3",
+      "item_ids": [
+        "s4-answer",
+        "s4-chart"
+      ],
+      "change_type": "evidence",
+      "visible_change": "One card labelled clinical guidelines lifts.",
+      "viewer_reward": "One card labelled clinical guidelines lifts.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s5-event-1-attention",
+      "event_id": "s5-event-1",
+      "item_ids": [
+        "s5-wall",
+        "s5-chart"
+      ],
+      "change_type": "reveal",
+      "visible_change": "Blank clinician tokens begin to light on the usage share beside the chart.",
+      "viewer_reward": "Blank clinician tokens begin to light on the usage share beside the chart.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s5-event-2-attention",
+      "event_id": "s5-event-2",
+      "item_ids": [
+        "s5-wall",
+        "s5-chart"
+      ],
+      "change_type": "comparison",
+      "visible_change": "More than half of the clinician tokens light and the share passes halfway.",
+      "viewer_reward": "More than half of the clinician tokens light and the share passes halfway.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s5-event-3-attention",
+      "event_id": "s5-event-3",
+      "item_ids": [
+        "s5-wall",
+        "s5-chart"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The lit share holds beside a decision-support tag.",
+      "viewer_reward": "The lit share holds beside a decision-support tag.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s6-event-1-attention",
+      "event_id": "s6-event-1",
+      "item_ids": [
+        "s6-wall",
+        "s6-answer"
+      ],
+      "change_type": "evidence",
+      "visible_change": "An UTMB's own report tag labels the lit share.",
+      "viewer_reward": "An UTMB's own report tag labels the lit share.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s6-event-2-attention",
+      "event_id": "s6-event-2",
+      "item_ids": [
+        "s6-wall",
+        "s6-answer"
+      ],
+      "change_type": "reveal",
+      "visible_change": "Accuracy and patient care tags clip onto the returned answer.",
+      "viewer_reward": "Accuracy and patient care tags clip onto the returned answer.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s6-event-3-attention",
+      "event_id": "s6-event-3",
+      "item_ids": [
+        "s6-wall",
+        "s6-answer"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Both tags read not in release while the Accuracy slot stays empty.",
+      "viewer_reward": "Both tags read not in release while the Accuracy slot stays empty.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s7-event-1-attention",
+      "event_id": "s7-event-1",
+      "item_ids": [
+        "s7-chart",
+        "s7-sources"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A citation card points back to its source type.",
+      "viewer_reward": "A citation card points back to its source type.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s7-event-2-attention",
+      "event_id": "s7-event-2",
+      "item_ids": [
+        "s7-chart",
+        "s7-sources"
+      ],
+      "change_type": "comparison",
+      "visible_change": "The answer card beside it stays unmarked.",
+      "viewer_reward": "The answer card beside it stays unmarked.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s7-event-3-attention",
+      "event_id": "s7-event-3",
+      "item_ids": [
+        "s7-chart",
+        "s7-sources"
+      ],
+      "change_type": "resolution",
+      "visible_change": "No check mark lands on the answer.",
+      "viewer_reward": "No check mark lands on the answer.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s8-event-1-attention",
+      "event_id": "s8-event-1",
+      "item_ids": [
+        "s8-wall",
+        "s8-chart"
+      ],
+      "change_type": "consequence",
+      "visible_change": "An evaluating use and experience tag pins to the usage share.",
+      "viewer_reward": "An evaluating use and experience tag pins to the usage share.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s8-event-2-attention",
+      "event_id": "s8-event-2",
+      "item_ids": [
+        "s8-wall",
+        "s8-chart"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The answer holds beside the chart with its sources in its Sources slot.",
+      "viewer_reward": "The answer holds beside the chart with its sources in its Sources slot.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    },
+    {
+      "id": "s8-event-3-attention",
+      "event_id": "s8-event-3",
+      "item_ids": [
+        "s8-wall",
+        "s8-chart"
+      ],
+      "change_type": "consequence",
+      "visible_change": "The Accuracy slot stays empty while the picture holds.",
+      "viewer_reward": "The Accuracy slot stays empty while the picture holds.",
+      "continuity_from": "The same worn chart with teal tabs and the same cards stay in view across the cut.",
+      "sound_action": "Designed paper and card sound follows the moving card or tag; music drops at the open tags."
+    }
+  ],
+  "visual_research": {
+    "searches": [
+      {
+        "query": "UTMB OpenEvidence September 22 2026 release images",
+        "finding": "The release carries one lead photograph of a clinician at a workstation with no credit line or reuse licence; it shows no tool or answer."
+      },
+      {
+        "query": "OpenEvidence electronic health record integration screenshot",
+        "finding": "Only vendor marketing views exist; using one would imply UTMB screen access and a vendor interface the film must not show."
+      }
+    ],
+    "candidates": [
+      {
+        "url": "https://www.utmb.edu/utmb/news-article/utmb-news/2026/09/22/utmb-collaborates-with-openevidence-to-integrate-ai-platform-directly-into-clinical-workflows",
+        "decision": "reject",
+        "reason": "Release lead photograph has no reuse licence and shows a workplace, not the tool or any answer."
+      },
+      {
+        "url": "authored://2026-10-09-claude-pilot/chart-and-citations",
+        "decision": "use",
+        "reason": "Fresh original authored source group performs the disclosed source-bound question, citation and limit relationship."
+      },
+      {
+        "url": "authored://2026-10-09-claude-pilot/clinic-support",
+        "decision": "use",
+        "reason": "Fresh original authored source group performs the disclosed source-bound question, citation and limit relationship."
+      }
+    ],
+    "decision": "Two fresh authored source groups, a chart-and-citation hero and a clinic support group, carry the reported relationship as disclosed illustration."
+  },
+  "native_media": [
+    {
+      "request_id": "chart-and-citations",
+      "file": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+      "sha256": "3156deac1cce163e8d0d3596bae7477598fa28c2142675e109a2c39897243898",
+      "tool": "original authored source",
+      "source_url": "authored://2026-10-09-claude-pilot/chart-and-citations",
+      "original_url": "authored://2026-10-09-claude-pilot/chart-and-citations",
+      "subject": "One worn patient chart, one question card, the returned answer with its slots and one citation set",
+      "relevance": "Performs the source-bound question, return, citation and limit actions in both treatments.",
+      "inspection": "Authored in this edition and type-checked; rendered pixels still need the independent code, phone and final reviews.",
+      "rights_basis": "Fresh original authored React and SVG illustration created for this edition; no third-party image.",
+      "basis": "Disclosed original illustration of the reported relationship, not observed footage or a real interface.",
+      "story_role": "context",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "claim_ids": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c8"
+      ]
+    },
+    {
+      "request_id": "clinic-support",
+      "file": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+      "sha256": "f0a1927b451008f1487160eaf0dfba3065a1c48533f617c428ad7dddb1db831f",
+      "tool": "original authored source",
+      "source_url": "authored://2026-10-09-claude-pilot/clinic-support",
+      "original_url": "authored://2026-10-09-claude-pilot/clinic-support",
+      "subject": "A Gulf Coast clinic room, anonymous hands, keyboard, masked credential, record boundary lock, OpenEvidence tool and usage share",
+      "relevance": "Stages the asking hands, sign-in, the OpenEvidence tool at the record edge and the more-than-half share around the same chart.",
+      "inspection": "Authored in this edition and type-checked; rendered pixels still need the independent code, phone and final reviews.",
+      "rights_basis": "Fresh original authored React and SVG illustration created for this edition; no third-party image.",
+      "basis": "Disclosed original illustration of the reported relationship, not observed footage or a real interface.",
+      "story_role": "context",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "claim_ids": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c8"
+      ]
+    }
+  ]
+}
