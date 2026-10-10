@@ -62,7 +62,19 @@ picture phase. Use its actual record, verify and stage commands. There is no Ima
 in this lane and no fabricated image-generation charge.
 
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
-edition. Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
+edition. A cloud container is reclaimed, so `pending` alone sees only worktrees that still exist.
+Also run `python scripts/claude_checkpoint.py discover`. Select the OLDEST unfinished edition by its run identity and creation time
+(`claude_checkpoint.py discover --oldest-unfinished`, never the first row of the newest-save-first list)
+and resume its existing ledger. It is restored
+with `python scripts/claude_checkpoint.py restore --run-id <id> --dest <new empty directory>`. That
+creates an isolated checkout of the recorded source commit (the complete committed renderer, art and
+public closure), overlays the verified scratch outputs and uncommitted source, and rebuilds the same
+ledger, frozen envelope, charges, failed reviews and paid outputs with its paths moved. It never
+touches another checkout or an existing ledger, has no force option, and refuses a finished edition.
+Run `cloud_bootstrap.py --install` there for node_modules, then resume. Never initialise a second
+ledger for an edition that has a checkpoint.
+
+Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
 the cloud host's UTC date does not select an Eastern edition. A terminal shipped run is immutable.
 The first owner-authorized migration test uses a
 fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
@@ -72,6 +84,31 @@ status and a verified durable archive in `runs/`. Resume an unfinished pilot ins
 another. After that one pilot is archived, every scheduled invocation uses normal daily production.
 Normal scheduled production uses today's date. If today's scheduled film is
 already shipped, verify that shipment and do not manufacture another ordinary edition.
+
+## Durable checkpoints and effective effort
+
+`out/` is gitignored and dies with the container. For an edition marked by
+`out/dispatch/claude-host.json`, every controller ledger write is mirrored to
+`claude/checkpoint/<run-id>` before the writer returns, so each reservation is durable before its
+paid call is dispatched. After each paid call returns and its output is on disk, the same mirror
+runs again through the next ledger write, and `python scripts/claude_checkpoint.py save --note <what>`
+covers outputs written without one. Prefer `claude_checkpoint.py guard --note <what> -- <paid command>`,
+which makes state durable, runs the command and makes its outputs durable, and exits 75 when it can't.
+A checkpoint that cannot be made after storage and transport recovery writes
+`out/dispatch/checkpoint-unbacked.json`, raises, and blocks every new reservation until
+`claude_checkpoint.py recover` succeeds. Never continue paid work on an unbacked ledger.
+
+The checkpoint keeps the sanitized ledger, authored source, claims, board, voice takes, alignment,
+review responses, failed images and every receipt. It skips only known rebuildable directories
+(frames, tmp, cache). It leaves out Gmail, routing and credential material by any path component or
+data structure, redacts shipped Gmail identifiers and local paths from the ledger, refuses to save when
+a credential value appears, and refuses any save that would lower usage, limits or increments, change the
+frozen envelope or alter the earlier event history. A file too large to retain fails the save visibly.
+After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
+
+At wake also record `python scripts/claude_contract_check.py --effective out/dispatch/effective-effort.json`.
+It reads the root session's host effort, any `CLAUDE_CODE_EFFORT_LEVEL` override, and each leaf's
+frontmatter. Fail on a mismatch; never set a global effort override.
 
 ## Claude-native worker routing
 
@@ -172,3 +209,21 @@ Do not stop after the engineering
 PR, a preview, a passing panel or an uploaded file. Complete the original five-phase master through
 verified accepted shipment, the unsent draft and durable archive. Report the film, scores, actual
 usage, delivery state and any retained failed attempts concisely.
+
+## Canonical phone playback on the cloud host
+
+A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
+automation at 390x844 with touch input, against the published canonical URL:
+
+```sh
+python scripts/phone_playback.py --edition-id <id> --film-sha256 <reviewed master sha256> --out-dir out/dispatch/phone
+```
+
+It taps the page's own Play control (pause, then play again), taps "tap for sound", samples
+currentSrc, currentTime, readyState, paused, muted and error while the clock runs, records whether
+the page received trusted input events, hashes the published master and phone bytes, and saves
+hashed screenshots. Its `tool` field says browser automation, not Computer Use. Put its
+`phone_playback.json` in the shipment manifest unchanged. `shipment_check.py` applies every
+historical assertion plus `claude_playback_problems`. The Codex Computer Use route and its evidence
+format stay valid. Never fabricate observations. If the page, media or browser fails, production
+stays active and the real failure is recorded.

@@ -56,7 +56,15 @@ as `phone_playback` JSON with:
 
 The clock must advance, the source must equal the published phone rendition,
 and the URL must select this edition. A contact sheet, HTTP response, or page
-title alone cannot establish playback. Missing access keeps production active;
+title alone cannot establish playback.
+
+A Claude cloud session records the same `phone_playback` shape through
+`scripts/phone_playback.py`: real Chromium at exactly 390x844 with touch input, a tap on the page's
+Play control and on "tap for sound", at least three samples with a strictly advancing clock and an
+unmuted element, trusted input events, an H.264-capable browser, hashed screenshots that change, and
+hashes of the published master and phone bytes. Its `schema` is `dispatch_phone_playback/2` and its
+`tool` says browser automation, not Computer Use. `claude_playback_problems` enforces the extra
+proof only for that schema, so earlier Computer Use records keep their original standard. Missing access keeps production active;
 it never permits fabricated observations or a completion claim.
 
 ## Preserve completion and continue after interruptions

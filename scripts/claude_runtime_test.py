@@ -117,6 +117,34 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'identity'):
             runtime.usage_report([path])
 
+    def test_phase_entry_makes_an_active_edition_durable_and_stops_when_it_cannot(self):
+        from unittest.mock import patch
+        import claude_checkpoint
+        (self.root / 'run_state.json').write_text('{}')
+        with patch.object(claude_checkpoint, 'repo_of', return_value=self.root), \
+                patch.object(claude_checkpoint, 'save_with_recovery',
+                             side_effect=claude_checkpoint.UnbackedError('remote unreachable')):
+            with self.assertRaises(claude_checkpoint.UnbackedError):
+                runtime.phase('research', self.root)
+        # The marker is written first so the failed phase entry itself is visible.
+        marker = json.loads((self.root / 'claude-phases.jsonl').read_text().splitlines()[-1])
+        self.assertEqual('research', marker['phase'])
+        with patch.object(claude_checkpoint, 'repo_of', return_value=self.root), \
+                patch.object(claude_checkpoint, 'save_with_recovery',
+                             return_value={'commit': 'a' * 40, 'files': 3}) as save:
+            runtime.phase('picture', self.root)
+            save.assert_called_once()
+        with patch.object(claude_checkpoint, 'save_with_recovery') as save:
+            runtime.phase('audio-render', self.root, checkpoint=False)
+            save.assert_not_called()
+
+    def test_phase_without_an_edition_writes_only_its_marker(self):
+        from unittest.mock import patch
+        import claude_checkpoint
+        with patch.object(claude_checkpoint, 'save_with_recovery') as save:
+            runtime.phase('research', self.root)
+            save.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()

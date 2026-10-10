@@ -36,15 +36,45 @@ def run(args, cwd=REPO):
     subprocess.run([str(arg) for arg in args], cwd=cwd, check=True)
 
 
-def model_cache(path, cfg):
+def model_cache(path, cfg, attempts=5, opener=None):
+    """Fetch the pinned model, resuming a stream the network cut short. The pinned URL and SHA-256
+    never change: a partial file is never accepted, only continued with a Range request until the
+    original hash verifies. On 2026-10-10 a cloud proxy ended the download cleanly 1.67 MB early
+    (485,939,276 of 487,614,201 bytes) and the old one-shot copy failed the hash with nothing to
+    resume from. A failed attempt keeps its bytes, a verified model replaces the cache atomically,
+    and an unverifiable one leaves the previous cache untouched."""
     if path.is_file() and digest(path) == cfg['sha256']:
         return
+    opener = opener or urllib.request.urlopen
     partial = path.with_suffix('.download')
-    with urllib.request.urlopen(cfg['url'], timeout=60) as response, partial.open('wb') as stream:
-        shutil.copyfileobj(response, stream)
-    if digest(partial) != cfg['sha256']:
-        raise ValueError('Alignment model hash failed; the previous cache was retained')
-    partial.replace(path)
+    failures = []
+    for attempt in range(1, attempts + 1):
+        have = partial.stat().st_size if partial.is_file() else 0
+        headers = {'Range': 'bytes=%d-' % have} if have else {}
+        mode = 'wb'
+        try:
+            with opener(urllib.request.Request(cfg['url'], headers=headers), timeout=60) as response:
+                if have and getattr(response, 'status', 200) == 206:
+                    mode = 'ab'
+                expected = response.headers.get('Content-Length') if hasattr(response, 'headers') else None
+                before = have if mode == 'ab' else 0
+                with partial.open(mode) as stream:
+                    shutil.copyfileobj(response, stream)
+            received = partial.stat().st_size - before
+            if expected is not None and int(expected) != received:
+                failures.append({'attempt': attempt, 'truncated': True, 'received': received, 'expected': int(expected)})
+        except (OSError, ValueError) as exc:
+            failures.append({'attempt': attempt, 'error': type(exc).__name__})
+        if partial.is_file() and digest(partial) == cfg['sha256']:
+            partial.replace(path)
+            return
+        if partial.is_file() and mode == 'ab':
+            # A continued file that is complete and still wrong is corrupt, not short: start over.
+            if failures and not failures[-1].get('truncated') and not failures[-1].get('error'):
+                partial.unlink()
+        failures.append({'attempt': attempt, 'hash_verified': False,
+                         'bytes': partial.stat().st_size if partial.is_file() else 0})
+    raise ValueError('Alignment model hash failed; the previous cache was retained ' + json.dumps(failures[-3:]))
 
 
 def install():

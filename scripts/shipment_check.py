@@ -192,6 +192,55 @@ def playback_problems(raw, url, mobile_url, film_hash):
     return errors
 
 
+def claude_playback_problems(raw):
+    """Extra proof for the cloud Chromium route. Evidence without the v2 schema is judged only by
+    playback_problems, so every historical Computer Use record keeps its original standard."""
+    if raw.get("schema") != "dispatch_phone_playback/2":
+        return []
+    errors = []
+    tool = str(raw.get("tool", ""))
+    if "automation" not in tool.lower() or "not computer use" not in tool.lower():
+        errors.append("cloud browser evidence must name its tool as browser automation, not Computer Use")
+    if raw.get("viewport") != {"width": 390, "height": 844}:
+        errors.append("canonical phone playback uses a 390x844 viewport")
+    if raw.get("h264_support") not in {"probably", "maybe"}:
+        errors.append("the browser did not report H.264 support")
+    taps = [i for i in raw.get("interactions", []) if i.get("action") == "touch_tap"]
+    if not any(t.get("control") == "play-pause" for t in taps):
+        errors.append("playback must start from a real tap on the page's Play control")
+    trusted = [e for e in raw.get("input_events", []) if e.get("isTrusted") is True]
+    if not trusted:
+        errors.append("no trusted user input reached the page; scripted play() does not count")
+    samples = raw.get("samples", [])
+    baseline = raw.get("before_tap") or {}
+    if baseline.get("paused") is False:
+        stopped = raw.get("paused_by_tap") or {}
+        if stopped.get("paused") is not True:
+            errors.append("a feed that autoplayed must be shown paused by the tap before it resumes")
+    elif not baseline:
+        errors.append("the page state before the first tap was not recorded")
+    if baseline.get("muted") and not any(t.get("control") == "tap-for-sound" for t in taps):
+        errors.append("the feed started muted and no tap enabled sound")
+    for sample in samples:
+        if sample.get("muted") is not False or not sample.get("volume", 0) > 0:
+            errors.append("playback was not audible: the media element is muted")
+        if not (sample.get("duration") or 0) > 0 or not sample.get("videoWidth") or not sample.get("videoHeight"):
+            errors.append("the media element reported no decoded video")
+    times = [s.get("currentTime", 0) for s in samples]
+    if len(samples) < 3 or any(b <= a for a, b in zip(times, times[1:])):
+        errors.append("at least three samples must show a strictly advancing clock")
+    if any(c.get("type") == "pageerror" for c in raw.get("console", [])):
+        errors.append("the page raised an uncaught error during playback")
+    shots = raw.get("screenshots", [])
+    if len({s.get("sha256") for s in shots}) < 2:
+        errors.append("screenshots must show the page change while playing")
+    published = raw.get("published_bytes", {})
+    if (published.get("master", {}).get("sha256") != raw.get("master_sha256")
+            or not published.get("mobile", {}).get("sha256")):
+        errors.append("the evidence must hash the published master and phone rendition bytes")
+    return errors
+
+
 def verify_shipment(state, manifest):
     try:
         data = load_json(manifest)
@@ -242,6 +291,7 @@ def verify_shipment(state, manifest):
             raise ValueError("delivery routing does not match this edition")
         errors = draft_problems(load_json(gmail), recipient, email.read_text())
         errors += playback_problems(load_json(playback), data["live_url"], mobile_url, film_hash)
+        errors += claude_playback_problems(load_json(playback))
         parsed = urlparse(data["live_url"])
         if (parsed.scheme != "https" or parsed.netloc != urlparse(site).netloc
                 or parsed.path.rstrip("/") != "/videos" or parsed.fragment != entry.get("id")):
