@@ -337,6 +337,14 @@
       "note": "independent recurrence pivot review for plan 12 (human-performance family, critic 20), same worker a3ac3ea64254f0e73",
       "resource": "storyboard_critics",
       "to": 20
+    },
+    {
+      "at": "2026-10-10T23:36:59.829080Z",
+      "ceiling": 23,
+      "from": 20,
+      "note": "recurrence pivot re-judgment of corrected plan 13 after critic 20 returned revise (critic 21), same worker a3ac3ea64254f0e73",
+      "resource": "storyboard_critics",
+      "to": 21
     }
   ],
   "events": [
@@ -3783,6 +3791,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-10T23:36:59.829127Z",
+      "ceiling": 23,
+      "kind": "budget_escalated",
+      "note": "recurrence pivot re-judgment of corrected plan 13 after critic 20 returned revise (critic 21), same worker a3ac3ea64254f0e73",
+      "now": 21,
+      "resource": "storyboard_critics",
+      "was": 20
+    },
+    {
+      "at": "2026-10-10T23:36:59.829138Z",
+      "kind": "reserved",
+      "note": "recurrence pivot re-judgment of corrected plan 13 after critic 20 returned revise (critic 21), same worker a3ac3ea64254f0e73",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -3797,7 +3823,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 20,
+    "storyboard_critics": 21,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
@@ -3806,7 +3832,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "a43d33cdb81c4af1a0c4fa7f9fb103d298f4aa48236d968a82aa2767d56bb6c0",
+    "original_private_state_sha256": "1d11413fbffa9991e2daa1d87a226293829487490e3cf5fc9241a84350bbdebc",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3834,7 +3860,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T23:34:28.198281Z",
+  "updated_at": "2026-10-10T23:36:59.829140Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -3847,7 +3873,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 20,
+    "storyboard_critics": 21,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1

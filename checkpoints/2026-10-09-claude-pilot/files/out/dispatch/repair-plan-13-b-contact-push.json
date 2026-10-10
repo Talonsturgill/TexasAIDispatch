@@ -1,0 +1,22 @@
+{
+ "mechanism_id": "b-continuous-contact-push",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "standard",
+ "root_cause": "The coverage-complete critic 19 code review (same Opus High worker) passed treatment A and the measured board but returned revise on treatment B with two blocking motion defects. NB1: the B push stretches the right forearm 12 percent at release and 24 percent at the end of the glide while the hand floats off the card. NB2: three fingers snap between poses in a single frame at 0.43 s, 1.80 s and 14.77 s. Independently classified as non-deferrable modern motion floor failures. The independent recurrence pivot review (critic 20) judged an arm solve and finger blend alone to be a defect correction inside the same push mechanism, not a pivot, and recommended changing the performed action.",
+ "repair": "Change treatment B's performed send, per the pivot reviewer's option two: the right index keeps continuous fingertip contact with the card's edge and drives it to the tool-mouth lip until the lip occludes the card, with no release, glide or airborne return, and the hand then settles back on the keys through a continuous eased return. Apply the same continuous-contact push to B's s3 question push. Implement it with a constant-length two-bone arm solve from the fixed shoulder (rest forearm and upper-arm lengths) and a finger lift blended into the reach with an eased lerp, all gated to treatment b so treatment a pictures stay unchanged. Edit only ClinicAnswerFilm.tsx. Boards, timing, narration, art files, voice, mix and captions are unchanged.",
+ "mechanism_change": "B's send changes from a release-and-glide push that leaves the hand floating off the card to a continuous-contact push that carries the card into the tool-mouth lip with the hand attached, solved with constant limb lengths and continuous finger blends.",
+ "expected_visible_result": "In B the fingertip stays on the card from first touch until the tool-mouth lip occludes it, there is no airborne hand after the card is gone, forearm length is constant, fingers move continuously at 30 fps, and A and the measured selected board render identical pictures.",
+ "failure_evidence": "out/dispatch/opening-b-critic.json",
+ "failure_evidence_sha256": "51e65a10065ce7575cc548df9a4f8a6ffec5823070690648f1089f4b7614db70",
+ "resources": {
+  "preflight_renders": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-12-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+   "before_sha256": "48167b4ac9565e190852c08157e1b89af715cf2fc5cee17307df013aa19bc5d9"
+  }
+ ]
+}
