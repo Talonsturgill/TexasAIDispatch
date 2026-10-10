@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "scene-builder",
+    "policy": {
+      "path": "/home/user/restore/pilot/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "scene-builder",
+    "resource": "reboards",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/restore/pilot/out/dispatch/builder-packet-r11.json",
+    "sha256": "386cf4047d1f50141005fdb6254a1de1f47bd7cb777bf240280e10d16a21bb3d"
+  },
+  "brief": {
+    "path": "/home/user/restore/pilot/.claude/agents/scene-builder.md",
+    "sha256": "fea80684c7ca5e614848e61902243b2414cef7cc68e1a3067d39b61a9e416ee2"
+  },
+  "agent_args": {
+    "subagent_type": "scene-builder",
+    "description": "builder_r11",
+    "prompt": "Work in /home/user/restore/pilot. Read the current compact packet /home/user/restore/pilot/out/dispatch/builder-packet-r11.json (SHA256 386cf4047d1f50141005fdb6254a1de1f47bd7cb777bf240280e10d16a21bb3d) and every bound current guide in full. Verify the inputs before use. Scope: Consolidated correction for repair 11, see out/dispatch/repair-plan-11-performed-hands.json and the independent rejection out/dispatch/phone-critic-current.json Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

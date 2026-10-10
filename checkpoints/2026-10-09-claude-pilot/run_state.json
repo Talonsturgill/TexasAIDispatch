@@ -1,43 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__storyboard.json",
-        "before_sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-a.json",
-        "before_sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-b.json",
-        "before_sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
-        "before_sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
-        "before_sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
-        "before_sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx"
-      }
-    ],
-    "failure_sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
-    "plan": "{REPO}/out/dispatch/repair-plan-11-performed-hands.json",
-    "plan_sha256": "fedfb38ea5e16ca490ff7ff8de9d3e92c7f3eca9f80b11bd69999a4d99cf627e",
-    "reboards_before": 9,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3451,6 +3412,74 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-10T22:03:05.777220Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 17,
+          "to": 17
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "53afb371c55c0aa64d4e442b957f3cf6d010b9a2ee6937b210b31533631ddf7a",
+            "before_path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__storyboard.json",
+            "before_sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "5d12905be57cb44878b1bf93e8f411ca3c125da7cf837bdcdc8bdb40277dc543",
+            "before_path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-a.json",
+            "before_sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "381f0e04c15d00c2af63d2389a818867140962210bb698663ccba939ecc5f80f",
+            "before_path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-b.json",
+            "before_sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713",
+            "path": "out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "48167b4ac9565e190852c08157e1b89af715cf2fc5cee17307df013aa19bc5d9",
+            "before_path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+            "before_sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
+            "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
+          },
+          {
+            "after_sha256": "2d78478b181b5be7b12f2c705f722d887cd103a3ea12b24b8d21f55fd3c1997d",
+            "before_path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+            "before_sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
+            "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx"
+          },
+          {
+            "after_sha256": "0b2883cf03609379e4e84d6d3ad5bd8ce497203dc5ae9fdd7ab61bef97c7b78c",
+            "before_path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+            "before_sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
+            "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At phone size the hook shows a legible question card typed by visibly striking fingers and pushed into a drawn tool slot, the sign-in dots follow finger strikes, the s4 answer card fills at least 45 percent of frame width with citations leaving its Sources slot, and s2 opens on a new medium framing.",
+        "failed_film_sha256": "e8e786dc58f767d601230c421738b22ea0c5ee026ffad89313540676d8a2d487",
+        "failure_evidence": "out/dispatch/phone-critic-current.json",
+        "failure_evidence_sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
+        "failure_family": "human-performance",
+        "mechanism_change": "The human action changes from static hand sprites beside self-moving cards to a performed rig whose strikes cause the card travel, dots and slide, with large readable subjects and a new s2 framing.",
+        "mechanism_id": "performed-hands-and-readable-subject-occupancy",
+        "repair": "Redraw the human hands and the OpenEvidence tool as finished articulated art (knuckles, thumb, cuff, contact shadows; tool with seams, mouth slot, bevel, grounded shadow) and drive finger strikes from the board clock so each key strike moves the card and each masked dot. Enlarge the hook question card and the s4 answer card to at least the independent reviewer's occupancy figures, show the three citation cards fanning out of the Sources slot, bring the record lock into readable frame and open it, and open s2 on a different framing with the September 22nd tag landing within about 1.5 s. Narration, claims, measured captions, voice and mix do not change.",
+        "repair_scope": "standard",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "The independent exact-film timed phone review (critic 17) returned revise with nine blocking defects. The hands never perform: finger pose is identical across the hook and the credential typing while the card slides and the dots appear on their own. The principal subjects are too small in s1 (question card about 50 px) and s4 (answer card about 75 px on an empty desk), the record lock is unreadable, the tool and hands read as flat placeholder shapes, and s2 cuts back to the identical opening wide for four seconds."
+      },
+      "repair_plan_sha256": "781e2b79bffec7ff4a76d9268abd677c6421fe868463b67f1a96839bdba51861",
+      "repair_revision": "db79467c437439cce6253e916f21f85bfd18be086733e77bbf8986a9d8d88c71",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -3474,7 +3503,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6ff4b70aa5bc5063052a189bfa200efc8c4694396a99a315d5c28be8d9a229e8",
+    "original_private_state_sha256": "0d970807f8be3b80a4fea381475982846511a6870c52c84b96177f195f3c6ebc",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3502,7 +3531,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T21:29:02.064528Z",
+  "updated_at": "2026-10-10T22:03:05.777286Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
