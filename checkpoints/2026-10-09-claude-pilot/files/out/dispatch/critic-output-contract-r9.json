@@ -1,0 +1,46 @@
+{
+ "schema": "dispatch_code_critic_output_contract/1",
+ "purpose": "Same contract as before, new bindings after repair 9 (script punctuation). Return opening-a-critic and opening-b-critic for the new boards.",
+ "required_fields": {
+  "treatment": "a or b",
+  "reviewer_identity": "your identity string, distinct from the director claude-sonnet-5-5",
+  "reviewed_at": "UTC ISO time; if you have no clock write the harness-visible time from the packet or say unknown",
+  "verdict": "pass or revise, your own judgment",
+  "weakest_frame": "time range and what is weakest",
+  "story_review": {
+   "verdict": "pass or revise",
+   "blocking_defects": "[] only if none, else list",
+   "one_viewing_summary": ">=30 chars",
+   "opening_to_ending": ">=30 chars",
+   "weakest_transition": ">=30 chars",
+   "story_sha256": "echo binding",
+   "policy_sha256": "echo binding",
+   "claims_sha256": "echo binding"
+  },
+  "action_reviews": "[] unless the board declares action proposals",
+  "per_defect": "object mapping each earlier finding id to resolved or unresolved",
+  "risks_for_the_phone_critic": "list",
+  "stronger_treatment": "a or b with reason",
+  "concept_sha256": "echo binding",
+  "renderer_sha256": "echo binding"
+ },
+ "shape_example_from_prior_valid_review": "out/dispatch/retained-failures/critic-5-opening-reviews/opening-a-critic.json (shape only; do not copy its verdicts or text)",
+ "bindings": {
+  "a": {
+   "concept_sha256": "79686c1092190eaa4fffe048704a443fd3022f85ca7d3af40240b21ba1f7e539",
+   "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+   "story_sha256": "7d1325dec83cb785e680b39ede356a76fa6c8299313a4d1400a7657a2f542f23",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/opening-a.json"
+  },
+  "b": {
+   "concept_sha256": "4b97718c214de85d7361e7efb0ef5b59f29eb5c650847ea2948d7ec41e7d1eef",
+   "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+   "story_sha256": "479c40e86631f0828c8954e75938d36261c340964dac3014dd4ed7846c6b20b2",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/opening-b.json"
+  }
+ }
+}
