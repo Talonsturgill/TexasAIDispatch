@@ -40,6 +40,21 @@ def cue_digest(cues):
     return narration_digest([{k:c.get(k) for k in ('id','start','end','text','source')} for c in cues])
 
 
+def measured_shot_interval(start, end):
+    """Keep a derived length on its common rounded cut, including half frames."""
+    if not finite(start) or not finite(end) or start < 0 or end <= start:
+        raise ValueError('invalid measured shot interval')
+    start, end = round(start, 4), round(end, 4)
+    if end <= start:
+        raise ValueError('measured shot interval vanishes at its declared precision')
+    duration = end - start
+    for _ in range(4):
+        if start + duration == end:
+            return start, duration
+        duration = math.nextafter(duration, math.inf if start + duration < end else -math.inf)
+    raise ValueError('measured shot length cannot reproduce its declared cut')
+
+
 def narration_problems(board, captions=None, words=None, script=None, claims=None):
     """Check coverage and executable bindings, without pretending metadata judges pixels."""
     if not narration_required(board):
@@ -185,7 +200,9 @@ def compile_narration(board, captions, words):
             # A clause handoff always comes from acoustic boundaries above.
             for k,shot in enumerate(assigned):
                 a=lo+(hi-lo)*k/len(assigned);b=lo+(hi-lo)*(k+1)/len(assigned)
-                shot.update(start_s=round(a,4),duration_s=round(b-a,4),
+                interval = (measured_shot_interval(a,b) if captions.get('narration_clause_segmentation')
+                            else (round(a,4),round(b-a,4)))
+                shot.update(start_s=interval[0],duration_s=interval[1],
                     scene_fraction_start=(a-scene['start_s'])/scene['duration_s'],
                     scene_fraction_end=(b-scene['start_s'])/scene['duration_s'])
         for event in scene['visual_events']:
