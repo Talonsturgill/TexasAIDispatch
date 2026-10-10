@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T18:55:50.074843+00:00",
-  "note": "music bed prepared (thinking_music), foley built, storyboard_critic.json bound, vo director dispatched",
-  "phase": "voice",
+  "saved_at": "2026-10-10T18:58:31.833462+00:00",
+  "note": "ledger write",
+  "phase": "synthesis",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "ae1c2ac93ee6f502ce4d4c189a3ac25301cfff39",
+  "source_pin": "08d340bbd51097eea48df061dc657982946e95d6",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "740e41f953d07f62f3e5c1bbf687264814175ad79676a81a6ad83d6fe46ee235",
-  "original_private_ledger_sha256": "1d204d7dbaf80798b0568cad2da7cae806748bb6d069e24d44c7d66d3a7533ba",
+  "ledger_sha256": "a3769a2ae2a273b8b29721e15a649b290daee1df64be94448a5e94e8e482f9db",
+  "original_private_ledger_sha256": "6779b25f9b513cdb177855793a1b27f3412ea986e83cf35026592fca8d12270f",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -36,12 +36,6 @@
     "voice_directors": 1
   },
   "files": [
-    {
-      "path": "config/music/tracks.json",
-      "class": "source",
-      "sha256": "b2dc29f0234fbab3621f41f3bff9a14a4299bc9ffb575546a5cfa53f566f09e9",
-      "size": 20414
-    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -2773,6 +2767,18 @@
       "size": 2506
     },
     {
+      "path": "out/dispatch/retained-failures/vo-flag-F9-ruling.md",
+      "class": "scratch",
+      "sha256": "48e4935e7445ec2d7b79187c82cb3b676fcbf5dc90f177e4f7b96ec108f40844",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/retained-failures/vo_direction.as-returned-by-haiku.json",
+      "class": "scratch",
+      "sha256": "8bc6b5eb1037420e03668829d9c641e1e89c763bc9851db3f2967c946f183e39",
+      "size": 23234
+    },
+    {
       "path": "out/dispatch/sources/hb149.validator.txt",
       "class": "scratch",
       "sha256": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
@@ -2843,6 +2849,12 @@
       "class": "scratch",
       "sha256": "b31e3cde16b36b8f172d38bc55ccd3eb4385c7d399aceeddaf99f2fe04cad4e5",
       "size": 7920
+    },
+    {
+      "path": "out/dispatch/vo_direction.json",
+      "class": "scratch",
+      "sha256": "a376217d418125b81443dc9666da98a1e2b2bbed170855cf81165159fa22a0a7",
+      "size": 23983
     },
     {
       "path": "out/dispatch/vo_script.txt",

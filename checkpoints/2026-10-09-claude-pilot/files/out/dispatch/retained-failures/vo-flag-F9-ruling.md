@@ -1,0 +1,7 @@
+# Director ruling on voice flag F9 (c5 "actively use" vs script "now use it")
+Script line 5: "UTMB says more than half of its clinicians now use it for clinical decision support."
+Claim c5 quote: "Today, more than half of UTMB clinicians actively use OpenEvidence for clinical decision support." Its scope note says the release gives no definition of active use, no period and no method.
+Ruling: the line keeps "UTMB says", the figure "more than half" and "clinical decision support", and "now" renders "Today". Dropping "actively" removes an undefined qualifier rather than adding a claim, and line 6 states the attribution and that it is UTMB's own report. The script is locked, passed script_evidence_check, the independent validator and both independent code reviews, so no wording change is made. Not a picture-word correction.
+Voice flags F10 to F13 (picture-word notes) are judged by the independent timed-phone and film reviewers, not corrected here. UTMB, OpenEvidence and AI pronunciation: see the synthesis preflight result.
+Director-filled binding: vo_direction.json sound_direction_sha256 = fingerprint(board.creative_direction.sound), computed by creative_production.fingerprint, voice_problems returns no errors. The as-returned file is kept in retained-failures/vo_direction.as-returned-by-haiku.json.
+Hashes: vo_direction.json a376217d418125b81443dc9666da98a1e2b2bbed170855cf81165159fa22a0a7, vo_script.txt cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b.
