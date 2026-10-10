@@ -1,0 +1,1 @@
+Refused before any render: storyboard.json held the measured-timing board, not an opening alternative. Authorization and one preflight_renders reservation were consumed. Timed board retained as storyboard.timed.json.

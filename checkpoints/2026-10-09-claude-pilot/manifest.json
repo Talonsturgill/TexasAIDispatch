@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T20:43:16.088554+00:00",
-  "note": "capture authorization consumed e8dbad39d8cb",
+  "saved_at": "2026-10-10T20:43:45.590773+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,15 +16,15 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "65bc42084ecb240a809f09c814e4a549ceb9a682c424ae24f6ad45e09f4f3d67",
-  "original_private_ledger_sha256": "749c298b026dbcc146c2093b58303951f540ccbc4108ee7f98ac19efc0e2e84d",
+  "ledger_sha256": "8e52dd6523b9f8273a23796bc95a6c3eb905d00983abde8340647d080de9c8e1",
+  "original_private_ledger_sha256": "771674ceb8208ddcf4cc296875d3790c6dd76fb3a3f0f2c0118990c1bb0f1c3d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 9,
+    "preflight_renders": 10,
     "reboards": 9,
     "reported_tokens": 20306,
     "rescue_renders": 0,
@@ -3121,6 +3121,36 @@
       "size": 450
     },
     {
+      "path": "out/dispatch/retained-failures/opening-compare-r10-refusal/NOTE.md",
+      "class": "scratch",
+      "sha256": "f9cbb05249ebd1a77e3748565a943ba5d59699fead50a86a695a7e3992f4270c",
+      "size": 217
+    },
+    {
+      "path": "out/dispatch/retained-failures/opening-compare-r10-refusal/capture-authorization.json",
+      "class": "scratch",
+      "sha256": "f8f408c85725f523763ef8ce4246750c0dfd43da2cfe19e2c0acf7dcb5382696",
+      "size": 16955
+    },
+    {
+      "path": "out/dispatch/retained-failures/opening-compare-r10-refusal/capture-authorizations-used.json",
+      "class": "scratch",
+      "sha256": "e906141f5fa96ef68a0b474f0a9f2f684d9056d04690e6cfc01f6c26f577f375",
+      "size": 897
+    },
+    {
+      "path": "out/dispatch/retained-failures/opening-compare-r10-refusal/refusal.txt",
+      "class": "scratch",
+      "sha256": "eff64a5dc4a675c3637a9b5190e30379fb3c9f2030dc3c7fffcc3f840641a94e",
+      "size": 134
+    },
+    {
+      "path": "out/dispatch/retained-failures/opening-compare-r10-refusal/storyboard.timed.json",
+      "class": "scratch",
+      "sha256": "72d2e3f35a56cc12deb6dcee0349efb80d9daa7b888f62b2f871b3bbcb00ffc0",
+      "size": 157919
+    },
+    {
       "path": "out/dispatch/retained-failures/openings-pre-repair10/a-inspection-9baea028e3e20eb3.json",
       "class": "scratch",
       "sha256": "f03caad7eb6fea938616573075db8921799424df818927cae649b922b9f614eb",
@@ -4017,14 +4047,20 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "72d2e3f35a56cc12deb6dcee0349efb80d9daa7b888f62b2f871b3bbcb00ffc0",
-      "size": 157919
+      "sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
+      "size": 157114
     },
     {
       "path": "out/dispatch/storyboard.r10-before-stability.json",
       "class": "scratch",
       "sha256": "26f5764dc2538b72af859db0e396596d75de2f2d5743a4c046c0c29d59beff75",
       "size": 157107
+    },
+    {
+      "path": "out/dispatch/storyboard.timed.json",
+      "class": "scratch",
+      "sha256": "72d2e3f35a56cc12deb6dcee0349efb80d9daa7b888f62b2f871b3bbcb00ffc0",
+      "size": 157919
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
