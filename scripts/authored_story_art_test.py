@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 import authored_story_art as art
+import render_manifest as manifest
 import story_art
 
 
@@ -58,6 +60,64 @@ class AuthoredArtTests(unittest.TestCase):
         self.assertEqual([], art.problems(self.board, self.repo))
         self.assertEqual([], art.charge_problems(self.board, self.root))
         self.assertEqual([], story_art.problems(self.board, self.repo))
+
+    def inventory(self):
+        """The board's native_media rows for its two authored modules, as the builder writes them."""
+        board = json.loads(json.dumps(self.board))
+        board['native_media'] = [{'request_id': e['request_id'], 'file': e['file'], 'sha256': e['sha256'],
+                                  'basis': 'Disclosed original illustration of the reported relationship, not footage.'}
+                                 for e in board['story_art']['entries']]
+        return board
+
+    def test_authored_pictures_bind_to_their_receipts_for_the_critic_renderer_and_manifest(self):
+        public = self.repo / 'video-engine/public'; public.mkdir(parents=True)
+        board = self.inventory()
+        found = manifest.native_media_paths(board, public)
+        self.assertEqual({(self.repo / r['file']).resolve() for r in self.requests}, set(found))
+        with mock.patch.object(manifest, 'PUBLIC', public.resolve()), mock.patch.object(manifest, 'REPO', self.repo.resolve()), \
+                mock.patch.object(manifest.native_media_paths, '__defaults__', (public.resolve(),)):
+            board_file = self.root / 'inventory-board.json'; board_file.write_text(json.dumps(board))
+            first = manifest.generated_media_sha256(board_file)
+            (self.repo / self.requests[0]['file']).write_text((self.repo / self.requests[0]['file']).read_text() + ' ')
+            with self.assertRaisesRegex(ValueError, 'changed after their receipt'):
+                manifest.generated_media_sha256(board_file)
+        self.assertTrue(first)
+
+    def test_authored_inventory_that_differs_from_its_receipts_is_rejected(self):
+        public = self.repo / 'video-engine/public'; public.mkdir(parents=True)
+        board = self.inventory()
+        board['native_media'][0]['sha256'] = '0' * 64
+        with self.assertRaisesRegex(ValueError, 'inventory row differs'):
+            manifest.native_media_paths(board, public)
+        board = self.inventory(); board['native_media'] = board['native_media'][:1]
+        with self.assertRaisesRegex(ValueError, 'inventory row differs'):
+            manifest.native_media_paths(board, public)
+        board = self.inventory(); board['story_art']['entries'] = board['story_art']['entries'][:1]
+        with self.assertRaisesRegex(ValueError, 'both recorded source receipts'):
+            manifest.native_media_paths(board, public)
+
+    def test_authored_inventory_rejects_extra_duplicate_and_traversing_rows(self):
+        public = self.repo / 'video-engine/public'; public.mkdir(parents=True)
+        board = self.inventory()
+        board['native_media'].append({'request_id': 'extra', 'file': 'video-engine/src/x.tsx', 'sha256': '0' * 64, 'basis': 'x' * 40})
+        with self.assertRaisesRegex(ValueError, 'unknown, missing or duplicate'):
+            manifest.native_media_paths(board, public)
+        board = self.inventory(); board['native_media'].append(dict(board['native_media'][0]))
+        with self.assertRaisesRegex(ValueError, 'unknown, missing or duplicate'):
+            manifest.native_media_paths(board, public)
+        (self.repo / '.env').write_text('k')
+        board = self.inventory()
+        board['native_media'].append({'request_id': 'e', 'file': 'evidence/../../../.env',
+                                      'sha256': manifest.file_sha256(self.repo / '.env'), 'basis': 'x' * 40})
+        with self.assertRaisesRegex(ValueError, 'traverses public'):
+            manifest.native_media_paths(board, public)
+
+    def test_historical_raster_boards_still_use_the_public_texture_rules(self):
+        public = self.repo / 'video-engine/public'; public.mkdir(parents=True)
+        board = {'date': self.date, 'story_art': {'version': 'fresh-story-art-v1'},
+                 'native_media': [{'file': 'generated/story-art/%s/x.png' % self.date, 'request_id': 'r', 'sha256': 'a' * 64}]}
+        with self.assertRaises(ValueError):
+            manifest.native_media_paths(board, public)
 
     def test_record_is_idempotent(self):
         before = self.board_path.read_bytes()

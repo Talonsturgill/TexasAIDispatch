@@ -38,6 +38,44 @@ def engine_sha256(root: Path = ENGINE) -> str:
     return h.hexdigest()
 
 
+def authored_media_paths(data: dict, repo: Path) -> list[Path]:
+    """The Claude lane's pictures are authored source modules, not rasters under public. Bind exactly the two
+    recorded receipts to their current bytes and to the board's own inventory rows, and keep evidence rows."""
+    repo = Path(repo).resolve()
+    plan = data.get("story_art") or {}
+    entries = plan.get("entries") or []
+    if len(entries) != 2:
+        raise ValueError("authored story art needs both recorded source receipts")
+    inventory = [r for r in data.get("native_media") or [] if not str(r.get("file", "")).startswith("evidence/")]
+    rows = {str(r.get("request_id")): r for r in inventory}
+    if len(rows) != len(inventory) or len(inventory) != len(entries) or set(rows) != {str(e.get("request_id")) for e in entries}:
+        raise ValueError("authored inventory row differs from its receipts: unknown, missing or duplicate row")
+    paths = []
+    for entry in entries:
+        relative = str(entry.get("file") or "")
+        path = (repo / relative).resolve()
+        if not path.is_relative_to(repo) or ".." in Path(relative).parts or not path.is_file():
+            raise ValueError("authored source module is missing or outside the repository")
+        if file_sha256(path) != entry.get("sha256"):
+            raise ValueError("authored source bytes changed after their receipt: " + relative)
+        row = rows.get(str(entry.get("request_id")))
+        if (not row or row.get("file") != relative or row.get("sha256") != entry.get("sha256")
+                or len(str(row.get("basis") or "")) < 30):
+            raise ValueError("authored inventory row differs from its receipt: " + relative)
+        paths.append(path)
+    for item in data.get("native_media") or []:
+        relative = str(item.get("file") or "")
+        if relative.startswith("evidence/"):
+            public = (repo / "video-engine/public").resolve()
+            asset = (public / relative).resolve()
+            if Path(relative).is_absolute() or ".." in Path(relative).parts or not asset.is_relative_to(public):
+                raise ValueError("native texture path is absolute or traverses public")
+            if not asset.is_file() or file_sha256(asset) != item.get("sha256") or len(str(item.get("basis") or "")) < 30:
+                raise ValueError("native texture is missing, changed or lacks provenance: " + relative)
+            paths.append(asset)
+    return paths
+
+
 def native_media_paths(data: dict, public: Path = PUBLIC) -> list[Path]:
     """Bind evidence textures or exact current request-bound fresh story artwork."""
     paths = []
@@ -46,6 +84,9 @@ def native_media_paths(data: dict, public: Path = PUBLIC) -> list[Path]:
     requests = plan.get("requests") or []
     entries = plan.get("entries") or []
     prefix = "generated/story-art/" + str(data.get("date") or "") + "/"
+    import authored_story_art
+    if authored_story_art.selected(data):
+        return authored_media_paths(data, root.parents[1])
 
     def checked_path(relative):
         path = Path(relative)
@@ -115,7 +156,11 @@ def generated_media_sha256(board: Path) -> str:
         h.update(path.read_bytes())
         h.update(b"\0")
     for path in native_media_paths(data):
-        h.update(path.relative_to(PUBLIC).as_posix().encode())
+        try:
+            label = path.relative_to(PUBLIC.resolve()).as_posix()
+        except ValueError:
+            label = path.relative_to(REPO.resolve()).as_posix()   # an authored module lives outside public
+        h.update(label.encode())
         h.update(b"\0")
         h.update(path.read_bytes())
         h.update(b"\0")
