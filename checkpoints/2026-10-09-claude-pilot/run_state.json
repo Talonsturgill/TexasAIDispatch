@@ -1,31 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/voice-take1-no-clause-silence/vo_direction.json",
-        "before_sha256": "a376217d418125b81443dc9666da98a1e2b2bbed170855cf81165159fa22a0a7",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "81de1e1b566d4e7bc1cd47e76591609261114e5d1d4af51b6f1ac48882f2bf05",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
-        "{REPO}/out/dispatch/sources/hb149.validator.txt": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
-        "{REPO}/out/dispatch/sources/sb1188.validator.txt": "6579e74059619b19896479b5726c367e0db2a5142559958e193a8f9aa9b71be0",
-        "{REPO}/out/dispatch/sources/utmb.validator.txt": "64eaaece91eb4cb6929e3b39b308fa6ac00280682330f6154e6dbebe666f66ba",
-        "{REPO}/out/dispatch/sources/utsystem.validator.txt": "8e0c4edfe4b629031bbf5bab823c98d47e3e9b0f6edc0d50de307f443f347784",
-        "{REPO}/out/dispatch/storyboard.json": "9344df945b9259a4222e324146338c9bfe3c3188e359e7a53077e84ec012f43d",
-        "{REPO}/out/dispatch/vo_script.txt": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b"
-      },
-      "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2"
-    },
-    "plan": "{REPO}/out/dispatch/repair-plan-6-voice.json",
-    "plan_identity": "aa32cc018fbcc22841a414fac6725f4fc443d69c2413729c2ca349ed2db7f98e",
-    "plan_sha256": "44adc70856ea6cb6835def633729eff8c28ec20ba9d935e5de23a320621c4d78",
-    "reboards_before": 7,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1611,6 +1584,43 @@
       "plan_identity": "aa32cc018fbcc22841a414fac6725f4fc443d69c2413729c2ca349ed2db7f98e",
       "plan_sha256": "44adc70856ea6cb6835def633729eff8c28ec20ba9d935e5de23a320621c4d78",
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-10T19:04:37.654946Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "79d23c8326a509a548270b3773d2d717c02c92001048f6fd2e7adac82257eb38",
+            "before_path": "out/dispatch/retained-failures/voice-take1-no-clause-silence/vo_direction.json",
+            "before_sha256": "a376217d418125b81443dc9666da98a1e2b2bbed170855cf81165159fa22a0a7",
+            "path": "out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Measured silence of at least a third of a second at the n3a|n3b and n4a|n4b joins, so each clause has its own measured cue and retiming succeeds.",
+        "failure_evidence": "out/dispatch/retained-failures/voice-take1-no-clause-silence/failure.json",
+        "failure_evidence_sha256": "81de1e1b566d4e7bc1cd47e76591609261114e5d1d4af51b6f1ac48882f2bf05",
+        "failure_family": "unclassified",
+        "mechanism_change": "The read gains two directed breaths at the clause joins instead of running those two sentences through as one phrase each.",
+        "mechanism_id": "voice-clause-join-breaths",
+        "repair": "Add direction in vo_direction.json that asks for a short natural breath after credentials and after citations. Nothing else in the direction, the script, board, claims, sources or renderer changes.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "Take 1 read two authored clause joins without any silence, so measured caption cues merged whole sentences and board_retime can't map clauses n3a n3b and n4a n4b to measured cue text."
+      },
+      "repair_plan_sha256": "15589a19da1ab754796d423e0745efd80778aa584bdef7e1d5292eaf20d04a3d",
+      "repair_revision": "3db8f4b3951e920cbe2c01680ef5f22eba18183bc7527fc64febe26e72ffbf74",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1634,7 +1644,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c3d5062a873be1f96f7304c93fc7bd3cafd9fe38a00b84333299f44d96365db0",
+    "original_private_state_sha256": "a32b297f94e377204862fb39af4221da2e76b22a66755313d416507db3c83640",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1662,7 +1672,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T19:03:28.069673Z",
+  "updated_at": "2026-10-10T19:04:37.654977Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
