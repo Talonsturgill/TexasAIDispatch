@@ -1,0 +1,85 @@
+Both treatments now pass at code scope. Treatment A's three cuts (13.5 s, 17.975 s, 33.0 s) now each change the size of the picture by about 30-50%. Treatment B was not touched by this edit and stays clean. All of this is worked out by hand from the code. I rendered nothing, so the phone critic still has to judge the real pixels.
+
+What I checked:
+- **The change itself:** repair-plan-3 and the current renderer show that only three of A's cameras changed: s3-shot-2, s4-shot-1 and s6-shot-2. The world layout, the hands, the push, the mouth-line clip, the ChartHero and ClinicSupport parts and every event read the same as in the third review. B's camera branches are byte-for-byte the same.
+- **Not checked:** I did not open the critic-3 a.json and b.json files; I compared against my own third verdict. I did not re-read the boards line by line. I assumed their shot lists and timings are unchanged, since the plan says only the renderer hash moved, and I could not recompute any SHA256.
+
+```json
+{
+  "treatment": "a",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 (high effort), isolated Read-only fourth code-plan review of repair-3, separate from the director (claude-sonnet-5-5) and the scene-builder",
+  "reviewed_at": "2026-10-10T05:15:00Z",
+  "verdict": "pass",
+  "weakest_frame": "29.0-33.0 s, s6-shot-2 (camera f (485,810), scale 1.32). The limit tags read at about 40 px (screen x 38-577, y 617-986). The answer card, at world x 500-913, now runs to screen x 1105, so its right 25 px are cut off. The empty Accuracy slot sits at screen x about 842-1080, against the frame edge. It is still in frame, legible and above the feed's right-rail zone, but cramped.",
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Code-scope chain. Scrub-sleeved arms type at the desk, and a final key strike sends the question card across the wall chart into the wall-mounted OpenEvidence AI tool. One answer drops out below the tool's mouth line, and three citation cards tuck into its Sources slot. Dated tags pin to the record boundary. A sign-in opens the record lock. A tight detail shows the right hand typing as the question fills. The citations fan out and literature and guidelines lift. More than half of the clinician tokens light, labelled as UTMB's own report. Tags reading 'Not in release' clip onto the answer, the Accuracy slot pulses empty, and the use-and-experience tag pins to the share.",
+    "opening_to_ending": "The opening asks what comes back when a UTMB clinician asks inside the record. The closing hold answers with the same answer card beside the chart: its Sources slot glows full, its Accuracy ring pulses empty, and its limit tags are clear of the keyboard. The use-and-experience tag stays on the share. Everything stays within c1 to c8.",
+    "weakest_transition": "s6-shot-1 to s6-shot-2 at 29.0 s: the cut from the report tag on the share to the answer leaves the Accuracy slot against the right edge of the frame while the tags clip on. It is legible but cramped."
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "N1": "resolved",
+    "N2": "resolved",
+    "N3": "resolved",
+    "N4": "resolved",
+    "N5": "resolved",
+    "D4": "resolved",
+    "D9": "resolved",
+    "D11": "resolved",
+    "D13": "resolved"
+  },
+  "risks_for_the_phone_critic": [
+    "s3-shot-2 at scale 2.6: the right hand fills about 416 px and the question card about 488x290 px. Judge whether the stylised hand finish holds up at this size, natively and on the phone.",
+    "s3-shot-2 crops the 'Usual credentials' card at the left edge (screen x about -162 to 400, y 713-916) between the question card and the keys. Check that this leftover prop doesn't distract.",
+    "s6-shot-2 crops the answer's right 25 px and puts the Accuracy slot against the frame edge.",
+    "In the s4 wide at scale 0.8 the citation labels are about 24 px. They become readable (about 33 px) only in the naming shot from 17.975 s.",
+    "Whether the hands look credible at phone size, and the motion feel of the card A sends with a key strike and no hand on it (s1 at 0.62 s, s3 at about 14.9 s), which works as a diagrammatic data flow.",
+    "The hands are removed at the s3-to-s4 cut, and later world shots show an unattended keyboard.",
+    "The report-tag string on the share board runs close to the end of 'decision support'."
+  ],
+  "stronger_treatment": "b. Both pass at code scope. B opens on a close of hands and card, the hand performs the send as one continuous push, and B's later shots have their own desk-level framings. A's sends are key-triggered data flows with no hand on the card, and its s6 close is cramped against the frame edge."
+}
+```
+
+```json
+{
+  "treatment": "b",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 (high effort), isolated Read-only fourth code-plan review of repair-3, separate from the director (claude-sonnet-5-5) and the scene-builder",
+  "reviewed_at": "2026-10-10T05:15:00Z",
+  "verdict": "pass",
+  "weakest_frame": "29.0-33.0 s, s6-shot-2 close on the answer clip (camera f (272,900), scale 1.6). The limit tags read well at about 50 px. The answer card sits mostly off the right edge (screen x 869 onward), so its 'Answer' header is cut and its empty Accuracy slot is out of frame while s6-event-3 refers to it. The slot is only fully shown again at 36.4 s.",
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Code-scope chain at desk height. Scrub-sleeved arms type, then the right hand rides the question card in one continuous push and releases it to glide into the OpenEvidence AI tool beside the propped chart. One answer slides out under the tool face toward the lens, and three citations tuck into its Sources slot. Dated tags pin to the boundary. A masked sign-in opens the lock in the same shot. The citations cascade with every tab clear and literature and guidelines lift. Clinician tokens light past half, labelled as UTMB's own report. 'Not in release' tags clip onto the answer, the Accuracy slot lights and pulses empty, and the use-and-experience tag pins to the share.",
+    "opening_to_ending": "The opening asks what comes back when a UTMB clinician asks inside the record. The ending holds that same answer beside the chart: its Sources slot glows full, its Accuracy ring pulses empty, its limit tags are clear of the keyboard, and the use-and-experience tag stays on the share. This answers the question within c4, c5 and c8 without claiming any outcome.",
+    "weakest_transition": "s6-shot-1 to s6-shot-2 at 29.0 s: the cut from the report tag on the share to a close on the answer clip crops most of the answer card. The tags read before the viewer is shown which card they hang from."
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "N1": "resolved",
+    "N2": "resolved",
+    "N3": "resolved",
+    "N4": "resolved",
+    "N5": "resolved",
+    "D4": "resolved",
+    "D9": "resolved",
+    "D11": "resolved",
+    "D13": "resolved"
+  },
+  "risks_for_the_phone_critic": [
+    "Hand credibility at phone size. At peak push reach (s1 about 0.96-1.2 s) the forearm's local length grows about 26%, from about 480 to 605 local units, while the upper arm stays within about 3%. Judge whether this reads as perspective or as a stretched limb.",
+    "s6-shot-2 crops most of the answer card and its Accuracy slot off the right edge; check that the tags read as hanging from the answer.",
+    "The share board sits behind the record boundary and chart. At the s5 detail and s6-shot-1 (scale 2.05) the chart tabs and the boundary's glowing edge cross the first column of tokens, the left end of the bar and the pin end of the report tag. The depth order is correct, but check the clutter.",
+    "The evaluating-tag string runs diagonally across the end of 'decision support' in s8-shot-1, about 2.6 px wide on screen.",
+    "The hands are removed at the s3-to-s4 cut, and later world shots show an unattended keyboard.",
+    "Card shear (lower edges shifted left) runs against the desk grain lines to the right of about x 243; check the perspective at phone size.",
+    "Motion feel of the released card gliding about 200 px into the tool after the hand slows, and of the answer emerging below the tool face."
+  ],
+  "stronger_treatment": "b. Every declared cut changes the picture substantially. The opening is a close on hands and card, the hand performs the send as one continuous push, and the return is a medium shot with 'Answer' and 'Sources' at about 31 px. The s4 cascade keeps every tab clear, and the share and closing shots have their own desk-level cameras."
+}
+```
+
+B is the stronger treatment overall and the one to take forward. Both pass at code scope, but B's opening and its hand-performed send are stronger pictures than A's, and A's s6 close is cramped against the frame edge. What's left for either treatment is for the phone critic to judge on real pixels: whether the hands look credible, the forearm stretch and motion feel in B, and the right-edge crops in both s6 closes.

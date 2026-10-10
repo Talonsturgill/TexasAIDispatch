@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T03:44:11.766626+00:00",
+  "saved_at": "2026-10-10T04:02:35.123932+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "6354a66bc6a8c42b666e4631ab064ef2e8724045",
+  "source_pin": "e8fbb063723c5dd9a44e5baa6dc0340c8d0ee63a",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,15 +16,15 @@
     "sha256": "4f23b0c17c97194938c0a31eab93b593b419bb78c3d4866dc5cdc091afeb06dd"
   },
   "deleted_source": [],
-  "ledger_sha256": "53821e5dab36b2dfeb3cb220402935d1947c50481d1d1849139d300b221b69fd",
-  "original_private_ledger_sha256": "dab6462d6efe07b79bcecac3671ec6ba3c8b510b7c7c4f6e2163310492f529e1",
+  "ledger_sha256": "66c0853d40bc20b52c61a8f93fe6433759079199bc7fbe3ed104eaf62e7962e4",
+  "original_private_ledger_sha256": "f33a74b8e79983ddbc1eaa2b4b04c5c733b7a3319127b3568c97fc8d5f68d2f7",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 2,
+    "preflight_renders": 3,
     "reboards": 4,
     "reported_tokens": 0,
     "rescue_renders": 0,
@@ -195,14 +195,26 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "e82418e2a3bb1b4263754671bb5340b3045e3293f826a7f7c117f1f2eee788e4",
+      "sha256": "644c4583445f39c3e80dd99c88ad12990f6e3723c1eff69c31e603dd17401da1",
       "size": 308
+    },
+    {
+      "path": "out/dispatch/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "bbd123b9a4e5b971af99c45eaba4b8237134fd13c24b2f3eabd725e09ae94880",
+      "size": 4146
     },
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
       "sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
       "size": 155437
+    },
+    {
+      "path": "out/dispatch/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "05194c416b4e1247b0d4386cdc202d9269877e9b72a5d30ae7960b8f7f590e4e",
+      "size": 4369
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -929,6 +941,24 @@
       "class": "scratch",
       "sha256": "b8e881d4c70f9690020bf193235e3a960b142b0694937669b2085189ca4a2a57",
       "size": 9083
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-4/a-verdict.json",
+      "class": "scratch",
+      "sha256": "de7191d26067fb8c3fa82398fbfc366f6be0e6109177ebe8e23c4648f3f87eda",
+      "size": 3703
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-4/b-verdict.json",
+      "class": "scratch",
+      "sha256": "a8b4af8e424592e8ac9e2d61ad2f492c99e440508e786f466ad8344a9528d91c",
+      "size": 3926
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-4/raw.txt",
+      "class": "scratch",
+      "sha256": "1216aebafd079593941b29300a61d9d9c0b5075da9f7cbcbf224fed33f219d49",
+      "size": 9068
     },
     {
       "path": "out/dispatch/retained-failures/neutral/mapping.json",
