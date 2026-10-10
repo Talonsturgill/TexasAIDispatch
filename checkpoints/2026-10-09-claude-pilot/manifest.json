@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T20:35:35.955136+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-10T20:36:55.759658+00:00",
+  "note": "repair 10 applied, timed board passes 13 cheap gates, mix stable, vo_align verify ok",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -759,13 +759,13 @@
     {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
-      "sha256": "2947005f9e9c261c05676cc28db153f301bcd913363400ab644083722af012d0",
-      "size": 5152
+      "sha256": "8d048c1ce7f5f7523c5280697fc140df65338018a45f4e6806c0707918ce8eb5",
+      "size": 5137
     },
     {
       "path": "out/dispatch/mix.wav",
       "class": "scratch",
-      "sha256": "41d6b93c119dca3299c28875bf19a692208b8f40f04826f3bc0b9fcb3b0ba288",
+      "sha256": "428dd845b5625aaa35676469c195f569cce2776b86f165e091707419be48caa8",
       "size": 4704078
     },
     {
@@ -2027,6 +2027,90 @@
       "class": "scratch",
       "sha256": "9972f904e94986b1ce766e51d04eab0efccaf70bd19a2ba948699a4d19046e9d",
       "size": 138
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/board_scale_check.log",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/caption_fit.log",
+      "class": "scratch",
+      "sha256": "e6c380c62c8bd14af390186f73f9d30f8a5dec5f0e9e8fee861989d24079bb3e",
+      "size": 67
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/documentary_check.log",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/floor_check.log",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/modern_film.log",
+      "class": "scratch",
+      "sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/registry.log",
+      "class": "scratch",
+      "sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422",
+      "size": 80
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/report.json",
+      "class": "scratch",
+      "sha256": "b89c5f521a4b4770a8c3fb789410b40a5c6b0c893f75817effcae79c8746100d",
+      "size": 6557
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/script_evidence.log",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/shot_coherence.log",
+      "class": "scratch",
+      "sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/staging_check.log",
+      "class": "scratch",
+      "sha256": "7bfa6ca5e13a95043a880205a3a93d73b562406f9fb86420dc27195d2a86425c",
+      "size": 739
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/story_art.log",
+      "class": "scratch",
+      "sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885",
+      "size": 75
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/storyboard_check.log",
+      "class": "scratch",
+      "sha256": "22a90fdc69da93cda28b67314d43ab8d4bb794554e4675c9e3e77f57d493f268",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/super_evidence.log",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/precheck-timed2/f327ce6d-cd37-41d9-a35f-79bca0d4a960/watchability_check.log",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
     },
     {
       "path": "out/dispatch/preflight.mp4",
@@ -3831,7 +3915,7 @@
     {
       "path": "out/dispatch/sfx_events.json",
       "class": "scratch",
-      "sha256": "7bb4b2bd54096572f33821e7e96910e57634a5b6307303419c437d2252d923d8",
+      "sha256": "d9432a2cfabc3d2e7d93ec3be0075a6050fc1445ee710bd56b9a034e9d8efdac",
       "size": 1033
     },
     {
@@ -3873,8 +3957,14 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "9affb2f8c1baf0b5bed52af06002ca07424a154d68111f73fd3ef3f6102bebb3",
-      "size": 157918
+      "sha256": "72d2e3f35a56cc12deb6dcee0349efb80d9daa7b888f62b2f871b3bbcb00ffc0",
+      "size": 157919
+    },
+    {
+      "path": "out/dispatch/storyboard.r10-before-stability.json",
+      "class": "scratch",
+      "sha256": "26f5764dc2538b72af859db0e396596d75de2f2d5743a4c046c0c29d59beff75",
+      "size": 157107
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -4155,7 +4245,7 @@
     {
       "path": "out/dispatch/words.json",
       "class": "scratch",
-      "sha256": "08dd59f731464efdeb61cb8c1a633062a60b4ac28bd6f07ac8ea068b8553f2d9",
+      "sha256": "2e7813743ce4139caddd23cf88a1db3985a283a8b4460295b48ad1c0b5d7f448",
       "size": 30958
     }
   ],
