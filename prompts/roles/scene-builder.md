@@ -35,6 +35,21 @@ bytes, cover every story frame with purposeful shots, and show source-backed rea
 consequence. Artwork finish and the modern engagement floor are mandatory at the creative cap.
 
 
+## Capture protocol (recurring defect, October 10th, 2026)
+
+Author source and run the cheap code checks: tsc, engine_lint, registry_check and the board gates.
+Capture only when the current packet carries ALL of these: an actual charged render
+reservation (its controller event and resource), a computed `native_headroom.py` result with the portable
+housekeeping `--require-headroom --min-free-gib` pass, the invocation through
+`bash scripts/run_with_env.sh`, and genuine authored art receipts recorded by
+`authored_story_art.py record`. The initial packet carries none of them (`capture.allowed` is false), so the
+initial builder never captures. Never render scratch placeholder entries (a `sha256` of `scratch`, a
+`creation_id` that is not a real authored identity) as proof, in any props file, at any scale. This
+covers `remotion still`, `remotion render`, ffmpeg encodes, preflight, cinema proof and render scripts.
+On 2026-10-10 a builder ran a private native still and then a half-scale contact set outside the wrapper,
+before any reservation or headroom check, against placeholder entries. Those files are retained as failures,
+charged late and never used as evidence. A private batch is a procedural defect, not a faster way to look.
+
 ## Narration and picture use one clock
 
 For new production from October 8th, every spoken clause has a narration-picture-v1 binding in board.narration_picture. Write exact clause text, concrete subject_ids, executable action_id, source claim_ids, scene_id, cue_ids and event_ids before voice production. Cover all words and qualifiers once in their original order. The registered episode declares which views actually implement those subjects and actions. A topic match, caption or label cannot replace a pictured causal step.

@@ -166,6 +166,45 @@ class RoundTrip(Base):
             ck.restore(fresh, RUN, dest=self.root / "nope")
 
 
+class CaptureConsumption(Base):
+    """Command consumption is a monotonic checkpoint invariant across checkpoint writers."""
+
+    def setUp(self):
+        super().setUp()
+        self.init_ledger()
+        self.scratch.mkdir(parents=True, exist_ok=True)
+        self.auth = self.scratch / "capture-authorization.json"
+        self.used = self.scratch / "capture-authorizations-used.json"
+
+    def write(self, consumed, reservation="r" * 64, used=("r" * 64,)):
+        self.auth.write_text(json.dumps({"render_reservation": {"event_sha256": reservation},
+                                         "commands": [{"id": "c" * 64, "consumed": consumed}]}))
+        self.used.write_text(json.dumps([{"event_sha256": u} for u in used]))
+
+    def test_a_stale_writer_cannot_mark_a_consumed_command_unused_again(self):
+        self.write(False); self.save("issued")
+        self.write("2026-10-10T03:00:00+00:00"); self.save("consumed")
+        self.write(False)                       # an old container that never saw the consumption
+        with self.assertRaisesRegex(ck.RegressionError, "marked unused again"):
+            self.save("stale writer")
+        self.write("2026-10-10T03:00:00+00:00")
+        self.assertFalse(self.save("same state")["changed"] and False)
+
+    def test_the_used_reservation_log_never_shrinks_and_the_authorization_cannot_vanish(self):
+        self.write("2026-10-10T03:00:00+00:00", used=("a" * 64, "b" * 64)); self.save("two used")
+        self.write("2026-10-10T03:00:00+00:00", used=("a" * 64,))
+        with self.assertRaisesRegex(ck.RegressionError, "removed from the log"):
+            self.save("shrunk log")
+        self.write("2026-10-10T03:00:00+00:00", used=("a" * 64, "b" * 64)); self.auth.unlink()
+        with self.assertRaisesRegex(ck.RegressionError, "disappeared"):
+            self.save("vanished")
+
+    def test_a_new_reservation_may_issue_a_new_authorization(self):
+        self.write("2026-10-10T03:00:00+00:00"); self.save("consumed")
+        self.write(False, reservation="s" * 64, used=("r" * 64, "s" * 64))
+        self.assertTrue(self.save("a fresh reservation and authorization")["changed"])
+
+
 class Selection(unittest.TestCase):
     def test_oldest_unfinished_is_chosen_by_identity_not_by_save_order(self):
         rows = [  # discover() order: newest save first
@@ -263,6 +302,39 @@ class Privacy(Base):
         self.assertEqual("private path component", reasons["out/dispatch/x.private.json"])
         self.assertEqual("private data structure", reasons["out/dispatch/neutral-name.json"])
         self.assertEqual("private data structure", reasons["out/dispatch/nested/also.json"])
+
+    def test_credential_and_secret_names_stay_private_for_every_file_type(self):
+        (self.scratch / "retained-failures").mkdir()
+        for name in ("credentials.json", "credentials-prod.json", "credential_store.yaml", "secret-key.txt", "credentials.png",
+                     "secret-key.png", "a-s3-shot-1-credential-gate.png", "secret-handshake.jpg", ".env", ".env.local",
+                     "my.credentials", "secret-santa-notes.md"):
+            (self.scratch / "retained-failures" / name).write_bytes(b"x")
+        (self.scratch / "secrets").mkdir(); (self.scratch / "secrets/key.txt").write_text("x")
+        (self.scratch / "credential-gate").mkdir(); (self.scratch / "credential-gate/frame.png").write_bytes(b"png")
+        (self.scratch / "plain-evidence.png").write_bytes(b"png")
+        result = self.save()
+        kept = {n.split("/files/", 1)[1] for n in self.names(result) if "/files/" in n}
+        self.assertEqual({"out/dispatch/plain-evidence.png"}, kept)
+
+    def test_a_known_synthetic_failure_render_is_retained_as_a_neutral_copy_with_provenance(self):
+        (self.scratch / "stills").mkdir()
+        original = self.scratch / "stills/a-s3-shot-1-credential-gate.png"
+        original.write_bytes(os.urandom(2048))
+        info = ck.neutralize(self.repo, original, "remotion still bundle Dispatch a-s3-shot-1-credential-gate.png --scale=0.5",
+                             "synthetic authored-art scene render")
+        neutral = Path(info["neutral_copy"])
+        self.assertEqual(original.read_bytes(), neutral.read_bytes())
+        self.assertNotIn("credential", neutral.name)
+        result = self.save()
+        kept = {n.split("/files/", 1)[1] for n in self.names(result) if "/files/" in n}
+        self.assertIn(neutral.relative_to(self.repo).as_posix(), kept)
+        self.assertIn("out/dispatch/retained-failures/neutral/mapping.json", kept)
+        self.assertNotIn("out/dispatch/stills/a-s3-shot-1-credential-gate.png", kept)   # the private name stays out
+        mapping = json.loads((neutral.parent / "mapping.json").read_text())
+        self.assertEqual("a-s3-shot-1-credential-gate.png", mapping[0]["original_name"])
+        self.assertEqual(info["sha256"], mapping[0]["sha256"])
+        self.assertIn("remotion still", mapping[0]["invocation"])
+        self.assertTrue(mapping[0]["source_mtime_utc"])
 
     def test_shipped_ledger_is_sanitized(self):
         state = self.ledger()

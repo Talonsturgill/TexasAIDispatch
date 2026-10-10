@@ -2,14 +2,22 @@
 from __future__ import annotations
 import argparse
 import copy
+import re
+import sys
 import json
 import os
 from pathlib import Path
 import tempfile
 import unittest
 import yaml
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 REPO = Path(__file__).resolve().parents[1]
+
+
+CAPTURE_PHRASES = ('charged render reservation', 'headroom', 'bash scripts/run_with_env.sh',
+                   'genuine authored art receipts', 'scratch placeholder')
+from capture_guard import CAPTURE_COMMAND, capture_problems, placeholder_art  # noqa: E402,F401
 
 
 def problems(repo=REPO, environ=None):
@@ -53,6 +61,14 @@ def problems(repo=REPO, environ=None):
                          'OLDEST unfinished edition'):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
+        for name in ('.claude/agents/scene-builder.md', 'prompts/roles/scene-builder.md'):
+            text = ' '.join((repo / name).read_text().split())
+            for phrase in CAPTURE_PHRASES:
+                if phrase not in text:
+                    errors.append(name + ' lacks the capture protocol: ' + phrase)
+        hooks = json.dumps(settings.get('hooks', {}).get('PreToolUse', []))
+        if 'capture_guard.py hook' not in hooks or '"Bash"' not in hooks:
+            errors.append('.claude/settings.json must register scripts/capture_guard.py hook for Bash')
         env = os.environ if environ is None else environ
         override = env.get('CLAUDE_CODE_EFFORT_LEVEL', '')
         if override not in ('', 'auto'):
@@ -95,7 +111,7 @@ class ContractTests(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.repo = Path(self.tmp.name)
         files = ['config/claude_runtime.json', '.claude/settings.json',
-                 'prompts/claude_routine.md']
+                 'prompts/claude_routine.md', 'prompts/roles/scene-builder.md']
         cfg = json.loads((REPO / files[0]).read_text())
         files += list({'.claude/agents/' + row['agent'] + '.md'
                        for row in cfg['roles'].values()})
@@ -137,6 +153,28 @@ class ContractTests(unittest.TestCase):
         data = json.loads(p.read_text()); data['effortLevel'] = 'max'
         p.write_text(json.dumps(data))
         self.assertTrue(problems(self.repo, {}))
+
+    def test_builder_capture_protocol_cannot_disappear(self):
+        for name in ('.claude/agents/scene-builder.md', 'prompts/roles/scene-builder.md'):
+            p = self.repo / name
+            if not p.exists():
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_bytes((REPO / name).read_bytes())
+            text = p.read_text()
+            self.assertEqual([], problems(self.repo, {}))
+            for phrase in CAPTURE_PHRASES:
+                # Wrapped lines hold the phrases, so flatten the body (never the YAML header) first.
+                head, sep, body = text.partition('\n---\n') if text.startswith('---') else ('', '', text)
+                p.write_text(head + sep + ' '.join(body.split()).replace(phrase, 'x'))
+                self.assertTrue(any('lacks the capture protocol' in e for e in problems(self.repo, {})), (name, phrase))
+            p.write_text(text)
+
+    def test_the_hook_registration_cannot_disappear(self):
+        p = self.repo / '.claude/settings.json'
+        data = json.loads(p.read_text())
+        self.assertEqual([], problems(self.repo, {}))
+        data.pop('hooks'); p.write_text(json.dumps(data))
+        self.assertTrue(any('capture_guard.py hook' in e for e in problems(self.repo, {})))
 
     def test_edition_selection_contract_cannot_disappear(self):
         p = self.repo / 'prompts/claude_routine.md'

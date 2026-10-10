@@ -227,3 +227,23 @@ hashed screenshots. Its `tool` field says browser automation, not Computer Use. 
 historical assertion plus `claude_playback_problems`. The Codex Computer Use route and its evidence
 format stay valid. Never fabricate observations. If the page, media or browser fails, production
 stays active and the real failure is recorded.
+
+## Capture authorization
+
+Every native capture or render command (Remotion stills and renders, preflight, opening compare, cinema proof,
+render_dispatch) is denied by the PreToolUse hook `scripts/capture_guard.py hook` unless the director has
+issued a current authorization for that exact command. Reserve a fresh render with the controller first
+(a late-accounting charge never counts), then name the exact boards and the exact wrapped commands:
+
+```sh
+python scripts/capture_guard.py authorize --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
+```
+
+It writes `out/dispatch/capture-authorization.json` only from facts: an unused fresh charged render reservation,
+passed native headroom, portable housekeeping run with `--apply --fetch --summary --require-headroom` and the
+computed minimum (its receipt is kept), and genuine recorded authored receipts. The authorization is bound to the
+exact board, renderer and art hashes and to the listed commands. The hook rechecks them and current headroom,
+denies unreadable, unresolved or unrelated --props and --board inputs and placeholder art, and consumes each
+authorized command once, so the next capture needs a new reservation. Builders never capture. Before the first
+real capture of a run, prove the hook is active with a harmless capture-form command that must be denied,
+and keep that denial as evidence.

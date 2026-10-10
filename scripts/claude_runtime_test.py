@@ -111,6 +111,10 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(17, result['observed_phases']['research']['input_tokens'])
         self.assertEqual('research', result['calls'][0]['observed_phase'])
 
+    def test_initial_authoring_packet_never_authorizes_a_capture(self):
+        self.assertFalse(runtime.CAPTURE_DENIED['allowed'])
+        self.assertIn('charged render reservation', runtime.CAPTURE_DENIED['requires'])
+
     def test_usage_without_identity_is_not_guessed(self):
         path = self.root / 'session.jsonl'
         path.write_text(json.dumps({'type': 'assistant', 'message': {'usage': {'output_tokens': 1}}}) + '\n')
