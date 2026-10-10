@@ -37,7 +37,7 @@
     "capture_run": false,
     "alignment": "Measured captions and the acoustic word stream decide every timing. The authored clock in narration_picture is provisional and approves no timing."
   },
-  "overall": "One continuous read of the whole passage in one take. Read it as a person who knows this subject, explaining what a release says and what it does not show. Dry and plain. Not a news anchor, not a documentary hush, not a bright explainer lilt. Energy moves in drops as well as lifts: the opening question is brisk and curious, the mechanism steady, the limit the lowest and most certain part, and the close level and falling. Carry connected phrases across every sentence join. Give room only at the source-backed turn, at the closing line, and at the three explicit silences named in lines 2, 3 and 4.",
+  "overall": "One continuous read of the whole passage in one take. Read it as a person who knows this subject, explaining what a release says and what it does not show. Dry and plain. Not a news anchor, not a documentary hush, not a bright explainer lilt. Energy moves in drops as well as lifts: the opening question is brisk and curious, the mechanism steady, the limit the lowest and most certain part, and the close level and falling. Carry connected phrases across every sentence join. Give room only at the source-backed turn and at the closing line.",
   "performance_arc": "Brisk question and return, plain dated facts, an ordinary sign-in, specific source types, a measured share, then a slower plain limit and a level close.",
   "lines": [
     {
@@ -69,10 +69,10 @@
       ],
       "text": "UTMB announced the OpenEvidence AI tool on September twenty-second, and says it went live in March.",
       "job": "reveal",
-      "intent": "State the dated announcement plainly, the way a reporter reads a release date, with the attribution to UTMB audible. After the word twenty-second, fall completely silent here for a clear full stop, then resume the same sentence at the same level and pace.",
+      "intent": "State the dated announcement plainly, the way a reporter reads a release date, with the attribution to UTMB audible.",
       "emphasis": "says it went live in March",
       "energy": "Level and plain, one step down from the opening lift into a steady informative pace with no added excitement.",
-      "pause_after": "Full stop in the speaking after twenty-second, then resume the same sentence into the attribution. Normal full stop after March.",
+      "pause_after": "No break at the date comma, a connected run into the attribution. Normal full stop after March.",
       "visible_events": [
         "s2-event-1",
         "s2-event-2",
@@ -87,11 +87,11 @@
         "n3a",
         "n3b"
       ],
-      "text": "Clinicians sign in with their usual credentials and ask in plain language.",
+      "text": "Clinicians sign in with their usual credentials, and ask in plain language.",
       "job": "explain",
-      "intent": "Describe the ordinary sign-in as familiar and unremarkable so the viewer sees an everyday login, not a new system. After the word credentials, fall completely silent here for a clear full stop, then resume the same sentence at the same level and pace.",
+      "intent": "Describe the ordinary sign-in as familiar and unremarkable so the viewer sees an everyday login, not a new system.",
       "emphasis": "usual credentials",
-      "energy": "Conversational and unhurried, a step below the dated fact, with no lift anywhere in the line so the sign-in sounds ordinary. Then resume into and ask in plain language at the same level.",
+      "energy": "Conversational and unhurried, a step below the dated fact, with no lift anywhere in the line so the sign-in sounds ordinary.",
       "pause_after": "Connected join into line 4, normal full stop, no held silence.",
       "visible_events": [
         "s3-event-1",
@@ -107,11 +107,11 @@
         "n4a",
         "n4b"
       ],
-      "text": "The answers carry citations to medical literature and clinical guidelines.",
+      "text": "The answers carry citations. To medical literature and clinical guidelines.",
       "job": "explain",
-      "intent": "Name the two kinds of source the answer carries so the viewer hears specific source types, not a vague word for sources. After the word citations, fall completely silent here for a clear full stop, then resume the same sentence at the same level and pace.",
+      "intent": "Name the two kinds of source the answer carries so the viewer hears specific source types, not a vague word for sources.",
       "emphasis": "carry citations",
-      "energy": "Crisp and even, a clear middle level, giving each source type its own weight and easing off after clinical guidelines. Resume at the same level after citations.",
+      "energy": "Crisp and even, a clear middle level, giving each source type its own weight and easing off after clinical guidelines.",
       "pause_after": "Normal full stop and a small breath, the list closes cleanly before the share.",
       "visible_events": [
         "s4-event-1",
@@ -199,7 +199,7 @@
       "reason": "The evaluation tag pins to the share at s8-event-1 and the answer holds beside the chart with its empty Accuracy ring at s8-event-3. The performed close is a plan, not a result, so keep evaluating carries the weight and nothing is lifted to suggest a finding."
     }
   ],
-  "expressive_prompt": "One continuous read of the whole passage in one take. Read it as a person who knows this subject, explaining what a release says and what it does not show. Dry and plain. Not a news anchor, not a documentary hush, not a bright explainer lilt. Energy moves in drops as well as lifts: the opening question is brisk and curious, the mechanism steady, the limit the lowest and most certain part, and the close level and falling. Carry connected phrases across every sentence join. Give room only at the source-backed turn, at the closing line, and at the three explicit silences named in lines 2, 3 and 4.\nPerformance arc: Brisk question and return, plain dated facts, an ordinary sign-in, specific source types, a measured share, then a slower plain limit and a level close.\nLine 1; intent: Open on the ordinary act of asking a question inside the chart, then hand the viewer the return. Curiosity first with no alarm.; emphasis: comes back with its sources; energy: Opening lift, brisk and curious, the most forward energy so far, moving straight into the return without a reset.\nLine 2; intent: State the dated announcement plainly, the way a reporter reads a release date, with the attribution to UTMB audible. After the word twenty-second, fall completely silent here for a clear full stop, then resume the same sentence at the same level and pace.; emphasis: says it went live in March; energy: Level and plain, one step down from the opening lift into a steady informative pace with no added excitement.\nLine 3; intent: Describe the ordinary sign-in as familiar and unremarkable so the viewer sees an everyday login, not a new system. After the word credentials, fall completely silent here for a clear full stop, then resume the same sentence at the same level and pace.; emphasis: usual credentials; energy: Conversational and unhurried, a step below the dated fact, with no lift anywhere in the line so the sign-in sounds ordinary. Then resume into and ask in plain language at the same level.\nLine 4; intent: Name the two kinds of source the answer carries so the viewer hears specific source types, not a vague word for sources. After the word citations, fall completely silent here for a clear full stop, then resume the same sentence at the same level and pace.; emphasis: carry citations; energy: Crisp and even, a clear middle level, giving each source type its own weight and easing off after clinical guidelines. Resume at the same level after citations.\nLine 5; intent: Report the usage share as UTMB's own statement, flat and measured, not as a verified count and not as a triumph.; emphasis: UTMB says; energy: Level and even, a little below the source types, with no lift on more than half, so the share is stated rather than celebrated.\nLine 6; intent: Pin the share to UTMB's own report, then state the missing measure as a plain fact the release does not contain. This is the performed turn.; emphasis: publishes no measure; energy: The lowest and slowest line of the piece, certain and level, with the least pitch movement so the most important limit is the quietest delivery.\nLine 7; intent: Separate the two things a citation does, locating the source and not certifying the answer, with the contrast landing on the negation.; emphasis: doesn't; energy: Measured and firm, the first sentence plain, the second rising to doesn't and falling low and final on right, a little more forward than the line before.\nLine 8; intent: End on UTMB's stated next step, a plan to keep evaluating rather than an outcome, so the film closes on what is not yet known, stated flat.; emphasis: keep evaluating; energy: Level and low, unhurried, a settled falling close with no upturn at the end, and the last word experience landing lowest and final.",
+  "expressive_prompt": "One continuous read of the whole passage in one take. Read it as a person who knows this subject, explaining what a release says and what it does not show. Dry and plain. Not a news anchor, not a documentary hush, not a bright explainer lilt. Energy moves in drops as well as lifts: the opening question is brisk and curious, the mechanism steady, the limit the lowest and most certain part, and the close level and falling. Carry connected phrases across every sentence join. Give room only at the source-backed turn and at the closing line.\nPerformance arc: Brisk question and return, plain dated facts, an ordinary sign-in, specific source types, a measured share, then a slower plain limit and a level close.\nLine 1; intent: Open on the ordinary act of asking a question inside the chart, then hand the viewer the return. Curiosity first with no alarm.; emphasis: comes back with its sources; energy: Opening lift, brisk and curious, the most forward energy so far, moving straight into the return without a reset.\nLine 2; intent: State the dated announcement plainly, the way a reporter reads a release date, with the attribution to UTMB audible.; emphasis: says it went live in March; energy: Level and plain, one step down from the opening lift into a steady informative pace with no added excitement.\nLine 3; intent: Describe the ordinary sign-in as familiar and unremarkable so the viewer sees an everyday login, not a new system.; emphasis: usual credentials; energy: Conversational and unhurried, a step below the dated fact, with no lift anywhere in the line so the sign-in sounds ordinary.\nLine 4; intent: Name the two kinds of source the answer carries so the viewer hears specific source types, not a vague word for sources.; emphasis: carry citations; energy: Crisp and even, a clear middle level, giving each source type its own weight and easing off after clinical guidelines.\nLine 5; intent: Report the usage share as UTMB's own statement, flat and measured, not as a verified count and not as a triumph.; emphasis: UTMB says; energy: Level and even, a little below the source types, with no lift on more than half, so the share is stated rather than celebrated.\nLine 6; intent: Pin the share to UTMB's own report, then state the missing measure as a plain fact the release does not contain. This is the performed turn.; emphasis: publishes no measure; energy: The lowest and slowest line of the piece, certain and level, with the least pitch movement so the most important limit is the quietest delivery.\nLine 7; intent: Separate the two things a citation does, locating the source and not certifying the answer, with the contrast landing on the negation.; emphasis: doesn't; energy: Measured and firm, the first sentence plain, the second rising to doesn't and falling low and final on right, a little more forward than the line before.\nLine 8; intent: End on UTMB's stated next step, a plan to keep evaluating rather than an outcome, so the film closes on what is not yet known, stated flat.; emphasis: keep evaluating; energy: Level and low, unhurried, a settled falling close with no upturn at the end, and the last word experience landing lowest and final.",
   "flags": [
     {
       "id": "F1",
@@ -246,8 +246,8 @@
       "span": "September twenty-second,",
       "type": "grouping",
       "risk": "A break inside the ordinal, or a pause at the comma that separates the date from the announcement.",
-      "direction": "Keep September twenty-second as one unit. The explicit silence after twenty-second is the only silence at this comma, per line 2.",
-      "status": "Directed. The clause split at the comma is a cut boundary in narration_picture. The silence instruction in line 2 is a deliberate performance choice, and the reader preamble in vo_synth_gemini.py says never pause inside a sentence, so the conflict needs the director's ruling."
+      "direction": "Keep September twenty-second as one unit, with no pause at the comma.",
+      "status": "Directed. The clause split at the comma is a cut boundary in narration_picture and is not a reason to pause the voice."
     },
     {
       "id": "F5",
@@ -361,14 +361,13 @@
     }
   ],
   "unresolved": [
-    "sound_direction_sha256 is set to 38de3a78caea1dd82d176c080e3bb1482ea7e09d8c1d5773639ecefd399c14ef as supplied by the coordinator. It has not been verified in this session. The note above still describes it as not computed.",
+    "sound_direction_sha256 is null. It must be filled with fingerprint(board.creative_direction.sound) before voice_problems can pass.",
     "No SHA-256 was verified in this session for the packet, script, storyboard or claims. The script sha256 is therefore not reported as verified.",
     "F9: line 5 drops the qualifier actively from the claim. The script is locked, so this needs the director's consolidated correction before synthesis.",
     "F10 to F13: picture and word mismatches on the attribution and the antecedent. These need the director's consolidated picture correction and are not voice fixes.",
     "F1 to F3: UTMB, OpenEvidence and AI are not in TEXAS_PRONUNCIATION.md. The lexicon preflight rule in that file would stop on them. The script has no Texas place names, so the lexicon covers none of the spoken proper nouns.",
     "The authored narration_picture clock is provisional. The energy plan is written against the event sequence, not the measured seconds, and must be checked after alignment.",
-    "No synthesis, no capture and no soundcheck was run. Nothing was sent or posted.",
-    "Repair follow-up 2: lines 2, 3 and 4 now instruct a full silence in the speaking after twenty-second, credentials and citations, then resume the same sentence. The instruction is qualitative with no seconds value, because numeric pause instructions cannot enter the TTS prompt. Take 2 shows the earlier breath request was not followed, so the silence wording is untested. The reader preamble in vo_synth_gemini.py says never pause inside a sentence, which conflicts with these explicit silences and needs the director's ruling. The measured gaps have not been re-checked."
+    "No synthesis, no capture and no soundcheck was run. Nothing was sent or posted."
   ],
   "guides_read": [
     "knowledge/craft/VO_DIRECTION.md (full)",
