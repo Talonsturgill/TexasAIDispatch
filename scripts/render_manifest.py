@@ -46,7 +46,10 @@ def authored_media_paths(data: dict, repo: Path) -> list[Path]:
     entries = plan.get("entries") or []
     if len(entries) != 2:
         raise ValueError("authored story art needs both recorded source receipts")
-    rows = {str(r.get("request_id")): r for r in data.get("native_media") or [] if not str(r.get("file", "")).startswith("evidence/")}
+    inventory = [r for r in data.get("native_media") or [] if not str(r.get("file", "")).startswith("evidence/")]
+    rows = {str(r.get("request_id")): r for r in inventory}
+    if len(rows) != len(inventory) or len(inventory) != len(entries) or set(rows) != {str(e.get("request_id")) for e in entries}:
+        raise ValueError("authored inventory row differs from its receipts: unknown, missing or duplicate row")
     paths = []
     for entry in entries:
         relative = str(entry.get("file") or "")
@@ -63,7 +66,10 @@ def authored_media_paths(data: dict, repo: Path) -> list[Path]:
     for item in data.get("native_media") or []:
         relative = str(item.get("file") or "")
         if relative.startswith("evidence/"):
-            asset = (repo / "video-engine/public" / relative).resolve()
+            public = (repo / "video-engine/public").resolve()
+            asset = (public / relative).resolve()
+            if Path(relative).is_absolute() or ".." in Path(relative).parts or not asset.is_relative_to(public):
+                raise ValueError("native texture path is absolute or traverses public")
             if not asset.is_file() or file_sha256(asset) != item.get("sha256") or len(str(item.get("basis") or "")) < 30:
                 raise ValueError("native texture is missing, changed or lacks provenance: " + relative)
             paths.append(asset)
