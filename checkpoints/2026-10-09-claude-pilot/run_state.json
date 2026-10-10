@@ -1500,6 +1500,15 @@
       "at": "2026-10-10T18:58:31.527258Z",
       "kind": "phase",
       "name": "synthesis"
+    },
+    {
+      "at": "2026-10-10T18:58:37.126962Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -1523,7 +1532,7 @@
   "phase": "synthesis",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6779b25f9b513cdb177855793a1b27f3412ea986e83cf35026592fca8d12270f",
+    "original_private_state_sha256": "d320fb0a081924e143e72dfea779ae2cda0ae95297c66c45700454eff1943ca8",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1551,7 +1560,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T18:58:31.527293Z",
+  "updated_at": "2026-10-10T18:58:37.127012Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -1565,7 +1574,7 @@
     "research_agents": 1,
     "scorer_calls": 0,
     "storyboard_critics": 10,
-    "tts_calls": 0,
+    "tts_calls": 1,
     "validator_agents": 1,
     "voice_directors": 1
   }
