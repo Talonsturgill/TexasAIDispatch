@@ -1,0 +1,13 @@
+{
+  "schema": "dispatch_hook_proof/1",
+  "at": "2026-10-10T03:10:54.126095+00:00",
+  "session_hook_active": false,
+  "observation": "In this running root session the harmless capture-form command `npx --no-install remotion still --help` EXECUTED and printed Remotion help, so the project's PreToolUse hook was not loaded. Claude Code reads hook settings at session start and this session started before the guard merged.",
+  "hook_logic_fed_the_same_command": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "Capture refused. the packet does not authorize a capture; no current capture authorization exists. Author source and run cheap code checks. Only the director issues a capture authorization (scripts/capture_guard.py authorize) after a fresh charged render reservation, passed native headroom and housekeeping, and recorded authored receipts."
+  },
+  "compensating_procedure": "The director feeds each real capture command to `python3 scripts/capture_guard.py hook` itself (same decision and same consumption) and runs it only when that prints nothing, after `capture_guard.py authorize`. Spawned workers receive the no-capture instruction. Fresh sessions load the hook.",
+  "no_real_capture_has_run_since_the_defect": "true as of this record"
+}
