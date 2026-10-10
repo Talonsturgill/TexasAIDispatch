@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 16,
+    "storyboard_critics": 17,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -2888,6 +2888,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-10T21:01:33.590386Z",
+      "failure_evidence_json": "{\n  \"review_scope\": \"exact-muted-phone-preflight\",\n  \"reviewed_preflight_sha256\": \"5e700e1a6e9748673dc21aa7cab45db416f38912abc6cb4e5a03f698bb83c46d\",\n  \"film_sha256\": \"5e700e1a6e9748673dc21aa7cab45db416f38912abc6cb4e5a03f698bb83c46d\",\n  \"reviewer_identity\": \"storyboard-critic / claude-opus-5-5 high, isolated read-only exact-muted-phone reviewer (phone-packet-r10)\",\n  \"reviewed_at\": \"unknown\",\n  \"verdict\": \"pass\",\n  \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n  \"blocking_defects\": [],\n  \"phone_observations\": {\n    \"subject_recognition\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 44.0,\n      \"observed\": \"At 270 px wide I can name the worn clipboard chart with its steel clip and teal tabs, the typing hands and keyboard, the teal labelled OpenEvidence box, the answer card with Sources and Accuracy slots, three labelled source cards, a 12-tile board of faceless clinician figures with a Half bar, and pinned tags. Occupancy is weakest in the wide shots at 16.0 to 17.9 s and 33.0 to 36.3 s. There small cards sit on a mostly empty beige floor and the source-card labels are tiny until the medium at about 18 s and the detail at 36.4 s.\"\n    },\n    \"contact_and_consequence\": {\n      \"pass\": true,\n      \"start_s\": 0.25,\n      \"end_s\": 32.8,\n      \"observed\": \"The question card leaves the chart page (0 to 1 s). The answer slides out under the tool (2 s) and lies on the desk empty (3 s), then its Sources slot fills with three chips (4 s). Date tags pin to the chart top (7 s, 9 s). Masked dots fill the credential field (11 to 13 s). The chips leave the slot as three source cards appear (16 to 17 s). Report and limit tags hang from drawn pins on strings (28 s, 30 s). Each result is held and readable. Non-blocking: a faint hollow oval on the floor sits beside the answer card's lower right, not under it (about 2 to 4 s and 24 to 28 s), so the card looks slightly unseated.\"\n    },\n    \"dominant_action\": {\n      \"pass\": true,\n      \"start_s\": 0.25,\n      \"end_s\": 43.3,\n      \"observed\": \"The main subject performs each narrated change. The card goes in and the answer comes out with sources. Tags pin as dates are spoken. Dots fill and a plain-language card is typed. Source cards lift. Figures light past Half. Accuracy and Patient care tags clip on and read Not in release. A thread runs from the literature card to the Sources slot while the empty Accuracy ring pulses. The evaluating tag drops onto the share bar. One exception is the tiny record-lock icon at the left edge (11 to 13 s), whose opening I can't see. The dot-filled 'Usual credentials' field carries that clause.\"\n    },\n    \"surface_finish\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 44.0,\n      \"observed\": \"Phone size only, so the native 1080 hero finish review is still owed. The flat editorial style is applied consistently: soft hazy window, clipboard with clip, ruled page and tabs, soft drop shadows under the cards, and silhouette tiles in a wooden frame. Non-blocking finish notes: the forearms are straight, even-width and sleeveless, with no elbows (0 to 1 s, 8 to 13 s). There are large empty beige floor fields (2 to 4 s, 16 to 17 s, 29 to 30 s, 33 to 35 s). The stray floor oval appears at 2 to 4 s and 24 to 28 s. A tag string crosses the Accuracy tag's 'Not in release' (30 to 32 s, 42 to 44 s).\"\n    },\n    \"continuity\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 44.0,\n      \"observed\": \"One chart, one tool, one answer card and one source set are carried across every cut, and the answer card builds up state from 4 s to 44 s. Mild breaks: only one hand shows at the keyboard, partly behind the caption, at 5 to 7 s. s3 (11 to 16 s) types the question again after s1 already returned an answer. At 42 s the chart, last seen on the wall rail, is a cropped clipboard beside the answer on the desk, with no move shown. The 'Illustration. Not UTMB's screen' disclosure is visible throughout.\"\n    },\n    \"closing_payoff\": {\n      \"pass\": true,\n      \"start_s\": 41.75,\n      \"end_s\": 44.0,\n      \"observed\": \"The close shows the share bar along the top with a large 'Evaluating use and experience' tag on its end pin. Below it the answer card sits beside the cropped chart, with filled Sources chips, a dashed empty Accuracy slot and ring, and both 'Not in release' tags. This answers what comes back (sources) and what isn't published (accuracy, patient care) without inventing an outcome. It is held through 43 s, clear of the caption plate. Non-blocking: the card has no visible support and the string crosses the Accuracy tag.\"\n    }\n  },\n  \"modern_observations\": {\n    \"film_sha256\": \"5e700e1a6e9748673dc21aa7cab45db416f38912abc6cb4e5a03f698bb83c46d\",\n    \"first_frame\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 1.5,\n      \"observed\": \"The wide frame shows a clinic wall with a hazy window, the clipboard chart with a Question card on its page, the labelled OpenEvidence box beside it and both hands typing in the foreground. By 1 s the card has left the page, so the first visible change lands inside the window. The card is small (about 40 px), so the hook is clear rather than striking.\"\n    },\n    \"visual_progression\": {\n      \"pass\": true,\n      \"start_s\": 2.0,\n      \"end_s\": 44.0,\n      \"observed\": \"The answer card gains state across the film: empty (3 s), then Sources filled (4 s), source cards drawn out (17 to 21 s), limit tags clipped on (30 to 32 s), the thread to Sources while Accuracy stays empty (34 to 39 s), and the full close (42 to 44 s). The share board moves from dark to past Half, then gains the decision-support, own-report and evaluating tags. Returns to a setup always add new information, so it is not a re-scan.\"\n    },\n    \"shot_variety\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 44.0,\n      \"observed\": \"Wide wall (0 to 2 s, 5 to 8 s), close tool (2 to 4.5 s), closer chart (8 to 10.5 s), keyboard close (11 to 13.5 s), card detail (14 to 16 s), floor wide (16 to 18 s, 33 to 36 s), medium source cards (18 to 21 s), share board close and medium (22 to 29 s, 40 to 41.75 s), tag close (31 to 33 s), Accuracy detail (36.4 to 39.5 s) and the final close (41.75 to 44 s). The cuts come with new information. No shot sampled exceeds 5 s.\"\n    },\n    \"performed_turn\": {\n      \"pass\": true,\n      \"start_s\": 29.0,\n      \"end_s\": 39.5,\n      \"observed\": \"The turn is a picture. The Accuracy and Patient care tags clip onto the answer's own clip (30 s), then fill the frame reading 'Not in release' (31 to 33 s). Next, a thread ties the literature card to the filled Sources slot while the dashed Accuracy ring brightens and stays empty (34 to 39 s). The filled slot against the empty one makes the limit visible beyond the caption.\"\n    },\n    \"pace\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 44.0,\n      \"observed\": \"In the 1 fps samples a new state arrives about every 1 to 2.5 s. The longest stretches with little sampled change are 19 to 21 s (source cards lift slightly), 25 to 26 s, and 31 to 32 s, which is a purposeful readable hold on the limit tags. Motion between samples wasn't visible, so travel smoothness and whether the 1 to 2 s tool hold reads as dead air are unverified.\"\n    },\n    \"closing_answer\": {\n      \"pass\": true,\n      \"start_s\": 41.75,\n      \"end_s\": 44.0,\n      \"observed\": \"The final picture answers the opening question: sources came back (filled chips), accuracy isn't shown (empty dashed ring plus two Not in release tags), and UTMB's stated next step hangs on the share bar as 'Evaluating use and experience'. It doesn't repeat the opening desk and claims no outcome.\"\n    },\n    \"finished_art\": {\n      \"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\": 44.0,\n      \"observed\": \"The art was clearly made for this story, in a consistent Gulf palette of hazy white, warm paper, teal and copper, with a clipboard chart, slot card, labelled source cards and faceless clinician tiles. It isn't decorative. At phone size it reads as finished flat illustration, but it isn't a showpiece: there are sparse floor fields, a flat teal tool box, tube forearms and a stray floor oval. Native 1080 surface finish wasn't inspectable here and stays with the native hero review.\"\n    }\n  },\n  \"narration_picture_observations\": {\n    \"film_sha256\": \"5e700e1a6e9748673dc21aa7cab45db416f38912abc6cb4e5a03f698bb83c46d\",\n    \"clauses\": [\n      {\"id\": \"n1a\", \"start_s\": 0.25, \"end_s\": 1.95, \"pass\": true, \"observed\": \"Wide: both hands on the keyboard. The Question card on the chart page (0 s) has left the page by 1 s, toward the labelled OpenEvidence box beside the chart, and the hands stay planted. Travel itself isn't sampled.\"},\n      {\"id\": \"n1b\", \"start_s\": 2.15, \"end_s\": 4.3, \"pass\": true, \"observed\": \"Close on the tool: a thin card slides out beneath it (2 s), lands on the desk as the Answer card with empty Sources and Accuracy slots (3 s), and three chips fill Sources (4 s).\"},\n      {\"id\": \"n2a\", \"start_s\": 4.75, \"end_s\": 8.35, \"pass\": true, \"observed\": \"Wide: the chart under its 'Health record' label with the OpenEvidence tool docked at its right edge. The 'Announced September 22nd' tag pins to the chart top by 7 s. A boundary glow isn't visible at 1 fps.\"},\n      {\"id\": \"n2b\", \"start_s\": 8.5, \"end_s\": 10.3, \"pass\": true, \"observed\": \"Closer on the same chart: the 'Live since March' tag pins under the announcement tag by 9 s and holds through 10 s.\"},\n      {\"id\": \"n3a\", \"start_s\": 10.75, \"end_s\": 13.4, \"pass\": true, \"observed\": \"Close above the keyboard: hands type and the 'Usual credentials' masked field fills with dots (11 to 13 s). The record-lock icon at the left edge is about 12 px and I can't see it open.\"},\n      {\"id\": \"n3b\", \"start_s\": 13.6, \"end_s\": 15.8, \"pass\": true, \"observed\": \"Detail: the Question card fills with word-shape bars and a 'Plain language' pill under the right hand (14 to 15 s). Its slide to the chart edge isn't visible in the samples.\"},\n      {\"id\": \"n4a\", \"start_s\": 16.25, \"end_s\": 17.9, \"pass\": true, \"observed\": \"Floor wide: the small Answer card. By 17 s its chips are gone from Sources and three source cards appear just above right. The relationship reads, but the cluster is small with tiny labels.\"},\n      {\"id\": \"n4b\", \"start_s\": 18.05, \"end_s\": 21.3, \"pass\": true, \"observed\": \"Medium: readable 'Medical literature', 'Clinical guidelines' and 'Other sources' cards fanned above the Answer card, each with a small lift. The Answer card is above the caption.\"},\n      {\"id\": \"n5\", \"start_s\": 21.75, \"end_s\": 26.8, \"pass\": true, \"observed\": \"Close: faceless clinician tiles in white coats and scrubs light up until more than half are lit, and the bar passes its Half tick to 'More than half' (22 to 23 s). Medium: the share bar above the OpenEvidence tool gets the 'Clinical decision support' tag (25 s).\"},\n      {\"id\": \"n6a\", \"start_s\": 27.25, \"end_s\": 28.9, \"pass\": true, \"observed\": \"Close on the lit board and bar: the 'UTMB's own report' tag pins under the decision-support tag on a string to the bar end (28 s).\"},\n      {\"id\": \"n6b\", \"start_s\": 29.1, \"end_s\": 32.8, \"pass\": true, \"observed\": \"The Answer card on the desk gets 'Accuracy' and 'Patient care' tags on its clip (30 s), then fills the frame with both reading 'Not in release' (31 to 32 s). A tag string crosses the Accuracy tag.\"},\n      {\"id\": \"n7a\", \"start_s\": 33.25, \"end_s\": 36.3, \"pass\": true, \"observed\": \"Wide: the 'Medical literature' card rises above the tagged Answer card and a thin thread drops from it to the Sources slot (34 to 35 s). Literal, but small at this framing.\"},\n      {\"id\": \"n7b\", \"start_s\": 36.5, \"end_s\": 39.25, \"pass\": true, \"observed\": \"Detail: the thread ends in the filled Sources slot while the dashed Accuracy slot's ring brightens (38 s) and nothing lands in it.\"},\n      {\"id\": \"n8\", \"start_s\": 39.7, \"end_s\": 43.3, \"pass\": true, \"observed\": \"The share board, with the 'Evaluating use and experience' tag on the bar's end pin and the tool cropped to 'penEvidence' (40 to 41 s). Then the close: the tag above the Answer card beside the chart, with Sources filled, Accuracy empty and both Not in release tags (42 to 43 s).\"}\n    ]\n  },\n  \"weakest_frame\": \"16.0 to 17.9 s (s4-shot-1, floor wide). At 16 s the only subject is an Answer card about 75x60 px with roughly two thirds of the frame empty beige floor. At 17 s the three source cards appear above right with labels too small to read at phone size, and they become readable only after the cut to the medium at about 18 s. The 33.0 to 36.3 s wide is the next weakest for the same reason. Neither blocks comprehension, because the medium and detail shots that follow resolve both.\",\n  \"limits\": \"I could see only 44 one-second phone frames per film (270x480) and two 270x480 stills at 41 s and 42.9 s. I couldn't see motion between frames, so card travel speed, possible stepping at 30 fps, the boundary glow, the lock opening, the slide to the chart edge and the ring pulse timing are unverified. There is no sound, so voice, sync and foley were not judged. The narration windows are the provisional authored clock, not measured alignment. Native 1080 finish wasn't inspected. With Read only, I couldn't compute any SHA256; every hash is echoed from the contract and comparison bindings.\"\n}\n",
+      "failure_evidence_sha256": "f16da2c8ac93923374fddd528e0a22395b59c1dcb8b41477fca1cc3f440f25b5",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 17,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 17,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"completion_reason\": \"finish-current\",\n \"repair_scope\": \"standard\",\n \"failure_evidence\": \"out/dispatch/phone-critic-current.json\",\n \"failure_evidence_sha256\": \"f16da2c8ac93923374fddd528e0a22395b59c1dcb8b41477fca1cc3f440f25b5\",\n \"changed_inputs\": [],\n \"resources\": {\n  \"storyboard_critics\": 1\n },\n \"repair\": \"No correction in this plan. Funds the independent reviews the measured-timing board needs: a code-scope review bound to the retimed concept (narration_picture timing is part of the concept digest) and the final measured timed phone review. Bound to the fresh independent exact-phone pass of the repair 10 comparison (film A). Native, audiovisual, scoring and delivery stay required.\",\n \"note\": \"Finish-current plan bound to the independent repair 10 exact-phone pass. Approves no pixels, score or shipment.\"\n}",
+      "plan_sha256": "ee074ab86999b68484f4318ab1f42cab2599d24a545a0c722137bbe4d1a4f7a7",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":8,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":5,\"required\":2,\"used\":11},\"reboards\":{\"ceiling\":10,\"remaining\":1,\"required\":0,\"used\":9},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":16,\"remaining\":1,\"required\":2,\"used\":15},\"tts_calls\":{\"ceiling\":12,\"remaining\":4,\"required\":2,\"used\":8},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "90094fc13170c8f714af15e0f42eec744228d96335d78a321702c1ed7dbd3ea4",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 16,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 16,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-09-claude-pilot",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 11,
+        "reboards": 9,
+        "reported_tokens": 20306,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 0,
+        "storyboard_critics": 15,
+        "tts_calls": 8,
+        "validator_agents": 1,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -2911,7 +3015,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "b98c634e8a47494ffd3cf72670ce703a1f95a0d493ceedb46d670d477f519755",
+    "original_private_state_sha256": "62af546e3c44a15af8c71ff6bc19c8d203b51f5924a19be080dededea9e42d8a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2939,7 +3043,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T20:51:11.762109Z",
+  "updated_at": "2026-10-10T21:01:33.590426Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
