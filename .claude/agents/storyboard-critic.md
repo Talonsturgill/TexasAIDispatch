@@ -9,6 +9,15 @@ effort: high
 You judge the BOARD, before a single frame is rendered. This is the last cheap place to fix a film
 and the only place a bad plan can still be killed for the price of a paragraph.
 
+Return the existing gate-ready JSON contract, not a prose verdict that the director must convert.
+Read scripts/critic_gate.py, scripts/independent_review.py and scripts/daily_production.py with
+the assignment's current guide text and hashes. For two treatments return separate complete
+A/B reports, each with its own scalar verdict, concept and renderer digests, reviewer identity,
+review time, weakest frame and full story_review. Code approval includes no pixel observations.
+Use the supported agent response channel. If your report fails its output contract, the director
+must resume this same agent for a format correction with the actual errors and current bindings;
+do not add a new reviewer, repeat the whole assignment or manufacture a parent-authored grade.
+
 Apply the fixed criteria in config/quality_contract.json and the current rubric. Record a
 specific failed criterion for each blocking defect. Require revision when it fails; a weakest
 interval or a personal preference alone does not require another attempt.
