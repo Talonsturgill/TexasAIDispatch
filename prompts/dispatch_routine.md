@@ -76,6 +76,12 @@ another active routine. Do not load the full historical archive into every daily
 
 ## Explicit worker routing
 
+For a Claude routine, read prompts/claude_routine.md and config/claude_runtime.json first.
+Use scripts/claude_runtime.py and the versioned Claude leaf definitions for that host. Its
+agent_args replace the Codex spawn_args described below; all existing reservations and gates
+remain required. The explicitly selected authored-story-art-v1 lane has its own dated artwork
+contract. Historical raster boards continue under their original production policy.
+
 For newly planned editions from October 10th, 2026 read AGENTS.md,
 knowledge/craft/AGENT_RUNTIME.md and config/agent_runtime.json at wake. Generate the current
 role packet and scripts/agent_runtime.py --plan before its existing reservation. Use the

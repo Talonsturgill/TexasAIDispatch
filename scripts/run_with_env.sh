@@ -31,4 +31,15 @@ if [ -x "$workspace_runner" ]; then
 fi
 
 cd "$repo_root"
+# A cloud bootstrap lives outside the repository, matching the local runtime boundary.
+# Activate only the existing cache; setup itself is an explicit wake step.
+dispatch_cache="${DISPATCH_CLOUD_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/texas-ai-dispatch}"
+if [ -x "$dispatch_cache/venv/bin/python" ]; then
+  PATH="$dispatch_cache/bin:$dispatch_cache/venv/bin:$PATH"
+  export PATH
+fi
+if [ -f "$dispatch_cache/ggml-small.en.bin" ] && [ -z "${DISPATCH_WHISPER_MODEL:-}" ]; then
+  DISPATCH_WHISPER_MODEL="$dispatch_cache/ggml-small.en.bin"
+  export DISPATCH_WHISPER_MODEL
+fi
 exec "$@"

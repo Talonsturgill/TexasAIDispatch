@@ -11,7 +11,7 @@
 # gates passed anyway. numpy died in Phase 5 at the foley build, Pillow died after
 # Gate 0 had passed, and ffmpeg would have taken the mux and the entire rescue path.
 
-numpy          # foley synthesis, the mixer, forced alignment, rescue_video
-Pillow         # import: PIL   contact sheets, the animatic, feed composites
-PyYAML         # import: yaml  the rubric, the composition axes, siting, voices
-requests       # the Gemini TTS call and every fetch a script makes
+numpy==2.4.6          # foley synthesis, the mixer, forced alignment, rescue_video
+Pillow==12.3.0        # import: PIL   contact sheets, the animatic, feed composites
+PyYAML==6.0.3         # import: yaml  the rubric, the composition axes, siting, voices
+requests==2.34.2      # the Gemini TTS call and every fetch a script makes

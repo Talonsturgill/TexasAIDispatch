@@ -88,10 +88,13 @@ def treatment_assets(rows):
         entries = (board.get("story_art") or {}).get("entries", [])
         if len(entries) != 2:
             raise ValueError("two-treatment assignment needs both actual generated raster assets")
+        import authored_story_art
+        authored = authored_story_art.selected(board)
+        root = REPO.resolve() if authored else public
         identities = set()
         for entry in entries:
-            path = (public / entry["file"]).resolve()
-            if not path.is_relative_to(public) or digest(path) != entry.get("sha256"):
+            path = (root / entry["file"]).resolve()
+            if not path.is_relative_to(root) or digest(path) != entry.get("sha256"):
                 raise ValueError("treatment raster asset is missing or changed")
             identities.add(entry["sha256"])
             result[str(path)] = bound(path)
@@ -100,8 +103,8 @@ def treatment_assets(rows):
     return list(result.values())
 
 
-def required_inputs(data, role):
-    if data.get("agent_contracts") != contracts(role):
+def required_inputs(data, role, expected_contracts=None):
+    if data.get("agent_contracts") != (contracts(role) if expected_contracts is None else expected_contracts):
         raise ValueError("assignment lacks its current complete role and contract bindings")
     if role == "researcher" or (role == "validator" and "inputs" in data):
         if not isinstance(data.get("inputs"), list) or not data["inputs"]:
@@ -282,8 +285,8 @@ def audit_session(path, through=None):
             "completeness": "direct local sessions only; missing/remote sessions and billing remain unknown"}
 
 
-def measurements(runs):
-    cfg = policy()
+def measurements(runs, cfg=None):
+    cfg = policy() if cfg is None else cfg
     baseline, editions = [], []
     for path in sorted(Path(runs).glob("*/run_state.json")):
         state = read(path)

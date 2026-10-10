@@ -1,0 +1,27 @@
+{
+  "version": "claude-sonnet-v1",
+  "authorized_at": "2026-10-09",
+  "measurement_editions": 5,
+  "baseline_editions": ["2026-10-08", "2026-10-09"],
+  "primary": {"model": "claude-sonnet-5-5", "effort": "medium"},
+  "schedule": {"timezone": "America/New_York", "daily_time": "03:00"},
+  "context": "isolated compact hash-bound packets; no recursive agents",
+  "artwork": "fresh original authored Remotion, SVG, CSS-depth or Three.js scenes",
+  "roles": {
+    "researcher": {"agent": "researcher", "model": "claude-haiku-5-5", "effort": "high", "resource": "research_agents"},
+    "validator": {"agent": "validator", "model": "claude-opus-5-5", "effort": "high", "resource": "validator_agents"},
+    "scene-builder": {"agent": "scene-builder", "model": "claude-opus-5-5", "effort": "high", "resource": "reboards"},
+    "storyboard-critic": {"agent": "storyboard-critic", "model": "claude-opus-5-5", "effort": "high", "resource": "storyboard_critics"},
+    "vo-director": {"agent": "vo-director", "model": "claude-haiku-5-5", "effort": "high", "resource": "voice_directors"},
+    "picture": {"agent": "scorer", "model": "claude-sonnet-5-5", "effort": "medium", "resource": "scorer_calls"},
+    "story": {"agent": "scorer", "model": "claude-sonnet-5-5", "effort": "medium", "resource": "scorer_calls"},
+    "sound": {"agent": "scorer", "model": "claude-sonnet-5-5", "effort": "medium", "resource": "scorer_calls"}
+  },
+  "sources": [
+    "https://code.claude.com/docs/en/sub-agents",
+    "https://code.claude.com/docs/en/model-config",
+    "https://code.claude.com/docs/en/routines"
+  ],
+  "accounting": "Record actual transcript usage, models, requested and observed effort, phase and worker. Account billing remains unknown unless the host provides it. Preserve separate external-provider telemetry.",
+  "quality": "Retain the current rubric, independent exact-film reviews, modern engagement observations and every mandatory shipment gate. Historical editions and frozen charges remain unchanged."
+}

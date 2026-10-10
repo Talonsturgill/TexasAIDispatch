@@ -16,6 +16,18 @@ Never merge red CI or overwrite newer published artifacts.
 
 ## Observed agent efficiency
 
+For the Claude host, use only the actual root and direct-leaf transcript files for this run:
+
+```sh
+python scripts/claude_runtime.py audit --session <actual-root-transcript> --session <actual-leaf-transcript> --since <actual-run-start-UTC> --phases out/dispatch/claude-phases.jsonl --out out/dispatch/claude-usage.private.json
+python scripts/claude_runtime.py measure --out out/dispatch/claude-efficiency-measurements.json
+```
+
+Keep this private. Deduplicate API identities, separate cache creation/read from uncached input,
+and retain unknown role/effort/billing where the host omits them. External provider telemetry and
+controller charges remain separate. Use the existing next-five-edition measurement command.
+The Codex transcript reader below applies only to the Codex host.
+
 For current agent-runtime editions, at recovery and accepted shipment collect the available
 local root and direct-child token counters privately. Use the exact session path and UTC
 checkpoint time. If a local session is unavailable, record unknown accounting rather than

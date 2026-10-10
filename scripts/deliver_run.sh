@@ -176,6 +176,12 @@ for f in storyboard.json story_selection.json claims.json captions.json words.js
          render-manifest.json feed-composite.json feed-composite.png; do
   [ -f "$OUT/$f" ] && cp "$OUT/$f" "$DEST/$f"
 done
+python3 - "$OUT/storyboard.json" "$DEST" <<'PY_AUTHORED_ART'
+import sys
+sys.path.insert(0, 'scripts')
+from authored_story_art import package
+package(sys.argv[1], sys.argv[2])
+PY_AUTHORED_ART
 python3 - "$OUT" "$DEST" <<'PY_ALIGNMENT'
 import sys
 sys.path.insert(0, 'scripts')

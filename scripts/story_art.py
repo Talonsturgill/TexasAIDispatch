@@ -20,6 +20,9 @@ def fingerprint(value):return hashlib.sha256(canonical(value).encode()).hexdiges
 
 
 def request_problems(board):
+    import authored_story_art
+    if authored_story_art.selected(board):
+        return authored_story_art.request_problems(board)
     cfg=read(POLICY); plan=board.get('story_art') or {}
     if plan.get('version')!=cfg['version']:return ['current film requires fresh-story-art-v1']
     rows=plan.get('requests')
@@ -40,6 +43,9 @@ def request_problems(board):
 
 
 def problems(board,repo=REPO):
+    import authored_story_art
+    if authored_story_art.selected(board):
+        return authored_story_art.problems(board,repo)
     errors=request_problems(board)
     if errors:return errors
     cfg=read(POLICY); plan=board['story_art']; entries=plan.get('entries',[])
@@ -88,6 +94,9 @@ def problems(board,repo=REPO):
 
 
 def charge_problems(board,root):
+    import authored_story_art
+    if authored_story_art.selected(board):
+        return authored_story_art.charge_problems(board,root)
     if board.get('reference_only') is True:return []
     try:
         state=read(Path(root)/'run_state.json')
@@ -101,6 +110,9 @@ def charge_problems(board,root):
 
 
 def paths(board,public=PUBLIC):
+    import authored_story_art
+    if authored_story_art.selected(board):
+        return authored_story_art.paths(board,Path(public).resolve().parents[1])
     return [Path(public)/row['file'] for row in (board.get('story_art') or {}).get('entries',[])]
 
 
@@ -119,7 +131,11 @@ def stage(board_path,repo=REPO):
 
 def reserve(board_path,state_path,request_id):
     from run_controller import reserve as charge,read_state
-    board=read(board_path);errors=request_problems(board)
+    board=read(board_path)
+    import authored_story_art
+    if authored_story_art.selected(board):
+        raise ValueError('Original source authoring uses the prior builder reservation; never charge a fictional ImageGen call')
+    errors=request_problems(board)
     if errors:raise ValueError('; '.join(errors))
     req=next(r for r in board['story_art']['requests'] if r['id']==request_id)
     ok,message=charge(Path(state_path),{'image_generations':1},'Fresh ImageGen '+request_id+' request '+fingerprint(req))
@@ -129,7 +145,11 @@ def reserve(board_path,state_path,request_id):
 
 
 def record(board_path,source,request_id,generation_id,generated_at,charge_path):
-    board=read(board_path);errors=request_problems(board)
+    board=read(board_path)
+    import authored_story_art
+    if authored_story_art.selected(board):
+        raise ValueError('Use authored_story_art.py record for actual source creation, never raster generation metadata')
+    errors=request_problems(board)
     if errors:raise ValueError('; '.join(errors))
     req=next(r for r in board['story_art']['requests'] if r['id']==request_id)
     target=PUBLIC/req['file'];target.parent.mkdir(parents=True,exist_ok=True)

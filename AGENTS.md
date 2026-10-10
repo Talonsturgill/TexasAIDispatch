@@ -1,5 +1,9 @@
 # Dispatch worker routing
 
+On a Claude routine use prompts/claude_routine.md and config/claude_runtime.json instead of
+Codex collaboration arguments. The owner's October 9th migration authorizes this explicit
+Sonnet host route and fresh authored artwork. Retain all historical evidence and quality gates.
+
 For an active Dispatch production routine, read knowledge/craft/AGENT_RUNTIME.md and
 config/agent_runtime.json. These govern the existing isolated assignments from the effective
 date. Preserve the saved director model, schedule, frozen envelope and actual charged failures.
