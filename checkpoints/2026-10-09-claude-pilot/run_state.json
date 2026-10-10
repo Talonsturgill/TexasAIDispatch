@@ -137,6 +137,14 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "resource": "tts_calls",
       "to": 4
+    },
+    {
+      "at": "2026-10-10T19:09:44.515830Z",
+      "ceiling": 12,
+      "from": 4,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 5
     }
   ],
   "events": [
@@ -1776,6 +1784,24 @@
       "repair_revision": "b7492c72486369be4adbbb4f9c75253b99e6ca7fec5a1cfbae42cfb47202b4c4",
       "repair_scope": "narration-performance",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-10T19:09:44.515873Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 5,
+      "resource": "tts_calls",
+      "was": 4
+    },
+    {
+      "at": "2026-10-10T19:09:44.515885Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -1791,7 +1817,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 10,
-    "tts_calls": 4,
+    "tts_calls": 5,
     "validator_agents": 1,
     "voice_directors": 1
   },
@@ -1799,7 +1825,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "5b2cdb1bf683b9cbc353d521dc7de42df58d4cd228020d3196882b1a94d72836",
+    "original_private_state_sha256": "d4bab1d9075c3aa6f931de6a554bb1f9fd5158e72ff6db4dfedf4f6b435897ac",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1827,7 +1853,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T19:09:35.578469Z",
+  "updated_at": "2026-10-10T19:09:44.515886Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -1841,7 +1867,7 @@
     "research_agents": 1,
     "scorer_calls": 0,
     "storyboard_critics": 10,
-    "tts_calls": 4,
+    "tts_calls": 5,
     "validator_agents": 1,
     "voice_directors": 1
   }
