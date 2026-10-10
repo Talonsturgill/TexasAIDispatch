@@ -17,6 +17,16 @@
     "validator_agents": 2,
     "voice_directors": 2
   },
+  "escalations": [
+    {
+      "at": "2026-10-10T03:44:11.606503Z",
+      "ceiling": 7,
+      "from": 3,
+      "note": "fourth bounded code review of both treatments after the camera-only third correction, same independent critic",
+      "resource": "storyboard_critics",
+      "to": 4
+    }
+  ],
   "events": [
     {
       "at": "2026-10-10T01:22:35.435868Z",
@@ -559,6 +569,24 @@
       "repair_revision": "c9f640f0de4f0a5800b039d5cb7e9fe24e47086c7ec26adc8597ae012f8d2aeb",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-10T03:44:11.606543Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "fourth bounded code review of both treatments after the camera-only third correction, same independent critic",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-10-10T03:44:11.606554Z",
+      "kind": "reserved",
+      "note": "fourth bounded code review of both treatments after the camera-only third correction, same independent critic",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -573,7 +601,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 3,
+    "storyboard_critics": 4,
     "tts_calls": 2,
     "validator_agents": 1,
     "voice_directors": 1
@@ -582,7 +610,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "31ce77176e7cd2eff0800f66e41f8c02a91b47fef9bf87c6135dcfdbf139a25e",
+    "original_private_state_sha256": "dab6462d6efe07b79bcecac3671ec6ba3c8b510b7c7c4f6e2163310492f529e1",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -610,7 +638,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T03:44:02.277354Z",
+  "updated_at": "2026-10-10T03:44:11.606557Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -623,7 +651,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 3,
+    "storyboard_critics": 4,
     "tts_calls": 0,
     "validator_agents": 1,
     "voice_directors": 0
