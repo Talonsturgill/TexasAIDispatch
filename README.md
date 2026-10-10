@@ -3,14 +3,16 @@
 A daily narrated 2.5D video about AI in Texas. Remotion engine, hand-authored SVG, a Texas art
 library, and a routine that ships one every day.
 
-The automation is bounded by `config/run_limits.json` and `scripts/run_controller.py`. A run ends
-as either a hash-bound `publishable` package or a durable playable `needs_review` package. It can
+The automation is bounded by `config/run_limits.json` and `scripts/run_controller.py`. A production
+run completes only as `shipped`. A hash-bound `publishable` package authorizes release but leaves
+the controller open in `publishing`; a playable review cut is a durable checkpoint under
+`runs/review/`, not a production outcome. Rehearsals retain the legacy `needs_review` result, and
+an older production ledger stopped there must be reopened without resetting its usage. A run can
 spend at most five three-judge panels; after panel five the controller permits hard-fail and
 deterministic cleanup only, never a sixth panel. Five normal renders, one cleanup render, and one
-artifact-rescue render are separately bounded. A run cannot become terminal without an exact MP4,
-and review cuts persist under `runs/review/`. A failed replacement preserves the immutable
-last-good cut; if none exists, the renderer automatically creates a review-only reel from the
-inspected animatic or timed storyboard cards. Music is opt-in; no bed is the default.
+artifact-rescue render are separately bounded. A failed replacement preserves the immutable
+last-good cut; if none exists, the renderer creates a review-only reel from the inspected animatic
+or timed storyboard cards while production remains active. Music is opt-in; no bed is the default.
 
 Sibling of [TexasAIDocket](https://github.com/Talonsturgill/TexasAIDocket), which keeps the
 public record and the site. This repo writes exactly one file there: the videos feed.

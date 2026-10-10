@@ -22,9 +22,10 @@ rather than living in a chat or settings box nobody diffs. The local checkout is
 attached. The trigger falls back to `main` on GitHub only when no checkout is available.
 
 The task runs autonomously after the morning message, but the Mac, network connection, and Codex
-app must remain available until the run reaches `publishable` or `needs_review`. A hosted
-scheduled task can use the same pointer later, but it needs its own environment and credentials;
-it cannot read the local workspace secret.
+app must remain available until the production run reaches `shipped`. `publishable` authorizes
+release and keeps the controller open in `publishing`; a review package is only a durable
+checkpoint. A hosted scheduled task can use the same pointer later, but it needs its own
+environment and credentials; it cannot read the local workspace secret.
 
 **Connectors:** Gmail, for the draft. Nothing else is required.
 
@@ -83,8 +84,9 @@ gates are present. The remediation adds:
   that preserves any judge's hard fail;
 - a locked post-panel-five cleanup mode, one cleanup render, and one last-resort full-render
   attempt;
-- a no-empty-run invariant: every terminal state owns an exact MP4, while below-bar cuts persist
-  under `runs/review/` without touching the shipped feed; each successful cut is snapshotted, and
+- a no-empty-run invariant: every retained checkpoint owns an exact MP4, while below-bar cuts
+  persist under `runs/review/` without touching the shipped feed or ending production; each
+  successful cut is snapshotted, and
   a failed renderer falls back to an inspected-animatic upscale or timed storyboard-card reel that
   is mechanically review-only;
 - a run-wide four-call voice quota instead of a per-batch suggestion;
