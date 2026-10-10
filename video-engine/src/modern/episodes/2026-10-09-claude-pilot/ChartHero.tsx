@@ -32,7 +32,7 @@ export type CitationKind = 'literature'|'guidelines'|'other';
 export type ChartHeroProps =
  | {part:'chart'; seed?:number}
  | {part:'question'; typed:number; plain?:number; lift?:number}
- | {part:'answer'; sources?:number; ring?:number; limits?:number; limitText?:number; lift?:number}
+ | {part:'answer'; sources?:number; chipsOut?:[number,number,number]; sourcesGlow?:number; slotGlow?:number; ring?:number; limits?:number; limitText?:number; lift?:number}
  | {part:'citation'; kind:CitationKind; lift?:number; glow?:number}
  | {part:'tag'; tag:TagId; swing?:number; second?:number; drop?:number; side?:'left'|'right'}
  | {part:'thread'; from:[number,number]; to:[number,number]; reach:number};
@@ -231,7 +231,8 @@ const Tag:React.FC<{c:Pal;tag:TagId;swing:number;second:number;drop:number;side:
 };
 
 /** The returned answer. Its Sources slot fills when the citations arrive; its Accuracy slot stays empty. */
-const Answer:React.FC<{c:Pal;sources:number;ring:number;limits:number;limitText:number;lift:number}> = ({c,sources,ring,limits,limitText,lift}) => {
+/** chipsOut hides a chip while its citation card is out of the slot; sourcesGlow and slotGlow are the visible holds. */
+const Answer:React.FC<{c:Pal;sources:number;chipsOut:[number,number,number];sourcesGlow:number;slotGlow:number;ring:number;limits:number;limitText:number;lift:number}> = ({c,sources,chipsOut,sourcesGlow,slotGlow,ring,limits,limitText,lift}) => {
  const [W,H]=HERO_SIZE.answer;
  const bars=[[20,66,206],[20,92,164],[20,118,190]];
  const chips=[c.hero,mix(c.midground,c.ink,.25),c.accent];
@@ -244,16 +245,18 @@ const Answer:React.FC<{c:Pal;sources:number;ring:number;limits:number;limitText:
   {bars.map((b,i)=><rect key={i} x={b[0]} y={b[1]-10} width={b[2]} height={10} rx={4} fill={mix(c.paper,c.ink,.32)}/>)}
   {/* Sources slot: three source-type chips slide in as the citations arrive */}
   <g data-subject="sources-slot">
-   <path d={handRect(16,140,152,92,10,19,1.2)} fill={mix(c.paper,c.hero,.08+.1*s)} stroke={c.hero} strokeWidth={2.5}/>
+   {sourcesGlow>0&&<rect x={6} y={130} width={172} height={112} rx={16} fill={c.hero} opacity={.35*clamp(sourcesGlow)} filter="url(#ch-soft)"/>}
+   <path d={handRect(16,140,152,92,10,19,1.2)} fill={mix(c.paper,c.hero,.08+.1*s+.12*clamp(sourcesGlow))} stroke={c.hero} strokeWidth={2.5}/>
    <Label x={26} y={170} size={27} fill={mix(c.hero,c.ink,.35)}>Sources</Label>
-   {chips.map((col,i)=><g key={i} opacity={clamp(s*3-i)} transform={`translate(${30+i*44} ${186+12*(1-clamp(s*3-i))})`}>
+   {chips.map((col,i)=><g key={i} opacity={clamp(s*3-i)*(1-clamp(chipsOut[i]))} transform={`translate(${30+i*44} ${186+12*(1-clamp(s*3-i))-14*clamp(chipsOut[i])})`}>
     <path d={handRect(0,0,36,30,6,40+i,1)} fill={col} stroke={c.ink} strokeOpacity={.35} strokeWidth={1.5}/>
     <path d="M7 10H29M7 19H22" stroke="#ffffff" strokeOpacity={.8} strokeWidth={3} strokeLinecap="round"/>
    </g>)}
   </g>
   {/* Accuracy slot: drawn empty and never filled */}
   <g data-subject="accuracy-slot unmarked-answer">
-   <path d={handRect(178,140,152,92,10,21,1.2)} fill="none" stroke={c.accent} strokeWidth={3} strokeDasharray="9 7"/>
+   {slotGlow>0&&<rect x={168} y={130} width={172} height={112} rx={16} fill={c.accent} opacity={.3*clamp(slotGlow)} filter="url(#ch-soft)"/>}
+   <path d={handRect(178,140,152,92,10,21,1.2)} fill={slotGlow>0?mix(c.paper,c.accent,.12*clamp(slotGlow)):'none'} stroke={c.accent} strokeWidth={3+1.5*clamp(slotGlow)} strokeDasharray="9 7"/>
    <Label x={188} y={170} size={25} fill={mix(c.accent,c.ink,.35)}>Accuracy</Label>
    <circle cx={ANSWER_ACCURACY[0]} cy={ANSWER_ACCURACY[1]+18} r={17} fill="none" stroke={c.accent} strokeWidth={3} strokeDasharray="6 5"/>
    {ring>0&&<circle cx={ANSWER_ACCURACY[0]} cy={ANSWER_ACCURACY[1]+18} r={17+22*clamp(ring)} fill="none" stroke={c.accent} strokeWidth={3} opacity={.7*(1-clamp(ring))}/>}
@@ -296,7 +299,7 @@ const Citation:React.FC<{c:Pal;kind:CitationKind;lift:number;glow:number}> = ({c
   <Shadow w={W} h={H} lift={lift} c={c}/>
   {glow>0&&<rect x={-10} y={-10} width={W+20} height={H+20} rx={20} fill={tone} opacity={.35*clamp(glow)} filter="url(#ch-soft)"/>}
   <path d={handRect(0,14,W,H-14,12,seed)} fill={mix(tone,c.paper,.82)} stroke={mix(tone,c.ink,.35)} strokeWidth={2.5} filter="url(#ch-grain)"/>
-  <path d={handRect(6+wob(seed,1,3),0,302+wob(seed,2,4),50,11,seed+1,1.4)} fill={tone} stroke={mix(tone,c.ink,.4)} strokeWidth={2}/>
+  <path d={handRect(4+wob(seed,1,2),0,312+wob(seed,2,2),50,11,seed+1,1.4)} fill={tone} stroke={mix(tone,c.ink,.4)} strokeWidth={2}/>
   <Label x={18} y={34} size={23} fill="#ffffff">{spec.label}</Label>
   <Glyph kind={kind} ink={mix(tone,c.ink,.3)} x={22} y={80}/>
   {[0,1,2].map(i=><rect key={i} x={128} y={86+i*24} width={128-i*26+wob(seed,9+i,8)} height={9} rx={4} fill={mix(tone,c.ink,.2)} opacity={.4}/>)}
@@ -324,7 +327,7 @@ export const ChartHero:React.FC<ChartHeroProps> = (props) => {
  switch(props.part){
  case 'chart':body=<Chart c={c} seed={props.seed??3}/>;break;
  case 'question':body=<Question c={c} typed={props.typed} plain={props.plain??0} lift={props.lift??0}/>;break;
- case 'answer':body=<Answer c={c} sources={props.sources??0} ring={props.ring??0} limits={props.limits??0} limitText={props.limitText??1} lift={props.lift??0}/>;break;
+ case 'answer':body=<Answer c={c} sources={props.sources??0} chipsOut={props.chipsOut??[0,0,0]} sourcesGlow={props.sourcesGlow??0} slotGlow={props.slotGlow??0} ring={props.ring??0} limits={props.limits??0} limitText={props.limitText??1} lift={props.lift??0}/>;break;
  case 'citation':body=<Citation c={c} kind={props.kind} lift={props.lift??0} glow={props.glow??0}/>;break;
  case 'tag':body=<Tag c={c} tag={props.tag} swing={props.swing??0} second={props.second??1} drop={props.drop??0} side={props.side??'right'}/>;break;
  case 'thread':body=<Thread c={c} from={props.from} to={props.to} reach={props.reach}/>;break;

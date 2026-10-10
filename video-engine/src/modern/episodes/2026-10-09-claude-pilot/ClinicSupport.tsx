@@ -28,7 +28,7 @@ export type ClinicSupportProps =
  | {part:'desk'; stage:ClinicStage}
  | {part:'workstation'; glow?:number}
  | {part:'keyboard'; down?:number[]}
- | {part:'hands'; side:'L'|'R'; lift?:number[]; reach?:number}
+ | {part:'hands'; side:'L'|'R'; lift?:number[]; reach?:number; elbow?:Pt; shoulder?:Pt}
  | {part:'credential'; dots:number}
  | {part:'boundary'; w:number; h:number; glow:number; lock:number; slot?:number; lockY?:number}
  | {part:'tool'; stage:ClinicStage; glow:number}
@@ -213,35 +213,46 @@ const Keyboard:React.FC<{c:Pal;down:number[]}> = ({c,down}) => <g data-subject="
  }))}
 </g>;
 
+/** Rest positions of the arm in hand-local units: the elbow sits off the desk toward the lens and
+ * the shoulder is far below the frame, so every arm leaves the bottom edge in every shot. */
+export const ARM_REST={elbow:[110,700] as Pt,shoulder:[180,1700] as Pt};
+/** A tapered quad from a to b, wa wide at a and wb wide at b. */
+function limb(a:Pt,b:Pt,wa:number,wb:number):string{
+ const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L;
+ return `M${a[0]+nx*wa/2} ${a[1]+ny*wa/2}L${b[0]+nx*wb/2} ${b[1]+ny*wb/2}L${b[0]-nx*wb/2} ${b[1]-ny*wb/2}L${a[0]-nx*wa/2} ${a[1]-ny*wa/2}Z`;
+}
 /**
- * One anonymous hand and forearm in a short scrub sleeve, seen from the seated position, fingers
- * pointing away. Local (0,0) is the index fingertip. `lift[i]` raises a finger off its key (0 is
- * contact, with a contact shadow); `reach` extends the index for a push and curls the others.
- * The wrist sits on the keyboard's front edge. No face, no name, no jewellery, no identity.
+ * One anonymous arm in a short scrub sleeve, seen from the seated position, fingers pointing away.
+ * Local (0,0) is the index fingertip. `lift[i]` raises a finger off its key (0 is contact, with a
+ * contact shadow); `reach` extends the index for a push and curls the others. The forearm runs
+ * from the wrist to `elbow` and pivots there; the upper arm runs on to `shoulder`, far below the
+ * frame, so the limb always leaves the picture. No face, no name, no jewellery, no identity.
  */
-const Hand:React.FC<{side:'L'|'R';lift:number[];reach:number}> = ({side,lift,reach}) => {
+const Hand:React.FC<{side:'L'|'R';lift:number[];reach:number;elbow:Pt;shoulder:Pt}> = ({side,lift,reach,elbow,shoulder}) => {
  const r=clamp(reach);
  const tips=FINGER_TIPS.map(([x,y],i)=>[x,y+(i===0?-26*r:22*r)+18*clamp(lift[i]??0)] as Pt);
  const knuckles:Pt[]=[[8,108],[68,100],[124,104],[176,118]];
  const wrist:Pt[]=[[24,214],[168,222]];
+ const W:Pt=[96,220];
+ const hem:Pt=[elbow[0]+(shoulder[0]-elbow[0])*.42,elbow[1]+(shoulder[1]-elbow[1])*.42];
  const fingerW=[30,31,29,25];
  const body=<g>
-  {/* forearm then sleeve hem; both widen toward the camera */}
-  <path d={`M${wrist[0][0]-6} ${wrist[0][1]}C${-10} 300 ${-40} 380 ${-70} 470L${250} 470C${226} 380 ${196} 300 ${wrist[1][0]+4} ${wrist[1][1]}Z`} fill="url(#cs-skin)"/>
-  <path d={`M-62 360Q96 330 252 362L270 470H-84Z`} fill="url(#cs-sleeve)" stroke={SLEEVE_DARK} strokeWidth={2}/>
-  <path d="M-58 366Q96 338 250 368" stroke="#ffffff" strokeOpacity={.35} strokeWidth={3} fill="none"/>
+  {/* upper arm and sleeve run off the frame; the elbow joins them to a forearm that pivots */}
+  <path d={limb(elbow,shoulder,200,250)} fill="url(#cs-skin)"/>
+  <path d={limb(hem,shoulder,232,272)} fill="url(#cs-sleeve)" stroke={SLEEVE_DARK} strokeWidth={2}/>
+  <path d={limb(hem,[hem[0]+(shoulder[0]-hem[0])*.04,hem[1]+(shoulder[1]-hem[1])*.04],236,236)} fill={SLEEVE_DARK} opacity={.5}/>
+  <circle cx={elbow[0]} cy={elbow[1]} r={100} fill="url(#cs-skin)"/>
+  <path d={limb(W,elbow,154,196)} fill="url(#cs-skin)"/>
+  <path d={limb([W[0]+30,W[1]+20],[elbow[0]+34,elbow[1]-30],20,26)} fill={SKIN_DARK} opacity={.18}/>
   {/* back of the hand */}
   <path d={`M${knuckles[0][0]-16} ${knuckles[0][1]+4}Q${92} ${86} ${knuckles[3][0]+16} ${knuckles[3][1]+2}`
    +`L${wrist[1][0]+6} ${wrist[1][1]}Q${96} ${236} ${wrist[0][0]-8} ${wrist[0][1]}Z`} fill="url(#cs-skin)" stroke={SKIN_DARK} strokeWidth={2}/>
-  {/* tendons and knuckle highlights from the window key */}
   {knuckles.map(([x,y],i)=><g key={i}>
    <path d={`M${x} ${y+12}Q${(x+96)/2} ${y+60} ${92+i*6} ${210}`} stroke={SKIN_DARK} strokeOpacity={.22} strokeWidth={3} fill="none"/>
    <ellipse cx={x-2} cy={y+2} rx={11} ry={6} fill={SKIN_LIGHT} opacity={.7}/>
   </g>)}
-  {/* thumb along the inner side, resting toward the space bar */}
   <path d={`M${-8} 200Q${-46} 170 ${-62} ${120-20*r}`} stroke={SKIN_DARK} strokeWidth={32} strokeLinecap="round" fill="none"/>
   <path d={`M${-8} 200Q${-46} 170 ${-62} ${120-20*r}`} stroke="url(#cs-skin)" strokeWidth={27} strokeLinecap="round" fill="none"/>
-  {/* fingers from knuckles to tips; a lifted finger leaves its key and loses its contact shadow */}
   {tips.map(([tx,ty],i)=>{const [kx,ky]=knuckles[i];const curled=i>0&&r>0;const mid:Pt=[(kx+tx)/2,(ky+ty)/2+(curled?10*r:-4)];
    const down=clamp(lift[i]??0)<.05&&!(i>0&&r>.3);
    return <g key={'f'+i}>
@@ -392,7 +403,7 @@ export const ClinicSupport:React.FC<ClinicSupportProps> = (props) => {
  case 'desk':body=<Desk c={c} stage={props.stage}/>;break;
  case 'workstation':body=<Workstation c={c} glow={props.glow??0}/>;break;
  case 'keyboard':body=<Keyboard c={c} down={props.down??[]}/>;break;
- case 'hands':body=<Hand side={props.side} lift={props.lift??[0,0,0,0]} reach={props.reach??0}/>;break;
+ case 'hands':body=<Hand side={props.side} lift={props.lift??[0,0,0,0]} reach={props.reach??0} elbow={props.elbow??ARM_REST.elbow} shoulder={props.shoulder??ARM_REST.shoulder}/>;break;
  case 'credential':body=<Credential c={c} dots={props.dots}/>;break;
  case 'boundary':body=<Boundary c={c} w={props.w} h={props.h} glow={props.glow} lock={props.lock} slot={props.slot??.62} lockY={props.lockY??.8}/>;break;
  case 'tool':body=<Tool c={c} stage={props.stage} glow={props.glow}/>;break;
