@@ -2156,15 +2156,15 @@ def main() -> int:
                     plan = load_json(a.repair_plan)
                     from repair_guard import structural_hero_plan_ready, minimum_action_plan_failure
                     minimum_action_failed = minimum_action_plan_failure(read_state(state_path), plan)
-                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, mandatory_reason, replay
+                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, mandatory_reason, replay
                     current = read_state(state_path)
                     if (any(e.get("kind") == ADOPTION for e in current["events"])
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON}
                         review_coverage = mandatory_reason(current, plan, evidence_text) == COVERAGE_REASON
-                        modern_code_repair = mandatory_reason(current, plan, evidence_text) == MODERN_CODE_REASON
+                        modern_code_repair = mandatory_reason(current, plan, evidence_text) in {MODERN_CODE_REASON, PIVOT_REASON}
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
                     context_ready = (plan.get("repair_scope") == review_context.SCOPE and
                                      not review_context.plan_problems(state_path, plan))

@@ -182,11 +182,14 @@ def begin_repair(path, plan_path):
     plan = load_json(plan_path)
     from repair_guard import plan_problems, envelope_problems
     from modern_code_recovery import REASON as MODERN_CODE_REASON
-    if plan.get('completion_reason') == MODERN_CODE_REASON:
+    from pivot_recovery import REASON as PIVOT_REASON
+    if plan.get('completion_reason') in {MODERN_CODE_REASON, PIVOT_REASON}:
         from autonomous_completion import mandatory_reason
         from modern_code_recovery import file_problems
+        if plan.get('completion_reason') == PIVOT_REASON:
+            from pivot_recovery import file_problems
         try:
-            if mandatory_reason(state, plan, Path(plan['failure_evidence']).read_text()) != MODERN_CODE_REASON:
+            if mandatory_reason(state, plan, Path(plan['failure_evidence']).read_text()) != plan['completion_reason']:
                 return False, 'modern code repair requires its exact independent rejection'
             errors = file_problems(plan)
         except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -261,7 +264,7 @@ def begin_repair(path, plan_path):
         state["active_repair"]["existing_critic_reservations"] = plan["existing_critic_reservations"]
     if scope in {NARRATION_SCOPE, CONTEXT_SCOPE}:
         state["active_repair"].update(frozen_inputs=frozen_inputs, plan_identity=plan_identity(plan))
-    if plan.get('completion_reason') == MODERN_CODE_REASON:
+    if plan.get('completion_reason') in {MODERN_CODE_REASON, PIVOT_REASON}:
         state['active_repair']['modern_code_plan_identity'] = plan_identity(plan)
     state["phase"] = "active_repair"
     state.pop("release_status", None)
@@ -297,7 +300,8 @@ def authorize_repair(path, plan_path):
         return False, error
     plan = proof["repair_plan"]
     from modern_code_recovery import REASON as MODERN_CODE_REASON, rebound_problems
-    if plan.get('completion_reason') == MODERN_CODE_REASON:
+    from pivot_recovery import REASON as PIVOT_REASON
+    if plan.get('completion_reason') in {MODERN_CODE_REASON, PIVOT_REASON}:
         if plan_identity(plan) != current.get('modern_code_plan_identity'):
             return False, 'modern code correction changed its bound plan beyond after hashes'
         errors = rebound_problems(plan)
