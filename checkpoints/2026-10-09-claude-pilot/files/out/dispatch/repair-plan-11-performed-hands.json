@@ -1,0 +1,48 @@
+{
+ "mechanism_id": "performed-hands-and-readable-subject-occupancy",
+ "failure_family": "human-action",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "standard",
+ "failed_film_sha256": "e8e786dc58f767d601230c421738b22ea0c5ee026ffad89313540676d8a2d487",
+ "root_cause": "The independent exact-film timed phone review (critic 17) returned revise with nine blocking defects. The hands never perform: finger pose is identical across the hook and the credential typing while the card slides and the dots appear on their own. The principal subjects are too small in s1 (question card about 50 px) and s4 (answer card about 75 px on an empty desk), the record lock is unreadable, the tool and hands read as flat placeholder shapes, and s2 cuts back to the identical opening wide for four seconds.",
+ "repair": "Redraw the human hands and the OpenEvidence tool as finished articulated art (knuckles, thumb, cuff, contact shadows; tool with seams, mouth slot, bevel, grounded shadow) and drive finger strikes from the board clock so each key strike moves the card and each masked dot. Enlarge the hook question card and the s4 answer card to at least the independent reviewer's occupancy figures, show the three citation cards fanning out of the Sources slot, bring the record lock into readable frame and open it, and open s2 on a different framing with the September 22nd tag landing within about 1.5 s. Narration, claims, measured captions, voice and mix do not change.",
+ "mechanism_change": "The human action changes from static hand sprites beside self-moving cards to a performed rig whose strikes cause the card travel, dots and slide, with large readable subjects and a new s2 framing.",
+ "expected_visible_result": "At phone size the hook shows a legible question card typed by visibly striking fingers and pushed into a drawn tool slot, the sign-in dots follow finger strikes, the s4 answer card fills at least 45 percent of frame width with citations leaving its Sources slot, and s2 opens on a new medium framing.",
+ "failure_evidence": "out/dispatch/phone-critic-current.json",
+ "failure_evidence_sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
+ "resources": {
+  "reboards": 1
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__storyboard.json",
+   "before_sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6"
+  },
+  {
+   "path": "out/dispatch/opening-a.json",
+   "before_path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-a.json",
+   "before_sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140"
+  },
+  {
+   "path": "out/dispatch/opening-b.json",
+   "before_path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-b.json",
+   "before_sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713"
+  },
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+   "before_sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f"
+  },
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+   "before_sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c"
+  },
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+   "before_sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b"
+  }
+ ]
+}

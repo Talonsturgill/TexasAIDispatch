@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T21:24:50.319153+00:00",
-  "note": "timed phone review r12 returned revise with 9 blocking defects; funding critic 17; timed animatic float fix retained; film A selected",
+  "saved_at": "2026-10-10T21:28:12.546581+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "b99b7d712e08825ed37b9c405cd382e62ff14a01a38012c20af28ac8b5cdd575",
-  "original_private_ledger_sha256": "b43430828bef545415d2a39f9f3554ec5b968be549530b267116cf1598b35231",
+  "ledger_sha256": "42b4966f72be3f499e4fcfb7f0dc493c80f6f3a797c67ff084d91c4976d64df3",
+  "original_private_ledger_sha256": "bb2f83f83782d275ffbf173f057dcf0da29d93cbd617f7d4cf0fd821fb419661",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -361,6 +361,12 @@
       "size": 79
     },
     {
+      "path": "out/dispatch/budget-audit/completion-capacity-r11-repair.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/budget-audit/completion-capacity-r11.log",
       "class": "scratch",
       "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
@@ -503,6 +509,12 @@
       "class": "scratch",
       "sha256": "9ceb47a6636f1d927e1ca8fb2f0347039e2ca20b5641a0f332167cda2bcdc892",
       "size": 1489
+    },
+    {
+      "path": "out/dispatch/budget-audit/production-budget-r11-repair.log",
+      "class": "scratch",
+      "sha256": "173754c1bf01d4730a8f9770d4db55ba07e130be18dc73c265f98f0a1442bcec",
+      "size": 1527
     },
     {
       "path": "out/dispatch/budget-audit/production-budget-r11.log",
@@ -701,6 +713,12 @@
       "class": "scratch",
       "sha256": "3ee0950a22d8f86eac5d96982120d9cbb004d9547322dfc8143c40292f9498d8",
       "size": 50147
+    },
+    {
+      "path": "out/dispatch/creative-assessments/7f3ba124ad69e9314531419d1cb933d64aa4d6a80e1ede592fcda09c254bab80.json",
+      "class": "scratch",
+      "sha256": "e82dcffd4deb1839aabb6a068c24ef463342830af32598e49cf3e34260d88e53",
+      "size": 10574
     },
     {
       "path": "out/dispatch/critic-assignment-r11.json",
@@ -1131,8 +1149,8 @@
     {
       "path": "out/dispatch/phone-critic-current.json",
       "class": "scratch",
-      "sha256": "f16da2c8ac93923374fddd528e0a22395b59c1dcb8b41477fca1cc3f440f25b5",
-      "size": 13323
+      "sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
+      "size": 22677
     },
     {
       "path": "out/dispatch/phone-critic-timed-r12.json",
@@ -3109,6 +3127,12 @@
       "size": 2521
     },
     {
+      "path": "out/dispatch/repair-plan-11-performed-hands.json",
+      "class": "scratch",
+      "sha256": "0d71ba84d3a834e2faa23c69469c7382284797c67bfb6e52fd19d9523fb43022",
+      "size": 4000
+    },
+    {
       "path": "out/dispatch/repair-plan-2.json",
       "class": "scratch",
       "sha256": "a7f0ebf02dedf507440b6299d643d109881362baca2c439d19e6d56833e739d3",
@@ -4075,6 +4099,42 @@
       "size": 157919
     },
     {
+      "path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-a.json",
+      "class": "scratch",
+      "sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
+      "size": 157114
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__opening-b.json",
+      "class": "scratch",
+      "sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713",
+      "size": 156377
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-11-baseline/out__dispatch__storyboard.json",
+      "class": "scratch",
+      "sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
+      "size": 157932
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+      "class": "scratch",
+      "sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
+      "size": 22798
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "class": "scratch",
+      "sha256": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
+      "size": 28326
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-11-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+      "class": "scratch",
+      "sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
+      "size": 35988
+    },
+    {
       "path": "out/dispatch/retained-failures/repair-2-baseline/config__modern_episode_registry.json",
       "class": "scratch",
       "sha256": "2bbb58a571ccbee7d392b01bc7eaad99d2c00384858bfb792e211c6df221e808",
@@ -4391,6 +4451,48 @@
       "class": "scratch",
       "sha256": "08dd59f731464efdeb61cb8c1a633062a60b4ac28bd6f07ac8ea068b8553f2d9",
       "size": 30958
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/CLASSIFICATION-NOTE.md",
+      "class": "scratch",
+      "sha256": "7307d6da90b4ab09dfa716b079b8e48ba54b1ea4b5423647c4990f5a8ab7642d",
+      "size": 2628
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/phone-critic-comparison-pass-film-a.json",
+      "class": "scratch",
+      "sha256": "f16da2c8ac93923374fddd528e0a22395b59c1dcb8b41477fca1cc3f440f25b5",
+      "size": 13323
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/phone-critic-timed.json",
+      "class": "scratch",
+      "sha256": "462fc3c59558f4bfea35046c98a1a49258962d5625a1618d34a7f6d977760c8e",
+      "size": 22677
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/preflight-contact-sheet.png",
+      "class": "scratch",
+      "sha256": "036d2f1783c267447eecffbd0b21e37b043e95f934af493009e9f3d3592b8d25",
+      "size": 944713
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/preflight-e8e786dc.mp4",
+      "class": "scratch",
+      "sha256": "e8e786dc58f767d601230c421738b22ea0c5ee026ffad89313540676d8a2d487",
+      "size": 241227
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/preflight.json",
+      "class": "scratch",
+      "sha256": "aacc9d69f4c0231b9d907506e929ba48cdfe009586c4fbf716b6599ee714d50e",
+      "size": 1894
+    },
+    {
+      "path": "out/dispatch/retained-failures/timed-phone-r12/storyboard.json",
+      "class": "scratch",
+      "sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6",
+      "size": 157932
     },
     {
       "path": "out/dispatch/retained-failures/unverified-v3-draft/autonomous_completion_v3.unverified.json",
