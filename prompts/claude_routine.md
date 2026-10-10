@@ -74,6 +74,13 @@ touches another checkout or an existing ledger, has no force option, and refuses
 Run `cloud_bootstrap.py --install` there for node_modules, then resume. Never initialise a second
 ledger for an edition that has a checkpoint.
 
+Before authorizing capture in a restored or nested worktree, establish a real registered clean
+Docket worktree at `<dispatch-checkout-parent>/TexasAIDocket`, starting at current origin/main.
+The capture helper runs housekeeping against that sibling and their shared parent. A symlink to
+the primary Docket checkout fails the bounded-workspace check. Preserve the primary checkout and
+all unrelated or dirty work; use this owned sibling for the narrow Dispatch feed release. Retain
+any failed path inspection and its charged reservation, then verify the normal housekeeping gate.
+
 Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
 the cloud host's UTC date does not select an Eastern edition. A terminal shipped run is immutable.
 The first owner-authorized migration test uses a
