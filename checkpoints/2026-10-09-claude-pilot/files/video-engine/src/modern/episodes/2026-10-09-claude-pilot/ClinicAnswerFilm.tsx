@@ -96,7 +96,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <At p={[716,952]}><ClinicSupport part="shelf" w={192}/></At>
    <At p={[342,400]}><ClinicSupport part="boundary" w={376} h={560} glow={scene.id==='s2'?glow:scene.id>'s2'?.55:0} dock={scene.id<'s2'?0:scene.id==='s2'?glow:1} slot={.69}/></At>
    <At p={[360,436]}><ChartHero part="chart" unlock={scene.id<'s3'?1:unlock} attached={scene.id==='s1'?attached:1} slot={scene.id==='s1'?send*(1-land*.5):.5}/></At>
-   <At p={[400,1022]}><ClinicSupport part="reader" blink={inS3?blink:contact?.2:0} badge={inS3?badge:scene.id>'s3'?1:0} showBadge={scene.id>='s3'}/></At>
+   <At p={[400,1022]}><ClinicSupport part="reader" blink={inS3?blink:contact?.2:0} badge={inS3?badge:scene.id>'s3'?1:0} showBadge={inS3}/></At>
    {/* facts already established hang from the rail at the left of the chart */}
    <Hang p={[132,450]} tag="announced" in={scene.id==='s2'?announced:scene.id>'s2'?1:0}/>
    <Hang p={[132,572]} tag="live" in={scene.id==='s2'?live:scene.id>'s2'?1:0}/>
@@ -119,7 +119,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  };
 
  // ---- treatment B: desk height, close to the keyboard, the reader and the propped chart ----
- const QB:Pt=[96,968],SLOT_B:Pt=[700,756],FRONT_B:Pt=[560,1000];
+ const QB:Pt=[96,968],SLOT_B:Pt=[700,756],FRONT_B:Pt=[420,960];
  const worldB=(extra:React.ReactNode=null)=>{
   let q:Pt=QB,qFlat=1,qs=.92,qTyped=hookTyped,qPlain=0,qShow=1;
   if(scene.id==='s1'||scene.id==='s2'){
@@ -148,11 +148,11 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <Hang p={[452,770]} tag="care" in={scene.id==='s6'?limitTags*1.2-.2:scene.id>'s6'?1:0} second={scene.id==='s6'?notPublished:1} s={.9}/>
    <Hang p={[700,560]} tag="evaluating" in={scene.id==='s8'?evalTag:0} s={.9}/>
    <At p={[-60,0]}><ClinicSupport part="keyboard" press={inS3?typed3:scene.id==='s1'?clamp(1-send)*hookTyped:0}/></At>
-   <At p={[650,1050]} s={1.45}><ClinicSupport part="reader" blink={inS3?blink:contact?.2:0} badge={inS3?badge:scene.id>'s3'?1:0} showBadge={scene.id>='s3'}/></At>
+   <At p={[730,1118]} s={1.3}><ClinicSupport part="reader" blink={inS3?blink:contact?.2:0} badge={inS3?badge:scene.id>'s3'?1:0} showBadge={inS3}/></At>
    {(scene.id!=='s1'||land>0)&&kinds.map((k,i)=>{
     const f=scene.id==='s1'?land:scene.id==='s4'?fan:1;
     const from:Pt=scene.id==='s1'?[SLOT_B[0]-20,SLOT_B[1]-20]:[FRONT_B[0]+40,FRONT_B[1]+20];
-    const to:Pt=[FRONT_B[0]+70+i*44,FRONT_B[1]-40+i*26];
+    const to:Pt=[FRONT_B[0]+150+i*40,FRONT_B[1]-70+i*22];
     return <At key={k} p={mixPt(from,to,ease(f))} s={.62} r={lerp(0,-12+i*10,ease(f))} flat={.7*ease(f)}>
      <ChartHero part="citation" kind={k} lift={1-ease(f)}/></At>;
    })}
@@ -236,7 +236,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   pic=<Cam f={[f[0],f[1]+(act==='enter-record'?-20*ease(glow):0)]} s={zoom*(act==='enter-record'?1+.04*ease(glow):1)}>{v==='a'?worldA():worldB()}</Cam>;
   break;}
  case 'credential-gate':{
-  const f:Pt=v==='a'?[460,930-60*ease(badge)]:[700,1000-40*ease(badge)];
+  const f:Pt=v==='a'?[460,930-60*ease(badge)]:[700,1040-40*ease(badge)];
   const chip=<g opacity={contact?1:0}>
    <At p={v==='a'?[540,1010]:[560,940]} s={v==='a'?1:.8}><path d="M0 0H232Q246 0 246 14V40Q246 54 232 54H0Z" fill={c.paper} stroke={c.hero} strokeWidth={3}/>
    <text x={16} y={37} fontFamily={FONT.body} fontSize={26} fontWeight={700} fill={c.ink}>Usual credentials</text></At></g>;
@@ -266,8 +266,8 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   <g data-view={shot.view} data-framing={shot.framing} data-clause={clause?.id} data-action={act} data-variant={v}
    transform={`translate(${flat?.x??0} ${flat?.y??0}) scale(${flat?.scale??1})`}>{pic}</g>
   <g data-disclosure="production_disclosure">
-   <path d="M44 214H520Q536 214 536 230V258Q536 274 520 274H44Z" fill={c.paper} opacity={.92}/>
-   <text x={60} y={254} fontFamily={FONT.body} fontSize={27} fontWeight={700} fill={c.ink}>{scene.production_disclosure??'Illustration'}</text>
+   <path d="M44 132H500Q516 132 516 148V172Q516 188 500 188H44Z" fill={c.paper} opacity={.92}/>
+   <text x={60} y={170} fontFamily={FONT.body} fontSize={26} fontWeight={700} fill={c.ink}>{scene.production_disclosure??'Illustration'}</text>
   </g>
  </svg>;
 };

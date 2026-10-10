@@ -19,9 +19,28 @@
     "scale": 1.0
   },
   "capture_2": {
-    "observed_by": "builder transcript, 2026-10-10T02:17:34Z onward",
-    "command": "stills.sh: remotion still $SP/bundle Dispatch ... --frame=N --scale=0.5 for each directed shot of both scratch boards",
-    "note": "Detected after the fact. The director messaged the builder to stop; the files preserved here are what existed when this record was made. A final addendum lists anything captured later."
+    "observed_by": "builder handoff and transcript, 2026-10-10T02:17Z onward",
+    "commands": [
+      "cd video-engine; npx --no-install remotion bundle --out-dir $SP/bundle --log=error  (6.3 s real, no output)",
+      "stills.sh: for each v in a b, remotion still $SP/bundle Dispatch $SP/stills/<v>-<shot>-<view>.png --props=$SP/inspect-<v>.json --frame=<f> --scale=0.5 --log=error"
+    ],
+    "measured_wall_time_s": {
+      "bundle": 6.3,
+      "half_scale_stills_loop": 84.7
+    },
+    "stills_produced": 30,
+    "stills_note": "The builder reports 30 PNGs. The last shot of each treatment was skipped because the frames list lacked a trailing newline.",
+    "bundle_listing": {
+      "files": 201,
+      "bytes": 113131212,
+      "combined_sha256": "e331c8a52a99867ab9bab50e8ab06e8342d83c622c4e8ff7395a49f27ad2f98b",
+      "note": "Regenerable output of the exact source bytes. Listing digest retained, the 109 MB bundle is not copied."
+    },
+    "inputs": "inspect-a.json and inspect-b.json with placeholder authored entries (sha256 'scratch').",
+    "builder_reported_hashes": {
+      "a-f030.png": "6eab132e57f2d01300583f683623e12383cf0ebb383c825d84a7ca6bd9c0b6dc"
+    },
+    "stop_message_sent": "yes, after the first still and while the stills loop was running; the builder reports no capture after it"
   },
   "late_charge": {
     "resource": "preflight_renders",
@@ -121,6 +140,112 @@
       "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s5-shot-1-share-grid.png",
       "sha256": "20f36b7121c1a422b73e53e7acb894f80c3e12b58486dd53741fd8288331a3b7",
       "bytes": 219682
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s5-shot-2-share-grid.png",
+      "sha256": "8537652a06ea2568c8753bcefc7bf220790cbdac1affb3c9f52b78839d64085f",
+      "bytes": 239527
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s6-shot-1-unmeasured-card.png",
+      "sha256": "079dc52aabed1ec25af45aff8c65bee8930247dd182f5c0334d0dfbf962c6c10",
+      "bytes": 230558
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s6-shot-2-unmeasured-card.png",
+      "sha256": "79bce7bddbf6afd84c76aade82701b00fcf2b09d14b1f070647ec45ae77193c8",
+      "bytes": 395994
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s7-shot-1-source-types.png",
+      "sha256": "7e383a7c63cefcf2a439ce30ea9083ac2b6c6f74fe4b5541996c8e7ed9d5aef8",
+      "bytes": 268078
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s7-shot-2-answer-close.png",
+      "sha256": "a9ecfa1aabb962ecddb86dc3514eabcb8acf6c7b21c89eb56a4a6c4ffae5b39b",
+      "bytes": 280651
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/a-s8-shot-1-answer-close.png",
+      "sha256": "35e1a3c618ee7b41d4e90cc7f365b0aff2ea3b62d69327843b628bd129bd5f3a",
+      "bytes": 311891
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s1-shot-1-desk-close.png",
+      "sha256": "2626fa856c1205a77d372dcc3b760619867e26b1b11e1076a3382df27238ddf5",
+      "bytes": 334571
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s1-shot-2-flow-wide.png",
+      "sha256": "9d87bb26b4e18dca8e3216d860a61c0dccc49b15bce7e4c70616b709b0c74c07",
+      "bytes": 307230
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s2-shot-1-chart-boundary.png",
+      "sha256": "1b5f9ff3af7a7ac0db5ba09ff42a33752c42c7d389b93a7b3afd3b6f8a159823",
+      "bytes": 401016
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s2-shot-2-chart-boundary.png",
+      "sha256": "e02713425e28b3b1c2bd4f7d6e95b16ac21ddabd20c8624a06e5487b6958abda",
+      "bytes": 465027
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s3-shot-1-credential-gate.png",
+      "sha256": "e617b13a6df5c2ad3a0a57dd61bebc8d2328f85b88875e15342457dd6443f2eb",
+      "bytes": 309947
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s3-shot-2-desk-close.png",
+      "sha256": "bdbe1352babb2003c19cdc400d1b3e6012739d563112f4b3be9a374c36dec1c9",
+      "bytes": 329139
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s4-shot-1-citation-stack.png",
+      "sha256": "e6f1575402fb455c85f36cb8cb53150a6f3948cef25637a414a2e450f6462a20",
+      "bytes": 368079
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s4-shot-2-source-types.png",
+      "sha256": "ebc5cfafce9f02ccdd85e1f9b8145d24ae692d477cc30ae80939d5225a1dc51e",
+      "bytes": 364377
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s5-shot-1-share-grid.png",
+      "sha256": "beaddf59261c32b9790927afabff594c523943de38b34bb189594c3fea04358b",
+      "bytes": 236286
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s5-shot-2-share-grid.png",
+      "sha256": "8ce946075e3b9c5a3f99058de9a0617abf29623acfd349bbacc5c8337c36aadf",
+      "bytes": 241164
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s6-shot-1-unmeasured-card.png",
+      "sha256": "758d777ad793e2a05120c901e2bfe43529c1b73a37abaf8c7241c22861d02217",
+      "bytes": 238313
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s6-shot-2-unmeasured-card.png",
+      "sha256": "18c1eb927e7c16cdd3c36c73bd126e9c962cef64e17e5889477564161dad0c19",
+      "bytes": 496858
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s7-shot-1-answer-close.png",
+      "sha256": "f1c69d4e3d30621738379e06b127201dce4a73aa47d5571511b2c2065111ba97",
+      "bytes": 318688
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s7-shot-2-source-types.png",
+      "sha256": "ca53e38a5ce0b6b7ef3da1c62b1ff2169c8288a6c999a513c39fb53dda560060",
+      "bytes": 287871
+    },
+    {
+      "file": "out/dispatch/retained-failures/builder-unreserved-capture-1/stills/b-s8-shot-1-flow-wide.png",
+      "sha256": "8cc7b5e7c68527783da1203966fcee178ab8b5c731617235c1550ad34c606a11",
+      "bytes": 328872
     }
-  ]
+  ],
+  "final_addendum_at": "2026-10-10T02:22:51.127514+00:00"
 }
