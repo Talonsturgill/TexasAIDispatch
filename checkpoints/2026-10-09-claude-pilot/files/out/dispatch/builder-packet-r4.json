@@ -1,0 +1,209 @@
+{
+  "role": "scene-builder",
+  "date": "2026-10-09",
+  "story_sha256": "c409acc303a1c1576e3faed1b955bb1fa69ecfd9f133419d43936f812a1038e5",
+  "board": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/storyboard.json",
+    "sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977"
+  },
+  "claims": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/claims.json",
+    "sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "story": {
+    "reference": "board",
+    "field": "story_contract"
+  },
+  "quality_contract": "config/quality_contract.json",
+  "rubric": "config/dispatch_rubric.yaml",
+  "brief": ".claude/agents/scene-builder.md",
+  "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text. Read the complete story_contract in the bound board, including all scenes, transitions and source limits. Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film. Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria. Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.",
+  "agent_assignment": {
+    "host": "claude",
+    "role": "scene-builder",
+    "policy": {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "scene-builder",
+    "resource": "reboards",
+    "context": "isolated"
+  },
+  "agent_contracts": [
+    {
+      "path": "/home/user/TexasAIDispatch/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/CLAUDE.md",
+      "sha256": "a58148fdd754c6fc031b5581adafaa865876164616e2410de35339fe3d23439d"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "ad78c1707c6bb39ac2666df83d1ee75b910be49d268afe9fbe44c838dc573f09"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/.claude/agents/scene-builder.md",
+      "sha256": "fea80684c7ca5e614848e61902243b2414cef7cc68e1a3067d39b61a9e416ee2"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/prompts/roles/scene-builder.md",
+      "sha256": "6feb6ddcccfa2408e2af921f96a31ec69973c0b287de0c7683ec19169c2c4a5a"
+    }
+  ],
+  "treatments": [
+    {
+      "path": "/home/user/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/out/dispatch/opening-b.json",
+      "sha256": "5289e74d0cd6b22669bb799989b0cf179414218eabeb981bad73c5b288820cef"
+    }
+  ],
+  "asset_inputs": [
+    {
+      "path": "/home/user/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+      "sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+      "sha256": "ace57d14ee3cc631c194d05f6155f3ee541533eaafd356ca09fb8cdbb97a6ec3"
+    }
+  ],
+  "completion_readings": [
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "45dd2b893fffb4549550dab614a74bba749e83637f9619d88f548e607845b8f0"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    }
+  ],
+  "selection": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/story_selection.json",
+    "sha256": "6dbe6dd42e2bcf3d1ca8725e8cc438fb5022e045535bcec8cb573dc92dfe6d05"
+  },
+  "creative_contract": "knowledge/craft/CREATIVE_DIRECTION.md",
+  "craft_readings": [
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md",
+      "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md",
+      "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md",
+      "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md",
+      "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/modern_film.json",
+      "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/modern_episode_registry.json",
+      "sha256": "2ececa271c2877f968127b08f2a677004071170a60a48ed3d0d53bed7c0d490d"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/STORY_ART.md",
+      "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/story_art.json",
+      "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md",
+      "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/authored_story_art.json",
+      "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "ad78c1707c6bb39ac2666df83d1ee75b910be49d268afe9fbe44c838dc573f09"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md",
+      "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/config/art_direction.json",
+      "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json",
+      "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+    },
+    {
+      "path": "/home/user/TexasAIDispatch/prompts/roles/scene-builder.md",
+      "sha256": "6feb6ddcccfa2408e2af921f96a31ec69973c0b287de0c7683ec19169c2c4a5a"
+    }
+  ],
+  "art_direction": {
+    "reference": "board",
+    "field": "art_direction",
+    "version": "directed-world-v1",
+    "hero_asset": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx"
+  },
+  "opening_comparison": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/openings/comparison.json",
+    "sha256": "ee2fa12f5c1452c8ba8413b78acace1012a4d40eda71049ea8096b8d2b0c77cc"
+  },
+  "usage": {
+    "audiovisual_reviews": 0,
+    "cleanup_renders": 0,
+    "full_renders": 0,
+    "image_generations": 0,
+    "panel_rounds": 0,
+    "preflight_renders": 4,
+    "reboards": 5,
+    "reported_tokens": 0,
+    "rescue_renders": 0,
+    "research_agents": 1,
+    "scorer_calls": 0,
+    "storyboard_critics": 5,
+    "tts_calls": 0,
+    "validator_agents": 1,
+    "voice_directors": 0
+  },
+  "phase": "active_repair",
+  "narration_picture": {
+    "reference": "board",
+    "field": "narration_picture"
+  }
+}
