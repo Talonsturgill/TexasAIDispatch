@@ -1,28 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-10-baseline/out__dispatch__storyboard.json",
-        "before_sha256": "b88fda9824f8690a8f1756ba5eef4d7e844a7e71eb624f9f7348ac0abbdb510e",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-a.json",
-        "before_sha256": "86fb3a636ff1666395d0cd3f452ddcd3b6dd52fef38e9c006bcccc3174e6b425",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-b.json",
-        "before_sha256": "5db5f493634a17e0383737b9233a52d790cb121fa3d4c8f2f4bbef3e9ae62d01",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      }
-    ],
-    "failure_sha256": "741d69e38f715a034b04f744b409bc18e5bcb03a45ac45f4ed9ce13e424b4af1",
-    "plan": "{REPO}/out/dispatch/repair-plan-10-event-fractions.json",
-    "plan_sha256": "78525d09fcf5e176db92e10864a443ca6b88f987cf06627858e7f3fdc9eafab5",
-    "reboards_before": 8,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -2625,6 +2601,59 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-10T20:35:35.110715Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "9affb2f8c1baf0b5bed52af06002ca07424a154d68111f73fd3ef3f6102bebb3",
+            "before_path": "out/dispatch/retained-failures/repair-10-baseline/out__dispatch__storyboard.json",
+            "before_sha256": "b88fda9824f8690a8f1756ba5eef4d7e844a7e71eb624f9f7348ac0abbdb510e",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140",
+            "before_path": "out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-a.json",
+            "before_sha256": "86fb3a636ff1666395d0cd3f452ddcd3b6dd52fef38e9c006bcccc3174e6b425",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713",
+            "before_path": "out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-b.json",
+            "before_sha256": "5db5f493634a17e0383737b9233a52d790cb121fa3d4c8f2f4bbef3e9ae62d01",
+            "path": "out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "documentary_check and watchability_check pass on the timed board, the hook payoff finishes by 1.5 s and every action lies in the 0.2 to 1.2 s range.",
+        "failure_evidence": "out/dispatch/retained-failures/timed-gates-after-actual-alignment/failure.json",
+        "failure_evidence_sha256": "741d69e38f715a034b04f744b409bc18e5bcb03a45ac45f4ed9ce13e424b4af1",
+        "failure_family": "unclassified",
+        "mechanism_change": "The two events are re-fitted to the measured clause windows instead of the authored estimates. This completes the punctuation mechanism's consequence on the picture clock.",
+        "mechanism_id": "script-punctuation-clause-joins",
+        "pivot_review": {
+          "path": "out/dispatch/pivot-review.json",
+          "sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af"
+        },
+        "repair": "In the board data only, shorten the authored clause fractions of s1-event-1 so it finishes by about 1.4 s and of s2-event-2 so it lasts about 1.1 s, in both treatment boards, then retime from the unchanged measured words. No renderer code, art, script, voice take, claim or measured caption changes.",
+        "repair_scope": "standard",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "With the valid actual alignment (retained) the authored event fractions inside clause n1a and n2a are too long: the hook event ends at 1.98 s against the 1.5 s payoff limit and s2-event-2 lasts 1.31 s against the 1.2 s directed limit."
+      },
+      "repair_plan_sha256": "95c5fd947e671884021ffccf953480ea9b8d14a282cabcc1ef744d6bba87c705",
+      "repair_revision": "0b85f5ac0ef8e40432ee7f7839cdbdde6df1ecaa97c7ae39473030157d91227b",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -2648,7 +2677,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "32adc1e272bf889ce7fc2a2415d4462bdc4df9260991af21b8e74e7d0d624b50",
+    "original_private_state_sha256": "375d9273421f238113502e737df129b2c2de2a620f1db332e367a4066e1a349c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2676,7 +2705,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T20:30:33.309311Z",
+  "updated_at": "2026-10-10T20:35:35.110772Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
