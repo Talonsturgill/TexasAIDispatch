@@ -1,0 +1,38 @@
+{
+  "treatment": "a",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 (high effort), isolated Read-only third code-plan review of repair-2, separate from the director (claude-sonnet-5-5) and the scene-builder",
+  "reviewed_at": "2026-10-10T04:30:00Z",
+  "verdict": "revise",
+  "weakest_frame": "13.5 s cut from s3-shot-1 to s3-shot-2 (10.5 to 16.0 s). The credential-gate camera is f (250,1040) at scale 1.75 and the desk-close typing camera is f (200 to 250,1030) at scale 1.9. That is about a 9% zoom and a 95 px shift on the same subjects: the question card stays at about screen 445-889 x 323-537 in both shots, with the keyboard and hands below it. The cut reads as a jump, so s3 plays as about 5.5 s of one framing.",
+  "story_review": {
+    "verdict": "revise",
+    "blocking_defects": [
+      "D11/N5 jump cut at 13.5 s: s3-shot-1 (250,1040) x1.75 into s3-shot-2 (200,1030) x1.9, same card, keyboard and hands framing, so the cut changes nothing visible"
+    ],
+    "one_viewing_summary": "Code-scope chain. Scrub-sleeved arms that run off the bottom of the frame type at a desk keyboard. A final key strike sends the question card across the wall chart into the wall-mounted OpenEvidence AI tool. One answer drops out below the tool's mouth line, and three citation cards tuck into its Sources slot. Dated tags pin to the record boundary. A sign-in opens the record lock. The citations fan out cleanly and literature and guidelines lift. More than half of the clinician tokens light, labelled as UTMB's own report. Tags reading 'Not in release' clip onto the answer, whose Accuracy slot stays empty. The close pins the use-and-experience tag to the share.",
+    "opening_to_ending": "The opening asks what comes back when a UTMB clinician asks inside the record. The final hold answers with the same answer card: its Sources slot glows full, its Accuracy ring pulses empty, and its limit tags are now clear of the keyboard. Every on-screen string stays within c1 to c8.",
+    "weakest_transition": "s2 to s3 to s3-shot-2: after the cut into s3, the cut to the typing detail is nearly the same frame. The handoff from sign-in to plain-language asking gets no visible new picture."
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "N1": "resolved",
+    "N2": "resolved",
+    "N3": "resolved",
+    "N4": "resolved",
+    "N5": "open: s3-shot-1 to s3-shot-2 at 13.5 s is a near-identical reframe (about 9% zoom, 95 px). s4 at 17.975 s (x0.92 into x1.04, about 146 px shift) and s6 into s7 at 33.0 s (x1.05 into x0.90, about 144 px) are borderline; see risks",
+    "D4": "resolved",
+    "D9": "resolved",
+    "D11": "open: the 13.5 s cut in s3 changes the framing by about 9% zoom and 95 px on the same card, keyboard and hands",
+    "D13": "resolved"
+  },
+  "risks_for_the_phone_critic": [
+    "Whether the scrub-sleeved hands, with an elbow pivot and the shoulder below frame, read as credible human hands at phone size.",
+    "s4 cut at 17.975 s (x0.92 into x1.04 with a 146 px tilt) and the s6-to-s7 cut at 33.0 s (x1.05 into x0.90): judge whether they read as motivated reframes or as jump cuts.",
+    "A's question card moves on its own after a key strike (s1 at 0.62 s, s3 slide at about 14.9 s), a diagrammatic data flow with no hand on it. Judge whether this reads as a floating transfer.",
+    "The hands are removed at the s3-to-s4 cut, and later wide world shots (s5-shot-1, s8) show an unattended keyboard.",
+    "On the share board the report-tag string runs close to the end of 'decision support'.",
+    "In the s4 wide, citation labels are about 27 px (23 x 1.3 x 0.92), just under the 30 px target, before the medium naming shot.",
+    "Answer and citations emerge under the wall tool's bottom edge through a mouth-line clip. Check that the emergence reads as coming out of the tool and not as an edge reveal."
+  ],
+  "stronger_treatment": "b. B executes a real framing change at every declared cut (s3 x1.62 into x2.05, s4 x0.92 into x1.25, s6 x2.05 into x1.6, s7 x1.6 into x1.04), its hook is a close on hands and card, its push is one continuous stroke the hand rides and releases, and its s5, s6 and s8 now have their own desk-level cameras. A still has the s3 jump cut."
+}

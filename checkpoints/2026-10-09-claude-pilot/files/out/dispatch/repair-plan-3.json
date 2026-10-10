@@ -1,0 +1,36 @@
+{
+  "mechanism_id": "a-s3-camera-reframe",
+  "failure_family": "source-framing",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent critic's third review passed treatment B at code scope and returned revise for treatment A on one blocking defect. The cut at 13.5 s from s3-shot-1 (credential-gate camera f (250,1040) scale 1.75) to s3-shot-2 (desk-close typing camera f (200 to 250,1030) scale 1.9) changes the framing by only about 9 percent zoom and 95 px on the same card, keyboard and hands, so it reads as a jump cut and s3 plays as one 5.5 second framing. The critic also marked two cuts as borderline reframes, s4 at 17.975 s (0.92 into 1.04, about 146 px) and s6 into s7 at 33.0 s (1.05 into 0.90, about 144 px).",
+  "repair": "Change only the camera plan in the episode renderer. Give A's s3-shot-2 a real change of framing and subject from s3-shot-1, for example a tight detail on the typing hands and the question card against the credential and lock framing, so the cut shows new information. Strengthen A's two borderline cuts (s4 at 17.975 s and s6 to s7 at 33.0 s) so each changes size by at least 25 percent or moves to a new subject. Touch nothing else, and keep B's executed framings unless a shared edit requires re-checking them. The boards then carry the new renderer hashes.",
+  "mechanism_change": "A single camera constant set for treatment A's s3 and its two borderline cuts is replaced with distinct executed framings. No layering, art, narration, claim, timing or event change.",
+  "expected_visible_result": "At 13.5 s A cuts from the credential and lock framing to a visibly different detail of the typing hands and card, and A's cuts at 17.975 s and 33.0 s each change the picture by a quarter or more, so A no longer plays any framing for longer than 5 seconds.",
+  "failure_evidence": "out/dispatch/retained-failures/critic-3/a.json",
+  "failure_evidence_sha256": "515edd77e6f23c3a5dc7eb32d12351ce89915acd51e90b974b2561356d205097",
+  "resources": {
+    "preflight_renders": 2
+  },
+  "changed_inputs": [
+    {
+      "path": "out/dispatch/opening-a.json",
+      "before_path": "out/dispatch/retained-failures/repair-3-baseline/out__dispatch__opening-a.json",
+      "before_sha256": "5fe41c988650f55a60cd86ead01cde3399c299cd4a27b172820c41d61a85c886"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "before_path": "out/dispatch/retained-failures/repair-3-baseline/out__dispatch__opening-b.json",
+      "before_sha256": "f6cc8d6c43dbdece44f8f1c6867af1dcce1294efdd561c17161716602d5a2e42"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "before_path": "out/dispatch/retained-failures/repair-3-baseline/out__dispatch__storyboard.json",
+      "before_sha256": "5fe41c988650f55a60cd86ead01cde3399c299cd4a27b172820c41d61a85c886"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-3-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "before_sha256": "6cb3ae3e7a4bf80e8b5c3339dd340ba9991e7bf7005940f2fa54715574191c20"
+    }
+  ]
+}
