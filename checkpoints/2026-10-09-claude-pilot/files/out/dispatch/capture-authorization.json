@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "f2c80159cb9f3e7b47c22fc80a4a1bc219ccec835bfdef2041c0b546efeecdbb",
+    "event_sha256": "fb9a02ecda391073500ca7375187c2419c7b5d48878913e961ebcfa04d3ce686",
     "resource": "preflight_renders",
-    "at": "2026-10-10T19:36:45.843084Z",
-    "note": "two opening comparison batch"
+    "at": "2026-10-10T20:43:07.565335Z",
+    "note": "two opening comparison batch, fresh after repair 10 refit"
   },
   "boards": [
     {
       "path": "out/dispatch/opening-a.json",
-      "sha256": "86fb3a636ff1666395d0cd3f452ddcd3b6dd52fef38e9c006bcccc3174e6b425"
+      "sha256": "28a5dbfe8ac496b2d04216541a74b2f9d5b5ff89893989a296ac6cac586cf140"
     },
     {
       "path": "out/dispatch/opening-b.json",
-      "sha256": "5db5f493634a17e0383737b9233a52d790cb121fa3d4c8f2f4bbef3e9ae62d01"
+      "sha256": "f70d7d5e6b1e07da69a43dcaf8c656af0db0c85bad226a8af723c5f3612c0713"
     }
   ],
   "bound": {
@@ -158,78 +158,23 @@
   },
   "commands": [
     {
-      "id": "151f3f7311202578ed0fbcee43c51ceda14e864f469360dafedbae58622b9ad7",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/a-sheet-0.png",
-      "consumed": "2026-10-10T19:41:58.725552+00:00"
-    },
-    {
-      "id": "2960590cd0920ca57c174890c1ab2decd34c862a7433d5006f0ae232d1e0cffc",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 11 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/a-sheet-1.png",
-      "consumed": "2026-10-10T19:42:04.776380+00:00"
-    },
-    {
-      "id": "40524de5529d0e8a7de82ed8044873508af8f97e1b77117e2b41321dab1e3aee",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 22 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/a-sheet-2.png",
-      "consumed": "2026-10-10T19:42:10.515906+00:00"
-    },
-    {
-      "id": "26e7263e611567b83ea3d6e2e41c59cd67bc382d4d1071800b82f19d80aa624b",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 33 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/a-sheet-3.png",
-      "consumed": "2026-10-10T19:42:16.233577+00:00"
-    },
-    {
-      "id": "8bd963e355e60fffaf2bd99c79a95d3df0b11ba11d92ac4d4bfffe05bd327c81",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 41 -i out/dispatch/openings/a.mp4 -frames:v 1 out/dispatch/phone-review-r9/a-native-41.png",
-      "consumed": "2026-10-10T19:42:26.207405+00:00"
-    },
-    {
-      "id": "43f4637816986f6c69e2c87d3cc6ef79f7301d2273870e05c825b24a21bf1d96",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 42.9 -i out/dispatch/openings/a.mp4 -frames:v 1 out/dispatch/phone-review-r9/a-native-42.9.png",
-      "consumed": "2026-10-10T19:42:32.240689+00:00"
-    },
-    {
-      "id": "f857827b93f231e94890f6f4538d698e606fad94fbf3993f468608ed038fd992",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/b-sheet-0.png",
-      "consumed": "2026-10-10T19:42:38.799890+00:00"
-    },
-    {
-      "id": "06538b4d072e920c2a027ac211c6dd2b83693fb14ab02f05bcbb230090f011cb",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 11 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/b-sheet-1.png",
-      "consumed": "2026-10-10T19:42:45.458021+00:00"
-    },
-    {
-      "id": "b885ddd539b47c54cb680010fbedeb807c048c06536b207e55422e08052e4d1a",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 22 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/b-sheet-2.png",
-      "consumed": "2026-10-10T19:42:50.866841+00:00"
-    },
-    {
-      "id": "db78217910bc0e3d5a74488a524a597534a2e7cd34bb3b0c69a9b6446c4672e5",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 33 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3:padding=6:color=black -frames:v 1 out/dispatch/phone-review-r9/b-sheet-3.png",
-      "consumed": "2026-10-10T19:42:56.205807+00:00"
-    },
-    {
-      "id": "529cb2c2cbc6d91a2c82b05ff32ca69f9a2379c375ba8ebf187743afb735d9dc",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 41 -i out/dispatch/openings/b.mp4 -frames:v 1 out/dispatch/phone-review-r9/b-native-41.png",
-      "consumed": "2026-10-10T19:43:01.724499+00:00"
-    },
-    {
-      "id": "3e1dfa68a08a70210e17328ef2d902907631b7b6a1d055f4d5bd69e372569e49",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 42.9 -i out/dispatch/openings/b.mp4 -frames:v 1 out/dispatch/phone-review-r9/b-native-42.9.png",
-      "consumed": "2026-10-10T19:43:07.412113+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-10T20:43:15.260382+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 21.087
+    "free_gib": 20.917
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T194155.json",
-    "receipt_sha256": "767d66471f4f24a86b29b625113a71e92879a3668d54acfdce0e0f40056b6809",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T204313.json",
+    "receipt_sha256": "6f496f46e7ac0fbd7728e844fc2f826275357d372b02d39fc0b18881e29c1359",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-10T19:41:55.920920+00:00",
-  "expires_at": "2026-10-10T20:26:55.920920+00:00"
+  "issued_at": "2026-10-10T20:43:13.161484+00:00",
+  "expires_at": "2026-10-10T21:28:13.161484+00:00"
 }
