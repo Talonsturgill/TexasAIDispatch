@@ -1,0 +1,5 @@
+After authorize-repair (builder hashes storyboard 361a00a2, opening-a 62790d6a, opening-b 5ccfe1e3) three mechanical, non-creative updates were made and the final plan after_sha256 values were refreshed:
+1. authored_story_art record and verify (fresh receipts for the changed ChartHero.tsx and ClinicSupport.tsx) was run before authorize and rewrote story_art entries.
+2. Trusted main PR134 (9068a6e) was merged; the measured storyboard.json was re-derived from opening-a.json with scripts/board_retime.py (same words and captions) so shot endpoints come from the fixed tool. The only differences from the builder's measured board were float-noise shot durations. The earlier manual 2.470000000000001 workaround is retained in storyboard.builder-handback-pr134-pre-retime.json.
+3. native_media inventory row sha256 values for ChartHero and ClinicSupport updated to the recorded receipts in all three boards (renderer_digest refused the stale rows).
+No timing, event, narration, claim or art byte changed in these steps. Critic 18 was charged before step 3; its packet was rebuilt on the final boards.

@@ -1,0 +1,54 @@
+{
+ "schema": "dispatch_code_critic_output_contract/1",
+ "purpose": "Repair 11 gate-ready code-scope review. ONE review, THREE outputs: opening_a (treatment a, authored-clock board opening-a.json), opening_b (treatment b, opening-b.json) and storyboard (treatment a on the MEASURED board storyboard.json, bound separately because narration_picture timing is inside the concept digest). Return a JSON object with keys opening_a, opening_b, storyboard, each in the required_fields shape with its own bindings echoed exactly (use the bindings entries a, b, a_measured respectively). Compare against the baselines in out/dispatch/retained-failures/repair-11-baseline/. Judge whether each defect B1 to B9 in out/dispatch/phone-critic-current.json is fixed in code, and flag any new defect the repair introduced (especially the builder's stated risks: hook camera speed, strike cadence, announced tag clutter in s5/s6/s3, B's missing send-key strike). Read-only: you cannot hash, echo bindings.",
+ "required_fields": {
+  "treatment": "a or b",
+  "reviewer_identity": "your identity string, distinct from the director claude-sonnet-5-5",
+  "reviewed_at": "UTC ISO time; if you have no clock write the harness-visible time from the packet or say unknown",
+  "verdict": "pass or revise, your own judgment",
+  "weakest_frame": "time range and what is weakest",
+  "story_review": {
+   "verdict": "pass or revise",
+   "blocking_defects": "[] only if none, else list",
+   "one_viewing_summary": ">=30 chars",
+   "opening_to_ending": ">=30 chars",
+   "weakest_transition": ">=30 chars",
+   "story_sha256": "echo binding",
+   "policy_sha256": "echo binding",
+   "claims_sha256": "echo binding"
+  },
+  "action_reviews": "[] unless the board declares action proposals",
+  "per_defect": "object mapping each earlier finding id to resolved or unresolved",
+  "risks_for_the_phone_critic": "list",
+  "stronger_treatment": "a or b with reason",
+  "concept_sha256": "echo binding",
+  "renderer_sha256": "echo binding"
+ },
+ "shape_example_from_prior_valid_review": "out/dispatch/retained-failures/critic-5-opening-reviews/opening-a-critic.json (shape only; do not copy its verdicts or text)",
+ "bindings": {
+  "a": {
+   "concept_sha256": "864ca2fe189b96851ec48e3c33f2144d9ed93eb8a84e201e7a2649a1cbc3d706",
+   "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b",
+   "story_sha256": "f868f78f6f47eb3e81ffd67fd9db4fff8449c5cddb2ee7736f0b6ff2d45ebd98",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/opening-a.json"
+  },
+  "b": {
+   "concept_sha256": "7f6acf48b5bf1d31b999c8f8c82d1556a4d862d7c8623b383a290e88f896c6c1",
+   "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b",
+   "story_sha256": "3ddd6604c2dce573bdf0012637c10176224f7dc2517b6c9455308898787a1cee",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/opening-b.json"
+  },
+  "a_measured": {
+   "concept_sha256": "16e7792bdf88802500607dd96da82e75dfcf36b8d2fc9e362541cd6af162dc4e",
+   "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b",
+   "story_sha256": "f868f78f6f47eb3e81ffd67fd9db4fff8449c5cddb2ee7736f0b6ff2d45ebd98",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/storyboard.json"
+  }
+ }
+}

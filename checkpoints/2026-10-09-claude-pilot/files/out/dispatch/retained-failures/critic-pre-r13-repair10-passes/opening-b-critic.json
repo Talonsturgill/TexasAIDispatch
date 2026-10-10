@@ -1,0 +1,53 @@
+{
+  "treatment": "b",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated, read-only gate-ready code-scope review",
+  "reviewed_at": "unknown",
+  "verdict": "pass",
+  "weakest_frame": "s8-shot-2, the closing tableau at desk height. This frame is planned, not observed, and repair 10 did not change it. The chart stands on its stand at about x -50 to 248, y 486-876. The evaluating tag ends about 8 px above the chart clip. The accuracy tag sits in front of the chart foot and stand by up to about 27 px, which crowds the left-centre. The answer is face-on at scale 1.5 with labels of about 13 px on the phone stage. The care string crosses 'release'. The motion is a glow, one pulse and a 0.7 s still.",
+  "strongest_frame": "s1-shot-1 (planned): the right hand reaches, rides the question card across the laminate and releases it into the tool's mouth. With the refit, the push lands about 0.42-1.39 s, a performed human action inside the 1.5 s window.",
+  "blocking_defects": [],
+  "notes": [
+    {"scene": "s1", "problem": "The same refit as A: with measured n1a (0.28-2.64 s) the push runs about 0.42-1.39 s and its reward midpoint lands near 0.90 s. In B the typing schedule ends at e1.start minus 0.3, so only one strike falls after frame 0 (about 0.08 s). The card opens about eight ninths typed. The reach starts at about 0.20 s, after that finger lifts at about 0.17 s, so there is no overlap. The opening now reads as 'card nearly finished, then the hand pushes' more than 'hands finish typing'. The push and release mechanics are intact (release at 45 percent of the window, about 0.86 s, then a glide into the mouth). The question card is visible from frame 0 and the push happens while 'A UTMB clinician asks...' is heard. That is picture leading word inside the clause. The retained result, the card inside the tool with the tool pulsing, holds until n1b begins.", "fix": "None required. If the phone critic finds the opening reads as idle hands, a later fraction-only adjustment can shift the typing schedule. No code or art change is needed."},
+    {"scene": "s1", "problem": "The push is now compressed to about 0.97 s plus a 0.22 s reach, while the desk-close camera moves (f from [250,1000] to [520,900], scale 1.62 to 1.15) over the same window. Card screen speed and camera motion combine, so there is a stepping or snappiness risk at 30 fps.", "fix": "Phone critic checks continuous velocity at the release join and the camera braking."},
+    {"scene": "s2", "problem": "s2-event-2 now runs about 7.98-9.07 s (1.09 s, inside range). The tag pins after the boundary glow and stays through 'on September twenty-second'. Order is preserved.", "fix": "None required."},
+    {"scene": "s1/s2", "problem": "The authored at_s and duration fields and the reward at_s values remain earlier estimates that no longer agree with the new fractions. This is expected, because board_retime derives the seconds.", "fix": "Use the regenerated timed board for every gate and capture."},
+    {"scene": "s8/s6", "problem": "Non-blocking items carried forward unchanged: the empty report half pin in s8-shot-1; the tool label at x about -1; the crowded close; the report string across 'Clinical'; the care string across 'release'; stale quality_plan wording.", "fix": "Optional, only if those scenes reopen."}
+  ],
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "This is the planned chain at code scope, not an observed film. It is unchanged except for an earlier, faster hook push and a slightly shorter s2 tag contact. At desk height, a nearly finished question card gets one last keystroke, and the right hand pushes it once into the OpenEvidence tool's mouth by about 1.4 s. A medium shows one answer sliding out toward the lens with three citations tucking into its Sources slot. The boundary lights and the dated tags pin. A masked sign-in opens the lock, and a keyboard detail fills the card in plain-language word shapes and pushes it to the chart edge. The citations rise in a stepped cascade, and the literature and guidelines cards lift. Seven of twelve faceless figures light past Half and the decision-support tag pins. 'UTMB's own report' pins, and one close holds the clip as 'Accuracy' and 'Patient care' read 'Not in release'. A thread links the literature card to the Sources slot while the empty ring pulses. The evaluating tag drops onto the bar, and the film closes on the answer beside the chart on its stand.",
+    "opening_to_ending": "The film opens on a hand sending one question into the OpenEvidence tool by about 1.4 s, posing what comes back when a UTMB clinician asks inside the record. It closes on the same answer beside the same propped chart: Sources filled, Accuracy empty with one ring pulse, two 'Not in release' tags, and the evaluating tag on the usage bar. Sources come back, and accuracy and patient care are not published. UTMB's next step is shown without an invented outcome, within c1 to c5 and c8.",
+    "weakest_transition": "The s7-shot-2 to s8-shot-1 cut, unchanged. From the empty Accuracy-ring detail to the share board, the decision and report tags are now off frame on the start pin. The half pin where 'UTMB's own report' hung is visibly empty, and the evaluating tag drops onto the end pin the decision tag used. A viewer may read this as replacing the attribution. The phone critic decides.",
+    "story_sha256": "a679d21a5eef6f929aabdf496bb104a4bbd0d3bbad9f12f7dceb49dcc25b1a80",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "BD1": "resolved",
+    "BD2": "resolved",
+    "BD3-residual-closing-image": "resolved",
+    "BD4": "resolved",
+    "BD5-n8-chart-absent": "resolved",
+    "timed-gate-hook-payoff-after-1.5s": "resolved",
+    "timed-gate-s2-event-2-duration-1.31s": "resolved",
+    "critic6-N1b-s8-empty-report-pin-nonblocking": "unresolved",
+    "critic6-N2-care-string-crosses-release-nonblocking": "unresolved",
+    "critic6-N3b-crowded-close-left-centre-nonblocking": "unresolved",
+    "critic6-N5b-tool-label-at-edge-shot-1-nonblocking": "unresolved"
+  },
+  "repair10_verification": "Compared against out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-b.json. s1-event-1 fractions changed from 0.22/0.72 to 0.06/0.47 (lines 63-64). s2-event-2 clause_fraction_end changed from 0.85 to 0.8 (line 278). The adjacent authored fields and the file tail are identical. Line counts are unchanged: 4209 in both B files. The renderer binding af828fd... is unchanged. I compared regions only; this is not a full byte diff.",
+  "risks_for_the_phone_critic": [
+    "Confirm that the push completes inside the tool before 1.5 s on the timed film, and that B's opening still reads as a person sending a question. Only one keystroke now falls after frame 0.",
+    "Check the compressed push (about 0.97 s) for velocity continuity at the release join and while the desk-close camera moves and rescales.",
+    "Check that the September 22nd tag settles (about 7.98-9.07 s) as the date is spoken.",
+    "Every timed gate and capture must use the regenerated storyboard.timed.json. The authored seconds are stale.",
+    "Carried forward unchanged: a fresh two-treatment comparison of the current bytes is required; the repair-9 pauses and the 'To medical literature...' cue; the empty report pin and tool label edge in s8-shot-1; the crowded close; the report string across 'Clinical'; the care string across 'release'; whether the single 4.0 s s6 close and the 2.25 s ending earn their length.",
+    "Still owed on the actual film: all seven modern_observations, four phone_observations, timed narration_picture_observations n1a to n8, place and native-finish reviews and the sound lens."
+  ],
+  "stronger_treatment": "b. The visual reasoning is unchanged by repair 10. B has the performed hand push, a phone-legible first shot and conserved chart staging into the close. A has the clearer left-to-right geography. A fresh phone comparison decides.",
+  "concept_sha256": "d31e604e41f140864d4e7d8f847e55f3740f6fac8a3f5cd885da6d88ce149f8f",
+  "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+  "scope": "Code scope only. Measured timings are my arithmetic from failure.json windows and the new fractions, not read from the timed board. No pixels or audio were seen. Every sha256 is echoed from critic-output-contract-r10.json. This review approves no picture, score or shipment. A pass authorizes the phone test only."
+}

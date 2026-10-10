@@ -1,0 +1,54 @@
+{
+  "treatment": "a",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated, read-only gate-ready code-scope review",
+  "reviewed_at": "unknown",
+  "verdict": "pass",
+  "weakest_frame": "41.75-44.0 s on the authored clock (the measured close times come from storyboard.timed.json), s8-shot-2. This frame is planned, not observed, and repair 10 did not change it. It is the held closing tableau. The answer card is drawn face-on at scale 1.5 (about x 530-1046, y 815-1190) beside the chart, which lies flat on the desk and is about a third cropped. The card has no visible support or matching perspective. Its labels are about 13 px on a 374 px phone stage. The accuracy tag overlaps the chart edge by up to about 15 px, and the care string crosses 'release'. The care tag's lowest point is about 44 px above the estimated top of the caption plate. Its motion is a Sources glow, one ring pulse and a 0.7 s still.",
+  "strongest_frame": "s1-shot-2 (planned): one answer drops out of the tool mouth and three citation cards tuck into its Sources slot. This is the picture-led payoff right after the refit send.",
+  "blocking_defects": [],
+  "notes": [
+    {"scene": "s1", "problem": "Repair 10 moves s1-event-1 to fractions 0.06-0.47 of n1a. With the measured n1a window (0.28-2.64 s, from failure.json) the send now runs about 0.42-1.39 s (0.97 s), down from 0.80-1.98 s. Its reward midpoint lands at about 0.90 s and the event completes before 1.5 s, which clears documentary_check. In A, typing strikes are scheduled from -0.62 s up to e1.start minus 0.06. Only three strikes now fall after frame 0 (about 0.09, 0.20 and the final send strike at about 0.31 s). The card opens about two thirds typed, which still matches the board's opening_state ('half-typed card about to leave it'). The question card is on screen from frame 0, before the clause starts, and leaves while 'A UTMB clinician asks...' is heard. That is picture leading word and inside the clause, as MODERN_FILM asks. From about 1.39 s until n1b begins (after 2.64 s), the result holds: the card is inside the tool and the tool pulses, a retained-result interval of about 1.3 s.", "fix": "None required. The phone critic checks that the faster stroke (about 370 px of screen travel in 0.97 s, with a peak near 24 px per frame under the quintic ease) does not step or blur at 30 fps."},
+    {"scene": "s2", "problem": "s2-event-2 moves to 0.55-0.80 of n2a. With the measured n2a window (5.58-9.94 s) the 'Announced September 22nd' tag contact runs about 7.98-9.07 s (1.09 s, inside the 0.2-1.2 range), down from 7.98-9.29 s. The start is unchanged and the tag settles about 0.2 s earlier. It still pins after the boundary glow (event-1, about 5.80-6.89 s) and stays visible through the spoken 'on September twenty-second' at the clause end. Picture-to-word order is preserved.", "fix": "None required."},
+    {"scene": "s1/s2", "problem": "Only the clause fractions moved. The authored at_s, duration_s, at_s_authored, duration_s_authored and the film_direction reward at_s values still hold the earlier authored estimates. This is expected, because board_retime derives measured seconds from the fractions, but the authored-clock board no longer agrees internally.", "fix": "Use the regenerated timed board for every timed gate and the phone capture. Never use the authored seconds."},
+    {"scene": "s8", "problem": "Non-blocking items carried forward unchanged: the face-on answer sits beside a flat chart; the chart moves from the wall rail to the desk with no performed move; s8-shot-1 truncates the tool label to 'penEvidence' under the caption plate; the care string crosses 'release'; the decision and report tags move pins in s8; quality_plan source_basis wording is stale.", "fix": "Optional, only if s8 reopens. See the prior gate-ready reviews."}
+  ],
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "This is the planned chain at code scope, not an observed film. It is unchanged except for a faster, earlier hook send and a slightly shorter s2 tag contact. At the clinic wall, hands finish the question card on the wall chart. A final key strike at about 0.3 s sends it left to right into the wall-mounted OpenEvidence tool by about 1.4 s, and the tool pulses. One answer drops out with three citation cards tucking into its Sources slot. The record boundary glows and the dated tags pin. A masked sign-in opens the lock, and the question is typed in plain-language word shapes. The citations fan out and the literature and guidelines cards lift. Seven of twelve faceless figures light past Half and the decision-support tag pins. Next come 'UTMB's own report' and the 'Accuracy' and 'Patient care' tags reading 'Not in release' in a close. A thread links the literature card to the Sources slot while the empty Accuracy ring pulses. The evaluating tag drops onto the bar, and the film closes on the answer beside the chart.",
+    "opening_to_ending": "The film opens by asking what comes back when a UTMB clinician asks inside the record, and the send completes by about 1.4 s. It closes on the same answer card beside the same chart: Sources filled, Accuracy empty with one ring pulse, two 'Not in release' tags, and the evaluating tag on the usage bar. The answer is that sources come back while accuracy and patient care are not published. UTMB's stated next step is shown without an invented outcome, within c1 to c5 and c8.",
+    "weakest_transition": "The s8-shot-1 to s8-shot-2 cut, unchanged. From the share-board close, the board drops to a 14 px rail strip, and the chart last seen on the wall rail now lies flat on the desk, foreshortened and cropped, with no move performed on screen. The clip, the teal tabs and the matched board-relative tag scale carry identity. It is a mild continuity cheat for the phone critic to check.",
+    "story_sha256": "8b2543a06b308a6b0d3240ce4fbb5c7f957008bb6ad558b83b2099cd0ab355e3",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "BD1": "resolved",
+    "BD2": "resolved",
+    "BD3-residual-closing-image": "resolved",
+    "BD4": "resolved",
+    "BD5-n8-chart-absent": "resolved",
+    "timed-gate-hook-payoff-after-1.5s": "resolved",
+    "timed-gate-s2-event-2-duration-1.31s": "resolved",
+    "critic6-N1-s8-tag-relocation-nonblocking": "unresolved",
+    "critic6-N2-care-string-crosses-release-nonblocking": "unresolved",
+    "critic6-N3-limit-tag-box-and-caption-clearance-nonblocking": "unresolved",
+    "critic6-N4-evaluating-tag-shadow-on-desk-nonblocking": "unresolved",
+    "critic6-N5-penEvidence-cut-in-shot-1-nonblocking": "unresolved"
+  },
+  "repair10_verification": "Compared against out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-a.json. s1-event-1 clause_fraction_start/end changed from 0.22/0.72 to 0.06/0.47 (lines 63-64). s2-event-2 clause_fraction_end changed from 0.85 to 0.8 (line 278). Its start stays 0.55. At every compared location, the authored at_s and duration fields, the neighbouring events, the repair-9 vo punctuation (line 629 identical), the film_direction rewards and the file tail are identical. Line counts are unchanged: 4226 in both A files. The renderer binding af828fd... is unchanged, so no code or art changed. Limit: with Read only, I compared these regions line by line and did not byte-diff the whole file. The new concept and story digests are consistent with a fraction-only change.",
+  "risks_for_the_phone_critic": [
+    "On the timed phone film, confirm that the hook now completes before 1.5 s. The send should land inside the tool at about 1.39 s, with the reward near 0.90 s, and the card should stay identifiable at phone size in A's wide.",
+    "Fewer typing strikes are now visible in A's opening: about three after frame 0. Judge whether the first second still reads as 'hands type, then send' rather than a card that is already typed.",
+    "The stroke is faster: about 0.97 s of travel against 1.18 s before. Check for stepping or large per-frame jumps at 30 fps, and check that the processing pulse holds the 1.39 to about 2.7 s interval without reading as dead air.",
+    "Check that the 'Announced September 22nd' tag settles (about 7.98-9.07 s) as the date is spoken, and remains readable through the clause end.",
+    "Every timed gate and capture must use the regenerated storyboard.timed.json. The authored seconds in opening-a.json are stale estimates.",
+    "Carried forward unchanged: a fresh two-treatment comparison of the current bytes (the retained comparison binds renderer d0936db...); repair-9 punctuation pauses at the s3 and s4 cuts and the 'To medical literature...' cue; the face-on answer and flat relocated chart in the close; 'penEvidence' in s8-shot-1; the care string across 'release'; the report string across 'support'; the s8 tag relocation; whether the close earns 2.25 s.",
+    "Still owed on the actual film: all seven modern_observations, four phone_observations, timed narration_picture_observations n1a to n8, place and native-finish reviews and the sound lens."
+  ],
+  "stronger_treatment": "b. Repair 10 changes timing fractions only, so my prior reasons stand. B performs the send with a continuous hand push into the tool's mouth, opens on a phone-legible close and keeps its chart on the same stand into the close. A keeps the clearer left-to-right geography. A fresh phone comparison of the current bytes decides.",
+  "concept_sha256": "fe18cc468d296edd6a582857fa317a8005905ece973438dcd82471bdb82cb6e3",
+  "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+  "scope": "Code scope only. Measured timings above are my arithmetic from the measured windows in failure.json and the new fractions. They are not read from storyboard.timed.json, which I did not open. No pixels or audio were seen. Every sha256 is echoed from critic-output-contract-r10.json. This review approves no picture, score or shipment. A pass authorizes the phone test only."
+}
