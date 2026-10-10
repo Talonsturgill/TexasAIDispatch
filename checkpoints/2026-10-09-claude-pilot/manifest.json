@@ -1,13 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T01:41:40.249029+00:00",
+  "saved_at": "2026-10-10T01:42:32.142090+00:00",
   "note": "ledger write",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
+  "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "57efd5e01ef95affa369744149ad2418416099e6",
+  "source_pin": "6cd368e69c37c06a51a58e1877082f4c20375284",
   "source_branch": "tsturg/fervent-edison-ywyo50",
   "source_closure": {
     "root": "video-engine",
@@ -15,8 +16,8 @@
     "sha256": "29bd9ad6d0d5c5b0dafdda17c2592e3525ed4f900785c039bd15edf7be9370cb"
   },
   "deleted_source": [],
-  "ledger_sha256": "fd37842084c8b7e9f8d0c6cf19587faea3b5827594d27f06b6684f1a98f0571b",
-  "original_private_ledger_sha256": "7bc4bcdd3e10e9f0680d3a3641525179390c5878955750bc64d34e545e3a2cda",
+  "ledger_sha256": "e0b3b13f23e8c21095e28b8a58c725af37632c7a624f3b5c0ea8fb8847650468",
+  "original_private_ledger_sha256": "80403671147fdf98b53874828d84fd173f59520fe56c02da2591784bd2c9cd35",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -31,7 +32,7 @@
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
-    "validator_agents": 0,
+    "validator_agents": 1,
     "voice_directors": 0
   },
   "files": [
@@ -82,6 +83,18 @@
       "class": "scratch",
       "sha256": "0cf5856c62c19a9508d6054ebf7d84d1e9bb26e4bd7b9111bcb87d80f4175b76",
       "size": 10660
+    },
+    {
+      "path": "out/dispatch/validator-assignment.json",
+      "class": "scratch",
+      "sha256": "1ff5441d7fe7d0ab23ddb73c3c9d5abcf85d84bb4f7cc4a50d159c40d05b7568",
+      "size": 1792
+    },
+    {
+      "path": "out/dispatch/validator-packet.json",
+      "class": "scratch",
+      "sha256": "e24e9a9ec5f2cdef310a57fa2a22b7da56a16411094561b585974d77020ccb3f",
+      "size": 2328
     }
   ],
   "excluded": [],
