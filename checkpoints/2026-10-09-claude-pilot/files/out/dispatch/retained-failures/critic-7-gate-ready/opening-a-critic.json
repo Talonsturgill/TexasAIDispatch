@@ -1,0 +1,89 @@
+{
+  "treatment": "a",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated, read-only gate-ready code-scope review",
+  "reviewed_at": "unknown",
+  "verdict": "pass",
+  "weakest_frame": "41.75-44.0 s, s8-shot-2. This is the planned frame, not an observed one. It is the held closing tableau: ending() under Cam f=[540,760] s=1. The answer card sits at (530,815) at scale 1.5 and spans about x 530-1046, y 815-1190. It is drawn face-on, while the patient chart beside it lies flat on the desk (flat .6, scale .95) at about x -129 to 283, y 507-865, with roughly a third cropped at the left. So the card has neither visible support nor a matching perspective. 'Sources', 'Accuracy' and both 'Not in release' lines are 37.5 to 40.5 px native, about 13 px on a 374 px phone stage. With clip rotation, the accuracy tag's upper-left corner (about 48,849) overlaps the chart's bottom edge by up to about 15 px. The care tag's string crosses 'release' on the accuracy tag. The care tag's lowest corner (about y 1249) sits about 44 px above the estimated top of the two-line c15 caption plate (about y 1293). The only motion is the Sources glow (about 41.79-42.58), one ring pulse (about 42.72-43.30) and then 0.7 s of stillness. The frame works mostly by recalling the large reads in s6 and s7.",
+  "strongest_frame": "2.05-4.5 s, s1-shot-2 (planned). A close on the tool: one answer drops out of the tool's mouth onto the desk, and three citation cards follow and tuck into its Sources slot. The answer card sits at about x 459-905, y 906-1199, above the caption plate. It is a picture-led payoff of the hook, right after the first reward at about 1.05 s.",
+  "blocking_defects": [],
+  "notes": [
+    {
+      "scene": "s8",
+      "problem": "The closing answer card is drawn face-on with only an offset drop shadow, while A's chart beside it is foreshortened flat on the desk. This mixes perspectives and leaves the card's support ambiguous (contact_and_consequence: visible support). It is a phone and native question, not a code blocker.",
+      "fix": "Optional, if s8 is reopened for other reasons. Give the card the same desk plane as the chart, for example aFlat .25 as in world(), or prop it visibly, and recheck the tag box against the caption plate."
+    },
+    {
+      "scene": "s8",
+      "problem": "A's chart moves from the wall rail (s1-s3, partly visible in s5 and s6) to lying flat on the desk in the close, with no move performed on screen. Identity carries through the clip and teal tabs.",
+      "fix": "Optional. Keep the chart on its rail behind the desk in the close, or accept it as a staged reading surface like s4, s6 and s7."
+    },
+    {
+      "scene": "s8",
+      "problem": "In s8-shot-1 (39.5-41.75) the tool sits at about y 1424-1812, below SAFE_BOTTOM and the caption plate, and its label starts at about x -54, so it reads 'penEvidence'. The feed hides it, but native playback shows it. The tool is not narrated in s8.",
+      "fix": "Optional. A small vertical reframe is not possible without bringing the start-pin tags back into frame (f.x needs to be above 811 and at most 791 at the same time). Accept it, or hide the tool in this shot."
+    },
+    {
+      "scene": "s6/s8",
+      "problem": "Pre-existing in ChartHero. The care tag is drawn after the accuracy tag, and its string crosses the accuracy tag's 'Not in release' line. That is about 5.9 px native in s6-shot-3 and 3.75 px in the close, over 58.8 px and 37.5 px type.",
+      "fix": "Optional. Draw care before accuracy, or route the care string behind the accuracy body. That needs a new authored record and charge, so only do it if a native finish review rejects it."
+    },
+    {
+      "scene": "s8",
+      "problem": "The decision and report tags leave their s5 and s6 pins in s8. The evaluating tag takes the end pin where 'UTMB's own report' hung in s6.",
+      "fix": "Non-blocking. The phone critic judges whether the attribution appears to be replaced."
+    },
+    {
+      "scene": "all",
+      "problem": "quality_plan.scenes[].source_basis still reads 'Not ... a clinician or a patient' for s3 (hands) and s5 (figures). This is internal planning text only.",
+      "fix": "Reword it to 'any real or identifiable clinician or a patient' when the board is next touched."
+    }
+  ],
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "This is the planned chain at code scope, not an observed film. At a clinic wall, anonymous scrub-sleeved hands type at the near keyboard while a question card fills on the wall chart. A final key strike sends the card left to right into the wall-mounted OpenEvidence tool, which pulses. One answer drops out of its mouth onto the desk, and three citation cards follow it into its Sources slot by about 4.2 s. The teal health-record boundary lights, and 'Announced September 22nd' and 'Live since March' tags pin to it. A masked sign-in opens the record lock, and a tight detail fills the question in plain-language word shapes before it slides to the chart edge. On a reading surface the three citations fan out of the Sources slot, and 'Medical literature' and 'Clinical guidelines' lift. Seven of twelve faceless clinician figures light past the Half tick, and a 'Clinical decision support' tag pins to the bar. A 'UTMB's own report' tag pins to the bar. Then 'Accuracy' and 'Patient care' tags clip onto the answer and read 'Not in release' in a large close. The literature card rises and a thread links it to the Sources slot while the empty Accuracy ring pulses. An 'Evaluating use and experience' tag drops onto the bar. The film closes on the answer beside the chart, with Sources filled, Accuracy empty, both limit tags on and the evaluating tag hanging above.",
+    "opening_to_ending": "The film opens on 'what comes back when a UTMB clinician asks inside the record?' as hands send one question into the OpenEvidence tool, and it pays that off at about 1.05 to 4.2 s. The close holds the same answer card beside the same chart: Sources filled with three chips, the Accuracy slot dashed and empty with one ring pulse, two 'Not in release' tags, and the evaluating tag on the usage bar. That answers the question: sources come back, and accuracy and patient care are not published. It states the next step UTMB names without inventing an outcome. Every pictured fact stays within c1 to c5 and c8.",
+    "weakest_transition": "41.75 s, s8-shot-1 to s8-shot-2. The cut goes from the share-board close to the staged desk close. The board shrinks to a 14 px frame-rail strip and the bar along the top. The patient chart, last seen on the wall rail, now lies flat on the desk, foreshortened and about a third cropped, and no move is performed on screen. Identity carries through the clip, the teal tabs and the matched tag scale (1.609 relative to the board in both shots). The relocation is still a mild continuity cheat, and the phone critic must confirm that the flat chart reads as the chart.",
+    "story_sha256": "7c1459d11a90edb7b0b5d1c2408ad9ec4856f199794fe1c403be625ab373bfd5",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "BD1": "resolved",
+    "BD2": "resolved",
+    "BD3-residual-closing-image": "resolved",
+    "BD4": "resolved",
+    "BD5-n8-chart-absent": "resolved",
+    "critic5-correction-blank-clinician-tokens-wording": "resolved",
+    "critic5-correction-story-source-limit-wording": "resolved",
+    "critic6-N1-s8-tag-relocation-nonblocking": "unresolved",
+    "critic6-N2-care-string-crosses-release-nonblocking": "unresolved",
+    "critic6-N3-limit-tag-box-and-caption-clearance-nonblocking": "unresolved",
+    "critic6-N4-evaluating-tag-shadow-on-desk-nonblocking": "unresolved",
+    "critic6-N5-penEvidence-cut-in-shot-1-nonblocking": "unresolved"
+  },
+  "per_defect_note": "I re-derived BD3, BD4 and BD5 myself from the current source. BD3: in s8-shot-2 no figure row is in frame (row 2 ends at about y -24, its glow at about -10). The bar sits at y 67-108 and its labels at 14-50, clear of the pill (x 44-516, y 132-188). One board tag is in frame. The evaluating tag body is at about x 100-692, y 269-478, scale 1.93, with 48.3 px type (12.07 px at 270 px wide), and its string crosses y 188 at about x 537. BD4: the s6-shot-3 limits close at effective 2.35 puts both tags about 748 px wide, above the c12 plate. BD5: ending() draws the chart. BD1 and BD2 come from the critic-5 summary. Their code paths are unchanged according to the builder and the critic-6 line diff, and I did not re-derive their original wording. The critic6-* items are non-blocking notes, unchanged because ChartHero and the relevant cameras are unchanged.",
+  "risks_for_the_phone_critic": [
+    "STALE COMPARISON. The packet's openings/comparison.json (declared ee2fa12f...) binds renderer d0936db..., the repair-3 batch. The current renderer binding is af828fd.... The phone selection needs a fresh two-treatment comparison rendered from these exact bytes. The retained a.mp4 and b.mp4 can't decide it.",
+    "Builder point 1 (answer stays at scale 1.5): acceptable. I confirmed the width constraint: the tags hang about 322 local units left of the clip and the card extends 344 to the right. Labels are 37.5 to 40.5 px native, about 13 px on a 374 px stage. The phone critic must confirm they read as recall of s6-shot-3 and s7-shot-2.",
+    "Builder point 2 (decision and report tags moved to the start pin in s8): acceptable at code scope. Neither is in either s8 frame. In A the evaluating tag takes the end pin where 'UTMB's own report' hung in s6-shot-1, about 10.5 s and three shots earlier. Judge whether viewers read it as replacing the attribution.",
+    "Builder point 3 (figures absent from the final frame): acceptable. s8-shot-1 shows figures, bar and tag together right before the cut, and shot 2 keeps the bar, the Half tick, 'More than half' and the tag at the same board-relative size. Check that the 14 px wood-rail strip at the top edge and the label caps touching it (local 616 against 616.6) read as intended, not as a crop error.",
+    "Builder point 4 (A's chart lies flat on the desk in the close): acceptable and non-blocking, but it is an unperformed relocation from the wall rail. Check that the foreshortened chart, about 31 percent cropped, still reads as the chart. Also check the face-on answer card beside it for visible support.",
+    "Builder point 5 (B's tool at the left edge in shot 1): see B. The builder did not list A's equivalent, which is worse: in s8-shot-1 the tool is under the caption plate and below SAFE_BOTTOM, with the label cut to 'penEvidence'.",
+    "Builder point 6 (story_art.requests[0].source_limit says 'a clinician or a patient'): acceptable and true. That request is the ChartHero group, which draws no clinician. The anonymous hands and figures are in ClinicSupport, whose own source_limit covers them. Changing it would break the request receipt for no truth gain.",
+    "Builder point 7 (full-frame backgrounds in ending() and surface()): not in force here. placeActive() keys on board.date 2026-10-09, before placePlates effective_date 2026-10-10, and the board has no place.version. The close uses glazed=false, so the last 2.25 s carry no Gulf window. Region is absent there, not wrong. It would block if the edition were re-dated or opted in.",
+    "Whether the care-tag string across 'release' (s6-shot-3 at about 30.9-33.0 and the close) impairs reading at phone size and native crop.",
+    "Whether the A s6-shot-2 medium (29.0-30.9) holds up. The answer's right edge runs about 25 px out of frame and the Accuracy slot sits against the frame edge while the tags clip on.",
+    "Whether A's key-triggered send (s1 at about 0.62-1.47, s3 at about 14.9-15.6) reads as a diagrammatic data flow or as a floating transfer. No hand touches the card.",
+    "Whether the evaluating tag's drop and settle (about 39.88-40.96) leaves enough hold before the 41.75 cut, and whether the close's glow, one pulse and 0.7 s still earn 2.25 s rather than reading as a held tableau.",
+    "In both share-board shots (A s6-shot-1 about 27.0-29.0), the report tag's string crosses the end of 'support' on the decision tag, and the report body overlaps the bottom margin of the decision body by about 27 px. Check the legibility of 'decision support'.",
+    "The 'More than half' bar fills to about 62 percent with a soft fade, and the board lights 7 of 12 figures. Confirm neither reads as a precise count or percentage, which the release never gives.",
+    "Captions are authored estimates. After board_retime and measured alignment, recheck caption plate heights against the closing tag box (care corner about y 1249) and the s1-shot-2 answer card (about y 1199). DirectedFilm throws if an active clause leaves its shot, so a cut that retimes past a clause boundary fails loudly rather than silently switching cameras.",
+    "Still owed on the actual film: all seven modern_observations, all four phone_observations, timed narration_picture_observations for n1a to n8, and the place, regional-cue and native-finish reviews (hand finish at s3-shot-2 scale 2.6, tag pins and strings, contact shadows). Code scope cannot supply any of them."
+  ],
+  "stronger_treatment": "b. I now disagree with my retained critic-6 choice of A. At code scope B carries the stronger human action and continuity. Its right hand rides the card in one continuous push and releases it into the tool's mouth, while A's card flies off the wall chart after a key strike with no hand on it, which risks reading as a floating transfer. B's first shot is a close on hands and card that is legible at phone size, where A's wide makes the question card about 187 px native. B keeps its chart on the same stand into the close, while A relocates it from the wall rail to the desk. A keeps the clearer left-to-right geography of the mechanism. B's risks are the empty report pin visible in s8-shot-1 and a more crowded close. The fresh phone comparison decides.",
+  "concept_sha256": "495b29f02b158f5c36ad9486d5072ce4e918dd5f882b9a3002292d06f965822f",
+  "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+  "scope": "Code scope only. I read the full opening-a.json (treated as identical to storyboard.json, since both are declared a63eb199...), ClinicAnswerFilm.tsx, ChartHero.tsx, ClinicSupport.tsx, DirectedFilm.tsx, PlaceStage placeActive, DispatchOverlays and editorial caption layout, safearea.ts, claims.json, story_selection.json, the builder handoff, the critic-5 summary, my retained critic-6 report, the contract and every bound guide. All geometry is my own hand arithmetic, approximate to a few px. I can't hash with Read, so every sha256 here is a declared value echoed from the contract. No pixels, audio or measured timing were seen. This approves no picture, score or shipment; a code pass authorizes the phone test only."
+}

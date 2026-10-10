@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T16:24:42.273039+00:00",
-  "note": "critic r6 gate-ready dispatched (reserved 9/9); hook active; capture held",
+  "saved_at": "2026-10-10T16:40:35.219268+00:00",
+  "note": "gate-ready code critic passes both boards (critic_gate no errors); budget audit: critics 9 of 10, deficit 2 on complete path, capacity refused as already owned; paid capture/voice held",
   "phase": "opening_compare",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -107,6 +107,30 @@
       "class": "scratch",
       "sha256": "b2c3eb9a95439939b72d3a87cf5bc6d6287716f09121b451d79986b59433683f",
       "size": 2288
+    },
+    {
+      "path": "out/dispatch/budget-audit/AUDIT.md",
+      "class": "scratch",
+      "sha256": "151d7d33e97a9c02f53d38ca54bad3f3dd3ffc4f8b05b4e915a411fa08c058f1",
+      "size": 1659
+    },
+    {
+      "path": "out/dispatch/budget-audit/completion-capacity-attempt-1.txt",
+      "class": "scratch",
+      "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
+      "size": 89
+    },
+    {
+      "path": "out/dispatch/budget-audit/precheck-code-plan.json",
+      "class": "scratch",
+      "sha256": "428f3319d691631d894b5d34033d9b63496c048149533b860e9ad0c5a5e5c37f",
+      "size": 1499
+    },
+    {
+      "path": "out/dispatch/budget-audit/precheck-plain.json",
+      "class": "scratch",
+      "sha256": "43b4316ff781c01160f722faee4f5208b76f4791f16422ad729318b2e9174b7d",
+      "size": 1458
     },
     {
       "path": "out/dispatch/builder-assignment-r4.json",
@@ -2063,6 +2087,30 @@
       "class": "scratch",
       "sha256": "d3cf6314a441e417810c26fc9aa4905363fefeba21f5c218eac69e8092886462",
       "size": 1330
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-7-gate-ready/critic-handback-verbatim.json",
+      "class": "scratch",
+      "sha256": "33f4a252c31d3330fb1e376f0b96a0ee027f03926f6583d99adf2f225fa7692f",
+      "size": 26828
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-7-gate-ready/critic_gate_result.json",
+      "class": "scratch",
+      "sha256": "c37fff92e69509eb99912a5e07a1799ee50a3fb92ab7a6f32f366960d184f506",
+      "size": 132
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-7-gate-ready/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "5f6e51743813cbe5d263c3a5a81286b695efe3516686b4a58fd90039fecc1d5a",
+      "size": 15089
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-7-gate-ready/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "3ba31f731d9fc8ae8b15e667c7cf9df7527174b11e8e6753a34a2f509610e457",
+      "size": 12058
     },
     {
       "path": "out/dispatch/retained-failures/hook-readiness-failed-r5.json",
