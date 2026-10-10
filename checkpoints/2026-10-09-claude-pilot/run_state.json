@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-3-baseline/out__dispatch__opening-a.json",
-        "before_sha256": "5fe41c988650f55a60cd86ead01cde3399c299cd4a27b172820c41d61a85c886",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-3-baseline/out__dispatch__opening-b.json",
-        "before_sha256": "f6cc8d6c43dbdece44f8f1c6867af1dcce1294efdd561c17161716602d5a2e42",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-3-baseline/out__dispatch__storyboard.json",
-        "before_sha256": "5fe41c988650f55a60cd86ead01cde3399c299cd4a27b172820c41d61a85c886",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/retained-failures/repair-3-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
-        "before_sha256": "6cb3ae3e7a4bf80e8b5c3339dd340ba9991e7bf7005940f2fa54715574191c20",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
-      }
-    ],
-    "failure_sha256": "515edd77e6f23c3a5dc7eb32d12351ce89915acd51e90b974b2561356d205097",
-    "plan": "{REPO}/out/dispatch/repair-plan-3.json",
-    "plan_sha256": "1426dc3661e7dfdcda5a5369672e332941249c804d6da43fa510b9b263c9daf1",
-    "reboards_before": 3,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -534,6 +505,60 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-10T03:44:02.277296Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
+            "before_path": "out/dispatch/retained-failures/repair-3-baseline/out__dispatch__opening-a.json",
+            "before_sha256": "5fe41c988650f55a60cd86ead01cde3399c299cd4a27b172820c41d61a85c886",
+            "path": "out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "5289e74d0cd6b22669bb799989b0cf179414218eabeb981bad73c5b288820cef",
+            "before_path": "out/dispatch/retained-failures/repair-3-baseline/out__dispatch__opening-b.json",
+            "before_sha256": "f6cc8d6c43dbdece44f8f1c6867af1dcce1294efdd561c17161716602d5a2e42",
+            "path": "out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
+            "before_path": "out/dispatch/retained-failures/repair-3-baseline/out__dispatch__storyboard.json",
+            "before_sha256": "5fe41c988650f55a60cd86ead01cde3399c299cd4a27b172820c41d61a85c886",
+            "path": "out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "56822dea2e2bbe1fe9bf5ad3ad6c418a48337b2ebbd2e598aec5f11da5bd5d72",
+            "before_path": "out/dispatch/retained-failures/repair-3-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+            "before_sha256": "6cb3ae3e7a4bf80e8b5c3339dd340ba9991e7bf7005940f2fa54715574191c20",
+            "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At 13.5 s A cuts from the credential and lock framing to a visibly different detail of the typing hands and card, and A's cuts at 17.975 s and 33.0 s each change the picture by a quarter or more, so A no longer plays any framing for longer than 5 seconds.",
+        "failure_evidence": "out/dispatch/retained-failures/critic-3/a.json",
+        "failure_evidence_sha256": "515edd77e6f23c3a5dc7eb32d12351ce89915acd51e90b974b2561356d205097",
+        "failure_family": "source-framing",
+        "mechanism_change": "A single camera constant set for treatment A's s3 and its two borderline cuts is replaced with distinct executed framings. No layering, art, narration, claim, timing or event change.",
+        "mechanism_id": "a-s3-camera-reframe",
+        "repair": "Change only the camera plan in the episode renderer. Give A's s3-shot-2 a real change of framing and subject from s3-shot-1, for example a tight detail on the typing hands and the question card against the credential and lock framing, so the cut shows new information. Strengthen A's two borderline cuts (s4 at 17.975 s and s6 to s7 at 33.0 s) so each changes size by at least 25 percent or moves to a new subject. Touch nothing else, and keep B's executed framings unless a shared edit requires re-checking them. The boards then carry the new renderer hashes.",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "The independent critic's third review passed treatment B at code scope and returned revise for treatment A on one blocking defect. The cut at 13.5 s from s3-shot-1 (credential-gate camera f (250,1040) scale 1.75) to s3-shot-2 (desk-close typing camera f (200 to 250,1030) scale 1.9) changes the framing by only about 9 percent zoom and 95 px on the same card, keyboard and hands, so it reads as a jump cut and s3 plays as one 5.5 second framing. The critic also marked two cuts as borderline reframes, s4 at 17.975 s (0.92 into 1.04, about 146 px) and s6 into s7 at 33.0 s (1.05 into 0.90, about 144 px)."
+      },
+      "repair_plan_sha256": "302bedaa96dc0e020d962a35b4651099e34d79b616876c4646bc11ccb0c893b6",
+      "repair_revision": "c9f640f0de4f0a5800b039d5cb7e9fe24e47086c7ec26adc8597ae012f8d2aeb",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -557,7 +582,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4d1d15a3788cc1e9954c0f6f854230383e0ab229f1eeba4f9615710e2eb90e94",
+    "original_private_state_sha256": "31ce77176e7cd2eff0800f66e41f8c02a91b47fef9bf87c6135dcfdbf139a25e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -585,7 +610,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T03:41:21.345915Z",
+  "updated_at": "2026-10-10T03:44:02.277354Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
