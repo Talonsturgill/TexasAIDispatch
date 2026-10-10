@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "vo-director",
+    "policy": {
+      "path": "/home/user/restore/pilot/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "agent": "vo-director",
+    "resource": "voice_directors",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/restore/pilot/out/dispatch/vo-director-packet.json",
+    "sha256": "b31e3cde16b36b8f172d38bc55ccd3eb4385c7d399aceeddaf99f2fe04cad4e5"
+  },
+  "brief": {
+    "path": "/home/user/restore/pilot/.claude/agents/vo-director.md",
+    "sha256": "b3c777823e33ea83ea9eef900a7f07117d24b0a35a585d91f71da7af07f33ff2"
+  },
+  "agent_args": {
+    "subagent_type": "vo-director",
+    "description": "voice_director",
+    "prompt": "Work in /home/user/restore/pilot. Read the current compact packet /home/user/restore/pilot/out/dispatch/vo-director-packet.json (SHA256 b31e3cde16b36b8f172d38bc55ccd3eb4385c7d399aceeddaf99f2fe04cad4e5) and every bound current guide in full. Verify the inputs before use. Scope: Direct one continuous locked passage with connected phrases, clear grouping and pronunciation, source limits and the performed closing answer Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

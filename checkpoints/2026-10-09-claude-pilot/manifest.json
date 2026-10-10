@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T18:54:04.979687+00:00",
-  "note": "second finish-current grant (+1 critic) bound to the fresh phone pass; path funded",
+  "saved_at": "2026-10-10T18:54:16.880775+00:00",
+  "note": "ledger write",
   "phase": "voice",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "c28b0e91a0e542e23f4df82a85f2f773d4f128e02c8bbd344b7ccf94597063d1",
-  "original_private_ledger_sha256": "777ae9577cc9914af8eeedb7c808a0e203439935665608a9b04d1ffd8fd8822e",
+  "ledger_sha256": "740e41f953d07f62f3e5c1bbf687264814175ad79676a81a6ad83d6fe46ee235",
+  "original_private_ledger_sha256": "1d204d7dbaf80798b0568cad2da7cae806748bb6d069e24d44c7d66d3a7533ba",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -33,7 +33,7 @@
     "storyboard_critics": 10,
     "tts_calls": 0,
     "validator_agents": 1,
-    "voice_directors": 0
+    "voice_directors": 1
   },
   "files": [
     {
@@ -2487,7 +2487,7 @@
     {
       "path": "out/dispatch/retained-failures/phone-critic-r5-usage.json",
       "class": "scratch",
-      "sha256": "e1f5cbd0b3fac42a0b2f605e55e63b8eb1b9b7932dea922ea9de193cd138f88b",
+      "sha256": "ac4a64f35090cd0f87d4f824238e4a857f4cfda59484de79e6fafbfe481ce9de",
       "size": 842
     },
     {
@@ -2803,10 +2803,22 @@
       "size": 2328
     },
     {
+      "path": "out/dispatch/vo-director-packet.json",
+      "class": "scratch",
+      "sha256": "b31e3cde16b36b8f172d38bc55ccd3eb4385c7d399aceeddaf99f2fe04cad4e5",
+      "size": 7920
+    },
+    {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
       "sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
       "size": 651
+    },
+    {
+      "path": "out/dispatch/voice-director-assignment.json",
+      "class": "scratch",
+      "sha256": "b726a4f9cdabd3abd05697d56d74ded58b9fcc74372335751a423358d6074899",
+      "size": 1826
     }
   ],
   "excluded": [],
