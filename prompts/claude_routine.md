@@ -197,8 +197,13 @@ Keep phase loading, compact assignments, exact-byte audiovisual caching includin
 the current provider media deduplication. Run cheap mechanical checks before paid review. Group
 dependent production commands into one exit-code-checked job with retained logs and a compact
 summary, stopping at the first mandatory failure. Use exact job handles and completion markers;
-avoid repeated full-context polling. Wait within a tool call and continue independent work while
-a render runs. Never end the turn with a promise to perform the next phase.
+avoid repeated full-context polling. Use supported nonblocking worker status or waits of at most
+60 seconds; do not block steering or completed handbacks with long Bash sleep loops. Reuse the
+same worker for output-format corrections with exact gate errors. Give it the current report
+contract and computed bindings before execution; use bounded gate-function excerpts for missing
+format details instead of rereading entire controller modules. Every required guide, source,
+exact film and independent observation stays in scope. Continue independent work while a render
+runs. Never end the turn with a promise to perform the next phase.
 
 Use compact frame strips for director decisions and native crops when detail decides the result.
 Independent reviewers still receive the exact current film and every required unique media byte.
