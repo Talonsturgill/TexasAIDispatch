@@ -56,11 +56,13 @@ SCRATCH_ROOT = "out/dispatch"
 SOURCE_ROOTS = ("video-engine", "assets", "config")
 # Directories that are rebuilt from retained inputs. A path carrying "fail" is evidence, never skipped.
 REGENERABLE_DIRS = {"tmp", "cache", ".cache", "frames", "node_modules", "__pycache__"}
-# One path component at a time. A name merely containing a word, like a credential-gate view still,
-# is evidence and stays. Private means Gmail, readbacks, delivery routing, env or credential or secret
-# files and directories, anything marked private, and the delivery shipment manifest.
-PRIVATE_COMPONENT = re.compile(
-    r"(gmail|readback|routing|^\.env|^secrets?(\.|$)|^credentials?(\.|$)|(^|[._-])private([._-]|$)|shipment(?!-public))", re.I)
+# One path component at a time. Private means Gmail, readbacks, delivery routing, env files, anything
+# marked private, the delivery shipment manifest, and any component with credential or secret as a whole
+# word (credentials-prod.json, credential_store.yaml, secret-key.txt, a credentials directory). A rendered
+# image or other media is evidence even when it merely names a view, like a credential-gate still.
+PRIVATE_NAME = re.compile(r"(gmail|readback|routing|^\.env|(^|[._-])private([._-]|$)|shipment(?!-public))", re.I)
+CREDENTIAL_WORDS = {"credential", "credentials", "secret", "secrets"}
+MEDIA_SUFFIX = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".wav", ".mp3", ".m4a", ".flac"}
 PRIVATE_KEY = re.compile(r"(gmail|draft_?id|label_?ids|thread_?id|recipient|readback|routing|receipt_path)", re.I)
 EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)+")
 SECRET_TEXT = re.compile(
@@ -175,8 +177,17 @@ def ledger_text(state, root):
 
 # ---- what a checkpoint retains --------------------------------------------------------------
 
+def private_component(part, last):
+    if PRIVATE_NAME.search(part):
+        return True
+    if CREDENTIAL_WORDS & set(re.split(r"[._\-\s]+", part.lower())):
+        return not (last and Path(part).suffix.lower() in MEDIA_SUFFIX)
+    return False
+
+
 def private_path(rel):
-    return any(PRIVATE_COMPONENT.search(part) for part in Path(rel).parts)
+    parts = Path(rel).parts
+    return any(private_component(part, index == len(parts) - 1) for index, part in enumerate(parts))
 
 
 def stored_bytes(repo, rel):

@@ -267,14 +267,16 @@ class Privacy(Base):
     def test_a_failed_image_that_merely_names_a_view_is_evidence_and_kept(self):
         (self.scratch / "retained-failures").mkdir()
         (self.scratch / "retained-failures/a-s3-shot-1-credential-gate.png").write_bytes(b"png")
-        (self.scratch / "retained-failures/secret-santa-notes.md").write_text("not a credential store")
-        (self.scratch / "credentials.json").write_text("{}")
-        (self.scratch / ".env").write_text("X=1")
+        (self.scratch / "retained-failures/secret-handshake.jpg").write_bytes(b"jpg")
+        for name in ("credentials.json", "credentials-prod.json", "credential_store.yaml", "secret-key.txt",
+                     "secret-santa-notes.md", ".env", ".env.local", "my.credentials"):
+            (self.scratch / name).write_text("{}")
         (self.scratch / "secrets").mkdir(); (self.scratch / "secrets/key.txt").write_text("x")
+        (self.scratch / "credential-gate").mkdir(); (self.scratch / "credential-gate/frame.png").write_bytes(b"png")
         result = self.save()
         kept = {n.split("/files/", 1)[1] for n in self.names(result) if "/files/" in n}
         self.assertEqual({"out/dispatch/retained-failures/a-s3-shot-1-credential-gate.png",
-                          "out/dispatch/retained-failures/secret-santa-notes.md"}, kept)
+                          "out/dispatch/retained-failures/secret-handshake.jpg"}, kept)
 
     def test_shipped_ledger_is_sanitized(self):
         state = self.ledger()

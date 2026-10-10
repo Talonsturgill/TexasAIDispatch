@@ -16,6 +16,14 @@ What was done about it:
   `capture.allowed: false`. `claude_contract_check.capture_problems` refuses a capture command without a
   charged render reservation, a passed headroom check, the wrapper and genuine art receipts, and refuses any
   props with placeholder art. Its negative fixture is the observed command.
+- The protocol is enforced at the command boundary. `scripts/capture_guard.py hook` is registered in
+  `.claude/settings.json` as a PreToolUse hook for every Bash call, subagents included. It denies a capture or
+  render command (remotion still or render, ffmpeg encodes, preflight, cinema proof, render and opening scripts)
+  unless `out/dispatch/capture-authorization.json` holds a current authorization, the command goes through the
+  wrapper, and any props file carries no placeholder art. `capture_guard.py authorize` issues that file only from
+  facts, an unused charged render reservation in the ledger, passed native headroom and housekeeping, and genuine
+  recorded authored receipts. Each reservation authorizes once and the authorization expires. The observed
+  command is denied by the real hook in `capture_guard_test.py`.
 - Legitimate previews are rerun only after those requirements, with truthful actual receipts.
 
 Also observed: inside the Opus high leaf `CLAUDE_EFFORT` reads high, so the root-effort assertion in
