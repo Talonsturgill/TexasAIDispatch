@@ -147,7 +147,7 @@ def minimum_action_plan_failure(state, plan):
 
 def production_budget_precheck(state, review_route="host", phone_complete=False,
                                hero_rejected=False, context_ready=False, structural_ready=False,
-                               minimum_action_failed=False, mandatory_repair=False):
+                               minimum_action_failed=False, mandatory_repair=False, review_coverage=False):
     """Read-only complete remaining review path, including the final timed phone."""
     from creative_release import finishing_required
     action_blocked = bool(finishing_required(state) and minimum_action_failed and not mandatory_repair)
@@ -168,6 +168,13 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     required["voice_directors"] = int(not state.get("usage", {}).get("voice_directors", 0))
     if str(state.get('run_id', ''))[:10] >= '2026-10-08':
         required['image_generations'] = 0 if finishing or context_ready else 2
+    if review_coverage:
+        if review_route != 'host':
+            raise ValueError('coverage completion resumes the original host worker')
+        required.update(reboards=0, storyboard_critics=3, preflight_renders=3,
+                        full_renders=1, audiovisual_reviews=11, panel_rounds=1, scorer_calls=3)
+        if 'image_generations' in required:
+            required['image_generations'] = 0
     if hero_rejected and context_ready and phone_complete:
         # Same film and mix, new native excerpt. Protect a hero and one retry,
         # three final lenses and three separate provider scorer recoveries.
@@ -196,7 +203,7 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     return {"feasible": not deficits and not blockers, "errors": blockers, "resources": rows, "deficits": deficits,
             "review_route": review_route,
             "current_phone_reused": bool(phone_complete and (finishing or context_ready)),
-            "path": "minimum-action-repair-required" if action_blocked else "structural-hero-repair" if hero_rejected and structural_ready else "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
+            "path": "complete-review-coverage" if review_coverage else "minimum-action-repair-required" if action_blocked else "structural-hero-repair" if hero_rejected and structural_ready else "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",
             "scope": ("Conservative metadata-only context repair with exact frozen voice/mix reuse, fresh hero plus one retry, three final lenses and three separate provider scorer recoveries. No extra TTS, allowance or shipment approval"
                       if hero_rejected and context_ready else
                       "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval")}
