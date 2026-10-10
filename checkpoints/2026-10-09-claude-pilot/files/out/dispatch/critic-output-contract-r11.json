@@ -1,0 +1,38 @@
+{
+ "schema": "dispatch_code_critic_output_contract/1",
+ "purpose": "Timed-board code-scope review. The board is out/dispatch/storyboard.json: the selected treatment A with measured caption-boundary timing (narration_picture timing is inside the concept digest, so the authored-clock review no longer binds). Return ONE JSON object for treatment 'a' to be written as storyboard_critic.json. Judge whether the timed board keeps the reviewed concept and whether any retimed event now breaks its clause. Compare to out/dispatch/opening-a.json. Fill every judgment yourself; echo the bindings exactly.",
+ "required_fields": {
+  "treatment": "a or b",
+  "reviewer_identity": "your identity string, distinct from the director claude-sonnet-5-5",
+  "reviewed_at": "UTC ISO time; if you have no clock write the harness-visible time from the packet or say unknown",
+  "verdict": "pass or revise, your own judgment",
+  "weakest_frame": "time range and what is weakest",
+  "story_review": {
+   "verdict": "pass or revise",
+   "blocking_defects": "[] only if none, else list",
+   "one_viewing_summary": ">=30 chars",
+   "opening_to_ending": ">=30 chars",
+   "weakest_transition": ">=30 chars",
+   "story_sha256": "echo binding",
+   "policy_sha256": "echo binding",
+   "claims_sha256": "echo binding"
+  },
+  "action_reviews": "[] unless the board declares action proposals",
+  "per_defect": "object mapping each earlier finding id to resolved or unresolved",
+  "risks_for_the_phone_critic": "list",
+  "stronger_treatment": "a or b with reason",
+  "concept_sha256": "echo binding",
+  "renderer_sha256": "echo binding"
+ },
+ "shape_example_from_prior_valid_review": "out/dispatch/retained-failures/critic-5-opening-reviews/opening-a-critic.json (shape only; do not copy its verdicts or text)",
+ "bindings": {
+  "a": {
+   "concept_sha256": "05b8c257b902ef2fed53adb6a9f9e4ed6305f7a20fa678853b2d5062f3d8079e",
+   "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+   "story_sha256": "8b2543a06b308a6b0d3240ce4fbb5c7f957008bb6ad558b83b2099cd0ab355e3",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+   "board_file": "out/dispatch/storyboard.json"
+  }
+ }
+}
