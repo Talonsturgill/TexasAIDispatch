@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T20:36:55.759658+00:00",
-  "note": "repair 10 applied, timed board passes 13 cheap gates, mix stable, vo_align verify ok",
+  "saved_at": "2026-10-10T20:37:21.742934+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "07036323511f88d5e018571b715e3879b6dfb0263bb0a0e0b05048f07df8dc35",
-  "original_private_ledger_sha256": "375d9273421f238113502e737df129b2c2de2a620f1db332e367a4066e1a349c",
+  "ledger_sha256": "6470763186b4b0e332fb8d5b1e15a8ccbc377ce2edeec95c0109dbe16770b81d",
+  "original_private_ledger_sha256": "3d3cbb40297da17a6116b3f823b0ad6b6eb04e99bd9d15c5251bd68de4b55f0d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,7 +30,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 13,
+    "storyboard_critics": 14,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
@@ -345,8 +345,8 @@
     {
       "path": "out/dispatch/budget-audit/phone_gate_recheck.json",
       "class": "scratch",
-      "sha256": "c36697603e3fa115e2aa9a8ca71d88fe88b4ac8045833f51dfbf66b787181eda",
-      "size": 182
+      "sha256": "7ca368c1d7b02e401492df2ea48a36cdda8cc4e413d1a6c76e3f1cf21c07d9cc",
+      "size": 1087
     },
     {
       "path": "out/dispatch/budget-audit/precheck-after-phone-failure.json",
@@ -629,6 +629,12 @@
       "class": "scratch",
       "sha256": "8a0b22a299ef042ffa79faad9d595778c36e9be8ff84cd7f23f96ee7bb0a9c8e",
       "size": 1932
+    },
+    {
+      "path": "out/dispatch/critic-output-contract-r10.json",
+      "class": "scratch",
+      "sha256": "68aaea92d32c76f9c03e7cb28e7cdd584a8a7dc9ff1c6701166e444d1312ad26",
+      "size": 2486
     },
     {
       "path": "out/dispatch/critic-output-contract-r5.json",
@@ -3065,6 +3071,30 @@
       "class": "scratch",
       "sha256": "3ba31f731d9fc8ae8b15e667c7cf9df7527174b11e8e6753a34a2f509610e457",
       "size": 12058
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair10/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "2b56c5123a60729f9b578b676be0a3c2eb328156b46afe7e17cc94f1cd44d811",
+      "size": 11518
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair10/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "94d77ac4f607ec92c11609a7082ea5f6e5f7fc87d5d393656e2a6f14fe7103d6",
+      "size": 9008
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair10/phone-critic-current.json",
+      "class": "scratch",
+      "sha256": "44a85dc67fcda43128953b3d4608c8b55cd729c419316f9329a5187a2ceeda31",
+      "size": 13395
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair10/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "2b56c5123a60729f9b578b676be0a3c2eb328156b46afe7e17cc94f1cd44d811",
+      "size": 11518
     },
     {
       "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair9/opening-a-critic.json",

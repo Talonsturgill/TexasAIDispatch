@@ -225,6 +225,14 @@
       "note": "repair 10 reboard: event fractions refit to measured clause windows",
       "resource": "reboards",
       "to": 9
+    },
+    {
+      "at": "2026-10-10T20:37:21.162447Z",
+      "ceiling": 15,
+      "from": 13,
+      "note": "gate-ready story and source re-review of both treatments after repair 10 (event fractions), same reviewer resumed",
+      "resource": "storyboard_critics",
+      "to": 14
     }
   ],
   "events": [
@@ -2654,6 +2662,24 @@
       "repair_revision": "0b85f5ac0ef8e40432ee7f7839cdbdde6df1ecaa97c7ae39473030157d91227b",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-10T20:37:21.162494Z",
+      "ceiling": 15,
+      "kind": "budget_escalated",
+      "note": "gate-ready story and source re-review of both treatments after repair 10 (event fractions), same reviewer resumed",
+      "now": 14,
+      "resource": "storyboard_critics",
+      "was": 13
+    },
+    {
+      "at": "2026-10-10T20:37:21.162505Z",
+      "kind": "reserved",
+      "note": "gate-ready story and source re-review of both treatments after repair 10 (event fractions), same reviewer resumed",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -2668,7 +2694,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 13,
+    "storyboard_critics": 14,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
@@ -2677,7 +2703,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "375d9273421f238113502e737df129b2c2de2a620f1db332e367a4066e1a349c",
+    "original_private_state_sha256": "3d3cbb40297da17a6116b3f823b0ad6b6eb04e99bd9d15c5251bd68de4b55f0d",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2705,7 +2731,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T20:35:35.110772Z",
+  "updated_at": "2026-10-10T20:37:21.162507Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -2718,7 +2744,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 13,
+    "storyboard_critics": 14,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1

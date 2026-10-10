@@ -1,0 +1,53 @@
+{
+  "treatment": "b",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated, read-only gate-ready code-scope review",
+  "reviewed_at": "unknown",
+  "verdict": "pass",
+  "weakest_frame": "41.75-44.0 s, s8-shot-2 (planned, not observed). Unchanged by repair 9. This is the held close at desk height. The chart sits on its stand at about x -50 to 248, y 486-876. The evaluating tag body ends about 8 px above the chart clip. The accuracy tag corner (about 48,849) sits in front of the chart foot and stand by up to about 27 px, which crowds the left-centre. The answer is face-on at scale 1.5 with labels about 13 px on a 374 px stage. The care string crosses 'release', and the care bottom (about y 1249) sits about 44 px above the estimated c15 plate. The motion is a glow, one pulse and a 0.7 s still.",
+  "strongest_frame": "0.0-2.05 s, s1-shot-1 (planned). At desk height the hands finish typing, then the right hand rides the question card across the laminate and releases it into the tool mouth. It is a performed human action with its first reward at about 1.05 s.",
+  "blocking_defects": [],
+  "notes": [
+    {"scene": "s3/s4", "problem": "The same repair-9 situation as A. The vo and sentence_to_shot clause now read 'credentials, and ask' and 'citations. To medical literature...'. Authored captions c5, c7 and c8 and clause texts n3a, n4a and n4b keep the old punctuation and case. These are provisional estimates, but strict gate matching is unverified by me.", "fix": "Run the pre-voice script check and the prose check. After alignment run modern_film.py. Update only the clause punctuation and case if the gate requires it."},
+    {"scene": "s4", "problem": "The deliberate fragment 'To medical literature and clinical guidelines.' is acceptable for captions and narration. The house rules allow it, and its meaning is unchanged and within c4. The risk is spoken choppiness, which only the actual take can show.", "fix": "None required. Use a narration-performance repair if the sound lens rejects the read."},
+    {"scene": "s8", "problem": "Carried non-blocking items, all unchanged: in s8-shot-1 the half pin where 'UTMB's own report' hung is visibly empty, at about (315,268); the tool label touches the left edge (x about -1); the close is crowded at left-centre.", "fix": "Optional, only if s8 reopens. See the prior gate-ready review."},
+    {"scene": "s6", "problem": "Carried, pre-existing: in s6-shot-1 the report string crosses 'Clinical' on the decision tag, and in s6-shot-2 and the close the care string crosses 'release'.", "fix": "Optional, after phone and native finish review."},
+    {"scene": "all", "problem": "quality_plan source_basis wording is stale for s3 and s5. This is internal text only.", "fix": "Reword it when the board is next touched."}
+  ],
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Planned chain at code scope, not an observed film. It is unchanged by repair 9 apart from two narration pauses at the s3 and s4 cuts. At desk height, anonymous hands finish typing and the right hand pushes the question card once into the OpenEvidence tool's mouth beside the propped chart. A medium shows one answer sliding out toward the lens, with three citations tucking into its Sources slot. The boundary lights and the dated tags pin. A masked sign-in opens the lock, then a keyboard detail fills the card in plain-language word shapes and pushes it to the chart edge. The citations rise from the Sources slot in a stepped cascade as 'Medical literature' and 'Clinical guidelines' lift. Seven of twelve faceless figures light past Half and the decision-support tag pins. 'UTMB's own report' pins to the half pin. One 4 s close holds the clip as the 'Accuracy' and 'Patient care' tags clip on and read 'Not in release'. A thread links the literature card to the Sources slot while the empty Accuracy ring pulses. The evaluating tag drops onto the bar, and the film closes on the answer beside the chart on its stand.",
+    "opening_to_ending": "The film opens on hands sending one question into the OpenEvidence tool, which poses what comes back when a UTMB clinician asks inside the record, and it pays that off by about 4.2 s. It closes on the same answer beside the same propped chart: Sources filled, Accuracy empty with one ring pulse, two 'Not in release' tags, and the evaluating tag on the usage bar. Sources come back, and accuracy and patient care are not published. UTMB's next step is shown with no invented outcome, within c1 to c5 and c8. The punctuation change alters no fact.",
+    "weakest_transition": "39.5 s, s7-shot-2 to s8-shot-1 (unchanged). From the empty Accuracy-ring detail, the film cuts to the share board at desk height. The decision and report tags are now off frame on the start pin. The half pin is visibly empty at about (315,268), and the evaluating tag drops onto the end pin the decision tag used, so viewers may read it as replacing the attribution. The phone critic decides.",
+    "story_sha256": "479c40e86631f0828c8954e75938d36261c340964dac3014dd4ed7846c6b20b2",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "BD1": "resolved",
+    "BD2": "resolved",
+    "BD3-residual-closing-image": "resolved",
+    "BD4": "resolved",
+    "BD5-n8-chart-absent": "resolved",
+    "critic5-correction-blank-clinician-tokens-wording": "resolved",
+    "critic5-correction-story-source-limit-wording": "resolved",
+    "critic6-N1b-s8-empty-report-pin-nonblocking": "unresolved",
+    "critic6-N2-care-string-crosses-release-nonblocking": "unresolved",
+    "critic6-N3b-crowded-close-left-centre-nonblocking": "unresolved",
+    "critic6-N5b-tool-label-at-edge-shot-1-nonblocking": "unresolved"
+  },
+  "repair9_verification": "No separate B baseline file was at out/dispatch/retained-failures/repair-9-baseline/out__dispatch__opening-b.json (it does not exist). I therefore compared against my own earlier full read of the repair-5 B bytes (declared 86f653c7...). In the current opening-b.json, s3.vo and s4.vo, and creative_direction.edits s3 and s4 sentence_to_shot.clause (lines 2927 and 2940), carry exactly the same two punctuation changes as A. Captions c5 to c8 (lines 3077-3112), the edit neighbours, the fingerprint and the divergence_note are unchanged, and the sampled line positions are identical to the earlier read. The renderer binding af828fd... is unchanged. A full byte diff needs repository tooling, and the director should name the actual B baseline path in the repair record.",
+  "risks_for_the_phone_critic": [
+    "Repair 9 is narration punctuation only. Confirm that the measured captions, compiled clauses and modern_film.py pass with the new punctuation and case, and that the pre-voice script check matches the locked script.",
+    "Sound and timed phone scope: do the pauses at the s3 cut (about 13.5) and the s4 cut (about 17.975) land on the picture changes, and does 'To medical literature and clinical guidelines.' sound detached? The silent film can't decide this.",
+    "Fresh two-treatment comparison of the current bytes is required. The retained comparison binds renderer d0936db....",
+    "Builder points 1 to 7 from repair 5, unchanged: labels about 13 px at answer scale 1.5; the empty half pin in s8-shot-1 and possible misreading of the attribution; the top rail strip in the close; the chart stays on its stand (B's advantage) but the close is crowded; the tool label at about x -1 in s8-shot-1; the story_art source_limit is true of its group; full-frame background not in force for 2026-10-09 and no Gulf window in the close.",
+    "Also check: B's push reads as a hand performing the send (contact, release at about 45 percent of the window, glide) in s1 and s3-shot-2, and the arm articulation at phone size; the single 4.0 s s6-shot-2 close earns its length; legibility of 'Clinical' and 'Not in release' where strings cross; the close's glow, pulse and still earn 2.25 s.",
+    "Still owed on the actual film: all seven modern_observations, four phone_observations, timed narration_picture_observations for n1a to n8, place and native-finish reviews and the sound lens."
+  ],
+  "stronger_treatment": "b. The visual reasoning is unchanged by repair 9. B has the performed hand push, a phone-legible first shot and a conserved chart staging into the close. A has the clearer left-to-right geography. A fresh phone comparison decides.",
+  "concept_sha256": "4b97718c214de85d7361e7efb0ef5b59f29eb5c650847ea2948d7ec41e7d1eef",
+  "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2",
+  "scope": "Code scope only. No pixels, audio or measured timing were seen. Every sha256 is echoed from critic-output-contract-r9.json, not recomputed. This approves no picture, score or shipment; it authorizes the phone test only."
+}
