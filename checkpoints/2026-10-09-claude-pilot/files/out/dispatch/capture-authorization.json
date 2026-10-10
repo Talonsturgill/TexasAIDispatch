@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fb9a02ecda391073500ca7375187c2419c7b5d48878913e961ebcfa04d3ce686",
+    "event_sha256": "57277d31040e61ac22225a2c4f470f52defe86967d76f6e0dcb700cbebb1bb44",
     "resource": "preflight_renders",
-    "at": "2026-10-10T20:43:07.565335Z",
-    "note": "two opening comparison batch, fresh after repair 10 refit"
+    "at": "2026-10-10T20:43:44.826290Z",
+    "note": "two opening comparison batch retry after pre-render refusal (storyboard.json held timed board); refusal retained"
   },
   "boards": [
     {
@@ -160,21 +160,21 @@
     {
       "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-10T20:43:15.260382+00:00"
+      "consumed": "2026-10-10T20:43:53.355281+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 20.917
+    "free_gib": 20.916
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T204313.json",
-    "receipt_sha256": "6f496f46e7ac0fbd7728e844fc2f826275357d372b02d39fc0b18881e29c1359",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T204350.json",
+    "receipt_sha256": "360b2ae438d891eea33d5e372e4ce0e43861eec6851fce02cfa6b2766026ac42",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-10T20:43:13.161484+00:00",
-  "expires_at": "2026-10-10T21:28:13.161484+00:00"
+  "issued_at": "2026-10-10T20:43:50.645712+00:00",
+  "expires_at": "2026-10-10T21:28:50.645712+00:00"
 }
