@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T03:35:21.021606+00:00",
+  "saved_at": "2026-10-10T03:35:36.087186+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "376173fca8a9575082f857ea1b308288a5cc107b",
+  "source_pin": "cc76599685d35f6a1b581b3106c9b26540233183",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
     "files": 348,
-    "sha256": "71f8434fc9220dc4d888790fab0f256ef513985a593fbb3f741af7ba75458165"
+    "sha256": "ee0d348bcc91371e8957bec272e507f11a72335a66b2e31fd60c84bb4c155b4d"
   },
   "deleted_source": [],
-  "ledger_sha256": "b6a6a66d55d92e1e62b1b5f5f65e18aed4f3c7a5e8c329d1910a964362fc2962",
-  "original_private_ledger_sha256": "a568abc40bce0428136f69fc2333dce1cec901f1db7ed0cb7011d51497a3eb6a",
+  "ledger_sha256": "5b0d3d3c3bdb5ea0704ed7b67776731d30c446285d37911753b2148c2f8b5c88",
+  "original_private_ledger_sha256": "422ba61b2a426b27d9e3107af5e687aa6e2a0217876e10f801739eda0adcc9d9",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,18 +30,12 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 2,
+    "storyboard_critics": 3,
     "tts_calls": 0,
     "validator_agents": 1,
     "voice_directors": 0
   },
   "files": [
-    {
-      "path": "config/modern_episode_registry.json",
-      "class": "source",
-      "sha256": "2ececa271c2877f968127b08f2a677004071170a60a48ed3d0d53bed7c0d490d",
-      "size": 15268
-    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -380,6 +374,90 @@
     },
     {
       "path": "out/dispatch/picture-precheck/8966a16b-6e66-4bc5-998a-20890e4d3196/watchability_check.log",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/board_scale_check.log",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/caption_fit.log",
+      "class": "scratch",
+      "sha256": "9bf2d74474b19e2705daa7e7f6ee2d5c33539fbce6dfbe312338455727d80bca",
+      "size": 67
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/documentary_check.log",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/floor_check.log",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/modern_film.log",
+      "class": "scratch",
+      "sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/registry.log",
+      "class": "scratch",
+      "sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422",
+      "size": 80
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/report.json",
+      "class": "scratch",
+      "sha256": "c840a34bdd6a61bfe7b9d48c16002cd090c5dd655926c3c547b180c7a149debf",
+      "size": 6626
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/script_evidence.log",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/shot_coherence.log",
+      "class": "scratch",
+      "sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/staging_check.log",
+      "class": "scratch",
+      "sha256": "1b91dba5b613ed3a0fab3043929ca82a1ff02720bfc7966fe08f53fe9d5d118a",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/story_art.log",
+      "class": "scratch",
+      "sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885",
+      "size": 75
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/storyboard_check.log",
+      "class": "scratch",
+      "sha256": "22a90fdc69da93cda28b67314d43ab8d4bb794554e4675c9e3e77f57d493f268",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/super_evidence.log",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/picture-precheck/9c1409c9-ca96-450f-a3be-9192ac0c2212/watchability_check.log",
       "class": "scratch",
       "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
       "size": 91
@@ -953,24 +1031,6 @@
       "class": "scratch",
       "sha256": "114b5d2b071be98048e20da12e7d8fc0543e7ef6ff198798febf009fd5cc7d83",
       "size": 652
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
-      "class": "source",
-      "sha256": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
-      "size": 22798
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
-      "class": "source",
-      "sha256": "6cb3ae3e7a4bf80e8b5c3339dd340ba9991e7bf7005940f2fa54715574191c20",
-      "size": 23943
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
-      "class": "source",
-      "sha256": "ace57d14ee3cc631c194d05f6155f3ee541533eaafd356ca09fb8cdbb97a6ec3",
-      "size": 28870
     }
   ],
   "excluded": [
