@@ -85,7 +85,8 @@ def find_line(words: list[dict], line: str, search_from: int) -> tuple[int, floa
 
 
 def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
-           lead: float = LEAD_DEFAULT, min_conf: float = 0.5) -> tuple[dict, list[str]]:
+           lead: float = LEAD_DEFAULT, min_conf: float = 0.5, *,
+           narration_captions=None, acoustic_words=None) -> tuple[dict, list[str]]:
     # A board that has already been retimed legitimately carries `at_s` values that differ
     # from `at_s_authored`, so the hand-edit warning below only applies on a first pass.
     _retimed_before = bool(board.get("retimed_to"))
@@ -255,7 +256,7 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
     }
     board["_retime_moved"] = moved
     import modern_film
-    modern_errors = modern_film.retime(board)
+    modern_errors = modern_film.retime(board, narration_captions, acoustic_words)
     if modern_errors:
         return board, modern_errors
     return board, []
@@ -529,7 +530,10 @@ def main() -> int:
         clause_captions=json.loads(path.read_text())
         board['captions']=clause_captions['cues']
 
-    board, errs = retime(board, words, a.min_scene, a.lead)
+    segmented = bool((clause_captions or {}).get('narration_clause_segmentation'))
+    board, errs = retime(board, words, a.min_scene, a.lead,
+                         narration_captions=clause_captions if segmented else None,
+                         acoustic_words=wf if segmented else None)
     if errs:
         for e in errs:
             print(f"  FAIL  {e}")

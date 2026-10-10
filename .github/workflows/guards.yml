@@ -277,6 +277,7 @@ jobs:
           # Caption boundaries land on measured silence, so error re-anchors every phrase instead
           # of accumulating across the film.
           python3 scripts/vo_align.py --self-test
+          python3 scripts/vo_clause_cues_test.py
           # And the mixer has no resampler in it. Not disabled, absent, and the self-test proves
           # the absence by scanning its own code with the prose stripped out.
           python3 scripts/mix.py --self-test
