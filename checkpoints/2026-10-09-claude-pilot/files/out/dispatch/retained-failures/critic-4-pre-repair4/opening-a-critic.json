@@ -1,0 +1,41 @@
+{
+  "treatment": "a",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 (high effort), isolated Read-only fourth code-plan review of repair-3, separate from the director (claude-sonnet-5-5) and the scene-builder",
+  "reviewed_at": "2026-10-10T05:15:00Z",
+  "verdict": "pass",
+  "weakest_frame": "29.0-33.0 s, s6-shot-2 (camera f (485,810), scale 1.32). The limit tags read at about 40 px (screen x 38-577, y 617-986). The answer card, at world x 500-913, now runs to screen x 1105, so its right 25 px are cut off. The empty Accuracy slot sits at screen x about 842-1080, against the frame edge. It is still in frame, legible and above the feed's right-rail zone, but cramped.",
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Code-scope chain. Scrub-sleeved arms type at the desk, and a final key strike sends the question card across the wall chart into the wall-mounted OpenEvidence AI tool. One answer drops out below the tool's mouth line, and three citation cards tuck into its Sources slot. Dated tags pin to the record boundary. A sign-in opens the record lock. A tight detail shows the right hand typing as the question fills. The citations fan out and literature and guidelines lift. More than half of the clinician tokens light, labelled as UTMB's own report. Tags reading 'Not in release' clip onto the answer, the Accuracy slot pulses empty, and the use-and-experience tag pins to the share.",
+    "opening_to_ending": "The opening asks what comes back when a UTMB clinician asks inside the record. The closing hold answers with the same answer card beside the chart: its Sources slot glows full, its Accuracy ring pulses empty, and its limit tags are clear of the keyboard. The use-and-experience tag stays on the share. Everything stays within c1 to c8.",
+    "weakest_transition": "s6-shot-1 to s6-shot-2 at 29.0 s: the cut from the report tag on the share to the answer leaves the Accuracy slot against the right edge of the frame while the tags clip on. It is legible but cramped.",
+    "story_sha256": "c409acc303a1c1576e3faed1b955bb1fa69ecfd9f133419d43936f812a1038e5",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "N1": "resolved",
+    "N2": "resolved",
+    "N3": "resolved",
+    "N4": "resolved",
+    "N5": "resolved",
+    "D4": "resolved",
+    "D9": "resolved",
+    "D11": "resolved",
+    "D13": "resolved"
+  },
+  "risks_for_the_phone_critic": [
+    "s3-shot-2 at scale 2.6: the right hand fills about 416 px and the question card about 488x290 px. Judge whether the stylised hand finish holds up at this size, natively and on the phone.",
+    "s3-shot-2 crops the 'Usual credentials' card at the left edge (screen x about -162 to 400, y 713-916) between the question card and the keys. Check that this leftover prop doesn't distract.",
+    "s6-shot-2 crops the answer's right 25 px and puts the Accuracy slot against the frame edge.",
+    "In the s4 wide at scale 0.8 the citation labels are about 24 px. They become readable (about 33 px) only in the naming shot from 17.975 s.",
+    "Whether the hands look credible at phone size, and the motion feel of the card A sends with a key strike and no hand on it (s1 at 0.62 s, s3 at about 14.9 s), which works as a diagrammatic data flow.",
+    "The hands are removed at the s3-to-s4 cut, and later world shots show an unattended keyboard.",
+    "The report-tag string on the share board runs close to the end of 'decision support'."
+  ],
+  "stronger_treatment": "b. Both pass at code scope. B opens on a close of hands and card, the hand performs the send as one continuous push, and B's later shots have their own desk-level framings. A's sends are key-triggered data flows with no hand on the card, and its s6 close is cramped against the frame edge.",
+  "concept_sha256": "62df89d46941d7a065285156bb44527b97fe021e759172c8b784df4aa3e023b1",
+  "renderer_sha256": "d0936db24b7071b83e35216b90957b6025550125e911d98f5693df9ae60e124f"
+}

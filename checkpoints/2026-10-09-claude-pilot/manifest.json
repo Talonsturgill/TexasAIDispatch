@@ -1,19 +1,19 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T04:37:44.359702+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-10T04:50:43.059351+00:00",
+  "note": "manual",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "e8fbb063723c5dd9a44e5baa6dc0340c8d0ee63a",
+  "source_pin": "442dce21e226f626ce0437c21af18f4fb5b9879b",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
     "files": 348,
-    "sha256": "4f23b0c17c97194938c0a31eab93b593b419bb78c3d4866dc5cdc091afeb06dd"
+    "sha256": "62605579ceb56d783b95bd0385d507352124a3e750ebaef172852ce2137373c5"
   },
   "deleted_source": [],
   "ledger_sha256": "ad01da66694aa62408578cb423a48fea9f2bf31c7f0e3ed49b2efa5dbdf41ec0",
@@ -267,7 +267,7 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "d8ac344be57356715744ee91b1e148ad3f6afb1d2b6acdf1e4cdc42a3790c119",
+      "sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
       "size": 156695
     },
     {
@@ -279,7 +279,7 @@
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "516863131ec262f161599ba2415045c3fa00b93997730678aa053a364ecc8685",
+      "sha256": "59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea",
       "size": 155943
     },
     {
@@ -1371,8 +1371,14 @@
     {
       "path": "out/dispatch/repair-plan-4.json",
       "class": "scratch",
-      "sha256": "bf43728ce91a7ea327fb48f2b2590333a77ced47b47629e5f4b7f9cf4e593076",
+      "sha256": "41ae4e3194cee4809bfaa8539570712f2d8caecb73994c981cd4da73eac0ae05",
       "size": 3923
+    },
+    {
+      "path": "out/dispatch/repair-plan-5.json",
+      "class": "scratch",
+      "sha256": "9505b17efe8cc627750747c18cca58d0567ae8320b845eb5cbc7205b9fe4a61a",
+      "size": 2823
     },
     {
       "path": "out/dispatch/repair-plan.json",
@@ -1663,6 +1669,24 @@
       "size": 9083
     },
     {
+      "path": "out/dispatch/retained-failures/critic-4-pre-repair4/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "bbd123b9a4e5b971af99c45eaba4b8237134fd13c24b2f3eabd725e09ae94880",
+      "size": 4146
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-4-pre-repair4/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "05194c416b4e1247b0d4386cdc202d9269877e9b72a5d30ae7960b8f7f590e4e",
+      "size": 4369
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-4-pre-repair4/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "92fd3fe71d857a0c4f57c5a6a69f438460ab513f8eb6f64d14cfe33f3d0ab439",
+      "size": 30702
+    },
+    {
       "path": "out/dispatch/retained-failures/critic-4/a-verdict.json",
       "class": "scratch",
       "sha256": "de7191d26067fb8c3fa82398fbfc366f6be0e6109177ebe8e23c4648f3f87eda",
@@ -1679,6 +1703,12 @@
       "class": "scratch",
       "sha256": "1216aebafd079593941b29300a61d9d9c0b5075da9f7cbcbf224fed33f219d49",
       "size": 9068
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-5-code-scope/verdict-summary.json",
+      "class": "scratch",
+      "sha256": "977a110789d03afb5e1c72c3edcd7773a7a71438090a4e50b77ba500cd3fc9dc",
+      "size": 1705
     },
     {
       "path": "out/dispatch/retained-failures/neutral/mapping.json",
@@ -1715,6 +1745,12 @@
       "class": "scratch",
       "sha256": "e4093f9b1f9d59afd89b1d896f791e9a9bbbd6b73c9f976d12647c2604803b43",
       "size": 1979
+    },
+    {
+      "path": "out/dispatch/retained-failures/procedural-note-r4.json",
+      "class": "scratch",
+      "sha256": "9844cec8071d7040560ceafcbc81b8bb4c5cb317b9760b29284fac84577446fc",
+      "size": 763
     },
     {
       "path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__claims.json",
@@ -1891,6 +1927,36 @@
       "size": 28870
     },
     {
+      "path": "out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-a.json",
+      "class": "scratch",
+      "sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+      "size": 156695
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-5-baseline/out__dispatch__opening-b.json",
+      "class": "scratch",
+      "sha256": "59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea",
+      "size": 155943
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-5-baseline/out__dispatch__storyboard.json",
+      "class": "scratch",
+      "sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+      "size": 156695
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-5-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "class": "scratch",
+      "sha256": "9d8da3600252972f7dcbc77d6a2f685ef890eef70efd69500e81ee5a841b48ce",
+      "size": 27018
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-5-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+      "class": "scratch",
+      "sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
+      "size": 35988
+    },
+    {
       "path": "out/dispatch/sources/hb149.validator.txt",
       "class": "scratch",
       "sha256": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
@@ -1923,7 +1989,7 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "d8ac344be57356715744ee91b1e148ad3f6afb1d2b6acdf1e4cdc42a3790c119",
+      "sha256": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
       "size": 156695
     },
     {
@@ -1961,18 +2027,6 @@
       "class": "scratch",
       "sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
       "size": 651
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
-      "class": "source",
-      "sha256": "9d8da3600252972f7dcbc77d6a2f685ef890eef70efd69500e81ee5a841b48ce",
-      "size": 27018
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
-      "class": "source",
-      "sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
-      "size": 35988
     }
   ],
   "excluded": [

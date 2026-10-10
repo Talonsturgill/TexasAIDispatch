@@ -1,0 +1,39 @@
+{
+ "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated, read-only code-scope review",
+ "verdict": {
+  "a": "revise",
+  "b": "revise"
+ },
+ "blocking": [
+  {
+   "id": "BD3-residual-closing-image",
+   "scene": "s8",
+   "time_s": "41.75-44.0",
+   "category": "ending_artistry",
+   "defect": "evaluating tag shrinks to about 90 px / 8 px type in the held close; share-board figure heads sit under the always-on disclosure pill (x 44-516, y 132-188) and top rows are cropped; decision, report and evaluating tags overlap about 20-30 px with crossing strings; limit tags only about 115 px"
+  },
+  {
+   "id": "BD5-n8-chart-absent",
+   "scene": "s8",
+   "time_s": "39.5-44.0",
+   "category": "comprehension",
+   "defect": "narration_picture n8 binds subject_ids [evaluation-tag, chart] and s8 must_show s8-chart / event-2 / closing_state say beside the chart, but no chart is drawn in either s8 shot"
+  }
+ ],
+ "resolved": {
+  "BD1": "resolved",
+  "BD2": "resolved at code scope",
+  "BD4": "resolved (Not in release close at effective 2.35 from 30.95 to 33.0)"
+ },
+ "correction": [
+  "limit change to ending() and s8 bindings",
+  "re-lay closing board so all rows sit clear of pill band y 132-188 x<=516",
+  "spread pins so tags do not overlap",
+  "evaluating tag no smaller than s8-shot-1 scale, type >=12 px at 270 width; consider answer scale 1.8-2.0",
+  "draw the chart edge beside the answer or remove chart from n8 subject_ids, s8 must_show, event-2 what and closing_state",
+  "rewrite stale 'blank clinician tokens' wording (non-blocking)",
+  "reword source_limit to 'not any real or identifiable clinician'"
+ ],
+ "stronger_treatment": "a",
+ "limits": "code scope only, no pixels seen"
+}

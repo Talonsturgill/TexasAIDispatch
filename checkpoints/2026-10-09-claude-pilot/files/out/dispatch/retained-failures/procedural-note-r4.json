@@ -1,0 +1,12 @@
+{
+ "note": "After authorize-repair the three boards' native_media rows for ClinicSupport.tsx still carried the pre-repair module hash, so renderer_digest refused them. The director synced only those sha256 fields to the recorded repair-4 receipt. No other board field changed.",
+ "authorized_after_sha256": {
+  "opening-a/storyboard": "d8ac344be57356715744ee91b1e148ad3f6afb1d2b6acdf1e4cdc42a3790c119",
+  "opening-b": "516863131ec262f161599ba2415045c3fa00b93997730678aa053a364ecc8685"
+ },
+ "current_sha256": {
+  "opening-a": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa",
+  "opening-b": "59f331110d86dbd0905c56612293ac0649dbba03d8bc6b9148a06d4192bccfea",
+  "storyboard": "4ce09bebb5abecfafe212cb4e573e35023f40c1271ccc452aacd76bdf18ca8fa"
+ }
+}
