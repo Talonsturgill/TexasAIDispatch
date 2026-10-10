@@ -23,7 +23,13 @@
     "command": "stills.sh: remotion still $SP/bundle Dispatch ... --frame=N --scale=0.5 for each directed shot of both scratch boards",
     "note": "Detected after the fact. The director messaged the builder to stop; the files preserved here are what existed when this record was made. A final addendum lists anything captured later."
   },
-  "late_charge": "pending: charged to the controller by the director immediately after this record, within the unchanged frozen envelope",
+  "late_charge": {
+    "resource": "preflight_renders",
+    "amount": 1,
+    "charged_at": "2026-10-10T02:18:25.482615+00:00",
+    "for": "capture_1 (the frame 30 still)",
+    "note": "Charged after the fact. It was not pre-authorized."
+  },
   "disposition": "Not used as evidence. Legitimate captures are rerun only after native_headroom.py and portable housekeeping --require-headroom, through run_with_env.sh, with a controller reservation and truthful authored receipts.",
   "files": [
     {

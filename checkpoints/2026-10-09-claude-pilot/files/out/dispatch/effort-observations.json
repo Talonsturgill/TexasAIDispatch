@@ -1,0 +1,21 @@
+{
+  "schema": "dispatch_effort_observations/1",
+  "recorded_at": "2026-10-10T02:18:42.573657+00:00",
+  "root_session": {
+    "CLAUDE_EFFORT": "medium",
+    "CLAUDE_CODE_EFFORT_LEVEL_override": null,
+    "settings_effortLevel": "medium",
+    "model": "claude-sonnet-5-5",
+    "claude_code_version": "2.1.42",
+    "max_subagent_spawn_depth": "1",
+    "source": "out/dispatch/effective-effort.json, read at the root with no problems"
+  },
+  "leaf_observation": {
+    "role": "scene-builder (claude-opus-5-5, frontmatter effort high)",
+    "CLAUDE_EFFORT_seen_inside_leaf": "high",
+    "observed_at": "2026-10-10T02:15:30Z",
+    "source": "builder tool result from claude_runtime_test and claude_contract_check run inside the leaf",
+    "effect": "claude_contract_check.problems() reports 'root session runs at effort high' when run inside the Opus high leaf. That is the leaf's own intended effort, not a root failure. Root effort stays medium and no global CLAUDE_CODE_EFFORT_LEVEL override exists."
+  },
+  "decision": "Preserve root Medium. Run the contract check and its tests at the root. A leaf-run failure of that root-effort assertion is recorded, not patched, and is not evidence about the root."
+}
