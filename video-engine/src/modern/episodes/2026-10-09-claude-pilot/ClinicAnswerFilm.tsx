@@ -303,7 +303,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'desk-close':
   if(act==='return-answer')pic=<Cam f={[650,930]} s={1.62}>{world()}</Cam>;
   else if(act==='send-question')pic=<Cam f={mixPt([250,1000],[520,900],ease(raw(e1)))} s={lerp(1.62,1.15,ease(raw(e1)))}>{world()}</Cam>;
-  else pic=<Cam f={v==='a'?mixPt([200,1030],[250,1030],ease(slide3)):mixPt([270,1040],[420,1010],ease(raw(slideWin)))} s={v==='a'?1.9:2.05}>{world()}</Cam>;
+  else pic=<Cam f={v==='a'?mixPt([330,1000],[400,1000],ease(slide3)):mixPt([270,1040],[420,1010],ease(raw(slideWin)))} s={v==='a'?2.6:2.05}>{world()}</Cam>;  // A: tight detail on the card and the typing hand
   break;
  case 'chart-boundary':
   pic=act==='enter-record'
@@ -313,7 +313,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'credential-gate':
   pic=<Cam f={v==='a'?[250,1040]:[200,960]} s={v==='a'?1.75:1.62}>{world()}</Cam>;break;
  case 'citation-stack':
-  pic=<Cam f={[500,700]} s={.92}>{citationRead(false)}</Cam>;break;
+  pic=v==='a'?<Cam f={[480,760]} s={.8}>{citationRead(false)}</Cam>:<Cam f={[500,700]} s={.92}>{citationRead(false)}</Cam>;break;
  case 'source-types':
   if(act==='name-source-types')pic=<Cam f={v==='a'?[545,560]:[600,560]} s={v==='a'?1.04:1.25}>{citationRead(true)}</Cam>;
   else pic=<Cam f={[560,640]} s={.9}>{answerRead()}</Cam>;   // A s7: wider than s6, the literature card rises into view
@@ -325,7 +325,7 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   break;
  case 'unmeasured-card':
   if(act==='attribute-report')pic=v==='a'?<Cam f={[720,330]} s={1.62}>{world()}</Cam>:<Cam f={[700,520]} s={2.05}>{world()}</Cam>;
-  else pic=v==='a'?<Cam f={[582,800]} s={1.05}>{answerRead()}</Cam>:<Cam f={[272,900]} s={1.6}>{answerRead()}</Cam>;
+  else pic=v==='a'?<Cam f={[485,810]} s={1.32}>{answerRead()}</Cam>:<Cam f={[272,900]} s={1.6}>{answerRead()}</Cam>;
   break;
  case 'answer-close':
   if(act==='keep-evaluating')pic=v==='a'?<Cam f={[640,960]} s={1.45}>{world()}</Cam>:<Cam f={[620,990]} s={1.35}>{world()}</Cam>;
