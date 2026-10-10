@@ -8,9 +8,12 @@ import {useArtDirection} from '../../../lib/artDirection';
  * A Southeast Texas clinic around the chart: a salt-weathered wall with a window onto flat
  * Gulf marsh under a white haze (cordgrass, a wind-leaned live oak, a grey bay line, no planted
  * palms), a worn laminate desk, a three-quarter workstation monitor with a blank lit screen,
- * a keyboard with blank keys, anonymous scrub-sleeved hands with no face or identity, a masked
- * credential card, the teal sleeve that marks the boundary of the health record with its lock,
- * the docked tool box labelled OpenEvidence where questions go in and answers come out, a
+ * a keyboard with blank keys and one teal send key, anonymous hands in white-coat sleeves over
+ * scrub cuffs (articulated fingers, knuckles, thumbs, nails, contact and cast shadows, no face or
+ * identity), a masked credential card, the teal sleeve that marks the boundary of the health
+ * record with a light that runs along it, the record's padlock, the docked tool box labelled
+ * OpenEvidence with an intake slot on its side, seams, bevels, screws, a vent, status lamps and an
+ * output mouth, where questions go in and answers come out, a
  * framed share board of anonymous clinician figures (head and shoulders in a white coat or
  * scrubs with a clipped badge, never a face) that light one by one to picture UTMB's own
  * more-than-half report as a share, and the clinic's back wall with its framed window and sill
@@ -32,10 +35,11 @@ export type ClinicSupportProps =
  | {part:'desk'; stage:ClinicStage}
  | {part:'workstation'; glow?:number}
  | {part:'keyboard'; down?:number[]}
- | {part:'hands'; side:'L'|'R'; lift?:number[]; reach?:number; elbow?:Pt; shoulder?:Pt}
+ | {part:'hands'; side:'L'|'R'; lift?:number[]; bob?:number; reach?:number; elbow?:Pt; shoulder?:Pt}
  | {part:'credential'; dots:number}
- | {part:'boundary'; w:number; h:number; glow:number; lock:number; slot?:number; lockY?:number}
- | {part:'tool'; stage:ClinicStage; glow:number}
+ | {part:'boundary'; w:number; h:number; glow:number; slot?:number; gap?:number; pulse?:number; label?:'left'|'right'}
+ | {part:'lock'; open:number; halo?:number}
+ | {part:'tool'; stage:ClinicStage; glow:number; intake?:number; leds?:number; emit?:number}
  | {part:'rail'; w:number}
  | {part:'shelf'; w:number}
  | {part:'stand'}
@@ -43,8 +47,16 @@ export type ClinicSupportProps =
  | {part:'backwall'; stage:ClinicStage; h:number; glazed?:boolean};
 
 /** Keyboard geometry, shared with the episode so fingertips land exactly on key centres. */
-export const KEY = {pitch:64, w:54, h:30, rowStep:38, x0:26, y0:18, rowShift:14, cols:8};
+export const KEY = {pitch:64, w:54, h:30, rowStep:38, x0:26, y0:18, rowShift:14, cols:8, bodyW:600, bodyH:184, enterW:92, spaceW:182, travel:6};
+/** Row 3 carries two keys, the space bar over columns 2 to 4, then two more keys. */
+const ROW_KEYS=[[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,5,6]];
 export const keyCenter=(row:number,col:number):Pt=>[KEY.x0+col*KEY.pitch+row*KEY.rowShift+KEY.w/2, KEY.y0+row*KEY.rowStep+KEY.h/2];
+/** The send key: the wide teal key at the right end of the home row. */
+export const ENTER_KEY = KEY.cols+7;
+const keyWidth=(i:number)=>i===ENTER_KEY?KEY.enterW:i===3*KEY.cols+2?KEY.spaceW:KEY.w;
+/** The centre of key index i (row*cols+col), wide keys included, in keyboard units. */
+export const keyTarget=(i:number):Pt=>{const r=Math.floor(i/KEY.cols),k=i%KEY.cols;
+ return [KEY.x0+k*KEY.pitch+r*KEY.rowShift+keyWidth(i)/2, KEY.y0+r*KEY.rowStep+KEY.h/2];};
 /** Right-hand fingertip offsets from the index tip (index, middle, ring, little), one key apart. */
 export const FINGER_TIPS:Pt[]=[[0,0],[64,-6],[128,0],[190,14]];
 /** Share board layout and the pins the episode hangs tags from, in the board's local units.
@@ -57,8 +69,10 @@ export const WALL_PINS={start:[40,677] as Pt,half:[382,677] as Pt,end:[700,677] 
 const BAR_Y=660;
 /** Boundary pins along its top edge, as fractions of its width. */
 export const BOUNDARY_PINS=[.18,.5,.82];
-/** Tool box geometry: the mouth where cards go in and come out. */
-export const TOOL={front:{w:272,h:176,mouthY:150},desk:{w:272,h:170,mouthY:150}};
+/** Tool box geometry: the output mouth on the front face, the side face depth, and (front stage)
+ * the intake slit on the left side face where the question card goes in, in tool-local units. */
+export const TOOL={front:{w:272,h:176,mouthY:150,depth:26,intakeX:-15,intakeY0:30,intakeY1:146},
+ desk:{w:272,h:170,mouthY:150,depth:22,intakeX:-12,intakeY0:40,intakeY1:130}};
 /** Lighting order: the first seven lit figures are spread over all three rows. */
 const LIGHT_ORDER = [5,0,10,3,8,1,11,6,2,9,4,7];
 
@@ -84,7 +98,8 @@ const Label:React.FC<{x:number;y:number;size:number;fill:string;children:React.R
  ({x,y,size,fill,children,anchor='start'}) =>
  <text x={x} y={y} fontFamily={FONT.body} fontSize={size} fontWeight={700} fill={fill} textAnchor={anchor}>{children}</text>;
 
-const SKIN='#A9714C', SKIN_DARK='#7E4F33', SKIN_LIGHT='#C99272', SLEEVE='#6F8DA6', SLEEVE_DARK='#4F6A82';
+const SKIN='#A9714C', SKIN_DARK='#7E4F33', SKIN_LIGHT='#C99272', SKIN_LINE='#5E3925', NAIL='#E4BFA6', SLEEVE='#6F8DA6', SLEEVE_DARK='#4F6A82';
+const COAT='#F3F1EA', COAT_SHADE='#C6CBC6', COAT_EDGE='#86908F';
 
 const Defs:React.FC<{c:Pal}> = ({c}) => <defs>
  <filter id="cs-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="10"/></filter>
@@ -120,11 +135,31 @@ const Defs:React.FC<{c:Pal}> = ({c}) => <defs>
  <linearGradient id="cs-tool" x1="0" y1="0" x2="1" y2="1">
   <stop offset="0" stopColor={mix(c.hero,'#ffffff',.2)}/><stop offset=".7" stopColor={c.hero}/><stop offset="1" stopColor={mix(c.hero,c.ink,.3)}/>
  </linearGradient>
+ {/* skin and coat gradients come in a mirrored pair, so the left hand (drawn mirrored) is still
+     lit from the window at the upper left */}
  <linearGradient id="cs-skin" x1="0" y1="0" x2="1" y2="1">
   <stop offset="0" stopColor={SKIN_LIGHT}/><stop offset=".55" stopColor={SKIN}/><stop offset="1" stopColor={SKIN_DARK}/>
  </linearGradient>
+ <linearGradient id="cs-skin-l" x1="1" y1="0" x2="0" y2="1">
+  <stop offset="0" stopColor={SKIN_LIGHT}/><stop offset=".55" stopColor={SKIN}/><stop offset="1" stopColor={SKIN_DARK}/>
+ </linearGradient>
+ <linearGradient id="cs-coat" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stopColor="#FFFFFF"/><stop offset=".45" stopColor={COAT}/><stop offset="1" stopColor={COAT_SHADE}/>
+ </linearGradient>
+ <linearGradient id="cs-coat-l" x1="1" y1="0" x2="0" y2="0">
+  <stop offset="0" stopColor="#FFFFFF"/><stop offset=".45" stopColor={COAT}/><stop offset="1" stopColor={COAT_SHADE}/>
+ </linearGradient>
  <linearGradient id="cs-sleeve" x1="0" y1="0" x2="1" y2="0">
   <stop offset="0" stopColor={mix(SLEEVE,'#ffffff',.15)}/><stop offset="1" stopColor={SLEEVE_DARK}/>
+ </linearGradient>
+ <linearGradient id="cs-side" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stopColor={mix(c.hero,c.ink,.55)}/><stop offset="1" stopColor={mix(c.hero,c.ink,.3)}/>
+ </linearGradient>
+ <linearGradient id="cs-recess" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stopColor="#0B1416"/><stop offset="1" stopColor={mix(c.hero,c.ink,.75)}/>
+ </linearGradient>
+ <linearGradient id="cs-brass" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stopColor="#E9CF8E"/><stop offset=".5" stopColor="#B8924E"/><stop offset="1" stopColor="#7E6233"/>
  </linearGradient>
 </defs>;
 
@@ -204,22 +239,39 @@ const Workstation:React.FC<{c:Pal;glow:number}> = ({c,glow}) => {
  </g>;
 };
 
-/** A keyboard lying on the desk, seen from the seated position. Keys are blank; listed keys are down. */
-const Keyboard:React.FC<{c:Pal;down:number[]}> = ({c,down}) => <g data-subject="workstation keyboard">
- <ellipse cx={280} cy={186} rx={310} ry={26} fill={c.ink} opacity={.28} filter="url(#cs-soft)"/>
- <path d={blob(0,0,560,180,26,4,3)} fill="url(#cs-plastic)" stroke="#6E7572" strokeWidth={3}/>
- <path d="M18 6H540" stroke="#ffffff" strokeOpacity={.6} strokeWidth={3}/>
- {[0,1,2,3].map(r=>Array.from({length:KEY.cols-(r===3?2:0)},(_,k)=>{
-  const i=r*KEY.cols+k, pressed=down.includes(i);
-  const [x,y]=[KEY.x0+k*KEY.pitch+r*KEY.rowShift,KEY.y0+r*KEY.rowStep];
-  const wide=r===3&&k===2;
-  return <g key={i} transform={`translate(${x} ${y+(pressed?3:0)})`}>
-   {!pressed&&<path d={blob(1,4,(wide?KEY.w*2+10:KEY.w),KEY.h,8,i+70,1)} fill="#8C928E" opacity={.6}/>}
-   <path d={blob(0,0,wide?KEY.w*2+10:KEY.w,KEY.h,8,i+9,1.2)} fill={pressed?'#D3D5CF':hash(i)>.82?'#FBFAF5':'#E9EAE4'} stroke="#8C928E" strokeWidth={1.6}/>
-   {!pressed&&<path d={`M6 5H${(wide?KEY.w*2+10:KEY.w)-8}`} stroke="#ffffff" strokeOpacity={.75} strokeWidth={2}/>}
-  </g>;
- }))}
-</g>;
+/** A keyboard lying on the desk, seen from the seated position: a bevelled plastic body with a
+ * front lip and feet, blank keys on skirts, two worn shiny keys and one wide teal send key with
+ * a return arrow. A listed key is down: its cap drops into the well, loses its skirt and darkens. */
+const Keyboard:React.FC<{c:Pal;down:number[]}> = ({c,down}) => {
+ const {bodyW:BW,bodyH:BH}=KEY;
+ return <g data-subject="workstation keyboard">
+  <ellipse cx={BW/2+14} cy={BH+12} rx={BW*.55} ry={24} fill={c.ink} opacity={.3} filter="url(#cs-soft)"/>
+  {[40,BW-40].map((x,i)=><ellipse key={i} cx={x+6} cy={BH+6} rx={26} ry={6} fill={c.ink} opacity={.35}/>)}
+  {/* front lip: the body's thickness, darker, under the top deck */}
+  <path d={blob(2,14,BW-4,BH,24,5,2)} fill="#8E9591" stroke="#5F6663" strokeWidth={2.5}/>
+  <path d={blob(0,0,BW,BH-8,26,4,2.5)} fill="url(#cs-plastic)" stroke="#6E7572" strokeWidth={3}/>
+  <path d={`M20 6H${BW-24}`} stroke="#ffffff" strokeOpacity={.65} strokeWidth={3} strokeLinecap="round"/>
+  <path d={`M8 22V${BH-34}`} stroke="#ffffff" strokeOpacity={.35} strokeWidth={2.5} strokeLinecap="round"/>
+  {/* the key well, a shallow recessed tray */}
+  <path d={blob(KEY.x0-12,KEY.y0-8,BW-KEY.x0-14,4*KEY.rowStep+6,12,6,1.5)} fill="#B7BCB6" opacity={.55}/>
+  {ROW_KEYS.map((cols,r)=>cols.map(k=>{
+   const i=r*KEY.cols+k, pressed=down.includes(i), w=keyWidth(i), enter=i===ENTER_KEY;
+   const [x,y]=[KEY.x0+k*KEY.pitch+r*KEY.rowShift,KEY.y0+r*KEY.rowStep];
+   const worn=i===10||i===13;
+   const cap=enter?(pressed?mix('#CFE5E2',c.hero,.35):'#CFE5E2'):(pressed?'#C9CCC5':hash(i)>.82?'#FBFAF5':'#E9EAE4');
+   return <g key={i} transform={`translate(${x} ${y+(pressed?KEY.travel:0)})`} data-key={enter?'send':undefined}>
+    {/* the well under the key shows when it is down */}
+    {pressed&&<path d={blob(-2,-KEY.travel-1,w+4,KEY.h+4,8,i+90,1)} fill="#5E6562" opacity={.55}/>}
+    {!pressed&&<path d={blob(1,5,w,KEY.h,8,i+70,1)} fill="#7F8682" opacity={.75}/>}
+    <path d={blob(0,0,w,KEY.h,8,i+9,1.2)} fill={cap} stroke={enter?mix(c.hero,'#8C928E',.4):'#8C928E'} strokeWidth={1.6}/>
+    {!pressed&&<path d={`M6 5H${w-8}`} stroke="#ffffff" strokeOpacity={.8} strokeWidth={2}/>}
+    {pressed&&<path d={`M5 4H${w-6}`} stroke="#4F5653" strokeOpacity={.4} strokeWidth={2}/>}
+    {worn&&!pressed&&<ellipse cx={w/2-4} cy={KEY.h/2-2} rx={12} ry={6} fill="#ffffff" opacity={.55}/>}
+    {enter&&<path d={`M${w-24} 9V18H${w-58}M${w-50} 12L${w-58} 18L${w-50} 24`} stroke={mix(c.hero,c.ink,.25)} strokeWidth={3.2} fill="none" strokeLinecap="round" strokeLinejoin="round"/>}
+   </g>;
+  }))}
+ </g>;
+};
 
 /** Rest positions of the arm in hand-local units: the elbow sits off the desk toward the lens and
  * the shoulder is far below the frame, so every arm leaves the bottom edge in every shot. */
@@ -229,49 +281,100 @@ function limb(a:Pt,b:Pt,wa:number,wb:number):string{
  const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L;
  return `M${a[0]+nx*wa/2} ${a[1]+ny*wa/2}L${b[0]+nx*wb/2} ${b[1]+ny*wb/2}L${b[0]-nx*wb/2} ${b[1]-ny*wb/2}L${a[0]-nx*wa/2} ${a[1]-ny*wa/2}Z`;
 }
-/**
- * One anonymous arm in a short scrub sleeve, seen from the seated position, fingers pointing away.
- * Local (0,0) is the index fingertip. `lift[i]` raises a finger off its key (0 is contact, with a
- * contact shadow); `reach` extends the index for a push and curls the others. The forearm runs
- * from the wrist to `elbow` and pivots there; the upper arm runs on to `shoulder`, far below the
- * frame, so the limb always leaves the picture. No face, no name, no jewellery, no identity.
- */
-const Hand:React.FC<{side:'L'|'R';lift:number[];reach:number;elbow:Pt;shoulder:Pt}> = ({side,lift,reach,elbow,shoulder}) => {
- const r=clamp(reach);
- const tips=FINGER_TIPS.map(([x,y],i)=>[x,y+(i===0?-26*r:22*r)+18*clamp(lift[i]??0)] as Pt);
- const knuckles:Pt[]=[[8,108],[68,100],[124,104],[176,118]];
- const wrist:Pt[]=[[24,214],[168,222]];
- const W:Pt=[96,220];
- const hem:Pt=[elbow[0]+(shoulder[0]-elbow[0])*.42,elbow[1]+(shoulder[1]-elbow[1])*.42];
- const fingerW=[30,31,29,25];
- const body=<g>
-  {/* upper arm and sleeve run off the frame; the elbow joins them to a forearm that pivots */}
-  <path d={limb(elbow,shoulder,200,250)} fill="url(#cs-skin)"/>
-  <path d={limb(hem,shoulder,232,272)} fill="url(#cs-sleeve)" stroke={SLEEVE_DARK} strokeWidth={2}/>
-  <path d={limb(hem,[hem[0]+(shoulder[0]-hem[0])*.04,hem[1]+(shoulder[1]-hem[1])*.04],236,236)} fill={SLEEVE_DARK} opacity={.5}/>
-  <circle cx={elbow[0]} cy={elbow[1]} r={100} fill="url(#cs-skin)"/>
-  <path d={limb(W,elbow,154,196)} fill="url(#cs-skin)"/>
-  <path d={limb([W[0]+30,W[1]+20],[elbow[0]+34,elbow[1]-30],20,26)} fill={SKIN_DARK} opacity={.18}/>
-  {/* back of the hand */}
-  <path d={`M${knuckles[0][0]-16} ${knuckles[0][1]+4}Q${92} ${86} ${knuckles[3][0]+16} ${knuckles[3][1]+2}`
-   +`L${wrist[1][0]+6} ${wrist[1][1]}Q${96} ${236} ${wrist[0][0]-8} ${wrist[0][1]}Z`} fill="url(#cs-skin)" stroke={SKIN_DARK} strokeWidth={2}/>
-  {knuckles.map(([x,y],i)=><g key={i}>
-   <path d={`M${x} ${y+12}Q${(x+96)/2} ${y+60} ${92+i*6} ${210}`} stroke={SKIN_DARK} strokeOpacity={.22} strokeWidth={3} fill="none"/>
-   <ellipse cx={x-2} cy={y+2} rx={11} ry={6} fill={SKIN_LIGHT} opacity={.7}/>
-  </g>)}
-  <path d={`M${-8} 200Q${-46} 170 ${-62} ${120-20*r}`} stroke={SKIN_DARK} strokeWidth={32} strokeLinecap="round" fill="none"/>
-  <path d={`M${-8} 200Q${-46} 170 ${-62} ${120-20*r}`} stroke="url(#cs-skin)" strokeWidth={27} strokeLinecap="round" fill="none"/>
-  {tips.map(([tx,ty],i)=>{const [kx,ky]=knuckles[i];const curled=i>0&&r>0;const mid:Pt=[(kx+tx)/2,(ky+ty)/2+(curled?10*r:-4)];
-   const down=clamp(lift[i]??0)<.05&&!(i>0&&r>.3);
-   return <g key={'f'+i}>
-    {down&&<ellipse cx={tx} cy={ty+8} rx={fingerW[i]*.55} ry={5} fill="#000" opacity={.25}/>}
-    <path d={`M${kx} ${ky}Q${mid[0]} ${mid[1]} ${tx} ${ty+6}`} stroke={SKIN_DARK} strokeWidth={fingerW[i]+5} strokeLinecap="round" fill="none"/>
-    <path d={`M${kx} ${ky}Q${mid[0]} ${mid[1]} ${tx} ${ty+6}`} stroke="url(#cs-skin)" strokeWidth={fingerW[i]} strokeLinecap="round" fill="none"/>
-    <path d={`M${tx-fingerW[i]*.25} ${ty+2}q${fingerW[i]*.25} -5 ${fingerW[i]*.5} 0`} stroke="#E8C7B2" strokeWidth={4} strokeLinecap="round" fill="none" opacity={.8}/>
-    <path d={`M${(kx+mid[0])/2-8} ${(ky+mid[1])/2}h14`} stroke={SKIN_DARK} strokeOpacity={.35} strokeWidth={2} strokeLinecap="round"/>
-   </g>;})}
+/** Knuckle (MCP) positions in hand-local units, index to little finger. */
+const KNUCKLES:Pt[]=[[8,112],[70,104],[128,108],[180,124]];
+const FINGER_W=[31,32,30,25];
+const unit=(a:Pt,b:Pt):Pt=>{const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1;return [dx/L,dy/L];};
+const along=(a:Pt,b:Pt,f:number,off:Pt=[0,0]):Pt=>[a[0]+(b[0]-a[0])*f+off[0],a[1]+(b[1]-a[1])*f+off[1]];
+/** One finger or thumb as three tapered phalanges with joint creases, a nail and a lit edge. */
+const Digit:React.FC<{pts:Pt[];w:number;m:number;skin:string;lift:number}> = ({pts,w,m,skin,lift}) => {
+ const [K,P,D,T]=pts, ws=[w,w*.92,w*.84].map(x=>x*(1+.1*lift));
+ const seg=[[K,P],[P,D],[D,T]] as [Pt,Pt][];
+ const u=unit(D,T), n:Pt=[-u[1],u[0]];
+ const ang=Math.atan2(u[1],u[0])*180/Math.PI+90;
+ const crease=(J:Pt,a:Pt,b:Pt,ww:number)=>{const v=unit(a,b),q:Pt=[-v[1],v[0]];
+  return `M${J[0]-q[0]*ww*.3} ${J[1]-q[1]*ww*.3}Q${J[0]+v[0]*3} ${J[1]+v[1]*3} ${J[0]+q[0]*ww*.3} ${J[1]+q[1]*ww*.3}`;};
+ const lit=-m*.24;
+ return <g>
+  {seg.map(([a,b],i)=><path key={'o'+i} d={`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`} stroke={SKIN_LINE} strokeWidth={ws[i]+5} strokeLinecap="round"/>)}
+  {seg.map(([a,b],i)=><path key={'f'+i} d={`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`} stroke={skin} strokeWidth={ws[i]} strokeLinecap="round"/>)}
+  {/* the window side of each phalanx catches the light */}
+  {seg.map(([a,b],i)=><path key={'h'+i} d={`M${a[0]+lit*ws[i]} ${a[1]}L${b[0]+lit*ws[i]} ${b[1]}`} stroke={SKIN_LIGHT} strokeWidth={3} strokeLinecap="round" opacity={.7}/>)}
+  <path d={crease(P,K,P,ws[0])} stroke={SKIN_LINE} strokeOpacity={.5} strokeWidth={2.2} fill="none" strokeLinecap="round"/>
+  <path d={crease(D,P,D,ws[1])} stroke={SKIN_LINE} strokeOpacity={.45} strokeWidth={2} fill="none" strokeLinecap="round"/>
+  <ellipse cx={P[0]-m*2} cy={P[1]+2} rx={ws[0]*.28} ry={ws[0]*.2} fill={SKIN_LIGHT} opacity={.55}/>
+  <g transform={`translate(${T[0]-u[0]*ws[2]*.22+n[0]*0} ${T[1]-u[1]*ws[2]*.22}) rotate(${ang})`}>
+   <rect x={-ws[2]*.3} y={-ws[2]*.36} width={ws[2]*.6} height={ws[2]*.66} rx={ws[2]*.28} fill={NAIL} stroke={SKIN_DARK} strokeWidth={1.4}/>
+   <path d={`M${-ws[2]*.16} ${-ws[2]*.22}h${ws[2]*.22}`} stroke="#ffffff" strokeOpacity={.7} strokeWidth={2} strokeLinecap="round"/>
+  </g>
  </g>;
- return <g data-subject="hands anonymous scrub sleeve">{side==='R'?body:<g transform="scale(-1 1)">{body}</g>}</g>;
+};
+/**
+ * One anonymous arm, seen from the seated position, fingers pointing away. The forearm is in a
+ * white coat sleeve with a stitched turned-back cuff and a button, a scrub cuff shows under it,
+ * and the hand has a shaped back with tendons, knuckle highlights, articulated fingers (three
+ * phalanges, joint creases, nails) and a two-joint thumb. Local (0,0) is the index fingertip.
+ * `lift[i]` raises a finger off its key (0 is contact with a crisp contact shadow; raised, the
+ * tip lifts toward the lens and its shadow separates and softens on the key below). `bob` lifts
+ * the whole hand for an emphatic strike, `reach` extends the index for a push and curls the
+ * others. The forearm runs from the wrist to `elbow` and the upper arm on to `shoulder`, far below
+ * the frame, so the limb always leaves the picture. No face, no name, no jewellery, no identity.
+ */
+const Hand:React.FC<{side:'L'|'R';lift:number[];bob:number;reach:number;elbow:Pt;shoulder:Pt}> = ({side,lift,bob,reach,elbow,shoulder}) => {
+ const r=clamp(reach), b=clamp(bob), m=side==='R'?1:-1;
+ const skin=m>0?'url(#cs-skin)':'url(#cs-skin-l)', coat=m>0?'url(#cs-coat)':'url(#cs-coat-l)';
+ const L=FINGER_TIPS.map((_,i)=>clamp(lift[i]??0));
+ const lifted=b*14;
+ const fingers=FINGER_TIPS.map(([tx,ty],i)=>{
+  const K=KNUCKLES[i], curl=i>0?r:0, l=L[i];
+  const T:Pt=[tx-6*curl*(i/3), ty-30*l+(i===0?-26*r:46*curl)];
+  const P=along(K,T,.44,[m*0,3-4*l]), D=along(K,T,.76,[0,1-2*l]);
+  return {pts:[K,P,D,T] as Pt[],l};
+ });
+ const W:Pt=[98,232], a=unit(W,elbow), pa:Pt=[-a[1],a[0]];
+ const off=(p:Pt,k:number,s=0):Pt=>[p[0]+a[0]*k+pa[0]*s,p[1]+a[1]*k+pa[1]*s];
+ const hem:Pt=[elbow[0]+(shoulder[0]-elbow[0])*.06,elbow[1]+(shoulder[1]-elbow[1])*.06];
+ const thumb:Pt[]=[[18,206],[-22,174],[-46,134+12*r],[-60,100+22*r]];
+ const backPath=`M${KNUCKLES[0][0]-18} ${KNUCKLES[0][1]+8}Q38 92 ${KNUCKLES[1][0]} ${KNUCKLES[1][1]-3}Q100 96 ${KNUCKLES[2][0]} ${KNUCKLES[2][1]-2}`
+  +`Q156 104 ${KNUCKLES[3][0]+15} ${KNUCKLES[3][1]+5}C202 156 186 204 172 240L28 236C8 204 -12 164 ${KNUCKLES[0][0]-18} ${KNUCKLES[0][1]+8}Z`;
+ const body=<g>
+  {/* shadows on the keys stay put while the hand lifts: the hand's soft cast shadow, then each
+      fingertip's contact shadow, crisp on contact and separating as the finger rises */}
+  <g data-subject="hand shadow">
+   <ellipse cx={100+m*(14+8*b)} cy={150+18+10*b} rx={128} ry={92} fill="#000" opacity={.16} filter="url(#cs-soft)"/>
+   {FINGER_TIPS.map(([tx,ty],i)=>{const l=Math.max(L[i],b*.8), down=l<.05&&!(i>0&&r>.3);
+    return <ellipse key={i} cx={tx+m*(3+10*l)} cy={ty+8+12*l} rx={FINGER_W[i]*(.5+.35*l)} ry={5+3*l} fill="#000"
+     opacity={down?.38:.24*(1-.5*l)} filter={l>.08?'url(#cs-haze)':undefined}/>;})}
+  </g>
+  <g transform={`translate(0 ${-lifted})`}>
+   {/* the coat sleeve: upper arm off frame, elbow, forearm with folds and a seam */}
+   <path d={limb(hem,shoulder,232,268)} fill={coat} stroke={COAT_EDGE} strokeWidth={2.5}/>
+   <circle cx={elbow[0]} cy={elbow[1]} r={112} fill={coat} stroke={COAT_EDGE} strokeWidth={2.5}/>
+   <path d={limb(off(W,26),elbow,186,226)} fill={coat} stroke={COAT_EDGE} strokeWidth={2.5}/>
+   {[120,250].map((k,i)=>{const A=off(W,k,-92),B=off(W,k+18,96),Cc=off(W,k+34+i*8,0);
+    return <path key={i} d={`M${A[0]} ${A[1]}Q${Cc[0]} ${Cc[1]} ${B[0]} ${B[1]}`} stroke={COAT_EDGE} strokeOpacity={.4} strokeWidth={3} fill="none"/>;})}
+   {(()=>{const A=off(W,40,-m*82),B=off(W,330,-m*100);return <path d={`M${A[0]} ${A[1]}L${B[0]} ${B[1]}`} stroke={COAT_EDGE} strokeOpacity={.5} strokeWidth={2} strokeDasharray="7 6"/>;})()}
+   {/* the thumb runs under the back of the hand */}
+   <Digit pts={thumb} w={33} m={m} skin={skin} lift={0}/>
+   <path d={backPath} fill={skin} stroke={SKIN_LINE} strokeWidth={2.6} strokeLinejoin="round"/>
+   {/* little-finger side in shade, tendons fanning from the wrist to each knuckle */}
+   <path d={`M${KNUCKLES[3][0]+14} ${KNUCKLES[3][1]+6}C198 158 184 204 172 238L140 236C156 196 166 160 ${KNUCKLES[3][0]-8} ${KNUCKLES[3][1]+4}Z`} fill={SKIN_DARK} opacity={.28}/>
+   {KNUCKLES.map(([x,y],i)=><path key={'t'+i} d={`M${x} ${y+16}Q${(x+98)/2+m*0} ${y+70} ${80+i*12} ${226}`} stroke={SKIN_LIGHT} strokeOpacity={.35} strokeWidth={4} fill="none" strokeLinecap="round"/>)}
+   {fingers.map((f,i)=><Digit key={i} pts={f.pts} w={FINGER_W[i]} m={m} skin={skin} lift={f.l}/>)}
+   {KNUCKLES.map(([x,y],i)=><g key={'k'+i}>
+    <ellipse cx={x-m*3} cy={y-1} rx={13} ry={8} fill={SKIN_LIGHT} opacity={.8}/>
+    <path d={`M${x-10} ${y+9}q10 5 20 0`} stroke={SKIN_LINE} strokeOpacity={.4} strokeWidth={2} fill="none" strokeLinecap="round"/>
+   </g>)}
+   {/* scrub cuff under the turned-back coat cuff, with its stitch line and button */}
+   <path d={limb(off(W,-12),off(W,4),168,172)} fill={SLEEVE} stroke={SLEEVE_DARK} strokeWidth={2}/>
+   <path d={limb(off(W,-4),off(W,34),190,194)} fill={coat} stroke={COAT_EDGE} strokeWidth={2.8}/>
+   {(()=>{const A=off(W,24,-90),B=off(W,24,90);return <path d={`M${A[0]} ${A[1]}L${B[0]} ${B[1]}`} stroke={COAT_EDGE} strokeOpacity={.65} strokeWidth={2} strokeDasharray="6 5"/>;})()}
+   {(()=>{const A=off(W,0,-92),B=off(W,0,92);return <path d={`M${A[0]} ${A[1]}L${B[0]} ${B[1]}`} stroke="#ffffff" strokeOpacity={.75} strokeWidth={3}/>;})()}
+   {(()=>{const p=off(W,15,-m*70);return <g><circle cx={p[0]} cy={p[1]} r={8} fill="#E6E2D6" stroke={COAT_EDGE} strokeWidth={2}/>
+    <circle cx={p[0]-1.5} cy={p[1]-1.5} r={1.4} fill={COAT_EDGE}/><circle cx={p[0]+1.5} cy={p[1]+1.5} r={1.4} fill={COAT_EDGE}/></g>;})()}
+  </g>
+ </g>;
+ return <g data-subject="hands anonymous white-coat sleeve">{side==='R'?body:<g transform="scale(-1 1)">{body}</g>}</g>;
 };
 
 /** A masked sign-in card: blank field, dots fill as keys are struck. */
@@ -288,31 +391,51 @@ const Credential:React.FC<{c:Pal;dots:number}> = ({c,dots}) => {
  </g>;
 };
 
-/** The record boundary, its lock and its pins. The lock opens on the film clock. */
-const Boundary:React.FC<{c:Pal;w:number;h:number;glow:number;lock:number;slot:number;lockY:number}> = ({c,w,h,glow,lock,slot,lockY}) => {
- const g=clamp(glow), l=clamp(lock);
+/** The record boundary, its pins and its opening on the right edge where the tool docks. `pulse`
+ * runs a bright bead out of that opening, up and down the frame, lighting the edge behind it. */
+const Boundary:React.FC<{c:Pal;w:number;h:number;glow:number;slot:number;gap:number;pulse:number;label:'left'|'right'}> = ({c,w,h,glow,slot,gap,pulse,label}) => {
+ const g=clamp(glow), p=clamp(pulse);
  const slotY=h*slot;
- const frame=`M0 22Q0 0 22 0H${w-22}Q${w} 0 ${w} 22V${slotY-50}M${w} ${slotY+50}V${h-22}Q${w} ${h} ${w-22} ${h}H22Q0 ${h} 0 ${h-22}Z`;
+ const frame=`M0 22Q0 0 22 0H${w-22}Q${w} 0 ${w} 22V${slotY-gap}M${w} ${slotY+gap}V${h-22}Q${w} ${h} ${w-22} ${h}H22Q0 ${h} 0 ${h-22}Z`;
+ const runs=[`M${w} ${slotY-gap}V22Q${w} 0 ${w-22} 0H22Q0 0 0 22V${h-22}`,`M${w} ${slotY+gap}V${h-22}Q${w} ${h} ${w-22} ${h}H22Q0 ${h} 0 ${h-22}`];
+ const lx=label==='left'?10:w-266;
  return <g data-subject="record-boundary">
   <path d={frame} fill="none" stroke={c.hero} strokeWidth={22} opacity={.12+.28*g} filter="url(#cs-soft)"/>
   <path d={frame} fill="none" stroke={mix(c.hero,c.paper,.35-.3*g)} strokeWidth={7} strokeLinejoin="round"/>
   <path d={frame} fill="none" stroke="#ffffff" strokeOpacity={.25+.4*g} strokeWidth={2}/>
-  <path d={`M${w-14} ${slotY-52}H${w+18}M${w-14} ${slotY+52}H${w+18}`} stroke={mix(c.hero,c.ink,.3)} strokeWidth={7} strokeLinecap="round"/>
+  {p>0&&runs.map((d,i)=><g key={i}>
+   <path d={d} pathLength={1} fill="none" stroke={mix(c.hero,'#ffffff',.25)} strokeWidth={10} strokeLinecap="round" strokeDasharray={`${p} 2`}/>
+   {p<1&&<path d={d} pathLength={1} fill="none" stroke="#ffffff" strokeWidth={26} strokeLinecap="round" strokeDasharray=".03 2" strokeDashoffset={-(p-.03)} opacity={.55} filter="url(#cs-soft)"/>}
+   {p<1&&<path d={d} pathLength={1} fill="none" stroke="#ffffff" strokeWidth={12} strokeLinecap="round" strokeDasharray=".03 2" strokeDashoffset={-(p-.03)}/>}
+  </g>)}
+  <path d={`M${w-14} ${slotY-gap-2}H${w+18}M${w-14} ${slotY+gap+2}H${w+18}`} stroke={mix(c.hero,c.ink,.3)} strokeWidth={7} strokeLinecap="round"/>
   {BOUNDARY_PINS.map((f,i)=><circle key={i} cx={w*f} cy={0} r={6} fill={mix(c.hero,c.ink,.35)}/>)}
-  <g opacity={.7+.3*g}>
-   <path d={blob(10,-56,256,42,14,27,1.4)} fill={mix(c.hero,c.paper,.8)} stroke={c.hero} strokeWidth={2.5}/>
-   <Label x={24} y={-26} size={26} fill={mix(c.hero,c.ink,.4)}>Health record</Label>
+  <g opacity={.75+.25*Math.max(g,p)}>
+   <path d={blob(lx,-56,256,42,14,27,1.4)} fill={mix(c.hero,c.paper,.8)} stroke={c.hero} strokeWidth={2.5}/>
+   <Label x={lx+14} y={-26} size={26} fill={mix(c.hero,c.ink,.4)}>Health record</Label>
   </g>
-  {/* the boundary lock at its lower left; the shackle lifts as the sign-in completes */}
-  <g transform={`translate(-30 ${h*lockY-40})`} data-subject="record-lock">
-   <ellipse cx={30} cy={84} rx={34} ry={6} fill={c.ink} opacity={.25} filter="url(#cs-soft)"/>
-   <path d={`M14 36V${22-16*l}Q14 ${2-16*l} 30 ${2-16*l}Q46 ${2-16*l} 46 ${22-16*l}V${36-16*l}`} fill="none" stroke="#7F8A8B" strokeWidth={8} strokeLinecap="round"
-    transform={l>0?`rotate(${-28*l} 46 ${36-16*l})`:undefined}/>
-   <path d={blob(0,34,60,46,9,28,1.2)} fill={l>.95?c.hero:mix(c.hero,c.ink,.45)} stroke={mix(c.hero,c.ink,.5)} strokeWidth={2.5}/>
-   <circle cx={30} cy={54} r={6} fill={l>.95?'#ffffff':mix(c.paper,c.ink,.6)}/>
-   <path d="M30 58V68" stroke={l>.95?'#ffffff':mix(c.paper,c.ink,.6)} strokeWidth={4} strokeLinecap="round"/>
-   {l>.95&&<circle cx={30} cy={56} r={40} fill={c.hero} opacity={.25} filter="url(#cs-soft)"/>}
+ </g>;
+};
+
+/** The record's padlock: a bevelled teal body with rivets and a keyhole on a steel shackle. As it
+ * opens the shackle's free leg lifts out of the body and swings, the keyhole lights and the body
+ * brightens. Local origin is the body's top-left; the shackle stands above it. */
+const Lock:React.FC<{c:Pal;open:number;halo:number}> = ({c,open,halo}) => {
+ const l=clamp(open), lift=24*l, done=l>.92;
+ const body=done?c.hero:mix(c.hero,c.ink,.45*(1-l)+.05);
+ return <g data-subject="record-lock">
+  <ellipse cx={36} cy={88} rx={40} ry={7} fill={c.ink} opacity={.32} filter="url(#cs-soft)"/>
+  {done&&halo>0&&<circle cx={30} cy={52} r={52} fill={c.hero} opacity={.28*clamp(halo)} filter="url(#cs-soft)"/>}
+  <g transform={`rotate(${-38*l} 47 ${30-lift})`}>
+   <path d={`M13 40V${22-lift}Q13 ${-2-lift} 30 ${-2-lift}Q47 ${-2-lift} 47 ${22-lift}V${40-lift}`} fill="none" stroke="#56605F" strokeWidth={12} strokeLinecap="round"/>
+   <path d={`M13 40V${22-lift}Q13 ${-2-lift} 30 ${-2-lift}Q47 ${-2-lift} 47 ${22-lift}V${40-lift}`} fill="none" stroke="url(#cs-plastic)" strokeWidth={7} strokeLinecap="round"/>
   </g>
+  <path d={blob(0,32,60,50,10,28,1.2)} fill={body} stroke={mix(c.hero,c.ink,.6)} strokeWidth={2.8}/>
+  <path d="M8 38H50M6 42V72" stroke="#ffffff" strokeOpacity={.4} strokeWidth={2.5} strokeLinecap="round"/>
+  <path d="M10 78H54M56 40V76" stroke={c.ink} strokeOpacity={.3} strokeWidth={2.5} strokeLinecap="round"/>
+  {[[8,40],[52,40],[8,74],[52,74]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r={2.2} fill={mix(c.hero,c.ink,.7)}/>)}
+  <circle cx={30} cy={53} r={7} fill={done?'#ffffff':mix(c.paper,c.ink,.7)}/>
+  <path d="M30 57V68" stroke={done?'#ffffff':mix(c.paper,c.ink,.7)} strokeWidth={5} strokeLinecap="round"/>
  </g>;
 };
 
@@ -322,24 +445,64 @@ const Boundary:React.FC<{c:Pal;w:number;h:number;glow:number;lock:number;slot:nu
  * mouth. Desk stage: it stands on the desk; cards slide into its front mouth and come back out
  * of it. Cards drawn before this part are hidden inside it, so nothing pops.
  */
-const Tool:React.FC<{c:Pal;stage:ClinicStage;glow:number}> = ({c,stage,glow}) => {
- const g=clamp(glow);
- const {w,h,mouthY}=TOOL[stage];
+const Tool:React.FC<{c:Pal;stage:ClinicStage;glow:number;intake:number;leds:number;emit:number}> = ({c,stage,glow,intake,leds,emit}) => {
+ const g=clamp(glow), k=clamp(intake), e=clamp(emit);
+ const T=TOOL[stage], {w,h,mouthY,depth:D}=T;
+ const seamY=112, ventX=w-62;
+ const edge=mix(c.hero,c.ink,.5);
+ // three status lamps run a chase while the tool is reading; all lit once it has read
+ const lamp=(i:number)=>leds<=0?0:leds>=1?1:clamp(Math.sin(Math.PI*(leds*6-i*.6))*1.2);
  return <g data-subject="openevidence-tool AI">
-  <ellipse cx={w/2+12} cy={h+10} rx={w*.55} ry={12} fill={c.ink} opacity={.3} filter="url(#cs-soft)"/>
-  <path d={`M-26 ${h*.45}H6`} stroke={mix(c.hero,c.ink,.3)} strokeWidth={14} strokeLinecap="round"/>
-  {stage==='desk'&&<path d={`M8 -26L${w+8} -26L${w} 0L0 0Z`} fill={mix(c.hero,'#ffffff',.45)} stroke={mix(c.hero,c.ink,.4)} strokeWidth={2}/>}
-  {stage==='front'&&<path d={`M${w/2-40} -38V0M${w/2+40} -38V0`} stroke="#6F7979" strokeWidth={6}/>}
-  <path d={blob(0,0,w,h,16,71,1.5)} fill="url(#cs-tool)" stroke={mix(c.hero,c.ink,.45)} strokeWidth={3}/>
+  {/* grounded shadow: on the wall behind a wall-mounted box, on the desk under a standing one */}
+  {stage==='front'
+   ?<path d={blob(-D+14,18,w+D+6,h+8,18,72,2)} fill={c.ink} opacity={.3} filter="url(#cs-soft)"/>
+   :<ellipse cx={w/2+10} cy={h+6} rx={w*.6} ry={14} fill={c.ink} opacity={.4} filter="url(#cs-soft)"/>}
+  {stage==='front'&&[w/2-44,w/2+40].map((x,i)=><g key={i}>
+   <path d={`M${x} -40H${x+10}V2H${x}Z`} fill="url(#cs-plastic)" stroke="#5E6767" strokeWidth={2}/>
+   <path d={`M${x-8} -44H${x+18}V-34H${x-8}Z`} fill="#9EA5A1" stroke="#5E6767" strokeWidth={2}/>
+   <circle cx={x+5} cy={-39} r={2.5} fill="#5E6767"/>
+  </g>)}
+  {stage==='desk'&&<g>
+   <path d={`M${-D+6} -20L${w-12} -26L${w} 0L0 0Z`} fill={mix(c.hero,'#ffffff',.45)} stroke={edge} strokeWidth={2}/>
+   {[30,w-40].map((x,i)=><rect key={i} x={x} y={h-6} width={26} height={10} rx={4} fill="#2A3436"/>)}
+  </g>}
+  {/* the left side face, its depth receding toward the centre of the frame */}
+  <path d={`M${-D} 9L0 0V${h}L${-D} ${h-9}Z`} fill="url(#cs-side)" stroke={edge} strokeWidth={2.5} strokeLinejoin="round"/>
+  <path d={`M${-D+3} 12L-3 4`} stroke="#ffffff" strokeOpacity={.35} strokeWidth={2}/>
+  {stage==='front'&&<g data-subject="tool intake slot">
+   {/* the intake: a docking collar round a dark vertical slit; its sprung flap folds inward
+       while a card passes and the collar glows */}
+   <path d={`M${T.intakeX-8} ${T.intakeY0-12}L${T.intakeX+8} ${T.intakeY0-14}V${T.intakeY1+14}L${T.intakeX-8} ${T.intakeY1+12}Z`}
+    fill={mix(c.hero,'#ffffff',.25)} stroke={edge} strokeWidth={2}/>
+   {k>0&&<path d={`M${T.intakeX} ${T.intakeY0-8}V${T.intakeY1+8}`} stroke={mix(c.hero,'#ffffff',.6)} strokeWidth={22} opacity={.6*k} filter="url(#cs-soft)" strokeLinecap="round"/>}
+   <path d={`M${T.intakeX-3} ${T.intakeY0}L${T.intakeX+4} ${T.intakeY0-2}V${T.intakeY1+2}L${T.intakeX-3} ${T.intakeY1}Z`} fill="url(#cs-recess)"/>
+   <path d={`M${T.intakeX+4} ${T.intakeY0-2}L${T.intakeX+4-9*(1-k)} ${T.intakeY0+3}V${T.intakeY1-3}L${T.intakeX+4} ${T.intakeY1+2}Z`}
+    fill={mix(c.hero,c.ink,.2)} stroke={edge} strokeWidth={1.2} opacity={.95}/>
+  </g>}
+  {/* the front face with a bevel, panel seams, screws, a vent grille and the label */}
+  <path d={blob(0,0,w,h,16,71,1.5)} fill="url(#cs-tool)" stroke={edge} strokeWidth={3}/>
   <rect x={0} y={0} width={w} height={h} rx={16} fill="#ffffff" opacity={.18*g}/>
-  <path d={`M10 8H${w-12}`} stroke="#ffffff" strokeOpacity={.55} strokeWidth={3} strokeLinecap="round"/>
-  <Label x={16} y={48} size={29} fill="#ffffff">OpenEvidence</Label>
-  <Label x={16} y={82} size={23} fill={mix(c.hero,'#ffffff',.75)}>AI tool</Label>
-  <circle cx={w-24} cy={78} r={7} fill={mix('#ffffff',c.hero,.3-.3*g)} opacity={.6+.4*g}/>
-  {g>0&&<circle cx={w-24} cy={78} r={20} fill="#ffffff" opacity={.35*g} filter="url(#cs-soft)"/>}
-  {/* the mouth: a dark slot across the lower front */}
-  <path d={`M14 ${mouthY}H${w-14}`} stroke={mix(c.hero,c.ink,.7)} strokeWidth={12} strokeLinecap="round"/>
-  <path d={`M14 ${mouthY+7}H${w-14}`} stroke="#ffffff" strokeOpacity={.35} strokeWidth={2}/>
+  <path d={`M10 7H${w-14}M7 12V${h-18}`} stroke="#ffffff" strokeOpacity={.55} strokeWidth={3} strokeLinecap="round"/>
+  <path d={`M12 ${h-5}H${w-10}M${w-5} 14V${h-14}`} stroke={c.ink} strokeOpacity={.3} strokeWidth={3} strokeLinecap="round"/>
+  <path d={`M8 ${seamY}H${w-8}M${ventX} 12V${seamY}`} stroke={mix(c.hero,c.ink,.55)} strokeWidth={2.2}/>
+  <path d={`M8 ${seamY+2.5}H${w-8}M${ventX+2.5} 12V${seamY}`} stroke="#ffffff" strokeOpacity={.3} strokeWidth={1.5}/>
+  {[0,1,2,3,4].map(i=><path key={i} d={`M${ventX+12} ${48+i*11}H${w-14}`} stroke={mix(c.hero,c.ink,.7)} strokeWidth={4.5} strokeLinecap="round"/>)}
+  {[[12,12],[w-12,12],[12,h-12],[w-12,h-12]].map(([x,y],i)=><g key={i}><circle cx={x} cy={y} r={4.2} fill="#B8BFBE" stroke="#4E5858" strokeWidth={1.2}/>
+   <path d={`M${x-2.6} ${y+1}l5.2 -2`} stroke="#4E5858" strokeWidth={1.3}/></g>)}
+  <Label x={20} y={50} size={29} fill="#ffffff">OpenEvidence</Label>
+  <Label x={20} y={84} size={23} fill={mix(c.hero,'#ffffff',.75)}>AI tool</Label>
+  {[0,1,2].map(i=>{const v=lamp(i);return <g key={i}>
+   <circle cx={24+i*22} cy={100} r={5.5} fill={v>0?mix(mix(c.hero,'#ffffff',.3),'#ffffff',v):mix(c.hero,c.ink,.55)} stroke={mix(c.hero,c.ink,.6)} strokeWidth={1.2}/>
+   {v>.2&&<circle cx={24+i*22} cy={100} r={13} fill="#ffffff" opacity={.35*v} filter="url(#cs-haze)"/>}
+  </g>;})}
+  <circle cx={ventX+30} cy={28} r={6} fill={mix('#ffffff',c.hero,.3-.3*g)} opacity={.6+.4*g}/>
+  {g>0&&<circle cx={ventX+30} cy={28} r={18} fill="#ffffff" opacity={.35*g} filter="url(#cs-soft)"/>}
+  {/* the output mouth: a recessed slot with an inner shadow and a worn lower lip */}
+  {e>0&&<rect x={6} y={mouthY-16} width={w-12} height={34} rx={14} fill={mix(c.hero,'#ffffff',.55)} opacity={.55*e} filter="url(#cs-soft)"/>}
+  <rect x={14} y={mouthY-9} width={w-28} height={17} rx={8} fill="url(#cs-recess)" stroke={mix(c.hero,c.ink,.75)} strokeWidth={2}/>
+  <path d={`M20 ${mouthY-6}H${w-20}`} stroke="#000" strokeOpacity={.45} strokeWidth={3}/>
+  <path d={`M16 ${mouthY+11}H${w-16}`} stroke="#ffffff" strokeOpacity={.45+.3*e} strokeWidth={2.5} strokeLinecap="round"/>
+  <path d={`M${w*.62} ${mouthY+12}q10 2 22 0`} stroke={c.ink} strokeOpacity={.25} strokeWidth={2} fill="none"/>
  </g>;
 };
 
@@ -492,10 +655,11 @@ export const ClinicSupport:React.FC<ClinicSupportProps> = (props) => {
  case 'desk':body=<Desk c={c} stage={props.stage}/>;break;
  case 'workstation':body=<Workstation c={c} glow={props.glow??0}/>;break;
  case 'keyboard':body=<Keyboard c={c} down={props.down??[]}/>;break;
- case 'hands':body=<Hand side={props.side} lift={props.lift??[0,0,0,0]} reach={props.reach??0} elbow={props.elbow??ARM_REST.elbow} shoulder={props.shoulder??ARM_REST.shoulder}/>;break;
+ case 'hands':body=<Hand side={props.side} lift={props.lift??[0,0,0,0]} bob={props.bob??0} reach={props.reach??0} elbow={props.elbow??ARM_REST.elbow} shoulder={props.shoulder??ARM_REST.shoulder}/>;break;
  case 'credential':body=<Credential c={c} dots={props.dots}/>;break;
- case 'boundary':body=<Boundary c={c} w={props.w} h={props.h} glow={props.glow} lock={props.lock} slot={props.slot??.62} lockY={props.lockY??.8}/>;break;
- case 'tool':body=<Tool c={c} stage={props.stage} glow={props.glow}/>;break;
+ case 'boundary':body=<Boundary c={c} w={props.w} h={props.h} glow={props.glow} slot={props.slot??.62} gap={props.gap??50} pulse={props.pulse??0} label={props.label??'left'}/>;break;
+ case 'lock':body=<Lock c={c} open={props.open} halo={props.halo??0}/>;break;
+ case 'tool':body=<Tool c={c} stage={props.stage} glow={props.glow} intake={props.intake??0} leds={props.leds??0} emit={props.emit??0}/>;break;
  case 'rail':body=<Rail c={c} w={props.w}/>;break;
  case 'shelf':body=<Shelf c={c} w={props.w}/>;break;
  case 'stand':body=<Stand c={c}/>;break;

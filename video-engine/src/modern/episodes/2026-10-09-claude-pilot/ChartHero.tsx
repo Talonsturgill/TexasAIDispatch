@@ -34,7 +34,7 @@ export type ChartHeroProps =
  | {part:'question'; typed:number; plain?:number; lift?:number}
  | {part:'answer'; sources?:number; chipsOut?:[number,number,number]; sourcesGlow?:number; slotGlow?:number; ring?:number; limits?:number; limitText?:number; lift?:number}
  | {part:'citation'; kind:CitationKind; lift?:number; glow?:number}
- | {part:'tag'; tag:TagId; swing?:number; second?:number; drop?:number; side?:'left'|'right'}
+ | {part:'tag'; tag:TagId; swing?:number; second?:number; drop?:number; side?:'left'|'right'; underline?:number}
  | {part:'thread'; from:[number,number]; to:[number,number]; reach:number};
 
 /** Fixed sizes of each part in its own local units; the episode positions them. */
@@ -156,8 +156,19 @@ const Chart:React.FC<{c:Pal;seed:number}> = ({c,seed}) => {
   <g filter="url(#ch-grain)">
    <path d={handRect(22,56,W-46,H-82,6,seed+5,1.6)} fill="url(#ch-paper)" stroke={mix(c.paper,c.ink,.35)} strokeWidth={1.5}/>
   </g>
-  <path d={`M${W-24-34} ${H-26}l34 -34v34z`} fill={mix(c.paper,c.midground,.35)} stroke={mix(c.paper,c.ink,.35)} strokeWidth={1.2}/>
-  <path d={`M${W-24-34} ${H-26}l34 -34`} stroke="#ffffff" strokeOpacity={.6} strokeWidth={1.5}/>
+  {/* wear that reads at phone size: a large dog-eared page corner folded over with its shadow,
+      a coffee ring on the page, and chipped board edges showing the pale core */}
+  <path d={`M${W-24-62} ${H-26}l62 -62v62z`} fill={mix(c.paper,c.ink,.18)} opacity={.55} transform="translate(-5 5)" filter="url(#ch-soft)"/>
+  <path d={`M${W-24-62} ${H-26}l62 -62v62z`} fill="url(#ch-board)"/>
+  <path d={`M${W-24-62} ${H-26}l62 -62L${W-24-50} ${H-34}Z`} fill={mix(c.paper,c.midground,.4)} stroke={mix(c.paper,c.ink,.45)} strokeWidth={1.8}/>
+  <path d={`M${W-24-62} ${H-26}l62 -62`} stroke="#ffffff" strokeOpacity={.7} strokeWidth={2}/>
+  <ellipse cx={230} cy={H-120} rx={38} ry={31} fill="none" stroke="#8A6640" strokeOpacity={.32} strokeWidth={6}/>
+  <path d={`M196 ${H-112}a36 30 0 0 1 52 -36`} fill="none" stroke="#8A6640" strokeOpacity={.22} strokeWidth={3}/>
+  <ellipse cx={226} cy={H-116} rx={30} ry={24} fill="#B08A5E" opacity={.08}/>
+  {[[0,96,14],[0,250,10],[W,40,12],[120,H,16],[260,0,11]].map(([x,y,s],i)=><path key={'chip'+i}
+   d={x===0?`M0 ${y}l${s*.7} ${s*.4}l${-s*.2} ${s*.8}l${-s*.5} ${s*.2}Z`:x===W?`M${W} ${y}l${-s*.7} ${s*.3}l${s*.1} ${s*.9}l${s*.6} ${s*.1}Z`
+    :y===H?`M${x} ${H}l${s*.4} ${-s*.7}l${s*.9} ${s*.1}l${s*.2} ${s*.6}Z`:`M${x} 0l${s*.4} ${s*.7}l${s*.9} ${-s*.1}l${s*.2} ${-s*.6}Z`}
+   fill="#C8B38E" stroke="#5A4A38" strokeWidth={1.2}/>)}
   <rect x={44} y={86} width={118} height={16} rx={5} fill={mix(c.paper,c.midground,.42)}/>
   <rect x={176} y={86} width={70} height={16} rx={5} fill={mix(c.paper,c.midground,.3)}/>
   <rect x={44} y={112} width={86} height={12} rx={4} fill={mix(c.paper,c.midground,.26)}/>
@@ -206,7 +217,7 @@ const Question:React.FC<{c:Pal;typed:number;plain:number;lift:number}> = ({c,typ
 
 /** The tag body with its string up to a pin at local (0,0). It hangs right of the pin, or
  * left of it when `side` is left; `drop` lengthens the string so stacked tags never overlap. */
-const Tag:React.FC<{c:Pal;tag:TagId;swing:number;second:number;drop:number;side:'left'|'right'}> = ({c,tag,swing,second,drop,side}) => {
+const Tag:React.FC<{c:Pal;tag:TagId;swing:number;second:number;drop:number;side:'left'|'right';underline:number}> = ({c,tag,swing,second,drop,side,underline}) => {
  const spec=TAGS[tag];
  const W=tagWidth(tag), H=TAG_HEIGHT;
  const tone=spec.tone==='hero'?c.hero:spec.tone==='accent'?c.accent:c.ink;
@@ -223,6 +234,7 @@ const Tag:React.FC<{c:Pal;tag:TagId;swing:number;second:number;drop:number;side:
     <circle cx={18} cy={H/2} r={9} fill={c.paper} stroke={mix(c.paper,c.ink,.5)} strokeWidth={3}/>
     <Label x={TAG_X} y={44} size={TAG_SIZE} fill={c.ink}>{spec.lines[0]}</Label>
     <g opacity={clamp(second)}><Label x={TAG_X} y={80} size={TAG_SIZE} fill={spec.tone==='accent'?mix(c.accent,c.ink,.3):mix(tone,c.ink,.15)}>{spec.lines[1]}</Label></g>
+    {underline>0&&<path d={`M${TAG_X} 92H${TAG_X+(W-TAG_X-TAG_PAD-(spec.open?40:0))*clamp(underline)}`} stroke={tone} strokeWidth={5} strokeLinecap="round"/>}
     {spec.open&&<rect x={W-42} y={H/2-12} width={24} height={24} rx={4} fill="none" stroke={c.accent} strokeWidth={3}/>}
    </g>
   </g>
@@ -269,7 +281,7 @@ const Answer:React.FC<{c:Pal;sources:number;chipsOut:[number,number,number];sour
   {limits>0&&<g data-subject="unmeasured-tags">
    {(['accuracy','care'] as const).map((tag,i)=>{const p=clamp(limits*1.6-i*.6);
     return p>0&&<g key={tag} transform={`translate(${ANSWER_CLIP[0]} ${ANSWER_CLIP[1]+6}) rotate(${4-i*6})`} opacity={clamp(p*3)}>
-     <g transform={`translate(0 ${-60*(1-p)})`}><Tag c={c} tag={tag} swing={-12*(1-p)} second={limitText} drop={i*124} side="left"/></g>
+     <g transform={`translate(0 ${-60*(1-p)})`}><Tag c={c} tag={tag} swing={-12*(1-p)} second={limitText} drop={i*124} side="left" underline={0}/></g>
     </g>;})}
   </g>}
   <rect x={0} y={0} width={W} height={H} rx={14} fill="url(#ch-fill)"/>
@@ -329,7 +341,7 @@ export const ChartHero:React.FC<ChartHeroProps> = (props) => {
  case 'question':body=<Question c={c} typed={props.typed} plain={props.plain??0} lift={props.lift??0}/>;break;
  case 'answer':body=<Answer c={c} sources={props.sources??0} chipsOut={props.chipsOut??[0,0,0]} sourcesGlow={props.sourcesGlow??0} slotGlow={props.slotGlow??0} ring={props.ring??0} limits={props.limits??0} limitText={props.limitText??1} lift={props.lift??0}/>;break;
  case 'citation':body=<Citation c={c} kind={props.kind} lift={props.lift??0} glow={props.glow??0}/>;break;
- case 'tag':body=<Tag c={c} tag={props.tag} swing={props.swing??0} second={props.second??1} drop={props.drop??0} side={props.side??'right'}/>;break;
+ case 'tag':body=<Tag c={c} tag={props.tag} swing={props.swing??0} second={props.second??1} drop={props.drop??0} side={props.side??'right'} underline={props.underline??0}/>;break;
  case 'thread':body=<Thread c={c} from={props.from} to={props.to} reach={props.reach}/>;break;
  }
  return <g data-art-group="chart-and-citations"><Defs c={c}/>{body}</g>;
