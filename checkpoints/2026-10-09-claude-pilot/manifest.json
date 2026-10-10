@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T07:10:21.563537+00:00",
+  "saved_at": "2026-10-10T14:35:19.768482+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "442dce21e226f626ce0437c21af18f4fb5b9879b",
+  "source_pin": "9f98b8b2e61b6f80740e79d604a5a20d4240dea9",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "62605579ceb56d783b95bd0385d507352124a3e750ebaef172852ce2137373c5"
   },
   "deleted_source": [],
-  "ledger_sha256": "0cb10ce27271508a69bdc3e1ae726cff2d366ce49315cfc57c97e43ebfcdc3d1",
-  "original_private_ledger_sha256": "fcb3b3c7d0758d2dddc13bddce02d854f1b78f52488270744b9e6c70751d8e9c",
+  "ledger_sha256": "78d251929bbab67918de6124c397a34f664d26a56bab3be09da730caba95288e",
+  "original_private_ledger_sha256": "adc06a1fe7620990b459dbb44732440ef8b7797c1b2cdd2a4fdf3d65e177d1d2",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,7 +30,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 6,
+    "storyboard_critics": 7,
     "tts_calls": 0,
     "validator_agents": 1,
     "voice_directors": 0
@@ -1651,6 +1651,12 @@
       "size": 16135
     },
     {
+      "path": "out/dispatch/retained-failures/classification-agent-late-charge.json",
+      "class": "scratch",
+      "sha256": "a83a2f64c7d5354489248382abddfddb78f3a1a9108a2f9fe0a21f532dee48ac",
+      "size": 800
+    },
+    {
       "path": "out/dispatch/retained-failures/critic-3/a.json",
       "class": "scratch",
       "sha256": "515edd77e6f23c3a5dc7eb32d12351ce89915acd51e90b974b2561356d205097",
@@ -1955,6 +1961,12 @@
       "class": "scratch",
       "sha256": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
       "size": 35988
+    },
+    {
+      "path": "out/dispatch/retained-failures/unverified-v3-draft/autonomous_completion_v3.unverified.json",
+      "class": "scratch",
+      "sha256": "8a3f3426cba84ea3d82fda285714f0beb3f5bbd5617b6abcdbaa3703aafcf7e9",
+      "size": 2506
     },
     {
       "path": "out/dispatch/sources/hb149.validator.txt",
