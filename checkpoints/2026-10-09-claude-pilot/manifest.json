@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T02:24:09.856883+00:00",
+  "saved_at": "2026-10-10T02:40:48.834168+00:00",
   "note": "ledger write",
-  "phase": "picture",
+  "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
@@ -16,8 +16,8 @@
     "sha256": "f1bb30227f30f07926691015a5cad9122dec77523837251ec115ba642f0c96bc"
   },
   "deleted_source": [],
-  "ledger_sha256": "c10adb9bc7f9f686a065b1f35513694f6fbec402d5d40c92a163f5881cd670ea",
-  "original_private_ledger_sha256": "7b9e555afd9b2dffc5c164974109c5804bb68e479d8404a4d11ff715d67b853b",
+  "ledger_sha256": "d2ca8ef94d63f5199079700c01402da812d103b2457f11dadd8d9cbfd723c216",
+  "original_private_ledger_sha256": "f7c41cc6cf19d12860faf193cc33e02c49a36763f3c0fd0e2c6e2eaf562ba11d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -151,6 +151,12 @@
       "size": 12634
     },
     {
+      "path": "out/dispatch/native-headroom.json",
+      "class": "scratch",
+      "sha256": "e82418e2a3bb1b4263754671bb5340b3045e3293f826a7f7c117f1f2eee788e4",
+      "size": 308
+    },
+    {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
       "sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2",
@@ -245,6 +251,12 @@
       "class": "scratch",
       "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
       "size": 91
+    },
+    {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "8dfb2526f556a3f76b5aeb6ad50bc6b0f5202d6713775fb942e531ac676eab5a",
+      "size": 4964
     },
     {
       "path": "out/dispatch/research.json",
@@ -511,6 +523,54 @@
       "size": 16135
     },
     {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__claims.json",
+      "class": "scratch",
+      "sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+      "size": 16480
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__opening-a.json",
+      "class": "scratch",
+      "sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2",
+      "size": 148647
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__opening-b.json",
+      "class": "scratch",
+      "sha256": "90f3d705121ae272011d1493d037071609b8b31b23be8371b6fff55db0c56342",
+      "size": 148606
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__storyboard.json",
+      "class": "scratch",
+      "sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2",
+      "size": 148647
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__vo_script.txt",
+      "class": "scratch",
+      "sha256": "1ca4ee1308f6b91280d5a724256477500c5f8c781fa2372e1cb8a649d557d4dc",
+      "size": 601
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+      "class": "scratch",
+      "sha256": "4fa27640d4a24fc6d382bfa54180c062b9d01b3d97fb488f1011edbc47790976",
+      "size": 20002
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "class": "scratch",
+      "sha256": "8cdf05b214aefb4932861a1d6662f261e5c17598d11d5d2a16c258accdca28be",
+      "size": 18339
+    },
+    {
+      "path": "out/dispatch/retained-failures/repair-1-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+      "class": "scratch",
+      "sha256": "9dcaaa8291444a77f178f851bec8294c35e1844f01da975366fc22d4a9831f7b",
+      "size": 23271
+    },
+    {
       "path": "out/dispatch/sources/hb149.validator.txt",
       "class": "scratch",
       "sha256": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
@@ -545,6 +605,18 @@
       "class": "scratch",
       "sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2",
       "size": 148647
+    },
+    {
+      "path": "out/dispatch/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "92fd3fe71d857a0c4f57c5a6a69f438460ab513f8eb6f64d14cfe33f3d0ab439",
+      "size": 30702
+    },
+    {
+      "path": "out/dispatch/storyboard_critic.raw.txt",
+      "class": "scratch",
+      "sha256": "ff5e1bd083e5b3bb3583b31b828f5c64c9fe3ad8bbc8bb393aa27b3813efb315",
+      "size": 29356
     },
     {
       "path": "out/dispatch/validator-assignment.json",

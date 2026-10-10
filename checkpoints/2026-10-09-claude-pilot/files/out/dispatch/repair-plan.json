@@ -1,0 +1,48 @@
+{
+  "mechanism_id": "clinic-cited-answer-v1",
+  "failure_family": "continuity",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent storyboard critic (Opus, code-plan scope, 15 blocking defects D1 to D15) found one chain of failures: the citations are drawn twice (a chart-clipped mini set plus the full set, then again on washed overlays), the question card covers the returning answer in A and pops out before the slot in B, tags hang from nothing and overflow their text, human actions (types, signs in) are performed by nobody, the AI tool is never named so the actor is unclear, the closing narration drops c8's object and implies UTMB evaluates accuracy, cuts split decisive events, labels are 4 to 9 phone px in wide shots, and results land partly out of frame.",
+  "repair": "One consolidated correction on treatment B as the base, keeping the 8 scene spine, claims and scene roles. Narration: n1a asks instead of types, n2a names the OpenEvidence AI tool within c1, n8 says UTMB will keep evaluating use and clinician experience (c8). Picture: a labelled OpenEvidence tool docked at the Health record boundary from s1, one question card and one answer card with one citation set that never clips to the chart, a masked slot insert and extract with no pops, anonymous gloved hands performing sign-in and asking (or no clinician action pictured), every tag pinned and sized to its text, limit tags reading Not in release attached to the returned answer card with an empty Accuracy slot, overlays on a clean surface, cuts after decisive events and no jump cuts, comprehension labels at 30 native px or more in medium or closer shots and inside the safe area, and a held close on the answer with its sources and open slots. Re-bind story_art action_uses to the views the boards actually use and set interior true.",
+  "mechanism_change": "The citation set and the question and answer cards become one physical object each that moves through one slot, instead of duplicated sets and pops, and the actor (an OpenEvidence AI tool at the record boundary) and the human actions (hands) become pictured subjects. The limit moves from a separate tag cluster to the returned answer card's own empty Accuracy slot, so one object carries the cited-versus-checked contrast.",
+  "expected_visible_result": "With labels covered a viewer sees a hand ask, a question go into the OpenEvidence tool at the record boundary, one answer return with three source cards that read at phone size, a lit share beside decision support tagged UTMB's own report, and the same answer card ending with its Sources slot filled and its Accuracy slot visibly empty and nothing in the release marking it checked.",
+  "failure_evidence": "out/dispatch/storyboard_critic.json",
+  "failure_evidence_sha256": "92fd3fe71d857a0c4f57c5a6a69f438460ab513f8eb6f64d14cfe33f3d0ab439",
+  "changed_inputs": [
+    {
+      "path": "out/dispatch/opening-a.json",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__opening-a.json",
+      "before_sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__opening-b.json",
+      "before_sha256": "90f3d705121ae272011d1493d037071609b8b31b23be8371b6fff55db0c56342"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__storyboard.json",
+      "before_sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/out__dispatch__vo_script.txt",
+      "before_sha256": "1ca4ee1308f6b91280d5a724256477500c5f8c781fa2372e1cb8a649d557d4dc"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ChartHero.tsx",
+      "before_sha256": "4fa27640d4a24fc6d382bfa54180c062b9d01b3d97fb488f1011edbc47790976"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+      "before_sha256": "9dcaaa8291444a77f178f851bec8294c35e1844f01da975366fc22d4a9831f7b"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+      "before_path": "out/dispatch/retained-failures/repair-1-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+      "before_sha256": "8cdf05b214aefb4932861a1d6662f261e5c17598d11d5d2a16c258accdca28be"
+    }
+  ]
+}
