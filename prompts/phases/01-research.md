@@ -1,5 +1,15 @@
 # Research and select
 
+For the Claude host, use the following input-packet/plan commands in place of the Codex
+agent_runtime.py commands in this phase. Execute the returned agent_args with the named
+versioned leaf only after reserving the same controller resource. Change the role and actual
+input paths for the validator handoff; keep its independent full-source re-fetch.
+
+```sh
+python scripts/claude_runtime.py input-packet --role researcher --date <date> --input <actual-docket-ledger> --input knowledge/texas/APPLICATIONS.md --out out/dispatch/researcher-packet.json
+python scripts/claude_runtime.py plan --role researcher --packet out/dispatch/researcher-packet.json --task-name researcher --scope "Research one current source-backed Texas action and its consequence and limit" --out out/dispatch/researcher-assignment.json
+```
+
 Read knowledge/texas/APPLICATIONS.md, the researcher brief and config/production_actions.json.
 Start with current Docket movements, then fetch primary evidence for the application and its
 human consequence. Read full pages before citing them. A headline or search snippet is a lead.

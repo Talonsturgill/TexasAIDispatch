@@ -175,6 +175,31 @@ def prose(value):
     return isinstance(value, str) and len(value.strip()) >= 20
 
 
+def relative_source_closure(files, repo=REPO):
+    """Resolve authored local imports, including types, without scanning vendor code."""
+    root = Path(repo).resolve(); pending = list(files); seen = set()
+    while pending:
+        file = pending.pop(); path = (root / file).resolve()
+        if not path.is_relative_to(root) or not path.is_file():
+            raise ValueError('authored renderer dependency is missing or outside the repository')
+        key = str(path.relative_to(root))
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.suffix not in ('.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'):
+            continue
+        text = path.read_text()
+        for relative in re.findall(r"(?:\bfrom\s*|\bimport\s*(?:\(\s*)?)['\"](\.[^'\"]+)['\"]", text):
+            target = path.parent / relative
+            choices = [target] + [Path(str(target) + suffix) for suffix in ('.ts', '.tsx', '.js', '.jsx', '.json')]
+            choices += [target / ('index' + suffix) for suffix in ('.ts', '.tsx', '.js', '.jsx')]
+            found = next((candidate.resolve() for candidate in choices if candidate.is_file()), None)
+            if found is None or not found.is_relative_to(root):
+                raise ValueError('authored renderer has an unresolved or external relative import')
+            pending.append(str(found.relative_to(root)))
+    return sorted(seen)
+
+
 def renderer_inputs(episode, repo=REPO):
     root = Path(repo).resolve()
     entry = json.loads((root / 'config/modern_episode_registry.json').read_text())['episodes'][episode]
@@ -186,6 +211,9 @@ def renderer_inputs(episode, repo=REPO):
              'video-engine/src/modern/CountyLocator.tsx', 'video-engine/src/modern/placePlates.json',
              'video-engine/src/modern/texasCounties.json',
              'config/modern_episode_registry.json', 'config/modern_film.json']
+    if entry.get('authored_art'):
+        files += ['video-engine/src/index.ts', 'video-engine/src/Root.tsx', 'video-engine/src/Dispatch.tsx']
+        files = relative_source_closure(files, root) + ['video-engine/package-lock.json']
     rows = []
     for file in files:
         path = (root / file).resolve()

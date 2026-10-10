@@ -4,15 +4,21 @@ import {Img,staticFile} from 'remotion';
 export type ArtRequest={id:string;role:'hero'|'support';file:string;scene_ids:string[];purpose:string;prompt:string;source_limit:string};
 export type ArtEntry={request_id:string;file:string;sha256:string;generation_id:string;generated_at:string;tool:string;
  width:number;height:number;slices?:Record<string,[number,number,number,number]>};
-export type StoryArt={version:'fresh-story-art-v1';requests:ArtRequest[];entries:ArtEntry[]};
+export type RasterStoryArt={version:'fresh-story-art-v1';requests:ArtRequest[];entries:ArtEntry[]};
+export type AuthoredArtRequest=ArtRequest&{export:string;action_uses:{scene_id:string;event_id:string;view:string;action_id:string;subject_ids:string[]}[]};
+export type AuthoredArtEntry={request_id:string;file:string;sha256:string;creation_id:string;created_at:string;tool:'original authored source';source_claims_sha256:string};
+export type AuthoredStoryArt={version:'authored-story-art-v1';runtime:'claude-sonnet-v1';edition_id:string;requests:AuthoredArtRequest[];entries:AuthoredArtEntry[]};
+export type StoryArt=RasterStoryArt|AuthoredStoryArt;
 const ArtContext=createContext<StoryArt|undefined>(undefined);
 export const StoryArtProvider:React.FC<{plan?:StoryArt;children:React.ReactNode}>=({plan,children})=>{
- if(plan?.version!=='fresh-story-art-v1'||plan.entries.length!==2)throw new Error('Fresh generated storyboard artwork is required');
+ if(!plan||!['fresh-story-art-v1','authored-story-art-v1'].includes(plan.version)||plan.entries.length!==2)throw new Error('Fresh storyboard artwork is required');
+ if(plan.version==='authored-story-art-v1'&&plan.runtime!=='claude-sonnet-v1')throw new Error('Authored artwork requires the explicit Claude runtime');
  return <ArtContext.Provider value={plan}>{children}</ArtContext.Provider>;
 };
 export const ArtSprite:React.FC<{role:'hero'|'support';slice?:string;x:number;y:number;width:number;height:number}>=
  ({role,slice,x,y,width,height})=>{
  const plan=useContext(ArtContext);
+ if(plan?.version!=='fresh-story-art-v1')throw new Error('Raster sprites require actual generated raster artwork');
  const req=plan?.requests.find(r=>r.role===role),entry=plan?.entries.find(e=>e.request_id===req?.id);
  if(!entry||!entry.file.startsWith('generated/story-art/'))throw new Error('Current story art is missing; no old prop fallback');
  const rect=slice?entry.slices?.[slice]:[0,0,entry.width,entry.height];

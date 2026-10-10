@@ -1,7 +1,7 @@
 ---
 name: scene-builder
 description: Builds the existing two complete source-bound Dispatch treatments and performs bounded scene corrections. Leaf worker only.
-model: claude-sonnet-5-5
+model: claude-opus-5-5
 effort: high
 ---
 

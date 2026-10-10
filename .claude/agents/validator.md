@@ -2,7 +2,7 @@
 name: validator
 description: Adversarial fact-check for the Dispatch. Re-fetches every URL, verifies every number and quote verbatim, drops what cannot be proven. The claims file is the only source of truth the script and the frames may draw from. Never spawns further agents.
 tools: WebFetch, Read
-model: claude-sonnet-5-5
+model: claude-opus-5-5
 effort: high
 ---
 

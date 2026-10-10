@@ -35,6 +35,20 @@ before any paid production work. Install only missing or changed pinned dependen
 workspace housekeeping is used when available. Cloud housekeeping uses the versioned local
 helper's protection rules on its own eligible scratch; never delete active or unrelated work.
 
+In a fresh Linux cloud checkout run the idempotent setup, then re-enter the wrapper so its
+external cache is active. The first command installs only absent or changed pinned tools;
+the second actually proves voice/alignment and render access before reservations:
+
+```sh
+bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --install
+bash scripts/run_with_env.sh python scripts/cloud_bootstrap.py
+bash scripts/run_with_env.sh python scripts/claude_contract_check.py
+```
+
+Read knowledge/craft/AUTHORED_STORY_ART.md and config/authored_story_art.json during the
+picture phase. Use its actual record, verify and stage commands. There is no ImageGen call
+in this lane and no fabricated image-generation charge.
+
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
 edition. A terminal shipped run is immutable. The first owner-authorized migration test uses a
 fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
@@ -48,6 +62,11 @@ The director is `claude-sonnet-5-5` at medium effort. Read the exact role map fr
 `config/claude_runtime.json`; do not use Codex `spawn_args` in Claude's Agent tool. Use the existing
 role roster, adding only the named `scene-builder` leaf definition for the existing builder task.
 Pin exact model ids and supported effort in versioned agent frontmatter and project settings.
+The owner refined the route on October 9th: scene-builder, storyboard-critic and validator use
+Opus 5.5 at high effort. These calls own the authored picture, its independent critique and source
+truth. Research and voice direction remain Haiku high; three separate final scorers remain
+Sonnet medium. The director stays Sonnet medium. Measure rework and quality before claiming that
+the stronger creative workers reduced total run cost.
 Spawn `scene-builder` for the existing reserved two-treatment builder assignment, using
 `.claude/agents/scene-builder.md` and `prompts/roles/scene-builder.md`. Reuse it for corrections.
 Do not globally force `CLAUDE_CODE_EFFORT_LEVEL` to medium, because that overrides the leaf's high
@@ -113,6 +132,8 @@ provider usage separately, retries, scores, first-panel result, runtime and acce
 Deduplicate transcript content blocks by API message identity. Never equate list prices or account
 usage percentages with the actual bill, and never claim a tenfold saving or quality improvement
 without measured comparable evidence. Refresh the separate next-five-edition observations.
+At entry to each phase run `python scripts/claude_runtime.py phase <phase-name>`. These private
+UTC markers establish observed phase timing; missing transcript fields stay unknown.
 
 ## Initial migration implementation and end-to-end test
 

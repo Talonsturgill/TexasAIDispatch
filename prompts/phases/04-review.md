@@ -100,6 +100,12 @@ observed defects together. Passing fixed criteria ends creative editing and star
 
 ## Review picture-to-word alignment
 
+For a Claude edition, build the existing current role packets with daily_production.py and
+use claude_runtime.py plan to obtain the named scorer agent_args. Spawn `scorer` separately for
+picture, story and sound, with their actual role-specific packet. Reserve one atomic panel and
+all three scorer_calls before execution. Preserve each original response and independent identity.
+No root self-review or initial planned-art packet can supply a scorer verdict.
+
 Include the selected visual-storytelling dossier and sentence-to-shot notes in the existing
 compact review packet. Scorers use knowledge/craft/visual-storytelling/README.md to compare the
 actual pictured subjects, relationships and consequences with the spoken clauses at exact times.

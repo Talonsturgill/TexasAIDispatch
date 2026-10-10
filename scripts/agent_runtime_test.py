@@ -116,6 +116,10 @@ class RuntimeTest(unittest.TestCase):
         # Read-only historical fixture for packet size, never a new film or approval.
         source=d.REPO/"runs/2026-10-09"
         board=json.loads((source/"storyboard.json").read_text())
+        # Only this scratch input-binding fixture uses today's renderer hashes. It grants
+        # no film approval and never edits the archived production board or its evidence.
+        import modern_film
+        board['film_direction']['renderer_inputs'] = modern_film.renderer_inputs(board['film_direction']['episode'])
         bp=self.root/"storyboard.json";cp=self.root/"claims.json"
         bp.write_text(json.dumps(board));cp.write_bytes((source/"claims.json").read_bytes())
         for variant in ("a","b"):

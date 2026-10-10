@@ -412,10 +412,18 @@ def packet(board_path, claims_path, role, state_path=None):
         "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text.",
     }
     import agent_runtime
-    route = agent_runtime.assignment(role, board["date"])
+    import authored_story_art
+    claude_route = authored_story_art.selected(board)
+    if claude_route:
+        import claude_runtime
+        route = claude_runtime.assignment(role, board["date"])
+    else:
+        route = agent_runtime.assignment(role, board["date"])
     if route:
         data["agent_assignment"] = route
-        data["agent_contracts"] = agent_runtime.contracts(role)
+        data["agent_contracts"] = claude_runtime.contracts(role) if claude_route else agent_runtime.contracts(role)
+        if claude_route:
+            data['brief'] = '.claude/agents/' + route['agent'] + '.md'
         # The complete story is already hash-bound in the board. Do not repeat it
         # in an isolated worker packet or truncate it to fit the handoff limit.
         data["story"] = {"reference": "board", "field": "story_contract"}
@@ -492,6 +500,12 @@ def craft_reading_paths(board, repo=None):
                      repo_root / 'knowledge/craft/STORY_ART.md',
                      repo_root / 'config/story_art.json',
                      repo_root / 'config/autonomous_completion_v2.json'] if modern_film.required(board) else [])
+    import authored_story_art
+    if authored_story_art.selected(board):
+        modern_paths += [repo_root / 'knowledge/craft/AUTHORED_STORY_ART.md',
+                         repo_root / 'config/authored_story_art.json',
+                         repo_root / 'prompts/claude_routine.md',
+                         repo_root / 'config/claude_runtime.json']
     art_paths = modern_paths + ([repo_root / 'knowledge/craft/ART_DIRECTION.md',
                   repo_root / 'config/art_direction.json',
                   repo_root / 'knowledge/craft/cinematic_reference_bank.json',

@@ -175,6 +175,24 @@ the story better. Relevant imagery alone never approves a treatment.
 
 ## Current modern route
 
+The following ImageGen instructions apply to fresh-story-art-v1 raster boards. For the explicit
+Claude authored-story-art-v1 route, read AUTHORED_STORY_ART.md in full and use its two fresh
+source groups instead. Before source art exists, bind the actual two complete planned treatment
+boards and claims for the initial builder, then reserve reboards before executing its agent_args:
+
+```sh
+python scripts/claude_runtime.py authoring-packet --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --out out/dispatch/builder-packet.json
+python scripts/claude_runtime.py plan --role scene-builder --packet out/dispatch/builder-packet.json --task-name scene_builder --scope "Author the fresh hero and support and implement both complete treatments on the current sources" --out out/dispatch/builder-assignment.json
+python scripts/authored_story_art.py --board out/dispatch/storyboard.json record --state out/dispatch/run_state.json
+python scripts/authored_story_art.py --board out/dispatch/storyboard.json verify
+```
+
+The initial packet cannot approve a film. Once both groups are recorded, use ordinary
+daily_production.py packets, including both treatment files, executed assets, current renderer
+closure and guide hashes, followed by claude_runtime.py plan for builder corrections and critic
+reviews. Stage the selected source modules through story_art.py stage into the clean release
+checkout. Every phone/native/three-scorer gate still judges the actual performed film.
+
 For editions covered by config/modern_film.json, load MODERN_FILM.md and STORY_ART.md in full.
 Generate the hero and supporting artwork with built-in ImageGen during this storyboard phase,
 before animation and voice. Use story_art.py to charge and record each actual call. Give each
