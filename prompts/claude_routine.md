@@ -223,6 +223,9 @@ hold capture. Use the review-coverage amendment in AUTONOMOUS_COMPLETION.md on t
 production inputs. Fund the complete path, charge the resumed review and SendMessage to the same
 Opus High worker for full coverage. This is content review, not a free formatting correction or
 host unavailability. Never request a policy decision at that internal ceiling.
+Prepare its evidence-bound plan with `python scripts/review_coverage.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <original-handback> --original-packet <original-packet> --current-packet <current-packet> --output <new-plan>`
+through scripts/run_with_env.sh, then use the documented production-budget and completion-capacity
+commands before reserving the resumed review.
 
 Use compact frame strips for director decisions and native crops when detail decides the result.
 Independent reviewers still receive the exact current film and every required unique media byte.
