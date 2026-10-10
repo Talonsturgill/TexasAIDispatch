@@ -1,0 +1,183 @@
+{
+  "schema": "dispatch_picture_precheck/1",
+  "pass": true,
+  "checks": [
+    {
+      "gate": "registry",
+      "command": [
+        "python",
+        "scripts/registry_check.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 44,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/registry.log",
+      "log_sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422"
+    },
+    {
+      "gate": "storyboard_check",
+      "command": [
+        "python",
+        "scripts/storyboard_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 404,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/storyboard_check.log",
+      "log_sha256": "22a90fdc69da93cda28b67314d43ab8d4bb794554e4675c9e3e77f57d493f268"
+    },
+    {
+      "gate": "watchability_check",
+      "command": [
+        "python",
+        "scripts/watchability_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 2704,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/watchability_check.log",
+      "log_sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86"
+    },
+    {
+      "gate": "documentary_check",
+      "command": [
+        "python",
+        "scripts/documentary_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 434,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/documentary_check.log",
+      "log_sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c"
+    },
+    {
+      "gate": "shot_coherence",
+      "command": [
+        "python",
+        "scripts/shot_coherence.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 303,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/shot_coherence.log",
+      "log_sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8"
+    },
+    {
+      "gate": "staging_check",
+      "command": [
+        "python",
+        "scripts/staging_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 137,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/staging_check.log",
+      "log_sha256": "7bfa6ca5e13a95043a880205a3a93d73b562406f9fb86420dc27195d2a86425c"
+    },
+    {
+      "gate": "board_scale_check",
+      "command": [
+        "python",
+        "scripts/board_scale_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 60,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/board_scale_check.log",
+      "log_sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7"
+    },
+    {
+      "gate": "floor_check",
+      "command": [
+        "python",
+        "scripts/floor_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 42,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/floor_check.log",
+      "log_sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6"
+    },
+    {
+      "gate": "script_evidence",
+      "command": [
+        "python",
+        "scripts/script_evidence_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/pilot/out/dispatch/claims.json",
+        "--planning-only"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 52,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/script_evidence.log",
+      "log_sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa"
+    },
+    {
+      "gate": "super_evidence",
+      "command": [
+        "python",
+        "scripts/super_evidence_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/pilot/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 52,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/super_evidence.log",
+      "log_sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add"
+    },
+    {
+      "gate": "caption_fit",
+      "command": [
+        "node",
+        "video-engine/tests/caption_board_fit.mjs",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 133,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/caption_fit.log",
+      "log_sha256": "9bf2d74474b19e2705daa7e7f6ee2d5c33539fbce6dfbe312338455727d80bca"
+    },
+    {
+      "gate": "modern_film",
+      "command": [
+        "python",
+        "scripts/modern_film.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/pilot/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 251,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/modern_film.log",
+      "log_sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409"
+    },
+    {
+      "gate": "story_art",
+      "command": [
+        "python",
+        "scripts/story_art.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "verify"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 184,
+      "log": "/home/user/restore/pilot/out/dispatch/repair-5-builder-checks/precheck-storyboard/8d8f2e1b-4502-416e-8bfb-f837ae03c1e3/story_art.log",
+      "log_sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885"
+    }
+  ],
+  "approval": false,
+  "note": "Mechanical gate outputs only. Independent code, phone, native, audiovisual and shipment proof remain required."
+}

@@ -1,0 +1,30 @@
+{
+ "note": "Verbatim from worker transcript. The worker's own log file was overwritten later by the story_digest computation, so this transcript tool_result is the only original output. Nothing reconstructed.",
+ "calls": [
+  {
+   "at": "2026-10-10T15:32:55.582Z",
+   "command": "L=out/dispatch/repair-5-builder-checks && head -3 out/dispatch/repair-4-builder-checks/daily_production_digest-storyboard.log; ls scripts | grep -i digest; for n in storyboard opening-b; do bash scripts/run_with_env.sh bash -lc \"cd /home/user/restore/pilot && python scripts/daily_production_digest.py --board out/dispatch/$n.json\" > $L/daily_production_digest-$n.log 2>&1; echo \"digest $n exit $?\"; tail -2 $L/daily_production_digest-$n.log; done; bash scripts/run_with_env.sh bash -lc 'cd /home/user/restore/pilot/video-engine && npx tsc --noEmit' > $L/tsc-final.log 2>&1; echo \"tsc-final exit $?\"; sha256sum video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx out/dispatch/*.json 2>/dev/null | grep -E \"ClinicAnswer|storyboard.json|opening-[ab].json\"",
+   "result": "{\n  \"story_sha256\": \"c409acc303a1c1576e3faed1b955bb1fa69ecfd9f133419d43936f812a1038e5\",\n  \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\ndigest storyboard exit 2\npython: can't open file '/home/user/restore/pilot/scripts/daily_production_digest.py': [Errno 2] No such file or directory\ndigest opening-b exit 2\npython: can't open file '/home/user/restore/pilot/scripts/daily_production_digest.py': [Errno 2] No such file or directory\ntsc-final exit 0\n24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f  video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx\na63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360  out/dispatch/opening-a.json\n86f653c77828f5a3722cac7c2b34e27b951d19e1a3aa3b7a4eb49761c92fadac  out/dispatch/opening-b.json\na63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360  out/dispatch/storyboard.json"
+  },
+  {
+   "at": "2026-10-10T15:33:16.099Z",
+   "command": "grep -rl \"daily_production\" scripts/*.py | head; grep -rn \"daily_production_digest\" out/dispatch/repair-4-builder-checks/*.log 2>/dev/null | head -2",
+   "result": "scripts/action_admission.py\nscripts/action_admission_test.py\nscripts/agent_runtime.py\nscripts/agent_runtime_test.py\nscripts/art_direction_test.py\nscripts/audiovisual_review.py\nscripts/claude_runtime.py\nscripts/creative_production_test.py\nscripts/critic_gate.py\nscripts/daily_production.py"
+  },
+  {
+   "at": "2026-10-10T15:33:31.073Z",
+   "command": "bash scripts/run_with_env.sh bash -lc 'cd /home/user/restore/pilot && python3 -c \"\nimport sys,json;sys.path.insert(0,\\\"scripts\\\");import daily_production as d\nfor n in [\\\"storyboard\\\",\\\"opening-b\\\",\\\"retained-failures/repair-5-baseline/out__dispatch__storyboard\\\",\\\"retained-failures/repair-5-baseline/out__dispatch__opening-b\\\"]:\n  print(n, d.story_digest(json.load(open(\\\"out/dispatch/\\\"+n+\\\".json\\\"))))\n\"' > out/dispatch/repair-5-builder-checks/daily_production_digest.log 2>&1; echo \"exit $?\"; cat out/dispatch/repair-5-builder-checks/daily_production_digest.log",
+   "result": "exit 0\nstoryboard 7c1459d11a90edb7b0b5d1c2408ad9ec4856f199794fe1c403be625ab373bfd5\nopening-b cbd41820e54d2766691181b260ed15a1729e59d8e02ae33d01896778e16e4cd0\nretained-failures/repair-5-baseline/out__dispatch__storyboard 343276fd323aaadcf3c76803b50b9593a150ef26530589628aeba80e48b8368f\nretained-failures/repair-5-baseline/out__dispatch__opening-b f4a09c933d251e6044c8fc9839e7af0f6f68e549a81bd3b77272670019fed44d"
+  },
+  {
+   "at": "2026-10-10T15:34:03.807Z",
+   "command": null,
+   "result": [
+    {
+     "type": "text",
+     "text": "{\"success\":true,\"message\":\"Report delivered to your caller.\"}"
+    }
+   ]
+  }
+ ]
+}

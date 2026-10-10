@@ -1,0 +1,7 @@
+{
+ "worker": "scene-builder Opus 5.5 high, repair 5",
+ "harness_reported": {"subagent_tokens": 346201, "tool_uses": 47, "duration_ms": 3168471},
+ "transcript_measured_deduplicated_by_message_id": {"assistant_messages": 40, "input_tokens": 80, "output_tokens": 40370, "cache_creation_input_tokens": 886625, "cache_read_input_tokens": 8025291},
+ "coverage": "From the worker's own subagent transcript only. Streaming rows can carry a partial usage for a message id, so the last-seen usage per id is used and may undercount output. The harness total uses a different basis and the two are not reconciled. Bill and account usage unknown.",
+ "supervision": "see builder-r5-supervision.json; delay about 16 min silent then productive after a nudge, no failure charged"
+}
