@@ -62,7 +62,11 @@ picture phase. Use its actual record, verify and stage commands. There is no Ima
 in this lane and no fabricated image-generation charge.
 
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
-edition. Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
+edition. A cloud container is reclaimed, so `pending` alone sees only worktrees that still exist.
+Also run `python scripts/claude_checkpoint.py discover`. Any unfinished edition it lists is restored
+with `python scripts/claude_checkpoint.py restore --run-id <id>` on a clean checkout, which rebuilds
+the same ledger, frozen envelope, charges, failed reviews, authored source and paid outputs after
+verifying every hash. Never initialise a second ledger for an edition that has a checkpoint. Derive today's calendar date in the schedule timezone from config/claude_runtime.json;
 the cloud host's UTC date does not select an Eastern edition. A terminal shipped run is immutable.
 The first owner-authorized migration test uses a
 fresh current story and an intentional distinct run identity `<today>-claude-pilot`, including its
@@ -72,6 +76,21 @@ status and a verified durable archive in `runs/`. Resume an unfinished pilot ins
 another. After that one pilot is archived, every scheduled invocation uses normal daily production.
 Normal scheduled production uses today's date. If today's scheduled film is
 already shipped, verify that shipment and do not manufacture another ordinary edition.
+
+## Durable checkpoints and effective effort
+
+`out/` is gitignored and dies with the container, so each `claude_runtime.py phase <name>` mirrors
+the resumable edition to `claude/checkpoint/<run-id>` through `scripts/claude_checkpoint.py save`.
+Also run that save after every paid call, reservation and verdict and before every native render.
+It exports the ledger through `public_state.py`, keeps authored source, claims, board, voice takes,
+alignment and review responses, and leaves out Gmail, delivery routing, receipts and credentials. It
+refuses to save when a credential value appears in any included file. A failed mirror is a warning,
+never a stop. After `finish --result shipped` and the metadata archive, save once more so the
+checkpoint reads finished. Restore never overwrites a different existing ledger.
+
+At wake also record `python scripts/claude_contract_check.py --effective out/dispatch/effective-effort.json`.
+It reads the root session's host effort, any `CLAUDE_CODE_EFFORT_LEVEL` override, and each leaf's
+frontmatter. Fail on a mismatch; never set a global effort override.
 
 ## Claude-native worker routing
 
@@ -172,3 +191,21 @@ Do not stop after the engineering
 PR, a preview, a passing panel or an uploaded file. Complete the original five-phase master through
 verified accepted shipment, the unsent draft and durable archive. Report the film, scores, actual
 usage, delivery state and any retained failed attempts concisely.
+
+## Canonical phone playback on the cloud host
+
+A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
+automation at 390x844 with touch input, against the published canonical URL:
+
+```sh
+python scripts/phone_playback.py --edition-id <id> --film-sha256 <reviewed master sha256> --out-dir out/dispatch/phone
+```
+
+It taps the page's own Play control (pause, then play again), taps "tap for sound", samples
+currentSrc, currentTime, readyState, paused, muted and error while the clock runs, records whether
+the page received trusted input events, hashes the published master and phone bytes, and saves
+hashed screenshots. Its `tool` field says browser automation, not Computer Use. Put its
+`phone_playback.json` in the shipment manifest unchanged. `shipment_check.py` applies every
+historical assertion plus `claude_playback_problems`. The Codex Computer Use route and its evidence
+format stay valid. Never fabricate observations. If the page, media or browser fails, production
+stays active and the real failure is recorded.

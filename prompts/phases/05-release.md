@@ -80,6 +80,8 @@ Use a nonblocking process handle for deployment waits and remain responsive. Ver
 master, phone and poster URLs serve the reviewed hashes, not merely HTTP success.
 Use Computer Use to open https://texasaidocket.com/videos/#<edition-id>, inspect at phone size,
 play the current film and confirm real playback. Build success does not prove deployment.
+On the Claude cloud host, where Computer Use does not exist, run `scripts/phone_playback.py`
+instead (prompts/claude_routine.md names its command and what it proves). Name the tool honestly.
 
 Write runs/<date>/email.md before creating/updating Gmail. Put the usable post first:
 1. Canonical film link, master, phone rendition, poster, encoded runtime including credits,

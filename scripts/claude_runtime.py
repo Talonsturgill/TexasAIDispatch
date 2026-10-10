@@ -147,12 +147,22 @@ def plan(role, packet_path, task_name, scope):
                            'The three final scorers remain one atomic charged panel.'}
 
 
-def phase(name, root):
+def phase(name, root, checkpoint=True):
     if not re.fullmatch(r'[a-z][a-z0-9_-]*', name):
         raise ValueError('Invalid phase name')
     root = Path(root); root.mkdir(parents=True, exist_ok=True)
     with (root / 'claude-phases.jsonl').open('a') as stream:
         stream.write(json.dumps({'at': datetime.now(timezone.utc).isoformat(), 'phase': name}) + '\n')
+    # Every phase entry mirrors the resumable edition to its public-safe checkpoint branch. A failed
+    # mirror is reported and never blocks production; the owner needs the run, not the backup.
+    state = root / 'run_state.json'
+    if checkpoint and state.is_file() and os.environ.get('DISPATCH_CHECKPOINT') != '0':
+        try:
+            import claude_checkpoint
+            saved = claude_checkpoint.save(REPO, state, 'phase ' + name)
+            print('Checkpoint ' + saved['commit'][:10] + ' saved: ' + str(saved['files']) + ' files.')
+        except Exception as exc:
+            print('WARNING checkpoint not saved: ' + str(exc)[:300])
 
 
 def usage_report(paths, since=None, phases=None):
