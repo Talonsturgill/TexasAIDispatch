@@ -230,7 +230,7 @@ stays active and the real failure is recorded.
 
 ## Capture authorization
 
-Every native capture or render command (remotion still or render, preflight, opening compare, cinema proof,
+Every native capture or render command (Remotion stills and renders, preflight, opening compare, cinema proof,
 render_dispatch) is denied by the PreToolUse hook `scripts/capture_guard.py hook` unless the director has
 issued a current authorization. Reserve the render with the controller first, then run:
 
