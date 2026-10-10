@@ -2,15 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "7008df310616544c382f50845df4212f998280332fd1d9d5f51e2d45fa2c6db3",
+    "event_sha256": "59be7af992046f9c0a94724991c10286e3a353dda60322feb3ef590e77495a55",
     "resource": "preflight_renders",
-    "at": "2026-10-10T04:03:29.074966Z",
-    "note": "two opening comparison batch"
+    "at": "2026-10-10T21:12:16.500779Z",
+    "note": "timed animatic retry after retained uncovered-frame float defect at frame 880"
   },
   "boards": [
     {
       "path": "out/dispatch/storyboard.json",
-      "sha256": "72d2e3f35a56cc12deb6dcee0349efb80d9daa7b888f62b2f871b3bbcb00ffc0"
+      "sha256": "683fe811782ce8f4d497a4ca7c7c082c6537247dcf1ce223eb0eaa319c4188a6"
     }
   ],
   "bound": {
@@ -156,21 +156,21 @@
     {
       "id": "287b73a1b3abe2b13e787cb6f323f9ff1fa4b9ae92fdb9673cd3f63672438522",
       "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --claims out/dispatch/claims.json --sheet out/dispatch/preflight-contact-sheet.png --report out/dispatch/preflight.json --state out/dispatch/run_state.json",
-      "consumed": "2026-10-10T21:09:13.835472+00:00"
+      "consumed": "2026-10-10T21:12:24.435914+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 20.79
+    "free_gib": 20.684
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T210911.json",
-    "receipt_sha256": "7d3860dc5ad3c6a24dbd228f610eff9a2c4f02a01fda51a046160e261a25cb8c",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T211221.json",
+    "receipt_sha256": "1027ba9d4274c6d934300902190a8bea753b7fc22e4c34f7ce438596dd0ef0b5",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-10T21:09:11.153735+00:00",
-  "expires_at": "2026-10-10T21:54:11.153735+00:00"
+  "issued_at": "2026-10-10T21:12:21.788395+00:00",
+  "expires_at": "2026-10-10T21:57:21.788395+00:00"
 }
