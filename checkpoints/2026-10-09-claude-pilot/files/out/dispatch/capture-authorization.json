@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "7b9a845658a46aa561023f378554d0c9d78a3defa2eb8e94cea2f62192709832",
+    "event_sha256": "5b7e1190c9d7ccfce14cd7d14ef4f7a036ba3eb2bd6748a39f90a69bb0745d52",
     "resource": "preflight_renders",
-    "at": "2026-10-10T04:02:31.063813Z",
-    "note": "reserved before authorizing the real two-treatment opening comparison capture"
+    "at": "2026-10-10T17:07:55.797207Z",
+    "note": "reserved before authorizing the real two-treatment opening comparison capture (repair 5 bytes)"
   },
   "boards": [
     {
       "path": "out/dispatch/opening-a.json",
-      "sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977"
+      "sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360"
     },
     {
       "path": "out/dispatch/opening-b.json",
-      "sha256": "5289e74d0cd6b22669bb799989b0cf179414218eabeb981bad73c5b288820cef"
+      "sha256": "86f653c77828f5a3722cac7c2b34e27b951d19e1a3aa3b7a4eb49761c92fadac"
     }
   ],
   "bound": {
@@ -143,8 +143,8 @@
       "video-engine/src/modern/PlaceStage.tsx": "6839b760ee6dd681d87e1a65e334a5b185636a98c02c3ad4b1c4505982533948",
       "video-engine/src/modern/StoryArt.tsx": "bd368cce756d2a06e44a3602986bf00e6f2aadac71206683a2d8f4fd0fce2557",
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
-      "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx": "56822dea2e2bbe1fe9bf5ad3ad6c418a48337b2ebbd2e598aec5f11da5bd5d72",
-      "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx": "ace57d14ee3cc631c194d05f6155f3ee541533eaafd356ca09fb8cdbb97a6ec3",
+      "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx": "24cd027dcfdce8ad0aa5fd055f6e69cdcfb52b2fb2dcf4b5ee72e78c2832225f",
+      "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "dd7432783df2544a448b2f84d6c7065747c45b189523c62f08f6f56d6e75b02a",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -153,28 +153,28 @@
     },
     "authored_art": {
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx": "2bbf8a89c68604edb67e65b8ddbda6e0d0b1767e4162391d093882867036411c",
-      "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx": "ace57d14ee3cc631c194d05f6155f3ee541533eaafd356ca09fb8cdbb97a6ec3"
+      "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx": "b030f9df22e2097b8dead159ccfa96eda6a391360f6e6cdec3abb9bb3094254b"
     }
   },
   "commands": [
     {
       "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-10T04:03:12.585437+00:00"
+      "consumed": "2026-10-10T17:11:47.076747+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 20.506
+    "free_gib": 19.508
   },
   "housekeeping": {
-    "receipt": "/home/user/TexasAIDispatch/out/dispatch/capture-housekeeping-20261010T040307.json",
-    "receipt_sha256": "7b7fa31287fbeb6dd9fed0e1a0514f8917d004de74b2c737927e00e5b321e9ed",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261010T171140.json",
+    "receipt_sha256": "cca44d6d834e9217f0f9d3237c5e193d6c3e4b7152ec9b0e761152a35a32ae7a",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-10T04:03:07.566529+00:00",
-  "expires_at": "2026-10-10T04:48:07.566529+00:00"
+  "issued_at": "2026-10-10T17:11:40.007358+00:00",
+  "expires_at": "2026-10-10T17:56:40.007358+00:00"
 }
