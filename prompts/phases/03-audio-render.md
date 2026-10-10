@@ -68,7 +68,7 @@ Mastering preserves sample count and records loudness/compression/peak evidence.
 
 ```sh
 python scripts/mix.py --board out/dispatch/storyboard.json --vo out/dispatch/takes/<chosen>.wav --sfx out/dispatch/sfx_events.json --bed out/dispatch/music_bed.wav --bed-track <track-id> --bed-manifest out/dispatch/music_bed.json --bed-gap-db <registry-gap> --vo-at <measured-hook-space> --out out/dispatch/mix.wav --cut <story-plus-credit-runtime>
-python scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt --voice out/dispatch/mix_vo.wav --out out/dispatch
+python scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt --voice out/dispatch/mix_vo.wav --out out/dispatch --cuts out/dispatch/storyboard.json --clause-boundaries
 python scripts/board_captions.py --board out/dispatch/storyboard.json --captions out/dispatch/captions.json
 python scripts/board_retime.py --board out/dispatch/storyboard.json --words out/dispatch/words.json --sfx out/dispatch/sfx_events.json
 ```
@@ -79,8 +79,18 @@ evidence fails. Never prompt ASR with the script or type timing overrides. Sourc
 are spelling evidence only. Keep quiet consonants; repair a detector fault with negative tests.
 
 After retiming moves cuts or foley, remix with the same voice offset, align again with --cuts
-out/dispatch/storyboard.json, fold cues and confirm the retime is stable. Use authored event
+out/dispatch/storyboard.json and --clause-boundaries, fold cues and confirm the retime is stable. Use authored event
 timing; never manually change derived at_s. Split overlong pictured beats instead of holding.
+
+For current narration-picture boards, clause boundaries select only an already measured pause
+between the clause's final word and the next clause's first word. Both waveform edges must be
+measured, and a new split needs at least 0.24 seconds of silence. Complete ordered clause text
+must match the acoustic word stream. Provisional times never choose an edge; absent silence
+requires a voice repair. Fresh cue IDs are derived from complete measured cue groups, and
+preship/delivery recompute this recorded segmentation during --verify. Historical unopted
+alignment retains its original grouping.
+Frozen editions without narration-picture-v1 omit --clause-boundaries and retain their existing
+alignment invocation.
 
 Repeat the cheap board, source and caption checks. Then render the final timed phone preview
 and obtain its current independent exact-film critique. If the assigned host worker cannot
