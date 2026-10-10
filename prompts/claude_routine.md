@@ -239,6 +239,19 @@ stays active and the real failure is recorded.
 
 ## Capture authorization
 
+For a multi-repository cloud session, register the capture hook at its actual primary workspace
+before capture. After restoring an unfinished production checkout, run
+`python scripts/bootstrap_claude_hooks.py --workspace /home/user` through the wrapper from that
+checkout (use the observed primary workspace if it differs). The helper preserves model, effort,
+environment, permissions and unrelated hooks. It replaces only its own earlier registration and
+points the handler at the active checkout, whose ledger and assets the handler verifies. This is
+registration, never proof that the host loaded it and never capture authorization. Keep the actual
+native denial of the harmless capture-form probe before a real capture. If the host has not loaded
+the registration, retain that observation and restart from the durable checkpoint using the supported
+routine launch; do not replay synthetic PreToolUse events as a substitute or weaken auto mode.
+If the host denies registration, preserve the denial and apply the same versioned registration in
+the authorized environment setup before the next supported launch rather than retrying a denied edit.
+
 Every native capture or render command (Remotion stills and renders, preflight, opening compare, cinema proof,
 render_dispatch) is denied by the PreToolUse hook `scripts/capture_guard.py hook` unless the director has
 issued a current authorization for that exact command. Reserve a fresh render with the controller first

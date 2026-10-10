@@ -58,7 +58,7 @@ def problems(repo=REPO, environ=None):
                          'A terminal shipped run is immutable', '<today>-claude-pilot',
                          'Resume an unfinished pilot instead of creating',
                          'verify that shipment and do not manufacture another ordinary edition',
-                         'OLDEST unfinished edition'):
+                         'OLDEST unfinished edition', 'bootstrap_claude_hooks.py --workspace'):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
         for name in ('.claude/agents/scene-builder.md', 'prompts/roles/scene-builder.md'):
@@ -69,6 +69,8 @@ def problems(repo=REPO, environ=None):
         hooks = json.dumps(settings.get('hooks', {}).get('PreToolUse', []))
         if 'capture_guard.py hook' not in hooks or '"Bash"' not in hooks:
             errors.append('.claude/settings.json must register scripts/capture_guard.py hook for Bash')
+        if '--repo-root' not in hooks:
+            errors.append('the capture handler must select its active checkout with --repo-root')
         env = os.environ if environ is None else environ
         override = env.get('CLAUDE_CODE_EFFORT_LEVEL', '')
         if override not in ('', 'auto'):
@@ -189,6 +191,16 @@ class ContractTests(unittest.TestCase):
     def test_missing_leaf(self):
         (self.repo / '.claude/agents/scene-builder.md').unlink()
         self.assertTrue(problems(self.repo, {}))
+
+    def test_multi_repository_hook_scope_cannot_disappear(self):
+        p = self.repo / 'prompts/claude_routine.md'
+        p.write_text(p.read_text().replace('bootstrap_claude_hooks.py --workspace', 'x'))
+        self.assertTrue(any('lacks required authority' in e for e in problems(self.repo, {})))
+
+    def test_checkout_selection_cannot_disappear(self):
+        p = self.repo / '.claude/settings.json'
+        p.write_text(p.read_text().replace(' --repo-root', ''))
+        self.assertTrue(any('--repo-root' in e for e in problems(self.repo, {})))
 
 
 if __name__ == '__main__':
