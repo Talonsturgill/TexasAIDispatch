@@ -29,6 +29,14 @@ def resource_requirements(state):
     return result
 
 
+def finish_phone_critics(state, phone_complete=False):
+    """A corrected code plan still owes silent comparison and timed phone review."""
+    if phone_complete:
+        return 0
+    code_route = any(e.get("kind") == CODE_ADOPTION for e in state.get("events", []))
+    return 2 if code_route else 1
+
+
 def selected_policy(state):
     records = [e for e in state.get('events', [])
                if isinstance(e, dict) and e.get('kind') == ADOPTION]
@@ -369,7 +377,7 @@ def replay(state):
                 required = dict(expected_required)
                 required["voice_directors"] = int(not usage.get("voice_directors", 0))
                 if reason == "finish-current":
-                    required.update(reboards=0, storyboard_critics=1,
+                    required.update(reboards=0, storyboard_critics=finish_phone_critics(admission),
                                     preflight_renders=2, audiovisual_reviews=8)
                     if 'image_generations' in required:
                         required['image_generations'] = 0
@@ -419,6 +427,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     try:
         plan_text = Path(plan_path).read_text(encoding="utf-8")
         plan = json.loads(plan_text)
+        if plan.get("completion_reason") == "finish-current" and plan.get("changed_inputs"):
+            return False, "finish-current capacity cannot fund a new correction; retain the approved cut"
         evidence = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
         reason = mandatory_reason(state, plan, evidence)
         if reason is None:

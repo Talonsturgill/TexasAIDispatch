@@ -177,6 +177,12 @@ This preserves the original frozen adoption and adds only exact conservative def
 Code evidence cannot approve pixels or replace either complete phone treatment or final reviews.
 Do not request a daily decision at the internal critic ceiling.
 
+After an independent passing code review, stop optional editing. If contract failures consumed
+the funded reviews, use the actual new independent passing report in a finish-current plan with
+no changed_inputs. The adopted code route protects two pending phone critics. Run production-budget
+and completion-capacity on that new finish plan, retaining every prior failure, grant and charge.
+Do not retry the original failure's grant or replace a film verdict with code approval.
+
 ## Efficiency and actual usage
 
 Keep phase loading, compact assignments, exact-byte audiovisual caching including failures, and

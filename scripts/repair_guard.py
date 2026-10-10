@@ -156,8 +156,9 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     context_ready = bool(context_ready and phone_complete)
     if review_route not in ("host", "provider"):
         raise ValueError("unknown independent review route")
+    from autonomous_completion import finish_phone_critics
     required = {"reboards": 0 if finishing else 1,
-                "storyboard_critics": (int(not phone_complete) if finishing else 3) if review_route == "host" else 0,
+                "storyboard_critics": (finish_phone_critics(state, phone_complete) if finishing else 3) if review_route == "host" else 0,
                 "preflight_renders": 2 if finishing else 3,
                 "full_renders": 1, "audiovisual_reviews": (7 if phone_complete else 8) if finishing else 11,
                 "panel_rounds": 1, "scorer_calls": 3}

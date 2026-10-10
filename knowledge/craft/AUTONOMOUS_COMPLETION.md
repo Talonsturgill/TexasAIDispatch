@@ -40,3 +40,12 @@ Every actual worker and render still needs its own reservation. An unused earlie
 remains charged. Code evidence never approves pixels, a score or shipment. Both complete phone
 treatments, all modern observations, native, sound, captions and delivery gates still run.
 Optional polish, stale inputs, self-review and extra research remain ineligible.
+
+After the independent code review passes, stop optional editing. If charged review failures have
+consumed the protected capacity, retain those failures and use a new finish-current plan bound to
+the actual fresh independent passing report, with no changed_inputs. Do not reuse an earlier
+failed attempt's grant. On the adopted code route, the finish budget protects two pending phone
+critics: the silent two-treatment comparison and the final measured timed phone. Run
+production-budget and completion-capacity on that finish plan; any real deficit becomes a
+separate existing mandatory_completion_grant. Keep the original grant, envelope and all charges.
+This grants no review approval and never replaces either film review.

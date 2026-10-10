@@ -376,6 +376,80 @@ class CodeCompletionCapacityTest(unittest.TestCase):
         self.assertEqual(budget["resources"]["storyboard_critics"]["required"], 3)
         self.assertEqual(self.state.read_bytes(), before)
 
+    def passing_finish_plan(self):
+        """A fresh independent code pass ends editing, not either film review."""
+        self.grant()
+        self.assertTrue(controller.reserve(self.state, {"storyboard_critics": 2},
+            "offline fixture: invalid handback then gate-ready independent review")[0])
+        report = self.root / "out/dispatch/fresh-code-pass.json"
+        report.write_text(json.dumps({"reviewer_identity": "independent Opus code critic",
+                                     "verdict": "pass", "blocking_defects": []}))
+        plan = self.root / "out/dispatch/finish-plan.json"
+        plan.write_text(json.dumps({"director_identity": "director",
+            "completion_reason": "finish-current", "repair_scope": "standard",
+            "failure_evidence": str(report), "failure_evidence_sha256": capacity.sha(report.read_text()),
+            "changed_inputs": [], "resources": {"storyboard_critics": 2}}))
+        return plan
+
+    def test_code_finish_budget_protects_both_remaining_phone_reviews(self):
+        plan = self.passing_finish_plan()
+        before = self.state.read_bytes()
+        result = subprocess.run([sys.executable, str(Path(controller.__file__)), "--state", str(self.state),
+                                 "production-budget", "--repair-plan", str(plan)], capture_output=True, text=True)
+        budget = json.loads(result.stdout)
+        self.assertFalse(budget["feasible"])
+        self.assertEqual(budget["resources"]["storyboard_critics"]["required"], 2)
+        self.assertEqual(budget["deficits"], {"storyboard_critics": 1})
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_fresh_pass_finish_grant_retains_old_failure_grant_and_charges(self):
+        plan = self.passing_finish_plan()
+        before = controller.read_state(self.state)
+        ok, message = capacity.grant_capacity(self.state, plan)
+        self.assertTrue(ok, message)
+        state = controller.read_state(self.state)
+        self.assertEqual(state["usage"], before["usage"])
+        self.assertEqual(state["resource_envelope"], before["resource_envelope"])
+        self.assertEqual(state["events"][:len(before["events"])], before["events"])
+        grants = [e for e in state["events"] if e["kind"] == capacity.EVENT]
+        self.assertEqual(len(grants), 2)
+        self.assertEqual(grants[-1]["resource_increments"], {"storyboard_critics": 1})
+        self.assertTrue(grants[-1]["grants_no_review_approval"])
+        self.assertEqual(capacity.replay(state)[1], [])
+        self.assertEqual(lifecycle.allowance_problems(state), [])
+        for label in ("silent complete two-treatment review", "final measured timed phone review"):
+            self.assertTrue(controller.reserve(self.state, {"storyboard_critics": 1}, label)[0])
+        self.assertFalse(controller.reserve(self.state, {"storyboard_critics": 1}, "optional extra review")[0])
+
+    def test_finish_cannot_renew_same_evidence_or_hide_required_phone_review(self):
+        plan = self.passing_finish_plan()
+        self.assertTrue(capacity.grant_capacity(self.state, plan)[0])
+        before = self.state.read_bytes()
+        self.assertFalse(capacity.grant_capacity(self.state, plan)[0])
+        self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(self.state.read_bytes(), before)
+        altered = controller.read_state(self.state)
+        grant = [e for e in altered["events"] if e["kind"] == capacity.EVENT][-1]
+        budget = json.loads(grant["precheck_json"])
+        budget["resources"]["storyboard_critics"]["required"] = 1
+        grant["precheck_json"] = capacity.canonical(budget)
+        grant["precheck_sha256"] = capacity.sha(grant["precheck_json"])
+        self.assertTrue(capacity.replay(altered)[1])
+
+    def test_code_finish_is_not_a_new_optional_correction_or_self_review(self):
+        plan = self.passing_finish_plan()
+        original = json.loads(plan.read_text())
+        for changed in ({"director_identity": "independent Opus code critic"},
+                        {"changed_inputs": [{"path": "optional-art.tsx"}]}):
+            plan.write_text(json.dumps({**original, **changed}))
+            self.assertFalse(capacity.grant_capacity(self.state, plan)[0])
+
+    def test_legacy_finish_requirement_stays_one_and_current_phone_needs_no_reuse_charge(self):
+        self.assertEqual(capacity.finish_phone_critics(self.before), 1)
+        state = self.grant()
+        self.assertEqual(capacity.finish_phone_critics(state), 2)
+        self.assertEqual(capacity.finish_phone_critics(state, phone_complete=True), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
