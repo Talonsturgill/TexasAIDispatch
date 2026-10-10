@@ -26,8 +26,9 @@ model:
   failover: gemini-2.5-pro-preview-tts
   why_failover: >
     A preview model returning repeated 500s mid-run has happened. A run that dies at
-    the voice step has no film. The controller records the blocked package as
-    needs_review rather than publishing silence or opening an unbounded retry loop.
+    the voice step has no film. The controller preserves the blocked evidence and active
+    ledger, then requires bounded autonomous recovery rather than publishing silence or
+    treating a review package as production completion.
 
 # How to run the audition, so it is a measurement rather than a listen-and-shrug.
 audition:

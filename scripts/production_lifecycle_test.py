@@ -249,6 +249,23 @@ class LifecycleTest(unittest.TestCase):
             report.write_text('{"score": 0, "ship": false}')
             self.assertFalse(c.check_delivery(self.state, report)[0])
 
+    def test_current_operator_surfaces_do_not_advertise_legacy_completion(self):
+        surfaces = {
+            name: " ".join((c.REPO / name).read_text().lower().split())
+            for name in ("README.md", "HANDOFF.md", "config/voices.yaml")
+        }
+        forbidden = {
+            "README.md": ("a run ends as either",),
+            "HANDOFF.md": ("until the run reaches `publishable` or `needs_review`",),
+            "config/voices.yaml": ("blocked package as needs_review",),
+        }
+        for name, phrases in forbidden.items():
+            for phrase in phrases:
+                self.assertNotIn(phrase, surfaces[name])
+        self.assertIn("production run completes only as `shipped`", surfaces["README.md"])
+        self.assertIn("production run reaches `shipped`", surfaces["HANDOFF.md"])
+        self.assertIn("active ledger", surfaces["config/voices.yaml"])
+
     def test_publication_evidence_uses_exact_report_package_board(self):
         import production_quality as quality
         package = self.root / "package"
