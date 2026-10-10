@@ -193,6 +193,19 @@ Do not retry the original failure's grant or replace a film verdict with code ap
 
 ## Efficiency and actual usage
 
+If the already charged exact-phone Opus worker exceeds one hour and two supported host
+observations at least five minutes apart show unchanged tool/token totals and no error, load
+config/autonomous_completion_handback_v1.json. Preserve the original native status evidence,
+task ID and reservation. Use scripts/review_handback.py to bind that receipt, the unchanged
+approved board, claims, both exact films, original packet and output contract to the retained
+finish-current plan. Normal completion-capacity may grant exactly one separately recorded
+critic increment once per run, only when every other remaining resource is funded. This is
+same-worker handback capacity, never host unavailability or approval. Reserve the resumed
+critic call before director TaskStop, wait for its stopped run to exit, then SendMessage to
+that exact ID for the complete bounded report using its original context and prompt cache.
+Keep Opus High, every required guide and observation, the final timed critic and all release
+gates. Do not use manual UI cancellation, a new Agent, another provider or a new correction.
+
 Keep phase loading, compact assignments, exact-byte audiovisual caching including failures, and
 the current provider media deduplication. Run cheap mechanical checks before paid review. Group
 dependent production commands into one exit-code-checked job with retained logs and a compact

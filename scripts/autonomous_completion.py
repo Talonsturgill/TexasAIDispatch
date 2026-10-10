@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from review_handback import REASON as HANDBACK_REASON
 
 POLICY = Path(__file__).resolve().parents[1] / "config/autonomous_completion.json"
 POLICY_SHA256 = "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
@@ -255,6 +256,9 @@ def mandatory_reason(state, plan, evidence_text):
             return None
         if set(plan.get("resources", {})) - set(resource_requirements(state)):
             return None
+        if plan.get("completion_reason") == HANDBACK_REASON:
+            from review_handback import eligible
+            return HANDBACK_REASON if eligible(state, plan, report) else None
         code_reason = code_mandatory_reason(state, plan, report, evidence_text)
         if code_reason:
             return code_reason
@@ -299,6 +303,13 @@ def mandatory_reason(state, plan, evidence_text):
     except (ValueError, KeyError, TypeError, AttributeError):
         return None
     return None
+
+
+def grant_identity(plan, evidence_sha256):
+    if plan.get("completion_reason") == HANDBACK_REASON:
+        from review_handback import identity
+        return identity(plan)
+    return evidence_sha256
 
 
 def replay(state):
@@ -357,10 +368,10 @@ def replay(state):
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
                 if reason is None or reason != row.get("reason"):
                     raise ValueError("optional or unclassified work cannot receive completion capacity")
-                if reason == CODE_REASON and not code_adopted:
+                if reason in {CODE_REASON, HANDBACK_REASON} and not code_adopted:
                     raise ValueError("code capacity requires its separate standing amendment")
                 # One failed attempt owns one grant, even with renamed plan text.
-                identity = row["failure_evidence_sha256"]
+                identity = grant_identity(plan, row["failure_evidence_sha256"])
                 if identity in seen:
                     raise ValueError("a failed attempt already owns completion capacity")
                 seen.add(identity)
@@ -376,7 +387,7 @@ def replay(state):
                 deficits = {}
                 required = dict(expected_required)
                 required["voice_directors"] = int(not usage.get("voice_directors", 0))
-                if reason == "finish-current":
+                if reason in {"finish-current", HANDBACK_REASON}:
                     required.update(reboards=0, storyboard_critics=finish_phone_critics(admission),
                                     preflight_renders=2, audiovisual_reviews=8)
                     if 'image_generations' in required:
@@ -391,6 +402,8 @@ def replay(state):
                         deficits[name] = item["required"] - item["remaining"]
                 if not deficits or deficits != budget["deficits"] or deficits != row["resource_increments"]:
                     raise ValueError("completion grant differs from the exact resource deficits")
+                if reason == HANDBACK_REASON and deficits != {"storyboard_critics": 1}:
+                    raise ValueError("same-worker handback admits exactly one critic and no other deficit")
                 if row["previous_envelope"] != effective:
                     raise ValueError("completion envelope chain changed")
                 effective = {k: n + deficits.get(k, 0) for k, n in effective.items()}
@@ -427,16 +440,23 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     try:
         plan_text = Path(plan_path).read_text(encoding="utf-8")
         plan = json.loads(plan_text)
-        if plan.get("completion_reason") == "finish-current" and plan.get("changed_inputs"):
+        if plan.get("completion_reason") in {"finish-current", HANDBACK_REASON} and plan.get("changed_inputs"):
             return False, "finish-current capacity cannot fund a new correction; retain the approved cut"
         evidence = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
         reason = mandatory_reason(state, plan, evidence)
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
-        if any(e.get("kind") == EVENT and e.get("failure_evidence_sha256") == sha(evidence) for e in state["events"]):
+        identity = grant_identity(plan, sha(evidence))
+        if any(e.get("kind") == EVENT and grant_identity(json.loads(e["plan_json"]), e["failure_evidence_sha256"]) == identity
+               for e in state["events"]):
             return False, "this failed attempt already owns completion capacity; retain its grants and reservations"
         if reason == CODE_REASON:
             errors = code_binding_problems(state, plan)
+            if errors:
+                return False, "; ".join(errors)
+        if reason == HANDBACK_REASON:
+            from review_handback import file_problems
+            errors = file_problems(plan)
             if errors:
                 return False, "; ".join(errors)
         adopt(state, policy_path, explicit_existing_run=True)
@@ -448,6 +468,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         increments = budget["deficits"]
+        if reason == HANDBACK_REASON and increments != {"storyboard_critics": 1}:
+            return False, "same-worker handback requires exactly one critic deficit with the complete remaining path funded"
         if not increments:
             save(Path(state_path), state)
             return True, "mandatory completion already has protected capacity; no resources added"

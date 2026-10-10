@@ -451,5 +451,127 @@ class CodeCompletionCapacityTest(unittest.TestCase):
         self.assertEqual(capacity.finish_phone_critics(state, phone_complete=True), 0)
 
 
+class HandbackCapacityTest(unittest.TestCase):
+    setUp = CodeCompletionCapacityTest.setUp
+    grant = CodeCompletionCapacityTest.grant
+    passing_finish_plan = CodeCompletionCapacityTest.passing_finish_plan
+
+    def make_handback(self):
+        import review_handback as handback
+        from datetime import datetime, timedelta, timezone
+        base = self.passing_finish_plan()
+        self.assertTrue(capacity.grant_capacity(self.state, base)[0])
+        state = controller.read_state(self.state)
+        state["phase"] = "phone_review"
+        controller.event(state, "phase", name="phone_review")
+        controller.save(self.state, state)
+        self.assertTrue(controller.reserve(self.state, {"storyboard_critics": 1}, "actual in-flight phone fixture")[0])
+        state = controller.read_state(self.state)
+        index = len(state["events"]) - 1
+        now = datetime.now(timezone.utc)
+        receipt = {"schema": "dispatch_same_worker_handback/1", "run_id": state["run_id"],
+                   "role": "phone", "agent_id": "af52fff8c26648fb3", "model": "claude-opus-5-5",
+                   "effort": "high", "status": "running", "verdict": None, "provider_unavailable": False,
+                   "action": "TaskStop_then_SendMessage_same_id", "reservation_event_index": index,
+                   "reservation": state["events"][index],
+                   "reservation_sha256": capacity.sha(capacity.canonical(state["events"][index])),
+                   "observations": [{"agent_id": "af52fff8c26648fb3", "model": "claude-opus-5-5",
+                        "status": "running", "error": None, "tool_uses": 47, "reported_tokens": "238.7k (rounded)",
+                        "observed_at": (now - timedelta(seconds=offset)).isoformat(),
+                        "elapsed_seconds": 4800 - offset, "evidence": "offline native-status fixture"}
+                        for offset in (600, 0)]}
+        receipt_path = self.root / "receipt.json"
+        receipt_path.write_text(json.dumps(receipt))
+        inputs = [("board", self.board), ("claims", self.claims)]
+        for kind, name in [("board", "board-b.json"), ("film", "a.mp4"), ("film", "b.mp4"),
+                           ("packet", "packet.json"), ("output_contract", "output-contract.json")]:
+            path = self.root / name; path.write_text("offline byte binding " + name)
+            inputs.append((kind, path))
+        path = self.root / "handback-plan.json"
+        handback.prepare(base, receipt_path, self.board, inputs, path)
+        self.handback_before = controller.read_state(self.state)
+        self.original_pass = Path(json.loads(base.read_text())["failure_evidence"]).read_bytes()
+        return path
+
+    def admit(self, path):
+        # Gate behavior has separate tests. This fixture isolates conservative capacity accounting.
+        with patch("review_handback.file_problems", return_value=[]):
+            return capacity.grant_capacity(self.state, path)
+
+    def test_one_separate_increment_preserves_evidence_and_charges_both_remaining_calls(self):
+        path = self.make_handback()
+        ok, message = self.admit(path); self.assertTrue(ok, message)
+        state = controller.read_state(self.state)
+        self.assertEqual(state["usage"], self.handback_before["usage"])
+        self.assertEqual(state["resource_envelope"], self.handback_before["resource_envelope"])
+        self.assertEqual(state["events"][:-1], self.handback_before["events"])
+        self.assertEqual(state["events"][-1]["resource_increments"], {"storyboard_critics": 1})
+        self.assertTrue(state["events"][-1]["grants_no_review_approval"])
+        self.assertEqual(Path(json.loads(path.read_text())["failure_evidence"]).read_bytes(), self.original_pass)
+        self.assertEqual(capacity.replay(state)[1] + lifecycle.allowance_problems(state), [])
+        for label in ("same-ID handback before stop/resume", "final measured timed phone"):
+            self.assertTrue(controller.reserve(self.state, {"storyboard_critics": 1}, label)[0])
+        self.assertFalse(controller.reserve(self.state, {"storyboard_critics": 1}, "extra optional review")[0])
+        self.assertIsNone(controller.read_state(self.state)["terminal_state"])
+
+    def test_duplicate_even_with_new_observations_or_plan_name_is_refused(self):
+        path = self.make_handback(); self.assertTrue(self.admit(path)[0])
+        before = self.state.read_bytes()
+        other = self.root / "renamed.json"; other.write_bytes(path.read_bytes())
+        self.assertFalse(self.admit(other)[0]); self.assertEqual(self.state.read_bytes(), before)
+
+    def test_active_native_receipt_cannot_claim_approval_provider_failure_or_other_work(self):
+        path = self.make_handback(); original = json.loads(path.read_text())
+        for change in ({"provider_unavailable": True}, {"verdict": "pass"}, {"status": "stopped"},
+                       {"model": "claude-sonnet-5-5"}, {"effort": "medium"}, {"role": "code"},
+                       {"reservation_sha256": "0" * 64}, {"reservation_event_index": 0}):
+            plan = copy.deepcopy(original); proof = plan["handback_evidence"]
+            receipt = json.loads(proof["receipt_json"]); receipt.update(change)
+            proof["receipt_json"] = json.dumps(receipt); proof["receipt_sha256"] = capacity.sha(proof["receipt_json"])
+            path.write_text(json.dumps(plan)); before = self.state.read_bytes()
+            self.assertFalse(self.admit(path)[0], change); self.assertEqual(self.state.read_bytes(), before)
+
+    def test_unobserved_plateau_changed_inputs_and_mutated_policy_are_refused(self):
+        path = self.make_handback(); original = json.loads(path.read_text())
+        for change in ("progress", "short", "error", "agent", "policy", "correction"):
+            plan = copy.deepcopy(original); proof = plan["handback_evidence"]
+            receipt = json.loads(proof["receipt_json"])
+            if change == "progress": receipt["observations"][-1]["tool_uses"] += 1
+            if change == "short": receipt["observations"][-1]["elapsed_seconds"] = 30
+            if change == "error": receipt["observations"][-1]["error"] = "server_overloaded"
+            if change == "agent": receipt["observations"][-1]["agent_id"] = "different-agent"
+            if change == "policy":
+                proof["policy_json"] += " "; proof["policy_sha256"] = capacity.sha(proof["policy_json"])
+            if change == "correction": plan["changed_inputs"] = [{"path": "optional.tsx"}]
+            proof["receipt_json"] = json.dumps(receipt); proof["receipt_sha256"] = capacity.sha(proof["receipt_json"])
+            path.write_text(json.dumps(plan)); before = self.state.read_bytes()
+            self.assertFalse(self.admit(path)[0], change); self.assertEqual(self.state.read_bytes(), before)
+
+    def test_two_critics_or_other_unfunded_resources_are_refused(self):
+        path = self.make_handback()
+        for resource in ("storyboard_critics", "audiovisual_reviews"):
+            state = copy.deepcopy(self.handback_before)
+            amount = capacity.effective_envelope(state)[resource] - state["usage"][resource]
+            state["usage"][resource] += amount
+            controller.event(state, "reserved", resources={resource: amount}, note="offline spent capacity")
+            controller.save(self.state, state); before = self.state.read_bytes()
+            self.assertFalse(self.admit(path)[0]); self.assertEqual(self.state.read_bytes(), before)
+
+    def test_actual_bound_file_change_and_stale_status_fail_before_admission(self):
+        import review_handback as handback
+        path = self.make_handback(); plan = json.loads(path.read_text())
+        with patch.object(handback, "POLICY", self.root / "config/policy.json"), patch("critic_gate.problems", return_value=[]):
+            self.assertEqual(handback.file_problems(plan), [])
+            film = next(x for x in plan["handback_evidence"]["inputs"] if x["kind"] == "film")
+            original = Path(film["path"]).read_bytes()
+            Path(film["path"]).write_text("changed film")
+            self.assertTrue(handback.file_problems(plan))
+            Path(film["path"]).write_bytes(original)
+            receipt = json.loads(plan["handback_evidence"]["receipt_json"])
+            receipt["observations"][-1]["observed_at"] = "2000-01-01T00:00:00+00:00"
+            plan["handback_evidence"]["receipt_json"] = json.dumps(receipt)
+            self.assertTrue(handback.file_problems(plan))
+
+
 if __name__ == "__main__":
     unittest.main()
