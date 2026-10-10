@@ -218,6 +218,15 @@ format details instead of rereading entire controller modules. Every required gu
 exact film and independent observation stays in scope. Continue independent work while a render
 runs. Never end the turn with a promise to perform the next phase.
 
+If the critic's own handback admits unread mandatory guides or incomplete boards, retain it and
+hold capture. Use the review-coverage amendment in AUTONOMOUS_COMPLETION.md on the unchanged
+production inputs. Fund the complete path, charge the resumed review and SendMessage to the same
+Opus High worker for full coverage. This is content review, not a free formatting correction or
+host unavailability. Never request a policy decision at that internal ceiling.
+Prepare its evidence-bound plan with `python scripts/review_coverage.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <original-handback> --original-packet <original-packet> --current-packet <current-packet> --output <new-plan>`
+through scripts/run_with_env.sh, then use the documented production-budget and completion-capacity
+commands before reserving the resumed review.
+
 Use compact frame strips for director decisions and native crops when detail decides the result.
 Independent reviewers still receive the exact current film and every required unique media byte.
 Stop optional polish at the configured creative boundary; mandatory failures recover through the

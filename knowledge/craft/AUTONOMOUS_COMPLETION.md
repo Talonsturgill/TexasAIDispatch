@@ -49,3 +49,38 @@ critics: the silent two-treatment comparison and the final measured timed phone.
 production-budget and completion-capacity on that finish plan; any real deficit becomes a
 separate existing mandatory_completion_grant. Keep the original grant, envelope and all charges.
 This grants no review approval and never replaces either film review.
+
+## Incomplete independent code coverage
+
+If a returned code critic's own retained handback discloses unread mandatory guides or incomplete
+boards, retain the entire original handback and its actual limits. A partial pass authorizes no
+capture. The October 10th coverage amendment, config/autonomous_completion_coverage_v1.json,
+funds completion of that same assignment on unchanged production inputs. It is a separate
+adoption and capacity event; the original policy, envelope and every charge remain intact.
+
+Create a receipt with schema dispatch_review_coverage/1, the actual run_id and agent_id, role
+code, status completed, model claude-opus-5-5, effort high, provider_unavailable false and action
+SendMessage_same_id. Include director_identity, the original reviewer's exact reviewer_identity,
+report_sha256, reservation_event_index and reservation_sha256 (canonical JSON of that original
+reserved event), reported_limits copied verbatim from the independent handback, and missing_inputs
+with each original packet path, sha256 and read_complete false. Do not invent a disclosure.
+
+Generate a fresh current code packet with both complete treatments and the measured board.
+Retain the original packet unchanged. Bind and precheck with:
+
+```sh
+python scripts/review_coverage.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <original-handback> --original-packet <original-packet> --current-packet <current-packet> --output <new-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-plan>
+python scripts/run_controller.py completion-capacity --repair-plan <new-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-plan>
+```
+
+Use the environment wrapper for these commands. The coverage path requires one complete resumed
+code review plus the separate silent comparison and final timed phone reviews, with the complete
+native, audiovisual, scoring and delivery reserve. It requests no reboard, artwork generation or
+production edit. Every actual resumed review is charged before SendMessage to the same Opus High
+worker. Require every current mandatory guide and complete board to be read, and obtain the full
+gate-ready handback with honest coverage. Neither the grant nor a disclosure approves a film.
+Reject a renamed duplicate grant, stale input, optional polish, self-review or provider switch.
+Classify any remaining production defect independently under the current guides before its
+separate evidence-bound correction; the coverage path authorizes no correction.

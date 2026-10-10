@@ -7,6 +7,7 @@ import json
 import re
 from pathlib import Path
 from review_handback import REASON as HANDBACK_REASON
+from review_coverage import REASON as COVERAGE_REASON, ADOPTION as COVERAGE_ADOPTION
 
 POLICY = Path(__file__).resolve().parents[1] / "config/autonomous_completion.json"
 POLICY_SHA256 = "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
@@ -121,6 +122,21 @@ def adopt_code_policy(state):
     event(state, CODE_ADOPTION, policy_json=text, policy_sha256=sha(text),
           authorization_source_label=policy["authorization_source_label"],
           original_policy_sha256=sha(selected_policy(state).read_text(encoding="utf-8")),
+          grants_no_resources=True, grants_no_review_approval=True)
+
+
+def adopt_coverage_policy(state):
+    from run_controller import event
+    import review_coverage
+    text = review_coverage.POLICY.read_text()
+    if sha(text) != review_coverage.POLICY_SHA256:
+        raise ValueError('review coverage amendment is missing or changed')
+    rows = [e for e in state['events'] if e.get('kind') == COVERAGE_ADOPTION]
+    if rows:
+        if len(rows) != 1 or rows[0].get('policy_sha256') != sha(text):
+            raise ValueError('review coverage amendment is duplicated or changed')
+        return
+    event(state, COVERAGE_ADOPTION, policy_json=text, policy_sha256=sha(text),
           grants_no_resources=True, grants_no_review_approval=True)
 
 
@@ -248,6 +264,12 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if plan.get('completion_reason') == COVERAGE_REASON:
+            from review_coverage import eligible
+            if (sha(evidence_text) != plan.get('failure_evidence_sha256')
+                    or set(plan.get('resources', {})) - set(resource_requirements(state))):
+                return None
+            return COVERAGE_REASON if eligible(state, plan, report) else None
         director = plan["director_identity"]
         reviewer = report["reviewer_identity"]
         if not director or not reviewer or reviewer == director:
@@ -306,6 +328,9 @@ def mandatory_reason(state, plan, evidence_text):
 
 
 def grant_identity(plan, evidence_sha256):
+    if plan.get('completion_reason') == COVERAGE_REASON:
+        from review_coverage import identity
+        return identity(plan)
     if plan.get("completion_reason") == HANDBACK_REASON:
         from review_handback import identity
         return identity(plan)
@@ -316,7 +341,7 @@ def replay(state):
     """Reconstruct only the effective envelope; the original allocation is immutable."""
     effective = copy.deepcopy(state.get("resource_envelope", {}))
     events = state.get("events", [])
-    adopted, code_adopted, seen = False, False, set()
+    adopted, code_adopted, coverage_adopted, seen = False, False, False, set()
     try:
         for index, row in enumerate(events):
             kind = row.get("kind")
@@ -343,6 +368,15 @@ def replay(state):
                         or str(state.get("run_id", ""))[:10] < "2026-10-09"):
                     return effective, ["code completion amendment is invalid or duplicated"]
                 code_adopted = True
+            elif kind == COVERAGE_ADOPTION:
+                import review_coverage
+                if (not code_adopted or coverage_adopted
+                        or sha(row.get('policy_json', '')) != review_coverage.POLICY_SHA256
+                        or row.get('policy_sha256') != review_coverage.POLICY_SHA256
+                        or row.get('grants_no_resources') is not True
+                        or row.get('grants_no_review_approval') is not True):
+                    return effective, ['review coverage amendment is invalid or duplicated']
+                coverage_adopted = True
             elif kind == "owner_review_grant":
                 effective[row["resource"]] += row["additional_calls"]
             elif kind == EVENT:
@@ -365,11 +399,16 @@ def replay(state):
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
+                if plan.get('completion_reason') == COVERAGE_REASON:
+                    # A later shipped state cannot invalidate an earlier active admission.
+                    admission['terminal_state'] = None
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
                 if reason is None or reason != row.get("reason"):
                     raise ValueError("optional or unclassified work cannot receive completion capacity")
                 if reason in {CODE_REASON, HANDBACK_REASON} and not code_adopted:
                     raise ValueError("code capacity requires its separate standing amendment")
+                if reason == COVERAGE_REASON and not coverage_adopted:
+                    raise ValueError('coverage capacity requires its separate standing amendment')
                 # One failed attempt owns one grant, even with renamed plan text.
                 identity = grant_identity(plan, row["failure_evidence_sha256"])
                 if identity in seen:
@@ -390,6 +429,10 @@ def replay(state):
                 if reason in {"finish-current", HANDBACK_REASON}:
                     required.update(reboards=0, storyboard_critics=finish_phone_critics(admission),
                                     preflight_renders=2, audiovisual_reviews=8)
+                    if 'image_generations' in required:
+                        required['image_generations'] = 0
+                if reason == COVERAGE_REASON:
+                    required.update(reboards=0, storyboard_critics=3)
                     if 'image_generations' in required:
                         required['image_generations'] = 0
                 for name, maximum in expected_required.items():
@@ -440,7 +483,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     try:
         plan_text = Path(plan_path).read_text(encoding="utf-8")
         plan = json.loads(plan_text)
-        if plan.get("completion_reason") in {"finish-current", HANDBACK_REASON} and plan.get("changed_inputs"):
+        if plan.get("completion_reason") in {"finish-current", HANDBACK_REASON, COVERAGE_REASON} and plan.get("changed_inputs"):
             return False, "finish-current capacity cannot fund a new correction; retain the approved cut"
         evidence = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
         reason = mandatory_reason(state, plan, evidence)
@@ -459,12 +502,20 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             errors = file_problems(plan)
             if errors:
                 return False, "; ".join(errors)
+        if reason == COVERAGE_REASON:
+            from review_coverage import file_problems
+            errors = file_problems(plan)
+            if errors:
+                return False, '; '.join(errors)
         adopt(state, policy_path, explicit_existing_run=True)
         if reason == CODE_REASON:
             adopt_code_policy(state)
+        if reason == COVERAGE_REASON:
+            adopt_coverage_policy(state)
         budget = production_budget_precheck(state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
-                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON})
+                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON},
+                    review_coverage=reason == COVERAGE_REASON)
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         increments = budget["deficits"]
