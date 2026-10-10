@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T19:43:35.318356+00:00",
+  "saved_at": "2026-10-10T19:45:58.516450+00:00",
   "note": "ledger write",
-  "phase": "phone_review_r9",
+  "phase": "synthesis_r9",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "77583619eec7b2fa07fdedfc9cda9d405cfd5a9b74721851a1feac1169955e49",
-  "original_private_ledger_sha256": "d15a4272fd6ef4afee58501d2a59c866ffcb9830ff3e0dc052228c6a08c4b2c5",
+  "ledger_sha256": "753c093119fca5339e9b1c915150ca2b25c6fd4ae5bbc525fc0b0782d61900d2",
+  "original_private_ledger_sha256": "9bf6125158f03d081c2e8c37f403fb7b946d221e15232e3c4cb8a6f7de6df05b",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -207,8 +207,8 @@
     {
       "path": "out/dispatch/budget-audit/phone_gate_recheck.json",
       "class": "scratch",
-      "sha256": "3f49d1222d64b2f2c98d3f666fce82dc6ca58ad552b4e1aa5fa0e8cff6d34492",
-      "size": 388
+      "sha256": "c36697603e3fa115e2aa9a8ca71d88fe88b4ac8045833f51dfbf66b787181eda",
+      "size": 182
     },
     {
       "path": "out/dispatch/budget-audit/precheck-after-phone-failure.json",
@@ -727,10 +727,22 @@
       "size": 1872
     },
     {
+      "path": "out/dispatch/openings/selection.json",
+      "class": "scratch",
+      "sha256": "b859b5f0858b88bcc36aa06e585f8404093c5180be614a0e6d87ee64af89ccd9",
+      "size": 1709
+    },
+    {
       "path": "out/dispatch/phone-assignment-r5.json",
       "class": "scratch",
       "sha256": "9865993e846b60774952d242874cc124dae01d47f4de4f813c0e0787d24562d3",
       "size": 1912
+    },
+    {
+      "path": "out/dispatch/phone-critic-current.json",
+      "class": "scratch",
+      "sha256": "44a85dc67fcda43128953b3d4608c8b55cd729c419316f9329a5187a2ceeda31",
+      "size": 13395
     },
     {
       "path": "out/dispatch/phone-output-contract-r5.json",
@@ -1691,6 +1703,12 @@
       "class": "scratch",
       "sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af",
       "size": 6818
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "db68d7e215cb61a56c658090c70a8bf6fdae1d5a37a79d2bc81b868470aca718",
+      "size": 244683
     },
     {
       "path": "out/dispatch/repair-4-builder-checks/authored_story_art.py.log",
@@ -2869,6 +2887,12 @@
       "size": 842
     },
     {
+      "path": "out/dispatch/retained-failures/phone-critic-r9-usage.json",
+      "class": "scratch",
+      "sha256": "708014ef399c6e054dca9f5274b7824379c0a09cbca62009d847f591a6319eab",
+      "size": 242
+    },
+    {
       "path": "out/dispatch/retained-failures/pivot-review-1/NOTE.md",
       "class": "scratch",
       "sha256": "6a7da2e0feb387f91770af94fc8b6651504f35d9cffe00bcb450a73879d08f29",
@@ -3415,19 +3439,19 @@
       "size": 936
     },
     {
-      "path": "out/dispatch/takes/prompt.txt",
+      "path": "out/dispatch/takes-take3-retained/prompt.txt",
       "class": "scratch",
       "sha256": "5618c6c53d6b158c48d4a5e7712b730c8089e7ddcd3056a3de5164f4578f6aba",
       "size": 5294
     },
     {
-      "path": "out/dispatch/takes/take1.wav",
+      "path": "out/dispatch/takes-take3-retained/take1.wav",
       "class": "scratch",
       "sha256": "c65b33f648eeca43390257f1f7a3b5f689c98d13dd6c71aa087b2ad4e62531fc",
       "size": 6577964
     },
     {
-      "path": "out/dispatch/takes/takes.json",
+      "path": "out/dispatch/takes-take3-retained/takes.json",
       "class": "scratch",
       "sha256": "7386c236b541732ef6aebd8f5e5629a17ae861eb752cfc261aeb6c3da242b453",
       "size": 936
