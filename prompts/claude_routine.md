@@ -168,6 +168,15 @@ PNG, CRF16 or mandatory reviews. Reserve every actual attempt before execution. 
 remaining review and delivery path before correcting a failed cut. Keep the frozen envelope,
 cumulative usage, individual authorized increments and exact failure evidence.
 
+For an independently rejected mandatory code defect before a film exists, use the merged
+code-evidence amendment in knowledge/craft/AUTONOMOUS_COMPLETION.md. Keep the original failed
+report and before-files. Bind a new plan with scripts/autonomous_completion.py
+--prepare-code-plan <original-plan> --claims <claims> --output <new-plan>, then run the controller's
+production-budget and completion-capacity on that new plan before beginning its correction.
+This preserves the original frozen adoption and adds only exact conservative deficits.
+Code evidence cannot approve pixels or replace either complete phone treatment or final reviews.
+Do not request a daily decision at the internal critic ceiling.
+
 ## Efficiency and actual usage
 
 Keep phase loading, compact assignments, exact-byte audiovisual caching including failures, and

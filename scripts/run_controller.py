@@ -2160,7 +2160,7 @@ def main() -> int:
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity"}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity"}
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
                     context_ready = (plan.get("repair_scope") == review_context.SCOPE and
                                      not review_context.plan_problems(state_path, plan))
