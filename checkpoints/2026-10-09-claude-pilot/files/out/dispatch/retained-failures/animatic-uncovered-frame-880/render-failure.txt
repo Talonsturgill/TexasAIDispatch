@@ -1,0 +1,102 @@
+storyboard: clean, 8 scenes, 44s. Now spawn storyboard-critic for taste.
+generated_media: every requested plate is prompt-bound, byte-bound and present
+caption_board_fit: 14 exact board cues fit the lower two-line band
+run controller: reserved preflight_renders=12/12
+Detected differing memory amounts:
+Memory reported by CGroup: 8796093020313.86 MB
+Memory reported by /proc/meminfo: 14843.07 MB
+Memory reported by Node: 14843.07 MB
+You might have inadvertenly set the --memory flag of `docker run` to a value that is higher than the global Docker memory limit.
+Using the lower amount of memory for calculation.
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+SymbolicateableError: Modern shot timeline has an uncovered frame
+    at filmShotAt (http://localhost:3000/bundle.js:84241:35)
+    at DirectedFilm (http://localhost:3000/bundle.js:84250:16)
+    at renderWithHooks (http://localhost:3000/bundle.js:133267:21)
+    at updateFunctionComponent (http://localhost:3000/bundle.js:135413:15)
+    at beginWork (http://localhost:3000/bundle.js:136389:14)
+    at performUnitOfWork (http://localhost:3000/bundle.js:140221:14)
+    at workLoopSync (http://localhost:3000/bundle.js:140098:37)
+    at renderRootSync (http://localhost:3000/bundle.js:140079:7)
+    at performWorkOnRoot (http://localhost:3000/bundle.js:139644:40)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/bundle.js:140994:3) {
+  stackFrame: [
+    {
+      columnNumber: 34,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'filmShotAt',
+      lineNumber: 84240
+    },
+    {
+      columnNumber: 15,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'DirectedFilm',
+      lineNumber: 84249
+    },
+    {
+      columnNumber: 20,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'renderWithHooks',
+      lineNumber: 133266
+    },
+    {
+      columnNumber: 14,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'updateFunctionComponent',
+      lineNumber: 135412
+    },
+    {
+      columnNumber: 13,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'beginWork',
+      lineNumber: 136388
+    },
+    {
+      columnNumber: 13,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performUnitOfWork',
+      lineNumber: 140220
+    },
+    {
+      columnNumber: 36,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'workLoopSync',
+      lineNumber: 140097
+    },
+    {
+      columnNumber: 6,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'renderRootSync',
+      lineNumber: 140078
+    },
+    {
+      columnNumber: 39,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performWorkOnRoot',
+      lineNumber: 139643
+    },
+    {
+      columnNumber: 2,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performWorkOnRootViaSchedulerTask',
+      lineNumber: 140993
+    },
+    {
+      columnNumber: 43,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performWorkUntilDeadline',
+      lineNumber: 157364
+    }
+  ],
+  delayRenderCall: null,
+  frame: 880,
+  chunk: null
+}
+
+Node.js v22.22.0
+preflight_animatic: refused: Command '['node', '/home/user/restore/pilot/video-engine/scripts/render-batch.mjs', '--board', '/home/user/restore/pilot/out/dispatch/storyboard.json', '--output', '/home/user/restore/pilot/out/dispatch/preflight.mp4', '--preview', 'true']' returned non-zero exit status 1.
+
+[exited with code 1]
