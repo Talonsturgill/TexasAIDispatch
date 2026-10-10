@@ -227,3 +227,17 @@ hashed screenshots. Its `tool` field says browser automation, not Computer Use. 
 historical assertion plus `claude_playback_problems`. The Codex Computer Use route and its evidence
 format stay valid. Never fabricate observations. If the page, media or browser fails, production
 stays active and the real failure is recorded.
+
+## Capture authorization
+
+Every native capture or render command (remotion still or render, preflight, opening compare, cinema proof,
+render_dispatch) is denied by the PreToolUse hook `scripts/capture_guard.py hook` unless the director has
+issued a current authorization. Reserve the render with the controller first, then run:
+
+```sh
+python scripts/capture_guard.py authorize --state out/dispatch/run_state.json --board out/dispatch/storyboard.json
+```
+
+It writes `out/dispatch/capture-authorization.json` only from facts: an unused charged render reservation in
+the ledger, passed native headroom and portable housekeeping `--require-headroom`, and genuine recorded
+authored receipts. Each reservation authorizes once and the authorization expires. Builders never capture.
