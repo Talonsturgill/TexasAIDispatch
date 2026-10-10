@@ -18,7 +18,7 @@ export const StoryArtProvider:React.FC<{plan?:StoryArt;children:React.ReactNode}
 export const ArtSprite:React.FC<{role:'hero'|'support';slice?:string;x:number;y:number;width:number;height:number}>=
  ({role,slice,x,y,width,height})=>{
  const plan=useContext(ArtContext);
- if(plan?.version!=='fresh-story-art-v1')throw new Error('Raster sprites require actual generated raster artwork');
+ if(plan&&plan.version!=='fresh-story-art-v1')throw new Error('Raster sprites require actual generated raster artwork');
  const req=plan?.requests.find(r=>r.role===role),entry=plan?.entries.find(e=>e.request_id===req?.id);
  if(!entry||!entry.file.startsWith('generated/story-art/'))throw new Error('Current story art is missing; no old prop fallback');
  const rect=slice?entry.slices?.[slice]:[0,0,entry.width,entry.height];

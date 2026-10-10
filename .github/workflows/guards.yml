@@ -500,11 +500,10 @@ jobs:
         run: |
           python3 scripts/modern_film_test.py
           python3 scripts/review_scope_test.py
-          # Archived continuations carry original sealed reports, never edited intervals.
-          for scope in runs/*/finished-art-scope.json; do
-            [ -f "$scope" ] || continue
-            python3 scripts/review_scope.py --out "$(dirname "$scope")" --verify
-          done
+          # Archived continuations use their sealed original producer and release source.
+          # Current production retains the strict current-renderer review_scope.py gate.
+          python3 scripts/verify_archived_scopes_test.py
+          python3 scripts/verify_archived_scopes.py
           # A dated current CI fixture preserves the frozen original experiment.
           python3 - <<'PY_FIXTURE'
           import copy, hashlib, json, sys
