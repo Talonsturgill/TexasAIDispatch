@@ -59,11 +59,11 @@ def install():
         raise ValueError('The cloud runtime cache must remain outside the source repository')
     # Full distro FFmpeg retains concat, source filters, libx264 and AAC. Never substitute
     # a lean bundled renderer binary or reduce the native capture format.
-    if any(not shutil.which(name) for name in ('ffmpeg', 'ffprobe', 'cmake', 'c++')):
+    if any(not shutil.which(name) for name in ('ffmpeg', 'ffprobe', 'cmake', 'c++', 'lsof')):
         prefix = [] if os.geteuid() == 0 else ['sudo', '-n']
         run(prefix + ['apt-get', '-o', 'Acquire::Retries=1', 'update'])
         run(prefix + ['apt-get', 'install', '-y', '--no-install-recommends',
-                      'ffmpeg', 'cmake', 'build-essential', 'pkg-config', 'python3-venv'])
+                      'ffmpeg', 'cmake', 'build-essential', 'pkg-config', 'python3-venv', 'lsof'])
     if any(not shutil.which(name) for name in ('node', 'npm', 'npx', 'git')):
         raise ValueError('The Claude environment must provide Node, npm, npx and Git before setup')
     node_major = int(subprocess.check_output(['node', '--version'], text=True).strip().lstrip('v').split('.')[0])

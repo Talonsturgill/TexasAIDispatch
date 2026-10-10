@@ -32,8 +32,8 @@ Run every Dispatch shell command through `bash scripts/run_with_env.sh`. In a wo
 existing environment, never source files or printed secrets. Validate voice, full FFmpeg/FFprobe,
 fonts, locked dependencies, managed browser, audiovisual provider and the connected Gmail profile
 before any paid production work. Install only missing or changed pinned dependencies. Local
-workspace housekeeping is used when available. Cloud housekeeping uses the versioned local
-helper's protection rules on its own eligible scratch; never delete active or unrelated work.
+workspace housekeeping is used when available. Cloud uses scripts/dispatch_housekeeping.py with
+the same protection rules and its actual two checkout paths; never delete active or unrelated work.
 
 In a fresh Linux cloud checkout run the idempotent setup, then re-enter the wrapper so its
 external cache is active. The first command installs only absent or changed pinned tools;
@@ -44,6 +44,18 @@ bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --install
 bash scripts/run_with_env.sh python scripts/cloud_bootstrap.py
 bash scripts/run_with_env.sh python scripts/claude_contract_check.py
 ```
+
+Resolve the actual sibling checkout paths and their shared workspace parent. Run the versioned
+housekeeping helper at startup and after the verified shipped archive:
+
+```sh
+bash scripts/run_with_env.sh python scripts/dispatch_housekeeping.py --workspace <shared-parent> --dispatch-repo <actual-dispatch-checkout> --docket-repo <actual-docket-checkout> --apply --fetch --summary
+```
+
+Before every native render, calculate scripts/native_headroom.py on the current board, then repeat
+that housekeeping command with --require-headroom --min-free-gib set to its required_free_gib.
+Retain at least two completed packages. Missing process inspection or unverifiable archives never
+authorize cleanup; recover the actual capacity condition through the controller.
 
 Read knowledge/craft/AUTHORED_STORY_ART.md and config/authored_story_art.json during the
 picture phase. Use its actual record, verify and stage commands. There is no ImageGen call
