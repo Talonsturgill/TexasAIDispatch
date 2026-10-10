@@ -264,6 +264,18 @@ class Privacy(Base):
         self.assertEqual("private data structure", reasons["out/dispatch/neutral-name.json"])
         self.assertEqual("private data structure", reasons["out/dispatch/nested/also.json"])
 
+    def test_a_failed_image_that_merely_names_a_view_is_evidence_and_kept(self):
+        (self.scratch / "retained-failures").mkdir()
+        (self.scratch / "retained-failures/a-s3-shot-1-credential-gate.png").write_bytes(b"png")
+        (self.scratch / "retained-failures/secret-santa-notes.md").write_text("not a credential store")
+        (self.scratch / "credentials.json").write_text("{}")
+        (self.scratch / ".env").write_text("X=1")
+        (self.scratch / "secrets").mkdir(); (self.scratch / "secrets/key.txt").write_text("x")
+        result = self.save()
+        kept = {n.split("/files/", 1)[1] for n in self.names(result) if "/files/" in n}
+        self.assertEqual({"out/dispatch/retained-failures/a-s3-shot-1-credential-gate.png",
+                          "out/dispatch/retained-failures/secret-santa-notes.md"}, kept)
+
     def test_shipped_ledger_is_sanitized(self):
         state = self.ledger()
         state.update(terminal_state="shipped", shipment={

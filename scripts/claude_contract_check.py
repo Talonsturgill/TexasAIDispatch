@@ -2,6 +2,7 @@
 from __future__ import annotations
 import argparse
 import copy
+import re
 import json
 import os
 from pathlib import Path
@@ -10,6 +11,41 @@ import unittest
 import yaml
 
 REPO = Path(__file__).resolve().parents[1]
+
+
+CAPTURE_PHRASES = ('charged render reservation', 'headroom', 'bash scripts/run_with_env.sh',
+                   'genuine authored art receipts', 'scratch placeholder')
+CAPTURE_COMMAND = re.compile(r'remotion\s+(still|render)|ffmpeg\b.*\s-i\s|preflight_animatic|cinema_proof|render_dispatch')
+
+
+def placeholder_art(board):
+    """Authored art entries that are not genuine receipts, so a scratch props file is never proof."""
+    rows = (board.get('story_art') or {}).get('entries') or []
+    return [row.get('request_id') for row in rows
+            if str(row.get('sha256')) == 'scratch' or not re.fullmatch(r'[0-9a-f]{64}', str(row.get('sha256', '')))
+            or str(row.get('creation_id', '')).startswith('scratch') or str(row.get('created_at')) == 'scratch']
+
+
+def capture_problems(command, packet=None, board=None):
+    """Whether a capture or render command may run now. The October 10th private still failed all of it."""
+    if not CAPTURE_COMMAND.search(command):
+        return []
+    errors = []
+    capture = (packet or {}).get('capture') or {}
+    if capture.get('allowed') is not True:
+        errors.append('the packet does not authorize a capture')
+    if not (capture.get('render_reservation') or {}).get('event_sha256'):
+        errors.append('no charged controller render reservation')
+    headroom = capture.get('headroom') or {}
+    if headroom.get('passed') is not True or not headroom.get('required_free_gib'):
+        errors.append('no computed and passed native headroom check')
+    if 'scripts/run_with_env.sh' not in command:
+        errors.append('the command is not run through bash scripts/run_with_env.sh')
+    if capture.get('art_receipts_recorded') is not True:
+        errors.append('genuine authored art receipts are not recorded')
+    if board is not None and placeholder_art(board):
+        errors.append('the props carry scratch placeholder art entries')
+    return errors
 
 
 def problems(repo=REPO, environ=None):
@@ -53,6 +89,11 @@ def problems(repo=REPO, environ=None):
                          'OLDEST unfinished edition'):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
+        for name in ('.claude/agents/scene-builder.md', 'prompts/roles/scene-builder.md'):
+            text = ' '.join((repo / name).read_text().split())
+            for phrase in CAPTURE_PHRASES:
+                if phrase not in text:
+                    errors.append(name + ' lacks the capture protocol: ' + phrase)
         env = os.environ if environ is None else environ
         override = env.get('CLAUDE_CODE_EFFORT_LEVEL', '')
         if override not in ('', 'auto'):
@@ -95,7 +136,7 @@ class ContractTests(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.repo = Path(self.tmp.name)
         files = ['config/claude_runtime.json', '.claude/settings.json',
-                 'prompts/claude_routine.md']
+                 'prompts/claude_routine.md', 'prompts/roles/scene-builder.md']
         cfg = json.loads((REPO / files[0]).read_text())
         files += list({'.claude/agents/' + row['agent'] + '.md'
                        for row in cfg['roles'].values()})
@@ -137,6 +178,42 @@ class ContractTests(unittest.TestCase):
         data = json.loads(p.read_text()); data['effortLevel'] = 'max'
         p.write_text(json.dumps(data))
         self.assertTrue(problems(self.repo, {}))
+
+    def test_builder_capture_protocol_cannot_disappear(self):
+        for name in ('.claude/agents/scene-builder.md', 'prompts/roles/scene-builder.md'):
+            p = self.repo / name
+            if not p.exists():
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_bytes((REPO / name).read_bytes())
+            text = p.read_text()
+            self.assertEqual([], problems(self.repo, {}))
+            for phrase in CAPTURE_PHRASES:
+                # Wrapped lines hold the phrases, so flatten the body (never the YAML header) first.
+                head, sep, body = text.partition('\n---\n') if text.startswith('---') else ('', '', text)
+                p.write_text(head + sep + ' '.join(body.split()).replace(phrase, 'x'))
+                self.assertTrue(any('lacks the capture protocol' in e for e in problems(self.repo, {})), (name, phrase))
+            p.write_text(text)
+
+    def test_the_observed_private_capture_is_refused(self):
+        observed = ('cd video-engine; npx --no-install remotion still Dispatch /tmp/a-f030.png '
+                    '--props=/tmp/inspect-a.json --frame=30 --log=error')
+        placeholder = {'story_art': {'entries': [{'request_id': 'chart-and-citations', 'sha256': 'scratch',
+                                                  'creation_id': 'scratch-inspection-only', 'created_at': 'scratch'}]}}
+        found = capture_problems(observed, packet={'capture': {'allowed': False}}, board=placeholder)
+        for expected in ('does not authorize', 'no charged controller render reservation', 'native headroom',
+                         'run_with_env.sh', 'receipts are not recorded', 'placeholder art'):
+            self.assertTrue(any(expected in e for e in found), expected)
+        half_scale = 'npx --no-install remotion still bundle Dispatch out.png --props=p.json --frame=40 --scale=0.5'
+        self.assertTrue(capture_problems(half_scale, packet={}, board=placeholder))
+        cheap = 'cd video-engine && npx tsc --noEmit'
+        self.assertEqual([], capture_problems(cheap, packet={}, board=placeholder))
+        genuine = {'story_art': {'entries': [{'request_id': 'x', 'sha256': 'a' * 64, 'creation_id': 'authored-' + 'b' * 20,
+                                              'created_at': '2026-10-10T02:00:00+00:00'}]}}
+        allowed = {'capture': {'allowed': True, 'render_reservation': {'event_sha256': 'c' * 64, 'resource': 'preflight_renders'},
+                               'headroom': {'passed': True, 'required_free_gib': 12.5}, 'art_receipts_recorded': True}}
+        self.assertEqual([], capture_problems('bash scripts/run_with_env.sh npx remotion still Dispatch o.png', allowed, genuine))
+        self.assertTrue(capture_problems('bash scripts/run_with_env.sh npx remotion still Dispatch o.png', allowed, placeholder))
+        self.assertTrue(capture_problems('npx remotion still Dispatch o.png', allowed, genuine))
 
     def test_edition_selection_contract_cannot_disappear(self):
         p = self.repo / 'prompts/claude_routine.md'

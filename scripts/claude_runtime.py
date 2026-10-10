@@ -59,6 +59,12 @@ def input_packet(role, edition, inputs):
                             'Return one source-backed handoff. Never spawn additional agents.'}
 
 
+# The initial builder authors source and runs cheap code checks. A capture needs a charged render
+# reservation, passed headroom, the wrapper and genuine art receipts, none of which exist yet.
+CAPTURE_DENIED = {'allowed': False, 'requires': ['charged render reservation', 'computed passed native headroom',
+                                                 'bash scripts/run_with_env.sh', 'genuine authored art receipts']}
+
+
 def authoring_packet(board_path, claims_path):
     from daily_production import craft_reading_paths
     board = read(board_path); role = 'scene-builder'; route = assignment(role, board['date'])
@@ -67,7 +73,8 @@ def authoring_packet(board_path, claims_path):
             'agent_contracts': contracts(role), 'board': bound(board_path), 'claims': bound(claims_path),
             'treatments': agent_runtime.treatment_bindings(board_path),
             'craft_readings': [bound(path) for path in craft_reading_paths(board)],
-            'phase': bound(REPO / 'prompts/phases/02-picture.md')}
+            'phase': bound(REPO / 'prompts/phases/02-picture.md'),
+            'capture': CAPTURE_DENIED}
     initial_authoring_inputs(data)
     return data
 
@@ -106,6 +113,7 @@ def adapt_packet(data):
     data = dict(data); role = data['role']; route = assignment(role, data['date'])
     data.update(agent_assignment=route, agent_contracts=contracts(role),
                 brief='.claude/agents/' + route['agent'] + '.md')
+    data.setdefault('capture', CAPTURE_DENIED)
     if role in ('scene-builder', 'storyboard-critic'):
         data['treatments'] = agent_runtime.treatment_bindings(data['board']['path'])
         data['asset_inputs'] = agent_runtime.treatment_assets(data['treatments'])
