@@ -1,0 +1,46 @@
+{
+ "mechanism_id": "s5-clinician-figures-s6-limit-closeup-s8-card-ending",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The independent exact-phone critic returned revise on the rendered silent openings. Under the retained checks two blocking defects are non-deferrable: s5 pictures clinicians as document-like tiles so 'more than half of clinicians' reads as lit records, and s6 shows the Not in release result only in a wide shot at about 90 px where the lettering is unreadable. Two further defects ride the same edit: flat untextured wall rectangles in s4, s6 and s7, and an s8 close that pulls back to the opening desk and shrinks the empty Accuracy slot.",
+ "repair": "In the episode support and film modules only: redraw the s5 wall tokens as anonymous clinician badge and coat silhouettes with more than half lit and the Half label as support, give the two wall rectangles real finished objects or remove them, add a close framing in s6 where the Not in release tags read at phone size, and end s8 on an answer-card close-up with the Accuracy slot still empty instead of the wide opening tableau. Lift the caption clearance for the answer card and tool box. Narration, claims, timing, events and art identity are unchanged.",
+ "mechanism_change": "The s5 subject changes from document tiles to person silhouettes, the s6 result is shot at a legible scale and the s8 final image changes from a repeat of the opening wide to the answer-card macro.",
+ "expected_visible_result": "At 21.5 to 27 s the viewer sees a wall of people shapes with more than half lit. At 31 to 33 s the Not in release lettering is at least a readable size on a phone. The film ends on the answer card with a visibly empty Accuracy slot, and no flat placeholder rectangle appears.",
+ "failure_evidence": "out/dispatch/retained-failures/phone-critic-1/verdict-summary.json",
+ "failure_evidence_sha256": "e4093f9b1f9d59afd89b1d896f791e9a9bbbd6b73c9f976d12647c2604803b43",
+ "resources": {
+  "preflight_renders": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/opening-a.json",
+   "before_path": "out/dispatch/retained-failures/repair-4-baseline/out__dispatch__opening-a.json",
+   "before_sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/opening-b.json",
+   "before_path": "out/dispatch/retained-failures/repair-4-baseline/out__dispatch__opening-b.json",
+   "before_sha256": "5289e74d0cd6b22669bb799989b0cf179414218eabeb981bad73c5b288820cef",
+   "after_sha256": ""
+  },
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/retained-failures/repair-4-baseline/out__dispatch__storyboard.json",
+   "before_sha256": "3ad79c41dc1848865fde5dc148c467807a11c07568453fbdffc29428930e8977",
+   "after_sha256": ""
+  },
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-4-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicAnswerFilm.tsx",
+   "before_sha256": "56822dea2e2bbe1fe9bf5ad3ad6c418a48337b2ebbd2e598aec5f11da5bd5d72",
+   "after_sha256": ""
+  },
+  {
+   "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+   "before_path": "out/dispatch/retained-failures/repair-4-baseline/video-engine__src__modern__episodes__2026-10-09-claude-pilot__ClinicSupport.tsx",
+   "before_sha256": "ace57d14ee3cc631c194d05f6155f3ee541533eaafd356ca09fb8cdbb97a6ec3",
+   "after_sha256": ""
+  }
+ ]
+}
