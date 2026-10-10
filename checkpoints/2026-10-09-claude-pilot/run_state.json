@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 15,
+    "storyboard_critics": 16,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -2680,6 +2680,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-10T20:42:36.991836Z",
+      "failure_evidence_json": "{\n  \"treatment\": \"b\",\n  \"reviewer_identity\": \"storyboard-critic / claude-opus-5-5 high, isolated, read-only gate-ready code-scope review\",\n  \"reviewed_at\": \"unknown\",\n  \"verdict\": \"pass\",\n  \"weakest_frame\": \"s8-shot-2, the closing tableau at desk height. This frame is planned, not observed, and repair 10 did not change it. The chart stands on its stand at about x -50 to 248, y 486-876. The evaluating tag ends about 8 px above the chart clip. The accuracy tag sits in front of the chart foot and stand by up to about 27 px, which crowds the left-centre. The answer is face-on at scale 1.5 with labels of about 13 px on the phone stage. The care string crosses 'release'. The motion is a glow, one pulse and a 0.7 s still.\",\n  \"strongest_frame\": \"s1-shot-1 (planned): the right hand reaches, rides the question card across the laminate and releases it into the tool's mouth. With the refit, the push lands about 0.42-1.39 s, a performed human action inside the 1.5 s window.\",\n  \"blocking_defects\": [],\n  \"notes\": [\n    {\"scene\": \"s1\", \"problem\": \"The same refit as A: with measured n1a (0.28-2.64 s) the push runs about 0.42-1.39 s and its reward midpoint lands near 0.90 s. In B the typing schedule ends at e1.start minus 0.3, so only one strike falls after frame 0 (about 0.08 s). The card opens about eight ninths typed. The reach starts at about 0.20 s, after that finger lifts at about 0.17 s, so there is no overlap. The opening now reads as 'card nearly finished, then the hand pushes' more than 'hands finish typing'. The push and release mechanics are intact (release at 45 percent of the window, about 0.86 s, then a glide into the mouth). The question card is visible from frame 0 and the push happens while 'A UTMB clinician asks...' is heard. That is picture leading word inside the clause. The retained result, the card inside the tool with the tool pulsing, holds until n1b begins.\", \"fix\": \"None required. If the phone critic finds the opening reads as idle hands, a later fraction-only adjustment can shift the typing schedule. No code or art change is needed.\"},\n    {\"scene\": \"s1\", \"problem\": \"The push is now compressed to about 0.97 s plus a 0.22 s reach, while the desk-close camera moves (f from [250,1000] to [520,900], scale 1.62 to 1.15) over the same window. Card screen speed and camera motion combine, so there is a stepping or snappiness risk at 30 fps.\", \"fix\": \"Phone critic checks continuous velocity at the release join and the camera braking.\"},\n    {\"scene\": \"s2\", \"problem\": \"s2-event-2 now runs about 7.98-9.07 s (1.09 s, inside range). The tag pins after the boundary glow and stays through 'on September twenty-second'. Order is preserved.\", \"fix\": \"None required.\"},\n    {\"scene\": \"s1/s2\", \"problem\": \"The authored at_s and duration fields and the reward at_s values remain earlier estimates that no longer agree with the new fractions. This is expected, because board_retime derives the seconds.\", \"fix\": \"Use the regenerated timed board for every gate and capture.\"},\n    {\"scene\": \"s8/s6\", \"problem\": \"Non-blocking items carried forward unchanged: the empty report half pin in s8-shot-1; the tool label at x about -1; the crowded close; the report string across 'Clinical'; the care string across 'release'; stale quality_plan wording.\", \"fix\": \"Optional, only if those scenes reopen.\"}\n  ],\n  \"story_review\": {\n    \"verdict\": \"pass\",\n    \"blocking_defects\": [],\n    \"one_viewing_summary\": \"This is the planned chain at code scope, not an observed film. It is unchanged except for an earlier, faster hook push and a slightly shorter s2 tag contact. At desk height, a nearly finished question card gets one last keystroke, and the right hand pushes it once into the OpenEvidence tool's mouth by about 1.4 s. A medium shows one answer sliding out toward the lens with three citations tucking into its Sources slot. The boundary lights and the dated tags pin. A masked sign-in opens the lock, and a keyboard detail fills the card in plain-language word shapes and pushes it to the chart edge. The citations rise in a stepped cascade, and the literature and guidelines cards lift. Seven of twelve faceless figures light past Half and the decision-support tag pins. 'UTMB's own report' pins, and one close holds the clip as 'Accuracy' and 'Patient care' read 'Not in release'. A thread links the literature card to the Sources slot while the empty ring pulses. The evaluating tag drops onto the bar, and the film closes on the answer beside the chart on its stand.\",\n    \"opening_to_ending\": \"The film opens on a hand sending one question into the OpenEvidence tool by about 1.4 s, posing what comes back when a UTMB clinician asks inside the record. It closes on the same answer beside the same propped chart: Sources filled, Accuracy empty with one ring pulse, two 'Not in release' tags, and the evaluating tag on the usage bar. Sources come back, and accuracy and patient care are not published. UTMB's next step is shown without an invented outcome, within c1 to c5 and c8.\",\n    \"weakest_transition\": \"The s7-shot-2 to s8-shot-1 cut, unchanged. From the empty Accuracy-ring detail to the share board, the decision and report tags are now off frame on the start pin. The half pin where 'UTMB's own report' hung is visibly empty, and the evaluating tag drops onto the end pin the decision tag used. A viewer may read this as replacing the attribution. The phone critic decides.\",\n    \"story_sha256\": \"a679d21a5eef6f929aabdf496bb104a4bbd0d3bbad9f12f7dceb49dcc25b1a80\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e\"\n  },\n  \"action_reviews\": [],\n  \"per_defect\": {\n    \"BD1\": \"resolved\",\n    \"BD2\": \"resolved\",\n    \"BD3-residual-closing-image\": \"resolved\",\n    \"BD4\": \"resolved\",\n    \"BD5-n8-chart-absent\": \"resolved\",\n    \"timed-gate-hook-payoff-after-1.5s\": \"resolved\",\n    \"timed-gate-s2-event-2-duration-1.31s\": \"resolved\",\n    \"critic6-N1b-s8-empty-report-pin-nonblocking\": \"unresolved\",\n    \"critic6-N2-care-string-crosses-release-nonblocking\": \"unresolved\",\n    \"critic6-N3b-crowded-close-left-centre-nonblocking\": \"unresolved\",\n    \"critic6-N5b-tool-label-at-edge-shot-1-nonblocking\": \"unresolved\"\n  },\n  \"repair10_verification\": \"Compared against out/dispatch/retained-failures/repair-10-baseline/out__dispatch__opening-b.json. s1-event-1 fractions changed from 0.22/0.72 to 0.06/0.47 (lines 63-64). s2-event-2 clause_fraction_end changed from 0.85 to 0.8 (line 278). The adjacent authored fields and the file tail are identical. Line counts are unchanged: 4209 in both B files. The renderer binding af828fd... is unchanged. I compared regions only; this is not a full byte diff.\",\n  \"risks_for_the_phone_critic\": [\n    \"Confirm that the push completes inside the tool before 1.5 s on the timed film, and that B's opening still reads as a person sending a question. Only one keystroke now falls after frame 0.\",\n    \"Check the compressed push (about 0.97 s) for velocity continuity at the release join and while the desk-close camera moves and rescales.\",\n    \"Check that the September 22nd tag settles (about 7.98-9.07 s) as the date is spoken.\",\n    \"Every timed gate and capture must use the regenerated storyboard.timed.json. The authored seconds are stale.\",\n    \"Carried forward unchanged: a fresh two-treatment comparison of the current bytes is required; the repair-9 pauses and the 'To medical literature...' cue; the empty report pin and tool label edge in s8-shot-1; the crowded close; the report string across 'Clinical'; the care string across 'release'; whether the single 4.0 s s6 close and the 2.25 s ending earn their length.\",\n    \"Still owed on the actual film: all seven modern_observations, four phone_observations, timed narration_picture_observations n1a to n8, place and native-finish reviews and the sound lens.\"\n  ],\n  \"stronger_treatment\": \"b. The visual reasoning is unchanged by repair 10. B has the performed hand push, a phone-legible first shot and conserved chart staging into the close. A has the clearer left-to-right geography. A fresh phone comparison decides.\",\n  \"concept_sha256\": \"d31e604e41f140864d4e7d8f847e55f3740f6fac8a3f5cd885da6d88ce149f8f\",\n  \"renderer_sha256\": \"af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2\",\n  \"scope\": \"Code scope only. Measured timings are my arithmetic from failure.json windows and the new fractions, not read from the timed board. No pixels or audio were seen. Every sha256 is echoed from critic-output-contract-r10.json. This review approves no picture, score or shipment. A pass authorizes the phone test only.\"\n}\n",
+      "failure_evidence_sha256": "030ef551c2977194b9db3e1c0125b84e2eccfeb456a6707534857b32fbe4d6c7",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 16,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 16,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"completion_reason\": \"finish-current\",\n \"repair_scope\": \"standard\",\n \"failure_evidence\": \"out/dispatch/opening-b-critic.json\",\n \"failure_evidence_sha256\": \"030ef551c2977194b9db3e1c0125b84e2eccfeb456a6707534857b32fbe4d6c7\",\n \"changed_inputs\": [],\n \"resources\": {\n  \"storyboard_critics\": 1\n },\n \"repair\": \"No correction in this plan. Funds the one remaining independent pixel review not yet reserved: the fresh two-treatment comparison selection review and the final measured timed phone review, after the repair 10 independent code-scope pass. Bound to that pass. Native, audiovisual, scoring and delivery stay required.\",\n \"note\": \"Finish-current plan bound to the independent repair 10 code-scope pass (opening-b-critic.json). Approves no pixels, score or shipment.\"\n}",
+      "plan_sha256": "6eac0678ba59f13244621286d16deb37c14c8ee00c1a5b7dc9d4510530bbac02",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":8,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":8,\"required\":2,\"used\":8},\"reboards\":{\"ceiling\":10,\"remaining\":1,\"required\":0,\"used\":9},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":15,\"remaining\":1,\"required\":2,\"used\":14},\"tts_calls\":{\"ceiling\":12,\"remaining\":4,\"required\":2,\"used\":8},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "15b02a138ed06ec705d997eadc164d8f7a94b865ae86de3b286b9d294e62bf0e",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 15,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 15,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-09-claude-pilot",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 8,
+        "reboards": 9,
+        "reported_tokens": 20306,
+        "rescue_renders": 0,
+        "research_agents": 1,
+        "scorer_calls": 0,
+        "storyboard_critics": 14,
+        "tts_calls": 8,
+        "validator_agents": 1,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -2703,7 +2807,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "3d3cbb40297da17a6116b3f823b0ad6b6eb04e99bd9d15c5251bd68de4b55f0d",
+    "original_private_state_sha256": "37a3434d9facdb24697a57b064095b3c1cad8823acc2ef59f58ea8e2cb549460",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2731,7 +2835,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T20:37:21.162507Z",
+  "updated_at": "2026-10-10T20:42:36.991887Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
