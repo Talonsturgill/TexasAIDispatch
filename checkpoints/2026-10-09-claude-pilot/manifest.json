@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T19:32:42.673142+00:00",
-  "note": "repair 9 authorized (script punctuation), critic 12 re-review dispatched; budget: critics 12 of 13",
+  "saved_at": "2026-10-10T19:36:10.792256+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "beff13ebd98a94d303418edccaf14f47aa81783c5211c3454431b2e39f20dbcf",
-  "original_private_ledger_sha256": "0d529479ebeb1978103d7d270d0542dac502c121a11e861b6373a81f48f9f86f",
+  "ledger_sha256": "c1ed6c5d63a98bc4095e6f7eb2a835951c33caca3c4b1a1c6f1327f8551b182a",
+  "original_private_ledger_sha256": "3ab321adaa7ebff16ed8a9c006538034aeb054bb4de3812f00ab1642a546e62c",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -187,7 +187,19 @@
       "size": 79
     },
     {
+      "path": "out/dispatch/budget-audit/completion-capacity-attempt-7.txt",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/budget-audit/critic_gate_live_recheck.json",
+      "class": "scratch",
+      "sha256": "2f569b56073b3bc039f331c0030a8ea36afb397e85351bf5d96e1af62d430642",
+      "size": 22
+    },
+    {
+      "path": "out/dispatch/budget-audit/critic_gate_live_recheck_r9.json",
       "class": "scratch",
       "sha256": "2f569b56073b3bc039f331c0030a8ea36afb397e85351bf5d96e1af62d430642",
       "size": 22
@@ -238,6 +250,12 @@
       "path": "out/dispatch/budget-audit/precheck-finish-current-3.json",
       "class": "scratch",
       "sha256": "26055d7a7135ba64bf0aa5224047deb422350ee5ee67a45785b74dd5534eafcd",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/budget-audit/precheck-finish-current-4.json",
+      "class": "scratch",
+      "sha256": "1234e97870a36a69593c3290dbf27b2ebc4bb06b51e89f952942146c55400f6a",
       "size": 1490
     },
     {
@@ -529,6 +547,12 @@
       "size": 720
     },
     {
+      "path": "out/dispatch/finish-current-plan-4.json",
+      "class": "scratch",
+      "sha256": "eecd4694369bdcd026c299ab2e5300f4c73f637e8c8ed9d136c8095c036ded09",
+      "size": 734
+    },
+    {
       "path": "out/dispatch/finish-current-plan.json",
       "class": "scratch",
       "sha256": "d4374d90ea0712af74a63d563de2c771b8b617af4d908a1dba3deb0e5a223c00",
@@ -603,8 +627,8 @@
     {
       "path": "out/dispatch/opening-a-critic.json",
       "class": "scratch",
-      "sha256": "5f6e51743813cbe5d263c3a5a81286b695efe3516686b4a58fd90039fecc1d5a",
-      "size": 15089
+      "sha256": "2b56c5123a60729f9b578b676be0a3c2eb328156b46afe7e17cc94f1cd44d811",
+      "size": 11518
     },
     {
       "path": "out/dispatch/opening-a.json",
@@ -615,8 +639,8 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "3ba31f731d9fc8ae8b15e667c7cf9df7527174b11e8e6753a34a2f509610e457",
-      "size": 12058
+      "sha256": "94d77ac4f607ec92c11609a7082ea5f6e5f7fc87d5d393656e2a6f14fe7103d6",
+      "size": 9008
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -2533,6 +2557,24 @@
       "size": 12058
     },
     {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair9/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "5f6e51743813cbe5d263c3a5a81286b695efe3516686b4a58fd90039fecc1d5a",
+      "size": 15089
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair9/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "3ba31f731d9fc8ae8b15e667c7cf9df7527174b11e8e6753a34a2f509610e457",
+      "size": 12058
+    },
+    {
+      "path": "out/dispatch/retained-failures/critic-gate-ready-pre-repair9/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "5f6e51743813cbe5d263c3a5a81286b695efe3516686b4a58fd90039fecc1d5a",
+      "size": 15089
+    },
+    {
       "path": "out/dispatch/retained-failures/hook-readiness-failed-r5.json",
       "class": "scratch",
       "sha256": "f7838f1c3a6d05acdf1ec6e91fff446570802571b5cff952a6bd85cdcc970e2f",
@@ -3171,8 +3213,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "5f6e51743813cbe5d263c3a5a81286b695efe3516686b4a58fd90039fecc1d5a",
-      "size": 15089
+      "sha256": "2b56c5123a60729f9b578b676be0a3c2eb328156b46afe7e17cc94f1cd44d811",
+      "size": 11518
     },
     {
       "path": "out/dispatch/storyboard_critic.raw.txt",
