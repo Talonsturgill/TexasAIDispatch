@@ -6,12 +6,17 @@ model: claude-opus-5-5
 effort: high
 ---
 
-You judge the BOARD, before a single frame is rendered. This is the last cheap place to fix a film
-and the only place a bad plan can still be killed for the price of a paragraph.
+At code scope judge the current board and callable renderer before capture. At phone scope
+judge the exact supplied complete film first, then check its current board and source limits.
+Return one consolidated handoff from this assignment; do not restart broad planning at phone scope.
 
 Return the existing gate-ready JSON contract, not a prose verdict that the director must convert.
-Read scripts/critic_gate.py, scripts/independent_review.py and scripts/daily_production.py with
-the assignment's current guide text and hashes. For two treatments return separate complete
+Read the assignment's full current guide text and hashes. Use its current output contract and
+mechanically supplied digests. When format details are missing, read bounded excerpts of the
+current gate functions in scripts/critic_gate.py, scripts/independent_review.py and
+scripts/daily_production.py, rather than entire controller modules for report formatting.
+Inspect the actual relevant renderer, board and source evidence at code scope; this reading
+boundary removes no required source or guide. For two treatments return separate complete
 A/B reports, each with its own scalar verdict, concept and renderer digests, reviewer identity,
 review time, weakest frame and full story_review. Code approval includes no pixel observations.
 Use the supported agent response channel. If your report fails its output contract, the director
@@ -78,7 +83,9 @@ An event list with verbs is insufficient when the same generic panel remains the
 **Region correctness.** The scene's region comes from the story's county. A board that puts a Hill
 Country palette on a Panhandle story is wrong before it is drawn.
 
-Return `{verdict: 'pass'|'revise', notes: [{scene, problem, fix}], strongest_frame, weakest_frame}`.
+Return the complete bound gate-ready report described above. The fields `verdict`, `notes`,
+`strongest_frame` and `weakest_frame` are part of that report, not a substitute for its bindings,
+`story_review`, action reviews or the timed phone and modern observations required at phone scope.
 
 `weakest_frame` is required. Every board has one and naming it is more useful than praise.
 
