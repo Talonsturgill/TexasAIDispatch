@@ -84,3 +84,39 @@ gate-ready handback with honest coverage. Neither the grant nor a disclosure app
 Reject a renamed duplicate grant, stale input, optional polish, self-review or provider switch.
 Classify any remaining production defect independently under the current guides before its
 separate evidence-bound correction; the coverage path authorizes no correction.
+
+## Mandatory modern code floor before capture
+
+The separate dated config/autonomous_completion_modern_code_v1.json amendment accepts an actual
+independent Opus High code rejection in the current motion, surface_finish, pacing or ending_artistry
+categories. It preserves their original classification. A renderer-only correction binds the
+complete measured board and both complete treatments as read-only admission inputs, the complete
+renderer closure, current claims, current guide and policy bytes, and exact retained renderer
+baselines. It does not require changing the story merely to satisfy a funding schema.
+
+Prepare a new plan without overwriting the original proposal or independent report:
+
+```sh
+python scripts/modern_code_recovery.py --state out/dispatch/run_state.json --plan <original-proposal> --packet <current-complete-code-packet> --output <new-bound-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-bound-plan>
+python scripts/run_controller.py completion-capacity --repair-plan <new-bound-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-bound-plan>
+```
+
+Use scripts/run_with_env.sh with the active worktree's explicit internal cd. This records a
+separate adoption and exact capacity deficits, never review approval. It protects one charged
+Opus corrective reboard and four independent critic calls: a source-backed recurrence pivot when
+the existing recurrence gate requires it, complete code rereview of all three current boards,
+silent comparison and final timed phone. Unused reserve is not a charge. Retain the full native,
+audiovisual, three-scorer, narration and shipment path. Obtain any required independent pivot,
+bind it into the new plan, then begin-repair and charge the actual reboard before the Opus builder.
+The pivot gate, all original policies, frozen allocation and spent evidence remain unchanged.
+
+After the source correction, use modern_code_recovery.rebound_board(plan, row) for each kind=board
+row in modern_code_evidence.inputs to refresh only the changed renderer's derived sha256 entries.
+Write those deterministic boards, preserving their prior exact bytes in the bound evidence.
+All narration, timing, actions, claims and artwork fields remain identical. Add only the actual
+source after_sha256 fields to the plan before authorize-repair. The controller refuses a changed
+bound plan or any other board change. A source fix and bookkeeping rebind approve no pixels:
+bind fresh packets and require the separate full code, silent phone and timed phone verdicts
+before native production. Never replace a phone review with the code rejection or its grant.
