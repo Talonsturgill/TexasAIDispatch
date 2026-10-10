@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T19:10:48.477604+00:00",
-  "note": "after voice take 3 explicit silent stops",
+  "saved_at": "2026-10-10T19:11:18.793783+00:00",
+  "note": "voice takes 1 to 3 retained; clause-join silence cannot be produced by direction; held for a structural decision",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -2951,6 +2951,36 @@
       "class": "scratch",
       "sha256": "7910ce71057ec8e63ee657642c0e8dccf573dd66a88b7955fd3011cd92a1aaca",
       "size": 30839
+    },
+    {
+      "path": "out/dispatch/retained-failures/voice-take3-explicit-silence/failure.json",
+      "class": "scratch",
+      "sha256": "1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6",
+      "size": 1297
+    },
+    {
+      "path": "out/dispatch/retained-failures/voice-take3-explicit-silence/takes/prompt.txt",
+      "class": "scratch",
+      "sha256": "5618c6c53d6b158c48d4a5e7712b730c8089e7ddcd3056a3de5164f4578f6aba",
+      "size": 5294
+    },
+    {
+      "path": "out/dispatch/retained-failures/voice-take3-explicit-silence/takes/take1.wav",
+      "class": "scratch",
+      "sha256": "c65b33f648eeca43390257f1f7a3b5f689c98d13dd6c71aa087b2ad4e62531fc",
+      "size": 6577964
+    },
+    {
+      "path": "out/dispatch/retained-failures/voice-take3-explicit-silence/takes/takes.json",
+      "class": "scratch",
+      "sha256": "7386c236b541732ef6aebd8f5e5629a17ae861eb752cfc261aeb6c3da242b453",
+      "size": 936
+    },
+    {
+      "path": "out/dispatch/retained-failures/voice-take3-explicit-silence/vo_direction.json",
+      "class": "scratch",
+      "sha256": "3f70eff2f6b30f85953eb5ca72b005114836f31b2b997b44c3be8623fa0888d1",
+      "size": 26054
     },
     {
       "path": "out/dispatch/sfx_events.json",
