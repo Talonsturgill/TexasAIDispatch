@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T20:42:37.704909+00:00",
+  "saved_at": "2026-10-10T20:43:08.556369+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,15 +16,15 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "633a062377bcec879e6ba132bc7d0846ea78bb0e2904a9b8811b0754a6ff24bc",
-  "original_private_ledger_sha256": "37a3434d9facdb24697a57b064095b3c1cad8823acc2ef59f58ea8e2cb549460",
+  "ledger_sha256": "65bc42084ecb240a809f09c814e4a549ceb9a682c424ae24f6ad45e09f4f3d67",
+  "original_private_ledger_sha256": "749c298b026dbcc146c2093b58303951f540ccbc4108ee7f98ac19efc0e2e84d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 8,
+    "preflight_renders": 9,
     "reboards": 9,
     "reported_tokens": 20306,
     "rescue_renders": 0,
@@ -333,8 +333,8 @@
     {
       "path": "out/dispatch/budget-audit/completion-capacity-r10.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
+      "size": 79
     },
     {
       "path": "out/dispatch/budget-audit/critic_gate_live_recheck.json",
@@ -455,6 +455,12 @@
       "class": "scratch",
       "sha256": "bd2a03f4ecae9851cf671413054be33fbf58b9bcfc7be20894aa0b24ea5a7966",
       "size": 1459
+    },
+    {
+      "path": "out/dispatch/budget-audit/production-budget-r10-after.log",
+      "class": "scratch",
+      "sha256": "df49763b974430d6eae863931f40299903c8eb74fac2dbb03ad1e10f5f862eac",
+      "size": 1457
     },
     {
       "path": "out/dispatch/budget-audit/production-budget-r10.log",
@@ -897,7 +903,7 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "3196410a53d8a0599abdc30b270c0afb8496b91af3106220522e7fdfcd8c9268",
+      "sha256": "d25b44a9afb4db39346d91deb59b8559ff517796b905f9039534f19418722344",
       "size": 308
     },
     {
@@ -929,72 +935,6 @@
       "class": "scratch",
       "sha256": "2cefce550351268d3695869eec429ea5e6df66d98a81ad6b3589a04e0b58bc82",
       "size": 2500
-    },
-    {
-      "path": "out/dispatch/openings/a-inspection-9baea028e3e20eb3.json",
-      "class": "scratch",
-      "sha256": "f03caad7eb6fea938616573075db8921799424df818927cae649b922b9f614eb",
-      "size": 1895
-    },
-    {
-      "path": "out/dispatch/openings/a.json",
-      "class": "scratch",
-      "sha256": "86fb3a636ff1666395d0cd3f452ddcd3b6dd52fef38e9c006bcccc3174e6b425",
-      "size": 157115
-    },
-    {
-      "path": "out/dispatch/openings/a.mp4",
-      "class": "scratch",
-      "sha256": "db68d7e215cb61a56c658090c70a8bf6fdae1d5a37a79d2bc81b868470aca718",
-      "size": 244683
-    },
-    {
-      "path": "out/dispatch/openings/b-inspection-6d7904a09bdac81b.json",
-      "class": "scratch",
-      "sha256": "7be64be38eb7ef576f85e39e6c87ff61a145c1e283b8d9e87b7199bbfbbff913",
-      "size": 1892
-    },
-    {
-      "path": "out/dispatch/openings/b.json",
-      "class": "scratch",
-      "sha256": "5db5f493634a17e0383737b9233a52d790cb121fa3d4c8f2f4bbef3e9ae62d01",
-      "size": 156378
-    },
-    {
-      "path": "out/dispatch/openings/b.mp4",
-      "class": "scratch",
-      "sha256": "cda2e5fbfc4fa599fc9bf50576dae2918617af6cc75085320a98680c4efb9bda",
-      "size": 271337
-    },
-    {
-      "path": "out/dispatch/openings/batch-report.json",
-      "class": "scratch",
-      "sha256": "b93e0c68977132800dfa4e032b43216b196a41d143ec124a38bdb6d32d748d74",
-      "size": 131
-    },
-    {
-      "path": "out/dispatch/openings/batch.json",
-      "class": "scratch",
-      "sha256": "6e567b525f92ed046b28d9794666737c59b9778e18521e5ead6a79be56d8d0fe",
-      "size": 503
-    },
-    {
-      "path": "out/dispatch/openings/comparison-before-inspection-fb8cbe27df014a7c.json",
-      "class": "scratch",
-      "sha256": "fb8cbe27df014a7cdb8d2d8ccc2c3a410599d46cb5acfbb24259687c450b92f9",
-      "size": 1476
-    },
-    {
-      "path": "out/dispatch/openings/comparison.json",
-      "class": "scratch",
-      "sha256": "9adcd50b818f67baf64799134386a2e0012693f6432427054774b8d68e531fb5",
-      "size": 1872
-    },
-    {
-      "path": "out/dispatch/openings/selection.json",
-      "class": "scratch",
-      "sha256": "b859b5f0858b88bcc36aa06e585f8404093c5180be614a0e6d87ee64af89ccd9",
-      "size": 1709
     },
     {
       "path": "out/dispatch/phone-assignment-r5.json",
@@ -3173,6 +3113,72 @@
       "class": "scratch",
       "sha256": "81ebc6aaba9943eddc1e9b62f46af3f7657f32ed76a9f476e228b736606060b9",
       "size": 450
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/a-inspection-9baea028e3e20eb3.json",
+      "class": "scratch",
+      "sha256": "f03caad7eb6fea938616573075db8921799424df818927cae649b922b9f614eb",
+      "size": 1895
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/a.json",
+      "class": "scratch",
+      "sha256": "86fb3a636ff1666395d0cd3f452ddcd3b6dd52fef38e9c006bcccc3174e6b425",
+      "size": 157115
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/a.mp4",
+      "class": "scratch",
+      "sha256": "db68d7e215cb61a56c658090c70a8bf6fdae1d5a37a79d2bc81b868470aca718",
+      "size": 244683
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/b-inspection-6d7904a09bdac81b.json",
+      "class": "scratch",
+      "sha256": "7be64be38eb7ef576f85e39e6c87ff61a145c1e283b8d9e87b7199bbfbbff913",
+      "size": 1892
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/b.json",
+      "class": "scratch",
+      "sha256": "5db5f493634a17e0383737b9233a52d790cb121fa3d4c8f2f4bbef3e9ae62d01",
+      "size": 156378
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/b.mp4",
+      "class": "scratch",
+      "sha256": "cda2e5fbfc4fa599fc9bf50576dae2918617af6cc75085320a98680c4efb9bda",
+      "size": 271337
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/batch-report.json",
+      "class": "scratch",
+      "sha256": "b93e0c68977132800dfa4e032b43216b196a41d143ec124a38bdb6d32d748d74",
+      "size": 131
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/batch.json",
+      "class": "scratch",
+      "sha256": "6e567b525f92ed046b28d9794666737c59b9778e18521e5ead6a79be56d8d0fe",
+      "size": 503
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/comparison-before-inspection-fb8cbe27df014a7c.json",
+      "class": "scratch",
+      "sha256": "fb8cbe27df014a7cdb8d2d8ccc2c3a410599d46cb5acfbb24259687c450b92f9",
+      "size": 1476
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/comparison.json",
+      "class": "scratch",
+      "sha256": "9adcd50b818f67baf64799134386a2e0012693f6432427054774b8d68e531fb5",
+      "size": 1872
+    },
+    {
+      "path": "out/dispatch/retained-failures/openings-pre-repair10/selection.json",
+      "class": "scratch",
+      "sha256": "b859b5f0858b88bcc36aa06e585f8404093c5180be614a0e6d87ee64af89ccd9",
+      "size": 1709
     },
     {
       "path": "out/dispatch/retained-failures/openings-pre-repair5/a-inspection-df65fe15fff0eb39.json",
