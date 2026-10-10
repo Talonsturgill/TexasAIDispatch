@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T18:38:06.483795+00:00",
-  "note": "same-worker resume check recorded; worker left running; funding not confirmed",
-  "phase": "phone_review",
+  "saved_at": "2026-10-10T18:53:03.296125+00:00",
+  "note": "ledger write",
+  "phase": "voice",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
@@ -16,8 +16,8 @@
     "sha256": "98150aa385d4d1bc3c85b9ce7566e81b65c9edd2c0bbd8be9a62ac402da18a02"
   },
   "deleted_source": [],
-  "ledger_sha256": "8a34b27920e7459d5366e6a1b0dcaf44bb289b9584fe562b6c6a05504f6d7eca",
-  "original_private_ledger_sha256": "da22bd7e0e2c86666359cda547db7b005f66b731b84eb15df83f6db4617a4af6",
+  "ledger_sha256": "03873e9ffad0ccf9143fb735b9bf828a924954602c608e51e7f85ff8ca3534fb",
+  "original_private_ledger_sha256": "b9e13085e559cacbf42dbbbd5a6a367539da29df7925354abd464b7e80dabb55",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -143,6 +143,18 @@
       "class": "scratch",
       "sha256": "2f569b56073b3bc039f331c0030a8ea36afb397e85351bf5d96e1af62d430642",
       "size": 22
+    },
+    {
+      "path": "out/dispatch/budget-audit/phone_gate_recheck.json",
+      "class": "scratch",
+      "sha256": "df456a31bec1eac53a5577bf0547f9451db84012dbeb44018885a9d320b1e02f",
+      "size": 182
+    },
+    {
+      "path": "out/dispatch/budget-audit/precheck-after-phone-failure.json",
+      "class": "scratch",
+      "sha256": "82bf86264ec9f3434cec180f8b4bd90a0936f8659e7bc7dd57ea934fff9975f5",
+      "size": 1491
     },
     {
       "path": "out/dispatch/budget-audit/precheck-code-plan.json",
@@ -511,10 +523,22 @@
       "size": 1871
     },
     {
+      "path": "out/dispatch/openings/selection.json",
+      "class": "scratch",
+      "sha256": "71368a1bc2ab41164fb6e4851cb8c9dd8cadd1168374db798739b8ee1ce2d86d",
+      "size": 2005
+    },
+    {
       "path": "out/dispatch/phone-assignment-r5.json",
       "class": "scratch",
       "sha256": "9865993e846b60774952d242874cc124dae01d47f4de4f813c0e0787d24562d3",
       "size": 1912
+    },
+    {
+      "path": "out/dispatch/phone-critic-current.json",
+      "class": "scratch",
+      "sha256": "2e079b5564d0ade2e5923f4c8e38890254bc6f6cbe96cc634694db8a24fd70ca",
+      "size": 16232
     },
     {
       "path": "out/dispatch/phone-output-contract-r5.json",
@@ -1373,6 +1397,12 @@
       "class": "scratch",
       "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
       "size": 91
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "1294c489f9b42c49363a5bb397fa8fafd35ba2d9a0dbac95841178507774d6cb",
+      "size": 244684
     },
     {
       "path": "out/dispatch/repair-4-builder-checks/authored_story_art.py.log",
@@ -2407,10 +2437,28 @@
       "size": 1979
     },
     {
+      "path": "out/dispatch/retained-failures/phone-critic-r5-failure.json",
+      "class": "scratch",
+      "sha256": "89ee88627fbb8992151dd014a73cb80c6b3323067f9cce4aaaf8b08804697a31",
+      "size": 874
+    },
+    {
+      "path": "out/dispatch/retained-failures/phone-critic-r5-resume-record.json",
+      "class": "scratch",
+      "sha256": "de81a59bcec1a41a7e551821452b85b8d3b15903c71ee2c547971656a912ca0d",
+      "size": 957
+    },
+    {
       "path": "out/dispatch/retained-failures/phone-critic-r5-supervision.md",
       "class": "scratch",
       "sha256": "202c0a9262c65ffd3406944945bae7183e1f5710b984ac7ae7ded9f2bdbfe6c2",
       "size": 419
+    },
+    {
+      "path": "out/dispatch/retained-failures/phone-critic-r5-usage.json",
+      "class": "scratch",
+      "sha256": "b8ef1ccff2fe40a8b1ed9e441a0c8e43f983076a7a9b26f74ca0cb45a8140c94",
+      "size": 842
     },
     {
       "path": "out/dispatch/retained-failures/procedural-note-r4.json",

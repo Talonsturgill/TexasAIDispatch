@@ -1,0 +1,11 @@
+{
+ "schema": "dispatch_host_failure_observation/1",
+ "worker": "af52fff8c26648fb3 storyboard-critic, claude-opus-5-5 high, exact-phone review",
+ "observed_at_utc_approx": "2026-10-10T18:42Z",
+ "harness_status": "failed",
+ "harness_message": "Agent terminated early due to an API error: Request timed out (error type server_error)",
+ "elapsed_before_failure": "about 77 minutes after dispatch, native totals last seen 55m10s / 238.7k tokens / 47 tool uses at 61m38s with unchanged totals",
+ "supervision_before_failure": "three same-worker handback requests, no duplicate reviewer, no raw transcript read",
+ "classification": "Actual observed host/API transport failure (server_error, request timed out). Elapsed time alone was never treated as unavailability. No verdict, selection or observation was produced. The charge for critic 10 stays.",
+ "output_returned": "none"
+}

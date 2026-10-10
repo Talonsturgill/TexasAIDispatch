@@ -1,0 +1,8 @@
+{
+ "recorded_before_execution": true,
+ "recorded_at_utc_approx": "2026-10-10T18:46Z",
+ "action": "Resume the SAME reserved agent af52fff8c26648fb3 once through SendMessage with the original packet and contract. No new Agent, no new reviewer, no new reservation.",
+ "basis": "prompts/phases/review-availability.md: resume the already reserved uncompleted worker once; never create a second critic or refund the failed reservation. Failure evidence: phone-critic-r5-failure.json (harness message: API error, Request timed out, server_error).",
+ "charge": "critic 10 of effective 11 stays charged. This resumption adds no storyboard_critics reservation. Its actual usage will be recorded from the native completed-task totals, per-message usage unknown.",
+ "if_resume_fails": "Retain the exact result and use the configured independent provider route in review-availability.md (separate phone call per treatment), planning both calls in the precheck first."
+}
