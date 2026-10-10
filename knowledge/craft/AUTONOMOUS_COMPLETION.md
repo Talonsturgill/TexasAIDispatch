@@ -23,3 +23,20 @@ engagement or finish observation admits modern-film-floor recovery. Retain origi
 allocation, failed cut, actual observations and cumulative charges. No capacity event approves
 artwork or restores a legacy renderer. Optional polish stops; the mandatory current floor is
 repaired through the existing source-backed completion path.
+
+## Mandatory code defects before a film exists
+
+The October 9th Claude pilot exposed a dead end before voice. Its independent code critic
+rejected a missing narrated chart and an unreadable ending, but capacity admission required a
+film hash. From October 9th, config/autonomous_completion_v3.json adds a separate code-evidence
+amendment for current unfinished production. It preserves the original adoption and policy bytes.
+
+Retain the exact independent code rejection and the before-files in the repair plan. Use
+scripts/autonomous_completion.py --prepare-code-plan with that plan, the current claims and a
+new output path. It verifies current board, renderer, claims and baseline hashes without editing
+the original report or plan. Run production-budget and completion-capacity on the new plan
+before begin-repair or a correction. The grant funds the conservative complete remaining path.
+Every actual worker and render still needs its own reservation. An unused earlier reservation
+remains charged. Code evidence never approves pixels, a score or shipment. Both complete phone
+treatments, all modern observations, native, sound, captions and delivery gates still run.
+Optional polish, stale inputs, self-review and extra research remain ineligible.
