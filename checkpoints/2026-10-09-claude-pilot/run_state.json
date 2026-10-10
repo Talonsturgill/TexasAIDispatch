@@ -1,4 +1,33 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_script.txt",
+        "before_sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
+        "path": "{REPO}/out/dispatch/vo_script.txt"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__storyboard.json",
+        "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__opening-a.json",
+        "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_direction.json",
+        "before_sha256": "3f70eff2f6b30f85953eb5ca72b005114836f31b2b997b44c3be8623fa0888d1",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6",
+    "plan": "{REPO}/out/dispatch/repair-plan-9-script-punctuation.json",
+    "plan_sha256": "eabbcdf5b4220b692dd4c9d7a60f08d84866b112d2ef4dfbb9f08c5b7166aa26",
+    "reboards_before": 7,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1992,6 +2021,51 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-10T19:31:05.082971Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_script.txt",
+          "before_sha256": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b",
+          "path": "{REPO}/out/dispatch/vo_script.txt"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__storyboard.json",
+          "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__opening-a.json",
+          "before_sha256": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/repair-9-baseline/out__dispatch__vo_direction.json",
+          "before_sha256": "3f70eff2f6b30f85953eb5ca72b005114836f31b2b997b44c3be8623fa0888d1",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "1828339032aaccb6d50955c93c3293f4a332cd86486fb9261cdfa6e87d19d6b6",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "script-punctuation-clause-joins",
+      "plan_identity": null,
+      "plan_sha256": "eabbcdf5b4220b692dd4c9d7a60f08d84866b112d2ef4dfbb9f08c5b7166aa26",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -2015,7 +2089,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "54b0ec188df5868767223a55aa387c2c26f7fbaa40b3010a7fac29b29c11398d",
+    "original_private_state_sha256": "680306bdc8e021ae62df10d6370434cc92a4178efdbee68235cd1b45a6ffea4d",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2043,7 +2117,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T19:30:56.752167Z",
+  "updated_at": "2026-10-10T19:31:05.083006Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
