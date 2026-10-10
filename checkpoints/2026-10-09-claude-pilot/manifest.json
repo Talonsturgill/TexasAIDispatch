@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T02:23:09.262529+00:00",
-  "note": "reconcile retained failures: neutral copies, 30 stills, full frame",
+  "saved_at": "2026-10-10T02:24:09.856883+00:00",
+  "note": "ledger write",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "1993c5c7e30410daf772a92ce1e75d3fc50ca35d",
+  "source_pin": "69285dec809cb065b0f5e573f34fce75fe4e2bdb",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
-    "files": 345,
-    "sha256": "29bd9ad6d0d5c5b0dafdda17c2592e3525ed4f900785c039bd15edf7be9370cb"
+    "files": 348,
+    "sha256": "f1bb30227f30f07926691015a5cad9122dec77523837251ec115ba642f0c96bc"
   },
   "deleted_source": [],
-  "ledger_sha256": "f8374d920ea014e9dbbca898ec83073effce627848bf6a100ffd75909407c621",
-  "original_private_ledger_sha256": "c98ae0d004481095618d228c5fc89288a8c4c1c3b4c073a38d3221121b05e78f",
+  "ledger_sha256": "c10adb9bc7f9f686a065b1f35513694f6fbec402d5d40c92a163f5881cd670ea",
+  "original_private_ledger_sha256": "7b9e555afd9b2dffc5c164974109c5804bb68e479d8404a4d11ff715d67b853b",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,23 +30,35 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 0,
+    "storyboard_critics": 1,
     "tts_calls": 0,
     "validator_agents": 1,
     "voice_directors": 0
   },
   "files": [
     {
-      "path": "config/modern_episode_registry.json",
-      "class": "source",
-      "sha256": "c643de2f7eb7bd5d51d012c52619d401f72aa160289f56a544164bd370bdf8b1",
-      "size": 14582
-    },
-    {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
       "sha256": "88a470689e46de3bc96614c3272777bb8f1d51076cc839f005883536985cbd30",
       "size": 506
+    },
+    {
+      "path": "out/dispatch/artwork-originals/authored-2a34390c-2242-40ee-87f0-7f9433f07ecb.tsx",
+      "class": "scratch",
+      "sha256": "9dcaaa8291444a77f178f851bec8294c35e1844f01da975366fc22d4a9831f7b",
+      "size": 23271
+    },
+    {
+      "path": "out/dispatch/artwork-originals/authored-7f3a6376-5f8d-49b0-aff3-9dae4cd5d574.tsx",
+      "class": "scratch",
+      "sha256": "4fa27640d4a24fc6d382bfa54180c062b9d01b3d97fb488f1011edbc47790976",
+      "size": 20002
+    },
+    {
+      "path": "out/dispatch/artwork-originals/receipt-e9eeb2fb-58e3-43de-a941-8af8f93e272b.json",
+      "class": "scratch",
+      "sha256": "b2c3eb9a95439939b72d3a87cf5bc6d6287716f09121b451d79986b59433683f",
+      "size": 2288
     },
     {
       "path": "out/dispatch/builder-assignment.json",
@@ -63,8 +75,8 @@
     {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
-      "sha256": "6dee4a2a270fac8103125daaf947ef9232c83ed2cfe0cee499c5df44ffda8246",
-      "size": 16135
+      "sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+      "size": 16480
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -83,6 +95,18 @@
       "class": "scratch",
       "sha256": "9e653753d1f1ccf6ad2b67db90e900deb8f68de63990cf5b5d9f0e47ea2a3220",
       "size": 40270
+    },
+    {
+      "path": "out/dispatch/critic-assignment.json",
+      "class": "scratch",
+      "sha256": "8a0b22a299ef042ffa79faad9d595778c36e9be8ff84cd7f23f96ee7bb0a9c8e",
+      "size": 1932
+    },
+    {
+      "path": "out/dispatch/critic-packet.json",
+      "class": "scratch",
+      "sha256": "75e472189df9d80ab78927b4a275a166f545a89be2ece26928ba901b09e0d055",
+      "size": 8444
     },
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
@@ -129,14 +153,98 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "cfbea452b2672fd1209b644ca89defe18aceb84c154fc02d1f26342af0781fd5",
-      "size": 146305
+      "sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2",
+      "size": 148647
     },
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "22a038cbf21505f62a2d6676ddb00e808a2818cf2f39a2da83dbab9eb1a19427",
-      "size": 146264
+      "sha256": "90f3d705121ae272011d1493d037071609b8b31b23be8371b6fff55db0c56342",
+      "size": 148606
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/board_scale_check.log",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/caption_fit.log",
+      "class": "scratch",
+      "sha256": "9bf2d74474b19e2705daa7e7f6ee2d5c33539fbce6dfbe312338455727d80bca",
+      "size": 67
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/documentary_check.log",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/floor_check.log",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/modern_film.log",
+      "class": "scratch",
+      "sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/registry.log",
+      "class": "scratch",
+      "sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422",
+      "size": 80
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/report.json",
+      "class": "scratch",
+      "sha256": "2691b23508b67d28feb56119abc63902c84a2df35268a51e927ed26058ff7743",
+      "size": 6626
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/script_evidence.log",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/shot_coherence.log",
+      "class": "scratch",
+      "sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/staging_check.log",
+      "class": "scratch",
+      "sha256": "1b91dba5b613ed3a0fab3043929ca82a1ff02720bfc7966fe08f53fe9d5d118a",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/story_art.log",
+      "class": "scratch",
+      "sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885",
+      "size": 75
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/storyboard_check.log",
+      "class": "scratch",
+      "sha256": "19988c58f8aee3e706884d1257cd5da92d62376d02238535ef03767112cc1ebb",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/super_evidence.log",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/watchability_check.log",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
     },
     {
       "path": "out/dispatch/research.json",
@@ -397,6 +505,12 @@
       "size": 1123
     },
     {
+      "path": "out/dispatch/retained-failures/claims-d1/claims-before-date-fix.json",
+      "class": "scratch",
+      "sha256": "6dee4a2a270fac8103125daaf947ef9232c83ed2cfe0cee499c5df44ffda8246",
+      "size": 16135
+    },
+    {
       "path": "out/dispatch/sources/hb149.validator.txt",
       "class": "scratch",
       "sha256": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
@@ -429,8 +543,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "cfbea452b2672fd1209b644ca89defe18aceb84c154fc02d1f26342af0781fd5",
-      "size": 146305
+      "sha256": "046296a828fc3ff32edbc2b48ed1d593957a10892d2052b3a875333332d548b2",
+      "size": 148647
     },
     {
       "path": "out/dispatch/validator-assignment.json",
@@ -449,30 +563,6 @@
       "class": "scratch",
       "sha256": "1ca4ee1308f6b91280d5a724256477500c5f8c781fa2372e1cb8a649d557d4dc",
       "size": 601
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
-      "class": "source",
-      "sha256": "4fa27640d4a24fc6d382bfa54180c062b9d01b3d97fb488f1011edbc47790976",
-      "size": 20002
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
-      "class": "source",
-      "sha256": "8cdf05b214aefb4932861a1d6662f261e5c17598d11d5d2a16c258accdca28be",
-      "size": 18339
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
-      "class": "source",
-      "sha256": "9dcaaa8291444a77f178f851bec8294c35e1844f01da975366fc22d4a9831f7b",
-      "size": 23271
-    },
-    {
-      "path": "video-engine/src/modern/registry.tsx",
-      "class": "source",
-      "sha256": "dd7432783df2544a448b2f84d6c7065747c45b189523c62f08f6f56d6e75b02a",
-      "size": 802
     }
   ],
   "excluded": [
