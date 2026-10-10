@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/restore/pilot/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/restore/pilot/out/dispatch/critic-packet-r6.json",
+    "sha256": "48103383f1a98f96ca82076da70703d82a09086eb82175ea25d429153ce3c5ec"
+  },
+  "brief": {
+    "path": "/home/user/restore/pilot/.claude/agents/storyboard-critic.md",
+    "sha256": "721fd8e2acfddeb93e685967234599874eb633816d78dece327296fc868f257d"
+  },
+  "agent_args": {
+    "subagent_type": "storyboard-critic",
+    "description": "critic_r6",
+    "prompt": "Work in /home/user/restore/pilot. Read the current compact packet /home/user/restore/pilot/out/dispatch/critic-packet-r6.json (SHA256 48103383f1a98f96ca82076da70703d82a09086eb82175ea25d429153ce3c5ec) and every bound current guide in full. Verify the inputs before use. Scope: Gate-ready code-scope review of both treatments: return opening-a-critic and opening-b-critic JSON per out/dispatch/critic-output-contract-r5.json Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}
