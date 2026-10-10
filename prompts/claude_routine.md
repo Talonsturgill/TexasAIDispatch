@@ -235,6 +235,12 @@ code adoption, complete-path funding, recurrence pivot when required, precharged
 strict derived board rebinds and both fresh phone reviews. Do not invent a board story edit,
 relabel the reviewer or request an owner decision at this internal admission boundary.
 
+If an actual charged same-worker recurrence pivot returns REVISE before that funded correction,
+retain its exact handback and rejected proposal. Use `python scripts/pivot_recovery.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <retained-pivot-rejection> --rejected-proposal <reviewed-proposal> --revised-plan <bound-modern-plan> --output <new-recovery-plan>`
+through scripts/run_with_env.sh and follow the receipt and funding procedure in
+AUTONOMOUS_COMPLETION.md. Charge the next same Opus High pivot review before SendMessage.
+Its independent source-backed PASS remains required before begin-repair or any production edit.
+
 Use compact frame strips for director decisions and native crops when detail decides the result.
 Independent reviewers still receive the exact current film and every required unique media byte.
 Stop optional polish at the configured creative boundary; mandatory failures recover through the
