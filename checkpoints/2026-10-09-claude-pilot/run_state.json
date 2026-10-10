@@ -1,4 +1,31 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/voice-take2-breath-direction/vo_direction.json",
+        "before_sha256": "79d23c8326a509a548270b3773d2d717c02c92001048f6fd2e7adac82257eb38",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "c1ab4e4968c0f6d24140c6d5338fec572670376c2075a4b0a06db2c1eb14a3a5",
+    "frozen_inputs": {
+      "files": {
+        "{REPO}/out/dispatch/claims.json": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+        "{REPO}/out/dispatch/sources/hb149.validator.txt": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
+        "{REPO}/out/dispatch/sources/sb1188.validator.txt": "6579e74059619b19896479b5726c367e0db2a5142559958e193a8f9aa9b71be0",
+        "{REPO}/out/dispatch/sources/utmb.validator.txt": "64eaaece91eb4cb6929e3b39b308fa6ac00280682330f6154e6dbebe666f66ba",
+        "{REPO}/out/dispatch/sources/utsystem.validator.txt": "8e0c4edfe4b629031bbf5bab823c98d47e3e9b0f6edc0d50de307f443f347784",
+        "{REPO}/out/dispatch/storyboard.json": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+        "{REPO}/out/dispatch/vo_script.txt": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b"
+      },
+      "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2"
+    },
+    "plan": "{REPO}/out/dispatch/repair-plan-7-voice.json",
+    "plan_identity": "a0152a6cc7ed6afbc1e8fc05c6c59d4835ff7f681bae6fe823c85b58e0e2926f",
+    "plan_sha256": "be91d719e4231471e7c53e0724d6f6d9db348d2d26d31e60c15a9f9a54b99a4d",
+    "reboards_before": 7,
+    "repair_scope": "narration-performance"
+  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1707,6 +1734,38 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 1902,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-10T19:08:27.471314Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/voice-take2-breath-direction/vo_direction.json",
+          "before_sha256": "79d23c8326a509a548270b3773d2d717c02c92001048f6fd2e7adac82257eb38",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "c1ab4e4968c0f6d24140c6d5338fec572670376c2075a4b0a06db2c1eb14a3a5",
+      "frozen_inputs": {
+        "files": {
+          "{REPO}/out/dispatch/claims.json": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
+          "{REPO}/out/dispatch/sources/hb149.validator.txt": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
+          "{REPO}/out/dispatch/sources/sb1188.validator.txt": "6579e74059619b19896479b5726c367e0db2a5142559958e193a8f9aa9b71be0",
+          "{REPO}/out/dispatch/sources/utmb.validator.txt": "64eaaece91eb4cb6929e3b39b308fa6ac00280682330f6154e6dbebe666f66ba",
+          "{REPO}/out/dispatch/sources/utsystem.validator.txt": "8e0c4edfe4b629031bbf5bab823c98d47e3e9b0f6edc0d50de307f443f347784",
+          "{REPO}/out/dispatch/storyboard.json": "a63eb19b59911aa741433b82e4f36475796d692de1efe45b3bd824a4bfd26360",
+          "{REPO}/out/dispatch/vo_script.txt": "cc114883e673ab948504ab4658323418651c3a70bbafaaa62fa4be4ac5aab25b"
+        },
+        "renderer_sha256": "af828fd08234439fb2a6c6bd31983bd23425d221629ebd87e62c2212445879b2"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "voice-explicit-silent-stop",
+      "plan_identity": "a0152a6cc7ed6afbc1e8fc05c6c59d4835ff7f681bae6fe823c85b58e0e2926f",
+      "plan_sha256": "be91d719e4231471e7c53e0724d6f6d9db348d2d26d31e60c15a9f9a54b99a4d",
+      "repair_scope": "narration-performance"
     }
   ],
   "limits": {
@@ -1730,7 +1789,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7760af0d51ab1aae37da4f1b84c1bed3d79c22a93544e724019bdfcb07143bfd",
+    "original_private_state_sha256": "e46900671442398d062562db9dd188b50b5a42cdec5d500d51214b15cd2551e6",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1758,7 +1817,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-10T19:06:13.349245Z",
+  "updated_at": "2026-10-10T19:08:27.471342Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,

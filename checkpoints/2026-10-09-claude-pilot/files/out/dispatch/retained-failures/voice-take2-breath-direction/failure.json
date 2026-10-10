@@ -1,0 +1,28 @@
+{
+ "schema": "dispatch_voice_take_retime_failure/1",
+ "what": "Take 2 (qualitative breath direction after credentials and citations) soundchecked fine (accuracy 0.991, 43.8 s, -18.1 LUFS) and mixed/aligned, but the two clause joins still have no silence and the earlier comma pause also vanished.",
+ "measured_join_gaps_s": {
+  "twenty-second,->and": 0.0,
+  "credentials->and": 0.0,
+  "citations->to": 0.0
+ },
+ "all_gaps_over_0.1_s": {
+  "question.->The": 0.76,
+  "sources.->UTMB": 0.74,
+  "March.->Clinicians": 0.8,
+  "language.->The": 0.78,
+  "guidelines.->UTMB": 0.8,
+  "support.->That": 0.82,
+  "report.->The": 0.84,
+  "care.->A": 0.92,
+  "from.->It": 0.68,
+  "right.->UTMB": 1.04
+ },
+ "result": "Aligner produced 11 measured cues (take 1 produced 12). Clause joins n2a|n2b, n3a|n3b and n4a|n4b all lack measured silence, so board_retime would refuse again.",
+ "pinned": {
+  "take1.wav": "ae7ee035c41301b359b489ee8f7967985e5137a1a565de53262ea7b701e1c1f1",
+  "words.json": "7910ce71057ec8e63ee657642c0e8dccf573dd66a88b7955fd3011cd92a1aaca",
+  "vo_direction.json": "79d23c8326a509a548270b3773d2d717c02c92001048f6fd2e7adac82257eb38"
+ },
+ "tts_calls_charged": "2 (synthesis and verbatim soundcheck), ledger tts_calls now 4 of 12"
+}

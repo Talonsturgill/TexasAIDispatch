@@ -1,0 +1,23 @@
+{
+ "mechanism_id": "voice-explicit-silent-stop",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "narration-performance",
+ "root_cause": "A qualitative breath request did not change the read: take 2 still ran credentials into and and citations into to with no silence, and also lost the earlier comma pause, so the clause joins can't map to measured cues.",
+ "repair": "Change the instruction mechanism in vo_direction.json from a requested breath to an explicit full stop in speaking: stop speaking completely for about half a second after the word credentials and after the word citations, then resume the same sentence at the same level. State the same for the comma after twenty-second. Nothing else in the direction, script, board, claims, sources or renderer changes.",
+ "mechanism_change": "From a soft breath inside the phrase to an explicit instruction to fall silent for a measurable half second at three named words, in the expressive prompt and in those lines' intent.",
+ "expected_visible_result": "Measured silence of at least a third of a second after credentials, citations and twenty-second, so each authored clause has its own measured cue and board_retime succeeds.",
+ "failure_evidence": "out/dispatch/retained-failures/voice-take2-breath-direction/failure.json",
+ "failure_evidence_sha256": "c1ab4e4968c0f6d24140c6d5338fec572670376c2075a4b0a06db2c1eb14a3a5",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/vo_direction.json",
+   "before_path": "out/dispatch/retained-failures/voice-take2-breath-direction/vo_direction.json",
+   "before_sha256": "79d23c8326a509a548270b3773d2d717c02c92001048f6fd2e7adac82257eb38",
+   "after_sha256": ""
+  }
+ ]
+}
