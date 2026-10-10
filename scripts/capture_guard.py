@@ -70,16 +70,130 @@ def strip_text_payloads(command):
     return re.sub(r"(?:-m|--message)\s+(\"[^\"]*\"|'[^']*')", ' ', command)
 
 
-def is_capture(command):
-    return bool(CAPTURE_COMMAND.search(strip_text_payloads(command)))
+SHELLS = {'bash', 'sh', 'zsh', 'dash'}
+PREFIXES = {'time', 'command', 'exec', 'nohup', 'env', 'nice', 'sudo'}
+CAPTURE_SCRIPTS = {'preflight_animatic.py', 'cinema_proof.py', 'opening_compare.py', 'render_dispatch.sh'}
 
 
-def command_inputs(command):
-    """Every --props and --board value the command names, quotes honored. None when it cannot be read."""
+def newlines_as_separators(text):
+    """An unquoted newline ends a command, exactly like a semicolon."""
+    out, quote = [], None
+    for char in text:
+        if quote:
+            quote = None if char == quote else quote
+        elif char in '\'"':
+            quote = char
+        elif char == '\n':
+            out.append(' ; ')
+            continue
+        out.append(char)
+    return ''.join(out)
+
+
+def tokenize(text):
+    lexer = shlex.shlex(newlines_as_separators(text), posix=True, punctuation_chars=';&|()<>')
+    lexer.whitespace_split = True
+    return list(lexer)
+
+
+UNKNOWN = None   # a working directory the guard can't model; relative capture inputs then fail closed
+
+
+def simple_commands(command, cwd, depth=0):
+    """Every simple command the shell would run with the directory it runs in, recursing into the wrapper,
+    bash -c and -lc strings and eval. Directory changes are scoped: a subshell restores on its close, and a
+    cd the guard can't model (no argument, a variable, a dash, pushd) makes later relative inputs unreadable.
+    Raises ValueError when the text can't be read."""
+    if depth > 6:
+        raise ValueError('shell nesting is too deep to inspect')
+    tokens = tokenize(strip_text_payloads(command))
+    found, current, here, stack = [], [], cwd, []
+
+    def flush():
+        nonlocal current, here
+        if current:
+            walk(current, here, found, depth)
+            if current[0] == 'cd':
+                target = current[1] if len(current) == 2 and not UNRESOLVED.search(current[1]) and current[1] not in ('-',) else None
+                here = str(resolve(target, here)) if target is not None and here is not None else UNKNOWN
+            elif current[0] in ('pushd', 'popd'):
+                here = UNKNOWN
+        current = []
+
+    for token in tokens:
+        if token and set(token) <= set(';&|<>()'):
+            # shlex joins runs like ");" and "&&" into one token, so read each character.
+            for char in token:
+                if char == '(':
+                    flush(); stack.append(here)
+                elif char == ')':
+                    flush(); here = stack.pop() if stack else here
+                else:
+                    flush()
+        else:
+            current.append(token)
+    flush()
+    return found
+
+
+def walk(tokens, cwd, found, depth):
+    tokens = list(tokens)
+    while tokens and (re.fullmatch(r'[A-Za-z_]\w*=.*', tokens[0]) or Path(tokens[0]).name in PREFIXES):
+        tokens = tokens[1:]
+    if not tokens:
+        return
+    name = Path(tokens[0]).name
+    if name == 'eval':
+        for inner in tokens[1:]:
+            for item in simple_commands(inner, cwd, depth + 1):
+                found.append(item)
+        return
+    if name in SHELLS:
+        rest = tokens[1:]
+        for index, token in enumerate(rest):
+            if token.startswith('-') and not token.startswith('--') and 'c' in token[1:] and index + 1 < len(rest):
+                for inner in simple_commands(rest[index + 1], cwd, depth + 1):
+                    found.append(inner)
+                return
+        for index, token in enumerate(rest):
+            if Path(token).name == 'run_with_env.sh':
+                walk(rest[index + 1:], cwd, found, depth)
+                return
+            if not token.startswith('-'):
+                break
+    found.append((tokens, cwd))
+
+
+def segment_is_capture(tokens):
+    """Capture-looking words anywhere in a command, whatever prefix or keyword precedes them, so a form the
+    parser did not model (time -p, env -i, then, an unknown wrapper) still fails closed."""
+    names = [Path(t).name for t in tokens]
+    for index, word in enumerate(names):
+        if word == 'remotion' and index + 1 < len(names) and names[index + 1] in ('still', 'render'):
+            return True
+        if word == 'ffmpeg' and '-i' in tokens[index + 1:]:
+            return True
+        if word in CAPTURE_SCRIPTS and index > 0 and (names[index - 1].startswith('python') or names[index - 1] in SHELLS):
+            return True
+    return False
+
+
+def analyze(command, cwd):
+    """The capture segments of a command, or None when it cannot be parsed but looks like a capture."""
     try:
-        tokens = shlex.split(strip_text_payloads(command))
+        segments = simple_commands(command, cwd)
     except ValueError:
-        return None
+        return None if CAPTURE_COMMAND.search(strip_text_payloads(command)) else []
+    return [(t, d) for t, d in segments if t and segment_is_capture(t)]
+
+
+def is_capture(command, cwd='.'):
+    found = analyze(command, cwd)
+    return found is None or bool(found)
+
+
+def command_inputs(tokens):
+    """Every --props and --board value in one capture segment, quotes honored."""
     found = []
     for index, token in enumerate(tokens):
         match = INPUT_FLAG.match(token)
@@ -91,8 +205,12 @@ def command_inputs(command):
 
 
 def resolve(value, cwd):
-    path = Path(value)
-    return path if path.is_absolute() else Path(cwd) / path
+    path = Path(os.path.expanduser(value)) if value.startswith('~') else Path(value)
+    if path.is_absolute():
+        return path
+    if cwd is UNKNOWN:
+        raise OSError('the working directory is not known, so %r can not be resolved' % value)
+    return Path(cwd) / path
 
 
 def bound_hashes(board, root):
@@ -105,7 +223,8 @@ def bound_hashes(board, root):
 
 def capture_problems(command, auth, cwd, root, free_gib=None):
     """Why a capture command may not run now. Empty means it may."""
-    if not is_capture(command):
+    segments = analyze(command, cwd)
+    if segments == []:
         return []
     errors = []
     if not auth or auth.get('allowed') is not True or auth.get('schema') != SCHEMA:
@@ -134,29 +253,29 @@ def capture_problems(command, auth, cwd, root, free_gib=None):
     boards = {b['sha256']: b['path'] for b in auth.get('boards', [])}
     for item in auth.get('boards', []):
         try:
-            if sha(item['path']) != item['sha256']:
+            if sha(resolve(item['path'], root)) != item['sha256']:
                 errors.append('authorized board changed after authorization: ' + item['path'])
         except OSError:
             errors.append('authorized board is unreadable: ' + item['path'])
-    inputs = command_inputs(command)
-    if inputs is None:
+    if segments is None:
         errors.append('the command could not be parsed, so its capture inputs are unreadable')
-        inputs = []
-    for flag, value in inputs:
-        if not value or UNRESOLVED.search(value):
-            errors.append('unresolved --%s input %r; capture inputs must be concrete files' % (flag, value))
-            continue
-        path = resolve(value, cwd)
-        try:
-            digest = sha(path)
-            data = json.loads(path.read_text())
-        except (OSError, ValueError):
-            errors.append('unreadable --%s input %s' % (flag, value))
-            continue
-        if digest not in boards:
-            errors.append('--%s %s is not one of the authorized boards' % (flag, value))
-        if placeholder_art(data):
-            errors.append('the %s input carries scratch placeholder art entries' % flag)
+        segments = []
+    for tokens, here in segments:
+        for flag, value in command_inputs(tokens):
+            if not value or UNRESOLVED.search(value):
+                errors.append('unresolved --%s input %r; capture inputs must be concrete files' % (flag, value))
+                continue
+            try:
+                path = resolve(value, here)
+                digest = sha(path)
+                data = json.loads(path.read_text())
+            except (OSError, ValueError):
+                errors.append('unreadable --%s input %s' % (flag, value))
+                continue
+            if digest not in boards:
+                errors.append('--%s %s is not one of the authorized boards' % (flag, value))
+            if placeholder_art(data):
+                errors.append('the %s input carries scratch placeholder art entries' % flag)
     for kind, files in (auth.get('bound') or {}).items():
         for file, expected in files.items():
             try:
@@ -168,13 +287,15 @@ def capture_problems(command, auth, cwd, root, free_gib=None):
 
 
 def consume(project, command):
-    """Mark the authorized command used before it is allowed, atomically and durably."""
+    """Mark the authorized command used before it is allowed, atomically and durably. For a Claude host
+    edition the consumption is also made durable on the remote checkpoint and read back, so a replaced
+    container can't reuse a command or reservation that was already dispatched."""
     path = Path(project) / AUTHORIZATION
     lock = Path(str(path) + '.lock')
+    digest = hashlib.sha256(normalize(command).encode()).hexdigest()
     with open(lock, 'w') as handle:
         fcntl.flock(handle, fcntl.LOCK_EX)
         auth = json.loads(path.read_text())
-        digest = hashlib.sha256(normalize(command).encode()).hexdigest()
         for entry in auth['commands']:
             if entry['id'] == digest:
                 if entry.get('consumed'):
@@ -185,7 +306,23 @@ def consume(project, command):
         with open(tmp, 'rb') as written:
             os.fsync(written.fileno())
         os.replace(tmp, path)
+    mirror_consumption(project, digest)
     return True
+
+
+def mirror_consumption(project, digest):
+    """Remote proof of consumption. Raises, so the hook denies, when it can't be made and verified."""
+    state = Path(project) / 'out/dispatch/run_state.json'
+    import claude_checkpoint as ck
+    if not ck.required(state):
+        return
+    repo = ck.repo_of(state)
+    run_id = json.loads(state.read_text())['run_id']
+    ck.save_with_recovery(repo, state, 'capture authorization consumed ' + digest[:12])
+    tip = ck.remote_tip(repo, run_id, 'origin')
+    stored = json.loads(ck.show(repo, tip, 'checkpoints/%s/files/%s' % (run_id, AUTHORIZATION)))
+    if not any(c.get('id') == digest and c.get('consumed') for c in stored.get('commands', [])):
+        raise ValueError('the consumed authorization is not on the remote checkpoint')
 
 
 def decide(payload, project):
@@ -193,7 +330,8 @@ def decide(payload, project):
     if payload.get('tool_name') != 'Bash':
         return None
     command = (payload.get('tool_input') or {}).get('command', '')
-    if not is_capture(command):
+    cwd = payload.get('cwd') or project
+    if not is_capture(command, cwd):
         return None
     try:
         auth = json.loads((Path(project) / AUTHORIZATION).read_text())
@@ -204,8 +342,12 @@ def decide(payload, project):
         return ('Capture refused. ' + '; '.join(dict.fromkeys(errors)) + '. Author source and run cheap code checks. '
                 'Only the director issues a capture authorization (scripts/capture_guard.py authorize) after a fresh charged render '
                 'reservation, passed native headroom and housekeeping, and recorded authored receipts.')
-    if not consume(project, command):
-        return 'Capture refused. this authorized capture was already used; a second capture needs a new reservation and authorization.'
+    try:
+        if not consume(project, command):
+            return 'Capture refused. this authorized capture was already used; a second capture needs a new reservation and authorization.'
+    except Exception as exc:
+        return ('Capture refused. the consumption of this authorization could not be made durable and verified on the remote '
+                'checkpoint (%s). The authorization is spent. Reserve and authorize again.' % str(exc)[:160])
     return None
 
 
@@ -219,11 +361,18 @@ def hook():
         reason = decide(payload, project)
     except Exception as exc:  # a capture command fails closed, every other command is never blocked by a bug here
         command = (payload.get('tool_input') or {}).get('command', '')
-        reason = ('Capture refused because the guard could not verify it: ' + str(exc)[:160]) if is_capture(command) else None
+        reason = ('Capture refused because the guard could not verify it: ' + str(exc)[:160]) if is_capture(command, payload.get('cwd') or project) else None
     if reason:
         print(json.dumps({'hookSpecificOutput': {'hookEventName': 'PreToolUse', 'permissionDecision': 'deny',
                                                  'permissionDecisionReason': reason}}))
     return 0
+
+
+def relative(path, root):
+    try:
+        return str(Path(path).resolve().relative_to(Path(root).resolve()))
+    except ValueError:
+        return str(Path(path).resolve())
 
 
 def event_digest(event):
@@ -256,7 +405,7 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
     if not boards or not commands:
         raise ValueError('name the exact boards and the exact capture commands to authorize')
     for command in commands:
-        if not is_capture(command) or 'scripts/run_with_env.sh' not in command:
+        if not is_capture(command, str(root)) or 'scripts/run_with_env.sh' not in command:
             raise ValueError('not a wrapped capture command: ' + command[:80])
     used_path = root / USED
     used = json.loads(used_path.read_text()) if used_path.is_file() else []
@@ -287,7 +436,7 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
               'render_reservation': {'event_sha256': event_digest(reservation),
                                      'resource': next(k for k in RENDER_RESOURCES if k in reservation['resources']),
                                      'at': reservation['at'], 'note': str(reservation.get('note', ''))[:200]},
-              'boards': [{'path': str(p.resolve()), 'sha256': sha(p)} for p, _ in boards], 'bound': bound,
+              'boards': [{'path': relative(p, root), 'sha256': sha(p)} for p, _ in boards], 'bound': bound,
               'commands': [{'id': hashlib.sha256(normalize(c).encode()).hexdigest(), 'text': normalize(c), 'consumed': False} for c in commands],
               'headroom': {'passed': True, 'required_free_gib': required, 'free_gib': free}, 'housekeeping': kept,
               'art_receipts_recorded': True, 'issued_at': issued.isoformat(), 'expires_at': (issued + LIFETIME).isoformat()}
