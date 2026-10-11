@@ -16,12 +16,17 @@ class ReviewReuse(unittest.TestCase):
                 {"id": "c5", "verdict": "VERIFIED", "quote": "Delivery would cease.", "url": "https://example.test/source"},
                 {"id": "bad", "verdict": "REJECTED", "quote": "Unsupported words"}]}))
             (root / "report_card.json").write_text('{"ship":true,"score":10}')
+            film = root / 'cinema/hero.mp4'; film.write_bytes(b'current encoded film fixture')
             context = av.source_context(root / "cinema/hero.mp4")
             self.assertIn("not proof of what was spoken", context)
             self.assertIn(av.digest(root / "vo_script.txt"), context)
             self.assertIn("Delivery would cease.", context)
             self.assertNotIn("Unsupported words", context)
             self.assertNotIn('"ship": true', context)
+            self.assertIn(av.digest(film), context)
+            self.assertIn('do not guess a hash', context)
+            film.write_bytes(b'different encoded film fixture')
+            self.assertNotEqual(context, av.source_context(film))
 
     def test_hero_scope_does_not_require_complete_film_credits(self):
         hero = av.review_prompt("hero")

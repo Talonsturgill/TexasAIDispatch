@@ -62,6 +62,25 @@ python scripts/daily_production.py --board out/dispatch/storyboard.json --claims
 Generate corresponding story and sound packets. For current agent-runtime editions, prepare
 all three explicit isolated assignments, then execute them under the existing atomic panel:
 
+For a Claude-native cut, its Read-only judges need the complete current motion-image sequence.
+Before building their packets, fund the complete remaining path, charge a new preflight hook
+reservation and authorize the exact wrapped command after computed headroom and housekeeping.
+The helper charges a second preflight entry before decoding. It extracts from the actual native
+film, never the authored renderer, and emits no creative verdict. Keep old blocked scores and
+unknown access findings unchanged. A new complete content review uses a fresh atomic panel,
+charged before resuming the same three workers; a refused charge never authorizes execution.
+
+```sh
+python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json
+python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --verify
+```
+
+Read every verified page in sequence before the rationale, plus the current native crops and
+separate raw audiovisual responses. Name image-sequence access and indirect sound evidence
+honestly. Require every guide, source, rights, native, audio, caption, timed modern, clause and
+shipment check under the unchanged rubric. An unknown observation stays blocking; this is media
+access recovery, never artistic deferral, a provider outage or a director's replacement verdict.
+
 ```sh
 python scripts/agent_runtime.py --plan --role picture --packet out/dispatch/picture-packet.json --task-name picture_score --scope "Independently watch the exact finished film through the picture lens and all required timed observations" --out out/dispatch/picture-assignment.json
 python scripts/agent_runtime.py --plan --role story --packet out/dispatch/story-packet.json --task-name story_score --scope "Independently watch the exact finished film through the source, narrative and comprehension lens" --out out/dispatch/story-assignment.json

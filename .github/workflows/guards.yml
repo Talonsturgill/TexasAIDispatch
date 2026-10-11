@@ -69,6 +69,9 @@ jobs:
       - name: Isolated role routing preserves evidence and honest usage
         run: python3 scripts/agent_runtime_test.py
 
+      - name: Image-only Claude review covers the exact native film
+        run: python3 scripts/claude_motion_review_test.py
+
       - name: Claude director and leaf model and effort bindings
         run: |
           python3 scripts/claude_contract_check.py --self-test
