@@ -532,6 +532,14 @@
       "note": "hero",
       "resource": "preflight_renders",
       "to": 26
+    },
+    {
+      "at": "2026-10-11T02:17:33.072569Z",
+      "ceiling": 27,
+      "from": 26,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 27
     }
   ],
   "events": [
@@ -6005,6 +6013,24 @@
       "input_identity": "3c88c1176ae06b717de9189f9855f8db0afd574643dcc820051f10f6c6738c49",
       "kind": "preflight_retry_authorized",
       "reason": "retry slot for the helper reservation after the authorized hook precharge, same sequence as r14"
+    },
+    {
+      "at": "2026-10-11T02:17:33.072602Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 27,
+      "resource": "preflight_renders",
+      "was": 26
+    },
+    {
+      "at": "2026-10-11T02:17:33.072618Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "3c88c1176ae06b717de9189f9855f8db0afd574643dcc820051f10f6c6738c49",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -6013,7 +6039,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 26,
+    "preflight_renders": 27,
     "reboards": 12,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -6026,10 +6052,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "3c88c1176ae06b717de9189f9855f8db0afd574643dcc820051f10f6c6738c49",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cc067bcbe04778b4ad135c9d706e289f11ce374a3e8cd4c2ff4ba3d2f3985494",
+    "original_private_state_sha256": "8f923dcbf8f32d99f93bc793a88a2d1f5760edfbe4dba1d77a9d1145bea2e43a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6057,14 +6082,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T02:16:30.070411Z",
+  "updated_at": "2026-10-11T02:17:33.072621Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 26,
+    "preflight_renders": 27,
     "reboards": 12,
     "reported_tokens": 63655,
     "rescue_renders": 0,
