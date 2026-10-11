@@ -143,6 +143,57 @@ function travelOf(list:Strike[],t:number):Pt{
 const typedOf=(list:Strike[],t:number)=>{const w=list.filter(s=>!s.send);return w.length?w.reduce((a,s)=>a+clamp((t-s.t)/.07),0)/w.length:0;};
 const struckOf=(list:Strike[],t:number)=>{const w=list.filter(s=>!s.send);return w.length?w.filter(s=>t>=s.t).length/w.length:0;};
 
+/** ClinicSupport's Hand wrist centre in hand-local units (the forearm sleeve starts here). */
+const HAND_WRIST:Pt=[98,232];
+const RET_S=.9, FLEX_DEG=16, WRIST_FOLLOW=.65;
+const rotPt=(v:Pt,deg:number):Pt=>{const a=deg*Math.PI/180,c=Math.cos(a),n=Math.sin(a);return [v[0]*c-v[1]*n,v[0]*n+v[1]*c];};
+const len=(v:Pt)=>Math.hypot(v[0],v[1]);
+const angDeg=(v:Pt)=>Math.atan2(v[1],v[0])*180/Math.PI;
+/**
+ * Treatment b's continuous-contact push, a pure function of the frame clock. The right hand
+ * reaches from the keys (eased), touches the card's contact point at the push window's start,
+ * keeps the index fingertip exactly on that point at every frame while the card travels on its
+ * own eased path, and after the window returns to the keys on one eased stroke. Forearm and upper
+ * arm keep their ARM_REST lengths: the shoulder (the torso, off frame) leans along a fixed
+ * direction by exactly the amount that puts it at the target wrist distance, which bends the elbow
+ * by up to FLEX_DEG, and the elbow is solved by two-bone IK on the same side as at rest. The hand
+ * turns at the wrist to follow the forearm. Finger lift and bob blend into the reach pose with an
+ * eased weight. At the window edges the pose equals the resting rig exactly.
+ */
+export function bPushArm(o:{t:number;reachFrom:number;w:Win;path:(u:number)=>Pt;rest:Pt;kbS:number;lift:number[];bob:number}){
+ const {t,reachFrom,w,path,rest,kbS:s}=o;
+ if(t<reachFrom||t>=w.end+RET_S)return null;
+ const k=t<w.start?ease((t-reachFrom)/(w.start-reachFrom)):t<w.end?1:1-ease((t-w.end)/RET_S);
+ const e=ease(k);
+ const lift=o.lift.map((l,i)=>lerp(l,[0,1,1,1][i],e)), bob=lerp(o.bob,0,e);
+ const lifted=14*clamp(bob);
+ const tL:Pt=[0,-30*clamp(lift[0])-26*k-lifted], wL:Pt=[HAND_WRIST[0],HAND_WRIST[1]-lifted];
+ const Lf=s*len(sub(ARM_REST.elbow,HAND_WRIST)), La=s*len(sub(ARM_REST.shoulder,ARM_REST.elbow));
+ const dRest=s*len(sub(ARM_REST.shoulder,HAND_WRIST)), dFlex=Math.sqrt(Lf*Lf+La*La+2*Lf*La*Math.cos(FLEX_DEG*Math.PI/180));
+ const d=lerp(dRest,dFlex,k);
+ const sBase=add(rest,scale(sub(ARM_REST.shoulder,[0,lifted]),s));
+ const dir=(()=>{const v=sub(path(1),add(rest,scale(ARM_REST.shoulder,s)));const L=len(v)||1;return scale(v,1/L);})();
+ const restAng=angDeg(sub(ARM_REST.elbow,HAND_WRIST));
+ const C=t>=w.start&&t<w.end?path(ease((t-w.start)/(w.end-w.start))):null;
+ const solve=(th:number)=>{
+  const off=scale(rotPt(tL,th),s);
+  const pos:Pt=C?sub(C,off):t<w.start?mixPt(rest,sub(path(0),off),k):mixPt(rest,sub(path(1),off),k);
+  const wrist=add(pos,scale(rotPt(wL,th),s));
+  const D=sub(sBase,wrist), b=D[0]*dir[0]+D[1]*dir[1], disc=b*b-(len(D)**2-d*d);
+  const lam=-b-Math.sqrt(Math.max(0,disc));
+  const sh=add(sBase,scale(dir,lam));
+  const u=scale(sub(sh,wrist),1/len(sub(sh,wrist))), dd=len(sub(sh,wrist));
+  const a=(Lf*Lf-La*La+dd*dd)/(2*dd), h=Math.sqrt(Math.max(0,Lf*Lf-a*a));
+  const elbow=add(add(wrist,scale(u,a)),scale([-u[1],u[0]],h));
+  return {pos,wrist,sh,elbow,disc,tip:add(pos,off),theta:WRIST_FOLLOW*(angDeg(sub(elbow,wrist))-restAng)};
+ };
+ let th=0;for(let i=0;i<6;i++)th=solve(th).theta;
+ const r=solve(th);
+ const toLocal=(q:Pt):Pt=>add(rotPt(scale(sub(q,r.pos),1/s),-th),[0,lifted]);
+ return {pos:r.pos,rot:th,reach:k,lift,bob,elbow:toLocal(r.elbow),shoulder:toLocal(r.sh),
+  tip:r.tip,contact:C,wristW:r.wrist,elbowW:r.elbow,shoulderW:r.sh,disc:r.disc,lean:sub(r.sh,sBase)};
+}
+
 export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,variant})=>{
  const ad=useArtDirection();if(!ad)throw new Error('Clinic answer film requires the executed art direction profile');
  const frame=useCurrentFrame(),{fps}=useVideoConfig(),t=frame/fps;
@@ -207,38 +258,22 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  const emit=at('s1')?clamp((t-preWin.start)/.3)*(1-clamp((t-e3.end)/.4)):0;
  const toolGlow=at('s2')?glow:at('s1')&&t>=e1.end&&ret<=0?.25+.25*Math.sin((t-e1.end)*9):0;
 
- // ---- B's push: reach, ride the card, release at speed, slow, return. The arm pivots at the elbow. ----
+ // ---- B's push: reach, touch, carry the card in continuous contact to the tool lip (s1) or the
+ // chart edge (s3), then return to the keys. bPushArm keeps both arm segments at their rest
+ // lengths by leaning the shoulder and solving the elbow; treatment a never enters it. ----
  const kbTip=(side:Side)=>add(Wd.keyboard,scale(keyTarget(keyOf(side,0)),Wd.kbS));
  const contactOf=(pt:Pt,s:number)=>placed(pt,s,Wd.qFlat,[96,150]);
- let rReach=0,rShift:Pt=[0,0];
+ const rReach=0,rShift:Pt=[0,0];
  const pushWin=v==='b'?(at('s1')?{w:e1,path:(u:number)=>contactOf(sendPos(u),lerp(Wd.qS,Wd.qS*.84,u)),reachFrom:e1.start-.22}
   :at('s3')?{w:slideWin,path:(u:number)=>contactOf(s3Pos(u),Wd.qS),reachFrom:typeWin.end+.04}:null):null;
- if(pushWin&&t>=pushWin.reachFrom){
-  const {w,path}=pushWin, dur=w.end-w.start, REL=.45, T=.28;
-  const tipAt=(u:number)=>path(ease(u));
-  const rest=kbTip('R');
-  let tip:Pt;
-  if(t<w.start){const u=ease((t-pushWin.reachFrom)/(w.start-pushWin.reachFrom));tip=mixPt(add(rest,[0,-26*Wd.kbS]),tipAt(0),u);rReach=u;}
-  else{
-   const r=raw(w);
-   rReach=1;
-   if(r<=REL)tip=tipAt(r);
-   else{
-    const tr=w.start+REL*dur, tau=Math.min(t-tr,T);
-    const vel=scale(sub(tipAt(REL+.005),tipAt(REL-.005)),1/(.01*dur));
-    tip=add(tipAt(REL),scale(vel,tau-tau*tau/(2*T)));
-    const back=clamp((t-tr-T)/.5);
-    if(back>0){tip=mixPt(tip,add(rest,[0,-26*Wd.kbS]),ease(back));rReach=1-ease(back);}
-   }
-  }
-  rShift=sub(tip,add(rest,[0,-26*Wd.kbS*rReach]));
- }
  // the send key travel moves the whole right hand across the keyboard
  const travel=scale(travelOf(list,t),Wd.kbS);
  const rMove=add(rShift,travel);
  // the elbow follows part of the hand's travel; the shoulder stays put below the frame
  const elbowR=sub(ARM_REST.elbow,scale(rMove,.65/Wd.kbS)), shoulderR=sub(ARM_REST.shoulder,scale(rMove,1/Wd.kbS));
  const handLift=(side:Side)=>[0,1,2,3].map(f=>fingerLift(list,side,f,t));
+ const bArm=pushWin?bPushArm({t,reachFrom:pushWin.reachFrom,w:pushWin.w,path:pushWin.path,rest:kbTip('R'),kbS:Wd.kbS,
+  lift:handLift('R'),bob:bobOf(list,'R',t)}):null;
  const keysDown=list.filter(s=>t>=s.t&&t<s.t+CONTACT).map(s=>s.key);
 
  // ---- the answer: it starts to show at the tool mouth while the tool reads, then slides out ----
@@ -285,8 +320,10 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const fromMouth=<g clipPath={emerging?`url(#mouth-${v})`:undefined}>{answerCard}{citations}</g>;
   const hands=handsShown&&<>
    <At p={kbTip('L')} s={Wd.kbS}><ClinicSupport part="hands" side="L" lift={handLift('L')} bob={bobOf(list,'L',t)}/></At>
-   <At p={add(kbTip('R'),rMove)} s={Wd.kbS}><ClinicSupport part="hands" side="R" lift={rReach>0?[0,1,1,1]:handLift('R')} bob={rReach>0?0:bobOf(list,'R',t)}
-    reach={rReach} elbow={elbowR} shoulder={shoulderR}/></At>
+   {bArm
+    ?<At p={bArm.pos} s={Wd.kbS} r={bArm.rot}><ClinicSupport part="hands" side="R" lift={bArm.lift} bob={bArm.bob} reach={bArm.reach} elbow={bArm.elbow} shoulder={bArm.shoulder}/></At>
+    :<At p={add(kbTip('R'),rMove)} s={Wd.kbS}><ClinicSupport part="hands" side="R" lift={rReach>0?[0,1,1,1]:handLift('R')} bob={rReach>0?0:bobOf(list,'R',t)}
+    reach={rReach} elbow={elbowR} shoulder={shoulderR}/></At>}
   </>;
   return <g data-world={v==='a'?'a-wall-chart':'b-desk-level'}>
    <defs>
@@ -484,3 +521,5 @@ export const ClinicAnswerFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
 };
 // Layout constants exported for readers of the geometry above.
 export const CLINIC_ANSWER_LAYOUT={WORLDS,HERO_SIZE};
+/** The strike rig and geometry helpers, exported for the numeric motion check (no rendering). */
+export const CLINIC_RIG={run,sendAt,fingerLift,bobOf,bez,placed,ease,lerp};
