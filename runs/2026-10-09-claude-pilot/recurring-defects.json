@@ -83,61 +83,8 @@
           }
         },
         {
-          "run_id": "2026-10-07",
-          "original_finding": {
-            "finding": {
-              "criterion": "contact_and_consequence",
-              "classification": "mandatory-physical-integrity",
-              "scene": "s2",
-              "start_s": 4.5,
-              "end_s": 11.3,
-              "problem": "The Sensor wheels are ordinary cylinders with axes along worldx, produced by rotationz=pi/2. Both substantial1.10-world comparison traverses move the fixed-heading chassis along worldx, parallel to those axles, while the modeled wheels roll alongworldz. There is no chassis steering, wheel steering, rolling-angle code or omni/mecanum running gear. The diagonalx/z return also retains that fixed heading. This depicts sideways skating rather than mechanically supported checkpoint travel. Ground contact alone does not resolve the mismatch.",
-              "effect": "The replacement principal action cannot perform its planned inspection account through credible physical locomotion. Actual travel magnitude or a passing projection cannot approve that depicted mechanism.",
-              "fix": "Make the depicted generic running gear and chassis heading support the actual comparison traverses and return. Align wheel rolling directions with the path, show appropriate steering/turning or use explicitly modeled generic omnidirectional running gear with credible wheel motion. Preserve floor contact, target stop/aim, same settled s3 position, source disclosure,82words and successful other scenes. Recheck whole occupied geometry after the mandatory mechanical correction; do not claim an actual vendor robot model."
-            },
-            "category": "runtime",
-            "basis": "This finding is a deterministic rendered runtime transform/kinematic mismatch: actual wheel axes and fixed chassis orientation do not support the callable x/diagonal displacement. It is established from component geometry and transforms, independent of palette, taste, source narration or unseen pixels. Repairing wheel orientation/steering/rolling to match the path restores mandatory physical locomotion in the existing admitted story and mechanism. Geometry projection must be rechecked after changed running gear."
-          },
-          "evidence": {
-            "path": "runs/2026-10-07/retained-reviews/critic-231780fb2211-code-v3-physical-diagnosis.json",
-            "sha256": "231780fb221104da104b4bb2b0722bb722126e272462617be33b1db6cddcf4c7"
-          }
-        },
-        {
-          "run_id": "2026-10-07",
-          "original_finding": {
-            "finding": {
-              "criterion": "contact_and_consequence",
-              "classification": "mandatory-runtime-event-consumer",
-              "scene": "s2",
-              "start_s": 4.5,
-              "end_s": 11.3,
-              "problem": "Episode passes raw sceneTime=time-scene.start_s. Action uses that raw clock for fixed caster steering holds3.6..4.5 and6.254..6.35, while its displacement/rolling uses a,b,c from actual visual-event windows. board_retime scales authored event starts/durations to measured narration but does not scale these hardcoded holds. Thus the final timed consumer can swivel casters during chassis travel or reset them to the wrong rolling plane. The present6.8second preview has aligned mechanics; this is a deterministic required-retiming consumer fault, not an observed fresh film defect.",
-              "effect": "Current preview-clock correction does not remain mechanically credible through the required measured narration retime. A current no-slip audit cannot establish the final timed action.",
-              "fix": "Bind steering intervals to current actual visual-event windows and their settle/anticipation boundaries, or consistently normalize the steering clock to the authored clock used by those events. Prove stationary steering and no-slip travel with the actual event duration mapping, including a changed duration, before paid captures. Preserve geometry, source limits, words, target poses and existing story."
-            },
-            "category": "runtime",
-            "basis": "Actual renderer mixes raw scene seconds for caster steering with automatically retimed event progress for travel/rolling. This is a deterministic consumer timing/kinematic implementation failure in the required path, independent of taste or unviewed pixels."
-          },
-          "evidence": {
-            "path": "runs/2026-10-07/retained-reviews/critic-30f9969ae078-code-v3-retiming-diagnosis.json",
-            "sha256": "30f9969ae078758e6ee45afc6092d5c629188ea9ee5fd540fdab779b1eddace7"
-          }
-        },
-        {
           "run_id": "2026-10-09",
           "original_finding": "At 00:00-12.80, the driver cab is presented as an unintegrated, square-cropped floating cutout hovering above the vehicle rather than being naturally situated within the truck cab or in a dedicated split-screen window.",
-          "evidence": {
-            "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
-            "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
-          }
-        },
-        {
-          "run_id": "2026-10-09",
-          "original_finding": {
-            "finding": "At 00:00-12.80, the driver cab is presented as an unintegrated, square-cropped floating cutout hovering above the vehicle rather than being naturally situated within the truck cab or in a dedicated split-screen window.",
-            "category": "surface_finish"
-          },
           "evidence": {
             "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
             "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
@@ -147,7 +94,7 @@
     },
     {
       "category": "finish",
-      "distinct_editions": 3,
+      "distinct_editions": 4,
       "evidence": [
         {
           "run_id": "2026-09-30",
@@ -247,6 +194,17 @@
         {
           "run_id": "2026-10-09",
           "original_finding": {
+            "finding": "At 00:00-12.80, the driver cab is presented as an unintegrated, square-cropped floating cutout hovering above the vehicle rather than being naturally situated within the truck cab or in a dedicated split-screen window.",
+            "category": "surface_finish"
+          },
+          "evidence": {
+            "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
+            "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
+          }
+        },
+        {
+          "run_id": "2026-10-09",
+          "original_finding": {
             "finding": "At 05.80-12.80, the flat profile semi-truck and the three-quarter perspective warehouse exhibit conflicting perspective projections, breaking spatial integration.",
             "category": "surface_finish"
           },
@@ -254,12 +212,34 @@
             "path": "runs/2026-10-09/retained-failures/native-first/hero-review-response.json",
             "sha256": "e2421403f12cef627ff89b3f26f8956fe125ff0572072277a898e6d609326695"
           }
+        },
+        {
+          "run_id": "2026-10-09-claude-pilot",
+          "original_finding": {
+            "finding": "s6 (about 29.4 to 33.4 s): the Answer card runs off the right edge with its Accuracy slot out of frame from 31.4 s while the Accuracy tag says Not in release, and large empty ruled paper fills the frame around it",
+            "category": "surface_finish"
+          },
+          "evidence": {
+            "path": "runs/2026-10-09-claude-pilot/report_card.json",
+            "sha256": "9b64126992115496406db90743b0d765e2a04d171322d746ff3dd31f5f483911"
+          }
+        },
+        {
+          "run_id": "2026-10-09-claude-pilot",
+          "original_finding": {
+            "finding": "Clipped leftover tag fragments at frame edges in s3, s5, s6 and s8 and a caption box overlapping an Announced tag fragment at 27.2 to 29.2 s",
+            "category": "surface_finish"
+          },
+          "evidence": {
+            "path": "runs/2026-10-09-claude-pilot/report_card.json",
+            "sha256": "9b64126992115496406db90743b0d765e2a04d171322d746ff3dd31f5f483911"
+          }
         }
       ]
     },
     {
       "category": "framing",
-      "distinct_editions": 3,
+      "distinct_editions": 2,
       "evidence": [
         {
           "run_id": "2026-09-29",
@@ -289,62 +269,6 @@
           }
         },
         {
-          "run_id": "2026-10-03",
-          "original_finding": {
-            "criterion": "caption_legibility",
-            "category": "captions",
-            "scene": "s7",
-            "start_s": 22.08,
-            "end_s": 25.0,
-            "problem": "Opaque assistance panel covers the first caption line, including the condition When AI fails, in the actual retimed film.",
-            "observed": "Continuous22.83 seconds and exact paused23.50 seconds show the Remote assistance/editorial-boundary panel painted over most of the first caption line. Only its initial W and the second line operators can take control remain readable. The source condition is hidden from muted viewers.",
-            "fix": "Place the complete assistance panel above the current two-line caption band with a clear gap, preserving readable source limitation and the original narration. Check the largest actual caption bounds in s5/s6/s7, rather than only caption fit within its own box."
-          },
-          "evidence": {
-            "path": "runs/2026-10-03/openings/caption10-phone-critic.json",
-            "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
-          }
-        },
-        {
-          "run_id": "2026-10-03",
-          "original_finding": {
-            "finding": {
-              "criterion": "caption_legibility",
-              "category": "captions",
-              "scene": "s7",
-              "start_s": 22.08,
-              "end_s": 25.0,
-              "problem": "Opaque assistance panel covers the first caption line, including the condition When AI fails, in the actual retimed film.",
-              "observed": "Continuous22.83 seconds and exact paused23.50 seconds show the Remote assistance/editorial-boundary panel painted over most of the first caption line. Only its initial W and the second line operators can take control remain readable. The source condition is hidden from muted viewers.",
-              "fix": "Place the complete assistance panel above the current two-line caption band with a clear gap, preserving readable source limitation and the original narration. Check the largest actual caption bounds in s5/s6/s7, rather than only caption fit within its own box."
-            },
-            "category": "captions"
-          },
-          "evidence": {
-            "path": "runs/2026-10-03/openings/caption10-phone-critic.json",
-            "sha256": "06930a1c988dfd835c1e18c41e35e3776efea15be5b4c852a827f3bf64261218"
-          }
-        },
-        {
-          "run_id": "2026-10-06",
-          "original_finding": {
-            "finding": {
-              "phone_observation": "subject_recognition",
-              "observation": {
-                "pass": false,
-                "start_s": 0,
-                "end_s": 12,
-                "observed": "Glass is recognizable, but at 1.5 seconds the held cube and pads are mostly outside the left edge; at 4.6 and 11.9 seconds the solid cargo remains severely clipped. A cropped arm base alone would be acceptable; missing cargo is not."
-              }
-            },
-            "category": "layout"
-          },
-          "evidence": {
-            "path": "runs/2026-10-06/retained-reviews/dispatch/repairs/05-phone-framing/openings/a-phone-critic.json",
-            "sha256": "1567f0b3dac2830450ec2a47d6fc2dfde09dbe35c2da009fdcd167211889d5d5"
-          }
-        },
-        {
           "run_id": "2026-10-06",
           "original_finding": {
             "phone_observation": "subject_recognition",
@@ -364,8 +288,41 @@
     },
     {
       "category": "motion",
-      "distinct_editions": 4,
+      "distinct_editions": 6,
       "evidence": [
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "finding": "At 3.26-4.65 and 10.49-11.94 seconds, the principal diagram area is empty before simple peer boxes fade in, adding setup time without a corresponding visual payoff.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/report_card.json",
+            "sha256": "92082038291a53321ffe490a2564a3d5b1b107df28965239097ddb0f8dc06c4e"
+          }
+        },
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "finding": "At 3.26 to 7.01 seconds, the city sequence waits before revealing its labels over a vacant principal picture; the delayed setup adds no viewer reward.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/report_card.json",
+            "sha256": "92082038291a53321ffe490a2564a3d5b1b107df28965239097ddb0f8dc06c4e"
+          }
+        },
+        {
+          "run_id": "2026-09-29",
+          "original_finding": {
+            "finding": "3.26s to 4.65s and 10.49s to 11.94s leave the principal picture area empty before the city and analysis labels appear, spending setup time without a visible development.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-29/report_card.json",
+            "sha256": "92082038291a53321ffe490a2564a3d5b1b107df28965239097ddb0f8dc06c4e"
+          }
+        },
         {
           "run_id": "2026-09-30",
           "original_finding": {
@@ -386,6 +343,39 @@
           "evidence": {
             "path": "runs/2026-09-30/cinema/story-review-response.json",
             "sha256": "c92b8d2aef8b2ad31d7c9c9fdd7e018f8e4237fff2d396b082f9b7309ffa0e9a"
+          }
+        },
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "From 34.26s to 44.0s, the camera, empty record and separator repeat an already established comparison across the last two scenes, stalling the answer before credits.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/report_card.json",
+            "sha256": "c5e72ac47292c3cdeeb77a1a52534f9f6b9830e53a06e359de4246513f7e9262"
+          }
+        },
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "34.26-44.00s repeats the installed-camera versus blank-detection separation across two closing scenes without a new consequence, weakening the final payoff.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/report_card.json",
+            "sha256": "c5e72ac47292c3cdeeb77a1a52534f9f6b9830e53a06e359de4246513f7e9262"
+          }
+        },
+        {
+          "run_id": "2026-09-30",
+          "original_finding": {
+            "finding": "From 34.26 to 42.47 seconds, the installed-camera symbol and empty detection record repeat the earlier 18.70 to 28.09 comparison; the closing separation adds little beyond the already understood reporting gap.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-09-30/report_card.json",
+            "sha256": "c5e72ac47292c3cdeeb77a1a52534f9f6b9830e53a06e359de4246513f7e9262"
           }
         },
         {
@@ -430,27 +420,6 @@
         {
           "run_id": "2026-10-07",
           "original_finding": {
-            "finding": {
-              "criterion": "runtime",
-              "classification": "mandatory-scene-ceiling",
-              "scene": "s6",
-              "start_s": 28.36,
-              "end_s": 38.5,
-              "problem": "The current measured closing scene runs10.14seconds, exceeding the unchanged9.5second absolute storyboard ceiling. Timed preflight correctly refuses before capture. A consolidated actual cheap sweep identifies no other current timing, board, scale, source, caption-fold, flow, daily-action or creative-plan failure.",
-              "effect": "Current narration-aligned board cannot enter required final phone capture. Earlier documentary duration/cadence repairs do not satisfy this separate ceiling.",
-              "fix": "Trim only0.64seconds from the idle ending hold: s6duration9.5, storyruntime37.86, preserve5secondcredits for total42.86. Keep existing actual three closing-event windows and regenerate their authored clock values against the9.5second scene duration so repeated retime preserves them. Preserve all82words and actual voice placement. Rebuild the mix/media duration and receipts for42.86, then verify actual final timed phone and required audiovisual gates. No split is required once the actual scene falls within the fixed ceiling."
-            },
-            "category": "runtime",
-            "basis": "The exact actual scene duration violates the mandatory runtime ceiling. Removing an idle post-action hold preserves all spoken content, picture actions, source relations and geometry while restoring the fixed structural contract; no rubric change or optional art expansion is authorized."
-          },
-          "evidence": {
-            "path": "runs/2026-10-07/retained-reviews/critic-443dbb7ea34a-timed-scene-ceiling-diagnosis.json",
-            "sha256": "443dbb7ea34a47e29b3ea581bb2f80408933d39b3d59c53a0534a081c332bfdd"
-          }
-        },
-        {
-          "run_id": "2026-10-07",
-          "original_finding": {
             "criterion": "runtime",
             "classification": "mandatory-event-cadence",
             "scene": "s6",
@@ -466,43 +435,36 @@
           }
         },
         {
-          "run_id": "2026-10-07",
+          "run_id": "2026-10-09-claude-pilot",
           "original_finding": {
-            "finding": {
-              "criterion": "runtime",
-              "classification": "mandatory-directed-event-duration",
-              "scene": "s2,s6",
-              "problem": "Required board_retime scaled s2 event durations1.2 to1.221 and s6 event durations1.0 to1.237. All six exceed the unchanged documentary directed maximum1.2 seconds. Actual timed preflight refused before rendering.",
-              "effect": "The current narration-aligned board cannot enter its required phone capture despite successful earlier silent films.",
-              "fix": "Preserve the actual narration-aligned scene starts/durations, geometry, source claims and words. Reduce each of these six actual event durations to1.2 seconds and update authored durations by the actual scene retime ratio so a subsequent retime derives the same valid windows."
-            },
-            "category": "runtime",
-            "basis": "Required automatic event retiming produced concrete event durations/spacing outside the fixed preflight runtime contract. This correction adjusts only the bound event clocks, preserves the successful source-supported mechanism and narration, and restores admission without changing any gate or adding optional artistic scope."
+            "finding": "s2 (about 7.0 to 10.5 s) is nearly static, with only the date underline drawing, while an idle cropped hand with three raised fingers sits at bottom left for about 4.5 s",
+            "category": "pacing"
           },
           "evidence": {
-            "path": "runs/2026-10-07/retained-reviews/critic-4f3259472eb5-timed-preflight-runtime-diagnosis.json",
-            "sha256": "4f3259472eb5ed8c960da3575fcb69cf9aeae24e300c1d4a5edc4fbb03648c99"
+            "path": "runs/2026-10-09-claude-pilot/report_card.json",
+            "sha256": "9b64126992115496406db90743b0d765e2a04d171322d746ff3dd31f5f483911"
           }
         },
         {
-          "run_id": "2026-10-07",
+          "run_id": "2026-10-09-claude-pilot",
           "original_finding": {
-            "finding": {
-              "criterion": "runtime",
-              "classification": "mandatory-event-cadence",
-              "scene": "s6",
-              "start_s": 32.01,
-              "end_s": 36.645,
-              "problem": "The actual s6 second-event start32.01 and third-event start36.645 leave4.635 seconds between declared viewer rewards, exceeding the unchanged4.0second gate. This is the exact measured preflight timing failure, not a judgment from an unseen timed movie.",
-              "effect": "The last open-flag action cannot remain on its current event clock under the required cadence contract.",
-              "fix": "Move only the current source-supported final open-flag settle to s6 local7.5 seconds, absolute35.86, where the final sentence begins. Keep the unresolved flag and empty checker outcome, with a1.2second action ending37.06. Update its authored at_s by the actual retime ratio; preserve total43.5seconds and existing audio/script."
-            },
-            "category": "runtime",
-            "basis": "Required automatic event retiming produced concrete event durations/spacing outside the fixed preflight runtime contract. This correction adjusts only the bound event clocks, preserves the successful source-supported mechanism and narration, and restores admission without changing any gate or adding optional artistic scope."
+            "finding": "Weak interval 6.8 to 10.0 s: the Announced September 22nd tag sits still while only an underline draws for about 3 s, and the hands freeze.",
+            "category": "pacing"
           },
           "evidence": {
-            "path": "runs/2026-10-07/retained-reviews/critic-4f3259472eb5-timed-preflight-runtime-diagnosis.json",
-            "sha256": "4f3259472eb5ed8c960da3575fcb69cf9aeae24e300c1d4a5edc4fbb03648c99"
+            "path": "runs/2026-10-09-claude-pilot/report_card.json",
+            "sha256": "9b64126992115496406db90743b0d765e2a04d171322d746ff3dd31f5f483911"
+          }
+        },
+        {
+          "run_id": "2026-10-09-claude-pilot",
+          "original_finding": {
+            "finding": "Near-static holds with only glow or a pulse: 18.6 to 21.8 s (citation cards), 25.4 to 27.0 s (clinical decision support tag), 41.0 to 44.0 s. The final hold plus the 5 s credits card makes a slow tail.",
+            "category": "pacing"
+          },
+          "evidence": {
+            "path": "runs/2026-10-09-claude-pilot/report_card.json",
+            "sha256": "9b64126992115496406db90743b0d765e2a04d171322d746ff3dd31f5f483911"
           }
         }
       ]
@@ -514,17 +476,6 @@
         {
           "run_id": "2026-09-29",
           "original_finding": "At 03.200, simple generic outline boxes substitute for concrete visual depiction of study sites.",
-          "evidence": {
-            "path": "runs/2026-09-29/cinema/picture-review-response.json",
-            "sha256": "c358edc0d96dd94fa4a5deb282e3f877df8e86d34e91f0c4e760240e78c5b83f"
-          }
-        },
-        {
-          "run_id": "2026-09-29",
-          "original_finding": {
-            "finding": "At 03.200, simple generic outline boxes substitute for concrete visual depiction of study sites.",
-            "category": "motion"
-          },
           "evidence": {
             "path": "runs/2026-09-29/cinema/picture-review-response.json",
             "sha256": "c358edc0d96dd94fa4a5deb282e3f877df8e86d34e91f0c4e760240e78c5b83f"
