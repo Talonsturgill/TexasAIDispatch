@@ -484,6 +484,14 @@
       "note": "technical-integrity correction: music credit on the closing card and sfx dur_s record (report 27 R1 rights, T1 technical_audio)",
       "resource": "reboards",
       "to": 12
+    },
+    {
+      "at": "2026-10-11T02:03:25.700145Z",
+      "ceiling": 27,
+      "from": 21,
+      "note": "measured-clock quarter-scale animatic hook precharge including the closing music credit (technical-integrity correction)",
+      "resource": "preflight_renders",
+      "to": 22
     }
   ],
   "events": [
@@ -5825,6 +5833,24 @@
       "repair_revision": "69d2b201a7be65dfb112ddfe235b4badbb003df7db7c26e16b27cbae3cb97d60",
       "repair_scope": "technical-integrity",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-11T02:03:25.700218Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "measured-clock quarter-scale animatic hook precharge including the closing music credit (technical-integrity correction)",
+      "now": 22,
+      "resource": "preflight_renders",
+      "was": 21
+    },
+    {
+      "at": "2026-10-11T02:03:25.700235Z",
+      "kind": "reserved",
+      "note": "measured-clock quarter-scale animatic hook precharge including the closing music credit (technical-integrity correction)",
+      "preflight_identity": "47075ac1e9474d43f73cd6ce3c8d046349b22a3258dc99c54b494c0fc91f8866",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5833,7 +5859,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 21,
+    "preflight_renders": 22,
     "reboards": 12,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -5849,7 +5875,7 @@
   "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "5856b066ed9c8bb45b351c9c2938e476cdce031c8fb59df6dcbd39cbeb64d60f",
+    "original_private_state_sha256": "4dc5c30bbf64bafbe2cbe3e3f4812da8924770d251b403e4bf075aaec2128a9a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5877,14 +5903,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T02:02:55.943672Z",
+  "updated_at": "2026-10-11T02:03:25.700238Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 21,
+    "preflight_renders": 22,
     "reboards": 12,
     "reported_tokens": 63655,
     "rescue_renders": 0,
