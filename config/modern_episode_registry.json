@@ -390,6 +390,187 @@
         }
       },
       "mechanism_id": "freight-grounded-arrival-v2"
+    },
+    "clinic-answer-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "flow-wide",
+        "desk-close",
+        "chart-boundary",
+        "credential-gate",
+        "citation-stack",
+        "source-types",
+        "share-grid",
+        "unmeasured-card",
+        "answer-close"
+      ],
+      "subject": "A UTMB clinician's question going into the OpenEvidence tool at the edge of one patient chart and the one cited answer that returns, with the measures the release does not publish",
+      "note": "Fresh authored Claude-lane episode for 2026-10-09-claude-pilot, repairs 1 and 2 (second revision rebuilt the citation fan order, full arms that leave the frame, tool-mouth clipping and per-shot cameras). Hero ChartHero (chart, one question, one answer with Sources and Accuracy slots, one citation set, pinned tags) and support ClinicSupport (room, desk, anonymous scrub-sleeved hands, keyboard, masked credential, boundary lock, OpenEvidence tool, usage share) are original React and SVG groups shared by both treatments. A stages a wall chart with a left-to-right flow from a higher camera; B stages the same actions at desk height. Disclosed illustration, no real interface, logo, face, identity or patient detail.",
+      "narration_views": {
+        "flow-wide": {
+          "subject_ids": [
+            "question-card",
+            "hands",
+            "keyboard",
+            "openevidence-tool",
+            "answer-card",
+            "citation-cards",
+            "chart",
+            "record-boundary"
+          ],
+          "action_ids": [
+            "send-question",
+            "return-answer"
+          ]
+        },
+        "desk-close": {
+          "subject_ids": [
+            "question-card",
+            "hands",
+            "keyboard",
+            "openevidence-tool",
+            "answer-card",
+            "citation-cards",
+            "chart"
+          ],
+          "action_ids": [
+            "send-question",
+            "return-answer",
+            "type-question"
+          ]
+        },
+        "chart-boundary": {
+          "subject_ids": [
+            "record-boundary",
+            "openevidence-tool",
+            "chart",
+            "date-tags"
+          ],
+          "action_ids": [
+            "enter-record",
+            "mark-live"
+          ]
+        },
+        "credential-gate": {
+          "subject_ids": [
+            "credential-field",
+            "record-lock",
+            "hands",
+            "keyboard",
+            "record-boundary",
+            "chart"
+          ],
+          "action_ids": [
+            "sign-in"
+          ]
+        },
+        "citation-stack": {
+          "subject_ids": [
+            "citation-cards",
+            "answer-card",
+            "source-types"
+          ],
+          "action_ids": [
+            "return-citations"
+          ]
+        },
+        "source-types": {
+          "subject_ids": [
+            "citation-cards",
+            "source-types",
+            "answer-card",
+            "accuracy-slot"
+          ],
+          "action_ids": [
+            "name-source-types",
+            "trace-citation"
+          ]
+        },
+        "share-grid": {
+          "subject_ids": [
+            "clinician-tokens",
+            "decision-tag",
+            "report-tag",
+            "evaluation-tag",
+            "chart",
+            "openevidence-tool"
+          ],
+          "action_ids": [
+            "show-usage",
+            "keep-evaluating"
+          ]
+        },
+        "unmeasured-card": {
+          "subject_ids": [
+            "report-tag",
+            "clinician-tokens",
+            "unmeasured-tags",
+            "answer-card",
+            "accuracy-slot"
+          ],
+          "action_ids": [
+            "attribute-report",
+            "show-limit"
+          ]
+        },
+        "answer-close": {
+          "subject_ids": [
+            "answer-card",
+            "accuracy-slot",
+            "citation-cards",
+            "source-types",
+            "unmeasured-tags",
+            "evaluation-tag",
+            "chart",
+            "openevidence-tool"
+          ],
+          "action_ids": [
+            "trace-citation",
+            "withhold-verdict",
+            "keep-evaluating"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+          "export": "ChartHero",
+          "views": [
+            "flow-wide",
+            "desk-close",
+            "chart-boundary",
+            "credential-gate",
+            "citation-stack",
+            "source-types",
+            "share-grid",
+            "unmeasured-card",
+            "answer-close"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+          "export": "ClinicSupport",
+          "views": [
+            "flow-wide",
+            "desk-close",
+            "chart-boundary",
+            "credential-gate",
+            "citation-stack",
+            "source-types",
+            "share-grid",
+            "unmeasured-card",
+            "answer-close"
+          ]
+        }
+      ],
+      "mechanism_id": "clinic-cited-answer-v1"
     }
   }
 }

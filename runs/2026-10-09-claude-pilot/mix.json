@@ -1,0 +1,151 @@
+{
+  "duration_s": 49.0,
+  "cut_s": 49.0,
+  "peak_dbfs_premaster": -1.32,
+  "lufs_premaster": -19.8,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.14,
+  "lufs_shortfall_db": 0.14000000000000057,
+  "crest_factor_db": 18.48,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.32,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 3
+    },
+    {
+      "id": "thinking_music",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 20.0,
+      "source_lufs": -24.1,
+      "gain_db": -15.69
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "thinking_music",
+  "bed_gap_below_voice_db": 20.0,
+  "bed_source_lufs": -24.1,
+  "bed_gain_db": -15.69,
+  "sfx_events": 3,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -18.54,
+      "true_peak_dbtp": -0.0
+    },
+    "after": {
+      "integrated_lufs": -16.14,
+      "true_peak_dbtp": -1.97
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.530000000000001:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.61:measured_TP=-3.43:measured_LRA=17.20:measured_thresh=-34.85:offset=1.06",
+    "measurement": {
+      "input_i": "-23.61",
+      "input_tp": "-3.43",
+      "input_lra": "17.20",
+      "input_thresh": "-34.85",
+      "output_i": "-16.02",
+      "output_tp": "-2.00",
+      "output_lra": "3.50",
+      "output_thresh": "-26.77",
+      "normalization_type": "dynamic",
+      "target_offset": "0.49"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.47,
+          "true_peak_dbtp": -1.97
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.61:measured_TP=-3.43:measured_LRA=17.20:measured_thresh=-34.85:offset=0.94"
+      },
+      {
+        "requested_lufs": -15.530000000000001,
+        "measured": {
+          "integrated_lufs": -16.14,
+          "true_peak_dbtp": -1.97
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.530000000000001:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.61:measured_TP=-3.43:measured_LRA=17.20:measured_thresh=-34.85:offset=1.06"
+      }
+    ],
+    "correction": null,
+    "samples": 2352000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "428dd845b5625aaa35676469c195f569cce2776b86f165e091707419be48caa8",
+  "sound_direction_sha256": "18935506c66d44d65910df5bdb7441ad01349981c21673e890a56c15c543de2f",
+  "sound_cues": [
+    {
+      "id": "card-slide",
+      "event_id": "s1-event-1",
+      "role": "contact",
+      "duration_s": 0.5,
+      "intent": "A soft paper slide follows the question card into the OpenEvidence tool mouth.",
+      "provenance": "Original designed paper foley, no recorded clinic audio.",
+      "at_s": 0.4216
+    },
+    {
+      "id": "cards-tuck",
+      "event_id": "s1-event-3",
+      "role": "contact",
+      "duration_s": 0.40000000000000036,
+      "intent": "A light card tap marks the citation cards tucking into the answer Sources slot.",
+      "provenance": "Original designed card foley.",
+      "at_s": 4.0672
+    },
+    {
+      "id": "lock-open",
+      "event_id": "s3-event-1",
+      "role": "contact",
+      "duration_s": 0.3000000000000007,
+      "intent": "A soft designed latch click marks the health record lock opening after the masked credential.",
+      "provenance": "Original designed foley, not a recording of any real system.",
+      "at_s": 13.356000000000002
+    },
+    {
+      "id": "limit-quiet",
+      "event_id": "s6-event-2",
+      "role": "quiet",
+      "duration_s": 1.1999999999999993,
+      "gain": 0.3,
+      "intent": "Pull the music back while the accuracy and patient care tags clip onto the answer.",
+      "provenance": "Authored event-clock background contrast.",
+      "at_s": 29.99
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "card-slide",
+      "sha256": "d67c2f47deb70c1580f517af0ab93ecc1800bdeec371d95e37f2fad7fe7bc244"
+    },
+    {
+      "id": "cards-tuck",
+      "sha256": "a5e14f8d63259e2aaa0dc4075ec0fdce4ab985545d73e4c647d6b6d251095a19"
+    },
+    {
+      "id": "lock-open",
+      "sha256": "fecaed1c31d94a158b7b4b0bd7c9f108944af4cab01d9b8ffa415f63b2446883"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "18a2af1e753896f07e16ba206e15d395b520a89540edcee1d9286250c0eb2346",
+  "bed_source_sha256": "891d3ea47e443e590a6562a1e2bff37c8830817b3cdf604091f92bfe87e5cc4f",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "3256c3d2cd34ded9af7e609ac4c19cdd9b3d4b8101a285671c9fd6c332b62bbf",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2352000
+}
