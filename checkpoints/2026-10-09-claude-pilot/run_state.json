@@ -492,6 +492,14 @@
       "note": "measured-clock quarter-scale animatic hook precharge including the closing music credit (technical-integrity correction)",
       "resource": "preflight_renders",
       "to": 22
+    },
+    {
+      "at": "2026-10-11T02:03:50.336691Z",
+      "ceiling": 27,
+      "from": 22,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 23
     }
   ],
   "events": [
@@ -5851,6 +5859,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-11T02:03:50.336722Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 23,
+      "resource": "preflight_renders",
+      "was": 22
+    },
+    {
+      "at": "2026-10-11T02:03:50.336736Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "691faaeb64378b6ae10efd92112adbf987d91035a06e840e517e5efb6ce5dafe",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5859,7 +5885,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 22,
+    "preflight_renders": 23,
     "reboards": 12,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -5875,7 +5901,7 @@
   "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4dc5c30bbf64bafbe2cbe3e3f4812da8924770d251b403e4bf075aaec2128a9a",
+    "original_private_state_sha256": "859dfd418da89ca16ccadd9ad85f7d182e1fff297b0d44650a3eb23f911cef3a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5903,14 +5929,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T02:03:25.700238Z",
+  "updated_at": "2026-10-11T02:03:50.336739Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 22,
+    "preflight_renders": 23,
     "reboards": 12,
     "reported_tokens": 63655,
     "rescue_renders": 0,
