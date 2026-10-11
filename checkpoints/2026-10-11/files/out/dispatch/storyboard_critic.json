@@ -1,0 +1,25 @@
+{
+ "review_scope": "code-plan-two-treatment-rereview",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-11T11:00:00Z",
+ "renderer_sha256": "d51d82d202887bb6e27f26fda8deff64043197b686d4ab13da6ea51e9e413877",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "treatment": "b",
+ "verdict": "pass",
+ "concept_sha256": "4ad47bb3481ba581f4b374be644cac397b82217ad6b8e50463273debc6a5d78c",
+ "weakest_frame": "s3-shot-2 flag-message, 13.775-15.39 s. The card shrinks into a truck at scale 0.26 standing on the same baseline as a tower at scale 0.2 that is not grounded. The truck is about 28 percent of the tower's height and the destination is about 70 phone px wide.",
+ "strongest_frame": "s3-shot-3 crew-phone in the cab, 15.39-17.0 s. The card enters through the windshield and continues as the dash-phone bubble at the same point and scale, then buzzes.",
+ "notes": "D1, D2, D3, D4, D8 and D9 are verified fixed. No mandatory criterion fails at code scope. Phone review must check the s1 panorama pan per frame, the s1-shot-2 pull-back over a plate that only dollies, the s3-shot-2 tower out of scale with the truck, and the s8-shot-1 Expected tag near the frame edge.",
+ "blocking_defects": [],
+ "story_review": {
+  "story_sha256": "840a769c77febfaea45c7ce05fabab452e5e468b206aafa3d6702c050a2e58c6",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain from code, not observed. A camera head atop a tower turns while its round display pans the dry land, then pulls back to the whole tower and its ring. 16 of 56 lens rings light. In the display a plume rises and a flag locks on it. An alert card slides out to a truck below and lands as a bubble on the dash phone inside the cab. The dash clock shows a hatched window up to ten minutes marked estimated. In the display the plume keeps burning under the locked flag. Wide, a dashed line from the truck stops short of a fire-station badge. A calendar clipped under the visors has no red mark. A blank record lies on the tailgate. The plan folder waits on state approval above the display, the landed alert and the open line.",
+  "opening_to_ending": "Opens on what the camera sees, answers by about 17 s with the alert in the crew truck, carries the same truck through the limits, and ends on a composite that restates the answer under the pending plan.",
+  "weakest_transition": "s2 to s3: from a wall-view count card straight back into the display with no physical bridge. Acceptable because the display was established in s1."
+ },
+ "action_reviews": []
+}

@@ -1,41 +1,29 @@
 {
- "review_scope": "code-plan-two-treatment-comparison",
- "verdict": "revise",
+ "review_scope": "code-plan-two-treatment-rereview",
  "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
- "reviewed_at": "2026-10-11T09:30:00Z",
- "renderer_sha256": "4215726cbe525c2d52ed55e83e7431dea26dabc676c22a7661d54ecf2303f47c",
+ "reviewed_at": "2026-10-11T11:00:00Z",
+ "renderer_sha256": "d51d82d202887bb6e27f26fda8deff64043197b686d4ab13da6ea51e9e413877",
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
  "treatment": "a",
- "concept_sha256": "1e54baf3a16bef1c13a6a09bbf91ef23f2dd530177faec94a85c3a57588ae75c",
- "weakest_frame": "s5-shot-2 open-line, 25.025-28.5 s, the performed turn. A gloved hand holding a phone hangs in the sky over a miniature plains scene; its sleeve ends mid-frame so a cut-off forearm floats, and the dashed line toward responders starts from that hand.",
- "strongest_frame": "s1-shot-1 tower-sweep, 0-2.5 s. The whole lattice tower stands on the rolling-plains ground and its head turns a full circle with the beam leaving a dashed watch ring. Runner-up s3-shot-3, the falling card becoming the phone bubble continuously.",
- "notes": "Format: news report, explanatory animation, mechanism-led. Five defects block A in executable code or plan: the beam is misaimed in the hero passage, the sleeve is cut off and a gloved hand floats in the performed-turn shot, the equipment shelter slides across the ground during the s6 pan, the estimate and attribution tags blink out across two cuts, and the closing image is a large static desk inset that does not show the answer. Two shared defects also block: the county locator rings Taylor County although no source names a county, and the record desk and commission desk are the same drawing. Both treatments REVISE; if A's defects are corrected select A.",
+ "verdict": "revise",
+ "concept_sha256": "49bb39c0be97818d18763fa40427ba6d35fa712f119ce316f165400a8084056a",
+ "weakest_frame": "Cut from s5-shot-1 to s5-shot-2 at 25.025 s. The same plains layout pushes in 8 percent, the windmill vanishes, and the truck, fire station, landed alert and badge appear in place.",
+ "strongest_frame": "s3-shot-1 plume-flag, 10.5-13.775 s. The beam crosses the land onto the fire base and the flag box closes on the smoke.",
+ "notes": "All seven round-one A blockers D1 to D7 are verified fixed in code. One new continuity defect R1 comes from the open-line rework. Non-blocking: watch dial wider than the forearm, truck geography flips sides, the fast 1.14 s opening revolution needs a phone check.",
  "blocking_defects": [
-  "D1 closing_payoff and legibility. 39.0-44.0 s: last image is a static desk inset with 6-9.5 px labels at 390 px width, covering the tower base; neither the landed alert nor the open line appears although closing_state promises them.",
-  "D2 continuity and source limit. 2.0-8.1 s: CountyLocator rings Taylor County while the page names no county; the only disclosure sits in the end credits.",
-  "D3 continuity. The tag on screen at the end of one shot disappears in the next and drops in again: Estimated within ten minutes around 18.7-20.7 s and Per AEP's wildfire lead around 30.9-33.2 s.",
-  "D4 continuity (false implied identity and cause). s7 and s8 use the same Desk with stamp rack for the unpublished response record and the commission desk, and the s7 to s8 because asserts an unsupported cause.",
-  "D5 contact and dominant action, hero s3-event-1, 11.59-12.77 s: plume-flag aims the beam at WORLD.a.plume[0]+50 but the view draws the plume elsewhere, so the beam lands 130-280 px right of the fire base.",
-  "D6 subject recognition and contact (disconnected limb). Glove sleeve ends above the frame bottom at 15.39-17.0 s and in s5 open-line 25.0-28.5 s a gloved hand and phone hover over the landscape.",
-  "D7 contact (support). s6 launch-calendar 29.03-31.25 s: translate(offX) slides the shelter base across the ground while the plate does not pan; the strip drifts on its wall."
+  "R1 continuity, 25.025 s cut. plume-hold and open-line render the same plains layout at nearly the same framing; the windmill disappears and the truck, station, landed alert and badge appear with no motivation."
  ],
  "story_review": {
-  "story_sha256": "2e98c9ad91eebcb9acd6a5615bee1cefceff52098b2bb052a9ee3f42162e9184",
+  "story_sha256": "0ac062b246421e5112010db6fb7c198b69c2e48e6b059e9080b8701d52c920ab",
   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
   "claims_sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
   "verdict": "revise",
   "blocking_defects": [
-   "D1",
-   "D2",
-   "D3",
-   "D4",
-   "D5",
-   "D6",
-   "D7"
+   "R1"
   ],
-  "one_viewing_summary": "Intended chain from code, not observed pixels. A lattice tower turns its camera head a full circle. A card lights 16 of 56 tower slots with a planned by February 2027 tag. A beam crosses the land, a flag box locks on a small plume and an alert card travels down the tower to a gloved crew phone. A watch opens an estimated ten-minute window. The plume keeps burning and a dashed line toward a fire-station badge stops short under Can share. A calendar since launch has no red mark. A blank response record's How much sooner field stays empty. The filed plan folder waits with an open state-approval slot while the tower sweeps above.",
-  "opening_to_ending": "The film opens on what the tower camera does and by about 17 s answers what happens next, a text reaches the utility's crew, then gives the limits and next step. The final frame is a static desk inset with tiny labels that shows neither the landed alert nor the open line.",
-  "weakest_transition": "s7 to s8. The blank response record and the commission plan folder sit on the identical desk and the contract because says the plan waits because no record is published. Sources support neither."
+  "one_viewing_summary": "Intended chain from code, not observed. A lattice tower's camera spins once and leaves a watch ring. 16 of 56 slots light. At the tower's foot the beam finds a plume and a flag locks. An alert card leaves the head, runs down the coax toward a distant truck and lands as a bubble on a gloved crew phone. A watch shows a hatched window up to ten minutes marked estimated. The beam holds on the still-burning plume. From the truck a dashed line stops short of a fire-station badge. A wall calendar since launch has no red mark. A blank record on the truck's tailgate stays empty. The filed plan waits on state approval above the still-sweeping tower, the landed alert and the open line.",
+  "opening_to_ending": "Opens on the camera watching all the way around, answers by about 17 s that a text reaches the utility's crew, then gives the limits and closes on a composite that shows the answer under the pending plan.",
+  "weakest_transition": "s5-shot-1 to s5-shot-2 (R1): the same world with the windmill swapped for a station and truck."
  },
  "action_reviews": []
 }
