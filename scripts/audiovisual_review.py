@@ -204,7 +204,8 @@ def source_context(film):
         return ""
     claims = json.loads(files["claims.json"].read_text())
     rows = claims.get("claims", []) if isinstance(claims, dict) else claims
-    context = {"bindings": {name: digest(p) for name, p in files.items()},
+    context = {"film_sha256": digest(film),
+               "bindings": {name: digest(p) for name, p in files.items()},
                "authored_transcript": files["vo_script.txt"].read_text(),
                "fetched_source_excerpts": [{k: row.get(k) for k in ("id", "quote", "url", "scope_note")}
                    for row in rows if row.get("verdict") == "VERIFIED"]}
@@ -220,7 +221,9 @@ def source_context(film):
         context['craft_guides'] = {str(p.relative_to(art_direction.REPO)): p.read_text() for p in readings}
         context['craft_guides_sha256'] = {str(p.relative_to(art_direction.REPO)): digest(p) for p in readings}
     return ("\nEvidence for independent cross-checking follows. The authored transcript is not proof of "
-            "what was spoken: compare it with audible words. Do not guess a spoken mechanical noun from "
+            "what was spoken. Use the supplied film_sha256 as the machine identity in all returned "
+            "film binding fields; do not guess a hash from the pictured content. It supplies no verdict. "
+            "Compare it with audible words. Do not guess a spoken mechanical noun from "
             "the picture. Compare causal statements with the fetched excerpts and preceding film context. "
             "These inputs do not supply a pass, score or artistic verdict. Report actual discrepancies.\n"
             + json.dumps(context, ensure_ascii=False))

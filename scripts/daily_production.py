@@ -459,6 +459,19 @@ def packet(board_path, claims_path, role, state_path=None):
                 data["opening_" + name.split(".")[0]] = {"path": str(path.resolve()), "sha256": digest(path)}
     if role in ("picture", "story", "sound"):
         root = Path(board_path).parent
+        if claude_route:
+            import claude_motion_review
+            sequence = root / 'motion-review' / 'index.json'
+            errors = claude_motion_review.problems(sequence, board_path, root / 'film.mp4')
+            if errors:
+                raise ValueError('; '.join(errors))
+            data['motion_sequence'] = {'path': str(sequence.resolve()), 'sha256': digest(sequence)}
+            data['instructions'] += (' This Claude image-only assignment reviews the entire encoded film through '
+                'the bound motion sequence. Read every page in index order before reading the director rationale. '
+                'Use native timestamps, the actual native crops and your separate raw audiovisual response. '
+                'Record this image-sequence basis and no direct playback or listening. All current guides, '
+                'seven modern observations, clause observations and honest independent judgment remain required. '
+                'Do not infer a pass from extraction or provider approval; unproven observations remain blocking.')
         for key, name in (("film", "film.mp4"), ("av_receipt", f"cinema/{role}-review.json"),
                           ("attention_player", "attention-review.html"), ("feed", "feed-composite.png")):
             p = root / name
