@@ -540,6 +540,14 @@
       "note": "finished cinematic hero and stage ablation batch",
       "resource": "preflight_renders",
       "to": 27
+    },
+    {
+      "at": "2026-10-11T02:21:02.684687Z",
+      "ceiling": 14,
+      "from": 2,
+      "note": "full native render hook",
+      "resource": "full_renders",
+      "to": 3
     }
   ],
   "events": [
@@ -6031,12 +6039,35 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-11T02:21:02.684757Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "full native render hook",
+      "now": 3,
+      "resource": "full_renders",
+      "was": 2
+    },
+    {
+      "at": "2026-10-11T02:21:02.684771Z",
+      "film_sha256": "8bb258fb728164013800abc4ff45e17596d7118c959221f170b5b1be8040b7dd",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-10-11T02:21:02.684779Z",
+      "kind": "reserved",
+      "note": "full native render hook",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
     }
   ],
   "limits": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 1,
-    "full_renders": 2,
+    "full_renders": 3,
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 27,
@@ -6054,7 +6085,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "8f923dcbf8f32d99f93bc793a88a2d1f5760edfbe4dba1d77a9d1145bea2e43a",
+    "original_private_state_sha256": "3d017cf630fcc463181e0b057b0ceee89b74e08b1d2f330e012759b519a03c0c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6082,11 +6113,11 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T02:17:33.072621Z",
+  "updated_at": "2026-10-11T02:21:02.684781Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
-    "full_renders": 2,
+    "full_renders": 3,
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 27,
