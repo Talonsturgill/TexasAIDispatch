@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "6dbe38ed32340acd309a53d30d9b401ac3ea9862cae1b9dbd27b461b7275e2c2",
+    "event_sha256": "b7a8aacd8b6ccccc6b59ed174ef941753f680cdc5a7946af8937111b96d3c279",
     "resource": "preflight_renders",
-    "at": "2026-10-11T00:17:13.153404Z",
-    "note": "fresh two-treatment silent comparison after repair 14"
+    "at": "2026-10-11T00:17:59.751166Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
@@ -158,23 +158,98 @@
   },
   "commands": [
     {
-      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-11T00:17:48.964199+00:00"
+      "id": "bd294c21e31a8b42d54ad94bee9203abe08419ff935e36a67b2275ad1778b580",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-0.png",
+      "consumed": "2026-10-11T00:25:08.594209+00:00"
+    },
+    {
+      "id": "2b7aa69396b9d2913dca6b54c7c4b2bdb80bc45e199124e6d789fe614ccd6473",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 11 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-1.png",
+      "consumed": false
+    },
+    {
+      "id": "4fd67852072e2c8e43d4e9f61c227f8bbf890590f19ec41bf953774dc98b7871",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 22 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-2.png",
+      "consumed": false
+    },
+    {
+      "id": "260101c774576c0bc97f309921d63dc41e2e1b77962e24751199fe1d632505a1",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 33 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-3.png",
+      "consumed": false
+    },
+    {
+      "id": "da771da9eda16964bbe3ccc98066d1180e51f3fe8e3fad920e65d7a089aeea8c",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 41 -i out/dispatch/openings/a.mp4 -frames:v 1 out/dispatch/phone-review-r14/a-native-41.png",
+      "consumed": false
+    },
+    {
+      "id": "6f5295febfa47f32bd537452081e5d27f2297863a94559ca84e2fd7d8ec16e0a",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 42.9 -i out/dispatch/openings/a.mp4 -frames:v 1 out/dispatch/phone-review-r14/a-native-42.9.png",
+      "consumed": false
+    },
+    {
+      "id": "dc307f3c3def6a9ae59f834e7b5d389da92cea2484a2c81870b1062fe5371b7d",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 3 -i out/dispatch/openings/a.mp4 -vf fps=4,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-hook-strip.png",
+      "consumed": false
+    },
+    {
+      "id": "7270405d63e57d29c1d9a233664f5f8e638100283dfa6bc3564c5503a2525c0f",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 12 -t 4 -i out/dispatch/openings/a.mp4 -vf fps=3,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-s3-strip.png",
+      "consumed": false
+    },
+    {
+      "id": "68ccc464daacb5e4ad6f706a0fc913f05390f21c49a4dfe3f04939caafd5967e",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-0.png",
+      "consumed": false
+    },
+    {
+      "id": "7c4ca6c124bfe371dd6af75b4670627799182fb994263510277f7e5f695a5266",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 11 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-1.png",
+      "consumed": false
+    },
+    {
+      "id": "c4f77838a9b2cd481d62c64974681ab46d5258d645352c8892e20bd675e4d17e",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 22 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-2.png",
+      "consumed": false
+    },
+    {
+      "id": "54d346b5054e33a05e2aeafae75019757966e5f02bb62f6f5fa7ec00a809fec4",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 33 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-3.png",
+      "consumed": false
+    },
+    {
+      "id": "a7d3ff9e6d4a2925ca8380df87ef6402a18d1035bf9408a187ce3771554b0f60",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 41 -i out/dispatch/openings/b.mp4 -frames:v 1 out/dispatch/phone-review-r14/b-native-41.png",
+      "consumed": false
+    },
+    {
+      "id": "5cfcdd2987cef4b0e471cc85c3c453416fa2f61f4f94aa228b947059c2c13d32",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 42.9 -i out/dispatch/openings/b.mp4 -frames:v 1 out/dispatch/phone-review-r14/b-native-42.9.png",
+      "consumed": false
+    },
+    {
+      "id": "42d27f076cf52f527d2b65b0607dbf7a85454353b58326e527b5c94c26a38b57",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 3 -i out/dispatch/openings/b.mp4 -vf fps=4,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-hook-strip.png",
+      "consumed": false
+    },
+    {
+      "id": "628db8c999a8c455c06cfc68cc142c2f41f0e47f5a9cefff5fe381496bfc01ab",
+      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 12 -t 4 -i out/dispatch/openings/b.mp4 -vf fps=3,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-s3-strip.png",
+      "consumed": false
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 20.535
+    "free_gib": 20.419
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261011T001746.json",
-    "receipt_sha256": "cc350cc41ec97aee1d674708a71d65bc995e3a9141432f814bcef7a40c94a425",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261011T002503.json",
+    "receipt_sha256": "b4aebbe86bf2213ed8641ec348133d027d745f3d30328142c2d585afd7a9e7e4",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-11T00:17:46.617900+00:00",
-  "expires_at": "2026-10-11T01:02:46.617900+00:00"
+  "issued_at": "2026-10-11T00:25:03.918146+00:00",
+  "expires_at": "2026-10-11T01:10:03.918146+00:00"
 }
