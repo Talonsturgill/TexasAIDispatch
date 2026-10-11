@@ -425,6 +425,17 @@ class ShipmentTest(unittest.TestCase):
         self.assertFalse(ship.draft_problems(connector, "owner@example.com", body))
         connector["message"]["payload"]["body"]["content"] = "<p>A different film.</p>"
         self.assertTrue(ship.draft_problems(connector, "owner@example.com", body))
+        claude = {"draft_id": "draft-1", "message": {
+            "id": "draft-1", "messageId": "message-1", "threadId": "thread-1", "labelIds": ["DRAFT"],
+            "subject": "Watch the source-grounded film.", "toRecipients": ["owner@example.com"],
+            "htmlBody": '<p>Watch the source-grounded film.<br>\nThe <a href="https://www.google.com/url?q=x">email</a> remains a draft.</p>'}}
+        self.assertFalse(ship.draft_problems(claude, "owner@example.com", "Watch the source-grounded film.\nThe email remains a draft."))
+        for key, value in (("labelIds", ["DRAFT", "SENT"]), ("labelIds", []), ("toRecipients", ["wrong@example.com"]),
+                           ("toRecipients", ["owner@example.com", "other@example.com"]), ("ccRecipients", ["x@example.com"]),
+                           ("subject", "Another title"), ("htmlBody", "<p>A different film.</p>"), ("id", "other-draft")):
+            bad = copy.deepcopy(claude)
+            bad["message"][key] = value
+            self.assertTrue(ship.draft_problems(bad, "owner@example.com", "Watch the source-grounded film.\nThe email remains a draft."), key)
         master = b"actual final film bytes"
         mobile = self.root / "phone.mp4"
         mobile.write_bytes(b"phone rendition bytes")

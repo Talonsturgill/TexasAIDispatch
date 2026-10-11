@@ -138,9 +138,42 @@ def text_parts(payload):
     return parts
 
 
+def visible_text(markup):
+    parser = BodyText()
+    parser.feed(markup)
+    return "".join(parser.text)
+
+
+def claude_connector_draft_problems(raw, expected_to, expected_body):
+    # The Claude Gmail connector's get_draft FULL_CONTENT object is flat: id, labelIds,
+    # toRecipients, subject, htmlBody. Retained unchanged inside a draft-id envelope, its
+    # own fields are checked directly. Anchors may be rewritten through a redirect by Gmail,
+    # so the comparison is the visible words, exactly as for MIME parts, never the markup.
+    message = raw.get("message", {})
+    labels = message.get("labelIds", [])
+    errors = []
+    if (not raw.get("draft_id") or raw.get("draft_id") != message.get("id") or not message.get("messageId")
+            or not message.get("threadId") or "DRAFT" not in labels
+            or any(str(label).startswith("SENT") for label in labels)):
+        errors.append("Gmail readback must identify an unsent DRAFT message")
+    if message.get("toRecipients") != [expected_to] or "@" not in expected_to:
+        errors.append("Gmail recipient differs from the run's configured delivery recipient")
+    if message.get("ccRecipients") or message.get("bccRecipients"):
+        errors.append("Gmail draft includes an unconfigured additional recipient")
+    html = message.get("htmlBody")
+    if (not isinstance(html, str) or not html.strip()
+            or " ".join(visible_text(html).split()) != " ".join(expected_body.split())):
+        errors.append("Gmail readback body differs from the committed email")
+    elif message.get("subject") != expected_body.splitlines()[0].strip():
+        errors.append("Gmail subject differs from the committed email title")
+    return errors
+
+
 def draft_problems(raw, expected_to, expected_body):
     # Native API or connector message, retained unchanged inside a draft-id envelope.
     message = raw.get("message", {})
+    if "payload" not in message and "htmlBody" in message:
+        return claude_connector_draft_problems(raw, expected_to, expected_body)
     labels = message.get("labelIds", message.get("label_ids", []))
     errors = []
     if not (raw.get("draft_id") or raw.get("id")) or not message.get("id") or "DRAFT" not in labels or any(
