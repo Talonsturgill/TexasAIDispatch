@@ -508,6 +508,14 @@
       "note": "final measured-clock timed phone review including the closing credit card (critic 28), worker ad9ec9943bc7a9430 SendMessage same id",
       "resource": "storyboard_critics",
       "to": 28
+    },
+    {
+      "at": "2026-10-11T02:14:10.329655Z",
+      "ceiling": 27,
+      "from": 23,
+      "note": "hero",
+      "resource": "preflight_renders",
+      "to": 24
     }
   ],
   "events": [
@@ -5903,6 +5911,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-11T02:14:10.329748Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "hero",
+      "now": 24,
+      "resource": "preflight_renders",
+      "was": 23
+    },
+    {
+      "at": "2026-10-11T02:14:10.329763Z",
+      "kind": "reserved",
+      "note": "hero",
+      "preflight_identity": "3c88c1176ae06b717de9189f9855f8db0afd574643dcc820051f10f6c6738c49",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5911,7 +5937,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 23,
+    "preflight_renders": 24,
     "reboards": 12,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -5927,7 +5953,7 @@
   "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6fbf2de9152627a8e2ff5c93875d5d20a9af4b62e2196234c6ed41d42f52eca2",
+    "original_private_state_sha256": "ec101145050c8a16ed1fe66907070b5c1eee138857cdfa406918a48f495a46f7",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5955,14 +5981,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T02:09:42.407714Z",
+  "updated_at": "2026-10-11T02:14:10.329766Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 23,
+    "preflight_renders": 24,
     "reboards": 12,
     "reported_tokens": 63655,
     "rescue_renders": 0,

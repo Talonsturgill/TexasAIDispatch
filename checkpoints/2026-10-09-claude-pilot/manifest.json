@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T02:09:44.164954+00:00",
+  "saved_at": "2026-10-11T02:14:12.141925+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,15 +16,15 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "40b74c0d09420a61dde930ebf330aaa58694140dc0359df4ee34e31995e4312d",
-  "original_private_ledger_sha256": "6fbf2de9152627a8e2ff5c93875d5d20a9af4b62e2196234c6ed41d42f52eca2",
+  "ledger_sha256": "0ec34ef36b10ecdb37780857b11477c210e25b3dc446fb0bc20ae960005f20ae",
+  "original_private_ledger_sha256": "ec101145050c8a16ed1fe66907070b5c1eee138857cdfa406918a48f495a46f7",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 23,
+    "preflight_renders": 24,
     "reboards": 12,
     "reported_tokens": 63655,
     "rescue_renders": 0,
@@ -2409,8 +2409,14 @@
     {
       "path": "out/dispatch/phone-critic-current.json",
       "class": "scratch",
-      "sha256": "6249b4e920df0870059b16cbe16c60fcd8c7e58bfd50a9b47885c5caff8d9c06",
-      "size": 13201
+      "sha256": "b7ecb120a0d44e6c6dd501e24067a24b5249f6eb1a9b47f3528349b2b9c84527",
+      "size": 15688
+    },
+    {
+      "path": "out/dispatch/phone-critic-r28-extracted.json",
+      "class": "scratch",
+      "sha256": "591082b537bbc17978ee3c98b76e3cc096077b8a7fe44bb0075188caf2a57c9d",
+      "size": 16118
     },
     {
       "path": "out/dispatch/phone-critic-timed-r12.json",
@@ -6559,6 +6565,12 @@
       "size": 574
     },
     {
+      "path": "out/dispatch/retained-failures/native-film-r14-pre-credit/phone-critic-current.before-r28.json",
+      "class": "scratch",
+      "sha256": "6249b4e920df0870059b16cbe16c60fcd8c7e58bfd50a9b47885c5caff8d9c06",
+      "size": 13201
+    },
+    {
       "path": "out/dispatch/retained-failures/native-film-r14-pre-credit/phone-critic-timed-ee5713c7-pass.json",
       "class": "scratch",
       "sha256": "6249b4e920df0870059b16cbe16c60fcd8c7e58bfd50a9b47885c5caff8d9c06",
@@ -8193,8 +8205,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "d97c4ccc38580871e0ed03a055c09db7ce40afadf0adc6beb9e1ddc3d3be80a2",
-      "size": 19308
+      "sha256": "2cff8d09805e3c33af8298ef71dc9e677947a1653e0acc11236bd1de2c6535eb",
+      "size": 20209
     },
     {
       "path": "out/dispatch/storyboard_critic.raw.txt",
