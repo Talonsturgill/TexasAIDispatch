@@ -385,6 +385,14 @@
       "note": "two opening comparison batch",
       "resource": "preflight_renders",
       "to": 16
+    },
+    {
+      "at": "2026-10-11T00:27:06.948430Z",
+      "ceiling": 25,
+      "from": 23,
+      "note": "fresh silent comparison selection and phone review after repair 14 (critic 24), worker ad9ec9943bc7a9430 SendMessage same id",
+      "resource": "storyboard_critics",
+      "to": 24
     }
   ],
   "events": [
@@ -4951,6 +4959,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-11T00:27:06.948491Z",
+      "ceiling": 25,
+      "kind": "budget_escalated",
+      "note": "fresh silent comparison selection and phone review after repair 14 (critic 24), worker ad9ec9943bc7a9430 SendMessage same id",
+      "now": 24,
+      "resource": "storyboard_critics",
+      "was": 23
+    },
+    {
+      "at": "2026-10-11T00:27:06.948505Z",
+      "kind": "reserved",
+      "note": "fresh silent comparison selection and phone review after repair 14 (critic 24), worker ad9ec9943bc7a9430 SendMessage same id",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -4965,7 +4991,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 23,
+    "storyboard_critics": 24,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
@@ -4974,7 +5000,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ccea993f5765e5d55ce5b983c93ffeaabdd4cd4402507e06762472b4248b4712",
+    "original_private_state_sha256": "8fe079a2cba8b6b09a2cd96437dd4ba073b4479a4cbb9a68d5be0cfbe96d7e7c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5002,7 +5028,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T00:17:59.751169Z",
+  "updated_at": "2026-10-11T00:27:06.948507Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -5015,7 +5041,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 23,
+    "storyboard_critics": 24,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
