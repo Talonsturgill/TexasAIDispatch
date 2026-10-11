@@ -1,46 +1,16 @@
 {
   "treatment": "b",
-  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated read-only code-scope reviewer, same worker resumed for review-coverage completion (critic 19, critic-packet-r14, repair 11), distinct from the director claude-sonnet-5-5 and the scene-builder",
-  "reviewed_at": "unknown (no clock available; later than 2026-10-10T21:58:35Z, the latest authored-art created_at in the bound boards)",
-  "verdict": "revise",
-  "blocking_defects": [
-    {
-      "id": "NB1",
-      "category": "motion",
-      "scene_id": "s1",
-      "time_s": 1.29,
-      "defect": "The forearm stretches during the hook push and follow-through, 0.62 to 1.79 s. In ClinicAnswerFilm the right hand is translated by rMove, with elbowR = ARM_REST.elbow - 0.65*rMove/kbS, a fixed shoulder and a Hand that never rotates. The visible forearm therefore grows from 374 to 421 world units (+12 percent) at the release at 1.01 s, and to 463 (+24 percent) at the end of the glide at 1.29 s. At that moment the elbow bulge reaches screen y about 1803 and the hand is off the card. This is a stretched reach that breaks believable performed motion. Keep limb lengths constant by articulating wrist and elbow, or change the send mechanism."
-    },
-    {
-      "id": "NB2",
-      "category": "motion",
-      "scene_id": "s1",
-      "time_s": 0.43,
-      "defect": "Three fingers snap between poses in a single frame. The right hand's lift switches from handLift (hover about 0.21) to [0,1,1,1] on the first frame where rReach > 0. At 0.43 s in the hook (camera 2.3) the middle, ring and little fingers jump about 44 px in one frame. They drop back about 36 px in one frame when rReach returns to 0 at about 1.80 s (camera 1.5). The same switch fires at the s3 push reach, about 14.77 s, where they jump about 33 px. Directed motion needs continuous starts and ends at 30 fps, so blend the lift into the reach."
-    }
-  ],
-  "weakest_frame": "0.40 to 1.80 s, s1-shot-1 push. At frame 0 (Cam f 300,985 s 2.3) the destination tool starts at screen x 1037, so only a sliver is in frame. Three fingers snap up at 0.43 s. The forearm then lengthens up to 24 percent as the hand glides off the released card, and the fingers snap back at 1.80 s.",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated read-only code-scope reviewer, full code rereview after repair 14 (critic 23, critic-packet-r17, same worker as critics 18 to 22), distinct from the director claude-sonnet-5-5 and the scene-builder",
+  "reviewed_at": "unknown (no clock available)",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "weakest_frame": "1.47 to 2.37 s, the hook's return and the cut at 2.05 s. After the card disappears behind the tool base at 1.474 s, the hand returns to the keys over RET_S of 0.9 s. At the near-same-size cut at 2.05 s (Cam f 560,860 s 1.5 to f 720,900 s 1.45) the return is about 75 percent done. For about the first 0.32 s of s1-shot-2, the hand is still visible sliding out at the lower-left edge (screen x about -70 to 230, y 918 or lower) while the answer starts to emerge.",
   "story_review": {
-    "verdict": "revise",
-    "blocking_defects": [
-      {
-        "id": "NB1",
-        "category": "motion",
-        "scene_id": "s1",
-        "time_s": 1.29,
-        "defect": "The forearm stretches during the hook push and follow-through, 0.62 to 1.79 s. In ClinicAnswerFilm the right hand is translated by rMove, with elbowR = ARM_REST.elbow - 0.65*rMove/kbS, a fixed shoulder and a Hand that never rotates. The visible forearm therefore grows from 374 to 421 world units (+12 percent) at the release at 1.01 s, and to 463 (+24 percent) at the end of the glide at 1.29 s. At that moment the elbow bulge reaches screen y about 1803 and the hand is off the card. This is a stretched reach that breaks believable performed motion. Keep limb lengths constant by articulating wrist and elbow, or change the send mechanism."
-      },
-      {
-        "id": "NB2",
-        "category": "motion",
-        "scene_id": "s1",
-        "time_s": 0.43,
-        "defect": "Three fingers snap between poses in a single frame. The right hand's lift switches from handLift (hover about 0.21) to [0,1,1,1] on the first frame where rReach > 0. At 0.43 s in the hook (camera 2.3) the middle, ring and little fingers jump about 44 px in one frame. They drop back about 36 px in one frame when rReach returns to 0 at about 1.80 s (camera 1.5). The same switch fires at the s3 push reach, about 14.77 s, where they jump about 33 px. Directed motion needs continuous starts and ends at 30 fps, so blend the lift into the reach."
-      }
-    ],
-    "one_viewing_summary": "Code-scope reconstruction, not observed pixels.\n- **s1, the hook.** It opens close at desk height (scale 2.3) on a mostly typed Question card lying flat, about 460 px wide, with the hands at the keys. One to three dashes land before 0.30 s. The right index reaches the card's near edge from 0.40 s and pushes it on one eased path from 0.62 s. It releases at 1.01 s and the card glides behind the tool's base while the camera pulls back to the tool.\n- **s1 into s2.** After a near-same-size cut, one answer slides out of the tool toward the lens and three citation cards tuck into its Sources slot. s2 frames the record edge with the light run and the dated tags, then a detail on the March tag.\n- **s3.** Eight dots come from strikes, a send strike fires and the padlock at the boundary foot opens. Six strikes type the question and one push slides it to the chart edge.\n- **s4 onward.** It matches A: a stepped citation cascade, the lit share and decision tag, the report tag, a single 4 s close on the clipped Not in release tags, the thread and empty ring, and the same answer ending.",
-    "opening_to_ending": "It opens on the same question about what comes back from asking inside the record, and ends on the same answer card with filled Sources, an empty Accuracy ring and Not in release tags under the share bar and its evaluating tag. That answers the opening without inventing an outcome.",
-    "weakest_transition": "s1-shot-1 to s1-shot-2 at 2.05 s. The cut goes from Cam f 560,860 at scale 1.5 to f 720,900 at scale 1.45: the same tool at almost the same size, shifted about 230 px left. It reads as a jump cut even though the answer starts emerging there.",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Code-scope reconstruction on the authored clock, not observed pixels.\n- **s1, the hook.** It opens close at desk height on a mostly typed card lying flat. From 0.40 s the right index reaches over 0.22 s, with the middle, ring and little fingers lifting on an eased blend. It touches the card's near-edge contact point at 0.624 s. bPushArm then keeps the fingertip exactly on that point at every frame (tip = pos + off = C) while the card follows its own eased path. The card is hidden behind the tool base at world about (611,893) when it disappears at 1.474 s.\n- **The arm during the push.** The forearm and upper arm hold their ARM_REST lengths of 374.5 and 801.9 world units. The off-frame shoulder leans along a fixed direction by up to about 188 world units, and the elbow flexes to 16 degrees. The hand turns at the wrist by 65 percent of the forearm's angle change, about 16 degrees at the end.\n- **Return and the rest of s1 to s3.** The hand returns to the keys on one eased stroke. One answer slides out toward the lens with its citations. s2 frames the record edge and the dated tags. In s3, eight dots and a send strike open the lock, six strikes type the question, and the same continuous-contact lean push carries the card to the chart edge, where the hand leaves it in place.\n- **s4 onward.** It matches A: the cascade, the share, the report tag, a single 4 s close on the Not in release tags, the thread and empty ring, and the same answer ending.",
+    "opening_to_ending": "It opens on the same question about what comes back from asking inside the record, and ends on the same answer card with filled Sources, an empty Accuracy ring and Not in release tags under the share bar and its evaluating tag, without inventing an outcome.",
+    "weakest_transition": "s1-shot-1 to s1-shot-2 at 2.05 s. The cut reframes the same tool at almost the same size, shifted about 230 px left, and the hand finishing its return carries across it at the left edge.",
     "story_sha256": "3ddd6604c2dce573bdf0012637c10176224f7dc2517b6c9455308898787a1cee",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
@@ -55,17 +25,21 @@
     "B6": "resolved",
     "B7": "resolved",
     "B8": "resolved",
-    "B9": "resolved"
+    "B9": "resolved",
+    "NB1": "resolved",
+    "NB2": "resolved"
   },
   "risks_for_the_phone_critic": [
-    "B performs the send as a push, with no send-key strike in s1 or for the s3 question. That matches its board purpose. B1's missing cause is resolved by the push, but NB1 and NB2 sit inside that same action.",
-    "The first frame crops the destination tool to x 1037 to 1663 until the camera pulls back. The open padlock (screen x 48 to 269, y 105 to 502) sits under the disclosure pill and reverses state in s3, as in A.",
-    "The s3 push stretches the forearm by about 8 percent at the end of the glide (about 15.55 s), which is minor.",
-    "The s1-shot-1 to shot-2 cut at 2.05 s is a near-same-size reframe.",
-    "In s5-shot-2 an unattended keyboard corner shows at the lower left.",
-    "The shared risks are the same as A: date tags persist in later world frames, the answer-image recurrence from s6 to s8, finish provable only on pixels, and the three creation_ids for identical authored bytes."
+    "NB1 is resolved in code.\n- The forearm is drawn from the wrist to the elbow at Lf/s = 468.15 local units, and the upper arm from the elbow to the shoulder at La/s = 1002.4, at every frame.\n- The shoulder sits at distance d, between dRest and dFlex, along dir. For this geometry the discriminant stays well positive, because the wrist sits within about 100 units of the lean line.\n- At reachFrom, and again when the return ends, the solve returns exactly ARM_REST: the lean is 0, the elbow sits on the rest side and the rotation is 0. So there is no jump on entering or leaving the rig.",
+    "NB2 is resolved in code. Finger lift and bob blend in through ease(k), and the curl follows reach = k. The edges of the contact window carry zero velocity: the reach ends on an ease, the card path starts and ends on an ease, and the return starts on 1-ease.",
+    "Judge at 30 fps whether the 16-degree elbow flex and wrist follow read as an articulated push. The elbow sits at about screen (508,1602) at the end of the hook push, in the bottom band below the captions. The shoulder is off frame, so the lean shows only as the sleeve sliding forward.",
+    "The fingertip and nail overlap the tool's bottom edge by about 12 px at the lip (1.40 to 1.474 s), because the hands are drawn after the tool. It reads as pressing at the lip, not entering the mouth.",
+    "During the return the index lift is near 0, so its crisp contact shadow makes the fingertip look as if it drags along the desk back to the keys.",
+    "The s3 return runs past the s3 to s4 cut at 16.0 s, about 77 percent extended.",
+    "The first frame still crops the tool (screen x 1037 or more), and the open padlock sits under the disclosure pill.",
+    "The other residual risks are shared with A."
   ],
-  "stronger_treatment": "a. A's key-strike send keeps limb lengths constant, has no single-frame finger snaps and shows the tool landing within the hook move. B's push carries two motion defects (NB1 and NB2), opens with the destination tool off frame and makes a near-same-size cut at 2.05 s.",
-  "concept_sha256": "7f6acf48b5bf1d31b999c8f8c82d1556a4d862d7c8623b383a290e88f896c6c1",
-  "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b"
+  "stronger_treatment": "a. B's push is now a credible, continuously performed contact action. A remains selected, frames the tool landing inside its hook move and has no near-same-size cut at 2.05 s.",
+  "concept_sha256": "a2c4e40ef741a6957f7a0d8fd3309dc1f89d1bd62ea833921defa6d96b5d781d",
+  "renderer_sha256": "9b8e9a15a1e30ec11eac8a16def3a73bdf5ad1591aea8c889a7756e491e42f94"
 }

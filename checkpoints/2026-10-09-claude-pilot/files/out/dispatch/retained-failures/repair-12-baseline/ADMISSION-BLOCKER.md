@@ -5,3 +5,5 @@ Funding the correction has no admitted route:
 - the modern-film-floor reason needs an exact rejected FILM report; B has none.
 - creative cap reached (rounds 9 of 3), reboards 10 of 10, so a standard repair is finishing-blocked.
 No controller, policy or evidence was altered. Plan 12 is unbound and unspent.
+
+RESOLVED path (PR137, PR138): plan 12 revise (critic 20), plan 13 revise (critic 21), plan 14 PASS (critic 22), repair 14 built and authorized, critic 23 full three-board code rereview PASS on A, B and the measured board. Critic 23's own limits: boards were checked by line counts, renderer_inputs line and end-of-file block rather than a full line diff (the director's modern_code_recovery.rebound_problems confirms deterministically that only renderer hashes changed), and guides carrying unchanged hashes were relied on from earlier full reads. Retained as stated.

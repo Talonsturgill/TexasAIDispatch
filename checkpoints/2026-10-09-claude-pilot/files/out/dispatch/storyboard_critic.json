@@ -1,16 +1,16 @@
 {
   "treatment": "a",
-  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated read-only code-scope reviewer, same worker resumed for review-coverage completion (critic 19, critic-packet-r14, repair 11), distinct from the director claude-sonnet-5-5 and the scene-builder",
-  "reviewed_at": "unknown (no clock available; later than 2026-10-10T21:58:35Z, the latest authored-art created_at in the bound boards)",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated read-only code-scope reviewer, full code rereview after repair 14 (critic 23, critic-packet-r17, same worker as critics 18 to 22), distinct from the director claude-sonnet-5-5 and the scene-builder",
+  "reviewed_at": "unknown (no clock available)",
   "verdict": "pass",
   "blocking_defects": [],
-  "weakest_frame": "24.35 to 29.35 s (measured), s5-shot-2 into s6-shot-1. The Announced September 22nd and Live since March tags hang at left mid-frame beside the tool during the decision-support beat (decision tag 24.87 to 25.89 s). In s6-shot-1 the report tag (27.54 to 28.66 s) overlaps the decision tag's corner by about 26 px, and the Announced tag sits at lower left inside the caption band while 'That is UTMB's own report' plays (27.16 to 29.04 s).",
+  "weakest_frame": "24.35 to 29.35 s (measured), s5-shot-2 into s6-shot-1. The date tags hang beside the tool during the decision-support beat (decision tag 24.87 to 25.89 s). The report tag (27.54 to 28.66 s) overlaps the decision tag's corner, and the Announced tag sits inside the caption band while 'That is UTMB's own report' plays (27.16 to 29.04 s).",
   "story_review": {
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "Code-scope chain on the measured clock, not observed pixels. Every shot boundary falls outside the previous clause's window, the longest shot is s2-shot-1 at 4.70 s, and no change-to-change gap exceeds about 2.2 s.\n- **s1.** In the hook close, word strikes land at 0.04 and 0.17 s and the send-key strike at 0.37 s. The card leaves at 0.42 s and is inside the slit by 1.39 s, within the 1.5 s policy. The camera follows from 0.38 to 1.69 s. Lamps chase, and the answer peeks from 1.84 s. The cut comes at 2.87 s, after n1a ends at 2.64. The answer slides out at 3.14 to 3.94 s and the citations tuck in at 4.07 to 4.87 s.\n- **s2.** The light runs at 5.80 to 6.89 s, the tag drops at 6.29 to 6.89 s and the underline draws at 7.98 to 9.07 s. The cut comes at 10.0 s and the March tag lands at 10.37 to 11.0 s.\n- **s3.** Eight dot strikes run from 12.25 to 13.0 s, the send fires at 13.32 s and the lock opens at 13.36 to 14.35 s. The cut comes at 14.86 s. Six dashes land at 14.96 to 15.45 s, the send at 15.74 s and the slide at 15.78 to 16.24 s.\n- **s4 to s5.** The fan leaves the slot at 17.17 to 18.18 s. Literature lifts at 19.46 to 20.13 s and guidelines at 20.46 to 21.13 s. Figures light at 22.19 to 24.11 s and the decision tag lands at 24.87 to 25.89 s.\n- **s6 to s8.** The report tag lands at 27.54 to 28.66 s, the limit tags clip on at 29.99 to 30.82 s and Not in release appears at 31.31 to 32.14 s. The literature card rises at 33.56 to 34.14 s and the thread runs at 34.14 to 35.01 s. The slot lights at 37.17 to 37.70 s and the ring pulses at 37.85 to 38.37 s. The evaluating tag lands at 39.30 to 40.40 s. The closing hold runs from 41.42 to 44.0 s, with the Sources glow, a ring pulse at 42.19 to 42.78 s and a 1.2 s still.",
-    "opening_to_ending": "The opening question about what comes back from asking inside the record is answered by the closing hold from 41.42 to 44.0 s. The same answer card keeps a glowing Sources slot, its empty Accuracy ring pulses once, its Not in release tags hang from its clip and the evaluating tag hangs on the share bar. The limit is visible and no outcome is implied.",
-    "weakest_transition": "s3 to s4 at 16.64 s. The held detail ends with the card at the chart edge 0.4 s after its slide, then cuts to the large answer card on the reading surface without showing the send and return again. The cause relies on the s1 hook.",
+    "one_viewing_summary": "Code-scope chain on the measured clock, unchanged by repair 14. The measured board takes the variant-a code paths. Its s1-event-1 is still at 0.4216 s for 0.9676 s, and its ClinicAnswerFilm renderer_inputs entry (now d4d12ba1) sits at the same line, with the same total line count.\n- **s1.** Word strikes land at 0.04 and 0.17 s and the send strike at 0.37 s. The card goes in from 0.42 to 1.39 s, and the cut comes at 2.87 s. The answer comes out at 3.14 to 3.94 s and the citations at 4.07 to 4.87 s.\n- **s2 and s3.** The tag lands at 6.29 to 6.89 s and the March tag at 10.37 to 11.0 s. Dot strikes run from 12.25 to 13.0 s, the send at 13.32 s and the lock at 13.36 to 14.35 s. Dashes land at 14.96 to 15.45 s, the send at 15.74 s and the slide at 15.78 to 16.24 s.\n- **s4 to s8.** The fan runs at 17.17 to 18.18 s, the share at 22.19 to 24.11 s and the decision tag at 24.87 to 25.89 s. The report tag lands at 27.54 to 28.66 s, the limit tags at 29.99 to 30.82 s and Not in release at 31.31 to 32.14 s. The thread runs at 34.14 to 35.01 s, the slot and ring at 37.17 to 38.37 s and the evaluating tag at 39.30 to 40.40 s. The close holds from 41.42 to 44.0 s.",
+    "opening_to_ending": "The opening question about what comes back from asking inside the record is answered by the closing hold from 41.42 to 44.0 s: the same answer with glowing Sources, an empty pulsing Accuracy ring and Not in release tags, with the evaluating tag on the share bar. No outcome is implied.",
+    "weakest_transition": "s3 to s4 at 16.64 s. The held detail ends with the card at the chart edge, then cuts to the large answer on the reading surface without showing the send and return again.",
     "story_sha256": "f868f78f6f47eb3e81ffd67fd9db4fff8449c5cddb2ee7736f0b6ff2d45ebd98",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
@@ -28,13 +28,13 @@
     "B9": "resolved"
   },
   "risks_for_the_phone_critic": [
-    "The measured cadence is faster than the authored clock. Credential dots land about 0.107 s apart and question dashes about 0.098 s apart, so each finger rises in under 2 frames. Judge strikes versus flicker at 30 fps.",
-    "Only two word strikes precede the send in the measured hook; four of six words are typed before frame 0 by design.",
-    "Contact, 2 frames. Word strike j=5 at 0.17 s overlaps the send-key travel that starts at 0.13 s. At 0.20 and 0.23 s key 13 is drawn down while the index has slid about 86 and 179 px toward the send key.",
-    "The hook camera sweeps about 800 px of background between 0.38 and 1.69 s while the card stays nearly fixed.",
-    "The rest are as listed for opening_a: the open padlock in the first frame and its reversal in s3, the date tags persisting in s3, s5, s6 and s8-shot-1, the leftover credential card in s3-shot-2 with the Live tag under the disclosure pill, the answer card in the caption band in s2-shot-1, the static right hand in s2, the s8-shot-1 pill and tag overlap, the s6 to s8 answer-image recurrence, finish provable only on pixels, and three creation_ids for identical authored bytes."
+    "The pictures match the reviewed code through the same A gating described for opening_a.",
+    "The measured cadence is faster than authored: dots about 0.107 s apart and dashes about 0.098 s apart.",
+    "Contact. Key 13 stays drawn down for 2 frames, at 0.20 and 0.23 s, while the hand slides toward the send key.",
+    "Hook sweep. The background moves about 800 px between 0.38 and 1.69 s.",
+    "The open padlock reversal, the date-tag clutter, the s3-shot-2 layout and the answer-image recurrence are as listed for opening_a."
   ],
-  "stronger_treatment": "a. This is the selected treatment on its measured clock. Its key-strike send and close hook survive retiming, every shot boundary clears the previous clause window, and it has no limb stretch or finger snap.",
-  "concept_sha256": "16e7792bdf88802500607dd96da82e75dfcf36b8d2fc9e362541cd6af162dc4e",
-  "renderer_sha256": "f32e6e91ec17ec15e2e328411ce55bc74d68363b5c1eb8503459cbadf08ae23b"
+  "stronger_treatment": "a. This is the selected treatment on its measured clock, and repair 14 leaves its code paths unchanged.",
+  "concept_sha256": "16ef30aa346f2677240d030716f36b8cfe45221e00c9c632c2434c010890f2fa",
+  "renderer_sha256": "9b8e9a15a1e30ec11eac8a16def3a73bdf5ad1591aea8c889a7756e491e42f94"
 }
