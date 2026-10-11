@@ -1,0 +1,183 @@
+{
+  "schema": "dispatch_picture_precheck/1",
+  "pass": true,
+  "checks": [
+    {
+      "gate": "registry",
+      "command": [
+        "python",
+        "scripts/registry_check.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 55,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/registry.log",
+      "log_sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422"
+    },
+    {
+      "gate": "storyboard_check",
+      "command": [
+        "python",
+        "scripts/storyboard_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 387,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/storyboard_check.log",
+      "log_sha256": "22a90fdc69da93cda28b67314d43ab8d4bb794554e4675c9e3e77f57d493f268"
+    },
+    {
+      "gate": "watchability_check",
+      "command": [
+        "python",
+        "scripts/watchability_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 506,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/watchability_check.log",
+      "log_sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86"
+    },
+    {
+      "gate": "documentary_check",
+      "command": [
+        "python",
+        "scripts/documentary_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 435,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/documentary_check.log",
+      "log_sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c"
+    },
+    {
+      "gate": "shot_coherence",
+      "command": [
+        "python",
+        "scripts/shot_coherence.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 360,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/shot_coherence.log",
+      "log_sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8"
+    },
+    {
+      "gate": "staging_check",
+      "command": [
+        "python",
+        "scripts/staging_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 215,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/staging_check.log",
+      "log_sha256": "7bfa6ca5e13a95043a880205a3a93d73b562406f9fb86420dc27195d2a86425c"
+    },
+    {
+      "gate": "board_scale_check",
+      "command": [
+        "python",
+        "scripts/board_scale_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 133,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/board_scale_check.log",
+      "log_sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7"
+    },
+    {
+      "gate": "floor_check",
+      "command": [
+        "python",
+        "scripts/floor_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 49,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/floor_check.log",
+      "log_sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6"
+    },
+    {
+      "gate": "script_evidence",
+      "command": [
+        "python",
+        "scripts/script_evidence_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/pilot/out/dispatch/claims.json",
+        "--planning-only"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 71,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/script_evidence.log",
+      "log_sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa"
+    },
+    {
+      "gate": "super_evidence",
+      "command": [
+        "python",
+        "scripts/super_evidence_check.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/pilot/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 49,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/super_evidence.log",
+      "log_sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add"
+    },
+    {
+      "gate": "caption_fit",
+      "command": [
+        "node",
+        "video-engine/tests/caption_board_fit.mjs",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 179,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/caption_fit.log",
+      "log_sha256": "e6c380c62c8bd14af390186f73f9d30f8a5dec5f0e9e8fee861989d24079bb3e"
+    },
+    {
+      "gate": "modern_film",
+      "command": [
+        "python",
+        "scripts/modern_film.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/pilot/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 356,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/modern_film.log",
+      "log_sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409"
+    },
+    {
+      "gate": "story_art",
+      "command": [
+        "python",
+        "scripts/story_art.py",
+        "--board",
+        "/home/user/restore/pilot/out/dispatch/storyboard.json",
+        "verify"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 225,
+      "log": "/home/user/restore/pilot/out/dispatch/precheck-r16/181cfb70-1b7b-4cab-8fda-4582d80f21cd/story_art.log",
+      "log_sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885"
+    }
+  ],
+  "approval": false,
+  "note": "Mechanical gate outputs only. Independent code, phone, native, audiovisual and shipment proof remain required."
+}
