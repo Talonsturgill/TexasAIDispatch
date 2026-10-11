@@ -426,10 +426,26 @@ class ShipmentTest(unittest.TestCase):
         connector["message"]["payload"]["body"]["content"] = "<p>A different film.</p>"
         self.assertTrue(ship.draft_problems(connector, "owner@example.com", body))
         claude = {"draft_id": "draft-1", "message": {
-            "id": "draft-1", "messageId": "message-1", "threadId": "thread-1", "labelIds": ["DRAFT"],
+            "id": "draft-1", "labelIds": ["DRAFT"],
             "subject": "Watch the source-grounded film.", "toRecipients": ["owner@example.com"],
             "htmlBody": '<p>Watch the source-grounded film.<br>\nThe <a href="https://www.google.com/url?q=x">email</a> remains a draft.</p>'}}
         self.assertFalse(ship.draft_problems(claude, "owner@example.com", "Watch the source-grounded film.\nThe email remains a draft."))
+        email = "Watch the source-grounded film.\nThe email remains a draft."
+        upper = copy.deepcopy(claude)
+        upper["message"]["toRecipients"] = ["Owner@Example.com"]
+        self.assertFalse(ship.draft_problems(upper, "owner@example.com", email))
+        plain = copy.deepcopy(claude)
+        plain["message"].pop("htmlBody")
+        plain["message"]["plaintextBody"] = email
+        self.assertFalse(ship.draft_problems(plain, "owner@example.com", email))
+        plain["message"]["plaintextBody"] = "A different film."
+        self.assertTrue(ship.draft_problems(plain, "owner@example.com", email))
+        both = copy.deepcopy(claude)
+        both["message"]["plaintextBody"] = "A different film."
+        self.assertTrue(ship.draft_problems(both, "owner@example.com", email))
+        empty = copy.deepcopy(claude)
+        empty["message"].pop("htmlBody")
+        self.assertTrue(ship.draft_problems(empty, "owner@example.com", email))
         for key, value in (("labelIds", ["DRAFT", "SENT"]), ("labelIds", []), ("toRecipients", ["wrong@example.com"]),
                            ("toRecipients", ["owner@example.com", "other@example.com"]), ("ccRecipients", ["x@example.com"]),
                            ("subject", "Another title"), ("htmlBody", "<p>A different film.</p>"), ("id", "other-draft")):
