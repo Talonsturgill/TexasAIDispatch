@@ -103,7 +103,15 @@ def findings(value):
             yield from findings(child)
 
 
+REPORT_CARD_CATEGORIES = {'surface_finish': 'finish', 'pacing': 'motion', 'framing': 'framing', 'contact': 'contact',
+                          'recognition': 'recognition', 'sound': 'sound'}
+
+
 def category(item):
+    # A structured report-card defect names its own category. Honor it, and never let prose
+    # keywords reclassify it: an unmapped name (technical, style, unknown) stays unrecorded.
+    if isinstance(item, dict) and isinstance(item.get('category'), str):
+        return REPORT_CARD_CATEGORIES.get(item['category'])
     text = json.dumps(item, ensure_ascii=False).casefold()
     groups = [('contact', ['intersect', 'detached', 'contact', 'floating']),
               ('recognition', ['unrecognizable', 'generic', 'placeholder', 'silhouette']),

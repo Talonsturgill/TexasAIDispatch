@@ -100,6 +100,12 @@ class CinematicLearningTest(unittest.TestCase):
             self.assertEqual(2, result['findings'][0]['distinct_editions'])
             self.assertEqual(defect, result['findings'][0]['evidence'][0]['original_finding'])
 
+    def test_report_card_defect_keeps_its_own_category(self):
+        self.assertEqual('finish', c.category({'finding': 'Edge is clipped', 'category': 'surface_finish'}))
+        self.assertEqual('motion', c.category({'finding': 'Static hold', 'category': 'pacing'}))
+        self.assertIsNone(c.category({'finding': 'Foley leads the visible contact', 'category': 'technical'}))
+        self.assertEqual('contact', c.category({'observed': 'Contact is hidden by the front plate.'}))
+
 
 if __name__ == '__main__':
     unittest.main()
