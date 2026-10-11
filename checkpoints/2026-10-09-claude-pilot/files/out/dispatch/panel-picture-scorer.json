@@ -1,0 +1,71 @@
+{
+ "score": 6.87,
+ "ship": false,
+ "axes": {
+  "hook": 6.5,
+  "story": 7.5,
+  "picture": 7.0,
+  "place": 6.0,
+  "craft": 7.0,
+  "voice": 7.0
+ },
+ "hard_fails": [],
+ "weakest_axis": "place",
+ "one_sentence_fix": "Make the Galveston Gulf region visible in the s3 to s8 interiors by showing the window plate with Gulf light and shoreline in each scene (the stills show a bare wall and flat desk), then reframe the s1 opening so the typed question card and the clinician's hands are in frame from 0.4 to 1.4 s, and re-render.",
+ "audiovisual_role": "picture",
+ "audiovisual_receipt_sha256": "bda8bef4b0534f1a714bd849c3bf6fa304e9436dbab151d69f05365d5505710f",
+ "bounded_release": {
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "panel",
+  "retained_checks": {
+   "source": {
+    "pass": true,
+    "observed": "Stills carry 'UTMB news release September 22nd' on the credit card and an on-image 'Illustration. Not UTMB's screen' disclosure on every frame I read. I did not verify the claims file or the quotes."
+   },
+   "rights": {
+    "pass": true,
+    "observed": "MUSIC credit with CC BY 4.0 shows in credits_frame.png. Coordinator reports music.py --verify-package exit 0. I did not run it. Art is described as original authored diagrams."
+   },
+   "legibility": {
+    "pass": true,
+    "observed": "Tags, Question and Usual credentials cards, caption bar and credit card are readable at 1080x1920. Some clipped edge elements (the 'Sep' tag in the s3 still, the 'd' tag in the poster) are not essential to comprehension."
+   },
+   "comprehension": {
+    "pass": true,
+    "observed": "From stills, the sequence question into tool, answer with Sources and empty Accuracy slot, adoption tag, and Not in release limit tags reads without captions. Not confirmed in motion by me. Provider reports it reads."
+   },
+   "technical_audio": {
+    "pass": true,
+    "observed": "No audio evidence of my own. Pass rests only on the provider's observation of clean speech with music under it, unheard by me."
+   },
+   "captions": {
+    "pass": true,
+    "observed": "Caption bars in stills match the board vo text ('A UTMB clinician asks a question.', 'The release publishes no measure of accuracy or patient care.'). Alignment to the audio is provider-reported, not verified by me."
+   }
+  },
+  "defects": [
+   {
+    "finding": "Opening frame in scene_s1.png shows mostly the OpenEvidence unit with the typed question card and hands clipped at the left edge, so the first action is partly off-frame.",
+    "category": "motion"
+   },
+   {
+    "finding": "Galveston Gulf region reads thinly in the s3 to s8 interiors (bare wall, plain desk and lined paper), so a local viewer would not recognise the county.",
+    "category": "unknown"
+   }
+  ],
+  "score_only": false
+ },
+ "attention_review": {
+  "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+  "pass": false,
+  "hook_observed": "Not observed in motion. The board and contact sheet give the first change as a question card moving toward the tool at about 0.4 s, with the answer card at about 3.1 s. The scene_s1 still shows the tool large and the hands and card mostly off-frame.",
+  "continuity_observed": "From stills only, the OpenEvidence unit and chart persist across s1 to s2 and s3 (the 'Live since March' tag is on the chart in the s3 still). Subject stays recognizable. Motion transitions not seen by me.",
+  "pacing_observed": "Board times for subject developments: s1 0.4 s, 3.1 s, 4.1 s. s2 5.8 s, 8.0 s, 10.4 s. s3 13.4 s, 15.1 s, 15.8 s. s4 17.1 s, 19.5 s, 20.5 s. s5 22.2 s, 23.2 s, 24.9 s. s6 27.5 s, 30.0 s, 31.3 s. s7 34.1 s, 37.2 s, 37.8 s. s8 39.3 s, 41.2 s, 42.2 s. The s2 gap of about 2.2 s between events is the only visible slack. Provider also flags 5.58 to 9.94 s as a slightly long hold. The closing tail after 42.2 s to 44 s then 5 s credits is acceptable. I saw no rushed handoff in the stills, but s3 events 2 and 3 are very short (about 0.5 s each). Not confirmed in motion.",
+  "comprehension_observed": "From stills one viewing yields: a UTMB clinician asks OpenEvidence a question, the answer comes with sources, announced September 22nd and live since March, more than half of clinicians use it per UTMB, and accuracy and patient care aren't in the release. Source limit is clear in s6 and s8. Mild density in s6 and s8 with several tags.",
+  "remembered_image": "The Answer card with a filled Sources slot beside the dashed empty Accuracy slot, with Not in release tags clipped on. It shows the claim and its limit in one picture.",
+  "weakest_interval": "s1 opening frame and first 1.5 s, because the typed-question action is partly off-frame in the stills. Repair: reframe the s1 camera so hands and the question card are in view while the card enters the tool. Secondary candidate is s2 at about 5.6 to 10 s (provider-flagged long hold), repair by trimming gaps between tag events.",
+  "weakest_at_s": 0.0,
+  "weakest_end_s": 1.5,
+  "audio_basis": "No direct listening. Audio claims come only from the provider receipt (gemini-3.8-flash). Not measured by me."
+ }
+}

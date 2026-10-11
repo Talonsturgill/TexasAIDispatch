@@ -1,0 +1,70 @@
+{
+ "score": 6.96,
+ "ship": false,
+ "axes": {
+  "hook": 7.0,
+  "story": 7.8,
+  "picture": 7.0,
+  "place": 5.8,
+  "craft": 6.8,
+  "voice": 7.0
+ },
+ "hard_fails": [],
+ "weakest_axis": "place",
+ "one_sentence_fix": "In video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx and ClinicSupport.tsx, reframe s2, s3 and s6 so every tag, the Health record tag and the Answer card sit wholly inside the frame and phone safe area, move the Gulf Coast window and marsh plate into view in at least the s1, s2, s3 and s8 wide or medium shots so the Galveston setting reads, drop the unexplained cropped hand from the s2 bottom-left, then re-render and re-align captions.",
+ "audiovisual_role": "story",
+ "audiovisual_receipt_sha256": "b19ff4c86adca9ef01518f98dbaa0278e7fc3b9994d1eb1c45b676f8b84f91cf",
+ "bounded_release": {
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "panel",
+  "retained_checks": {
+   "source": {
+    "pass": true,
+    "observed": "Claims c1 to c5 and c8 are VERIFIED with quotes in claims.json. Every spoken clause binds to a claim id. c8's no-measure statement rests on the validator's absence search."
+   },
+   "rights": {
+    "pass": true,
+    "observed": "Original authored React/SVG art (ChartHero, ClinicSupport) with illustration disclosure on screen. Coordinator reports music.py --verify-package passed for the CC BY credit. Not independently verified by me."
+   },
+   "legibility": {
+    "pass": true,
+    "observed": "Captions and primary tags (Announced September 22nd, Usual credentials, Not in release) read clearly in s2, s3, s6 and s8 stills. Some secondary tags and labels are clipped at frame edges (see defects)."
+   },
+   "comprehension": {
+    "pass": true,
+    "observed": "From stills and the board, the story reconstructs as a question going into a tool, an answer returning with three source-type cards, a usage share past half, and Accuracy and Patient care tags reading Not in release. Not confirmed in a viewing."
+   },
+   "technical_audio": {
+    "pass": true,
+    "observed": "Provider receipt claims clean, intelligible audio. Not heard by this reviewer."
+   },
+   "captions": {
+    "pass": true,
+    "observed": "14 captions with measured_boundary start and end, silence-anchored. Stills show captions legible in the lower band."
+   }
+  },
+  "defects": [
+   {
+    "finding": "s2, s3 and s6 stills show tags, the Health record label and the Answer card cropped at frame edges, and an unexplained cropped hand in s2",
+    "category": "surface_finish"
+   },
+   {
+    "finding": "Gulf Coast region and window barely visible. Most shots read as plain wall and desk",
+    "category": "style"
+   }
+  ]
+ },
+ "attention_review": {
+  "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+  "pass": false,
+  "hook_observed": "Stills and board: a question card enters the OpenEvidence tool by about 1.4 s with hands at a keyboard, and the answer drops out at 3.1 s. Not confirmed in motion.",
+  "continuity_observed": "The same teal-tab clipboard chart, OpenEvidence tool and Answer card (Sources filled, Accuracy dashed and empty) recur across the s1 to s2, s6 to s7 and s7 to s8 cuts in stills. The s4 to s5 cut jumps from the desk to a wall of grey clinician tokens, which stills show reads as a new subject.",
+  "pacing_observed": "Board timing only: one change roughly every 1 to 2.5 s with s2 shot 1 the loosest (4.7 s, events at about 0.5 s and 2.7 s). The s6 limit handoff between clauses is about 0.6 s. The final hold after the last clause (42.78 s to 44.0 s) is about 1.2 s. Not timed in the film.",
+  "comprehension_observed": "Reconstructed from stills with captions covered: a question is typed and sent into a tool, an answer returns with three source cards, adoption is shown as a lit share past Half, and two tags say Not in release. Source limits are carried by the on-screen Illustration disclosure and the own-report tag. The dated tags in s2 are partly cropped.",
+  "remembered_image": "The Answer card with a filled Sources slot beside the empty dashed Accuracy ring (s7 to s8). It carries the film's claim that a citation is not proof of accuracy.",
+  "weakest_interval": "s6, about 29.7 to 33.3 s: the hero limit passage has the Answer card running off the right edge, mid-fade Accuracy tag and large empty paper above and below. Repair: reframe so both tags and the card sit fully in frame at the stated readable size and fill the empty areas with the share or chart for identity.",
+  "weakest_at_s": 29.7,
+  "weakest_end_s": 33.3,
+  "audio_basis": "No direct listening. Only measured caption boundaries and the provider receipt's text claims were available."
+ }
+}

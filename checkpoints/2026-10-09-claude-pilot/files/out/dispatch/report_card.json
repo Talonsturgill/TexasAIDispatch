@@ -1,0 +1,668 @@
+{
+  "schema": "dispatch_report_card/1",
+  "round": 2,
+  "score": 7.002,
+  "weighted_score": 7.002,
+  "ship": false,
+  "axes": {
+    "place": 6.2,
+    "hook": 6.9,
+    "picture": 6.933,
+    "craft": 7.0,
+    "voice": 7.133,
+    "story": 7.633
+  },
+  "hard_fails": [
+    "judge 1 did not accept the attention/continuity",
+    "judge 2 did not accept the attention/continuity"
+  ],
+  "judges": [
+    {
+      "score": 6.87,
+      "ship": false,
+      "axes": {
+        "hook": 6.5,
+        "story": 7.5,
+        "picture": 7.0,
+        "place": 6.0,
+        "craft": 7.0,
+        "voice": 7.0
+      },
+      "hard_fails": [],
+      "weakest_axis": "place",
+      "one_sentence_fix": "Make the Galveston Gulf region visible in the s3 to s8 interiors by showing the window plate with Gulf light and shoreline in each scene (the stills show a bare wall and flat desk), then reframe the s1 opening so the typed question card and the clinician's hands are in frame from 0.4 to 1.4 s, and re-render.",
+      "audiovisual_role": "picture",
+      "audiovisual_receipt_sha256": "bda8bef4b0534f1a714bd849c3bf6fa304e9436dbab151d69f05365d5505710f",
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Stills carry 'UTMB news release September 22nd' on the credit card and an on-image 'Illustration. Not UTMB's screen' disclosure on every frame I read. I did not verify the claims file or the quotes."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "MUSIC credit with CC BY 4.0 shows in credits_frame.png. Coordinator reports music.py --verify-package exit 0. I did not run it. Art is described as original authored diagrams."
+          },
+          "legibility": {
+            "pass": true,
+            "observed": "Tags, Question and Usual credentials cards, caption bar and credit card are readable at 1080x1920. Some clipped edge elements (the 'Sep' tag in the s3 still, the 'd' tag in the poster) are not essential to comprehension."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "From stills, the sequence question into tool, answer with Sources and empty Accuracy slot, adoption tag, and Not in release limit tags reads without captions. Not confirmed in motion by me. Provider reports it reads."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "No audio evidence of my own. Pass rests only on the provider's observation of clean speech with music under it, unheard by me."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "Caption bars in stills match the board vo text ('A UTMB clinician asks a question.', 'The release publishes no measure of accuracy or patient care.'). Alignment to the audio is provider-reported, not verified by me."
+          }
+        },
+        "defects": [
+          {
+            "finding": "Opening frame in scene_s1.png shows mostly the OpenEvidence unit with the typed question card and hands clipped at the left edge, so the first action is partly off-frame.",
+            "category": "motion"
+          },
+          {
+            "finding": "Galveston Gulf region reads thinly in the s3 to s8 interiors (bare wall, plain desk and lined paper), so a local viewer would not recognise the county.",
+            "category": "unknown"
+          }
+        ],
+        "score_only": false
+      },
+      "attention_review": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "pass": false,
+        "hook_observed": "Not observed in motion. The board and contact sheet give the first change as a question card moving toward the tool at about 0.4 s, with the answer card at about 3.1 s. The scene_s1 still shows the tool large and the hands and card mostly off-frame.",
+        "continuity_observed": "From stills only, the OpenEvidence unit and chart persist across s1 to s2 and s3 (the 'Live since March' tag is on the chart in the s3 still). Subject stays recognizable. Motion transitions not seen by me.",
+        "pacing_observed": "Board times for subject developments: s1 0.4 s, 3.1 s, 4.1 s. s2 5.8 s, 8.0 s, 10.4 s. s3 13.4 s, 15.1 s, 15.8 s. s4 17.1 s, 19.5 s, 20.5 s. s5 22.2 s, 23.2 s, 24.9 s. s6 27.5 s, 30.0 s, 31.3 s. s7 34.1 s, 37.2 s, 37.8 s. s8 39.3 s, 41.2 s, 42.2 s. The s2 gap of about 2.2 s between events is the only visible slack. Provider also flags 5.58 to 9.94 s as a slightly long hold. The closing tail after 42.2 s to 44 s then 5 s credits is acceptable. I saw no rushed handoff in the stills, but s3 events 2 and 3 are very short (about 0.5 s each). Not confirmed in motion.",
+        "comprehension_observed": "From stills one viewing yields: a UTMB clinician asks OpenEvidence a question, the answer comes with sources, announced September 22nd and live since March, more than half of clinicians use it per UTMB, and accuracy and patient care aren't in the release. Source limit is clear in s6 and s8. Mild density in s6 and s8 with several tags.",
+        "remembered_image": "The Answer card with a filled Sources slot beside the dashed empty Accuracy slot, with Not in release tags clipped on. It shows the claim and its limit in one picture.",
+        "weakest_interval": "s1 opening frame and first 1.5 s, because the typed-question action is partly off-frame in the stills. Repair: reframe the s1 camera so hands and the question card are in view while the card enters the tool. Secondary candidate is s2 at about 5.6 to 10 s (provider-flagged long hold), repair by trimming gaps between tag events.",
+        "weakest_at_s": 0.0,
+        "weakest_end_s": 1.5,
+        "audio_basis": "No direct listening. Audio claims come only from the provider receipt (gemini-3.8-flash). Not measured by me."
+      },
+      "modern_observations": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "first_frame": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 1.5,
+          "observed": "Contact sheet at 0.42 s shows hands on a keyboard, a Question card and the teal OpenEvidence unit, so the opening has a subject and an action that reads without captions. The scene_s1 and poster stills are later moments and show the unit large with only a sliver of hand at the left edge and a clipped 'd' tag in the poster crop. I did not see the true frame 0 or any motion."
+        },
+        "visual_progression": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Stills and contact sheet show distinct stages. Question into tool, answer with Sources slot, Announced September 22nd tag, Live since March tag, masked credentials with open padlock, fanned Medical literature / Clinical guidelines / Other sources cards, clinician grid with a slider past Half, Accuracy and Patient care Not in release tags, a thread from a literature card to Sources, an Evaluating use and experience tag. Each new picture adds a different part of the claim. Motion between them was not seen by me."
+        },
+        "shot_variety": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "The board lists 17 shots in wide, medium, close and detail framings across 8 scenes. The stills confirm unit close-up, keyboard-and-hands close-up, citation fan on the desk surface, share-grid board, tag close-ups and a wide s7. Views are varied but all are the same chart and card diagram language. No motion verified."
+        },
+        "performed_turn": {
+          "pass": true,
+          "start_s": 26.88,
+          "end_s": 33.28,
+          "observed": "The s6 and s8 stills show Accuracy and Patient care tags both reading Not in release beside the empty dashed Accuracy slot, contrasting with the filled Sources slot and the adoption share. The turn from adoption to missing measure reads from the pictures alone. I did not see the clipping motion."
+        },
+        "pace": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "From board event times, developments land at about 0.4, 3.1, 4.1, 5.8, 8.0, 10.4, 13.4, 15.1, 15.8, 17.1, 19.5, 20.5, 22.2, 23.2, 24.9, 27.5, 30.0, 31.3, 34.1, 37.2, 37.8, 39.3, 41.2 and 42.2 s, so no scene has more than about 2.2 s between changes. The only slack is in s2 (5.8 to 10.4 s, with the provider also flagging 5.58 to 9.94 s as slightly long). Several s3 and s7 events are about 0.5 s long and might be fast. This rests on board timings and the provider text, not on watching."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 38.84,
+          "end_s": 44.0,
+          "observed": "The s8 still and sheet show the Evaluating use and experience tag on the share, the answer card with filled Sources and empty Accuracy slot, and the Not in release tags beside it. Together with the story, the answer reads as sources came back and accuracy isn't in the release. The pulse and hold weren't seen by me."
+        },
+        "finished_art": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Stills show finished authored vector art with soft shadows, worn paper, hand-drawn tag edges and legible type at 1080x1920. Flaws seen: the thread end dot overlaps the 'i' in 'Medical literature' in s7, the 'Sep' tag is clipped at the top right of s3, an Answer card runs off the right edge in s6, and s6 and s8 backgrounds are mostly flat lined paper. The place problem is reported separately and isn't counted here."
+        }
+      },
+      "narration_picture_observations": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "clauses": [
+          {
+            "id": "n1a",
+            "pass": true,
+            "start_s": 0.28,
+            "end_s": 2.64,
+            "observed": "Contact sheet at 0.42 s shows hands, keyboard and Question card moving toward the OpenEvidence unit. Board action send-question matches. Later stills show the unit alone."
+          },
+          {
+            "id": "n1b",
+            "pass": true,
+            "start_s": 3.1,
+            "end_s": 4.96,
+            "observed": "Contact sheet at 3.14 s and 4.07 s shows an answer card out of the unit and citation cards tucking into the Sources slot. Seen at thumbnail size only."
+          },
+          {
+            "id": "n2a",
+            "pass": true,
+            "start_s": 5.58,
+            "end_s": 9.94,
+            "observed": "scene_s2 shows an 'Announced September 22nd' tag pinned to the health record boundary beside the OpenEvidence AI tool, with the caption over it. Picture matches the clause. Provider flags a possibly long hold here, which I could not verify."
+          },
+          {
+            "id": "n2b",
+            "pass": true,
+            "start_s": 10.06,
+            "end_s": 11.62,
+            "observed": "A 'Live since March' tag settles under the announcement on the chart (shown on contact sheet at 10.37 s and persisting in the s3 still). Matches the board. Short window, motion not seen."
+          },
+          {
+            "id": "n3a",
+            "pass": true,
+            "start_s": 12.24,
+            "end_s": 14.72,
+            "observed": "scene_s3 shows fingers on the keyboard, a masked 'Usual credentials' dot field and the padlock with its shackle open. Matches sign-in with usual credentials."
+          },
+          {
+            "id": "n3b",
+            "pass": true,
+            "start_s": 15.0,
+            "end_s": 16.3,
+            "observed": "Contact sheet at 15.06 s shows words typed into the Question card and at 15.78 s the card sliding to the chart edge (thumbnail only). Matches plain-language question."
+          },
+          {
+            "id": "n4a",
+            "pass": true,
+            "start_s": 16.92,
+            "end_s": 18.6,
+            "observed": "scene_s4 shows an Answer card with a Sources slot and three citation cards fanned above it. Matches 'the answers carry citations'."
+          },
+          {
+            "id": "n4b",
+            "pass": true,
+            "start_s": 19.24,
+            "end_s": 21.46,
+            "observed": "scene_s4 shows cards labelled Medical literature, Clinical guidelines and Other sources with legible tabs, as the board describes (literature and guidelines lift). Matches the clause on source types. The third card, Other sources, isn't spoken."
+          },
+          {
+            "id": "n5",
+            "pass": true,
+            "start_s": 22.1,
+            "end_s": 26.56,
+            "observed": "scene_s5 shows a board of anonymous clinician figures, some lit, and a bar passing the Half tick toward 'More than half'. Caption reads UTMB says more than half now use it for clinical decision support. The unit stays below. Matches."
+          },
+          {
+            "id": "n6a",
+            "pass": true,
+            "start_s": 27.16,
+            "end_s": 29.04,
+            "observed": "Contact sheet at 27.54 s shows UTMB's-own-report tag on the lit share. The tag text is thumbnail-level, not read by me at full size. Board matches."
+          },
+          {
+            "id": "n6b",
+            "pass": true,
+            "start_s": 29.66,
+            "end_s": 32.96,
+            "observed": "scene_s6 and the s8 still show Accuracy and Patient care tags marked Not in release, clipped to the Answer card with the dashed Accuracy slot empty. Matches 'publishes no measure of accuracy or patient care'."
+          },
+          {
+            "id": "n7a",
+            "pass": true,
+            "start_s": 33.56,
+            "end_s": 36.46,
+            "observed": "scene_s7 shows a Medical literature card with a thread down to the Sources slot of the Answer card while the caption reads 'A citation shows where an answer says it came from.' Matches. The thread's end dot overlaps the 'i' of Medical."
+          },
+          {
+            "id": "n7b",
+            "pass": true,
+            "start_s": 37.02,
+            "end_s": 38.52,
+            "observed": "Contact sheet at 37.17 s and 37.84 s shows the dashed Accuracy ring lit and still empty beside the filled Sources slot. Matches 'doesn't show the answer is right'. Pulse not seen in motion."
+          },
+          {
+            "id": "n8",
+            "pass": true,
+            "start_s": 39.12,
+            "end_s": 42.78,
+            "observed": "scene_s8 shows an 'Evaluating use and experience' tag hanging from the share bar, with the answer card, its Not in release tags and empty Accuracy slot below. Matches 'will keep evaluating use and clinician experience'."
+          }
+        ]
+      }
+    },
+    {
+      "score": 6.96,
+      "ship": false,
+      "axes": {
+        "hook": 7.0,
+        "story": 7.8,
+        "picture": 7.0,
+        "place": 5.8,
+        "craft": 6.8,
+        "voice": 7.0
+      },
+      "hard_fails": [],
+      "weakest_axis": "place",
+      "one_sentence_fix": "In video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx and ClinicSupport.tsx, reframe s2, s3 and s6 so every tag, the Health record tag and the Answer card sit wholly inside the frame and phone safe area, move the Gulf Coast window and marsh plate into view in at least the s1, s2, s3 and s8 wide or medium shots so the Galveston setting reads, drop the unexplained cropped hand from the s2 bottom-left, then re-render and re-align captions.",
+      "audiovisual_role": "story",
+      "audiovisual_receipt_sha256": "b19ff4c86adca9ef01518f98dbaa0278e7fc3b9994d1eb1c45b676f8b84f91cf",
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Claims c1 to c5 and c8 are VERIFIED with quotes in claims.json. Every spoken clause binds to a claim id. c8's no-measure statement rests on the validator's absence search."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "Original authored React/SVG art (ChartHero, ClinicSupport) with illustration disclosure on screen. Coordinator reports music.py --verify-package passed for the CC BY credit. Not independently verified by me."
+          },
+          "legibility": {
+            "pass": true,
+            "observed": "Captions and primary tags (Announced September 22nd, Usual credentials, Not in release) read clearly in s2, s3, s6 and s8 stills. Some secondary tags and labels are clipped at frame edges (see defects)."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "From stills and the board, the story reconstructs as a question going into a tool, an answer returning with three source-type cards, a usage share past half, and Accuracy and Patient care tags reading Not in release. Not confirmed in a viewing."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "Provider receipt claims clean, intelligible audio. Not heard by this reviewer."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "14 captions with measured_boundary start and end, silence-anchored. Stills show captions legible in the lower band."
+          }
+        },
+        "defects": [
+          {
+            "finding": "s2, s3 and s6 stills show tags, the Health record label and the Answer card cropped at frame edges, and an unexplained cropped hand in s2",
+            "category": "surface_finish"
+          },
+          {
+            "finding": "Gulf Coast region and window barely visible. Most shots read as plain wall and desk",
+            "category": "style"
+          }
+        ]
+      },
+      "attention_review": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "pass": false,
+        "hook_observed": "Stills and board: a question card enters the OpenEvidence tool by about 1.4 s with hands at a keyboard, and the answer drops out at 3.1 s. Not confirmed in motion.",
+        "continuity_observed": "The same teal-tab clipboard chart, OpenEvidence tool and Answer card (Sources filled, Accuracy dashed and empty) recur across the s1 to s2, s6 to s7 and s7 to s8 cuts in stills. The s4 to s5 cut jumps from the desk to a wall of grey clinician tokens, which stills show reads as a new subject.",
+        "pacing_observed": "Board timing only: one change roughly every 1 to 2.5 s with s2 shot 1 the loosest (4.7 s, events at about 0.5 s and 2.7 s). The s6 limit handoff between clauses is about 0.6 s. The final hold after the last clause (42.78 s to 44.0 s) is about 1.2 s. Not timed in the film.",
+        "comprehension_observed": "Reconstructed from stills with captions covered: a question is typed and sent into a tool, an answer returns with three source cards, adoption is shown as a lit share past Half, and two tags say Not in release. Source limits are carried by the on-screen Illustration disclosure and the own-report tag. The dated tags in s2 are partly cropped.",
+        "remembered_image": "The Answer card with a filled Sources slot beside the empty dashed Accuracy ring (s7 to s8). It carries the film's claim that a citation is not proof of accuracy.",
+        "weakest_interval": "s6, about 29.7 to 33.3 s: the hero limit passage has the Answer card running off the right edge, mid-fade Accuracy tag and large empty paper above and below. Repair: reframe so both tags and the card sit fully in frame at the stated readable size and fill the empty areas with the share or chart for identity.",
+        "weakest_at_s": 29.7,
+        "weakest_end_s": 33.3,
+        "audio_basis": "No direct listening. Only measured caption boundaries and the provider receipt's text claims were available."
+      },
+      "modern_observations": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "first_frame": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 1.5,
+          "observed": "From attention-review stills and board timing, not from playback: at 0.42 s hands at a keyboard and a question card are in frame and the card moves toward the OpenEvidence tool (hook payoff 1.2 s). The feed-composite s1 panel shows only the tool with no card or hands in that crop, so the first-frame subject is not confirmed in motion."
+        },
+        "visual_progression": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Stills and board show a changing chain: question into tool, answer and three citation cards, dated tags, sign-in with lock opening, source-type cards, clinician share past Half, own-report and Not in release tags, empty Accuracy ring, evaluation tag. Not watched at normal speed by this reviewer."
+        },
+        "shot_variety": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Board lists wide, medium, close and detail framings. The s4 to s8 stills reuse one desk and answer-card tableau, and s5 is the only real change of subject there, so variety is modest. Passed with that reservation, based on stills only."
+        },
+        "performed_turn": {
+          "pass": true,
+          "start_s": 29.3,
+          "end_s": 33.3,
+          "observed": "Stills at 29.99 s and 31.31 s show Accuracy and Patient care tags clipping onto the answer and reading Not in release beside the empty Accuracy slot. The Answer card runs off the right edge and the frame has large empty paper areas. Motion not seen."
+        },
+        "pace": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Board timing only: one declared change roughly every 1 to 2.5 s and no shot over 5 s. s2 shot 1 (4.7 s, events near 0.5 s and 2.7 s) is the loosest, and the s6 handoff between clauses is about 0.6 s. Not timed in the film. Passed on board evidence, not on a viewing."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 39.1,
+          "end_s": 44.0,
+          "observed": "The s8 still shows the evaluating-use-and-experience tag on the share, the Answer card with Sources filled, Accuracy empty and both Not in release tags, which answers the opening question. The More than half and Half labels are clipped at the top edge. Not seen in motion."
+        },
+        "finished_art": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Stills show a finished, coherent rounded illustration style with contact shadows and grounded props. Defects seen in stills: cropped tags and Health record label in s2, clipped tags in s3, Answer card cropped at the right edge in s6, and a weak Gulf region presence. Passed at the creative level only, with those defects retained."
+        }
+      },
+      "narration_picture_observations": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "clauses": [
+          {
+            "id": "n1a",
+            "pass": true,
+            "start_s": 0.28,
+            "end_s": 2.64,
+            "observed": "Attention still at 0.42 s shows hands on a keyboard and a question card heading into the OpenEvidence tool. The feed-composite s1 panel shows only the tool. Judged from stills, not heard or watched."
+          },
+          {
+            "id": "n1b",
+            "pass": true,
+            "start_s": 3.1,
+            "end_s": 4.96,
+            "observed": "Stills at 3.14 s and 4.07 s show an answer card coming out of the tool and citation cards tucking into its Sources slot."
+          },
+          {
+            "id": "n2a",
+            "pass": true,
+            "start_s": 5.58,
+            "end_s": 9.94,
+            "observed": "scene_s2 still shows the Announced September 22nd tag pinned at the record edge beside the OpenEvidence AI tool. The Health record tag is cropped at the left and an unrelated cropped hand sits at bottom left."
+          },
+          {
+            "id": "n2b",
+            "pass": true,
+            "start_s": 10.06,
+            "end_s": 11.62,
+            "observed": "Still at 10.57 s shows the Live since March tag settling under the announcement on the chart. Tags are partly cropped at the frame edge."
+          },
+          {
+            "id": "n3a",
+            "pass": true,
+            "start_s": 12.24,
+            "end_s": 14.72,
+            "observed": "scene_s3 still shows hands on a keyboard, a masked Usual credentials field and the lock open. The Sep tag is clipped at top right."
+          },
+          {
+            "id": "n3b",
+            "pass": true,
+            "start_s": 15.0,
+            "end_s": 16.3,
+            "observed": "Stills at 15.06 s and 15.78 s show the Question card being typed with a plain-language pill and sliding to the chart edge, with the tool and tags clipped at the right edge."
+          },
+          {
+            "id": "n4a",
+            "pass": true,
+            "start_s": 16.92,
+            "end_s": 18.6,
+            "observed": "Still at 17.1 s shows the Answer card with Sources and Accuracy slots and citation cards fanning out. The Accuracy slot is visible before it is narrated, which foreshadows s7."
+          },
+          {
+            "id": "n4b",
+            "pass": true,
+            "start_s": 19.24,
+            "end_s": 21.46,
+            "observed": "Stills at 19.46 s and 20.46 s show citation cards lifting. Provider text reports medical literature, clinical guidelines and other sources labels. Label text is small in the contact sheet."
+          },
+          {
+            "id": "n5",
+            "pass": true,
+            "start_s": 22.1,
+            "end_s": 26.56,
+            "observed": "Stills at 22.19 s, 23.21 s and 24.87 s show anonymous clinician tokens lighting past a Half tick, then a decision-support tag over the tool. The lit tokens are small and the read relies on the Half and More than half labels."
+          },
+          {
+            "id": "n6a",
+            "pass": true,
+            "start_s": 27.16,
+            "end_s": 29.04,
+            "observed": "Still at 27.54 s shows the own-report tag attached to the lit share. Judged from a stills sheet only."
+          },
+          {
+            "id": "n6b",
+            "pass": true,
+            "start_s": 29.66,
+            "end_s": 32.96,
+            "observed": "scene_s6 and the 31.31 s still show Accuracy and Patient care tags, with Not in release readable at 31.31 s. The Answer card runs off the right edge and the frame has large empty areas. This is the weakest framing in the film."
+          },
+          {
+            "id": "n7a",
+            "pass": true,
+            "start_s": 33.56,
+            "end_s": 36.46,
+            "observed": "Still at 34.14 s shows a thread from the answer Sources slot to a citation tab. The picture is abstract and small in the contact sheet."
+          },
+          {
+            "id": "n7b",
+            "pass": true,
+            "start_s": 37.02,
+            "end_s": 38.52,
+            "observed": "Stills at 37.17 s and 37.84 s show the dashed Accuracy ring beside the filled Sources slot staying empty. It depicts the clause through absence, which is abstract."
+          },
+          {
+            "id": "n8",
+            "pass": true,
+            "start_s": 39.12,
+            "end_s": 42.78,
+            "observed": "scene_s8 and the 39.30 s still show the Evaluating use and experience tag hung from the share bar, with the answer held beside the chart and its Accuracy slot empty. The More than half and Half labels are clipped at the top edge."
+          }
+        ]
+      }
+    },
+    {
+      "score": 7.17,
+      "ship": true,
+      "audiovisual_role": "sound",
+      "audiovisual_receipt_sha256": "b0ae97094ce7d41f145ad82c7bc3022c579f66a653aa389a1a5b811ab9f76237",
+      "axes": {
+        "hook": 7.2,
+        "story": 7.6,
+        "picture": 6.8,
+        "place": 6.8,
+        "craft": 7.2,
+        "voice": 7.4
+      },
+      "hard_fails": [],
+      "weakest_axis": "picture",
+      "one_sentence_fix": "In scene s2 (5.3 to 11.96 s), move the 'Announced September 22nd' tag pin (s2-event-2) from film time 7.98 s to about 8.6 s and add a visible tool-docking slide at the record edge between 6.5 and 8.4 s, so the 5.58 to 9.94 s clause has a moving physical change under the whole line. Then re-run board_retime, the render and exact-film phone review.",
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Credits card shows 'UTMB news release September 22nd'. Claim-quote tracing was not re-opened by me. I rely on the coordinator's statement that gates passed."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "Per the coordinator, music.py --verify-package exited 0. Board credits match credits.txt and carry the CC BY 4.0 MUSIC block. I saw it on credits_frame.png: 'Thinking Music' by Kevin MacLeod, CC BY 4.0 URL, 'trimmed and synced to picture'."
+          },
+          "legibility": {
+            "pass": true,
+            "observed": "Viewed credits_frame.png, scene_s1.png and scene_s6.png at phone size. Credit text, tags, the Illustration disclosure and the caption block are readable."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "scene_s6.png shows an Answer card with a filled Sources slot, a dashed empty Accuracy slot and a fading Accuracy tag under the caption 'The release publishes no measure of accuracy or patient care.' The board's picture-to-clause mapping is coherent. I viewed only 3 of 9 stills."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "mix.json measured: master integrated -16.14 LUFS against a -16.0 target (0.14 dB shortfall), true peak -1.97 dBTP, LRA 3.5 after mastering, 48000 Hz, 2352000 samples (49.0 s). Mastering was FFmpeg loudnorm dynamic with an acompressor, limiter true, premaster peak -1.32 dBFS, time_stretch 1.0 on every track. The bed sits 20 dB under the voice. There are 3 designed foley cues (card-slide at 0.42 s, cards-tuck at 4.07 s, lock-open at 13.36 s), each on its board event time. A music duck at 29.99 s for 1.2 s lands on the accuracy and patient-care tag clip (s6-event-2). The provider reports clean VO, no clipping, no masking. That is model observation, not my hearing."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "captions.json: method silence_anchored, 14 cues, every start and end flagged measured_boundary. 28 measured boundaries, 108 acoustic words matched, min pause 0.24 s. Cue c3 runs 5.58 to 9.94 s and c14 ends at 42.78 s. The s6 still shows the caption on the matching line. I did not re-run force alignment."
+          }
+        },
+        "defects": [],
+        "score_only": true
+      },
+      "narration_picture_observations": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "clauses": [
+          {
+            "id": "n1a",
+            "pass": true,
+            "start_s": 0.28,
+            "end_s": 2.64,
+            "observed": "Board event s1-event-1 at 0.42 s sends the typed question card into the tool. Provider confirms. Subject (tool) is visible in s1 still. Motion not viewed by me."
+          },
+          {
+            "id": "n1b",
+            "pass": true,
+            "start_s": 3.1,
+            "end_s": 4.96,
+            "observed": "Board events: answer card slides out at 3.14 s, three citation cards tuck into the Sources slot at 4.07 s. Provider confirms an Answer card with source tabs. From board and provider, not viewed."
+          },
+          {
+            "id": "n2a",
+            "pass": true,
+            "start_s": 5.58,
+            "end_s": 9.94,
+            "observed": "Chart edge glows at 5.8 s and an Announced September 22nd tag pins at 7.98 s. Pictured, but this is my weakest interval since the middle is thin. Board and provider only."
+          },
+          {
+            "id": "n2b",
+            "pass": true,
+            "start_s": 10.06,
+            "end_s": 11.62,
+            "observed": "Live since March tag settles on the same chart at 11.03 s. Board and provider only."
+          },
+          {
+            "id": "n3a",
+            "pass": true,
+            "start_s": 12.24,
+            "end_s": 14.72,
+            "observed": "Hands type masked credential and the lock opens at 13.36 s, matched by the lock-open foley at 13.356 s per mix.json. Board, provider and mix data; not viewed."
+          },
+          {
+            "id": "n3b",
+            "pass": true,
+            "start_s": 15.0,
+            "end_s": 16.3,
+            "observed": "Question typed in plain words at 15.07 s, card slides to chart edge at 15.78 s. Board and provider only."
+          },
+          {
+            "id": "n4a",
+            "pass": true,
+            "start_s": 16.92,
+            "end_s": 18.6,
+            "observed": "Citation cards fan out from the returned answer at 17.17 s. Board and provider only."
+          },
+          {
+            "id": "n4b",
+            "pass": true,
+            "start_s": 19.24,
+            "end_s": 21.46,
+            "observed": "Medical literature card lifts at 19.46 s and clinical guidelines at 20.46 s. Provider lists three labelled cards (including Other sources). Board and provider only."
+          },
+          {
+            "id": "n5",
+            "pass": true,
+            "start_s": 22.1,
+            "end_s": 26.56,
+            "observed": "Clinician figures light from 22.19 s, pass halfway at about 23.2 s, decision-support tag at 24.87 s. Provider sees twelve badges and a slider past half. Not viewed by me."
+          },
+          {
+            "id": "n6a",
+            "pass": true,
+            "start_s": 27.16,
+            "end_s": 29.04,
+            "observed": "UTMB's own report tag labels the lit share at 27.54 s. Board and provider only."
+          },
+          {
+            "id": "n6b",
+            "pass": true,
+            "start_s": 29.66,
+            "end_s": 32.96,
+            "observed": "Accuracy and patient care tags clip on at 29.99 s, with a music duck at the same moment per mix.json, and read not in release at 31.31 s. The s6 still shows the Accuracy tag, the empty dashed Accuracy slot and the caption for this clause. Patient care tag not seen in the still."
+          },
+          {
+            "id": "n7a",
+            "pass": true,
+            "start_s": 33.56,
+            "end_s": 36.46,
+            "observed": "Citation card connects to its source type at 34.14 s. Board and provider only."
+          },
+          {
+            "id": "n7b",
+            "pass": true,
+            "start_s": 37.02,
+            "end_s": 38.52,
+            "observed": "Accuracy slot lights and its ring pulses empty at 37.17 s and 37.85 s. Provider confirms the camera push to the empty ring. Not viewed by me."
+          },
+          {
+            "id": "n8",
+            "pass": true,
+            "start_s": 39.12,
+            "end_s": 42.78,
+            "observed": "Evaluating use and experience tag pins at 39.30 s, Sources glows at 41.24 s, Accuracy ring pulses and holds at 42.19 s. Board and provider only."
+          }
+        ]
+      },
+      "attention_review": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "pass": true,
+        "hook_observed": "Board hook_payoff is 1.2 s. The first VO clause starts at 0.28 s and the question card enters the tool at 0.42 s. The provider sees typing hands and a card sliding at 1.2 s. I confirmed the large OpenEvidence AI tool is the first-frame subject.",
+        "continuity_observed": "One worn chart and the OpenEvidence unit recur across scenes s1 to s8 per the board. The Answer card with Sources and Accuracy slots in s6 matches the s1 return. I did not check the transitions in video.",
+        "pacing_observed": "Board scene starts are 0, 5.3, 11.96, 16.64, 21.82, 26.88, 33.28 and 38.84 s. There are three events per scene, each tied to a clause. The film is 44 s plus a 5 s credits card (49.0 s master). Possible thin spot is 5.58 to 9.94 s (c3), where the visual events are a glow at 5.8 s and a tag pin at 7.98 s, with about 1.9 s between them. Nothing appears to be rushed.",
+        "comprehension_observed": "After one viewing the viewer gets: a question goes into the tool, an answer comes back with citations, UTMB announced it on September 22nd and says it went live in March, clinicians use it with sign-in, more than half use it (UTMB's own report), and the release gives no accuracy or patient-care measure. I rate overload as low to moderate in s2, which carries two dated facts in one 6.66 s scene.",
+        "remembered_image": "The Answer card with a filled Sources slot beside the dashed empty Accuracy ring (scene_s6.png). It carries the source limit directly.",
+        "weakest_interval": "5.58 to 9.94 s (c3, September 22nd announcement). The provider named this interval too, and I agree on timing but not on its reasoning. Cause: one tag-pin carries the date and the clause is 4.36 s long. Repair: as in one_sentence_fix.",
+        "weakest_at_s": 5.58,
+        "weakest_end_s": 9.94,
+        "audio_basis": "No direct listening by me. Voice and music judgments rest on the provider's gemini-3.8-flash receipt (audio_access true, basis 'not human listening') plus mix.json measurements and captions.json. Waveform and loudness numbers can't establish a natural or compelling performance."
+      },
+      "modern_observations": {
+        "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+        "first_frame": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 1.5,
+          "observed": "scene_s1.png (a frame near the start) shows a large, recognizable OpenEvidence AI tool unit with a card slot at the record edge. Board puts the question card entering the tool at 0.42 s and hook payoff at 1.2 s. Provider reports typing hands. I did not watch the video, only that still, so motion at the first frame is unverified by me."
+        },
+        "visual_progression": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Board has eight scenes with three timed events each, progressing question to answer, dates, sign-in, citations, usage share, limits, accuracy gap, evaluation close. The scene_s6.png still confirms the Answer card with Sources filled and Accuracy dashed. Remaining progression is from board text and provider, not my viewing."
+        },
+        "shot_variety": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Board assigns varied camera strategies (truckAcross, dollyThrough, craneDown, riseWith, orbitReveal) and distinct visual families per scene. The two stills I saw differ clearly (wall-mounted tool vs. close card on a lined desk). Cut-to-cut variety in the video itself was not inspected by me."
+        },
+        "performed_turn": {
+          "pass": true,
+          "start_s": 27.16,
+          "end_s": 38.52,
+          "observed": "Turn from adoption claim to source limit: report tag, Accuracy and patient care tags 'not in release', then thread to citation with empty Accuracy ring pulsing. s6 still shows the Accuracy tag mid-clip and the empty dashed slot beside filled Sources. Timing is from board and captions; motion not viewed by me."
+        },
+        "pace": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Scene starts 0, 5.3, 11.96, 16.64, 21.82, 26.88, 33.28, 38.84 s with an event inside each clause. Possible thin spot 5.58 to 9.94 s with about 1.9 s between the glow and the tag pin. I could not observe dead time directly; the provider claims none."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 38.84,
+          "end_s": 44.0,
+          "observed": "Per board and provider: evaluating-use tag pins, Sources glows, Accuracy ring stays empty, held at the end, answering the opening's 'sources' with the limit that accuracy is not shown. Not viewed by me beyond board text. Credits card (44 to 49 s) legible in credits_frame.png."
+        },
+        "finished_art": {
+          "pass": true,
+          "start_s": 0.0,
+          "end_s": 44.0,
+          "observed": "Two scene stills show finished flat-dimensional art with screws, shadows, glow and crisp type, and the Illustration, Not UTMB's screen disclosure. s6 background is plain lined paper with the card cropped at the right edge, a modest finish. Only 3 of 9 stills seen."
+        }
+      }
+    }
+  ]
+}

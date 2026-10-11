@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T02:38:20.269185+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-11T02:51:04.239591+00:00",
+  "note": "retain complete raw panel rounds 1 and 2, refusals, classifications and late accounting correction; review-access recovery pending",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -2539,6 +2539,12 @@
       "size": 50147
     },
     {
+      "path": "out/dispatch/creative-assessments/5e16e9b12b5d45e456f6b2dbb2ccc5965b6cad67f4bf86dbb48f8b57e645ad80.json",
+      "class": "scratch",
+      "sha256": "047204c02dacf3cda0d3d1dcbc097aff6297aeda96002fd77e1af646b2e39b00",
+      "size": 1332
+    },
+    {
       "path": "out/dispatch/creative-assessments/7f3ba124ad69e9314531419d1cb933d64aa4d6a80e1ede592fcda09c254bab80.json",
       "class": "scratch",
       "sha256": "e82dcffd4deb1839aabb6a068c24ef463342830af32598e49cf3e34260d88e53",
@@ -3101,6 +3107,60 @@
       "class": "scratch",
       "sha256": "06e85d43b8cd0f487fc8a4fe1ac58ca90025c5c24dd0fafed03fb62b1385068f",
       "size": 1937
+    },
+    {
+      "path": "out/dispatch/panel-picture-observations.json",
+      "class": "scratch",
+      "sha256": "d35f168ab3a179602ca321a7b77aaaf30a8bffc9f103ae72a0c092a331da0177",
+      "size": 8080
+    },
+    {
+      "path": "out/dispatch/panel-picture-scorer.json",
+      "class": "scratch",
+      "sha256": "aa0f0be5cc8c417320086aa2dabfdaee722343ed06bff0ddc86621265d65efc0",
+      "size": 5085
+    },
+    {
+      "path": "out/dispatch/panel-round-1.json",
+      "class": "scratch",
+      "sha256": "852cd87c5488c1b1def927e901c49261b720e011898f1ff83d07a7c4a14fbd97",
+      "size": 15984
+    },
+    {
+      "path": "out/dispatch/panel-round-2.json",
+      "class": "scratch",
+      "sha256": "7045d1dc1453f46adabc7e93d1c4960f85143ad65032f6c3b13f085d1ace3361",
+      "size": 36775
+    },
+    {
+      "path": "out/dispatch/panel-sound-observations.json",
+      "class": "scratch",
+      "sha256": "6873d6a25b5eb26b330178df0c5074756fd9f5261ea35aaf33340573ddb21a04",
+      "size": 6486
+    },
+    {
+      "path": "out/dispatch/panel-sound-scorer.json",
+      "class": "scratch",
+      "sha256": "bfbb52dcd5c92117124d81c9a602597e492f595691b0ac1c3c9bbba44f340984",
+      "size": 6007
+    },
+    {
+      "path": "out/dispatch/panel-story-observations.json",
+      "class": "scratch",
+      "sha256": "30eca64a3113455de8c2fcf46b4b6b48ec416189e335ccfb39f1525c3cab41d4",
+      "size": 6815
+    },
+    {
+      "path": "out/dispatch/panel-story-scorer.json",
+      "class": "scratch",
+      "sha256": "a7ec3c2912c9b9f0e55302715eef7e3db67f46bf56856387b2f7d377dd34c099",
+      "size": 4679
+    },
+    {
+      "path": "out/dispatch/panel_history.json",
+      "class": "scratch",
+      "sha256": "6c183448fab2fd7017e212434e1fa0fc8f8279c75bd0b9a33ccb20572cc495b5",
+      "size": 551
     },
     {
       "path": "out/dispatch/phone-assignment-r10.json",
@@ -6709,6 +6769,12 @@
       "size": 5643
     },
     {
+      "path": "out/dispatch/report_card.json",
+      "class": "scratch",
+      "sha256": "daca1633d56d9b00b320de9b13cc3883bacf79327d79942b0245bf968371041d",
+      "size": 41063
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "2ee1fce7f35e993a1e1f33e995fe7a42c9790e6e3ec28089df8d4d349bac0694",
@@ -7837,10 +7903,130 @@
       "size": 2005
     },
     {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/CLASSIFICATIONS.md",
+      "class": "scratch",
+      "sha256": "d9964e22ad16a5da474727ed6f65239ed1a134067ddac8c9620941e4b0be13e4",
+      "size": 968
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/creative-assessments/5e16e9b12b5d45e456f6b2dbb2ccc5965b6cad67f4bf86dbb48f8b57e645ad80.json",
+      "class": "scratch",
+      "sha256": "047204c02dacf3cda0d3d1dcbc097aff6297aeda96002fd77e1af646b2e39b00",
+      "size": 1332
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/creative-assessments/7f3ba124ad69e9314531419d1cb933d64aa4d6a80e1ede592fcda09c254bab80.json",
+      "class": "scratch",
+      "sha256": "e82dcffd4deb1839aabb6a068c24ef463342830af32598e49cf3e34260d88e53",
+      "size": 10574
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-picture-observations.json",
+      "class": "scratch",
+      "sha256": "d35f168ab3a179602ca321a7b77aaaf30a8bffc9f103ae72a0c092a331da0177",
+      "size": 8080
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-picture-scorer.json",
+      "class": "scratch",
+      "sha256": "aa0f0be5cc8c417320086aa2dabfdaee722343ed06bff0ddc86621265d65efc0",
+      "size": 5085
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-round-1.json",
+      "class": "scratch",
+      "sha256": "852cd87c5488c1b1def927e901c49261b720e011898f1ff83d07a7c4a14fbd97",
+      "size": 15984
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-round-2.json",
+      "class": "scratch",
+      "sha256": "7045d1dc1453f46adabc7e93d1c4960f85143ad65032f6c3b13f085d1ace3361",
+      "size": 36775
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-sound-observations.json",
+      "class": "scratch",
+      "sha256": "6873d6a25b5eb26b330178df0c5074756fd9f5261ea35aaf33340573ddb21a04",
+      "size": 6486
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-sound-scorer.json",
+      "class": "scratch",
+      "sha256": "bfbb52dcd5c92117124d81c9a602597e492f595691b0ac1c3c9bbba44f340984",
+      "size": 6007
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-story-observations.json",
+      "class": "scratch",
+      "sha256": "30eca64a3113455de8c2fcf46b4b6b48ec416189e335ccfb39f1525c3cab41d4",
+      "size": 6815
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel-story-scorer.json",
+      "class": "scratch",
+      "sha256": "a7ec3c2912c9b9f0e55302715eef7e3db67f46bf56856387b2f7d377dd34c099",
+      "size": 4679
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/panel_history.json",
+      "class": "scratch",
+      "sha256": "6c183448fab2fd7017e212434e1fa0fc8f8279c75bd0b9a33ccb20572cc495b5",
+      "size": 551
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/report_card.round2.json",
+      "class": "scratch",
+      "sha256": "daca1633d56d9b00b320de9b13cc3883bacf79327d79942b0245bf968371041d",
+      "size": 41063
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/worker-a636da07d994e9b14.transcript.jsonl",
+      "class": "scratch",
+      "sha256": "e3d6071fd93b857b489ca830882000cbed110c4b90eab85308745a73eb457c9b",
+      "size": 5279889
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/worker-a9182fc7ff96d0335.transcript.jsonl",
+      "class": "scratch",
+      "sha256": "828ddecc8ba659cae70b36df6179fffc7fbaeb696474d4956640da320ffc71a1",
+      "size": 2854799
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/worker-ab8558c2cf0ad3f78.transcript.jsonl",
+      "class": "scratch",
+      "sha256": "3caa3e0f16724f6ecbc6355dcc0eac1d1b42c9742d1596081201a0dc6f091490",
+      "size": 1878713
+    },
+    {
       "path": "out/dispatch/retained-failures/panel-round-1-incomplete-handbacks/NOTE.md",
       "class": "scratch",
       "sha256": "67d7786ac0b873baa151f6715298a95cd56c56b784fddaf6699af9ac90c76871",
       "size": 1696
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-round-1-incomplete-handbacks/ROUND1-BLOCKED-RECORD.md",
+      "class": "scratch",
+      "sha256": "328acd0de9e0f1dd231ddbd9d23bf68a19d3720b29b57d38950660c35fe1c2aa",
+      "size": 601
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-round-1-incomplete-handbacks/ROUND2-CLASSIFICATION-BLOCKER.md",
+      "class": "scratch",
+      "sha256": "0a4c636906a97239a0464a6956c07a742ff98942b5cfe6e6d086eff5000905bf",
+      "size": 1077
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-round-1-incomplete-handbacks/panel_history.round1.json",
+      "class": "scratch",
+      "sha256": "20c11a32a23590965e4bb57b5acd361b15a29d47478db90fd4a19dd93843c59f",
+      "size": 380
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-round-1-incomplete-handbacks/report_card.round1.json",
+      "class": "scratch",
+      "sha256": "5359d49ad92282b613c91be010db2847c2cf32eebca59c02aab370b558914671",
+      "size": 17676
     },
     {
       "path": "out/dispatch/retained-failures/phone-critic-1/a-contact.png",

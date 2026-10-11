@@ -1,0 +1,64 @@
+{
+ "score": 7.17,
+ "ship": true,
+ "audiovisual_role": "sound",
+ "audiovisual_receipt_sha256": "b0ae97094ce7d41f145ad82c7bc3022c579f66a653aa389a1a5b811ab9f76237",
+ "axes": {
+  "hook": 7.2,
+  "story": 7.6,
+  "picture": 6.8,
+  "place": 6.8,
+  "craft": 7.2,
+  "voice": 7.4
+ },
+ "hard_fails": [],
+ "weakest_axis": "picture",
+ "one_sentence_fix": "In scene s2 (5.3 to 11.96 s), move the 'Announced September 22nd' tag pin (s2-event-2) from film time 7.98 s to about 8.6 s and add a visible tool-docking slide at the record edge between 6.5 and 8.4 s, so the 5.58 to 9.94 s clause has a moving physical change under the whole line. Then re-run board_retime, the render and exact-film phone review.",
+ "bounded_release": {
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "panel",
+  "retained_checks": {
+   "source": {
+    "pass": true,
+    "observed": "Credits card shows 'UTMB news release September 22nd'. Claim-quote tracing was not re-opened by me. I rely on the coordinator's statement that gates passed."
+   },
+   "rights": {
+    "pass": true,
+    "observed": "Per the coordinator, music.py --verify-package exited 0. Board credits match credits.txt and carry the CC BY 4.0 MUSIC block. I saw it on credits_frame.png: 'Thinking Music' by Kevin MacLeod, CC BY 4.0 URL, 'trimmed and synced to picture'."
+   },
+   "legibility": {
+    "pass": true,
+    "observed": "Viewed credits_frame.png, scene_s1.png and scene_s6.png at phone size. Credit text, tags, the Illustration disclosure and the caption block are readable."
+   },
+   "comprehension": {
+    "pass": true,
+    "observed": "scene_s6.png shows an Answer card with a filled Sources slot, a dashed empty Accuracy slot and a fading Accuracy tag under the caption 'The release publishes no measure of accuracy or patient care.' The board's picture-to-clause mapping is coherent. I viewed only 3 of 9 stills."
+   },
+   "technical_audio": {
+    "pass": true,
+    "observed": "mix.json measured: master integrated -16.14 LUFS against a -16.0 target (0.14 dB shortfall), true peak -1.97 dBTP, LRA 3.5 after mastering, 48000 Hz, 2352000 samples (49.0 s). Mastering was FFmpeg loudnorm dynamic with an acompressor, limiter true, premaster peak -1.32 dBFS, time_stretch 1.0 on every track. The bed sits 20 dB under the voice. There are 3 designed foley cues (card-slide at 0.42 s, cards-tuck at 4.07 s, lock-open at 13.36 s), each on its board event time. A music duck at 29.99 s for 1.2 s lands on the accuracy and patient-care tag clip (s6-event-2). The provider reports clean VO, no clipping, no masking. That is model observation, not my hearing."
+   },
+   "captions": {
+    "pass": true,
+    "observed": "captions.json: method silence_anchored, 14 cues, every start and end flagged measured_boundary. 28 measured boundaries, 108 acoustic words matched, min pause 0.24 s. Cue c3 runs 5.58 to 9.94 s and c14 ends at 42.78 s. The s6 still shows the caption on the matching line. I did not re-run force alignment."
+   }
+  },
+  "defects": [],
+  "score_only": true
+ },
+ "narration_picture_observations": "Provider observations n1a through n8 all pass, with windows identical to captions.json cues. I spot-checked only s1 and s6 stills. The s6 still matches c11 (Accuracy tag and empty slot). The s1 still shows the OpenEvidence AI tool, but it is a frame before any card travels in, so it neither confirms nor contradicts n1a. I did not verify any others against frames.",
+ "attention_review": {
+  "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+  "pass": true,
+  "hook_observed": "Board hook_payoff is 1.2 s. The first VO clause starts at 0.28 s and the question card enters the tool at 0.42 s. The provider sees typing hands and a card sliding at 1.2 s. I confirmed the large OpenEvidence AI tool is the first-frame subject.",
+  "continuity_observed": "One worn chart and the OpenEvidence unit recur across scenes s1 to s8 per the board. The Answer card with Sources and Accuracy slots in s6 matches the s1 return. I did not check the transitions in video.",
+  "pacing_observed": "Board scene starts are 0, 5.3, 11.96, 16.64, 21.82, 26.88, 33.28 and 38.84 s. There are three events per scene, each tied to a clause. The film is 44 s plus a 5 s credits card (49.0 s master). Possible thin spot is 5.58 to 9.94 s (c3), where the visual events are a glow at 5.8 s and a tag pin at 7.98 s, with about 1.9 s between them. Nothing appears to be rushed.",
+  "comprehension_observed": "After one viewing the viewer gets: a question goes into the tool, an answer comes back with citations, UTMB announced it on September 22nd and says it went live in March, clinicians use it with sign-in, more than half use it (UTMB's own report), and the release gives no accuracy or patient-care measure. I rate overload as low to moderate in s2, which carries two dated facts in one 6.66 s scene.",
+  "remembered_image": "The Answer card with a filled Sources slot beside the dashed empty Accuracy ring (scene_s6.png). It carries the source limit directly.",
+  "weakest_interval": "5.58 to 9.94 s (c3, September 22nd announcement). The provider named this interval too, and I agree on timing but not on its reasoning. Cause: one tag-pin carries the date and the clause is 4.36 s long. Repair: as in one_sentence_fix.",
+  "weakest_at_s": 5.58,
+  "weakest_end_s": 9.94,
+  "audio_basis": "No direct listening by me. Voice and music judgments rest on the provider's gemini-3.8-flash receipt (audio_access true, basis 'not human listening') plus mix.json measurements and captions.json. Waveform and loudness numbers can't establish a natural or compelling performance."
+ },
+ "modern_observations": "Provider-typed. Its raw modern_observations.film_sha256 is the board hash 4a10a3f6...0d3fe, not the film hash. Per your note, project() overwrites it with the film hash on projection. I treat it as a provenance note, not a film defect. All seven items are provider-passed. I verified first_frame and closing_answer only partly, through stills."
+}
