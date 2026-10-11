@@ -433,6 +433,14 @@
       "note": "hero",
       "resource": "preflight_renders",
       "to": 20
+    },
+    {
+      "at": "2026-10-11T01:20:07.109266Z",
+      "ceiling": 21,
+      "from": 20,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 21
     }
   ],
   "events": [
@@ -5437,6 +5445,24 @@
       "input_identity": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
       "kind": "preflight_retry_authorized",
       "reason": "cinema_proof refused before rendering with no unique principal-picture event for directed-film-v2; fixed in trusted main PR139 (cinema_cache.principal_event), sampler verified on the current board returning 3 samples per scene"
+    },
+    {
+      "at": "2026-10-11T01:20:07.109299Z",
+      "ceiling": 21,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 21,
+      "resource": "preflight_renders",
+      "was": 20
+    },
+    {
+      "at": "2026-10-11T01:20:07.109312Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "f14c6c4814bae4393aaf39ee0448dcc17997fa076489769e3ca84a4a233a1c92",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5445,7 +5471,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 20,
+    "preflight_renders": 21,
     "reboards": 11,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -5461,7 +5487,7 @@
   "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cb01309e1892a04f45cd85901ad6089f21a5ffebef4adc490d457f1f6f23f055",
+    "original_private_state_sha256": "6e3bb036f9d0b443719853d4d1acea754c17601754236d005b3f48f311dbcb18",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5489,14 +5515,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T01:19:47.492341Z",
+  "updated_at": "2026-10-11T01:20:07.109315Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 20,
+    "preflight_renders": 21,
     "reboards": 11,
     "reported_tokens": 20306,
     "rescue_renders": 0,
