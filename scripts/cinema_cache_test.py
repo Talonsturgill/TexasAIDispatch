@@ -264,6 +264,77 @@ class CacheTest(unittest.TestCase):
                 self.assertFalse((root/"hero.mp4").exists())
         self.assertEqual(2, len(list((root/"failed-proofs").iterdir())))
 
+class DirectedActionSamplingTest(unittest.TestCase):
+    def board(self):
+        import modern_film_proof
+        board = modern_film_proof.board('a')
+        board.pop('action_proposals', None)
+        for scene in board['scenes']:
+            scene.pop('picture', None)
+            scene.pop('production_action', None)
+        return board
+
+    def test_admitted_directed_route_needs_no_legacy_picture_fields(self):
+        import modern_film
+        board = self.board()
+        self.assertEqual([], modern_film.problems(board))
+        self.assertEqual([0, 60, 120], c.sample_frames(board)['s1'])
+        self.assertEqual(set(s['id'] for s in board['scenes']), set(c.sample_frames(board)))
+        event = c.principal_event(board, board['scenes'][0])
+        self.assertEqual(['s1-event-1', 's1-event-2', 's1-event-3'], event['source_event_ids'])
+        self.assertEqual('cooling-check-v2', event['admitted_direction_id'])
+        self.assertNotIn('admitted_action_id', event)
+
+    def test_unadmitted_direction_or_renderer_cannot_supply_native_samples(self):
+        mutations = [lambda p: p.update(version='old'),
+                     lambda p: p.update(renderer_inputs=[]),
+                     lambda p: p.update(episode='unknown'),
+                     lambda p: p['shots'][0].update(event_id='absent'),
+                     lambda p: p['shots'][1].update(start_s=3)]
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                board = self.board(); mutation(board['film_direction'])
+                with self.assertRaisesRegex(ValueError, 'unadmitted directed'):
+                    c.sample_frames(board)
+
+    def test_complete_unique_finite_in_scene_events_remain_required(self):
+        for update in [{'id': 's1-event-1'}, {'at_s': -1}, {'at_s': float('nan')},
+                       {'duration_s': 0}, {'duration_s': True}, {'duration_s': 20}]:
+            with self.subTest(update=update):
+                board = self.board(); board['scenes'][0]['visual_events'][2].update(update)
+                with self.assertRaises(ValueError):
+                    c.sample_frames(board)
+        board = self.board()
+        wrong = copy.deepcopy(board['scenes'][0]); wrong['super'] = 'Different scene'
+        with self.assertRaisesRegex(ValueError, 'unique complete'):
+            c.principal_event(board, wrong)
+        board['scenes'][0]['visual_events'] = board['scenes'][0]['visual_events'][:2]
+        with self.assertRaises(ValueError):
+            c.sample_frames(board)
+
+    def test_directed_measurements_retain_source_binding_and_mandatory_floors(self):
+        import numpy as np
+        import production_quality as q
+        board = self.board()
+        samples = {s['id']: [{'normal': {'file': 'normal'}, 'without_stage': {'file': 'removed'}}] * 3
+                   for s in board['scenes']}
+        with patch.object(q, 'asset', side_effect=lambda root, item: Path(item['file'])), \
+                patch.object(q, 'image', side_effect=lambda path: np.full((480, 270, 3),
+                    70 if path.name == 'normal' else 0, dtype=float)), \
+                patch('creative_release.eligible', return_value=True):
+            deferred, observations = [], []
+            errors = q.stage_sample_problems(board, Path('synthetic'), samples,
+                                            deferred=deferred, observations=observations)
+        self.assertEqual([], deferred)
+        self.assertTrue(any('does not visibly develop' in e for e in errors))
+        first = observations[0]
+        self.assertEqual('cooling-check-v2', first['admitted_direction_id'])
+        self.assertEqual(['s1-event-1', 's1-event-2', 's1-event-3'], first['source_event_ids'])
+        with patch.object(q, 'asset', side_effect=lambda root, item: Path(item['file'])), \
+                patch.object(q, 'image', return_value=np.zeros((480, 270, 3))):
+            self.assertTrue(any('too little visible principal picture' in e
+                                for e in q.stage_sample_problems(board, Path('synthetic'), samples)))
+
 class CustomActionSamplingTest(unittest.TestCase):
     def board(self):
         return {"date": "2026-09-30", "cinematic_template": "source-action-v1",

@@ -132,6 +132,9 @@ def stage_sample_problems(board, root, samples, film=None, deferred=None, observ
                 if event.get("admitted_action_id"):
                     measurement.update({"admitted_action_id": event["admitted_action_id"],
                                         "source_event_ids": event["source_event_ids"]})
+                if event.get("admitted_direction_id"):
+                    measurement.update({"admitted_direction_id": event["admitted_direction_id"],
+                                        "source_event_ids": event["source_event_ids"]})
                 observations.append(measurement)
             if occupancy_required and area < policy(board)["min_stage_pixel_share"]:
                 errors.append(sid + " has too little visible principal picture content")
