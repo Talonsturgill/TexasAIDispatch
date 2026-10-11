@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T00:48:31.625176+00:00",
-  "note": "cinema_proof refuses directed-film-v2 Claude pilot board: no unique principal-picture event for s1 (cinema_cache.principal_event requires scene.picture or production_action); hero precharge 19/20 and one-use retry recorded; external source fix needed",
+  "saved_at": "2026-10-11T01:01:31.639694+00:00",
+  "note": "PR139 merged and sampler verified; native hero blocked by exact capacity refusal: preflight_renders deficit 1 (19 of 20, 2 required), plan 10 already owns its grant; external capacity repair needed",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "a74e7aa3f253cfbbb7e3b2e6a3579ddd96063277",
+  "source_pin": "56cd56b731fbfc7c259fddf53dae7c212d69e286",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -355,6 +355,12 @@
       "size": 1659
     },
     {
+      "path": "out/dispatch/budget-audit/NATIVE-HERO-CAPACITY-REFUSAL.md",
+      "class": "scratch",
+      "sha256": "faa04511bc30ab8b0c51a926e879df1f3069b0e045ee0a0a4b991446061a5c6f",
+      "size": 1529
+    },
+    {
       "path": "out/dispatch/budget-audit/completion-capacity-attempt-1.txt",
       "class": "scratch",
       "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
@@ -581,6 +587,12 @@
       "class": "scratch",
       "sha256": "dd451cf0b0fb49c6d5b515cde640d5afcdc40aa3f32e25953ab3fe0dff7f5e31",
       "size": 1524
+    },
+    {
+      "path": "out/dispatch/budget-audit/production-budget-native-hero-r14b.log",
+      "class": "scratch",
+      "sha256": "c1787555c0b9f15e40050cc979811a256f591444dfa03343507b0dbc9f15a769",
+      "size": 1489
     },
     {
       "path": "out/dispatch/budget-audit/production-budget-r10-after.log",
