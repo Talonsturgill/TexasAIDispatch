@@ -2,19 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "b7a8aacd8b6ccccc6b59ed174ef941753f680cdc5a7946af8937111b96d3c279",
+    "event_sha256": "bafff5d15dd3535b012612acf26cf1b5421b455ad0dda7959ab12c7a703604ea",
     "resource": "preflight_renders",
-    "at": "2026-10-11T00:17:59.751166Z",
-    "note": "two opening comparison batch"
+    "at": "2026-10-11T00:32:02.364993Z",
+    "note": "measured-clock quarter-scale animatic hook precharge for the final timed phone review (repair 14)"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "ea70bd9d5e9b28e427ca5bed23207805a50f5572ad3720980422141fa563a038"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
-      "sha256": "a5774718303c261902f92d240b35e8fc774496609673ab66692ad3bdd7e51cfc"
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "65b926baa3b675385836b5acd2ffd71a439f3bc70415574421013a91acace522"
     }
   ],
   "bound": {
@@ -158,98 +154,23 @@
   },
   "commands": [
     {
-      "id": "bd294c21e31a8b42d54ad94bee9203abe08419ff935e36a67b2275ad1778b580",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-0.png",
-      "consumed": "2026-10-11T00:25:08.594209+00:00"
-    },
-    {
-      "id": "2b7aa69396b9d2913dca6b54c7c4b2bdb80bc45e199124e6d789fe614ccd6473",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 11 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-1.png",
-      "consumed": "2026-10-11T00:25:15.277662+00:00"
-    },
-    {
-      "id": "4fd67852072e2c8e43d4e9f61c227f8bbf890590f19ec41bf953774dc98b7871",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 22 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-2.png",
-      "consumed": "2026-10-11T00:25:21.651209+00:00"
-    },
-    {
-      "id": "260101c774576c0bc97f309921d63dc41e2e1b77962e24751199fe1d632505a1",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 33 -t 11 -i out/dispatch/openings/a.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-sheet-3.png",
-      "consumed": "2026-10-11T00:25:28.119704+00:00"
-    },
-    {
-      "id": "da771da9eda16964bbe3ccc98066d1180e51f3fe8e3fad920e65d7a089aeea8c",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 41 -i out/dispatch/openings/a.mp4 -frames:v 1 out/dispatch/phone-review-r14/a-native-41.png",
-      "consumed": "2026-10-11T00:25:34.442695+00:00"
-    },
-    {
-      "id": "6f5295febfa47f32bd537452081e5d27f2297863a94559ca84e2fd7d8ec16e0a",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 42.9 -i out/dispatch/openings/a.mp4 -frames:v 1 out/dispatch/phone-review-r14/a-native-42.9.png",
-      "consumed": "2026-10-11T00:25:40.793810+00:00"
-    },
-    {
-      "id": "dc307f3c3def6a9ae59f834e7b5d389da92cea2484a2c81870b1062fe5371b7d",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 3 -i out/dispatch/openings/a.mp4 -vf fps=4,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-hook-strip.png",
-      "consumed": "2026-10-11T00:25:46.971515+00:00"
-    },
-    {
-      "id": "7270405d63e57d29c1d9a233664f5f8e638100283dfa6bc3564c5503a2525c0f",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 12 -t 4 -i out/dispatch/openings/a.mp4 -vf fps=3,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/a-s3-strip.png",
-      "consumed": "2026-10-11T00:25:53.188963+00:00"
-    },
-    {
-      "id": "68ccc464daacb5e4ad6f706a0fc913f05390f21c49a4dfe3f04939caafd5967e",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-0.png",
-      "consumed": "2026-10-11T00:26:03.228566+00:00"
-    },
-    {
-      "id": "7c4ca6c124bfe371dd6af75b4670627799182fb994263510277f7e5f695a5266",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 11 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-1.png",
-      "consumed": "2026-10-11T00:26:09.628140+00:00"
-    },
-    {
-      "id": "c4f77838a9b2cd481d62c64974681ab46d5258d645352c8892e20bd675e4d17e",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 22 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-2.png",
-      "consumed": "2026-10-11T00:26:16.523611+00:00"
-    },
-    {
-      "id": "54d346b5054e33a05e2aeafae75019757966e5f02bb62f6f5fa7ec00a809fec4",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 33 -t 11 -i out/dispatch/openings/b.mp4 -vf fps=1,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-sheet-3.png",
-      "consumed": "2026-10-11T00:26:23.333953+00:00"
-    },
-    {
-      "id": "a7d3ff9e6d4a2925ca8380df87ef6402a18d1035bf9408a187ce3771554b0f60",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 41 -i out/dispatch/openings/b.mp4 -frames:v 1 out/dispatch/phone-review-r14/b-native-41.png",
-      "consumed": "2026-10-11T00:26:30.009320+00:00"
-    },
-    {
-      "id": "5cfcdd2987cef4b0e471cc85c3c453416fa2f61f4f94aa228b947059c2c13d32",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 42.9 -i out/dispatch/openings/b.mp4 -frames:v 1 out/dispatch/phone-review-r14/b-native-42.9.png",
-      "consumed": "2026-10-11T00:26:36.428504+00:00"
-    },
-    {
-      "id": "42d27f076cf52f527d2b65b0607dbf7a85454353b58326e527b5c94c26a38b57",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 0 -t 3 -i out/dispatch/openings/b.mp4 -vf fps=4,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-hook-strip.png",
-      "consumed": "2026-10-11T00:26:42.763562+00:00"
-    },
-    {
-      "id": "628db8c999a8c455c06cfc68cc142c2f41f0e47f5a9cefff5fe381496bfc01ab",
-      "text": "bash scripts/run_with_env.sh ffmpeg -v error -y -ss 12 -t 4 -i out/dispatch/openings/b.mp4 -vf fps=3,scale=270:480,tile=4x3 -frames:v 1 out/dispatch/phone-review-r14/b-s3-strip.png",
-      "consumed": "2026-10-11T00:26:49.009184+00:00"
+      "id": "287b73a1b3abe2b13e787cb6f323f9ff1fa4b9ae92fdb9673cd3f63672438522",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --claims out/dispatch/claims.json --sheet out/dispatch/preflight-contact-sheet.png --report out/dispatch/preflight.json --state out/dispatch/run_state.json",
+      "consumed": "2026-10-11T00:32:11.940905+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 20.419
+    "free_gib": 20.39
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261011T002503.json",
-    "receipt_sha256": "b4aebbe86bf2213ed8641ec348133d027d745f3d30328142c2d585afd7a9e7e4",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261011T003208.json",
+    "receipt_sha256": "ca6c03b97a2b4ff3519fad748398838580d68d3d7ec41241be070bdab18add60",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-11T00:25:03.918146+00:00",
-  "expires_at": "2026-10-11T01:10:03.918146+00:00"
+  "issued_at": "2026-10-11T00:32:08.893150+00:00",
+  "expires_at": "2026-10-11T01:17:08.893150+00:00"
 }
