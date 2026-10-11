@@ -368,6 +368,14 @@
       "note": "next recurrence pivot review of plan 14 (critic 22), same worker a3ac3ea64254f0e73, after pivot recovery grant",
       "resource": "storyboard_critics",
       "to": 22
+    },
+    {
+      "at": "2026-10-11T00:04:45.308700Z",
+      "ceiling": 11,
+      "from": 10,
+      "note": "repair 14 corrective reboard 11: B continuous-contact torso-lean push, constant limb lengths, continuous fingers; renderer only",
+      "resource": "reboards",
+      "to": 11
     }
   ],
   "events": [
@@ -3992,6 +4000,24 @@
       "plan_identity": null,
       "plan_sha256": "8699e4f1f84f6ba26e2e0b759d341a17420f7dc901b3598e95764615fb275e29",
       "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-11T00:04:45.308762Z",
+      "ceiling": 11,
+      "kind": "budget_escalated",
+      "note": "repair 14 corrective reboard 11: B continuous-contact torso-lean push, constant limb lengths, continuous fingers; renderer only",
+      "now": 11,
+      "resource": "reboards",
+      "was": 10
+    },
+    {
+      "at": "2026-10-11T00:04:45.308776Z",
+      "kind": "reserved",
+      "note": "repair 14 corrective reboard 11: B continuous-contact torso-lean push, constant limb lengths, continuous fingers; renderer only",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -4001,7 +4027,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 14,
-    "reboards": 10,
+    "reboards": 11,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -4015,7 +4041,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cb3838a1545a9405d17936f4a0c95e5fd65e40a85ff4a3715c1515b4b9d7b959",
+    "original_private_state_sha256": "45c9571219db5c5613d78feadcb03b1390bac476621692d97199026212311b42",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4043,7 +4069,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T00:04:31.619741Z",
+  "updated_at": "2026-10-11T00:04:45.308778Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -4051,7 +4077,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 14,
-    "reboards": 10,
+    "reboards": 11,
     "reported_tokens": 20306,
     "rescue_renders": 0,
     "research_agents": 1,
