@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-11T07:19:08.602131+00:00",
+  "saved_at": "2026-10-11T07:27:52.296424+00:00",
   "note": "ledger write",
   "phase": "research",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "c5b4e4d7e3f70db70306de0ed5c90f6c65c88e9d980fd83378fd7ca45b227b5e",
-  "original_private_ledger_sha256": "294cd5ce2b5ee17067a78e2d41e49122e9a5dd612c6b0b85d1960cebbe82ffe5",
+  "ledger_sha256": "159173ba586a0724b313eea557df5687e3f8fa4b7074de0f9d039ee505fbd722",
+  "original_private_ledger_sha256": "798b3a9c61b464041c311908bd6c573584a7e4e420802ff7e0e3b3508d070767",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -32,7 +32,7 @@
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
-    "validator_agents": 0,
+    "validator_agents": 1,
     "voice_directors": 0
   },
   "files": [
@@ -41,6 +41,12 @@
       "class": "scratch",
       "sha256": "2677702fca3bc8b7e2eb759954b3513617e7a5a3dee323c87d242b18f670cab9",
       "size": 288
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "class": "scratch",
+      "sha256": "7788a913bd864c3256a149bafe38d3785642fd4b8039bfaa3ba92a927e7653ee",
+      "size": 9070
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -67,6 +73,24 @@
       "size": 1742
     },
     {
+      "path": "out/dispatch/research.json",
+      "class": "scratch",
+      "sha256": "7bebe1c056ad532b90afc9525fa3327be48446c94537bc2b8d16726bc4a008d0",
+      "size": 1534
+    },
+    {
+      "path": "out/dispatch/researcher-assignment-a.json",
+      "class": "scratch",
+      "sha256": "60ff5ecd2f2addda8cbe53af7a37913f77f377479bea841a5d28e1460451db2f",
+      "size": 1783
+    },
+    {
+      "path": "out/dispatch/researcher-assignment-b.json",
+      "class": "scratch",
+      "sha256": "2783ea2661aa581510c199fe2cac4180b143b214b10c411d9736d139432dafc2",
+      "size": 1778
+    },
+    {
       "path": "out/dispatch/researcher-assignment.json",
       "class": "scratch",
       "sha256": "ee9c8b42e9beee26d5211bb72ebd04c59bb9b8c79b1feebffccfe45564cd2dba",
@@ -77,6 +101,78 @@
       "class": "scratch",
       "sha256": "32e93db3c0fb4cfd5c8c0e37b829fd07d87aefcd3748036a1084a97fe8462583",
       "size": 2321
+    },
+    {
+      "path": "out/dispatch/sources/aep.html",
+      "class": "scratch",
+      "sha256": "70f1265668c241218b9f00f8b4499c5e97223f4e15ef6750d689ab891e066cfe",
+      "size": 139921
+    },
+    {
+      "path": "out/dispatch/sources/aep.txt",
+      "class": "scratch",
+      "sha256": "12218d8e6695832004d25090b5f0994c64d192ae70880c5da602faf111e91289",
+      "size": 9453
+    },
+    {
+      "path": "out/dispatch/sources/aep.validator.txt",
+      "class": "scratch",
+      "sha256": "12218d8e6695832004d25090b5f0994c64d192ae70880c5da602faf111e91289",
+      "size": 9453
+    },
+    {
+      "path": "out/dispatch/sources/spectrum.html",
+      "class": "scratch",
+      "sha256": "7c53dd2e6a5ef7735e4787338ffb2fdc95dd09f5fec80a7086d67abf5bc2776f",
+      "size": 88383
+    },
+    {
+      "path": "out/dispatch/sources/spectrum.txt",
+      "class": "scratch",
+      "sha256": "2f5684217f8fae5f71acef1926dcfe6c95619e3132b9f68d6041a28f806a7c4d",
+      "size": 6344
+    },
+    {
+      "path": "out/dispatch/sources/spectrum.validator.txt",
+      "class": "scratch",
+      "sha256": "2f5684217f8fae5f71acef1926dcfe6c95619e3132b9f68d6041a28f806a7c4d",
+      "size": 6344
+    },
+    {
+      "path": "out/dispatch/sources/tdworld.html",
+      "class": "scratch",
+      "sha256": "fa279f52649bde758a0d7ef6cf92358873e46ce56354b6fcdbc098aaec13ebf2",
+      "size": 217091
+    },
+    {
+      "path": "out/dispatch/sources/tdworld.txt",
+      "class": "scratch",
+      "sha256": "4fe0858119baafd6d0c985455e76f70c36d62772800e555217bc6e93b7ed903f",
+      "size": 5140
+    },
+    {
+      "path": "out/dispatch/sources/tdworld.validator.txt",
+      "class": "scratch",
+      "sha256": "4fe0858119baafd6d0c985455e76f70c36d62772800e555217bc6e93b7ed903f",
+      "size": 5140
+    },
+    {
+      "path": "out/dispatch/story_selection.json",
+      "class": "scratch",
+      "sha256": "b3869cdd0477d2920da06cbaae4c5f41a4a78fb76ef14ed117bcfb76934656e1",
+      "size": 9162
+    },
+    {
+      "path": "out/dispatch/validator-assignment.json",
+      "class": "scratch",
+      "sha256": "466c4374e7b73987d47eba3294d1e31368e744d0c003614e1c72d4cf061e091f",
+      "size": 1784
+    },
+    {
+      "path": "out/dispatch/validator-packet.json",
+      "class": "scratch",
+      "sha256": "ed509c1ff508d0732549aa89564356fae0d6c22b402e7f7b9680e4f260f25458",
+      "size": 2673
     }
   ],
   "excluded": [],
