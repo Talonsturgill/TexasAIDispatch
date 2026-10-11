@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "capture_retry_capacity.py": "Evidence library called by completion-capacity and frozen envelope replay; its CI test exercises the actual helper and controller CLI against spent capture, duplicate, mutation, complete-path and shipment refusals.",
     "modern_film_proof.py": "Owner-requested engineering-only two-treatment fixture using the immutable October 7th account; reference_only blocks shipment. Never a daily production factory.",
     "art_direction.py": "Library called by creative_production before voice/preview and by daily_production compact reading transport; art_direction_test mutates executable scene, source and timing bindings.",
     "art_direction_test.py": "Loaded by existing CI daily_production_test; tests dated legacy compatibility, real renderer consumers, invalid profiles and cumulative lab capacity.",
