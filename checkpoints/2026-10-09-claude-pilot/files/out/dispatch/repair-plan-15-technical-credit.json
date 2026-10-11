@@ -1,0 +1,29 @@
+{
+ "mechanism_id": "music-credit-and-sfx-record-binding",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "technical-integrity",
+ "failed_film_sha256": "8bb258fb728164013800abc4ff45e17596d7118c959221f170b5b1be8040b7dd",
+ "root_cause": "Independent critic 26 found two real technical-integrity defects on the exact native film 8bb258fb: R1 rights, the CC BY 4.0 Thinking Music bed is mixed under the film but neither the board credits nor the rendered closing card carries the generated MUSIC attribution, which is the licence condition; T1 technical_audio, sfx_events.json carries no dur_s on its three cues so flow_check is red although mix.py already executed the directed durations.",
+ "repair": "Replace only the top-level credits string of storyboard.json with the current six lines plus the generated music.py credits_block for thinking_music, and add only dur_s (0.5, 0.40000000000000036, 0.3000000000000007) to the three cues of sfx_events.json, as permitted by the independent report. Generate credits.txt with music.py at package time. No remix, TTS, caption, alignment, scene, event, renderer, claims, art or music-bed change.",
+ "mechanism_change": "The closing card gains the required licence attribution block and the sound-event record gains the executed cue durations, so music verify-package and flow_check pass on the existing film.",
+ "expected_visible_result": "The 44 to 49 s closing card shows a MUSIC heading with the Thinking Music by Kevin MacLeod CC BY 4.0 attribution inside the safe area, and nothing else in the picture or audio changes.",
+ "failure_evidence": "out/dispatch/technical-integrity-report-26.json",
+ "failure_evidence_sha256": "3d176638475218ceaceefd4f1a9f387e46abfb92566c4259c8161f2c29afab38",
+ "resources": {
+  "preflight_renders": 2,
+  "full_renders": 1
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/retained-failures/native-film-r14-pre-credit/storyboard.registered-old.json",
+   "before_sha256": "65b926baa3b675385836b5acd2ffd71a439f3bc70415574421013a91acace522"
+  },
+  {
+   "path": "out/dispatch/sfx_events.json",
+   "before_path": "out/dispatch/retained-failures/native-film-r14-pre-credit/sfx_events.old.json",
+   "before_sha256": "d9432a2cfabc3d2e7d93ec3be0075a6050fc1445ee710bd56b9a034e9d8efdac"
+  }
+ ]
+}

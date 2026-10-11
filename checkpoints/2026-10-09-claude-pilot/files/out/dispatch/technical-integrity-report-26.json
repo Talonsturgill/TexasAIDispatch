@@ -1,0 +1,89 @@
+{
+    "reviewer_identity": "storyboard-critic claude-opus-5-5 (high), isolated read-only critic 26. Not the director (claude-sonnet-5-5).",
+    "reviewed_at": "2026-10-11 (date only, no wall clock available to this reviewer)",
+    "review_scope": "Read-only classification, on the exact native film, of two defects: the missing CC BY attribution and the missing sfx dur_s. I relied on the retained review evidence and the rendered credits frame. I did not play or decode the MP4 myself. Evidence read: review-checks music.log, flow.log and preship.log; credits_frame.png (viewed); mix.json; music_bed.json; tracks.json thinking_music; music_credit.txt; scripts/music.py (credit_line, credits_block, verify_film, verify_package); scripts/mix.py (all of it, including direct_events, mix and main); the flow_check.py header; editorial.ts creditLayout; DispatchOverlays.tsx CreditsCard; type.ts widthEm, widthOf and the wrap helpers. Files compared: the current storyboard.json against storyboard.registered-old.json and storyboard.candidate-with-music-credit.json, and the current sfx_events.json against sfx_events.old.json and sfx_events.candidate-with-dur_s.json. Also read credits.candidate.txt. No edits. No sub-agents. Nothing approved.",
+    "verdict": "revise",
+    "film_sha256": "8bb258fb728164013800abc4ff45e17596d7118c959221f170b5b1be8040b7dd",
+    "board_sha256": "65b926baa3b675385836b5acd2ffd71a439f3bc70415574421013a91acace522",
+    "blocking_defects": [
+      {
+        "id": "R1-music-attribution-absent",
+        "category": "rights",
+        "scene_id": "credits",
+        "time_s": [44.0, 49.0],
+        "defect": "The film's master mixes a CC BY 4.0 music bed under the whole 49 s. Evidence: mix.json bed true, bed_track_id thinking_music, gain_db -15.69, gap 20 dB. The registry row for that track (tracks.json thinking_music) records licence cc-by-4.0 and modified true. The rendered 5 s end card (credits_frame.png) shows the masthead, then SOURCES / UTMB news release / September 22nd / ILLUSTRATION / Original authored clinic diagrams, and no MUSIC credit at all. The text ends near y 1075 with empty space below. The board's credits field (current, equal to registered-old) has the same six lines and no MUSIC block. music.py verify_package fails three ways: the board does not carry the generated credits text; the mix records a bed the end card does not credit; and verify_film finds no title, artist or licence in the film. For CC BY the attribution is the licence condition, so this is a real rights defect in the film's own picture. It is not a sidecar formality."
+      },
+      {
+        "id": "T1-sfx-dur_s-record-omission",
+        "category": "technical_audio",
+        "scene_id": "s1, s3",
+        "time_s": [0.4216, 13.656],
+        "defect": "This is a blocking gate failure, not an audible defect. flow_check (the only red gate in preship) reports that dur_s differs from the directed event clock for card-slide, cards-tuck and lock-open. The cause is that out/dispatch/sfx_events.json, which equals sfx_events.old.json, has no dur_s field on any event. The audio itself already follows the directed clock. With a creative-required board, scripts/mix.py main() calls direct_events(). That function trims each clip to round(cue.duration_s * rate) samples with 12 ms edge fades, places it at cue.at_s, and writes dur_s = cue.duration_s into the prepared event. It ignores any dur_s in the sidecar. mix.json shows the path ran: sound_direction_sha256 18935506… and sound_cues are present, and main() writes those only inside the creative.required(board) branch. The recorded cues are card-slide 0.5 s at 0.4216, cards-tuck 0.40000000000000036 s at 4.0672 and lock-open 0.3000000000000007 s at 13.356. So the omission is a data defect in the sound-event record, and adding the values changes no sample in mix.wav. It still blocks release, because preship flow_check must be green."
+      }
+    ],
+    "technical_repair": {
+      "findings": [
+        {
+          "finding": {
+            "id": "R1-music-attribution-absent",
+            "category": "rights",
+            "scene_id": "credits",
+            "time_s": [44.0, 49.0],
+            "defect": "The CC BY 4.0 bed thinking_music is mixed under the film, and the rendered end card carries no MUSIC attribution. The board credits field lacks the generated TASL credit. music.py verify_package fails on board vs credits, on bed vs credit, and on verify_film."
+          },
+          "category": "rights"
+        },
+        {
+          "finding": {
+            "id": "T1-sfx-dur_s-record-omission",
+            "category": "technical_audio",
+            "scene_id": "s1, s3",
+            "time_s": [0.4216, 13.656],
+            "defect": "sfx_events.json has no dur_s on its three events, so flow_check is red. mix.py direct_events already executed the directed cue durations and times, as recorded in mix.json sound_cues. This is a record omission with no audible change."
+          },
+          "category": "technical_audio"
+        }
+      ]
+    },
+    "permitted_correction": {
+      "summary": "Two data edits and one re-render of the existing board. Nothing else.",
+      "files_and_fields": [
+        {
+          "path": "out/dispatch/storyboard.json",
+          "field": "credits (top level only)",
+          "change": "Replace the string with the exact generated text: the current six lines plus 'MUSIC\\n\"Thinking Music\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture\\n'. This is credits_block output from music.py credit_line and matches out/dispatch/music_credit.txt. storyboard.candidate-with-music-credit.json carries that value. In sampled regions (lines 1 to 40, 3000 to 3218) its line structure matches the current board, and the header differs only in credits."
+        },
+        {
+          "path": "out/dispatch/sfx_events.json",
+          "field": "dur_s on each of the three events (new key only)",
+          "change": "card-slide 0.5, cards-tuck 0.40000000000000036, lock-open 0.3000000000000007. These equal the duration_s values the mixer actually executed, from mix.json sound_cues. The candidate sfx_events.candidate-with-dur_s.json differs from the current file only by these keys. Leave id, event_id, wav, gain, what, provenance and at_s untouched."
+        },
+        {
+          "path": "credits.txt sidecar at package time",
+          "field": "whole file",
+          "change": "Generate it with music.py, not by hand. It must equal the corrected board credits after whitespace normalisation. credits.candidate.txt is the expected content. Note that out/dispatch/credits.txt does not exist at present."
+        },
+        {
+          "path": "out/dispatch/film.mp4",
+          "field": "re-render only",
+          "change": "Re-render from the corrected board with the unchanged renderer and the unchanged mix.wav (master_sha256 428dd845…). The only intended picture change is the 44 to 49 s CreditsCard. Retain film 8bb258fb… as failed evidence."
+        }
+      ],
+      "not_permitted": "Leave everything else unchanged: no remix, TTS, caption or alignment change, scene, event, renderer, claims or music-bed change, and no at_s rounding fix. Do not change any credits line other than adding the MUSIC block, and make no other edits to storyboard.json.",
+      "after_correction_required": "Rerun music.py package verification, flow_check and the full preship on the new board and sfx file. The board hash changes, so refresh every binding that hashes the board through its normal gate. All exact-film reviews must be redone on the new film bytes. This correction approves nothing creative and clears no creative finding."
+    },
+    "closing_card_legibility": {
+      "verdict": "expected to fit at the first size tried (32 px), inside the safe area; not pixel-verified",
+      "basis": "CreditsCard calls creditLayout(text, 840, 850, SAFE_BOTTOM - 28 = 1393) at x 78. The current text at 32 px ends near y 1074.7, which matches the rendered frame. The MUSIC heading adds 22 + 30 + 8 to reach about 1134.7. The credit line measures about 89.8 em using type.ts's deliberately pessimistic EM table, about 2874 px at 32 px. Wrapping greedily to 840 px gives four lines. Line 1 runs from '\"Thinking Music\"' to 'MacLeod' (about 619 px). Line 2 runs from '(incompetech.com)' to '4.0' (about 794 px). Line 3 is the URL token alone (about 837 px, under 840, so it is not broken). Line 4 runs from '- trimmed' to 'picture' (about 557 px). At 42.24 px per line the text ends near y 1304, and y + 10 = 1314 is within the 1393 limit. creditLayout returns at 32 px without falling back to 30, 28 or 26, and keeps about 90 to 110 px clear of SAFE_BOTTOM 1421. No caption overlaps, because the last caption ends at 42.78 s. The credit is set at the same 32 px as the existing source lines, about 3 percent of frame width, which was legible on the current card. A 5 s hold is enough to show a complete, legible attribution. A viewer may not read all 23 words, but CC BY requires presence and accuracy, not a full read.",
+      "risk": "The URL line runs to about 837 of 840 estimated px. Because EM errs long, the real ink should be narrower. If the URL wrapped anyway, five lines would end near y 1346, still within the limit."
+    },
+    "limits": [
+      "I did not play, decode or frame-grab the MP4 myself, and I can't compute sha256. The film and board hashes above are echoed from the assignment. Pixel observations come only from the retained credits_frame.png.",
+      "The candidate board was compared with the current board only in sampled ranges (lines 1 to 40 and 3000 to 3218, identical apart from credits). Whole-file equality of every other field is not verified, and its hash 4a10a3f6… is not recomputed.",
+      "candidate/DIRECTOR-METADATA-EDIT-NOTE.md does not exist at the stated path and was not read.",
+      "I read flow_check.py only through its header, not its dur_s comparison or tolerance code. The at_s values (0.422 vs the executed 0.4216) were not flagged in flow.log, and I don't propose changing them.",
+      "I didn't verify whether any controller binding hashes sfx_events.json. If one does, the after-hash must be refreshed through the controller.",
+      "Layout arithmetic uses type.ts's estimated widths, not measured glyphs. A rendered credits frame from the corrected film must still be inspected at phone scale.",
+      "out/dispatch/credits.txt is currently absent, so the generated sidecar's content is inferred from music.py credits_block and music_credit.txt."
+    ]
+  }
