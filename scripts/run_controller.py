@@ -2179,9 +2179,27 @@ def main() -> int:
                     context_ready = True
                 except (ValueError, KeyError, TypeError, OSError):
                     pass
+            budget_plan = load_json(a.repair_plan) if a.repair_plan else {}
+            if budget_plan.get('repair_scope') == 'technical-integrity':
+                from creative_release import technical_repair_problems
+                diagnosis_errors = technical_repair_problems(read_state(state_path), budget_plan)
+                if diagnosis_errors:
+                    print(json.dumps({'feasible': False, 'errors': diagnosis_errors, 'resources': {},
+                                      'deficits': {}, 'path': 'technical-diagnosis-required'}, sort_keys=True))
+                    return 1
             result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
                                                mandatory_repair, review_coverage, modern_code_repair)
+            if a.repair_plan:
+                from capture_completion_budget import apply_budget
+                result = apply_budget(read_state(state_path), budget_plan, result)
+                if (budget_plan.get('repair_scope') == 'technical-integrity'
+                        and 'capture_completion_budget' not in budget_plan
+                        and str(read_state(state_path).get('run_id', ''))[:10] >= '2026-10-09'):
+                    result['capture_budget_command'] = [
+                        'python', 'scripts/capture_completion_budget.py', '--state', str(state_path),
+                        '--plan', str(a.repair_plan), '--authorization', '<retained-spent-full-authorization.json>',
+                        '--output', '<new-capture-budget-plan.json>']
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["feasible"] else 1
         elif a.command == "completion-capacity":

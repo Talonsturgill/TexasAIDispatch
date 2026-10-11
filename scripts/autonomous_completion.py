@@ -296,6 +296,10 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if 'capture_completion_budget' in plan:
+            from capture_completion_budget import eligible
+            if not eligible(state, plan) or report.get('film_sha256') != plan.get('failed_film_sha256'):
+                return None
         if 'capture_retry_evidence' in plan:
             from capture_retry_capacity import eligible
             return ('finish-current' if sha(evidence_text) == plan.get('failure_evidence_sha256')
@@ -472,7 +476,7 @@ def replay(state):
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
                 if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON}
-                        or 'capture_retry_evidence' in plan):
+                        or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan):
                     # A later shipped state cannot invalidate an earlier active admission.
                     admission['terminal_state'] = None
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
@@ -516,6 +520,8 @@ def replay(state):
                         required['image_generations'] = 0
                 if reason in {MODERN_CODE_REASON, PIVOT_REASON}:
                     required['storyboard_critics'] = 4
+                from capture_completion_budget import required_counts
+                required = required_counts(admission, plan, required)
                 for name, maximum in expected_required.items():
                     item = rows[name]
                     if (type(item["required"]) is not int or item["required"] != required[name]
@@ -585,6 +591,11 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             errors = file_problems(plan)
             if errors:
                 return False, '; '.join(errors)
+        if 'capture_completion_budget' in plan:
+            from capture_completion_budget import file_problems
+            errors = file_problems(plan)
+            if errors:
+                return False, '; '.join(errors)
         if reason == HANDBACK_REASON:
             from review_handback import file_problems
             errors = file_problems(plan)
@@ -622,6 +633,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
                     modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON})
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
+        from capture_completion_budget import apply_budget
+        budget = apply_budget(state, plan, budget)
         increments = budget["deficits"]
         if 'capture_retry_evidence' in plan and increments != {'preflight_renders': 1}:
             return False, 'spent capture recovery needs exactly one preflight deficit with the complete remaining path funded'
