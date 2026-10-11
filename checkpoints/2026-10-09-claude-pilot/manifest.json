@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T01:23:49.091147+00:00",
+  "saved_at": "2026-10-11T01:24:56.415832+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,12 +16,12 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "455a116b9b6d9744f865ddbba37f3c88433b5a9f3f0a0a8271ba08d73a455cd4",
-  "original_private_ledger_sha256": "5da6f94e056c5865716b541a610d1bbe6c400016ef5cf939d536494c86ca1ed8",
+  "ledger_sha256": "5f7da75b3ee9c290cea1a92a4d2a021500023510437abe9ad55182171895a65e",
+  "original_private_ledger_sha256": "f6435590408cb1aecb063b94a1c3692caf45999e5691be4f76314965e810c155",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
-    "full_renders": 0,
+    "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 21,
@@ -859,6 +859,18 @@
       "size": 217609
     },
     {
+      "path": "out/dispatch/cinema/hero-review-response.json",
+      "class": "scratch",
+      "sha256": "2841a5fde91c9b85507d2e8fbac091c7ffaf446b1e78aa26228e5508384329c7",
+      "size": 78943
+    },
+    {
+      "path": "out/dispatch/cinema/hero-review.json",
+      "class": "scratch",
+      "sha256": "0b2e200330fb8153d753236409d0236659c7ca7b71f11acba9f9077d5dbddb3d",
+      "size": 574
+    },
+    {
       "path": "out/dispatch/cinema/hero.mp4",
       "class": "scratch",
       "sha256": "fec1387227474d89c95c0b5196113c9f69a112684b9804ce08e77e4cc48083c6",
@@ -1469,6 +1481,18 @@
       "class": "scratch",
       "sha256": "59a3bfe468bf7261cd2b8f977dfea0a285fd1d25ae93abe2fb6af6cbfba6c122",
       "size": 178
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/a14074f2db1bfda1e72f8ca139ce561f533b091bad54c60e0fa7e7352609b977/hero-review-response.json",
+      "class": "scratch",
+      "sha256": "2841a5fde91c9b85507d2e8fbac091c7ffaf446b1e78aa26228e5508384329c7",
+      "size": 78943
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/a14074f2db1bfda1e72f8ca139ce561f533b091bad54c60e0fa7e7352609b977/receipt.json",
+      "class": "scratch",
+      "sha256": "0b2e200330fb8153d753236409d0236659c7ca7b71f11acba9f9077d5dbddb3d",
+      "size": 574
     },
     {
       "path": "out/dispatch/cinema/s1-0-normal.png",
