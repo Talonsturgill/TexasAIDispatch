@@ -460,6 +460,14 @@
       "note": "full-resolution Dispatch render",
       "resource": "full_renders",
       "to": 2
+    },
+    {
+      "at": "2026-10-11T01:43:13.297545Z",
+      "ceiling": 27,
+      "from": 25,
+      "note": "independent classification of the missing CC BY music credit and sfx duration binding on the native film (critic 26), same worker a3ac3ea64254f0e73, SendMessage same id",
+      "resource": "storyboard_critics",
+      "to": 26
     }
   ],
   "events": [
@@ -5542,6 +5550,24 @@
       "kind": "deliverable_registered",
       "manifest_sha256": "b2589d8f3b48c1587c2f2f64a1e8e174ce034f08a267cdddf1dc0c6b153dfc33",
       "review_only": false
+    },
+    {
+      "at": "2026-10-11T01:43:13.297597Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "independent classification of the missing CC BY music credit and sfx duration binding on the native film (critic 26), same worker a3ac3ea64254f0e73, SendMessage same id",
+      "now": 26,
+      "resource": "storyboard_critics",
+      "was": 25
+    },
+    {
+      "at": "2026-10-11T01:43:13.297608Z",
+      "kind": "reserved",
+      "note": "independent classification of the missing CC BY music credit and sfx duration binding on the native film (critic 26), same worker a3ac3ea64254f0e73, SendMessage same id",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -5556,7 +5582,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 25,
+    "storyboard_critics": 26,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
@@ -5566,7 +5592,7 @@
   "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7fccf5cd79468976185856836de9c1b67d90d5266b09ef6980e5c8149cced6e9",
+    "original_private_state_sha256": "72be76ba2b411bb6e98cf94a23c37ac6d58d0cec55b07b9852ac29ebce7bc551",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5594,7 +5620,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T01:33:30.134827Z",
+  "updated_at": "2026-10-11T01:43:13.297611Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -5607,7 +5633,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 25,
+    "storyboard_critics": 26,
     "tts_calls": 8,
     "validator_agents": 1,
     "voice_directors": 1
