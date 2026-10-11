@@ -120,6 +120,19 @@ def adapt_packet(data):
     return data
 
 
+def motion_inputs(data):
+    """Only complete current movie-derived imagery reaches an image-only final judge."""
+    import claude_motion_review
+    sequence = data.get('motion_sequence') or {}
+    if not sequence.get('path') or not sequence.get('sha256'):
+        raise ValueError('Claude final review needs complete exact-film motion-image access')
+    if digest(sequence['path']) != sequence['sha256']:
+        raise ValueError('Claude motion sequence index changed after packet binding')
+    errors = claude_motion_review.problems(sequence['path'], data['board']['path'], data['film']['path'])
+    if errors:
+        raise ValueError('; '.join(errors))
+
+
 def plan(role, packet_path, task_name, scope):
     from claude_contract_check import problems
     errors = problems()
@@ -135,6 +148,8 @@ def plan(role, packet_path, task_name, scope):
     else:
         agent_runtime.required_inputs(data, role, contracts(role))
     agent_runtime.validate_references(data)
+    if role in ('picture', 'story', 'sound'):
+        motion_inputs(data)
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')

@@ -193,6 +193,13 @@ Do not retry the original failure's grant or replace a film verdict with code ap
 
 ## Efficiency and actual usage
 
+Final Read-only scorers use the complete exact-film motion-image sequence documented in
+prompts/phases/04-review.md. Build and verify it before creating their three compact packets.
+These film-decoded images provide chronological visual access; retain separate actual
+audiovisual receipts for movement and sound. Never pretend that Read plays an MP4 or hears it.
+Preserve prior unknown access findings, fund the complete path and reserve the new atomic panel
+before a content resume. Do not repeatedly purchase schema-only replies for missing media access.
+
 If the already charged exact-phone Opus worker exceeds one hour and two supported host
 observations at least five minutes apart show unchanged tool/token totals and no error, load
 config/autonomous_completion_handback_v1.json. Preserve the original native status evidence,

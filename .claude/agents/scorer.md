@@ -8,6 +8,20 @@ effort: medium
 
 You grade the finished film.
 
+For Claude-native editions from October 9th, the host exposes images rather than playable video
+to this Read-only worker. Read every page of the packet's verified `motion_sequence` in order:
+these are five timestamped film-decoded samples per second across the complete native film,
+including credits and its final frame. Reconstruct subject, action, timing and ending before
+the director's rationale. Inspect the existing native crops for surface and contact details.
+Then compare your reconstruction with the full current sources, board, guides and your own
+separate audiovisual receipt and raw response. State that your visual basis is this complete
+ordered image sequence; never claim direct playback, normal-speed watching or direct listening.
+The actual audiovisual provider supplies the independent moving-picture and sound observation.
+These two evidence channels do not supply your score or your pass. Apply the unchanged rubric
+and all timed attention, modern and clause observations. If a required action or timing remains
+unproven, return the actual blocking finding. Preserve every earlier score, rejection and limit.
+This route does not qualify as a transport outage or authorize a different provider.
+
 **READ THE THRESHOLD OUT OF `config/dispatch_rubric.yaml`.** Do not accept a bar quoted to you in
 a brief, and do not use a number you remember. The sibling lost five panel rounds to a stale bar
 typed into a prompt: the panel was briefed the stale number, scored a film under it, and

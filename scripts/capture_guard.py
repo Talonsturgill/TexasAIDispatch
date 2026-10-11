@@ -34,7 +34,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-CAPTURE_COMMAND = re.compile(r'remotion\s+(still|render)|ffmpeg\b.*\s-i\s|preflight_animatic|cinema_proof|render_dispatch|opening_compare')
+CAPTURE_COMMAND = re.compile(r'remotion\s+(still|render)|ffmpeg\b.*\s-i\s|preflight_animatic|cinema_proof|render_dispatch|opening_compare|claude_motion_review')
 RENDER_RESOURCES = ('preflight_renders', 'full_renders', 'cleanup_renders', 'rescue_renders')
 AUTHORIZATION = 'out/dispatch/capture-authorization.json'
 USED = 'out/dispatch/capture-authorizations-used.json'
@@ -173,6 +173,8 @@ def segment_is_capture(tokens):
             return True
         if word == 'ffmpeg' and '-i' in tokens[index + 1:]:
             return True
+        if word == 'claude_motion_review.py' and index > 0 and names[index-1].startswith('python'):
+            return '--verify' not in tokens[index+1:]
         if word in CAPTURE_SCRIPTS and index > 0 and (names[index - 1].startswith('python') or names[index - 1] in SHELLS):
             return True
     return False
