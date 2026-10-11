@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T00:01:46.365627+00:00",
+  "saved_at": "2026-10-11T00:04:33.557191+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "14d7a0c11967703ca46f65d684d3fde4415da2abc4b289ae4ad09326e5b36481"
   },
   "deleted_source": [],
-  "ledger_sha256": "fda3eb782fa00e771ea06d445e98631d9a534280742102c71895f49a48805a76",
-  "original_private_ledger_sha256": "a331e39c97c9ea17e51dd7ce2004a6fc53f16c9545f15a1847d226166aca3ffa",
+  "ledger_sha256": "7cc3410b8d65adcd0cc13a69a56d50e5a49af983fa851a8bc2870effcd8a6349",
+  "original_private_ledger_sha256": "cb3838a1545a9405d17936f4a0c95e5fd65e40a85ff4a3715c1515b4b9d7b959",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -2669,6 +2669,12 @@
       "class": "scratch",
       "sha256": "9502737b2d2fc39cacd4eaac9dca0a41a2614f3c994e7f021d370db41b5aad86",
       "size": 2898
+    },
+    {
+      "path": "out/dispatch/pivot-review-plan14.json",
+      "class": "scratch",
+      "sha256": "2b7c34b4a2e19a0f27ce4b484901439bb0dd700171eff848b98921ecd5971d80",
+      "size": 6032
     },
     {
       "path": "out/dispatch/pivot-review.json",
@@ -6050,6 +6056,10 @@
     }
   ],
   "excluded": [
+    {
+      "path": "out/dispatch/repair-plan-14-pivot-bound.json",
+      "reason": "private data structure"
+    },
     {
       "path": "out/dispatch/repair-plan-14-pivot-recovery.json",
       "reason": "private data structure"
