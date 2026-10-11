@@ -1,4 +1,23 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/native-film-r14-pre-credit/storyboard.registered-old.json",
+        "before_sha256": "65b926baa3b675385836b5acd2ffd71a439f3bc70415574421013a91acace522",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/retained-failures/native-film-r14-pre-credit/sfx_events.old.json",
+        "before_sha256": "d9432a2cfabc3d2e7d93ec3be0075a6050fc1445ee710bd56b9a034e9d8efdac",
+        "path": "{REPO}/out/dispatch/sfx_events.json"
+      }
+    ],
+    "failure_sha256": "431b38ff620f020ce2b215ec875d74e17c0dcfd6c71527dcf08009750a9fe46c",
+    "plan": "{REPO}/out/dispatch/repair-plan-17-paired-capture.json",
+    "plan_sha256": "f6f222e662222f3ecc08080a8d1c63668a3d96b9764976fe952baa7cc24e4156",
+    "reboards_before": 11,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-10T01:22:35.425614Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/8bb258fb72816401-65b926baa3b67538-b2589d8f3b48c158/storyboard.json",
@@ -5700,6 +5719,41 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-11T02:02:34.625347Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/native-film-r14-pre-credit/storyboard.registered-old.json",
+          "before_sha256": "65b926baa3b675385836b5acd2ffd71a439f3bc70415574421013a91acace522",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/retained-failures/native-film-r14-pre-credit/sfx_events.old.json",
+          "before_sha256": "d9432a2cfabc3d2e7d93ec3be0075a6050fc1445ee710bd56b9a034e9d8efdac",
+          "path": "{REPO}/out/dispatch/sfx_events.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "431b38ff620f020ce2b215ec875d74e17c0dcfd6c71527dcf08009750a9fe46c",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 12,
+          "to": 12
+        },
+        "storyboard_critics": {
+          "from": 30,
+          "to": 30
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "music-credit-and-sfx-record-binding",
+      "plan_identity": null,
+      "plan_sha256": "f6f222e662222f3ecc08080a8d1c63668a3d96b9764976fe952baa7cc24e4156",
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -5724,7 +5778,7 @@
   "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cb5e79ed67a03b46319bfa10da28fc6e9d165229788d778f68d826d089b76244",
+    "original_private_state_sha256": "888e9fd9bb896cf1d694491050482cb568055024c59b8e7b4e03c25ab2cecec0",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5752,7 +5806,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T02:02:08.492542Z",
+  "updated_at": "2026-10-11T02:02:34.625415Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
