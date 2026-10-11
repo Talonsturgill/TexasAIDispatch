@@ -71,6 +71,18 @@ For pre-effective editions use the original compact assignments; runtime plannin
 
 Spawn `validator` to re-fetch cited URLs and verify every factual assertion, number and quote.
 Keep claims and the dated validation report. Partial evidence cannot become a verified claim.
+On the Claude host, retain the original leaf response and save its complete `validation` object
+unchanged as out/dispatch/validation.json. Keep its raw response hash and actual worker identity.
+Before entering picture production, check that report against the current claims and actual
+calendar edition date, without manufacturing a placeholder storyboard:
+
+```sh
+python scripts/validation_check.py --validation out/dispatch/validation.json --claims out/dispatch/claims.json --date <calendar-edition-date>
+```
+
+Repair an incomplete handoff through the existing role and charged recovery rules before
+expensive picture work. Do not reconstruct independent findings in the director or defer a
+missing report until delivery. The final delivery check still binds the actual storyboard.
 Before synthesis, have the same independent validation role inspect each spoken sentence and
 its claim bindings. If an excerpt seems too narrow, re-fetch surrounding context before
 rewriting. Preserve contradictions and source limits; never fabricate verification.
