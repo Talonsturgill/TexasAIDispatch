@@ -83,6 +83,23 @@ class CinematicLearningTest(unittest.TestCase):
             self.assertFalse(c.recurring(root, date(2026, 10, 6), {'last_engineering_decision': c.latest_decision(root)})['due'])
             self.assertTrue(all(not e['evidence']['path'].startswith('/') for e in result['findings'][0]['evidence']))
 
+    def test_authored_art_is_not_counted_as_generated_and_final_card_defects_recur(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); run = root / '2026-10-11'; run.mkdir()
+            (run / 'run_state.json').write_text(json.dumps({'run_id': '2026-10-11', 'terminal_state': 'shipped'}))
+            (run / 'storyboard.json').write_text(json.dumps({'story_art': {'entries': [
+                {'tool': 'original authored source'}, {'tool': 'original authored source'}, {'tool': 'image generation'}]}}))
+            row = c.report(root)['editions'][-1]
+            self.assertEqual(1, row['fresh_generated_images'])
+            self.assertEqual(2, row['authored_art_entries'])
+            defect = {'observed': 'Contact is hidden by the front plate.'}
+            for name in ('2026-10-04', '2026-10-05'):
+                folder = root / name; folder.mkdir()
+                (folder / 'report_card.json').write_text(json.dumps({'judges': [{'bounded_release': {'defects': [defect]}}]}))
+            result = c.recurring(root, date(2026, 10, 6))
+            self.assertEqual(2, result['findings'][0]['distinct_editions'])
+            self.assertEqual(defect, result['findings'][0]['evidence'][0]['original_finding'])
+
 
 if __name__ == '__main__':
     unittest.main()

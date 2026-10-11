@@ -61,7 +61,10 @@ def report(runs, state_path=None):
                      'publication_mode': publication_mode,
                      'art_profile_version': (board.get('art_direction') or {}).get('version'),
                      'modern_film_version': (board.get('film_direction') or {}).get('version'),
-                     'fresh_generated_images': len((board.get('story_art') or {}).get('entries', [])),
+                     'fresh_generated_images': len([e for e in (board.get('story_art') or {}).get('entries', [])
+                                                    if e.get('tool') != 'original authored source']),
+                     'authored_art_entries': len([e for e in (board.get('story_art') or {}).get('entries', [])
+                                                  if e.get('tool') == 'original authored source']),
                      'image_generation_attempts': usage.get('image_generations'),
                      'modern_floor_pass': (len(card.get('judges', [])) == 3 and all(all((j.get('modern_observations') or {}).get(k, {}).get('pass') is True
                                                     for k in ('first_frame', 'visual_progression', 'shot_variety', 'performed_turn', 'pace', 'closing_answer', 'finished_art'))
@@ -124,7 +127,7 @@ def recurring(runs, today, previous=None):
             continue
         seen = set()
         paths = sorted(set(folder.glob('panel-round-*.json')) | set(folder.glob('**/*critic*.json')) |
-                       set(folder.glob('**/*review-response.json')))
+                       set(folder.glob('**/*review-response.json')) | set(folder.glob('report_card.json')))
         for path in paths:
             try:
                 content = read(path)
