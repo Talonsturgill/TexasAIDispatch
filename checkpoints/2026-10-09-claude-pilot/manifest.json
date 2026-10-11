@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T02:52:16.501069+00:00",
-  "note": "review-access diagnosis, budget snapshot and release prep notes",
+  "saved_at": "2026-10-11T03:21:21.910583+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "5fee753d1d53e31b38ffef9a95969302350cb1b1",
+  "source_pin": "d6df7416fab1fcb13f5845ca1a670a476f467870",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "73409058694ce6c9d0ec0a1eeed2fed7731dabe0b4da2d78a39db35670a1258d",
-  "original_private_ledger_sha256": "09d6480819bfe4c03e9e5e58dd5442dc4a24ffb26299f71aca233a63ab9234a4",
+  "ledger_sha256": "5abbe602bad9c19baa2104cc8877214014d789da991d2449c928210e9782536d",
+  "original_private_ledger_sha256": "6a8f62358e261b923993edfaa7afb87c98a55a79139ecfd47991745adb911c22",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -658,6 +658,12 @@
       "path": "out/dispatch/budget-audit/production-budget-technical-credit.log",
       "class": "scratch",
       "sha256": "03087de84bb285afebeacdce8ea0c9c689dead42ced810c583c9d6733c3ce736",
+      "size": 1489
+    },
+    {
+      "path": "out/dispatch/budget-audit/review-access-production-budget.json",
+      "class": "scratch",
+      "sha256": "55346cd490c528d65afd9bed1a410ef0bc54ad73439a563ea4281af03712a80e",
       "size": 1489
     },
     {
@@ -2825,6 +2831,12 @@
       "class": "scratch",
       "sha256": "4aef3d362dab440904250a6ba88df4454bf965aac618bfde94a8f2da60950f5e",
       "size": 696
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-12-review-access.json",
+      "class": "scratch",
+      "sha256": "ac8ed06dd72967b6e00a45dfded0b293628826bf288f17844751117c08d4d3bc",
+      "size": 959
     },
     {
       "path": "out/dispatch/finish-current-plan-2.json",
@@ -7997,6 +8009,12 @@
       "class": "scratch",
       "sha256": "daca1633d56d9b00b320de9b13cc3883bacf79327d79942b0245bf968371041d",
       "size": 41063
+    },
+    {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/review-access-failure.json",
+      "class": "scratch",
+      "sha256": "c7e00949ae41266cfbdc20ae9d1d5789786e2932399c044cabcac9ab04f3a1a3",
+      "size": 1382
     },
     {
       "path": "out/dispatch/retained-failures/panel-raw-r1-r2/worker-a636da07d994e9b14.transcript.jsonl",

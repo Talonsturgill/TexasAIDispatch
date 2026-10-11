@@ -1,0 +1,32 @@
+{
+ "schema": "dispatch_retained_review_access_failure/1",
+ "reviewer_identity": "scorer picture a636da07d994e9b14 and scorer story a9182fc7ff96d0335, claude-sonnet-5-5 medium, isolated Read-only workers; not the director",
+ "reviewed_at": "2026-10-11 (panel round 2, resumed workers)",
+ "verdict": "revise",
+ "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+ "board_sha256": "4a10a3f68b1fcaecbf4d636f9b2fd4a9148fc563d0dac65255f325918590d3fe",
+ "blocking_defects": [
+  "judge 1 did not accept the attention/continuity",
+  "judge 2 did not accept the attention/continuity"
+ ],
+ "classification": {
+  "judge 1 did not accept the attention/continuity": {
+   "category": "unknown",
+   "reason": "picture judge could not play the MP4 or hear audio; no continuity break was observed"
+  },
+  "judge 2 did not accept the attention/continuity": {
+   "category": "unknown",
+   "reason": "story judge could not play the MP4 or hear audio; no continuity break was observed"
+  }
+ },
+ "scores": {
+  "picture": 6.87,
+  "story": 6.96,
+  "sound": 7.17
+ },
+ "source_files": [
+  "retained-failures/panel-raw-r1-r2/report_card.round2.json",
+  "retained-failures/panel-raw-r1-r2/CLASSIFICATIONS.md"
+ ],
+ "note": "Verbatim transcription of the judges' own rejections. Unknown stays blocking. The cause is media access, not an artistic defect and not a provider outage."
+}
