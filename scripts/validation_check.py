@@ -9,6 +9,7 @@ delivery can copy it into ``runs/``.
 from __future__ import annotations
 
 import argparse
+from datetime import date as calendar_date
 import json
 import sys
 import tempfile
@@ -30,12 +31,20 @@ def load(path: Path) -> dict:
     return value
 
 
-def check(validation_path: Path, claims_path: Path, board_path: Path) -> list[str]:
+def check(validation_path: Path, claims_path: Path, board_path: Path | None = None,
+          *, edition_date: str | None = None) -> list[str]:
     problems: list[str] = []
     try:
         validation = load(validation_path)
         claims = load(claims_path)
-        board = load(board_path)
+        if (board_path is None) == (edition_date is None):
+            raise ValueError("supply one storyboard or an explicit early-phase edition date")
+        if edition_date is not None:
+            if calendar_date.fromisoformat(edition_date).isoformat() != edition_date:
+                raise ValueError("early-phase edition date must be YYYY-MM-DD")
+            board = {"date": edition_date}
+        else:
+            board = load(board_path)
     except ValueError as exc:
         return [str(exc)]
 
@@ -44,8 +53,9 @@ def check(validation_path: Path, claims_path: Path, board_path: Path) -> list[st
     if not board_date:
         problems.append("the storyboard has no date, so the validation can't be bound to a run")
     elif report_date != board_date:
+        binding_label = "edition" if edition_date is not None else "storyboard"
         problems.append(
-            f"validation date {report_date!r} does not match storyboard date {board_date!r}. "
+            f"validation date {report_date!r} does not match {binding_label} date {board_date!r}. "
             "This report belongs to a different Dispatch."
         )
 
@@ -110,6 +120,13 @@ def self_test() -> int:
         validation.write_text(json.dumps(good), encoding="utf-8")
         ok("a report bound to the current date and claims passes",
            not check(validation, claims, board))
+        ok("the same complete report can be checked before a board exists",
+           not check(validation, claims, edition_date="2026-09-09"))
+        ok("early validation refuses a report from another edition",
+           bool(check(validation, claims, edition_date="2026-09-10")))
+        ok("early validation refuses an invalid or ambiguous date",
+           bool(check(validation, claims, edition_date="20260909")) and
+           bool(check(validation, claims, board, edition_date="2026-09-09")))
 
         validation.write_text(json.dumps({**good, "date": "2026-09-08"}), encoding="utf-8")
         problems = check(validation, claims, board)
@@ -122,9 +139,13 @@ def self_test() -> int:
         ok("unknown and missing claim ids are both refused",
            any("omits" in p for p in problems) and any("not current" in p for p in problems),
            str(problems))
+        ok("early validation still refuses unknown and missing claim ids",
+           bool(check(validation, claims, edition_date="2026-09-09")))
 
         validation.write_text(json.dumps({**good, "result": "FAIL"}), encoding="utf-8")
         ok("a failed validation can't enter delivery", bool(check(validation, claims, board)))
+        ok("a failed validation can't enter picture production",
+           bool(check(validation, claims, edition_date="2026-09-09")))
 
     print(f"validation_check: {failures} failure(s)")
     return 1 if failures else 0
@@ -134,11 +155,15 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--validation", default="out/dispatch/validation.json")
     parser.add_argument("--claims", default="out/dispatch/claims.json")
-    parser.add_argument("--board", default="out/dispatch/storyboard.json")
+    binding = parser.add_mutually_exclusive_group()
+    binding.add_argument("--board", default="out/dispatch/storyboard.json")
+    binding.add_argument("--date", help="check the source handoff before storyboarding; delivery still uses --board")
     parser.add_argument("--all", action="store_true",
                         help="check every shipped run that carries a validator report")
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
+    if args.all and args.date:
+        parser.error("--all cannot use an early-phase --date")
     if args.self_test:
         return self_test()
     if args.all:
@@ -156,13 +181,15 @@ def main() -> int:
             problems.append("no shipped validation report was found, so --all checked nothing")
     else:
         checked = 1
-        problems = check(Path(args.validation), Path(args.claims), Path(args.board))
+        problems = check(Path(args.validation), Path(args.claims),
+                         None if args.date else Path(args.board), edition_date=args.date)
     if problems:
         print("validation_check: FAIL")
         for problem in problems:
             print(f"  - {problem}")
         return 1
-    print(f"validation_check: OK — {checked} validator report(s) match their board and claims")
+    binding_name = "edition date" if args.date else "board"
+    print(f"validation_check: OK — {checked} validator report(s) match their {binding_name} and claims")
     return 0
 
 
