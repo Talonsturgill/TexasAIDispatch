@@ -120,3 +120,38 @@ source after_sha256 fields to the plan before authorize-repair. The controller r
 bound plan or any other board change. A source fix and bookkeeping rebind approve no pixels:
 bind fresh packets and require the separate full code, silent phone and timed phone verdicts
 before native production. Never replace a phone review with the code rejection or its grant.
+
+## Actual recurrence pivot rejection recovery
+
+config/autonomous_completion_pivot_v1.json is a separate dated amendment for a charged independent
+Opus High recurrence pivot that returns REVISE before an already funded mandatory modern code
+correction. Keep the original source rejection, modern grant, original frozen allocation and every
+charge. It funds exact remaining deficits for the next pivot, code review and both phone reviews,
+plus the complete native, audiovisual, scoring and shipment path. It never approves a pivot.
+
+Write a supported-host receipt with schema dispatch_pivot_recovery/1, actual run_id, role
+recurrence-pivot, status completed, provider_unavailable false, model claude-opus-5-5, effort high,
+action SendMessage_same_id and the actual agent_id. Record the source_grant_event_index and
+source_grant_sha256 of the original mandatory-modern-code grant, reservation_event_index and
+reservation_sha256 of the failed pivot's actual reserved event. Hash events with
+autonomous_completion.sha(autonomous_completion.canonical(event)). Include report_sha256,
+reviewer_identity and reported_rejection copied exactly from the returned visible_difference.
+Keep the complete exact pivot report and exact proposal it reviewed. The bound revised plan must
+change the proposed performed correction, while preserving the modern grant's read-only production
+inputs, renderer baselines, resource request and failure family. Do not relabel a repeated family.
+
+```sh
+python scripts/pivot_recovery.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <retained-pivot-rejection> --rejected-proposal <reviewed-proposal> --revised-plan <bound-modern-plan> --output <new-recovery-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-recovery-plan>
+python scripts/run_controller.py completion-capacity --repair-plan <new-recovery-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-recovery-plan>
+```
+
+Use scripts/run_with_env.sh with explicit internal cd. The controller records a separate pinned
+adoption and only actual deficits, once per failed charged pivot reservation. No new reboard is
+added when the original correction remains funded. Reserve the next real pivot call first and
+SendMessage to the same Opus High worker with full current guides, all relevant retained failures,
+the revised proposal and current source bindings. Preserve its actual response. An independent
+source-backed PASS must bind pivot_review before begin-repair. Then charge the existing corrective
+reboard, use the existing Opus builder, and follow the same strict renderer-hash-only board rebind
+and authorize-repair path above. Both fresh phone reviews and all shipment gates remain required.
