@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-11T08:23:42.681015+00:00",
-  "note": "builder complete critic running",
-  "phase": "research",
+  "saved_at": "2026-10-11T08:38:28.841587+00:00",
+  "note": "ledger write",
+  "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-11T07:18:21.823920Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "be7faec45378577ac1bbe1443f087c4dbc0f671e",
+  "source_pin": "27903a377f78a9ec44e57e5cfb94cfeca6e22301",
   "source_branch": "claude/dispatch-2026-10-11",
   "source_closure": {
     "root": "video-engine",
-    "files": 348,
-    "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
+    "files": 351,
+    "sha256": "411e7c9a6f26ae670d4e48d1889f09d53a57e00618e959b089c2265c0c82d0fb"
   },
   "deleted_source": [],
-  "ledger_sha256": "15e19185a7ac8676cdfb7a1695f60e2a1ec21cb93251f9f445898074b7e09da2",
-  "original_private_ledger_sha256": "bf52ada64d324d385581655939a621bd4e73185d13773040ab817755da20fd0b",
+  "ledger_sha256": "42a522b2bdcba88ad4978c3f34b125374e3ce0114b822edad20e5d7aec933111",
+  "original_private_ledger_sha256": "a41fbd80ed1d9f826903268d82aa76480f43003c4eef21bda08db01c1f1bb65d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -36,12 +36,6 @@
     "voice_directors": 0
   },
   "files": [
-    {
-      "path": "config/modern_episode_registry.json",
-      "class": "source",
-      "sha256": "a8ffcfa4758c3be5e1cdbe39e3f686e52445d37521767a195ffb1605becb00e1",
-      "size": 23869
-    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -65,6 +59,42 @@
       "class": "scratch",
       "sha256": "e1943f9577c6be3c4d4c0be47d17084bd20b212eeb5576be7ba797c9ebe3594f",
       "size": 2268
+    },
+    {
+      "path": "out/dispatch/baseline-repair1/opening-a.json",
+      "class": "scratch",
+      "sha256": "5de1bc2664df08758c8af2135ee6b79c63f289a2ed21c0818daa158a82368ce8",
+      "size": 154146
+    },
+    {
+      "path": "out/dispatch/baseline-repair1/opening-b.json",
+      "class": "scratch",
+      "sha256": "43b7fb41eb848039de7ec1193cc6b4e2d866365154325da0adabc71431c73a14",
+      "size": 153553
+    },
+    {
+      "path": "out/dispatch/baseline-repair1/src/TowerAlertFilm.tsx",
+      "class": "scratch",
+      "sha256": "57b2d183525f24cdee2667c26b517cf14af1a5568b77552c97fd97e5d7bd67a5",
+      "size": 29104
+    },
+    {
+      "path": "out/dispatch/baseline-repair1/src/TowerCameraHero.tsx",
+      "class": "scratch",
+      "sha256": "1ae33c1f90a9c33f94e039547ded469476ec5ccf1d4c677fa444d3223f2b87af",
+      "size": 26770
+    },
+    {
+      "path": "out/dispatch/baseline-repair1/src/WestTexasSupport.tsx",
+      "class": "scratch",
+      "sha256": "e9624487c8afcb49987060806cb7c22a1d92f3765da795ee97fa8f72df09e63b",
+      "size": 40474
+    },
+    {
+      "path": "out/dispatch/baseline-repair1/storyboard.json",
+      "class": "scratch",
+      "sha256": "b80dfbe09c32058ff374dc8fe778b055ecbead60235519de4ac3ea35f430b3ec",
+      "size": 137756
     },
     {
       "path": "out/dispatch/builder-assignment.json",
@@ -103,6 +133,12 @@
       "size": 1863
     },
     {
+      "path": "out/dispatch/critic-consolidated-defects.md",
+      "class": "scratch",
+      "sha256": "0cef74bc0b6c316015fa26fe8aa1abcdf65cf1da7d1268498877bdf5118e7db2",
+      "size": 1341
+    },
+    {
       "path": "out/dispatch/critic-packet.json",
       "class": "scratch",
       "sha256": "6f6c65df5618d232dc07a380b7849d934ee76c6833b4b8d773f7db763579e46c",
@@ -121,10 +157,22 @@
       "size": 1742
     },
     {
+      "path": "out/dispatch/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "6ff20e70f66c9f7eec46c7dffde3ed41607a05b2ee0c48866aa1741464a18239",
+      "size": 4729
+    },
+    {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
       "sha256": "5de1bc2664df08758c8af2135ee6b79c63f289a2ed21c0818daa158a82368ce8",
       "size": 154146
+    },
+    {
+      "path": "out/dispatch/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "3692335be591e5dc90d32aa2c40c8b56399d25f05b0ba31847ef51e30b4c36e8",
+      "size": 3832
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -727,6 +775,12 @@
       "size": 3106
     },
     {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "3dde2a47affac2ca24d1fc0deae53b6ccb1417e5f6379cf10f0c4d0b840793ef",
+      "size": 4083
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "7bebe1c056ad532b90afc9525fa3327be48446c94537bc2b8d16726bc4a008d0",
@@ -839,30 +893,6 @@
       "class": "scratch",
       "sha256": "ed509c1ff508d0732549aa89564356fae0d6c22b402e7f7b9680e4f260f25458",
       "size": 2673
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
-      "class": "source",
-      "sha256": "57b2d183525f24cdee2667c26b517cf14af1a5568b77552c97fd97e5d7bd67a5",
-      "size": 29104
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
-      "class": "source",
-      "sha256": "1ae33c1f90a9c33f94e039547ded469476ec5ccf1d4c677fa444d3223f2b87af",
-      "size": 26770
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
-      "class": "source",
-      "sha256": "e9624487c8afcb49987060806cb7c22a1d92f3765da795ee97fa8f72df09e63b",
-      "size": 40474
-    },
-    {
-      "path": "video-engine/src/modern/registry.tsx",
-      "class": "source",
-      "sha256": "5d355fefd808b58499dde7ab75189f45050b49cae249a4532a700fd8732c0080",
-      "size": 906
     }
   ],
   "excluded": [],
