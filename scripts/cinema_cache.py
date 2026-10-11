@@ -155,24 +155,39 @@ def principal_event(board, scene):
     Custom source-backed modules perform a conserved action across their three
     declared visual events. They are admitted through quality_plan and the actual
     callable module, rather than the daily renderer's scene.picture schema.
+    Directed films use their complete event span after current modern timeline,
+    renderer and artwork admission. The native occupancy and action floors stay
+    unchanged; source event and episode identities accompany every measurement.
     """
-    event_id = (scene.get("picture") or {}).get("event_id")
     events = scene.get("visual_events", [])
-    if event_id:
+    directed = board.get("cinematic_template") == "directed-film-v2"
+    if directed:
+        import modern_film
+        errors = modern_film.problems(board)
+        if errors:
+            raise ValueError("unadmitted directed principal action: " + "; ".join(errors))
+        matches = [s for s in board.get("scenes", []) if s.get("id") == scene.get("id")]
+        if len(matches) != 1 or matches[0] != scene or len(events) < 3:
+            raise ValueError("directed principal action needs its unique complete current scene")
+        action_id = scene["id"] + "-directed-action"
+    else:
+        action_id = scene.get("production_action")
+    event_id = (scene.get("picture") or {}).get("event_id")
+    if event_id and not directed:
         matches = [event for event in events if event.get("id") == event_id]
         if len(matches) != 1:
             raise ValueError(scene["id"] + " has no unique principal-picture event")
         return matches[0]
-    action_id = scene.get("production_action")
     proposals = board.get("action_proposals", [])
-    if (not action_id or len([p for p in proposals if p.get("id") == action_id]) != 1
+    if not directed and (not action_id or len([p for p in proposals if p.get("id") == action_id]) != 1
             or board.get("cinematic_template") in (None, "daily-actions-v1")
             or len(events) < 3):
         raise ValueError(scene["id"] + " has no unique principal-picture event")
-    from action_admission import board_problems
-    errors = board_problems(board)
-    if errors:
-        raise ValueError("unadmitted custom principal action: " + "; ".join(errors))
+    if not directed:
+        from action_admission import board_problems
+        errors = board_problems(board)
+        if errors:
+            raise ValueError("unadmitted custom principal action: " + "; ".join(errors))
     ids = [event.get("id") for event in events]
     if any(not isinstance(i, str) or not i for i in ids) or len(set(ids)) != len(ids):
         raise ValueError(scene["id"] + " action span needs distinct source event ids")
@@ -184,8 +199,11 @@ def principal_event(board, scene):
             raise ValueError(scene["id"] + " admitted action event leaves its scene")
     start = min(event["at_s"] for event in events)
     end = max(event["at_s"] + event["duration_s"] for event in events)
-    return {"id": action_id, "at_s": start, "duration_s": end - start,
-            "source_event_ids": ids, "admitted_action_id": action_id}
+    result = {"id": action_id, "at_s": start, "duration_s": end - start,
+              "source_event_ids": ids}
+    result["admitted_direction_id" if directed else "admitted_action_id"] = (
+        board["film_direction"]["episode"] if directed else action_id)
+    return result
 
 
 def sample_frames(board):
