@@ -1,43 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair1/storyboard.json",
-        "before_sha256": "b80dfbe09c32058ff374dc8fe778b055ecbead60235519de4ac3ea35f430b3ec",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair1/opening-a.json",
-        "before_sha256": "5de1bc2664df08758c8af2135ee6b79c63f289a2ed21c0818daa158a82368ce8",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair1/opening-b.json",
-        "before_sha256": "43b7fb41eb848039de7ec1193cc6b4e2d866365154325da0adabc71431c73a14",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair1/src/TowerAlertFilm.tsx",
-        "before_sha256": "57b2d183525f24cdee2667c26b517cf14af1a5568b77552c97fd97e5d7bd67a5",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair1/src/TowerCameraHero.tsx",
-        "before_sha256": "1ae33c1f90a9c33f94e039547ded469476ec5ccf1d4c677fa444d3223f2b87af",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair1/src/WestTexasSupport.tsx",
-        "before_sha256": "e9624487c8afcb49987060806cb7c22a1d92f3765da795ee97fa8f72df09e63b",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
-      }
-    ],
-    "failure_sha256": "6ff20e70f66c9f7eec46c7dffde3ed41607a05b2ee0c48866aa1741464a18239",
-    "plan": "{REPO}/out/dispatch/repair-plan.json",
-    "plan_sha256": "3dde2a47affac2ca24d1fc0deae53b6ccb1417e5f6379cf10f0c4d0b840793ef",
-    "reboards_before": 1,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -224,6 +185,97 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-11T08:57:19.867502Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "54043df32abcb0b33c7c56d79b89566af23f29e02889c185285dbfb47e8de30a",
+            "before_path": "{REPO}/out/dispatch/baseline-repair1/storyboard.json",
+            "before_sha256": "b80dfbe09c32058ff374dc8fe778b055ecbead60235519de4ac3ea35f430b3ec",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "54043df32abcb0b33c7c56d79b89566af23f29e02889c185285dbfb47e8de30a",
+            "before_path": "{REPO}/out/dispatch/baseline-repair1/opening-a.json",
+            "before_sha256": "5de1bc2664df08758c8af2135ee6b79c63f289a2ed21c0818daa158a82368ce8",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "5f0baf98e6b598f7967143fa0f6bc29b9caa5dd50e4d7d2436992e28071c4705",
+            "before_path": "{REPO}/out/dispatch/baseline-repair1/opening-b.json",
+            "before_sha256": "43b7fb41eb848039de7ec1193cc6b4e2d866365154325da0adabc71431c73a14",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "b17c77f49ad46e6313f23397cb80af68d7d90fe3ff6046235ed59770f6c24f6c",
+            "before_path": "{REPO}/out/dispatch/baseline-repair1/src/TowerAlertFilm.tsx",
+            "before_sha256": "57b2d183525f24cdee2667c26b517cf14af1a5568b77552c97fd97e5d7bd67a5",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          },
+          {
+            "after_sha256": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd",
+            "before_path": "{REPO}/out/dispatch/baseline-repair1/src/TowerCameraHero.tsx",
+            "before_sha256": "1ae33c1f90a9c33f94e039547ded469476ec5ccf1d4c677fa444d3223f2b87af",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx"
+          },
+          {
+            "after_sha256": "b314a4f744aea8efeb9791f8447ed5ef5ff75370166687fbd6014aefe009a8cd",
+            "before_path": "{REPO}/out/dispatch/baseline-repair1/src/WestTexasSupport.tsx",
+            "before_sha256": "e9624487c8afcb49987060806cb7c22a1d92f3765da795ee97fa8f72df09e63b",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "A one-viewing story where the beam visibly reaches the flagged plume, the alert card becomes the text bubble on a phone held by a hand that exits the frame bottom, the closing frame shows alert landed, line to responders open and the plan awaiting approval at a readable size, and no tag blinks out across a cut.",
+        "failure_evidence": "{REPO}/out/dispatch/opening-a-critic.json",
+        "failure_evidence_sha256": "6ff20e70f66c9f7eec46c7dffde3ed41607a05b2ee0c48866aa1741464a18239",
+        "failure_family": "continuity",
+        "mechanism_change": "Closing image changes from one static desk inset to a composite of the landed alert, the open line and a readable plan band. B's lens display changes from an overlay ring on a still plate to a clipped panoramic view that pans with the heading. Tags pin once on their own events. The record and commission surfaces become separate props.",
+        "mechanism_id": "tower-alert-geometry-and-closing-v1",
+        "repair": "One consolidated builder correction: aim the beam at the local plume, extend the sleeve path to the frame bottom and drop the floating hand in A's open line, ground the s6 pan, remove the late pre-tags, give s7 an AEP-side surface and make the s7 to s8 link non-causal, rebuild the closing so it shows the landed alert, the open dashed line and a readable plan band at 11 px or larger, add the map disclosure to s1 and s2, make B's display a clipped panoramic camera view with the tower in frame within 1.5 seconds, and apply the critic's non-blocking fixes N1 to N8 and N11.",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3,
+          "tts_calls": 2
+        },
+        "root_cause": "The independent code critic (Opus, 2026-10-11) returned REVISE on both treatments: the beam is aimed at the wrong plume coordinate in the hero passage, a cut-off sleeve and floating gloved hand break the card handoff and the open-line turn, the shelter and calendar slide during the s6 pan, estimate and attribution tags blink out across cuts, the s7 record and s8 commission share one desk with an unsupported causal link, the closing is a small static inset with unreadable labels that shows neither the landed alert nor the open line, the county locator needs a concurrent disclosure, and treatment B's lens display is an overlay ring over a static plate."
+      },
+      "repair_plan_sha256": "0c1ae27f442f1a672a339fa822bb3016053e14ebce95bda6ea4d21367978ca75",
+      "repair_revision": "ba2ecdc3bfaf6ba5080a04cb168b6f63a119a6b0937ec6644b8308f24c14dfac",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -247,7 +299,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "3f437e3fe916562a259185ab15ea02ae0327377a5769da7d96f1a6b536c11f4c",
+    "original_private_state_sha256": "38e64da4ec8cd8540fe367cec10d035d6b6fdfb292457a28d27da8a2e8e18d90",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -275,7 +327,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T08:38:32.649167Z",
+  "updated_at": "2026-10-11T08:57:19.867548Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
