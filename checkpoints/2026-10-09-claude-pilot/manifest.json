@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-10T23:38:57.183901+00:00",
-  "note": "plan 12 and 13 pivot reviews returned revise (retained); plan 14 torso-lean drafted; critics 21 of 23; funding for a third pivot round plus remaining reviews has no admitted route",
+  "saved_at": "2026-10-11T00:01:34.256291+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "fe6994127942c96fc66a67168614ae97c2b659ed",
+  "source_pin": "81330ed2bd097cefef66d6b52a8652bde7ecec33",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "14d7a0c11967703ca46f65d684d3fde4415da2abc4b289ae4ad09326e5b36481"
   },
   "deleted_source": [],
-  "ledger_sha256": "26b8c121bec2f55ca7f1091bd93d732ce0b16288e8c7e607366e4e961534d5a5",
-  "original_private_ledger_sha256": "1d11413fbffa9991e2daa1d87a226293829487490e3cf5fc9241a84350bbdebc",
+  "ledger_sha256": "8ac42758849b11bd770bedc7d7e59ae47777f4b3aca4e43cd033eff6b5c74040",
+  "original_private_ledger_sha256": "d512f603a6505f63e968d5d9088927ea582f97534344334889859c8b1b8df7b5",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -916,6 +916,12 @@
       "path": "out/dispatch/critic-packet-r15.json",
       "class": "scratch",
       "sha256": "ac5e6dcf1974ba25d3abb7ac9dbc45caa3b54ddded68190283a0502cec04c1b9",
+      "size": 8766
+    },
+    {
+      "path": "out/dispatch/critic-packet-r16.json",
+      "class": "scratch",
+      "sha256": "8fdb41633d0527bda34cd7ddda493ee123b6bad812f46a30dac33a25be99eaac",
       "size": 8766
     },
     {
@@ -2659,6 +2665,12 @@
       "size": 8764
     },
     {
+      "path": "out/dispatch/pivot-recovery-receipt-21.json",
+      "class": "scratch",
+      "sha256": "9502737b2d2fc39cacd4eaac9dca0a41a2614f3c994e7f021d370db41b5aad86",
+      "size": 2898
+    },
+    {
       "path": "out/dispatch/pivot-review.json",
       "class": "scratch",
       "sha256": "c2b818bd474e6746a445737d08a49d8ba3af2e2a30cd05145d8f4c7223f9d7af",
@@ -4055,6 +4067,12 @@
       "class": "scratch",
       "sha256": "41dc9f1d5de35e5170e670ddd6b930f087126e7e96cd9717adb6ae9213499df1",
       "size": 3408
+    },
+    {
+      "path": "out/dispatch/repair-plan-14-modern-code-current.json",
+      "class": "scratch",
+      "sha256": "3608dad28d9b5921ff934c62c82f5a0bfe7a1c378479cf5918104fbc3fcb88bc",
+      "size": 579058
     },
     {
       "path": "out/dispatch/repair-plan-14-modern-code.json",
@@ -6031,7 +6049,12 @@
       "size": 30958
     }
   ],
-  "excluded": [],
+  "excluded": [
+    {
+      "path": "out/dispatch/repair-plan-14-pivot-recovery.json",
+      "reason": "private data structure"
+    }
+  ],
   "regenerable": {
     "files": 0,
     "bytes": 0
