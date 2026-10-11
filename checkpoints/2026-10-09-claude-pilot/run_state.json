@@ -6336,6 +6336,14 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-11T03:22:12.268002Z",
+      "evidence": "{REPO}/out/dispatch/retained-failures/motion-review-dedupe-r1/refusal.log",
+      "evidence_sha256": "f2d422e64eccca3aabf24670e640468af6913bfde7a79ae20adf2cc54b855878",
+      "input_identity": "691faaeb64378b6ae10efd92112adbf987d91035a06e840e517e5efb6ce5dafe",
+      "kind": "preflight_retry_authorized",
+      "reason": "motion review hook charge refused as identical animatic inputs before any decode started; supported one-use infrastructure retry for the hook entry"
     }
   ],
   "limits": {
@@ -6357,9 +6365,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "691faaeb64378b6ae10efd92112adbf987d91035a06e840e517e5efb6ce5dafe",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6a8f62358e261b923993edfaa7afb87c98a55a79139ecfd47991745adb911c22",
+    "original_private_state_sha256": "6eae913a283578803e7fa76e19191082779ac4ea36cc77b0a9b81f094de6e2d3",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6387,7 +6396,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T03:21:14.535891Z",
+  "updated_at": "2026-10-11T03:22:12.268063Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
