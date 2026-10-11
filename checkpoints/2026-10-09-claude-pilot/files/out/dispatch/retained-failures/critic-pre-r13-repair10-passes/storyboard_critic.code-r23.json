@@ -1,0 +1,40 @@
+{
+  "treatment": "a",
+  "reviewer_identity": "storyboard-critic / claude-opus-5-5 high, isolated read-only code-scope reviewer, full code rereview after repair 14 (critic 23, critic-packet-r17, same worker as critics 18 to 22), distinct from the director claude-sonnet-5-5 and the scene-builder",
+  "reviewed_at": "unknown (no clock available)",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "weakest_frame": "24.35 to 29.35 s (measured), s5-shot-2 into s6-shot-1. The date tags hang beside the tool during the decision-support beat (decision tag 24.87 to 25.89 s). The report tag (27.54 to 28.66 s) overlaps the decision tag's corner, and the Announced tag sits inside the caption band while 'That is UTMB's own report' plays (27.16 to 29.04 s).",
+  "story_review": {
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Code-scope chain on the measured clock, unchanged by repair 14. The measured board takes the variant-a code paths. Its s1-event-1 is still at 0.4216 s for 0.9676 s, and its ClinicAnswerFilm renderer_inputs entry (now d4d12ba1) sits at the same line, with the same total line count.\n- **s1.** Word strikes land at 0.04 and 0.17 s and the send strike at 0.37 s. The card goes in from 0.42 to 1.39 s, and the cut comes at 2.87 s. The answer comes out at 3.14 to 3.94 s and the citations at 4.07 to 4.87 s.\n- **s2 and s3.** The tag lands at 6.29 to 6.89 s and the March tag at 10.37 to 11.0 s. Dot strikes run from 12.25 to 13.0 s, the send at 13.32 s and the lock at 13.36 to 14.35 s. Dashes land at 14.96 to 15.45 s, the send at 15.74 s and the slide at 15.78 to 16.24 s.\n- **s4 to s8.** The fan runs at 17.17 to 18.18 s, the share at 22.19 to 24.11 s and the decision tag at 24.87 to 25.89 s. The report tag lands at 27.54 to 28.66 s, the limit tags at 29.99 to 30.82 s and Not in release at 31.31 to 32.14 s. The thread runs at 34.14 to 35.01 s, the slot and ring at 37.17 to 38.37 s and the evaluating tag at 39.30 to 40.40 s. The close holds from 41.42 to 44.0 s.",
+    "opening_to_ending": "The opening question about what comes back from asking inside the record is answered by the closing hold from 41.42 to 44.0 s: the same answer with glowing Sources, an empty pulsing Accuracy ring and Not in release tags, with the evaluating tag on the share bar. No outcome is implied.",
+    "weakest_transition": "s3 to s4 at 16.64 s. The held detail ends with the card at the chart edge, then cuts to the large answer on the reading surface without showing the send and return again.",
+    "story_sha256": "f868f78f6f47eb3e81ffd67fd9db4fff8449c5cddb2ee7736f0b6ff2d45ebd98",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e"
+  },
+  "action_reviews": [],
+  "per_defect": {
+    "B1": "resolved",
+    "B2": "resolved",
+    "B3": "resolved",
+    "B4": "resolved",
+    "B5": "resolved",
+    "B6": "resolved",
+    "B7": "resolved",
+    "B8": "resolved",
+    "B9": "resolved"
+  },
+  "risks_for_the_phone_critic": [
+    "The pictures match the reviewed code through the same A gating described for opening_a.",
+    "The measured cadence is faster than authored: dots about 0.107 s apart and dashes about 0.098 s apart.",
+    "Contact. Key 13 stays drawn down for 2 frames, at 0.20 and 0.23 s, while the hand slides toward the send key.",
+    "Hook sweep. The background moves about 800 px between 0.38 and 1.69 s.",
+    "The open padlock reversal, the date-tag clutter, the s3-shot-2 layout and the answer-image recurrence are as listed for opening_a."
+  ],
+  "stronger_treatment": "a. This is the selected treatment on its measured clock, and repair 14 leaves its code paths unchanged.",
+  "concept_sha256": "16ef30aa346f2677240d030716f36b8cfe45221e00c9c632c2434c010890f2fa",
+  "renderer_sha256": "9b8e9a15a1e30ec11eac8a16def3a73bdf5ad1591aea8c889a7756e491e42f94"
+}
