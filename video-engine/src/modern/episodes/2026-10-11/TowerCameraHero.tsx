@@ -19,7 +19,8 @@ import {useUid} from '../../../lib/uid';
  * ground, split into the half behind the tower and the half in front so the lattice occludes the
  * beam correctly; the four corner brackets of the flag box that close on smoke; the one alert
  * card that leaves the head; the pinned tags that carry the few words the film puts on screen;
- * and, for treatment b, the round lens display seen from inside the camera.
+ * and, for treatment b, the round lens display seen from inside the camera, which clips the
+ * camera's own panoramic picture so the land pans as the head turns.
  *
  * Light: late afternoon west Texas sun low in the upper left. Upper-left edges carry warm light,
  * right edges fall into cool shade, and every grounded thing casts a long soft shadow to the right.
@@ -310,7 +311,7 @@ const AlertCard:React.FC<{lift?:number;glow?:number;pal:Pal}>=({lift=0,glow=0,pa
 
 /** A hanging tag on a drawn pin at (0,0). Its body is sized from the measured type. */
 export type TagTone='ink'|'accent'|'paper'|'outline';
-const TAG_FONT=30, TAG_PAD=22;
+const TAG_FONT=38, TAG_PAD=22;
 export function tagSize(lines:string[]):Pt{
  const w=Math.max(...lines.map(l=>widthOf(l,TAG_FONT,true)))+2*TAG_PAD+22;
  return [Math.round(w),Math.round(lines.length*TAG_FONT*1.22+2*TAG_PAD-8)];
@@ -338,7 +339,7 @@ const Tag:React.FC<{lines:string[];tone?:TagTone;swing?:number;drop?:number;pal:
 /** Treatment b: the round lens display from inside the camera. A machined bezel ring, a heading
  * tape that turns with the head, a scan line and a centre reticle. The land behind is the region
  * itself, seen through the glass; this draws only the ring and its marks. */
-const LensDisplay:React.FC<{r:number;heading:number;scan?:number;glow?:number;pal:Pal}>=({r,heading,scan=-1,glow=0,pal})=>{
+const LensDisplay:React.FC<{r:number;heading:number;scan?:number;glow?:number;pal:Pal;children?:React.ReactNode}>=({r,heading,scan=-1,glow=0,pal,children})=>{
  const id=useUid('tcl');
  const ticks:React.ReactNode[]=[];
  // The tape carries the whole compass across the top 100 degrees of the inside arc, so a full turn
@@ -366,8 +367,10 @@ const LensDisplay:React.FC<{r:number;heading:number;scan?:number;glow?:number;pa
    </linearGradient>
    <clipPath id={`${id}c`}><circle cx={0} cy={0} r={r}/></clipPath>
   </defs>
-  <circle cx={0} cy={0} r={r} fill={`url(#${id}v)`}/>
   <g clipPath={`url(#${id}c)`}>
+   {/* the camera's own panoramic picture, panning with the head */}
+   {children}
+   <circle cx={0} cy={0} r={r} fill={`url(#${id}v)`}/>
    {scan>=0&&scan<=1&&<g transform={`translate(0 ${lerp(-r,r,scan)})`}>
     <rect x={-r} y={-46} width={2*r} height={46} fill="#FFE9BF" opacity={.12}/>
     <line x1={-r} y1={0} x2={r} y2={0} stroke="#FFF2D6" strokeWidth={3} opacity={.75}/>
@@ -394,7 +397,7 @@ export type TowerCameraHeroProps=
  | {part:'flag';w:number;h:number;lock:number;pal:Pal}
  | {part:'alert';lift?:number;glow?:number;pal:Pal}
  | {part:'tag';lines:string[];tone?:TagTone;swing?:number;drop?:number;pal:Pal;scale?:number;side?:'left'|'right'}
- | {part:'lens';r:number;heading:number;scan?:number;glow?:number;pal:Pal};
+ | {part:'lens';r:number;heading:number;scan?:number;glow?:number;pal:Pal;children?:React.ReactNode};
 
 /** The hero group's one executable export. */
 export const TowerCameraHero:React.FC<TowerCameraHeroProps>=(props)=>{

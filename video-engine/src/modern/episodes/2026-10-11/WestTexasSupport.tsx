@@ -14,7 +14,8 @@ import {useUid} from '../../../lib/uid';
  * panels, its cab from the inside with the region seen through the windshield, a rugged crew phone
  * in a leather work glove with a masked chat, the watch on that wrist and the dash clock, the card
  * of fifty six tower slots, the calendar strip since launch, the blank response record, the plan
- * folder and the commission desk with its open approval slot.
+ * folder and the commission desk with its open approval slot, the lowered tailgate where the blank
+ * record lies on the utility's side, and the camera's own panoramic picture for its lens display.
  *
  * Light matches the hero: a low warm sun from the upper left, cool shade on the right, long soft
  * shadows falling right. Nothing is symmetric: every plant is seeded, the fence leans, the truck
@@ -283,6 +284,8 @@ const Cab:React.FC<{visorDown?:number;wide?:number}>=({visorDown=0,wide=0})=>{
   <rect x={500} y={300} width={10} height={40} fill="#2A2927"/>
   <rect x={430} y={336} width={160} height={52} rx={12} fill="#1F1F1F" stroke="#4E4C48" strokeWidth={3}/>
   <rect x={442} y={346} width={136} height={32} rx={8} fill="#8A97A0" opacity={.55}/>
+  {/* driver sun visor, down with the passenger one when the calendar hangs under them */}
+  {visorDown>0&&<path d={`M150 296H470L${466} ${330+60*visorDown}H${154}Z`} fill="#6D6961" stroke="#3E3D3A" strokeWidth={3}/>}
   {/* passenger sun visor */}
   <path d={`M620 296H${930+wide}L${930+wide-8*visorDown} ${330+60*visorDown}H${620+4*visorDown}Z`} fill="#6D6961" stroke="#3E3D3A" strokeWidth={3}/>
   {/* the dash: top shelf, a vent, the binnacle and centre stack */}
@@ -359,9 +362,11 @@ const Glove:React.FC<{layer:'back'|'front'}>=({layer})=>{
   <rect x={-176} y={600} width={300} height={60} rx={10} fill="#2C2B28"/>
   <circle cx={-26} cy={630} r={40} fill="#E9E2D2" stroke="#3C3B37" strokeWidth={8}/>
   <path d="M-26 630V600M-26 630L-6 642" stroke="#2A211C" strokeWidth={4} strokeLinecap="round"/>
-  <path d="M-230 660H180L200 980H-260Z" fill={WT.shirt}/>
+  {/* the work sleeve runs on past the frame's bottom edge, so the arm is never cut off in the air */}
+  <path d="M-230 660H180L232 1500H-300Z" fill={WT.shirt}/>
   <path d="M-230 660H180" stroke={WT.shirtDark} strokeWidth={8}/>
-  <path d="M-150 700q30 120 10 260" stroke={WT.shirtDark} strokeWidth={4} fill="none" opacity={.6}/>
+  <path d="M-150 700q34 220 6 780" stroke={WT.shirtDark} strokeWidth={4} fill="none" opacity={.6}/>
+  <path d="M120 720q24 300 40 760" stroke="#A9A788" strokeWidth={6} fill="none" opacity={.5}/>
  </g>;
 };
 
@@ -386,9 +391,13 @@ const Clock:React.FC<{r:number;style:'wrist'|'dash';fill:number;bound:number;pal
   <circle r={r} fill={`url(#${id}f)`}/>
   {Array.from({length:60},(_,i)=>{const a=rad(i*6-90),big=i%5===0;return <line key={i} x1={(r-6)*Math.cos(a)} y1={(r-6)*Math.sin(a)}
    x2={(r-(big?30:16))*Math.cos(a)} y2={(r-(big?30:16))*Math.sin(a)} stroke={tick} strokeWidth={big?5:2}/>;})}
-  {/* the window: dashed bound first, then its fill */}
-  {bound>0&&<path d={arcPath(r*.18,r*.86,60*ease(bound))} fill="none" stroke={pal.accent} strokeWidth={4} strokeDasharray="12 8"/>}
-  {fill>0&&<path d={arcPath(r*.18,r*.86,60*fill)} fill={pal.accent} opacity={.42}/>}
+  {/* the window is a hatched, unfilled zone up to a dashed bound: an estimate of "within", never a
+    measured time, so nothing in it is drawn as elapsed */}
+  <defs><pattern id={`${id}h`} patternUnits="userSpaceOnUse" width={14} height={14} patternTransform="rotate(35)">
+   <line x1={0} y1={0} x2={0} y2={14} stroke={pal.accent} strokeWidth={4}/></pattern></defs>
+  {fill>0&&<path d={arcPath(r*.18,r*.86,60*fill)} fill={`url(#${id}h)`} opacity={.85}/>}
+  {fill>0&&<path d={arcPath(r*.18,r*.86,60*fill)} fill={pal.accent} opacity={.1}/>}
+  {bound>0&&<path d={arcPath(r*.18,r*.86,60*ease(bound))} fill="none" stroke={pal.accent} strokeWidth={5} strokeDasharray="12 8"/>}
   {/* hands rest low and to the left, off the window */}
   <path d={`M0 0L${-r*.42} ${r*.28}`} stroke={tick} strokeWidth={9} strokeLinecap="round"/>
   <path d={`M0 0L${-r*.18} ${r*.7}`} stroke={tick} strokeWidth={6} strokeLinecap="round"/>
@@ -442,14 +451,18 @@ const Slots:React.FC<{lit:number;style:'tower'|'lens';planned?:number;labels?:nu
 
 export const CAL={block:228,blocks:9,h:200};
 /** A calendar strip since launch: plain month blocks of day cells with no names and no red mark.
- * Its start fades out, because the launch date is not published. Origin at the strip's left end. */
-const Calendar:React.FC<{pal:Pal;now?:number}>=({pal,now=1})=>{
+ * Its start fades out, because the launch date is not published. Origin at the strip's left end.
+ * `scan` (0 to 1) passes a band of low sun along it; labels sit on paper chips so they read on a
+ * wall, a visor or the sky. */
+const Calendar:React.FC<{pal:Pal;now?:number;blocks?:number;scan?:number}>=({pal,now=1,blocks=CAL.blocks,scan=-1})=>{
  const id=useUid('wtcal');
- const {block,blocks,h}=CAL, W=block*blocks;
+ const {block,h}=CAL, W=block*blocks;
+ const label='Launch, earlier this year', lw=widthOf(label,54,true);
  return <g data-part="launch-calendar">
   <defs><linearGradient id={`${id}f`} x1="0" y1="0" x2="1" y2="0">
-   <stop offset="0" stopColor="#fff" stopOpacity={0}/><stop offset={.24} stopColor="#fff" stopOpacity={1}/><stop offset="1" stopColor="#fff" stopOpacity={1}/>
-  </linearGradient><mask id={`${id}m`}><rect x={-10} y={-80} width={W+20} height={h+120} fill={`url(#${id}f)`}/></mask></defs>
+   <stop offset="0" stopColor="#fff" stopOpacity={0}/><stop offset={.24*9/blocks} stopColor="#fff" stopOpacity={1}/><stop offset="1" stopColor="#fff" stopOpacity={1}/>
+  </linearGradient><mask id={`${id}m`}><rect x={-10} y={-10} width={W+20} height={h+40} fill={`url(#${id}f)`}/></mask>
+  <linearGradient id={`${id}s`} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#FFE7B8" stopOpacity={0}/><stop offset=".5" stopColor="#FFE7B8" stopOpacity={.75}/><stop offset="1" stopColor="#FFE7B8" stopOpacity={0}/></linearGradient></defs>
   <g mask={`url(#${id}m)`}>
    <rect x={8} y={12} width={W} height={h} fill="#1C120B" opacity={.22}/>
    <rect x={0} y={0} width={W} height={h} fill={pal.paper} stroke="#8E8170" strokeWidth={2}/>
@@ -458,14 +471,88 @@ const Calendar:React.FC<{pal:Pal;now?:number}>=({pal,now=1})=>{
     <rect x={10} y={12} width={block-20} height={22} rx={4} fill="#D9CCB2"/>
     {Array.from({length:35},(_,d)=><rect key={d} x={12+(d%7)*29} y={44+Math.floor(d/7)*30} width={23} height={23} rx={3} fill="none" stroke="#B3A68F" strokeWidth={1.6}/>)}
    </g>)}
-   <text x={20} y={-26} fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink} opacity={.9}>Launch, earlier this year</text>
+   {scan>=0&&scan<=1&&<rect x={-260+scan*(W+260)} y={0} width={260} height={h} fill={`url(#${id}s)`}/>}
   </g>
+  <rect x={6} y={-86} width={lw+40} height={70} rx={10} fill={pal.paper} opacity={.92}/>
+  <text x={26} y={-34} fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink}>{label}</text>
   {/* the present end of the strip */}
   <g transform={`translate(${W} 0)`} opacity={now}>
+   <rect x={-150} y={-96} width={136} height={70} rx={10} fill={pal.paper} opacity={.92}/>
    <path d={`M0 -26V${h+26}`} stroke={pal.ink} strokeWidth={8}/>
    <path d="M-20 -46H20L0 -22Z" fill={pal.ink}/>
-   <text x={-16} y={-34} textAnchor="end" fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink}>Now</text>
+   <text x={-26} y={-42} textAnchor="end" fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink}>Now</text>
   </g>
+ </g>;
+};
+
+/** A spring binder clip, its jaw at (0,0) gripping the edge below it. */
+const Clip:React.FC<{}>=()=><g data-part="binder-clip">
+ <path d="M-22 -6H22L18 18H-18Z" fill="#26282A" stroke="#0F1011" strokeWidth={1.4}/>
+ <path d="M-14 -6Q-16 -30 0 -34Q16 -30 14 -6" stroke="#B8BDBE" strokeWidth={3.4} fill="none"/>
+ <path d="M-18 2H18" stroke="#5B5F61" strokeWidth={2}/>
+</g>;
+
+/** The lowered tailgate of the crew's white pickup seen from above: painted steel with pressed ribs,
+ * a latch and red dust. The response record lies on it, on the utility's side, with no desk props.
+ * Film coordinates, drawn across the lower frame only. */
+const Tailgate:React.FC<{top:number}>=({top})=>{
+ const id=useUid('wttg');
+ return <g data-part="tailgate">
+  <defs><linearGradient id={`${id}t`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F4F2EC"/><stop offset=".8" stopColor="#DAD5CA"/><stop offset="1" stopColor="#B99A84"/></linearGradient></defs>
+  <path d={`M-40 ${top}H1120V${top+640}H-40Z`} fill={`url(#${id}t)`}/>
+  {Array.from({length:6},(_,i)=><g key={i}>
+   <rect x={-40} y={top+70+i*96} width={1160} height={22} fill="#C9C4B8" opacity={.6}/>
+   <rect x={-40} y={top+70+i*96} width={1160} height={4} fill="#FFFFFF" opacity={.7}/></g>)}
+  <path d={`M-40 ${top}H1120`} stroke="#8D877C" strokeWidth={8}/>
+  <rect x={470} y={top+16} width={140} height={34} rx={8} fill="#3B3F40"/>
+  <rect x={482} y={top+24} width={116} height={16} rx={6} fill="#7E8585"/>
+  <path d={`M60 ${top+560}q300 -40 640 10`} stroke="#B98A6C" strokeWidth={34} opacity={.22} fill="none"/>
+  <rect x={950} y={top+30} width={50} height={22} rx={4} fill="#A3241B"/>
+ </g>;
+};
+
+/** The camera's own 360 degree picture of the dry country, laid out around the heading: far
+ * mesas, a rolling ridge, scattered mesquite, a windmill, a fire station, another tower, the low
+ * sun in the west and, when there is one, the plume. Every item sits at its own compass heading,
+ * so a turn of the head pans the whole picture consistently. Origin at the display centre. */
+const Panorama:React.FC<{heading:number;r:number;horizon?:number;ppd?:number;plume?:{heading:number;grow:number};t:number}>=
+ ({heading,r,horizon=50,ppd=2.5,plume,t})=>{
+ const id=useUid('wtpn');
+ const span=r+60;
+ const X=(h:number)=>(((h-heading)%360+540)%360-180)*ppd;
+ const vis=(h:number,m=80)=>Math.abs(X(h))<span+m;
+ const H=horizon;
+ const prof=(h:number,k:number,a:number,b:number)=>Math.max(0,Math.min(1,(Math.sin(rad(k*h+a))+.4*Math.sin(rad(3*k*h+b)))*1.6-.5));
+ const line=(f:(h:number)=>number)=>{const pts:string[]=[];for(let x=-span;x<=span;x+=6){pts.push(`${x} ${f(heading+x/ppd)}`);}return pts;};
+ const mesa=line(h=>H-4-34*prof(h,2,30,70));
+ const ridge=line(h=>H+2-10*prof(h,4,110,10));
+ const hash=(n:number)=>{const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+ const tufts:React.ReactNode[]=[];
+ const b0=Math.floor((heading-span/ppd)/4), b1=Math.ceil((heading+span/ppd)/4);
+ for(let b=b0;b<=b1;b++){const n=((b%90)+90)%90;if(hash(n)<.45)continue;const x=X(b*4+hash(n+7)*4), y=H+14+hash(n+3)*(r-20);
+  const s=.4+.9*(y-H)/r;tufts.push(<path key={'g'+b} d={`M${x-8*s} ${y}q${4*s} ${-14*s} ${2*s} ${-22*s}M${x} ${y}q0 ${-16*s} ${6*s} ${-26*s}M${x+8*s} ${y}q${-2*s} ${-12*s} ${4*s} ${-18*s}`} stroke={WT.straw} strokeWidth={2.2} fill="none" opacity={.8}/>);}
+ const clumps=[[18,1.1],[64,.8],[96,1.3],[132,.7],[188,1],[226,1.4],[266,.9],[312,1.2],[346,.8]].filter(([h])=>vis(h)).map(([h,k],i)=>{
+  const x=X(h);return <g key={'m'+i} transform={`translate(${x} ${H+6}) scale(${k})`}>
+   <ellipse cx={0} cy={-10} rx={22} ry={11} fill={WT.olive}/><ellipse cx={-10} cy={-14} rx={10} ry={7} fill={WT.oliveLit}/>
+   <ellipse cx={12} cy={-8} rx={12} ry={7} fill={WT.oliveDark}/><path d="M-2 0V-6M4 0V-5" stroke={WT.bark} strokeWidth={2}/></g>;});
+ const sun=vis(258,200)&&<circle cx={X(258)} cy={H-120} r={90} fill={`url(#${id}sun)`}/>;
+ return <g data-part="panorama">
+  <defs>
+   <linearGradient id={`${id}sky`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#AEB8C9"/><stop offset=".75" stopColor="#E3C9A4"/><stop offset="1" stopColor="#EDCC9C"/></linearGradient>
+   <linearGradient id={`${id}gr`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#A86E4E"/><stop offset="1" stopColor="#6A3E2D"/></linearGradient>
+   <radialGradient id={`${id}sun`}><stop offset="0" stopColor="#FFF4D6" stopOpacity={.95}/><stop offset=".25" stopColor="#FFE2A8" stopOpacity={.6}/><stop offset="1" stopColor="#FFE2A8" stopOpacity={0}/></radialGradient>
+  </defs>
+  <rect x={-span} y={-r-60} width={2*span} height={r+60+H} fill={`url(#${id}sky)`}/>
+  {sun}
+  <path d={`M${-span} ${H}L${mesa.join('L')}L${span} ${H}Z`} fill="#8E8C98" opacity={.75}/>
+  <rect x={-span} y={H} width={2*span} height={r+80} fill={`url(#${id}gr)`}/>
+  <path d={`M${-span} ${H+14}L${ridge.join('L')}L${span} ${H+14}Z`} fill="#9C6A4C"/>
+  {vis(196)&&<g transform={`translate(${X(196)} ${H})`}><path d="M-7 0L-1.5 -64H1.5L7 0M-5 -18H5M-3.5 -38H3.5" stroke="#5D6468" strokeWidth={1.8} fill="none"/><rect x={-3} y={-72} width={6} height={6} fill="#5D6468"/></g>}
+  {vis(58)&&<g transform={`translate(${X(58)} ${H+8})`}><path d="M-9 0L-2 -40H2L9 0" stroke="#6D7373" strokeWidth={2} fill="none"/><circle cx={0} cy={-44} r={11} fill="none" stroke="#7E8585" strokeWidth={2}/></g>}
+  {vis(150)&&<g transform={`translate(${X(150)} ${H+10})`}><path d="M-30 0V-24L0 -38L30 -24V0Z" fill="#D6D3CA"/><path d="M-32 -24L0 -40L32 -24" stroke="#8C3A2A" strokeWidth={3} fill="none"/><circle cx={0} cy={-28} r={5} fill="#B33A2B"/></g>}
+  {clumps}
+  {tufts}
+  {plume&&plume.grow>0&&vis(plume.heading)&&<g transform={`translate(${X(plume.heading)} ${H+4}) scale(.62)`}><Plume t={t} grow={plume.grow} h={260}/></g>}
  </g>;
 };
 
@@ -479,12 +566,12 @@ const RecordCard:React.FC<{pulse?:number;pal:Pal}>=({pulse=0,pal})=>{
   <path d={`M10 16h${w}v${h}H10Z`} fill="#1C120B" opacity={.26}/>
   <path d={`M0 0H${w-4}L${w} 6V${h}H4L0 ${h-4}Z`} fill={`url(#${id}p)`} stroke="#8E8170" strokeWidth={2}/>
   <rect x={0} y={0} width={w} height={62} fill={pal.ink}/>
-  <text x={30} y={43} fontFamily={FONT.body} fontWeight={800} fontSize={32} fill={pal.paper}>Response record</text>
+  <text x={30} y={45} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={pal.paper}>Response record</text>
   {Array.from({length:8},(_,i)=><line key={i} x1={30} y1={100+i*38} x2={w-30} y2={100+i*38} stroke="#D6CAB2" strokeWidth={1.4}/>)}
   {[[30,160,'Arrival',[300,124,270,64]],[30,300,'How much sooner',field]].map(([x,y,label,f],i)=>{
    const [fx,fy,fw,fh]=f as number[];
    return <g key={i}>
-    <text x={x as number} y={y as number} fontFamily={FONT.body} fontWeight={800} fontSize={30} fill={pal.ink}>{label as string}</text>
+    <text x={x as number} y={y as number} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={pal.ink}>{label as string}</text>
     <rect x={fx} y={fy} width={fw} height={fh} rx={6} fill="#FFFDF7" stroke={pal.ink} strokeWidth={2.4} strokeDasharray="10 7"/>
    </g>;
   })}
@@ -501,18 +588,18 @@ const Folder:React.FC<{pal:Pal;slotGlow?:number}>=({pal,slotGlow=0})=>{
  return <g data-part="plan-folder">
   <defs><linearGradient id={`${id}m`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#EED9A6"/><stop offset="1" stopColor="#C9AE72"/></linearGradient></defs>
   <path d={`M12 22h${w}v${h}H12Z`} fill="#1C120B" opacity={.28}/>
-  <path d={`M0 30H40L60 0H250L268 30H${w}V${h}H0Z`} fill="#BFA265" stroke="#7E6838" strokeWidth={2}/>
+  <path d={`M0 30H40L60 0H372L390 30H${w}V${h}H0Z`} fill="#BFA265" stroke="#7E6838" strokeWidth={2}/>
   <rect x={0} y={34} width={w} height={h-34} fill={`url(#${id}m)`} stroke="#7E6838" strokeWidth={2}/>
   <rect x={6} y={26} width={w-30} height={14} fill="#F6EFE0"/>
-  <text x={74} y={24} fontFamily={FONT.body} fontWeight={800} fontSize={22} fill="#4E3F1E">Wildfire plan</text>
-  <g transform="translate(46 120) rotate(-4)">
-   <rect x={0} y={0} width={240} height={86} rx={6} fill="none" stroke="#3E5A7A" strokeWidth={4}/>
-   <text x={20} y={38} fontFamily={FONT.body} fontWeight={800} fontSize={28} fill="#3E5A7A">Filed</text>
-   <text x={20} y={72} fontFamily={FONT.body} fontWeight={800} fontSize={26} fill="#3E5A7A">August 24th</text>
+  <text x={74} y={27} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill="#4E3F1E">Wildfire plan</text>
+  <g transform="translate(40 116) rotate(-4)">
+   <rect x={0} y={0} width={268} height={100} rx={6} fill="none" stroke="#3E5A7A" strokeWidth={4}/>
+   <text x={18} y={42} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill="#3E5A7A">Filed</text>
+   <text x={18} y={84} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill="#3E5A7A">August 24th</text>
   </g>
   {slotGlow>0&&<rect x={slot[0]-10} y={slot[1]-10} width={slot[2]+20} height={slot[3]+20} rx={12} fill={pal.accent} opacity={.22*slotGlow}/>}
   <rect x={slot[0]} y={slot[1]} width={slot[2]} height={slot[3]} rx={8} fill="#F6EFE0" fillOpacity={.55} stroke={pal.ink} strokeWidth={3} strokeDasharray="12 8"/>
-  <text x={slot[0]+slot[2]/2} y={slot[1]+slot[3]+38} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={26} fill={pal.ink}>State approval</text>
+  <text x={slot[0]+slot[2]/2} y={slot[1]+slot[3]+44} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={pal.ink}>State approval</text>
   <path d={`M40 ${h-40}q120 -8 240 4`} stroke="#A98F5A" strokeWidth={3} fill="none" opacity={.6}/>
   <circle cx={w-60} cy={h-50} r={26} fill="#B98F4A" opacity={.18}/>
   <path d={`M${FOLDER.clip[0]-16} ${FOLDER.clip[1]-60}h34v82h-34z`} fill="none" stroke="#9AA0A2" strokeWidth={6} strokeLinejoin="round"/>
@@ -557,7 +644,10 @@ export type WestTexasSupportProps=
  | {part:'glove';layer:'back'|'front'}
  | {part:'clock';r:number;style:'wrist'|'dash';fill:number;bound:number;pal:Pal}
  | {part:'slots';lit:number;style:'tower'|'lens';planned?:number;labels?:number;pal:Pal}
- | {part:'calendar';pal:Pal;now?:number}
+ | {part:'calendar';pal:Pal;now?:number;blocks?:number;scan?:number}
+ | {part:'clip'}
+ | {part:'tailgate';top:number}
+ | {part:'panorama';heading:number;r:number;horizon?:number;ppd?:number;plume?:{heading:number;grow:number};t:number}
  | {part:'record';pulse?:number;pal:Pal}
  | {part:'folder';pal:Pal;slotGlow?:number}
  | {part:'desk';top:number};
@@ -580,6 +670,9 @@ export const WestTexasSupport:React.FC<WestTexasSupportProps>=(props)=>{
  case 'clock':return <Clock {...props}/>;
  case 'slots':return <Slots {...props}/>;
  case 'calendar':return <Calendar {...props}/>;
+ case 'clip':return <Clip/>;
+ case 'tailgate':return <Tailgate {...props}/>;
+ case 'panorama':return <Panorama {...props}/>;
  case 'record':return <RecordCard {...props}/>;
  case 'folder':return <Folder {...props}/>;
  case 'desk':return <Desk {...props}/>;

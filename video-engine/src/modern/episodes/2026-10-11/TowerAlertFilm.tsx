@@ -1,11 +1,11 @@
 import React from 'react';
 import {useCurrentFrame,useVideoConfig} from 'remotion';
-import {FONT} from '../../../lib/type';
+import {FONT,widthOf} from '../../../lib/type';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireAction,requireNarration,type DirectedScene} from '../../../lib/direction';
 import {PlaceSubject} from '../../PlaceStage';
 import type {FilmRenderProps} from '../../types';
-import {TowerCameraHero,TOWER,ALERT_SIZE,coaxPoint,ringPoint,type Pal,type Pt} from './TowerCameraHero';
+import {TowerCameraHero,TOWER,ALERT_SIZE,coaxPoint,type Pal,type Pt} from './TowerCameraHero';
 import {WestTexasSupport,CAB,PHONE,SLOTS,CAL,RECORD,FOLDER} from './WestTexasSupport';
 
 /**
@@ -19,14 +19,18 @@ import {WestTexasSupport,CAB,PHONE,SLOTS,CAL,RECORD,FOLDER} from './WestTexasSup
  *
  * A: the ground-up treatment. The viewer stands in the dry country under the whole tower, watches
  *    its beam sweep the land and leave a dashed watch ring, stands at the tower's feet as the beam
- *    finds smoke, follows the card down the coax to the crew truck, then reads the phone in a
- *    leather glove and the watch on that wrist. The ending splits the sky over the still sweeping
- *    tower from the commission desk where the plan waits.
- * B: the through-the-lens treatment. The film opens inside the camera's round display, pulls back
- *    out of the lens to the whole tower, finds the smoke inside the display, sends the card out of
+ *    finds smoke, follows the card down the coax toward the crew truck, then reads the phone in a
+ *    leather glove and the watch on that wrist. The beam then holds on the burning plume, and the
+ *    open line runs from the truck, where the alert landed, toward a fire station badge.
+ * B: the through-the-lens treatment. The film opens on the camera head and its round display, which
+ *    clips the camera's own panoramic picture so the land pans as the head turns. It pulls back from
+ *    the head to the whole tower, finds the smoke as it pans into the display, sends the card out of
  *    the display's edge toward the truck below and takes the alert inside the truck cab, where the
- *    dash clock, the visor calendar and the windshield carry the middle of the film. It ends with
- *    the display still sweeping over the land above the desk where the plan waits.
+ *    dash clock and the calendar clipped under the visors carry the middle of the film.
+ * Both end on one composite: the plan folder on the commission desk with its open state approval
+ *    slot in a readable band across the top, and below it the whole tower (A) or the display on its
+ *    head (B) still sweeping, the alert landed at the truck and the dashed line toward the
+ *    responder badge stopping short.
  *
  * Every visible state is a function of the film frame clock and the board's event windows; nothing
  * accumulates between frames. The region plate stands behind every shot: this episode never paints
@@ -66,20 +70,38 @@ const Grounded:React.FC<{baseY:number;on:boolean;children:React.ReactNode}>=({ba
  on?<PlaceSubject baseY={baseY}>{children}</PlaceSubject>:<g>{children}</g>;
 
 // ---- the two worlds: fixed placements of every grounded thing (screen units at framing wide) ----
-type World={road:{near:[number,number,number];far:[number,number,number];bend:number;base:number};tower:Pt;ts:number;windmill:Pt;ws:number;truck:Pt;ks:number;shelter:Pt;ss:number;station?:Pt;sts:number;
+type World={road:{near:[number,number,number];far:[number,number,number];bend:number;base:number};tower:Pt;ts:number;windmill:Pt;ws:number;
+ truck:Pt;ks:number;shelter:Pt;ss:number;station:Pt;sts:number;
  mesquite:[Pt,number,number][];grass:[Pt,number,number,number][];plume:Pt;ring:[number,number]};
 const WORLD:Record<V,World>={
- a:{road:{near:[300,1250,150],far:[566,1022,18],bend:-40,base:1022},tower:[600,1012],ts:.76,windmill:[236,1044],ws:.95,truck:[748,1036],ks:.24,shelter:[668,1018],ss:.24,station:undefined,sts:.4,
+ a:{road:{near:[300,1250,150],far:[566,1022,18],bend:-40,base:1022},tower:[600,1012],ts:.76,windmill:[236,1044],ws:.95,
+  truck:[417,1150],ks:.3,shelter:[668,1018],ss:.24,station:[140,1002],sts:.38,
   mesquite:[[[70,1112],270,4],[[968,1072],150,9],[[372,1052],86,21]],
   grass:[[[150,1402],260,170,2],[[880,1336],200,130,5],[[540,1490],230,150,8],[[330,1150],110,70,13]],
-  plume:[862,1040],ring:[480,60]},
- b:{road:{near:[180,1230,170],far:[372,1050,22],bend:30,base:1058},tower:[500,1016],ts:.78,windmill:[150,1046],ws:.85,truck:[332,1060],ks:.34,shelter:[604,1022],ss:.24,station:[836,1002],sts:.45,
-  mesquite:[[[952,1104],210,12],[[52,1186],300,6],[[690,1046],90,17]],
+  plume:[862,1040],ring:[420,52]},
+ b:{road:{near:[220,1250,170],far:[470,1026,20],bend:30,base:1060},tower:[500,1016],ts:.78,windmill:[880,1048],ws:.8,
+  truck:[394,1094],ks:.28,shelter:[580,1022],ss:.2,station:[120,1000],sts:.38,
+  mesquite:[[[1000,1110],210,12],[[52,1186],300,6],[[720,1052],90,17]],
   grass:[[[120,1430],240,160,3],[[760,1380],230,150,7],[[480,1520],200,130,11]],
-  plume:[760,1034],ring:[470,58]},
+  plume:[640,1040],ring:[420,52]},
 };
-/** The plume's heading on the watch ring of each world, so the beam finds it. */
-const PLUME_HEADING:Record<V,number>={a:311,b:300};
+/** The plume's compass heading from its tower, computed from the world so the beam, the flag box and
+ * the camera's panorama all find the same fire. */
+const plumeHeading=(w:World)=>{const dx=(w.plume[0]-w.tower[0])/w.ts, dy=(w.plume[1]-w.tower[1])/w.ts;
+ return ((Math.atan2(-dx/w.ring[0],dy/w.ring[1])*180/Math.PI)%360+360)%360;};
+const PLUME_HEADING:Record<V,number>={a:plumeHeading(WORLD.a),b:plumeHeading(WORLD.b)};
+/** The panorama's pixels per degree of heading and its horizon below the display centre. */
+const PPD=2.5, PANO_H=50;
+const panoX=(h:number,heading:number)=>(((h-heading)%360+540)%360-180)*PPD;
+/** The truck's driver window, in the truck's own units, where the alert lands. */
+const WINDOW:Pt=[-47,-177];
+const DISCLOSURE_FONT=26, DISCLOSURE_MAX=470;
+/** Wrap the disclosure to measured lines so its box is sized from its text. */
+function disclosureLines(text:string):string[]{
+ const words=text.split(' '), lines:string[]=[];let cur='';
+ for(const w of words){const next=cur?cur+' '+w:w;if(cur&&widthOf(next,DISCLOSURE_FONT,true)>DISCLOSURE_MAX){lines.push(cur);cur=w;}else cur=next;}
+ if(cur)lines.push(cur);return lines;
+}
 
 export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,variant})=>{
  const ad=useArtDirection();if(!ad)throw new Error('Tower alert film requires the executed art direction profile');
@@ -102,61 +124,90 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  const count=p('s2-event-1'), plan=p('s2-event-2');
  const e31=win('s3-event-1'), find=p('s3-event-1'), e32=win('s3-event-2'), send=p('s3-event-2'), e33=win('s3-event-3'), land=p('s3-event-3');
  const windowFill=p('s4-event-1'), estimate=p('s4-event-2');
- const prevent=p('s5-event-1'), e52=win('s5-event-2'), line=p('s5-event-2');
+ const prevent=p('s5-event-1'), line=p('s5-event-2');
  const e61=win('s6-event-1'), scroll=p('s6-event-1'), attrib=p('s6-event-2');
  const slide=p('s7-event-1'), pulse=raw(win('s7-event-2'));
- const e81=win('s8-event-1'), file=p('s8-event-1'), waits=p('s8-event-2');
+ const file=p('s8-event-1'), waits=p('s8-event-2');
 
- // ---- the head's heading through the film. A full turn in s1, then it faces the viewer; in s3 it
- // holds on the smoke; later it sweeps on at an even rate.
+ // ---- the head's heading. s1: the scanning head is already turning at the frame's start and one
+ // full revolution is exactly s1-event-1 (a constant-speed, linear event), then it slows to a slow
+ // scan. s3 swings onto the smoke and holds; s5 holds on the burning plume; s8 sweeps on.
  const ph=PLUME_HEADING[v];
- const turn=ease(raw({start:e11.start,end:e11.start+2.0}));
- const heading=at('s1')?(t<e12.start?90+360*turn:450-90*face)
+ const dur11=e11.end-e11.start, w0=360/dur11, w1=40;
+ const scan1=t<=e11.end?90+360*(t-e11.start)/dur11:450+w1*(t-e11.end)+(w0-w1)*.5*(1-Math.exp(-(t-e11.end)/.5));
+ const heading=at('s1')?scan1
   :at('s3')?(t<e31.start?ph-70:lerp(ph-70,ph,ease(raw({start:e31.start,end:lerp(e31.start,e31.end,.6)}))))
-  :at('s5')?ph-80+64*(t-scene.start_s)
-  :ph-60+52*(t-scene.start_s);
+  :at('s8')?ph+40*(t-scene.start_s-2.5)
+  :ph;
  const fan=t*110, vane=10*Math.sin(t*.7)+4*Math.sin(t*1.9), sway=.35*Math.sin(t*1.1);
- const plumeGrow=at('s3')?clamp((t-scene.start_s+.1)/1.6):1;
+ const plumeGrow=at('s3')?clamp((t-scene.start_s+.1)/1.6):at('s1')?.14:1;
 
  // ---- shared drawings ----
  const tag=(lines:string[],tone:'ink'|'accent'|'paper'|'outline',shown:number,o:{swing?:number;drop?:number;side?:'left'|'right';scale?:number}={})=>
   shown<=0?null:<g transform={`translate(0 ${-60*(o.scale??1)*(1-ease(shown))})`} opacity={clamp(shown*3)}>
    <TowerCameraHero part="tag" lines={lines} tone={tone} pal={pal} drop={o.drop??34} side={o.side} scale={o.scale}
     swing={(o.swing??0)+14*(1-ease(shown))*(o.side==='left'?1:-1)}/></g>;
+ const dLines=disclosureLines(scene.production_disclosure??'Illustration');
+ const dW=Math.max(...dLines.map(l=>widthOf(l,DISCLOSURE_FONT,true)))+34, dH=dLines.length*32+24;
  const disclosure=<g data-disclosure="production_disclosure">
-  <path d="M44 132H520Q536 132 536 148V172Q536 188 520 188H44Z" fill={pal.paper} opacity={.93}/>
-  <text x={60} y={170} fontFamily={FONT.body} fontSize={26} fontWeight={700} fill={pal.ink}>{scene.production_disclosure??'Illustration'}</text>
+  <rect x={44} y={132} width={dW} height={dH} rx={16} fill={pal.paper} opacity={.93}/>
+  {dLines.map((l,i)=><text key={i} x={60} y={164+i*32} fontFamily={FONT.body} fontSize={DISCLOSURE_FONT} fontWeight={700} fill={pal.ink}>{l}</text>)}
  </g>;
+ const towerPt=(local:Pt):Pt=>[Wd.tower[0]+local[0]*Wd.ts,Wd.tower[1]+local[1]*Wd.ts];
+ const windowPt=(truck:Pt,ks:number):Pt=>[truck[0]+WINDOW[0]*ks,truck[1]+WINDOW[1]*ks];
+ const flagOnPlume=(base:Pt,s:number,lock:number)=><At p={[base[0]+72*s,base[1]-150*s]}><TowerCameraHero part="flag" w={190*s} h={290*s} lock={lock} pal={pal}/></At>;
+
+ /** The open line: from the landed alert at the truck window toward the responder badge on its
+  * station, stopping short and open, with the can share tag pinned to the badge's own post. */
+ const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number)=>{
+  const roof=station[1]-206*sts, badge:Pt=[station[0],roof-74];
+  const ctrl:Pt=[(from[0]+badge[0])/2,Math.min(from[1],badge[1])-140];
+  const pts=Array.from({length:41},(_,i)=>bez(from,ctrl,badge,.8*reachP*i/40)), end=pts[pts.length-1];
+  return <g data-part="open-line-and-badge">
+   <line x1={badge[0]} y1={badge[1]+44} x2={badge[0]} y2={roof+4} stroke={pal.ink} strokeWidth={4}/>
+   <circle cx={badge[0]} cy={badge[1]} r={46} fill="#B33A2B" stroke={pal.paper} strokeWidth={6}/>
+   <path transform={`translate(${badge[0]} ${badge[1]+6})`} d="M-24 10Q-24 -22 0 -22Q24 -22 24 10H32V16H-32V10Z" fill={pal.paper}/>
+   {reachP>0&&<g data-part="open-line">
+    <path d={'M'+pts.map(q=>q.join(' ')).join('L')} stroke={pal.paper} strokeWidth={10} strokeDasharray="22 16" fill="none" strokeLinecap="round"/>
+    <path d={'M'+pts.map(q=>q.join(' ')).join('L')} stroke={pal.accent} strokeWidth={5} strokeDasharray="22 16" fill="none" strokeLinecap="round"/>
+    <circle cx={end[0]} cy={end[1]} r={13} fill="none" stroke={pal.accent} strokeWidth={5}/>
+   </g>}
+   <At p={[badge[0]+3,badge[1]+50]}>{tag(['Can share'],'paper',shareShown,{side:badge[0]>600?'left':'right',drop:12,scale:.8})}</At>
+  </g>;
+ };
+ /** The landed alert, pinned to the truck's driver window. */
+ const landedAlert=(truck:Pt,ks:number,s=.42)=>{const w=windowPt(truck,ks);
+  return <At p={[w[0],w[1]-10]} s={s} r={-4}><TowerCameraHero part="alert" glow={.6} pal={pal}/></At>;};
 
  /** The dry country, the windmill, the shelter, the fence and the tower with its sweep. */
- const plains=(o:{heading:number;ring?:[number,number];beam?:number;lamp?:number;shimmer?:number;plume?:number;onTower?:React.ReactNode;truck?:boolean;truckGlow?:number;station?:boolean;grounded:boolean;front?:React.ReactNode})=>{
+ const plains=(o:{heading:number;ring?:[number,number];beam?:number;lamp?:number;shimmer?:number;plume?:number;flag?:number;truck?:boolean;truckGlow?:number;station?:boolean;grounded:boolean;front?:React.ReactNode;alert?:boolean})=>{
   const T=Wd.tower, g=o.grounded;
   const [rx,ry]=Wd.ring;
   const sweep=(layer:'back'|'front')=><TowerCameraHero part="sweep" heading={o.heading} rx={rx} ry={ry} layer={layer} ring={o.ring} strength={o.beam??1}/>;
+  const showWindmill=!(o.station&&v==='a');
   return <g data-world={v==='a'?'a-plains-ground-up':'b-plains-cab-side'}>
    <Grounded baseY={Wd.road.base} on={g}><WestTexasSupport part="road" near={Wd.road.near} far={Wd.road.far} bend={Wd.road.bend}/></Grounded>
    {Wd.mesquite.filter(([pt])=>pt[1]<1080).map(([pt,h,seed],i)=><Grounded key={'mf'+i} baseY={pt[1]} on={g}><At p={pt}><WestTexasSupport part="mesquite" seed={seed} h={h}/></At></Grounded>)}
-   {o.station&&Wd.station&&<Grounded baseY={Wd.station[1]} on={g}><At p={Wd.station} s={Wd.sts}><WestTexasSupport part="station"/></At></Grounded>}
-   <Grounded baseY={Wd.windmill[1]} on={g}><At p={Wd.windmill} s={Wd.ws}><WestTexasSupport part="windmill" fan={fan} vane={vane}/></At></Grounded>
-   {o.plume!==undefined&&o.plume>0&&<Grounded baseY={Wd.plume[1]} on={g}><At p={Wd.plume} s={.62}><WestTexasSupport part="plume" t={t} grow={o.plume} h={330}/></At></Grounded>}
+   {o.station&&<Grounded baseY={Wd.station[1]} on={g}><At p={Wd.station} s={Wd.sts}><WestTexasSupport part="station"/></At></Grounded>}
+   {showWindmill&&<Grounded baseY={Wd.windmill[1]} on={g}><At p={Wd.windmill} s={Wd.ws}><WestTexasSupport part="windmill" fan={fan} vane={vane}/></At></Grounded>}
+   {o.plume!==undefined&&o.plume>0&&<Grounded baseY={Wd.plume[1]} on={g}><At p={Wd.plume} s={.62}><WestTexasSupport part="plume" t={t} grow={o.plume} h={330}/></At>
+    {o.flag!==undefined&&flagOnPlume(Wd.plume,.62,o.flag)}</Grounded>}
    <Grounded baseY={T[1]} on={g}>
     <At p={T} s={Wd.ts}>
      {sweep('back')}
      <At p={[-150,26]} s={.5}><WestTexasSupport part="fence" w={300} seed={5}/></At>
      <TowerCameraHero part="tower" heading={o.heading} lamp={o.lamp} shimmer={o.shimmer} time={t} dusk={.4}/>
      {sweep('front')}
-     {o.onTower}
     </At>
    </Grounded>
    <Grounded baseY={Wd.shelter[1]} on={g}><At p={Wd.shelter} s={Wd.ss}><WestTexasSupport part="shelter"/></At></Grounded>
-   {o.truck&&<Grounded baseY={Wd.truck[1]} on={g}><At p={Wd.truck} s={Wd.ks}><WestTexasSupport part="truck" glow={o.truckGlow}/></At></Grounded>}
+   {o.truck&&<Grounded baseY={Wd.truck[1]} on={g}><At p={Wd.truck} s={Wd.ks}><WestTexasSupport part="truck" glow={o.truckGlow}/></At>
+    {o.alert&&landedAlert(Wd.truck,Wd.ks)}</Grounded>}
    {Wd.mesquite.filter(([pt])=>pt[1]>=1080).map(([pt,h,seed],i)=><Grounded key={'mn'+i} baseY={pt[1]} on={g}><At p={pt}><WestTexasSupport part="mesquite" seed={seed} h={h}/></At></Grounded>)}
    {Wd.grass.map(([pt,w,h,seed],i)=><At key={'g'+i} p={pt}><WestTexasSupport part="grass" seed={seed} w={w} h={h} sway={sway}/></At>)}
-   {o.front}
+   {o.front&&<Grounded baseY={Wd.station[1]} on={g}>{o.front}</Grounded>}
   </g>;
  };
- /** A tower-local point in screen units for world v. */
- const towerPt=(local:Pt):Pt=>[Wd.tower[0]+local[0]*Wd.ts,Wd.tower[1]+local[1]*Wd.ts];
 
  /** The commission desk with the plan folder, its open slot and the outlined expected tag. */
  const deskScene=(o:{folderAt:Pt;fs:number;expected:number;slotGlow?:number;top:number})=>{
@@ -167,39 +218,47 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
    <At p={clip}>{tag(['Expected','January 2027'],'outline',o.expected,{side:'right',drop:30,scale:o.fs*1.1})}</At>
   </g>;
  };
- /** The response record on the desk. */
- const recordScene=(cardAt:Pt,cs:number,pulseOn:number)=><g data-world="record-desk">
-  <WestTexasSupport part="desk" top={760}/>
+ /** The response record lying on the crew truck's lowered tailgate: the utility's side, no desk. */
+ const recordScene=(cardAt:Pt,cs:number,pulseOn:number)=><g data-world="record-tailgate">
+  <WestTexasSupport part="tailgate" top={700}/>
   <At p={cardAt} s={cs}><WestTexasSupport part="record" pal={pal} pulse={pulseOn}/></At>
  </g>;
- /** The slot card for the reported count and the plan. */
  const slotsCard=(style:'tower'|'lens',lit:number,planned:number,labels:number)=>
   <At p={[126,300]}><WestTexasSupport part="slots" style={style} lit={lit} planned={planned} labels={labels} pal={pal}/></At>;
- /** The lens display over the land (treatment b). */
- const lens=(c:Pt,r:number,hd:number,scan:number,glow=0)=><At p={c}><TowerCameraHero part="lens" r={r} heading={hd} scan={scan} glow={glow} pal={pal}/></At>;
- /** The cab from inside (treatment b). */
+ /** The camera's round display: its own panorama of the land, clipped, panning with the heading,
+  * with the plume where it stands on the compass and the flag box locked on it. */
+ const lensView=(o:{c:Pt;r:number;heading:number;scan:number;glow?:number;plume?:number;lock?:number})=>{
+  const px=panoX(ph,o.heading);
+  return <At p={o.c}><TowerCameraHero part="lens" r={o.r} heading={o.heading} scan={o.scan} glow={o.glow??0} pal={pal}>
+   <WestTexasSupport part="panorama" heading={o.heading} r={o.r} horizon={PANO_H} ppd={PPD} t={t}
+    plume={o.plume!==undefined?{heading:ph,grow:o.plume}:undefined}/>
+   {o.lock!==undefined&&o.lock>0&&<At p={[px+26,PANO_H-74]}><TowerCameraHero part="flag" w={120} h={170} lock={o.lock} pal={pal}/></At>}
+  </TowerCameraHero></At>;
+ };
+ /** The tower top and camera head at a screen point, at a head scale, its base far below the frame. */
+ const headAt=(at:Pt,s:number,hd:number,extra:{lamp?:number;slot?:number}={})=>
+  <At p={[at[0]-TOWER.head[0]*s,at[1]-TOWER.head[1]*s]} s={s}><TowerCameraHero part="tower" heading={hd} time={t} dusk={.4} lamp={extra.lamp} slot={extra.slot}/></At>;
  const cab=(extra:React.ReactNode,visorDown=0)=><g data-world="b-truck-cab"><WestTexasSupport part="cab" visorDown={visorDown}/>{extra}</g>;
- /** The phone in the glove (treatment a). */
  const gloved=(pt:Pt,s:number,bubble:number,buzz:number)=><At p={pt} s={s}>
   <WestTexasSupport part="glove" layer="back"/>
   <WestTexasSupport part="phone" bubble={bubble} buzz={buzz} pal={pal} time={t}/>
   <WestTexasSupport part="glove" layer="front"/>
  </At>;
  const buzzAfter=(w:Win)=>t>w.end?Math.exp(-(t-w.end)*5):0;
+ const LENS_HEAD:Pt=[300,1060], LENS_HEAD_S=2.4;
 
  let pic:React.ReactNode;
  switch(view){
  case 'tower-sweep':{
-  // A s1: the whole tower from the ground; one full turn leaves the dashed watch ring.
-  // B s1: the pull back out of the lens to the whole tower that holds it.
+  // A s1: the whole tower from the ground; one revolution leaves the dashed watch ring, a faint wisp
+  // sits on the horizon. B s1: the pull back from the head to the whole tower that holds it.
   if(v==='a'){
-   pic=plains({heading,ring:[90,Math.max(90,heading)],grounded:true});
+   pic=plains({heading,ring:[90,Math.min(450,heading)],plume:plumeGrow,grounded:true});
   }else{
-   // the pull back starts on the cut and spans the reveal event, braking into the whole tower
    const e=ease(raw({start:shot.start_s+.05,end:Math.max(e12.end,shot.start_s+2.1)}));
    const head=towerPt(TOWER.head);
-   const c=pullCam(head,[540,700],head,3.2,1,e);
-   pic=<Cam f={c.f} s={c.s} a={c.a}>{plains({heading:450+24*(t-2.5),ring:[90,450],beam:e,truck:true,grounded:false})}</Cam>;
+   const c=pullCam(head,LENS_HEAD,head,LENS_HEAD_S/Wd.ts,1,e);
+   pic=<Cam f={c.f} s={c.s} a={c.a}>{plains({heading,ring:[90,450],beam:e,truck:true,plume:plumeGrow,grounded:false})}</Cam>;
   }
   break;}
  case 'head-close':{
@@ -207,14 +266,17 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   const head=towerPt(TOWER.head);
   const rail=towerPt([-58,TOWER.platformY-30]);
   pic=<Cam f={head} s={3.1} a={[540,520]}>
-   <At p={Wd.tower} s={Wd.ts}><TowerCameraHero part="tower" heading={heading} time={t} dusk={.4}/></At>
+   <At p={Wd.tower} s={Wd.ts}><TowerCameraHero part="tower" heading={360+90*(1-face)} time={t} dusk={.4}/></At>
    <At p={rail}>{tag(['West Texas'],'ink',face,{side:'left',drop:22,scale:.3,swing:4*Math.sin(t*2.2)*(1-face)})}</At>
   </Cam>;
   break;}
  case 'lens-ring':{
-  // B s1 open: inside the camera's round display; its heading tape turns a full circle.
-  const hd=90+360*turn;
-  pic=<g data-world="b-lens">{lens([520,760],400,hd,((t*.62)%1))}</g>;
+  // B s1 open: the camera head on its tower top at the lower left and, above it, its round display:
+  // the camera's own panorama pans a full revolution with the head, a faint wisp on the horizon.
+  pic=<g data-world="b-lens">
+   {headAt(LENS_HEAD,LENS_HEAD_S,heading)}
+   {lensView({c:[600,640],r:330,heading,scan:(t*.62)%1,plume:plumeGrow})}
+  </g>;
   break;}
  case 'camera-count':
  case 'lens-row':
@@ -229,9 +291,10 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   else pic=<Cam f={[560,1000]} s={1.3} a={[540,760]}>{card}{planTag}</Cam>;
   break;}
  case 'plume-flag':{
-  // A s3: at the tower's feet looking out; the beam crosses the land, finds the smoke, the flag box closes.
-  const aim=lerp(150,Wd.plume[0]+50,ease(clamp(find/.62))), lock=clamp((find-.5)/.5);
+  // A s3: at the tower's feet looking out; the beam crosses the land onto the plume it draws here,
+  // finds the smoke and the flag box closes on it.
   const pl:Pt=[700,980];
+  const aim=lerp(150,pl[0]+10,ease(clamp(find/.62))), lock=clamp((find-.5)/.5);
   pic=<g data-world="a-tower-foot">
    <Grounded baseY={pl[1]} on><At p={pl} s={.78}><WestTexasSupport part="plume" t={t} grow={plumeGrow} h={300}/></At></Grounded>
    <Grounded baseY={1020} on><At p={[880,1020]}><WestTexasSupport part="mesquite" seed={31} h={120}/></At></Grounded>
@@ -248,59 +311,54 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   break;}
  case 'scope-flag':
  case 'scope-hold':{
-  // B s3 and s5: inside the display; the smoke rises in the circle, the flag box closes and holds.
-  const hd=view==='scope-flag'?heading:ph;
-  const lock=view==='scope-flag'?clamp((find-.5)/.5):1;
-  const pl:Pt=[610,975];
+  // B s3 and s5: the display pans onto the smoke, the flag box closes and then holds on it.
+  const flagIn=view==='scope-flag';
   pic=<g data-world="b-lens">
-   <Grounded baseY={pl[1]} on><At p={pl} s={.7}><WestTexasSupport part="plume" t={t} grow={view==='scope-flag'?plumeGrow:1} h={view==='scope-flag'?300:360}/></At></Grounded>
-   <At p={[pl[0]+52,pl[1]-112]}><TowerCameraHero part="flag" w={190} h={240} lock={lock} pal={pal}/></At>
-   {lens([500,700],380,hd,view==='scope-flag'?((t*.62)%1):-1,lock>=1?.4:0)}
-   {view==='scope-hold'&&<At p={[805,395]}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:40})}</At>}
+   {lensView({c:[500,700],r:380,heading,scan:flagIn?((t*.62)%1):-1,glow:flagIn&&find>=1?.4:0,
+    plume:flagIn?plumeGrow:1,lock:flagIn?clamp((find-.5)/.5):1})}
+   {!flagIn&&<At p={[805,395]}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:40})}</At>}
   </g>;
   break;}
  case 'flag-message':{
   if(v==='a'){
-   // A s3: the card lifts out of the head and travels down the coax toward the crew truck below.
+   // A s3: the card lifts out of the head and runs down the coax itself toward the crew truck parked
+   // well away from the tower; the truck's window lights only once the card is all but there.
    const T:Pt=[600,1250], s=1;
    const toScreen=(q:Pt):Pt=>[T[0]+q[0]*s,T[1]+q[1]*s];
-   // the card rises out of the head's slot, then one eased stroke carries it out over the right leg
-   // and down the coax: a bezier into the coax and the coax itself, sampled by arc length
    const lift=ease((t-e32.start+.3)/.3);
    const top:Pt=toScreen([TOWER.head[0],TOWER.head[1]-60]);
-   const c0=toScreen(coaxPoint(.12)), entry:Pt=[c0[0]+70,c0[1]];
+   const entry=toScreen(coaxPoint(.12));
    const path:Pt[]=[...Array.from({length:16},(_,i)=>bez(top,[entry[0],top[1]],entry,i/15)),
-    ...Array.from({length:24},(_,i)=>{const q=toScreen(coaxPoint(lerp(.12,.36,(i+1)/24)));return [q[0]+70,q[1]] as Pt;})];
+    ...Array.from({length:24},(_,i)=>toScreen(coaxPoint(lerp(.12,.36,(i+1)/24))))];
    const cardAt:Pt=send<=0?toScreen([TOWER.head[0],TOWER.head[1]-60*lift]):along(path,send);
    pic=<g data-world="a-tower-medium">
-    <Grounded baseY={1262} on><At p={[800,1262]} s={.46}><WestTexasSupport part="truck" glow={send}/></At></Grounded>
+    <Grounded baseY={1262} on><At p={[880,1262]} s={.2}><WestTexasSupport part="truck" glow={clamp((send-.95)/.05)}/></At></Grounded>
     <Grounded baseY={T[1]} on><At p={T} s={s}>
      <TowerCameraHero part="tower" heading={heading} lamp={1} shimmer={1-send} time={t} slot={clamp(lift*2)} dusk={.4}/>
     </At></Grounded>
     <At p={cardAt} s={.8} r={send*-8}><TowerCameraHero part="alert" lift={1} glow={1-send} pal={pal}/></At>
-    <At p={[860,1380]}><WestTexasSupport part="grass" seed={23} w={220} h={150} sway={sway}/></At>
+    <At p={[760,1380]}><WestTexasSupport part="grass" seed={23} w={220} h={150} sway={sway}/></At>
    </g>;
   }else{
    // B s3: the card slides out of the display's edge toward the truck parked below the tower.
    const from:Pt=[560,720], to:Pt=[838,1040];
    const cardAt=bez(from,[820,700],to,send);
    pic=<g data-world="b-lens-edge">
-    <Grounded baseY={1080} on><At p={[840,1080]} s={.26}><WestTexasSupport part="truck" glow={send}/></At></Grounded>
+    <Grounded baseY={1080} on><At p={[840,1080]} s={.26}><WestTexasSupport part="truck" glow={clamp((send-.95)/.05)}/></At></Grounded>
     <At p={[740,1076]} s={.2}><TowerCameraHero part="tower" heading={heading} time={t}/></At>
-    {lens([140,640],420,ph,-1,1-send)}
+    {lensView({c:[140,640],r:420,heading:ph,scan:-1,glow:1-send,plume:1,lock:1})}
     <At p={cardAt} s={lerp(1,.32,send)} r={lerp(-4,6,send)} o={send<.98?1:1-(send-.98)/.02}><TowerCameraHero part="alert" lift={1} glow={1-send} pal={pal}/></At>
    </g>;
   }
   break;}
  case 'crew-phone':{
   if(v==='a'){
-   // A s3: the card drops into the phone in the glove and lands as the alert bubble; the phone buzzes.
+   // A s3: the card comes in small from the distance, grows as it nears and lands as the bubble.
+   const k=ease(raw({start:shot.start_s,end:e33.start}));
    pic=<g data-world="a-glove-phone">{gloved([520,700],1,land,buzzAfter(e33))}
-    {land<=0&&t>=shot.start_s&&<At p={[520,lerp(196,280,ease(raw({start:shot.start_s,end:e33.start})))]} s={lerp(1.05,1.2,ease(raw({start:shot.start_s,end:e33.start})))}>
-     <TowerCameraHero part="alert" lift={1} pal={pal}/></At>}
+    {land<=0&&t>=shot.start_s&&<At p={mix([640,230],[520,280],k)} s={lerp(.3,1.2,k)}><TowerCameraHero part="alert" lift={1} pal={pal}/></At>}
    </g>;
   }else{
-   // B s3: inside the truck cab; the card comes in at the driver's window and lands on the dash phone.
    const ph0:Pt=CAB.mount;
    const fly=ease(raw({start:shot.start_s,end:e33.start}));
    const bubbleTop:Pt=[ph0[0]+PHONE.bubble[0]*.58,ph0[1]-PHONE.h*.7*.58];
@@ -312,93 +370,72 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   break;}
  case 'clock-arc':
  case 'estimate-pin':{
-  // s4: a ten minute window opens on the clock from the flag mark to the message mark, outlined as
-  // "within"; the estimate tag pins where it ends. A on the watch at the wrist, B on the dash clock.
-  const r=v==='a'?260:210, C:Pt=v==='a'?[420,760]:[470,860];
+  // s4: a hatched ten minute window opens on the clock from the flag mark to the message mark, up to a
+  // dashed bound for "within"; the estimate tag pins only on its own event, in the closer shot.
+  const r=v==='a'?150:210, C:Pt=v==='a'?[420,760]:[470,860], arm=130;
   const bound=at('s4')?clamp(windowFill*1.6):1, fillV=at('s4')?clamp((windowFill-.3)/.7):1;
   const endA=(-90+60)*Math.PI/180, endPt:Pt=[C[0]+r*.86*Math.cos(endA),C[1]+r*.86*Math.sin(endA)];
-  const preTag=view==='clock-arc'?clamp((t-(shot.start_s+shot.duration_s-.55))/.55)*.35:estimate;
+  const markPt:Pt=[C[0]+r*1.12*Math.cos(endA),C[1]+r*1.12*Math.sin(endA)];
+  const tagOn=view==='estimate-pin'?estimate:0;
   const face=<>
    {v==='a'&&<g data-part="wrist">
-    <path d={`M-60 ${C[1]-170}Q300 ${C[1]-210} ${C[0]} ${C[1]-180}V${C[1]+180}Q300 ${C[1]+200} -60 ${C[1]+190}Z`} fill="#8C8A70"/>
-    <path d={`M${C[0]} ${C[1]-180}Q900 ${C[1]-200} 1140 ${C[1]-160}V${C[1]+200}Q900 ${C[1]+190} ${C[0]} ${C[1]+180}Z`} fill="#B48A55"/>
-    <path d={`M${C[0]+260} ${C[1]-190}Q${C[0]+300} ${C[1]} ${C[0]+262} ${C[1]+190}`} stroke="#7A5733" strokeWidth={5} strokeDasharray="10 8" fill="none"/>
+    <path d={`M-60 ${C[1]-arm+4}Q240 ${C[1]-arm-30} ${C[0]} ${C[1]-arm}V${C[1]+arm}Q240 ${C[1]+arm+20} -60 ${C[1]+arm+8}Z`} fill="#8C8A70"/>
+    <path d={`M-60 ${C[1]-arm+30}Q200 ${C[1]-arm} ${C[0]-60} ${C[1]-arm+6}`} stroke="#A9A788" strokeWidth={6} fill="none" opacity={.6}/>
+    <path d={`M${C[0]} ${C[1]-arm}Q900 ${C[1]-arm-20} 1140 ${C[1]-arm+10}V${C[1]+arm+20}Q900 ${C[1]+arm+12} ${C[0]} ${C[1]+arm}Z`} fill="#B48A55"/>
+    <path d={`M${C[0]+150} ${C[1]-arm-6}Q${C[0]+180} ${C[1]} ${C[0]+152} ${C[1]+arm+6}`} stroke="#7A5733" strokeWidth={5} strokeDasharray="10 8" fill="none"/>
    </g>}
    {v==='b'&&<g data-part="dash-pod"><path d={`M${C[0]-300} ${C[1]+250}Q${C[0]} ${C[1]+160} ${C[0]+300} ${C[1]+250}V1980H${C[0]-300}Z`} fill="#202122"/>
     <rect x={C[0]-90} y={C[1]+r*1.1} width={180} height={150} fill="#1A1B1B"/></g>}
    <At p={C}><WestTexasSupport part="clock" r={r} style={v==='a'?'wrist':'dash'} fill={fillV} bound={bound} pal={pal}/></At>
-   {bound>.6&&<At p={[endPt[0]+50,endPt[1]-150]} s={.32} r={-6} o={clamp((bound-.6)/.3)}><TowerCameraHero part="alert" pal={pal}/></At>}
-   <At p={[endPt[0]+4,endPt[1]+4]}>{tag(['Estimated','within ten minutes'],'accent',preTag,{side:'right',drop:40,scale:.9})}</At>
+   {bound>.6&&<At p={[markPt[0]+r*.2,markPt[1]-r*.24]} s={r/680} r={-6} o={clamp((bound-.6)/.3)}><TowerCameraHero part="alert" pal={pal}/></At>}
+   <At p={[endPt[0]+4,endPt[1]+4]}>{tag(['Estimated','within ten minutes'],'accent',tagOn,{side:'right',drop:40,scale:v==='a'?.62:.9})}</At>
   </>;
   const body=v==='b'?cab(face):face;
-  pic=view==='clock-arc'?<Cam f={C} s={1} a={[C[0],v==='a'?C[1]:780]}>{body}</Cam>
-   :<Cam f={[endPt[0]+90,endPt[1]+40]} s={v==='a'?1.45:1.6} a={[520,700]}>{body}</Cam>;
+  pic=view==='clock-arc'?<Cam f={C} s={v==='a'?1.45:1} a={[C[0]+(v==='a'?60:0),v==='a'?C[1]-40:780]}>{body}</Cam>
+   :<Cam f={[endPt[0]+(v==='a'?60:90),endPt[1]+40]} s={v==='a'?2.1:1.6} a={[520,700]}>{body}</Cam>;
   break;}
  case 'plume-hold':{
-  // A s5: the plume keeps burning while the beam sweeps past it and on; the limit tag pins to the tower.
+  // A s5: the beam holds on the plume with its flag locked while it keeps burning; the limit tag pins
+  // to the tower leg.
   const leg=towerPt([-46,-520]);
-  pic=plains({heading,ring:[0,360],plume:1,grounded:true,
+  pic=plains({heading,ring:[0,360],plume:1,flag:1,grounded:true,
    front:<At p={leg}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:34})}</At>});
   break;}
  case 'open-line':{
-  // s5: a dashed line runs from the alert toward a first-responder badge and stops short, open.
-  const badge:Pt=v==='a'?[808,812]:[836,822];
-  const start:Pt=v==='a'?[262,740]:[Wd.truck[0]-14*Wd.ks/.34,Wd.truck[1]-176*Wd.ks];
-  const ctrl:Pt=[(start[0]+badge[0])/2,Math.min(start[1],badge[1])-180];
-  const reach=.8*line;
-  const pts=Array.from({length:41},(_,i)=>bez(start,ctrl,badge,reach*i/40));
-  const end=pts[pts.length-1];
-  const mid=bez(start,ctrl,badge,.42);
-  const lineEl=line>0&&<g data-part="open-line">
-   <path d={'M'+pts.map(q=>q.join(' ')).join('L')} stroke={pal.paper} strokeWidth={9} strokeDasharray="22 16" fill="none" strokeLinecap="round"/>
-   <path d={'M'+pts.map(q=>q.join(' ')).join('L')} stroke={pal.accent} strokeWidth={4} strokeDasharray="22 16" fill="none" strokeLinecap="round"/>
-   <circle cx={end[0]} cy={end[1]} r={13} fill="none" stroke={pal.accent} strokeWidth={5}/>
-  </g>;
-  const badgeEl=<g data-part="responder-badge">
-   <line x1={badge[0]} y1={badge[1]+46} x2={badge[0]} y2={badge[1]+130} stroke={pal.ink} strokeWidth={3}/>
-   <circle cx={badge[0]} cy={badge[1]} r={48} fill="#B33A2B" stroke={pal.paper} strokeWidth={6}/>
-   <path transform={`translate(${badge[0]} ${badge[1]+6})`} d="M-24 10Q-24 -22 0 -22Q24 -22 24 10H32V16H-32V10Z" fill={pal.paper}/>
-  </g>;
-  const shareTag=<At p={mid}>{tag(['Can share'],'paper',clamp((line-.55)/.45),{side:'right',drop:30})}</At>;
-  if(v==='a'){
-   pic=<g data-world="a-open-line">
-    <Grounded baseY={1004} on><At p={[808,1004]} s={.62}><WestTexasSupport part="station"/></At></Grounded>
-    <Grounded baseY={998} on><At p={[470,998]} s={.3}><TowerCameraHero part="tower" heading={heading} time={t}/></At></Grounded>
-    <Grounded baseY={1000} on><At p={[600,1000]} s={.55}><WestTexasSupport part="plume" t={t} grow={1} h={300}/></At></Grounded>
-    {badgeEl}{lineEl}{shareTag}
-    {gloved([262,700],.62,1,0)}
-   </g>;
-  }else{
-   pic=plains({heading,ring:[0,360],truck:true,truckGlow:1,station:true,plume:1,grounded:true,front:<>{badgeEl}{lineEl}{shareTag}</>});
-  }
+  // s5: the alert has landed at the crew truck's window; a dashed line runs from it toward the badge on
+  // a small fire station and stops short, open. A holds the beam on the plume in a medium; B is wide.
+  pic=plains({heading,ring:[0,360],truck:true,truckGlow:1,alert:true,station:true,plume:1,flag:v==='a'?1:undefined,grounded:true,
+   front:openLine([windowPt(Wd.truck,Wd.ks)[0]+20,windowPt(Wd.truck,Wd.ks)[1]-18],Wd.station,Wd.sts,line,clamp((line-.55)/.45))});
   break;}
  case 'launch-calendar':
  case 'attribution-pin':{
-  // s6: the calendar strip since launch passes with no red mark; the attribution tag pins at its end.
-  const cs=.5;
-  const len=CAL.block*CAL.blocks*cs;
-  const stripAt:Pt=v==='a'?[60,770]:[70,440];
+  // s6: the calendar strip since launch has no red mark; the attribution tag pins at its end on its
+  // own event. A: the strip on the shelter wall, wall and strip trucking together with the base out of
+  // frame. B: the strip clipped under both visors, the camera held while low sun crosses it.
+  const cs=.5, blocks=v==='a'?9:6;
+  const len=CAL.block*blocks*cs;
+  const stripAt:Pt=v==='a'?[60,930]:[160,398];
   const endPt:Pt=[stripAt[0]+len,stripAt[1]];
-  // the pan starts on the event and brakes before the cut, slow enough that day cells never strobe
-  const pan=view==='launch-calendar'?ease(raw({start:e61.start,end:Math.min(e61.start+2.2,shot.start_s+shot.duration_s-.25)})):1;
+  const pan=v==='a'&&view==='launch-calendar'?ease(raw({start:e61.start,end:Math.min(e61.start+2.2,shot.start_s+shot.duration_s-.25)})):v==='a'?1:0;
   const offX=-pan*(len-760);
-  const hang=view==='launch-calendar'?clamp((t-(shot.start_s+shot.duration_s-.6))/.6)*.3:attrib;
+  const tagOn=view==='attribution-pin'?attrib:0;
   const strip=<>
-   <At p={stripAt} s={cs}><WestTexasSupport part="calendar" pal={pal}/></At>
-   <At p={[endPt[0]-150,endPt[1]+112]}>{tag(["Per AEP's",'wildfire lead'],'ink',hang,{side:'right',drop:30,scale:v==='a'?1:.95})}</At>
+   <At p={stripAt} s={cs}><WestTexasSupport part="calendar" pal={pal} blocks={blocks} scan={v==='b'&&view==='launch-calendar'?scroll:-1}/></At>
+   {v==='b'&&[200,410,690,800].map(x=><At key={x} p={[x,stripAt[1]+2]}><WestTexasSupport part="clip"/></At>)}
+   <At p={[endPt[0]-150,endPt[1]+112]}>{tag(["Per AEP's",'wildfire lead'],'ink',tagOn,{side:'right',drop:30,scale:v==='a'?1:.95})}</At>
   </>;
   const body=v==='a'
-   ?<g data-world="a-shelter-wall"><Grounded baseY={1180} on={fr!=='close'}><At p={[600,1180]} s={2.2}><WestTexasSupport part="shelter" w={1100}/></At></Grounded>{strip}</g>
-   :<g data-world="b-truck-cab"><WestTexasSupport part="cab" visorDown={1} wide={300}/>{strip}</g>;
-  pic=view==='launch-calendar'?<g transform={`translate(${offX} 0)`}>{body}</g>
-   :<Cam f={[endPt[0]-40,endPt[1]+120]} s={v==='a'?1.45:1.6} a={[560,700]}>{body}</Cam>;
+   ?<g data-world="a-shelter-wall" transform={`translate(${offX} 0)`}><At p={[600,1990]} s={5}><WestTexasSupport part="shelter" w={1100}/></At>{strip}</g>
+   :cab(strip,1);
+  pic=view==='launch-calendar'?body
+   :<Cam f={[endPt[0]-40+(v==='a'?offX:0),endPt[1]+120]} s={v==='a'?1.45:1.6} a={[560,700]}>{body}</Cam>;
   break;}
  case 'record-card':
  case 'empty-field':{
-  // s7: the blank response record lands on a desk; its how-much-sooner field pulses and stays empty.
-  const rest:Pt=[230,800];
-  const e=slide;
-  const cardAt:Pt=v==='a'?mix([610,800],rest,e):mix([-150,800],rest,e);
+  // s7: the blank response record lies on the crew truck's tailgate; its how much sooner field pulses
+  // and stays empty. No commission desk props: this is the utility's side.
+  const rest:Pt=[230,780];
+  const cardAt:Pt=v==='a'?mix([610,780],rest,slide):mix([-150,780],rest,slide);
   const pulseOn=view==='empty-field'?pulse:0;
   const scene7=recordScene(view==='record-card'?cardAt:rest,1,pulseOn);
   const f=RECORD.field;
@@ -414,19 +451,34 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   break;}
  case 'tower-return':
  case 'lens-return':{
-  // The closing image: the region with the tower (A) or the display (B) still sweeping on above the
-  // desk where the plan waits, its slot open under the outlined expected tag.
+  // The closing composite. A readable band across the top holds the desk, the folder and its open
+  // state approval slot under the outlined expected tag. Below it, on the land, the whole tower (A)
+  // or the display on its head (B) still sweeps, the plume still burns, the alert has landed at the
+  // truck's window and the dashed line toward the responder badge stops short, open.
   const band=<g data-part="desk-band">
-   <rect x={34} y={872} width={1012} height={424} rx={10} fill="#1C120B" opacity={.35}/>
-   <svg x={40} y={866} width={1000} height={418} viewBox="40 866 1000 418" overflow="hidden">
-    <rect x={40} y={866} width={1000} height={418} fill="#B9A487"/>
-    {deskScene({folderAt:[250,900],fs:.8,expected:1,slotGlow:Math.sin(Math.PI*clamp(waits)),top:1180})}
+   <rect x={34} y={212} width={1012} height={466} rx={10} fill="#1C120B" opacity={.35}/>
+   <svg x={40} y={206} width={1000} height={460} viewBox="40 206 1000 460" overflow="hidden">
+    <rect x={40} y={206} width={1000} height={460} fill="#B9A487"/>
+    {deskScene({folderAt:[70,236],fs:.9,expected:1,slotGlow:Math.sin(Math.PI*clamp(waits)),top:560})}
    </svg>
-   <rect x={40} y={866} width={1000} height={418} rx={6} fill="none" stroke={pal.ink} strokeWidth={8}/>
+   <rect x={40} y={206} width={1000} height={460} rx={6} fill="none" stroke={pal.ink} strokeWidth={8}/>
   </g>;
-  pic=view==='tower-return'
-   ?<g data-world="a-split-ending">{plains({heading,ring:[0,360],grounded:true})}{band}</g>
-   :<g data-world="b-split-ending">{lens([540,560],320,ph+40*(t-41.5),((t*.5)%1))}{band}</g>;
+  const truck:Pt=v==='a'?[560,1074]:[640,1080], ks=.4, station:Pt=v==='a'?[900,1004]:[910,1004], sts=.42;
+  const plumeAt:Pt=v==='a'?[760,1030]:[790,1034];
+  const w=windowPt(truck,ks);
+  const lower=<g data-part="closing-land">
+   <Grounded baseY={station[1]} on><At p={station} s={sts}><WestTexasSupport part="station"/></At></Grounded>
+   <Grounded baseY={plumeAt[1]} on><At p={plumeAt} s={.45}><WestTexasSupport part="plume" t={t} grow={1} h={300}/></At></Grounded>
+   {v==='a'&&<Grounded baseY={1012} on><At p={[300,1012]} s={.28}>
+    <TowerCameraHero part="sweep" heading={heading} rx={Wd.ring[0]} ry={Wd.ring[1]} layer="back" ring={[0,360]}/>
+    <TowerCameraHero part="tower" heading={heading} time={t} dusk={.4}/>
+    <TowerCameraHero part="sweep" heading={heading} rx={Wd.ring[0]} ry={Wd.ring[1]} layer="front" ring={[0,360]}/>
+   </At></Grounded>}
+   <Grounded baseY={truck[1]} on><At p={truck} s={ks}><WestTexasSupport part="truck" glow={1}/></At>{landedAlert(truck,ks,.46)}</Grounded>
+   <Grounded baseY={station[1]} on>{openLine([w[0]+24,w[1]-20],station,sts,1,0)}</Grounded>
+  </g>;
+  pic=v==='a'?<g data-world="a-closing">{lower}{band}</g>
+   :<g data-world="b-closing">{lower}{headAt([130,1130],.9,heading)}{lensView({c:[310,925],r:190,heading,scan:(t*.5)%1,plume:1})}{band}</g>;
   break;}
  default:throw new Error('Unimplemented tower alert view '+view);
  }
@@ -437,4 +489,4 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  </svg>;
 };
 /** Layout constants, exported for readers of the geometry above. */
-export const TOWER_ALERT_LAYOUT={WORLD,PLUME_HEADING,ALERT_SIZE,PHONE,ringPoint};
+export const TOWER_ALERT_LAYOUT={WORLD,PLUME_HEADING,ALERT_SIZE,PHONE,PPD};
