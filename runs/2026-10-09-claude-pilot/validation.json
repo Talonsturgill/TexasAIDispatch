@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-09",
+  "source": "Independent validator leaf (claude-opus-5-5, high effort, isolated context, no sub-agents). I re-fetched every URL with WebFetch on 2026-10-11. The tool refuses to return full verbatim page text, so I checked each quote with per-string exact-match queries (FOUND-EXACT, FOUND-WITH-DIFFERENCES or NOT FOUND, with differences given character by character). I asked separately about apostrophe code points, subsection lettering, effective dates and code names. I also compared the UTMB result against the director's snapshot out/dispatch/sources/utmb.validator.txt, which I read in full. I did not take any researcher or director summary as evidence.",
+  "result": "PASS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11",
+    "c12"
+  ],
+  "rejected": [
+    "c1: the submitted quote string has U+0027 where the live page and saved snapshot have U+2019 ('clinicians\u2019'). The claim is verified, but the quote field needs a byte correction or a written normalization rule. I count this as a recordkeeping defect, not a factual one.",
+    "c11: the quote stops before ', in which case the provider shall provide the required disclosure as soon as reasonably possible.' The claim text is accurate but incomplete about emergencies. It is not used in the current narration. Add the clause before any on-screen or spoken use.",
+    "c9: the quote joins 183.005(a)'s opening with (a)(3), leaving out (a)(1) and (a)(2) without an ellipsis. The newline follows the file's fragment convention and the text says 'including', so this is not misleading. Recorded for transparency only.",
+    "I agree with the 6 rejections already in claims.json. The researcher's S.B. 1188 quote with an ellipsis really did drop the conditions. The double-spaced 'other  authoritative  sources' does not match the rendered text. The Abridge vendor page lists 'UT Medical Branch' in an institution list and names Peter McCaffrey as a UT Medical Branch officer, but it never says UTMB uses Abridge. 'Galveston' appears on the UTMB page only in the footer '\u00a9 The University of Texas Medical Branch at Galveston'. No fetched source supports the Board of Regents testimony sentence. 'Without leaving' is not the source's wording.",
+    "No other defect found. Scope checked: c1 to c12 in claims.json, all 10 research.json findings and their quotes (including the Abridge quote, FOUND-EXACT, release dated October 8, 2026), the 3 sources in story_selection.json, and all 8 lines of vo_script.txt."
+  ],
+  "required_edits_applied": [
+    "Line 1, 'A UTMB clinician asks a question. The answer comes back with its sources.' Supported by c4. Applied.",
+    "Line 2, 'announced ... on September twenty-second, and says it went live in March.' The date traces to c1's quoted dateline 'September 22, 2026', which the director added so the spoken date is backed by a quote. That edit is applied and confirmed on the live page. 'went live in March' is c2. One note: the line says UTMB 'announced the OpenEvidence AI tool' where c1 says 'announced a collaboration'. That is a compression, not a factual error.",
+    "Line 3, 'sign in with their usual credentials, and ask in plain language.' Supported by c3 (standard UTMB enterprise credentials) and c4 (natural language). Applied.",
+    "Line 4, 'The answers carry citations. To medical literature and clinical guidelines.' A subset of c4. It drops 'other authoritative sources' but adds nothing unsupported. Applied.",
+    "Line 5, 'UTMB says more than half of its clinicians now use it for clinical decision support.' This is c5, attributed to UTMB. 'more than half' is the release's own wording, so no figure was derived and there is no numeral. Applied.",
+    "Line 6, 'That is UTMB's own report. The release publishes no measure of accuracy or patient care.' This is c5's self-report scope plus c8. I confirmed on the live page that the body gives no accuracy, error-rate, outcome or patient-care measure. Applied.",
+    "Line 7, 'A citation shows where an answer says it came from. It doesn't show the answer is right.' This is editorial reasoning that matches c4's scope note, not a sourced fact. It contradicts no source and claims nothing about any particular answer. Acceptable as framing.",
+    "Line 8, 'UTMB says it will keep evaluating use and clinician experience.' Supported by c8. Applied.",
+    "Conditional and legal wording: the narration makes no legal claim. It does not say S.B. 1188 or H.B. 149 (c9 to c11) applies to UTMB, that a decision-support question counts as diagnostic use, or anything about telling patients. It does not mention Abridge, and it does not place the story in Galveston County. The unsupported Board of Regents sentence is not in the narration. Every required scope limit holds.",
+    "Numerals: the narration has none. The date is spoken as words and backed by the numeral in c1's quote, so the rubric's numeral-in-quote hard fail is not triggered.",
+    "House rules in the narration: no colons, semicolons, em or en dashes, first person, sentences opening with 'And' or 'But', 'cannot', or the banned words gap, matters or pattern.",
+    "Not yet applied: the c1 quote apostrophe byte correction in claims.json. The narration is not affected.",
+    "Not yet applied, advisory: c11's text should state the emergency 'as soon as reasonably possible' duty before any use. It is not in the current narration.",
+    "Board wording note: story_selection.json agency.who_can_act still says 'The UT System Board of Regents meets in public and takes testimony on agenda topics.' No fetched source supports it and claims.json rejected it, so it must not reach board copy. The county and viewer_question 'Galveston' are the Docket's editorial placement, not something the release says."
+  ],
+  "raw_handoff": {
+    "file": "out/dispatch/validator-r2/handoff.raw.md",
+    "sha256": "372e7476be73ee5a6165b38af9aab59470ebf7f3faea7d1525318d7e18c7544f",
+    "agent": "abc82f6360ec8166e",
+    "reservation": "validator_agents=2/2",
+    "note": "Canonical metadata cites the validator's complete validation object unchanged. Adds no finding. The earlier director transcription is retained as rejected evidence."
+  }
+}
