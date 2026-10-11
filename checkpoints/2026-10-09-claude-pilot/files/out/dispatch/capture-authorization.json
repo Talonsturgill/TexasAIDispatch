@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "6de3e920a0352c7c6a8f92fe4b2e2ebbcf9c333177c4ffff85121eab13457eeb",
-    "resource": "preflight_renders",
-    "at": "2026-10-11T02:16:17.518074Z",
-    "note": "hero"
+    "event_sha256": "d334656c130c1a68c936e26a30cc5bc8e9015aad9edfd4784b33354d6c16cff3",
+    "resource": "full_renders",
+    "at": "2026-10-11T02:21:02.684779Z",
+    "note": "full native render hook"
   },
   "boards": [
     {
@@ -154,23 +154,23 @@
   },
   "commands": [
     {
-      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
-      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
-      "consumed": "2026-10-11T02:16:37.938978+00:00"
+      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
+      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
+      "consumed": "2026-10-11T02:21:16.415712+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 19.78
+    "free_gib": 19.647
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261011T021624.json",
-    "receipt_sha256": "5ec91a72bd29cfe9af3157477e29e918020693886148c8d6d85ac054709eae4d",
+    "receipt": "/home/user/restore/pilot/out/dispatch/capture-housekeeping-20261011T022114.json",
+    "receipt_sha256": "419e09f50b3844208d025c2e1c9c27172343c59fe3739a77cd044b428dc81a2d",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-11T02:16:24.144405+00:00",
-  "expires_at": "2026-10-11T03:01:24.144405+00:00"
+  "issued_at": "2026-10-11T02:21:14.795634+00:00",
+  "expires_at": "2026-10-11T03:06:14.795634+00:00"
 }
