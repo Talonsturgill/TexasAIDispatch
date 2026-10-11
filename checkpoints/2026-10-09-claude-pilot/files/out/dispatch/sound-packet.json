@@ -17,7 +17,7 @@
   "quality_contract": "config/quality_contract.json",
   "rubric": "config/dispatch_rubric.yaml",
   "brief": ".claude/agents/scorer.md",
-  "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text. Read the complete story_contract in the bound board, including all scenes, transitions and source limits. Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film. Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria. Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.",
+  "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text. Read the complete story_contract in the bound board, including all scenes, transitions and source limits. Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film. Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria. This Claude image-only assignment reviews the entire encoded film through the bound motion sequence. Read every page in index order before reading the director rationale. Use native timestamps, the actual native crops and your separate raw audiovisual response. Record this image-sequence basis and no direct playback or listening. All current guides, seven modern observations, clause observations and honest independent judgment remain required. Do not infer a pass from extraction or provider approval; unproven observations remain blocking. Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.",
   "agent_assignment": {
     "host": "claude",
     "role": "sound",
@@ -42,7 +42,7 @@
     },
     {
       "path": "/home/user/restore/pilot/prompts/claude_routine.md",
-      "sha256": "72de2d4170b04f533573d641fca043ced94480fd64f4c3d5557a25c8a7dd8dff"
+      "sha256": "a273939528068f462a8e3aef61e0375cb1245b9baa6855648f6adb72789e5ad9"
     },
     {
       "path": "/home/user/restore/pilot/config/claude_runtime.json",
@@ -58,7 +58,7 @@
     },
     {
       "path": "/home/user/restore/pilot/.claude/agents/scorer.md",
-      "sha256": "e5103e373fec2d8a9af93a0ef1cb60521b54f8d92dcc34bc7e2ca59c7ff56344"
+      "sha256": "5d200acc5807c31d0f47105e5177ae91673d6d38e0112e9ca6eca924ae6a0773"
     }
   ],
   "completion_readings": [
@@ -127,7 +127,7 @@
     },
     {
       "path": "/home/user/restore/pilot/prompts/claude_routine.md",
-      "sha256": "72de2d4170b04f533573d641fca043ced94480fd64f4c3d5557a25c8a7dd8dff"
+      "sha256": "a273939528068f462a8e3aef61e0375cb1245b9baa6855648f6adb72789e5ad9"
     },
     {
       "path": "/home/user/restore/pilot/config/claude_runtime.json",
@@ -164,6 +164,10 @@
     "path": "/home/user/restore/pilot/out/dispatch/openings/selection.json",
     "sha256": "06e85d43b8cd0f487fc8a4fe1ac58ca90025c5c24dd0fafed03fb62b1385068f"
   },
+  "motion_sequence": {
+    "path": "/home/user/restore/pilot/out/dispatch/motion-review/index.json",
+    "sha256": "7ebbc6cb6bf422487cb1b27ed51b0314d64bd447c5a90336db45c983d1ce30ce"
+  },
   "film": {
     "path": "/home/user/restore/pilot/out/dispatch/film.mp4",
     "sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4"
@@ -185,13 +189,13 @@
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
-    "panel_rounds": 1,
-    "preflight_renders": 27,
+    "panel_rounds": 2,
+    "preflight_renders": 29,
     "reboards": 12,
     "reported_tokens": 235838,
     "rescue_renders": 0,
     "research_agents": 1,
-    "scorer_calls": 3,
+    "scorer_calls": 6,
     "storyboard_critics": 28,
     "tts_calls": 8,
     "validator_agents": 1,

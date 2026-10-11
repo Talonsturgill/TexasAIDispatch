@@ -588,6 +588,22 @@
       "note": "exact-film motion-image review extraction",
       "resource": "preflight_renders",
       "to": 29
+    },
+    {
+      "at": "2026-10-11T03:23:32.831702Z",
+      "ceiling": 9,
+      "from": 2,
+      "note": "new atomic panel for the three same Read-only workers with complete exact-film motion-image sequence (index 7ebbc6cb); packets bind separate AV receipts; prior blocked round retained",
+      "resource": "panel_rounds",
+      "to": 3
+    },
+    {
+      "at": "2026-10-11T03:23:32.831777Z",
+      "ceiling": 27,
+      "from": 6,
+      "note": "new atomic panel for the three same Read-only workers with complete exact-film motion-image sequence (index 7ebbc6cb); packets bind separate AV receipts; prior blocked round retained",
+      "resource": "scorer_calls",
+      "to": 9
     }
   ],
   "events": [
@@ -6404,6 +6420,34 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-11T03:23:32.831767Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "new atomic panel for the three same Read-only workers with complete exact-film motion-image sequence (index 7ebbc6cb); packets bind separate AV receipts; prior blocked round retained",
+      "now": 3,
+      "resource": "panel_rounds",
+      "was": 2
+    },
+    {
+      "at": "2026-10-11T03:23:32.831779Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "new atomic panel for the three same Read-only workers with complete exact-film motion-image sequence (index 7ebbc6cb); packets bind separate AV receipts; prior blocked round retained",
+      "now": 9,
+      "resource": "scorer_calls",
+      "was": 6
+    },
+    {
+      "at": "2026-10-11T03:23:32.831791Z",
+      "kind": "reserved",
+      "note": "new atomic panel for the three same Read-only workers with complete exact-film motion-image sequence (index 7ebbc6cb); packets bind separate AV receipts; prior blocked round retained",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
     }
   ],
   "limits": {
@@ -6411,13 +6455,13 @@
     "cleanup_renders": 1,
     "full_renders": 4,
     "image_generations": 2,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 29,
     "reboards": 12,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 28,
     "tts_calls": 8,
     "validator_agents": 1,
@@ -6427,7 +6471,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d705ac0c1cfb7e9bd5996287f843fcb7a2ecef1b0ac0eb1b48a697c7a32368ac",
+    "original_private_state_sha256": "aab225176cf4385c5d64903abc6a88af362c5327d60dd035a61ded4ff70b6214",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6455,19 +6499,19 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T03:22:52.484415Z",
+  "updated_at": "2026-10-11T03:23:32.831794Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 29,
     "reboards": 12,
     "reported_tokens": 235838,
     "rescue_renders": 0,
     "research_agents": 1,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 28,
     "tts_calls": 8,
     "validator_agents": 1,
