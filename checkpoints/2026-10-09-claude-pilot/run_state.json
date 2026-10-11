@@ -5429,6 +5429,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-11T01:19:47.492290Z",
+      "evidence": "{REPO}/out/dispatch/retained-failures/cinema-proof-principal-event-r14/cinema_proof-failure.log",
+      "evidence_sha256": "82ea2ffbe663325c968d9d832c02dd171871619c3ccb9c7deaabfd964f26eb98",
+      "input_identity": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
+      "kind": "preflight_retry_authorized",
+      "reason": "cinema_proof refused before rendering with no unique principal-picture event for directed-film-v2; fixed in trusted main PR139 (cinema_cache.principal_event), sampler verified on the current board returning 3 samples per scene"
     }
   ],
   "limits": {
@@ -5450,9 +5458,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "9de628b12478e86af6db63dd95f6808b6a90859715289574057bb0913c036830",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d2e375c43d2447f13b18df7c20eb4fd239c08b64d44136bd8ee6b0dae9f85baa",
+    "original_private_state_sha256": "cb01309e1892a04f45cd85901ad6089f21a5ffebef4adc490d457f1f6f23f055",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5480,7 +5489,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T01:19:39.999638Z",
+  "updated_at": "2026-10-11T01:19:47.492341Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
