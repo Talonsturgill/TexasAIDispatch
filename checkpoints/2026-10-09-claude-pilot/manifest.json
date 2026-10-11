@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T02:34:33.476963+00:00",
+  "saved_at": "2026-10-11T02:38:20.269185+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,20 +16,20 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "3848f974767e4a1af2e2fb9ba5d79331b3019080a0fa572d02db6674d2de0e6d",
-  "original_private_ledger_sha256": "1de0bbd615b8738a510e7445b9cadd9b51c720f4fa0e1057f7ea4be619233260",
+  "ledger_sha256": "73409058694ce6c9d0ec0a1eeed2fed7731dabe0b4da2d78a39db35670a1258d",
+  "original_private_ledger_sha256": "09d6480819bfe4c03e9e5e58dd5442dc4a24ffb26299f71aca233a63ab9234a4",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
-    "panel_rounds": 1,
+    "panel_rounds": 2,
     "preflight_renders": 27,
     "reboards": 12,
     "reported_tokens": 235838,
     "rescue_renders": 0,
     "research_agents": 1,
-    "scorer_calls": 3,
+    "scorer_calls": 6,
     "storyboard_critics": 28,
     "tts_calls": 8,
     "validator_agents": 1,
@@ -2179,6 +2179,18 @@
       "size": 110755
     },
     {
+      "path": "out/dispatch/cinema/review-cache/9ab21b9f2659f7719229ea9f26870e3aaf2183de01e2facddc0a1175f6c60361/receipt.json",
+      "class": "scratch",
+      "sha256": "b0ae97094ce7d41f145ad82c7bc3022c579f66a653aa389a1a5b811ab9f76237",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/9ab21b9f2659f7719229ea9f26870e3aaf2183de01e2facddc0a1175f6c60361/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "fde211d514a518e22d4f356a31f252e46ec911174561e315eaf248b5ff8c1ed6",
+      "size": 110652
+    },
+    {
       "path": "out/dispatch/cinema/review-cache/a14074f2db1bfda1e72f8ca139ce561f533b091bad54c60e0fa7e7352609b977/hero-review-response.json",
       "class": "scratch",
       "sha256": "2841a5fde91c9b85507d2e8fbac091c7ffaf446b1e78aa26228e5508384329c7",
@@ -2477,6 +2489,18 @@
       "class": "scratch",
       "sha256": "069e8bfa58b5472f2b135cccfed42aacb22727d29a2a4c3b8ae8f063a0d7bda0",
       "size": 55531
+    },
+    {
+      "path": "out/dispatch/cinema/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "fde211d514a518e22d4f356a31f252e46ec911174561e315eaf248b5ff8c1ed6",
+      "size": 110652
+    },
+    {
+      "path": "out/dispatch/cinema/sound-review.json",
+      "class": "scratch",
+      "sha256": "b0ae97094ce7d41f145ad82c7bc3022c579f66a653aa389a1a5b811ab9f76237",
+      "size": 582
     },
     {
       "path": "out/dispatch/cinema/story-review-response.json",
@@ -3707,6 +3731,18 @@
       "class": "scratch",
       "sha256": "12c18100571ee8b660ed6f9e79cd3346ecb5fababab4e16d42dea8011a3cbe00",
       "size": 1819018
+    },
+    {
+      "path": "out/dispatch/picture-assignment.json",
+      "class": "scratch",
+      "sha256": "09b55cb3d1259220eff1dd505d3cfbaf89efbe25c2009b6e4af7bad70ce53db6",
+      "size": 1761
+    },
+    {
+      "path": "out/dispatch/picture-packet.json",
+      "class": "scratch",
+      "sha256": "c7b3f5d3bb59d7283b1ef14926f91fccabe665b909c490c07642a3560d2efd6a",
+      "size": 8611
     },
     {
       "path": "out/dispatch/picture-precheck/0510e364-6ea8-4a4d-95c3-0d8acdc136a0/board_scale_check.log",
@@ -7801,6 +7837,12 @@
       "size": 2005
     },
     {
+      "path": "out/dispatch/retained-failures/panel-round-1-incomplete-handbacks/NOTE.md",
+      "class": "scratch",
+      "sha256": "67d7786ac0b873baa151f6715298a95cd56c56b784fddaf6699af9ac90c76871",
+      "size": 1696
+    },
+    {
       "path": "out/dispatch/retained-failures/phone-critic-1/a-contact.png",
       "class": "scratch",
       "sha256": "61399519c893638df7289e0c65a6035994432fad7061be28c766565bafd94225",
@@ -8863,6 +8905,18 @@
       "size": 7211237
     },
     {
+      "path": "out/dispatch/sound-assignment.json",
+      "class": "scratch",
+      "sha256": "be76a80d22e7512da0ac48e6c263369051af0bb4ede9c062441417ee72374546",
+      "size": 1750
+    },
+    {
+      "path": "out/dispatch/sound-packet.json",
+      "class": "scratch",
+      "sha256": "ecd187a06fc3e0c05a1cd29a620a78418d534a575db68488f0b636b13cad306c",
+      "size": 8605
+    },
+    {
       "path": "out/dispatch/sources/hb149.validator.txt",
       "class": "scratch",
       "sha256": "f75af702be44d0e0527111faaf8efd3910959cab998931de2721de3fe890c45c",
@@ -8885,6 +8939,18 @@
       "class": "scratch",
       "sha256": "8e0c4edfe4b629031bbf5bab823c98d47e3e9b0f6edc0d50de307f443f347784",
       "size": 5861
+    },
+    {
+      "path": "out/dispatch/story-assignment.json",
+      "class": "scratch",
+      "sha256": "b6ccb061b90c16bafb3d9324623e534a7e478fbf38961de9d3c2fd2952f8862e",
+      "size": 1745
+    },
+    {
+      "path": "out/dispatch/story-packet.json",
+      "class": "scratch",
+      "sha256": "8fcf8e6d3c22d8adc10354e1bcbceed986e23d646e9d5bdf8b55f4f40e9c8a24",
+      "size": 8605
     },
     {
       "path": "out/dispatch/story_selection.json",
@@ -9177,8 +9243,8 @@
     {
       "path": "out/dispatch/tmp-av-sound.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "3aee97c77d53c4c1eb0293e8f088c86b402ab014dbcda47f78abf75a33cc1e3c",
+      "size": 140
     },
     {
       "path": "out/dispatch/tmp-av-story.log",

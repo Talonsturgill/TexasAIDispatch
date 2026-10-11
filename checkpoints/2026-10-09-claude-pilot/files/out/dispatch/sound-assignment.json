@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "sound",
+    "policy": {
+      "path": "/home/user/restore/pilot/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-sonnet-5-5",
+    "effort": "medium",
+    "agent": "scorer",
+    "resource": "scorer_calls",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/restore/pilot/out/dispatch/sound-packet.json",
+    "sha256": "ecd187a06fc3e0c05a1cd29a620a78418d534a575db68488f0b636b13cad306c"
+  },
+  "brief": {
+    "path": "/home/user/restore/pilot/.claude/agents/scorer.md",
+    "sha256": "e5103e373fec2d8a9af93a0ef1cb60521b54f8d92dcc34bc7e2ca59c7ff56344"
+  },
+  "agent_args": {
+    "subagent_type": "scorer",
+    "description": "sound_score",
+    "prompt": "Work in /home/user/restore/pilot. Read the current compact packet /home/user/restore/pilot/out/dispatch/sound-packet.json (SHA256 ecd187a06fc3e0c05a1cd29a620a78418d534a575db68488f0b636b13cad306c) and every bound current guide in full. Verify the inputs before use. Scope: Independently assess the exact finished film through the sound lens using actual audiovisual evidence Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}
