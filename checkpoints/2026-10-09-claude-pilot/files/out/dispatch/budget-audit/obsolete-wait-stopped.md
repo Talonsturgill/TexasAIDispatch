@@ -1,0 +1,1 @@
+Obsolete wait handle btkxgnhqi stopped. pid 21152 (etime 09:48) ran: while pgrep -f site_fresh_check >/dev/null; do sleep 10; done; tail -c 400 /tmp/claude-0/sf.log. The broad pgrep pattern matched its own shell command. Freshness had already passed (site is fresh: 2284 files match a rebuild byte for byte, task bfzu09t80 exit 0). Only this pid and its sleep child were stopped.

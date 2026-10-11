@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T03:51:30.955284+00:00",
+  "saved_at": "2026-10-11T05:37:03.176994+00:00",
   "note": "ledger write",
-  "phase": "publishing",
-  "terminal_state": null,
-  "shipment_recorded": false,
+  "phase": "shipped",
+  "terminal_state": "shipped",
+  "shipment_recorded": true,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "d6df7416fab1fcb13f5845ca1a670a476f467870",
+  "source_pin": "adec50dcb4ecdf0bfc36cbe165d432d27fdc00dc",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "8ccd90978468daefcbb6fcc32ad54e20ef5d7f38241f9af94ae3e8caaf1fbb53",
-  "original_private_ledger_sha256": "ce1671da43b5edb41c87a52ed69fa683abdeabd3c979f3d4adefeb1de4ff7a74",
+  "ledger_sha256": "8ccc1287e2a92330713187f412b62daf92939a4c35daf89cfeff6416e6db6739",
+  "original_private_ledger_sha256": "56e3de099115312c65198a36bdc3a3e36c175da8bfc1c03299993496a0a95e8d",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -485,6 +485,12 @@
       "class": "scratch",
       "sha256": "2f569b56073b3bc039f331c0030a8ea36afb397e85351bf5d96e1af62d430642",
       "size": 22
+    },
+    {
+      "path": "out/dispatch/budget-audit/obsolete-wait-stopped.md",
+      "class": "scratch",
+      "sha256": "fb78f53e47c2ca395776e72c9ef8626fe96b3175351eaebc5159f81873454e46",
+      "size": 380
     },
     {
       "path": "out/dispatch/budget-audit/phone_gate_recheck.json",
@@ -2731,6 +2737,12 @@
       "size": 6313
     },
     {
+      "path": "out/dispatch/deliver-run.log",
+      "class": "scratch",
+      "sha256": "4343775bd1831a62f6cb66238866d3539638588bbb50ad73a24d5a54f3e62145",
+      "size": 14912
+    },
+    {
       "path": "out/dispatch/deliverables/8bb258fb72816401-65b926baa3b67538-b2589d8f3b48c158/dispatch.mp4",
       "class": "scratch",
       "sha256": "8bb258fb728164013800abc4ff45e17596d7118c959221f170b5b1be8040b7dd",
@@ -2795,6 +2807,18 @@
       "class": "scratch",
       "sha256": "71798e77d3a5921dfd8e5b0ba050c5d8fcc01cc83884e7033b440fd1083859d8",
       "size": 1203
+    },
+    {
+      "path": "out/dispatch/email_body.html",
+      "class": "scratch",
+      "sha256": "856778c23d71a9253530b8f854e41f24dd983c0be1325a84fdbb98abe0b7719d",
+      "size": 4140
+    },
+    {
+      "path": "out/dispatch/email_body_with_title.html",
+      "class": "scratch",
+      "sha256": "52597d5afb622d21dedecc28eee290fed48c83d0ec8f806fa088b2da72ba0661",
+      "size": 4183
     },
     {
       "path": "out/dispatch/feed-composite.json",
@@ -2909,6 +2933,18 @@
       "class": "scratch",
       "sha256": "43eb22eb719cd228383f3cb8a62231370e10dbb4d612c35aae0b607c3d68f113",
       "size": 1307
+    },
+    {
+      "path": "out/dispatch/live_check.log",
+      "class": "scratch",
+      "sha256": "4799310a1793aaeebbb4e934e014be07398f77cd1957cab552d00ca25a085310",
+      "size": 808
+    },
+    {
+      "path": "out/dispatch/live_check_try.log",
+      "class": "scratch",
+      "sha256": "9d46cbe9eccd9906d51b1077f14064d1e3fea42a0d934db1af1dd2ec896d31e3",
+      "size": 113
     },
     {
       "path": "out/dispatch/make_planned_boards.py",
@@ -3557,6 +3593,48 @@
       "class": "scratch",
       "sha256": "42c86d189b0a268b514c05eea07e19ae3cf9eee7ad5ac09bf9c21280f6864b46",
       "size": 21231
+    },
+    {
+      "path": "out/dispatch/phone-live/01-before-tap.png",
+      "class": "scratch",
+      "sha256": "8dc791e01b0e6aa9edd97df89bcc48aa4cdd7d30891211e157a97dc644e827f7",
+      "size": 355429
+    },
+    {
+      "path": "out/dispatch/phone-live/02-paused-by-tap.png",
+      "class": "scratch",
+      "sha256": "3eefc0609442085e3f5598e4cc5012ac6e01cf22905ef2c2030fe6d4f939be3b",
+      "size": 318644
+    },
+    {
+      "path": "out/dispatch/phone-live/03-playing-a.png",
+      "class": "scratch",
+      "sha256": "7534de55c1f4d1d448923df00c1b7a69f024f0f680e6bd25684fb60425797eba",
+      "size": 336582
+    },
+    {
+      "path": "out/dispatch/phone-live/04-playing-b.png",
+      "class": "scratch",
+      "sha256": "6545cd4f7339a0ff78b9df252f05ae7bf4d7c27c2165dd85eec331e0f9f028ed",
+      "size": 425437
+    },
+    {
+      "path": "out/dispatch/phone-live/05-playing-c.png",
+      "class": "scratch",
+      "sha256": "5db83732fc2d54a4284b6a55a7e206019e12a625474bdd94fd637471878e124e",
+      "size": 549840
+    },
+    {
+      "path": "out/dispatch/phone-live/phone_playback.json",
+      "class": "scratch",
+      "sha256": "0dac08ff9156cda3d19024f497103bf88ebe38ebdbc0a2fdda77a12c70f64299",
+      "size": 6767
+    },
+    {
+      "path": "out/dispatch/phone-live/run.log",
+      "class": "scratch",
+      "sha256": "7de2acc9a815e928aedfa18b06d3e18584b4e8e0f0a7b0994122d6552f3cf646",
+      "size": 82
     },
     {
       "path": "out/dispatch/phone-output-contract-r10.json",
@@ -10005,12 +10083,24 @@
   ],
   "excluded": [
     {
+      "path": "out/dispatch/delivery_routing.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/repair-plan-14-pivot-bound.json",
       "reason": "private data structure"
     },
     {
       "path": "out/dispatch/repair-plan-14-pivot-recovery.json",
       "reason": "private data structure"
+    },
+    {
+      "path": "out/dispatch/shipment.json",
+      "reason": "private path component"
     }
   ],
   "regenerable": {
