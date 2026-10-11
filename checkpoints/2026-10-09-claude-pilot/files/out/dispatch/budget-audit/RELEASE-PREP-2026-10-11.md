@@ -1,0 +1,6 @@
+# Cheap release preparation while the review-access source fix is tested (no spend, no worker, no creative edit)
+- Raw panel rounds 1 and 2, the refusals, original classifications and worker transcripts are retained under retained-failures/panel-raw-r1-r2/ and checkpointed (claude_checkpoint save, commit e16101d7, source pin 5fee753).
+- Docket feed worktree claude/dispatch-feed-2026-10-09-claude-pilot had no commits of its own and was 4 behind main. Fast-forwarded locally to cc267a5f (main). Not pushed. docs/videos/videos.json is untouched until a publishable result exists.
+- Pilot branch is in sync with trusted main 9f0017e (merge 5fee753). No newer main commit carries a review-access fix yet.
+- Film dadac9bb (49 s, 1080x1920, native PNG, CRF16) and render-manifest are registered in the controller deliverable. All pre-panel gates exited 0. Hero, three provider AV receipts and fresh timed phone review are current for these bytes. credits.txt equals board credits.
+- Still required after a usable scorer packet exists: new panel round with three separate scorers, panel_triage, deliver_run.sh --verify-only, finish --result publishable, feed publish, exact-head CI in both repos, merge, Pages, permanent media bytes, phone_playback.py (390x844, unmuted, advancing), read-back unsent Gmail draft (htmlBody, DRAFT, no SENT), finish --result shipped, archive.
