@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T01:01:31.639694+00:00",
-  "note": "PR139 merged and sampler verified; native hero blocked by exact capacity refusal: preflight_renders deficit 1 (19 of 20, 2 required), plan 10 already owns its grant; external capacity repair needed",
+  "saved_at": "2026-10-11T01:19:23.954032+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "56cd56b731fbfc7c259fddf53dae7c212d69e286",
+  "source_pin": "5f3d934f7b8f94f16ee6dddb174b0e95882c5f37",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "f9cd292e100f00602e9a401d3a10ef90719a146865db56ba69587a020168d992",
-  "original_private_ledger_sha256": "20db06c51499001c237674dc6dc515a492ece3f3871845d7e5e0bc17c96fad71",
+  "ledger_sha256": "4deb68a4dd0c80f8442ac5839825653f9e0cb85035f91fa8f9776f9b8931c745",
+  "original_private_ledger_sha256": "7bc7c4032f9907ff3efdef2da4659f1d42725f3afd71521af63924b8d98b0115",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -845,6 +845,12 @@
       "class": "scratch",
       "sha256": "960dc1eb4af71eca6c3d56dc84971b3b02e25542ce5ee56677dbc4f9dafc9139",
       "size": 942
+    },
+    {
+      "path": "out/dispatch/capture-retry-capacity-plan.json",
+      "class": "scratch",
+      "sha256": "4a9f42daaa4d2a0e182d8198bfb279196bae0610438548cf670e18d25b2b92ea",
+      "size": 217609
     },
     {
       "path": "out/dispatch/claims.json",
@@ -4955,6 +4961,12 @@
       "class": "scratch",
       "sha256": "206abac1f43c9ee9b228af6c6544417f93d18ac608ba8984309109a0fa8ead1f",
       "size": 1559
+    },
+    {
+      "path": "out/dispatch/retained-failures/cinema-proof-principal-event-r14/capture-authorization.spent.json",
+      "class": "scratch",
+      "sha256": "9c2194778a23027acfe1545154bd46858abaa3fe8e52b3e974c7a612e7c573c3",
+      "size": 16803
     },
     {
       "path": "out/dispatch/retained-failures/cinema-proof-principal-event-r14/cinema_proof-failure.log",
