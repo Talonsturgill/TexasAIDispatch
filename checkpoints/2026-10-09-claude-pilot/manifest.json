@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T05:37:03.176994+00:00",
+  "saved_at": "2026-10-11T05:57:24.426314+00:00",
   "note": "ledger write",
   "phase": "shipped",
   "terminal_state": "shipped",
   "shipment_recorded": true,
   "created_at": "2026-10-10T01:22:35.425614Z",
   "repo_root": "/home/user/restore/pilot",
-  "source_pin": "adec50dcb4ecdf0bfc36cbe165d432d27fdc00dc",
+  "source_pin": "a9444f4130606c8a006ed0e22f27781731b6f15f",
   "source_branch": "claude/dispatch-2026-10-09-claude-pilot",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "8ccc1287e2a92330713187f412b62daf92939a4c35daf89cfeff6416e6db6739",
-  "original_private_ledger_sha256": "56e3de099115312c65198a36bdc3a3e36c175da8bfc1c03299993496a0a95e8d",
+  "ledger_sha256": "d4628115ace376ba6232bc1995acbc30eec585ec315d709c6e80acc1187da85f",
+  "original_private_ledger_sha256": "e3e53dcd165664d5c8fd0284ea6c33a6c090e0a058c4bd5e17d4d9adcc332e90",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -2557,6 +2557,12 @@
       "size": 582
     },
     {
+      "path": "out/dispatch/cinematic-learning.json",
+      "class": "scratch",
+      "sha256": "709d6489cc3ea81a27a8c50c47e482b70143bfe9fd222c3ea2fcb658f89bb99d",
+      "size": 8833
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
       "sha256": "6256a5305a703efa96fb126e2c770a1242467449b312ec9171b18aa65f8c912e",
@@ -2569,10 +2575,28 @@
       "size": 141
     },
     {
+      "path": "out/dispatch/claude-next-five-measure.json",
+      "class": "scratch",
+      "sha256": "bb6a1cd7d12de101b208f5dbd0b2b397c9a1564b819bb5ca3c644dbfddf0a72d",
+      "size": 2338
+    },
+    {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
       "sha256": "b9289075985cdc2409d2fff709eb7e731cc3a27723a36cdfc48410d887380292",
       "size": 64
+    },
+    {
+      "path": "out/dispatch/claude-usage-all.json",
+      "class": "scratch",
+      "sha256": "bbf5aea0810fbffcda9282a90f7d51166d9ce9060bcf4db46d8d6cbc4111a476",
+      "size": 726207
+    },
+    {
+      "path": "out/dispatch/claude-usage-audit.json",
+      "class": "scratch",
+      "sha256": "c761ef84173d40d9bcdc270a4078f9c2462681a9f922b7f000c4adda621dee5b",
+      "size": 494677
     },
     {
       "path": "out/dispatch/complete_treatment_boards.py",
@@ -2733,8 +2757,8 @@
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
       "class": "scratch",
-      "sha256": "0dc745e4cb32bf903de2f7e30496eb488c4b4dd43f5fdd59a86346610aad5b43",
-      "size": 6313
+      "sha256": "882e8385e7a4fb11485085c66d797a697e6213e30983bcd7bd91c724fa2fe3f0",
+      "size": 5469
     },
     {
       "path": "out/dispatch/deliver-run.log",
@@ -6571,6 +6595,12 @@
       "size": 314201
     },
     {
+      "path": "out/dispatch/recurring-defects.json",
+      "class": "scratch",
+      "sha256": "9c931b1fc7158ee55c8ca32ac62cd318561784020e593f70fe6443e5be7c053a",
+      "size": 41850
+    },
+    {
       "path": "out/dispatch/render-manifest.json",
       "class": "scratch",
       "sha256": "5cc78f3f04ec9b5476270ce3fd1c7906f171e23607127f1ee140b6981a856bfa",
@@ -10087,7 +10117,43 @@
       "reason": "private path component"
     },
     {
+      "path": "out/dispatch/gmail-authentic/2026-10-11T053434712Z-list_drafts-list_drafts.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-authentic/2026-10-11T053450983Z-create_draft-create_draft.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-authentic/2026-10-11T053453190Z-get_draft-FULL_CONTENT.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-authentic/2026-10-11T053507368Z-get_draft-RAW.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-authentic/2026-10-11T054244499Z-get_draft-FULL_CONTENT.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-authentic/2026-10-11T054244775Z-get_draft-MINIMAL.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-authentic/index.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback.assembled-initial.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/gmail_readback.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback_authentic.json",
       "reason": "private path component"
     },
     {
@@ -10097,6 +10163,18 @@
     {
       "path": "out/dispatch/repair-plan-14-pivot-recovery.json",
       "reason": "private data structure"
+    },
+    {
+      "path": "out/dispatch/run_state.pre-reverify.json",
+      "reason": "private data structure"
+    },
+    {
+      "path": "out/dispatch/shipment.authentic.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/shipment.initial.json",
+      "reason": "private path component"
     },
     {
       "path": "out/dispatch/shipment.json",
