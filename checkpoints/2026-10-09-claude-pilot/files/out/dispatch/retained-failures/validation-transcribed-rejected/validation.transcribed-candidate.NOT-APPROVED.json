@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-09",
+  "source": "independent validator (claude-opus-5-5 high, validator_agents reserved 2026-10-10T01:42:32Z): primary pages re-fetched and persisted as out/dispatch/sources/*.validator.txt. This report is the director's transcription of the validator's own claims and rejected lists in claims.json, retrieved 2026-10-10T01:46:43Z. It adds no finding.",
+  "result": "PASS_WITH_DROPS",
+  "verified_claim_ids": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11",
+    "c12"
+  ],
+  "rejected": [
+    "Abridge's enterprise framework lets UT health institutions, including UTMB, access its tool (docket tx-2026-0210): Only the vendor says it. The vendor page lists UT Medical Branch as one UT System institution without saying UTMB uses the tool. The UT System page does not name Abridge. No UT System source confirms it.",
+    "UTMB clinicians in Galveston County use the tool: The release body does not place clinicians, campuses or the integration in Galveston County. The county is the Docket's editorial placement, and the institution's full name includes Galveston.",
+    "Texas law permits AI for diagnostic purposes with no conditions (researcher paraphrase of S.B. 1188): The statute allows it only under conditions, so the claim states them. The researcher's joined quote with an ellipsis dropped them.",
+    "Other  authoritative  sources with double spaces (researcher and docket c4 quote): The live page text uses single spaces, so the verbatim quote is corrected.",
+    "The UT System Board of Regents meets in public and takes testimony on agenda topics: No source fetched in this pass supports it, so it is not a film claim.",
+    "A clinician asks a question without leaving the record: Without leaving is not verbatim. The supported wording is from within the electronic health record (c1)."
+  ],
+  "required_edits_applied": [
+    "c1 uses the supported wording from within the electronic health record, replacing the unsupported 'without leaving the record'.",
+    "c4 quote carries the live page's single spacing around 'authoritative' instead of the docket's double spaces.",
+    "No county placement of the integration is claimed. Galveston County stays the Docket's editorial placement, and the UT System Regents testimony claim and the Abridge-at-UTMB claim stay out of the film.",
+    "The S.B. 1188 claim states its conditions rather than the researcher's unconditional paraphrase."
+  ]
+}

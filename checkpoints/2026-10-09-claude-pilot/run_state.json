@@ -604,6 +604,14 @@
       "note": "new atomic panel for the three same Read-only workers with complete exact-film motion-image sequence (index 7ebbc6cb); packets bind separate AV receipts; prior blocked round retained",
       "resource": "scorer_calls",
       "to": 9
+    },
+    {
+      "at": "2026-10-11T03:40:41.041575Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "fresh independent Opus validator: complete validation report for the frozen current claims; prior transcription rejected",
+      "resource": "validator_agents",
+      "to": 2
     }
   ],
   "events": [
@@ -6448,6 +6456,24 @@
         "panel_rounds": 1,
         "scorer_calls": 3
       }
+    },
+    {
+      "at": "2026-10-11T03:40:41.041666Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "fresh independent Opus validator: complete validation report for the frozen current claims; prior transcription rejected",
+      "now": 2,
+      "resource": "validator_agents",
+      "was": 1
+    },
+    {
+      "at": "2026-10-11T03:40:41.041683Z",
+      "kind": "reserved",
+      "note": "fresh independent Opus validator: complete validation report for the frozen current claims; prior transcription rejected",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
     }
   ],
   "limits": {
@@ -6464,14 +6490,14 @@
     "scorer_calls": 9,
     "storyboard_critics": 28,
     "tts_calls": 8,
-    "validator_agents": 1,
+    "validator_agents": 2,
     "voice_directors": 1
   },
   "mode": "production",
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "aab225176cf4385c5d64903abc6a88af362c5327d60dd035a61ded4ff70b6214",
+    "original_private_state_sha256": "c4a072f5aa2e37791543f36a97f57b423b43dfe977a40bcdb902055a63c3a602",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6499,7 +6525,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T03:23:32.831794Z",
+  "updated_at": "2026-10-11T03:40:41.041685Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -6514,7 +6540,7 @@
     "scorer_calls": 9,
     "storyboard_critics": 28,
     "tts_calls": 8,
-    "validator_agents": 1,
+    "validator_agents": 2,
     "voice_directors": 1
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-09-claude-pilot",
-  "saved_at": "2026-10-11T03:23:35.426881+00:00",
+  "saved_at": "2026-10-11T03:40:48.133051+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "2497d2924429329ec7c36c1aa035be6873d1a2560a995a03e79cc5fd417ee774"
   },
   "deleted_source": [],
-  "ledger_sha256": "0c88979f409cbc8095c7d90f27d44807c3823af8320c70cefbddfff416f6d442",
-  "original_private_ledger_sha256": "aab225176cf4385c5d64903abc6a88af362c5327d60dd035a61ded4ff70b6214",
+  "ledger_sha256": "aa905c0a0602f8444c409a82ad24d13b2e835f0188e165379faaa98f82af4d77",
+  "original_private_ledger_sha256": "c4a072f5aa2e37791543f36a97f57b423b43dfe977a40bcdb902055a63c3a602",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -32,7 +32,7 @@
     "scorer_calls": 9,
     "storyboard_critics": 28,
     "tts_calls": 8,
-    "validator_agents": 1,
+    "validator_agents": 2,
     "voice_directors": 1
   },
   "files": [
@@ -2811,8 +2811,8 @@
     {
       "path": "out/dispatch/feed-composite.json",
       "class": "scratch",
-      "sha256": "b197a649073c1bae6c65d837c8b8ff77d8f0e41b9d0c2b7003c411a40b88e044",
-      "size": 561
+      "sha256": "ff62e4df1712430a8a20724d0d1555e7d46e2fa323bf725547b7639405ddb686",
+      "size": 636
     },
     {
       "path": "out/dispatch/feed-composite.png",
@@ -3469,6 +3469,24 @@
       "size": 5085
     },
     {
+      "path": "out/dispatch/panel-r3/picture.json",
+      "class": "scratch",
+      "sha256": "44c346a51fa90d9e49d59868821726caf158ce20ea47d49a05fd0b53bb342c94",
+      "size": 13478
+    },
+    {
+      "path": "out/dispatch/panel-r3/sound.json",
+      "class": "scratch",
+      "sha256": "148a39539a35aff9efb7c5e5d0014b5236ddca4a43c3f7ab6ca01d2fe988ce46",
+      "size": 12856
+    },
+    {
+      "path": "out/dispatch/panel-r3/story.json",
+      "class": "scratch",
+      "sha256": "5c628e491e885c8ecc5cd8b81ed054715bdd500145adf532e5982a74c5b5a7d2",
+      "size": 15336
+    },
+    {
       "path": "out/dispatch/panel-round-1.json",
       "class": "scratch",
       "sha256": "852cd87c5488c1b1def927e901c49261b720e011898f1ff83d07a7c4a14fbd97",
@@ -3479,6 +3497,12 @@
       "class": "scratch",
       "sha256": "7045d1dc1453f46adabc7e93d1c4960f85143ad65032f6c3b13f085d1ace3361",
       "size": 36775
+    },
+    {
+      "path": "out/dispatch/panel-round-3.json",
+      "class": "scratch",
+      "sha256": "3a96a09e1f1a71e5afea1c8047086721dcbebf15645e9fc2f8e4c8ee2c0803c8",
+      "size": 42343
     },
     {
       "path": "out/dispatch/panel-sound-observations.json",
@@ -3507,8 +3531,8 @@
     {
       "path": "out/dispatch/panel_history.json",
       "class": "scratch",
-      "sha256": "6c183448fab2fd7017e212434e1fa0fc8f8279c75bd0b9a33ccb20572cc495b5",
-      "size": 551
+      "sha256": "e194e705cc1065595c9b0371fe8b4f4ffbff49f52323e0f03a9a65ed0329a851",
+      "size": 724
     },
     {
       "path": "out/dispatch/phone-assignment-r10.json",
@@ -7119,8 +7143,8 @@
     {
       "path": "out/dispatch/report_card.json",
       "class": "scratch",
-      "sha256": "daca1633d56d9b00b320de9b13cc3883bacf79327d79942b0245bf968371041d",
-      "size": 41063
+      "sha256": "9b64126992115496406db90743b0d765e2a04d171322d746ff3dd31f5f483911",
+      "size": 46635
     },
     {
       "path": "out/dispatch/research.json",
@@ -8377,6 +8401,12 @@
       "size": 551
     },
     {
+      "path": "out/dispatch/retained-failures/panel-raw-r1-r2/report_card.round2.before-r3.json",
+      "class": "scratch",
+      "sha256": "daca1633d56d9b00b320de9b13cc3883bacf79327d79942b0245bf968371041d",
+      "size": 41063
+    },
+    {
       "path": "out/dispatch/retained-failures/panel-raw-r1-r2/report_card.round2.json",
       "class": "scratch",
       "sha256": "daca1633d56d9b00b320de9b13cc3883bacf79327d79942b0245bf968371041d",
@@ -9053,6 +9083,36 @@
       "class": "scratch",
       "sha256": "8a3f3426cba84ea3d82fda285714f0beb3f5bbd5617b6abcdbaa3703aafcf7e9",
       "size": 2506
+    },
+    {
+      "path": "out/dispatch/retained-failures/validation-transcribed-rejected/NOTE.md",
+      "class": "scratch",
+      "sha256": "cc715f9d4096dc8f1a3ebe7a440ea2dae28ab715f6056a254a383907d82c69de",
+      "size": 688
+    },
+    {
+      "path": "out/dispatch/retained-failures/validation-transcribed-rejected/deliver_verify-only.failed.log",
+      "class": "scratch",
+      "sha256": "123057c0272f9218007ffb1c39ffcf8b4676eaa7479c6d1542c4b24b6ce5cc18",
+      "size": 979
+    },
+    {
+      "path": "out/dispatch/retained-failures/validation-transcribed-rejected/validation.transcribed-candidate.NOT-APPROVED.json",
+      "class": "scratch",
+      "sha256": "d22594651159b60e4d7c98e98347956591b5221728ed0f049066d7a489f92779",
+      "size": 2492
+    },
+    {
+      "path": "out/dispatch/retained-failures/validator-r1/validator-assignment.json",
+      "class": "scratch",
+      "sha256": "1ff5441d7fe7d0ab23ddb73c3c9d5abcf85d84bb4f7cc4a50d159c40d05b7568",
+      "size": 1792
+    },
+    {
+      "path": "out/dispatch/retained-failures/validator-r1/validator-packet.json",
+      "class": "scratch",
+      "sha256": "e24e9a9ec5f2cdef310a57fa2a22b7da56a16411094561b585974d77020ccb3f",
+      "size": 2328
     },
     {
       "path": "out/dispatch/retained-failures/vo-flag-F9-ruling.md",
@@ -9853,10 +9913,28 @@
       "size": 512
     },
     {
+      "path": "out/dispatch/tmp-verify.log",
+      "class": "scratch",
+      "sha256": "123057c0272f9218007ffb1c39ffcf8b4676eaa7479c6d1542c4b24b6ce5cc18",
+      "size": 979
+    },
+    {
+      "path": "out/dispatch/validator-assignment-r2.json",
+      "class": "scratch",
+      "sha256": "db8180b7e47ab3f62b6c2f001024cabfba9accda39c130bf8ab9f1501d7ad8ce",
+      "size": 1961
+    },
+    {
       "path": "out/dispatch/validator-assignment.json",
       "class": "scratch",
       "sha256": "1ff5441d7fe7d0ab23ddb73c3c9d5abcf85d84bb4f7cc4a50d159c40d05b7568",
       "size": 1792
+    },
+    {
+      "path": "out/dispatch/validator-packet-r2.json",
+      "class": "scratch",
+      "sha256": "c4c239007bc3dac405d976e8470e270504c3af967a321de0650dce7ad7485c6d",
+      "size": 2634
     },
     {
       "path": "out/dispatch/validator-packet.json",

@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "validator",
+    "policy": {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e6d5c807122573b4aa676f203a258b992d62422b413ddc07feb4fb2bde42e45e"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "validator",
+    "resource": "validator_agents",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/validator-packet.json",
+    "sha256": "e24e9a9ec5f2cdef310a57fa2a22b7da56a16411094561b585974d77020ccb3f"
+  },
+  "brief": {
+    "path": "/home/user/TexasAIDispatch/.claude/agents/validator.md",
+    "sha256": "ebf9e69f7579c9a5df30e21e23a15738b2cdf0dc00376609023d982ea0b81758"
+  },
+  "agent_args": {
+    "subagent_type": "validator",
+    "description": "validator",
+    "prompt": "Work in /home/user/TexasAIDispatch. Read the current compact packet /home/user/TexasAIDispatch/out/dispatch/validator-packet.json (SHA256 e24e9a9ec5f2cdef310a57fa2a22b7da56a16411094561b585974d77020ccb3f) and every bound current guide in full. Verify the inputs before use. Scope: Independently re-fetch each source and verify every assertion, number, quote and limitation; write claims with ids Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

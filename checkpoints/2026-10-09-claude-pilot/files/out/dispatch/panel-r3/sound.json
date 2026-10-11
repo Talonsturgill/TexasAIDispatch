@@ -1,0 +1,227 @@
+{
+ "score": 7.106,
+ "ship": true,
+ "audiovisual_role": "sound",
+ "audiovisual_receipt_sha256": "b0ae97094ce7d41f145ad82c7bc3022c579f66a653aa389a1a5b811ab9f76237",
+ "axes": {
+  "hook": 7.5,
+  "story": 7.6,
+  "picture": 6.9,
+  "place": 5.8,
+  "craft": 7.2,
+  "voice": 7.4
+ },
+ "hard_fails": [],
+ "weakest_axis": "place",
+ "one_sentence_fix": "In the s4/s7 window plate (about 17.8 to 22 s and 33.4 to 36.8 s), replace the flat-topped acacia-and-golden-grass view with a Gulf Coast Galveston view (live oak or palm, coastal prairie, water) via the gulf place plate, and in s2 add a visible tool-docking move between 6.8 and 10.0 s (currently only an underline draws under the pinned tag), then re-render and re-run place_check --render and exact-film review.",
+ "bounded_release": {
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "panel",
+  "retained_checks": {
+   "source": {
+    "pass": true,
+    "observed": "Credits card (44.0 to 49.0 s) reads 'UTMB news release September 22nd'. The date and March tags match the VO. I did not re-open claim quotes."
+   },
+   "rights": {
+    "pass": true,
+    "observed": "Per coordinator, music.py --verify-package exited 0. Credit card shows 'Thinking Music' by Kevin MacLeod, CC BY 4.0, 'trimmed and synced to picture', legible across 44 to 49 s."
+   },
+   "legibility": {
+    "pass": true,
+    "observed": "Captions, tags (Announced September 22nd, Live since March, Not in release), Illustration. Not UTMB's screen, and the credits are readable in the phone-size frames. In s6 (30 to 33 s) the Accuracy slot is cropped off-frame and tags cover Sources, so the empty slot isn't visible until s7."
+   },
+   "comprehension": {
+    "pass": true,
+    "observed": "One viewing conveys: question into tool, answer back with sources, dated announcement, sign-in and plain-language question, citations, more than half use (UTMB's own report), no accuracy or patient-care measure, citation not equal to right answer, ongoing evaluation. The same chart, tool and Answer card recur."
+   },
+   "technical_audio": {
+    "pass": true,
+    "observed": "mix.json: -16.14 LUFS (target -16.0, shortfall 0.14 dB), true peak -1.97 dBTP, LRA 3.5, 48 kHz, 2352000 samples (49.0 s), time_stretch 1.0 on all tracks, limiter true, bed 20 dB under voice, 3 foley cues plus one music duck at 29.99 s. The provider reports clean VO, no clipping or masking. These are measurements and model claims, not my hearing."
+   },
+   "captions": {
+    "pass": true,
+    "observed": "captions.json: silence_anchored, 14 cues, all start and end flagged measured_boundary, 28 boundaries, 108 acoustic words matched. On-screen captions in the frames match each cue's text and window, e.g. 'and says it went live in March.' from 10.2 s and 'It doesn't show the answer is right.' from 37.2 s."
+   }
+  },
+  "defects": [
+   {
+    "finding": "Window view in the Galveston clinic scenes (about 17.8 to 22 s and 33.4 to 36.8 s) shows a flat-topped acacia over golden grassland, which reads as African savanna rather than the Gulf Coast. I couldn't check it against the gulf plate definition.",
+    "category": "unknown"
+   },
+   {
+    "finding": "Three foley cues likely lead the visible contact by about 0.3 to 0.6 s. card-slide at 0.42 s (card enters the tool at about 1.0 to 1.2 s), cards-tuck at 4.07 s (cards tuck at about 4.6 to 4.8 s), lock-open at 13.36 s (shackle starts lifting at about 13.6 s). Inferred from frames and board times only, not heard.",
+    "category": "technical"
+   },
+   {
+    "finding": "Weak interval 6.8 to 10.0 s: the Announced September 22nd tag sits still while only an underline draws for about 3 s, and the hands freeze.",
+    "category": "pacing"
+   },
+   {
+    "finding": "Near-static holds with only glow or a pulse: 18.6 to 21.8 s (citation cards), 25.4 to 27.0 s (clinical decision support tag), 41.0 to 44.0 s. The final hold plus the 5 s credits card makes a slow tail.",
+    "category": "pacing"
+   }
+  ],
+  "score_only": false
+ },
+ "attention_review": {
+  "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+  "pass": true,
+  "hook_observed": "Frame 0: typing hands, a Question card being filled, an open padlock and the chart. By 0.8 to 1.2 s the card travels toward the OpenEvidence AI tool and the camera trucks to it. Caption starts at about 0.4 s.",
+  "continuity_observed": "Same worn chart, OpenEvidence unit and Answer card (Sources filled, Accuracy dashed) carry across the cuts at about 5.3 s (s1 to s2), 12.0 s (to s3), 16.8 s (to s4), 22.0 s (to s5), 29.4 s (to s6), 33.4 s (to s7) and 39.0 s (to s8). In s5 a wall of 12 clinician badges is new, and the tool and date tag remain visible below it.",
+  "pacing_observed": "Timed developments: 0.4 to 1.2 s question into tool; 3.2 to 4.8 s answer slides out and three citation cards tuck in; 5.8 to 6.8 s Announced tag pins; 10.4 to 11.0 s Live since March tag pins; 12.2 to 14.0 s credentials typed and lock opens; 15.0 to 16.3 s question typed; 17.2 to 18.6 s three cited cards fan out; 22.2 to 24.0 s badges light and slider passes Half; 25.2 to 25.6 s tag pins; 27.6 to 28.4 s own-report tag; 30.2 to 32.0 s two tags and Not in release; 34.0 to 35.0 s thread from literature card to Sources; 36.8 s push-in; 37.2 to 38.4 s Accuracy ring pulses; 39.4 to 40.2 s evaluating tag; 41.6 to 42.6 s cut and ring pulse. Unearned slow stretches: 6.8 to 10.0 s and 18.6 to 21.8 s. Nothing arrives too fast.",
+  "comprehension_observed": "Viewer gets the subject, the dated announcement, the mechanism (typed question, answer plus citations), usage claim and the limit. Minor overload risk in s2 with two date tags in 6.7 s and in s5 with many badges. Not a conclusive case example. Illustration disclosure is always visible.",
+  "remembered_image": "The Answer card with filled Sources slot beside a dashed empty Accuracy ring, pulsing at 37.2 to 38.4 s, with a thread leading to the Medical literature card. It carries the central claim and the source limit.",
+  "weakest_interval": "6.8 to 10.0 s in s2: the Announced tag has pinned and only an underline animates for about 3 s while the hands freeze. Repair: retime the tag pin to about 8.6 s and add a docking slide or glow sweep at the record edge between 6.8 and 8.4 s.",
+  "weakest_at_s": 6.8,
+  "weakest_end_s": 10.0,
+  "audio_basis": "No direct listening and no MP4 playback. I used the provider audio receipt (gemini-3.8-flash, audio_access true, 'not human listening'), mix.json measurements, captions.json cue times and the caption text visible in frames. Waveform and loudness numbers can't establish a natural performance."
+ },
+ "modern_observations": {
+  "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+  "first_frame": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 1.5,
+   "observed": "Typing hands, a Question card filling in, padlock and chart, then the card travels toward the tool by 1.0 to 1.2 s. Readable and moving immediately."
+  },
+  "visual_progression": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "Each scene adds a new pictured step (answer with sources, date tags, credentials, citations, badge wall, tags, thread, evaluation tag) and carries completed results forward. Some holds 6.8 to 10.0 s and 18.6 to 21.8 s are thin."
+  },
+  "shot_variety": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "Desk and keyboard top-down, tool close-up, wide chart, badge board, tag close-ups, citation stack on paper, push-in on the Answer card. Variety is genuine, though all cuts are the same flat-dimensional illustration family."
+  },
+  "performed_turn": {
+   "pass": true,
+   "start_s": 29.4,
+   "end_s": 38.5,
+   "observed": "Tags Accuracy and Patient care clip to the Answer card and read Not in release (30.2 to 32.0 s). A thread links the Medical literature card to Sources (34.4 to 35.0 s). Accuracy slot pulses empty on 'It doesn't show the answer is right' (37.2 to 38.4 s). The empty slot isn't visible during s6 because it's off-frame."
+  },
+  "pace": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "Most clauses carry a physical change. Two near-static stretches of about 3 s each (6.8 to 10.0 s, 18.6 to 21.8 s) and a quiet tail from 41 s. None exceeds 5 s without change."
+  },
+  "closing_answer": {
+   "pass": true,
+   "start_s": 38.8,
+   "end_s": 44.0,
+   "observed": "Evaluating use and experience tag pins to the usage slider (39.4 s). Wide cut at 41.6 s shows Answer with Sources filled, Accuracy empty and both Not in release tags, with the ring pulsing at 42.2 to 42.6 s. This resolves the opening's 'answer with sources'. It is followed by the credits card at 44.0 s."
+  },
+  "finished_art": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "Consistent finished vector-dimensional style: soft shadows, screws and glow, readable type, anonymous hands and badges. Weak spots: window plate reads savanna rather than Gulf, plain lined-paper backgrounds in s4/s6/s7, and card cropped at frame edge in s6."
+  }
+ },
+ "narration_picture_observations": {
+  "film_sha256": "dadac9bbdf1505d8b20c16fc92d352ed4f0aa4a33139378f30d86af8ae691cb4",
+  "clauses": [
+   {
+    "id": "n1a",
+    "pass": true,
+    "start_s": 0.28,
+    "end_s": 2.64,
+    "observed": "Hands type on a keyboard, Question card fills, card slides to the OpenEvidence AI tool (0.8 to 1.2 s), then the tool holds with chasing indicator dots until 2.8 s."
+   },
+   {
+    "id": "n1b",
+    "pass": true,
+    "start_s": 3.1,
+    "end_s": 4.96,
+    "observed": "Answer card with Sources and Accuracy slots emerges below the tool at 3.2 s. Three labelled citation cards (Medical literature, Clinical guidelines, Other sources) tuck into Sources by 4.8 s."
+   },
+   {
+    "id": "n2a",
+    "pass": true,
+    "start_s": 5.58,
+    "end_s": 9.94,
+    "observed": "Camera pulls to the record boundary and an Announced September 22nd tag pins at 6.6 s. Date is pictured but then a mostly static hold from about 7.0 s to 9.9 s with only an underline drawing."
+   },
+   {
+    "id": "n2b",
+    "pass": true,
+    "start_s": 10.06,
+    "end_s": 11.62,
+    "observed": "Live since March tag swings in at 10.6 s and settles on the same record boundary by 11.0 s."
+   },
+   {
+    "id": "n3a",
+    "pass": true,
+    "start_s": 12.24,
+    "end_s": 14.72,
+    "observed": "Two hands type masked dots into the Usual credentials field (12.4 to 13.4 s) and the padlock shackle lifts at about 13.6 to 14.0 s."
+   },
+   {
+    "id": "n3b",
+    "pass": true,
+    "start_s": 15.0,
+    "end_s": 16.3,
+    "observed": "Hand types into the Question card with a Plain language field; text lines fill from 15.0 to 15.6 s."
+   },
+   {
+    "id": "n4a",
+    "pass": true,
+    "start_s": 16.92,
+    "end_s": 18.6,
+    "observed": "Answer card with filled Sources slot. Citation cards emerge from Sources and fan upward from 17.2 to 18.0 s."
+   },
+   {
+    "id": "n4b",
+    "pass": true,
+    "start_s": 19.24,
+    "end_s": 21.46,
+    "observed": "Medical literature card glows and lifts at about 19.8 s, Clinical guidelines glows at about 20.6 s. Labels are readable. Only glows and small lifts, so the action is gentle."
+   },
+   {
+    "id": "n5",
+    "pass": true,
+    "start_s": 22.1,
+    "end_s": 26.56,
+    "observed": "Board of 12 clinician badges lights one by one from 22.4 s, a slider fills past the Half tick and More than half appears (23.4 to 24.4 s), then a Clinical decision support tag pins at 25.2 to 25.6 s."
+   },
+   {
+    "id": "n6a",
+    "pass": true,
+    "start_s": 27.16,
+    "end_s": 29.04,
+    "observed": "UTMB's own report tag swings in and pins to the slider end by 28.2 s."
+   },
+   {
+    "id": "n6b",
+    "pass": true,
+    "start_s": 29.66,
+    "end_s": 32.96,
+    "observed": "After a cut, the Answer card appears. Accuracy then Patient care tags clip on (30.2 to 30.6 s) and 'Not in release' text resolves by 32.0 s. The Accuracy slot is cropped off-frame and tags cover Sources, so the empty slot isn't visible in this clause."
+   },
+   {
+    "id": "n7a",
+    "pass": true,
+    "start_s": 33.56,
+    "end_s": 36.46,
+    "observed": "Medical literature card rises, a teal thread draws from it to the Sources slot at 34.4 to 35.0 s and glows to the end. Source type is shown pointing back."
+   },
+   {
+    "id": "n7b",
+    "pass": true,
+    "start_s": 37.02,
+    "end_s": 38.52,
+    "observed": "Camera pushes in at 36.8 s on the Answer card. The dashed Accuracy slot warms and the empty ring pulses at 37.2 to 38.4 s, and nothing lands in it."
+   },
+   {
+    "id": "n8",
+    "pass": true,
+    "start_s": 39.12,
+    "end_s": 42.78,
+    "observed": "An Evaluating use and experience tag pins to the usage slider (39.4 to 39.8 s). A cut at 41.6 s shows the Answer card with both Not in release tags and the Accuracy ring pulsing at 42.2 to 42.6 s."
+   }
+  ]
+ }
+}
