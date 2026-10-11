@@ -296,6 +296,10 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if 'capture_retry_evidence' in plan:
+            from capture_retry_capacity import eligible
+            return ('finish-current' if sha(evidence_text) == plan.get('failure_evidence_sha256')
+                    and eligible(state, plan, report) else None)
         if plan.get('completion_reason') == PIVOT_REASON:
             from pivot_recovery import eligible
             if (sha(evidence_text) != plan.get('failure_evidence_sha256')
@@ -372,6 +376,9 @@ def mandatory_reason(state, plan, evidence_text):
 
 
 def grant_identity(plan, evidence_sha256):
+    if 'capture_retry_evidence' in plan:
+        from capture_retry_capacity import identity
+        return identity(plan)
     if plan.get('completion_reason') == PIVOT_REASON:
         from pivot_recovery import identity
         return identity(plan)
@@ -464,7 +471,8 @@ def replay(state):
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
-                if plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON}:
+                if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON}
+                        or 'capture_retry_evidence' in plan):
                     # A later shipped state cannot invalidate an earlier active admission.
                     admission['terminal_state'] = None
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
@@ -518,6 +526,8 @@ def replay(state):
                         deficits[name] = item["required"] - item["remaining"]
                 if not deficits or deficits != budget["deficits"] or deficits != row["resource_increments"]:
                     raise ValueError("completion grant differs from the exact resource deficits")
+                if 'capture_retry_evidence' in plan and deficits != {'preflight_renders': 1}:
+                    raise ValueError('spent capture recovery admits exactly one preflight deficit')
                 if reason == HANDBACK_REASON and deficits != {"storyboard_critics": 1}:
                     raise ValueError("same-worker handback admits exactly one critic and no other deficit")
                 if row["previous_envelope"] != effective:
@@ -570,6 +580,11 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             errors = code_binding_problems(state, plan)
             if errors:
                 return False, "; ".join(errors)
+        if 'capture_retry_evidence' in plan:
+            from capture_retry_capacity import file_problems
+            errors = file_problems(plan)
+            if errors:
+                return False, '; '.join(errors)
         if reason == HANDBACK_REASON:
             from review_handback import file_problems
             errors = file_problems(plan)
@@ -608,6 +623,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         increments = budget["deficits"]
+        if 'capture_retry_evidence' in plan and increments != {'preflight_renders': 1}:
+            return False, 'spent capture recovery needs exactly one preflight deficit with the complete remaining path funded'
         if reason == HANDBACK_REASON and increments != {"storyboard_critics": 1}:
             return False, "same-worker handback requires exactly one critic deficit with the complete remaining path funded"
         if not increments:
