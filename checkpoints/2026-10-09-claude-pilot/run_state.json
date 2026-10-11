@@ -580,6 +580,14 @@
       "note": "claude motion review hook",
       "resource": "preflight_renders",
       "to": 28
+    },
+    {
+      "at": "2026-10-11T03:22:52.484331Z",
+      "ceiling": 29,
+      "from": 28,
+      "note": "exact-film motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 29
     }
   ],
   "events": [
@@ -6378,6 +6386,24 @@
       "input_identity": "691faaeb64378b6ae10efd92112adbf987d91035a06e840e517e5efb6ce5dafe",
       "kind": "preflight_retry_authorized",
       "reason": "helper reservation for motion extraction would be identical to the animatic inputs; one-use retry slot for the helper entry after the authorized hook charge"
+    },
+    {
+      "at": "2026-10-11T03:22:52.484394Z",
+      "ceiling": 29,
+      "kind": "budget_escalated",
+      "note": "exact-film motion-image review extraction",
+      "now": 29,
+      "resource": "preflight_renders",
+      "was": 28
+    },
+    {
+      "at": "2026-10-11T03:22:52.484412Z",
+      "kind": "reserved",
+      "note": "exact-film motion-image review extraction",
+      "preflight_identity": "691faaeb64378b6ae10efd92112adbf987d91035a06e840e517e5efb6ce5dafe",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -6386,7 +6412,7 @@
     "full_renders": 4,
     "image_generations": 2,
     "panel_rounds": 2,
-    "preflight_renders": 28,
+    "preflight_renders": 29,
     "reboards": 12,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -6399,10 +6425,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "691faaeb64378b6ae10efd92112adbf987d91035a06e840e517e5efb6ce5dafe",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "242b0ee9a3e8c49506d8f97610fad00514ecdde4e335c29dd9d730c49c80239b",
+    "original_private_state_sha256": "d705ac0c1cfb7e9bd5996287f843fcb7a2ecef1b0ac0eb1b48a697c7a32368ac",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6430,14 +6455,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-11T03:22:34.349639Z",
+  "updated_at": "2026-10-11T03:22:52.484415Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
     "panel_rounds": 2,
-    "preflight_renders": 28,
+    "preflight_renders": 29,
     "reboards": 12,
     "reported_tokens": 235838,
     "rescue_renders": 0,
