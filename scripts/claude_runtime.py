@@ -56,7 +56,11 @@ def input_packet(role, edition, inputs):
             'inputs': [bound(path) for path in inputs], 'agent_contracts': contracts(role),
             'phase': bound(REPO / 'prompts/phases/01-research.md'),
             'instructions': 'Read the full current sources and relevant phase contracts. '
-                            'Return one source-backed handoff. Never spawn additional agents.'}
+                            'Return one source-backed handoff. Never spawn additional agents.' +
+                            (' Include your complete dated validation object and current verified '
+                             'claim ids; the director retains your original response and saves '
+                             'that object unchanged before paid picture work.'
+                             if role == 'validator' else '')}
 
 
 # The initial builder authors source and runs cheap code checks. A capture needs a charged render

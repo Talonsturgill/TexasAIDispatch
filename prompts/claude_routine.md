@@ -225,6 +225,15 @@ format details instead of rereading entire controller modules. Every required gu
 exact film and independent observation stays in scope. Continue independent work while a render
 runs. Never end the turn with a promise to perform the next phase.
 
+For a GitHub PR CI wait, use the native `claude-code-remote: subscribe pr activity` tool on the
+exact owning repository and PR, and retain its actual external-event wake acknowledgment.
+A turn may yield to that registered wake or a real background task; production stays open and
+must resume through shipped and durable closure. Recheck the exact head and every required
+conclusion after waking. For post-merge deployment, retain the actual workflow and process
+handles; a merged PR alone does not prove a deployment. Never wait with `pgrep -f` on a substring
+of the wait shell's own command. Retain completed check receipts and stop only a confirmed
+obsolete wait. Keep long command output in its log and return the exit code plus a short tail.
+
 If the critic's own handback admits unread mandatory guides or incomplete boards, retain it and
 hold capture. Use the review-coverage amendment in AUTONOMOUS_COMPLETION.md on the unchanged
 production inputs. Fund the complete path, charge the resumed review and SendMessage to the same
