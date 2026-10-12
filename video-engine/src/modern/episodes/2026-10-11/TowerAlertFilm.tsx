@@ -141,10 +141,8 @@ const SHARE_TAG={a:{scale:.6,side:'left' as const,drop:40},b:{scale:.75,side:'ri
  * fire: A's s3 plume keeps s1's h 300 at full grow, and B's display plume resumes at s1's last grow. */
 const S1_WISP={h:{a:[130,300],b:[130,270]} as Record<'a'|'b',[number,number]>, display:[.45,.75] as [number,number]};
 const S3_FROM:Record<'a'|'b',number>={a:1,b:S1_WISP.display[1]};
-/** B's s5 open line and both closing lines run low and level under the near pumpjack's screen region.
- * Each stops at half its curve or less, so an empty run of land plainly separates the open ring from the
- * badge: about 85 native px in B's s5 wide and about 65 in the closing composites. B's s5 line is drawn
- * heavier (lw) than its badge (bs), which stays small enough to sit below the near pumpjack's region. */
+/** Both closing lines run low and level under the near pumpjack's screen region and stop at .4 of their
+ * curve, so about 74 screen px of open land separate the open ring from the badge. */
 const CLOSE_LINE={bs:.7,lift:20,stop:.4};
 /** B's s5 two-shot: the crew pickup and the fire station stand large in the foreground, the responder
  * badge mounted on the station's gable. The line leaves the truck window, arcs over the rack (peak
@@ -242,8 +240,8 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   * the badge, post, line and tag in the caller's units and stop is the share of the curve the line
   * covers at full reach, and lift sets how far the curve rises above the higher end; lw sizes the line's
   * strokes, dash and open ring when they need to read heavier than the badge. The stop leaves a clear
-  * gap before the badge at every caller: about 48 native px in A's s5 cut-in, about 85 in B's s5 wide
-  * and about 65 in both closing composites, since the alert reaches the crew and no source says it
+  * gap before the badge at every caller: about 103 native px in both treatments' s5 two-shot and about
+  * 74 screen px in both closing composites, since the alert reaches the crew and no source says it
   * reaches responders. */
  const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number,o:{bs?:number;lw?:number;stop?:number;lift?:number;share?:{scale:number;side:'left'|'right';drop:number};badgeAt?:Pt;badgeR?:number;sharePin?:Pt}={})=>{
   const bs=o.bs??1, lw=o.lw??bs, stop=o.stop??OPEN_LINE_STOP;
@@ -316,7 +314,9 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  const aS5=(reach:number,shareOn:number,tagScale=1,cast=true)=>{
   const leg=towerPt([-46,-520]), w=windowPt(Wd.truck,Wd.ks);
   // cast false leaves the truck, the station and the line to the s5 two-shot drawn in front of this world
-  return plains({heading,ring:[0,360],plume:1,flag:1,truck:cast,truckGlow:1,alert:cast,truckLast:true,station:cast,grounded:true,toPlume:true,
+  // Behind the two-shot only the ring's back half (headings 90 to 270, behind the tower foot) is drawn:
+  // its front arc would run over the open line and on across the gap to the badge.
+  return plains({heading,ring:cast?[0,360]:[90,270],plume:1,flag:1,truck:cast,truckGlow:1,alert:cast,truckLast:true,station:cast,grounded:true,toPlume:true,
    front:<>
     <At p={leg}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:34,scale:tagScale})}</At>
     {cast&&openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,shareOn,{bs:A_S5.bs,lw:A_S5.lw,stop:A_S5.stop,lift:A_S5.lift,share:SHARE_TAG.a})}
