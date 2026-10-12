@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair17/storyboard.json",
-        "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-a.json",
-        "before_sha256": "166a3c31a5f85255d04052d1e206d51a3eff588c2c54a0ab2301d9fb5775351c",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-b.json",
-        "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair17/TowerAlertFilm.tsx",
-        "before_sha256": "316223eef055714befa5117a77def2be4b40b87cabcbe131c8f88959fcac862e",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "52a74c82a588622af77aa26063fc1abee5ddeb2da9caae058ec66f53c088c36f",
-    "plan": "{REPO}/out/dispatch/repair-plan-17.json",
-    "plan_sha256": "058f78de7515394af669883fb0428e8f2775ab3aa2886383a7120781f46fbfa3",
-    "reboards_before": 15,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/40ddf86ae93d2c1b-b940c00bbf8832fc-3f6b943f2071a1b2/storyboard.json",
@@ -6266,6 +6237,81 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T23:32:15.314429Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 36,
+          "to": 36
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "6250bbbc0392262a7c3a7d7470028d7e547761c48dd500b9fec098607637a32d",
+            "before_path": "{REPO}/out/dispatch/baseline-repair17/storyboard.json",
+            "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "cda7e9c73e9d3a4a0f483df2dfd04f48745924261a63072d91fab7de9bad97a6",
+            "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-a.json",
+            "before_sha256": "166a3c31a5f85255d04052d1e206d51a3eff588c2c54a0ab2301d9fb5775351c",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "6250bbbc0392262a7c3a7d7470028d7e547761c48dd500b9fec098607637a32d",
+            "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-b.json",
+            "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "8ce3c9417ea5f9770210e7d8e473c86929bf005fe8a8fb4bf8f97c3e622b75c7",
+            "before_path": "{REPO}/out/dispatch/baseline-repair17/TowerAlertFilm.tsx",
+            "before_sha256": "316223eef055714befa5117a77def2be4b40b87cabcbe131c8f88959fcac862e",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The hero clip runs 11.92 to 29.26 s, A and B both show a large unclosed gap with a recognizable responder target and nothing inside the gap, and no label fragment remains in s6.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-hero-window-and-code-review-technical.json",
+        "failure_evidence_sha256": "52a74c82a588622af77aa26063fc1abee5ddeb2da9caae058ec66f53c088c36f",
+        "failure_family": "source-framing",
+        "mechanism_change": "The native hero capture now covers s3 to s5 so the pivoted handoff is seen by an independent native review before the full render, and A adopts the changed performed staging instead of a rescaled wide.",
+        "mechanism_id": "hero-window-s3-s5-and-treatment-pivot-parity-v1",
+        "repair": "Extend cinema.hero_passage_end_scene_id to s5 and rewrite visible_action and human_consequence in the storyboard and both opening boards, with no renderer pixel effect. Give treatment A the same foreground two-shot pivot as B, fix A's s6 label fragment, and remove B's floating lamp-head fragment from the gap. Narration, locked audio, captions and measured timing stay identical.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3
+        },
+        "root_cause": "The native hero window ends at s4 and omits the s5 responder handoff that two panels rejected, so the independent native hero review would not see the pivoted staging. Treatment A still uses the rejected scaled-wide staging and leaves a label fragment in s6, and treatment B's station clip leaves a floating lamp head inside the open gap that must read as empty."
+      },
+      "repair_plan_sha256": "a8656aef1e885d999b7436cd15223e0be08ce45cb4b9c576e3c5207fc9d2cd73",
+      "repair_revision": "cc30e14965e813a3c7c2d2591894f6bdd013c9d996d1c406f5d587cdfa562acc",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -6289,7 +6335,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "272dca5404e0a8a30f4a623ca5525476ed3b37fe631842bf15a5d12a23a355a9",
+    "original_private_state_sha256": "ba21c71bd1b92e867097d629e69ceada5755dfecfa8eeb8e39079df11d630d04",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6317,7 +6363,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T23:26:12.920298Z",
+  "updated_at": "2026-10-12T23:32:15.314489Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
