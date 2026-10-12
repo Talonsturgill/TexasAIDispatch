@@ -4,8 +4,8 @@
   "peak_dbfs_premaster": -1.68,
   "lufs_premaster": -18.39,
   "lufs_target": -16.0,
-  "lufs_achieved": -16.04,
-  "lufs_shortfall_db": 0.03999999999999915,
+  "lufs_achieved": -16.05,
+  "lufs_shortfall_db": 0.05000000000000071,
   "crest_factor_db": 16.71,
   "limiter": true,
   "mix_notes": [
@@ -45,7 +45,7 @@
       "true_peak_dbtp": 0.03
     },
     "after": {
-      "integrated_lufs": -16.04,
+      "integrated_lufs": -16.05,
       "true_peak_dbtp": -1.99
     },
     "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.7:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.28:measured_TP=-4.85:measured_LRA=11.00:measured_thresh=-34.29:offset=0.86",
@@ -73,7 +73,7 @@
       {
         "requested_lufs": -15.7,
         "measured": {
-          "integrated_lufs": -16.04,
+          "integrated_lufs": -16.05,
           "true_peak_dbtp": -1.99
         },
         "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.7:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.28:measured_TP=-4.85:measured_LRA=11.00:measured_thresh=-34.29:offset=0.86"
@@ -86,8 +86,8 @@
     "limiter": true
   },
   "master_file": "out/dispatch/mix.wav",
-  "master_sha256": "df5730ab93e638c8bc9fa4b335faefaa7b0153d73714a614f0baeb92f2cfa008",
-  "sound_direction_sha256": "dbb1a07fb8a1d6c6c93c1615aab488449c5035ad39b2d4819effc6a97ce5a060",
+  "master_sha256": "b7c908f669f82e3c8a80a1db7605d55241cac027e7a66926a1a6c23b368ce5e8",
+  "sound_direction_sha256": "96c2494b14ff7e563216e1716a9277879653151d580f2482ed5a61104cbf7b78",
   "sound_cues": [
     {
       "id": "dry-wind",
@@ -96,7 +96,7 @@
       "duration_s": 1.2,
       "intent": "A dry wind and a slow windmill creak sit under the opening sweep of the beam.",
       "provenance": "Original designed ambience, not recorded at any AEP Texas site.",
-      "at_s": 0.341
+      "at_s": 0.5748
     },
     {
       "id": "flag-lock",
@@ -105,7 +105,7 @@
       "duration_s": 0.3000000000000007,
       "intent": "A soft designed latch tick as the flag box closes on the smoke.",
       "provenance": "Original designed foley, not the sound of any real camera system.",
-      "at_s": 11.59
+      "at_s": 12.71
     },
     {
       "id": "phone-buzz",
@@ -114,7 +114,7 @@
       "duration_s": 0.3999999999999986,
       "intent": "A short low buzz as the alert lands on the crew phone.",
       "provenance": "Original designed foley, not a real notification tone.",
-      "at_s": 16.016
+      "at_s": 16.7088
     },
     {
       "id": "tag-pin",
@@ -123,7 +123,7 @@
       "duration_s": 0.3000000000000007,
       "intent": "A light paper tap as the estimated tag pins to the end of the window.",
       "provenance": "Original designed paper foley.",
-      "at_s": 19.761
+      "at_s": 20.7348
     },
     {
       "id": "open-line-quiet",
@@ -133,7 +133,7 @@
       "gain": 0.3,
       "intent": "Pull the music back while the dashed line toward first responders stops short and stays open.",
       "provenance": "Authored event-clock background contrast.",
-      "at_s": 25.616
+      "at_s": 26.4112
     }
   ],
   "sound_assets": [

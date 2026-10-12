@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T17:18:03.528318+00:00",
-  "note": "capture authorization consumed 31e56d3f7a73",
+  "saved_at": "2026-10-12T17:19:46.109973+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,15 +16,15 @@
     "sha256": "b08f5d3c949511b9f879eaa63054138b315d17fc20987e269164aa9f16378794"
   },
   "deleted_source": [],
-  "ledger_sha256": "5ea2c44cac667c8478a8eeafaa0f5726c4565f5a59db04df330e913d0cc53825",
-  "original_private_ledger_sha256": "2eac09e3d26d87fec9ee05a9331aea7edba102fb0ce2a2d45e75fb57220d79fb",
+  "ledger_sha256": "a662265f03b33070fe8149c87cbd3543d45309ecb2aa798e9bcd310d98fc34b4",
+  "original_private_ledger_sha256": "368fca6ff1b8e5bbab1d3f69617b462c3ca134b1ec6f2ea3c042b4c75b85b1ea",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 11,
+    "preflight_renders": 12,
     "reboards": 10,
     "reported_tokens": 27672,
     "rescue_renders": 0,
@@ -39,8 +39,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "0279751fa3742cb803e71aa35fb9f54021ee1546b33722a992a7a39084dab7f0",
-      "size": 6258
+      "sha256": "98d1d0f38923af289639132af420b56cd17c150cc82b21a7c4ba52a5a58dde14",
+      "size": 6596
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -117,20 +117,20 @@
     {
       "path": "out/dispatch/attention-review.html",
       "class": "scratch",
-      "sha256": "b2902936cac4919fd8428a92addfb46a1ccd8bc1f18ff28c57469be5bab04160",
-      "size": 4752
+      "sha256": "b76b8d62af375fbba1129348867046fc29dd3b6e421bb3d3a80631a1354af5bb",
+      "size": 4776
     },
     {
       "path": "out/dispatch/attention-review.json",
       "class": "scratch",
-      "sha256": "b56650d91269448e17c27cb61f9ee5d01b7e0b7af53f38c6854bfeb2d338f05e",
-      "size": 17083
+      "sha256": "5875158af485d9be70a182bda28e33a5698337da806dec5ba304ec5acaa7ea4e",
+      "size": 17091
     },
     {
       "path": "out/dispatch/attention-review.png",
       "class": "scratch",
-      "sha256": "0ee5fd394d4eb478207e10fd87abb19b2a1261b01f983ce18d87e90a07419d6d",
-      "size": 1636479
+      "sha256": "97afb003afac41a1fd1c3db4f6033fde2e2fac00830c207bac78fa97639f7afd",
+      "size": 1600947
     },
     {
       "path": "out/dispatch/baseline-pre-fraction-edit.json",
@@ -711,13 +711,13 @@
     {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
-      "sha256": "692a4bb46b00caa12f10f8b08a1768550b9fec967379c0fd18cba2cc1074083a",
-      "size": 5481
+      "sha256": "d4b7696f24cd18a39161d9bf173fb606836c486feb4e03eb52fb3d233c40f32f",
+      "size": 5485
     },
     {
       "path": "out/dispatch/mix.wav",
       "class": "scratch",
-      "sha256": "df5730ab93e638c8bc9fa4b335faefaa7b0153d73714a614f0baeb92f2cfa008",
+      "sha256": "b7c908f669f82e3c8a80a1db7605d55241cac027e7a66926a1a6c23b368ce5e8",
       "size": 4704078
     },
     {
@@ -3547,10 +3547,10 @@
       "size": 4246
     },
     {
-      "path": "out/dispatch/preflight.mp4",
+      "path": "out/dispatch/preflight-contact-sheet.png",
       "class": "scratch",
-      "sha256": "e8206334b9d58df564ddea916d78cee2b575285137f6f4fef6d3fe4def5701e1",
-      "size": 353406
+      "sha256": "c595218fb1d202ed5ecb4d7ae98b090cd60262ddabd9fb027c1be0728b73c10a",
+      "size": 1261738
     },
     {
       "path": "out/dispatch/repair-plan-10.json",
@@ -3671,6 +3671,18 @@
       "class": "scratch",
       "sha256": "3a569a9c8bec9b0c5cdce8b064c8ecdcbc0bb40cb6e4ff3a865a7733a29c9e7e",
       "size": 1969
+    },
+    {
+      "path": "out/dispatch/retained-preflight-B-provisional.json",
+      "class": "scratch",
+      "sha256": "d070eb0b535025d78329ef14f06df408fd34ad720e95e713cc33a24f9a01ebb1",
+      "size": 1968
+    },
+    {
+      "path": "out/dispatch/retained-preflight-B-provisional.mp4",
+      "class": "scratch",
+      "sha256": "e8206334b9d58df564ddea916d78cee2b575285137f6f4fef6d3fe4def5701e1",
+      "size": 353406
     },
     {
       "path": "out/dispatch/retained-preflight-B-round1-contact.png",
@@ -3873,8 +3885,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "89ace375d89e14cd8219d356d36acce25952a630fbc0fe910380b97c0a7a42f6",
-      "size": 159146
+      "sha256": "edc389baf4ee5dfb69754cf58bf439aa3d69ec60bc53454b4449e7ae30004bc4",
+      "size": 160173
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -3945,7 +3957,7 @@
     {
       "path": "out/dispatch/words.json",
       "class": "scratch",
-      "sha256": "44152827cb8e8b842fc569c6ce0a737a2c5db6ca58d9d99d9ac30397dca2cd80",
+      "sha256": "ce3741a6955ce2674299c6f47cc436a3171b9434c8424cfd688463ee2fb13fcc",
       "size": 30000
     }
   ],
