@@ -1,0 +1,73 @@
+{
+  "mechanism_id": "s5-foreground-two-shot-unclosed-gap-pivot-v1",
+  "failure_family": "source-framing",
+  "repair_scope": "technical-integrity",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The second final panel rejected the corrected film. The same s5 relation, the responder open line and badge in a wide shot, was too small to read at phone size even after scaling, so with captions covered the stops-short relationship is unproven and was read as a link, which the source limit forbids. Also the s6 attribution detail crop clips the Launch label and exposes the plate, and the s2 disclosure chip names a map that is no longer on screen.",
+  "repair": "Pivot the s5 staging from a scaled wide to a foreground two-shot in the same view: an enlarged truck and station with the badge mounted on the gable, the alert leaving the truck window and a line spanning about a third of the frame that stops at an unclosed gap of at least 25 phone px before a separately readable responder target, with Can share pinned off the gap corridor. Widen the s6 cab and clip the strip group so no label fragment or plate seam shows, and switch the s2 disclosure chip once the locator inset is gone. Narration, locked audio, captions and measured timing stay identical.",
+  "mechanism_change": "The relationship moves from a small element in a landscape wide to a foreground two-shot where the line, the gap and the target are the picture, replacing the retired scaling and tag-placement mechanism of the first correction.",
+  "expected_visible_result": "At 390 px wide the line from the truck window spans about a third of the frame, a clear gap of at least 25 phone px separates its ring from a recognizable station badge, the Launch label is whole and no plate seam shows in s6, and the chip text matches what is on screen.",
+  "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-panel-round-2-technical.json",
+  "failure_evidence_sha256": "e7046d997ebe07bec0e535eaf24e019b39a7fed9602bf7a390c38d6bb6f3a2e1",
+  "changed_inputs": [
+    {
+      "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+      "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair16/storyboard.json",
+      "before_sha256": "b940c00bbf8832fc597ee3f030bd5299d054992503dd3ee8fb7bd54dd4fe052d",
+      "after_sha256": ""
+    },
+    {
+      "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+      "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair16/TowerAlertFilm.tsx",
+      "before_sha256": "3be91341759209d4c0ad5f4e807591c457b895c78980fee7c4711c800e706aa7",
+      "after_sha256": ""
+    }
+  ],
+  "resources": {
+    "preflight_renders": 2,
+    "full_renders": 1,
+    "audiovisual_reviews": 4,
+    "panel_rounds": 1,
+    "scorer_calls": 3
+  },
+  "failed_film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+  "capture_completion_budget": {
+    "schema": "dispatch_capture_completion_budget_evidence/2",
+    "run_id": "2026-10-11",
+    "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/2\",\n  \"effective_date\": \"2026-10-12\",\n  \"path\": \"renewed-two-treatment-comparison\",\n  \"minimum_remaining\": {\"preflight_renders\": 5, \"storyboard_critics\": 4, \"full_renders\": 1, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"operators\": {\"opening_compare\": 2, \"final_timed_phone\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use the existing independent mandatory admission; capacity grants no review approval.\",\n    \"Preserve the original frozen envelope, prior grants, failures and cumulative charges.\",\n    \"Obtain fresh current comparison, phone, native, audiovisual, scoring and shipment evidence.\"\n  ]\n}\n",
+    "policy_sha256": "d70e4e199c3acf49a4635087412cb9090e758810776c320ffb9ef290991f9d21",
+    "comparison_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-openings-before-panel1/comparison.json",
+    "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"7351cefb5c0f7fdcd707d90e0f6b7ba9c5104c61b4743393fc847a65d9183663\",\n  \"producer_sha256\": \"e90bd497aa6cb4df1f045c010df7fd987eb20fd9ab91a93c229be2e445dc6adc\",\n  \"reservation\": {\n    \"identity\": \"9ddf9f0b277ae25880c65834d09bdd6ed7174075f4686d661ee3166ce59c21bc\",\n    \"run_id\": \"2026-10-11\",\n    \"event_index\": 173\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"bb0ec6f3bdb2afe08434fb8d89d293db20f5c3444955249da3d4108b13ad9fe4\",\n      \"renderer_sha256\": \"7351cefb5c0f7fdcd707d90e0f6b7ba9c5104c61b4743393fc847a65d9183663\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"234911914c4c8a1fc238f2959531a1ed08397d1181221272dc3482fd4f3b4368\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"a9aa1ab72ed6407341be8fb98916e966c728587caea46693e59740d789ed714f\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-8e31ae59986c12cf.json\",\n        \"sha256\": \"9f98ded6dcb485c0f261e41b7216f9ad8557f251e70a8ebc729bc838ca5d2e55\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"502173c68ae28f26dd443f540d29632a76a4989d518c8d6e7ccd3a3986373b35\",\n      \"renderer_sha256\": \"7351cefb5c0f7fdcd707d90e0f6b7ba9c5104c61b4743393fc847a65d9183663\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"d62f1c559bb3ad5d33a1e9587b37151b9d91303a9913f9286d48c3288baced46\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"7407f28114aa78e5eaa211f647d5d3ac337e7e9edb13bc6466f460c83b51b132\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-cd805244a5230aae.json\",\n        \"sha256\": \"5643e940be858dfd37838d688bc63d19e3585a06cdc69326598c029c08f7f3cb\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+    "comparison_sha256": "633b7ce3cbe4db61e1eb3002762ca961e4e69188521f5361b732c214cc7d521b",
+    "retained_files": [
+      {
+        "option": "a",
+        "kind": "board",
+        "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-openings-before-panel1/a.json",
+        "sha256": "234911914c4c8a1fc238f2959531a1ed08397d1181221272dc3482fd4f3b4368"
+      },
+      {
+        "option": "a",
+        "kind": "film",
+        "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-openings-before-panel1/a.mp4",
+        "sha256": "a9aa1ab72ed6407341be8fb98916e966c728587caea46693e59740d789ed714f"
+      },
+      {
+        "option": "b",
+        "kind": "board",
+        "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-openings-before-panel1/b.json",
+        "sha256": "d62f1c559bb3ad5d33a1e9587b37151b9d91303a9913f9286d48c3288baced46"
+      },
+      {
+        "option": "b",
+        "kind": "film",
+        "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-openings-before-panel1/b.mp4",
+        "sha256": "7407f28114aa78e5eaa211f647d5d3ac337e7e9edb13bc6466f460c83b51b132"
+      }
+    ],
+    "hook_event_index": 171,
+    "hook_event_sha256": "07a642e3afc0705b5ec92f375be12dfec34c93ad3a3de92469ed31b6f10f8f87",
+    "entry_event_index": 173,
+    "entry_event_sha256": "5d3ec66e107559aa24d6a41e57cfae27cb547fc060e7a26c62d2cae3624cd7fc"
+  }
+}

@@ -1,0 +1,34 @@
+{
+ "mechanism_id": "s5-foreground-two-shot-unclosed-gap-pivot-v1",
+ "failure_family": "source-framing",
+ "repair_scope": "technical-integrity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The second final panel rejected the corrected film. The same s5 relation, the responder open line and badge in a wide shot, was too small to read at phone size even after scaling, so with captions covered the stops-short relationship is unproven and was read as a link, which the source limit forbids. Also the s6 attribution detail crop clips the Launch label and exposes the plate, and the s2 disclosure chip names a map that is no longer on screen.",
+ "repair": "Pivot the s5 staging from a scaled wide to a foreground two-shot in the same view: an enlarged truck and station with the badge mounted on the gable, the alert leaving the truck window and a line spanning about a third of the frame that stops at an unclosed gap of at least 25 phone px before a separately readable responder target, with Can share pinned off the gap corridor. Widen the s6 cab and clip the strip group so no label fragment or plate seam shows, and switch the s2 disclosure chip once the locator inset is gone. Narration, locked audio, captions and measured timing stay identical.",
+ "mechanism_change": "The relationship moves from a small element in a landscape wide to a foreground two-shot where the line, the gap and the target are the picture, replacing the retired scaling and tag-placement mechanism of the first correction.",
+ "expected_visible_result": "At 390 px wide the line from the truck window spans about a third of the frame, a clear gap of at least 25 phone px separates its ring from a recognizable station badge, the Launch label is whole and no plate seam shows in s6, and the chip text matches what is on screen.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-panel-round-2-technical.json",
+ "failure_evidence_sha256": "e7046d997ebe07bec0e535eaf24e019b39a7fed9602bf7a390c38d6bb6f3a2e1",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair16/storyboard.json",
+   "before_sha256": "b940c00bbf8832fc597ee3f030bd5299d054992503dd3ee8fb7bd54dd4fe052d",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair16/TowerAlertFilm.tsx",
+   "before_sha256": "3be91341759209d4c0ad5f4e807591c457b895c78980fee7c4711c800e706aa7",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "preflight_renders": 2,
+  "full_renders": 1,
+  "audiovisual_reviews": 4,
+  "panel_rounds": 1,
+  "scorer_calls": 3
+ },
+ "failed_film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9"
+}
