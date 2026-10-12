@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-a.json",
-        "before_sha256": "6069068cc2c642d1721b560243d571d287d5e2ed97669cfca4d0d9906b7c2d03",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-b.json",
-        "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair3/storyboard.json",
-        "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair3/src/TowerAlertFilm.tsx",
-        "before_sha256": "1ae525bc294ea8132680d9802cb9fd4b0fb4efacaa681124d03b8252be25c740",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "b871cfe2ebd6d566b524c1930e2fe9d7bfb20e9fb655c28c2babfc6b80c206db",
-    "plan": "{REPO}/out/dispatch/repair-plan-3.json",
-    "plan_sha256": "f486a96549f856e93e1763c99f5d117578230b38e18126b31d8a6dfc1ef6da12",
-    "reboards_before": 3,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -514,6 +485,85 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T14:45:01.438751Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "53e9f40334aa5c412968398b9d69b60a34042fcdd8459dbca8e4cc391a5ea75d",
+            "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-a.json",
+            "before_sha256": "6069068cc2c642d1721b560243d571d287d5e2ed97669cfca4d0d9906b7c2d03",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2",
+            "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-b.json",
+            "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2",
+            "before_path": "{REPO}/out/dispatch/baseline-repair3/storyboard.json",
+            "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "85b5c29f9fc61e152c61e42fb4cc7bbb8ea440bef9feaac1a08240e724d3f4d3",
+            "before_path": "{REPO}/out/dispatch/baseline-repair3/src/TowerAlertFilm.tsx",
+            "before_sha256": "1ae525bc294ea8132680d9802cb9fd4b0fb4efacaa681124d03b8252be25c740",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At 25.616 s and in the closing composite a clear gap separates the end of the dashed line from the responder badge, so the picture shows the limit that the sources state.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-round3-opening-b-critic.json",
+        "failure_evidence_sha256": "b871cfe2ebd6d566b524c1930e2fe9d7bfb20e9fb655c28c2babfc6b80c206db",
+        "failure_family": "source-framing",
+        "mechanism_change": "The open line changes from a default-length line that touches the badge to a shorter line that visibly stops short of the badge in B's s5 wide and in the shared closing composite.",
+        "mechanism_id": "tower-alert-open-line-stop-short-v3",
+        "repair": "One bounded builder correction. Shorten the dashed open line at every treatment B call and at the shared closing call to stop about .64, so a visible gap of about 40 native px remains between the line end and the badge in both places, and refresh derived renderer hashes in the boards. Change nothing else.",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 1,
+          "scorer_calls": 3,
+          "tts_calls": 2
+        },
+        "root_cause": "The independent code critic round three (Opus, 2026-10-12) passed treatment A and returned REVISE on treatment B with blocking defect B-D1. B's open line uses the default stop of .8 so its end ring comes within about 3 native px of the responder badge in s5-shot-2 and about 1.3 px in the lens-return composite, which pictures the alert reaching responders, a fact claims c4 and c6 do not report."
+      },
+      "repair_plan_sha256": "b0b69116c4e608c1e0015164a4cfe81364ddbce7db26aa0447d67ae65d1c39cb",
+      "repair_revision": "f93d24a0a1e17a4b41ccc20ae43fe6d6748057470c02776518f9661111d5270d",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -537,7 +587,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "0a6601b67d69927a84903a2d6aef3f406adf97e99471267e35f6ba23ec2eb69f",
+    "original_private_state_sha256": "d8591fd95d923e9943fdd435b036f71d03c88f4ea32651c91553c9c3c3092701",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -565,7 +615,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T14:42:47.006685Z",
+  "updated_at": "2026-10-12T14:45:01.438790Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
