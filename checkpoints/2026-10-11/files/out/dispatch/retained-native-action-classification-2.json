@@ -1,0 +1,32 @@
+{
+ "review_scope": "code-s1-wisp-action-registration-classification",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  {
+   "category": "minimum-action",
+   "defect": "NA-2. s1-event-3 (the smoke wisp rise) is implemented but does not register as a visibly performed third event in either treatment. s1 therefore shows only two performed changes. In B these are the display panning the land as the head turns, then the pull-back to the whole tower. In A they are the beam's revolution leaving the watch ring, then the head turning to face the viewer with the West Texas tag. Computed from the renderer and the boards in rounds 7 to 10. Grow range: plumeGrow for s1 is lerp(.06,.3,ease(rise)), so the wisp never exceeds 0.3 of a full plume, peak opacity .75*clamp(grow*1.6) is at most .36 and the base flame at most about .51. Size in A: the s1 wide plume at [195,978] scale .45 h 330 is about 9 native px tall at grow .06 and about 45 px at grow .3, about 11 px on a 270 wide phone, and stands about 85 px right of the windmill axis beside gray lattice and stock tank, with the sweeping beam passing over it. Size in B: in the display opening the plume at scale .62 h 260 is about 10 px tall at grow .06 and about 48 px at grow .3. B heading sweep: the s1 heading is 90+360*(t-e11.start)/dur11 through s1-event-1 then decays, so the plume is at about +140 px of display centre at the rise start, about 0 px near 1.57 s with grow still about .07, about -160 px near 1.88 s, and at the bezel edge by about 2.3 to 2.5 s authored, so most growth happens while the wisp travels to the rim and the risen state is never held near the centre. Why the native samples do not register it: cinema_cache.sample_frames takes first, middle and last samples across the scene's whole admitted event span and measures principal occupancy and visible action; the pixel change attributable to s1-event-3 is about 45 by 20 native px, about 0.04 percent of the frame, at opacity .36 or less, far below the principal subject's occupancy and any reasonable visible-action threshold. The registered event count reaches three while only two perceptible changes are performed, and scene-builder.md says an unperformed declaration cannot supply the missing action. Corroboration only: the muted round four phone strips show no wisp in either treatment from 1.25 to 2.25 s authored."
+  }
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "NA-2"
+  ]
+ },
+ "category_reasoning": "minimum-action is the honest primary category: the dated three-performed-events floor for a directed scene, which NA-1 established. The registration exists but the performance is not visible, so s1 effectively performs two events. legibility also describes the mechanism but one consolidated repair cures both. This is a mandatory code-route correction like NA-1, not a creative-round defect.",
+ "repair_requirements": [
+  "s1-event-3 in BOTH treatments must be legible through its whole window: raise the s1 wisp to roughly 110 to 140 native px tall at the end of the rise, mid-column puff radius about 15 native px or more, dark lower tones about .6 opacity against the sky, visible from the start, using an s1-specific grow range, scale or opacity rather than the shared clamp.",
+  "B s1 display: keep the wisp within about 150 px of display centre from the rise start through the pull-back, or move the rise earlier so it completes near centre; hold the risen wisp until the cut and keep the world plume in the pull-back consistent with it.",
+  "A s1 wide: move the wisp clear of the windmill lattice, fan disc and stock tank or give it clear tonal contrast so it reads as smoke on open land and the beam does not wash it out.",
+  "Continuity across s1 to s3: the larger s1 wisp and s3's rising plume must read as the same fire.",
+  "s4-event-3 glyph in both treatments: enlarge about 2x and lengthen its drop distance and time.",
+  "s5-event-3 Can share pin in both treatments: land it at about 26.8 to 27.4 s on the measured clock, hold through the clause end and cut, enlarge, keep above the caption band and left of the button column.",
+  "s6-event-3 check pass: legible, slower per block, start only after the pan settles, larger strip.",
+  "A s5: separate the flagged plume base from the truck and shelter with open ground so it cannot read as smoke from the truck, and move the flag box off the windmill.",
+  "B cab clarity: make the cab interior read as the same white pickup and the s7 tailgate read as that truck's tailgate.",
+  "Carried layout items: s2 card top row of rings cut off and overlapped by the disclosure label, and the s7 How much sooner label cut off at the left in the close-up.",
+  "Keep every other third event that already reads and every fixed placement that cleared B-D1, B-D2, B-D3, R1, A-P1 and A-P2."
+ ]
+}
