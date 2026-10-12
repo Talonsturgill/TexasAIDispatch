@@ -556,6 +556,14 @@
       "note": "quarter-scale animatic",
       "resource": "preflight_renders",
       "to": 26
+    },
+    {
+      "at": "2026-10-12T21:37:41.973726Z",
+      "ceiling": 24,
+      "from": 22,
+      "note": "independent revalidation of render reuse dependency profile after shared caption edits",
+      "resource": "storyboard_critics",
+      "to": 23
     }
   ],
   "events": [
@@ -4879,6 +4887,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-12T21:37:41.973776Z",
+      "ceiling": 24,
+      "kind": "budget_escalated",
+      "note": "independent revalidation of render reuse dependency profile after shared caption edits",
+      "now": 23,
+      "resource": "storyboard_critics",
+      "was": 22
+    },
+    {
+      "at": "2026-10-12T21:37:41.973787Z",
+      "kind": "reserved",
+      "note": "independent revalidation of render reuse dependency profile after shared caption edits",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -4893,7 +4919,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 22,
+    "storyboard_critics": 23,
     "tts_calls": 13,
     "validator_agents": 1,
     "voice_directors": 1
@@ -4902,7 +4928,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "955f6c45166b4dcea6dd76e1864a17d97c9b1a6605e0dfbf7131f23bd58a2e9a",
+    "original_private_state_sha256": "1b5abf45081862e186674386de7c00e12f596196b79351f7a1538eb4c232778e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4930,7 +4956,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T21:30:42.892486Z",
+  "updated_at": "2026-10-12T21:37:41.973789Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
@@ -4943,7 +4969,7 @@
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 3,
-    "storyboard_critics": 22,
+    "storyboard_critics": 23,
     "tts_calls": 13,
     "validator_agents": 1,
     "voice_directors": 1
