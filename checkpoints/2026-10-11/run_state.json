@@ -820,6 +820,14 @@
       "note": "precharge for the second renewed two-treatment opening comparison",
       "resource": "preflight_renders",
       "to": 32
+    },
+    {
+      "at": "2026-10-12T23:50:10.247373Z",
+      "ceiling": 36,
+      "from": 32,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 33
     }
   ],
   "events": [
@@ -6667,6 +6675,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-12T23:50:10.247415Z",
+      "ceiling": 36,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 33,
+      "resource": "preflight_renders",
+      "was": 32
+    },
+    {
+      "at": "2026-10-12T23:50:10.247431Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "75c1db15a0ae8845aaceb4261229a0f82eaf78d51139ef32a237236b3ffa7ea1",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -6675,7 +6701,7 @@
     "full_renders": 3,
     "image_generations": 2,
     "panel_rounds": 2,
-    "preflight_renders": 32,
+    "preflight_renders": 33,
     "reboards": 17,
     "reported_tokens": 529992,
     "rescue_renders": 1,
@@ -6690,7 +6716,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "74845fe60b8b3943cf440837db59be94eb2cc714ed068b5724b791c2b1036656",
+    "original_private_state_sha256": "5c8738e593c08fe9f9b45a43a1259c2d1c91c657458d00b7b2d2a788a2a9faa4",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6718,14 +6744,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T23:49:48.163983Z",
+  "updated_at": "2026-10-12T23:50:10.247434Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
     "full_renders": 3,
     "image_generations": 0,
     "panel_rounds": 2,
-    "preflight_renders": 32,
+    "preflight_renders": 33,
     "reboards": 17,
     "reported_tokens": 529992,
     "rescue_renders": 0,
