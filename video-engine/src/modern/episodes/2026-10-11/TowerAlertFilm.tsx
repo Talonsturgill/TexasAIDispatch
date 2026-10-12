@@ -72,17 +72,23 @@ const Grounded:React.FC<{baseY:number;on:boolean;children:React.ReactNode}>=({ba
 // ---- the two worlds: fixed placements of every grounded thing (screen units at framing wide) ----
 type World={road:{near:[number,number,number];far:[number,number,number];bend:number;base:number};tower:Pt;ts:number;windmill:Pt;ws:number;
  truck:Pt;ks:number;shelter:Pt;ss:number;station:Pt;sts:number;
- mesquite:[Pt,number,number][];grass:[Pt,number,number,number][];plume:Pt;ring:[number,number]};
+ mesquite:[Pt,number,number][];grass:[Pt,number,number,number][];plume:Pt;ring:[number,number];
+ /** optional plume scale, lean and flag box offset; unset keeps the original .62, .55 and 72 */
+ pls?:number;plean?:number;pflag?:number};
 const WORLD:Record<V,World>={
- // A's truck and station stand only in s5. The station sits deep between the windmill's stock tank
- // and the tower fence, clear of the windmill, so the windmill never has to leave for it; the truck
- // is parked on the road near the windmill, well off from the tower, so the open line climbs across
- // the land to the badge.
- a:{road:{near:[300,1250,150],far:[566,1022,18],bend:-40,base:1022},tower:[600,1012],ts:.76,windmill:[236,1044],ws:.95,
-  truck:[280,1196],ks:.34,shelter:[668,1018],ss:.24,station:[436,996],sts:.3,
-  mesquite:[[[70,1112],270,4],[[968,1072],150,9],[[372,1052],86,21]],
+ // A's world keeps the plume on open ground. The rolling-plains plate carries a pumpjack at frame x 683
+ // to 1004 (card05) and a far one at the left edge (card03), so the plume stands deep on the open land
+ // left of centre, about 450 px from the near pumpjack in the wide and 230 px in the s5 cut-in, where the
+ // plate does not scale with the episode's camera. The windmill stands in the left foreground, the
+ // station deep between the plume and the road, and the truck, which stands only in s5, is parked on the
+ // road short of the tower fence so the open line climbs to the badge without crossing the fence or the
+ // smoke. The truck's base row keeps the whole truck and its landed alert above the two-line caption band
+ // (frame y 1293 to 1421) in the s5 cut-in: truck bottom at about y 1245.
+ a:{road:{near:[300,1250,150],far:[566,1022,18],bend:-40,base:1022},tower:[600,1012],ts:.76,windmill:[20,1100],ws:.95,
+  truck:[480,1152],ks:.3,shelter:[668,1018],ss:.24,station:[340,996],sts:.3,
+  mesquite:[[[960,1196],240,4],[[968,1072],150,9],[[760,1110],86,21]],
   grass:[[[150,1402],260,170,2],[[880,1336],200,130,5],[[540,1490],230,150,8],[[330,1150],110,70,13]],
-  plume:[862,1040],ring:[420,52]},
+  plume:[195,978],ring:[420,52],pls:.45,plean:.25,pflag:34},
  b:{road:{near:[220,1250,170],far:[470,1026,20],bend:30,base:1060},tower:[500,1016],ts:.78,windmill:[880,1048],ws:.8,
   truck:[394,1094],ks:.28,shelter:[580,1022],ss:.2,station:[120,1000],sts:.38,
   mesquite:[[[1000,1110],210,12],[[52,1186],300,6],[[720,1052],90,17]],
@@ -105,10 +111,15 @@ const DISCLOSURE_FONT=26, DISCLOSURE_MAX=470;
  * on its window in s3 and the station with its badge. The open-line shot is a cut-in on that world:
  * scale k about a point on the plate's horizon (frame row 972 at the medium zoom), centred toward the
  * truck and the station, so every landmark keeps its place and nothing arrives unseen. The badge and
- * line are drawn at bs in world units so they read at the old size once the cut-in scales them. */
+ * line are drawn at bs in world units so they read at the old size once the cut-in scales them, and
+ * the line arcs higher (lift) so its OPEN_LINE_STOP end stays about 38 px short of the badge. The
+ * plate keeps its own medium zoom under the cut-in, so the cut-in centre keeps the plume clear of the
+ * plate's pumpjack and fence on screen as well as in the wide. */
 /** The share of the open line's curve drawn at full reach, so its end stops short of the badge. */
 const OPEN_LINE_STOP=.64;
-const A_S5={bs:.58, stop:.64, horizon:972.4, cutIn:{x:340,k:1.6}};
+/** PlaceStage's medium framing zoom, about frame (540,960), which grounded subjects ride. */
+const ZOOM_MEDIUM=1.08;
+const A_S5={bs:.58, stop:.64, lift:220, horizon:972.4, cutIn:{x:240,k:1.4}};
 /** Wrap the disclosure to measured lines so its box is sized from its text. */
 function disclosureLines(text:string):string[]{
  const words=text.split(' '), lines:string[]=[];let cur='';
@@ -168,7 +179,7 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  </g>;
  const towerPt=(local:Pt):Pt=>[Wd.tower[0]+local[0]*Wd.ts,Wd.tower[1]+local[1]*Wd.ts];
  const windowPt=(truck:Pt,ks:number):Pt=>[truck[0]+WINDOW[0]*ks,truck[1]+WINDOW[1]*ks];
- const flagOnPlume=(base:Pt,s:number,lock:number)=><At p={[base[0]+72*s,base[1]-150*s]}><TowerCameraHero part="flag" w={190*s} h={290*s} lock={lock} pal={pal}/></At>;
+ const flagOnPlume=(base:Pt,s:number,lock:number,dx=72)=><At p={[base[0]+dx*s,base[1]-150*s]}><TowerCameraHero part="flag" w={190*s} h={290*s} lock={lock} pal={pal}/></At>;
 
  /** The open line: from the landed alert at the truck window toward the responder badge on its
   * station, stopping short and open, with the can share tag pinned to the badge's own post. bs sizes
@@ -176,10 +187,10 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   * covers at full reach. The default stop leaves a clear gap before the badge at every caller: about
   * 45 native px in B's s5 wide, 43 in the lens-return composite and 67 in the tower-return composite,
   * since the alert reaches the crew and no source says it reaches responders. */
- const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number,o:{bs?:number;stop?:number}={})=>{
+ const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number,o:{bs?:number;stop?:number;lift?:number}={})=>{
   const bs=o.bs??1, stop=o.stop??OPEN_LINE_STOP;
   const roof=station[1]-206*sts, badge:Pt=[station[0],roof-74*bs];
-  const ctrl:Pt=[(from[0]+badge[0])/2,Math.min(from[1],badge[1])-140*bs];
+  const ctrl:Pt=[(from[0]+badge[0])/2,Math.min(from[1],badge[1])-(o.lift??140)*bs];
   const pts=Array.from({length:41},(_,i)=>bez(from,ctrl,badge,stop*reachP*i/40)), end=pts[pts.length-1];
   const dash=`${22*bs} ${16*bs}`;
   return <g data-part="open-line-and-badge">
@@ -212,8 +223,8 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
    {Wd.mesquite.filter(([pt])=>pt[1]<1080).map(([pt,h,seed],i)=><Grounded key={'mf'+i} baseY={pt[1]} on={g}><At p={pt}><WestTexasSupport part="mesquite" seed={seed} h={h}/></At></Grounded>)}
    {o.station&&<Grounded baseY={Wd.station[1]} on={g}><At p={Wd.station} s={Wd.sts}><WestTexasSupport part="station"/></At></Grounded>}
    <Grounded baseY={Wd.windmill[1]} on={g}><At p={Wd.windmill} s={Wd.ws}><WestTexasSupport part="windmill" fan={fan} vane={vane}/></At></Grounded>
-   {o.plume!==undefined&&o.plume>0&&<Grounded baseY={Wd.plume[1]} on={g}><At p={Wd.plume} s={.62}><WestTexasSupport part="plume" t={t} grow={o.plume} h={330}/></At>
-    {o.flag!==undefined&&flagOnPlume(Wd.plume,.62,o.flag)}</Grounded>}
+   {o.plume!==undefined&&o.plume>0&&<Grounded baseY={Wd.plume[1]} on={g}><At p={Wd.plume} s={Wd.pls??.62}><WestTexasSupport part="plume" t={t} grow={o.plume} lean={Wd.plean} h={330}/></At>
+    {o.flag!==undefined&&flagOnPlume(Wd.plume,Wd.pls??.62,o.flag,Wd.pflag)}</Grounded>}
    <Grounded baseY={T[1]} on={g}>
     <At p={T} s={Wd.ts}>
      {sweep('back')}
@@ -239,7 +250,7 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   return plains({heading,ring:[0,360],plume:1,flag:1,truck:true,truckGlow:1,alert:true,truckLast:true,station:true,grounded:true,
    front:<>
     <At p={leg}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:34,scale:tagScale})}</At>
-    {openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,clamp((reach-.55)/.45),{bs:A_S5.bs,stop:A_S5.stop})}
+    {openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,clamp((reach-.55)/.45),{bs:A_S5.bs,stop:A_S5.stop,lift:A_S5.lift})}
    </>});
  };
 
@@ -326,15 +337,18 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   break;}
  case 'plume-flag':{
   // A s3: at the tower's feet looking out; the beam crosses the land onto the plume it draws here,
-  // finds the smoke and the flag box closes on it.
-  const pl:Pt=[700,980];
-  const aim=lerp(150,pl[0]+10,ease(clamp(find/.62))), lock=clamp((find-.5)/.5);
+  // finds the smoke and the flag box closes on it. The plume stands on open ground between the far end
+  // of the plate's wire fence and its near pumpjack (plate card05, frame x 694 to 1004 at this medium
+  // zoom): plume about 175 px, settled box about 112 px and the closing box at half opacity or more
+  // about 26 px clear of the pumpjack, so nothing reads as a well on fire.
+  const pl:Pt=[460,980], plX=540+(pl[0]-540)*ZOOM_MEDIUM;
+  const aim=lerp(150,plX-5,ease(clamp(find/.62))), lock=clamp((find-.5)/.5);
   pic=<g data-world="a-tower-foot">
    <Grounded baseY={pl[1]} on><At p={pl} s={.78}><WestTexasSupport part="plume" t={t} grow={plumeGrow} h={300}/></At></Grounded>
    <Grounded baseY={1020} on><At p={[880,1020]}><WestTexasSupport part="mesquite" seed={31} h={120}/></At></Grounded>
    <path d={`M-260 -500L${aim-60} 986L${aim+70} 990Z`} fill="#FFF0CF" opacity={.22}/>
    <path d={`M-260 -500L${aim-60} 986M-260 -500L${aim+70} 990`} stroke="#FFF4DA" strokeWidth={2} opacity={.4}/>
-   <At p={[pl[0]+60,pl[1]-120]}><TowerCameraHero part="flag" w={200} h={250} lock={lock} pal={pal}/></At>
+   <At p={[pl[0]+34,pl[1]-118]}><TowerCameraHero part="flag" w={180} h={232} lock={lock} pal={pal}/></At>
    <Grounded baseY={1290} on><At p={[-40,1290]} s={2.5}>
     <TowerCameraHero part="tower" heading={heading} time={t}/>
    </At></Grounded>
@@ -503,11 +517,13 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
    <rect x={40} y={206} width={1000} height={460} rx={6} fill="none" stroke={pal.ink} strokeWidth={8}/>
   </g>;
   const truck:Pt=v==='a'?[560,1074]:[640,1080], ks=.4, station:Pt=v==='a'?[900,1004]:[910,1004], sts=.42;
-  const plumeAt:Pt=v==='a'?[760,1030]:[790,1034];
+  // Each closing plume stands on open ground away from the plate's pumpjacks: A's left of its tower,
+  // B's in the right foreground below the station, about 78 px clear of the near pumpjack.
+  const plumeAt:Pt=v==='a'?[192,990]:[940,1250];
   const w=windowPt(truck,ks);
   const lower=<g data-part="closing-land">
    <Grounded baseY={station[1]} on><At p={station} s={sts}><WestTexasSupport part="station"/></At></Grounded>
-   <Grounded baseY={plumeAt[1]} on><At p={plumeAt} s={.45}><WestTexasSupport part="plume" t={t} grow={1} h={300}/></At></Grounded>
+   <Grounded baseY={plumeAt[1]} on><At p={plumeAt} s={v==='a'?.4:.45}><WestTexasSupport part="plume" t={t} grow={1} lean={v==='a'?.1:undefined} h={300}/></At></Grounded>
    {v==='a'&&<Grounded baseY={1012} on><At p={[300,1012]} s={.28}>
     <TowerCameraHero part="sweep" heading={heading} rx={Wd.ring[0]} ry={Wd.ring[1]} layer="back" ring={[0,360]}/>
     <TowerCameraHero part="tower" heading={heading} time={t} dusk={.4}/>
