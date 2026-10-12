@@ -1,0 +1,28 @@
+{
+ "review_scope": "code-final-source-treatment-a",
+ "reviewer_identity": "claude-opus-5-5 independent code critic (not the director, not the earlier A code reviewer)",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  "A-D3 source-limit visual certainty and comprehension, s5-shot-2 open-line 24.94 to 29.26 s, worst 26.41 to 29.26 s once the line is drawn. Treatment A's cut-in background keeps the full watch ring, whose front arc runs about 3.4 native px thick parallel to and just above the open line, passes through the top of the line's end ring, crosses the gap and meets the badge's upper rim, so it reads as a thin second dashed line finishing the trip to the badge, the implied delivery to responders that claims c4 and c6 forbid"
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "A-D3 source-limit visual certainty and comprehension, s5-shot-2 open-line 24.94 to 29.26 s, worst 26.41 to 29.26 s once the line is drawn. Treatment A's cut-in background keeps the full watch ring, whose front arc runs about 3.4 native px thick parallel to and just above the open line, passes through the top of the line's end ring, crosses the gap and meets the badge's upper rim, so it reads as a thin second dashed line finishing the trip to the badge, the implied delivery to responders that claims c4 and c6 forbid"
+  ]
+ },
+ "technical_repair": {
+  "findings": [
+   {
+    "finding": "A-D3 source-limit visual certainty and comprehension, s5-shot-2 open-line 24.94 to 29.26 s, worst 26.41 to 29.26 s once the line is drawn. Treatment A's cut-in background keeps the full watch ring, whose front arc runs about 3.4 native px thick parallel to and just above the open line, passes through the top of the line's end ring, crosses the gap and meets the badge's upper rim, so it reads as a thin second dashed line finishing the trip to the badge, the implied delivery to responders that claims c4 and c6 forbid",
+    "category": "source"
+   }
+  ]
+ },
+ "required_correction_quoted": "Keep the front half of the watch ring out of the open-line cut-in. For example, pass ring [90,270] (back half only, which sits at y < 1029 behind the tower) or no ring when cast is false, or clip the ring out of the band x 500 to 800, y 1050 to 1140. Nothing else in the two-shot needs to change.",
+ "nonblocking_carried": [
+  "the caliche road crosses the gap in A's cut-in, optional",
+  "stale geometry comments"
+ ]
+}
