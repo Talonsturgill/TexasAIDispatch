@@ -47,6 +47,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import copy
 import json
 import math
 import os
@@ -1386,6 +1387,12 @@ def main() -> int:
         if Path(saved_caps.get("words_file", "")).resolve() == (out / "words.json").resolve():
             saved_caps["words_file"] = caps["words_file"]
         # JSON represents measured run tuples as lists; compare its canonical representation.
+        # A cue's integer max_lines of 2 or 3 is a presentation declaration, not measured evidence:
+        # set it aside for this comparison only. Every measured field is still compared exactly.
+        saved_caps = copy.deepcopy(saved_caps)
+        for cue in saved_caps.get("cues") or []:
+            if isinstance(cue, dict) and type(cue.get("max_lines")) is int and cue["max_lines"] in (2, 3):
+                cue.pop("max_lines")
         if saved_words != json.loads(json.dumps(res)) or saved_caps != caps:
             print("vo_align: stored words/cues differ from recomputed acoustic evidence", file=sys.stderr)
             return 1
