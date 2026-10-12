@@ -47,6 +47,19 @@ def bind_node_runtime(repo=REPO, cache=None):
     target.symlink_to(locked, target_is_directory=True)
 
 
+def bind_legacy_cache(cache=None, legacy=None):
+    """Let frozen older wrappers find the provisioned runtime without editing them."""
+    cache = Path(cache or cache_root()).resolve()
+    legacy = Path(legacy or Path(os.environ.get('XDG_CACHE_HOME') or Path.home() / '.cache') / 'texas-ai-dispatch')
+    if not (cache / 'venv/bin/python').is_file():
+        raise ValueError('The pinned runtime must be installed before compatibility binding')
+    if legacy.exists() or legacy.is_symlink():
+        return legacy.resolve() == cache  # Preserve every existing unrelated cache.
+    legacy.parent.mkdir(parents=True, exist_ok=True)
+    legacy.symlink_to(cache, target_is_directory=True)
+    return True
+
+
 def run(args, cwd=REPO):
     subprocess.run([str(arg) for arg in args], cwd=cwd, check=True)
 
@@ -153,11 +166,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--install', action='store_true')
     parser.add_argument('--bind-only', action='store_true')
+    parser.add_argument('--bind-legacy-cache', action='store_true')
     parser.add_argument('--repo', type=Path, default=REPO, help='checkout to bind for --bind-only')
     args = parser.parse_args()
-    if args.install and args.bind_only:
-        parser.error('--install and --bind-only are mutually exclusive')
-    if args.bind_only:
+    if sum((args.install, args.bind_only, args.bind_legacy_cache)) > 1:
+        parser.error('installation and binding modes are mutually exclusive')
+    if args.bind_legacy_cache:
+        print('Legacy runtime cache binding ready' if bind_legacy_cache() else 'Existing runtime cache preserved')
+    elif args.bind_only:
         bind_node_runtime(args.repo)
     elif args.install:
         install()
