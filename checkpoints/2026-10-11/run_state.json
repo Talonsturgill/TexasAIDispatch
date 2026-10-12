@@ -1,28 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair12/opening-a.json",
-        "before_sha256": "f01c200ad4f431706dd9903017e16525ac641d98aa4110a48b6e1c8344146547",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair12/opening-b.json",
-        "before_sha256": "89ace375d89e14cd8219d356d36acce25952a630fbc0fe910380b97c0a7a42f6",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair12/src/TowerAlertFilm.tsx",
-        "before_sha256": "7ad03d4fe0d6fbef24a830ad9f929ce3d2150acc57029fe9ff20cb6c4cde8a6b",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "eeeca8beb09fbcd382019626abba3719310a24ff6752a8e44abca457c1415585",
-    "plan": "{REPO}/out/dispatch/repair-plan-12.json",
-    "plan_sha256": "23054ff6e348b4889861b0fb9e7f18df44f34f84e79a505b32fb6242178f5676",
-    "reboards_before": 10,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3106,6 +3082,82 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-12T18:46:56.626169Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 18,
+          "to": 18
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973",
+            "before_path": "{REPO}/out/dispatch/baseline-repair12/opening-a.json",
+            "before_sha256": "f01c200ad4f431706dd9903017e16525ac641d98aa4110a48b6e1c8344146547",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1",
+            "before_path": "{REPO}/out/dispatch/baseline-repair12/opening-b.json",
+            "before_sha256": "89ace375d89e14cd8219d356d36acce25952a630fbc0fe910380b97c0a7a42f6",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
+            "before_path": "{REPO}/out/dispatch/baseline-repair12/src/TowerAlertFilm.tsx",
+            "before_sha256": "7ad03d4fe0d6fbef24a830ad9f929ce3d2150acc57029fe9ff20cb6c4cde8a6b",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "code_evidence": {
+          "input_bindings": [
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/opening-a.json",
+              "sha256": "f01c200ad4f431706dd9903017e16525ac641d98aa4110a48b6e1c8344146547"
+            },
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/opening-b.json",
+              "sha256": "89ace375d89e14cd8219d356d36acce25952a630fbc0fe910380b97c0a7a42f6"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+              "sha256": "7ad03d4fe0d6fbef24a830ad9f929ce3d2150acc57029fe9ff20cb6c4cde8a6b"
+            },
+            {
+              "kind": "claims",
+              "path": "{REPO}/out/dispatch/claims.json",
+              "sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae"
+            }
+          ],
+          "review_scope": "independent-code-plan",
+          "schema": "dispatch_code_capacity_evidence/1"
+        },
+        "completion_reason": "mandatory-code-integrity",
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Native hero proof admits every scene, takes three distinct native samples per scene and measures occupancy and visible action, with no phantom events.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-native-action-classification.json",
+        "failure_evidence_sha256": "eeeca8beb09fbcd382019626abba3719310a24ff6752a8e44abca457c1415585",
+        "failure_family": "capture-and-analysis",
+        "mechanism_change": "Each scene moves from two registered events to three, where the new third event is a visibly performed state change split from existing coupled motion, so the native sampler can take three distinct samples.",
+        "mechanism_id": "native-third-event-registration-v1",
+        "repair": "One consolidated builder correction across both treatments: give scenes s1, s2, s4, s5, s6, s7 and s8 a genuinely performed third source-bound event each, inside the scene's own clause and shot, with film-clock renderer code in TowerAlertFilm.tsx, clause fractions, attention beats and registry views, preserving the plume and overlap layouts, the script, claims, both authored art groups and their creation receipts, and refresh derived hashes.",
+        "repair_scope": "standard",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "The native hero proof refused before rendering because seven of the eight scenes register only two source-bound visual events and the native sampler requires three distinct performed events per directed scene for first, middle and last samples. The independent Opus worker classified this as a mandatory minimum-action registration defect."
+      },
+      "repair_plan_sha256": "7229efd57a731ca3f065fb027fefa7258343f84adbf3abe72fbd29a46d350153",
+      "repair_revision": "bb37e0124bf186bce9d4ca324af4f6d6d43c5c961911d22f26ba4e0b33e2a5ea",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -3129,7 +3181,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "b223013b10b716701c3fa978871caa7ecf12190e6e2d0a901f744197d21b83cf",
+    "original_private_state_sha256": "9d879ddd0217d84ab71c2fc52c35a8b8f5fc7e973191dbd6d5a7fab4d0a04904",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3157,7 +3209,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T18:46:45.276862Z",
+  "updated_at": "2026-10-12T18:46:56.626214Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
