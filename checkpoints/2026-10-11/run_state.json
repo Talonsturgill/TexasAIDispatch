@@ -49,6 +49,14 @@
       "note": "inspect-only chosen opening film capture authorization",
       "resource": "preflight_renders",
       "to": 5
+    },
+    {
+      "at": "2026-10-12T15:12:59.299559Z",
+      "ceiling": 12,
+      "from": 2,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 3
     }
   ],
   "events": [
@@ -814,6 +822,24 @@
       "repair_revision": "8fff35f298e0d783c2b2daca3e6c783ba524c038a2ca07db27744ff81618c679",
       "repair_scope": "narration-performance",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-12T15:12:59.299603Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 3,
+      "resource": "tts_calls",
+      "was": 2
+    },
+    {
+      "at": "2026-10-12T15:12:59.299617Z",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -829,7 +855,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 5,
-    "tts_calls": 2,
+    "tts_calls": 3,
     "validator_agents": 1,
     "voice_directors": 1
   },
@@ -837,7 +863,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "0e93944f64f0617be966769559672bdcc3aa6e15f0899cc21b61389c34914b4b",
+    "original_private_state_sha256": "c1199cb99ce136df78eee106d1d0a7132c6f08b74484191b2cbb04a39feea271",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -865,7 +891,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:12:47.778219Z",
+  "updated_at": "2026-10-12T15:12:59.299620Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -879,7 +905,7 @@
     "research_agents": 2,
     "scorer_calls": 0,
     "storyboard_critics": 5,
-    "tts_calls": 2,
+    "tts_calls": 3,
     "validator_agents": 1,
     "voice_directors": 1
   }
