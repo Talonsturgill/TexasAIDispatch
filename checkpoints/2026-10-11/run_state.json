@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 9,
+    "storyboard_critics": 10,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -1332,6 +1332,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-12T15:58:13.239449Z",
+      "failure_evidence_json": "{\n \"review_scope\": \"code-plan-two-treatment-rereview\",\n \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic leaf, isolated\",\n \"reviewed_at\": \"2026-10-12\",\n \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n \"renderer_sha256\": \"14d40639584ef3a5bc931c466a5cecc99550bcdcf64ece9cc3a7185f70872ec3\",\n \"treatment\": \"b\",\n \"verdict\": \"revise\",\n \"concept_sha256\": \"99bd3f8022a341095044d14fafbbbf74e41932d164109278a8bf3c0d26130e46\",\n \"weakest_frame\": \"s5-shot-2 open-line wide, 25.025 to 28.5 s. The world plume at [640,1040] leans right across the left part of the plate's near pumpjack and the beam ends on the pumpjack cluster, while the fire station is hidden by mesquite at the left edge.\",\n \"strongest_frame\": \"s3-shot-3 crew-phone in the cab, 15.39-17.0 s. The card comes in through the windshield, continues as the dash-phone bubble at the same point and scale, then buzzes.\",\n \"notes\": \"Round 6 changes B only at the closing plume, from [790,1034] to [940,1250]. B's world, display, s5 open line and every other view draw exactly as before. B-D1 stays fixed. The new closing plume clears the near pumpjack by about 78 px and stays above the caption band. New blocking defect B-D2 above. Needs a rendered check: the new closing plume's lower part falls under the feed's right button column. Correction: move B's world plume onto open ground clear of the pumpjack card, which changes the display plume heading and the s1 pull-back wisp, then re-check both at phone. Digests computed by the director. Transcribed by the director from the critic hand-back.\",\n \"blocking_defects\": [\n  \"B-D2 source and subject_recognition, 25.025 to 28.5 s (s5-shot-2 wide, and the s1 pull-back wisp at 2.5 to 5.0 s at the same point). B's world plume at [640,1040] (scale .62, lean .55) rises 43 px left of the plate's near-pumpjack card (x 683 to 1004) and leans right across it. The beam held on the plume ends on the pumpjack cluster, which the round five strips show at 25.5 to 28.0 s. The picture suggests the camera is watching an oil-well fire, which no claim reports. Same kind of defect as A-P1, less prominent because the wide has no flag box.\"\n ],\n \"story_review\": {\n  \"story_sha256\": \"b05c5184618df5eda5e7a9a0d52d54afea093e35af2d3ec4e36f02e972267215\",\n  \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n  \"claims_sha256\": \"43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae\",\n  \"verdict\": \"revise\",\n  \"blocking_defects\": [\n   \"B-D2\"\n  ],\n  \"one_viewing_summary\": \"From the silent phone strips and the current code. A tower camera's display pans dry land and pulls back to the tower. 16 of 56 cameras are up. Smoke appears in the display and is flagged. An alert card goes to the crew truck and lands on its dash phone. The dash clock marks an estimated window of up to ten minutes. In the display the plume keeps burning and the cameras don't prevent fires. Wide, the beam ends on smoke at an oil pumpjack while a dashed line from the truck stops short of a responder badge. The utility's wildfire lead reports no major fire since launch over the visor calendar. The record stays blank. The plan waits on state approval.\",\n  \"opening_to_ending\": \"Opens on what the camera sees and ends on the alert landed with the crew, the line to responders open and the plan awaiting approval, but the s5 wide points the beam at a pumpjack.\",\n  \"weakest_transition\": \"s4-shot-2 to s5-shot-1: from the dash clock in the cab straight back into the lens display with no physical bridge.\"\n },\n \"action_reviews\": [],\n \"technical_repair\": {\n  \"classified_by\": \"claude-opus-5-5 storyboard-critic leaf, isolated, independent of the director\",\n  \"findings\": [\n   {\n    \"finding\": \"B-D2 source and subject_recognition, 25.025 to 28.5 s (s5-shot-2 wide, and the s1 pull-back wisp at 2.5 to 5.0 s at the same point). B's world plume at [640,1040] (scale .62, lean .55) rises 43 px left of the plate's near-pumpjack card (x 683 to 1004) and leans right across it. The beam held on the plume ends on the pumpjack cluster, which the round five strips show at 25.5 to 28.0 s. The picture suggests the camera is watching an oil-well fire, which no claim reports. Same kind of defect as A-P1, less prominent because the wide has no flag box.\",\n    \"category\": \"source\"\n   },\n   {\n    \"finding\": \"B-D2\",\n    \"category\": \"source\"\n   }\n  ]\n }\n}",
+      "failure_evidence_sha256": "a7a76b4d50e119ea1da515effb3c9c055110555ba27372643801f1ca0a46976c",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 10,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 10,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n \"mechanism_id\": \"tower-plate-prop-overlap-sweep-v1\",\n \"failure_family\": \"source-framing\",\n \"repair_scope\": \"technical-integrity\",\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"root_cause\": \"Round six of the independent code review passed treatment A and returned REVISE on treatment B with blocking defect B-D2, classified independently as source. B's world plume at the s5 wide and the s1 pull-back wisp rises at and leans across the plate's near pumpjack so the beam ends on the pumpjack cluster, the same false oil well fire family as the earlier A-P1. The same review listed further overlaps that one consolidated sweep should take in: A's beam now ends on the station instead of the plume, B's s3 card path to the truck runs through the near pumpjack, B's s5 line starts over the tower fence, and lower plume and truck parts sit under the feed's right button column.\",\n \"repair\": \"One consolidated builder correction across both treatments. Move B's world plume onto open ground clear of the pumpjack card and reroute B's s3 card path and truck clear of it, aim A's beam so it ends on the plume, lower A's line arc or recentre the cut-in so the line clears the pumpjack, keep every plume, truck and alert left of x 918 where they reach below y 1194, and check every frame where a plume, beam, card or line sits near either pumpjack card, the fence or the windmill. Refresh the renderer hash in the three boards. Change nothing else.\",\n \"mechanism_change\": \"Instead of fixing one overlap per review round, the correction audits every shot of both treatments against the plate props and the feed button column and fixes them together, with computed clearances reported for each.\",\n \"expected_visible_result\": \"No plume, beam end, flag box, card path or dashed line touches a pumpjack in any shot of either treatment, A's beam visibly ends on the smoke, and nothing important sits under the feed button column.\",\n \"failure_evidence\": \"{REPO}/out/dispatch/retained-round6-opening-b-technical.json\",\n \"failure_evidence_sha256\": \"a7a76b4d50e119ea1da515effb3c9c055110555ba27372643801f1ca0a46976c\",\n \"changed_inputs\": [\n  {\n   \"path\": \"{REPO}/out/dispatch/opening-a.json\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair7/opening-a.json\",\n   \"before_sha256\": \"b3ed211de957b51cf9a247b45998337b7775c9dfc41221f31087e071c3cd337e\",\n   \"after_sha256\": \"\"\n  },\n  {\n   \"path\": \"{REPO}/out/dispatch/opening-b.json\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair7/opening-b.json\",\n   \"before_sha256\": \"b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444\",\n   \"after_sha256\": \"\"\n  },\n  {\n   \"path\": \"{REPO}/out/dispatch/storyboard.json\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair7/storyboard.json\",\n   \"before_sha256\": \"b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444\",\n   \"after_sha256\": \"\"\n  },\n  {\n   \"path\": \"{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair7/src/TowerAlertFilm.tsx\",\n   \"before_sha256\": \"e341e07aa05d4f06ef7b485d04a675d7107fadce9c83add5c25820a909f82788\",\n   \"after_sha256\": \"\"\n  }\n ],\n \"resources\": {\n  \"preflight_renders\": 2\n }\n}",
+      "plan_sha256": "cd7cef2adef6358b483e3c43fde5e69832c0362a626fbbb9902eca41177746fe",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"complete-visual-repair\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":11,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":2,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":11,\"required\":3,\"used\":5},\"reboards\":{\"ceiling\":10,\"remaining\":4,\"required\":1,\"used\":6},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":9,\"remaining\":2,\"required\":3,\"used\":7},\"tts_calls\":{\"ceiling\":12,\"remaining\":8,\"required\":2,\"used\":4},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "07ba42c3c215e4bb313f9760fe256e6cdbc2e096c7f0a29a9670d99ebe8c8205",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "retained-integrity",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-11",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 5,
+        "reboards": 6,
+        "reported_tokens": 10374,
+        "rescue_renders": 0,
+        "research_agents": 2,
+        "scorer_calls": 0,
+        "storyboard_critics": 7,
+        "tts_calls": 4,
+        "validator_agents": 1,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -1355,7 +1459,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2ccea580385931a8101bd654fe547b75f7c8ffbdf93cfa39a1f003055e2a8c7e",
+    "original_private_state_sha256": "a613e26135746ecc30337d54831abdb58296bea1493ad5db6658cde059feb95a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1383,7 +1487,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:51:39.172384Z",
+  "updated_at": "2026-10-12T15:58:13.239500Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,

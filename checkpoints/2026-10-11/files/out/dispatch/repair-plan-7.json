@@ -1,0 +1,41 @@
+{
+ "mechanism_id": "tower-plate-prop-overlap-sweep-v1",
+ "failure_family": "source-framing",
+ "repair_scope": "technical-integrity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "Round six of the independent code review passed treatment A and returned REVISE on treatment B with blocking defect B-D2, classified independently as source. B's world plume at the s5 wide and the s1 pull-back wisp rises at and leans across the plate's near pumpjack so the beam ends on the pumpjack cluster, the same false oil well fire family as the earlier A-P1. The same review listed further overlaps that one consolidated sweep should take in: A's beam now ends on the station instead of the plume, B's s3 card path to the truck runs through the near pumpjack, B's s5 line starts over the tower fence, and lower plume and truck parts sit under the feed's right button column.",
+ "repair": "One consolidated builder correction across both treatments. Move B's world plume onto open ground clear of the pumpjack card and reroute B's s3 card path and truck clear of it, aim A's beam so it ends on the plume, lower A's line arc or recentre the cut-in so the line clears the pumpjack, keep every plume, truck and alert left of x 918 where they reach below y 1194, and check every frame where a plume, beam, card or line sits near either pumpjack card, the fence or the windmill. Refresh the renderer hash in the three boards. Change nothing else.",
+ "mechanism_change": "Instead of fixing one overlap per review round, the correction audits every shot of both treatments against the plate props and the feed button column and fixes them together, with computed clearances reported for each.",
+ "expected_visible_result": "No plume, beam end, flag box, card path or dashed line touches a pumpjack in any shot of either treatment, A's beam visibly ends on the smoke, and nothing important sits under the feed button column.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-round6-opening-b-technical.json",
+ "failure_evidence_sha256": "a7a76b4d50e119ea1da515effb3c9c055110555ba27372643801f1ca0a46976c",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-a.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair7/opening-a.json",
+   "before_sha256": "b3ed211de957b51cf9a247b45998337b7775c9dfc41221f31087e071c3cd337e",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-b.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair7/opening-b.json",
+   "before_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair7/storyboard.json",
+   "before_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair7/src/TowerAlertFilm.tsx",
+   "before_sha256": "e341e07aa05d4f06ef7b485d04a675d7107fadce9c83add5c25820a909f82788",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "preflight_renders": 2
+ }
+}
