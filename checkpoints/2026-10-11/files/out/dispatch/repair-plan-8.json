@@ -1,0 +1,23 @@
+{
+ "mechanism_id": "vo-brisk-pace-direction-v1",
+ "failure_family": "human-performance",
+ "repair_scope": "narration-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The third whole-passage take read at a slower pace than the two earlier takes and ran 47.2 seconds, 7.3 percent over the 44 second story cut, so the independent soundcheck passed no take. The words were accurate and the script is unchanged.",
+ "repair": "Edit only the overall and per line notes in vo_direction.json to ask for a steady brisk conversational pace with no lingering at sentence ends, then synthesize one new whole passage take and soundcheck it. The script, board, claims and sources are unchanged and nothing is stretched.",
+ "mechanism_change": "The notes change from describing drops and lifts in energy to naming a steady brisk pace for the whole passage and asking the reader not to slow at the limit lines.",
+ "expected_visible_result": "The new take runs near the earlier 41 to 43 second reads, fits inside the 44 second cut, and passes the independent verbatim soundcheck so the mix and forced alignment can proceed.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/failed-take-3/soundcheck.log",
+ "failure_evidence_sha256": "ed41b470fbb45b5fb8308a8c5baa80916964e5fecaa6e51b7bd0b38c129c61d2",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair8/vo_direction.json",
+   "before_sha256": "ae2944ab8c7ff92a498f69e31cb167d78367bf159780de24e35ac2127c9490a2",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "tts_calls": 2
+ }
+}

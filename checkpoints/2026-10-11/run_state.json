@@ -169,6 +169,14 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "resource": "tts_calls",
       "to": 6
+    },
+    {
+      "at": "2026-10-12T16:46:54.054815Z",
+      "ceiling": 12,
+      "from": 6,
+      "note": "probe",
+      "resource": "tts_calls",
+      "to": 7
     }
   ],
   "events": [
@@ -1812,6 +1820,24 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 1890,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-12T16:46:54.054855Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "probe",
+      "now": 7,
+      "resource": "tts_calls",
+      "was": 6
+    },
+    {
+      "at": "2026-10-12T16:46:54.054865Z",
+      "kind": "reserved",
+      "note": "probe",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -1827,7 +1853,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 9,
-    "tts_calls": 6,
+    "tts_calls": 7,
     "validator_agents": 1,
     "voice_directors": 1
   },
@@ -1835,7 +1861,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9fa81601a5515a66479343c6dd1cce271310226ee489d0d3c4820620a8b01ccc",
+    "original_private_state_sha256": "d2d925c9716b581c70a397a41c6ad7a9d67fb0ed9346df4c716a4b1537cd2afa",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1863,7 +1889,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T16:45:08.682260Z",
+  "updated_at": "2026-10-12T16:46:54.054867Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -1877,7 +1903,7 @@
     "research_agents": 2,
     "scorer_calls": 0,
     "storyboard_critics": 9,
-    "tts_calls": 6,
+    "tts_calls": 7,
     "validator_agents": 1,
     "voice_directors": 1
   }

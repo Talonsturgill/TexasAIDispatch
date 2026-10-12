@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T16:45:08.981396+00:00",
+  "saved_at": "2026-10-12T16:46:54.365388+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "91f93a0711cde20dabc58293a90265bfe42f807c2bf99322f18325fe22f6bc65"
   },
   "deleted_source": [],
-  "ledger_sha256": "c66e7070f671df992be8c77e9209cfb58dcca08c0bf594274daed21f72800e4f",
-  "original_private_ledger_sha256": "9fa81601a5515a66479343c6dd1cce271310226ee489d0d3c4820620a8b01ccc",
+  "ledger_sha256": "976c68bcef7fb1b42844df8982dd592bf18b593ac2733894d7ed14c075efe8f7",
+  "original_private_ledger_sha256": "d2d925c9716b581c70a397a41c6ad7a9d67fb0ed9346df4c716a4b1537cd2afa",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -31,7 +31,7 @@
     "research_agents": 2,
     "scorer_calls": 0,
     "storyboard_critics": 9,
-    "tts_calls": 6,
+    "tts_calls": 7,
     "validator_agents": 1,
     "voice_directors": 1
   },
@@ -45,26 +45,26 @@
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
       "class": "scratch",
-      "sha256": "982dc33197c9b116336b77ed09fc70043d4e68fa7f5fe8e32f507dd05d7c5629",
-      "size": 719
+      "sha256": "ce69d88d8bf03110d98142e67fded2b1e248646c60a8b1bbdf90151e20002502",
+      "size": 723
     },
     {
       "path": "out/dispatch/acoustic-asr.json",
       "class": "scratch",
-      "sha256": "c75e69a7d1c226105e7f10725b4ab15347d82508990bfcd84abc089ce1a77b8e",
-      "size": 55535
+      "sha256": "d48893a2f1718e6a2eca6895ddcd9fdc2bf0c28bf8ff09c1bb87512423428d34",
+      "size": 55964
     },
     {
       "path": "out/dispatch/acoustic-asr.log",
       "class": "scratch",
-      "sha256": "2fce09d7c6c10e9981cacd412e78ee5773ac6dc286888b362e9efacce38458f0",
-      "size": 118924
+      "sha256": "1861a0d595000ee17969f8e8c3eaa346be66920d0b8dc14b30d93161bf1b9916",
+      "size": 84841
     },
     {
       "path": "out/dispatch/alignment-16k.wav",
       "class": "scratch",
-      "sha256": "6defc324c3da766b83eaf4baae04ffe9d65268c4028ab6be4877684e1d7ebcea",
-      "size": 1404558
+      "sha256": "8096dd69b2cd9fd5bc9a2fb519854d0bcb4a8341297917bea8be63f1906db0b6",
+      "size": 1543766
     },
     {
       "path": "out/dispatch/artwork-originals/authored-6a9f14a3-d0f9-4e1d-be1b-6292d5b78600.tsx",
@@ -281,6 +281,12 @@
       "class": "scratch",
       "sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
       "size": 159159
+    },
+    {
+      "path": "out/dispatch/baseline-repair8/vo_direction.json",
+      "class": "scratch",
+      "sha256": "ae2944ab8c7ff92a498f69e31cb167d78367bf159780de24e35ac2127c9490a2",
+      "size": 27821
     },
     {
       "path": "out/dispatch/builder-assignment-2.json",
@@ -541,6 +547,30 @@
       "size": 900
     },
     {
+      "path": "out/dispatch/failed-take-3/prompt.txt",
+      "class": "scratch",
+      "sha256": "6c2b227bf028f537105e7229971863ce8e4767081fea4c03fd3fd7ece37f7dee",
+      "size": 5495
+    },
+    {
+      "path": "out/dispatch/failed-take-3/soundcheck.log",
+      "class": "scratch",
+      "sha256": "ed41b470fbb45b5fb8308a8c5baa80916964e5fecaa6e51b7bd0b38c129c61d2",
+      "size": 352
+    },
+    {
+      "path": "out/dispatch/failed-take-3/take1.wav",
+      "class": "scratch",
+      "sha256": "710d062f05fa5e293500418e677bea76aa15603ef03b4b0d4322456dfd47fabb",
+      "size": 4531244
+    },
+    {
+      "path": "out/dispatch/failed-take-3/takes.json",
+      "class": "scratch",
+      "sha256": "fa504e017d812f8d2b58c9a59b1710589b3877b3674cf74c216d1c99232ee089",
+      "size": 909
+    },
+    {
       "path": "out/dispatch/hook-observation.json",
       "class": "scratch",
       "sha256": "dbda2f463c4a1bdafbe896eaeb1865899861c0cd686aeeeeda92dcd2a2e8bb75",
@@ -555,19 +585,19 @@
     {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
-      "sha256": "ec3944155c3ee7886370e3753e01fb44b6a2a67d134b31754d770293c330b2ec",
-      "size": 5486
+      "sha256": "6970d7283e6365897666ba900f41db1523f67b035e6008c45811a6dccbd6c07b",
+      "size": 5074
     },
     {
       "path": "out/dispatch/mix.wav",
       "class": "scratch",
-      "sha256": "2d51709cb393ee4c8e9cc3fe0e4bf138b8a2618fce953cd585dcdcfaa597819f",
+      "sha256": "86252280fa639cb202bee01584c3bc986a8c81ce13feb79a7d30d71db48c07ec",
       "size": 4704078
     },
     {
       "path": "out/dispatch/mix_vo.wav",
       "class": "scratch",
-      "sha256": "ff2f5ebae9262ce4eec4ef4b5a6d6cef5348cd1c2d8b913db6aa9121e7c66aa7",
+      "sha256": "bd4bd31119778908ce0173460d23e9ad90db3945b4c21f90217193dfac4e333b",
       "size": 4704044
     },
     {
@@ -3061,6 +3091,12 @@
       "size": 3743
     },
     {
+      "path": "out/dispatch/repair-plan-8.json",
+      "class": "scratch",
+      "sha256": "3bc9b7c5b77d9b916dbc27a3d5467ef96b78b93377064e315eb1b45e165d0e15",
+      "size": 1728
+    },
+    {
       "path": "out/dispatch/repair-plan.json",
       "class": "scratch",
       "sha256": "0c1ae27f442f1a672a339fa822bb3016053e14ebce95bda6ea4d21367978ca75",
@@ -3297,14 +3333,14 @@
     {
       "path": "out/dispatch/takes/take1.wav",
       "class": "scratch",
-      "sha256": "cd4c7f85ba15206fff0a57a5b84eb990fe16e618b83ad9f56176adf2c413845c",
-      "size": 4112684
+      "sha256": "710d062f05fa5e293500418e677bea76aa15603ef03b4b0d4322456dfd47fabb",
+      "size": 4531244
     },
     {
       "path": "out/dispatch/takes/takes.json",
       "class": "scratch",
-      "sha256": "c951db421a529baa1107a6ff42968c76134a9137d20ae7dde65366bb1bb6f8fa",
-      "size": 900
+      "sha256": "fa504e017d812f8d2b58c9a59b1710589b3877b3674cf74c216d1c99232ee089",
+      "size": 909
     },
     {
       "path": "out/dispatch/validation.json",
@@ -3333,8 +3369,8 @@
     {
       "path": "out/dispatch/vo_direction.json",
       "class": "scratch",
-      "sha256": "ae2944ab8c7ff92a498f69e31cb167d78367bf159780de24e35ac2127c9490a2",
-      "size": 27821
+      "sha256": "083e08b517572281e109846c45fed7a42589542531e95920d6872bb0fe6af372",
+      "size": 28321
     },
     {
       "path": "out/dispatch/vo_script.txt",
