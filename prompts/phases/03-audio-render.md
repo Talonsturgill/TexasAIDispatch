@@ -105,8 +105,10 @@ review window. Preserve a rejected excerpt; use the strict review-context proced
 prompts/phases/repair.md only when the full timed film and authored inputs remain exact.
 
 ```sh
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json"
 python scripts/preflight_animatic.py --board out/dispatch/storyboard.json
 python scripts/review_context.py --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --verify-report out/dispatch/preflight.json
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json"
 python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json
 python scripts/audiovisual_review.py --role hero --film out/dispatch/cinema/hero.mp4 --out out/dispatch/cinema/hero-review.json
 python scripts/production_quality.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --preview
@@ -114,6 +116,9 @@ python scripts/production_quality.py --board out/dispatch/storyboard.json --mix 
 
 cinema_proof uses one bundle/browser for missing hero and stage samples. It can reuse exact
 retained bytes only after dependency validation; an unrelated ending edit can reuse the hero.
+On Claude, the prepared authorization owns the charge; the operator claims that matching event
+instead of charging again. Keep old reservations intact. A corrected operator source is included
+in its input identity, and repeated identical captures remain refused.
 The current whole-board proof, phone approval, stage ablation, provider verdict and final
 film match remain mandatory. Do not repurchase a review of identical bytes for the same lens.
 

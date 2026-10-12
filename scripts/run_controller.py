@@ -204,11 +204,19 @@ def preflight_identity(path: Path, note: str) -> str | None:
     for directory in (REPO / "video-engine/src", REPO / "video-engine/public"):
         if directory.exists():
             files += [p for p in directory.rglob("*") if p.is_file()]
-    content = [(str(p), digest(p)) for p in sorted(files)]
     # Production callers use these fixed operations. Free-form wording is not identity.
     operation = "hero" if note in {"hero", "finished cinematic hero and stage ablation batch"} else "animatic"
     if note == "two opening comparison batch":
         operation = "opening-comparison"
+    elif note == "exact-film motion-image review extraction":
+        operation = "motion-review"
+    operator = {'hero': 'cinema_proof.py', 'animatic': 'preflight_animatic.py',
+                'motion-review': 'claude_motion_review.py'}.get(operation)
+    if operator:
+        files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
+    content = [(str(p), digest(p)) for p in sorted(set(files))]
+    if operation == 'motion-review':
+        content.append(('registered-native-film', read_state(path).get('deliverable', {}).get('film_sha256')))
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
 
 
@@ -269,10 +277,16 @@ def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tupl
         return {}, f"invalid repair plan: {exc}"
 
 
-def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False
+def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False, _use_prepared_capture: bool = True
             ) -> tuple[bool, str]:
     import claude_checkpoint
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
+    if _use_prepared_capture and amounts == {'preflight_renders': 1}:
+        from capture_reservation import OPERATIONS, claim
+        authorization = REPO / 'out/dispatch/capture-authorization.json'
+        if (note in OPERATIONS.values() and authorization.is_file()
+                and load_json(authorization).get('prepared_capture') is not None):
+            return claim(path, note)
     state = read_state(path)
     if state.get("terminal_state"):
         return False, (

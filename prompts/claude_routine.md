@@ -351,6 +351,20 @@ issued a current authorization for that exact command. Reserve a fresh render wi
 python scripts/capture_guard.py authorize --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
 ```
 
+For `preflight_animatic.py`, `cinema_proof.py` and `claude_motion_review.py`, use the
+prepared operator handoff instead of manually reserving a note and letting the operator reserve
+again. `authorize --prepare` derives the operation from the exact checkout command, checks the
+same art, headroom and housekeeping gates, then charges it once. The real host hook consumes
+the exact authorization, and that operator claims its matching prepaid event once. A phone
+preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
+An unchanged operation cannot be prepared again. Preserve all earlier charges and denied commands.
+Do not create a self-written failure note or request `retry-preflight` to correct an operation
+label. Fix the actual versioned operator handoff and retain its before/after source evidence.
+
+```sh
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json"
+```
+
 It writes `out/dispatch/capture-authorization.json` only from facts: an unused fresh charged render reservation,
 passed native headroom, portable housekeeping run with `--apply --fetch --summary --require-headroom` and the
 computed minimum (its receipt is kept), and genuine recorded authored receipts. The authorization is bound to the
