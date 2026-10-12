@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T17:19:56.593641+00:00",
-  "note": "capture authorization consumed 492b8b700cac",
+  "saved_at": "2026-10-12T17:20:41.700480+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "b08f5d3c949511b9f879eaa63054138b315d17fc20987e269164aa9f16378794"
   },
   "deleted_source": [],
-  "ledger_sha256": "a662265f03b33070fe8149c87cbd3543d45309ecb2aa798e9bcd310d98fc34b4",
-  "original_private_ledger_sha256": "368fca6ff1b8e5bbab1d3f69617b462c3ca134b1ec6f2ea3c042b4c75b85b1ea",
+  "ledger_sha256": "5d91a5c3606a556441c181ca2361a15258cedb1b1db35e620ccb2025e05ad3d2",
+  "original_private_ledger_sha256": "44983fe2461acb058ceab5da6d7db14a09875140498cb2abac314c76cb781c8c",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,7 +30,7 @@
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 0,
-    "storyboard_critics": 11,
+    "storyboard_critics": 12,
     "tts_calls": 13,
     "validator_agents": 1,
     "voice_directors": 1
@@ -3917,6 +3917,12 @@
       "class": "scratch",
       "sha256": "ceeb58d056557109450ceed2d55d567ad6dc52a4daedeeb65e569575f0fe733e",
       "size": 909
+    },
+    {
+      "path": "out/dispatch/timed-preflight-refusal.log",
+      "class": "scratch",
+      "sha256": "0b618916111a54f1a09ee800625758e7841dee7adeefde8097a83f41baa7efe1",
+      "size": 113
     },
     {
       "path": "out/dispatch/validation.json",
