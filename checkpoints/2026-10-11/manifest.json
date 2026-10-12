@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T15:13:46.461949+00:00",
+  "saved_at": "2026-10-12T15:16:24.030666+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "b8e8a906d0fb0e810251deb14646821b9492b68c7ef8ff825dc35065653bc8b1"
   },
   "deleted_source": [],
-  "ledger_sha256": "7ab7f53f1ab62d2ca7075ab84ab240716ceff1f9c10341ecfb24a25e36e3f278",
-  "original_private_ledger_sha256": "57076ae53ead73843227539a971e2b78f1bad3bf3dcc13ffc494a0cc7f20c511",
+  "ledger_sha256": "0687e6becac6f72187a45d4eb7f10a7b0928cc439af4e4b50874f027b8a69b62",
+  "original_private_ledger_sha256": "be5e4b83a53847fedfb2995fd2037a32cb511dda4390beb74f314eb2f0b1951d",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -45,26 +45,26 @@
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
       "class": "scratch",
-      "sha256": "695af6b46ab49f2b5c2ee3072f2bead98501747e68603e0dd0dc65c34a518ef0",
-      "size": 723
+      "sha256": "982dc33197c9b116336b77ed09fc70043d4e68fa7f5fe8e32f507dd05d7c5629",
+      "size": 719
     },
     {
       "path": "out/dispatch/acoustic-asr.json",
       "class": "scratch",
-      "sha256": "fae2a4548f56b35118b8de8742269885146e1ae8e87e9958fb331bf3eb08ff52",
-      "size": 55277
+      "sha256": "c75e69a7d1c226105e7f10725b4ab15347d82508990bfcd84abc089ce1a77b8e",
+      "size": 55535
     },
     {
       "path": "out/dispatch/acoustic-asr.log",
       "class": "scratch",
-      "sha256": "785790b272f079fc4d5ae49a38b683228b7b07c15e526fb0ae342f86c0a27527",
+      "sha256": "2fce09d7c6c10e9981cacd412e78ee5773ac6dc286888b362e9efacce38458f0",
       "size": 118924
     },
     {
       "path": "out/dispatch/alignment-16k.wav",
       "class": "scratch",
-      "sha256": "d4bec56c3dec97cc954df36d96dab444a48bd04af1960e4f4ba1af416271d5b3",
-      "size": 1351218
+      "sha256": "6defc324c3da766b83eaf4baae04ffe9d65268c4028ab6be4877684e1d7ebcea",
+      "size": 1404558
     },
     {
       "path": "out/dispatch/artwork-originals/authored-6a9f14a3-d0f9-4e1d-be1b-6292d5b78600.tsx",
@@ -209,6 +209,30 @@
       "class": "scratch",
       "sha256": "e1377dbc970ab8c06bd9f1fea8ecf2306c5cb41029c9fa7ca15f8899c3613672",
       "size": 27855
+    },
+    {
+      "path": "out/dispatch/baseline-repair5/opening-b.json",
+      "class": "scratch",
+      "sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2",
+      "size": 159118
+    },
+    {
+      "path": "out/dispatch/baseline-repair5/storyboard.json",
+      "class": "scratch",
+      "sha256": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8",
+      "size": 159119
+    },
+    {
+      "path": "out/dispatch/baseline-repair5/vo_direction.json",
+      "class": "scratch",
+      "sha256": "63594fc3fd27b3b3e2945e7dcbcb7e5987d921bd70dd52022ac19e9a6bbc545d",
+      "size": 28429
+    },
+    {
+      "path": "out/dispatch/baseline-repair5/vo_script.txt",
+      "class": "scratch",
+      "sha256": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb",
+      "size": 619
     },
     {
       "path": "out/dispatch/builder-assignment-2.json",
@@ -397,6 +421,36 @@
       "size": 27855
     },
     {
+      "path": "out/dispatch/failed-take-2/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "c75e69a7d1c226105e7f10725b4ab15347d82508990bfcd84abc089ce1a77b8e",
+      "size": 55535
+    },
+    {
+      "path": "out/dispatch/failed-take-2/alignment-failure.log",
+      "class": "scratch",
+      "sha256": "98e2791107c57db20910b7d82219355039dc5ac6c52c82b664e7465e0d2fd3ab",
+      "size": 77
+    },
+    {
+      "path": "out/dispatch/failed-take-2/prompt.txt",
+      "class": "scratch",
+      "sha256": "a35b1c16c188a9516cb86519ba4f40d984c6de5ea097724c5b7cd8e9b3753f88",
+      "size": 5794
+    },
+    {
+      "path": "out/dispatch/failed-take-2/take1.wav",
+      "class": "scratch",
+      "sha256": "cd4c7f85ba15206fff0a57a5b84eb990fe16e618b83ad9f56176adf2c413845c",
+      "size": 4112684
+    },
+    {
+      "path": "out/dispatch/failed-take-2/takes.json",
+      "class": "scratch",
+      "sha256": "c951db421a529baa1107a6ff42968c76134a9137d20ae7dde65366bb1bb6f8fa",
+      "size": 900
+    },
+    {
       "path": "out/dispatch/hook-observation.json",
       "class": "scratch",
       "sha256": "dbda2f463c4a1bdafbe896eaeb1865899861c0cd686aeeeeda92dcd2a2e8bb75",
@@ -405,19 +459,19 @@
     {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
-      "sha256": "927a3772947a57c29798eabba3ffbb15ee9908e4c49db1ee93503cc3a8c12058",
-      "size": 5485
+      "sha256": "ec3944155c3ee7886370e3753e01fb44b6a2a67d134b31754d770293c330b2ec",
+      "size": 5486
     },
     {
       "path": "out/dispatch/mix.wav",
       "class": "scratch",
-      "sha256": "d1a87dbe9272ceb9ccb49ed69429f5024745a5e9321b02e43dfaa55a4b99e079",
+      "sha256": "2d51709cb393ee4c8e9cc3fe0e4bf138b8a2618fce953cd585dcdcfaa597819f",
       "size": 4704078
     },
     {
       "path": "out/dispatch/mix_vo.wav",
       "class": "scratch",
-      "sha256": "e4b3ba6c9fb17ae1c7d6c1dd697d7238bd5385f6f0b90f300b8f0a6a93728faf",
+      "sha256": "ff2f5ebae9262ce4eec4ef4b5a6d6cef5348cd1c2d8b913db6aa9121e7c66aa7",
       "size": 4704044
     },
     {
@@ -2005,6 +2059,12 @@
       "size": 1785
     },
     {
+      "path": "out/dispatch/repair-plan-5.json",
+      "class": "scratch",
+      "sha256": "ce78d2aa9c771e7855b86d0ccd05458c81fd7d35ad6529c69b987f9c41a5bf31",
+      "size": 3112
+    },
+    {
       "path": "out/dispatch/repair-plan.json",
       "class": "scratch",
       "sha256": "0c1ae27f442f1a672a339fa822bb3016053e14ebce95bda6ea4d21367978ca75",
@@ -2181,14 +2241,14 @@
     {
       "path": "out/dispatch/takes/take1.wav",
       "class": "scratch",
-      "sha256": "3651a9da7edb64aeb33870fde24871d21a57431f0ccf87ffce2f438a8b1f37f7",
-      "size": 3955244
+      "sha256": "cd4c7f85ba15206fff0a57a5b84eb990fe16e618b83ad9f56176adf2c413845c",
+      "size": 4112684
     },
     {
       "path": "out/dispatch/takes/takes.json",
       "class": "scratch",
-      "sha256": "fe6dc5ec17e01a9f764a3c270f44fd4b588aeac68b29be5bcffed2988154855d",
-      "size": 912
+      "sha256": "c951db421a529baa1107a6ff42968c76134a9137d20ae7dde65366bb1bb6f8fa",
+      "size": 900
     },
     {
       "path": "out/dispatch/validation.json",

@@ -1,0 +1,45 @@
+{
+ "mechanism_id": "line6-pronoun-removed-from-script-v1",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "Two independent whole-passage takes of line six failed forced alignment on the final mix. The first take was recognized as This wildfire lead and the second, after a direction-only correction, as It's wildfire lead, while the independent verbatim soundchecks heard Its. The sentence-initial possessive Its is acoustically ambiguous for the pinned ASR and no honest reconciliation exists for it, so the performance mechanism is exhausted.",
+ "repair": "Replace the sentence-initial pronoun with the noun phrase The utility's, so line six reads The utility's wildfire lead says no major fire has needed an AEP Texas response since launch. The phrase The utility's already aligned in line eight. Update the locked script, the board voice text, narration clause text and the voice direction, then synthesize a fresh whole passage and soundcheck it. No claim, figure or source changes.",
+ "mechanism_change": "The mechanism changes from directing the reader on an ambiguous pronoun to removing the pronoun from the locked script and using a noun phrase that the aligner already recognized in line eight.",
+ "expected_visible_result": "Forced alignment reconciles with the locked script, captions and word timings are measured on the final mix, and the narration names the utility as the speaker of the wildfire lead line.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/failed-take-2/alignment-failure.log",
+ "failure_evidence_sha256": "98e2791107c57db20910b7d82219355039dc5ac6c52c82b664e7465e0d2fd3ab",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/vo_script.txt",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair5/vo_script.txt",
+   "before_sha256": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair5/vo_direction.json",
+   "before_sha256": "63594fc3fd27b3b3e2945e7dcbcb7e5987d921bd70dd52022ac19e9a6bbc545d",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair5/storyboard.json",
+   "before_sha256": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-b.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair5/opening-b.json",
+   "before_sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "tts_calls": 2,
+  "preflight_renders": 2,
+  "full_renders": 1,
+  "audiovisual_reviews": 4,
+  "panel_rounds": 1,
+  "scorer_calls": 3
+ }
+}
