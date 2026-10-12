@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fd1c4f7fc2a697ab8b7b94e0b3e5bc5122a86fdb046dd037381b96b1a45d33af",
-    "resource": "preflight_renders",
-    "at": "2026-10-12T20:26:51.493583Z",
-    "note": "finished cinematic hero and stage ablation batch"
+    "event_sha256": "676cf1acb22233f3798ad0afe6335e6c5c0ece19e19e33577dc34500a55a69e7",
+    "resource": "full_renders",
+    "at": "2026-10-12T20:09:21.177633Z",
+    "note": "full-resolution Dispatch render"
   },
   "boards": [
     {
@@ -157,30 +157,23 @@
   },
   "commands": [
     {
-      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
-      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T20:26:58.700637+00:00"
+      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
+      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
+      "consumed": "2026-10-12T20:32:23.977038+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.884
+    "free_gib": 17.736
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T202651.json",
-    "receipt_sha256": "082c78dc9e9d8eb11fe12efc5d90b0c7c6efd16b1510dc2579e9e51355dd48f1",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T203218.json",
+    "receipt_sha256": "f596d2714b411f98ea716bf979ecdf42a78b623b5f2e069270cf90c78ae27d2d",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T20:26:56.740138+00:00",
-  "expires_at": "2026-10-12T21:11:56.740138+00:00",
-  "prepared_capture": {
-    "schema": "dispatch_prepared_capture/1",
-    "operation": "finished cinematic hero and stage ablation batch",
-    "run_id": "2026-10-11",
-    "event_sha256": "fd1c4f7fc2a697ab8b7b94e0b3e5bc5122a86fdb046dd037381b96b1a45d33af",
-    "input_identity": "a67d12500573b9adc1dd3ef1d1b2a12046a34649c0598a76cd22a8686a2bd0fe"
-  }
+  "issued_at": "2026-10-12T20:32:18.791959+00:00",
+  "expires_at": "2026-10-12T21:17:18.791959+00:00"
 }
