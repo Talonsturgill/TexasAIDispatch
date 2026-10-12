@@ -2,19 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "2838ab2614eaee6b8e02ee7accb541bd797a182568642679bb40413641285a2a",
+    "event_sha256": "a9cb8aba79361fc0b282793bcf84d13377886308f1bfc5e4332e0a442d525cb5",
     "resource": "preflight_renders",
-    "at": "2026-10-12T14:48:36.449272Z",
-    "note": "capture authorization reservation for opening comparison"
+    "at": "2026-10-12T14:59:36.964613Z",
+    "note": "inspect-only chosen opening film capture authorization"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "53e9f40334aa5c412968398b9d69b60a34042fcdd8459dbca8e4cc391a5ea75d"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
-      "sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2"
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8"
     }
   ],
   "bound": {
@@ -161,23 +157,23 @@
   },
   "commands": [
     {
-      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T14:48:53.537910+00:00"
+      "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
+      "consumed": "2026-10-12T14:59:44.496544+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 18.707
+    "free_gib": 18.394
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T144853.json",
-    "receipt_sha256": "61c228743d34dcd02339e3b6c8a0083e1518f5312e5cd6ff204ce49cf649adc8",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T145942.json",
+    "receipt_sha256": "23a63f3fb7a1b4a5049fd4879d94040b4e0c4cb1e6168f60384bc6168668d830",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T14:48:53.463314+00:00",
-  "expires_at": "2026-10-12T15:33:53.463314+00:00"
+  "issued_at": "2026-10-12T14:59:42.342405+00:00",
+  "expires_at": "2026-10-12T15:44:42.342405+00:00"
 }
