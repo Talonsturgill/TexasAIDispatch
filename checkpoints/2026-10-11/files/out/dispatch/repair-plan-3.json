@@ -1,0 +1,45 @@
+{
+ "mechanism_id": "tower-alert-open-line-stop-short-v3",
+ "failure_family": "source-framing",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The independent code critic round three (Opus, 2026-10-12) passed treatment A and returned REVISE on treatment B with blocking defect B-D1. B's open line uses the default stop of .8 so its end ring comes within about 3 native px of the responder badge in s5-shot-2 and about 1.3 px in the lens-return composite, which pictures the alert reaching responders, a fact claims c4 and c6 do not report.",
+ "repair": "One bounded builder correction. Shorten the dashed open line at every treatment B call and at the shared closing call to stop about .64, so a visible gap of about 40 native px remains between the line end and the badge in both places, and refresh derived renderer hashes in the boards. Change nothing else.",
+ "mechanism_change": "The open line changes from a default-length line that touches the badge to a shorter line that visibly stops short of the badge in B's s5 wide and in the shared closing composite.",
+ "expected_visible_result": "At 25.616 s and in the closing composite a clear gap separates the end of the dashed line from the responder badge, so the picture shows the limit that the sources state.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-round3-opening-b-critic.json",
+ "failure_evidence_sha256": "b871cfe2ebd6d566b524c1930e2fe9d7bfb20e9fb655c28c2babfc6b80c206db",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-a.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair3/opening-a.json",
+   "before_sha256": "6069068cc2c642d1721b560243d571d287d5e2ed97669cfca4d0d9906b7c2d03",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-b.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair3/opening-b.json",
+   "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair3/storyboard.json",
+   "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair3/src/TowerAlertFilm.tsx",
+   "before_sha256": "1ae525bc294ea8132680d9802cb9fd4b0fb4efacaa681124d03b8252be25c740",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "preflight_renders": 1,
+  "full_renders": 1,
+  "audiovisual_reviews": 4,
+  "panel_rounds": 1,
+  "scorer_calls": 3,
+  "tts_calls": 2
+ }
+}

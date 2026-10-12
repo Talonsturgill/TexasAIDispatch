@@ -1,4 +1,33 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-a.json",
+        "before_sha256": "6069068cc2c642d1721b560243d571d287d5e2ed97669cfca4d0d9906b7c2d03",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-b.json",
+        "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair3/storyboard.json",
+        "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair3/src/TowerAlertFilm.tsx",
+        "before_sha256": "1ae525bc294ea8132680d9802cb9fd4b0fb4efacaa681124d03b8252be25c740",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+      }
+    ],
+    "failure_sha256": "b871cfe2ebd6d566b524c1930e2fe9d7bfb20e9fb655c28c2babfc6b80c206db",
+    "plan": "{REPO}/out/dispatch/repair-plan-3.json",
+    "plan_sha256": "f486a96549f856e93e1763c99f5d117578230b38e18126b31d8a6dfc1ef6da12",
+    "reboards_before": 3,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -431,6 +460,51 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-12T14:42:38.517909Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-a.json",
+          "before_sha256": "6069068cc2c642d1721b560243d571d287d5e2ed97669cfca4d0d9906b7c2d03",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair3/opening-b.json",
+          "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair3/storyboard.json",
+          "before_sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair3/src/TowerAlertFilm.tsx",
+          "before_sha256": "1ae525bc294ea8132680d9802cb9fd4b0fb4efacaa681124d03b8252be25c740",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "b871cfe2ebd6d566b524c1930e2fe9d7bfb20e9fb655c28c2babfc6b80c206db",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "tower-alert-open-line-stop-short-v3",
+      "plan_identity": null,
+      "plan_sha256": "f486a96549f856e93e1763c99f5d117578230b38e18126b31d8a6dfc1ef6da12",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -454,7 +528,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6e7909e00991d909971f141bc18f82fe7fd85a2cb8ef6877c888dd4b3f3eed5e",
+    "original_private_state_sha256": "d69ac66c00e039fbe9d4ea0e2e3338840f1757975e0e45e5468b72dc04e9c53a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -482,7 +556,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T14:30:08.510098Z",
+  "updated_at": "2026-10-12T14:42:38.517957Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
