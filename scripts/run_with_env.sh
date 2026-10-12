@@ -34,6 +34,11 @@ cd "$repo_root"
 # A cloud bootstrap lives outside the repository, matching the local runtime boundary.
 # Activate only the existing cache; setup itself is an explicit wake step.
 dispatch_cache="${DISPATCH_CLOUD_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/texas-ai-dispatch}"
+if [ -z "${DISPATCH_CLOUD_CACHE:-}" ] && [ -x /opt/texas-dispatch-runtime/venv/bin/python ]; then
+  dispatch_cache=/opt/texas-dispatch-runtime
+  DISPATCH_CLOUD_CACHE="$dispatch_cache"
+  export DISPATCH_CLOUD_CACHE
+fi
 if [ -x "$dispatch_cache/venv/bin/python" ]; then
   PATH="$dispatch_cache/bin:$dispatch_cache/venv/bin:$PATH"
   export PATH
