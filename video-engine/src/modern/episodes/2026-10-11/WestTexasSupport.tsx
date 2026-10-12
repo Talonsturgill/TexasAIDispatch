@@ -454,10 +454,12 @@ export const CAL={block:228,blocks:9,h:200};
  * Its start fades out, because the launch date is not published. Origin at the strip's left end.
  * `scan` (0 to 1) passes a band of low sun along it; labels sit on paper chips so they read on a
  * wall, a visor or the sky. */
-const Calendar:React.FC<{pal:Pal;now?:number;blocks?:number;scan?:number}>=({pal,now=1,blocks=CAL.blocks,scan=-1})=>{
+const Calendar:React.FC<{pal:Pal;now?:number;blocks?:number;scan?:number;labelLift?:number}>=({pal,now=1,blocks=CAL.blocks,scan=-1,labelLift=0})=>{
  const id=useUid('wtcal');
  const {block,h}=CAL, W=block*blocks;
- const label='Launch, earlier this year', lw=widthOf(label,54,true);
+ // the launch label keeps its 54 unit type unless a short strip needs it smaller to leave a clear run
+ // before the Now chip; labelLift raises both chips so binder clips on the top edge sit below them
+ const label='Launch, earlier this year', lfs=Math.min(54,(block*blocks-226)/widthOf(label,1,true)), lw=widthOf(label,lfs,true);
  return <g data-part="launch-calendar">
   <defs><linearGradient id={`${id}f`} x1="0" y1="0" x2="1" y2="0">
    <stop offset="0" stopColor="#fff" stopOpacity={0}/><stop offset={.24*9/blocks} stopColor="#fff" stopOpacity={1}/><stop offset="1" stopColor="#fff" stopOpacity={1}/>
@@ -473,14 +475,16 @@ const Calendar:React.FC<{pal:Pal;now?:number;blocks?:number;scan?:number}>=({pal
    </g>)}
    {scan>=0&&scan<=1&&<rect x={-260+scan*(W+260)} y={0} width={260} height={h} fill={`url(#${id}s)`}/>}
   </g>
-  <rect x={6} y={-86} width={lw+40} height={70} rx={10} fill={pal.paper} opacity={.92}/>
-  <text x={26} y={-34} fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink}>{label}</text>
+  <g transform={`translate(0 ${-labelLift})`}>
+   <rect x={6} y={-86} width={lw+40} height={70} rx={10} fill={pal.paper} opacity={.92}/>
+   <text x={26} y={-34-(54-lfs)*.4} fontFamily={FONT.body} fontWeight={800} fontSize={lfs} fill={pal.ink}>{label}</text>
+  </g>
   {/* the present end of the strip */}
   <g transform={`translate(${W} 0)`} opacity={now}>
-   <rect x={-150} y={-96} width={136} height={70} rx={10} fill={pal.paper} opacity={.92}/>
-   <path d={`M0 -26V${h+26}`} stroke={pal.ink} strokeWidth={8}/>
-   <path d="M-20 -46H20L0 -22Z" fill={pal.ink}/>
-   <text x={-26} y={-42} textAnchor="end" fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink}>Now</text>
+   <rect x={-150} y={-96-labelLift} width={136} height={70} rx={10} fill={pal.paper} opacity={.92}/>
+   <path d={`M0 ${-26-labelLift}V${h+26}`} stroke={pal.ink} strokeWidth={8}/>
+   <path d={`M-20 ${-46-labelLift}H20L0 ${-22-labelLift}Z`} fill={pal.ink}/>
+   <text x={-26} y={-42-labelLift} textAnchor="end" fontFamily={FONT.body} fontWeight={800} fontSize={54} fill={pal.ink}>Now</text>
   </g>
  </g>;
 };
@@ -558,7 +562,11 @@ const Panorama:React.FC<{heading:number;r:number;horizon?:number;ppd?:number;plu
  </g>;
 };
 
-export const RECORD={w:620,h:420, field:[300,268,270,76] as [number,number,number,number]};
+/** The record card's field column starts after its longest label, measured, plus a clear gap, so the
+ * full words How much sooner never run under the dashed field. Both rows share the column. */
+const RECORD_W=620, RECORD_FX=30+Math.ceil(widthOf('How much sooner',34,true))+24, RECORD_FW=RECORD_W-30-RECORD_FX;
+export const RECORD={w:RECORD_W,h:420, field:[RECORD_FX,268,RECORD_FW,76] as [number,number,number,number],
+ arrival:[RECORD_FX,124,RECORD_FW,64] as [number,number,number,number]};
 /** The response record AEP does not publish: a blank card with two empty fields. Origin top-left. */
 const RecordCard:React.FC<{pulse?:number;pal:Pal}>=({pulse=0,pal})=>{
  const id=useUid('wtr');
@@ -570,7 +578,7 @@ const RecordCard:React.FC<{pulse?:number;pal:Pal}>=({pulse=0,pal})=>{
   <rect x={0} y={0} width={w} height={62} fill={pal.ink}/>
   <text x={30} y={45} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={pal.paper}>Response record</text>
   {Array.from({length:8},(_,i)=><line key={i} x1={30} y1={100+i*38} x2={w-30} y2={100+i*38} stroke="#D6CAB2" strokeWidth={1.4}/>)}
-  {[[30,160,'Arrival',[300,124,270,64]],[30,300,'How much sooner',field]].map(([x,y,label,f],i)=>{
+  {[[30,160,'Arrival',RECORD.arrival],[30,300,'How much sooner',field]].map(([x,y,label,f],i)=>{
    const [fx,fy,fw,fh]=f as number[];
    return <g key={i}>
     <text x={x as number} y={y as number} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={pal.ink}>{label as string}</text>
@@ -646,7 +654,7 @@ export type WestTexasSupportProps=
  | {part:'glove';layer:'back'|'front'}
  | {part:'clock';r:number;style:'wrist'|'dash';fill:number;bound:number;pal:Pal}
  | {part:'slots';lit:number;style:'tower'|'lens';planned?:number;labels?:number;pal:Pal}
- | {part:'calendar';pal:Pal;now?:number;blocks?:number;scan?:number}
+ | {part:'calendar';pal:Pal;now?:number;blocks?:number;scan?:number;labelLift?:number}
  | {part:'clip'}
  | {part:'tailgate';top:number}
  | {part:'panorama';heading:number;r:number;horizon?:number;ppd?:number;plume?:{heading:number;grow:number};t:number}
