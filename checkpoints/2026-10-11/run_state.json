@@ -564,6 +564,14 @@
       "note": "independent revalidation of render reuse dependency profile after shared caption edits",
       "resource": "storyboard_critics",
       "to": 23
+    },
+    {
+      "at": "2026-10-12T21:48:50.854569Z",
+      "ceiling": 25,
+      "from": 23,
+      "note": "current code report for renewed treatment 1",
+      "resource": "storyboard_critics",
+      "to": 24
     }
   ],
   "events": [
@@ -5010,6 +5018,24 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-12T21:48:50.854679Z",
+      "ceiling": 25,
+      "kind": "budget_escalated",
+      "note": "current code report for renewed treatment 1",
+      "now": 24,
+      "resource": "storyboard_critics",
+      "was": 23
+    },
+    {
+      "at": "2026-10-12T21:48:50.854694Z",
+      "kind": "reserved",
+      "note": "current code report for renewed treatment 1",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -5024,7 +5050,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 23,
+    "storyboard_critics": 24,
     "tts_calls": 13,
     "validator_agents": 1,
     "voice_directors": 1
@@ -5033,7 +5059,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "18442373ad3acba004e82c3a63a35a276b8e55ed85bffdbab67311fed9675783",
+    "original_private_state_sha256": "970cb5d23a5cc72183702408516d406177dbe0e0b2358ba2347da393e294fbc2",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5061,7 +5087,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T21:42:02.229856Z",
+  "updated_at": "2026-10-12T21:48:50.854697Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
@@ -5074,7 +5100,7 @@
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 3,
-    "storyboard_critics": 23,
+    "storyboard_critics": 24,
     "tts_calls": 13,
     "validator_agents": 1,
     "voice_directors": 1
