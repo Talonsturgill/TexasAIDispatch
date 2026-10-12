@@ -1,15 +1,15 @@
 {
- "review_scope": "code-plan-two-treatment-rereview",
+ "review_scope": "exact-muted-phone-preflight",
  "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
- "reviewed_at": "2026-10-11T11:00:00Z",
- "renderer_sha256": "d51d82d202887bb6e27f26fda8deff64043197b686d4ab13da6ea51e9e413877",
+ "reviewed_at": "2026-10-12",
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "renderer_sha256": "ebf0b71bb0ff1f223b0f5a18d35d6fcbe2ca9d2ad7edbd760af3ddccb561eb98",
  "treatment": "b",
  "verdict": "pass",
- "concept_sha256": "4ad47bb3481ba581f4b374be644cac397b82217ad6b8e50463273debc6a5d78c",
- "weakest_frame": "s3-shot-2 flag-message, 13.775-15.39 s. The card shrinks into a truck at scale 0.26 standing on the same baseline as a tower at scale 0.2 that is not grounded. The truck is about 28 percent of the tower's height and the destination is about 70 phone px wide.",
- "strongest_frame": "s3-shot-3 crew-phone in the cab, 15.39-17.0 s. The card enters through the windshield and continues as the dash-phone bubble at the same point and scale, then buzzes.",
- "notes": "D1, D2, D3, D4, D8 and D9 are verified fixed. No mandatory criterion fails at code scope. Phone review must check the s1 panorama pan per frame, the s1-shot-2 pull-back over a plate that only dollies, the s3-shot-2 tower out of scale with the truck, and the s8-shot-1 Expected tag near the frame edge.",
+ "concept_sha256": "ef88b996eb586f6b27cb65adeeb03c2792a5df96d9aed6c89f496336540cbb68",
+ "weakest_frame": "s5-shot-2 open-line wide, 25.6 to 28.5 s. The foreground mesquite hides the fire station, so the red helmet badge stands above a tree. The truck at the tower base and its landed alert are tiny, and the whole open-line relationship sits in about 90 phone px at the left edge. The ring still stops visibly short and the Can share tag reads.",
+ "strongest_frame": "s3-shot-3 cab, 15.5 to 16.8 s. The card comes in through the windshield, lands on the dash phone as an ALERT bubble and the phone buzzes, with the region seen through the glass.",
+ "notes": "One viewing, muted, from ordered frame strips of the exact preview film. Input: a tower camera's round display panning dry land. Action: smoke appears in the display, a flag box locks on it and an alert card leaves for a crew truck. Result: the alert lands on the dash phone, a clock window is marked estimated, the calendar shows no red mark, the record stays blank, a dashed line to a responder badge stops short and the plan waits on state approval. Every narrated action has a matching picture at its clause. No caption collides with a principal subject. Strips cannot show per-frame motion, so the opening pan speed is left for the timed review. Treatment A was rejected for two blocking pixel defects, see openings/selection.json. Report transcribed by the director from the critic hand-back, digests computed by the director.",
  "blocking_defects": [],
  "story_review": {
   "story_sha256": "840a769c77febfaea45c7ce05fabab452e5e468b206aafa3d6702c050a2e58c6",
@@ -17,9 +17,171 @@
   "claims_sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
   "verdict": "pass",
   "blocking_defects": [],
-  "one_viewing_summary": "Intended chain from code, not observed. A camera head atop a tower turns while its round display pans the dry land, then pulls back to the whole tower and its ring. 16 of 56 lens rings light. In the display a plume rises and a flag locks on it. An alert card slides out to a truck below and lands as a bubble on the dash phone inside the cab. The dash clock shows a hatched window up to ten minutes marked estimated. In the display the plume keeps burning under the locked flag. Wide, a dashed line from the truck stops short of a fire-station badge. A calendar clipped under the visors has no red mark. A blank record lies on the tailgate. The plan folder waits on state approval above the display, the landed alert and the open line.",
-  "opening_to_ending": "Opens on what the camera sees, answers by about 17 s with the alert in the crew truck, carries the same truck through the limits, and ends on a composite that restates the answer under the pending plan.",
-  "weakest_transition": "s2 to s3: from a wall-view count card straight back into the display with no physical bridge. Acceptable because the display was established in s1."
+  "one_viewing_summary": "Observed in the muted phone strips. A tower camera's display pans dry land and pulls back to the tower. 16 of 56 cameras are up. Smoke appears in the display and is flagged. An alert card goes to a crew truck and lands on its dash phone. The dash clock marks an estimated window of up to ten minutes. The plume keeps burning and the cameras don't prevent fires. A dashed line from the truck stops short of a responder badge. The calendar since launch has no red mark. The response record stays blank. The plan waits on state approval.",
+  "opening_to_ending": "Opens on what the camera sees and ends on the alert landed with the crew, the line to responders still open and the plan awaiting approval.",
+  "weakest_transition": "s4-shot-2 to s5-shot-1: from the dash clock in the cab straight back into the lens display with no physical bridge."
  },
- "action_reviews": []
+ "action_reviews": [],
+ "reviewed_preflight_sha256": "cd548fa32b3018626651c7f5551848be6aa625283f1cc89346968f502caa0187",
+ "nonblocking": [
+  "N-B1 25.6 to 28.5 s: the foreground mesquite hides the station so the badge reads over a tree and the truck and alert are small. Move the mesquite or station or draw the station in front.",
+  "N-B2 35.5 to 38.8 s: the record's How much sooner label is overrun by its field box and cut at the left edge in the empty-field detail.",
+  "N-B3 7.775 to 10.5 s: the plan-card close crops the top slot rows and the lower half is empty.",
+  "N-B4 0.34 to 1.48 s: the display pans 360 degrees in 1.14 s, check for strobing at normal speed.",
+  "N-B5 28.5 to 31.5 s: the visor calendar strip is tiny.",
+  "N-B6 14.0 to 15.4 s: the tower beside the truck is a thin sliver out of scale with the truck.",
+  "N-B7 41.5 to 44.0 s: the plate pumpjack stands behind the station and the ring-to-badge gap is narrow at phone size but visible."
+ ],
+ "phone_observations": {
+  "subject_recognition": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 4.5,
+   "observed": "A white camera head sits on a lattice tower top beside a large round display whose picture of red land and horizon pans as the head turns. The pull-back from 2.5 s reveals the whole tall tower with its beam over the dry plains."
+  },
+  "contact_and_consequence": {
+   "pass": true,
+   "start_s": 13.775,
+   "end_s": 16.8,
+   "observed": "The ALERT card slides out of the display's edge, shrinks onto the truck parked below and then enters the cab windshield, landing on the dash-mounted phone as a bubble that stays visible."
+  },
+  "surface_finish": {
+   "pass": true,
+   "start_s": 15.39,
+   "end_s": 21.5,
+   "observed": "The cab reads as finished with roof liner, pillars, visors, dash, wheel, a dash-mounted phone and a black dash clock with a hatched orange window. The props are flat but have edges and shading consistent with the style."
+  },
+  "closing_payoff": {
+   "pass": true,
+   "start_s": 41.5,
+   "end_s": 44.0,
+   "observed": "The top band shows the wildfire plan folder, Filed August 24th, an open State approval slot and an outlined Expected January 2027 tag. Below, the display still shows the plume, the truck carries the landed alert and the dashed line ends in a ring short of the station's badge."
+  }
+ },
+ "modern_observations": {
+  "first_frame": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 1.0,
+   "observed": "Frame one is the camera head and its round display already panning land, so the subject and its watching action are visible immediately."
+  },
+  "visual_progression": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "Display, tower, slot card, plume flagged in the display, card to the truck, cab phone, dash clock, display hold, open line, visor calendar, tailgate record, desk and composite: each shot adds a new state."
+  },
+  "shot_variety": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "Close display, wide tower pull-back, medium cards, cab interior medium, clock close, detail on the calendar end and empty field, and a split closing composite."
+  },
+  "performed_turn": {
+   "pass": true,
+   "start_s": 25.6,
+   "end_s": 28.5,
+   "observed": "The dashed line climbs from the truck toward the responder badge and stops with an open ring short of it, and Can share pins below. The badge sits over a tree because the station is hidden."
+  },
+  "pace": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 44.0,
+   "observed": "A new visible change arrives at least every 4 s and no shot runs past 5 s. The weakest interval is the 28.5 to 31.5 s visor strip, which changes little at phone size."
+  },
+  "closing_answer": {
+   "pass": true,
+   "start_s": 41.5,
+   "end_s": 44.0,
+   "observed": "The alert is landed with the crew, the line to responders stays open and the plan waits on state approval in the same frame, with no invented outcome."
+  },
+  "finished_art": {
+   "pass": true,
+   "start_s": 10.5,
+   "end_s": 21.5,
+   "observed": "The bezelled display with its compass tape and panning land, the smoke and flag box, and the cab and clock read as finished authored art. The s5 wide's occluded station is the weakest finish."
+  }
+ },
+ "narration_picture_observations": {
+  "film_sha256": "cd548fa32b3018626651c7f5551848be6aa625283f1cc89346968f502caa0187",
+  "clauses": [
+   {
+    "id": "n1",
+    "pass": true,
+    "start_s": 0.25,
+    "end_s": 4.8,
+    "observed": "The display pans the land as the head turns, then the view pulls back to the tall tower and its beam."
+   },
+   {
+    "id": "n2a",
+    "pass": true,
+    "start_s": 5.25,
+    "end_s": 7.55,
+    "observed": "Lens rings light one by one to 16 installed on a card of 56."
+   },
+   {
+    "id": "n2b",
+    "pass": true,
+    "start_s": 8.0,
+    "end_s": 10.3,
+    "observed": "The planned rings brighten and the 56 planned by February 2027 tag pins, with the top rows cropped."
+   },
+   {
+    "id": "n3a",
+    "pass": true,
+    "start_s": 10.75,
+    "end_s": 13.55,
+    "observed": "Smoke rises in the display and the flag box closes on it."
+   },
+   {
+    "id": "n3b",
+    "pass": true,
+    "start_s": 14.0,
+    "end_s": 16.8,
+    "observed": "The ALERT card leaves the display for the truck and lands on the cab's dash phone."
+   },
+   {
+    "id": "n4",
+    "pass": true,
+    "start_s": 17.25,
+    "end_s": 21.3,
+    "observed": "The dash clock's hatched window opens and Estimated within ten minutes pins at its end."
+   },
+   {
+    "id": "n5a",
+    "pass": true,
+    "start_s": 21.75,
+    "end_s": 24.8,
+    "observed": "The plume keeps burning under the locked flag in the display and Doesn't prevent fires pins to the rim."
+   },
+   {
+    "id": "n5b",
+    "pass": true,
+    "start_s": 25.25,
+    "end_s": 28.3,
+    "observed": "The dashed line from the truck stops short of the responder badge and Can share pins, the station is hidden by mesquite."
+   },
+   {
+    "id": "n6",
+    "pass": true,
+    "start_s": 28.75,
+    "end_s": 34.3,
+    "observed": "The visor calendar runs from Launch to Now with no red mark and Per AEP's wildfire lead pins at Now."
+   },
+   {
+    "id": "n7",
+    "pass": true,
+    "start_s": 34.75,
+    "end_s": 38.8,
+    "observed": "A blank Response record slides onto the tailgate and its how much sooner field pulses and stays empty, the label is clipped."
+   },
+   {
+    "id": "n8",
+    "pass": true,
+    "start_s": 39.25,
+    "end_s": 43.8,
+    "observed": "The plan folder slides onto the desk with its State approval slot open, then the composite holds it above the landed alert and the open line."
+   }
+  ]
+ }
 }
