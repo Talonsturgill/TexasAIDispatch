@@ -548,6 +548,14 @@
       "note": "code-scope review of panel round 1 technical repair",
       "resource": "storyboard_critics",
       "to": 22
+    },
+    {
+      "at": "2026-10-12T21:30:42.892433Z",
+      "ceiling": 27,
+      "from": 25,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 26
     }
   ],
   "events": [
@@ -4853,6 +4861,24 @@
       "input_identity": "2799ad88b3b64d08eb76d13469afa9ff3560c8e93ba078997f2c83d80daa4e67",
       "kind": "preflight_retry_authorized",
       "reason": "The prepaid preview was refused by the operator's own continuity gate before any render or claim, because the independent code-scope critique for the corrected renderer was not yet bound. That critique has now passed and is recorded for the current story, concept and renderer digests. The earlier charge stays."
+    },
+    {
+      "at": "2026-10-12T21:30:42.892466Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 26,
+      "resource": "preflight_renders",
+      "was": 25
+    },
+    {
+      "at": "2026-10-12T21:30:42.892483Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "2799ad88b3b64d08eb76d13469afa9ff3560c8e93ba078997f2c83d80daa4e67",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -4861,7 +4887,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 25,
+    "preflight_renders": 26,
     "reboards": 14,
     "reported_tokens": 303594,
     "rescue_renders": 1,
@@ -4874,10 +4900,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "2799ad88b3b64d08eb76d13469afa9ff3560c8e93ba078997f2c83d80daa4e67",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6fd564ac190ddc3a2d8505250693e4b738269952dab1e849939dab21465bc71e",
+    "original_private_state_sha256": "955f6c45166b4dcea6dd76e1864a17d97c9b1a6605e0dfbf7131f23bd58a2e9a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4905,14 +4930,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T21:30:31.306581Z",
+  "updated_at": "2026-10-12T21:30:42.892486Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 25,
+    "preflight_renders": 26,
     "reboards": 14,
     "reported_tokens": 303594,
     "rescue_renders": 0,
