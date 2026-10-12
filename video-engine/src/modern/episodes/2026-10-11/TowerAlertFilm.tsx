@@ -4,6 +4,8 @@ import {FONT,widthOf} from '../../../lib/type';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireAction,requireNarration,type DirectedScene} from '../../../lib/direction';
 import {PlaceSubject} from '../../PlaceStage';
+import {LOCATOR_END_S} from '../../CountyLocator';
+import {useUid} from '../../../lib/uid';
 import type {FilmRenderProps} from '../../types';
 import {TowerCameraHero,TOWER,ALERT_SIZE,coaxPoint,type Pal,type Pt} from './TowerCameraHero';
 import {WestTexasSupport,CAB,PHONE,SLOTS,CAL,RECORD,FOLDER} from './WestTexasSupport';
@@ -133,7 +135,7 @@ const A_S5={bs:.42, lw:.9, stop:.45, lift:40, horizon:972.4, cutIn:{x:430,k:1.3}
  * above the caption band and left of the feed's button column in both. In B it hangs from the badge
  * post across the upper left of the station's face, since the truck and the button column leave no
  * open ground beside the station that fits it at this size. */
-const SHARE_TAG={a:{scale:.6,side:'left' as const,drop:40},b:{scale:.75,side:'left' as const,drop:52}};
+const SHARE_TAG={a:{scale:.6,side:'left' as const,drop:40},b:{scale:.75,side:'right' as const,drop:6}};
 /** s1's smoke: the world plume's height range (grow held at 1 so its lower tones keep their full
  * opacity) and the display plume's grow range; both rise on s1-event-3. s3 opens on the same risen
  * fire: A's s3 plume keeps s1's h 300 at full grow, and B's display plume resumes at s1's last grow. */
@@ -143,7 +145,14 @@ const S3_FROM:Record<'a'|'b',number>={a:1,b:S1_WISP.display[1]};
  * Each stops at half its curve or less, so an empty run of land plainly separates the open ring from the
  * badge: about 85 native px in B's s5 wide and about 65 in the closing composites. B's s5 line is drawn
  * heavier (lw) than its badge (bs), which stays small enough to sit below the near pumpjack's region. */
-const B_S5_LINE={bs:.85,lw:1.4,lift:20,stop:.42}, CLOSE_LINE={bs:.5,lift:20,stop:.5};
+const CLOSE_LINE={bs:.7,lift:20,stop:.4};
+/** B's s5 two-shot: the crew pickup and the fire station stand large in the foreground, the responder
+ * badge mounted on the station's gable. The line leaves the truck window, arcs over the rack (peak
+ * about y 1100, under the near pumpjack's region) and stops at .66 of its curve, about 105 native px
+ * (38 phone px) of open air short of the badge rim. Can share hangs from the badge's bottom rim, to
+ * the right, clear of that gap and of the feed's button column. */
+const B_S5={truck:[190,1268] as Pt, ks:.5, alertS:.55, station:[745,1272] as Pt, sts:.8,
+ line:{bs:1,lw:2,lift:85,stop:.66,badgeAt:[745,1136] as Pt,badgeR:56,sharePin:[718,1185] as Pt}};
 /** PlaceStage's close framing zoom, about frame (540,960), which grounded subjects ride. */
 const ZOOM_CLOSE=1.18;
 /** The crew pickup's white paint, as the support module paints the truck. */
@@ -159,6 +168,7 @@ function disclosureLines(text:string):string[]{
 
 export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,variant})=>{
  const ad=useArtDirection();if(!ad)throw new Error('Tower alert film requires the executed art direction profile');
+ const uid=useUid('taf');
  const frame=useCurrentFrame(),{fps}=useVideoConfig(),t=frame/fps;
  if(Math.abs(t-time_s)>1e-6)throw new Error('Tower alert film must read the single film frame clock');
  const pal:Pal=ad.palette, v:V=variant, Wd=WORLD[v];
@@ -212,7 +222,12 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   shown<=0?null:<g transform={`translate(0 ${-60*(o.scale??1)*(1-ease(shown))})`} opacity={clamp(shown*3)}>
    <TowerCameraHero part="tag" lines={lines} tone={tone} pal={pal} drop={o.drop??34} side={o.side} scale={o.scale}
     swing={(o.swing??0)+14*(1-ease(shown))*(o.side==='left'?1:-1)}/></g>;
- const dLines=disclosureLines(scene.production_disclosure??'Illustration');
+ // A disclosure about the county map gives way to the next scene's disclosure once the locator inset
+ // has faded out (its own LOCATOR_END_S), since no map is on screen after that.
+ const sceneList=board.scenes as unknown as {id:string;production_disclosure?:string}[];
+ const nextDisclosure=sceneList[sceneList.findIndex(s=>s.id===scene.id)+1]?.production_disclosure;
+ const disclosureText=t>=LOCATOR_END_S&&/\bMap\b/.test(scene.production_disclosure??'')&&nextDisclosure?nextDisclosure:scene.production_disclosure??'Illustration';
+ const dLines=disclosureLines(disclosureText);
  const dW=Math.max(...dLines.map(l=>widthOf(l,DISCLOSURE_FONT,true)))+34, dH=dLines.length*32+24;
  const disclosure=<g data-disclosure="production_disclosure">
   <rect x={44} y={132} width={dW} height={dH} rx={16} fill={pal.paper} opacity={.93}/>
@@ -230,22 +245,23 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   * gap before the badge at every caller: about 48 native px in A's s5 cut-in, about 85 in B's s5 wide
   * and about 65 in both closing composites, since the alert reaches the crew and no source says it
   * reaches responders. */
- const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number,o:{bs?:number;lw?:number;stop?:number;lift?:number;share?:{scale:number;side:'left'|'right';drop:number}}={})=>{
+ const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number,o:{bs?:number;lw?:number;stop?:number;lift?:number;share?:{scale:number;side:'left'|'right';drop:number};badgeAt?:Pt;badgeR?:number;sharePin?:Pt}={})=>{
   const bs=o.bs??1, lw=o.lw??bs, stop=o.stop??OPEN_LINE_STOP;
-  const roof=station[1]-206*sts, badge:Pt=[station[0],roof-74*bs];
+  // badgeAt mounts the badge on the station itself (no post); otherwise it stands on a post above the roof
+  const roof=station[1]-206*sts, badge:Pt=o.badgeAt??[station[0],roof-74*bs], br=o.badgeR??46*bs, bk=br/46;
   const ctrl:Pt=[(from[0]+badge[0])/2,Math.min(from[1],badge[1])-(o.lift??140)*bs];
   const pts=Array.from({length:41},(_,i)=>bez(from,ctrl,badge,stop*reachP*i/40)), end=pts[pts.length-1];
   const dash=`${22*lw} ${16*lw}`;
   return <g data-part="open-line-and-badge">
-   <line x1={badge[0]} y1={badge[1]+44*bs} x2={badge[0]} y2={roof+4} stroke={pal.ink} strokeWidth={4*bs}/>
-   <circle cx={badge[0]} cy={badge[1]} r={46*bs} fill="#B33A2B" stroke={pal.paper} strokeWidth={6*bs}/>
-   <path transform={`translate(${badge[0]} ${badge[1]+6*bs})`+(bs!==1?` scale(${bs})`:'')} d="M-24 10Q-24 -22 0 -22Q24 -22 24 10H32V16H-32V10Z" fill={pal.paper}/>
+   {!o.badgeAt&&<line x1={badge[0]} y1={badge[1]+44*bs} x2={badge[0]} y2={roof+4} stroke={pal.ink} strokeWidth={4*bs}/>}
+   <circle cx={badge[0]} cy={badge[1]} r={br} fill="#B33A2B" stroke={pal.paper} strokeWidth={6*bs}/>
+   <path transform={o.badgeAt?`translate(${badge[0]} ${badge[1]+6*bk}) scale(${bk})`:`translate(${badge[0]} ${badge[1]+6*bs})`+(bs!==1?` scale(${bs})`:'')} d="M-24 10Q-24 -22 0 -22Q24 -22 24 10H32V16H-32V10Z" fill={pal.paper}/>
    {reachP>0&&<g data-part="open-line">
     <path d={'M'+pts.map(q=>q.join(' ')).join('L')} stroke={pal.paper} strokeWidth={10*lw} strokeDasharray={dash} fill="none" strokeLinecap="round"/>
     <path d={'M'+pts.map(q=>q.join(' ')).join('L')} stroke={pal.accent} strokeWidth={5*lw} strokeDasharray={dash} fill="none" strokeLinecap="round"/>
     <circle cx={end[0]} cy={end[1]} r={13*lw} fill="none" stroke={pal.accent} strokeWidth={5*lw}/>
    </g>}
-   <At p={[badge[0]+3*bs,badge[1]+50*bs]}>{tag(['Can share'],'paper',shareShown,o.share??{side:badge[0]>600?'left':'right',drop:12,scale:.8*bs})}</At>
+   <At p={o.sharePin??[badge[0]+3*bs,badge[1]+50*bs]}>{tag(['Can share'],'paper',shareShown,o.share??{side:badge[0]>600?'left':'right',drop:12,scale:.8*bs})}</At>
   </g>;
  };
  /** The landed alert, pinned to the truck's driver window. */
@@ -255,7 +271,7 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  /** The dry country, the windmill, the shelter, the fence and the tower with its sweep. */
  /** truckLast draws the truck after the plants: it stands nearer than the mesquite and grass tuft
   * behind it, so they never cross it. */
- const plains=(o:{heading:number;ring?:[number,number];beam?:number;lamp?:number;shimmer?:number;plume?:number;flag?:number;truck?:boolean;truckGlow?:number;truckLast?:boolean;station?:boolean;grounded:boolean;front?:React.ReactNode;alert?:boolean;toPlume?:boolean;plumeH?:number})=>{
+ const plains=(o:{heading:number;ring?:[number,number];beam?:number;lamp?:number;shimmer?:number;plume?:number;flag?:number;truck?:boolean;truckGlow?:number;truckLast?:boolean;station?:boolean;grounded:boolean;front?:React.ReactNode;fore?:React.ReactNode;alert?:boolean;toPlume?:boolean;plumeH?:number})=>{
   const T=Wd.tower, g=o.grounded;
   const [rx,ry]=Wd.ring;
   // toPlume: the watch ring keeps its own radius and the held beam's wedge is scaled so its tip lands on
@@ -290,6 +306,7 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
    {o.truckLast&&truckEl}
    {o.truckLast&&Wd.grass.map(([pt,w,h,seed],i)=>pt[1]>=Wd.truck[1]&&<At key={'gn'+i} p={pt}><WestTexasSupport part="grass" seed={seed} w={w} h={h} sway={sway}/></At>)}
    {o.front&&<Grounded baseY={Wd.station[1]} on={g}>{o.front}</Grounded>}
+   {o.fore}
   </g>;
  };
  /** A s5's one world for both of its shots: the plume burning with its flag locked, the limit tag on
@@ -355,13 +372,13 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   <At p={[at[0]-TOWER.head[0]*s,at[1]-TOWER.head[1]*s]} s={s}><TowerCameraHero part="tower" heading={hd} time={t} dusk={.4} lamp={extra.lamp} slot={extra.slot}/></At>;
  /** The cab of the crew's white pickup: its white hood with the centre crease shows through the windshield
   * above the dash, the same white body the alert landed on. */
- const hood=<g data-part="white-hood">
-  <path d="M30 1110L40 1050Q540 968 1040 1050L1050 1110Z" fill={WT_WHITE} stroke="#8D877C" strokeWidth={3}/>
-  <path d="M60 1052Q540 978 1020 1052" stroke="#FFFFFF" strokeWidth={5} opacity={.8} fill="none"/>
-  <path d="M540 990L536 1110" stroke="#B3AEA4" strokeWidth={4}/>
-  <path d="M320 1012Q330 1060 326 1110M760 1012Q750 1060 754 1110" stroke="#C9C4B8" strokeWidth={3} fill="none"/>
+ const hood=(wide=0)=><g data-part="white-hood">
+  <path d={`M30 1110L40 1050Q${540+wide/2} 968 ${1040+wide} 1050L${1050+wide} 1110Z`} fill={WT_WHITE} stroke="#8D877C" strokeWidth={3}/>
+  <path d={`M60 1052Q${540+wide/2} 978 ${1020+wide} 1052`} stroke="#FFFFFF" strokeWidth={5} opacity={.8} fill="none"/>
+  <path d={`M${540+wide/2} 990L${536+wide/2} 1110`} stroke="#B3AEA4" strokeWidth={4}/>
+  <path d={`M${320+wide/2} 1012Q${330+wide/2} 1060 ${326+wide/2} 1110M${760+wide/2} 1012Q${750+wide/2} 1060 ${754+wide/2} 1110`} stroke="#C9C4B8" strokeWidth={3} fill="none"/>
  </g>;
- const cab=(extra:React.ReactNode,visorDown=0)=><g data-world="b-truck-cab">{hood}<WestTexasSupport part="cab" visorDown={visorDown}/>{extra}</g>;
+ const cab=(extra:React.ReactNode,visorDown=0,wide=0)=><g data-world="b-truck-cab">{hood(wide)}<WestTexasSupport part="cab" visorDown={visorDown} wide={wide||undefined}/>{extra}</g>;
  const gloved=(pt:Pt,s:number,bubble:number,buzz:number)=><At p={pt} s={s}>
   <WestTexasSupport part="glove" layer="back"/>
   <WestTexasSupport part="phone" bubble={bubble} buzz={buzz} pal={pal} time={t}/>
@@ -514,7 +531,7 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
     <path d={`M${C[0]} ${C[1]-arm}Q900 ${C[1]-arm-20} 1140 ${C[1]-arm+10}V${C[1]+arm+20}Q900 ${C[1]+arm+12} ${C[0]} ${C[1]+arm}Z`} fill="#B48A55"/>
     <path d={`M${C[0]+150} ${C[1]-arm-6}Q${C[0]+180} ${C[1]} ${C[0]+152} ${C[1]+arm+6}`} stroke="#7A5733" strokeWidth={5} strokeDasharray="10 8" fill="none"/>
    </g>}
-   {v==='b'&&<g data-part="dash-pod"><path d={`M${C[0]-300} ${C[1]+250}Q${C[0]} ${C[1]+160} ${C[0]+300} ${C[1]+250}V1980H${C[0]-300}Z`} fill="#202122"/>
+   {v==='b'&&<g data-part="dash-pod"><path d={`M${C[0]-300} ${C[1]+250}Q${C[0]} ${C[1]+160} ${C[0]+300} ${C[1]+250}V${view==='clock-arc'?2100:1980}H${C[0]-300}Z`} fill="#202122"/>
     <rect x={C[0]-90} y={C[1]+r*1.1} width={180} height={150} fill="#1A1B1B"/></g>}
    <At p={C}><WestTexasSupport part="clock" r={r} style={v==='a'?'wrist':'dash'} fill={fillV} bound={bound} pal={pal}/></At>
    {(at('s4')?markLand:1)>0&&(()=>{const m=ease(at('s4')?markLand:1);
@@ -540,8 +557,17 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
    pic=<Cam f={[x,hz]} s={k} a={[540,hz]}>{aS5(line,share,1/k)}</Cam>;
    break;
   }
-  pic=plains({heading,ring:[0,360],truck:true,truckGlow:1,alert:true,station:true,plume:1,grounded:true,toPlume:true,
-   front:openLine([windowPt(Wd.truck,Wd.ks)[0]+20,windowPt(Wd.truck,Wd.ks)[1]-18],Wd.station,Wd.sts,line,share,{...B_S5_LINE,share:SHARE_TAG.b})});
+  // B: a foreground two-shot on the same land. The line leaves the landed alert at the window, advances
+  // on s5-event-2 and stops open short of the badge; nothing reaches the badge.
+  {const w=windowPt(B_S5.truck,B_S5.ks);
+  pic=plains({heading,ring:[0,360],truck:false,station:false,plume:1,grounded:true,toPlume:true,
+   fore:<g data-part="b-s5-two-shot">
+    <defs><clipPath id={uid+'-st'}><rect x={-160} y={-420} width={500} height={540}/></clipPath></defs>
+    <Grounded baseY={B_S5.truck[1]} on><At p={B_S5.truck} s={B_S5.ks}><WestTexasSupport part="truck" glow={1}/></At>{landedAlert(B_S5.truck,B_S5.ks,B_S5.alertS)}</Grounded>
+    {/* the station's own lamp post (local x -176) is clipped away so only the building and badge read */}
+    <Grounded baseY={B_S5.station[1]} on><At p={B_S5.station} s={B_S5.sts}><g clipPath={`url(#${uid}-st)`}><WestTexasSupport part="station"/></g></At></Grounded>
+    <Grounded baseY={B_S5.station[1]} on>{openLine([w[0]+20,w[1]-18],B_S5.station,B_S5.sts,line,share,{...B_S5.line,share:SHARE_TAG.b})}</Grounded>
+   </g>});}
   break;}
  case 'launch-calendar':
  case 'attribution-pin':{
@@ -560,21 +586,25 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   const pan=v==='a'&&view==='launch-calendar'?ease(scroll):v==='a'?1:0;
   const offX=-pan*(len-760);
   const tagOn=view==='attribution-pin'?attrib:0;
+  // B's attribution-pin close sees past the cab's right edge, so the cab widens for it alone
+  const bPin=v==='b'&&view==='attribution-pin';
   // the check pass: an outline rests on each month block in turn, from the launch end to now, and
   // none of them takes a red mark.
   const cu=check*blocks, cb=Math.min(blocks-1,Math.floor(cu)), cpos=cb+ease(clamp((cu-cb-.6)/.4))*(cb<blocks-1?1:0);
   const strip=<>
-   <At p={stripAt} s={cs}><WestTexasSupport part="calendar" pal={pal} blocks={blocks} labelLift={labelLift} scan={v==='b'&&view==='launch-calendar'?scroll:-1}/></At>
+   {/* B's close: the launch chip runs off the left edge, so its fragment is clipped away there */}
+   {bPin&&<defs><clipPath id={uid+'-strip'}><path d="M0 350H850V0H1500V800H0Z"/></clipPath></defs>}
+   <g clipPath={bPin?`url(#${uid}-strip)`:undefined}><At p={stripAt} s={cs}><WestTexasSupport part="calendar" pal={pal} blocks={blocks} labelLift={labelLift} scan={v==='b'&&view==='launch-calendar'?scroll:-1}/></At></g>
    {check>0&&check<1&&<rect x={stripAt[0]+cpos*CAL.block*cs-4} y={stripAt[1]-6} width={CAL.block*cs+8} height={CAL.h*cs+12} rx={8}
     fill={pal.accent} fillOpacity={.12} stroke={pal.accent} strokeWidth={7} opacity={clamp(check*12)*clamp((1-check)*12)}/>}
    {/* clips at native x 230 and 420 under the driver visor, 660 and 820 under the passenger visor */}
-   {v==='b'&&[.114,.331,.605,.788].map(f=><At key={f} p={[stripAt[0]+f*len,stripAt[1]+2]}><WestTexasSupport part="clip"/></At>)}
+   {v==='b'&&<g clipPath={bPin?`url(#${uid}-strip)`:undefined}>{[.114,.331,.605,.788].map(f=><At key={f} p={[stripAt[0]+f*len,stripAt[1]+2]}><WestTexasSupport part="clip"/></At>)}</g>}
    {/* the attribution tag hangs wholly below the strip, pinned under its bottom edge */}
    <At p={[endPt[0]-150,stripAt[1]+CAL.h*cs+12]}>{tag(["Per AEP's",'wildfire lead'],'ink',tagOn,{side:'right',drop:v==='a'?30:40,scale:v==='a'?1:.95})}</At>
   </>;
   const body=v==='a'
    ?<g data-world="a-shelter-wall" transform={`translate(${offX} 0)`}><At p={[600,1990]} s={5}><WestTexasSupport part="shelter" w={1100}/></At>{strip}</g>
-   :cab(strip,1);
+   :cab(strip,1,bPin?360:0);
   pic=view==='launch-calendar'?body
    :<Cam f={[endPt[0]-40+(v==='a'?offX:0),endPt[1]+120]} s={v==='a'?1.45:1.6} a={[560,700]}>{body}</Cam>;
   break;}
