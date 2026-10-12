@@ -80,6 +80,14 @@ ledger, frozen envelope, charges, failed reviews and paid outputs with its paths
 touches another checkout or an existing ledger, has no force option, and refuses a finished edition.
 Bind its exact lockfile dependencies from the preinstalled environment using the current
 `scripts/cloud_bootstrap.py --bind-only --repo <restored-checkout>` helper, then resume.
+Immediately after restore, before any paid worker reservation, run that binding through the
+current-main wrapper, then explicitly cd into the restored checkout inside the wrapped shell
+and run its `python scripts/env_check.py --require-voice`. Retain both exit codes. The wake
+check on the primary checkout is not a runtime check on the restored checkout. A missing
+Python import, Node module, browser or pinned alignment tool must be repaired from the
+preinstalled cache before a paid builder or render. Never use a scratch tsconfig or scratch
+source copy as a substitute for the production checkout's actual typecheck. Run the actual
+`cd video-engine && npx tsc -p tsconfig.json --noEmit` before accepting a builder hand-back.
 Never initialise a second
 ledger for an edition that has a checkpoint.
 
