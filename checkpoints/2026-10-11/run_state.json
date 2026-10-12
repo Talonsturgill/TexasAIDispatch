@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair5/vo_script.txt",
-        "before_sha256": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb",
-        "path": "{REPO}/out/dispatch/vo_script.txt"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair5/vo_direction.json",
-        "before_sha256": "63594fc3fd27b3b3e2945e7dcbcb7e5987d921bd70dd52022ac19e9a6bbc545d",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair5/storyboard.json",
-        "before_sha256": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair5/opening-b.json",
-        "before_sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      }
-    ],
-    "failure_sha256": "98e2791107c57db20910b7d82219355039dc5ac6c52c82b664e7465e0d2fd3ab",
-    "plan": "{REPO}/out/dispatch/repair-plan-5.json",
-    "plan_sha256": "ce78d2aa9c771e7855b86d0ccd05458c81fd7d35ad6529c69b987f9c41a5bf31",
-    "reboards_before": 4,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1000,6 +971,85 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T15:16:54.589354Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        },
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "428dcaffb687c389cd23643f25744d7b59e1ab73191f198ddaf553ce94a90ff1",
+            "before_path": "{REPO}/out/dispatch/baseline-repair5/vo_script.txt",
+            "before_sha256": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb",
+            "path": "{REPO}/out/dispatch/vo_script.txt"
+          },
+          {
+            "after_sha256": "ae2944ab8c7ff92a498f69e31cb167d78367bf159780de24e35ac2127c9490a2",
+            "before_path": "{REPO}/out/dispatch/baseline-repair5/vo_direction.json",
+            "before_sha256": "63594fc3fd27b3b3e2945e7dcbcb7e5987d921bd70dd52022ac19e9a6bbc545d",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          },
+          {
+            "after_sha256": "556093727eabda0b9cc642e489a942c260b782345f7805e598392e0a387f0c8f",
+            "before_path": "{REPO}/out/dispatch/baseline-repair5/storyboard.json",
+            "before_sha256": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "fa6e8ddc3140b0e9f07f677a259551f4697aa83e0b7e51af2efa21a5f920fb21",
+            "before_path": "{REPO}/out/dispatch/baseline-repair5/opening-b.json",
+            "before_sha256": "02cca20993d4f21b952f02895402ba0e977dc9cb691d7891319933d2f7b6fab2",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Forced alignment reconciles with the locked script, captions and word timings are measured on the final mix, and the narration names the utility as the speaker of the wildfire lead line.",
+        "failure_evidence": "{REPO}/out/dispatch/failed-take-2/alignment-failure.log",
+        "failure_evidence_sha256": "98e2791107c57db20910b7d82219355039dc5ac6c52c82b664e7465e0d2fd3ab",
+        "failure_family": "human-performance",
+        "mechanism_change": "The mechanism changes from directing the reader on an ambiguous pronoun to removing the pronoun from the locked script and using a noun phrase that the aligner already recognized in line eight.",
+        "mechanism_id": "line6-pronoun-removed-from-script-v1",
+        "repair": "Replace the sentence-initial pronoun with the noun phrase The utility's, so line six reads The utility's wildfire lead says no major fire has needed an AEP Texas response since launch. The phrase The utility's already aligned in line eight. Update the locked script, the board voice text, narration clause text and the voice direction, then synthesize a fresh whole passage and soundcheck it. No claim, figure or source changes.",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3,
+          "tts_calls": 2
+        },
+        "root_cause": "Two independent whole-passage takes of line six failed forced alignment on the final mix. The first take was recognized as This wildfire lead and the second, after a direction-only correction, as It's wildfire lead, while the independent verbatim soundchecks heard Its. The sentence-initial possessive Its is acoustically ambiguous for the pinned ASR and no honest reconciliation exists for it, so the performance mechanism is exhausted."
+      },
+      "repair_plan_sha256": "0c5739c87218ac0217afa985b457a282b2e10b3242a600e3568e1b565d94d656",
+      "repair_revision": "ab85a4fa34deb92c116310fbc2e7e3cc665a0c7f6f2923c5d064d9a22d534079",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1023,7 +1073,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "fae8086aa2d8a03872a7a40f177e1aabb6b4e431f95f265f2eb02340419db225",
+    "original_private_state_sha256": "7d3f83e6c5db3202a7a6e7b0fe46a7d26fbd1d18abf05ef1163d0ccc5aab8be5",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1051,7 +1101,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:16:39.456983Z",
+  "updated_at": "2026-10-12T15:16:54.589396Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
