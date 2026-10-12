@@ -1,0 +1,59 @@
+{
+ "review_scope": "code-panel-round-1-classification",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated read-only independent classifier",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  "n5b 25.18 to 28.6 s: the responder open line is a roughly 30 px dashed line hidden under the Can share tag, with no visible gap or stop-short, and reads as an established link, contradicting the source limit",
+  "n6 29.54 to 35.04 s: no major fire since launch is shown as tiny calendar cells with Launch overprinted by clips and the attribution tag covering the strip, unreadable at phone size",
+  "36.0 to 40.0 s: the How much sooner label on the Response record is clipped to How much soon( by its field box",
+  "29.4 to 35.1 s: the scene 6 caption is set visibly smaller than every other scene's caption",
+  "4.6 to 5.4 s, 25.0 to 29.4 s and 42.0 to 44.0 s: the Illustration disclosure chip overlaps the tower camera head and the folder tab"
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "n5b 25.18 to 28.6 s: the responder open line is a roughly 30 px dashed line hidden under the Can share tag, with no visible gap or stop-short, and reads as an established link, contradicting the source limit",
+   "n6 29.54 to 35.04 s: no major fire since launch is shown as tiny calendar cells with Launch overprinted by clips and the attribution tag covering the strip, unreadable at phone size",
+   "36.0 to 40.0 s: the How much sooner label on the Response record is clipped to How much soon( by its field box",
+   "29.4 to 35.1 s: the scene 6 caption is set visibly smaller than every other scene's caption",
+   "4.6 to 5.4 s, 25.0 to 29.4 s and 42.0 to 44.0 s: the Illustration disclosure chip overlaps the tower camera head and the folder tab"
+  ]
+ },
+ "technical_repair": {
+  "findings": [
+   {
+    "finding": "n5b 25.18 to 28.6 s: the responder open line is a roughly 30 px dashed line hidden under the Can share tag, with no visible gap or stop-short, and reads as an established link, contradicting the source limit",
+    "category": "source"
+   },
+   {
+    "finding": "n6 29.54 to 35.04 s: no major fire since launch is shown as tiny calendar cells with Launch overprinted by clips and the attribution tag covering the strip, unreadable at phone size",
+    "category": "legibility"
+   },
+   {
+    "finding": "36.0 to 40.0 s: the How much sooner label on the Response record is clipped to How much soon( by its field box",
+    "category": "legibility"
+   },
+   {
+    "finding": "29.4 to 35.1 s: the scene 6 caption is set visibly smaller than every other scene's caption",
+    "category": "captions"
+   },
+   {
+    "finding": "4.6 to 5.4 s, 25.0 to 29.4 s and 42.0 to 44.0 s: the Illustration disclosure chip overlaps the tower camera head and the folder tab",
+    "category": "layout"
+   }
+  ]
+ },
+ "retained_artistic_findings": [
+  "flat dash slab and A-pillar polygon in cab shots",
+  "closing composite clutter",
+  "near-static holds"
+ ],
+ "not_defects": [
+  "credit card hold and type size",
+  "scorer inability to listen"
+ ],
+ "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+ "panel_round": "out/dispatch/retained-panel-round-1.json",
+ "fix_guidance_transcribed_by_director": "F1 TowerAlertFilm B_S5_LINE bs 1.0 stop .5, SHARE_TAG.b scale .75 left drop 60, CLOSE_LINE stop .5. F2 move binder clips to [.52,.63,.74,.84], cs .8, four blocks, tag below strip. F3 RecordCard field column from measured label width. F4 split cue c9 at a word boundary from existing alignment. F5 DISCLOSURE_MAX about 300 and move the composite band down."
+}
