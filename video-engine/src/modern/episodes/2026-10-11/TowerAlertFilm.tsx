@@ -106,6 +106,8 @@ const DISCLOSURE_FONT=26, DISCLOSURE_MAX=470;
  * scale k about a point on the plate's horizon (frame row 972 at the medium zoom), centred toward the
  * truck and the station, so every landmark keeps its place and nothing arrives unseen. The badge and
  * line are drawn at bs in world units so they read at the old size once the cut-in scales them. */
+/** The share of the open line's curve drawn at full reach, so its end stops short of the badge. */
+const OPEN_LINE_STOP=.64;
 const A_S5={bs:.58, stop:.64, horizon:972.4, cutIn:{x:340,k:1.6}};
 /** Wrap the disclosure to measured lines so its box is sized from its text. */
 function disclosureLines(text:string):string[]{
@@ -171,9 +173,11 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  /** The open line: from the landed alert at the truck window toward the responder badge on its
   * station, stopping short and open, with the can share tag pinned to the badge's own post. bs sizes
   * the badge, post, line and tag in the caller's units and stop is the share of the curve the line
-  * covers at full reach; the defaults draw the original badge and line. */
+  * covers at full reach. The default stop leaves a clear gap before the badge at every caller: about
+  * 45 native px in B's s5 wide, 43 in the lens-return composite and 67 in the tower-return composite,
+  * since the alert reaches the crew and no source says it reaches responders. */
  const openLine=(from:Pt,station:Pt,sts:number,reachP:number,shareShown:number,o:{bs?:number;stop?:number}={})=>{
-  const bs=o.bs??1, stop=o.stop??.8;
+  const bs=o.bs??1, stop=o.stop??OPEN_LINE_STOP;
   const roof=station[1]-206*sts, badge:Pt=[station[0],roof-74*bs];
   const ctrl:Pt=[(from[0]+badge[0])/2,Math.min(from[1],badge[1])-140*bs];
   const pts=Array.from({length:41},(_,i)=>bez(from,ctrl,badge,stop*reachP*i/40)), end=pts[pts.length-1];
