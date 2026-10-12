@@ -549,7 +549,7 @@ const Panorama:React.FC<{heading:number;r:number;horizon?:number;ppd?:number;plu
   <path d={`M${-span} ${H+14}L${ridge.join('L')}L${span} ${H+14}Z`} fill="#9C6A4C"/>
   {vis(196)&&<g transform={`translate(${X(196)} ${H})`}><path d="M-7 0L-1.5 -64H1.5L7 0M-5 -18H5M-3.5 -38H3.5" stroke="#5D6468" strokeWidth={1.8} fill="none"/><rect x={-3} y={-72} width={6} height={6} fill="#5D6468"/></g>}
   {vis(58)&&<g transform={`translate(${X(58)} ${H+8})`}><path d="M-9 0L-2 -40H2L9 0" stroke="#6D7373" strokeWidth={2} fill="none"/><circle cx={0} cy={-44} r={11} fill="none" stroke="#7E8585" strokeWidth={2}/></g>}
-  {vis(150)&&<g transform={`translate(${X(150)} ${H+10})`}><path d="M-30 0V-24L0 -38L30 -24V0Z" fill="#D6D3CA"/><path d="M-32 -24L0 -40L32 -24" stroke="#8C3A2A" strokeWidth={3} fill="none"/><circle cx={0} cy={-28} r={5} fill="#B33A2B"/></g>}
+  {vis(350)&&<g transform={`translate(${X(350)} ${H+10})`}><path d="M-30 0V-24L0 -38L30 -24V0Z" fill="#D6D3CA"/><path d="M-32 -24L0 -40L32 -24" stroke="#8C3A2A" strokeWidth={3} fill="none"/><circle cx={0} cy={-28} r={5} fill="#B33A2B"/></g>}
   {clumps}
   {tufts}
   {plume&&plume.grow>0&&vis(plume.heading)&&<g transform={`translate(${X(plume.heading)} ${H+4}) scale(.62)`}><Plume t={t} grow={plume.grow} h={260}/></g>}
