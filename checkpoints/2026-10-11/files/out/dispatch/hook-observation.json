@@ -1,5 +1,15 @@
-{"schema":"dispatch_hook_observation/1","observed_at":"2026-10-11","host":"claude cloud routine, cwd /home/user at launch, repository entered mid-session",
-"probe":"bash scripts/run_with_env.sh bash -c 'cd video-engine && npx remotion still --props ../out/dispatch/does-not-exist.json nonexistent-composition /tmp/none.png'",
-"result":"NOT DENIED. Remotion itself rejected the nonexistent props file, so the PreToolUse hook scripts/capture_guard.py was not loaded by the host. A second probe after scripts/bootstrap_claude_hooks.py --workspace /home/user (wrote /home/user/.claude/settings.json) was also not denied.",
-"direct_hook_call":"Piping a synthetic event into capture_guard.py hook denies correctly, but this is not host evidence and is not used as a substitute.",
-"action":"No native capture was run. Production stays open. Restart from the durable checkpoint with the registration present before launch."}
+{
+ "schema": "dispatch_hook_observation/1",
+ "observed_at": "2026-10-11",
+ "host": "claude cloud routine, cwd /home/user at launch, repository entered mid-session",
+ "probe": "bash scripts/run_with_env.sh bash -c 'cd video-engine && npx remotion still --props ../out/dispatch/does-not-exist.json nonexistent-composition /tmp/none.png'",
+ "result": "NOT DENIED. Remotion itself rejected the nonexistent props file, so the PreToolUse hook scripts/capture_guard.py was not loaded by the host. A second probe after scripts/bootstrap_claude_hooks.py --workspace /home/user (wrote /home/user/.claude/settings.json) was also not denied.",
+ "direct_hook_call": "Piping a synthetic event into capture_guard.py hook denies correctly, but this is not host evidence and is not used as a substitute.",
+ "action": "No native capture was run. Production stays open. Restart from the durable checkpoint with the registration present before launch.",
+ "second_launch": {
+  "observed_at": "2026-10-12",
+  "probe": "bash scripts/run_with_env.sh bash -c 'cd video-engine && npx remotion still --props ../out/dispatch/does-not-exist.json nonexistent-composition /tmp/none.png'",
+  "result": "DENIED by host-loaded PreToolUse:Bash hook: 'Capture refused. the packet does not authorize a capture; no current capture authorization exists.'",
+  "action": "Hook live; capture may proceed only with fresh reservation and capture_guard authorize."
+ }
+}
