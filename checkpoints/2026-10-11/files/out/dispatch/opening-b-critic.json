@@ -1,25 +1,32 @@
 {
- "review_scope": "code-plan-two-treatment-rereview",
+ "review_scope": "code-plan-two-treatment-renewed-after-technical-correction",
  "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
  "reviewed_at": "2026-10-12",
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
- "renderer_sha256": "7351cefb5c0f7fdcd707d90e0f6b7ba9c5104c61b4743393fc847a65d9183663",
+ "renderer_sha256": "f9c875b012a6e85552d3957d23df340bb9cc10ff2125f8b2b7b3e2dcf88d44dc",
  "treatment": "b",
  "verdict": "pass",
- "concept_sha256": "f013f382ed1f77ddca705a11dfe70b3f697d38ceab50f01f883bbd9b9d169396",
- "weakest_frame": "s5 open-line, measured about 26.8 to 29.3 s. The Can share tag crowds the station: it covers most of the small station's face while the responder badge, the line and the gap before the badge stay clear.",
- "strongest_frame": "s3-shot-3 cab, 15.5 to 16.8 s. The card comes in through the windshield and lands on the dash phone as the ALERT bubble.",
- "notes": "Round 11 (Opus critic, code scope), NA-2 repair. Computed: the B display wisp is about 72 to 121 px tall at .54 to .75 opacity and stays about 37 to 101 px left of the display centre until the cut, the pull-back world plume carries the same fire, and s3 resumes from the s1 end state. s4 glyph about 133 by 86 px with a 241 px drop, s5 Can share pin 26.79 to 27.40 s held to the cut, s6 check pass 1.13 s, a white hood in the cab and tail lamps on the s7 tailgate, and the display station now draws unobstructed. B-D1, B-D2 and B-D3 hold. No mandatory criterion fails at code scope. Nonblocking: the Can share tag covers about 77 percent of the station width and most of its roof line in the s5 wide while the badge, line and gap stay clear, and the tail lamps show only as edge strips. Digests computed by the director. Transcribed by the director from the critic hand-back.",
+ "concept_sha256": "07af208116c0d7d24d37e909268d2c21c3e1ab1e78573614a42758a9b5c747f3",
+ "weakest_frame": "42.0 to 44.0 s (s8-shot-2 closing composite, lens-return), predicted from code. The closing open line uses CLOSE_LINE bs .5 so its stroke is thin and the badge small at phone size, though the gap is about 25 phone px. Three scraps of story share the lower half under the desk band.",
+ "strongest_frame": "14.03 to 17.52 s (s3-shot-2 to s3-shot-3). The alert card leaves the edge of the flagged display, travels to the truck window, comes in at the cab windshield and lands on the dash phone as a bubble that buzzes.",
+ "notes": "Code scope only, renewed after the technical-integrity correction, no rendered pixels. All of F1 to F5 are fixed in B with computed clearances: the s5 open line ends an open ring 84 native px (30 phone px) short of the badge with the Can share tag at least 68 native px below it, the visor calendar cells are 22 native px (8 phone px) with clips clear of both chips, the record label column is measured with at least 24.6 units of clearance, c9 renders on three lines at 42 through the opt-in max_lines rule with the measured 29.54 to 35.04 s timing unchanged, and the disclosure chip clears the camera head by at least 69 native px. B's expressions in the A-only edits evaluate to their previous values. Every clause n1 to n8 has a performed matching picture at its measured window and every scene has three registered events. Not verifiable from code: rendered pixels, motion quality, plate parallax and real glyph ink widths. Digests computed by the director. Transcribed by the director from the critic hand-back.",
  "blocking_defects": [],
  "story_review": {
-  "story_sha256": "951dc2710ab8fae8f6bd9c7dc59a2956a47d0b873281db04cbd0cf1166c67971",
+  "story_sha256": "0f39c17e1cb1e41277b2bb12cf4f94da5e6dd540e07a572bf0ebbaca0342e427",
   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
   "claims_sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
   "verdict": "pass",
   "blocking_defects": [],
-  "one_viewing_summary": "Intended chain from code, not observed for the changed shots. A tower camera's display pans dry land and pulls back to the tower. 16 of 56 cameras are up. Smoke appears in the display and is flagged. An alert card leaves the display, runs low to a crew truck and lands on its dash phone. The dash clock marks an estimated window of up to ten minutes. In the display the plume keeps burning and the cameras don't prevent fires. Wide, the beam reaches the plume on open land left of the tower while a dashed line runs low from the truck's landed alert and stops short of a station's badge. The utility's wildfire lead reports no major fire since launch over the visor calendar. The record stays blank. The plan waits on state approval. Each scene carries a third performed event: the wisp rises, 16 installed stamps in, the alert glyph drops onto the estimate window, Can share pins on its own, a check pass runs along the calendar, the empty Arrival field pulses and the Expected tag pins.",
-  "opening_to_ending": "Opens on what the camera sees and ends on the alert landed with the crew, the line to responders open and the plan awaiting approval, with no implied well fire.",
-  "weakest_transition": "s4-shot-2 to s5-shot-1: from the dash clock in the cab straight back into the lens display with no physical bridge."
+  "one_viewing_summary": "Planned chain on the measured clock, not observed. The camera's display pans the dry land through a full turn and a wisp rises in it, then the picture pulls back to the whole tower. Sixteen of 56 lens rings light and 16 installed stamps, then 56 planned by February 2027 pins. The display swings onto the smoke and the flag box locks. The alert card leaves the display for the crew truck, comes in at the cab windshield and lands on the dash phone. The dash clock marks an estimated window of up to ten minutes. The plume keeps burning under Doesn't prevent fires. Wide, a heavier dashed line from the truck stops clearly short of the responder badge as Can share pins below. A visor calendar since launch shows no red mark and is attributed to AEP's wildfire lead. A blank Response record slides onto the tailgate with its empty fields pulsing. The filed plan folder arrives with its State approval slot open and Expected January 2027 pins, and the composite closes the film.",
+  "opening_to_ending": "Opens on what the tower camera sees and ends with the alert landed at the crew, the line toward responders open, no response record and the plan awaiting state approval.",
+  "weakest_transition": "s4-shot-2 to s5-shot-1 (22.78 s): from the dash clock in the cab straight back inside the lens display with no physical bridge."
  },
- "action_reviews": []
+ "action_reviews": [],
+ "nonblocking": [
+  "N1 s8-shot-1 41.33 to 42.0 s: the Expected January 2027 tag body ends near the frame edge, confirm at phone scope that 2027 is whole.",
+  "N2 the three-line s1/s2 chip overlaps 12 native px of the slot card margin in s2-shot-2, no text.",
+  "N3 the Can share tag covers the station face including its helmet emblem and swings under the line body during its pin, confirm at phone scope.",
+  "N4 line start and landed alert may offset by a few px under truckAcross parallax.",
+  "Retained artistic findings: flat dash slab and A-pillar polygon, closing composite clutter, near-static holds."
+ ]
 }
