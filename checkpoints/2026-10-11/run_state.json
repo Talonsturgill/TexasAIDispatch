@@ -1692,6 +1692,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-12T16:43:31.158207Z",
+      "evidence": "{REPO}/out/dispatch/inspect-only-refusal-1.log",
+      "evidence_sha256": "a5d4108b30996827a354695d7539df929549184a6c9a41053285a82e4ef1adbc",
+      "input_identity": "c467b82c9588373796501f095e96f402c2b2cdbf27ce405ac2585b871dfb6cce",
+      "kind": "preflight_retry_authorized",
+      "reason": "Stale round one preflight report for treatment B blocked inspect-only; moved the retained report aside so the exact selected treatment A bytes can be inspected"
     }
   ],
   "limits": {
@@ -1713,9 +1721,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "c467b82c9588373796501f095e96f402c2b2cdbf27ce405ac2585b871dfb6cce",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7124a90ff44777b9127b261ff157e909da24d7a185ef529cdd14f258d8f1277e",
+    "original_private_state_sha256": "5eff8a10706912c12f55c394a41d8442718de6064efdaaec211ba2c3fee75586",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1743,7 +1752,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T16:43:06.424769Z",
+  "updated_at": "2026-10-12T16:43:31.158260Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
