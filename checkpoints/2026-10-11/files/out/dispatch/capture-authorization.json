@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fcf1112b9f83f68fe8b8fa19f314560904044b9a93230ca772a2e462a0c1aa65",
+    "event_sha256": "07a642e3afc0705b5ec92f375be12dfec34c93ad3a3de92469ed31b6f10f8f87",
     "resource": "preflight_renders",
-    "at": "2026-10-12T18:54:09.312880Z",
+    "at": "2026-10-12T19:46:12.852202Z",
     "note": "capture authorization reservation for opening comparison"
   },
   "boards": [
     {
       "path": "out/dispatch/opening-a.json",
-      "sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973"
+      "sha256": "234911914c4c8a1fc238f2959531a1ed08397d1181221272dc3482fd4f3b4368"
     },
     {
       "path": "out/dispatch/opening-b.json",
-      "sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1"
+      "sha256": "d62f1c559bb3ad5d33a1e9587b37151b9d91303a9913f9286d48c3288baced46"
     }
   ],
   "bound": {
@@ -145,9 +145,9 @@
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx": "2d78478b181b5be7b12f2c705f722d887cd103a3ea12b24b8d21f55fd3c1997d",
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx": "d4d12ba1ef9efa264aff39592cccfbfb1127cd0a94362e73649a331f443bf92d",
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx": "0b2883cf03609379e4e84d6d3ad5bd8ce497203dc5ae9fdd7ab61bef97c7b78c",
-      "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
+      "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx": "99a007f69bd4ce06d01a63c69015d71868fe03c26cb8e7ae0c07ad976e88bf3e",
       "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd",
-      "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b",
+      "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "f273e704b199325fd90cb1f4abb2eec5e166b5e81925680b0dd000c190099a00",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "5d355fefd808b58499dde7ab75189f45050b49cae249a4532a700fd8732c0080",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -156,28 +156,28 @@
     },
     "authored_art": {
       "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd",
-      "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b"
+      "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "f273e704b199325fd90cb1f4abb2eec5e166b5e81925680b0dd000c190099a00"
     }
   },
   "commands": [
     {
       "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T18:54:19.709555+00:00"
+      "consumed": "2026-10-12T19:46:22.405791+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.82
+    "free_gib": 17.689
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T185415.json",
-    "receipt_sha256": "ea5618d814a4ab2728764907a87d69668d67333e064bb3804e9ec426ca1bbca6",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T194619.json",
+    "receipt_sha256": "f394ec68e10086c5896ebcedbe76bf01b2623bc8f1dccb093569510047601258",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T18:54:15.996521+00:00",
-  "expires_at": "2026-10-12T19:39:15.996521+00:00"
+  "issued_at": "2026-10-12T19:46:19.816217+00:00",
+  "expires_at": "2026-10-12T20:31:19.816217+00:00"
 }
