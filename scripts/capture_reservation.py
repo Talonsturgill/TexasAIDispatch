@@ -54,7 +54,7 @@ def prepare(root, state_path, commands):
                 or deliverable.get('film_sha256') != controller.digest(root / 'out/dispatch/film.mp4')
                 or deliverable.get('board_sha256') != controller.digest(root / 'out/dispatch/storyboard.json')):
             raise ValueError('prepared motion extraction needs the registered exact native film and board')
-    accepted, message = controller.reserve(state_path, {'preflight_renders': 1}, note)
+    accepted, message = controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
     if not accepted:
         raise ValueError(message)
     state = controller.read_state(state_path)
@@ -72,11 +72,11 @@ def claim(state_path, note):
     root = controller.REPO.resolve()
     auth_path = root / guard.AUTHORIZATION
     if not auth_path.is_file():
-        return controller.reserve(state_path, {'preflight_renders': 1}, note)
+        return controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
     auth = json.loads(auth_path.read_text())
     prepared = auth.get('prepared_capture')
     if prepared is None:
-        return controller.reserve(state_path, {'preflight_renders': 1}, note)
+        return controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
     with open(str(state_path) + '.capture-claim.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         state = controller.read_state(state_path)

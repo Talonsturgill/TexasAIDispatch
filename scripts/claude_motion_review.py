@@ -172,8 +172,7 @@ def main(argv=None):
                     or deliverable.get('film_sha256') != digest(args.film)
                     or deliverable.get('board_sha256') != digest(args.board)):
                 raise ValueError('motion extraction requires the active registered native film and board')
-            from capture_reservation import claim
-            ok, note = claim(args.state, 'exact-film motion-image review extraction')
+            ok, note = reserve(args.state, {'preflight_renders': 1}, 'exact-film motion-image review extraction')
             if not ok: raise ValueError(note)
             index = build(args.board, args.film, args.out)
             errors = problems(index, args.board, args.film)

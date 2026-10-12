@@ -143,7 +143,7 @@ class Reservation(unittest.TestCase):
             self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
             payload = {'tool_name': 'Bash', 'tool_input': {'command': command}, 'cwd': str(self.root)}
             self.assertIsNone(guard.decide(payload, self.root))
-            self.assertTrue(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
+            self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1}, prepared.OPERATIONS['cinema_proof.py'])[0])
             self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
             self.assertIn('already used', guard.decide(payload, self.root))
             self.assertFalse(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
