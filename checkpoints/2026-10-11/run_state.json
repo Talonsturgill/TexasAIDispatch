@@ -265,6 +265,14 @@
       "note": "capture authorization reservation for opening comparison",
       "resource": "preflight_renders",
       "to": 10
+    },
+    {
+      "at": "2026-10-12T17:11:09.393913Z",
+      "ceiling": 16,
+      "from": 10,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 11
     }
   ],
   "events": [
@@ -2553,6 +2561,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-12T17:11:09.393953Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 11,
+      "resource": "preflight_renders",
+      "was": 10
+    },
+    {
+      "at": "2026-10-12T17:11:09.393967Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "7b90673d5eb35e0d9f17885b5548a3d62eeb8947f6569f4c28eabc083a2068ee",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -2561,7 +2587,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 10,
+    "preflight_renders": 11,
     "reboards": 10,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -2576,7 +2602,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6b041c0d9102d773f561e423b326850716a7bc71371ded492c7e0b39a4812205",
+    "original_private_state_sha256": "48067a7563907d3361feee9114b0dbc7f2995e17bf55acae9f23697d072c44c5",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2604,14 +2630,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T17:10:50.218246Z",
+  "updated_at": "2026-10-12T17:11:09.393970Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 10,
+    "preflight_renders": 11,
     "reboards": 10,
     "reported_tokens": 27672,
     "rescue_renders": 0,
