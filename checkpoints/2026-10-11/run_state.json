@@ -302,6 +302,15 @@
       "input_identity": "acf8f30f1978ff2cf5e2d6f147cdea0c188d3a007f943d2583dfc67dce74f1cf",
       "kind": "preflight_retry_authorized",
       "reason": "Cloud python cache was not bound so Pillow was missing before any render; linked pinned cache to default path and verified imports"
+    },
+    {
+      "at": "2026-10-12T14:09:58.840393Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "acf8f30f1978ff2cf5e2d6f147cdea0c188d3a007f943d2583dfc67dce74f1cf",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -323,10 +332,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "acf8f30f1978ff2cf5e2d6f147cdea0c188d3a007f943d2583dfc67dce74f1cf",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ef1b842879f1f10a22be8dcdea39c3462832bc38ac5be69e1f4947829601cc1f",
+    "original_private_state_sha256": "6c53b215c1c68908c73deded7cca80ca6372232a3782af2736cefae1c6a13571",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -354,14 +362,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T14:09:53.981280Z",
+  "updated_at": "2026-10-12T14:09:58.840439Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 1,
+    "preflight_renders": 2,
     "reboards": 2,
     "reported_tokens": 0,
     "rescue_renders": 0,
