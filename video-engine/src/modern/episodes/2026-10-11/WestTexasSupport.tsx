@@ -531,7 +531,7 @@ const Panorama:React.FC<{heading:number;r:number;horizon?:number;ppd?:number;plu
  const b0=Math.floor((heading-span/ppd)/4), b1=Math.ceil((heading+span/ppd)/4);
  for(let b=b0;b<=b1;b++){const n=((b%90)+90)%90;if(hash(n)<.45)continue;const x=X(b*4+hash(n+7)*4), y=H+14+hash(n+3)*(r-20);
   const s=.4+.9*(y-H)/r;tufts.push(<path key={'g'+b} d={`M${x-8*s} ${y}q${4*s} ${-14*s} ${2*s} ${-22*s}M${x} ${y}q0 ${-16*s} ${6*s} ${-26*s}M${x+8*s} ${y}q${-2*s} ${-12*s} ${4*s} ${-18*s}`} stroke={WT.straw} strokeWidth={2.2} fill="none" opacity={.8}/>);}
- const clumps=[[18,1.1],[64,.8],[96,1.3],[132,.7],[188,1],[226,1.4],[266,.9],[312,1.2],[346,.8]].filter(([h])=>vis(h)).map(([h,k],i)=>{
+ const clumps=[[18,1.1],[64,.8],[96,1.3],[132,.7],[188,1],[226,1.4],[266,.9],[312,1.2],[340,.8]].filter(([h])=>vis(h)).map(([h,k],i)=>{
   const x=X(h);return <g key={'m'+i} transform={`translate(${x} ${H+6}) scale(${k})`}>
    <ellipse cx={0} cy={-10} rx={22} ry={11} fill={WT.olive}/><ellipse cx={-10} cy={-14} rx={10} ry={7} fill={WT.oliveLit}/>
    <ellipse cx={12} cy={-8} rx={12} ry={7} fill={WT.oliveDark}/><path d="M-2 0V-6M4 0V-5" stroke={WT.bark} strokeWidth={2}/></g>;});
@@ -549,8 +549,10 @@ const Panorama:React.FC<{heading:number;r:number;horizon?:number;ppd?:number;plu
   <path d={`M${-span} ${H+14}L${ridge.join('L')}L${span} ${H+14}Z`} fill="#9C6A4C"/>
   {vis(196)&&<g transform={`translate(${X(196)} ${H})`}><path d="M-7 0L-1.5 -64H1.5L7 0M-5 -18H5M-3.5 -38H3.5" stroke="#5D6468" strokeWidth={1.8} fill="none"/><rect x={-3} y={-72} width={6} height={6} fill="#5D6468"/></g>}
   {vis(58)&&<g transform={`translate(${X(58)} ${H+8})`}><path d="M-9 0L-2 -40H2L9 0" stroke="#6D7373" strokeWidth={2} fill="none"/><circle cx={0} cy={-44} r={11} fill="none" stroke="#7E8585" strokeWidth={2}/></g>}
-  {vis(350)&&<g transform={`translate(${X(350)} ${H+10})`}><path d="M-30 0V-24L0 -38L30 -24V0Z" fill="#D6D3CA"/><path d="M-32 -24L0 -40L32 -24" stroke="#8C3A2A" strokeWidth={3} fill="none"/><circle cx={0} cy={-28} r={5} fill="#B33A2B"/></g>}
   {clumps}
+  {/* The fire station stands nearer than the clumps (base H+10 against H+6), so it draws after them and
+      its whole silhouette reads; the clump at 340 shows only as a shrub behind its left corner. */}
+  {vis(350)&&<g transform={`translate(${X(350)} ${H+10})`}><path d="M-30 0V-24L0 -38L30 -24V0Z" fill="#D6D3CA"/><path d="M-32 -24L0 -40L32 -24" stroke="#8C3A2A" strokeWidth={3} fill="none"/><circle cx={0} cy={-28} r={5} fill="#B33A2B"/></g>}
   {tufts}
   {plume&&plume.grow>0&&vis(plume.heading)&&<g transform={`translate(${X(plume.heading)} ${H+4}) scale(.62)`}><Plume t={t} grow={plume.grow} h={260}/></g>}
  </g>;
