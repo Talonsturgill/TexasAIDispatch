@@ -1,18 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair14/storyboard.json",
-        "before_sha256": "087285ae8e0bc9674a7cd211724c2170aca10ad1c0e30efb50909cea610c6e14",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      }
-    ],
-    "failure_sha256": "f7b6372a6f8c10aa683ae09a66b3ff46925866ce586403f21925f54e0be34c0c",
-    "plan": "{REPO}/out/dispatch/repair-plan-14.json",
-    "plan_sha256": "0d4087f423380792f90a7b689504729596abf24c40daed239efd8b7696d0a639",
-    "reboards_before": 12,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/3335218fc71e43c7-087285ae8e0bc967-8b99fae02d7d1ba9/storyboard.json",
@@ -4161,6 +4147,63 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T20:20:01.995738Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 24,
+          "to": 24
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "f154312b9fe06a3f10246e7f781026b36137b77460ab64455ccefbc721470c58",
+            "before_path": "{REPO}/out/dispatch/baseline-repair14/storyboard.json",
+            "before_sha256": "087285ae8e0bc9674a7cd211724c2170aca10ad1c0e30efb50909cea610c6e14",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The end card credits Immersed by Kevin MacLeod under the exact CC BY wording and music.py --verify-package passes.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-music-credit-technical.json",
+        "failure_evidence_sha256": "f7b6372a6f8c10aa683ae09a66b3ff46925866ce586403f21925f54e0be34c0c",
+        "failure_family": "source-framing",
+        "mechanism_change": "The end-card credit moves from a hand-typed assumed track to the exact credit text generated from the registry for the bed actually mixed.",
+        "mechanism_id": "music-credit-exact-registry-text-v1",
+        "repair": "Replace only the MUSIC credit in the board's end-card credits with the exact registry credit for Immersed, write credits.txt identically from the same text, re-render the timed phone preview, native hero and full film on the corrected board, and verify the music package. No picture, narration, mix or art change.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3
+        },
+        "root_cause": "The full native render's end card credits the wrong music track. The board credits name Thinking Music while the mix uses the registry bed Immersed, the music package verification fails and the CC BY licence for the bed in use is unpaid. The independent worker classified it as a rights defect."
+      },
+      "repair_plan_sha256": "9c735aa443a3f02069b74dd5bb50faf13e784ee548f92769741800e783973890",
+      "repair_revision": "ddb1375c7f18eb94e18c00ae9622d34e6d9e6370386dc15b38bcdc0850371c4c",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -4184,7 +4227,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "a4ab152a7603d5b3da221b92a1e56c20271c2f183b463a129f879900645069c2",
+    "original_private_state_sha256": "513f40c895b7b191fd467f70e0c59d46ae27414ef56651b1de083a918307b4c5",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4212,7 +4255,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T20:19:24.514163Z",
+  "updated_at": "2026-10-12T20:20:01.995822Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
