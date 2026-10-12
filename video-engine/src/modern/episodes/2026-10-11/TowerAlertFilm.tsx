@@ -128,8 +128,8 @@ const DISCLOSURE_FONT=26, DISCLOSURE_MAX=300;
 const OPEN_LINE_STOP=.64;
 /** PlaceStage's medium framing zoom, about frame (540,960), which grounded subjects ride. */
 const ZOOM_MEDIUM=1.08;
-/** A's s5: the line stops at .45 of its curve so about 87 screen px (31 phone px) of open land separate
- * its ring from the badge in the 1.3 cut-in, and lw draws it heavier than the small badge. */
+/** A's s5 world: the plume hold's small badge on its post (the wide, where no line is drawn yet) and the
+ * cut-in camera the open-line shot keeps behind the s5 two-shot. */
 const A_S5={bs:.42, lw:.9, stop:.45, lift:40, horizon:972.4, cutIn:{x:430,k:1.3}};
 /** The can share tag pinned under the badge, at a readable size on screen in each treatment's s5 shot:
  * above the caption band and left of the feed's button column in both. In B it hangs from the badge
@@ -313,13 +313,32 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   * the tower leg, the windmill, the truck with its landed alert and the station with its badge. reach
   * is the open line's progress, shareOn the can share tag's own pin; tagScale keeps the limit tag at
   * its first size inside the cut-in. */
- const aS5=(reach:number,shareOn:number,tagScale=1)=>{
+ const aS5=(reach:number,shareOn:number,tagScale=1,cast=true)=>{
   const leg=towerPt([-46,-520]), w=windowPt(Wd.truck,Wd.ks);
-  return plains({heading,ring:[0,360],plume:1,flag:1,truck:true,truckGlow:1,alert:true,truckLast:true,station:true,grounded:true,toPlume:true,
+  // cast false leaves the truck, the station and the line to the s5 two-shot drawn in front of this world
+  return plains({heading,ring:[0,360],plume:1,flag:1,truck:cast,truckGlow:1,alert:cast,truckLast:true,station:cast,grounded:true,toPlume:true,
    front:<>
     <At p={leg}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:34,scale:tagScale})}</At>
-    {openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,shareOn,{bs:A_S5.bs,lw:A_S5.lw,stop:A_S5.stop,lift:A_S5.lift,share:SHARE_TAG.a})}
+    {cast&&openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,shareOn,{bs:A_S5.bs,lw:A_S5.lw,stop:A_S5.stop,lift:A_S5.lift,share:SHARE_TAG.a})}
    </>});
+ };
+ /** The s5 two-shot shared by both treatments: the crew pickup and the fire station large in the
+  * foreground, the badge on the gable, the line leaving the landed alert at the window and stopping open
+  * short of the badge. B_S5 holds its frame positions; zf is the framing zoom the grounded layer rides
+  * (1 in B's wide, ZOOM_MEDIUM in A's medium), so both land on the same frame positions. The station's
+  * own lamp post, arm and lamp head (local x -176 to -148, above y -165) are clipped away so nothing but
+  * open ground lies between the line's ring and the badge. */
+ const s5TwoShot=(zf:number)=>{
+  const m=(p:Pt):Pt=>[540+(p[0]-540)/zf,960+(p[1]-960)/zf];
+  const tr=m(B_S5.truck), st=m(B_S5.station), ks=B_S5.ks/zf, sts=B_S5.sts/zf, wp=windowPt(B_S5.truck,B_S5.ks);
+  const L=B_S5.line;
+  return <g data-part={zf===1?'b-s5-two-shot':'a-s5-two-shot'}>
+   <defs><clipPath id={uid+'-st'}><path d="M-146 -420H340V120H-160V-165H-146Z"/></clipPath></defs>
+   <Grounded baseY={tr[1]} on><At p={tr} s={ks}><WestTexasSupport part="truck" glow={1}/></At>{landedAlert(tr,ks,B_S5.alertS/zf)}</Grounded>
+   <Grounded baseY={st[1]} on><At p={st} s={sts}><g clipPath={`url(#${uid}-st)`}><WestTexasSupport part="station"/></g></At></Grounded>
+   <Grounded baseY={st[1]} on>{openLine(m([wp[0]+20,wp[1]-18]),st,sts,line,share,{...L,bs:L.bs/zf,lw:L.lw/zf,badgeAt:m(L.badgeAt),badgeR:L.badgeR/zf,sharePin:m(L.sharePin),
+    share:{...SHARE_TAG.b,scale:SHARE_TAG.b.scale/zf}})}</Grounded>
+  </g>;
  };
 
  /** The commission desk with the plan folder, its open slot and the outlined expected tag. */
@@ -552,22 +571,16 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   // s5: the alert has landed at the crew truck's window; a dashed line runs from it toward the badge on
   // a small fire station and stops short, open. A cuts in on the same world as the plume hold, toward
   // the truck and the station, with the windmill, the tower and its limit tag still in frame; B is wide.
+  // Both: a foreground two-shot. The line leaves the landed alert at the window (the alert card and the
+  // window glow show from the cut), advances on s5-event-2 and stops open short of the badge; nothing
+  // reaches the badge. A keeps its ground-level cut-in on the plume-hold world behind the two-shot, with
+  // the tower, the windmill and the limit tag; B stands wide on its own land.
   if(v==='a'){
    const {x,k}=A_S5.cutIn, hz=A_S5.horizon;
-   pic=<Cam f={[x,hz]} s={k} a={[540,hz]}>{aS5(line,share,1/k)}</Cam>;
+   pic=<><Cam f={[x,hz]} s={k} a={[540,hz]}>{aS5(line,share,1/k,false)}</Cam>{s5TwoShot(ZOOM_MEDIUM)}</>;
    break;
   }
-  // B: a foreground two-shot on the same land. The line leaves the landed alert at the window, advances
-  // on s5-event-2 and stops open short of the badge; nothing reaches the badge.
-  {const w=windowPt(B_S5.truck,B_S5.ks);
-  pic=plains({heading,ring:[0,360],truck:false,station:false,plume:1,grounded:true,toPlume:true,
-   fore:<g data-part="b-s5-two-shot">
-    <defs><clipPath id={uid+'-st'}><rect x={-160} y={-420} width={500} height={540}/></clipPath></defs>
-    <Grounded baseY={B_S5.truck[1]} on><At p={B_S5.truck} s={B_S5.ks}><WestTexasSupport part="truck" glow={1}/></At>{landedAlert(B_S5.truck,B_S5.ks,B_S5.alertS)}</Grounded>
-    {/* the station's own lamp post (local x -176) is clipped away so only the building and badge read */}
-    <Grounded baseY={B_S5.station[1]} on><At p={B_S5.station} s={B_S5.sts}><g clipPath={`url(#${uid}-st)`}><WestTexasSupport part="station"/></g></At></Grounded>
-    <Grounded baseY={B_S5.station[1]} on>{openLine([w[0]+20,w[1]-18],B_S5.station,B_S5.sts,line,share,{...B_S5.line,share:SHARE_TAG.b})}</Grounded>
-   </g>});}
+  pic=plains({heading,ring:[0,360],truck:false,station:false,plume:1,grounded:true,toPlume:true,fore:s5TwoShot(1)});
   break;}
  case 'launch-calendar':
  case 'attribution-pin':{
@@ -594,7 +607,13 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   const strip=<>
    {/* B's close: the launch chip runs off the left edge, so its fragment is clipped away there */}
    {bPin&&<defs><clipPath id={uid+'-strip'}><path d="M0 350H850V0H1500V800H0Z"/></clipPath></defs>}
-   <g clipPath={bPin?`url(#${uid}-strip)`:undefined}><At p={stripAt} s={cs}><WestTexasSupport part="calendar" pal={pal} blocks={blocks} labelLift={labelLift} scan={v==='b'&&view==='launch-calendar'?scroll:-1}/></At></g>
+   {/* A: the launch chip fades out as the wall trucks past it, so no clipped fragment of it holds at the
+       frame's left edge once the move settles */}
+   {v==='a'&&<defs><mask id={uid+'-launch'} maskUnits="userSpaceOnUse" x={-4000} y={-4000} width={9000} height={9000}>
+    <rect x={-4000} y={-4000} width={9000} height={9000} fill="#fff"/>
+    <rect x={stripAt[0]-20} y={stripAt[1]-100*cs} width={(widthOf('Launch, earlier this year',54,true)+80)*cs} height={88*cs} fill="#000" opacity={pan}/>
+   </mask></defs>}
+   <g clipPath={bPin?`url(#${uid}-strip)`:undefined} mask={v==='a'?`url(#${uid}-launch)`:undefined}><At p={stripAt} s={cs}><WestTexasSupport part="calendar" pal={pal} blocks={blocks} labelLift={labelLift} scan={v==='b'&&view==='launch-calendar'?scroll:-1}/></At></g>
    {check>0&&check<1&&<rect x={stripAt[0]+cpos*CAL.block*cs-4} y={stripAt[1]-6} width={CAL.block*cs+8} height={CAL.h*cs+12} rx={8}
     fill={pal.accent} fillOpacity={.12} stroke={pal.accent} strokeWidth={7} opacity={clamp(check*12)*clamp((1-check)*12)}/>}
    {/* clips at native x 230 and 420 under the driver visor, 660 and 820 under the passenger visor */}
