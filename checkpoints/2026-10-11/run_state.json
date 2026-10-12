@@ -89,6 +89,14 @@
       "note": "treatment A technical source and layout correction",
       "resource": "reboards",
       "to": 6
+    },
+    {
+      "at": "2026-10-12T15:51:39.172316Z",
+      "ceiling": 9,
+      "from": 6,
+      "note": "round 6 code review both treatments after technical correction",
+      "resource": "storyboard_critics",
+      "to": 7
     }
   ],
   "events": [
@@ -1306,6 +1314,24 @@
       "repair_revision": "464cebf2586f8600e8049a91e25f095ca49b48fc8a40d13dc3eb2d0a02b65109",
       "repair_scope": "technical-integrity",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-12T15:51:39.172366Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "round 6 code review both treatments after technical correction",
+      "now": 7,
+      "resource": "storyboard_critics",
+      "was": 6
+    },
+    {
+      "at": "2026-10-12T15:51:39.172381Z",
+      "kind": "reserved",
+      "note": "round 6 code review both treatments after technical correction",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -1320,7 +1346,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 6,
+    "storyboard_critics": 7,
     "tts_calls": 4,
     "validator_agents": 1,
     "voice_directors": 1
@@ -1329,7 +1355,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "177701e4b85abc7804cb71d2ac464d3e7812da31f5cee40e812044cdb7b5771c",
+    "original_private_state_sha256": "2ccea580385931a8101bd654fe547b75f7c8ffbdf93cfa39a1f003055e2a8c7e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1357,7 +1383,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:51:31.601783Z",
+  "updated_at": "2026-10-12T15:51:39.172384Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -1370,7 +1396,7 @@
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 0,
-    "storyboard_critics": 6,
+    "storyboard_critics": 7,
     "tts_calls": 4,
     "validator_agents": 1,
     "voice_directors": 1
