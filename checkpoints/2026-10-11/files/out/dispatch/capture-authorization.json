@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "676cf1acb22233f3798ad0afe6335e6c5c0ece19e19e33577dc34500a55a69e7",
-    "resource": "full_renders",
-    "at": "2026-10-12T20:09:21.177633Z",
-    "note": "full-resolution Dispatch render"
+    "event_sha256": "f61d699ece839e6b6960cc5a0f9598b3d835feaa5f7d2886176b7c7d1b540b6f",
+    "resource": "preflight_renders",
+    "at": "2026-10-12T20:40:06.903914Z",
+    "note": "exact-film motion-image review extraction"
   },
   "boards": [
     {
@@ -157,23 +157,30 @@
   },
   "commands": [
     {
-      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
-      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
-      "consumed": "2026-10-12T20:32:23.977038+00:00"
+      "id": "0e09184c8a03c2ea776c5fb006a648d9b1d26d9594b1ac86ea9effb40e6169a5",
+      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json",
+      "consumed": "2026-10-12T20:40:17.005401+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.736
+    "free_gib": 17.457
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T203218.json",
-    "receipt_sha256": "f596d2714b411f98ea716bf979ecdf42a78b623b5f2e069270cf90c78ae27d2d",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T204006.json",
+    "receipt_sha256": "32a80398c8c54521504da01273b917c4c3a7722b1c28cdbf9ff90371d5d9792a",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T20:32:18.791959+00:00",
-  "expires_at": "2026-10-12T21:17:18.791959+00:00"
+  "issued_at": "2026-10-12T20:40:13.250139+00:00",
+  "expires_at": "2026-10-12T21:25:13.250139+00:00",
+  "prepared_capture": {
+    "schema": "dispatch_prepared_capture/1",
+    "operation": "exact-film motion-image review extraction",
+    "run_id": "2026-10-11",
+    "event_sha256": "f61d699ece839e6b6960cc5a0f9598b3d835feaa5f7d2886176b7c7d1b540b6f",
+    "input_identity": "9c5b0c674e05825695ebca2217de035783fec0f85eea52972fae13a469f9c6df"
+  }
 }
