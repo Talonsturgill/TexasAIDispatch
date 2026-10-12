@@ -1,0 +1,41 @@
+{
+ "mechanism_id": "tower-a-hero-plume-and-caption-band-v1",
+ "failure_family": "source-framing",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The independent phone review of the rendered silent films returned two blocking pixel defects on treatment A that code review could not see. A-P1 at 12.0 to 13.775 s: the plume and flag box are drawn over the oil pumpjack of the rolling-plains plate so the camera appears to flag an oil well fire that no claim reports. A-P2 at 25.25 to 28.3 s: the two-line caption band covers almost the whole truck so the landed alert that starts the open line has no visible support. Round five confirmed both remain because the renderer is unchanged, and the opening comparison needs both treatments to pass.",
+ "repair": "One bounded builder correction to treatment A only. Move the s3 plume, beam target and flag box off the pumpjack onto open ground, and in the s5 cut-in raise the truck and the landed alert above the caption band so the truck body and alert are visible and supported, without moving any caption. Then refresh the TowerAlertFilm.tsx hash in the three boards. Treatment B output must stay identical.",
+ "mechanism_change": "The plume and flag box change from sitting on a plate landmark to an open-ground position chosen away from every plate prop, and the s5 truck and alert change from low in the frame under the caption band to a position above the measured band.",
+ "expected_visible_result": "At 12.0 s the smoke rises from open plains ground with no oil rig behind it, and at 25.25 s the whole truck and the landed alert sit above the caption band with the line starting from the alert.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-round5-opening-a-technical.json",
+ "failure_evidence_sha256": "4540dc75b64270e8517dd2be3e842cc5421a2dde8783cc9af52e03c695add999",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-a.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair6/opening-a.json",
+   "before_sha256": "b7c1bee43132892878aa603e186ffb794018146c6b32cd4513f869efa7652799",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-b.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair6/opening-b.json",
+   "before_sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair6/storyboard.json",
+   "before_sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair6/src/TowerAlertFilm.tsx",
+   "before_sha256": "85b5c29f9fc61e152c61e42fb4cc7bbb8ea440bef9feaac1a08240e724d3f4d3",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "preflight_renders": 2
+ },
+ "repair_scope": "technical-integrity"
+}

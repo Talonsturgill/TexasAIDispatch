@@ -5,20 +5,26 @@
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
  "renderer_sha256": "ebf0b71bb0ff1f223b0f5a18d35d6fcbe2ca9d2ad7edbd760af3ddccb561eb98",
  "treatment": "a",
- "verdict": "pass",
- "concept_sha256": "41629892901ea3e291c55a78540eb56765eea409eff3367cfa17a17b14560e32",
- "weakest_frame": "s5-shot-2 open-line cut-in, 25.025-28.5 s. The two-line c8 caption band is computed to cover the lower half of the truck. The landed alert card's bottom edge sits within about 5 px of the band top. The line origin, the line and the badge stay above the band.",
- "strongest_frame": "s3-shot-1 plume-flag, 10.5-13.775 s. The beam crosses the land onto the plume at the tower foot and the flag box closes on the smoke.",
- "notes": "Round 4 (storyboard critic, Opus high) changes only the open line default length: OPEN_LINE_STOP .64 replaces .8. Every A view is unchanged except the tower-return composite line, which now ends about 67 native px before the badge rim instead of about 14. R1 stays fixed: plume-hold and open-line draw one world and open-line is a 1.6x cut-in with explicit stop .64, gap about 31 native px. No mandatory criterion fails at code scope and this pass describes no pixels. Non-blocking for the phone check: N-A1 caption band within about 5 px of the landed alert card, N-A3 cut-in scales subjects 1.6x while plate zooms 1.08, N-A4 truck side flips between s3 and s5, watch dial wider than forearm, 1.14 s opening revolution, limit tag clips windmill fan rim by about 23 px. Digests computed by the director with critic_gate and daily_production. Transcribed by the director from the critic hand-back.",
- "blocking_defects": [],
+ "verdict": "revise",
+ "concept_sha256": "82d37b64b8e71c4db4522e0578eefc99d9de04d982cc7155322dcd430cdf54bc",
+ "weakest_frame": "s3-shot-1 plume-flag, 12.0 to 13.775 s (hero passage). The plume is drawn over the oil pumpjack in the rolling-plains plate, so the smoke looks like it rises from the pumpjack and the flag box closes around it.",
+ "strongest_frame": "s3-shot-2 to s3-shot-3, 13.775 to 17.0 s. The ALERT card lifts from the camera head, runs down the tower and lands as a bubble on the phone in the leather glove.",
+ "notes": "Round 5. The only change is the line six text now The utility's wildfire lead says no major fire has needed an AEP Texas response since launch, in the vo, the creative_direction clause, n6 and c9, with the n6 to n8 word ranges shifted by one word. It matches c7 and c6. R1 stays fixed. The renderer is unchanged since the silent phone comparison so the two observed pixel defects A-P1 and A-P2 remain and block this treatment. Non-blocking: c9 at 94 characters drops to about a 32 px caption, lines six and eight both open with The utility's wildfire, record label clipped, plan-card close crops its top rows, truck side flips between s3 and s5. Digests computed by the director. Transcribed by the director from the critic hand-back.",
+ "blocking_defects": [
+  "A-P1 subject_recognition and source fidelity, 12.0 to 13.775 s (s3-shot-1, hero passage). Observed in the silent phone film from this unchanged renderer: the plume sits on the plate's pumpjack, so the camera appears to flag an oil-well fire. No claim reports one.",
+  "A-P2 contact_and_consequence, 25.25 to 28.3 s (s5-shot-2). Observed in the silent phone film: the two-line c8 caption band hides almost the whole truck, so the landed alert card, where the open line starts, sits on the band's top edge with no visible support."
+ ],
  "story_review": {
-  "story_sha256": "0ac062b246421e5112010db6fb7c198b69c2e48e6b059e9080b8701d52c920ab",
+  "story_sha256": "ca39c1dc8d03b6c4537496180069025600c1f636fcef211ea7d809069b886c21",
   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
   "claims_sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
-  "verdict": "pass",
-  "blocking_defects": [],
-  "one_viewing_summary": "Intended chain from code, not observed. A lattice tower's camera spins once and leaves a watch ring. 16 of 56 slots light. At the tower's foot the beam finds a plume and a flag locks on it. An alert card leaves the head and runs down the coax toward a truck, then lands as a bubble on a gloved crew phone. A watch on that wrist shows a hatched window up to ten minutes, marked estimated. Wide, the beam holds on the still-burning plume, with the windmill, the truck carrying the landed alert and a small fire station in the same view. A cut in toward the truck and station shows a dashed line from the alert stop clearly short of the station's badge. A shelter calendar since launch has no red mark. A blank record on the truck's tailgate stays empty. The filed plan waits on state approval above the still-sweeping tower, the landed alert and the open line.",
-  "opening_to_ending": "Opens on a camera watching all the way around. By about 17 s it shows that a text reaches the utility's crew. It then states the limits in one continuous s5 world and closes on a composite that shows the answer, with the line to responders visibly open, under the pending plan.",
+  "verdict": "revise",
+  "blocking_defects": [
+   "A-P1",
+   "A-P2"
+  ],
+  "one_viewing_summary": "From the silent phone strips and the current board. A lattice tower's camera sweeps the plains. 16 of 56 slots light. At the tower's foot the beam finds smoke, but the smoke and the flag box sit on an oil pumpjack. An alert card runs down the tower and lands on a gloved phone. A watch marks an estimated window of up to ten minutes. The plume keeps burning and the cameras don't prevent fires. In a cut-in a dashed line rises from an alert card that sits on the caption band toward a station badge and stops short. The utility's wildfire lead reports no major fire since launch over a calendar with no red mark. The response record stays blank. The plan waits on state approval.",
+  "opening_to_ending": "Opens on the camera watching all the way around and ends on the alert landed, the line to responders open and the plan awaiting approval, but the hero image implies a pumpjack fire.",
   "weakest_transition": "s5-shot-2 to s6-shot-1: from the cut-in on the truck and station to a medium of the shelter wall."
  },
  "action_reviews": []

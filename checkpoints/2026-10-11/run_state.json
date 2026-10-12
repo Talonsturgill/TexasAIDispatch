@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 7,
+    "storyboard_critics": 9,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 2
@@ -1076,6 +1076,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-12T15:22:28.297452Z",
+      "failure_evidence_json": "{\n \"review_scope\": \"code-plan-two-treatment-rereview\",\n \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic leaf, isolated\",\n \"reviewed_at\": \"2026-10-12\",\n \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n \"renderer_sha256\": \"ebf0b71bb0ff1f223b0f5a18d35d6fcbe2ca9d2ad7edbd760af3ddccb561eb98\",\n \"treatment\": \"a\",\n \"verdict\": \"revise\",\n \"concept_sha256\": \"82d37b64b8e71c4db4522e0578eefc99d9de04d982cc7155322dcd430cdf54bc\",\n \"weakest_frame\": \"s3-shot-1 plume-flag, 12.0 to 13.775 s (hero passage). The plume is drawn over the oil pumpjack in the rolling-plains plate, so the smoke looks like it rises from the pumpjack and the flag box closes around it.\",\n \"strongest_frame\": \"s3-shot-2 to s3-shot-3, 13.775 to 17.0 s. The ALERT card lifts from the camera head, runs down the tower and lands as a bubble on the phone in the leather glove.\",\n \"notes\": \"Round 5. The only change is the line six text now The utility's wildfire lead says no major fire has needed an AEP Texas response since launch, in the vo, the creative_direction clause, n6 and c9, with the n6 to n8 word ranges shifted by one word. It matches c7 and c6. R1 stays fixed. The renderer is unchanged since the silent phone comparison so the two observed pixel defects A-P1 and A-P2 remain and block this treatment. Non-blocking: c9 at 94 characters drops to about a 32 px caption, lines six and eight both open with The utility's wildfire, record label clipped, plan-card close crops its top rows, truck side flips between s3 and s5. Digests computed by the director. Transcribed by the director from the critic hand-back.\",\n \"blocking_defects\": [\n  \"A-P1 subject_recognition and source fidelity, 12.0 to 13.775 s (s3-shot-1, hero passage). Observed in the silent phone film from this unchanged renderer: the plume sits on the plate's pumpjack, so the camera appears to flag an oil-well fire. No claim reports one.\",\n  \"A-P2 contact_and_consequence, 25.25 to 28.3 s (s5-shot-2). Observed in the silent phone film: the two-line c8 caption band hides almost the whole truck, so the landed alert card, where the open line starts, sits on the band's top edge with no visible support.\"\n ],\n \"story_review\": {\n  \"story_sha256\": \"ca39c1dc8d03b6c4537496180069025600c1f636fcef211ea7d809069b886c21\",\n  \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n  \"claims_sha256\": \"43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae\",\n  \"verdict\": \"revise\",\n  \"blocking_defects\": [\n   \"A-P1\",\n   \"A-P2\"\n  ],\n  \"one_viewing_summary\": \"From the silent phone strips and the current board. A lattice tower's camera sweeps the plains. 16 of 56 slots light. At the tower's foot the beam finds smoke, but the smoke and the flag box sit on an oil pumpjack. An alert card runs down the tower and lands on a gloved phone. A watch marks an estimated window of up to ten minutes. The plume keeps burning and the cameras don't prevent fires. In a cut-in a dashed line rises from an alert card that sits on the caption band toward a station badge and stops short. The utility's wildfire lead reports no major fire since launch over a calendar with no red mark. The response record stays blank. The plan waits on state approval.\",\n  \"opening_to_ending\": \"Opens on the camera watching all the way around and ends on the alert landed, the line to responders open and the plan awaiting approval, but the hero image implies a pumpjack fire.\",\n  \"weakest_transition\": \"s5-shot-2 to s6-shot-1: from the cut-in on the truck and station to a medium of the shelter wall.\"\n },\n \"action_reviews\": [],\n \"technical_repair\": {\n  \"classified_by\": \"claude-opus-5-5 storyboard-critic leaf, isolated, independent of the director\",\n  \"findings\": [\n   {\n    \"finding\": \"A-P1 subject_recognition and source fidelity, 12.0 to 13.775 s (s3-shot-1, hero passage). Observed in the silent phone film from this unchanged renderer: the plume sits on the plate's pumpjack, so the camera appears to flag an oil-well fire. No claim reports one.\",\n    \"category\": \"source\"\n   },\n   {\n    \"finding\": \"A-P2 contact_and_consequence, 25.25 to 28.3 s (s5-shot-2). Observed in the silent phone film: the two-line c8 caption band hides almost the whole truck, so the landed alert card, where the open line starts, sits on the band's top edge with no visible support.\",\n    \"category\": \"layout\"\n   },\n   {\n    \"finding\": \"A-P1\",\n    \"category\": \"source\"\n   },\n   {\n    \"finding\": \"A-P2\",\n    \"category\": \"layout\"\n   }\n  ]\n }\n}",
+      "failure_evidence_sha256": "4540dc75b64270e8517dd2be3e842cc5421a2dde8783cc9af52e03c695add999",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n \"mechanism_id\": \"tower-a-hero-plume-and-caption-band-v1\",\n \"failure_family\": \"source-framing\",\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"root_cause\": \"The independent phone review of the rendered silent films returned two blocking pixel defects on treatment A that code review could not see. A-P1 at 12.0 to 13.775 s: the plume and flag box are drawn over the oil pumpjack of the rolling-plains plate so the camera appears to flag an oil well fire that no claim reports. A-P2 at 25.25 to 28.3 s: the two-line caption band covers almost the whole truck so the landed alert that starts the open line has no visible support. Round five confirmed both remain because the renderer is unchanged, and the opening comparison needs both treatments to pass.\",\n \"repair\": \"One bounded builder correction to treatment A only. Move the s3 plume, beam target and flag box off the pumpjack onto open ground, and in the s5 cut-in raise the truck and the landed alert above the caption band so the truck body and alert are visible and supported, without moving any caption. Then refresh the TowerAlertFilm.tsx hash in the three boards. Treatment B output must stay identical.\",\n \"mechanism_change\": \"The plume and flag box change from sitting on a plate landmark to an open-ground position chosen away from every plate prop, and the s5 truck and alert change from low in the frame under the caption band to a position above the measured band.\",\n \"expected_visible_result\": \"At 12.0 s the smoke rises from open plains ground with no oil rig behind it, and at 25.25 s the whole truck and the landed alert sit above the caption band with the line starting from the alert.\",\n \"failure_evidence\": \"{REPO}/out/dispatch/retained-round5-opening-a-technical.json\",\n \"failure_evidence_sha256\": \"4540dc75b64270e8517dd2be3e842cc5421a2dde8783cc9af52e03c695add999\",\n \"changed_inputs\": [\n  {\n   \"path\": \"{REPO}/out/dispatch/opening-a.json\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair6/opening-a.json\",\n   \"before_sha256\": \"b7c1bee43132892878aa603e186ffb794018146c6b32cd4513f869efa7652799\",\n   \"after_sha256\": \"\"\n  },\n  {\n   \"path\": \"{REPO}/out/dispatch/opening-b.json\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair6/opening-b.json\",\n   \"before_sha256\": \"824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192\",\n   \"after_sha256\": \"\"\n  },\n  {\n   \"path\": \"{REPO}/out/dispatch/storyboard.json\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair6/storyboard.json\",\n   \"before_sha256\": \"824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192\",\n   \"after_sha256\": \"\"\n  },\n  {\n   \"path\": \"{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx\",\n   \"before_path\": \"{REPO}/out/dispatch/baseline-repair6/src/TowerAlertFilm.tsx\",\n   \"before_sha256\": \"85b5c29f9fc61e152c61e42fb4cc7bbb8ea440bef9feaac1a08240e724d3f4d3\",\n   \"after_sha256\": \"\"\n  }\n ],\n \"resources\": {\n  \"preflight_renders\": 2\n },\n \"repair_scope\": \"technical-integrity\"\n}",
+      "plan_sha256": "efa93336fd505dbcb83d44d51f796ea5b73564fc8afaba2b121260eea96bfb9c",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":2},\"errors\":[],\"feasible\":false,\"path\":\"complete-visual-repair\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":43,\"required\":11,\"used\":0},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":2,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":11,\"required\":3,\"used\":5},\"reboards\":{\"ceiling\":10,\"remaining\":5,\"required\":1,\"used\":5},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":7,\"remaining\":1,\"required\":3,\"used\":6},\"tts_calls\":{\"ceiling\":12,\"remaining\":8,\"required\":2,\"used\":4},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "db9fb980ce5f7c73c4260c3bb91c79167f0d0f1474f2fb41de5a2fea4b81ce09",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 7,
+        "tts_calls": 12,
+        "validator_agents": 2,
+        "voice_directors": 2
+      },
+      "reason": "retained-integrity",
+      "resource_increments": {
+        "storyboard_critics": 2
+      },
+      "run_id": "2026-10-11",
+      "usage_unchanged": {
+        "audiovisual_reviews": 0,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 5,
+        "reboards": 5,
+        "reported_tokens": 10374,
+        "rescue_renders": 0,
+        "research_agents": 2,
+        "scorer_calls": 0,
+        "storyboard_critics": 6,
+        "tts_calls": 4,
+        "validator_agents": 1,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -1099,7 +1203,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "44c6dd6f8b62fc469dede68ea246501acd70f3017dcec34394380e31c898cdae",
+    "original_private_state_sha256": "8c997bf595f8f236818146216c3ef5506048cca71ee376b7dc9c518cf2221fc0",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1127,7 +1231,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:17:52.473978Z",
+  "updated_at": "2026-10-12T15:22:28.297492Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
