@@ -1,4 +1,33 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-a.json",
+        "before_sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-b.json",
+        "before_sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair13/src/TowerAlertFilm.tsx",
+        "before_sha256": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair13/src/WestTexasSupport.tsx",
+        "before_sha256": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
+      }
+    ],
+    "failure_sha256": "f5ece50123f771ccb6b713221943dcb551da12deeebad3f258d3dd7b54fe4da8",
+    "plan": "{REPO}/out/dispatch/repair-plan-13.json",
+    "plan_sha256": "34dd28391ad8e89fda09b3b4813c097487b63415e336cca674a02dd32b08e480",
+    "reboards_before": 11,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3342,6 +3371,51 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-12T19:06:33.208798Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-a.json",
+          "before_sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-b.json",
+          "before_sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair13/src/TowerAlertFilm.tsx",
+          "before_sha256": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair13/src/WestTexasSupport.tsx",
+          "before_sha256": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "f5ece50123f771ccb6b713221943dcb551da12deeebad3f258d3dd7b54fe4da8",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 12,
+          "to": 12
+        },
+        "storyboard_critics": {
+          "from": 18,
+          "to": 18
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "s1-wisp-and-weak-third-events-legibility-v1",
+      "plan_identity": null,
+      "plan_sha256": "34dd28391ad8e89fda09b3b4813c097487b63415e336cca674a02dd32b08e480",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -3365,7 +3439,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d13b9503c182679a65976ff2e72ef670c187bbbdea79664139fe45ccfd940143",
+    "original_private_state_sha256": "bb9bf5db131bd1b3c58b0cf8905bcc8352de90d0b17a847373db1e57a6398f95",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3393,7 +3467,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T19:06:28.185219Z",
+  "updated_at": "2026-10-12T19:06:33.208835Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
