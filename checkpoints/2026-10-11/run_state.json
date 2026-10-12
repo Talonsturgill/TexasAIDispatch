@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair6/opening-a.json",
-        "before_sha256": "b7c1bee43132892878aa603e186ffb794018146c6b32cd4513f869efa7652799",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair6/opening-b.json",
-        "before_sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair6/storyboard.json",
-        "before_sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair6/src/TowerAlertFilm.tsx",
-        "before_sha256": "85b5c29f9fc61e152c61e42fb4cc7bbb8ea440bef9feaac1a08240e724d3f4d3",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "4540dc75b64270e8517dd2be3e842cc5421a2dde8783cc9af52e03c695add999",
-    "plan": "{REPO}/out/dispatch/repair-plan-6.json",
-    "plan_sha256": "efa93336fd505dbcb83d44d51f796ea5b73564fc8afaba2b121260eea96bfb9c",
-    "reboards_before": 5,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1280,6 +1251,61 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T15:51:31.601743Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "b3ed211de957b51cf9a247b45998337b7775c9dfc41221f31087e071c3cd337e",
+            "before_path": "{REPO}/out/dispatch/baseline-repair6/opening-a.json",
+            "before_sha256": "b7c1bee43132892878aa603e186ffb794018146c6b32cd4513f869efa7652799",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
+            "before_path": "{REPO}/out/dispatch/baseline-repair6/opening-b.json",
+            "before_sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
+            "before_path": "{REPO}/out/dispatch/baseline-repair6/storyboard.json",
+            "before_sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "e341e07aa05d4f06ef7b485d04a675d7107fadce9c83add5c25820a909f82788",
+            "before_path": "{REPO}/out/dispatch/baseline-repair6/src/TowerAlertFilm.tsx",
+            "before_sha256": "85b5c29f9fc61e152c61e42fb4cc7bbb8ea440bef9feaac1a08240e724d3f4d3",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At 12.0 s the smoke rises from open plains ground with no oil rig behind it, and at 25.25 s the whole truck and the landed alert sit above the caption band with the line starting from the alert.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-round5-opening-a-technical.json",
+        "failure_evidence_sha256": "4540dc75b64270e8517dd2be3e842cc5421a2dde8783cc9af52e03c695add999",
+        "failure_family": "source-framing",
+        "mechanism_change": "The plume and flag box change from sitting on a plate landmark to an open-ground position chosen away from every plate prop, and the s5 truck and alert change from low in the frame under the caption band to a position above the measured band.",
+        "mechanism_id": "tower-a-hero-plume-and-caption-band-v1",
+        "repair": "One bounded builder correction to treatment A only. Move the s3 plume, beam target and flag box off the pumpjack onto open ground, and in the s5 cut-in raise the truck and the landed alert above the caption band so the truck body and alert are visible and supported, without moving any caption. Then refresh the TowerAlertFilm.tsx hash in the three boards. Treatment B output must stay identical.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "The independent phone review of the rendered silent films returned two blocking pixel defects on treatment A that code review could not see. A-P1 at 12.0 to 13.775 s: the plume and flag box are drawn over the oil pumpjack of the rolling-plains plate so the camera appears to flag an oil well fire that no claim reports. A-P2 at 25.25 to 28.3 s: the two-line caption band covers almost the whole truck so the landed alert that starts the open line has no visible support. Round five confirmed both remain because the renderer is unchanged, and the opening comparison needs both treatments to pass."
+      },
+      "repair_plan_sha256": "35b8eac8998f2dbb01ff256a1d52265b56ff958db55ae6f053dd26a225f7e465",
+      "repair_revision": "464cebf2586f8600e8049a91e25f095ca49b48fc8a40d13dc3eb2d0a02b65109",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1303,7 +1329,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d352c009b1de703f0c30880fd62c07aac7c71953457a01b8a77618d94d9fc55e",
+    "original_private_state_sha256": "177701e4b85abc7804cb71d2ac464d3e7812da31f5cee40e812044cdb7b5771c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1331,7 +1357,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:22:43.064729Z",
+  "updated_at": "2026-10-12T15:51:31.601783Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
