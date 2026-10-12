@@ -9,6 +9,8 @@ Live route retains Sonnet director, Opus high critical workers and all capture g
 
 | Wave | Status | Evidence |
 | --- | --- | --- |
-| Source and regression tests | ACTIVE | Existing failed native observations retained |
-| Merge and environment startup | TODO | No denied command retried |
-| Actual hook probe and resumed shipment | TODO | October 11th ledger retained |
+| Source and regression tests | DONE | PR149, exact head 67320c2, CI38258758145 SUCCESS |
+| Merge and environment startup | DONE | Main2f6abbc, matching CI38259821561 SUCCESS; saved Texas setup verified |
+| Actual hook probe | DONE | session_01A7y6mm7TQ8HbeejxRNkHof native PreToolUse capture refusal; Sonnet Medium |
+| Frozen runtime compatibility | ACTIVE | Retained missing Pillow log dc77999019274ba66ca952775fda1eabb718d41c128f913bc04a5f8bd7ca7c32; prelaunch default-cache alias fixes older wrappers without edits |
+| Resumed shipment | ACTIVE | October 11th ledger retained, preflights2/reboards3; evidence-bound treatment A continuity repair |

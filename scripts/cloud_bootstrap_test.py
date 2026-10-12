@@ -10,6 +10,20 @@ import cloud_bootstrap as cloud
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_legacy_binding_reuses_pinned_python_and_preserves_other_cache(self):
+        with tempfile.TemporaryDirectory() as folder:
+            cache = Path(folder) / 'installed'; legacy = Path(folder) / 'home/.cache/texas-ai-dispatch'
+            with self.assertRaisesRegex(ValueError, 'installed'):
+                cloud.bind_legacy_cache(cache, legacy)
+            (cache / 'venv/bin').mkdir(parents=True)
+            (cache / 'venv/bin/python').write_text('fixture')
+            self.assertTrue(cloud.bind_legacy_cache(cache, legacy))
+            self.assertTrue(cloud.bind_legacy_cache(cache, legacy))
+            self.assertEqual((legacy / 'venv/bin/python').read_text(), 'fixture')
+            legacy.unlink(); legacy.mkdir(); (legacy / 'keep').write_text('unrelated')
+            self.assertFalse(cloud.bind_legacy_cache(cache, legacy))
+            self.assertEqual((legacy / 'keep').read_text(), 'unrelated')
+
     def test_bind_reuses_only_exact_locked_cache_and_preserves_existing(self):
         with tempfile.TemporaryDirectory() as folder:
             repo = Path(folder) / 'repo'; cache = Path(folder) / 'cache'
