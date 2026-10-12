@@ -1,0 +1,27 @@
+{
+ "mechanism_id": "music-credit-exact-registry-text-v1",
+ "failure_family": "source-framing",
+ "repair_scope": "technical-integrity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The full native render's end card credits the wrong music track. The board credits name Thinking Music while the mix uses the registry bed Immersed, the music package verification fails and the CC BY licence for the bed in use is unpaid. The independent worker classified it as a rights defect.",
+ "repair": "Replace only the MUSIC credit in the board's end-card credits with the exact registry credit for Immersed, write credits.txt identically from the same text, re-render the timed phone preview, native hero and full film on the corrected board, and verify the music package. No picture, narration, mix or art change.",
+ "mechanism_change": "The end-card credit moves from a hand-typed assumed track to the exact credit text generated from the registry for the bed actually mixed.",
+ "expected_visible_result": "The end card credits Immersed by Kevin MacLeod under the exact CC BY wording and music.py --verify-package passes.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-music-credit-technical.json",
+ "failure_evidence_sha256": "f7b6372a6f8c10aa683ae09a66b3ff46925866ce586403f21925f54e0be34c0c",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair14/storyboard.json",
+   "before_sha256": "087285ae8e0bc9674a7cd211724c2170aca10ad1c0e30efb50909cea610c6e14",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "preflight_renders": 3,
+  "full_renders": 1,
+  "audiovisual_reviews": 4,
+  "panel_rounds": 1,
+  "scorer_calls": 3
+ }
+}

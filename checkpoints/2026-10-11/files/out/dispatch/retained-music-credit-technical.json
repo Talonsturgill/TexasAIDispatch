@@ -1,0 +1,27 @@
+{
+ "review_scope": "code-music-credit-classification",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  "MC-1 rights: the end card rendered in the native film of B credits MUSIC \"Thinking Music\" by Kevin MacLeod (board credits text, out/dispatch/credits-mismatch/board-credits.txt), but the mix uses the registry bed \"Immersed\" by Kevin MacLeod (CC BY 4.0). music.py --verify-package fails: bed, registry, mix and credit do not form one package, the film carries no credit for the bed in use, and no generated credits.txt is carried by the rendered board. The film's end card credits the wrong track, so the CC BY licence for the bed in use, which is paid only by the exact credit \"Immersed\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture, is unpaid. Nothing ships until the board's credits carry that exact text, a credits.txt generated from the registry matches it, the end card is re-rendered and the package verifies. The bed stays \"Immersed\" (Thinking Music is a recent-use-avoided track), and no picture, narration or mix change is needed."
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "MC-1"
+  ]
+ },
+ "technical_repair": {
+  "findings": [
+   {
+    "finding": "MC-1 rights: the end card rendered in the native film of B credits MUSIC \"Thinking Music\" by Kevin MacLeod (board credits text, out/dispatch/credits-mismatch/board-credits.txt), but the mix uses the registry bed \"Immersed\" by Kevin MacLeod (CC BY 4.0). music.py --verify-package fails: bed, registry, mix and credit do not form one package, the film carries no credit for the bed in use, and no generated credits.txt is carried by the rendered board. The film's end card credits the wrong track, so the CC BY licence for the bed in use, which is paid only by the exact credit \"Immersed\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture, is unpaid. Nothing ships until the board's credits carry that exact text, a credits.txt generated from the registry matches it, the end card is re-rendered and the package verifies. The bed stays \"Immersed\" (Thinking Music is a recent-use-avoided track), and no picture, narration or mix change is needed.",
+    "category": "rights"
+   },
+   {
+    "finding": "MC-1",
+    "category": "rights"
+   }
+  ]
+ }
+}
