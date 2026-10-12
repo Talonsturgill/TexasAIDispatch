@@ -96,7 +96,7 @@ def fold(board: dict, caps: dict) -> tuple[dict, list[str]]:
             errs.append(
                 f"{where} ends at {en}, past the film's own {runtime} second runtime, so "
                 f"its words are on screen after the picture they belong to is gone.")
-        if "max_lines" in c and (isinstance(c["max_lines"], bool) or c["max_lines"] not in (2, 3)):
+        if "max_lines" in c and (type(c["max_lines"]) is not int or c["max_lines"] not in (2, 3)):
             errs.append(
                 f"{where} declares max_lines {c['max_lines']!r}. Only 2 or 3 is allowed, and 3 "
                 f"only for a measured cue with no measured silence to split at.")
@@ -180,7 +180,7 @@ def _self_test() -> int:
        and b10["captions"][0].get("max_lines") == 3)
     ok("...and a cue without it folds exactly as before", not e10
        and b10["captions"][1] == b["captions"][1] and "max_lines" not in b10["captions"][1])
-    for bad in (4, 1, "3", True, None):
+    for bad in (4, 1, "3", True, 3.0, 2.0, None):
         _, e11 = fold(json.loads(json.dumps(board)),
                       dict(good, cues=[dict(good["cues"][0], max_lines=bad), good["cues"][1]]))
         ok(f"max_lines {bad!r} is refused", bool(e11))

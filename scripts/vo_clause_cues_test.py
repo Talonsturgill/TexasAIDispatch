@@ -260,6 +260,12 @@ console.log(JSON.stringify({original,owners}));
                 base = json.loads(measured)
                 base["cues"][0]["max_lines"] = 3
                 self.assertEqual(verify(base), 0)
+                self.assertEqual(json.loads((output/"captions.json").read_text())["cues"][0]["max_lines"], 3,
+                                 "verify must never rewrite the stored declaration")
+                nested = copy.deepcopy(base); nested["narration_clause_segmentation"]["max_lines"] = 3
+                self.assertEqual(verify(nested), 1, "the declaration is not accepted inside segmentation evidence")
+                second = copy.deepcopy(base); second["cues"][1]["max_lines"] = 3; second["cues"][1]["end"] += 0.01
+                self.assertEqual(verify(second), 1, "a changed edge on a second declared cue still fails")
                 for key, value in (("layout", 3), ("lines", 3), ("max_line", 3), ("size", 42)):
                     extra = copy.deepcopy(base); extra["cues"][0][key] = value
                     self.assertEqual(verify(extra), 1, "an unsupported cue key still fails: " + key)
