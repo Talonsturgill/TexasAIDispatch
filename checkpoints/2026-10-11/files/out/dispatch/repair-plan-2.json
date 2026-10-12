@@ -1,0 +1,26 @@
+{
+ "mechanism_id": "tower-alert-plains-cut-continuity-v2",
+ "failure_family": "continuity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The independent code critic round two (Opus, 2026-10-11) passed treatment B and returned REVISE on treatment A with one blocking defect R1. At 25.025 s the cut from plume-hold to open-line renders the same plains layout at nearly the same framing, the windmill vanishes and the truck, fire station, landed alert and badge appear with no motivation.",
+ "repair": "One bounded builder correction to treatment A only. Carry the windmill and plains landmarks through the plume-hold to open-line cut, and motivate the truck, station, landed alert and badge by a camera move or an in-frame travel so the cut reads as one place, then apply nothing beyond R1.",
+ "mechanism_change": "The s5 cut changes from two near-identical plains frames with swapped props to a continuous framing in which the landmarks persist and the new elements arrive by motion on the cut.",
+ "expected_visible_result": "At 25.025 s the viewer sees the same windmill and plains continue across the cut and the truck, station, landed alert and badge enter through visible motion or a clear reframe, so no object pops.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-round2-opening-a-critic.json",
+ "failure_evidence_sha256": "69c86bff286edc5448c21fb6086623da5c2f2e1f5b8279f6a6029d8241320995",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/opening-a.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair2/opening-a.json",
+   "before_sha256": "54043df32abcb0b33c7c56d79b89566af23f29e02889c185285dbfb47e8de30a",
+   "after_sha256": ""
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair2/src/TowerAlertFilm.tsx",
+   "before_sha256": "b17c77f49ad46e6313f23397cb80af68d7d90fe3ff6046235ed59770f6c24f6c",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {}
+}

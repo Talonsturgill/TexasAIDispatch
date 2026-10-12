@@ -1,4 +1,23 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair2/opening-a.json",
+        "before_sha256": "54043df32abcb0b33c7c56d79b89566af23f29e02889c185285dbfb47e8de30a",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair2/src/TowerAlertFilm.tsx",
+        "before_sha256": "b17c77f49ad46e6313f23397cb80af68d7d90fe3ff6046235ed59770f6c24f6c",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+      }
+    ],
+    "failure_sha256": "69c86bff286edc5448c21fb6086623da5c2f2e1f5b8279f6a6029d8241320995",
+    "plan": "{REPO}/out/dispatch/repair-plan-2.json",
+    "plan_sha256": "3e9196adcc23350fa4099fb4e8a02dce500e3c9ea869866d0e457af51983d7f3",
+    "reboards_before": 2,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -311,6 +330,41 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-12T14:11:19.669565Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair2/opening-a.json",
+          "before_sha256": "54043df32abcb0b33c7c56d79b89566af23f29e02889c185285dbfb47e8de30a",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair2/src/TowerAlertFilm.tsx",
+          "before_sha256": "b17c77f49ad46e6313f23397cb80af68d7d90fe3ff6046235ed59770f6c24f6c",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "continuity",
+      "failure_sha256": "69c86bff286edc5448c21fb6086623da5c2f2e1f5b8279f6a6029d8241320995",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "tower-alert-plains-cut-continuity-v2",
+      "plan_identity": null,
+      "plan_sha256": "3e9196adcc23350fa4099fb4e8a02dce500e3c9ea869866d0e457af51983d7f3",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -334,7 +388,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6c53b215c1c68908c73deded7cca80ca6372232a3782af2736cefae1c6a13571",
+    "original_private_state_sha256": "019c4d64d26474871d0d3de0e6703b49ac877d42f95a951cc3c4e73a31092f95",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -362,7 +416,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T14:09:58.840439Z",
+  "updated_at": "2026-10-12T14:11:19.669595Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
