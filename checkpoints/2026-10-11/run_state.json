@@ -1,4 +1,33 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair17/storyboard.json",
+        "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-a.json",
+        "before_sha256": "166a3c31a5f85255d04052d1e206d51a3eff588c2c54a0ab2301d9fb5775351c",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-b.json",
+        "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair17/TowerAlertFilm.tsx",
+        "before_sha256": "316223eef055714befa5117a77def2be4b40b87cabcbe131c8f88959fcac862e",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+      }
+    ],
+    "failure_sha256": "52a74c82a588622af77aa26063fc1abee5ddeb2da9caae058ec66f53c088c36f",
+    "plan": "{REPO}/out/dispatch/repair-plan-17.json",
+    "plan_sha256": "058f78de7515394af669883fb0428e8f2775ab3aa2886383a7120781f46fbfa3",
+    "reboards_before": 15,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/40ddf86ae93d2c1b-b940c00bbf8832fc-3f6b943f2071a1b2/storyboard.json",
@@ -6166,6 +6195,51 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-12T23:26:07.933498Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair17/storyboard.json",
+          "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-a.json",
+          "before_sha256": "166a3c31a5f85255d04052d1e206d51a3eff588c2c54a0ab2301d9fb5775351c",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair17/opening-b.json",
+          "before_sha256": "20da596e5cfd7e3eb45d7164ee2ac705490f7491228fa89b0541aaff6f7394f9",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair17/TowerAlertFilm.tsx",
+          "before_sha256": "316223eef055714befa5117a77def2be4b40b87cabcbe131c8f88959fcac862e",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "52a74c82a588622af77aa26063fc1abee5ddeb2da9caae058ec66f53c088c36f",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 16,
+          "to": 16
+        },
+        "storyboard_critics": {
+          "from": 36,
+          "to": 36
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "hero-window-s3-s5-and-treatment-pivot-parity-v1",
+      "plan_identity": null,
+      "plan_sha256": "058f78de7515394af669883fb0428e8f2775ab3aa2886383a7120781f46fbfa3",
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -6189,7 +6263,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2927759712cae0bb92fa2a2cec5e3fffeb84a189646785d1605997c56fd7405e",
+    "original_private_state_sha256": "080e712273b10d963df06c87edc9ed5feeec8ec40cc71df88869330de8a76dbb",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6217,7 +6291,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T23:25:55.188622Z",
+  "updated_at": "2026-10-12T23:26:07.933538Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
