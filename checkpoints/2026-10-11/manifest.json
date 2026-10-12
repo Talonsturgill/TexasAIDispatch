@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T20:58:56.882349+00:00",
+  "saved_at": "2026-10-12T21:16:22.802287+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-11T07:18:21.823920Z",
   "repo_root": "/home/user/restore/dispatch-2026-10-11",
-  "source_pin": "11c387dcaf2d84f782eb031e3c4c5a6472f05781",
+  "source_pin": "9bc6512276edf52f06333b8a469ec831d4111f7c",
   "source_branch": "claude/dispatch-2026-10-11",
   "source_closure": {
     "root": "video-engine",
     "files": 351,
-    "sha256": "d60cc212bded6798c549b836c715aff832367c2e7f39aec22ceb36523ad855c4"
+    "sha256": "bf24d39c76d73777d9c8b9ecf2da9b62f25d1b0959028de0d10c994d4552231a"
   },
   "deleted_source": [],
-  "ledger_sha256": "1d27654fdff731e09ede894c5e5f850bd7d0257a406f0aa1a9467f2c3f906fb3",
-  "original_private_ledger_sha256": "7aba29f1886ef4eb0ec7d0b71cc57203bb9577470e0aac8a538e0434ef58e281",
+  "ledger_sha256": "6dcc32bad4ed197d39559915b03f9d51fcba8ed5aa3eb7ece232da42fe12f16c",
+  "original_private_ledger_sha256": "fac5206c131060e10818b08984d3f890cd62a2f1eb3b81752d0d5f44265004c8",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
@@ -65,6 +65,12 @@
       "class": "scratch",
       "sha256": "eb18248dde48636e3d0a2cbec199258705337dfc5d0b402eb704ab03defddfe5",
       "size": 1425082
+    },
+    {
+      "path": "out/dispatch/artwork-originals/authored-17cf68b5-f43d-4544-bb4d-3e3c86b987e7.tsx",
+      "class": "scratch",
+      "sha256": "d601034eee7cce7a26257717db35f87f52e2440b8483983fda44fdfe014374be",
+      "size": 49281
     },
     {
       "path": "out/dispatch/artwork-originals/authored-6a9f14a3-d0f9-4e1d-be1b-6292d5b78600.tsx",
@@ -119,6 +125,12 @@
       "class": "scratch",
       "sha256": "3d64b98c9f542aeb341d0ca26ea89eec4bbc0db7798faa307d9d28cd9e319244",
       "size": 2314
+    },
+    {
+      "path": "out/dispatch/artwork-originals/receipt-4cbcc064-47d2-4d66-b0b4-b43cbd834183.json",
+      "class": "scratch",
+      "sha256": "1b8fc8fb19f16f021f7b934bd71f0484dc9f10184b67bc95051ae2c62cb549b0",
+      "size": 2325
     },
     {
       "path": "out/dispatch/artwork-originals/receipt-7ee2e394-112b-4b8a-9767-914f1806866b.json",
@@ -453,8 +465,8 @@
     {
       "path": "out/dispatch/captions.json",
       "class": "scratch",
-      "sha256": "afe364bddee06c6d3368002ca6b6550040bff768b82481e2a74cd77ecda3fc35",
-      "size": 3140
+      "sha256": "db6bf31e0c35a1ffe0c589aeed2a904f567491f45004a8650ab0fd90f3970b88",
+      "size": 3162
     },
     {
       "path": "out/dispatch/capture-authorization.json",
@@ -609,8 +621,8 @@
     {
       "path": "out/dispatch/chk.log",
       "class": "scratch",
-      "sha256": "f62b0653b770ac937a69a237c3ebfb51b78dd9d18424d84cc17baf2dfd2338e8",
-      "size": 526
+      "sha256": "ae1beae5268a97631cc97c1c8a81ef68346a6d9227a7d04ad71d4d9e79a3e1f4",
+      "size": 73
     },
     {
       "path": "out/dispatch/cinema/hero-review-response.json",
@@ -6771,8 +6783,8 @@
     {
       "path": "out/dispatch/repair-plan-15.json",
       "class": "scratch",
-      "sha256": "4949aad7cb7b691280b8110f7cb7821437a9046dc5b73349233f494bba261159",
-      "size": 3183
+      "sha256": "eb99476157d8492eab02f8adec9894df456524492cb492a745a6aa6b8d265e90",
+      "size": 3720
     },
     {
       "path": "out/dispatch/repair-plan-2.json",
@@ -7329,8 +7341,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "f154312b9fe06a3f10246e7f781026b36137b77460ab64455ccefbc721470c58",
-      "size": 171318
+      "sha256": "c140a8b6b1384b87a1c2a5f2cf03dc787cfc6c4ac5e944ddc7ec794abe9492af",
+      "size": 171351
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -7409,6 +7421,36 @@
       "class": "scratch",
       "sha256": "ce3741a6955ce2674299c6f47cc436a3171b9434c8424cfd688463ee2fb13fcc",
       "size": 30000
+    },
+    {
+      "path": "video-engine/src/Dispatch.tsx",
+      "class": "source",
+      "sha256": "482b10e0d23c8f5bed626d8d62e92056ab9bfe7cc77a328ce7126ceea7bece1f",
+      "size": 35659
+    },
+    {
+      "path": "video-engine/src/lib/DispatchOverlays.tsx",
+      "class": "source",
+      "sha256": "11c8d1051f788a63de675e2a7fe39cdb5240ad467c0d650096c64dcf04519a16",
+      "size": 4262
+    },
+    {
+      "path": "video-engine/src/lib/editorial.ts",
+      "class": "source",
+      "sha256": "46ff912fb276f340b708b8b8a15d132ac5dd1e78446e1d208dd7700d3bf42ad7",
+      "size": 4607
+    },
+    {
+      "path": "video-engine/tests/caption_board_fit.mjs",
+      "class": "source",
+      "sha256": "6e0a75d370f434887a00f20b0f65c8ac595bddbb1d4851e4aeab85a40e3a5b5f",
+      "size": 7045
+    },
+    {
+      "path": "video-engine/tests/type_fit_probe.tsx",
+      "class": "source",
+      "sha256": "38e6bc46683decdfaea9e0456f76c6bb65946fb1ded82fede8eabe7de2580000",
+      "size": 675
     }
   ],
   "excluded": [],

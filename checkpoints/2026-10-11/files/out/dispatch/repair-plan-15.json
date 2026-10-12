@@ -4,7 +4,7 @@
  "repair_scope": "technical-integrity",
  "director_identity": "claude-sonnet-5-5 director, this session",
  "root_cause": "The first final panel rejected the exact film. An independent classifier found five technical defects. The responder open line is a few pixels under the Can share tag and reads as an established link, which the source limit forbids. The visor calendar cells are tiny with binder clips over its labels. The How much sooner label is clipped by its field. One caption cue is long enough that its size drops below the others. The Illustration chip overlaps the camera head and the folder tab.",
- "repair": "Enlarge and open the s5 responder line and move the tag off the gap, move the calendar clips and enlarge its cells, size the Response record label column from the measured label, split the long scene 6 caption cue at a measured word boundary from the existing alignment, and narrow the disclosure chip while lowering the closing band. No picture, narration, audio or timing change.",
+ "repair": "Enlarge and open the s5 responder line and move the tag off the gap, move the calendar clips and enlarge its cells, size the Response record label column from the measured label, show the unsplit scene 6 caption cue on three lines at size 42 through an opt-in per-cue max_lines field, without inventing a cue break, and narrow the disclosure chip while lowering the closing band. No picture, narration, audio or timing change. Shared engine files editorial.ts, DispatchOverlays.tsx, Dispatch.tsx, caption_board_fit.mjs, type_fit_probe.tsx and board_captions.py also changed for the opt-in three-line caption rule. Cues without the field lay out byte-identically.",
  "mechanism_change": "Each collision is fixed in the geometry that causes it, with sizes derived from the measured label and strip, rather than shrinking type or hiding labels.",
  "expected_visible_result": "At phone size the line end, an empty gap and the badge read as separate shapes, the calendar cells and labels read, the full words How much sooner show, scene 6 captions match the other scenes and the chip covers no subject.",
  "failure_evidence": "out/dispatch/retained-panel-round-1-technical.json",
@@ -14,25 +14,25 @@
    "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
    "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair15/storyboard.json",
    "before_sha256": "f154312b9fe06a3f10246e7f781026b36137b77460ab64455ccefbc721470c58",
-   "after_sha256": ""
-  },
-  {
-   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/captions.json",
-   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair15/captions.json",
-   "before_sha256": "afe364bddee06c6d3368002ca6b6550040bff768b82481e2a74cd77ecda3fc35",
-   "after_sha256": ""
+   "after_sha256": "c140a8b6b1384b87a1c2a5f2cf03dc787cfc6c4ac5e944ddc7ec794abe9492af"
   },
   {
    "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
    "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair15/TowerAlertFilm.tsx",
    "before_sha256": "99a007f69bd4ce06d01a63c69015d71868fe03c26cb8e7ae0c07ad976e88bf3e",
-   "after_sha256": ""
+   "after_sha256": "aa479132f303b3bd7db58583bf737a2eaa9988773c16aaf58398b190b3dd8a26"
   },
   {
    "path": "/home/user/restore/dispatch-2026-10-11/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
    "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair15/WestTexasSupport.tsx",
    "before_sha256": "f273e704b199325fd90cb1f4abb2eec5e166b5e81925680b0dd000c190099a00",
-   "after_sha256": ""
+   "after_sha256": "d601034eee7cce7a26257717db35f87f52e2440b8483983fda44fdfe014374be"
+  },
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/captions.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair15/captions.json",
+   "before_sha256": "afe364bddee06c6d3368002ca6b6550040bff768b82481e2a74cd77ecda3fc35",
+   "after_sha256": "db6bf31e0c35a1ffe0c589aeed2a904f567491f45004a8650ab0fd90f3970b88"
   }
  ],
  "resources": {
