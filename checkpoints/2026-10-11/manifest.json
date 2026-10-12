@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T15:08:43.780337+00:00",
+  "saved_at": "2026-10-12T15:12:22.226704+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "b8e8a906d0fb0e810251deb14646821b9492b68c7ef8ff825dc35065653bc8b1"
   },
   "deleted_source": [],
-  "ledger_sha256": "2b8685a60883b736e2b02179be987eee4cd0168fb9195a150271f51e03f4b031",
-  "original_private_ledger_sha256": "da088b3139b25a880ecf6e0597ecbad239a18f7a289e64d06a41b3aa8dde4a3b",
+  "ledger_sha256": "9be6e2e799afde5b046ae19dc254b7a3ca5cbbb2f129027a9e63837f7c2f5cad",
+  "original_private_ledger_sha256": "683ba60c1a5fc8d411a0217ad3be76ad9030e94b6c9fc79a87d7e97fbadd94cb",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -37,10 +37,40 @@
   },
   "files": [
     {
+      "path": "config/music/tracks.json",
+      "class": "source",
+      "sha256": "9af78d9f6441d12a1093fa73832a581e1fbfdd7b1ba9a39493ab7ffb28018624",
+      "size": 20414
+    },
+    {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
       "sha256": "5a8f8b71dab28857f2407279f828bc536777dc78555dfebbfe3dc95b3ab35663",
       "size": 5348
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "695af6b46ab49f2b5c2ee3072f2bead98501747e68603e0dd0dc65c34a518ef0",
+      "size": 723
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "fae2a4548f56b35118b8de8742269885146e1ae8e87e9958fb331bf3eb08ff52",
+      "size": 55277
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "785790b272f079fc4d5ae49a38b683228b7b07c15e526fb0ae342f86c0a27527",
+      "size": 118924
+    },
+    {
+      "path": "out/dispatch/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "d4bec56c3dec97cc954df36d96dab444a48bd04af1960e4f4ba1af416271d5b3",
+      "size": 1351218
     },
     {
       "path": "out/dispatch/artwork-originals/authored-6a9f14a3-d0f9-4e1d-be1b-6292d5b78600.tsx",
@@ -179,6 +209,12 @@
       "class": "scratch",
       "sha256": "32d137a242790d7e37ab59d3f5635b90ac0ec67613c5eeb7c7b29a1aba5ef550",
       "size": 159118
+    },
+    {
+      "path": "out/dispatch/baseline-repair4/vo_direction.json",
+      "class": "scratch",
+      "sha256": "e1377dbc970ab8c06bd9f1fea8ecf2306c5cb41029c9fa7ca15f8899c3613672",
+      "size": 27855
     },
     {
       "path": "out/dispatch/builder-assignment-2.json",
@@ -331,10 +367,88 @@
       "size": 1742
     },
     {
+      "path": "out/dispatch/failed-take-1/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "fae2a4548f56b35118b8de8742269885146e1ae8e87e9958fb331bf3eb08ff52",
+      "size": 55277
+    },
+    {
+      "path": "out/dispatch/failed-take-1/alignment-failure.log",
+      "class": "scratch",
+      "sha256": "aee6e96f1d08447df12f70a251cec40d50197e6a0b72f7823c1fd2bf1e1f9b17",
+      "size": 70
+    },
+    {
+      "path": "out/dispatch/failed-take-1/prompt.txt",
+      "class": "scratch",
+      "sha256": "d962eebd593ae3d11767c45f29e8521913c73faf2bdce5f7c038d51c3a2480a9",
+      "size": 5507
+    },
+    {
+      "path": "out/dispatch/failed-take-1/take1.wav",
+      "class": "scratch",
+      "sha256": "3651a9da7edb64aeb33870fde24871d21a57431f0ccf87ffce2f438a8b1f37f7",
+      "size": 3955244
+    },
+    {
+      "path": "out/dispatch/failed-take-1/takes.json",
+      "class": "scratch",
+      "sha256": "fe6dc5ec17e01a9f764a3c270f44fd4b588aeac68b29be5bcffed2988154855d",
+      "size": 912
+    },
+    {
+      "path": "out/dispatch/failed-take-1/vo_direction.json",
+      "class": "scratch",
+      "sha256": "e1377dbc970ab8c06bd9f1fea8ecf2306c5cb41029c9fa7ca15f8899c3613672",
+      "size": 27855
+    },
+    {
       "path": "out/dispatch/hook-observation.json",
       "class": "scratch",
       "sha256": "dbda2f463c4a1bdafbe896eaeb1865899861c0cd686aeeeeda92dcd2a2e8bb75",
       "size": 1424
+    },
+    {
+      "path": "out/dispatch/mix.json",
+      "class": "scratch",
+      "sha256": "927a3772947a57c29798eabba3ffbb15ee9908e4c49db1ee93503cc3a8c12058",
+      "size": 5485
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "class": "scratch",
+      "sha256": "d1a87dbe9272ceb9ccb49ed69429f5024745a5e9321b02e43dfaa55a4b99e079",
+      "size": 4704078
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "e4b3ba6c9fb17ae1c7d6c1dd697d7238bd5385f6f0b90f300b8f0a6a93728faf",
+      "size": 4704044
+    },
+    {
+      "path": "out/dispatch/music_bed.json",
+      "class": "scratch",
+      "sha256": "39648b1b57fe0233d7566aff87f9938f8f7f1719c163f31493e97c55b162ee32",
+      "size": 699
+    },
+    {
+      "path": "out/dispatch/music_bed.wav",
+      "class": "scratch",
+      "sha256": "2d902a0d0df71c6c812ac109a7e8c6013ecc8d58ada747de3212258825aa9252",
+      "size": 23901492
+    },
+    {
+      "path": "out/dispatch/music_brief.json",
+      "class": "scratch",
+      "sha256": "c7d481fd48b2524e9a11c3e8505aed5e17ea66deb3e229ffa874e1076bbd69c6",
+      "size": 232
+    },
+    {
+      "path": "out/dispatch/music_credit.txt",
+      "class": "scratch",
+      "sha256": "5a5d71fb3fcf59ddf298af8f8d8b2224310fba2efd9925bc2adb7b8921c06d07",
+      "size": 158
     },
     {
       "path": "out/dispatch/native-headroom.json",
@@ -1891,6 +2005,12 @@
       "size": 3212
     },
     {
+      "path": "out/dispatch/repair-plan-4.json",
+      "class": "scratch",
+      "sha256": "d70d9dda8c7ff421beb0ac2034f01c6bafc9c738ecc50d0df93172929092b156",
+      "size": 1721
+    },
+    {
       "path": "out/dispatch/repair-plan.json",
       "class": "scratch",
       "sha256": "0c1ae27f442f1a672a339fa822bb3016053e14ebce95bda6ea4d21367978ca75",
@@ -1975,6 +2095,12 @@
       "size": 3257
     },
     {
+      "path": "out/dispatch/sfx_events.json",
+      "class": "scratch",
+      "sha256": "084a38d383c3be7c9cbd4938dd859c208297581e9efdb0cb21b3926e581fe845",
+      "size": 1490
+    },
+    {
       "path": "out/dispatch/sources/aep.html",
       "class": "scratch",
       "sha256": "70f1265668c241218b9f00f8b4499c5e97223f4e15ef6750d689ab891e066cfe",
@@ -2057,6 +2183,18 @@
       "class": "scratch",
       "sha256": "d962eebd593ae3d11767c45f29e8521913c73faf2bdce5f7c038d51c3a2480a9",
       "size": 5507
+    },
+    {
+      "path": "out/dispatch/takes/take1.wav",
+      "class": "scratch",
+      "sha256": "3651a9da7edb64aeb33870fde24871d21a57431f0ccf87ffce2f438a8b1f37f7",
+      "size": 3955244
+    },
+    {
+      "path": "out/dispatch/takes/takes.json",
+      "class": "scratch",
+      "sha256": "fe6dc5ec17e01a9f764a3c270f44fd4b588aeac68b29be5bcffed2988154855d",
+      "size": 912
     },
     {
       "path": "out/dispatch/validation.json",

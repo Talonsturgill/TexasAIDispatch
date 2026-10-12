@@ -1,4 +1,36 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair4/vo_direction.json",
+        "before_sha256": "e1377dbc970ab8c06bd9f1fea8ecf2306c5cb41029c9fa7ca15f8899c3613672",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "aee6e96f1d08447df12f70a251cec40d50197e6a0b72f7823c1fd2bf1e1f9b17",
+    "frozen_inputs": {
+      "files": {
+        "{REPO}/out/dispatch/claims.json": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
+        "{REPO}/out/dispatch/sources/aep.html": "70f1265668c241218b9f00f8b4499c5e97223f4e15ef6750d689ab891e066cfe",
+        "{REPO}/out/dispatch/sources/aep.txt": "12218d8e6695832004d25090b5f0994c64d192ae70880c5da602faf111e91289",
+        "{REPO}/out/dispatch/sources/aep.validator.txt": "12218d8e6695832004d25090b5f0994c64d192ae70880c5da602faf111e91289",
+        "{REPO}/out/dispatch/sources/spectrum.html": "7c53dd2e6a5ef7735e4787338ffb2fdc95dd09f5fec80a7086d67abf5bc2776f",
+        "{REPO}/out/dispatch/sources/spectrum.txt": "2f5684217f8fae5f71acef1926dcfe6c95619e3132b9f68d6041a28f806a7c4d",
+        "{REPO}/out/dispatch/sources/spectrum.validator.txt": "2f5684217f8fae5f71acef1926dcfe6c95619e3132b9f68d6041a28f806a7c4d",
+        "{REPO}/out/dispatch/sources/tdworld.html": "fa279f52649bde758a0d7ef6cf92358873e46ce56354b6fcdbc098aaec13ebf2",
+        "{REPO}/out/dispatch/sources/tdworld.txt": "4fe0858119baafd6d0c985455e76f70c36d62772800e555217bc6e93b7ed903f",
+        "{REPO}/out/dispatch/sources/tdworld.validator.txt": "4fe0858119baafd6d0c985455e76f70c36d62772800e555217bc6e93b7ed903f",
+        "{REPO}/out/dispatch/storyboard.json": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8",
+        "{REPO}/out/dispatch/vo_script.txt": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb"
+      },
+      "renderer_sha256": "ebf0b71bb0ff1f223b0f5a18d35d6fcbe2ca9d2ad7edbd760af3ddccb561eb98"
+    },
+    "plan": "{REPO}/out/dispatch/repair-plan-4.json",
+    "plan_identity": "25dabc2cd60c8fdb70e448ab8921ed9466be7df03f017cab5624d8818c39eed3",
+    "plan_sha256": "d70d9dda8c7ff421beb0ac2034f01c6bafc9c738ecc50d0df93172929092b156",
+    "reboards_before": 4,
+    "repair_scope": "narration-performance"
+  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -740,6 +772,43 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 3084,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-12T15:12:21.979403Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair4/vo_direction.json",
+          "before_sha256": "e1377dbc970ab8c06bd9f1fea8ecf2306c5cb41029c9fa7ca15f8899c3613672",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "human-performance",
+      "failure_sha256": "aee6e96f1d08447df12f70a251cec40d50197e6a0b72f7823c1fd2bf1e1f9b17",
+      "frozen_inputs": {
+        "files": {
+          "{REPO}/out/dispatch/claims.json": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
+          "{REPO}/out/dispatch/sources/aep.html": "70f1265668c241218b9f00f8b4499c5e97223f4e15ef6750d689ab891e066cfe",
+          "{REPO}/out/dispatch/sources/aep.txt": "12218d8e6695832004d25090b5f0994c64d192ae70880c5da602faf111e91289",
+          "{REPO}/out/dispatch/sources/aep.validator.txt": "12218d8e6695832004d25090b5f0994c64d192ae70880c5da602faf111e91289",
+          "{REPO}/out/dispatch/sources/spectrum.html": "7c53dd2e6a5ef7735e4787338ffb2fdc95dd09f5fec80a7086d67abf5bc2776f",
+          "{REPO}/out/dispatch/sources/spectrum.txt": "2f5684217f8fae5f71acef1926dcfe6c95619e3132b9f68d6041a28f806a7c4d",
+          "{REPO}/out/dispatch/sources/spectrum.validator.txt": "2f5684217f8fae5f71acef1926dcfe6c95619e3132b9f68d6041a28f806a7c4d",
+          "{REPO}/out/dispatch/sources/tdworld.html": "fa279f52649bde758a0d7ef6cf92358873e46ce56354b6fcdbc098aaec13ebf2",
+          "{REPO}/out/dispatch/sources/tdworld.txt": "4fe0858119baafd6d0c985455e76f70c36d62772800e555217bc6e93b7ed903f",
+          "{REPO}/out/dispatch/sources/tdworld.validator.txt": "4fe0858119baafd6d0c985455e76f70c36d62772800e555217bc6e93b7ed903f",
+          "{REPO}/out/dispatch/storyboard.json": "6fea13b16ededfb13d38fecf7edbc432f2719d96ee0e4b435bcdeb37cde0e6e8",
+          "{REPO}/out/dispatch/vo_script.txt": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb"
+        },
+        "renderer_sha256": "ebf0b71bb0ff1f223b0f5a18d35d6fcbe2ca9d2ad7edbd760af3ddccb561eb98"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "vo-line6-its-possessive-v1",
+      "plan_identity": "25dabc2cd60c8fdb70e448ab8921ed9466be7df03f017cab5624d8818c39eed3",
+      "plan_sha256": "d70d9dda8c7ff421beb0ac2034f01c6bafc9c738ecc50d0df93172929092b156",
+      "repair_scope": "narration-performance"
     }
   ],
   "limits": {
@@ -763,7 +832,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "da088b3139b25a880ecf6e0597ecbad239a18f7a289e64d06a41b3aa8dde4a3b",
+    "original_private_state_sha256": "683ba60c1a5fc8d411a0217ad3be76ad9030e94b6c9fc79a87d7e97fbadd94cb",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -791,7 +860,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:08:43.651650Z",
+  "updated_at": "2026-10-12T15:12:21.979445Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,

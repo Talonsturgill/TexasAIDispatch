@@ -1,0 +1,23 @@
+{
+ "mechanism_id": "vo-line6-its-possessive-v1",
+ "failure_family": "human-performance",
+ "repair_scope": "narration-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The first whole-passage take was read as This wildfire lead in line six where the locked script says Its wildfire lead. Forced ASR on the mix refused to reconcile with the script, so the possessive pronoun was misperformed after the join from the previous sentence.",
+ "repair": "Edit only the line six notes in vo_direction.json so the possessive Its is stressed as a short clear word that continues the previous sentence about AEP, with a clear instruction not to say This, then synthesize one new whole passage take and soundcheck it.",
+ "mechanism_change": "The line six note moves from a join-without-reset instruction that relied on the reader to a stressed short possessive Its that takes its own beat of emphasis at the start of the sentence.",
+ "expected_visible_result": "The narration reads Its wildfire lead exactly as scripted and forced alignment reconciles with the locked script without any edit to the words.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/failed-take-1/alignment-failure.log",
+ "failure_evidence_sha256": "aee6e96f1d08447df12f70a251cec40d50197e6a0b72f7823c1fd2bf1e1f9b17",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair4/vo_direction.json",
+   "before_sha256": "e1377dbc970ab8c06bd9f1fea8ecf2306c5cb41029c9fa7ca15f8899c3613672",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "tts_calls": 2
+ }
+}
