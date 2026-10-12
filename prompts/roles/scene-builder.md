@@ -38,6 +38,12 @@ consequence. Artwork finish and the modern engagement floor are mandatory at the
 ## Capture protocol (recurring defect, October 10th, 2026)
 
 Author source and run the cheap code checks: tsc, engine_lint, registry_check and the board gates.
+Run `python scripts/native_sample_plan.py --board <current-board>` on both complete treatments
+before hand-back. It calls the unchanged native sampler without rendering. Current directed
+scenes need at least three distinct executable source-bound visual events; a tag or unperformed
+declaration cannot supply the missing action. Preserve three distinct native samples, principal
+occupancy, visible action development and all independent review gates. Discover this failure
+before paying for comparison, voice or a native capture.
 Capture only when the current packet carries ALL of these: an actual charged render
 reservation (its controller event and resource), a computed `native_headroom.py` result with the portable
 housekeeping `--require-headroom --min-free-gib` pass, the invocation through

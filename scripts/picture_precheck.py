@@ -24,6 +24,7 @@ def checks(board, claims):
              ("caption_fit", ["node", "video-engine/tests/caption_board_fit.mjs", "--board", b])]
     if modern_film.required(json.loads(Path(board).read_text())):
         rows += [("modern_film", ["python", "scripts/modern_film.py", "--board", b, "--claims", c]),
+                 ("native_sample_plan", ["python", "scripts/native_sample_plan.py", "--board", b]),
                  ("story_art", ["python", "scripts/story_art.py", "--board", b, "verify"])]
     return rows
 
