@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import cloud_capture_hook as router
 import bootstrap_claude_hooks as bootstrap
+from capture_guard_test import Fixture
 
 
 class RoutingTests(unittest.TestCase):
@@ -56,6 +57,17 @@ class RoutingTests(unittest.TestCase):
         result = bootstrap.bootstrap(primary, tools, prelaunch_router=True)
         self.assertFalse(result['capture_authorized'])
         self.assertFalse(result['live_hook_observed'])
+
+
+class AuthorizedRoutingTests(Fixture):
+    def test_real_guard_consumes_one_authorization_in_restored_checkout(self):
+        (self.root / 'scripts').mkdir(); (self.root / 'config').mkdir()
+        (self.root / 'scripts/capture_guard.py').write_text('fixture')
+        (self.root / 'config/claude_runtime.json').write_text('{}')
+        self.authorize()
+        payload = {'tool_name': 'Bash', 'cwd': str(self.root), 'tool_input': {'command': self.command}}
+        self.assertIsNone(router.decision(payload, self.root.parent))
+        self.assertIn('already used', router.decision(payload, self.root.parent))
 
 
 if __name__ == '__main__':
