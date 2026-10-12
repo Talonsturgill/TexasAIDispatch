@@ -13,6 +13,131 @@ import production_lifecycle as lifecycle
 import run_controller as controller
 
 
+class ComparisonCompletionBudgetTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.state = self.root / 'run_state.json'
+        self.assertTrue(controller.initialise(self.state, '2026-10-11-test', 'production')[0])
+        state = controller.read_state(self.state)
+        for name in completion.resource_requirements(state):
+            state['usage'][name] = state['resource_envelope'][name]
+        state['usage']['preflight_renders'] -= 2
+        state['usage']['full_renders'] -= 1
+        controller.event(state, 'reserved', resources={k: state['usage'][k]
+                         for k in completion.resource_requirements(state)}, note='offline charged history')
+        controller.save(self.state, state)
+        for note in ('capture authorization reservation for opening comparison', 'two opening comparison batch'):
+            self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
+        state = controller.read_state(self.state)
+        entry = len(state['events']) - 1
+        options = []
+        for key in ('a', 'b'):
+            row = {'id': key}
+            for kind, suffix in (('board', 'json'), ('film', 'mp4')):
+                path = self.root / (key + '.' + suffix)
+                path.write_bytes(('offline ' + key + kind + ' fixture').encode())
+                row[kind] = {'file': path.name, 'sha256': footprint.hashlib.sha256(path.read_bytes()).hexdigest()}
+            options.append(row)
+        self.comparison = self.root / 'comparison.json'
+        self.comparison.write_text(json.dumps({'schema': 'dispatch-opening-comparison/1',
+            'inspection_pass': True, 'inspection_problems': [], 'options': options,
+            'reservation': {'run_id': state['run_id'], 'event_index': entry,
+                            'identity': state['events'][entry]['preflight_identity']}}) + '\n')
+        self.assertTrue(controller.reserve(self.state, {'full_renders': 1}, 'full-resolution Dispatch render')[0])
+        state = controller.read_state(self.state)
+        film = footprint.sha('synthetic rejected film fixture')
+        controller.event(state, 'deliverable_registered', film_sha256=film,
+                         manifest_sha256=footprint.sha('manifest fixture'), review_only=False)
+        controller.save(self.state, state)
+        self.before = copy.deepcopy(state)
+        finding = 'The end card credits a different music track from the mixed bed.'
+        self.report = self.root / 'independent-rights.json'
+        self.report.write_text(json.dumps({'verdict': 'revise', 'reviewer_identity': 'independent-opus',
+            'film_sha256': film, 'blocking_defects': [finding],
+            'technical_repair': {'findings': [{'finding': finding, 'category': 'rights'}]}}) + '\n')
+        self.original = self.root / 'original-plan.json'
+        self.original.write_text(json.dumps({'director_identity': 'sonnet-director',
+            'repair_scope': 'technical-integrity', 'failed_film_sha256': film,
+            'failure_evidence': str(self.report), 'failure_evidence_sha256': footprint.sha(self.report.read_text()),
+            'resources': {'preflight_renders': 5, 'full_renders': 1},
+            'repair': 'Correct the credit and renew the retained comparison on current bytes.'}) + '\n')
+        self.plan_path = self.root / 'complete-path-plan.json'
+        footprint.prepare_comparison(self.state, self.original, self.comparison, self.plan_path)
+        self.plan = json.loads(self.plan_path.read_text())
+
+    def test_complete_path_preserves_all_prior_charges_and_replays(self):
+        original = self.original.read_bytes()
+        accepted, message = completion.grant_capacity(self.state, self.plan_path)
+        self.assertTrue(accepted, message)
+        state = controller.read_state(self.state)
+        row = state['events'][-1]
+        budget = json.loads(row['precheck_json'])
+        self.assertEqual(5, budget['resources']['preflight_renders']['required'])
+        self.assertEqual(4, budget['resources']['storyboard_critics']['required'])
+        self.assertEqual(1, budget['resources']['full_renders']['required'])
+        self.assertEqual(state['usage'], self.before['usage'])
+        self.assertEqual(state['resource_envelope'], self.before['resource_envelope'])
+        self.assertEqual(state['events'][:len(self.before['events'])], self.before['events'])
+        self.assertEqual(original, self.original.read_bytes())
+        self.assertEqual([], completion.replay(state)[1])
+        self.assertEqual([], lifecycle.allowance_problems(state))
+        self.assertTrue(row['grants_no_review_approval'])
+        self.assertIsNone(state['terminal_state'])
+
+    def test_old_plan_requirements_are_unchanged(self):
+        required = completion.resource_requirements(self.before)
+        self.assertEqual(required, footprint.required_counts(self.before, {}, required))
+
+    def test_changed_option_film_refuses_admission(self):
+        (self.root / 'a.mp4').write_bytes(b'changed offline fixture')
+        accepted, message = completion.grant_capacity(self.state, self.plan_path)
+        self.assertFalse(accepted)
+        self.assertIn('changed', message)
+        self.assertEqual(self.before['usage'], controller.read_state(self.state)['usage'])
+
+    def test_wrong_pair_or_third_treatment_is_ineligible(self):
+        for mutation in ('pair', 'options'):
+            plan = copy.deepcopy(self.plan)
+            proof = plan[footprint.FIELD]
+            if mutation == 'pair':
+                proof['hook_event_index'] = proof['entry_event_index']
+            else:
+                receipt = json.loads(proof['comparison_json'])
+                receipt['options'].append(copy.deepcopy(receipt['options'][0]))
+                proof['comparison_json'] = json.dumps(receipt)
+                proof['comparison_sha256'] = footprint.sha(proof['comparison_json'])
+            self.assertFalse(footprint.eligible(self.before, plan))
+
+    def test_mutated_policy_refuses_and_no_budget_is_added(self):
+        plan = copy.deepcopy(self.plan)
+        plan[footprint.FIELD]['policy_json'] += ' '
+        self.assertFalse(footprint.eligible(self.before, plan))
+        self.assertEqual(self.before, controller.read_state(self.state))
+
+    def test_actual_controller_cli_uses_complete_path(self):
+        result = subprocess.run([sys.executable, str(footprint.REPO / 'scripts/run_controller.py'),
+            '--state', str(self.state), 'completion-capacity', '--repair-plan', str(self.plan_path)],
+            capture_output=True, text=True)
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+        state = controller.read_state(self.state)
+        budget = json.loads(state['events'][-1]['precheck_json'])
+        self.assertEqual(5, budget['resources']['preflight_renders']['required'])
+        self.assertEqual([], completion.replay(state)[1])
+
+    def test_optional_polish_cannot_prepare_capacity(self):
+        report = json.loads(self.report.read_text())
+        report['technical_repair']['findings'][0]['category'] = 'artistic-preference'
+        self.report.write_text(json.dumps(report))
+        plan = json.loads(self.original.read_text())
+        plan['failure_evidence_sha256'] = footprint.sha(self.report.read_text())
+        self.original.write_text(json.dumps(plan))
+        with self.assertRaises(ValueError):
+            footprint.prepare_comparison(self.state, self.original, self.comparison, self.root / 'optional.json')
+        self.assertEqual(self.before, controller.read_state(self.state))
+
+
 class CaptureCompletionBudgetTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()

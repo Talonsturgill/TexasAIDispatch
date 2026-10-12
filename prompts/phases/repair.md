@@ -42,6 +42,21 @@ the hero and declare it fixed. Use supported real footage or another demonstrate
 that produces an honest causal story. Prove the hardest repaired action in the next hero.
 
 Reuse unchanged valid evidence. Structural edits invalidate whole-sequence story approval.
+An authored-source edit can also invalidate the earlier two-treatment comparison. Preserve that
+complete package byte-identically, renew the same two treatments on current source and receipts,
+and obtain fresh comparison and selection verdicts. Do not add a continuation exemption or
+relabel old films as current. Fund the complete remaining path before additional attempts:
+
+```sh
+python scripts/capture_completion_budget.py --state out/dispatch/run_state.json --plan <new-independent-mandatory-or-finish-plan> --comparison <retained-package>/comparison.json --output out/dispatch/comparison-completion-plan.json
+python scripts/run_controller.py --state out/dispatch/run_state.json completion-capacity --repair-plan out/dispatch/comparison-completion-plan.json
+```
+
+This opt-in evidence schema binds the original comparison and its actual hook/entry charges.
+It protects five preview charges (comparison two, final phone one, native hero one, motion one),
+four conservative critic calls, and the existing full audiovisual/scoring path together.
+Use a fresh actual independent admission that has not already received a grant. It adds only
+recorded deficits, retains original plans and grants, and approves no film or shipment.
 Run cheap duration, caption-fit, source-binding, routing and review-request-format checks before
 another reservation. Compare the replacement against every unresolved defect. Re-render once
 for the consolidated change, then obtain the fresh independent verdicts its bytes require.
