@@ -2,9 +2,9 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "4c6cefce8b634d1ac3c5b350818878fe022ea46d6ea00450f16391e273fc9956",
+    "event_sha256": "392da65b5bbbb1c96fd0504d503ea83f60c2de3fc975c192c49fa5702bfa3a51",
     "resource": "preflight_renders",
-    "at": "2026-10-12T17:24:03.151780Z",
+    "at": "2026-10-12T18:19:25.961793Z",
     "note": "finished cinematic hero and stage ablation batch"
   },
   "boards": [
@@ -157,23 +157,30 @@
   },
   "commands": [
     {
-      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
-      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
-      "consumed": "2026-10-12T17:24:10.946226+00:00"
+      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
+      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
+      "consumed": "2026-10-12T18:19:49.197060+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.943
+    "free_gib": 17.825
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T172408.json",
-    "receipt_sha256": "d37e670085c12b7580da9ccb00ace31c85420d2dd929e31317f0b9248393b90a",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T181918.json",
+    "receipt_sha256": "5c77dbf3d0fb71c2080de1ee297b2a4ce7cd7d4bcba21f76ae5edfdd38ab5998",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T17:24:08.569846+00:00",
-  "expires_at": "2026-10-12T18:09:08.569846+00:00"
+  "issued_at": "2026-10-12T18:19:46.713659+00:00",
+  "expires_at": "2026-10-12T19:04:46.713659+00:00",
+  "prepared_capture": {
+    "schema": "dispatch_prepared_capture/1",
+    "operation": "finished cinematic hero and stage ablation batch",
+    "run_id": "2026-10-11",
+    "event_sha256": "392da65b5bbbb1c96fd0504d503ea83f60c2de3fc975c192c49fa5702bfa3a51",
+    "input_identity": "a688c646f2b001a9f97279c551dfa81ec0c4e17608fed6beb39146926afcbadb"
+  }
 }
