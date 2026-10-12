@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair7/opening-a.json",
-        "before_sha256": "b3ed211de957b51cf9a247b45998337b7775c9dfc41221f31087e071c3cd337e",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair7/opening-b.json",
-        "before_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair7/storyboard.json",
-        "before_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair7/src/TowerAlertFilm.tsx",
-        "before_sha256": "e341e07aa05d4f06ef7b485d04a675d7107fadce9c83add5c25820a909f82788",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "a7a76b4d50e119ea1da515effb3c9c055110555ba27372643801f1ca0a46976c",
-    "plan": "{REPO}/out/dispatch/repair-plan-7.json",
-    "plan_sha256": "cd7cef2adef6358b483e3c43fde5e69832c0362a626fbbb9902eca41177746fe",
-    "reboards_before": 6,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1536,6 +1507,61 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T16:26:43.007739Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "7ebe4b5aeb8107aed5b6d2d1d0cb7ca88e2fc00c767ecd5b3610bba223232b58",
+            "before_path": "{REPO}/out/dispatch/baseline-repair7/opening-a.json",
+            "before_sha256": "b3ed211de957b51cf9a247b45998337b7775c9dfc41221f31087e071c3cd337e",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "6ac4f30155a8e0a927c3cbc8588fce27631bad80e19c308edb96b79364aa7e96",
+            "before_path": "{REPO}/out/dispatch/baseline-repair7/opening-b.json",
+            "before_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "6ac4f30155a8e0a927c3cbc8588fce27631bad80e19c308edb96b79364aa7e96",
+            "before_path": "{REPO}/out/dispatch/baseline-repair7/storyboard.json",
+            "before_sha256": "b20b04afa005a060446ca5a971c80d96863de57a949e671e985df110f8755444",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "7ad03d4fe0d6fbef24a830ad9f929ce3d2150acc57029fe9ff20cb6c4cde8a6b",
+            "before_path": "{REPO}/out/dispatch/baseline-repair7/src/TowerAlertFilm.tsx",
+            "before_sha256": "e341e07aa05d4f06ef7b485d04a675d7107fadce9c83add5c25820a909f82788",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "No plume, beam end, flag box, card path or dashed line touches a pumpjack in any shot of either treatment, A's beam visibly ends on the smoke, and nothing important sits under the feed button column.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-round6-opening-b-technical.json",
+        "failure_evidence_sha256": "a7a76b4d50e119ea1da515effb3c9c055110555ba27372643801f1ca0a46976c",
+        "failure_family": "source-framing",
+        "mechanism_change": "Instead of fixing one overlap per review round, the correction audits every shot of both treatments against the plate props and the feed button column and fixes them together, with computed clearances reported for each.",
+        "mechanism_id": "tower-plate-prop-overlap-sweep-v1",
+        "repair": "One consolidated builder correction across both treatments. Move B's world plume onto open ground clear of the pumpjack card and reroute B's s3 card path and truck clear of it, aim A's beam so it ends on the plume, lower A's line arc or recentre the cut-in so the line clears the pumpjack, keep every plume, truck and alert left of x 918 where they reach below y 1194, and check every frame where a plume, beam, card or line sits near either pumpjack card, the fence or the windmill. Refresh the renderer hash in the three boards. Change nothing else.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "Round six of the independent code review passed treatment A and returned REVISE on treatment B with blocking defect B-D2, classified independently as source. B's world plume at the s5 wide and the s1 pull-back wisp rises at and leans across the plate's near pumpjack so the beam ends on the pumpjack cluster, the same false oil well fire family as the earlier A-P1. The same review listed further overlaps that one consolidated sweep should take in: A's beam now ends on the station instead of the plume, B's s3 card path to the truck runs through the near pumpjack, B's s5 line starts over the tower fence, and lower plume and truck parts sit under the feed's right button column."
+      },
+      "repair_plan_sha256": "0d62ff6e75f7173185711c9f4c9cc7ebdc30e2a0c29715459bda80a863bf275e",
+      "repair_revision": "b739a9f5731f8c7aa1c566e68f8bb5dfb63ab886359eec20514fb7789d8877f8",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1559,7 +1585,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "795c097c90c30c20685acbbb884a474512f48e9fe60f02dd51fdc1396240d992",
+    "original_private_state_sha256": "bf2135c43cb0f7a9bc847fea96472b1a330c2cfd4b9a1fe58238130e5a4000e7",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1587,7 +1613,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:58:27.517792Z",
+  "updated_at": "2026-10-12T16:26:43.007783Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
