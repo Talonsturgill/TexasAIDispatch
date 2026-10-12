@@ -1,0 +1,27 @@
+{
+ "review_scope": "audio-alignment-evidence-classification",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  "AL-1 captions and technical_audio: forced clause alignment refused narration take five. The soundcheck passed at 40.7 s and the words match the locked script, but the declared within-sentence clause boundaries have no sufficient measured silence: after 'up,' in line two (n2a/n2b, inside the speech run 5.40-10.78 s) the gap is about 0.13 s, and after 'smoke,' in line three (n3a/n3b, inside the speech run 11.50-16.50 s) there is none, against the 0.24 s required. A 0.2 s breath at 11.16-11.36 s forms a measured speech run with no reconciled words. Measured caption and clause windows can't be compiled from this take."
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "AL-1"
+  ]
+ },
+ "technical_repair": {
+  "findings": [
+   {
+    "finding": "AL-1 captions and technical_audio: forced clause alignment refused narration take five. The soundcheck passed at 40.7 s and the words match the locked script, but the declared within-sentence clause boundaries have no sufficient measured silence: after 'up,' in line two (n2a/n2b, inside the speech run 5.40-10.78 s) the gap is about 0.13 s, and after 'smoke,' in line three (n3a/n3b, inside the speech run 11.50-16.50 s) there is none, against the 0.24 s required. A 0.2 s breath at 11.16-11.36 s forms a measured speech run with no reconciled words. Measured caption and clause windows can't be compiled from this take.",
+    "category": "captions"
+   },
+   {
+    "finding": "AL-1",
+    "category": "captions"
+   }
+  ]
+ }
+}

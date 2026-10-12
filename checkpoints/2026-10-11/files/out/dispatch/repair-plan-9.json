@@ -1,0 +1,23 @@
+{
+ "mechanism_id": "vo-explicit-half-second-clause-pause-v1",
+ "failure_family": "capture-and-analysis",
+ "repair_scope": "technical-integrity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The fifth whole-passage take passed the independent soundcheck at 40.7 seconds and the words reconcile with the locked script, but forced clause alignment found no sufficient measured silence at the two within-sentence clause boundaries after the words up and smoke, where the reader left about 0.13 seconds and none, and a 0.2 second breath before the word When formed a measured speech run with no words.",
+ "repair": "Edit only the overall and line three notes in vo_direction.json to ask for a clean half second of plain silence at exactly those two commas and no audible inhale anywhere, then synthesize one new whole passage take and soundcheck it. The locked script, board, claims and sources are unchanged and no audio is stretched or edited.",
+ "mechanism_change": "The notes change from asking for a short breath at the commas, which produced an audible inhale and too little silence, to asking for a half second of silence with no breath sound at those two commas.",
+ "expected_visible_result": "Both within-sentence clause boundaries show at least 0.24 seconds of measured silence with no extra speech run, so captions and clause cues align on the measured voice.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/retained-alignment-classification.json",
+ "failure_evidence_sha256": "224f08a6e78923f5ae662921a01847ede09f0f7e178419964f002f71565758ef",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair9/vo_direction.json",
+   "before_sha256": "f2fe80e3d1c27a24778c6e9c51e03180c792913517cea778c451508cd2f89670",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "tts_calls": 2
+ }
+}
