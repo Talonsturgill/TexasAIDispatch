@@ -1,0 +1,5 @@
+Exact original refusal, scripts/preship_check.py --board out/dispatch/storyboard.json on the corrected film after cue c9 gained max_lines 3 in captions.json:
+  FAIL  acoustic_alignment
+        vo_align: stored words/cues differ from recomputed acoustic evidence
+
+Cause: vo_align.py --verify compared the whole stored captions.json with the recomputed evidence, and the presentation-only integer field max_lines on c9 made them unequal. The unmodified checker bytes are retained beside this file as retained-vo_align-before-max-lines.py.
