@@ -126,7 +126,9 @@ const DISCLOSURE_FONT=26, DISCLOSURE_MAX=300;
 const OPEN_LINE_STOP=.64;
 /** PlaceStage's medium framing zoom, about frame (540,960), which grounded subjects ride. */
 const ZOOM_MEDIUM=1.08;
-const A_S5={bs:.42, stop:.64, lift:40, horizon:972.4, cutIn:{x:430,k:1.3}};
+/** A's s5: the line stops at .45 of its curve so about 87 screen px (31 phone px) of open land separate
+ * its ring from the badge in the 1.3 cut-in, and lw draws it heavier than the small badge. */
+const A_S5={bs:.42, lw:.9, stop:.45, lift:40, horizon:972.4, cutIn:{x:430,k:1.3}};
 /** The can share tag pinned under the badge, at a readable size on screen in each treatment's s5 shot:
  * above the caption band and left of the feed's button column in both. In B it hangs from the badge
  * post across the upper left of the station's face, since the truck and the button column leave no
@@ -299,7 +301,7 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   return plains({heading,ring:[0,360],plume:1,flag:1,truck:true,truckGlow:1,alert:true,truckLast:true,station:true,grounded:true,toPlume:true,
    front:<>
     <At p={leg}>{tag(["Doesn't","prevent fires"],'accent',prevent,{side:'left',drop:34,scale:tagScale})}</At>
-    {openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,shareOn,{bs:A_S5.bs,stop:A_S5.stop,lift:A_S5.lift,share:SHARE_TAG.a})}
+    {openLine([w[0]+20,w[1]-18],Wd.station,Wd.sts,reach,shareOn,{bs:A_S5.bs,lw:A_S5.lw,stop:A_S5.stop,lift:A_S5.lift,share:SHARE_TAG.a})}
    </>});
  };
 
@@ -548,9 +550,10 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   // frame. B: the strip clipped under both visors, the camera held while low sun crosses it.
   // A larger six-block strip in both: A's wall trucks across on s6-event-1 and has settled before the
   // check pass on s6-event-3 starts; B's camera holds under the visors.
-  // B: a four-block strip at .96 so its day cells are about 22 native px (8 phone px) in the wide; its
-  // labels lift clear of the binder clips, which grip the top edge under the two visors.
-  const cs=v==='a'?.62:.96, blocks=v==='a'?6:4, labelLift=v==='a'?0:44;
+  // Both strips at .96 so the day cells are about 22 native px (8 phone px) in the wide. A keeps six
+  // blocks on the wall it trucks across; B has four under the visors, its labels lifted clear of the
+  // binder clips that grip the top edge.
+  const cs=.96, blocks=v==='a'?6:4, labelLift=v==='a'?0:44;
   const len=CAL.block*blocks*cs;
   const stripAt:Pt=v==='a'?[120,930]:[130,398];
   const endPt:Pt=[stripAt[0]+len,stripAt[1]];
@@ -566,8 +569,8 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
     fill={pal.accent} fillOpacity={.12} stroke={pal.accent} strokeWidth={7} opacity={clamp(check*12)*clamp((1-check)*12)}/>}
    {/* clips at native x 230 and 420 under the driver visor, 660 and 820 under the passenger visor */}
    {v==='b'&&[.114,.331,.605,.788].map(f=><At key={f} p={[stripAt[0]+f*len,stripAt[1]+2]}><WestTexasSupport part="clip"/></At>)}
-   {/* B's attribution tag hangs wholly below the strip, pinned under its bottom edge */}
-   <At p={v==='a'?[endPt[0]-150,endPt[1]+112]:[endPt[0]-150,stripAt[1]+CAL.h*cs+12]}>{tag(["Per AEP's",'wildfire lead'],'ink',tagOn,{side:'right',drop:v==='a'?30:40,scale:v==='a'?1:.95})}</At>
+   {/* the attribution tag hangs wholly below the strip, pinned under its bottom edge */}
+   <At p={[endPt[0]-150,stripAt[1]+CAL.h*cs+12]}>{tag(["Per AEP's",'wildfire lead'],'ink',tagOn,{side:'right',drop:v==='a'?30:40,scale:v==='a'?1:.95})}</At>
   </>;
   const body=v==='a'
    ?<g data-world="a-shelter-wall" transform={`translate(${offX} 0)`}><At p={[600,1990]} s={5}><WestTexasSupport part="shelter" w={1100}/></At>{strip}</g>
@@ -618,11 +621,14 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   // Each closing plume stands on open ground away from the plate's pumpjacks: A's left of its tower, B's
   // between its display and the near pumpjack, clear of the bezel, the truck and the feed's button column.
   const plumeAt:Pt=v==='a'?[192,990]:[610,990];
+  // A's tower stands lower than it did before the band moved down, so its whip antenna (screen y about
+  // 718 at the split zoom) stays about 20 px below the band's bottom border (698).
+  const A_CLOSE_TOWER:Pt=[300,1056];
   const w=windowPt(truck,ks);
   const lower=<g data-part="closing-land">
    <Grounded baseY={station[1]} on><At p={station} s={sts}><WestTexasSupport part="station"/></At></Grounded>
    <Grounded baseY={plumeAt[1]} on><At p={plumeAt} s={v==='a'?.4:.45}><WestTexasSupport part="plume" t={t} grow={1} lean={v==='a'?.1:undefined} h={300}/></At></Grounded>
-   {v==='a'&&<Grounded baseY={1012} on><At p={[300,1012]} s={.28}>
+   {v==='a'&&<Grounded baseY={A_CLOSE_TOWER[1]} on><At p={A_CLOSE_TOWER} s={.28}>
     <TowerCameraHero part="sweep" heading={heading} rx={Wd.ring[0]} ry={Wd.ring[1]} layer="back" ring={[0,360]}/>
     <TowerCameraHero part="tower" heading={heading} time={t} dusk={.4}/>
     <TowerCameraHero part="sweep" heading={heading} rx={Wd.ring[0]} ry={Wd.ring[1]} layer="front" ring={[0,360]}/>
