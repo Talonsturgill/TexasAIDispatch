@@ -2,15 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "392da65b5bbbb1c96fd0504d503ea83f60c2de3fc975c192c49fa5702bfa3a51",
+    "event_sha256": "fcf1112b9f83f68fe8b8fa19f314560904044b9a93230ca772a2e462a0c1aa65",
     "resource": "preflight_renders",
-    "at": "2026-10-12T18:19:25.961793Z",
-    "note": "finished cinematic hero and stage ablation batch"
+    "at": "2026-10-12T18:54:09.312880Z",
+    "note": "capture authorization reservation for opening comparison"
   },
   "boards": [
     {
-      "path": "out/dispatch/storyboard.json",
-      "sha256": "edc389baf4ee5dfb69754cf58bf439aa3d69ec60bc53454b4449e7ae30004bc4"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1"
     }
   ],
   "bound": {
@@ -141,7 +145,7 @@
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx": "2d78478b181b5be7b12f2c705f722d887cd103a3ea12b24b8d21f55fd3c1997d",
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx": "d4d12ba1ef9efa264aff39592cccfbfb1127cd0a94362e73649a331f443bf92d",
       "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx": "0b2883cf03609379e4e84d6d3ad5bd8ce497203dc5ae9fdd7ab61bef97c7b78c",
-      "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx": "7ad03d4fe0d6fbef24a830ad9f929ce3d2150acc57029fe9ff20cb6c4cde8a6b",
+      "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
       "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd",
       "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
@@ -157,30 +161,23 @@
   },
   "commands": [
     {
-      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
-      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T18:19:49.197060+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-12T18:54:19.709555+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.825
+    "free_gib": 17.82
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T181918.json",
-    "receipt_sha256": "5c77dbf3d0fb71c2080de1ee297b2a4ce7cd7d4bcba21f76ae5edfdd38ab5998",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T185415.json",
+    "receipt_sha256": "ea5618d814a4ab2728764907a87d69668d67333e064bb3804e9ec426ca1bbca6",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T18:19:46.713659+00:00",
-  "expires_at": "2026-10-12T19:04:46.713659+00:00",
-  "prepared_capture": {
-    "schema": "dispatch_prepared_capture/1",
-    "operation": "finished cinematic hero and stage ablation batch",
-    "run_id": "2026-10-11",
-    "event_sha256": "392da65b5bbbb1c96fd0504d503ea83f60c2de3fc975c192c49fa5702bfa3a51",
-    "input_identity": "a688c646f2b001a9f97279c551dfa81ec0c4e17608fed6beb39146926afcbadb"
-  }
+  "issued_at": "2026-10-12T18:54:15.996521+00:00",
+  "expires_at": "2026-10-12T19:39:15.996521+00:00"
 }
