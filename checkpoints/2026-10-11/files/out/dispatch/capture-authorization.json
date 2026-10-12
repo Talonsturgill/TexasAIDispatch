@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "cee7c953bbe21ca0f08450ef0a3e471757103d34775aa786541aaf339b31afa9",
+    "event_sha256": "851548d93224992522b5e17df531a46fddadbcbdd1a6434f63f01742821def84",
     "resource": "preflight_renders",
-    "at": "2026-10-12T20:04:23.956182Z",
-    "note": "finished cinematic hero and stage ablation batch"
+    "at": "2026-10-12T18:54:29.807676Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
@@ -157,30 +157,23 @@
   },
   "commands": [
     {
-      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
-      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T20:04:31.108429+00:00"
+      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
+      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
+      "consumed": "2026-10-12T20:09:12.682540+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.444
+    "free_gib": 17.244
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T200423.json",
-    "receipt_sha256": "9a905b430309c14d43a9e4350ddc735a5709c422f244449504caf7050f59dd73",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T200910.json",
+    "receipt_sha256": "c05e2ff2c8a804febcfe815a16d37c9e2262baa61a7cc507b977c4b32dcad4d4",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T20:04:28.256230+00:00",
-  "expires_at": "2026-10-12T20:49:28.256230+00:00",
-  "prepared_capture": {
-    "schema": "dispatch_prepared_capture/1",
-    "operation": "finished cinematic hero and stage ablation batch",
-    "run_id": "2026-10-11",
-    "event_sha256": "cee7c953bbe21ca0f08450ef0a3e471757103d34775aa786541aaf339b31afa9",
-    "input_identity": "f87041af25cd94df238ed497f2a4c3fd2fe8b2a1d78ce457f982456a36665de8"
-  }
+  "issued_at": "2026-10-12T20:09:10.125848+00:00",
+  "expires_at": "2026-10-12T20:54:10.125848+00:00"
 }
