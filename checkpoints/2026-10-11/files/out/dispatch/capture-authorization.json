@@ -2,15 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "125412d405440f2ede62c10aa7b5dd54b186948451e0a8541e3e35e2a410e9cd",
+    "event_sha256": "89122c4a82a6695b34247f36d10a2208196a71f9c39dfd655ff5dee5cee74c27",
     "resource": "preflight_renders",
-    "at": "2026-10-12T17:11:09.393967Z",
-    "note": "two opening comparison batch"
+    "at": "2026-10-12T17:19:45.730295Z",
+    "note": "finished cinematic hero and stage ablation batch"
   },
   "boards": [
     {
       "path": "out/dispatch/storyboard.json",
-      "sha256": "89ace375d89e14cd8219d356d36acce25952a630fbc0fe910380b97c0a7a42f6"
+      "sha256": "edc389baf4ee5dfb69754cf58bf439aa3d69ec60bc53454b4449e7ae30004bc4"
     }
   ],
   "bound": {
@@ -157,23 +157,23 @@
   },
   "commands": [
     {
-      "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
-      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
-      "consumed": "2026-10-12T17:18:03.163950+00:00"
+      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
+      "consumed": "2026-10-12T17:19:56.222933+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.951
+    "free_gib": 17.943
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T171756.json",
-    "receipt_sha256": "ca129d8e447b0d912b434b2b44a7d8cffc24bf875627282cb7dbe7fceb01fc28",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T171954.json",
+    "receipt_sha256": "0543a4184ef4676da3f87eaa923b1540e5515f8ea3edd7d20423238d678328d6",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T17:17:56.694122+00:00",
-  "expires_at": "2026-10-12T18:02:56.694122+00:00"
+  "issued_at": "2026-10-12T17:19:54.011911+00:00",
+  "expires_at": "2026-10-12T18:04:54.011911+00:00"
 }
