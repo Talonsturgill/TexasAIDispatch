@@ -73,6 +73,14 @@
       "note": "line six script pronoun replaced by noun phrase",
       "resource": "reboards",
       "to": 5
+    },
+    {
+      "at": "2026-10-12T15:17:52.473927Z",
+      "ceiling": 7,
+      "from": 5,
+      "note": "round 5 code review both treatments after line six script change",
+      "resource": "storyboard_critics",
+      "to": 6
     }
   ],
   "events": [
@@ -1050,6 +1058,24 @@
       "repair_revision": "ab85a4fa34deb92c116310fbc2e7e3cc665a0c7f6f2923c5d064d9a22d534079",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-12T15:17:52.473966Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "round 5 code review both treatments after line six script change",
+      "now": 6,
+      "resource": "storyboard_critics",
+      "was": 5
+    },
+    {
+      "at": "2026-10-12T15:17:52.473976Z",
+      "kind": "reserved",
+      "note": "round 5 code review both treatments after line six script change",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -1064,7 +1090,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 5,
+    "storyboard_critics": 6,
     "tts_calls": 4,
     "validator_agents": 1,
     "voice_directors": 1
@@ -1073,7 +1099,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7d3f83e6c5db3202a7a6e7b0fe46a7d26fbd1d18abf05ef1163d0ccc5aab8be5",
+    "original_private_state_sha256": "44c6dd6f8b62fc469dede68ea246501acd70f3017dcec34394380e31c898cdae",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1101,7 +1127,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T15:16:54.589396Z",
+  "updated_at": "2026-10-12T15:17:52.473978Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -1114,7 +1140,7 @@
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 0,
-    "storyboard_critics": 5,
+    "storyboard_critics": 6,
     "tts_calls": 4,
     "validator_agents": 1,
     "voice_directors": 1

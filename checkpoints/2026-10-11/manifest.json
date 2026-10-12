@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T15:16:54.820149+00:00",
+  "saved_at": "2026-10-12T15:17:52.724176+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "b8e8a906d0fb0e810251deb14646821b9492b68c7ef8ff825dc35065653bc8b1"
   },
   "deleted_source": [],
-  "ledger_sha256": "1fb7b3291fb80d75b61602768e909a1a85813fa012a7c3712be59db53bcf3dcb",
-  "original_private_ledger_sha256": "7d3f83e6c5db3202a7a6e7b0fe46a7d26fbd1d18abf05ef1163d0ccc5aab8be5",
+  "ledger_sha256": "4277228d5455a70caef3da2952e73ec4161c1a426e0983b038613df464fce759",
+  "original_private_ledger_sha256": "44c6dd6f8b62fc469dede68ea246501acd70f3017dcec34394380e31c898cdae",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,7 +30,7 @@
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 0,
-    "storyboard_critics": 5,
+    "storyboard_critics": 6,
     "tts_calls": 4,
     "validator_agents": 1,
     "voice_directors": 1
@@ -513,8 +513,8 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "53e9f40334aa5c412968398b9d69b60a34042fcdd8459dbca8e4cc391a5ea75d",
-      "size": 159696
+      "sha256": "b7c1bee43132892878aa603e186ffb794018146c6b32cd4513f869efa7652799",
+      "size": 159736
     },
     {
       "path": "out/dispatch/opening-b-critic.json",
@@ -523,10 +523,16 @@
       "size": 3257
     },
     {
+      "path": "out/dispatch/opening-b-vo-fixed.json",
+      "class": "scratch",
+      "sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
+      "size": 159159
+    },
+    {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "fa6e8ddc3140b0e9f07f677a259551f4697aa83e0b7e51af2efa21a5f920fb21",
-      "size": 159158
+      "sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
+      "size": 159159
     },
     {
       "path": "out/dispatch/opening-compare-failure-pil.log",
@@ -2011,6 +2017,90 @@
       "size": 105
     },
     {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/board_scale_check.log",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/caption_fit.log",
+      "class": "scratch",
+      "sha256": "c610ed03626ffa9158837cc59f501364646e299d391336cd6e8be305120e0966",
+      "size": 67
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/documentary_check.log",
+      "class": "scratch",
+      "sha256": "a8c7e55f4fde95c6695ea8b2cf867903892b09e2f7935bd983ff27761a368d29",
+      "size": 234
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/floor_check.log",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/modern_film.log",
+      "class": "scratch",
+      "sha256": "73273bd22ddb858b640e7d62af61e7b970459d4b4947a89586e5fa35b0503ca9",
+      "size": 177
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/registry.log",
+      "class": "scratch",
+      "sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422",
+      "size": 80
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/report.json",
+      "class": "scratch",
+      "sha256": "dabf6fc3750c6a36c2af6e28859c09e829edbabdcb3818c5fb2a5566e18371a5",
+      "size": 6963
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/script_evidence.log",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/shot_coherence.log",
+      "class": "scratch",
+      "sha256": "8e52e00b5bf97322d9468f9d8e9aa1f7888fec1277209c7b293b051cbd71e4fa",
+      "size": 213
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/staging_check.log",
+      "class": "scratch",
+      "sha256": "d70fd38d5bca1232d932d43d4ebaa80945594d8b6466b2187b8cd22498425de8",
+      "size": 753
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/story_art.log",
+      "class": "scratch",
+      "sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885",
+      "size": 75
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/storyboard_check.log",
+      "class": "scratch",
+      "sha256": "f0ccdc8f29661ec2b136c912307462cc7dc0de52dfd4bab08ac41e45203e4c22",
+      "size": 253
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/super_evidence.log",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/watchability_check.log",
+      "class": "scratch",
+      "sha256": "9f276431139bf331b0db6c5c5e7a538680ec3a13bfd412d1fb22a567e4ebe44b",
+      "size": 222
+    },
+    {
       "path": "out/dispatch/place_check.json",
       "class": "scratch",
       "sha256": "27493e63af090cd3b00bc993daf8f734cdbd16231ed1cff400c64f760326712c",
@@ -2223,7 +2313,7 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "556093727eabda0b9cc642e489a942c260b782345f7805e598392e0a387f0c8f",
+      "sha256": "824895a1cdeced45a30f75c02957526f6437e410184d9bbeaa6ce6568b5cf192",
       "size": 159159
     },
     {

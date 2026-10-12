@@ -1,0 +1,183 @@
+{
+  "schema": "dispatch_picture_precheck/1",
+  "pass": false,
+  "checks": [
+    {
+      "gate": "registry",
+      "command": [
+        "python",
+        "scripts/registry_check.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 48,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/registry.log",
+      "log_sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422"
+    },
+    {
+      "gate": "storyboard_check",
+      "command": [
+        "python",
+        "scripts/storyboard_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 1,
+      "elapsed_ms": 332,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/storyboard_check.log",
+      "log_sha256": "f0ccdc8f29661ec2b136c912307462cc7dc0de52dfd4bab08ac41e45203e4c22"
+    },
+    {
+      "gate": "watchability_check",
+      "command": [
+        "python",
+        "scripts/watchability_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 1,
+      "elapsed_ms": 382,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/watchability_check.log",
+      "log_sha256": "9f276431139bf331b0db6c5c5e7a538680ec3a13bfd412d1fb22a567e4ebe44b"
+    },
+    {
+      "gate": "documentary_check",
+      "command": [
+        "python",
+        "scripts/documentary_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 1,
+      "elapsed_ms": 384,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/documentary_check.log",
+      "log_sha256": "a8c7e55f4fde95c6695ea8b2cf867903892b09e2f7935bd983ff27761a368d29"
+    },
+    {
+      "gate": "shot_coherence",
+      "command": [
+        "python",
+        "scripts/shot_coherence.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 1,
+      "elapsed_ms": 337,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/shot_coherence.log",
+      "log_sha256": "8e52e00b5bf97322d9468f9d8e9aa1f7888fec1277209c7b293b051cbd71e4fa"
+    },
+    {
+      "gate": "staging_check",
+      "command": [
+        "python",
+        "scripts/staging_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 144,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/staging_check.log",
+      "log_sha256": "d70fd38d5bca1232d932d43d4ebaa80945594d8b6466b2187b8cd22498425de8"
+    },
+    {
+      "gate": "board_scale_check",
+      "command": [
+        "python",
+        "scripts/board_scale_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 78,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/board_scale_check.log",
+      "log_sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7"
+    },
+    {
+      "gate": "floor_check",
+      "command": [
+        "python",
+        "scripts/floor_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 50,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/floor_check.log",
+      "log_sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6"
+    },
+    {
+      "gate": "script_evidence",
+      "command": [
+        "python",
+        "scripts/script_evidence_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/claims.json",
+        "--planning-only"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 51,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/script_evidence.log",
+      "log_sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa"
+    },
+    {
+      "gate": "super_evidence",
+      "command": [
+        "python",
+        "scripts/super_evidence_check.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 45,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/super_evidence.log",
+      "log_sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add"
+    },
+    {
+      "gate": "caption_fit",
+      "command": [
+        "node",
+        "video-engine/tests/caption_board_fit.mjs",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 149,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/caption_fit.log",
+      "log_sha256": "c610ed03626ffa9158837cc59f501364646e299d391336cd6e8be305120e0966"
+    },
+    {
+      "gate": "modern_film",
+      "command": [
+        "python",
+        "scripts/modern_film.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+        "--claims",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/claims.json"
+      ],
+      "exit_code": 1,
+      "elapsed_ms": 391,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/modern_film.log",
+      "log_sha256": "73273bd22ddb858b640e7d62af61e7b970459d4b4947a89586e5fa35b0503ca9"
+    },
+    {
+      "gate": "story_art",
+      "command": [
+        "python",
+        "scripts/story_art.py",
+        "--board",
+        "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+        "verify"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 197,
+      "log": "/home/user/restore/dispatch-2026-10-11/out/dispatch/picture-precheck/413a6b9b-b12f-4547-bcb1-2703c7abd637/story_art.log",
+      "log_sha256": "28326c6c72cce2263196664461e6821e44666c1030916778edddbfeddb93f885"
+    }
+  ],
+  "approval": false,
+  "note": "Mechanical gate outputs only. Independent code, phone, native, audiovisual and shipment proof remain required."
+}
