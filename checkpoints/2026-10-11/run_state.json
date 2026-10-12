@@ -1,4 +1,18 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baseline-repair10/storyboard.json",
+        "before_sha256": "6c37771e1a33a63562f544da207c58a5280b58789e1db47d867df2b03a241583",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      }
+    ],
+    "failure_sha256": "bec4885a2ccac315f12361ab9e9f7fd5bde1f407c6f550ef91ce1052a0f61bdc",
+    "plan": "{REPO}/out/dispatch/repair-plan-10.json",
+    "plan_sha256": "252b47ba5753805dd59e85a18f2d5a0c77deea46597b5934cf3cd07d25c8e53e",
+    "reboards_before": 8,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -2294,6 +2308,36 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 1798,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-12T17:00:06.848920Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baseline-repair10/storyboard.json",
+          "before_sha256": "6c37771e1a33a63562f544da207c58a5280b58789e1db47d867df2b03a241583",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "capture-and-analysis",
+      "failure_sha256": "bec4885a2ccac315f12361ab9e9f7fd5bde1f407c6f550ef91ce1052a0f61bdc",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "measured-clock-event-fractions-v1",
+      "plan_identity": null,
+      "plan_sha256": "252b47ba5753805dd59e85a18f2d5a0c77deea46597b5934cf3cd07d25c8e53e",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -2317,7 +2361,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cd189651354f35d61d8ca4bbc6544d08f25af44db3a8e232dd141e1abf74a708",
+    "original_private_state_sha256": "07442d3278540b9ed6bc204a6d028147143c431ce8844d9f561006034e9f5df2",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2345,7 +2389,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T16:56:00.466041Z",
+  "updated_at": "2026-10-12T17:00:06.848959Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,

@@ -1,0 +1,22 @@
+{
+ "mechanism_id": "measured-clock-event-fractions-v1",
+ "failure_family": "capture-and-analysis",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "After the narration passed soundcheck and clause alignment, retiming the board to the measured voice lengthened the clause windows that the event clause fractions scale. Five cheap gates now fail on the measured clock: the hook payoff ends at 1.76 s against 1.5 s, three action durations run 1.30 to 1.64 s against the 1.2 s limit, the viewer reward gap reaches 4.23 s against 4.0 s, the modern reward interval reaches 4.15 s, and scenes s5 and s6 run 6.5 s with their last beat in the first 55 percent so their tails are held.",
+ "repair": "Adjust only the clause_fraction_start and clause_fraction_end values of the events s1-event-1, s2-event-1, s3-event-2, s5-event-2 and s6-event-2 in the board so each event sits at the same narrated words on the measured clock with a shorter action, a later s5 line stop and a later s6 tag pin. No picture, claim, narration word or renderer code changes, and then retime again.",
+ "mechanism_change": "The event windows move from fractions chosen on the provisional authored clock to fractions chosen against the measured clause windows, with durations inside the directed 0.2 to 1.2 second range and last beats after 55 percent of the scene.",
+ "expected_visible_result": "The hook payoff finishes by 1.5 s, every action runs within 0.2 to 1.2 s, no reward gap exceeds 4.0 s and the s5 and s6 tails carry a late beat, so the film has no held slide on the measured clock.",
+ "failure_evidence": "/home/user/restore/dispatch-2026-10-11/out/dispatch/measured-timing-failure/gates.log",
+ "failure_evidence_sha256": "bec4885a2ccac315f12361ab9e9f7fd5bde1f407c6f550ef91ce1052a0f61bdc",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/dispatch-2026-10-11/out/dispatch/baseline-repair10/storyboard.json",
+   "before_sha256": "6c37771e1a33a63562f544da207c58a5280b58789e1db47d867df2b03a241583",
+   "after_sha256": ""
+  }
+ ],
+ "resources": {
+  "preflight_renders": 2
+ }
+}
