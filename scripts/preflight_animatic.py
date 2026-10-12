@@ -308,7 +308,8 @@ def render(board: Path, film: Path, state: Path, claims: Path | None = None) -> 
     caption_fit = subprocess.run(caption_args, cwd=ENGINE)
     if caption_fit.returncode:
         raise RuntimeError("exact board captions or credits overflow the readable phone area; no animatic was spent")
-    accepted, message = reserve(state, {"preflight_renders": 1}, "quarter-scale animatic")
+    from capture_reservation import claim
+    accepted, message = claim(state, "quarter-scale animatic")
     print(message, file=sys.stdout if accepted else sys.stderr)
     if not accepted:
         raise RuntimeError("preflight budget refused the render")

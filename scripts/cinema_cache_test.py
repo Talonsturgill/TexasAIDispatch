@@ -124,7 +124,7 @@ class CacheTest(unittest.TestCase):
             else:Path(argv[-1]).write_bytes(b"synthetic mux")
         with patch.object(p,"plan_problems",return_value=[]),patch.object(p.critic_gate,"film_review_problems",return_value=[]), \
              patch.object(p,"stage_sample_problems",return_value=[]),patch.object(p,"run",side_effect=command), \
-             patch.object(p,"reserve",side_effect=lambda *a:(charges.append(a) or (True,"reserved"))):
+             patch.object(p,"claim",side_effect=lambda *a:(charges.append(a) or (True,"reserved"))):
             p.build(self.bp,self.mix,self.root/"state.json")
             self.assertEqual(1,len(charges));self.assertEqual(5,len(batches[0]["jobs"]))
             hero=self.root/"cinema/hero.mp4";old=c.file_sha256(hero)
@@ -170,7 +170,7 @@ class CacheTest(unittest.TestCase):
         (self.root/"preflight.json").write_text("{}")
         (self.root/"storyboard_critic.json").write_text("{}")
         with patch.object(p,"plan_problems",return_value=[]),patch.object(p.critic_gate,"film_review_problems",return_value=["rejected"]), \
-             patch.object(p,"reserve") as reserve:
+             patch.object(p,"claim") as reserve:
             with self.assertRaisesRegex(ValueError,"phone visual review"):p.build(self.bp,self.mix,self.root/"state")
             reserve.assert_not_called()
 
@@ -197,7 +197,7 @@ class CacheTest(unittest.TestCase):
             return stage.return_value
         stage.side_effect = inspect
         command_mock = stack.enter_context(patch.object(p, "run", side_effect=command))
-        reserve = stack.enter_context(patch.object(p, "reserve", return_value=(True, "reserved")))
+        reserve = stack.enter_context(patch.object(p, "claim", return_value=(True, "reserved")))
         return stage, command_mock, reserve
 
     def test_failed_stage_retains_exact_evidence_and_reuses_without_approval(self):

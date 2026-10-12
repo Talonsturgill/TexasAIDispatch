@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 from production_quality import REPO, policy_path, digest, engine_sha256, read, plan_problems, stage_sample_problems
 from render_manifest import generated_media_sha256
-from run_controller import reserve
+from capture_reservation import claim
 import critic_gate
 import cinema_cache as cache
 
@@ -68,7 +68,7 @@ def build(board, mix, state):
             samples_cached[sid].append({kind:cache.lookup(retained,key) for kind,key in keys.items()})
     changes = hero_cached is None or any(value is None for pairs in samples_cached.values() for pair in pairs for value in pair.values())
     if changes:
-        ok,message = reserve(state,{"preflight_renders":1},"finished cinematic hero and stage ablation batch")
+        ok,message = claim(state,"finished cinematic hero and stage ablation batch")
         if not ok:
             raise ValueError(message)
     with tempfile.TemporaryDirectory(prefix="proof-",dir=root) as tmp:

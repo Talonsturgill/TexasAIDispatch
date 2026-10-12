@@ -204,11 +204,19 @@ def preflight_identity(path: Path, note: str) -> str | None:
     for directory in (REPO / "video-engine/src", REPO / "video-engine/public"):
         if directory.exists():
             files += [p for p in directory.rglob("*") if p.is_file()]
-    content = [(str(p), digest(p)) for p in sorted(files)]
     # Production callers use these fixed operations. Free-form wording is not identity.
     operation = "hero" if note in {"hero", "finished cinematic hero and stage ablation batch"} else "animatic"
     if note == "two opening comparison batch":
         operation = "opening-comparison"
+    elif note == "exact-film motion-image review extraction":
+        operation = "motion-review"
+    operator = {'hero': 'cinema_proof.py', 'animatic': 'preflight_animatic.py',
+                'motion-review': 'claude_motion_review.py'}.get(operation)
+    if operator:
+        files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
+    content = [(str(p), digest(p)) for p in sorted(set(files))]
+    if operation == 'motion-review':
+        content.append(('registered-native-film', read_state(path).get('deliverable', {}).get('film_sha256')))
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
 
 

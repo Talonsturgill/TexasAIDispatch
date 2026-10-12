@@ -397,7 +397,7 @@ def housekeeping_run(root, required, run=subprocess.run):
     return {'receipt': str(receipt), 'receipt_sha256': sha(receipt), 'exit_code': 0, 'min_free_gib': required}
 
 
-def authorize(root, state_path, board_paths, commands, resource=None, housekeeping=True, run=subprocess.run):
+def authorize(root, state_path, board_paths, commands, resource=None, housekeeping=True, run=subprocess.run, prepare=False):
     """Issue one capture authorization from facts, never from a flag the caller types."""
     import authored_story_art
     from native_headroom import estimate
@@ -416,9 +416,9 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
                   and 'LATE CHARGE' not in str(e.get('note', '')).upper()
                   and (resource is None or resource in (e.get('resources') or {}))
                   and event_digest(e) not in {u['event_sha256'] for u in used}]
-    if not candidates:
+    if not candidates and not prepare:
         raise ValueError('no fresh unused charged render reservation in the ledger (late-accounting charges do not count); reserve the render first')
-    reservation = candidates[-1]
+    reservation = candidates[-1] if candidates else None
     bound = {'renderer_inputs': {}, 'authored_art': {}}
     plans = []
     for path, board in boards:
@@ -433,6 +433,14 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
     if free < required:
         raise ValueError('native headroom failed: %s GiB free, %s required' % (free, required))
     kept = housekeeping_run(root, required, run) if housekeeping else {'receipt': None, 'receipt_sha256': 'none', 'exit_code': 0}
+    prepared = None
+    if prepare:
+        if resource not in (None, 'preflight_renders'):
+            raise ValueError('prepared operator uses preflight_renders')
+        from capture_reservation import prepare as prepare_capture
+        prepared = prepare_capture(root, state_path, commands)
+        state = json.loads(Path(state_path).read_text())
+        reservation = next(e for e in state['events'] if event_digest(e) == prepared['event_sha256'])
     issued = now()
     record = {'schema': SCHEMA, 'allowed': True,
               'render_reservation': {'event_sha256': event_digest(reservation),
@@ -442,6 +450,8 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
               'commands': [{'id': hashlib.sha256(normalize(c).encode()).hexdigest(), 'text': normalize(c), 'consumed': False} for c in commands],
               'headroom': {'passed': True, 'required_free_gib': required, 'free_gib': free}, 'housekeeping': kept,
               'art_receipts_recorded': True, 'issued_at': issued.isoformat(), 'expires_at': (issued + LIFETIME).isoformat()}
+    if prepared is not None:
+        record['prepared_capture'] = prepared
     (root / AUTHORIZATION).write_text(json.dumps(record, indent=2) + '\n')
     used.append({'event_sha256': record['render_reservation']['event_sha256'], 'issued_at': record['issued_at']})
     used_path.write_text(json.dumps(used, indent=2) + '\n')
@@ -459,12 +469,13 @@ def main(argv=None):
     p.add_argument('--board', action='append', required=True, help='each exact board the capture may use')
     p.add_argument('--command', action='append', required=True, help='each exact wrapped capture command, usable once')
     p.add_argument('--resource')
+    p.add_argument('--prepare', action='store_true', help='charge the exact supported operator once, then bind its single-use authorization')
     p.add_argument('--root', default=str(REPO))
     args = parser.parse_args(argv)
     if args.action == 'hook':
         return hook(str(REPO) if args.repo_root else None)
     try:
-        print(json.dumps(authorize(args.root, args.state, args.board, args.command, args.resource), indent=2))
+        print(json.dumps(authorize(args.root, args.state, args.board, args.command, args.resource, prepare=args.prepare), indent=2))
     except (ValueError, OSError) as exc:
         print(json.dumps({'error': str(exc)}), file=sys.stderr)
         return 1
