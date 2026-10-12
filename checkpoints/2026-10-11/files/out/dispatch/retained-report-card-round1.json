@@ -1,0 +1,663 @@
+{
+  "schema": "dispatch_report_card/1",
+  "round": 1,
+  "score": 7.023,
+  "weighted_score": 7.023,
+  "ship": false,
+  "axes": {
+    "craft": 6.533,
+    "picture": 6.933,
+    "hook": 7.0,
+    "voice": 7.0,
+    "place": 7.3,
+    "story": 7.3
+  },
+  "hard_fails": [
+    "modern_observations.finished_art failed at 29.4 to 40.0: the How much sooner label is truncated by its input box, and the s6 caption is set at a smaller size. Under directed-film-v2 finished art cannot be deferred.",
+    "performed_turn failed at 23.0 to 29.26 s: the stop-short line is not legible.",
+    "finished_art failed: clipped How much soon label 36.0 to 40.0 s, flat dash slab 18.4 to 22.8 s, A-pillar slab 32.6 to 35.8 s, Illustration chip over the tower head 25.0 to 29.2 s and the folder tab 42.0 to 44.0 s, scene 6 caption set smaller.",
+    "finished_art failed at 36.0 to 39.8 s: the How much soon label is clipped by the field box, and the Illustration label collides with the camera head 4.6 to 5.4 s and 25.0 to 29.2 s.",
+    "judge 2 did not accept the attention/continuity",
+    "judge 3 did not accept the attention/continuity",
+    "modern engagement or finish unproven: finished_art",
+    "modern engagement or finish unproven: performed_turn",
+    "modern engagement or finish unproven: finished_art",
+    "narration-picture relationship unproven: n5b",
+    "modern engagement or finish unproven: finished_art",
+    "narration-picture relationship unproven: n5b"
+  ],
+  "judges": [
+    {
+      "audiovisual_role": "picture",
+      "audiovisual_receipt_sha256": "bc31f07d16c051ce81fc05608159ce2716fc81443338af7a414d78f78ebb2238",
+      "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+      "score": 7.05,
+      "ship": false,
+      "axes": {
+        "hook": 6.5,
+        "story": 7.5,
+        "picture": 7.2,
+        "place": 7.5,
+        "craft": 6.5,
+        "voice": 7.0
+      },
+      "weakest_axis": "craft",
+      "hard_fails": [
+        "modern_observations.finished_art failed at 29.4 to 40.0: the How much sooner label is truncated by its input box, and the s6 caption is set at a smaller size. Under directed-film-v2 finished art cannot be deferred."
+      ],
+      "one_sentence_fix": "In the s7 Response record card, widen the label column or shorten the label so How much sooner is not overlapped by its field, raise the s6 caption to the standard caption size, move the disclosure pill off the tower head, then re-render and check the feed composite.",
+      "attention_review": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "pass": true,
+        "hook_observed": "The compass spins from frame 0, the head turns by 0.2 s and the caption lands at 0.6 s. The plume is visible at about 1.2 s and the pull-back runs 2.8 to 4.8 s.",
+        "continuity_observed": "The same alert card carries the story through four cuts and the white pickup is consistent from 4.2 s through the closing composite.",
+        "pacing_observed": "No shot exceeds about 4.4 s. Slackest stretches 7.4 to 9.2 s, 10.6 to 11.9 s, 28.0 to 29.4 s and 36.0 to 40.0 s. The credit card is static about 4.6 s.",
+        "comprehension_observed": "A viewer gets the camera, the counts, the alert path, the ten-minute estimate, that cameras don't stop fires, that sharing is only can, no response record and the plan awaiting state approval. Weak spots are 29.5 to 35 s no major fire as an absence and 23.2 to 24.7 s.",
+        "remembered_image": "The card leaving the scope for the pickup (14 to 16 s), then the ten-minute wedge on the dash clock.",
+        "weakest_interval": "36.0 to 40.0 s, the response record. The How much sooner label runs under its input box. Repair the label column and give the pulses a clearer cue.",
+        "weakest_at_s": 36.0,
+        "weakest_end_s": 40.0,
+        "audio_basis": "No direct listening. Caption transcript text and the provider raw response only."
+      },
+      "modern_observations": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "first_frame": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 1.5,
+          "observed": "Compass ring turning over the plain, head rotating, pumpjack visible. Immediate motion."
+        },
+        "visual_progression": {
+          "pass": true,
+          "start_s": 1.5,
+          "end_s": 22.7,
+          "observed": "Scope to tower, counts, detection, alert chain, clock. Each step is new and causal."
+        },
+        "shot_variety": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "Scope, wide tower, flat card, cab interior, dash clock, ground wide, visor calendar, tailgate, desk, composite."
+        },
+        "performed_turn": {
+          "pass": true,
+          "start_s": 22.8,
+          "end_s": 29.4,
+          "observed": "Alert delivered, plume keeps burning, line to responders drawn and stops short."
+        },
+        "pace": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "No shot above the 5 s limit. Slack at 36 to 40 s."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 40,
+          "end_s": 44,
+          "observed": "Folder with empty approval slot and Expected January 2027, then a composite recalling the opening. Busy, scope disc covers the camera head at 42 to 43.8 s."
+        },
+        "finished_art": {
+          "pass": false,
+          "start_s": 29.4,
+          "end_s": 40.0,
+          "observed": "36.0 to 40.0 s: the How much sooner label is clipped to How much soon( by its field box on the Response record, also visible in feed-composite.png. 4.6 to 5.4 s and 25.0 to 29.2 s: the Illustration chip overlaps the tower camera head. 29.4 to 35.1 s: the s6 caption is set visibly smaller than other captions."
+        }
+      },
+      "narration_picture_observations": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "clauses": [
+          {
+            "id": "n1",
+            "pass": true,
+            "start_s": 0.48,
+            "end_s": 5.22,
+            "observed": "Scope spin then pull-back to the tower."
+          },
+          {
+            "id": "n2a",
+            "pass": true,
+            "start_s": 5.86,
+            "end_s": 9.14,
+            "observed": "16 rings light on a 56-slot card then 16 installed."
+          },
+          {
+            "id": "n2b",
+            "pass": true,
+            "start_s": 9.44,
+            "end_s": 11.4,
+            "observed": "The 56 planned by February 2027 tag pins. Planned rings do not visibly brighten."
+          },
+          {
+            "id": "n3a",
+            "pass": true,
+            "start_s": 12.2,
+            "end_s": 13.9,
+            "observed": "Smoke is bracketed and flagged at 13.2 to 13.6 s."
+          },
+          {
+            "id": "n3b",
+            "pass": true,
+            "start_s": 14.16,
+            "end_s": 17.7,
+            "observed": "Alert card to truck to cab phone. Only a text-style bubble, no email."
+          },
+          {
+            "id": "n4",
+            "pass": true,
+            "start_s": 18.54,
+            "end_s": 22.08,
+            "observed": "Ten-minute wedge on the dash clock and Estimated within ten minutes tag."
+          },
+          {
+            "id": "n5a",
+            "pass": true,
+            "start_s": 23.06,
+            "end_s": 24.7,
+            "observed": "Plume continues with the Doesn't prevent fires tag, label-reliant."
+          },
+          {
+            "id": "n5b",
+            "pass": true,
+            "start_s": 25.18,
+            "end_s": 28.6,
+            "observed": "Truck to station dashed line, Can share tag, line stops short. Pass per this lens, tiny."
+          },
+          {
+            "id": "n6",
+            "pass": true,
+            "start_s": 29.54,
+            "end_s": 35.04,
+            "observed": "Visor calendar and Per AEP's wildfire lead tag, abstract."
+          },
+          {
+            "id": "n7",
+            "pass": true,
+            "start_s": 36.06,
+            "end_s": 39.4,
+            "observed": "Blank record with two empty fields, label clipped."
+          },
+          {
+            "id": "n8",
+            "pass": true,
+            "start_s": 40.28,
+            "end_s": 43.46,
+            "observed": "Folder, empty approval slot and Expected January 2027 tag."
+          }
+        ]
+      },
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Numerals trace to verified claim quotes c2, c5, c9 and c11. Disclosure pills keep the source limits."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "Original authored art groups and a credited CC BY music line. music.py verification not run by this lens."
+          },
+          "legibility": {
+            "pass": false,
+            "observed": "36.8 to 40.0 s How much sooner truncated. 29.4 to 35.1 s caption set smaller than elsewhere and visor labels small."
+          },
+          "comprehension": {
+            "pass": true,
+            "observed": "Alert chain, ten-minute estimate, no-prevention limit, responder can and no-record limit are readable. The 29.5 to 35 s absence picture is abstract."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "Provider-reported only, not heard by this lens."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "Captions match each clause. Forced alignment not verified by this lens."
+          }
+        },
+        "defects": [
+          {
+            "finding": "36.8 to 40.0 s: How much sooner label clipped by its input box on the Response record",
+            "category": "surface_finish"
+          },
+          {
+            "finding": "29.4 to 35.1 s: s6 caption and visor labels set small at phone size",
+            "category": "surface_finish"
+          },
+          {
+            "finding": "4.6 to 5.4 s and 25.0 to 29.4 s: disclosure pill overlaps the tower camera head",
+            "category": "surface_finish"
+          },
+          {
+            "finding": "42.0 to 43.8 s: closing composite is cluttered and the scope disc covers the tower head",
+            "category": "ending_artistry"
+          },
+          {
+            "finding": "36.0 to 40.0 s: static record with little action beyond two pulses",
+            "category": "pacing"
+          },
+          {
+            "finding": "44.4 to 49.0 s: credit card static about 4.6 s with tiny credit text",
+            "category": "pacing"
+          }
+        ],
+        "score_only": false
+      }
+    },
+    {
+      "audiovisual_role": "story",
+      "audiovisual_receipt_sha256": "b4d0dd60981d561a634a5770e337735efd57569b8f1b11de4b2ffd3be0795f84",
+      "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+      "score": 7.026,
+      "ship": false,
+      "axes": {
+        "hook": 7.0,
+        "story": 7.4,
+        "picture": 6.8,
+        "place": 7.4,
+        "craft": 6.5,
+        "voice": 7.0
+      },
+      "weakest_axis": "craft",
+      "hard_fails": [
+        "performed_turn failed at 23.0 to 29.26 s: the stop-short line is not legible.",
+        "finished_art failed: clipped How much soon label 36.0 to 40.0 s, flat dash slab 18.4 to 22.8 s, A-pillar slab 32.6 to 35.8 s, Illustration chip over the tower head 25.0 to 29.2 s and the folder tab 42.0 to 44.0 s, scene 6 caption set smaller."
+      ],
+      "one_sentence_fix": "Re-author the scene 5 wide as a closer frame in which a large dashed line leaves the truck, advances and stops at a labelled open gap before the responder badge for at least 2 s, move the Illustration chip off the tower head and folder tab, widen the scene 7 label column so How much sooner isn't clipped, replace the scene 4 dash slab and scene 6 A-pillar slab with finished cab geometry, restore scene 6's caption size, then re-render and re-run the modern observations.",
+      "attention_review": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "pass": false,
+        "hook_observed": "From 0.0 s the camera head turns and the display compass spins. A smoke wisp is visible by about 1.4 s and the pull-back to the whole tower runs 2.8 to 5.0 s.",
+        "continuity_observed": "One white truck, one tower and one orange alert card carry across the cuts. The weak handoff is s5 wide to the s6 cab where the open line never resolves.",
+        "pacing_observed": "No gap above 4 s. Quiet stretches 7.4 to 8.0 and 8.4 to 9.2, 10.4 to 11.9, 33.6 to 35.8 and 39.0 to 40.0 s. The s5 line appears and settles in under a second at tiny scale.",
+        "comprehension_observed": "A viewer gets the camera, 16 of 56, smoke to a crew phone, the ten-minute estimate and that cameras don't stop fires. A viewer would not reliably get that the responder link is only possible or what the empty calendar means.",
+        "remembered_image": "The round camera display hovering over the dry plain beside the tower camera head.",
+        "weakest_interval": "Scene 5 wide shot, where the central limit is a tiny line plus a label. Repair with a close or medium framing, a large dashed line that visibly advances and halts at a gap before the badge for at least 2 s, and a lowered Illustration chip.",
+        "weakest_at_s": 25.0,
+        "weakest_end_s": 29.26,
+        "audio_basis": "No direct listening. Gemini story receipt response text and the board's measured captions only."
+      },
+      "modern_observations": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "first_frame": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 1.5,
+          "observed": "A recognizable scanning display and turning head, first change at 0.2 s."
+        },
+        "visual_progression": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "New information in each scene. The 29.3 to 40.0 s middle is three consecutive absence pictures."
+        },
+        "shot_variety": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "Display close, tower wide, card and clock close, cab interior, wide station, tailgate and desk detail, split composite."
+        },
+        "performed_turn": {
+          "pass": false,
+          "start_s": 23.0,
+          "end_s": 29.26,
+          "observed": "The stop-short line is not legible. About 30 px of dashed orange line under a Can share tag, with no visible gap or open end."
+        },
+        "pace": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "No shot over 5 s, longest is the s5 wide at 4.32 s. Several quiet stretches."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 40,
+          "end_s": 44,
+          "observed": "The folder, empty approval slot and tag answer the opening. The composite is cramped and a label overlaps the folder tab."
+        },
+        "finished_art": {
+          "pass": false,
+          "start_s": 0,
+          "end_s": 48.8,
+          "observed": "Hero tower and display are well finished. Failures: clipped How much soon label, dash slab under the clock 18.4 to 22.8 s, A-pillar slab 32.6 to 35.8 s, Illustration chip occluding the tower head and folder tab, scene 6 caption smaller."
+        }
+      },
+      "narration_picture_observations": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "clauses": [
+          {
+            "id": "n1",
+            "pass": true,
+            "start_s": 0.48,
+            "end_s": 5.22,
+            "observed": "Scope spin then pull-back to the tower."
+          },
+          {
+            "id": "n2a",
+            "pass": true,
+            "start_s": 5.86,
+            "end_s": 9.14,
+            "observed": "16 rings light on a 56-slot card then 16 installed."
+          },
+          {
+            "id": "n2b",
+            "pass": true,
+            "start_s": 9.44,
+            "end_s": 11.4,
+            "observed": "The 56 planned by February 2027 tag pins. Planned slots dashed from the start and static after 10.4 s."
+          },
+          {
+            "id": "n3a",
+            "pass": true,
+            "start_s": 12.2,
+            "end_s": 13.9,
+            "observed": "Smoke is bracketed and flagged at 13.2 to 13.6 s."
+          },
+          {
+            "id": "n3b",
+            "pass": true,
+            "start_s": 14.16,
+            "end_s": 17.7,
+            "observed": "Alert card to truck to cab phone. Only a text-style bubble, no email."
+          },
+          {
+            "id": "n4",
+            "pass": true,
+            "start_s": 18.54,
+            "end_s": 22.08,
+            "observed": "Ten-minute wedge on the dash clock and Estimated within ten minutes tag."
+          },
+          {
+            "id": "n5a",
+            "pass": true,
+            "start_s": 23.06,
+            "end_s": 24.7,
+            "observed": "Plume continues with the Doesn't prevent fires tag, label-reliant."
+          },
+          {
+            "id": "n5b",
+            "pass": false,
+            "start_s": 25.18,
+            "end_s": 28.6,
+            "observed": "FAIL. A roughly 30 pixel orange dashed line ends under a Can share tag on the station roof. No gap, open end or stop-short is visible and it is a few pixels at phone width."
+          },
+          {
+            "id": "n6",
+            "pass": true,
+            "start_s": 29.54,
+            "end_s": 35.04,
+            "observed": "A calendar strip with Launch and Now and the tag. The absence of a fire is not pictured and the orange outlines are ambiguous."
+          },
+          {
+            "id": "n7",
+            "pass": true,
+            "start_s": 36.06,
+            "end_s": 39.4,
+            "observed": "Blank record with two empty fields. The How much soon( label is clipped."
+          },
+          {
+            "id": "n8",
+            "pass": true,
+            "start_s": 40.28,
+            "end_s": 43.46,
+            "observed": "Folder, empty approval slot and Expected January 2027 tag."
+          }
+        ]
+      },
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Every claim is VERIFIED with a fetched quote and limits are stated on screen and in narration."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "Original authored art and a Kevin MacLeod CC BY credit. music.py verification not run by this lens."
+          },
+          "legibility": {
+            "pass": false,
+            "observed": "Clipped How much soon label 36.0 to 40.0 s, tiny dashed line, small scene 6 caption."
+          },
+          "comprehension": {
+            "pass": false,
+            "observed": "The open-line limit reads as a link at 25.0 to 29.26 s."
+          },
+          "technical_audio": {
+            "pass": true,
+            "observed": "On provider and measurement receipts only, not heard by this lens."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "Captions match the clauses. Forced alignment not verified by this lens."
+          }
+        },
+        "defects": [
+          {
+            "finding": "n5b / performed_turn: dashed line to responder badge does not visibly stop short and reads as an established link",
+            "category": "comprehension"
+          },
+          {
+            "finding": "finished_art: clipped How much soon label 36.0 to 40.0 s, flat dash slab 18.4 to 22.8 s, A-pillar slab 32.6 to 35.8 s, disclosure chip over the tower head 25.0 to 29.2 s, smaller scene 6 caption",
+            "category": "surface_finish"
+          }
+        ],
+        "score_only": false
+      }
+    },
+    {
+      "audiovisual_role": "sound",
+      "audiovisual_receipt_sha256": "ade10d7d1f5dc664676d690eb04a67b1ea657fb35ff87be0932724dfdd7df4d8",
+      "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+      "score": 6.99,
+      "ship": false,
+      "axes": {
+        "hook": 7.5,
+        "story": 7.0,
+        "picture": 6.8,
+        "place": 7.0,
+        "craft": 6.6,
+        "voice": 7.0
+      },
+      "weakest_axis": "craft",
+      "hard_fails": [
+        "finished_art failed at 36.0 to 39.8 s: the How much soon label is clipped by the field box, and the Illustration label collides with the camera head 4.6 to 5.4 s and 25.0 to 29.2 s."
+      ],
+      "one_sentence_fix": "Enlarge the 25 to 29 s open-line shot to a close two-shot of the truck alert with a visible dashed line stopping short of a large responder badge, show the 29 to 35 s calendar as a large strip with the lone no major fire tag below it, widen the How much sooner field label so it isn't clipped, then re-render, re-measure the mix and obtain an independent audible check.",
+      "attention_review": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "pass": false,
+        "hook_observed": "From 0.0 s the lens display and the head turn, a smoke wisp rises about 1.2 s, and the tower reveal lands about 4 s.",
+        "continuity_observed": "The same tower camera, plume and alert card carry across the 14.2 s and 16.2 s cuts. The 29.2 s and 35.8 s cuts reuse the truck but drop the tower. The 42.0 s composite stacks desk, scope and truck.",
+        "pacing_observed": "Developments land about every 2 to 3 s through 22 s. 25.0 to 29.4 s is a nearly static wide tableau. 33.6 to 35.6 s is a static tag over the cab. 36.4 to 40.2 s is a blank record. The credits card is static from about 44.4 s.",
+        "comprehension_observed": "A viewer gets a tower camera, 16 of 56, flag, alert to the crew, an estimated ten minutes, the cameras don't prevent fires, and an unapproved plan. A viewer does not clearly get the open responder line, no fire since launch shown as an absence, or why the plan matters to the cameras.",
+        "remembered_image": "The round lens display holding a smoke plume under the orange flag box.",
+        "weakest_interval": "29.4 to 35.8 s: the visor calendar is tiny, no red mark is not readable, the clips overprint the Launch text, the pan crops the strip and the attribution tag covers it. Repair with a large month strip and a legible single line, tag below the strip.",
+        "weakest_at_s": 29.4,
+        "weakest_end_s": 35.8,
+        "audio_basis": "No direct listening. Basis is measured caption boundaries in the board, the Gemini receipt and raw response, and the credit text."
+      },
+      "modern_observations": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "first_frame": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 1.5,
+          "observed": "The lens display is already turning and the head is turning."
+        },
+        "visual_progression": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "New information arrives roughly every 2 to 3 s."
+        },
+        "shot_variety": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "Scope, tower wide, card, truck cab, clock, tailgate and desk."
+        },
+        "performed_turn": {
+          "pass": true,
+          "start_s": 22.9,
+          "end_s": 28.6,
+          "observed": "The doesn't prevent fires turn is performed in the scope. The responder half is weak."
+        },
+        "pace": {
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "36.4 to 40.2 s blank record held about 3.2 s with two pulses. The end card is static about 4.6 s."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 40,
+          "end_s": 44,
+          "observed": "The answer is an open approval slot, the link to the cameras implied only."
+        },
+        "finished_art": {
+          "pass": false,
+          "start_s": 36.0,
+          "end_s": 39.8,
+          "observed": "The How much soon label is clipped by the field box. Smaller instance: the Illustration label collides with the camera head 4.6 to 5.4 s and 25.0 to 29.2 s."
+        }
+      },
+      "narration_picture_observations": {
+        "film_sha256": "bd11b8164860354b225a1bbcd2489fa6590217085bcbed951de78fcc90690e5e",
+        "clauses": [
+          {
+            "id": "n1",
+            "pass": true,
+            "start_s": 0.48,
+            "end_s": 5.22,
+            "observed": "Scope spin then pull-back to the tower."
+          },
+          {
+            "id": "n2a",
+            "pass": true,
+            "start_s": 5.86,
+            "end_s": 9.14,
+            "observed": "16 rings light on a 56-slot card then 16 installed."
+          },
+          {
+            "id": "n2b",
+            "pass": true,
+            "start_s": 9.44,
+            "end_s": 11.4,
+            "observed": "The 56 planned by February 2027 tag pins on a 56-slot grid. Planned slots stay dashed."
+          },
+          {
+            "id": "n3a",
+            "pass": true,
+            "start_s": 12.2,
+            "end_s": 13.9,
+            "observed": "Smoke is bracketed and flagged at 13.2 to 13.6 s."
+          },
+          {
+            "id": "n3b",
+            "pass": true,
+            "start_s": 14.16,
+            "end_s": 17.7,
+            "observed": "Alert card to truck to cab phone. Only a text-style bubble, no email."
+          },
+          {
+            "id": "n4",
+            "pass": true,
+            "start_s": 18.54,
+            "end_s": 22.08,
+            "observed": "Ten-minute wedge on the dash clock and Estimated within ten minutes tag."
+          },
+          {
+            "id": "n5a",
+            "pass": true,
+            "start_s": 23.06,
+            "end_s": 24.7,
+            "observed": "Plume continues with the Doesn't prevent fires tag, label-reliant."
+          },
+          {
+            "id": "n5b",
+            "pass": false,
+            "start_s": 25.18,
+            "end_s": 28.6,
+            "observed": "FAIL on legibility. The truck, station and badge are tiny. The open line stops short is a tiny orange arrow hidden by the Can share tag about 26.8 to 27.4 s."
+          },
+          {
+            "id": "n6",
+            "pass": true,
+            "start_s": 29.54,
+            "end_s": 35.04,
+            "observed": "Partial fail. No major fire since launch is shown as absence of red marks on tiny calendar cells, Launch text overprinted by clips, the tag covers the strip from about 33.2 s."
+          },
+          {
+            "id": "n7",
+            "pass": true,
+            "start_s": 36.06,
+            "end_s": 39.4,
+            "observed": "Blank record and two empty fields pulse. The How much soon(er) label is clipped throughout."
+          },
+          {
+            "id": "n8",
+            "pass": true,
+            "start_s": 40.28,
+            "end_s": 43.46,
+            "observed": "Folder, empty approval slot and Expected January 2027 tag."
+          }
+        ]
+      },
+      "bounded_release": {
+        "schema": "dispatch_creative_assessment/1",
+        "scope": "panel",
+        "retained_checks": {
+          "source": {
+            "pass": true,
+            "observed": "Numerals match VERIFIED quotes and the disclosure label is persistent."
+          },
+          "rights": {
+            "pass": true,
+            "observed": "Credit shows the music with its licence text. music.py not run by this lens."
+          },
+          "legibility": {
+            "pass": false,
+            "observed": "n5b and n6 limit pictures are too small and the How much soon text is clipped."
+          },
+          "comprehension": {
+            "pass": false,
+            "observed": "The open responder line and no fire since launch are not readable with captions covered."
+          },
+          "technical_audio": {
+            "pass": false,
+            "observed": "Not independently verified, no listening on this lens."
+          },
+          "captions": {
+            "pass": true,
+            "observed": "The board marks them measured_boundary and the on-screen text matches the clauses."
+          }
+        },
+        "defects": [
+          {
+            "finding": "n5b 25.18 to 28.6 s: the responder line and station are tiny and the open line is unreadable",
+            "category": "legibility"
+          },
+          {
+            "finding": "n6 29.54 to 35.04 s: no-major-fire is an absence of marks on tiny cells, overprinted and covered by the tag",
+            "category": "legibility"
+          },
+          {
+            "finding": "finished_art 36.0 to 39.8 s: the How much soon label is clipped",
+            "category": "surface_finish"
+          },
+          {
+            "finding": "pacing 36.4 to 40.2 s and 25.0 to 29.4 s: near-static holds",
+            "category": "pacing"
+          },
+          {
+            "finding": "sound: no independent audible verification of voice, mix and sync",
+            "category": "technical_audio"
+          }
+        ],
+        "score_only": false
+      }
+    }
+  ]
+}
