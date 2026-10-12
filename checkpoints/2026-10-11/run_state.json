@@ -1,18 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair10/storyboard.json",
-        "before_sha256": "6c37771e1a33a63562f544da207c58a5280b58789e1db47d867df2b03a241583",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      }
-    ],
-    "failure_sha256": "bec4885a2ccac315f12361ab9e9f7fd5bde1f407c6f550ef91ce1052a0f61bdc",
-    "plan": "{REPO}/out/dispatch/repair-plan-10.json",
-    "plan_sha256": "252b47ba5753805dd59e85a18f2d5a0c77deea46597b5934cf3cd07d25c8e53e",
-    "reboards_before": 8,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -2364,6 +2350,42 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T17:00:39.613429Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "7762c500232ac6edb5a45a52b3abfbb24a1107ddf62ded196690fa101327fe52",
+            "before_path": "{REPO}/out/dispatch/baseline-repair10/storyboard.json",
+            "before_sha256": "6c37771e1a33a63562f544da207c58a5280b58789e1db47d867df2b03a241583",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The hook payoff finishes by 1.5 s, every action runs within 0.2 to 1.2 s, no reward gap exceeds 4.0 s and the s5 and s6 tails carry a late beat, so the film has no held slide on the measured clock.",
+        "failure_evidence": "{REPO}/out/dispatch/measured-timing-failure/gates.log",
+        "failure_evidence_sha256": "bec4885a2ccac315f12361ab9e9f7fd5bde1f407c6f550ef91ce1052a0f61bdc",
+        "failure_family": "capture-and-analysis",
+        "mechanism_change": "The event windows move from fractions chosen on the provisional authored clock to fractions chosen against the measured clause windows, with durations inside the directed 0.2 to 1.2 second range and last beats after 55 percent of the scene.",
+        "mechanism_id": "measured-clock-event-fractions-v1",
+        "repair": "Adjust only the clause_fraction_start and clause_fraction_end values of the events s1-event-1, s2-event-1, s3-event-2, s5-event-2 and s6-event-2 in the board so each event sits at the same narrated words on the measured clock with a shorter action, a later s5 line stop and a later s6 tag pin. No picture, claim, narration word or renderer code changes, and then retime again.",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "After the narration passed soundcheck and clause alignment, retiming the board to the measured voice lengthened the clause windows that the event clause fractions scale. Five cheap gates now fail on the measured clock: the hook payoff ends at 1.76 s against 1.5 s, three action durations run 1.30 to 1.64 s against the 1.2 s limit, the viewer reward gap reaches 4.23 s against 4.0 s, the modern reward interval reaches 4.15 s, and scenes s5 and s6 run 6.5 s with their last beat in the first 55 percent so their tails are held."
+      },
+      "repair_plan_sha256": "1930884571feb3eeacf5519e6d33d9f24aa55ba26f61a1d3af652d40d05b2af6",
+      "repair_revision": "104830ddb043969ad57c2c8abbe6b09610a468adb95dd1b87c47ec16ab40c532",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -2387,7 +2409,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e0b73f2879237e5eed0946d397e3ca59c3084f487100d4a9cec12a63a0a255f8",
+    "original_private_state_sha256": "79ed6766d36c88e25e5910c27e99270e023c4e7492d93bb9a82cb2a849f40aab",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2415,7 +2437,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T17:00:23.471555Z",
+  "updated_at": "2026-10-12T17:00:39.613477Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
