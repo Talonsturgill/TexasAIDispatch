@@ -2,18 +2,14 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "9f66f6bd412ac56cff7497c62552c72442f7cbd2032145a8b9ec051e3e118332",
+    "event_sha256": "125412d405440f2ede62c10aa7b5dd54b186948451e0a8541e3e35e2a410e9cd",
     "resource": "preflight_renders",
-    "at": "2026-10-12T17:10:50.218243Z",
-    "note": "capture authorization reservation for opening comparison"
+    "at": "2026-10-12T17:11:09.393967Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "f01c200ad4f431706dd9903017e16525ac641d98aa4110a48b6e1c8344146547"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
+      "path": "out/dispatch/storyboard.json",
       "sha256": "89ace375d89e14cd8219d356d36acce25952a630fbc0fe910380b97c0a7a42f6"
     }
   ],
@@ -161,23 +157,23 @@
   },
   "commands": [
     {
-      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T17:10:58.825248+00:00"
+      "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
+      "consumed": "2026-10-12T17:18:03.163950+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 18.075
+    "free_gib": 17.951
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T171056.json",
-    "receipt_sha256": "7e9c9ab70772f595c0fe06f537a1a93d8a08e9c1f2f9c97bb4b3a20fb0a8ea2f",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T171756.json",
+    "receipt_sha256": "ca129d8e447b0d912b434b2b44a7d8cffc24bf875627282cb7dbe7fceb01fc28",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T17:10:56.821131+00:00",
-  "expires_at": "2026-10-12T17:55:56.821131+00:00"
+  "issued_at": "2026-10-12T17:17:56.694122+00:00",
+  "expires_at": "2026-10-12T18:02:56.694122+00:00"
 }
