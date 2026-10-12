@@ -801,6 +801,14 @@
       "note": "independent diagnosis of the native hero window omitting the repaired s5 handoff",
       "resource": "storyboard_critics",
       "to": 32
+    },
+    {
+      "at": "2026-10-12T23:26:12.920244Z",
+      "ceiling": 16,
+      "from": 15,
+      "note": "hero window s3 to s5 and treatment A and B parity technical repair",
+      "resource": "reboards",
+      "to": 16
     }
   ],
   "events": [
@@ -6240,6 +6248,24 @@
       "plan_identity": null,
       "plan_sha256": "058f78de7515394af669883fb0428e8f2775ab3aa2886383a7120781f46fbfa3",
       "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-12T23:26:12.920285Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "hero window s3 to s5 and treatment A and B parity technical repair",
+      "now": 16,
+      "resource": "reboards",
+      "was": 15
+    },
+    {
+      "at": "2026-10-12T23:26:12.920296Z",
+      "kind": "reserved",
+      "note": "hero window s3 to s5 and treatment A and B parity technical repair",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -6249,7 +6275,7 @@
     "image_generations": 2,
     "panel_rounds": 2,
     "preflight_renders": 31,
-    "reboards": 15,
+    "reboards": 16,
     "reported_tokens": 529992,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -6263,7 +6289,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "080e712273b10d963df06c87edc9ed5feeec8ec40cc71df88869330de8a76dbb",
+    "original_private_state_sha256": "272dca5404e0a8a30f4a623ca5525476ed3b37fe631842bf15a5d12a23a355a9",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6291,7 +6317,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T23:26:07.933538Z",
+  "updated_at": "2026-10-12T23:26:12.920298Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
@@ -6299,7 +6325,7 @@
     "image_generations": 0,
     "panel_rounds": 2,
     "preflight_renders": 31,
-    "reboards": 15,
+    "reboards": 16,
     "reported_tokens": 529992,
     "rescue_renders": 0,
     "research_agents": 2,
