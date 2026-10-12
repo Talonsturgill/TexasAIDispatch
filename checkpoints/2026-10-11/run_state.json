@@ -588,6 +588,14 @@
       "note": "precharge for the renewed two-treatment opening comparison",
       "resource": "preflight_renders",
       "to": 27
+    },
+    {
+      "at": "2026-10-12T22:06:23.761685Z",
+      "ceiling": 32,
+      "from": 27,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 28
     }
   ],
   "events": [
@@ -5193,6 +5201,24 @@
         "validator_agents": 1,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-12T22:06:23.761717Z",
+      "ceiling": 32,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 28,
+      "resource": "preflight_renders",
+      "was": 27
+    },
+    {
+      "at": "2026-10-12T22:06:23.761729Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "2f8c0495faf1ff145a1f537ffbabd709bd4ba7af0d9c1ab8c7359affcbea9beb",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5201,7 +5227,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 27,
+    "preflight_renders": 28,
     "reboards": 14,
     "reported_tokens": 303594,
     "rescue_renders": 1,
@@ -5216,7 +5242,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cfc6597f4129f00952db9f07336a324a6a7c62a0eb6fbfaac0483387513f8e34",
+    "original_private_state_sha256": "414d601b39293ebba8d1181ceeea8da32b04d88505bdcbb858cbdbd9160ec089",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5244,14 +5270,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T22:06:03.671623Z",
+  "updated_at": "2026-10-12T22:06:23.761731Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 27,
+    "preflight_renders": 28,
     "reboards": 14,
     "reported_tokens": 303594,
     "rescue_renders": 0,
