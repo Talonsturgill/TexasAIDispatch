@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-12T15:01:38.307163+00:00",
-  "note": "phase audio-render",
+  "saved_at": "2026-10-12T15:01:54.670562+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "b8e8a906d0fb0e810251deb14646821b9492b68c7ef8ff825dc35065653bc8b1"
   },
   "deleted_source": [],
-  "ledger_sha256": "0e296dc9824bcebe4a921fc066e0b7c5be65f40a76ab043dc0b3383faaf84d45",
-  "original_private_ledger_sha256": "868cd44dedf896620855c10f124cf25b7ed613ba4da0696b9cd73fa34cadd448",
+  "ledger_sha256": "ba2c13b43cb9632ac54fe218350c611f44a143ac3b2f36a819c9da40bb298ffc",
+  "original_private_ledger_sha256": "671a48efcc19a54e4494a47b1be98346f077c09459489d64010e368f99f76924",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -33,7 +33,7 @@
     "storyboard_critics": 5,
     "tts_calls": 0,
     "validator_agents": 1,
-    "voice_directors": 0
+    "voice_directors": 1
   },
   "files": [
     {
@@ -2069,6 +2069,24 @@
       "class": "scratch",
       "sha256": "ed509c1ff508d0732549aa89564356fae0d6c22b402e7f7b9680e4f260f25458",
       "size": 2673
+    },
+    {
+      "path": "out/dispatch/vo-director-packet.json",
+      "class": "scratch",
+      "sha256": "3c9bfc734af7239998265bf5fe2c6fff6f3625c08db3f1944e672cf927dc8b1c",
+      "size": 8382
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "class": "scratch",
+      "sha256": "9247a562d59c988b3e944022525fb436c19d71cd1c72e6b05927926a373280fb",
+      "size": 619
+    },
+    {
+      "path": "out/dispatch/voice-director-assignment.json",
+      "class": "scratch",
+      "sha256": "e4a354018357559126220ad56f15d478e710009194a9f44ed2c6e781d041b707",
+      "size": 1896
     }
   ],
   "excluded": [],
