@@ -1,0 +1,28 @@
+{
+ "review_scope": "exact-muted-phone-preflight-rejected-treatment",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  "B-D3 source and subject_recognition, 12.0-15.39 s (s3-shot-1 scope-flag and the display beside the card's exit in s3-shot-2) and 21.5-25.025 s (s5-shot-1 scope-hold). Observed in the silent phone film b.mp4 (27ce5ddfeaf4...): the camera display's panorama draws its fire-station silhouette (white walls, red roof line, red dot) at a fixed heading of 150, 32 degrees right of the plume at heading 118. It therefore sits at the base of the smoke, and the settled flag box brackets the smoke and about the left half of that building. The camera appears to flag a burning building. No claim supports that."
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "B-D3"
+  ]
+ },
+ "fix_note": "Move the display station silhouette in WestTexasSupport.tsx Panorama from heading 150 to heading 350 (world bearing about 350, about 320 px left of the plume at heading 118, clear of the flag box at every stage). Keep the windmill silhouette at 58 and the tower at 196. Re-check s1 display pan and closing display after the change.",
+ "technical_repair": {
+  "findings": [
+   {
+    "finding": "B-D3 source and subject_recognition, 12.0-15.39 s (s3-shot-1 scope-flag and the display beside the card's exit in s3-shot-2) and 21.5-25.025 s (s5-shot-1 scope-hold). Observed in the silent phone film b.mp4 (27ce5ddfeaf4...): the camera display's panorama draws its fire-station silhouette (white walls, red roof line, red dot) at a fixed heading of 150, 32 degrees right of the plume at heading 118. It therefore sits at the base of the smoke, and the settled flag box brackets the smoke and about the left half of that building. The camera appears to flag a burning building. No claim supports that.",
+    "category": "source"
+   },
+   {
+    "finding": "B-D3",
+    "category": "source"
+   }
+  ]
+ }
+}
