@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair18/storyboard.json",
-        "before_sha256": "6250bbbc0392262a7c3a7d7470028d7e547761c48dd500b9fec098607637a32d",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair18/opening-a.json",
-        "before_sha256": "cda7e9c73e9d3a4a0f483df2dfd04f48745924261a63072d91fab7de9bad97a6",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair18/opening-b.json",
-        "before_sha256": "6250bbbc0392262a7c3a7d7470028d7e547761c48dd500b9fec098607637a32d",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair18/TowerAlertFilm.tsx",
-        "before_sha256": "8ce3c9417ea5f9770210e7d8e473c86929bf005fe8a8fb4bf8f97c3e622b75c7",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "55e53d943d29f3cfe0a4299966e91c18a2f49e90ae7779c23666fc111b24f844",
-    "plan": "{REPO}/out/dispatch/repair-plan-18.json",
-    "plan_sha256": "0480ca33eb6ba7fc194d2912658038c04acfb349e92ed35446f48a5065e6c364",
-    "reboards_before": 16,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/40ddf86ae93d2c1b-b940c00bbf8832fc-3f6b943f2071a1b2/storyboard.json",
@@ -6569,6 +6540,81 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T23:44:48.170334Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 36,
+          "to": 36
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "33f27f2c0ae0882343fc0ffaba37ae317a4a541335a90a65d88f21132216378a",
+            "before_path": "{REPO}/out/dispatch/baseline-repair18/storyboard.json",
+            "before_sha256": "6250bbbc0392262a7c3a7d7470028d7e547761c48dd500b9fec098607637a32d",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "e90efc81b78fefbc4ee216163a332b59538aafad7cc5058857792a94fc8ff235",
+            "before_path": "{REPO}/out/dispatch/baseline-repair18/opening-a.json",
+            "before_sha256": "cda7e9c73e9d3a4a0f483df2dfd04f48745924261a63072d91fab7de9bad97a6",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "33f27f2c0ae0882343fc0ffaba37ae317a4a541335a90a65d88f21132216378a",
+            "before_path": "{REPO}/out/dispatch/baseline-repair18/opening-b.json",
+            "before_sha256": "6250bbbc0392262a7c3a7d7470028d7e547761c48dd500b9fec098607637a32d",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "1f761c02d269812565fe1c484875d892f6739df392581999d9e9b1d24dd50030",
+            "before_path": "{REPO}/out/dispatch/baseline-repair18/TowerAlertFilm.tsx",
+            "before_sha256": "8ce3c9417ea5f9770210e7d8e473c86929bf005fe8a8fb4bf8f97c3e622b75c7",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "In A's s5 cut-in nothing crosses the gap between the end ring and the badge rim except ground.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-treatment-a-watch-ring-technical.json",
+        "failure_evidence_sha256": "55e53d943d29f3cfe0a4299966e91c18a2f49e90ae7779c23666fc111b24f844",
+        "failure_family": "source-framing",
+        "mechanism_change": "The open gap is made empty by removing the competing dashed ring arc from the cut-in instead of changing the line's size or the tag.",
+        "mechanism_id": "treatment-a-open-gap-ring-removal-v1",
+        "repair": "Draw only the back half of the watch ring (or none) in A's cast-less s5 cut-in so the corridor between the line's end ring and the badge holds only ground. Nothing else in the two-shot changes.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3
+        },
+        "root_cause": "Treatment A's s5 cut-in still draws the front half of the watch ring across the open gap, which reads as a second dashed line reaching the responder badge and implies delivery that claims c4 and c6 forbid."
+      },
+      "repair_plan_sha256": "89977316e2c60a5a9a17d9ec8e21e8d5ae5762e4689b2fb78233f14b4cedc105",
+      "repair_revision": "dc331b2b88ada12ca20915f0c772a12eebc9f7cf9919c737ea63db23c5bb4912",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -6592,7 +6638,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "22fa53a156c3cc1829e6b54571a406b27177bcda6729880e0bc012ad40312ff6",
+    "original_private_state_sha256": "16eafc661a2e94409a72d99bcdc21333f00ec1808dbef3a8b2194b1f7faa2fb7",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6620,7 +6666,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T23:42:19.661055Z",
+  "updated_at": "2026-10-12T23:44:48.170383Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
