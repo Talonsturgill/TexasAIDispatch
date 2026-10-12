@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-a.json",
-        "before_sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-b.json",
-        "before_sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair13/src/TowerAlertFilm.tsx",
-        "before_sha256": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair13/src/WestTexasSupport.tsx",
-        "before_sha256": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
-      }
-    ],
-    "failure_sha256": "f5ece50123f771ccb6b713221943dcb551da12deeebad3f258d3dd7b54fe4da8",
-    "plan": "{REPO}/out/dispatch/repair-plan-13.json",
-    "plan_sha256": "34dd28391ad8e89fda09b3b4813c097487b63415e336cca674a02dd32b08e480",
-    "reboards_before": 11,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3442,6 +3413,93 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-12T19:36:41.214396Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 20,
+          "to": 20
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "234911914c4c8a1fc238f2959531a1ed08397d1181221272dc3482fd4f3b4368",
+            "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-a.json",
+            "before_sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "d62f1c559bb3ad5d33a1e9587b37151b9d91303a9913f9286d48c3288baced46",
+            "before_path": "{REPO}/out/dispatch/baseline-repair13/opening-b.json",
+            "before_sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "99a007f69bd4ce06d01a63c69015d71868fe03c26cb8e7ae0c07ad976e88bf3e",
+            "before_path": "{REPO}/out/dispatch/baseline-repair13/src/TowerAlertFilm.tsx",
+            "before_sha256": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          },
+          {
+            "after_sha256": "f273e704b199325fd90cb1f4abb2eec5e166b5e81925680b0dd000c190099a00",
+            "before_path": "{REPO}/out/dispatch/baseline-repair13/src/WestTexasSupport.tsx",
+            "before_sha256": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
+          }
+        ],
+        "code_evidence": {
+          "input_bindings": [
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/opening-a.json",
+              "sha256": "b8d68e3247afd3d24a108a119a460841a654b3e9bb0d20209ad1ec0296bd8973"
+            },
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/opening-b.json",
+              "sha256": "470d88f0b381735d5f4f943094551b5d8d7aec0738e940014a1d409a8f992cc1"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+              "sha256": "3efbed4d5477b947eb034eb016206a1c9183ed943ce578c4cfb707b31e6bf56b"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
+              "sha256": "9ea1cdd5201062a353d8954324f2750b17f158f89c13de78f3d129de0a49b87b"
+            },
+            {
+              "kind": "claims",
+              "path": "{REPO}/out/dispatch/claims.json",
+              "sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae"
+            }
+          ],
+          "review_scope": "independent-code-plan",
+          "schema": "dispatch_code_capacity_evidence/1"
+        },
+        "completion_reason": "mandatory-code-integrity",
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At phone and native size the s1 wisp visibly rises on open land and stays in view until the cut, and the s4 glyph drop, s5 Can share pin and s6 check pass read as performed changes.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-native-action-classification-2.json",
+        "failure_evidence_sha256": "f5ece50123f771ccb6b713221943dcb551da12deeebad3f258d3dd7b54fe4da8",
+        "failure_family": "unclassified",
+        "mechanism_change": "The s1 third event changes from a faint shared-clamp wisp that the display heading carries to the rim into an s1-specific larger, higher-contrast rise that stays near the centre of view for its whole window, and the weak third events move from token marks to legible performed changes.",
+        "mechanism_id": "s1-wisp-and-weak-third-events-legibility-v1",
+        "repair": "One consolidated builder correction across both treatments: make the s1 wisp rise legible through its whole window in A and B, and strengthen the weak s4, s5 and s6 third events and the named carried layout items, preserving all fixed placements, the script, claims, and the two authored art groups with their creation receipts (re-recording only if the display Plume module must change).",
+        "repair_scope": "standard",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "The independent Opus worker found from the renderer and boards, and corroborated in the muted phone strips, that the s1 smoke wisp third event does not register as a visibly performed event in either treatment because its grow range, size, opacity and B's display heading sweep keep it about 45 native px tall and faint, so s1 performs only two perceptible changes and the three-event native floor is not honestly met. Several other third events are weak (s4 glyph, s5 pin, s6 check pass)."
+      },
+      "repair_plan_sha256": "edece11bd1587ebad3b808f64990f3942995f98620245b1737c9cd4c84424cee",
+      "repair_revision": "043c3a9bfe93c4c974e5f000b7dd1f77572fe84714a217a1bbe2add6a5752ac3",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -3465,7 +3523,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cb2372d668177895a8c42bbbc19554eb38a14f9fbe53ac28d956c6c806d52d40",
+    "original_private_state_sha256": "ed2aaec0cc788b39b74118b35f1b847f32b7e98668391e79426a34259da10fc9",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3493,7 +3551,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T19:06:37.509020Z",
+  "updated_at": "2026-10-12T19:36:41.214449Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
