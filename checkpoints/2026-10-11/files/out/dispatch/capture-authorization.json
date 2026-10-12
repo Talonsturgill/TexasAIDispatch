@@ -2,19 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "1c658656096007d3fd6ad49f53b741ed2d8791401325c754ff45ef91c1d04f69",
+    "event_sha256": "d6449a0a81ea0a416329d6906169b9668b7f03023847a21a056c1a3d00876ef9",
     "resource": "preflight_renders",
-    "at": "2026-10-12T16:34:48.437584Z",
-    "note": "capture authorization reservation for opening comparison"
+    "at": "2026-10-12T16:43:06.424766Z",
+    "note": "inspect-only chosen opening film capture authorization"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
+      "path": "out/dispatch/storyboard.json",
       "sha256": "7ebe4b5aeb8107aed5b6d2d1d0cb7ca88e2fc00c767ecd5b3610bba223232b58"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
-      "sha256": "6ac4f30155a8e0a927c3cbc8588fce27631bad80e19c308edb96b79364aa7e96"
     }
   ],
   "bound": {
@@ -161,23 +157,23 @@
   },
   "commands": [
     {
-      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-12T16:35:04.227601+00:00"
+      "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
+      "consumed": "2026-10-12T16:43:14.528181+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 18.272
+    "free_gib": 18.14
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T163502.json",
-    "receipt_sha256": "8ac133710cd1d305c200481d21c43d0644c8b6e25d9004918c6570647fdaac50",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261012T164312.json",
+    "receipt_sha256": "7e32a85aaf679259fd2155dc02308c629a4d92adaad98eaeac82d2a3b86661e7",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-12T16:35:02.333213+00:00",
-  "expires_at": "2026-10-12T17:20:02.333213+00:00"
+  "issued_at": "2026-10-12T16:43:12.608769+00:00",
+  "expires_at": "2026-10-12T17:28:12.608769+00:00"
 }
