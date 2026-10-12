@@ -32,6 +32,34 @@ def changed(source, marker):
     return not Path(marker).is_file() or Path(marker).read_text().strip() != digest(source)
 
 
+def bind_node_runtime(repo=REPO, cache=None):
+    """Attach the exact preinstalled lockfile cache without installing or changing settings."""
+    repo = Path(repo); cache = Path(cache or cache_root())
+    engine = repo / 'video-engine'
+    locked = cache / 'node' / digest(engine / 'package-lock.json') / 'node_modules'
+    if not locked.is_dir() or changed(engine / 'package-lock.json', locked / '.dispatch-lock.sha256'):
+        raise ValueError('The exact locked node runtime is not provisioned; update environment setup before launch')
+    target = engine / 'node_modules'
+    if target.exists() or target.is_symlink():
+        if target.resolve() != locked.resolve():
+            raise ValueError('Existing node_modules preserved; it differs from the provisioned runtime')
+        return
+    target.symlink_to(locked, target_is_directory=True)
+
+
+def bind_legacy_cache(cache=None, legacy=None):
+    """Let frozen older wrappers find the provisioned runtime without editing them."""
+    cache = Path(cache or cache_root()).resolve()
+    legacy = Path(legacy or Path(os.environ.get('XDG_CACHE_HOME') or Path.home() / '.cache') / 'texas-ai-dispatch')
+    if not (cache / 'venv/bin/python').is_file():
+        raise ValueError('The pinned runtime must be installed before compatibility binding')
+    if legacy.exists() or legacy.is_symlink():
+        return legacy.resolve() == cache  # Preserve every existing unrelated cache.
+    legacy.parent.mkdir(parents=True, exist_ok=True)
+    legacy.symlink_to(cache, target_is_directory=True)
+    return True
+
+
 def run(args, cwd=REPO):
     subprocess.run([str(arg) for arg in args], cwd=cwd, check=True)
 
@@ -112,6 +140,10 @@ def install():
         run(['npm', 'ci', '--no-audit', '--no-fund'], engine)
         npm_stamp.write_text(digest(lock) + '\n')
     run(['npx', '--no-install', 'remotion', 'browser', 'ensure'], engine)
+    locked = cache / 'node' / digest(lock) / 'node_modules'
+    if not locked.exists():
+        locked.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(engine / 'node_modules', locked, symlinks=True)
     source = cache / ('whisper-' + alignment['version'])
     binary = cache / 'bin/whisper-cli'; binary.parent.mkdir(exist_ok=True)
     build_stamp = cache / 'whisper-commit.txt'
@@ -133,8 +165,17 @@ def install():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--install', action='store_true')
+    parser.add_argument('--bind-only', action='store_true')
+    parser.add_argument('--bind-legacy-cache', action='store_true')
+    parser.add_argument('--repo', type=Path, default=REPO, help='checkout to bind for --bind-only')
     args = parser.parse_args()
-    if args.install:
+    if sum((args.install, args.bind_only, args.bind_legacy_cache)) > 1:
+        parser.error('installation and binding modes are mutually exclusive')
+    if args.bind_legacy_cache:
+        print('Legacy runtime cache binding ready' if bind_legacy_cache() else 'Existing runtime cache preserved')
+    elif args.bind_only:
+        bind_node_runtime(args.repo)
+    elif args.install:
         install()
     else:
         from env_check import report

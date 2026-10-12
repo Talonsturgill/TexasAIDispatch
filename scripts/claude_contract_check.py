@@ -61,6 +61,13 @@ def problems(repo=REPO, environ=None):
                          'OLDEST unfinished edition', 'bootstrap_claude_hooks.py --workspace'):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
+        for required in ('claude_environment_setup.sh', '--prelaunch-router', '--bind-only',
+                         'Do not attempt mid-session registration',
+                         'before any paid worker reservation',
+                         'python scripts/env_check.py --require-voice',
+                         'Never use a scratch tsconfig'):
+            if required not in authority:
+                errors.append('Claude entry point lacks prelaunch recovery authority ' + required)
         for name in ('.claude/agents/scene-builder.md', 'prompts/roles/scene-builder.md'):
             text = ' '.join((repo / name).read_text().split())
             for phrase in CAPTURE_PHRASES:

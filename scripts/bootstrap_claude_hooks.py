@@ -32,15 +32,15 @@ def write_json(path, data):
             temporary.unlink(missing_ok=True)
 
 
-def bootstrap(workspace, repo=None):
+def bootstrap(workspace, repo=None, prelaunch_router=False):
     repo = Path(repo or REPO).resolve()
     workspace = Path(workspace).resolve()
-    if workspace == repo or not repo.is_relative_to(workspace):
+    if not prelaunch_router and (workspace == repo or not repo.is_relative_to(workspace)):
         raise ValueError('the primary workspace must be an ancestor above the Dispatch checkout')
     # Do not modify tracked settings in this or another repository.
     if any((p / '.git').exists() for p in (workspace, *workspace.parents)):
         raise ValueError('the primary workspace must be outside a Git checkout')
-    handler = repo / 'scripts/capture_guard.py'
+    handler = repo / ('scripts/cloud_capture_hook.py' if prelaunch_router else 'scripts/capture_guard.py')
     if not handler.is_file():
         raise ValueError('the active checkout capture handler is missing')
     directory = workspace / '.claude'
@@ -61,8 +61,9 @@ def bootstrap(workspace, repo=None):
     if previous is not None and (not isinstance(previous, dict) or previous.get('schema') != SCHEMA
                                  or not isinstance(previous.get('registration'), dict)):
         raise ValueError('the previous Dispatch registration has an unknown schema')
-    registration = {'matcher': 'Bash', 'hooks': [{'type': 'command',
-                    'command': 'python3 %s hook --repo-root' % shlex.quote(str(handler))}]}
+    command = ('python3 %s --workspace %s' % (shlex.quote(str(handler)), shlex.quote(str(workspace)))
+               if prelaunch_router else 'python3 %s hook --repo-root' % shlex.quote(str(handler)))
+    registration = {'matcher': 'Bash', 'hooks': [{'type': 'command', 'command': command}]}
     # Only replace the exact entry this helper previously installed. Foreign entries survive.
     if previous:
         entries[:] = [e for e in entries if e != previous.get('registration')]
@@ -79,9 +80,10 @@ def bootstrap(workspace, repo=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--workspace', type=Path, required=True)
+    parser.add_argument('--prelaunch-router', action='store_true', help='environment setup only, before Claude launches')
     args = parser.parse_args(argv)
     try:
-        print(json.dumps(bootstrap(args.workspace)))
+        print(json.dumps(bootstrap(args.workspace, prelaunch_router=args.prelaunch_router)))
     except (OSError, ValueError, TypeError) as exc:
         print(json.dumps({'ok': False, 'error': str(exc)}))
         return 1

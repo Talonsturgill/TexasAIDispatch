@@ -71,6 +71,7 @@ unknown access findings unchanged. A new complete content review uses a fresh at
 charged before resuming the same three workers; a refused charge never authorizes execution.
 
 ```sh
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json"
 python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json
 python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --verify
 ```

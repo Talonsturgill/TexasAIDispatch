@@ -10,6 +10,37 @@ import cloud_bootstrap as cloud
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_legacy_binding_reuses_pinned_python_and_preserves_other_cache(self):
+        with tempfile.TemporaryDirectory() as folder:
+            cache = Path(folder) / 'installed'; legacy = Path(folder) / 'home/.cache/texas-ai-dispatch'
+            with self.assertRaisesRegex(ValueError, 'installed'):
+                cloud.bind_legacy_cache(cache, legacy)
+            (cache / 'venv/bin').mkdir(parents=True)
+            (cache / 'venv/bin/python').write_text('fixture')
+            self.assertTrue(cloud.bind_legacy_cache(cache, legacy))
+            self.assertTrue(cloud.bind_legacy_cache(cache, legacy))
+            self.assertEqual((legacy / 'venv/bin/python').read_text(), 'fixture')
+            legacy.unlink(); legacy.mkdir(); (legacy / 'keep').write_text('unrelated')
+            self.assertFalse(cloud.bind_legacy_cache(cache, legacy))
+            self.assertEqual((legacy / 'keep').read_text(), 'unrelated')
+
+    def test_bind_reuses_only_exact_locked_cache_and_preserves_existing(self):
+        with tempfile.TemporaryDirectory() as folder:
+            repo = Path(folder) / 'repo'; cache = Path(folder) / 'cache'
+            engine = repo / 'video-engine'; engine.mkdir(parents=True)
+            lock = engine / 'package-lock.json'; lock.write_text('locked')
+            with self.assertRaisesRegex(ValueError, 'not provisioned'):
+                cloud.bind_node_runtime(repo, cache)
+            locked = cache / 'node' / cloud.digest(lock) / 'node_modules'
+            locked.mkdir(parents=True)
+            (locked / '.dispatch-lock.sha256').write_text(cloud.digest(lock))
+            cloud.bind_node_runtime(repo, cache)
+            cloud.bind_node_runtime(repo, cache)
+            self.assertEqual((engine / 'node_modules').resolve(), locked.resolve())
+            (engine / 'node_modules').unlink(); (engine / 'node_modules').mkdir()
+            with self.assertRaisesRegex(ValueError, 'preserved'):
+                cloud.bind_node_runtime(repo, cache)
+
     def test_local_runtime_is_not_replaced(self):
         with patch.object(cloud.platform, 'system', return_value='Darwin'):
             with self.assertRaisesRegex(ValueError, 'Linux-only'):

@@ -35,12 +35,19 @@ before any paid production work. Install only missing or changed pinned dependen
 workspace housekeeping is used when available. Cloud uses scripts/dispatch_housekeeping.py with
 the same protection rules and its actual two checkout paths; never delete active or unrelated work.
 
+The Texas environment must run `scripts/claude_environment_setup.sh` before Claude Code launches.
+The versioned setup provisions pinned tools and registers the workspace capture router once,
+before auto mode begins. Do not attempt mid-session registration or repeat a classifier-denied
+installation. Preserve the denied command evidence and use a fresh supported routine launch
+after the environment setup is corrected. Setup success does not prove a loaded hook; retain
+the actual harmless probe denial before production capture.
+
 In a fresh Linux cloud checkout run the idempotent setup, then re-enter the wrapper so its
 external cache is active. The first command installs only absent or changed pinned tools;
 the second actually proves voice/alignment and render access before reservations:
 
 ```sh
-bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --install
+bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --bind-only
 bash scripts/run_with_env.sh python scripts/cloud_bootstrap.py
 bash scripts/run_with_env.sh python scripts/claude_contract_check.py
 ```
@@ -71,7 +78,17 @@ creates an isolated checkout of the recorded source commit (the complete committ
 public closure), overlays the verified scratch outputs and uncommitted source, and rebuilds the same
 ledger, frozen envelope, charges, failed reviews and paid outputs with its paths moved. It never
 touches another checkout or an existing ledger, has no force option, and refuses a finished edition.
-Run `cloud_bootstrap.py --install` there for node_modules, then resume. Never initialise a second
+Bind its exact lockfile dependencies from the preinstalled environment using the current
+`scripts/cloud_bootstrap.py --bind-only --repo <restored-checkout>` helper, then resume.
+Immediately after restore, before any paid worker reservation, run that binding through the
+current-main wrapper, then explicitly cd into the restored checkout inside the wrapped shell
+and run its `python scripts/env_check.py --require-voice`. Retain both exit codes. The wake
+check on the primary checkout is not a runtime check on the restored checkout. A missing
+Python import, Node module, browser or pinned alignment tool must be repaired from the
+preinstalled cache before a paid builder or render. Never use a scratch tsconfig or scratch
+source copy as a substitute for the production checkout's actual typecheck. Run the actual
+`cd video-engine && npx tsc -p tsconfig.json --noEmit` before accepting a builder hand-back.
+Never initialise a second
 ledger for an edition that has a checkpoint.
 
 Before authorizing capture in a restored or nested worktree, establish a real clean Docket
@@ -310,10 +327,12 @@ stays active and the real failure is recorded.
 
 ## Capture authorization
 
-For a multi-repository cloud session, register the capture hook at its actual primary workspace
-before capture. After restoring an unfinished production checkout, run
-`python scripts/bootstrap_claude_hooks.py --workspace /home/user` through the wrapper from that
-checkout (use the observed primary workspace if it differs). The helper preserves model, effort,
+For a multi-repository cloud session, the environment setup registers the capture hook at its
+actual primary workspace before launch with
+`python scripts/bootstrap_claude_hooks.py --workspace /home/user --prelaunch-router`.
+The preinstalled router selects the actual production checkout from the command's explicit
+working directory, including restored checkouts, and runs the unchanged authorization gate.
+Never replace this registration during an agent turn. The helper preserves model, effort,
 environment, permissions and unrelated hooks. It replaces only its own earlier registration and
 points the handler at the active checkout, whose ledger and assets the handler verifies. This is
 registration, never proof that the host loaded it and never capture authorization. Keep the actual
@@ -330,6 +349,20 @@ issued a current authorization for that exact command. Reserve a fresh render wi
 
 ```sh
 python scripts/capture_guard.py authorize --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
+```
+
+For `preflight_animatic.py`, `cinema_proof.py` and `claude_motion_review.py`, use the
+prepared operator handoff instead of manually reserving a note and letting the operator reserve
+again. `authorize --prepare` derives the operation from the exact checkout command, checks the
+same art, headroom and housekeeping gates, then charges it once. The real host hook consumes
+the exact authorization, and that operator claims its matching prepaid event once. A phone
+preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
+An unchanged operation cannot be prepared again. Preserve all earlier charges and denied commands.
+Do not create a self-written failure note or request `retry-preflight` to correct an operation
+label. Fix the actual versioned operator handoff and retain its before/after source evidence.
+
+```sh
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json"
 ```
 
 It writes `out/dispatch/capture-authorization.json` only from facts: an unused fresh charged render reservation,
