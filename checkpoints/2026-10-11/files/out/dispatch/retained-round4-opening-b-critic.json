@@ -1,0 +1,25 @@
+{
+ "review_scope": "code-plan-two-treatment-rereview",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-12",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "renderer_sha256": "ebf0b71bb0ff1f223b0f5a18d35d6fcbe2ca9d2ad7edbd760af3ddccb561eb98",
+ "treatment": "b",
+ "verdict": "pass",
+ "concept_sha256": "ef88b996eb586f6b27cb65adeeb03c2792a5df96d9aed6c89f496336540cbb68",
+ "weakest_frame": "s3-shot-2 flag-message, 13.775-15.39 s. The card shrinks into a truck at scale 0.26 standing on the same baseline as a tower at scale 0.2 that is not grounded. The truck is about 31 percent of the tower's height.",
+ "strongest_frame": "s3-shot-3 crew-phone in the cab, 15.39-17.0 s. The card comes in through the windshield, continues as the dash-phone bubble at the same point and scale, then buzzes.",
+ "notes": "B-D1 is fixed in code. With OPEN_LINE_STOP .64 the s5-shot-2 open line leaves about 45 native px (about 15 phone px) before the badge, up from about 3, and the lens-return composite about 43 native px, up from about 1.3. Nothing else in B's paths changed, so D1, D2, D3, D4, D8 and D9 remain fixed. The turn and closing now show the line to responders open, consistent with c4 and c6. No mandatory criterion fails at code scope and this pass describes no pixels. Non-blocking for the phone check: s1 panorama pans 360 degrees in 1.14 s, s1-shot-2 pull-back over a plate that only dollies, s3-shot-2 tower and truck out of scale, s8-shot-1 Expected tag near the frame edge. Digests computed by the director. Transcribed by the director from the critic hand-back.",
+ "blocking_defects": [],
+ "story_review": {
+  "story_sha256": "840a769c77febfaea45c7ce05fabab452e5e468b206aafa3d6702c050a2e58c6",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "43e0e89ef4476b8d2ff5511e091878f9082314b80eae927e03b2d092279a3eae",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain from code, not observed. A camera head atop a tower turns while its round display pans the dry land, then pulls back to the whole tower and its ring. 16 of 56 lens rings light. In the display a plume rises and a flag locks on it. An alert card slides out to a truck below and lands as a bubble on the dash phone in the cab. The dash clock shows a hatched window up to ten minutes, marked estimated. In the display the plume keeps burning under the locked flag. Wide, a dashed line from the truck's landed alert stops well short of a fire-station badge and a Can share tag pins under it. A calendar clipped under the visors has no red mark. A blank record lies on the tailgate. The plan folder waits on state approval above the display, the landed alert and the still-open line.",
+  "opening_to_ending": "Opens on what the camera sees and shows the alert reaching the crew truck by about 17 s. It carries the same truck through the limits and ends on a composite with the line to responders visibly open under the pending plan.",
+  "weakest_transition": "s4-shot-2 to s5-shot-1: from the dash clock in the cab straight back into the lens display with no physical bridge."
+ },
+ "action_reviews": []
+}
