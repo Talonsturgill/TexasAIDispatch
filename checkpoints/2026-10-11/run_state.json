@@ -265,6 +265,14 @@
       "note": "measured clock event fraction correction",
       "resource": "reboards",
       "to": 9
+    },
+    {
+      "at": "2026-10-12T17:02:58.631696Z",
+      "ceiling": 10,
+      "from": 9,
+      "note": "B display station heading and measured clock fractions",
+      "resource": "reboards",
+      "to": 10
     }
   ],
   "events": [
@@ -2450,6 +2458,24 @@
       "plan_identity": null,
       "plan_sha256": "6e45d72a96d68ba7d62894b0eaeb7931c2b0a92d311f52380d1c502e3af6aee8",
       "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-12T17:02:58.631746Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "B display station heading and measured clock fractions",
+      "now": 10,
+      "resource": "reboards",
+      "was": 9
+    },
+    {
+      "at": "2026-10-12T17:02:58.631756Z",
+      "kind": "reserved",
+      "note": "B display station heading and measured clock fractions",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -2459,7 +2485,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 9,
-    "reboards": 9,
+    "reboards": 10,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -2473,7 +2499,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9f887dda4866f069f6357f63c385fc8637ecae0b1138d765e0dc2a98180e8f71",
+    "original_private_state_sha256": "34b0663239ce91e2ffb311b865d6615200c4c2f19233a25298a11ab728cc343e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2501,7 +2527,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T17:02:53.658315Z",
+  "updated_at": "2026-10-12T17:02:58.631758Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -2509,7 +2535,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 9,
-    "reboards": 9,
+    "reboards": 10,
     "reported_tokens": 27672,
     "rescue_renders": 0,
     "research_agents": 2,
