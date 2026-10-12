@@ -476,6 +476,14 @@
       "note": "timed phone review of corrected-credit preview",
       "resource": "storyboard_critics",
       "to": 20
+    },
+    {
+      "at": "2026-10-12T20:26:51.493535Z",
+      "ceiling": 24,
+      "from": 22,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 23
     }
   ],
   "events": [
@@ -4263,6 +4271,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-12T20:26:51.493567Z",
+      "ceiling": 24,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 23,
+      "resource": "preflight_renders",
+      "was": 22
+    },
+    {
+      "at": "2026-10-12T20:26:51.493583Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "a67d12500573b9adc1dd3ef1d1b2a12046a34649c0598a76cd22a8686a2bd0fe",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -4271,7 +4297,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 22,
+    "preflight_renders": 23,
     "reboards": 13,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -4286,7 +4312,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "294a07769a969f6ab1f72fa5b17a6080606817a7a58abdc6f69298c7084b6f37",
+    "original_private_state_sha256": "6345806e0df05385dacde8395428ff7f2b9bb5413631b61ca8fb603d4b036231",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4314,14 +4340,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-12T20:24:11.731123Z",
+  "updated_at": "2026-10-12T20:26:51.493585Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 22,
+    "preflight_renders": 23,
     "reboards": 13,
     "reported_tokens": 73410,
     "rescue_renders": 0,
