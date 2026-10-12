@@ -10,6 +10,9 @@ POLICY = REPO / 'config/capture_completion_budget_v1.json'
 POLICY_SHA256 = 'c09e8d773255c0cc827a7cbb37f5f330a10792f9b278fd961a2b09591e7d0b80'
 FIELD = 'capture_completion_budget'
 SCHEMA = 'dispatch_capture_completion_budget_evidence/1'
+COMPARISON_POLICY = POLICY.with_name('capture_completion_budget_v2.json')
+COMPARISON_POLICY_SHA256 = 'd70e4e199c3acf49a4635087412cb9090e758810776c320ffb9ef290991f9d21'
+COMPARISON_SCHEMA = 'dispatch_capture_completion_budget_evidence/2'
 
 
 def sha(text):
@@ -20,10 +23,59 @@ def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
 
 
+def comparison_eligible(state, plan):
+    """A retained paid comparison funds a fresh complete path, never reuses its verdict."""
+    try:
+        proof = plan[FIELD]
+        receipt = json.loads(proof['comparison_json'])
+        reservation = receipt['reservation']
+        entry_index, hook_index = proof['entry_event_index'], proof['hook_event_index']
+        if (proof['schema'] != COMPARISON_SCHEMA or proof['run_id'] != state['run_id']
+                or str(state['run_id'])[:10] < '2026-10-09'
+                or state.get('mode') != 'production' or state.get('terminal_state') is not None
+                or proof['policy_sha256'] != COMPARISON_POLICY_SHA256
+                or sha(proof['policy_json']) != COMPARISON_POLICY_SHA256
+                or sha(proof['comparison_json']) != proof['comparison_sha256']
+                or receipt['schema'] != 'dispatch-opening-comparison/1'
+                or receipt['inspection_pass'] is not True or receipt['inspection_problems']
+                or reservation['run_id'] != state['run_id']
+                or reservation['event_index'] != entry_index
+                or any(type(i) is not int for i in (hook_index, entry_index))
+                or not 0 <= hook_index < entry_index < len(state['events'])
+                or 'capture_retry_evidence' in plan):
+            return False
+        options = receipt['options']
+        if len(options) != 2 or {o['id'] for o in options} != {'a', 'b'}:
+            return False
+        expected = {(o['id'], k): o[k]['sha256'] for o in options for k in ('board', 'film')}
+        files = proof['retained_files']
+        if (len(files) != 4 or {(f['option'], f['kind']): f['sha256'] for f in files} != expected
+                or any(len(h) != 64 for h in expected.values())
+                or any(len({o[k]['sha256'] for o in options}) != 2 for k in ('board', 'film'))):
+            return False
+        hook, entry = (state['events'][i] for i in (hook_index, entry_index))
+        for name, row in (('hook', hook), ('entry', entry)):
+            if (row.get('kind') != 'reserved' or row.get('resources') != {'preflight_renders': 1}
+                    or sha(canonical(row)) != proof[name + '_event_sha256']):
+                return False
+        if (hook['note'] != 'capture authorization reservation for opening comparison'
+                or entry['note'] != 'two opening comparison batch'
+                or entry['preflight_identity'] != reservation['identity']
+                or hook['at'] > entry['at']
+                or any(e.get('kind') == 'reserved' and e.get('resources', {}).get('preflight_renders')
+                       for e in state['events'][hook_index + 1:entry_index])):
+            return False
+        return True
+    except (KeyError, ValueError, TypeError, IndexError, AttributeError):
+        return False
+
+
 def eligible(state, plan):
     """Admission and replay use the retained original paired capture, never a new verdict."""
     try:
         proof = plan[FIELD]
+        if proof.get('schema') == COMPARISON_SCHEMA:
+            return comparison_eligible(state, plan)
         if (proof['schema'] != SCHEMA or proof['run_id'] != state['run_id']
                 or str(state['run_id'])[:10] < '2026-10-09'
                 or state.get('mode') != 'production' or state.get('terminal_state') is not None
@@ -77,6 +129,13 @@ def eligible(state, plan):
 def file_problems(plan):
     try:
         proof = plan[FIELD]
+        if proof.get('schema') == COMPARISON_SCHEMA:
+            if (COMPARISON_POLICY.read_text() != proof['policy_json']
+                    or Path(proof['comparison_path']).read_text() != proof['comparison_json']
+                    or any(hashlib.sha256(Path(f['path']).read_bytes()).hexdigest() != f['sha256']
+                           for f in proof['retained_files'])):
+                return ['retained comparison policy, boards or film bytes changed']
+            return []
         if (POLICY.read_text() != proof['policy_json']
                 or Path(proof['authorization_path']).read_text() != proof['authorization_json']):
             return ['capture completion policy or retained authorization changed']
@@ -91,6 +150,10 @@ def required_counts(state, plan, required):
         return result
     if not eligible(state, plan):
         raise ValueError('capture completion budget requires the actual consumed paired native capture')
+    if plan[FIELD].get('schema') == COMPARISON_SCHEMA:
+        for name, count in json.loads(plan[FIELD]['policy_json'])['minimum_remaining'].items():
+            result[name] = max(result[name], count)
+        return result
     units = json.loads(plan[FIELD]['policy_json'])['charged_units_per_capture']
     for name, count in units.items():
         result[name] *= count
@@ -108,7 +171,8 @@ def apply_budget(state, plan, budget):
     result['deficits'] = {k: row['required'] - row['remaining']
                          for k, row in result['resources'].items() if row['required'] > row['remaining']}
     result['feasible'] = not result['deficits'] and not result['errors']
-    result['capture_charging'] = 'hook-and-entry'
+    result['capture_charging'] = ('renewed-two-treatment-complete-path'
+        if plan[FIELD].get('schema') == COMPARISON_SCHEMA else 'hook-and-entry')
     return result
 
 
@@ -147,16 +211,61 @@ def prepare(state_path, plan_path, authorization_path, output_path):
     return plan
 
 
+def prepare_comparison(state_path, plan_path, comparison_path, output_path):
+    from run_controller import read_state
+    from autonomous_completion import mandatory_reason
+    state = read_state(Path(state_path))
+    plan = json.loads(Path(plan_path).read_text())
+    if FIELD in plan:
+        raise ValueError('retain the original plan; a capture budget cannot be attached twice')
+    comparison = Path(comparison_path).resolve()
+    raw = comparison.read_text()
+    receipt = json.loads(raw)
+    entry_index = receipt['reservation']['event_index']
+    candidates = [i for i in range(entry_index) if state['events'][i].get('kind') == 'reserved'
+                  and state['events'][i].get('resources', {}).get('preflight_renders')]
+    hook_index = candidates[-1]
+    proof = {'schema': COMPARISON_SCHEMA, 'run_id': state['run_id'],
+             'policy_json': COMPARISON_POLICY.read_text(), 'policy_sha256': COMPARISON_POLICY_SHA256,
+             'comparison_path': str(comparison), 'comparison_json': raw,
+             'comparison_sha256': sha(raw), 'retained_files': []}
+    for name, index in (('hook', hook_index), ('entry', entry_index)):
+        proof[name + '_event_index'] = index
+        proof[name + '_event_sha256'] = sha(canonical(state['events'][index]))
+    for option in receipt['options']:
+        for kind in ('board', 'film'):
+            path = (comparison.parent / option[kind]['file']).resolve()
+            if not path.is_relative_to(comparison.parent):
+                raise ValueError('retained comparison files must stay inside their package')
+            proof['retained_files'].append({'option': option['id'], 'kind': kind,
+                'path': str(path), 'sha256': option[kind]['sha256']})
+    plan[FIELD] = proof
+    evidence = Path(plan['failure_evidence']).read_text()
+    if (not comparison_eligible(state, plan) or file_problems(plan)
+            or mandatory_reason(state, plan, evidence) not in {
+                'retained-integrity', 'minimum-action', 'modern-film-floor',
+                'mandatory-code-integrity', 'finish-current'}):
+        raise ValueError('comparison funding needs retained paid bytes and independent mandatory admission')
+    with Path(output_path).open('x') as stream:
+        json.dump(plan, stream, indent=2); stream.write('\n')
+    return plan
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--state', required=True)
     p.add_argument('--plan', required=True)
-    p.add_argument('--authorization', required=True)
+    source = p.add_mutually_exclusive_group(required=True)
+    source.add_argument('--authorization')
+    source.add_argument('--comparison')
     p.add_argument('--output', required=True)
     a = p.parse_args(argv)
     try:
-        prepare(a.state, a.plan, a.authorization, a.output)
-    except (OSError, ValueError, KeyError, TypeError, StopIteration) as exc:
+        if a.comparison:
+            prepare_comparison(a.state, a.plan, a.comparison, a.output)
+        else:
+            prepare(a.state, a.plan, a.authorization, a.output)
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError, StopIteration) as exc:
         print('capture completion budget: ' + str(exc)); return 1
     print('capture completion budget: exact paired footprint bound; no charge or approval granted')
     return 0
