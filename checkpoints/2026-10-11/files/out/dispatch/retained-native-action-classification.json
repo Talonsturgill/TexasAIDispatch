@@ -1,0 +1,20 @@
+{
+ "review_scope": "code-native-action-registration-classification",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic leaf, isolated",
+ "reviewed_at": "2026-10-12",
+ "verdict": "revise",
+ "blocking_defects": [
+  {
+   "category": "minimum-action",
+   "defect": "NA-1 missing source-bound native action registration. cinema_proof refused the native hero proof ('directed principal action needs its unique complete current scene') because scripts/cinema_cache.py principal_event raises when a directed-film-v2 scene has fewer than 3 visual_events, and sample_frames must take three distinct native samples (first, middle, last) across each scene's complete admitted event span to measure principal occupancy and visible action. In out/dispatch/storyboard.json, scenes s1, s2, s4, s5, s6, s7 and s8 each register only 2 source-bound visual_events (only s3 has 3), so native proof can't sample or measure them. Each of those scenes needs a third genuinely performed, source-bound event inside its own clause and shot; padding or a label alone does not meet the floor."
+  }
+ ],
+ "story_review": {
+  "verdict": "revise",
+  "blocking_defects": [
+   "NA-1"
+  ]
+ },
+ "category_reasoning": "Mandatory minimum-action registration floor, not creative and not one of the seven technical-repair categories. The technical-integrity accounting has no category for a missing native action registration, so this correction counts under the mandatory code route.",
+ "third_event_requirements": "Each new event needs a visible change performed by renderer code on the film clock, the scene's own source-bound narration_id with clause fractions inside the same shot, a distinct event id and time window, item_ids bound to real plane items, and matching attention_beats, registry narration views and story_art action_uses where applicable."
+}
