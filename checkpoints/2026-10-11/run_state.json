@@ -980,6 +980,14 @@
       "note": "exact MP4 audiovisual review sound",
       "resource": "audiovisual_reviews",
       "to": 13
+    },
+    {
+      "at": "2026-10-13T00:45:25.881106Z",
+      "ceiling": 900000,
+      "from": 701680,
+      "note": "telemetry for audiovisual_reviews: 140e6c7b-6b23-40ec-b8d8-1e6acd88727f sound exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
+      "resource": "reported_tokens",
+      "to": 761678
     }
   ],
   "events": [
@@ -7478,6 +7486,24 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "at": "2026-10-13T00:45:25.881140Z",
+      "ceiling": 900000,
+      "kind": "budget_escalated",
+      "note": "telemetry for audiovisual_reviews: 140e6c7b-6b23-40ec-b8d8-1e6acd88727f sound exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
+      "now": 761678,
+      "resource": "reported_tokens",
+      "was": 701680
+    },
+    {
+      "at": "2026-10-13T00:45:25.881161Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 140e6c7b-6b23-40ec-b8d8-1e6acd88727f sound exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 59998
+      }
     }
   ],
   "limits": {
@@ -7488,7 +7514,7 @@
     "panel_rounds": 2,
     "preflight_renders": 38,
     "reboards": 18,
-    "reported_tokens": 701680,
+    "reported_tokens": 761678,
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 6,
@@ -7501,7 +7527,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "97a781fc8722567cf043ab68960545d38d388fd998d2e2c5840a47d3643b4628",
+    "original_private_state_sha256": "fcebce56312c2fc3e486046845bcd64272a3eb7e669b13402b3fa49ea54ce719",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7529,7 +7555,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:44:45.305035Z",
+  "updated_at": "2026-10-13T00:45:25.881164Z",
   "usage": {
     "audiovisual_reviews": 13,
     "cleanup_renders": 0,
@@ -7538,7 +7564,7 @@
     "panel_rounds": 2,
     "preflight_renders": 38,
     "reboards": 18,
-    "reported_tokens": 701680,
+    "reported_tokens": 761678,
     "rescue_renders": 0,
     "research_agents": 2,
     "scorer_calls": 6,
