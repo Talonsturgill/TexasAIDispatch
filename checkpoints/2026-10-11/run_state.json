@@ -924,6 +924,14 @@
       "note": "telemetry for audiovisual_reviews: ca21d4fe-96a7-4b43-83e8-c29747ce6dde hero exact film 066855c0628e4b4893102ad1eb22d4668f3fee8706cfc2e8ea57bac70c06ed23",
       "resource": "reported_tokens",
       "to": 581062
+    },
+    {
+      "at": "2026-10-13T00:35:14.363641Z",
+      "ceiling": 14,
+      "from": 3,
+      "note": "full-resolution Dispatch render",
+      "resource": "full_renders",
+      "to": 4
     }
   ],
   "events": [
@@ -7261,12 +7269,35 @@
       "note": "ca21d4fe-96a7-4b43-83e8-c29747ce6dde hero exact film 066855c0628e4b4893102ad1eb22d4668f3fee8706cfc2e8ea57bac70c06ed23",
       "reported_tokens": 51070,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-13T00:35:14.363687Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "full-resolution Dispatch render",
+      "now": 4,
+      "resource": "full_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-10-13T00:35:14.363708Z",
+      "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-10-13T00:35:14.363714Z",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
     }
   ],
   "limits": {
     "audiovisual_reviews": 10,
     "cleanup_renders": 1,
-    "full_renders": 3,
+    "full_renders": 4,
     "image_generations": 2,
     "panel_rounds": 2,
     "preflight_renders": 37,
@@ -7284,7 +7315,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "99f873872a75c4fdd4fb0b245daec61cf2c85118a0ee64ed2850b34f7809173f",
+    "original_private_state_sha256": "c9cb087063e27a6dce28d7f4fa35975e99e0acde9d2f818715ff44a9e0ce40e3",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7312,11 +7343,11 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:34:20.412503Z",
+  "updated_at": "2026-10-13T00:35:14.363716Z",
   "usage": {
     "audiovisual_reviews": 10,
     "cleanup_renders": 0,
-    "full_renders": 3,
+    "full_renders": 4,
     "image_generations": 0,
     "panel_rounds": 2,
     "preflight_renders": 37,
