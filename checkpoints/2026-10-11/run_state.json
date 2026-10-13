@@ -884,6 +884,14 @@
       "note": "third renewed two-treatment comparison and selection review with full-frame inspection",
       "resource": "storyboard_critics",
       "to": 39
+    },
+    {
+      "at": "2026-10-13T00:21:39.959131Z",
+      "ceiling": 38,
+      "from": 35,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 36
     }
   ],
   "events": [
@@ -7109,6 +7117,24 @@
       "input_identity": "42cc505da09658c56a0f14fcd551864ac0c0696bd0b008b6cf82f20f856d8bf1",
       "kind": "preflight_retry_authorized",
       "reason": "The only matching reservation was spent as the hook charge of the third renewed comparison capture, so the timed animatic of the selected treatment B has not been rendered. The refusal log is retained and earlier spend stays charged."
+    },
+    {
+      "at": "2026-10-13T00:21:39.959165Z",
+      "ceiling": 38,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 36,
+      "resource": "preflight_renders",
+      "was": 35
+    },
+    {
+      "at": "2026-10-13T00:21:39.959183Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "42cc505da09658c56a0f14fcd551864ac0c0696bd0b008b6cf82f20f856d8bf1",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -7117,7 +7143,7 @@
     "full_renders": 3,
     "image_generations": 2,
     "panel_rounds": 2,
-    "preflight_renders": 35,
+    "preflight_renders": 36,
     "reboards": 18,
     "reported_tokens": 529992,
     "rescue_renders": 1,
@@ -7130,10 +7156,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "42cc505da09658c56a0f14fcd551864ac0c0696bd0b008b6cf82f20f856d8bf1",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "89a5cef7e51790808c3bde08093ca173625c95f01119aedca71e91a19b74ba1a",
+    "original_private_state_sha256": "35c3673a24ba2f4394e6b90d9d789079f747bcc7fe9a413482aca4f3202a8f7e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7161,14 +7186,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:21:33.055707Z",
+  "updated_at": "2026-10-13T00:21:39.959185Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
     "full_renders": 3,
     "image_generations": 0,
     "panel_rounds": 2,
-    "preflight_renders": 35,
+    "preflight_renders": 36,
     "reboards": 18,
     "reported_tokens": 529992,
     "rescue_renders": 0,
