@@ -988,6 +988,22 @@
       "note": "telemetry for audiovisual_reviews: 140e6c7b-6b23-40ec-b8d8-1e6acd88727f sound exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
       "resource": "reported_tokens",
       "to": 761678
+    },
+    {
+      "at": "2026-10-13T00:45:46.160216Z",
+      "ceiling": 9,
+      "from": 2,
+      "note": "current finished cut after the s5 pivot, hero window and disclosure repairs",
+      "resource": "panel_rounds",
+      "to": 3
+    },
+    {
+      "at": "2026-10-13T00:45:46.160289Z",
+      "ceiling": 27,
+      "from": 6,
+      "note": "current finished cut after the s5 pivot, hero window and disclosure repairs",
+      "resource": "scorer_calls",
+      "to": 9
     }
   ],
   "events": [
@@ -7512,6 +7528,34 @@
       "note": "140e6c7b-6b23-40ec-b8d8-1e6acd88727f sound exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
       "reported_tokens": 59998,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-13T00:45:46.160278Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "current finished cut after the s5 pivot, hero window and disclosure repairs",
+      "now": 3,
+      "resource": "panel_rounds",
+      "was": 2
+    },
+    {
+      "at": "2026-10-13T00:45:46.160292Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "current finished cut after the s5 pivot, hero window and disclosure repairs",
+      "now": 9,
+      "resource": "scorer_calls",
+      "was": 6
+    },
+    {
+      "at": "2026-10-13T00:45:46.160305Z",
+      "kind": "reserved",
+      "note": "current finished cut after the s5 pivot, hero window and disclosure repairs",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
     }
   ],
   "limits": {
@@ -7519,13 +7563,13 @@
     "cleanup_renders": 1,
     "full_renders": 4,
     "image_generations": 2,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 38,
     "reboards": 18,
     "reported_tokens": 761678,
     "rescue_renders": 1,
     "research_agents": 3,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 40,
     "tts_calls": 13,
     "validator_agents": 1,
@@ -7535,7 +7579,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "73578d601c148fdbc211d12399fa93639fad384977fce089979855152a61cd51",
+    "original_private_state_sha256": "7e2b0603084647bfbcc175175548079bf6e1aad07cd9a493de2257caf698e27a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7563,19 +7607,19 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:45:31.424499Z",
+  "updated_at": "2026-10-13T00:45:46.160310Z",
   "usage": {
     "audiovisual_reviews": 13,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 38,
     "reboards": 18,
     "reported_tokens": 761678,
     "rescue_renders": 0,
     "research_agents": 2,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 40,
     "tts_calls": 13,
     "validator_agents": 1,

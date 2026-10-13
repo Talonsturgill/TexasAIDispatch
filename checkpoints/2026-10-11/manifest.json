@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-13T00:45:32.705875+00:00",
+  "saved_at": "2026-10-13T00:45:47.702462+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,20 +16,20 @@
     "sha256": "2cef36ad3afa18efea9b53d870bd27be0268b7916883457510ba5b01bbe0f9f8"
   },
   "deleted_source": [],
-  "ledger_sha256": "549a5f15574cf4468201737e363f327c20cbe7e10b240ee94f8c03e513dd002d",
-  "original_private_ledger_sha256": "73578d601c148fdbc211d12399fa93639fad384977fce089979855152a61cd51",
+  "ledger_sha256": "29cea454dbede79c2ff1b84661577f6ac43025909f16257dbb9a5569bca4cf61",
+  "original_private_ledger_sha256": "7e2b0603084647bfbcc175175548079bf6e1aad07cd9a493de2257caf698e27a",
   "usage": {
     "audiovisual_reviews": 13,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 38,
     "reboards": 18,
     "reported_tokens": 761678,
     "rescue_renders": 0,
     "research_agents": 2,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 40,
     "tts_calls": 13,
     "validator_agents": 1,
@@ -3241,6 +3241,18 @@
       "size": 178
     },
     {
+      "path": "out/dispatch/cinema/review-cache/31c140a40d10d189df1f2285fe67b32fa1bd31fe16eb80138f9d90f6448c4773/receipt.json",
+      "class": "scratch",
+      "sha256": "69394f80c164b0172cd249f9f2fe73069b7880b89fcacc6c7e3aa11354fb050b",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/31c140a40d10d189df1f2285fe67b32fa1bd31fe16eb80138f9d90f6448c4773/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "7f45c6e8ad916e316178e1a056e74855fd5f845a40dfd5a2a50285142de34d8f",
+      "size": 104391
+    },
+    {
       "path": "out/dispatch/cinema/review-cache/563b00cc0ab8e7d065fcd3a292fc8e9ebaf3a8cd484bebdef225565a32827e03/receipt.json",
       "class": "scratch",
       "sha256": "babe43c2e8712af68ee7302c67b2c46f7326d470e0ee9ac464a0f5d0e2728ca3",
@@ -3675,8 +3687,14 @@
     {
       "path": "out/dispatch/cinema/sound-review-response.json",
       "class": "scratch",
-      "sha256": "21999fcb36453647e7ef4179f58d40da66a54d52f3209647b514ad2dd4608d39",
-      "size": 92791
+      "sha256": "7f45c6e8ad916e316178e1a056e74855fd5f845a40dfd5a2a50285142de34d8f",
+      "size": 104391
+    },
+    {
+      "path": "out/dispatch/cinema/sound-review.json",
+      "class": "scratch",
+      "sha256": "69394f80c164b0172cd249f9f2fe73069b7880b89fcacc6c7e3aa11354fb050b",
+      "size": 582
     },
     {
       "path": "out/dispatch/cinema/story-review-response.json",
@@ -5967,8 +5985,8 @@
     {
       "path": "out/dispatch/picture-packet.json",
       "class": "scratch",
-      "sha256": "acd98daabf57847a484680422b7cca84c5988c891b3275c892a72894a9b69f20",
-      "size": 9869
+      "sha256": "fa57540dd1842844dac0dbf299ca2f178f38dee65a29eb12cf4108fe886fd79c",
+      "size": 9870
     },
     {
       "path": "out/dispatch/picture-precheck-a/082040a7-5b99-4daf-b923-b944caa62ea2/board_scale_check.log",
@@ -10393,6 +10411,42 @@
       "size": 9863
     },
     {
+      "path": "out/dispatch/retained-panel2-packets/picture-assignment.json",
+      "class": "scratch",
+      "sha256": "f0f13e1efc0376cd3bebd60c2fdd99b9935576372dea711da088e17696a8a4bb",
+      "size": 1831
+    },
+    {
+      "path": "out/dispatch/retained-panel2-packets/picture-packet.json",
+      "class": "scratch",
+      "sha256": "acd98daabf57847a484680422b7cca84c5988c891b3275c892a72894a9b69f20",
+      "size": 9869
+    },
+    {
+      "path": "out/dispatch/retained-panel2-packets/sound-assignment.json",
+      "class": "scratch",
+      "sha256": "cbb8dfe12d889f3c78253b1af24efe5bda447e722d3df238efabcb7ad8cd98ca",
+      "size": 1821
+    },
+    {
+      "path": "out/dispatch/retained-panel2-packets/sound-packet.json",
+      "class": "scratch",
+      "sha256": "53cb8e1a6086c647f2fb201f47923ac7a98be6a61f7c7034673a820e65dfc479",
+      "size": 9863
+    },
+    {
+      "path": "out/dispatch/retained-panel2-packets/story-assignment.json",
+      "class": "scratch",
+      "sha256": "54c019f5336d8980ffe38d99d70158b29c39f3ee701d8c889b7935870a1cac15",
+      "size": 1821
+    },
+    {
+      "path": "out/dispatch/retained-panel2-packets/story-packet.json",
+      "class": "scratch",
+      "sha256": "1143923afc591a996c3784df7f3d7909b4aaa3340c9dc2339647e7528e4b724f",
+      "size": 9863
+    },
+    {
       "path": "out/dispatch/retained-phone-comparison5-critic.json",
       "class": "scratch",
       "sha256": "9386272fb22776ff0dd14d34cb15db58877124bf626269cd396da660835b01d7",
@@ -10809,8 +10863,8 @@
     {
       "path": "out/dispatch/sound-packet.json",
       "class": "scratch",
-      "sha256": "53cb8e1a6086c647f2fb201f47923ac7a98be6a61f7c7034673a820e65dfc479",
-      "size": 9863
+      "sha256": "e358719dc02087b3162ea02b28351c6dcba0f42286d20e7794d4d32e97f4978f",
+      "size": 9864
     },
     {
       "path": "out/dispatch/sources/aep.html",
@@ -10875,8 +10929,8 @@
     {
       "path": "out/dispatch/story-packet.json",
       "class": "scratch",
-      "sha256": "1143923afc591a996c3784df7f3d7909b4aaa3340c9dc2339647e7528e4b724f",
-      "size": 9863
+      "sha256": "e73a5048bbd9d22381015d77b6b083cf2f2db0ef31ec96b3199bf8f288fb00f7",
+      "size": 9864
     },
     {
       "path": "out/dispatch/story_selection.json",
