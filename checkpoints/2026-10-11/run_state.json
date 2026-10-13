@@ -7101,6 +7101,14 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-13T00:21:33.055644Z",
+      "evidence": "{REPO}/out/dispatch/retained-animatic-refusal-after-comparison-3.txt",
+      "evidence_sha256": "214245c50aa7a7223ef09abe4f238631dd7dfd5b7cbeab68031dfe34a8f548e2",
+      "input_identity": "42cc505da09658c56a0f14fcd551864ac0c0696bd0b008b6cf82f20f856d8bf1",
+      "kind": "preflight_retry_authorized",
+      "reason": "The only matching reservation was spent as the hook charge of the third renewed comparison capture, so the timed animatic of the selected treatment B has not been rendered. The refusal log is retained and earlier spend stays charged."
     }
   ],
   "limits": {
@@ -7122,9 +7130,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "42cc505da09658c56a0f14fcd551864ac0c0696bd0b008b6cf82f20f856d8bf1",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c0550c9d9b0dcd602a6d164bad642432f4ad5e59f598a6643ff98bed70143f97",
+    "original_private_state_sha256": "89a5cef7e51790808c3bde08093ca173625c95f01119aedca71e91a19b74ba1a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7152,7 +7161,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:13:08.077095Z",
+  "updated_at": "2026-10-13T00:21:33.055707Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
