@@ -2,18 +2,14 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fb30abff1cf1c8340f0d3c472a474776c9e52be5b6a203150d5a2462a46fa464",
+    "event_sha256": "6877214026ac6ef321c2c5e0e5b05a39c57d955544621e10915c5074c0ad197d",
     "resource": "preflight_renders",
-    "at": "2026-10-13T00:09:13.371110Z",
-    "note": "precharge for the third renewed two-treatment opening comparison"
+    "at": "2026-10-13T00:21:39.959183Z",
+    "note": "quarter-scale animatic"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "efa394e21837ed0245945a206b6434174a170c40a0ca2168bd37c8cd56daf235"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
+      "path": "out/dispatch/storyboard.json",
       "sha256": "127f9df80c7da35d2d0ed201576b2f0eccea967fc6957925c98d259d61f31f22"
     }
   ],
@@ -161,23 +157,30 @@
   },
   "commands": [
     {
-      "id": "e4b7fe562705dddea445cee390f25c5c024bd1eee02d444deec419c8383bf2af",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py",
-      "consumed": "2026-10-13T00:09:21.953139+00:00"
+      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
+      "consumed": "2026-10-13T00:21:47.220413+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 17,
-    "free_gib": 17.335
+    "free_gib": 17.195
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261013T000919.json",
-    "receipt_sha256": "7543e8980bb85e59092ebdc3174e1a3d72048402a405c13bfaa76e4558048939",
+    "receipt": "/home/user/restore/dispatch-2026-10-11/out/dispatch/capture-housekeeping-20261013T002139.json",
+    "receipt_sha256": "550812a14a5890e860f1b23c75dc0604c74fbc5da3941b4d76acb81c10905ba2",
     "exit_code": 0,
     "min_free_gib": 17
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-13T00:09:19.777339+00:00",
-  "expires_at": "2026-10-13T00:54:19.777339+00:00"
+  "issued_at": "2026-10-13T00:21:45.065789+00:00",
+  "expires_at": "2026-10-13T01:06:45.065789+00:00",
+  "prepared_capture": {
+    "schema": "dispatch_prepared_capture/1",
+    "operation": "quarter-scale animatic",
+    "run_id": "2026-10-11",
+    "event_sha256": "6877214026ac6ef321c2c5e0e5b05a39c57d955544621e10915c5074c0ad197d",
+    "input_identity": "42cc505da09658c56a0f14fcd551864ac0c0696bd0b008b6cf82f20f856d8bf1"
+  }
 }
