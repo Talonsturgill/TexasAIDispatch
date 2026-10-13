@@ -972,6 +972,14 @@
       "note": "telemetry for audiovisual_reviews: 2ee6f178-b83d-4fd4-b16d-808339c5d9fe story exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
       "resource": "reported_tokens",
       "to": 701680
+    },
+    {
+      "at": "2026-10-13T00:44:45.304928Z",
+      "ceiling": 43,
+      "from": 12,
+      "note": "exact MP4 audiovisual review sound",
+      "resource": "audiovisual_reviews",
+      "to": 13
     }
   ],
   "events": [
@@ -7452,10 +7460,28 @@
       "note": "2ee6f178-b83d-4fd4-b16d-808339c5d9fe story exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
       "reported_tokens": 60241,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-13T00:44:45.305013Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review sound",
+      "now": 13,
+      "resource": "audiovisual_reviews",
+      "was": 12
+    },
+    {
+      "at": "2026-10-13T00:44:45.305032Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 12,
+    "audiovisual_reviews": 13,
     "cleanup_renders": 1,
     "full_renders": 4,
     "image_generations": 2,
@@ -7475,7 +7501,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "207a4a4bf9f71ce091456d33de736593e435ea77bb3f42063704b92443e4a487",
+    "original_private_state_sha256": "97a781fc8722567cf043ab68960545d38d388fd998d2e2c5840a47d3643b4628",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7503,9 +7529,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:44:40.089304Z",
+  "updated_at": "2026-10-13T00:44:45.305035Z",
   "usage": {
-    "audiovisual_reviews": 12,
+    "audiovisual_reviews": 13,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
