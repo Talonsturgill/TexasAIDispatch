@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair19/storyboard.json",
-        "before_sha256": "33f27f2c0ae0882343fc0ffaba37ae317a4a541335a90a65d88f21132216378a",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair19/opening-a.json",
-        "before_sha256": "e90efc81b78fefbc4ee216163a332b59538aafad7cc5058857792a94fc8ff235",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair19/opening-b.json",
-        "before_sha256": "33f27f2c0ae0882343fc0ffaba37ae317a4a541335a90a65d88f21132216378a",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baseline-repair19/TowerAlertFilm.tsx",
-        "before_sha256": "1f761c02d269812565fe1c484875d892f6739df392581999d9e9b1d24dd50030",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
-      }
-    ],
-    "failure_sha256": "a970c70d6e04061845a81e579e95ed33e3968c42afd370f433a86f1bbff27c98",
-    "plan": "{REPO}/out/dispatch/repair-plan-19.json",
-    "plan_sha256": "8e085ea981e31e66126c40d982daba84fd720ce419d30e09555230372ed967c5",
-    "reboards_before": 17,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-11T07:18:21.823920Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/40ddf86ae93d2c1b-b940c00bbf8832fc-3f6b943f2071a1b2/storyboard.json",
@@ -6925,6 +6896,81 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-13T00:05:38.202022Z",
+      "grants": {
+        "audiovisual_reviews": {
+          "from": 43,
+          "to": 43
+        },
+        "full_renders": {
+          "from": 14,
+          "to": 14
+        },
+        "panel_rounds": {
+          "from": 9,
+          "to": 9
+        },
+        "preflight_renders": {
+          "from": 38,
+          "to": 38
+        },
+        "scorer_calls": {
+          "from": 27,
+          "to": 27
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "127f9df80c7da35d2d0ed201576b2f0eccea967fc6957925c98d259d61f31f22",
+            "before_path": "{REPO}/out/dispatch/baseline-repair19/storyboard.json",
+            "before_sha256": "33f27f2c0ae0882343fc0ffaba37ae317a4a541335a90a65d88f21132216378a",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "efa394e21837ed0245945a206b6434174a170c40a0ca2168bd37c8cd56daf235",
+            "before_path": "{REPO}/out/dispatch/baseline-repair19/opening-a.json",
+            "before_sha256": "e90efc81b78fefbc4ee216163a332b59538aafad7cc5058857792a94fc8ff235",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "127f9df80c7da35d2d0ed201576b2f0eccea967fc6957925c98d259d61f31f22",
+            "before_path": "{REPO}/out/dispatch/baseline-repair19/opening-b.json",
+            "before_sha256": "33f27f2c0ae0882343fc0ffaba37ae317a4a541335a90a65d88f21132216378a",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "0b5524473c295d96fc2d9439af0d760195ae43afddcd8813327105259d73f761",
+            "before_path": "{REPO}/out/dispatch/baseline-repair19/TowerAlertFilm.tsx",
+            "before_sha256": "1f761c02d269812565fe1c484875d892f6739df392581999d9e9b1d24dd50030",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The chip names the map only while the locator inset is visible and reads Illustration. Not an AEP Texas site before and after.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-selection-disclosure-technical.json",
+        "failure_evidence_sha256": "a970c70d6e04061845a81e579e95ed33e3968c42afd370f433a86f1bbff27c98",
+        "failure_family": "source-framing",
+        "mechanism_change": "The chip text follows the locator's actual visibility window instead of the scene's static text.",
+        "mechanism_id": "disclosure-chip-locator-window-gate-v1",
+        "repair": "Gate the Map disclosure text on the locator's own visible window, taking both ends from the locator's constants and showing Illustration. Not an AEP Texas site outside it. No other pixel, caption, timing or audio change.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "audiovisual_reviews": 4,
+          "full_renders": 1,
+          "panel_rounds": 1,
+          "preflight_renders": 2,
+          "scorer_calls": 3
+        },
+        "root_cause": "The independent comparison reviewer found that the opening disclosure chip names a map that is not on screen for the first 2.25 s, because the s1 production_disclosure text mentions the map from frame zero while the locator inset only appears at its own start constant."
+      },
+      "repair_plan_sha256": "f695376a4809961aef648c66b5a5828e004252b2d64653468fb5c622760ef718",
+      "repair_revision": "ab295ed7624cd7671d8041d1763b0de69cb15306ef861cc427772c043bcdae04",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -6948,7 +6994,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "eea914979ea2a7febf07cc2681d2f16d1ad3cfe7a1a56d2d7bb8153333e59bc4",
+    "original_private_state_sha256": "166f85af6191197d74b72e14a4ab657d465249f8355e6f40968cd0c3e836b014",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6976,7 +7022,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:03:11.651818Z",
+  "updated_at": "2026-10-13T00:05:38.202069Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
