@@ -956,6 +956,14 @@
       "note": "telemetry for audiovisual_reviews: 0a65a4b6-4736-4016-b800-50a7f2c18a51 picture exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
       "resource": "reported_tokens",
       "to": 641439
+    },
+    {
+      "at": "2026-10-13T00:43:54.209958Z",
+      "ceiling": 43,
+      "from": 11,
+      "note": "exact MP4 audiovisual review story",
+      "resource": "audiovisual_reviews",
+      "to": 12
     }
   ],
   "events": [
@@ -7392,10 +7400,28 @@
       "note": "0a65a4b6-4736-4016-b800-50a7f2c18a51 picture exact film e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
       "reported_tokens": 60377,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-13T00:43:54.210036Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review story",
+      "now": 12,
+      "resource": "audiovisual_reviews",
+      "was": 11
+    },
+    {
+      "at": "2026-10-13T00:43:54.210048Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 11,
+    "audiovisual_reviews": 12,
     "cleanup_renders": 1,
     "full_renders": 4,
     "image_generations": 2,
@@ -7415,7 +7441,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "88fdcfd468631e8c48b0ad22814f5c9bd6d0a101cf98b0f9ac755408518647c1",
+    "original_private_state_sha256": "fe27239fed6a92a2171b921981bc804b4888e9ca61c3bfc48fe0cdab5f919e11",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -7443,9 +7469,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-13T00:43:48.882183Z",
+  "updated_at": "2026-10-13T00:43:54.210051Z",
   "usage": {
-    "audiovisual_reviews": 11,
+    "audiovisual_reviews": 12,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
