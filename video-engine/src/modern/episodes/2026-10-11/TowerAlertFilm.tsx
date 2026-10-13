@@ -4,7 +4,7 @@ import {FONT,widthOf} from '../../../lib/type';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireAction,requireNarration,type DirectedScene} from '../../../lib/direction';
 import {PlaceSubject} from '../../PlaceStage';
-import {LOCATOR_END_S} from '../../CountyLocator';
+import {LOCATOR_START_S,LOCATOR_END_S} from '../../CountyLocator';
 import {useUid} from '../../../lib/uid';
 import type {FilmRenderProps} from '../../types';
 import {TowerCameraHero,TOWER,ALERT_SIZE,coaxPoint,type Pal,type Pt} from './TowerCameraHero';
@@ -220,11 +220,14 @@ export const TowerAlertFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   shown<=0?null:<g transform={`translate(0 ${-60*(o.scale??1)*(1-ease(shown))})`} opacity={clamp(shown*3)}>
    <TowerCameraHero part="tag" lines={lines} tone={tone} pal={pal} drop={o.drop??34} side={o.side} scale={o.scale}
     swing={(o.swing??0)+14*(1-ease(shown))*(o.side==='left'?1:-1)}/></g>;
- // A disclosure about the county map gives way to the next scene's disclosure once the locator inset
- // has faded out (its own LOCATOR_END_S), since no map is on screen after that.
+ // A disclosure about the county map names the map only while the locator inset is on screen: its card
+ // is drawn (opacity above zero) after LOCATOR_START_S and until LOCATOR_END_S. Before and after, the chip
+ // carries the next scene's disclosure that names no map.
  const sceneList=board.scenes as unknown as {id:string;production_disclosure?:string}[];
- const nextDisclosure=sceneList[sceneList.findIndex(s=>s.id===scene.id)+1]?.production_disclosure;
- const disclosureText=t>=LOCATOR_END_S&&/\bMap\b/.test(scene.production_disclosure??'')&&nextDisclosure?nextDisclosure:scene.production_disclosure??'Illustration';
+ const namesMap=(d?:string)=>/\bMap\b/.test(d??'');
+ const mapShown=t>LOCATOR_START_S&&t<LOCATOR_END_S;
+ const plainDisclosure=sceneList.slice(sceneList.findIndex(s=>s.id===scene.id)+1).find(s=>s.production_disclosure&&!namesMap(s.production_disclosure))?.production_disclosure;
+ const disclosureText=!mapShown&&namesMap(scene.production_disclosure)&&plainDisclosure?plainDisclosure:scene.production_disclosure??'Illustration';
  const dLines=disclosureLines(disclosureText);
  const dW=Math.max(...dLines.map(l=>widthOf(l,DISCLOSURE_FONT,true)))+34, dH=dLines.length*32+24;
  const disclosure=<g data-disclosure="production_disclosure">
