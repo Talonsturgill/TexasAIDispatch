@@ -2,6 +2,7 @@
 from __future__ import annotations
 import argparse
 import copy
+import datetime
 import re
 import sys
 import json
@@ -18,6 +19,47 @@ REPO = Path(__file__).resolve().parents[1]
 CAPTURE_PHRASES = ('charged render reservation', 'headroom', 'bash scripts/run_with_env.sh',
                    'genuine authored art receipts', 'scratch placeholder')
 from capture_guard import CAPTURE_COMMAND, capture_problems, placeholder_art  # noqa: E402,F401
+
+
+MECHANICAL_FORBIDDEN = ('.claude/', 'config/', 'prompts/', 'knowledge/', 'runs/', 'out/', 'ledger/',
+                        'video-engine/src/', 'video-engine/public/', 'assets/', 'docs/')
+MECHANICAL_TASKS = {'code-only-review': ('storyboard-critic', 'read-only'),
+                    'mechanical-correction': ('scene-builder', 'edit')}
+MECHANICAL_REQUIRES = ('failing_case', 'acceptance_results', 'unchanged_controls', 'mutation_checks')
+
+
+def mechanical_route_problems(cfg):
+    """The Haiku mechanical route is a narrow overlay, so its declaration is held to its proven scope."""
+    errors = []
+    route = cfg.get('mechanical_route')
+    if not isinstance(route, dict):
+        return ['mechanical_route must be a declaration']
+    if (route.get('model'), route.get('effort'), route.get('spawn_model')) != ('claude-haiku-5-5', 'high', 'haiku'):
+        errors.append('mechanical route must use the proven Haiku high assignment')
+    tasks = route.get('tasks')
+    if not isinstance(tasks, dict) or {k: (v.get('role'), v.get('mode')) for k, v in tasks.items()} != MECHANICAL_TASKS:
+        errors.append('mechanical route admits only code-only-review on the storyboard critic and '
+                      'read-only and mechanical-correction on the scene builder as an edit')
+    for row in (tasks or {}).values():
+        if row.get('role') not in cfg['roles'] or row.get('role') in ('picture', 'story', 'sound', 'validator'):
+            errors.append('mechanical route can never admit a final scorer or the validator')
+    allowed = route.get('allowed_paths')
+    if (not isinstance(allowed, list) or not allowed or any(
+            not (str(pat).startswith('video-engine/tests/') or (str(pat).startswith('scripts/') and str(pat).endswith('_test.py')))
+            for pat in allowed)):
+        errors.append('mechanical route paths are limited to gate tests and test scripts')
+    forbidden = route.get('forbidden_prefixes')
+    if not isinstance(forbidden, list) or not set(MECHANICAL_FORBIDDEN) <= set(forbidden):
+        errors.append('mechanical route must forbid renderer, source, art, config, prompt and ledger paths')
+    if not isinstance(route.get('correction_requires'), list) or not set(MECHANICAL_REQUIRES) <= set(route['correction_requires']):
+        errors.append('mechanical corrections must require a failing case, acceptance results, controls and mutations')
+    try:
+        if route['effective_from'] < cfg['authorized_at']:
+            errors.append('mechanical route cannot reach back past the Claude authorization date')
+        datetime.date.fromisoformat(route['effective_from'])
+    except (KeyError, ValueError, TypeError):
+        errors.append('mechanical route needs a calendar effective_from date')
+    return errors
 
 
 def problems(repo=REPO, environ=None):
@@ -49,6 +91,10 @@ def problems(repo=REPO, environ=None):
         if set(cfg['roles']) != {'researcher', 'validator', 'scene-builder',
                                 'storyboard-critic', 'vo-director', 'picture', 'story', 'sound'}:
             errors.append('Claude route must preserve the existing production roles')
+        if cfg.get('schedule') != {'timezone': 'America/New_York', 'daily_time': '01:00'}:
+            errors.append('Claude schedule declaration differs from the saved routine readback')
+        if 'mechanical_route' in cfg:
+            errors += mechanical_route_problems(cfg)
         authority = (repo / 'prompts/claude_routine.md').read_text()
         for required in ('prompts/dispatch_routine.md', 'finish --result shipped',
                          'Never send email or post socially', 'native_headroom.py',
@@ -194,6 +240,38 @@ class ContractTests(unittest.TestCase):
             p.write_text(text.replace(phrase, 'x'))
             self.assertTrue(any('lacks required authority' in e for e in problems(self.repo, {})), phrase)
         p.write_text(text)
+
+    def edit_config(self, change):
+        p = self.repo / 'config/claude_runtime.json'
+        data = json.loads(p.read_text()); change(data); p.write_text(json.dumps(data))
+
+    def test_schedule_declaration_matches_the_saved_routine(self):
+        self.assertEqual([], problems(self.repo, {}))
+        self.edit_config(lambda d: d['schedule'].update(daily_time='03:00'))
+        self.assertTrue(any('saved routine readback' in e for e in problems(self.repo, {})))
+        self.edit_config(lambda d: d['schedule'].update(daily_time='01:00', timezone='UTC'))
+        self.assertTrue(any('saved routine readback' in e for e in problems(self.repo, {})))
+
+    def test_mechanical_route_stays_inside_its_proven_scope(self):
+        self.assertEqual([], problems(self.repo, {}))
+        cases = {
+            'a different model': lambda d: d['mechanical_route'].update(model='claude-opus-5-5'),
+            'a lower effort': lambda d: d['mechanical_route'].update(effort='medium'),
+            'a final scorer': lambda d: d['mechanical_route']['tasks'].update({'code-only-review': {'role': 'picture'}}),
+            'the validator': lambda d: d['mechanical_route']['tasks'].update({'mechanical-correction': {'role': 'validator'}}),
+            'a review that may edit': lambda d: d['mechanical_route']['tasks']['code-only-review'].update(mode='edit'),
+            'a correction that is read-only': lambda d: d['mechanical_route']['tasks']['mechanical-correction'].update(mode='read-only'),
+            'an extra task': lambda d: d['mechanical_route']['tasks'].update({'research': {'role': 'researcher'}}),
+            'renderer source': lambda d: d['mechanical_route']['allowed_paths'].append('video-engine/src/*'),
+            'a config path': lambda d: d['mechanical_route']['allowed_paths'].append('config/*'),
+            'a dropped forbidden prefix': lambda d: d['mechanical_route']['forbidden_prefixes'].remove('video-engine/src/'),
+            'a dropped required control': lambda d: d['mechanical_route']['correction_requires'].remove('unchanged_controls'),
+            'a past effective date': lambda d: d['mechanical_route'].update(effective_from='2026-10-01'),
+        }
+        for label, change in cases.items():
+            self.setUp()
+            self.edit_config(change)
+            self.assertTrue(problems(self.repo, {}), label)
 
     def test_missing_leaf(self):
         (self.repo / '.claude/agents/scene-builder.md').unlink()

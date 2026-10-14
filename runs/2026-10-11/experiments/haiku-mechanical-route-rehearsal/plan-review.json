@@ -1,0 +1,47 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "<rehearsal-checkout>/config/claude_runtime.json",
+      "sha256": "e883cb78bf21d7f7f371bf781d03df937e568ed0a90d9bbdc36d0e09c66a5642"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "<rehearsal-checkout>/out/rehearsal/packet-review.json",
+    "sha256": "054be45fa8375ffd35664eaa6664b3320d4c0b6f44324fc94ec08c7f830d7e4b"
+  },
+  "brief": {
+    "path": "<rehearsal-checkout>/.claude/agents/storyboard-critic.md",
+    "sha256": "01fe0eb619f8a46955ec0f824940f863d13ec7c5dd96dc4abf2043b96151b73e"
+  },
+  "agent_args": {
+    "subagent_type": "storyboard-critic",
+    "description": "mechanical_review",
+    "prompt": "Work in <rehearsal-checkout>. Read the current compact packet <rehearsal-checkout>/out/rehearsal/packet-review.json (SHA256 054be45fa8375ffd35664eaa6664b3320d4c0b6f44324fc94ec08c7f830d7e4b) and every bound current guide in full. Verify the inputs before use. Scope: Read scripts/public_state_test.py and the two modules it exercises, scripts/public_state.py and scripts/claude_checkpoint.py. Report only defects you can prove from the code: an assertion that cannot fail, a private field the tests would not catch leaking, or a charge or verdict the sanitizer could alter without a test failing. Quote the file and line for each. Say plainly if a path is sound. Read only, do not edit anything. Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film. Mechanical route haiku-mechanical-v1 scope: touch only the files named in the packet, read-only.",
+    "model": "haiku",
+    "effort": "high"
+  },
+  "model_binding": "Mechanical route haiku-mechanical-v1 overrides only the spawn model and effort for this admitted task. Any refusal keeps the unchanged Opus assignment.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel.",
+  "mechanical": {
+    "route": "haiku-mechanical-v1",
+    "task": "code-only-review",
+    "role": "storyboard-critic",
+    "mode": "read-only",
+    "paths": [
+      "scripts/public_state_test.py"
+    ],
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "spawn_model": "haiku",
+    "effective_from": "2026-10-11",
+    "evidence": "runs/2026-10-11/experiments/haiku-calibration-1",
+    "scope_note": "Proven only on a caption layout gate and its test: one diagnostic and one repair, two named repaired cases, two unchanged controls, two mutation checks and a revert check. Unsupported renderers, art, story and source work stay on the Opus assignment. The three final scorers, the validator and the initial authored build are never admitted."
+  }
+}
