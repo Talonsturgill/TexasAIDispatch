@@ -44,13 +44,36 @@ def export(state):
     return result
 
 
+def sanitized_export(state, root):
+    """The canonical public export: the derived account, then the project's own sanitizer.
+
+    claude_checkpoint.public_ledger runs export() above and then replaces local paths with a
+    token and turns shipped Gmail identifiers, routing and receipts and every address into
+    digests. It imports this module lazily for export(), so this call is not recursive. The
+    private state is only read.
+    """
+    from claude_checkpoint import ledger_text
+    return ledger_text(state, root)
+
+
+def default_root(state_path, repo):
+    """The checkout a state file belongs to, so its absolute paths are the ones replaced."""
+    parts = state_path.resolve().parts
+    if len(parts) >= 3 and parts[-3:-1] == ('out', 'dispatch'):
+        return state_path.resolve().parents[2]
+    return repo
+
+
 if __name__ == '__main__':
     import argparse
     from pathlib import Path
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--state', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--root', type=Path, default=None,
+                        help='checkout whose absolute paths are replaced, default the one holding the state')
     args = parser.parse_args()
     if args.state.resolve() == args.out.resolve():
         raise SystemExit('Public export must never overwrite the private ledger')
-    args.out.write_text(json.dumps(export(json.loads(args.state.read_text())), indent=2) + '\n')
+    root = args.root or default_root(args.state, Path(__file__).resolve().parents[1])
+    args.out.write_text(sanitized_export(json.loads(args.state.read_text()), root))

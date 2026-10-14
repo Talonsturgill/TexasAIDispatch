@@ -123,6 +123,11 @@ message digests and a neutral operator attestation instead of message bytes or c
 python scripts/public_state.py --state out/dispatch/run_state.json --out runs/<date>/run_state.json
 ```
 
+The command writes the derived account through the same sanitizer a checkpoint uses. Local paths become a
+checkout token, and shipped Gmail identifiers, bound routing and readback files and every address become
+digests, so the exported ledger needs no further redaction. Usage, the frozen envelope, limits and every
+verdict are unchanged. It only reads the private state and refuses to overwrite it.
+
 Report the video, canonical link, scores, actual usage, CI/deployment results and verified
 unsent draft. Provider token telemetry excludes Codex account use; never label it total spend.
 Update automation memory with closure and UTC time. Keep next-five-edition measurement honest:
