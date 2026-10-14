@@ -1,0 +1,52 @@
+{
+ "purpose": "Binds the phone rendition and feed thumbnail to the pull request that added them. The controller shipment receipt names PR 148 as the Dispatch release, and PR 148 predates these two derived files. This record is separate, read from GitHub after the merge, and the controller receipt is unchanged.",
+ "edition": "2026-10-11",
+ "prs": {
+  "148": {
+   "url": "https://github.com/Talonsturgill/TexasAIDispatch/pull/148",
+   "merged": true,
+   "merged_at": "2026-10-14T01:14:08Z",
+   "head_sha": "0736b916e33e5e18de79795986da72f111c62da8",
+   "merge_commit_sha": "406636c4180869c634b12d086bc586ff8794c010",
+   "exact_head_checks": [
+    {
+     "name": "guards",
+     "conclusion": "success",
+     "completed_at": "2026-10-14T01:05:46Z",
+     "run_id": "38493220842"
+    }
+   ]
+  },
+  "155": {
+   "url": "https://github.com/Talonsturgill/TexasAIDispatch/pull/155",
+   "merged": true,
+   "merged_at": "2026-10-14T02:37:51Z",
+   "head_sha": "6ca56dc6359b27e38130c81d394fff2f6b33ec64",
+   "merge_commit_sha": "2dafc0a8df567f6bdbef224394cb6afe6974e0f0",
+   "exact_head_checks": [
+    {
+     "name": "guards",
+     "conclusion": "success",
+     "completed_at": "2026-10-14T02:37:33Z",
+     "run_id": "38501168025"
+    }
+   ],
+   "files_added": [
+    "runs/2026-10-11/dispatch-720.mp4",
+    "runs/2026-10-11/poster-540.jpg"
+   ]
+  }
+ },
+ "phone_assets": {
+  "mobile": {
+   "path": "runs/2026-10-11/dispatch-720.mp4",
+   "sha256": "d5959af09c0e1dbfbdb4e2f2ff43502a87dbf4dd18455ef1b11ceb248f6c93fa",
+   "bytes": 3478381
+  },
+  "poster_thumb": {
+   "path": "runs/2026-10-11/poster-540.jpg",
+   "sha256": "f1a9f90752b04bd22952b62afa5ff6aa5f1125c99815ed4dfd5b9ad016e67784",
+   "bytes": 52633
+  }
+ }
+}
