@@ -1,1 +1,5 @@
-(commands_run list and the scratchpad paths were abridged from this file; the full original handback is in the session transcript)
+The repair and diagnostic worker handbacks in this directory are the actual originals returned by the two Haiku workers, with local path text replaced by tokens and nothing else changed. handback-provenance.json records, for each, the genuine identity (agent, model, message and tool use ids, timestamp), the SHA-256 of the unchanged original, the SHA-256 of this sanitized public copy and the SHA-256 of the transcript it was read from. The unchanged originals are retained privately and are not published.
+
+An earlier draft of this archive carried a retyped, abridged repair handback that omitted commands_run and shortened the limits text. That draft was wrong and is replaced by handback-repair.json, which is derived from the actual original. The trial limitations are in the original limits field and in ledger.json, and they are not reduced.
+
+repair-brief.md is exactly what the repair worker was given. It quotes the diagnostic findings unchanged but shortened the file path text in the diagnostic's sound_paths entries. handback-diagnostic.json holds the diagnostic's actual full text.
