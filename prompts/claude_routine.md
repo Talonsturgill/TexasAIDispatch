@@ -325,6 +325,30 @@ historical assertion plus `claude_playback_problems`. The Codex Computer Use rou
 format stay valid. Never fabricate observations. If the page, media or browser fails, production
 stays active and the real failure is recorded.
 
+## Haiku mechanical route (future editions only)
+
+Effective for editions from the date in `mechanical_route.effective_from` in `config/claude_runtime.json`.
+One graded trial showed Haiku at high effort can diagnose and mechanically repair a caption layout gate when
+the case is strictly specified. The route admits only that shape of work and refuses everything else, which
+leaves the unchanged Opus assignment. Its evidence is `runs/2026-10-11/experiments/haiku-calibration-1`,
+including the trial limitations, and it supports no wider claim.
+
+- Two tasks only. `code-only-review` runs the storyboard critic read only on named gate tests.
+  `mechanical-correction` runs the scene builder on named gate tests with one failing case, named acceptance
+  results, named unchanged controls and named mutation checks.
+- Only gate tests are in scope: files under `video-engine/tests/` and `scripts/*_test.py`. Renderer source,
+  art, story, claims, config, prompts, ledgers and every run path are refused, as is the initial authored build.
+  The three final scorers, the validator, the researcher and the voice director never use this route.
+- The packet stays the normal complete hash-bound role packet with every current guide. Add a `mechanical`
+  object to it before planning, naming the task, the exact paths and the required fields, and keep expected
+  findings out of the packet. Plan with `python scripts/claude_runtime.py plan ... --mechanical-task <task>`.
+  An admitted plan adds only the Haiku spawn model and effort. The role, brief, packet and controller resource
+  are the unchanged ones, so reservations, charges and every gate are unchanged. A refusal is not an error to
+  work around. Plan the same task without the flag.
+- A Haiku result is never a verdict. Re run the named results, controls and mutation checks yourself, record the
+  actual agent identity, requested effort and observed usage, keep observed effort and billing unknown where
+  the host omits them, and let an Opus or Sonnet reviewer judge anything rendered.
+
 ## Capture authorization
 
 For a multi-repository cloud session, the environment setup registers the capture hook at its

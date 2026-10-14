@@ -2,9 +2,11 @@
 from __future__ import annotations
 import argparse
 from datetime import datetime, timezone
+import fnmatch
 import hashlib
 import json
 import os
+import posixpath
 from pathlib import Path
 import re
 import agent_runtime
@@ -137,7 +139,62 @@ def motion_inputs(data):
         raise ValueError('; '.join(errors))
 
 
-def plan(role, packet_path, task_name, scope):
+def mechanical_admission(role, data, task):
+    """Admit one packet to the Haiku mechanical route, or refuse so the Opus assignment stays.
+
+    The route is an overlay on the normal role packet. The packet keeps its full current guides and
+    hash bindings and the role keeps its controller resource, so nothing here lowers a gate or a
+    reservation. It admits two task kinds on two roles, only after its effective date, only for
+    gate tests, never for an initial authored build, and only for a blind, strictly specified packet.
+    Every doubt raises, because a refused overlay costs nothing and the default route is unchanged.
+    """
+    policy = read(POLICY)
+    cfg = policy.get('mechanical_route')
+    if not isinstance(cfg, dict):
+        raise ValueError('No mechanical route is declared')
+    from claude_contract_check import mechanical_route_problems
+    errors = mechanical_route_problems(policy)
+    if errors:
+        raise ValueError('; '.join(errors))
+    row = (cfg['tasks'] or {}).get(task)
+    if not row or row['role'] != role:
+        raise ValueError('Mechanical route does not admit ' + str(role) + ' for ' + str(task))
+    if str(data.get('date')) < cfg['effective_from']:
+        raise ValueError('Mechanical route does not apply to editions before ' + cfg['effective_from'])
+    if data.get('mode') == 'initial_authored_build':
+        raise ValueError('The initial authored build always keeps its Opus assignment')
+    spec = data.get('mechanical')
+    if not isinstance(spec, dict) or spec.get('task') != task:
+        raise ValueError('Packet lacks its mechanical declaration for ' + str(task))
+    if any(key in data or key in spec for key in ('expected', 'expected_findings', 'answers', 'hidden_answers')):
+        raise ValueError('A mechanical packet must be blind: expected findings stay outside it')
+    paths = spec.get('paths')
+    if not isinstance(paths, list) or not paths:
+        raise ValueError('Mechanical packet names no files')
+    for path in paths:
+        if (not isinstance(path, str) or path != posixpath.normpath(path) or path.startswith('/')
+                or '..' in path.split('/') or any(ch in path for ch in '*?[')):
+            raise ValueError('Mechanical path is not a plain repository path: ' + str(path))
+        if any(path.startswith(prefix) for prefix in cfg['forbidden_prefixes']):
+            raise ValueError('Mechanical route never touches ' + path)
+        if not any(fnmatch.fnmatchcase(path, pattern) for pattern in cfg['allowed_paths']):
+            raise ValueError('Mechanical route is limited to gate tests: ' + path)
+    if row['mode'] == 'read-only':
+        if spec.get('read_only') is not True or spec.get('edits'):
+            raise ValueError('A code-only review must be read-only')
+    else:
+        for key in cfg['correction_requires']:
+            value = spec.get(key)
+            if not value or (isinstance(value, list) and not all(isinstance(v, str) and v.strip() for v in value)):
+                raise ValueError('A mechanical correction needs its ' + key)
+        if not isinstance(spec['failing_case'], str):
+            raise ValueError('A mechanical correction needs one named failing case')
+    return {'route': cfg['version'], 'task': task, 'role': role, 'mode': row['mode'], 'paths': list(paths),
+            'model': cfg['model'], 'effort': cfg['effort'], 'spawn_model': cfg['spawn_model'],
+            'effective_from': cfg['effective_from'], 'evidence': cfg['evidence'], 'scope_note': cfg['scope_note']}
+
+
+def plan(role, packet_path, task_name, scope, mechanical_task=None):
     from claude_contract_check import problems
     errors = problems()
     if errors:
@@ -164,14 +221,27 @@ def plan(role, packet_path, task_name, scope):
                'hashes. Do NOT launch or spawn any subagents; do the work yourself and return your '
                'result. Never send email or post socially. Preserve actual rejected evidence. '
                'A code plan does not approve a rendered film.')
+    admitted = mechanical_admission(role, data, mechanical_task) if mechanical_task else None
+    if admitted:
+        message += (' Mechanical route ' + admitted['route'] + ' scope: touch only the files named in the packet'
+                    + (', read-only.' if admitted['mode'] == 'read-only' else
+                       ' and report each required named result, control and mutation check from a real run.'))
     if len(message) > 1800:
         raise ValueError('Claude assignment exceeds the compact handoff limit')
-    return {'assignment': route, 'packet': bound(packet_path), 'brief': bound(REPO / expected),
-            'agent_args': {'subagent_type': route['agent'], 'description': task_name[:50], 'prompt': message},
-            'model_binding': 'The versioned leaf definition pins the exact model and effort. '
-                             'Do not substitute Codex model or fork arguments.',
-            'reservation': 'Reserve the existing controller resource before executing this plan. '
-                           'The three final scorers remain one atomic charged panel.'}
+    result = {'assignment': route, 'packet': bound(packet_path), 'brief': bound(REPO / expected),
+              'agent_args': {'subagent_type': route['agent'], 'description': task_name[:50], 'prompt': message},
+              'model_binding': 'The versioned leaf definition pins the exact model and effort. '
+                               'Do not substitute Codex model or fork arguments.',
+              'reservation': 'Reserve the existing controller resource before executing this plan. '
+                             'The three final scorers remain one atomic charged panel.'}
+    if admitted:
+        # The spawn arguments override the leaf definition for this one task. The role, its brief, its
+        # complete guides and its controller resource are exactly the ones the Opus assignment carries.
+        result['agent_args'].update(model=admitted['spawn_model'], effort=admitted['effort'])
+        result['mechanical'] = admitted
+        result['model_binding'] = ('Mechanical route ' + admitted['route'] + ' overrides only the spawn model and '
+                                   'effort for this admitted task. Any refusal keeps the unchanged Opus assignment.')
+    return result
 
 
 def phase(name, root, checkpoint=True):
@@ -256,6 +326,7 @@ if __name__ == '__main__':
     p.add_argument('--claims', type=Path, required=True); p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('plan'); p.add_argument('--role', required=True); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
+    p.add_argument('--mechanical-task', choices=['code-only-review', 'mechanical-correction'])
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('phase'); p.add_argument('name'); p.add_argument('--root', type=Path, default=Path('out/dispatch'))
     p = sub.add_parser('audit'); p.add_argument('--session', type=Path, action='append', required=True)
@@ -270,7 +341,7 @@ if __name__ == '__main__':
     elif args.action == 'authoring-packet':
         result = authoring_packet(args.board, args.claims)
     elif args.action == 'plan':
-        result = plan(args.role, args.packet, args.task_name, args.scope)
+        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task)
     elif args.action == 'measure':
         cfg = dict(read(POLICY)); cfg['effective_date'] = cfg['authorized_at']
         result = agent_runtime.measurements(args.runs, cfg)
