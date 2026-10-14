@@ -171,7 +171,9 @@ def mechanical_admission(role, data, task):
     paths = spec.get('paths')
     if not isinstance(paths, list) or not paths:
         raise ValueError('Mechanical packet names no files')
-    for path in paths:
+    bound_paths = []
+    for entry in paths:
+        path = entry.get('path') if isinstance(entry, dict) else entry
         if (not isinstance(path, str) or path != posixpath.normpath(path) or path.startswith('/')
                 or '..' in path.split('/') or any(ch in path for ch in '*?[')):
             raise ValueError('Mechanical path is not a plain repository path: ' + str(path))
@@ -179,17 +181,24 @@ def mechanical_admission(role, data, task):
             raise ValueError('Mechanical route never touches ' + path)
         if not any(fnmatch.fnmatchcase(path, pattern) for pattern in cfg['allowed_paths']):
             raise ValueError('Mechanical route is limited to gate tests: ' + path)
+        target = (REPO / path).resolve()
+        if not target.is_file() or REPO.resolve() not in target.parents:
+            raise ValueError('Mechanical file does not exist in the repository: ' + path)
+        if not isinstance(entry, dict) or entry.get('sha256') != digest(target):
+            raise ValueError('Mechanical file must be named with its current sha256: ' + path)
+        bound_paths.append({'path': path, 'sha256': entry['sha256']})
     if row['mode'] == 'read-only':
         if spec.get('read_only') is not True or spec.get('edits'):
             raise ValueError('A code-only review must be read-only')
     else:
         for key in cfg['correction_requires']:
             value = spec.get(key)
-            if not value or (isinstance(value, list) and not all(isinstance(v, str) and v.strip() for v in value)):
-                raise ValueError('A mechanical correction needs its ' + key)
-        if not isinstance(spec['failing_case'], str):
-            raise ValueError('A mechanical correction needs one named failing case')
-    return {'route': cfg['version'], 'task': task, 'role': role, 'mode': row['mode'], 'paths': list(paths),
+            if key == 'failing_case':
+                if not isinstance(value, str) or not value.strip():
+                    raise ValueError('A mechanical correction needs one named failing case')
+            elif not (isinstance(value, list) and value and all(isinstance(v, str) and v.strip() for v in value)):
+                raise ValueError('A mechanical correction needs its ' + key + ' as a list of names')
+    return {'route': cfg['version'], 'task': task, 'role': role, 'mode': row['mode'], 'paths': bound_paths,
             'model': cfg['model'], 'effort': cfg['effort'], 'spawn_model': cfg['spawn_model'],
             'effective_from': cfg['effective_from'], 'evidence': cfg['evidence'], 'scope_note': cfg['scope_note']}
 
@@ -222,6 +231,11 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
                'result. Never send email or post socially. Preserve actual rejected evidence. '
                'A code plan does not approve a rendered film.')
     admitted = mechanical_admission(role, data, mechanical_task) if mechanical_task else None
+    if admitted:
+        named = {row['path'] for row in admitted['paths']}
+        for token in re.findall(r"[\w./-]+(?:/[\w.-]+|\.(?:py|mjs|cjs|js|tsx?|json|ya?ml|md|sh))", scope):
+            if token.strip('.') not in named:
+                raise ValueError('Mechanical scope names a file outside the admitted paths: ' + token)
     if admitted:
         message += (' Mechanical route ' + admitted['route'] + ' scope: touch only the files named in the packet'
                     + (', read-only.' if admitted['mode'] == 'read-only' else

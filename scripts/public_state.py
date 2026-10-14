@@ -46,7 +46,10 @@ def export(state):
     return result
 
 
-ABSOLUTE_PATH = re.compile(r"(?<![\w.~/:-])/(?:home|root|Users|tmp|var|mnt|opt|private)/[^\s\"'<>]+")
+# Any rooted path of two or more segments, wherever it points, plus file URLs. A URL path is preceded by a
+# host character, so it is skipped, and a repository token or a relative path never starts with a slash.
+ABSOLUTE_PATH = re.compile(r"file:/+[^\s\"'<>]+|(?<![\w.~/:}-])/[A-Za-z0-9_.@+~-]+/[^\s\"'<>]+")
+VERDICT_KIND = re.compile(r"(review|verdict|score|panel|critic|reject|fail|approv|accept)", re.I)
 CHARGE_BLOCKS = ('usage', 'resource_envelope', 'limits', 'escalations', 'escalation_ceiling')
 
 
@@ -60,6 +63,39 @@ def private_values(obj, private=False, key_pattern=None):
             yield from private_values(value, private, key_pattern)
     elif private and isinstance(obj, str) and len(obj) >= 8:
         yield obj
+
+
+def strings(obj):
+    if isinstance(obj, dict):
+        for value in obj.values():
+            yield from strings(value)
+    elif isinstance(obj, list):
+        for value in obj:
+            yield from strings(value)
+    elif isinstance(obj, str):
+        yield obj
+
+
+def private_key_problems(events, key_pattern):
+    """The sanitizer digests anything under a key that merely contains a private word. That is right for a
+    draft id or a path and wrong for a score, so a digested value must be a string and must not sit in an
+    event that records a verdict or a charged failure."""
+    def walk(node, kind):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key_pattern.search(str(key)):
+                    if not isinstance(value, str):
+                        yield str(kind) + '.' + str(key) + ' is not a string'
+                    elif VERDICT_KIND.search(str(kind)):
+                        yield str(kind) + '.' + str(key) + ' sits in a verdict event'
+                else:
+                    yield from walk(value, kind)
+        elif isinstance(node, list):
+            for value in node:
+                yield from walk(value, kind)
+    for event in events:
+        if isinstance(event, dict):
+            yield from walk(event, event.get('kind'))
 
 
 def sanitized_export(state, root):
@@ -78,9 +114,14 @@ def sanitized_export(state, root):
     text = c.ledger_text(state, root)
     if c.SECRET_TEXT.search(text) or any(v in text for v in c.credential_values(os.environ)):
         raise ValueError('public export refused: credential-shaped content in the ledger')
+    # Compared against the decoded strings of the output, since JSON escapes a newline, a quote or a backslash.
+    decoded = list(strings(json.loads(text)))
     for value in set(private_values(state, False, c.PRIVATE_KEY)):
-        if value in text:
+        if any(value in part for part in decoded):
             raise ValueError('public export refused: a value held under a private key survived under a neutral one')
+    problem = next(private_key_problems(state.get('events', []), c.PRIVATE_KEY), None)
+    if problem:
+        raise ValueError('public export refused: the sanitizer would replace protected evidence: ' + problem)
     found = ABSOLUTE_PATH.search(text)
     if found:
         raise ValueError('public export refused: an absolute local path survived: ' + found.group(0)[:40])

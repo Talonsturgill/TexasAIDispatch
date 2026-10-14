@@ -27,9 +27,17 @@ import claude_runtime as runtime
 CFG = json.loads(runtime.POLICY.read_text())
 ROUTE = CFG['mechanical_route']
 DAY = ROUTE['effective_from']
-REVIEW_PATHS = ['video-engine/tests/caption_board_fit.mjs']
-CORRECTION = {'task': 'mechanical-correction', 'paths': ['video-engine/tests/caption_board_fit.mjs',
-                                                        'scripts/caption_gate_repair_test.py'],
+
+
+def ref(path):
+    """A named file with its current hash, as a packet must carry it. A missing file keeps a placeholder hash."""
+    target = runtime.REPO / path
+    return {'path': path, 'sha256': runtime.digest(target) if target.is_file() else '0' * 64}
+
+
+REVIEW_PATHS = [ref('video-engine/tests/caption_board_fit.mjs')]
+CORRECTION = {'task': 'mechanical-correction', 'paths': [ref('video-engine/tests/caption_board_fit.mjs'),
+                                                        ref('scripts/agent_runtime_test.py')],
               'failing_case': 'repaired_settle_offset',
               'acceptance_results': ['repaired_settle_offset', 'repaired_alloy_max_lines'],
               'unchanged_controls': ['control_default_two_line', 'control_declared_fits_two_lines'],
@@ -90,18 +98,32 @@ class Admission(unittest.TestCase):
                    'video-engine/tests/*', 'video-engine/tests/a?.mjs', 'video-engine/tests/./x.mjs',
                    'video-engine/tests', 'scripts/x_test.mjs']
         for path in refused:
-            spec = copy.deepcopy(CORRECTION); spec['paths'] = [path]
+            spec = copy.deepcopy(CORRECTION); spec['paths'] = [ref(path)]
             with self.assertRaises(ValueError, msg=path):
                 self.admit('scene-builder', 'mechanical-correction', spec)
-        allowed = ['video-engine/tests/caption_board_fit.mjs', 'video-engine/tests/type_fit_probe.tsx',
+        allowed = ['video-engine/tests/caption_board_fit.mjs', 'video-engine/tests/cinema_pixels.py',
                    'scripts/public_state_test.py']
         for path in allowed:
-            spec = copy.deepcopy(CORRECTION); spec['paths'] = [path]
+            spec = copy.deepcopy(CORRECTION); spec['paths'] = [ref(path)]
             self.assertTrue(self.admit('scene-builder', 'mechanical-correction', spec), path)
         # One forbidden file among allowed ones refuses the whole packet.
-        spec = copy.deepcopy(CORRECTION); spec['paths'] = allowed + ['video-engine/src/lib/DispatchOverlays.tsx']
+        spec = copy.deepcopy(CORRECTION); spec['paths'] = [ref(p) for p in allowed + ['video-engine/src/lib/DispatchOverlays.tsx']]
         with self.assertRaises(ValueError):
             self.admit('scene-builder', 'mechanical-correction', spec)
+
+    def test_files_must_exist_and_carry_their_current_hash(self):
+        for entry in (ref('scripts/does_not_exist_test.py'), 'scripts/agent_runtime_test.py',
+                      {'path': 'scripts/agent_runtime_test.py'},
+                      dict(ref('scripts/agent_runtime_test.py'), sha256='f' * 64)):
+            spec = copy.deepcopy(CORRECTION); spec['paths'] = [entry]
+            with self.assertRaises(ValueError, msg=entry):
+                self.admit('scene-builder', 'mechanical-correction', spec)
+
+    def test_correction_fields_must_be_named_lists_of_names(self):
+        for key, bad in (('acceptance_results', 42), ('unchanged_controls', {'x': 1}), ('mutation_checks', True),
+                         ('failing_case', '  '), ('failing_case', ['x']), ('acceptance_results', 'x')):
+            with self.assertRaises(ValueError, msg=(key, bad)):
+                self.admit('scene-builder', 'mechanical-correction', dict(CORRECTION, **{key: bad}))
 
     def test_a_correction_needs_every_required_field(self):
         for key in ROUTE['correction_requires']:
@@ -168,8 +190,19 @@ class PlanWiring(unittest.TestCase):
             self.assertLessEqual(len(overlay['agent_args']['prompt']), 1800)
             self.assertIn('Never send email or post socially', overlay['agent_args']['prompt'])
 
+    def test_the_free_text_scope_can_not_widen_the_admitted_files(self):
+        path = self.write('scene-builder', CORRECTION)
+        ok = 'Fix the gate in scripts/agent_runtime_test.py and video-engine/tests/caption_board_fit.mjs.'
+        self.assertTrue(runtime.plan('scene-builder', path, 'task_one', ok, 'mechanical-correction'))
+        for scope in ('Also change scripts/public_state.py to match.', 'Inspect scripts/claude_checkpoint.py first.',
+                      'Edit video-engine/src/lib/DispatchOverlays.tsx', 'Update config/claude_runtime.json'):
+            with self.assertRaises(ValueError, msg=scope):
+                runtime.plan('scene-builder', path, 'task_one', scope, 'mechanical-correction')
+            # The unchanged assignment accepts the same wording, because only the overlay is narrowed.
+            self.assertTrue(runtime.plan('scene-builder', path, 'task_one', scope))
+
     def test_an_unsupported_request_fails_closed_while_the_default_plan_still_works(self):
-        bad = dict(CORRECTION, paths=['video-engine/src/lib/DispatchOverlays.tsx'])
+        bad = dict(CORRECTION, paths=[ref('video-engine/src/lib/DispatchOverlays.tsx')])
         path = self.write('scene-builder', bad)
         self.assertTrue(runtime.plan('scene-builder', path, 'task_one', 'Fix the named gate.'))
         with self.assertRaises(ValueError):
@@ -178,9 +211,9 @@ class PlanWiring(unittest.TestCase):
     def test_a_permissive_admission_would_route_forbidden_work(self):
         # Mutation: with the admission check weakened, renderer source is routed to Haiku. The real check
         # refuses it, so these tests would fail if someone loosened the route.
-        bad = dict(CORRECTION, paths=['video-engine/src/lib/DispatchOverlays.tsx'])
+        bad = dict(CORRECTION, paths=[ref('video-engine/src/lib/DispatchOverlays.tsx')])
         path = self.write('scene-builder', bad)
-        weakened = lambda role, data, task: {'route': 'x', 'mode': 'edit', 'spawn_model': 'haiku',
+        weakened = lambda role, data, task: {'route': 'x', 'mode': 'edit', 'paths': [], 'spawn_model': 'haiku',
                                              'effort': 'high', 'model': 'claude-haiku-5-5'}
         with mock.patch.object(runtime, 'mechanical_admission', weakened):
             routed = runtime.plan('scene-builder', path, 'task_one', 'Fix the named gate.', 'mechanical-correction')

@@ -205,6 +205,29 @@ class Refusals(Base):
             state["events"][0]["note"] = "see " + path
             self.assert_refused(state, "absolute local path survived", out_name="path%d.json" % index)
 
+    def test_paths_outside_the_named_roots_are_refused(self):
+        for index, path in enumerate(("/workspace/other/private.json", "/srv/dispatch/private.json",
+                                      "/etc/dispatch/config.json", "file:///home/me/private.json", "file:/x/y/z")):
+            state = shipped_state()
+            state["events"][0]["note"] = "see " + path
+            self.assert_refused(state, "absolute local path survived", out_name="generic%d.json" % index)
+
+    def test_a_multiline_private_value_copied_to_a_neutral_field_is_refused(self):
+        state = shipped_state()
+        secret = "line one of a private note\nline two with a \"quote\" and a back\\slash"
+        state["events"][0]["recipient"] = secret
+        state["events"][0]["note"] = secret
+        self.assert_refused(state, "private key survived under a neutral one")
+
+    def test_a_digested_key_may_not_replace_a_verdict_or_a_non_string(self):
+        state = shipped_state()
+        state["events"][1]["kind"] = "scorer_verdict"
+        state["events"][1]["routing_note"] = "x"
+        self.assert_refused(state, "protected evidence", out_name="verdict.json")
+        state = shipped_state()
+        state["events"][0]["routing_score"] = 7
+        self.assert_refused(state, "protected evidence", out_name="number.json")
+
     def test_a_charge_key_the_sanitizer_would_digest_is_refused(self):
         # A usage key that merely contains a private word would be replaced by a digest, which alters a charge.
         state = shipped_state()

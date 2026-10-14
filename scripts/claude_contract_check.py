@@ -23,7 +23,8 @@ from capture_guard import CAPTURE_COMMAND, capture_problems, placeholder_art  # 
 
 MECHANICAL_FORBIDDEN = ('.claude/', 'config/', 'prompts/', 'knowledge/', 'runs/', 'out/', 'ledger/',
                         'video-engine/src/', 'video-engine/public/', 'assets/', 'docs/')
-MECHANICAL_TASKS = {'code-only-review': 'storyboard-critic', 'mechanical-correction': 'scene-builder'}
+MECHANICAL_TASKS = {'code-only-review': ('storyboard-critic', 'read-only'),
+                    'mechanical-correction': ('scene-builder', 'edit')}
 MECHANICAL_REQUIRES = ('failing_case', 'acceptance_results', 'unchanged_controls', 'mutation_checks')
 
 
@@ -36,9 +37,9 @@ def mechanical_route_problems(cfg):
     if (route.get('model'), route.get('effort'), route.get('spawn_model')) != ('claude-haiku-5-5', 'high', 'haiku'):
         errors.append('mechanical route must use the proven Haiku high assignment')
     tasks = route.get('tasks')
-    if not isinstance(tasks, dict) or {k: v.get('role') for k, v in tasks.items()} != MECHANICAL_TASKS:
+    if not isinstance(tasks, dict) or {k: (v.get('role'), v.get('mode')) for k, v in tasks.items()} != MECHANICAL_TASKS:
         errors.append('mechanical route admits only code-only-review on the storyboard critic and '
-                      'mechanical-correction on the scene builder')
+                      'read-only and mechanical-correction on the scene builder as an edit')
     for row in (tasks or {}).values():
         if row.get('role') not in cfg['roles'] or row.get('role') in ('picture', 'story', 'sound', 'validator'):
             errors.append('mechanical route can never admit a final scorer or the validator')
@@ -258,6 +259,8 @@ class ContractTests(unittest.TestCase):
             'a lower effort': lambda d: d['mechanical_route'].update(effort='medium'),
             'a final scorer': lambda d: d['mechanical_route']['tasks'].update({'code-only-review': {'role': 'picture'}}),
             'the validator': lambda d: d['mechanical_route']['tasks'].update({'mechanical-correction': {'role': 'validator'}}),
+            'a review that may edit': lambda d: d['mechanical_route']['tasks']['code-only-review'].update(mode='edit'),
+            'a correction that is read-only': lambda d: d['mechanical_route']['tasks']['mechanical-correction'].update(mode='read-only'),
             'an extra task': lambda d: d['mechanical_route']['tasks'].update({'research': {'role': 'researcher'}}),
             'renderer source': lambda d: d['mechanical_route']['allowed_paths'].append('video-engine/src/*'),
             'a config path': lambda d: d['mechanical_route']['allowed_paths'].append('config/*'),

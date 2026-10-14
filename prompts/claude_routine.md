@@ -340,8 +340,9 @@ including the trial limitations, and it supports no wider claim.
   art, story, claims, config, prompts, ledgers and every run path are refused, as is the initial authored build.
   The three final scorers, the validator, the researcher and the voice director never use this route.
 - The packet stays the normal complete hash-bound role packet with every current guide. Add a `mechanical`
-  object to it before planning, naming the task, the exact paths and the required fields, and keep expected
-  findings out of the packet. Plan with `python scripts/claude_runtime.py plan ... --mechanical-task <task>`.
+  object to it before planning, naming the task, the exact existing files as `{path, sha256}` pairs and the required fields, and keep expected
+  findings out of the packet. The scope text may name only those files, and a correction's named results,
+  controls and mutation checks are non-empty lists of names. Plan with `python scripts/claude_runtime.py plan ... --mechanical-task <task>`.
   An admitted plan adds only the Haiku spawn model and effort. The role, brief, packet and controller resource
   are the unchanged ones, so reservations, charges and every gate are unchanged. A refusal is not an error to
   work around. Plan the same task without the flag.
