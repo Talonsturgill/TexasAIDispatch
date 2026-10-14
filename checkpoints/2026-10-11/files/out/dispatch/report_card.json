@@ -1,188 +1,173 @@
 {
   "schema": "dispatch_report_card/1",
-  "round": 2,
-  "score": 6.824,
-  "weighted_score": 6.824,
-  "ship": false,
+  "round": 3,
+  "score": 7.093,
+  "weighted_score": 7.093,
+  "ship": true,
   "axes": {
-    "craft": 6.467,
-    "hook": 6.6,
-    "picture": 6.667,
-    "place": 6.667,
+    "picture": 6.9,
+    "place": 6.867,
+    "craft": 6.867,
     "voice": 6.933,
-    "story": 7.467
+    "hook": 7.333,
+    "story": 7.5
   },
-  "hard_fails": [
-    "modern observation performed_turn failed at 25.0 to 29.2 s (tiny open line, unrecognizable responder icon)",
-    "modern finished_art failed 32.6 to 35.8 s and 18.4 to 22.8 s (cropped pan composition and unfinished dash block)",
-    "modern observation performed_turn failed at 25.0 to 29.2 s: the open line toward first responders is too small and ambiguous at 390 px to read as stopping short (provider also read it as linked)",
-    "judge 1 did not accept the attention/continuity",
-    "judge 2 did not accept the attention/continuity",
-    "judge 3 did not accept the attention/continuity",
-    "modern engagement or finish unproven: performed_turn",
-    "narration-picture relationship unproven: n5b",
-    "modern engagement or finish unproven: finished_art",
-    "narration-picture relationship unproven: n5b",
-    "modern engagement or finish unproven: performed_turn",
-    "narration-picture relationship unproven: n5b"
-  ],
+  "hard_fails": [],
   "judges": [
     {
       "audiovisual_role": "picture",
-      "audiovisual_receipt_sha256": "db97fdfe7c38b54e453a740b95e975ae7fc4636e8be12cb62239ae7dfaac4e52",
-      "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
-      "score": 6.8,
+      "audiovisual_receipt_sha256": "ac06d051b2a9cfdfdd730f656297e8f83c7e5547c39d4ef63e52e012b38582c3",
+      "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
+      "score": 6.984,
       "ship": false,
       "axes": {
-        "hook": 6.8,
-        "story": 7.4,
-        "picture": 6.2,
-        "place": 7.0,
-        "craft": 6.6,
-        "voice": 6.8
+        "hook": 7.0,
+        "story": 7.5,
+        "picture": 6.7,
+        "place": 6.8,
+        "craft": 6.8,
+        "voice": 7.0
       },
       "weakest_axis": "picture",
-      "hard_fails": [
-        "modern observation performed_turn failed at 25.0 to 29.2 s (tiny open line, unrecognizable responder icon)"
-      ],
-      "one_sentence_fix": "Rebuild the 25.0 to 29.2 s s5 wide shot so the dashed orange line from the landed alert visibly crosses to a large, recognizable fire-station and engine badge and stops short while Can share pins by 26.5 s. Add a visible event to the 33.8 to 35.8 and 38.8 to 40.0 s holds, remove Map from the disclosure label while the map inset is absent from 8.0 to 11.9 s, and re-render.",
+      "hard_fails": [],
+      "one_sentence_fix": "In the s3 cab shot enlarge the phone and alert so ALERT reads at 390 px, show the plume continuing past a locked flag box before the 23.8 s tag in s5, re-stage s6 as a full-width launch-to-now strip with one contrast mark and the tag pinned by 31.5 s, then re-render and re-review the exact film.",
       "attention_review": {
-        "pass": false,
-        "hook_observed": "At 0.2 s the compass ring spins and the camera head rotates, a smoke wisp appears about 1.4 s and the tower pull-back lands 3.4 to 4.6 s.",
-        "continuity_observed": "The tower, plume and alert card stay recognizable from lens to truck cab.",
-        "pacing_observed": "Dead or weak stretches: 26.8 to 29.2, 33.8 to 35.8, 38.8 to 40.0, 42.4 to 44.0 and the credits 44.2 to 49.0 (about 4.8 s).",
-        "comprehension_observed": "A viewer learns the camera flags smoke, the alert reaches the utility within an estimated ten minutes, 16 of 56 are up, the cameras don't stop fires and no response record is published. The responder-sharing limit is the muddiest beat.",
-        "remembered_image": "The alert card dropping from the lens display to the dash phone, then the ten-minute clock arc.",
-        "weakest_interval": "25.0 to 29.2 s. The responder line and icon are tiny and about 1.5 s is idle after the voice ends.",
-        "weakest_at_s": 25.0,
-        "weakest_end_s": 29.2,
-        "audio_basis": "No direct listening. Gemini receipt and raw response plus board captions measured to the audio.",
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9"
+        "pass": true,
+        "hook_observed": "The camera head swings at 0.2 s, the compass spins and a plume wisp appears at 1.2 s.",
+        "continuity_observed": "The pickup and the alert card persist across the scope, wide and cab transitions and the same truck and station stay visible in the s5 wide and the s8 composite.",
+        "pacing_observed": "Holds of about 2 s at 33.8 to 35.8, 7.4 to 9.2, 10.4 to 11.9 and 21.6 to 22.7 s, nothing rushed past comprehension.",
+        "comprehension_observed": "One viewing gives detection, the estimated ten minutes, no prevention, a possible but not shown responder share, no published response record and a plan awaiting state approval.",
+        "remembered_image": "The round scope with the flag box closing on a smoke plume, then the ALERT card landing on the dash phone.",
+        "weakest_interval": "29.4 to 35.8 s, the cab visor calendars picturing no major fire as blank months with about 3 s static over an empty lower dashboard.",
+        "weakest_at_s": 29.4,
+        "weakest_end_s": 35.8,
+        "audio_basis": "No direct listening. The Gemini receipt and measured caption timings only.",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20"
       },
       "modern_observations": {
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
         "first_frame": {
           "pass": true,
           "start_s": 0,
           "end_s": 1.5,
-          "observed": "The compass display pans and the head turns from frame 0."
+          "observed": "The display compass spins and the camera head turns from about 0.2 s."
         },
         "visual_progression": {
           "pass": true,
-          "start_s": 0,
-          "end_s": 44,
-          "observed": "Display, tower, count card, alert path, clock, limit, calendar, blank record and plan desk, each adding a new state."
+          "start_s": 0.5,
+          "end_s": 43.5,
+          "observed": "Lens, count, detection, alert, estimate, limit, no record and approval build in a causal order."
         },
         "shot_variety": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Close, wide, medium, cab interior, detail and split framings."
-        },
-        "closing_answer": {
-          "pass": true,
-          "start_s": 40,
-          "end_s": 44,
-          "observed": "The plan folder with an open slot resolves the opening and keeps the limits visible."
+          "observed": "Close display, wide tower, medium card, cab interior, dial, calendar, tailgate card and desk folder."
         },
         "performed_turn": {
-          "pass": false,
-          "start_s": 25.0,
-          "end_s": 29.2,
-          "observed": "The open line toward first responders is a short orange segment of about 60 px on a 390 px frame and the responder badge is a red hardhat icon on a grey shed. Neither reads as responders with labels covered."
+          "pass": true,
+          "start_s": 22.8,
+          "end_s": 29.3,
+          "observed": "The Doesn't prevent fires tag and the dashed line stopping at an open ring short of the badge. The turn leans on the tags."
         },
         "pace": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Reward gaps stay under 4 s, with dead time at 33.8 to 35.8, 38.8 to 40.0 and 42.4 to 44.0 s."
+          "observed": "No shot over 5 s, the longest s5 wide at 4.32 s. Holds of about 2 s at 27.4 to 29.26 and 33.8 to 35.78 s."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 40,
+          "end_s": 44,
+          "observed": "The folder with an open slot and Expected January 2027 answers the plan-waits clause. The composite is small at phone width."
         },
         "finished_art": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "The tower, cab, phone and clock are finished, the shed and hardhat and the calendar are generic."
+          "observed": "Finished authored art with flat clay walls in s2, s7 and s8 and a dark dash slab under the clock."
         }
       },
       "narration_picture_observations": {
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
         "clauses": [
           {
             "id": "n1",
             "pass": true,
             "start_s": 0.48,
             "end_s": 5.22,
-            "observed": "The lens display pans the dry land through one revolution as the head turns, a wisp appears at 1.4 s and the pull-back shows the whole tower."
+            "observed": "The camera head turns and the compass display pans the dry horizon with a wisp rising, then the view pulls back to the whole lattice tower."
           },
           {
             "id": "n2a",
             "pass": true,
             "start_s": 5.86,
             "end_s": 9.14,
-            "observed": "Rings light one by one to 16 on a 56-slot grid and a 16 installed header stamps at 8.0 s."
+            "observed": "Sixteen lens rings fill one by one on a 56-slot card and a 16 installed header stamps at 8.0 s."
           },
           {
             "id": "n2b",
             "pass": true,
             "start_s": 9.44,
             "end_s": 11.4,
-            "observed": "The 56 planned by February 2027 tag pins at 10.0 s. Planned rings do not visibly brighten."
+            "observed": "The 56 planned by February 2027 tag pins at about 10.0 s. The remaining slots stay outlined."
           },
           {
             "id": "n3a",
             "pass": true,
             "start_s": 12.2,
             "end_s": 13.9,
-            "observed": "The plume is flagged by the orange box at 13.2 to 13.6 s."
+            "observed": "The orange flag box closes on the plume at about 13.2 s."
           },
           {
             "id": "n3b",
             "pass": true,
             "start_s": 14.16,
             "end_s": 17.7,
-            "observed": "The card leaves the display, goes to the truck and lands on the cab phone at 17.0 to 17.6 s."
+            "observed": "The alert card leaves the display, reaches the truck by about 15.4 s and lands on the cab phone from about 16.0 to 17.4 s as a bubble."
           },
           {
             "id": "n4",
             "pass": true,
             "start_s": 18.54,
             "end_s": 22.08,
-            "observed": "The ten-minute wedge fills and Estimated within ten minutes pins at 21.0 s."
+            "observed": "The ten-minute wedge opens at about 19.0 s and Estimated within ten minutes lands at about 21.0 s."
           },
           {
             "id": "n5a",
             "pass": true,
             "start_s": 23.06,
             "end_s": 24.7,
-            "observed": "The plume keeps burning under the locked flag and the Doesn't prevent fires tag lands at 23.6 s."
+            "observed": "The plume keeps burning under the locked flag and the Doesn't prevent fires tag pins at about 23.8 s."
           },
           {
             "id": "n5b",
-            "pass": false,
+            "pass": true,
             "start_s": 25.18,
             "end_s": 28.6,
-            "observed": "Wide shot with the truck, the alert card, the station and a red responder badge. A short orange line and the Can share tag. The line and its gap to the badge are not legible at phone size."
+            "observed": "The dashed line grows from the truck's alert from about 26.4 s to an open ring short of the badge and Can share pins at about 27.0 s, keeping the source limit that sharing is only possible."
           },
           {
             "id": "n6",
             "pass": true,
             "start_s": 29.54,
             "end_s": 35.04,
-            "observed": "The visor calendar with Launch and Now, a month by month check pass and the attribution tag. The 32.5 to 35.8 s detail crop clips the Launch label to ar."
+            "observed": "A visor calendar from Launch to Now with no marks and Per AEP's wildfire lead pinning at about 33.2 s. The picture shows an absence, the weakest clause."
           },
           {
             "id": "n7",
             "pass": true,
             "start_s": 36.06,
             "end_s": 39.4,
-            "observed": "The blank Response record with Arrival and How much sooner fields that pulse and stay empty."
+            "observed": "A blank Response record on the tailgate with empty Arrival and How much sooner fields pulsing at about 37.4 and 38.2 s."
           },
           {
             "id": "n8",
             "pass": true,
             "start_s": 40.28,
             "end_s": 43.46,
-            "observed": "The Wildfire plan folder filed August 24th with an open State approval slot, Expected January 2027, then the composite."
+            "observed": "The Wildfire plan folder filed August 24th with an open State approval slot and Expected January 2027, then the closing composite."
           }
         ]
       },
@@ -192,45 +177,49 @@
         "retained_checks": {
           "source": {
             "pass": true,
-            "observed": "Every on-screen numeral and date traces to a verified quote in c2, c5, c9 or c11. The illustration is disclosed as not an AEP site."
+            "observed": "Every on-screen numeral matches a verified claim quote."
           },
           "rights": {
             "pass": true,
-            "observed": "Original authored art and a Kevin MacLeod CC BY 4.0 credit."
+            "observed": "Original authored art and a Kevin MacLeod CC BY 4.0 credit shown."
           },
           "legibility": {
             "pass": true,
-            "observed": "Captions and tags are readable at phone size. The responder icon and line are tiny."
+            "observed": "Captions are large at 390 px. The hero phone ALERT text and the credit text are small, noted as defects, not blocking."
           },
           "comprehension": {
-            "pass": false,
-            "observed": "n5b 25.0 to 28.6 s the responder-sharing picture is not recognizable with labels covered."
+            "pass": true,
+            "observed": "One viewing communicates detect, alert, estimate, no prevention, open responder line, no published record and a pending approval."
           },
           "technical_audio": {
             "pass": true,
-            "observed": "Unverified by this lens, Gemini reports clean audio."
+            "observed": "Not heard by this lens, relies on the Gemini receipt and measured captions."
           },
           "captions": {
             "pass": true,
-            "observed": "Captions follow measured boundaries with no overlap problem seen."
+            "observed": "Measured boundaries that track the clauses."
           }
         },
         "defects": [
           {
-            "finding": "performed_turn failed at 25.0 to 29.2 s: tiny open line and generic hardhat icon",
-            "category": "unknown"
+            "finding": "16.2 to 18.2 s hero payoff: alert card and phone about 60 px wide inside an empty dark dash, ALERT unreadable at phone width",
+            "category": "surface_finish"
           },
           {
-            "finding": "n5b clause picture unrecognizable at phone size with labels covered, 25.18 to 28.6 s",
-            "category": "unknown"
+            "finding": "23.0 to 24.8 s turn n5a is label-carried, the picture repeats the s3 scope view",
+            "category": "motion"
           },
           {
-            "finding": "Dead time at 33.8 to 35.8 s, 38.8 to 40.0 s and 42.4 to 44.0 s",
+            "finding": "29.4 to 35.8 s s6 calendars show the negative claim by blank months, about 3 s static over an empty lower dash",
             "category": "pacing"
           },
           {
-            "finding": "Disclosure label refers to a map that is absent from 8.0 to 11.9 s",
-            "category": "legibility"
+            "finding": "42.0 to 44.0 s closing composite is crowded and cropped, the State approval slot small, hard cut to credits",
+            "category": "ending_artistry"
+          },
+          {
+            "finding": "s2 and s7 flat brown walls with 40 to 45 percent empty frame, credit text about 8 to 9 px",
+            "category": "style"
           }
         ],
         "score_only": false
@@ -238,160 +227,158 @@
     },
     {
       "audiovisual_role": "story",
-      "audiovisual_receipt_sha256": "8cd3033c433fe83d4748f5763157a0f1e08a055e12e2246a32fcb84baf9557d7",
-      "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
-      "score": 6.71,
-      "ship": false,
+      "audiovisual_receipt_sha256": "babe43c2e8712af68ee7302c67b2c46f7326d470e0ee9ac464a0f5d0e2728ca3",
+      "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
+      "score": 7.16,
+      "ship": true,
       "axes": {
-        "hook": 6.0,
+        "hook": 7.5,
         "story": 7.5,
-        "picture": 6.8,
-        "place": 6.5,
-        "craft": 6.3,
+        "picture": 7.0,
+        "place": 7.0,
+        "craft": 6.8,
         "voice": 7.0
       },
       "weakest_axis": "craft",
-      "hard_fails": [
-        "modern finished_art failed 32.6 to 35.8 s and 18.4 to 22.8 s (cropped pan composition and unfinished dash block)"
-      ],
-      "one_sentence_fix": "Re-render the s6 pan so it ends on a fully composed frame with the Launch and Now labels uncropped and no dead window pillar, rebuild the s4 dash clock without the dark slab, enlarge the s5 responder badge and open line to phone-readable size, hedge the s7 line to AEP's page, and trim the closing composite so the plan folder isn't tied to the already-installed cameras.",
+      "hard_fails": [],
+      "one_sentence_fix": "Re-board s6 so the visor calendar shows each month block with an empty red-mark slot being checked and the tag pins by about 33.4 s, and replace the dark dash slab under the s4 clock.",
       "attention_review": {
-        "pass": false,
-        "hook_observed": "The head and compass move at 0.2 s, the smoke wisp at 1 to 2.5 s is tiny and the alert comes at 12 s.",
-        "continuity_observed": "Tower, display and truck are recognisable across the 12 s, 14 s and 25 s cuts.",
-        "pacing_observed": "No pause over 4 s.",
-        "comprehension_observed": "One viewing gets detection, alert, ten-minute estimate, no prevention and no published record, but the ending tangent and the tiny responder icon blur the limit.",
-        "remembered_image": "The alert card flying from the camera display to the truck and onto the cab phone.",
-        "weakest_interval": "32.6 to 35.8 s, a cropped pan. Repair by ending the pan on a composed frame.",
-        "weakest_at_s": 32.6,
-        "weakest_end_s": 35.8,
-        "audio_basis": "Gemini receipt plus board caption timings only, no direct listening.",
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9"
+        "pass": true,
+        "hook_observed": "The display compass bearings rotate and the camera head turns from 0.0 s, a smoke wisp at about 0.6 to 1.2 s, the caption at 0.5 s and the map inset at 2.2 s.",
+        "continuity_observed": "The same display carries 12.0 to 16.0, 22.8 to 25.0 and the 42.0 s composite and the same alert card travels display to truck to cab phone to clock.",
+        "pacing_observed": "No hold exceeds 2.6 s. The least earned holds are 34.0 to 35.78, 27.4 to 29.26 and the small 42.0 to 44.0 s tail.",
+        "comprehension_observed": "A viewer can state the camera detects smoke, the software sends the AEP Texas team a message within an estimated ten minutes, the cameras don't prevent fires, sharing is only possible, no response record is published and the plan awaits state approval. The s6 claim needs the caption to decode.",
+        "remembered_image": "The round compass display holding the orange-boxed smoke plume and the dashed line stopping short of the red badge.",
+        "weakest_interval": "29.4 to 35.78 s, a cropped visor calendar and a hanging tag illustrating a negative claim with blank grids.",
+        "weakest_at_s": 32.5,
+        "weakest_end_s": 35.78,
+        "audio_basis": "No direct listening. The Gemini receipt and the board's measured caption windows only.",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20"
       },
       "modern_observations": {
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
         "first_frame": {
           "pass": true,
           "start_s": 0,
           "end_s": 1.5,
-          "observed": "The compass display pans and the head turns from frame 0."
+          "observed": "The display compass spins and the camera head turns from about 0.2 s."
         },
         "visual_progression": {
           "pass": true,
-          "start_s": 0,
-          "end_s": 44,
-          "observed": "Display, tower, count card, alert path, clock, limit, calendar, blank record and plan desk, each adding a new state."
+          "start_s": 0.5,
+          "end_s": 43.5,
+          "observed": "Lens, count, detection, alert, estimate, limit, no record and approval build in a causal order."
         },
         "shot_variety": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Close, wide, medium, cab interior, detail and split framings."
-        },
-        "closing_answer": {
-          "pass": true,
-          "start_s": 40,
-          "end_s": 44,
-          "observed": "The plan folder with an open slot resolves the opening and keeps the limits visible."
+          "observed": "Close display, wide tower, medium card, cab interior, dial, calendar, tailgate card and desk folder."
         },
         "performed_turn": {
           "pass": true,
-          "start_s": 23.0,
-          "end_s": 28.6,
-          "observed": "The Doesn't prevent fires half is performed. The responder half is tiny."
+          "start_s": 22.8,
+          "end_s": 29.3,
+          "observed": "The Doesn't prevent fires tag and the dashed line stopping at an open ring short of the badge. The turn leans on the tags."
         },
         "pace": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Pauses of 1.6 to 2 s at 10.4 to 12.0, 28 to 29.3 and 33.8 to 35.8 s, none over 4 s."
+          "observed": "No shot over 5 s, the longest s5 wide at 4.32 s. Holds of about 2 s at 27.4 to 29.26 and 33.8 to 35.78 s."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 40,
+          "end_s": 44,
+          "observed": "The folder with an open slot and Expected January 2027 answers the plan-waits clause. The composite is small at phone width."
         },
         "finished_art": {
-          "pass": false,
-          "start_s": 32.6,
-          "end_s": 35.8,
-          "observed": "Mid-pan composition held 3 s, the Launch, earlier this year label cropped to ar, Now clipped, a hard window pillar and sky strip on the right quarter. Also 18.4 to 22.8 s a large dark unfinished slab under the clock and the dial cropped left from 20.6 s, and flat brown voids 5.6 to 12 and 36 to 40 s."
+          "pass": true,
+          "start_s": 0,
+          "end_s": 44,
+          "observed": "Finished authored art with flat clay walls in s2, s7 and s8 and a dark dash slab under the clock."
         }
       },
       "narration_picture_observations": {
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
         "clauses": [
           {
             "id": "n1",
             "pass": true,
             "start_s": 0.48,
             "end_s": 5.22,
-            "observed": "The lens display pans the dry land through one revolution as the head turns, a wisp appears at 1.4 s and the pull-back shows the whole tower."
+            "observed": "The camera head turns and the compass display pans the dry horizon with a wisp rising, then the view pulls back to the whole lattice tower."
           },
           {
             "id": "n2a",
             "pass": true,
             "start_s": 5.86,
             "end_s": 9.14,
-            "observed": "Rings light one by one to 16 on a 56-slot grid and a 16 installed header stamps at 8.0 s."
+            "observed": "Sixteen lens rings fill one by one on a 56-slot card and a 16 installed header stamps at 8.0 s."
           },
           {
             "id": "n2b",
             "pass": true,
             "start_s": 9.44,
             "end_s": 11.4,
-            "observed": "The 56 planned by February 2027 tag pins at 10.0 s. Planned rings do not visibly brighten."
+            "observed": "The 56 planned by February 2027 tag pins at about 10.0 s. The remaining slots stay outlined."
           },
           {
             "id": "n3a",
             "pass": true,
             "start_s": 12.2,
             "end_s": 13.9,
-            "observed": "The plume is flagged by the orange box at 13.2 to 13.6 s."
+            "observed": "The orange flag box closes on the plume at about 13.2 s."
           },
           {
             "id": "n3b",
             "pass": true,
             "start_s": 14.16,
             "end_s": 17.7,
-            "observed": "The card leaves the display, goes to the truck and lands on the cab phone at 17.0 to 17.6 s."
+            "observed": "The alert card leaves the display, reaches the truck by about 15.4 s and lands on the cab phone from about 16.0 to 17.4 s as a bubble."
           },
           {
             "id": "n4",
             "pass": true,
             "start_s": 18.54,
             "end_s": 22.08,
-            "observed": "The ten-minute wedge fills and Estimated within ten minutes pins at 21.0 s."
+            "observed": "The ten-minute wedge opens at about 19.0 s and Estimated within ten minutes lands at about 21.0 s."
           },
           {
             "id": "n5a",
             "pass": true,
             "start_s": 23.06,
             "end_s": 24.7,
-            "observed": "The plume keeps burning under the locked flag and the Doesn't prevent fires tag lands at 23.6 s."
+            "observed": "The plume keeps burning under the locked flag and the Doesn't prevent fires tag pins at about 23.8 s."
           },
           {
             "id": "n5b",
-            "pass": false,
+            "pass": true,
             "start_s": 25.18,
             "end_s": 28.6,
-            "observed": "Marginal fail. A tiny helmet icon, the Can share tag and a stub of line about 25 to 30 px at phone width. The share action is unreadable with captions covered."
+            "observed": "The dashed line grows from the truck's alert from about 26.4 s to an open ring short of the badge and Can share pins at about 27.0 s, keeping the source limit that sharing is only possible."
           },
           {
             "id": "n6",
             "pass": true,
             "start_s": 29.54,
             "end_s": 35.04,
-            "observed": "The visor calendar with Launch and Now, a month by month check pass and the attribution tag. The 32.5 to 35.8 s detail crop clips the Launch label to ar."
+            "observed": "A visor calendar from Launch to Now with no marks and Per AEP's wildfire lead pinning at about 33.2 s. The picture shows an absence, the weakest clause."
           },
           {
             "id": "n7",
             "pass": true,
             "start_s": 36.06,
             "end_s": 39.4,
-            "observed": "The blank Response record with Arrival and How much sooner fields that pulse and stay empty."
+            "observed": "A blank Response record on the tailgate with empty Arrival and How much sooner fields pulsing at about 37.4 and 38.2 s."
           },
           {
             "id": "n8",
             "pass": true,
             "start_s": 40.28,
             "end_s": 43.46,
-            "observed": "The Wildfire plan folder filed August 24th with an open State approval slot, Expected January 2027, then the composite."
+            "observed": "The Wildfire plan folder filed August 24th with an open State approval slot and Expected January 2027, then the closing composite."
           }
         ]
       },
@@ -401,206 +388,208 @@
         "retained_checks": {
           "source": {
             "pass": true,
-            "observed": "Every claim is verified with a fetched quote. The s7 line AEP publishes no record is absolute but the evidence is one AEP page."
+            "observed": "Every on-screen numeral and date traces to a verified claim quote and the illustration disclosure is shown throughout."
           },
           "rights": {
             "pass": true,
-            "observed": "Original authored art and a Kevin MacLeod CC BY 4.0 credit."
+            "observed": "Original authored art and a Kevin MacLeod Immersed CC BY 4.0 credit shown."
           },
           "legibility": {
             "pass": true,
-            "observed": "Type is legible, with the cropped label noted as surface finish."
+            "observed": "Captions, tags and records are legible at the 390 px phone samples."
           },
           "comprehension": {
             "pass": true,
-            "observed": "The mechanism and limits are understood after one viewing."
+            "observed": "Each narrated clause has a pictured subject and action. The s6 negative claim is the least literal."
           },
           "technical_audio": {
             "pass": true,
-            "observed": "Rests on the Gemini receipt and board captions only."
+            "observed": "Not independently heard, relies on the Gemini receipt and the packet's audio gates."
           },
           "captions": {
             "pass": true,
-            "observed": "Measured boundaries, matches the clauses."
+            "observed": "Measured boundary entries that match the spoken clauses."
           }
         },
         "defects": [
           {
-            "finding": "cropped pan and unfinished dash 32.6 to 35.8 s and 18.4 to 22.8 s",
+            "finding": "s6 calendar abstracts the no response needed claim and holds a cropped detail",
+            "category": "pacing"
+          },
+          {
+            "finding": "the dash clock sits on a dark rectangular slab",
             "category": "surface_finish"
           },
           {
-            "finding": "tiny share action 25.2 to 28.6 s",
-            "category": "motion"
+            "finding": "the ALERT label on the card is clipped by its pin dot at 14.2 to 20.8 s",
+            "category": "surface_finish"
           },
           {
-            "finding": "flat brown voids 5.6 to 12 s and 36 to 40 s",
+            "finding": "the closing composite at 42.0 to 44.0 s is dense and small at phone size",
+            "category": "ending_artistry"
+          },
+          {
+            "finding": "wall-view scenes s2, s7 and s8 first half hold flat clay with no region",
             "category": "style"
-          },
-          {
-            "finding": "credits card static 5.0 s",
-            "category": "pacing"
           }
         ],
-        "score_only": false
+        "score_only": true
       }
     },
     {
       "audiovisual_role": "sound",
-      "audiovisual_receipt_sha256": "4ed0ce0a94c1807474a99ce8af5d39d48d3b0dd5e7ff13c1735d05ccf92bcd69",
-      "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
-      "score": 6.96,
-      "ship": false,
+      "audiovisual_receipt_sha256": "69394f80c164b0172cd249f9f2fe73069b7880b89fcacc6c7e3aa11354fb050b",
+      "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
+      "score": 7.134,
+      "ship": true,
       "axes": {
-        "hook": 7.0,
+        "hook": 7.5,
         "story": 7.5,
         "picture": 7.0,
-        "place": 6.5,
-        "craft": 6.5,
-        "voice": 7.0
+        "place": 6.8,
+        "craft": 7.0,
+        "voice": 6.8
       },
-      "weakest_axis": "craft",
-      "hard_fails": [
-        "modern observation performed_turn failed at 25.0 to 29.2 s: the open line toward first responders is too small and ambiguous at 390 px to read as stopping short (provider also read it as linked)"
-      ],
-      "one_sentence_fix": "Rework the s5 open-line wide shot into a close or medium on the truck-to-station gap with a dashed line at least a third of the frame wide and a visible gap before the red badge, with Can share landing only after the line stops, and re-crop the s6 attribution-pin shot so Launch, earlier this year isn't clipped and the right-edge seam is gone, then re-render and rerun all three reviews.",
+      "weakest_axis": "voice",
+      "hard_fails": [],
+      "one_sentence_fix": "Move the flag-lock, phone-buzz and tag-pin cue start times to the visible contact frames and redraw the s5 dashed line gap so it reads at 390 px, then remix and re-render.",
       "attention_review": {
-        "pass": false,
-        "hook_observed": "Motion from 0.0 s as the compass display pans and the head turns, the wisp rises at 1.4 s and the pull-back runs 2.8 to 5.0 s.",
-        "continuity_observed": "The same display, plume, alert card and truck carry from the lens to the cab.",
-        "pacing_observed": "Quiet stretches 33.6 to 35.8, 27.4 to 29.3 and 9.8 to 11.9 s.",
-        "comprehension_observed": "A viewer understands the flag, the estimate, the limits and the pending plan. Whether the responder line is open or connected is not reliably legible.",
-        "remembered_image": "The round lens display with the plume and orange flag with the alert card leaving its edge.",
-        "weakest_interval": "25.0 to 29.2 s, the open line is a roughly 40 px stub and reads as a link.",
-        "weakest_at_s": 25.0,
-        "weakest_end_s": 29.2,
-        "audio_basis": "Provider receipt only, no listening and no loudness or true-peak measurements provided to this lens.",
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9"
+        "pass": true,
+        "hook_observed": "The camera head turns and the display compass heading changes from 0.0 to 0.2 s and a wisp appears by about 1.4 s.",
+        "continuity_observed": "The tower, lit display and small plume carry from s1 to s3 and s5 and the alert card is traceable from display to truck to cab.",
+        "pacing_observed": "Dead stretches 10.6 to 12.0, 27.4 to 29.26, 33.6 to 35.78 and 38.8 to 40.0 s, each under 2.5 s.",
+        "comprehension_observed": "One viewing delivers the detection, the ten-minute estimate, no prevention, a possible responder share, no response record and the pending plan. The visor calendar and the thin open-line gap are where the picture does not carry the sentence by itself.",
+        "remembered_image": "The round lens display holding smoke inside an orange flag box with a Doesn't prevent fires tag.",
+        "weakest_interval": "33.4 to 35.78 s, the calendar tag pinning late and holding static for about 2.2 s.",
+        "weakest_at_s": 33.4,
+        "weakest_end_s": 35.78,
+        "audio_basis": "No direct listening. Basis: the Gemini receipt and raw response, mix.json, captions.json, words.json, sfx_events.json, music_credit.txt and a comparison of cue times against the frame sequence.",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20"
       },
       "modern_observations": {
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
         "first_frame": {
           "pass": true,
           "start_s": 0,
           "end_s": 1.5,
-          "observed": "The compass display pans and the head turns from frame 0."
+          "observed": "The display compass spins and the camera head turns from about 0.2 s."
         },
         "visual_progression": {
           "pass": true,
-          "start_s": 0,
-          "end_s": 44,
-          "observed": "Display, tower, count card, alert path, clock, limit, calendar, blank record and plan desk, each adding a new state."
+          "start_s": 0.5,
+          "end_s": 43.5,
+          "observed": "Lens, count, detection, alert, estimate, limit, no record and approval build in a causal order."
         },
         "shot_variety": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Close, wide, medium, cab interior, detail and split framings."
-        },
-        "closing_answer": {
-          "pass": true,
-          "start_s": 40,
-          "end_s": 44,
-          "observed": "The plan folder with an open slot resolves the opening and keeps the limits visible."
+          "observed": "Close display, wide tower, medium card, cab interior, dial, calendar, tailgate card and desk folder."
         },
         "performed_turn": {
-          "pass": false,
-          "start_s": 25.0,
-          "end_s": 29.2,
-          "observed": "The Doesn't prevent fires half is performed. The open line stopping short of the responder badge is too small to read at phone size and is unproven."
+          "pass": true,
+          "start_s": 22.8,
+          "end_s": 29.3,
+          "observed": "The Doesn't prevent fires tag and the dashed line stopping at an open ring short of the badge. The turn leans on the tags."
         },
         "pace": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Developments land about every 1.4 to 3.3 s with no unearned hold over 4 s."
+          "observed": "No shot over 5 s, the longest s5 wide at 4.32 s. Holds of about 2 s at 27.4 to 29.26 and 33.8 to 35.78 s."
+        },
+        "closing_answer": {
+          "pass": true,
+          "start_s": 40,
+          "end_s": 44,
+          "observed": "The folder with an open slot and Expected January 2027 answers the plan-waits clause. The composite is small at phone width."
         },
         "finished_art": {
           "pass": true,
           "start_s": 0,
           "end_s": 44,
-          "observed": "Clean authored vector and 2.5D work with blemishes: the dark dash block 18.4 to 22.8 s, the clipped label and seam 32.6 to 35.8 s."
+          "observed": "Finished authored art with flat clay walls in s2, s7 and s8 and a dark dash slab under the clock."
         }
       },
       "narration_picture_observations": {
-        "film_sha256": "40ddf86ae93d2c1bdbb76fbe06d6fad07615c515b5044496dce182087f00f9c9",
+        "film_sha256": "e271e6fb385a067a84de6f82a70431406364986eb62bd504203f31ae3e319d20",
         "clauses": [
           {
             "id": "n1",
             "pass": true,
             "start_s": 0.48,
             "end_s": 5.22,
-            "observed": "The lens display pans the dry land through one revolution as the head turns, a wisp appears at 1.4 s and the pull-back shows the whole tower."
+            "observed": "The camera head turns and the compass display pans the dry horizon with a wisp rising, then the view pulls back to the whole lattice tower."
           },
           {
             "id": "n2a",
             "pass": true,
             "start_s": 5.86,
             "end_s": 9.14,
-            "observed": "Rings light one by one to 16 on a 56-slot grid and a 16 installed header stamps at 8.0 s."
+            "observed": "Sixteen lens rings fill one by one on a 56-slot card and a 16 installed header stamps at 8.0 s."
           },
           {
             "id": "n2b",
             "pass": true,
             "start_s": 9.44,
             "end_s": 11.4,
-            "observed": "The 56 planned by February 2027 tag pins at 10.0 s. Planned rings do not visibly brighten."
+            "observed": "The 56 planned by February 2027 tag pins at about 10.0 s. The remaining slots stay outlined."
           },
           {
             "id": "n3a",
             "pass": true,
             "start_s": 12.2,
             "end_s": 13.9,
-            "observed": "The plume is flagged by the orange box at 13.2 to 13.6 s."
+            "observed": "The orange flag box closes on the plume at about 13.2 s."
           },
           {
             "id": "n3b",
             "pass": true,
             "start_s": 14.16,
             "end_s": 17.7,
-            "observed": "The card leaves the display, goes to the truck and lands on the cab phone at 17.0 to 17.6 s."
+            "observed": "The alert card leaves the display, reaches the truck by about 15.4 s and lands on the cab phone from about 16.0 to 17.4 s as a bubble."
           },
           {
             "id": "n4",
             "pass": true,
             "start_s": 18.54,
             "end_s": 22.08,
-            "observed": "The ten-minute wedge fills and Estimated within ten minutes pins at 21.0 s."
+            "observed": "The ten-minute wedge opens at about 19.0 s and Estimated within ten minutes lands at about 21.0 s."
           },
           {
             "id": "n5a",
             "pass": true,
             "start_s": 23.06,
             "end_s": 24.7,
-            "observed": "The plume keeps burning under the locked flag and the Doesn't prevent fires tag lands at 23.6 s."
+            "observed": "The plume keeps burning under the locked flag and the Doesn't prevent fires tag pins at about 23.8 s."
           },
           {
             "id": "n5b",
-            "pass": false,
+            "pass": true,
             "start_s": 25.18,
             "end_s": 28.6,
-            "observed": "Fail. The line and its gap to the badge are about 3 to 14 percent of frame width and the stops-short meaning is not legible at 390 px. The provider read it as linked."
+            "observed": "The dashed line grows from the truck's alert from about 26.4 s to an open ring short of the badge and Can share pins at about 27.0 s, keeping the source limit that sharing is only possible."
           },
           {
             "id": "n6",
             "pass": true,
             "start_s": 29.54,
             "end_s": 35.04,
-            "observed": "The visor calendar with Launch and Now, the check pass and the tag. The 32.5 to 35.8 s detail crop clips the label to ar and shows a vertical seam."
+            "observed": "A visor calendar from Launch to Now with no marks and Per AEP's wildfire lead pinning at about 33.2 s. The picture shows an absence, the weakest clause."
           },
           {
             "id": "n7",
             "pass": true,
             "start_s": 36.06,
             "end_s": 39.4,
-            "observed": "The blank Response record with Arrival and How much sooner fields that pulse and stay empty."
+            "observed": "A blank Response record on the tailgate with empty Arrival and How much sooner fields pulsing at about 37.4 and 38.2 s."
           },
           {
             "id": "n8",
             "pass": true,
             "start_s": 40.28,
             "end_s": 43.46,
-            "observed": "The Wildfire plan folder filed August 24th with an open State approval slot, Expected January 2027, then the composite."
+            "observed": "The Wildfire plan folder filed August 24th with an open State approval slot and Expected January 2027, then the closing composite."
           }
         ]
       },
@@ -610,45 +599,45 @@
         "retained_checks": {
           "source": {
             "pass": true,
-            "observed": "Every on-screen number and date traces to a verified claim quote."
+            "observed": "Numerals trace to verified quotes. The n6 calendar implies a duration since launch that c7 doesn't publish."
           },
           "rights": {
             "pass": true,
-            "observed": "Original authored groups and a credited CC BY 4.0 music line."
+            "observed": "Authored pictures, Immersed under CC BY 4.0 with the generated credit shown, designed foley."
           },
           "legibility": {
-            "pass": false,
-            "observed": "The open line and gap at 26.4 to 28.6 s are about 40 px at 390 px width and the s6 detail clips Launch, earlier this year to ar."
+            "pass": true,
+            "observed": "Captions, tags and credits read at 390 px."
           },
           "comprehension": {
             "pass": true,
-            "observed": "The mechanism, estimate, limits, blank record and pending plan are understood. The responder-link nuance is carried under legibility."
+            "observed": "The central claim and limit follow from the sequence, the open-line gap and the calendar are the weak spots."
           },
           "technical_audio": {
-            "pass": false,
-            "observed": "Unproven, not observed failing. Only provider claims exist and no measurements were supplied to this lens."
+            "pass": true,
+            "observed": "Measured -16.05 LUFS and -1.99 dBTP, no time stretch, 2352000 samples, bed 19 dB under voice. Not verified by listening."
           },
           "captions": {
             "pass": true,
-            "observed": "Caption text matches the script and windows match the measured boundaries to within 0.2 s."
+            "observed": "Eleven clause cues with measured edges. Word times inside cues are modelled."
           }
         },
         "defects": [
           {
-            "finding": "performed_turn / n5b: open line toward first responders too small and ambiguous at 25.0 to 29.2 s",
-            "category": "legibility"
+            "finding": "Contact foley cues flag-lock, phone-buzz and tag-pin start 0.2 to 0.7 s before the visible contact",
+            "category": "style"
           },
           {
-            "finding": "s6 attribution-pin detail crop clips the label and shows a seam at 32.5 to 35.8 s",
+            "finding": "Open line gap is small at phone size and not discernible in the 42.0 to 43.8 s closing composite",
+            "category": "motion"
+          },
+          {
+            "finding": "Visor calendar depicts absence only, implies a span since launch, attribution tag lands about 2 s after wildfire lead says",
+            "category": "pacing"
+          },
+          {
+            "finding": "Lower roughly 40 percent of the s2, s7 and s8 first-half frames is flat empty wall",
             "category": "surface_finish"
-          },
-          {
-            "finding": "Dark rectangular dash block under the clock at 18.4 to 22.8 s reads unfinished",
-            "category": "surface_finish"
-          },
-          {
-            "finding": "Designed foley cues unconfirmed by the provider",
-            "category": "unknown"
           }
         ],
         "score_only": false
