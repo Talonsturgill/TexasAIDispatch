@@ -119,6 +119,28 @@ class Admission(unittest.TestCase):
             with self.assertRaises(ValueError, msg=entry):
                 self.admit('scene-builder', 'mechanical-correction', spec)
 
+    def test_an_alias_to_forbidden_source_is_refused(self):
+        # Fixture links sit inside the repository under allowed names and point at forbidden files.
+        made = []
+        try:
+            for name, target in (('scripts/zz_alias_file_test.py', '../prompts/claude_routine.md'),
+                                 ('video-engine/tests/zz_alias_src.mjs', '../src/lib/DispatchOverlays.tsx')):
+                link = runtime.REPO / name
+                if not (runtime.REPO / name).parent.joinpath(target).resolve().is_file():
+                    continue
+                link.symlink_to(target); made.append(link)
+                spec = copy.deepcopy(CORRECTION); spec['paths'] = [ref(name)]
+                with self.assertRaisesRegex(ValueError, 'alias', msg=name):
+                    self.admit('scene-builder', 'mechanical-correction', spec)
+            self.assertTrue(made)
+            # Mutation: the earlier checks alone (name, pattern, existence, hash, containment) admit the alias.
+            link = made[0]; target = link.resolve()
+            self.assertTrue(link.is_file() and runtime.REPO.resolve() in target.parents
+                            and ref(link.relative_to(runtime.REPO).as_posix())['sha256'] == runtime.digest(target))
+        finally:
+            for link in made:
+                link.unlink()
+
     def test_correction_fields_must_be_named_lists_of_names(self):
         for key, bad in (('acceptance_results', 42), ('unchanged_controls', {'x': 1}), ('mutation_checks', True),
                          ('failing_case', '  '), ('failing_case', ['x']), ('acceptance_results', 'x')):

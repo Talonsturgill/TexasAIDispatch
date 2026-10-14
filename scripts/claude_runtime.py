@@ -184,6 +184,11 @@ def mechanical_admission(role, data, task):
         target = (REPO / path).resolve()
         if not target.is_file() or REPO.resolve() not in target.parents:
             raise ValueError('Mechanical file does not exist in the repository: ' + path)
+        # An alias would pass the name checks above while the bytes belong to another file, so the resolved
+        # repository path must be the admitted exact name, and each link on the way is refused.
+        if target.relative_to(REPO.resolve()).as_posix() != path or any(
+                (REPO / Path(*path.split('/')[:n])).is_symlink() for n in range(1, len(path.split('/')) + 1)):
+            raise ValueError('Mechanical file is an alias, not the named file: ' + path)
         if not isinstance(entry, dict) or entry.get('sha256') != digest(target):
             raise ValueError('Mechanical file must be named with its current sha256: ' + path)
         bound_paths.append({'path': path, 'sha256': entry['sha256']})
