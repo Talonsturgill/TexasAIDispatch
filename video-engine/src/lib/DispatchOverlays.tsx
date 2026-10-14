@@ -1,7 +1,7 @@
 import React from 'react';
 import {useCurrentFrame, useVideoConfig, interpolate, Easing} from 'remotion';
 import {FONT} from './type';
-import {captionLayout, creditLayout, CAPTION_BAND} from './editorial';
+import {captionLayout, captionBandHeight, creditLayout, CAPTION_BAND} from './editorial';
 import {DocketMark} from '../branding/DocketMark';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './safearea';
 import type {Cue} from '../Dispatch';
@@ -14,19 +14,19 @@ const CAP_PAD_R = CAPTION_BAND.padding;
 
 const CAP_W = SAFE_RIGHT - CAP_X - CAP_PAD_L - CAP_PAD_R;
 
-const capFit = (text?: string): {lines: string[]; size: number} =>
-  captionLayout(text ?? '', CAP_W);
+const capFit = (text?: string, maxLines?: number): {lines: string[]; size: number} =>
+  captionLayout(text ?? '', CAP_W, maxLines === 3 ? 3 : 2);
 
 export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps}) => {
   const f = useCurrentFrame();
   const t = f / fps;
-  const layouts = React.useMemo(() => cues.map((cue) => capFit(cue.text)), [cues]);
+  const layouts = React.useMemo(() => cues.map((cue) => capFit(cue.text, cue.max_lines)), [cues]);
   const index = cues.findIndex((cue) => t >= cue.start && t < cue.end);
   if (index < 0) return null;
   const cue = cues[index];
   const {lines, size} = layouts[index];
   const lead = size * 1.23;
-  const h = lines.length * lead + 20;
+  const h = captionBandHeight({lines, size});
   const settle = interpolate((t - cue.start) * fps, [0, 6], [-6, 0],
     {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   // The whole measured cue is visible from its first frame. No simulated word clock,

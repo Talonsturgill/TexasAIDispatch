@@ -26,6 +26,10 @@ What this refuses, and each one shipped somewhere:
   Any of those renders as a subtitle that outlives its words.
 - an EMPTY cue list. A film with no subtitles at all passed every check once, because
   every per-cue assertion is vacuously true over nothing.
+- a `max_lines` other than 2 or 3. A cue declares 3 only when its measured sentence has no
+  measured silence to split at; the renderer then may give it a third line at 40 or more,
+  and `video-engine/tests/caption_board_fit.mjs` holds it to that. The field is carried
+  into the board only on the cue that declares it, so every other cue folds as before.
 
 Run by EXIT CODE.
 
@@ -92,6 +96,10 @@ def fold(board: dict, caps: dict) -> tuple[dict, list[str]]:
             errs.append(
                 f"{where} ends at {en}, past the film's own {runtime} second runtime, so "
                 f"its words are on screen after the picture they belong to is gone.")
+        if "max_lines" in c and (type(c["max_lines"]) is not int or c["max_lines"] not in (2, 3)):
+            errs.append(
+                f"{where} declares max_lines {c['max_lines']!r}. Only 2 or 3 is allowed, and 3 "
+                f"only for a measured cue with no measured silence to split at.")
         prev_end = max(prev_end, en)
 
     if errs:
@@ -102,7 +110,8 @@ def fold(board: dict, caps: dict) -> tuple[dict, list[str]]:
          "start": round(float(c["start"]), 3),
          "end": round(float(c["end"]), 3),
          "text": str(c["text"]).strip(),
-         "source": str(c.get("source") or "")}
+         "source": str(c.get("source") or ""),
+         **({"max_lines": int(c["max_lines"])} if "max_lines" in c else {})}
         for i, c in enumerate(cues)
     ]
     board["caption_method"] = method
@@ -164,6 +173,17 @@ def _self_test() -> int:
     long_board = {"runtime_s": 5, "scenes": [{"start_s": 0, "duration_s": 10}]}
     _, e9 = fold(long_board, good)
     ok("the film's real length comes from the scenes, not only from runtime_s", not e9)
+
+    declared = dict(good, cues=[dict(good["cues"][0], max_lines=3), good["cues"][1]])
+    b10, e10 = fold(json.loads(json.dumps(board)), declared)
+    ok("a cue declaring max_lines 3 folds and keeps the declaration", not e10
+       and b10["captions"][0].get("max_lines") == 3)
+    ok("...and a cue without it folds exactly as before", not e10
+       and b10["captions"][1] == b["captions"][1] and "max_lines" not in b10["captions"][1])
+    for bad in (4, 1, "3", True, 3.0, 2.0, None):
+        _, e11 = fold(json.loads(json.dumps(board)),
+                      dict(good, cues=[dict(good["cues"][0], max_lines=bad), good["cues"][1]]))
+        ok(f"max_lines {bad!r} is refused", bool(e11))
 
     print()
     print("board_captions self-test: " + ("all passed" if not fails else f"{len(fails)} FAILED"))

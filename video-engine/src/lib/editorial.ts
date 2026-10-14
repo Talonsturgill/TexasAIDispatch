@@ -4,33 +4,61 @@ import {widthOf, wrapBreakableToWidth, wrapToWidth} from './type';
 export const CAPTION_BAND = {left: 36, padding: 12, right: SAFE_RIGHT, bottom: SAFE_BOTTOM};
 export const CAPTION_TEXT_WIDTH = CAPTION_BAND.right - CAPTION_BAND.left - 2 * CAPTION_BAND.padding;
 
-/** Balance complete phrases without inventing word timings or dropping a word. */
-export function captionLayout(text: string, width: number): {lines: string[]; size: number} {
+/** The lowest two-line size a cue that declares max_lines 3 keeps before it may take a third line. */
+export const CAPTION_THIRD_LINE_BELOW = 34;
+/** The sizes a declared three-line cue may use. Below these it keeps its two-line layout. */
+const THIRD_LINE_SIZES = [44, 42, 40];
+
+/** The caption band's height for a layout, in the same arithmetic the band is drawn with. */
+export const captionBandHeight = (fit: {lines: string[]; size: number}): number =>
+  fit.lines.length * (fit.size * 1.23) + 20;
+
+/** Balanced lines of complete phrases at one size, or null when `count` lines can't hold them. */
+function balanced(words: string[], text: string, width: number, size: number, maxLines: number): string[] | null {
+  const greedy = wrapToWidth(text, width, size, true);
+  if (greedy.length > maxLines || greedy.some((line) => widthOf(line, size, true) > width)) return null;
+  const count = greedy.length;
+  const target = widthOf(words.join(' '), size, true) / count;
+  // Minimise raggedness across the lines,
+  // so a lone trailing word doesn't hang below a nearly full paragraph.
+  const solve = (start: number, remaining: number): {lines: string[]; cost: number} | null => {
+    if (!remaining) return start === words.length ? {lines: [], cost: 0} : null;
+    let best: {lines: string[]; cost: number} | null = null;
+    for (let end = start + 1; end <= words.length - remaining + 1; end++) {
+      const line = words.slice(start, end).join(' ');
+      const measured = widthOf(line, size, true);
+      if (measured > width) break;
+      const tail = solve(end, remaining - 1);
+      if (!tail) continue;
+      const cost = (measured - target) ** 2 + tail.cost;
+      if (!best || cost < best.cost) best = {lines: [line, ...tail.lines], cost};
+    }
+    return best;
+  };
+  return solve(0, count)?.lines ?? greedy;
+}
+
+/** Balance complete phrases without inventing word timings or dropping a word.
+ *
+ * At most two lines. A measured cue that has no measured silence to split at and declares
+ * `max_lines: 3` in captions.json may take a third line, only when two lines would fall
+ * below CAPTION_THIRD_LINE_BELOW and three lines hold it at 40 or more. A cue without the
+ * declaration lays out exactly as before. */
+export function captionLayout(text: string, width: number, maxLines = 2): {lines: string[]; size: number} {
   const words = text.trim().split(/\s+/).filter(Boolean);
   if (!words.length) return {lines: [], size: 48};
+  let two: {lines: string[]; size: number} | null = null;
   for (const size of [44, 42, 40, 38, 36, 34, 32, 30, 29]) {
-    const greedy = wrapToWidth(text, width, size, true);
-    if (greedy.length > 2 || greedy.some((line) => widthOf(line, size, true) > width)) continue;
-    const count = greedy.length;
-    const target = widthOf(words.join(' '), size, true) / count;
-    // At most two lines. Minimise raggedness across both lines,
-    // so a lone trailing word doesn't hang below a nearly full paragraph.
-    const solve = (start: number, remaining: number): {lines: string[]; cost: number} | null => {
-      if (!remaining) return start === words.length ? {lines: [], cost: 0} : null;
-      let best: {lines: string[]; cost: number} | null = null;
-      for (let end = start + 1; end <= words.length - remaining + 1; end++) {
-        const line = words.slice(start, end).join(' ');
-        const measured = widthOf(line, size, true);
-        if (measured > width) break;
-        const tail = solve(end, remaining - 1);
-        if (!tail) continue;
-        const cost = (measured - target) ** 2 + tail.cost;
-        if (!best || cost < best.cost) best = {lines: [line, ...tail.lines], cost};
-      }
-      return best;
-    };
-    return {lines: solve(0, count)?.lines ?? greedy, size};
+    const lines = balanced(words, text, width, size, 2);
+    if (lines) { two = {lines, size}; break; }
   }
+  if (maxLines >= 3 && (!two || two.size < CAPTION_THIRD_LINE_BELOW)) {
+    for (const size of THIRD_LINE_SIZES) {
+      const lines = balanced(words, text, width, size, 3);
+      if (lines) return {lines, size};
+    }
+  }
+  if (two) return two;
   throw new Error('Caption is too dense for two readable lines. Rebuild shorter cues from measured speech boundaries.');
 }
 

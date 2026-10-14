@@ -246,6 +246,58 @@ console.log(JSON.stringify({original,owners}));
                 with patch("sys.argv", args+["--verify"]):
                     self.assertEqual(vo_align.main(), 0)
                 self.assertEqual((output/"captions.json").read_bytes(), measured)
+                def verify(value):
+                    (output/"captions.json").write_text(json.dumps(value, indent=2))
+                    with patch("sys.argv", args+["--verify"]):
+                        return vo_align.main()
+                declared = json.loads(measured)
+                for accepted in (2, 3):
+                    declared["cues"][0]["max_lines"] = accepted
+                    self.assertEqual(verify(declared), 0, "an exact integer 2 or 3 is presentation, not measured evidence")
+                for rejected in (4, 1, 0, -3, 3.0, 2.0, 3.5, "3", "2", True, False, None, [3], {"n": 3}):
+                    declared["cues"][0]["max_lines"] = rejected
+                    self.assertEqual(verify(declared), 1, "only an exact integer 2 or 3 may be set aside: %r" % (rejected,))
+                base = json.loads(measured)
+                base["cues"][0]["max_lines"] = 3
+                self.assertEqual(verify(base), 0)
+                self.assertEqual(json.loads((output/"captions.json").read_text())["cues"][0]["max_lines"], 3,
+                                 "verify must never rewrite the stored declaration")
+                nested = copy.deepcopy(base); nested["narration_clause_segmentation"]["max_lines"] = 3
+                self.assertEqual(verify(nested), 1, "the declaration is not accepted inside segmentation evidence")
+                second = copy.deepcopy(base); second["cues"][1]["max_lines"] = 3; second["cues"][1]["end"] += 0.01
+                self.assertEqual(verify(second), 1, "a changed edge on a second declared cue still fails")
+                for key, value in (("layout", 3), ("lines", 3), ("max_line", 3), ("size", 42)):
+                    extra = copy.deepcopy(base); extra["cues"][0][key] = value
+                    self.assertEqual(verify(extra), 1, "an unsupported cue key still fails: " + key)
+                moved = copy.deepcopy(base); moved["max_lines"] = 3
+                self.assertEqual(verify(moved), 1, "the declaration is accepted only on a cue")
+                for key in ("start", "end", "text", "source", "start_measured", "end_measured", "id"):
+                    changed = copy.deepcopy(base)
+                    original = changed["cues"][0][key]
+                    changed["cues"][0][key] = (not original if isinstance(original, bool)
+                        else original + 0.01 if isinstance(original, float)
+                        else original + " changed")
+                    self.assertEqual(verify(changed), 1, "a changed measured cue field still fails: " + key)
+                for key in ("boundaries_measured", "words_anchored", "words_modelled", "acoustic_words_matched", "method"):
+                    changed = copy.deepcopy(base)
+                    original = changed[key]
+                    changed[key] = original + 1 if isinstance(original, int) else original + "x"
+                    self.assertEqual(verify(changed), 1, "changed measured evidence still fails: " + key)
+                changed = copy.deepcopy(base)
+                changed["narration_clause_segmentation"]["contract_sha256"] = "0" * 64
+                self.assertEqual(verify(changed), 1, "a changed segmentation hash still fails")
+                changed = copy.deepcopy(base); changed["cues"].pop()
+                self.assertEqual(verify(changed), 1, "a removed cue still fails")
+                changed = copy.deepcopy(base); changed["cues"][0]["max_lines"] = 3
+                changed["cues"][1]["max_lines"] = 3
+                self.assertEqual(verify(changed), 0, "several declared cues remain presentation only")
+                # Locked audio evidence: the stored words are also compared exactly.
+                saved_words = (output/"words.json").read_text()
+                tampered = json.loads(saved_words); tampered["words"][0]["end"] += 0.01
+                (output/"words.json").write_text(json.dumps(tampered))
+                self.assertEqual(verify(base), 1, "a changed stored word edge still fails with a declared cue")
+                (output/"words.json").write_text(saved_words)
+                (output/"captions.json").write_bytes(measured)
                 board["narration_picture"]["clauses"][0]["text"] += " omitted"
                 board_path.write_text(json.dumps(board))
                 with patch("sys.argv", args+["--verify"]):

@@ -571,6 +571,320 @@
         }
       ],
       "mechanism_id": "clinic-cited-answer-v1"
+    },
+    "tower-alert-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "tower-sweep",
+        "head-close",
+        "lens-ring",
+        "camera-count",
+        "lens-row",
+        "plan-card",
+        "plume-flag",
+        "scope-flag",
+        "flag-message",
+        "crew-phone",
+        "clock-arc",
+        "estimate-pin",
+        "plume-hold",
+        "scope-hold",
+        "open-line",
+        "launch-calendar",
+        "attribution-pin",
+        "record-card",
+        "empty-field",
+        "approval-stamp",
+        "tower-return",
+        "lens-return"
+      ],
+      "wall_views": [
+        "camera-count",
+        "lens-row",
+        "plan-card",
+        "record-card",
+        "empty-field",
+        "approval-stamp"
+      ],
+      "subject": "A camera on a tall west Texas lattice tower that watches all the way around, flags smoke and sends one alert to the AEP Texas crew, with the open line toward first responders, the blank response record and the plan that still waits on state approval",
+      "note": "Fresh authored Claude-lane episode for 2026-10-11 (AEP Texas wildfire cameras). Hero TowerCameraHero (lattice tower, turning camera head, sweep wedge and watch ring, flag box, one alert card, pinned tags, treatment b's round lens display) and support WestTexasSupport (mesquite, bunch grass, windmill, plume, shelter, fence, fire station, utility truck and cab, crew phone in a work glove, watch and dash clock, slot card, calendar strip, response record, plan folder and commission desk) are original React and SVG groups shared by both treatments. A follows the tower from the ground and the alert down it to a gloved crew phone; B opens inside the lens, pulls back to the tower and takes the alert inside the truck cab. The rolling plains plate stands behind every exterior shot; documents are wall views. Disclosed illustration, no AEP Texas site, Pano AI product, real feed, crew, county or response time.",
+      "narration_views": {
+        "tower-sweep": {
+          "subject_ids": [
+            "tower-camera",
+            "dry-horizon"
+          ],
+          "action_ids": [
+            "sweep-horizon"
+          ]
+        },
+        "head-close": {
+          "subject_ids": [
+            "tower-camera",
+            "dry-horizon"
+          ],
+          "action_ids": [
+            "sweep-horizon"
+          ]
+        },
+        "lens-ring": {
+          "subject_ids": [
+            "tower-camera",
+            "dry-horizon"
+          ],
+          "action_ids": [
+            "sweep-horizon"
+          ]
+        },
+        "camera-count": {
+          "subject_ids": [
+            "camera-markers",
+            "tower-camera",
+            "plan-tag"
+          ],
+          "action_ids": [
+            "count-cameras",
+            "show-plan"
+          ]
+        },
+        "lens-row": {
+          "subject_ids": [
+            "camera-markers",
+            "tower-camera"
+          ],
+          "action_ids": [
+            "count-cameras"
+          ]
+        },
+        "plan-card": {
+          "subject_ids": [
+            "camera-markers",
+            "plan-tag"
+          ],
+          "action_ids": [
+            "show-plan"
+          ]
+        },
+        "plume-flag": {
+          "subject_ids": [
+            "tower-camera",
+            "plume",
+            "flag-box"
+          ],
+          "action_ids": [
+            "flag-plume"
+          ]
+        },
+        "scope-flag": {
+          "subject_ids": [
+            "tower-camera",
+            "plume",
+            "flag-box"
+          ],
+          "action_ids": [
+            "flag-plume"
+          ]
+        },
+        "flag-message": {
+          "subject_ids": [
+            "alert-card",
+            "tower-camera",
+            "crew-phone"
+          ],
+          "action_ids": [
+            "send-alert"
+          ]
+        },
+        "crew-phone": {
+          "subject_ids": [
+            "alert-card",
+            "crew-phone"
+          ],
+          "action_ids": [
+            "send-alert",
+            "receive-alert"
+          ]
+        },
+        "clock-arc": {
+          "subject_ids": [
+            "alert-card",
+            "ten-minute-arc",
+            "estimate-tag"
+          ],
+          "action_ids": [
+            "show-estimate"
+          ]
+        },
+        "estimate-pin": {
+          "subject_ids": [
+            "alert-card",
+            "ten-minute-arc",
+            "estimate-tag"
+          ],
+          "action_ids": [
+            "show-estimate"
+          ]
+        },
+        "plume-hold": {
+          "subject_ids": [
+            "plume",
+            "tower-camera",
+            "prevent-tag"
+          ],
+          "action_ids": [
+            "show-no-prevention"
+          ]
+        },
+        "scope-hold": {
+          "subject_ids": [
+            "plume",
+            "tower-camera",
+            "prevent-tag",
+            "flag-box"
+          ],
+          "action_ids": [
+            "show-no-prevention"
+          ]
+        },
+        "open-line": {
+          "subject_ids": [
+            "alert-card",
+            "responder-badge",
+            "open-line",
+            "crew-phone"
+          ],
+          "action_ids": [
+            "show-open-line"
+          ]
+        },
+        "launch-calendar": {
+          "subject_ids": [
+            "launch-calendar",
+            "attribution-tag"
+          ],
+          "action_ids": [
+            "show-quiet-months"
+          ]
+        },
+        "attribution-pin": {
+          "subject_ids": [
+            "launch-calendar",
+            "attribution-tag"
+          ],
+          "action_ids": [
+            "show-quiet-months"
+          ]
+        },
+        "record-card": {
+          "subject_ids": [
+            "response-record",
+            "empty-time-field"
+          ],
+          "action_ids": [
+            "show-missing-record"
+          ]
+        },
+        "empty-field": {
+          "subject_ids": [
+            "response-record",
+            "empty-time-field"
+          ],
+          "action_ids": [
+            "show-missing-record"
+          ]
+        },
+        "approval-stamp": {
+          "subject_ids": [
+            "plan-folder",
+            "approval-stamp-slot",
+            "expected-tag"
+          ],
+          "action_ids": [
+            "await-approval"
+          ]
+        },
+        "tower-return": {
+          "subject_ids": [
+            "plan-folder",
+            "approval-stamp-slot",
+            "expected-tag",
+            "tower-camera"
+          ],
+          "action_ids": [
+            "await-approval"
+          ]
+        },
+        "lens-return": {
+          "subject_ids": [
+            "plan-folder",
+            "approval-stamp-slot",
+            "expected-tag",
+            "tower-camera"
+          ],
+          "action_ids": [
+            "await-approval"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
+          "export": "TowerCameraHero",
+          "views": [
+            "tower-sweep",
+            "head-close",
+            "lens-ring",
+            "plume-flag",
+            "scope-flag",
+            "flag-message",
+            "crew-phone",
+            "clock-arc",
+            "estimate-pin",
+            "plume-hold",
+            "scope-hold",
+            "open-line",
+            "launch-calendar",
+            "attribution-pin",
+            "approval-stamp",
+            "tower-return",
+            "lens-return"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
+          "export": "WestTexasSupport",
+          "views": [
+            "tower-sweep",
+            "camera-count",
+            "lens-row",
+            "plan-card",
+            "plume-flag",
+            "scope-flag",
+            "flag-message",
+            "crew-phone",
+            "clock-arc",
+            "estimate-pin",
+            "plume-hold",
+            "scope-hold",
+            "open-line",
+            "launch-calendar",
+            "attribution-pin",
+            "record-card",
+            "empty-field",
+            "approval-stamp",
+            "tower-return",
+            "lens-return"
+          ]
+        }
+      ],
+      "mechanism_id": "tower-camera-crew-alert-v1"
     }
   }
 }

@@ -188,6 +188,8 @@ export interface Cue {
   end: number;
   text: string;
   source?: string;
+  /** 3 only on a measured cue with no measured silence to split at: see captionLayout. */
+  max_lines?: number;
 }
 
 export type DispatchProps = {

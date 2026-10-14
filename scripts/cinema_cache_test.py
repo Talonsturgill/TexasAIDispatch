@@ -66,6 +66,13 @@ class CacheTest(unittest.TestCase):
         self.board["captions"][0]["text"]="Opening words"
         self.board["__cinemaProofWithoutStage"]=True;self.save()
         self.assertNotEqual(key,c.picture_key(self.bp,[0,29]))
+    def test_cue_max_lines_is_a_projected_input(self):
+        self.assertTrue(c.isolated(self.board),"projection profile must match the reviewed implementation")
+        key=c.picture_key(self.bp,[0,29])
+        self.board["captions"][1]["max_lines"]=3;self.save()
+        self.assertEqual(key,c.picture_key(self.bp,[0,29]),"a cue outside the frames must not invalidate them")
+        self.board["captions"][0]["max_lines"]=3;self.save()
+        self.assertNotEqual(key,c.picture_key(self.bp,[0,29]),"a declaration on a cue inside the frames changes its subtitle")
     def test_asset_and_renderer_changes_invalidate(self):
         baseline=c.picture_key(self.bp,[0,29])
         real=c.file_sha256
