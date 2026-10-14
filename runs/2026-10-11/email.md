@@ -27,5 +27,9 @@ The AEP Texas page names no county. The film draws the Big Country region behind
 Soundcheck
 The narration passed the measured phrase and caption alignment gates. Three separate audiovisual reviews of the exact final film passed. The mastered mix measures -16.05 LUFS against a target of -16.0, and licensed music sits under the speech. No personal listening claim is made for the director.
 
+Verified release
+Dispatch release https://github.com/Talonsturgill/TexasAIDispatch/pull/148 and the phone rendition and thumbnail https://github.com/Talonsturgill/TexasAIDispatch/pull/155 merged on exact-head green CI. A Docket record repair, https://github.com/Talonsturgill/TexasAIDocket/pull/423, and the feed release, https://github.com/Talonsturgill/TexasAIDocket/pull/424, merged on exact-head green CI. Docket main run 38506076869 passed on the feed merge commit, and Pages run 38508873107 passed its verify and deploy jobs. An earlier scheduled Pages run, 38506681541, refused to deploy while main checks were still pending, and it is retained as it happened.
+All four permanent assets match their reviewed byte hashes. Canonical 390 x 844 phone playback advanced from 10.629 to 16.221 seconds with sound, using the published 720 x 1280 rendition, by browser automation and not Computer Use.
+
 Delivery
 Review before posting. This payload is for an unsent Gmail draft. No email or social post is sent automatically.
