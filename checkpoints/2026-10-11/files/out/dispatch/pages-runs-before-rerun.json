@@ -1,0 +1,86 @@
+{
+ "38506681541": {
+  "event": "schedule",
+  "status": "completed",
+  "conclusion": "failure",
+  "head_sha": "0ea4573e0f1b4ab827a83f8a637a2b9fee9ad300",
+  "run_attempt": 1,
+  "created_at": "2026-10-14T03:31:20Z",
+  "jobs": [
+   {
+    "id": 115665682091,
+    "name": "verify",
+    "status": "completed",
+    "conclusion": "failure",
+    "started_at": "2026-10-14T03:31:22Z",
+    "completed_at": "2026-10-14T03:32:38Z"
+   },
+   {
+    "id": 115666031432,
+    "name": "deploy",
+    "status": "completed",
+    "conclusion": "skipped",
+    "started_at": "2026-10-14T03:32:39Z",
+    "completed_at": "2026-10-14T03:32:38Z"
+   }
+  ]
+ },
+ "38508873107": {
+  "event": "workflow_dispatch",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "0ea4573e0f1b4ab827a83f8a637a2b9fee9ad300",
+  "run_attempt": 1,
+  "created_at": "2026-10-14T03:56:57Z",
+  "jobs": [
+   {
+    "id": 115672543396,
+    "name": "verify",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-14T03:57:00Z",
+    "completed_at": "2026-10-14T04:08:56Z"
+   },
+   {
+    "id": 115675751330,
+    "name": "deploy",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-14T04:08:59Z",
+    "completed_at": "2026-10-14T04:13:18Z"
+   }
+  ]
+ },
+ "rerun_attempts_from_this_session": [
+  {
+   "method": "rerun_failed_jobs",
+   "endpoint": "POST /repos/Talonsturgill/TexasAIDocket/actions/runs/38506681541/rerun-failed-jobs",
+   "result": "403 Resource not accessible by integration"
+  },
+  {
+   "method": "rerun_workflow_run",
+   "endpoint": "POST /repos/Talonsturgill/TexasAIDocket/actions/runs/38506681541/rerun",
+   "result": "403 Resource not accessible by integration"
+  }
+ ],
+ "recovery": "owner ran the normal rerun of the failed jobs with the existing local GitHub CLI, exit 0, reported in session; no checker, manifest, credential scope or source changed",
+ "attempt2_after_rerun": {
+  "run_attempt": 2,
+  "jobs": [
+   {
+    "id": 115678488204,
+    "name": "verify",
+    "status": "completed",
+    "conclusion": "success",
+    "completed_at": "2026-10-14T04:31:54Z"
+   },
+   {
+    "id": 115681954236,
+    "name": "deploy",
+    "status": "completed",
+    "conclusion": "success",
+    "completed_at": "2026-10-14T04:34:45Z"
+   }
+  ]
+ }
+}

@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-11",
-  "saved_at": "2026-10-14T00:54:19.680528+00:00",
+  "saved_at": "2026-10-14T04:37:35.940930+00:00",
   "note": "ledger write",
-  "phase": "publishing",
-  "terminal_state": null,
-  "shipment_recorded": false,
+  "phase": "shipped",
+  "terminal_state": "shipped",
+  "shipment_recorded": true,
   "created_at": "2026-10-11T07:18:21.823920Z",
   "repo_root": "/home/user/restore/dispatch-2026-10-11",
-  "source_pin": "39b401e3630efcd08e5ceaf0a72761779fe32d6f",
-  "source_branch": "claude/dispatch-2026-10-11",
+  "source_pin": "0f3c0d644a60cdcf7f832423ccf98daa90c072e8",
+  "source_branch": "claude/dispatch-2026-10-11-closure",
   "source_closure": {
     "root": "video-engine",
     "files": 351,
     "sha256": "2cef36ad3afa18efea9b53d870bd27be0268b7916883457510ba5b01bbe0f9f8"
   },
   "deleted_source": [],
-  "ledger_sha256": "1a7e02d122069281679696c5ded9b2d38bd750bc87e7e4b662511ed7690bffdc",
-  "original_private_ledger_sha256": "3922969dac97aed4dfc01f58a3e4ad9be9643caaeae5e49faa219f42faa25a90",
+  "ledger_sha256": "d54aaf95bb54cb55353a4fae6b43dcd76fd4d6898f20a7d7dc3bcdec6155637e",
+  "original_private_ledger_sha256": "525f82ed4b3d5128be63933a94933afc2b2a3a20723cfb98466dc7246ea4464d",
   "usage": {
     "audiovisual_reviews": 13,
     "cleanup_renders": 0,
@@ -3907,6 +3907,12 @@
       "size": 6300
     },
     {
+      "path": "out/dispatch/deliver-run.log",
+      "class": "scratch",
+      "sha256": "3a4e42b5f3cc756e89cb03544cdcb950f4f10ea19f2228304fa2628aacbb0a1b",
+      "size": 12657
+    },
+    {
       "path": "out/dispatch/deliver-verify-only.log",
       "class": "scratch",
       "sha256": "28d0fea5ae372c00484af150979db22d84da83d1762a18cb4a35004924095435",
@@ -3983,6 +3989,18 @@
       "class": "scratch",
       "sha256": "127f9df80c7da35d2d0ed201576b2f0eccea967fc6957925c98d259d61f31f22",
       "size": 171790
+    },
+    {
+      "path": "out/dispatch/draft-body.html",
+      "class": "scratch",
+      "sha256": "607ff60799bfdb6120702538e9087a29a9d9fb5577352b054ebb7a7a28390819",
+      "size": 3730
+    },
+    {
+      "path": "out/dispatch/draft-body.txt",
+      "class": "scratch",
+      "sha256": "c1d4a89af0bf319e1b3a1f923f6f656d29f4959d1e6a81c7e25b783a40c0c75a",
+      "size": 2724
     },
     {
       "path": "out/dispatch/effective-effort.json",
@@ -4177,6 +4195,24 @@
       "size": 1284
     },
     {
+      "path": "out/dispatch/finish-shipped-2.log",
+      "class": "scratch",
+      "sha256": "fc20f239ef575cb3268f5c2b94687c030aefe61f66d146e3680d298fb0b2eb88",
+      "size": 95
+    },
+    {
+      "path": "out/dispatch/finish-shipped-3.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/finish-shipped.log",
+      "class": "scratch",
+      "sha256": "0be5b19d81dea999c126455a9891973319f4a0d79981c2d2bde21b5cfb146fe5",
+      "size": 114
+    },
+    {
       "path": "out/dispatch/frame-index.json",
       "class": "scratch",
       "sha256": "f562dbe33c8ca6c51663a579cc2ee774a268498340691160c9609b1c43da29a2",
@@ -4193,6 +4229,18 @@
       "class": "scratch",
       "sha256": "a5d4108b30996827a354695d7539df929549184a6c9a41053285a82e4ef1adbc",
       "size": 258
+    },
+    {
+      "path": "out/dispatch/live-check.log",
+      "class": "scratch",
+      "sha256": "31dd6f506f2e87d8a5ce08446102c446f9716922e4348dd8da20c317fee709ea",
+      "size": 107
+    },
+    {
+      "path": "out/dispatch/live-media-hashes.json",
+      "class": "scratch",
+      "sha256": "9e4032e03e8b001927f68e776927953750cc924024bc1163c31220c9eb05a555",
+      "size": 1150
     },
     {
       "path": "out/dispatch/measured-timing-failure/gates.log",
@@ -4949,6 +4997,12 @@
       "class": "scratch",
       "sha256": "33d13ff012c51c7f69ec4753266dfbbb32938777e985736c2b656f15538e5869",
       "size": 2432
+    },
+    {
+      "path": "out/dispatch/pages-runs-before-rerun.json",
+      "class": "scratch",
+      "sha256": "d1eb44412d09320b2020dd1ca1263e73336650bc7875139b10ec0f54b51772c2",
+      "size": 2260
     },
     {
       "path": "out/dispatch/panel-round-1.json",
@@ -5987,6 +6041,48 @@
       "class": "scratch",
       "sha256": "a903a7dcfaa66f023f7dbf9b18c60790fb055bf1c4d5071f995c9e6e0bfcf614",
       "size": 468
+    },
+    {
+      "path": "out/dispatch/phone-playback.log",
+      "class": "scratch",
+      "sha256": "9d8e957d03d948a41b06dff6502a88511dc94dfc07837b7e026d54f536994aa2",
+      "size": 84
+    },
+    {
+      "path": "out/dispatch/phone/01-before-tap.png",
+      "class": "scratch",
+      "sha256": "eeb2e80db3b5ef94b9e17acfe7f8596d4085355ea7094908ffa7a9f5553a7891",
+      "size": 409205
+    },
+    {
+      "path": "out/dispatch/phone/02-paused-by-tap.png",
+      "class": "scratch",
+      "sha256": "e2a177d28f058beb1703725bd00d28ce6b6d53de68af28f84afb45d93d9fe21d",
+      "size": 367233
+    },
+    {
+      "path": "out/dispatch/phone/03-playing-a.png",
+      "class": "scratch",
+      "sha256": "5123ac348b0b2c976e0c7e458fb70237d0ba2ec12ed93c2c217b3f18388ecd67",
+      "size": 408338
+    },
+    {
+      "path": "out/dispatch/phone/04-playing-b.png",
+      "class": "scratch",
+      "sha256": "c224c7cd5f166a42d850e94593a8216b95ac147187a9fe2a382df7ba10c185b5",
+      "size": 863993
+    },
+    {
+      "path": "out/dispatch/phone/05-playing-c.png",
+      "class": "scratch",
+      "sha256": "50db5fafb778c776df4cbb28cfd07cb9082720afd39808517d088cc52d94b65d",
+      "size": 307461
+    },
+    {
+      "path": "out/dispatch/phone/phone_playback.json",
+      "class": "scratch",
+      "sha256": "9cd4c30df383c307b75d332ed7a5652a69537c898dffc7ecc9581c1c32dcf4c6",
+      "size": 6597
     },
     {
       "path": "out/dispatch/picture-assignment.json",
@@ -11053,7 +11149,32 @@
       "size": 30000
     }
   ],
-  "excluded": [],
+  "excluded": [
+    {
+      "path": "out/dispatch/delivery-routing.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-readback-1-before-subject-fix.raw.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-readback-2-after-subject-fix.raw.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-readback.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-readback.raw.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/shipment.json",
+      "reason": "private path component"
+    }
+  ],
   "regenerable": {
     "files": 0,
     "bytes": 0
