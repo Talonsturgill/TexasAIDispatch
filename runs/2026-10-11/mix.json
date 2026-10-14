@@ -1,0 +1,164 @@
+{
+  "duration_s": 49.0,
+  "cut_s": 49.0,
+  "peak_dbfs_premaster": -1.68,
+  "lufs_premaster": -18.39,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.05,
+  "lufs_shortfall_db": 0.05000000000000071,
+  "crest_factor_db": 16.71,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.68,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 4
+    },
+    {
+      "id": "immersed",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -27.69,
+      "gain_db": -9.65
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "immersed",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -27.69,
+  "bed_gain_db": -9.65,
+  "sfx_events": 4,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -16.76,
+      "true_peak_dbtp": 0.03
+    },
+    "after": {
+      "integrated_lufs": -16.05,
+      "true_peak_dbtp": -1.99
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.7:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.28:measured_TP=-4.85:measured_LRA=11.00:measured_thresh=-34.29:offset=0.86",
+    "measurement": {
+      "input_i": "-23.28",
+      "input_tp": "-4.85",
+      "input_lra": "11.00",
+      "input_thresh": "-34.29",
+      "output_i": "-15.96",
+      "output_tp": "-2.00",
+      "output_lra": "4.70",
+      "output_thresh": "-26.72",
+      "normalization_type": "dynamic",
+      "target_offset": "0.26"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.3,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.28:measured_TP=-4.85:measured_LRA=11.00:measured_thresh=-34.29:offset=0.80"
+      },
+      {
+        "requested_lufs": -15.7,
+        "measured": {
+          "integrated_lufs": -16.05,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.7:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.28:measured_TP=-4.85:measured_LRA=11.00:measured_thresh=-34.29:offset=0.86"
+      }
+    ],
+    "correction": null,
+    "samples": 2352000,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "b7c908f669f82e3c8a80a1db7605d55241cac027e7a66926a1a6c23b368ce5e8",
+  "sound_direction_sha256": "96c2494b14ff7e563216e1716a9277879653151d580f2482ed5a61104cbf7b78",
+  "sound_cues": [
+    {
+      "id": "dry-wind",
+      "event_id": "s1-event-1",
+      "role": "environment",
+      "duration_s": 1.2,
+      "intent": "A dry wind and a slow windmill creak sit under the opening sweep of the beam.",
+      "provenance": "Original designed ambience, not recorded at any AEP Texas site.",
+      "at_s": 0.5748
+    },
+    {
+      "id": "flag-lock",
+      "event_id": "s3-event-1",
+      "role": "contact",
+      "duration_s": 0.3000000000000007,
+      "intent": "A soft designed latch tick as the flag box closes on the smoke.",
+      "provenance": "Original designed foley, not the sound of any real camera system.",
+      "at_s": 12.71
+    },
+    {
+      "id": "phone-buzz",
+      "event_id": "s3-event-3",
+      "role": "contact",
+      "duration_s": 0.3999999999999986,
+      "intent": "A short low buzz as the alert lands on the crew phone.",
+      "provenance": "Original designed foley, not a real notification tone.",
+      "at_s": 16.7088
+    },
+    {
+      "id": "tag-pin",
+      "event_id": "s4-event-2",
+      "role": "contact",
+      "duration_s": 0.3000000000000007,
+      "intent": "A light paper tap as the estimated tag pins to the end of the window.",
+      "provenance": "Original designed paper foley.",
+      "at_s": 20.7348
+    },
+    {
+      "id": "open-line-quiet",
+      "event_id": "s5-event-2",
+      "role": "quiet",
+      "duration_s": 1.1999999999999993,
+      "gain": 0.3,
+      "intent": "Pull the music back while the dashed line toward first responders stops short and stays open.",
+      "provenance": "Authored event-clock background contrast.",
+      "at_s": 26.4112
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "dry-wind",
+      "sha256": "b7a69be4b8ff74dea019610bffd00328bc1916d264ba4ff125fee517310ca70e"
+    },
+    {
+      "id": "flag-lock",
+      "sha256": "fecaed1c31d94a158b7b4b0bd7c9f108944af4cab01d9b8ffa415f63b2446883"
+    },
+    {
+      "id": "phone-buzz",
+      "sha256": "4578aab3d69eb7c2fcb947b084e32e55a25932fdc88beb6597b97f0b2100755c"
+    },
+    {
+      "id": "tag-pin",
+      "sha256": "a5e14f8d63259e2aaa0dc4075ec0fdce4ab985545d73e4c647d6b6d251095a19"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "2d902a0d0df71c6c812ac109a7e8c6013ecc8d58ada747de3212258825aa9252",
+  "bed_source_sha256": "870fa4f642816b2207cf74e48c36cbbbd147df99be24f08f29aa26ac0597a44b",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "39648b1b57fe0233d7566aff87f9938f8f7f1719c163f31493e97c55b162ee32",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 2352000
+}
