@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "validator",
+    "policy": {
+      "path": "/home/user/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "validator",
+    "resource": "validator_agents",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/TexasAIDispatch/out/dispatch/validator-packet.json",
+    "sha256": "22a4e425d49c8ba3836e83e10038e2beee30e8e422c86dcafcc0233c1f8df405"
+  },
+  "brief": {
+    "path": "/home/user/TexasAIDispatch/.claude/agents/validator.md",
+    "sha256": "e3438974737e97ffa04f27ae3ef1b22327e8867086013e06d8401505d7df4c80"
+  },
+  "agent_args": {
+    "subagent_type": "validator",
+    "description": "validator",
+    "prompt": "Work in /home/user/TexasAIDispatch. Read the current compact packet /home/user/TexasAIDispatch/out/dispatch/validator-packet.json (SHA256 22a4e425d49c8ba3836e83e10038e2beee30e8e422c86dcafcc0233c1f8df405) and every bound current guide in full. Verify the inputs before use. Scope: Independently re-fetch the UT San Antonio story and the Docket record, verify every claim quote character by character in claims.json (14 claims, c1 to c14), verify numerals (98.82, 150 to 220, half-mile, five miles), and review story_selection.json wording for unsupported framing. Return claims, rejected, validation. Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}
