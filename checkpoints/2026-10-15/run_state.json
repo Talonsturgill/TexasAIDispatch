@@ -17,6 +17,16 @@
     "validator_agents": 2,
     "voice_directors": 2
   },
+  "escalations": [
+    {
+      "at": "2026-10-15T05:36:45.979921Z",
+      "ceiling": 2,
+      "from": 1,
+      "note": "narration review and revalidation of corrected selection",
+      "resource": "validator_agents",
+      "to": 2
+    }
+  ],
   "events": [
     {
       "at": "2026-10-15T05:10:08.833503Z",
@@ -112,6 +122,24 @@
       "resources": {
         "validator_agents": 1
       }
+    },
+    {
+      "at": "2026-10-15T05:36:45.979961Z",
+      "ceiling": 2,
+      "kind": "budget_escalated",
+      "note": "narration review and revalidation of corrected selection",
+      "now": 2,
+      "resource": "validator_agents",
+      "was": 1
+    },
+    {
+      "at": "2026-10-15T05:36:45.979972Z",
+      "kind": "reserved",
+      "note": "narration review and revalidation of corrected selection",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
     }
   ],
   "limits": {
@@ -128,14 +156,14 @@
     "scorer_calls": 3,
     "storyboard_critics": 3,
     "tts_calls": 2,
-    "validator_agents": 1,
+    "validator_agents": 2,
     "voice_directors": 1
   },
   "mode": "production",
   "phase": "research",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e72e7647c856efec4a224da57dedadf2c7b26a72e4254d084dae6c0ff76a8b69",
+    "original_private_state_sha256": "06c2e2f80957ba75c0b76928a5707ef0e96797b677b046613a15d1dce60530bb",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -163,7 +191,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-15T05:32:06.739466Z",
+  "updated_at": "2026-10-15T05:36:45.979974Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -178,7 +206,7 @@
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
-    "validator_agents": 1,
+    "validator_agents": 2,
     "voice_directors": 0
   }
 }
