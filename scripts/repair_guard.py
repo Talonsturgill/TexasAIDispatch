@@ -8,6 +8,8 @@ from pathlib import Path
 VERSION = "quality-recovery/1"
 OWNER_CONFIRMATION = "OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS"
 OWNER_RESOURCE = "storyboard_critics"
+VALIDATOR_CONFIRMATION = "OWNER AUTHORIZED EXTRA VALIDATOR CALL"
+VALIDATOR_RESOURCE = "validator_agents"
 
 def envelope_digest(envelope):
     return hashlib.sha256(json.dumps(envelope, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
@@ -110,6 +112,77 @@ def owner_grant_problems(state):
             ceiling = grant["new_ceiling"]
     except (KeyError, OSError, ValueError, TypeError):
         return ["retained owner review authorization is missing or invalid"]
+    return []
+
+
+def validator_authorization_problems(state, authorization, evidence_text):
+    """Validate one operator-attested owner grant of a single extra validator pass.
+
+    On 2026-10-15 a validator REVISE that asked for a one word narration edit exhausted the
+    role's allowance, and no grant path existed for it, so a fully verified story stopped.
+    The grant is bound to the retained REVISE report, the original envelope and the owner's
+    text. It adds exactly one call, once per run, and changes no usage or earlier verdict."""
+    if not isinstance(authorization, dict):
+        return ["validator grant authorization must be an object"]
+    if (authorization.get("run_id") != state["run_id"]
+            or authorization.get("resource") != VALIDATOR_RESOURCE
+            or type(authorization.get("additional_calls")) is not int
+            or authorization["additional_calls"] != 1):
+        return ["validator grant requires this run, validator_agents and exactly one call"]
+    if authorization.get("confirmation") != VALIDATOR_CONFIRMATION:
+        return ["validator grant lacks explicit confirmation"]
+    for field in ("approval_id", "owner_text", "source_message_reference"):
+        if not isinstance(authorization.get(field), str) or not authorization[field].strip():
+            return ["validator grant requires " + field]
+    if authorization.get("resource_envelope_sha256") != envelope_digest(state["resource_envelope"]):
+        return ["validator grant original resource envelope changed"]
+    try:
+        if hashlib.sha256(evidence_text.encode("utf-8")).hexdigest() != authorization.get("failure_evidence_sha256"):
+            return ["validator grant failure evidence changed"]
+        report = json.loads(evidence_text)
+        rejected = report.get("rejected") if isinstance(report, dict) else None
+        if (not isinstance(report, dict) or report.get("result") != "REVISE"
+                or report.get("date") != str(state["run_id"])[:10]
+                or not isinstance(report.get("source"), str) or not report["source"].strip()
+                or not isinstance(rejected, list) or not rejected
+                or not all(isinstance(item, str) and item.strip() for item in rejected)):
+            return ["validator grant requires this edition's retained validator REVISE report with findings"]
+    except (ValueError, TypeError):
+        return ["validator grant failure evidence is missing or unreadable"]
+    return []
+
+
+def validator_grant_problems(state):
+    """Revalidate the single explicit validator grant a frozen run may hold."""
+    grants = [e for e in state.get("events", []) if e.get("kind") == "owner_validator_grant"]
+    if not grants:
+        return []
+    if not enabled(state) or len(grants) > 1:
+        return ["at most one explicit owner validator grant is allowed per frozen run"]
+    frozen = [e.get("envelope") for e in state.get("events", [])
+              if e.get("kind") == "resource_envelope_frozen"]
+    if len(frozen) != 1 or frozen[0] != state.get("resource_envelope"):
+        return ["validator grant original envelope differs from its freeze event"]
+    grant = grants[0]
+    try:
+        artifact = grant["authorization_json"]
+        if not isinstance(artifact, str) or hashlib.sha256(artifact.encode("utf-8")).hexdigest() != grant["authorization_sha256"]:
+            return ["retained validator authorization changed"]
+        authorization = json.loads(artifact)
+        evidence_text = grant["failure_evidence_json"]
+        if not isinstance(evidence_text, str):
+            return ["retained validator rejection evidence must contain exact JSON text"]
+        errors = validator_authorization_problems(state, authorization, evidence_text)
+        if errors:
+            return errors
+        for key in ("approval_id", "run_id", "resource", "additional_calls", "failure_evidence_sha256"):
+            if grant.get(key) != authorization.get(key):
+                return ["validator grant differs from its retained authorization"]
+        ceiling = state["resource_envelope"][VALIDATOR_RESOURCE]
+        if grant.get("previous_ceiling") != ceiling or grant.get("new_ceiling") != ceiling + 1:
+            return ["validator grant exceeds its exact authorized increment"]
+    except (KeyError, OSError, ValueError, TypeError):
+        return ["retained validator authorization is missing or invalid"]
     return []
 
 
