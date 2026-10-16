@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T22:21:37.986386+00:00",
-  "note": "R13 applied, fresh current-bytes review passes gate, real mix; preflight refused: opening comparison no longer binds current concept; funding deficit preflight 3 critics 2",
+  "saved_at": "2026-10-16T22:28:57.010651+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "be651ec768324687612587f111108a4f71ffe4b3307020cfe65b7acf8615420d",
-  "original_private_ledger_sha256": "fb742aae29c501459f1866ab7ec08ba57cf46e966150a5ad45e5a21a5b81d1a7",
+  "ledger_sha256": "fac1a284c6f8e1c37677451abf6ce40f10f63d7d6284d563a5beb2b29b01ef59",
+  "original_private_ledger_sha256": "0f3b8915fbc63fb7ffaa4e328553cf2c0d37c24c8094b4782b7a66087380a56d",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -82,7 +82,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 24,
+    "storyboard_critics": 25,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -1113,6 +1113,12 @@
       "class": "scratch",
       "sha256": "3fcc8f0b37e196aa41c24bf1b878ac8033f359e83c6dfe63ce7693822ce5da84",
       "size": 6300
+    },
+    {
+      "path": "out/dispatch/diagnosis-review-message-r13.txt",
+      "class": "scratch",
+      "sha256": "cf7fd4e8a44879041d4316a70e88fd2f0611eee04a40f86329ba1e73a2b803ed",
+      "size": 7867
     },
     {
       "path": "out/dispatch/effective-effort.json",
@@ -8617,8 +8623,8 @@
     {
       "path": "out/dispatch/evidence/r13-apply/checkpoint-2.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "14d63fbd9f208bf5b5eb39623d9844c36018254d22c23ece0b6c7eb2aacbf996",
+      "size": 249
     },
     {
       "path": "out/dispatch/evidence/r13-apply/checkpoint.log",
@@ -8997,6 +9003,54 @@
       "class": "scratch",
       "sha256": "1893528d5a6fa077a503d24bddfb6c30a5e7d398ab844a83f7b97c03b05657b4",
       "size": 3361
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/HOLD-opening-binding.md",
+      "class": "scratch",
+      "sha256": "473f9410920c5be72a38a634907e9a1994f64dcb30e49556dc848db5db15c069",
+      "size": 2225
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/creative_production-opening_problems-excerpt.py",
+      "class": "scratch",
+      "sha256": "4737b97544b4a36b8493c464dc701ba4e8fc66dd455fbf59fd8acc9b596bd089",
+      "size": 5843
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/ledger-snapshot.json",
+      "class": "scratch",
+      "sha256": "2763746ae6450e16e35d24ac799cb656cf34c0538cdb1ec8e5cfbe759a30be75",
+      "size": 641
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/preflight-refusal-verbatim.txt",
+      "class": "scratch",
+      "sha256": "7c0e12ca9989ed394b3acf352c12ef41b0fc4e7e0fa4765c41a4de3217234169",
+      "size": 771
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/production-budget-10.json",
+      "class": "scratch",
+      "sha256": "22e166f792731bbb47384b255a800a85b2c8ed5efd604bfc306de688fc0cf1f1",
+      "size": 1585
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/production-budget-9.json",
+      "class": "scratch",
+      "sha256": "a9bb54cf9b131de4d5f726608a7d430e2232430d124dc9ab7d58d6a7ffd29698",
+      "size": 1581
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/refused-duplicate-grant.log",
+      "class": "scratch",
+      "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
+      "size": 89
+    },
+    {
+      "path": "out/dispatch/evidence/r13-opening-binding-refusal/reserve.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/evidence/r8-funding/baseline/claims.json",

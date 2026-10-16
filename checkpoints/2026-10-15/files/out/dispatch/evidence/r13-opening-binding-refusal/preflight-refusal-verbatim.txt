@@ -1,0 +1,7 @@
+Command (exactly as authorized, run alone, no wrapper or redirect):
+bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json
+Exit code: 1
+Output (stdout and stderr as returned):
+storyboard: clean, 9 scenes, 59s. Now spawn storyboard-critic for taste.
+preflight_animatic: refused: pre-render product checks failed; no animatic was spent: current opening is not the selected concept; opening treatment uses stale renderer inputs; selected treatment renderer differs from the current film
+Ledger effect: the authorization (capture_guard authorize --prepare, event_sha256 c99ab9be31bd6603de64e1da9ecbb7e038b10c6c02fd71ee4804bf855e2942a9, issued 2026-10-16T22:19:15Z) was spent and preflight_renders went 19 to 20 with no render.
