@@ -1,0 +1,1858 @@
+{
+ "date": "2026-10-15",
+ "edition_id": "2026-10-15",
+ "run_id": "2026-10-15",
+ "title": "The station that counts the water",
+ "topic": "UT San Antonio builds a solar powered flood station that runs its AI model on the chip rather than in the cloud",
+ "beat": "weather-and-emergency",
+ "entities": [
+  "UT San Antonio",
+  "Chen Pan",
+  "Texas Coastal Management Program",
+  "NOAA"
+ ],
+ "runtime_s": 58.7,
+ "credits_s": 5,
+ "credits": "TEXAS AI DOCKET\nSOURCES\nUT San Antonio Today, September 8th\nILLUSTRATION\nOriginal authored diagrams\nMAP\nCounty marker is editorial\n",
+ "derived_from": "scratch",
+ "cinematic_template": "directed-film-v2",
+ "daily_production": true,
+ "fauna_scope": {
+  "status": "none",
+  "reason": "This flood station story names no animal action, habitat or wildlife claim."
+ },
+ "scenes": [
+  {
+   "id": "s1",
+   "start_s": 0.0,
+   "duration_s": 7.8,
+   "duration_authored": 7.8,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "hook",
+   "vo": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.",
+   "vo_claims": [
+    "c12"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post. A phone on the porch rail stays dark while the water keeps rising. The warning banner finally lights the phone, after the water is already in the yard.",
+   "what_moves": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post. A phone on the porch rail stays dark while the water keeps rising. The warning banner finally lights the phone, after the water is already in the yard.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s1-event-1",
+     "at_s_authored": 0.39,
+     "duration_s_authored": 1.56,
+     "item_ids": [
+      "s1-water",
+      "s1-post"
+     ],
+     "what": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n1",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s1-event-2",
+     "at_s_authored": 2.47,
+     "duration_s_authored": 1.56,
+     "item_ids": [
+      "s1-phone",
+      "s1-water"
+     ],
+     "what": "A phone on the porch rail stays dark while the water keeps rising.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n1",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s1-event-3",
+     "at_s_authored": 4.55,
+     "duration_s_authored": 1.56,
+     "item_ids": [
+      "s1-phone",
+      "s1-banner"
+     ],
+     "what": "The warning banner finally lights the phone, after the water is already in the yard.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n1",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "dollyThrough",
+   "visual_family": "flood-s1-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post.",
+    "action": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post. A phone on the porch rail stays dark while the water keeps rising. The warning banner finally lights the phone, after the water is already in the yard.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s2",
+   "start_s": 7.8,
+   "duration_s": 6.6,
+   "duration_authored": 6.6,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "action",
+   "vo": "So its researchers built a flood station that charges itself from light and needs no cell tower.",
+   "vo_claims": [
+    "c1",
+    "c5",
+    "c6",
+    "c14"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "A self-powered flood station stands on a post at the street edge above the waterline. Low sun reaches its small solar panel and the battery bar fills. A far cell tower stands on the horizon with no line running to the station.",
+   "what_moves": "A self-powered flood station stands on a post at the street edge above the waterline. Low sun reaches its small solar panel and the battery bar fills. A far cell tower stands on the horizon with no line running to the station.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s2-event-1",
+     "at_s_authored": 0.33,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s2-station",
+      "s2-post"
+     ],
+     "what": "A self-powered flood station stands on a post at the street edge above the waterline.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n2",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s2-event-2",
+     "at_s_authored": 2.09,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s2-panel",
+      "s2-battery"
+     ],
+     "what": "Low sun reaches its small solar panel and the battery bar fills.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n2",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s2-event-3",
+     "at_s_authored": 3.85,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s2-station",
+      "s2-tower"
+     ],
+     "what": "A far cell tower stands on the horizon with no line running to the station.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n2",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "riseWith",
+   "visual_family": "flood-s2-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "A self-powered flood station stands on a post at the street edge above the waterline.",
+    "action": "A self-powered flood station stands on a post at the street edge above the waterline. Low sun reaches its small solar panel and the battery bar fills. A far cell tower stands on the horizon with no line running to the station.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s3",
+   "start_s": 14.4,
+   "duration_s": 6.6,
+   "duration_authored": 6.6,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "mechanism",
+   "vo": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.",
+   "vo_claims": [
+    "c2"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "The view climbs the post to four optical sensor marks set at different heights. Rising water crosses the lowest mark, then the second, and each mark lights as it is wet. Rain, temperature, humidity and light sensing lamps come on in a row beside the four marks.",
+   "what_moves": "The view climbs the post to four optical sensor marks set at different heights. Rising water crosses the lowest mark, then the second, and each mark lights as it is wet. Rain, temperature, humidity and light sensing lamps come on in a row beside the four marks.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s3-event-1",
+     "at_s_authored": 0.33,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s3-stack",
+      "s3-marks"
+     ],
+     "what": "The view climbs the post to four optical sensor marks set at different heights.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n3",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s3-event-2",
+     "at_s_authored": 2.09,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s3-marks",
+      "s3-water"
+     ],
+     "what": "Rising water crosses the lowest mark, then the second, and each mark lights as it is wet.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n3",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s3-event-3",
+     "at_s_authored": 3.85,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s3-weather",
+      "s3-stack"
+     ],
+     "what": "Rain, temperature, humidity and light sensing lamps come on in a row beside the four marks.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n3",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "riseWith",
+   "visual_family": "flood-s3-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "The view climbs the post to four optical sensor marks set at different heights.",
+    "action": "The view climbs the post to four optical sensor marks set at different heights. Rising water crosses the lowest mark, then the second, and each mark lights as it is wet. Rain, temperature, humidity and light sensing lamps come on in a row beside the four marks.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s4",
+   "start_s": 21.0,
+   "duration_s": 6.6,
+   "duration_authored": 6.6,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "mechanism",
+   "vo": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.",
+   "vo_claims": [
+    "c3",
+    "c18"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "Readings from every sensor travel in along thin traces to a small chip inside the housing. The chip lights a local risk judgment lamp with no wire leaving the housing. A dashed outline of a central server stays dark, with no line running to it.",
+   "what_moves": "Readings from every sensor travel in along thin traces to a small chip inside the housing. The chip lights a local risk judgment lamp with no wire leaving the housing. A dashed outline of a central server stays dark, with no line running to it.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s4-event-1",
+     "at_s_authored": 0.33,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s4-traces",
+      "s4-chip"
+     ],
+     "what": "Readings from every sensor travel in along thin traces to a small chip inside the housing.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n4",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s4-event-2",
+     "at_s_authored": 2.09,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s4-chip",
+      "s4-risk"
+     ],
+     "what": "The chip lights a local risk judgment lamp with no wire leaving the housing.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n4",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s4-event-3",
+     "at_s_authored": 3.85,
+     "duration_s_authored": 1.32,
+     "item_ids": [
+      "s4-server",
+      "s4-station"
+     ],
+     "what": "A dashed outline of a central server stays dark, with no line running to it.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n4",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "dollyThrough",
+   "visual_family": "flood-s4-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "Readings from every sensor travel in along thin traces to a small chip inside the housing.",
+    "action": "Readings from every sensor travel in along thin traces to a small chip inside the housing. The chip lights a local risk judgment lamp with no wire leaving the housing. A dashed outline of a central server stays dark, with no line running to it.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s5",
+   "start_s": 27.6,
+   "duration_s": 9.7,
+   "duration_authored": 9.7,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "consequence",
+   "vo": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
+   "vo_claims": [
+    "c6"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "A radio pulse leaves the station antenna in expanding rings. Through the city street grid the ring passes a half-mile tag. Across open country the ring reaches a five-mile tag and lands on a hub building.",
+   "what_moves": "A radio pulse leaves the station antenna in expanding rings. Through the city street grid the ring passes a half-mile tag. Across open country the ring reaches a five-mile tag and lands on a hub building.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s5-event-1",
+     "at_s_authored": 0.485,
+     "duration_s_authored": 1.94,
+     "item_ids": [
+      "s5-antenna",
+      "s5-ring"
+     ],
+     "what": "A radio pulse leaves the station antenna in expanding rings.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n5",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s5-event-2",
+     "at_s_authored": 3.072,
+     "duration_s_authored": 1.94,
+     "item_ids": [
+      "s5-ring",
+      "s5-halfmile"
+     ],
+     "what": "Through the city street grid the ring passes a half-mile tag.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n5",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s5-event-3",
+     "at_s_authored": 5.658,
+     "duration_s_authored": 1.94,
+     "item_ids": [
+      "s5-ring",
+      "s5-hub"
+     ],
+     "what": "Across open country the ring reaches a five-mile tag and lands on a hub building.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n5",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "truckAcross",
+   "visual_family": "flood-s5-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "A radio pulse leaves the station antenna in expanding rings.",
+    "action": "A radio pulse leaves the station antenna in expanding rings. Through the city street grid the ring passes a half-mile tag. Across open country the ring reaches a five-mile tag and lands on a hub building.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s6",
+   "start_s": 37.3,
+   "duration_s": 8.2,
+   "duration_authored": 8.2,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": true,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "consequence",
+   "vo": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.",
+   "vo_claims": [
+    "c7",
+    "c16",
+    "c17",
+    "c20"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing. Shaded flood paths spread across the map from the first dots. Higher-risk zones outline themselves and a responder hand rests on the map.",
+   "what_moves": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing. Shaded flood paths spread across the map from the first dots. Higher-risk zones outline themselves and a responder hand rests on the map.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s6-event-1",
+     "at_s_authored": 0.41,
+     "duration_s_authored": 1.64,
+     "item_ids": [
+      "s6-dots",
+      "s6-dashboard"
+     ],
+     "what": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n6",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s6-event-2",
+     "at_s_authored": 2.597,
+     "duration_s_authored": 1.64,
+     "item_ids": [
+      "s6-paths",
+      "s6-dashboard"
+     ],
+     "what": "Shaded flood paths spread across the map from the first dots.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n6",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s6-event-3",
+     "at_s_authored": 4.783,
+     "duration_s_authored": 1.64,
+     "item_ids": [
+      "s6-zones",
+      "s6-hand"
+     ],
+     "what": "Higher-risk zones outline themselves and a responder hand rests on the map.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n6",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "orbitReveal",
+   "visual_family": "flood-s6-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing.",
+    "action": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing. Shaded flood paths spread across the map from the first dots. Higher-risk zones outline themselves and a responder hand rests on the map.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s7",
+   "start_s": 45.5,
+   "duration_s": 8.2,
+   "duration_authored": 8.2,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "limit",
+   "vo": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
+   "vo_claims": [
+    "c4"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "A validation bar fills across its card to ninety eight point eight two percent. A tag on the card reads initial assessments after training. A second card for a street result stays blank, marked none reported.",
+   "what_moves": "A validation bar fills across its card to ninety eight point eight two percent. A tag on the card reads initial assessments after training. A second card for a street result stays blank, marked none reported.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s7-event-1",
+     "at_s_authored": 0.41,
+     "duration_s_authored": 1.64,
+     "item_ids": [
+      "s7-bar",
+      "s7-card"
+     ],
+     "what": "A validation bar fills across its card to ninety eight point eight two percent.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n7",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s7-event-2",
+     "at_s_authored": 2.597,
+     "duration_s_authored": 1.64,
+     "item_ids": [
+      "s7-tag",
+      "s7-card"
+     ],
+     "what": "A tag on the card reads initial assessments after training.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n7",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s7-event-3",
+     "at_s_authored": 4.783,
+     "duration_s_authored": 1.64,
+     "item_ids": [
+      "s7-blank",
+      "s7-card2"
+     ],
+     "what": "A second card for a street result stays blank, marked none reported.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n7",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "dollyThrough",
+   "visual_family": "flood-s7-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "A validation bar fills across its card to ninety eight point eight two percent.",
+    "action": "A validation bar fills across its card to ninety eight point eight two percent. A tag on the card reads initial assessments after training. A second card for a street result stays blank, marked none reported.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  },
+  {
+   "id": "s8",
+   "start_s": 53.7,
+   "duration_s": 5.0,
+   "duration_authored": 5.0,
+   "county": "Bexar",
+   "region": "blackland",
+   "interior": false,
+   "cast": [],
+   "beat": "motion",
+   "story_role": "answer",
+   "vo": "It names no town that has installed one. Deployment is still the goal.",
+   "vo_claims": [
+    "c1",
+    "c10",
+    "c9"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "A map of Texas streets shows no pin where a station is installed. The station stands again by the street while water crosses its four marks once more. A last hold on the station, with the empty map card beside it.",
+   "what_moves": "A map of Texas streets shows no pin where a station is installed. The station stands again by the street while water crosses its four marks once more. A last hold on the station, with the empty map card beside it.",
+   "production_disclosure": "Illustration. A drawing of the design the university describes, not an installed station or a real street",
+   "visual_events": [
+    {
+     "id": "s8-event-1",
+     "at_s_authored": 0.25,
+     "duration_s_authored": 1.0,
+     "item_ids": [
+      "s8-map",
+      "s8-nopin"
+     ],
+     "what": "A map of Texas streets shows no pin where a station is installed.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n8",
+     "clause_fraction_start": 0.05,
+     "clause_fraction_end": 0.25
+    },
+    {
+     "id": "s8-event-2",
+     "at_s_authored": 1.583,
+     "duration_s_authored": 1.0,
+     "item_ids": [
+      "s8-station",
+      "s8-marks"
+     ],
+     "what": "The station stands again by the street while water crosses its four marks once more.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n8",
+     "clause_fraction_start": 0.317,
+     "clause_fraction_end": 0.517
+    },
+    {
+     "id": "s8-event-3",
+     "at_s_authored": 2.917,
+     "duration_s_authored": 1.0,
+     "item_ids": [
+      "s8-station",
+      "s8-mapcard"
+     ],
+     "what": "A last hold on the station, with the empty map card beside it.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0,
+      "settle": 0.03
+     },
+     "narration_id": "n8",
+     "clause_fraction_start": 0.583,
+     "clause_fraction_end": 0.783
+    }
+   ],
+   "camera_strategy": "craneDown",
+   "visual_family": "flood-s8-a",
+   "payload_mode": "picture",
+   "treatment": "a",
+   "hero": "solar flood station with four sensor marks",
+   "visual_sentence": {
+    "subject": "A map of Texas streets shows no pin where a station is installed.",
+    "action": "A map of Texas streets shows no pin where a station is installed. The station stands again by the street while water crosses its four marks once more. A last hold on the station, with the empty map card beside it.",
+    "emotion": "Watchfulness, then the plain limit of what is reported.",
+    "annotation": "Illustration. Not an installed station"
+   },
+   "place_plate": "blackland-san-antonio"
+  }
+ ],
+ "story_art": {
+  "version": "authored-story-art-v1",
+  "runtime": "claude-sonnet-v1",
+  "edition_id": "2026-10-15",
+  "requests": [
+   {
+    "id": "flood-station",
+    "role": "hero",
+    "file": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+    "export": "FloodStationHero",
+    "scene_ids": [
+     "s1",
+     "s2",
+     "s3",
+     "s4",
+     "s5",
+     "s6",
+     "s7",
+     "s8"
+    ],
+    "purpose": "Carry one solar flood station through the film so the viewer follows its sun-charged battery, its four sensor marks, the water that crosses them and the chip that judges risk on the spot.",
+    "prompt": "Author an original finished React and SVG object in the current Remotion engine. A weathered galvanized steel post set beside a San Antonio street with a lopsided, slightly tilted instrument housing, a small dark blue solar panel with a worn corner, a short whip antenna, a battery bar window, and a column of four optical water-level marks mounted at four different heights, each with a small lens and a lamp. A cutaway view shows a small chip with thin traces and one amber risk lamp, with no logos and no real hardware brand. Late afternoon storm light from the upper left, cool sky fill, a long soft shadow, a rust drip and a dent, nothing symmetric. A disclosed illustration of the described design, never an installed unit.",
+    "source_limit": "Disclosed illustration of the design the University of Texas at San Antonio describes. Not an installed station, a real street, a measured water level or a real result.",
+    "action_uses": [
+     {
+      "scene_id": "s2",
+      "event_id": "s2-event-2",
+      "view": "panel-charge",
+      "action_id": "charge-battery",
+      "subject_ids": [
+       "s2-panel",
+       "s2-battery"
+      ]
+     },
+     {
+      "scene_id": "s3",
+      "event_id": "s3-event-2",
+      "view": "water-marks",
+      "action_id": "cross-marks",
+      "subject_ids": [
+       "s3-marks",
+       "s3-water"
+      ]
+     },
+     {
+      "scene_id": "s4",
+      "event_id": "s4-event-2",
+      "view": "chip-glow",
+      "action_id": "judge-locally",
+      "subject_ids": [
+       "s4-chip",
+       "s4-risk"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "street-hub-support",
+    "role": "support",
+    "file": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+    "export": "StreetHubSupport",
+    "scene_ids": [
+     "s1",
+     "s5",
+     "s6",
+     "s8"
+    ],
+    "purpose": "Give the station a believable world: the San Antonio street and yard where water rises, the porch phone, the radio rings, the hub building, the hub dashboard map and the empty map.",
+    "prompt": "Author an original finished React and SVG support group in the current Remotion engine. A wet San Antonio residential street with a chain link fence post, a limestone curb, a live oak edge and a porch rail with a worn phone, brown flood water with a hand drawn edge, a small hub building with a rooftop mast, a hub desk with a monitor and a sleeved forearm, a flat dashboard map of streets with shaded flood paths and outlined risk zones, an empty map card with no pin, and thin radio rings with a half-mile tag and a five-mile tag. Maintained but worn, nothing symmetric, warm limestone and storm gray palette, no real brand marks. A disclosed illustration.",
+    "source_limit": "Disclosed illustration. Not a real San Antonio address, hub, dashboard, responder or deployment. The university names no installation site.",
+    "action_uses": [
+     {
+      "scene_id": "s1",
+      "event_id": "s1-event-1",
+      "view": "street-yard",
+      "action_id": "water-rises",
+      "subject_ids": [
+       "s1-water",
+       "s1-post"
+      ]
+     },
+     {
+      "scene_id": "s5",
+      "event_id": "s5-event-2",
+      "view": "radio-rings",
+      "action_id": "carry-signal",
+      "subject_ids": [
+       "s5-ring",
+       "s5-halfmile"
+      ]
+     },
+     {
+      "scene_id": "s6",
+      "event_id": "s6-event-2",
+      "view": "flood-paths",
+      "action_id": "spread-map",
+      "subject_ids": [
+       "s6-paths",
+       "s6-dashboard"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "film_direction": {
+  "version": "directed-film-v2",
+  "episode": "flood-station-v1",
+  "variant": "a",
+  "angle": "The viewer starts in the flooded yard with the late phone, then finds the station that could have warned sooner.",
+  "opening_promise": "Watch four sensor marks get wet and see what a self-powered station does with that.",
+  "performed_turn": "The chip lights a local risk judgment with no line to a server, then a radio pulse carries it to a hub.",
+  "closing_answer": "The design says yes, a station can judge a flooding street on its own power. The proof so far is validation accuracy, and the university names no place that has installed one.",
+  "shots": [
+   {
+    "id": "s1-shot-1",
+    "scene_id": "s1",
+    "start_s": 0.0,
+    "duration_s": 3.9,
+    "framing": "wide",
+    "transition": "cut",
+    "view": "street-yard",
+    "event_id": "s1-event-1",
+    "purpose": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n1"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.5
+   },
+   {
+    "id": "s1-shot-2",
+    "scene_id": "s1",
+    "start_s": 3.9,
+    "duration_s": 3.9,
+    "framing": "close",
+    "transition": "cut",
+    "view": "phone-late",
+    "event_id": "s1-event-3",
+    "purpose": "The warning banner finally lights the phone, after the water is already in the yard.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n1"
+    ],
+    "scene_fraction_start": 0.5,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s2-shot-1",
+    "scene_id": "s2",
+    "start_s": 7.8,
+    "duration_s": 3.3,
+    "framing": "wide",
+    "transition": "cut",
+    "view": "station-wide",
+    "event_id": "s2-event-1",
+    "purpose": "A self-powered flood station stands on a post at the street edge above the waterline.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n2"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.5
+   },
+   {
+    "id": "s2-shot-2",
+    "scene_id": "s2",
+    "start_s": 11.1,
+    "duration_s": 3.3,
+    "framing": "close",
+    "transition": "cut",
+    "view": "panel-charge",
+    "event_id": "s2-event-2",
+    "purpose": "Low sun reaches its small solar panel and the battery bar fills.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n2"
+    ],
+    "scene_fraction_start": 0.5,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s3-shot-1",
+    "scene_id": "s3",
+    "start_s": 14.4,
+    "duration_s": 2.64,
+    "framing": "medium",
+    "transition": "cut",
+    "view": "sensor-stack",
+    "event_id": "s3-event-1",
+    "purpose": "The view climbs the post to four optical sensor marks set at different heights.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n3"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.4
+   },
+   {
+    "id": "s3-shot-2",
+    "scene_id": "s3",
+    "start_s": 17.04,
+    "duration_s": 3.96,
+    "framing": "close",
+    "transition": "cut",
+    "view": "water-marks",
+    "event_id": "s3-event-2",
+    "purpose": "Rising water crosses the lowest mark, then the second, and each mark lights as it is wet.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n3"
+    ],
+    "scene_fraction_start": 0.4,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s4-shot-1",
+    "scene_id": "s4",
+    "start_s": 21.0,
+    "duration_s": 3.63,
+    "framing": "close",
+    "transition": "cut",
+    "view": "chip-glow",
+    "event_id": "s4-event-1",
+    "purpose": "Readings from every sensor travel in along thin traces to a small chip inside the housing.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n4"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.55
+   },
+   {
+    "id": "s4-shot-2",
+    "scene_id": "s4",
+    "start_s": 24.63,
+    "duration_s": 2.97,
+    "framing": "wide",
+    "transition": "cut",
+    "view": "no-server",
+    "event_id": "s4-event-3",
+    "purpose": "A dashed outline of a central server stays dark, with no line running to it.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n4"
+    ],
+    "scene_fraction_start": 0.55,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s5-shot-1",
+    "scene_id": "s5",
+    "start_s": 27.6,
+    "duration_s": 3.39,
+    "framing": "wide",
+    "transition": "cut",
+    "view": "radio-rings",
+    "event_id": "s5-event-1",
+    "purpose": "A radio pulse leaves the station antenna in expanding rings.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n5"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.35
+   },
+   {
+    "id": "s5-shot-2",
+    "scene_id": "s5",
+    "start_s": 31.0,
+    "duration_s": 3.39,
+    "framing": "wide",
+    "transition": "cut",
+    "view": "radio-open",
+    "event_id": "s5-event-3",
+    "purpose": "Across open country the ring reaches a five-mile tag and lands on a hub building.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n5"
+    ],
+    "scene_fraction_start": 0.35,
+    "scene_fraction_end": 0.7
+   },
+   {
+    "id": "s5-shot-3",
+    "scene_id": "s5",
+    "start_s": 34.39,
+    "duration_s": 2.91,
+    "framing": "medium",
+    "transition": "cut",
+    "view": "hub-wide",
+    "event_id": "s5-event-3",
+    "purpose": "Across open country the ring reaches a five-mile tag and lands on a hub building.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n5"
+    ],
+    "scene_fraction_start": 0.7,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s6-shot-1",
+    "scene_id": "s6",
+    "start_s": 37.3,
+    "duration_s": 3.69,
+    "framing": "medium",
+    "transition": "cut",
+    "view": "hub-desk",
+    "event_id": "s6-event-1",
+    "purpose": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n6"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.45
+   },
+   {
+    "id": "s6-shot-2",
+    "scene_id": "s6",
+    "start_s": 40.99,
+    "duration_s": 4.51,
+    "framing": "overhead",
+    "transition": "cut",
+    "view": "flood-paths",
+    "event_id": "s6-event-2",
+    "purpose": "Shaded flood paths spread across the map from the first dots.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n6"
+    ],
+    "scene_fraction_start": 0.45,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s7-shot-1",
+    "scene_id": "s7",
+    "start_s": 45.5,
+    "duration_s": 4.51,
+    "framing": "close",
+    "transition": "cut",
+    "view": "validation-card",
+    "event_id": "s7-event-1",
+    "purpose": "A validation bar fills across its card to ninety eight point eight two percent.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n7"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.55
+   },
+   {
+    "id": "s7-shot-2",
+    "scene_id": "s7",
+    "start_s": 50.01,
+    "duration_s": 3.69,
+    "framing": "close",
+    "transition": "cut",
+    "view": "no-field-card",
+    "event_id": "s7-event-3",
+    "purpose": "A second card for a street result stays blank, marked none reported.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n7"
+    ],
+    "scene_fraction_start": 0.55,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s8-shot-1",
+    "scene_id": "s8",
+    "start_s": 53.7,
+    "duration_s": 2.5,
+    "framing": "overhead",
+    "transition": "cut",
+    "view": "empty-map",
+    "event_id": "s8-event-1",
+    "purpose": "A map of Texas streets shows no pin where a station is installed.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n8"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.5
+   },
+   {
+    "id": "s8-shot-2",
+    "scene_id": "s8",
+    "start_s": 56.2,
+    "duration_s": 2.5,
+    "framing": "wide",
+    "transition": "cut",
+    "view": "station-return",
+    "event_id": "s8-event-2",
+    "purpose": "The station stands again by the street while water crosses its four marks once more.",
+    "carry": "The same solar flood station, its four sensor marks and the one rising waterline",
+    "narration_ids": [
+     "n8"
+    ],
+    "scene_fraction_start": 0.5,
+    "scene_fraction_end": 1.0
+   }
+  ],
+  "rewards": [
+   {
+    "shot_id": "s1-shot-1",
+    "event_id": "s1-event-1",
+    "at_s": 1.95,
+    "kind": "action",
+    "visible_change": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s1-shot-2",
+    "event_id": "s1-event-3",
+    "at_s": 5.85,
+    "kind": "reveal",
+    "visible_change": "The warning banner finally lights the phone, after the water is already in the yard.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s2-shot-1",
+    "event_id": "s2-event-1",
+    "at_s": 9.45,
+    "kind": "action",
+    "visible_change": "A self-powered flood station stands on a post at the street edge above the waterline.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s2-shot-2",
+    "event_id": "s2-event-2",
+    "at_s": 12.75,
+    "kind": "reveal",
+    "visible_change": "Low sun reaches its small solar panel and the battery bar fills.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s3-shot-1",
+    "event_id": "s3-event-1",
+    "at_s": 15.72,
+    "kind": "action",
+    "visible_change": "The view climbs the post to four optical sensor marks set at different heights.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s3-shot-2",
+    "event_id": "s3-event-2",
+    "at_s": 19.02,
+    "kind": "reveal",
+    "visible_change": "Rising water crosses the lowest mark, then the second, and each mark lights as it is wet.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s4-shot-1",
+    "event_id": "s4-event-1",
+    "at_s": 22.815,
+    "kind": "action",
+    "visible_change": "Readings from every sensor travel in along thin traces to a small chip inside the housing.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s4-shot-2",
+    "event_id": "s4-event-3",
+    "at_s": 26.115,
+    "kind": "reveal",
+    "visible_change": "A dashed outline of a central server stays dark, with no line running to it.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s5-shot-1",
+    "event_id": "s5-event-1",
+    "at_s": 29.297,
+    "kind": "action",
+    "visible_change": "A radio pulse leaves the station antenna in expanding rings.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s5-shot-2",
+    "event_id": "s5-event-3",
+    "at_s": 32.693,
+    "kind": "reveal",
+    "visible_change": "Across open country the ring reaches a five-mile tag and lands on a hub building.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s5-shot-3",
+    "event_id": "s5-event-3",
+    "at_s": 35.845,
+    "kind": "consequence",
+    "visible_change": "Across open country the ring reaches a five-mile tag and lands on a hub building.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s6-shot-1",
+    "event_id": "s6-event-1",
+    "at_s": 39.145,
+    "kind": "action",
+    "visible_change": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s6-shot-2",
+    "event_id": "s6-event-2",
+    "at_s": 43.245,
+    "kind": "reveal",
+    "visible_change": "Shaded flood paths spread across the map from the first dots.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s7-shot-1",
+    "event_id": "s7-event-1",
+    "at_s": 47.755,
+    "kind": "action",
+    "visible_change": "A validation bar fills across its card to ninety eight point eight two percent.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s7-shot-2",
+    "event_id": "s7-event-3",
+    "at_s": 51.855,
+    "kind": "reveal",
+    "visible_change": "A second card for a street result stays blank, marked none reported.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s8-shot-1",
+    "event_id": "s8-event-1",
+    "at_s": 54.95,
+    "kind": "action",
+    "visible_change": "A map of Texas streets shows no pin where a station is installed.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s8-shot-2",
+    "event_id": "s8-event-2",
+    "at_s": 57.45,
+    "kind": "reveal",
+    "visible_change": "The station stands again by the street while water crosses its four marks once more.",
+    "event_fraction": 0.5
+   }
+  ]
+ },
+ "narration_picture": {
+  "version": "narration-picture-v1",
+  "timing_mode": "authored",
+  "cue_plan": "Provisional authored cue estimate for the silent two-treatment comparison only. board_retime.py replaces it with measured_caption_boundaries after acoustic alignment; it approves nothing.",
+  "clauses": [
+   {
+    "id": "n1",
+    "text": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.",
+    "cue_ids": [
+     "cue-n1"
+    ],
+    "scene_id": "s1",
+    "subject_ids": [
+     "s1-water",
+     "s1-post"
+    ],
+    "action_id": "s1-action",
+    "claim_ids": [
+     "c12"
+    ],
+    "event_ids": [
+     "s1-event-1",
+     "s1-event-2",
+     "s1-event-3"
+    ],
+    "start_s": 0.3,
+    "end_s": 7.5,
+    "word_range": [
+     0,
+     21
+    ]
+   },
+   {
+    "id": "n2",
+    "text": "So its researchers built a flood station that charges itself from light and needs no cell tower.",
+    "cue_ids": [
+     "cue-n2"
+    ],
+    "scene_id": "s2",
+    "subject_ids": [
+     "s2-station",
+     "s2-post"
+    ],
+    "action_id": "s2-action",
+    "claim_ids": [
+     "c1",
+     "c5",
+     "c6",
+     "c14"
+    ],
+    "event_ids": [
+     "s2-event-1",
+     "s2-event-2",
+     "s2-event-3"
+    ],
+    "start_s": 8.1,
+    "end_s": 14.1,
+    "word_range": [
+     21,
+     38
+    ]
+   },
+   {
+    "id": "n3",
+    "text": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.",
+    "cue_ids": [
+     "cue-n3"
+    ],
+    "scene_id": "s3",
+    "subject_ids": [
+     "s3-stack",
+     "s3-marks"
+    ],
+    "action_id": "s3-action",
+    "claim_ids": [
+     "c2"
+    ],
+    "event_ids": [
+     "s3-event-1",
+     "s3-event-2",
+     "s3-event-3"
+    ],
+    "start_s": 14.7,
+    "end_s": 20.7,
+    "word_range": [
+     38,
+     54
+    ]
+   },
+   {
+    "id": "n4",
+    "text": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.",
+    "cue_ids": [
+     "cue-n4"
+    ],
+    "scene_id": "s4",
+    "subject_ids": [
+     "s4-traces",
+     "s4-chip"
+    ],
+    "action_id": "s4-action",
+    "claim_ids": [
+     "c3",
+     "c18"
+    ],
+    "event_ids": [
+     "s4-event-1",
+     "s4-event-2",
+     "s4-event-3"
+    ],
+    "start_s": 21.3,
+    "end_s": 27.3,
+    "word_range": [
+     54,
+     73
+    ]
+   },
+   {
+    "id": "n5",
+    "text": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
+    "cue_ids": [
+     "cue-n5"
+    ],
+    "scene_id": "s5",
+    "subject_ids": [
+     "s5-antenna",
+     "s5-ring"
+    ],
+    "action_id": "s5-action",
+    "claim_ids": [
+     "c6"
+    ],
+    "event_ids": [
+     "s5-event-1",
+     "s5-event-2",
+     "s5-event-3"
+    ],
+    "start_s": 27.9,
+    "end_s": 37.0,
+    "word_range": [
+     73,
+     100
+    ]
+   },
+   {
+    "id": "n6",
+    "text": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.",
+    "cue_ids": [
+     "cue-n6"
+    ],
+    "scene_id": "s6",
+    "subject_ids": [
+     "s6-dots",
+     "s6-dashboard"
+    ],
+    "action_id": "s6-action",
+    "claim_ids": [
+     "c7",
+     "c16",
+     "c17",
+     "c20"
+    ],
+    "event_ids": [
+     "s6-event-1",
+     "s6-event-2",
+     "s6-event-3"
+    ],
+    "start_s": 37.6,
+    "end_s": 45.2,
+    "word_range": [
+     100,
+     119
+    ]
+   },
+   {
+    "id": "n7",
+    "text": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
+    "cue_ids": [
+     "cue-n7"
+    ],
+    "scene_id": "s7",
+    "subject_ids": [
+     "s7-bar",
+     "s7-card"
+    ],
+    "action_id": "s7-action",
+    "claim_ids": [
+     "c4"
+    ],
+    "event_ids": [
+     "s7-event-1",
+     "s7-event-2",
+     "s7-event-3"
+    ],
+    "start_s": 45.8,
+    "end_s": 53.4,
+    "word_range": [
+     119,
+     139
+    ]
+   },
+   {
+    "id": "n8",
+    "text": "It names no town that has installed one. Deployment is still the goal.",
+    "cue_ids": [
+     "cue-n8"
+    ],
+    "scene_id": "s8",
+    "subject_ids": [
+     "s8-map",
+     "s8-nopin"
+    ],
+    "action_id": "s8-action",
+    "claim_ids": [
+     "c1",
+     "c10",
+     "c9"
+    ],
+    "event_ids": [
+     "s8-event-1",
+     "s8-event-2",
+     "s8-event-3"
+    ],
+    "start_s": 54.0,
+    "end_s": 58.4,
+    "word_range": [
+     139,
+     152
+    ]
+   }
+  ]
+ },
+ "story_contract": {
+  "opening_question": "Can a flood station judge rising street water with no power line and no cell tower?",
+  "actor": "University of Texas at San Antonio researchers led by Chen Pan",
+  "action": "Built a prototype flood station that charges itself from light and runs its AI model on a small chip.",
+  "change": "A flood gauge that needs grid power and a network becomes a self-powered station that judges flood risk on its own chip and signals a hub by radio.",
+  "affected_people": "Emergency responders and residents of street-level flood-prone blocks. No individual is named in any source.",
+  "consequence": "A hub dashboard with predictive maps of how flooding could spread, for emergency responders, per the university.",
+  "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+  "closing_answer": "The design says yes. The proof so far is validation accuracy, and no installed place is named.",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "scenes": [
+   {
+    "scene_id": "s1",
+    "role": "action",
+    "claim_ids": [
+     "c12"
+    ],
+    "advances": "Muddy water creeps across a San Antonio yard and passes an ankle-high mark on a fence post. A phone on the porch rail stays dark while the water keeps rising. The warning banner finally lights the phone, after the water is already in the yard."
+   },
+   {
+    "scene_id": "s2",
+    "role": "action",
+    "claim_ids": [
+     "c1",
+     "c5",
+     "c6",
+     "c14"
+    ],
+    "advances": "A self-powered flood station stands on a post at the street edge above the waterline. Low sun reaches its small solar panel and the battery bar fills. A far cell tower stands on the horizon with no line running to the station."
+   },
+   {
+    "scene_id": "s3",
+    "role": "mechanism",
+    "claim_ids": [
+     "c2"
+    ],
+    "advances": "The view climbs the post to four optical sensor marks set at different heights. Rising water crosses the lowest mark, then the second, and each mark lights as it is wet. Rain, temperature, humidity and light sensing lamps come on in a row beside the four marks."
+   },
+   {
+    "scene_id": "s4",
+    "role": "mechanism",
+    "claim_ids": [
+     "c3",
+     "c18"
+    ],
+    "advances": "Readings from every sensor travel in along thin traces to a small chip inside the housing. The chip lights a local risk judgment lamp with no wire leaving the housing. A dashed outline of a central server stays dark, with no line running to it."
+   },
+   {
+    "scene_id": "s5",
+    "role": "mechanism",
+    "claim_ids": [
+     "c6"
+    ],
+    "advances": "A radio pulse leaves the station antenna in expanding rings. Through the city street grid the ring passes a half-mile tag. Across open country the ring reaches a five-mile tag and lands on a hub building."
+   },
+   {
+    "scene_id": "s6",
+    "role": "consequence",
+    "claim_ids": [
+     "c7",
+     "c16",
+     "c17",
+     "c20"
+    ],
+    "advances": "Dots from several stations arrive on a hub dashboard and a second, larger model starts drawing. Shaded flood paths spread across the map from the first dots. Higher-risk zones outline themselves and a responder hand rests on the map."
+   },
+   {
+    "scene_id": "s7",
+    "role": "limit",
+    "claim_ids": [
+     "c4"
+    ],
+    "advances": "A validation bar fills across its card to ninety eight point eight two percent. A tag on the card reads initial assessments after training. A second card for a street result stays blank, marked none reported."
+   },
+   {
+    "scene_id": "s8",
+    "role": "answer",
+    "claim_ids": [
+     "c1",
+     "c10",
+     "c9"
+    ],
+    "advances": "A map of Texas streets shows no pin where a station is installed. The station stands again by the street while water crosses its four marks once more. A last hold on the station, with the empty map card beside it."
+   }
+  ],
+  "transitions": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "kind": "same-subject",
+    "because": "The same station and rising waterline carry across the cut.",
+    "visible_bridge": "The station and its four sensor marks stay in frame or return in the next shot."
+   }
+  ]
+ },
+ "cinematic_contract": {
+  "throughline": {
+   "subject": "One solar flood station and the waterline that crosses its four marks",
+   "opening_state": "The viewer starts in the flooded yard with the late phone, then finds the station that could have warned sooner.",
+   "closing_state": "The station stands by the street, the waterline crosses its marks and the map beside it shows no installed pin.",
+   "scene_ids": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8"
+   ]
+  },
+  "turn_scene": "s4",
+  "button": "The chip lights a local judgment with no line to a server, and the closing map has no pin."
+ },
+ "cinema": {
+  "version": "creative-production-v1",
+  "hero_scene_id": "s3",
+  "hero_passage_end_scene_id": "s5",
+  "dimensional_scene_ids": [],
+  "visible_action": "Water crosses the four sensor marks one at a time, the chip lights a risk judgment on the spot and a radio pulse carries it out to a hub.",
+  "human_consequence": "Emergency responders could see a map of how flooding could spread. The university names no responder, agency or place that uses a station.",
+  "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+ },
+ "fingerprint": {
+  "pov": "street-level-yard",
+  "motion_vector": "yard-to-post-to-hub",
+  "hero_treatment": "authored-solar-flood-station",
+  "layout": "street-and-map",
+  "register": "disclosed-source-bound-illustration",
+  "camera_strategy": "held-with-event-led-moves",
+  "light_story": "late-afternoon-storm-light-upper-left",
+  "palette": "Limestone, storm gray, flood brown, galvanized steel, amber risk lamp",
+  "metaphor": "Four marks get wet one at a time while the station decides on its own"
+ },
+ "divergence_note": "A starts in the flooded yard with the late phone and then finds the station. B starts inside the sensor column watching the four marks get wet, then pulls back to the yard and the phone, and ends on the station before the empty map.",
+ "hook_strategy": "action-first",
+ "hook_payoff_s": 1.2,
+ "creative_direction": {
+  "viewer_question": "Can a flood station judge rising street water with no power line and no cell tower?",
+  "visible_answer": "The chip lights a local judgment, a radio pulse reaches a hub map, and the closing map shows no installed pin.",
+  "emotional_turn": "Watchfulness as the water rises, then the plain limit of what the university reports.",
+  "medium_choice": "News report / Explanatory animation, mechanism-led. No licensed photograph or footage of the station exists, so original authored illustration performs the design the university describes. A static page excerpt would show the words but hide the four marks, the chip and the hub.",
+  "edits": []
+ },
+ "documentary": {
+  "schema": "dispatch_documentary/1",
+  "viewer_question": "Can a flood station judge rising street water with no power line and no cell tower?",
+  "payoff": "Water crosses the four sensor marks one at a time, the chip lights a risk judgment on the spot and a radio pulse carries it out to a hub.",
+  "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+  "hero_image": "Water crossing the four sensor marks on the solar flood station.",
+  "closing_answer": "The design says yes. The proof so far is validation accuracy, and no installed place is named.",
+  "hook_payoff_event": "s1-event-1"
+ },
+ "visual_research": {
+  "searches": [
+   {
+    "query": "University of Texas at San Antonio flood station photographs, site and rights",
+    "finding": "The university story names no installation site, and no photograph or footage of the prototype was located or downloaded. No licence was established."
+   },
+   {
+    "query": "Library of Congress place search for San Antonio via scripts/place_photos.py (Highsmith Lyda Hill Texas Collection)",
+    "finding": "Eight records with the advisory No known restrictions on publication, all of the San Antonio Stock Show and Rodeo from February 2014. None shows a street, flooding or a sensor, so none is used."
+   }
+  ],
+  "candidates": [
+   {
+    "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+    "decision": "reject",
+    "reason": "The page is the source for the design, with no usable image rights established."
+   },
+   {
+    "url": "https://www.loc.gov/item/2014631405/",
+    "decision": "reject",
+    "reason": "Rights are clear but it shows rodeo visitors, not a street, flooding or a sensor."
+   }
+  ],
+  "decision": "No external photograph or footage helps tell this story honestly, so fresh authored illustration performs the sourced design with an Illustration disclosure."
+ },
+ "native_media": [],
+ "art_direction": {
+  "version": "directed-world-v1",
+  "palette": {
+   "background": "#CDBFA8",
+   "midground": "#8E8A80",
+   "foreground": "#4A3F36",
+   "ink": "#232A30",
+   "paper": "#EEE6D3",
+   "hero": "#8D979C",
+   "accent": "#E3A32B"
+  },
+  "palette_reason": "San Antonio under a storm sky: limestone cream and gray carry the street, flood water is muddy brown, galvanized steel gray is kept for the post and housing, warm paper carries the cards, and one amber is kept only for the risk lamp, the flood paths and the half-mile and five-mile tags.",
+  "shape_language": "A straight galvanized post against soft rounded water edges, hand cut limestone curb, lopsided live oak, and small rectangular paper cards with worn corners. The housing is the one boxy machine form with a tilted cap.",
+  "lighting": {
+   "motivation": "Low late afternoon storm light from the upper left warms limestone and steel, a cool sky fill from the right shades the post, and every grounded thing casts a long soft shadow to the right.",
+   "ambient": 0.8,
+   "exposure": 1.0,
+   "key": {
+    "position": [
+     -6,
+     5,
+     4
+    ],
+    "color": "#FFE2B6",
+    "intensity": 1.9
+   },
+   "fill": {
+    "position": [
+     5,
+     2,
+     3
+    ],
+    "color": "#BFCBDA",
+    "intensity": 0.8
+   },
+   "rim": {
+    "position": [
+     2,
+     5,
+     -4
+    ],
+    "color": "#FFF1D8",
+    "intensity": 0.6
+   }
+  },
+  "hero": {
+   "asset": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+   "silhouette": "A tall galvanized post with a tilted boxy housing, a small dark solar panel, a whip antenna and a column of four lens marks at four different heights.",
+   "finish": "Lit upper-left steel edges, cool shaded right side, a rust drip, a dent in the housing cap, a worn panel corner, small lens glints, a chip cutaway with thin traces and a long soft ground shadow.",
+   "subject_ids": [
+    "s2-panel",
+    "s3-marks",
+    "s4-chip",
+    "s8-station"
+   ]
+  },
+  "focal_hierarchy": "The station and its four marks first, the waterline or risk lamp second, the cards and map third, the street and tree last.",
+  "motion_language": "Water rises at an even speed and marks light as it crosses them, radio rings expand and fade, cards and tags settle without bounce, and the camera holds while objects perform, moving only to follow the water or to pull back.",
+  "signature_shot": {
+   "scene_id": "s3",
+   "event_id": "s3-event-2",
+   "reason": "Water crosses the four marks one at a time and each lights as it is wet, the whole sensing mechanism in one movement."
+  },
+  "shots": {},
+  "flat_shots": {
+   "s1": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s2": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s3": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s4": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s5": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s6": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s7": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   },
+   "s8": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+   }
+  }
+ }
+}

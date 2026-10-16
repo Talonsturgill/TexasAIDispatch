@@ -1,0 +1,50 @@
+diff --git a/scripts/vo_soundcheck.py b/scripts/vo_soundcheck.py
+index e5fb303..9526771 100644
+--- a/scripts/vo_soundcheck.py
++++ b/scripts/vo_soundcheck.py
+@@ -261,14 +261,35 @@ def figure_tokens(text: str) -> list[str]:
+ def figures(text: str) -> list[int]:
+     """Every figure a listener would hear, whether it was written as words or as digits.
+ 
+-    Deliberately integers only. This show's spoken figures are counts and ranks, and a
+-    decimal that reads as "point three" would need its own handling the day one is spoken.
++    Integers only, with one rule for a spoken decimal. The digits written as "98.82" read as the
++    two integers 98 and 82, so "ninety eight point eight two" reads the same way: the whole part,
++    then the digits after "point" joined as one integer. Without this rule the spoken fraction
++    "eight two" was summed as 8 + 2 = 10 and a correct on-screen 98.82 could never match it
++    (2026-10-16, the UT San Antonio validation accuracy). Only single digit words directly after
++    "point" are joined, so a count such as "eight point nine gigawatts" still reads 8 and 9.
+     """
+     out: list[int] = []
+     cur = 0        # the number being assembled from words
+     part = 0       # the part below the current scale word
+     live = False
++    fraction: list[str] | None = None   # digit words heard after "point"
++
++    def flush_fraction() -> None:
++        nonlocal fraction
++        if fraction:
++            out.append(int("".join(fraction)))
++        fraction = None
++
+     for tok in figure_tokens(text):
++        if fraction is not None:
++            if tok in _UNITS and 0 <= _UNITS[tok] <= 9:
++                fraction.append(str(_UNITS[tok]))
++                continue
++            flush_fraction()
++        if tok == "point" and live:
++            out.append(cur + part); cur = part = 0; live = False
++            fraction = []
++            continue
+         if tok and tok[0].isdigit():
+             if live:
+                 out.append(cur + part); cur = part = 0; live = False
+@@ -286,6 +307,7 @@ def figures(text: str) -> list[int]:
+             continue
+         elif live:
+             out.append(cur + part); cur = part = 0; live = False
++    flush_fraction()
+     if live:
+         out.append(cur + part)
+     return out
