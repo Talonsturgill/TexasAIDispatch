@@ -1,0 +1,4765 @@
+{
+  "date": "2026-10-15",
+  "edition_id": "2026-10-15",
+  "run_id": "2026-10-15",
+  "title": "The station that counts the water",
+  "topic": "UT San Antonio builds a solar powered flood station that runs its AI model on the chip rather than in the cloud",
+  "beat": "weather-and-emergency",
+  "entities": [
+    "UT San Antonio",
+    "Chen Pan",
+    "Texas Coastal Management Program",
+    "NOAA"
+  ],
+  "runtime_s": 57.5,
+  "credits_s": 5,
+  "credits": "TEXAS AI DOCKET\nSOURCES\nUT San Antonio Today, September 8th\nILLUSTRATION\nOriginal authored diagrams\nMAP\nCounty marker is editorial\n",
+  "derived_from": "scratch",
+  "cinematic_template": "directed-film-v2",
+  "daily_production": true,
+  "fauna_scope": {
+    "status": "none",
+    "reason": "This flood station story names no animal action, habitat or wildlife claim."
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "start_s": 0.0,
+      "duration_s": 8.26,
+      "duration_authored": 8.26,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "motion",
+      "story_role": "hook",
+      "vo": "Some people could have ankle-deep water in their yard. UT San Antonio says the phone warning can come after that.",
+      "vo_claims": [
+        "c12"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark. The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark. The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+      "what_moves": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark. The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark. The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+      "production_disclosure": "Illustration. Map marks the county",
+      "visual_events": [
+        {
+          "id": "s1-event-1",
+          "at_s_authored": 0.3594,
+          "duration_s_authored": 0.594,
+          "item_ids": [
+            "s1-water",
+            "s1-post"
+          ],
+          "what": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+          "motion": {
+            "curve": "linear",
+            "anticipation": 0,
+            "settle": 0
+          },
+          "narration_id": "n1a",
+          "clause_fraction_start": 0.02,
+          "clause_fraction_end": 0.22,
+          "at_s": 0.3594,
+          "duration_s": 0.594
+        },
+        {
+          "id": "s1-event-2",
+          "at_s_authored": 1.8444,
+          "duration_s_authored": 0.7128,
+          "item_ids": [
+            "s1-phone",
+            "s1-water",
+            "s1-boots"
+          ],
+          "what": "The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n1a",
+          "clause_fraction_start": 0.52,
+          "clause_fraction_end": 0.76,
+          "at_s": 1.8444,
+          "duration_s": 0.7128
+        },
+        {
+          "id": "s1-event-3",
+          "at_s_authored": 5.189,
+          "duration_s_authored": 0.9438,
+          "item_ids": [
+            "s1-phone",
+            "s1-banner"
+          ],
+          "what": "The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n1b",
+          "clause_fraction_start": 0.3,
+          "clause_fraction_end": 0.56,
+          "at_s": 5.189,
+          "duration_s": 0.9438
+        }
+      ],
+      "camera_strategy": "dollyThrough",
+      "visual_family": "flood-s1-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "A flooded San Antonio yard with no station in it, the orange ankle mark on a chain link post and the phone on the porch rail",
+        "action": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark. The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark. The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+        "emotion": "Unease as the water arrives before the warning.",
+        "annotation": "Illustration. Map marks the county"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "flooded street and limestone curb across from the yard",
+          "items": [
+            {
+              "id": "s1-water",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "brown flood water ankle deep across the yard from the flooded street"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "live oak and chain link post with its orange ankle mark",
+          "items": [
+            {
+              "id": "s1-post",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "chain link fence post with an orange ankle high paint mark in the flooded yard"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "porch steps and rain boots",
+          "items": [
+            {
+              "id": "s1-boots",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "worn rubber rain boots on the porch step, the water reaching their ankles"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "porch rail and the dark phone",
+          "items": [
+            {
+              "id": "s1-phone",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "worn phone lying on the porch rail with a dark screen"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "phone screen and its late warning banner",
+          "items": [
+            {
+              "id": "s1-banner",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "flash flood warning banner lighting the phone late after the water"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+        "must_show": [
+          {
+            "concept": "ankle deep water in the yard",
+            "item_ids": [
+              "s1-water",
+              "s1-post"
+            ]
+          },
+          {
+            "concept": "flood warning on the phone",
+            "item_ids": [
+              "s1-phone",
+              "s1-banner"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+          "item_ids": [
+            "s1-water",
+            "s1-post"
+          ]
+        }
+      },
+      "hook_strategy": "human_stakes",
+      "hook_payoff_s": 1.2
+    },
+    {
+      "id": "s2",
+      "start_s": 8.26,
+      "duration_s": 7.27,
+      "duration_authored": 7.27,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "movement",
+      "vo": "So its researchers built a flood station. It charges itself from light and needs no cell tower.",
+      "vo_claims": [
+        "c1",
+        "c5",
+        "c6",
+        "c14"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing. Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell. A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+      "what_moves": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing. Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell. A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+      "production_disclosure": "Illustration of the prototype",
+      "visual_events": [
+        {
+          "id": "s2-event-1",
+          "at_s_authored": 0.5772,
+          "duration_s_authored": 0.6006,
+          "item_ids": [
+            "s2-station",
+            "s2-post"
+          ],
+          "what": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n2a",
+          "clause_fraction_start": 0.12,
+          "clause_fraction_end": 0.38,
+          "at_s": 0.5772,
+          "duration_s": 0.6006
+        },
+        {
+          "id": "s2-event-2",
+          "at_s_authored": 3.704,
+          "duration_s_authored": 0.792,
+          "item_ids": [
+            "s2-panel",
+            "s2-battery"
+          ],
+          "what": "Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n2b",
+          "clause_fraction_start": 0.08,
+          "clause_fraction_end": 0.32,
+          "at_s": 3.704,
+          "duration_s": 0.792
+        },
+        {
+          "id": "s2-event-3",
+          "at_s_authored": 5.156,
+          "duration_s_authored": 0.792,
+          "item_ids": [
+            "s2-station",
+            "s2-tower"
+          ],
+          "what": "A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n2b",
+          "clause_fraction_start": 0.52,
+          "clause_fraction_end": 0.76,
+          "at_s": 5.156,
+          "duration_s": 0.792
+        }
+      ],
+      "camera_strategy": "riseWith",
+      "visual_family": "flood-s2-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The whole prototype station at a curb, its solar panel and battery bar, and a far cell tower",
+        "action": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing. Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell. A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+        "emotion": "Curiosity as a self-powered answer appears.",
+        "annotation": "Illustration of the prototype"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "far cell tower on the horizon",
+          "items": [
+            {
+              "id": "s2-tower",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "far cell tower with a dashed line that stops short, no cell tower link"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "flooded street at the curb",
+          "items": [
+            {
+              "id": "s2-post",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "galvanized station post standing in shallow flood water"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "the prototype flood station on its post",
+          "items": [
+            {
+              "id": "s2-station",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "self powered solar flood station on its post at the curb"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "solar panel catching low sun",
+          "items": [
+            {
+              "id": "s2-panel",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "small dark solar panel that charges itself from low sun light"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "battery bar window on the housing",
+          "items": [
+            {
+              "id": "s2-battery",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "battery bar window filling cell by cell as the station charges itself from light"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell.",
+        "must_show": [
+          {
+            "concept": "self powered flood station",
+            "item_ids": [
+              "s2-station"
+            ]
+          },
+          {
+            "concept": "charges itself from light",
+            "item_ids": [
+              "s2-panel",
+              "s2-battery"
+            ]
+          },
+          {
+            "concept": "no cell tower",
+            "item_ids": [
+              "s2-tower"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell.",
+          "item_ids": [
+            "s2-panel",
+            "s2-battery"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s3",
+      "start_s": 15.53,
+      "duration_s": 3.8,
+      "duration_authored": 3.8,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "motion",
+      "story_role": "mechanism",
+      "vo": "Four optical sensors at different heights watch the water.",
+      "vo_claims": [
+        "c2"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Four optical lenses at four different heights on the post catch the low light in turn. Brown water rises past the lit first lens and reaches the second, which lights as it goes under. Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+      "what_moves": "Four optical lenses at four different heights on the post catch the low light in turn. Brown water rises past the lit first lens and reaches the second, which lights as it goes under. Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+      "production_disclosure": "Illustration of the described sensors",
+      "visual_events": [
+        {
+          "id": "s3-event-1",
+          "at_s_authored": 0.4188,
+          "duration_s_authored": 0.6534,
+          "item_ids": [
+            "s3-stack",
+            "s3-marks"
+          ],
+          "what": "Four optical lenses at four different heights on the post catch the low light in turn.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n3a",
+          "clause_fraction_start": 0.04,
+          "clause_fraction_end": 0.26,
+          "at_s": 0.4188,
+          "duration_s": 0.6534
+        },
+        {
+          "id": "s3-event-2",
+          "at_s_authored": 1.4286,
+          "duration_s_authored": 0.7128,
+          "item_ids": [
+            "s3-marks",
+            "s3-water"
+          ],
+          "what": "Brown water rises past the lit first lens and reaches the second, which lights as it goes under.",
+          "motion": {
+            "curve": "linear",
+            "anticipation": 0,
+            "settle": 0
+          },
+          "narration_id": "n3a",
+          "clause_fraction_start": 0.38,
+          "clause_fraction_end": 0.62,
+          "at_s": 1.4286,
+          "duration_s": 0.7128
+        },
+        {
+          "id": "s3-event-3",
+          "at_s_authored": 2.4978,
+          "duration_s_authored": 0.6534,
+          "item_ids": [
+            "s3-stack",
+            "s3-weather"
+          ],
+          "what": "Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n3a",
+          "clause_fraction_start": 0.74,
+          "clause_fraction_end": 0.96,
+          "at_s": 2.4978,
+          "duration_s": 0.6534
+        }
+      ],
+      "camera_strategy": "craneDown",
+      "visual_family": "flood-s3-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The station post's four optical lenses, the rising water and the housing's weather lamps",
+        "action": "Four optical lenses at four different heights on the post catch the low light in turn. Brown water rises past the lit first lens and reaches the second, which lights as it goes under. Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+        "emotion": "Watchfulness as each mark lights.",
+        "annotation": "Illustration of the described sensors"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "post column climbing to the housing",
+          "items": [
+            {
+              "id": "s3-stack",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "station sensors, four optical water marks and rain temperature humidity light sensing"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "four optical marks at four heights",
+          "items": [
+            {
+              "id": "s3-marks",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "four optical sensor marks at four different heights on the post"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "weather sensors and lamps on the housing",
+          "items": [
+            {
+              "id": "s3-weather",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "rain temperature humidity light weather lamps and labels on the housing"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "brown water rising at the post",
+          "items": [
+            {
+              "id": "s3-water",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "brown flood water rising past the optical marks that watch the water"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Brown water rises past the lit first lens and reaches the second, which lights as it goes under.",
+        "must_show": [
+          {
+            "concept": "four optical sensors at different heights",
+            "item_ids": [
+              "s3-marks"
+            ]
+          },
+          {
+            "concept": "watch the water",
+            "item_ids": [
+              "s3-water",
+              "s3-marks"
+            ]
+          },
+          {
+            "concept": "rain temperature humidity and light",
+            "item_ids": [
+              "s3-weather"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Brown water rises past the lit first lens and reaches the second, which lights as it goes under.",
+          "item_ids": [
+            "s3-marks",
+            "s3-water"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s4",
+      "start_s": 19.33,
+      "duration_s": 7.93,
+      "duration_authored": 7.93,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "mechanism",
+      "vo": "A small chip on the station runs the AI itself. So it judges flood risk without a central server.",
+      "vo_claims": [
+        "c3",
+        "c18"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow. The chip lights the amber risk lamp on the board and a judged on the station tag pins. Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+      "what_moves": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow. The chip lights the amber risk lamp on the board and a judged on the station tag pins. Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+      "production_disclosure": "Illustration. Not real hardware",
+      "visual_events": [
+        {
+          "id": "s4-event-1",
+          "at_s_authored": 2.115,
+          "duration_s_authored": 0.825,
+          "item_ids": [
+            "s4-traces",
+            "s4-chip"
+          ],
+          "what": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow.",
+          "motion": {
+            "curve": "linear",
+            "anticipation": 0,
+            "settle": 0
+          },
+          "narration_id": "n4a",
+          "clause_fraction_start": 0.55,
+          "clause_fraction_end": 0.8,
+          "at_s": 2.115,
+          "duration_s": 0.825
+        },
+        {
+          "id": "s4-event-2",
+          "at_s_authored": 5.4992,
+          "duration_s_authored": 0.7128,
+          "item_ids": [
+            "s4-chip",
+            "s4-risk"
+          ],
+          "what": "The chip lights the amber risk lamp on the board and a judged on the station tag pins.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n4b",
+          "clause_fraction_start": 0.36,
+          "clause_fraction_end": 0.6,
+          "at_s": 5.4992,
+          "duration_s": 0.7128
+        },
+        {
+          "id": "s4-event-3",
+          "at_s_authored": 6.509,
+          "duration_s_authored": 0.7128,
+          "item_ids": [
+            "s4-server",
+            "s4-station"
+          ],
+          "what": "Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n4b",
+          "clause_fraction_start": 0.7,
+          "clause_fraction_end": 0.94,
+          "at_s": 6.509,
+          "duration_s": 0.7128
+        }
+      ],
+      "camera_strategy": "dollyThrough",
+      "visual_family": "flood-s4-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The opened housing with its traces and chip, a push in on the risk lamp, then the far dark server outline",
+        "action": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow. The chip lights the amber risk lamp on the board and a judged on the station tag pins. Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+        "emotion": "The turn, a decision made right on the station.",
+        "annotation": "Illustration. Not real hardware"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "street and the far dark server outline",
+          "items": [
+            {
+              "id": "s4-server",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "dashed outline of a central server, dark, no line to it"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "station with its housing window glowing",
+          "items": [
+            {
+              "id": "s4-station",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "flood station with its glowing housing on the street"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "opened housing and its traces",
+          "items": [
+            {
+              "id": "s4-traces",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "thin traces carrying sensor readings to the chip"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "small chip at the board centre",
+          "items": [
+            {
+              "id": "s4-chip",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "small chip on the station running the AI, marked TinyML"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "amber risk lamp on the board edge",
+          "items": [
+            {
+              "id": "s4-risk",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "amber flood risk lamp lit by the chip"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The chip lights the amber risk lamp on the board and a judged on the station tag pins.",
+        "must_show": [
+          {
+            "concept": "small chip on the station runs the AI",
+            "item_ids": [
+              "s4-chip",
+              "s4-traces"
+            ]
+          },
+          {
+            "concept": "judges flood risk",
+            "item_ids": [
+              "s4-risk",
+              "s4-chip"
+            ]
+          },
+          {
+            "concept": "without a central server",
+            "item_ids": [
+              "s4-server"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The chip lights the amber risk lamp on the board and a judged on the station tag pins.",
+          "item_ids": [
+            "s4-chip",
+            "s4-risk"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s5",
+      "start_s": 27.26,
+      "duration_s": 8.59,
+      "duration_authored": 8.59,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "motion",
+      "story_role": "scale",
+      "vo": "Its radio signal can carry more than a half-mile in streets. In open country, up to five miles, to a hub.",
+      "vo_claims": [
+        "c6"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "A pulse flashes at the antenna tip and amber radio rings leave it. The rings run down the street of bungalows and pass the half-mile tag on the far corner post. Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+      "what_moves": "A pulse flashes at the antenna tip and amber radio rings leave it. The rings run down the street of bungalows and pass the half-mile tag on the far corner post. Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+      "production_disclosure": "Illustration. Ranges as described",
+      "visual_events": [
+        {
+          "id": "s5-event-1",
+          "at_s_authored": 0.4452,
+          "duration_s_authored": 0.7986,
+          "item_ids": [
+            "s5-antenna",
+            "s5-ring"
+          ],
+          "what": "A pulse flashes at the antenna tip and amber radio rings leave it.",
+          "motion": {
+            "curve": "linear",
+            "anticipation": 0,
+            "settle": 0
+          },
+          "narration_id": "n5a",
+          "clause_fraction_start": 0.04,
+          "clause_fraction_end": 0.26,
+          "at_s": 0.4452,
+          "duration_s": 0.7986
+        },
+        {
+          "id": "s5-event-2",
+          "at_s_authored": 2.1876,
+          "duration_s_authored": 0.9438,
+          "item_ids": [
+            "s5-ring",
+            "s5-halfmile"
+          ],
+          "what": "The rings run down the street of bungalows and pass the half-mile tag on the far corner post.",
+          "motion": {
+            "curve": "linear",
+            "anticipation": 0,
+            "settle": 0
+          },
+          "narration_id": "n5a",
+          "clause_fraction_start": 0.52,
+          "clause_fraction_end": 0.78,
+          "at_s": 2.1876,
+          "duration_s": 0.9438
+        },
+        {
+          "id": "s5-event-3",
+          "at_s_authored": 5.75,
+          "duration_s_authored": 1.056,
+          "item_ids": [
+            "s5-ring",
+            "s5-hub",
+            "s5-fivemile"
+          ],
+          "what": "Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n5b",
+          "clause_fraction_start": 0.3,
+          "clause_fraction_end": 0.62,
+          "at_s": 5.75,
+          "duration_s": 1.056
+        }
+      ],
+      "camera_strategy": "truckAcross",
+      "visual_family": "flood-s5-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "Radio rings from the station antenna down a city street to the hub in open country",
+        "action": "A pulse flashes at the antenna tip and amber radio rings leave it. The rings run down the street of bungalows and pass the half-mile tag on the far corner post. Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+        "emotion": "Reach, a signal travelling with no tower.",
+        "annotation": "Illustration. Ranges as described"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "open country and the hub building",
+          "items": [
+            {
+              "id": "s5-hub",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "hub building with a rooftop mast lamp"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "street of bungalows and its corner tag",
+          "items": [
+            {
+              "id": "s5-halfmile",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "more than a half mile tag through city streets"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "radio rings rolling out",
+          "items": [
+            {
+              "id": "s5-ring",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "amber radio signal rings carrying out to the hub"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "range tags",
+          "items": [
+            {
+              "id": "s5-tags",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "more than a half mile and up to five miles range tags"
+              }
+            },
+            {
+              "id": "s5-fivemile",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "up to five miles in open country tag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "station antenna in the foreground",
+          "items": [
+            {
+              "id": "s5-antenna",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "station whip antenna sending a radio signal pulse"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "The rings run down the street of bungalows and pass the half-mile tag on the far corner post.",
+        "must_show": [
+          {
+            "concept": "radio signal rings",
+            "item_ids": [
+              "s5-ring"
+            ]
+          },
+          {
+            "concept": "more than a half mile through city streets",
+            "item_ids": [
+              "s5-halfmile"
+            ]
+          },
+          {
+            "concept": "up to five miles in open country",
+            "item_ids": [
+              "s5-fivemile"
+            ]
+          },
+          {
+            "concept": "to a hub",
+            "item_ids": [
+              "s5-hub"
+            ]
+          }
+        ],
+        "change": {
+          "description": "The rings run down the street of bungalows and pass the half-mile tag on the far corner post.",
+          "item_ids": [
+            "s5-ring",
+            "s5-halfmile"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s6",
+      "start_s": 35.85,
+      "duration_s": 4.79,
+      "duration_authored": 4.79,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": true,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "consequence",
+      "vo": "At the hub, a second, larger AI maps flood paths for responders.",
+      "vo_claims": [
+        "c7",
+        "c16",
+        "c17",
+        "c20"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model. Shaded flood paths spread out from the first dots along the creek and the low streets. Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+      "what_moves": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model. Shaded flood paths spread out from the first dots along the creek and the low streets. Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+      "production_disclosure": "Illustration. Not a real hub",
+      "visual_events": [
+        {
+          "id": "s6-event-1",
+          "at_s_authored": 0.4584,
+          "duration_s_authored": 0.8712,
+          "item_ids": [
+            "s6-dots",
+            "s6-dashboard"
+          ],
+          "what": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n6a",
+          "clause_fraction_start": 0.04,
+          "clause_fraction_end": 0.26,
+          "at_s": 0.4584,
+          "duration_s": 0.8712
+        },
+        {
+          "id": "s6-event-2",
+          "at_s_authored": 1.8048,
+          "duration_s_authored": 0.9504,
+          "item_ids": [
+            "s6-paths",
+            "s6-dashboard"
+          ],
+          "what": "Shaded flood paths spread out from the first dots along the creek and the low streets.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n6a",
+          "clause_fraction_start": 0.38,
+          "clause_fraction_end": 0.62,
+          "at_s": 1.8048,
+          "duration_s": 0.9504
+        },
+        {
+          "id": "s6-event-3",
+          "at_s_authored": 3.2304,
+          "duration_s_authored": 0.8712,
+          "item_ids": [
+            "s6-zones",
+            "s6-dashboard"
+          ],
+          "what": "Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n6a",
+          "clause_fraction_start": 0.74,
+          "clause_fraction_end": 0.96,
+          "at_s": 3.2304,
+          "duration_s": 0.8712
+        }
+      ],
+      "camera_strategy": "orbitReveal",
+      "visual_family": "flood-s6-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The hub desk and its dashboard, then the flood path map with its risk zones",
+        "action": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model. Shaded flood paths spread out from the first dots along the creek and the low streets. Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+        "emotion": "Use, a map someone could act on.",
+        "annotation": "Illustration. Not a real hub"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "soft hub window light",
+          "items": [
+            {
+              "id": "s6-dashboard",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "hub dashboard map from a second larger AI model"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "station dots on the screen",
+          "items": [
+            {
+              "id": "s6-dots",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "station dots arriving on the hub map"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "shaded flood paths",
+          "items": [
+            {
+              "id": "s6-paths",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "shaded flood paths showing how flooding could spread"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "dashed higher risk zones",
+          "items": [
+            {
+              "id": "s6-zones",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "dashed higher risk zones outlined on the map"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "responder forearm on the hub desk",
+          "items": [
+            {
+              "id": "s6-hand",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "emergency responder sleeved forearm and gloved hand at the hub desk"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Shaded flood paths spread out from the first dots along the creek and the low streets.",
+        "must_show": [
+          {
+            "concept": "second larger AI model map",
+            "item_ids": [
+              "s6-dashboard"
+            ]
+          },
+          {
+            "concept": "how flooding could spread",
+            "item_ids": [
+              "s6-paths"
+            ]
+          },
+          {
+            "concept": "emergency responders at the hub",
+            "item_ids": [
+              "s6-hand"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Shaded flood paths spread out from the first dots along the creek and the low streets.",
+          "item_ids": [
+            "s6-paths",
+            "s6-dashboard"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s7",
+      "start_s": 40.64,
+      "duration_s": 9.42,
+      "duration_authored": 9.42,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "revelation",
+      "story_role": "limit",
+      "vo": "The university reports early chip AI validation. Accuracy was ninety eight point eight two percent. The announcement reports no field result.",
+      "vo_claims": [
+        "c4",
+        "c18"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "what_moves": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "production_disclosure": "Illustration. The university's figure",
+      "visual_events": [
+        {
+          "id": "s7-event-1",
+          "at_s_authored": 1.224,
+          "duration_s_authored": 0.693,
+          "item_ids": [
+            "s7-bar",
+            "s7-card"
+          ],
+          "what": "The validation bar fills across its card and the university's reported figure appears and holds.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n7a",
+          "clause_fraction_start": 0.4,
+          "clause_fraction_end": 0.7,
+          "at_s": 1.224,
+          "duration_s": 0.693
+        },
+        {
+          "id": "s7-event-2",
+          "at_s_authored": 4.232,
+          "duration_s_authored": 0.6864,
+          "item_ids": [
+            "s7-tag",
+            "s7-card"
+          ],
+          "what": "An initial assessments after training tag pins under the validation card.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n7b",
+          "clause_fraction_start": 0.3,
+          "clause_fraction_end": 0.56,
+          "at_s": 4.232,
+          "duration_s": 0.6864
+        },
+        {
+          "id": "s7-event-3",
+          "at_s_authored": 7.504,
+          "duration_s_authored": 0.6336,
+          "item_ids": [
+            "s7-blank",
+            "s7-card2"
+          ],
+          "what": "The field result card stays blank and a none reported stamp presses onto it.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n7c",
+          "clause_fraction_start": 0.3,
+          "clause_fraction_end": 0.62,
+          "at_s": 7.504,
+          "duration_s": 0.6336
+        }
+      ],
+      "camera_strategy": "dollyThrough",
+      "visual_family": "flood-s7-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The validation card with its bar, figure and tag, then both cards with the blank field result card stamped",
+        "action": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+        "emotion": "Restraint, a lab figure and no field result.",
+        "annotation": "Illustration. The university's figure"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "plain wall",
+          "items": [
+            {
+              "id": "s7-card2",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "second card for a field result"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "validation card",
+          "items": [
+            {
+              "id": "s7-card",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "validation accuracy card reading 98.82 percent, the university reported figure"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "validation bar",
+          "items": [
+            {
+              "id": "s7-bar",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "validation accuracy bar filling to 98.82 percent"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "assessment tag",
+          "items": [
+            {
+              "id": "s7-tag",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "initial assessments after training tag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "blank field result card",
+          "items": [
+            {
+              "id": "s7-blank",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "field result card left blank, none reported"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "An initial assessments after training tag pins under the validation card.",
+        "must_show": [
+          {
+            "concept": "ninety eight point eight two percent validation accuracy",
+            "item_ids": [
+              "s7-card",
+              "s7-bar"
+            ]
+          },
+          {
+            "concept": "early assessments after training",
+            "item_ids": [
+              "s7-tag"
+            ]
+          },
+          {
+            "concept": "no field result",
+            "item_ids": [
+              "s7-blank"
+            ]
+          }
+        ],
+        "change": {
+          "description": "An initial assessments after training tag pins under the validation card.",
+          "item_ids": [
+            "s7-tag",
+            "s7-card"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s8",
+      "start_s": 50.06,
+      "duration_s": 3.47,
+      "duration_authored": 3.47,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "emotion",
+      "story_role": "agency",
+      "vo": "It names no town with an installed station.",
+      "vo_claims": [
+        "c1",
+        "c10"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "what_moves": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "production_disclosure": "Illustration. Not a real town map",
+      "visual_events": [
+        {
+          "id": "s8-event-1",
+          "at_s_authored": 0.4056,
+          "duration_s_authored": 0.5808,
+          "item_ids": [
+            "s8-map",
+            "s8-fence"
+          ],
+          "what": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n8a",
+          "clause_fraction_start": 0.04,
+          "clause_fraction_end": 0.26,
+          "at_s": 0.4056,
+          "duration_s": 0.5808
+        },
+        {
+          "id": "s8-event-2",
+          "at_s_authored": 1.3032,
+          "duration_s_authored": 0.6336,
+          "item_ids": [
+            "s8-search",
+            "s8-nopin"
+          ],
+          "what": "A dashed search ring sweeps the map and finds no installed station.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n8a",
+          "clause_fraction_start": 0.38,
+          "clause_fraction_end": 0.62,
+          "at_s": 1.3032,
+          "duration_s": 0.6336
+        },
+        {
+          "id": "s8-event-3",
+          "at_s_authored": 2.2536,
+          "duration_s_authored": 0.5808,
+          "item_ids": [
+            "s8-tag",
+            "s8-map"
+          ],
+          "what": "A no installation named tag pins to the map.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n8a",
+          "clause_fraction_start": 0.74,
+          "clause_fraction_end": 0.96,
+          "at_s": 2.2536,
+          "duration_s": 0.5808
+        }
+      ],
+      "camera_strategy": "craneDown",
+      "visual_family": "flood-s8-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The paper street map pinned to the chain link fence, close, with no installed pin",
+        "action": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+        "emotion": "Plainness, no town named.",
+        "annotation": "Illustration. Not a real town map"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "chain link fence at the curb",
+          "items": [
+            {
+              "id": "s8-fence",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "chain link fence at the curb where the paper map is pinned"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "paper map pinned to the fence",
+          "items": [
+            {
+              "id": "s8-map",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "paper street map of a town pinned to the chain link fence, no pin on it"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "street grid and creek with no pin",
+          "items": [
+            {
+              "id": "s8-nopin",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "no town has installed one, no installation pin, no installation named tag"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "search ring sweeping the map",
+          "items": [
+            {
+              "id": "s8-search",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "dashed search ring sweeping the map for an installed station"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "tag pinned to the map",
+          "items": [
+            {
+              "id": "s8-tag",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "no installation named tag pinned to the map"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "A dashed search ring sweeps the map and finds no installed station.",
+        "must_show": [
+          {
+            "concept": "no town has installed one",
+            "item_ids": [
+              "s8-nopin"
+            ]
+          },
+          {
+            "concept": "street map with no pin",
+            "item_ids": [
+              "s8-map"
+            ]
+          }
+        ],
+        "change": {
+          "description": "A dashed search ring sweeps the map and finds no installed station.",
+          "item_ids": [
+            "s8-search",
+            "s8-nopin"
+          ]
+        }
+      }
+    },
+    {
+      "id": "s9",
+      "start_s": 53.53,
+      "duration_s": 3.97,
+      "duration_authored": 3.97,
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "cast": [],
+      "beat": "emotion",
+      "story_role": "close",
+      "vo": "Deployment is still the goal.",
+      "vo_claims": [
+        "c9",
+        "c10"
+      ],
+      "super": "",
+      "caption": "",
+      "on_screen": "Over the same map a dashed goal pin hovers and does not land. At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled. A deployment goal tag pins beside the dashed pin.",
+      "what_moves": "Over the same map a dashed goal pin hovers and does not land. At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled. A deployment goal tag pins beside the dashed pin.",
+      "production_disclosure": "Illustration. No station installed",
+      "visual_events": [
+        {
+          "id": "s9-event-1",
+          "at_s_authored": 0.366,
+          "duration_s_authored": 0.363,
+          "item_ids": [
+            "s9-goal",
+            "s9-map"
+          ],
+          "what": "Over the same map a dashed goal pin hovers and does not land.",
+          "motion": {
+            "curve": "smoothstep",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n9a",
+          "clause_fraction_start": 0.04,
+          "clause_fraction_end": 0.26,
+          "at_s": 0.366,
+          "duration_s": 0.363
+        },
+        {
+          "id": "s9-event-2",
+          "at_s_authored": 0.927,
+          "duration_s_authored": 0.396,
+          "item_ids": [
+            "s9-station"
+          ],
+          "what": "At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled.",
+          "motion": {
+            "curve": "travel",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n9a",
+          "clause_fraction_start": 0.38,
+          "clause_fraction_end": 0.62,
+          "at_s": 0.927,
+          "duration_s": 0.396
+        },
+        {
+          "id": "s9-event-3",
+          "at_s_authored": 1.521,
+          "duration_s_authored": 0.363,
+          "item_ids": [
+            "s9-tag",
+            "s9-goal"
+          ],
+          "what": "A deployment goal tag pins beside the dashed pin.",
+          "motion": {
+            "curve": "contact",
+            "anticipation": 0,
+            "settle": 0.03
+          },
+          "narration_id": "n9a",
+          "clause_fraction_start": 0.74,
+          "clause_fraction_end": 0.96,
+          "at_s": 1.521,
+          "duration_s": 0.363
+        }
+      ],
+      "camera_strategy": "dollyThrough",
+      "visual_family": "flood-s9-a",
+      "payload_mode": "picture",
+      "treatment": "a",
+      "hero": "solar flood station with four optical marks",
+      "place_plate": "blackland-san-antonio",
+      "visual_sentence": {
+        "subject": "The empty curb with a dashed station outline drawing itself beside the same map and its dashed goal pin",
+        "action": "Over the same map a dashed goal pin hovers and does not land. At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled. A deployment goal tag pins beside the dashed pin.",
+        "emotion": "Open ending, the goal not yet met and nothing installed.",
+        "annotation": "Illustration. No station installed"
+      },
+      "planes": [
+        {
+          "z": 900,
+          "label": "chain link fence at the empty curb",
+          "items": [
+            {
+              "id": "s9-fence",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "chain link fence at the curb where the same map is pinned"
+              }
+            }
+          ]
+        },
+        {
+          "z": 800,
+          "label": "the same paper map on the fence",
+          "items": [
+            {
+              "id": "s9-map",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "the same paper street map on the fence, no installed pin"
+              }
+            }
+          ]
+        },
+        {
+          "z": 700,
+          "label": "no installation named tag still pinned",
+          "items": [
+            {
+              "id": "s9-notown",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "no installation named tag still pinned to the map"
+              }
+            }
+          ]
+        },
+        {
+          "z": 500,
+          "label": "dashed goal pin over the map",
+          "items": [
+            {
+              "id": "s9-goal",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "dashed deployment goal pin that hovers and has not landed"
+              }
+            }
+          ]
+        },
+        {
+          "z": 300,
+          "label": "dashed uninstalled station outline at the curb",
+          "items": [
+            {
+              "id": "s9-station",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "dashed uninstalled outline of the flood station where one could stand at the empty curb"
+              }
+            }
+          ]
+        },
+        {
+          "z": 150,
+          "label": "deployment goal tag",
+          "items": [
+            {
+              "id": "s9-tag",
+              "kind": "applicationRecord",
+              "x": 540,
+              "y": 900,
+              "scale": 1,
+              "props": {
+                "label": "deployment goal tag pinned beside the dashed pin"
+              }
+            }
+          ]
+        }
+      ],
+      "visual_proof": {
+        "mute_takeaway": "Over the same map a dashed goal pin hovers and does not land.",
+        "must_show": [
+          {
+            "concept": "deployment goal pin",
+            "item_ids": [
+              "s9-goal"
+            ]
+          },
+          {
+            "concept": "map with no installation named",
+            "item_ids": [
+              "s9-map",
+              "s9-notown"
+            ]
+          }
+        ],
+        "change": {
+          "description": "Over the same map a dashed goal pin hovers and does not land.",
+          "item_ids": [
+            "s9-goal",
+            "s9-map"
+          ]
+        }
+      }
+    }
+  ],
+  "story_art": {
+    "version": "authored-story-art-v1",
+    "runtime": "claude-sonnet-v1",
+    "edition_id": "2026-10-15",
+    "requests": [
+      {
+        "id": "flood-station",
+        "role": "hero",
+        "file": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+        "export": "FloodStationHero",
+        "scene_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "purpose": "Carry one solar flood station through the film so the viewer follows its sun-charged battery, its four optical marks lighting as the water crosses them, the chip that lights an amber risk lamp on the spot and the antenna that sends the radio pulse, with every state it reaches kept for the rest of the film.",
+        "prompt": "Author an original finished React and SVG object in the current Remotion engine. A weathered galvanized steel post set beside a San Antonio street with a lopsided, slightly tilted instrument housing, a small dark blue solar panel with a worn corner, a short whip antenna, a battery bar window, and a column of four optical water-level marks mounted at four different heights, each with a small lens and a lamp. A cutaway view shows a small chip with thin traces and one amber risk lamp, with no logos and no real hardware brand. Late afternoon storm light from the upper left, cool sky fill, a long soft shadow, a rust drip and a dent, nothing symmetric. A disclosed illustration of the described design, never an installed unit.",
+        "source_limit": "Disclosed illustration of the design the University of Texas at San Antonio describes. Not an installed station, a real street, a measured water level or a real result.",
+        "action_uses": [
+          {
+            "scene_id": "s2",
+            "event_id": "s2-event-2",
+            "view": "panel-charge",
+            "action_id": "charge-battery",
+            "subject_ids": [
+              "s2-panel",
+              "s2-battery"
+            ]
+          },
+          {
+            "scene_id": "s3",
+            "event_id": "s3-event-2",
+            "view": "water-marks",
+            "action_id": "cross-marks",
+            "subject_ids": [
+              "s3-marks",
+              "s3-water"
+            ]
+          },
+          {
+            "scene_id": "s4",
+            "event_id": "s4-event-2",
+            "view": "chip-glow",
+            "action_id": "judge-locally",
+            "subject_ids": [
+              "s4-chip",
+              "s4-risk"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "street-hub-support",
+        "role": "support",
+        "file": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+        "export": "StreetHubSupport",
+        "scene_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "purpose": "Give the station a believable world: the San Antonio street and yard where water rises, the porch phone, the radio rings, the hub building, the hub dashboard map and the empty map.",
+        "prompt": "Author an original finished React and SVG support group in the current Remotion engine. A wet San Antonio residential street with a chain link fence post, a limestone curb, a live oak edge and a porch rail with a worn phone, brown flood water with a hand drawn edge, a small hub building with a rooftop mast, a hub desk with a monitor and a sleeved forearm, a flat dashboard map of streets with shaded flood paths and outlined risk zones, an empty map card with no pin, and thin radio rings with a half-mile tag and a five-mile tag. Maintained but worn, nothing symmetric, warm limestone and storm gray palette, no real brand marks. A disclosed illustration.",
+        "source_limit": "Disclosed illustration. Not a real San Antonio address, hub, dashboard, responder or deployment. The university names no installation site.",
+        "action_uses": [
+          {
+            "scene_id": "s1",
+            "event_id": "s1-event-1",
+            "view": "street-yard",
+            "action_id": "water-rises",
+            "subject_ids": [
+              "s1-water",
+              "s1-post"
+            ]
+          },
+          {
+            "scene_id": "s5",
+            "event_id": "s5-event-2",
+            "view": "radio-rings",
+            "action_id": "carry-signal",
+            "subject_ids": [
+              "s5-ring",
+              "s5-halfmile"
+            ]
+          },
+          {
+            "scene_id": "s6",
+            "event_id": "s6-event-2",
+            "view": "flood-paths",
+            "action_id": "spread-map",
+            "subject_ids": [
+              "s6-paths",
+              "s6-dashboard"
+            ]
+          }
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "request_id": "flood-station",
+        "file": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+        "sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+        "request_sha256": "22fdead6fce9a74ebd117d48dd6c116dacaab1e5f0ecca459d51a2c28a6f333b",
+        "creation_id": "authored-6555a67c-7cdb-41f0-a2ef-f76c9518c055",
+        "created_at": "2026-10-16T03:13:56.489751+00:00",
+        "tool": "original authored source",
+        "charge": {
+          "kind": "production",
+          "index": 19,
+          "event": {
+            "at": "2026-10-16T03:07:38.557947Z",
+            "kind": "reserved",
+            "note": "structural correction after code critic 1 REVISE, batch opened by begin-repair on repair-plan-code1-v2-bound (the earlier 03:02 reboard reservation preceded funding and begin-repair and stays charged; no builder edit happened under it)",
+            "preflight_identity": null,
+            "resources": {
+              "reboards": 1
+            }
+          },
+          "event_sha256": "8b735b24f7b662f5366d44ca0edbfccc3cad866f48738b0e30d3ab4678fae2ce"
+        },
+        "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "original_source": "artwork-originals/authored-6555a67c-7cdb-41f0-a2ef-f76c9518c055.tsx"
+      },
+      {
+        "request_id": "street-hub-support",
+        "file": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+        "sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+        "request_sha256": "3e86669f7eff9e8dc1d1dc73a3d8d4c74ac443fc02936277568af2d832f6fcce",
+        "creation_id": "authored-fd230d9b-a832-442a-9c5b-ed5932403b81",
+        "created_at": "2026-10-16T03:18:15.476762+00:00",
+        "tool": "original authored source",
+        "charge": {
+          "kind": "production",
+          "index": 19,
+          "event": {
+            "at": "2026-10-16T03:07:38.557947Z",
+            "kind": "reserved",
+            "note": "structural correction after code critic 1 REVISE, batch opened by begin-repair on repair-plan-code1-v2-bound (the earlier 03:02 reboard reservation preceded funding and begin-repair and stays charged; no builder edit happened under it)",
+            "preflight_identity": null,
+            "resources": {
+              "reboards": 1
+            }
+          },
+          "event_sha256": "8b735b24f7b662f5366d44ca0edbfccc3cad866f48738b0e30d3ab4678fae2ce"
+        },
+        "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "original_source": "artwork-originals/authored-fd230d9b-a832-442a-9c5b-ed5932403b81.tsx"
+      }
+    ]
+  },
+  "film_direction": {
+    "version": "directed-film-v2",
+    "episode": "flood-station-v1",
+    "variant": "a",
+    "angle": "The viewer starts in the flooded yard with the late phone, then finds the station that could have warned sooner.",
+    "opening_promise": "Watch four sensor marks get wet and see what a self-powered station does with that.",
+    "performed_turn": "The chip lights a local risk judgment with no line to a server, then a radio pulse carries it to a hub.",
+    "closing_answer": "The design says yes, a station can judge a flooding street on its own power. The proof so far is validation accuracy, and the university names no place that has installed one.",
+    "shots": [
+      {
+        "id": "s1-shot-1",
+        "scene_id": "s1",
+        "start_s": 0.0,
+        "duration_s": 4.1,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "street-yard",
+        "event_id": "s1-event-1",
+        "purpose": "Brown water spreads across a San Antonio yard with no station in it and climbs a fence post to its ankle mark while the porch phone stays dark.",
+        "carry": "The same brown water and the same ankle height that the station's lowest lens will mark; no station stands in this yard",
+        "narration_ids": [
+          "n1a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.496368
+      },
+      {
+        "id": "s1-shot-2",
+        "scene_id": "s1",
+        "start_s": 4.1,
+        "duration_s": 4.16,
+        "framing": "close",
+        "transition": "cut",
+        "view": "phone-late",
+        "event_id": "s1-event-3",
+        "purpose": "The phone on the porch rail lights its flash flood warning only now, with the water already in the yard.",
+        "carry": "The same brown water and the same ankle height that the station's lowest lens will mark; no station stands in this yard",
+        "narration_ids": [
+          "n1b"
+        ],
+        "scene_fraction_start": 0.496368,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s2-shot-1",
+        "scene_id": "s2",
+        "start_s": 8.26,
+        "duration_s": 3.44,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "station-wide",
+        "event_id": "s2-event-1",
+        "purpose": "The whole self-powered flood station stands at the curb in shallow water, a prototype of the described design.",
+        "carry": "The same flood station at the same curb, its lowest mark already lit by the water",
+        "narration_ids": [
+          "n2a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.473177
+      },
+      {
+        "id": "s2-shot-2",
+        "scene_id": "s2",
+        "start_s": 11.7,
+        "duration_s": 1.386,
+        "framing": "close",
+        "transition": "cut",
+        "view": "panel-charge",
+        "event_id": "s2-event-2",
+        "purpose": "Low sun reaches the small solar panel and the battery bar fills, the station charging itself from light.",
+        "carry": "The same flood station at the same curb, its lowest mark already lit by the water",
+        "narration_ids": [
+          "n2b"
+        ],
+        "scene_fraction_start": 0.473177,
+        "scene_fraction_end": 0.663824
+      },
+      {
+        "id": "s2-shot-3",
+        "scene_id": "s2",
+        "start_s": 13.086,
+        "duration_s": 2.444,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "no-tower",
+        "event_id": "s2-event-3",
+        "purpose": "A dashed line from the antenna toward a far cell tower stops halfway, the station needing no tower.",
+        "carry": "The same flood station at the same curb, its lowest mark already lit by the water",
+        "narration_ids": [
+          "n2b"
+        ],
+        "scene_fraction_start": 0.663824,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s3-shot-1",
+        "scene_id": "s3",
+        "start_s": 15.53,
+        "duration_s": 1.2504,
+        "framing": "medium",
+        "transition": "match",
+        "view": "sensor-stack",
+        "event_id": "s3-event-1",
+        "purpose": "The view climbs past four optical marks set at four different heights on the post.",
+        "carry": "The same station post and its four marks, the waterline rising from the first mark",
+        "narration_ids": [
+          "n3a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.329053
+      },
+      {
+        "id": "s3-shot-2",
+        "scene_id": "s3",
+        "start_s": 16.7804,
+        "duration_s": 1.0692,
+        "framing": "close",
+        "transition": "continuous",
+        "view": "water-marks",
+        "event_id": "s3-event-2",
+        "purpose": "Brown water reaches the optical lenses and each lights as it goes under; in B s1 a disclosed design detail with no yard around it.",
+        "carry": "The same station post and its four marks, the waterline rising from the first mark",
+        "narration_ids": [
+          "n3a"
+        ],
+        "scene_fraction_start": 0.329053,
+        "scene_fraction_end": 0.610421
+      },
+      {
+        "id": "s3-shot-3",
+        "scene_id": "s3",
+        "start_s": 17.8496,
+        "duration_s": 1.4804,
+        "framing": "close",
+        "transition": "cut",
+        "view": "weather-row",
+        "event_id": "s3-event-3",
+        "purpose": "Rain, temperature, humidity and light lamps come on one by one, the other things the station watches.",
+        "carry": "The same station post and its four marks, the waterline rising from the first mark",
+        "narration_ids": [
+          "n3a"
+        ],
+        "scene_fraction_start": 0.610421,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s4-shot-1",
+        "scene_id": "s4",
+        "start_s": 19.33,
+        "duration_s": 4.3992,
+        "framing": "close",
+        "transition": "cut",
+        "view": "chip-glow",
+        "event_id": "s4-event-1",
+        "purpose": "Readings run along thin traces into one small chip, and in the detail framing the chip lights the amber risk lamp on the board.",
+        "carry": "The same station housing, now opened, carrying the readings from the marks it just lit",
+        "narration_ids": [
+          "n4a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.554754
+      },
+      {
+        "id": "s4-shot-2",
+        "scene_id": "s4",
+        "start_s": 23.7292,
+        "duration_s": 1.9613,
+        "framing": "detail",
+        "transition": "continuous",
+        "view": "chip-glow",
+        "event_id": "s4-event-2",
+        "purpose": "Readings run along thin traces into one small chip, and in the detail framing the chip lights the amber risk lamp on the board.",
+        "carry": "The same station housing, now opened, carrying the readings from the marks it just lit",
+        "narration_ids": [
+          "n4b"
+        ],
+        "scene_fraction_start": 0.554754,
+        "scene_fraction_end": 0.802081
+      },
+      {
+        "id": "s4-shot-3",
+        "scene_id": "s4",
+        "start_s": 25.6905,
+        "duration_s": 1.5695,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "no-server",
+        "event_id": "s4-event-3",
+        "purpose": "From the street the housing window glows as readings arrive; wide, a dashed central server far off stays dark with no line to the station.",
+        "carry": "The same station housing, now opened, carrying the readings from the marks it just lit",
+        "narration_ids": [
+          "n4b"
+        ],
+        "scene_fraction_start": 0.802081,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s5-shot-1",
+        "scene_id": "s5",
+        "start_s": 27.26,
+        "duration_s": 4.76,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "radio-rings",
+        "event_id": "s5-event-1",
+        "purpose": "Radio rings leave the antenna and run down a city street past a more than a half-mile tag.",
+        "carry": "The same station antenna and its risk judgment, carried out by radio toward the hub",
+        "narration_ids": [
+          "n5a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.554133
+      },
+      {
+        "id": "s5-shot-2",
+        "scene_id": "s5",
+        "start_s": 32.02,
+        "duration_s": 3.83,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "radio-open",
+        "event_id": "s5-event-3",
+        "purpose": "In open country the ring reaches an up to five miles tag and lands on the hub mast, which lights.",
+        "carry": "The same station antenna and its risk judgment, carried out by radio toward the hub",
+        "narration_ids": [
+          "n5b"
+        ],
+        "scene_fraction_start": 0.554133,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s6-shot-1",
+        "scene_id": "s6",
+        "start_s": 35.85,
+        "duration_s": 1.5672,
+        "framing": "close",
+        "transition": "cut",
+        "view": "hub-desk",
+        "event_id": "s6-event-1",
+        "purpose": "At the hub desk the dashboard fills with station dots and a responder works beside the screen.",
+        "carry": "The same radio ring arriving as one of the station dots on the hub map",
+        "narration_ids": [
+          "n6a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.327182
+      },
+      {
+        "id": "s6-shot-2",
+        "scene_id": "s6",
+        "start_s": 37.4172,
+        "duration_s": 3.2228,
+        "framing": "overhead",
+        "transition": "match",
+        "view": "flood-paths",
+        "event_id": "s6-event-2",
+        "purpose": "The second, larger model shades how flooding could spread and outlines the higher-risk zones.",
+        "carry": "The same radio ring arriving as one of the station dots on the hub map",
+        "narration_ids": [
+          "n6a"
+        ],
+        "scene_fraction_start": 0.327182,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s7-shot-1",
+        "scene_id": "s7",
+        "start_s": 40.64,
+        "duration_s": 3.44,
+        "framing": "close",
+        "transition": "cut",
+        "view": "validation-card",
+        "event_id": "s7-event-1",
+        "purpose": "The validation bar fills to the university's reported figure, which holds, and an after training tag pins under it.",
+        "carry": "The same station's design, now measured only by the university's reported validation figure",
+        "narration_ids": [
+          "n7a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 0.36518
+      },
+      {
+        "id": "s7-shot-2",
+        "scene_id": "s7",
+        "start_s": 44.08,
+        "duration_s": 3.47,
+        "framing": "detail",
+        "transition": "continuous",
+        "view": "validation-card",
+        "event_id": "s7-event-2",
+        "purpose": "The validation bar fills to the university's reported figure, which holds, and an after training tag pins under it.",
+        "carry": "The same station's design, now measured only by the university's reported validation figure",
+        "narration_ids": [
+          "n7b"
+        ],
+        "scene_fraction_start": 0.36518,
+        "scene_fraction_end": 0.733546
+      },
+      {
+        "id": "s7-shot-3",
+        "scene_id": "s7",
+        "start_s": 47.55,
+        "duration_s": 2.51,
+        "framing": "detail",
+        "transition": "cut",
+        "view": "no-field-card",
+        "event_id": "s7-event-3",
+        "purpose": "Both cards side by side: the figure stays readable while the field result card takes its none reported stamp.",
+        "carry": "The same station's design, now measured only by the university's reported validation figure",
+        "narration_ids": [
+          "n7c"
+        ],
+        "scene_fraction_start": 0.733546,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s8-shot-1",
+        "scene_id": "s8",
+        "start_s": 50.06,
+        "duration_s": 3.47,
+        "framing": "close",
+        "transition": "cut",
+        "view": "empty-map",
+        "event_id": "s8-event-1",
+        "purpose": "Close on the one paper map pinned to the fence: no installed pin is found, and at the close a dashed goal pin hovers over an empty spot.",
+        "carry": "The one paper map pinned to the chain link fence at the curb, the same map in close up and wide",
+        "narration_ids": [
+          "n8a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 1.0
+      },
+      {
+        "id": "s9-shot-1",
+        "scene_id": "s9",
+        "start_s": 53.53,
+        "duration_s": 3.97,
+        "framing": "wide",
+        "transition": "cut",
+        "view": "station-return",
+        "event_id": "s9-event-1",
+        "purpose": "The empty curb after the flood with the same map on the fence; at the close a dashed outline of the station draws itself, uninstalled.",
+        "carry": "The same paper map on the same fence, still with no installation named",
+        "narration_ids": [
+          "n9a"
+        ],
+        "scene_fraction_start": 0.0,
+        "scene_fraction_end": 1.0
+      }
+    ],
+    "rewards": [
+      {
+        "shot_id": "s1-shot-1",
+        "event_id": "s1-event-1",
+        "at_s": 0.7158,
+        "kind": "action",
+        "visible_change": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s1-shot-1",
+        "event_id": "s1-event-2",
+        "at_s": 2.2721,
+        "kind": "reveal",
+        "visible_change": "The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s1-shot-2",
+        "event_id": "s1-event-3",
+        "at_s": 5.7553,
+        "kind": "consequence",
+        "visible_change": "The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s2-shot-1",
+        "event_id": "s2-event-1",
+        "at_s": 9.1976,
+        "kind": "action",
+        "visible_change": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s2-shot-2",
+        "event_id": "s2-event-2",
+        "at_s": 12.4392,
+        "kind": "reveal",
+        "visible_change": "Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s2-shot-3",
+        "event_id": "s2-event-3",
+        "at_s": 13.8912,
+        "kind": "consequence",
+        "visible_change": "A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s3-shot-1",
+        "event_id": "s3-event-1",
+        "at_s": 16.3408,
+        "kind": "action",
+        "visible_change": "Four optical lenses at four different heights on the post catch the low light in turn.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s3-shot-2",
+        "event_id": "s3-event-2",
+        "at_s": 17.3863,
+        "kind": "reveal",
+        "visible_change": "Brown water rises past the lit first lens and reaches the second, which lights as it goes under.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s3-shot-3",
+        "event_id": "s3-event-3",
+        "at_s": 18.4198,
+        "kind": "consequence",
+        "visible_change": "Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s4-shot-1",
+        "event_id": "s4-event-1",
+        "at_s": 21.94,
+        "kind": "action",
+        "visible_change": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s4-shot-2",
+        "event_id": "s4-event-2",
+        "at_s": 25.2569,
+        "kind": "reveal",
+        "visible_change": "The chip lights the amber risk lamp on the board and a judged on the station tag pins.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s4-shot-3",
+        "event_id": "s4-event-3",
+        "at_s": 26.2667,
+        "kind": "consequence",
+        "visible_change": "Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s5-shot-1",
+        "event_id": "s5-event-1",
+        "at_s": 28.1844,
+        "kind": "action",
+        "visible_change": "A pulse flashes at the antenna tip and amber radio rings leave it.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s5-shot-1",
+        "event_id": "s5-event-2",
+        "at_s": 30.0139,
+        "kind": "reveal",
+        "visible_change": "The rings run down the street of bungalows and pass the half-mile tag on the far corner post.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s5-shot-2",
+        "event_id": "s5-event-3",
+        "at_s": 33.6436,
+        "kind": "consequence",
+        "visible_change": "Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s6-shot-1",
+        "event_id": "s6-event-1",
+        "at_s": 36.8311,
+        "kind": "action",
+        "visible_change": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s6-shot-2",
+        "event_id": "s6-event-2",
+        "at_s": 38.225,
+        "kind": "reveal",
+        "visible_change": "Shaded flood paths spread out from the first dots along the creek and the low streets.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s6-shot-2",
+        "event_id": "s6-event-3",
+        "at_s": 39.6031,
+        "kind": "consequence",
+        "visible_change": "Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s7-shot-1",
+        "event_id": "s7-event-1",
+        "at_s": 42.2798,
+        "kind": "evidence",
+        "visible_change": "The validation bar fills across its card and the university's reported figure appears and holds.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s7-shot-2",
+        "event_id": "s7-event-2",
+        "at_s": 45.2838,
+        "kind": "evidence",
+        "visible_change": "An initial assessments after training tag pins under the validation card.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s7-shot-3",
+        "event_id": "s7-event-3",
+        "at_s": 48.5242,
+        "kind": "evidence",
+        "visible_change": "The field result card stays blank and a none reported stamp presses onto it.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s8-shot-1",
+        "event_id": "s8-event-1",
+        "at_s": 50.8141,
+        "kind": "evidence",
+        "visible_change": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s8-shot-1",
+        "event_id": "s8-event-2",
+        "at_s": 51.7434,
+        "kind": "evidence",
+        "visible_change": "A dashed search ring sweeps the map and finds no installed station.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s8-shot-1",
+        "event_id": "s8-event-3",
+        "at_s": 52.6621,
+        "kind": "evidence",
+        "visible_change": "A no installation named tag pins to the map.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s9-shot-1",
+        "event_id": "s9-event-1",
+        "at_s": 54.1138,
+        "kind": "consequence",
+        "visible_change": "Over the same map a dashed goal pin hovers and does not land.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s9-shot-1",
+        "event_id": "s9-event-2",
+        "at_s": 54.6946,
+        "kind": "consequence",
+        "visible_change": "At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled.",
+        "event_fraction": 0.6
+      },
+      {
+        "shot_id": "s9-shot-1",
+        "event_id": "s9-event-3",
+        "at_s": 55.2688,
+        "kind": "consequence",
+        "visible_change": "A deployment goal tag pins beside the dashed pin.",
+        "event_fraction": 0.6
+      }
+    ],
+    "renderer_inputs": [
+      {
+        "path": "config/modern_episode_registry.json",
+        "sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e"
+      },
+      {
+        "path": "config/modern_film.json",
+        "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+      },
+      {
+        "path": "video-engine/src/AlloyLoopEpisode.tsx",
+        "sha256": "9ff8081c34104adc205a8b53ba08ec6c5009acc12cb57e6e1684b51027f7cf4d"
+      },
+      {
+        "path": "video-engine/src/ApplicationSheets.tsx",
+        "sha256": "b8ff7d9f6b329ab5c86212c7bcfe4970f1551d8c97bf945df86b4724d1247286"
+      },
+      {
+        "path": "video-engine/src/BorderCaptureEpisode.tsx",
+        "sha256": "bca5ac7e67f1a9bf0669e0d918a091d3f6e76eccf93dbf53bb4fbbfffcbdf9a9"
+      },
+      {
+        "path": "video-engine/src/BrownsvilleMoratoriumEpisode.tsx",
+        "sha256": "66273bbb7205bc50e69c2879f405affee9db664e1bd92ed9e48457ff0da64cf2"
+      },
+      {
+        "path": "video-engine/src/BrushCameraEpisode.tsx",
+        "sha256": "24e67880e0d7c46f3078d7398c135a992e7ef0520553fc11630ec7c90558e2e8"
+      },
+      {
+        "path": "video-engine/src/CartonUnloadAction.tsx",
+        "sha256": "3b02f8c918190645098a2850f58218cb636547e270aa8c957fdbb50e19905e79"
+      },
+      {
+        "path": "video-engine/src/CartonUnloadEpisode.tsx",
+        "sha256": "5aaa2c62c3744581e6f05f6ae2176e6c6168c777520ae1d32ca392c50dd36449"
+      },
+      {
+        "path": "video-engine/src/CastSheet.tsx",
+        "sha256": "b3a79bd9e58383b020bfdc401dd5009e89113684ae7996cab0ca5c579f086f5b"
+      },
+      {
+        "path": "video-engine/src/CivicSheet.tsx",
+        "sha256": "19d721b8beeef73c75aebbcdd2db7531a62364469288be15742fe0ccee05dd04"
+      },
+      {
+        "path": "video-engine/src/CoadaptHandoffEpisode.tsx",
+        "sha256": "0a8e1785598ac875d9b25415334d32c37e16cbef5c8deaa4a4b62be18f9178f5"
+      },
+      {
+        "path": "video-engine/src/ConnectedRecordsEpisode.tsx",
+        "sha256": "09d3377bc7b44496605f347a2b26b77cbb605896b7ab340031219f378174cb70"
+      },
+      {
+        "path": "video-engine/src/ContactSensingEpisode.tsx",
+        "sha256": "4cbca96d38ddead411fcbb80277cc7bd0799e4e12fa1975b12e77cefb1926376"
+      },
+      {
+        "path": "video-engine/src/CoolingInspectionAction.tsx",
+        "sha256": "1905338bb021cfdd41f1a65664c8d7d271121fab8c5f29b0a8cc25e18bfd3b82"
+      },
+      {
+        "path": "video-engine/src/CoolingInspectionEpisode.tsx",
+        "sha256": "6e52f86a7c2e85b94f21bd5a2d05a800a6ceb8b07ffd0c63f9e6d646ab93e4bd"
+      },
+      {
+        "path": "video-engine/src/CropWaterAction.tsx",
+        "sha256": "6573c53c9b37042776e2d50aab7fca4ff2cabab9ac190c73428b778d92617b94"
+      },
+      {
+        "path": "video-engine/src/CropWaterEpisode.tsx",
+        "sha256": "7ed976a61a6cbc69c9b088d0938034ac5c79155b0e61b9828c5188758b6b796b"
+      },
+      {
+        "path": "video-engine/src/DailyActionsEpisode.tsx",
+        "sha256": "bb86b7fde6ebb436617088d9587a6c15a087f9a91ab0fe9b71eb8cbee1fe4479"
+      },
+      {
+        "path": "video-engine/src/Dispatch.tsx",
+        "sha256": "482b10e0d23c8f5bed626d8d62e92056ab9bfe7cc77a328ce7126ceea7bece1f"
+      },
+      {
+        "path": "video-engine/src/EditorialEpisode.tsx",
+        "sha256": "717e49a2cf29b6e1ff1188e17efde53b4b28d2375504b0662bc2e41356e3a58a"
+      },
+      {
+        "path": "video-engine/src/EmptySeatFlightEpisode.tsx",
+        "sha256": "92886b24b85658f5ed9194f0147d896fe846de76c1d8543eb73e1fdefa6c6cce"
+      },
+      {
+        "path": "video-engine/src/FaunaSheet.tsx",
+        "sha256": "6679c3509a440c9ac4674907a185b7e4caeebf280a98e0a11a4e28298f3f2a45"
+      },
+      {
+        "path": "video-engine/src/FaxChartEpisode.tsx",
+        "sha256": "ae388da5fe61bbb768963597b9f7229227d1b6ab0c572732e22d3a5cc004b14e"
+      },
+      {
+        "path": "video-engine/src/FreightInvitationEpisode.tsx",
+        "sha256": "d916c305de7a3322cb4070f8e9292777ffb9671391ada901e1128ef0c80ef7ac"
+      },
+      {
+        "path": "video-engine/src/FreshwaterDocumentaryEpisode.tsx",
+        "sha256": "eeaa236754578e2a6bbd4408a8b657512c2c6ffb35700e1fe71b471920302307"
+      },
+      {
+        "path": "video-engine/src/FreshwaterTwinEpisode.tsx",
+        "sha256": "3bd7bd331b5741306cf87db5a0ef6fe507ae5f83833be757567b6d5b65dc611f"
+      },
+      {
+        "path": "video-engine/src/HighwaySafetyCaseEpisode.tsx",
+        "sha256": "3fb06e26b9d6b014fa555a535c6e8462027d578803e873b71d560e75f4cd0442"
+      },
+      {
+        "path": "video-engine/src/HospitalExitEpisode.tsx",
+        "sha256": "5576b87b16ee662c45cc6adcec521cb6dbabda0032732d42f2a0d90402437461"
+      },
+      {
+        "path": "video-engine/src/IrrigationEpisode.tsx",
+        "sha256": "3783cedd9e271b9529aeed77ed9746000c38ecf13f1728aaefa1048100e5308f"
+      },
+      {
+        "path": "video-engine/src/LocalFloodNodeEpisode.tsx",
+        "sha256": "b1648208c690f45e93bad93175d53933c8e295e5f908a9cc7db3f273e9918bbc"
+      },
+      {
+        "path": "video-engine/src/MagnetCandidateEpisode.tsx",
+        "sha256": "24e53a937fa8f61a5f9908e51145d79351a33e2d90bb5c0068f8ff901493f640"
+      },
+      {
+        "path": "video-engine/src/MineralProvingGroundEpisode.tsx",
+        "sha256": "fcdfaa0c6b4a91f2ea244147fabf7d90a2010e07d669e0cd9b255a4e0628c29b"
+      },
+      {
+        "path": "video-engine/src/NostalgiaSheets.tsx",
+        "sha256": "6054af9773c5733ae74bb83619ad305e54919f655449cbb8df6bbb1d8090ac91"
+      },
+      {
+        "path": "video-engine/src/PavementDepthAction.tsx",
+        "sha256": "4aee73be848bb6ceed8715dc2632c6ca5c99a334c436966d123442f713120882"
+      },
+      {
+        "path": "video-engine/src/PavementDepthEpisode.tsx",
+        "sha256": "3576884b392ba4b654ea093a04f8be1c7664d1ae2b964891bc72ce6cb1eff75b"
+      },
+      {
+        "path": "video-engine/src/PodDeliveryAction.tsx",
+        "sha256": "e79bc55cafd7fcfe577e0281af3feb6964d9e50e8f999c5d571b765f9c3ca607"
+      },
+      {
+        "path": "video-engine/src/PodDeliveryEpisode.tsx",
+        "sha256": "1483d7d5badd55db7f67e499e25338cf3e741690b4bceac583294c542048290b"
+      },
+      {
+        "path": "video-engine/src/ProofGateEpisode.tsx",
+        "sha256": "e73e9fcaec5ece626fcae73a5cec5995614b7b24cb93a1ea213fdd3a65c796dd"
+      },
+      {
+        "path": "video-engine/src/ProofScene.tsx",
+        "sha256": "ec61a65bd6a8767f0a0c6ebacdec9a789a8743096c2c65c391d44004d5a1f5c0"
+      },
+      {
+        "path": "video-engine/src/ReadinessAction.tsx",
+        "sha256": "b71b0875701eee1f63c938df5a08377425312e14fe29b54ca14d4ff51890c7d7"
+      },
+      {
+        "path": "video-engine/src/ReadinessEpisode.tsx",
+        "sha256": "245f3e08d67a76455847f39b24fba4f5e2aaa5c8f8b83137f4efcaa3ad649382"
+      },
+      {
+        "path": "video-engine/src/RegionSheet.tsx",
+        "sha256": "fbc66deef09ea3a00c1e332ddbe682b75e644c616517aabd399aa41aa4130385"
+      },
+      {
+        "path": "video-engine/src/RoadEvidenceEpisode.tsx",
+        "sha256": "0991e269bbea7f033939225dc7089c19743bbbb0fa6430efd189d181baaee3e7"
+      },
+      {
+        "path": "video-engine/src/RobotSafetyAction.tsx",
+        "sha256": "2cbfbf78d540b0d9ffba72d7dd010574ca847fa98b89f460f8ee38eb26a05d54"
+      },
+      {
+        "path": "video-engine/src/RobotSafetyEpisode.tsx",
+        "sha256": "1d47a7f6cd738ab946199f0b8705cb509750d30361d7d0c0c184c66cc883daaf"
+      },
+      {
+        "path": "video-engine/src/Root.tsx",
+        "sha256": "867fe92ec5ae82fd82ac681b6b4b3c6a6d515ec031b137c27c4c5afdc1b15234"
+      },
+      {
+        "path": "video-engine/src/ScrewwormForecastEpisode.tsx",
+        "sha256": "3c37c3a330fa1c08cc4565b173d798868d5e5df996b71e40f606212f1e33bff4"
+      },
+      {
+        "path": "video-engine/src/SensingSheet.tsx",
+        "sha256": "3286401b534f8db7aed6d855bb1033ae2c4a754d25b8e59b1d11aa9d84401f12"
+      },
+      {
+        "path": "video-engine/src/SmokeCameraAction.tsx",
+        "sha256": "7613006a5560e71d88ed529971ca979635a921fa0656a31e8f913b7598be0e01"
+      },
+      {
+        "path": "video-engine/src/SmokeCameraEpisode.tsx",
+        "sha256": "95d4e1150da535e4a2c67c612a9bc187e163f33495ce58f729a3f82b54e66dd5"
+      },
+      {
+        "path": "video-engine/src/VehicleSheet.tsx",
+        "sha256": "bf828eeb21b8fac9f39834dd0a453b98a0f1a234a7b7a40d842c68272b40e554"
+      },
+      {
+        "path": "video-engine/src/branding/DocketMark.tsx",
+        "sha256": "1711186b55d89308069607d749a38a9c8740b6c6dbca433430b5f4cfc8188019"
+      },
+      {
+        "path": "video-engine/src/documentary/TexasLocator.tsx",
+        "sha256": "14ccdd6c22bb5a59b75e21aa462f45533c82fc467fc8f5714b8d6cf165beb7b6"
+      },
+      {
+        "path": "video-engine/src/documentary/WaterMechanism.tsx",
+        "sha256": "6a5b9233199cbeae47131c72a76d9c4862b5c8468045f78a2ccc8330f7f5e0d2"
+      },
+      {
+        "path": "video-engine/src/index.ts",
+        "sha256": "5462d3268136731ce43bfd7c5072ea1ba48b51fec94fa30076f5044f4b39e4a2"
+      },
+      {
+        "path": "video-engine/src/lib/Character.tsx",
+        "sha256": "3dcd8c4b40dc3ececef6001f68b542aae4675d0086f27fb60874229dfa3e6215"
+      },
+      {
+        "path": "video-engine/src/lib/DispatchOverlays.tsx",
+        "sha256": "cf2f2ad89339249d312d5ea157c4097462a6485fa758b31d1c4ffab2a80d51a2"
+      },
+      {
+        "path": "video-engine/src/lib/agriculture.tsx",
+        "sha256": "0bda02c7e0872380fc240b0fe8c2430e62abc234ad72d32f1c2c226143b900d0"
+      },
+      {
+        "path": "video-engine/src/lib/artDirection.tsx",
+        "sha256": "e3baef95838476732079875b9d922195be4b421ae9b2d8bcf08480f6b98ab5c6"
+      },
+      {
+        "path": "video-engine/src/lib/biomes.tsx",
+        "sha256": "3009ed06739bfd490373de6c26f44184416b62373ef376785d17bfe9b2501f84"
+      },
+      {
+        "path": "video-engine/src/lib/biometrics.tsx",
+        "sha256": "ebdbb2399457ba13e38d23c2ff5378c7c6d1b860854d0a257ac10be00ee4e0b2"
+      },
+      {
+        "path": "video-engine/src/lib/blacktexas.tsx",
+        "sha256": "3be1d8ad860302ba91c7fbfde24ceb12b81e3bf1f552db7c2396a8f816404c6b"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/CinematicStage.tsx",
+        "sha256": "af1001e96075fc4358426f01ef5dcf0d6d338df2a23493c4c253562ed680f9b2"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/ProofContext.tsx",
+        "sha256": "07079c7ba2ac11926032acc2ac7b55c2e23e74db86a70a605f88e74d0aea81f0"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/StageContext.ts",
+        "sha256": "7038e56cbed9fa0397c5caf67e0ae4b78af44721e0421f6e759199ae5b2ceacd"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/Studio.tsx",
+        "sha256": "5a8c857d842185d738b91c00992354e1d691bf3c00e2a7bd71faa329899fe5f8"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/motion.ts",
+        "sha256": "9b4db98e63d4f4306145b7fd40516a42d238a79a96c2dab2ff9e23a74e387a57"
+      },
+      {
+        "path": "video-engine/src/lib/cinema/projection.ts",
+        "sha256": "720f755d4ead7db10620a8eaf4ceb2b7d078a26861bc18fc8fe685c188b0353d"
+      },
+      {
+        "path": "video-engine/src/lib/civics.tsx",
+        "sha256": "12f2e5d2b431630a91938d7e74c5fde5f7bd260a78adf192ce1ad61eef45c12a"
+      },
+      {
+        "path": "video-engine/src/lib/clinic.tsx",
+        "sha256": "9d83fe1de0c6ab59985113b173e736c63a83cffbeea589d5210c41a40c0aa4f8"
+      },
+      {
+        "path": "video-engine/src/lib/coadaptation.tsx",
+        "sha256": "0e481297654522515c550d5528ae1100d24b1039ca29efd40619f48605560b95"
+      },
+      {
+        "path": "video-engine/src/lib/compute.tsx",
+        "sha256": "f7833cf3bdd85353ccb12d978d0c72e3f5af4596f13995a48434a19749c293b8"
+      },
+      {
+        "path": "video-engine/src/lib/direction.ts",
+        "sha256": "d1fe795e2e9c3ce7446fd2194356b1ddf6c99e02f393012222d1e6e0ee3c0631"
+      },
+      {
+        "path": "video-engine/src/lib/drilling.tsx",
+        "sha256": "e68dfef262e9a00b5af94147c7c6758478d4cd289c429e2cf49553db6c599d3a"
+      },
+      {
+        "path": "video-engine/src/lib/editorial.ts",
+        "sha256": "18a1f6b70a0008aeacd57e143a79ca5153d94d21bfb87f7ccf464641273a9c40"
+      },
+      {
+        "path": "video-engine/src/lib/evidence.tsx",
+        "sha256": "378dfe3656a231da6684bc903b6f61e661de8cc2dd2f7b70ff88342ae9e6774c"
+      },
+      {
+        "path": "video-engine/src/lib/fauna.tsx",
+        "sha256": "39bc08978ae0dfd9a77cc1876804feadb767de9ec2f2d930785a4f2339dcf106"
+      },
+      {
+        "path": "video-engine/src/lib/faxwork.tsx",
+        "sha256": "78105ded31b670208c0117c61103d4a166ef8d0790315a9f577c2111fa6f08f8"
+      },
+      {
+        "path": "video-engine/src/lib/flora.tsx",
+        "sha256": "9d6bee2b92b6892e845715a58fd48fc3ed70c08b94ac2e2d464e7c01bc486fd2"
+      },
+      {
+        "path": "video-engine/src/lib/fonts.tsx",
+        "sha256": "ebd87045267d4e8efbf1d43934c17022654aecfcc018dde62ddfc1985efce2ad"
+      },
+      {
+        "path": "video-engine/src/lib/football.tsx",
+        "sha256": "4e044f890d12269e7788da975480a7b76eb65e9fcb34b68932727c6ee01fa176"
+      },
+      {
+        "path": "video-engine/src/lib/freight.tsx",
+        "sha256": "35eb099be0ef8520ab370122cb405d1d859e7f3d6c8e1b0ed02d8dcacedff35b"
+      },
+      {
+        "path": "video-engine/src/lib/freightinvitation.tsx",
+        "sha256": "b7fff75e5d9bffda2a0823c9cc1e2bbfd581264119bbaa526604034d4edb41e5"
+      },
+      {
+        "path": "video-engine/src/lib/freshwater.tsx",
+        "sha256": "04a6b393f251c243bea36317569eb5513560b3ae461bcbf12c0bb3681aa54b92"
+      },
+      {
+        "path": "video-engine/src/lib/homeplace.tsx",
+        "sha256": "9ab583efcf02cc6f4b87e1f081b44c0833c796dd4521b6c173afbc8ec6a7c2cf"
+      },
+      {
+        "path": "video-engine/src/lib/hometown.tsx",
+        "sha256": "e10b76cd70935f7ea620d682ae14409c9e561657ba1ff547b3706eac41cd744f"
+      },
+      {
+        "path": "video-engine/src/lib/irrigation.tsx",
+        "sha256": "2eb21443af9b45f3cfb329d943993114dfceef7efc3f67ea4066a0a0ecb4e32f"
+      },
+      {
+        "path": "video-engine/src/lib/kit.tsx",
+        "sha256": "9319eda097205d634f4aeed57da32262dc300922af9d52ef0546f91e561f1416"
+      },
+      {
+        "path": "video-engine/src/lib/lighting.tsx",
+        "sha256": "cf61d20de5957c93a2261c70563f8be781b2e44880be03bf3f9b4f73653623d8"
+      },
+      {
+        "path": "video-engine/src/lib/magnets.tsx",
+        "sha256": "e0e77762f1bd53757e9de6339d8fd96e03b799a9fc35e39e8fa06c36e6118463"
+      },
+      {
+        "path": "video-engine/src/lib/materials.tsx",
+        "sha256": "747cc9bf557470038bc3614fdccc8143c42a026eda0eb9b79d63ca9aedefdf44"
+      },
+      {
+        "path": "video-engine/src/lib/motion.tsx",
+        "sha256": "57368060cb8c8cc6e851b899fad8dbfc49e99bef980c93f609d60d4411fa850e"
+      },
+      {
+        "path": "video-engine/src/lib/plantfloor.tsx",
+        "sha256": "1379e4c9c09996eadad2adb0ee823c54aacabad76d3b3120251adf0845b8731d"
+      },
+      {
+        "path": "video-engine/src/lib/production/CartonHero.tsx",
+        "sha256": "425c9dcc981be0ffd671f6881802ed446cd82452fd2571e7f9e48466df9ea820"
+      },
+      {
+        "path": "video-engine/src/lib/production/CartonIllustratedAction.tsx",
+        "sha256": "c7b1ae0fddfd051039990d6a7c8418e8de8c9427868be3e2232b9112782ffcfd"
+      },
+      {
+        "path": "video-engine/src/lib/production/ConnectedRecords.tsx",
+        "sha256": "339a6c19bf639a93a5e28f27feba97909918e8945c9a9fb7f33c81221448c137"
+      },
+      {
+        "path": "video-engine/src/lib/production/ProvenActions.tsx",
+        "sha256": "e2c920e5e26f282163716f091493f7e54d9fb42cbccfdd98c12b0e6a7685142b"
+      },
+      {
+        "path": "video-engine/src/lib/provingground.tsx",
+        "sha256": "de2840ce6905bdf8670f161c4620b8502df688fffc4d256b82be0bb33f4e9066"
+      },
+      {
+        "path": "video-engine/src/lib/registry.tsx",
+        "sha256": "cb21bde79e311d7ac6dec0f5e531b5299012fe6850fcf71444a67c5636572bb2"
+      },
+      {
+        "path": "video-engine/src/lib/roadside.tsx",
+        "sha256": "13d6ac2282730e7351a128be182c87e540cf873d8135f8babe37adb6dd550668"
+      },
+      {
+        "path": "video-engine/src/lib/roofsection.tsx",
+        "sha256": "fd2ce370b7ef1132f1d3a921d6e8792efdef2976eb811a8744f538941b8b24f0"
+      },
+      {
+        "path": "video-engine/src/lib/safearea.ts",
+        "sha256": "7d08b8df5ee44d61d4edb822fa6e86974827139283daf36be0712fde8ec12620"
+      },
+      {
+        "path": "video-engine/src/lib/scale.ts",
+        "sha256": "0920061f1653bdae94c1da49dfe7e96102eddfb9e2d9b14921fdd9d101579da0"
+      },
+      {
+        "path": "video-engine/src/lib/screwworm.tsx",
+        "sha256": "9204601e3dca58135accd7c5968d6d25b74fbd37a2d94876c6fa1faa9202120a"
+      },
+      {
+        "path": "video-engine/src/lib/sensing.tsx",
+        "sha256": "e860b920808fe6f6e1e7d8e5f19cb24693d49a01f36ddb28fa46957950e73ac8"
+      },
+      {
+        "path": "video-engine/src/lib/skies.tsx",
+        "sha256": "d54f4ea7dec12a5f3af439f0c815117d6479cf36c36af1cdca83d20a3da7d00b"
+      },
+      {
+        "path": "video-engine/src/lib/spectral.tsx",
+        "sha256": "af9fb792c14cb8d01c51d807b3ac241c7186991d2d38f246dc654beaf80bf504"
+      },
+      {
+        "path": "video-engine/src/lib/stage3d.tsx",
+        "sha256": "acc2401c5e329a01eb5bd97495ef354dc72a1120fc2362797a1691534cdeb76d"
+      },
+      {
+        "path": "video-engine/src/lib/tejano.tsx",
+        "sha256": "1858629e00a1c0b3cd4584be5b5af677576fb7fa111924c965187d6afbc98aea"
+      },
+      {
+        "path": "video-engine/src/lib/type.ts",
+        "sha256": "43d7449e181fd5f467f3bcac4a8f9464281235c052a464819e40223dd9758918"
+      },
+      {
+        "path": "video-engine/src/lib/uid.ts",
+        "sha256": "e276842db3d78318df0bc4ee50223a7bf662fb10a13b758f709d3f5c9c6845d7"
+      },
+      {
+        "path": "video-engine/src/lib/vehicles.tsx",
+        "sha256": "df3c9a39beb04a83cf138e852533dc2b387a966ed8230b52d0a73e60c3198882"
+      },
+      {
+        "path": "video-engine/src/lib/voice.tsx",
+        "sha256": "a1258ae84549ace9a592cb3afe7795f8d2610ef310217c5484bf38cd29617cc7"
+      },
+      {
+        "path": "video-engine/src/lib/water.tsx",
+        "sha256": "de0304ceb40c3947240101502b30db4e6be6838ff440a7b61735c955f7ed5278"
+      },
+      {
+        "path": "video-engine/src/modern/CoolingAssets.tsx",
+        "sha256": "d58b2dafa925f771e2f5d97bb90fe75f25dd1fe7baf5eaacf1d5f50c4c4cb101"
+      },
+      {
+        "path": "video-engine/src/modern/CoolingFilm.tsx",
+        "sha256": "9ba6621f4fcec4cf50fbe2c87fdf161fa24371f9036ab663e76a823b66a0f9a8"
+      },
+      {
+        "path": "video-engine/src/modern/CountyLocator.tsx",
+        "sha256": "64e66322741e50e6822614e827c1a15b7508aeb846bca8792c693339f0a3da72"
+      },
+      {
+        "path": "video-engine/src/modern/DirectedFilm.tsx",
+        "sha256": "7836b07cd7558d31cfa7d55d07900b832b613f70aa7d5c3220fcbdfb4a20a1ba"
+      },
+      {
+        "path": "video-engine/src/modern/FlyGeneFilm.tsx",
+        "sha256": "4d572bbc708b9ad98bcb9a563738ec64b56eb98b1d0bcbdd319ac6521ce8fa3c"
+      },
+      {
+        "path": "video-engine/src/modern/FreightFilm.tsx",
+        "sha256": "9b103e1278eeb3deba9782fbda35f9fa868afdd65354c044b258ea029ed0654a"
+      },
+      {
+        "path": "video-engine/src/modern/PlaceStage.tsx",
+        "sha256": "6839b760ee6dd681d87e1a65e334a5b185636a98c02c3ad4b1c4505982533948"
+      },
+      {
+        "path": "video-engine/src/modern/StoryArt.tsx",
+        "sha256": "bd368cce756d2a06e44a3602986bf00e6f2aadac71206683a2d8f4fd0fce2557"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+        "sha256": "2d78478b181b5be7b12f2c705f722d887cd103a3ea12b24b8d21f55fd3c1997d"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+        "sha256": "d4d12ba1ef9efa264aff39592cccfbfb1127cd0a94362e73649a331f443bf92d"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+        "sha256": "0b2883cf03609379e4e84d6d3ad5bd8ce497203dc5ae9fdd7ab61bef97c7b78c"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+        "sha256": "0b5524473c295d96fc2d9439af0d760195ae43afddcd8813327105259d73f761"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
+        "sha256": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
+        "sha256": "d601034eee7cce7a26257717db35f87f52e2440b8483983fda44fdfe014374be"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+        "sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+        "sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c"
+      },
+      {
+        "path": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+        "sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91"
+      },
+      {
+        "path": "video-engine/src/modern/placePlates.json",
+        "sha256": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833"
+      },
+      {
+        "path": "video-engine/src/modern/registry.tsx",
+        "sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03"
+      },
+      {
+        "path": "video-engine/src/modern/texasCounties.json",
+        "sha256": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8"
+      },
+      {
+        "path": "video-engine/src/modern/types.ts",
+        "sha256": "549f090d1bbafed672161f37bb2948fa94ac8caa1308773e8be6ed4cbf7c4d47"
+      },
+      {
+        "path": "video-engine/package-lock.json",
+        "sha256": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
+      }
+    ]
+  },
+  "narration_picture": {
+    "version": "narration-picture-v1",
+    "timing_mode": "authored",
+    "cue_plan": "Provisional authored cue estimate for the silent two-treatment comparison only, projected from measured take 5 and take 6 rates. board_retime.py replaces it with measured_caption_boundaries after acoustic alignment; it approves nothing.",
+    "clauses": [
+      {
+        "id": "n1a",
+        "text": "Some people could have ankle-deep water in their yard.",
+        "cue_ids": [
+          "n1a-a"
+        ],
+        "scene_id": "s1",
+        "subject_ids": [
+          "s1-water"
+        ],
+        "action_id": "yard-floods-before-warning",
+        "claim_ids": [
+          "c12"
+        ],
+        "event_ids": [
+          "s1-event-1",
+          "s1-event-2"
+        ],
+        "start_s": 0.3,
+        "end_s": 3.27,
+        "word_range": [
+          0,
+          9
+        ]
+      },
+      {
+        "id": "n1b",
+        "text": "UT San Antonio says the phone warning can come after that.",
+        "cue_ids": [
+          "n1b-a"
+        ],
+        "scene_id": "s1",
+        "subject_ids": [
+          "s1-water"
+        ],
+        "action_id": "yard-floods-before-warning",
+        "claim_ids": [
+          "c12"
+        ],
+        "event_ids": [
+          "s1-event-3"
+        ],
+        "start_s": 4.1,
+        "end_s": 7.73,
+        "word_range": [
+          9,
+          20
+        ]
+      },
+      {
+        "id": "n2a",
+        "text": "So its researchers built a flood station.",
+        "cue_ids": [
+          "n2a-a"
+        ],
+        "scene_id": "s2",
+        "subject_ids": [
+          "s2-station",
+          "s2-panel"
+        ],
+        "action_id": "self-power-no-tower",
+        "claim_ids": [
+          "c1"
+        ],
+        "event_ids": [
+          "s2-event-1"
+        ],
+        "start_s": 8.56,
+        "end_s": 10.87,
+        "word_range": [
+          20,
+          27
+        ]
+      },
+      {
+        "id": "n2b",
+        "text": "It charges itself from light and needs no cell tower.",
+        "cue_ids": [
+          "n2b-a"
+        ],
+        "scene_id": "s2",
+        "subject_ids": [
+          "s2-station",
+          "s2-panel"
+        ],
+        "action_id": "self-power-no-tower",
+        "claim_ids": [
+          "c5",
+          "c6",
+          "c14"
+        ],
+        "event_ids": [
+          "s2-event-2",
+          "s2-event-3"
+        ],
+        "start_s": 11.7,
+        "end_s": 15.0,
+        "word_range": [
+          27,
+          37
+        ]
+      },
+      {
+        "id": "n3a",
+        "text": "Four optical sensors at different heights watch the water.",
+        "cue_ids": [
+          "n3a-a"
+        ],
+        "scene_id": "s3",
+        "subject_ids": [
+          "s3-stack"
+        ],
+        "action_id": "sense-water-and-weather",
+        "claim_ids": [
+          "c2"
+        ],
+        "event_ids": [
+          "s3-event-1",
+          "s3-event-2",
+          "s3-event-3"
+        ],
+        "start_s": 15.83,
+        "end_s": 18.8,
+        "word_range": [
+          37,
+          46
+        ]
+      },
+      {
+        "id": "n4a",
+        "text": "A small chip on the station runs the AI itself.",
+        "cue_ids": [
+          "n4a-a"
+        ],
+        "scene_id": "s4",
+        "subject_ids": [
+          "s4-chip",
+          "s4-traces"
+        ],
+        "action_id": "judge-risk-on-chip",
+        "claim_ids": [
+          "c3",
+          "c18"
+        ],
+        "event_ids": [
+          "s4-event-1"
+        ],
+        "start_s": 19.63,
+        "end_s": 22.93,
+        "word_range": [
+          46,
+          56
+        ]
+      },
+      {
+        "id": "n4b",
+        "text": "So it judges flood risk without a central server.",
+        "cue_ids": [
+          "n4b-a"
+        ],
+        "scene_id": "s4",
+        "subject_ids": [
+          "s4-chip",
+          "s4-traces"
+        ],
+        "action_id": "judge-risk-on-chip",
+        "claim_ids": [
+          "c3"
+        ],
+        "event_ids": [
+          "s4-event-2",
+          "s4-event-3"
+        ],
+        "start_s": 23.76,
+        "end_s": 26.73,
+        "word_range": [
+          56,
+          65
+        ]
+      },
+      {
+        "id": "n5a",
+        "text": "Its radio signal can carry more than a half-mile in streets.",
+        "cue_ids": [
+          "n5a-a"
+        ],
+        "scene_id": "s5",
+        "subject_ids": [
+          "s5-ring",
+          "s5-tags"
+        ],
+        "action_id": "carry-radio-to-hub",
+        "claim_ids": [
+          "c6"
+        ],
+        "event_ids": [
+          "s5-event-1",
+          "s5-event-2"
+        ],
+        "start_s": 27.56,
+        "end_s": 31.19,
+        "word_range": [
+          65,
+          76
+        ]
+      },
+      {
+        "id": "n5b",
+        "text": "In open country, up to five miles, to a hub.",
+        "cue_ids": [
+          "n5b-a"
+        ],
+        "scene_id": "s5",
+        "subject_ids": [
+          "s5-ring",
+          "s5-tags"
+        ],
+        "action_id": "carry-radio-to-hub",
+        "claim_ids": [
+          "c6"
+        ],
+        "event_ids": [
+          "s5-event-3"
+        ],
+        "start_s": 32.02,
+        "end_s": 35.32,
+        "word_range": [
+          76,
+          86
+        ]
+      },
+      {
+        "id": "n6a",
+        "text": "At the hub, a second, larger AI maps flood paths for responders.",
+        "cue_ids": [
+          "n6a-a"
+        ],
+        "scene_id": "s6",
+        "subject_ids": [
+          "s6-dashboard",
+          "s6-paths"
+        ],
+        "action_id": "draw-flood-map",
+        "claim_ids": [
+          "c7",
+          "c16",
+          "c17",
+          "c20"
+        ],
+        "event_ids": [
+          "s6-event-1",
+          "s6-event-2",
+          "s6-event-3"
+        ],
+        "start_s": 36.15,
+        "end_s": 40.11,
+        "word_range": [
+          86,
+          98
+        ]
+      },
+      {
+        "id": "n7a",
+        "text": "The university reports early chip AI validation.",
+        "cue_ids": [
+          "n7a-a"
+        ],
+        "scene_id": "s7",
+        "subject_ids": [
+          "s7-card",
+          "s7-blank"
+        ],
+        "action_id": "report-validation-only",
+        "claim_ids": [
+          "c4",
+          "c18"
+        ],
+        "event_ids": [
+          "s7-event-1"
+        ],
+        "start_s": 40.94,
+        "end_s": 43.25,
+        "word_range": [
+          98,
+          105
+        ]
+      },
+      {
+        "id": "n7b",
+        "text": "Accuracy was ninety eight point eight two percent.",
+        "cue_ids": [
+          "n7b-a"
+        ],
+        "scene_id": "s7",
+        "subject_ids": [
+          "s7-card",
+          "s7-blank"
+        ],
+        "action_id": "report-validation-only",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s7-event-2"
+        ],
+        "start_s": 44.08,
+        "end_s": 46.72,
+        "word_range": [
+          105,
+          113
+        ]
+      },
+      {
+        "id": "n7c",
+        "text": "The announcement reports no field result.",
+        "cue_ids": [
+          "n7c-a"
+        ],
+        "scene_id": "s7",
+        "subject_ids": [
+          "s7-card",
+          "s7-blank"
+        ],
+        "action_id": "report-validation-only",
+        "claim_ids": [
+          "c4"
+        ],
+        "event_ids": [
+          "s7-event-3"
+        ],
+        "start_s": 47.55,
+        "end_s": 49.53,
+        "word_range": [
+          113,
+          119
+        ]
+      },
+      {
+        "id": "n8a",
+        "text": "It names no town with an installed station.",
+        "cue_ids": [
+          "n8a-a"
+        ],
+        "scene_id": "s8",
+        "subject_ids": [
+          "s8-map",
+          "s8-nopin"
+        ],
+        "action_id": "no-town-named",
+        "claim_ids": [
+          "c1",
+          "c10"
+        ],
+        "event_ids": [
+          "s8-event-1",
+          "s8-event-2",
+          "s8-event-3"
+        ],
+        "start_s": 50.36,
+        "end_s": 53.0,
+        "word_range": [
+          119,
+          127
+        ]
+      },
+      {
+        "id": "n9a",
+        "text": "Deployment is still the goal.",
+        "cue_ids": [
+          "n9a-a"
+        ],
+        "scene_id": "s9",
+        "subject_ids": [
+          "s9-goal",
+          "s9-map"
+        ],
+        "action_id": "deployment-goal",
+        "claim_ids": [
+          "c9",
+          "c10"
+        ],
+        "event_ids": [
+          "s9-event-1",
+          "s9-event-2",
+          "s9-event-3"
+        ],
+        "start_s": 53.83,
+        "end_s": 55.48,
+        "word_range": [
+          127,
+          132
+        ]
+      }
+    ]
+  },
+  "story_contract": {
+    "opening_question": "Can a flood station judge rising street water with no power line and no cell tower?",
+    "actor": "University of Texas at San Antonio researchers led by Chen Pan",
+    "action": "Built a prototype flood station that charges itself from light and runs its AI model on a small chip.",
+    "change": "A flood gauge that needs grid power and a network becomes a self-powered station that judges flood risk on its own chip and signals a hub by radio.",
+    "affected_people": "Emergency responders and residents of street-level flood-prone blocks. No individual is named in any source.",
+    "consequence": "A hub dashboard with predictive maps of how flooding could spread, for emergency responders, per the university.",
+    "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+    "closing_answer": "The design says yes. The proof so far is validation accuracy, and no installed place is named.",
+    "director_identity": "claude-sonnet-5-5 director, this session",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "role": "action",
+        "claim_ids": [
+          "c12"
+        ],
+        "advances": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark. The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark. The flash flood warning banner finally slides onto the phone, after the water is already in the yard."
+      },
+      {
+        "scene_id": "s2",
+        "role": "action",
+        "claim_ids": [
+          "c1",
+          "c5",
+          "c6",
+          "c14"
+        ],
+        "advances": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing. Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell. A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins."
+      },
+      {
+        "scene_id": "s3",
+        "role": "mechanism",
+        "claim_ids": [
+          "c2"
+        ],
+        "advances": "Four optical lenses at four different heights on the post catch the low light in turn. Brown water rises past the lit first lens and reaches the second, which lights as it goes under. Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label."
+      },
+      {
+        "scene_id": "s4",
+        "role": "mechanism",
+        "claim_ids": [
+          "c3",
+          "c18"
+        ],
+        "advances": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow. The chip lights the amber risk lamp on the board and a judged on the station tag pins. Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it."
+      },
+      {
+        "scene_id": "s5",
+        "role": "mechanism",
+        "claim_ids": [
+          "c6"
+        ],
+        "advances": "A pulse flashes at the antenna tip and amber radio rings leave it. The rings run down the street of bungalows and pass the half-mile tag on the far corner post. Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins."
+      },
+      {
+        "scene_id": "s6",
+        "role": "consequence",
+        "claim_ids": [
+          "c7",
+          "c16",
+          "c17",
+          "c20"
+        ],
+        "advances": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model. Shaded flood paths spread out from the first dots along the creek and the low streets. Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins."
+      },
+      {
+        "scene_id": "s7",
+        "role": "limit",
+        "claim_ids": [
+          "c4"
+        ],
+        "advances": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it."
+      },
+      {
+        "scene_id": "s8",
+        "role": "limit",
+        "claim_ids": [
+          "c1",
+          "c10"
+        ],
+        "advances": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map."
+      },
+      {
+        "scene_id": "s9",
+        "role": "answer",
+        "claim_ids": [
+          "c9",
+          "c10"
+        ],
+        "advances": "Over the same map a dashed goal pin hovers and does not land. At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled. A deployment goal tag pins beside the dashed pin."
+      }
+    ],
+    "transitions": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "kind": "same-subject",
+        "because": "The yard the warning reached late leads to the station the researchers built.",
+        "visible_bridge": "The same brown flood water carries from the yard to the prototype standing at a curb."
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "kind": "same-subject",
+        "because": "The same station is climbed from its panel and battery down to the marks that watch the water.",
+        "visible_bridge": "The same post and its lit first mark stay in frame."
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "kind": "same-subject",
+        "because": "The readings from the marks just lit run into the same station's chip.",
+        "visible_bridge": "The same housing opens, with the marks' readings arriving on its traces."
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "kind": "causal-consequence",
+        "because": "The chip's risk judgment is what the same station's antenna sends.",
+        "visible_bridge": "The same station and its lit amber risk lamp send the rings."
+      },
+      {
+        "from": "s5",
+        "to": "s6",
+        "kind": "causal-consequence",
+        "because": "The radio ring that reached the hub arrives as a station dot on its map.",
+        "visible_bridge": "The amber ring and station dots carry onto the hub screen."
+      },
+      {
+        "from": "s6",
+        "to": "s7",
+        "kind": "same-subject",
+        "because": "After the map, the same design is measured only by its reported validation figure.",
+        "visible_bridge": "The amber accent of the map carries onto the validation bar."
+      },
+      {
+        "from": "s7",
+        "to": "s8",
+        "kind": "same-subject",
+        "because": "After the figure, the map shows where the station is installed, which is nowhere named.",
+        "visible_bridge": "The blank field card gives way to a map with nothing pinned."
+      },
+      {
+        "from": "s8",
+        "to": "s9",
+        "kind": "same-subject",
+        "because": "After no town is named, the same map carries the goal the university states.",
+        "visible_bridge": "The same paper map on the same chain link fence stays in frame across the cut."
+      }
+    ]
+  },
+  "cinematic_contract": {
+    "throughline": {
+      "subject": "One solar flood station and the waterline that crosses its four marks",
+      "opening_state": "The viewer starts in the flooded yard with the late phone, then finds the station that could have warned sooner.",
+      "closing_state": "At the empty curb after the flood, a dashed outline of the station draws itself where one could stand, beside the map on the fence with no installation named and a dashed goal pin.",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ]
+    },
+    "turn_scene": "s4",
+    "button": "The chip lights a local judgment with no line to a server, and the closing map has no pin."
+  },
+  "cinema": {
+    "version": "creative-production-v1",
+    "hero_scene_id": "s3",
+    "hero_passage_end_scene_id": "s5",
+    "dimensional_scene_ids": [],
+    "visible_action": "Water crosses the four sensor marks one at a time, the chip lights a risk judgment on the spot and a radio pulse carries it out to a hub.",
+    "human_consequence": "Emergency responders could see a map of how flooding could spread. The university names no responder, agency or place that uses a station.",
+    "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+  },
+  "fingerprint": {
+    "pov": "street-level-yard",
+    "motion_vector": "yard-to-post-to-hub",
+    "hero_treatment": "authored-solar-flood-station",
+    "layout": "street-and-map",
+    "register": "disclosed-source-bound-illustration",
+    "camera_strategy": "held-with-event-led-moves",
+    "light_story": "late-afternoon-storm-light-upper-left",
+    "palette": "Limestone, storm gray, flood brown, galvanized steel, amber risk lamp",
+    "metaphor": "Four marks get wet one at a time while the station decides on its own"
+  },
+  "divergence_note": "A opens wide in a flooded yard with no station and pushes in on the orange ankle mark, tilts up the prototype, climbs its column, enters its chip, follows the radio at street level into open country, reads the hub desk before its map, and closes at the empty curb where a dashed station outline draws itself. B opens on a disclosed design detail of the lowest lens going under, match cuts on ankle height to the same kind of yard, cranes down the prototype, holds the panel close through the tower beat, sees the readings arrive through the housing window from the street, reads the radio from above, the hub map before the desk, both cards side by side, and closes on the same map close up. Both perform every event in clause order; they differ in opening, staging, framing, camera and which view carries each clause.",
+  "hook_strategy": "human_stakes",
+  "hook_payoff_s": 0.953,
+  "creative_direction": {
+    "viewer_question": "Can a flood station judge rising street water with no power line and no cell tower?",
+    "visible_answer": "The chip lights a local judgment, a radio pulse reaches a hub map, and the closing map shows no installed pin.",
+    "emotional_turn": "Watchfulness as the water rises, then the plain limit of what the university reports.",
+    "medium_choice": "News report / Explanatory animation, mechanism-led. No licensed photograph or footage of the station exists, so original authored illustration performs the design the university describes. A static page excerpt would show the words but hide the four marks, the chip and the hub.",
+    "edits": [
+      {
+        "scene_id": "s1",
+        "enter_on": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+        "leave_on": "The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+        "cut_after_event_id": "s1-event-3",
+        "next_connection": "From a flooded San Antonio yard with no station in it, the orange ankle mark on a chain link post and the phone on the porch rail to the whole prototype station at a curb, its solar panel and battery bar, and a far cell tower.",
+        "sentence_to_shot": {
+          "clause": "Some people could have ankle-deep water in their yard. UT San Antonio says the phone warning can come after that.",
+          "subject": "A flooded San Antonio yard with no station in it, the orange ankle mark on a chain link post and the phone on the porch rail",
+          "relationship": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark. The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark. The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s2",
+        "enter_on": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing.",
+        "leave_on": "A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+        "cut_after_event_id": "s2-event-3",
+        "next_connection": "From the whole prototype station at a curb, its solar panel and battery bar, and a far cell tower to the station post's four optical lenses, the rising water and the housing's weather lamps.",
+        "sentence_to_shot": {
+          "clause": "So its researchers built a flood station. It charges itself from light and needs no cell tower.",
+          "subject": "The whole prototype station at a curb, its solar panel and battery bar, and a far cell tower",
+          "relationship": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing. Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell. A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s3",
+        "enter_on": "Four optical lenses at four different heights on the post catch the low light in turn.",
+        "leave_on": "Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+        "cut_after_event_id": "s3-event-3",
+        "next_connection": "From the station post's four optical lenses, the rising water and the housing's weather lamps to the opened housing with its traces and chip, a push in on the risk lamp, then the far dark server outline.",
+        "sentence_to_shot": {
+          "clause": "Four optical sensors at different heights watch the water.",
+          "subject": "The station post's four optical lenses, the rising water and the housing's weather lamps",
+          "relationship": "Four optical lenses at four different heights on the post catch the low light in turn. Brown water rises past the lit first lens and reaches the second, which lights as it goes under. Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s4",
+        "enter_on": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow.",
+        "leave_on": "Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+        "cut_after_event_id": "s4-event-3",
+        "next_connection": "From the opened housing with its traces and chip, a push in on the risk lamp, then the far dark server outline to radio rings from the station antenna down a city street to the hub in open country.",
+        "sentence_to_shot": {
+          "clause": "A small chip on the station runs the AI itself. So it judges flood risk without a central server.",
+          "subject": "The opened housing with its traces and chip, a push in on the risk lamp, then the far dark server outline",
+          "relationship": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow. The chip lights the amber risk lamp on the board and a judged on the station tag pins. Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s5",
+        "enter_on": "A pulse flashes at the antenna tip and amber radio rings leave it.",
+        "leave_on": "Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+        "cut_after_event_id": "s5-event-3",
+        "next_connection": "From radio rings from the station antenna down a city street to the hub in open country to the hub desk and its dashboard, then the flood path map with its risk zones.",
+        "sentence_to_shot": {
+          "clause": "Its radio signal can carry more than a half-mile in streets. In open country, up to five miles, to a hub.",
+          "subject": "Radio rings from the station antenna down a city street to the hub in open country",
+          "relationship": "A pulse flashes at the antenna tip and amber radio rings leave it. The rings run down the street of bungalows and pass the half-mile tag on the far corner post. Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s6",
+        "enter_on": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model.",
+        "leave_on": "Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+        "cut_after_event_id": "s6-event-3",
+        "next_connection": "From the hub desk and its dashboard, then the flood path map with its risk zones to the validation card with its bar, figure and tag, then both cards with the blank field result card stamped.",
+        "sentence_to_shot": {
+          "clause": "At the hub, a second, larger AI maps flood paths for responders.",
+          "subject": "The hub desk and its dashboard, then the flood path map with its risk zones",
+          "relationship": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model. Shaded flood paths spread out from the first dots along the creek and the low streets. Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s7",
+        "enter_on": "The validation bar fills across its card and the university's reported figure appears and holds.",
+        "leave_on": "The field result card stays blank and a none reported stamp presses onto it.",
+        "cut_after_event_id": "s7-event-3",
+        "next_connection": "From the validation card with its bar, figure and tag, then both cards with the blank field result card stamped to the paper street map pinned to the chain link fence, close, with no installed pin.",
+        "sentence_to_shot": {
+          "clause": "The university reports early chip AI validation. Accuracy was ninety eight point eight two percent. The announcement reports no field result.",
+          "subject": "The validation card with its bar, figure and tag, then both cards with the blank field result card stamped",
+          "relationship": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s8",
+        "enter_on": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it.",
+        "leave_on": "A no installation named tag pins to the map.",
+        "cut_after_event_id": "s8-event-3",
+        "next_connection": "From the paper street map pinned to the chain link fence, close, with no installed pin to the empty curb with a dashed station outline drawing itself beside the same map and its dashed goal pin.",
+        "sentence_to_shot": {
+          "clause": "It names no town with an installed station.",
+          "subject": "The paper street map pinned to the chain link fence, close, with no installed pin",
+          "relationship": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      },
+      {
+        "scene_id": "s9",
+        "enter_on": "Over the same map a dashed goal pin hovers and does not land.",
+        "leave_on": "A deployment goal tag pins beside the dashed pin.",
+        "cut_after_event_id": "s9-event-3",
+        "next_connection": "The film closes on the unlanded goal pin and the station still watching, then the sourced credits.",
+        "sentence_to_shot": {
+          "clause": "Deployment is still the goal.",
+          "subject": "The empty curb with a dashed station outline drawing itself beside the same map and its dashed goal pin",
+          "relationship": "Over the same map a dashed goal pin hovers and does not land. At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled. A deployment goal tag pins beside the dashed pin.",
+          "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation."
+        }
+      }
+    ],
+    "policy_sha256": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+    "sound": {
+      "perspective": "Designed illustration sound for rain, water, steel, paper and a quiet hub room. Never recorded at a UT San Antonio site, a real station or a real alert.",
+      "music_arc": "A tense low pulse under the rising water, lifting as the sun charges the panel, steady through the marks and the chip, opening out with the radio rings, dropping away at the blank field card and returning softly for the goal.",
+      "voice_arc": "Plain and close over the flooded yard, quicker through the station and its marks, a lift on the chip turn, steady through the radio ranges, then slower and level on the validation figure and the close.",
+      "cues": [
+        {
+          "id": "curb-trickle",
+          "role": "environment",
+          "duration_s": 1.2,
+          "intent": "Rain on asphalt and a low trickle as brown water tops the limestone curb and spreads into the yard.",
+          "provenance": "Original designed ambience, not recorded at any San Antonio street.",
+          "event_id": "s1-event-1"
+        },
+        {
+          "id": "banner-tone",
+          "role": "contact",
+          "duration_s": 0.4,
+          "intent": "A short soft designed tone as the warning banner lands on the phone, late.",
+          "provenance": "Original designed foley, not a real wireless emergency alert tone.",
+          "event_id": "s1-event-3"
+        },
+        {
+          "id": "mark-tone",
+          "role": "sonification",
+          "duration_s": 0.6,
+          "intent": "A small rising tone as the second optical mark goes under and lights.",
+          "provenance": "Original designed sonification, not a sound the prototype makes.",
+          "event_id": "s3-event-2"
+        },
+        {
+          "id": "chip-hum",
+          "role": "contact",
+          "duration_s": 0.5,
+          "intent": "A low warm hum as the chip lights the amber risk lamp on the station.",
+          "provenance": "Original designed foley, not recorded from real hardware.",
+          "event_id": "s4-event-2"
+        },
+        {
+          "id": "radio-pulse",
+          "role": "sonification",
+          "duration_s": 0.6,
+          "intent": "A clean thin pulse as the rings leave the antenna, thinning as they travel.",
+          "provenance": "Original designed sonification, not a recorded LoRa signal.",
+          "event_id": "s5-event-1"
+        },
+        {
+          "id": "blank-card-quiet",
+          "role": "quiet",
+          "duration_s": 1.2,
+          "intent": "Pull the music back while the field result card stays blank and takes its none reported stamp.",
+          "provenance": "Authored event-clock background contrast.",
+          "event_id": "s7-event-3",
+          "gain": 0.3
+        }
+      ]
+    }
+  },
+  "documentary": {
+    "schema": "dispatch_documentary/1",
+    "viewer_question": "Can a flood station judge rising street water with no power line and no cell tower?",
+    "payoff": "Water crosses the four sensor marks one at a time, the chip lights a risk judgment on the spot and a radio pulse carries it out to a hub.",
+    "source_limit": "Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+    "hero_image": "Water crossing the four sensor marks on the solar flood station.",
+    "closing_answer": "The design says yes. The proof so far is validation accuracy, and no installed place is named.",
+    "hook_payoff_event": "s1-event-1"
+  },
+  "visual_research": {
+    "searches": [
+      {
+        "query": "University of Texas at San Antonio flood station photographs, site and rights",
+        "finding": "The university story names no installation site, and no photograph or footage of the prototype was located or downloaded. No licence was established."
+      },
+      {
+        "query": "Library of Congress place search for San Antonio via scripts/place_photos.py (Highsmith Lyda Hill Texas Collection)",
+        "finding": "Eight records with the advisory No known restrictions on publication, all of the San Antonio Stock Show and Rodeo from February 2014. None shows a street, flooding or a sensor, so none is used."
+      }
+    ],
+    "candidates": [
+      {
+        "url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/",
+        "decision": "reject",
+        "reason": "The page is the source for the design, with no usable image rights established."
+      },
+      {
+        "url": "https://www.loc.gov/item/2014631405/",
+        "decision": "reject",
+        "reason": "Rights are clear but it shows rodeo visitors, not a street, flooding or a sensor."
+      },
+      {
+        "url": "authored://2026-10-15/flood-station",
+        "decision": "use",
+        "reason": "Fresh original authored hero group performs the disclosed charge, four sensor marks, on-chip risk judgment and radio pulse the university describes."
+      },
+      {
+        "url": "authored://2026-10-15/street-hub-support",
+        "decision": "use",
+        "reason": "Fresh original authored support group stages the street and yard, radio rings, hub, dashboard map, cards and the empty map the story needs."
+      }
+    ],
+    "decision": "No external photograph or footage helps tell this story honestly, so fresh authored illustration performs the sourced design with an Illustration disclosure."
+  },
+  "native_media": [
+    {
+      "request_id": "flood-station",
+      "file": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+      "sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+      "tool": "original authored source",
+      "source_url": "authored://2026-10-15/flood-station",
+      "original_url": "authored://2026-10-15/flood-station",
+      "subject": "A solar flood station on a post: tilted housing, small solar panel, whip antenna, battery bar, four lens marks at four heights, chip cutaway with an amber risk lamp, and the water that crosses its marks",
+      "relevance": "Carries the one station through the film and performs the charge, the four marks getting wet and the on-chip risk judgment.",
+      "inspection": "Authored in this edition, type-checked and gate-checked; rendered pixels still need the independent code, phone and final reviews.",
+      "rights_basis": "Fresh original authored React and SVG illustration created for this edition; no third-party image.",
+      "basis": "Disclosed original illustration of the design the university describes, not observed footage, an installed station or a real site.",
+      "story_role": "context",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "claim_ids": [
+        "c12",
+        "c1",
+        "c5",
+        "c6",
+        "c14",
+        "c2",
+        "c3",
+        "c18",
+        "c7",
+        "c16",
+        "c17",
+        "c20",
+        "c4",
+        "c10",
+        "c9"
+      ]
+    },
+    {
+      "request_id": "street-hub-support",
+      "file": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+      "sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "tool": "original authored source",
+      "source_url": "authored://2026-10-15/street-hub-support",
+      "original_url": "authored://2026-10-15/street-hub-support",
+      "subject": "A San Antonio street and yard with flood water, porch phone, radio rings with half-mile and five-mile tags, a hub building, a hub desk, a dashboard map with flood paths, a validation card, a blank street result card and an empty map",
+      "relevance": "Stages the street where the water rises and the hub, map and cards the station reaches, and every limit the university leaves open.",
+      "inspection": "Authored in this edition, type-checked and gate-checked; rendered pixels still need the independent code, phone and final reviews.",
+      "rights_basis": "Fresh original authored React and SVG illustration created for this edition; no third-party image.",
+      "basis": "Disclosed original illustration of the design the university describes, not observed footage, an installed station or a real site.",
+      "story_role": "context",
+      "scene_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "claim_ids": [
+        "c12",
+        "c1",
+        "c5",
+        "c6",
+        "c14",
+        "c2",
+        "c3",
+        "c18",
+        "c7",
+        "c16",
+        "c17",
+        "c20",
+        "c4",
+        "c10",
+        "c9"
+      ]
+    }
+  ],
+  "art_direction": {
+    "version": "directed-world-v1",
+    "palette": {
+      "background": "#CDBFA8",
+      "midground": "#8E8A80",
+      "foreground": "#4A3F36",
+      "ink": "#232A30",
+      "paper": "#EEE6D3",
+      "hero": "#8D979C",
+      "accent": "#E3A32B"
+    },
+    "palette_reason": "San Antonio under a storm sky: limestone cream and gray carry the street, flood water is muddy brown, galvanized steel gray is kept for the post and housing, warm paper carries the cards, and one amber is kept only for the risk lamp, the flood paths and the half-mile and five-mile tags.",
+    "shape_language": "A straight galvanized post against soft rounded water edges, hand cut limestone curb, lopsided live oak, and small rectangular paper cards with worn corners. The housing is the one boxy machine form with a tilted cap.",
+    "lighting": {
+      "motivation": "Low late afternoon storm light from the upper left warms limestone and steel, a cool sky fill from the right shades the post, and every grounded thing casts a long soft shadow to the right.",
+      "ambient": 0.8,
+      "exposure": 1.0,
+      "key": {
+        "position": [
+          -6,
+          5,
+          4
+        ],
+        "color": "#FFE2B6",
+        "intensity": 1.9
+      },
+      "fill": {
+        "position": [
+          5,
+          2,
+          3
+        ],
+        "color": "#BFCBDA",
+        "intensity": 0.8
+      },
+      "rim": {
+        "position": [
+          2,
+          5,
+          -4
+        ],
+        "color": "#FFF1D8",
+        "intensity": 0.6
+      }
+    },
+    "hero": {
+      "asset": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+      "silhouette": "A tall galvanized post with a tilted boxy housing, a small dark solar panel, a whip antenna and a column of four lens marks at four different heights.",
+      "finish": "Lit upper-left steel edges, cool shaded right side, a rust drip, a dent in the housing cap, a worn panel corner, small lens glints, a chip cutaway with thin traces and a long soft ground shadow.",
+      "subject_ids": [
+        "s2-panel",
+        "s3-marks",
+        "s4-chip",
+        "s2-station"
+      ]
+    },
+    "focal_hierarchy": "The station and its four marks first, the waterline or risk lamp second, the cards and map third, the street and tree last.",
+    "motion_language": "Water rises at an even speed and marks light as it crosses them, radio rings expand and fade, cards and tags settle without bounce, and the camera holds while objects perform, moving only to follow the water or to pull back.",
+    "signature_shot": {
+      "scene_id": "s3",
+      "event_id": "s3-event-2",
+      "reason": "Water crosses the four marks one at a time and each lights as it is wet, the whole sensing mechanism in one movement."
+    },
+    "shots": {},
+    "flat_shots": {
+      "s1": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s2": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s3": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s4": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s5": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s6": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s7": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s8": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      },
+      "s9": {
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "reason": "Hold the authored composition; the episode camera moves only with the performing water, ring or card."
+      }
+    }
+  },
+  "captions": [
+    {
+      "id": "n1a-a",
+      "start": 0.3,
+      "end": 3.27,
+      "text": "Some people could have ankle-deep water in their yard.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n1b-a",
+      "start": 4.1,
+      "end": 7.73,
+      "text": "UT San Antonio says the phone warning can come after that.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n2a-a",
+      "start": 8.56,
+      "end": 10.87,
+      "text": "So its researchers built a flood station.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n2b-a",
+      "start": 11.7,
+      "end": 15.0,
+      "text": "It charges itself from light and needs no cell tower.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n3a-a",
+      "start": 15.83,
+      "end": 18.8,
+      "text": "Four optical sensors at different heights watch the water.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n4a-a",
+      "start": 19.63,
+      "end": 22.93,
+      "text": "A small chip on the station runs the AI itself.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n4b-a",
+      "start": 23.76,
+      "end": 26.73,
+      "text": "So it judges flood risk without a central server.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n5a-a",
+      "start": 27.56,
+      "end": 31.19,
+      "text": "Its radio signal can carry more than a half-mile in streets.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n5b-a",
+      "start": 32.02,
+      "end": 35.32,
+      "text": "In open country, up to five miles, to a hub.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n6a-a",
+      "start": 36.15,
+      "end": 40.11,
+      "text": "At the hub, a second, larger AI maps flood paths for responders.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n7a-a",
+      "start": 40.94,
+      "end": 43.25,
+      "text": "The university reports early chip AI validation.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n7b-a",
+      "start": 44.08,
+      "end": 46.72,
+      "text": "Accuracy was ninety eight point eight two percent.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n7c-a",
+      "start": 47.55,
+      "end": 49.53,
+      "text": "The announcement reports no field result.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n8a-a",
+      "start": 50.36,
+      "end": 53.0,
+      "text": "It names no town with an installed station.",
+      "source": "authored_estimate"
+    },
+    {
+      "id": "n9a-a",
+      "start": 53.83,
+      "end": 55.48,
+      "text": "Deployment is still the goal.",
+      "source": "authored_estimate"
+    }
+  ],
+  "quality_plan": {
+    "contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "medium": "diagram",
+        "subject": "A flooded San Antonio yard with no station in it, the orange ankle mark on a chain link post and the phone on the porch rail",
+        "action": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+        "consequence": "The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+        "source_basis": "Claims c12. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s2",
+        "medium": "diagram",
+        "subject": "The whole prototype station at a curb, its solar panel and battery bar, and a far cell tower",
+        "action": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing.",
+        "consequence": "A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+        "source_basis": "Claims c1, c5, c6, c14. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s3",
+        "medium": "diagram",
+        "subject": "The station post's four optical lenses, the rising water and the housing's weather lamps",
+        "action": "Four optical lenses at four different heights on the post catch the low light in turn.",
+        "consequence": "Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+        "source_basis": "Claims c2. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s4",
+        "medium": "diagram",
+        "subject": "The opened housing with its traces and chip, a push in on the risk lamp, then the far dark server outline",
+        "action": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow.",
+        "consequence": "Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+        "source_basis": "Claims c3, c18. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s5",
+        "medium": "diagram",
+        "subject": "Radio rings from the station antenna down a city street to the hub in open country",
+        "action": "A pulse flashes at the antenna tip and amber radio rings leave it.",
+        "consequence": "Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+        "source_basis": "Claims c6. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s6",
+        "medium": "diagram",
+        "subject": "The hub desk and its dashboard, then the flood path map with its risk zones",
+        "action": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model.",
+        "consequence": "Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+        "source_basis": "Claims c7, c16, c17, c20. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s7",
+        "medium": "diagram",
+        "subject": "The validation card with its bar, figure and tag, then both cards with the blank field result card stamped",
+        "action": "The validation bar fills across its card and the university's reported figure appears and holds.",
+        "consequence": "The field result card stays blank and a none reported stamp presses onto it.",
+        "source_basis": "Claims c4. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s8",
+        "medium": "diagram",
+        "subject": "The paper street map pinned to the chain link fence, close, with no installed pin",
+        "action": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it.",
+        "consequence": "A no installation named tag pins to the map.",
+        "source_basis": "Claims c1, c10. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      },
+      {
+        "scene_id": "s9",
+        "medium": "diagram",
+        "subject": "The empty curb with a dashed station outline drawing itself beside the same map and its dashed goal pin",
+        "action": "Over the same map a dashed goal pin hovers and does not land.",
+        "consequence": "A deployment goal tag pins beside the dashed pin.",
+        "source_basis": "Claims c9, c10. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, there is no field result, and the university names no installation.",
+        "medium_evidence": "Registered flood-station-v1 with the fresh authored FloodStationHero and StreetHubSupport groups performing board events on the film clock."
+      }
+    ]
+  },
+  "attention_beats": [
+    {
+      "id": "s1-event-1-attention",
+      "event_id": "s1-event-1",
+      "item_ids": [
+        "s1-water",
+        "s1-post"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+      "viewer_reward": "Brown water tops the limestone curb, spreads across a San Antonio yard with no station in it and climbs a chain link post to its orange ankle mark.",
+      "continuity_from": "The same brown water and the same ankle height that the station's lowest lens will mark; no station stands in this yard.",
+      "sound_action": "Rain on asphalt and a low trickle over the curb; the phone stays silent until its banner lands."
+    },
+    {
+      "id": "s1-event-2-attention",
+      "event_id": "s1-event-2",
+      "item_ids": [
+        "s1-phone",
+        "s1-water",
+        "s1-boots"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark.",
+      "viewer_reward": "The water keeps rising to the rain boots on the porch step while the phone on the porch rail stays dark.",
+      "continuity_from": "The same brown water and the same ankle height that the station's lowest lens will mark; no station stands in this yard.",
+      "sound_action": "Rain on asphalt and a low trickle over the curb; the phone stays silent until its banner lands."
+    },
+    {
+      "id": "s1-event-3-attention",
+      "event_id": "s1-event-3",
+      "item_ids": [
+        "s1-phone",
+        "s1-banner"
+      ],
+      "change_type": "location_reveal",
+      "visible_change": "The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+      "viewer_reward": "The flash flood warning banner finally slides onto the phone, after the water is already in the yard.",
+      "continuity_from": "The same brown water and the same ankle height that the station's lowest lens will mark; no station stands in this yard.",
+      "sound_action": "Rain on asphalt and a low trickle over the curb; the phone stays silent until its banner lands."
+    },
+    {
+      "id": "s2-event-1-attention",
+      "event_id": "s2-event-1",
+      "item_ids": [
+        "s2-station",
+        "s2-post"
+      ],
+      "change_type": "reveal",
+      "visible_change": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing.",
+      "viewer_reward": "The whole prototype flood station is revealed on its post at a curb in shallow water and a prototype tag pins beside its housing.",
+      "continuity_from": "The same flood station at the same curb, its lowest mark already lit by the water.",
+      "sound_action": "A soft warm swell as the sun reaches the panel and small ticks as each battery cell fills."
+    },
+    {
+      "id": "s2-event-2-attention",
+      "event_id": "s2-event-2",
+      "item_ids": [
+        "s2-panel",
+        "s2-battery"
+      ],
+      "change_type": "reveal",
+      "visible_change": "Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell.",
+      "viewer_reward": "Low sun reaches the small dark solar panel, a glint crosses its cells and the battery bar fills cell by cell.",
+      "continuity_from": "The same flood station at the same curb, its lowest mark already lit by the water.",
+      "sound_action": "A soft warm swell as the sun reaches the panel and small ticks as each battery cell fills."
+    },
+    {
+      "id": "s2-event-3-attention",
+      "event_id": "s2-event-3",
+      "item_ids": [
+        "s2-station",
+        "s2-tower"
+      ],
+      "change_type": "reveal",
+      "visible_change": "A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+      "viewer_reward": "A dashed line leaves the antenna toward a far cell tower and stops halfway, and a no cell tower needed tag pins.",
+      "continuity_from": "The same flood station at the same curb, its lowest mark already lit by the water.",
+      "sound_action": "A soft warm swell as the sun reaches the panel and small ticks as each battery cell fills."
+    },
+    {
+      "id": "s3-event-1-attention",
+      "event_id": "s3-event-1",
+      "item_ids": [
+        "s3-stack",
+        "s3-marks"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Four optical lenses at four different heights on the post catch the low light in turn.",
+      "viewer_reward": "Four optical lenses at four different heights on the post catch the low light in turn.",
+      "continuity_from": "The same station post and its four marks, the waterline rising from the first mark.",
+      "sound_action": "Water lapping on steel and a small soft tone each time a mark lights."
+    },
+    {
+      "id": "s3-event-2-attention",
+      "event_id": "s3-event-2",
+      "item_ids": [
+        "s3-marks",
+        "s3-water"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Brown water rises past the lit first lens and reaches the second, which lights as it goes under.",
+      "viewer_reward": "Brown water rises past the lit first lens and reaches the second, which lights as it goes under.",
+      "continuity_from": "The same station post and its four marks, the waterline rising from the first mark.",
+      "sound_action": "Water lapping on steel and a small soft tone each time a mark lights."
+    },
+    {
+      "id": "s3-event-3-attention",
+      "event_id": "s3-event-3",
+      "item_ids": [
+        "s3-stack",
+        "s3-weather"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+      "viewer_reward": "Rain, temperature, humidity and light lamps come on one by one on the housing, each with its label.",
+      "continuity_from": "The same station post and its four marks, the waterline rising from the first mark.",
+      "sound_action": "Water lapping on steel and a small soft tone each time a mark lights."
+    },
+    {
+      "id": "s4-event-1-attention",
+      "event_id": "s4-event-1",
+      "item_ids": [
+        "s4-traces",
+        "s4-chip"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow.",
+      "viewer_reward": "Readings run in along thin traces from the four lenses and four weather sensors to one small chip, which begins to glow.",
+      "continuity_from": "The same station housing, now opened, carrying the readings from the marks it just lit.",
+      "sound_action": "A quiet electric run of clicks along the traces and a low hum as the chip lights."
+    },
+    {
+      "id": "s4-event-2-attention",
+      "event_id": "s4-event-2",
+      "item_ids": [
+        "s4-chip",
+        "s4-risk"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The chip lights the amber risk lamp on the board and a judged on the station tag pins.",
+      "viewer_reward": "The chip lights the amber risk lamp on the board and a judged on the station tag pins.",
+      "continuity_from": "The same station housing, now opened, carrying the readings from the marks it just lit.",
+      "sound_action": "A quiet electric run of clicks along the traces and a low hum as the chip lights."
+    },
+    {
+      "id": "s4-event-3-attention",
+      "event_id": "s4-event-3",
+      "item_ids": [
+        "s4-server",
+        "s4-station"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+      "viewer_reward": "Far from the station a dashed outline of a central server draws itself and stays dark, with no line running to it.",
+      "continuity_from": "The same station housing, now opened, carrying the readings from the marks it just lit.",
+      "sound_action": "A quiet electric run of clicks along the traces and a low hum as the chip lights."
+    },
+    {
+      "id": "s5-event-1-attention",
+      "event_id": "s5-event-1",
+      "item_ids": [
+        "s5-antenna",
+        "s5-ring"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "A pulse flashes at the antenna tip and amber radio rings leave it.",
+      "viewer_reward": "A pulse flashes at the antenna tip and amber radio rings leave it.",
+      "continuity_from": "The same station antenna and its risk judgment, carried out by radio toward the hub.",
+      "sound_action": "A clean radio pulse at the antenna that thins as the rings travel outward."
+    },
+    {
+      "id": "s5-event-2-attention",
+      "event_id": "s5-event-2",
+      "item_ids": [
+        "s5-ring",
+        "s5-halfmile"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "The rings run down the street of bungalows and pass the half-mile tag on the far corner post.",
+      "viewer_reward": "The rings run down the street of bungalows and pass the half-mile tag on the far corner post.",
+      "continuity_from": "The same station antenna and its risk judgment, carried out by radio toward the hub.",
+      "sound_action": "A clean radio pulse at the antenna that thins as the rings travel outward."
+    },
+    {
+      "id": "s5-event-3-attention",
+      "event_id": "s5-event-3",
+      "item_ids": [
+        "s5-ring",
+        "s5-hub",
+        "s5-fivemile"
+      ],
+      "change_type": "mechanism",
+      "visible_change": "Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+      "viewer_reward": "Across open country the leading ring reaches the hub's rooftop mast, its lamp lights as the ring arrives and the five-mile tag pins.",
+      "continuity_from": "The same station antenna and its risk judgment, carried out by radio toward the hub.",
+      "sound_action": "A clean radio pulse at the antenna that thins as the rings travel outward."
+    },
+    {
+      "id": "s6-event-1-attention",
+      "event_id": "s6-event-1",
+      "item_ids": [
+        "s6-dots",
+        "s6-dashboard"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model.",
+      "viewer_reward": "Dots from several stations arrive on the hub dashboard and a tag names the second, larger model.",
+      "continuity_from": "The same radio ring arriving as one of the station dots on the hub map.",
+      "sound_action": "A quiet room tone at the hub and soft map shading strokes."
+    },
+    {
+      "id": "s6-event-2-attention",
+      "event_id": "s6-event-2",
+      "item_ids": [
+        "s6-paths",
+        "s6-dashboard"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Shaded flood paths spread out from the first dots along the creek and the low streets.",
+      "viewer_reward": "Shaded flood paths spread out from the first dots along the creek and the low streets.",
+      "continuity_from": "The same radio ring arriving as one of the station dots on the hub map.",
+      "sound_action": "A quiet room tone at the hub and soft map shading strokes."
+    },
+    {
+      "id": "s6-event-3-attention",
+      "event_id": "s6-event-3",
+      "item_ids": [
+        "s6-zones",
+        "s6-dashboard"
+      ],
+      "change_type": "consequence",
+      "visible_change": "Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+      "viewer_reward": "Higher-risk zones outline themselves in dashed amber and a for emergency responders tag pins.",
+      "continuity_from": "The same radio ring arriving as one of the station dots on the hub map.",
+      "sound_action": "A quiet room tone at the hub and soft map shading strokes."
+    },
+    {
+      "id": "s7-event-1-attention",
+      "event_id": "s7-event-1",
+      "item_ids": [
+        "s7-bar",
+        "s7-card"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The validation bar fills across its card and the university's reported figure appears and holds.",
+      "viewer_reward": "The validation bar fills across its card and the university's reported figure appears and holds.",
+      "continuity_from": "The same station's design, now measured only by the university's reported validation figure.",
+      "sound_action": "A paper tap as the tag pins and a dull stamp on the blank card."
+    },
+    {
+      "id": "s7-event-2-attention",
+      "event_id": "s7-event-2",
+      "item_ids": [
+        "s7-tag",
+        "s7-card"
+      ],
+      "change_type": "evidence",
+      "visible_change": "An initial assessments after training tag pins under the validation card.",
+      "viewer_reward": "An initial assessments after training tag pins under the validation card.",
+      "continuity_from": "The same station's design, now measured only by the university's reported validation figure.",
+      "sound_action": "A paper tap as the tag pins and a dull stamp on the blank card."
+    },
+    {
+      "id": "s7-event-3-attention",
+      "event_id": "s7-event-3",
+      "item_ids": [
+        "s7-blank",
+        "s7-card2"
+      ],
+      "change_type": "evidence",
+      "visible_change": "The field result card stays blank and a none reported stamp presses onto it.",
+      "viewer_reward": "The field result card stays blank and a none reported stamp presses onto it.",
+      "continuity_from": "The same station's design, now measured only by the university's reported validation figure.",
+      "sound_action": "A paper tap as the tag pins and a dull stamp on the blank card."
+    },
+    {
+      "id": "s8-event-1-attention",
+      "event_id": "s8-event-1",
+      "item_ids": [
+        "s8-map",
+        "s8-fence"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it.",
+      "viewer_reward": "A paper street map pinned to the chain link fence at the curb settles, streets and a creek with no pin on it.",
+      "continuity_from": "The one paper map pinned to the chain link fence at the curb, the same map in close up and wide.",
+      "sound_action": "A paper flutter on the fence wire and a quiet sweep as the search ring passes."
+    },
+    {
+      "id": "s8-event-2-attention",
+      "event_id": "s8-event-2",
+      "item_ids": [
+        "s8-search",
+        "s8-nopin"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A dashed search ring sweeps the map and finds no installed station.",
+      "viewer_reward": "A dashed search ring sweeps the map and finds no installed station.",
+      "continuity_from": "The one paper map pinned to the chain link fence at the curb, the same map in close up and wide.",
+      "sound_action": "A paper flutter on the fence wire and a quiet sweep as the search ring passes."
+    },
+    {
+      "id": "s8-event-3-attention",
+      "event_id": "s8-event-3",
+      "item_ids": [
+        "s8-tag",
+        "s8-map"
+      ],
+      "change_type": "evidence",
+      "visible_change": "A no installation named tag pins to the map.",
+      "viewer_reward": "A no installation named tag pins to the map.",
+      "continuity_from": "The one paper map pinned to the chain link fence at the curb, the same map in close up and wide.",
+      "sound_action": "A paper flutter on the fence wire and a quiet sweep as the search ring passes."
+    },
+    {
+      "id": "s9-event-1-attention",
+      "event_id": "s9-event-1",
+      "item_ids": [
+        "s9-goal",
+        "s9-map"
+      ],
+      "change_type": "resolution",
+      "visible_change": "Over the same map a dashed goal pin hovers and does not land.",
+      "viewer_reward": "Over the same map a dashed goal pin hovers and does not land.",
+      "continuity_from": "The same paper map on the same fence, still with no installation named.",
+      "sound_action": "Music settles; a soft paper tap as the deployment goal tag pins, with no water and no station sound."
+    },
+    {
+      "id": "s9-event-2-attention",
+      "event_id": "s9-event-2",
+      "item_ids": [
+        "s9-station"
+      ],
+      "change_type": "resolution",
+      "visible_change": "At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled.",
+      "viewer_reward": "At the empty curb a dashed outline of the station draws itself where one could stand, uninstalled.",
+      "continuity_from": "The same paper map on the same fence, still with no installation named.",
+      "sound_action": "Music settles; a soft paper tap as the deployment goal tag pins, with no water and no station sound."
+    },
+    {
+      "id": "s9-event-3-attention",
+      "event_id": "s9-event-3",
+      "item_ids": [
+        "s9-tag",
+        "s9-goal"
+      ],
+      "change_type": "resolution",
+      "visible_change": "A deployment goal tag pins beside the dashed pin.",
+      "viewer_reward": "A deployment goal tag pins beside the dashed pin.",
+      "continuity_from": "The same paper map on the same fence, still with no installation named.",
+      "sound_action": "Music settles; a soft paper tap as the deployment goal tag pins, with no water and no station sound."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Independent source-pivot diagnosis of the validator REVISE and review of the R10 correction (same Opus High critic, precharged continuation)
+
+This is a charged changed-proposal content follow-up on your earlier reviews (R8 REVISE, then the R9 PASS, report sha256 1fddfa69056d425a544f44f9d3b96432bba2ebc78cfce3f300c73c58cdf53c1c). The director reserved storyboard_critics 17 of effective ceiling 19 before this message. You can't verify that, so say so. Keep your context. Don't re-read what you already read in the R9 review. Read only the files listed at the end, in full. Run nothing and launch no agents.
+
+What happened. The R9 correction was applied under the registered repair (script sha256 7b73e3fcde1e2c0ae0500b099298b66af70142a39db40a4dd51641b994ee4444). The fresh independent Opus High source validator then returned REVISE (object sha256 be9a9eb1808ca6745214d87eb151e231915d90f14b2efb57ac229e418530cf6a). It proved all 20 claims verbatim against the live page and the snapshot and approved 13 of 15 sentences. It rejected sentence 13 "The university reports no field result." as worded, because the evidence shows only that this one announcement reports no field result, and a UTSA grant final report (GLO E014) exists that it could not read. It said sentence 14 "It names no town with an installed station." is supported once sentence 13 names the announcement. It also ruled the sentence 11 and 12 pair (chip AI validation, then accuracy) supported. Its required edit: attribute sentence 13 to the announcement.
+
+The director built the frozen R10 correction (proposal-r10, manifest e9ebd29d1d8e932b68ee6282e2f983d4bd6ee3e5f0ea308e5d0b66a438af132d). It changes ONE sentence, line 13 of the script, to "The announcement reports no field result." That keeps the word count (so scene s7 keeps its slow envelope margin) and makes "It" in sentence 14 mean the announcement. Boards, bindings and direction change only in the four text fields that carry that sentence. Timing, shots, events and every other byte are unchanged (diff-r9-to-r10.md lists it). All mechanical gates pass on all six R10 boards (typical, fast and slow envelopes of A and B), and story_art is verified separately. Those approve nothing.
+
+Give ONE consolidated answer in your usual JSON contract, as the independent source-pivot diagnosis the controller requires:
+1. Diagnose the validator REVISE. Is the s13 defect real against the source and claims you already read? Is any other sentence, claim binding or limit affected, including the validator's rulings on the s11/s12 pair?
+2. Because the CURRENT applied R9 script fails the independent validation, the verdict for the current bytes is "revise" and blocking_defects must name the s13 defect (release blocker). Then assess the frozen R10 proposal separately in proposal_assessment: does it fix the defect without breaking another limit, caption fit (sentence 13 is now 41 characters), antecedent chain, runtime or any gate?
+3. source_pivot: requires_validation true, script_before_sha256 "7b73e3fcde1e2c0ae0500b099298b66af70142a39db40a4dd51641b994ee4444" (the currently applied script), proposed_script_sha256 "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf", source_basis, claim_ids.
+4. State whether the recurrence finding (mechanism sentence-per-cue-caption-boundaries replacing caption-boundary-silent-beats) is unchanged and met.
+Your response approves no take, caption, picture, film, score or shipment, and a later fresh validation of the R10 bytes is still required.
+
+Files (read in full):
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/validation-r9-revise/validation-object-verbatim.json be9a9eb1808ca6745214d87eb151e231915d90f14b2efb57ac229e418530cf6a
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r10/diff-r9-to-r10.md 0260798c5cc89ba8e11bf997c35c8c68658d45590edc5f2395730cc0adaf2652
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r10/vo_script.txt 67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r10/vo_bindings.json 7543a8d1835b0fe8cb56537ac35009b09afa5e16bc963c91c4f879b1308a0929
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r10/source-map.md 0fc134a6bb849d9d70ce185cd60cbd5c167293b7d5920900ca9563da1701868a
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r10/EVIDENCE-NOTES.md 2438a1f9de46bb1d779d67f0ea60c65e38c57535de68f8175d797004f74d4e69
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r10/sentence-fit-probe.txt 10cad1e853327abeb7bf86488b4a551ee144e28c9086d83572bfb9af04022692
