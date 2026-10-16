@@ -104,6 +104,76 @@ class Compaction(unittest.TestCase):
                      ({'a/b': {'~k': 3}, 'gone': 1}, {'a/b': {'~k': 4}, 'new': None})):
             self.assertEqual(compact.apply_delta(a, compact.delta(a, b)), b)
 
+    def test_stable_shot_ids_preserve_long_unchanged_shots_across_insertions(self):
+        a = [{'id': str(i), 'action': 'Complete unchanged action '*100} for i in range(20)]
+        b = copy.deepcopy(a); b.insert(3, {'id': 'inserted', 'action': 'A useful new angle.'})
+        b[14]['action'] = 'Changed action.'
+        rows = compact.delta(a, b)
+        self.assertEqual(compact.apply_delta(a, rows), b)
+        self.assertLess(len(json.dumps(rows)), len(json.dumps(b)) // 5)
+
+    def code_reports(self):
+        self.write('out/dispatch/storyboard.json', json.dumps(self.board))
+        report = {'verdict': 'pass', 'review_scope': 'code plan, no pixels',
+                  'renderer_sha256': compact.sha(self.repo/self.hero),
+                  'story_review': {'claims_sha256': 'current-claims'}, 'notes': 'Original complete code findings.'}
+        self.write('out/dispatch/opening-a-critic.json', json.dumps(report))
+        return report
+
+    def code_gate(self, board, report):
+        return [] if report['renderer_sha256'] == compact.sha(self.repo/self.hero) else ['changed renderer']
+
+    def test_phone_code_inventory_requires_actual_current_code_gate_passes(self):
+        report = self.code_reports()
+        with patch('critic_gate.problems', side_effect=self.code_gate) as gate, \
+             patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', side_effect=lambda b: compact.sha(self.repo/self.hero)), \
+             patch('critic_gate.renderer_files', return_value=[self.repo/self.hero, self.repo/self.current]):
+            context, bindings = compact.phone_code_context(self.text, self.package/'storyboard.json',
+                                                           {'claims_sha256': 'current-claims'})
+            self.assertEqual(gate.call_count, 3)
+            self.assertIn('verified_code_plan_context_sha256', bindings)
+            self.assertEqual(next(iter(context['verified_code_plan_context']['reports'].values()))['report'], report)
+            result, _ = compact.compact(context, self.package, 'phone', self.repo)
+            self.assertNotIn(self.hero, result['files'])
+            self.assertEqual({r['path'] for r in result['verified_code_source_inventory']}, {self.hero, self.current})
+            self.assertEqual(result['files']['knowledge/craft/current-guide.md'], self.guide)
+            self.assertEqual(result['board'], self.board)
+            self.assertEqual(result['claims'], self.text['claims'])
+            self.assertEqual(compact.compact(result, self.package, 'phone', self.repo)[0], result)
+
+    def test_stale_missing_wrong_claims_or_phone_verdict_keeps_full_source(self):
+        report = self.code_reports()
+        with patch('critic_gate.problems', side_effect=self.code_gate):
+            for mutation in ('claims', 'source', 'phone', 'missing'):
+                value = copy.deepcopy(report)
+                if mutation == 'claims': value['story_review']['claims_sha256'] = 'old-claims'
+                if mutation == 'source': value['renderer_sha256'] = 'old-renderer'
+                if mutation == 'phone': value['reviewed_preflight_sha256'] = 'a-phone-film'
+                self.write('out/dispatch/opening-a-critic.json', json.dumps(value))
+                if mutation == 'missing': (self.package/'opening-a-critic.json').unlink()
+                result, bindings = compact.phone_code_context(self.text, self.package/'storyboard.json',
+                                                              {'claims_sha256': 'current-claims'})
+                self.assertEqual(result, self.text)
+                self.assertNotIn('verified_code_plan_context_sha256', bindings)
+                result, _ = compact.compact(result, self.package, 'phone', self.repo)
+                self.assertEqual(result['files'][self.hero], self.text['files'][self.hero])
+
+    def test_compact_wire_serialization_preserves_every_value(self):
+        value, _ = compact.compact(self.text, self.package, 'phone', self.repo)
+        encoded = independent_review.packet_json(value)
+        self.assertEqual(json.loads(encoded), value)
+        self.assertLess(len(encoded), len(json.dumps(value)))
+
+    def test_registry_retains_every_entry_and_original_data_hash(self):
+        text = copy.deepcopy(self.text)
+        name = 'config/modern_episode_registry.json'
+        text['files'][name] = (self.repo/name).read_text()
+        result, _ = compact.compact(text, self.package, 'phone', self.repo)
+        self.assertEqual(compact.document(result['files'][name], self.board), json.loads(text['files'][name]))
+        self.assertEqual(result['files'][name]['original_sha256'], compact.sha(self.repo/name))
+        self.assertEqual(set(compact.document(result['files'][name], self.board)['episodes']), {'now', 'old'})
+
 
 if __name__ == '__main__':
     unittest.main()

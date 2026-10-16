@@ -382,8 +382,14 @@ lossless structured JSON; complete treatment documents may be encoded as checked
 deltas against the complete common board. Preserve original byte hashes and verify reconstruction
 before sending. Current guides stay original full text, source evidence and receipts stay complete,
 and all unique media stays attached. For pixel review, only registered inactive episode source
-outside every selected executable closure may become a hash inventory. Keep active current code;
-code review retains its full callable source. The existing text-size ceiling remains enforced on
+outside every selected executable closure may become a hash inventory. Code review retains full
+callable source. At phone pixel scope, source bodies may become exact hash inventories only after
+the ordinary code gate verifies actual independent code-plan passes for every current board and
+both treatments against current concepts, renderer bytes and claims. Carry those complete original
+reports into the phone packet. Missing or stale code approval keeps the full source. Those code
+passes supply no pixel observation, selection or film approval. Full boards, source evidence and
+guides remain. The complete episode registry is structured JSON with every field, its original
+byte hash and all entries retained. Use compact JSON whitespace on the wire. The same text-size ceiling is enforced on
 the final request after comparison context and retained failure evidence are added. No new provider
 charge begins on an oversized input. Historical packets retain their original contents and policy.
 
