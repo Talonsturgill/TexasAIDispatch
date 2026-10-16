@@ -45,6 +45,21 @@ class RuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'both complete exact-phone motion sequences'):
                 runtime.plan(role, packet, 'critic', 'Review both exact phone films.')
 
+    def test_image_only_final_plan_requires_sequential_delivery_policy(self):
+        packet = self.root / 'final-packet.json'; role = 'picture'; edition = '2026-10-15'
+        data = {'role': role, 'date': edition, 'agent_assignment': runtime.assignment(role, edition),
+                'brief': '.claude/agents/scorer.md', 'instructions': ''}
+        packet.write_text(json.dumps(data))
+        with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), patch.object(runtime, 'motion_inputs'):
+            with self.assertRaisesRegex(ValueError, 'sequential delivery'):
+                runtime.plan(role, packet, 'picture', 'Independently review the exact final film.')
+            runtime.image_reading(data); packet.write_text(json.dumps(data))
+            result = runtime.plan(role, packet, 'picture', 'Independently review the exact final film.')
+            self.assertEqual(result['assignment']['model'], 'claude-sonnet-5-5')
+            data['image_read_policy']['parallel_image_reads'] = True; packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'sequential delivery'):
+                runtime.plan(role, packet, 'picture', 'Independently review the exact final film.')
+
     def planned_boards(self):
         requests = []
         for role in ('hero', 'support'):

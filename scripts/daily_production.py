@@ -466,6 +466,7 @@ def packet(board_path, claims_path, role, state_path=None):
             if errors:
                 raise ValueError('; '.join(errors))
             data['motion_sequence'] = {'path': str(sequence.resolve()), 'sha256': digest(sequence)}
+            claude_runtime.image_reading(data)
             data['instructions'] += (' This Claude image-only assignment reviews the entire encoded film through '
                 'the bound motion sequence. Read every page in index order before reading the director rationale. '
                 'Use native timestamps, the actual native crops and your separate raw audiovisual response. '

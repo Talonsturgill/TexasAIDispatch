@@ -139,6 +139,78 @@ def motion_inputs(data):
         raise ValueError('; '.join(errors))
 
 
+def image_read_policy():
+    return {'schema': 'dispatch_claude_image_read_policy/1', 'images_per_model_step': 1,
+            'parallel_image_reads': False, 'note_before_next_read': True,
+            'missing_image': 'return partial immediately; no repeated bulk reads',
+            'coverage_schema': 'dispatch_claude_image_coverage/1'}
+
+
+def image_reading(data):
+    """Keep image delivery bounded; this supplies no creative observation or approval."""
+    data['image_read_policy'] = image_read_policy()
+    data['instructions'] += (' Image delivery is sequential: issue ONE image Read, wait for it, and record '
+        'the page filename, first/last frame and a concrete visible observation before the next image Read. '
+        'Never send parallel image Reads or a bulk image batch. Earlier images can leave the host window; '
+        'retain your actual textual observations and consolidate from those notes without bulk rereading. '
+        'If a page is stripped or unseen, return partial immediately with its exact identity; do not infer '
+        'pixels from source code, timestamps or earlier stills. In the final handback also return a separate '
+        'coverage object with schema dispatch_claude_image_coverage/1, packet_sha256, and sequences in packet '
+        'order. Each sequence has index_sha256 and pages in index order; each page has file, first_frame, '
+        'last_frame, received (true only when actually seen), and observed (at least thirty characters '
+        'describing its actual visible content). Preserve every required guide, timed observation and honest verdict.')
+    return data
+
+
+def image_policy_inputs(data):
+    if data.get('image_read_policy') != image_read_policy():
+        raise ValueError('Claude image review needs the current sequential delivery and retained-notes policy')
+
+
+def image_coverage_problems(packet_path, coverage_path):
+    """Check complete declared access to exact pages; never supply or change a verdict."""
+    try:
+        data, coverage = read(packet_path), read(coverage_path)
+        if not isinstance(data, dict) or not isinstance(coverage, dict):
+            return ['image coverage and packet must be objects']
+        image_policy_inputs(data)
+        refs = ([r['motion_sequence'] for r in data['phone_options']] if data.get('role') == 'storyboard-critic'
+                else [data['motion_sequence']])
+        if (coverage.get('schema') != 'dispatch_claude_image_coverage/1'
+                or coverage.get('packet_sha256') != digest(packet_path)):
+            return ['image coverage does not bind the exact current packet']
+        rows = coverage.get('sequences')
+        if not isinstance(rows, list) or len(rows) != len(refs):
+            return ['image coverage omits a required whole-film sequence']
+        errors = []
+        for ref, row in zip(refs, rows, strict=True):
+            if not isinstance(row, dict):
+                errors.append('image coverage has a malformed sequence'); continue
+            if digest(ref['path']) != ref['sha256'] or row.get('index_sha256') != ref['sha256']:
+                errors.append('image coverage index bytes or identity changed'); continue
+            pages = read(ref['path'])['pages']; notes = row.get('pages')
+            if not isinstance(notes, list) or len(notes) != len(pages):
+                errors.append('image coverage omits chronological pages'); continue
+            for page, note in zip(pages, notes, strict=True):
+                if not isinstance(note, dict):
+                    errors.append('image coverage has a malformed page observation'); continue
+                image = Path(ref['path']).parent / page['file']
+                if (Path(page['file']).name != page['file'] or image.is_symlink()
+                        or not image.is_file() or digest(image) != page['sha256']):
+                    errors.append('image coverage page bytes are missing or changed')
+                if (note.get('file') != page['file'] or type(note.get('first_frame')) is not int
+                        or type(note.get('last_frame')) is not int
+                        or note.get('first_frame') != page['samples'][0]['frame']
+                        or note.get('last_frame') != page['samples'][-1]['frame']):
+                    errors.append('image coverage reorders or misidentifies a page')
+                if (note.get('received') is not True or not isinstance(note.get('observed'), str)
+                        or len(note['observed'].strip()) < 30):
+                    errors.append('image coverage has an unseen page or no concrete retained observation')
+        return errors
+    except (OSError, ValueError, TypeError, KeyError, IndexError) as exc:
+        return ['image coverage unavailable: ' + str(exc)]
+
+
 def phone_options(state_path, sequences, current=False):
     """Compute bindings for comparison movies or the current timed movie; no creative answers."""
     import claude_motion_review as motion
@@ -198,6 +270,7 @@ def phone_packet(packet_path, state_path, sequences, current=False):
         'After the complete chronological viewing, consolidate the handback. Recheck only named '
         'uncertain intervals; return unresolved findings instead of repeated viewing to pursue a pass. '
         'Do not run Bash, write files, invent hashes, or infer approval from structural measurements.')
+    image_reading(data)
     phone_review_inputs(data)
     return data
 
@@ -303,9 +376,11 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
     agent_runtime.validate_references(data)
     if role in ('picture', 'story', 'sound'):
         motion_inputs(data)
+        image_policy_inputs(data)
     if role == 'storyboard-critic' and (data.get('review_scope') == 'exact-muted-phone-preflight'
                                        or re.search(r'\bphone\b', scope, re.I)):
         phone_review_inputs(data)
+        image_policy_inputs(data)
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')
@@ -429,6 +504,8 @@ if __name__ == '__main__':
     p.add_argument('--sequence-a', type=Path); p.add_argument('--sequence-b', type=Path)
     p.add_argument('--sequence-current', type=Path)
     p.add_argument('--out', type=Path, required=True)
+    p = sub.add_parser('verify-images'); p.add_argument('--packet', type=Path, required=True)
+    p.add_argument('--coverage', type=Path, required=True); p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('plan'); p.add_argument('--role', required=True); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
     p.add_argument('--mechanical-task', choices=['code-only-review', 'mechanical-correction'])
@@ -453,6 +530,12 @@ if __name__ == '__main__':
                               current=bool(args.sequence_current))
     elif args.action == 'plan':
         result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task)
+    elif args.action == 'verify-images':
+        errors = image_coverage_problems(args.packet, args.coverage)
+        result = {'schema': 'dispatch_claude_image_coverage_verification/1', 'complete': not errors,
+                  'packet_sha256': digest(args.packet),
+                  'coverage_sha256': digest(args.coverage) if args.coverage.is_file() else None,
+                  'problems': errors, 'basis': 'Declared exact-page access and retained observations only; no creative approval.'}
     elif args.action == 'measure':
         cfg = dict(read(POLICY)); cfg['effective_date'] = cfg['authorized_at']
         result = agent_runtime.measurements(args.runs, cfg)
@@ -461,4 +544,7 @@ if __name__ == '__main__':
         result = usage_report(args.session, since, args.phases)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2) + '\n')
+    if args.action == 'verify-images' and not result['complete']:
+        print('Claude image coverage incomplete: ' + '; '.join(result['problems']))
+        raise SystemExit(1)
     print('Current Claude ' + args.action + ' saved. No worker, provider or render was started.')

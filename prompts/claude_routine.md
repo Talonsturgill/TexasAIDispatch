@@ -311,6 +311,36 @@ usage, delivery state and any retained failed attempts concisely.
 
 ### Complete silent phone evidence before voice
 
+Image delivery is load-aware for every Claude phone and final image-only reviewer. The host
+has actually stripped image results from large Read batches. A complete index on disk does
+not prove that the model received its pages. The current packet pins one image Read per model
+step, no parallel image Reads, and concrete per-page notes before the next Read. Read full
+guides and all chronological pages, retaining the actual textual notes as older images leave
+the host window. Never infer an unseen image from code or earlier stills. Return partial
+immediately on a stripped image; do not repeat bulk reads. First smoke-test one known missing
+page when recovering an observed delivery failure, then continue the complete sequence only
+if it is actually visible. This is part of the separately charged content follow-up, not a
+new uncharged review or a creative approval.
+
+Each worker also returns its separate `dispatch_claude_image_coverage/1` object following the
+packet's contract. Save that actual response unchanged and run:
+
+```sh
+python scripts/claude_runtime.py verify-images --packet <exact worker packet> --coverage <retained coverage JSON> --out <coverage verification JSON>
+```
+
+Require complete coverage before accepting a phone pass or final scorer handback. The check
+binds the packet, every index/page byte, chronological page identities and retained concrete
+observations. It never supplies a finding, score or approval. Retain partial reports and
+failed coverage checks exactly; their missing images are access failures, not invented film
+defects. Fund the complete remaining path and reserve the same worker's bounded content
+follow-up autonomously; never end with a request to choose between charging and waiting.
+Keep coverage objects and verification receipts with current review evidence in the
+checkpoint and public-safe metadata archive. Coverage verification starts no worker. Image
+extraction keeps its prepaid capture charge; every actual content follow-up remains reserved
+before execution. A known host
+image delivery failure uses this small-read path first, without inventing provider unavailability.
+
 The Read-only Opus phone critic cannot play MP4s or compute missing hashes with Bash.
 One midpoint still per scene cannot prove timed motion or continuity. After both structural
 opening inspections pass, extract the complete chronological sequence from each exact encoded
