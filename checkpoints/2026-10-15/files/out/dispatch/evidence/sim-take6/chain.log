@@ -1,0 +1,10 @@
++ python scripts/mix.py --board out/dispatch/evidence/sim-take6/storyboard.json --vo out/dispatch/takes-6/take1.wav --sfx out/dispatch/evidence/sim-take6/sfx_events.json --bed out/dispatch/music_bed.wav --bed-track sincerely --bed-manifest out/dispatch/music_bed.json --bed-gap-db 19.0 --vo-at 0.30 --out out/dispatch/evidence/sim-take6/mix.wav --cut 65.0
+mix: 65.00s at -16.22 LUFS (gain +1.21 dB), 5 sound events, time_stretch 1.0
++ echo mix=0
+mix=0
++ python scripts/vo_align.py --wav out/dispatch/evidence/sim-take6/mix.wav --script out/dispatch/vo_script.txt --voice out/dispatch/evidence/sim-take6/mix_vo.wav --out out/dispatch/evidence/sim-take6 --cuts out/dispatch/evidence/sim-take6/storyboard.json --clause-boundaries
+vo_align: ASR does not reconcile with the locked script: - training ?   ^^
+ + troning ?   ^
+
++ echo align=1
+align=1

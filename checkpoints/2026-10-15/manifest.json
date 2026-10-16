@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T16:55:48.325600+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-16T16:58:36.814576+00:00",
+  "note": "take 6 spent (tts 12/12): soundcheck pass, whisper alignment fails troning for training; capacity admission refused; v1-v3 reviews, grants and direction repair retained",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -2255,6 +2255,72 @@
       "size": 2179
     },
     {
+      "path": "out/dispatch/evidence/sim-take6/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "b5288063a4769a4c2c28819e331de3142af80fedc7a0a02e5d0e72e34bf970fe",
+      "size": 758
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "edf4b4793b771d27da074333fd4c0224004a1b578dd8a6da8d1b9f1f2fee3cad",
+      "size": 74429
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "58a045cd2e95f9edcad203823a4601a5b24871b230fa1a73fd74abc671d33b9c",
+      "size": 107796
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "fa43e53fecd0dad4065cad0e6a83d3cc7dac0cb8028359eaef76346c8ec887a3",
+      "size": 1886484
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/chain.log",
+      "class": "scratch",
+      "sha256": "13c124c1401baa4119360bd1055e550def0be99b73033074cb4d280537e51e7a",
+      "size": 843
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/chain.sh",
+      "class": "scratch",
+      "sha256": "7f63ebe9f85bd2fe951734b7c88c30f5265822a0c38943dc0669abb3865f5221",
+      "size": 528
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/mix.json",
+      "class": "scratch",
+      "sha256": "74f3815c23353dda74efc66097c2b3ae3e6d083f1e8fa9a94ef707ad6f8cb5e0",
+      "size": 5728
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/mix.wav",
+      "class": "scratch",
+      "sha256": "ddae23ee637c4462f7298fa0d37d7451ce02aa064fa86e784b3efbda1415227f",
+      "size": 6240078
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "1676b44fa71102ae5dd3652efb98350b79d08cdef10395ae4d641160f1b5a0f2",
+      "size": 6240044
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/sfx_events.json",
+      "class": "scratch",
+      "sha256": "551c310045a7f999844106fb0a927889f8977403a2558fe9f1b5253e93fa527b",
+      "size": 2035
+    },
+    {
+      "path": "out/dispatch/evidence/sim-take6/storyboard.json",
+      "class": "scratch",
+      "sha256": "5dcb8724fc540c154d9a53c5f6ffe17442d2333a9ec03795c0db458fcc36ecdf",
+      "size": 186691
+    },
+    {
       "path": "out/dispatch/evidence/sim-v3/gates.log",
       "class": "scratch",
       "sha256": "c6c65b7c5ff642b553d2ea7a24e8745998a311ce0396577f59820e2254000e01",
@@ -2327,16 +2393,52 @@
       "size": 31945
     },
     {
+      "path": "out/dispatch/evidence/take-6/finding.md",
+      "class": "scratch",
+      "sha256": "a9e32a52ebb5977e2027b79df9f7823b58862f6ea029067b2bd3b47de20537c5",
+      "size": 1143
+    },
+    {
+      "path": "out/dispatch/evidence/take-6/probe-plan-for-capacity.json",
+      "class": "scratch",
+      "sha256": "807268bf627a648fb1d5f0749d20b7dac1fe502a373e453cdcb083796f21f48a",
+      "size": 762
+    },
+    {
+      "path": "out/dispatch/evidence/take-6/prompt.txt",
+      "class": "scratch",
+      "sha256": "29f0a2160405c34431283c65613beaef9693697ee1e033d85fd727980104920c",
+      "size": 4219
+    },
+    {
+      "path": "out/dispatch/evidence/take-6/sim-align-take6.log",
+      "class": "scratch",
+      "sha256": "13c124c1401baa4119360bd1055e550def0be99b73033074cb4d280537e51e7a",
+      "size": 843
+    },
+    {
       "path": "out/dispatch/evidence/take-6/synth-soundcheck.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "f4d5f955c8d8cf1b30d713ea909990d9580d4c3854ea487e7147ce820e86430b",
+      "size": 264
     },
     {
       "path": "out/dispatch/evidence/take-6/synth.sh",
       "class": "scratch",
       "sha256": "fb4ad757c4569d9551fa9eb638afe176bad1483ed74f51a8084dd9cf2468548b",
       "size": 375
+    },
+    {
+      "path": "out/dispatch/evidence/take-6/take1.wav",
+      "class": "scratch",
+      "sha256": "ea013efe98435de86b9e01ab1268986c8463c2f4a53cca5e81f0fd13e4b0ae72",
+      "size": 5556524
+    },
+    {
+      "path": "out/dispatch/evidence/take-6/takes.json",
+      "class": "scratch",
+      "sha256": "f4e223055fd118f0a20fd25918d9c3d8f6490f8c2fd92cd0fe9f7a41ddfa864b",
+      "size": 1136
     },
     {
       "path": "out/dispatch/evidence/take5-caption-fit-and-event-duration-findings-20261016.md",
@@ -4737,6 +4839,18 @@
       "class": "scratch",
       "sha256": "29f0a2160405c34431283c65613beaef9693697ee1e033d85fd727980104920c",
       "size": 4219
+    },
+    {
+      "path": "out/dispatch/takes-6/take1.wav",
+      "class": "scratch",
+      "sha256": "ea013efe98435de86b9e01ab1268986c8463c2f4a53cca5e81f0fd13e4b0ae72",
+      "size": 5556524
+    },
+    {
+      "path": "out/dispatch/takes-6/takes.json",
+      "class": "scratch",
+      "sha256": "f4e223055fd118f0a20fd25918d9c3d8f6490f8c2fd92cd0fe9f7a41ddfa864b",
+      "size": 1136
     },
     {
       "path": "out/dispatch/takes/prompt.txt",
