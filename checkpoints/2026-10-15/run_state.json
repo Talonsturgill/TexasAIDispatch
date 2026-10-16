@@ -1,38 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-a.json",
-        "before_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-b.json",
-        "before_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/storyboard.json",
-        "before_sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
-        "before_sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/modern_episode_registry.json",
-        "before_sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
-        "path": "{REPO}/config/modern_episode_registry.json"
-      }
-    ],
-    "failure_sha256": "192aca191ba4766f51ab531cd4c32029c2a0564d8d5ee7bfaaf27ae3e8417ec7",
-    "plan": "{REPO}/out/dispatch/repair-plan.json",
-    "plan_sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
-    "reboards_before": 7,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -4883,6 +4849,67 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-16T22:03:11.950060Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 232,
+        "reservation_sha256": "da4dbd983544fa544f39ea2defc8d097df6e24c8627def8fe932cb8936f82810",
+        "start_event_index": 230
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+            "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-a.json",
+            "before_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+            "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-b.json",
+            "before_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+            "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/storyboard.json",
+            "before_sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
+            "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
+            "before_sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+          },
+          {
+            "after_sha256": "db04f225a374f80173efd14a8aa03eddd5481ef5332f764fa7ca148d956d295c",
+            "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/modern_episode_registry.json",
+            "before_sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
+            "path": "{REPO}/config/modern_episode_registry.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Every scene is at or under 9.5 s, all cues end inside the film, the stamp for no field result appears over the blank field result card while that sentence is spoken, the map follows for the no town sentence, and the closing holds about two seconds after the last word. No sentence, figure attribution or claim changes.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/review-r12-technical-classification/report-verbatim.json",
+        "failure_evidence_sha256": "192aca191ba4766f51ab531cd4c32029c2a0564d8d5ee7bfaaf27ae3e8417ec7",
+        "failure_family": "measured-runtime-crowding",
+        "mechanism_change": "The over-long scene is split at a measured clause boundary and the runtime follows the measured read, instead of fitting a read that is longer than its projection into a scene structure projected from other takes.",
+        "mechanism_id": "measured-scene-split-at-clause-boundary",
+        "repair": "Deterministic and frozen under evidence/proposal-r13: runtime_s 54.1 to 59.4, clause n7c and its stamp shot move to the front of scene s8 (n8a, s8-event-0, no-field-card), scene s7 keeps sentences 11 and 12 with a third event where the blank card slides in, five event windows move (reviewed by the same independent critic in report 22 and again in the r13 code-plan reports) inside the shots that draw them (s2, s3, s4, s6, per the critic), and the renderer and registry follow the board. No wording, claim, narration, audio or caption method changes. Measured timing comes from the real pipeline on retained take 7 and was stable on a second pass.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The accepted board was timed from takes 5 and 6 to 54.1 s. The real take 7 speech ends at 57.36 s, so board_retime refuses (needs 57.90 s), board_captions finds cues past the film, and with the runtime set to the measured read plus the authored 2.0 s hold, sentences 11 to 13 retime scene s7 to 11.3 s, past the 9.5 s scene ceiling. The independent report classifies all three findings as technical (runtime, captions, runtime)."
+      },
+      "repair_plan_sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
+      "repair_revision": "9d597d61f5450c98bd904577fd807964c9bb7b307ee5e0ddba09f6c19de75b69",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -4906,7 +4933,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f87758674769adb89f6752555a8c0610cce2d05def769a2e618091292a528dc4",
+    "original_private_state_sha256": "83793f9feb2c9532f76266bbf448fad85ea66c0cb79ef1e754063a8bb7140d0c",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4942,7 +4969,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T22:03:02.105698Z",
+  "updated_at": "2026-10-16T22:03:11.950090Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
