@@ -18,6 +18,8 @@ REPO = Path(__file__).resolve().parents[1]
 # Reviewed inspection-only transition from d9e4493337a656862fdcef0c53d78472145424dc.
 # Every other capture dependency is still recomputed from the current checkout.
 LEGACY_ORCHESTRATOR_SHA256 = "a50859e01b487bb81ef814845c3d8b5aeb47f46106f698248732e184b76fb30d"
+# Exact reviewed source that captured the retained October 15th movies at ac2fe5e.
+RETAINED_ORCHESTRATOR_SHA256 = "f72e20dc4f21bf55f0bdfd52b3207f7ba91651c6e0659d8d1ec14a8beb3dc69d"
 
 
 def body(board):
@@ -58,13 +60,20 @@ def capture_record(receipt):
     return value
 
 
+def capture_orchestrator(receipt):
+    """Every dependency other than the known orchestrator is recomputed now."""
+    versions = (creative.digest(REPO/'scripts/opening_compare.py'),
+                RETAINED_ORCHESTRATOR_SHA256, LEGACY_ORCHESTRATOR_SHA256)
+    return next((sha for sha in versions if receipt.get('producer_sha256') == creative.opening_producer(sha)), None)
+
+
 def legacy_capture_problems(receipt, output):
-    """Accept one reviewed old orchestration version, never arbitrary capture drift."""
+    """Accept current or reviewed retained capture, never arbitrary dependency drift."""
     from critic_gate import renderer_digest
     output = Path(output)
     errors = []
     try:
-        if receipt.get("producer_sha256") != creative.opening_producer(LEGACY_ORCHESTRATOR_SHA256):
+        if capture_orchestrator(receipt) is None:
             errors.append("legacy capture producer or a rendering dependency changed")
         if receipt.get("policy_sha256") != creative.digest(creative.POLICY):
             errors.append("legacy capture policy changed")
@@ -91,7 +100,7 @@ def legacy_capture_problems(receipt, output):
     return errors
 
 
-def adoption_problems(receipt, output):
+def adoption_problems(receipt, output, *, allow_stale_inspector=False):
     output = Path(output)
     try:
         adoption = receipt["inspection_adoption"]
@@ -99,8 +108,8 @@ def adoption_problems(receipt, output):
         errors = legacy_capture_problems(original, output)
         if original.get("inspection_adoption") or capture_record(receipt) != capture_record(original):
             errors.append("inspection adoption changed original capture evidence")
-        if (adoption.get("legacy_orchestrator_sha256") != LEGACY_ORCHESTRATOR_SHA256
-                or adoption.get("inspector_sha256") != inspection_producer()):
+        if (adoption.get("legacy_orchestrator_sha256") != capture_orchestrator(original)
+                or (not allow_stale_inspector and adoption.get("inspector_sha256") != inspection_producer())):
             errors.append("inspection adoption has unknown orchestration or stale inspector")
         return errors
     except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -112,11 +121,13 @@ def inspect_retained(root, state):
     root, state = Path(root).resolve(), Path(state).resolve()
     if state != root / "run_state.json":
         raise ValueError("retained inspection must use its existing edition controller")
+    if creative.read(state).get('terminal_state'):
+        raise ValueError('retained inspection cannot modify a finished edition')
     output = root / "openings"
     comparison = output / "comparison.json"
     receipt = creative.read(comparison)
     if receipt.get("inspection_adoption"):
-        errors = adoption_problems(receipt, output)
+        errors = adoption_problems(receipt, output, allow_stale_inspector=True)
     else:
         errors = legacy_capture_problems(receipt, output)
     if errors:
@@ -126,8 +137,10 @@ def inspect_retained(root, state):
         archive.write_bytes(comparison.read_bytes())
         receipt["inspection_adoption"] = {
             "original_comparison": {"file": archive.name, "sha256": creative.digest(archive)},
-            "legacy_orchestrator_sha256": LEGACY_ORCHESTRATOR_SHA256,
+            "legacy_orchestrator_sha256": capture_orchestrator(receipt),
             "inspector_sha256": inspection_producer()}
+    else:
+        receipt['inspection_adoption']['inspector_sha256'] = inspection_producer()
     return inspect_options(output, receipt)
 
 
