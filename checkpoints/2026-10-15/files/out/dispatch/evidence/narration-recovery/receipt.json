@@ -1,0 +1,94 @@
+{
+  "schema": "dispatch_narration_pivot_recovery/1",
+  "run_id": "2026-10-15",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "role": "recurrence-pivot",
+  "status": "completed",
+  "provider_unavailable": false,
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "agent_id": "aae3c92fe4b807972",
+  "reviewer_identity": "claude-opus-5-5, a fresh independent read-only reviewer for pivot-review-packet-voice4.md only. Separate from the claude-sonnet director and from the reviewer who wrote pivot-review-voice3.json. Ran nothing, launched no subagents and did not recompute any SHA-256.",
+  "report_sha256": "efc1797b5290192212794d99a4465655eb0597184d2ce42024a74904ab29689e",
+  "reservation_event_index": 110,
+  "reservation_sha256": "b078a24caefd8fb3c572fb59269045d0bdddf1cf892f5aea4ca9034b6bef90bb",
+  "reservation_note": "independent pivot review for narration repair 4 after three failed direction repairs",
+  "retained_inputs": [
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/failure-take1-soundcheck.txt",
+      "sha256": "bdd6fdbf9aaa532b0ccfc16ab0713da70b8b7ebae5590422abc20b58e0e2e2cf",
+      "kind": "failure"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/failure-take2-finding.md",
+      "sha256": "c5df62a9a17ca4bdefa484469232696b8d70038dd4b0e128d81dbfa9b6feb161",
+      "kind": "failure"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/failure-take3-finding.md",
+      "sha256": "32c76d037256c2734e9fcb5debb94a856925a92d0a46d31e058b00decd6df6f5",
+      "kind": "failure"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/failure-take4-finding.md",
+      "sha256": "fcb6ae0ec7ec30eb6e56df090b99a94d9fde9dacf4ce1827d915cdc2f914375c",
+      "kind": "failure"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/audio-take4.wav",
+      "sha256": "8b92e4ced73f56a0c06fcb17ade6946f9dac643233fed5aa0b586f213be588cd",
+      "kind": "audio"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/audio-take3.wav",
+      "sha256": "e632a63d41885b91a8660fa8e8709118b73819e1e20f76d641ef8d903447d2ed",
+      "kind": "audio"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/asr-take4.json",
+      "sha256": "3263054d81a13dd2267fbc071deeb212221bd5c366496a00c4f33c52a64fc5f3",
+      "kind": "asr"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/asr-take3.json",
+      "sha256": "27be947ade8779282c92ab8090b0da773f17c4caa81e4131c94b0752aeb09c32",
+      "kind": "asr"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/baseline-direction-before-repair4.json",
+      "sha256": "f240dc687d8d5f3c167a2386347e66b63438a6f36f67ffe9c57e06ee869f2aba",
+      "kind": "baseline"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/baseline-direction-before-repair3.json",
+      "sha256": "cd9184de22b78b7444e121d60cde29bf583c72b3b74cc817676e95deb1342d77",
+      "kind": "baseline"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/original-packet.md",
+      "sha256": "599fcc332fb96865f57b069354cdb57438cfb583a01a8d834ec3711866759636",
+      "kind": "packet"
+    }
+  ],
+  "unreserved_continuations": [
+    {
+      "agent_id": "aae3c92fe4b807972",
+      "observed_at": "2026-10-16T14:27:23Z",
+      "precharged": false,
+      "invalid_for_authorization": true,
+      "note": "observed_at is the agent output file modification time, approximate",
+      "handback": {
+        "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/continuation-handback-verbatim.txt",
+        "sha256": "39bbc4dd9043e8e453f330caf711aee407d51f8fa01ff05a8c5478d7d5f6f1a8"
+      },
+      "proposal": {
+        "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/continuation-proposal-as-sent.txt",
+        "sha256": "7a261fc049ea789ee33d5d67cda6c6a2d3d588f3b59ceba3b63e35e75c2f9c41"
+      },
+      "disclosure": {
+        "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/narration-recovery/continuation-disclosure.md",
+        "sha256": "e99d584ae7d5f9a834d5a3bdc321978e5c47c63e237c6bab75ebc53a4e134353"
+      }
+    }
+  ]
+}

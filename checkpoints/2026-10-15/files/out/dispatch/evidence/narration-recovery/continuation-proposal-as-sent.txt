@@ -1,0 +1,13 @@
+Re-review of the revised repair 4 mechanism, read-only, same assignment as your revise verdict.
+
+I accepted your findings. The revised mechanism is closing-phrase-full-length. The root cause is a compressed and clipped close, not a fall-off. Evidence: take 4 close about 1.0 s against about 3.1 s in take 3, per your per-word durations. I measured the take 4 voice stem tail from out/dispatch/takes-4/take1.wav. Speech ends and then about 0.5 s of silence follows, so the pipeline does not trim the close, and the clipped last consonant is a performance fact.
+
+Proposed direction edits, vo_direction.json only, tts_calls 2:
+- L7 energy: "Even through the figure, then lower and plain for the last phrase, same pace as the figure."
+- L8 energy: "Level and plain, no lift, the same working pace as the line before."
+- L9 intent: "The close, a complete short phrase at the same tempo and length as line 8."
+- L9 energy: "Same tempo as the line before. Say every word at full length and finish goal completely before the read ends, with no upturn."
+- performance_arc ends: "then plain and measured at one pace through the last three lines."
+Removed: lowest energy, low through the last word, falls to the end, no slowing. No pronunciation, alternative-wording or articulation notes. Script, claims, board, sources and renderer unchanged. The full plan is out/dispatch/repair-plan-voice4.json, and the candidate file is out/dispatch/tmp/vo_direction-candidate.json.
+
+Please return a JSON verdict (pass or revise) for the pivot rule: reviewer distinct from the director, retired mechanism clause-breath-and-short-notes is in the failed set, replacement mechanism_id closing-phrase-full-length differs, reviewed_failure_sha256 covering the four retained failure shas, visible_difference, source_basis. Note that this continues your same assignment on a revised proposal and charges no new reservation, because the storyboard_critics ceiling is spent. Say if you judge that insufficient.

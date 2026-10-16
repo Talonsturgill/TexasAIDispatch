@@ -1,0 +1,6 @@
+  [  FAIL] take1  acc 0.945  var 7.77  53.9s  -18.6 LUFS
+           - word accuracy 0.945: the take does not say what the script says
+
+vo_soundcheck: NO TAKE PASSED. Re-synth. If the failures are duration, the fix is a shorter script, never a stretch.
+
+Director diagnosis: the take paraphrased the script ("before phone warns anyone" for "before a flood warning sounds on their phone", "built a station" for "built a flood station", "needs no tower" for "needs no cell tower"). Those paraphrases are the wording of the per-line direction text sent in the same prompt (line 1 intent "before the phone warns anyone", line 2 intent "needs no tower", "flood problem"). The direction leaked lexical content into the read. Cost so far: tts_calls 2 (one take, one soundcheck transcription).
