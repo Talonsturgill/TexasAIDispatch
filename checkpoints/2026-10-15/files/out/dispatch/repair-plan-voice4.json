@@ -1,0 +1,27 @@
+{
+ "mechanism_id": "closing-phrase-full-length",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "narration-performance",
+ "root_cause": "Take 4 closing phrase Deployment is still the goal lasted about 1.0 s in the whisper word stream (58.05 to 59.08 s) against about 3.1 s in take 3, where whisper heard still at 0.801 and goal at 0.997. Deploy has zero length at 0.2975, Steel 200 ms at 0.356, Goat 180 ms at 0.445. The voice stem tail shows speech then 0.5 s of silence, so the pipeline does not trim it. Lines 7 to 9 carried the same lowest-energy and fall-to-the-end wording in take 3, so a fall is not the distinguishing cause. The close was compressed and clipped. Gemini heard still the goal.",
+ "repair": "Rewrite only line 7 to 9 energy and the line 9 intent, plus the performance arc, so the close is a complete short phrase at the same tempo as line 8 with every word at full length and goal finished before the read ends. Remove the lowest-energy, low-through-the-last-word and falls-to-the-end wording. Keep no upturn. No pronunciation, alternative wording or articulation notes. Script, claims, board, sources and renderer stay byte-identical.",
+ "mechanism_change": "Retired clause-breath-and-short-notes (clause breath placement). The new lever is duration and tempo of the final phrase, not energy fall or breath placement.",
+ "expected_visible_result": "One continuous take whose closing phrase lasts about two seconds, reconciles with the locked script in forced alignment, with spread and the percent figure still matched.",
+ "failure_evidence": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-4/finding.md",
+ "failure_evidence_sha256": "fcb6ae0ec7ec30eb6e56df090b99a94d9fde9dacf4ce1827d915cdc2f914375c",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/2026-10-15/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-4/vo_direction-before.json",
+   "before_sha256": "f240dc687d8d5f3c167a2386347e66b63438a6f36f67ffe9c57e06ee869f2aba",
+   "after_sha256": "48334ae4bfe996a1e3827219474b1f7f9c9913b0f937e42ef998767735c869d3"
+  }
+ ],
+ "pivot_review": {
+  "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/pivot-review-voice4.json",
+  "sha256": "fcfdc4391a47adb5d13d836ebc2bda5a0f6e7068015fe711c9de168869b662bc"
+ }
+}
