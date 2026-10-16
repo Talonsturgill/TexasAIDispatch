@@ -1,10 +1,13 @@
 """A mandatory script pivot funds fresh validation without replaying an old PASS."""
 import copy
+import contextlib
 import hashlib
+import io
 import json
 import shutil
 import tempfile
 import unittest
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
@@ -15,10 +18,11 @@ import narration_recovery
 import production_lifecycle as lifecycle
 import run_controller as controller
 import validation_completion as source
+import capture_completion_budget as capture_budget
 
 
 class SourceCompletionTest(unittest.TestCase):
-    def fixture(self, drained=True):
+    def fixture(self, drained=True, comparison=False):
         tmp = tempfile.TemporaryDirectory(); self.addCleanup(tmp.cleanup)
         self.repo = Path(tmp.name); self.root = self.repo / 'out/dispatch'; self.root.mkdir(parents=True)
         self.state = self.root / 'run_state.json'
@@ -40,8 +44,29 @@ class SourceCompletionTest(unittest.TestCase):
             for name in (*capacity.resource_requirements(state), 'validator_agents'):
                 state['usage'][name] = state['resource_envelope'][name]
             state['usage']['storyboard_critics'] -= 1
+            if comparison:
+                state['usage']['preflight_renders'] -= 2
             controller.event(state, 'reserved', resources=dict(state['usage']), note='offline fixture of earlier charged work')
             controller.save(self.state, state)
+        if comparison:
+            for key in ('a', 'b'):
+                (self.root / ('opening-' + key + '.json')).write_text(json.dumps({'date': '2026-10-15', 'variant': key}))
+            for note in ('capture authorization reservation for opening comparison', 'two opening comparison batch'):
+                self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
+            state = controller.read_state(self.state)
+            options = []
+            for key in ('a', 'b'):
+                row = {'id': key}
+                for kind, suffix in (('board', 'json'), ('film', 'mp4')):
+                    path = self.root / (key + '.' + suffix)
+                    path.write_bytes(('offline ' + key + kind + ' fixture').encode())
+                    row[kind] = {'file': path.name, 'sha256': source.digest(path)}
+                options.append(row)
+            self.comparison = self.root / 'comparison.json'
+            self.comparison.write_text(json.dumps({'schema': 'dispatch-opening-comparison/1',
+                'inspection_pass': True, 'inspection_problems': [], 'options': options,
+                'reservation': {'run_id': state['run_id'], 'event_index': len(state['events']) - 1,
+                    'identity': state['events'][-1]['preflight_identity']}}))
         self.assertTrue(controller.reserve(self.state, {'storyboard_critics': 1}, 'offline independent source-pivot fixture')[0])
         state = controller.read_state(self.state)
         index = len(state['events']) - 1
@@ -216,7 +241,7 @@ class SourceCompletionTest(unittest.TestCase):
         self.assertIsNone(capacity.mandatory_reason(state, plan, text))
 
     def test_mixed_source_pivot_keeps_standard_accounting_and_all_rejections(self):
-        self.fixture()
+        self.fixture(comparison=True)
         plan = json.loads(self.bound.read_text()); plan['repair_scope'] = 'standard'
         report = json.loads(self.report.read_text())
         artistic = {'id': 'framing', 'criterion': 'shot variety', 'problem': 'The proposed cut repeats identical framing.'}
@@ -227,7 +252,22 @@ class SourceCompletionTest(unittest.TestCase):
         raw = json.dumps(receipt); plan[source.FIELD]['receipt_json'] = raw; plan[source.FIELD]['receipt_sha256'] = hashlib.sha256(raw.encode()).hexdigest()
         call = self.root / 'mixed-call.json'; call.write_text(raw); plan[source.FIELD]['receipt_file'] = str(call)
         bound = self.root / 'mixed-plan.json'; bound.write_text(json.dumps(plan))
-        ok, message = capacity.grant_capacity(self.state, bound)
+        source_bound = self.root / 'prepared-mixed-source-plan.json'
+        source.prepare(self.state, bound, call, self.proposed, source_bound)
+        bound = source_bound
+        original_state = controller.read_state(self.state)
+        original_script = self.script.read_bytes(); original_plan = bound.read_bytes()
+        complete = self.root / 'complete-source-comparison-plan.json'
+        capture_budget.prepare_comparison(self.state, bound, self.comparison, complete)
+        self.assertEqual(original_state, controller.read_state(self.state))
+        self.assertEqual(original_plan, bound.read_bytes())
+        precheck = io.StringIO()
+        with patch.object(sys, 'argv', ['run_controller.py', '--state', str(self.state),
+                'production-budget', '--review-route', 'host', '--repair-plan', str(complete)]), contextlib.redirect_stdout(precheck):
+            self.assertEqual(1, controller.main(), precheck.getvalue())
+        self.assertEqual(1, json.loads(precheck.getvalue())['deficits']['validator_agents'])
+        self.assertEqual(original_state, controller.read_state(self.state))
+        ok, message = capacity.grant_capacity(self.state, complete)
         self.assertTrue(ok, message)
         state = controller.read_state(self.state)
         self.assertEqual(state['events'][-1]['reason'], source.REASON)
@@ -236,6 +276,18 @@ class SourceCompletionTest(unittest.TestCase):
         self.assertEqual(json.loads(state['events'][-1]['failure_evidence_json'])['verdict'], 'revise')
         self.assertFalse(controller.reserve(self.state, {'tts_calls': 1})[0])
         self.assertEqual(lifecycle.allowance_problems(state), [])
+        self.assertEqual(original_script, self.script.read_bytes())
+        self.assertEqual(original_state['usage'], state['usage'])
+        budget = json.loads(state['events'][-1]['precheck_json'])
+        for name, count in {'validator_agents': 1, 'storyboard_critics': 4, 'tts_calls': 2,
+                            'preflight_renders': 5, 'audiovisual_reviews': 11, 'full_renders': 1,
+                            'panel_rounds': 1, 'scorer_calls': 3}.items():
+            self.assertEqual(count, budget['resources'][name]['required'], name)
+        output = io.StringIO()
+        with patch.object(sys, 'argv', ['run_controller.py', '--state', str(self.state),
+                'production-budget', '--review-route', 'host', '--repair-plan', str(complete)]), contextlib.redirect_stdout(output):
+            self.assertEqual(0, controller.main(), output.getvalue())
+        self.assertTrue(json.loads(output.getvalue())['feasible'])
 
 
 if __name__ == '__main__':
