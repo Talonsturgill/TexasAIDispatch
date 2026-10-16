@@ -466,7 +466,16 @@ def opening_problems(board_path):
             errors.append("opening choice requires the existing independent phone critic")
         if review.get("director_identity") != (board.get("story_contract") or {}).get("director_identity"):
             errors.append("opening choice must identify the actual story director")
-        if not concrete(review.get("reason")) or not concrete(review.get("rejected_reason")):
+        reason = review.get("reason")
+        if reason is None and "comparative_reason" in review:
+            # Read the original provider's key without rewriting its verified object.
+            from independent_review import evidence_problems
+            if not review.get("provider_evidence"):
+                errors.append("provider comparative reason lacks original independent evidence")
+            else:
+                errors += evidence_problems(review)
+            reason = review["comparative_reason"]
+        if not concrete(reason) or not concrete(review.get("rejected_reason")):
             errors.append("opening choice needs comparative observed reasons")
         from creative_release import review_allows
         if review.get("blocking_defects") != [] and not review_allows(board, review, board_path.parent, scope="phone"):
