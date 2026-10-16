@@ -1009,6 +1009,43 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "after_attempt": {
+        "evidence": {
+          "path": "{REPO}/out/dispatch/evidence/provider-compare-openings-http402-20261016.md",
+          "sha256": "3a0638dac726be9229a3731624645421ebcf8a371719534b929d3814fd8b2a4b"
+        },
+        "ledger_event_index": 51,
+        "path": "{REPO}/out/dispatch/independent-review-cache/6bc4cc3933c87172d3d8c0dd70cd6119ef63861ab97505c6680ab879b91b5ec6/attempt.json",
+        "request_id": "6ed01ed7-307d-4c45-994b-f7d5aa8b52e0",
+        "sha256": "f0035f485f8ea9a0ec489b4f846ec59b9ba330bf225ce5657fb48fdc6b0f1f69"
+      },
+      "after_probe": {
+        "attempt": "{\n  \"after_attempt\": {\n    \"evidence\": {\n      \"path\": \"{REPO}/out/dispatch/evidence/provider-compare-openings-http402-20261016.md\",\n      \"sha256\": \"3a0638dac726be9229a3731624645421ebcf8a371719534b929d3814fd8b2a4b\"\n    },\n    \"ledger_event_index\": 51,\n    \"path\": \"{REPO}/out/dispatch/independent-review-cache/6bc4cc3933c87172d3d8c0dd70cd6119ef63861ab97505c6680ab879b91b5ec6/attempt.json\",\n    \"request_id\": \"6ed01ed7-307d-4c45-994b-f7d5aa8b52e0\",\n    \"sha256\": \"f0035f485f8ea9a0ec489b4f846ec59b9ba330bf225ce5657fb48fdc6b0f1f69\"\n  },\n  \"model\": \"gemini-3.8-flash\",\n  \"request_id\": \"2769a3c3-e4df-4d04-bbbf-768b86b3c526\",\n  \"reservation\": {\n    \"at\": \"2026-10-16T11:45:11.362847Z\",\n    \"kind\": \"reserved\",\n    \"note\": \"unscored provider generation availability\",\n    \"preflight_identity\": null,\n    \"resources\": {\n      \"audiovisual_reviews\": 1\n    }\n  },\n  \"reservation_event_index\": 53,\n  \"schema\": \"dispatch_provider_availability/1\",\n  \"started_at\": \"2026-10-16T11:45:49.118639Z\"\n}\n",
+        "attempt_sha256": "c7409c37af888e04c087de509b553f99364aa09acae94ee1eea3ea0c6c147c4f",
+        "path": "{REPO}/out/dispatch/provider-availability/after-f0035f485f8ea9a0ec489b4f846ec59b9ba330bf225ce5657fb48fdc6b0f1f69/receipt.json",
+        "receipt": "{\n  \"after_attempt\": {\n    \"evidence\": {\n      \"path\": \"{REPO}/out/dispatch/evidence/provider-compare-openings-http402-20261016.md\",\n      \"sha256\": \"3a0638dac726be9229a3731624645421ebcf8a371719534b929d3814fd8b2a4b\"\n    },\n    \"ledger_event_index\": 51,\n    \"path\": \"{REPO}/out/dispatch/independent-review-cache/6bc4cc3933c87172d3d8c0dd70cd6119ef63861ab97505c6680ab879b91b5ec6/attempt.json\",\n    \"request_id\": \"6ed01ed7-307d-4c45-994b-f7d5aa8b52e0\",\n    \"sha256\": \"f0035f485f8ea9a0ec489b4f846ec59b9ba330bf225ce5657fb48fdc6b0f1f69\"\n  },\n  \"available\": false,\n  \"finished_at\": \"2026-10-16T11:45:54.388427Z\",\n  \"http_status\": 200,\n  \"model\": \"gemini-3.8-flash\",\n  \"request_id\": \"2769a3c3-e4df-4d04-bbbf-768b86b3c526\",\n  \"reservation\": {\n    \"at\": \"2026-10-16T11:45:11.362847Z\",\n    \"kind\": \"reserved\",\n    \"note\": \"unscored provider generation availability\",\n    \"preflight_identity\": null,\n    \"resources\": {\n      \"audiovisual_reviews\": 1\n    }\n  },\n  \"reservation_event_index\": 53,\n  \"schema\": \"dispatch_provider_availability/1\",\n  \"started_at\": \"2026-10-16T11:45:49.118639Z\"\n}\n",
+        "request_id": "2769a3c3-e4df-4d04-bbbf-768b86b3c526",
+        "reservation_event_index": 53,
+        "sha256": "e918b16acc0c144129f0da8ab6e3bdc1b1057b5108af64a9de4a0f77aaecf85b"
+      },
+      "at": "2026-10-16T12:03:12.495028Z",
+      "generation_protocol": "bounded-json-generation-v2",
+      "kind": "provider_availability_probe",
+      "model": "gemini-3.8-flash",
+      "request_id": "8bac6ac7-f675-4c2f-b2e5-aaa508f8111a",
+      "reservation": {
+        "at": "2026-10-16T12:03:06.832107Z",
+        "kind": "reserved",
+        "note": "unscored provider generation availability",
+        "preflight_identity": null,
+        "resources": {
+          "audiovisual_reviews": 1
+        }
+      },
+      "reservation_event_index": 57,
+      "started_at": "2026-10-16T12:03:12.494418Z"
     }
   ],
   "limits": {
@@ -1032,7 +1069,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2d2aa090cd1a3ddfe50f4c5482e0339602c25e95348dc64ebe9dc173c2334a2e",
+    "original_private_state_sha256": "ff1cff215f4f79217287e31f05e50c8903e14af0f93fc9612f2da77ff038da07",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -1068,7 +1105,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T12:03:06.832203Z",
+  "updated_at": "2026-10-16T12:03:12.495039Z",
   "usage": {
     "audiovisual_reviews": 3,
     "cleanup_renders": 0,
