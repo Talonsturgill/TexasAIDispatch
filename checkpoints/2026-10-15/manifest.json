@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T10:50:30.991537+00:00",
-  "note": "5041e0c final packet size check; held, resume ready",
+  "saved_at": "2026-10-16T11:45:18.205961+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "8ff2225ab4ff17337c4b0cec3c2c7ebd75972cdd48b54f1e3b6963fcce13e4c8",
-  "original_private_ledger_sha256": "5445e550c5afac6fa57e80294ee42179b9a0af80626991ea8c7633476decd394",
+  "ledger_sha256": "34848b74d535b37d4913aa0bced8362520f270c7c935cb0569b83b9524d27057",
+  "original_private_ledger_sha256": "8711ab8a562c6e6083295192e15a0b02ca38766eddb3f439e08411ad96af2118",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -26,7 +26,7 @@
     }
   ],
   "usage": {
-    "audiovisual_reviews": 1,
+    "audiovisual_reviews": 2,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
@@ -3156,6 +3156,12 @@
       "class": "scratch",
       "sha256": "23030b8e8087616bb67b7f57c27e5dd43ff7be9bf2d613c920dd3fd15a8b0857",
       "size": 477085
+    },
+    {
+      "path": "out/dispatch/provider-availability/after-f0035f485f8ea9a0ec489b4f846ec59b9ba330bf225ce5657fb48fdc6b0f1f69/probe.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/repair-plan-code1-bound.json",
