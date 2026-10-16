@@ -1,0 +1,154 @@
+{
+  "schema": "dispatch_review_coverage/1",
+  "run_id": "2026-10-15",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "role": "code",
+  "status": "completed",
+  "provider_unavailable": false,
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "action": "SendMessage_same_id",
+  "agent_id": "a110876b976dcc812",
+  "reviewer_identity": "claude-opus-5-5 (Opus 5.5), independent read-only storyboard-critic (Opus High), storyboard_critics reservation 18 as the coordinator states (not verifiable by me). Separate from the claude-sonnet-5-5 director. Same reviewer as the R8 REVISE, R9 PASS and R10 diagnosis. I ran nothing, launched no agents, saw no pixels and computed no hashes.",
+  "report_sha256": "8d54d31cca15a30eef376f04e5561ecee4dbb61de2178917f2e3cf46aa1cd83e",
+  "reservation_event_index": 175,
+  "reservation_sha256": "4db033877aa08e9ce856525f129227039ffab5bf13b89354468ce2ff20d445fd",
+  "reported_limits": "spot_read, not read in full this round: lines 1-30, 640-719, 1278-1367, 2130-2419, 3505-3604, 3760-3779, 3868-3883, 4286-4325. Every region matches the R9 storyboard-a I read in full (025f0ca4, same line positions) with the R10 s13 text in its four fields (scene vo, edit clause, n7c clause, n7c-a caption), as diff-r9-to-r10.md states. Not byte-verified against the R10 proposal storyboard-a, whose hash I was never given and which I never read.",
+  "missing_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/CLAUDE.md",
+      "sha256": "a58148fdd754c6fc031b5581adafaa865876164616e2410de35339fe3d23439d",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/art_direction.json",
+      "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/authored_story_art.json",
+      "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/autonomous_completion_narration_v1.json",
+      "sha256": "76124df1718c1d86481a48c592a4a282e2eb0fdbeb9642626135ff698eb282da",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/modern_episode_registry.json",
+      "sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/source_validation_completion_v1.json",
+      "sha256": "d08bc6044dd1adba91b1b27880921b2e574860b4a7981404a3a7a69184d2b82d",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/story_art.json",
+      "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md",
+      "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md",
+      "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "57b0dca612365c9f6d7075915389ae35e5d48ad0b8e5ca62bbde00ad71defa59",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/STORY_ART.md",
+      "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json",
+      "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md",
+      "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md",
+      "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md",
+      "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md",
+      "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "sha256": "baf3f294acb2ccc23da0c94a497480c3dda12b09a400e5e40dc2189f37044dc3",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "a9fa05655f395c73dc3c7add424912b836d2c8e87fcc7d285db62dea895c666f",
+      "read_complete": false
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/prompts/roles/scene-builder.md",
+      "sha256": "251d5f0e2dbafe94c8b636bf2f664945855c74c22c0e9bd764f374cd08deee37",
+      "read_complete": false
+    }
+  ]
+}
