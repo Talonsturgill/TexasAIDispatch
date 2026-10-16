@@ -93,6 +93,37 @@ class NarrationPictureTest(unittest.TestCase):
             target[key]=value
             with self.subTest(area=area,key=key):self.assertNotEqual(critic_gate.concept_digest(changed),expected)
 
+    def test_future_reward_owner_follows_actual_compiler_across_a_cut(self):
+        self.board['date']='2026-10-17'
+        second=copy.deepcopy(self.board['film_direction']['shots'][0])
+        second['id']='c1-shot-second'
+        self.board['film_direction']['shots'].insert(1,second)
+        modern.compile_narration(self.board,self.captions,self.words)
+        expected=critic_gate.concept_digest(self.board)
+        reward=self.board['film_direction']['rewards'][0]
+        self.assertEqual(reward['shot_id'],'c1-shot')
+        self.captions['cues'][0].update(start=.6,end=2.05)
+        modern.compile_narration(self.board,self.captions,self.words)
+        self.assertEqual(reward['shot_id'],'c1-shot-second')
+        self.assertEqual(self.errors(),[])
+        self.assertEqual(critic_gate.concept_digest(self.board),expected)
+
+    def test_future_silent_shot_keeps_its_authored_fraction_binding(self):
+        self.board['date']='2026-10-17'
+        self.board['scenes'].append({'id':'silent','start_s':7,'duration_s':2,'vo':'','visual_events':[]})
+        shot={'id':'silent-shot','scene_id':'silent','narration_ids':[],
+              'start_s':7,'duration_s':2,'scene_fraction_start':0,'scene_fraction_end':1,'view':'normal'}
+        self.board['film_direction']['shots'].append(shot)
+        expected=critic_gate.concept_digest(self.board)
+        for key,value in (('scene_fraction_start',.1),('scene_fraction_end',.8)):
+            changed=copy.deepcopy(self.board);changed['film_direction']['shots'][-1][key]=value
+            with self.subTest(field=key):self.assertNotEqual(critic_gate.concept_digest(changed),expected)
+        # An owner outside the compiler's narrated-event mapping is authored too.
+        self.board['film_direction']['rewards'].append({'event_id':'unmapped-silent-event','shot_id':'silent-shot'})
+        expected=critic_gate.concept_digest(self.board)
+        self.board['film_direction']['rewards'][-1]['shot_id']='another-silent-shot'
+        self.assertNotEqual(critic_gate.concept_digest(self.board),expected)
+
     def test_future_concept_never_approves_stale_or_forged_measured_evidence(self):
         self.board['date']='2026-10-17'
         expected=critic_gate.concept_digest(self.board)

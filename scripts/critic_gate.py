@@ -122,14 +122,28 @@ def concept_digest(board: dict) -> str:
         # Code approval covers the authored causal plan. The measured clock
         # still needs its own waveform, caption and exact-film validation.
         narration = plan["narration_picture"]
+        clauses = {row.get("id"): row for row in narration.get("clauses", [])}
+        scenes = {scene.get("id"): scene for scene in plan.get("scenes", [])}
+        compiled_clauses = set()
+        for shot in (plan.get("film_direction") or {}).get("shots", []):
+            ids = shot.get("narration_ids", [])
+            row = clauses.get(ids[0]) if len(ids) == 1 else None
+            if row and row.get("scene_id") in scenes and shot.get("scene_id") == row["scene_id"]:
+                compiled_clauses.add(row["id"])
+                shot.pop("scene_fraction_start", None)
+                shot.pop("scene_fraction_end", None)
+        derived_rewards = {event.get("id") for scene in scenes.values()
+                           for event in scene.get("visual_events", [])
+                           if event.get("narration_id") in compiled_clauses
+                           and clauses[event["narration_id"]].get("scene_id") == scene.get("id")}
+        for reward in (plan.get("film_direction") or {}).get("rewards", []):
+            if reward.get("event_id") in derived_rewards:
+                reward.pop("shot_id", None)
         for key in ("timing_mode", "timing_provenance"):
             narration.pop(key, None)
         for clause in narration.get("clauses", []):
             for key in ("start_s", "end_s", "word_range", "cue_ids"):
                 clause.pop(key, None)
-        for shot in (plan.get("film_direction") or {}).get("shots", []):
-            shot.pop("scene_fraction_start", None)
-            shot.pop("scene_fraction_end", None)
     if isinstance(plan.get('film_direction'), dict):
         for shot in plan['film_direction'].get('shots', []):
             shot.pop('start_s', None)
