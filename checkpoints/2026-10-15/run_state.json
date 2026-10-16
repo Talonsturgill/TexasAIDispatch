@@ -473,6 +473,14 @@
       "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
       "resource": "reported_tokens",
       "to": 443292
+    },
+    {
+      "at": "2026-10-16T21:13:50.198082Z",
+      "ceiling": 22,
+      "from": 21,
+      "note": "precharged same-worker technical classification and review of the R12 measured scene-split correction (SendMessage a110876b976dcc812)",
+      "resource": "storyboard_critics",
+      "to": 22
     }
   ],
   "events": [
@@ -4615,6 +4623,24 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 2609,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-16T21:13:50.198127Z",
+      "ceiling": 22,
+      "kind": "budget_escalated",
+      "note": "precharged same-worker technical classification and review of the R12 measured scene-split correction (SendMessage a110876b976dcc812)",
+      "now": 22,
+      "resource": "storyboard_critics",
+      "was": 21
+    },
+    {
+      "at": "2026-10-16T21:13:50.198135Z",
+      "kind": "reserved",
+      "note": "precharged same-worker technical classification and review of the R12 measured scene-split correction (SendMessage a110876b976dcc812)",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -4629,7 +4655,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 21,
+    "storyboard_critics": 22,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -4638,7 +4664,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "91405b2d0b4a8f6e4b1692d01a58a26b7dafadd6bde7e233689d3e6b4a519291",
+    "original_private_state_sha256": "21fbcdb07cc580af508176fe9af6c986f594de5e869c5ada50e31027a2e5849b",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4674,7 +4700,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:40:35.144819Z",
+  "updated_at": "2026-10-16T21:13:50.198137Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
@@ -4687,7 +4713,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 21,
+    "storyboard_critics": 22,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1

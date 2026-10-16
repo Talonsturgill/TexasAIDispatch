@@ -1,0 +1,43 @@
+--- video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx	2026-10-16 18:21:43.901951677 +0000
++++ out/dispatch/evidence/proposal-r12/FloodStationFilm.tsx	2026-10-16 21:12:10.031252459 +0000
+@@ -94,7 +94,7 @@
+  const s4e1=p('s4-event-1'), s4e2=p('s4-event-2'), s4e3=p('s4-event-3');
+  const s5e1=p('s5-event-1'), s5e2=p('s5-event-2'), s5e3=p('s5-event-3');
+  const s6e1=p('s6-event-1'), s6e2=p('s6-event-2'), s6e3=p('s6-event-3');
+- const s7e1=p('s7-event-1'), s7e2=p('s7-event-2'), s7e3=p('s7-event-3');
++ const s7e1=p('s7-event-1'), s7e2=p('s7-event-2'), s7e3=pOpt('s7-event-3',0);
+  const s8e1=p('s8-event-1'), s8e2=p('s8-event-2'), s8e3=p('s8-event-3');
+  const s9e1=p('s9-event-1'), s9e2=p('s9-event-2'), s9e3=p('s9-event-3');
+ 
+@@ -447,9 +447,13 @@
+   // card stays blank and takes its none reported stamp only on "and no field result" (s7-event-3).
+   // validation-card: the card alone, the blank card's edge beside it; its detail framing pushes in on
+   // the bar end and the tag. no-field-card: both cards side by side, the blank card emphasised.
++  // The stamp event and the cards' item ids follow the board: scene s8 owns them once its own stamp event exists,
++  // and s7-event-3 is then only the blank card sliding in at the edge of the validation shots.
++  const moved=!!W['s8-event-0'], stampId=moved?'s8-event-0':'s7-event-3', stamp=moved?p('s8-event-0'):s7e3;
+   if(view==='validation-card'){
+    const push=fr==='detail'?ease(raw({start:shot.start_s,end:shot.start_s+1})):0;
+-   const resAt:Pt=v==='a'?[900,470]:[-330,470];
++   const slide=moved?ease(s7e3):1;
++   const resAt:Pt=v==='a'?[lerp(1300,900,slide),470]:[lerp(-730,-330,slide),470];
+    pic=<Cam f={[560,700]} s={lerp(1,1.3,push)} a={[560,700]}><g data-world="validation-card">
+     <Item id="s7-card"><Item id="s7-bar"><At p={[200,400]}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At></Item></Item>
+     <Item id="s7-tag"><At p={[260,780]}>{tag(['Initial assessments','after training'],s7e2,{side:'right',drop:30,scale:.92})}</At></Item>
+@@ -457,11 +461,12 @@
+    </g></Cam>;
+    break;
+   }
+-  const push=fr==='detail'?ease(raw({start:shot.start_s,end:win('s7-event-3').start})):0;
++  const ids=moved?{card:'s8-valcard',bar:'s8-valbar',tag:'s8-assess',card2:'s8-card2',blank:'s8-blank'}:{card:'s7-card',bar:'s7-bar',tag:'s7-tag',card2:'s7-card2',blank:'s7-blank'};
++  const push=fr==='detail'?ease(raw({start:shot.start_s,end:win(stampId).start})):0;
+   pic=<Cam f={mix([540,700],[726,700],push)} s={lerp(1,1.12,push)} a={mix([540,700],[600,700],push)}><g data-world="two-cards">
+-   <Item id="s7-card"><Item id="s7-bar"><At p={[40,560]} s={.62}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At></Item></Item>
+-   <Item id="s7-tag"><At p={[60,810]}>{tag(['Initial assessments','after training'],s7e2,{side:'right',drop:24,scale:.62})}</At></Item>
+-   <Item id="s7-card2"><Item id="s7-blank"><At p={[460,500]} s={.95}><StreetHubSupport part="result" stamp={s7e3} pal={pal}/></At></Item></Item>
++   <Item id={ids.card}><Item id={ids.bar}><At p={[40,560]} s={.62}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At></Item></Item>
++   <Item id={ids.tag}><At p={[60,810]}>{tag(['Initial assessments','after training'],s7e2,{side:'right',drop:24,scale:.62})}</At></Item>
++   <Item id={ids.card2}><Item id={ids.blank}><At p={[460,500]} s={.95}><StreetHubSupport part="result" stamp={stamp} pal={pal}/></At></Item></Item>
+   </g></Cam>;
+   break;}
+  case 'empty-map':{
