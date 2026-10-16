@@ -3,6 +3,7 @@ import hashlib
 import io
 import json
 import shutil
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -11,6 +12,18 @@ import cloud_bootstrap as cloud
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_shared_runtime_link_is_ignored_without_hiding_authored_source(self):
+        with tempfile.TemporaryDirectory() as folder:
+            engine, cache, target, locked = self.node_fixture(folder)
+            cloud.share_node_runtime(engine, cache, apply=True)
+            repo = engine.parent
+            (repo/'.gitignore').write_bytes((cloud.REPO/'.gitignore').read_bytes())
+            (engine/'AuthoredFilm.tsx').write_text('export const Film = true;')
+            subprocess.run(['git', 'init', '-q', str(repo)], check=True, capture_output=True)
+            for name, expected in (('video-engine/node_modules', 0), ('video-engine/AuthoredFilm.tsx', 1)):
+                result = subprocess.run(['git', 'check-ignore', '--', name], cwd=repo, capture_output=True)
+                self.assertEqual(result.returncode, expected, result.stderr)
+
     def node_fixture(self, folder):
         engine = Path(folder)/'repo/video-engine'; engine.mkdir(parents=True)
         cache = Path(folder)/'cache'; lock = engine/'package-lock.json'; lock.write_text('frozen-lock')

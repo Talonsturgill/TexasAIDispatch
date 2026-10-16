@@ -180,6 +180,21 @@ class Boundary(Fixture):
 class Shell(Fixture):
     """The audit's integration gaps: the real issuer path, wrapped shells, and spent authorizations."""
 
+    def test_direct_wrapper_recurses_into_the_same_shell_as_explicit_bash(self):
+        inner = "bash -c 'cd video-engine && npx remotion still --help'"
+        direct = 'scripts/run_with_env.sh '+inner
+        wrapped = 'bash '+direct
+        self.assertEqual(guard.analyze(direct, str(self.root)), guard.analyze(wrapped, str(self.root)))
+        self.assertTrue(guard.is_capture(direct, str(self.root)))
+        self.assertIn('no current capture authorization', self.hook(direct))
+        self.assertIsNone(self.hook('scripts/run_with_env.sh python3 -c "print(1)"'))
+
+    def test_direct_wrapper_keeps_genuine_single_use_authorization(self):
+        command = f"scripts/run_with_env.sh bash -c 'cd {self.root} && npx remotion still D out.png --props={self.board}'"
+        self.authorize([command])
+        self.assertIsNone(self.hook(command))
+        self.assertIn('already used', self.hook(command))
+
     def issuer_line(self):
         text = (guard.REPO / 'prompts/claude_routine.md').read_text()
         line = next(l for l in text.splitlines() if l.startswith('python scripts/capture_guard.py authorize'))
