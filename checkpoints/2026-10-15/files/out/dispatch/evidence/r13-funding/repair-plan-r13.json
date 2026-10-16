@@ -3,7 +3,7 @@
   "failure_family": "measured-runtime-crowding",
   "director_identity": "claude-sonnet-5-5 director, this session",
   "root_cause": "The accepted board was timed from takes 5 and 6 to 54.1 s. The real take 7 speech ends at 57.36 s, so board_retime refuses (needs 57.90 s), board_captions finds cues past the film, and with the runtime set to the measured read plus the authored 2.0 s hold, sentences 11 to 13 retime scene s7 to 11.3 s, past the 9.5 s scene ceiling. The independent report classifies all three findings as technical (runtime, captions, runtime).",
-  "repair": "Deterministic and frozen under evidence/proposal-r13: runtime_s 54.1 to 59.4, clause n7c and its stamp shot move to the front of scene s8 (n8a, s8-event-0, no-field-card), scene s7 keeps sentences 11 and 12 with a third event where the blank card slides in, five event windows move inside the shots that draw them (s2, s3, s4, s6, per the critic), and the renderer and registry follow the board. No wording, claim, narration, audio or caption method changes. Measured timing comes from the real pipeline on retained take 7 and was stable on a second pass.",
+  "repair": "Deterministic and frozen under evidence/proposal-r13: runtime_s 54.1 to 59.4, clause n7c and its stamp shot move to the front of scene s8 (n8a, s8-event-0, no-field-card), scene s7 keeps sentences 11 and 12 with a third event where the blank card slides in, five event windows move (reviewed by the same independent critic in report 22 and again in the r13 code-plan reports) inside the shots that draw them (s2, s3, s4, s6, per the critic), and the renderer and registry follow the board. No wording, claim, narration, audio or caption method changes. Measured timing comes from the real pipeline on retained take 7 and was stable on a second pass.",
   "mechanism_change": "The over-long scene is split at a measured clause boundary and the runtime follows the measured read, instead of fitting a read that is longer than its projection into a scene structure projected from other takes.",
   "expected_visible_result": "Every scene is at or under 9.5 s, all cues end inside the film, the stamp for no field result appears over the blank field result card while that sentence is spoken, the map follows for the no town sentence, and the closing holds about two seconds after the last word. No sentence, figure attribution or claim changes.",
   "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r12-technical-classification/report-verbatim.json",
@@ -13,6 +13,18 @@
   },
   "repair_scope": "technical-integrity",
   "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-funding/baseline/opening-a.json",
+      "before_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088",
+      "after_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-funding/baseline/opening-b.json",
+      "before_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
+      "after_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30"
+    },
     {
       "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
       "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-funding/baseline/storyboard.json",

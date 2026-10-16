@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T21:26:25.760346+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-16T21:40:41.839479+00:00",
+  "note": "R13 held: begin-repair relabel denied by classifier, take 7 aligned (PR187), proposal-r13 and critic23 PASS retained, awaiting taxonomy fix",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -8556,6 +8556,18 @@
       "size": 2926
     },
     {
+      "path": "out/dispatch/evidence/r13-begin-repair-denial-20261016/DENIAL.md",
+      "class": "scratch",
+      "sha256": "86460a0526b6ea4ee26392d50a37e33f90f3e1e6b6ddcc6395c28a5b95e72a07",
+      "size": 2137
+    },
+    {
+      "path": "out/dispatch/evidence/r13-begin-repair-denial-20261016/original-plan-as-held.json",
+      "class": "scratch",
+      "sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
+      "size": 4231
+    },
+    {
       "path": "out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
       "class": "scratch",
       "sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
@@ -8566,6 +8578,18 @@
       "class": "scratch",
       "sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
       "size": 33640
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/baseline/opening-a.json",
+      "class": "scratch",
+      "sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088",
+      "size": 187354
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/baseline/opening-b.json",
+      "class": "scratch",
+      "sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
+      "size": 193245
     },
     {
       "path": "out/dispatch/evidence/r13-funding/baseline/storyboard.json",
@@ -8592,10 +8616,28 @@
       "size": 1609
     },
     {
-      "path": "out/dispatch/evidence/r13-funding/repair-plan-r13.json",
+      "path": "out/dispatch/evidence/r13-funding/production-budget-3.json",
+      "class": "scratch",
+      "sha256": "0e3c5fe096d8b576c8f7717ac2fe6f54724de998894928a89a726bf38eb07a47",
+      "size": 1877
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/production-budget-4.json",
+      "class": "scratch",
+      "sha256": "0e3c5fe096d8b576c8f7717ac2fe6f54724de998894928a89a726bf38eb07a47",
+      "size": 1877
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/repair-plan-r13.granted.json",
       "class": "scratch",
       "sha256": "1893528d5a6fa077a503d24bddfb6c30a5e7d398ab844a83f7b97c03b05657b4",
       "size": 3361
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/repair-plan-r13.json",
+      "class": "scratch",
+      "sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
+      "size": 4231
     },
     {
       "path": "out/dispatch/evidence/r13-funding/repair-plan-r13.pre-grant.json",
@@ -8974,6 +9016,24 @@
       "class": "scratch",
       "sha256": "192aca191ba4766f51ab531cd4c32029c2a0564d8d5ee7bfaaf27ae3e8417ec7",
       "size": 27953
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-code-plan/handback-full.txt",
+      "class": "scratch",
+      "sha256": "a0eedfd0af86b677f6af978e2344127e5e8ca533dad52794ef72480e0f3d3c78",
+      "size": 61555
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-code-plan/handback-verbatim.json",
+      "class": "scratch",
+      "sha256": "4300503f0c2d482a131d32c9d2a0e601ddd4b4df13c48bd048c30ad9fc9ce518",
+      "size": 62695
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-code-plan/receipt.json",
+      "class": "scratch",
+      "sha256": "b97cb6fa1b9c96cfd9089543c5a0ad43922abfd773500b710661cc6091521061",
+      "size": 1211
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -11694,6 +11754,12 @@
       "size": 2436
     },
     {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
+      "size": 4231
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "5dab811a61cd4efb5e6ca0d77f7a6d269828054275a336a6697f9f53da57c67e",
@@ -12095,6 +12161,10 @@
     },
     {
       "path": "out/dispatch/evidence/review-r12-technical-classification/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-code-plan/agent-transcript-cumulative.private.jsonl",
       "reason": "private path component"
     },
     {
