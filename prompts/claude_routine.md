@@ -329,7 +329,7 @@ packet's contract. Save that actual response unchanged and run:
 python scripts/claude_runtime.py verify-images --packet <exact worker packet> --coverage <retained coverage JSON> --out <coverage verification JSON>
 ```
 
-Require complete coverage before accepting a phone pass or final scorer handback. The check
+Require complete coverage before accepting a Claude image-only phone pass or final scorer handback. The check
 binds the packet, every index/page byte, chronological page identities and retained concrete
 observations. It never supplies a finding, score or approval. Retain partial reports and
 failed coverage checks exactly; their missing images are access failures, not invented film
@@ -340,6 +340,42 @@ checkpoint and public-safe metadata archive. Coverage verification starts no wor
 extraction keeps its prepaid capture charge; every actual content follow-up remains reserved
 before execution. A known host
 image delivery failure uses this small-read path first, without inventing provider unavailability.
+
+If the actual single-image attempt still returns exactly `[media removed: request limit]`, retain
+that observed host media-limit error, the original charged role reservation, and `media_probe`
+references for the exact image, packet, failed coverage and corrected full handback. Each reference
+has path and SHA256; set `single_image_read: true` and `media_received: false`, and preserve the
+literal error as both `error` and `raw_error`. Do not rename it to a different capacity error.
+The configured independent transport admits this precise case only with the real owned bytes,
+the current single-read packet and an actual unseen-page coverage entry. Artistic rejection,
+a missing file, a resource boundary and an untested bulk read do not qualify. No more native
+content retries are needed after this observed single-image delivery failure.
+
+Use the deterministic preparation command to bind the latest actual native role reservation
+and existing evidence. It records the observed failure and starts no new worker or provider:
+
+```sh
+python scripts/independent_review.py --prepare-media-limit --role phone --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --actor <actual failed worker id> --source-packet <original failed packet> --coverage <actual failed coverage JSON> --handback <original corrected handback> --probe-image <actual stripped PNG> --compare-openings --out <new failure JSON>
+```
+
+For the initial comparison, use the existing provider under its ordinary charged transport:
+
+```sh
+python scripts/independent_review.py --role phone --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --failure <retained transport failure JSON> --state out/dispatch/run_state.json --compare-openings --selection-out out/dispatch/openings/selection.json --out out/dispatch/provider-phone-report.json
+```
+
+This attaches BOTH exact movies and both complete boards, the actual source evidence and full
+current guides. The provider independently chooses a or b and returns separate complete phone
+reports for both. The transport projects the selected original report and selection mechanically;
+it changes no verdict, score, finding or chosen option. Verify both artifacts with
+`independent_review.py --verify <artifact.json>`, then stage the chosen original board/movie and
+apply the existing phone gates. A provider rejection remains a rejection and uses normal funded
+mandatory repair. Cached comparison media cannot be repurchased by changing labels or guide prose.
+The actual direct-video provider response and its verified provenance replace the unavailable
+Claude image-access receipt; all seven observations, source, rights, native, audio, caption and
+shipment gates remain. Later timed-phone and final-role fallback use the ordinary exact-film
+transport only after their own observed assigned-host failure. Keep three separate final scorer
+responses and their actual atomic panel charges. Preserve the primary model and saved schedule.
 
 The Read-only Opus phone critic cannot play MP4s or compute missing hashes with Bash.
 One midpoint still per scene cannot prove timed motion or continuity. After both structural
