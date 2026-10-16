@@ -78,6 +78,13 @@ source qualifiers with the claim. Avoid a breath after a preposition or a long u
 sentence that forces small text. Keep the closing answer in its own spoken phrase so subtitles
 do not reveal it early. Use conversational direction, never numeric timing or spoken tags.
 
+Keep the synth-facing notes compact: overall direction at most one short paragraph, intent in
+a few words, one exact script phrase for emphasis and a brief relative energy change. Put
+source, event and guide explanations in separate audit fields; the synthesizer reads intent,
+emphasis and energy. Do not put alternative spoken wording, paraphrases, invented pronunciation
+rules or contradictory pace commands in those fields. Take pronunciations from the bound guide.
+Connected speech permits natural complete-clause breaths; it does not require eliminating them.
+
 
 ## Narration and picture use one clock
 
