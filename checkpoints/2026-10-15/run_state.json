@@ -465,6 +465,14 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "resource": "tts_calls",
       "to": 14
+    },
+    {
+      "at": "2026-10-16T20:40:27.768712Z",
+      "ceiling": 900000,
+      "from": 440683,
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "reported_tokens",
+      "to": 443292
     }
   ],
   "events": [
@@ -4581,6 +4589,24 @@
       "resources": {
         "tts_calls": 1
       }
+    },
+    {
+      "at": "2026-10-16T20:40:27.768790Z",
+      "ceiling": 900000,
+      "kind": "budget_escalated",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "now": 443292,
+      "resource": "reported_tokens",
+      "was": 440683
+    },
+    {
+      "at": "2026-10-16T20:40:27.768800Z",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 2609
+      }
     }
   ],
   "limits": {
@@ -4591,7 +4617,7 @@
     "panel_rounds": 1,
     "preflight_renders": 19,
     "reboards": 7,
-    "reported_tokens": 440683,
+    "reported_tokens": 443292,
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
@@ -4604,7 +4630,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "5cbb5f319da1422a39e4305bb7d0fc8dfb5790bd9fcbf17b6d8ddd8869c538f1",
+    "original_private_state_sha256": "f69ee0fee78b8f63f12f0d1aec1ff8291c1c28f943745c03e0646a9fa8534dfb",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4640,7 +4666,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:40:16.097014Z",
+  "updated_at": "2026-10-16T20:40:27.768802Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
@@ -4649,7 +4675,7 @@
     "panel_rounds": 0,
     "preflight_renders": 19,
     "reboards": 7,
-    "reported_tokens": 440683,
+    "reported_tokens": 443292,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
