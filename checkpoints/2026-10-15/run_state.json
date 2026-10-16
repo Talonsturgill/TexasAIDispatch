@@ -433,6 +433,14 @@
       "note": "quarter-scale animatic",
       "resource": "preflight_renders",
       "to": 18
+    },
+    {
+      "at": "2026-10-16T20:36:41.731075Z",
+      "ceiling": 19,
+      "from": 18,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 19
     }
   ],
   "events": [
@@ -4402,6 +4410,24 @@
       "input_identity": "37a97e91d35ae13faf46b3490112b625abdb6c0ae28f868828cef290809ad4ea",
       "kind": "preflight_retry_authorized",
       "reason": "prepared inspect-only authorization consumed by a refusal caused by a stale preflight report, nothing rendered"
+    },
+    {
+      "at": "2026-10-16T20:36:41.731092Z",
+      "ceiling": 19,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 19,
+      "resource": "preflight_renders",
+      "was": 18
+    },
+    {
+      "at": "2026-10-16T20:36:41.731102Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "37a97e91d35ae13faf46b3490112b625abdb6c0ae28f868828cef290809ad4ea",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -4410,7 +4436,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 18,
+    "preflight_renders": 19,
     "reboards": 7,
     "reported_tokens": 438343,
     "rescue_renders": 1,
@@ -4423,10 +4449,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "37a97e91d35ae13faf46b3490112b625abdb6c0ae28f868828cef290809ad4ea",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "02360240a076117eb3b6857344d2e4153eeedea272cb3c493880070ff24ca425",
+    "original_private_state_sha256": "7b452852e9e8dec9e34acfcae2ee5b8778ff6672a8b9a6b06abe9e835187106e",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4462,14 +4487,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:36:29.332348Z",
+  "updated_at": "2026-10-16T20:36:41.731104Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 18,
+    "preflight_renders": 19,
     "reboards": 7,
     "reported_tokens": 438343,
     "rescue_renders": 0,
