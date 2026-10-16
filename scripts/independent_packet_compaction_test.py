@@ -180,8 +180,53 @@ class Compaction(unittest.TestCase):
     def test_compact_wire_serialization_preserves_every_value(self):
         value, _ = compact.compact(self.text, self.package, 'phone', self.repo)
         encoded = independent_review.packet_json(value)
-        self.assertEqual(json.loads(encoded), value)
+        self.assertEqual(compact.decode_shared(json.loads(encoded)), value)
         self.assertLess(len(encoded), len(json.dumps(value)))
+
+    def test_shared_wire_preserves_full_guides_types_and_literal_reference_keys(self):
+        paragraph = 'Complete original guide text with its source limits and actual observation requirements. '*8
+        value = {'files': {'guide-a': 'Guide A\n\n'+(paragraph+'\n\n')*100,
+                           'guide-b': 'Guide B\n\n'+(paragraph+'\n\n')*100},
+                 'literal': [{'$v': 'an original field'}, {'$literal': {'key': 'original'}},
+                             {'$text': ['original', 'field']}, True, 1, -0.0],
+                 'packet_compaction': {'version': 'current'}}
+        before = copy.deepcopy(value); encoded = compact.encode_shared(value)
+        self.assertEqual(encoded['schema'], compact.SHARED_SCHEMA)
+        decoded = compact.decode_shared(json.loads(json.dumps(encoded)))
+        self.assertEqual(compact.canonical(decoded), compact.canonical(before))
+        self.assertEqual(value, before)
+        self.assertLess(len(compact.canonical(encoded)), len(compact.canonical(value))//2)
+        changed = copy.deepcopy(encoded)
+        changed['values'][next(iter(changed['values']))] = 'Edited original text.'
+        with self.assertRaisesRegex(ValueError, 'complete original input'): compact.decode_shared(changed)
+        for values in ({'0': {'$v': '0'}}, {}):
+            with self.assertRaisesRegex(ValueError, 'cyclic or absent'):
+                compact.decode_shared({'schema': compact.SHARED_SCHEMA, 'values': values,
+                                       'packet': {'$v': '0'}, 'original_sha256': 'unreachable'})
+
+    def test_prior_review_keeps_all_original_findings_and_rechecks_unchanged_artifact(self):
+        import independent_review_test as fixtures
+        host = fixtures.AvailabilityTest('test_actual_capacity_error_is_distinct_from_rejection')
+        host.setUp(); self.addCleanup(host.doCleanups)
+        value = copy.deepcopy(host.value); value['verdict'] = 'revise'
+        value['blocking_defects'] = ['Original independent failure remains rejected.']
+        report, _ = host.call(raw=host.raw(value))
+        name = 'out/dispatch/old-phone-review.json'; self.write(name, json.dumps(report, indent=2))
+        original = (self.repo/name).read_bytes(); text = copy.deepcopy(self.text)
+        text['files'][name] = original.decode()
+        result, _ = compact.compact(text, self.package, 'phone', self.repo)
+        prior = result['files'][name]
+        self.assertEqual(prior['schema'], 'dispatch_verified_prior_review/1')
+        self.assertEqual(prior['original_sha256'], compact.sha(self.repo/name))
+        self.assertEqual(prior['provider_result'], independent_review.response_object(report['provider_evidence']['response']))
+        self.assertEqual(prior['review']['verdict'], 'revise')
+        self.assertEqual(prior['review']['blocking_defects'], value['blocking_defects'])
+        self.assertEqual(result['files']['knowledge/craft/current-guide.md'], self.guide)
+        self.assertEqual(compact.compact(result, self.package, 'phone', self.repo)[0], result)
+        self.assertEqual((self.repo/name).read_bytes(), original)
+        report['verdict'] = 'pass'; self.write(name, json.dumps(report))
+        with self.assertRaisesRegex(ValueError, 'unverified'):
+            compact.compact(result, self.package, 'phone', self.repo)
 
     def test_registry_retains_every_entry_and_original_data_hash(self):
         text = copy.deepcopy(self.text)

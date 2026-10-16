@@ -533,7 +533,9 @@ def provider_packet_policy(board):
 
 
 def packet_json(text):
-    return json.dumps(text, sort_keys=True, separators=(',', ':'))
+    from independent_packet_compaction import encode_shared
+    wire = encode_shared(text) if text.get('packet_compaction') else text
+    return json.dumps(wire, sort_keys=True, separators=(',', ':'))
 
 
 def bounded_packet(text, board_path, role, bindings):
@@ -839,6 +841,14 @@ def prompt(role, text):
             'treatment. Original byte hashes and verified canonical hashes are retained. All current guides '
             'remain original full text. The inactive renderer inventory contains only registered episode '
             'source outside every selected executable closure. Code scope retains full callable source. ')
+        instruction += ('For dispatch_lossless_shared_packet/1, replace each {"$v":"id"} with '
+            'its complete recursively decoded values[id]. A $literal object preserves its literal keys. '
+            'A $text array concatenates its decoded string parts exactly, including newlines. '
+            'Reconstruct packet before reading every guide, board, source and observation. Every value '
+            'is present and the original semantic SHA256 is verified before sending. '
+            'dispatch_verified_prior_review keeps the complete original returned findings and provenance '
+            'after verification of the retained artifact; its old request and raw bytes remain bound '
+            'by original_sha256. Prior-scope findings never approve this current film. ')
     if text.get('verified_code_plan_context'):
         instruction += ('Current code source is supplied as exact hashes after the ordinary code gate '
             'verified the complete original independent code-plan reports for every current board and '
