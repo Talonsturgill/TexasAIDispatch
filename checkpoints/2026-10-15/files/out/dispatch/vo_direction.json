@@ -45,10 +45,10 @@
     "synthesis_run": false,
     "capture_run": false,
     "alignment": "Measured captions and the acoustic word stream decide every timing. The authored clock in narration_picture is provisional and approves no timing.",
-    "breath_rule": "Breaths are breaths, not holds. They fall only at complete clause joins and full stops. No silence is planned between sentences, and no duration appears in this file or in any prompt text.",
+    "breath_rule": "Breaths are breaths at complete clause joins and full stops. Where a line's energy names a beat, that is a short silent beat of about a third of a second at that join, the only planned silence inside a sentence. Nothing else is held, and no silence is planned between sentences.",
     "length_rule": "Nothing here stretches speech. If the measured read runs long, the fix is a shorter line by story correction."
   },
-  "overall": "One connected read as a plainspoken Texan explaining what a university published. Not a news anchor, no hush, no bright lift. Natural breaths at clause boundaries and full stops, no long holds. Say UT and AI as letters, San Antonio with the Texas stress, and the figure as one number.",
+  "overall": "One connected read as a plainspoken Texan explaining what a university published. Not a news anchor, no hush, no bright lift. Natural breaths at clause boundaries and full stops, no long holds. Say UT and AI as letters, San Antonio with the Texas stress, and the figure as one number. Where a line names a beat, leave a short silent beat of about a third of a second at that spot, then carry on at the same pitch and pace with no reset.",
   "performance_arc": "Plain at the start, a lift in the second line, quicker through the third, a clear lift in the fourth, steady through the fifth, level on the sixth, then plain and measured at one pace through the last three lines.",
   "lines": [
     {
@@ -63,8 +63,8 @@
       "job": "orient",
       "intent": "Plain and close, said as what the source says.",
       "emphasis": "UT San Antonio says",
-      "energy": "Working level, settling toward the end.",
-      "pause_after": "A breath at the join after yard, where the clause ends and before begins, with no hold. The rest of the sentence runs on. Full stop at phone, a normal breath, and the next line joins with no reset.",
+      "energy": "Working level, settling toward the end. Take a short beat after says, and another after yard.",
+      "pause_after": "A short beat after says and after yard, each a clause join with the pitch carried through. Full stop at phone, a normal breath, and the next line joins with no reset.",
       "visible_events": [
         "s1-event-1",
         "s1-event-2",
@@ -84,8 +84,8 @@
       "job": "reveal",
       "intent": "Plain and forward, the first clear lift.",
       "emphasis": "charges itself from light",
-      "energy": "Opens low and lifts through the middle.",
-      "pause_after": "No break inside the sentence, so the phrase runs from So through light and into needs no cell tower. Full stop at tower, a normal breath, and the next line carries straight on.",
+      "energy": "Opens low and lifts through the middle. Take a short beat after station.",
+      "pause_after": "A short beat after station, then the phrase runs from that through light and into needs no cell tower. Full stop at tower, a normal breath, and the next line carries straight on.",
       "visible_events": [
         "s2-event-1",
         "s2-event-2",
@@ -105,8 +105,8 @@
       "job": "explain",
       "intent": "An even working explanation.",
       "emphasis": "different",
-      "energy": "A step down, quicker and even.",
-      "pause_after": "A breath at the comma after water, the clause join, with no hold. The list of readings runs on with no breath inside it. Full stop at light, a normal breath, and the next line joins with no reset.",
+      "energy": "A step down, quicker and even. Take a short beat after water.",
+      "pause_after": "A short beat at the comma after water, the clause join. The list of readings runs on with no breath inside it. Full stop at light, a normal breath, and the next line joins with no reset.",
       "visible_events": [
         "s3-event-1",
         "s3-event-2",
@@ -126,8 +126,8 @@
       "job": "reveal",
       "intent": "The turn, firm and forward.",
       "emphasis": "without a central server",
-      "energy": "The clear lift of the middle, held through the sentence.",
-      "pause_after": "A breath at the comma after itself, the clause join, with no hold. The so it judges flood risk phrase runs on into without a central server. Full stop at server, a normal breath, and the next line joins with no reset.",
+      "energy": "The clear lift of the middle, held through the sentence. Take a short beat after itself.",
+      "pause_after": "A short beat at the comma after itself, the clause join. The so it judges flood risk phrase runs on into without a central server. Full stop at server, a normal breath, and the next line joins with no reset.",
       "visible_events": [
         "s4-event-1",
         "s4-event-2",
@@ -147,8 +147,8 @@
       "job": "explain",
       "intent": "Even and steady through both ranges.",
       "emphasis": "up to five miles",
-      "energy": "Level, a step below the turn.",
-      "pause_after": "A breath at the comma after rises, and a breath at the comma after streets, both clause joins, with no hold. A breath at the comma after country, before to a hub. Full stop at hub, a normal breath, and the next line joins with no reset.",
+      "energy": "Level, a step below the turn. Take a short beat after rises, and another after streets.",
+      "pause_after": "A short beat at the comma after rises and at the comma after streets, both clause joins. A breath at the comma after country, before to a hub. Full stop at hub, a normal breath, and the next line joins with no reset.",
       "visible_events": [
         "s5-event-1",
         "s5-event-2",
@@ -168,8 +168,8 @@
       "job": "explain",
       "intent": "Level and plain.",
       "emphasis": "could",
-      "energy": "A step below the last line. Take a short natural breath after could spread, then say for emergency responders.",
-      "pause_after": "A breath at the comma after hub, which follows a noun. A breath at the comma after spread, the clause join, with no hold, and no breath after for. Full stop at responders, a normal breath, and the next line joins with no reset.",
+      "energy": "A step below the last line. Take a short beat after hub, and another after could spread, then say for emergency responders.",
+      "pause_after": "A short beat at the comma after hub, which follows a noun, and a short beat at the comma after spread, the clause join, with the pitch carried through and no beat after for. Full stop at responders, a normal breath, and the next line joins with no reset.",
       "visible_events": [
         "s6-event-1",
         "s6-event-2",
@@ -189,8 +189,8 @@
       "job": "qualify",
       "intent": "Flat and measured, then the limit.",
       "emphasis": "no field result",
-      "energy": "Even through the figure, then lower and plain for the last phrase, same pace as the figure.",
-      "pause_after": "No break in the figure, from the number through validation accuracy and from early assessments after training. A breath at the comma after training, the clause join, with no hold. And no field result runs straight to the full stop, then a normal breath into the closing line.",
+      "energy": "Even through the figure, then lower and plain for the last phrase, same pace as the figure. Take a short beat after reports, another after validation accuracy, and another after training.",
+      "pause_after": "No break inside the figure number and its unit. A short beat after reports and after validation accuracy, the pitch carried into from early assessments after training with no reset, then a short beat at the comma after training. And no field result runs straight to the full stop, then a normal breath into the closing line.",
       "visible_events": [
         "s7-event-1",
         "s7-event-2",
@@ -440,8 +440,8 @@
       "span": "from early assessments after training, and no field result",
       "type": "grouping",
       "risk": "After training could attach to validation accuracy. And no field result could be heard as part of the figure rather than as the limit.",
-      "direction": "The qualifiers attach to the figure. The limit is split from the figure at the comma after training.",
-      "status": "Directed in the line 7 notes."
+      "direction": "The qualifiers attach to the figure and sit in their own caption group after a short beat with the pitch carried through. The limit is split from the qualifiers at the comma after training.",
+      "status": "Directed in the line 7 notes (repair 5)."
     },
     {
       "id": "G7",
@@ -639,5 +639,5 @@
     "out/dispatch/story_selection.json: the storyboard's story_contract carries the same story. Not opened.",
     "The remainder of prompts/claude_routine.md after line 250, and the rest of out/dispatch/openings/selection.json after its option bindings."
   ],
-  "director_edit_note": "The director (Sonnet) split original file line 8 into two file lines and the L8 direction entry into L8 and L9 so the script file, the direction and the nine scenes all have nine lines. The spoken words are byte-identical to the validated script apart from one newline. The original Haiku file is in evidence/vo-director/. Repair 3 (narration-performance, independent pivot review pivot-review-voice3.json): synth-facing fields rewritten under the PR177 short-notes brief; the clause breath after could spread now sits in line 6 energy, a field the synthesizer receives."
+  "director_edit_note": "The director (Sonnet) split original file line 8 into two file lines and the L8 direction entry into L8 and L9 so the script file, the direction and the nine scenes all have nine lines. The spoken words are byte-identical to the validated script apart from one newline. The original Haiku file is in evidence/vo-director/. Repair 3 (narration-performance, independent pivot review pivot-review-voice3.json): synth-facing fields rewritten under the PR177 short-notes brief; the clause breath after could spread now sits in line 6 energy, a field the synthesizer receives. Repair 5 (consolidated, independent review review-repair5-v1-revise then v2): short silent beats of about a third of a second, named in overall and in the energy field of lines L1 to L7 at every caption boundary the proposed cue split needs, including the four splits take 5 already had. take_plan.breath_rule and the editor-only pause_after notes were updated to match the bytes synthesized. L6 pause_after was aligned to the beat wording in v3."
 }

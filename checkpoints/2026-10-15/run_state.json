@@ -1,29 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/measured-package-take5-runtime1/vo_direction.json",
-        "before_sha256": "48334ae4bfe996a1e3827219474b1f7f9c9913b0f937e42ef998767735c869d3",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "b1c5d58dd3cdf2ccbced0a8eb10705fdc36c33496801126cb3ca2f7e8122e9fa",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-        "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
-        "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
-        "{REPO}/out/dispatch/storyboard.json": "0b9e1158b1fd285408916721f487ff04dbb4874480a900355b038c34bb9e8a78",
-        "{REPO}/out/dispatch/vo_script.txt": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
-      },
-      "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
-    },
-    "plan": "{REPO}/out/dispatch/repair-plan-repair5-narration.json",
-    "plan_identity": "50b5d603ddaebf962b79d72fa07721d98e3ab497d2da7d40b730b8b484b9c13f",
-    "plan_sha256": "0e71c27644e271a71f31f14a112ef22331c76b66f8c10c6c8cad8446f06c7b68",
-    "reboards_before": 4,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -2563,6 +2538,47 @@
       "plan_identity": "50b5d603ddaebf962b79d72fa07721d98e3ab497d2da7d40b730b8b484b9c13f",
       "plan_sha256": "0e71c27644e271a71f31f14a112ef22331c76b66f8c10c6c8cad8446f06c7b68",
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-16T16:53:23.157010Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "45ce7b56ea60711fdfb5492da61d9f2e38f4e56df83d266391c0562682378973",
+            "before_path": "{REPO}/out/dispatch/evidence/measured-package-take5-runtime1/vo_direction.json",
+            "before_sha256": "48334ae4bfe996a1e3827219474b1f7f9c9913b0f937e42ef998767735c869d3",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "One continuous take whose dense cues split at measured beats into two-line captions at 40 px or more, a hook payoff by 1.5 s, every event between 0.2 s and 1.2 s, and the close unchanged.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/take5-caption-fit-and-event-duration-findings-20261016.md",
+        "failure_evidence_sha256": "b1c5d58dd3cdf2ccbced0a8eb10705fdc36c33496801126cb3ca2f7e8122e9fa",
+        "failure_family": "unclassified",
+        "mechanism_change": "The lever moves from clause breath placement and the close's tempo to explicit silent beats with a stated length at caption joins, paired with event widths sized to the longer clauses they create.",
+        "mechanism_id": "caption-boundary-silent-beats",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/evidence/review-repair5-v3-pass/report-verbatim.json",
+          "sha256": "7fb84b0de33c299db2296a8258498c0f29f23a1537987b9f1cd6879d22226a78"
+        },
+        "repair": "Direction only: add short silent beats of about a third of a second at named joins in overall and the energy fields of L1 to L7 (twelve beats, including the four splits take 5 already had), rewrite take_plan.breath_rule and the editor notes to match. Script, claims, sources, board, renderer, L8 and L9 and the closing phrase stay byte-identical. The board event widths and runtime are a separate structural correction, sized from the measured new take under its own plan.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "Take 5 passed soundcheck, alignment, the measured retime and the remix, then failed the caption fit gate (five dense cues c1, c2, c7, c9, c10 have no measured 0.24 s pause, so they can't split into two lines at 40 px or more) and the documentary gates (hook payoff 1.57 s against 1.5 s, s3-event-2 1.2961 s, s3-event-3 1.2421 s, s7-event-1 1.3294 s against 1.2 s). Exact output is in evidence/take5-caption-fit-and-event-duration-findings-20261016.md and cheap2.log. Independent classification, pivot and correction reviews are in evidence/review-repair5-v1-revise, v2-revise and v3-pass."
+      },
+      "repair_plan_sha256": "0e71c27644e271a71f31f14a112ef22331c76b66f8c10c6c8cad8446f06c7b68",
+      "repair_revision": "622d5acde564c95f72c5a627e8eaf9157da1e2c6036c7b579f2ec1be50a6c78f",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -2586,7 +2602,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d45231381d95d3018b9ae193a2ec753d2001d1af1161e4ecb589bd53be27258b",
+    "original_private_state_sha256": "7a8dbbb0bca3b4bf26683521fd2c6d8ad3c1cf8da26b3673f09bd5cf13c9a901",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -2622,7 +2638,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T16:53:14.393971Z",
+  "updated_at": "2026-10-16T16:53:23.157033Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
