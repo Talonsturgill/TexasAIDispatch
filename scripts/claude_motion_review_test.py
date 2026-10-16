@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -110,6 +111,80 @@ class MotionReview(unittest.TestCase):
         packet['motion_sequence']['sha256'] = '0'*64
         with self.assertRaisesRegex(ValueError, 'index changed'):
             claude_runtime.motion_inputs(packet)
+
+    def access_fixture(self):
+        packet = self.root / 'access-packet.json'
+        data = claude_runtime.image_reading({'role': 'picture', 'instructions': '',
+            'motion_sequence': claude_runtime.bound(self.index)})
+        packet.write_text(json.dumps(data))
+        pages = json.loads(self.index.read_text())['pages']
+        coverage = {'schema': 'dispatch_claude_image_coverage/1', 'packet_sha256': motion.digest(packet),
+            'sequences': [{'index_sha256': motion.digest(self.index), 'pages': [
+                {'file': p['file'], 'first_frame': p['samples'][0]['frame'],
+                 'last_frame': p['samples'][-1]['frame'], 'received': True,
+                 'observed': 'Real encoded fixture page retained for the image-access contract test.'} for p in pages]}]}
+        path = self.root / 'access-coverage.json'; path.write_text(json.dumps(coverage))
+        return packet, path, coverage
+
+    def test_complete_native_coverage_binds_actual_index_pages_and_clock(self):
+        packet, path, coverage = self.access_fixture()
+        self.assertEqual(claude_runtime.image_coverage_problems(packet, path), [])
+        self.assertNotIn('verdict', coverage)
+        coverage['sequences'][0]['pages'][0]['first_frame'] = 6
+        path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+
+    def test_stripped_missing_or_reordered_image_handback_is_not_complete(self):
+        packet, path, coverage = self.access_fixture()
+        coverage['sequences'][0]['pages'][0]['received'] = False
+        path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        coverage['sequences'][0]['pages'][0]['received'] = True
+        coverage['sequences'][0]['pages'].reverse(); path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        coverage['sequences'][0]['pages'].pop(); path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+
+    def test_coverage_refuses_changed_packet_index_or_page_bytes(self):
+        packet, path, coverage = self.access_fixture()
+        coverage['packet_sha256'] = '0'*64; path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        coverage['packet_sha256'] = motion.digest(packet)
+        coverage['sequences'][0]['index_sha256'] = '0'*64; path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        coverage['sequences'][0]['index_sha256'] = motion.digest(self.index); path.write_text(json.dumps(coverage))
+        image = self.index.parent / coverage['sequences'][0]['pages'][0]['file']; original = image.read_bytes()
+        try:
+            image.write_bytes(b'changed PNG')
+            self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        finally:
+            image.write_bytes(original)
+
+    def test_real_coverage_cli_retains_success_and_partial_failure_receipts(self):
+        packet, path, coverage = self.access_fixture(); output = self.root / 'coverage-verification.json'
+        command = [sys.executable, str(motion.REPO / 'scripts/claude_runtime.py'), 'verify-images',
+                   '--packet', str(packet), '--coverage', str(path), '--out', str(output)]
+        result = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(json.loads(output.read_text())['complete'])
+        coverage['sequences'][0]['pages'][0]['received'] = False; path.write_text(json.dumps(coverage))
+        result = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 1, result.stderr)
+        receipt = json.loads(output.read_text())
+        self.assertFalse(receipt['complete']); self.assertTrue(receipt['problems'])
+        self.assertNotIn('verdict', receipt)
+
+    def test_no_images_cannot_be_declared_complete(self):
+        packet, path, coverage = self.access_fixture()
+        data = json.loads(packet.read_text()); data.update(role='storyboard-critic', phone_options=[])
+        packet.write_text(json.dumps(data)); coverage.update(packet_sha256=motion.digest(packet), sequences=[])
+        path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        empty = self.root / 'empty-index.json'; empty.write_text('{"pages":[]}')
+        data.update(role='picture', motion_sequence=claude_runtime.bound(empty)); packet.write_text(json.dumps(data))
+        coverage.update(packet_sha256=motion.digest(packet), sequences=[{'index_sha256': motion.digest(empty), 'pages': []}])
+        path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
 
 
 class PhoneMotionReview(unittest.TestCase):
@@ -239,6 +314,24 @@ class PhoneMotionReview(unittest.TestCase):
                 motion.phone_inputs(self.state, 'current', self.current_board, self.current_film)
         finally:
             self.current_report.write_bytes(original)
+
+    def test_phone_coverage_cannot_omit_the_other_complete_treatment(self):
+        packet = self.root / 'comparison-access-packet.json'
+        data = {'role': 'storyboard-critic', 'instructions': '', 'phone_options': [
+            {'motion_sequence': claude_runtime.bound(p)} for p in (self.index, self.index_b)]}
+        claude_runtime.image_reading(data); packet.write_text(json.dumps(data))
+        rows = []
+        for index in (self.index, self.index_b):
+            rows.append({'index_sha256': motion.digest(index), 'pages': [
+                {'file': p['file'], 'first_frame': p['samples'][0]['frame'],
+                 'last_frame': p['samples'][-1]['frame'], 'received': True,
+                 'observed': 'Real encoded phone fixture page retained for the access-contract test.'}
+                 for p in json.loads(index.read_text())['pages']]})
+        coverage = {'schema': 'dispatch_claude_image_coverage/1', 'packet_sha256': motion.digest(packet), 'sequences': rows}
+        path = self.root / 'comparison-coverage.json'; path.write_text(json.dumps(coverage))
+        self.assertEqual(claude_runtime.image_coverage_problems(packet, path), [])
+        coverage['sequences'].pop(); path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
 
 
 if __name__ == '__main__':
