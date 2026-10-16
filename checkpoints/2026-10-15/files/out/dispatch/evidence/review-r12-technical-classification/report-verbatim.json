@@ -1,0 +1,285 @@
+{
+  "verdict": "revise",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (Opus High), independent read-only reviewer in a same-worker charged continuation (classification and review of the R12 measured scene-split correction). Things I could not verify: the storyboard_critics 22 of 22 reservation on the controller ledger; any sha256 (all hashes below are the director's sha256sum values, used unchanged); the scratch-checkout pipeline runs and the claimed byte-identical second pass; aligner PR 187; the contents of the 14 precheck gate logs (only report.json was read); whether the live renderer before the diff is byte-equal to 8943704c. I heard no audio.",
+  "blocking_defects": [
+    {
+      "id": "F1",
+      "classification": "technical",
+      "criterion": "runtime: board_retime must fit the measured read into 9 scenes at the 2.4 s floor inside runtime_s",
+      "problem": "board_retime refuses on the accepted board (25e8ae1d, runtime 54.1 s): 're-timing needs 57.90s for 9 scenes at a 2.4s floor, and the film is 54.10s.' The real take 7 (57.48 s file, measured speech ending at 57.36 s) can't be retimed into the accepted runtime, so no measured timed board can exist for capture.",
+      "fix": "Raise runtime_s to the measured read: speech end 57.36 s plus the authored 2.0 s closing hold, rounded up to 59.4 s. Do not stretch audio or lower the floor. Rerun the real vo_align, board_captions and board_retime pipeline and every gate on the corrected bytes."
+    },
+    {
+      "id": "F2",
+      "classification": "technical",
+      "criterion": "captions: measured caption cues must end inside the film runtime",
+      "problem": "board_captions fails at runtime 54.1 s. Cue c15 ('It names no town with an installed station.') ends at 54.8 s and cue c16 ('Deployment is still the goal.') ends at 57.36 s, both after the film's own end. Their words would be on screen after the picture they belong to is gone.",
+      "fix": "Apply the same measured runtime correction as F1, then rerun board_captions on the corrected board so that every measured cue ends before runtime_s."
+    },
+    {
+      "id": "F3",
+      "classification": "technical",
+      "criterion": "runtime: storyboard_check hard 9.5 s scene ceiling",
+      "problem": "Even at the diagnostic runtime of 59.5 s, the accepted scene structure retimes s7 to 11.3 s, past the 9.5 s ceiling ('scene s7: 11.3s is past the 9.5s ceiling, which nothing earns its way past. Split it.'). Measured sentences 11 to 13 (n7a, n7b, n7c) take 10.6 s of speech, including breaths inside the figure, against the 8.76 s projected from takes 5 and 6.",
+      "fix": "Split at a measured clause boundary. Move clause n7c and its stamp shot to the front of s8 so that s7 stays under 9.5 s. Change no wording and edit no audio."
+    }
+  ],
+  "technical_repair": {
+    "findings": [
+      {
+        "finding": {
+          "id": "F1",
+          "classification": "technical",
+          "criterion": "runtime: board_retime must fit the measured read into 9 scenes at the 2.4 s floor inside runtime_s",
+          "problem": "board_retime refuses on the accepted board (25e8ae1d, runtime 54.1 s): 're-timing needs 57.90s for 9 scenes at a 2.4s floor, and the film is 54.10s.' The real take 7 (57.48 s file, measured speech ending at 57.36 s) can't be retimed into the accepted runtime, so no measured timed board can exist for capture.",
+          "fix": "Raise runtime_s to the measured read: speech end 57.36 s plus the authored 2.0 s closing hold, rounded up to 59.4 s. Do not stretch audio or lower the floor. Rerun the real vo_align, board_captions and board_retime pipeline and every gate on the corrected bytes."
+        },
+        "category": "runtime"
+      },
+      {
+        "finding": {
+          "id": "F2",
+          "classification": "technical",
+          "criterion": "captions: measured caption cues must end inside the film runtime",
+          "problem": "board_captions fails at runtime 54.1 s. Cue c15 ('It names no town with an installed station.') ends at 54.8 s and cue c16 ('Deployment is still the goal.') ends at 57.36 s, both after the film's own end. Their words would be on screen after the picture they belong to is gone.",
+          "fix": "Apply the same measured runtime correction as F1, then rerun board_captions on the corrected board so that every measured cue ends before runtime_s."
+        },
+        "category": "captions"
+      },
+      {
+        "finding": {
+          "id": "F3",
+          "classification": "technical",
+          "criterion": "runtime: storyboard_check hard 9.5 s scene ceiling",
+          "problem": "Even at the diagnostic runtime of 59.5 s, the accepted scene structure retimes s7 to 11.3 s, past the 9.5 s ceiling ('scene s7: 11.3s is past the 9.5s ceiling, which nothing earns its way past. Split it.'). Measured sentences 11 to 13 (n7a, n7b, n7c) take 10.6 s of speech, including breaths inside the figure, against the 8.76 s projected from takes 5 and 6.",
+          "fix": "Split at a measured clause boundary. Move clause n7c and its stamp shot to the front of s8 so that s7 stays under 9.5 s. Change no wording and edit no audio."
+        },
+        "category": "runtime"
+      }
+    ],
+    "basis": "All three findings are mechanical consequences of one measured fact. The real take 7 speech runs to 57.36 s, while the accepted board was timed from takes 5 and 6 to 54.1 s. F1 is a runtime refusal by board_retime, F2 is caption cues ending after the film, and F3 is the hard 9.5 s scene ceiling exceeded by the measured length of one scene. None of them depends on taste, wording, source scope or picture design. Each is reproduced verbatim in the retained failure texts (2dc6b523, 5ca51cb3, 9079a5dc). I classify none as creative. The remedy for F3 does include an editorial structure choice (which clause moves and the new s7-event-3), so I review it separately under proposal_assessment instead of treating it as approved by this classification."
+  },
+  "observations": [
+    "Script and claims are unchanged. vo_script.txt (67d7ae45) reads exactly the 15 validated sentences. Every clause text in the R12 board is byte-identical to those sentences. The only clause changes are ids (n7c becomes n8a and the old n8a becomes n8b) and scene ownership.",
+    "The retained soundcheck log contradicts the packet's wording. soundcheck-7.log (de2d674a) reads '[FAIL] take1 acc 0.992 ... runs 6.2% over the cut ... vo_soundcheck: NO TAKE PASSED'. The verbatim accuracy (0.992) passed, but the soundcheck as run failed on duration against the old 54.1 s cut. This is the audio-side twin of F1. Under the corrected 59.4 s runtime, soundcheck must be rerun and pass before the take is accepted. The packet's statement that take 7 'passed its verbatim soundcheck' is true only of the accuracy component.",
+    "Measured cues: the R12 board's 16 cues are byte-consistent with captions-r12-diagnostic.json (a6b0e45a) and the words file (99dd69cd), including the c10/c11 split of n6a. The words file states that word boundaries inside each speech run are syllable-modelled (37 of 132 words anchored), so it is not phoneme forced alignment. The three breath pauses inside the figure (46.94 to 47.70 s) are joined into one run.",
+    "storyboard-before.json (25e8ae1d) is not byte-identical to the 329b2fc0 board I passed earlier. It reconciles the source_limit and source_basis metadata to 'the announcement reports no field result and names no installation', changes closing_answer and human_consequence to 'announcement', and adds c18 to the s7 story_contract claims. These changes resolve the non-blocking metadata note from my full-coverage review.",
+    "In the measured diagnostic, the intra-clause shot subdivisions no longer follow the frozen authored scene fractions. s3 is split into thirds (0.333/0.667 instead of 0.343/0.634), s6 in half (0.5 instead of 0.338), the s4 second cut moves to 0.758 (from 0.813) and the s2 second cut to 0.707 (from 0.671). Cuts between clauses sit correctly in the measured silences. MODERN_FILM.md says board_retime derives measured seconds from the frozen authored anchors. Applying the authored fractions to the measured scene spans would keep every event inside its shot (computed below), and the equal splits do not.",
+    "The board's narration_picture.cue_plan text still says 'Provisional authored cue estimate' although timing_mode is measured_caption_boundaries. This is cosmetic.",
+    "Wall-view share in R12 A is 5 of 20 shots (s6-shot-2, s7-shot-1, s7-shot-2, s8-shot-1, s8-shot-2) and about 17.4 of 59.4 s. Both are under the 40 percent cap.",
+    "Treatment B's board is unchanged and still owns its s7 stamp. With no s8-event-0 the renderer takes the old path (moved=false, slide=1, s7 item ids), so B renders as before. B would fail F3 if it were measured, and it is not used further."
+  ],
+  "proposal_assessment": {
+    "fixes_F1": true,
+    "fixes_F2": true,
+    "fixes_F3": true,
+    "remaining_blockers": [
+      {
+        "id": "R12-a",
+        "criterion": "contact_and_consequence / dominant_action (quality_contract); narration-picture binding of the support action_use s6-event-2 spread-map",
+        "problem": "In the measured board, s6-event-2 ('Shaded flood paths spread out...') runs 37.326 to 38.454 s, but the s6 equal-split cut is at 38.10 s. About 69 percent of its window, and its board reward at 38.0028 s, fall in s6-shot-1 hub-desk. In treatment A the hub-desk view draws paths at a fixed 0.15*s6e1 and does not perform s6e2. The spread is therefore invisible for most of its window: the flood-paths overhead opens with paths already at about 0.77 of the smoothstep progress and completes over 0.35 s. The board claims a reward in a shot that does not draw it. The authored fraction 0.338 would place the cut at 37.18 s, before the event starts.",
+        "fix": "Use the frozen authored intra-clause fraction for s6 (cut about 37.18 s, so hub-desk lasts 1.92 s and flood-paths 3.76 s), or otherwise place the s6 subdivision before 37.326 s. Rerun the gates and confirm that the s6-event-2 reward lies in s6-shot-2."
+      },
+      {
+        "id": "R12-b",
+        "criterion": "contact_and_consequence (completed readable result) for the performed turn",
+        "problem": "The turn event s4-event-2 (the chip lights the amber risk lamp and the 'Judged on the station' tag pins) runs 24.779 to 25.432 s. The equal-split cut at 25.285 s ends the chip-glow detail at about 78 percent of the event's time. The lamp finishes lighting in the no-server wide, where the risk state carries on the housing but the tag is not drawn, and the detail framing gives the completed result no hold. The before board kept this event inside its detail shot. The authored fraction 0.813 would place the cut at about 25.69 s, after the event ends and before s4-event-3 starts (25.704 s).",
+        "fix": "Use the authored 0.813 fraction (cut about 25.69 s, so the detail shot lasts 2.20 s and the wide 1.39 s), or otherwise end the detail shot after 25.432 s. Confirm at phone scope that the lit lamp and tag hold readably before the cut."
+      }
+    ],
+    "per_clause_picture_match": [
+      {
+        "clause": "n7a 'The university reports early chip AI validation.' 41.22 to 44.52 s",
+        "picture": "s7-shot-1 validation-card close (40.94 to 44.88 s). The bar fills to the verbatim 98.82% figure on s7-event-1 (42.54 to 43.53 s), during 'reports early chip AI'. The chip-AI and early-validation attribution stays on this clause in s7, carried by the VO and caption with the TinyML chip established in s4. This is unchanged from the passed board.",
+        "match": true
+      },
+      {
+        "clause": "n7b 'Accuracy was ninety eight point eight two percent.' 45.24 to 48.48 s",
+        "picture": "s7-shot-2 validation-card detail (44.88 to 49.20 s). A fixed 1 s push lands on the bar end and the tag. The 'Initial assessments after training' tag pins on s7-event-2 (46.21 to 47.05 s), and the figure stays readable throughout. The blank field result card slides to the right edge on s7-event-3 (47.57 to 48.32 s) with stamp 0, so nothing is claimed early.",
+        "match": true
+      },
+      {
+        "clause": "n8a 'The announcement reports no field result.' 49.48 to 51.82 s",
+        "picture": "s8-shot-1 no-field-card detail (49.20 to 52.16 s). Both cards appear, the validation card still showing 98.82% and its tag (s7e1 and s7e2 retained at 1). The push runs to the stamp start (50.18 s), the 'none reported' stamp presses onto the blank card on s8-event-0 (50.18 to 50.93 s), and the result holds 1.23 s before the cut. The stamp is complete as 'field result' (51.18 to 51.82 s) is heard. The renderer draws the s8-valcard, s8-valbar, s8-assess, s8-card2 and s8-blank ids.",
+        "match": true
+      },
+      {
+        "clause": "n8b 'It names no town with an installed station.' 52.50 to 54.80 s",
+        "picture": "s8-shot-2 empty-map close (52.16 to 55.50 s). The map settles (52.59 s), the search ring sweeps (53.37 s) and the 'No installation named' tag pins (54.20 to 54.71 s). It keeps the map.",
+        "match": true
+      },
+      {
+        "clause": "n9a 'Deployment is still the goal.' 55.78 to 57.36 s",
+        "picture": "s9-shot-1 station-return wide. The goal pin hovers, the dashed outline draws itself and the goal tag pins (55.84 to 57.30 s), followed by a 2.10 s closing hold to 59.4 s. This is unchanged.",
+        "match": true
+      }
+    ],
+    "new_event_assessment": "s7-event-3, where the blank field result card slides from off-frame (x 1300) to the right edge (x 900), is honest. It is unstamped and claims nothing, and it is motivated as the setup that carries the validation card into the two-card shot of the next sentence (the s7 to s8 bridge). It sits at the frame edge under the 1.3 detail push, about 78 px visible, and leaves the figure card unoccluded. It does add a second peripheral motion during the spoken figure: the tag pins on 'was ninety' and the card slides on 'eight two percent'. It was added mainly to keep the three-event minimum for a directed scene. The gap rule does not need it, because without it the reward gap 46.72 to 50.63 s is 3.91 s, still under 4.0. I judge it acceptable at code scope. Phone review should confirm that the slide does not pull the eye off the figure while the figure is spoken.",
+    "shot_and_event_arithmetic": "Runtime 59.4 s; speech ends at 57.36 s. Scenes: s1 8.68, s2 6.94, s3 4.04, s4 7.42, s5 8.18, s6 5.68, s7 8.26, s8 6.30 and s9 3.90 s, all at or under the 9.5 s ceiling and at or above the 2.4 s floor. Twenty shots, all under the 5.0 s ceiling. The longest are s1-shot-2 (4.77 s), s7-shot-2 (4.32 s), s5-shot-2 (4.13 s) and s5-shot-1 (4.05 s). The new s8-shot-1 lasts 2.96 s and s8-shot-2 3.34 s. Rewards: the first is at 1.00 s (under 1.5). The largest gaps are 46.72 to 50.63 s (3.91 s without the new s7 reward and 2.61 s with it, measured from 48.02 s), 43.13 to 46.72 s (3.58 s), 2.57 to 6.08 s (3.51 s), 29.62 to 33.12 s (3.51 s) and 6.08 to 9.58 s (3.50 s). The end gap from 57.16 s to 59.4 s is 2.24 s. All are under 4.0 s. Event widths run from 0.348 s (s9) to 1.128 s (s6-event-2); the new events are s7-event-3 at 0.745 s and s8-event-0 at 0.749 s. Events checked against their shots, in absolute seconds: s2-event-3 (13.491 to 14.226) starts 0.10 s before the 13.59 cut, which is minor because A's panel-charge view doesn't draw it. s3-event-3 starts 0.016 s before its cut, which is negligible. s4-event-2 (24.779 to 25.432) crosses the 25.285 cut (R12-b). s6-event-2 (37.326 to 38.454) crosses the 38.10 cut (R12-a). Every other event lies inside its shot. Under the frozen authored fractions, all four of these events would sit inside their shots: s2 cut at 13.34 s, s3 cuts at 17.01 and 18.18 s, s4 cut at 25.69 s, s6 cut at 37.18 s.",
+    "disclosure": "The s8 disclosure 'Illustration. Not a real report or map' is accurate for both s8 shots: the cards stand for the announcement's report and the map is illustrative. It contains no capital 'Map', so the renderer's locator-map substitution doesn't trigger and the scene's own text shows. The s7 disclosure ('Illustration. The university's figure') is unchanged and still accurate.",
+    "notes": "The split itself, the s7 and s8 plane and item bindings, the registry subject_ids, the sound cue move (blank-card-quiet to s8-event-0), the attention beats and the story_contract transition text are consistent and drawable. Cuts between clauses fall in measured silences: s7 to s8 at 49.20 s inside the 48.48 to 49.48 s silence, and s8-shot-1 to s8-shot-2 at 52.16 s inside 51.82 to 52.50 s. The two remaining blockers are not caused by the split. They come from the measured retime's equal intra-clause subdivisions, and they must be fixed in the applied bytes before the independent code review. I can't verify whether a documentary maximum runtime counts the 5 s credits (59.4 plus 5 s is 64.4 s). documentary_check exited 0 on the diagnostic, but I did not read its log."
+  },
+  "code_assessment": {
+    "renderer_before_sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+    "renderer_after_sha256": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
+    "views_checked": [
+      "street-yard",
+      "phone-late",
+      "station-wide",
+      "panel-charge",
+      "no-tower",
+      "sensor-stack",
+      "water-marks",
+      "weather-row",
+      "chip-glow",
+      "no-server",
+      "radio-rings",
+      "radio-open",
+      "hub-wide",
+      "radio-map",
+      "hub-desk",
+      "flood-paths",
+      "validation-card",
+      "no-field-card",
+      "empty-map",
+      "station-return"
+    ],
+    "unsupported": [
+      "Treatment A's hub-desk view does not perform s6-event-2 (paths fixed at 0.15*s6e1), but the measured board puts most of that event and its reward in s6-shot-1 hub-desk (R12-a).",
+      "The no-server wide doesn't draw the 'Judged on the station' tag, so the tail of s4-event-2 that crosses into it is only partly drawn (R12-b).",
+      "Treatment A's panel-charge view doesn't draw s2-event-3. The first 0.10 s of that event falls in it, which is minor.",
+      "Everything else the R12 board names is drawn: the s8-valcard, s8-valbar, s8-assess, s8-card2 and s8-blank ids through the moved-ids map; the s7-card2 and s7-blank slide-in under validation-card; the s8-event-0 stamp; and the push that ends at win('s8-event-0').start.",
+      "The comment at lines 444 to 447 still describes the s7-event-3 stamp in s7. It is stale and harmless."
+    ],
+    "parts_read_in_full": "All of the proposed out/dispatch/evidence/proposal-r12/FloodStationFilm.tsx (lines 1 to 523), plus FloodStationFilm.diff and modern_episode_registry.diff in full. I did not re-read the live pre-diff renderer this round. renderer_before_sha256 is the value bound in storyboard-before.json renderer_inputs and in my R8 full read, and I did not check it against the live bytes."
+  },
+  "source_pivot": {
+    "requires_validation": false,
+    "script_sha256": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf",
+    "claim_ids": [
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c9",
+      "c10",
+      "c12",
+      "c14",
+      "c16",
+      "c17",
+      "c18",
+      "c20"
+    ]
+  },
+  "recurrence": {
+    "met": true,
+    "new_mechanism_is_different": true,
+    "assessment": "The new failure family is measured-runtime crowding of one scene: correct, verbatim speech is longer than the board's projected timing and one scene's measured span exceeds the hard ceiling. The mechanism changes board structure: one clause and its shot move across a measured clause boundary, and runtime is set from the measured read. It edits no audio and changes no narration performance, wording or caption method. The earlier narration mechanisms I retain in context (caption-boundary silent beats, then sentence-per-cue caption boundaries, plus the narration-direction and pacing corrections and the source-scoped wording pivot for sentence 13) all acted on the performance, the caption method or the words. I can't reproduce all five earlier mechanism ids verbatim from this context, so this comparison is against the families I retain. None of those repair families applies here, because the take, the script, the claims and the caption segmentation are unchanged and the defect lies between the measured read and the board structure. The mechanism also respects the voice rules: no time-stretch and no breath removal."
+  },
+  "reasoning": "The current accepted bytes plainly fail three hard technical gates, all quoted verbatim from retained outputs, so the verdict is revise. All three trace to one measured fact, the 57.36 s speech end. They are classified as runtime, captions and runtime, and none is creative. The R12 correction fixes all three: runtime is 59.4 s, cue c16 ends at 57.36 s, s7 is 8.26 s and s8 is 6.3 s. It also keeps every sentence over a literal picture: the stamped blank card under 'The announcement reports no field result.', the map under 'It names no town with an installed station.', and the figure with its early chip-AI validation attribution in s7. A full arithmetic pass over the measured board then showed that the retime's equal intra-clause subdivisions push two meaningful events across cuts. One is the s6 flood-path spread, mostly unperformed in A's hub-desk view. The other is the s4 turn, the lamp lighting, which no longer completes inside its detail shot. Neither existed on the authored board, and both disappear if the frozen authored fractions are honoured. They are mechanical and fixable without any wording, audio or story change, but they must be fixed before the applied bytes go to independent code review. Separately, the retained soundcheck for take 7 failed on duration against the old cut, so a fresh soundcheck at 59.4 s is required. The wording is unchanged, so no fresh source validation is required.",
+  "concerns": [
+    "This response authorizes only a registered technical-integrity correction. It approves no take, caption, picture, film, score or shipment. The exact applied bytes still need their own independent code review, timed phone review, native and final reviews.",
+    "Apply R12 only with the s4 and s6 subdivision fixes (R12-a, R12-b). Preferably honour every frozen authored intra-clause fraction (s2, s3, s4, s6), then rerun the full gate set on the applied production bytes, not the scratch checkout.",
+    "Rerun vo_soundcheck on take 7 against the corrected 59.4 s runtime and retain its pass. The retained log shows NO TAKE PASSED on duration.",
+    "Downstream references to the renamed clause ids (old n7c to n8a, old n8a to n8b) in vo_direction, sfx events or review packets must be updated consistently. sfx_events-r12-diagnostic.json is listed in the manifest but was not provided to me.",
+    "At phone scope, confirm that the s7-event-3 edge slide doesn't compete with the spoken figure, and that the two-card stamp and its 1.23 s hold read at 270 px.",
+    "The words file's duration_s is 65.0 against a 57.48 s take file and a 58.57 s analysis duration. The provenance looks like a padded mix. I did not investigate it.",
+    "Unverified: whether any maximum-runtime limit counts the 5 s credits; and the contents of the 14 gate logs and the aligner fix."
+  ],
+  "files_read_in_full": [
+    {
+      "path": "out/dispatch/classification-review-packet-r12.md",
+      "sha256": "bb74701aec0dac8055eb1311b1306dfbe1e5422a9ced4363b393075c6fb393eb"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/failure/board_captions-at-54.1.txt",
+      "sha256": "5ca51cb3e8834ae7eba2de35db9830d01f0d7f5ea37225e7b882a735b1e0b448"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/failure/board_retime-at-54.1.txt",
+      "sha256": "2dc6b5236f4e5d57ba56b676231535b82299f8501cad65d28eefe45373b4cac9"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/failure/storyboard_check-old-structure-at-59.5.txt",
+      "sha256": "9079a5dc4073afc92990cd55a4a9d3d139adcd85d5aa16cff2d125f84b905280"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/diff-before-to-r12.md",
+      "sha256": "3867dee06d087631b20a304b922c79eb86c164474efcc83f6ae3cc8344ec1932"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/FloodStationFilm.diff",
+      "sha256": "2b6b08fb48806fce89f7444e6b6daaef4c68520ee32bfc118b52336ae9836288"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/modern_episode_registry.diff",
+      "sha256": "b7e4c839a03d6e17f9b74a6fdff0f7e42fb0e149d4e0f2497bd58aab73dbbab2"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/build_split.py",
+      "sha256": "40b0a62c893fecf78429ad3b19c378105f6abc76736d3f1b08f60b3def103f82"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/stamp_renderer.py",
+      "sha256": "701843b4cf4df09e29aa39314359222241f849e465cc9be204a986fd7a515ea9"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/storyboard-before.json",
+      "sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
+      "note": "lines 1 to 4767, in ranges"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/storyboard-a-measured-diagnostic.json",
+      "sha256": "4a8c8364f11ef2ca595a9ea5b8c0ca15fd1a05272bf9ff56c15ca5bf6e07392a",
+      "note": "lines 1 to 4912, in ranges"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/FloodStationFilm.tsx",
+      "sha256": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
+      "note": "lines 1 to 523"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/words-r12-diagnostic.json",
+      "sha256": "99dd69cda7ffd247b568644719d02e56080752a48fcb8d717e39f57555623378"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/captions-r12-diagnostic.json",
+      "sha256": "a6b0e45a7a95340f5f264c625fe6aab281a34b66c292fa9174445d03fbb4ed86"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/precheck-r12-diagnostic/087e6006-e620-4fd2-a932-a1ad0e531641/report.json",
+      "sha256": "76e3f1f894e3f16ae219d8ba4f31fd17776b65ef91026c5172fb9ac88dc5db8c",
+      "note": "report only; the 14 gate logs it names were not read"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "sha256": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf"
+    },
+    {
+      "path": "out/dispatch/evidence/take-7/takes-7/takes.json",
+      "sha256": "0a78e394a75e2b16b7e44d6fa7765380de20cd5632f97272cdfd0c7eb5b1cc64"
+    },
+    {
+      "path": "out/dispatch/evidence/take-7/soundcheck-7.log",
+      "sha256": "de2d674a0e99fe3516da76ee7add65f16a477ca497ee3ed07255eab59bbb4511"
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r12/MANIFEST.sha256.json",
+      "sha256": "7e19f5caa39200d65762e1879ff30c08c7fc9bee9c03e27cf831016301761714"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "note": "read in full in an earlier round of this worker with the same hash; not re-read this round, as the packet instructs for unchanged hashes"
+    },
+    {
+      "path": "out/dispatch/sources/utsa.txt",
+      "sha256": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
+      "note": "read in full in an earlier round of this worker with the same hash; not re-read this round, as the packet instructs for unchanged hashes"
+    }
+  ],
+  "one_line_note": "The current bytes fail F1 (runtime), F2 (captions) and F3 (runtime), all technical. R12 fixes all three without changing any wording, so no source validation is needed. Before applying it, honour the authored intra-clause shot fractions so the s6 flood-path spread (R12-a) and the s4 turn (R12-b) stop crossing cuts, and rerun take 7's soundcheck, which the retained log shows failed on duration."
+}
