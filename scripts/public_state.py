@@ -15,6 +15,16 @@ def export(state):
     if owner_grant_problems(state) or validator_grant_problems(state):
         raise ValueError('private owner grant audit failed before public export')
     result = copy.deepcopy(state)
+    retained = {}
+    metadata = state.get('public_export') or {}
+    for row in metadata.get('owner_message_redactions', []):
+        index = row.get('event_index')
+        if (type(index) is not int or index in retained
+                or any(not re.fullmatch(r'[0-9a-f]{64}', str(row.get(key, '')))
+                       for key in ('original_event_sha256', 'original_authorization_sha256',
+                                   'owner_text_sha256', 'source_reference_sha256'))):
+            raise ValueError('public owner-message provenance is invalid')
+        retained[index] = row
     previous = None
     redactions = []
     for index, grant in enumerate(result['events']):
@@ -22,14 +32,25 @@ def export(state):
             continue
         original = grant['authorization_json']
         authorization = json.loads(original)
+        role = 'validator' if grant['kind'] == 'owner_validator_grant' else 'storyboard critic'
+        attestation = ('Owner approved exactly ' + str(grant['additional_calls'])
+                       + ' additional ' + role + ' calls for this edition. '
+                       'Private instruction retained locally with its original digest.')
+        if index in retained:
+            if (metadata.get('schema') != 'dispatch_public_ledger/1'
+                    or authorization['owner_text'] != attestation
+                    or not re.fullmatch(r'private-source-sha256:[0-9a-f]{64}', authorization['source_message_reference'])
+                    or not re.fullmatch(r'private-approval-sha256:[0-9a-f]{64}', authorization['approval_id'])):
+                raise ValueError('retained public owner attestation changed')
+            redactions.append(retained[index])
+            if grant['kind'] == 'owner_review_grant':
+                previous = grant
+            continue
         redactions.append({'event_index': index, 'original_event_sha256': envelope_digest(grant),
                            'original_authorization_sha256': sha(original),
                            'owner_text_sha256': sha(authorization['owner_text']),
                            'source_reference_sha256': sha(authorization['source_message_reference'])})
-        role = 'validator' if grant['kind'] == 'owner_validator_grant' else 'storyboard critic'
-        authorization['owner_text'] = ('Owner approved exactly ' + str(grant['additional_calls'])
-                                      + ' additional ' + role + ' calls for this edition. '
-                                      'Private instruction retained locally with its original digest.')
+        authorization['owner_text'] = attestation
         authorization['source_message_reference'] = 'private-source-sha256:' + sha(authorization['source_message_reference'])
         authorization['approval_id'] = 'private-approval-sha256:' + sha(authorization['approval_id'])
         if grant['kind'] == 'owner_review_grant' and previous is not None:
