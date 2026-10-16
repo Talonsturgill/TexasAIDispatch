@@ -1,0 +1,35 @@
+{
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "treatment": "b",
+  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+  "board_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
+  "concept_sha256": "a17ae22e8779e83f3a79e8f914b4e1cfb5b6e3f67bfc76e06f78c01f5f3056a4",
+  "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (Opus High), independent read-only code reviewer, not the director",
+  "reviewed_at": "2026-10-16T19:52:07.488Z",
+  "notes": "Re-judged after reading the complete board (lines 1 to 4843). B genuinely diverges from A in opening, staging and view assignment. It opens on a detail of the lowest lens going under at ankle height (s1-event-0, water-marks detail), then match-cuts to the yard with no station. It holds the panel close through the tower beat. It sees the readings through the housing window from the street (no-server close) before the chip-glow detail. It reads the radio from above (radio-map) before street level and the hub (hub-wide). It shows the hub map before the desk and forearm, the empty curb wide in s8 (station-return) and the map close in s9 (empty-map) with a dashed empty spot (s9-spot). Same R10 VO, captions and clause bindings as A. Plan limits: 20 shots, longest 4.12 s (s4-shot-1), first reward 0.70 s, largest gap 3.39 s, end gap 2.24 s, wall-view shots 6 of 20. Passes the code-plan scope only.",
+  "strongest_frame": "s1-shot-1 into s1-shot-2, 0.00 to 3.86 s. Brown water climbs over the lowest lens and it lights, then a match cut on the same ankle height to the flooded yard and its orange ankle mark. This first-frame question ties the station's sensing to the yard's stake before the phone warns.",
+  "weakest_frame": "s4-shot-1, 18.12 to 22.24 s (close, no-server view). Readings run to the chip as seen from the street through the small housing window, and the trace event occupies only 20.18 to 20.98 s. For 4.1 s the principal action is a small lit window. At phone size 'a small chip runs the AI itself' may read as a glowing box, until the chip-glow detail at 22.24 s.",
+  "blocking_defects": [],
+  "code_observations": [
+    "Clause-to-picture plan: n1a lens detail then yard (water-marks detail, street-yard match), n1b late banner (phone-late), n2a station reveal (station-wide), n2b panel charge and no-tower both carried by panel-charge close for 3.58 s, n3a marks and weather (water-marks detail, weather-row), n4a traces through the window (no-server close), n4b risk lamp then dark server (chip-glow detail, no-server wide), n5a rings from above then street (radio-map overhead, radio-rings), n5b five-mile to hub (hub-wide), n6a paths then desk (flood-paths overhead, hub-desk), n7a to n7c cards (validation-card close and detail, no-field-card close), n8a empty curb wide (station-return), n9a map close (empty-map). Every view is registered.",
+    "Phone-scope check: s2-event-3 (dashed line toward the far tower, no-cell-tower tag) is assigned to the panel-charge view, whose registry subject_ids omit s2-tower. The must_show 'no cell tower' (s2-tower) has to appear inside that close at 13.10 s. My R8 renderer reading supported it, but this round verified the renderer only by hash.",
+    "Phone-scope check: s9-event-2 uses the B-only item s9-spot (dashed ring on the empty map spot). Confirm the pixels draw it.",
+    "False-inference watch: s1-shot-1 shows the station's lens at ankle height immediately before a yard that is said to have no station. The plan labels it a disclosed design detail, but the on-screen disclosure is the scene-wide 'Illustration. Map marks the county'. At phone scope, check that the viewer does not infer that the station stood in this yard.",
+    "Same non-blocking stale source_limit and source_basis metadata as A ('there is no field result'). Same stray B text in the shared s3 water-marks purpose string. s8-shot-1.purpose mentions a dashed station outline that this treatment never draws in s8 or s9 (B uses s9-spot). The text is non-executable and should be corrected for clarity.",
+    "Region and plate: Bexar, blackland, blackland-san-antonio on every scene."
+  ],
+  "action_reviews": [],
+  "story_review": {
+    "story_sha256": "3340f875513b56dd04666d7bb646dde5722a1248b47efc4d7fa506b858cd6514",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Planned chain, not an observed film: a lens goes under at ankle height, then a yard floods before the phone warns. UT San Antonio's prototype charges from light, needs no tower and watches the water with four marks. Its chip judges risk locally while a dashed server stays dark, and radio rings reach a hub whose larger model maps flood paths for responders. Only validation accuracy is reported, with no field result and no installed town, and the goal pin hovers over an empty spot.",
+    "opening_to_ending": "The opening pairs a lens going under with a yard warned too late. The ending closes on the same paper map, close up, with a dashed goal pin over an empty dashed spot. It answers how the design would work and leaves deployment visibly unresolved, with no invented installation or outcome.",
+    "weakest_transition": "s3 to s4 (18.12 s): the cut leaves the weather-row close for a street-level close of the housing window. The carried subject (the same housing) is small and the readings are seen indirectly. The causal handoff from 'marks just lit' to 'chip runs the AI' depends on a small window until the 22.24 s detail. The s6 to s7 hub-to-chip attribution risk noted for A applies here too."
+  }
+}
