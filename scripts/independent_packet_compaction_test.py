@@ -1,5 +1,6 @@
 """Compaction reduces real duplicate input while preserving every current semantic field."""
 import copy
+from contextlib import chdir
 import json
 from pathlib import Path
 import tempfile
@@ -141,6 +142,23 @@ class Compaction(unittest.TestCase):
             self.assertEqual(result['board'], self.board)
             self.assertEqual(result['claims'], self.text['claims'])
             self.assertEqual(compact.compact(result, self.package, 'phone', self.repo)[0], result)
+
+    def test_relative_absolute_and_dot_paths_have_identical_bounded_evidence(self):
+        self.code_reports()
+        original = copy.deepcopy(self.text)
+        with chdir(self.repo), patch.object(independent_review, 'REPO', self.repo), \
+             patch('critic_gate.problems', side_effect=self.code_gate), \
+             patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', side_effect=lambda b: compact.sha(self.repo/self.hero)), \
+             patch('critic_gate.renderer_files', return_value=[self.repo/self.hero, self.repo/self.current]):
+            outputs = [independent_review.bounded_packet(self.text, path, 'phone', {'claims_sha256': 'current-claims'})
+                       for path in (self.package/'storyboard.json', Path('out/dispatch/storyboard.json'),
+                                    Path('out/dispatch/../dispatch/storyboard.json'))]
+        self.assertEqual(outputs[0], outputs[1]); self.assertEqual(outputs[0], outputs[2])
+        self.assertLess(len(independent_review.packet_json(outputs[0][0])), 500000)
+        self.assertEqual(self.text, original)
+        old = {'date': '2026-10-14'}; relative = Path('out/dispatch/storyboard.json')
+        self.assertEqual(compact.current_paths(old, relative, None), (relative, None))
 
     def test_stale_missing_wrong_claims_or_phone_verdict_keeps_full_source(self):
         report = self.code_reports()

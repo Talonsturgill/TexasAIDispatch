@@ -8,6 +8,7 @@ import argparse
 import base64
 import fcntl
 from contextlib import contextmanager
+from datetime import datetime, timedelta
 import copy
 import hashlib
 import json
@@ -270,7 +271,10 @@ def project(raw, bindings, role, model, reviewed_at, *, selection=False):
         story = result['story_review']
         story.update({k: bindings[k] for k in ('story_sha256', 'policy_sha256', 'claims_sha256')})
         for row in result.get('action_reviews', []):
-            row.update(bindings['actions'][row['action_id']])
+            # Narration ids are useful original observations, not registered proposals.
+            # Keep them unchanged; only actual proposal ids have module/source stamps.
+            if row['action_id'] in bindings['actions']:
+                row.update(bindings['actions'][row['action_id']])
         if role == 'phone':
             result['review_scope'] = 'exact-muted-phone-preflight'
             result['reviewed_preflight_sha256'] = bindings['film_sha256']
@@ -336,6 +340,105 @@ def save_selection(report, path):
         raise ValueError('refusing to overwrite a different retained opening selection')
     path.parent.mkdir(parents=True, exist_ok=True); path.write_text(encoded)
     return selection
+
+
+def complete_report(raw, context, request_prompt, text, report_path, out, selection_out):
+    report = project(raw, context['bindings'], context['role'], context['model'], context['reviewed_at'])
+    report['provider_evidence'] = {'schema': 'dispatch_independent_provider/1', **context,
+        'prompt': request_prompt, 'input': text, 'response': raw, 'response_sha256': fingerprint(raw)}
+    errors = evidence_problems(report)
+    if errors:
+        raise ValueError('; '.join(errors))
+    report_path.write_text(json.dumps(report, indent=2) + '\n')
+    out.parent.mkdir(parents=True, exist_ok=True); out.write_bytes(report_path.read_bytes())
+    if selection_out is not None:
+        save_selection(report, selection_out)
+    return report
+
+
+def original_transport(attempt, state):
+    ledger = read_state(state)
+    matches = [(i, row) for i, row in enumerate(ledger['events'])
+               if row.get('kind') == 'independent_review_transport'
+               and all(row.get(key) == value for key, value in attempt.items())]
+    if len(matches) != 1:
+        raise ValueError('retained response lacks its unique original charged transport event')
+    index, transport = matches[0]
+    reservations = [row for row in ledger['events'][:index] if row.get('kind') == 'reserved'
+                    and row.get('resources') == {'audiovisual_reviews': 1}]
+    if not reservations:
+        raise ValueError('retained response lacks its original provider reservation')
+    return index, transport, reservations[-1]
+
+
+def reconstruct_request(attempt, state, text, bindings, request_prompt, failure, availability_proof=None):
+    """Recover legacy metadata only by matching the provider's exact context digest.
+
+    Older transports retained the response and context hash but omitted reviewed_at.
+    Search only the actual reservation/transport interval, capped at five seconds.
+    An exact SHA256 match proves the original value; no approximate timestamp qualifies.
+    This function is read-only, makes no request and changes no finding or ledger event.
+    """
+    index, transport, reservation = original_transport(attempt, state)
+    if attempt['bindings'] != bindings or attempt['host_failure'] != failure:
+        raise ValueError('retained response inputs changed; no metadata reconstruction')
+    context = {'role': attempt['role'], 'model': policy()['av_model'], 'request_id': attempt['request_id'],
+               'reviewed_at': '__DISPATCH_ORIGINAL_TIME__', 'bindings': bindings, 'host_failure': failure,
+               'input_sha256': fingerprint(text), 'prompt_sha256': hashlib.sha256(request_prompt.encode()).hexdigest()}
+    if availability_proof is not None:
+        context['availability_recovery'] = availability_proof
+    upper = datetime.fromisoformat(transport['at'].replace('Z', '+00:00'))
+    lower = max(datetime.fromisoformat(reservation['at'].replace('Z', '+00:00')), upper-timedelta(seconds=5))
+    encoded = json.dumps(context, sort_keys=True, separators=(',', ':')).encode()
+    left, right = encoded.split(b'"__DISPATCH_ORIGINAL_TIME__"')
+    prefix = hashlib.sha256(left)
+    interval = upper-lower
+    count = (interval.days*86400+interval.seconds)*1_000_000+interval.microseconds
+    for offset in range(count+1):
+        timestamp = (upper-timedelta(microseconds=offset)).isoformat().replace('+00:00', 'Z')
+        candidate = prefix.copy(); candidate.update(b'"'+timestamp.encode()+b'"'+right)
+        if candidate.hexdigest() == attempt['review_context_sha256']:
+            context['reviewed_at'] = timestamp
+            if fingerprint(context) != attempt['review_context_sha256']:
+                raise ValueError('original request context failed exact reconstruction')
+            return {'schema': 'dispatch_independent_request/1', 'context': context,
+                    'prompt': request_prompt, 'input': text,
+                    'legacy_reconstruction': {'transport_event_index': index,
+                        'search_from': lower.isoformat(), 'search_through': upper.isoformat(),
+                        'exact_context_sha256': attempt['review_context_sha256']}}
+    raise ValueError('original request context was not recovered exactly; no guessed timestamp or paid retry')
+
+
+def reproject_retained(cache, state, text, bindings, request_prompt, failure, failure_path,
+                       out, selection_out, availability_proof=None):
+    attempt = json.loads((cache/'attempt.json').read_text())
+    original_transport(attempt, state)
+    if attempt.get('failure_sha256') != digest(failure_path):
+        raise ValueError('original retained host failure changed')
+    raw = json.loads((cache/'response.json').read_text())
+    retained = [row for row in read_state(state)['events']
+                if row.get('kind') == 'independent_review_response'
+                and row.get('request_id') == attempt['request_id']]
+    if retained and any(row.get('response_sha256') != digest(cache/'response.json') for row in retained):
+        raise ValueError('retained original provider response bytes changed')
+    if response_object(raw).get('review_context_sha256') != attempt['review_context_sha256']:
+        raise ValueError('retained response belongs to another original request')
+    request_path = cache/'request.json'
+    request = (json.loads(request_path.read_text()) if request_path.is_file() else
+               reconstruct_request(attempt, state, text, bindings, request_prompt, failure, availability_proof))
+    context = request['context']
+    if (request.get('schema') != 'dispatch_independent_request/1'
+            or fingerprint(context) != attempt['review_context_sha256']
+            or context != review_context(context) or context['bindings'] != bindings
+            or context['host_failure'] != failure or context['request_id'] != attempt['request_id']
+            or request['prompt'] != request_prompt or request['input'] != text
+            or context['input_sha256'] != fingerprint(text)
+            or context['prompt_sha256'] != hashlib.sha256(request_prompt.encode()).hexdigest()
+            or context.get('availability_recovery') != availability_proof):
+        raise ValueError('retained request context changed; no response rebinding or paid retry')
+    if not request_path.exists():
+        request_path.write_text(json.dumps(request, indent=2)+'\n')
+    return complete_report(raw, context, request_prompt, text, cache/'report.json', out, selection_out)
 
 
 def source_windows(path, rows, context_chars=2048):
@@ -434,7 +537,8 @@ def packet_json(text):
 
 
 def bounded_packet(text, board_path, role, bindings):
-    from independent_packet_compaction import compact, phone_code_context
+    from independent_packet_compaction import compact, phone_code_context, current_paths
+    board_path, = current_paths(text.get('board', {}), board_path)
     if role == 'phone':
         text, bindings = phone_code_context(text, board_path, bindings)
     text, policy_sha = compact(text, board_path.parent, role, REPO)
@@ -464,6 +568,8 @@ def packet(board_path, claims_path, role, film):
     from quality_contract import fingerprint as quality_fingerprint
     from action_admission import source_claims_digest
     board = json.loads(board_path.read_text())
+    from independent_packet_compaction import current_paths
+    board_path, claims_path, film = current_paths(board, board_path, claims_path, film)
     claims = json.loads(claims_path.read_text())
     packet_cfg = provider_packet_policy(board)
     bindings = {'concept_sha256': concept_digest(board), 'renderer_sha256': renderer_digest(board),
@@ -597,6 +703,8 @@ def comparison_scope(board_path, claims_path, text, bindings):
     from critic_gate import concept_digest, renderer_digest, renderer_files
     from daily_production import story_digest
     from action_admission import source_claims_digest
+    from independent_packet_compaction import current_paths
+    board_path, claims_path = current_paths(text.get('board', {}), board_path, claims_path)
     root = board_path.parent / 'openings'; comparison_path = root / 'comparison.json'
     receipt = json.loads(comparison_path.read_text())
     errors = opening_compare.inspection_problems(receipt, root)
@@ -750,7 +858,7 @@ def prompt(role, text):
 
 
 def run(board, claims, film, role, failure_path, state, out, *, compare_openings=False, selection_out=None,
-        availability=None):
+        availability=None, reproject_only=False):
     failure = json.loads(failure_path.read_text())
     errors = failure_problems(failure, role)
     if errors:
@@ -764,8 +872,6 @@ def run(board, claims, film, role, failure_path, state, out, *, compare_openings
         raise ValueError('exact media is required for this independent role')
     source_packet = media_limit_packet(failure, state.parent)
     key = os.environ.get('GEMINI_API_KEY')
-    if not key:
-        raise ValueError('configured independent provider is unavailable')
     text, bindings = packet(board, claims, role, film)
     if compare_openings:
         text, bindings = comparison_scope(board, claims, text, bindings)
@@ -787,12 +893,12 @@ def run(board, claims, film, role, failure_path, state, out, *, compare_openings
             cache = cache/'availability-recovery'
         return run_claimed(board, claims, film, role, failure_path, state, out,
                            failure, key, text, bindings, request_prompt, cache, selection_out=selection_out,
-                           availability=availability, original_attempt=original_attempt)
+                           availability=availability, original_attempt=original_attempt, reproject_only=reproject_only)
 
 
 def run_claimed(board, claims, film, role, failure_path, state, out,
                 failure, key, text, bindings, request_prompt, cache, *, selection_out=None,
-                availability=None, original_attempt=None):
+                availability=None, original_attempt=None, reproject_only=False):
     report_path = cache / 'report.json'
     if report_path.is_file():
         original = json.loads(report_path.read_text())
@@ -804,8 +910,19 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         if selection_out is not None:
             save_selection(original, selection_out)
         return original
+    if (cache/'response.json').is_file():
+        proof = None
+        if availability is not None:
+            from provider_availability import recovery_proof
+            proof = recovery_proof(availability, original_attempt, state)
+        return reproject_retained(cache, state, text, bindings, request_prompt, failure, failure_path,
+                                  out, selection_out, proof)
+    if reproject_only:
+        raise ValueError('no retained provider response; reproject-only cannot reserve or call a provider')
     if (cache / 'attempt.json').exists():
         raise ValueError('unchanged provider attempt already recorded; no paid retry or polling')
+    if not key:
+        raise ValueError('configured independent provider is unavailable')
     ledger = read_state(state)
     index = failure['reservation_event_index']
     if index >= len(ledger['events']) or ledger['events'][index] != failure['reservation']:
@@ -853,6 +970,8 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         from provider_availability import recovery_proof
         context['availability_recovery'] = recovery_proof(availability, original_attempt, state)
     context_sha = fingerprint(context)
+    (cache/'request.json').write_text(json.dumps({'schema': 'dispatch_independent_request/1',
+        'context': context, 'prompt': request_prompt, 'input': text}, indent=2)+'\n')
     request_prompt += '\nReturn review_context_sha256 exactly ' + context_sha + ' in your JSON object.'
     attempt = {'request_id': request_id, 'role': role, 'bindings': bindings,
                'host_failure': failure, 'failure_sha256': digest(failure_path),
@@ -889,6 +1008,11 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         raw = streamed_response(response)
         tokens = int(raw.get('usageMetadata', {}).get('totalTokenCount') or 0)
         (cache / 'response.json').write_text(json.dumps(raw, indent=2) + '\n')
+        with claim(state.with_name(state.name + '.independent.lock'), blocking=True):
+            ledger = read_state(state)
+            event(ledger, 'independent_review_response', request_id=request_id,
+                  response_sha256=digest(cache/'response.json'), response_id=raw['responseId'])
+            save(state, ledger)
         current_text, current_bindings = packet(board, claims, role, film)
         if 'opening_options' in bindings:
             current_text, current_bindings = comparison_scope(board, claims, current_text, current_bindings)
@@ -904,19 +1028,8 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             current_bindings['provider_availability_sha256'] = current_proof['receipt_sha256']
         if current_bindings != bindings or fingerprint(current_text) != fingerprint(text):
             raise ValueError('review inputs changed during independent transport')
-        report = project(raw, bindings, role, model, reviewed_at)
-        report['provider_evidence'] = {'schema': 'dispatch_independent_provider/1', **context,
-            'prompt': request_prompt.split('\nReturn review_context_sha256 exactly ')[0], 'input': text,
-            'response': raw, 'response_sha256': fingerprint(raw)}
-        errors = evidence_problems(report)
-        if errors:
-            raise ValueError('; '.join(errors))
-        report_path.write_text(json.dumps(report, indent=2) + '\n')
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_bytes(report_path.read_bytes())
-        if selection_out is not None:
-            save_selection(report, selection_out)
-        return report
+        return complete_report(raw, context, request_prompt.split('\nReturn review_context_sha256 exactly ')[0],
+                               text, report_path, out, selection_out)
     except requests.RequestException as exc:
         raise ValueError('independent provider ' + type(exc).__name__ + '; no approval recorded') from None
     finally:
@@ -942,6 +1055,7 @@ def main():
     p.add_argument('--compare-openings', action='store_true')
     p.add_argument('--selection-out', type=Path)
     p.add_argument('--availability', type=Path, help='successful charged generation probe bound to the retained failed attempt')
+    p.add_argument('--reproject-only', action='store_true', help='resume a retained complete response; never reserve or call a provider')
     p.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
     a = p.parse_args()
     try:
@@ -961,7 +1075,8 @@ def main():
         if not all((a.role, a.board, a.claims, a.failure, a.out)):
             p.error('review execution requires role, board, claims, failure and out')
         report = run(a.board, a.claims, a.film, a.role, a.failure, a.state, a.out,
-                     compare_openings=a.compare_openings, selection_out=a.selection_out, availability=a.availability)
+                     compare_openings=a.compare_openings, selection_out=a.selection_out, availability=a.availability,
+                     reproject_only=a.reproject_only)
         print('independent_review: retained original ' + a.role + ' verdict from ' + report['reviewer_identity'])
         return 0
     except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:

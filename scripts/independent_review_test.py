@@ -141,6 +141,92 @@ class AvailabilityTest(unittest.TestCase):
         value['candidates'][0]['content']['parts'][0]['text'] = json.dumps(review)
         return value
 
+    def offline(self):
+        with patch.dict(r.os.environ, {'GEMINI_API_KEY': ''}), \
+             patch.object(r, 'packet', return_value=({'current': 'evidence'}, self.bindings)), \
+             patch.object(r.requests, 'post', side_effect=AssertionError('reprojection bought another verdict')):
+            return r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
+                         'phone', self.failure_path, self.state, self.root/'phone.json', reproject_only=True)
+
+    def test_narration_action_rows_keep_original_findings_without_proposal_stamps(self):
+        value = copy.deepcopy(self.value)
+        narrative = {'action_id': 'yard-floods-before-warning', 'verdict': 'revise',
+                     'blocking_defects': ['Original independent defect.']}
+        value['action_reviews'] = [narrative, {'action_id': 'registered', 'verdict': 'pass'}]
+        bindings = {**self.bindings, 'actions': {'registered': {'module_sha256': 'actual-code',
+                                                              'source_claims_sha256': 'actual-source'}}}
+        report = r.project(self.raw(value), bindings, 'phone', r.policy()['av_model'], 'actual-time')
+        self.assertEqual(report['action_reviews'][0], narrative)
+        self.assertEqual(report['action_reviews'][1]['module_sha256'], 'actual-code')
+        self.assertEqual(report['action_reviews'][1]['verdict'], 'pass')
+
+    def test_complete_response_reprojects_offline_without_charge_or_new_identity(self):
+        original, _ = self.call()
+        cache = next((self.root/'independent-review-cache').glob('*/report.json')).parent
+        cache.joinpath('report.json').unlink()
+        before = self.state.read_bytes()
+        response_bytes = cache.joinpath('response.json').read_bytes()
+        self.assertEqual(self.offline(), original)
+        self.assertEqual(self.state.read_bytes(), before)
+        self.assertEqual(cache.joinpath('response.json').read_bytes(), response_bytes)
+
+    def test_legacy_missing_context_recovers_only_the_exact_original_timestamp(self):
+        original, _ = self.call()
+        cache = next((self.root/'independent-review-cache').glob('*/report.json')).parent
+        for name in ('report.json', 'request.json'): cache.joinpath(name).unlink()
+        before = self.state.read_bytes(); attempt = cache.joinpath('attempt.json').read_bytes()
+        self.assertEqual(self.offline(), original)
+        recovered = json.loads(cache.joinpath('request.json').read_text())
+        self.assertEqual(recovered['context']['reviewed_at'], original['reviewed_at'])
+        self.assertEqual(recovered['legacy_reconstruction']['exact_context_sha256'],
+                         json.loads(attempt)['review_context_sha256'])
+        self.assertEqual(self.state.read_bytes(), before)
+        self.assertEqual(cache.joinpath('attempt.json').read_bytes(), attempt)
+
+    def test_legacy_context_refuses_changed_input_instead_of_guessing_a_time(self):
+        self.call()
+        cache = next((self.root/'independent-review-cache').glob('*/report.json')).parent
+        for name in ('report.json', 'request.json'): cache.joinpath(name).unlink()
+        with patch.dict(r.os.environ, {'GEMINI_API_KEY': ''}), \
+             patch.object(r, 'packet', return_value=({'different': 'input'}, self.bindings)), \
+             patch.object(r.requests, 'post', side_effect=AssertionError('unbound provider retry')):
+            with self.assertRaisesRegex(ValueError, 'not recovered exactly'):
+                r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4', 'phone',
+                      self.failure_path, self.state, self.root/'phone.json', reproject_only=True)
+        self.assertFalse(cache.joinpath('request.json').exists())
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
+
+    def test_reprojection_refuses_changed_request_response_and_missing_response(self):
+        with self.assertRaisesRegex(ValueError, 'no retained provider response'): self.offline()
+        original, _ = self.call()
+        cache = next((self.root/'independent-review-cache').glob('*/report.json')).parent
+        cache.joinpath('report.json').unlink(); request_path = cache/'request.json'
+        request_bytes = request_path.read_bytes(); request = json.loads(request_bytes)
+        request['input'] = {'other': 'evidence'}; request_path.write_text(json.dumps(request))
+        with self.assertRaisesRegex(ValueError, 'request context changed'): self.offline()
+        request_path.write_bytes(request_bytes)
+        raw = json.loads(cache.joinpath('response.json').read_text())
+        raw['candidates'][0]['content']['parts'][0]['text'] += ' '
+        cache.joinpath('response.json').write_text(json.dumps(raw))
+        with self.assertRaisesRegex(ValueError, 'response bytes changed'): self.offline()
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
+
+    def test_request_context_is_durable_before_provider_post(self):
+        def post(*args, **kwargs):
+            cache = next((self.root/'independent-review-cache').glob('*/attempt.json')).parent
+            request = json.loads(cache.joinpath('request.json').read_text())
+            attempt = json.loads(cache.joinpath('attempt.json').read_text())
+            self.assertEqual(r.fingerprint(request['context']), attempt['review_context_sha256'])
+            self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
+            return Mock(status_code=200)
+        with patch.dict(r.os.environ, {'GEMINI_API_KEY': 'test-key'}), \
+             patch.object(r, 'packet', return_value=({'current': 'evidence'}, self.bindings)), \
+             patch.object(r, 'media_part', return_value=({'test': 'media'}, None, 'film')), \
+             patch.object(r.requests, 'post', side_effect=post), \
+             patch.object(r, 'streamed_response', side_effect=lambda _: self.context_response(self.raw())):
+            r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4', 'phone',
+                  self.failure_path, self.state, self.root/'phone.json')
+
     def test_actual_capacity_error_is_distinct_from_rejection(self):
         self.assertFalse(r.failure_problems(self.failure, 'phone'))
         for change in ({'error': 'revise'}, {'verdict': 'revise'}, {'role': 'sound'}, {'actor': ''}):
@@ -230,8 +316,12 @@ class AvailabilityTest(unittest.TestCase):
                 patch.object(r, 'streamed_response', side_effect=lambda _: self.context_response(raw)):
             first = r.run(self.root/'board.json', self.root/'claims.json', None, 'phone', self.failure_path,
                           self.state, self.root/'phone.json', compare_openings=True, selection_out=selection)
+            # A local projection/output failure must resume the actual two-film verdict offline.
+            next((self.root/'independent-review-cache').glob('*/report.json')).unlink()
+            selection.unlink()
             second = r.run(self.root/'board.json', self.root/'claims.json', None, 'phone', self.failure_path,
-                           self.state, self.root/'phone.json', compare_openings=True, selection_out=selection)
+                           self.state, self.root/'phone.json', compare_openings=True, selection_out=selection,
+                           reproject_only=True)
             changed = copy.deepcopy(bindings); changed['opening_comparison_sha256'] = 'changed-labels'
             with patch.object(r, 'comparison_scope', return_value=(text, changed)):
                 with self.assertRaisesRegex(ValueError, 'cached independent evidence'):
