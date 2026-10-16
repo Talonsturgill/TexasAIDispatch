@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T15:35:38.037530+00:00",
-  "note": "fast-forwarded to PR178 merge 9c926f3, evidence intact, writer held",
+  "saved_at": "2026-10-16T15:43:32.795827+00:00",
+  "note": "phase audio-render",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "d4ee6388cb2dffbd6c7f205aaa04276e6258d2dea802ff7d80aeae0e3b3a9d1d",
-  "original_private_ledger_sha256": "077028e8837fd50b2b2f3cd1565f014ddbd19d0924a91bbe43aa2f30aafa9380",
+  "ledger_sha256": "9ce68953272e7526399104037a887ad771ce6dfaaef2a47974454330e06d2b44",
+  "original_private_ledger_sha256": "2da2e20ee8ee4dd82c2d758bcf1e7a5935b69c95608ff29c9181b9f2c5f35de5",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -922,14 +922,14 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "050779beb70e47c96cf5e75efbd0026444d39459541aea6d356e5b8bebcd05c5",
+      "sha256": "1fe98aa8bb9139fe83093cffa1ad84903e806b760dc7741a7116dae180375856",
       "size": 128
     },
     {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
-      "sha256": "769883da51855777da3eb4310e3174282e6e9af40b71b7abeaa1f8c13d664ec5",
-      "size": 440
+      "sha256": "1f9c8fcdb07339e7fa5200cff6cec3a317ec5d38a568b2f4cd397b9960b0a162",
+      "size": 508
     },
     {
       "path": "out/dispatch/code-critic-1-envelope.json",
@@ -4450,21 +4450,13 @@
   ],
   "excluded": [
     {
-      "path": "out/dispatch/evidence/phone-critic-followup-status-readback-1.md",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/phone-critic-followup-status-readback-2.md",
-      "reason": "private path component"
-    },
-    {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
     }
   ],
   "regenerable": {
-    "files": 1,
-    "bytes": 31945
+    "files": 0,
+    "bytes": 0
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
