@@ -1,0 +1,1388 @@
+{
+  "schema": "dispatch_treatment_b_delta/1",
+  "reviewed_b": {
+    "sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30"
+  },
+  "current_b": {
+    "sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b",
+    "concept_sha256": "114e5443f51b0bda6f67373c0edb30e232d215e5c96f45d8a6b98c4c9ff67a64"
+  },
+  "changed_value_count": 265,
+  "changes_by_section": {
+    "attention_beats": 1,
+    "caption_method": 1,
+    "captions": 1,
+    "creative_direction": 10,
+    "film_direction/rewards": 1,
+    "film_direction/shots": 74,
+    "narration_picture/clauses": 52,
+    "narration_picture/timing_mode": 1,
+    "narration_picture/timing_provenance": 1,
+    "quality_plan": 5,
+    "retime_evidence": 1,
+    "retimed_to": 1,
+    "runtime_s": 1,
+    "scenes/0": 11,
+    "scenes/1": 8,
+    "scenes/2": 10,
+    "scenes/3": 10,
+    "scenes/4": 10,
+    "scenes/5": 10,
+    "scenes/6": 20,
+    "scenes/7": 23,
+    "scenes/8": 8,
+    "story_contract": 5
+  },
+  "events_crossing_cuts": [],
+  "body_equal_to_A": true,
+  "opening_digests_differ": true,
+  "a_board_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+  "mechanical_current_digests": {
+    "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+    "board_sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b",
+    "concept_sha256": "114e5443f51b0bda6f67373c0edb30e232d215e5c96f45d8a6b98c4c9ff67a64",
+    "renderer_sha256": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
+    "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "story_sha256": "92983b6a52c2fe26539d40446ad6e5a351b0ab8ec2f963e648be537ecde49445",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e"
+  },
+  "changes": [
+    {
+      "path": "/attention_beats",
+      "kind": "length",
+      "before": 28,
+      "after": 29
+    },
+    {
+      "path": "/caption_method",
+      "kind": "added"
+    },
+    {
+      "path": "/captions",
+      "kind": "length",
+      "before": 15,
+      "after": 16
+    },
+    {
+      "path": "/creative_direction/edits/6/leave_on",
+      "before": "The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/creative_direction/edits/6/next_connection",
+      "before": "From the validation card with its bar and figure, then both cards side by side, the tag pinning and the blank card stamped to the empty curb after the flood and the paper map pinned to the fence with no pin.",
+      "after": "From the validation card with its bar, figure and tag to both cards side by side with the blank field result card stamped."
+    },
+    {
+      "path": "/creative_direction/edits/6/sentence_to_shot/clause",
+      "before": "The university reports early chip AI validation. Accuracy was ninety eight point eight two percent. The announcement reports no field result.",
+      "after": "The university reports early chip AI validation. Accuracy was ninety eight point eight two percent."
+    },
+    {
+      "path": "/creative_direction/edits/6/sentence_to_shot/relationship",
+      "before": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/creative_direction/edits/6/sentence_to_shot/subject",
+      "before": "The validation card with its bar and figure, then both cards side by side, the tag pinning and the blank card stamped",
+      "after": "The validation card with its bar, figure and tag, the edge of the blank field result card beside it"
+    },
+    {
+      "path": "/creative_direction/edits/7/enter_on",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it."
+    },
+    {
+      "path": "/creative_direction/edits/7/sentence_to_shot/clause",
+      "before": "It names no town with an installed station.",
+      "after": "The announcement reports no field result. It names no town with an installed station."
+    },
+    {
+      "path": "/creative_direction/edits/7/sentence_to_shot/relationship",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it. Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map."
+    },
+    {
+      "path": "/creative_direction/edits/7/sentence_to_shot/subject",
+      "before": "The empty curb after the flood and the paper map pinned to the fence with no pin",
+      "after": "The validation card beside the blank field result card, stamped, then the paper street map pinned to the chain link fence with no installed pin"
+    },
+    {
+      "path": "/creative_direction/sound/cues/5/event_id",
+      "before": "s7-event-3",
+      "after": "s8-event-0"
+    },
+    {
+      "path": "/film_direction/rewards",
+      "kind": "length",
+      "before": 28,
+      "after": 29
+    },
+    {
+      "path": "/film_direction/shots/0/duration_s",
+      "before": 1.164,
+      "after": 1.955
+    },
+    {
+      "path": "/film_direction/shots/0/scene_fraction_end",
+      "before": 0.15,
+      "after": 0.2252304147465438
+    },
+    {
+      "path": "/film_direction/shots/1/duration_s",
+      "before": 2.696,
+      "after": 1.955
+    },
+    {
+      "path": "/film_direction/shots/1/scene_fraction_end",
+      "before": 0.497423,
+      "after": 0.4504608294930876
+    },
+    {
+      "path": "/film_direction/shots/1/scene_fraction_start",
+      "before": 0.15,
+      "after": 0.2252304147465438
+    },
+    {
+      "path": "/film_direction/shots/1/start_s",
+      "before": 1.164,
+      "after": 1.955
+    },
+    {
+      "path": "/film_direction/shots/2/duration_s",
+      "before": 3.9,
+      "after": 4.77
+    },
+    {
+      "path": "/film_direction/shots/2/scene_fraction_start",
+      "before": 0.497423,
+      "after": 0.4504608294930876
+    },
+    {
+      "path": "/film_direction/shots/2/start_s",
+      "before": 3.86,
+      "after": 3.91
+    },
+    {
+      "path": "/film_direction/shots/3/duration_s",
+      "before": 3.22,
+      "after": 2.880000000000001
+    },
+    {
+      "path": "/film_direction/shots/3/scene_fraction_end",
+      "before": 0.473529,
+      "after": 0.41498559077809805
+    },
+    {
+      "path": "/film_direction/shots/3/start_s",
+      "before": 7.76,
+      "after": 8.68
+    },
+    {
+      "path": "/film_direction/shots/4/duration_s",
+      "before": 3.58,
+      "after": 4.059999999999999
+    },
+    {
+      "path": "/film_direction/shots/4/scene_fraction_end",
+      "before": 1.0,
+      "after": 1.0000000000000002
+    },
+    {
+      "path": "/film_direction/shots/4/scene_fraction_start",
+      "before": 0.473529,
+      "after": 0.41498559077809805
+    },
+    {
+      "path": "/film_direction/shots/4/start_s",
+      "before": 10.98,
+      "after": 11.56
+    },
+    {
+      "path": "/film_direction/shots/5/duration_s",
+      "before": 2.2584,
+      "after": 2.0200000000000014
+    },
+    {
+      "path": "/film_direction/shots/5/scene_fraction_end",
+      "before": 0.634382,
+      "after": 0.5000000000000003
+    },
+    {
+      "path": "/film_direction/shots/5/start_s",
+      "before": 14.56,
+      "after": 15.62
+    },
+    {
+      "path": "/film_direction/shots/6/duration_s",
+      "before": 1.3016,
+      "after": 2.0199999999999996
+    },
+    {
+      "path": "/film_direction/shots/6/scene_fraction_end",
+      "before": 1.0,
+      "after": 1.0000000000000002
+    },
+    {
+      "path": "/film_direction/shots/6/scene_fraction_start",
+      "before": 0.634382,
+      "after": 0.5000000000000003
+    },
+    {
+      "path": "/film_direction/shots/6/start_s",
+      "before": 16.8184,
+      "after": 17.64
+    },
+    {
+      "path": "/film_direction/shots/7/duration_s",
+      "before": 4.1168,
+      "after": 3.8299999999999983
+    },
+    {
+      "path": "/film_direction/shots/7/scene_fraction_end",
+      "before": 0.553333,
+      "after": 0.5161725067385448
+    },
+    {
+      "path": "/film_direction/shots/7/start_s",
+      "before": 18.12,
+      "after": 19.66
+    },
+    {
+      "path": "/film_direction/shots/8/duration_s",
+      "before": 1.9352,
+      "after": 1.7950000000000017
+    },
+    {
+      "path": "/film_direction/shots/8/scene_fraction_end",
+      "before": 0.813441,
+      "after": 0.7580862533692723
+    },
+    {
+      "path": "/film_direction/shots/8/scene_fraction_start",
+      "before": 0.553333,
+      "after": 0.5161725067385448
+    },
+    {
+      "path": "/film_direction/shots/8/start_s",
+      "before": 22.2368,
+      "after": 23.49
+    },
+    {
+      "path": "/film_direction/shots/9/duration_s",
+      "before": 1.388,
+      "after": 1.7949999999999982
+    },
+    {
+      "path": "/film_direction/shots/9/scene_fraction_end",
+      "before": 1.0,
+      "after": 0.9999999999999998
+    },
+    {
+      "path": "/film_direction/shots/9/scene_fraction_start",
+      "before": 0.813441,
+      "after": 0.7580862533692723
+    },
+    {
+      "path": "/film_direction/shots/9/start_s",
+      "before": 24.172,
+      "after": 25.285
+    },
+    {
+      "path": "/film_direction/shots/10/duration_s",
+      "before": 1.6728,
+      "after": 2.025000000000002
+    },
+    {
+      "path": "/film_direction/shots/10/scene_fraction_end",
+      "before": 0.20703,
+      "after": 0.2475550122249387
+    },
+    {
+      "path": "/film_direction/shots/10/start_s",
+      "before": 25.56,
+      "after": 27.08
+    },
+    {
+      "path": "/film_direction/shots/11/duration_s",
+      "before": 2.8272,
+      "after": 2.0249999999999986
+    },
+    {
+      "path": "/film_direction/shots/11/scene_fraction_end",
+      "before": 0.556931,
+      "after": 0.49511002444987784
+    },
+    {
+      "path": "/film_direction/shots/11/scene_fraction_start",
+      "before": 0.20703,
+      "after": 0.2475550122249387
+    },
+    {
+      "path": "/film_direction/shots/11/start_s",
+      "before": 27.2328,
+      "after": 29.105
+    },
+    {
+      "path": "/film_direction/shots/12/duration_s",
+      "before": 3.58,
+      "after": 4.129999999999999
+    },
+    {
+      "path": "/film_direction/shots/12/scene_fraction_start",
+      "before": 0.556931,
+      "after": 0.49511002444987784
+    },
+    {
+      "path": "/film_direction/shots/12/start_s",
+      "before": 30.06,
+      "after": 31.13
+    },
+    {
+      "path": "/film_direction/shots/13/duration_s",
+      "before": 2.9112,
+      "after": 2.8400000000000034
+    },
+    {
+      "path": "/film_direction/shots/13/scene_fraction_end",
+      "before": 0.644071,
+      "after": 0.4999999999999994
+    },
+    {
+      "path": "/film_direction/shots/13/start_s",
+      "before": 33.64,
+      "after": 35.26
+    },
+    {
+      "path": "/film_direction/shots/14/duration_s",
+      "before": 1.6088,
+      "after": 2.8399999999999963
+    },
+    {
+      "path": "/film_direction/shots/14/scene_fraction_start",
+      "before": 0.644071,
+      "after": 0.4999999999999994
+    },
+    {
+      "path": "/film_direction/shots/14/start_s",
+      "before": 36.5512,
+      "after": 38.1
+    },
+    {
+      "path": "/film_direction/shots/15/duration_s",
+      "before": 3.22,
+      "after": 3.940000000000005
+    },
+    {
+      "path": "/film_direction/shots/15/scene_fraction_end",
+      "before": 0.36758,
+      "after": 0.47699757869249454
+    },
+    {
+      "path": "/film_direction/shots/15/start_s",
+      "before": 38.16,
+      "after": 40.94
+    },
+    {
+      "path": "/film_direction/shots/16/duration_s",
+      "before": 3.24,
+      "after": 4.32
+    },
+    {
+      "path": "/film_direction/shots/16/scene_fraction_end",
+      "before": 0.737443,
+      "after": 0.9999999999999998
+    },
+    {
+      "path": "/film_direction/shots/16/scene_fraction_start",
+      "before": 0.36758,
+      "after": 0.47699757869249454
+    },
+    {
+      "path": "/film_direction/shots/16/start_s",
+      "before": 41.38,
+      "after": 44.88
+    },
+    {
+      "path": "/film_direction/shots/17/duration_s",
+      "before": 2.3,
+      "after": 2.9599999999999937
+    },
+    {
+      "path": "/film_direction/shots/17/event_id",
+      "before": "s7-event-3",
+      "after": "s8-event-0"
+    },
+    {
+      "path": "/film_direction/shots/17/id",
+      "before": "s7-shot-3",
+      "after": "s8-shot-1"
+    },
+    {
+      "path": "/film_direction/shots/17/narration_ids/0",
+      "before": "n7c",
+      "after": "n8a"
+    },
+    {
+      "path": "/film_direction/shots/17/scene_fraction_end",
+      "before": 1.0,
+      "after": 0.46984126984126884
+    },
+    {
+      "path": "/film_direction/shots/17/scene_fraction_start",
+      "before": 0.737443,
+      "after": 0.0
+    },
+    {
+      "path": "/film_direction/shots/17/scene_id",
+      "before": "s7",
+      "after": "s8"
+    },
+    {
+      "path": "/film_direction/shots/17/start_s",
+      "before": 44.62,
+      "after": 49.2
+    },
+    {
+      "path": "/film_direction/shots/18/duration_s",
+      "before": 3.24,
+      "after": 3.3400000000000034
+    },
+    {
+      "path": "/film_direction/shots/18/id",
+      "before": "s8-shot-1",
+      "after": "s8-shot-2"
+    },
+    {
+      "path": "/film_direction/shots/18/narration_ids/0",
+      "before": "n8a",
+      "after": "n8b"
+    },
+    {
+      "path": "/film_direction/shots/18/scene_fraction_end",
+      "before": 1.0,
+      "after": 0.9999999999999996
+    },
+    {
+      "path": "/film_direction/shots/18/scene_fraction_start",
+      "before": 0.0,
+      "after": 0.46984126984126884
+    },
+    {
+      "path": "/film_direction/shots/18/start_s",
+      "before": 46.92,
+      "after": 52.16
+    },
+    {
+      "path": "/film_direction/shots/19/duration_s",
+      "before": 3.94,
+      "after": 3.8999999999999986
+    },
+    {
+      "path": "/film_direction/shots/19/scene_fraction_end",
+      "before": 1.0,
+      "after": 0.9999999999999997
+    },
+    {
+      "path": "/film_direction/shots/19/start_s",
+      "before": 50.16,
+      "after": 55.5
+    },
+    {
+      "path": "/narration_picture/clauses/0/cue_ids/0",
+      "before": "n1a-a",
+      "after": "c1"
+    },
+    {
+      "path": "/narration_picture/clauses/0/end_s",
+      "before": 3.18,
+      "after": 3.58
+    },
+    {
+      "path": "/narration_picture/clauses/0/start_s",
+      "before": 0.3,
+      "after": 0.58
+    },
+    {
+      "path": "/narration_picture/clauses/1/cue_ids/0",
+      "before": "n1b-a",
+      "after": "c2"
+    },
+    {
+      "path": "/narration_picture/clauses/1/end_s",
+      "before": 7.38,
+      "after": 8.28
+    },
+    {
+      "path": "/narration_picture/clauses/1/start_s",
+      "before": 3.86,
+      "after": 4.24
+    },
+    {
+      "path": "/narration_picture/clauses/2/cue_ids/0",
+      "before": "n2a-a",
+      "after": "c3"
+    },
+    {
+      "path": "/narration_picture/clauses/2/end_s",
+      "before": 10.3,
+      "after": 11.22
+    },
+    {
+      "path": "/narration_picture/clauses/2/start_s",
+      "before": 8.06,
+      "after": 8.96
+    },
+    {
+      "path": "/narration_picture/clauses/3/cue_ids/0",
+      "before": "n2b-a",
+      "after": "c4"
+    },
+    {
+      "path": "/narration_picture/clauses/3/end_s",
+      "before": 14.18,
+      "after": 14.96
+    },
+    {
+      "path": "/narration_picture/clauses/3/start_s",
+      "before": 10.98,
+      "after": 11.9
+    },
+    {
+      "path": "/narration_picture/clauses/4/cue_ids/0",
+      "before": "n3a-a",
+      "after": "c5"
+    },
+    {
+      "path": "/narration_picture/clauses/4/end_s",
+      "before": 17.74,
+      "after": 19.14
+    },
+    {
+      "path": "/narration_picture/clauses/4/start_s",
+      "before": 14.86,
+      "after": 15.9
+    },
+    {
+      "path": "/narration_picture/clauses/5/cue_ids/0",
+      "before": "n4a-a",
+      "after": "c6"
+    },
+    {
+      "path": "/narration_picture/clauses/5/end_s",
+      "before": 21.62,
+      "after": 23.18
+    },
+    {
+      "path": "/narration_picture/clauses/5/start_s",
+      "before": 18.42,
+      "after": 19.94
+    },
+    {
+      "path": "/narration_picture/clauses/6/cue_ids/0",
+      "before": "n4b-a",
+      "after": "c7"
+    },
+    {
+      "path": "/narration_picture/clauses/6/end_s",
+      "before": 25.18,
+      "after": 26.52
+    },
+    {
+      "path": "/narration_picture/clauses/6/start_s",
+      "before": 22.3,
+      "after": 23.8
+    },
+    {
+      "path": "/narration_picture/clauses/7/cue_ids/0",
+      "before": "n5a-a",
+      "after": "c8"
+    },
+    {
+      "path": "/narration_picture/clauses/7/end_s",
+      "before": 29.38,
+      "after": 30.7
+    },
+    {
+      "path": "/narration_picture/clauses/7/start_s",
+      "before": 25.86,
+      "after": 27.36
+    },
+    {
+      "path": "/narration_picture/clauses/8/cue_ids/0",
+      "before": "n5b-a",
+      "after": "c9"
+    },
+    {
+      "path": "/narration_picture/clauses/8/end_s",
+      "before": 33.26,
+      "after": 34.74
+    },
+    {
+      "path": "/narration_picture/clauses/8/start_s",
+      "before": 30.06,
+      "after": 31.56
+    },
+    {
+      "path": "/narration_picture/clauses/9/cue_ids",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/narration_picture/clauses/9/end_s",
+      "before": 37.78,
+      "after": 40.24
+    },
+    {
+      "path": "/narration_picture/clauses/9/start_s",
+      "before": 33.94,
+      "after": 35.54
+    },
+    {
+      "path": "/narration_picture/clauses/10/cue_ids/0",
+      "before": "n7a-a",
+      "after": "c12"
+    },
+    {
+      "path": "/narration_picture/clauses/10/end_s",
+      "before": 40.7,
+      "after": 44.52
+    },
+    {
+      "path": "/narration_picture/clauses/10/start_s",
+      "before": 38.46,
+      "after": 41.22
+    },
+    {
+      "path": "/narration_picture/clauses/11/cue_ids/0",
+      "before": "n7b-a",
+      "after": "c13"
+    },
+    {
+      "path": "/narration_picture/clauses/11/end_s",
+      "before": 43.94,
+      "after": 48.48
+    },
+    {
+      "path": "/narration_picture/clauses/11/event_ids",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/narration_picture/clauses/11/start_s",
+      "before": 41.38,
+      "after": 45.24
+    },
+    {
+      "path": "/narration_picture/clauses/12/cue_ids/0",
+      "before": "n7c-a",
+      "after": "c14"
+    },
+    {
+      "path": "/narration_picture/clauses/12/end_s",
+      "before": 46.54,
+      "after": 51.82
+    },
+    {
+      "path": "/narration_picture/clauses/12/event_ids/0",
+      "before": "s7-event-3",
+      "after": "s8-event-0"
+    },
+    {
+      "path": "/narration_picture/clauses/12/id",
+      "before": "n7c",
+      "after": "n8a"
+    },
+    {
+      "path": "/narration_picture/clauses/12/scene_id",
+      "before": "s7",
+      "after": "s8"
+    },
+    {
+      "path": "/narration_picture/clauses/12/start_s",
+      "before": 44.62,
+      "after": 49.48
+    },
+    {
+      "path": "/narration_picture/clauses/12/subject_ids/0",
+      "before": "s7-card",
+      "after": "s8-valcard"
+    },
+    {
+      "path": "/narration_picture/clauses/12/subject_ids/1",
+      "before": "s7-blank",
+      "after": "s8-blank"
+    },
+    {
+      "path": "/narration_picture/clauses/13/cue_ids/0",
+      "before": "n8a-a",
+      "after": "c15"
+    },
+    {
+      "path": "/narration_picture/clauses/13/end_s",
+      "before": 49.78,
+      "after": 54.8
+    },
+    {
+      "path": "/narration_picture/clauses/13/id",
+      "before": "n8a",
+      "after": "n8b"
+    },
+    {
+      "path": "/narration_picture/clauses/13/start_s",
+      "before": 47.22,
+      "after": 52.5
+    },
+    {
+      "path": "/narration_picture/clauses/14/cue_ids/0",
+      "before": "n9a-a",
+      "after": "c16"
+    },
+    {
+      "path": "/narration_picture/clauses/14/end_s",
+      "before": 52.06,
+      "after": 57.36
+    },
+    {
+      "path": "/narration_picture/clauses/14/start_s",
+      "before": 50.46,
+      "after": 55.78
+    },
+    {
+      "path": "/narration_picture/timing_mode",
+      "before": "authored",
+      "after": "measured_caption_boundaries"
+    },
+    {
+      "path": "/narration_picture/timing_provenance",
+      "kind": "added"
+    },
+    {
+      "path": "/quality_plan/scenes/6/consequence",
+      "before": "The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/quality_plan/scenes/6/subject",
+      "before": "The validation card with its bar and figure, then both cards side by side, the tag pinning and the blank card stamped",
+      "after": "The validation card with its bar, figure and tag, the edge of the blank field result card beside it"
+    },
+    {
+      "path": "/quality_plan/scenes/7/action",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it."
+    },
+    {
+      "path": "/quality_plan/scenes/7/source_basis",
+      "before": "Claims c1, c10. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, the announcement reports no field result and names no installation.",
+      "after": "Claims c1, c4, c10. Disclosed illustration of the design the university describes. The accuracy is validation accuracy from initial assessments after training, the announcement reports no field result and names no installation."
+    },
+    {
+      "path": "/quality_plan/scenes/7/subject",
+      "before": "The empty curb after the flood and the paper map pinned to the fence with no pin",
+      "after": "The validation card beside the blank field result card, stamped, then the paper street map pinned to the chain link fence with no installed pin"
+    },
+    {
+      "path": "/retime_evidence",
+      "kind": "added"
+    },
+    {
+      "path": "/retimed_to",
+      "kind": "added"
+    },
+    {
+      "path": "/runtime_s",
+      "before": 54.1,
+      "after": 59.4
+    },
+    {
+      "path": "/scenes/0/duration_s",
+      "before": 7.76,
+      "after": 8.68
+    },
+    {
+      "path": "/scenes/0/visual_events/0/at_s",
+      "before": 0.3576,
+      "after": 0.64
+    },
+    {
+      "path": "/scenes/0/visual_events/0/duration_s",
+      "before": 0.576,
+      "after": 0.6
+    },
+    {
+      "path": "/scenes/0/visual_events/1/at_s",
+      "before": 1.3944,
+      "after": 2.08
+    },
+    {
+      "path": "/scenes/0/visual_events/1/clause_fraction_end",
+      "before": 0.62,
+      "after": 0.72
+    },
+    {
+      "path": "/scenes/0/visual_events/1/clause_fraction_start",
+      "before": 0.38,
+      "after": 0.5
+    },
+    {
+      "path": "/scenes/0/visual_events/1/duration_s",
+      "before": 0.6912,
+      "after": 0.66
+    },
+    {
+      "path": "/scenes/0/visual_events/2/at_s",
+      "before": 2.4312,
+      "after": 2.8
+    },
+    {
+      "path": "/scenes/0/visual_events/2/duration_s",
+      "before": 0.6336,
+      "after": 0.66
+    },
+    {
+      "path": "/scenes/0/visual_events/3/at_s",
+      "before": 4.916,
+      "after": 5.452
+    },
+    {
+      "path": "/scenes/0/visual_events/3/duration_s",
+      "before": 0.9152,
+      "after": 1.0504
+    },
+    {
+      "path": "/scenes/1/duration_s",
+      "before": 6.8,
+      "after": 6.94
+    },
+    {
+      "path": "/scenes/1/start_s",
+      "before": 7.76,
+      "after": 8.68
+    },
+    {
+      "path": "/scenes/1/visual_events/0/at_s",
+      "before": 0.5688,
+      "after": 0.5512
+    },
+    {
+      "path": "/scenes/1/visual_events/0/duration_s",
+      "before": 0.5824,
+      "after": 0.5876
+    },
+    {
+      "path": "/scenes/1/visual_events/1/at_s",
+      "before": 3.476,
+      "after": 3.4648
+    },
+    {
+      "path": "/scenes/1/visual_events/1/duration_s",
+      "before": 0.768,
+      "after": 0.7344
+    },
+    {
+      "path": "/scenes/1/visual_events/2/at_s",
+      "before": 4.884,
+      "after": 4.8112
+    },
+    {
+      "path": "/scenes/1/visual_events/2/duration_s",
+      "before": 0.768,
+      "after": 0.7344
+    },
+    {
+      "path": "/scenes/2/duration_s",
+      "before": 3.56,
+      "after": 4.04
+    },
+    {
+      "path": "/scenes/2/start_s",
+      "before": 14.56,
+      "after": 15.62
+    },
+    {
+      "path": "/scenes/2/visual_events/0/at_s",
+      "before": 0.4152,
+      "after": 0.4096
+    },
+    {
+      "path": "/scenes/2/visual_events/0/duration_s",
+      "before": 0.6336,
+      "after": 0.7128
+    },
+    {
+      "path": "/scenes/2/visual_events/1/at_s",
+      "before": 1.3944,
+      "after": 1.252
+    },
+    {
+      "path": "/scenes/2/visual_events/1/clause_fraction_end",
+      "before": 0.62,
+      "after": 0.5
+    },
+    {
+      "path": "/scenes/2/visual_events/1/clause_fraction_start",
+      "before": 0.38,
+      "after": 0.3
+    },
+    {
+      "path": "/scenes/2/visual_events/1/duration_s",
+      "before": 0.6912,
+      "after": 0.648
+    },
+    {
+      "path": "/scenes/2/visual_events/2/at_s",
+      "before": 2.4312,
+      "after": 2.6776
+    },
+    {
+      "path": "/scenes/2/visual_events/2/duration_s",
+      "before": 0.6336,
+      "after": 0.7128
+    },
+    {
+      "path": "/scenes/3/duration_s",
+      "before": 7.44,
+      "after": 7.42
+    },
+    {
+      "path": "/scenes/3/start_s",
+      "before": 18.12,
+      "after": 19.66
+    },
+    {
+      "path": "/scenes/3/visual_events/0/at_s",
+      "before": 2.06,
+      "after": 2.062
+    },
+    {
+      "path": "/scenes/3/visual_events/0/duration_s",
+      "before": 0.8,
+      "after": 0.81
+    },
+    {
+      "path": "/scenes/3/visual_events/1/at_s",
+      "before": 5.2168,
+      "after": 4.9016
+    },
+    {
+      "path": "/scenes/3/visual_events/1/clause_fraction_end",
+      "before": 0.6,
+      "after": 0.5
+    },
+    {
+      "path": "/scenes/3/visual_events/1/clause_fraction_start",
+      "before": 0.36,
+      "after": 0.28
+    },
+    {
+      "path": "/scenes/3/visual_events/1/duration_s",
+      "before": 0.6912,
+      "after": 0.5984
+    },
+    {
+      "path": "/scenes/3/visual_events/2/at_s",
+      "before": 6.196,
+      "after": 6.044
+    },
+    {
+      "path": "/scenes/3/visual_events/2/duration_s",
+      "before": 0.6912,
+      "after": 0.6528
+    },
+    {
+      "path": "/scenes/4/duration_s",
+      "before": 8.08,
+      "after": 8.18
+    },
+    {
+      "path": "/scenes/4/start_s",
+      "before": 25.56,
+      "after": 27.08
+    },
+    {
+      "path": "/scenes/4/visual_events/0/at_s",
+      "before": 0.4408,
+      "after": 0.4136
+    },
+    {
+      "path": "/scenes/4/visual_events/0/duration_s",
+      "before": 0.7744,
+      "after": 0.7348
+    },
+    {
+      "path": "/scenes/4/visual_events/1/at_s",
+      "before": 2.1304,
+      "after": 2.0836
+    },
+    {
+      "path": "/scenes/4/visual_events/1/clause_fraction_end",
+      "before": 0.78,
+      "after": 0.8
+    },
+    {
+      "path": "/scenes/4/visual_events/1/clause_fraction_start",
+      "before": 0.52,
+      "after": 0.54
+    },
+    {
+      "path": "/scenes/4/visual_events/1/duration_s",
+      "before": 0.9152,
+      "after": 0.8684
+    },
+    {
+      "path": "/scenes/4/visual_events/2/at_s",
+      "before": 5.46,
+      "after": 5.434
+    },
+    {
+      "path": "/scenes/4/visual_events/2/duration_s",
+      "before": 1.024,
+      "after": 1.0176
+    },
+    {
+      "path": "/scenes/5/duration_s",
+      "before": 4.52,
+      "after": 5.68
+    },
+    {
+      "path": "/scenes/5/start_s",
+      "before": 33.64,
+      "after": 35.26
+    },
+    {
+      "path": "/scenes/5/visual_events/0/at_s",
+      "before": 0.4536,
+      "after": 0.468
+    },
+    {
+      "path": "/scenes/5/visual_events/0/duration_s",
+      "before": 0.8448,
+      "after": 1.034
+    },
+    {
+      "path": "/scenes/5/visual_events/1/at_s",
+      "before": 1.7592,
+      "after": 1.69
+    },
+    {
+      "path": "/scenes/5/visual_events/1/clause_fraction_end",
+      "before": 0.62,
+      "after": 0.5
+    },
+    {
+      "path": "/scenes/5/visual_events/1/clause_fraction_start",
+      "before": 0.38,
+      "after": 0.3
+    },
+    {
+      "path": "/scenes/5/visual_events/1/duration_s",
+      "before": 0.9216,
+      "after": 0.94
+    },
+    {
+      "path": "/scenes/5/visual_events/2/at_s",
+      "before": 3.1416,
+      "after": 3.758
+    },
+    {
+      "path": "/scenes/5/visual_events/2/duration_s",
+      "before": 0.8448,
+      "after": 1.034
+    },
+    {
+      "path": "/scenes/6/duration_s",
+      "before": 8.76,
+      "after": 8.26
+    },
+    {
+      "path": "/scenes/6/on_screen",
+      "before": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/scenes/6/start_s",
+      "before": 38.16,
+      "after": 40.94
+    },
+    {
+      "path": "/scenes/6/visual_events/0/at_s",
+      "before": 1.196,
+      "after": 1.6
+    },
+    {
+      "path": "/scenes/6/visual_events/0/duration_s",
+      "before": 0.672,
+      "after": 0.99
+    },
+    {
+      "path": "/scenes/6/visual_events/1/at_s",
+      "before": 3.988,
+      "after": 5.272
+    },
+    {
+      "path": "/scenes/6/visual_events/1/duration_s",
+      "before": 0.6656,
+      "after": 0.8424
+    },
+    {
+      "path": "/scenes/6/visual_events/2/at_s",
+      "before": 7.036,
+      "after": 6.6328
+    },
+    {
+      "path": "/scenes/6/visual_events/2/clause_fraction_end",
+      "before": 0.62,
+      "after": 0.95
+    },
+    {
+      "path": "/scenes/6/visual_events/2/clause_fraction_start",
+      "before": 0.3,
+      "after": 0.72
+    },
+    {
+      "path": "/scenes/6/visual_events/2/duration_s",
+      "before": 0.6144,
+      "after": 0.7452
+    },
+    {
+      "path": "/scenes/6/visual_events/2/motion/curve",
+      "before": "contact",
+      "after": "travel"
+    },
+    {
+      "path": "/scenes/6/visual_events/2/narration_id",
+      "before": "n7c",
+      "after": "n7b"
+    },
+    {
+      "path": "/scenes/6/visual_events/2/what",
+      "before": "The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/scenes/6/visual_proof/must_show",
+      "kind": "length",
+      "before": 3,
+      "after": 2
+    },
+    {
+      "path": "/scenes/6/visual_sentence/action",
+      "before": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/scenes/6/visual_sentence/emotion",
+      "before": "Restraint, a lab figure and no field result.",
+      "after": "Restraint, a lab figure."
+    },
+    {
+      "path": "/scenes/6/visual_sentence/subject",
+      "before": "The validation card with its bar and figure, then both cards side by side, the tag pinning and the blank card stamped",
+      "after": "The validation card with its bar, figure and tag, the edge of the blank field result card beside it"
+    },
+    {
+      "path": "/scenes/6/vo",
+      "before": "The university reports early chip AI validation. Accuracy was ninety eight point eight two percent. The announcement reports no field result.",
+      "after": "The university reports early chip AI validation. Accuracy was ninety eight point eight two percent."
+    },
+    {
+      "path": "/scenes/6/what_moves",
+      "before": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/scenes/7/duration_s",
+      "before": 3.24,
+      "after": 6.3
+    },
+    {
+      "path": "/scenes/7/on_screen",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it. Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map."
+    },
+    {
+      "path": "/scenes/7/planes/0/items",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/scenes/7/planes/0/label",
+      "before": "chain link fence at the curb",
+      "after": "chain link fence at the curb and a second card for a field result"
+    },
+    {
+      "path": "/scenes/7/planes/1/items",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/scenes/7/planes/1/label",
+      "before": "paper map pinned to the fence",
+      "after": "paper map pinned to the fence and the validation card"
+    },
+    {
+      "path": "/scenes/7/planes/2/items",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/scenes/7/planes/2/label",
+      "before": "street grid and creek with no pin",
+      "after": "street grid and creek with no pin and the validation bar"
+    },
+    {
+      "path": "/scenes/7/planes/3/items",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/scenes/7/planes/3/label",
+      "before": "search ring sweeping the map",
+      "after": "search ring sweeping the map and the assessment tag"
+    },
+    {
+      "path": "/scenes/7/planes/4/items",
+      "kind": "length",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/scenes/7/planes/4/label",
+      "before": "tag pinned to the map",
+      "after": "tag pinned to the map and the blank field result card"
+    },
+    {
+      "path": "/scenes/7/production_disclosure",
+      "before": "Illustration. Not a real town map",
+      "after": "Illustration. Not a real report or map"
+    },
+    {
+      "path": "/scenes/7/start_s",
+      "before": 46.92,
+      "after": 49.2
+    },
+    {
+      "path": "/scenes/7/visual_events",
+      "kind": "length",
+      "before": 3,
+      "after": 4
+    },
+    {
+      "path": "/scenes/7/visual_proof/must_show",
+      "kind": "length",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/scenes/7/visual_sentence/action",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it. Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map."
+    },
+    {
+      "path": "/scenes/7/visual_sentence/annotation",
+      "before": "Illustration. Not a real town map",
+      "after": "Illustration. Not a real report or map"
+    },
+    {
+      "path": "/scenes/7/visual_sentence/emotion",
+      "before": "Plainness, no town named.",
+      "after": "Plainness, no field result and no town named."
+    },
+    {
+      "path": "/scenes/7/visual_sentence/subject",
+      "before": "The empty curb after the flood and the paper map pinned to the fence with no pin",
+      "after": "The validation card beside the blank field result card, stamped, then the paper street map pinned to the chain link fence with no installed pin"
+    },
+    {
+      "path": "/scenes/7/vo",
+      "before": "It names no town with an installed station.",
+      "after": "The announcement reports no field result. It names no town with an installed station."
+    },
+    {
+      "path": "/scenes/7/vo_claims",
+      "kind": "length",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/scenes/7/what_moves",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it. Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map."
+    },
+    {
+      "path": "/scenes/8/duration_s",
+      "before": 3.94,
+      "after": 3.9
+    },
+    {
+      "path": "/scenes/8/start_s",
+      "before": 50.16,
+      "after": 55.5
+    },
+    {
+      "path": "/scenes/8/visual_events/0/at_s",
+      "before": 0.364,
+      "after": 0.3432
+    },
+    {
+      "path": "/scenes/8/visual_events/0/duration_s",
+      "before": 0.352,
+      "after": 0.3476
+    },
+    {
+      "path": "/scenes/8/visual_events/1/at_s",
+      "before": 0.908,
+      "after": 0.8804
+    },
+    {
+      "path": "/scenes/8/visual_events/1/duration_s",
+      "before": 0.384,
+      "after": 0.3792
+    },
+    {
+      "path": "/scenes/8/visual_events/2/at_s",
+      "before": 1.484,
+      "after": 1.4492
+    },
+    {
+      "path": "/scenes/8/visual_events/2/duration_s",
+      "before": 0.352,
+      "after": 0.3476
+    },
+    {
+      "path": "/story_contract/scenes/6/advances",
+      "before": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The field result card stays blank and a none reported stamp presses onto it.",
+      "after": "The validation bar fills across its card and the university's reported figure appears and holds. An initial assessments after training tag pins under the validation card. The blank field result card slides in at the edge, beside the validation card."
+    },
+    {
+      "path": "/story_contract/scenes/7/advances",
+      "before": "Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map.",
+      "after": "The field result card stays blank and a none reported stamp presses onto it. Wide on the empty curb after the flood, the paper street map pinned to the chain link fence settles, with no pin on it. A dashed search ring sweeps the map and finds no installed station. A no installation named tag pins to the map."
+    },
+    {
+      "path": "/story_contract/scenes/7/claim_ids",
+      "kind": "length",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/story_contract/transitions/6/because",
+      "before": "After the figure, the map shows where the station is installed, which is nowhere named.",
+      "after": "After the figure, the same card sits beside a field result card the announcement leaves blank."
+    },
+    {
+      "path": "/story_contract/transitions/6/visible_bridge",
+      "before": "The blank field card gives way to a map with nothing pinned.",
+      "after": "The validation card stays in frame as the blank field result card takes its none reported stamp."
+    }
+  ]
+}
