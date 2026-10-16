@@ -1,4 +1,4 @@
-# Take 3 outcome (2026-10-16)
+# Take 3 outcome (final: spread vs spray it is the only remaining lexical difference after the percent repair) (2026-10-16)
 Producer exit statuses (captured, not piped): vo_synth 0, vo_soundcheck 0 (chose take1, accuracy 0.986, 54.5 s, -19.0 LUFS), mix 0 (63.70 s, -16.25 LUFS), vo_align 1. The earlier chained run masked vo_align's status behind a pipe to tail, so its "EXIT=0" was wrong. Full logs retained here.
 vo_align verdict: "ASR does not reconcile with the locked script: - spread + spray + it - percent".
 Two separate causes: (1) tooling: vo_align.canonical("The University reports 98.82% validation") drops the word percent, because the percent sign is not expanded, while canonical("98.82 percent") and the spoken "ninety eight point eight two percent" keep it. Whisper writes 98.82%. No override was typed. Take 2 showed the same missing percent. (2) take: whisper heard "how flooding could spray it for emergency responders" while the Gemini transcript heard "spread". The words at different heights and still were heard correctly this time, so the repair 2 mechanism worked for those spans.
