@@ -418,9 +418,9 @@ def pending(repo):
 def allowance_problems(state):
     """Reconstruct allowances from recorded actions; a hand-raised cap fails."""
     from run_controller import ceilings,resource_keys
-    from repair_guard import owner_grant_problems
+    from repair_guard import owner_grant_problems, validator_grant_problems
     from autonomous_completion import replay
-    errors = owner_grant_problems(state) + replay(state)[1]
+    errors = owner_grant_problems(state) + validator_grant_problems(state) + replay(state)[1]
     if errors:
         return errors
     events = state.get("events", [])
@@ -486,7 +486,7 @@ def allowance_problems(state):
             if e.get("previous_ceiling") != caps:
                 return ["mandatory completion grant lacks a matching allowance chain"]
             caps = dict(e["new_ceiling"])
-        elif e.get("kind") == "owner_review_grant":
+        elif e.get("kind") in {"owner_review_grant", "owner_validator_grant"}:
             name = e["resource"]
             if e["previous_ceiling"] != caps[name]:
                 return ["owner review grant lacks a matching allowance chain"]

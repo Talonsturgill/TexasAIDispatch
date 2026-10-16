@@ -1185,6 +1185,53 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
     return True, f"run controller: explicit owner grant adds exactly {additional_calls} storyboard critic calls; original envelope, usage and quality gates remain intact"
 
 
+def grant_validator_review(path: Path, authorization_path: Path | None,
+                           failure_evidence: Path, confirmation: str) -> tuple[bool, str]:
+    """Explicit operator attestation of one extra validator pass. Production never invokes this itself."""
+    from repair_guard import (enabled, envelope_problems, validator_authorization_problems,
+                              VALIDATOR_CONFIRMATION, VALIDATOR_RESOURCE, validator_grant_problems)
+    from production_lifecycle import allowance_problems
+    state = read_state(path)
+    if confirmation != VALIDATOR_CONFIRMATION or authorization_path is None:
+        return False, "run controller: explicit owner confirmation and retained authorization are required"
+    if not enabled(state) or state.get("mode") != "production" or state.get("terminal_state") is not None:
+        return False, "run controller: validator grant requires active frozen-envelope production"
+    if any(e.get("kind") == "owner_validator_grant" for e in state["events"]):
+        return False, "run controller: this run already used its one explicit validator grant"
+    errors = envelope_problems(state, {}) + allowance_problems(state)
+    if errors:
+        return False, "; ".join(errors)
+    try:
+        artifact_bytes = authorization_path.read_bytes()
+        authorization = json.loads(artifact_bytes)
+        artifact_text = artifact_bytes.decode("utf-8")
+        failure_text = failure_evidence.read_bytes().decode("utf-8")
+        errors = validator_authorization_problems(state, authorization, failure_text)
+        if errors:
+            return False, "; ".join(errors)
+        if Path(authorization.get("failure_evidence", "")).resolve() != failure_evidence.resolve():
+            return False, "run controller: failure file differs from the explicit owner authorization"
+    except (OSError, ValueError, TypeError):
+        return False, "run controller: retained owner authorization is missing or unreadable"
+    old = state["resource_envelope"][VALIDATOR_RESOURCE]
+    if state["escalation_ceiling"][VALIDATOR_RESOURCE] != old:
+        return False, "run controller: current validator ceiling differs from the original envelope"
+    state["escalation_ceiling"][VALIDATOR_RESOURCE] = old + 1
+    event(state, "owner_validator_grant", run_id=state["run_id"], resource=VALIDATOR_RESOURCE,
+          approval_id=authorization["approval_id"], additional_calls=1,
+          previous_ceiling=old, new_ceiling=old + 1,
+          usage_unchanged=state["usage"][VALIDATOR_RESOURCE],
+          authorization_json=artifact_text, authorization_sha256=hashlib.sha256(artifact_bytes).hexdigest(),
+          failure_evidence_json=failure_text,
+          failure_evidence_sha256=authorization["failure_evidence_sha256"],
+          attestation="Operator retained explicit owner instruction; no automatic renewal")
+    errors = validator_grant_problems(state)
+    if errors:
+        return False, "; ".join(errors)
+    save(path, state)
+    return True, "run controller: explicit owner grant adds exactly 1 validator call; original envelope, usage and quality gates remain intact"
+
+
 def owner_override(path: Path, report: Path, reason: str, confirmation: str
                    ) -> tuple[bool, str]:
     state = read_state(path)
@@ -1284,7 +1331,7 @@ def self_test() -> int:
     # notice.
     expected_limits = {
         "research_agents": 3,
-        "validator_agents": 1,
+        "validator_agents": 2,
         "storyboard_critics": 3,
         "preflight_renders": 3,
         "reboards": 4,
@@ -2049,6 +2096,11 @@ def main() -> int:
     p.add_argument("--additional-calls", type=int, required=True)
     p.add_argument("--confirm", required=True)
 
+    p = sub.add_parser("grant-validator-review")
+    p.add_argument("--authorization", type=Path, required=True)
+    p.add_argument("--failure-evidence", type=Path, required=True)
+    p.add_argument("--confirm", required=True)
+
     p = sub.add_parser("checkpoint")
     p.add_argument("--reason", required=True)
     p.add_argument("--review-package", type=Path, required=True)
@@ -2222,6 +2274,9 @@ def main() -> int:
         elif a.command == "grant-owner-review":
             accepted, message = grant_owner_review(
                 state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)
+        elif a.command == "grant-validator-review":
+            accepted, message = grant_validator_review(
+                state_path, a.authorization, a.failure_evidence, a.confirm)
         else:
             print(json.dumps(read_state(state_path), indent=2, sort_keys=True))
             return 0

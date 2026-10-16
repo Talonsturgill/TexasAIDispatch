@@ -453,7 +453,11 @@ def replay(state):
                         or row.get('grants_no_review_approval') is not True):
                     return effective, ['pivot recovery amendment is invalid or duplicated']
                 pivot_adopted = True
-            elif kind == "owner_review_grant":
+            elif kind in ("owner_review_grant", "owner_validator_grant"):
+                if kind == 'owner_validator_grant':
+                    from repair_guard import validator_grant_problems
+                    if validator_grant_problems(state):
+                        return effective, ['validator capacity grant is invalid']
                 effective[row["resource"]] += row["additional_calls"]
             elif kind == EVENT:
                 if not adopted or row.get("run_id") != state.get("run_id"):
