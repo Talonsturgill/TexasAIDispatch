@@ -1,0 +1,49 @@
+after packet() 740412
+after comparison_scope 1028521
+after bounded_packet again 740908
+package root /home/user/restore/2026-10-15/out/dispatch
+packet_compaction {"version": "independent-packet-compaction-v1", "policy_sha256": "f1075f4baaa564d627c6b8718844149b9851ab1de91d99c65ed8724611315a69", "active_episodes": ["flood-station-v1"]}
+active_episodes ["flood-station-v1"]
+inactive_renderer_source_inventory paths [
+"video-engine/src/modern/CoolingAssets.tsx",
+"video-engine/src/modern/CoolingFilm.tsx",
+"video-engine/src/modern/FlyGeneFilm.tsx",
+"video-engine/src/modern/FreightFilm.tsx",
+"video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+"video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+"video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+"video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+"video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
+"video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx"
+]
+top-level parts {'board': 144613, 'claims': 20053, 'files': 572432, 'provider_packet_policy': 251, 'media': 298, 'inactive_renderer_source_inventory': 2456, 'packet_compaction': 173, 'independent_opening_comparison': 460}
+20 largest files after final compaction:
+     72586 out/dispatch/openings/b.json
+     46184 video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx
+     41171 prompts/claude_routine.md
+     39913 video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx
+     36781 config/modern_episode_registry.json
+     36356 video-engine/src/Dispatch.tsx
+     32961 video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx
+     20466 video-engine/src/modern/PlaceStage.tsx
+     18638 .claude/agents/storyboard-critic.md
+     15617 out/dispatch/sources/utsa.txt
+     14868 knowledge/craft/MODERN_FILM.md
+     13692 knowledge/craft/CREATIVE_DIRECTION.md
+     13250 knowledge/craft/AUTONOMOUS_COMPLETION.md
+     11047 runs/2026-10-11/storyboard.json
+      9292 out/dispatch/story_selection.json
+      8675 knowledge/craft/visual-storytelling/README.md
+      8313 knowledge/craft/visual-storytelling/news-reporting.md
+      8157 video-engine/src/lib/type.ts
+      8084 knowledge/craft/ART_DIRECTION.md
+      7144 prompts/roles/scene-builder.md
+file count 62
+renderer_seed_paths flood-station-v1 ["video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx", "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx", "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx", "video-engine/src/lib/direction.ts", "video-engine/src/modern/DirectedFilm.tsx", "video-engine/src/modern/registry.tsx", "video-engine/src/modern/types.ts", "video-engine/src/modern/StoryArt.tsx", "video-engine/src/modern/PlaceStage.tsx", "video-engine/src/modern/CountyLocator.tsx", "video-engine/src/modern/placePlates.json", "video-engine/src/modern/texasCounties.json", "config/modern_episode_registry.json", "config/modern_film.json", "video-engine/src/index.ts", "video-engine/src/Root.tsx", "video-engine/src/Dispatch.tsx"]
+active? video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx False
+active? video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx False
+active closure size 147
+registered episodes ['clinic-answer-v1', 'cooling-check-v2', 'flood-station-v1', 'fly-gene-test-v2', 'freight-customer-v2', 'tower-alert-v1']
+inactive closure size 23 inactive minus active in files: []
+
+# Note: measured by an in-memory wrapper (scratchpad diag.py, cap lifted only inside the wrapper), repository and the 500000 cap unchanged. No receipt, no charge, no provider call.
