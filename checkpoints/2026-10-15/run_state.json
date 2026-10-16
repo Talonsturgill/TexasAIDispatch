@@ -273,6 +273,14 @@
       "note": "precharged independent diagnosis and source-pivot review of the script correction proposals r7 (same Opus High reviewer, SendMessage)",
       "resource": "storyboard_critics",
       "to": 14
+    },
+    {
+      "at": "2026-10-16T18:53:39.946905Z",
+      "ceiling": 18,
+      "from": 14,
+      "note": "precharged consolidated recurrence and code approval of the R8 proposals (new Opus High critic, mandatory-source-pivot route)",
+      "resource": "storyboard_critics",
+      "to": 15
     }
   ],
   "events": [
@@ -2832,6 +2840,24 @@
         "validator_agents": 3,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-16T18:53:39.946939Z",
+      "ceiling": 18,
+      "kind": "budget_escalated",
+      "note": "precharged consolidated recurrence and code approval of the R8 proposals (new Opus High critic, mandatory-source-pivot route)",
+      "now": 15,
+      "resource": "storyboard_critics",
+      "was": 14
+    },
+    {
+      "at": "2026-10-16T18:53:39.946948Z",
+      "kind": "reserved",
+      "note": "precharged consolidated recurrence and code approval of the R8 proposals (new Opus High critic, mandatory-source-pivot route)",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -2846,7 +2872,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 14,
+    "storyboard_critics": 15,
     "tts_calls": 12,
     "validator_agents": 3,
     "voice_directors": 1
@@ -2855,7 +2881,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e4b3e6801207a5411a73bd1099e06e4487a57e75f2cc088d79d6c78bf59bea68",
+    "original_private_state_sha256": "36d71e3140f40322abffa9370b9d5d7c23dc9ac3fcd9786dcaacc398979792e5",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -2891,7 +2917,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T18:40:02.559673Z",
+  "updated_at": "2026-10-16T18:53:39.946950Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -2904,7 +2930,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 14,
+    "storyboard_critics": 15,
     "tts_calls": 12,
     "validator_agents": 3,
     "voice_directors": 1
