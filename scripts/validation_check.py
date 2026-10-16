@@ -86,6 +86,10 @@ def check(validation_path: Path, claims_path: Path, board_path: Path | None = No
         if not isinstance(value, list) or not value or not all(
                 isinstance(item, str) and item.strip() for item in value):
             problems.append(f"validation {field} must be a non-empty list of findings")
+    state_path = validation_path.parent / 'run_state.json'
+    if state_path.is_file():
+        from validation_completion import source_validation_problems
+        problems += source_validation_problems(load(state_path), validation_path.parent)
     return problems
 
 

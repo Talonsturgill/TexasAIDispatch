@@ -130,6 +130,7 @@ run_gate super_evidence   python3 scripts/super_evidence_check.py --board "$OUT/
     --claims "$OUT/claims.json"
 run_gate validation_match python3 scripts/validation_check.py --validation "$OUT/validation.json" \
     --claims "$OUT/claims.json" --board "$OUT/storyboard.json"
+run_gate source_validation_proof python3 scripts/validation_completion.py --state "$STATE" --verify-validation
 run_gate board_scale      python3 scripts/board_scale_check.py --board "$OUT/storyboard.json"
 run_gate floor_check      python3 scripts/floor_check.py --board "$OUT/storyboard.json"
 run_gate safe_area_check  python3 scripts/safe_area_check.py
@@ -173,7 +174,7 @@ cp "$OUT/poster.png"      "$DEST/poster.png"
 for f in storyboard.json story_selection.json claims.json captions.json words.json mix.json sfx_events.json \
          vo_direction.json vo_script.txt story.md research_notes.md scale_notes.md credits.txt \
          acoustic-asr.json acoustic-asr-meta.json alignment_aliases.json alignment_reconciliation.json \
-         script_audit.json validation.json \
+         script_audit.json validation.json source-validation-certificate.json \
          render-manifest.json feed-composite.json feed-composite.png; do
   [ -f "$OUT/$f" ] && cp "$OUT/$f" "$DEST/$f"
 done

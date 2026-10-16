@@ -11,6 +11,7 @@ from review_coverage import REASON as COVERAGE_REASON, ADOPTION as COVERAGE_ADOP
 from modern_code_recovery import REASON as MODERN_CODE_REASON, ADOPTION as MODERN_CODE_ADOPTION
 from pivot_recovery import REASON as PIVOT_REASON, ADOPTION as PIVOT_ADOPTION
 from narration_recovery import REASON as NARRATION_REASON, ADOPTION as NARRATION_ADOPTION, READY as NARRATION_READY
+from validation_completion import FIELD as VALIDATION_FIELD, ADOPTION as VALIDATION_ADOPTION, READY as VALIDATION_READY
 
 POLICY = Path(__file__).resolve().parents[1] / "config/autonomous_completion.json"
 POLICY_SHA256 = "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
@@ -27,10 +28,12 @@ MAX_REQUIRED = {"reboards": 1, "storyboard_critics": 3, "preflight_renders": 3,
                 "scorer_calls": 3, "tts_calls": 2, "voice_directors": 1}
 
 
-def resource_requirements(state):
+def resource_requirements(state, plan=None):
     result = dict(MAX_REQUIRED)
     if str(state.get('run_id', ''))[:10] >= '2026-10-08':
         result['image_generations'] = 2
+    if plan and VALIDATION_FIELD in plan:
+        result['validator_agents'] = 1
     return result
 
 
@@ -312,6 +315,12 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if VALIDATION_FIELD in plan:
+            from validation_completion import eligible, REASON as SOURCE_REASON
+            if not eligible(state, plan, report):
+                return None
+            if plan.get('repair_scope') == 'standard' and sha(evidence_text) == plan.get('failure_evidence_sha256'):
+                return SOURCE_REASON
         if plan.get('completion_reason') == NARRATION_REASON:
             from narration_recovery import eligible
             return NARRATION_REASON if (sha(evidence_text) == plan.get('failure_evidence_sha256')
@@ -348,7 +357,7 @@ def mandatory_reason(state, plan, evidence_text):
             return None
         if sha(evidence_text) != plan["failure_evidence_sha256"]:
             return None
-        if set(plan.get("resources", {})) - set(resource_requirements(state)):
+        if set(plan.get("resources", {})) - set(resource_requirements(state, plan)):
             return None
         if plan.get("completion_reason") == HANDBACK_REASON:
             from review_handback import eligible
@@ -400,6 +409,9 @@ def mandatory_reason(state, plan, evidence_text):
 
 
 def grant_identity(plan, evidence_sha256):
+    if VALIDATION_FIELD in plan:
+        from validation_completion import identity
+        return identity(plan)
     if plan.get('completion_reason') == NARRATION_REASON:
         from narration_recovery import identity
         return identity(plan)
@@ -424,6 +436,8 @@ def replay(state):
     events = state.get("events", [])
     adopted, code_adopted, coverage_adopted, modern_code_adopted, pivot_adopted, seen = False, False, False, False, False, set()
     narration_adopted = False
+    validation_adopted = False
+    seen_reports, source_reports = set(), set()
     try:
         for index, row in enumerate(events):
             kind = row.get("kind")
@@ -492,13 +506,22 @@ def replay(state):
                 errors = verification_problems(state, row, index)
                 if not narration_adopted or errors:
                     return effective, errors or ['narration review lacks its standing amendment']
+            elif kind == VALIDATION_ADOPTION:
+                import validation_completion as validation
+                if (not adopted or validation_adopted
+                        or sha(row.get('policy_json', '')) != validation.POLICY_SHA256
+                        or row.get('policy_sha256') != validation.POLICY_SHA256
+                        or row.get('grants_no_resources') is not True
+                        or row.get('grants_no_review_approval') is not True):
+                    return effective, ['source validation completion amendment is invalid or duplicated']
+                validation_adopted = True
             elif kind in ("owner_review_grant", "owner_validator_grant"):
                 if kind == 'owner_validator_grant':
                     from repair_guard import validator_grant_problems
                     if validator_grant_problems(state):
                         return effective, ['validator capacity grant is invalid']
                 effective[row["resource"]] += row["additional_calls"]
-            elif kind in {EVENT, NARRATION_READY}:
+            elif kind in {EVENT, NARRATION_READY, VALIDATION_READY}:
                 if not adopted or row.get("run_id") != state.get("run_id"):
                     raise ValueError("grant without this run's standing authorization")
                 if row.get("grants_no_review_approval") is not True:
@@ -519,12 +542,15 @@ def replay(state):
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
                 if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON}
-                        or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan):
+                        or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan
+                        or VALIDATION_FIELD in plan):
                     # A later shipped state cannot invalidate an earlier active admission.
                     admission['terminal_state'] = None
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
                 if reason is None or reason != row.get("reason"):
                     raise ValueError("optional or unclassified work cannot receive completion capacity")
+                if VALIDATION_FIELD in plan and not validation_adopted:
+                    raise ValueError('source validation capacity requires its separate amendment')
                 if reason in {CODE_REASON, HANDBACK_REASON} and not code_adopted:
                     raise ValueError("code capacity requires its separate standing amendment")
                 if reason == COVERAGE_REASON and not coverage_adopted:
@@ -541,12 +567,17 @@ def replay(state):
                         raise ValueError('narration recovery requires its amendment and actual charged rejection')
                 # One failed attempt owns one grant, even with renamed plan text.
                 identity = grant_identity(plan, row["failure_evidence_sha256"])
-                if identity in seen:
+                evidence_hash = row['failure_evidence_sha256']
+                if (identity in seen or evidence_hash in source_reports
+                        or VALIDATION_FIELD in plan and evidence_hash in seen_reports):
                     raise ValueError("a failed attempt already owns completion capacity")
                 seen.add(identity)
+                seen_reports.add(evidence_hash)
+                if VALIDATION_FIELD in plan:
+                    source_reports.add(evidence_hash)
                 budget = json.loads(row["precheck_json"])
                 rows = budget["resources"]
-                expected_required = resource_requirements(state)
+                expected_required = resource_requirements(admission, plan)
                 if set(rows) != set(expected_required):
                     raise ValueError("precheck omits required completion resources")
                 usage = row["usage_unchanged"]
@@ -572,6 +603,10 @@ def replay(state):
                     required = narration_required(plan, required)
                 from capture_completion_budget import required_counts
                 required = required_counts(admission, plan, required)
+                if VALIDATION_FIELD in plan:
+                    minimum = json.loads(plan[VALIDATION_FIELD]['policy_json'])['minimum_remaining']
+                    for name, count in minimum.items():
+                        required[name] = max(required[name], count)
                 for name, maximum in expected_required.items():
                     item = rows[name]
                     if (type(item["required"]) is not int or item["required"] != required[name]
@@ -581,8 +616,9 @@ def replay(state):
                     if item["required"] > item["remaining"]:
                         deficits[name] = item["required"] - item["remaining"]
                 if (deficits != budget["deficits"] or deficits != row["resource_increments"]
-                        or (not deficits and kind != NARRATION_READY)
-                        or (kind == NARRATION_READY and (deficits or reason != NARRATION_REASON))):
+                        or (not deficits and kind not in {NARRATION_READY, VALIDATION_READY})
+                        or (kind == NARRATION_READY and (deficits or reason != NARRATION_REASON))
+                        or (kind == VALIDATION_READY and (deficits or VALIDATION_FIELD not in plan))):
                     raise ValueError("completion grant differs from the exact resource deficits")
                 if 'capture_retry_evidence' in plan and deficits != {'preflight_renders': 1}:
                     raise ValueError('spent capture recovery admits exactly one preflight deficit')
@@ -631,9 +667,14 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
         identity = grant_identity(plan, sha(evidence))
-        if any(e.get("kind") in {EVENT, NARRATION_READY} and grant_identity(json.loads(e["plan_json"]), e["failure_evidence_sha256"]) == identity
+        if any(e.get("kind") in {EVENT, NARRATION_READY, VALIDATION_READY} and grant_identity(json.loads(e["plan_json"]), e["failure_evidence_sha256"]) == identity
                for e in state["events"]):
             return False, "this failed attempt already owns completion capacity; retain its grants and reservations"
+        if any(e.get('kind') in {EVENT, NARRATION_READY, VALIDATION_READY}
+               and e.get('failure_evidence_sha256') == sha(evidence)
+               and (VALIDATION_FIELD in plan or VALIDATION_FIELD in json.loads(e.get('plan_json', '{}')))
+               for e in state['events']):
+            return False, 'this exact rejection already owns completion capacity'
         if reason == CODE_REASON:
             errors = code_binding_problems(state, plan)
             if errors:
@@ -673,7 +714,21 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             errors = admission_problems(state, plan) + file_problems(state_path, plan)
             if errors:
                 return False, '; '.join(errors)
+        if VALIDATION_FIELD in plan:
+            from validation_completion import file_problems
+            errors = file_problems(state_path, plan)
+            if errors:
+                return False, '; '.join(errors)
         adopt(state, policy_path, explicit_existing_run=True)
+        if VALIDATION_FIELD in plan:
+            import validation_completion as validation
+            text = validation.POLICY.read_text()
+            if sha(text) != validation.POLICY_SHA256:
+                return False, 'source validation completion policy changed'
+            records = [e for e in state['events'] if e.get('kind') == VALIDATION_ADOPTION]
+            if not records:
+                event(state, VALIDATION_ADOPTION, policy_json=text, policy_sha256=validation.POLICY_SHA256,
+                      grants_no_resources=True, grants_no_review_approval=True)
         if reason == CODE_REASON:
             adopt_code_policy(state)
         if reason == COVERAGE_REASON:
@@ -687,13 +742,16 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             adopt_narration_policy(state)
         budget = production_budget_precheck(state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
-                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON},
+                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
                     modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON})
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
         budget = apply_budget(state, plan, budget)
+        if VALIDATION_FIELD in plan:
+            from validation_completion import apply_budget as validation_budget
+            budget = validation_budget(state, plan, budget)
         if reason == NARRATION_REASON:
             from narration_recovery import apply_budget as narration_budget
             budget = narration_budget(state, plan, budget)
@@ -702,7 +760,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             return False, 'spent capture recovery needs exactly one preflight deficit with the complete remaining path funded'
         if reason == HANDBACK_REASON and increments != {"storyboard_critics": 1}:
             return False, "same-worker handback requires exactly one critic deficit with the complete remaining path funded"
-        if not increments and reason != NARRATION_REASON:
+        if not increments and reason != NARRATION_REASON and VALIDATION_FIELD not in plan:
             save(Path(state_path), state)
             return True, "mandatory completion already has protected capacity; no resources added"
         old = effective_envelope(state)
@@ -710,7 +768,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         caps = copy.deepcopy(state["escalation_ceiling"])
         raised = {k: max(n, new[k]) if k in increments else n for k, n in caps.items()}
         policy_text = Path(policy_path).read_text(encoding="utf-8")
-        event(state, EVENT if increments else NARRATION_READY, run_id=state["run_id"], reason=reason,
+        event(state, EVENT if increments else VALIDATION_READY if VALIDATION_FIELD in plan else NARRATION_READY, run_id=state["run_id"], reason=reason,
               resource_increments=increments, previous_envelope=old, new_envelope=new,
               previous_ceiling=caps, new_ceiling=raised,
               original_envelope_sha256=sha(canonical(state["resource_envelope"])),

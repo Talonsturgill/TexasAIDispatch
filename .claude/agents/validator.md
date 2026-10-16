@@ -35,6 +35,14 @@ lists. Do not invent a rejection or an applied edit to fill a field. Pending fac
 cannot receive PASS. Inspect the current narration and its bindings before synthesis; if it is
 not supplied yet, name that remaining check rather than claiming it was reviewed.
 
+For a mandatory source-pivot validation, include `reviewer_identity`, `script_sha256` and
+`claims_sha256` in that same validation object. Use the actual input hashes supplied by the
+mechanical packet and name those inspected inputs honestly. Missing hashes stay missing;
+never invent them. A required script or claims correction receives REVISE and another
+charged review of the corrected inputs. Preserve the raw handoff and current validated bytes.
+Keep that validation object's reviewer identity compact and public (model and agent identity).
+Local read paths and private diagnostic details belong in the retained raw handoff.
+
 `rejected` is required and its reasons are how a reader tells an unreachable page from a wrong
 claim. An empty rejected list is valid when every submitted claim has independently fetched,
 verified support. Record that scope and retain the actual source evidence.

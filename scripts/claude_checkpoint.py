@@ -169,7 +169,8 @@ def has_private_structure(obj):
 
 GRANT_ROOTS_FILE = 'out/dispatch/grant-projection-roots.private.json'
 GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant', 'mandatory_completion_grant',
-               'narration_recovery_review_verified', 'narration_recovery_capacity_verified'}
+               'narration_recovery_review_verified', 'narration_recovery_capacity_verified',
+               'source_validation_capacity_verified'}
 GRANT_TEXTS = {'authorization_json': 'authorization_sha256',
                'failure_evidence_json': 'failure_evidence_sha256',
                'plan_json': 'plan_sha256', 'precheck_json': 'precheck_sha256',
@@ -180,13 +181,14 @@ GRANT_TEXTS = {'authorization_json': 'authorization_sha256',
 def grant_anchor(grant):
     return grant[{'mandatory_completion_grant': 'plan_sha256',
                   'narration_recovery_capacity_verified': 'plan_sha256',
+                  'source_validation_capacity_verified': 'plan_sha256',
                   'narration_recovery_review_verified': 'receipt_sha256'}.get(
                       grant['kind'], 'authorization_sha256')]
 
 
 def grant_text_fields(grant):
     required = ({'plan_json', 'failure_evidence_json', 'precheck_json', 'policy_json'}
-                if grant['kind'] in {'mandatory_completion_grant', 'narration_recovery_capacity_verified'} else
+                if grant['kind'] in {'mandatory_completion_grant', 'narration_recovery_capacity_verified', 'source_validation_capacity_verified'} else
                 {'receipt_json', 'report_json'} if grant['kind'] == 'narration_recovery_review_verified'
                 else {'authorization_json', 'failure_evidence_json'})
     if any(key not in grant or GRANT_TEXTS[key] not in grant for key in required):
