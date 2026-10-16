@@ -1,0 +1,4 @@
+# Animatic identity collision (2026-10-16 ~05:35Z)
+The opening comparison was authorized against a director-made reservation noted "capture authorization reservation for opening comparison". Free-form notes hash to the animatic identity, so that charge occupies the animatic operation identity for these inputs although it paid for the opening comparison (opening_compare.py reserved and charged its own "two opening comparison batch" as well).
+Attempt: capture_guard.py authorize --prepare for preflight_animatic.py --inspect-only on storyboard.json (copy of opening A) failed with: "run controller: identical preflight inputs were already reserved for this operation. Reuse the existing preview; repair production inputs before rendering again."
+No animatic inspection exists for either opening. Contact sheets are needed so the phone critic can compare both complete openings. Nothing rendered by this attempt.

@@ -482,6 +482,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T05:24:29.669797Z",
+      "evidence": "{REPO}/out/dispatch/evidence/animatic-identity-collision-20261016.md",
+      "evidence_sha256": "a6cd27365bb32b613c73e01d5965903db7d5aa1e4f7cbfaac591f3e6ac79158b",
+      "input_identity": "61725aa27d6c9bf5ddf830f06e796a8eb7dee2d15beeaaf607968b9dda3d8dee",
+      "kind": "preflight_retry_authorized",
+      "reason": "The animatic operation identity was occupied by a free-form reservation that actually paid for the opening comparison, so the first real animatic inspection of the already rendered opening films is refused. One retry lets the exact inspection reserve under its own operation. Earlier spend stays charged."
     }
   ],
   "limits": {
@@ -503,9 +511,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "61725aa27d6c9bf5ddf830f06e796a8eb7dee2d15beeaaf607968b9dda3d8dee",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "38605654756f4086eefe665b3d707761cf5853a7cc0086c1af5f66a902f432d3",
+    "original_private_state_sha256": "1b487f4382156794268cbd03b2e837edde18cacf9e3fe24029c5a0ccaa7c5956",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -541,7 +550,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T05:18:13.384614Z",
+  "updated_at": "2026-10-16T05:24:29.669852Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
