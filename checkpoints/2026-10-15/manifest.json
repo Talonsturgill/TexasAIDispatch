@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T13:56:06.054777+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-16T13:58:24.633335+00:00",
+  "note": "take 3 soundcheck pass, alignment refuses percent sign and spray it; retained",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -70,26 +70,26 @@
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
       "class": "scratch",
-      "sha256": "bc7cc9abb65d29430d622cd61d1ce5d9df65fbbcdee16defe00643d17aaaa90f",
+      "sha256": "534fdf462d6c3fa927957d95b4ea2209505e324e3d85808f4e153a04e541cc57",
       "size": 720
     },
     {
       "path": "out/dispatch/acoustic-asr.json",
       "class": "scratch",
-      "sha256": "8cdd937360c91f7c9139d491dbb02d3b7d0adb5674d82cfe1555602df1fe81a8",
-      "size": 74043
+      "sha256": "27be947ade8779282c92ab8090b0da773f17c4caa81e4131c94b0752aeb09c32",
+      "size": 74115
     },
     {
       "path": "out/dispatch/acoustic-asr.log",
       "class": "scratch",
-      "sha256": "e02c7b3b8702bba3b6a241e3eb482c62b328d77f3ec127528647adf3ab1354ab",
-      "size": 112988
+      "sha256": "9b577d00a7220acc82bf6b54d5f0b23633ae64475233cfb7597b8b73ef29748e",
+      "size": 107706
     },
     {
       "path": "out/dispatch/alignment-16k.wav",
       "class": "scratch",
-      "sha256": "22e4a004ad3f655b09a0d0530d2e83d341d313f87a13e9548a1c4825482215c2",
-      "size": 1854642
+      "sha256": "cb56a065c0e4919d4a5c27f25133c9b5bd29c2c9e3c4fcb6995e32ba0ea9ed5d",
+      "size": 1779914
     },
     {
       "path": "out/dispatch/artwork-originals/authored-60135304-9993-491d-9f08-42919f8212b5.tsx",
@@ -1244,6 +1244,48 @@
       "size": 32113
     },
     {
+      "path": "out/dispatch/evidence/failed-take-3/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "27be947ade8779282c92ab8090b0da773f17c4caa81e4131c94b0752aeb09c32",
+      "size": 74115
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-3/align-take3.log",
+      "class": "scratch",
+      "sha256": "1b36f363ce5a83ee0b73a51704326fb108867962af3148d8fb360cb1cbc705de",
+      "size": 89
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-3/finding.md",
+      "class": "scratch",
+      "sha256": "befb12454dc4e6a6408bcc64e677f7c95d8b4de123e58e2a3b92bb653f070d9b",
+      "size": 1483
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-3/prompt.txt",
+      "class": "scratch",
+      "sha256": "c3d6c1e0b2ccbd4bc704302577c3282a43a82ecbc5c2ebcd91954ae98998afc2",
+      "size": 6091
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-3/soundcheck-take3.log",
+      "class": "scratch",
+      "sha256": "5fd2d2277ef839f2137fc83a5ba7b04784b25333dfd8b2de291c1a584c86eed5",
+      "size": 85
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-3/take1.wav",
+      "class": "scratch",
+      "sha256": "e632a63d41885b91a8660fa8e8709118b73819e1e20f76d641ef8d903447d2ed",
+      "size": 5233964
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-3/takes.json",
+      "class": "scratch",
+      "sha256": "b1353d38bea007958709e09b4944974f3e6c8b4f78b4ee510bf1ce19586369e2",
+      "size": 1138
+    },
+    {
       "path": "out/dispatch/evidence/finish-current-funding-20261016.md",
       "class": "scratch",
       "sha256": "7cf9512fece566cd935e940e4537a2fd7d5fa8820e2b63d2ae0a0e76f52d6ef1",
@@ -2240,21 +2282,33 @@
       "size": 0
     },
     {
+      "path": "out/dispatch/logs/align-take3.log",
+      "class": "scratch",
+      "sha256": "1b36f363ce5a83ee0b73a51704326fb108867962af3148d8fb360cb1cbc705de",
+      "size": 89
+    },
+    {
+      "path": "out/dispatch/logs/soundcheck-take3.log",
+      "class": "scratch",
+      "sha256": "5fd2d2277ef839f2137fc83a5ba7b04784b25333dfd8b2de291c1a584c86eed5",
+      "size": 85
+    },
+    {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
-      "sha256": "ef889f79668ce4d8e7cc7fa46ec118055e6bce8f13150a257495af57adcbfe39",
-      "size": 6793
+      "sha256": "ed9649c71549d4804fdace2b6b74ce215408435a73e5c32e847ac7da4c37814f",
+      "size": 6035
     },
     {
       "path": "out/dispatch/mix.wav",
       "class": "scratch",
-      "sha256": "eafbe90e8aeb0c9a67b19b4ec87e3f078ecf24d9d15b2a8f402a3ae9b68bde5d",
+      "sha256": "23d01f2e6e8361154681cfa20ff1eb59f6f046fe5208af46c7b1f7c56bd3b790",
       "size": 6115278
     },
     {
       "path": "out/dispatch/mix_vo.wav",
       "class": "scratch",
-      "sha256": "be210af9d2aae58c30f47bbce44c8ea9f2f8bb352be2422d666cdd39ead65ad8",
+      "sha256": "774e90c9c6020332717730df549d39ca5a706d516e708bb149427d7229649799",
       "size": 6115244
     },
     {
@@ -3678,6 +3732,18 @@
       "class": "scratch",
       "sha256": "c3d6c1e0b2ccbd4bc704302577c3282a43a82ecbc5c2ebcd91954ae98998afc2",
       "size": 6091
+    },
+    {
+      "path": "out/dispatch/takes-3/take1.wav",
+      "class": "scratch",
+      "sha256": "e632a63d41885b91a8660fa8e8709118b73819e1e20f76d641ef8d903447d2ed",
+      "size": 5233964
+    },
+    {
+      "path": "out/dispatch/takes-3/takes.json",
+      "class": "scratch",
+      "sha256": "b1353d38bea007958709e09b4944974f3e6c8b4f78b4ee510bf1ce19586369e2",
+      "size": 1138
     },
     {
       "path": "out/dispatch/takes/prompt.txt",
