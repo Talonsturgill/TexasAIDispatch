@@ -57,6 +57,14 @@
       "note": "quarter-scale animatic",
       "resource": "preflight_renders",
       "to": 6
+    },
+    {
+      "at": "2026-10-16T05:25:42.478206Z",
+      "ceiling": 16,
+      "from": 6,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 7
     }
   ],
   "events": [
@@ -550,6 +558,24 @@
       "input_identity": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30",
       "kind": "preflight_retry_authorized",
       "reason": "Opening B inspection refused on a stale critique file before decoding anything. Corrected by binding opening B's own code critique. One retry reserves the exact inspection again. Earlier spend stays charged."
+    },
+    {
+      "at": "2026-10-16T05:25:42.478239Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 7,
+      "resource": "preflight_renders",
+      "was": 6
+    },
+    {
+      "at": "2026-10-16T05:25:42.478255Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -558,7 +584,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 6,
+    "preflight_renders": 7,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -571,10 +597,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d2c6329f7e97680b4c5f7f29338600f2184a55129ab00edfab67f0dd6b9e69a6",
+    "original_private_state_sha256": "f69bfd2a82897c5897c06359bd8308b9147026865fca303f03746163faf9d99b",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -610,14 +635,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T05:25:38.013978Z",
+  "updated_at": "2026-10-16T05:25:42.478257Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 6,
+    "preflight_renders": 7,
     "reboards": 3,
     "reported_tokens": 0,
     "rescue_renders": 0,
