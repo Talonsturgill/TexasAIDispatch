@@ -1,0 +1,21 @@
+{
+  "schema": "dispatch_pivot_review_projection/1",
+  "verdict": "pass",
+  "reviewer_identity": "claude-opus-5-5 (Opus 5.5), the same independent read-only storyboard-critic (Opus High) that wrote the R8 REVISE, continued for followup-review-packet-r9.md (sha256 1c6442e5, as the packet states). The packet records my R8 report as 8b50f06e. I can't verify that the saved bytes hash to that value, or that storyboard_critics reservation 16 was charged before this message. I am separate from the claude-sonnet-5-5 director and the claude-haiku-5-5 vo-director. I ran nothing, launched no agents, listened to no audio, saw no pixels and recomputed no SHA-256. The unchanged inputs are the bytes I read in the R8 review under the same hashes (the R8 packet 10aabf98, report 14 97a41235, claims.json 49b2379c, utsa.txt 9ec49398, VO_DIRECTION.md 9ecce8b2, documentary.json c71c3880, modern_film.json 9cbc00a5, FloodStationFilm.tsx 8943704c, R8 MANIFEST 1324129e). I did not re-read them, and I never read the saved copy of my own R8 report under review-r8-recurrence-revise. Every timing figure marked 'mine' is my own hand arithmetic from packet values, not gate output.",
+  "retired_mechanism_id": "caption-boundary-silent-beats",
+  "replacement_mechanism_id": "sentence-per-cue-caption-boundaries",
+  "reviewed_failure_sha256": [
+    "bdd6fdbf9aaa532b0ccfc16ab0713da70b8b7ebae5590422abc20b58e0e2e2cf",
+    "c5df62a9a17ca4bdefa484469232696b8d70038dd4b0e128d81dbfa9b6feb161",
+    "32c76d037256c2734e9fcb5debb94a856925a92d0a46d31e058b00decd6df6f5",
+    "fcb6ae0ec7ec30eb6e56df090b99a94d9fde9dacf4ce1827d915cdc2f914375c",
+    "b1c5d58dd3cdf2ccbced0a8eb10705fdc36c33496801126cb3ca2f7e8122e9fa"
+  ],
+  "visible_difference": "On screen every caption is one complete spoken sentence of 29 to 64 characters. There are 15 cues, and they change at full stops, where every take has measured gaps of 0.6 to 0.96 s. The retired mechanism produced 13 cues cut from nine long sentences at directed mid-sentence silences: take 5's first cue ran 119 characters, and take 6's beats landed at no more than 7 of 12 joins, with none in the first 5.4 s. No cue now ends mid-clause and no narration silence is planned inside a sentence.",
+  "source_basis": "Take 6 beat-landing measurement (013e5160): 8 of 8 sentence gaps of 0.6 s or more, at most 7 of 12 directed in-sentence joins reaching 0.24 s, and none in the first 5.4 s. Take 5 findings (b1c5d58d): cues of 119, 96, 89, 105 and 118 characters with no internal pause of 0.24 s. The R8 script (38b9ae7f) maps each of its 15 sentences to verbatim claim quotes in source-map.json (f5263894), checked against utsa.txt lines 94 to 118 and claims.json (49b2379c).",
+  "derived_from": {
+    "pass_report_sha256": "1fddfa69056d425a544f44f9d3b96432bba2ebc78cfce3f300c73c58cdf53c1c",
+    "mechanism_report_sha256": "8b50f06e247ab1e5f81779e7853494181e8aaeece3998950c85c937ebc4ac9e6"
+  },
+  "note": "Mechanical projection by the director for the begin-repair recurrence check. It changes no verdict, score or finding. The independent pass left its recurrence finding unchanged (met). The original reports are retained as written."
+}
