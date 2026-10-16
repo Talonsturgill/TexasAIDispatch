@@ -352,6 +352,14 @@
       "note": "precharged same-critic source-pivot diagnosis of the validator REVISE and review of the R10 one-sentence correction (SendMessage a110876b976dcc812, mandatory-source-pivot)",
       "resource": "storyboard_critics",
       "to": 17
+    },
+    {
+      "at": "2026-10-16T19:36:05.761394Z",
+      "ceiling": 10,
+      "from": 5,
+      "note": "R10 corrective reboard: announcement-scoped absence claim (registered repair, mandatory-source-pivot)",
+      "resource": "reboards",
+      "to": 6
     }
   ],
   "events": [
@@ -3464,6 +3472,24 @@
       "plan_identity": null,
       "plan_sha256": "a18fb4f2c80c6eda768ee513603406fbeada94d3788caa83a176e64157bc8139",
       "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-16T19:36:05.761404Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "R10 corrective reboard: announcement-scoped absence claim (registered repair, mandatory-source-pivot)",
+      "now": 6,
+      "resource": "reboards",
+      "was": 5
+    },
+    {
+      "at": "2026-10-16T19:36:05.761411Z",
+      "kind": "reserved",
+      "note": "R10 corrective reboard: announcement-scoped absence claim (registered repair, mandatory-source-pivot)",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -3473,7 +3499,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 12,
-    "reboards": 5,
+    "reboards": 6,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -3487,7 +3513,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c6749efca215557f09dc4c2aba8c57e68cba8ba7e6fa1da0b2c97afe99051a63",
+    "original_private_state_sha256": "aff5f7e33a225f49c5356ac4cd502775fe799462af4697ae46100a72e176ff87",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3523,7 +3549,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:36:01.101142Z",
+  "updated_at": "2026-10-16T19:36:05.761413Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -3531,7 +3557,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 12,
-    "reboards": 5,
+    "reboards": 6,
     "reported_tokens": 241924,
     "rescue_renders": 0,
     "research_agents": 3,
