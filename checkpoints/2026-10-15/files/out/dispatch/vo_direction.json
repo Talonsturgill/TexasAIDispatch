@@ -1,643 +1,643 @@
 {
- "schema": "dispatch_vo_direction/1",
- "edition_id": "2026-10-15",
- "date": "2026-10-15",
- "director": "vo-director (claude-haiku-5-5, high effort), isolated, no sub-agents. Written by hand in this session. No shell, no hashing tool, no synthesis, no capture, no soundcheck and no paid call was run.",
- "verification": {
-  "packet": {
-   "path": "out/dispatch/vo-director-packet.json",
-   "sha256_claimed": "7a8e69305eee7b5798fdd8fa18768d2a19474f4d2276a4b32e6c9b7d90d50bfb",
-   "sha256_verified": false,
-   "note": "Supplied by the caller. This session cannot compute SHA-256, so the packet hash was not recomputed. The packet was read in full, and the bound inputs it names were opened as listed under guides_read."
+  "schema": "dispatch_vo_direction/1",
+  "edition_id": "2026-10-15",
+  "date": "2026-10-15",
+  "director": "vo-director (claude-haiku-5-5, high effort), isolated, no sub-agents. Written by hand in this session. No shell, no hashing tool, no synthesis, no capture, no soundcheck and no paid call was run.",
+  "verification": {
+    "packet": {
+      "path": "out/dispatch/vo-director-packet.json",
+      "sha256_claimed": "7a8e69305eee7b5798fdd8fa18768d2a19474f4d2276a4b32e6c9b7d90d50bfb",
+      "sha256_verified": false,
+      "note": "Supplied by the caller. This session cannot compute SHA-256, so the packet hash was not recomputed. The packet was read in full, and the bound inputs it names were opened as listed under guides_read."
+    },
+    "script": {
+      "path": "out/dispatch/vo_script.txt",
+      "sha256": null,
+      "sha256_verified": false,
+      "file_lines": 8,
+      "sentences": 9,
+      "content_checked_against_board": "All nine sentences match, character for character by reading, the vo field of scenes s1 to s9 in out/dispatch/storyboard.json and the text of narration_picture clauses n1 to n9, in the same order. Sentences 8 and 9 share file line 8. The script was not edited."
+    },
+    "storyboard": {
+      "path": "out/dispatch/storyboard.json",
+      "sha256_claimed": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
+      "sha256_verified": false,
+      "note": "The packet's board hash, not recomputed. The storyboard's creative_direction.policy_sha256 is 77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765. openings/selection.json binds a different policy hash and a different top-level board hash. See flag U3."
+    },
+    "claims": {
+      "path": "out/dispatch/claims.json",
+      "sha256_claimed": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "sha256_verified": false,
+      "note": "The packet's claims hash, not recomputed. Every claim text was read in full. The story_art source_claims_sha256 in the storyboard matches this value."
+    },
+    "opening_selection": {
+      "path": "out/dispatch/openings/selection.json",
+      "selected": "a",
+      "sha256_verified": false,
+      "note": "The header and the option bindings were read. The file is about 1.7 MB and the remainder was not read. Option a binds the packet's board hash and the packet's story and claims hashes."
+    }
   },
-  "script": {
-   "path": "out/dispatch/vo_script.txt",
-   "sha256": null,
-   "sha256_verified": false,
-   "file_lines": 8,
-   "sentences": 9,
-   "content_checked_against_board": "All nine sentences match, character for character by reading, the vo field of scenes s1 to s9 in out/dispatch/storyboard.json and the text of narration_picture clauses n1 to n9, in the same order. Sentences 8 and 9 share file line 8. The script was not edited."
+  "sound_direction_sha256": "265d8f94ce6c087e14fe4c9a7fa3ad4a599905c5e74bca8721e67f8232620f41",
+  "sound_direction_sha256_note": "Computed mechanically by the director as creative_production.fingerprint(storyboard.creative_direction.sound). The vo-director had no shell and left it null.",
+  "take_plan": {
+    "takes": 1,
+    "continuous": true,
+    "synthesis_run": false,
+    "capture_run": false,
+    "alignment": "Measured captions and the acoustic word stream decide every timing. The authored clock in narration_picture is provisional and approves no timing.",
+    "breath_rule": "Breaths are breaths, not holds. They fall only at complete clause joins and full stops. No silence is planned between sentences, and no duration appears in this file or in any prompt text.",
+    "length_rule": "Nothing here stretches speech. If the measured read runs long, the fix is a shorter line by story correction."
   },
-  "storyboard": {
-   "path": "out/dispatch/storyboard.json",
-   "sha256_claimed": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
-   "sha256_verified": false,
-   "note": "The packet's board hash, not recomputed. The storyboard's creative_direction.policy_sha256 is 77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765. openings/selection.json binds a different policy hash and a different top-level board hash. See flag U3."
-  },
-  "claims": {
-   "path": "out/dispatch/claims.json",
-   "sha256_claimed": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-   "sha256_verified": false,
-   "note": "The packet's claims hash, not recomputed. Every claim text was read in full. The story_art source_claims_sha256 in the storyboard matches this value."
-  },
-  "opening_selection": {
-   "path": "out/dispatch/openings/selection.json",
-   "selected": "a",
-   "sha256_verified": false,
-   "note": "The header and the option bindings were read. The file is about 1.7 MB and the remainder was not read. Option a binds the packet's board hash and the packet's story and claims hashes."
-  }
- },
- "sound_direction_sha256": "265d8f94ce6c087e14fe4c9a7fa3ad4a599905c5e74bca8721e67f8232620f41",
- "sound_direction_sha256_note": "Computed mechanically by the director as creative_production.fingerprint(storyboard.creative_direction.sound). The vo-director had no shell and left it null.",
- "take_plan": {
-  "takes": 1,
-  "continuous": true,
-  "synthesis_run": false,
-  "capture_run": false,
-  "alignment": "Measured captions and the acoustic word stream decide every timing. The authored clock in narration_picture is provisional and approves no timing.",
-  "breath_rule": "Breaths are breaths, not holds. They fall only at complete clause joins and full stops. No silence is planned between sentences, and no duration appears in this file or in any prompt text.",
-  "length_rule": "Nothing here stretches speech. If the measured read runs long, the fix is a shorter line by story correction."
- },
- "overall": "One connected read as a plainspoken Texan explaining what a university published. Not a news anchor, no hush, no bright lift. Natural breaths at clause boundaries and full stops, no long holds. Say UT and AI as letters, San Antonio with the Texas stress, and the figure as one number.",
- "performance_arc": "Plain at the start, a lift in the second line, quicker through the third, a clear lift in the fourth, steady through the fifth, level on the sixth, then lowest and most certain on the last three lines.",
- "lines": [
-  {
-   "id": "L1",
-   "scene_ids": [
-    "s1"
-   ],
-   "narration_ids": [
-    "n1"
-   ],
-   "text": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.",
-   "job": "orient",
-   "intent": "Plain and close, said as what the source says.",
-   "emphasis": "UT San Antonio says",
-   "energy": "Working level, settling toward the end.",
-   "pause_after": "A breath at the join after yard, where the clause ends and before begins, with no hold. The rest of the sentence runs on. Full stop at phone, a normal breath, and the next line joins with no reset.",
-   "visible_events": [
-    "s1-event-1",
-    "s1-event-2",
-    "s1-event-3"
-   ],
-   "reason": "Orient. The water tops the curb and climbs the post at s1-event-1, the boots and the dark phone show at s1-event-2, and the late banner at s1-event-3 is the picture of before a flood warning sounds. The stress lands on the late banner."
-  },
-  {
-   "id": "L2",
-   "scene_ids": [
-    "s2"
-   ],
-   "narration_ids": [
-    "n2"
-   ],
-   "text": "So its researchers built a flood station that charges itself from light and needs no cell tower.",
-   "job": "reveal",
-   "intent": "Plain and forward, the first clear lift.",
-   "emphasis": "charges itself from light",
-   "energy": "Opens low and lifts through the middle.",
-   "pause_after": "No break inside the sentence, so the phrase runs from So through light and into needs no cell tower. Full stop at tower, a normal breath, and the next line carries straight on.",
-   "visible_events": [
-    "s2-event-1",
-    "s2-event-2",
-    "s2-event-3"
-   ],
-   "reason": "Reveal. The station is shown at s2-event-1. The stress lands on the panel and the battery bar at s2-event-2, which is the charge the phrase names. The needs no cell tower clause is carried by the dashed line that stops short at s2-event-3. See flag G9."
-  },
-  {
-   "id": "L3",
-   "scene_ids": [
-    "s3"
-   ],
-   "narration_ids": [
-    "n3"
-   ],
-   "text": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.",
-   "job": "explain",
-   "intent": "An even working explanation.",
-   "emphasis": "different",
-   "energy": "A step down, quicker and even.",
-   "pause_after": "A breath at the comma after water, the clause join, with no hold. The list of readings runs on with no breath inside it. Full stop at light, a normal breath, and the next line joins with no reset.",
-   "visible_events": [
-    "s3-event-1",
-    "s3-event-2",
-    "s3-event-3"
-   ],
-   "reason": "Explain. The four lenses at four heights are on screen at s3-event-1, which is where the stress falls. The brown water crossing the marks at s3-event-2 and the weather lamps at s3-event-3 carry the rest of the sentence."
-  },
-  {
-   "id": "L4",
-   "scene_ids": [
-    "s4"
-   ],
-   "narration_ids": [
-    "n4"
-   ],
-   "text": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.",
-   "job": "reveal",
-   "intent": "The turn, firm and forward.",
-   "emphasis": "without a central server",
-   "energy": "The clear lift of the middle, held through the sentence.",
-   "pause_after": "A breath at the comma after itself, the clause join, with no hold. The so it judges flood risk phrase runs on into without a central server. Full stop at server, a normal breath, and the next line joins with no reset.",
-   "visible_events": [
-    "s4-event-1",
-    "s4-event-2",
-    "s4-event-3"
-   ],
-   "reason": "Reveal. The readings reach the chip at s4-event-1 and the amber risk lamp lights at s4-event-2, so the local judgment is seen before it is named. The server outline stays dark with no line at s4-event-3, which is the picture the stressed phrase answers. See flag G3."
-  },
-  {
-   "id": "L5",
-   "scene_ids": [
-    "s5"
-   ],
-   "narration_ids": [
-    "n5"
-   ],
-   "text": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
-   "job": "explain",
-   "intent": "Even and steady through both ranges.",
-   "emphasis": "up to five miles",
-   "energy": "Level, a step below the turn.",
-   "pause_after": "A breath at the comma after rises, and a breath at the comma after streets, both clause joins, with no hold. A breath at the comma after country, before to a hub. Full stop at hub, a normal breath, and the next line joins with no reset.",
-   "visible_events": [
-    "s5-event-1",
-    "s5-event-2",
-    "s5-event-3"
-   ],
-   "reason": "Explain. The rings leave the antenna at s5-event-1 and pass the more than a half mile tag at s5-event-2, said at the same level and without stress so it does not read as the bigger claim. The stress on up to five miles lands on the five-mile tag and the hub mast at s5-event-3. This is the longest sentence in the passage and the most likely line to run long. See flag K2."
-  },
-  {
-   "id": "L6",
-   "scene_ids": [
-    "s6"
-   ],
-   "narration_ids": [
-    "n6"
-   ],
-   "text": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.",
-   "job": "explain",
-   "intent": "Level and plain.",
-   "emphasis": "could",
-   "energy": "A step below the last line. Take a short natural breath after could spread, then say for emergency responders.",
-   "pause_after": "A breath at the comma after hub, which follows a noun. A breath at the comma after spread, the clause join, with no hold, and no breath after for. Full stop at responders, a normal breath, and the next line joins with no reset.",
-   "visible_events": [
-    "s6-event-1",
-    "s6-event-2",
-    "s6-event-3"
-   ],
-   "reason": "Explain. The hub dashboard and the station dots arrive at s6-event-1, the shaded paths spread at s6-event-2, where the stress on could spread lands, and the risk zones and responder tag come at s6-event-3. The picture at s6-event-1 shows several stations feeding the hub, which conflicts with the later no installation line. See flag P2."
-  },
-  {
-   "id": "L7",
-   "scene_ids": [
-    "s7"
-   ],
-   "narration_ids": [
-    "n7"
-   ],
-   "text": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
-   "job": "qualify",
-   "intent": "Flat and measured, then the limit.",
-   "emphasis": "no field result",
-   "energy": "Even through the figure, then the lowest energy of the read for the last phrase.",
-   "pause_after": "No break in the figure, from the number through validation accuracy and from early assessments after training. A breath at the comma after training, the clause join, with no hold. And no field result runs straight to the full stop, then a normal breath into the closing line.",
-   "visible_events": [
-    "s7-event-1",
-    "s7-event-2",
-    "s7-event-3"
-   ],
-   "reason": "Qualify. The figure fills at s7-event-1 and the after training tag pins under it at s7-event-2, so the qualifiers are spoken with the figure they qualify. The stress on no field result lands on the blank card and the none reported stamp at s7-event-3, the picture of the missing record. See flag G6."
-  },
-  {
-   "id": "L8",
-   "scene_ids": [
-    "s8"
-   ],
-   "narration_ids": [
-    "n8"
-   ],
-   "text": "It names no town that has installed one.",
-   "job": "qualify",
-   "intent": "The second limit, level and plain.",
-   "emphasis": "no town",
-   "energy": "Level with the previous end, low, no lift.",
-   "pause_after": "No breath inside the sentence. Full stop at one, a normal breath, and the close starts as its own line.",
-   "visible_events": [
-    "s8-event-1",
-    "s8-event-2",
-    "s8-event-3"
-   ],
-   "reason": "The search ring at s8-event-2 finds no installed station, and this sentence says so. See flag G7."
-  },
-  {
-   "id": "L9",
-   "scene_ids": [
-    "s9"
-   ],
-   "narration_ids": [
-    "n9"
-   ],
-   "text": "Deployment is still the goal.",
-   "job": "resolve",
-   "intent": "The close, as its own short phrase.",
-   "emphasis": "still",
-   "energy": "Settles to the same low level and falls to the end with no upturn.",
-   "pause_after": "No breath inside the close, either between is and still or after still. Full stop at goal, and the take ends with no tail.",
-   "visible_events": [
-    "s9-event-1",
-    "s9-event-2",
-    "s9-event-3"
-   ],
-   "reason": "The close lands on still while the goal pin hovers and does not land at s9-event-1, so the picture and the closing phrase answer the same open question without implying approval. See flag G8."
-  }
- ],
- "sentence_map": [
-  {
-   "ordinal": 1,
-   "file_line": 1,
-   "line_id": "L1",
-   "scene_id": "s1",
-   "narration_id": "n1"
-  },
-  {
-   "ordinal": 2,
-   "file_line": 2,
-   "line_id": "L2",
-   "scene_id": "s2",
-   "narration_id": "n2"
-  },
-  {
-   "ordinal": 3,
-   "file_line": 3,
-   "line_id": "L3",
-   "scene_id": "s3",
-   "narration_id": "n3"
-  },
-  {
-   "ordinal": 4,
-   "file_line": 4,
-   "line_id": "L4",
-   "scene_id": "s4",
-   "narration_id": "n4"
-  },
-  {
-   "ordinal": 5,
-   "file_line": 5,
-   "line_id": "L5",
-   "scene_id": "s5",
-   "narration_id": "n5"
-  },
-  {
-   "ordinal": 6,
-   "file_line": 6,
-   "line_id": "L6",
-   "scene_id": "s6",
-   "narration_id": "n6"
-  },
-  {
-   "ordinal": 7,
-   "file_line": 7,
-   "line_id": "L7",
-   "scene_id": "s7",
-   "narration_id": "n7"
-  },
-  {
-   "ordinal": 8,
-   "file_line": 8,
-   "line_id": "L8",
-   "scene_id": "s8",
-   "narration_id": "n8",
-   "note": "Own file line after the director split the locked file line 8."
-  },
-  {
-   "ordinal": 9,
-   "file_line": 9,
-   "line_id": "L9",
-   "scene_id": "s9",
-   "narration_id": "n9",
-   "note": "Own file line after the director split the locked file line 8. Spoken words unchanged."
-  }
- ],
- "expressive_prompt": "Built by scripts/vo_synth_gemini.py from the overall, performance_arc and each line's intent, emphasis and energy fields. The pause_after values are for the editor only and are not sent to the reader.",
- "flags": [
-  {
-   "id": "F1",
-   "lines": [
-    1
-   ],
-   "span": "UT San Antonio",
-   "type": "pronunciation",
-   "risk": "Read as the word ut, or with the letters run together. This is the university's own name for itself and is not in TEXAS_PRONUNCIATION.md, where an unlisted proper noun is unverified.",
-   "direction": "Say U and T as two separate letters, clear and even. Do not stress the initialism.",
-   "status": "Directed in the overall note. Unverified until the soundcheck listens. The lexicon's own rule says the honest move for an unlisted name is to rewrite the line, which is a story correction and was not made here. See U8."
-  },
-  {
-   "id": "F2",
-   "lines": [
-    1
-   ],
-   "span": "San Antonio",
-   "type": "pronunciation",
-   "risk": "Read with Spanish vowels, or with the stress on the wrong syllable.",
-   "direction": "Say San Antonio the Texas way, with the stress on the TOH in Antonio.",
-   "status": "Directed in the overall note. The lexicon has no entry for it, so it is unverified until the soundcheck. See U8."
-  },
-  {
-   "id": "F3",
-   "lines": [
-    4,
-    6
-   ],
-   "span": "AI",
-   "type": "pronunciation",
-   "risk": "Read as the word ai, or as eye.",
-   "direction": "Say A and I as two letters, both times.",
-   "status": "Directed in the overall note. Not in the lexicon, so unverified until the soundcheck."
-  },
-  {
-   "id": "F4",
-   "lines": [
-    7
-   ],
-   "span": "ninety eight point eight two percent",
-   "type": "numeral spoken as words",
-   "risk": "Read as ninety eight point eight, then two percent, with eight and two running apart. The fetched quote writes 98.82%, so script_evidence_check may need number-word matching. This is not a voice fault.",
-   "direction": "Keep eight two as one two-digit group with no break between them, and keep percent with the number.",
-   "status": "Directed in the overall note. The evidence match is unverified in this session because no shell was available."
-  },
-  {
-   "id": "F5",
-   "lines": [
-    5
-   ],
-   "span": "a half-mile",
-   "type": "grouping",
-   "risk": "Split as a and half mile, or the a lost from the unit.",
-   "direction": "Keep a with half-mile as one unit, and keep up to with five miles.",
-   "status": "Directed in the line 5 notes."
-  },
-  {
-   "id": "F6",
-   "lines": [
-    2
-   ],
-   "span": "its researchers",
-   "type": "homophone",
-   "risk": "Heard as it's researchers.",
-   "direction": "Say its as an unstressed possessive, never it's.",
-   "status": "Directed in the overall note."
-  },
-  {
-   "id": "G1",
-   "lines": [
-    1
-   ],
-   "span": "could have ankle-deep water in their yard, before a flood warning sounds on their phone",
-   "type": "ambiguity",
-   "risk": "The hedge could be heard as a fact. On their phone could attach to yard rather than to sounds.",
-   "direction": "Keep could have as a possibility with no added stress. On their phone attaches to sounds, where the warning arrives.",
-   "status": "Directed in the line 1 notes."
-  },
-  {
-   "id": "G2",
-   "lines": [
-    3
-   ],
-   "span": "watch the water, along with rain, temperature, humidity and light",
-   "type": "grouping",
-   "risk": "Along with could attach to water as its object, and at different heights could attach to watch rather than to the sensors.",
-   "direction": "The list attaches to what the sensors watch. At different heights attaches to the sensors.",
-   "status": "Directed in the line 3 notes."
-  },
-  {
-   "id": "G3",
-   "lines": [
-    4
-   ],
-   "span": "runs the AI itself, so it judges flood risk without a central server",
-   "type": "grouping",
-   "risk": "Itself could detach from runs, and without a central server could attach to chip rather than to judges.",
-   "direction": "Keep itself with runs. So marks the consequence. Without a central server attaches to judges.",
-   "status": "Directed in the line 4 notes."
-  },
-  {
-   "id": "G4",
-   "lines": [
-    5
-   ],
-   "span": "to a hub",
-   "type": "grouping",
-   "risk": "To a hub could attach to open country, as if the hub sat in the open country, rather than to the whole carry. More than and up to could also detach from their ranges.",
-   "direction": "To a hub is the destination of the whole carry. More than stays with the city range and up to stays with the open-country range.",
-   "status": "Directed in the line 5 notes. The picture supports the reading, since the hub mast is where the open-country ring ends."
-  },
-  {
-   "id": "G5",
-   "lines": [
-    6
-   ],
-   "span": "for emergency responders",
-   "type": "grouping",
-   "risk": "Could attach to spread, as if flooding spreads for responders, rather than to the map.",
-   "direction": "For emergency responders attaches to the map. No breath after for.",
-   "status": "Directed in the line 6 notes."
-  },
-  {
-   "id": "G6",
-   "lines": [
-    7
-   ],
-   "span": "from early assessments after training, and no field result",
-   "type": "grouping",
-   "risk": "After training could attach to validation accuracy. And no field result could be heard as part of the figure rather than as the limit.",
-   "direction": "The qualifiers attach to the figure. The limit is split from the figure at the comma after training.",
-   "status": "Directed in the line 7 notes."
-  },
-  {
-   "id": "G7",
-   "lines": [
-    8
-   ],
-   "span": "It names no town that has installed one",
-   "type": "antecedent and pronoun",
-   "risk": "It could be heard as the figure or as the station. One could be heard as the numeral one.",
-   "direction": "It refers to the university named in line 7. One is an unstressed pronoun for the installation.",
-   "status": "Directed in the line 8 notes."
-  },
-  {
-   "id": "G8",
-   "lines": [
-    8
-   ],
-   "span": "Deployment is still the goal",
-   "type": "ambiguity",
-   "risk": "Still could mean even now, or motionless.",
-   "direction": "Still means not yet reached. Keep is still together.",
-   "status": "Directed in the line 8 notes. The attribution is not spoken. See P7."
-  },
-  {
-   "id": "G9",
-   "lines": [
-    2
-   ],
-   "span": "a flood station that charges itself from light and needs no cell tower",
-   "type": "grouping",
-   "risk": "From light could attach to flood station, as if the station were lit from light, rather than to charges itself. Needs no cell tower could attach to light.",
-   "direction": "From light attaches to charges itself. Needs no cell tower attaches to the station, so the phrase carries no tower.",
-   "status": "Directed in the line 2 notes."
-  },
-  {
-   "id": "P1",
-   "lines": [
-    1
-   ],
-   "span": "could have ankle-deep water",
-   "type": "picture and word mismatch",
-   "risk": "The voice hedges with could have, while the picture plays the flood as an event that happens: the water rises to the boots and the banner lands. The disclosure reads Illustration. The attribution UT San Antonio says is spoken and is not pictured.",
-   "direction": "The voice keeps the hedge. The picture should show the flood as a possibility, or label the hypothetical.",
-   "status": "Unresolved for the director's consolidated correction. Not a voice fix."
-  },
-  {
-   "id": "P2",
-   "lines": [
-    6,
-    8
-   ],
-   "span": "Dots from several stations arrive on the hub dashboard, against It names no town that has installed one",
-   "type": "picture and source contradiction, high priority",
-   "risk": "The picture at s6-event-1 shows several stations feeding a live hub, while the closing lines and the source limit say no installation is named. Claims c7, c16 and c20 describe the dashboard as intended, and name no agency or town that runs one.",
-   "direction": "The voice claims no deployment, so it cannot fix this. The picture should show the design or the stations as a disclosed illustration, not a running network.",
-   "status": "Unresolved for the director's consolidated correction. The locked script was not changed."
-  },
-  {
-   "id": "P3",
-   "lines": [
-    1
-   ],
-   "span": "a flood warning",
-   "type": "wording",
-   "risk": "Claim c12 says flash flood warning notification. The script says flood warning, and the banner in the picture reads flash flood warning.",
-   "direction": "No voice change. The director decides whether the locked wording stays.",
-   "status": "Low. Unresolved for the director."
-  },
-  {
-   "id": "P4",
-   "lines": [
-    7
-   ],
-   "span": "early assessments",
-   "type": "wording",
-   "risk": "Claim c4 says initial assessments, and the picture tag reads initial assessments after training. The script says early. The meaning is the same.",
-   "direction": "No voice change.",
-   "status": "Low. Unresolved for the director."
-  },
-  {
-   "id": "P5",
-   "lines": [
-    7
-   ],
-   "span": "The university reports",
-   "type": "missing as-of date",
-   "risk": "Claim c4 comes from the university story dated September 8th, 2026. The spoken report has no as-of date, and the credits name the source date. This is the same class as the earlier as-of finding.",
-   "direction": "No voice change. The director decides whether the qualifier is needed.",
-   "status": "Unresolved for the director. Medium."
-  },
-  {
-   "id": "P6",
-   "lines": [
-    3
-   ],
-   "span": "rain",
-   "type": "wording",
-   "risk": "Claim c2 says precipitation sensing. The script and the picture say rain.",
-   "direction": "No voice change.",
-   "status": "Low."
-  },
-  {
-   "id": "P7",
-   "lines": [
-    8
-   ],
-   "span": "Deployment is still the goal",
-   "type": "unattributed goal",
-   "risk": "Claim c10 attributes the stated goal to Chen Pan, and claim c9 gives the team's aim. The spoken line states the goal with no attribution. The picture shows a dashed goal pin.",
-   "direction": "No voice change. The director may decide whether the goal needs its attribution.",
-   "status": "Low. Unresolved for the director."
-  },
-  {
-   "id": "P8",
-   "lines": [
-    8
-   ],
-   "span": "closing answer",
-   "type": "observation",
-   "risk": "The story contract's closing answer begins with The design says yes, which the locked script does not speak. The spoken close carries the limit only.",
-   "direction": "The voice lands the limit as the close. The director decides whether a yes belongs in the picture.",
-   "status": "Observation only."
-  },
-  {
-   "id": "K1",
-   "lines": [
-    1,
-    4,
-    6,
-    7
-   ],
-   "span": "long sentences",
-   "type": "pace and phone caption risk",
-   "risk": "Sentence 1 has no internal comma and about twenty words. Sentences 4, 6 and 7 run about nineteen to twenty words each. A two-line phone caption needs a break at a complete clause join, and these sentences have few.",
-   "direction": "Breaths sit only at the joins named in each line. If the measured captions cannot form short two-line captions, the fix is a shorter line by story correction, never a faster read or a stretch.",
-   "status": "Check after alignment."
-  },
-  {
-   "id": "K2",
-   "lines": [
-    5
-   ],
-   "span": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub",
-   "type": "pace risk",
-   "risk": "The longest sentence in the passage and the densest clause. Its breaths fall at the comma after rises, the comma after streets and the comma after country. No word can go without losing a range, a qualifier or the destination.",
-   "direction": "Read it at the same pace as the rest. Any cut is a story correction, not a performance change.",
-   "status": "Check after alignment. Most likely line to run long."
-  }
- ],
- "unresolved": [
-  "U1 BLOCKER: sound_direction_sha256 is null. It must be set to fingerprint(board.creative_direction.sound) before creative_production.voice_problems or vo_synth_gemini.py can pass. This session cannot compute it.",
-  "U2: No SHA-256 was computed or verified in this session for the packet, the board, the claims, the script or this file. Every hash in verification is either the packet's claim or null.",
-  "U3: Binding differences to confirm before synthesis. openings/selection.json top-level bindings name board_sha256 497bbc92 and policy_sha256 01bff518. Its selected option a names board_sha256 80456ba3, which matches the packet, and the storyboard's creative_direction.policy_sha256 is 77b82083. The director should confirm that the frozen board equals storyboard.json and that the policy bytes agree.",
-  "U4: Line structure. The gate in scripts/vo_synth_gemini.py compares the direction's lines one for one with the script file's lines. The script file has eight lines and nine sentences, so this file has eight line entries, carries sentences 8 and 9 in line 8, and maps all nine sentences in sentence_map. Splitting file line 8 into two lines would be a script-file change for the director, and it was not made here.",
-  "U5: scripts/script_evidence_check.py and the prose check named in AGENTS.md were not run, because no shell was available. The evidence check may refuse the spelled number and the name UT San Antonio, which is not a verbatim phrase in the fetched quotes.",
-  "U6: No synthesis, no capture, no soundcheck and no paid call was run. Nothing was sent or posted.",
-  "U7: Long-line risk. Flags K1 and K2 mark the lines most likely to run long or to force small phone captions. Any fix is a story correction to a shorter line, never a faster read or a stretch.",
-  "U8: TEXAS_PRONUNCIATION.md says an unlisted proper noun is unverified and that the honest move is to rewrite the line rather than guess. UT San Antonio and San Antonio are unlisted in that file. The line was not rewritten, because a rewrite is a story correction. The director decides whether these names stay after the soundcheck."
- ],
- "guides_read": [
-  ".claude/agents/vo-director.md (full)",
-  "knowledge/craft/VO_DIRECTION.md (full)",
-  "knowledge/texas/SOUND.md (full)",
-  "knowledge/craft/CREATIVE_DIRECTION.md (full)",
-  "knowledge/craft/MODERN_FILM.md (full)",
-  "knowledge/craft/AUTONOMOUS_COMPLETION.md (full)",
-  "config/autonomous_completion_v2.json (full)",
-  "knowledge/craft/visual-storytelling/README.md (full)",
-  "knowledge/craft/visual-storytelling/viewer-plan.md (full)",
-  "knowledge/craft/visual-storytelling/news-reporting.md (full)",
-  "knowledge/craft/visual-storytelling/explanatory-animation.md (full)",
-  "knowledge/craft/visual-storytelling/sentence-to-shot.md (full)",
-  "knowledge/craft/STORY_ART.md (full)",
-  "knowledge/craft/AUTHORED_STORY_ART.md (full)",
-  "knowledge/craft/ART_DIRECTION.md (full)",
-  "config/modern_film.json (full)",
-  "config/creative_production.json (full)",
-  "config/claude_runtime.json (full)",
-  "config/quality_contract.json (full)",
-  "config/art_direction.json (full)",
-  "config/authored_story_art.json (full)",
-  "config/story_art.json (full)",
-  "prompts/roles/scene-builder.md (full)",
-  "AGENTS.md (full)",
-  "prompts/claude_routine.md (first 250 lines only)",
-  "out/dispatch/storyboard.json (full, read in ranges)",
-  "out/dispatch/claims.json (full)",
-  "out/dispatch/openings/selection.json (header and option bindings only)",
-  "scripts/vo_synth_gemini.py (read for the prompt contract and refusal rules, lines 1 to 280)",
-  "/home/user/TexasAIDocket/knowledge/shared/TEXAS_PRONUNCIATION.md (full)"
- ],
- "guides_not_read_in_this_pass": [
-  "config/modern_episode_registry.json and knowledge/craft/cinematic_reference_bank.json: renderer view and reference contracts, not spoken wording. Not opened.",
-  "config/dispatch_rubric.yaml: the scoring bar, which the packet says a voice director does not apply. Not opened, and not quoted here.",
-  "out/dispatch/story_selection.json: the storyboard's story_contract carries the same story. Not opened.",
-  "The remainder of prompts/claude_routine.md after line 250, and the rest of out/dispatch/openings/selection.json after its option bindings."
- ],
- "director_edit_note": "The director (Sonnet) split original file line 8 into two file lines and the L8 direction entry into L8 and L9 so the script file, the direction and the nine scenes all have nine lines. The spoken words are byte-identical to the validated script apart from one newline. The original Haiku file is in evidence/vo-director/. Repair 3 (narration-performance, independent pivot review pivot-review-voice3.json): synth-facing fields rewritten under the PR177 short-notes brief; the clause breath after could spread now sits in line 6 energy, a field the synthesizer receives."
+  "overall": "One connected read as a plainspoken Texan explaining what a university published. Not a news anchor, no hush, no bright lift. Natural breaths at clause boundaries and full stops, no long holds. Say UT and AI as letters, San Antonio with the Texas stress, and the figure as one number.",
+  "performance_arc": "Plain at the start, a lift in the second line, quicker through the third, a clear lift in the fourth, steady through the fifth, level on the sixth, then plain and measured at one pace through the last three lines.",
+  "lines": [
+    {
+      "id": "L1",
+      "scene_ids": [
+        "s1"
+      ],
+      "narration_ids": [
+        "n1"
+      ],
+      "text": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.",
+      "job": "orient",
+      "intent": "Plain and close, said as what the source says.",
+      "emphasis": "UT San Antonio says",
+      "energy": "Working level, settling toward the end.",
+      "pause_after": "A breath at the join after yard, where the clause ends and before begins, with no hold. The rest of the sentence runs on. Full stop at phone, a normal breath, and the next line joins with no reset.",
+      "visible_events": [
+        "s1-event-1",
+        "s1-event-2",
+        "s1-event-3"
+      ],
+      "reason": "Orient. The water tops the curb and climbs the post at s1-event-1, the boots and the dark phone show at s1-event-2, and the late banner at s1-event-3 is the picture of before a flood warning sounds. The stress lands on the late banner."
+    },
+    {
+      "id": "L2",
+      "scene_ids": [
+        "s2"
+      ],
+      "narration_ids": [
+        "n2"
+      ],
+      "text": "So its researchers built a flood station that charges itself from light and needs no cell tower.",
+      "job": "reveal",
+      "intent": "Plain and forward, the first clear lift.",
+      "emphasis": "charges itself from light",
+      "energy": "Opens low and lifts through the middle.",
+      "pause_after": "No break inside the sentence, so the phrase runs from So through light and into needs no cell tower. Full stop at tower, a normal breath, and the next line carries straight on.",
+      "visible_events": [
+        "s2-event-1",
+        "s2-event-2",
+        "s2-event-3"
+      ],
+      "reason": "Reveal. The station is shown at s2-event-1. The stress lands on the panel and the battery bar at s2-event-2, which is the charge the phrase names. The needs no cell tower clause is carried by the dashed line that stops short at s2-event-3. See flag G9."
+    },
+    {
+      "id": "L3",
+      "scene_ids": [
+        "s3"
+      ],
+      "narration_ids": [
+        "n3"
+      ],
+      "text": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.",
+      "job": "explain",
+      "intent": "An even working explanation.",
+      "emphasis": "different",
+      "energy": "A step down, quicker and even.",
+      "pause_after": "A breath at the comma after water, the clause join, with no hold. The list of readings runs on with no breath inside it. Full stop at light, a normal breath, and the next line joins with no reset.",
+      "visible_events": [
+        "s3-event-1",
+        "s3-event-2",
+        "s3-event-3"
+      ],
+      "reason": "Explain. The four lenses at four heights are on screen at s3-event-1, which is where the stress falls. The brown water crossing the marks at s3-event-2 and the weather lamps at s3-event-3 carry the rest of the sentence."
+    },
+    {
+      "id": "L4",
+      "scene_ids": [
+        "s4"
+      ],
+      "narration_ids": [
+        "n4"
+      ],
+      "text": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.",
+      "job": "reveal",
+      "intent": "The turn, firm and forward.",
+      "emphasis": "without a central server",
+      "energy": "The clear lift of the middle, held through the sentence.",
+      "pause_after": "A breath at the comma after itself, the clause join, with no hold. The so it judges flood risk phrase runs on into without a central server. Full stop at server, a normal breath, and the next line joins with no reset.",
+      "visible_events": [
+        "s4-event-1",
+        "s4-event-2",
+        "s4-event-3"
+      ],
+      "reason": "Reveal. The readings reach the chip at s4-event-1 and the amber risk lamp lights at s4-event-2, so the local judgment is seen before it is named. The server outline stays dark with no line at s4-event-3, which is the picture the stressed phrase answers. See flag G3."
+    },
+    {
+      "id": "L5",
+      "scene_ids": [
+        "s5"
+      ],
+      "narration_ids": [
+        "n5"
+      ],
+      "text": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
+      "job": "explain",
+      "intent": "Even and steady through both ranges.",
+      "emphasis": "up to five miles",
+      "energy": "Level, a step below the turn.",
+      "pause_after": "A breath at the comma after rises, and a breath at the comma after streets, both clause joins, with no hold. A breath at the comma after country, before to a hub. Full stop at hub, a normal breath, and the next line joins with no reset.",
+      "visible_events": [
+        "s5-event-1",
+        "s5-event-2",
+        "s5-event-3"
+      ],
+      "reason": "Explain. The rings leave the antenna at s5-event-1 and pass the more than a half mile tag at s5-event-2, said at the same level and without stress so it does not read as the bigger claim. The stress on up to five miles lands on the five-mile tag and the hub mast at s5-event-3. This is the longest sentence in the passage and the most likely line to run long. See flag K2."
+    },
+    {
+      "id": "L6",
+      "scene_ids": [
+        "s6"
+      ],
+      "narration_ids": [
+        "n6"
+      ],
+      "text": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.",
+      "job": "explain",
+      "intent": "Level and plain.",
+      "emphasis": "could",
+      "energy": "A step below the last line. Take a short natural breath after could spread, then say for emergency responders.",
+      "pause_after": "A breath at the comma after hub, which follows a noun. A breath at the comma after spread, the clause join, with no hold, and no breath after for. Full stop at responders, a normal breath, and the next line joins with no reset.",
+      "visible_events": [
+        "s6-event-1",
+        "s6-event-2",
+        "s6-event-3"
+      ],
+      "reason": "Explain. The hub dashboard and the station dots arrive at s6-event-1, the shaded paths spread at s6-event-2, where the stress on could spread lands, and the risk zones and responder tag come at s6-event-3. The picture at s6-event-1 shows several stations feeding the hub, which conflicts with the later no installation line. See flag P2."
+    },
+    {
+      "id": "L7",
+      "scene_ids": [
+        "s7"
+      ],
+      "narration_ids": [
+        "n7"
+      ],
+      "text": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
+      "job": "qualify",
+      "intent": "Flat and measured, then the limit.",
+      "emphasis": "no field result",
+      "energy": "Even through the figure, then lower and plain for the last phrase, same pace as the figure.",
+      "pause_after": "No break in the figure, from the number through validation accuracy and from early assessments after training. A breath at the comma after training, the clause join, with no hold. And no field result runs straight to the full stop, then a normal breath into the closing line.",
+      "visible_events": [
+        "s7-event-1",
+        "s7-event-2",
+        "s7-event-3"
+      ],
+      "reason": "Qualify. The figure fills at s7-event-1 and the after training tag pins under it at s7-event-2, so the qualifiers are spoken with the figure they qualify. The stress on no field result lands on the blank card and the none reported stamp at s7-event-3, the picture of the missing record. See flag G6."
+    },
+    {
+      "id": "L8",
+      "scene_ids": [
+        "s8"
+      ],
+      "narration_ids": [
+        "n8"
+      ],
+      "text": "It names no town that has installed one.",
+      "job": "qualify",
+      "intent": "The second limit, level and plain.",
+      "emphasis": "no town",
+      "energy": "Level and plain, no lift, the same working pace as the line before.",
+      "pause_after": "No breath inside the sentence. Full stop at one, a normal breath, and the close starts as its own line.",
+      "visible_events": [
+        "s8-event-1",
+        "s8-event-2",
+        "s8-event-3"
+      ],
+      "reason": "The search ring at s8-event-2 finds no installed station, and this sentence says so. See flag G7."
+    },
+    {
+      "id": "L9",
+      "scene_ids": [
+        "s9"
+      ],
+      "narration_ids": [
+        "n9"
+      ],
+      "text": "Deployment is still the goal.",
+      "job": "resolve",
+      "intent": "The close, a complete short phrase at the same tempo as line 8.",
+      "emphasis": "still",
+      "energy": "Same tempo as the line before. Say every word at full length and finish goal completely before the read ends, with no upturn.",
+      "pause_after": "No breath inside the close, either between is and still or after still. Full stop at goal, and the take ends with no tail.",
+      "visible_events": [
+        "s9-event-1",
+        "s9-event-2",
+        "s9-event-3"
+      ],
+      "reason": "The close lands on still while the goal pin hovers and does not land at s9-event-1, so the picture and the closing phrase answer the same open question without implying approval. See flag G8."
+    }
+  ],
+  "sentence_map": [
+    {
+      "ordinal": 1,
+      "file_line": 1,
+      "line_id": "L1",
+      "scene_id": "s1",
+      "narration_id": "n1"
+    },
+    {
+      "ordinal": 2,
+      "file_line": 2,
+      "line_id": "L2",
+      "scene_id": "s2",
+      "narration_id": "n2"
+    },
+    {
+      "ordinal": 3,
+      "file_line": 3,
+      "line_id": "L3",
+      "scene_id": "s3",
+      "narration_id": "n3"
+    },
+    {
+      "ordinal": 4,
+      "file_line": 4,
+      "line_id": "L4",
+      "scene_id": "s4",
+      "narration_id": "n4"
+    },
+    {
+      "ordinal": 5,
+      "file_line": 5,
+      "line_id": "L5",
+      "scene_id": "s5",
+      "narration_id": "n5"
+    },
+    {
+      "ordinal": 6,
+      "file_line": 6,
+      "line_id": "L6",
+      "scene_id": "s6",
+      "narration_id": "n6"
+    },
+    {
+      "ordinal": 7,
+      "file_line": 7,
+      "line_id": "L7",
+      "scene_id": "s7",
+      "narration_id": "n7"
+    },
+    {
+      "ordinal": 8,
+      "file_line": 8,
+      "line_id": "L8",
+      "scene_id": "s8",
+      "narration_id": "n8",
+      "note": "Own file line after the director split the locked file line 8."
+    },
+    {
+      "ordinal": 9,
+      "file_line": 9,
+      "line_id": "L9",
+      "scene_id": "s9",
+      "narration_id": "n9",
+      "note": "Own file line after the director split the locked file line 8. Spoken words unchanged."
+    }
+  ],
+  "expressive_prompt": "Built by scripts/vo_synth_gemini.py from the overall, performance_arc and each line's intent, emphasis and energy fields. The pause_after values are for the editor only and are not sent to the reader.",
+  "flags": [
+    {
+      "id": "F1",
+      "lines": [
+        1
+      ],
+      "span": "UT San Antonio",
+      "type": "pronunciation",
+      "risk": "Read as the word ut, or with the letters run together. This is the university's own name for itself and is not in TEXAS_PRONUNCIATION.md, where an unlisted proper noun is unverified.",
+      "direction": "Say U and T as two separate letters, clear and even. Do not stress the initialism.",
+      "status": "Directed in the overall note. Unverified until the soundcheck listens. The lexicon's own rule says the honest move for an unlisted name is to rewrite the line, which is a story correction and was not made here. See U8."
+    },
+    {
+      "id": "F2",
+      "lines": [
+        1
+      ],
+      "span": "San Antonio",
+      "type": "pronunciation",
+      "risk": "Read with Spanish vowels, or with the stress on the wrong syllable.",
+      "direction": "Say San Antonio the Texas way, with the stress on the TOH in Antonio.",
+      "status": "Directed in the overall note. The lexicon has no entry for it, so it is unverified until the soundcheck. See U8."
+    },
+    {
+      "id": "F3",
+      "lines": [
+        4,
+        6
+      ],
+      "span": "AI",
+      "type": "pronunciation",
+      "risk": "Read as the word ai, or as eye.",
+      "direction": "Say A and I as two letters, both times.",
+      "status": "Directed in the overall note. Not in the lexicon, so unverified until the soundcheck."
+    },
+    {
+      "id": "F4",
+      "lines": [
+        7
+      ],
+      "span": "ninety eight point eight two percent",
+      "type": "numeral spoken as words",
+      "risk": "Read as ninety eight point eight, then two percent, with eight and two running apart. The fetched quote writes 98.82%, so script_evidence_check may need number-word matching. This is not a voice fault.",
+      "direction": "Keep eight two as one two-digit group with no break between them, and keep percent with the number.",
+      "status": "Directed in the overall note. The evidence match is unverified in this session because no shell was available."
+    },
+    {
+      "id": "F5",
+      "lines": [
+        5
+      ],
+      "span": "a half-mile",
+      "type": "grouping",
+      "risk": "Split as a and half mile, or the a lost from the unit.",
+      "direction": "Keep a with half-mile as one unit, and keep up to with five miles.",
+      "status": "Directed in the line 5 notes."
+    },
+    {
+      "id": "F6",
+      "lines": [
+        2
+      ],
+      "span": "its researchers",
+      "type": "homophone",
+      "risk": "Heard as it's researchers.",
+      "direction": "Say its as an unstressed possessive, never it's.",
+      "status": "Directed in the overall note."
+    },
+    {
+      "id": "G1",
+      "lines": [
+        1
+      ],
+      "span": "could have ankle-deep water in their yard, before a flood warning sounds on their phone",
+      "type": "ambiguity",
+      "risk": "The hedge could be heard as a fact. On their phone could attach to yard rather than to sounds.",
+      "direction": "Keep could have as a possibility with no added stress. On their phone attaches to sounds, where the warning arrives.",
+      "status": "Directed in the line 1 notes."
+    },
+    {
+      "id": "G2",
+      "lines": [
+        3
+      ],
+      "span": "watch the water, along with rain, temperature, humidity and light",
+      "type": "grouping",
+      "risk": "Along with could attach to water as its object, and at different heights could attach to watch rather than to the sensors.",
+      "direction": "The list attaches to what the sensors watch. At different heights attaches to the sensors.",
+      "status": "Directed in the line 3 notes."
+    },
+    {
+      "id": "G3",
+      "lines": [
+        4
+      ],
+      "span": "runs the AI itself, so it judges flood risk without a central server",
+      "type": "grouping",
+      "risk": "Itself could detach from runs, and without a central server could attach to chip rather than to judges.",
+      "direction": "Keep itself with runs. So marks the consequence. Without a central server attaches to judges.",
+      "status": "Directed in the line 4 notes."
+    },
+    {
+      "id": "G4",
+      "lines": [
+        5
+      ],
+      "span": "to a hub",
+      "type": "grouping",
+      "risk": "To a hub could attach to open country, as if the hub sat in the open country, rather than to the whole carry. More than and up to could also detach from their ranges.",
+      "direction": "To a hub is the destination of the whole carry. More than stays with the city range and up to stays with the open-country range.",
+      "status": "Directed in the line 5 notes. The picture supports the reading, since the hub mast is where the open-country ring ends."
+    },
+    {
+      "id": "G5",
+      "lines": [
+        6
+      ],
+      "span": "for emergency responders",
+      "type": "grouping",
+      "risk": "Could attach to spread, as if flooding spreads for responders, rather than to the map.",
+      "direction": "For emergency responders attaches to the map. No breath after for.",
+      "status": "Directed in the line 6 notes."
+    },
+    {
+      "id": "G6",
+      "lines": [
+        7
+      ],
+      "span": "from early assessments after training, and no field result",
+      "type": "grouping",
+      "risk": "After training could attach to validation accuracy. And no field result could be heard as part of the figure rather than as the limit.",
+      "direction": "The qualifiers attach to the figure. The limit is split from the figure at the comma after training.",
+      "status": "Directed in the line 7 notes."
+    },
+    {
+      "id": "G7",
+      "lines": [
+        8
+      ],
+      "span": "It names no town that has installed one",
+      "type": "antecedent and pronoun",
+      "risk": "It could be heard as the figure or as the station. One could be heard as the numeral one.",
+      "direction": "It refers to the university named in line 7. One is an unstressed pronoun for the installation.",
+      "status": "Directed in the line 8 notes."
+    },
+    {
+      "id": "G8",
+      "lines": [
+        8
+      ],
+      "span": "Deployment is still the goal",
+      "type": "ambiguity",
+      "risk": "Still could mean even now, or motionless.",
+      "direction": "Still means not yet reached. Keep is still together.",
+      "status": "Directed in the line 8 notes. The attribution is not spoken. See P7."
+    },
+    {
+      "id": "G9",
+      "lines": [
+        2
+      ],
+      "span": "a flood station that charges itself from light and needs no cell tower",
+      "type": "grouping",
+      "risk": "From light could attach to flood station, as if the station were lit from light, rather than to charges itself. Needs no cell tower could attach to light.",
+      "direction": "From light attaches to charges itself. Needs no cell tower attaches to the station, so the phrase carries no tower.",
+      "status": "Directed in the line 2 notes."
+    },
+    {
+      "id": "P1",
+      "lines": [
+        1
+      ],
+      "span": "could have ankle-deep water",
+      "type": "picture and word mismatch",
+      "risk": "The voice hedges with could have, while the picture plays the flood as an event that happens: the water rises to the boots and the banner lands. The disclosure reads Illustration. The attribution UT San Antonio says is spoken and is not pictured.",
+      "direction": "The voice keeps the hedge. The picture should show the flood as a possibility, or label the hypothetical.",
+      "status": "Unresolved for the director's consolidated correction. Not a voice fix."
+    },
+    {
+      "id": "P2",
+      "lines": [
+        6,
+        8
+      ],
+      "span": "Dots from several stations arrive on the hub dashboard, against It names no town that has installed one",
+      "type": "picture and source contradiction, high priority",
+      "risk": "The picture at s6-event-1 shows several stations feeding a live hub, while the closing lines and the source limit say no installation is named. Claims c7, c16 and c20 describe the dashboard as intended, and name no agency or town that runs one.",
+      "direction": "The voice claims no deployment, so it cannot fix this. The picture should show the design or the stations as a disclosed illustration, not a running network.",
+      "status": "Unresolved for the director's consolidated correction. The locked script was not changed."
+    },
+    {
+      "id": "P3",
+      "lines": [
+        1
+      ],
+      "span": "a flood warning",
+      "type": "wording",
+      "risk": "Claim c12 says flash flood warning notification. The script says flood warning, and the banner in the picture reads flash flood warning.",
+      "direction": "No voice change. The director decides whether the locked wording stays.",
+      "status": "Low. Unresolved for the director."
+    },
+    {
+      "id": "P4",
+      "lines": [
+        7
+      ],
+      "span": "early assessments",
+      "type": "wording",
+      "risk": "Claim c4 says initial assessments, and the picture tag reads initial assessments after training. The script says early. The meaning is the same.",
+      "direction": "No voice change.",
+      "status": "Low. Unresolved for the director."
+    },
+    {
+      "id": "P5",
+      "lines": [
+        7
+      ],
+      "span": "The university reports",
+      "type": "missing as-of date",
+      "risk": "Claim c4 comes from the university story dated September 8th, 2026. The spoken report has no as-of date, and the credits name the source date. This is the same class as the earlier as-of finding.",
+      "direction": "No voice change. The director decides whether the qualifier is needed.",
+      "status": "Unresolved for the director. Medium."
+    },
+    {
+      "id": "P6",
+      "lines": [
+        3
+      ],
+      "span": "rain",
+      "type": "wording",
+      "risk": "Claim c2 says precipitation sensing. The script and the picture say rain.",
+      "direction": "No voice change.",
+      "status": "Low."
+    },
+    {
+      "id": "P7",
+      "lines": [
+        8
+      ],
+      "span": "Deployment is still the goal",
+      "type": "unattributed goal",
+      "risk": "Claim c10 attributes the stated goal to Chen Pan, and claim c9 gives the team's aim. The spoken line states the goal with no attribution. The picture shows a dashed goal pin.",
+      "direction": "No voice change. The director may decide whether the goal needs its attribution.",
+      "status": "Low. Unresolved for the director."
+    },
+    {
+      "id": "P8",
+      "lines": [
+        8
+      ],
+      "span": "closing answer",
+      "type": "observation",
+      "risk": "The story contract's closing answer begins with The design says yes, which the locked script does not speak. The spoken close carries the limit only.",
+      "direction": "The voice lands the limit as the close. The director decides whether a yes belongs in the picture.",
+      "status": "Observation only."
+    },
+    {
+      "id": "K1",
+      "lines": [
+        1,
+        4,
+        6,
+        7
+      ],
+      "span": "long sentences",
+      "type": "pace and phone caption risk",
+      "risk": "Sentence 1 has no internal comma and about twenty words. Sentences 4, 6 and 7 run about nineteen to twenty words each. A two-line phone caption needs a break at a complete clause join, and these sentences have few.",
+      "direction": "Breaths sit only at the joins named in each line. If the measured captions cannot form short two-line captions, the fix is a shorter line by story correction, never a faster read or a stretch.",
+      "status": "Check after alignment."
+    },
+    {
+      "id": "K2",
+      "lines": [
+        5
+      ],
+      "span": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub",
+      "type": "pace risk",
+      "risk": "The longest sentence in the passage and the densest clause. Its breaths fall at the comma after rises, the comma after streets and the comma after country. No word can go without losing a range, a qualifier or the destination.",
+      "direction": "Read it at the same pace as the rest. Any cut is a story correction, not a performance change.",
+      "status": "Check after alignment. Most likely line to run long."
+    }
+  ],
+  "unresolved": [
+    "U1 BLOCKER: sound_direction_sha256 is null. It must be set to fingerprint(board.creative_direction.sound) before creative_production.voice_problems or vo_synth_gemini.py can pass. This session cannot compute it.",
+    "U2: No SHA-256 was computed or verified in this session for the packet, the board, the claims, the script or this file. Every hash in verification is either the packet's claim or null.",
+    "U3: Binding differences to confirm before synthesis. openings/selection.json top-level bindings name board_sha256 497bbc92 and policy_sha256 01bff518. Its selected option a names board_sha256 80456ba3, which matches the packet, and the storyboard's creative_direction.policy_sha256 is 77b82083. The director should confirm that the frozen board equals storyboard.json and that the policy bytes agree.",
+    "U4: Line structure. The gate in scripts/vo_synth_gemini.py compares the direction's lines one for one with the script file's lines. The script file has eight lines and nine sentences, so this file has eight line entries, carries sentences 8 and 9 in line 8, and maps all nine sentences in sentence_map. Splitting file line 8 into two lines would be a script-file change for the director, and it was not made here.",
+    "U5: scripts/script_evidence_check.py and the prose check named in AGENTS.md were not run, because no shell was available. The evidence check may refuse the spelled number and the name UT San Antonio, which is not a verbatim phrase in the fetched quotes.",
+    "U6: No synthesis, no capture, no soundcheck and no paid call was run. Nothing was sent or posted.",
+    "U7: Long-line risk. Flags K1 and K2 mark the lines most likely to run long or to force small phone captions. Any fix is a story correction to a shorter line, never a faster read or a stretch.",
+    "U8: TEXAS_PRONUNCIATION.md says an unlisted proper noun is unverified and that the honest move is to rewrite the line rather than guess. UT San Antonio and San Antonio are unlisted in that file. The line was not rewritten, because a rewrite is a story correction. The director decides whether these names stay after the soundcheck."
+  ],
+  "guides_read": [
+    ".claude/agents/vo-director.md (full)",
+    "knowledge/craft/VO_DIRECTION.md (full)",
+    "knowledge/texas/SOUND.md (full)",
+    "knowledge/craft/CREATIVE_DIRECTION.md (full)",
+    "knowledge/craft/MODERN_FILM.md (full)",
+    "knowledge/craft/AUTONOMOUS_COMPLETION.md (full)",
+    "config/autonomous_completion_v2.json (full)",
+    "knowledge/craft/visual-storytelling/README.md (full)",
+    "knowledge/craft/visual-storytelling/viewer-plan.md (full)",
+    "knowledge/craft/visual-storytelling/news-reporting.md (full)",
+    "knowledge/craft/visual-storytelling/explanatory-animation.md (full)",
+    "knowledge/craft/visual-storytelling/sentence-to-shot.md (full)",
+    "knowledge/craft/STORY_ART.md (full)",
+    "knowledge/craft/AUTHORED_STORY_ART.md (full)",
+    "knowledge/craft/ART_DIRECTION.md (full)",
+    "config/modern_film.json (full)",
+    "config/creative_production.json (full)",
+    "config/claude_runtime.json (full)",
+    "config/quality_contract.json (full)",
+    "config/art_direction.json (full)",
+    "config/authored_story_art.json (full)",
+    "config/story_art.json (full)",
+    "prompts/roles/scene-builder.md (full)",
+    "AGENTS.md (full)",
+    "prompts/claude_routine.md (first 250 lines only)",
+    "out/dispatch/storyboard.json (full, read in ranges)",
+    "out/dispatch/claims.json (full)",
+    "out/dispatch/openings/selection.json (header and option bindings only)",
+    "scripts/vo_synth_gemini.py (read for the prompt contract and refusal rules, lines 1 to 280)",
+    "/home/user/TexasAIDocket/knowledge/shared/TEXAS_PRONUNCIATION.md (full)"
+  ],
+  "guides_not_read_in_this_pass": [
+    "config/modern_episode_registry.json and knowledge/craft/cinematic_reference_bank.json: renderer view and reference contracts, not spoken wording. Not opened.",
+    "config/dispatch_rubric.yaml: the scoring bar, which the packet says a voice director does not apply. Not opened, and not quoted here.",
+    "out/dispatch/story_selection.json: the storyboard's story_contract carries the same story. Not opened.",
+    "The remainder of prompts/claude_routine.md after line 250, and the rest of out/dispatch/openings/selection.json after its option bindings."
+  ],
+  "director_edit_note": "The director (Sonnet) split original file line 8 into two file lines and the L8 direction entry into L8 and L9 so the script file, the direction and the nine scenes all have nine lines. The spoken words are byte-identical to the validated script apart from one newline. The original Haiku file is in evidence/vo-director/. Repair 3 (narration-performance, independent pivot review pivot-review-voice3.json): synth-facing fields rewritten under the PR177 short-notes brief; the clause breath after could spread now sits in line 6 energy, a field the synthesizer receives."
 }
