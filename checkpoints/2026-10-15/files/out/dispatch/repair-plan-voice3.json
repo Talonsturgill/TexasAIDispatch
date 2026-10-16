@@ -3,8 +3,8 @@
  "failure_family": "unclassified",
  "director_identity": "claude-sonnet-5-5 director, this session",
  "repair_scope": "narration-performance",
- "root_cause": "Take 3 passed the soundcheck and read every phrase, but whisper heard how flooding could spray it for emergency responders while Gemini heard spread. The prompt of that take forbade every pause inside a sentence, so the narrator ran the stressed could spread straight into for with no clause breath, which blurs the final d. PR177's dated prompt now permits complete-clause breaths, and its updated brief keeps synth-facing notes short with exact emphasis.",
- "repair": "Regenerate only the direction under the updated brief: shorten the synth-facing notes, keep one exact emphasis phrase per line, keep no alternative spoken wording, and name the clause breath after could spread in line 6 so the d is released before for. Spoken script, claims, board, sources and renderer stay byte-identical.",
+ "root_cause": "Take 3 passed the soundcheck and read every phrase, but whisper heard how flooding could spray it for emergency responders while Gemini heard spread. The retained timestamps show could spread running straight into for with no boundary: the take 3 prompt told the narrator never to pause inside a sentence, and the one breath planned after spread lived only in the edit-only pause_after field that the synthesizer never receives. PR177's dated prompt permits natural complete-clause breaths.",
+ "repair": "Rewrite the direction under the updated short-notes brief: one short overall paragraph, intent in a few words, one exact script phrase per line as emphasis (line 6 stresses could alone), a brief relative energy change, no alternative wording, no invented pronunciation rules. Name the breath after could spread in a field the synthesizer receives (line 6 energy). The retired articulation instructions are removed. Spoken script, claims, board, sources and renderer stay byte-identical.",
  "mechanism_change": "The prompt now allows a natural clause breath where the caption profile expects one, and the direction names that breath at the spread-for join instead of requiring an unbroken run.",
  "expected_visible_result": "One continuous take whose forced alignment reconciles with every word of the locked script, including spread, with the percent figure matched by the repaired canonicalization.",
  "failure_evidence": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-3/finding.md",
@@ -18,5 +18,9 @@
    "before_path": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-3/vo_direction-before.json",
    "before_sha256": "cd9184de22b78b7444e121d60cde29bf583c72b3b74cc817676e95deb1342d77"
   }
- ]
+ ],
+ "pivot_review": {
+  "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/pivot-review-voice3.json",
+  "sha256": "ed45b245f7c56a59a60de10d5266530a6f74b8cf1dce6b9a9a028cff83896ac7"
+ }
 }
