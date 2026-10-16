@@ -38,6 +38,34 @@ class GroupingTests(unittest.TestCase):
     def test_short_run(self):
         self.check_runs(["Smoke is the signal."], 1)
 
+    def test_current_profile_prefers_a_measured_clause_break(self):
+        words = measured_runs(['At a low-water crossing in Texas,',
+                               'a sensor can report a rising creek.'])
+        result = cues(words, compact=True)
+        self.assertEqual([c['text'] for c in result],
+                         ['At a low-water crossing in Texas,', 'a sensor can report a rising creek.'])
+        self.assertEqual(len(cues(words)), 1)
+        self.assertTrue(all(c['start_measured'] and c['end_measured'] for c in result))
+
+    def test_current_profile_reduces_early_reveal_without_changing_words_or_edges(self):
+        words = measured_runs(['The gauge detects rising water', 'and sends a signal',
+                               'through a nearby wireless relay.'])
+        result = cues(words, compact=True)
+        legacy = cues(words)
+        self.assertLess(max(c['end'] - c['start'] for c in result),
+                        max(c['end'] - c['start'] for c in legacy))
+        self.assertEqual(' '.join(c['text'] for c in result), ' '.join(w['word'] for w in words))
+        starts = {w['start'] for w in words if w['anchored_start']}
+        ends = {w['end'] for w in words if w['anchored_end']}
+        self.assertTrue(all(c['start'] in starts and c['end'] in ends for c in result))
+
+    def test_current_profile_never_invents_an_indivisible_run_boundary(self):
+        words = measured_runs(['A continuous unbroken measured passage ' * 5])
+        result = cues(words, compact=True)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['start'], words[0]['start'])
+        self.assertEqual(result[0]['end'], words[-1]['end'])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useCurrentFrame, useVideoConfig, interpolate, Easing} from 'remotion';
 import {FONT} from './type';
-import {captionLayout, captionBandHeight, creditLayout, CAPTION_BAND} from './editorial';
+import {captionLayout, captionBandHeight, creditLayout, CAPTION_BAND, CAPTION_ENTRANCE_PX} from './editorial';
 import {DocketMark} from '../branding/DocketMark';
 import {SAFE_BOTTOM, SAFE_RIGHT} from './safearea';
 import type {Cue} from '../Dispatch';
@@ -27,7 +27,7 @@ export const SubtitleTrack: React.FC<{cues: Cue[]; fps: number}> = ({cues, fps})
   const {lines, size} = layouts[index];
   const lead = size * 1.23;
   const h = captionBandHeight({lines, size});
-  const settle = interpolate((t - cue.start) * fps, [0, 6], [-6, 0],
+  const settle = interpolate((t - cue.start) * fps, [0, 6], [-CAPTION_ENTRANCE_PX, 0],
     {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   // The whole measured cue is visible from its first frame. No simulated word clock,
   // typewriter reveal, or fade that steals reading time from its measured boundaries.

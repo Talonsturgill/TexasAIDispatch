@@ -3,6 +3,7 @@ import {widthOf, wrapBreakableToWidth, wrapToWidth} from './type';
 
 export const CAPTION_BAND = {left: 36, padding: 12, right: SAFE_RIGHT, bottom: SAFE_BOTTOM};
 export const CAPTION_TEXT_WIDTH = CAPTION_BAND.right - CAPTION_BAND.left - 2 * CAPTION_BAND.padding;
+export const CAPTION_ENTRANCE_PX = 6;
 
 /** The lowest two-line size a cue that declares max_lines 3 keeps before it may take a third line. */
 export const CAPTION_THIRD_LINE_BELOW = 34;

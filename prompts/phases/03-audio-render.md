@@ -73,6 +73,14 @@ python scripts/board_captions.py --board out/dispatch/storyboard.json --captions
 python scripts/board_retime.py --board out/dispatch/storyboard.json --words out/dispatch/words.json --sfx out/dispatch/sfx_events.json
 ```
 
+For editions from October 15th, align with the actual storyboard through `--cuts` so the
+compact measured-clause profile is selected and recorded. Keep complete phrases, every spoken
+word and actual measured edges. Current captions must fit two lines at 40px or more. Inspect
+the longest cue, fastest cue and the first frame of a cue in the phone preview. If the measured
+take offers no usable boundary for a dense passage, shorten the script or direct a natural
+clause pause and synthesize a charged take. Never shrink below the phone floor, add a third line,
+omit words, approximate timings or reveal the closing answer several seconds early.
+
 Align on the final mix, detect phrases on its same-clock voice stem. Pinned whisper.cpp DTW
 and reconciled measured speech runs supply word identity and cue grouping; missing/stale ASR
 evidence fails. Never prompt ASR with the script or type timing overrides. Sourced name aliases

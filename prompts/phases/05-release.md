@@ -87,16 +87,28 @@ Write runs/<date>/email.md before creating/updating Gmail. Put the usable post f
 1. Canonical film link, master, phone rendition, poster, encoded runtime including credits,
    dimensions and both media file sizes.
 2. Approved social caption between -----BEGIN CAPTION----- and -----END CAPTION-----.
-3. Sources ready for the first comment.
-4. Honest scores, gate results, limitations, soundcheck and any bounded machine upgrades.
+3. Copy-ready music attribution directly after the caption, between -----BEGIN MUSIC CREDITS-----
+   and -----END MUSIC CREDITS-----. Generate it from the actual delivered mix and registry with
+   the command below. Keep title, musician, source URL, license and modification notice intact.
+4. Sources ready for the first comment.
+5. Honest scores, gate results, limitations, soundcheck and any bounded machine upgrades.
+
+Write the social caption for the viewer. Lead with the specific person, tool or consequence,
+explain the source-backed mechanism, retain its strongest limitation, and end with a useful
+takeaway or a verified next step. Prefer two short paragraphs. Avoid vague AI excitement,
+repeating the title, keyword piles, invented urgency and unsupported promises. Read it once
+without the film and once beside the film. It should add context while matching the actual cut.
 
 ```sh
+python scripts/music_credit_payload.py --mix runs/<date>/mix.json --email runs/<date>/email.md
 python scripts/email_check.py --email runs/<date>/email.md --date <date>
 ```
 
 Run the prose scan again. Resolve the recipient from the verified delivery routing contract.
 Create or update the matching unsent Gmail draft; do not duplicate it. Read it back and verify
 recipient, subject, body, media links, DRAFT present and SENT absent. Never send or post.
+The read-back body must also contain the exact copy-ready music credit block. Preserve existing
+attachments when updating a draft. A correct local email payload does not prove the Gmail body.
 
 ## Shipment and durable closure
 

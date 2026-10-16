@@ -327,6 +327,8 @@ def verify_shipment(state, manifest):
         if routing.get("recipient") != recipient or routing.get("run_id") != state["run_id"]:
             raise ValueError("delivery routing does not match this edition")
         errors = draft_problems(load_json(gmail), recipient, email.read_text())
+        from music_credit_payload import problems as music_credit_problems
+        errors += music_credit_problems(email, state['run_id'])
         errors += playback_problems(load_json(playback), data["live_url"], mobile_url, film_hash)
         errors += claude_playback_problems(load_json(playback))
         parsed = urlparse(data["live_url"])
