@@ -1,0 +1,20 @@
+{
+  "schema": "dispatch_precharged_source_validation/1",
+  "run_id": "2026-10-15",
+  "role": "validator",
+  "status": "completed",
+  "provider_unavailable": false,
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "agent_id": "a7ee350fb1f559dc7",
+  "reviewer_identity": "claude-opus-5-5 (Opus 5.5), fresh independent source validator subagent, read plus WebFetch only, no agents launched, nothing edited. What I couldn't verify: the director's validator_agents 4 of 4 reservation, and the sha256 hashes below. I computed no hashes. I read the exact paths the packet lists and am repeating its hashes, not confirming them. I also couldn't check the full live article text, because WebFetch refused a verbatim dump, so I checked each quote one by one. I couldn't read the GLO Final Report E014 PDF, which is over the fetch size limit. I didn't see the on-screen cards or tags the packet describes ('Initial assessments after training', the validation card), the board, the audio take or the captions, so this review approves none of them.",
+  "reservation_event_index": 164,
+  "reservation_sha256": "7fa3f1f50ab1d216c18c8280944ea39604a0ae5a47f92858e432681d04c38b11",
+  "started_at": "2026-10-16T19:26:28.321Z",
+  "completed_at": "2026-10-16T19:29:56.987Z",
+  "report_sha256": "be9a9eb1808ca6745214d87eb151e231915d90f14b2efb57ac229e418530cf6a",
+  "script_sha256": "7b73e3fcde1e2c0ae0500b099298b66af70142a39db40a4dd51641b994ee4444",
+  "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+  "result": "REVISE",
+  "note": "REVISE. Retained, never promoted to out/dispatch/validation.json. Required edit: s13 absence claim must be limited to the announcement."
+}
