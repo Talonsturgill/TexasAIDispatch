@@ -1,0 +1,22 @@
+{
+ "mechanism_id": "closing-hold-from-measured-read",
+ "failure_family": "continuity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The board runtime (58.7 s) was authored for a longer read. The retained take 5 voice ends at 54.66 s, so the sanctioned measured retime leaves the closing scene s9 at 5.64 s, over the 5.0 s shot cap, with 4.04 s between its last performed event and the end. Exact gate output is in evidence/measured-retime-s9-gate-failure-20261016/gate.log. A framing subdivision of the same action cannot fix it, because every s9 event ends by 54.63 s and the interval check still fails.",
+ "repair": "Set runtime_s to the measured last word end plus the board's own authored closing hold (1.5 s, from the authored n9 cue end 57.2 to runtime 58.7), giving 56.16 s. Change only runtime_s. Scenes, shots, events, claims, script, take 5, direction and renderer stay unchanged. The measured retime then derives every scene, shot and event time. Remix with the same 0.30 s voice offset and a story-plus-credits cut of 61.16 s, align with cuts and clause boundaries, fold cues and confirm stability.",
+ "mechanism_change": "The closing hold comes from the measured read end and the authored hold, not from the earlier longer read. No script, direction, art or event edit.",
+ "expected_visible_result": "The measured retime passes the shot cap and reward interval gates, and the film closes about the authored beat after the final word.",
+ "failure_evidence": "out/dispatch/evidence/measured-retime-s9-gate-failure-20261016/gate.log",
+ "failure_evidence_sha256": "892d0503fd4e79088f6c9732a46c48cf44d1746628fb7840d945c72ce9290655",
+ "resources": {
+  "reboards": 1
+ },
+ "changed_inputs": [
+  {
+   "path": "out/dispatch/storyboard.json",
+   "before_path": "out/dispatch/evidence/measured-retime-s9-gate-failure-20261016/storyboard-after-fold.json",
+   "before_sha256": "a5713dc993c5df74b0662c9a4bc7d292dd3b39dd04e13048d0ad871a34bfd814",
+   "after_sha256": "38c094afdccc06e4f991831062255ac53e5e0e9a0e4f65ed0eaf494666992196"
+  }
+ ]
+}
