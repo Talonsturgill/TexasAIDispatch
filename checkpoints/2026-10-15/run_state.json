@@ -49,6 +49,14 @@
       "note": "quarter-scale animatic",
       "resource": "preflight_renders",
       "to": 5
+    },
+    {
+      "at": "2026-10-16T05:25:08.298213Z",
+      "ceiling": 16,
+      "from": 5,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 6
     }
   ],
   "events": [
@@ -516,6 +524,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T05:25:08.298251Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 6,
+      "resource": "preflight_renders",
+      "was": 5
+    },
+    {
+      "at": "2026-10-16T05:25:08.298270Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -524,7 +550,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 5,
+    "preflight_renders": 6,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -539,7 +565,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2163b5c71b18298d18d7f75f3e557b751fc9114a75aef84bddfabc4fed9608cc",
+    "original_private_state_sha256": "40c62dbc9ba6db7273a8dab2515edada36e940c24e5f4928d7ccd243a109681b",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -575,14 +601,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T05:24:38.076566Z",
+  "updated_at": "2026-10-16T05:25:08.298273Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 5,
+    "preflight_renders": 6,
     "reboards": 3,
     "reported_tokens": 0,
     "rescue_renders": 0,
