@@ -1,0 +1,55 @@
+{
+  "mechanism_id": "sentence-per-cue-caption-boundaries",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "resources": {
+    "reboards": 1,
+    "validator_agents": 1,
+    "tts_calls": 2
+  },
+  "repair_scope": "standard",
+  "root_cause": "The fresh independent Opus High source validator (object be9a9eb1) returned REVISE on the applied R9 script: all 20 claims verified, but sentence 13 attributes the absence of a field result to the whole university while the evidence covers only the September 8th announcement, and sentence 14 inherits that scope. The same critic diagnosed it as a release blocker in the independent source-pivot review (report sha 92412003).",
+  "repair": "Apply the frozen R10 correction (evidence/proposal-r10): sentence 13 becomes The announcement reports no field result, so the absence is limited to the document checked and sentence 14 It means the announcement. Script line 13, bindings, direction and the four text fields per board change. All timing, shots, events, claims and sources stay byte-identical. A fresh independent source validation of the R10 bytes follows.",
+  "mechanism_change": "The caption lever moves from in-sentence silent beats to one complete sentence per cue split at full-stop gaps, with projected clause windows, event widths sized from measured read rates and varied framing.",
+  "expected_visible_result": "One continuous take whose sentences each fit one two-line caption cue at 40 px or more, every event between 0.2 s and 1.2 s inside its spoken clause, no figure attached to the wrong model, no same-view cuts, and both treatments presented as a fresh silent comparison.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r10-source-pivot-revise/report-verbatim.json",
+  "failure_evidence_sha256": "924120036ecbf07669f2a34b68d6f38c709ab63e130fcbdf15117c5b402f40ed",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_script.txt",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r10-funding/baseline/vo_script.txt",
+      "before_sha256": "7b73e3fcde1e2c0ae0500b099298b66af70142a39db40a4dd51641b994ee4444",
+      "after_sha256": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_bindings.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r10-funding/baseline/vo_bindings.json",
+      "before_sha256": "ae84d1e253a252c28cac9cebd05293f8f132cc8d493caf1d224c4271f919a7fc",
+      "after_sha256": "7543a8d1835b0fe8cb56537ac35009b09afa5e16bc963c91c4f879b1308a0929"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_direction.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r10-funding/baseline/vo_direction.json",
+      "before_sha256": "a32a4c06460a61298a7e810244ce4a151c66fcf8aab87218cada2a57cc593c12",
+      "after_sha256": "420d6fe30b80d0ae5f1472bc7f6f443aa44783887c987345053e4a0590a79200"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r10-funding/baseline/storyboard.json",
+      "before_sha256": "025f0ca45912dbb69b9d1935ebcce924162c0f70ce772dd8959ee130aeaaa6b0",
+      "after_sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r10-funding/baseline/opening-a.json",
+      "before_sha256": "025f0ca45912dbb69b9d1935ebcce924162c0f70ce772dd8959ee130aeaaa6b0",
+      "after_sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r10-funding/baseline/opening-b.json",
+      "before_sha256": "db41534bc852c5f5811fd119d9248b410391bd39bd7a5048ec7efc249f38ec83",
+      "after_sha256": "baf3f294acb2ccc23da0c94a497480c3dda12b09a400e5e40dc2189f37044dc3"
+    }
+  ]
+}

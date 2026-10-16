@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T19:32:13.678735+00:00",
+  "saved_at": "2026-10-16T19:35:40.322577+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "9f02a1c8d13fbbdc9787f4f63d874d767cb8c0bc0c5ecce30eea33c4982e8230",
-  "original_private_ledger_sha256": "e8e74f6358f45b706984d1a72316bfdf56eead90e5deda9c2801ae59b45096ac",
+  "ledger_sha256": "69adfbf9e85b7c511c9de36fe7afc8889d6d3e33fc930584d2bfdf2c3dcaf8a9",
+  "original_private_ledger_sha256": "2a8bcf62d70f4167bcb896c9022db400002454d396479d48954b852370c9392d",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -47,6 +47,11 @@
     {
       "event_index": 156,
       "authorization_sha256": "a24aab28fc378da680e91ebee34608f3d95b17cee2aea2e441856ac0b9af5d22",
+      "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 167,
+      "authorization_sha256": "faefdf5c2e968bf7bd71cd4cc29eeef49e33d97a009b5e8ba8fb53f95b2e77bf",
       "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
@@ -5427,6 +5432,60 @@
       "size": 3658
     },
     {
+      "path": "out/dispatch/evidence/r10-funding/baseline/opening-a.json",
+      "class": "scratch",
+      "sha256": "025f0ca45912dbb69b9d1935ebcce924162c0f70ce772dd8959ee130aeaaa6b0",
+      "size": 187325
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/baseline/opening-b.json",
+      "class": "scratch",
+      "sha256": "db41534bc852c5f5811fd119d9248b410391bd39bd7a5048ec7efc249f38ec83",
+      "size": 193216
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/baseline/storyboard.json",
+      "class": "scratch",
+      "sha256": "025f0ca45912dbb69b9d1935ebcce924162c0f70ce772dd8959ee130aeaaa6b0",
+      "size": 187325
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/baseline/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "ae84d1e253a252c28cac9cebd05293f8f132cc8d493caf1d224c4271f919a7fc",
+      "size": 2344
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/baseline/vo_direction.json",
+      "class": "scratch",
+      "sha256": "a32a4c06460a61298a7e810244ce4a151c66fcf8aab87218cada2a57cc593c12",
+      "size": 14921
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/baseline/vo_script.txt",
+      "class": "scratch",
+      "sha256": "7b73e3fcde1e2c0ae0500b099298b66af70142a39db40a4dd51641b994ee4444",
+      "size": 752
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/complete-source-capacity-plan-r10.json",
+      "class": "scratch",
+      "sha256": "faefdf5c2e968bf7bd71cd4cc29eeef49e33d97a009b5e8ba8fb53f95b2e77bf",
+      "size": 14138
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/source-capacity-plan-r10.json",
+      "class": "scratch",
+      "sha256": "a3697a7b4fd204b417db3c426aad595cf2ae6adeb0edf24508da69432a2f5eaf",
+      "size": 8949
+    },
+    {
+      "path": "out/dispatch/evidence/r10-funding/source-plan-r10.json",
+      "class": "scratch",
+      "sha256": "d99e218653ad5a2683945f9531d8cef9142252852edba6cbfa2ed4abbc55a3fa",
+      "size": 4287
+    },
+    {
       "path": "out/dispatch/evidence/r8-funding/baseline/claims.json",
       "class": "scratch",
       "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
@@ -5623,6 +5682,30 @@
       "class": "scratch",
       "sha256": "b68182abda6650b8019e4be4830dd30161ea8fdf98f596c50ae92ea3fba7dba2",
       "size": 411
+    },
+    {
+      "path": "out/dispatch/evidence/review-r10-source-pivot-revise/agent-transcript-cumulative.jsonl",
+      "class": "scratch",
+      "sha256": "937a6ae8b3df1570dd83ba5877f644582d13bf42ebf6e0babd91f3b5530e976d",
+      "size": 2386678
+    },
+    {
+      "path": "out/dispatch/evidence/review-r10-source-pivot-revise/handback-full.txt",
+      "class": "scratch",
+      "sha256": "f7231e98cbd8c419666508fdbd2a2fecf7ed1f04319953cbc758c63592c180b5",
+      "size": 17347
+    },
+    {
+      "path": "out/dispatch/evidence/review-r10-source-pivot-revise/receipt.json",
+      "class": "scratch",
+      "sha256": "90c377bc63157f95dc3f0d7910905de2f397ccf685b58ee66d0d2465489cd489",
+      "size": 1895
+    },
+    {
+      "path": "out/dispatch/evidence/review-r10-source-pivot-revise/report-verbatim.json",
+      "class": "scratch",
+      "sha256": "924120036ecbf07669f2a34b68d6f38c709ab63e130fcbdf15117c5b402f40ed",
+      "size": 16867
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
