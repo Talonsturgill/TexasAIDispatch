@@ -119,12 +119,13 @@ class AvailabilityTest(unittest.TestCase):
                 'candidates': [{'finishReason': 'STOP', 'content': {'parts': [
                     {'text': json.dumps(self.value if value is None else value)}]}}]}
 
-    def call(self, response=None, raw=None, availability=None, post_error=None):
+    def call(self, response=None, raw=None, availability=None, post_error=None, stream_error=None, real_stream=False):
+        streamer = r.streamed_response if real_stream else (lambda _: self.context_response(raw or self.raw()))
         with patch.dict(r.os.environ, {'GEMINI_API_KEY': 'test-key'}), \
                 patch.object(r, 'packet', return_value=(getattr(self, 'packet_text', {'current': 'evidence'}), self.bindings)), \
                 patch.object(r, 'media_part', return_value=({'test': 'media'}, None, 'film')), \
                 patch.object(r.requests, 'post', return_value=response or Mock(status_code=200), side_effect=post_error) as post, \
-                patch.object(r, 'streamed_response', side_effect=lambda _: self.context_response(raw or self.raw())):
+                patch.object(r, 'streamed_response', side_effect=stream_error or streamer):
             result = r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
                            'phone', self.failure_path, self.state, self.root/'phone.json', availability=availability)
             self.last_post_kwargs = post.call_args.kwargs if post.call_args else None
@@ -176,6 +177,36 @@ class AvailabilityTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'exact same'):
                 self.call(availability=receipt)
         self.assertEqual(c.read_state(self.state), before)
+
+    def test_streamed_read_timeout_keeps_wrapped_cause_and_gets_one_child(self):
+        import provider_timeout_retry as timeout
+        from urllib3.exceptions import ReadTimeoutError
+        response = r.requests.Response(); response.status_code = 200
+        response.raw = Mock()
+        response.raw.stream.side_effect = ReadTimeoutError(None, '/stream', 'read timed out')
+        with self.assertRaisesRegex(ValueError, 'ConnectionError'):
+            self.call(response=response, real_stream=True)
+        attempt = next((self.root/'independent-review-cache').glob('*/attempt.json'))
+        failure = json.loads(attempt.with_name('failure.json').read_text())
+        self.assertEqual(failure['exception_type'], 'ConnectionError')
+        self.assertEqual(failure['read_timeout_cause'], 'urllib3.ReadTimeoutError')
+        self.assertFalse(attempt.with_name('response.json').exists())
+        receipt = timeout.prepare(self.state, attempt)
+        result, count = self.call(availability=receipt)
+        self.assertEqual(count, 1); self.assertEqual(self.last_post_kwargs['timeout'], (30, 540))
+        self.assertEqual(r.evidence_problems(result), [])
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 2)
+
+    def test_timeout_recognition_uses_the_exception_cause_never_error_text(self):
+        import provider_timeout_retry as timeout
+        from urllib3.exceptions import ReadTimeoutError
+        for error in (r.requests.ConnectionError('ReadTimeoutError: read timed out'),
+                      r.requests.ConnectTimeout('read timeout'),
+                      r.requests.HTTPError('ReadTimeout'), r.requests.ConnectionError(OSError('timeout'))):
+            with self.subTest(error=type(error).__name__):self.assertIsNone(timeout.read_timeout_cause(error))
+        inner = ReadTimeoutError(None, '/stream', 'idle')
+        outer = r.requests.ConnectionError('request failed'); outer.__cause__ = inner
+        self.assertEqual(timeout.read_timeout_cause(outer), 'urllib3.ReadTimeoutError')
 
     def test_timeout_recovery_never_retries_a_response_or_a_rejection(self):
         import provider_timeout_retry as timeout

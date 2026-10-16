@@ -7,6 +7,8 @@ the same configured provider, model, scope, prompt and input context. Preserve t
 attempt and its failure. Do not retry a returned rejection or fabricate an outage from slow
 progress. New attempts retain structured read-timeout evidence. The pinned legacy attempt in
 config/provider_read_timeout_retry.json also requires its exact original producer log.
+Streamed responses may expose ConnectionError with an actual urllib3 ReadTimeoutError cause;
+retain both types. A generic connection error or timeout wording alone does not qualify.
 
 ```sh
 python scripts/provider_timeout_retry.py --state out/dispatch/run_state.json --after-attempt <original-cache>/attempt.json --failure-evidence <original-read-timeout-log>

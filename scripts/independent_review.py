@@ -1060,10 +1060,13 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         return complete_report(raw, context, request_prompt.split('\nReturn review_context_sha256 exactly ')[0],
                                text, report_path, out, selection_out)
     except requests.RequestException as exc:
-        if isinstance(exc, requests.ReadTimeout) and not (cache/'response.json').exists():
+        from provider_timeout_retry import read_timeout_cause
+        cause = read_timeout_cause(exc)
+        if cause and not (cache/'response.json').exists():
             (cache/'failure.json').write_text(json.dumps({
                 'schema': 'dispatch_independent_provider_failure/1', 'request_id': request_id,
-                'observed_at': now(), 'exception_type': 'ReadTimeout',
+                'observed_at': now(), 'exception_type': type(exc).__name__,
+                'failure_kind': 'read-timeout', 'read_timeout_cause': cause,
                 'response_complete': False, 'read_timeout_s': read_timeout_s}, indent=2)+'\n')
         raise ValueError('independent provider ' + type(exc).__name__ + '; no approval recorded') from None
     finally:

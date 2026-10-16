@@ -5,6 +5,8 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import requests
+from urllib3.exceptions import ReadTimeoutError
 
 from production_quality import digest, policy as av_policy
 from run_controller import read_state, now
@@ -27,6 +29,27 @@ def owned(path, root):
     if not path.is_relative_to(root) or not path.is_file():
         raise ValueError('timeout evidence must exist in the owned production package')
     return path
+
+
+def read_timeout_cause(exc):
+    """Requests wraps iter_lines read timeouts in ConnectionError; text is no proof."""
+    if isinstance(exc, requests.ReadTimeout):
+        return 'requests.ReadTimeout'
+    if not isinstance(exc, requests.ConnectionError):
+        return None
+    pending, seen = [exc], set()
+    while pending and len(seen) < 32:
+        current = pending.pop()
+        if id(current) in seen:
+            continue
+        seen.add(id(current))
+        if isinstance(current, ReadTimeoutError):
+            return 'urllib3.ReadTimeoutError'
+        if isinstance(current, requests.ReadTimeout):
+            return 'requests.ReadTimeout'
+        pending += [value for value in (current.__cause__, current.__context__, *current.args)
+                    if isinstance(value, BaseException)]
+    return None
 
 
 def proof_problems(proof, attempt_sha=None):
@@ -70,18 +93,21 @@ def proof_problems(proof, attempt_sha=None):
                 or not (receipt['reservation_event_index'] < receipt['transport_event_index']
                         < receipt['telemetry_event_index'])):
             raise ValueError('timeout recovery lacks the exact charged original request and telemetry')
-        if (failure.get('request_id') != rid or failure.get('exception_type') != 'ReadTimeout'
-                or failure.get('response_complete') is not False
+        if (failure.get('request_id') != rid or failure.get('response_complete') is not False
                 or failure.get('read_timeout_s') != 180 or 'http_status' in failure):
             raise ValueError('timeout recovery admits only an actual read timeout without a response')
         if receipt.get('legacy'):
-            if (receipt['after_attempt']['sha256'] not in policy['legacy_attempt_sha256']
+            if (failure.get('exception_type') != 'ReadTimeout'
+                    or receipt['after_attempt']['sha256'] not in policy['legacy_attempt_sha256']
                     or telemetry.get('elapsed_ms', 0) < 180000
                     or not re.search(r'^independent_review: independent provider ReadTimeout; no approval recorded\s*$',
                                      receipt['failure_evidence'], re.M)):
                 raise ValueError('legacy timeout recovery lacks its pinned actual failure')
         else:
             if (json.loads(receipt['failure_evidence']) != failure
+                    or failure.get('failure_kind') != 'read-timeout'
+                    or not failure.get('exception_type')
+                    or failure.get('read_timeout_cause') not in {'requests.ReadTimeout', 'urllib3.ReadTimeoutError'}
                     or parent.get('provider_reservation_event_index') != receipt['reservation_event_index']
                     or parent.get('provider_reservation_sha256') != sha(canonical(reservation))):
                 raise ValueError('structured timeout failure or original reservation changed')
