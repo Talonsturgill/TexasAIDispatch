@@ -206,8 +206,11 @@ def claim(path, blocking=False):
 
 
 def review_context(proof):
-    return {k: proof[k] for k in ('role', 'model', 'request_id', 'reviewed_at', 'bindings',
-                                  'prompt_sha256', 'input_sha256', 'host_failure')}
+    value = {k: proof[k] for k in ('role', 'model', 'request_id', 'reviewed_at', 'bindings',
+                                   'prompt_sha256', 'input_sha256', 'host_failure')}
+    if 'availability_recovery' in proof:
+        value['availability_recovery'] = proof['availability_recovery']
+    return value
 
 
 def response_object(raw):
@@ -309,6 +312,12 @@ def evidence_problems(report):
             raise ValueError('independent transport lacks request or input bindings')
         if proof['model'] != policy()['av_model']:
             raise ValueError('independent transport uses an unconfigured provider model')
+        recovered = proof.get('availability_recovery')
+        if recovered is not None or 'provider_availability_sha256' in proof['bindings']:
+            from provider_availability import proof_problems
+            if (not isinstance(recovered, dict) or proof_problems(recovered)
+                    or proof['bindings'].get('provider_availability_sha256') != recovered['receipt_sha256']):
+                raise ValueError('independent recovery lacks its unchanged successful generation probe')
     except (KeyError, TypeError, ValueError, IndexError) as exc:
         return [str(exc)]
     return []
@@ -740,7 +749,8 @@ def prompt(role, text):
                                                    else json.dumps(text, ensure_ascii=False))
 
 
-def run(board, claims, film, role, failure_path, state, out, *, compare_openings=False, selection_out=None):
+def run(board, claims, film, role, failure_path, state, out, *, compare_openings=False, selection_out=None,
+        availability=None):
     failure = json.loads(failure_path.read_text())
     errors = failure_problems(failure, role)
     if errors:
@@ -769,12 +779,20 @@ def run(board, claims, film, role, failure_path, state, out, *, compare_openings
     identity = fingerprint([role, scope])
     cache = state.parent / 'independent-review-cache' / identity
     with claim(cache / 'transport.lock'):
+        original_attempt = cache/'attempt.json'
+        if availability is not None:
+            from provider_availability import recovery_proof
+            proof = recovery_proof(availability, original_attempt, state)
+            bindings = {**bindings, 'provider_availability_sha256': proof['receipt_sha256']}
+            cache = cache/'availability-recovery'
         return run_claimed(board, claims, film, role, failure_path, state, out,
-                           failure, key, text, bindings, request_prompt, cache, selection_out=selection_out)
+                           failure, key, text, bindings, request_prompt, cache, selection_out=selection_out,
+                           availability=availability, original_attempt=original_attempt)
 
 
 def run_claimed(board, claims, film, role, failure_path, state, out,
-                failure, key, text, bindings, request_prompt, cache, *, selection_out=None):
+                failure, key, text, bindings, request_prompt, cache, *, selection_out=None,
+                availability=None, original_attempt=None):
     report_path = cache / 'report.json'
     if report_path.is_file():
         original = json.loads(report_path.read_text())
@@ -831,6 +849,9 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
     context = {'role': role, 'model': model, 'request_id': request_id, 'reviewed_at': reviewed_at,
                'bindings': bindings, 'host_failure': failure, 'input_sha256': fingerprint(text),
                'prompt_sha256': hashlib.sha256(request_prompt.encode()).hexdigest()}
+    if availability is not None:
+        from provider_availability import recovery_proof
+        context['availability_recovery'] = recovery_proof(availability, original_attempt, state)
     context_sha = fingerprint(context)
     request_prompt += '\nReturn review_context_sha256 exactly ' + context_sha + ' in your JSON object.'
     attempt = {'request_id': request_id, 'role': role, 'bindings': bindings,
@@ -861,6 +882,9 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             'generationConfig': {'responseMimeType': 'application/json', 'temperature': .2}},
             timeout=(30, 180), stream=True)
         if response.status_code != 200:
+            from provider_availability import http_failure
+            (cache/'failure.json').write_text(json.dumps({'request_id': request_id,
+                'observed_at': now(), **http_failure(response, key)}, indent=2)+'\n')
             raise ValueError('independent provider returned HTTP ' + str(response.status_code))
         raw = streamed_response(response)
         tokens = int(raw.get('usageMetadata', {}).get('totalTokenCount') or 0)
@@ -872,6 +896,12 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             media_limit_packet(failure, state.parent)
         retained_media_review(current_text, failure)
         current_text, current_bindings = bounded_packet(current_text, board, role, current_bindings)
+        if availability is not None:
+            from provider_availability import recovery_proof
+            current_proof = recovery_proof(availability, original_attempt, state)
+            if current_proof != context['availability_recovery']:
+                raise ValueError('provider availability evidence changed during independent transport')
+            current_bindings['provider_availability_sha256'] = current_proof['receipt_sha256']
         if current_bindings != bindings or fingerprint(current_text) != fingerprint(text):
             raise ValueError('review inputs changed during independent transport')
         report = project(raw, bindings, role, model, reviewed_at)
@@ -911,6 +941,7 @@ def main():
     p.add_argument('--film', type=Path)
     p.add_argument('--compare-openings', action='store_true')
     p.add_argument('--selection-out', type=Path)
+    p.add_argument('--availability', type=Path, help='successful charged generation probe bound to the retained failed attempt')
     p.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
     a = p.parse_args()
     try:
@@ -930,7 +961,7 @@ def main():
         if not all((a.role, a.board, a.claims, a.failure, a.out)):
             p.error('review execution requires role, board, claims, failure and out')
         report = run(a.board, a.claims, a.film, a.role, a.failure, a.state, a.out,
-                     compare_openings=a.compare_openings, selection_out=a.selection_out)
+                     compare_openings=a.compare_openings, selection_out=a.selection_out, availability=a.availability)
         print('independent_review: retained original ' + a.role + ' verdict from ' + report['reviewer_identity'])
         return 0
     except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:

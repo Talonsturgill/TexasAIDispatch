@@ -23,6 +23,21 @@ class RuntimeTests(unittest.TestCase):
         self.assertNotIn('spawn_args', result)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
 
+    def test_current_early_workers_require_actual_provider_availability(self):
+        source = self.root/'source.json'; source.write_text('{}')
+        with patch('provider_availability.research_receipt', side_effect=ValueError('generation probe missing')):
+            for role in ('researcher', 'validator'):
+                with self.assertRaisesRegex(ValueError, 'generation probe missing'):
+                    runtime.input_packet(role, '2026-10-16', [source])
+        receipt = self.root/'receipt.json'; receipt.write_text('{"actual":"bound receipt"}')
+        with patch('provider_availability.research_receipt', side_effect=lambda *args: runtime.bound(receipt)):
+            data = runtime.input_packet('researcher', '2026-10-16', [source])
+            packet = self.root/'packet.json'; packet.write_text(json.dumps(data))
+            self.assertEqual(runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.')['assignment']['model'], 'claude-haiku-5-5')
+            data['provider_availability']['sha256'] = '0'*64; packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'availability receipt'):
+                runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.')
+
     def test_changed_packet_input_is_rejected(self):
         source = self.root / 'source.json'; source.write_text('{}')
         packet = self.root / 'packet.json'

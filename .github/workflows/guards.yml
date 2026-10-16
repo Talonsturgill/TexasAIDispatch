@@ -92,6 +92,7 @@ jobs:
 
       - name: Independent review survives host capacity without changing verdicts
         run: |
+          python3 scripts/provider_availability_test.py
           python3 scripts/independent_review_test.py
           python3 scripts/independent_packet_compaction_test.py
 

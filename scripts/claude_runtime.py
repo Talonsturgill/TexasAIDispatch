@@ -53,7 +53,7 @@ def input_packet(role, edition, inputs):
     if role not in ('researcher', 'validator') or not inputs:
         raise ValueError('Early source packet needs researcher/validator and actual inputs')
     route = assignment(role, edition)
-    return {'role': role, 'date': edition, 'agent_assignment': route,
+    value = {'role': role, 'date': edition, 'agent_assignment': route,
             'brief': '.claude/agents/' + route['agent'] + '.md',
             'inputs': [bound(path) for path in inputs], 'agent_contracts': contracts(role),
             'phase': bound(REPO / 'prompts/phases/01-research.md'),
@@ -63,6 +63,10 @@ def input_packet(role, edition, inputs):
                              'claim ids; the director retains your original response and saves '
                              'that object unchanged before paid picture work.'
                              if role == 'validator' else '')}
+    from provider_availability import EFFECTIVE_DATE, research_receipt
+    if edition >= EFFECTIVE_DATE:
+        value['provider_availability'] = research_receipt(REPO/'out/dispatch/run_state.json', edition)
+    return value
 
 
 # The initial builder authors source and runs cheap code checks. A capture needs a charged render
@@ -371,6 +375,10 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
     data = read(packet_path); route = assignment(role, data.get('date'))
     if data.get('role') != role or data.get('agent_assignment') != route:
         raise ValueError('Claude packet does not carry its exact current host role')
+    from provider_availability import EFFECTIVE_DATE, research_receipt
+    if role in ('researcher', 'validator') and str(data.get('date', '')) >= EFFECTIVE_DATE:
+        if data.get('provider_availability') != research_receipt(REPO/'out/dispatch/run_state.json', data['date']):
+            raise ValueError('early source worker needs its current charged generation availability receipt')
     if data.get('mode') == 'initial_authored_build':
         initial_authoring_inputs(data)
     else:
