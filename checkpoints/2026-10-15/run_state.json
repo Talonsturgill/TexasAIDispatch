@@ -1,43 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/vo_script.txt",
-        "before_sha256": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83",
-        "path": "{REPO}/out/dispatch/vo_script.txt"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/vo_bindings.json",
-        "before_sha256": "6deb78531383e3eee115c5b400a0d32fc961b27d8f876bc8545fd633ac4c3e3a",
-        "path": "{REPO}/out/dispatch/vo_bindings.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/vo_direction.json",
-        "before_sha256": "45ce7b56ea60711fdfb5492da61d9f2e38f4e56df83d266391c0562682378973",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/storyboard.json",
-        "before_sha256": "0b9e1158b1fd285408916721f487ff04dbb4874480a900355b038c34bb9e8a78",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/opening-a.json",
-        "before_sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/opening-b.json",
-        "before_sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      }
-    ],
-    "failure_sha256": "8b50f06e247ab1e5f81779e7853494181e8aaeece3998950c85c937ebc4ac9e6",
-    "plan": "{REPO}/out/dispatch/evidence/r8-funding/repair-plan-r9.json",
-    "plan_sha256": "d326ec2d1dafe3dd8461aea58d9c81aaf740dc4d7fe3f5f45f3b163d6f57e444",
-    "reboards_before": 4,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3108,6 +3069,150 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-16T19:25:29.634783Z",
+      "grants": {
+        "tts_calls": {
+          "from": 14,
+          "to": 14
+        },
+        "validator_agents": {
+          "from": 4,
+          "to": 4
+        }
+      },
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 161,
+        "reservation_sha256": "57682988adf0f1f3390cd882a22e477011d7d884331ee3c97907f3a923f2a93d",
+        "start_event_index": 159
+      },
+      "repair_plan": {
+        "capture_completion_budget": {
+          "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09\",\n  \"producer_sha256\": \"e90bd497aa6cb4df1f045c010df7fd987eb20fd9ab91a93c229be2e445dc6adc\",\n  \"reservation\": {\n    \"identity\": \"b596a8186fd29ee5d1a41df37a6ea0443862e29c2a68d6005dd89c176d9017f3\",\n    \"run_id\": \"2026-10-15\",\n    \"event_index\": 27\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"0cbb68615669d93ffb380fe7d438f91762f979bafa73d00a47381d22a38461dd\",\n      \"renderer_sha256\": \"2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"23030b8e8087616bb67b7f57c27e5dd43ff7be9bf2d613c920dd3fd15a8b0857\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-3c80700bf3458ace.json\",\n        \"sha256\": \"c604b23e9285cbda35932329ff27d5c32fbfac647d515ca5acb2c118785dbefd\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"58da69dcee2d80ce4656cf84966fdc9c64667cd9b73d0155f88c6f0f9c749650\",\n      \"renderer_sha256\": \"2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"8c0302d439f1fca1dcd474c5dbbae8c5a7aa58c02723a3548b2adeb47d852e98\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"b91a948398f956f4fc09099445c8e155e687ecd1c99c365d825a7621fa478def\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-ff095ecc2c103771.json\",\n        \"sha256\": \"651774b54208453d0d238797390bd49415a72e8f9ee8de28784a614f88a33464\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true,\n  \"inspection_adoption\": {\n    \"original_comparison\": {\n      \"file\": \"comparison-original-dcafdda2973ac862.json\",\n      \"sha256\": \"dcafdda2973ac8626a886be66474805804ce3752eefb5142b4d2e5fce6c5f317\"\n    },\n    \"legacy_orchestrator_sha256\": \"f72e20dc4f21bf55f0bdfd52b3207f7ba91651c6e0659d8d1ec14a8beb3dc69d\",\n    \"inspector_sha256\": \"565b69089f2f3355a83bc245ed7f3d0bd8b432b86af7e3614b091615ec9ac6c1\"\n  }\n}\n",
+          "comparison_path": "{REPO}/out/dispatch/openings/comparison.json",
+          "comparison_sha256": "931c0cc9c800961186990e6c844106cdb8b14e9559bda29c8224b24070e2aad7",
+          "entry_event_index": 27,
+          "entry_event_sha256": "2000afb1f9c9cde06e363ee5496607053b6bd04a1e67c68aa196b033498c6b66",
+          "hook_event_index": 25,
+          "hook_event_sha256": "6e49f01ec89a5998331b3521f0e308e85ed2a88e0248899060f90c0ef76c3c65",
+          "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/2\",\n  \"effective_date\": \"2026-10-12\",\n  \"path\": \"renewed-two-treatment-comparison\",\n  \"minimum_remaining\": {\"preflight_renders\": 5, \"storyboard_critics\": 4, \"full_renders\": 1, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"operators\": {\"opening_compare\": 2, \"final_timed_phone\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use the existing independent mandatory admission; capacity grants no review approval.\",\n    \"Preserve the original frozen envelope, prior grants, failures and cumulative charges.\",\n    \"Obtain fresh current comparison, phone, native, audiovisual, scoring and shipment evidence.\"\n  ]\n}\n",
+          "policy_sha256": "d70e4e199c3acf49a4635087412cb9090e758810776c320ffb9ef290991f9d21",
+          "retained_files": [
+            {
+              "kind": "board",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.json",
+              "sha256": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82"
+            },
+            {
+              "kind": "film",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.mp4",
+              "sha256": "23030b8e8087616bb67b7f57c27e5dd43ff7be9bf2d613c920dd3fd15a8b0857"
+            },
+            {
+              "kind": "board",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.json",
+              "sha256": "8c0302d439f1fca1dcd474c5dbbae8c5a7aa58c02723a3548b2adeb47d852e98"
+            },
+            {
+              "kind": "film",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.mp4",
+              "sha256": "b91a948398f956f4fc09099445c8e155e687ecd1c99c365d825a7621fa478def"
+            }
+          ],
+          "run_id": "2026-10-15",
+          "schema": "dispatch_capture_completion_budget_evidence/2"
+        },
+        "changed_inputs": [
+          {
+            "after_sha256": "7b73e3fcde1e2c0ae0500b099298b66af70142a39db40a4dd51641b994ee4444",
+            "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/vo_script.txt",
+            "before_sha256": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83",
+            "path": "{REPO}/out/dispatch/vo_script.txt"
+          },
+          {
+            "after_sha256": "ae84d1e253a252c28cac9cebd05293f8f132cc8d493caf1d224c4271f919a7fc",
+            "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/vo_bindings.json",
+            "before_sha256": "6deb78531383e3eee115c5b400a0d32fc961b27d8f876bc8545fd633ac4c3e3a",
+            "path": "{REPO}/out/dispatch/vo_bindings.json"
+          },
+          {
+            "after_sha256": "a32a4c06460a61298a7e810244ce4a151c66fcf8aab87218cada2a57cc593c12",
+            "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/vo_direction.json",
+            "before_sha256": "45ce7b56ea60711fdfb5492da61d9f2e38f4e56df83d266391c0562682378973",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          },
+          {
+            "after_sha256": "025f0ca45912dbb69b9d1935ebcce924162c0f70ce772dd8959ee130aeaaa6b0",
+            "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/storyboard.json",
+            "before_sha256": "0b9e1158b1fd285408916721f487ff04dbb4874480a900355b038c34bb9e8a78",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "025f0ca45912dbb69b9d1935ebcce924162c0f70ce772dd8959ee130aeaaa6b0",
+            "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/opening-a.json",
+            "before_sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "db41534bc852c5f5811fd119d9248b410391bd39bd7a5048ec7efc249f38ec83",
+            "before_path": "{REPO}/out/dispatch/evidence/r8-funding/baseline/opening-b.json",
+            "before_sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "One continuous take whose sentences each fit one two-line caption cue at 40 px or more, every event between 0.2 s and 1.2 s inside its spoken clause, no figure attached to the wrong model, no same-view cuts, and both treatments presented as a fresh silent comparison.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/review-r8-recurrence-revise/report-verbatim.json",
+        "failure_evidence_sha256": "8b50f06e247ab1e5f81779e7853494181e8aaeece3998950c85c937ebc4ac9e6",
+        "failure_family": "unclassified",
+        "mechanism_change": "The caption lever moves from in-sentence silent beats to one complete sentence per cue split at full-stop gaps, with projected clause windows, event widths sized from measured read rates and varied framing.",
+        "mechanism_id": "sentence-per-cue-caption-boundaries",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/evidence/review-r9-followup/pivot-review-projection.json",
+          "sha256": "ac454fdc3219e2c3a803a86e50f38c988ceccb6445df9046de05e249b209b17e"
+        },
+        "repair": "Board and script revision R9 (frozen under evidence/proposal-r9, independent pass retained in evidence/review-r9-followup): fifteen short source-backed sentences with the 98.82 percent figure attributed to the on-device chip AI and the university, event-aware shot boundaries, a chip-glow push of about a second, s7 sized to the measured slow envelope, direction and bindings regenerated. The renderer, claims and sources stay byte-identical. Fresh independent source validation follows.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1,
+          "tts_calls": 2,
+          "validator_agents": 1
+        },
+        "root_cause": "Independent Opus High consolidated review (report sha 8b50f06e) accepted the R8 script and the sentence-per-cue mechanism and returned REVISE on three board-only blockers: R8-1 s7 exceeds the 9.5 s scene ceiling and 4.0 s reward interval at the slow projection, R8-2 even shot splits cut events mid-action (B s3 signature lens, B s1 pull-back, s6 paths), R8-3 the chip-glow detail push lasts about 0.23 s. D1, D2, D3 remain open. R7-5 stays artistic and blocking until reviewed.",
+        "source_validation_completion": {
+          "frozen_inputs": {
+            "files": {
+              "out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+              "out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
+              "out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
+              "out/dispatch/storyboard.json": "0b9e1158b1fd285408916721f487ff04dbb4874480a900355b038c34bb9e8a78",
+              "out/dispatch/vo_script.txt": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
+            },
+            "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
+          },
+          "policy_json": "{\n  \"schema\": \"dispatch_source_validation_completion/1\",\n  \"effective_date\": \"2026-10-15\",\n  \"authorization_source_label\": \"Standing owner mandatory source, caption and audio completion instruction from October 3rd and October 16th, 2026\",\n  \"scope\": \"A charged independent source-pivot rejection requires a source-backed script correction and fresh source validation; mixed artistic blockers remain blocking and retain standard repair accounting\",\n  \"minimum_remaining\": {\"validator_agents\": 1, \"storyboard_critics\": 4, \"tts_calls\": 2},\n  \"invariants\": [\n    \"Retain the original frozen allocation, every charge, exact rejection and original classification.\",\n    \"Require the actual independent source-pivot diagnosis, charged reservation, current source closure and exact proposed script.\",\n    \"Adopt this amendment separately and grant only complete remaining-path deficits.\",\n    \"Precharge the fresh Opus High validator and bind its actual PASS to the current script and claims before dependent production.\",\n    \"Renew the same two treatments when their authored concept changes; retain all old comparisons.\",\n    \"No source, rights, action, native PNG/CRF16, audio, caption, scoring or shipment gate is waived.\"\n  ]\n}\n",
+          "policy_sha256": "d08bc6044dd1adba91b1b27880921b2e574860b4a7981404a3a7a69184d2b82d",
+          "proposed_script": {
+            "path": "{REPO}/out/dispatch/evidence/proposal-r8/vo_script.txt",
+            "sha256": "38b9ae7f5d61a9e4169ff60b86402a7423a3dd097710cfaba030d7a931f3c229"
+          },
+          "receipt_file": "{REPO}/out/dispatch/evidence/review-r8-recurrence-revise/receipt.json",
+          "receipt_json": "{\n  \"schema\": \"dispatch_source_pivot_review/1\",\n  \"run_id\": \"2026-10-15\",\n  \"role\": \"source-pivot\",\n  \"status\": \"completed\",\n  \"provider_unavailable\": false,\n  \"model\": \"claude-opus-5-5\",\n  \"effort\": \"high\",\n  \"agent_id\": \"a110876b976dcc812\",\n  \"reviewer_identity\": \"claude-opus-5-5 (Opus 5.5). New independent read-only storyboard-critic instance at high effort, reviewing for consolidated-review-packet-r8.md (sha256 10aabf98, as the packet states). I am separate from the claude-sonnet-5-5 director and the claude-haiku-5-5 vo-director. I ran nothing, launched no agents, listened to no audio, saw no pixels and recomputed no SHA-256. Every hash below is copied from the packet or the files. I can't verify the storyboard_critics reservation 15 of 15 that the director says was made before dispatch. I also can't verify the mechanical gate passes the packet reports. All timing figures marked 'mine' are my own hand arithmetic from packet values, not gate output. Review date 2026-10-16.\",\n  \"reservation_event_index\": 155,\n  \"reservation_sha256\": \"ea94b92a59098b70d4c57ceb2eade439c84ba162d4cc49d8306ac1edb6ddcb9f\",\n  \"started_at\": \"2026-10-16T18:54:02.531Z\",\n  \"completed_at\": \"2026-10-16T19:05:20.592Z\",\n  \"report_sha256\": \"8b50f06e247ab1e5f81779e7853494181e8aaeece3998950c85c937ebc4ac9e6\",\n  \"verdict\": \"revise\",\n  \"raw_response_path\": \"out/dispatch/evidence/review-r8-recurrence-revise/handback-full.txt\",\n  \"transcript_path\": \"out/dispatch/evidence/review-r8-recurrence-revise/agent-transcript-cumulative.jsonl\",\n  \"note\": \"Accounting of the completed charged call only. Packet consolidated-review-packet-r8.md sha 10aabf98. Verdict revise: board-only blockers R8-1 to R8-3; script and recurrence accepted. Extracted verbatim from the SubagentHandback call.\"\n}",
+          "receipt_sha256": "41c0d20bb04118733b678f78c40bf2e7eaa244723bb845e3cb1e2ba7c74934a5",
+          "repo_root": "{REPO}",
+          "schema": "dispatch_source_validation_completion/1"
+        }
+      },
+      "repair_plan_sha256": "d326ec2d1dafe3dd8461aea58d9c81aaf740dc4d7fe3f5f45f3b163d6f57e444",
+      "repair_revision": "b40c4c231fd0807e3fdf4cc9b16beb3399ec5ce1dd1af20d7117d551a05bd886",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -3131,7 +3236,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "76eafd66b500aae27e09414c1b414bc33c80a8554fa3fe701b5e28ad34dfb7ab",
+    "original_private_state_sha256": "b2948a7a1115f2824f7c49535d2d20e2bf844e1c413998c1a6fe243c1f365d4f",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3167,7 +3272,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:25:24.411288Z",
+  "updated_at": "2026-10-16T19:25:29.634790Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
