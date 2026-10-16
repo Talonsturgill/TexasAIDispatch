@@ -14,6 +14,15 @@ correctly addressed, read-back unsent Gmail draft. Verify its durable public-saf
 Never send email or post socially. A cloud session marked successful is not shipment evidence.
 Never fabricate a review, replace a rejected verdict, discard charges, or loosen an integrity gate.
 
+The owner's October 16th instruction forbids routine permission stops. When an internal tool,
+packet, review, storage or controller defect blocks the next command, retain the actual error,
+repair its owning code in a clean isolated checkout, run the narrow regression and required CI,
+merge the repair, and resume the same edition autonomously. Use standing completion capacity
+for mandatory deficits. An internal repair never needs another owner approval. Keep account
+funding, credentials, sends and destructive history outside this authority. Notify an external
+dependency failure once, retain its executable recovery, and resume on restored access; never
+call the run successful or shipped while a required gate is missing.
+
 The owner explicitly requested Sonnet as director and original authored graphics instead of the
 built-in image service that Claude does not provide. Apply `config/claude_runtime.json` to newly
 planned Claude editions. Do not retrofit this policy into historical or unfinished frozen runs.
