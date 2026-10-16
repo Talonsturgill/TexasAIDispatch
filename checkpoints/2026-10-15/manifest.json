@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T04:42:54.578732+00:00",
-  "note": "stale writer held at ac2fe5eb; resume note and usage note written; no new reservation or capture",
+  "saved_at": "2026-10-16T05:17:30.965656+00:00",
+  "note": "phase picture",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
-  "repo_root": "/home/user/TexasAIDispatch",
+  "repo_root": "/home/user/restore/2026-10-15",
   "source_pin": "ac2fe5eb650f6d3779a56c38d9f0ff333d149b5a",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "327ec74773d58d25b38518b455e65e337d8f31a5b40647b4e5278166101a6449",
-  "original_private_ledger_sha256": "e386dcb74dac64fa1f0ca04b0315279d29b6bdd7f602bb389a7885038535c6de",
+  "ledger_sha256": "d77c6b6a7ac432b65c097e4db7c86c27703c222d142a548933524be8ff3c3632",
+  "original_private_ledger_sha256": "1cb93527b0e68103c03b7ce4bb885dacf3d1aa869f124bbfc32743f3b738a39a",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -778,14 +778,14 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "f4251378c12f2df86eeedd5dea12dc9c14f20adb5c0282a602b85d5ff2fa07f5",
-      "size": 24
+      "sha256": "050779beb70e47c96cf5e75efbd0026444d39459541aea6d356e5b8bebcd05c5",
+      "size": 128
     },
     {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
-      "sha256": "7681514f1b18db4bf14ffdfc6508db5d91f30e2a6a56337c52f53d34ef54ffc1",
-      "size": 187
+      "sha256": "970daf17d0f7695bedf66f60f0b4657dd91a137347c717cf94b8bb2dd5fc13ff",
+      "size": 250
     },
     {
       "path": "out/dispatch/code-critic-1-envelope.json",
@@ -882,6 +882,12 @@
       "class": "scratch",
       "sha256": "04fa51f1a6d76bd3e8a8f593ee46ad9cd583e21553421c328454c3abac342767",
       "size": 1039
+    },
+    {
+      "path": "out/dispatch/evidence/capture-hook-probe-denial-20261016.txt",
+      "class": "scratch",
+      "sha256": "1bcd63dd5236b84bdfe69e014d8169d0f4cb6829ade8f77b78abf731420af86d",
+      "size": 123
     },
     {
       "path": "out/dispatch/evidence/capture-hook-probe-denial.md",
@@ -1726,7 +1732,7 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "acd5fccc172ee30555f4015bfaaaaebe70a435b5ef5e4b76770784844ba821dc",
+      "sha256": "7f75dc3d4398db9046b4485cb00c6e9b9b20ca80fd0125dc1f716e16f6f2e1dc",
       "size": 308
     },
     {
@@ -2158,7 +2164,7 @@
   ],
   "excluded": [
     {
-      "path": "out/dispatch/validator-authorization.private.json",
+      "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
     },
     {
