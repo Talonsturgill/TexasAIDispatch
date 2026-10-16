@@ -2,20 +2,20 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "75df091f1babbf364c274436f6644ddca17781c1aaa63407ac6902656fe6e34f",
+    "event_sha256": "c99ab9be31bd6603de64e1da9ecbb7e038b10c6c02fd71ee4804bf855e2942a9",
     "resource": "preflight_renders",
-    "at": "2026-10-16T20:36:41.731102Z",
+    "at": "2026-10-16T22:19:07.231416Z",
     "note": "quarter-scale animatic"
   },
   "boards": [
     {
       "path": "out/dispatch/storyboard.json",
-      "sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720"
+      "sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6"
     }
   ],
   "bound": {
     "renderer_inputs": {
-      "config/modern_episode_registry.json": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
+      "config/modern_episode_registry.json": "db04f225a374f80173efd14a8aa03eddd5481ef5332f764fa7ca148d956d295c",
       "config/modern_film.json": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e",
       "video-engine/src/AlloyLoopEpisode.tsx": "9ff8081c34104adc205a8b53ba08ec6c5009acc12cb57e6e1684b51027f7cf4d",
       "video-engine/src/ApplicationSheets.tsx": "b8ff7d9f6b329ab5c86212c7bcfe4970f1551d8c97bf945df86b4724d1247286",
@@ -144,7 +144,7 @@
       "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx": "0b5524473c295d96fc2d9439af0d760195ae43afddcd8813327105259d73f761",
       "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd",
       "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "d601034eee7cce7a26257717db35f87f52e2440b8483983fda44fdfe014374be",
-      "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+      "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
       "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
       "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
@@ -160,30 +160,30 @@
   },
   "commands": [
     {
-      "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
-      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
-      "consumed": "2026-10-16T20:36:50.051284+00:00"
+      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
+      "consumed": "2026-10-16T22:19:20.091614+00:00"
     }
   ],
   "headroom": {
     "passed": true,
-    "required_free_gib": 19,
-    "free_gib": 19.536
+    "required_free_gib": 20,
+    "free_gib": 20.3
   },
   "housekeeping": {
-    "receipt": "/home/user/ed1015/TexasAIDispatch/out/dispatch/capture-housekeeping-20261016T203641.json",
-    "receipt_sha256": "4f1f4e4ba8a816aee98c6ddcca5c543deda87c5b3c249d01461af75dc294e2ad",
+    "receipt": "/home/user/ed1015/TexasAIDispatch/out/dispatch/capture-housekeeping-20261016T221906.json",
+    "receipt_sha256": "8e0540851c213cc45f6b493eeb380274787afe37fcd69b88ea04e3e31f6b65fa",
     "exit_code": 0,
-    "min_free_gib": 19
+    "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-16T20:36:46.994127+00:00",
-  "expires_at": "2026-10-16T21:21:46.994127+00:00",
+  "issued_at": "2026-10-16T22:19:15.515087+00:00",
+  "expires_at": "2026-10-16T23:04:15.515087+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "quarter-scale animatic",
     "run_id": "2026-10-15",
-    "event_sha256": "75df091f1babbf364c274436f6644ddca17781c1aaa63407ac6902656fe6e34f",
-    "input_identity": "37a97e91d35ae13faf46b3490112b625abdb6c0ae28f868828cef290809ad4ea"
+    "event_sha256": "c99ab9be31bd6603de64e1da9ecbb7e038b10c6c02fd71ee4804bf855e2942a9",
+    "input_identity": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa"
   }
 }
