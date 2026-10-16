@@ -127,10 +127,46 @@ def acoustic_words(raw: dict) -> list[dict]:
                      and float(t.get("t_dtw", -1)) >= 0]
         if not positions or len(text.split()) != 1:
             raise ValueError(f"no usable single-word DTW evidence for {text!r}; use -nfa -ml 1 -sow")
-        result.append({"text": text, "center": float(np.median(positions))})
+        result.append({"text": text, "center": float(np.median(positions)),
+                       "span": [min(positions), max(positions)], "tokens": len(positions)})
     if not result or any(a["center"] > b["center"] for a, b in zip(result, result[1:])):
         raise ValueError("empty or nonmonotonic acoustic word evidence")
     return result
+
+
+# A pause this short, lying wholly inside the DTW span of ONE recognized multi-part token
+# (a figure such as "98.82%" that expands to several spoken words), is a micro-pause inside
+# a single utterance, never a phrase boundary. A longer silence still splits.
+MAX_INTERNAL_PAUSE_S = 0.25
+
+
+def merge_internal_pauses(runs: list[tuple[float, float]], heard: list[dict]) -> tuple[list[tuple[float, float]], list[dict]]:
+    """Join measured runs separated only by a micro-pause inside one recognized token.
+
+    Nothing is invented or dropped: both run edges stay measured, the removed gap is
+    recorded, and a silence longer than MAX_INTERNAL_PAUSE_S or one not covered by a
+    single multi-part token's own DTW span still splits as before.
+    """
+    spans = [(w["span"][0], w["span"][1]) for w in heard
+             if w.get("span") and w.get("tokens", 0) > 1 and len(canonical(w.get("text", ""))) > 1]
+    merged: list[tuple[float, float]] = []
+    evidence: list[dict] = []
+    joined_spans: list[tuple[float, float]] = []
+    for run in runs:
+        if merged:
+            lo, hi = merged[-1][1], run[0]
+            hit = [(a, b) for a, b in spans if a <= lo and hi <= b]
+            if hi - lo <= MAX_INTERNAL_PAUSE_S and hit:
+                evidence.append({"internal_pause_s": [round(lo, 3), round(hi, 3)]})
+                joined_spans.extend(hit)
+                merged[-1] = (merged[-1][0], run[1])
+                continue
+        merged.append(run)
+    # The whole recognized number must keep measured voiced support after joining.
+    for a, b in joined_spans:
+        if not any(r0 - MAX_INTERNAL_PAUSE_S <= a and b <= r1 + MAX_INTERNAL_PAUSE_S for r0, r1 in merged):
+            raise ValueError("a recognized multi-part number extends beyond its measured voiced runs")
+    return merged, evidence
 
 
 def lexical_analysis_samples(x: np.ndarray, rate: int, pad_s: float = 0.8) -> int:
@@ -483,6 +519,9 @@ def align(x: np.ndarray, rate: int, script: str, heard: list[dict] | None = None
     runs = speech_runs(x, rate)
     if not runs:
         raise ValueError("no speech found in the audio")
+    internal_pauses: list[dict] = []
+    if heard is not None:
+        runs, internal_pauses = merge_internal_pauses(runs, heard)
 
     # Share the words out across the runs by syllable weight, then pin each run's
     # first and last word to the MEASURED run edges.
@@ -558,6 +597,7 @@ def align(x: np.ndarray, rate: int, script: str, heard: list[dict] | None = None
         "method": "silence_anchored" if heard is not None else "proportional_silence_review_only",
         "acoustic_matching": matching,
         "speech_runs": runs,
+        "internal_pauses_joined": internal_pauses,
         "boundaries_measured": len(runs) * 2,
         "words_total": len(words),
         "words_anchored": anchored,
@@ -942,6 +982,52 @@ def self_test() -> int:
         except ValueError:
             refused = True
         ok("compound normalization still refuses " + text, refused)
+    fig = {"text": "98.82%.", "center": 47.38, "span": [46.90, 48.62], "tokens": 4}
+    fig_runs = [(45.24, 45.9), (46.08, 46.94), (47.06, 47.3), (47.42, 47.58), (47.7, 48.48)]
+    joined, joined_ev = merge_internal_pauses(fig_runs, [fig])
+    ok("micro-pauses inside one recognized figure join into a single run",
+       joined == [(45.24, 45.9), (46.08, 48.48)] and len(joined_ev) == 3, str(joined))
+    ok("a pause outside the figure's own DTW span still splits",
+       merge_internal_pauses([(45.24, 45.9), (46.08, 46.5)], [fig])[0] == [(45.24, 45.9), (46.08, 46.5)])
+    ok("a real pause inside the span still splits",
+       len(merge_internal_pauses([(46.0, 47.0), (47.4, 48.4)], [fig])[0]) == 2)
+    ok("a single-part token never joins runs",
+       len(merge_internal_pauses([(46.0, 47.0), (47.1, 48.4)],
+           [{"text": "word", "center": 47.0, "span": [46.0, 48.4], "tokens": 3}])[0]) == 2)
+    ok("a one-subtoken multi-part word never joins runs",
+       len(merge_internal_pauses([(46.0, 47.0), (47.1, 48.4)],
+           [{"text": "98.82%", "center": 47.0, "span": [47.0, 47.0], "tokens": 1}])[0]) == 2)
+    fig_groups, _ = acoustic_groups(["Accuracy", "ninety", "eight", "point", "eight", "two", "percent"],
+        joined, [{"text": "Accuracy", "center": 45.5}, fig], [])
+    ok("the joined figure run carries every figure word and loses none",
+       fig_groups == [["Accuracy"], ["ninety", "eight", "point", "eight", "two", "percent"]], str(fig_groups))
+    try:
+        acoustic_groups(["Accuracy", "ninety", "eight", "point", "eight", "two", "percent"],
+                        fig_runs, [{"text": "Accuracy", "center": 45.5}, fig], [])
+        unjoined_refused = False
+    except ValueError:
+        unjoined_refused = True
+    ok("without the join the same runs still leave empty runs and refuse", unjoined_refused)
+    for label, case_runs, case_heard in (
+            ("an unrelated wordless run beside the figure", joined + [(49.0, 49.4)],
+             [{"text": "Accuracy", "center": 45.5}, fig]),
+            ("a wrong number inside the joined run", joined,
+             [{"text": "Accuracy", "center": 45.5}, dict(fig, text="98.28%.")]),
+            ("extra speech after the joined figure", joined,
+             [{"text": "Accuracy", "center": 45.5}, fig, {"text": "extra", "center": 48.3}])):
+        try:
+            acoustic_groups(["Accuracy", "ninety", "eight", "point", "eight", "two", "percent"],
+                            case_runs, case_heard, [])
+            refused = False
+        except ValueError:
+            refused = True
+        ok("after joining, still refuses " + label, refused)
+    try:
+        merge_internal_pauses([(46.0, 46.5), (46.6, 46.9)], [dict(fig, span=[46.45, 49.5])])
+        unsupported = False
+    except ValueError:
+        unsupported = True
+    ok("a number whose span outruns its voiced runs is refused", unsupported)
     company_alias = [{"heard": "Seyware", "script": "Si-Ware", "reason": "source-name spelling", "source": "https://www.si-ware.com/"}]
     company_groups, company_evidence = acoustic_groups(
         ["Si-Ware"], [(0.2, 2.0)], [{"text": "Seyware", "center": 0.9}], company_alias)
