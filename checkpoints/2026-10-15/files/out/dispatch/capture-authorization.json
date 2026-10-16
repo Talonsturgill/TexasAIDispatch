@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "2000afb1f9c9cde06e363ee5496607053b6bd04a1e67c68aa196b033498c6b66",
+    "event_sha256": "fc19c3ff7c7471342967341dd48983e811de828b2cfa92e943cfb082ef659ac2",
     "resource": "preflight_renders",
-    "at": "2026-10-16T05:18:13.384611Z",
-    "note": "two opening comparison batch"
+    "at": "2026-10-16T13:34:53.838020Z",
+    "note": "retained opening structural inspection"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0"
+      "path": "out/dispatch/openings/a.json",
+      "sha256": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82"
     },
     {
-      "path": "out/dispatch/opening-b.json",
-      "sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99"
+      "path": "out/dispatch/openings/b.json",
+      "sha256": "8c0302d439f1fca1dcd474c5dbbae8c5a7aa58c02723a3548b2adeb47d852e98"
     }
   ],
   "bound": {
@@ -166,21 +166,21 @@
     {
       "id": "ec0ad0af16cc3b046fc6615886a30ac9ab4b5d560a3deed0ed6bc8424b148519",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --inspect-retained",
-      "consumed": "2026-10-16T12:53:31.077498+00:00"
+      "consumed": "2026-10-16T13:35:16.478835+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.685
+    "free_gib": 20.684
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T125325.json",
-    "receipt_sha256": "78ff26b8b4edbf9db55628aee91bf65cac4860c660e6c3198b30082039a4b779",
+    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T133506.json",
+    "receipt_sha256": "6cf200ac4020ed789210122112b3193f1e9b281ed503dc537509fe1ac8c8edb0",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-16T12:53:25.669755+00:00",
-  "expires_at": "2026-10-16T13:38:25.669755+00:00"
+  "issued_at": "2026-10-16T13:35:06.291914+00:00",
+  "expires_at": "2026-10-16T14:20:06.291914+00:00"
 }
