@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T01:38:19.792317+00:00",
+  "saved_at": "2026-10-16T01:44:42.644121+00:00",
   "note": "ledger write",
-  "phase": "research",
+  "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "076fa95edb6713cd8c66f2e1f1a50a3cc4921051be01b1a8f3319d9a6ed5a00d",
-  "original_private_ledger_sha256": "3caf91e9b8857055c1eecb511dc78bf46683f59514b2b79b653e1690662b1269",
+  "ledger_sha256": "98e5dcb5219083e81d92bcf1af8081933e41e711381775e0f0059e32780dd40b",
+  "original_private_ledger_sha256": "6bc1e37f0d63e80cfde565d5889cf176abaaa11b9c3ac1576f02c867b69f9a60",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -51,8 +51,8 @@
     {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
-      "sha256": "a25189f9784ad4ccb4507d04dd2146a7640de4a46a5068392e61a3b83188bbb6",
-      "size": 16812
+      "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "size": 20884
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -103,10 +103,28 @@
       "size": 3421
     },
     {
+      "path": "out/dispatch/evidence/pre-r3-claims.json",
+      "class": "scratch",
+      "sha256": "a25189f9784ad4ccb4507d04dd2146a7640de4a46a5068392e61a3b83188bbb6",
+      "size": 16812
+    },
+    {
+      "path": "out/dispatch/evidence/pre-r3-vo_script.txt",
+      "class": "scratch",
+      "sha256": "590b251721c07140c3f52484b34ea24a58e43cba662a19c1c645cb5230059ef3",
+      "size": 962
+    },
+    {
       "path": "out/dispatch/evidence/researcher-transcript-hashes.txt",
       "class": "scratch",
       "sha256": "465eeec796d668d36da88765e007115afd440564e6211cbf67e82bd07843ab81",
       "size": 405
+    },
+    {
+      "path": "out/dispatch/evidence/validator-agent-transcript-through-pass3.jsonl",
+      "class": "scratch",
+      "sha256": "2490ee92b488b2a4936a2f5be78ea04e76e16693801e000c08ec2ca524e1a8b1",
+      "size": 831400
     },
     {
       "path": "out/dispatch/evidence/validator-agent-transcript.jsonl",
@@ -117,8 +135,8 @@
     {
       "path": "out/dispatch/evidence/validator-evidence-meta.json",
       "class": "scratch",
-      "sha256": "cb398e98c2fa5948ce842752414ab69df1b1ebeda514c51e8bc96aab1d94ff9b",
-      "size": 2322
+      "sha256": "a3b6edb670978dfd985f2f7e54c385da713199bebd8781fa90e59344300d899d",
+      "size": 2922
     },
     {
       "path": "out/dispatch/evidence/validator-pass1-handback-message.txt",
@@ -169,6 +187,24 @@
       "size": 3067
     },
     {
+      "path": "out/dispatch/evidence/validator-pass3-handback-message.txt",
+      "class": "scratch",
+      "sha256": "3b8f812fa715c83c153fda31b5cc73f795d23eba8066634158be86829610cae7",
+      "size": 17384
+    },
+    {
+      "path": "out/dispatch/evidence/validator-pass3-handback.json",
+      "class": "scratch",
+      "sha256": "6256270eacd6b184011dd020ff135b86b60b6d93632a02c56c15b83bc78d29ce",
+      "size": 18253
+    },
+    {
+      "path": "out/dispatch/evidence/validator-pass3-validation-object.json",
+      "class": "scratch",
+      "sha256": "10bd957d55cd78c9a49c6f3fb01f8f5032face533a046469b3a59df5e99e89af",
+      "size": 2505
+    },
+    {
       "path": "out/dispatch/place_photos.json",
       "class": "scratch",
       "sha256": "91850e346e2bb5ce51cc77ba68ecb39a305ac0ae737e9d067e169f8ce927d2e8",
@@ -215,6 +251,12 @@
       "class": "scratch",
       "sha256": "a59ab216ce78e66760a431eccecf98842d011084d29c60b61e12118b81b35867",
       "size": 9628
+    },
+    {
+      "path": "out/dispatch/validation.json",
+      "class": "scratch",
+      "sha256": "10bd957d55cd78c9a49c6f3fb01f8f5032face533a046469b3a59df5e99e89af",
+      "size": 2505
     },
     {
       "path": "out/dispatch/validator-assignment.json",
@@ -289,10 +331,16 @@
       "size": 977
     },
     {
+      "path": "out/dispatch/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "b7045ffae43c2f0356a2a94cb17dd3c48df7d9cbb48620c64d4aeb51b37456f0",
+      "size": 1862
+    },
+    {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
-      "sha256": "590b251721c07140c3f52484b34ea24a58e43cba662a19c1c645cb5230059ef3",
-      "size": 962
+      "sha256": "c7ce5cdcae861c07ba3dd94ce6172198726f02e5727980fc3b7676be1d81b98c",
+      "size": 977
     }
   ],
   "excluded": [
