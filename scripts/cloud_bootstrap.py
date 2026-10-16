@@ -9,6 +9,7 @@ import platform
 import shutil
 import subprocess
 import sys
+import tempfile
 import urllib.request
 
 REPO = Path(__file__).resolve().parents[1]
@@ -45,6 +46,73 @@ def bind_node_runtime(repo=REPO, cache=None):
             raise ValueError('Existing node_modules preserved; it differs from the provisioned runtime')
         return
     target.symlink_to(locked, target_is_directory=True)
+
+
+def node_tree(path):
+    result = {}
+    for item in sorted(Path(path).rglob('*')):
+        key = item.relative_to(path).as_posix()
+        if item.is_symlink():
+            result[key] = ('link', os.readlink(item))
+        elif item.is_file():
+            result[key] = ('file', item.stat().st_mode & 0o777, item.stat().st_size, digest(item))
+        elif item.is_dir():
+            result[key] = ('directory', item.stat().st_mode & 0o777)
+        else:
+            raise ValueError('Unexpected runtime entry preserved: '+str(item))
+    return result
+
+
+def share_node_runtime(engine, cache, *, apply=False):
+    """Prelaunch only: promote one pinned tree, or remove only an exact duplicate.
+
+    The default is a read-only plan. No shipped artifact, other pin or foreign
+    node_modules is eligible. Runtime bytes and executable modes must agree.
+    """
+    engine = Path(engine).resolve(); cache = Path(cache).resolve()
+    lock = engine/'package-lock.json'; target = engine/'node_modules'
+    locked = cache/'node'/digest(lock)/'node_modules'
+    if locked.is_symlink() or (locked.exists() and not locked.is_dir()):
+        raise ValueError('Unexpected pinned runtime preserved')
+    if target.is_symlink():
+        if target.resolve() != locked or changed(lock, locked/'.dispatch-lock.sha256'):
+            raise ValueError('Foreign node_modules link preserved')
+        return {'operation': 'already-shared', 'applied': False, 'file_bytes': 0}
+    if not target.is_dir() or changed(lock, target/'.dispatch-lock.sha256'):
+        raise ValueError('Unverified node_modules preserved')
+    if target == locked or locked.is_relative_to(target) or target.is_relative_to(locked):
+        raise ValueError('Runtime trees must be separate before promotion')
+    tree = node_tree(target)
+    exists = locked.exists()
+    if exists and (changed(lock, locked/'.dispatch-lock.sha256') or tree != node_tree(locked)):
+        raise ValueError('Different runtime trees preserved; no duplicate cleanup')
+    plan = {'operation': 'deduplicate' if exists else 'promote', 'applied': False,
+            'file_bytes': sum(row[2] for row in tree.values() if row[0] == 'file')}
+    if not apply:
+        return plan
+    before = shutil.disk_usage(engine).free
+    locked.parent.mkdir(parents=True, exist_ok=True)
+    held = Path(tempfile.mkdtemp(prefix='.dispatch-node-duplicate-', dir=engine)) if exists else None
+    destination = held/'node_modules' if held else locked
+    target.rename(destination)
+    try:
+        target.symlink_to(locked, target_is_directory=True)
+    except BaseException:
+        destination.rename(target)
+        if held: held.rmdir()
+        raise
+    if held:
+        shutil.rmtree(held)
+    return {**plan, 'applied': True, 'free_bytes_before': before,
+            'free_bytes_after': shutil.disk_usage(engine).free}
+
+
+def detach_owned_node_link(target, cache):
+    target = Path(target)
+    if target.is_symlink():
+        if not target.resolve().is_relative_to((Path(cache)/'node').resolve()):
+            raise ValueError('Foreign node_modules link preserved before install')
+        target.unlink()  # Detach only the link; keep every older pinned tree.
 
 
 def bind_legacy_cache(cache=None, legacy=None):
@@ -137,13 +205,12 @@ def install():
     engine = REPO / 'video-engine'; lock = REPO / cfg['node_lock']
     npm_stamp = engine / 'node_modules/.dispatch-lock.sha256'
     if changed(lock, npm_stamp):
+        detach_owned_node_link(engine/'node_modules', cache)
         run(['npm', 'ci', '--no-audit', '--no-fund'], engine)
         npm_stamp.write_text(digest(lock) + '\n')
     run(['npx', '--no-install', 'remotion', 'browser', 'ensure'], engine)
-    locked = cache / 'node' / digest(lock) / 'node_modules'
-    if not locked.exists():
-        locked.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(engine / 'node_modules', locked, symlinks=True)
+    shared = share_node_runtime(engine, cache, apply=True)
+    print('Prelaunch Node runtime '+json.dumps(shared, sort_keys=True))
     source = cache / ('whisper-' + alignment['version'])
     binary = cache / 'bin/whisper-cli'; binary.parent.mkdir(exist_ok=True)
     build_stamp = cache / 'whisper-commit.txt'
