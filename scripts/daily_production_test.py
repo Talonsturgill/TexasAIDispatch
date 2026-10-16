@@ -201,6 +201,16 @@ class DailyTest(unittest.TestCase):
         self.assertIn("including scenes and transitions", packet["instructions"])
         self.assertNotIn("scenes", packet["story"])
 
+    def test_adopted_narration_capacity_is_bound_in_actual_worker_readings(self):
+        state = self.bp.parent / 'run_state.json'
+        state.write_text(json.dumps({'events': [{'kind': 'autonomous_completion_narration_adopted'}],
+                                     'run_id': '2026-10-15', 'usage': {}, 'phase': 'active_repair'}))
+        self.board['date'] = '2026-10-15'; self.save()
+        packet = d.packet(self.bp, self.cp, 'vo-director', state)
+        amendment = d.REPO / 'config/autonomous_completion_narration_v1.json'
+        self.assertIn({'path': str(amendment.resolve()), 'sha256': d.digest(amendment)},
+                      packet['completion_readings'])
+
     def test_explicit_second_run_guide_opt_in_preserves_first_edition(self):
         self.board["date"]="2026-10-02"
         self.board.setdefault("creative_direction",{})["medium_choice"]="Educational explainer / Explanatory animation"

@@ -434,6 +434,9 @@ def packet(board_path, claims_path, role, state_path=None):
     from autonomous_completion import selected_policy
     completion_state = read(state_path) if state_path and Path(state_path).is_file() else {'run_id':board.get('date','')}
     completion = [REPO / "knowledge/craft/AUTONOMOUS_COMPLETION.md", selected_policy(completion_state)]
+    if any(isinstance(e, dict) and e.get('kind') == 'autonomous_completion_narration_adopted'
+           for e in completion_state.get('events', [])):
+        completion.append(REPO / 'config/autonomous_completion_narration_v1.json')
     if str(board.get("date", "")) >= "2026-10-03" and all(p.is_file() for p in completion):
         data["completion_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)}
                                       for p in completion]

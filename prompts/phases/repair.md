@@ -9,6 +9,33 @@ headroom. At the boundary finish the retained best complete cut and ship without
 question; preserve every rejection and require all integrity/delivery checks. A checkpoint or needs_review
 package is never successful completion. Missing external access remains honestly incomplete.
 
+For an actual charged Opus High narration pivot REVISE at an internal critic ceiling, use the
+charged narration section of AUTONOMOUS_COMPLETION.md and its pinned narration amendment.
+Preserve the full original response, exact reservation, review packet, failed takes and ASR.
+Every changed-proposal content review is precharged, including a same-worker continuation.
+An actual unreserved continuation stays invalid for authorization and is accounted visibly
+as late; it is never renamed a format correction. Prepare a fresh per-attempt evidence folder
+and its actual receipt, then execute the existing controller recovery without an owner question:
+
+```sh
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --receipt out/dispatch/evidence/narration-recovery/receipt.json --report out/dispatch/evidence/narration-recovery/original-rejection.json --output out/dispatch/evidence/narration-recovery/capacity.json
+python scripts/run_controller.py production-budget --review-route host --repair-plan out/dispatch/evidence/narration-recovery/capacity.json
+python scripts/run_controller.py completion-capacity --repair-plan out/dispatch/evidence/narration-recovery/capacity.json
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --settle-unreserved out/dispatch/evidence/narration-recovery/capacity.json
+```
+
+Use the runtime wrapper and explicit internal cd. Reserve the actual replacement critic before
+dispatching it with the full current guides, actual evidence and unchanged current direction.
+After its independent PASS, retain its full handback and actual call receipt, then run:
+
+```sh
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --verify-review out/dispatch/evidence/narration-recovery/capacity.json --receipt out/dispatch/evidence/narration-recovery/new-call.json --report out/dispatch/evidence/narration-recovery/new-pass.json
+```
+
+This clears only the recovery review dependency. Actual speech, measured captions and all
+native, independent scoring and delivery checks remain mandatory. Retain a good existing take
+once; do not synthesize again just because the review accounting needed repair.
+
 Run the controller's production-budget precheck before a structural repair. Reserve a credible
 path through the remaining phone, hero, final audiovisual and scoring gates before spending on
 a correction. Follow DAILY_PRODUCTION.md for autonomous work and unchanged-blocker wakes.

@@ -588,6 +588,10 @@ def packet(board_path, claims_path, role, film):
              REPO / '.claude/agents' / ('storyboard-critic.md' if role in ('code', 'phone') else 'scorer.md')]
     completion = [REPO / 'knowledge/craft/AUTONOMOUS_COMPLETION.md',
                   REPO / 'config/autonomous_completion.json']
+    completion_state = board_path.parent / 'run_state.json'
+    if completion_state.is_file() and any(isinstance(e, dict) and e.get('kind') == 'autonomous_completion_narration_adopted'
+            for e in json.loads(completion_state.read_text()).get('events', [])):
+        completion.append(REPO / 'config/autonomous_completion_narration_v1.json')
     if str(board.get('date', '')) >= '2026-10-03' and all(p.is_file() for p in completion):
         files += completion
         bindings['completion_readings_sha256'] = {str(p.relative_to(REPO)): digest(p)
