@@ -225,6 +225,14 @@
       "note": "precharged independent classification, pivot and correction review of take 5 caption fit and event timing failures (same Opus High reviewer, SendMessage)",
       "resource": "storyboard_critics",
       "to": 10
+    },
+    {
+      "at": "2026-10-16T16:41:56.519347Z",
+      "ceiling": 12,
+      "from": 10,
+      "note": "precharged independent re-review of consolidated correction v2 (same Opus High reviewer, SendMessage)",
+      "resource": "storyboard_critics",
+      "to": 11
     }
   ],
   "events": [
@@ -2352,6 +2360,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-16T16:41:56.519416Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "precharged independent re-review of consolidated correction v2 (same Opus High reviewer, SendMessage)",
+      "now": 11,
+      "resource": "storyboard_critics",
+      "was": 10
+    },
+    {
+      "at": "2026-10-16T16:41:56.519426Z",
+      "kind": "reserved",
+      "note": "precharged independent re-review of consolidated correction v2 (same Opus High reviewer, SendMessage)",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -2366,7 +2392,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 10,
+    "storyboard_critics": 11,
     "tts_calls": 10,
     "validator_agents": 3,
     "voice_directors": 1
@@ -2375,7 +2401,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c3fdbf2284b646cd1729f8152447b45cb2eef4f8f8263eef4766c0260143134c",
+    "original_private_state_sha256": "73e3e908ebf2abdb151cedaa013733fc34b9910be7c86915e1850d178914bcc7",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -2411,7 +2437,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T16:36:10.067531Z",
+  "updated_at": "2026-10-16T16:41:56.519428Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -2424,7 +2450,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 10,
+    "storyboard_critics": 11,
     "tts_calls": 10,
     "validator_agents": 3,
     "voice_directors": 1
