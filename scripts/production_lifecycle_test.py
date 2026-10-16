@@ -103,6 +103,71 @@ class LifecycleTest(unittest.TestCase):
         self.assertEqual(state["events"][-1]["repair_plan"]["changed_inputs"], plan["changed_inputs"])
         self.assertEqual(row["before_sha256"], row["after_sha256"])
 
+    def test_declared_opening_reboard_at_frozen_ceiling_is_not_granted_twice(self):
+        self.state = self.root / "modern-state.json"
+        c.initialise(self.state, "2026-10-15", "production")
+        ceiling = c.read_state(self.state)["resource_envelope"]["reboards"]
+        for _ in range(ceiling - 1):
+            self.assertTrue(c.reserve(self.state, {"reboards": 1})[0])
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        plan.update(resources={"reboards": 1}, mechanism_id="measured-closing-hold",
+                    failure_family="continuity", director_identity="fixture-director")
+        plan_path.write_text(json.dumps(plan))
+        self.assertTrue(life.begin_repair(self.state, plan_path)[0])
+        self.assertTrue(c.reserve(self.state, {"reboards": 1})[0])
+        source = Path(plan["changed_inputs"][0]["path"])
+        source.write_text("measured closing hold with the same source and actions")
+        plan["changed_inputs"][0]["after_sha256"] = c.digest(source)
+        plan_path.write_text(json.dumps(plan))
+        before = c.read_state(self.state)
+        ok, message = life.authorize_repair(self.state, plan_path)
+        self.assertTrue(ok, message)
+        after = c.read_state(self.state)
+        for key in ("usage", "limits", "escalation_ceiling", "resource_envelope"):
+            self.assertEqual(after[key], before[key], key)
+        authorization = after["events"][-1]
+        self.assertEqual(authorization["grants"], {})
+        self.assertEqual(authorization["repair_plan"]["resources"], {"reboards": 1})
+        self.assertEqual(life.allowance_problems(after), [])
+        self.assertFalse(life.authorize_repair(self.state, plan_path)[0])
+        self.assertFalse(c.reserve(self.state, {"reboards": 1})[0])
+        tampered = copy.deepcopy(after)
+        tampered["events"][-1]["opening_reboard"]["reservation_sha256"] = "0" * 64
+        self.assertTrue(life.allowance_problems(tampered))
+        tampered = copy.deepcopy(after)
+        tampered["events"][-1]["grants"]["reboards"] = {"from": ceiling, "to": ceiling + 1}
+        self.assertTrue(life.allowance_problems(tampered))
+
+    def test_invalid_resource_request_is_rejected_before_opening_or_editing(self):
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        before = self.state.read_bytes()
+        for resources in ({"reboards": 2}, {"reboards": True}, {"unknown": 1},
+                          {"preflight_renders": 3}, {"panel_rounds": 1}, {}):
+            with self.subTest(resources=resources):
+                plan["resources"] = resources
+                plan_path.write_text(json.dumps(plan))
+                self.assertFalse(life.begin_repair(self.state, plan_path)[0])
+                self.assertEqual(self.state.read_bytes(), before)
+
+    def test_declared_opening_reboard_requires_its_actual_reservation(self):
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        plan["resources"] = {"reboards": 1}
+        plan_path.write_text(json.dumps(plan))
+        self.assertTrue(life.begin_repair(self.state, plan_path)[0])
+        source = Path(plan["changed_inputs"][0]["path"])
+        source.write_text("performed correction, not an unchanged baseline")
+        plan["changed_inputs"][0]["after_sha256"] = c.digest(source)
+        plan_path.write_text(json.dumps(plan))
+        self.assertFalse(life.authorize_repair(self.state, plan_path)[0])
+        state = c.read_state(self.state)
+        state["usage"]["reboards"] += 1  # A counter edit is not a reservation.
+        c.save(self.state, state)
+        self.assertFalse(life.authorize_repair(self.state, plan_path)[0])
+        self.assertIn("active_repair", c.read_state(self.state))
+
     def test_all_unchanged_repair_is_still_refused_without_resetting_charge(self):
         plan_path = self.plan()
         plan = c.load_json(plan_path)

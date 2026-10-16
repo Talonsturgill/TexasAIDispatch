@@ -55,6 +55,13 @@ python scripts/board_diff.py --before <retained-before-board> --after out/dispat
 python scripts/run_controller.py authorize-repair --plan out/dispatch/repair-plan.json
 ```
 
+The structural opening requires one precharged reboard. A plan may explicitly declare
+`reboards: 1`; authorization binds that existing reservation and grants no second reboard.
+Other requested resources fund future attempts. The controller validates the request before
+opening the repair, so an unsupported resource cannot leave an edited board mid-repair.
+Never substitute a different resource name after a refusal. Preserve the rejected request and
+fix a demonstrated contract defect through normal source review and CI before continuing.
+
 Begin before editing; authorize after the declared bytes changed. Keep stable mechanism_id,
 failure_family and director_identity. The frozen cumulative envelope takes precedence over
 old instructions about renewable extensions. An existing bounded authorization is not endless
