@@ -3818,6 +3818,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T20:00:35.765123Z",
+      "evidence": "{REPO}/out/dispatch/evidence/opening-compare-refusal-sparse-runs-20261016.log",
+      "evidence_sha256": "51ce5db85b6ec0f197d2ed4e3e1032ac82f93eafcc4aa0b8c7645d7834d5baa5",
+      "input_identity": "c06cfec1ac7490a168f37861e85d4aff248e4beeccda43062f11d44084461fd1",
+      "kind": "preflight_retry_authorized",
+      "reason": "authorization consumed by a refused opening_compare run (hidden prior run evidence), no render started"
     }
   ],
   "limits": {
@@ -3839,9 +3847,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "c06cfec1ac7490a168f37861e85d4aff248e4beeccda43062f11d44084461fd1",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "8b1de507e5b203759fd50127ff66e832376d1bf7ae41dd3ff5d34ca49d883add",
+    "original_private_state_sha256": "4ca96ba7e83267f657f4a5060bff72d39fa0475a2ad790d2759fc8baa613a914",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3877,7 +3886,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:59:05.545324Z",
+  "updated_at": "2026-10-16T20:00:35.765237Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
