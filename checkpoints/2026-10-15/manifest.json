@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T01:44:46.499747+00:00",
-  "note": "phase picture",
+  "saved_at": "2026-10-16T01:49:50.319352+00:00",
+  "note": "ledger write",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "98e5dcb5219083e81d92bcf1af8081933e41e711381775e0f0059e32780dd40b",
-  "original_private_ledger_sha256": "6bc1e37f0d63e80cfde565d5889cf176abaaa11b9c3ac1576f02c867b69f9a60",
+  "ledger_sha256": "73f917b69f32e4aa8ea7eee41392236ef2ca20b2709d5e2fd842d372ec725d42",
+  "original_private_ledger_sha256": "045884c4e40f1ab3bdb2e9095ebd6ae959c410c911f466bc92d5537f2d727f5a",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -25,7 +25,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 0,
-    "reboards": 0,
+    "reboards": 1,
     "reported_tokens": 0,
     "rescue_renders": 0,
     "research_agents": 3,
@@ -47,6 +47,66 @@
       "class": "scratch",
       "sha256": "8087843a1e9f6fb74ff5be4a48dab4b4699a748a2f2c170f9968eda855f38240",
       "size": 2577
+    },
+    {
+      "path": "out/dispatch/baseline/authored_story_art.py.txt",
+      "class": "scratch",
+      "sha256": "66de74ca7ac28506c13b2d7c4eb29366a18bc5cd99cea2b8f2143893f1c38931",
+      "size": 121
+    },
+    {
+      "path": "out/dispatch/baseline/board_scale_check.py.txt",
+      "class": "scratch",
+      "sha256": "6920dedda455385804449c63e554cfd1f7aecbdb5ac343718556d974a9ca6af6",
+      "size": 144
+    },
+    {
+      "path": "out/dispatch/baseline/documentary_check.py.txt",
+      "class": "scratch",
+      "sha256": "484eae6c5d12ecfaf2619d541fa9470d278d947f32adfab2e238b0fbafba3c78",
+      "size": 3551
+    },
+    {
+      "path": "out/dispatch/baseline/modern_film.py.txt",
+      "class": "scratch",
+      "sha256": "51724b7b0989c836f530f884fba3b73116d2ab713d604a4a03190e3c61ac7526",
+      "size": 462
+    },
+    {
+      "path": "out/dispatch/baseline/registry_check.py.txt",
+      "class": "scratch",
+      "sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422",
+      "size": 80
+    },
+    {
+      "path": "out/dispatch/baseline/script_evidence_check.py.txt",
+      "class": "scratch",
+      "sha256": "c965e50371b8ac844e008d47a135502512340895f2f9053f771289b7ab7dd835",
+      "size": 265
+    },
+    {
+      "path": "out/dispatch/baseline/storyboard_check.py.txt",
+      "class": "scratch",
+      "sha256": "2358651e7027c221517e3d5b8aac5f7bc62d16797539077c4074092dcb5b3f59",
+      "size": 6933
+    },
+    {
+      "path": "out/dispatch/baseline/watchability_check.py.txt",
+      "class": "scratch",
+      "sha256": "7e20c4c07dcc241ccc2c9ca416b015250387e2e83684ca01e6a8eb0ea469e48c",
+      "size": 2790
+    },
+    {
+      "path": "out/dispatch/builder-assignment.json",
+      "class": "scratch",
+      "sha256": "a385494ad8af864b6a404a341d77379aa82f3d42c32420185077de6f9ddac492",
+      "size": 2098
+    },
+    {
+      "path": "out/dispatch/builder-packet.json",
+      "class": "scratch",
+      "sha256": "96c9b9fd724d81783913cece579db083739141a393e3dea56fb93aa0d73900d0",
+      "size": 6150
     },
     {
       "path": "out/dispatch/claims.json",
@@ -119,6 +179,24 @@
       "class": "scratch",
       "sha256": "465eeec796d668d36da88765e007115afd440564e6211cbf67e82bd07843ab81",
       "size": 405
+    },
+    {
+      "path": "out/dispatch/evidence/script-trim-note.md",
+      "class": "scratch",
+      "sha256": "46499578072123defb406f6db0130aa7f4a07dc2a839d845f277c766373ee00a",
+      "size": 1500
+    },
+    {
+      "path": "out/dispatch/evidence/validated-vo_bindings-10-sentences.json",
+      "class": "scratch",
+      "sha256": "b7045ffae43c2f0356a2a94cb17dd3c48df7d9cbb48620c64d4aeb51b37456f0",
+      "size": 1862
+    },
+    {
+      "path": "out/dispatch/evidence/validated-vo_script-10-sentences.txt",
+      "class": "scratch",
+      "sha256": "c7ce5cdcae861c07ba3dd94ce6172198726f02e5727980fc3b7676be1d81b98c",
+      "size": 977
     },
     {
       "path": "out/dispatch/evidence/validator-agent-transcript-through-pass3.jsonl",
@@ -205,6 +283,18 @@
       "size": 2505
     },
     {
+      "path": "out/dispatch/opening-a.json",
+      "class": "scratch",
+      "sha256": "b4ab9d471e272db92b8fd37a0e708c218c89a4122a079d82dd4bb9315182b640",
+      "size": 63043
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "class": "scratch",
+      "sha256": "f3215930fbb0409b9d79b950bdc990d168c894408bf1c7da6c2a91228939faee",
+      "size": 63269
+    },
+    {
       "path": "out/dispatch/place_photos.json",
       "class": "scratch",
       "sha256": "91850e346e2bb5ce51cc77ba68ecb39a305ac0ae737e9d067e169f8ce927d2e8",
@@ -251,6 +341,12 @@
       "class": "scratch",
       "sha256": "a59ab216ce78e66760a431eccecf98842d011084d29c60b61e12118b81b35867",
       "size": 9628
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "class": "scratch",
+      "sha256": "b4ab9d471e272db92b8fd37a0e708c218c89a4122a079d82dd4bb9315182b640",
+      "size": 63043
     },
     {
       "path": "out/dispatch/validation.json",
@@ -333,14 +429,14 @@
     {
       "path": "out/dispatch/vo_bindings.json",
       "class": "scratch",
-      "sha256": "b7045ffae43c2f0356a2a94cb17dd3c48df7d9cbb48620c64d4aeb51b37456f0",
-      "size": 1862
+      "sha256": "6deb78531383e3eee115c5b400a0d32fc961b27d8f876bc8545fd633ac4c3e3a",
+      "size": 2171
     },
     {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
-      "sha256": "c7ce5cdcae861c07ba3dd94ce6172198726f02e5727980fc3b7676be1d81b98c",
-      "size": 977
+      "sha256": "9cce0b1f6a5f171fa16b48763f87004420fa6ccee8738c8be76f4a4be0f99c4f",
+      "size": 879
     }
   ],
   "excluded": [
