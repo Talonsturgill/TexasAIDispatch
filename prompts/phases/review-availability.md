@@ -5,7 +5,7 @@
 Keep a failed provider request, original charge and actual failure evidence. Metadata GET success
 proves authentication only. HTTP 402 requires external credit restoration; do not change billing
 or purchase credits as a production recovery. After the owner restores service, run the charged
-eight-output-token generation probe against the same configured provider and model:
+bounded generation probe against the same configured provider and model:
 
 ```sh
 python scripts/provider_availability.py --state out/dispatch/run_state.json --after-attempt <original-cache/attempt.json> --failure-evidence <retained-HTTP402-evidence>
@@ -24,6 +24,15 @@ identity for portable verification. A cached approval or rejection stays unchang
 If the startup probe itself failed with HTTP 402, use its retained startup/attempt.json as the
 after-attempt target only after external service restoration. Its one linked recovery receipt
 can unlock the normal early source packet. Never describe a service probe as video approval.
+
+The retired eight-token probe used the audiovisual STOP parser and could reject a working
+HTTP 200 service. For that exact retained legacy failed probe only, rerun the same command
+with `--after-probe <its-original-receipt.json>`. This precharges one fixed child attempt,
+retains both originals and validates actual generated-token evidence, including a bounded
+MAX_TOKENS response. It never accepts HTTP 200 or metadata alone. The new JSON probe keeps
+the original response body and error. Review streams still require their complete response.
+Fix internal probe defects autonomously in an isolated tested tooling PR, merge it and resume
+the same ledger. Do not ask the owner to approve that repair or the ordinary funded next step.
 
 ## Assigned independent role transport
 
