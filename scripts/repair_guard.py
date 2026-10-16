@@ -124,6 +124,11 @@ def validator_authorization_problems(state, authorization, evidence_text):
     text. It adds exactly one call, once per run, and changes no usage or earlier verdict."""
     if not isinstance(authorization, dict):
         return ["validator grant authorization must be an object"]
+    fields = {'approval_id', 'run_id', 'resource', 'additional_calls', 'confirmation',
+              'owner_text', 'source_message_reference', 'resource_envelope_sha256',
+              'failure_evidence', 'failure_evidence_sha256'}
+    if set(authorization) != fields:
+        return ['validator grant authorization requires exactly its documented fields']
     if (authorization.get("run_id") != state["run_id"]
             or authorization.get("resource") != VALIDATOR_RESOURCE
             or type(authorization.get("additional_calls")) is not int
