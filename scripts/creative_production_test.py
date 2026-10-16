@@ -614,6 +614,60 @@ class CreativeTest(unittest.TestCase):
             receipt["reservation"]["identity"] = "invented replacement"
             self.assertTrue(opening_compare.adoption_problems(receipt, output))
 
+    def test_current_and_reviewed_retained_capture_refresh_preserves_selection_and_stable_charge_identity(self):
+        import run_controller as controller
+        for orchestrator in (None, opening_compare.RETAINED_ORCHESTRATOR_SHA256):
+            self.comparison_fixture(); output = self.root/'openings'
+            comparison = output/'comparison.json'; receipt = c.read(comparison)
+            if orchestrator:
+                receipt['producer_sha256'] = c.opening_producer(orchestrator)
+                self.write('openings/comparison.json', receipt)
+                choice = c.read(output/'selection.json'); choice['comparison_sha256'] = c.digest(comparison)
+                self.write('openings/selection.json', choice)
+            original = comparison.read_bytes(); selection = (output/'selection.json').read_bytes()
+            state = self.root/'run_state.json'; note = 'retained opening structural inspection'
+            identity = controller.preflight_identity(state, note)
+            with patch('critic_gate.renderer_digest', return_value='fixture-renderer'), \
+                 patch('preflight_animatic.inspect_animatic', return_value=({'schema': 'dispatch_preflight/1'}, [])), \
+                 patch('opening_compare.inspection_producer', return_value='updated-inspector'):
+                refreshed = opening_compare.inspect_retained(self.root, state)
+                self.assertEqual(opening_compare.adoption_problems(refreshed, output), [])
+                self.assertEqual(opening_compare.inspection_problems(refreshed, output), [])
+                self.assertEqual(c.opening_problems(self.root/'storyboard.json'), [])
+                archive = output/refreshed['inspection_adoption']['original_comparison']['file']
+                self.assertEqual(archive.read_bytes(), original)
+                self.assertEqual((output/'selection.json').read_bytes(), selection)
+                self.assertEqual(controller.preflight_identity(state, note), identity)
+            with patch('critic_gate.renderer_digest', return_value='fixture-renderer'), \
+                 patch('preflight_animatic.inspect_animatic', return_value=({'schema': 'dispatch_preflight/1'}, [])), \
+                 patch('opening_compare.inspection_producer', return_value='next-inspector'):
+                self.assertTrue(opening_compare.adoption_problems(refreshed, output))
+                again = opening_compare.inspect_retained(self.root, state)
+                self.assertEqual(opening_compare.adoption_problems(again, output), [])
+                self.assertEqual(archive.read_bytes(), original)
+                self.assertEqual(controller.preflight_identity(state, note), identity)
+            (output/'a.mp4').write_bytes(b'changed exact movie')
+            self.assertNotEqual(controller.preflight_identity(state, note), identity)
+
+    def test_retained_inspection_reserves_once_and_keeps_its_cumulative_charge(self):
+        import run_controller as controller
+        self.comparison_fixture(); state = self.root/'charged-state.json'
+        controller.initialise(state, '2026-09-29', 'production')
+        note = 'retained opening structural inspection'
+        self.assertTrue(controller.reserve(state, {'preflight_renders': 1}, note)[0])
+        first = controller.read_state(state)['events'][-1]
+        self.assertFalse(controller.reserve(state, {'preflight_renders': 1}, note)[0])
+        self.assertEqual(controller.read_state(state)['usage']['preflight_renders'], 1)
+        self.assertIn(first, controller.read_state(state)['events'])
+
+    def test_retained_inspection_refuses_finished_edition_before_writes(self):
+        self.comparison_fixture(); state = self.root/'run_state.json'
+        ledger = c.read(state); ledger['terminal_state'] = 'shipped'; self.write('run_state.json', ledger)
+        before = (self.root/'openings/comparison.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'finished edition'):
+            opening_compare.inspect_retained(self.root, state)
+        self.assertEqual((self.root/'openings/comparison.json').read_bytes(), before)
+
     def test_legacy_adoption_refuses_unknown_capture_or_changed_renderer_before_writes(self):
         original = self.legacy_comparison_fixture()
         output = self.root / "openings"

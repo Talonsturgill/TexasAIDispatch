@@ -194,7 +194,12 @@ def preflight_identity(path: Path, note: str) -> str | None:
     if not board.is_file():
         return None  # Research before the board exists.
     files = [board]
-    if note == "two opening comparison batch":
+    if note == "retained opening structural inspection":
+        files = [path.parent/'openings'/name for name in ('a.json', 'b.json', 'a.mp4', 'b.mp4')]
+        files += [REPO/'scripts'/name for name in ('opening_compare.py', 'preflight_animatic.py',
+                                                   'creative_production.py', 'documentary_check.py')]
+        files.append(REPO/'video-engine/package-lock.json')
+    elif note == "two opening comparison batch":
         files = [path.parent / "opening-a.json", path.parent / "opening-b.json",
                  REPO / "scripts/opening_compare.py", REPO / "video-engine/scripts/render-batch.mjs",
                  REPO / "video-engine/package-lock.json"]
@@ -208,6 +213,8 @@ def preflight_identity(path: Path, note: str) -> str | None:
     operation = "hero" if note in {"hero", "finished cinematic hero and stage ablation batch"} else "animatic"
     if note == "two opening comparison batch":
         operation = "opening-comparison"
+    elif note == "retained opening structural inspection":
+        operation = "opening-inspection"
     elif note == "exact-film motion-image review extraction":
         operation = "motion-review"
     elif note == "exact-phone-current motion-image review extraction":
@@ -224,6 +231,10 @@ def preflight_identity(path: Path, note: str) -> str | None:
     if operator:
         files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
     content = [(str(p), digest(p)) for p in sorted(set(files))]
+    if operation == 'opening-inspection':
+        from opening_compare import capture_record
+        original = capture_record(load_json(path.parent/'openings/comparison.json'))
+        content.append(('original-opening-capture', hashlib.sha256(json.dumps(original, sort_keys=True).encode()).hexdigest()))
     if operation == 'motion-review':
         content.append(('registered-native-film', read_state(path).get('deliverable', {}).get('film_sha256')))
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
