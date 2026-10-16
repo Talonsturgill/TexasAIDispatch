@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T17:39:05.549031+00:00",
-  "note": "review14 raw response, transcript, receipt dispatch_source_pivot_review/1, proposals r7",
+  "saved_at": "2026-10-16T18:28:07.021037+00:00",
+  "note": "r8 funding held: source-capacity-plan bound, capture budget helper refusal retained, awaiting merged helper correction",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
-  "repo_root": "/home/user/restore/2026-10-15",
-  "source_pin": "2585835502ee7c7b1cfa12211cab997c5885a15f",
+  "repo_root": "/home/user/ed1015/TexasAIDispatch",
+  "source_pin": "b003ab0871d3564b60f81027bce4e92aa85a1387",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "cd1f9d9aa1d6e6c507ed2af7abed0df7ab6ad34979a93932a9b13e1629c70791",
-  "original_private_ledger_sha256": "c6ece8733a26e851377b7178136ec45fe1cfaad3ec93d516b5c34cef7ca97052",
+  "ledger_sha256": "986ecd4d553a8b80332fe179f490a2afc7d539d160af503b8ce9540b8cf2ce2f",
+  "original_private_ledger_sha256": "853a8f40f9df1d9a48789702d5b1c241d764725c960ef92fcfa6101eb363f6da",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -943,7 +943,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "1fe98aa8bb9139fe83093cffa1ad84903e806b760dc7741a7116dae180375856",
+      "sha256": "0d6b9d958f3ae274b1d782ae8176680b16464f5967e4e688527a059cad5e1076",
       "size": 128
     },
     {
@@ -2193,6 +2193,102 @@
       "class": "scratch",
       "sha256": "5326e59c05367edd26001d1a982e8b8290060f19a583f83c1e2ffd6c3a0eb5bb",
       "size": 3658
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/claims.json",
+      "class": "scratch",
+      "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "size": 20884
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/episode/FloodStationFilm.tsx",
+      "class": "scratch",
+      "sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+      "size": 38988
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/episode/FloodStationHero.tsx",
+      "class": "scratch",
+      "sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+      "size": 32026
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/episode/StreetHubSupport.tsx",
+      "class": "scratch",
+      "sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "size": 45006
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/modern_episode_registry.json",
+      "class": "scratch",
+      "sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
+      "size": 33640
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/opening-a.json",
+      "class": "scratch",
+      "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
+      "size": 166245
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/opening-b.json",
+      "class": "scratch",
+      "sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99",
+      "size": 171153
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/registry.tsx",
+      "class": "scratch",
+      "sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
+      "size": 1018
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/storyboard.json",
+      "class": "scratch",
+      "sha256": "0b9e1158b1fd285408916721f487ff04dbb4874480a900355b038c34bb9e8a78",
+      "size": 186692
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/validation.json",
+      "class": "scratch",
+      "sha256": "10bd957d55cd78c9a49c6f3fb01f8f5032face533a046469b3a59df5e99e89af",
+      "size": 2505
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "6deb78531383e3eee115c5b400a0d32fc961b27d8f876bc8545fd633ac4c3e3a",
+      "size": 2171
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/vo_direction.json",
+      "class": "scratch",
+      "sha256": "45ce7b56ea60711fdfb5492da61d9f2e38f4e56df83d266391c0562682378973",
+      "size": 33058
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/baseline/vo_script.txt",
+      "class": "scratch",
+      "sha256": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83",
+      "size": 879
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/helper-refusal-20261016.md",
+      "class": "scratch",
+      "sha256": "a484570351e8cb1bdaa2f65b9553ce5a43c7aaf666b379d3ddf6f9cc9c909bed",
+      "size": 1551
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/source-capacity-plan.json",
+      "class": "scratch",
+      "sha256": "77291180be18103e0fa5209e3b5b3da1865bb7a98afde02745991e91d2f39a03",
+      "size": 9672
+    },
+    {
+      "path": "out/dispatch/evidence/r8-funding/source-plan.json",
+      "class": "scratch",
+      "sha256": "071e53f4f6613af885af400205038d0e5364d2092ec0602ed493ed4e0c12b26f",
+      "size": 5123
     },
     {
       "path": "out/dispatch/evidence/reconstruct-request-diagnostic-d5a9009-20261016.txt",
