@@ -97,6 +97,11 @@ uses that same path. Keep the actual producer failures and charges. Do not reset
 board, use a separate board for the mix, or hand-edit derived times to pass a check. The passing
 retime supplies the measured clauses; then remix, realign, fold and verify stability as above.
 
+Consolidate every failing cue and event before requesting a paid repair review. Check all cues,
+preserve the measured breaks that already work, and run proposed event timing through the free
+retime and picture gates on a separate diagnostic copy with the retained measured captions and
+words. Label this as a dry run against the existing take; it cannot approve a future performance.
+
 For current narration-picture boards, clause boundaries select only an already measured pause
 between the clause's final word and the next clause's first word. Both waveform edges must be
 measured, and a new split needs at least 0.24 seconds of silence. Complete ordered clause text

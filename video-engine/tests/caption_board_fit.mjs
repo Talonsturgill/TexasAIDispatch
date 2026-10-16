@@ -50,6 +50,17 @@ try {
     return fit;
   };
   const checkCredits = (text) => creditLayout(text, SAFE_RIGHT - 78, 850, SAFE_BOTTOM - 28);
+  const inspectCues = (cues, modern) => {
+    const fits = [], problems = [];
+    for (const cue of cues) {
+      try { fits.push(check(cue, modern)); }
+      catch (error) {
+        fits.push(null);
+        problems.push(`${error.message}; characters ${typeof cue.text === 'string' ? cue.text.length : 'unknown'}`);
+      }
+    }
+    return {fits, problems};
+  };
   if (process.argv.includes('--self-test')) {
     check({id: 'known-fit', text: 'The proposed local gate stayed open.'});
     let rejected = false;
@@ -76,6 +87,15 @@ try {
     try { check({id: 'modern-dense', text: longCue, max_lines: 3}, true); }
     catch { denseRejected = true; }
     if (!denseRejected) throw new Error('a new three-line cue passed the two-line phone contract');
+    const complete = inspectCues([
+      {id: 'first-dense', text: longCue},
+      {id: 'readable-between', text: 'The sensor can report rising water.'},
+      {id: 'later-dense', text: 'A very long narration cue '.repeat(18).trim()},
+    ], true);
+    if (complete.problems.length !== 2 || !complete.problems[0].includes('first-dense') ||
+        !complete.problems[1].includes('later-dense') || complete.fits[0] !== null ||
+        !complete.fits[1] || complete.fits[2] !== null)
+      throw new Error('caption diagnosis failed to inspect every cue while retaining both failures');
     refuse('a three-line layout without the declaration', {id: 'x', text: longCue}, declared);
     refuse('a declared three-line layout at 38', {id: 'x', text: longCue, max_lines: 3}, {lines: declared.lines, size: 38});
     refuse('a line wider than the safe width', {id: 'x', text: longCue, max_lines: 3},
@@ -101,13 +121,22 @@ try {
         throw new Error("current timed board has no measured narration captions to inspect");
       console.log('caption_board_fit: early muted picture animatic has no cues; final timed board must be checked');
     }
-    const fits = cues.map((cue) => check(cue, String(board.date || '') >= '2026-10-15'));
-    if (board.credits) checkCredits(board.credits);
-    const three = fits.filter((fit) => fit.lines.length === 3).length;
-    console.log(`caption_board_fit: ${cues.length} exact board cues fit the lower band` +
-      (three ? ` (${three} declared three-line cue at ${fits.filter((f) => f.lines.length === 3).map((f) => f.size).join(', ')})` : ' in two lines'));
-    if (process.argv.includes('--report')) for (const [i, fit] of fits.entries())
-      console.log(`  ${cues[i].id} size ${fit.size} lines ${fit.lines.length} band top ${(SAFE_BOTTOM - captionBandHeight(fit)).toFixed(1)}: ${fit.lines.join(' | ')}`);
+    const {fits, problems} = inspectCues(cues, String(board.date || '') >= '2026-10-15');
+    if (board.credits) {
+      try { checkCredits(board.credits); }
+      catch (error) { problems.push(`credits: ${error.message}`); }
+    }
+    if (problems.length) {
+      for (const problem of problems) console.error(`  FAIL ${problem}`);
+      console.error(`caption_board_fit: ${problems.length} failure(s); all ${cues.length} cues inspected`);
+      process.exitCode = 1;
+    } else {
+      const three = fits.filter((fit) => fit.lines.length === 3).length;
+      console.log(`caption_board_fit: ${cues.length} exact board cues fit the lower band` +
+        (three ? ` (${three} declared three-line cue at ${fits.filter((f) => f.lines.length === 3).map((f) => f.size).join(', ')})` : ' in two lines'));
+      if (process.argv.includes('--report')) for (const [i, fit] of fits.entries())
+        console.log(`  ${cues[i].id} size ${fit.size} lines ${fit.lines.length} band top ${(SAFE_BOTTOM - captionBandHeight(fit)).toFixed(1)}: ${fit.lines.join(' | ')}`);
+    }
   }
 } finally {
   await rm(temp, {recursive: true, force: true});
