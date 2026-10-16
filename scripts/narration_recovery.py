@@ -139,7 +139,7 @@ def file_problems(state_path, plan):
     try:
         if digest(POLICY) != POLICY_SHA256 or frozen(state_path) != proof['frozen_inputs']:
             return ['narration recovery policy, source, script, board or renderer changed']
-        refs = [proof['direction'], {'path': proof['receipt_path'], 'sha256': proof['receipt_sha256']},
+        refs = [proof['direction'], {'path': proof['receipt_file'], 'sha256': proof['receipt_sha256']},
                 {'path': plan['failure_evidence'], 'sha256': plan['failure_evidence_sha256']},
                 *receipt['retained_inputs']]
         for incident in receipt['unreserved_continuations']:
@@ -177,7 +177,7 @@ def prepare(state_path, receipt_path, report_path, output):
             'failure_evidence': str(Path(report_path).resolve()), 'failure_evidence_sha256': sha(report_text),
             'narration_recovery_evidence': {'schema': 'dispatch_narration_recovery_evidence/1',
                 'policy_json': POLICY.read_text(), 'policy_sha256': POLICY_SHA256,
-                'receipt_json': text, 'receipt_sha256': sha(text), 'receipt_path': str(Path(receipt_path).resolve()),
+                'receipt_json': text, 'receipt_sha256': sha(text), 'receipt_file': str(Path(receipt_path).resolve()),
                 'origin_root': str(POLICY.parent.parent.resolve()), 'frozen_inputs': frozen(state_path),
                 'direction': {'path': str(direction.resolve()), 'sha256': digest(direction)}}}
     if not eligible(state, plan, json.loads(report_text)):

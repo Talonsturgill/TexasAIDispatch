@@ -113,6 +113,8 @@ class NarrationRecoveryTest(unittest.TestCase):
         return self.write(f'out/dispatch/fresh-review-receipt-{ri}.json', receipt), passed
 
     def test_complete_path_only_exact_deficits_and_original_history_preserved(self):
+        import claude_checkpoint
+        self.assertFalse(claude_checkpoint._private_json(self.plan))
         out = io.StringIO(); before = self.state.read_bytes()
         with patch('sys.argv', ['controller', '--state', str(self.state), 'production-budget', '--repair-plan', str(self.plan)]), redirect_stdout(out):
             self.assertEqual(controller.main(), 1)
