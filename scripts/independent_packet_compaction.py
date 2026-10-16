@@ -10,6 +10,7 @@ import re
 POLICY = Path(__file__).resolve().parents[1] / 'config/independent_packet_compaction.json'
 FANOUT = {'video-engine/src/Dispatch.tsx', 'video-engine/src/modern/registry.tsx'}
 CODE = {'.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'}
+SHARED_SCHEMA = 'dispatch_lossless_shared_packet/1'
 
 
 def sha(path):
@@ -25,6 +26,131 @@ def current_paths(board, *paths):
     if str(board.get('date', '')) < json.loads(POLICY.read_text())['effective_edition']:
         return paths
     return tuple(Path(path).resolve() if path is not None else None for path in paths)
+
+
+def decode_shared(value):
+    if not isinstance(value, dict) or value.get('schema') != SHARED_SCHEMA:
+        return value
+    values = value['values']; active = set(); memo = {}
+    def decode(item):
+        if isinstance(item, dict):
+            if set(item) == {'$v'}:
+                key = item['$v']
+                if key in active or key not in values:
+                    raise ValueError('shared packet has a cyclic or absent value')
+                if key not in memo:
+                    active.add(key); memo[key] = decode(values[key]); active.remove(key)
+                return copy.deepcopy(memo[key])
+            if set(item) == {'$literal'}:
+                return {key: decode(child) for key, child in item['$literal'].items()}
+            if set(item) == {'$text'}:
+                return ''.join(decode(child) for child in item['$text'])
+            return {key: decode(child) for key, child in item.items()}
+        if isinstance(item, list):
+            return [decode(child) for child in item]
+        return item
+    result = decode(value['packet'])
+    if hashlib.sha256(canonical(result).encode()).hexdigest() != value['original_sha256']:
+        raise ValueError('shared packet does not reconstruct the complete original input')
+    return result
+
+
+def encode_shared(value):
+    """Factor exact repeated values on the wire; retain every original field and text."""
+    raw = canonical(value)
+    if len(raw) < 100000:
+        return value
+    counts = {}; originals = {}; lengths = {}; paragraphs = {}; texts = []
+    def count(item):
+        if isinstance(item, (str, dict, list)):
+            encoded = canonical(item)
+            if len(encoded) >= 128:
+                key = hashlib.sha256(encoded.encode()).hexdigest()
+                counts[key] = counts.get(key, 0)+1
+                originals.setdefault(key, item); lengths[key] = len(encoded)
+        if isinstance(item, dict):
+            for child in item.values(): count(child)
+        elif isinstance(item, list):
+            for child in item: count(child)
+        elif isinstance(item, str) and len(item) >= 2048 and '\n\n' in item:
+            texts.append(item)
+            for part in re.split(r'(\n\n+)', item):
+                if len(part) >= 128 and part.strip(): paragraphs[part] = paragraphs.get(part, 0)+1
+    count(value)
+    shared_paragraphs = {part for part, n in paragraphs.items() if n > 1}
+    for text in texts:
+        for part in re.split(r'(\n\n+)', text):
+            if part in shared_paragraphs: count(part)
+    selected = {key for key, n in counts.items() if n > 1 and (n-1)*lengths[key] > 24*n+24}
+    keys = {key: str(i) for i, key in enumerate(sorted(selected))}
+    def encode(item, own=None):
+        if isinstance(item, (str, dict, list)):
+            key = hashlib.sha256(canonical(item).encode()).hexdigest()
+            if key in keys and key != own:
+                return {'$v': keys[key]}
+        if isinstance(item, dict):
+            result = {name: encode(child) for name, child in item.items()}
+            return {'$literal': result} if set(result) in ({'$v'}, {'$literal'}, {'$text'}) else result
+        if isinstance(item, list):
+            return [encode(child) for child in item]
+        if isinstance(item, str) and len(item) >= 2048 and '\n\n' in item:
+            pieces = []; pending = ''
+            for part in re.split(r'(\n\n+)', item):
+                if part in shared_paragraphs:
+                    if pending: pieces.append(pending); pending = ''
+                    pieces.append(part)
+                else: pending += part
+            if pending: pieces.append(pending)
+            if len(pieces) > 1:
+                encoded = {'$text': [encode(part) for part in pieces]}
+                if len(canonical(encoded)) < len(canonical(item)): return encoded
+        return item
+    result = {'schema': SHARED_SCHEMA, 'original_sha256': hashlib.sha256(raw.encode()).hexdigest(),
+              'values': {keys[key]: encode(originals[key], key) for key in sorted(keys)}, 'packet': encode(value)}
+    # Parent sharing can leave a child with one actual reference. Inline those
+    # values instead of paying for a dictionary entry that no longer saves bytes.
+    while result['values']:
+        references = {}
+        def walk(item, remove=None):
+            if isinstance(item, dict):
+                if set(item) == {'$v'}:
+                    key = item['$v']; references[key] = references.get(key, 0)+1
+                    return walk(result['values'][key], remove) if remove and key in remove else item
+                if set(item) == {'$literal'}:
+                    return {'$literal': {key: walk(child, remove) for key, child in item['$literal'].items()}}
+                return {key: walk(child, remove) for key, child in item.items()}
+            if isinstance(item, list): return [walk(child, remove) for child in item]
+            return item
+        walk(result['packet'])
+        for item in result['values'].values(): walk(item)
+        remove = {key for key in result['values'] if references.get(key, 0) < 2}
+        if not remove: break
+        packet = walk(result['packet'], remove)
+        values = {key: walk(item, remove) for key, item in result['values'].items() if key not in remove}
+        result.update(packet=packet, values=values)
+    if len(canonical(result)) >= len(raw):
+        return value
+    if canonical(decode_shared(result)) != raw:
+        raise ValueError('shared packet encoding changed an original value')
+    return result
+
+
+def prior_review_context(value, original_sha256):
+    """Keep complete original findings after verifying the retained prior-scope artifact."""
+    from independent_review import evidence_problems, response_object, review_context, fingerprint
+    errors = evidence_problems(value)
+    proof = value.get('provider_evidence')
+    if not proof or errors:
+        raise ValueError('prior independent review is unverified: '+'; '.join(errors))
+    return {'schema': 'dispatch_verified_prior_review/1', 'original_sha256': original_sha256,
+            'scope': 'Prior completed scope only. No observation or verdict approves the new current film.',
+            'review': {key: copy.deepcopy(item) for key, item in value.items() if key != 'provider_evidence'},
+            'provider_result': response_object(proof['response']),
+            'provenance': {**{key: proof[key] for key in ('role', 'model', 'request_id', 'reviewed_at',
+                'bindings', 'input_sha256', 'prompt_sha256', 'response_sha256')},
+                'response_id': proof['response']['responseId'], 'context_sha256': fingerprint(review_context(proof)),
+                'host_failure_sha256': fingerprint(proof['host_failure']),
+                'availability_receipt_sha256': (proof.get('availability_recovery') or {}).get('receipt_sha256')}}
 
 
 def delta(base, target, path=''):
@@ -179,7 +305,13 @@ def compact(text, package, role, repo):
                 or not (path.is_relative_to(package) or key in policy.get('structured_data_files', []))):
             continue
         parsed = document(value, board)
-        if isinstance(parsed, dict) and isinstance(parsed.get('scenes'), list) and parsed.get('date') == board.get('date'):
+        if isinstance(parsed, dict) and parsed.get('schema') == 'dispatch_verified_prior_review/1':
+            expected = prior_review_context(json.loads(path.read_text()), sha(path))
+            if parsed != expected:
+                raise ValueError('retained prior-review context changed')
+        elif isinstance(parsed, dict) and parsed.get('provider_evidence'):
+            files[key] = prior_review_context(parsed, sha(path))
+        elif isinstance(parsed, dict) and isinstance(parsed.get('scenes'), list) and parsed.get('date') == board.get('date'):
             episodes.add((parsed.get('film_direction') or {}).get('episode'))
             operations = delta(board, parsed)
             if apply_delta(board, operations) != parsed:
