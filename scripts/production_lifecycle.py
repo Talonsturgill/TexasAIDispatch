@@ -35,6 +35,34 @@ def repair_batch(state, scope):
     return {**BATCH, **({"image_generations": 2} if modern else {})}
 
 
+def resource_request_problems(state, scope, requested):
+    """Validate the whole request before any production input can be edited."""
+    if not isinstance(requested, dict) or not requested:
+        return ["list the resources needed for this correction"]
+    batch = dict(repair_batch(state, scope))
+    if scope != NARRATION_SCOPE:
+        # This is the opening charge, not a second allowance at authorization.
+        batch["reboards"] = 1
+    if any(name not in batch or type(n) is not int or not 0 < n <= batch[name]
+           for name, n in requested.items()):
+        return ["repair request exceeds a bounded batch allowance"]
+    if ("panel_rounds" in requested or "scorer_calls" in requested) and (
+            requested.get("panel_rounds") != 1 or requested.get("scorer_calls") != 3):
+        return ["a repair panel still requires all three independent scorers"]
+    return []
+
+
+def opening_reboard_reference(events, start, end):
+    """Bind the one real opening reservation; never refund or grant another."""
+    charges = [(i, row) for i, row in enumerate(events[start + 1:end], start + 1)
+               if row.get("kind") == "reserved" and "reboards" in row.get("resources", {})]
+    if len(charges) != 1 or charges[0][1].get("resources") != {"reboards": 1}:
+        raise ValueError("declared reboard requires exactly one recorded opening reservation")
+    index, row = charges[0]
+    return {"start_event_index": start, "reservation_event_index": index,
+            "reservation_sha256": hashlib.sha256(json.dumps(row, sort_keys=True).encode()).hexdigest()}
+
+
 def plan_identity(plan):
     """Only the completed after hashes may change after the plan is bound."""
     bound = {**plan, "changed_inputs": [
@@ -199,13 +227,14 @@ def begin_repair(path, plan_path):
     scope = plan.get("repair_scope", "standard")
     if not isinstance(scope, str) or scope not in SCOPES:
         return False, "unknown repair_scope"
+    request_errors = resource_request_problems(state, scope, plan.get("resources"))
     reuse_errors = existing_critic_problems(state, plan)
     opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
     if scope == CONTEXT_SCOPE:
         opening = {"reboards": 1}
     if plan.get("existing_critic_reservations") and not reuse_errors:
         opening = {"reboards": 1}
-    errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening)
+    errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening) + request_errors
     if scope == CONTEXT_SCOPE:
         import review_context
         errors += review_context.plan_problems(path, plan)
@@ -355,15 +384,21 @@ def authorize_repair(path, plan_path):
     if actual != expected:
         return False, "repair must change the inputs registered before the edit"
     requested = plan.get("resources")
-    if not isinstance(requested, dict) or not requested:
-        return False, "list the resources needed for this correction"
-    batch = repair_batch(state, scope)
-    if any(name not in batch or type(n) is not int or not 0 < n <= batch[name]
-           for name, n in requested.items()):
-        return False, "repair request exceeds a bounded batch allowance"
-    if ("panel_rounds" in requested or "scorer_calls" in requested) and (
-            requested.get("panel_rounds") != 1 or requested.get("scorer_calls") != 3):
-        return False, "a repair panel still requires all three independent scorers"
+    errors = resource_request_problems(state, scope, requested)
+    if errors:
+        return False, "; ".join(errors)
+    if "reboards" in requested:
+        if state["usage"]["reboards"] != current["reboards_before"] + 1:
+            return False, "declared reboard requires exactly one charged opening correction"
+        try:
+            start = max(i for i, row in enumerate(state["events"])
+                        if row.get("kind") == "repair_started"
+                        and row.get("failure_sha256") == current["failure_sha256"])
+            frozen_proof["opening_reboard"] = opening_reboard_reference(
+                state["events"], start, len(state["events"]))
+        except (ValueError, KeyError, TypeError) as exc:
+            return False, str(exc)
+        requested = {name: count for name, count in requested.items() if name != "reboards"}
     from repair_guard import envelope_problems
     errors = envelope_problems(state, requested)
     if errors:
@@ -475,6 +510,22 @@ def allowance_problems(state):
             if not e.get("repair_revision") or not e.get("repair_plan_sha256"):
                 return ["repair authorization lacks changed-input evidence"]
             batch = repair_batch(state, scope)
+            if "opening_reboard" in e:
+                try:
+                    ref = e["opening_reboard"]
+                    all_events = state["events"]
+                    end = next(i for i, row in enumerate(all_events) if row is e)
+                    start = ref["start_event_index"]
+                    if (type(start) is not int or not 0 <= start < end
+                            or all_events[start].get("kind") != "repair_started"
+                            or all_events[start].get("failure_sha256") != e["repair_plan"]["failure_evidence_sha256"]
+                            or any(row.get("kind") == "repair_started" for row in all_events[start + 1:end])
+                            or e["repair_plan"]["resources"].get("reboards") != 1
+                            or "reboards" in e.get("grants", {})
+                            or ref != opening_reboard_reference(all_events, start, end)):
+                        return ["repair authorization lost its exact charged opening reboard"]
+                except (ValueError, KeyError, TypeError, StopIteration):
+                    return ["repair authorization lost its exact charged opening reboard"]
             if scope == CONTEXT_SCOPE and (not e.get("frozen_inputs") or not e.get("plan_identity")):
                 return ["review-context authorization lost frozen evidence"]
             for name, grant in e.get("grants", {}).items():

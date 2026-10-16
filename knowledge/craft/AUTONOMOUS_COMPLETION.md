@@ -157,12 +157,19 @@ the complete retained current direction and current source evidence before produ
 python scripts/narration_recovery.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <full-original-rejection> --output <new-capacity-plan>
 python scripts/run_controller.py production-budget --review-route host --repair-plan <new-capacity-plan>
 python scripts/run_controller.py completion-capacity --repair-plan <new-capacity-plan>
-python scripts/narration_recovery.py --state out/dispatch/run_state.json --settle-unreserved <new-capacity-plan>
 python scripts/run_controller.py production-budget --review-route host --repair-plan <new-capacity-plan>
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --settle-unreserved <new-capacity-plan>
 ```
 
 Use the environment wrapper and explicit internal cd. Prepare grants no calls. Capacity records
 only exact deficits in a separate event. Do not begin-repair with this capacity-only plan.
+Validate its protected allocation immediately after the grant, before debiting its obligations.
+The admission plan includes the late debit and replacement review. Rechecking that same snapshot
+after consuming them can count completed work again; it does not authorize a duplicate grant.
+After --verify-review, use ordinary production-budget for the actual remaining production path.
+For a new mandatory failure, bind its own new evidence rather than reusing this admission.
+Read escalation_ceiling and the replayed effective envelope when checking remaining calls;
+the limits field is the spend target, so a 9/9 target does not mean a recorded ceiling of 12 is gone.
 An already-funded path records a zero-increment capacity audit, without adding resources.
 Reserve the next actual critic before SendMessage to the same available Opus High worker.
 After a supported fresh-host restore, retain the observed loss of the old task and start one
