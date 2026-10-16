@@ -1,0 +1,205 @@
+{
+  "role": "storyboard-critic",
+  "date": "2026-10-15",
+  "story_sha256": "f54c675aabccc50e1cddd1a0eeee51fedbe32db42dd5af1ff80022b34bfe6722",
+  "board": {
+    "path": "/home/user/restore/2026-10-15/out/dispatch/storyboard.json",
+    "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0"
+  },
+  "claims": {
+    "path": "/home/user/restore/2026-10-15/out/dispatch/claims.json",
+    "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e"
+  },
+  "story": {
+    "reference": "board",
+    "field": "story_contract"
+  },
+  "quality_contract": "config/quality_contract.json",
+  "rubric": "config/dispatch_rubric.yaml",
+  "brief": ".claude/agents/storyboard-critic.md",
+  "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text. Read the complete story_contract in the bound board, including all scenes, transitions and source limits. Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film. Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria. Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.",
+  "agent_assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/restore/2026-10-15/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "agent_contracts": [
+    {
+      "path": "/home/user/restore/2026-10-15/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/CLAUDE.md",
+      "sha256": "a58148fdd754c6fc031b5581adafaa865876164616e2410de35339fe3d23439d"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/prompts/claude_routine.md",
+      "sha256": "a07d8ad6d17a55e6a06f7ed7c6a0a759f52a72233ec574f7a58c701f34cf1dca"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/.claude/agents/storyboard-critic.md",
+      "sha256": "1f2ee9276fefd7b7fbca871fd2f9f8e48cf6823b98599bf8ddac2b753301bb82"
+    }
+  ],
+  "treatments": [
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/opening-a.json",
+      "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/opening-b.json",
+      "sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99"
+    }
+  ],
+  "asset_inputs": [
+    {
+      "path": "/home/user/restore/2026-10-15/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+      "sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+      "sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91"
+    }
+  ],
+  "completion_readings": [
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "1e40956da76c44504a53bd14f37adf78e5eb0f0e90824fdd78a864c6e2156c82"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    }
+  ],
+  "selection": {
+    "path": "/home/user/restore/2026-10-15/out/dispatch/story_selection.json",
+    "sha256": "a59ab216ce78e66760a431eccecf98842d011084d29c60b61e12118b81b35867"
+  },
+  "creative_contract": "knowledge/craft/CREATIVE_DIRECTION.md",
+  "craft_readings": [
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/visual-storytelling/viewer-plan.md",
+      "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/visual-storytelling/README.md",
+      "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/visual-storytelling/news-reporting.md",
+      "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/visual-storytelling/explanatory-animation.md",
+      "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/modern_film.json",
+      "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/modern_episode_registry.json",
+      "sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/STORY_ART.md",
+      "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/story_art.json",
+      "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/AUTHORED_STORY_ART.md",
+      "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/authored_story_art.json",
+      "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/prompts/claude_routine.md",
+      "sha256": "a07d8ad6d17a55e6a06f7ed7c6a0a759f52a72233ec574f7a58c701f34cf1dca"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/ART_DIRECTION.md",
+      "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/config/art_direction.json",
+      "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/knowledge/craft/cinematic_reference_bank.json",
+      "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+    },
+    {
+      "path": "/home/user/restore/2026-10-15/prompts/roles/scene-builder.md",
+      "sha256": "251d5f0e2dbafe94c8b636bf2f664945855c74c22c0e9bd764f374cd08deee37"
+    }
+  ],
+  "art_direction": {
+    "reference": "board",
+    "field": "art_direction",
+    "version": "directed-world-v1",
+    "hero_asset": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx"
+  },
+  "opening_comparison": {
+    "path": "/home/user/restore/2026-10-15/out/dispatch/openings/comparison.json",
+    "sha256": "dcafdda2973ac8626a886be66474805804ce3752eefb5142b4d2e5fce6c5f317"
+  },
+  "usage": {
+    "audiovisual_reviews": 0,
+    "cleanup_renders": 0,
+    "full_renders": 0,
+    "image_generations": 0,
+    "panel_rounds": 0,
+    "preflight_renders": 10,
+    "reboards": 3,
+    "reported_tokens": 0,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 0,
+    "storyboard_critics": 3,
+    "tts_calls": 0,
+    "validator_agents": 3,
+    "voice_directors": 0
+  },
+  "phase": "active_repair",
+  "narration_picture": {
+    "reference": "board",
+    "field": "narration_picture"
+  }
+}
