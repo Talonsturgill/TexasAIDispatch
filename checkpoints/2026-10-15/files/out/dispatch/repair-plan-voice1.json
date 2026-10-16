@@ -1,0 +1,22 @@
+{
+ "mechanism_id": "direction-lexical-leak-paraphrase",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "narration-performance",
+ "root_cause": "The first synthesized take scored word accuracy 0.945 against the locked script because the narrator paraphrased lines 1 and 2 using the wording of the per-line direction text sent in the same prompt (before phone warns anyone, built a station, needs no tower). The direction intents restated script phrases in different words, so the model read the direction's lexical content.",
+ "repair": "Rewrite only the intent and energy text of lines 1 and 2 (and any other direction text that restates a script phrase in other words) so the direction carries performance intent without alternative wording of the script. Spoken script, claims, board, sources and renderer stay byte-identical.",
+ "mechanism_change": "Direction describes how to perform (pace, stress, breath, level) and no longer paraphrases the content of the line, so there is no alternative wording in the prompt to be read aloud.",
+ "expected_visible_result": "A single continuous take whose transcript matches the locked script, passing the verbatim soundcheck, with the same eight emphases and the same energy arc.",
+ "failure_evidence": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-1/soundcheck.txt",
+ "failure_evidence_sha256": "bdd6fdbf9aaa532b0ccfc16ab0713da70b8b7ebae5590422abc20b58e0e2e2cf",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/2026-10-15/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-1/vo_direction-before.json",
+   "before_sha256": "d752694fbe4ca330f41af5c59303a78dbd949ee8e43b289704ecda117a9e9dcd"
+  }
+ ]
+}
