@@ -1,0 +1,95 @@
+{
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+  "board_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+  "concept_sha256": "8ea1c704dea2580904294f7159c507918f8de7951f5a6163439ddf95186b5df5",
+  "renderer_sha256": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (Opus High), independent read-only reviewer in a same-worker charged continuation, distinct from the claude-sonnet-5-5 director. Limits: code-plan scope only. I rendered and viewed no pixels and heard no audio. I ran no command and computed no hash. Digests are the director's mechanically supplied values, which match digests-r13.json. This report covers the selected storyboard, whose bytes the director states are identical to opening-a (12c90919). I read the proposal file opening-a-final.json, not the applied storyboard.json path.",
+  "reviewed_at": "2026-10-16T21:50:00Z",
+  "notes": "This is the selected measured board for production. It is byte-identical (12c90919) to opening_a, and my full judgment there applies unchanged; it is repeated here so this report stands alone. Runtime is 59.4 s from retained take 7 (speech ends 57.36 s; the closing hold is 2.04 s). Every event lies wholly inside the shot that draws it: s2-event-3 13.675 to 14.409 in no-tower (13.59 to 15.62), s3-event-3 18.395 to 19.043 in weather-row (18.313 to 19.66), s4-event-2 24.562 to 25.160 in chip-glow detail (23.49 to 25.285), and s6-event-2 38.172 to 39.112 and s6-event-3 39.300 to 40.146 in flood-paths (38.10 to 40.94). All other events are unchanged and inside their shots. Ceilings: scene maximum 8.68 against 9.5, and shot maximum 4.77 against 5.0. The first reward is at 1.00 s. The maximum reward gap is 3.58 s (3.91 s even without the s7 slide), and the end gap is 2.24 s. Wall share is 29.3 percent of runtime (5 of 20 shots). The s6 flood-path spread is now performed in flood-paths over 'maps flood paths'. The s4 lamp-and-tag turn completes inside its detail shot, 0.125 s before the cut, and the lamp stays lit in the wide. The s7 slide-in is honest and unstamped, a roughly 78 px edge. The s8 stamp lands at 50.182 to 50.931 with a 1.23 s hold, the cut falls in the 51.82 to 52.50 silence, and then the map shot runs. Figure attribution: 'The university reports early chip AI validation' with '98.82%' and 'Initial assessments after training' ties the figure to the on-device chip model as early validation reported by the university. Before capture, the production path still needs: the fresh take 7 soundcheck at 59.4 s (the retained log failed on duration against 54.1 s); the full gate set on the applied production bytes; and phone confirmation of the short holds (s4 tag, the 1.347 s s3 shots, the 0.35 s s9 events) and the s7 edge sliver. A code-plan pass authorizes a phone test only.",
+  "strongest_frame": "s3-shot-2 water-marks close (16.967 to 18.313 s): on s3-event-2 (17.131 to 17.909) water rises past the lit first lens and the second lights as it goes under. This is the signature sensing mechanism as one performed change. It lasts only 1.347 s.",
+  "weakest_frame": "s7-shot-2 validation-card detail (44.88 to 49.20 s): the second consecutive shot on the same card. From 43.53 to 46.212 the only motion is the 1 s push-in. Then come a small tag and an edge sliver about 78 px wide. The hold is motivated by the spoken figure and the gap stays at 3.58 s, but this is the least active picture and opens 14.56 s of consecutive wall views.",
+  "blocking_defects": [],
+  "code_observations": [
+    "All per-clause and per-event observations in reports.opening_a.code_observations apply to these identical bytes. Every measured clause n1a to n9a sits over its literal subject and performed action, and every event is drawn by the view of its containing shot.",
+    "The moved windows check out by arithmetic against the measured clause spans: s2-event-3 = 11.90 + [0.58, 0.82] x 3.06 = 13.675 to 14.409. s3-event-3 = 15.90 + [0.77, 0.97] x 3.24 = 18.395 to 19.043. s4-event-2 = 23.80 + [0.28, 0.50] x 2.72 = 24.562 to 25.160. s6-event-2 = 35.54 + [0.56, 0.76] x 4.70 = 38.172 to 39.112. s6-event-3 = 35.54 + [0.80, 0.98] x 4.70 = 39.300 to 40.146. Each matches the Events table.",
+    "Renderer b8f8cc3b: the change from the pre-diff renderer is limited to pOpt('s7-event-3',0), the moved flag (true only when s8-event-0 exists), the s7 slide-in under validation-card and the s8 id map with the stamp from s8-event-0 in no-field-card. The registry diff adds exactly the five s8 card ids to no-field-card subject_ids.",
+    "Non-blocking phone checks: the s4 tag hold; the three 1.347 s s3 shots; 'watch the water' over weather-row; the s7 edge sliver competing with the spoken figure; whether the stamp and the 1.23 s hold read at phone size; the three 0.35 to 0.38 s s9 events in a wide; and whether the attribution caption reads over the card.",
+    "Cosmetic: the cue_plan string is stale under measured timing, and the renderer comment at lines 444 to 447 still places the stamp in s7."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "charge-battery",
+      "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "s2-event-2 runs 12.145 to 12.879 inside panel-charge (11.56 to 13.59). The battery fills from 0.24 to 1 on s2e2 over 'charges itself' and stays full."
+      ]
+    },
+    {
+      "action_id": "cross-marks",
+      "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "s3-event-2 runs 17.131 to 17.909 inside water-marks (16.967 to 18.313). The second mark lights as the level reaches it. The shot is brief at 1.347 s."
+      ]
+    },
+    {
+      "action_id": "judge-locally",
+      "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "s4-event-2 runs 24.562 to 25.160 inside chip-glow detail (23.49 to 25.285). The lamp and tag complete 0.125 s before the cut, and the lamp carries lit into the wide."
+      ]
+    },
+    {
+      "action_id": "water-rises",
+      "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "s1-event-1 runs 0.64 to 1.24 inside street-yard (0 to 3.91). The water tops the curb and reaches the ankle mark, reward at 1.00 s."
+      ]
+    },
+    {
+      "action_id": "carry-signal",
+      "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "s5-event-2 runs 29.097 to 29.965 inside radio-rings (27.08 to 31.13). The rings pass the half-mile tag over 'more than a half-mile'."
+      ]
+    },
+    {
+      "action_id": "spread-map",
+      "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "s6-event-2 runs 38.172 to 39.112 wholly inside flood-paths (38.10 to 40.94), with paths=s6e2 performed over 'maps flood paths' and the reward at 38.736 in the same shot."
+      ]
+    }
+  ],
+  "story_review": {
+    "story_sha256": "d82de390d3657d5ddfdd03fc5b6b11fb69c5749a526169b3fe9ff20031f5fb5e",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Planned chain, not observed. A San Antonio yard floods to the ankle mark before the phone warns. A self-charging prototype station at a curb needs no cell tower. Its four lenses light as water reaches them and its weather lamps come on. Its own chip lights an amber risk lamp with no server. A radio pulse runs past a half-mile tag and across five miles of open country to a hub. The hub's larger model spreads flood paths and risk zones for responders. The university's 98.82% early validation figure is pinned as initial assessments after training, the field result card is stamped none reported, and the map finds no installation. A dashed station outline and a hovering goal pin close the film.",
+    "opening_to_ending": "From the opening question (can a flood station judge rising street water with no power line and no cell tower), staged as water arriving before the warning, to the empty curb where a dashed station outline draws itself and a goal pin hovers without landing. The design answer is yes. The evidence is reported validation accuracy only, no installation is named, and deployment is the stated next step.",
+    "weakest_transition": "s6 to s7, at 40.94 s: the hub's flood-paths map cuts to the validation card with only an amber accent as visible bridge. The narration's 'early chip AI validation' must carry the cause, and it textually prevents the false inference that the figure belongs to the hub model. Non-blocking."
+  }
+}

@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T22:12:45.768380+00:00",
+  "saved_at": "2026-10-16T22:19:11.485103+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "e449e0a654ab3ad14a0fa2f19d393307907b9b7f6c25aa0527e19d6bfe06398a",
-  "original_private_ledger_sha256": "7e0fbd3faa73d7a7ab3cd49ae84a89f7db4aa2babdeb4bd1def897819cdd9ff7",
+  "ledger_sha256": "c6ab3bd8afe4fb75116544608eca4affb10b0459b64fd3a8b77f0145463ae1ac",
+  "original_private_ledger_sha256": "054b27dee61b6a8fc07635fed651fad6b3488fa694e7140b19ba7aacfce5167a",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -71,7 +71,7 @@
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 19,
+    "preflight_renders": 20,
     "reboards": 8,
     "reported_tokens": 443292,
     "rescue_renders": 0,
@@ -994,6 +994,12 @@
       "class": "scratch",
       "sha256": "4f1f4e4ba8a816aee98c6ddcca5c543deda87c5b3c249d01461af75dc294e2ad",
       "size": 956
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261016T221906.json",
+      "class": "scratch",
+      "sha256": "8e0540851c213cc45f6b493eeb380274787afe37fcd69b88ea04e3e31f6b65fa",
+      "size": 954
     },
     {
       "path": "out/dispatch/claims.json",
@@ -8580,6 +8586,18 @@
       "size": 315
     },
     {
+      "path": "out/dispatch/evidence/r13-apply/authorize-preflight-2.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/evidence/r13-apply/authorize-preflight.log",
+      "class": "scratch",
+      "sha256": "f7645dc4f1d1835fb216afcac53223f718f75dce4fff703f424bc9ae6b31d9ff",
+      "size": 66
+    },
+    {
       "path": "out/dispatch/evidence/r13-apply/before-realign.sha",
       "class": "scratch",
       "sha256": "68ffe97b6db5ad0bf1c3cd02853d4dc8c779b714abd83f1dbeb9a34c593275f6",
@@ -8590,6 +8608,18 @@
       "class": "scratch",
       "sha256": "0521522005b220cedddf55aa9ea2ef55cd768119db0d119afe88d1bfa6970928",
       "size": 249
+    },
+    {
+      "path": "out/dispatch/evidence/r13-apply/housekeeping-20.log",
+      "class": "scratch",
+      "sha256": "2c9286d619fd53aa32f272ff5d6c3e403258abb8680b47939425950c64475f8c",
+      "size": 395
+    },
+    {
+      "path": "out/dispatch/evidence/r13-apply/housekeeping-20b.log",
+      "class": "scratch",
+      "sha256": "35444d0632e489fdcae14bcd50b9f37cca5a343f8b99de61fd06e2a38d7c2f21",
+      "size": 392
     },
     {
       "path": "out/dispatch/evidence/r13-apply/ledger-events-230-233.json",
@@ -8798,8 +8828,8 @@
     {
       "path": "out/dispatch/evidence/r13-fresh-current-review/reserve.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "cdea11c22198134353440a349f31fb6870b54fc16c1bda2b60a07e7da852ce31",
+      "size": 50
     },
     {
       "path": "out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
@@ -9298,6 +9328,36 @@
       "class": "scratch",
       "sha256": "b022c7c61c380c91f2be97b97b3b98dcb40b9fcd7812fa1fc11e0229f5dccd3c",
       "size": 10064
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-code-plan/storyboard_critic.working-copy-before-current.json",
+      "class": "scratch",
+      "sha256": "b022c7c61c380c91f2be97b97b3b98dcb40b9fcd7812fa1fc11e0229f5dccd3c",
+      "size": 10064
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-current-bytes/handback-full.txt",
+      "class": "scratch",
+      "sha256": "8c827284d0f76a337be1d72bbabd4558acdeaed77674e2cdcb907459e3886934",
+      "size": 34536
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-current-bytes/handback-verbatim.json",
+      "class": "scratch",
+      "sha256": "bd63ca59dc6abdd5057194339d69984b3e7cb2c34f83d29efda71c4ca724c603",
+      "size": 35856
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-current-bytes/receipt.json",
+      "class": "scratch",
+      "sha256": "57ce6bb6b2c250658919b956a8202d28afcae6b8db251759c804971ecaa06e93",
+      "size": 1076
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-current-bytes/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "4b9294fd5664d9f77c434623c1dd423de7d5f835e6c16ed2732fb84ab38c27e7",
+      "size": 15829
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -10830,6 +10890,12 @@
       "size": 1342
     },
     {
+      "path": "out/dispatch/native-headroom-r13.json",
+      "class": "scratch",
+      "sha256": "a030ececcc3fea5b5d2c0c9872c35fd22d1dd5a9ba098aa6c33ef1d2e615f994",
+      "size": 306
+    },
+    {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
       "sha256": "cc642ce0dc779b525cdd63ed53bc2e269eb2cb4b48f7904e3688474040e362be",
@@ -12146,8 +12212,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "b022c7c61c380c91f2be97b97b3b98dcb40b9fcd7812fa1fc11e0229f5dccd3c",
-      "size": 10064
+      "sha256": "4b9294fd5664d9f77c434623c1dd423de7d5f835e6c16ed2732fb84ab38c27e7",
+      "size": 15829
     },
     {
       "path": "out/dispatch/takes-2/prompt.txt",
@@ -12447,6 +12513,10 @@
     },
     {
       "path": "out/dispatch/evidence/review-r13-code-plan/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r13-current-bytes/agent-transcript-cumulative.private.jsonl",
       "reason": "private path component"
     },
     {

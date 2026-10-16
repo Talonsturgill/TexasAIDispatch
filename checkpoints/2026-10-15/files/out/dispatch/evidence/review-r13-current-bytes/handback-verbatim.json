@@ -1,0 +1,397 @@
+{
+  "handoff": "storyboard_critics 24 (r13 current bytes): fresh independent code-plan review of the final current treatment A board (live storyboard.json 5a1b8e26)",
+  "one_line_note": "I pass the current treatment A bytes at code-plan scope. By my own full reading of both boards, the only difference from the board I reviewed in report 23 is narration_picture.timing_provenance.word_content_sha256 (88e81794 to 5a689a3e). All picture, event, shot, reward, clause, caption and cue values are byte-for-byte as reviewed, so my judgment is unchanged and reaffirmed from the current bytes. The soundcheck at the 59.4 s cut now reads CHOSEN. No film or audio is approved.",
+  "reports": {
+    "storyboard_critic": {
+      "verdict": "pass",
+      "review_scope": "code-plan",
+      "treatment": "a",
+      "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "board_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+      "concept_sha256": "036f839d57b1225d52b36c45599485057d11b92b49654696e26348356a03572c",
+      "renderer_sha256": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic (Opus High), independent read-only reviewer in a same-worker charged continuation (storyboard_critics 24 per the caller; I did not verify the reservation on the ledger), distinct from the claude-sonnet-5-5 director. Limits: code-plan scope only. I rendered and viewed no pixels and heard no audio. I ran no command and computed no hash. All digests are the director's mechanically supplied values; they agree with delta-machine.json as text.",
+      "reviewed_at": "2026-10-16T23:30:00Z",
+      "notes": "This is my own judgment of the live current board (5a1b8e26), read in full (lines 1 to 4912). I also read the reviewed board (reviewed-board-before.json, 12c90919) in full in this round and compared them section by section: scenes and their visual_events (at_s, duration_s, clause fractions, item_ids), planes, visual_proof, story_art (including action_uses and entries), film_direction (shots, rewards, renderer_inputs), narration_picture clauses, story_contract, cinematic_contract, cinema, creative_direction, sound cues, documentary, visual_research, native_media, art_direction, captions, quality_plan, attention_beats and retime_evidence. The only difference I found is /narration_picture/timing_provenance/word_content_sha256, 88e8179490aed8fc828abb1ab190bef66d525b6ee528b76781621f4251e5e9f0 before and 5a689a3ead697ce9d5985ba5a32a517aa2db7f9781f4d1c4259e2cbae1f9833d now. That is a provenance digest; no picture, timing or wording value moved. My evidence from the current bytes follows. Runtime is 59.4 s, with speech 0.58 to 57.36 s in 16 measured cues (c15 ends 54.80 and c16 ends 57.36, both inside the runtime). Scenes are s1 8.68, s2 6.94, s3 4.04, s4 7.42, s5 8.18, s6 5.68, s7 8.26, s8 6.30 and s9 3.90 s, so the maximum is 8.68 against the 9.5 ceiling. Shot maximum is 4.77 s (s1-shot-2), then s7-shot-2 4.32, s5-shot-2 4.13 and s5-shot-1 4.05, all against 5.0. I recomputed every event in absolute seconds from scene start + at_s, and each lies wholly inside the shot whose view draws it: s2-event-3 13.675 to 14.409 in no-tower (13.59 to 15.62); s3-event-3 18.395 to 19.043 in weather-row (18.313 to 19.66); s4-event-2 24.562 to 25.160 in chip-glow detail (23.49 to 25.285); s6-event-2 38.172 to 39.112 and s6-event-3 39.300 to 40.146 in flood-paths (38.10 to 40.94); s7-event-3 47.573 to 48.318 in validation-card detail (44.88 to 49.20); s8-event-0 50.182 to 50.931 in no-field-card (49.20 to 52.16). The first reward is at 1.00 s. The largest reward gaps are 3.58 s (43.134 to 46.717) and 3.51 s, the gap would be 3.91 s even without the s7 slide, and the end gap is 2.24 s. Wall views are 5 of 20 shots, 17.40 of 59.4 s (29.3 percent). The sfx file and the mix sound cues sit at the moved event starts (chip-hum 24.562, mark-tone 17.131, blank-card-quiet 50.182). B's old ids don't apply here: the current A board has s8-event-0, so the renderer takes moved=true with the s8-valcard, s8-valbar, s8-assess, s8-card2 and s8-blank ids, all present in the s8 planes and registered for no-field-card in db04f225. Non-blocking cautions for the phone pass are unchanged: the s4 'Judged on the station' tag is fully opaque about 0.52 s and complete 0.125 s before its cut; the three s3 shots last 1.347 s each; 'watch the water' is heard over the weather-row lamps; the s7-event-3 blank-card edge is about 78 px; four wall shots run consecutively 40.94 to 55.50; the s9 closing events are 0.35 to 0.38 s wide in a wide. Cosmetic: the cue_plan string is still stale under measured timing. Erratum to my report 23 (preserved unchanged, not edited by anyone): its opening_a strongest_frame contains a typo, '17.131 to 18.909'. The correct window, stated in the same sentence and everywhere else, is 17.131 to 17.909. A code-plan pass authorizes a phone test only.",
+      "strongest_frame": "s3-shot-2 water-marks close (16.967 to 18.313 s). On s3-event-2 (17.131 to 17.909) brown water rises past the already-lit first lens and the second lights as it goes under (podLit from the level lerp LEVEL.ankle to LEVEL.second). This is the whole sensing mechanism as one performed change on the one station the film carries. The caution is that it lasts only 1.347 s.",
+      "weakest_frame": "s7-shot-2 validation-card detail (44.88 to 49.20 s), the second consecutive shot on the same card. From 43.53 (bar complete) to 46.212 (tag starts) the only motion is the 1 s push-in at 44.88. After that come a small 'Initial assessments after training' tag and a blank-card edge about 78 px wide sliding in at 47.573 to 48.318. The hold is motivated, because the figure is read as it is spoken, and the gap stays at 3.58 s. It is still the least active picture and opens a 14.56 s run of wall views.",
+      "blocking_defects": [],
+      "code_observations": [
+        "Current-bytes diff by my own reading: the board and the reviewed board are identical except timing_provenance.word_content_sha256. words.json and the reviewed words file have identical acoustic_matching, speech_runs, internal_pauses_joined, counts (38 boundaries measured, 132 words, 37 anchored, 95 modelled) and all 132 word entries. They differ only in duration_s (65.0 to 64.4) and in provenance voice_sha256 (0565b771 to 57f9c656) and mix_sha256 (35e67958 to 4a96b35f). asr_sha256 (9ee66440), analysis_duration_s (58.566208), model and command are unchanged.",
+        "captions.json (a6b0e45a) carries the same 16 cues as the board's captions. sfx_events.json carries 5 events at the board's event starts. mix.json records 64.40 s (3,091,200 samples at 48 kHz, equal to runtime 59.4 s plus the 5 s credits), time_stretch 1.0 on every track, and the voice stem at the same sample count.",
+        "n1a (0.58 to 3.58): street-yard. s1-event-1 0.64 to 1.24 shows water topping the curb to the ankle mark (reward 1.00). s1-event-2 2.14 to 2.86 shows water reaching the boots while the phone stays dark. n1b (4.24 to 8.28): phone-late. s1-event-3 5.452 to 6.502 slides the late banner on over 'says the phone'.",
+        "n2a (8.96 to 11.22): station-wide. s2-event-1 9.231 to 9.819 reveals the prototype and pins its tag. n2b (11.90 to 14.96): panel-charge, where s2-event-2 12.145 to 12.879 fills the battery over 'charges itself'. Then no-tower, where s2-event-3 13.675 to 14.409 runs the dashed link to half way and pins 'No cell tower needed' over 'needs no cell'.",
+        "n3a (15.90 to 19.14): sensor-stack, s3-event-1 16.030 to 16.742 (glints, 'Four optical sensors' tag). water-marks, s3-event-2 17.131 to 17.909 (second mark goes under and lights). weather-row, s3-event-3 18.395 to 19.043 (Rain, Temperature, Humidity and Light lamps). 'watch the water' falls on weather-row about 0.4 s after the crossing. Non-blocking.",
+        "n4a (19.94 to 23.18): chip-glow close, s4-event-1 21.722 to 22.532 (readings along the traces, chip glow 0.35). n4b (23.80 to 26.52): chip-glow detail, whose push lands at 24.562, then s4-event-2 24.562 to 25.160 lights the lamp and pins 'Judged on the station' over 'judges flood risk'. no-server wide carries risk=1, and s4-event-3 25.704 to 26.357 draws the dark server outline over 'central server'.",
+        "n5a (27.36 to 30.70): radio-rings. s5-event-1 27.494 to 28.228 is the pulse. s5-event-2 29.097 to 29.965 pins the half-mile tag over 'more than a half-mile'. n5b (31.56 to 34.74): radio-open. s5-event-3 32.514 to 33.532: the ring reaches the mast at mid-event, the lamp lights and the five-mile tag pins.",
+        "n6a (35.54 to 40.24): hub-desk. s6-event-1 35.728 to 36.762 brings the dots, the forearm and the 'A second, larger model' tag, with paths at 0.15*s6e1. flood-paths: s6-event-2 38.172 to 39.112 spreads paths=s6e2 over 'maps flood paths', straddling the measured 38.58/38.70 cue boundary. s6-event-3 39.300 to 40.146 brings zones=s6e3 and the responders tag over 'for responders'.",
+        "n7a (41.22 to 44.52): validation-card close. s7-event-1 42.540 to 43.530 fills the bar to share 0.9882 with '98.82%'; the blank card is off-frame. n7b (45.24 to 48.48): validation-card detail. s7-event-2 46.212 to 47.054 pins 'Initial assessments after training'. s7-event-3 47.573 to 48.318 slides the unstamped blank card to the right edge.",
+        "n8a (49.48 to 51.82): no-field-card detail with the s8 ids. The push ends at 50.182. s8-event-0 50.182 to 50.931 stamps 'none reported', the result holds 1.23 s, and the cut falls in the 51.82 to 52.50 silence. n8b (52.50 to 54.80): empty-map close, with s8-event-1 52.592 settling the map, s8-event-2 53.374 sweeping the search ring and s8-event-3 54.202 pinning 'No installation named'.",
+        "n9a (55.78 to 57.36): station-return wide, with the tag kept. s9-event-1 55.843 hovers the goal pin, s9-event-2 56.380 draws the dashed station outline and s9-event-3 56.949 pins the 'Deployment goal' tag. A 2.10 s closing hold follows.",
+        "Figure attribution in the current bytes: n7a 'The university reports early chip AI validation.' has claims c4 and c18, and the s7-card label reads 'validation accuracy card reading 98.82 percent, the university reported figure'. The 'Initial assessments after training' tag carries 'early'. The s4-chip label is 'small chip on the station running the AI, marked TinyML', which ties the figure to the on-device chip model with the university as reporter. The possible false inference that the figure belongs to the hub model is prevented by the spoken and captioned 'chip AI'. Non-blocking.",
+        "All six action_uses (charge-battery, cross-marks, judge-locally, water-rises, carry-signal, spread-map) sit inside a shot of their declared view, unchanged from the reviewed board.",
+        "vo_script.txt (67d7ae45) reads the same 15 sentences as the board's clause texts. n6a is split across the measured cues c10 and c11."
+      ],
+      "action_reviews": [
+        {
+          "action_id": "charge-battery",
+          "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": [
+            "s2-event-2 runs 12.145 to 12.879 inside panel-charge (11.56 to 13.59). The beam, glint and battery fill from 0.24 to 1 are driven by s2e2 over 'charges itself', and the battery stays full afterwards. Unchanged in the current bytes."
+          ]
+        },
+        {
+          "action_id": "cross-marks",
+          "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": [
+            "s3-event-2 runs 17.131 to 17.909 inside water-marks (16.967 to 18.313). The level rises to LEVEL.second and the second mark lights and stays lit. The shot is 1.347 s, so phone review must confirm that the crossing reads."
+          ]
+        },
+        {
+          "action_id": "judge-locally",
+          "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": [
+            "s4-event-2 runs 24.562 to 25.160 inside chip-glow detail (23.49 to 25.285). The push lands at the event start. The lamp and tag complete 0.125 s before the cut, and the lamp carries lit into the no-server wide. The short tag hold is a phone check."
+          ]
+        },
+        {
+          "action_id": "water-rises",
+          "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": [
+            "s1-event-1 runs 0.64 to 1.24 inside street-yard (0 to 3.91). The water tops the curb and climbs to the ankle mark, reward at 1.00 s. No station stands in the yard."
+          ]
+        },
+        {
+          "action_id": "carry-signal",
+          "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": [
+            "s5-event-2 runs 29.097 to 29.965 inside radio-rings (27.08 to 31.13). The rings pass the half-mile tag over 'more than a half-mile'. The range is shown as described, not measured."
+          ]
+        },
+        {
+          "action_id": "spread-map",
+          "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": [
+            "s6-event-2 runs 38.172 to 39.112 wholly inside flood-paths (38.10 to 40.94), with paths=s6e2 performed from 0 to 1 over 'maps flood paths' and its reward at 38.736 in the same shot."
+          ]
+        }
+      ],
+      "story_review": {
+        "story_sha256": "d82de390d3657d5ddfdd03fc5b6b11fb69c5749a526169b3fe9ff20031f5fb5e",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Planned chain, not observed. A San Antonio yard floods to the ankle mark while the porch phone stays dark, and the warning lands late. A self-charging prototype station at a curb needs no cell tower. Its four lenses at four heights catch the light, the water lights the second as it goes under, and the weather lamps come on. Inside the housing the readings reach one chip, which lights an amber risk lamp while a far server outline stays dark. A radio pulse runs past a half-mile tag and across five miles of open country to a hub's mast. At the hub a second, larger model's map spreads flood paths and risk zones for responders. The limit follows: the university's 98.82% validation figure pinned as initial assessments after training, a blank field card stamped none reported, and a map searched with no installation named. The close is the empty curb, a dashed station outline and a hovering goal pin.",
+        "opening_to_ending": "The opening question, whether a flood station can judge rising street water with no power line and no cell tower, is staged as water arriving before the phone warning. The film ends at the same kind of curb with no flood and no installed station: a dashed outline draws itself, a goal pin hovers without landing and the deployment goal tag pins. The answer is yes in design. The proof so far is only reported early validation accuracy, and no installation is named. The ending answers what happens next without promising an unreported outcome.",
+        "weakest_transition": "s6 to s7, at 40.94 s: the flood-paths dashboard with its responders tag cuts to the validation card. The only visible bridge is the amber accent, and the narration 'The university reports early chip AI validation' carries the cause. That leaves a false-inference risk that the figure belongs to the hub's larger model, which the spoken and captioned 'chip AI' prevents textually. Non-blocking."
+      }
+    }
+  },
+  "current_bytes_assessment": {
+    "what_i_read": "I read the live storyboard.json (5a1b8e26) in full, lines 1 to 4912 in ranges. I read reviewed-board-before.json (12c90919) in full in this round, lines 1 to 4912 in ranges. I read both words files in full: reviewed-words-before.json (99dd69cd) and words.json (e7d3a9b5), lines 1 to 1862 each. I also read captions.json, sfx_events.json, mix.json, the critic_gate refusal, delta.txt, delta-machine.json, the live precheck report.json, the align/captions/retime log, the mix log, the soundcheck at the 59.4 s cut, vo_script.txt and my preserved report 23 (handback-verbatim.json, 4300503f).",
+    "delta_matches_machine_statement": true,
+    "delta_detail": "Board: exactly one value differs, /narration_picture/timing_provenance/word_content_sha256, from 88e81794 to 5a689a3e, as delta-machine.json and delta.txt state. cue_content_sha256 (a23ac227) is unchanged. Words: all 132 entries, the acoustic matching, the speech runs, the joined pauses and the counts are identical. duration_s changes 65.0 to 64.4, provenance.voice_sha256 changes 0565b771 to 57f9c656 and provenance.mix_sha256 changes 35e67958 to 4a96b35f. asr_sha256, analysis_duration_s, model_sha256 and command are identical. The new mix_sha256 equals mix.json master_sha256 (4a96b35f), and 64.4 s equals mix.json duration_s and 3,091,200 samples at 48 kHz. This also explains the 65.0 s words duration_s I flagged as unexplained in R12. I can't independently confirm that the voice stem behind 57f9c656 is take 7. The unchanged asr_sha256 and identical word content support it.",
+    "judgment_changed": false,
+    "judgment_statement": "I reaffirm my report 23 judgment of treatment A from the current bytes: a code-plan pass, with the same cautions and the same strongest and weakest frames. The provenance change moves no picture, event, shot, reward, clause, caption, cue or sound time, so it raises no blocking defect.",
+    "live_pipeline_evidence": "Precheck report.json on the live board: pass true, 14 of 14 gates exit 0 (registry, storyboard_check, watchability_check, documentary_check, shot_coherence, staging_check, board_scale_check, floor_check, script_evidence, super_evidence, caption_fit, modern_film, native_sample_plan, story_art), approval false. I read the report only, not the 14 logs. The realign/captions/retime log reports 16 cues with every boundary measured, 37 of 132 word times measured, 5 sounds moved with their scenes and 0 scenes moved. The mix log reports 64.40 s at -16.04 LUFS, gain +1.69 dB, 5 sound events and time_stretch 1.0.",
+    "soundcheck_risk": "My earlier risk was that soundcheck-7.log showed 'NO TAKE PASSED' on duration against the old 54.1 s cut. soundcheck-7c-cut-59.4.log now reads '[CHOSEN] take1 acc 0.992 var 6.06 57.5s -20.6 LUFS' and 'vo_soundcheck: chose take1'. As text evidence this answers the duration-fail risk at the soundcheck gate. Two limits remain. The log body does not print the cut value, so the 59.4 s attribution rests on its file name. And I heard nothing, so this approves no audio, loudness, true peak or caption alignment. Those remain for the exact-film audiovisual gates.",
+    "b_and_opening_a_renderer_statement": "Evidence only: opening-a.json is still 12c90919, the board I reviewed in report 23 (the same bytes as reviewed-board-before.json, which I read in full now). opening-b.json is still 5bf94a92, which I read in full in the r13 round before this message. Both bind film_direction.renderer_inputs to video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx b8f8cc3b and config/modern_episode_registry.json db04f225. Those are the hashes of the live renderer and registry listed for this round, and I read the identical bytes in full in this worker's context. The renderer digest cdc9d67e is unchanged for all three boards per delta-machine.json and the supplied digests. B (no s8-event-0) still takes the moved=false path with its s7 ids."
+  },
+  "per_input_table": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/followup-review-message-r13-current.txt",
+      "sha256": "fc526be4a0b6ae010a222f726ff8d10a5694de9fb665e8eede6e842ab04d8fde",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r13-code-plan/handback-verbatim.json",
+      "sha256": "4300503f0c2d482a131d32c9d2a0e601ddd4b4df13c48bd048c30ad9fc9ce518",
+      "read_in_full": true,
+      "note": "this round, lines 1 to 592"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-fresh-current-review/delta-machine.json",
+      "sha256": "d56b018167b905ff6c8c3d8269acd6ca4838bc21f1f46156eae84eef53e4bd86",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-concept-digest-hold/reviewed-board-before.json",
+      "sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+      "read_in_full": true,
+      "note": "this round, lines 1 to 4912 in ranges, compared section by section against the live board"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+      "read_in_full": true,
+      "note": "this round, lines 1 to 4912 in ranges"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-concept-digest-hold/reviewed-words-before.json",
+      "sha256": "99dd69cda7ffd247b568644719d02e56080752a48fcb8d717e39f57555623378",
+      "read_in_full": true,
+      "note": "this round, lines 1 to 1862"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/words.json",
+      "sha256": "e7d3a9b5d2487a9be1fa5badd6d80a31643aee86e789b394904a376c37e23294",
+      "read_in_full": true,
+      "note": "this round, lines 1 to 1862"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/captions.json",
+      "sha256": "a6b0e45a7a95340f5f264c625fe6aab281a34b66c292fa9174445d03fbb4ed86",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/sfx_events.json",
+      "sha256": "59f3a12fbd51e7a603f8c064b6a377c147bc3a6af846ecc9bb8a591e5d892e49",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/mix.json",
+      "sha256": "46d860b91f031fa6d3252847b6c8a3a7aadf5abb6682a915b54f6330d41c755a",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-concept-digest-hold/critic_gate-refusal.txt",
+      "sha256": "2d94bec0c27743744a978ea84f6ecfa2a1ea27f408a4a77be74c6125b5238deb",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-concept-digest-hold/delta.txt",
+      "sha256": "15f1eeffc8e6e70f2057ea96463343e7bbff9127a9ee10274988031e70b7d9d4",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-fresh-current-review/precheck-live-current/e9516662-8771-466f-b483-17c0c911f529/report.json",
+      "sha256": "5bbe777259c7d4e460e4ccdc9a225e60892de086541449ce95c27699b4ff2cd9",
+      "read_in_full": true,
+      "note": "this round; the 14 gate logs it names were not read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-apply/align-captions-retime-2.log",
+      "sha256": "bd1b7641047858c14db1ed61ab2282bae5177a8e8f60354f657dffe265dd7fe7",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/logs/mix-r13.log",
+      "sha256": "abf8926c7dc32cc5ab7678d6a4c9bd4f5ac144f99943e2fd9f57e325524b0ce5",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/take-7/soundcheck-7c-cut-59.4.log",
+      "sha256": "84d19e113b0b81518b7e10aabc69bd551e7d9fd58512671ffa22d51add61a239",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "sha256": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
+      "read_in_full": true,
+      "note": "identical hash to out/dispatch/evidence/proposal-r13/FloodStationFilm.tsx, which I read in full (lines 1 to 523) in the r13 round of this worker's current context; not re-read at the live path"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/modern_episode_registry.json",
+      "sha256": "db04f225a374f80173efd14a8aa03eddd5481ef5332f764fa7ca148d956d295c",
+      "read_in_full": true,
+      "note": "identical hash to out/dispatch/evidence/proposal-r13/modern_episode_registry.json, which I read in full (lines 1 to 1225) in the r13 round of this context; not re-read at the live path"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+      "read_in_full": true,
+      "note": "identical hash to reviewed-board-before.json, read in full this round; not re-read at this path"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+      "read_in_full": true,
+      "note": "identical hash to out/dispatch/evidence/proposal-r13/opening-b-restamped.json, which I read in full (lines 1 to 4844) in the r13 round of this context; not re-read at this path"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_script.txt",
+      "sha256": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf",
+      "read_in_full": true,
+      "note": "this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094",
+      "read_in_full": true,
+      "note": "earlier in this worker's context (before a compaction) under the same hash; not re-read this round"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/CLAUDE.md",
+      "sha256": "a58148fdd754c6fc031b5581adafaa865876164616e2410de35339fe3d23439d",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; also present in the session's project instructions"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/art_direction.json",
+      "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/authored_story_art.json",
+      "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/autonomous_completion_narration_v1.json",
+      "sha256": "76124df1718c1d86481a48c592a4a282e2eb0fdbeb9642626135ff698eb282da",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/source_validation_completion_v1.json",
+      "sha256": "d08bc6044dd1adba91b1b27880921b2e574860b4a7981404a3a7a69184d2b82d",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/config/story_art.json",
+      "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md",
+      "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md",
+      "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "57b0dca612365c9f6d7075915389ae35e5d48ad0b8e5ca62bbde00ad71defa59",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/STORY_ART.md",
+      "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json",
+      "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md",
+      "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md",
+      "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md",
+      "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md",
+      "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "a9fa05655f395c73dc3c7add424912b836d2c8e87fcc7d285db62dea895c666f",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/prompts/roles/scene-builder.md",
+      "sha256": "251d5f0e2dbafe94c8b636bf2f664945855c74c22c0e9bd764f374cd08deee37",
+      "read_in_full": true,
+      "note": "earlier in this worker's context, same hash; not re-read"
+    }
+  ],
+  "honest_limits": [
+    "Code-plan scope only. I rendered and viewed no pixels and heard no audio. Recognition, phone legibility, surface finish and timed comprehension belong to the exact phone review of the actual film.",
+    "I computed no hash and ran nothing. 'Identical bytes' claims for the live renderer, the registry, opening-a.json and opening-b.json rest on the supplied hashes matching files I read in full under other paths, not on re-reading those live paths. My board and words diffs are by reading, not by a tool, and a single-character difference inside a long hash list could escape a human comparison. I checked the renderer_inputs hash lists line by line, and the supplied renderer digest cdc9d67e is unchanged in any case.",
+    "reviewed_at (2026-10-16T23:30:00Z) is not clock-derived. I have no clock access, so it is an estimate after the 21:21 UTC r13 file times.",
+    "The soundcheck log body does not print the cut, so its 59.4 s attribution rests on the file name. CHOSEN at the soundcheck gate approves no audio, loudness, true peak or caption alignment.",
+    "I can't verify that the voice stem behind voice_sha256 57f9c656 is retained take 7. The unchanged asr_sha256, analysis duration and identical 132 word entries are consistent with it.",
+    "captions.json carries narration_clause_segmentation.word_content_sha256 36fcf615, which differs from the board's timing_provenance word_content_sha256 5a689a3e. I take them to be digests of different scopes, but I did not verify their definitions.",
+    "The 14 precheck gate logs, claims.json, sources, FloodStationHero.tsx, StreetHubSupport.tsx, the critic brief and story_selection.json were not read this round. They are not on this read list, and their hashes are unchanged from earlier rounds.",
+    "action_reviews module_sha256 values are the authored module hashes recorded in the board's story_art.entries (f3dbf427 hero, 916e12f7 support). source_claims_sha256 is the bound claims digest 49b2379c.",
+    "This handoff approves no take, caption, picture, film, score or shipment. It changes no earlier verdict, and report 23 stays preserved unchanged. It authorizes a phone test of these bytes only."
+  ]
+}
