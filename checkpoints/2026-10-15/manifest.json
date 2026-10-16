@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T20:19:30.159315+00:00",
+  "saved_at": "2026-10-16T20:32:42.749453+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "955cd37196aa92c8a9683de19a491ab0544eb7c66a82e99830f6fdb7a61f8800",
-  "original_private_ledger_sha256": "8a8710d4b1bbaa1fbe107c2152e40f7f654b932dcdd66c2f45f80c8be40712b0",
+  "ledger_sha256": "1ee23f6dbf7d87a627a811b532bd5c776d51171678af03626cea541be7d7c15a",
+  "original_private_ledger_sha256": "b23eb12f4b3ac82389d7e1bd6e86f584c2d7b4f243e3754a21d008b6f45743d0",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -61,7 +61,7 @@
     }
   ],
   "usage": {
-    "audiovisual_reviews": 4,
+    "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
@@ -821,12 +821,6 @@
       "class": "scratch",
       "sha256": "96c9b9fd724d81783913cece579db083739141a393e3dea56fb93aa0d73900d0",
       "size": 6150
-    },
-    {
-      "path": "out/dispatch/captions.json",
-      "class": "scratch",
-      "sha256": "944e3eaf3cf9a4cfc7f5240cb05b54b3f04e35b44cac40cf8c3d5cda636948eb",
-      "size": 3815
     },
     {
       "path": "out/dispatch/capture-authorization.json",
@@ -7903,12 +7897,6 @@
       "size": 7110
     },
     {
-      "path": "out/dispatch/evidence/review-code-r10-coverage-pass/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "2771868cfd725b515df17b426236d3dd608a1d14addba83eac80cf97723b1fc4",
-      "size": 4208541
-    },
-    {
       "path": "out/dispatch/evidence/review-code-r10-coverage-pass/format-stamps.json",
       "class": "scratch",
       "sha256": "e9e0d3efdfaa08d7588adad4437387087831b43b22b085e3951ce9433a0ced17",
@@ -7975,12 +7963,6 @@
       "size": 3526
     },
     {
-      "path": "out/dispatch/evidence/review-code-r10-partial/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "dc575aaebfee9012569e1b4c7635285cd6eb126e7832515d191ba7124d111e54",
-      "size": 2696168
-    },
-    {
       "path": "out/dispatch/evidence/review-code-r10-partial/handback-full.txt",
       "class": "scratch",
       "sha256": "85f2e8346140317261a31a65c0ae004bfe3df08ab3c32eeb1bab4a713afbaeb4",
@@ -7993,22 +7975,28 @@
       "size": 22353
     },
     {
-      "path": "out/dispatch/evidence/review-phone-r10-partial/agent-transcript-cumulative.jsonl",
+      "path": "out/dispatch/evidence/review-phone-r10-partial/coverage-1.json",
       "class": "scratch",
-      "sha256": "18e0708b819a2012509683459c35973a1dc8434029f91a4fbc8fdb903de48c51",
-      "size": 26759800
+      "sha256": "c474a61bfb01cd6c30d2c3315d8ffb9fe4bf0550f67e63a2d71ff15abdd5228a",
+      "size": 32926
+    },
+    {
+      "path": "out/dispatch/evidence/review-phone-r10-partial/coverage-2.json",
+      "class": "scratch",
+      "sha256": "78537a8319eed42257ba2be91562f19ad529c5f3b80554188d40dd5a189cd02e",
+      "size": 34758
+    },
+    {
+      "path": "out/dispatch/evidence/review-phone-r10-partial/handback-2-full.txt",
+      "class": "scratch",
+      "sha256": "7d70a685e1c2acc5be55ebe3391fc264357c5b609b4b21d039edaf052d4c9a9f",
+      "size": 31839
     },
     {
       "path": "out/dispatch/evidence/review-phone-r10-partial/handback-full.txt",
       "class": "scratch",
       "sha256": "5699a535b00676dd21bf5c62a7208b6d5269e9a859985bd669d8187ce2d47ffb",
       "size": 32117
-    },
-    {
-      "path": "out/dispatch/evidence/review-r10-source-pivot-revise/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "937a6ae8b3df1570dd83ba5877f644582d13bf42ebf6e0babd91f3b5530e976d",
-      "size": 2386678
     },
     {
       "path": "out/dispatch/evidence/review-r10-source-pivot-revise/handback-full.txt",
@@ -8019,8 +8007,8 @@
     {
       "path": "out/dispatch/evidence/review-r10-source-pivot-revise/receipt.json",
       "class": "scratch",
-      "sha256": "90c377bc63157f95dc3f0d7910905de2f397ccf685b58ee66d0d2465489cd489",
-      "size": 1895
+      "sha256": "59fe499a588d2cfaa5c72a375189e03ee0bced3ac5be511f8646277e8aa1a858",
+      "size": 1903
     },
     {
       "path": "out/dispatch/evidence/review-r10-source-pivot-revise/report-verbatim.json",
@@ -8047,12 +8035,6 @@
       "size": 20288
     },
     {
-      "path": "out/dispatch/evidence/review-r7-source-pivot-revise/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "b9f2998b47b0845904a897bb73b7f45eeda0599b31b7c1acdce9bd6ef8349ef1",
-      "size": 3725733
-    },
-    {
       "path": "out/dispatch/evidence/review-r7-source-pivot-revise/duration-projection.md",
       "class": "scratch",
       "sha256": "5c19aa6c9733d4b266abde6353b30073a8a26dee0e7d38e405042d3c0bd3707e",
@@ -8067,20 +8049,14 @@
     {
       "path": "out/dispatch/evidence/review-r7-source-pivot-revise/receipt.json",
       "class": "scratch",
-      "sha256": "839eb7cee68ea9beb4bfa3a7c7876ff8e1cf584766f0b73df185f518f8d872f0",
-      "size": 1779
+      "sha256": "cfd445598735d696e1a0941c9c3212d5a37ae301d004feee31bac06362678775",
+      "size": 1806
     },
     {
       "path": "out/dispatch/evidence/review-r7-source-pivot-revise/report-verbatim.json",
       "class": "scratch",
       "sha256": "97a412350b3c3cb4772fb5f63393c132ed4164405d2a565fdb482015e1a1cdc4",
       "size": 20197
-    },
-    {
-      "path": "out/dispatch/evidence/review-r8-recurrence-revise/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "7d51e2b71978747a72bcd9645fcaed899d624e95f26ccb0e78637ee9c9c69a6d",
-      "size": 1556427
     },
     {
       "path": "out/dispatch/evidence/review-r8-recurrence-revise/handback-full.txt",
@@ -8091,20 +8067,14 @@
     {
       "path": "out/dispatch/evidence/review-r8-recurrence-revise/receipt.json",
       "class": "scratch",
-      "sha256": "41c0d20bb04118733b678f78c40bf2e7eaa244723bb845e3cb1e2ba7c74934a5",
-      "size": 1768
+      "sha256": "43f1a03dde74b603eb11401defabd7e23ea0a49232928d2841ac63440f6ddcd7",
+      "size": 1776
     },
     {
       "path": "out/dispatch/evidence/review-r8-recurrence-revise/report-verbatim.json",
       "class": "scratch",
       "sha256": "8b50f06e247ab1e5f81779e7853494181e8aaeece3998950c85c937ebc4ac9e6",
       "size": 40143
-    },
-    {
-      "path": "out/dispatch/evidence/review-r9-followup/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "004a0d24333f9619789ff66511e12ae7a57ca0863b1f89a7ed2bf4a8e79dce8b",
-      "size": 2273139
     },
     {
       "path": "out/dispatch/evidence/review-r9-followup/handback-full.txt",
@@ -8121,8 +8091,8 @@
     {
       "path": "out/dispatch/evidence/review-r9-followup/receipt.json",
       "class": "scratch",
-      "sha256": "44e56981c21c0d3457f3f3c054513aa1249df7441af20fc601878b7f407dc72b",
-      "size": 2025
+      "sha256": "86d4a5d9a4a50010747b3ba9591c40d4b446f6b5004b288d520b6dc0078c0bf0",
+      "size": 2033
     },
     {
       "path": "out/dispatch/evidence/review-r9-followup/report-verbatim.json",
@@ -8275,6 +8245,18 @@
       "size": 2004
     },
     {
+      "path": "out/dispatch/evidence/stale-pre-r10-provider/phone-media-limit-failure.json",
+      "class": "scratch",
+      "sha256": "0fcd78cedbeae087d00a5ef71d7c8efc609db3f3033499df2484c9dc758c81a9",
+      "size": 2299
+    },
+    {
+      "path": "out/dispatch/evidence/stale-pre-r10-provider/provider-phone-report.json",
+      "class": "scratch",
+      "sha256": "833684e2650fddf7aebeab0a188ed90d6027a8972735d0ed0297bc8c8b16069c",
+      "size": 1798141
+    },
+    {
       "path": "out/dispatch/evidence/stale-pre-r10/critic-assignment.json",
       "class": "scratch",
       "sha256": "a372e07aa7872e3982007f4f1d9cd7acd09b2705763deb3e15dd944d5445c023",
@@ -8303,6 +8285,24 @@
       "class": "scratch",
       "sha256": "833684e2650fddf7aebeab0a188ed90d6027a8972735d0ed0297bc8c8b16069c",
       "size": 1798141
+    },
+    {
+      "path": "out/dispatch/evidence/stale-take5-pipeline/README.txt",
+      "class": "scratch",
+      "sha256": "1acc97b200ec18d24ce6e2e59a637b8a0f7b6121aff4cfa8f193da9b4abdbd9e",
+      "size": 319
+    },
+    {
+      "path": "out/dispatch/evidence/stale-take5-pipeline/captions.json",
+      "class": "scratch",
+      "sha256": "944e3eaf3cf9a4cfc7f5240cb05b54b3f04e35b44cac40cf8c3d5cda636948eb",
+      "size": 3815
+    },
+    {
+      "path": "out/dispatch/evidence/stale-take5-pipeline/mix.json",
+      "class": "scratch",
+      "sha256": "fe56a16466902e2c82431d4a92e272c187310b2ffdbf877adc3f02f86b1441f4",
+      "size": 6142
     },
     {
       "path": "out/dispatch/evidence/storyboard-after-retime1.json",
@@ -8443,12 +8443,6 @@
       "size": 977
     },
     {
-      "path": "out/dispatch/evidence/validation-r10-pass/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "5f1678f205266619b2dea99739ae4467972c7cee814893d3366b2ff920515b23",
-      "size": 542634
-    },
-    {
       "path": "out/dispatch/evidence/validation-r10-pass/handback-full.txt",
       "class": "scratch",
       "sha256": "6516c2dd7c9a62f4a921105ede593a5e1dc59052a6ca1e8f89199c0b1a692093",
@@ -8465,12 +8459,6 @@
       "class": "scratch",
       "sha256": "910a798511dfbb5669f692560db1f3e48bdcd22df7a9030506210a8ad49604cb",
       "size": 11117
-    },
-    {
-      "path": "out/dispatch/evidence/validation-r9-revise/agent-transcript-cumulative.jsonl",
-      "class": "scratch",
-      "sha256": "979f5f4048cdc8a3692ed480f8b527ee7a6c9b71f0e011fa096985479d234a04",
-      "size": 452518
     },
     {
       "path": "out/dispatch/evidence/validation-r9-revise/handback-full.txt",
@@ -9127,6 +9115,12 @@
       "size": 91
     },
     {
+      "path": "out/dispatch/independent-review-cache/4fb6bc7acc6911c8ef6fc031ab65bcc2799d8c605551e6e724a0f992cebf0aed/transport.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/independent-review-cache/6bc4cc3933c87172d3d8c0dd70cd6119ef63861ab97505c6680ab879b91b5ec6/attempt.json",
       "class": "scratch",
       "sha256": "f0035f485f8ea9a0ec489b4f846ec59b9ba330bf225ce5657fb48fdc6b0f1f69",
@@ -9323,12 +9317,6 @@
       "class": "scratch",
       "sha256": "dd98e4707df2ded3f141f42bb256c6ab74fede05d88ab7cb057edd1e502768a1",
       "size": 158
-    },
-    {
-      "path": "out/dispatch/mix.json",
-      "class": "scratch",
-      "sha256": "fe56a16466902e2c82431d4a92e272c187310b2ffdbf877adc3f02f86b1441f4",
-      "size": 6142
     },
     {
       "path": "out/dispatch/mix.wav",
@@ -10255,6 +10243,12 @@
       "size": 15452
     },
     {
+      "path": "out/dispatch/phone-media-limit-failure-r10.json",
+      "class": "scratch",
+      "sha256": "b27698f4c50d5fe5b173721ad9fcba5b86c0a2f9254cca7e35c6602cad81b34e",
+      "size": 2337
+    },
+    {
       "path": "out/dispatch/phone-media-limit-failure.json",
       "class": "scratch",
       "sha256": "0fcd78cedbeae087d00a5ef71d7c8efc609db3f3033499df2484c9dc758c81a9",
@@ -10517,12 +10511,6 @@
       "class": "scratch",
       "sha256": "e918b16acc0c144129f0da8ab6e3bdc1b1057b5108af64a9de4a0f77aaecf85b",
       "size": 1123
-    },
-    {
-      "path": "out/dispatch/provider-phone-report.json",
-      "class": "scratch",
-      "sha256": "833684e2650fddf7aebeab0a188ed90d6027a8972735d0ed0297bc8c8b16069c",
-      "size": 1798141
     },
     {
       "path": "out/dispatch/repair-plan-code1-bound.json",
@@ -10960,6 +10948,42 @@
   "excluded": [
     {
       "path": "out/dispatch/delivery-routing.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-code-r10-coverage-pass/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-code-r10-partial/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-phone-r10-partial/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r10-source-pivot-revise/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r7-source-pivot-revise/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r8-recurrence-revise/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r9-followup/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/validation-r10-pass/agent-transcript-cumulative.private.jsonl",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/validation-r9-revise/agent-transcript-cumulative.private.jsonl",
       "reason": "private path component"
     },
     {

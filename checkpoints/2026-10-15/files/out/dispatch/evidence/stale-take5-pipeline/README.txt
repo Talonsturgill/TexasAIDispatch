@@ -1,0 +1,1 @@
+Moved (not deleted) 2026-10-16: captions.json and mix.json describe superseded take 5 of the 9-sentence script. The R10 sentence script needs a new take, so these are stale. Moving them kept the provider phone packet under the 500000 character ceiling (it measured 505171 with them). They regenerate with the new take.

@@ -409,6 +409,14 @@
       "note": "precharged same-worker content follow-up for the stripped phone pages (SendMessage ab8d144b88996d6ad)",
       "resource": "storyboard_critics",
       "to": 21
+    },
+    {
+      "at": "2026-10-16T20:32:38.713568Z",
+      "ceiling": 43,
+      "from": 4,
+      "note": "independent transport phone",
+      "resource": "audiovisual_reviews",
+      "to": 5
     }
   ],
   "events": [
@@ -4101,10 +4109,28 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-16T20:32:38.713650Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "independent transport phone",
+      "now": 5,
+      "resource": "audiovisual_reviews",
+      "was": 4
+    },
+    {
+      "at": "2026-10-16T20:32:38.713662Z",
+      "kind": "reserved",
+      "note": "independent transport phone",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 4,
+    "audiovisual_reviews": 5,
     "cleanup_renders": 1,
     "full_renders": 1,
     "image_generations": 2,
@@ -4124,7 +4150,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "8a8710d4b1bbaa1fbe107c2152e40f7f654b932dcdd66c2f45f80c8be40712b0",
+    "original_private_state_sha256": "b23eb12f4b3ac82389d7e1bd6e86f584c2d7b4f243e3754a21d008b6f45743d0",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4160,9 +4186,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:19:28.212023Z",
+  "updated_at": "2026-10-16T20:32:38.713664Z",
   "usage": {
-    "audiovisual_reviews": 4,
+    "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,

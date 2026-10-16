@@ -1,0 +1,57 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "ae808544fe3730f4f",
+  "observed_at": "2026-10-16T09:58:31.923166Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 49,
+  "reservation": {
+    "at": "2026-10-16T07:28:51.474403Z",
+    "kind": "reserved",
+    "note": "same-worker content call 5 with load-aware sequential image reads and separate coverage",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "79ff67384cd69d52b105877844646d3f9c1c41a0b88f5aa693274955317af5d6",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/phone-critic-packet-2.json",
+      "sha256": "a5be54360c50f4a0f6037497f7b16a2d05fe05780e90fb6393a22c884a08ed79"
+    },
+    "coverage": {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/phone-critic-call5-coverage-partial.json",
+      "sha256": "fcd1aa6f984fa30ef28ac051f4eb7196d05f1a4c58165cced2b68ec7c7a61772"
+    },
+    "handback": {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/evidence/phone-critic-call5-handback-raw.txt",
+      "sha256": "ec89c2cc135e145fef09dbaf1449170951ec18e477b54f82340c5a23acee153f"
+    },
+    "image": {
+      "path": "/home/user/restore/2026-10-15/out/dispatch/openings/motion-b/sequence-000.png",
+      "sha256": "c95110eb7a521cb81a2db4ff40ec84fde834dd7bdad7fafdd6c572e48ade4008"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "ae808544fe3730f4f",
+    "board_sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
+    "film_sha256": null,
+    "comparison_sha256": "dcafdda2973ac8626a886be66474805804ce3752eefb5142b4d2e5fce6c5f317",
+    "opening_options": {
+      "a": {
+        "board_sha256": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
+        "film_sha256": "23030b8e8087616bb67b7f57c27e5dd43ff7be9bf2d613c920dd3fd15a8b0857"
+      },
+      "b": {
+        "board_sha256": "8c0302d439f1fca1dcd474c5dbbae8c5a7aa58c02723a3548b2adeb47d852e98",
+        "film_sha256": "b91a948398f956f4fc09099445c8e155e687ecd1c99c365d825a7621fa478def"
+      }
+    }
+  }
+}
