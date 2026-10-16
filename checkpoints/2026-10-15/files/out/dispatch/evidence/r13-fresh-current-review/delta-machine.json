@@ -1,0 +1,126 @@
+{
+  "schema": "dispatch_current_bytes_delta/1",
+  "reviewed_board": {
+    "path": "out/dispatch/evidence/r13-concept-digest-hold/reviewed-board-before.json",
+    "sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+    "concept_sha256": "8ea1c704dea2580904294f7159c507918f8de7951f5a6163439ddf95186b5df5"
+  },
+  "current_board": {
+    "path": "out/dispatch/evidence/r13-concept-digest-hold/live-storyboard-after-real-mix.json",
+    "sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+    "concept_sha256": "036f839d57b1225d52b36c45599485057d11b92b49654696e26348356a03572c",
+    "live_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json"
+  },
+  "board_value_changes": [
+    {
+      "path": "/narration_picture/timing_provenance/word_content_sha256",
+      "before": "88e8179490aed8fc828abb1ab190bef66d525b6ee528b76781621f4251e5e9f0",
+      "after": "5a689a3ead697ce9d5985ba5a32a517aa2db7f9781f4d1c4259e2cbae1f9833d"
+    }
+  ],
+  "words_entries_identical": true,
+  "words_field_changes": [
+    {
+      "field": "duration_s",
+      "before": 65.0,
+      "after": 64.4
+    },
+    {
+      "field": "provenance",
+      "before": {
+        "voice_sha256": "0565b771a93170e78c348c82e94d8a9bb09772fc7c4441e7063aa221ae18d277",
+        "model_sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d",
+        "engine": "whisper.cpp",
+        "version": "1.9.2",
+        "dtw": "small.en",
+        "flash_attention": false,
+        "analysis_duration_s": 58.566208,
+        "asr_sha256": "9ee664405b4bd8467695f2e8e819f2f7ef365914896086b67c6136d19a47bdc5",
+        "command": [
+          "whisper-cli",
+          "-m",
+          "/opt/texas-dispatch-runtime/ggml-small.en.bin",
+          "-f",
+          "out/dispatch/alignment-16k.wav",
+          "-l",
+          "en",
+          "-ojf",
+          "-of",
+          "out/dispatch/acoustic-asr",
+          "-dtw",
+          "small.en",
+          "-nfa",
+          "-ml",
+          "1",
+          "-sow",
+          "-t",
+          "4",
+          "-np"
+        ],
+        "mix_sha256": "35e679586835831122d13afecff5ff53132869ee86164c67cd37f0b8ebb849b8",
+        "script_sha256": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf",
+        "aliases": []
+      },
+      "after": {
+        "voice_sha256": "57f9c656668eeb8a33c81cac13db73a0579e34ec2a1d1b295bdc25e1502d567e",
+        "model_sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d",
+        "engine": "whisper.cpp",
+        "version": "1.9.2",
+        "dtw": "small.en",
+        "flash_attention": false,
+        "analysis_duration_s": 58.566208,
+        "asr_sha256": "9ee664405b4bd8467695f2e8e819f2f7ef365914896086b67c6136d19a47bdc5",
+        "command": [
+          "whisper-cli",
+          "-m",
+          "/opt/texas-dispatch-runtime/ggml-small.en.bin",
+          "-f",
+          "out/dispatch/alignment-16k.wav",
+          "-l",
+          "en",
+          "-ojf",
+          "-of",
+          "out/dispatch/acoustic-asr",
+          "-dtw",
+          "small.en",
+          "-nfa",
+          "-ml",
+          "1",
+          "-sow",
+          "-t",
+          "4",
+          "-np"
+        ],
+        "mix_sha256": "4a96b35fc7b63471e5805ec6b9194240a17f374ec404667e5f54c6c251638279",
+        "script_sha256": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf",
+        "aliases": []
+      }
+    }
+  ],
+  "words": {
+    "reviewed": {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/reviewed-words-before.json",
+      "sha256": "99dd69cda7ffd247b568644719d02e56080752a48fcb8d717e39f57555623378"
+    },
+    "current": {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/live-words-after-real-mix.json",
+      "sha256": "e7d3a9b5d2487a9be1fa5badd6d80a31643aee86e789b394904a376c37e23294"
+    }
+  },
+  "captions_identical": true,
+  "sfx_identical": true,
+  "renderer_sha256_reviewed": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
+  "renderer_sha256_current": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
+  "opening_a_json_sha256_now": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+  "opening_b_json_sha256_now": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+  "mechanical_current_digests": {
+    "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+    "board_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+    "concept_sha256": "036f839d57b1225d52b36c45599485057d11b92b49654696e26348356a03572c",
+    "renderer_sha256": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
+    "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "story_sha256": "d82de390d3657d5ddfdd03fc5b6b11fb69c5749a526169b3fe9ff20031f5fb5e",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e"
+  }
+}
