@@ -3,6 +3,8 @@ import copy
 import hashlib
 import json
 import tempfile
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from unittest.mock import patch, Mock
@@ -140,6 +142,158 @@ class AvailabilityTest(unittest.TestCase):
         self.assertFalse(r.failure_problems(self.failure, 'phone'))
         for change in ({'error': 'revise'}, {'verdict': 'revise'}, {'role': 'sound'}, {'actor': ''}):
             self.assertTrue(r.failure_problems({**self.failure, **change}, 'phone'))
+
+    def test_media_limit_requires_exact_single_read_failure_and_bound_evidence(self):
+        failure = {**self.failure, 'error': r.MEDIA_LIMIT_ERROR, 'raw_error': r.MEDIA_LIMIT_ERROR,
+                   'media_probe': {'single_image_read': True, 'media_received': False, **{
+                       key: {'path': key, 'sha256': 'a'*64} for key in ('image', 'packet', 'coverage', 'handback')}}}
+        self.assertFalse(r.failure_problems(failure, 'phone'))
+        for change in ({'raw_error': 'context_length_exceeded'}, {'verdict': 'revise'}):
+            self.assertTrue(r.failure_problems({**failure, **change}, 'phone'))
+        for change in ({'single_image_read': False}, {'media_received': True}, {'coverage': {}}):
+            self.assertTrue(r.failure_problems({**failure, 'media_probe': {**failure['media_probe'], **change}}, 'phone'))
+        self.assertTrue(r.failure_problems({**failure, 'role': 'code'}, 'code'))
+
+    def test_media_limit_admission_checks_actual_unseen_page_and_retained_bytes(self):
+        import claude_runtime
+        image = self.root/'sequence-000.png'; image.write_bytes(b'owned image fixture bytes')
+        index = self.root/'index.json'; index.write_text(json.dumps({'pages': [
+            {'file': image.name, 'sha256': r.digest(image)}]}))
+        packet = self.root/'host-packet.json'
+        data = claude_runtime.image_reading({'role': 'storyboard-critic', 'instructions': '',
+            'board': {'sha256': 'board'}, 'claims': {'sha256': 'claims'}, 'phone_mode': 'current',
+            'phone_options': [{'film': {'sha256': 'film'},
+                              'motion_sequence': {'path': str(index), 'sha256': r.digest(index)}}]})
+        packet.write_text(json.dumps(data))
+        coverage = self.root/'coverage.json'; value = {'schema': 'dispatch_claude_image_coverage/1',
+            'packet_sha256': r.digest(packet), 'sequences': [{'index_sha256': r.digest(index),
+                'pages': [{'file': image.name, 'received': False}]}]}
+        coverage.write_text(json.dumps(value))
+        handback = self.root/'handback.txt'; handback.write_text('Single image returned '+r.MEDIA_LIMIT_ERROR)
+        failure = {**self.failure, 'error': r.MEDIA_LIMIT_ERROR, 'raw_error': r.MEDIA_LIMIT_ERROR,
+            'media_probe': {'single_image_read': True, 'media_received': False, **{
+                key: {'path': str(path), 'sha256': r.digest(path)} for key, path in
+                (('image', image), ('packet', packet), ('coverage', coverage), ('handback', handback))}}}
+        self.assertFalse(r.failure_problems(failure, 'phone'))
+        self.assertEqual(r.media_limit_packet(failure, self.root), data)
+        before = copy.deepcopy(c.read_state(self.state)['usage']); output = self.root/'prepared-media-failure.json'
+        with patch.object(r, 'packet', return_value=({}, self.bindings)), \
+                patch.object(r.requests, 'post', side_effect=AssertionError('preparation started a provider')):
+            prepared = r.prepare_media_limit(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
+                'phone', self.state, self.failure['actor'], packet, coverage, handback, image, output)
+            self.assertEqual(prepared['reservation'], self.failure['reservation'])
+            self.assertFalse(r.failure_problems(prepared, 'phone'))
+            with self.assertRaisesRegex(ValueError, 'do not overwrite'):
+                r.prepare_media_limit(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
+                    'phone', self.state, self.failure['actor'], packet, coverage, handback, image, output)
+        self.assertEqual(c.read_state(self.state)['usage'], before)
+        value['sequences'][0]['pages'][0]['received'] = True; coverage.write_text(json.dumps(value))
+        failure['media_probe']['coverage']['sha256'] = r.digest(coverage)
+        with self.assertRaisesRegex(ValueError, 'actual unseen page'):
+            r.media_limit_packet(failure, self.root)
+        image.write_bytes(b'changed fixture')
+        with self.assertRaisesRegex(ValueError, 'evidence changed'):
+            r.media_limit_packet(failure, self.root)
+
+    def comparison_fixture(self):
+        a, b = self.root/'a.mp4', self.root/'b.mp4'; a.write_bytes(b'film-a'); b.write_bytes(b'film-b')
+        text = {'current': 'evidence', 'provider_packet_policy': {'deduplicate_exact_media': True},
+                'media': [{'path': str(p), 'sha256': r.digest(p)} for p in (a, b)],
+                'independent_opening_comparison': {'a': {'film': str(a)}, 'b': {'film': str(b)}}}
+        base = {k: v for k, v in self.bindings.items() if k != 'film_sha256'}
+        bindings = {**base, 'opening_comparison_sha256': 'comparison', 'director_identity': 'actual director',
+            'opening_options': {key: {**base, 'film_sha256': r.digest(path), 'board_sha256': 'board-'+key,
+                'concept_sha256': 'concept-'+key} for key, path in (('a', a), ('b', b))}}
+        value = {'selection': {'selected': 'b', 'reason': 'B shows a clearly completed contact before its result.',
+            'rejected_reason': 'A holds the source subject too small during its corresponding action.', 'blocking_defects': []},
+            'reports': {'a': {**copy.deepcopy(self.value), 'verdict': 'revise',
+                              'blocking_defects': ['Exact observed original A defect']},
+                        'b': copy.deepcopy(self.value)}}
+        return text, base, bindings, self.raw(value)
+
+    def test_comparison_transports_both_movies_once_and_preserves_independent_choice(self):
+        text, base, bindings, raw = self.comparison_fixture()
+        self.failure['assignment'] = r.transport_assignment('phone', self.failure['actor'], bindings)
+        self.failure_path.write_text(json.dumps(self.failure))
+        selection = self.root / 'openings/selection.json'
+        with patch.dict(r.os.environ, {'GEMINI_API_KEY': 'test-key'}), \
+                patch.object(r, 'packet', return_value=(copy.deepcopy(text), base)), \
+                patch.object(r, 'comparison_scope', return_value=(text, bindings)), \
+                patch.object(r, 'media_part', side_effect=lambda path, key: ({'test': path.name}, None, r.digest(path))) as media, \
+                patch.object(r.requests, 'post', return_value=Mock(status_code=200)) as post, \
+                patch.object(r, 'streamed_response', side_effect=lambda _: self.context_response(raw)):
+            first = r.run(self.root/'board.json', self.root/'claims.json', None, 'phone', self.failure_path,
+                          self.state, self.root/'phone.json', compare_openings=True, selection_out=selection)
+            second = r.run(self.root/'board.json', self.root/'claims.json', None, 'phone', self.failure_path,
+                           self.state, self.root/'phone.json', compare_openings=True, selection_out=selection)
+            changed = copy.deepcopy(bindings); changed['opening_comparison_sha256'] = 'changed-labels'
+            with patch.object(r, 'comparison_scope', return_value=(text, changed)):
+                with self.assertRaisesRegex(ValueError, 'cached independent evidence'):
+                    r.run(self.root/'board.json', self.root/'claims.json', None, 'phone', self.failure_path,
+                          self.state, self.root/'phone.json', compare_openings=True, selection_out=selection)
+        self.assertEqual(post.call_count, 1); self.assertEqual(media.call_count, 2)
+        self.assertEqual(first, second); self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
+        self.assertEqual(first['reviewed_preflight_sha256'], bindings['opening_options']['b']['film_sha256'])
+        chosen = json.loads(selection.read_text())
+        self.assertEqual(chosen['selected'], 'b'); self.assertFalse(r.evidence_problems(chosen))
+        self.assertFalse(r.evidence_problems(first))
+        command = [sys.executable, str(r.REPO/'scripts/independent_review.py'), '--verify', str(selection)]
+        checked = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(checked.returncode, 0, checked.stderr)
+        original = r.response_object(first['provider_evidence']['response'])
+        self.assertEqual(original['reports']['a']['blocking_defects'], ['Exact observed original A defect'])
+        chosen['selected'] = 'a'; self.assertTrue(r.evidence_problems(chosen))
+        selection.write_text(json.dumps(chosen))
+        checked = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(checked.returncode, 1, checked.stderr)
+        with self.assertRaisesRegex(ValueError, 'overwrite'):
+            r.save_selection(second, selection)
+        first['verdict'] = 'revise'; self.assertTrue(r.evidence_problems(first))
+
+    def test_comparison_projection_refuses_missing_report_or_invalid_choice(self):
+        _, _, bindings, raw = self.comparison_fixture()
+        value = r.response_object(raw); value['review_context_sha256'] = 'actual-context'
+        raw = self.raw(value)
+        good = r.project(raw, bindings, 'phone', r.policy()['av_model'], 'actual-time')
+        self.assertEqual(good['concept_sha256'], 'concept-b')
+        selected_a = copy.deepcopy(value); selected_a['selection']['selected'] = 'a'
+        rejected = r.project(self.raw(selected_a), bindings, 'phone', r.policy()['av_model'], 'actual-time')
+        self.assertEqual(rejected['verdict'], 'revise')
+        self.assertEqual(rejected['blocking_defects'], ['Exact observed original A defect'])
+        self.assertEqual(rejected['reviewed_preflight_sha256'], bindings['opening_options']['a']['film_sha256'])
+        for bad in ({**value, 'reports': {'b': value['reports']['b']}},
+                    {**value, 'selection': {**value['selection'], 'selected': 'c'}}):
+            with self.assertRaises(ValueError):
+                r.project(self.raw(bad), bindings, 'phone', r.policy()['av_model'], 'actual-time')
+
+    def test_comparison_scope_binds_each_actual_board_and_movie_before_spend(self):
+        import opening_compare
+        root = self.root/'openings'; root.mkdir()
+        common = {'date': '2026-10-15', 'title': 'Source-grounded test fixture', 'runtime_s': 1,
+            'credits_s': 0, 'story_contract': {'director_identity': 'actual director'},
+            'scenes': [{'id': 's1', 'start_s': 0, 'duration_s': 1, 'vo': 'A supported source action.', 'vo_claims': ['c1']}]}
+        board_path = self.root/'board.json'; board_path.write_text(json.dumps(common))
+        options, media = [], []
+        for key in ('a', 'b'):
+            board = root/(key+'.json'); board.write_text(json.dumps({**common, 'variant': key}))
+            film = root/(key+'.mp4'); film.write_bytes(('encoded-fixture-'+key).encode())
+            inspection = root/(key+'-inspection.json')
+            inspection.write_text(json.dumps({'pass': True, 'problems': [], 'board_sha256': r.digest(board),
+                'film_sha256': r.digest(film), 'renderer_sha256': None,
+                'inspector_sha256': opening_compare.inspection_producer()}))
+            options.append({'id': key, 'board': {'file': board.name, 'sha256': r.digest(board)},
+                'film': {'file': film.name, 'sha256': r.digest(film)},
+                'inspection': {'file': inspection.name, 'sha256': r.digest(inspection)}})
+            media.append({'path': str(film), 'sha256': r.digest(film)})
+        comparison = root/'comparison.json'; comparison.write_text(json.dumps({'options': options, 'renderer_sha256': None}))
+        _, bindings = r.comparison_scope(board_path, self.root/'claims.json', {'files': {}, 'media': media},
+                                         {k: v for k, v in self.bindings.items() if k != 'film_sha256'})
+        self.assertEqual(bindings['opening_comparison_sha256'], r.digest(comparison))
+        self.assertEqual(set(bindings['opening_options']), {'a', 'b'})
+        for key in ('a', 'b'):
+            self.assertEqual(bindings['opening_options'][key]['film_sha256'], r.digest(root/(key+'.mp4')))
+        with self.assertRaisesRegex(ValueError, 'attach both'):
+            r.comparison_scope(board_path, self.root/'claims.json', {'files': {}, 'media': media[:1]}, self.bindings)
 
     def test_actual_thread_limit_requires_exact_retained_transport_error(self):
         failure = {**self.failure, 'error': 'agent thread limit reached',

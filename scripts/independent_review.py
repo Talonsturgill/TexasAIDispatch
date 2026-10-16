@@ -30,6 +30,8 @@ ERRORS = ('Selected model is at capacity. Please try a different model.',
           'context_length_exceeded', 'session_budget_exceeded', 'agent thread limit reached')
 THREAD_LIMIT_ERROR = 'collab tool failed: agent thread limit reached'
 THREAD_LIMIT_ERRORS = (THREAD_LIMIT_ERROR, 'collab spawn failed: agent thread limit reached')
+MEDIA_LIMIT_ERROR = '[media removed: request limit]'
+ERRORS += (MEDIA_LIMIT_ERROR,)
 
 
 def fingerprint(value):
@@ -47,6 +49,14 @@ def failure_problems(failure, role):
             or (failure.get('raw_error') in THREAD_LIMIT_ERRORS
                 and failure.get('error') != 'agent thread limit reached')):
         return ['retain the exact original agent thread limit transport error']
+    if failure.get('error') == MEDIA_LIMIT_ERROR:
+        probe = failure.get('media_probe') or {}
+        refs = [probe.get(key) for key in ('image', 'packet', 'coverage', 'handback')]
+        if (role == 'code' or failure.get('raw_error') != MEDIA_LIMIT_ERROR
+                or probe.get('single_image_read') is not True or probe.get('media_received') is not False
+                or any(not isinstance(ref, dict) or not isinstance(ref.get('path'), str)
+                       or not re.fullmatch(r'[0-9a-f]{64}', str(ref.get('sha256', ''))) for ref in refs)):
+            return ['media-limit recovery needs the exact single-image failure and retained packet, image, coverage and handback']
     reservation = failure.get('reservation') or {}
     resource = 'storyboard_critics' if role in ('code', 'phone') else 'scorer_calls'
     if (reservation.get('kind') != 'reserved' or not reservation.get('resources', {}).get(resource)
@@ -55,6 +65,117 @@ def failure_problems(failure, role):
             or failure['reservation_event_index'] < 0):
         return ['host transport failure lacks its exact charged role reservation']
     return []
+
+
+def media_limit_packet(failure, root):
+    """Admission checks actual retained failed inputs; portable proof keeps their exact hashes."""
+    if failure.get('error') != MEDIA_LIMIT_ERROR:
+        return None
+    from claude_runtime import image_policy_inputs
+    probe = failure['media_probe']; resolved = {}
+    for key in ('image', 'packet', 'coverage', 'handback'):
+        ref = probe[key]; path = Path(ref['path']).resolve()
+        if not path.is_relative_to(Path(root).resolve()) or not path.is_file() or digest(path) != ref['sha256']:
+            raise ValueError('actual media-limit evidence changed or left the owned package: ' + key)
+        resolved[key] = path
+    packet_data = json.loads(resolved['packet'].read_text())
+    image_policy_inputs(packet_data)
+    if packet_data.get('role') != ('storyboard-critic' if failure['role'] == 'phone' else failure['role']):
+        raise ValueError('media-limit packet belongs to another role')
+    coverage = json.loads(resolved['coverage'].read_text())
+    if (coverage.get('schema') != 'dispatch_claude_image_coverage/1'
+            or coverage.get('packet_sha256') != probe['packet']['sha256']
+            or MEDIA_LIMIT_ERROR not in resolved['handback'].read_text()):
+        raise ValueError('media-limit evidence lacks the actual stripped-image handback and packet coverage')
+    refs = ([row['motion_sequence'] for row in packet_data['phone_options']] if failure['role'] == 'phone'
+            else [packet_data['motion_sequence']])
+    matched = False
+    for ref in refs:
+        index_path = Path(ref['path']).resolve()
+        if not index_path.is_relative_to(Path(root).resolve()) or digest(index_path) != ref['sha256']:
+            raise ValueError('media-limit sequence changed')
+        index = json.loads(index_path.read_text())
+        for page in index['pages']:
+            if ((index_path.parent / page['file']).resolve() == resolved['image']
+                    and page['sha256'] == probe['image']['sha256']):
+                matched = any(row.get('index_sha256') == ref['sha256'] and any(
+                    note.get('file') == page['file'] and note.get('received') is False
+                    for note in row.get('pages', [])) for row in coverage.get('sequences', []))
+    if not matched:
+        raise ValueError('single-image failure is not an actual unseen page in the assigned sequence')
+    return packet_data
+
+
+def transport_assignment(role, actor, bindings):
+    value = {'role': role, 'actor': actor, 'board_sha256': bindings['board_sha256'],
+             'film_sha256': bindings.get('film_sha256')}
+    if 'opening_options' in bindings:
+        value.update(comparison_sha256=bindings['opening_comparison_sha256'], opening_options={
+            key: {name: row[name] for name in ('board_sha256', 'film_sha256')}
+            for key, row in bindings['opening_options'].items()})
+    return value
+
+
+def media_source_scope(source, bindings, role, comparison):
+    if source is None:
+        return
+    if (source['board']['sha256'] != bindings['board_sha256']
+            or source['claims']['sha256'] != bindings['claims_sha256']):
+        raise ValueError('media-limit source packet belongs to another current board or claims')
+    if comparison:
+        actual = {row['id']: (row['board']['sha256'], row['film']['sha256']) for row in source['phone_options']}
+        expected = {key: (row['board_sha256'], row['film_sha256']) for key, row in bindings['opening_options'].items()}
+        if actual != expected:
+            raise ValueError('media-limit comparison packet belongs to other movie bytes')
+    else:
+        if role == 'phone':
+            if source.get('phone_mode') != 'current' or len(source['phone_options']) != 1:
+                raise ValueError('initial two-treatment failure requires actual comparison transport')
+            assigned = source['phone_options'][0]['film']['sha256']
+        else:
+            assigned = source['film']['sha256']
+        if assigned != bindings.get('film_sha256'):
+            raise ValueError('media-limit source packet belongs to another current movie')
+
+
+def prepare_media_limit(board, claims, film, role, state, actor, source_packet, coverage, handback, image,
+                        output, *, compare_openings=False):
+    """Record only a real retained media failure; never reserve, grade or call a provider."""
+    ledger = read_state(state)
+    if ledger.get('terminal_state') or not actor:
+        raise ValueError('media-limit failure needs an active assigned worker')
+    resource = 'storyboard_critics' if role == 'phone' else 'scorer_calls'
+    matches = [(i, e) for i, e in enumerate(ledger['events']) if e.get('kind') == 'reserved'
+               and e.get('resources', {}).get(resource)]
+    if not matches:
+        raise ValueError('media-limit failure has no charged native role attempt')
+    index, reservation = matches[-1]
+    failure = {'schema': 'dispatch_review_transport_failure/1', 'role': role, 'actor': actor,
+        'observed_at': now(), 'error': MEDIA_LIMIT_ERROR, 'raw_error': MEDIA_LIMIT_ERROR, 'verdict': None,
+        'reservation_event_index': index, 'reservation': reservation, 'reservation_sha256': fingerprint(reservation),
+        'media_probe': {'single_image_read': True, 'media_received': False, **{
+            key: {'path': str(Path(path).resolve()), 'sha256': digest(path)} for key, path in
+            (('packet', source_packet), ('coverage', coverage), ('handback', handback), ('image', image))}}}
+    errors = failure_problems(failure, role)
+    if errors:
+        raise ValueError('; '.join(errors))
+    source = media_limit_packet(failure, state.parent)
+    text, bindings = packet(board, claims, role, film)
+    if compare_openings:
+        if role != 'phone' or film is not None:
+            raise ValueError('initial media-limit comparison needs both movies and phone role')
+        text, bindings = comparison_scope(board, claims, text, bindings)
+    elif role != 'code' and film is None:
+        raise ValueError('media-limit failure needs its exact assigned movie')
+    media_source_scope(source, bindings, role, compare_openings)
+    failure['assignment'] = transport_assignment(role, actor, bindings)
+    output = Path(output)
+    if not output.resolve().is_relative_to(state.parent.resolve()):
+        raise ValueError('media-limit receipt must stay in the owned current package')
+    if output.exists():
+        raise ValueError('retain the original media-limit receipt; do not overwrite it')
+    output.parent.mkdir(parents=True, exist_ok=True); output.write_text(json.dumps(failure, indent=2)+'\n')
+    return failure
 
 
 @contextmanager
@@ -95,15 +216,38 @@ def audiovisual_context(raw):
     return result
 
 
-def project(raw, bindings, role, model, reviewed_at):
+def project(raw, bindings, role, model, reviewed_at, *, selection=False):
     """Stamp byte identities only. Never change a finding, score or pass flag."""
-    result = copy.deepcopy(response_object(raw))
+    payload = response_object(raw)
+    if 'provider_evidence' in payload:
+        raise ValueError('provider cannot supply its own transport evidence')
+    if 'opening_options' in bindings:
+        if role != 'phone' or set(payload.get('reports') or {}) != {'a', 'b'}:
+            raise ValueError('independent comparison requires both complete phone reports')
+        choice = payload['selection']['selected']
+        if choice not in ('a', 'b'):
+            raise ValueError('independent comparison did not choose an actual option')
+        result = copy.deepcopy(payload['selection'] if selection else payload['reports'][choice])
+        result['review_context_sha256'] = payload['review_context_sha256']
+        if selection:
+            result.update(comparison_sha256=bindings['opening_comparison_sha256'],
+                          director_identity=bindings['director_identity'],
+                          reviewer_identity='gemini:' + model + ':' + raw['responseId'], reviewed_at=reviewed_at)
+            if 'provider_evidence' in result:
+                raise ValueError('provider cannot supply its own transport evidence')
+            return result
+        bindings = bindings['opening_options'][choice]
+    elif selection:
+        raise ValueError('selection projection requires an actual two-movie comparison')
+    else:
+        result = copy.deepcopy(payload)
     if 'provider_evidence' in result:
         raise ValueError('provider cannot supply its own transport evidence')
     result['reviewer_identity'] = 'gemini:' + model + ':' + raw['responseId']
     result['reviewed_at'] = reviewed_at
-    if role != 'code' and isinstance(result.get('modern_observations'), dict):
-        result['modern_observations']['film_sha256'] = bindings['film_sha256']
+    for field in ('modern_observations', 'narration_picture_observations'):
+        if role != 'code' and isinstance(result.get(field), dict):
+            result[field]['film_sha256'] = bindings['film_sha256']
     if role in ('code', 'phone'):
         result.update({k: bindings[k] for k in ('concept_sha256', 'renderer_sha256',
                                               'quality_contract_sha256')})
@@ -139,7 +283,10 @@ def evidence_problems(report):
             raise ValueError('independent request prompt changed')
         if response_object(raw).get('review_context_sha256') != fingerprint(review_context(proof)):
             raise ValueError('provider response does not bind this exact request and input context')
-        expected = project(raw, proof['bindings'], proof['role'], proof['model'], proof['reviewed_at'])
+        if proof.get('projection') not in (None, 'opening-selection'):
+            raise ValueError('unknown independent response projection')
+        expected = project(raw, proof['bindings'], proof['role'], proof['model'], proof['reviewed_at'],
+                           selection=proof.get('projection') == 'opening-selection')
         actual = {k: v for k, v in report.items() if k != 'provider_evidence'}
         if actual != expected:
             raise ValueError('independent verdict differs from its original provider response')
@@ -152,6 +299,21 @@ def evidence_problems(report):
     except (KeyError, TypeError, ValueError, IndexError) as exc:
         return [str(exc)]
     return []
+
+
+def save_selection(report, path):
+    proof = report['provider_evidence']
+    selection = project(proof['response'], proof['bindings'], proof['role'], proof['model'],
+                        proof['reviewed_at'], selection=True)
+    selection['provider_evidence'] = {**copy.deepcopy(proof), 'projection': 'opening-selection'}
+    errors = evidence_problems(selection)
+    if errors:
+        raise ValueError('; '.join(errors))
+    path = Path(path); encoded = json.dumps(selection, indent=2) + '\n'
+    if path.is_file() and path.read_text() != encoded:
+        raise ValueError('refusing to overwrite a different retained opening selection')
+    path.parent.mkdir(parents=True, exist_ok=True); path.write_text(encoded)
+    return selection
 
 
 def source_windows(path, rows, context_chars=2048):
@@ -392,6 +554,47 @@ def packet(board_path, claims_path, role, film):
     return text, bindings
 
 
+def comparison_scope(board_path, claims_path, text, bindings):
+    """Bind both unchanged movies before the independent provider chooses either one."""
+    import opening_compare
+    from critic_gate import concept_digest, renderer_digest, renderer_files
+    from daily_production import story_digest
+    from action_admission import source_claims_digest
+    root = board_path.parent / 'openings'; comparison_path = root / 'comparison.json'
+    receipt = json.loads(comparison_path.read_text())
+    errors = opening_compare.inspection_problems(receipt, root)
+    if errors:
+        raise ValueError('; '.join(errors))
+    options, inputs = {}, {}
+    common = json.loads(board_path.read_text())
+    for option in receipt['options']:
+        name = option['id']; board = opening_compare.evidence_path(root, option['board'])
+        film = opening_compare.evidence_path(root, option['film']); data = json.loads(board.read_text())
+        if (opening_compare.body(common) != opening_compare.body(data)
+                or data.get('story_contract', {}).get('director_identity') != common.get('story_contract', {}).get('director_identity')):
+            raise ValueError('comparison treatments changed the common facts, narration or timing')
+        row = copy.deepcopy(bindings)
+        row.update(board_sha256=digest(board), film_sha256=digest(film),
+                   concept_sha256=concept_digest(data), renderer_sha256=renderer_digest(data),
+                   story_sha256=story_digest(data), actions={})
+        for action in data.get('action_proposals', []):
+            row['actions'][action['id']] = {'module_sha256': action['module']['sha256'],
+                                          'source_claims_sha256': source_claims_digest(action)}
+        options[name] = row
+        inputs[name] = {'board': str(board), 'film': str(film), 'film_sha256': row['film_sha256']}
+        for source in renderer_files(data):
+            key = str(source.relative_to(REPO)) if source.is_relative_to(REPO) else source.name
+            text['files'][key] = source.read_text()
+    if set(options) != {'a', 'b'} or len({row['film_sha256'] for row in options.values()}) != 2:
+        raise ValueError('independent comparison needs two distinct exact movies')
+    if not {row['film_sha256'] for row in options.values()} <= {row['sha256'] for row in text.get('media', [])}:
+        raise ValueError('independent comparison does not attach both actual movies')
+    bindings.update(opening_options=options, opening_comparison_sha256=digest(comparison_path),
+                    director_identity=common['story_contract']['director_identity'])
+    text['independent_opening_comparison'] = inputs
+    return text, bindings
+
+
 def append_picture_evidence(parts, text, film_hash, key, uploads):
     """Verify every alias; attach exact duplicate bytes once only under the dated policy."""
     deduplicate = text.get('provider_packet_policy', {}).get('deduplicate_exact_media', False)
@@ -461,6 +664,17 @@ def prompt(role, text):
                             'pass boolean, start_s, end_s, observed at least thirty characters. '
                             'Inspect setup, contact and completed result against captions, including the ending. '
                             'Code intent never proves observed pixels. Do not infer audible quality in this visual role. ')
+            if text.get('independent_opening_comparison'):
+                instruction += ('This is the initial two-treatment comparison. Inspect BOTH attached movies in full. '
+                    'Return selection with selected a or b, comparative reason, rejected_reason and blocking_defects '
+                    'for the selected cut, plus reports with exactly a and b. EACH report must contain every complete '
+                    'phone, story, action, modern and clause observation requested here for its own exact movie. '
+                    'Use each option board for its report; the common board supplies shared facts and is not '
+                    'a selected or third treatment. '
+                    'Choose independently; the director has not selected a cut. Keep review_context_sha256 at the '
+                    'TOP level. The transport stamps mechanical bindings after your choice and preserves all '
+                    'findings. Claude Read-tool image coverage instructions are specific to that unavailable '
+                    'host; this configured transport reviews the actual attached videos under the same full guides. ')
     else:
         instruction += ('Return the complete scorer object including score, ship, axes, hard_fails, weakest_axis, '
                         'and a top-level defects list covering every bounded_release.defects.finding verbatim, '
@@ -474,28 +688,39 @@ def prompt(role, text):
     return instruction + '\nCurrent evidence\n' + json.dumps(text, ensure_ascii=False)
 
 
-def run(board, claims, film, role, failure_path, state, out):
+def run(board, claims, film, role, failure_path, state, out, *, compare_openings=False, selection_out=None):
     failure = json.loads(failure_path.read_text())
     errors = failure_problems(failure, role)
     if errors:
         raise ValueError('; '.join(errors))
-    if role != 'code' and not film:
+    if selection_out is not None and not compare_openings:
+        raise ValueError('selection output requires an actual independent comparison')
+    if compare_openings and (role != 'phone' or film is not None or selection_out is None
+            or Path(selection_out).resolve() != (board.parent / 'openings/selection.json').resolve()):
+        raise ValueError('comparison transport needs phone role, both exact movies and canonical selection output')
+    if role != 'code' and not film and not compare_openings:
         raise ValueError('exact media is required for this independent role')
+    source_packet = media_limit_packet(failure, state.parent)
     key = os.environ.get('GEMINI_API_KEY')
     if not key:
         raise ValueError('configured independent provider is unavailable')
     text, bindings = packet(board, claims, role, film)
+    if compare_openings:
+        text, bindings = comparison_scope(board, claims, text, bindings)
+    media_source_scope(source_packet, bindings, role, compare_openings)
     request_prompt = prompt(role, text)
-    identity = fingerprint([role, bindings.get('film_sha256') or
-                            [bindings['concept_sha256'], bindings['renderer_sha256'], bindings['claims_sha256']]])
+    scope = (['opening-comparison', sorted(row['film_sha256'] for row in bindings['opening_options'].values())]
+             if 'opening_options' in bindings else bindings.get('film_sha256') or
+             [bindings['concept_sha256'], bindings['renderer_sha256'], bindings['claims_sha256']])
+    identity = fingerprint([role, scope])
     cache = state.parent / 'independent-review-cache' / identity
     with claim(cache / 'transport.lock'):
         return run_claimed(board, claims, film, role, failure_path, state, out,
-                           failure, key, text, bindings, request_prompt, cache)
+                           failure, key, text, bindings, request_prompt, cache, selection_out=selection_out)
 
 
 def run_claimed(board, claims, film, role, failure_path, state, out,
-                failure, key, text, bindings, request_prompt, cache):
+                failure, key, text, bindings, request_prompt, cache, *, selection_out=None):
     report_path = cache / 'report.json'
     if report_path.is_file():
         original = json.loads(report_path.read_text())
@@ -504,6 +729,8 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             raise ValueError('cached independent evidence changed or is stale; no verdict retry')
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_bytes(report_path.read_bytes())
+        if selection_out is not None:
+            save_selection(original, selection_out)
         return original
     if (cache / 'attempt.json').exists():
         raise ValueError('unchanged provider attempt already recorded; no paid retry or polling')
@@ -511,8 +738,7 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
     index = failure['reservation_event_index']
     if index >= len(ledger['events']) or ledger['events'][index] != failure['reservation']:
         raise ValueError('host assignment reservation does not match the retained ledger')
-    if failure.get('assignment') != {'role': role, 'actor': failure['actor'],
-            'board_sha256': bindings['board_sha256'], 'film_sha256': bindings.get('film_sha256')}:
+    if failure.get('assignment') != transport_assignment(role, failure['actor'], bindings):
         raise ValueError('host transport failure belongs to another assigned input scope')
     candidates = list(board.parent.glob('scorer-*.json')) + list(board.parent.glob('panel-round-*.json'))
     candidates += list(board.parent.rglob('*critic*.json'))
@@ -521,7 +747,9 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             continue
         original = json.loads(path.read_text())
         for row in original if isinstance(original, list) else [original]:
-            if (role == 'phone' and row.get('reviewed_preflight_sha256') == bindings['film_sha256']
+            films = ({item['film_sha256'] for item in bindings['opening_options'].values()}
+                     if 'opening_options' in bindings else {bindings.get('film_sha256')})
+            if (role == 'phone' and row.get('reviewed_preflight_sha256') in films
                     and row.get('verdict') in ('pass', 'revise')):
                 raise ValueError('current host phone verdict already exists; no replacement verdict')
             if (role == 'code' and row.get('concept_sha256') == bindings['concept_sha256']
@@ -583,6 +811,8 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         tokens = int(raw.get('usageMetadata', {}).get('totalTokenCount') or 0)
         (cache / 'response.json').write_text(json.dumps(raw, indent=2) + '\n')
         current_text, current_bindings = packet(board, claims, role, film)
+        if 'opening_options' in bindings:
+            current_text, current_bindings = comparison_scope(board, claims, current_text, current_bindings)
         if current_bindings != bindings or fingerprint(current_text) != fingerprint(text):
             raise ValueError('review inputs changed during independent transport')
         report = project(raw, bindings, role, model, reviewed_at)
@@ -595,6 +825,8 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         report_path.write_text(json.dumps(report, indent=2) + '\n')
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_bytes(report_path.read_bytes())
+        if selection_out is not None:
+            save_selection(report, selection_out)
         return report
     except requests.RequestException as exc:
         raise ValueError('independent provider ' + type(exc).__name__ + '; no approval recorded') from None
@@ -609,14 +841,37 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--role', choices=ROLES, required=True)
+    p.add_argument('--verify', type=Path, help='verify a retained provider report or selection; no provider call')
+    p.add_argument('--prepare-media-limit', action='store_true', help='record retained single-image failure; no provider call')
+    p.add_argument('--actor')
+    for name in ('source-packet', 'coverage', 'handback', 'probe-image'):
+        p.add_argument('--'+name, type=Path)
+    p.add_argument('--role', choices=ROLES)
     for name in ('board', 'claims', 'failure', 'out'):
-        p.add_argument('--' + name, type=Path, required=True)
+        p.add_argument('--' + name, type=Path)
     p.add_argument('--film', type=Path)
+    p.add_argument('--compare-openings', action='store_true')
+    p.add_argument('--selection-out', type=Path)
     p.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
     a = p.parse_args()
     try:
-        report = run(a.board, a.claims, a.film, a.role, a.failure, a.state, a.out)
+        if a.verify:
+            errors = evidence_problems(json.loads(a.verify.read_text()))
+            if errors:
+                raise ValueError('; '.join(errors))
+            print('independent_review: exact original provider evidence verified; no new approval or provider call')
+            return 0
+        if a.prepare_media_limit:
+            if not all((a.role, a.board, a.claims, a.out, a.actor, a.source_packet, a.coverage, a.handback, a.probe_image)):
+                p.error('media-limit preparation needs role, board, claims, out, actor and four retained evidence paths')
+            prepare_media_limit(a.board, a.claims, a.film, a.role, a.state, a.actor, a.source_packet,
+                                a.coverage, a.handback, a.probe_image, a.out, compare_openings=a.compare_openings)
+            print('independent_review: actual retained media-limit receipt prepared; no new charge, verdict or provider call')
+            return 0
+        if not all((a.role, a.board, a.claims, a.failure, a.out)):
+            p.error('review execution requires role, board, claims, failure and out')
+        report = run(a.board, a.claims, a.film, a.role, a.failure, a.state, a.out,
+                     compare_openings=a.compare_openings, selection_out=a.selection_out)
         print('independent_review: retained original ' + a.role + ' verdict from ' + report['reviewer_identity'])
         return 0
     except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:
