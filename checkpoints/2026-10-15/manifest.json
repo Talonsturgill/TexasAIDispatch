@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T22:20:17.244241+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-16T22:21:37.986386+00:00",
+  "note": "R13 applied, fresh current-bytes review passes gate, real mix; preflight refused: opening comparison no longer binds current concept; funding deficit preflight 3 critics 2",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -8573,6 +8573,12 @@
       "size": 2238
     },
     {
+      "path": "out/dispatch/evidence/r13-apply/HOLD-opening-binding.md",
+      "class": "scratch",
+      "sha256": "473f9410920c5be72a38a634907e9a1994f64dcb30e49556dc848db5db15c069",
+      "size": 2225
+    },
+    {
       "path": "out/dispatch/evidence/r13-apply/NOTE.md",
       "class": "scratch",
       "sha256": "d1436692a510c39579abef40cc76a1d12c68c43856beb7dc85d9743366973857",
@@ -8607,6 +8613,12 @@
       "class": "scratch",
       "sha256": "68ffe97b6db5ad0bf1c3cd02853d4dc8c779b714abd83f1dbeb9a34c593275f6",
       "size": 373
+    },
+    {
+      "path": "out/dispatch/evidence/r13-apply/checkpoint-2.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/evidence/r13-apply/checkpoint.log",
@@ -8875,14 +8887,26 @@
     {
       "path": "out/dispatch/evidence/r13-funding/completion-capacity-finish-b.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/completion-capacity-finish-c.log",
+      "class": "scratch",
+      "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
+      "size": 89
     },
     {
       "path": "out/dispatch/evidence/r13-funding/completion-capacity-finish.log",
       "class": "scratch",
       "sha256": "ada6d68e1915524ef479c8b040be4bbcb747a5d1d846de4bf005c8d0cc0b4bf8",
       "size": 72
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/finish-current-capture-plan-r13b.json",
+      "class": "scratch",
+      "sha256": "be9789643b92075f8aa6062a4cdff1fdfd2425644b0c93c2ebb8e4debcef4f6c",
+      "size": 6330
     },
     {
       "path": "out/dispatch/evidence/r13-funding/finish-current-plan-r13.json",
@@ -8901,6 +8925,12 @@
       "class": "scratch",
       "sha256": "ada9114dd28e385a511c2945d59dab59817b70d7a0fbd89986763c0760b6bf94",
       "size": 1925
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/production-budget-10.json",
+      "class": "scratch",
+      "sha256": "22e166f792731bbb47384b255a800a85b2c8ed5efd604bfc306de688fc0cf1f1",
+      "size": 1585
     },
     {
       "path": "out/dispatch/evidence/r13-funding/production-budget-2.json",
@@ -8937,6 +8967,18 @@
       "class": "scratch",
       "sha256": "85d0438b997c93217db8dc3514325470bd7295de877383cc4a17b0559ed7bfee",
       "size": 1491
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/production-budget-8.json",
+      "class": "scratch",
+      "sha256": "3c4f2420f5484e79cba66afa7789ecf7bed6053a7025e998eb261231d584a3ca",
+      "size": 1459
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/production-budget-9.json",
+      "class": "scratch",
+      "sha256": "a9bb54cf9b131de4d5f726608a7d430e2232430d124dc9ab7d58d6a7ffd29698",
+      "size": 1581
     },
     {
       "path": "out/dispatch/evidence/r13-funding/repair-plan-r13.granted.json",
