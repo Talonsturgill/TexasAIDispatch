@@ -1,5 +1,14 @@
 # Research and select
 
+For new Claude editions from October 16th, after controller initialization and before reserving
+any researcher, run `python scripts/provider_availability.py --state out/dispatch/run_state.json`.
+It precharges one tiny unscored generation request, protects the complete remaining route and
+retains its real response. A model-list GET or credential presence cannot replace this check.
+Current Claude source packets and plans require the successful receipt. On an actual service
+refusal retain its charge and evidence before any research, validation or art work. HTTP 402
+requires external credit restoration; never purchase credits or blindly repeat the failed probe.
+Historical and already active earlier editions keep their original ledgers and evidence.
+
 For the Claude host, use the following input-packet/plan commands in place of the Codex
 agent_runtime.py commands in this phase. Execute the returned agent_args with the named
 versioned leaf only after reserving the same controller resource. Change the role and actual

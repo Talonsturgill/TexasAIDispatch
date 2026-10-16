@@ -119,19 +119,22 @@ class AvailabilityTest(unittest.TestCase):
                 'candidates': [{'finishReason': 'STOP', 'content': {'parts': [
                     {'text': json.dumps(self.value if value is None else value)}]}}]}
 
-    def call(self, response=None, raw=None):
+    def call(self, response=None, raw=None, availability=None):
         with patch.dict(r.os.environ, {'GEMINI_API_KEY': 'test-key'}), \
                 patch.object(r, 'packet', return_value=({'current': 'evidence'}, self.bindings)), \
                 patch.object(r, 'media_part', return_value=({'test': 'media'}, None, 'film')), \
                 patch.object(r.requests, 'post', return_value=response or Mock(status_code=200)) as post, \
                 patch.object(r, 'streamed_response', side_effect=lambda _: self.context_response(raw or self.raw())):
             result = r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
-                           'phone', self.failure_path, self.state, self.root/'phone.json')
+                           'phone', self.failure_path, self.state, self.root/'phone.json', availability=availability)
             return result, post.call_count
 
     def context_response(self, raw):
         value = copy.deepcopy(raw)
-        attempt = next((self.root/'independent-review-cache').glob('*/attempt.json'))
+        request_id = next(row['request_id'] for row in reversed(c.read_state(self.state)['events'])
+                          if row.get('kind') == 'independent_review_transport')
+        attempt = next(path for path in (self.root/'independent-review-cache').rglob('attempt.json')
+                       if json.loads(path.read_text())['request_id'] == request_id)
         context_sha = json.loads(attempt.read_text())['review_context_sha256']
         review = r.response_object(value)
         review['review_context_sha256'] = context_sha
@@ -350,7 +353,7 @@ class AvailabilityTest(unittest.TestCase):
 
     def test_failed_provider_attempt_remains_charged_and_cannot_poll(self):
         with self.assertRaisesRegex(ValueError, 'HTTP 503'):
-            self.call(response=Mock(status_code=503))
+            self.call(response=Mock(status_code=503, text='{"error":{"message":"unavailable"}}'))
         self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 1)
         with self.assertRaisesRegex(ValueError, 'no paid retry'):
             self.call()

@@ -1,5 +1,32 @@
 # Independent review availability recovery
 
+## Restored generation service after HTTP 402
+
+Keep a failed provider request, original charge and actual failure evidence. Metadata GET success
+proves authentication only. HTTP 402 requires external credit restoration; do not change billing
+or purchase credits as a production recovery. After the owner restores service, run the charged
+eight-output-token generation probe against the same configured provider and model:
+
+```sh
+python scripts/provider_availability.py --state out/dispatch/run_state.json --after-attempt <original-cache/attempt.json> --failure-evidence <retained-HTTP402-evidence>
+```
+
+The probe protects the complete remaining route, reserves one audiovisual request before calling,
+keeps its response and telemetry, and supplies no film verdict. For new failures the original
+cache has a bound failure.json; the evidence argument is needed only for earlier attempts whose
+exact retained log names both HTTP 402 and that cache. No completed response or verdict qualifies.
+The probe prints its canonical receipt path. Run the original independent_review command with
+`--availability <that-successful-receipt.json>` added. That permits one charged child recovery
+for the same scope, preserving the original failed cache. Another failure stays charged and cannot
+be repurchased by changing the receipt. The response embeds the actual probe and original failure
+identity for portable verification. A cached approval or rejection stays unchanged.
+
+If the startup probe itself failed with HTTP 402, use its retained startup/attempt.json as the
+after-attempt target only after external service restoration. Its one linked recovery receipt
+can unlock the normal early source packet. Never describe a service probe as video approval.
+
+## Assigned independent role transport
+
 This is a transport route for an assigned role that returned no verdict. It never turns a
 creative or integrity rejection into approval. The director remains the director. The existing
 critic and three scorer roles keep their briefs, fixed rubric, source requirements and current

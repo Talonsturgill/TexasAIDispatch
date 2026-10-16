@@ -377,6 +377,10 @@ shipment gates remain. Later timed-phone and final-role fallback use the ordinar
 transport only after their own observed assigned-host failure. Keep three separate final scorer
 responses and their actual atomic panel charges. Preserve the primary model and saved schedule.
 
+For an observed provider HTTP 402 with no response or verdict, use the restored-generation
+procedure in prompts/phases/review-availability.md after external service recovery. Retain the
+original request and charge. No billing purchase or completed-verdict retry is authorized.
+
 For current provider inputs use config/independent_packet_compaction.json. Run artifacts are
 lossless structured JSON; complete treatment documents may be encoded as checked JSON-pointer
 deltas against the complete common board. Preserve original byte hashes and verify reconstruction
