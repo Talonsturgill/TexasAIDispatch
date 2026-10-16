@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T03:45:33.668454+00:00",
+  "saved_at": "2026-10-16T03:56:25.797582+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,15 +16,15 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "e594c496f6ae4b39f747cbdf4630ef2361ba6d61760cd64f0e6e8d3cd9d55a16",
-  "original_private_ledger_sha256": "c882c986ebf0492df44c9b304cfbb59b62946dcd5af4c47a56dccf07df777155",
+  "ledger_sha256": "4817042f6cdab4180c887b65d47b53f4c9bafb5bf84f09dfab1febb4df315fa1",
+  "original_private_ledger_sha256": "f9340533f21d9d0bb600976a517c792cce981ccf5b6d0143214001a6b3c3742b",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 0,
+    "preflight_renders": 1,
     "reboards": 3,
     "reported_tokens": 0,
     "rescue_renders": 0,
@@ -763,6 +763,12 @@
       "size": 26138
     },
     {
+      "path": "out/dispatch/code-critic-2-report.json",
+      "class": "scratch",
+      "sha256": "c71458ff3d541e69d33a270afd3b22c9926c4484d1aad19ca10a489b7128378a",
+      "size": 29025
+    },
+    {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
       "sha256": "a372e07aa7872e3982007f4f1d9cd7acd09b2705763deb3e15dd944d5445c023",
@@ -863,6 +869,24 @@
       "class": "scratch",
       "sha256": "4ad444684436811f9ec4f3c2c89836f4ad67bd7fda2cf58c4cbca9ca63e51284",
       "size": 472
+    },
+    {
+      "path": "out/dispatch/evidence/code-critic-2-agent-transcript-through-rereview.jsonl",
+      "class": "scratch",
+      "sha256": "17a608e03b0e553ab49207f6b8063fabbda55c31b31345aba4427cb423841359",
+      "size": 2589975
+    },
+    {
+      "path": "out/dispatch/evidence/code-critic-2-handback-message.txt",
+      "class": "scratch",
+      "sha256": "42737504e5a9cf7e3f406d55151664e2d2aca28221aec61ee5ab4edc9eef4149",
+      "size": 28221
+    },
+    {
+      "path": "out/dispatch/evidence/code-critic-2-meta.json",
+      "class": "scratch",
+      "sha256": "c8db34450a2a3d56c7f7878b7210d670f0a31f260ba4116b832c2e96ed424cf6",
+      "size": 400
     },
     {
       "path": "out/dispatch/evidence/correction-1-funding-sequence.md",
@@ -1645,10 +1669,28 @@
       "size": 91
     },
     {
+      "path": "out/dispatch/native-headroom.json",
+      "class": "scratch",
+      "sha256": "acd5fccc172ee30555f4015bfaaaaebe70a435b5ef5e4b76770784844ba821dc",
+      "size": 308
+    },
+    {
+      "path": "out/dispatch/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "e33c35a7f76a2eda4d278ab1031733da7b3815d53e3b7b836298f860a86d9898",
+      "size": 10275
+    },
+    {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
       "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
       "size": 166245
+    },
+    {
+      "path": "out/dispatch/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "fd7019f645e4881bbc8d71616dbada3ab9bc31785196d2beda039c6ee7d4ba56",
+      "size": 9134
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -1925,6 +1967,12 @@
       "class": "scratch",
       "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
       "size": 166245
+    },
+    {
+      "path": "out/dispatch/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "e33c35a7f76a2eda4d278ab1031733da7b3815d53e3b7b836298f860a86d9898",
+      "size": 10275
     },
     {
       "path": "out/dispatch/validation.json",
