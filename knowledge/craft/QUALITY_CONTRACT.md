@@ -48,6 +48,10 @@ false-approval fields. They do not simulate an audience or certify artistic qual
 A repair plan includes stable mechanism_id, failure_family and director_identity in addition to
 its existing failure evidence and changed input hashes. Use failure_family human-performance,
 capture-and-analysis, document-handling, source-framing, continuity or unclassified.
+For measured narration that exceeds the authored runtime or crowds scene/caption limits,
+use measured-runtime-crowding only with technical-integrity scope. Its exact independent
+failure report must classify every finding as runtime or captions and include a runtime
+finding. The existing recurrence, frozen resources and charged repair procedure still apply.
 
 After two failed repairs in the same mechanism or family, provide pivot_review.path/sha256.
 The independent report records verdict, reviewer_identity, retired_mechanism_id,

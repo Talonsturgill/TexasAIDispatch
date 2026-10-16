@@ -11,6 +11,80 @@ import run_controller as c
 import production_lifecycle as life
 
 class RecoveryTest(unittest.TestCase):
+    def test_measured_runtime_family_is_technical_and_preserves_recurrence(self):
+        state = c.read_state(self.path)
+        plan = {'mechanism_id': 'measured-scene-split-at-clause-boundary',
+                'failure_family': g.MEASURED_RUNTIME_FAMILY,
+                'repair_scope': 'technical-integrity', 'director_identity': 'director'}
+        before = copy.deepcopy(state)
+        self.assertEqual(g.plan_problems(state, plan), [])
+        for scope in ('standard', 'narration-performance', 'unknown'):
+            with self.subTest(scope=scope):
+                self.assertTrue(g.plan_problems(state, dict(plan, repair_scope=scope)))
+        self.assertTrue(g.plan_problems(state, dict(plan, failure_family='invented-runtime-label')))
+        self.assertEqual(state, before)
+        # A new family cannot erase two actual repairs of this technical mechanism.
+        for family in ('unclassified', g.MEASURED_RUNTIME_FAMILY):
+            c.event(state, 'repair_started', mechanism_id=plan['mechanism_id'],
+                    failure_family=family, repair_scope='technical-integrity',
+                    failure_sha256=family)
+        self.assertTrue(g.plan_problems(state, plan))
+        self.assertEqual(g.plan_problems(state, dict(plan, mechanism_id='different-measured-correction')), [])
+
+    def test_measured_runtime_repair_uses_real_registration_and_charge(self):
+        path = Path(self.tmp.name) / 'modern-state.json'
+        c.initialise(path, '2026-10-15', 'production')
+        source = Path(self.tmp.name) / 'board.json'
+        baseline = source.with_name('board.before.json')
+        source.write_text('{"runtime_s":54.1}')
+        baseline.write_bytes(source.read_bytes())
+        findings = [{'id': 'F1', 'observed': 'Measured read exceeds the authored runtime.'},
+                    {'id': 'F2', 'observed': 'Measured clause exceeds the caption limit.'}]
+        report = {'verdict': 'revise', 'reviewer_identity': 'independent-opus-critic',
+                  'blocking_defects': findings,
+                  'technical_repair': {'findings': [
+                      {'finding': item, 'category': category}
+                      for item, category in zip(findings, ('runtime', 'captions'))]}}
+        evidence = source.with_name('runtime-rejection.json')
+        evidence.write_text(json.dumps(report))
+        plan = {'mechanism_id': 'measured-scene-split-at-clause-boundary',
+                'failure_family': g.MEASURED_RUNTIME_FAMILY,
+                'repair_scope': 'technical-integrity', 'director_identity': 'director',
+                'root_cause': 'The actual measured narration exceeds the authored scene duration.',
+                'repair': 'Split the long scene at an existing measured clause boundary.',
+                'mechanism_change': 'The source-bound clause receives its own timed shot and result hold.',
+                'expected_visible_result': 'Every clause fits its scene while preserving the performed action.',
+                'failure_evidence': str(evidence), 'failure_evidence_sha256': c.digest(evidence),
+                'changed_inputs': [{'path': str(source), 'before_path': str(baseline),
+                                    'before_sha256': c.digest(baseline)}],
+                'resources': {'reboards': 1}}
+        plan_path = source.with_name('runtime-plan.json')
+        plan_path.write_text(json.dumps(plan))
+        before = c.read_state(path)
+        # A category name cannot self-certify a technical failure.
+        evidence.write_text(json.dumps(dict(report, reviewer_identity='director')))
+        plan['failure_evidence_sha256'] = c.digest(evidence)
+        plan_path.write_text(json.dumps(plan))
+        self.assertFalse(life.begin_repair(path, plan_path)[0])
+        self.assertEqual(c.read_state(path), before)
+        evidence.write_text(json.dumps(report))
+        plan['failure_evidence_sha256'] = c.digest(evidence)
+        plan_path.write_text(json.dumps(plan))
+        ok, message = life.begin_repair(path, plan_path)
+        self.assertTrue(ok, message)
+        self.assertEqual(c.read_state(path)['usage'], before['usage'])
+        self.assertTrue(c.reserve(path, {'reboards': 1})[0])
+        source.write_text('{"runtime_s":59.4,"clause_split":true}')
+        plan['changed_inputs'][0]['after_sha256'] = c.digest(source)
+        plan_path.write_text(json.dumps(plan))
+        ok, message = life.authorize_repair(path, plan_path)
+        self.assertTrue(ok, message)
+        after = c.read_state(path)
+        self.assertEqual(after['resource_envelope'], before['resource_envelope'])
+        self.assertEqual(after['usage'], dict(before['usage'], reboards=1))
+        self.assertEqual(life.allowance_problems(after), [])
+        self.assertFalse(life.begin_repair(path, plan_path)[0])
+
     def test_distinct_technical_faults_do_not_create_a_creative_pivot(self):
         state = c.read_state(self.path)
         for mechanism in ['runtime', 'lexical']:
