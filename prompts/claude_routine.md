@@ -377,6 +377,16 @@ shipment gates remain. Later timed-phone and final-role fallback use the ordinar
 transport only after their own observed assigned-host failure. Keep three separate final scorer
 responses and their actual atomic panel charges. Preserve the primary model and saved schedule.
 
+For current provider inputs use config/independent_packet_compaction.json. Run artifacts are
+lossless structured JSON; complete treatment documents may be encoded as checked JSON-pointer
+deltas against the complete common board. Preserve original byte hashes and verify reconstruction
+before sending. Current guides stay original full text, source evidence and receipts stay complete,
+and all unique media stays attached. For pixel review, only registered inactive episode source
+outside every selected executable closure may become a hash inventory. Keep active current code;
+code review retains its full callable source. The existing text-size ceiling remains enforced on
+the final request after comparison context and retained failure evidence are added. No new provider
+charge begins on an oversized input. Historical packets retain their original contents and policy.
+
 The Read-only Opus phone critic cannot play MP4s or compute missing hashes with Bash.
 One midpoint still per scene cannot prove timed motion or continuity. After both structural
 opening inspections pass, extract the complete chronological sequence from each exact encoded

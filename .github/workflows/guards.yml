@@ -91,7 +91,9 @@ jobs:
           python3 scripts/dispatch_housekeeping_test.py
 
       - name: Independent review survives host capacity without changing verdicts
-        run: python3 scripts/independent_review_test.py
+        run: |
+          python3 scripts/independent_review_test.py
+          python3 scripts/independent_packet_compaction_test.py
 
       - name: Engine lint self-test (the defects tsc is structurally blind to)
         run: |

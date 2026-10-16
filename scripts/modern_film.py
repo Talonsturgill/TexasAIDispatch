@@ -252,7 +252,7 @@ def relative_source_closure(files, repo=REPO):
     return sorted(seen)
 
 
-def renderer_inputs(episode, repo=REPO):
+def renderer_seed_paths(episode, repo=REPO):
     root = Path(repo).resolve()
     entry = json.loads((root / 'config/modern_episode_registry.json').read_text())['episodes'][episode]
     # The place stage draws every current film's region, so its code, its plates' manifest (which
@@ -265,6 +265,14 @@ def renderer_inputs(episode, repo=REPO):
              'config/modern_episode_registry.json', 'config/modern_film.json']
     if entry.get('authored_art'):
         files += ['video-engine/src/index.ts', 'video-engine/src/Root.tsx', 'video-engine/src/Dispatch.tsx']
+    return files
+
+
+def renderer_inputs(episode, repo=REPO):
+    root = Path(repo).resolve()
+    entry = json.loads((root / 'config/modern_episode_registry.json').read_text())['episodes'][episode]
+    files = renderer_seed_paths(episode, repo)
+    if entry.get('authored_art'):
         files = relative_source_closure(files, root) + ['video-engine/package-lock.json']
     rows = []
     for file in files:
