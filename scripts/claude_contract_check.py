@@ -104,7 +104,9 @@ def problems(repo=REPO, environ=None):
                          'A terminal shipped run is immutable', '<today>-claude-pilot',
                          'Resume an unfinished pilot instead of creating',
                          'verify that shipment and do not manufacture another ordinary edition',
-                         'OLDEST unfinished edition', 'bootstrap_claude_hooks.py --workspace'):
+                         'OLDEST unfinished edition', 'bootstrap_claude_hooks.py --workspace',
+                         'forbids routine permission stops',
+                         'An internal repair never needs another owner approval'):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
         for required in ('claude_environment_setup.sh', '--prelaunch-router', '--bind-only',
