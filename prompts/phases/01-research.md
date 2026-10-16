@@ -62,14 +62,19 @@ Record at least one real rejected alternative and its concrete reason.
 ```sh
 python scripts/story_selection_check.py --selection out/dispatch/story_selection.json --date <date>
 python scripts/dedupe.py check --entities "<real entities>" --beat <beat>
-python scripts/agent_runtime.py --input-packet --role validator --edition <date> --input out/dispatch/research.json --input out/dispatch/story_selection.json --input out/dispatch/claims.json --input out/dispatch/vo_script.txt --out out/dispatch/validator-packet.json
+python scripts/agent_runtime.py --input-packet --role validator --edition <date> --input out/dispatch/research.json --input out/dispatch/story_selection.json --input out/dispatch/claims.json --input out/dispatch/vo_script.txt --input out/dispatch/vo_bindings.json --out out/dispatch/validator-packet.json
 python scripts/agent_runtime.py --plan --role validator --packet out/dispatch/validator-packet.json --task-name validator --scope "Independently re-fetch each source and verify every assertion, number, quote and limitation" --out out/dispatch/validator-assignment.json
 python scripts/run_controller.py consume --resource validator_agents --note "current claims and script evidence"
 ```
 
 For pre-effective editions use the original compact assignments; runtime planning never resets their ledgers. For current editions pass validator-assignment.json spawn_args. An empty rejected list is valid only after every claim was independently supported; never invent a rejection quota.
 
-Write the provisional claims and narration before this reservation. Send the complete story selection,
+Write the provisional claims, narration and out/dispatch/vo_bindings.json before this reservation.
+Use schema dispatch_narration_bindings/1 with edition_date and ordered sentences, each carrying
+id, exact text and claim_ids. Cover the whole script once in spoken order, including qualifiers.
+The validator checks those bindings against the independently fetched sources. Carry the
+approved bindings into the later storyboard's vo_claims; changed wording needs a fresh review.
+Send the complete story selection,
 claims, narration and sentence-to-claim bindings together to the same validator. Ask for every
 source, framing and spoken-word correction in one consolidated handback. One complete review can
 cover all of them. Do not spend one call on facts and another on an unchanged script by default.
