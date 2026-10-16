@@ -170,6 +170,25 @@ class ValidatorGrantTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'attestation changed'):
             public_state.export(exported)
 
+    def test_two_existing_owner_grants_keep_their_chain_after_relocation(self):
+        import claude_checkpoint as ck
+        from quality_recovery_test import RecoveryTest
+        fixture = RecoveryTest(); fixture.setUp(); self.addCleanup(fixture.doCleanups)
+        _, failure, approval, _ = fixture.second_owner_fixture(av=True)
+        self.assertTrue(c.grant_owner_review(fixture.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        raw = c.read_state(fixture.path)
+        public, origins = ck.public_projection(raw, fixture.path.parent)
+        destination = self.root / 'two-grants-restored'
+        (destination / 'out/dispatch').mkdir(parents=True)
+        restored = ck.restored_ledger(public, destination,
+            {'repo_root': str(fixture.path.parent), 'grant_origin_roots': origins})
+        self.assertEqual(g.owner_grant_problems(restored), [])
+        self.assertEqual(restored['usage'], raw['usage'])
+        self.assertEqual(restored['resource_envelope'], raw['resource_envelope'])
+        (destination / ck.GRANT_ROOTS_FILE).write_text(json.dumps({'schema': 1, 'entries': origins}))
+        again, _ = ck.public_projection(restored, destination)
+        self.assertEqual(ck.monotonic_problems(public, again), [])
+
 
 if __name__ == '__main__':
     unittest.main()

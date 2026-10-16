@@ -27,6 +27,7 @@ def export(state):
         retained[index] = row
     previous = None
     redactions = []
+    attestations = set()
     for index, grant in enumerate(result['events']):
         if grant.get('kind') not in {'owner_review_grant', 'owner_validator_grant'}:
             continue
@@ -36,6 +37,10 @@ def export(state):
         attestation = ('Owner approved exactly ' + str(grant['additional_calls'])
                        + ' additional ' + role + ' calls for this edition. '
                        'Private instruction retained locally with its original digest.')
+        if attestation in attestations:
+            origin = retained[index]['original_authorization_sha256'] if index in retained else sha(original)
+            attestation += ' Authorization digest ' + origin + '.'
+        attestations.add(attestation)
         if index in retained:
             if (metadata.get('schema') != 'dispatch_public_ledger/1'
                     or authorization['owner_text'] != attestation
