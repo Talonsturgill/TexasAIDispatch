@@ -297,6 +297,14 @@
       "note": "R9 corrective reboard: sentence-per-cue script, event-aware shots (registered repair, mandatory-source-pivot)",
       "resource": "reboards",
       "to": 5
+    },
+    {
+      "at": "2026-10-16T19:26:13.172249Z",
+      "ceiling": 4,
+      "from": 3,
+      "note": "precharged fresh independent Opus High source validation of the R9 narration (mandatory-source-pivot)",
+      "resource": "validator_agents",
+      "to": 4
     }
   ],
   "events": [
@@ -3213,6 +3221,24 @@
       "repair_revision": "b40c4c231fd0807e3fdf4cc9b16beb3399ec5ce1dd1af20d7117d551a05bd886",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-16T19:26:13.172258Z",
+      "ceiling": 4,
+      "kind": "budget_escalated",
+      "note": "precharged fresh independent Opus High source validation of the R9 narration (mandatory-source-pivot)",
+      "now": 4,
+      "resource": "validator_agents",
+      "was": 3
+    },
+    {
+      "at": "2026-10-16T19:26:13.172264Z",
+      "kind": "reserved",
+      "note": "precharged fresh independent Opus High source validation of the R9 narration (mandatory-source-pivot)",
+      "preflight_identity": null,
+      "resources": {
+        "validator_agents": 1
+      }
     }
   ],
   "limits": {
@@ -3229,14 +3255,14 @@
     "scorer_calls": 3,
     "storyboard_critics": 16,
     "tts_calls": 12,
-    "validator_agents": 3,
+    "validator_agents": 4,
     "voice_directors": 1
   },
   "mode": "production",
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "b2948a7a1115f2824f7c49535d2d20e2bf844e1c413998c1a6fe243c1f365d4f",
+    "original_private_state_sha256": "f8a29237e29f108597b5d529686153a797eff6286aa55668b58daf2677dd5df3",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3272,7 +3298,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:25:29.634790Z",
+  "updated_at": "2026-10-16T19:26:13.172266Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -3287,7 +3313,7 @@
     "scorer_calls": 0,
     "storyboard_critics": 16,
     "tts_calls": 12,
-    "validator_agents": 3,
+    "validator_agents": 4,
     "voice_directors": 1
   }
 }
