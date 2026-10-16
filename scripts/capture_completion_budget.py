@@ -244,7 +244,7 @@ def prepare_comparison(state_path, plan_path, comparison_path, output_path):
     if (not comparison_eligible(state, plan) or file_problems(plan)
             or mandatory_reason(state, plan, evidence) not in {
                 'retained-integrity', 'minimum-action', 'modern-film-floor',
-                'mandatory-code-integrity', 'finish-current'}):
+                'mandatory-code-integrity', 'finish-current', 'mandatory-source-pivot'}):
         raise ValueError('comparison funding needs retained paid bytes and independent mandatory admission')
     with Path(output_path).open('x') as stream:
         json.dump(plan, stream, indent=2); stream.write('\n')
