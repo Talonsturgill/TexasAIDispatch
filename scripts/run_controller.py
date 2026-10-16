@@ -2274,6 +2274,9 @@ def main() -> int:
         elif a.command == "grant-owner-review":
             accepted, message = grant_owner_review(
                 state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)
+        elif a.command == "grant-validator-review":
+            accepted, message = grant_validator_review(
+                state_path, a.authorization, a.failure_evidence, a.confirm)
         else:
             print(json.dumps(read_state(state_path), indent=2, sort_keys=True))
             return 0

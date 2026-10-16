@@ -62,13 +62,17 @@ Record at least one real rejected alternative and its concrete reason.
 ```sh
 python scripts/story_selection_check.py --selection out/dispatch/story_selection.json --date <date>
 python scripts/dedupe.py check --entities "<real entities>" --beat <beat>
-python scripts/agent_runtime.py --input-packet --role validator --edition <date> --input out/dispatch/research.json --input out/dispatch/story_selection.json --out out/dispatch/validator-packet.json
+python scripts/agent_runtime.py --input-packet --role validator --edition <date> --input out/dispatch/research.json --input out/dispatch/story_selection.json --input out/dispatch/claims.json --input out/dispatch/vo_script.txt --out out/dispatch/validator-packet.json
 python scripts/agent_runtime.py --plan --role validator --packet out/dispatch/validator-packet.json --task-name validator --scope "Independently re-fetch each source and verify every assertion, number, quote and limitation" --out out/dispatch/validator-assignment.json
 python scripts/run_controller.py consume --resource validator_agents --note "current claims and script evidence"
 ```
 
 For pre-effective editions use the original compact assignments; runtime planning never resets their ledgers. For current editions pass validator-assignment.json spawn_args. An empty rejected list is valid only after every claim was independently supported; never invent a rejection quota.
 
+Write the provisional claims and narration before this reservation. Send the complete story selection,
+claims, narration and sentence-to-claim bindings together to the same validator. Ask for every
+source, framing and spoken-word correction in one consolidated handback. One complete review can
+cover all of them. Do not spend one call on facts and another on an unchanged script by default.
 Spawn `validator` to re-fetch cited URLs and verify every factual assertion, number and quote.
 Keep claims and the dated validation report. Partial evidence cannot become a verified claim.
 On the Claude host, retain the original leaf response and save its complete `validation` object
@@ -83,8 +87,9 @@ python scripts/validation_check.py --validation out/dispatch/validation.json --c
 Repair an incomplete handoff through the existing role and charged recovery rules before
 expensive picture work. Do not reconstruct independent findings in the director or defer a
 missing report until delivery. The final delivery check still binds the actual storyboard.
-Before synthesis, have the same independent validation role inspect each spoken sentence and
-its claim bindings. If an excerpt seems too narrow, re-fetch surrounding context before
+Before synthesis, require its actual inspection of each spoken sentence and its claim bindings.
+Reuse that review only while the script and source inputs are unchanged. Charge a necessary
+correction follow-up before resuming the same validator. If an excerpt seems too narrow, re-fetch surrounding context before
 rewriting. Preserve contradictions and source limits; never fabricate verification.
 
 Select the three key images and the earned take from those sources. An illustrative rendering

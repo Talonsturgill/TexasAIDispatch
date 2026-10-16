@@ -179,7 +179,10 @@ def validator_grant_problems(state):
             if grant.get(key) != authorization.get(key):
                 return ["validator grant differs from its retained authorization"]
         ceiling = state["resource_envelope"][VALIDATOR_RESOURCE]
-        if grant.get("previous_ceiling") != ceiling or grant.get("new_ceiling") != ceiling + 1:
+        if (type(grant.get("previous_ceiling")) is not int
+                or type(grant.get("new_ceiling")) is not int
+                or type(grant.get("additional_calls")) is not int
+                or grant.get("previous_ceiling") != ceiling or grant.get("new_ceiling") != ceiling + 1):
             return ["validator grant exceeds its exact authorized increment"]
     except (KeyError, OSError, ValueError, TypeError):
         return ["retained validator authorization is missing or invalid"]

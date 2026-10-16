@@ -11,14 +11,14 @@ def sha(text):
 
 
 def export(state):
-    from repair_guard import envelope_digest, owner_grant_problems
-    if owner_grant_problems(state):
+    from repair_guard import envelope_digest, owner_grant_problems, validator_grant_problems
+    if owner_grant_problems(state) or validator_grant_problems(state):
         raise ValueError('private owner grant audit failed before public export')
     result = copy.deepcopy(state)
     previous = None
     redactions = []
     for index, grant in enumerate(result['events']):
-        if grant.get('kind') != 'owner_review_grant':
+        if grant.get('kind') not in {'owner_review_grant', 'owner_validator_grant'}:
             continue
         original = grant['authorization_json']
         authorization = json.loads(original)
@@ -26,22 +26,24 @@ def export(state):
                            'original_authorization_sha256': sha(original),
                            'owner_text_sha256': sha(authorization['owner_text']),
                            'source_reference_sha256': sha(authorization['source_message_reference'])})
+        role = 'validator' if grant['kind'] == 'owner_validator_grant' else 'storyboard critic'
         authorization['owner_text'] = ('Owner approved exactly ' + str(grant['additional_calls'])
-                                      + ' additional storyboard critic calls for this edition. '
+                                      + ' additional ' + role + ' calls for this edition. '
                                       'Private instruction retained locally with its original digest.')
         authorization['source_message_reference'] = 'private-source-sha256:' + sha(authorization['source_message_reference'])
         authorization['approval_id'] = 'private-approval-sha256:' + sha(authorization['approval_id'])
-        if previous is not None:
+        if grant['kind'] == 'owner_review_grant' and previous is not None:
             authorization['previous_grant_sha256'] = envelope_digest(previous)
         grant['authorization_json'] = json.dumps(authorization, sort_keys=True)
         grant['authorization_sha256'] = sha(grant['authorization_json'])
         grant['approval_id'] = authorization['approval_id']
-        previous = grant
+        if grant['kind'] == 'owner_review_grant':
+            previous = grant
     result['public_export'] = {'schema': 'dispatch_public_ledger/1',
         'original_private_state_sha256': envelope_digest(state),
         'description': 'Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.',
         'owner_message_redactions': redactions}
-    if owner_grant_problems(result):
+    if owner_grant_problems(result) or validator_grant_problems(result):
         raise ValueError('public grant amounts or audit chain changed')
     return result
 
