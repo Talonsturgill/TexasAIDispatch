@@ -1,0 +1,53 @@
+Active directed film route, executed shot timeline and fresh artwork verified.
+modern_film rc=0
+== python scripts/storyboard_check.py --board out/dispatch/storyboard.json
+storyboard: clean, 9 scenes, 56s. Now spawn storyboard-critic for taste.
+rc=0
+== python scripts/watchability_check.py --board out/dispatch/storyboard.json
+  - the hook's visible payoff must finish by 1.5s
+  - s3-event-2: action duration outside directed range
+  - s3-event-3: action duration outside directed range
+  - s7-event-1: action duration outside directed range
+watchability_check: 4 problem(s)
+rc=1
+== python scripts/documentary_check.py --board out/dispatch/storyboard.json
+documentary_check: the hook's visible payoff must finish by 1.5s
+documentary_check: s3-event-2: action duration outside directed range
+documentary_check: s3-event-3: action duration outside directed range
+documentary_check: s7-event-1: action duration outside directed range
+rc=1
+== python scripts/shot_coherence.py --board out/dispatch/storyboard.json
+shot_coherence: every narrated idea resolves to rendered items and visible change
+rc=0
+== python scripts/staging_check.py --board out/dispatch/storyboard.json
+  exempt  video-engine/src/NostalgiaSheets.tsx  (a reference sheet, not a scene. It stages every artifact)
+  exempt  video-engine/src/SensingSheet.tsx  (a reference sheet, not a scene. It stages a longhorn and)
+  exempt  video-engine/src/VehicleSheet.tsx  (a reference sheet, not a scene. Vehicles carry no habitat)
+  scanned 4 region block(s) across 45 scene file(s)
+staging check: clean, board out/dispatch/storyboard.json included
+rc=0
+== python scripts/board_scale_check.py --board out/dispatch/storyboard.json
+  note  applicationRecord has no measured height in any module's *_M table, so nothing can check it
+
+board_scale_check: clean against the ledger. 17 kinds still carry scale debt, and every one of them is a defect waiting for a run to lower it.
+rc=0
+== python scripts/floor_check.py --board out/dispatch/storyboard.json
+floor_check: every floor is behind what stands on it, and nothing floats.
+rc=0
+== python scripts/script_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
+script_evidence_check: every narrated line names its claims and every figure and name in it sits in one of their fetched quotes.
+rc=0
+== python scripts/super_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json
+
+super_evidence_check: every super is evidenced for the shot it sits on.
+rc=0
+== node video-engine/tests/caption_board_fit.mjs --board out/dispatch/storyboard.json
+    at file:///home/user/restore/2026-10-15/video-engine/tests/caption_board_fit.mjs:104:36
+    at Array.map (<anonymous>)
+    at file:///home/user/restore/2026-10-15/video-engine/tests/caption_board_fit.mjs:104:23
+
+Node.js v22.22.0
+rc=1
+== python scripts/place_check.py --board out/dispatch/storyboard.json
+place_check: ok, 9 scenes have plates
+rc=0
