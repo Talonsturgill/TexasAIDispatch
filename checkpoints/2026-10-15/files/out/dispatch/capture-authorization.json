@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fc19c3ff7c7471342967341dd48983e811de828b2cfa92e943cfb082ef659ac2",
+    "event_sha256": "83799c4fa0932f3d06ccbebc8d19930d1e03e11bd71811521305c6c27663e2b2",
     "resource": "preflight_renders",
-    "at": "2026-10-16T13:34:53.838020Z",
-    "note": "retained opening structural inspection"
+    "at": "2026-10-16T19:59:05.545322Z",
+    "note": "capture authorization reservation for opening comparison"
   },
   "boards": [
     {
-      "path": "out/dispatch/openings/a.json",
-      "sha256": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088"
     },
     {
-      "path": "out/dispatch/openings/b.json",
-      "sha256": "8c0302d439f1fca1dcd474c5dbbae8c5a7aa58c02723a3548b2adeb47d852e98"
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0"
     }
   ],
   "bound": {
@@ -164,23 +164,23 @@
   },
   "commands": [
     {
-      "id": "ec0ad0af16cc3b046fc6615886a30ac9ab4b5d560a3deed0ed6bc8424b148519",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --inspect-retained",
-      "consumed": "2026-10-16T13:35:16.478835+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-16T19:59:20.814932+00:00"
     }
   ],
   "headroom": {
     "passed": true,
-    "required_free_gib": 20,
-    "free_gib": 20.684
+    "required_free_gib": 19,
+    "free_gib": 20.128
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T133506.json",
-    "receipt_sha256": "6cf200ac4020ed789210122112b3193f1e9b281ed503dc537509fe1ac8c8edb0",
+    "receipt": "/home/user/ed1015/TexasAIDispatch/out/dispatch/capture-housekeeping-20261016T195913.json",
+    "receipt_sha256": "0c791c4ba2e4ef1ba8b7431d8633bef7151a4ad3ca7095188e7ea3da0fd78637",
     "exit_code": 0,
-    "min_free_gib": 20
+    "min_free_gib": 19
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-16T13:35:06.291914+00:00",
-  "expires_at": "2026-10-16T14:20:06.291914+00:00"
+  "issued_at": "2026-10-16T19:59:13.761851+00:00",
+  "expires_at": "2026-10-16T20:44:13.761851+00:00"
 }
