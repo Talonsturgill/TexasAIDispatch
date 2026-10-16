@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T04:04:59.525369+00:00",
-  "note": "capture hook durability refusal twice; authorizations spent, no render; held for operator diagnosis",
+  "saved_at": "2026-10-16T04:42:54.578732+00:00",
+  "note": "stale writer held at ac2fe5eb; resume note and usage note written; no new reservation or capture",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "4b73a8f9e549c8e5ee6f0b55f7387cab4b5a53df",
+  "source_pin": "ac2fe5eb650f6d3779a56c38d9f0ff333d149b5a",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -18,6 +18,13 @@
   "deleted_source": [],
   "ledger_sha256": "327ec74773d58d25b38518b455e65e337d8f31a5b40647b4e5278166101a6449",
   "original_private_ledger_sha256": "e386dcb74dac64fa1f0ca04b0315279d29b6bdd7f602bb389a7885038535c6de",
+  "grant_origin_roots": [
+    {
+      "event_index": 10,
+      "authorization_sha256": "c26c1af4dee2df1a0bfb91cf8ac15ff46eb91bee35a995e8ce0a53073301f49d",
+      "root": "/home/user/TexasAIDispatch"
+    }
+  ],
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -1993,6 +2000,12 @@
       "size": 2321
     },
     {
+      "path": "out/dispatch/resume-after-code-pass.md",
+      "class": "scratch",
+      "sha256": "4a648eb459f668edb3faa4fad9fbd9f21d436473feabef1b89c35b81a854c818",
+      "size": 3998
+    },
+    {
       "path": "out/dispatch/sources/utsa.html",
       "class": "scratch",
       "sha256": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
@@ -2021,6 +2034,12 @@
       "class": "scratch",
       "sha256": "e33c35a7f76a2eda4d278ab1031733da7b3815d53e3b7b836298f860a86d9898",
       "size": 10275
+    },
+    {
+      "path": "out/dispatch/usage-note-completed-workers.md",
+      "class": "scratch",
+      "sha256": "a708e7c95130ab4048e04a4139e294bf87c4ce95745d4bcf781db79b4185e5fd",
+      "size": 2055
     },
     {
       "path": "out/dispatch/validation.json",
