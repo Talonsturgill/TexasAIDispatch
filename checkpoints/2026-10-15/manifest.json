@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T06:03:02.181389+00:00",
-  "note": "chronological phone packet built and follow-up sent to same critic",
+  "saved_at": "2026-10-16T06:59:58.497715+00:00",
+  "note": "phone critic follow-up handback retained verbatim (partial, media request limit)",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1098,6 +1098,12 @@
       "class": "scratch",
       "sha256": "a0a6bd3999bf472b581503624dee8b2f51570aa9f02d5777c0af06edc775c2bb",
       "size": 25688
+    },
+    {
+      "path": "out/dispatch/evidence/phone-critic-2-followup-handback-verbatim.md",
+      "class": "scratch",
+      "sha256": "c72e487248810d48e422949aa326b5a8f51ea851429a0ea58765e8df3b18bd51",
+      "size": 20079
     },
     {
       "path": "out/dispatch/evidence/phone-media-basis-finding-20261016.md",
@@ -3225,6 +3231,14 @@
     }
   ],
   "excluded": [
+    {
+      "path": "out/dispatch/evidence/phone-critic-followup-status-readback-1.md",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/phone-critic-followup-status-readback-2.md",
+      "reason": "private path component"
+    },
     {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
