@@ -145,6 +145,7 @@ def phone_options(state_path, sequences):
     import critic_gate
     import daily_production
     import quality_contract
+    from action_admission import source_claims_digest
     state_path = Path(state_path).resolve(); output = state_path.parent / 'openings'
     rows = []
     for option, sequence in zip(('a', 'b'), sequences, strict=True):
@@ -161,6 +162,12 @@ def phone_options(state_path, sequences):
                          'concept_sha256': critic_gate.concept_digest(data),
                          'renderer_sha256': critic_gate.renderer_digest(data),
                          'quality_contract_sha256': quality_contract.fingerprint(),
+                         'modern_observations': {'film_sha256': digest(film)},
+                         'narration_picture_observations': {'film_sha256': digest(film)},
+                         'action_reviews': [{'action_id': action['id'],
+                             'module_sha256': action['module']['sha256'],
+                             'source_claims_sha256': source_claims_digest(action)}
+                             for action in data.get('action_proposals', [])],
                          'story_review': {'story_sha256': daily_production.story_digest(data),
                              'policy_sha256': digest(daily_production.POLICY)}}})
     return rows
