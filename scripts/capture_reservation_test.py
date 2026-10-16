@@ -92,6 +92,22 @@ class Reservation(unittest.TestCase):
             prepared.prepare(self.root, self.state, [command])
         self.assertEqual(controller.read_state(self.state)['usage'], before)
 
+    def test_current_timed_phone_capture_claims_once_and_binds_its_receipt(self):
+        film = self.state.parent / 'preflight.mp4'; film.write_bytes(b'current timed movie')
+        report = self.state.parent / 'preflight.json'; report.write_text('{}')
+        command = self.command('claude_motion_review.py') + ' --phone-option current --film out/dispatch/preflight.mp4'
+        note = prepared.PHONE_OPERATIONS['current']
+        with mock.patch('claude_motion_review.phone_inputs', return_value={}):
+            receipt = prepared.prepare(self.root, self.state, [command])
+        auth = {'prepared_capture': receipt, 'render_reservation': {'event_sha256': receipt['event_sha256']},
+                'commands': [{'text': command, 'consumed': True}]}
+        (self.root / guard.AUTHORIZATION).write_text(json.dumps(auth))
+        self.assertTrue(prepared.claim(self.state, note)[0])
+        self.assertFalse(prepared.claim(self.state, note)[0])
+        self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 1)
+        report.write_text('{"changed":true}')
+        self.assertNotEqual(receipt['input_identity'], controller.preflight_identity(self.state, note))
+
     def test_operator_source_is_part_of_the_actual_render_input_identity(self):
         note = prepared.OPERATIONS['cinema_proof.py']
         before = controller.preflight_identity(self.state, note)

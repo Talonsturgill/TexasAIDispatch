@@ -56,6 +56,8 @@ def prepare(root, state_path, commands):
             option = next(k for k, v in PHONE_OPERATIONS.items() if v == note)
             expected.update(board=root / ('out/dispatch/openings/' + option + '.json'),
                             film=root / ('out/dispatch/openings/' + option + '.mp4'))
+            if option == 'current':
+                expected.update(board=root / 'out/dispatch/storyboard.json', film=root / 'out/dispatch/preflight.mp4')
         for index, token in enumerate(tokens):
             for flag, path in expected.items():
                 if token == '--' + flag or token.startswith('--' + flag + '='):

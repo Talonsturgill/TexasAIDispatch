@@ -210,6 +210,9 @@ def preflight_identity(path: Path, note: str) -> str | None:
         operation = "opening-comparison"
     elif note == "exact-film motion-image review extraction":
         operation = "motion-review"
+    elif note == "exact-phone-current motion-image review extraction":
+        operation = "phone-motion-review-current"
+        files += [path.parent / name for name in ('preflight.mp4', 'preflight.json')]
     elif note in {"exact-phone-a motion-image review extraction", "exact-phone-b motion-image review extraction"}:
         option = note.split()[0][-1]
         operation = "phone-motion-review-" + option
