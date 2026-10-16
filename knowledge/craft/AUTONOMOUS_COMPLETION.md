@@ -14,6 +14,23 @@ After normal or bounded creative release authorization, stop creative editing an
 
 This dated owner instruction overrides older text that made an internal exhausted envelope an approval stop. The original envelope remains an accounting baseline, and audited standing completion increments are its authorized exception.
 
+## Independently classified technical failures
+
+The existing `retained-integrity` route also covers an actual paid voice take that passes an
+earlier soundcheck but fails strict alignment. It requires a fresh independent REVISE and a
+complete one-to-one `technical_repair.findings` classification of the exact current findings.
+The allowed categories include `technical_audio`, `captions` and `runtime`; the critic must
+support its actual classification. A director-written Markdown finding or a previous pivot
+PASS cannot substitute for that response. Keep all original responses and charged attempts.
+
+Use `repair_scope: technical-integrity` with the actual independent report and retained
+changed-input baselines. This admission precedes the film-hash branch in the controller and
+can fund required correction before a finished film exists. It adds only actual complete-path
+deficits, including a replacement take and soundcheck. If authored event changes invalidate
+the retained comparison, include `capture_completion_budget.py` for those same two treatments
+before correction. Every actual attempt still needs its own reservation. Independent
+classification approves no sound, caption, film, score or shipment and cannot waive a gate.
+
 ## Current modern-film editions
 
 From October 8th, initialization adopts config/autonomous_completion_v2.json. The earlier policy

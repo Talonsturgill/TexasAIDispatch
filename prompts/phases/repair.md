@@ -36,6 +36,25 @@ This clears only the recovery review dependency. Actual speech, measured caption
 native, independent scoring and delivery checks remain mandatory. Retain a good existing take
 once; do not synthesize again just because the review accounting needed repair.
 
+## A paid take fails strict alignment
+
+A take can pass soundcheck and still fail the locked-script alignment. Preserve the exact
+take, provider transcript, acoustic alignment output, direction, script and paid reservations.
+Do not alias a misread word or treat soundcheck selection as alignment approval. A director's
+finding is diagnostic evidence; it does not qualify as an independent capacity rejection.
+
+Use the existing independently classified technical-integrity route in
+AUTONOMOUS_COMPLETION.md. Precharge the critic's substantive classification and recurrence
+review. It must assess every actual current finding and the consolidated correction under
+the full current guides. Retain its complete response unchanged. Only an independently
+supported technical classification can use this route; unknown or artistic findings cannot
+be relabelled. The controller's retained-integrity admission does not require a finished film.
+Bind the report and retained baselines in the technical-integrity plan, fund the complete
+remaining path and any required renewal of the same two treatments, then open the repair.
+Every replacement take, soundcheck, board edit and review is separately reserved before use.
+Keep the original envelope, failed evidence, all charges and all final gates. Follow the next
+executable recovery step without asking the owner to choose an internal funding route.
+
 Run the controller's production-budget precheck before a structural repair. Reserve a credible
 path through the remaining phone, hero, final audiovisual and scoring gates before spending on
 a correction. Follow DAILY_PRODUCTION.md for autonomous work and unchanged-blocker wakes.
