@@ -1,31 +1,29 @@
 {
-  "verdict": "pass",
   "review_scope": "code-plan",
   "treatment": "b",
   "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
-  "board_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
-  "concept_sha256": "3e341366e539b049eb610b6ca865f6b2082363cdb4073b935f8baa27e8c4e55b",
+  "board_sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b",
+  "concept_sha256": "114e5443f51b0bda6f67373c0edb30e232d215e5c96f45d8a6b98c4c9ff67a64",
   "renderer_sha256": "cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic (Opus High), independent read-only reviewer in a same-worker charged continuation, distinct from the claude-sonnet-5-5 director. Limits: code-plan scope only. I rendered and viewed no pixels and heard no audio. I ran no command and computed no hash. Digests are the director's mechanically supplied values, which match digests-r13.json. B's projected timing has never been measured.",
-  "reviewed_at": "2026-10-16T21:50:00Z",
-  "notes": "My own judgment of the r13 B bytes (5bf94a92). B is the instrument-first treatment on projected authored timing: runtime 54.1 s, 15 authored cues projected from takes 5 and 6, 9 scenes, 20 shots and 28 rewards. Its film_direction.renderer_inputs bind modern_episode_registry.json to db04f225 and FloodStationFilm.tsx to b8f8cc3b, which I confirmed in the board. I couldn't diff it against the live opening-b.json (4501bbce, not supplied), so 'only those two entries changed' rests on the director's statement. B's old ids under the changed renderer: B has no s8-event-0, so moved=false. In validation-card, slide=1 puts the blank card at x -330 as before, with stamp 0. no-field-card uses the s7-card, s7-bar, s7-tag, s7-card2 and s7-blank ids, stamp=s7e3 from pOpt('s7-event-3',0) because B's s7-event-3 exists, and the push ends at win('s7-event-3').start (push is 0 in B's close framing). B therefore renders exactly as before the diff. Every B event lies wholly inside the shot whose view draws it at the projected times (list in code_observations). Ceilings: scene maximum 8.76 s (s7), shot maximum 4.117 s (s4-shot-1). The first reward is at 0.703 s. The largest gaps are 3.39 s (28.240 to 31.634), 3.29 s (17.371 to 20.660) and 3.21 s (5.465 to 8.678), and the end gap is 2.24 s. Wall views are 6 of 20 shots and 17.28 of 54.1 s (31.9 percent). Condition on this pass: it covers B as the bound projected plan only. The retained take 7 can't be carried by B's structure. Measured n7a to n7c take 41.22 to 51.82 s, which would retime B's s7 past the 9.5 s ceiling, as in F3. If B were ever selected it would need its own measured retime, split and fresh review. This pass doesn't carry over to that.",
-  "strongest_frame": "s1-shot-1 water-marks design detail (0.0 to 1.164 s). At 3.2x, with no yard around it, brown water climbs over the lowest optical lens at ankle height and the lens lights as it goes under (s1-event-0, 0.358 to 0.934, reward 0.703). The film opens on the actual sensing mechanism as a performed change, and B match-cuts on ankle height into the yard.",
-  "weakest_frame": "s8-shot-1 station-return wide (46.92 to 50.16 s). The clause-literal action for 'It names no town with an installed station' (the search ring sweeping a map card and the 'No installation named' tag) plays on a small 300 x 336 map card in a wide curb frame. At phone size the sweep and the empty grid may not read. A's close empty-map framing of the same beat is stronger.",
+  "verdict": "pass",
+  "strongest_frame": "s1-shot-1, water-marks detail, 0.0 to 1.955. The plan is that brown water climbs over the lowest optical lens and the lens lights as it goes under (s1-event-0, 0.64 to 1.24, reward at 1.00 s, hook_payoff_s 0.934). The planned lit state then holds 0.715 s before the match cut on ankle height to the yard. The opening picture is the mechanism itself, inside the 1.5 s first-reward limit. Runner-up is the s3-shot-1 signature, where the second lens goes under at 16.872 to 17.52.",
+  "weakest_frame": "s8-shot-2, station-return wide, 52.16 to 55.5. The clause 'It names no town with an installed station' (n8b, 52.5 to 54.8) is carried by the small 300x336 paper map card on the fence inside a wide street frame. The settle (52.592 to 53.098), the dashed search ring (53.374 to 53.926) and the 'no installation named' tag (54.202 to 54.708) all play on that small card. The plan is sound, but the limit image is the one most at risk at phone size. Check that the ring and the tag read at 270 px.",
   "blocking_defects": [],
   "code_observations": [
-    "s1: s1-event-0 (0.358 to 0.934) is in water-marks detail (0 to 1.164), where level lerps from LEVEL.start to LEVEL.ankle on s1e0 and draws the s1-post, s1-marks and s1-water ids. s1-event-1 (1.394 to 2.086) and s1-event-2 (2.431 to 3.065) are in street-yard (1.164 to 3.86), whose camera pulls back from the post's ankle mark (scale 2.2 to 1) by the end of s1-event-1. s1-event-3 (4.916 to 5.831) is in phone-late (3.86 to 7.76).",
-    "s2: s2-event-1 (8.329 to 8.911) is in station-wide (7.76 to 10.98), with B's crane down from the antenna tip. s2-event-2 (11.236 to 12.004) and s2-event-3 (12.644 to 13.412) are both in panel-charge close (10.98 to 14.56). For v==='b' that view draws the s2-tower item, the dashed unconnected link to half way and the 'No cell tower needed' tag, so the tower beat is performed where the board puts it.",
-    "s3: s3-event-1 (14.975 to 15.609) and s3-event-2 (15.954 to 16.645) are in water-marks (14.56 to 16.818), framed right with a settle and glints on s3e1. s3-event-3 (16.991 to 17.625) is in weather-row (16.818 to 18.12).",
-    "s4: s4-event-1 (20.18 to 20.98) is in no-server close (18.12 to 22.237): the housing window and readings on s4e1, seen from the street. s4-event-2 (23.337 to 24.028) is in chip-glow detail (22.237 to 24.172), with the push landing at the event start and a 0.144 s hold before the cut, the same tag-hold caution as A. s4-event-3 (24.316 to 25.007) is in the no-server wide (24.172 to 25.56).",
-    "s5: s5-event-1 (26.001 to 26.775) is in radio-map overhead (25.56 to 27.233), where the half-mile and five-mile labels appear as the ring reaches each. s5-event-2 (27.691 to 28.606) is in radio-rings (27.233 to 30.06), where the rings start at the shot start for B. s5-event-3 (31.02 to 32.044) is in hub-wide (30.06 to 33.64), with the mast lamp lit as the ring arrives.",
-    "s6: s6-event-1 (34.094 to 34.938) and s6-event-2 (35.399 to 36.321) are in flood-paths overhead (33.64 to 36.551), where dots=s6e1, paths=s6e2 and the 'A second, larger model' tag is driven by s6e1. s6-event-3 (36.782 to 37.627) is in hub-desk (36.551 to 38.16), where the zones, the forearm coming to rest and the 'For emergency responders' tag are driven by s6e3. The spread-map action_use is performed in flood-paths.",
-    "s7: s7-event-1 (39.356 to 40.028) is in validation-card close (38.16 to 41.38). s7-event-2 (42.148 to 42.814) is in validation-card detail (41.38 to 44.62). s7-event-3, the stamp (45.196 to 45.81), is in no-field-card close (44.62 to 46.92) with the s7 ids. This is the old structure and is correct for B's clause ownership, with n7c inside s7.",
-    "s8: s8-event-1 (47.322 to 47.885), s8-event-2 (48.193 to 48.807) and s8-event-3 (49.114 to 49.678) are in station-return wide (46.92 to 50.16). The map card swings and settles, the search ring sweeps and the 'No installation named' tag pins, drawing the s8-fence, s8-map, s8-nopin, s8-search and s8-tag ids.",
-    "s9: s9-event-1 (50.524 to 50.876), s9-event-2 (51.068 to 51.452) and s9-event-3 (51.644 to 51.996) are in empty-map close (50.16 to 54.1). The goal pin hovers, the dashed empty spot draws itself and the 'Deployment goal' tag pins, while the 'No installation named' tag stays (s9-notown). Every B s9 id (s9-fence, s9-map, s9-goal, s9-spot, s9-notown, s9-tag) is drawn.",
-    "All six B action_uses sit inside a shot of their declared view: charge-battery (s2-event-2, panel-charge), cross-marks (s3-event-2, water-marks), judge-locally (s4-event-2, chip-glow), water-rises (s1-event-1, street-yard), carry-signal (s5-event-2, radio-rings) and spread-map (s6-event-2, flood-paths).",
-    "Divergence from A is genuine, not a relabel: a different opening subject (instrument detail against yard), crane-down against tilt-up, the tower beat held inside the panel close, readings seen through the housing window before the chip, radio read from above first, map before desk, both cards side by side for the stamp, and the close on the paper map rather than the curb.",
-    "Clause-to-picture at the projected times: 'Some people' briefly plays over the lens detail, then the match cut reaches the yard before 'ankle-deep' (about 1.73 s in the measured read; projected similar). Every other clause sits over its literal subject in the same way as A, except that 'It names no town' plays on the small map card in a wide (weakest_frame)."
+    "Shared body. runtime_s is 59.4. Scene starts and durations are s1 0/8.68, s2 8.68/6.94, s3 15.62/4.04, s4 19.66/7.42, s5 27.08/8.18, s6 35.26/5.68, s7 40.94/8.26, s8 49.2/6.3 and s9 55.5/3.9. These agree with measured-intervals-b.md and with A's measured body from report 24. s7 vo has two sentences with claims c4 and c18. s8 vo is 'The announcement reports no field result. It names no town with an installed station.' with claims c1, c4 and c10. delta-b-machine.json reports body_equal_to_A true, opening_digests_differ true and events_crossing_cuts [].",
+    "Ceilings. The longest scene is s1 at 8.68 s, against the 9.5 s ceiling. The longest shots are s1-shot-3 at 4.77 s, s7-shot-2 at 4.32 s, s5-shot-3 at 4.13 s and s2-shot-2 at 4.06 s, all under 5.0 s.",
+    "Containment, by my arithmetic. Each of the 29 events lies wholly inside its listed shot. The tightest event ends before a cut are: s3-event-2 ends 17.52 with the cut at 17.64 (0.12 s); s4-event-2 ends 25.16 with the cut at 25.285 (0.125 s); s6-event-2 ends 37.89 with the cut at 38.1 (0.21 s). In each case the reward lands 0.36 to 0.59 s before the cut. They pass at code scope and are listed as phone checks.",
+    "The five moved windows match the build_split_b.py FIX fractions. Clause start + fraction x clause length gives: s1-event-1 2.08 to 2.74 in street-yard (1.955 to 3.91); s3-event-2 16.872 to 17.52 in water-marks (15.62 to 17.64); s4-event-2 24.562 to 25.16 in chip-glow (23.49 to 25.285); s5-event-2 29.164 to 30.032 in radio-rings (29.105 to 31.13); s6-event-2 36.95 to 37.89 in flood-paths (35.26 to 38.1).",
+    "Rewards are placed at event start + 0.6 x width. The first reward is at 1.00 s. The largest gap is 3.583 s (43.134 to 46.717, s7-event-1 to s7-event-2). Without the s7-event-3 slide, the gap from s7-event-2 to s8-event-0 would be 3.914 s, still under 4.0. The last reward is 57.158 and the end gap is 2.242 s. All 29 rewards in film_direction match my values, including s7-event-3 at 48.02.",
+    "Wall share. Six of 20 shots are wall or card views (radio-map, flood-paths, validation-card twice, no-field-card, empty-map). They total 19.985 s of 59.4 s, which is 33.6%, under the 40% limit.",
+    "s7 slide-in. s7-event-3, 47.573 to 48.318, uses travel motion over n7b at fractions 0.72 to 0.95. In the renderer, moved = !!W['s8-event-0'] is true for B, so the slide is ease(s7e3) with resAt x = lerp(-730, -330, slide) at y 470, scale 0.85. s7-shot-2 is detail framing, so the 1.3 push about x 560 applies there. The visible slice of the blank card at the left edge is inferred at about 88 px and is not proven. The reward gap holds without it.",
+    "s8 stamp, then station-return. s8-event-0, 50.182 to 50.931, sits in s8-shot-1 (no-field-card, close, 49.2 to 52.16). Its items are s8-blank and s8-card2, and the five s8 planes now carry s8-card2, s8-valcard, s8-valbar, s8-assess and s8-blank. The stamp holds 1.23 s and the cut at 52.16 falls in the silence between n8a (ends 51.82) and n8b (starts 52.5). The blank-card-quiet sound cue moved to s8-event-0 at gain 0.3. The station-return wide then performs settle, search ring and tag.",
+    "s9 empty-map. The goal pin hovers 55.843 to 56.191, the dashed spot draws 56.38 to 56.76 and the deployment goal tag pins 56.949 to 57.297, all over n9a (55.78 to 57.36). They use s9-fence, s9-map, s9-goal, s9-spot, s9-notown and s9-tag. The final state holds 2.10 s. The pin never lands, so no installation is implied.",
+    "Divergence from A is real. B opens on a lens detail instead of A's wide yard. It cranes down the station and then holds the panel close through the tower beat. It sees the readings from the street through the housing window, reads the radio from overhead before street level, and shows the hub map before the desk. It closes on the map close up, not the curb-outline close. s7 shares A's card composition except for the blank-card side. This shared limit composition is acceptable and not a relabel.",
+    "Figure attribution. The s7 card reads 'the university reported figure', with the 'initial assessments after training' tag on s7-event-2. The s4 chip carries the TinyML claim c3/c18 and the figure carries c4. The board's source_limit is honest about validation versus field results.",
+    "Region. San Antonio (Bexar) uses a limestone, storm gray and flood brown palette. Hill Country limestone fits a San Antonio street.",
+    "Non-blocking cosmetic leftovers, with no visible or gate effect. The build_split_b.py docstring still says 'R12 proposal' and 'build_split.py'. The s8-shot-2 purpose text mentions a station outline that only s9 draws. quality_plan s7 source_basis says 'Claims c4' and omits c18, which vo_claims carries. The s7 attention beats' sound_action still mentions 'a dull stamp on the blank card', which now plays in s8. The narration_picture cue_plan prose still calls the cues provisional, although timing_mode is measured_caption_boundaries and all 16 captions carry start_measured and end_measured true. retime_evidence shows 9 of 9 cuts on measured word starts."
   ],
   "action_reviews": [
     {
@@ -34,9 +32,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": [
-        "s2-event-2 runs 11.236 to 12.004 (projected) inside panel-charge close at 1.85x. The beam, glint and battery fill are driven by s2e2. The same close then performs the no-tower link for B."
-      ]
+      "code_observations": "s2-event-2, 12.145 to 12.879, in panel-charge close (11.56 to 15.62) under 'charges itself from light' (n2b 11.9 to 14.96). The panel glint and battery fill are performed on the hero group by the film clock. Claims c5, c6 and c14."
     },
     {
       "action_id": "cross-marks",
@@ -44,9 +40,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": [
-        "s3-event-2 runs 15.954 to 16.645 inside water-marks (14.56 to 16.818, 2.26 s), longer than A's 1.347 s shot. The level rises to LEVEL.second and the second mark lights and stays lit."
-      ]
+      "code_observations": "Lenses catch the light at s3-event-1 (16.03 to 16.742). The second lens goes under at s3-event-2 (16.872 to 17.52). Both are in water-marks detail (15.62 to 17.64), where cam scale is lerp(1.25, 1, ease(s3e1)). In B the four lenses glint in place of a 'Four optical sensors' tag. The lit state holds 0.12 s before the cut, which is a phone check. Claim c2."
     },
     {
       "action_id": "judge-locally",
@@ -54,19 +48,15 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": [
-        "s4-event-2 runs 23.337 to 24.028 inside chip-glow detail (22.237 to 24.172). The lamp and tag complete 0.144 s before the cut, and the lamp carries lit into the no-server wide. The same phone tag-hold caution applies as in A."
-      ]
+      "code_observations": "Traces reach the chip at s4-event-1 (21.722 to 22.532, no-server close). The amber risk lamp and 'judged on the station' tag come at s4-event-2 (24.562 to 25.16, chip-glow detail 23.49 to 25.285). The dark server outline comes at s4-event-3 (25.704 to 26.357, no-server wide). The tag holds 0.125 s before the cut, which is a phone check. Claims c3 and c18."
     },
     {
       "action_id": "water-rises",
-      "module_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "module_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": [
-        "s1-event-1 runs 1.394 to 2.086 inside street-yard (1.164 to 3.86). The pull-back from the post's ankle mark completes at the event end while the water spreads. No station stands in the yard."
-      ]
+      "code_observations": "s1-event-0 (0.64 to 1.24) is the lowest lens going under in detail. In street-yard wide, water passes the ankle mark at s1-event-1 (2.08 to 2.74) and rises to the boots at s1-event-2 (2.8 to 3.46). The pull-back from scale 2.2 to 1 runs 1.955 to 2.74, which is fast. Claim c12. The lens-to-yard match cut carries a false-continuity risk, a sensor seeming to stand in the yard. The board says no station stands in this yard, and that must read on the phone."
     },
     {
       "action_id": "carry-signal",
@@ -74,9 +64,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": [
-        "s5-event-2 runs 27.691 to 28.606 inside radio-rings (27.233 to 30.06). The ring runs from the shot start to the event end, and the half-mile tag pins at the corner post."
-      ]
+      "code_observations": "Overhead rings at s5-event-1 (27.494 to 28.228). The half-mile tag is passed at s5-event-2 (29.164 to 30.032, radio-rings wide, ringStart = shot start) over 'more than a half-mile'. The ring reaches the mast at s5-event-3 (32.514 to 33.532, hub-wide). The radio-map five-mile label appears at lead > 0.92, around 28.0 s, ahead of n5b. That previews 'five miles' early but is not false. Claim c6."
     },
     {
       "action_id": "spread-map",
@@ -84,19 +72,19 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": [
-        "s6-event-2 runs 35.399 to 36.321 inside flood-paths overhead (33.64 to 36.551), with paths=s6e2 performed from 0 to 1 after the dots arrive."
-      ]
+      "code_observations": "Dots and the 'second, larger model' tag at s6-event-1 (35.728 to 36.762). Paths at s6-event-2 (36.95 to 37.89), both in flood-paths overhead (35.26 to 38.1). Zones, forearm and responders tag at s6-event-3 (39.018 to 40.052, hub-desk close). The paths finish before the word 'maps' (about 38.27 to 39.21), so that word plays over the desk with the paths already drawn. This is mild early anticipation, not a mismatch. Claims c7, c16, c17 and c20."
     }
   ],
+  "reviewer_identity": "claude-opus-5-5 independent read-only storyboard-critic (distinct from director claude-sonnet-5-5)",
+  "reviewed_at": "2026-10-17T01:00:00Z",
   "story_review": {
-    "story_sha256": "3340f875513b56dd04666d7bb646dde5722a1248b47efc4d7fa506b858cd6514",
+    "story_sha256": "92983b6a52c2fe26539d40446ad6e5a351b0ab8ec2f963e648be537ecde49445",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "Planned chain, not observed. A disclosed design detail opens it: the lowest lens goes under at ankle height and lights. A match cut on that height reaches a yard flooding past the ankle mark while the porch phone stays dark, then the late warning. The station is revealed from its antenna down. Its panel fills the battery, and a dashed line to a far tower stops halfway. The lenses catch light and the water lights the second, then the weather lamps come on. Readings glow through the housing window, the chip lights the amber risk lamp, and a far server outline stays dark. Rings leave the station dot on a street map, run down the street past the half-mile tag and reach the hub mast at five miles. On the hub screen the dots arrive, the paths spread and responders work at the desk. The validation figure is tagged as initial assessments, the blank field card is stamped, the map on the fence finds no installation, and the goal pin hovers over an empty spot.",
-    "opening_to_ending": "The film opens inside the mechanism (a lens going under and lighting) and the yard where the warning comes late, posing whether a self-powered station can judge rising water with no grid and no tower. It ends close on the same paper map with no installation named, a dashed spot where a station could go and the deployment goal tag. The design answer is yes, the proof so far is validation accuracy only, and deployment is the stated next step. Nothing is promised that the sources don't report.",
-    "weakest_transition": "s7 to s8, at 46.92 s: the two side-by-side cards with the stamped blank field card cut to a wide empty curb where a small map card swings onto the fence. The bridge ('the blank field card gives way to a map with nothing pinned') is conceptual, not a visible carry. The map card is small enough at phone size that the 'no town named' action may not register."
+    "one_viewing_summary": "Planned chain, not observed pixels. A lens goes under water, and the same ankle-high water fills a yard while the porch phone stays dark until a late banner. The prototype station is craned down, charges from the sun and sends no line to a tower. Its four lenses get wet in turn and the weather lamps light. Readings run to the chip, which lights a local risk lamp while a central server stays dark. Radio rings cross the map, pass a half-mile tag and reach a hub mast five miles out. The hub map spreads flood paths and a responder's forearm settles beside the screen. Then come the limits: a reported validation figure tagged as initial assessments, a blank field-result card stamped none reported, a fence map with no pin, and a dashed goal pin that never lands.",
+    "opening_to_ending": "Opening question: can a flood station judge rising street water with no power line and no cell tower? The design chain answers yes in pictures (charge, marks, chip, radio, hub map). The ending answers the 'how do we know' question honestly. The proof is validation accuracy, there is no field result, no town is named, and deployment is still the goal. The close states what happens next without promising an unreported outcome.",
+    "weakest_transition": "s6 to s7, at 40.94. The cut goes from the hub desk with the responder's forearm and the 'for emergency responders' tag to the validation card. The only bridge is the amber accent carried from the map onto the bar. This consequence-to-limit jump is the most abstract cut in the film. It reads as intended only if the n7a line lands with the bar fill (42.54 to 43.53). Within s8, the cut from the no-field-card close to the station-return wide at 52.16 is second weakest, but it falls cleanly in silence."
   }
 }
