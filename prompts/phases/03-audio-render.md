@@ -90,6 +90,13 @@ After retiming moves cuts or foley, remix with the same voice offset, align agai
 out/dispatch/storyboard.json and --clause-boundaries, fold cues and confirm the retime is stable. Use authored event
 timing; never manually change derived at_s. Split overlong pictured beats instead of holding.
 
+On resume, inspect which steps actually completed before restarting this sequence. If measured
+captions are already folded but clause times are not compiled, retime the current authorized
+board with the retained same-clock words and captions before remixing. A measured runtime repair
+uses that same path. Keep the actual producer failures and charges. Do not reset to an authored
+board, use a separate board for the mix, or hand-edit derived times to pass a check. The passing
+retime supplies the measured clauses; then remix, realign, fold and verify stability as above.
+
 For current narration-picture boards, clause boundaries select only an already measured pause
 between the clause's final word and the next clause's first word. Both waveform edges must be
 measured, and a new split needs at least 0.24 seconds of silence. Complete ordered clause text
