@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+CONCEPT_POLICY = REPO / "config/critic_concept_v2.json"
 
 
 def renderer_files(board: dict) -> list[Path]:
@@ -100,8 +101,35 @@ def renderer_digest(board: dict) -> str | None:
     return h.hexdigest()
 
 
+def measured_concept_policy(board: dict) -> dict | None:
+    narration = board.get("narration_picture")
+    if not isinstance(narration, dict):
+        return None
+    policy = json.loads(CONCEPT_POLICY.read_text())
+    if policy.get("schema") != "dispatch-critic-concept/2":
+        raise ValueError("unsupported critic concept policy")
+    edition = str(board.get("date", ""))[:10]
+    if (re.fullmatch(r"\d{4}-\d{2}-\d{2}", edition)
+            and edition >= policy["effective_date"]
+            and narration.get("version") == policy["narration_picture_version"]):
+        return policy
+    return None
+
+
 def concept_digest(board: dict) -> str:
     plan = copy.deepcopy(board)
+    if measured_concept_policy(board):
+        # Code approval covers the authored causal plan. The measured clock
+        # still needs its own waveform, caption and exact-film validation.
+        narration = plan["narration_picture"]
+        for key in ("timing_mode", "timing_provenance"):
+            narration.pop(key, None)
+        for clause in narration.get("clauses", []):
+            for key in ("start_s", "end_s", "word_range", "cue_ids"):
+                clause.pop(key, None)
+        for shot in (plan.get("film_direction") or {}).get("shots", []):
+            shot.pop("scene_fraction_start", None)
+            shot.pop("scene_fraction_end", None)
     if isinstance(plan.get('film_direction'), dict):
         for shot in plan['film_direction'].get('shots', []):
             shot.pop('start_s', None)
