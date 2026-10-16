@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "independent_packet_compaction.py": "Library called by independent_review.bounded_packet on actual provider input before deterministic receipt preparation and paid transport. Its CI test verifies complete treatment reconstruction, active source preservation, idempotence, historical compatibility and the unchanged size refusal.",
     "capture_reservation.py": "Library called by capture_guard authorize --prepare and run_controller reserve on actual prepaid operators. capture_reservation_test exercises real authorization/hook consumption, one charge, duplicate refusal and operator/input/ledger tampering rejection.",
     "cloud_capture_hook.py": "Invoked by the native PreToolUse Bash hook registered before launch by bootstrap_claude_hooks --prelaunch-router in claude_environment_setup.sh. It consumes the actual host tool payload on stdin, never a prompt-generated event. cloud_capture_hook_test verifies restored checkout selection and exact authorization consumption.",
     "capture_completion_budget.py": "Evidence library called by production-budget, completion-capacity and frozen envelope replay. Its CI test exercises the real controller CLI, consumed hook/entry capture, exact complete-path deficits, immutable earlier grants and shipment replay.",
