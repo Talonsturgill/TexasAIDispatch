@@ -537,6 +537,14 @@
       "note": "precharged same-worker code-plan review of conformed treatment B (SendMessage a110876b976dcc812)",
       "resource": "storyboard_critics",
       "to": 26
+    },
+    {
+      "at": "2026-10-16T22:46:50.102610Z",
+      "ceiling": 25,
+      "from": 20,
+      "note": "capture authorization reservation for opening comparison",
+      "resource": "preflight_renders",
+      "to": 21
     }
   ],
   "events": [
@@ -5374,6 +5382,24 @@
       "input_identity": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
       "kind": "preflight_retry_authorized",
       "reason": "The refused first timed-phone preflight_animatic spent its authorization with no render because the retained opening comparison no longer bound the changed concept. The opening boards are now repaired and independently reviewed, so the required renewed two-treatment comparison needs its own hook; earlier spend stays charged."
+    },
+    {
+      "at": "2026-10-16T22:46:50.102628Z",
+      "ceiling": 25,
+      "kind": "budget_escalated",
+      "note": "capture authorization reservation for opening comparison",
+      "now": 21,
+      "resource": "preflight_renders",
+      "was": 20
+    },
+    {
+      "at": "2026-10-16T22:46:50.102639Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5382,7 +5408,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 20,
+    "preflight_renders": 21,
     "reboards": 9,
     "reported_tokens": 443292,
     "rescue_renders": 1,
@@ -5395,10 +5421,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "69e6660a25cd8e40fdbc4fa16da083d939c6ed1eef82575b0c98b4cc16fa6d6f",
+    "original_private_state_sha256": "816a1793261ce314ac935ebfc1d3750b364f686ac25f3134af31e5d061d35647",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -5434,14 +5459,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T22:46:40.638008Z",
+  "updated_at": "2026-10-16T22:46:50.102640Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 20,
+    "preflight_renders": 21,
     "reboards": 9,
     "reported_tokens": 443292,
     "rescue_renders": 0,
