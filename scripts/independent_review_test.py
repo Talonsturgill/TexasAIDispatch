@@ -585,13 +585,17 @@ class AvailabilityTest(unittest.TestCase):
             board.write_text(json.dumps(current))
             taught, taught_bindings = r.packet(board, claims, 'code', None)
             for name in ('knowledge/craft/AUTONOMOUS_COMPLETION.md', 'config/autonomous_completion.json',
-                         'config/autonomous_completion_narration_v1.json'):
+                         'config/autonomous_completion_narration_v1.json', 'config/source_validation_completion_v1.json'):
                 target = fixture / name; target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes((actual_repo / name).read_bytes())
             (root / 'run_state.json').write_text(json.dumps({'events': [
-                {'kind': 'autonomous_completion_narration_adopted'}]}))
+                {'kind': 'autonomous_completion_narration_adopted'},
+                {'kind': 'autonomous_completion_validation_adopted'}]}))
             recovered, recovered_bindings = r.packet(board, claims, 'code', None)
             amendment = 'config/autonomous_completion_narration_v1.json'
+            self.assertEqual(recovered['files'][amendment], (fixture / amendment).read_text())
+            self.assertEqual(recovered_bindings['completion_readings_sha256'][amendment], r.digest(fixture / amendment))
+            amendment = 'config/source_validation_completion_v1.json'
             self.assertEqual(recovered['files'][amendment], (fixture / amendment).read_text())
             self.assertEqual(recovered_bindings['completion_readings_sha256'][amendment], r.digest(fixture / amendment))
             (root / 'run_state.json').unlink()

@@ -55,6 +55,62 @@ Every replacement take, soundcheck, board edit and review is separately reserved
 Keep the original envelope, failed evidence, all charges and all final gates. Follow the next
 executable recovery step without asking the owner to choose an internal funding route.
 
+## Source-backed sentence correction
+
+When a real waveform measurement and the independent critic require shorter source-backed
+sentences, preserve the failed takes and original classifications. Prepare the complete script,
+source map and same-treatment boards as immutable proposals; run the free source, caption and
+event checks before a charged review. Ask for an honest production-blocker assessment and a
+separate recurrence decision. A process observation is not automatically a release blocker,
+but only the independent reviewer can establish that scope in a fresh report. Never edit the
+old report or move a finding merely to obtain admission.
+
+For an actual charged independent source-pivot rejection that requires fresh script validation,
+read config/source_validation_completion_v1.json. The source-pivot report supplies
+source_pivot.requires_validation, script_before_sha256, proposed_script_sha256, source_basis
+and the verified claim_ids. Retain its full report and the actual dispatch receipt. The receipt
+uses schema dispatch_source_pivot_review/1, run_id, role source-pivot, status completed,
+provider_unavailable false, model claude-opus-5-5, effort high, actual agent_id and
+reviewer_identity, reservation_event_index, reservation_sha256, started_at, completed_at and
+report_sha256. Hash reserved events with Python json.dumps(event, sort_keys=True).
+
+```sh
+python scripts/validation_completion.py --state out/dispatch/run_state.json --plan <source-plan-with-current-baselines> --receipt <actual-pivot-review-call.json> --proposed-script <exact-reviewed-proposal.txt> --output <new-source-capacity-plan.json>
+python scripts/capture_completion_budget.py --state out/dispatch/run_state.json --plan <new-source-capacity-plan.json> --comparison <retained-two-treatment-comparison.json> --output <complete-source-capacity-plan.json>
+python scripts/run_controller.py production-budget --review-route host --repair-plan <complete-source-capacity-plan.json>
+python scripts/run_controller.py completion-capacity --repair-plan <complete-source-capacity-plan.json>
+```
+
+Use the wrapper and explicit internal cd. This separately pinned amendment preserves the
+original policy and envelope and funds only actual deficits, including one fresh source
+validation. Keep validator_agents: 1 in the source plan. Mixed artistic and source blockers
+retain standard repair accounting under mandatory-source-pivot; they are never relabelled
+technical or deferred by this grant. A fully classified technical plan keeps its existing
+retained-integrity route. The admission proposal stays immutable; corrected candidate bytes
+still require their own independent approval and a registered repair revision. Capacity
+approves no source, pivot or film. Obtain the required recurrence approval before production edits,
+then begin the repair, reserve its reboard, apply only declared bytes and authorize it.
+
+Precharge the fresh Opus High validator before dispatch. Supply actual script and claims hashes
+in its complete packet; retain the raw handoff and save its validation object unchanged.
+Preserve the inspected input bytes. Save the actual call receipt as
+out/dispatch/source-validation-call.json, schema dispatch_precharged_source_validation/1,
+with run_id, role validator, status completed, provider_unavailable false, model, effort,
+agent_id, reviewer_identity, reservation_event_index, reservation_sha256, started_at,
+completed_at, report_sha256, script_sha256 and claims_sha256. Never invent a receipt or hash.
+
+```sh
+python scripts/validation_completion.py --state out/dispatch/run_state.json --verify-validation
+python scripts/validation_check.py --validation out/dispatch/validation.json --claims out/dispatch/claims.json --board out/dispatch/storyboard.json
+```
+
+Dependent paid production stays blocked until this current validation passes. A real new
+validator REVISE remains a mandatory source failure: retain it, consolidate the next correction
+and obtain the required newly charged independent source-pivot diagnosis before its own
+evidence-bound capacity event. Never reuse a prior report or grant to hide another attempt.
+Complete the same two-treatment renewal, timed phone, native, audiovisual, three scorers,
+publication, unsent draft and durable archive through accepted shipment.
+
 Run the controller's production-budget precheck before a structural repair. Reserve a credible
 path through the remaining phone, hero, final audiovisual and scoring gates before spending on
 a correction. Follow DAILY_PRODUCTION.md for autonomous work and unchanged-blocker wakes.

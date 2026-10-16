@@ -169,6 +169,14 @@ remain distinct identities and an atomic charged panel on the same finished film
 cannot count self-review as independence. Provider recovery is used only after actual observed
 host unavailability, under the existing recovery policy.
 
+While a background worker owns required work, use the host's supported task-status and output
+tools to wait for that exact task and collect its full handback. Do not end the response merely
+to say that you are yielding or waiting; continue the next owned production step when its
+result arrives. Confirm the task is actually running before waiting, and explicitly resume a
+completed worker when assigning new charged content work. Keep one active owner and never
+dispatch a duplicate because a response is slow. An unfinished controller is still active
+production even when the cloud UI marks an assistant response successful.
+
 ## Fresh authored picture lane
 
 Follow Alaska's strongest production methods in `Talonsturgill/alaska-ai-weekly`: recognizable

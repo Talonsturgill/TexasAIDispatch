@@ -320,6 +320,11 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     narration_errors = paid_work_problems(state, amounts)
     if narration_errors:
         return False, '; '.join(narration_errors)
+    if set(amounts) - {'validator_agents', 'storyboard_critics', 'reboards', 'reported_tokens'}:
+        from validation_completion import source_validation_problems
+        validation_errors = source_validation_problems(state, Path(path).parent)
+        if validation_errors:
+            return False, '; '.join(validation_errors)
     unknown = sorted(set(amounts) - set(state["limits"]))
     if unknown:
         return False, f"run controller: unknown resource(s): {', '.join(unknown)}"
@@ -2255,7 +2260,7 @@ def main() -> int:
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, 'mandatory-source-pivot'}
                         review_coverage = mandatory_reason(current, plan, evidence_text) == COVERAGE_REASON
                         modern_code_repair = mandatory_reason(current, plan, evidence_text) in {MODERN_CODE_REASON, PIVOT_REASON}
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
@@ -2286,6 +2291,9 @@ def main() -> int:
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(read_state(state_path), budget_plan, result)
+                if 'source_validation_completion' in budget_plan:
+                    from validation_completion import apply_budget as validation_budget
+                    result = validation_budget(read_state(state_path), budget_plan, result)
                 if budget_plan.get('completion_reason') == 'mandatory-narration-pivot':
                     from narration_recovery import apply_budget as narration_budget
                     result = narration_budget(read_state(state_path), budget_plan, result)

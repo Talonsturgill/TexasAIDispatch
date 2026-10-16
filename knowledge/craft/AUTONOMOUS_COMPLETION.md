@@ -31,6 +31,20 @@ the retained comparison, include `capture_completion_budget.py` for those same t
 before correction. Every actual attempt still needs its own reservation. Independent
 classification approves no sound, caption, film, score or shipment and cannot waive a gate.
 
+For a required source-backed script pivot, the separate dated
+config/source_validation_completion_v1.json adds one necessary validator to the complete
+remaining path. The original policy bytes, frozen allocation, every original classification
+and every actual charge remain unchanged. Use validation_completion.py to bind the actual
+charged independent report, current source closure and exact proposed script, then include
+the retained same-treatment comparison through capture_completion_budget.py before the grant.
+The new mandatory-source-pivot route keeps mixed source and artistic blockers under standard
+repair accounting; every blocker stays blocking. It does not reclassify a finding, defer a
+modern-film requirement or approve the rejected admission proposal. A fully classified
+technical plan retains its existing stricter route. Fresh source validation is required even if existing capacity makes
+the increment zero. Its actual precharged Opus High PASS must bind the current script and
+claims before any dependent paid production. See the executable source-pivot sequence in
+prompts/phases/repair.md. This capacity is not review, source or film approval.
+
 ## Current modern-film editions
 
 From October 8th, initialization adopts config/autonomous_completion_v2.json. The earlier policy
