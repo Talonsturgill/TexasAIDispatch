@@ -388,7 +388,8 @@ the ordinary code gate verifies actual independent code-plan passes for every cu
 both treatments against current concepts, renderer bytes and claims. Carry those complete original
 reports into the phone packet. Missing or stale code approval keeps the full source. Those code
 passes supply no pixel observation, selection or film approval. Full boards, source evidence and
-guides remain. Use compact JSON whitespace on the wire. The same text-size ceiling is enforced on
+guides remain. The complete episode registry is structured JSON with every field, its original
+byte hash and all entries retained. Use compact JSON whitespace on the wire. The same text-size ceiling is enforced on
 the final request after comparison context and retained failure evidence are added. No new provider
 charge begins on an oversized input. Historical packets retain their original contents and policy.
 

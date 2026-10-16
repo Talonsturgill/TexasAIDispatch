@@ -165,6 +165,15 @@ class Compaction(unittest.TestCase):
         self.assertEqual(json.loads(encoded), value)
         self.assertLess(len(encoded), len(json.dumps(value)))
 
+    def test_registry_retains_every_entry_and_original_data_hash(self):
+        text = copy.deepcopy(self.text)
+        name = 'config/modern_episode_registry.json'
+        text['files'][name] = (self.repo/name).read_text()
+        result, _ = compact.compact(text, self.package, 'phone', self.repo)
+        self.assertEqual(compact.document(result['files'][name], self.board), json.loads(text['files'][name]))
+        self.assertEqual(result['files'][name]['original_sha256'], compact.sha(self.repo/name))
+        self.assertEqual(set(compact.document(result['files'][name], self.board)['episodes']), {'now', 'old'})
+
 
 if __name__ == '__main__':
     unittest.main()

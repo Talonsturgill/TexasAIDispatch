@@ -33,8 +33,12 @@ def delta(base, target, path=''):
         return rows
     if isinstance(base, list) and isinstance(target, list):
         # Stable shot ids retain unchanged shots when one treatment inserts a shot.
-        keyed = all(isinstance(row, dict) and isinstance(row.get('id'), str) for row in base + target)
-        key = (lambda row: row['id']) if keyed else canonical
+        identity = next((fields for fields in (('id',), ('scene_id',), ('shot_id', 'event_id'))
+                         if all(isinstance(row, dict) and all(isinstance(row.get(k), str) for k in fields)
+                                for row in base + target)
+                         and all(len({tuple(row[k] for k in fields) for row in values}) == len(values)
+                                 for values in (base, target))), None)
+        key = (lambda row: tuple(row[k] for k in identity)) if identity else canonical
         rows = []
         for op, i1, i2, j1, j2 in reversed(difflib.SequenceMatcher(
                 a=[key(row) for row in base], b=[key(row) for row in target], autojunk=False).get_opcodes()):
@@ -45,8 +49,11 @@ def delta(base, target, path=''):
                 rows += [{'op': 'remove', 'path': path+'/'+str(i)} for i in reversed(range(i1, i2))]
                 rows += [{'op': 'add', 'path': path+'/'+str(i1), 'value': copy.deepcopy(target[j])}
                          for j in reversed(range(j1, j2))]
-        replacement = [{'op': 'replace', 'path': path, 'value': copy.deepcopy(target)}]
-        return rows if len(canonical(rows)) < len(canonical(replacement)) else replacement
+        candidates = [rows, [{'op': 'replace', 'path': path, 'value': copy.deepcopy(target)}]]
+        if len(base) == len(target):
+            candidates.append([row for i, (a, b) in enumerate(zip(base, target))
+                               for row in delta(a, b, path+'/'+str(i))])
+        return min(candidates, key=lambda value: len(canonical(value)))
     return [{'op': 'replace', 'path': path, 'value': copy.deepcopy(target)}]
 
 
@@ -160,7 +167,8 @@ def compact(text, package, role, repo):
     files = text['files']; episodes = {(board.get('film_direction') or {}).get('episode')}
     for key, value in list(files.items()):
         path = (repo / key).resolve()
-        if path.suffix != '.json' or not path.is_file() or not path.is_relative_to(package):
+        if (path.suffix != '.json' or not path.is_file()
+                or not (path.is_relative_to(package) or key in policy.get('structured_data_files', []))):
             continue
         parsed = document(value, board)
         if isinstance(parsed, dict) and isinstance(parsed.get('scenes'), list) and parsed.get('date') == board.get('date'):
