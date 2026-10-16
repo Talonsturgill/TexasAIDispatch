@@ -51,6 +51,11 @@ def technical_repair_problems(state, plan):
                 or {payload_digest(x["finding"]) for x in rows} != original
                 or any(x["category"] not in allowed for x in rows)):
             raise ValueError("unclassified or artistic findings")
+        from repair_guard import MEASURED_RUNTIME_FAMILY
+        if plan.get("failure_family") == MEASURED_RUNTIME_FAMILY:
+            categories = {x["category"] for x in rows}
+            if "runtime" not in categories or not categories <= {"runtime", "captions"}:
+                return ["measured-runtime-crowding needs independent runtime findings, with optional caption findings"]
     except (OSError, ValueError, KeyError, TypeError):
         return ["technical repair needs independent classification of every exact failure; artistry stays creative"]
     return []

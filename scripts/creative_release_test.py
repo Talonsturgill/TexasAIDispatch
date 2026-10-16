@@ -93,6 +93,25 @@ class CreativeReleaseTests(unittest.TestCase):
         path.write_text(json.dumps(report))
         self.assertTrue(c.technical_repair_problems(state, plan))
 
+    def test_measured_runtime_family_rejects_nonruntime_and_mixed_findings(self):
+        path = self.root / 'runtime-technical.json'
+        findings = [{'id': 'F1', 'observed': 'The measured take exceeds the film runtime.'},
+                    {'id': 'F2', 'observed': 'The dense measured clause exceeds the caption limit.'}]
+        plan = {'director_identity': 'director', 'failure_family': 'measured-runtime-crowding',
+                'failure_evidence': str(path)}
+        for categories, accepted in [(('runtime', 'captions'), True),
+                                      (('runtime', 'runtime'), True),
+                                      (('captions', 'captions'), False),
+                                      (('runtime', 'source'), False),
+                                      (('runtime', 'motion'), False)]:
+            with self.subTest(categories=categories):
+                path.write_text(json.dumps({'reviewer_identity': 'critic',
+                    'blocking_defects': findings, 'technical_repair': {'findings': [
+                        {'finding': item, 'category': category}
+                        for item, category in zip(findings, categories)]}}))
+                plan['failure_evidence_sha256'] = c.digest(path)
+                self.assertEqual(not c.technical_repair_problems({'run_id': '2026-10-15'}, plan), accepted)
+
     def test_new_editions_cannot_defer_missing_picture_action(self):
         board = dict(self.board, date="2026-09-30")
         with patch.object(c, "eligible", return_value=True), patch.object(c, "review_allows", return_value=True):

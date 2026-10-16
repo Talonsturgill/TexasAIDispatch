@@ -142,6 +142,13 @@ failure_family and director_identity. The frozen cumulative envelope takes prece
 old instructions about renewable extensions. An existing bounded authorization is not endless
 permission. Never reset usage, purchase a reset, falsify a verdict or relabel a batch to hide spend.
 
+When measured narration exceeds the authored runtime or crowds the scene/caption limits,
+use failure_family measured-runtime-crowding with technical-integrity scope. Retain the exact
+independent runtime/caption classification and at least one runtime finding. This category
+does not authorize an artistic correction, extra capacity or a recurrence reset. If a category
+is unsupported, retain the schema refusal and repair the contract through reviewed source and
+CI; do not substitute another label or ask the owner to select an internal enum value.
+
 After two rejections of the same mechanism or defect family, obtain the required independent,
 hash-bound pivot review. Replace the mechanism, staging or source-backed angle before another
 native attempt. Labels, sleeve adjustments, camera offsets and easing changes are not a pivot.
