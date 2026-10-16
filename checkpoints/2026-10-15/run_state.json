@@ -1,4 +1,23 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r14-funding/baseline/opening-a.json",
+        "before_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r14-funding/baseline/opening-b.json",
+        "before_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      }
+    ],
+    "failure_sha256": "a68ead8633a54f05c993c602520a8a43dbfe846f24589b10b1865e3fbcb836d2",
+    "plan": "{REPO}/out/dispatch/repair-plan.json",
+    "plan_sha256": "16ec6bbacb22a1b81fcd8b65f278e40055a742cbeca2c02450bea47e9ba321eb",
+    "reboards_before": 8,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -5197,6 +5216,41 @@
         "validator_agents": 5,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-16T22:37:42.324670Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r14-funding/baseline/opening-a.json",
+          "before_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r14-funding/baseline/opening-b.json",
+          "before_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "measured-runtime-crowding",
+      "failure_sha256": "a68ead8633a54f05c993c602520a8a43dbfe846f24589b10b1865e3fbcb836d2",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 29,
+          "to": 29
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "conform-second-treatment-to-measured-body",
+      "plan_identity": null,
+      "plan_sha256": "16ec6bbacb22a1b81fcd8b65f278e40055a742cbeca2c02450bea47e9ba321eb",
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -5220,7 +5274,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "fcd0711ad0cc71fcae2cfc325e7c5894332772c2655a3faa51869091fe72e74f",
+    "original_private_state_sha256": "85dab66c41ac223d16daea30247d52c4ee4735fe60d93991b623876a61f0689f",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -5256,7 +5310,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T22:37:21.086672Z",
+  "updated_at": "2026-10-16T22:37:42.324682Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
