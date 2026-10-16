@@ -1,29 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/failed-take-1/vo_direction-before.json",
-        "before_sha256": "d752694fbe4ca330f41af5c59303a78dbd949ee8e43b289704ecda117a9e9dcd",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "bdd6fdbf9aaa532b0ccfc16ab0713da70b8b7ebae5590422abc20b58e0e2e2cf",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-        "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
-        "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
-        "{REPO}/out/dispatch/storyboard.json": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
-        "{REPO}/out/dispatch/vo_script.txt": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
-      },
-      "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
-    },
-    "plan": "{REPO}/out/dispatch/repair-plan-voice1.json",
-    "plan_identity": "9b2d61cd0acd14a982802c997a0462d2a610a5d7793a3aacbc5c81d90c895d7c",
-    "plan_sha256": "c9a6943738486067ee930e6f4284f32fa1608c588fb6f3b4afcd48d80bde1ade",
-    "reboards_before": 3,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1460,6 +1435,43 @@
       "plan_identity": "9b2d61cd0acd14a982802c997a0462d2a610a5d7793a3aacbc5c81d90c895d7c",
       "plan_sha256": "c9a6943738486067ee930e6f4284f32fa1608c588fb6f3b4afcd48d80bde1ade",
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-16T13:48:21.171941Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "af9941a9860f303aedfa707b6d26f82937dc17f4bdfc279180915ee2bdb3a13b",
+            "before_path": "{REPO}/out/dispatch/evidence/failed-take-1/vo_direction-before.json",
+            "before_sha256": "d752694fbe4ca330f41af5c59303a78dbd949ee8e43b289704ecda117a9e9dcd",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "A single continuous take whose transcript matches the locked script, passing the verbatim soundcheck, with the same eight emphases and the same energy arc.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/failed-take-1/soundcheck.txt",
+        "failure_evidence_sha256": "bdd6fdbf9aaa532b0ccfc16ab0713da70b8b7ebae5590422abc20b58e0e2e2cf",
+        "failure_family": "unclassified",
+        "mechanism_change": "Direction describes how to perform (pace, stress, breath, level) and no longer paraphrases the content of the line, so there is no alternative wording in the prompt to be read aloud.",
+        "mechanism_id": "direction-lexical-leak-paraphrase",
+        "repair": "Rewrite only the intent and energy text of lines 1 and 2 (and any other direction text that restates a script phrase in other words) so the direction carries performance intent without alternative wording of the script. Spoken script, claims, board, sources and renderer stay byte-identical.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "The first synthesized take scored word accuracy 0.945 against the locked script because the narrator paraphrased lines 1 and 2 using the wording of the per-line direction text sent in the same prompt (before phone warns anyone, built a station, needs no tower). The direction intents restated script phrases in different words, so the model read the direction's lexical content."
+      },
+      "repair_plan_sha256": "74c4c459001aef7fbe8220e542b00c5edd82ad55393655ef70821cd48f58bef8",
+      "repair_revision": "bbc5d97aec2e3af08513c1cf926083a36551dc940ea33cac467bd58c7cb056de",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1483,7 +1495,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "eb8e6e2088c9cba8c66ce5bf444d8062c46c199d551b1a9d84dd19d0d700ab38",
+    "original_private_state_sha256": "6c7563048d620c3d84068b6e0d07bcb6e127ce95213bc66c54ad86f7336620b7",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -1519,7 +1531,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T13:47:51.249121Z",
+  "updated_at": "2026-10-16T13:48:21.171983Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
