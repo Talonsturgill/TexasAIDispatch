@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T02:32:22.620196+00:00",
-  "note": "authored art recorded and verified on all three boards; builder handback gates; decimal parser fix handed to owner; director draft reverted",
+  "saved_at": "2026-10-16T02:47:12.159849+00:00",
+  "note": "PR 160 integrated d1c0980; all cheap gates exit 0 on storyboard, A and B; tsc clean",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "67794a1ab0ca9dfd062be8f8fee2d25e0e5fbf4d",
+  "source_pin": "d1c0980519fa275ba4dc62ad7e8952d23f39e4a0",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -605,6 +605,240 @@
       "class": "scratch",
       "sha256": "10bd957d55cd78c9a49c6f3fb01f8f5032face533a046469b3a59df5e99e89af",
       "size": 2505
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-authored_story_art.txt",
+      "class": "scratch",
+      "sha256": "ad606522c6ff102b2bdb87f019a23d5c49fa9d0199b93849e1517ed71576465d",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-board_scale_check.txt",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-caption_board_fit.txt",
+      "class": "scratch",
+      "sha256": "b34b8ee8cd7a7cd58883adb49f8655ffc2b5de9a7371023fd4b349dcd803e653",
+      "size": 71
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-documentary_check.txt",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-floor_check.txt",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-modern_film.txt",
+      "class": "scratch",
+      "sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-native_sample_plan.txt",
+      "class": "scratch",
+      "sha256": "fafbba022925595384d362721fc3ff1cc48768475f749365016293c3da171a02",
+      "size": 427
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-script_evidence_check.txt",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-shot_coherence.txt",
+      "class": "scratch",
+      "sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-staging_check.txt",
+      "class": "scratch",
+      "sha256": "acc7a9abd765cfcb427eef7025253da27b2ecc2c6cf5ce3f50e9d6cd8dcc9c2d",
+      "size": 713
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-storyboard_check.txt",
+      "class": "scratch",
+      "sha256": "b0dfa1243483f76868a3af1408bcaa654845380cd467240956327ae78a072d92",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-super_evidence_check.txt",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-a-watchability_check.txt",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-authored_story_art.txt",
+      "class": "scratch",
+      "sha256": "ad606522c6ff102b2bdb87f019a23d5c49fa9d0199b93849e1517ed71576465d",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-board_scale_check.txt",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-caption_board_fit.txt",
+      "class": "scratch",
+      "sha256": "b34b8ee8cd7a7cd58883adb49f8655ffc2b5de9a7371023fd4b349dcd803e653",
+      "size": 71
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-documentary_check.txt",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-floor_check.txt",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-modern_film.txt",
+      "class": "scratch",
+      "sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-native_sample_plan.txt",
+      "class": "scratch",
+      "sha256": "f30039df401a325e225edcc1e0a3332b3edee0b63206b8812af3b72a63b25652",
+      "size": 428
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-script_evidence_check.txt",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-shot_coherence.txt",
+      "class": "scratch",
+      "sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-staging_check.txt",
+      "class": "scratch",
+      "sha256": "3e3c86d40ffa0629a1ed01d37b20cdd8ee712dc11d10a06c6602821c0ddc7ce6",
+      "size": 713
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-storyboard_check.txt",
+      "class": "scratch",
+      "sha256": "b0dfa1243483f76868a3af1408bcaa654845380cd467240956327ae78a072d92",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-super_evidence_check.txt",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/opening-b-watchability_check.txt",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-authored_story_art.txt",
+      "class": "scratch",
+      "sha256": "ad606522c6ff102b2bdb87f019a23d5c49fa9d0199b93849e1517ed71576465d",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-board_scale_check.txt",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-caption_board_fit.txt",
+      "class": "scratch",
+      "sha256": "b34b8ee8cd7a7cd58883adb49f8655ffc2b5de9a7371023fd4b349dcd803e653",
+      "size": 71
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-documentary_check.txt",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-floor_check.txt",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-modern_film.txt",
+      "class": "scratch",
+      "sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409",
+      "size": 79
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-native_sample_plan.txt",
+      "class": "scratch",
+      "sha256": "fafbba022925595384d362721fc3ff1cc48768475f749365016293c3da171a02",
+      "size": 427
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-script_evidence_check.txt",
+      "class": "scratch",
+      "sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa",
+      "size": 129
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-shot_coherence.txt",
+      "class": "scratch",
+      "sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-staging_check.txt",
+      "class": "scratch",
+      "sha256": "6bfa4a1c77fdda54e886791d5177dfc2efea9226c2c769c557812618342f9dff",
+      "size": 714
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-storyboard_check.txt",
+      "class": "scratch",
+      "sha256": "b0dfa1243483f76868a3af1408bcaa654845380cd467240956327ae78a072d92",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-super_evidence_check.txt",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/gate-receipts-d1c0980/storyboard-watchability_check.txt",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
     },
     {
       "path": "out/dispatch/opening-a.json",
