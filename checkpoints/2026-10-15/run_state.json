@@ -1,29 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/direction-r12/vo_direction-before.json",
-        "before_sha256": "420d6fe30b80d0ae5f1472bc7f6f443aa44783887c987345053e4a0590a79200",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "5acd5a49fc8c47a3f0f6eb42558adb5a95751d4eb7209ddd5a6e49307dcca0b1",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-        "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
-        "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
-        "{REPO}/out/dispatch/storyboard.json": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
-        "{REPO}/out/dispatch/vo_script.txt": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf"
-      },
-      "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
-    },
-    "plan": "{REPO}/out/dispatch/evidence/direction-r12/repair-plan.json",
-    "plan_identity": "b707731deafb3c8064d44ec45cfd865b5894873cd7c9b4877fc741e6422d4b19",
-    "plan_sha256": "08b4fb0141fe085439894136baefc66f8704e9c870aca45ae4fc2996088ce16e",
-    "reboards_before": 7,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -4483,6 +4458,43 @@
       "plan_identity": "b707731deafb3c8064d44ec45cfd865b5894873cd7c9b4877fc741e6422d4b19",
       "plan_sha256": "08b4fb0141fe085439894136baefc66f8704e9c870aca45ae4fc2996088ce16e",
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-16T20:39:16.307952Z",
+      "grants": {
+        "tts_calls": {
+          "from": 14,
+          "to": 14
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "9074d9ffea800684edb8d2520f490c7bc1cae043340dda9defd554e758e6a82a",
+            "before_path": "{REPO}/out/dispatch/evidence/direction-r12/vo_direction-before.json",
+            "before_sha256": "420d6fe30b80d0ae5f1472bc7f6f443aa44783887c987345053e4a0590a79200",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "vo_synth builds its prompt with no refusal and the one continuous take is directed with the same per-sentence notes the independent reviews approved.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/direction-r12/vo-synth-refusal-20261016.log",
+        "failure_evidence_sha256": "5acd5a49fc8c47a3f0f6eb42558adb5a95751d4eb7209ddd5a6e49307dcca0b1",
+        "failure_family": "capture-and-analysis",
+        "mechanism_change": "The direction moves from sentence-granularity lines to the scene-granularity lines the synth and controller contract require, keeping every retained intent, emphasis and energy note.",
+        "mechanism_id": "scene-level-direction-contract",
+        "repair": "Direction only: replace the lines array by nine scene-level lines whose intent and energy join the retained sentence-level notes in order, with an exact emphasis phrase from each scene. The per-sentence lines are kept under sentence_lines and the lines carry no text field because the script has one sentence per file line. Script, board, claims, sources and renderer stay byte-identical.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "vo_synth_gemini refused before spending any call: the voice direction plans 15 sentence-level lines but the controller contract requires one direction line per current scene (nine) and an emphasis that is an exact phrase of that scene voice line. Exact refusal output is retained in vo-synth-refusal-20261016.log. No TTS call was made."
+      },
+      "repair_plan_sha256": "08b4fb0141fe085439894136baefc66f8704e9c870aca45ae4fc2996088ce16e",
+      "repair_revision": "3a1a30b440eebf6d8397fe81f232e3fd2247ed3bbbadc1c5052804db89510b2e",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -4506,7 +4518,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e9a0b591b8d464ed2d986d08b94ac4cae86da9458e92e15c1fb704487ab6bad8",
+    "original_private_state_sha256": "c9fe583c734c38e3d5e467d27ceb032dedc26b2249377fa9a41012e7b49c8854",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4542,7 +4554,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:39:08.909240Z",
+  "updated_at": "2026-10-16T20:39:16.307964Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
