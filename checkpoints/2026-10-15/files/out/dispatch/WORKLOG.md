@@ -25,3 +25,9 @@ the new FloodStationFilm, FloodStationHero, StreetHubSupport and the executed de
 The renderer closure stays mechanically hash-bound and verified by the director; unchanged unrelated closure files need not be read, and unrelated old
 episode implementations and whole controller modules are out of scope. The critic returns a per-input table separating read-in-full from verified-by-hash.
 No mandatory guide may be reported covered unless it was read.
+
+## 2026-10-16 session (Sonnet director, fresh container) 
+- Restored 2026-10-15 from checkpoint to /home/user/restore/2026-10-15; Docket sibling is a worktree at /home/user/restore/TexasAIDocket (sparse, runs/ excluded). Bootstrap/env_check/contract check exit 0. Hook probe denial retained (evidence/capture-hook-probe-denial-20261016.txt).
+- Headroom recovered to 20.6 GiB by sparse-excluding runs/ in the two primary checkouts and dropping uv/pip caches (no data deleted).
+- Opening comparison rendered and both inspections pass (openings/comparison.json). Preflight identity collisions retained in evidence/animatic-*.md; three infra retries recorded.
+- Contact sheets openings/review/{a,b}-sheet.png; phone critic reserved (storyboard_critics 3/3) and running. Next: selection.json, copy chosen board to storyboard.json + critic + preflight.mp4, preflight inspect, daily_production, voice.
