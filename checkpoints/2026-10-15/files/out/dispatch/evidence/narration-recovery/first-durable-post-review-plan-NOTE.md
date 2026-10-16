@@ -1,0 +1,7 @@
+# first-durable-post-review-plan-voice4.json (context only)
+
+Exact blob of repair-plan-voice4.json recovered from checkpoint commit 19119196f7ce614f515d4257780abb6fc1b5966e (2026-10-16T14:28:30Z), also present at 717b1b979990da0467cc9dddca0e6a3be79605f7 (14:28:40Z), path checkpoints/2026-10-15/files/out/dispatch/repair-plan-voice4.json. sha256 71e747f740503901d3537fc921bac9799048467e0680d00db9bd8587f98bb174, verified from both commits. Mechanism closing-phrase-full-length, after_sha256 48334ae4....
+
+This is the FIRST DURABLE POST-REVIEW plan. It was saved after the director edited L9 intent (dropping "and length"), so it binds the current direction 48334ae4... and does NOT prove the earlier candidate 9c514347... that the uncharged continuation actually reviewed. That candidate is only reconstructed (continuation-reviewed-direction-candidate.json, matching the hash the director recorded) from the source message continuation-proposal-as-sent.txt. The gap stays explicit. This file can document the late debit. It approves no work and no review.
+
+Old reviewer task: agent aae3c92fe4b807972 existed in the pre-restoration runtime at the time of this note. If it is unavailable after the fresh-host restoration, record that actual unavailability and start one fresh isolated claude-opus-5-5 high role under a new precharged reservation, not a provider switch. The fresh review must pass on the current 48334ae4 direction with the retained take 5, acoustic and source evidence.
