@@ -68,7 +68,10 @@ class NarrationRecoveryTest(unittest.TestCase):
         ref = lambda p: {'path': str(p), 'sha256': voice.digest(p)}
         self.audio = self.write('out/dispatch/failed-take.wav', 'Synthetic PCM fixture, no actual listening claimed.', text=True)
         self.asr = self.write('out/dispatch/acoustic-asr.json', {'words': ['wrong']})
-        packet = self.write('out/dispatch/packet.md', 'Full narration-performance proposal changes only vo_direction.json.', text=True)
+        packet = self.write('out/dispatch/packet.md',
+            'Original review of the unchanged script and direction: ' + ' '.join(
+                [voice.digest(p) for p in failures] + [voice.digest(baseline),
+                 voice.digest(self.root / 'out/dispatch/vo_script.txt')]), text=True)
         incident = {'agent_id': 'actual_voice_actor_123', 'precharged': False,
                     'invalid_for_authorization': True, 'observed_at': controller.now(),
                     'handback': ref(self.write('out/dispatch/uncharged-handback.json', {'verdict': 'pass'})),
@@ -147,6 +150,11 @@ class NarrationRecoveryTest(unittest.TestCase):
             raw = path.read_bytes(); path.write_bytes(raw + b' ')
             self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0], path)
             path.write_bytes(raw)
+        packet = next(r for r in json.loads(self.receipt.read_text())['retained_inputs'] if r['kind'] == 'packet')
+        path = Path(packet['path']); path.write_text('A summary with no complete original bindings.')
+        # A new file hash cannot turn a summary into the actual complete packet.
+        plan['narration_recovery_evidence']['receipt_json'] = self.receipt.read_text().replace(packet['sha256'], voice.digest(path))
+        self.assertTrue(voice.file_problems(self.state, plan))
 
     def test_retroactive_timestamp_late_reservation_or_wrong_direction_refused(self):
         self.grant(); voice.settle(self.state, self.plan); receipt, passed = self.review()

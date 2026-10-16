@@ -147,6 +147,11 @@ agent_id, observed_at, precharged false, invalid_for_authorization true and path
 for handback, proposal and disclosure. At most one such incident is admitted per charged
 rejection. Account it once as a visibly LATE CHARGE; never backdate a reservation or present
 the old pass as a properly precharged review. An empty incidents list is valid.
+If an earlier candidate file was overwritten, first recover its actual checkpoint version.
+If its exact reviewed bytes remain unavailable, retain that explicit gap and bind the supported
+request/handback and first durable proposal as limited context. Label reconstruction honestly;
+it can document a late debit but cannot authorize work. The fresh charged review must inspect
+the complete retained current direction and current source evidence before production resumes.
 
 ```sh
 python scripts/narration_recovery.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <full-original-rejection> --output <new-capacity-plan>

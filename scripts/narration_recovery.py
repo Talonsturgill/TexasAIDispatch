@@ -152,8 +152,12 @@ def file_problems(state_path, plan):
             paths.add(path)
         packets = [current_path(r['path'], proof).read_text()
                    for r in receipt['retained_inputs'] if r['kind'] == 'packet']
-        if not any('narration-performance' in p and 'vo_direction.json' in p for p in packets):
-            return ['narration recovery requires the actual complete narration review packet']
+        report = json.loads(current_path(plan['failure_evidence'], proof).read_text())
+        script = proof['frozen_inputs']['files']['out/dispatch/vo_script.txt']
+        baselines = [r['sha256'] for r in receipt['retained_inputs'] if r['kind'] == 'baseline']
+        if not any(all(h in p for h in report['reviewed_failure_sha256'])
+                   and script in p and any(h in p for h in baselines) for p in packets):
+            return ['original narration packet does not bind all failed findings, locked script and direction baseline']
         if len(paths) < 7:
             return ['narration recovery needs separate original evidence files']
     except (OSError, KeyError, ValueError, TypeError) as exc:
