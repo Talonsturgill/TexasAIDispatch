@@ -523,6 +523,14 @@
       "note": "precharged same-worker r13 timing revision: canonical gate-format code-plan reports for both changed treatments (SendMessage a110876b976dcc812)",
       "resource": "storyboard_critics",
       "to": 23
+    },
+    {
+      "at": "2026-10-16T22:03:02.105677Z",
+      "ceiling": 10,
+      "from": 7,
+      "note": "R13 measured scene split reboard (technical-integrity, report 22)",
+      "resource": "reboards",
+      "to": 8
     }
   ],
   "events": [
@@ -4857,6 +4865,24 @@
       "plan_identity": null,
       "plan_sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
       "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-16T22:03:02.105689Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "R13 measured scene split reboard (technical-integrity, report 22)",
+      "now": 8,
+      "resource": "reboards",
+      "was": 7
+    },
+    {
+      "at": "2026-10-16T22:03:02.105696Z",
+      "kind": "reserved",
+      "note": "R13 measured scene split reboard (technical-integrity, report 22)",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -4866,7 +4892,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 19,
-    "reboards": 7,
+    "reboards": 8,
     "reported_tokens": 443292,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -4880,7 +4906,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f9d8355f11aa5ddcf9f701ac02be72c9591c2bccd2217c93fae8b74470420e3d",
+    "original_private_state_sha256": "f87758674769adb89f6752555a8c0610cce2d05def769a2e618091292a528dc4",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4916,7 +4942,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T22:02:42.537841Z",
+  "updated_at": "2026-10-16T22:03:02.105698Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
@@ -4924,7 +4950,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 19,
-    "reboards": 7,
+    "reboards": 8,
     "reported_tokens": 443292,
     "rescue_renders": 0,
     "research_agents": 3,
