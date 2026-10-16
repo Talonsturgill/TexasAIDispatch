@@ -1,29 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/failed-take-3/vo_direction-before.json",
-        "before_sha256": "cd9184de22b78b7444e121d60cde29bf583c72b3b74cc817676e95deb1342d77",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "32c76d037256c2734e9fcb5debb94a856925a92d0a46d31e058b00decd6df6f5",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-        "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
-        "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
-        "{REPO}/out/dispatch/storyboard.json": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
-        "{REPO}/out/dispatch/vo_script.txt": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
-      },
-      "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
-    },
-    "plan": "{REPO}/out/dispatch/repair-plan-voice3.json",
-    "plan_identity": "2361115796f56d10584288a6ca061b2fb0e5cdbd05f5e71ca7ae137d90eabeaf",
-    "plan_sha256": "9c121ced95f4a38d5a1352b127238b90335cb3d877080dc6cbafce8af8d71611",
-    "reboards_before": 3,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1792,6 +1767,47 @@
       "plan_identity": "2361115796f56d10584288a6ca061b2fb0e5cdbd05f5e71ca7ae137d90eabeaf",
       "plan_sha256": "9c121ced95f4a38d5a1352b127238b90335cb3d877080dc6cbafce8af8d71611",
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-16T14:17:32.274644Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "f240dc687d8d5f3c167a2386347e66b63438a6f36f67ffe9c57e06ee869f2aba",
+            "before_path": "{REPO}/out/dispatch/evidence/failed-take-3/vo_direction-before.json",
+            "before_sha256": "cd9184de22b78b7444e121d60cde29bf583c72b3b74cc817676e95deb1342d77",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "One continuous take whose forced alignment reconciles with every word of the locked script, including spread, with the percent figure matched by the repaired canonicalization.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/failed-take-3/finding.md",
+        "failure_evidence_sha256": "32c76d037256c2734e9fcb5debb94a856925a92d0a46d31e058b00decd6df6f5",
+        "failure_family": "unclassified",
+        "mechanism_change": "The prompt now allows a natural clause breath where the caption profile expects one, and the direction names that breath at the spread-for join instead of requiring an unbroken run.",
+        "mechanism_id": "clause-breath-and-short-notes",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/evidence/pivot-review-voice3.json",
+          "sha256": "ed45b245f7c56a59a60de10d5266530a6f74b8cf1dce6b9a9a028cff83896ac7"
+        },
+        "repair": "Rewrite the direction under the updated short-notes brief: one short overall paragraph, intent in a few words, one exact script phrase per line as emphasis (line 6 stresses could alone), a brief relative energy change, no alternative wording, no invented pronunciation rules. Name the breath after could spread in a field the synthesizer receives (line 6 energy). The retired articulation instructions are removed. Spoken script, claims, board, sources and renderer stay byte-identical.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "Take 3 passed the soundcheck and read every phrase, but whisper heard how flooding could spray it for emergency responders while Gemini heard spread. The retained timestamps show could spread running straight into for with no boundary: the take 3 prompt told the narrator never to pause inside a sentence, and the one breath planned after spread lived only in the edit-only pause_after field that the synthesizer never receives. PR177's dated prompt permits natural complete-clause breaths."
+      },
+      "repair_plan_sha256": "494ccbb2d9a850425c835a8866881fea459f0623fc2c5b4106cbaee4ccddf0b5",
+      "repair_revision": "684cdce908ac87ebf5e25a156f76b8616855471073dbfe7429d9db8240f7fcd2",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1815,7 +1831,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9e9d045d106b93eabd6b691c5c91556b4f19eb06382b922c843bdacb3baece17",
+    "original_private_state_sha256": "4febf868fbafe2f6a2a3b48895445275ecddedb81ab2111c3a3cfa7c209cf23c",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -1851,7 +1867,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T14:17:15.514705Z",
+  "updated_at": "2026-10-16T14:17:32.274690Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
