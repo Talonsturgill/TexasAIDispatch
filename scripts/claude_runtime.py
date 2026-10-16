@@ -139,6 +139,72 @@ def motion_inputs(data):
         raise ValueError('; '.join(errors))
 
 
+def phone_options(state_path, sequences):
+    """Compute bindings for the two exact movies; supply no creative answers."""
+    import claude_motion_review as motion
+    import critic_gate
+    import daily_production
+    import quality_contract
+    from action_admission import source_claims_digest
+    state_path = Path(state_path).resolve(); output = state_path.parent / 'openings'
+    rows = []
+    for option, sequence in zip(('a', 'b'), sequences, strict=True):
+        board, film = output / (option + '.json'), output / (option + '.mp4')
+        comparison = motion.phone_inputs(state_path, option, board, film)
+        errors = motion.problems(sequence, board, film, True, comparison)
+        if errors:
+            raise ValueError('; '.join(errors))
+        data = read(board)
+        rows.append({'id': option, 'board': bound(board), 'film': bound(film),
+                     'motion_sequence': bound(sequence), 'comparison': comparison,
+                     'report_bindings': {'review_scope': 'exact-muted-phone-preflight',
+                         'reviewed_preflight_sha256': digest(film),
+                         'concept_sha256': critic_gate.concept_digest(data),
+                         'renderer_sha256': critic_gate.renderer_digest(data),
+                         'quality_contract_sha256': quality_contract.fingerprint(),
+                         'modern_observations': {'film_sha256': digest(film)},
+                         'narration_picture_observations': {'film_sha256': digest(film)},
+                         'action_reviews': [{'action_id': action['id'],
+                             'module_sha256': action['module']['sha256'],
+                             'source_claims_sha256': source_claims_digest(action)}
+                             for action in data.get('action_proposals', [])],
+                         'story_review': {'story_sha256': daily_production.story_digest(data),
+                             'policy_sha256': digest(daily_production.POLICY)}}})
+    return rows
+
+
+def phone_packet(packet_path, state_path, sequences):
+    data = read(packet_path)
+    if data.get('role') != 'storyboard-critic':
+        raise ValueError('phone packet requires the existing independent storyboard critic')
+    if Path(data['board']['path']).resolve().parent != Path(state_path).resolve().parent:
+        raise ValueError('phone packet must use the current owned edition')
+    data['review_scope'] = 'exact-muted-phone-preflight'
+    data['phone_state'] = str(Path(state_path).resolve())
+    data['phone_options'] = phone_options(state_path, sequences)
+    for row in data['phone_options']:
+        row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
+    data['instructions'] += (' Review every chronological image page for both options before the director rationale. '
+        'These images establish only their sampled pixels, with no direct playback or listening. '
+        'Return one consolidated comparison/selection and exact-phone review as JSON in your handback; '
+        'the director saves it unchanged. Copy the supplied mechanical bindings exactly, then supply your '
+        'own verdict and all required timed observations. Unproven motion stays unresolved. '
+        'Do not run Bash, write files, invent hashes, or infer approval from structural measurements.')
+    phone_review_inputs(data)
+    return data
+
+
+def phone_review_inputs(data):
+    rows = data.get('phone_options') or []
+    if data.get('review_scope') != 'exact-muted-phone-preflight' or len(rows) != 2:
+        raise ValueError('Claude phone review needs both complete exact-phone motion sequences')
+    expected = phone_options(data['phone_state'], [r['motion_sequence']['path'] for r in rows])
+    for row in expected:
+        row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
+    if rows != expected:
+        raise ValueError('Claude phone review inputs or computed bindings changed')
+
+
 def mechanical_admission(role, data, task):
     """Admit one packet to the Haiku mechanical route, or refuse so the Opus assignment stays.
 
@@ -225,6 +291,9 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
     agent_runtime.validate_references(data)
     if role in ('picture', 'story', 'sound'):
         motion_inputs(data)
+    if role == 'storyboard-critic' and (data.get('review_scope') == 'exact-muted-phone-preflight'
+                                       or re.search(r'\bphone\b', scope, re.I)):
+        phone_review_inputs(data)
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')
@@ -343,6 +412,10 @@ if __name__ == '__main__':
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('authoring-packet'); p.add_argument('--board', type=Path, required=True)
     p.add_argument('--claims', type=Path, required=True); p.add_argument('--out', type=Path, required=True)
+    p = sub.add_parser('phone-packet'); p.add_argument('--packet', type=Path, required=True)
+    p.add_argument('--state', type=Path, required=True)
+    p.add_argument('--sequence-a', type=Path, required=True); p.add_argument('--sequence-b', type=Path, required=True)
+    p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('plan'); p.add_argument('--role', required=True); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
     p.add_argument('--mechanical-task', choices=['code-only-review', 'mechanical-correction'])
@@ -359,6 +432,8 @@ if __name__ == '__main__':
         result = input_packet(args.role, args.date, args.input)
     elif args.action == 'authoring-packet':
         result = authoring_packet(args.board, args.claims)
+    elif args.action == 'phone-packet':
+        result = phone_packet(args.packet, args.state, [args.sequence_a, args.sequence_b])
     elif args.action == 'plan':
         result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task)
     elif args.action == 'measure':

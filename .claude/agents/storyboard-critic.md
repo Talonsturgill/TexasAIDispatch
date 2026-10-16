@@ -10,6 +10,14 @@ At code scope judge the current board and callable renderer before capture. At p
 judge the exact supplied complete film first, then check its current board and source limits.
 Return one consolidated handoff from this assignment; do not restart broad planning at phone scope.
 
+In the Claude Read-only phone assignment, require the complete movie-derived chronological
+images for both exact previews from the versioned phone packet. Read every page before the
+director rationale. A scene midpoint sheet cannot establish timed action or continuity.
+Use the packet's mechanically computed report bindings; do not invent hashes or request Bash.
+Return the selection and complete exact-phone review JSON in your response for the director
+to retain unchanged. Describe this sampled-image basis honestly and leave unproven motion
+unresolved. Image coverage and structural passes supply no creative approval.
+
 Return the existing gate-ready JSON contract, not a prose verdict that the director must convert.
 Read the assignment's full current guide text and hashes. Use its current output contract and
 mechanically supplied digests. When format details are missing, read bounded excerpts of the

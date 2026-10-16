@@ -8,6 +8,7 @@ OPERATIONS = {
     'cinema_proof.py': 'finished cinematic hero and stage ablation batch',
     'claude_motion_review.py': 'exact-film motion-image review extraction',
 }
+from claude_motion_review import PHONE_OPERATIONS
 
 
 def operation_for(commands, root):
@@ -22,7 +23,17 @@ def operation_for(commands, root):
                 or Path(tokens[1]).name not in OPERATIONS
                 or resolve(tokens[1], here) != Path(root).resolve() / 'scripts' / Path(tokens[1]).name):
             raise ValueError('prepared capture requires a supported checkout operator, not a raw or mixed capture')
-        found.append(OPERATIONS[Path(tokens[1]).name])
+        operation = OPERATIONS[Path(tokens[1]).name]
+        if Path(tokens[1]).name == 'claude_motion_review.py' and any(t.split('=')[0] == '--phone-option' for t in tokens):
+            flags = [i for i, t in enumerate(tokens) if t.split('=')[0] == '--phone-option']
+            if len(flags) != 1:
+                raise ValueError('prepared phone extraction needs one option')
+            i = flags[0]
+            option = tokens[i].partition('=')[2] if '=' in tokens[i] else (tokens[i+1] if i+1 < len(tokens) else '')
+            if option not in PHONE_OPERATIONS:
+                raise ValueError('prepared phone extraction needs option a or b')
+            operation = PHONE_OPERATIONS[option]
+        found.append(operation)
     if len(found) != 1:
         raise ValueError('prepared capture requires one supported render operator')
     return found[0]
@@ -41,6 +52,10 @@ def prepare(root, state_path, commands):
             continue
         expected = {'state': state_path, 'board': root / 'out/dispatch/storyboard.json',
                     'mix': root / 'out/dispatch/mix.wav', 'film': root / 'out/dispatch/film.mp4'}
+        if note in PHONE_OPERATIONS.values():
+            option = next(k for k, v in PHONE_OPERATIONS.items() if v == note)
+            expected.update(board=root / ('out/dispatch/openings/' + option + '.json'),
+                            film=root / ('out/dispatch/openings/' + option + '.mp4'))
         for index, token in enumerate(tokens):
             for flag, path in expected.items():
                 if token == '--' + flag or token.startswith('--' + flag + '='):
@@ -54,6 +69,9 @@ def prepare(root, state_path, commands):
                 or deliverable.get('film_sha256') != controller.digest(root / 'out/dispatch/film.mp4')
                 or deliverable.get('board_sha256') != controller.digest(root / 'out/dispatch/storyboard.json')):
             raise ValueError('prepared motion extraction needs the registered exact native film and board')
+    elif note in PHONE_OPERATIONS.values():
+        from claude_motion_review import phone_inputs
+        phone_inputs(state_path, option, expected['board'], expected['film'])
     accepted, message = controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
     if not accepted:
         raise ValueError(message)

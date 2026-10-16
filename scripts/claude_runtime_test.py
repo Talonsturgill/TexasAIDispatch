@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 import claude_runtime as runtime
 
 
@@ -33,6 +34,16 @@ class RuntimeTests(unittest.TestCase):
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):
             runtime.assignment('picture', '2026-10-08')
+
+    def test_phone_scope_cannot_launch_from_midpoint_only_packet(self):
+        role = 'storyboard-critic'; edition = '2026-10-15'
+        packet = self.root / 'sparse-phone.json'
+        packet.write_text(json.dumps({'role': role, 'date': edition,
+            'agent_assignment': runtime.assignment(role, edition),
+            'brief': '.claude/agents/storyboard-critic.md'}))
+        with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'):
+            with self.assertRaisesRegex(ValueError, 'both complete exact-phone motion sequences'):
+                runtime.plan(role, packet, 'critic', 'Review both exact phone films.')
 
     def planned_boards(self):
         requests = []
