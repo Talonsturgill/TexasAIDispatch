@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T08:40:36.307019+00:00",
-  "note": "media-limit prepare refused by packet size; evidence retained",
+  "saved_at": "2026-10-16T09:27:56.712432+00:00",
+  "note": "post-PR167 prepare-media-limit still oversized; measurements retained",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/restore/2026-10-15",
-  "source_pin": "12877df835f033d3e44aee6961ce5297b1f458e4",
+  "source_pin": "e3bf48243ddbba1b68813ebd4a90af9a6afb999e",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -1098,6 +1098,12 @@
       "class": "scratch",
       "sha256": "7cf9512fece566cd935e940e4537a2fd7d5fa8820e2b63d2ae0a0e76f52d6ef1",
       "size": 714
+    },
+    {
+      "path": "out/dispatch/evidence/media-limit-prepare-after-pr167-20261016.md",
+      "class": "scratch",
+      "sha256": "fa119f0a5b891a843996c23304d5bdf250a0cfaabb318f0dcecfa68b4f783606",
+      "size": 2301
     },
     {
       "path": "out/dispatch/evidence/media-limit-prepare-size-refusal-20261016.md",
