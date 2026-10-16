@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T03:44:45.380308+00:00",
+  "saved_at": "2026-10-16T03:45:33.668454+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "f0c4b64de9f9a509cca0e118f7b96f02964b3e5a3ce21637b8a71605322ec696",
-  "original_private_ledger_sha256": "77b1edfa5f1321648f540568f1831a7d51a6058751123ed5831e73b36686a9ed",
+  "ledger_sha256": "e594c496f6ae4b39f747cbdf4630ef2361ba6d61760cd64f0e6e8d3cd9d55a16",
+  "original_private_ledger_sha256": "c882c986ebf0492df44c9b304cfbb59b62946dcd5af4c47a56dccf07df777155",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
@@ -30,7 +30,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 1,
+    "storyboard_critics": 2,
     "tts_calls": 0,
     "validator_agents": 3,
     "voice_directors": 0
@@ -765,20 +765,26 @@
     {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
-      "sha256": "9f5ae3600c7ea149cbf052f516488e4c4bd6460fc9cbc33d024f1142cbf6d489",
-      "size": 2132
+      "sha256": "a372e07aa7872e3982007f4f1d9cd7acd09b2705763deb3e15dd944d5445c023",
+      "size": 2081
     },
     {
       "path": "out/dispatch/critic-digests.json",
       "class": "scratch",
-      "sha256": "c8b0f0dd13c012b5a2fb67234cc0a00c35c40870d8bb9b3ec1581db48860f181",
+      "sha256": "d637de438b7a9cbc025a715c308d7a7c2455987030e5dec07384387a6c6fa52d",
       "size": 566
     },
     {
       "path": "out/dispatch/critic-packet.json",
       "class": "scratch",
-      "sha256": "256fc1c54ab569dafd821f8bd13f2e3cc160240d0b537a1fd4208d939551114c",
-      "size": 8423
+      "sha256": "b72a216cd99c314de3abea9a8925679e3c9d5bdbce671fdb399587114e5aaad7",
+      "size": 8429
+    },
+    {
+      "path": "out/dispatch/critic-read-manifest.json",
+      "class": "scratch",
+      "sha256": "f81e2223bf5a6f03f2cb898f59b845c256e0bd4e216f195304df8a9abc55a0ab",
+      "size": 20379
     },
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
@@ -863,6 +869,24 @@
       "class": "scratch",
       "sha256": "e9b233d32a63323e0b17df11fda4dc0da187c4fa23a79bf74e28934bf432259e",
       "size": 1883
+    },
+    {
+      "path": "out/dispatch/evidence/critic-assignment-1.json",
+      "class": "scratch",
+      "sha256": "9f5ae3600c7ea149cbf052f516488e4c4bd6460fc9cbc33d024f1142cbf6d489",
+      "size": 2132
+    },
+    {
+      "path": "out/dispatch/evidence/critic-digests-1.json",
+      "class": "scratch",
+      "sha256": "c8b0f0dd13c012b5a2fb67234cc0a00c35c40870d8bb9b3ec1581db48860f181",
+      "size": 566
+    },
+    {
+      "path": "out/dispatch/evidence/critic-packet-1.json",
+      "class": "scratch",
+      "sha256": "256fc1c54ab569dafd821f8bd13f2e3cc160240d0b537a1fd4208d939551114c",
+      "size": 8423
     },
     {
       "path": "out/dispatch/evidence/post-correction-1-before-record/SHA256SUMS.txt",
