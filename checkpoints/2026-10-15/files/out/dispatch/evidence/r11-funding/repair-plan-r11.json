@@ -1,0 +1,35 @@
+{
+  "mechanism_id": "story-contract-claim-binding",
+  "failure_family": "source-framing",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "critic_gate refuses the applied R10 boards with story row omits claims used by its actual scene: scene s7 carries claim c18 (the chip AI binding of the validated sentence 11) but its story_contract row lists only c4. The same independent code review (full-coverage pass, retained) also asked that the non-narrated source_limit and source_basis metadata, which still said there is no field result and the university names no installation, be reconciled to the announcement scope before timed capture.",
+  "repair": "Metadata only, deterministic (evidence/proposal-r11/build_proposal.py): append c18 to the s7 story_contract row of both boards and reconcile the non-narrated limit text to the announcement scope. The authored-art request text, narration, captions, timing, shots, events, claims, sources and renderer stay byte-identical.",
+  "mechanism_change": "The story contract rows now carry every claim their scene actually narrates, and the stored source limits match the validated narration, instead of the earlier metadata that the proposals never reconciled.",
+  "expected_visible_result": "critic_gate and daily_production accept the story rows for both treatments, no picture, sound, caption or timing changes, and no board text outside metadata differs.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r11-funding/critic-gate-failure-20261016.txt",
+  "failure_evidence_sha256": "79b50bc75c5e38c0a0c0ee580d78161240ae19c0dc0ba7b5baed7d8c5bb3e0e4",
+  "resources": {
+    "reboards": 1
+  },
+  "repair_scope": "standard",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r11-funding/baseline/opening-a.json",
+      "before_sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c",
+      "after_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r11-funding/baseline/opening-b.json",
+      "before_sha256": "baf3f294acb2ccc23da0c94a497480c3dda12b09a400e5e40dc2189f37044dc3",
+      "after_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r11-funding/baseline/storyboard.json",
+      "before_sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c",
+      "after_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088"
+    }
+  ]
+}

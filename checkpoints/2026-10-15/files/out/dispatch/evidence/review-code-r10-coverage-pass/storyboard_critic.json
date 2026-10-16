@@ -1,0 +1,31 @@
+{
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+  "board_sha256": "329b2fc0ab7aa65e815b5600b117ce9a10ab97ca8ee842ce0847a79f9d3bb66c",
+  "concept_sha256": "d470a49ac1790d6d70941ec6af9649b58654d1b134870a36d2f722f1453db7df",
+  "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (Opus High), independent read-only code reviewer, not the director",
+  "reviewed_at": "2026-10-16T19:52:07.488Z",
+  "notes": "The measured-board slot currently holds treatment A. The packet binds the same sha256 329b2fc0 as opening-a.json, and my full read of both files (lines 1 to 4765 each) found the same content. The verdict, findings and limits are those of opening_a. The timing is still the authored provisional cue plan (narration_picture.timing_mode authored, captions source authored_estimate), which approves planning only. board_retime.py must replace it with measured caption boundaries, and the timed phone review must judge the measured film. Passes the code-plan scope only.",
+  "strongest_frame": "s4-shot-2, 22.24 to 24.17 s (detail, chip-glow). The chip lights the amber risk lamp and the judged-on-the-station tag pins under the n4b clause.",
+  "weakest_frame": "s3-shot-2, 15.78 to 16.82 s (close, water-marks). The signature water-crossing event has a 1.04 s shot and a 0.69 s event window, so it is at risk of reading as a flicker at 270 px.",
+  "blocking_defects": [],
+  "code_observations": [
+    "Same plan observations as opening_a, including the non-blocking stale source_limit and source_basis metadata and the stray purpose text.",
+    "Release dependencies carried from earlier rounds: D1 and D2 remain release blockers until a reconciled take is measured. The renewed silent phone A/B comparison is still owed, because the bound openings/comparison.json (931c0cc9) and selection.json (c28e2af9) predate the R8 to R10 boards."
+  ],
+  "action_reviews": [],
+  "story_review": {
+    "story_sha256": "a2c06a80777e6a3cde08b853c21da368c3805a2b72830e7e1b68794061e675ca",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Planned chain, not an observed film: a San Antonio yard floods before the phone warns. UT San Antonio's prototype station charges from light, needs no tower and senses the water with four marks. Its chip judges risk without a server, and radio carries the signal to a hub that maps flood paths. Only early chip validation accuracy is reported, with no field result and no installed town, so deployment remains the goal.",
+    "opening_to_ending": "The film moves from a yard warned too late to the same map with no pin and a dashed uninstalled station outline at the empty curb. It answers how a self-powered station would judge rising water, and it keeps the source limit visible without inventing a deployment or outcome.",
+    "weakest_transition": "s6 to s7 (38.16 s): the picture moves from the hub's larger model to the validation card, while the 98.82 figure belongs to the chip model. Only the VO and caption 'early chip AI validation' carry that attribution. Check it at phone scope."
+  }
+}
