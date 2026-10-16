@@ -2,15 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "f87eed1409bbc323e58beb57f77b55c7e0b2722252afe23ed3ffeb31baefd2bb",
+    "event_sha256": "b6689ac9c9fa496905280aab140f4761baf3af2c62c00aa3c13cdeb28460ad60",
     "resource": "preflight_renders",
-    "at": "2026-10-16T05:24:38.076564Z",
+    "at": "2026-10-16T05:25:08.298270Z",
     "note": "quarter-scale animatic"
   },
   "boards": [
     {
       "path": "out/dispatch/storyboard.json",
-      "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0"
+      "sha256": "8c0302d439f1fca1dcd474c5dbbae8c5a7aa58c02723a3548b2adeb47d852e98"
     }
   ],
   "bound": {
@@ -162,28 +162,28 @@
     {
       "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
       "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
-      "consumed": "2026-10-16T05:24:44.668245+00:00"
+      "consumed": "2026-10-16T05:25:13.933866+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.342
+    "free_gib": 20.339
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T052437.json",
-    "receipt_sha256": "24184949bddd075ec489085612d81bdcf800e05880bd89f3497ce0f88f0b755a",
+    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T052508.json",
+    "receipt_sha256": "71454b801b25a0920bf33b1910b13fb5175f282d9c5fbafa0714a913d3127f41",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-16T05:24:41.538123+00:00",
-  "expires_at": "2026-10-16T06:09:41.538123+00:00",
+  "issued_at": "2026-10-16T05:25:12.495585+00:00",
+  "expires_at": "2026-10-16T06:10:12.495585+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "quarter-scale animatic",
     "run_id": "2026-10-15",
-    "event_sha256": "f87eed1409bbc323e58beb57f77b55c7e0b2722252afe23ed3ffeb31baefd2bb",
-    "input_identity": "61725aa27d6c9bf5ddf830f06e796a8eb7dee2d15beeaaf607968b9dda3d8dee"
+    "event_sha256": "b6689ac9c9fa496905280aab140f4761baf3af2c62c00aa3c13cdeb28460ad60",
+    "input_identity": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30"
   }
 }
