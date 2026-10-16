@@ -1,0 +1,20 @@
+Updating 83cdb846..9c926f3b
+Fast-forward
+ .claude/agents/storyboard-critic.md            |   5 +
+ .github/workflows/guards.yml                   |   1 +
+ config/autonomous_completion_narration_v1.json |  12 +
+ knowledge/craft/AUTONOMOUS_COMPLETION.md       |  74 ++++++
+ prompts/phases/repair.md                       |  27 ++
+ scripts/autonomous_completion.py               |  72 +++++-
+ scripts/claude_checkpoint.py                   |  41 ++-
+ scripts/daily_production.py                    |   3 +
+ scripts/daily_production_test.py               |  10 +
+ scripts/independent_review.py                  |   4 +
+ scripts/independent_review_test.py             |  11 +
+ scripts/narration_recovery.py                  | 329 +++++++++++++++++++++++++
+ scripts/narration_recovery_test.py             | 248 +++++++++++++++++++
+ scripts/run_controller.py                      |  11 +-
+ 14 files changed, 830 insertions(+), 18 deletions(-)
+ create mode 100644 config/autonomous_completion_narration_v1.json
+ create mode 100644 scripts/narration_recovery.py
+ create mode 100644 scripts/narration_recovery_test.py
