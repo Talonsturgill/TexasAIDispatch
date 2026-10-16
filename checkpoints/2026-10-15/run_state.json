@@ -542,6 +542,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T05:25:38.013932Z",
+      "evidence": "{REPO}/out/dispatch/evidence/animatic-b-critic-mismatch-20261016.md",
+      "evidence_sha256": "3bff709a2a926b1e9df3b52a9a544a62f1c8e53294fef8ab4f7575c5702067b0",
+      "input_identity": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30",
+      "kind": "preflight_retry_authorized",
+      "reason": "Opening B inspection refused on a stale critique file before decoding anything. Corrected by binding opening B's own code critique. One retry reserves the exact inspection again. Earlier spend stays charged."
     }
   ],
   "limits": {
@@ -563,9 +571,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "92c1159e652218bbf66070843054dc9dc771c99d908f0554dfaf2cf5ce2baf30",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "40c62dbc9ba6db7273a8dab2515edada36e940c24e5f4928d7ccd243a109681b",
+    "original_private_state_sha256": "d2c6329f7e97680b4c5f7f29338600f2184a55129ab00edfab67f0dd6b9e69a6",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -601,7 +610,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T05:25:08.298273Z",
+  "updated_at": "2026-10-16T05:25:38.013978Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
