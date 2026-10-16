@@ -1,0 +1,3 @@
+command (exact, prepared authorization consumed): bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only
+output: preflight_animatic: refused: inspect-only cannot rebind an older cinematic film: the preflight report belongs to a different board; the preflight film changed after inspection
+cause: the stale preflight.json of the superseded boards was still at out/dispatch/preflight.json. Nothing rendered. The stale report is now retained at evidence/pre-stage-A-r10/preflight-stale.json.

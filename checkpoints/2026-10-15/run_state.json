@@ -4394,6 +4394,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T20:36:29.332287Z",
+      "evidence": "{REPO}/out/dispatch/evidence/preflight-inspect-only-refusal-20261016.log",
+      "evidence_sha256": "bbe395d201bfd1ee0afa2a2c8f019775936eb0f697175136721c0b9211aa0687",
+      "input_identity": "37a97e91d35ae13faf46b3490112b625abdb6c0ae28f868828cef290809ad4ea",
+      "kind": "preflight_retry_authorized",
+      "reason": "prepared inspect-only authorization consumed by a refusal caused by a stale preflight report, nothing rendered"
     }
   ],
   "limits": {
@@ -4415,9 +4423,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "37a97e91d35ae13faf46b3490112b625abdb6c0ae28f868828cef290809ad4ea",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9e948ded9bcf277bd3b392f4eb16e7f1b4485d98e99b68fc0e41bb3a3d2b3a6c",
+    "original_private_state_sha256": "02360240a076117eb3b6857344d2e4153eeedea272cb3c493880070ff24ca425",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4453,7 +4462,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:35:50.355649Z",
+  "updated_at": "2026-10-16T20:36:29.332348Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
