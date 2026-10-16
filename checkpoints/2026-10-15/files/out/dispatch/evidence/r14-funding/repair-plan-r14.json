@@ -1,0 +1,29 @@
+{
+  "mechanism_id": "conform-second-treatment-to-measured-body",
+  "failure_family": "measured-runtime-crowding",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The renewed opening comparison that the current film needs refuses to build, per the independent report 25 on the actual preflight refusal: opening-b.json still carries the projected 54.1 s timing and the old s7/s8 structure while treatment A carries the measured 59.4 s timing with the s7/s8 split, so the two alternatives do not share timing and narration units, and opening-a.json differs from the reviewed storyboard.json only by the measured-word provenance digest of the real mix. Both are classified technical (runtime, captions).",
+  "repair": "Deterministic and frozen under evidence/proposal-r14: opening-a.json becomes byte identical to the reviewed storyboard.json, and treatment B is conformed to the same measured body (runtime 59.4, the same scenes, vo and claims, the same s7/s8 split, a third s7 slide-in event, measured retime on retained take 7 with every event inside its shot, B's own views and framing kept). No wording, claim, take, renderer or registry change.",
+  "mechanism_change": "The second treatment is retimed to the measured read and split at the same measured clause boundary instead of staying on the projected structure, so the two silent previews can be compared again on current bytes.",
+  "expected_visible_result": "opening_compare accepts both current boards, renders two distinct current previews and an independent selection binds the chosen concept to the current film.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r13-opening-binding-diagnosis/report-verbatim.json",
+  "failure_evidence_sha256": "a68ead8633a54f05c993c602520a8a43dbfe846f24589b10b1865e3fbcb836d2",
+  "resources": {
+    "reboards": 1
+  },
+  "repair_scope": "technical-integrity",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r14-funding/baseline/opening-a.json",
+      "before_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+      "after_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r14-funding/baseline/opening-b.json",
+      "before_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+      "after_sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b"
+    }
+  ]
+}

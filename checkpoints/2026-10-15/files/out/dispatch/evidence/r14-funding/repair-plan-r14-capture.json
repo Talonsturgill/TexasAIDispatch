@@ -1,0 +1,68 @@
+{
+  "mechanism_id": "conform-second-treatment-to-measured-body",
+  "failure_family": "measured-runtime-crowding",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The renewed opening comparison that the current film needs refuses to build, per the independent report 25 on the actual preflight refusal: opening-b.json still carries the projected 54.1 s timing and the old s7/s8 structure while treatment A carries the measured 59.4 s timing with the s7/s8 split, so the two alternatives do not share timing and narration units, and opening-a.json differs from the reviewed storyboard.json only by the measured-word provenance digest of the real mix. Both are classified technical (runtime, captions).",
+  "repair": "Deterministic and frozen under evidence/proposal-r14: opening-a.json becomes byte identical to the reviewed storyboard.json, and treatment B is conformed to the same measured body (runtime 59.4, the same scenes, vo and claims, the same s7/s8 split, a third s7 slide-in event, measured retime on retained take 7 with every event inside its shot, B's own views and framing kept). No wording, claim, take, renderer or registry change.",
+  "mechanism_change": "The second treatment is retimed to the measured read and split at the same measured clause boundary instead of staying on the projected structure, so the two silent previews can be compared again on current bytes.",
+  "expected_visible_result": "opening_compare accepts both current boards, renders two distinct current previews and an independent selection binds the chosen concept to the current film.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r13-opening-binding-diagnosis/report-verbatim.json",
+  "failure_evidence_sha256": "a68ead8633a54f05c993c602520a8a43dbfe846f24589b10b1865e3fbcb836d2",
+  "resources": {
+    "reboards": 1
+  },
+  "repair_scope": "technical-integrity",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r14-funding/baseline/opening-a.json",
+      "before_sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+      "after_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r14-funding/baseline/opening-b.json",
+      "before_sha256": "5bf94a9228ae081b25363f0e49918571e946d5cb29cd467334845a566cb00f30",
+      "after_sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b"
+    }
+  ],
+  "capture_completion_budget": {
+    "schema": "dispatch_capture_completion_budget_evidence/2",
+    "run_id": "2026-10-15",
+    "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/2\",\n  \"effective_date\": \"2026-10-12\",\n  \"path\": \"renewed-two-treatment-comparison\",\n  \"minimum_remaining\": {\"preflight_renders\": 5, \"storyboard_critics\": 4, \"full_renders\": 1, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"operators\": {\"opening_compare\": 2, \"final_timed_phone\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use the existing independent mandatory admission; capacity grants no review approval.\",\n    \"Preserve the original frozen envelope, prior grants, failures and cumulative charges.\",\n    \"Obtain fresh current comparison, phone, native, audiovisual, scoring and shipment evidence.\"\n  ]\n}\n",
+    "policy_sha256": "d70e4e199c3acf49a4635087412cb9090e758810776c320ffb9ef290991f9d21",
+    "comparison_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-opening-binding-refusal/openings-retained/comparison.json",
+    "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09\",\n  \"producer_sha256\": \"3399eddf6ebac814c267da1471de9af80f21eae5fc4d9eb42d501355985074a5\",\n  \"reservation\": {\n    \"identity\": \"6075b6b9b87e9ec56149b69861046b7a0874d829caac4fb36f6cc99fa8dafb40\",\n    \"run_id\": \"2026-10-15\",\n    \"event_index\": 189\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"da75de8015c0a570f8002166a6e64ed30125fbee29483671f72a0a159c733d8e\",\n      \"renderer_sha256\": \"2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"f9ee6f1569f39998e0825a84d6074c92ca2137fd02cfed4399c201b7fc6f9646\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-37d3146bcee6fb87.json\",\n        \"sha256\": \"40b6daae3179963cc6f7b8e514313503910e44122c101126430d3683b4c11144\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"601958b463224a9b8eb3df11664a9afca08cde34a0a679b22f453a2445ce51c6\",\n      \"renderer_sha256\": \"2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"905455367132a2aa8b1d0827706e55bb2418c62ac779a8f32c075faad8e44899\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"bf00422435f8777e61bf71c4ad546cd182d4301cc8c2d230ca180598535cbfd2\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-a06b52439664bdef.json\",\n        \"sha256\": \"9f89d4074c4772ec308129201d1ef1f789c40f03709bb837d3d6fa32ac1d8206\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+    "comparison_sha256": "eaf5d70bd65f7e218434f78fd8ed0019480d32d15df296428fc337b16aa87110",
+    "retained_files": [
+      {
+        "option": "a",
+        "kind": "board",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-opening-binding-refusal/openings-retained/a.json",
+        "sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720"
+      },
+      {
+        "option": "a",
+        "kind": "film",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-opening-binding-refusal/openings-retained/a.mp4",
+        "sha256": "f9ee6f1569f39998e0825a84d6074c92ca2137fd02cfed4399c201b7fc6f9646"
+      },
+      {
+        "option": "b",
+        "kind": "board",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-opening-binding-refusal/openings-retained/b.json",
+        "sha256": "905455367132a2aa8b1d0827706e55bb2418c62ac779a8f32c075faad8e44899"
+      },
+      {
+        "option": "b",
+        "kind": "film",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r13-opening-binding-refusal/openings-retained/b.mp4",
+        "sha256": "bf00422435f8777e61bf71c4ad546cd182d4301cc8c2d230ca180598535cbfd2"
+      }
+    ],
+    "hook_event_index": 187,
+    "hook_event_sha256": "8192b9cecf1a7f58d477d07f9786f97bb5003b0f15627953d6dc7fb2cf7f124d",
+    "entry_event_index": 189,
+    "entry_event_sha256": "cd957866ad0d54720278d07f1a052cef21a54b2d361aff087a58527c4fb936b6"
+  }
+}
