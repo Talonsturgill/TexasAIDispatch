@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T05:18:13.576963+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-16T05:22:38.198144+00:00",
+  "note": "denial 6 housekeeping apply, headroom 19.37 GiB",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
-  "repo_root": "/home/user/restore/2026-10-15",
+  "repo_root": "/home/user/restore/dispatch-2026-10-15",
   "source_pin": "ac2fe5eb650f6d3779a56c38d9f0ff333d149b5a",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "e46bc1d10d4b0163cd428947610dbf79ac8a79ffd3da647c7e772d935df0051f",
-  "original_private_ledger_sha256": "38605654756f4086eefe665b3d707761cf5853a7cc0086c1af5f66a902f432d3",
+  "ledger_sha256": "656e7e253ae3dde9cc6e20afe19ba480985e63cafc8a2b1c0ebd8303c79c5621",
+  "original_private_ledger_sha256": "b21adfab478e5486aa32a1c48ea022bd4ba139c69aa4cfa8dcc9239b8e804495",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -784,7 +784,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "050779beb70e47c96cf5e75efbd0026444d39459541aea6d356e5b8bebcd05c5",
+      "sha256": "653e2f83ee8c3dc8eb1c6eca84a986cbdc06d8b7063464daac5d9130a07d44fa",
       "size": 128
     },
     {
@@ -906,6 +906,12 @@
       "class": "scratch",
       "sha256": "6c6273e772e3b3d0845760a9d34fe9290c94a06cd71176a69f87b40e51e947d6",
       "size": 1755
+    },
+    {
+      "path": "out/dispatch/evidence/classifier-denial-6-housekeeping-apply-2026-10-16.md",
+      "class": "scratch",
+      "sha256": "956725cfcf45fc6d80f795a57556d7ed7d0f281301971fc8396c6861ef5c0de1",
+      "size": 883
     },
     {
       "path": "out/dispatch/evidence/classifier-denials-2026-10-16.md",
