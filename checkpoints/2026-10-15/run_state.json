@@ -1,4 +1,29 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/direction-r12/vo_direction-before.json",
+        "before_sha256": "420d6fe30b80d0ae5f1472bc7f6f443aa44783887c987345053e4a0590a79200",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "5acd5a49fc8c47a3f0f6eb42558adb5a95751d4eb7209ddd5a6e49307dcca0b1",
+    "frozen_inputs": {
+      "files": {
+        "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
+        "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
+        "{REPO}/out/dispatch/storyboard.json": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
+        "{REPO}/out/dispatch/vo_script.txt": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf"
+      },
+      "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
+    },
+    "plan": "{REPO}/out/dispatch/evidence/direction-r12/repair-plan.json",
+    "plan_identity": "b707731deafb3c8064d44ec45cfd865b5894873cd7c9b4877fc741e6422d4b19",
+    "plan_sha256": "08b4fb0141fe085439894136baefc66f8704e9c870aca45ae4fc2996088ce16e",
+    "reboards_before": 7,
+    "repair_scope": "narration-performance"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -4428,6 +4453,36 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T20:39:08.909229Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/direction-r12/vo_direction-before.json",
+          "before_sha256": "420d6fe30b80d0ae5f1472bc7f6f443aa44783887c987345053e4a0590a79200",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "capture-and-analysis",
+      "failure_sha256": "5acd5a49fc8c47a3f0f6eb42558adb5a95751d4eb7209ddd5a6e49307dcca0b1",
+      "frozen_inputs": {
+        "files": {
+          "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
+          "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
+          "{REPO}/out/dispatch/storyboard.json": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
+          "{REPO}/out/dispatch/vo_script.txt": "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf"
+        },
+        "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "scene-level-direction-contract",
+      "plan_identity": "b707731deafb3c8064d44ec45cfd865b5894873cd7c9b4877fc741e6422d4b19",
+      "plan_sha256": "08b4fb0141fe085439894136baefc66f8704e9c870aca45ae4fc2996088ce16e",
+      "repair_scope": "narration-performance"
     }
   ],
   "limits": {
@@ -4451,7 +4506,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7b452852e9e8dec9e34acfcae2ee5b8778ff6672a8b9a6b06abe9e835187106e",
+    "original_private_state_sha256": "e9a0b591b8d464ed2d986d08b94ac4cae86da9458e92e15c1fb704487ab6bad8",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4487,7 +4542,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T20:36:41.731104Z",
+  "updated_at": "2026-10-16T20:39:08.909240Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,

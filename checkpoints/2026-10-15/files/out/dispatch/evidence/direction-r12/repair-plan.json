@@ -1,0 +1,23 @@
+{
+  "mechanism_id": "scene-level-direction-contract",
+  "failure_family": "capture-and-analysis",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "repair_scope": "narration-performance",
+  "root_cause": "vo_synth_gemini refused before spending any call: the voice direction plans 15 sentence-level lines but the controller contract requires one direction line per current scene (nine) and an emphasis that is an exact phrase of that scene voice line. Exact refusal output is retained in vo-synth-refusal-20261016.log. No TTS call was made.",
+  "repair": "Direction only: replace the lines array by nine scene-level lines whose intent and energy join the retained sentence-level notes in order, with an exact emphasis phrase from each scene. The per-sentence lines are kept under sentence_lines and the lines carry no text field because the script has one sentence per file line. Script, board, claims, sources and renderer stay byte-identical.",
+  "mechanism_change": "The direction moves from sentence-granularity lines to the scene-granularity lines the synth and controller contract require, keeping every retained intent, emphasis and energy note.",
+  "expected_visible_result": "vo_synth builds its prompt with no refusal and the one continuous take is directed with the same per-sentence notes the independent reviews approved.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/direction-r12/vo-synth-refusal-20261016.log",
+  "failure_evidence_sha256": "5acd5a49fc8c47a3f0f6eb42558adb5a95751d4eb7209ddd5a6e49307dcca0b1",
+  "resources": {
+    "tts_calls": 2
+  },
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_direction.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/direction-r12/vo_direction-before.json",
+      "before_sha256": "420d6fe30b80d0ae5f1472bc7f6f443aa44783887c987345053e4a0590a79200",
+      "after_sha256": "9074d9ffea800684edb8d2520f490c7bc1cae043340dda9defd554e758e6a82a"
+    }
+  ]
+}
