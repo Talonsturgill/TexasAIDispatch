@@ -1,0 +1,345 @@
+{
+  "schema": "dispatch_script_source_map/1",
+  "script_before_path": "out/dispatch/vo_script.txt",
+  "script_before_sha256": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83",
+  "proposed_script_path": "out/dispatch/evidence/proposal-r7/vo_script.txt",
+  "proposed_script_sha256": "a60894c7b27d3142d5946c3623490d9783ead542500c385e94ade1c19fd380db",
+  "unchanged_limits": [
+    "validation accuracy is the university reported figure from early assessments after training (c4)",
+    "there is no field result",
+    "no town is named as installed (c1,c10)",
+    "deployment is still a goal (c9,c10)"
+  ],
+  "rows": [
+    {
+      "new_id": "s1",
+      "new_text": "Some people could have ankle-deep water in their yard.",
+      "old_sentence_index": 1,
+      "old_text": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.",
+      "claim_ids": [
+        "c12"
+      ],
+      "support": [
+        {
+          "claim": "c12",
+          "claim_text": "The university says some people could have ankle-deep water in their yard by the time a flash flood warning sounds on their phone.",
+          "quote": "That means some people could have ankle-deep water in their yard by the time a flash flood warning notification sounds on their phone."
+        }
+      ]
+    },
+    {
+      "new_id": "s2",
+      "new_text": "UT San Antonio says the phone warning can come after that.",
+      "old_sentence_index": 1,
+      "old_text": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.",
+      "claim_ids": [
+        "c12"
+      ],
+      "support": [
+        {
+          "claim": "c12",
+          "claim_text": "The university says some people could have ankle-deep water in their yard by the time a flash flood warning sounds on their phone.",
+          "quote": "That means some people could have ankle-deep water in their yard by the time a flash flood warning notification sounds on their phone."
+        }
+      ]
+    },
+    {
+      "new_id": "s3",
+      "new_text": "So its researchers built a flood station.",
+      "old_sentence_index": 2,
+      "old_text": "So its researchers built a flood station that charges itself from light and needs no cell tower.",
+      "claim_ids": [
+        "c1"
+      ],
+      "support": [
+        {
+          "claim": "c1",
+          "claim_text": "On September 8th UT San Antonio said its researchers developed a self-sustaining, artificial intelligence-powered flood warning system meant to spot dangerous water accumulation at street level.",
+          "quote": "Researchers at The University of Texas at San Antonio have developed a self-sustaining, artificial intelligence-powered flood warning system designed to spot dangerous water accumulation at the street level."
+        }
+      ]
+    },
+    {
+      "new_id": "s4",
+      "new_text": "It charges itself from light and needs no cell tower.",
+      "old_sentence_index": 2,
+      "old_text": "So its researchers built a flood station that charges itself from light and needs no cell tower.",
+      "claim_ids": [
+        "c5",
+        "c6",
+        "c14"
+      ],
+      "support": [
+        {
+          "claim": "c5",
+          "claim_text": "The node charges its own battery from ambient light and runs on a fraction of the energy of a smartphone.",
+          "quote": "An onboard power chip collects ambient light to charge a built-in battery and backup energy storage units, allowing the device to run indefinitely on a fraction of the energy used by a smartphone."
+        },
+        {
+          "claim": "c6",
+          "claim_text": "When it detects rising water risks it sends radio signals that can travel more than a half-mile through city streets and up to five miles in open areas to a local central hub where emergency teams can monitor conditions.",
+          "quote": "These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas without needing cell towers or power lines. The data arrives instantly at a local central hub, where emergency teams can monitor conditions from miles away."
+        },
+        {
+          "claim": "c14",
+          "claim_text": "Chen Pan said the system is an off-grid solution that generates its own power and evaluates flood risk locally on the device.",
+          "quote": "Our system is an off-grid solution. It generates its own power, evaluates flood risk locally right on the device and sends timely warnings without needing external electricity or expensive network lines."
+        }
+      ]
+    },
+    {
+      "new_id": "s5",
+      "new_text": "Four optical sensors at different heights watch the water.",
+      "old_sentence_index": 3,
+      "old_text": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.",
+      "claim_ids": [
+        "c2"
+      ],
+      "support": [
+        {
+          "claim": "c2",
+          "claim_text": "The prototype has temperature, humidity, light and precipitation sensing and four optical water-level sensors mounted at varying heights.",
+          "quote": "The resulting prototype combines temperature, humidity, light and precipitation sensing, as well as four optical water-level sensors mounted at varying heights."
+        }
+      ]
+    },
+    {
+      "new_id": "s6",
+      "new_text": "The prototype also reads rain, temperature, humidity and light.",
+      "old_sentence_index": 3,
+      "old_text": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.",
+      "claim_ids": [
+        "c2"
+      ],
+      "support": [
+        {
+          "claim": "c2",
+          "claim_text": "The prototype has temperature, humidity, light and precipitation sensing and four optical water-level sensors mounted at varying heights.",
+          "quote": "The resulting prototype combines temperature, humidity, light and precipitation sensing, as well as four optical water-level sensors mounted at varying heights."
+        }
+      ]
+    },
+    {
+      "new_id": "s7",
+      "new_text": "A small chip on the station runs the AI itself.",
+      "old_sentence_index": 4,
+      "old_text": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.",
+      "claim_ids": [
+        "c3",
+        "c18"
+      ],
+      "support": [
+        {
+          "claim": "c3",
+          "claim_text": "The node runs its machine learning on a small chip and judges local flood risk without relying on a central server.",
+          "quote": "This on-device AI evaluates current and recent sensor data to predict localized, imminent flood risk without relying on a central server."
+        },
+        {
+          "claim": "c18",
+          "claim_text": "The university says the node uses TinyML, which compresses machine learning so it can run on small, low-power microcontrollers.",
+          "quote": "Pan\u2019s system sidesteps this roadblock by using TinyML \u2014 a branch of computer science that compresses machine learning algorithms so they can run directly on small, low-power microcontrollers."
+        }
+      ]
+    },
+    {
+      "new_id": "s8",
+      "new_text": "So it judges flood risk without a central server.",
+      "old_sentence_index": 4,
+      "old_text": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.",
+      "claim_ids": [
+        "c3"
+      ],
+      "support": [
+        {
+          "claim": "c3",
+          "claim_text": "The node runs its machine learning on a small chip and judges local flood risk without relying on a central server.",
+          "quote": "This on-device AI evaluates current and recent sensor data to predict localized, imminent flood risk without relying on a central server."
+        }
+      ]
+    },
+    {
+      "new_id": "s9",
+      "new_text": "When the risk rises, a radio signal leaves the station.",
+      "old_sentence_index": 5,
+      "old_text": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
+      "claim_ids": [
+        "c6"
+      ],
+      "support": [
+        {
+          "claim": "c6",
+          "claim_text": "When it detects rising water risks it sends radio signals that can travel more than a half-mile through city streets and up to five miles in open areas to a local central hub where emergency teams can monitor conditions.",
+          "quote": "These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas without needing cell towers or power lines. The data arrives instantly at a local central hub, where emergency teams can monitor conditions from miles away."
+        }
+      ]
+    },
+    {
+      "new_id": "s10",
+      "new_text": "It can carry more than a half-mile through city streets.",
+      "old_sentence_index": 5,
+      "old_text": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
+      "claim_ids": [
+        "c6"
+      ],
+      "support": [
+        {
+          "claim": "c6",
+          "claim_text": "When it detects rising water risks it sends radio signals that can travel more than a half-mile through city streets and up to five miles in open areas to a local central hub where emergency teams can monitor conditions.",
+          "quote": "These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas without needing cell towers or power lines. The data arrives instantly at a local central hub, where emergency teams can monitor conditions from miles away."
+        }
+      ]
+    },
+    {
+      "new_id": "s11",
+      "new_text": "In open country it can carry up to five miles, to a hub.",
+      "old_sentence_index": 5,
+      "old_text": "When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.",
+      "claim_ids": [
+        "c6"
+      ],
+      "support": [
+        {
+          "claim": "c6",
+          "claim_text": "When it detects rising water risks it sends radio signals that can travel more than a half-mile through city streets and up to five miles in open areas to a local central hub where emergency teams can monitor conditions.",
+          "quote": "These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas without needing cell towers or power lines. The data arrives instantly at a local central hub, where emergency teams can monitor conditions from miles away."
+        }
+      ]
+    },
+    {
+      "new_id": "s12",
+      "new_text": "At the hub, a second, larger AI model draws a map.",
+      "old_sentence_index": 6,
+      "old_text": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.",
+      "claim_ids": [
+        "c7",
+        "c16"
+      ],
+      "support": [
+        {
+          "claim": "c7",
+          "claim_text": "At the hub, server software gathers data from many nodes and a second, larger AI model produces a web dashboard with predictive maps for emergency responders.",
+          "quote": "A second, larger AI model analyzes spatial and temporal patterns across the network to generate an interactive web dashboard with predictive maps."
+        },
+        {
+          "claim": "c16",
+          "claim_text": "The university says custom server software at the central monitoring site gathers data from many nodes across a town or watershed.",
+          "quote": "At the central monitoring site, custom server software aggregates data from multiple deployed nodes across a town or watershed."
+        }
+      ]
+    },
+    {
+      "new_id": "s13",
+      "new_text": "It shows how flooding could spread, for emergency responders.",
+      "old_sentence_index": 6,
+      "old_text": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.",
+      "claim_ids": [
+        "c17",
+        "c20"
+      ],
+      "support": [
+        {
+          "claim": "c17",
+          "claim_text": "The university says the flood-path view helps emergency responders decide on dispatching crews, closing dangerous roads or issuing targeted neighborhood warnings.",
+          "quote": "This flood-path visualization supports emergency responders as they make crucial decisions, such as dispatching crews, closing dangerous roads or issuing targeted neighborhood warnings long before floodwaters peak."
+        },
+        {
+          "claim": "c20",
+          "claim_text": "Pan said the dashboard assesses risk levels and shows how flooding could spread across monitored locations, highlighting higher-risk zones so local officials can act quickly.",
+          "quote": "The dashboard assesses risk levels and shows how flooding could spread across monitored locations, highlighting higher-risk zones so local officials can act quickly."
+        }
+      ]
+    },
+    {
+      "new_id": "s14",
+      "new_text": "Validation accuracy was ninety eight point eight two percent.",
+      "old_sentence_index": 7,
+      "old_text": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
+      "claim_ids": [
+        "c4"
+      ],
+      "support": [
+        {
+          "claim": "c4",
+          "claim_text": "The university reports 98.82 percent validation accuracy from initial assessments after training.",
+          "quote": "So far, the AI has performed well, achieving 98.82% validation accuracy in initial assessments post-training."
+        }
+      ]
+    },
+    {
+      "new_id": "s15",
+      "new_text": "The university reports it from early assessments after training.",
+      "old_sentence_index": 7,
+      "old_text": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
+      "claim_ids": [
+        "c4"
+      ],
+      "support": [
+        {
+          "claim": "c4",
+          "claim_text": "The university reports 98.82 percent validation accuracy from initial assessments after training.",
+          "quote": "So far, the AI has performed well, achieving 98.82% validation accuracy in initial assessments post-training."
+        }
+      ]
+    },
+    {
+      "new_id": "s16",
+      "new_text": "There is no field result.",
+      "old_sentence_index": 7,
+      "old_text": "The university reports ninety eight point eight two percent validation accuracy from early assessments after training, and no field result.",
+      "claim_ids": [
+        "c4"
+      ],
+      "support": [
+        {
+          "claim": "c4",
+          "claim_text": "The university reports 98.82 percent validation accuracy from initial assessments after training.",
+          "quote": "So far, the AI has performed well, achieving 98.82% validation accuracy in initial assessments post-training."
+        }
+      ]
+    },
+    {
+      "new_id": "s17",
+      "new_text": "It names no town that has installed one.",
+      "old_sentence_index": 8,
+      "old_text": "It names no town that has installed one.",
+      "claim_ids": [
+        "c1",
+        "c10"
+      ],
+      "support": [
+        {
+          "claim": "c1",
+          "claim_text": "On September 8th UT San Antonio said its researchers developed a self-sustaining, artificial intelligence-powered flood warning system meant to spot dangerous water accumulation at street level.",
+          "quote": "Researchers at The University of Texas at San Antonio have developed a self-sustaining, artificial intelligence-powered flood warning system designed to spot dangerous water accumulation at the street level."
+        },
+        {
+          "claim": "c10",
+          "claim_text": "Chen Pan said the goal is to get the technology deployed where it is needed most.",
+          "quote": "\u201cOur ultimate goal is to get this technology deployed where it\u2019s needed most,\u201d"
+        }
+      ]
+    },
+    {
+      "new_id": "s18",
+      "new_text": "Deployment is still the goal.",
+      "old_sentence_index": 9,
+      "old_text": "Deployment is still the goal.",
+      "claim_ids": [
+        "c9",
+        "c10"
+      ],
+      "support": [
+        {
+          "claim": "c9",
+          "claim_text": "Pan is pursuing patent protection and the team aims to refine the design into a weatherized commercial product for small coastal municipalities, homeowners' associations, agricultural operations and industrial sites.",
+          "quote": "The team aims to refine the design into a sleeker, weatherized commercial product suitable for deployment by small coastal municipalities, homeowners\u2019 associations, agricultural operations and industrial sites."
+        },
+        {
+          "claim": "c10",
+          "claim_text": "Chen Pan said the goal is to get the technology deployed where it is needed most.",
+          "quote": "\u201cOur ultimate goal is to get this technology deployed where it\u2019s needed most,\u201d"
+        }
+      ]
+    }
+  ]
+}

@@ -1,15 +1,15 @@
 {
  "schema": "dispatch-place-check/1",
- "board": "out/dispatch/storyboard.json",
+ "board": "out/dispatch/evidence/proposal-r7/storyboard-b.json",
  "min_share": 0.05,
  "rendered": false,
  "shots": [
   {
    "id": "s1-shot-1",
    "scene_id": "s1",
-   "framing": "wide",
-   "view": "street-yard",
-   "frame": 66,
+   "framing": "detail",
+   "view": "water-marks",
+   "frame": 33,
    "exempt": false,
    "wall": false,
    "share": null
@@ -17,9 +17,19 @@
   {
    "id": "s1-shot-2",
    "scene_id": "s1",
+   "framing": "wide",
+   "view": "street-yard",
+   "frame": 90,
+   "exempt": false,
+   "wall": false,
+   "share": null
+  },
+  {
+   "id": "s1-shot-3",
+   "scene_id": "s1",
    "framing": "close",
    "view": "phone-late",
-   "frame": 178,
+   "frame": 185,
    "exempt": false,
    "wall": false,
    "share": null
@@ -29,7 +39,7 @@
    "scene_id": "s2",
    "framing": "wide",
    "view": "station-wide",
-   "frame": 259,
+   "frame": 285,
    "exempt": false,
    "wall": false,
    "share": null
@@ -39,17 +49,7 @@
    "scene_id": "s2",
    "framing": "close",
    "view": "panel-charge",
-   "frame": 320,
-   "exempt": false,
-   "wall": false,
-   "share": null
-  },
-  {
-   "id": "s2-shot-3",
-   "scene_id": "s2",
-   "framing": "wide",
-   "view": "no-tower",
-   "frame": 381,
+   "frame": 387,
    "exempt": false,
    "wall": false,
    "share": null
@@ -57,25 +57,15 @@
   {
    "id": "s3-shot-1",
    "scene_id": "s3",
-   "framing": "medium",
-   "view": "sensor-stack",
-   "frame": 444,
+   "framing": "detail",
+   "view": "water-marks",
+   "frame": 485,
    "exempt": false,
    "wall": false,
    "share": null
   },
   {
    "id": "s3-shot-2",
-   "scene_id": "s3",
-   "framing": "close",
-   "view": "water-marks",
-   "frame": 510,
-   "exempt": false,
-   "wall": false,
-   "share": null
-  },
-  {
-   "id": "s3-shot-3",
    "scene_id": "s3",
    "framing": "close",
    "view": "weather-row",
@@ -88,8 +78,8 @@
    "id": "s4-shot-1",
    "scene_id": "s4",
    "framing": "close",
-   "view": "chip-glow",
-   "frame": 640,
+   "view": "no-server",
+   "frame": 674,
    "exempt": false,
    "wall": false,
    "share": null
@@ -99,7 +89,7 @@
    "scene_id": "s4",
    "framing": "detail",
    "view": "chip-glow",
-   "frame": 704,
+   "frame": 749,
    "exempt": false,
    "wall": false,
    "share": null
@@ -109,7 +99,7 @@
    "scene_id": "s4",
    "framing": "wide",
    "view": "no-server",
-   "frame": 768,
+   "frame": 805,
    "exempt": false,
    "wall": false,
    "share": null
@@ -117,10 +107,10 @@
   {
    "id": "s5-shot-1",
    "scene_id": "s5",
-   "framing": "wide",
-   "view": "radio-rings",
-   "frame": 869,
-   "exempt": false,
+   "framing": "overhead",
+   "view": "radio-map",
+   "frame": 884,
+   "exempt": true,
    "wall": false,
    "share": null
   },
@@ -128,8 +118,18 @@
    "id": "s5-shot-2",
    "scene_id": "s5",
    "framing": "wide",
-   "view": "radio-open",
-   "frame": 995,
+   "view": "radio-rings",
+   "frame": 975,
+   "exempt": false,
+   "wall": false,
+   "share": null
+  },
+  {
+   "id": "s5-shot-3",
+   "scene_id": "s5",
+   "framing": "medium",
+   "view": "hub-wide",
+   "frame": 1070,
    "exempt": false,
    "wall": false,
    "share": null
@@ -137,10 +137,10 @@
   {
    "id": "s6-shot-1",
    "scene_id": "s6",
-   "framing": "close",
-   "view": "hub-desk",
-   "frame": 1109,
-   "exempt": false,
+   "framing": "overhead",
+   "view": "flood-paths",
+   "frame": 1167,
+   "exempt": true,
    "wall": false,
    "share": null
   },
@@ -149,8 +149,18 @@
    "scene_id": "s6",
    "framing": "overhead",
    "view": "flood-paths",
-   "frame": 1213,
+   "frame": 1242,
    "exempt": true,
+   "wall": false,
+   "share": null
+  },
+  {
+   "id": "s6-shot-3",
+   "scene_id": "s6",
+   "framing": "close",
+   "view": "hub-desk",
+   "frame": 1302,
+   "exempt": false,
    "wall": false,
    "share": null
   },
@@ -159,7 +169,7 @@
    "scene_id": "s7",
    "framing": "close",
    "view": "validation-card",
-   "frame": 1305,
+   "frame": 1380,
    "exempt": false,
    "wall": true,
    "share": null
@@ -167,9 +177,9 @@
   {
    "id": "s7-shot-2",
    "scene_id": "s7",
-   "framing": "detail",
+   "framing": "close",
    "view": "validation-card",
-   "frame": 1388,
+   "frame": 1469,
    "exempt": false,
    "wall": true,
    "share": null
@@ -177,9 +187,9 @@
   {
    "id": "s7-shot-3",
    "scene_id": "s7",
-   "framing": "detail",
+   "framing": "close",
    "view": "no-field-card",
-   "frame": 1471,
+   "frame": 1530,
    "exempt": false,
    "wall": true,
    "share": null
@@ -187,21 +197,21 @@
   {
    "id": "s8-shot-1",
    "scene_id": "s8",
-   "framing": "close",
-   "view": "empty-map",
-   "frame": 1557,
+   "framing": "wide",
+   "view": "station-return",
+   "frame": 1605,
    "exempt": false,
-   "wall": true,
+   "wall": false,
    "share": null
   },
   {
    "id": "s9-shot-1",
    "scene_id": "s9",
-   "framing": "wide",
-   "view": "station-return",
-   "frame": 1647,
+   "framing": "close",
+   "view": "empty-map",
+   "frame": 1714,
    "exempt": false,
-   "wall": false,
+   "wall": true,
    "share": null
   }
  ],

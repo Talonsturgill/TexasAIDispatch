@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T17:10:40.312244+00:00",
-  "note": "r6 classification review (critics 13), beat landing measurement, technical-integrity admission refused on category other",
+  "saved_at": "2026-10-16T17:26:14.899777+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "23b75fc8c891d89009a761c831bb890fbe0b34a6639b2ba5b6f0625ec7062650",
-  "original_private_ledger_sha256": "f2b7845ff18db647cf56787207a04697d2fd932a79773234feeb9a1b66c22df9",
+  "ledger_sha256": "cd1f9d9aa1d6e6c507ed2af7abed0df7ab6ad34979a93932a9b13e1629c70791",
+  "original_private_ledger_sha256": "c6ece8733a26e851377b7178136ec45fe1cfaad3ec93d516b5c34cef7ca97052",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -52,7 +52,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 13,
+    "storyboard_critics": 14,
     "tts_calls": 12,
     "validator_agents": 3,
     "voice_directors": 1
@@ -2085,6 +2085,72 @@
       "class": "scratch",
       "sha256": "e33c35a7f76a2eda4d278ab1031733da7b3815d53e3b7b836298f860a86d9898",
       "size": 10275
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/MANIFEST.sha256.json",
+      "class": "scratch",
+      "sha256": "c7256367033a5c43483b1ad2c860ac1b9e74065ac197925affd4816f1799025b",
+      "size": 898
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/build_proposal.py",
+      "class": "scratch",
+      "sha256": "0a72ebd2f7a91287667f8404bc093454efbd00e56f69ac8ec71324d2a6f156d0",
+      "size": 7786
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/opening-digests.txt",
+      "class": "scratch",
+      "sha256": "b7bb895b3c83cc198c51ab095762c800216258871fcc760f1f09072d39d1fb67",
+      "size": 310
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/sentence-fit-probe.txt",
+      "class": "scratch",
+      "sha256": "59f5255d1c8eea4a126b52efe4637db420a91196a24964d89e6c9205509ad789",
+      "size": 993
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/source-map.json",
+      "class": "scratch",
+      "sha256": "c85060364b472666ada96c4edd5f3e363ad6cf50c93658ba404836a3fe982227",
+      "size": 17264
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/source-map.md",
+      "class": "scratch",
+      "sha256": "a2c3511515e05d87fbfc28cf2f60f2bcaf23dc90d8a09cdfc3ec68656506f03d",
+      "size": 1695
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/storyboard-a.json",
+      "class": "scratch",
+      "sha256": "dd561dd06b38939876140345b63e684a0facccfb8d9224dd970746642b838ace",
+      "size": 190215
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/storyboard-b.json",
+      "class": "scratch",
+      "sha256": "639311cb78e99393d17219a4b5f91982e59cb5210817abaa59d88cd99644f001",
+      "size": 196102
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "5e4286810cce1bf2f4c60a585bdeb41f024dddc362cd300c1f79584ae34d0ebd",
+      "size": 3048
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/vo_direction.json",
+      "class": "scratch",
+      "sha256": "d560ae29fe175070a76f1574fea92adee5ced449da1ab80a2fcab0995bd21812",
+      "size": 19131
+    },
+    {
+      "path": "out/dispatch/evidence/proposal-r7/vo_script.txt",
+      "class": "scratch",
+      "sha256": "a60894c7b27d3142d5946c3623490d9783ead542500c385e94ade1c19fd380db",
+      "size": 938
     },
     {
       "path": "out/dispatch/evidence/proposed-cue-boundary-fit-probe.txt",
@@ -4567,8 +4633,8 @@
     {
       "path": "out/dispatch/place_check.json",
       "class": "scratch",
-      "sha256": "25a2bb24673d5462f96ca63d6b7199dd7b925de90f4227beb332e06640329bb4",
-      "size": 3615
+      "sha256": "eafe9d75db40378162bac8d3243a74c5de2a84cb15d292135e5c5f423bf56fb6",
+      "size": 3816
     },
     {
       "path": "out/dispatch/place_photos.json",
@@ -4767,6 +4833,12 @@
       "class": "scratch",
       "sha256": "551c310045a7f999844106fb0a927889f8977403a2558fe9f1b5253e93fa527b",
       "size": 2035
+    },
+    {
+      "path": "out/dispatch/source-pivot-review-packet-r7.md",
+      "class": "scratch",
+      "sha256": "1daccbb470f999b979e859f40ee87681821d54d256c2fde4692e05a141e39007",
+      "size": 6501
     },
     {
       "path": "out/dispatch/sources/utsa.html",
