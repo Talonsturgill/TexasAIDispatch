@@ -420,12 +420,18 @@ def provider_packet_policy(board):
     return cfg['provider_packets'] if str(board.get('date', '')) >= cfg['effective_date'] else None
 
 
+def packet_json(text):
+    return json.dumps(text, sort_keys=True, separators=(',', ':'))
+
+
 def bounded_packet(text, board_path, role, bindings):
-    from independent_packet_compaction import compact
+    from independent_packet_compaction import compact, phone_code_context
+    if role == 'phone':
+        text, bindings = phone_code_context(text, board_path, bindings)
     text, policy_sha = compact(text, board_path.parent, role, REPO)
     if policy_sha is not None:
         bindings = {**bindings, 'provider_packet_compaction_sha256': policy_sha}
-    if len(json.dumps(text)) > 500_000:
+    if len(packet_json(text) if text.get('packet_compaction') else json.dumps(text)) > 500_000:
         raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
     return text, bindings
 
@@ -715,7 +721,13 @@ def prompt(role, text):
             'board and apply its ordered add/remove/replace JSON-pointer operations to obtain that full '
             'treatment. Original byte hashes and verified canonical hashes are retained. All current guides '
             'remain original full text. The inactive renderer inventory contains only registered episode '
-            'source outside every selected executable closure; current executable source remains complete. ')
+            'source outside every selected executable closure. Code scope retains full callable source. ')
+    if text.get('verified_code_plan_context'):
+        instruction += ('Current code source is supplied as exact hashes after the ordinary code gate '
+            'verified the complete original independent code-plan reports for every current board and '
+            'both treatments against current concepts, renderer bytes and claims. Those full reports '
+            'are included only as code provenance. They supply no pixel observations, selection or '
+            'film verdict. Independently watch both movies and apply every current visual criterion. ')
     if text.get('retained_host_media_review'):
         instruction += ('Inspect the actual movies first, then the retained partial host review. '
             'Treat its retracted or unseen-image claims as unobserved. Explicitly reassess its received-pixel '
@@ -724,7 +736,8 @@ def prompt(role, text):
             'confirmed or not_reproduced or resolved_by_full_context, and concrete timed reasons. '
             'Never erase the earlier evidence or infer approval from the recovery transport. ')
     instruction += assessment_prompt('phone' if role in ('code', 'phone') else 'panel')
-    return instruction + '\nCurrent evidence\n' + json.dumps(text, ensure_ascii=False)
+    return instruction + '\nCurrent evidence\n' + (packet_json(text) if text.get('packet_compaction')
+                                                   else json.dumps(text, ensure_ascii=False))
 
 
 def run(board, claims, film, role, failure_path, state, out, *, compare_openings=False, selection_out=None):

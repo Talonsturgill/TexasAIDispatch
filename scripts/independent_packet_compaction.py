@@ -1,6 +1,7 @@
 """Lossless current-data encoding and explicit inactive-source inventories for provider input."""
 from __future__ import annotations
 import copy
+import difflib
 import hashlib
 import json
 from pathlib import Path
@@ -30,8 +31,22 @@ def delta(base, target, path=''):
         for key in sorted(base.keys() & target.keys()):
             rows += delta(base[key], target[key], path+'/'+escape(key))
         return rows
-    if isinstance(base, list) and isinstance(target, list) and len(base) == len(target):
-        return [row for i, (a, b) in enumerate(zip(base, target)) for row in delta(a, b, path+'/'+str(i))]
+    if isinstance(base, list) and isinstance(target, list):
+        # Stable shot ids retain unchanged shots when one treatment inserts a shot.
+        keyed = all(isinstance(row, dict) and isinstance(row.get('id'), str) for row in base + target)
+        key = (lambda row: row['id']) if keyed else canonical
+        rows = []
+        for op, i1, i2, j1, j2 in reversed(difflib.SequenceMatcher(
+                a=[key(row) for row in base], b=[key(row) for row in target], autojunk=False).get_opcodes()):
+            if op == 'equal':
+                for i, j in zip(range(i1, i2), range(j1, j2)):
+                    rows += delta(base[i], target[j], path+'/'+str(i))
+            else:
+                rows += [{'op': 'remove', 'path': path+'/'+str(i)} for i in reversed(range(i1, i2))]
+                rows += [{'op': 'add', 'path': path+'/'+str(i1), 'value': copy.deepcopy(target[j])}
+                         for j in reversed(range(j1, j2))]
+        replacement = [{'op': 'replace', 'path': path, 'value': copy.deepcopy(target)}]
+        return rows if len(canonical(rows)) < len(canonical(replacement)) else replacement
     return [{'op': 'replace', 'path': path, 'value': copy.deepcopy(target)}]
 
 
@@ -98,6 +113,45 @@ def closure(seeds, repo):
     return seen
 
 
+def phone_code_context(text, board_path, bindings):
+    """Reuse actual code approval for pixel scope; never reuse its visual verdict."""
+    policy = json.loads(POLICY.read_text())
+    if (str(text.get('board', {}).get('date', '')) < policy['effective_edition']
+            or not policy.get('phone_verified_code_inventory')):
+        return text, bindings
+    from critic_gate import problems, concept_digest, renderer_digest, renderer_files
+    package = Path(board_path).parent
+    candidates = [package/name for name in ('opening-a-critic.json', 'opening-b-critic.json',
+                                            'storyboard_code_critic.json', 'storyboard_critic.json')]
+    reports = {path: json.loads(path.read_text()) for path in candidates if path.is_file()}
+    if not reports:
+        return text, bindings
+    boards = [Path(board_path)] + [package/'openings'/f'{name}.json' for name in ('a', 'b')
+                                 if (package/'openings'/f'{name}.json').is_file()]
+    rows, used, source_paths = [], {}, set()
+    for path in boards:
+        board = json.loads(path.read_text())
+        found = next(((report_path, report) for report_path, report in reports.items()
+                      if report.get('verdict') == 'pass' and not report.get('reviewed_preflight_sha256')
+                      and report.get('review_scope') != 'exact-muted-phone-preflight'
+                      and (report.get('story_review') or {}).get('claims_sha256') == bindings['claims_sha256']
+                      and not problems(board, report)), None)
+        if found is None:
+            # Keep complete callable source if no exact current code approval exists.
+            return text, bindings
+        report_path, report = found
+        key = report_path.name
+        used[key] = {'path': str(report_path), 'sha256': sha(report_path), 'report': report}
+        rows.append({'board': str(path), 'board_sha256': sha(path), 'concept_sha256': concept_digest(board),
+                     'renderer_sha256': renderer_digest(board), 'code_report': key})
+        source_paths.update(p.resolve() for p in renderer_files(board) if p.suffix in CODE)
+    context = {'schema': 'dispatch_verified_code_plan_context/1', 'boards': rows, 'reports': used,
+               'scope': 'Current code-plan passes only. They provide no phone observation, selection or film approval.'}
+    text = copy.deepcopy(text); text['verified_code_plan_context'] = context
+    text['_verified_code_source_paths'] = sorted(str(p) for p in source_paths)
+    return text, {**bindings, 'verified_code_plan_context_sha256': hashlib.sha256(canonical(context).encode()).hexdigest()}
+
+
 def compact(text, package, role, repo):
     policy = json.loads(POLICY.read_text()); board = text.get('board')
     if not isinstance(board, dict) or str(board.get('date', '')) < policy['effective_edition'] or role not in policy['roles']:
@@ -139,6 +193,17 @@ def compact(text, package, role, repo):
                     del files[key]
     if inventory:
         text['inactive_renderer_source_inventory'] = [inventory[key] for key in sorted(inventory)]
+    verified_paths = {Path(p) for p in text.pop('_verified_code_source_paths', [])}
+    if role == 'phone' and verified_paths and text.get('verified_code_plan_context'):
+        reviewed = {row['path']: row for row in text.get('verified_code_source_inventory', [])}
+        for key in list(files):
+            path = (repo/key).resolve()
+            if path in verified_paths:
+                if files[key] != path.read_text():
+                    raise ValueError('code-approved source body differs from its current inventory bytes')
+                reviewed[key] = {'path': key, 'sha256': sha(path), 'bytes': path.stat().st_size}
+                del files[key]
+        text['verified_code_source_inventory'] = [reviewed[key] for key in sorted(reviewed)]
     text['packet_compaction'] = {'version': policy['version'], 'policy_sha256': sha(POLICY),
                                  'active_episodes': sorted(episodes)}
     files['config/independent_packet_compaction.json'] = POLICY.read_text()
