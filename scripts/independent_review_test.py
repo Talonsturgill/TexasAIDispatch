@@ -176,6 +176,9 @@ class AvailabilityTest(unittest.TestCase):
                 (('image', image), ('packet', packet), ('coverage', coverage), ('handback', handback))}}}
         self.assertFalse(r.failure_problems(failure, 'phone'))
         self.assertEqual(r.media_limit_packet(failure, self.root), data)
+        retained = r.retained_media_review({}, failure)['retained_host_media_review']
+        self.assertEqual(retained['handback'], handback.read_text())
+        self.assertEqual(retained['handback_sha256'], r.digest(handback))
         before = copy.deepcopy(c.read_state(self.state)['usage']); output = self.root/'prepared-media-failure.json'
         with patch.object(r, 'packet', return_value=({}, self.bindings)), \
                 patch.object(r.requests, 'post', side_effect=AssertionError('preparation started a provider')):

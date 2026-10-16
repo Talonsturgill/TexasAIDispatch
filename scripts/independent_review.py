@@ -116,6 +116,17 @@ def transport_assignment(role, actor, bindings):
     return value
 
 
+def retained_media_review(text, failure):
+    if failure.get('error') == MEDIA_LIMIT_ERROR:
+        probe = failure['media_probe']
+        text['retained_host_media_review'] = {
+            'basis': 'Original partial host review with explicit retractions; no complete selection or film approval.',
+            'handback_sha256': probe['handback']['sha256'],
+            'coverage_sha256': probe['coverage']['sha256'],
+            'handback': Path(probe['handback']['path']).read_text()}
+    return text
+
+
 def media_source_scope(source, bindings, role, comparison):
     if source is None:
         return
@@ -684,6 +695,13 @@ def prompt(role, text):
                         'Your assigned lens is ' + role + '. ')
     if role != 'code':
         instruction += modern_film.review_instruction(text.get('board', {}))
+    if text.get('retained_host_media_review'):
+        instruction += ('Inspect the actual movies first, then the retained partial host review. '
+            'Treat its retracted or unseen-image claims as unobserved. Explicitly reassess its received-pixel '
+            'findings under the same full guides and rubric, with timed evidence; confirmed mandatory '
+            'failures remain blocking. Include retained_findings_review with the original finding, '
+            'confirmed or not_reproduced or resolved_by_full_context, and concrete timed reasons. '
+            'Never erase the earlier evidence or infer approval from the recovery transport. ')
     instruction += assessment_prompt('phone' if role in ('code', 'phone') else 'panel')
     return instruction + '\nCurrent evidence\n' + json.dumps(text, ensure_ascii=False)
 
@@ -708,6 +726,7 @@ def run(board, claims, film, role, failure_path, state, out, *, compare_openings
     if compare_openings:
         text, bindings = comparison_scope(board, claims, text, bindings)
     media_source_scope(source_packet, bindings, role, compare_openings)
+    retained_media_review(text, failure)
     request_prompt = prompt(role, text)
     scope = (['opening-comparison', sorted(row['film_sha256'] for row in bindings['opening_options'].values())]
              if 'opening_options' in bindings else bindings.get('film_sha256') or
@@ -813,6 +832,9 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         current_text, current_bindings = packet(board, claims, role, film)
         if 'opening_options' in bindings:
             current_text, current_bindings = comparison_scope(board, claims, current_text, current_bindings)
+        if failure.get('error') == MEDIA_LIMIT_ERROR:
+            media_limit_packet(failure, state.parent)
+        retained_media_review(current_text, failure)
         if current_bindings != bindings or fingerprint(current_text) != fingerprint(text):
             raise ValueError('review inputs changed during independent transport')
         report = project(raw, bindings, role, model, reviewed_at)
