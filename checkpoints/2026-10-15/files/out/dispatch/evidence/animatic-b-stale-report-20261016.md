@@ -1,0 +1,2 @@
+# Opening B animatic inspection refused again (2026-10-16 ~05:46Z)
+Refusal: "inspect-only cannot rebind an older cinematic film: the preflight report belongs to a different board; the preflight film changed after inspection". preflight.json was opening A's inspection report. It is retained at openings/review/a-preflight-report-moved.json and removed from the canonical path so B's film is inspected fresh. No frame decoded by the refused run. Charge stays.
