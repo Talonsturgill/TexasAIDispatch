@@ -92,6 +92,10 @@ class NarrationRecoveryTest(unittest.TestCase):
         voice.prepare(self.state, self.receipt, self.report, self.plan)
         self.before = controller.read_state(self.state)
 
+    def critic_requirement(self):
+        plan = json.loads(self.plan.read_text()); state = controller.read_state(self.state)
+        return voice.required(plan, {}, state)['storyboard_critics']
+
     def grant(self):
         ok, message = capacity.grant_capacity(self.state, self.plan)
         self.assertTrue(ok, message)
@@ -135,10 +139,12 @@ class NarrationRecoveryTest(unittest.TestCase):
         self.grant(); self.assertFalse(controller.reserve(self.state, {'tts_calls': 1}, 'must wait')[0])
         voice.settle(self.state, self.plan); once = self.state.read_bytes()
         voice.settle(self.state, self.plan); self.assertEqual(self.state.read_bytes(), once)
+        self.assertEqual(self.critic_requirement(), 4)
         self.assertEqual(controller.read_state(self.state)['usage']['storyboard_critics'], 8)
         self.assertFalse(controller.reserve(self.state, {'preflight_renders': 1}, 'must wait')[0])
         receipt, passed = self.review()
         voice.verify_review(self.state, self.plan, receipt, passed)
+        self.assertEqual(self.critic_requirement(), 3)
         self.assertTrue(controller.reserve(self.state, {'tts_calls': 1}, 'actual newly permitted synthesis')[0])
         self.assertEqual(capacity.replay(controller.read_state(self.state))[1], [])
 

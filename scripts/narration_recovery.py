@@ -44,16 +44,29 @@ def identity(plan):
                           'reservation_sha256': receipt['reservation_sha256']}))
 
 
-def required(plan, counts):
+def required(plan, counts, state=None):
+    """Critics still needed from here: the reserve of four plus any unaccounted incident,
+    less the properly charged review once it is verified. A settled late charge is already
+    in usage, so counting it again demands capacity the grant never promised."""
+    from autonomous_completion import canonical, sha
     receipt = json.loads(plan['narration_recovery_evidence']['receipt_json'])
-    return {**counts, 'storyboard_critics': 4 + len(receipt['unreserved_continuations']),
-            'image_generations': 0}
+    need = 4
+    if state is None:
+        need += len(receipt['unreserved_continuations'])
+    else:
+        notes = {e.get('note') for e in state['events'] if e.get('kind') == 'reserved'}
+        need += sum('LATE CHARGE: unreserved narration content review; not a precharge or authorization; '
+                    + sha(canonical(i)) not in notes for i in receipt['unreserved_continuations'])
+        key = identity(plan)
+        need -= any(e.get('kind') == VERIFIED and e.get('capacity_identity') == key
+                    for e in state['events'])
+    return {**counts, 'storyboard_critics': need, 'image_generations': 0}
 
 
 def apply_budget(state, plan, budget):
     if plan.get('completion_reason') != REASON or not budget.get('resources'):
         return budget
-    counts = required(plan, {k: v['required'] for k, v in budget['resources'].items()})
+    counts = required(plan, {k: v['required'] for k, v in budget['resources'].items()}, state)
     rows = {k: {**v, 'required': counts[k]} for k, v in budget['resources'].items()}
     deficits = {k: v['required'] - v['remaining'] for k, v in rows.items()
                 if v['required'] > v['remaining']}
