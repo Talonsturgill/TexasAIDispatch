@@ -140,6 +140,22 @@ a credential value appears, and refuses any save that would lower usage, limits 
 frozen envelope or alter the earlier event history. A file too large to retain fails the save visibly.
 After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
 
+Immediately after selecting or restoring the production ledger, arm its preinstalled completion
+guard through the current checkout. Resolve the actual primary workspace parent, then run:
+
+```sh
+bash scripts/run_with_env.sh python scripts/routine_continuation.py --workspace <shared-parent> --arm out/dispatch/run_state.json
+```
+
+The prelaunch Stop hook sends an early final response back to this same ledger. It approves no
+tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and
+leaf agents. Collect required task results through the actual task tools, repair internal failures
+through the versioned routes, and continue until accepted shipment, the matching public archive
+on fetched origin/main, and the final shipped checkpoint exist. Do not re-register hooks in a
+running host. A supported fresh environment can prove the actual event with
+`routine_continuation.py --workspace <shared-parent> --probe` before any production is armed;
+that one-shot nonproduction probe creates no ledger and cannot replace an armed production run.
+
 At wake also record `python scripts/claude_contract_check.py --effective out/dispatch/effective-effort.json`.
 It reads the root session's host effort, any `CLAUDE_CODE_EFFORT_LEVEL` override, and each leaf's
 frontmatter. Fail on a mismatch; never set a global effort override.

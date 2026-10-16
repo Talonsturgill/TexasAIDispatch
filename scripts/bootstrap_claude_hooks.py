@@ -43,6 +43,9 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     handler = repo / ('scripts/cloud_capture_hook.py' if prelaunch_router else 'scripts/capture_guard.py')
     if not handler.is_file():
         raise ValueError('the active checkout capture handler is missing')
+    stop_handler = repo / 'scripts/routine_continuation.py'
+    if prelaunch_router and not stop_handler.is_file():
+        raise ValueError('the production continuation handler is missing')
     directory = workspace / '.claude'
     target = directory / 'settings.json'
     record = directory / 'dispatch-capture-registration.json'
@@ -69,9 +72,23 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
         entries[:] = [e for e in entries if e != previous.get('registration')]
     if registration not in entries:
         entries.append(registration)
+    stop_registration = previous.get('stop_registration') if previous else None
+    if prelaunch_router:
+        stops = hooks.setdefault('Stop', [])
+        if not isinstance(stops, list):
+            raise ValueError('existing Stop entries must be an array')
+        if stop_registration:
+            stops[:] = [entry for entry in stops if entry != stop_registration]
+        stop_registration = {'hooks': [{'type': 'command', 'command':
+            'python3 %s --workspace %s --hook' % (shlex.quote(str(stop_handler)), shlex.quote(str(workspace)))}]}
+        if stop_registration not in stops:
+            stops.append(stop_registration)
     directory.mkdir(parents=True, exist_ok=True)
     write_json(target, current)
-    write_json(record, {'schema': SCHEMA, 'repo': str(repo), 'registration': registration})
+    saved = {'schema': SCHEMA, 'repo': str(repo), 'registration': registration}
+    if stop_registration:
+        saved['stop_registration'] = stop_registration
+    write_json(record, saved)
     return {'ok': True, 'workspace': str(workspace), 'active_checkout': str(repo),
             'capture_handler': str(handler), 'capture_authorized': False,
             'live_hook_observed': False}
