@@ -1,48 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/opening-a.json",
-        "before_sha256": "f9ce0330704e6f4d95428fe2da92c4269546a5ce50f5449f6abe735a979f18c8",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/opening-b.json",
-        "before_sha256": "5261e5b3847a2f4ec4226ffe2fe83f8071fa3190f596a3908f02b93dced6460d",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/storyboard.json",
-        "before_sha256": "f9ce0330704e6f4d95428fe2da92c4269546a5ce50f5449f6abe735a979f18c8",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/episode/FloodStationFilm.tsx",
-        "before_sha256": "5f5b9f705d43df0eed44d83347e4bd3f9afffb0e1d16a1297c2eff44dec5743f",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/episode/FloodStationHero.tsx",
-        "before_sha256": "87db5bbeb6b714cb97222c7097a74a2230efa9f810d102223e0f78417786a07c",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/episode/StreetHubSupport.tsx",
-        "before_sha256": "b34557b5b9fa5e60b97a41d0083000aed7cfe44702c888554481c07ebb68e2c6",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/registry.tsx",
-        "before_sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
-        "path": "{REPO}/video-engine/src/modern/registry.tsx"
-      }
-    ],
-    "failure_sha256": "823e45ebddc7127738dfc606ccd86b5cec4c4364daa912f20804afda2222f047",
-    "plan": "{REPO}/out/dispatch/repair-plan-code1-v2-bound.json",
-    "plan_sha256": "da0bc669a633d2f3f4b41c413563aba7657bac3862ab3cdb9e0914bbf27860c9",
-    "reboards_before": 2,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -337,6 +293,125 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-16T03:44:45.070196Z",
+      "grants": {
+        "preflight_renders": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/opening-a.json",
+            "before_sha256": "f9ce0330704e6f4d95428fe2da92c4269546a5ce50f5449f6abe735a979f18c8",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/opening-b.json",
+            "before_sha256": "5261e5b3847a2f4ec4226ffe2fe83f8071fa3190f596a3908f02b93dced6460d",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/storyboard.json",
+            "before_sha256": "f9ce0330704e6f4d95428fe2da92c4269546a5ce50f5449f6abe735a979f18c8",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/episode/FloodStationFilm.tsx",
+            "before_sha256": "5f5b9f705d43df0eed44d83347e4bd3f9afffb0e1d16a1297c2eff44dec5743f",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+          },
+          {
+            "after_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/episode/FloodStationHero.tsx",
+            "before_sha256": "87db5bbeb6b714cb97222c7097a74a2230efa9f810d102223e0f78417786a07c",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx"
+          },
+          {
+            "after_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/episode/StreetHubSupport.tsx",
+            "before_sha256": "b34557b5b9fa5e60b97a41d0083000aed7cfe44702c888554481c07ebb68e2c6",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
+          },
+          {
+            "after_sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
+            "before_path": "{REPO}/out/dispatch/evidence/pre-correction-1/registry.tsx",
+            "before_sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
+            "path": "{REPO}/video-engine/src/modern/registry.tsx"
+          }
+        ],
+        "code_evidence": {
+          "input_bindings": [
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/opening-a.json",
+              "sha256": "f9ce0330704e6f4d95428fe2da92c4269546a5ce50f5449f6abe735a979f18c8"
+            },
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/opening-b.json",
+              "sha256": "5261e5b3847a2f4ec4226ffe2fe83f8071fa3190f596a3908f02b93dced6460d"
+            },
+            {
+              "kind": "board",
+              "path": "{REPO}/out/dispatch/storyboard.json",
+              "sha256": "f9ce0330704e6f4d95428fe2da92c4269546a5ce50f5449f6abe735a979f18c8"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+              "sha256": "5f5b9f705d43df0eed44d83347e4bd3f9afffb0e1d16a1297c2eff44dec5743f"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+              "sha256": "87db5bbeb6b714cb97222c7097a74a2230efa9f810d102223e0f78417786a07c"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+              "sha256": "b34557b5b9fa5e60b97a41d0083000aed7cfe44702c888554481c07ebb68e2c6"
+            },
+            {
+              "kind": "renderer",
+              "path": "{REPO}/video-engine/src/modern/registry.tsx",
+              "sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03"
+            },
+            {
+              "kind": "claims",
+              "path": "{REPO}/out/dispatch/claims.json",
+              "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e"
+            }
+          ],
+          "review_scope": "independent-code-plan",
+          "schema": "dispatch_code_capacity_evidence/1"
+        },
+        "completion_reason": "mandatory-code-integrity",
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The station first appears when the narration says the researchers built it, the final picture reads as a design with no installed site, and every clause is pictured while it is spoken in both treatments.",
+        "failure_evidence": "{REPO}/out/dispatch/code-critic-1-envelope.json",
+        "failure_evidence_sha256": "823e45ebddc7127738dfc606ccd86b5cec4c4364daa912f20804afda2222f047",
+        "failure_family": "continuity",
+        "mechanism_change": "The close and limit beats stop using an installed curbside station measuring a rising flood; B diverges through staging and framing instead of reversing events under unchanged words.",
+        "mechanism_id": "installed-station-assertion-and-clause-order",
+        "repair": "Keep the station out of the opening yard, show the limit as an uninstalled outline or off-street prototype with no flood measurement, keep one map across s8 and s9, restore clause-order performance in every scene for both treatments, and fix the code-visible pixel risks.",
+        "resources": {
+          "preflight_renders": 2
+        },
+        "root_cause": "The independent code critic found that the film draws an installed, measuring station in the opening yard and again at the close, which asserts a deployment and field outcome the sources deny, and that treatment B reverses event order under fixed narration in scenes s2, s3, s4 and s7 so clauses are pictured with another clause subject."
+      },
+      "repair_plan_sha256": "26a15d42b455892a8471d93ef06eff5c32c361aa99c88493c31539c5152bfd71",
+      "repair_revision": "06c499d19b636c78fef65a237ca4aa4234b2f232c61a048d674707b09954b17e",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -360,7 +435,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e82f29fbc51e62d05b79b487aebdc4ad31e21eef1034cbd57cd04db31bedd561",
+    "original_private_state_sha256": "77b1edfa5f1321648f540568f1831a7d51a6058751123ed5831e73b36686a9ed",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -396,7 +471,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T03:07:38.557974Z",
+  "updated_at": "2026-10-16T03:44:45.070227Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
