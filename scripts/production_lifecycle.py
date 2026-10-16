@@ -228,15 +228,13 @@ def begin_repair(path, plan_path):
     if not isinstance(scope, str) or scope not in SCOPES:
         return False, "unknown repair_scope"
     request_errors = resource_request_problems(state, scope, plan.get("resources"))
-    if request_errors:
-        return False, "; ".join(request_errors)
     reuse_errors = existing_critic_problems(state, plan)
     opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
     if scope == CONTEXT_SCOPE:
         opening = {"reboards": 1}
     if plan.get("existing_critic_reservations") and not reuse_errors:
         opening = {"reboards": 1}
-    errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening)
+    errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening) + request_errors
     if scope == CONTEXT_SCOPE:
         import review_context
         errors += review_context.plan_problems(path, plan)
