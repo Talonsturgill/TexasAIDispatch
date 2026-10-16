@@ -473,6 +473,29 @@ class CreativeTest(unittest.TestCase):
             receipt["options"][0]["inspection"]["sha256"] = c.digest(report_path)
             self.assertTrue(any("stale inspector_sha256" in e for e in opening_compare.inspection_problems(receipt, output)))
 
+    def test_original_provider_comparative_reason_is_verified_without_rewriting_selection(self):
+        choice = self.comparison_fixture()
+        choice['comparative_reason'] = choice.pop('reason')
+        choice['provider_evidence'] = {'fixture': 'original provider proof checked separately'}
+        path = self.write('openings/selection.json', choice); before = path.read_bytes()
+        with patch('critic_gate.renderer_digest', return_value='fixture-renderer'), \
+             patch('independent_review.evidence_problems', return_value=[]) as verify:
+            self.assertEqual(c.opening_problems(self.root/'storyboard.json'), [])
+            verify.assert_called_once_with(choice)
+            verify.return_value = ['original provider response changed']
+            self.assertIn('original provider response changed', c.opening_problems(self.root/'storyboard.json'))
+        self.assertEqual(path.read_bytes(), before)
+        choice.pop('provider_evidence'); self.write('openings/selection.json', choice)
+        with patch('critic_gate.renderer_digest', return_value='fixture-renderer'):
+            self.assertIn('provider comparative reason lacks original independent evidence',
+                          c.opening_problems(self.root/'storyboard.json'))
+        choice['comparative_reason'] = 'thin'; choice['provider_evidence'] = {'fixture': True}
+        self.write('openings/selection.json', choice)
+        with patch('critic_gate.renderer_digest', return_value='fixture-renderer'), \
+             patch('independent_review.evidence_problems', return_value=[]):
+            self.assertIn('opening choice needs comparative observed reasons',
+                          c.opening_problems(self.root/'storyboard.json'))
+
     def test_finishing_selection_retains_rejected_alternate_but_never_selected_failure(self):
         self.comparison_fixture()
         output = self.root / 'openings'
