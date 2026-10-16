@@ -168,9 +168,30 @@ def has_private_structure(obj):
 
 
 GRANT_ROOTS_FILE = 'out/dispatch/grant-projection-roots.private.json'
-GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant'}
+GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant', 'mandatory_completion_grant',
+               'narration_recovery_review_verified', 'narration_recovery_capacity_verified'}
 GRANT_TEXTS = {'authorization_json': 'authorization_sha256',
-               'failure_evidence_json': 'failure_evidence_sha256'}
+               'failure_evidence_json': 'failure_evidence_sha256',
+               'plan_json': 'plan_sha256', 'precheck_json': 'precheck_sha256',
+               'policy_json': 'policy_sha256', 'receipt_json': 'receipt_sha256',
+               'report_json': 'report_sha256'}
+
+
+def grant_anchor(grant):
+    return grant[{'mandatory_completion_grant': 'plan_sha256',
+                  'narration_recovery_capacity_verified': 'plan_sha256',
+                  'narration_recovery_review_verified': 'receipt_sha256'}.get(
+                      grant['kind'], 'authorization_sha256')]
+
+
+def grant_text_fields(grant):
+    required = ({'plan_json', 'failure_evidence_json', 'precheck_json', 'policy_json'}
+                if grant['kind'] in {'mandatory_completion_grant', 'narration_recovery_capacity_verified'} else
+                {'receipt_json', 'report_json'} if grant['kind'] == 'narration_recovery_review_verified'
+                else {'authorization_json', 'failure_evidence_json'})
+    if any(key not in grant or GRANT_TEXTS[key] not in grant for key in required):
+        raise CheckpointError('hash-bound event text or digest is missing')
+    return required
 
 
 def grant_roots(state, root):
@@ -190,8 +211,10 @@ def grant_roots(state, root):
         if key in known:
             raise CheckpointError('duplicate grant projection origin')
         known[key] = row['root']
-    return [{'event_index': index, 'authorization_sha256': grant['authorization_sha256'],
-             'root': known.get((index, grant['authorization_sha256']), str(root))}
+    # The legacy metadata key remains stable; completion records use their plan or
+    # receipt hash as the anchor instead of an owner authorization hash.
+    return [{'event_index': index, 'authorization_sha256': grant_anchor(grant),
+             'root': known.get((index, grant_anchor(grant)), str(root))}
             for index, grant in enumerate(state.get('events', [])) if grant.get('kind') in GRANT_KINDS]
 
 
@@ -202,9 +225,9 @@ def unproject_grants(state, manifest):
     for index, grant in enumerate(state.get('events', [])):
         if grant.get('kind') not in GRANT_KINDS:
             continue
-        origin = origins.get((index, grant['authorization_sha256']), manifest['repo_root'])
-        fields = {key: expand(grant[key], origin) for key in GRANT_TEXTS}
-        if any(sha256(fields[key].encode()) != grant[hash_key] for key, hash_key in GRANT_TEXTS.items()):
+        origin = origins.get((index, grant_anchor(grant)), manifest['repo_root'])
+        fields = {key: expand(grant[key], origin) for key in grant_text_fields(grant)}
+        if any(sha256(value.encode()) != grant[GRANT_TEXTS[key]] for key, value in fields.items()):
             raise CheckpointError('hash-bound grant evidence cannot be restored exactly')
         restored[index] = fields
     return restored
@@ -223,7 +246,7 @@ def public_projection(state, root):
     origins = grant_roots(result, root)
     for row in origins:
         grant = result['events'][row['event_index']]
-        for key in GRANT_TEXTS:
+        for key in grant_text_fields(grant):
             grant[key] = portable(grant[key], row['root'])
     result = redact(portable(result, root))
     # A private value inside exact rejection evidence must fail closed, not corrupt its hash.
@@ -688,7 +711,7 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None):
     source_ledger = json.loads(ledger)
     state_path.write_text(json.dumps(restored_ledger(source_ledger, dest, manifest), indent=2, sort_keys=True) + "\n")
     origins = manifest.get('grant_origin_roots') or [
-        {'event_index': index, 'authorization_sha256': grant['authorization_sha256'], 'root': manifest['repo_root']}
+        {'event_index': index, 'authorization_sha256': grant_anchor(grant), 'root': manifest['repo_root']}
         for index, grant in enumerate(source_ledger.get('events', [])) if grant.get('kind') in GRANT_KINDS]
     (dest / GRANT_ROOTS_FILE).write_text(json.dumps({'schema': 1, 'entries': origins}, indent=2) + '\n')
     (state_path.parent / "claude-host.json").write_text(json.dumps({"run_id": run_id, "restored_from": tip, "at": now()}) + "\n")

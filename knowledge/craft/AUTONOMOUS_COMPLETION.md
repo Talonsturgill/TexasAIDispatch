@@ -121,6 +121,66 @@ bound plan or any other board change. A source fix and bookkeeping rebind approv
 bind fresh packets and require the separate full code, silent phone and timed phone verdicts
 before native production. Never replace a phone review with the code rejection or its grant.
 
+## Charged narration pivot recovery
+
+The October 16th run exposed a missing path after a charged Opus High narration pivot returned
+REVISE at the critic ceiling. For unfinished editions from October 15th, the separate pinned
+config/autonomous_completion_narration_v1.json funds a properly precharged replacement review
+and the conservative complete code, silent phone, timed phone, native, audiovisual, scoring and
+delivery path. It changes no original policy, envelope, charge or verdict. Fresh artwork is
+not requested by this capacity-only admission; existing relevant authored assets stay bound.
+
+Preserve the original full rejection, its actual reserved event, the complete original packet,
+all referenced failed findings, audio, acoustic ASR and direction baselines. A director summary
+is never the original handback. Build a dispatch_narration_pivot_recovery/1 receipt with actual
+run_id, director_identity, role recurrence-pivot, status completed, provider_unavailable false,
+model claude-opus-5-5, effort high, actual agent_id and reviewer_identity. Bind report_sha256,
+reservation_event_index, reservation_sha256 and the exact reservation_note. retained_inputs
+lists path/sha256/kind references (failure, audio, asr, baseline and packet), including every
+failure hash named by the reviewer. Use canonical JSON for event hashes.
+
+Every substantive review of a changed proposal is a new charged call, including SendMessage
+to the same worker. Only mechanical format corrections on unchanged content are free.
+If an actual unreserved continuation has already occurred, keep its exact response, reviewed
+proposal, actual time and disclosure unchanged. List it under unreserved_continuations with
+agent_id, observed_at, precharged false, invalid_for_authorization true and path/sha256 objects
+for handback, proposal and disclosure. At most one such incident is admitted per charged
+rejection. Account it once as a visibly LATE CHARGE; never backdate a reservation or present
+the old pass as a properly precharged review. An empty incidents list is valid.
+
+```sh
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --receipt <actual-receipt> --report <full-original-rejection> --output <new-capacity-plan>
+python scripts/run_controller.py production-budget --review-route host --repair-plan <new-capacity-plan>
+python scripts/run_controller.py completion-capacity --repair-plan <new-capacity-plan>
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --settle-unreserved <new-capacity-plan>
+python scripts/run_controller.py production-budget --review-route host --repair-plan <new-capacity-plan>
+```
+
+Use the environment wrapper and explicit internal cd. Prepare grants no calls. Capacity records
+only exact deficits in a separate event. Do not begin-repair with this capacity-only plan.
+Reserve the next actual critic before SendMessage to the same Opus High worker. Give it the
+complete current guides, exact rejected and current proposals, retained failures and current
+source bindings. It evaluates the proposed performance, without claiming to hear audio through
+Read. Soundcheck and exact acoustic alignment still decide the actual take. Preserve an already
+generated take once, even if it was generated after an invalid review; no fabricated precharge,
+discarded spend or automatic replacement take is allowed.
+
+After a real independent PASS, create dispatch_precharged_narration_review/1 with run_id,
+grant_event_index/grant_sha256, reservation_event_index/reservation_sha256, actual model/effort,
+agent_id, reviewer_identity, provider_unavailable false, started_at/completed_at, current
+direction_sha256, report_sha256 and mechanism_id. Times describe this actual new content call,
+not the worker's original lifetime. The reservation must precede it and cannot be a late debit.
+
+```sh
+python scripts/narration_recovery.py --state out/dispatch/run_state.json --verify-review <new-capacity-plan> --receipt <actual-new-call-receipt> --report <unchanged-new-pass>
+```
+
+Dependent paid work remains refused until that verification. The record approves no recorded
+speech, film or shipment. Keep all actual caption, timing, source, rights, current artwork,
+native PNG/CRF16, three independent scores and delivery gates. A later REVISE stays a rejection;
+use its own actual precharged evidence for the next mandatory recovery. Never ask the owner to
+approve an internal ceiling, label a ceiling as host unavailability or substitute a new edition.
+
 ## Actual recurrence pivot rejection recovery
 
 config/autonomous_completion_pivot_v1.json is a separate dated amendment for a charged independent

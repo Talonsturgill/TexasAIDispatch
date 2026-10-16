@@ -316,6 +316,10 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             f"run controller: {state['terminal_state']} is terminal. "
             "No further expensive action is allowed."
         )
+    from narration_recovery import paid_work_problems
+    narration_errors = paid_work_problems(state, amounts)
+    if narration_errors:
+        return False, '; '.join(narration_errors)
     unknown = sorted(set(amounts) - set(state["limits"]))
     if unknown:
         return False, f"run controller: unknown resource(s): {', '.join(unknown)}"
@@ -2245,13 +2249,13 @@ def main() -> int:
                     plan = load_json(a.repair_plan)
                     from repair_guard import structural_hero_plan_ready, minimum_action_plan_failure
                     minimum_action_failed = minimum_action_plan_failure(read_state(state_path), plan)
-                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, mandatory_reason, replay
+                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, mandatory_reason, replay
                     current = read_state(state_path)
                     if (any(e.get("kind") == ADOPTION for e in current["events"])
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON}
                         review_coverage = mandatory_reason(current, plan, evidence_text) == COVERAGE_REASON
                         modern_code_repair = mandatory_reason(current, plan, evidence_text) in {MODERN_CODE_REASON, PIVOT_REASON}
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
@@ -2282,6 +2286,9 @@ def main() -> int:
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(read_state(state_path), budget_plan, result)
+                if budget_plan.get('completion_reason') == 'mandatory-narration-pivot':
+                    from narration_recovery import apply_budget as narration_budget
+                    result = narration_budget(read_state(state_path), budget_plan, result)
                 if (budget_plan.get('repair_scope') == 'technical-integrity'
                         and 'capture_completion_budget' not in budget_plan
                         and str(read_state(state_path).get('run_id', ''))[:10] >= '2026-10-09'):
