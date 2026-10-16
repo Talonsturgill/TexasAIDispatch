@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T22:08:30.098939+00:00",
-  "note": "R13 applied (events 230-233), real 64.4 mix, take7 aligned; critic_gate digest mismatch from timing_provenance, restamp denied by classifier, held",
+  "saved_at": "2026-10-16T22:09:44.429041+00:00",
+  "note": "R13 held at critic_gate: real gate refusal, exact board+words delta, restamp denial preserved; critic23 and reports unchanged",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -8588,8 +8588,8 @@
     {
       "path": "out/dispatch/evidence/r13-apply/checkpoint.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "0521522005b220cedddf55aa9ea2ef55cd768119db0d119afe88d1bfa6970928",
+      "size": 249
     },
     {
       "path": "out/dispatch/evidence/r13-apply/ledger-events-230-233.json",
@@ -8626,6 +8626,60 @@
       "class": "scratch",
       "sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
       "size": 4231
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/DENIAL-restamp.md",
+      "class": "scratch",
+      "sha256": "9cb06d537b4a6b7d324f2036d55462b1aad9db182a76d95dfd3ca51625bf6e6b",
+      "size": 2238
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/checkpoint.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/critic_gate-refusal.txt",
+      "class": "scratch",
+      "sha256": "2d94bec0c27743744a978ea84f6ecfa2a1ea27f408a4a77be74c6125b5238deb",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/delta.txt",
+      "class": "scratch",
+      "sha256": "15f1eeffc8e6e70f2057ea96463343e7bbff9127a9ee10274988031e70b7d9d4",
+      "size": 1453
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/live-mix.json",
+      "class": "scratch",
+      "sha256": "46d860b91f031fa6d3252847b6c8a3a7aadf5abb6682a915b54f6330d41c755a",
+      "size": 6076
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/live-storyboard-after-real-mix.json",
+      "class": "scratch",
+      "sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+      "size": 193169
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/live-words-after-real-mix.json",
+      "class": "scratch",
+      "sha256": "e7d3a9b5d2487a9be1fa5badd6d80a31643aee86e789b394904a376c37e23294",
+      "size": 35288
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/reviewed-board-before.json",
+      "class": "scratch",
+      "sha256": "12c90919416524d090a9be8b7d658e10d68ea74ede4cca0314141a896d15f09f",
+      "size": 193169
+    },
+    {
+      "path": "out/dispatch/evidence/r13-concept-digest-hold/reviewed-words-before.json",
+      "class": "scratch",
+      "sha256": "99dd69cda7ffd247b568644719d02e56080752a48fcb8d717e39f57555623378",
+      "size": 35288
     },
     {
       "path": "out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
