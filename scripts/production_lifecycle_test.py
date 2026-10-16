@@ -70,6 +70,72 @@ class LifecycleTest(unittest.TestCase):
             "resources": {"preflight_renders": 2, "full_renders": 1,
                           "audiovisual_reviews": 4, "panel_rounds": 1, "scorer_calls": 3}})
 
+    def test_overdeclared_unchanged_input_stays_bound_through_authorization(self):
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        registry = self.root / "registry.tsx"
+        baseline = self.root / "registry.before.tsx"
+        registry.write_text("existing episode registration")
+        baseline.write_bytes(registry.read_bytes())
+        row = {"path": str(registry), "before_path": str(baseline),
+               "before_sha256": c.digest(baseline)}
+        plan["changed_inputs"].append(row)
+        plan_path.write_text(json.dumps(plan))
+        self.assertTrue(life.begin_repair(self.state, plan_path)[0])
+        self.assertTrue(c.reserve(self.state, {"reboards": 1})[0])
+        Path(plan["changed_inputs"][0]["path"]).write_text("source-backed performed correction")
+        for item in plan["changed_inputs"]:
+            item["after_sha256"] = c.digest(Path(item["path"]))
+        plan_path.write_text(json.dumps(plan))
+        # An unchanged declaration remains a real hash binding, including its baseline.
+        for target in (registry, baseline):
+            saved = target.read_bytes()
+            target.write_text("unregistered bytes")
+            with self.subTest(tampered=target.name):
+                self.assertFalse(life.authorize_repair(self.state, plan_path)[0])
+                self.assertIn("active_repair", c.read_state(self.state))
+            target.write_bytes(saved)
+        usage = c.read_state(self.state)["usage"]
+        ok, message = life.authorize_repair(self.state, plan_path)
+        self.assertTrue(ok, message)
+        state = c.read_state(self.state)
+        self.assertEqual(state["usage"], usage)
+        self.assertEqual(state["events"][-1]["repair_plan"]["changed_inputs"], plan["changed_inputs"])
+        self.assertEqual(row["before_sha256"], row["after_sha256"])
+
+    def test_all_unchanged_repair_is_still_refused_without_resetting_charge(self):
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        self.assertTrue(life.begin_repair(self.state, plan_path)[0])
+        self.assertTrue(c.reserve(self.state, {"reboards": 1})[0])
+        plan["changed_inputs"][0]["after_sha256"] = plan["changed_inputs"][0]["before_sha256"]
+        plan_path.write_text(json.dumps(plan))
+        ok, message = life.authorize_repair(self.state, plan_path)
+        self.assertFalse(ok)
+        self.assertIn("at least one changed input", message)
+        self.assertEqual(c.read_state(self.state)["usage"]["reboards"], 1)
+        self.assertIn("active_repair", c.read_state(self.state))
+
+    def test_unchanged_padding_cannot_buy_the_same_revision_again(self):
+        plan_path = self.plan()
+        plan = c.load_json(plan_path)
+        source = Path(plan["changed_inputs"][0]["path"])
+        source.write_text("source-backed performed correction")
+        plan["changed_inputs"][0]["after_sha256"] = c.digest(source)
+        plan_path.write_text(json.dumps(plan))
+        state = c.read_state(self.state)
+        proof, error = c.repair_plan_evidence(state, "full_renders", plan_path)
+        self.assertFalse(error)
+        state["events"].append({"resource": "full_renders", "repair_revision": proof["repair_revision"]})
+        source = self.root / "unchanged.tsx"
+        source.write_text("unchanged registered dependency")
+        plan["changed_inputs"].append({"path": str(source), "before_path": str(source),
+                                       "before_sha256": c.digest(source), "after_sha256": c.digest(source)})
+        plan_path.write_text(json.dumps(plan))
+        proof, error = c.repair_plan_evidence(state, "full_renders", plan_path)
+        self.assertFalse(proof)
+        self.assertIn("already extended", error)
+
 
     def test_technical_scope_is_predeclared_charged_and_cannot_be_relabelled(self):
         import creative_release
