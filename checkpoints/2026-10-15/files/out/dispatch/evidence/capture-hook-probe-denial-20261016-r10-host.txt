@@ -1,0 +1,4 @@
+Probe 2026-10-16 (this host, restored checkout /home/user/ed1015/TexasAIDispatch, before any real capture):
+command: bash scripts/run_with_env.sh bash -c 'cd /home/user/ed1015/TexasAIDispatch/video-engine && npx remotion still --help 2>&1 | head -3'
+native result: PreToolUse:Bash hook error: Capture refused. current native headroom is below the 20 GiB required; the capture authorization has expired; this exact command is not one the authorization lists.
+The hook loaded from the saved setup of this prelaunch host denies a capture-form command with no current authorization. Nothing rendered.

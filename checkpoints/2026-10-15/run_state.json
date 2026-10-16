@@ -353,6 +353,14 @@
       "note": "R11 corrective reboard: story-contract claim binding and source-limit metadata (registered repair)",
       "resource": "reboards",
       "to": 7
+    },
+    {
+      "at": "2026-10-16T19:59:05.545298Z",
+      "ceiling": 17,
+      "from": 12,
+      "note": "capture authorization reservation for opening comparison",
+      "resource": "preflight_renders",
+      "to": 13
     }
   ],
   "events": [
@@ -3792,6 +3800,24 @@
       "repair_revision": "0024ff2eb946e9900bd9ec5a1d60d702b1429624b7f696ebf3d3d493bd878d27",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-16T19:59:05.545314Z",
+      "ceiling": 17,
+      "kind": "budget_escalated",
+      "note": "capture authorization reservation for opening comparison",
+      "now": 13,
+      "resource": "preflight_renders",
+      "was": 12
+    },
+    {
+      "at": "2026-10-16T19:59:05.545322Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "c06cfec1ac7490a168f37861e85d4aff248e4beeccda43062f11d44084461fd1",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -3800,7 +3826,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 12,
+    "preflight_renders": 13,
     "reboards": 7,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -3815,7 +3841,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "1c4e99abbf15102772414bf5c99c6b873146bbf582a719eefcb3a25fbac45ae6",
+    "original_private_state_sha256": "8b1de507e5b203759fd50127ff66e832376d1bf7ae41dd3ff5d34ca49d883add",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3851,14 +3877,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:54:23.636364Z",
+  "updated_at": "2026-10-16T19:59:05.545324Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 12,
+    "preflight_renders": 13,
     "reboards": 7,
     "reported_tokens": 241924,
     "rescue_renders": 0,

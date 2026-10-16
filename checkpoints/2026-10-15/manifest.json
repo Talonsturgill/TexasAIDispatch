@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T19:54:51.079749+00:00",
-  "note": "critic gate passes on R11 boards",
+  "saved_at": "2026-10-16T19:59:08.849002+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "158d44dba721d765830844084262335cfa2fd146e5757acd6f351b8b9853808e",
-  "original_private_ledger_sha256": "1c4e99abbf15102772414bf5c99c6b873146bbf582a719eefcb3a25fbac45ae6",
+  "ledger_sha256": "df002c61f9ac7825521655ac3f08789dc328804dd22e414b2156f408a97b1def",
+  "original_private_ledger_sha256": "8b1de507e5b203759fd50127ff66e832376d1bf7ae41dd3ff5d34ca49d883add",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -61,7 +61,7 @@
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 12,
+    "preflight_renders": 13,
     "reboards": 7,
     "reported_tokens": 241924,
     "rescue_renders": 0,
@@ -944,6 +944,12 @@
       "size": 949
     },
     {
+      "path": "out/dispatch/capture-housekeeping-20261016T195859.json",
+      "class": "scratch",
+      "sha256": "25c3baac4ac358fccb8433e3b6e166cb9bbb9cf5e0ddfd23893d2e78a5c6e618",
+      "size": 957
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
       "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
@@ -1134,6 +1140,12 @@
       "class": "scratch",
       "sha256": "04fa51f1a6d76bd3e8a8f593ee46ad9cd583e21553421c328454c3abac342767",
       "size": 1039
+    },
+    {
+      "path": "out/dispatch/evidence/capture-hook-probe-denial-20261016-r10-host.txt",
+      "class": "scratch",
+      "sha256": "6364dad0093ec2fec66db5862576a5804a2af52ff05c12b5ee1141e1dca978b3",
+      "size": 597
     },
     {
       "path": "out/dispatch/evidence/capture-hook-probe-denial-20261016.txt",
@@ -8410,8 +8422,8 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "7f75dc3d4398db9046b4485cb00c6e9b9b20ca80fd0125dc1f716e16f6f2e1dc",
-      "size": 308
+      "sha256": "493fa46fcbaf40d857983a7cccd9a0829977cb393cf6e13ceb258eb22c7e5549",
+      "size": 309
     },
     {
       "path": "out/dispatch/opening-a-critic.json",
