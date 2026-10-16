@@ -84,7 +84,14 @@ def canonical(text: str) -> list[str]:
     # Keep the original script word and acoustic center outside this comparison.
     text = re.sub(r"\b([a-z]*[bcdfghjklmnpqrstvwxyz])y['\u2019]s\b", r"\1ies", text, flags=re.IGNORECASE)
     parts = []
+    tokens = []
     for token in figure_tokens(text):
+        if re.fullmatch(r"\d[\d,]*\.\d+", token):
+            whole, fractional = token.replace(",", "").split(".")
+            tokens.extend([whole, "point", *fractional])
+        else:
+            tokens.append(token)
+    for token in tokens:
         if re.fullmatch(r"[2-9][1-9]", token):
             value = int(token)
             parts.extend([str(value // 10 * 10), str(value % 10)])
@@ -945,6 +952,10 @@ def self_test() -> int:
             refused = True
         ok("sourced name reconciliation still refuses " + wrong, refused)
     ok("ordinal notation preserves the value", canonical("ninth") == canonical("9th"))
+    ok("spoken and numeric decimal percentages keep the same acoustic parts",
+       canonical("ninety eight point eight two") == canonical("98.82"))
+    ok("a wrong decimal place cannot normalize away",
+       canonical("ninety eight point eight two") != canonical("98.28"))
     ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
     number_groups, number_evidence = acoustic_groups(
         ["thirty-three"], [(0.2, 2.0)], [{"text": "33", "center": .9}], [])
