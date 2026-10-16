@@ -1,0 +1,6 @@
+# Take 4 outcome (2026-10-16)
+Producer statuses (captured, logs retained here): vo_synth 0 (59.2 s, -20.6 LUFS), vo_soundcheck 0 (chose take1, accuracy 0.993), mix 0 (63.70 s, -16.04 LUFS), vo_align 1.
+vo_align verdict: "ASR does not reconcile with the locked script: - still + steel - goal + goat". Pinned whisper heard "Deployment is Steel the Goat." for "Deployment is still the goal." with low token confidence (Steel 0.356, Goat 0.445). Everything else reconciled, including spread (repair 3 worked: the breath after could spread was in a field the synthesizer receives) and the percent figure. Gemini's soundcheck transcript of the same take reads still the goal, so the narrator's closing phrase is acoustically ambiguous to whisper, as in take 2 (steal), not misread by the narrator.
+Voice stem tail: closing phrase spans about 58.3 to 59.1 s then silence, preceded by a 0.5 s gap near 56.7 to 57.3 s.
+Charges: tts_calls 8 of ceiling 12 (four takes, four soundchecks). Repair batches so far: 1 direction-lexical-leak-paraphrase, 2 stress-phrase-articulation, 3 clause-breath-and-short-notes (independent pivot pivot-review-voice3.json).
+Retained takes: takes/ (0.945), takes-2/ (0.979), takes-3/ (0.986), takes-4/ (0.993). No ASR override, alias, timing edit or splice.
