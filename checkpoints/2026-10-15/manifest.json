@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T06:01:16.869144+00:00",
-  "note": "capture authorization consumed e1a0b0360753",
+  "saved_at": "2026-10-16T06:01:23.038463+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "4b53580d4e0529c28525a10d99c6fbbd0094c8a9621fc133454d6afade2d6a1a",
-  "original_private_ledger_sha256": "863a672fd6c795c6d0b69d40c61914fdef94615d828a8b215044ee6680be8572",
+  "ledger_sha256": "fb3fa1d55e853fe84ebd8348ef1ce09a5639e450ff4f22a3d69947f761982984",
+  "original_private_ledger_sha256": "dfcf127925be98a88b1df080e00bb48b11714cf15f6037da08c20fc401c2b4cf",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -2262,6 +2262,12 @@
       "class": "scratch",
       "sha256": "4a648eb459f668edb3faa4fad9fbd9f21d436473feabef1b89c35b81a854c818",
       "size": 3998
+    },
+    {
+      "path": "out/dispatch/run_state.json.capture-claim.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/sources/utsa.html",
