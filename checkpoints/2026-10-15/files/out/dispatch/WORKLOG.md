@@ -18,3 +18,10 @@ BLOCKER
 Next executable step (needs owner decision)
 - Owner either grants one validator_agents increment for this ledger (run_controller grant-owner-review or extend-agent-ceiling with owner authorization), or adds validator_agents to autonomous completion eligible resources. Then SendMessage the same validator (agent a3d805ce25b8b417c) with the corrected out/dispatch/vo_script.txt, save its validation object unchanged as out/dispatch/validation.json, set claim verdicts VERIFIED, run validation_check, then continue Phase 2 (two treatment boards, authoring packet, scene-builder).
 - Docket tx-2026-0141 misdates the announcement as September 28th, 2026. Primary says September 8th. Needs a separate Docket repair branch in the correct lane.
+
+## Review scope for the corrected same-worker code re-review (owner clarification 2026-10-16)
+Same critic (a407e8e20bf633e6f) reads in full: every packet-bound required guide, both complete current boards (A and B, storyboard.json = A),
+the new FloodStationFilm, FloodStationHero, StreetHubSupport and the executed dependencies they actually use (PlaceStage, CountyLocator, overlays).
+The renderer closure stays mechanically hash-bound and verified by the director; unchanged unrelated closure files need not be read, and unrelated old
+episode implementations and whole controller modules are out of scope. The critic returns a per-input table separating read-in-full from verified-by-hash.
+No mandatory guide may be reported covered unless it was read.

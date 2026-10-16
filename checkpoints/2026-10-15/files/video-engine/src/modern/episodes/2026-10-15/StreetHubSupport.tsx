@@ -127,8 +127,8 @@ const Fence: React.FC<{x0: number; x1: number; h?: number; posts?: number; lean?
     <rect x={x + 3} y={-h - 14} width={5} height={h + 14} rx={2} fill={SA.chainShade} opacity={.8}/>
     <ellipse cx={x} cy={-h - 14} rx={10} ry={5} fill="#C7CCCD" stroke={SA.chainShade} strokeWidth={1.4}/>
     {i === mark && <g data-part="ankle-mark">
-     <rect x={x - 9} y={FENCE.markY - 6} width={18} height={12} fill={SA.paint} opacity={.95}/>
-     <path d={`M${x - 2} ${FENCE.markY + 6}Q${x - 1} ${FENCE.markY + 14} ${x - 3} ${FENCE.markY + 20}`} stroke={SA.paint} strokeWidth={3} fill="none" strokeLinecap="round"/>
+     <rect x={x - 12} y={FENCE.markY - 9} width={24} height={18} fill={SA.paint} stroke="#F6EBDA" strokeWidth={2}/>
+     <path d={`M${x - 2} ${FENCE.markY + 9}Q${x - 1} ${FENCE.markY + 17} ${x - 3} ${FENCE.markY + 24}`} stroke={SA.paint} strokeWidth={3.4} fill="none" strokeLinecap="round"/>
     </g>}
    </g>;})}
  </g>;
@@ -203,12 +203,12 @@ const Phone: React.FC<{banner?: number; t?: number; pal: Pal; w?: number}> = ({b
    {[[-50, 40], [30, -80], [60, 120], [-20, 160]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={5 + i} fill="#DCE8EE" opacity={.35}/>)}
    {b > 0 && <rect x={-w / 2} y={-h / 2} width={w} height={h} fill="#E9C27A" opacity={.12 * b}/>}
    {b > 0 && <g transform={`translate(0 ${by})`} opacity={clamp(b * 2.5)} data-part="warning-banner">
-    <rect x={-w / 2 + 22} y={0} width={w - 44} height={118} rx={16} fill={SA.banner} stroke={pal.ink} strokeWidth={2}/>
-    <path d={`M${-w / 2 + 52} 24L${-w / 2 + 74} 62H${-w / 2 + 30}Z`} fill={SA.alert} stroke={pal.ink} strokeWidth={2}/>
-    <rect x={-w / 2 + 50} y={36} width={4} height={14} fill={pal.ink}/><circle cx={-w / 2 + 52} cy={55} r={2.4} fill={pal.ink}/>
-    <text x={-w / 2 + 84} y={42} fontFamily={FONT.body} fontSize={17} fontWeight={800} fill={pal.ink}>Flash Flood</text>
-    <text x={-w / 2 + 84} y={64} fontFamily={FONT.body} fontSize={17} fontWeight={800} fill={pal.ink}>Warning</text>
-    <text x={-w / 2 + 36} y={98} fontFamily={FONT.body} fontSize={14} fontWeight={600} fill="#5A5249">Emergency alert</text>
+    <rect x={-w / 2 + 14} y={0} width={w - 28} height={150} rx={16} fill={SA.banner} stroke={SA.alert} strokeWidth={5}/>
+    <path d={`M${-w / 2 + 50} 20L${-w / 2 + 80} 70H${-w / 2 + 20}Z`} fill={SA.alert} stroke={pal.ink} strokeWidth={2}/>
+    <rect x={-w / 2 + 48} y={36} width={5} height={18} fill={pal.ink}/><circle cx={-w / 2 + 50.5} cy={62} r={3} fill={pal.ink}/>
+    <text x={-w / 2 + 90} y={44} fontFamily={FONT.body} fontSize={25} fontWeight={800} fill={pal.ink}>Flash Flood</text>
+    <text x={-w / 2 + 90} y={74} fontFamily={FONT.body} fontSize={25} fontWeight={800} fill={pal.ink}>Warning</text>
+    <text x={-w / 2 + 28} y={124} fontFamily={FONT.body} fontSize={19} fontWeight={700} fill="#5A5249">Emergency alert</text>
    </g>}
   </g>
   {/* earpiece slot and side buttons */}
@@ -354,7 +354,8 @@ const Desk: React.FC<{arm?: number; children?: React.ReactNode; screen: [number,
    <path d="M120 96L190 40" stroke="#D9A23A" strokeWidth={8} strokeLinecap="round"/>
   </g>
   {/* the responder's forearm: a navy work jacket sleeve with a reflective band, a dark work glove */}
-  <g transform={`translate(${lerp(1160, 0, a)} 0)`} data-part="responder-forearm">
+  {/* the arm is attached off frame at the right; it swings down about the elbow and comes to rest */}
+  <g transform={`rotate(${lerp(-22, 0, a)} 1190 1430) translate(${lerp(40, 0, a)} 0)`} data-part="responder-forearm">
    <ellipse cx={760} cy={1400} rx={170} ry={22} fill="#1E1A16" opacity={.28}/>
    <path d="M1140 1330Q900 1336 760 1360Q720 1368 712 1392Q720 1418 770 1418Q930 1410 1140 1420Z" fill={SA.sleeve}/>
    <path d="M1140 1340Q920 1344 790 1366" stroke="#41567A" strokeWidth={6} fill="none" opacity={.8}/>
@@ -401,11 +402,11 @@ const Dashboard: React.FC<{w: number; h: number; dots?: number; paths?: number; 
    <circle cx={0} cy={0} r={11} fill="#F5F0E3" stroke={pal.accent} strokeWidth={4}/>
   </g>;})}
   {header && <g>
-   <rect x={0} y={0} width={w} height={h * .1} fill="#121A1D" opacity={.85}/>
-   <text x={w * .04} y={h * .068} fontFamily={FONT.body} fontSize={h * .05} fontWeight={800} fill="#E9E4D6">Flood spread map</text>
+   <rect x={0} y={0} width={w} height={Math.max(h * .1, 64)} fill="#121A1D" opacity={.85}/>
+   <text x={w * .04} y={Math.max(h * .1, 64) * .7} fontFamily={FONT.body} fontSize={Math.max(h * .055, 38)} fontWeight={800} fill="#E9E4D6">Flood spread map</text>
    {zones > 0 && <g opacity={clamp(zones * 2)}>
     <rect x={w * .64} y={h * .028} width={w * .045} height={h * .045} rx={4} fill="none" stroke={pal.accent} strokeWidth={3} strokeDasharray="8 5"/>
-    <text x={w * .7} y={h * .066} fontFamily={FONT.body} fontSize={h * .042} fontWeight={700} fill="#E9E4D6">Higher risk</text>
+    <text x={w * .7} y={Math.max(h * .1, 64) * .68} fontFamily={FONT.body} fontSize={Math.max(h * .042, 30)} fontWeight={700} fill="#E9E4D6">Higher risk</text>
    </g>}
   </g>}
  </g>;
@@ -417,7 +418,7 @@ const RadioMap: React.FC<{w: number; h: number; ring?: number; half?: number; fi
  const id = useUid('sarm');
  const r = rng(31);
  const reach = Math.hypot(hubAt[0] - station[0], hubAt[1] - station[1]);
- const halfR = reach * .2;
+ const halfR = reach * .1;
  return <g data-part="radio-map">
   <defs><clipPath id={id}><rect x={0} y={0} width={w} height={h} rx={18}/></clipPath></defs>
   <rect x={6} y={10} width={w} height={h} rx={18} fill="#1E1A16" opacity={.2}/>
@@ -459,7 +460,7 @@ const Card: React.FC<{fill?: number; value: string; share: number; pal: Pal}> = 
   <rect x={40} y={210} width={w - 80} height={56} rx={10} fill="#D9D0BC" stroke={pal.ink} strokeWidth={2.4}/>
   <rect x={40} y={210} width={(w - 80) * share * f} height={56} rx={10} fill={pal.accent}/>
   {f > 0 && <rect x={40 + (w - 80) * share * f - 6} y={204} width={6} height={68} fill={pal.ink} opacity={.7}/>}
-  <text x={40} y={176} fontFamily={FONT.body} fontSize={84} fontWeight={800} fill={pal.ink} opacity={clamp((f - .8) * 5)}>{value}</text>
+  <text x={40} y={176} fontFamily={FONT.body} fontSize={84} fontWeight={800} fill={pal.ink} opacity={clamp((f - .3) * 2.5)}>{value}</text>
   <text x={40} y={330} fontFamily={FONT.body} fontSize={30} fontWeight={600} fill="#5A5249">Reported by the university</text>
  </g>;
 };
@@ -479,7 +480,7 @@ const Result: React.FC<{stamp?: number; pal: Pal}> = ({stamp = 0, pal}) => {
 };
 
 /** The paper street map with no pin on it; a search ring and a dashed goal pin come and go. */
-const MapCard: React.FC<{w: number; h: number; search?: number; goal?: number; pal: Pal; seed?: number}> = ({w, h, search = 0, goal = 0, pal, seed = 41}) => {
+const MapCard: React.FC<{w: number; h: number; search?: number; goal?: number; spot?: number; pal: Pal; seed?: number}> = ({w, h, search = 0, goal = 0, spot = 0, pal, seed = 41}) => {
  const id = useUid('samc');
  const r = rng(seed);
  const c: Pt = [w * .55, h * .48];
@@ -497,13 +498,26 @@ const MapCard: React.FC<{w: number; h: number; search?: number; goal?: number; p
     <circle cx={c[0]} cy={c[1]} r={Math.max(w, h) * .45 * ease(search)} fill="none" stroke={pal.ink} strokeWidth={2.4} opacity={.6}/>
    </g>}
   </g>
-  {goal > 0 && <g transform={`translate(${c[0]} ${c[1] - 70 - 30 * (1 - ease(goal)) + 6 * Math.sin(goal * 9)})`} opacity={clamp(goal * 2)} data-part="dashed-goal-pin">
+  {spot > 0 && <ellipse cx={c[0]} cy={c[1] + h * .03} rx={w * .09} ry={w * .035} fill="none" stroke={pal.accent} strokeWidth={Math.max(3, w * .008)}
+   strokeDasharray={`${w * .02} ${w * .015}`} opacity={clamp(spot * 2)} transform={`rotate(${-8 * (1 - ease(spot))} ${c[0]} ${c[1]})`} data-part="empty-spot"/>}
+  {goal > 0 && <g transform={`translate(${c[0]} ${c[1] - (70 + 30 * (1 - ease(goal)) - 6 * Math.sin(goal * 9)) * w / 840}) scale(${w / 840})`} opacity={clamp(goal * 2)} data-part="dashed-goal-pin">
    <path d="M0 64Q-40 10 -40 -14A40 40 0 1 1 40 -14Q40 10 0 64Z" fill={pal.paper} fillOpacity={.35} stroke={pal.accent} strokeWidth={6} strokeDasharray="12 9"/>
    <circle cx={0} cy={-14} r={13} fill="none" stroke={pal.accent} strokeWidth={5} strokeDasharray="7 6"/>
    <ellipse cx={0} cy={76} rx={22} ry={6} fill="none" stroke={pal.accent} strokeWidth={3} strokeDasharray="6 5"/>
   </g>}
  </g>;
 };
+
+/** A pair of worn rubber rain boots left on the bottom step: an ankle-height reference with no person. */
+const Boots: React.FC = () => <g data-part="rain-boots">
+ <ellipse cx={70} cy={4} rx={90} ry={9} fill="#1E1A16" opacity={.25}/>
+ {[0, 1].map(k => <g key={k} transform={`translate(${k * 58} ${k * 3}) rotate(${k ? 4 : -3})`}>
+  <path d="M0 0V-96Q0 -104 8 -104H40Q46 -104 46 -96V-30Q70 -26 76 -12V0Z" fill="#3E4A3A" stroke="#222A21" strokeWidth={2.4}/>
+  <path d="M6 -98H40" stroke="#6C7A62" strokeWidth={4} opacity={.8}/>
+  <path d="M2 -6H74" stroke="#222A21" strokeWidth={5}/>
+  <path d="M10 -90V-40" stroke="#5B6852" strokeWidth={3} opacity={.7}/>
+ </g>)}
+</g>;
 
 const Rain: React.FC<{t: number; w: number; h: number; seed?: number; n?: number; opacity?: number}> = ({t, w, h, seed = 51, n = 40, opacity = .35}) => {
  const r = rng(seed);
@@ -543,7 +557,8 @@ type SupportProps =
  | {part: 'radiomap'; w: number; h: number; ring?: number; half?: number; five?: number; hub?: number; pal: Pal; station: Pt; hubAt: Pt}
  | {part: 'card'; fill?: number; value: string; share: number; pal: Pal}
  | {part: 'result'; stamp?: number; pal: Pal}
- | {part: 'mapcard'; w: number; h: number; search?: number; goal?: number; pal: Pal; seed?: number}
+ | {part: 'mapcard'; w: number; h: number; search?: number; goal?: number; spot?: number; pal: Pal; seed?: number}
+ | {part: 'boots'; seed?: number}
  | {part: 'rain'; t: number; w: number; h: number; seed?: number; n?: number; opacity?: number}
  | {part: 'label'; text: string; pal: Pal; size?: number; tone?: 'paper' | 'accent' | 'ink'};
 
@@ -569,6 +584,7 @@ export const StreetHubSupport: React.FC<SupportProps> = (props) => {
  case 'card': return <Card {...props}/>;
  case 'result': return <Result {...props}/>;
  case 'mapcard': return <MapCard {...props}/>;
+ case 'boots': return <Boots/>;
  case 'rain': return <Rain {...props}/>;
  case 'label': return <SupportTag {...props}/>;
  }

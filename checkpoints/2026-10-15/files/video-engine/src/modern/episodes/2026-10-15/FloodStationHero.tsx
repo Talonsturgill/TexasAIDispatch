@@ -81,6 +81,8 @@ type StationProps = {
  transmit?: number;
  /** a glowing cutaway window cut into the housing face, 0 closed to 1 open */
  window?: number;
+ /** readings running along the window's traces, 0 to 1 */
+ readings?: number;
  /** how wet and dark the post is below a water line given in station units (negative y) */
  wetTo?: number;
  /** cast shadow length multiplier; 0 hides it */
@@ -90,7 +92,8 @@ type StationProps = {
 
 const Pod: React.FC<{x: number; y: number; lit: number; id: string; i: number}> = ({x, y, lit, id, i}) => {
  const glow = clamp(lit);
- return <g transform={`translate(${x} ${y}) rotate(${[-1.5, 1, -0.5, 2][i]})`} data-part={'pod-' + (i + 1)}>
+ return <g transform={`translate(${x} ${y}) rotate(${[-1.5, 1, -0.5, 2][i]}) scale(1.45)`} data-part={'pod-' + (i + 1)}>
+  {glow > 0 && <circle cx={6} cy={0} r={22} fill={LAMP.amberHot} opacity={.28 * glow}/>}
   {/* clamp bracket onto the strut rail */}
   <rect x={-24} y={-6} width={12} height={12} rx={2} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.2}/>
   {/* pod housing: lit top-left, shaded bottom-right */}
@@ -117,7 +120,7 @@ const WeatherGlyph: React.FC<{k: number; on: number}> = ({k, on}) => {
 };
 
 const Station: React.FC<StationProps> = ({pods = [0, 0, 0, 0], battery = .55, sun = 0, sunStrength = 0, risk = 0,
- weather = [0, 0, 0, 0], transmit = 0, window = 0, wetTo, shadow = 1, time = 0}) => {
+ weather = [0, 0, 0, 0], transmit = 0, window = 0, readings = 0, wetTo, shadow = 1, time = 0}) => {
  const id = useUid('fsh');
  const r = rng(15);
  const H = STATION.housing;
@@ -234,7 +237,7 @@ const Station: React.FC<StationProps> = ({pods = [0, 0, 0, 0], battery = .55, su
     </g>;})}
    {/* hooded amber risk lamp */}
    <g transform={`translate(${H.x + H.w - 30} ${H.y + 58})`} data-part="risk-lamp">
-    {risk > 0 && <circle cx={0} cy={0} r={46 * (.6 + .4 * risk)} fill={`url(#${id}risk)`} opacity={risk}/>}
+    {risk > 0 && <circle cx={0} cy={0} r={20} fill={`url(#${id}risk)`} opacity={.6 * risk}/>}
     <circle cx={0} cy={0} r={13} fill={risk > 0 ? LAMP.amber : LAMP.off} stroke={STEEL.boxDeep} strokeWidth={1.6}/>
     {risk > 0 && <circle cx={-3} cy={-3} r={5} fill={LAMP.amberHot} opacity={risk}/>}
     <path d="M-17 -8Q0 -24 17 -8" stroke={STEEL.boxDeep} strokeWidth={5} fill="none" strokeLinecap="round"/>
@@ -244,6 +247,8 @@ const Station: React.FC<StationProps> = ({pods = [0, 0, 0, 0], battery = .55, su
     <rect x={H.x + 14} y={H.y + 20} width={H.w - 28} height={H.h - 40} rx={6} fill="#173A35" stroke="#0E201D" strokeWidth={2}/>
     <rect x={H.x + 66} y={H.y + 56} width={24} height={24} rx={2} fill="#111" stroke={LAMP.amber} strokeWidth={1.6 + 2 * risk}/>
     {[0, 1, 2, 3].map(k => <path key={k} d={`M${H.x + 22} ${H.y + 34 + k * 18}H${H.x + 50}L${H.x + 66} ${H.y + 64 + k * 2}`} stroke="#C9A24A" strokeWidth={1.6} fill="none"/>)}
+    {readings > 0 && readings < 1 && [0, 1, 2, 3].map(k => {const u = clamp(readings * 1.3 - k * .1), x = lerp(H.x + 22, H.x + 66, u), y = u < .64 ? H.y + 34 + k * 18 : lerp(H.y + 34 + k * 18, H.y + 64 + k * 2, (u - .64) / .36);
+     return u > 0 && u < 1 ? <circle key={'r' + k} cx={x} cy={y} r={4} fill={LAMP.ring}/> : null;})}
     <circle cx={H.x + 78} cy={H.y + 68} r={18 + 10 * risk} fill={LAMP.amber} opacity={.25 * risk}/>
    </g>}
    {/* cap: overhanging, dented near its left third */}
@@ -383,6 +388,25 @@ const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; batter
  </g>;
 };
 
+/** The station as a dashed, uninstalled outline: where one could stand, drawn on progress 0 to 1. */
+const Outline: React.FC<{p?: number; pal: Pal}> = ({p = 1, pal}) => {
+ const H = STATION.housing;
+ const d = [
+  `M-15 0V-1040`, `M15 0V-1040`,
+  `M${H.x} ${H.y}H${H.x + H.w}V${H.y + H.h}H${H.x}Z`,
+  `M${H.x - 10} ${H.y}L${H.x - 4} ${H.y - 16}H${H.x + H.w + 8}L${H.x + H.w + 14} ${H.y}`,
+  `M-130 -1120L60 -1150L74 -1066L-116 -1036Z`,
+  `M${H.x + H.w - 20} ${H.y - 26}L${H.x + H.w - 8} ${H.y - 200}`,
+  `M-6 -392V-20`, `M-50 4H54`,
+ ];
+ const q = clamp(p);
+ return <g data-part="uninstalled-outline" fill="none" stroke={pal.ink} strokeLinecap="round" strokeLinejoin="round">
+  {d.map((path, i) => <path key={i} d={path} strokeWidth={6} strokeDasharray="22 16"
+   opacity={clamp(q * d.length - i)}/>)}
+  {STATION.pods.map((y, i) => <circle key={'p' + i} cx={14 + STATION.podDx[i]} cy={y} r={16} strokeWidth={5} strokeDasharray="8 7" opacity={clamp(q * 4 - 2 - i * .4)}/>)}
+ </g>;
+};
+
 /** A pinned paper tag on a short string: the few words the film puts on screen. */
 const Tag: React.FC<{lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outline'; pal: Pal; scale?: number; swing?: number; drop?: number; side?: 'left' | 'right'; size?: number}> =
  ({lines, tone = 'paper', pal, scale = 1, swing = 0, drop = 26, side = 'right', size = 34}) => {
@@ -406,6 +430,7 @@ const Tag: React.FC<{lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outli
 type HeroProps =
  | ({part: 'station'} & StationProps)
  | {part: 'cutaway'; readings?: number; chip?: number; risk?: number; battery?: number; labels?: number}
+ | {part: 'outline'; p?: number; pal: Pal}
  | {part: 'tag'; lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outline'; pal: Pal; scale?: number; swing?: number; drop?: number; side?: 'left' | 'right'; size?: number};
 
 /** The hero group's one export: every part of the station the film draws. */
@@ -413,5 +438,6 @@ export const FloodStationHero: React.FC<HeroProps> = (props) => {
  if (props.part === 'station') return <Station {...props}/>;
  if (props.part === 'cutaway') return <Cutaway {...props}/>;
  if (props.part === 'tag') return <Tag {...props}/>;
+ if (props.part === 'outline') return <Outline {...props}/>;
  throw new Error('Unknown flood station part');
 };
