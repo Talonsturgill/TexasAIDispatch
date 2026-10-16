@@ -18,7 +18,7 @@ class RecoveryTest(unittest.TestCase):
                 'repair_scope': 'technical-integrity', 'director_identity': 'director'}
         before = copy.deepcopy(state)
         self.assertEqual(g.plan_problems(state, plan), [])
-        for scope in ('standard', 'narration-performance', 'unknown'):
+        for scope in ('standard', 'narration-performance', 'review-context', 'unknown'):
             with self.subTest(scope=scope):
                 self.assertTrue(g.plan_problems(state, dict(plan, repair_scope=scope)))
         self.assertTrue(g.plan_problems(state, dict(plan, failure_family='invented-runtime-label')))

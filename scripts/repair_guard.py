@@ -377,19 +377,19 @@ def plan_problems(state, plan):
         return ["repair requires a stable visible mechanism_id across revisions"]
     if len(str(plan.get("director_identity", "")).strip()) == 0:
         return ["repair requires director identity"]
+    family = str(plan.get("failure_family", "unclassified"))
+    technical = plan.get("repair_scope") == "technical-integrity"
+    if family == MEASURED_RUNTIME_FAMILY and not technical:
+        return ["measured-runtime-crowding requires independently classified technical-integrity scope"]
     if plan.get("repair_scope") == "review-context":
         # This scope has its own exact independent diagnosis and expansion proof.
         # It cannot replace a mechanism or hide another failed artistic treatment.
         return []
     # Group by independent rejection evidence as well as the producer's name.
     # A renamed mechanism cannot reset an unclassified sequence.
-    family = str(plan.get("failure_family", "unclassified"))
-    technical = plan.get("repair_scope") == "technical-integrity"
     allowed = {"human-performance", "capture-and-analysis", "document-handling",
                "source-framing", "continuity", "unclassified"}
     if family == MEASURED_RUNTIME_FAMILY:
-        if not technical:
-            return ["measured-runtime-crowding requires independently classified technical-integrity scope"]
         allowed.add(MEASURED_RUNTIME_FAMILY)
     if family not in allowed:
         return ["failure_family must use the shared rejection taxonomy"]
