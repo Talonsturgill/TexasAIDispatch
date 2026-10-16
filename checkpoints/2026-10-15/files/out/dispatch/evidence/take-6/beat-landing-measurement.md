@@ -1,0 +1,6 @@
+# Take 6 beat landing measurement (no charge, 2026-10-16)
+Method: 10 ms frame RMS of out/dispatch/takes-6/take1.wav, silence below 6 percent of the 95th percentile RMS, runs of at least 0.18 s (script evidence/sim-take6 not used for times; take clock, add 0.30 s for the mix). The same method on takes-5.
+Take 6 runs (start, end, length): 5.41 0.18; 7.29 0.83; 12.14 0.24; 13.71 0.91; 17.47 0.39; 20.88 0.67; 24.23 0.46; 27.08 0.92; 29.14 0.26; 33.11 0.29; 35.21 0.27; 36.06 0.77; 37.46 0.23; 41.96 0.22; 43.39 0.91; 46.45 0.19; 50.73 0.47; 52.31 0.77; 55.00 0.96.
+Sentence gaps (0.6 s or more): 8 as expected. In-sentence silences: 11, of which 7 are at least 0.24 s (the caption detector threshold) and 4 are 0.18 to 0.23 s. Twelve beats were directed. No silence at all falls in the first 5.4 s of the take, so the beat after says is absent and the first dense cue c1 would still need a 73 character half at size 36 (see fit probe). The bulk of the silences the take produced are not at the directed joins by the ASR word map (the ASR timestamps are decoder windows, so the word map is approximate).
+Take 5 for comparison: 11 silences of 0.18 s or more, of which in-sentence ones 0.18 to 0.52 s.
+Reading: the beat mechanism did not land reliably. At best 7 of 12 directed joins reached the 0.24 s threshold and one of them is missing outright.

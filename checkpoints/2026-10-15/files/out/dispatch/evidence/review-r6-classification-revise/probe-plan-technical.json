@@ -1,0 +1,23 @@
+{
+ "mechanism_id": "beat-anchor-by-position",
+ "failure_family": "unclassified",
+ "repair_scope": "technical-integrity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "Independent classification of take 6 lexical mismatch, caption fit and event timing (review-r6-classification-revise).",
+ "repair": "Direction v4 and board v3 as reviewed; the reviewer advises measuring first. Probe plan to retain the exact technical-integrity admission result.",
+ "mechanism_change": "anchor by position",
+ "expected_visible_result": "training reconciles and captions split",
+ "failure_evidence": "/home/user/restore/2026-10-15/out/dispatch/evidence/review-r6-classification-revise/report-verbatim.json",
+ "failure_evidence_sha256": "ddbcef02b33e575f6c3280806002608655f5b7fa9be6a4ee2405f9b3f9d0dd2e",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/2026-10-15/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/2026-10-15/out/dispatch/evidence/vo_direction-candidate-repair5-v3.json",
+   "before_sha256": "45ce7b56ea60711fdfb5492da61d9f2e38f4e56df83d266391c0562682378973",
+   "after_sha256": "a1f61f7e55a98d1d4dc11156ae207f309b1634fee2f083d8c0da9885ae5fe09a"
+  }
+ ]
+}
