@@ -14,7 +14,7 @@
     "scorer_calls": 27,
     "storyboard_critics": 7,
     "tts_calls": 12,
-    "validator_agents": 2,
+    "validator_agents": 3,
     "voice_directors": 2
   },
   "escalations": [
@@ -140,6 +140,22 @@
       "resources": {
         "validator_agents": 1
       }
+    },
+    {
+      "additional_calls": 1,
+      "approval_id": "private-approval-sha256:45129a853ce54fa77a751b7b04825036cd36753ae7fd4944ca15342042b0a04f",
+      "at": "2026-10-16T01:38:00.352982Z",
+      "attestation": "Operator retained explicit owner instruction; no automatic renewal",
+      "authorization_json": "{\"additional_calls\": 1, \"approval_id\": \"private-approval-sha256:45129a853ce54fa77a751b7b04825036cd36753ae7fd4944ca15342042b0a04f\", \"confirmation\": \"OWNER AUTHORIZED EXTRA VALIDATOR CALL\", \"failure_evidence\": \"{REPO}/out/dispatch/evidence/validator-pass2-validation-object.json\", \"failure_evidence_sha256\": \"b014e6cb32495ce4c3844d73a95157bd9a6383afe65ef230ee6091dae7d395cf\", \"owner_text\": \"Owner approved exactly 1 additional validator calls for this edition. Private instruction retained locally with its original digest.\", \"resource\": \"validator_agents\", \"resource_envelope_sha256\": \"45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060\", \"run_id\": \"2026-10-15\", \"source_message_reference\": \"private-source-sha256:9ee5f7aea409ec442ce236dea2c862b31dcd033934bfee2a9f69a3ae6ab87851\"}",
+      "authorization_sha256": "c26c1af4dee2df1a0bfb91cf8ac15ff46eb91bee35a995e8ce0a53073301f49d",
+      "failure_evidence_json": "{\n \"date\": \"2026-10-15\",\n \"source\": \"validator (claude-opus-5-5, high effort, isolated, no sub-agents), revalidation pass. The UTSA page https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/ was re-fetched on 2026-10-15 with exact head and tail queries, and its dateline, the c16 to c19 sentences and the c6 context were confirmed live. out/dispatch/sources/utsa.txt was read again and every quote in c1 to c19 was compared with it character by character. The corrected out/dispatch/story_selection.json and out/dispatch/vo_script.txt were read in full. https://texasaidocket.com/item/tx-2026-0141/ and https://glo.texas.gov/es/node/100126 were fetched on 2026-10-15 in the first pass.\",\n \"result\": \"REVISE\",\n \"result_reason\": \"All 19 claims are VERIFIED, and story_selection.json carries no unsupported framing. One narration correction is pending. s5 must read 'can carry' in place of 'carries' to keep the source's capability qualifier 'can travel'. Pending corrections can't receive PASS. After that one-word edit, s1 to s9 are fully supported by their bindings, and no claim needs to be dropped.\",\n \"verified_claim_ids\": [\n  \"c1\",\n  \"c2\",\n  \"c3\",\n  \"c4\",\n  \"c5\",\n  \"c6\",\n  \"c7\",\n  \"c8\",\n  \"c9\",\n  \"c10\",\n  \"c11\",\n  \"c12\",\n  \"c13\",\n  \"c14\",\n  \"c15\",\n  \"c16\",\n  \"c17\",\n  \"c18\",\n  \"c19\"\n ],\n \"rejected\": [\n  \"No claim id was rejected. All 19 submitted claims, c1 to c19, are verbatim in the snapshot and on the live page. c15 is the dateline 'September 8, 2026'. c16, c17, c18 and c19 are exact live sentences, including the U+2019 apostrophe and U+2014 em dash in c18.\",\n  \"vo_script s5 drops the source qualifier. 'a radio signal carries more than a half-mile through city streets' states as fact what the source gives as a capability: 'These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas'.\",\n  \"The earlier story_selection rejections are all resolved, so none is carried forward: earned_take phone price, counter_image, human_consequence, curb wording, why_today, agency, source_limit and affected_person.\",\n  \"External and not blocking: Docket record tx-2026-0141 still dates the announcement September 28th, 2026 against the source's September 8, 2026. It is for a separate Docket repair, and no Dispatch claim or sentence relies on it.\"\n ],\n \"required_edits_applied\": [\n  \"Applied by the director before this pass and verified here: story_selection.json corrections to the title, application_change, why_today, counter_image, earned_take, agency, human_consequence, source_limit and affected_person, and the addition of claims c15 to c19.\",\n  \"Required and not yet applied: in vo_script.txt s5, replace 'carries' with 'can carry'. No validator edits were made because the validator's tools are read-only.\",\n  \"Advisory and not required: add c1 to s2's bindings. Add a claim quoting Pan's live sentence on 'shows how flooding could spread' for s6. Consider 'from early assessments after training' in s8.\"\n ]\n}",
+      "failure_evidence_sha256": "b014e6cb32495ce4c3844d73a95157bd9a6383afe65ef230ee6091dae7d395cf",
+      "kind": "owner_validator_grant",
+      "new_ceiling": 3,
+      "previous_ceiling": 2,
+      "resource": "validator_agents",
+      "run_id": "2026-10-15",
+      "usage_unchanged": 2
     }
   ],
   "limits": {
@@ -163,8 +179,16 @@
   "phase": "research",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "06c2e2f80957ba75c0b76928a5707ef0e96797b677b046613a15d1dce60530bb",
-    "owner_message_redactions": [],
+    "original_private_state_sha256": "5ab642bb9177646f56df0c9791b0e21f1104efad0227adab1b351dbd4bdab335",
+    "owner_message_redactions": [
+      {
+        "event_index": 10,
+        "original_authorization_sha256": "3d0f33cbd43f49b49c8c2644063060bd4b916be5a91dfc8379e1410c4ecd05b0",
+        "original_event_sha256": "79ab6dd6eec37355ad172ff88807cadd9b2d4f3fb12a64e00edb4e5e53142ab7",
+        "owner_text_sha256": "5b5185882e76d40012a74f2076b5573d06d662665cbea6c8127a23db414dd1b6",
+        "source_reference_sha256": "9ee5f7aea409ec442ce236dea2c862b31dcd033934bfee2a9f69a3ae6ab87851"
+      }
+    ],
     "schema": "dispatch_public_ledger/1"
   },
   "repair_policy": "quality-recovery/1",
@@ -191,7 +215,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-15T05:36:45.979974Z",
+  "updated_at": "2026-10-16T01:38:00.353127Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
