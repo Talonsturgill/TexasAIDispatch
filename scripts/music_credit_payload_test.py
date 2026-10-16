@@ -25,9 +25,14 @@ class CreditTests(unittest.TestCase):
 
     def test_actual_cli_inserts_one_idempotent_block_after_caption(self):
         command = [sys.executable, str(Path(credit.__file__)), '--mix', str(self.mix), '--email', str(self.email)]
+        previous = None
         for _ in range(2):
             result = subprocess.run(command, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
+            current = self.email.read_text()
+            if previous is not None:
+                self.assertEqual(current, previous)
+            previous = current
         text = self.email.read_text()
         self.assertEqual(text.count(credit.OPEN), 1)
         self.assertEqual(credit.problems(self.email, '2026-10-15'), [])
@@ -42,6 +47,7 @@ class CreditTests(unittest.TestCase):
         for bad in [good.replace('Immersed', 'Another track'),
                     good.replace('by/4.0', 'by-nc/4.0'),
                     good.replace('trimmed and synced to picture', 'unmodified'),
+                    good.replace(credit.OPEN, 'Internal report\n\n' + credit.OPEN),
                     good + '\n' + credit.block(self.mix)]:
             self.email.write_text(bad)
             self.assertTrue(credit.problems(self.email, '2026-10-15'))

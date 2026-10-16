@@ -66,6 +66,19 @@ class GroupingTests(unittest.TestCase):
         self.assertEqual(result[0]['start'], words[0]['start'])
         self.assertEqual(result[0]['end'], words[-1]['end'])
 
+    def test_current_profile_keeps_the_article_with_its_measured_noun_phrase(self):
+        words = []
+        for text, start, end in [('At the crossing the gauge detects the', 0.0, 3.5),
+                                  ('rising water.', 3.6, 3.9)]:
+            run = distribute(text.split(), start, end)
+            run[0]['anchored_start'] = True
+            run[-1]['anchored_end'] = True
+            words.extend(run)
+        result = cues(words, compact=True)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['text'], 'At the crossing the gauge detects the rising water.')
+        self.assertEqual((result[0]['start'], result[0]['end']), (0.0, 3.9))
+
 
 if __name__ == "__main__":
     unittest.main()

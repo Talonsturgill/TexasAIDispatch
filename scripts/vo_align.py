@@ -647,7 +647,7 @@ def cues(words: list[dict], cuts: list[float] | None = None,
     # boundaries are candidates; an indivisible long run still needs a new voice take.
     hard_chars = MAX_CUE_CHARS if compact else HARD_CUE_CHARS
     hard_seconds = MAX_CUE_S if compact else HARD_CUE_S
-    overshoot = 1.0 if compact else OVERSHOOT
+    overshoot = 1.2 if compact else OVERSHOOT
 
     # WHERE THE NEXT MEASURED BOUNDARY IS, because the deferral below has to know what
     # declining this one actually costs.
@@ -731,8 +731,11 @@ def cues(words: list[dict], cuts: list[float] | None = None,
         # one, or reaching it would blow the hard ceiling on either axis, the ugly break
         # here is the better of the two available cards and gets taken.
         nxt_end = next_boundary_after(w["end"])
+        next_words = [x for x in words if w["end"] < x["end"] <= (nxt_end or w["end"])]
+        projected_chars = len(" ".join(x["word"] for x in cur + next_words))
         deferral_lands_ok = (nxt_end is not None
-                             and (nxt_end - cur[0]["start"]) <= hard_seconds * overshoot)
+                             and (nxt_end - cur[0]["start"]) <= hard_seconds * overshoot
+                             and (not compact or projected_chars <= hard_chars))
         if runaway and not ends_sentence and tail_word in FUNCTION_TAIL \
                 and len(text) < hard_chars * overshoot \
                 and deferral_lands_ok:
@@ -750,8 +753,6 @@ def cues(words: list[dict], cuts: list[float] | None = None,
         # So a boundary is taken when DECLINING it would break the hard ceiling, with a
         # floor under it so a boundary landing just after a cue opens does not shear off
         # a two word card. Still only measured boundaries. Still nothing invented.
-        next_words = [x for x in words if w["end"] < x["end"] <= (nxt_end or w["end"])]
-        projected_chars = len(" ".join(x["word"] for x in cur + next_words))
         last_exit = (len(text) >= 28 or held >= 1.2) and (
             nxt_end is None or (nxt_end - cur[0]["start"]) > hard_seconds * overshoot
             or projected_chars > hard_chars)

@@ -51,6 +51,8 @@ def problems(email, edition_date, registry=None):
     caption_end = text.find('-----END CAPTION-----')
     if caption_end < 0 or text.index(OPEN) < caption_end:
         return ['put the music credits after the copy-ready caption']
+    if text[caption_end + len('-----END CAPTION-----'):text.index(OPEN)].strip():
+        return ['music credits must immediately follow the copy-ready caption']
     if len(text[:text.index(OPEN)].splitlines()) > 60:
         return ['music credits are buried below the usable post']
     return []
@@ -70,13 +72,12 @@ def main():
         if text.count(OPEN) != 1 or text.count(CLOSE) != 1 or text.index(OPEN) > text.index(CLOSE):
             raise ValueError('malformed existing music credit block')
         start, end = text.index(OPEN), text.index(CLOSE) + len(CLOSE)
-        text = text[:start] + credit + text[end:]
-    else:
-        marker = '-----END CAPTION-----'
-        if text.count(marker) != 1:
-            raise ValueError('email needs one finished copy-ready caption before attribution')
-        index = text.index(marker) + len(marker)
-        text = text[:index] + '\n\n' + credit + text[index:]
+        text = text[:start] + text[end:]
+    marker = '-----END CAPTION-----'
+    if text.count(marker) != 1:
+        raise ValueError('email needs one finished copy-ready caption before attribution')
+    index = text.index(marker) + len(marker)
+    text = text[:index] + '\n\n' + credit + '\n\n' + text[index:].lstrip('\n')
     args.email.write_text(text)
 
 
