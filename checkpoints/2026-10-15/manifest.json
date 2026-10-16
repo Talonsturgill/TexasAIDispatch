@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T14:32:29.058049+00:00",
-  "note": "take 5 retained, uncharged pivot continuation recorded, HOLD before dependent paid steps",
+  "saved_at": "2026-10-16T14:33:16.257098+00:00",
+  "note": "original full pivot REVISE saved as separate evidence, hold stands",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1492,8 +1492,14 @@
     {
       "path": "out/dispatch/evidence/pivot-review-voice4-chronology-and-hold.md",
       "class": "scratch",
-      "sha256": "b64f11091aa6c85e6257c4dadfebb231ffcbd8a5e0fd72e7882e676de69988b0",
-      "size": 2072
+      "sha256": "c89d7e956fbe037ee7cf2848ae49401d02ed012081e6e8526c67680a0dbadb86",
+      "size": 2721
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review-voice4-original-rejection.json",
+      "class": "scratch",
+      "sha256": "efc1797b5290192212794d99a4465655eb0597184d2ce42024a74904ab29689e",
+      "size": 7055
     },
     {
       "path": "out/dispatch/evidence/pivot-review-voice4-revise.json",
@@ -2510,10 +2516,16 @@
       "size": 109
     },
     {
-      "path": "out/dispatch/logs/checkpoint-take5.log",
+      "path": "out/dispatch/logs/checkpoint-orig-rejection.log",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/logs/checkpoint-take5.log",
+      "class": "scratch",
+      "sha256": "cdaad6b137868af8d105392edde27d20ca128fa5f4cda177a04ba3463f162fc5",
+      "size": 247
     },
     {
       "path": "out/dispatch/logs/consume-pivot-critic.log",
