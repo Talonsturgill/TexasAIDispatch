@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 25,
+    "storyboard_critics": 26,
     "tts_calls": 16,
     "validator_agents": 5,
     "voice_directors": 2
@@ -4962,6 +4962,110 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T22:20:13.446753Z",
+      "failure_evidence_json": "{\n  \"verdict\": \"pass\",\n  \"review_scope\": \"code-plan\",\n  \"treatment\": \"a\",\n  \"board_path\": \"{REPO}/out/dispatch/storyboard.json\",\n  \"board_sha256\": \"5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6\",\n  \"concept_sha256\": \"036f839d57b1225d52b36c45599485057d11b92b49654696e26348356a03572c\",\n  \"renderer_sha256\": \"cdc9d67ed208f239a62c702fcfbfa44980fba73a25a840545cc97ea6a757c246\",\n  \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n  \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic (Opus High), independent read-only reviewer in a same-worker charged continuation (storyboard_critics 24 per the caller; I did not verify the reservation on the ledger), distinct from the claude-sonnet-5-5 director. Limits: code-plan scope only. I rendered and viewed no pixels and heard no audio. I ran no command and computed no hash. All digests are the director's mechanically supplied values; they agree with delta-machine.json as text.\",\n  \"reviewed_at\": \"2026-10-16T23:30:00Z\",\n  \"notes\": \"This is my own judgment of the live current board (5a1b8e26), read in full (lines 1 to 4912). I also read the reviewed board (reviewed-board-before.json, 12c90919) in full in this round and compared them section by section: scenes and their visual_events (at_s, duration_s, clause fractions, item_ids), planes, visual_proof, story_art (including action_uses and entries), film_direction (shots, rewards, renderer_inputs), narration_picture clauses, story_contract, cinematic_contract, cinema, creative_direction, sound cues, documentary, visual_research, native_media, art_direction, captions, quality_plan, attention_beats and retime_evidence. The only difference I found is /narration_picture/timing_provenance/word_content_sha256, 88e8179490aed8fc828abb1ab190bef66d525b6ee528b76781621f4251e5e9f0 before and 5a689a3ead697ce9d5985ba5a32a517aa2db7f9781f4d1c4259e2cbae1f9833d now. That is a provenance digest; no picture, timing or wording value moved. My evidence from the current bytes follows. Runtime is 59.4 s, with speech 0.58 to 57.36 s in 16 measured cues (c15 ends 54.80 and c16 ends 57.36, both inside the runtime). Scenes are s1 8.68, s2 6.94, s3 4.04, s4 7.42, s5 8.18, s6 5.68, s7 8.26, s8 6.30 and s9 3.90 s, so the maximum is 8.68 against the 9.5 ceiling. Shot maximum is 4.77 s (s1-shot-2), then s7-shot-2 4.32, s5-shot-2 4.13 and s5-shot-1 4.05, all against 5.0. I recomputed every event in absolute seconds from scene start + at_s, and each lies wholly inside the shot whose view draws it: s2-event-3 13.675 to 14.409 in no-tower (13.59 to 15.62); s3-event-3 18.395 to 19.043 in weather-row (18.313 to 19.66); s4-event-2 24.562 to 25.160 in chip-glow detail (23.49 to 25.285); s6-event-2 38.172 to 39.112 and s6-event-3 39.300 to 40.146 in flood-paths (38.10 to 40.94); s7-event-3 47.573 to 48.318 in validation-card detail (44.88 to 49.20); s8-event-0 50.182 to 50.931 in no-field-card (49.20 to 52.16). The first reward is at 1.00 s. The largest reward gaps are 3.58 s (43.134 to 46.717) and 3.51 s, the gap would be 3.91 s even without the s7 slide, and the end gap is 2.24 s. Wall views are 5 of 20 shots, 17.40 of 59.4 s (29.3 percent). The sfx file and the mix sound cues sit at the moved event starts (chip-hum 24.562, mark-tone 17.131, blank-card-quiet 50.182). B's old ids don't apply here: the current A board has s8-event-0, so the renderer takes moved=true with the s8-valcard, s8-valbar, s8-assess, s8-card2 and s8-blank ids, all present in the s8 planes and registered for no-field-card in db04f225. Non-blocking cautions for the phone pass are unchanged: the s4 'Judged on the station' tag is fully opaque about 0.52 s and complete 0.125 s before its cut; the three s3 shots last 1.347 s each; 'watch the water' is heard over the weather-row lamps; the s7-event-3 blank-card edge is about 78 px; four wall shots run consecutively 40.94 to 55.50; the s9 closing events are 0.35 to 0.38 s wide in a wide. Cosmetic: the cue_plan string is still stale under measured timing. Erratum to my report 23 (preserved unchanged, not edited by anyone): its opening_a strongest_frame contains a typo, '17.131 to 18.909'. The correct window, stated in the same sentence and everywhere else, is 17.131 to 17.909. A code-plan pass authorizes a phone test only.\",\n  \"strongest_frame\": \"s3-shot-2 water-marks close (16.967 to 18.313 s). On s3-event-2 (17.131 to 17.909) brown water rises past the already-lit first lens and the second lights as it goes under (podLit from the level lerp LEVEL.ankle to LEVEL.second). This is the whole sensing mechanism as one performed change on the one station the film carries. The caution is that it lasts only 1.347 s.\",\n  \"weakest_frame\": \"s7-shot-2 validation-card detail (44.88 to 49.20 s), the second consecutive shot on the same card. From 43.53 (bar complete) to 46.212 (tag starts) the only motion is the 1 s push-in at 44.88. After that come a small 'Initial assessments after training' tag and a blank-card edge about 78 px wide sliding in at 47.573 to 48.318. The hold is motivated, because the figure is read as it is spoken, and the gap stays at 3.58 s. It is still the least active picture and opens a 14.56 s run of wall views.\",\n  \"blocking_defects\": [],\n  \"code_observations\": [\n    \"Current-bytes diff by my own reading: the board and the reviewed board are identical except timing_provenance.word_content_sha256. words.json and the reviewed words file have identical acoustic_matching, speech_runs, internal_pauses_joined, counts (38 boundaries measured, 132 words, 37 anchored, 95 modelled) and all 132 word entries. They differ only in duration_s (65.0 to 64.4) and in provenance voice_sha256 (0565b771 to 57f9c656) and mix_sha256 (35e67958 to 4a96b35f). asr_sha256 (9ee66440), analysis_duration_s (58.566208), model and command are unchanged.\",\n    \"captions.json (a6b0e45a) carries the same 16 cues as the board's captions. sfx_events.json carries 5 events at the board's event starts. mix.json records 64.40 s (3,091,200 samples at 48 kHz, equal to runtime 59.4 s plus the 5 s credits), time_stretch 1.0 on every track, and the voice stem at the same sample count.\",\n    \"n1a (0.58 to 3.58): street-yard. s1-event-1 0.64 to 1.24 shows water topping the curb to the ankle mark (reward 1.00). s1-event-2 2.14 to 2.86 shows water reaching the boots while the phone stays dark. n1b (4.24 to 8.28): phone-late. s1-event-3 5.452 to 6.502 slides the late banner on over 'says the phone'.\",\n    \"n2a (8.96 to 11.22): station-wide. s2-event-1 9.231 to 9.819 reveals the prototype and pins its tag. n2b (11.90 to 14.96): panel-charge, where s2-event-2 12.145 to 12.879 fills the battery over 'charges itself'. Then no-tower, where s2-event-3 13.675 to 14.409 runs the dashed link to half way and pins 'No cell tower needed' over 'needs no cell'.\",\n    \"n3a (15.90 to 19.14): sensor-stack, s3-event-1 16.030 to 16.742 (glints, 'Four optical sensors' tag). water-marks, s3-event-2 17.131 to 17.909 (second mark goes under and lights). weather-row, s3-event-3 18.395 to 19.043 (Rain, Temperature, Humidity and Light lamps). 'watch the water' falls on weather-row about 0.4 s after the crossing. Non-blocking.\",\n    \"n4a (19.94 to 23.18): chip-glow close, s4-event-1 21.722 to 22.532 (readings along the traces, chip glow 0.35). n4b (23.80 to 26.52): chip-glow detail, whose push lands at 24.562, then s4-event-2 24.562 to 25.160 lights the lamp and pins 'Judged on the station' over 'judges flood risk'. no-server wide carries risk=1, and s4-event-3 25.704 to 26.357 draws the dark server outline over 'central server'.\",\n    \"n5a (27.36 to 30.70): radio-rings. s5-event-1 27.494 to 28.228 is the pulse. s5-event-2 29.097 to 29.965 pins the half-mile tag over 'more than a half-mile'. n5b (31.56 to 34.74): radio-open. s5-event-3 32.514 to 33.532: the ring reaches the mast at mid-event, the lamp lights and the five-mile tag pins.\",\n    \"n6a (35.54 to 40.24): hub-desk. s6-event-1 35.728 to 36.762 brings the dots, the forearm and the 'A second, larger model' tag, with paths at 0.15*s6e1. flood-paths: s6-event-2 38.172 to 39.112 spreads paths=s6e2 over 'maps flood paths', straddling the measured 38.58/38.70 cue boundary. s6-event-3 39.300 to 40.146 brings zones=s6e3 and the responders tag over 'for responders'.\",\n    \"n7a (41.22 to 44.52): validation-card close. s7-event-1 42.540 to 43.530 fills the bar to share 0.9882 with '98.82%'; the blank card is off-frame. n7b (45.24 to 48.48): validation-card detail. s7-event-2 46.212 to 47.054 pins 'Initial assessments after training'. s7-event-3 47.573 to 48.318 slides the unstamped blank card to the right edge.\",\n    \"n8a (49.48 to 51.82): no-field-card detail with the s8 ids. The push ends at 50.182. s8-event-0 50.182 to 50.931 stamps 'none reported', the result holds 1.23 s, and the cut falls in the 51.82 to 52.50 silence. n8b (52.50 to 54.80): empty-map close, with s8-event-1 52.592 settling the map, s8-event-2 53.374 sweeping the search ring and s8-event-3 54.202 pinning 'No installation named'.\",\n    \"n9a (55.78 to 57.36): station-return wide, with the tag kept. s9-event-1 55.843 hovers the goal pin, s9-event-2 56.380 draws the dashed station outline and s9-event-3 56.949 pins the 'Deployment goal' tag. A 2.10 s closing hold follows.\",\n    \"Figure attribution in the current bytes: n7a 'The university reports early chip AI validation.' has claims c4 and c18, and the s7-card label reads 'validation accuracy card reading 98.82 percent, the university reported figure'. The 'Initial assessments after training' tag carries 'early'. The s4-chip label is 'small chip on the station running the AI, marked TinyML', which ties the figure to the on-device chip model with the university as reporter. The possible false inference that the figure belongs to the hub model is prevented by the spoken and captioned 'chip AI'. Non-blocking.\",\n    \"All six action_uses (charge-battery, cross-marks, judge-locally, water-rises, carry-signal, spread-map) sit inside a shot of their declared view, unchanged from the reviewed board.\",\n    \"vo_script.txt (67d7ae45) reads the same 15 sentences as the board's clause texts. n6a is split across the measured cues c10 and c11.\"\n  ],\n  \"action_reviews\": [\n    {\n      \"action_id\": \"charge-battery\",\n      \"module_sha256\": \"f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"s2-event-2 runs 12.145 to 12.879 inside panel-charge (11.56 to 13.59). The beam, glint and battery fill from 0.24 to 1 are driven by s2e2 over 'charges itself', and the battery stays full afterwards. Unchanged in the current bytes.\"\n      ]\n    },\n    {\n      \"action_id\": \"cross-marks\",\n      \"module_sha256\": \"f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"s3-event-2 runs 17.131 to 17.909 inside water-marks (16.967 to 18.313). The level rises to LEVEL.second and the second mark lights and stays lit. The shot is 1.347 s, so phone review must confirm that the crossing reads.\"\n      ]\n    },\n    {\n      \"action_id\": \"judge-locally\",\n      \"module_sha256\": \"f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"s4-event-2 runs 24.562 to 25.160 inside chip-glow detail (23.49 to 25.285). The push lands at the event start. The lamp and tag complete 0.125 s before the cut, and the lamp carries lit into the no-server wide. The short tag hold is a phone check.\"\n      ]\n    },\n    {\n      \"action_id\": \"water-rises\",\n      \"module_sha256\": \"916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"s1-event-1 runs 0.64 to 1.24 inside street-yard (0 to 3.91). The water tops the curb and climbs to the ankle mark, reward at 1.00 s. No station stands in the yard.\"\n      ]\n    },\n    {\n      \"action_id\": \"carry-signal\",\n      \"module_sha256\": \"916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"s5-event-2 runs 29.097 to 29.965 inside radio-rings (27.08 to 31.13). The rings pass the half-mile tag over 'more than a half-mile'. The range is shown as described, not measured.\"\n      ]\n    },\n    {\n      \"action_id\": \"spread-map\",\n      \"module_sha256\": \"916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"s6-event-2 runs 38.172 to 39.112 wholly inside flood-paths (38.10 to 40.94), with paths=s6e2 performed from 0 to 1 over 'maps flood paths' and its reward at 38.736 in the same shot.\"\n      ]\n    }\n  ],\n  \"story_review\": {\n    \"story_sha256\": \"d82de390d3657d5ddfdd03fc5b6b11fb69c5749a526169b3fe9ff20031f5fb5e\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n    \"verdict\": \"pass\",\n    \"blocking_defects\": [],\n    \"one_viewing_summary\": \"Planned chain, not observed. A San Antonio yard floods to the ankle mark while the porch phone stays dark, and the warning lands late. A self-charging prototype station at a curb needs no cell tower. Its four lenses at four heights catch the light, the water lights the second as it goes under, and the weather lamps come on. Inside the housing the readings reach one chip, which lights an amber risk lamp while a far server outline stays dark. A radio pulse runs past a half-mile tag and across five miles of open country to a hub's mast. At the hub a second, larger model's map spreads flood paths and risk zones for responders. The limit follows: the university's 98.82% validation figure pinned as initial assessments after training, a blank field card stamped none reported, and a map searched with no installation named. The close is the empty curb, a dashed station outline and a hovering goal pin.\",\n    \"opening_to_ending\": \"The opening question, whether a flood station can judge rising street water with no power line and no cell tower, is staged as water arriving before the phone warning. The film ends at the same kind of curb with no flood and no installed station: a dashed outline draws itself, a goal pin hovers without landing and the deployment goal tag pins. The answer is yes in design. The proof so far is only reported early validation accuracy, and no installation is named. The ending answers what happens next without promising an unreported outcome.\",\n    \"weakest_transition\": \"s6 to s7, at 40.94 s: the flood-paths dashboard with its responders tag cuts to the validation card. The only visible bridge is the amber accent, and the narration 'The university reports early chip AI validation' carries the cause. That leaves a false-inference risk that the figure belongs to the hub's larger model, which the spoken and captioned 'chip AI' prevents textually. Non-blocking.\"\n  }\n}",
+      "failure_evidence_sha256": "4b9294fd5664d9f77c434623c1dd423de7d5f835e6c16ed2732fb84ab38c27e7",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 22,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 26,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 22,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 26,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n  \"completion_reason\": \"finish-current\",\n  \"mechanism_id\": \"finish-current-r13-renew-opening-binding\",\n  \"failure_family\": \"continuity\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"root_cause\": \"R13 changed the scene structure of treatment A, so the retained opening comparison and selection no longer bind the current concept (preflight_animatic refuses: current opening is not the selected concept, stale renderer inputs). The final-current-bytes independent code-plan review passed and the critic gate accepts it. The retained comparison bytes stay as history. A renewed two-treatment silent phone comparison of the changed A and the restamped B, its independent selection, the timed phone review of the exact current film and all later gates are still mandatory.\",\n  \"repair\": \"No production edits. Fund the renewed two-treatment comparison, its independent selection, the timed phone preview and review, native hero, audiovisual lenses, three scorers and delivery.\",\n  \"mechanism_change\": \"The opening binding is renewed on the current bytes instead of reusing a selection that belongs to the earlier concept.\",\n  \"expected_visible_result\": \"A valid opening comparison and selection bound to the current A, then the timed phone, native, audiovisual and scoring gates on the current film.\",\n  \"failure_evidence\": \"{REPO}/out/dispatch/evidence/review-r13-current-bytes/storyboard_critic.json\",\n  \"failure_evidence_sha256\": \"4b9294fd5664d9f77c434623c1dd423de7d5f835e6c16ed2732fb84ab38c27e7\",\n  \"resources\": {}\n}",
+      "plan_sha256": "74a44e64afcc4ef17f4d6c8d4afa5963445d3d5857f2abe8ba78f01490d6c47c",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":38,\"required\":8,\"used\":5},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":22,\"remaining\":2,\"required\":2,\"used\":20},\"reboards\":{\"ceiling\":10,\"remaining\":2,\"required\":0,\"used\":8},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":25,\"remaining\":1,\"required\":2,\"used\":24},\"tts_calls\":{\"ceiling\":16,\"remaining\":2,\"required\":2,\"used\":14},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "202a71503f1058c2e55766cda2b86020df3155065a41e1aef2ad2b65b64e63a3",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 22,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 25,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 22,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 25,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-15",
+      "usage_unchanged": {
+        "audiovisual_reviews": 5,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 20,
+        "reboards": 8,
+        "reported_tokens": 443292,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 0,
+        "storyboard_critics": 24,
+        "tts_calls": 14,
+        "validator_agents": 5,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -4985,7 +5089,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "054b27dee61b6a8fc07635fed651fad6b3488fa694e7140b19ba7aacfce5167a",
+    "original_private_state_sha256": "fb742aae29c501459f1866ab7ec08ba57cf46e966150a5ad45e5a21a5b81d1a7",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -5021,7 +5125,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T22:19:07.231418Z",
+  "updated_at": "2026-10-16T22:20:13.446762Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,

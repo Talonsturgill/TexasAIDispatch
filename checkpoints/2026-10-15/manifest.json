@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T22:19:22.097200+00:00",
-  "note": "capture authorization consumed 492b8b700cac",
+  "saved_at": "2026-10-16T22:20:17.244241+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "c6ab3bd8afe4fb75116544608eca4affb10b0459b64fd3a8b77f0145463ae1ac",
-  "original_private_ledger_sha256": "054b27dee61b6a8fc07635fed651fad6b3488fa694e7140b19ba7aacfce5167a",
+  "ledger_sha256": "be651ec768324687612587f111108a4f71ffe4b3307020cfe65b7acf8615420d",
+  "original_private_ledger_sha256": "fb742aae29c501459f1866ab7ec08ba57cf46e966150a5ad45e5a21a5b81d1a7",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -62,6 +62,11 @@
     {
       "event_index": 227,
       "authorization_sha256": "1893528d5a6fa077a503d24bddfb6c30a5e7d398ab844a83f7b97c03b05657b4",
+      "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 238,
+      "authorization_sha256": "74a44e64afcc4ef17f4d6c8d4afa5963445d3d5857f2abe8ba78f01490d6c47c",
       "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
@@ -8868,6 +8873,12 @@
       "size": 8123
     },
     {
+      "path": "out/dispatch/evidence/r13-funding/completion-capacity-finish-b.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r13-funding/completion-capacity-finish.log",
       "class": "scratch",
       "sha256": "ada6d68e1915524ef479c8b040be4bbcb747a5d1d846de4bf005c8d0cc0b4bf8",
@@ -8878,6 +8889,12 @@
       "class": "scratch",
       "sha256": "f91444ce4298d9e192a1fa4a81c70cba37174c3dfce166df26b900d714a72350",
       "size": 1436
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/finish-current-plan-r13b.json",
+      "class": "scratch",
+      "sha256": "74a44e64afcc4ef17f4d6c8d4afa5963445d3d5857f2abe8ba78f01490d6c47c",
+      "size": 1568
     },
     {
       "path": "out/dispatch/evidence/r13-funding/production-budget-1.json",
@@ -8914,6 +8931,12 @@
       "class": "scratch",
       "sha256": "4e2638976dde9f3d0e9cd35d4dd504c146d1280d883a8ba436d342b4cc9523d9",
       "size": 1459
+    },
+    {
+      "path": "out/dispatch/evidence/r13-funding/production-budget-7.json",
+      "class": "scratch",
+      "sha256": "85d0438b997c93217db8dc3514325470bd7295de877383cc4a17b0559ed7bfee",
+      "size": 1491
     },
     {
       "path": "out/dispatch/evidence/r13-funding/repair-plan-r13.granted.json",
